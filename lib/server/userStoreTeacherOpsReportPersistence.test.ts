@@ -603,10 +603,149 @@ test("teacher ops report persistence lists scoped reports without legacy userSto
 
   assert.deepEqual(reports?.map((report: TeacherReport) => report.id), [
     "report-shared",
-    "report-unscoped",
     "report-owned-old"
   ]);
-  assert.equal(reports?.[1]?.preview?.title, "Unscoped");
+  assert.equal(JSON.stringify(reports).includes("Unscoped"), false);
+});
+
+test("student-scoped report history requires a real class enrollment pair for teachers and admins", async () => {
+  const database = createReportListDatabase();
+  database.class_enrollments = [
+    { class_id: "class-owned", student_id: "student-owned" },
+    { class_id: "class-other", student_id: "student-other" }
+  ];
+  database.teacher_reports.unshift(
+    {
+      id: "report-valid-owned-student",
+      type: "student",
+      title_en: "Owned student",
+      title_zh: "Owned student",
+      class_id: "class-owned",
+      student_id: "student-owned",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-28T00:00:00.000Z",
+      summary_en: "Owned student summary",
+      summary_zh: "Owned student summary"
+    },
+    {
+      id: "report-valid-owned-parent",
+      type: "parent-summary",
+      title_en: "Owned parent",
+      title_zh: "Owned parent",
+      class_id: "class-owned",
+      student_id: "student-owned",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-27T00:00:00.000Z",
+      summary_en: "Owned parent summary",
+      summary_zh: "Owned parent summary"
+    },
+    {
+      id: "report-valid-other-student",
+      type: "student",
+      title_en: "Other student",
+      title_zh: "Other student",
+      class_id: "class-other",
+      student_id: "student-other",
+      generated_by: "teacher-2",
+      generated_at: "2026-06-26T00:00:00.000Z",
+      summary_en: "Other student summary",
+      summary_zh: "Other student summary"
+    },
+    {
+      id: "report-foreign-pair-student",
+      type: "student",
+      title_en: "Foreign pair student",
+      title_zh: "Foreign pair student",
+      class_id: "class-owned",
+      student_id: "student-other",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-25T00:00:00.000Z",
+      summary_en: "FOREIGN_STUDENT_SECRET",
+      summary_zh: "FOREIGN_STUDENT_SECRET"
+    },
+    {
+      id: "report-foreign-pair-parent",
+      type: "parent-summary",
+      title_en: "Foreign pair parent",
+      title_zh: "Foreign pair parent",
+      class_id: "class-owned",
+      student_id: "student-other",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-24T00:00:00.000Z",
+      summary_en: "FOREIGN_PARENT_SECRET",
+      summary_zh: "FOREIGN_PARENT_SECRET"
+    },
+    {
+      id: "report-missing-student",
+      type: "student",
+      title_en: "Missing student",
+      title_zh: "Missing student",
+      class_id: "class-owned",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-23T00:00:00.000Z",
+      summary_en: "MISSING_STUDENT_SECRET",
+      summary_zh: "MISSING_STUDENT_SECRET"
+    }
+  );
+
+  const teacherReports = await createTestStore(database).getTeacherReports("teacher-1");
+  const adminReports = await createTestStore(database).getTeacherReports("admin-1");
+  const studentScopedIds = (reports: TeacherReport[] | null) => reports
+    ?.filter((report) => report.type === "student" || report.type === "parent-summary")
+    .map((report) => report.id);
+
+  assert.deepEqual(studentScopedIds(teacherReports), [
+    "report-valid-owned-student",
+    "report-valid-owned-parent"
+  ]);
+  assert.deepEqual(studentScopedIds(adminReports), [
+    "report-valid-owned-student",
+    "report-valid-owned-parent",
+    "report-valid-other-student"
+  ]);
+  assert.doesNotMatch(JSON.stringify(teacherReports), /FOREIGN_|MISSING_STUDENT/u);
+  assert.doesNotMatch(JSON.stringify(adminReports), /FOREIGN_|MISSING_STUDENT/u);
+});
+
+test("ordinary teachers cannot read another teacher's unscoped sensitive preview and only retain their own non-parent legacy reports", async () => {
+  const database = createReportListDatabase();
+  database.teacher_reports.unshift(
+    {
+      id: "report-other-unscoped-sensitive",
+      type: "class",
+      title_en: "Other teacher private report",
+      title_zh: "Other teacher private report",
+      generated_by: "teacher-2",
+      generated_at: "2026-06-24T00:00:00.000Z",
+      summary_en: "CROSS_TEACHER_SECRET_SUMMARY",
+      summary_zh: "CROSS_TEACHER_SECRET_SUMMARY",
+      preview_json: JSON.stringify(previewFixture({
+        title: "CROSS_TEACHER_SECRET_PREVIEW",
+        teacherRemarks: "CROSS_TEACHER_SECRET_REMARK"
+      }))
+    },
+    {
+      id: "report-own-unscoped-legacy",
+      type: "class",
+      title_en: "Own legacy report",
+      title_zh: "Own legacy report",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-23T00:00:00.000Z",
+      summary_en: "Own legacy summary",
+      summary_zh: "Own legacy summary"
+    }
+  );
+
+  const reports = await createTestStore(database).getTeacherReports("teacher-1");
+  const serialized = JSON.stringify(reports);
+
+  assert.deepEqual(reports?.map((report) => report.id), [
+    "report-own-unscoped-legacy",
+    "report-shared",
+    "report-owned-old"
+  ]);
+  assert.doesNotMatch(serialized, /CROSS_TEACHER_SECRET/);
+  assert.equal(reports?.some((report) => report.id === "report-unscoped"), false);
 });
 
 test("teacher ops report persistence supports admins and rejects non-teachers", async () => {
@@ -615,7 +754,6 @@ test("teacher ops report persistence supports admins and rejects non-teachers", 
   assert.deepEqual((await store.getTeacherReports("admin-1"))?.map((report: TeacherReport) => report.id), [
     "report-other-new",
     "report-shared",
-    "report-unscoped",
     "report-owned-old"
   ]);
   assert.equal(await store.getTeacherReports("student-1"), null);
@@ -657,6 +795,121 @@ test("teacher ops report persistence builds class report previews without legacy
   assert.deepEqual(preview?.mistakeTypes, ["Factorisation: 3 wrong attempts"]);
   assert.deepEqual(preview?.suggestedPractice, ["Redo Factorisation (50%)"]);
   assert.equal(preview?.teacherRemarks, "Bring manipulatives.");
+});
+
+test("explicit invalid assignment and assessment ids fail closed while omitted ids may use the first accessible target", async () => {
+  const store = createTestStore(createReportPreviewDatabase());
+
+  const [missingAssignment, emptyAssignment, missingAssessment, emptyAssessment] = await Promise.all([
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-1",
+      assignmentId: "assignment-does-not-exist"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-1",
+      assignmentId: ""
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-1",
+      assessmentId: "assessment-does-not-exist"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-1",
+      assessmentId: ""
+    })
+  ]);
+
+  assert.deepEqual(
+    { missingAssignment, emptyAssignment, missingAssessment, emptyAssessment },
+    { missingAssignment: null, emptyAssignment: null, missingAssessment: null, emptyAssessment: null }
+  );
+
+  const defaultAssignment = await store.getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "assignment",
+    language: "en",
+    classId: "class-1"
+  });
+  const defaultAssessment = await store.getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "assessment",
+    language: "en",
+    classId: "class-1"
+  });
+  assert.equal(defaultAssignment?.subjectName, "Linear Homework");
+  assert.equal(defaultAssessment?.subjectName, "Linear Quiz");
+});
+
+test("explicit assignment and assessment class ids must match the selected target across two accessible classes", async () => {
+  const database = createReportPreviewDatabase();
+  database.teacher_classes.push({
+    id: "class-2",
+    teacher_id: "teacher-1",
+    name: "3B",
+    grade: "S3"
+  });
+  database.class_enrollments?.push({ class_id: "class-2", student_id: "student-2" });
+  database.assignments?.push({
+    id: "assignment-2",
+    class_id: "class-2",
+    title_en: "Geometry Homework",
+    title_zh: "幾何作業"
+  });
+  database.assessments?.push({
+    id: "assessment-2",
+    class_id: "class-2",
+    title_en: "Geometry Quiz",
+    title_zh: "幾何小測"
+  });
+  const store = createTestStore(database);
+
+  const [assignmentMismatch, assessmentMismatch, matchingAssignment, matchingAssessment] = await Promise.all([
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-2",
+      assignmentId: "assignment-1"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-2",
+      assessmentId: "assessment-1"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-2",
+      assignmentId: "assignment-2"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-2",
+      assessmentId: "assessment-2"
+    })
+  ]);
+
+  assert.equal(assignmentMismatch, null);
+  assert.equal(assessmentMismatch, null);
+  assert.equal(matchingAssignment?.classId, "class-2");
+  assert.equal(matchingAssessment?.classId, "class-2");
 });
 
 test("teacher ops report persistence builds report page data without eager preview generation", async () => {

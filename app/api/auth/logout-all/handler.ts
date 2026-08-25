@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { SESSION_COOKIE_NAME } from "@/lib/session";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { sessionCookieOptions } from "@/lib/server/sessionCookie";
 import { revokeAllUserSessions } from "@/lib/server/userStore/auth";
 
@@ -18,6 +22,18 @@ export function createLogoutAllHandler({
     const authenticated = await authenticate(request);
     if (!authenticated) {
       return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+    }
+
+    const expectedUserConflict = guardExpectedAuthenticatedUser(
+      authenticated,
+      expectedUserConstraintsFromRequest(request),
+      { requireConstraint: true }
+    );
+    if (expectedUserConflict) {
+      return new NextResponse(expectedUserConflict.body, {
+        status: expectedUserConflict.status,
+        headers: expectedUserConflict.headers
+      });
     }
 
     const revoked = await revokeSessions(authenticated.user.id);

@@ -8,7 +8,11 @@ import {
   replyToParentMessageThread
 } from "@/lib/server/userStore";
 import type { ParentMessageCategory } from "@/types";
-import { parentPersistenceUnavailable, parentPrivateJson } from "@/app/api/parent/response";
+import {
+  guardExpectedParentUser,
+  parentPersistenceUnavailable,
+  parentPrivateJson
+} from "@/app/api/parent/response";
 
 type ParentAuthentication = (request: Request) => Promise<{ user: { id: string } } | null>;
 type RateLimitResult = { allowed: boolean; retryAfterSeconds: number };
@@ -62,6 +66,8 @@ export function createParentMessagesGetHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const url = new URL(request.url);
       const data = await loadMessages(
@@ -92,6 +98,8 @@ export function createParentMessagePostHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       let body: unknown;
       try {
@@ -154,6 +162,8 @@ export function createParentMessageReplyPostHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       let body: unknown;
       try {
@@ -178,7 +188,12 @@ export function createParentMessageReplyPostHandler({
       };
       const replay = await findReplay(input);
       if (replay.status === "replayed") {
-        return parentPrivateJson({ thread: replay.thread, entryId: replay.entryId, replayed: true });
+        return parentPrivateJson({
+          thread: replay.thread,
+          entry: replay.entry,
+          entryId: replay.entryId,
+          replayed: true
+        });
       }
       if (replay.status !== "missing") {
         return parentPrivateJson({ error: messageError(replay.status, "reply") }, { status: errorStatus(replay.status) });
@@ -194,10 +209,20 @@ export function createParentMessageReplyPostHandler({
 
       const result = await replyToThread(input);
       if (result.status === "sent") {
-        return parentPrivateJson({ thread: result.thread, entryId: result.entryId, replayed: false }, { status: 201 });
+        return parentPrivateJson({
+          thread: result.thread,
+          entry: result.entry,
+          entryId: result.entryId,
+          replayed: false
+        }, { status: 201 });
       }
       if (result.status === "replayed") {
-        return parentPrivateJson({ thread: result.thread, entryId: result.entryId, replayed: true });
+        return parentPrivateJson({
+          thread: result.thread,
+          entry: result.entry,
+          entryId: result.entryId,
+          replayed: true
+        });
       }
       return parentPrivateJson({ error: messageError(result.status, "reply") }, { status: errorStatus(result.status) });
     } catch {

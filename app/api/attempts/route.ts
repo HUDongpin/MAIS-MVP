@@ -6,7 +6,12 @@ import {
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
 import { practiceAttemptFastPathPersistsRows, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  bodyExpectedUserConstraints,
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import type { CurriculumProfile } from "@/types";
 
 export const runtime = "nodejs";
@@ -95,12 +100,42 @@ async function persistLocalAttempt({
 }
 
 export async function POST(request: Request) {
+  // Authenticate before parsing or validating account-owned content. A caller
+  // with a stale page may otherwise finish an asynchronous photo/read step
+  // after the browser cookie has moved to another signed-in account.
+  const authenticated = await requireAuthenticatedUser(request);
+  if (!authenticated) {
+    return NextResponse.json({ error: "Log in before submitting tracked practice attempts." }, { status: 401 });
+  }
+
+  const transportExpectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request)
+  );
+  if (transportExpectedUserConflict) return transportExpectedUserConflict;
+
   let body: unknown;
   try {
     body = await request.json();
   } catch {
+    const expectedUserConflict = guardExpectedAuthenticatedUser(
+      authenticated,
+      expectedUserConstraintsFromRequest(request),
+      { requireConstraint: true }
+    );
+    if (expectedUserConflict) return expectedUserConflict;
     return NextResponse.json({ error: "Invalid JSON request body." }, { status: 400 });
   }
+
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    [
+      ...expectedUserConstraintsFromRequest(request),
+      ...bodyExpectedUserConstraints(body)
+    ],
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
 
   if (!isRecord(body)) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
@@ -114,13 +149,6 @@ export async function POST(request: Request) {
       : undefined;
   if (!questionId || !selectedAnswer) {
     return NextResponse.json({ error: "Question ID and selected answer are required." }, { status: 400 });
-  }
-
-  // Auth first: validating work-photo references reads the media store, so it
-  // must not run for an unauthenticated caller.
-  const authenticated = await requireAuthenticatedUser(request);
-  if (!authenticated) {
-    return NextResponse.json({ error: "Log in before submitting tracked practice attempts." }, { status: 401 });
   }
 
   const userId = authenticated.user.id;

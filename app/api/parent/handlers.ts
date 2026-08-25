@@ -15,7 +15,11 @@ import {
   toParentReportDataSafe
 } from "@/lib/server/userStore/parentSafeDto";
 import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
-import { parentPersistenceUnavailable, parentPrivateJson } from "@/app/api/parent/response";
+import {
+  guardExpectedParentUser,
+  parentPersistenceUnavailable,
+  parentPrivateJson
+} from "@/app/api/parent/response";
 import type { GuardianRelationship } from "@/types";
 
 type ParentAuthentication = (request: Request) => Promise<{ user: { id: string } } | null>;
@@ -40,6 +44,8 @@ export function createParentGuardianLinkHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const rateLimit = consumeRateLimit(`parent-link:${authenticated.user.id}`, parentLinkRateLimit);
       if (!rateLimit.allowed) {
@@ -96,6 +102,8 @@ export function createParentFoundationGetHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const url = new URL(request.url);
       const data = await loadFoundation(authenticated.user.id, url.searchParams.get("studentId"));
@@ -123,6 +131,8 @@ export function createParentChildSummaryGetHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const { studentId } = await params;
       const summary = await loadChildSummary(authenticated.user.id, studentId);
@@ -148,6 +158,8 @@ export function createParentReportsGetHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const url = new URL(request.url);
       const data = await loadReports(authenticated.user.id, url.searchParams.get("studentId"));
@@ -173,6 +185,8 @@ export function createParentNoticesGetHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const url = new URL(request.url);
       const data = await loadNotices(authenticated.user.id, {
@@ -201,6 +215,8 @@ export function createParentNoticeAckHandler({
     try {
       const authenticated = await authenticateParent(request);
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+      const expectedUserConflict = guardExpectedParentUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
 
       const { recipientId } = await params;
       let decodedRecipientId: string;

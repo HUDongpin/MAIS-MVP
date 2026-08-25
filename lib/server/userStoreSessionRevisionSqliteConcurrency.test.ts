@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { access, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -168,6 +169,86 @@ function persistedDemoUser(databasePath: string) {
   }
 }
 
+function guardianInvitationDigest(token: string) {
+  return createHash("sha256").update(token).digest("hex");
+}
+
+function persistedSqliteState(databasePath: string) {
+  const storage = new DatabaseSync(databasePath, { readOnly: true });
+  try {
+    const row = storage.prepare(
+      "SELECT payload, revision FROM app_state WHERE id = ?"
+    ).get("primary") as { payload?: unknown; revision?: unknown } | undefined;
+    if (typeof row?.payload !== "string") {
+      assert.fail("SQLite app_state must contain a string payload");
+    }
+    const revision = Number(row.revision);
+    assert.ok(Number.isSafeInteger(revision) && revision >= 1);
+    const payload = JSON.parse(row.payload) as Record<string, unknown>;
+    return { payload, revision };
+  } finally {
+    storage.close();
+  }
+}
+
+function installMalformedGuardianInvitationState(databasePath: string) {
+  const firstDigest = guardianInvitationDigest(`MAIS-${"A".repeat(24)}`);
+  const secondDigest = guardianInvitationDigest(`MAIS-${"B".repeat(24)}`);
+  const independentDigest = guardianInvitationDigest(`MAIS-${"C".repeat(24)}`);
+  const storage = new DatabaseSync(databasePath);
+  try {
+    const current = persistedSqliteState(databasePath);
+    current.payload.guardian_invitations = [
+      {
+        id: "sqlite-shared-authority",
+        student_id: "sqlite-student-quarantined",
+        version: 1,
+        token_digest: firstDigest,
+        expires_at: "2026-08-28T10:00:00.000Z",
+        consumed_at: null,
+        consumed_by_parent_id: null,
+        consumed_relationship: null,
+        consumed_link_id: null,
+        revoked_at: null,
+        created_by: "sqlite-teacher-a",
+        created_at: "2026-08-25T10:00:00.000Z"
+      },
+      {
+        id: "sqlite-shared-authority",
+        version: 2,
+        token_digest: secondDigest,
+        expires_at: "not-an-iso-timestamp",
+        created_by: "sqlite-teacher-a",
+        created_at: "2026-08-25T11:00:00.000Z"
+      },
+      {
+        id: "sqlite-independent-authority",
+        student_id: "sqlite-student-independent",
+        version: 1,
+        token_digest: independentDigest.toUpperCase(),
+        expires_at: "2026-08-28T10:00:00.000Z",
+        consumed_at: null,
+        consumed_by_parent_id: null,
+        consumed_relationship: null,
+        consumed_link_id: null,
+        revoked_at: null,
+        created_by: "sqlite-teacher-b",
+        created_at: "2026-08-25T10:00:00.000Z"
+      }
+    ];
+    storage.prepare(`
+      UPDATE app_state
+      SET payload = ?, revision = revision + 1, updated_at = ?
+      WHERE id = ?
+    `).run(JSON.stringify(current.payload), new Date().toISOString(), "primary");
+    const corrupted = persistedSqliteState(databasePath);
+    assert.equal(corrupted.revision, current.revision + 1);
+    return { independentDigest, revision: corrupted.revision };
+  } finally {
+    storage.close();
+  }
+}
+
 function corruptDemoAuthStateForReadNormalization(databasePath: string) {
   const storage = new DatabaseSync(databasePath);
   try {
@@ -200,6 +281,49 @@ async function initializeDatabase(databasePath: string) {
   const initialized = await runWorker("initialize", databasePath);
   assert.deepEqual(initialized, { status: "authenticated", sessionRevision: 1 });
 }
+
+test("SQLite read persists fail-closed guardian invitation normalization exactly once", { timeout: 180_000 }, async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "mais-guardian-sqlite-normalize-"));
+  const databasePath = path.join(directory, "app.sqlite");
+
+  try {
+    await initializeDatabase(databasePath);
+    const corrupted = installMalformedGuardianInvitationState(databasePath);
+
+    assert.deepEqual(await runWorker("guardian-read-normalize", databasePath), {
+      foundation: "missing",
+      status: "read"
+    });
+    const repaired = persistedSqliteState(databasePath);
+    assert.equal(repaired.revision, corrupted.revision + 1);
+    assert.deepEqual(repaired.payload.guardian_invitations, [{
+      id: "sqlite-independent-authority",
+      student_id: "sqlite-student-independent",
+      version: 1,
+      token_digest: corrupted.independentDigest,
+      expires_at: "2026-08-28T10:00:00.000Z",
+      consumed_at: null,
+      consumed_by_parent_id: null,
+      consumed_relationship: null,
+      consumed_link_id: null,
+      revoked_at: null,
+      created_by: "sqlite-teacher-b",
+      created_at: "2026-08-25T10:00:00.000Z"
+    }]);
+
+    assert.deepEqual(await runWorker("guardian-read-normalize", databasePath), {
+      foundation: "missing",
+      status: "read"
+    });
+    assert.equal(
+      persistedSqliteState(databasePath).revision,
+      repaired.revision,
+      "a canonical second read must not rewrite the SQLite snapshot"
+    );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 
 test("SQLite serializes cross-process password change and disable without losing revocation", { timeout: 180_000 }, async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "mais-session-sqlite-disable-"));

@@ -765,7 +765,19 @@ export function createTeacherOpsReportPersistenceStore({
 
     const classIds = new Set(teacherClassRecordsFor(database, user).map((teacherClass) => teacherClass.id));
     return database.teacher_reports
-      .filter((report) => user.role === "admin" || !report.class_id || classIds.has(report.class_id))
+      .filter((report) => {
+        if (report.type === "student" || report.type === "parent-summary") {
+          return Boolean(
+            report.class_id &&
+            report.student_id &&
+            classIds.has(report.class_id) &&
+            teacherStudentIdsForClass(database, report.class_id).includes(report.student_id)
+          );
+        }
+        if (user.role === "admin") return true;
+        if (report.class_id) return classIds.has(report.class_id);
+        return report.generated_by === user.id;
+      })
       .sort((a, b) => b.generated_at.localeCompare(a.generated_at))
       .map(toTeacherOpsReport);
   }
@@ -799,8 +811,11 @@ export function createTeacherOpsReportPersistenceStore({
     if (!firstClass) return null;
 
     if (type === "assignment") {
-      const assignment = (assignmentId ? (database.assignments ?? []).find((candidate) => candidate.id === assignmentId) : null) ??
-        (database.assignments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      const hasExplicitAssignmentId = assignmentId !== undefined && assignmentId !== null;
+      const assignment = hasExplicitAssignmentId
+        ? (database.assignments ?? []).find((candidate) => candidate.id === assignmentId)
+        : (database.assignments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      if (classId !== undefined && classId !== null && assignment?.class_id !== classId) return null;
       const teacherClass = assignment ? teacherCanAccessClass(database, user, assignment.class_id) : null;
       if (!assignment || !teacherClass) return null;
       const submissions = (database.submissions ?? []).filter((submission) => submission.assignment_id === assignment.id);
@@ -823,8 +838,11 @@ export function createTeacherOpsReportPersistenceStore({
     }
 
     if (type === "assessment") {
-      const assessment = (assessmentId ? (database.assessments ?? []).find((candidate) => candidate.id === assessmentId) : null) ??
-        (database.assessments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      const hasExplicitAssessmentId = assessmentId !== undefined && assessmentId !== null;
+      const assessment = hasExplicitAssessmentId
+        ? (database.assessments ?? []).find((candidate) => candidate.id === assessmentId)
+        : (database.assessments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      if (classId !== undefined && classId !== null && assessment?.class_id !== classId) return null;
       const teacherClass = assessment ? teacherCanAccessClass(database, user, assessment.class_id) : null;
       if (!assessment || !teacherClass) return null;
       const submissions = (database.assessment_submissions ?? []).filter((submission) => submission.assessment_id === assessment.id);

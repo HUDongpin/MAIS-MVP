@@ -4,6 +4,7 @@ import { toParentChildSummarySafe, toParentReportSafe } from "@/lib/server/userS
 import type {
   GradeId,
   ParentChildSummary,
+  ParentMessageEntrySafe,
   ParentMessageCategory,
   ParentMessagesData,
   ParentMessageThreadSafe,
@@ -159,8 +160,18 @@ type ParentMessageCreateResult =
   | { status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long"; thread?: undefined };
 
 type ParentMessageReplyResult =
-  | { status: "sent" | "replayed"; thread: ParentMessageThreadSafe; entryId: string }
-  | { status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long"; entryId?: undefined; thread?: undefined };
+  | {
+      status: "sent" | "replayed";
+      thread: ParentMessageThreadSafe;
+      entry: ParentMessageEntrySafe;
+      entryId: string;
+    }
+  | {
+      status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long";
+      entry?: undefined;
+      entryId?: undefined;
+      thread?: undefined;
+    };
 
 type ParentMessageCreateReplayResult =
   | { status: "missing" }
@@ -169,8 +180,18 @@ type ParentMessageCreateReplayResult =
 
 type ParentMessageReplyReplayResult =
   | { status: "missing" }
-  | { status: "replayed"; thread: ParentMessageThreadSafe; entryId: string }
-  | { status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long"; entryId?: undefined; thread?: undefined };
+  | {
+      status: "replayed";
+      thread: ParentMessageThreadSafe;
+      entry: ParentMessageEntrySafe;
+      entryId: string;
+    }
+  | {
+      status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long";
+      entry?: undefined;
+      entryId?: undefined;
+      thread?: undefined;
+    };
 
 export const parentMessageIdempotencyKeyMinLength = 16;
 export const parentMessageIdempotencyKeyMaxLength = 128;
@@ -389,7 +410,10 @@ function reportComposeTarget(
   };
 }
 
-function toParentMessageEntrySafe(database: ParentMessagePersistenceDatabase, record: ParentMessageEntryRecord) {
+function toParentMessageEntrySafe(
+  database: ParentMessagePersistenceDatabase,
+  record: ParentMessageEntryRecord
+): ParentMessageEntrySafe {
   return {
     id: record.id,
     senderRole: record.sender_role,
@@ -582,6 +606,7 @@ export function createParentMessagePersistenceStore({
     if (existing.parent_idempotency_request_hash !== replyRequestHash(value)) return { status: "conflict" };
     return {
       status: "replayed",
+      entry: toParentMessageEntrySafe(database, existing),
       entryId: existing.id,
       thread: buildParentMessageThread(database, target.thread)
     };
@@ -794,7 +819,7 @@ export function createParentMessagePersistenceStore({
 
         const timestamp = now().toISOString();
         const entryId = createEntryId();
-        database.teacher_message_entries.push({
+        const entry: ParentMessageEntryRecord = {
           id: entryId,
           thread_id: target.thread.id,
           sender_id: target.parent.id,
@@ -805,12 +830,14 @@ export function createParentMessagePersistenceStore({
           created_at: timestamp,
           parent_idempotency_key_hash: idempotencyKeyHash("reply", value.parentId, value.idempotencyKey),
           parent_idempotency_request_hash: replyRequestHash(value)
-        });
+        };
+        database.teacher_message_entries.push(entry);
         target.thread.latest_message = value.body;
         target.thread.status = "unread";
         target.thread.last_message_at = timestamp;
         return {
           status: "sent",
+          entry: toParentMessageEntrySafe(database, entry),
           entryId,
           thread: buildParentMessageThread(database, target.thread)
         };

@@ -5,7 +5,8 @@ import test from "node:test";
 
 import {
   createParentAccessPersistenceStore,
-  type ParentAccessPersistenceDatabase
+  type ParentAccessPersistenceDatabase,
+  toGuardianLink
 } from "@/lib/server/userStore/parentAccessPersistence";
 
 function createTestStore(database: ParentAccessPersistenceDatabase) {
@@ -267,6 +268,33 @@ test("parent access persistence owns guardian link projection helpers for legacy
   assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-1"), false);
   assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-2"), false);
   assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "teacher-1"), false);
+});
+
+test("guardian-link display names never fall back to email usernames when profiles are missing", () => {
+  const guardianEmail = "guardian.private@example.test";
+  const studentEmail = "student.private@example.test";
+  const database: ParentAccessPersistenceDatabase = {
+    guardian_links: [{
+      id: "guardian-link-private-name",
+      parent_id: "parent-private-name",
+      student_id: "student-private-name",
+      relationship: "guardian",
+      status: "active",
+      created_at: "2026-06-20T10:00:00.000Z",
+      updated_at: "2026-06-20T10:00:00.000Z"
+    }],
+    student_profiles: [],
+    users: [
+      { id: "parent-private-name", username: guardianEmail, role: "parent" },
+      { id: "student-private-name", username: studentEmail, role: "student" }
+    ]
+  };
+
+  const link = toGuardianLink(database, database.guardian_links[0]);
+
+  assert.equal(link.parentName, "Parent");
+  assert.equal(link.studentName, "Student");
+  assert.doesNotMatch(JSON.stringify(link), new RegExp(`${guardianEmail}|${studentEmail}`, "i"));
 });
 
 test("parent access persistence owns parent-area role guard for legacy userStore", async () => {

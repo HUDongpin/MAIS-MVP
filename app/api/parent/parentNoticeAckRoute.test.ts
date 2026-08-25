@@ -31,6 +31,15 @@ function createDatabase(): ParentNoticePersistenceDatabase {
         created_at: "2026-08-23T08:00:00.000Z"
       },
       {
+        id: "recipient-2-same-notice",
+        notice_id: "notice-1",
+        student_id: "student-2",
+        guardian_id: "parent-2",
+        status: "pending",
+        acknowledged_at: null,
+        created_at: "2026-08-23T08:00:00.000Z"
+      },
+      {
         id: "recipient-revoked",
         notice_id: "notice-1",
         student_id: "student-3",
@@ -102,7 +111,10 @@ test("parent notice acknowledgement handler returns an exact safe receipt and en
   const call = (userId: string, recipientId: string) => handler(
     new Request(`http://localhost/api/parent/notices/${recipientId}/ack`, {
       method: "POST",
-      headers: { "x-test-user-id": userId }
+      headers: {
+        "x-test-user-id": userId,
+        "X-MAIS-Expected-User-Id": userId
+      }
     }),
     { params: Promise.resolve({ recipientId }) }
   );
@@ -121,8 +133,12 @@ test("parent notice acknowledgement handler returns an exact safe receipt and en
     assert.deepEqual(await response.json(), { error: "not-found" });
     assert.equal(response.headers.get("cache-control"), "private, no-store");
   }
-  assert.equal(database.teacher_notice_recipients[0].status, "pending");
-  assert.equal(database.teacher_notice_recipients[1].status, "pending");
+  for (const recipientId of ["recipient-1", "recipient-2-same-notice", "recipient-revoked"]) {
+    assert.equal(
+      database.teacher_notice_recipients.find((recipient) => recipient.id === recipientId)?.status,
+      "pending"
+    );
+  }
 
   const malformedResponse = await call("parent-1", "%E0%A4%A");
   assert.equal(malformedResponse.status, 400);
@@ -143,6 +159,12 @@ test("parent notice acknowledgement handler returns an exact safe receipt and en
   assert.deepEqual(Object.keys(firstBody.receipt as Record<string, unknown>).sort(), [
     "acknowledgedAt", "recipientId", "status"
   ]);
+  assert.doesNotMatch(JSON.stringify(firstBody), /recipient-2-same-notice|parent-2|student-2/);
+  assert.equal(
+    database.teacher_notice_recipients.find((recipient) => recipient.id === "recipient-2-same-notice")?.status,
+    "pending",
+    "acknowledging one family's recipient must neither expose nor mutate the other active family"
+  );
 
   clock.value = "2026-08-23T20:00:00.000Z";
   const repeatResponse = await call("parent-1", "recipient-1");

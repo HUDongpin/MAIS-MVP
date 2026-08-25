@@ -3169,6 +3169,50 @@ test("auth session persistence changes authenticated passwords through snapshot 
   );
 });
 
+test("successful password changes revoke every unused reset token for only that account", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push({
+    id: "other-user-token",
+    user_id: "teacher-1",
+    token_hash: "hashed:other-user",
+    expires_at: "2026-06-20T11:00:00.000Z",
+    used_at: null,
+    created_at: "2026-06-20T09:00:00.000Z"
+  });
+
+  const result = await createTestStore(database).changeAuthenticatedUserPassword({
+    userId: "student-1",
+    currentPassword: "current-password",
+    password: "changed-password"
+  });
+
+  assert.equal(result.status, "updated");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "expired-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "used-token")?.used_at, "2026-06-20T09:30:00.000Z");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "other-user-token")?.used_at, null);
+});
+
+test("disabling an account revokes every unused reset token for only that account", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push({
+    id: "other-user-token",
+    user_id: "teacher-1",
+    token_hash: "hashed:other-user",
+    expires_at: "2026-06-20T11:00:00.000Z",
+    used_at: null,
+    created_at: "2026-06-20T09:00:00.000Z"
+  });
+
+  const result = await createTestStore(database).setUserDisabledState("student-1", true);
+
+  assert.equal(result.status, "updated");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "expired-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "used-token")?.used_at, "2026-06-20T09:30:00.000Z");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "other-user-token")?.used_at, null);
+});
+
 test("session-aware authentication treats legacy users as revision one and fails closed", async () => {
   const database = createDatabase();
   const store = createTestStore(database);
@@ -3281,8 +3325,10 @@ test("password change, reset, and logout-all revoke two independently minted dev
     assert.equal(await authenticateToken(passwordDevices[0]), null);
     assert.equal(await authenticateToken(passwordDevices[1]), null);
 
+    const resetRequest = await store.createPasswordResetRequest("student@example.com");
+    assert.ok(resetRequest);
     const resetDevices = await mintPair(2);
-    assert.equal((await store.resetUserPassword("active", "reset-password")).status, "reset");
+    assert.equal((await store.resetUserPassword(resetRequest.token, "reset-password")).status, "reset");
     assert.equal(await authenticateToken(resetDevices[0]), null);
     assert.equal(await authenticateToken(resetDevices[1]), null);
 
@@ -3361,6 +3407,39 @@ test("auth session persistence resets passwords and consumes valid reset tokens"
   assert.deepEqual(await store.resetUserPassword(" ", "new-password"), { status: "invalid" });
   assert.deepEqual(await store.resetUserPassword("missing-token", "new-password"), { status: "invalid" });
   assert.deepEqual(await store.resetUserPassword("expired", "1234"), { status: "invalid" });
+});
+
+test("successful password resets revoke every unused sibling token for only that account", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push(
+    {
+      id: "second-active-token",
+      user_id: "student-1",
+      token_hash: "hashed:second-active",
+      expires_at: "2026-06-20T10:30:00.000Z",
+      used_at: null,
+      created_at: "2026-06-20T09:30:00.000Z"
+    },
+    {
+      id: "other-user-token",
+      user_id: "teacher-1",
+      token_hash: "hashed:other-user",
+      expires_at: "2026-06-20T11:00:00.000Z",
+      used_at: null,
+      created_at: "2026-06-20T09:00:00.000Z"
+    }
+  );
+  const store = createTestStore(database);
+
+  const result = await store.resetUserPassword("second-active", "new-password");
+
+  assert.equal(result.status, "reset");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "second-active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "expired-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "used-token")?.used_at, "2026-06-20T09:30:00.000Z");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "other-user-token")?.used_at, null);
+  assert.deepEqual(await store.resetUserPassword("active", "another-password"), { status: "invalid" });
 });
 
 test("auth session persistence rejects malformed reset expiry without mutating account state", async () => {

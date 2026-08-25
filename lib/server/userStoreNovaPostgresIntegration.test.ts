@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import test from "node:test";
 
@@ -456,6 +457,10 @@ function postgresJson(value: unknown) {
   return value as Parameters<postgres.Sql["json"]>[0];
 }
 
+function guardianInvitationDigest(token: string) {
+  return createHash("sha256").update(token).digest("hex");
+}
+
 test("Nova PostgreSQL harness rejects destructive targets before creating a client", () => {
   const rejectedUrls = [
     "postgres://postgres:postgres@db.example.com:5432/mais_nova_ci",
@@ -815,6 +820,11 @@ test(
           throw new Error("Initial state must include a student seed.");
         }
         studentId = student.id as string;
+        const studentProfile = arrayFromPayload(payload, "student_profiles")
+          .find((candidate) => candidate.user_id === studentId);
+        if (!studentProfile) {
+          throw new Error("Initial state must include the selected student's profile.");
+        }
 
         payload.teacher_classes = [
           ...arrayFromPayload(payload, "teacher_classes").filter((record) => record.id !== restrictedClassId),
@@ -943,17 +953,17 @@ test(
             avatar_media_object_key
           ) VALUES (
             ${studentId},
-            ${String(student.name ?? student.username ?? "Integration Student")},
-            ${String(student.grade ?? "P1")},
-            ${typeof student.curriculum_track === "string" ? student.curriculum_track : "HK"},
-            ${typeof student.curriculum_region === "string" ? student.curriculum_region : "HK"},
-            ${typeof student.textbook_publisher === "string"
-              ? student.textbook_publisher
+            ${String(studentProfile.name ?? student.username ?? "Integration Student")},
+            ${String(studentProfile.grade ?? "P1")},
+            ${typeof studentProfile.curriculum_track === "string" ? studentProfile.curriculum_track : "HK"},
+            ${typeof studentProfile.curriculum_region === "string" ? studentProfile.curriculum_region : "HK"},
+            ${typeof studentProfile.textbook_publisher === "string"
+              ? studentProfile.textbook_publisher
               : "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"},
-            ${typeof student.parent_invite_code === "string" ? student.parent_invite_code : null},
-            ${typeof student.avatar_id === "string" ? student.avatar_id : null},
-            ${typeof student.avatar_image_data_url === "string" ? student.avatar_image_data_url : null},
-            ${typeof student.avatar_media_object_key === "string" ? student.avatar_media_object_key : null}
+            ${typeof studentProfile.parent_invite_code === "string" ? studentProfile.parent_invite_code : null},
+            ${typeof studentProfile.avatar_id === "string" ? studentProfile.avatar_id : null},
+            ${typeof studentProfile.avatar_image_data_url === "string" ? studentProfile.avatar_image_data_url : null},
+            ${typeof studentProfile.avatar_media_object_key === "string" ? studentProfile.avatar_media_object_key : null}
           )
           ON CONFLICT (user_id) DO UPDATE SET
             name = excluded.name,
@@ -1547,6 +1557,170 @@ test(
             assert.deepEqual(restoredEvidence, canonicalEvidence);
             assert.equal(markerCountBeforeReattestation, 0);
             assert.deepEqual(reattestation, { reattested: true });
+          }
+        }
+        await assertStrictStorageReady(true);
+      });
+
+      await t.test("guardian invitation reads stay no-write and the next full writer persists fail-closed repair", async () => {
+        const baselineRows = await sql<Array<{
+          payload: unknown;
+          revision: string;
+          updated_at: string;
+        }>>`
+          SELECT payload, revision::text AS revision, updated_at::text AS updated_at
+          FROM public.app_state
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        assert.equal(baselineRows.length, 1);
+        const baseline = baselineRows[0];
+        assert.ok(baseline?.payload && typeof baseline.payload === "object");
+        const firstDigest = guardianInvitationDigest(`MAIS-${"A".repeat(24)}`);
+        const secondDigest = guardianInvitationDigest(`MAIS-${"B".repeat(24)}`);
+        const independentDigest = guardianInvitationDigest(`MAIS-${"C".repeat(24)}`);
+        const expectedProjection = [{
+          id: "postgres-independent-authority",
+          studentId: "postgres-student-independent",
+          version: 1
+        }];
+        let stateChanged = false;
+
+        try {
+          const safelySanitizablePayload = structuredClone(
+            baseline.payload
+          ) as Record<string, unknown>;
+          safelySanitizablePayload.guardian_invitations = [
+            {
+              id: "postgres-shared-authority",
+              student_id: "postgres-student-quarantined",
+              version: 1,
+              token_digest: firstDigest,
+              expires_at: "2026-08-28T10:00:00.000Z",
+              consumed_at: null,
+              consumed_by_parent_id: null,
+              consumed_relationship: null,
+              consumed_link_id: null,
+              revoked_at: null,
+              created_by: "postgres-teacher-a",
+              created_at: "2026-08-25T10:00:00.000Z"
+            },
+            {
+              id: "postgres-shared-authority",
+              version: 2,
+              token_digest: secondDigest,
+              expires_at: "not-an-iso-timestamp",
+              created_by: "postgres-teacher-a",
+              created_at: "2026-08-25T11:00:00.000Z"
+            },
+            {
+              id: "postgres-independent-authority",
+              student_id: "postgres-student-independent",
+              version: 1,
+              token_digest: independentDigest.toUpperCase(),
+              expires_at: "2026-08-28T10:00:00.000Z",
+              consumed_at: null,
+              consumed_by_parent_id: null,
+              consumed_relationship: null,
+              consumed_link_id: null,
+              revoked_at: null,
+              created_by: "postgres-teacher-b",
+              created_at: "2026-08-25T10:00:00.000Z"
+            }
+          ];
+          await sql`
+            UPDATE public.app_state
+            SET payload = ${sql.json(postgresJson(safelySanitizablePayload))}::jsonb,
+                revision = revision + 1,
+                updated_at = NOW()
+            WHERE id = 'primary'
+              AND tenant_id = 'platform'
+              AND state_kind = 'app-snapshot'
+              AND schema_version = 1
+          `;
+          stateChanged = true;
+          assert.equal(await readStorageReadinessMarkerCount(sql), 0);
+          assert.deepEqual(await runSuccessfulWorker("reattest-readiness"), {
+            reattested: true
+          });
+
+          const beforeRead = await readStateEvidence(sql);
+          const markerBeforeRead = await readStorageReadinessMarkerEvidence(sql);
+          assert.equal(markerBeforeRead.length, 1);
+          assert.deepEqual(
+            await runSuccessfulWorker("guardian-invitation-read"),
+            { invitations: expectedProjection }
+          );
+          assert.deepEqual(
+            await readStateEvidence(sql),
+            beforeRead,
+            "a safely sanitized PostgreSQL read must not rewrite app_state metadata or payload"
+          );
+          assert.deepEqual(
+            await readStorageReadinessMarkerEvidence(sql),
+            markerBeforeRead,
+            "a safely sanitized PostgreSQL read must not refresh readiness metadata"
+          );
+
+          const beforeRepair = await readState(sql);
+          assert.deepEqual(await runSuccessfulWorker("full-snapshot-rewrite"), {
+            rewritten: true
+          });
+          const repaired = await readState(sql);
+          assert.equal(Number(repaired.revision), Number(beforeRepair.revision) + 1);
+          assert.deepEqual(arrayFromPayload(repaired.payload, "guardian_invitations"), [{
+            id: "postgres-independent-authority",
+            student_id: "postgres-student-independent",
+            version: 1,
+            token_digest: independentDigest,
+            expires_at: "2026-08-28T10:00:00.000Z",
+            consumed_at: null,
+            consumed_by_parent_id: null,
+            consumed_relationship: null,
+            consumed_link_id: null,
+            revoked_at: null,
+            created_by: "postgres-teacher-b",
+            created_at: "2026-08-25T10:00:00.000Z"
+          }]);
+          await assertStrictStorageReady(true);
+
+          const nonArrayPayload = structuredClone(repaired.payload);
+          nonArrayPayload.guardian_invitations = "legacy-plaintext-collection";
+          await sql`
+            UPDATE public.app_state
+            SET payload = ${sql.json(postgresJson(nonArrayPayload))}::jsonb,
+                revision = revision + 1,
+                updated_at = NOW()
+            WHERE id = 'primary'
+              AND tenant_id = 'platform'
+              AND state_kind = 'app-snapshot'
+              AND schema_version = 1
+          `;
+          const nonArrayEvidence = await readStateEvidence(sql);
+          assert.equal(await readStorageReadinessMarkerCount(sql), 0);
+          const rejectedRead = await runWorker("guardian-invitation-read");
+          assert.equal(rejectedRead.exitCode, 1);
+          assert.match(String(rejectedRead.result.error), /snapshot is incomplete/u);
+          assert.deepEqual(await readStateEvidence(sql), nonArrayEvidence);
+          assert.equal(await readStorageReadinessMarkerCount(sql), 0);
+        } finally {
+          if (stateChanged) {
+            await sql`
+              UPDATE public.app_state
+              SET payload = ${sql.json(postgresJson(baseline.payload))}::jsonb,
+                  revision = ${baseline.revision}::bigint,
+                  updated_at = ${baseline.updated_at}::timestamptz
+              WHERE id = 'primary'
+                AND tenant_id = 'platform'
+                AND state_kind = 'app-snapshot'
+                AND schema_version = 1
+            `;
+            assert.equal(await readStorageReadinessMarkerCount(sql), 0);
+            assert.deepEqual(await runSuccessfulWorker("reattest-readiness"), {
+              reattested: true
+            });
           }
         }
         await assertStrictStorageReady(true);

@@ -28,6 +28,12 @@ type ParentRuntimeHandler = (
 
 const privateHeaders = ["cache-control", "cdn-cache-control", "vercel-cdn-cache-control"] as const;
 
+function authenticatedParentRequest(url: string, init: RequestInit = {}, expectedUserId = "parent-1") {
+  const headers = new Headers(init.headers);
+  headers.set("X-MAIS-Expected-User-Id", expectedUserId);
+  return new Request(url, { ...init, headers });
+}
+
 async function requireStableUnavailableResponse(
   operation: () => Promise<Response>,
   label: string,
@@ -161,14 +167,14 @@ const routeCases = [
     label: "foundation",
     factoryName: "createParentFoundationGetHandler",
     loaderName: "loadFoundation",
-    invoke: (handler: ParentGetHandler) => handler(new Request("http://localhost/api/parent/foundation"))
+    invoke: (handler: ParentGetHandler) => handler(authenticatedParentRequest("http://localhost/api/parent/foundation"))
   },
   {
     label: "summary",
     factoryName: "createParentChildSummaryGetHandler",
     loaderName: "loadChildSummary",
     invoke: (handler: ParentGetHandler) => handler(
-      new Request("http://localhost/api/parent/children/student-1/summary"),
+      authenticatedParentRequest("http://localhost/api/parent/children/student-1/summary"),
       { params: Promise.resolve({ studentId: "student-1" }) }
     )
   },
@@ -176,15 +182,135 @@ const routeCases = [
     label: "reports",
     factoryName: "createParentReportsGetHandler",
     loaderName: "loadReports",
-    invoke: (handler: ParentGetHandler) => handler(new Request("http://localhost/api/parent/reports"))
+    invoke: (handler: ParentGetHandler) => handler(authenticatedParentRequest("http://localhost/api/parent/reports"))
   },
   {
     label: "notices",
     factoryName: "createParentNoticesGetHandler",
     loaderName: "loadNotices",
-    invoke: (handler: ParentGetHandler) => handler(new Request("http://localhost/api/parent/notices"))
+    invoke: (handler: ParentGetHandler) => handler(authenticatedParentRequest("http://localhost/api/parent/notices"))
   }
 ] as const;
+
+test("stale parent identity is rejected before every minor-data read or write can inspect another family's state", async () => {
+  const handlers = await import("@/app/api/parent/handlers");
+  const calls: string[] = [];
+  const authenticateParent = async () => ({ user: { id: "parent-b" } });
+  const staleRequest = (url: string, init: RequestInit = {}) => new Request(url, {
+    ...init,
+    headers: {
+      ...Object.fromEntries(new Headers(init.headers).entries()),
+      "X-MAIS-Expected-User-Id": "parent-a"
+    }
+  });
+  const cases: Array<{ label: string; invoke: () => Promise<Response> }> = [
+    {
+      label: "foundation read",
+      invoke: () => handlers.createParentFoundationGetHandler({
+        authenticateParent,
+        loadFoundation: async () => {
+          calls.push("foundation");
+          throw new Error("must not read parent B");
+        }
+      })(staleRequest("http://localhost/api/parent/foundation"))
+    },
+    {
+      label: "child summary read",
+      invoke: () => handlers.createParentChildSummaryGetHandler({
+        authenticateParent,
+        loadChildSummary: async () => {
+          calls.push("summary");
+          throw new Error("must not read parent B");
+        }
+      })(staleRequest("http://localhost/api/parent/children/student-b/summary"), {
+        params: Promise.resolve({ studentId: "student-b" })
+      })
+    },
+    {
+      label: "reports read",
+      invoke: () => handlers.createParentReportsGetHandler({
+        authenticateParent,
+        loadReports: async () => {
+          calls.push("reports");
+          throw new Error("must not read parent B");
+        }
+      })(staleRequest("http://localhost/api/parent/reports"))
+    },
+    {
+      label: "notices read",
+      invoke: () => handlers.createParentNoticesGetHandler({
+        authenticateParent,
+        loadNotices: async () => {
+          calls.push("notices");
+          throw new Error("must not read parent B");
+        }
+      })(staleRequest("http://localhost/api/parent/notices"))
+    },
+    {
+      label: "child link write",
+      invoke: () => handlers.createParentGuardianLinkHandler({
+        authenticateParent,
+        consumeRateLimit: () => {
+          calls.push("link-rate-limit");
+          return {
+            allowed: true,
+            retryAfterSeconds: 0,
+            remaining: 1,
+            resetAt: Date.now() + 60_000
+          };
+        },
+        linkParent: async () => {
+          calls.push("link-write");
+          throw new Error("must not link as parent B");
+        }
+      })(staleRequest("http://localhost/api/parent/children/link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{not valid json"
+      }))
+    },
+    {
+      label: "notice acknowledgement write",
+      invoke: () => handlers.createParentNoticeAckHandler({
+        authenticateParent,
+        acknowledgeNotice: async () => {
+          calls.push("notice-ack");
+          throw new Error("must not acknowledge as parent B");
+        }
+      })(staleRequest("http://localhost/api/parent/notices/recipient-b/ack", { method: "POST" }), {
+        params: Promise.resolve({ recipientId: "recipient-b" })
+      })
+    }
+  ];
+
+  for (const routeCase of cases) {
+    const response = await routeCase.invoke();
+    assert.equal(response.status, 409, routeCase.label);
+    assert.deepEqual(await response.json(), {
+      code: "authenticated-user-changed",
+      error: "The authenticated user changed. Reload before retrying."
+    });
+    for (const header of privateHeaders) {
+      assert.equal(response.headers.get(header), "private, no-store", `${routeCase.label} ${header}`);
+    }
+  }
+  assert.deepEqual(calls, [], "no rate limiter, route input, replay, persistence read, or mutation may run");
+});
+
+test("parent API requires an expected parent identity even when the cookie still authenticates", async () => {
+  let loadCalls = 0;
+  const handler = (await import("@/app/api/parent/handlers")).createParentFoundationGetHandler({
+    authenticateParent: async () => ({ user: { id: "parent-1" } }),
+    loadFoundation: async () => {
+      loadCalls += 1;
+      throw new Error("must not read without an expected identity");
+    }
+  });
+
+  const response = await handler(new Request("http://localhost/api/parent/foundation"));
+  assert.equal(response.status, 409);
+  assert.equal(loadCalls, 0);
+});
 
 test("parent minor-data handlers return stable private no-store JSON for persistence failures", async () => {
   let handlerModule: Record<string, unknown> = {};
@@ -324,7 +450,7 @@ test("child summary and notice acknowledgement contain rejected route params ins
     });
     await requireStableUnavailableResponse(
       () => handler(
-        new Request(routeCase.url, { method: routeCase.method }),
+        authenticatedParentRequest(routeCase.url, { method: routeCase.method }),
         { params: Promise.reject(new Error(sensitiveDiagnostic)) }
       ),
       routeCase.label,
@@ -403,14 +529,14 @@ test("runtime parent handlers turn fail-closed store filters into private 404 re
   });
 
   await assertPrivateNotFound(
-    await foundationHandler(new Request(
+    await foundationHandler(authenticatedParentRequest(
       "http://localhost/api/parent/foundation?studentId=student-does-not-exist"
     )),
     "Parent console unavailable.",
     ["student-does-not-exist"]
   );
   await assertPrivateNotFound(
-    await reportsHandler(new Request("http://localhost/api/parent/reports?studentId=")),
+    await reportsHandler(authenticatedParentRequest("http://localhost/api/parent/reports?studentId=")),
     "Reports unavailable."
   );
 
@@ -421,7 +547,7 @@ test("runtime parent handlers turn fail-closed store filters into private 404 re
     "http://localhost/api/parent/notices?studentId=student-1&recipientId=recipient-student-2"
   ]) {
     await assertPrivateNotFound(
-      await noticesHandler(new Request(url)),
+      await noticesHandler(authenticatedParentRequest(url)),
       "Parent notices unavailable.",
       ["recipient-other-family", "recipient-student-2"]
     );
@@ -438,7 +564,7 @@ test("runtime parent reads reject admins and child summary keeps an opaque priva
         authenticateParent: authenticateAdmin,
         loadFoundation: stores.foundation.getParentFoundationData
       }),
-      request: new Request("http://localhost/api/parent/foundation"),
+      request: authenticatedParentRequest("http://localhost/api/parent/foundation", {}, "admin-1"),
       error: "Parent console unavailable."
     },
     {
@@ -446,7 +572,7 @@ test("runtime parent reads reject admins and child summary keeps an opaque priva
         authenticateParent: authenticateAdmin,
         loadReports: stores.reports.getParentReportData
       }),
-      request: new Request("http://localhost/api/parent/reports"),
+      request: authenticatedParentRequest("http://localhost/api/parent/reports", {}, "admin-1"),
       error: "Reports unavailable."
     },
     {
@@ -454,7 +580,7 @@ test("runtime parent reads reject admins and child summary keeps an opaque priva
         authenticateParent: authenticateAdmin,
         loadNotices: stores.notices.getParentNoticeData
       }),
-      request: new Request("http://localhost/api/parent/notices"),
+      request: authenticatedParentRequest("http://localhost/api/parent/notices", {}, "admin-1"),
       error: "Parent notices unavailable."
     }
   ];
@@ -468,7 +594,7 @@ test("runtime parent reads reject admins and child summary keeps an opaque priva
     loadChildSummary: stores.foundation.getParentChildSummary
   });
   const response = await childHandler(
-    new Request("http://localhost/api/parent/children/student-other-family/summary"),
+    authenticatedParentRequest("http://localhost/api/parent/children/student-other-family/summary"),
     { params: Promise.resolve({ studentId: "student-other-family" }) }
   );
   await assertPrivateNotFound(response, "Child summary unavailable.", ["student-other-family"]);
@@ -559,7 +685,7 @@ test("parent reports fail closed when persisted preview arrays contain nested pr
     loadReports: store.getParentReportData
   });
 
-  const response = await handler(new Request("http://localhost/api/parent/reports"));
+  const response = await handler(authenticatedParentRequest("http://localhost/api/parent/reports"));
   assert.equal(response.status, 503);
   const body = await response.json();
   assert.deepEqual(body, { error: "Parent data temporarily unavailable." });

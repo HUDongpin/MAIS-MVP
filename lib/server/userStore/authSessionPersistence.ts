@@ -650,6 +650,18 @@ function incrementAuthSessionRevision(user: AuthSessionUserRecord) {
   return user.session_revision;
 }
 
+function revokeUnusedPasswordResetTokensForUser(
+  database: Pick<AuthSessionPersistenceDatabase, "password_reset_tokens">,
+  userId: string,
+  usedAt: string
+) {
+  for (const token of database.password_reset_tokens ?? []) {
+    if (token.user_id === userId && !token.used_at) {
+      token.used_at = usedAt;
+    }
+  }
+}
+
 export function normalizeAuthUserSettingsRecords<Record extends AuthSessionUserSettingsRecord>(
   records?: Record[]
 ): Record[] {
@@ -2157,8 +2169,12 @@ export function createAuthSessionPersistenceStore({
       return runMutation((database) => {
         const user = database.users.find((candidate) => candidate.id === userId);
         if (!user || authUserIsDisabled(user) === disabled) return { status: "invalid" as const };
-        const disabledAt = disabled ? now().toISOString() : null;
+        const updatedAt = now().toISOString();
+        const disabledAt = disabled ? updatedAt : null;
         user.disabled_at = disabledAt;
+        if (disabled) {
+          revokeUnusedPasswordResetTokensForUser(database, userId, updatedAt);
+        }
         return {
           status: "updated" as const,
           disabledAt,
@@ -2250,6 +2266,7 @@ export function createAuthSessionPersistenceStore({
         const sessionRevision = incrementAuthSessionRevision(user);
 
         const nowDate = now();
+        revokeUnusedPasswordResetTokensForUser(database, userId, nowDate.toISOString());
         const session = toAuthenticatedUserFromRecords({
           mediaObjectUrlForKey,
           now: nowDate,
@@ -2332,7 +2349,7 @@ export function createAuthSessionPersistenceStore({
         user.password_salt = hashedPassword.salt;
         user.password_must_change = false;
         const sessionRevision = incrementAuthSessionRevision(user);
-        resetToken.used_at = nowDate.toISOString();
+        revokeUnusedPasswordResetTokensForUser(database, resetToken.user_id, nowDate.toISOString());
 
         const session = toAuthenticatedUserFromRecords({
           mediaObjectUrlForKey,

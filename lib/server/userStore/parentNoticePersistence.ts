@@ -164,8 +164,7 @@ function studentProfileFor(database: ParentNoticePersistenceDatabase, userId: st
 
 function displayNameFor(database: ParentNoticePersistenceDatabase, userId: string, fallback: string) {
   const profile = studentProfileFor(database, userId);
-  const user = database.users.find((candidate) => candidate.id === userId);
-  return profile?.name ?? user?.username ?? fallback;
+  return profile?.name ?? fallback;
 }
 
 function parentCanAccessStudentInDatabase(

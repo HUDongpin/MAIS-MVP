@@ -290,6 +290,33 @@ test("parent notice persistence filters visible notices without legacy userStore
   }]);
 });
 
+test("parent notice names never fall back to student, teacher, or guardian email usernames", async () => {
+  const studentEmail = "student.private@example.test";
+  const teacherEmail = "teacher.private@example.test";
+  const guardianEmail = "guardian.private@example.test";
+  const database = createDatabase();
+  database.student_profiles = [];
+  database.users = database.users.map((user) => {
+    if (user.id === "student-1") return { ...user, username: studentEmail };
+    if (user.id === "teacher-1") return { ...user, username: teacherEmail };
+    if (user.id === "parent-1") return { ...user, username: guardianEmail };
+    return user;
+  });
+
+  const data = await createTestStore(database).getParentNoticeData("parent-1", {
+    selectedStudentId: "student-1"
+  });
+  const recipient = data?.notices[0]?.recipients[0];
+
+  assert.equal(recipient?.studentName, "Unknown student");
+  assert.equal(recipient?.guardianName, "Guardian");
+  assert.equal(data?.parentSafeDrafts[0]?.teacherName, "Teacher");
+  assert.doesNotMatch(
+    JSON.stringify(data),
+    new RegExp(`${studentEmail}|${teacherEmail}|${guardianEmail}`, "i")
+  );
+});
+
 test("parent notice persistence targets a recipient and acknowledges allowed notices", async () => {
   const database = createDatabase();
   const store = createTestStore(database);

@@ -1,5 +1,9 @@
-import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  guardExpectedTeacherReportUser,
+  teacherReportPrivateJson,
+  teacherReportUnavailable
+} from "@/app/api/teacher/reports/response";
 import { getTeacherReportPreview } from "@/lib/server/userStore";
 import type { StudentSession, TeacherReportLanguage, TeacherReportType } from "@/types";
 
@@ -18,29 +22,35 @@ export function createTeacherReportPreviewGetHandler({
   loadPreview?: typeof getTeacherReportPreview;
 } = {}) {
   return async function teacherReportPreviewGet(request: Request) {
-    const authenticated = await authenticateUser(request);
-    if (!authenticated) return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
-    if (!canAccessTeacherArea(authenticated.user)) return NextResponse.json({ error: "Teacher access required." }, { status: 403 });
+    try {
+      const authenticated = await authenticateUser(request);
+      if (!authenticated) return teacherReportPrivateJson({ error: "Not authenticated." }, { status: 401 });
+      const expectedUserConflict = guardExpectedTeacherReportUser(authenticated, request);
+      if (expectedUserConflict) return expectedUserConflict;
+      if (!canAccessTeacherArea(authenticated.user)) return teacherReportPrivateJson({ error: "Teacher access required." }, { status: 403 });
 
-    const url = new URL(request.url);
-    const type = reportTypes.has(url.searchParams.get("type") as TeacherReportType)
-      ? (url.searchParams.get("type") as TeacherReportType)
-      : "class";
-    const language = languages.has(url.searchParams.get("language") as TeacherReportLanguage)
-      ? (url.searchParams.get("language") as TeacherReportLanguage)
-      : "zh";
-    const preview = await loadPreview({
-      teacherId: authenticated.user.id,
-      type,
-      language,
-      classId: url.searchParams.get("classId"),
-      studentId: url.searchParams.get("studentId"),
-      assignmentId: url.searchParams.get("assignmentId"),
-      assessmentId: url.searchParams.get("assessmentId"),
-      teacherRemarks: url.searchParams.get("remarks") ?? ""
-    });
-    if (!preview) return NextResponse.json({ error: "Report preview unavailable." }, { status: 404 });
+      const url = new URL(request.url);
+      const type = reportTypes.has(url.searchParams.get("type") as TeacherReportType)
+        ? (url.searchParams.get("type") as TeacherReportType)
+        : "class";
+      const language = languages.has(url.searchParams.get("language") as TeacherReportLanguage)
+        ? (url.searchParams.get("language") as TeacherReportLanguage)
+        : "zh";
+      const preview = await loadPreview({
+        teacherId: authenticated.user.id,
+        type,
+        language,
+        classId: url.searchParams.get("classId"),
+        studentId: url.searchParams.get("studentId"),
+        assignmentId: url.searchParams.get("assignmentId"),
+        assessmentId: url.searchParams.get("assessmentId"),
+        teacherRemarks: url.searchParams.get("remarks") ?? ""
+      });
+      if (!preview) return teacherReportPrivateJson({ error: "Report preview unavailable." }, { status: 404 });
 
-    return NextResponse.json({ preview });
+      return teacherReportPrivateJson({ preview });
+    } catch {
+      return teacherReportUnavailable("Report preview temporarily unavailable.");
+    }
   };
 }

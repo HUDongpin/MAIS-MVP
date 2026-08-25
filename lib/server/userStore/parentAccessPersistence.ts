@@ -140,24 +140,76 @@ function isIsoTimestamp(value: unknown): value is string {
   return typeof value === "string" && Number.isFinite(Date.parse(value));
 }
 
+function guardianInvitationIdentityKeys(record: Partial<GuardianInvitationRecord>) {
+  const keys: string[] = [];
+  if (typeof record.id === "string" && record.id.trim()) {
+    keys.push(JSON.stringify(["id", record.id]));
+  }
+  if (typeof record.token_digest === "string" && /^[a-f0-9]{64}$/i.test(record.token_digest)) {
+    keys.push(JSON.stringify(["digest", record.token_digest.toLowerCase()]));
+  }
+  return keys;
+}
+
 export function normalizeGuardianInvitationRecords(
   records: unknown,
   _now: string
 ): GuardianInvitationRecord[] {
   if (!Array.isArray(records)) return [];
+  const ambiguousStudentIds = new Set<string>();
+  const identityNeighbors = new Map<string, Set<string>>();
+  const malformedIdentityKeys = new Set<string>();
+  const attributableIdCounts = new Map<string, number>();
+  const attributableDigestCounts = new Map<string, number>();
+  const attributableStudentVersionCounts = new Map<string, number>();
+  for (const value of records) {
+    if (!value || typeof value !== "object") continue;
+    const record = value as Partial<GuardianInvitationRecord>;
+    const identityKeys = guardianInvitationIdentityKeys(record);
+    for (const key of identityKeys) {
+      if (!identityNeighbors.has(key)) identityNeighbors.set(key, new Set());
+    }
+    for (let index = 1; index < identityKeys.length; index += 1) {
+      identityNeighbors.get(identityKeys[0]!)?.add(identityKeys[index]!);
+      identityNeighbors.get(identityKeys[index]!)?.add(identityKeys[0]!);
+    }
+    const studentId = typeof record.student_id === "string" ? record.student_id.trim() : "";
+    if (!studentId) continue;
+    if (typeof record.id === "string" && record.id.trim()) {
+      attributableIdCounts.set(record.id, (attributableIdCounts.get(record.id) ?? 0) + 1);
+    }
+    if (typeof record.token_digest === "string" && /^[a-f0-9]{64}$/i.test(record.token_digest)) {
+      const digest = record.token_digest.toLowerCase();
+      attributableDigestCounts.set(digest, (attributableDigestCounts.get(digest) ?? 0) + 1);
+    }
+    if (Number.isSafeInteger(record.version) && (record.version ?? 0) >= 1) {
+      const studentVersionKey = JSON.stringify([studentId, record.version]);
+      attributableStudentVersionCounts.set(
+        studentVersionKey,
+        (attributableStudentVersionCounts.get(studentVersionKey) ?? 0) + 1
+      );
+    }
+  }
+
   const normalized = records.flatMap((value): GuardianInvitationRecord[] => {
     if (!value || typeof value !== "object") return [];
     const record = value as Partial<GuardianInvitationRecord>;
+    const attributableStudentId = typeof record.student_id === "string" ? record.student_id.trim() : "";
+    const rejectRecord = () => {
+      if (attributableStudentId) ambiguousStudentIds.add(attributableStudentId);
+      for (const key of guardianInvitationIdentityKeys(record)) malformedIdentityKeys.add(key);
+      return [] as GuardianInvitationRecord[];
+    };
     if (
       typeof record.id !== "string" || !record.id ||
-      typeof record.student_id !== "string" || !record.student_id ||
+      typeof record.student_id !== "string" || !record.student_id || record.student_id !== attributableStudentId ||
       !Number.isSafeInteger(record.version) || (record.version ?? 0) < 1 ||
       typeof record.token_digest !== "string" || !/^[a-f0-9]{64}$/i.test(record.token_digest) ||
       !isIsoTimestamp(record.expires_at) ||
       typeof record.created_by !== "string" || !record.created_by ||
       !isIsoTimestamp(record.created_at) ||
       (record.revoked_at !== undefined && record.revoked_at !== null && !isIsoTimestamp(record.revoked_at))
-    ) return [];
+    ) return rejectRecord();
 
     const hasConsumedAt = record.consumed_at !== undefined && record.consumed_at !== null;
     const consumedAt = isIsoTimestamp(record.consumed_at) ? record.consumed_at : null;
@@ -176,7 +228,7 @@ export function normalizeGuardianInvitationRecords(
     if (
       (hasConsumedAt && (!consumedAt || !consumedByParentId || !consumedRelationship || !consumedLinkId)) ||
       (!hasConsumedAt && hasAnyConsumedMetadata)
-    ) return [];
+    ) return rejectRecord();
 
     return [{
       id: record.id,
@@ -194,29 +246,106 @@ export function normalizeGuardianInvitationRecords(
     }];
   });
 
-  const idCounts = new Map<string, number>();
-  const digestCounts = new Map<string, number>();
-  const studentVersionCounts = new Map<string, number>();
   for (const record of normalized) {
-    idCounts.set(record.id, (idCounts.get(record.id) ?? 0) + 1);
-    digestCounts.set(record.token_digest, (digestCounts.get(record.token_digest) ?? 0) + 1);
-    const studentVersionKey = JSON.stringify([record.student_id, record.version]);
-    studentVersionCounts.set(studentVersionKey, (studentVersionCounts.get(studentVersionKey) ?? 0) + 1);
+    if (
+      attributableIdCounts.get(record.id) !== 1 ||
+      attributableDigestCounts.get(record.token_digest) !== 1 ||
+      attributableStudentVersionCounts.get(JSON.stringify([record.student_id, record.version])) !== 1
+    ) {
+      ambiguousStudentIds.add(record.student_id);
+    }
   }
 
-  return normalized.filter((record) => (
-    idCounts.get(record.id) === 1 &&
-    digestCounts.get(record.token_digest) === 1 &&
-    studentVersionCounts.get(JSON.stringify([record.student_id, record.version])) === 1
-  ));
+  const studentsByIdentity = new Map<string, Set<string>>();
+  for (const record of normalized) {
+    for (const key of guardianInvitationIdentityKeys(record)) {
+      const students = studentsByIdentity.get(key) ?? new Set<string>();
+      students.add(record.student_id);
+      studentsByIdentity.set(key, students);
+    }
+  }
+  const visitedIdentityKeys = new Set<string>();
+  const pendingIdentityKeys = [...malformedIdentityKeys];
+  while (pendingIdentityKeys.length > 0) {
+    const key = pendingIdentityKeys.pop()!;
+    if (visitedIdentityKeys.has(key)) continue;
+    visitedIdentityKeys.add(key);
+    for (const studentId of studentsByIdentity.get(key) ?? []) {
+      ambiguousStudentIds.add(studentId);
+    }
+    for (const neighbor of identityNeighbors.get(key) ?? []) {
+      if (!visitedIdentityKeys.has(neighbor)) pendingIdentityKeys.push(neighbor);
+    }
+  }
+
+  // Malformed or colliding history must not be repaired by merely deleting the
+  // conflicting rows: doing so can make an older bearer token authoritative
+  // again. Propagate raw ID/digest collisions, then quarantine each affected
+  // student's full invitation history while preserving independent students.
+  return normalized.filter((record) => !ambiguousStudentIds.has(record.student_id));
 }
 
 export function guardianInvitationRecordsNeedPersistenceSync(
   records: unknown,
-  normalizedRecords: GuardianInvitationRecord[]
+  normalizedRecords: GuardianInvitationRecord[],
+  { allowSafeSanitization = false }: { allowSafeSanitization?: boolean } = {}
 ) {
   if (!Array.isArray(records)) return true;
-  return JSON.stringify(records) !== JSON.stringify(normalizedRecords);
+  try {
+    const canonicalRecords = normalizeGuardianInvitationRecords(records, "");
+    if (JSON.stringify(canonicalRecords) !== JSON.stringify(normalizedRecords)) return true;
+    if (JSON.stringify(records) === JSON.stringify(canonicalRecords)) return false;
+    return !allowSafeSanitization;
+  } catch {
+    return true;
+  }
+}
+
+const guardianInvitationGenerationAttempts = 8;
+
+function existingGuardianInvitationIds(records: unknown, normalizedRecords: GuardianInvitationRecord[]) {
+  const ids = new Set(normalizedRecords.map((record) => record.id));
+  if (!Array.isArray(records)) return ids;
+  for (const value of records) {
+    if (!value || typeof value !== "object") continue;
+    const id = (value as Partial<GuardianInvitationRecord>).id;
+    if (typeof id === "string" && id.trim()) ids.add(id);
+  }
+  return ids;
+}
+
+function existingGuardianInvitationDigests(records: unknown, normalizedRecords: GuardianInvitationRecord[]) {
+  const digests = new Set(normalizedRecords.map((record) => record.token_digest));
+  if (!Array.isArray(records)) return digests;
+  for (const value of records) {
+    if (!value || typeof value !== "object") continue;
+    const digest = (value as Partial<GuardianInvitationRecord>).token_digest;
+    if (typeof digest === "string" && /^[a-f0-9]{64}$/i.test(digest)) digests.add(digest.toLowerCase());
+  }
+  return digests;
+}
+
+function createUniqueGuardianInvitationId(createId: () => string, existingIds: Set<string>) {
+  for (let attempt = 0; attempt < guardianInvitationGenerationAttempts; attempt += 1) {
+    const candidate = createId().trim();
+    if (!candidate || existingIds.has(candidate)) continue;
+    return candidate;
+  }
+  throw new Error("Guardian invitation ID generator could not produce a unique invitation ID.");
+}
+
+function nextGuardianInvitationVersion(
+  invitations: GuardianInvitationRecord[],
+  studentId: string
+) {
+  const previousVersion = invitations
+    .filter((candidate) => candidate.student_id === studentId)
+    .reduce((highest, candidate) => Math.max(highest, candidate.version), 0);
+  const version = previousVersion + 1;
+  if (!Number.isSafeInteger(version)) {
+    throw new Error("Guardian invitation version space is exhausted.");
+  }
+  return version;
 }
 
 function guardianInviteDigestMatches(storedDigest: string, candidateDigest: string) {
@@ -354,16 +483,14 @@ function studentProfileFor(database: ParentAccessPersistenceDatabase, userId: st
 
 export function toGuardianLink(database: ParentAccessPersistenceDatabase, record: ParentAccessGuardianLinkRecord): GuardianLink {
   const parentProfile = studentProfileFor(database, record.parent_id);
-  const parentUser = database.users.find((candidate) => candidate.id === record.parent_id);
   const studentProfile = studentProfileFor(database, record.student_id);
-  const studentUser = database.users.find((candidate) => candidate.id === record.student_id);
 
   return {
     id: record.id ?? "",
     parentId: record.parent_id,
-    parentName: parentProfile?.name ?? parentUser?.username ?? "Parent",
+    parentName: parentProfile?.name ?? "Parent",
     studentId: record.student_id,
-    studentName: studentProfile?.name ?? studentUser?.username ?? "Student",
+    studentName: studentProfile?.name ?? "Student",
     studentGrade: studentProfile?.grade ?? "S3",
     relationship: normalizeGuardianRelationship(record.relationship),
     status: normalizeGuardianLinkStatus(record.status),
@@ -524,14 +651,16 @@ export function createParentAccessPersistenceStore({
         if (access.status !== "allowed") return access;
 
         const createdAt = now().toISOString();
-        const invitations = database.guardian_invitations = normalizeGuardianInvitationRecords(
-          database.guardian_invitations,
+        const rawInvitations = database.guardian_invitations;
+        const invitations = normalizeGuardianInvitationRecords(
+          rawInvitations,
           createdAt
         );
-        const existingDigests = new Set(invitations.map((candidate) => candidate.token_digest));
+        const version = nextGuardianInvitationVersion(invitations, studentId);
+        const existingDigests = existingGuardianInvitationDigests(rawInvitations, invitations);
         let token = "";
         let tokenDigest = "";
-        for (let attempt = 0; attempt < 8; attempt += 1) {
+        for (let attempt = 0; attempt < guardianInvitationGenerationAttempts; attempt += 1) {
           const candidate = normalizeGuardianInviteToken(createInviteToken());
           if (!isValidGuardianInviteToken(candidate)) {
             throw new Error("Guardian invitation token generator returned an invalid token.");
@@ -545,10 +674,11 @@ export function createParentAccessPersistenceStore({
         if (!token || !tokenDigest) {
           throw new Error("Guardian invitation token generator could not produce a unique token.");
         }
-        const previousVersion = invitations
-          .filter((candidate) => candidate.student_id === studentId)
-          .reduce((highest, candidate) => Math.max(highest, candidate.version), 0);
-
+        const invitationId = createUniqueGuardianInvitationId(
+          createId,
+          existingGuardianInvitationIds(rawInvitations, invitations)
+        );
+        database.guardian_invitations = invitations;
         normalizeParentAccessLegacyInviteFields(database);
         for (const invitation of invitations) {
           if (invitation.student_id === studentId && !invitation.consumed_at && !invitation.revoked_at) {
@@ -556,10 +686,9 @@ export function createParentAccessPersistenceStore({
           }
         }
 
-        const version = previousVersion + 1;
         const expiresAt = new Date(Date.parse(createdAt) + guardianInviteTtlMs).toISOString();
         invitations.push({
-          id: createId(),
+          id: invitationId,
           student_id: studentId,
           version,
           token_digest: tokenDigest,
@@ -601,20 +730,68 @@ export function createParentAccessPersistenceStore({
         if (link.status !== "active") return { status: "conflict" as const };
 
         const revokedAt = now().toISOString();
-        database.guardian_invitations = normalizeGuardianInvitationRecords(
-          database.guardian_invitations,
+        const rawInvitations = database.guardian_invitations;
+        const invitations = normalizeGuardianInvitationRecords(
+          rawInvitations,
           revokedAt
         );
+        const replacementVersion = nextGuardianInvitationVersion(invitations, studentId);
+        const existingDigests = existingGuardianInvitationDigests(rawInvitations, invitations);
+        let replacementToken = "";
+        let replacementTokenDigest = "";
+        for (let attempt = 0; attempt < guardianInvitationGenerationAttempts; attempt += 1) {
+          const candidate = normalizeGuardianInviteToken(createInviteToken());
+          if (!isValidGuardianInviteToken(candidate)) {
+            throw new Error("Guardian invitation token generator returned an invalid token.");
+          }
+          const candidateDigest = guardianInviteTokenDigest(candidate);
+          if (existingDigests.has(candidateDigest)) continue;
+          replacementToken = candidate;
+          replacementTokenDigest = candidateDigest;
+          break;
+        }
+        if (!replacementToken || !replacementTokenDigest) {
+          throw new Error("Guardian invitation token generator could not produce a unique token.");
+        }
+        const replacementInvitationId = createUniqueGuardianInvitationId(
+          createId,
+          existingGuardianInvitationIds(rawInvitations, invitations)
+        );
+        const replacementExpiresAt = new Date(Date.parse(revokedAt) + guardianInviteTtlMs).toISOString();
+
+        database.guardian_invitations = invitations;
         link.status = "revoked";
         link.invite_code = "";
         link.revoked_at = revokedAt;
         link.revoked_by = teacherId;
         link.updated_at = revokedAt;
         normalizeParentAccessLegacyInviteFields(database);
-        for (const invitation of database.guardian_invitations) {
+        for (const invitation of invitations) {
           if (invitation.student_id === studentId && !invitation.revoked_at) invitation.revoked_at = revokedAt;
         }
-        return { status: "revoked" as const, revokedAt };
+        invitations.push({
+          id: replacementInvitationId,
+          student_id: studentId,
+          version: replacementVersion,
+          token_digest: replacementTokenDigest,
+          expires_at: replacementExpiresAt,
+          consumed_at: null,
+          consumed_by_parent_id: null,
+          consumed_relationship: null,
+          consumed_link_id: null,
+          revoked_at: null,
+          created_by: teacherId,
+          created_at: revokedAt
+        });
+        return {
+          status: "revoked" as const,
+          revokedAt,
+          invitation: {
+            version: replacementVersion,
+            token: replacementToken,
+            expiresAt: replacementExpiresAt
+          }
+        };
       });
     }
   };

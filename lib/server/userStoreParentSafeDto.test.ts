@@ -312,3 +312,97 @@ test("parent report projector rejects runtime-deceived nested preview values", a
     /Invalid teacher report preview/
   );
 });
+
+test("parent API safe DTOs replace email-shaped display names with neutral labels", async () => {
+  const {
+    toParentFoundationSafeData,
+    toParentNoticeDataSafe
+  } = await import("@/lib/server/userStore/parentSafeDto");
+  const guardianEmail = "guardian.private@example.test";
+  const studentEmail = "student.private@example.test";
+  const teacherEmail = "teacher.private@example.test";
+  const child = unsafeChild();
+  child.student.name = studentEmail;
+  child.latestParentReport.generatedByName = teacherEmail;
+  child.latestParentReport.preview.subjectName = studentEmail;
+
+  const foundation = toParentFoundationSafeData({
+    parent: { ...child.student, id: "parent-1", name: guardianEmail, role: "parent" },
+    children: [child],
+    selectedChild: child,
+    links: [{
+      id: "link-1",
+      parentId: "parent-1",
+      parentName: guardianEmail,
+      studentId: "student-1",
+      studentName: studentEmail,
+      studentGrade: "S3",
+      relationship: "guardian",
+      status: "active",
+      inviteCode: "",
+      createdBy: "parent-1",
+      createdAt: generatedAt,
+      updatedAt: generatedAt
+    }],
+    totals: { children: 1, activeReports: 1, openMessages: 0, pendingAssignments: 1 }
+  } as never);
+  const notices = toParentNoticeDataSafe({
+    generatedAt,
+    children: [child],
+    notices: [{
+      id: "notice-private-name",
+      teacherId: "teacher-1",
+      classId: "class-1",
+      className: "S3 Algebra",
+      audience: "parents",
+      channelId: "channel-1",
+      channelName: "Class channel",
+      subject: { en: "Reminder", zh: "提醒" },
+      body: { en: "Review today", zh: "今天重溫" },
+      status: "sent",
+      dueAt: null,
+      createdAt: generatedAt,
+      updatedAt: generatedAt,
+      sentAt: generatedAt,
+      recipients: [{
+        id: "recipient-private-name",
+        noticeId: "notice-private-name",
+        studentId: "student-1",
+        studentName: studentEmail,
+        guardianId: "parent-1",
+        guardianName: guardianEmail,
+        status: "pending",
+        acknowledgedAt: null,
+        createdAt: generatedAt
+      }],
+      deliveryAttempts: [],
+      acknowledgement: { total: 1, acknowledged: 0, pending: 1 }
+    }],
+    parentSafeDrafts: [{
+      id: "draft-private-name",
+      noticeId: "notice-private-name",
+      sourceReviewLessonId: "review-1",
+      classId: "class-1",
+      className: "S3 Algebra",
+      teacherId: "teacher-1",
+      teacherName: teacherEmail,
+      title: { en: "Review", zh: "重溫" },
+      summary: { en: "Safe summary", zh: "安全摘要" },
+      status: "sent",
+      publishedAt: generatedAt,
+      acknowledgement: { total: 1, acknowledged: 0, pending: 1 }
+    }]
+  } as never);
+
+  assert.equal(foundation.parent.name, "Parent");
+  assert.equal(foundation.children[0]?.student.name, "Student");
+  assert.equal(foundation.links[0]?.studentName, "Student");
+  assert.equal(foundation.children[0]?.latestParentReport?.teacherName, "Teacher");
+  assert.equal(foundation.children[0]?.latestParentReport?.preview?.subjectName, "Student");
+  assert.equal(notices.notices[0]?.recipients[0]?.studentName, "Unknown student");
+  assert.equal(notices.parentSafeDrafts[0]?.teacherName, "Teacher");
+  assert.doesNotMatch(
+    JSON.stringify({ foundation, notices }),
+    new RegExp(`${guardianEmail}|${studentEmail}|${teacherEmail}`, "i")
+  );
+});

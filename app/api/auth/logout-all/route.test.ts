@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { createLogoutAllHandler } from "@/app/api/auth/logout-all/handler";
+import { createLogoutHandler } from "@/app/api/auth/logout/handler";
 import { SESSION_COOKIE_NAME } from "@/lib/session";
 
 test("logout-all increments the authenticated account revision and clears this device cookie", async () => {
@@ -14,8 +15,15 @@ test("logout-all increments the authenticated account revision and clears this d
     }
   });
 
-  const response = await handle(new Request("https://mais.example.test/api/auth/logout-all", {
+  const missingConstraint = await handle(new Request("https://mais.example.test/api/auth/logout-all", {
     method: "POST"
+  }));
+  assert.equal(missingConstraint.status, 409);
+  assert.equal(revokedUserId, "");
+
+  const response = await handle(new Request("https://mais.example.test/api/auth/logout-all", {
+    method: "POST",
+    headers: { "X-MAIS-Expected-User-Id": "student-1" }
   }));
 
   assert.equal(response.status, 200);
@@ -32,8 +40,30 @@ test("logout-all fails closed if the account disappears or is disabled during re
   });
 
   const response = await handle(new Request("https://mais.example.test/api/auth/logout-all", {
-    method: "POST"
+    method: "POST",
+    headers: { "X-MAIS-Expected-User-Id": "student-1" }
   }));
 
   assert.equal(response.status, 401);
+});
+
+test("single-device logout cannot clear a replacement account cookie from a stale document", async () => {
+  const handle = createLogoutHandler({
+    requireAuthenticatedUser: async () => ({ user: { id: "student-b" } }) as never
+  });
+
+  const staleResponse = await handle(new Request("https://mais.example.test/api/auth/logout", {
+    method: "POST",
+    headers: { "X-MAIS-Expected-User-Id": "student-a" }
+  }));
+  assert.equal(staleResponse.status, 409);
+  assert.equal(staleResponse.headers.get("set-cookie"), null);
+
+  const currentResponse = await handle(new Request("https://mais.example.test/api/auth/logout", {
+    method: "POST",
+    headers: { "X-MAIS-Expected-User-Id": "student-b" }
+  }));
+  assert.equal(currentResponse.status, 200);
+  assert.equal(currentResponse.cookies.get(SESSION_COOKIE_NAME)?.value, "");
+  assert.equal(currentResponse.cookies.get(SESSION_COOKIE_NAME)?.maxAge, 0);
 });

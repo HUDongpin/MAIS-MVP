@@ -7,6 +7,10 @@ import { authAdminStorageHotAuthUserRows } from "@/lib/server/userStore/authAdmi
 import { projectedUserRecord } from "@/lib/server/userStore/authSessionPersistence";
 
 const userStorePath = path.join(process.cwd(), "lib/server/userStore.ts");
+const authSessionPersistencePath = path.join(
+  process.cwd(),
+  "lib/server/userStore/authSessionPersistence.ts"
+);
 const integrationWorkerPath = path.join(
   process.cwd(),
   "scripts/nova-postgres-integration-worker.ts"
@@ -93,6 +97,61 @@ test("snapshot normalization persists legacy session defaults instead of only pr
   assert.match(persistenceSyncSource, /disabled_at/);
 });
 
+test("Postgres password change and disable revoke reset tokens in the app-state and hot-table transaction", async () => {
+  const [source, authSessionPersistenceSource] = await Promise.all([
+    readFile(userStorePath, "utf8"),
+    readFile(authSessionPersistencePath, "utf8")
+  ]);
+  const authStoreStart = source.indexOf("const authSessionPersistenceStore = createAuthSessionPersistenceStore(");
+  const authStoreEnd = source.indexOf("\nconst authProvisioningPersistenceStore", authStoreStart);
+  const authStoreSource = source.slice(authStoreStart, authStoreEnd);
+  const mutationStart = source.indexOf("async function mutateDatabase<T>(");
+  const mutationEnd = source.indexOf("\ntype TeacherNoticeEmailOutboxMutation", mutationStart);
+  const mutationSource = source.slice(mutationStart, mutationEnd);
+  const writerStart = source.indexOf("async function writePostgresDatabaseWith(");
+  const writerEnd = source.indexOf("\nasync function rewriteCurrentPostgresStorageSnapshotForIntegrationTest", writerStart);
+  const writerSource = source.slice(writerStart, writerEnd);
+  const hotSyncStart = source.indexOf("async function syncPostgresHotAuthTablesWith(");
+  const hotSyncEnd = source.indexOf("\nfunction postgresProjectionRecord", hotSyncStart);
+  const hotSyncSource = source.slice(hotSyncStart, hotSyncEnd);
+  const disableStart = authSessionPersistenceSource.indexOf("    async setUserDisabledState(");
+  const disableEnd = authSessionPersistenceSource.indexOf("\n    async updateUserSettings(", disableStart);
+  const disableSource = authSessionPersistenceSource.slice(disableStart, disableEnd);
+  const passwordChangeStart = authSessionPersistenceSource.indexOf("    async changeAuthenticatedUserPassword(");
+  const passwordChangeEnd = authSessionPersistenceSource.indexOf("\n    async createPasswordResetRequest(", passwordChangeStart);
+  const passwordChangeSource = authSessionPersistenceSource.slice(passwordChangeStart, passwordChangeEnd);
+
+  assert.ok([
+    authStoreStart,
+    authStoreEnd,
+    mutationStart,
+    mutationEnd,
+    writerStart,
+    writerEnd,
+    hotSyncStart,
+    hotSyncEnd,
+    disableStart,
+    disableEnd,
+    passwordChangeStart,
+    passwordChangeEnd
+  ].every((index) => index >= 0));
+  assert.match(disableSource, /return runMutation\(\(database\) => \{[\s\S]*?if \(disabled\) \{[\s\S]*?revokeUnusedPasswordResetTokensForUser\(database, userId, updatedAt\)/u);
+  assert.match(passwordChangeSource, /return runMutation\(\(database\) => \{[\s\S]*?revokeUnusedPasswordResetTokensForUser\(database, userId, nowDate\.toISOString\(\)\)/u);
+  assert.match(authStoreSource, /mutateDatabase: async <T>[\s\S]*?await mutateDatabase\(\(database\) => mutator\(database as AuthSessionPersistenceDatabase\)\)/u);
+  assert.match(
+    mutationSource,
+    /if \(storageProvider === "postgres"\)[\s\S]*?return getPostgresClient\(\)\.begin\(async \(sql\) => \{[\s\S]*?const result = await mutator\(database\)[\s\S]*?await writePostgresDatabaseWith\(sql, database, storageCapability\)[\s\S]*?return result/u
+  );
+  assert.match(
+    writerSource,
+    /const payload = postgresDatabasePayload\(database\)[\s\S]*?UPDATE public\.app_state AS state[\s\S]*?payload = \$\{sql\.json\(payload\)\}[\s\S]*?await syncPostgresHotAuthTablesWith\(sql, database\)/u
+  );
+  assert.match(
+    hotSyncSource,
+    /const hotRows = hotAuthRowsFromDatabase\(database\)[\s\S]*?const tokens = hotAuthPasswordResetTokenRows\(hotRows\.passwordResetTokens\)[\s\S]*?INSERT INTO auth_password_reset_tokens[\s\S]*?used_at = excluded\.used_at/u
+  );
+});
+
 test("Postgres authentication and reset enforce revision atomically", async () => {
   const source = await readFile(userStorePath, "utf8");
   const createResetStart = source.indexOf("async function createPasswordResetRequestInPostgresHotTables");
@@ -160,8 +219,15 @@ test("Postgres password-reset hot paths fail closed, return exact rows, and keep
   assert.match(createResetSource, /pg_catalog\.jsonb_array_elements[\s\S]*password_reset_tokens[\s\S]*token_record->>'used_at'[\s\S]*token_record->>'expires_at'/u);
 
   assert.match(resetSource, /updatedUserRows\.length !== 1/u);
-  assert.match(resetSource, /UPDATE public\.auth_password_reset_tokens[\s\S]*RETURNING id/u);
-  assert.match(resetSource, /updatedTokenRows\.length !== 1/u);
+  assert.match(
+    resetSource,
+    /UPDATE public\.auth_password_reset_tokens[\s\S]*?SET used_at = \$\{usedAt\}[\s\S]*?WHERE user_id = \$\{resetToken\.user_id\}[\s\S]*?AND used_at IS NULL[\s\S]*?RETURNING id/u
+  );
+  assert.match(resetSource, /updatedTokenRows\.some\(\(row\) => row\.id === resetToken\.id\)/u);
+  assert.match(
+    resetSource,
+    /WHEN token_record->>'user_id' = \$\{resetToken\.user_id\}[\s\S]*?COALESCE\(token_record->>'used_at', ''\) = ''[\s\S]*?jsonb_build_object\('used_at', \$\{usedAt\}::text\)/u
+  );
   assert.match(resetSource, /__userStorePostgresStorageReadinessTestHooks\.failPasswordResetBeforeStateWrite/u);
 
   const overlayIndex = lockedReadSource.indexOf("overlayPostgresHotAuthRowsIfEnabled");

@@ -6,7 +6,7 @@ import {
   createParentMessageReplyPostHandler,
   createParentMessagesGetHandler
 } from "@/app/api/parent/messageHandlers";
-import type { ParentMessageThreadSafe } from "@/types";
+import type { ParentMessageEntrySafe, ParentMessageThreadSafe } from "@/types";
 
 const thread: ParentMessageThreadSafe = {
   id: "thread-safe",
@@ -26,13 +26,99 @@ const thread: ParentMessageThreadSafe = {
 
 const authenticateParent = async () => ({ user: { id: "parent-a" } });
 
+const replyEntry: ParentMessageEntrySafe = {
+  id: "entry-a",
+  senderRole: "parent",
+  senderName: "Parent",
+  body: "Reply",
+  createdAt: "2026-08-23T00:01:00.000Z"
+};
+
 function postRequest(body: unknown) {
   return new Request("http://localhost/api/parent/messages", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "X-MAIS-Expected-User-Id": "parent-a"
+    },
     body: JSON.stringify(body)
   });
 }
+
+test("stale parent identity is rejected before message reads, JSON parsing, replay, rate limits, or writes", async () => {
+  const calls: string[] = [];
+  const authenticateParentB = async () => ({ user: { id: "parent-b" } });
+  const request = (url: string, init: RequestInit = {}) => new Request(url, {
+    ...init,
+    headers: {
+      ...Object.fromEntries(new Headers(init.headers).entries()),
+      "X-MAIS-Expected-User-Id": "parent-a"
+    }
+  });
+  const get = createParentMessagesGetHandler({
+    authenticateParent: authenticateParentB,
+    loadMessages: async () => {
+      calls.push("read");
+      throw new Error("must not read parent B messages");
+    }
+  });
+  const create = createParentMessagePostHandler({
+    authenticateParent: authenticateParentB,
+    findReplay: async () => {
+      calls.push("create-replay");
+      throw new Error("must not inspect parent B replay state");
+    },
+    rateLimit: () => {
+      calls.push("create-rate-limit");
+      return { allowed: true, retryAfterSeconds: 0 };
+    },
+    createThread: async () => {
+      calls.push("create-write");
+      throw new Error("must not write as parent B");
+    }
+  });
+  const reply = createParentMessageReplyPostHandler({
+    authenticateParent: authenticateParentB,
+    findReplay: async () => {
+      calls.push("reply-replay");
+      throw new Error("must not inspect parent B replay state");
+    },
+    rateLimit: () => {
+      calls.push("reply-rate-limit");
+      return { allowed: true, retryAfterSeconds: 0 };
+    },
+    replyToThread: async () => {
+      calls.push("reply-write");
+      throw new Error("must not write as parent B");
+    }
+  });
+
+  const responses = await Promise.all([
+    get(request("http://localhost/api/parent/messages")),
+    create(request("http://localhost/api/parent/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{not valid json"
+    })),
+    reply(request("http://localhost/api/parent/messages/thread-b/reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{not valid json"
+    }), { params: Promise.resolve({ threadId: "thread-b" }) })
+  ]);
+
+  for (const response of responses) {
+    assert.equal(response.status, 409);
+    assert.deepEqual(await response.json(), {
+      code: "authenticated-user-changed",
+      error: "The authenticated user changed. Reload before retrying."
+    });
+    assert.equal(response.headers.get("Cache-Control"), "private, no-store");
+    assert.equal(response.headers.get("CDN-Cache-Control"), "private, no-store");
+    assert.equal(response.headers.get("Vercel-CDN-Cache-Control"), "private, no-store");
+  }
+  assert.deepEqual(calls, []);
+});
 
 test("settled create idempotency replay bypasses rate limiting and returns the same safe thread", async () => {
   let rateLimitCalls = 0;
@@ -112,8 +198,8 @@ test("reply idempotency replay bypasses rate limiting and new replies return 201
   let rateLimitCalls = 0;
   const replayHandler = createParentMessageReplyPostHandler({
     authenticateParent,
-    findReplay: async () => ({ status: "replayed", thread, entryId: "entry-a" }),
-    replyToThread: async () => ({ status: "sent", thread, entryId: "unexpected" }),
+    findReplay: async () => ({ status: "replayed", thread, entry: replyEntry, entryId: "entry-a" }),
+    replyToThread: async () => ({ status: "sent", thread, entry: replyEntry, entryId: "unexpected" }),
     rateLimit: () => {
       rateLimitCalls += 1;
       return { allowed: false, retryAfterSeconds: 60 };
@@ -124,13 +210,20 @@ test("reply idempotency replay bypasses rate limiting and new replies return 201
     { params: Promise.resolve({ threadId: "thread-safe" }) }
   );
   assert.equal(replayResponse.status, 200);
-  assert.equal((await replayResponse.json() as { entryId: string }).entryId, "entry-a");
+  const replayPayload = await replayResponse.json() as {
+    entry: ParentMessageEntrySafe;
+    entryId: string;
+    replayed: boolean;
+  };
+  assert.equal(replayPayload.entryId, "entry-a");
+  assert.deepEqual(replayPayload.entry, replyEntry);
+  assert.equal(replayPayload.replayed, true);
   assert.equal(rateLimitCalls, 0);
 
   const createHandler = createParentMessageReplyPostHandler({
     authenticateParent,
     findReplay: async () => ({ status: "missing" }),
-    replyToThread: async () => ({ status: "sent", thread, entryId: "entry-new" }),
+    replyToThread: async () => ({ status: "sent", thread, entry: replyEntry, entryId: "entry-a" }),
     rateLimit: () => ({ allowed: true, retryAfterSeconds: 0 })
   });
   const created = await createHandler(
@@ -138,7 +231,14 @@ test("reply idempotency replay bypasses rate limiting and new replies return 201
     { params: Promise.resolve({ threadId: "thread-safe" }) }
   );
   assert.equal(created.status, 201);
-  assert.equal((await created.json() as { entryId: string; replayed: boolean }).replayed, false);
+  const createdPayload = await created.json() as {
+    entry: ParentMessageEntrySafe;
+    entryId: string;
+    replayed: boolean;
+  };
+  assert.equal(createdPayload.replayed, false);
+  assert.equal(createdPayload.entryId, "entry-a");
+  assert.deepEqual(createdPayload.entry, replayPayload.entry);
 
   const malformed = await createHandler(
     postRequest({ body: "Reply", idempotencyKey: "stable-reply-key-0003" }),
@@ -154,7 +254,8 @@ test("explicit invalid GET filters fail closed and persistence failures become s
     loadMessages: async () => null
   });
   const missingResponse = await missing(new Request(
-    "http://localhost/api/parent/messages?studentId=student-missing&thread=thread-other-family"
+    "http://localhost/api/parent/messages?studentId=student-missing&thread=thread-other-family",
+    { headers: { "X-MAIS-Expected-User-Id": "parent-a" } }
   ));
   assert.equal(missingResponse.status, 404);
   assert.equal(missingResponse.headers.get("Cache-Control"), "private, no-store");
@@ -165,7 +266,9 @@ test("explicit invalid GET filters fail closed and persistence failures become s
       throw new Error("postgres://secret-user:secret-password@private-host/database");
     }
   });
-  const unavailableResponse = await unavailable(new Request("http://localhost/api/parent/messages"));
+  const unavailableResponse = await unavailable(new Request("http://localhost/api/parent/messages", {
+    headers: { "X-MAIS-Expected-User-Id": "parent-a" }
+  }));
   const payload = JSON.stringify(await unavailableResponse.json());
   assert.equal(unavailableResponse.status, 503);
   assert.equal(payload, JSON.stringify({ error: "Parent data temporarily unavailable." }));

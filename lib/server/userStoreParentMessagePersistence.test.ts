@@ -777,6 +777,21 @@ test("parent message replies revalidate current teacher-class access and are ide
   assert.equal(first.status, "sent");
   assert.equal(replay.status, "replayed");
   assert.equal(replay.entryId, first.entryId);
+  assert.deepEqual(replay.entry, first.entry);
+  assert.deepEqual(first.entry, {
+    id: "reply-idempotent-1",
+    senderRole: "parent",
+    senderName: "Parent One",
+    body: "A durable reply.",
+    createdAt: generatedAt
+  });
+  assert.deepEqual(Object.keys(first.entry).sort(), [
+    "body",
+    "createdAt",
+    "id",
+    "senderName",
+    "senderRole"
+  ]);
   assert.equal(conflict.status, "conflict");
   assert.equal(database.teacher_message_entries.filter((entry) => entry.id.startsWith("reply-idempotent-")).length, 1);
   assert.doesNotMatch(JSON.stringify(database), /stable-reply-key-000001/);

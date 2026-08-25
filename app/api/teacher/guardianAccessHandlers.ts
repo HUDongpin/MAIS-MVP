@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import {
   issueGuardianInvitationForTeacher,
@@ -64,6 +68,16 @@ export function createTeacherGuardianInviteIssueHandler({
       if (authenticated.user.role !== "teacher") {
         return teacherPrivateJson({ error: "Teacher access required." }, { status: 403 });
       }
+      const expectedUserConflict = guardExpectedAuthenticatedUser(
+        authenticated,
+        expectedUserConstraintsFromRequest(request),
+        { requireConstraint: true }
+      );
+      if (expectedUserConflict) {
+        expectedUserConflict.headers.set("CDN-Cache-Control", "private, no-store");
+        expectedUserConflict.headers.set("Vercel-CDN-Cache-Control", "private, no-store");
+        return expectedUserConflict;
+      }
 
       const raw = await params;
       const classId = safeDecodedIdentifier(raw.classId);
@@ -121,6 +135,16 @@ export function createTeacherGuardianLinkRevokeHandler({
       if (authenticated.user.role !== "teacher") {
         return teacherPrivateJson({ error: "Teacher access required." }, { status: 403 });
       }
+      const expectedUserConflict = guardExpectedAuthenticatedUser(
+        authenticated,
+        expectedUserConstraintsFromRequest(request),
+        { requireConstraint: true }
+      );
+      if (expectedUserConflict) {
+        expectedUserConflict.headers.set("CDN-Cache-Control", "private, no-store");
+        expectedUserConflict.headers.set("Vercel-CDN-Cache-Control", "private, no-store");
+        return expectedUserConflict;
+      }
 
       const raw = await params;
       const classId = safeDecodedIdentifier(raw.classId);
@@ -148,7 +172,14 @@ export function createTeacherGuardianLinkRevokeHandler({
       if (result.status !== "revoked") {
         return teacherPrivateJson({ error: result.status }, { status: teacherGuardianStatus(result.status) });
       }
-      return teacherPrivateJson({ revokedAt: result.revokedAt });
+      return teacherPrivateJson({
+        revokedAt: result.revokedAt,
+        invitation: {
+          version: result.invitation.version,
+          token: result.invitation.token,
+          expiresAt: result.invitation.expiresAt
+        }
+      });
     } catch {
       return guardianUnavailable();
     }

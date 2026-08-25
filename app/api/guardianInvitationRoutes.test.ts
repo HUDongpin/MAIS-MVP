@@ -28,6 +28,13 @@ function assertPrivate(response: Response) {
   }
 }
 
+function teacherWriteRequest(method: "POST" | "DELETE", expectedUserId = "teacher-1") {
+  return new Request("http://localhost", {
+    method,
+    headers: { "X-MAIS-Expected-User-Id": expectedUserId }
+  });
+}
+
 test("parent guardian link handler returns a safe allowlisted DTO and stable status mapping", async () => {
   const handlers = await import("@/app/api/parent/handlers") as Record<string, unknown>;
   assert.equal(typeof handlers.createParentGuardianLinkHandler, "function");
@@ -61,7 +68,10 @@ test("parent guardian link handler returns a safe allowlisted DTO and stable sta
   });
   const request = () => new Request("http://localhost/api/parent/children/link", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      "X-MAIS-Expected-User-Id": "parent-1"
+    },
     body: JSON.stringify({ inviteCode: `MAIS-${"A".repeat(24)}`, relationship: "guardian" })
   });
 
@@ -143,13 +153,16 @@ test("guardian access handlers fail closed with stable private 503 responses", a
   const responses = [
     await parent(new Request("http://localhost/api/parent/children/link", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        "X-MAIS-Expected-User-Id": "parent-1"
+      },
       body: JSON.stringify({ inviteCode: `MAIS-${"A".repeat(24)}`, relationship: "guardian" })
     })),
-    await issue(new Request("http://localhost", { method: "POST" }), {
+    await issue(teacherWriteRequest("POST"), {
       params: Promise.resolve({ classId: "class-1", studentId: "student-1" })
     }),
-    await revoke(new Request("http://localhost", { method: "DELETE" }), {
+    await revoke(teacherWriteRequest("DELETE"), {
       params: Promise.resolve({ classId: "class-1", studentId: "student-1", linkId: "link-1" })
     })
   ];
@@ -161,6 +174,66 @@ test("guardian access handlers fail closed with stable private 503 responses", a
     assert.deepEqual(body, { error: "Guardian access temporarily unavailable." });
     assert.doesNotMatch(JSON.stringify(body), new RegExp(sensitive));
   }
+});
+
+test("teacher guardian writes reject a stale document identity before rate limiting or mutation", async () => {
+  const handlers = await import("@/app/api/teacher/guardianAccessHandlers") as Record<string, unknown>;
+  assert.equal(typeof handlers.createTeacherGuardianInviteIssueHandler, "function");
+  assert.equal(typeof handlers.createTeacherGuardianLinkRevokeHandler, "function");
+  if (
+    typeof handlers.createTeacherGuardianInviteIssueHandler !== "function" ||
+    typeof handlers.createTeacherGuardianLinkRevokeHandler !== "function"
+  ) return;
+
+  let rateLimitCalls = 0;
+  let mutationCalls = 0;
+  const dependencies = {
+    authenticateUser: async () => ({ user: { id: "teacher-current", role: "teacher" } }),
+    consumeRateLimit: () => {
+      rateLimitCalls += 1;
+      return allowed;
+    }
+  };
+  const issue = (handlers.createTeacherGuardianInviteIssueHandler as (dependencies: Record<string, unknown>) => (
+    request: Request,
+    context: { params: Promise<{ classId: string; studentId: string }> }
+  ) => Promise<Response>)({
+    ...dependencies,
+    issueInvitation: async () => {
+      mutationCalls += 1;
+      return { status: "forbidden" };
+    }
+  });
+  const revoke = (handlers.createTeacherGuardianLinkRevokeHandler as (dependencies: Record<string, unknown>) => (
+    request: Request,
+    context: { params: Promise<{ classId: string; studentId: string; linkId: string }> }
+  ) => Promise<Response>)({
+    ...dependencies,
+    revokeLink: async () => {
+      mutationCalls += 1;
+      return { status: "forbidden" };
+    }
+  });
+  const issueContext = { params: Promise.resolve({ classId: "class-1", studentId: "student-1" }) };
+  const revokeContext = { params: Promise.resolve({ classId: "class-1", studentId: "student-1", linkId: "link-1" }) };
+
+  const responses = [
+    await issue(new Request("http://localhost", { method: "POST" }), issueContext),
+    await issue(teacherWriteRequest("POST", "teacher-old-document"), issueContext),
+    await revoke(new Request("http://localhost", { method: "DELETE" }), revokeContext),
+    await revoke(teacherWriteRequest("DELETE", "teacher-old-document"), revokeContext)
+  ];
+
+  for (const response of responses) {
+    assert.equal(response.status, 409);
+    assertPrivate(response);
+    assert.deepEqual(await response.json(), {
+      code: "authenticated-user-changed",
+      error: "The authenticated user changed. Reload before retrying."
+    });
+  }
+  assert.equal(rateLimitCalls, 0);
+  assert.equal(mutationCalls, 0);
 });
 
 test("teacher issue and revoke handlers enforce teacher-only exact targets and safe responses", async () => {
@@ -204,13 +277,23 @@ test("teacher issue and revoke handlers enforce teacher-only exact targets and s
     authenticateUser,
     consumeRateLimit: () => rateLimit,
     revokeLink: async () => revokeStatus === "revoked"
-      ? { status: "revoked", revokedAt: "2026-08-23T10:00:00.000Z", internal: "MUST-NOT-LEAK" }
+      ? {
+          status: "revoked",
+          revokedAt: "2026-08-23T10:00:00.000Z",
+          invitation: {
+            version: 3,
+            token: `MAIS-${"C".repeat(24)}`,
+            expiresAt: "2026-08-24T10:00:00.000Z",
+            tokenDigest: "MUST-NOT-LEAK"
+          },
+          internal: "MUST-NOT-LEAK"
+        }
       : { status: revokeStatus }
   });
   const issueContext = { params: Promise.resolve({ classId: "class-1", studentId: "student-1" }) };
   const revokeContext = { params: Promise.resolve({ classId: "class-1", studentId: "student-1", linkId: "link-1" }) };
 
-  const issued = await issue(new Request("http://localhost", { method: "POST" }), issueContext);
+  const issued = await issue(teacherWriteRequest("POST"), issueContext);
   assert.equal(issued.status, 201);
   assertPrivate(issued);
   assert.deepEqual(await issued.json(), {
@@ -221,14 +304,21 @@ test("teacher issue and revoke handlers enforce teacher-only exact targets and s
     }
   });
 
-  const revoked = await revoke(new Request("http://localhost", { method: "DELETE" }), revokeContext);
+  const revoked = await revoke(teacherWriteRequest("DELETE"), revokeContext);
   assert.equal(revoked.status, 200);
   assertPrivate(revoked);
-  assert.deepEqual(await revoked.json(), { revokedAt: "2026-08-23T10:00:00.000Z" });
+  assert.deepEqual(await revoked.json(), {
+    revokedAt: "2026-08-23T10:00:00.000Z",
+    invitation: {
+      version: 3,
+      token: `MAIS-${"C".repeat(24)}`,
+      expiresAt: "2026-08-24T10:00:00.000Z"
+    }
+  });
 
   role = "admin";
-  assert.equal((await issue(new Request("http://localhost", { method: "POST" }), issueContext)).status, 403);
-  assert.equal((await revoke(new Request("http://localhost", { method: "DELETE" }), revokeContext)).status, 403);
+  assert.equal((await issue(teacherWriteRequest("POST"), issueContext)).status, 403);
+  assert.equal((await revoke(teacherWriteRequest("DELETE"), revokeContext)).status, 403);
   role = "teacher";
 
   for (const [persistenceStatus, httpStatus] of [
@@ -240,19 +330,19 @@ test("teacher issue and revoke handlers enforce teacher-only exact targets and s
   ] as const) {
     issueStatus = persistenceStatus;
     revokeStatus = persistenceStatus;
-    assert.equal((await issue(new Request("http://localhost", { method: "POST" }), issueContext)).status, httpStatus);
-    assert.equal((await revoke(new Request("http://localhost", { method: "DELETE" }), revokeContext)).status, httpStatus);
+    assert.equal((await issue(teacherWriteRequest("POST"), issueContext)).status, httpStatus);
+    assert.equal((await revoke(teacherWriteRequest("DELETE"), revokeContext)).status, httpStatus);
   }
 
   issueStatus = "issued";
   revokeStatus = "revoked";
-  const malformedIssue = await issue(new Request("http://localhost", { method: "POST" }), {
+  const malformedIssue = await issue(teacherWriteRequest("POST"), {
     params: Promise.resolve({ classId: "%", studentId: "student-1" })
   });
   assert.equal(malformedIssue.status, 400);
   assertPrivate(malformedIssue);
   assert.deepEqual(await malformedIssue.json(), { error: "invalid" });
-  const malformedRevoke = await revoke(new Request("http://localhost", { method: "DELETE" }), {
+  const malformedRevoke = await revoke(teacherWriteRequest("DELETE"), {
     params: Promise.resolve({ classId: "class-1", studentId: "student-1", linkId: "%" })
   });
   assert.equal(malformedRevoke.status, 400);
@@ -260,7 +350,7 @@ test("teacher issue and revoke handlers enforce teacher-only exact targets and s
   assert.deepEqual(await malformedRevoke.json(), { error: "invalid" });
 
   rateLimit = blocked;
-  const limited = await issue(new Request("http://localhost", { method: "POST" }), issueContext);
+  const limited = await issue(teacherWriteRequest("POST"), issueContext);
   assert.equal(limited.status, 429);
   assert.equal(limited.headers.get("retry-after"), "17");
   assertPrivate(limited);

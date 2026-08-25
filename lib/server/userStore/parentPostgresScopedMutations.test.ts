@@ -1022,7 +1022,10 @@ test("idempotent reply collisions fail closed before a foreign entry reaches the
 
   const response = await handler(new Request(`http://localhost/api/parent/messages/${request.threadId}/reply`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      "X-MAIS-Expected-User-Id": "parent-1"
+    },
     body: JSON.stringify({ idempotencyKey: request.idempotencyKey, body: request.body })
   }), { params: Promise.resolve({ threadId: request.threadId }) });
   const responseBody = await response.json();
@@ -1091,7 +1094,10 @@ test("already-acknowledged recipient and notice collisions fail closed through t
       acknowledgeNotice: store.acknowledgeParentNotice
     });
     const response = await handler(
-      new Request("http://localhost/api/parent/notices/recipient-1/ack", { method: "POST" }),
+      new Request("http://localhost/api/parent/notices/recipient-1/ack", {
+        method: "POST",
+        headers: { "X-MAIS-Expected-User-Id": "parent-1" }
+      }),
       { params: Promise.resolve({ recipientId: "recipient-1" }) }
     );
     const body = await response.json();
@@ -1183,7 +1189,10 @@ async function verifyScopedTransactionTimeouts() {
 
   const response = await handler(new Request("http://localhost/api/parent/messages/thread-1/reply", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      "X-MAIS-Expected-User-Id": "parent-1"
+    },
     body: JSON.stringify({
       idempotencyKey: "timeout-reply-key-0001",
       body: "This must not be committed."

@@ -35,6 +35,13 @@ function toParentLocalizedText(value: LocalizedText): LocalizedText {
   };
 }
 
+function toParentDisplayNameSafe(value: string | null | undefined, fallback: string) {
+  if (typeof value !== "string") return fallback;
+  const normalized = value.trim();
+  if (!normalized || /^[^\s@]+@[^\s@]+$/.test(normalized)) return fallback;
+  return value;
+}
+
 function toParentRewardPointSummary(value: RewardPointSummary): RewardPointSummary {
   return {
     balance: value.balance,
@@ -132,7 +139,7 @@ function toParentReportPreviewSafe(value: TeacherReportPreview): ParentReportPre
     title: decoded.title,
     subtitle: decoded.subtitle,
     generatedAt: decoded.generatedAt,
-    subjectName: decoded.subjectName,
+    subjectName: toParentDisplayNameSafe(decoded.subjectName, "Student"),
     ...(decoded.classId !== undefined ? { classId: decoded.classId } : {}),
     ...(decoded.className !== undefined ? { className: decoded.className } : {}),
     ...(decoded.studentId !== undefined ? { studentId: decoded.studentId } : {}),
@@ -158,7 +165,7 @@ export function toParentReportSafe(value: TeacherReport): ParentReportSafe {
     ...(value.classId !== undefined ? { classId: value.classId } : {}),
     ...(value.studentId !== undefined ? { studentId: value.studentId } : {}),
     teacherId: value.generatedBy,
-    teacherName: value.generatedByName ?? "Teacher",
+    teacherName: toParentDisplayNameSafe(value.generatedByName, "Teacher"),
     generatedAt: value.generatedAt,
     summary: toParentLocalizedText(value.summary),
     ...(value.preview ? { preview: toParentReportPreviewSafe(value.preview) } : {})
@@ -169,7 +176,7 @@ export function toParentChildSummarySafe(value: ParentChildSummary): ParentChild
   return {
     student: {
       id: value.student.id,
-      name: value.student.name,
+      name: toParentDisplayNameSafe(value.student.name, "Student"),
       grade: value.student.grade
     },
     classes: value.classes.map((teacherClass) => ({
@@ -234,7 +241,7 @@ export function toParentGuardianLinkSafe(value: GuardianLink): ParentGuardianLin
   return {
     id: value.id,
     studentId: value.studentId,
-    studentName: value.studentName,
+    studentName: toParentDisplayNameSafe(value.studentName, "Student"),
     studentGrade: value.studentGrade,
     relationship: value.relationship,
     status: value.status,
@@ -247,7 +254,7 @@ export function toParentFoundationSafeData(value: ParentFoundationData): ParentF
   return {
     parent: {
       id: value.parent.id,
-      name: value.parent.name
+      name: toParentDisplayNameSafe(value.parent.name, "Parent")
     },
     children: value.children.map(toParentChildSummarySafe),
     selectedChild: value.selectedChild ? toParentChildSummarySafe(value.selectedChild) : null,
@@ -289,7 +296,7 @@ function toParentNoticeSafe(value: TeacherNotice): ParentNoticeSafe {
       id: recipient.id,
       noticeId: recipient.noticeId,
       studentId: recipient.studentId,
-      studentName: recipient.studentName,
+      studentName: toParentDisplayNameSafe(recipient.studentName, "Unknown student"),
       status: recipient.status,
       acknowledgedAt: recipient.acknowledgedAt,
       createdAt: recipient.createdAt
@@ -307,7 +314,7 @@ function toParentSafeTeacherDraftDto(value: ParentSafeTeacherDraft): ParentSafeT
     id: value.id,
     noticeId: value.noticeId,
     className: value.className,
-    teacherName: value.teacherName,
+    teacherName: toParentDisplayNameSafe(value.teacherName, "Teacher"),
     title: toParentLocalizedText(value.title),
     summary: toParentLocalizedText(value.summary),
     status: value.status,

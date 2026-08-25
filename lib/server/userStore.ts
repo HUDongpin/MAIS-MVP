@@ -7064,7 +7064,13 @@ export const postgresStorageCriticalReadinessCollections = [
   "teacher_notice_recipients"
 ] as const satisfies readonly (keyof Database)[];
 
-function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Database) {
+function databaseNeedsPersistenceSync(
+  parsed: Partial<Database>,
+  database: Database,
+  { allowGuardianInvitationSanitization = false }: {
+    allowGuardianInvitationSanitization?: boolean;
+  } = {}
+) {
   return (
     !Array.isArray(parsed.questions) ||
     !Array.isArray(parsed.auth_identities) ||
@@ -7075,7 +7081,8 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.provisioning_row_results) ||
     guardianInvitationRecordsNeedPersistenceSyncFromParentAccess(
       parsed.guardian_invitations,
-      database.guardian_invitations
+      database.guardian_invitations,
+      { allowSafeSanitization: allowGuardianInvitationSanitization }
     ) ||
     !Array.isArray(parsed.guardian_links) ||
     !Array.isArray(parsed.password_reset_tokens) ||
@@ -7191,7 +7198,7 @@ export function postgresStorageSnapshotContractIsComplete(value: unknown) {
   }
   try {
     const database = normalizeDatabase(parsed);
-    return !databaseNeedsPersistenceSync(parsed, database);
+    return !databaseNeedsPersistenceSync(parsed, database, { allowGuardianInvitationSanitization: true });
   } catch {
     return false;
   }
@@ -7543,6 +7550,17 @@ export const __userStorePostgresStorageReadinessTestHooks = {
   readCurrentSnapshot: async () => {
     await readPostgresDatabase();
     return true as const;
+  },
+  readGuardianInvitationProjection: async () => {
+    if (process.env.NODE_ENV !== "test") {
+      throw new Error("Guardian invitation projection is available only to integration tests.");
+    }
+    const database = await readPostgresDatabase();
+    return database.guardian_invitations.map((invitation) => ({
+      id: invitation.id,
+      studentId: invitation.student_id,
+      version: invitation.version
+    }));
   },
   reattestCurrentSnapshot: reattestCurrentPostgresStorageSnapshotForIntegrationTest,
   rewriteCurrentSnapshot: rewriteCurrentPostgresStorageSnapshotForIntegrationTest
@@ -13745,11 +13763,11 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
       const updatedTokenRows = await sql<Array<{ id: unknown }>>`
         UPDATE public.auth_password_reset_tokens
         SET used_at = ${usedAt}
-        WHERE id = ${resetToken.id}
+        WHERE user_id = ${resetToken.user_id}
           AND used_at IS NULL
         RETURNING id
       `;
-      if (updatedTokenRows.length !== 1 || updatedTokenRows[0]?.id !== resetToken.id) {
+      if (!updatedTokenRows.some((row) => row.id === resetToken.id)) {
         throw new Error("The password reset token could not be consumed.");
       }
       if (process.env.NODE_ENV === "test") {
@@ -13785,7 +13803,8 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
                 (
                   SELECT pg_catalog.jsonb_agg(
                     CASE
-                      WHEN token_record->>'id' = ${resetToken.id}
+                      WHEN token_record->>'user_id' = ${resetToken.user_id}
+                        AND COALESCE(token_record->>'used_at', '') = ''
                         THEN token_record || pg_catalog.jsonb_build_object('used_at', ${usedAt}::text)
                       ELSE token_record
                     END
