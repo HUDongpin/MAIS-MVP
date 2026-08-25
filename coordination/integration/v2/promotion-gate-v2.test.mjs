@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { execFile as execFileCallback } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { promisify } from "node:util";
 
 import {
   PromotionGateError,
@@ -21,6 +23,7 @@ import {
   PROMOTION_V2_REQUIRED_CHECK_IDS,
   attachV2ReceiptDigests,
   buildV2ShadowDtos,
+  collectV2BaselineProof,
   collectV2ExternalSideEffectProof,
   computeV2EvidenceSemanticDigest,
   evaluateV2AcceptedAnswer,
@@ -30,6 +33,8 @@ import {
   validateV2Evidence,
   validateV2Manifest
 } from "./promotion-gate-v2-lib.mjs";
+
+const execFile = promisify(execFileCallback);
 
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002";
@@ -231,6 +236,46 @@ test("source and forbidden-path snapshot drift fails closed", () => {
     () => assertSnapshotsEqual(before, after, "V2_FORBIDDEN_PATH_MUTATION"),
     (error) => error instanceof PromotionGateError && error.code === "V2_FORBIDDEN_PATH_MUTATION"
   );
+});
+
+test("baseline proof permits test-only drift and blocks runtime drift", async () => {
+  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-v2-baseline-fixture-"));
+  const git = (...args) => execFile("git", args, { cwd: fixtureRoot });
+  try {
+    await git("init", "--quiet");
+    await git("config", "user.name", "Promotion Gate Test");
+    await git("config", "user.email", "promotion-gate-test@example.invalid");
+    await mkdir(path.join(fixtureRoot, "data"));
+    await writeFile(path.join(fixtureRoot, "data/live.ts"), "export const live = 1;\n", { flag: "wx" });
+    await git("add", "--", "data/live.ts");
+    await git("commit", "--quiet", "-m", "baseline");
+    const { stdout: baselineStdout } = await git("rev-parse", "HEAD");
+    const targetBaselineCommit = baselineStdout.trim();
+
+    await writeFile(path.join(fixtureRoot, "data/live.test.ts"), "export const testOnly = true;\n", { flag: "wx" });
+    await git("add", "--", "data/live.test.ts");
+    await git("commit", "--quiet", "-m", "test-only");
+    const { stdout: testOnlyStdout } = await git("rev-parse", "HEAD");
+    const testOnlyProof = await collectV2BaselineProof(
+      fixtureRoot,
+      { targetBaselineCommit },
+      testOnlyStdout.trim()
+    );
+    assert.equal(testOnlyProof.observedChangedPathCount, 1);
+    assert.equal(testOnlyProof.allowedTestOnlyPathCount, 1);
+    assert.equal(testOnlyProof.runtimeChangedPathCount, 0);
+
+    await writeFile(path.join(fixtureRoot, "data/live.ts"), "export const live = 2;\n");
+    await git("add", "--", "data/live.ts");
+    await git("commit", "--quiet", "-m", "runtime-drift");
+    const { stdout: runtimeStdout } = await git("rev-parse", "HEAD");
+    await assert.rejects(
+      () => collectV2BaselineProof(fixtureRoot, { targetBaselineCommit }, runtimeStdout.trim()),
+      (error) => error instanceof PromotionGateError && error.code === "V2_TARGET_BASELINE_DRIFT"
+    );
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
 });
 
 test("CLI exposes only validate, shadow, and verify-receipt", () => {

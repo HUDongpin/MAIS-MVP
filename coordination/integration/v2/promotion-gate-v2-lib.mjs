@@ -19,6 +19,7 @@ import {
   assertSafeRepoRelativePath,
   assertSnapshotsEqual,
   auditCanonicalLegacyConflictUnion,
+  classifyRuntimeSurfacePath,
   fingerprint,
   inspectLegacyCandidateDocument,
   observeCanonicalRuntimePolicy,
@@ -954,7 +955,7 @@ export async function collectV2ProvenanceProof(repoRoot, manifest, candidate, ex
     sourceCommitIsAncestor: true,
     candidatePathCount: bindings.length,
     candidatePathDigest: fingerprint(bindings.map(({ path: bindingPath }) => bindingPath)),
-    candidateDigest: preflight.candidate.candidateDigest,
+    candidateDigest: candidate.candidateDigest,
     sourceBlobAggregateDigest: fingerprint(bindings)
   };
 }
@@ -969,11 +970,26 @@ export async function collectV2BaselineProof(repoRoot, manifest, executionCommit
     ...protectedPaths
   ]);
   const changedPaths = stdout.trim() === "" ? [] : stdout.trim().split("\n").sort(codePointCompare);
-  if (changedPaths.length > 0) {
+  const classifications = changedPaths.map((changedPath) => ({
+    path: changedPath,
+    classification: classifyRuntimeSurfacePath(changedPath)
+  }));
+  const allowedTestOnlyPaths = classifications
+    .filter(({ classification }) => classification === "test-code")
+    .map(({ path: changedPath }) => changedPath);
+  const runtimeChangedPaths = classifications
+    .filter(({ classification }) => classification !== "test-code")
+    .map(({ path: changedPath }) => changedPath);
+  if (runtimeChangedPaths.length > 0) {
     throw new PromotionGateError(
       "V2_TARGET_BASELINE_DRIFT",
       "Live/runtime paths changed after the evidence-bound target baseline.",
-      { changedPathCount: changedPaths.length, changedPathsDigest: fingerprint(changedPaths) },
+      {
+        changedPathCount: runtimeChangedPaths.length,
+        changedPathsDigest: fingerprint(runtimeChangedPaths),
+        allowedTestOnlyPathCount: allowedTestOnlyPaths.length,
+        allowedTestOnlyPathsDigest: fingerprint(allowedTestOnlyPaths)
+      },
       "blocked"
     );
   }
@@ -982,8 +998,12 @@ export async function collectV2BaselineProof(repoRoot, manifest, executionCommit
     targetBaselineCommit: manifest.targetBaselineCommit,
     executionCommit,
     protectedPaths,
-    changedPathCount: 0,
-    changedPathsDigest: fingerprint([])
+    observedChangedPathCount: changedPaths.length,
+    observedChangedPathsDigest: fingerprint(changedPaths),
+    allowedTestOnlyPathCount: allowedTestOnlyPaths.length,
+    allowedTestOnlyPathsDigest: fingerprint(allowedTestOnlyPaths),
+    runtimeChangedPathCount: 0,
+    runtimeChangedPathsDigest: fingerprint([])
   };
 }
 
