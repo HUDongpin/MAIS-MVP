@@ -348,6 +348,52 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   }
 });
 
+test("Promotion Shadow CI preserves failed receipts without masking the gate result", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const steps = workflow.jobs?.["promotion-shadow-gate"]?.steps;
+  assert.ok(Array.isArray(steps), "promotion-shadow-gate steps must exist");
+
+  const stepByName = new Map(steps.map((step) => [step.name, step]));
+  const failureArtifactStepNames = [
+    "Execute real pilot shadow",
+    "Replay real pilot shadow with a distinct run identity",
+    "Compare fresh, replay, and canonical semantic receipt digests",
+    "Verify fresh receipt",
+    "Verify replayed receipt",
+    "Verify canonical receipt",
+    "Assert receipt verification envelopes",
+    "Upload Promotion Shadow gate artifacts"
+  ];
+  for (const stepName of failureArtifactStepNames) {
+    const step = stepByName.get(stepName);
+    assert.ok(step, `Missing failure-artifact step: ${stepName}`);
+    assert.equal(step.if, "${{ always() }}", `${stepName} must run after an earlier nonzero result`);
+  }
+
+  const failClosedStepNames = [
+    "Validate real pilot, legacy 492-question ratchet, and selected-candidate live reachability",
+    ...failureArtifactStepNames.slice(0, -1)
+  ];
+  for (const stepName of failClosedStepNames) {
+    const step = stepByName.get(stepName);
+    assert.equal(
+      Object.hasOwn(step, "continue-on-error"),
+      false,
+      `${stepName} must leave a nonzero command visible to the job result`
+    );
+  }
+
+  const stepIndexes = failureArtifactStepNames.map((stepName) =>
+    steps.findIndex((step) => step.name === stepName)
+  );
+  assert.deepEqual(
+    stepIndexes,
+    [...stepIndexes].sort((left, right) => left - right),
+    "failed receipt generation, comparison, verification, and upload must remain ordered"
+  );
+});
+
 test("Promotion Shadow receipt verification reports execute fail closed for exact receipt bindings", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));

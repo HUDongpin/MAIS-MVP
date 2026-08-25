@@ -117,12 +117,15 @@ jobs:
           ' "$PROMOTION_VALIDATION_REPORT" "$PROMOTION_MANIFEST"
 
       - name: Execute real pilot shadow
+        if: ${{ always() }}
         run: npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_RUN_ID" --json > "$PROMOTION_FRESH_RECEIPT"
 
       - name: Replay real pilot shadow with a distinct run identity
+        if: ${{ always() }}
         run: npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_REPLAY_RUN_ID" --json > "$PROMOTION_REPLAY_RECEIPT"
 
       - name: Compare fresh, replay, and canonical semantic receipt digests
+        if: ${{ always() }}
         run: |
           node --input-type=module -e '
             import { readFileSync } from "node:fs";

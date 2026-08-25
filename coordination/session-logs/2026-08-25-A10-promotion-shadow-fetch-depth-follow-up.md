@@ -12,6 +12,7 @@
 - Expected closeout date: `2026-08-25` Asia/Hong_Kong.
 - Declared write scope:
   - `.github/workflows/promotion-shadow.yml`
+  - `scripts/release-governance.test.mjs`
   - `coordination/session-logs/2026-08-25-A10-promotion-shadow-fetch-depth-follow-up.md`
 
 ## Problem and evidence boundary
@@ -48,7 +49,7 @@ The same assertion separately forbids a checkout `ref` override and a `persist-c
 - Parse every shell block with `bash -n`.
 - Run the focused Promotion Shadow governance tests and the full release-governance suite.
 - Run type-check and the release package gate.
-- Confirm the baseline-to-HEAD delta contains exactly the workflow and this log.
+- Confirm the baseline-to-HEAD delta contains exactly the workflow, its governance test, and this log.
 
 Passing local YAML, shell, governance, type, and package checks will prove only the branch-level configuration contract. It will not prove GitHub's synthetic merge checkout, a real `promotion-shadow-gate` run, required-check enforcement, branch protection, deployment, or live behavior. Those require the later composition PR and GitHub run evidence.
 
@@ -82,3 +83,28 @@ These are local branch checks against the edited source. No GitHub Actions run, 
 - [x] Exact checkout delta preserves PR ref and credential semantics.
 - [x] GREEN YAML, shell, focused/full governance, type-check, and package-gate checks passed locally.
 - [ ] Record GREEN tests, exact commit, upstream, and final clean status in the parent handoff.
+
+## Failure-artifact continuation follow-up
+
+The real pilot is expected to fail closed while unauthorized historical candidate/live drift remains. A nonzero validation step previously caused GitHub Actions to skip both Shadow runs and the semantic comparison, so the red gate did not retain the two raw fail/blocked Receipts needed for independent diagnosis and replay.
+
+This follow-up adds `if: ${{ always() }}` to exactly these existing steps:
+
+- `Execute real pilot shadow`
+- `Replay real pilot shadow with a distinct run identity`
+- `Compare fresh, replay, and canonical semantic receipt digests`
+
+The fresh/replay/canonical verifier steps, their assertion, and artifact upload already used `always()` and remain unchanged. No step uses `continue-on-error`; validation, either Shadow command, semantic mismatch, or verifier failure therefore remains visible as a nonzero `promotion-shadow-gate` result. The change preserves diagnostic artifacts without converting a failed or blocked gate into a pass.
+
+TDD evidence:
+
+- RED: the new focused governance assertion failed with `Execute real pilot shadow must run after an earlier nonzero result`, observing `if` as `undefined`.
+- Initial GREEN: after adding the three conditions, the focused failure-artifact assertion passed `1/1`.
+- Final focused Promotion Shadow suite passed `5/5`; parsed workflow structure remained 14 steps and 11 shell blocks, with all shell blocks passing `bash -n`.
+- Full `scripts/release-governance.test.mjs` suite passed `89/89` with zero failures.
+- Exact commit, upstream, and final clean-status evidence are recorded in the parent handoff after Git closeout.
+
+Evidence boundary:
+
+- This proves the machine-checked workflow control-flow contract locally: failure-path generation, comparison, verification, and upload steps are ordered and use `always()`, while all gate-result-producing steps lack `continue-on-error`.
+- It does not prove a GitHub Actions execution, artifact availability from a hosted runner, branch-protection enforcement, Shadow maturity, deployment, or live behavior.
