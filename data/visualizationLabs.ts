@@ -425,8 +425,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "p5-volume": {
     en: "unit cubes = volume",
-    zh: "單位正方體 = 體積",
-    zhHans: "单位正方体 = 体积"
+    zh: "單位立方體 = 體積",
+    zhHans: "单位立方体 = 体积"
   },
   "p6-pre-secondary-problem-solving": {
     en: "diagram -> table -> check",
@@ -870,8 +870,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "us-ca-math-p5-5-md-volume-data": {
     en: "unit cubes -> volume data",
-    zh: "單位正方體 -> 體積數據",
-    zhHans: "单位正方体 -> 体积数据"
+    zh: "單位立方體 -> 體積數據",
+    zhHans: "单位立方体 -> 体积数据"
   },
   "us-ca-math-s5-chapter-02": {
     en: "exponential <-> logarithmic model",
@@ -1160,8 +1160,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "hjb-primary-p5-lower-cuboid-cube": {
     en: "unit cubes -> cuboid volume",
-    zh: "單位正方體 -> 長方體體積",
-    zhHans: "单位正方体 -> 长方体体积"
+    zh: "單位立方體 -> 長方體體積",
+    zhHans: "单位立方体 -> 长方体体积"
   },
   "hjb-primary-p6-lower-cylinder-cone": {
     en: "cylinder volume -> cone volume",
@@ -1305,18 +1305,18 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "us-ar-math-g3-gm-8": {
     en: "unit cubes -> volume estimate",
-    zh: "單位正方體 -> 體積估計",
-    zhHans: "单位正方体 -> 体积估计"
+    zh: "單位立方體 -> 體積估計",
+    zhHans: "单位立方体 -> 体积估计"
   },
   "us-ar-math-g3-gm-9": {
     en: "unit cubes -> volume problem",
-    zh: "單位正方體 -> 體積問題",
-    zhHans: "单位正方体 -> 体积问题"
+    zh: "單位立方體 -> 體積問題",
+    zhHans: "单位立方体 -> 体积问题"
   },
   "us-ar-math-g5-gm-3": {
     en: "unit cubes = volume",
-    zh: "單位正方體 = 體積",
-    zhHans: "单位正方体 = 体积"
+    zh: "單位立方體 = 體積",
+    zhHans: "单位立方体 = 体积"
   },
   "us-ar-math-g5-gm-4": {
     en: "length x width x height = volume",
