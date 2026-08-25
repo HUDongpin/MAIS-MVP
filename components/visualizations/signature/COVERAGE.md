@@ -136,6 +136,16 @@ met, and the coverage figure overstates what learners actually see.
 demonstrably teaches; a near-miss tag re-creates exactly the paper coverage that
 audit exposed. That judgement is the part no tool can check for you.
 
+The same rule applies to **upstream tags in `labs.json`** — they are not all
+trustworthy. The 2026-08-25 alignment audit (every primary's lesson read against
+the official standard text, adversarially verified; record in
+`coordination/content-qa/2026-08-25-ca-curriculum-alignment-audit.md`) found ten
+upstream paper tags (e.g. PositionLab `1.G.A.1`, FractionAdditionLab `5.NF.A.1`,
+TwoDigitNumberLab `2.NBT.A.1`, CommutativeLab `7.EE.A.1`, ExpectedValueLab
+`S-MD.A.4`) and re-anchored 12 topics onto primaries whose lessons actually
+teach the topic's standards — each swap's rationale in
+`data/signatureLabAssignments.ts` names the evidence.
+
 When a bench already has an entry, **extend it rather than adding a second key** —
 in JavaScript the later key would win and the first tag would be lost. This is not
 a silent failure: `tsc` rejects it as `TS1117 — An object literal cannot have

@@ -50,10 +50,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on K.CC.4, K.CC.5, K.CC.6, K.CC.7. 2 benches share these standards; CountingLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-k-k-oa-compose-decompose": {
-    primary: "SubtractionLab",
-    related: ["NumberBondLab", "StoryProblemLab"],
+    primary: "NumberBondLab",
+    related: ["SubtractionLab", "StoryProblemLab"],
     rationale:
-      "CCSS join on K.OA.1, K.OA.2, K.OA.3, K.OA.4, K.OA.5. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs. StoryProblemLab was ported on 2026-07-25 and is the only bench that turns a word problem into the number sentence — K.OA.2's own subject."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): NumberBondLab's K.OA.3/K.OA.4 decomposition work is this Compose-and-Decompose topic's namesake subject, so it anchors; SubtractionLab (K.OA.1's take-away half) moves to related. SubtractionLab's upstream K.OA.2 tag is paper coverage — its lesson has no word problems; StoryProblemLab is the bench that turns a word problem into the number sentence. Original CCSS join: K.OA.1-5."
   },
   "us-ca-math-k-k-nbt-teen-numbers": {
     primary: "TeenNumbersLab",
@@ -92,10 +92,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 1.MD.1, 1.MD.2, 1.MD.3, 1.MD.4. 2 benches share these standards; LengthComparisonLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p1-1-g-shape-reasoning": {
-    primary: "PositionLab",
-    related: ["ShapesLab", "ComposingShapesLab", "EqualSharesLab"],
+    primary: "ShapesLab",
+    related: ["ComposingShapesLab", "EqualSharesLab"],
     rationale:
-      "CCSS join on 1.G.1, 1.G.2, 1.G.3. 4 benches share these standards; PositionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): PositionLab teaches only K.G.1 relative-position words (its own header assigns the 1.G.A.1 name/attribute function to ShapesLab), so its upstream 1.G.1 tag is paper coverage a full grade below this topic; it is detached. ShapesLab (defining attributes and shape names, 1.G.1) anchors; ComposingShapesLab carries 1.G.2 and EqualSharesLab 1.G.3. Original CCSS join: 1.G.1-3."
   },
   "us-ca-math-p2-2-oa-fluency-arrays": {
     primary: "OddEvenLab",
@@ -104,10 +104,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 2.OA.1, 2.OA.2, 2.OA.3, 2.OA.4. 1 bench share this standard; OddEvenLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p2-2-nbt-three-digit-place-value": {
-    primary: "TwoDigitNumberLab",
-    related: ["ComparingLab", "PlaceValueStrategiesLab", "RegroupingSubtractionLab", "PlaceJumpLab", "MultiplesLab"],
+    primary: "ComparingLab",
+    related: ["TwoDigitNumberLab", "PlaceValueStrategiesLab", "RegroupingSubtractionLab", "PlaceJumpLab", "MultiplesLab"],
     rationale:
-      "CCSS join on 2.NBT.1, 2.NBT.2, 2.NBT.3, 2.NBT.4, 2.NBT.5, 2.NBT.6, 2.NBT.7, 2.NBT.8, 2.NBT.9. 4 benches share these standards; TwoDigitNumberLab anchors the topic (fan-out) and the rest are offered as related labs. PlaceJumpLab was ported on 2026-07-25 and is the only bench for 2.NBT.8 — mentally add or subtract 10 or 100, including the cascade at the nines."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): TwoDigitNumberLab is hard-capped at 0-99 (its header pitches 1.NBT.2), so its upstream 2.NBT.1 tag is paper coverage on a THREE-digit chapter; it moves to related as the bundling on-ramp. ComparingLab anchors instead: its hundreds/tens/ones digit dials over 0-999 are the three-digit register this chapter names, and compare-by-place is 2.NBT.4 directly. PlaceJumpLab remains the only bench for 2.NBT.8 (±10/±100 with the cascade at the nines). Original CCSS join: 2.NBT.1-9."
   },
   "us-ca-math-p2-2-md-measure-data-money-time": {
     primary: "MeasurementLab",
@@ -176,10 +176,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 4.MD.1, 4.MD.2, 4.MD.3, 4.MD.4, 4.MD.5, 4.MD.6, 4.MD.7. 4 benches share these standards; UnitConversionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p4-4-g-lines-shapes": {
-    primary: "AngleTurnLab",
-    related: ["AngleLab", "LinesRaysSegmentsLab", "SymmetryLab"],
+    primary: "LinesRaysSegmentsLab",
+    related: ["AngleTurnLab", "AngleLab", "SymmetryLab"],
     rationale:
-      "CCSS join on 4.G.1, 4.G.2, 4.G.3. 4 benches share these standards; AngleTurnLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): AngleTurnLab's seven steps all teach 4.MD.C angle MEASURE (degrees as 1/360 turn, additivity, protractor), not 4.G.1; LinesRaysSegmentsLab is the 4.G.A.1-native bench (points, lines, rays, segments, parallel/perpendicular, right/acute/obtuse names) and anchors. AngleTurnLab and AngleLab stay related for the angle strand; SymmetryLab carries 4.G.3. Original CCSS join: 4.G.1-3."
   },
   "us-ca-math-p5-5-oa-expressions-patterns": {
     primary: "OperationsLab",
@@ -194,10 +194,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 5.NBT.1, 5.NBT.2, 5.NBT.3, 5.NBT.4, 5.NBT.5, 5.NBT.6, 5.NBT.7. 5 benches share these standards; DecimalLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p5-5-nf-operations": {
-    primary: "FractionAdditionLab",
-    related: ["UnlikeDenominatorsLab", "FractionAsDivisionLab", "UnitFractionDivisionLab", "FractionMultiplicationLab", "DilationsLab", "ScalingLab"],
+    primary: "UnlikeDenominatorsLab",
+    related: ["FractionAdditionLab", "FractionAsDivisionLab", "UnitFractionDivisionLab", "FractionMultiplicationLab", "DilationsLab", "ScalingLab"],
     rationale:
-      "CCSS join on 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4, 5.NF.5, 5.NF.6, 5.NF.7. 7 benches share these standards; FractionAdditionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): FractionAdditionLab is by its own header a GRADE 4 like-denominator lab (4.NF.B.3) that deliberately never utters common denominator, so its upstream 5.NF.1 tag is paper coverage; UnlikeDenominatorsLab owns the re-cut that makes unlike pieces addable (5.NF.1, 5.NF.2) and anchors this grade-5 chapter. FractionAdditionLab stays related as the like-denominator on-ramp. Original CCSS join: 5.NF.1-7."
   },
   "us-ca-math-p5-5-md-volume-data": {
     primary: "UnitConversionLab",
@@ -212,10 +212,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 5.G.1, 5.G.2, 5.G.3, 5.G.4. PointLab anchors on the coordinate half (5.G.1/5.G.2). QuadrilateralLab was tagged 5.G.3/5.G.4 on 2026-07-25: its 'quadrilateral family' step IS the shape hierarchy the two classification standards ask for, and nothing on this topic had claimed them."
   },
   "us-ca-math-p1-1-h1-picture-join-stories-to-10": {
-    primary: "SubtractionLab",
-    related: ["AddLab", "NumberBondLab"],
+    primary: "AddLab",
+    related: ["SubtractionLab", "NumberBondLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.5, 1.OA.6. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): the topic is a JOIN knowledge point (join two groups, find the total ≤ 10) and AddLab's joined-rods/count-on model is exactly that action (1.OA.1, 1.OA.5's count-on half); SubtractionLab's take-away model moves to related for the inverse connection. Original CCSS join: 1.OA.1, 1.OA.5, 1.OA.6."
   },
   "us-ca-math-p1-1-h2-picture-story-addition-equations": {
     primary: "EqualSignLab",
@@ -224,10 +224,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 1.OA.1, 1.OA.7, 1.OA.8. 2 benches share these standards; EqualSignLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p1-1-h3-cube-train-join-models-to-10": {
-    primary: "SubtractionLab",
-    related: ["AddLab", "NumberBondLab"],
+    primary: "AddLab",
+    related: ["SubtractionLab", "NumberBondLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.5, 1.OA.6. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): a cube-train JOIN model with the total unknown is composition, which AddLab's joined-rods/count-on centerpiece teaches directly (1.OA.1, 1.OA.5); SubtractionLab's take-away model moves to related. Original CCSS join: 1.OA.1, 1.OA.5, 1.OA.6."
   },
   "us-ca-math-p1-1-h4-join-stories-within-10": {
     primary: "NumberBondLab",
@@ -236,10 +236,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 1.OA.1, 1.OA.6. 3 benches share these standards; NumberBondLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p1-1-h5-model-equation-join-stories-to-10": {
-    primary: "SubtractionLab",
-    related: ["AddLab", "EqualSignLab"],
+    primary: "AddLab",
+    related: ["SubtractionLab", "EqualSignLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.5, 1.OA.7. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): the topic asks for a JOINING story represented with a model and an ADDITION equation; AddLab models exactly that (1.OA.1), with EqualSignLab carrying 1.OA.7. SubtractionLab (take-away, count-back) moves to related for the inverse/count-back connection. Original CCSS join: 1.OA.1, 1.OA.5, 1.OA.7."
   },
   "us-ca-math-p1-1-h6-equation-match-join-stories-to-10": {
     primary: "EqualSignLab",
@@ -320,16 +320,16 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 7.RP.1, 7.RP.2, 7.RP.3. 2 benches share these standards; ProportionalLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s1-chapter-02": {
-    primary: "AbsoluteValueLab",
-    related: ["SignedAdditionLab", "RationalNumbersLab", "SignedNumbersLab"],
+    primary: "SignedAdditionLab",
+    related: ["AbsoluteValueLab", "RationalNumbersLab", "SignedNumbersLab"],
     rationale:
-      "CCSS join on 7.NS.1, 7.NS.2, 7.NS.3. 4 benches share these standards; AbsoluteValueLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): AbsoluteValueLab's central model is the Algebra-1 function y=|mx+b| (its header files it under HS F-BF/F-IF), the wrong register for a grade-7 rational-number-operations chapter; SignedAdditionLab is anchored on 7.NS.A.1 directly (signed numbers as directed arrows, tip-to-tail addition, p+(−p)=0, p−q=p+(−q)) and anchors. AbsoluteValueLab stays related for the |p−q| distance connection. Original CCSS join: 7.NS.1-3."
   },
   "us-ca-math-s1-chapter-03": {
-    primary: "CommutativeLab",
-    related: ["DistributiveLab", "FormulaLab", "InequalityLab", "LikeTermsLab"],
+    primary: "DistributiveLab",
+    related: ["CommutativeLab", "FormulaLab", "InequalityLab", "LikeTermsLab"],
     rationale:
-      "CCSS join on 7.EE.1, 7.EE.2, 7.EE.3, 7.EE.4. 5 benches share these standards; CommutativeLab anchors the topic (fan-out) and the rest are offered as related labs. LikeTermsLab was joined by 7.EE.2 but omitted from this list until 2026-07-25, leaving 7.EE.2 with no bench."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): CommutativeLab's lesson is numeric operation tables and times-table fact pairs (1.OA.3/3.OA.5 register; its header files 7.EE.1 as later pay-off), so it must not anchor a grade-7 Linear Expressions chapter; DistributiveLab teaches expand/factor of linear expressions (3(x+2)=3x+6; 6.EE.3/7.EE.1) and anchors. LikeTermsLab carries 7.EE.2 (kept since 2026-07-25). Original CCSS join: 7.EE.1-4."
   },
   "us-ca-math-s1-chapter-04": {
     primary: "ScaleDrawingLab",
@@ -452,10 +452,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on F-TF.1, F-TF.2, F-TF.3, F-TF.4, F-TF.5, F-TF.6, F-TF.7, F-TF.8, F-TF.9. 9 benches share these standards; UnitCircleLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s5-chapter-04": {
-    primary: "BoxPlotLab",
-    related: ["HistogramLab", "StandardDeviationLab", "VarianceLab", "NormalDistributionLab", "TableLab", "BestFitLab", "CorrelationLab", "LurkingVariableLab"],
+    primary: "BestFitLab",
+    related: ["BoxPlotLab", "HistogramLab", "StandardDeviationLab", "VarianceLab", "NormalDistributionLab", "TableLab", "CorrelationLab", "LurkingVariableLab"],
     rationale:
-      "CCSS join on S-ID.1, S-ID.2, S-ID.3, S-ID.4, S-ID.5, S-ID.6, S-ID.7, S-ID.8, S-ID.9. 9 benches share these standards; BoxPlotLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): this chapter is 11-D.1 Data Modeling and Residuals, and BestFitLab is the bench that fits a model to data and reads residuals (S-ID.6, S-ID.7 — its header names S-ID.B.6b-c); BoxPlotLab's single-variable distribution work (S-ID.1-3) anchors the S3 statistics chapter and moves to related here. Original CCSS join: S-ID.1-9."
   },
   "us-ca-math-s5-chapter-05": {
     primary: "SamplingLab",
@@ -488,10 +488,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on F-IF.1, F-IF.2, F-IF.3, F-IF.4, F-IF.5, F-IF.6, F-IF.7, F-IF.8, F-IF.9. 9 benches share these standards; FunctionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s6-chapter-05": {
-    primary: "CompareFunctionsLab",
-    related: ["BestFitLab", "FormulaLab", "FunctionLab", "GraphStoryLab", "OptimizationLab"],
+    primary: "BestFitLab",
+    related: ["CompareFunctionsLab", "FormulaLab", "FunctionLab", "GraphStoryLab", "OptimizationLab"],
     rationale:
-      "Modeling (CCSS star category). CompareFunctionsLab is model selection — choosing the function family that best fits the situation, the INTERPRET step of the modeling cycle; fit, formula, and optimisation benches are related."
+      "Realigned 2026-08-25 (California alignment audit, PR #143): CompareFunctionsLab declares itself a GRADE 8 lab (8.F.A.2, extended by F-IF.9), too low a register to anchor a grade-12 Modeling capstone by default; BestFitLab (fit a model to data, judge the fit — the FORMULATE/VALIDATE steps of the modeling cycle, S-ID.B.6) anchors instead, with CompareFunctionsLab's model-selection step one chip away. Modeling (CCSS star category) join retained."
   },
 };
 

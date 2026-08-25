@@ -16,6 +16,7 @@
 | 2b — Claude 3D benches | Open | One `claude/bench-3d-*` branch per concept (G-GMD solids, 3D distance, N-VM vectors), per §3 Phase 2 step 2. |
 | 3 — gap benches | Open | Priority order per §3 Phase 3: G-GMD.2 Cavalieri, N-CN.8, study-design cluster, grade-3 fluency set. Each its own `claude/bench-*` branch with a mutation-tested audit. |
 | 4 — truthfulness & teardown | **Done** (this branch) | Safeguard/student-note copy now describes the bench where one renders; lesson block copy names the bench; COVERAGE.md surface map updated. Left in place pending A06-lane confirmation: `generated/premiumThreeDDirectCatalog.generated.ts` (orphaned — no importers, generator script absent) and `usesAuditedTwoDimensionalValueRenderer`'s dead s6-ch04 special case. |
+| Post-plan verification (2026-08-25) | **Done** | Math verification (all 192 audits + 44 edited-bench diff review; 3 defects fixed) and curriculum-alignment audit (all 76 primaries deep-read + adversarially verified; **12 primaries re-anchored** — Appendix A's primary column is superseded for those rows by `data/signatureLabAssignments.ts`). Records: `coordination/content-qa/2026-08-25-*`. |
 
 ---
 
