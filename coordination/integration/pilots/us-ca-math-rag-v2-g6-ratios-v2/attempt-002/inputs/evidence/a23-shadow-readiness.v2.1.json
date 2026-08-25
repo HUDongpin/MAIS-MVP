@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a23-us-ca-g6-ratios-v2-shadow-readiness-baseline-c689",
+  "role": "A23",
+  "result": "pass",
+  "producedAt": "2026-08-26T16:45:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a23-shadow-readiness.v2",
+    "currentState": "candidate_hold",
+    "authorizedState": "shadow_ready",
+    "requestedRunTransition": "shadow_ready-to-shadow_passed",
+    "candidatePackageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+    "candidateVersion": "2.0.0-shadow.1",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryPath": "coordination/integration/v2/legacy-resolution-registry.v2.json",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "legacyResolutionCount": 18,
+    "approvedProjectionCount": 3,
+    "dereachedCount": 15,
+    "activeLegacyExceptionCount": 0,
+    "canonicalLegacyAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+    "runtimePolicyDigest": "99fd38d7f75ec6803d5e8292736fc02622327a65c88c7242292d220bea8b8246",
+    "selectedCandidateLiveHitCount": 0,
+    "unresolvedDynamicImportCount": 0,
+    "unknownLiveRegistryCount": 0,
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.1",
+      "bundleDigest": "bb05687eb4edd5abb25828664089a80a44ab99a4382593e2d816247d039ae641",
+      "releaseCommit": "2840acc2f8141187995a702f5e708b097fa9d73b",
+      "ledgerRawSha256": "acc3f66eb6de474f5ecf096e24104ea629169c5ca4dac23708efd2a01898d0ff"
+    },
+    "ciImplementation": {
+      "workflow": ".github/workflows/promotion-shadow.yml",
+      "reviewedCommit": "39dfac63b780f3154a38f7e4dd16df695b0e14d6",
+      "currentHeadValidationRequired": true,
+      "canonicalExecutionReplayRequired": true,
+      "requiredCheckConfiguredInRepository": true,
+      "branchProtectionEnforced": false,
+      "mainPostMergeProofPresent": false
+    },
+    "parentPackageStatus": "candidate-only",
+    "maturityClaim": "not-mature-before-real-shadow-replay-and-enforcement",
+    "liveAllowed": false
+  }
+}
