@@ -289,6 +289,7 @@ export default function PositionLab() {
 
     const INK = '#1c2b3a';
     const CARM = '#c81e4f';
+    const BALL_EDGE = '#07131f';
     const STEP = Math.min(W, H) * 0.19;        // one grid step, in pixels
     const cx = W / 2, cy = H / 2 + STEP * 0.25;
     const px = (o) => [cx + o.x * STEP, cy - o.y * STEP];
@@ -347,8 +348,8 @@ export default function PositionLab() {
       ctx.arc(x, y, STEP * 0.32, 0, Math.PI * 2);
       ctx.fillStyle = CARM;
       ctx.fill();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = INK;
+      ctx.lineWidth = 3.2;
+      ctx.strokeStyle = BALL_EDGE;
       ctx.stroke();
       // a soft highlight so it reads as a ball, not a disc
       ctx.beginPath();
@@ -611,7 +612,10 @@ export default function PositionLab() {
           transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
         }
         .btn.ghost { background: transparent; color: var(--ink); }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn:disabled {
+          opacity: 1; cursor: not-allowed; border-color: #a8b3bd;
+          background: #e4e8eb; color: #334250;
+        }
         .btn:not(:disabled):hover { filter: brightness(1.08); }
         .tutor { padding: 18px 20px 20px; }
         .progress { display: flex; gap: 6px; margin-bottom: 14px; }
@@ -625,7 +629,7 @@ export default function PositionLab() {
         }
         .body { margin: 0 0 16px; font-size: 15px; }
         .dial { display: grid; gap: 3px; margin-bottom: 6px; }
-        .dial.locked { opacity: 0.5; }
+        .dial.locked { opacity: 1; }
         .drole { font-size: 11px; color: var(--ink-soft); }
         .dial input[type='range'] { width: 100%; accent-color: var(--curve); cursor: pointer; }
         .dial input[type='range']:disabled { cursor: not-allowed; }
@@ -645,7 +649,10 @@ export default function PositionLab() {
         .choice.correct .mark { color: var(--ok); }
         .choice.wrong { border-color: var(--ink-soft); background: rgba(91, 107, 123, 0.08); }
         .choice.wrong .mark { color: var(--ink-soft); }
-        .choice.dim { opacity: 0.55; }
+        .choice.dim {
+          opacity: 1; border-color: #a8b3bd;
+          background: #f1f3f4; color: #445565;
+        }
         .choice:disabled { cursor: default; }
         .feedback {
           margin: 12px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--ink);

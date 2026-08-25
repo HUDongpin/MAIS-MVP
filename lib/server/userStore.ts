@@ -83,7 +83,10 @@ import {
 } from "@/lib/server/llmProvider";
 import {
   evaluateAiCapabilityRateLimit,
-  mergeClassAiTutorPoliciesByStrictest,
+  maxClassAiTutorPerStudentHourLimit,
+  maxClassAiTutorPerStudentMinuteLimit,
+  minClassAiTutorPerStudentHourLimit,
+  minClassAiTutorPerStudentMinuteLimit,
   type AiCapability,
   type AiCapabilityRateLimitDecision,
   type AiCapabilityRateLimitRule,
@@ -113,13 +116,10 @@ import {
   aiTutorRecentMistakeContextLines as tutorRecentMistakeContextLinesFromAiGovernancePersistence,
   aiTutorRecentTutorMessageContextLines as tutorRecentTutorMessageContextLinesFromAiGovernancePersistence,
   aiGovernanceTeacherReviewQueueForPilot as teacherReviewQueueForPilotFromAiGovernancePersistence,
-  classAiTutorPolicyRecordToPublic as classAiTutorPolicyRecordToPublicFromAiGovernancePersistence,
   createAiGovernancePilotPlatformLoopDataBuilder as pilotPlatformLoopDataBuilderFromAiGovernancePersistence,
   createAiGovernancePersistenceStore,
-  defaultClassAiTutorPolicyRecord as defaultClassAiTutorPolicyRecordFromAiGovernancePersistence,
   mergeAiTutorScopeContextResult as mergeAiTutorScopeContextResultFromAiGovernancePersistence,
   normalizeClassAiTutorPolicyRecords as normalizeClassAiTutorPolicyRecordsFromAiGovernancePersistence,
-  normalizeClassAiTutorPolicyRecord as normalizeClassAiTutorPolicyRecordFromAiGovernancePersistence,
   normalizeAiGovernanceAdaptiveRecommendationCacheRecords as normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence,
   normalizeAiGovernanceEventRecords as normalizeAiGovernanceEventRecordsFromPersistence,
   normalizeAiGovernanceTutorMessageRecords as normalizeTutorMessageRecordsFromAiGovernancePersistence,
@@ -127,6 +127,8 @@ import {
   type AITutorDatabaseContextOptions,
   type AITutorDatabaseContextResult,
   type AITutorDataScope,
+  type AITutorMessageRecord as AiGovernanceTutorMessageRecord,
+  type AITutorUsageRecord as AiGovernanceTutorUsageRecord,
   type ClassAiTutorPolicyRecord,
   type AiGovernancePersistenceDatabase
 } from "@/lib/server/userStore/aiGovernancePersistence";
@@ -191,6 +193,20 @@ import {
   runCancellableAuthAdmissionQuery,
   type AuthAdmissionJoinedRow
 } from "@/lib/server/userStore/authAdmissionPersistence";
+import {
+  runCancellableAiTutorAdmissionQuery,
+  runAiTutorPolicyAdmissionQuery,
+  type AiTutorPolicyAdmissionRow
+} from "@/lib/server/userStore/aiTutorPolicyAdmissionPersistence";
+import {
+  aiTutorJournalRecordsFromValue,
+  createAiTutorPersistenceLane,
+  mergeAiTutorJournalRecords
+} from "@/lib/server/userStore/aiTutorJournalPersistence";
+import {
+  createAiTutorAdmissionConnectionPrimer,
+  runAbortBoundedAiTutorPostgresOperation
+} from "@/lib/server/userStore/aiTutorAdmissionConnectionPrimer";
 import {
   addAuthSchoolMembershipRecord as addSchoolMembershipFromAuthProvisioning,
   createAuthProvisioningPersistenceStore,
@@ -1904,6 +1920,14 @@ const configuredPostgresMaxConnections = Number.parseInt(process.env.POSTGRES_MA
 const postgresMaxConnections = Number.isFinite(configuredPostgresMaxConnections)
   ? Math.min(10, Math.max(1, configuredPostgresMaxConnections))
   : 2;
+const postgresGeneralMaxConnections = Math.min(postgresMaxConnections, 2);
+// General (including one serialized journal writer) + isolated auth, policy, and
+// rate admission connections. Governance handshake priming warms those existing
+// one-slot pools and does not add another persistent connection.
+const aiTutorPostgresWarmConnectionBudget = postgresGeneralMaxConnections + 3;
+if (aiTutorPostgresWarmConnectionBudget > 5) {
+  throw new Error("AI Tutor Postgres warm connection budget exceeds the reviewed maximum.");
+}
 const dbDirectory = configuredDbPath
   ? path.dirname(configuredDbPath)
   : path.resolve(process.env.HK_MATH_DB_DIR ?? defaultDbDirectory());
@@ -1914,7 +1938,7 @@ const stateTenantId = "platform";
 const stateKind = "app-snapshot";
 const schemaVersion = 1;
 // Increment whenever any SQL in bootstrapPostgresStateTables changes.
-const hotAuthSchemaVersion = 2;
+const hotAuthSchemaVersion = 3;
 const hotAuthTableNames = [
   "auth_users",
   "auth_student_profiles",
@@ -1936,11 +1960,14 @@ const postgresProjectionTableNames = [
   "projection_school_memberships",
   "projection_teacher_classes",
   "projection_class_enrollments",
+  "projection_class_ai_tutor_policies",
   "projection_assignments",
   "projection_submissions",
   "projection_assignment_teacher_reviews",
   "projection_teacher_messages",
   "projection_ai_tutor_messages",
+  "ai_tutor_message_journal",
+  "ai_tutor_usage_journal",
   "projection_reward_point_ledger",
   "projection_reward_redemptions",
   "projection_gamification_events"
@@ -2822,6 +2849,8 @@ function hasCoreTables(value: unknown): value is Partial<Database> {
 }
 
 type StateRow = {
+  ai_tutor_message_records?: unknown;
+  ai_tutor_usage_records?: unknown;
   payload: unknown;
   updated_at?: unknown;
   tenant_id?: unknown;
@@ -2834,7 +2863,12 @@ type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
 let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
 let aiTutorAuthAdmissionPostgresClient: postgres.Sql | null = null;
+let aiTutorPolicyAdmissionPostgresClient: postgres.Sql | null = null;
+let aiTutorRateAdmissionPostgresClient: postgres.Sql | null = null;
 const aiTutorAuthAdmissionSlot = createAbortableAuthAdmissionSlot();
+const aiTutorPolicyAdmissionSlot = createAbortableAuthAdmissionSlot();
+const aiTutorRateAdmissionSlot = createAbortableAuthAdmissionSlot();
+const aiTutorPersistenceLane = createAiTutorPersistenceLane();
 let sqliteReadCache: Database | null = null;
 let sqliteReadCacheUpdatedAt: string | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
@@ -3037,7 +3071,7 @@ function getPostgresClient() {
   // is required in that mode (transaction pooling does not support prepared statements) and a
   // small `max` keeps each instance within the pooler's per-connection budget.
   postgresClient = postgres(postgresUrl, {
-    max: postgresMaxConnections,
+    max: postgresGeneralMaxConnections,
     idle_timeout: 20,
     connect_timeout: 10,
     prepare: false
@@ -3063,7 +3097,9 @@ async function hasCurrentPostgresSchemaMarker() {
 
 async function bootstrapPostgresStateTables() {
   const sql = getPostgresClient();
-  return sql`
+  return sql.begin(async (migrationSql) => {
+    await migrationSql`SELECT pg_advisory_xact_lock(hashtextextended('mais-ai-tutor-schema-v3', 0))`;
+    await migrationSql`
       CREATE TABLE IF NOT EXISTS app_state (
         id TEXT PRIMARY KEY,
         tenant_id TEXT NOT NULL DEFAULT 'platform',
@@ -3073,25 +3109,25 @@ async function bootstrapPostgresStateTables() {
         payload JSONB NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL
       )
-    `.then(async () => {
-      await sql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS tenant_id TEXT NOT NULL DEFAULT 'platform'`;
-      await sql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS state_kind TEXT NOT NULL DEFAULT 'app-snapshot'`;
-      await sql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS revision BIGINT NOT NULL DEFAULT 0`;
-      await sql`
+    `;
+      await migrationSql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS tenant_id TEXT NOT NULL DEFAULT 'platform'`;
+      await migrationSql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS state_kind TEXT NOT NULL DEFAULT 'app-snapshot'`;
+      await migrationSql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS revision BIGINT NOT NULL DEFAULT 0`;
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS app_state_updated_at_idx
           ON app_state(updated_at)
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS app_state_tenant_kind_updated_at_idx
           ON app_state(tenant_id, state_kind, updated_at)
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS auth_schema_migrations (
           version INTEGER PRIMARY KEY,
           applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS auth_users (
           id TEXT PRIMARY KEY,
           username TEXT NOT NULL,
@@ -3106,7 +3142,7 @@ async function bootstrapPostgresStateTables() {
           created_at TEXT NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS auth_student_profiles (
           user_id TEXT PRIMARY KEY,
           name TEXT NOT NULL,
@@ -3120,7 +3156,7 @@ async function bootstrapPostgresStateTables() {
           avatar_media_object_key TEXT
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS auth_user_settings (
           user_id TEXT PRIMARY KEY,
           language TEXT NOT NULL,
@@ -3129,7 +3165,7 @@ async function bootstrapPostgresStateTables() {
           updated_at TEXT NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS auth_password_reset_tokens (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3139,38 +3175,38 @@ async function bootstrapPostgresStateTables() {
           created_at TEXT NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_users_normalized_username_idx
           ON auth_users(normalized_username)
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_users_normalized_email_idx
           ON auth_users(normalized_email)
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_student_profiles_user_id_idx
           ON auth_student_profiles(user_id)
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_user_settings_user_id_idx
           ON auth_user_settings(user_id)
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_password_reset_tokens_token_hash_idx
           ON auth_password_reset_tokens(token_hash)
       `;
-      await sql`
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_password_reset_tokens_expiry_idx
           ON auth_password_reset_tokens(expires_at, used_at)
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_users (
           id TEXT PRIMARY KEY,
           role TEXT NOT NULL,
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_student_profiles (
           user_id TEXT PRIMARY KEY,
           grade TEXT NOT NULL,
@@ -3180,7 +3216,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_user_settings (
           user_id TEXT PRIMARY KEY,
           selected_grade TEXT NOT NULL,
@@ -3188,7 +3224,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_topics (
           id TEXT PRIMARY KEY,
           grade TEXT NOT NULL,
@@ -3199,7 +3235,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_questions (
           id TEXT PRIMARY KEY,
           grade TEXT NOT NULL,
@@ -3210,7 +3246,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_attempts (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3219,7 +3255,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_mistake_book_items (
           user_id TEXT NOT NULL,
           question_id TEXT NOT NULL,
@@ -3229,7 +3265,7 @@ async function bootstrapPostgresStateTables() {
           PRIMARY KEY (user_id, question_id)
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_learning_events (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3242,7 +3278,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_lesson_progress (
           user_id TEXT NOT NULL,
           topic_id TEXT NOT NULL,
@@ -3253,7 +3289,7 @@ async function bootstrapPostgresStateTables() {
           PRIMARY KEY (user_id, topic_id)
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_visualization_events (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3263,7 +3299,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_visualization_sessions (
           user_id TEXT NOT NULL,
           module_id TEXT NOT NULL,
@@ -3276,7 +3312,7 @@ async function bootstrapPostgresStateTables() {
           PRIMARY KEY (user_id, module_id, topic_id)
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_school_memberships (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3285,7 +3321,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_teacher_classes (
           id TEXT PRIMARY KEY,
           teacher_id TEXT NOT NULL,
@@ -3295,7 +3331,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_class_enrollments (
           id TEXT PRIMARY KEY,
           class_id TEXT NOT NULL,
@@ -3303,7 +3339,13 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
+        CREATE TABLE IF NOT EXISTS projection_class_ai_tutor_policies (
+          class_id TEXT PRIMARY KEY,
+          record JSONB NOT NULL
+        )
+      `;
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_assignments (
           id TEXT PRIMARY KEY,
           class_id TEXT NOT NULL,
@@ -3313,7 +3355,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_submissions (
           id TEXT PRIMARY KEY,
           assignment_id TEXT NOT NULL,
@@ -3323,7 +3365,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_assignment_teacher_reviews (
           id TEXT PRIMARY KEY,
           submission_id TEXT NOT NULL,
@@ -3332,7 +3374,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_teacher_messages (
           id TEXT PRIMARY KEY,
           teacher_id TEXT NOT NULL,
@@ -3344,7 +3386,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_ai_tutor_messages (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3352,7 +3394,307 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
+        CREATE TABLE IF NOT EXISTS ai_tutor_message_journal (
+          id TEXT PRIMARY KEY,
+          user_id TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          record JSONB NOT NULL
+        )
+      `;
+      await migrationSql`
+        CREATE TABLE IF NOT EXISTS ai_tutor_usage_journal (
+          id TEXT PRIMARY KEY,
+          user_id TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          accounted_tokens DOUBLE PRECISION NOT NULL DEFAULT 0,
+          record JSONB NOT NULL
+        )
+      `;
+      await migrationSql`
+        CREATE OR REPLACE FUNCTION sync_ai_tutor_compatibility_from_state()
+        RETURNS trigger
+        LANGUAGE plpgsql
+        AS $function$
+        DECLARE
+          class_enrollments_changed BOOLEAN := TRUE;
+          old_state_payload JSONB := '{}'::jsonb;
+          new_state_payload JSONB;
+          teacher_classes_changed BOOLEAN := TRUE;
+          policies_changed BOOLEAN := TRUE;
+          tutor_messages_changed BOOLEAN := TRUE;
+          tutor_usage_changed BOOLEAN := TRUE;
+        BEGIN
+          IF NEW.id <> 'primary' THEN
+            RETURN NEW;
+          END IF;
+
+          new_state_payload := CASE
+            WHEN jsonb_typeof(NEW.payload) = 'string' THEN (NEW.payload #>> '{}')::jsonb
+            ELSE NEW.payload
+          END;
+          IF jsonb_typeof(new_state_payload) IS DISTINCT FROM 'object' THEN
+            RAISE EXCEPTION 'Primary app state payload must be a JSON object.'
+              USING ERRCODE = '22023';
+          END IF;
+          NEW.payload := new_state_payload;
+
+          IF TG_OP = 'UPDATE' THEN
+            old_state_payload := CASE
+              WHEN jsonb_typeof(OLD.payload) = 'string' THEN (OLD.payload #>> '{}')::jsonb
+              ELSE OLD.payload
+            END;
+            class_enrollments_changed := old_state_payload->'class_enrollments'
+              IS DISTINCT FROM new_state_payload->'class_enrollments';
+            teacher_classes_changed := old_state_payload->'teacher_classes'
+              IS DISTINCT FROM new_state_payload->'teacher_classes';
+            policies_changed := old_state_payload->'class_ai_tutor_policies'
+              IS DISTINCT FROM new_state_payload->'class_ai_tutor_policies';
+            tutor_messages_changed := old_state_payload->'ai_tutor_messages'
+              IS DISTINCT FROM new_state_payload->'ai_tutor_messages';
+            tutor_usage_changed := old_state_payload->'ai_tutor_usage'
+              IS DISTINCT FROM new_state_payload->'ai_tutor_usage';
+          END IF;
+
+          IF teacher_classes_changed THEN
+            WITH normalized_classes AS (
+              SELECT DISTINCT ON (class_record->>'id')
+                class_record->>'id' AS id,
+                class_record->>'teacher_id' AS teacher_id,
+                NULLIF(class_record->>'school_id', '') AS school_id,
+                class_record->>'grade' AS grade,
+                class_record->>'updated_at' AS updated_at,
+                class_record
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'teacher_classes') = 'array'
+                  THEN new_state_payload->'teacher_classes' ELSE '[]'::jsonb END
+              ) WITH ORDINALITY AS class_items(class_record, ordinality)
+              WHERE COALESCE(class_record->>'id', '') <> ''
+                AND COALESCE(class_record->>'teacher_id', '') <> ''
+                AND COALESCE(class_record->>'grade', '') <> ''
+                AND COALESCE(class_record->>'updated_at', '') <> ''
+              ORDER BY class_record->>'id', ordinality DESC
+            )
+            INSERT INTO projection_teacher_classes (id, teacher_id, school_id, grade, updated_at, record)
+            SELECT id, teacher_id, school_id, grade, updated_at, class_record
+            FROM normalized_classes
+            ON CONFLICT (id) DO UPDATE SET
+              teacher_id = excluded.teacher_id,
+              school_id = excluded.school_id,
+              grade = excluded.grade,
+              updated_at = excluded.updated_at,
+              record = excluded.record;
+
+            DELETE FROM projection_teacher_classes AS teacher_class
+            WHERE NOT EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'teacher_classes') = 'array'
+                  THEN new_state_payload->'teacher_classes' ELSE '[]'::jsonb END
+              ) AS class_items(class_record)
+              WHERE class_record->>'id' = teacher_class.id
+                AND COALESCE(class_record->>'teacher_id', '') <> ''
+                AND COALESCE(class_record->>'grade', '') <> ''
+                AND COALESCE(class_record->>'updated_at', '') <> ''
+            );
+          END IF;
+
+          IF class_enrollments_changed THEN
+            WITH normalized_enrollments AS (
+              SELECT DISTINCT ON (enrollment_record->>'id')
+                enrollment_record->>'id' AS id,
+                enrollment_record->>'class_id' AS class_id,
+                enrollment_record->>'student_id' AS student_id,
+                enrollment_record
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'class_enrollments') = 'array'
+                  THEN new_state_payload->'class_enrollments' ELSE '[]'::jsonb END
+              ) WITH ORDINALITY AS enrollment_items(enrollment_record, ordinality)
+              WHERE COALESCE(enrollment_record->>'id', '') <> ''
+                AND COALESCE(enrollment_record->>'class_id', '') <> ''
+                AND COALESCE(enrollment_record->>'student_id', '') <> ''
+              ORDER BY enrollment_record->>'id', ordinality DESC
+            )
+            INSERT INTO projection_class_enrollments (id, class_id, student_id, record)
+            SELECT id, class_id, student_id, enrollment_record
+            FROM normalized_enrollments
+            ON CONFLICT (id) DO UPDATE SET
+              class_id = excluded.class_id,
+              student_id = excluded.student_id,
+              record = excluded.record;
+
+            DELETE FROM projection_class_enrollments AS enrollment
+            WHERE NOT EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'class_enrollments') = 'array'
+                  THEN new_state_payload->'class_enrollments' ELSE '[]'::jsonb END
+              ) AS enrollment_items(enrollment_record)
+              WHERE enrollment_record->>'id' = enrollment.id
+                AND COALESCE(enrollment_record->>'class_id', '') <> ''
+                AND COALESCE(enrollment_record->>'student_id', '') <> ''
+            );
+          END IF;
+
+          IF policies_changed THEN
+            WITH normalized_policies AS (
+              SELECT DISTINCT ON (policy_record->>'class_id')
+                policy_record->>'class_id' AS class_id,
+                policy_record
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'class_ai_tutor_policies') = 'array'
+                  THEN new_state_payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+              ) WITH ORDINALITY AS policy_items(policy_record, ordinality)
+              WHERE COALESCE(policy_record->>'class_id', '') <> ''
+              ORDER BY policy_record->>'class_id', ordinality DESC
+            )
+            INSERT INTO projection_class_ai_tutor_policies (class_id, record)
+            SELECT class_id, policy_record
+            FROM normalized_policies
+            ON CONFLICT (class_id) DO UPDATE SET record = excluded.record;
+
+            DELETE FROM projection_class_ai_tutor_policies AS policy
+            WHERE NOT EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'class_ai_tutor_policies') = 'array'
+                  THEN new_state_payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+              ) AS policy_items(policy_record)
+              WHERE policy_record->>'class_id' = policy.class_id
+            );
+          END IF;
+
+          IF tutor_messages_changed THEN
+            INSERT INTO projection_ai_tutor_messages (id, user_id, created_at, record)
+            SELECT id, user_id, created_at, message_record
+            FROM (
+              SELECT DISTINCT ON (message_record->>'id')
+                message_record->>'id' AS id,
+                message_record->>'user_id' AS user_id,
+                message_record->>'created_at' AS created_at,
+                message_record,
+                ordinality
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+                  THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+              ) WITH ORDINALITY AS message_items(message_record, ordinality)
+              WHERE COALESCE(message_record->>'id', '') <> ''
+                AND COALESCE(message_record->>'user_id', '') <> ''
+                AND COALESCE(message_record->>'created_at', '') <> ''
+              ORDER BY message_record->>'id', ordinality DESC
+            ) AS normalized_messages
+            ON CONFLICT (id) DO UPDATE SET
+              user_id = excluded.user_id,
+              created_at = excluded.created_at,
+              record = excluded.record;
+
+            DELETE FROM projection_ai_tutor_messages AS projected_message
+            WHERE NOT EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+                  THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+              ) AS message_items(message_record)
+              WHERE message_record->>'id' = projected_message.id
+                AND COALESCE(message_record->>'user_id', '') <> ''
+                AND COALESCE(message_record->>'created_at', '') <> ''
+            );
+
+            INSERT INTO ai_tutor_message_journal (id, user_id, created_at, record)
+            SELECT
+              message_record->>'id',
+              message_record->>'user_id',
+              message_record->>'created_at',
+              message_record
+            FROM jsonb_array_elements(
+              CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+                THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+            ) AS message_items(message_record)
+            WHERE COALESCE(message_record->>'id', '') <> ''
+              AND COALESCE(message_record->>'user_id', '') <> ''
+              AND COALESCE(message_record->>'created_at', '') <> ''
+            ON CONFLICT (id) DO NOTHING;
+
+            IF EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+                  THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+              ) AS message_items(message_record)
+              JOIN ai_tutor_message_journal AS journal
+                ON journal.id = message_record->>'id'
+              WHERE journal.user_id IS DISTINCT FROM message_record->>'user_id'
+                OR journal.created_at IS DISTINCT FROM message_record->>'created_at'
+                OR journal.record IS DISTINCT FROM message_record
+            ) THEN
+              RAISE EXCEPTION 'AI Tutor message journal conflict during legacy compatibility sync.'
+                USING ERRCODE = '23505';
+            END IF;
+          END IF;
+
+          IF tutor_usage_changed THEN
+            INSERT INTO ai_tutor_usage_journal (id, user_id, created_at, accounted_tokens, record)
+            SELECT
+              usage_record->>'id',
+              usage_record->>'user_id',
+              usage_record->>'created_at',
+              CASE WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
+                THEN (usage_record->>'total_tokens')::double precision
+                ELSE
+                  CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
+                    THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
+                  + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
+                    THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
+              END,
+              usage_record
+            FROM jsonb_array_elements(
+              CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_usage') = 'array'
+                THEN new_state_payload->'ai_tutor_usage' ELSE '[]'::jsonb END
+            ) AS usage_items(usage_record)
+            WHERE COALESCE(usage_record->>'id', '') <> ''
+              AND COALESCE(usage_record->>'user_id', '') <> ''
+              AND COALESCE(usage_record->>'created_at', '') <> ''
+            ON CONFLICT (id) DO NOTHING;
+
+            IF EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(
+                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_usage') = 'array'
+                  THEN new_state_payload->'ai_tutor_usage' ELSE '[]'::jsonb END
+              ) AS usage_items(usage_record)
+              JOIN ai_tutor_usage_journal AS journal
+                ON journal.id = usage_record->>'id'
+              WHERE journal.user_id IS DISTINCT FROM usage_record->>'user_id'
+                OR journal.created_at IS DISTINCT FROM usage_record->>'created_at'
+                OR journal.accounted_tokens IS DISTINCT FROM (
+                  CASE WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
+                    THEN (usage_record->>'total_tokens')::double precision
+                    ELSE
+                      CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
+                        THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
+                      + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
+                        THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
+                  END
+                )
+                OR journal.record IS DISTINCT FROM usage_record
+            ) THEN
+              RAISE EXCEPTION 'AI Tutor usage journal conflict during legacy compatibility sync.'
+                USING ERRCODE = '23505';
+            END IF;
+          END IF;
+
+          RETURN NEW;
+        END;
+        $function$
+      `;
+      await migrationSql`
+        CREATE OR REPLACE TRIGGER app_state_ai_tutor_compatibility
+        BEFORE INSERT OR UPDATE OF payload ON app_state
+        FOR EACH ROW
+        WHEN (NEW.id = 'primary')
+        EXECUTE FUNCTION sync_ai_tutor_compatibility_from_state()
+      `;
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS ai_governance_rate_limit_events (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
@@ -3363,7 +3705,7 @@ async function bootstrapPostgresStateTables() {
           created_at TEXT NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_reward_point_ledger (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
@@ -3371,7 +3713,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_reward_redemptions (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
@@ -3380,7 +3722,7 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`
+      await migrationSql`
         CREATE TABLE IF NOT EXISTS projection_gamification_events (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
@@ -3390,39 +3732,428 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await sql`CREATE INDEX IF NOT EXISTS projection_users_role_idx ON projection_users(role)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_student_profiles_grade_idx ON projection_student_profiles(grade)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_topics_grade_idx ON projection_topics(grade, sort_order)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_topics_curriculum_idx ON projection_topics(curriculum_track, curriculum_region, textbook_publisher, grade, sort_order)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_questions_topic_idx ON projection_questions(topic_id)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_questions_grade_idx ON projection_questions(grade)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_attempts_user_created_at_idx ON projection_attempts(user_id, created_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_attempts_question_idx ON projection_attempts(question_id)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_mistake_book_user_last_attempt_idx ON projection_mistake_book_items(user_id, mastered, last_attempt_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_created_at_idx ON projection_learning_events(user_id, created_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_topic_created_at_idx ON projection_learning_events(user_id, topic_id, created_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_lesson_progress_user_topic_idx ON projection_lesson_progress(user_id, topic_id)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_visualization_events_user_topic_idx ON projection_visualization_events(user_id, topic_id, created_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_visualization_sessions_user_topic_idx ON projection_visualization_sessions(user_id, topic_id, updated_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_school_memberships_user_class_idx ON projection_school_memberships(user_id, class_id, role)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_teacher_classes_teacher_idx ON projection_teacher_classes(teacher_id, updated_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_class_idx ON projection_class_enrollments(class_id, student_id)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_student_idx ON projection_class_enrollments(student_id, class_id)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_assignments_class_idx ON projection_assignments(class_id, updated_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_submissions_assignment_idx ON projection_submissions(assignment_id, updated_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_submissions_student_idx ON projection_submissions(student_id, updated_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_assignment_teacher_reviews_submission_idx ON projection_assignment_teacher_reviews(submission_id, created_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_teacher_idx ON projection_teacher_messages(teacher_id, last_message_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_class_idx ON projection_teacher_messages(class_id, last_message_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_ai_tutor_messages_user_idx ON projection_ai_tutor_messages(user_id, created_at DESC)`;
-      await sql`
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_users_role_idx ON projection_users(role)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_student_profiles_grade_idx ON projection_student_profiles(grade)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_topics_grade_idx ON projection_topics(grade, sort_order)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_topics_curriculum_idx ON projection_topics(curriculum_track, curriculum_region, textbook_publisher, grade, sort_order)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_questions_topic_idx ON projection_questions(topic_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_questions_grade_idx ON projection_questions(grade)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_attempts_user_created_at_idx ON projection_attempts(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_attempts_question_idx ON projection_attempts(question_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_mistake_book_user_last_attempt_idx ON projection_mistake_book_items(user_id, mastered, last_attempt_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_created_at_idx ON projection_learning_events(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_topic_created_at_idx ON projection_learning_events(user_id, topic_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_lesson_progress_user_topic_idx ON projection_lesson_progress(user_id, topic_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_visualization_events_user_topic_idx ON projection_visualization_events(user_id, topic_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_visualization_sessions_user_topic_idx ON projection_visualization_sessions(user_id, topic_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_school_memberships_user_class_idx ON projection_school_memberships(user_id, class_id, role)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_classes_teacher_idx ON projection_teacher_classes(teacher_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_class_idx ON projection_class_enrollments(class_id, student_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_student_idx ON projection_class_enrollments(student_id, class_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_ai_tutor_policies_class_idx ON projection_class_ai_tutor_policies(class_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_assignments_class_idx ON projection_assignments(class_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_submissions_assignment_idx ON projection_submissions(assignment_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_submissions_student_idx ON projection_submissions(student_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_assignment_teacher_reviews_submission_idx ON projection_assignment_teacher_reviews(submission_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_teacher_idx ON projection_teacher_messages(teacher_id, last_message_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_class_idx ON projection_teacher_messages(class_id, last_message_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_ai_tutor_messages_user_idx ON projection_ai_tutor_messages(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS ai_tutor_message_journal_user_idx ON ai_tutor_message_journal(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS ai_tutor_usage_journal_user_idx ON ai_tutor_usage_journal(user_id, created_at DESC)`;
+      await migrationSql`
         CREATE INDEX IF NOT EXISTS ai_governance_rate_limit_events_user_capability_idx
           ON ai_governance_rate_limit_events(user_id, capability, action, created_at ASC)
       `;
-      await sql`CREATE INDEX IF NOT EXISTS projection_reward_point_ledger_student_idx ON projection_reward_point_ledger(student_id, created_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_reward_redemptions_student_idx ON projection_reward_redemptions(student_id, requested_at DESC)`;
-      await sql`CREATE INDEX IF NOT EXISTS projection_gamification_events_student_idx ON projection_gamification_events(student_id, created_at DESC)`;
-      await sql`
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_reward_point_ledger_student_idx ON projection_reward_point_ledger(student_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_reward_redemptions_student_idx ON projection_reward_redemptions(student_id, requested_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_gamification_events_student_idx ON projection_gamification_events(student_id, created_at DESC)`;
+      await ensureInitialPostgresState(migrationSql);
+        await migrationSql`
+          UPDATE app_state
+          SET payload = (payload #>> '{}')::jsonb
+          WHERE id = ${stateRecordId}
+            AND jsonb_typeof(payload) = 'string'
+        `;
+        await migrationSql`
+          SELECT payload
+          FROM app_state
+          WHERE id = ${stateRecordId}
+          FOR UPDATE OF app_state
+        `;
+        const classroomSourceRows = await migrationSql<Array<{
+          class_ids_unique: boolean;
+          class_records_valid: boolean;
+          enrollments_array_valid: boolean;
+          enrollment_ids_unique: boolean;
+          enrollment_records_valid: boolean;
+          enrollments_resolve: boolean;
+          policies_array_valid: boolean;
+          policies_resolve: boolean;
+          policy_ids_unique: boolean;
+          policy_records_valid: boolean;
+          teacher_classes_array_valid: boolean;
+        }>>`
+        WITH snapshot AS (
+          SELECT payload
+          FROM app_state
+          WHERE id = ${stateRecordId}
+        ), class_items AS (
+          SELECT class_record
+          FROM snapshot
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(payload->'teacher_classes') = 'array'
+              THEN payload->'teacher_classes' ELSE '[]'::jsonb END
+          )
+            AS items(class_record)
+        ), enrollment_items AS (
+          SELECT enrollment_record
+          FROM snapshot
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(payload->'class_enrollments') = 'array'
+              THEN payload->'class_enrollments' ELSE '[]'::jsonb END
+          )
+            AS items(enrollment_record)
+        ), policy_items AS (
+          SELECT policy_record
+          FROM snapshot
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(payload->'class_ai_tutor_policies') = 'array'
+              THEN payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+          )
+            AS items(policy_record)
+        )
+        SELECT
+          jsonb_typeof(payload->'teacher_classes') = 'array' AS teacher_classes_array_valid,
+          jsonb_typeof(payload->'class_enrollments') = 'array' AS enrollments_array_valid,
+          jsonb_typeof(payload->'class_ai_tutor_policies') = 'array' AS policies_array_valid,
+          (SELECT COUNT(*) FROM class_items) = (
+            SELECT COUNT(*) FROM class_items
+            WHERE COALESCE(class_record->>'id', '') <> ''
+              AND COALESCE(class_record->>'teacher_id', '') <> ''
+              AND COALESCE(class_record->>'grade', '') <> ''
+              AND COALESCE(class_record->>'updated_at', '') <> ''
+          ) AS class_records_valid,
+          (SELECT COUNT(*) FROM class_items) = (
+            SELECT COUNT(DISTINCT class_record->>'id') FROM class_items
+          ) AS class_ids_unique,
+          (SELECT COUNT(*) FROM enrollment_items) = (
+            SELECT COUNT(*) FROM enrollment_items
+            WHERE COALESCE(enrollment_record->>'id', '') <> ''
+              AND COALESCE(enrollment_record->>'class_id', '') <> ''
+              AND COALESCE(enrollment_record->>'student_id', '') <> ''
+          ) AS enrollment_records_valid,
+          (SELECT COUNT(*) FROM enrollment_items) = (
+            SELECT COUNT(DISTINCT enrollment_record->>'id') FROM enrollment_items
+          ) AS enrollment_ids_unique,
+          NOT EXISTS (
+            SELECT 1
+            FROM enrollment_items AS enrollment
+            WHERE NOT EXISTS (
+              SELECT 1 FROM class_items AS teacher_class
+              WHERE teacher_class.class_record->>'id' = enrollment.enrollment_record->>'class_id'
+            )
+          ) AS enrollments_resolve,
+          (SELECT COUNT(*) FROM policy_items) = (
+            SELECT COUNT(*) FROM policy_items
+            WHERE COALESCE(policy_record->>'class_id', '') <> ''
+              AND policy_record->>'mode' IN ('open', 'limited', 'fallback-only')
+              AND CASE
+                WHEN jsonb_typeof(policy_record->'per_student_minute_limit') = 'number'
+                THEN (policy_record->>'per_student_minute_limit')::numeric
+                  BETWEEN ${minClassAiTutorPerStudentMinuteLimit}
+                    AND ${maxClassAiTutorPerStudentMinuteLimit}
+                  AND trunc((policy_record->>'per_student_minute_limit')::numeric)
+                    = (policy_record->>'per_student_minute_limit')::numeric
+                ELSE FALSE
+              END
+              AND CASE
+                WHEN jsonb_typeof(policy_record->'per_student_hour_limit') = 'number'
+                THEN (policy_record->>'per_student_hour_limit')::numeric
+                  BETWEEN ${minClassAiTutorPerStudentHourLimit}
+                    AND ${maxClassAiTutorPerStudentHourLimit}
+                  AND trunc((policy_record->>'per_student_hour_limit')::numeric)
+                    = (policy_record->>'per_student_hour_limit')::numeric
+                ELSE FALSE
+              END
+              AND (
+                NOT (policy_record ? 'previous_live_mode')
+                OR policy_record->'previous_live_mode' = 'null'::jsonb
+                OR policy_record->>'previous_live_mode' IN ('open', 'limited')
+              )
+          ) AS policy_records_valid,
+          (SELECT COUNT(*) FROM policy_items) = (
+            SELECT COUNT(DISTINCT policy_record->>'class_id') FROM policy_items
+          ) AS policy_ids_unique,
+          NOT EXISTS (
+            SELECT 1
+            FROM policy_items AS policy
+            WHERE NOT EXISTS (
+              SELECT 1 FROM class_items AS teacher_class
+              WHERE teacher_class.class_record->>'id' = policy.policy_record->>'class_id'
+            )
+          ) AS policies_resolve
+        FROM snapshot
+        `;
+        const classroomSource = classroomSourceRows[0];
+        const failedClassroomChecks = classroomSource
+          ? Object.entries(classroomSource)
+            .filter(([, value]) => value !== true)
+            .map(([key]) => key)
+          : ["snapshot_missing"];
+        if (failedClassroomChecks.length) {
+          throw new Error(
+            `AI Tutor classroom source data failed migration validation (${failedClassroomChecks.join(",")}).`
+          );
+        }
+        await migrationSql`
+        INSERT INTO projection_teacher_classes (id, teacher_id, school_id, grade, updated_at, record)
+        SELECT id, teacher_id, school_id, grade, updated_at, class_record
+        FROM (
+          SELECT DISTINCT ON (class_record->>'id')
+            class_record->>'id' AS id,
+            class_record->>'teacher_id' AS teacher_id,
+            NULLIF(class_record->>'school_id', '') AS school_id,
+            class_record->>'grade' AS grade,
+            class_record->>'updated_at' AS updated_at,
+            class_record
+          FROM app_state AS state
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(state.payload->'teacher_classes') = 'array'
+              THEN state.payload->'teacher_classes' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS class_items(class_record, ordinality)
+          WHERE state.id = ${stateRecordId}
+            AND COALESCE(class_record->>'id', '') <> ''
+            AND COALESCE(class_record->>'teacher_id', '') <> ''
+            AND COALESCE(class_record->>'grade', '') <> ''
+            AND COALESCE(class_record->>'updated_at', '') <> ''
+          ORDER BY class_record->>'id', ordinality DESC
+        ) AS normalized_classes
+        ON CONFLICT (id) DO UPDATE SET
+          teacher_id = excluded.teacher_id,
+          school_id = excluded.school_id,
+          grade = excluded.grade,
+          updated_at = excluded.updated_at,
+          record = excluded.record
+        `;
+        await migrationSql`
+        DELETE FROM projection_teacher_classes AS teacher_class
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM app_state AS state
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(state.payload->'teacher_classes') = 'array'
+              THEN state.payload->'teacher_classes' ELSE '[]'::jsonb END
+          ) AS class_items(class_record)
+          WHERE state.id = ${stateRecordId}
+            AND class_record->>'id' = teacher_class.id
+            AND COALESCE(class_record->>'teacher_id', '') <> ''
+            AND COALESCE(class_record->>'grade', '') <> ''
+            AND COALESCE(class_record->>'updated_at', '') <> ''
+        )
+        `;
+        await migrationSql`
+        INSERT INTO projection_class_enrollments (id, class_id, student_id, record)
+        SELECT id, class_id, student_id, enrollment_record
+        FROM (
+          SELECT DISTINCT ON (enrollment_record->>'id')
+            enrollment_record->>'id' AS id,
+            enrollment_record->>'class_id' AS class_id,
+            enrollment_record->>'student_id' AS student_id,
+            enrollment_record
+          FROM app_state AS state
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(state.payload->'class_enrollments') = 'array'
+              THEN state.payload->'class_enrollments' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS enrollment_items(enrollment_record, ordinality)
+          WHERE state.id = ${stateRecordId}
+            AND COALESCE(enrollment_record->>'id', '') <> ''
+            AND COALESCE(enrollment_record->>'class_id', '') <> ''
+            AND COALESCE(enrollment_record->>'student_id', '') <> ''
+          ORDER BY enrollment_record->>'id', ordinality DESC
+        ) AS normalized_enrollments
+        ON CONFLICT (id) DO UPDATE SET
+          class_id = excluded.class_id,
+          student_id = excluded.student_id,
+          record = excluded.record
+        `;
+        await migrationSql`
+        DELETE FROM projection_class_enrollments AS enrollment
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM app_state AS state
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(state.payload->'class_enrollments') = 'array'
+              THEN state.payload->'class_enrollments' ELSE '[]'::jsonb END
+          ) AS enrollment_items(enrollment_record)
+          WHERE state.id = ${stateRecordId}
+            AND enrollment_record->>'id' = enrollment.id
+            AND COALESCE(enrollment_record->>'class_id', '') <> ''
+            AND COALESCE(enrollment_record->>'student_id', '') <> ''
+        )
+        `;
+        await migrationSql`
+        INSERT INTO projection_class_ai_tutor_policies (class_id, record)
+        SELECT class_id, policy_record
+        FROM (
+          SELECT DISTINCT ON (policy_record->>'class_id')
+            policy_record->>'class_id' AS class_id,
+            policy_record
+          FROM app_state AS state
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE
+              WHEN jsonb_typeof(state.payload->'class_ai_tutor_policies') = 'array'
+                THEN state.payload->'class_ai_tutor_policies'
+              ELSE '[]'::jsonb
+            END
+          ) WITH ORDINALITY AS policy_items(policy_record, ordinality)
+          WHERE state.id = ${stateRecordId}
+            AND COALESCE(policy_record->>'class_id', '') <> ''
+          ORDER BY policy_record->>'class_id', ordinality DESC
+        ) AS normalized_policies
+        ON CONFLICT (class_id) DO UPDATE SET record = excluded.record
+        `;
+        await migrationSql`
+        DELETE FROM projection_class_ai_tutor_policies AS policy
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM app_state AS state
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(state.payload->'class_ai_tutor_policies') = 'array'
+              THEN state.payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+          ) AS policy_items(policy_record)
+          WHERE state.id = ${stateRecordId}
+            AND policy_record->>'class_id' = policy.class_id
+            AND COALESCE(policy_record->>'class_id', '') <> ''
+        )
+        `;
+        const classroomProjectionRows = await migrationSql<Array<{ classroom_projection_ready: boolean }>>`
+        WITH snapshot AS (
+          SELECT payload
+          FROM app_state
+          WHERE id = ${stateRecordId}
+        ), expected_classes AS (
+          SELECT DISTINCT ON (class_record->>'id')
+            class_record->>'id' AS id,
+            class_record->>'teacher_id' AS teacher_id,
+            NULLIF(class_record->>'school_id', '') AS school_id,
+            class_record->>'grade' AS grade,
+            class_record->>'updated_at' AS updated_at,
+            class_record
+          FROM snapshot
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(payload->'teacher_classes') = 'array'
+              THEN payload->'teacher_classes' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS class_items(class_record, ordinality)
+          WHERE COALESCE(class_record->>'id', '') <> ''
+            AND COALESCE(class_record->>'teacher_id', '') <> ''
+            AND COALESCE(class_record->>'grade', '') <> ''
+            AND COALESCE(class_record->>'updated_at', '') <> ''
+          ORDER BY class_record->>'id', ordinality DESC
+        ), expected_enrollments AS (
+          SELECT DISTINCT ON (enrollment_record->>'id')
+            enrollment_record->>'id' AS id,
+            enrollment_record->>'class_id' AS class_id,
+            enrollment_record->>'student_id' AS student_id,
+            enrollment_record
+          FROM snapshot
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(payload->'class_enrollments') = 'array'
+              THEN payload->'class_enrollments' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS enrollment_items(enrollment_record, ordinality)
+          WHERE COALESCE(enrollment_record->>'id', '') <> ''
+            AND COALESCE(enrollment_record->>'class_id', '') <> ''
+            AND COALESCE(enrollment_record->>'student_id', '') <> ''
+          ORDER BY enrollment_record->>'id', ordinality DESC
+        ), expected_policies AS (
+          SELECT DISTINCT ON (policy_record->>'class_id')
+            policy_record->>'class_id' AS class_id,
+            policy_record
+          FROM snapshot
+          CROSS JOIN LATERAL jsonb_array_elements(
+            CASE WHEN jsonb_typeof(payload->'class_ai_tutor_policies') = 'array'
+              THEN payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS policy_items(policy_record, ordinality)
+          WHERE COALESCE(policy_record->>'class_id', '') <> ''
+          ORDER BY policy_record->>'class_id', ordinality DESC
+        ), class_diff AS (
+          (SELECT id, teacher_id, school_id, grade, updated_at, class_record AS record FROM expected_classes
+            EXCEPT SELECT id, teacher_id, school_id, grade, updated_at, record FROM projection_teacher_classes)
+          UNION ALL
+          (SELECT id, teacher_id, school_id, grade, updated_at, record FROM projection_teacher_classes
+            EXCEPT SELECT id, teacher_id, school_id, grade, updated_at, class_record AS record FROM expected_classes)
+        ), enrollment_diff AS (
+          (SELECT id, class_id, student_id, enrollment_record AS record FROM expected_enrollments
+            EXCEPT SELECT id, class_id, student_id, record FROM projection_class_enrollments)
+          UNION ALL
+          (SELECT id, class_id, student_id, record FROM projection_class_enrollments
+            EXCEPT SELECT id, class_id, student_id, enrollment_record AS record FROM expected_enrollments)
+        ), policy_diff AS (
+          (SELECT class_id, policy_record AS record FROM expected_policies
+            EXCEPT SELECT class_id, record FROM projection_class_ai_tutor_policies)
+          UNION ALL
+          (SELECT class_id, record FROM projection_class_ai_tutor_policies
+            EXCEPT SELECT class_id, policy_record AS record FROM expected_policies)
+        )
+        SELECT NOT EXISTS (SELECT 1 FROM class_diff)
+          AND NOT EXISTS (SELECT 1 FROM enrollment_diff)
+          AND NOT EXISTS (SELECT 1 FROM policy_diff)
+          AS classroom_projection_ready
+        `;
+        if (classroomProjectionRows[0]?.classroom_projection_ready !== true) {
+          throw new Error("AI Tutor classroom projections failed migration attestation.");
+        }
+        await migrationSql`
+        INSERT INTO ai_tutor_message_journal (id, user_id, created_at, record)
+        SELECT
+          message_record->>'id',
+          message_record->>'user_id',
+          message_record->>'created_at',
+          message_record
+        FROM app_state AS state
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(state.payload->'ai_tutor_messages') = 'array'
+              THEN state.payload->'ai_tutor_messages'
+            ELSE '[]'::jsonb
+          END
+        ) AS message_items(message_record)
+        WHERE state.id = ${stateRecordId}
+          AND COALESCE(message_record->>'id', '') <> ''
+          AND COALESCE(message_record->>'user_id', '') <> ''
+          AND COALESCE(message_record->>'created_at', '') <> ''
+        ON CONFLICT (id) DO NOTHING
+        `;
+        await migrationSql`
+        INSERT INTO ai_tutor_usage_journal (id, user_id, created_at, accounted_tokens, record)
+        SELECT
+          usage_record->>'id',
+          usage_record->>'user_id',
+          usage_record->>'created_at',
+          CASE
+            WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
+              THEN (usage_record->>'total_tokens')::double precision
+            ELSE
+              CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
+                THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
+              + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
+                THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
+          END,
+          usage_record
+        FROM app_state AS state
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(state.payload->'ai_tutor_usage') = 'array'
+              THEN state.payload->'ai_tutor_usage'
+            ELSE '[]'::jsonb
+          END
+        ) AS usage_items(usage_record)
+        WHERE state.id = ${stateRecordId}
+          AND COALESCE(usage_record->>'id', '') <> ''
+          AND COALESCE(usage_record->>'user_id', '') <> ''
+          AND COALESCE(usage_record->>'created_at', '') <> ''
+        ON CONFLICT (id) DO NOTHING
+        `;
+        await migrationSql`
         INSERT INTO ai_governance_rate_limit_events (
           id,
           user_id,
@@ -3456,13 +4187,13 @@ async function bootstrapPostgresStateTables() {
           AND COALESCE(event_record->>'capability', '') <> ''
           AND COALESCE(event_record->>'created_at', '') <> ''
         ON CONFLICT (id) DO NOTHING
-      `;
-      await sql`
+        `;
+        await migrationSql`
         INSERT INTO auth_schema_migrations (version, applied_at)
         VALUES (${hotAuthSchemaVersion}, NOW())
         ON CONFLICT (version) DO NOTHING
-      `;
-    });
+        `;
+  });
 }
 
 const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
@@ -3480,6 +4211,20 @@ function parseStoredStatePayload(value: unknown) {
   }
 
   return value;
+}
+
+function overlayPostgresAiTutorJournals(database: Database, row?: StateRow) {
+  const messageRecords = aiTutorJournalRecordsFromValue<AITutorMessageRecord>(
+    row?.ai_tutor_message_records
+  );
+  const usageRecords = aiTutorJournalRecordsFromValue<AITutorUsageRecord>(
+    row?.ai_tutor_usage_records
+  );
+  return {
+    ...database,
+    ai_tutor_messages: mergeAiTutorJournalRecords(database.ai_tutor_messages, messageRecords),
+    ai_tutor_usage: mergeAiTutorJournalRecords(database.ai_tutor_usage, usageRecords)
+  };
 }
 
 const hotAuthUserRows = hotAuthUserRowsFromAuthAdminStoragePersistence as (users: UserRecord[]) => Array<Record<string, unknown>>;
@@ -3993,6 +4738,26 @@ async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database:
   }
   await deleteMissingPostgresProjectionRows(sql, "projection_class_enrollments", "id", classEnrollments.map((row) => row.id));
 
+  const classAiTutorPolicies = (database.class_ai_tutor_policies ?? []).map((record) => ({
+    class_id: record.class_id,
+    record: postgresProjectionRecord(sql, record)
+  }));
+  if (classAiTutorPolicies.length) {
+    const classAiTutorPolicyColumns = ["class_id", "record"] as const;
+    await upsertPostgresProjectionRows(sql, "projection_class_ai_tutor_policies", classAiTutorPolicies, classAiTutorPolicyColumns, async (batch) => {
+      await sql`
+        INSERT INTO projection_class_ai_tutor_policies ${sql(batch, ...classAiTutorPolicyColumns)}
+        ON CONFLICT (class_id) DO UPDATE SET record = excluded.record
+      `;
+    });
+  }
+  await deleteMissingPostgresProjectionRows(
+    sql,
+    "projection_class_ai_tutor_policies",
+    "class_id",
+    classAiTutorPolicies.map((row) => row.class_id)
+  );
+
   const assignments = database.assignments.map((record) => ({
     id: record.id,
     class_id: record.class_id,
@@ -4110,6 +4875,33 @@ async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database:
     });
   }
   await deleteMissingPostgresProjectionRows(sql, "projection_ai_tutor_messages", "id", aiTutorMessages.map((row) => row.id));
+
+  if (aiTutorMessages.length) {
+    const aiTutorMessageJournalColumns = ["id", "user_id", "created_at", "record"] as const;
+    await upsertPostgresProjectionRows(sql, "ai_tutor_message_journal", aiTutorMessages, aiTutorMessageJournalColumns, async (batch) => {
+      await sql`
+        INSERT INTO ai_tutor_message_journal ${sql(batch, ...aiTutorMessageJournalColumns)}
+        ON CONFLICT (id) DO NOTHING
+      `;
+    });
+  }
+
+  const aiTutorUsage = database.ai_tutor_usage.map((record) => ({
+    id: record.id,
+    user_id: record.user_id,
+    created_at: record.created_at,
+    accounted_tokens: record.total_tokens ?? (record.prompt_tokens ?? 0) + (record.completion_tokens ?? 0),
+    record: postgresProjectionRecord(sql, record)
+  }));
+  if (aiTutorUsage.length) {
+    const aiTutorUsageColumns = ["id", "user_id", "created_at", "accounted_tokens", "record"] as const;
+    await upsertPostgresProjectionRows(sql, "ai_tutor_usage_journal", aiTutorUsage, aiTutorUsageColumns, async (batch) => {
+      await sql`
+        INSERT INTO ai_tutor_usage_journal ${sql(batch, ...aiTutorUsageColumns)}
+        ON CONFLICT (id) DO NOTHING
+      `;
+    });
+  }
 
   const rewardPointLedger = database.reward_point_ledger.map((record) => ({
     id: record.id,
@@ -4250,8 +5042,8 @@ function compactDatabaseForPostgres(database: Database): Database {
   };
 }
 
-function stringifyPostgresDatabase(database: Database) {
-  return JSON.stringify(compactDatabaseForPostgres(database));
+function postgresDatabasePayload(database: Database): postgres.JSONValue {
+  return compactDatabaseForPostgres(database) as unknown as postgres.JSONValue;
 }
 
 function localizedFromUnknown(value: unknown, fallback: LocalizedText): LocalizedText {
@@ -4760,7 +5552,7 @@ async function ensureInitialPostgresState(sql: PostgresExecutor) {
   const database = createInitialDatabase();
   await sql`
     INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyPostgresDatabase(database)}::jsonb, ${new Date().toISOString()})
+    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${sql.json(postgresDatabasePayload(database))}::jsonb, ${new Date().toISOString()})
     ON CONFLICT (id) DO NOTHING
   `;
 }
@@ -4768,7 +5560,16 @@ async function ensureInitialPostgresState(sql: PostgresExecutor) {
 async function selectPostgresStateRows(sql: PostgresExecutor, lockForUpdate = false) {
   if (lockForUpdate) {
     return sql<StateRow[]>`
-      SELECT payload
+      SELECT
+        payload,
+        COALESCE((
+          SELECT jsonb_agg(record ORDER BY created_at, id)
+          FROM ai_tutor_message_journal
+        ), '[]'::jsonb) AS ai_tutor_message_records,
+        COALESCE((
+          SELECT jsonb_agg(record ORDER BY created_at, id)
+          FROM ai_tutor_usage_journal
+        ), '[]'::jsonb) AS ai_tutor_usage_records
       FROM app_state
       WHERE id = ${stateRecordId}
       FOR UPDATE
@@ -4776,7 +5577,16 @@ async function selectPostgresStateRows(sql: PostgresExecutor, lockForUpdate = fa
   }
 
   return sql<StateRow[]>`
-    SELECT payload
+    SELECT
+      payload,
+      COALESCE((
+        SELECT jsonb_agg(record ORDER BY created_at, id)
+        FROM ai_tutor_message_journal
+      ), '[]'::jsonb) AS ai_tutor_message_records,
+      COALESCE((
+        SELECT jsonb_agg(record ORDER BY created_at, id)
+        FROM ai_tutor_usage_journal
+      ), '[]'::jsonb) AS ai_tutor_usage_records
     FROM app_state
     WHERE id = ${stateRecordId}
   `;
@@ -4787,8 +5597,10 @@ async function normalizeLockedPostgresState(sql: PostgresExecutor) {
   const rows = await selectPostgresStateRows(sql, true);
   const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
   if (hasCoreTables(parsed)) {
-    const database = normalizeDatabase(parsed);
-    if (databaseNeedsPersistenceSync(parsed, database)) {
+    const normalized = normalizeDatabase(parsed);
+    const needsPersistenceSync = databaseNeedsPersistenceSync(parsed, normalized);
+    const database = overlayPostgresAiTutorJournals(normalized, rows[0]);
+    if (needsPersistenceSync) {
       await writePostgresDatabaseWith(sql, database, true);
     }
     await syncPostgresHotAuthTablesWith(sql, database);
@@ -4798,7 +5610,10 @@ async function normalizeLockedPostgresState(sql: PostgresExecutor) {
 
   const database = createInitialDatabase();
   await writePostgresDatabaseWith(sql, database, true);
-  return overlayPostgresHotAuthRowsIfEnabled(sql, database);
+  return overlayPostgresHotAuthRowsIfEnabled(
+    sql,
+    overlayPostgresAiTutorJournals(database, rows[0])
+  );
 }
 
 async function synchronizePostgresStateForRead() {
@@ -4819,7 +5634,10 @@ async function readPostgresDatabaseFrom(sql: PostgresExecutor, lockForUpdate = f
     if (databaseNeedsPersistenceSync(parsed, database)) {
       return synchronizePostgresStateForRead();
     }
-    return overlayPostgresHotAuthRowsIfEnabled(sql, database);
+    return overlayPostgresHotAuthRowsIfEnabled(
+      sql,
+      overlayPostgresAiTutorJournals(database, rows[0])
+    );
   }
 
   return synchronizePostgresStateForRead();
@@ -4834,7 +5652,7 @@ async function writePostgresDatabaseWith(sql: PostgresExecutor, database: Databa
   databaseIndexCache.delete(database);
   await sql`
     INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyPostgresDatabase(database)}::jsonb, ${new Date().toISOString()})
+    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${sql.json(postgresDatabasePayload(database))}::jsonb, ${new Date().toISOString()})
     ON CONFLICT (id) DO UPDATE SET
       tenant_id = excluded.tenant_id,
       state_kind = excluded.state_kind,
@@ -4919,14 +5737,6 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   return run;
 }
 
-type PostgresStudentAiTutorPolicyRow = {
-  class_id: unknown;
-  policy_record: unknown;
-  teacher_id: unknown;
-  updated_at: unknown;
-  user_role: unknown;
-};
-
 type PostgresAiTutorRateLimitEventRow = {
   created_at: unknown;
 };
@@ -4945,6 +5755,262 @@ type PostgresAiTutorTokenUsageRow = {
   total_tokens: unknown;
 };
 
+type PostgresAiTutorLegacySnapshotMatchRow = {
+  match_count: unknown;
+  records_match: unknown;
+  records_type: unknown;
+};
+
+function assertAiTutorLegacySnapshotMatch(
+  row: PostgresAiTutorLegacySnapshotMatchRow | undefined,
+  label: string
+) {
+  if (row?.records_type !== "array") {
+    throw new Error(`AI Tutor legacy ${label} snapshot is unavailable.`);
+  }
+  const matchCount = Number(row.match_count);
+  if (!Number.isInteger(matchCount) || matchCount < 0 || matchCount > 1 || row.records_match !== true) {
+    throw new Error(`AI Tutor legacy ${label} snapshot contains a conflicting record.`);
+  }
+  return matchCount;
+}
+
+async function recordAITutorMessageFromPostgresJournal(
+  record: AiGovernanceTutorMessageRecord
+): Promise<true | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+  await aiTutorPersistenceLane.run(() => getPostgresClient().begin(async (sql) => {
+    const recordPayload = record as unknown as postgres.JSONValue;
+    await sql`
+      SELECT
+        set_config('lock_timeout', '1000ms', true),
+        set_config('statement_timeout', '5000ms', true)
+    `;
+    const readinessRows = await sql<Array<{ schema_ready: boolean }>>`
+      SELECT EXISTS (
+        SELECT 1 FROM auth_schema_migrations WHERE version = ${hotAuthSchemaVersion}
+      ) AS schema_ready
+    `;
+    if (readinessRows[0]?.schema_ready !== true) {
+      throw new Error("AI Tutor message journal schema is unavailable.");
+    }
+    const lockedStateRows = await sql<Array<{ locked: boolean }>>`
+      SELECT TRUE AS locked
+      FROM app_state
+      WHERE id = ${stateRecordId}
+      FOR UPDATE OF app_state
+    `;
+    if (lockedStateRows[0]?.locked !== true) {
+      throw new Error("AI Tutor legacy message snapshot is unavailable.");
+    }
+    await sql`
+      UPDATE app_state
+      SET payload = (payload #>> '{}')::jsonb
+      WHERE id = ${stateRecordId}
+        AND jsonb_typeof(payload) = 'string'
+    `;
+    const beforeRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
+      SELECT
+        jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
+        COUNT(existing_record)::text AS match_count,
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
+      FROM app_state AS state
+      LEFT JOIN LATERAL jsonb_array_elements(
+        CASE WHEN jsonb_typeof(state.payload->'ai_tutor_messages') = 'array'
+          THEN state.payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+      ) AS existing_messages(existing_record)
+        ON existing_record->>'id' = ${record.id}
+      WHERE state.id = ${stateRecordId}
+      GROUP BY state.payload
+    `;
+    const existingMatchCount = assertAiTutorLegacySnapshotMatch(beforeRows[0], "message");
+    await sql`
+      INSERT INTO ai_tutor_message_journal (id, user_id, created_at, record)
+      VALUES (
+        ${record.id},
+        ${record.user_id},
+        ${record.created_at},
+        ${sql.json(recordPayload)}::jsonb
+      )
+      ON CONFLICT (id) DO NOTHING
+    `;
+    const journalRows = await sql<Array<{ record_matches: boolean }>>`
+      SELECT
+        user_id = ${record.user_id}
+        AND created_at = ${record.created_at}
+        AND record = ${sql.json(recordPayload)}::jsonb AS record_matches
+      FROM ai_tutor_message_journal
+      WHERE id = ${record.id}
+    `;
+    if (journalRows[0]?.record_matches !== true) {
+      throw new Error("AI Tutor message journal contains a conflicting record.");
+    }
+    if (existingMatchCount === 0) {
+      await sql`
+        UPDATE app_state AS state
+        SET payload = jsonb_set(
+              state.payload,
+              '{ai_tutor_messages}',
+              (state.payload->'ai_tutor_messages') || jsonb_build_array(${sql.json(recordPayload)}::jsonb),
+              true
+            ),
+            revision = state.revision + 1,
+            updated_at = NOW()
+        WHERE state.id = ${stateRecordId}
+      `;
+    }
+    const afterRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
+      SELECT
+        jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
+        COUNT(existing_record)::text AS match_count,
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
+      FROM app_state AS state
+      LEFT JOIN LATERAL jsonb_array_elements(state.payload->'ai_tutor_messages')
+        AS existing_messages(existing_record)
+        ON existing_record->>'id' = ${record.id}
+      WHERE state.id = ${stateRecordId}
+      GROUP BY state.payload
+    `;
+    if (assertAiTutorLegacySnapshotMatch(afterRows[0], "message") !== 1) {
+      throw new Error("AI Tutor legacy message snapshot write could not be attested.");
+    }
+  }));
+  return true;
+}
+
+async function recordAITutorUsageFromPostgresJournal(
+  record: AiGovernanceTutorUsageRecord
+): Promise<true | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+  const accountedTokens = record.total_tokens
+    ?? (record.prompt_tokens ?? 0) + (record.completion_tokens ?? 0);
+  await aiTutorPersistenceLane.run(() => getPostgresClient().begin(async (sql) => {
+    const recordPayload = record as unknown as postgres.JSONValue;
+    await sql`
+      SELECT
+        set_config('lock_timeout', '1000ms', true),
+        set_config('statement_timeout', '5000ms', true)
+    `;
+    const readinessRows = await sql<Array<{ schema_ready: boolean }>>`
+      SELECT EXISTS (
+        SELECT 1 FROM auth_schema_migrations WHERE version = ${hotAuthSchemaVersion}
+      ) AS schema_ready
+    `;
+    if (readinessRows[0]?.schema_ready !== true) {
+      throw new Error("AI Tutor usage journal schema is unavailable.");
+    }
+    const lockedStateRows = await sql<Array<{ locked: boolean }>>`
+      SELECT TRUE AS locked
+      FROM app_state
+      WHERE id = ${stateRecordId}
+      FOR UPDATE OF app_state
+    `;
+    if (lockedStateRows[0]?.locked !== true) {
+      throw new Error("AI Tutor legacy usage snapshot is unavailable.");
+    }
+    await sql`
+      UPDATE app_state
+      SET payload = (payload #>> '{}')::jsonb
+      WHERE id = ${stateRecordId}
+        AND jsonb_typeof(payload) = 'string'
+    `;
+    const beforeRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
+      SELECT
+        jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
+        COUNT(existing_record)::text AS match_count,
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
+      FROM app_state AS state
+      LEFT JOIN LATERAL jsonb_array_elements(
+        CASE WHEN jsonb_typeof(state.payload->'ai_tutor_usage') = 'array'
+          THEN state.payload->'ai_tutor_usage' ELSE '[]'::jsonb END
+      ) AS existing_usage(existing_record)
+        ON existing_record->>'id' = ${record.id}
+      WHERE state.id = ${stateRecordId}
+      GROUP BY state.payload
+    `;
+    const existingMatchCount = assertAiTutorLegacySnapshotMatch(beforeRows[0], "usage");
+    await sql`
+      INSERT INTO ai_tutor_usage_journal (
+        id, user_id, created_at, accounted_tokens, record
+      ) VALUES (
+        ${record.id},
+        ${record.user_id},
+        ${record.created_at},
+        ${accountedTokens},
+        ${sql.json(recordPayload)}::jsonb
+      )
+      ON CONFLICT (id) DO NOTHING
+    `;
+    const journalRows = await sql<Array<{ record_matches: boolean }>>`
+      SELECT
+        user_id = ${record.user_id}
+        AND created_at = ${record.created_at}
+        AND accounted_tokens = ${accountedTokens}
+        AND record = ${sql.json(recordPayload)}::jsonb AS record_matches
+      FROM ai_tutor_usage_journal
+      WHERE id = ${record.id}
+    `;
+    if (journalRows[0]?.record_matches !== true) {
+      throw new Error("AI Tutor usage journal contains a conflicting record.");
+    }
+    if (existingMatchCount === 0) {
+      await sql`
+        UPDATE app_state AS state
+        SET payload = jsonb_set(
+              state.payload,
+              '{ai_tutor_usage}',
+              (state.payload->'ai_tutor_usage') || jsonb_build_array(${sql.json(recordPayload)}::jsonb),
+              true
+            ),
+            revision = state.revision + 1,
+            updated_at = NOW()
+        WHERE state.id = ${stateRecordId}
+      `;
+    }
+    const afterRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
+      SELECT
+        jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
+        COUNT(existing_record)::text AS match_count,
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
+      FROM app_state AS state
+      LEFT JOIN LATERAL jsonb_array_elements(state.payload->'ai_tutor_usage')
+        AS existing_usage(existing_record)
+        ON existing_record->>'id' = ${record.id}
+      WHERE state.id = ${stateRecordId}
+      GROUP BY state.payload
+    `;
+    if (assertAiTutorLegacySnapshotMatch(afterRows[0], "usage") !== 1) {
+      throw new Error("AI Tutor legacy usage snapshot write could not be attested.");
+    }
+  }));
+  return true;
+}
+
+async function closeAiTutorPostgresClientsForIntegrationTest() {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Postgres client cleanup is available only to integration tests.");
+  }
+  await aiTutorGovernanceAdmissionPrimer.waitForActiveAttempt();
+  const clients = Array.from(new Set([
+    postgresClient,
+    aiTutorAuthAdmissionPostgresClient,
+    aiTutorPolicyAdmissionPostgresClient,
+    aiTutorRateAdmissionPostgresClient
+  ].filter((client): client is postgres.Sql => client !== null)));
+  await Promise.all(clients.map((client) => client.end({ timeout: 5 })));
+  postgresClient = null;
+  aiTutorAuthAdmissionPostgresClient = null;
+  aiTutorPolicyAdmissionPostgresClient = null;
+  aiTutorRateAdmissionPostgresClient = null;
+}
+
+export const __userStoreAiTutorPostgresTestHooks = {
+  closePostgresClients: closeAiTutorPostgresClientsForIntegrationTest,
+  ensureSchema: ensurePostgresStateTable,
+  recordMessage: recordAITutorMessageFromPostgresJournal,
+  recordUsage: recordAITutorUsageFromPostgresJournal
+};
+
 const aiTutorAdmissionStatementTimeoutMs = boundedLLMNumber(
   process.env.AI_TUTOR_ADMISSION_STATEMENT_TIMEOUT_MS,
   1_500,
@@ -4954,6 +6020,28 @@ const aiTutorAdmissionStatementTimeoutMs = boundedLLMNumber(
 const aiTutorAuthAdmissionStatementTimeoutMs = Math.min(
   aiTutorAdmissionStatementTimeoutMs,
   2_500
+);
+const aiTutorPolicyAdmissionStatementTimeoutMs = Math.min(
+  aiTutorAdmissionStatementTimeoutMs,
+  1_000
+);
+const aiTutorAuthAdmissionOperationTimeoutMs = boundedLLMNumber(
+  process.env.AI_TUTOR_AUTH_ADMISSION_DEADLINE_MS,
+  1_800,
+  250,
+  4_000
+);
+const aiTutorPolicyAdmissionOperationTimeoutMs = boundedLLMNumber(
+  process.env.AI_TUTOR_CLASSROOM_POLICY_ADMISSION_DEADLINE_MS,
+  1_500,
+  250,
+  4_000
+);
+const aiTutorRateAdmissionOperationTimeoutMs = boundedLLMNumber(
+  process.env.AI_TUTOR_RATE_LIMIT_ADMISSION_DEADLINE_MS,
+  2_000,
+  250,
+  4_000
 );
 const aiTutorAdmissionLockTimeoutMs = boundedLLMNumber(
   process.env.AI_TUTOR_ADMISSION_LOCK_TIMEOUT_MS,
@@ -4974,34 +6062,148 @@ function throwIfAiTutorAdmissionAborted(signal?: AbortSignal) {
   throw new DOMException("AI Tutor admission was aborted.", "AbortError");
 }
 
-function getAiTutorAuthAdmissionPostgresClient() {
-  if (aiTutorAuthAdmissionPostgresClient) return aiTutorAuthAdmissionPostgresClient;
-  if (!postgresUrl) {
-    throw new Error("POSTGRES_URL is required for AI Tutor authentication admission.");
-  }
+function aiTutorAdmissionOperationSignal(signal: AbortSignal | undefined, timeoutMs: number) {
+  const timeoutSignal = AbortSignal.timeout(timeoutMs);
+  return signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal;
+}
 
+type AiTutorAdmissionPostgresClientKind = "auth" | "policy" | "rate";
+
+async function destroyAiTutorAdmissionPostgresClient(
+  kind: AiTutorAdmissionPostgresClientKind,
+  client: postgres.Sql
+) {
+  if (kind === "auth" && aiTutorAuthAdmissionPostgresClient === client) {
+    aiTutorAuthAdmissionPostgresClient = null;
+  } else if (kind === "policy" && aiTutorPolicyAdmissionPostgresClient === client) {
+    aiTutorPolicyAdmissionPostgresClient = null;
+  } else if (kind === "rate" && aiTutorRateAdmissionPostgresClient === client) {
+    aiTutorRateAdmissionPostgresClient = null;
+  }
+  await client.end({ timeout: 0 });
+}
+
+function createAiTutorAdmissionPostgresClient({
+  applicationName,
+  connectTimeout
+}: {
+  applicationName: string;
+  connectTimeout: number;
+}) {
+  if (!postgresUrl) {
+    throw new Error("POSTGRES_URL is required for AI Tutor admission.");
+  }
   const admissionUrl = new URL(postgresUrl);
   admissionUrl.searchParams.delete("statement_timeout");
-  aiTutorAuthAdmissionPostgresClient = postgres(admissionUrl.toString(), {
+  return postgres(admissionUrl.toString(), {
     max: 1,
     idle_timeout: 20,
-    connect_timeout: 2,
+    connect_timeout: connectTimeout,
+    // postgres.js otherwise runs an internal pg_type discovery query after it
+    // cancels connect_timeout. These admission lanes do not use array
+    // parameters, so keep the entire first-connection path bounded by the
+    // driver timeout instead of introducing an unbounded pre-query step.
+    fetch_types: false,
     prepare: false,
     connection: {
-      application_name: "mais-ai-tutor-auth-admission"
+      application_name: applicationName
     }
+  });
+}
+
+function getAiTutorAuthAdmissionPostgresClient() {
+  aiTutorAuthAdmissionPostgresClient ??= createAiTutorAdmissionPostgresClient({
+    applicationName: "mais-ai-tutor-auth-admission",
+    connectTimeout: 2
   });
   return aiTutorAuthAdmissionPostgresClient;
 }
 
-function defaultStudentAiTutorPolicy(now: string): ClassAiTutorPolicy {
-  return classAiTutorPolicyRecordToPublicFromAiGovernancePersistence(
-    defaultClassAiTutorPolicyRecordFromAiGovernancePersistence({
-      classId: "default",
-      now,
-      updatedBy: "system"
+function getAiTutorPolicyAdmissionPostgresClient() {
+  aiTutorPolicyAdmissionPostgresClient ??= createAiTutorAdmissionPostgresClient({
+    applicationName: "mais-ai-tutor-policy-admission",
+    // The route's AbortSignal still owns the 1.5s response budget. A two-second
+    // driver timeout avoids prematurely failing otherwise viable cold
+    // TCP/TLS/pooler handshakes while the slot remains held through cleanup.
+    connectTimeout: 2
+  });
+  return aiTutorPolicyAdmissionPostgresClient;
+}
+
+function getAiTutorRateAdmissionPostgresClient() {
+  aiTutorRateAdmissionPostgresClient ??= createAiTutorAdmissionPostgresClient({
+    applicationName: "mais-ai-tutor-rate-admission",
+    connectTimeout: 2
+  });
+  return aiTutorRateAdmissionPostgresClient;
+}
+
+const aiTutorGovernanceAdmissionPrimer = createAiTutorAdmissionConnectionPrimer(async () => {
+  const establishConnection = async ({
+    getClient,
+    kind,
+    operationTimeoutMs,
+    slot,
+    statementTimeoutMs
+  }: {
+    getClient: () => postgres.Sql;
+    kind: AiTutorAdmissionPostgresClientKind;
+    operationTimeoutMs: number;
+    slot: ReturnType<typeof createAbortableAuthAdmissionSlot>;
+    statementTimeoutMs: number;
+  }) => {
+    // postgres.js 3.4.x does not resolve a cold reserve() when fetch_types is
+    // disabled. Prime with the same root begin/cleanup lifecycle used by the
+    // admission transactions instead. The first user BEGIN follows the bounded
+    // startup directly. A JS watchdog destroys and replaces this one-slot
+    // client if BEGIN itself stalls; after BEGIN, the heartbeat also has a
+    // transaction-local server timeout. This avoids Query.cancel().
+    const operationSignal = aiTutorAdmissionOperationSignal(undefined, operationTimeoutMs);
+    await slot.run(operationSignal, () => {
+      const client = getClient();
+      return runAbortBoundedAiTutorPostgresOperation({
+        abortOperation: () => destroyAiTutorAdmissionPostgresClient(kind, client),
+        operation: () => client.begin(async (sql) => {
+          await sql`
+            SELECT set_config(
+              'statement_timeout',
+              ${`${Math.max(100, statementTimeoutMs)}ms`},
+              true
+            )
+          `;
+          await sql`SELECT 1 AS ready`;
+        }),
+        signal: operationSignal
+      });
+    });
+  };
+  const results = await Promise.allSettled([
+    establishConnection({
+      getClient: getAiTutorPolicyAdmissionPostgresClient,
+      kind: "policy",
+      operationTimeoutMs: aiTutorPolicyAdmissionOperationTimeoutMs,
+      slot: aiTutorPolicyAdmissionSlot,
+      statementTimeoutMs: aiTutorPolicyAdmissionStatementTimeoutMs
+    }),
+    establishConnection({
+      getClient: getAiTutorRateAdmissionPostgresClient,
+      kind: "rate",
+      operationTimeoutMs: aiTutorRateAdmissionOperationTimeoutMs,
+      slot: aiTutorRateAdmissionSlot,
+      statementTimeoutMs: Math.min(aiTutorAdmissionStatementTimeoutMs, 1_250)
     })
-  );
+  ]);
+  if (results.some((result) => result.status === "rejected")) {
+    throw new Error("AI Tutor governance admission connection priming failed.");
+  }
+});
+
+function primeAiTutorGovernanceAdmissionPostgresClients() {
+  // Coalesce only a currently active handshake. A successful transaction must
+  // not become a permanent readiness latch because postgres.js closes idle
+  // sockets; each later auth request primes in parallel and transparently
+  // reconnects when the one-slot admission pools have gone idle.
+  void aiTutorGovernanceAdmissionPrimer.prime().catch(() => undefined);
 }
 
 async function resolveStudentAiTutorPolicyFromPostgresHotPath(
@@ -5010,111 +6212,86 @@ async function resolveStudentAiTutorPolicyFromPostgresHotPath(
 ): Promise<ClassAiTutorPolicy | undefined> {
   if (storageProvider !== "postgres") return undefined;
 
-  throwIfAiTutorAdmissionAborted(signal);
-  await ensurePostgresStateTable();
-  throwIfAiTutorAdmissionAborted(signal);
+  const admissionSignal = aiTutorAdmissionOperationSignal(
+    signal,
+    aiTutorPolicyAdmissionOperationTimeoutMs
+  );
+  throwIfAiTutorAdmissionAborted(admissionSignal);
+  return aiTutorPolicyAdmissionSlot.run(admissionSignal, () => {
+    const client = getAiTutorPolicyAdmissionPostgresClient();
+    return runAbortBoundedAiTutorPostgresOperation({
+      abortOperation: () => destroyAiTutorAdmissionPostgresClient("policy", client),
+      operation: () => client.begin(async (sql) => {
+      throwIfAiTutorAdmissionAborted(admissionSignal);
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql`
+          SELECT
+            set_config('lock_timeout', ${`${Math.min(aiTutorAdmissionLockTimeoutMs, 500)}ms`}, true),
+            set_config('statement_timeout', ${`${aiTutorPolicyAdmissionStatementTimeoutMs}ms`}, true)
+        `,
+        signal: admissionSignal
+      });
 
-  const rows = await getPostgresClient().begin(async (sql) => {
-    await sql`
-      SELECT
-        set_config('lock_timeout', ${`${aiTutorAdmissionLockTimeoutMs}ms`}, true),
-        set_config('statement_timeout', ${`${aiTutorAdmissionStatementTimeoutMs}ms`}, true)
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
-
-    const policyRows = await sql<PostgresStudentAiTutorPolicyRow[]>`
-      WITH authoritative_state AS (
-        SELECT payload
-        FROM app_state
-        WHERE id = ${stateRecordId}
-        LIMIT 1
-      ), student AS (
-        SELECT user_record->>'role' AS role
-        FROM authoritative_state
-        CROSS JOIN LATERAL jsonb_array_elements(
-          CASE
-            WHEN jsonb_typeof(payload->'users') = 'array' THEN payload->'users'
-            ELSE '[]'::jsonb
-          END
-        ) AS user_items(user_record)
-        WHERE user_record->>'id' = ${userId}
-        LIMIT 1
-      ), enrolled_classes AS (
-        SELECT
-          teacher_class_record->>'id' AS class_id,
-          teacher_class_record->>'teacher_id' AS teacher_id,
-          teacher_class_record->>'updated_at' AS updated_at
-        FROM authoritative_state
-        CROSS JOIN LATERAL jsonb_array_elements(
-          CASE
-            WHEN jsonb_typeof(payload->'class_enrollments') = 'array'
-              THEN payload->'class_enrollments'
-            ELSE '[]'::jsonb
-          END
-        ) AS enrollment_items(enrollment_record)
-        CROSS JOIN LATERAL jsonb_array_elements(
-          CASE
-            WHEN jsonb_typeof(payload->'teacher_classes') = 'array'
-              THEN payload->'teacher_classes'
-            ELSE '[]'::jsonb
-          END
-        ) AS teacher_class_items(teacher_class_record)
-        WHERE enrollment_record->>'student_id' = ${userId}
-          AND teacher_class_record->>'id' = enrollment_record->>'class_id'
-      ), policy_records AS (
-        SELECT policy_record
-        FROM authoritative_state
-        CROSS JOIN LATERAL jsonb_array_elements(
-          CASE
-            WHEN jsonb_typeof(payload->'class_ai_tutor_policies') = 'array'
-              THEN payload->'class_ai_tutor_policies'
-            ELSE '[]'::jsonb
-          END
-        ) AS policy_items(policy_record)
-      )
-      SELECT
-        (SELECT role FROM student) AS user_role,
-        enrolled_class.class_id,
-        enrolled_class.teacher_id,
-        enrolled_class.updated_at,
-        policy.policy_record
-      FROM (SELECT 1) AS anchor
-      LEFT JOIN enrolled_classes AS enrolled_class ON TRUE
-      LEFT JOIN policy_records AS policy
-        ON policy.policy_record->>'class_id' = enrolled_class.class_id
-      ORDER BY enrolled_class.class_id ASC
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
-    return policyRows;
-  });
-  throwIfAiTutorAdmissionAborted(signal);
-
-  const now = new Date().toISOString();
-  const fallback = defaultStudentAiTutorPolicy(now);
-  if (rows[0]?.user_role !== "student") return fallback;
-
-  const policies = rows.flatMap((row) => {
-    if (typeof row.class_id !== "string" || !row.class_id.trim()) return [];
-    const classId = row.class_id.trim();
-    const teacherId = typeof row.teacher_id === "string" && row.teacher_id.trim()
-      ? row.teacher_id.trim()
-      : "system";
-    const updatedAt = typeof row.updated_at === "string" && row.updated_at.trim()
-      ? row.updated_at
-      : now;
-    const policyRecord = normalizeClassAiTutorPolicyRecordFromAiGovernancePersistence(
-      row.policy_record,
-      now
-    ) ?? defaultClassAiTutorPolicyRecordFromAiGovernancePersistence({
-      classId,
-      now: updatedAt,
-      updatedBy: teacherId
+      return runAiTutorPolicyAdmissionQuery({
+        createQuery: () => sql<AiTutorPolicyAdmissionRow[]>`
+          WITH schema_readiness AS (
+            SELECT EXISTS (
+              SELECT 1
+              FROM auth_schema_migrations
+              WHERE version = ${hotAuthSchemaVersion}
+            ) AS schema_ready
+          ), student AS (
+            SELECT auth_user.role
+            FROM auth_users AS auth_user
+            CROSS JOIN schema_readiness
+            WHERE schema_readiness.schema_ready
+              AND auth_user.id = ${userId}
+            LIMIT 1
+          ), enrolled_classes AS (
+            SELECT
+              enrollment.class_id,
+              teacher_class.teacher_id,
+              teacher_class.updated_at
+            FROM projection_class_enrollments AS enrollment
+            LEFT JOIN projection_teacher_classes AS teacher_class
+              ON teacher_class.id = enrollment.class_id
+            CROSS JOIN schema_readiness
+            WHERE schema_readiness.schema_ready
+              AND enrollment.student_id = ${userId}
+          ), resolved AS (
+            SELECT
+              TRUE AS schema_ready,
+              student.role AS user_role,
+              enrolled_class.class_id,
+              enrolled_class.teacher_id,
+              enrolled_class.updated_at,
+              policy.record AS policy_record
+            FROM schema_readiness
+            LEFT JOIN student ON TRUE
+            LEFT JOIN enrolled_classes AS enrolled_class ON TRUE
+            LEFT JOIN projection_class_ai_tutor_policies AS policy
+              ON policy.class_id = enrolled_class.class_id
+            WHERE schema_readiness.schema_ready
+          )
+          SELECT * FROM resolved
+          UNION ALL
+          SELECT
+            FALSE AS schema_ready,
+            NULL::text AS user_role,
+            NULL::text AS class_id,
+            NULL::text AS teacher_id,
+            NULL::text AS updated_at,
+            NULL::jsonb AS policy_record
+          FROM schema_readiness
+          WHERE NOT schema_ready
+          ORDER BY class_id ASC NULLS FIRST
+        `,
+        signal: admissionSignal
+      });
+      }),
+      signal: admissionSignal
     });
-
-    return [classAiTutorPolicyRecordToPublicFromAiGovernancePersistence(policyRecord)];
   });
-
-  return mergeClassAiTutorPoliciesByStrictest(policies, fallback);
 }
 
 async function consumeAiCapabilityRateLimitFromPostgresHotPath({
@@ -5131,114 +6308,127 @@ async function consumeAiCapabilityRateLimitFromPostgresHotPath({
   now: Date;
 }): Promise<AiCapabilityRateLimitDecision | undefined> {
   if (storageProvider !== "postgres" || capability !== "ai-tutor-chat") return undefined;
-
-  throwIfAiTutorAdmissionAborted(signal);
-  await ensurePostgresStateTable();
-  throwIfAiTutorAdmissionAborted(signal);
-
+  const admissionSignal = aiTutorAdmissionOperationSignal(
+    signal,
+    aiTutorRateAdmissionOperationTimeoutMs
+  );
+  throwIfAiTutorAdmissionAborted(admissionSignal);
   const lockKey = `${userId}:${capability}`;
 
-  const decision = await getPostgresClient().begin(async (sql) => {
-    await sql`
-      SELECT
-        set_config('lock_timeout', ${`${aiTutorAdmissionLockTimeoutMs}ms`}, true),
-        set_config('statement_timeout', ${`${aiTutorAdmissionStatementTimeoutMs}ms`}, true)
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
+  return aiTutorRateAdmissionSlot.run(admissionSignal, () => {
+    const client = getAiTutorRateAdmissionPostgresClient();
+    return runAbortBoundedAiTutorPostgresOperation({
+      abortOperation: () => destroyAiTutorAdmissionPostgresClient("rate", client),
+      operation: () => client.begin(async (sql) => {
+      const readinessRows = await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql<Array<{ schema_ready: boolean }>>`
+          SELECT
+            set_config('lock_timeout', ${`${Math.min(aiTutorAdmissionLockTimeoutMs, 500)}ms`}, true),
+            set_config('statement_timeout', ${`${Math.min(aiTutorAdmissionStatementTimeoutMs, 1_250)}ms`}, true),
+            EXISTS (
+              SELECT 1 FROM auth_schema_migrations WHERE version = ${hotAuthSchemaVersion}
+            ) AS schema_ready
+        `,
+        signal: admissionSignal
+      });
+      if (readinessRows[0]?.schema_ready !== true) {
+        throw new Error("AI Tutor rate-limit schema is unavailable.");
+      }
 
-    await sql`SELECT pg_advisory_xact_lock(hashtextextended(${lockKey}, 0))`;
-    throwIfAiTutorAdmissionAborted(signal);
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql`SELECT pg_advisory_xact_lock(hashtextextended(${lockKey}, 0))`,
+        signal: admissionSignal
+      });
+      const clockRows = await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql<Array<{ decision_now: unknown }>>`
+          SELECT clock_timestamp() AS decision_now
+        `,
+        signal: admissionSignal
+      });
+      const databaseNow = new Date(String(clockRows[0]?.decision_now ?? ""));
+      const decisionNow = Number.isFinite(databaseNow.getTime()) ? databaseNow : now;
+      const maxWindowMs = Math.max(60_000, ...rules.map((rule) => rule.windowMs));
+      const retentionWindowMs = Math.max(maxWindowMs, 24 * 60 * 60 * 1_000);
+      const oldestRelevantAt = new Date(decisionNow.getTime() - maxWindowMs).toISOString();
+      const retentionCutoffAt = new Date(decisionNow.getTime() - retentionWindowMs).toISOString();
+      const decisionNowIso = decisionNow.toISOString();
 
-    const clockRows = await sql<Array<{ decision_now: unknown }>>`
-      SELECT clock_timestamp() AS decision_now
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
-    const databaseNow = new Date(String(clockRows[0]?.decision_now ?? ""));
-    const decisionNow = Number.isFinite(databaseNow.getTime()) ? databaseNow : now;
-    const maxWindowMs = Math.max(60_000, ...rules.map((rule) => rule.windowMs));
-    const retentionWindowMs = Math.max(maxWindowMs, 24 * 60 * 60 * 1_000);
-    const oldestRelevantAt = new Date(decisionNow.getTime() - maxWindowMs).toISOString();
-    const retentionCutoffAt = new Date(decisionNow.getTime() - retentionWindowMs).toISOString();
-    const decisionNowIso = decisionNow.toISOString();
-
-    const eventRows = await sql<PostgresAiTutorRateLimitEventRow[]>`
-      SELECT created_at
-      FROM ai_governance_rate_limit_events
-      WHERE user_id = ${userId}
-        AND capability = ${capability}
-        AND action = 'request-admitted'
-        AND created_at > ${oldestRelevantAt}
-        AND created_at <= ${decisionNowIso}
-      ORDER BY created_at ASC
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
-
-    const nextDecision = evaluateAiCapabilityRateLimit({
-      capability,
-      events: eventRows.flatMap((row) => {
-        if (typeof row.created_at !== "string" || !row.created_at.trim()) return [];
-        return [{ capability, userId, createdAt: row.created_at }];
-      }),
-      now: decisionNow,
-      rules,
-      userId
-    });
-    const metadata = {
-      remaining: nextDecision.remaining,
-      resetAt: nextDecision.resetAt.toISOString(),
-      retryAfterSeconds: nextDecision.retryAfterSeconds,
-      ...(nextDecision.rule ? { rule: nextDecision.rule.name } : {})
-    };
-
-    throwIfAiTutorAdmissionAborted(signal);
-    await sql`
-      INSERT INTO ai_governance_rate_limit_events (
-        id,
-        user_id,
+      const eventRows = await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql<PostgresAiTutorRateLimitEventRow[]>`
+          SELECT created_at
+          FROM ai_governance_rate_limit_events
+          WHERE user_id = ${userId}
+            AND capability = ${capability}
+            AND action = 'request-admitted'
+            AND created_at > ${oldestRelevantAt}
+            AND created_at <= ${decisionNowIso}
+          ORDER BY created_at ASC
+        `,
+        signal: admissionSignal
+      });
+      const nextDecision = evaluateAiCapabilityRateLimit({
         capability,
-        action,
-        reason,
-        metadata_json,
-        created_at
-      ) VALUES (
-        ${`ai-governance-${randomUUID()}`},
-        ${userId},
-        ${capability},
-        ${nextDecision.allowed ? "request-admitted" : "rate-limit-blocked"},
-        ${nextDecision.reason},
-        ${JSON.stringify(metadata)}::jsonb,
-        ${decisionNowIso}
-      )
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
+        events: eventRows.flatMap((row) => {
+          if (typeof row.created_at !== "string" || !row.created_at.trim()) return [];
+          return [{ capability, userId, createdAt: row.created_at }];
+        }),
+        now: decisionNow,
+        rules,
+        userId
+      });
+      const metadata = {
+        remaining: nextDecision.remaining,
+        resetAt: nextDecision.resetAt.toISOString(),
+        retryAfterSeconds: nextDecision.retryAfterSeconds,
+        ...(nextDecision.rule ? { rule: nextDecision.rule.name } : {})
+      };
 
-    await sql`
-      DELETE FROM ai_governance_rate_limit_events
-      WHERE user_id = ${userId}
-        AND capability = ${capability}
-        AND created_at <= ${retentionCutoffAt}
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
-
-    await sql`
-      DELETE FROM ai_governance_rate_limit_events
-      WHERE id IN (
-        SELECT id
-        FROM ai_governance_rate_limit_events
-        WHERE user_id = ${userId}
-          AND capability = ${capability}
-          AND action = 'rate-limit-blocked'
-        ORDER BY created_at DESC, id DESC
-        OFFSET 100
-      )
-    `;
-    throwIfAiTutorAdmissionAborted(signal);
-
-    return nextDecision;
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql`
+          INSERT INTO ai_governance_rate_limit_events (
+            id, user_id, capability, action, reason, metadata_json, created_at
+          ) VALUES (
+            ${`ai-governance-${randomUUID()}`},
+            ${userId},
+            ${capability},
+            ${nextDecision.allowed ? "request-admitted" : "rate-limit-blocked"},
+            ${nextDecision.reason},
+            ${JSON.stringify(metadata)}::jsonb,
+            ${decisionNowIso}
+          )
+        `,
+        signal: admissionSignal
+      });
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql`
+          DELETE FROM ai_governance_rate_limit_events
+          WHERE user_id = ${userId}
+            AND capability = ${capability}
+            AND created_at <= ${retentionCutoffAt}
+        `,
+        signal: admissionSignal
+      });
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql`
+          DELETE FROM ai_governance_rate_limit_events
+          WHERE id IN (
+            SELECT id
+            FROM ai_governance_rate_limit_events
+            WHERE user_id = ${userId}
+              AND capability = ${capability}
+              AND action = 'rate-limit-blocked'
+            ORDER BY created_at DESC, id DESC
+            OFFSET 100
+          )
+        `,
+        signal: admissionSignal
+      });
+      throwIfAiTutorAdmissionAborted(admissionSignal);
+      return nextDecision;
+      }),
+      signal: admissionSignal
+    });
   });
-
-  throwIfAiTutorAdmissionAborted(signal);
-  return decision;
 }
 
 async function getAITutorTokenUsageSinceFromPostgresHotPath(
@@ -5248,72 +6438,28 @@ async function getAITutorTokenUsageSinceFromPostgresHotPath(
 ): Promise<number | undefined> {
   if (storageProvider !== "postgres") return undefined;
 
-  throwIfAiTutorAdmissionAborted(signal);
+  const admissionSignal = signal ?? new AbortController().signal;
+  throwIfAiTutorAdmissionAborted(admissionSignal);
   await ensurePostgresStateTable();
-  throwIfAiTutorAdmissionAborted(signal);
+  throwIfAiTutorAdmissionAborted(admissionSignal);
   const rows = await getPostgresClient().begin(async (sql) => {
-    throwIfAiTutorAdmissionAborted(signal);
-    const timeoutQuery = sql`
-      SELECT set_config('statement_timeout', ${`${aiTutorQuotaStatementTimeoutMs}ms`}, true)
-    `;
-    const cancelTimeoutQuery = () => timeoutQuery.cancel();
-    signal?.addEventListener("abort", cancelTimeoutQuery, { once: true });
-    if (signal?.aborted) cancelTimeoutQuery();
-    try {
-      await timeoutQuery;
-    } finally {
-      signal?.removeEventListener("abort", cancelTimeoutQuery);
-    }
-    throwIfAiTutorAdmissionAborted(signal);
-
-    const query = sql<PostgresAiTutorTokenUsageRow[]>`
-      WITH authoritative_state AS (
-        SELECT payload
-        FROM app_state
-        WHERE id = ${stateRecordId}
-        LIMIT 1
-      )
-      SELECT COALESCE(
-        SUM(
-          CASE
-            WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
-              THEN (usage_record->>'total_tokens')::double precision
-            ELSE
-              CASE
-                WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
-                  THEN (usage_record->>'prompt_tokens')::double precision
-                ELSE 0
-              END
-              + CASE
-                WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
-                  THEN (usage_record->>'completion_tokens')::double precision
-                ELSE 0
-              END
-          END
-        ),
-        0
-      )::text AS total_tokens
-      FROM authoritative_state
-      CROSS JOIN LATERAL jsonb_array_elements(
-        CASE
-          WHEN jsonb_typeof(payload->'ai_tutor_usage') = 'array'
-            THEN payload->'ai_tutor_usage'
-          ELSE '[]'::jsonb
-        END
-      ) AS usage_items(usage_record)
-      WHERE usage_record->>'user_id' = ${userId}
-        AND usage_record->>'created_at' >= ${sinceIso}
-    `;
-    const cancelQuery = () => query.cancel();
-    signal?.addEventListener("abort", cancelQuery, { once: true });
-    if (signal?.aborted) cancelQuery();
-    try {
-      return await query;
-    } finally {
-      signal?.removeEventListener("abort", cancelQuery);
-    }
+    await runCancellableAiTutorAdmissionQuery({
+      createQuery: () => sql`
+        SELECT set_config('statement_timeout', ${`${aiTutorQuotaStatementTimeoutMs}ms`}, true)
+      `,
+      signal: admissionSignal
+    });
+    return runCancellableAiTutorAdmissionQuery({
+      createQuery: () => sql<PostgresAiTutorTokenUsageRow[]>`
+        SELECT COALESCE(SUM(accounted_tokens), 0)::text AS total_tokens
+        FROM ai_tutor_usage_journal
+        WHERE user_id = ${userId}
+          AND created_at >= ${sinceIso}
+      `,
+      signal: admissionSignal
+    });
   });
-  throwIfAiTutorAdmissionAborted(signal);
+  throwIfAiTutorAdmissionAborted(admissionSignal);
 
   const totalTokens = Number(rows[0]?.total_tokens ?? 0);
   if (!Number.isFinite(totalTokens)) {
@@ -5433,6 +6579,8 @@ const aiGovernancePersistenceStore = createAiGovernancePersistenceStore({
   resolveStudentAiTutorPolicyBeforeSnapshot: resolveStudentAiTutorPolicyFromPostgresHotPath,
   consumeAiCapabilityRateLimitBeforeSnapshot: consumeAiCapabilityRateLimitFromPostgresHotPath,
   getAITutorTokenUsageSinceBeforeSnapshot: getAITutorTokenUsageSinceFromPostgresHotPath,
+  recordAITutorMessageBeforeSnapshot: recordAITutorMessageFromPostgresJournal,
+  recordAITutorUsageBeforeSnapshot: recordAITutorUsageFromPostgresJournal,
   readAiTutorRateLimitEventsAfterSnapshot: readAiTutorRateLimitEventsFromPostgresHotPath,
   readDatabase,
   mutateDatabase: async <T>(mutator: (database: AiGovernancePersistenceDatabase) => T | Promise<T>) => {
@@ -8079,8 +9227,16 @@ async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
     throw new Error("Postgres hot authentication tables are required for AI Tutor admission.");
   }
 
-  return aiTutorAuthAdmissionSlot.run(signal, () =>
-    getAiTutorAuthAdmissionPostgresClient().begin(async (sql) => {
+  const admissionSignal = aiTutorAdmissionOperationSignal(
+    signal,
+    aiTutorAuthAdmissionOperationTimeoutMs
+  );
+  const authenticated = await aiTutorAuthAdmissionSlot.run(admissionSignal, () => {
+    const client = getAiTutorAuthAdmissionPostgresClient();
+    return runAbortBoundedAiTutorPostgresOperation({
+      abortOperation: () => destroyAiTutorAdmissionPostgresClient("auth", client),
+      operation: () => client.begin(async (sql) => {
+      throwIfAiTutorAdmissionAborted(admissionSignal);
       throwIfAiTutorAdmissionAborted(signal);
       await sql`
         SELECT set_config(
@@ -8139,11 +9295,19 @@ async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
           mediaObjectUrlForKey: mediaObjectAccessUrl
         }),
         onAuthoritativeMiss: storageFreeExampleAuthenticatedUser,
-        signal,
+        signal: admissionSignal,
         userId
       });
-    })
-  );
+      }),
+      signal: admissionSignal
+    });
+  });
+  // Let auth finish its own connection, query, and transaction cleanup before
+  // starting the two governance handshakes. Each primer begin() is queued
+  // synchronously, so the immediately following policy stage follows that
+  // in-flight connection without making auth compete with two cold handshakes.
+  primeAiTutorGovernanceAdmissionPostgresClients();
+  return authenticated;
 }
 
 export const getAuthenticatedUserById = authUserStore.getAuthenticatedUserById;
@@ -8614,7 +9778,7 @@ async function getTeacherDashboardDataFromPostgresProjection(userId: string): Pr
         ), '[]'::jsonb) AS visualization_session_records,
         COALESCE((
           SELECT jsonb_agg(record)
-          FROM projection_ai_tutor_messages
+          FROM ai_tutor_message_journal
           WHERE user_id IN (SELECT student_id FROM student_ids)
         ), '[]'::jsonb) AS ai_tutor_message_records,
         COALESCE((
@@ -8854,7 +10018,7 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
         ), '[]'::jsonb) AS visualization_session_records,
         COALESCE((
           SELECT jsonb_agg(record)
-          FROM projection_ai_tutor_messages
+          FROM ai_tutor_message_journal
           WHERE user_id IN (SELECT student_id FROM student_ids)
         ), '[]'::jsonb) AS ai_tutor_message_records,
         COALESCE((

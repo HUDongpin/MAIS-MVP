@@ -27,6 +27,7 @@ type MathSceneRenderQualityPlan = {
 };
 
 type MathSceneRenderQualityModule = {
+  MANIM_DEFAULT_BACKGROUND_COLOR: "#020617";
   MANIM_RENDER_QUALITY_SOURCE_CONTRACT: string;
   buildMathSceneRenderQualityPlan: (input?: {
     backgroundAlpha?: number;
@@ -52,7 +53,11 @@ async function importQualityModule() {
 }
 
 test("normalizes Manim-style quality presets for browser and capture rendering", async () => {
-  const { MANIM_RENDER_QUALITY_SOURCE_CONTRACT, buildMathSceneRenderQualityPlan } = await importQualityModule();
+  const {
+    MANIM_DEFAULT_BACKGROUND_COLOR,
+    MANIM_RENDER_QUALITY_SOURCE_CONTRACT,
+    buildMathSceneRenderQualityPlan
+  } = await importQualityModule();
 
   const production = buildMathSceneRenderQualityPlan({ preset: "production", rendererMode: "capture" });
   assert.equal(MANIM_RENDER_QUALITY_SOURCE_CONTRACT, expectedSourceContract);
@@ -71,7 +76,8 @@ test("normalizes Manim-style quality presets for browser and capture rendering",
   assert.equal(production.antialias, true);
   assert.equal(production.transparentBackground, false);
   assert.equal(production.backgroundAlpha, 1);
-  assert.equal(production.backgroundColor, "#020617");
+  assert.equal(MANIM_DEFAULT_BACKGROUND_COLOR, "#020617");
+  assert.equal(production.backgroundColor, MANIM_DEFAULT_BACKGROUND_COLOR);
   assert.equal(production.aspectRatio, 1.777778);
   assert.equal(production.pixelCount, 2073600);
   assert.equal(
@@ -154,6 +160,7 @@ test("render quality source stays pure and renderer independent", () => {
   const source = fs.readFileSync(modulePath, "utf8");
 
   assert.match(source, /MANIM_RENDER_QUALITY_SOURCE_CONTRACT/);
+  assert.match(source, /MANIM_DEFAULT_BACKGROUND_COLOR/);
   assert.match(source, /buildMathSceneRenderQualityPlan/);
   assert.match(source, /renderQualityDataAttributes/);
   assert.match(source, /pixel_width/);

@@ -34,7 +34,9 @@ test("schema bootstrap records the current marker as its final SQL statement", (
   const novaRateLedgerBackfill = bootstrapSource.indexOf(
     "INSERT INTO ai_governance_rate_limit_events"
   );
-  const schemaSqlStatements = bootstrapSource.match(/(?:await |return )?sql(?:<[^`]+>)?`/g) ?? [];
+  const schemaSqlStatements = bootstrapSource.match(
+    /(?:await |return )?(?:sql|migrationSql)(?:<[^`]+>)?`/g
+  ) ?? [];
 
   assert.notEqual(bootstrapStart, -1);
   assert.notEqual(bootstrapEnd, -1);
@@ -42,7 +44,7 @@ test("schema bootstrap records the current marker as its final SQL statement", (
   assert.notEqual(novaRateLedgerTable, -1);
   assert.notEqual(novaRateLedgerIndex, -1);
   assert.notEqual(novaRateLedgerBackfill, -1);
-  assert.equal(schemaSqlStatements.length, 71);
+  assert.equal(schemaSqlStatements.length, 92);
   assert.equal(markerInsert, bootstrapSource.lastIndexOf("INSERT INTO auth_schema_migrations"));
   assert.equal(markerInsert > bootstrapSource.lastIndexOf("CREATE INDEX IF NOT EXISTS"), true);
   assert.equal(markerInsert > bootstrapSource.lastIndexOf("CREATE TABLE IF NOT EXISTS"), true);

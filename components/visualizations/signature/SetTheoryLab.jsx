@@ -880,7 +880,7 @@ export default function SetTheoryLab() {
 
           {/* accessible element control — the primary, keyboard-friendly way to
               move numbers between regions (mirrors clicking the chips). */}
-          <div className="strip" role="group" aria-label="Universe elements — click to move between regions">
+          <div className="strip" role="group" aria-label="Universe elements — activate a number to move it between regions" data-viz-keyboard-equivalent="set-elements">
             {UNIVERSE.map((n) => {
               const code = mem[n];
               const cls =
@@ -892,7 +892,7 @@ export default function SetTheoryLab() {
                   key={n}
                   className={cls}
                   onClick={() => cycleChip(n)}
-                  aria-label={`Number ${n}, currently in ${regionName(code)}. Click to move it.`}
+                  aria-label={`Number ${n}, currently in ${regionName(code)}. Activate to move it.`}
                 >
                   <span className="el-n">{n}</span>
                   <span className="el-r" aria-hidden="true">{regionShort(code)}</span>
@@ -1224,7 +1224,8 @@ export default function SetTheoryLab() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          width: 40px;
+          width: 44px;
+          min-height: 44px;
           padding: 4px 0 3px;
           border-radius: 8px;
           border: 1px solid rgba(28, 43, 58, 0.18);
@@ -1393,6 +1394,11 @@ export default function SetTheoryLab() {
           grid-template-columns: repeat(5, 1fr);
           gap: 5px;
           margin-top: 7px;
+        }
+        @media (max-width: 560px) {
+          .ops-row {
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+          }
         }
         .opbtn {
           display: flex;

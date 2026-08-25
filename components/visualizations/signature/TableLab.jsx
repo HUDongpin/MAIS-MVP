@@ -1115,6 +1115,48 @@ export default function TableLab() {
             </div>
           </div>
 
+          <div
+            className="cell-editor"
+            role="group"
+            aria-label="Keyboard table-cell editor"
+            data-viz-keyboard-equivalent="table-cells"
+          >
+            <span className="editor-title">Add or remove surveyed students</span>
+            {['Younger', 'Older'].map((rowLabel, r) =>
+              ['Cats', 'Dogs'].map((colLabel, c) => (
+                <div className="cell-control" key={`${r}-${c}`}>
+                  <span className="cell-label">{rowLabel} × {colLabel}</span>
+                  <div className="cell-actions">
+                    <button
+                      type="button"
+                      className="editor-action"
+                      onClick={() => removeAt(r, c)}
+                      disabled={effView !== 'count' || grid[r][c] <= 0}
+                      aria-label={`Remove one student from ${rowLabel}, ${colLabel}`}
+                    >
+                      −1
+                    </button>
+                    <output className="editor-value" aria-live="polite">
+                      {grid[r][c]}
+                    </output>
+                    <button
+                      type="button"
+                      className="editor-action"
+                      onClick={() => addAt(r, c)}
+                      disabled={effView !== 'count' || grid[r][c] >= MAX_CELL}
+                      aria-label={`Add one student to ${rowLabel}, ${colLabel}`}
+                    >
+                      +1
+                    </button>
+                  </div>
+                </div>
+              )),
+            )}
+            <span className="editor-help">
+              {effView === 'count' ? 'All four cells are keyboard editable.' : 'Switch to Counts to edit the table.'}
+            </span>
+          </div>
+
           {/* view-mode segmented control drives the picture */}
           <div className="views" role="group" aria-label="Reading views">
             {VIEWS.map((v) => {
@@ -1454,6 +1496,83 @@ export default function TableLab() {
         .fact-v.blue {
           color: var(--margin);
           font-weight: 600;
+        }
+        .cell-editor {
+          margin: 12px 4px 2px;
+          padding: 10px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+          border: 1px solid rgba(28, 43, 58, 0.14);
+          border-radius: 9px;
+          background: rgba(63, 116, 166, 0.045);
+        }
+        .editor-title,
+        .editor-help {
+          grid-column: 1 / -1;
+        }
+        .editor-title {
+          color: var(--ink);
+          font-size: 12px;
+          font-weight: 700;
+        }
+        .cell-control {
+          min-width: 0;
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          border: 1px solid rgba(28, 43, 58, 0.11);
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.75);
+        }
+        .cell-label {
+          min-width: 0;
+          color: var(--ink-soft);
+          font-size: 11.5px;
+          line-height: 1.25;
+        }
+        .cell-actions {
+          display: grid;
+          grid-template-columns: 44px 2ch 44px;
+          gap: 6px;
+          align-items: center;
+          flex: 0 0 auto;
+        }
+        .editor-action {
+          min-width: 44px;
+          min-height: 44px;
+          padding: 6px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: var(--paper);
+          color: var(--ink);
+          cursor: pointer;
+          font: 700 12px/1 var(--mono);
+        }
+        .editor-action:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+        .editor-value {
+          color: var(--curve);
+          font: 700 14px/1 var(--mono);
+          text-align: center;
+        }
+        .editor-help {
+          color: var(--ink-soft);
+          font-size: 11.5px;
+          line-height: 1.35;
+        }
+        @media (max-width: 620px) {
+          .cell-editor {
+            grid-template-columns: 1fr;
+          }
+          .editor-title,
+          .editor-help {
+            grid-column: 1;
+          }
         }
         .views {
           display: flex;
