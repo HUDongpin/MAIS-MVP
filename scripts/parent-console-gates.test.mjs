@@ -315,6 +315,30 @@ test("CI uses a fresh production build for isolated parent tests and rejects fla
   assert.match(config, /failOnFlakyTests:\s*Boolean\(process\.env\.CI\)/u);
 });
 
+test("shared parent API reads retry one connection reset without relaxing HTTP assertions", () => {
+  const helpers = readRepoFile("tests/e2e/helpers.ts");
+  const helperStart = helpers.indexOf("export function getWithResetRetry(");
+  const helperEnd = helpers.indexOf("\nexport ", helperStart + 1);
+  assert.ok(helperStart >= 0 && helperEnd > helperStart);
+  const retryHelper = helpers.slice(helperStart, helperEnd);
+  assert.match(retryHelper, /return request\.get\(url/u);
+  assert.match(retryHelper, /maxRetries:\s*1/u);
+  assert.doesNotMatch(retryHelper, /failOnStatusCode/u);
+
+  for (const specPath of [
+    "tests/e2e/parent-console.spec.ts",
+    "tests/e2e/parent-console-feature-matrix.spec.ts"
+  ]) {
+    const spec = readRepoFile(specPath);
+    assert.match(spec, /getWithResetRetry/u, `${specPath} should use the reset-only GET helper`);
+    assert.doesNotMatch(
+      spec,
+      /\b(?:page\.request|[A-Za-z][A-Za-z0-9]*Context)\.get\(/u,
+      `${specPath} must not bypass the reset-only GET helper`
+    );
+  }
+});
+
 test("CI artifact globs match Playwright's run-owned output directories", () => {
   const ci = readRepoFile(".github/workflows/ci.yml");
   const workflow = YAML.parse(ci);

@@ -6,6 +6,7 @@ import {
   demoStudent,
   demoStudentUserId,
   expectNoPageErrors,
+  getWithResetRetry,
   loginAsDemoParent,
   loginAsDemoStudent,
   loginAsTeacher,
@@ -455,7 +456,7 @@ async function verifyLostResponseIdempotency(page: Page, testInfo: TestInfo) {
     await page.unroute("**/api/parent/messages");
   }
 
-  const messagesResponse = await page.request.get("/api/parent/messages", {
+  const messagesResponse = await getWithResetRetry(page.request, "/api/parent/messages", {
     headers: expectedParentHeaders()
   });
   expect(messagesResponse.status()).toBe(200);
@@ -576,7 +577,7 @@ async function sendParentNotice(contexts: APIRequestContext[], testInfo: TestInf
 }
 
 async function parentNotices(page: Page) {
-  const response = await page.request.get("/api/parent/notices", {
+  const response = await getWithResetRetry(page.request, "/api/parent/notices", {
     headers: expectedParentHeaders()
   });
   expect(response.ok()).toBeTruthy();
@@ -621,7 +622,7 @@ test.describe.serial("parent console feature matrix", () => {
       await expect(noticeFilter(page, name)).toBeVisible();
     }
 
-    const foundation = await page.request.get("/api/parent/foundation", {
+    const foundation = await getWithResetRetry(page.request, "/api/parent/foundation", {
       headers: expectedParentHeaders()
     });
     const child = (await foundation.json() as ParentFoundationResponse).data.children[0];
@@ -695,12 +696,12 @@ test.describe.serial("parent console feature matrix", () => {
     await logoutIfVisible(page);
 
     await loginAsDemoStudent(page);
-    expect((await page.request.get("/api/parent/notices")).status()).toBe(403);
+    expect((await getWithResetRetry(page.request, "/api/parent/notices")).status()).toBe(403);
     expect((await page.request.post(`/api/parent/notices/${encodeURIComponent(recipientId!)}/ack`)).status()).toBe(403);
     await logoutIfVisible(page);
 
     await loginAsTeacher(page);
-    expect((await page.request.get("/api/parent/notices")).status()).toBe(403);
+    expect((await getWithResetRetry(page.request, "/api/parent/notices")).status()).toBe(403);
     expect((await page.request.post(`/api/parent/notices/${encodeURIComponent(recipientId!)}/ack`)).status()).toBe(403);
   });
 
@@ -746,7 +747,7 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(page).toHaveURL(new RegExp(`/parent/children/${escapeRegex(encodeURIComponent(extraChild.userId))}$`));
     await expect(page.locator("main").getByRole("heading", { name: extraChild.name }).first()).toBeVisible();
 
-    const allMessagesResponse = await page.request.get("/api/parent/messages", {
+    const allMessagesResponse = await getWithResetRetry(page.request, "/api/parent/messages", {
       headers: expectedParentHeaders()
     });
     expect(allMessagesResponse.status()).toBe(200);
@@ -812,7 +813,8 @@ test.describe.serial("parent console feature matrix", () => {
     // studentId that only belongs to another teacher's class must fail closed
     // for both preview and save. A fallback to the first student/class would
     // turn either assertion green for the wrong data, so inspect the exact 404.
-    const foreignPreviewResponse = await teacherContext.get(
+    const foreignPreviewResponse = await getWithResetRetry(
+      teacherContext,
       `/api/teacher/reports/preview?type=parent-summary&language=en&classId=${encodeURIComponent(demoTarget!.classId)}&studentId=${encodeURIComponent(foreignStudent.userId)}`,
       { headers: expectedUserHeaders(teacherSession.user.id) }
     );
@@ -844,7 +846,7 @@ test.describe.serial("parent console feature matrix", () => {
     // history sequence below proves A -> B -> back -> forward never resolves a
     // report/class/student/subject from another data generation.
     await page.goto("/parent/messages");
-    const reportPayloadResponse = await page.request.get("/api/parent/messages", {
+    const reportPayloadResponse = await getWithResetRetry(page.request, "/api/parent/messages", {
       headers: expectedParentHeaders()
     });
     expect(reportPayloadResponse.status()).toBe(200);
@@ -1031,7 +1033,7 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toBeVisible();
     await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toBeVisible();
 
-    const messages = await page.request.get("/api/parent/messages", {
+    const messages = await getWithResetRetry(page.request, "/api/parent/messages", {
       headers: expectedParentHeaders()
     });
     const payload = await messages.json() as ParentMessagesResponse;

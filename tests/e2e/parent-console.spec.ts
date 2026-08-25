@@ -9,6 +9,7 @@ import {
   demoStudent,
   demoTeacherUserId,
   expectNoPageErrors,
+  getWithResetRetry,
   loginAs,
   loginAsDemoParent,
   loginAsDemoStudent,
@@ -295,7 +296,7 @@ async function disposeAll(contexts: APIRequestContext[]) {
 }
 
 async function parentFoundation(page: Page, parentUserId = demoParentUserId) {
-  const response = await page.request.get("/api/parent/foundation", {
+  const response = await getWithResetRetry(page.request, "/api/parent/foundation", {
     headers: expectedParentHeaders(parentUserId)
   });
   expect(response.ok()).toBeTruthy();
@@ -631,7 +632,7 @@ test.describe.serial("parent console end-to-end verification", () => {
     await expect(page).toHaveURL(/\/parent/);
     await expect(page.getByText(demoParent.username).first()).toBeVisible();
 
-    const parentApi = await page.request.get("/api/parent/foundation", {
+    const parentApi = await getWithResetRetry(page.request, "/api/parent/foundation", {
       headers: expectedParentHeaders()
     });
     expect(parentApi.status()).toBe(200);
@@ -650,7 +651,7 @@ test.describe.serial("parent console end-to-end verification", () => {
     await loginAsDemoStudent(page);
     await page.goto("/parent");
     await expect(page).toHaveURL(/\/login\?next=(?:%2Fparent|\/parent)$/);
-    expect((await page.request.get("/api/parent/foundation")).status()).toBe(403);
+    expect((await getWithResetRetry(page.request, "/api/parent/foundation")).status()).toBe(403);
     // A role-incompatible account is kept signed in on the explicit switch-account
     // page, so clear it through the API before exercising the teacher boundary.
     await page.request.post("/api/auth/logout");
@@ -658,7 +659,7 @@ test.describe.serial("parent console end-to-end verification", () => {
     await loginAsTeacher(page);
     await page.goto("/parent");
     await expect(page).toHaveURL(/\/login\?next=(?:%2Fparent|\/parent)$/);
-    expect((await page.request.get("/api/parent/foundation")).status()).toBe(403);
+    expect((await getWithResetRetry(page.request, "/api/parent/foundation")).status()).toBe(403);
 
     expectNoPageErrors(pageErrors);
   });
@@ -691,7 +692,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(overview.getByText(child.student.name, { exact: true }).first()).toBeVisible();
       await expect(overview.locator(`a[href="/parent/children/${encodeURIComponent(childId)}"]`)).toHaveCount(1);
 
-      const childSummaryResponse = await page.request.get(`/api/parent/children/${encodeURIComponent(childId)}/summary`, {
+      const childSummaryResponse = await getWithResetRetry(page.request, `/api/parent/children/${encodeURIComponent(childId)}/summary`, {
         headers: expectedParentHeaders()
       });
       expect(childSummaryResponse.status()).toBe(200);
@@ -712,7 +713,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page.getByText(/points/i).first()).toBeVisible();
       await expect(page.getByText(/Messages and AI Tutor|Last AI message|Create assignment|Generate report|Save report|Edit profile/i)).toHaveCount(0);
 
-      expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`, {
+      expect((await getWithResetRetry(page.request, `/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`, {
         headers: expectedParentHeaders()
       })).status()).toBe(404);
       const linkResponse = await page.request.post("/api/parent/children/link", {
@@ -723,11 +724,11 @@ test.describe.serial("parent console end-to-end verification", () => {
         }
       });
       expect(linkResponse.status()).toBe(200);
-      expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`, {
+      expect((await getWithResetRetry(page.request, `/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`, {
         headers: expectedParentHeaders()
       })).status()).toBe(200);
 
-      const allReportsResponse = await page.request.get("/api/parent/reports", {
+      const allReportsResponse = await getWithResetRetry(page.request, "/api/parent/reports", {
         headers: expectedParentHeaders()
       });
       expect(allReportsResponse.status()).toBe(200);
@@ -735,14 +736,14 @@ test.describe.serial("parent console end-to-end verification", () => {
       expect(allReports.data.reports.every((report) => report.type === "parent-summary")).toBeTruthy();
       expect(allReports.data.reports.some((report) => report.studentId === childId)).toBeTruthy();
 
-      const demoReportsResponse = await page.request.get(`/api/parent/reports?studentId=${encodeURIComponent(childId)}`, {
+      const demoReportsResponse = await getWithResetRetry(page.request, `/api/parent/reports?studentId=${encodeURIComponent(childId)}`, {
         headers: expectedParentHeaders()
       });
       const demoReports = await demoReportsResponse.json() as ParentReportsResponse;
       expect(demoReports.data.selectedChild?.student.id).toBe(childId);
       expect(demoReports.data.reports.every((report) => report.studentId === childId && report.type === "parent-summary")).toBeTruthy();
 
-      const linkedReportsResponse = await page.request.get(`/api/parent/reports?studentId=${encodeURIComponent(unlinkedStudent.userId)}`, {
+      const linkedReportsResponse = await getWithResetRetry(page.request, `/api/parent/reports?studentId=${encodeURIComponent(unlinkedStudent.userId)}`, {
         headers: expectedParentHeaders()
       });
       const linkedReports = await linkedReportsResponse.json() as ParentReportsResponse;
@@ -804,7 +805,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page).toHaveURL(/\/parent/);
       await expect(page.locator("main").getByRole("heading", { name: studentToLink.name }).first()).toBeVisible();
 
-      const parentSessionResponse = await page.request.get("/api/me");
+      const parentSessionResponse = await getWithResetRetry(page.request, "/api/me");
       const parentSession = await parentSessionResponse.json() as AuthSession;
       const repeatLinkResponse = await page.request.post("/api/parent/children/link", {
         headers: expectedParentHeaders(parentSession.user.id),
@@ -854,7 +855,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       const child = foundation.data.selectedChild;
       if (!child) throw new Error("Expected a linked demo child.");
 
-      const reportsResponse = await page.request.get(`/api/parent/reports?studentId=${encodeURIComponent(child.student.id)}`, {
+      const reportsResponse = await getWithResetRetry(page.request, `/api/parent/reports?studentId=${encodeURIComponent(child.student.id)}`, {
         headers: expectedParentHeaders()
       });
       const reports = await reportsResponse.json() as ParentReportsResponse;
@@ -976,7 +977,7 @@ test.describe.serial("parent console end-to-end verification", () => {
         data: { ...directReplyPayload, body: `${directReplyPayload.body} changed` }
       })).status()).toBe(409);
 
-      const parentMessagesResponse = await page.request.get("/api/parent/messages", {
+      const parentMessagesResponse = await getWithResetRetry(page.request, "/api/parent/messages", {
         headers: expectedParentHeaders()
       });
       const parentMessages = await parentMessagesResponse.json() as ParentMessagesResponse;
@@ -984,7 +985,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       expect(parentMessages.data.threads.some((thread) => thread.subject.en === parentSubject)).toBeTruthy();
       expect(parentMessages.data.threads.some((thread) => thread.subject.en === studentOnlySubject)).toBeFalsy();
 
-      const studentMessagesAfterParentThread = await studentContext.get("/api/messages");
+      const studentMessagesAfterParentThread = await getWithResetRetry(studentContext, "/api/messages");
       const studentMessages = await studentMessagesAfterParentThread.json() as ParentMessagesResponse;
       expect(studentMessages.data.threads.some((thread) => thread.subject.en === parentSubject)).toBeFalsy();
       expect(studentMessages.data.threads.some((thread) => thread.subject.en === studentOnlySubject)).toBeTruthy();
@@ -1001,7 +1002,10 @@ test.describe.serial("parent console end-to-end verification", () => {
       await page.getByRole("button", { name: /Send reply/i }).click();
       await expect(page.getByPlaceholder(/Reply to the parent/i)).toBeEmpty();
 
-      const teacherInboxResponse = await page.request.get(`/api/teacher/inbox?thread=${encodeURIComponent(created.thread.id)}`);
+      const teacherInboxResponse = await getWithResetRetry(
+        page.request,
+        `/api/teacher/inbox?thread=${encodeURIComponent(created.thread.id)}`
+      );
       const teacherInbox = await teacherInboxResponse.json() as TeacherInboxResponse;
       expect(teacherInbox.inbox.selectedThread?.parentContext?.guardianName).toBe(demoParent.username);
       expect(teacherInbox.inbox.selectedThread?.parentContext?.category).toBe("homework");

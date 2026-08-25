@@ -1,4 +1,4 @@
-import { expect, type Page, type TestInfo } from "@playwright/test";
+import { expect, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
 import path from "node:path";
 import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from "../../lib/session";
 
@@ -291,6 +291,25 @@ export async function authenticateAsDemoParent(page: Page) {
 
 export function isTransientApiTransportError(error: unknown) {
   return error instanceof Error && /ECONNRESET|ECONNREFUSED|ECONNABORTED|socket hang up/i.test(error.message);
+}
+
+type RetrySafeGetOptions = NonNullable<Parameters<APIRequestContext["get"]>[1]>;
+
+/**
+ * Retry one dropped local keep-alive connection for idempotent E2E reads.
+ * Playwright's `maxRetries` only retries `ECONNRESET`; it never retries HTTP
+ * responses, so 4xx/5xx status assertions and fail-on-flaky test policy remain
+ * strict while a single runner transport reset does not restart a whole test.
+ */
+export function getWithResetRetry(
+  request: APIRequestContext,
+  url: string,
+  options: RetrySafeGetOptions = {}
+) {
+  return request.get(url, {
+    ...options,
+    maxRetries: 1
+  });
 }
 
 export async function loginAsDemoStudentApi(page: Page) {
