@@ -2684,6 +2684,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(current.devDependencies, {
     ...baseline.devDependencies,
     "@types/ws": "^8.18.1",
+    ajv: "8.17.1",
     postcss: "8.5.26",
     tsx: "^4.22.4",
     yaml: "2.9.0"
@@ -2694,6 +2695,28 @@ test("P0 package delta and default release gates are self-contained in Git objec
   });
   assert.deepEqual(packageLock.packages[""].dependencies, current.dependencies);
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
+  assert.equal(packageLock.packages[""].devDependencies.ajv, "8.17.1");
+  assert.deepEqual(packageLock.packages["node_modules/ajv"], {
+    version: "8.17.1",
+    resolved: "https://registry.npmjs.org/ajv/-/ajv-8.17.1.tgz",
+    integrity: "sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==",
+    dev: true,
+    license: "MIT",
+    dependencies: {
+      "fast-deep-equal": "^3.1.3",
+      "fast-uri": "^3.0.1",
+      "json-schema-traverse": "^1.0.0",
+      "require-from-string": "^2.0.2"
+    },
+    funding: {
+      type: "github",
+      url: "https://github.com/sponsors/epoberezkin"
+    }
+  });
+  assert.equal(packageLock.packages["node_modules/fast-deep-equal"].version, "3.1.3");
+  assert.equal(packageLock.packages["node_modules/fast-uri"].version, "3.1.6");
+  assert.equal(packageLock.packages["node_modules/json-schema-traverse"].version, "1.0.0");
+  assert.equal(packageLock.packages["node_modules/require-from-string"].version, "2.0.2");
   assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages["node_modules/three"].version, "0.184.0");
