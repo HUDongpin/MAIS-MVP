@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a04-practice-semantics-attempt-001",
+  "role": "A04",
+  "result": "pass",
+  "producedAt": "2026-08-24T19:37:18.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a04-practice-semantics.v1",
+    "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios",
+    "numericOracle": 12,
+    "acceptedAnswers": [
+      "12",
+      "12 cups"
+    ],
+    "acceptedAnswerPolicy": "exact-trimmed-forms-v1",
+    "primaryStandardId": "6.RP.3",
+    "liveStandardAlias": "6.RP.A.3",
+    "liveAliasStatus": "unverified-incompatible-preserved-outside-runtime",
+    "futureBoundary": "candidate-only-no-live-write"
+  }
+}
