@@ -2,17 +2,17 @@
 
 import { pathToFileURL } from "node:url";
 
-import DESIGN_REGISTRATION from "../../research/mais-natural-ca60-v1/versions/design-v4/design-registration.json" with { type: "json" };
+import DESIGN_REGISTRATION from "../../research/mais-natural-ca60-v1/versions/design-v5/design-registration.json" with { type: "json" };
 import {
-  calculateArtifactHash,
-} from "../../research/mais-natural-ca60-v1/versions/design-v4/design-contract.mjs";
+  jcsHash,
+} from "../../research/mais-natural-ca60-v1/versions/design-v5/design-contract.mjs";
 
 export const NATURAL_CA60_COMMANDS_V1 = Object.freeze([
   "register",
   "freeze-frame",
   "audit-clusters",
   "freeze-sample",
-  "label-qwen",
+  "label-openai",
   "seal-reference-labels",
   "dry-run",
   "authorize-check",
@@ -44,14 +44,14 @@ function statusFor(command) {
     case "dry-run":
       return { ok: true, status: "OFFLINE_DRY_RUN_READY", executionMode: "OFFLINE_NO_PROVIDER" };
     case "register":
-      return { ok: false, status: "DESIGN_FREEZE_BLOCKED", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: false, status: "V5_ACTIVATION_BLOCKED", executionMode: "READ_ONLY_PREFLIGHT" };
     case "freeze-frame":
-      return { ok: false, status: "UPSTREAM_DESIGN_NOT_FROZEN", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: false, status: "ACTIVE_DESIGN_NOT_V5", executionMode: "READ_ONLY_PREFLIGHT" };
     case "audit-clusters":
     case "freeze-sample":
       return { ok: false, status: "FRAME_NOT_FROZEN", executionMode: "READ_ONLY_PREFLIGHT" };
-    case "label-qwen":
-      return { ok: false, status: "QWEN_AUTHORIZATION_NOT_FROZEN", executionMode: "READ_ONLY_PREFLIGHT" };
+    case "label-openai":
+      return { ok: false, status: "OPENAI_AUTHORIZATION_NOT_FROZEN", executionMode: "READ_ONLY_PREFLIGHT" };
     case "seal-reference-labels":
       return { ok: false, status: "REFERENCE_LABELS_NOT_COMPLETE", executionMode: "READ_ONLY_PREFLIGHT" };
     case "authorize-check":
@@ -74,7 +74,8 @@ function messagesFor(command, status) {
     return [
       "Offline runner contracts are loadable.",
       "No natural question, provider request, reference label, or natural result was produced.",
-      "The tracked V4 design remains a candidate until the Qwen endpoint and data region are frozen.",
+      "The tracked V5 design is a sealed candidate; the active pointer remains V3 until independent review and explicit activation.",
+      "GPT-5.6 Luna, US_STORAGE_PROCESSING, and the US Responses endpoint are design selections, not live execution authorization.",
     ];
   }
   if (status === "USAGE_ERROR") return [`Invalid CLI form for ${command ?? "missing command"}.`];
@@ -85,12 +86,12 @@ function messagesFor(command, status) {
 }
 
 function buildReceipt({ argv, command, state, now }) {
-  const blockers = Array.isArray(DESIGN_REGISTRATION.blockingDecisionCodes)
-    ? [...DESIGN_REGISTRATION.blockingDecisionCodes]
+  const blockers = Array.isArray(DESIGN_REGISTRATION.blockingActivationCodes)
+    ? [...DESIGN_REGISTRATION.blockingActivationCodes]
     : ["DESIGN_REGISTRATION_BLOCKER_SET_INVALID"];
   const body = {
     schemaVersion: "NaturalCaRunnerCommandReceiptV1",
-    designId: "MAIS-NATURAL-CA60-V4",
+    designId: "MAIS-NATURAL-CA60-V5",
     command,
     arguments: [...argv],
     commands: [...NATURAL_CA60_COMMANDS_V1],
@@ -111,7 +112,7 @@ function buildReceipt({ argv, command, state, now }) {
     messages: messagesFor(command, state.status),
     createdAt: now,
   };
-  return Object.freeze({ ...body, receiptHash: calculateArtifactHash(body, "receiptHash") });
+  return Object.freeze({ ...body, receiptHash: jcsHash(body) });
 }
 
 export async function runCliV1({ argv = [], now = new Date().toISOString() } = {}) {
@@ -139,7 +140,7 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
       protectedArtifactMutationCount: 0,
       redactedError: error instanceof Error ? error.name : "UnknownError",
     };
-    process.stderr.write(`${JSON.stringify({ ...body, receiptHash: calculateArtifactHash(body, "receiptHash") })}\n`);
+    process.stderr.write(`${JSON.stringify({ ...body, receiptHash: jcsHash(body) })}\n`);
     process.exitCode = 70;
   });
 }

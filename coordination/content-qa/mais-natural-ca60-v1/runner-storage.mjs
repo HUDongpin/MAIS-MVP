@@ -15,8 +15,10 @@ import {
   canonicalJson,
   sha256Hex,
 } from "../../research/mais-natural-ca60-v1/versions/design-v4/design-contract.mjs";
+import V5_DESIGN_REGISTRATION from "../../research/mais-natural-ca60-v1/versions/design-v5/design-registration.json" with { type: "json" };
 
 const DESIGN_ID = "MAIS-NATURAL-CA60-V4";
+const DESIGN_ID_V5 = "MAIS-NATURAL-CA60-V5";
 const PROTECTED_RELATIVE_ROOT = ".local/mais-natural-ca60-v1";
 const SHA256 = /^[0-9a-f]{64}$/u;
 const GIT_OID = /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/u;
@@ -34,6 +36,25 @@ const REGISTRY_FIELDS = Object.freeze([
   "runnerHash",
   "adapterHash",
   "protectedArtifactRoot",
+  "providerExecutionAuthorized",
+  "aggregatePublicationAuthorized",
+  "createdAt",
+  "previousRegistryHash",
+  "registryHash",
+]);
+
+const REGISTRY_V2_FIELDS = Object.freeze([
+  "schemaVersion",
+  "designId",
+  "designRegistrationHash",
+  "registrationPackageRootHash",
+  "runnerCommit",
+  "runnerSourceManifest",
+  "runnerSourceManifestRootHash",
+  "runnerHash",
+  "adapterHash",
+  "protectedArtifactRoot",
+  "v5RunnerMigrationComplete",
   "providerExecutionAuthorized",
   "aggregatePublicationAuthorized",
   "createdAt",
@@ -201,6 +222,7 @@ export function protectedPathsV1(repoRoot) {
     protectedRoot,
     custodyDirectory: path.join(protectedRoot, "custody"),
     custodyRegistryPath: path.join(protectedRoot, "custody", "registry.json"),
+    v5CustodyRegistryPath: path.join(protectedRoot, "custody", "registry-v5.json"),
     runsDirectory: path.join(protectedRoot, "runs"),
   });
 }
@@ -336,6 +358,123 @@ export async function readProtectedExecutionCustodyRegistryV1({ repoRoot }) {
   if (errors.length > 0) throw new Error(`stored custody registry invalid: ${errors.join("; ")}`);
   if ((((await stat(paths.custodyRegistryPath)).mode & 0o777) !== 0o600)) {
     throw new Error("stored custody registry mode is not 0600");
+  }
+  return registry;
+}
+
+export function buildProtectedExecutionCustodyRegistryV2(input) {
+  if (!plainObject(input)) throw new Error("V5 custody registry input must be an object");
+  const { protectedRoot } = protectedPathsV1(input.repoRoot);
+  if (input.designRegistrationHash !== V5_DESIGN_REGISTRATION.registrationHash) {
+    throw new Error("V5 custody design registration hash does not bind the on-disk registration");
+  }
+  if (!SHA256.test(input.registrationPackageRootHash)) throw new Error("V5 registration package root hash invalid");
+  if (!/^[0-9a-f]{40}$/u.test(input.runnerCommit ?? "")) throw new Error("V5 runner commit must be a Git SHA-1 object ID");
+  if (!SHA256.test(input.adapterHash)) throw new Error("V5 OpenAI reference adapter hash invalid");
+  if (!validDateTime(input.createdAt)) throw new Error("V5 custody creation timestamp invalid");
+  if (input.previousRegistryHash !== null && !SHA256.test(input.previousRegistryHash)) throw new Error("V5 previous registry hash invalid");
+  const runnerSourceManifest = normalizeSourceManifest(input.runnerSourceManifest);
+  const adapterRows = runnerSourceManifest.filter((row) => row.path.endsWith("/openai-reference-adapter-v5.mjs"));
+  if (adapterRows.length !== 1 || adapterRows[0].sha256 !== input.adapterHash) {
+    throw new Error("V5 adapter hash does not bind the unique adapter source row");
+  }
+  const runnerSourceManifestRootHash = sha256Hex(canonicalJson(runnerSourceManifest));
+  const runnerHash = sha256Hex(canonicalJson({
+    designRegistrationHash: input.designRegistrationHash,
+    registrationPackageRootHash: input.registrationPackageRootHash,
+    runnerCommit: input.runnerCommit,
+    runnerSourceManifestRootHash,
+    adapterHash: input.adapterHash,
+  }));
+  const body = {
+    schemaVersion: "ProtectedExecutionCustodyRegistryV2",
+    designId: DESIGN_ID_V5,
+    designRegistrationHash: input.designRegistrationHash,
+    registrationPackageRootHash: input.registrationPackageRootHash,
+    runnerCommit: input.runnerCommit,
+    runnerSourceManifest,
+    runnerSourceManifestRootHash,
+    runnerHash,
+    adapterHash: input.adapterHash,
+    protectedArtifactRoot: protectedRoot,
+    v5RunnerMigrationComplete: true,
+    providerExecutionAuthorized: false,
+    aggregatePublicationAuthorized: false,
+    createdAt: input.createdAt,
+    previousRegistryHash: input.previousRegistryHash,
+  };
+  return Object.freeze({ ...body, registryHash: calculateArtifactHash(body, "registryHash") });
+}
+
+export function validateProtectedExecutionCustodyRegistryV2(registry, expected = {}) {
+  const errors = [];
+  if (!sameFields(registry, REGISTRY_V2_FIELDS)) return ["V5 custody registry fields invalid"];
+  if (registry.schemaVersion !== "ProtectedExecutionCustodyRegistryV2" || registry.designId !== DESIGN_ID_V5) {
+    errors.push("V5 custody registry identity invalid");
+  }
+  if (registry.designRegistrationHash !== V5_DESIGN_REGISTRATION.registrationHash) errors.push("V5 custody registration root mismatch");
+  if (!SHA256.test(registry.registrationPackageRootHash)) errors.push("V5 custody registration package root invalid");
+  if (!/^[0-9a-f]{40}$/u.test(registry.runnerCommit ?? "")) errors.push("V5 custody runner commit invalid");
+  if (!SHA256.test(registry.runnerSourceManifestRootHash) || !SHA256.test(registry.runnerHash) || !SHA256.test(registry.adapterHash)) {
+    errors.push("V5 custody runner or adapter roots invalid");
+  }
+  if (registry.v5RunnerMigrationComplete !== true
+    || registry.providerExecutionAuthorized !== false
+    || registry.aggregatePublicationAuthorized !== false) {
+    errors.push("V5 custody registry completion/authorization declarations invalid");
+  }
+  if (!validDateTime(registry.createdAt)) errors.push("V5 custody timestamp invalid");
+  if (registry.previousRegistryHash !== null && !SHA256.test(registry.previousRegistryHash)) errors.push("V5 custody previous registry hash invalid");
+  try {
+    const normalized = normalizeSourceManifest(registry.runnerSourceManifest);
+    if (canonicalJson(normalized) !== canonicalJson(registry.runnerSourceManifest)) errors.push("V5 custody source manifest order invalid");
+    if (sha256Hex(canonicalJson(normalized)) !== registry.runnerSourceManifestRootHash) errors.push("V5 custody source manifest root mismatch");
+    const adapterRows = normalized.filter((row) => row.path.endsWith("/openai-reference-adapter-v5.mjs"));
+    if (adapterRows.length !== 1 || adapterRows[0].sha256 !== registry.adapterHash) errors.push("V5 custody adapter source binding mismatch");
+    const expectedRunnerHash = sha256Hex(canonicalJson({
+      designRegistrationHash: registry.designRegistrationHash,
+      registrationPackageRootHash: registry.registrationPackageRootHash,
+      runnerCommit: registry.runnerCommit,
+      runnerSourceManifestRootHash: registry.runnerSourceManifestRootHash,
+      adapterHash: registry.adapterHash,
+    }));
+    if (expectedRunnerHash !== registry.runnerHash) errors.push("V5 custody runner hash mismatch");
+  } catch (error) {
+    errors.push(`V5 custody source manifest invalid: ${error instanceof Error ? error.message : "unknown"}`);
+  }
+  if (calculateArtifactHash(registry, "registryHash") !== registry.registryHash) errors.push("V5 custody registry self hash mismatch");
+  if (Object.hasOwn(expected, "repoRoot")) {
+    try {
+      if (registry.protectedArtifactRoot !== protectedPathsV1(expected.repoRoot).protectedRoot) errors.push("V5 custody protected root mismatch");
+    } catch (error) {
+      errors.push(error instanceof Error ? error.message : "V5 expected root invalid");
+    }
+  }
+  for (const field of ["designRegistrationHash", "registrationPackageRootHash", "runnerCommit", "runnerHash", "adapterHash"]) {
+    if (Object.hasOwn(expected, field) && registry[field] !== expected[field]) errors.push(`V5 custody ${field} mismatch`);
+  }
+  try {
+    assertNoSecretMaterial(registry);
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : "V5 custody secret screen failed");
+  }
+  return [...new Set(errors)];
+}
+
+export async function writeProtectedExecutionCustodyRegistryV2({ repoRoot, registry }) {
+  const errors = validateProtectedExecutionCustodyRegistryV2(registry, { repoRoot });
+  if (errors.length > 0) throw new Error(`V5 custody registry invalid: ${errors.join("; ")}`);
+  return atomicWriteJson0600(protectedPathsV1(repoRoot).v5CustodyRegistryPath, registry);
+}
+
+export async function readProtectedExecutionCustodyRegistryV2({ repoRoot }) {
+  const paths = protectedPathsV1(repoRoot);
+  const registry = await readJsonIfPresent(paths.v5CustodyRegistryPath);
+  if (registry === null) return null;
+  const errors = validateProtectedExecutionCustodyRegistryV2(registry, { repoRoot });
+  if (errors.length > 0) throw new Error(`stored V5 custody registry invalid: ${errors.join("; ")}`);
+  if ((((await stat(paths.v5CustodyRegistryPath)).mode & 0o777) !== 0o600)) {
+    throw new Error("stored V5 custody registry mode is not 0600");
   }
   return registry;
 }

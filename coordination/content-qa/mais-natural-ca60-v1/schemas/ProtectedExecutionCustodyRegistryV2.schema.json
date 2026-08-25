@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProtectedExecutionCustodyRegistryV2.schema.json",
+  "title": "ProtectedExecutionCustodyRegistryV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "designRegistrationHash",
+    "registrationPackageRootHash",
+    "runnerCommit",
+    "runnerSourceManifest",
+    "runnerSourceManifestRootHash",
+    "runnerHash",
+    "adapterHash",
+    "protectedArtifactRoot",
+    "v5RunnerMigrationComplete",
+    "providerExecutionAuthorized",
+    "aggregatePublicationAuthorized",
+    "createdAt",
+    "previousRegistryHash",
+    "registryHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ProtectedExecutionCustodyRegistryV2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "designRegistrationHash": { "const": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632" },
+    "registrationPackageRootHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "runnerCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "runnerSourceManifest": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "byteLength", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "byteLength": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "runnerSourceManifestRootHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "runnerHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "adapterHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "protectedArtifactRoot": { "type": "string", "pattern": "^/.+/.local/mais-natural-ca60-v1$" },
+    "v5RunnerMigrationComplete": { "const": true },
+    "providerExecutionAuthorized": { "const": false },
+    "aggregatePublicationAuthorized": { "const": false },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "previousRegistryHash": {
+      "anyOf": [
+        { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        { "type": "null" }
+      ]
+    },
+    "registryHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

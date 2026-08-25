@@ -6,7 +6,9 @@ import { fileURLToPath } from "node:url";
 
 import {
   buildProtectedExecutionCustodyRegistryV1,
+  buildProtectedExecutionCustodyRegistryV2,
   validateProtectedExecutionCustodyRegistryV1,
+  validateProtectedExecutionCustodyRegistryV2,
 } from "./runner-storage.mjs";
 import {
   calculateArtifactHash,
@@ -107,4 +109,50 @@ test("runner command receipt schema is closed and makes zero natural execution t
   assert.equal(document.properties.formalDecision.type, "null");
   assert.equal(document.properties.commands.items.enum.length, 12);
   assert.equal(document.not.required.includes("PASS"), true);
+});
+
+test("V5 custody schema mirrors the exact nonauthorizing runner migration artifact", async () => {
+  const document = await schema("ProtectedExecutionCustodyRegistryV2");
+  const registry = buildProtectedExecutionCustodyRegistryV2({
+    repoRoot: "/tmp/mais-natural-ca60-schema-fixture",
+    designRegistrationHash: "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+    registrationPackageRootHash: "1".repeat(64),
+    runnerCommit: "2".repeat(40),
+    runnerSourceManifest: [
+      { path: "coordination/content-qa/mais-natural-ca60-v1/openai-reference-adapter-v5.mjs", byteLength: 42, sha256: "3".repeat(64) },
+    ],
+    adapterHash: "3".repeat(64),
+    createdAt: "2026-08-26T01:00:00.000Z",
+    previousRegistryHash: null,
+  });
+  assertClosedExactShape(document, registry);
+  assert.equal(document.properties.designId.const, "MAIS-NATURAL-CA60-V5");
+  assert.equal(document.properties.runnerCommit.pattern, "^[0-9a-f]{40}$");
+  assert.equal(document.properties.v5RunnerMigrationComplete.const, true);
+  assert.equal(document.properties.providerExecutionAuthorized.const, false);
+  assert.equal(document.properties.aggregatePublicationAuthorized.const, false);
+  assert.deepEqual(validateProtectedExecutionCustodyRegistryV2(registry, {
+    repoRoot: "/tmp/mais-natural-ca60-schema-fixture",
+  }), []);
+});
+
+test("pre-activation A11 review schema binds the exact V5 design package and reviewed runner roots", async () => {
+  const document = await schema("IndependentDesignReviewReceiptV1");
+  const body = {
+    schemaVersion: "IndependentDesignReviewReceiptV1",
+    designId: "MAIS-NATURAL-CA60-V5",
+    designRegistrationHash: "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+    reviewedDesignPackageRootHash: "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1",
+    runnerCommit: "1".repeat(40),
+    runnerHash: "2".repeat(64),
+    adapterHash: "3".repeat(64),
+    reviewerLane: "A11",
+    decision: "CONCURRED",
+    reviewedAt: "2026-08-26T01:00:00.000Z",
+  };
+  const receipt = { ...body, reviewHash: calculateArtifactHash(body, "reviewHash") };
+  assertClosedExactShape(document, receipt);
+  assert.equal(document.properties.reviewedDesignPackageRootHash.const, "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1");
+  assert.equal(document.properties.runnerCommit.pattern, "^[0-9a-f]{40}$");
+  assert.deepEqual(document.properties.decision.enum, ["CONCURRED", "DISCREPANCY", "UNREVIEWABLE"]);
 });

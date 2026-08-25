@@ -33,7 +33,7 @@
       "const": "NaturalCaRunnerCommandReceiptV1"
     },
     "designId": {
-      "const": "MAIS-NATURAL-CA60-V4"
+      "const": "MAIS-NATURAL-CA60-V5"
     },
     "command": {
       "type": [
@@ -53,7 +53,7 @@
         "freeze-frame",
         "audit-clusters",
         "freeze-sample",
-        "label-qwen",
+        "label-openai",
         "seal-reference-labels",
         "dry-run",
         "authorize-check",
@@ -68,7 +68,7 @@
           "freeze-frame",
           "audit-clusters",
           "freeze-sample",
-          "label-qwen",
+          "label-openai",
           "seal-reference-labels",
           "dry-run",
           "authorize-check",
@@ -86,10 +86,10 @@
       "enum": [
         "HELP",
         "OFFLINE_DRY_RUN_READY",
-        "DESIGN_FREEZE_BLOCKED",
-        "UPSTREAM_DESIGN_NOT_FROZEN",
+        "V5_ACTIVATION_BLOCKED",
+        "ACTIVE_DESIGN_NOT_V5",
         "FRAME_NOT_FROZEN",
-        "QWEN_AUTHORIZATION_NOT_FROZEN",
+        "OPENAI_AUTHORIZATION_NOT_FROZEN",
         "REFERENCE_LABELS_NOT_COMPLETE",
         "AUTHORIZATION_BLOCKED",
         "NO_NATURAL_RESULTS",

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/IndependentDesignReviewReceiptV1.schema.json",
+  "title": "IndependentDesignReviewReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "designRegistrationHash",
+    "reviewedDesignPackageRootHash",
+    "runnerCommit",
+    "runnerHash",
+    "adapterHash",
+    "reviewerLane",
+    "decision",
+    "reviewedAt",
+    "reviewHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "IndependentDesignReviewReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "designRegistrationHash": { "const": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632" },
+    "reviewedDesignPackageRootHash": { "const": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1" },
+    "runnerCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "runnerHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "adapterHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "reviewerLane": { "const": "A11" },
+    "decision": { "enum": ["CONCURRED", "DISCREPANCY", "UNREVIEWABLE"] },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "reviewHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}
