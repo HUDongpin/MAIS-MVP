@@ -139,3 +139,143 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(disabled, `expected no pulse under reduced motion, got ${JSON.stringify(animation)}`).toBeTruthy();
   });
 });
+
+/**
+ * Hiding the menu ("Hide the map, give me the page").
+ *
+ * The load-bearing rule is that the menu never collapses to nothing: a hidden
+ * menu always leaves a visible way back — the rail on wide screens, the
+ * floating pill below `lg` — and keyboard focus follows the control the learner
+ * just pressed, so nobody is stranded. Auto-peek's timing is not covered here
+ * (12–20s of real waiting per case); these specs pin the manual contract and
+ * the "never a dead end" invariant that auto-peek also lands on.
+ *
+ * Which control is the way back depends on the width, so every case resolves it
+ * through `revealSelector`: the rail from `lg` up, the floating pill below it.
+ */
+test.describe("Lesson menu hide and reveal", () => {
+  const hideButton = "#lesson-world-menu-hide";
+  const railButton = "#lesson-world-menu-rail";
+  const pillButton = "#lesson-world-menu-pill";
+  // iPad 10.2" portrait — a real pilot device, and below the `lg` breakpoint
+  // where the menu stacks over the content and the pill replaces the rail.
+  const tabletPortrait = { width: 810, height: 1080 };
+
+  /** The rail is a two-column affordance; below `lg` the pill stands in. */
+  const revealSelector = (page: Page) => ((page.viewportSize()?.width ?? 0) >= 1024 ? railButton : pillButton);
+
+  test.beforeEach(async ({ page }) => {
+    await authenticateAsUserId(page, californiaSuperStudentId);
+  });
+
+  test("Hide tucks the map away and the reveal control brings it back", async ({ page }) => {
+    const errors = collectPageErrors(page);
+    await openLessonPage(page, kindergartenTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(world).toBeVisible({ timeout: 30_000 });
+
+    await page.locator(hideButton).click();
+    await expect(world).toHaveCount(0);
+
+    // The menu is never hidden without a door back into it.
+    const reveal = page.locator(revealSelector(page));
+    await expect(reveal).toBeVisible();
+    await expect(reveal).toHaveAttribute("aria-expanded", "false");
+    // Focus follows the manual toggle, so a keyboard learner is not stranded.
+    await expect(reveal).toBeFocused();
+
+    await reveal.click();
+    await expect(world).toBeVisible();
+    await expect(page.locator(hideButton)).toBeFocused();
+
+    expectNoPageErrors(errors);
+  });
+
+  test("the lesson page fits a phone screen, so every menu control is reachable", async ({ page }) => {
+    // Regression guard for the grid that used to drag the page into horizontal
+    // overflow: an implicit `auto` column below `lg` was sized by its content,
+    // laying the directory out ~562px wide inside a 393px screen and pushing the
+    // header row's rightmost control (Hide) off the side of the display.
+    await page.setViewportSize({ width: 393, height: 850 });
+    await openLessonPage(page, kindergartenTopicPath);
+    await expect(page.locator('[data-lesson-world="sprout-meadow"]')).toBeVisible({ timeout: 30_000 });
+
+    const overflow = await page.evaluate(() => {
+      const limit = document.documentElement.clientWidth;
+      const origins: string[] = [];
+      document.querySelectorAll<HTMLElement>("body *").forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.width <= limit + 1) return;
+        const parent = el.parentElement;
+        if (!parent || parent.getBoundingClientRect().width > limit + 1) return;
+        // A wide child inside its own horizontal scroller is deliberate.
+        if (getComputedStyle(parent).overflowX === "auto") return;
+        origins.push(`${el.tagName}.${(el.className || "").toString().slice(0, 60)} @${Math.round(rect.width)}px`);
+      });
+      return { docScrollWidth: document.documentElement.scrollWidth, limit, origins };
+    });
+
+    expect(overflow.origins, `elements wider than the screen: ${overflow.origins.join(" | ")}`).toEqual([]);
+    expect(overflow.docScrollWidth).toBe(overflow.limit);
+
+    // The end of that chain: Hide is on screen and actually operable.
+    await page.locator(hideButton).click();
+    await expect(page.locator('[data-lesson-world="sprout-meadow"]')).toHaveCount(0);
+    await expect(page.locator(pillButton)).toBeVisible();
+  });
+
+  test("below lg the way back is the floating pill, not the rail", async ({ page }) => {
+    await page.setViewportSize(tabletPortrait);
+    await openLessonPage(page, kindergartenTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(world).toBeVisible({ timeout: 30_000 });
+
+    await page.locator(hideButton).click();
+    await expect(world).toHaveCount(0);
+
+    // The rail is a two-column-layout affordance; here the menu sits above the
+    // content, so the pill has to follow the learner instead.
+    await expect(page.locator(railButton)).toBeHidden();
+    const pill = page.locator(pillButton);
+    await expect(pill).toBeVisible();
+    await expect(pill).toBeFocused();
+
+    await pill.click();
+    await expect(world).toBeVisible();
+  });
+
+  test("a hidden menu stays hidden across a reload in the same session", async ({ page }) => {
+    await openLessonPage(page, kindergartenTopicPath);
+    await expect(page.locator('[data-lesson-world="sprout-meadow"]')).toBeVisible({ timeout: 30_000 });
+
+    await page.locator(hideButton).click();
+    await expect(page.locator('[data-lesson-world="sprout-meadow"]')).toHaveCount(0);
+
+    await page.reload();
+    await expect(page.locator("main")).toBeVisible({ timeout: 30_000 });
+    // Hiding is an explicit choice, so it outlives the page it was made on.
+    await expect(page.locator('[data-lesson-world="sprout-meadow"]')).toHaveCount(0);
+  });
+
+  test("hiding keeps the view the learner chose", async ({ page }) => {
+    await openLessonPage(page, kindergartenTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await world.getByRole("button", { name: /list view/i }).click();
+
+    const accordion = page.getByRole("complementary", { name: /course unit directory/i });
+    await expect(accordion).toBeVisible();
+
+    // Hide is in the shared header, so it is present in list view too.
+    await page.locator(hideButton).click();
+    await expect(accordion).toHaveCount(0);
+
+    await page.locator(revealSelector(page)).click();
+    // Re-opening restores the list, not the map: hiding is not a view reset.
+    await expect(page.getByRole("complementary", { name: /course unit directory/i })).toBeVisible();
+    await expect(page.locator('[data-lesson-world="sprout-meadow"]')).toHaveCount(0);
+  });
+});

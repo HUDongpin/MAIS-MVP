@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { chmod, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -7,9 +7,24 @@ import test from "node:test";
 
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
 
+async function makeRepoLocalTempDir(prefix) {
+  const repoTempRoot = path.join(repoRoot, ".tmp");
+  await mkdir(repoTempRoot, { recursive: true });
+  return mkdtemp(path.join(repoTempRoot, prefix));
+}
+
 async function writePassingReleaseGateStubs(tempDir, markerPath) {
+  const canonicalRoot = path.join(tempDir, "canonical-root");
+  const releaseSourceRoot = path.join(tempDir, "release-source");
   const releaseSourceGate = path.join(tempDir, "release-source-clean-gate.mjs");
   const worktreeLifecycleGate = path.join(tempDir, "worktree-lifecycle-gate.mjs");
+  await mkdir(canonicalRoot, { recursive: true });
+  await mkdir(releaseSourceRoot, { recursive: true });
+  const init = spawnSync("git", ["init", "--quiet"], {
+    cwd: releaseSourceRoot,
+    encoding: "utf8"
+  });
+  assert.equal(init.status, 0, `${init.stdout}\n${init.stderr}`);
   await writeFile(releaseSourceGate, `import { appendFileSync } from "node:fs";
 appendFileSync(${JSON.stringify(markerPath)}, "release-source\\n");
 `);
@@ -19,6 +34,8 @@ appendFileSync(${JSON.stringify(markerPath)}, \`worktree \${process.argv.slice(2
 
   return {
     MAIS_RELEASE_GUARD_ALLOW_TEST_STUBS: "1",
+    MAIS_CANONICAL_RELEASE_ROOT: canonicalRoot,
+    MAIS_RELEASE_SOURCE_ROOT: releaseSourceRoot,
     MAIS_RELEASE_SOURCE_CLEAN_GATE: releaseSourceGate,
     MAIS_WORKTREE_LIFECYCLE_GATE: worktreeLifecycleGate,
     NODE_ENV: "test"
@@ -26,7 +43,7 @@ appendFileSync(${JSON.stringify(markerPath)}, \`worktree \${process.argv.slice(2
 }
 
 test("runtime release guard requires a current S25 dirty-tree map", async () => {
-  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-dirty-tree-map-"));
+  const tempDir = await makeRepoLocalTempDir("mais-dirty-tree-map-");
   const latestJson = path.join(tempDir, "latest-S25-dirty-tree-map.json");
   const releaseGateMarker = path.join(tempDir, "release-gates.log");
   const releaseGateEnv = await writePassingReleaseGateStubs(tempDir, releaseGateMarker);
@@ -141,7 +158,7 @@ console.log(JSON.stringify({
 });
 
 test("staged production publish guard allows pruned staging without direct root deploy gate", async () => {
-  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-staged-publish-"));
+  const tempDir = await makeRepoLocalTempDir("mais-staged-publish-");
   const latestJson = path.join(tempDir, "latest-A25-dirty-tree-map.json");
   const vercelBin = path.join(tempDir, "vercel");
   const releaseGateMarker = path.join(tempDir, "release-gates.log");

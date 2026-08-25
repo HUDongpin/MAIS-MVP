@@ -101,9 +101,9 @@ const N = OBJECTS.length; // 9
 
 // object paint (real colors — the "color" attribute made visible)
 const PAINT = {
-  blue: { fill: '#4a83bd', stroke: '#2f5d8a', tint: 'rgba(74,131,189,0.16)' },
-  yellow: { fill: '#eab63f', stroke: '#b0801c', tint: 'rgba(234,182,63,0.18)' },
-  green: { fill: '#46b184', stroke: '#2c805c', tint: 'rgba(70,177,132,0.16)' },
+  blue: { fill: '#4a83bd', stroke: '#10263a', tint: 'rgba(74,131,189,0.16)' },
+  yellow: { fill: '#eab63f', stroke: '#3b2600', tint: 'rgba(234,182,63,0.18)' },
+  green: { fill: '#46b184', stroke: '#082218', tint: 'rgba(70,177,132,0.16)' },
 };
 
 // the three sorting rules; `values` is the canonical bin order for each
@@ -433,6 +433,7 @@ export default function SortLab() {
   const [orderBy, setOrderBy] = useState(false);
   const [focus, setFocus] = useState(null); // focused bin index or null
   const [answers, setAnswers] = useState({});
+  const [objectPick, setObjectPick] = useState(0);
 
   // calibration
   const [secret, setSecret] = useState(null); // the hidden attribute
@@ -590,6 +591,7 @@ export default function SortLab() {
 
     const S = sceneRef.current;
     const L = layout;
+    const terminalLabels = [];
 
     /* faint quadrille backdrop */
     ctx.lineWidth = 1;
@@ -612,24 +614,18 @@ export default function SortLab() {
     roundRect(ctx, tr.x, tr.y, tr.w, tr.h, 12);
     ctx.fillStyle = 'rgba(28,43,58,0.03)';
     ctx.fill();
-    ctx.strokeStyle = 'rgba(28,43,58,0.14)';
+    ctx.strokeStyle = INK_SOFT;
     ctx.setLineDash([5, 5]);
     ctx.lineWidth = 1.4;
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = INK_SOFT;
-    ctx.font = '600 11px ui-monospace, "SF Mono", Menlo, monospace';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillText('TRAY', tr.x + 10, L.trayRect.y - 14);
-    const anyTray = L.targets.some((t) => !t.inBin);
-    if (anyTray && !S.calib) {
-      ctx.fillStyle = INK_SOFT;
-      ctx.font = 'italic 12px system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('click an object to sort it →', tr.x + tr.w / 2, tr.y + tr.h - 12);
-    }
+    terminalLabels.push(() => {
+      ctx.fillStyle = INK;
+      ctx.font = '600 11px ui-monospace, "SF Mono", Menlo, monospace';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('TRAY', tr.x + 10, L.trayRect.y - 14);
+    });
 
     /* ---- bins ---- */
     for (const b of L.bins) {
@@ -644,7 +640,7 @@ export default function SortLab() {
       ctx.fillStyle = isFocus ? 'rgba(200,30,79,0.05)' : 'rgba(28,43,58,0.015)';
       ctx.fill();
       ctx.lineWidth = isFocus || isMost ? 2.5 : 1.4;
-      ctx.strokeStyle = isFocus || isMost ? CARMINE : 'rgba(28,43,58,0.2)';
+      ctx.strokeStyle = isFocus || isMost ? CARMINE : INK_SOFT;
       ctx.stroke();
 
       // header — single line when the bin is wide; a compact two-line header
@@ -656,41 +652,54 @@ export default function SortLab() {
       const hy = narrow ? b.y + 14 : b.y + 20;
       if (S.calib && !S.secretRevealed) {
         // hidden rule
-        ctx.fillStyle = CARMINE;
-        ctx.font = '800 ' + (narrow ? 17 : 20) + 'px ui-monospace, "SF Mono", Menlo, monospace';
-        ctx.fillText('?', b.x + 12, hy);
+        terminalLabels.push(() => {
+          ctx.fillStyle = CARMINE;
+          ctx.font = '800 ' + (narrow ? 17 : 20) + 'px ui-monospace, "SF Mono", Menlo, monospace';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('?', b.x + 12, hy);
+        });
       } else {
         drawBinGlyph(ctx, S.attr, b.v, b.x + 15, hy, 8);
-        ctx.fillStyle = isFocus ? CARMINE : INK;
-        if (narrow) {
-          ctx.font = '700 11px system-ui, sans-serif';
-          ctx.fillText(b.label, b.x + 10, b.y + 30);
-        } else {
-          ctx.font = '700 14px system-ui, sans-serif';
-          ctx.fillText(b.label, b.x + 30, hy);
-        }
+        terminalLabels.push(() => {
+          ctx.fillStyle = isFocus ? CARMINE : INK;
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          if (narrow) {
+            ctx.font = '700 11px system-ui, sans-serif';
+            ctx.fillText(b.label, b.x + 10, b.y + 30);
+          } else {
+            ctx.font = '700 14px system-ui, sans-serif';
+            ctx.fillText(b.label, b.x + 30, hy);
+          }
+        });
       }
       // count (right side of the top header line)
-      ctx.textAlign = 'right';
-      ctx.fillStyle = isFocus || isMost ? CARMINE : INK;
-      ctx.font = '800 ' + (narrow ? 18 : 22) + 'px ui-monospace, "SF Mono", Menlo, monospace';
-      ctx.fillText(String(cnt), b.x + b.w - 10, hy);
+      terminalLabels.push(() => {
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = isFocus || isMost ? CARMINE : INK;
+        ctx.font = '800 ' + (narrow ? 18 : 22) + 'px ui-monospace, "SF Mono", Menlo, monospace';
+        ctx.fillText(String(cnt), b.x + b.w - 10, hy);
+      });
 
       // rank badge / crown when ordering
       if (S.orderBy) {
         const bx = b.x + b.w / 2;
         const by = b.y - 12;
-        if (b.rank === 0) {
-          ctx.font = '15px system-ui';
+        terminalLabels.push(() => {
+          if (b.rank === 0) {
+            ctx.font = '15px system-ui';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText('👑', bx, by + 4);
+          }
+          ctx.fillStyle = b.rank === 0 ? CARMINE : INK;
+          ctx.font = '700 10px ui-monospace, "SF Mono", Menlo, monospace';
           ctx.textAlign = 'center';
-          ctx.textBaseline = 'alphabetic';
-          ctx.fillText('👑', bx, by + 4);
-        }
-        ctx.fillStyle = b.rank === 0 ? CARMINE : INK_SOFT;
-        ctx.font = '700 10px ui-monospace, "SF Mono", Menlo, monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(ordinal(b.rank + 1), bx + (b.rank === 0 ? 16 : 0), by);
+          ctx.textBaseline = 'middle';
+          ctx.fillText(ordinal(b.rank + 1), bx + (b.rank === 0 ? 16 : 0), by);
+        });
       }
 
       // header divider
@@ -714,6 +723,7 @@ export default function SortLab() {
       const t = L.targets[id];
       drawObject(ctx, p.x, p.y, t.r, OBJECTS[id].shape, OBJECTS[id].color, t.rot);
     }
+    for (const drawTerminalLabel of terminalLabels) drawTerminalLabel();
 
     /* ---- winner reveal in calibration ---- */
     if (S.calib && S.secretRevealed) {
@@ -1008,7 +1018,7 @@ export default function SortLab() {
           >
             <canvas ref={canvasRef} />
             <span className="hint mono">
-              {calib ? 'pick the rule below' : 'click an object to sort · click a bin to spotlight'}
+              {calib ? 'pick the rule below' : 'click objects · keyboard picker below'}
             </span>
           </div>
           <p className="sr-only" aria-live="polite">
@@ -1042,6 +1052,21 @@ export default function SortLab() {
 
           {!calib && (
             <div className="toolbar">
+              <div className="object-picker" role="group" aria-label="Choose an object without a pointer" data-viz-keyboard-equivalent="object-picker">
+                <label>
+                  Object
+                  <select value={objectPick} onChange={(e) => setObjectPick(Number(e.target.value))}>
+                    {OBJECTS.map((o) => (
+                      <option key={o.i} value={o.i}>
+                        {o.i + 1}: {o.size} {o.color} {o.shape}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button type="button" className="btn ghost" onClick={() => togglePlaced(objectPick)}>
+                  {placed[objectPick] ? 'Return to tray' : 'Place in bin'}
+                </button>
+              </div>
               <button type="button" className="btn" onClick={sortAll} disabled={allPlaced}>
                 Sort them! ✨
               </button>
@@ -1274,8 +1299,11 @@ export default function SortLab() {
           color: #fff;
         }
         .seg.locked {
-          opacity: 0.45;
+          opacity: 1;
           cursor: not-allowed;
+          border-color: #a8b3bd;
+          background: #eef1f3;
+          color: #445565;
         }
         .seg:not(:disabled):hover {
           border-color: var(--ink);
@@ -1308,7 +1336,8 @@ export default function SortLab() {
           bottom: 9px;
           font-size: 11px;
           color: var(--ink-soft);
-          background: rgba(251, 251, 248, 0.82);
+          background: #fbfbf8;
+          border: 1px solid #c7d0d7;
           padding: 3px 7px;
           border-radius: 5px;
           pointer-events: none;
@@ -1350,6 +1379,45 @@ export default function SortLab() {
           display: flex;
           gap: 8px;
           flex-wrap: wrap;
+          align-items: end;
+        }
+        .object-picker {
+          display: flex;
+          flex: 1 1 300px;
+          gap: 8px;
+          flex-wrap: wrap;
+          align-items: end;
+          padding: 7px;
+          border: 1px dashed rgba(28, 43, 58, 0.22);
+          border-radius: 9px;
+          background: rgba(251, 251, 248, 0.72);
+        }
+        .object-picker label {
+          display: inline-flex;
+          flex: 1 1 160px;
+          min-width: 0;
+          flex-direction: column;
+          gap: 3px;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+        .object-picker select {
+          width: 100%;
+          min-height: 44px;
+          padding: 5px 28px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 8px;
+          background: #fff;
+          color: var(--ink);
+          font: 600 12px/1.2 system-ui, sans-serif;
+          text-transform: none;
+        }
+        .object-picker .btn {
+          min-width: 44px;
+          min-height: 44px;
         }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;
@@ -1366,8 +1434,11 @@ export default function SortLab() {
           color: var(--ink);
         }
         .btn:disabled {
-          opacity: 0.4;
+          opacity: 1;
           cursor: not-allowed;
+          border-color: #a8b3bd;
+          background: #e4e8eb;
+          color: #334250;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1453,7 +1524,10 @@ export default function SortLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          opacity: 1;
+          border-color: #a8b3bd;
+          background: #f1f3f4;
+          color: #445565;
         }
         .choice:disabled {
           cursor: default;
@@ -1587,7 +1661,7 @@ function drawObject(ctx, x, y, r, shape, color, rot) {
   ctx.restore();
 
   // outline
-  ctx.lineWidth = 2.4;
+  ctx.lineWidth = 3.2;
   ctx.strokeStyle = p.stroke;
   ctx.lineJoin = 'round';
   pathShape(ctx, shape, r);
@@ -1642,19 +1716,19 @@ function drawBinGlyph(ctx, attr, value, x, y, s) {
     roundRect(ctx, x - s, y - s, s * 2, s * 2, 3);
     ctx.fillStyle = p.fill;
     ctx.fill();
-    ctx.lineWidth = 1.6;
+    ctx.lineWidth = 2.4;
     ctx.strokeStyle = p.stroke;
     ctx.stroke();
   } else if (attr === 'shape') {
     ctx.translate(x, y);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.4;
     ctx.strokeStyle = INK_SOFT;
     ctx.lineJoin = 'round';
     pathShape(ctx, value, s);
     ctx.stroke();
   } else {
     const d = value === 'big' ? s : s * 0.6;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.4;
     ctx.strokeStyle = INK_SOFT;
     ctx.beginPath();
     ctx.arc(x, y, d, 0, Math.PI * 2);

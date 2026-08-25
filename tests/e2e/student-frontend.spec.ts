@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { collectPageErrors, expectDownloadFrom, expectNoPageErrors, loginAs, logoutIfVisible, openPracticeFiltersPanel, registerStudent, registerStudentApi, uniqueSuffix } from "./helpers";
+import { choosePracticeModeIfVisible, collectPageErrors, expectDownloadFrom, expectNoPageErrors, loginAs, logoutIfVisible, openPracticeFiltersPanel, registerStudent, registerStudentApi, uniqueSuffix } from "./helpers";
 
 type PracticeDecisionResponse = {
   decision: {
@@ -11,6 +11,7 @@ type PracticeDecisionResponse = {
 
 async function unlockPracticeFiltersIfNeeded(page: Page) {
   await page.waitForLoadState("networkidle");
+  await choosePracticeModeIfVisible(page, "explore");
   await openPracticeFiltersPanel(page);
   if (await page.getByRole("combobox", { name: /difficulty/i }).isVisible().catch(() => false)) return;
 
@@ -26,6 +27,7 @@ async function unlockPracticeFiltersIfNeeded(page: Page) {
   }, `hk-math-practice-free-selection-unlocked:${userId}:${decision.skill.id}`);
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await choosePracticeModeIfVisible(page, "explore");
   await openPracticeFiltersPanel(page);
   await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
 }
@@ -246,6 +248,7 @@ test.describe("student frontend workflows", () => {
     expect(expectedDecision.decision.skill.difficulty).toMatch(/Low|Medium|High/);
     await page.getByRole("link", { name: /Practice Arena/i }).last().click();
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await choosePracticeModeIfVisible(page, "guided");
 
     const adaptivePanel = page.locator("#adaptive-practice-round");
     await expect(adaptivePanel).toBeVisible();
@@ -294,6 +297,7 @@ test.describe("student frontend workflows", () => {
     await expect(page).toHaveURL(/\/practice\?lesson=polynomials$/);
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
     await topicScopedRecommendation;
+    await choosePracticeModeIfVisible(page, "guided");
 
     const adaptivePanel = page.locator("#adaptive-practice-round");
     await expect(adaptivePanel).toBeVisible();

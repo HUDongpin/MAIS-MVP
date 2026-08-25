@@ -202,7 +202,7 @@ check(/const indepOf = \(key\) => countAB\(key\) \* 100 === countA\(key\) \* cou
 }
 /* the drawing reads the model */
 check(/LAYOUTS\[S\.layout\]\.inA\(r, c\)/.test(code), 'the glow is painted from the rule');
-check(/fracText\(\[S\.cAB, denom\]\)/.test(code), 'the share line reads the model');
+check(/fracText\(\[scene\.cAB, denom\]\)/.test(code), 'the share line reads the model');
 
 /* ---------------------------------------------------------------------------
    verdict

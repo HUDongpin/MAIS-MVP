@@ -328,6 +328,7 @@ export default function TeenNumbersLab() {
   const [canSpeak, setCanSpeak] = useState(false);
   const [burst, setBurst] = useState(0); // confetti burst id (0 = none)
   const [everSpoken, setEverSpoken] = useState(false); // Say-it button attention pulse
+  const [lastSpoken, setLastSpoken] = useState(null); // visible/audible response evidence
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -679,14 +680,11 @@ export default function TeenNumbersLab() {
 
     /* ---- lane labels ------------------------------------------------------- */
     const laneTag = (text, yy) => {
-      ctx.fillStyle = INK_SOFT;
+      ctx.fillStyle = '#445565';
       ctx.font = f(9.5, 700);
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.save();
-      ctx.globalAlpha = 0.85;
       ctx.fillText(text, 12, yy);
-      ctx.restore();
     };
 
     /* =================== the main figure =================== */
@@ -717,7 +715,7 @@ export default function TeenNumbersLab() {
       arrow(fromBox.cx, fromBox.y + fromBox.h, dx, qy - q.dotD / 2 - 2 * k, MORE, false);
     }
 
-    const drawPills = (pills, col, label) => {
+    const drawPills = (pills, col) => {
       for (const p of pills) {
         ctx.fillStyle = col;
         rr(p.x, p.y, p.w, p.h, 9 * k);
@@ -726,12 +724,21 @@ export default function TeenNumbersLab() {
         ctx.lineWidth = 1.2;
         rr(p.x, p.y, p.w, p.h, 9 * k);
         ctx.stroke();
+      }
+    };
+    const drawPillLabels = (pills, label) => {
+      // Labels are the terminal operation for the quantity group. Drawing all
+      // outlined geometry first prevents a later current-path stroke from
+      // replaying across a pill label's glyphs.
+      ctx.beginPath();
+      for (const p of pills) {
         ctx.fillStyle = '#fff';
         ctx.font = f(12, 700);
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(label, p.x + p.w / 2, p.y + p.h / 2);
       }
+      ctx.beginPath();
     };
     const drawDots = (dots, col) => {
       for (const d of dots) {
@@ -739,13 +746,14 @@ export default function TeenNumbersLab() {
         ctx.arc(d.cx, d.cy, d.r, 0, Math.PI * 2);
         ctx.fillStyle = col;
         ctx.fill();
-        ctx.strokeStyle = shade(col, -0.28);
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#17324b';
+        ctx.lineWidth = 4;
         ctx.stroke();
       }
     };
-    drawPills(q.pills, TEN, '10');
+    drawPills(q.pills, TEN);
     drawDots(q.dots, MORE);
+    drawPillLabels(q.pills, '10');
 
     // captions under each group
     ctx.textBaseline = 'top';
@@ -783,7 +791,7 @@ export default function TeenNumbersLab() {
       ctx.fillText(tenCap, tenX, capY);
     }
     if (moreX != null) {
-      ctx.fillStyle = shade(MORE, -0.1);
+      ctx.fillStyle = '#254f78';
       ctx.fillText(moreCap, moreX, capY);
     }
     y = qy + q.pillH / 2 + qLabH * k + 6 * k;
@@ -806,8 +814,9 @@ export default function TeenNumbersLab() {
       ctx.fillText('WRITE WHAT YOU HEAR →', 18, y + 8 * k);
 
       const tq = layoutQuantity(tensOf(tv), onesOf(tv), cx + 40 * k, ty + 8 * k, k * 0.86);
-      drawPills(tq.pills, GHOST, '10');
+      drawPills(tq.pills, GHOST);
       drawDots(tq.dots, GHOST);
+      drawPillLabels(tq.pills, '10');
 
       ctx.fillStyle = GHOST;
       ctx.font = f(22, 700);
@@ -843,9 +852,9 @@ export default function TeenNumbersLab() {
       V >= 10
         ? [
             { s: `${T * 10}`, c: TEN },
-            { s: ' + ', c: INK_SOFT },
-            { s: `${O}`, c: MORE },
-            { s: ' = ', c: INK_SOFT },
+            { s: ' + ', c: INK },
+            { s: `${O}`, c: '#254f78' },
+            { s: ' = ', c: INK },
             { s: `${V}`, c: INK },
           ]
         : [{ s: `${V}`, c: MORE }];
@@ -991,7 +1000,9 @@ export default function TeenNumbersLab() {
                 className={'btn ghost' + (!everSpoken ? ' attn' : '')}
                 onClick={() => {
                   setEverSpoken(true);
-                  sayAloud(wordForm(displayValue));
+                  const spokenWord = wordForm(displayValue);
+                  setLastSpoken(spokenWord);
+                  sayAloud(spokenWord);
                 }}
               >
                 🔊 Say it aloud
@@ -1000,6 +1011,11 @@ export default function TeenNumbersLab() {
             <button type="button" className="btn ghost" onClick={reset}>
               Reset
             </button>
+            {lastSpoken != null && (
+              <span className="spoken-status" data-viz-result role="status">
+                Said aloud: {lastSpoken}
+              </span>
+            )}
           </div>
         </section>
 
@@ -1330,11 +1346,24 @@ export default function TeenNumbersLab() {
           color: var(--ink);
         }
         .btn:disabled {
-          opacity: 0.4;
+          background: #596979;
+          border-color: #596979;
+          color: #fff;
           cursor: not-allowed;
+        }
+        .btn.ghost:disabled {
+          background: #f0f2f3;
+          border-color: #83909d;
+          color: #596979;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
+        }
+        .spoken-status {
+          align-self: center;
+          color: #445565;
+          font-size: 13px;
+          font-weight: 650;
         }
         .tutor {
           padding: 18px 20px 20px;
@@ -1381,7 +1410,12 @@ export default function TeenNumbersLab() {
           gap: 2px 10px;
         }
         .dial.locked {
-          opacity: 0.5;
+          color: #596979;
+        }
+        .dial.locked .dk,
+        .dial.locked .drole,
+        .dial.locked .dv {
+          color: #596979;
         }
         .dk {
           grid-row: 1 / 3;
@@ -1459,7 +1493,9 @@ export default function TeenNumbersLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .choice:disabled {
           cursor: default;

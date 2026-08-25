@@ -9,7 +9,9 @@
     "rootDir": "."
   },
   "files": [
-    "lib/server/tutorModeration.test.ts"
+    "lib/server/tutorModeration.test.ts",
+    "lib/server/tutorModerationProvider.test.ts",
+    "lib/server/tutorVoiceModeration.test.ts"
   ],
   "include": [],
   "exclude": [

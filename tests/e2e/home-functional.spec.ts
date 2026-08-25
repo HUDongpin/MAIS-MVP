@@ -11,6 +11,15 @@ function header(page: Page) {
   return page.locator("header");
 }
 
+async function expectCurrentHomeHeading(page: Page) {
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: /Math learning should be\s*fun and personalized!/i
+    })
+  ).toBeVisible();
+}
+
 async function expectNoHorizontalOverflow(page: Page, label: string) {
   const overflow = await page.evaluate(() => {
     const viewportWidth = document.documentElement.clientWidth;
@@ -42,85 +51,17 @@ async function expectNoHorizontalOverflow(page: Page, label: string) {
   expect(overflow.offenders, `${label} should not have obvious overflowing elements`).toEqual([]);
 }
 
-async function expectPedaNovaCardVisibleOnMobile(page: Page, width: 360 | 390) {
+async function expectCurrentMobileHero(page: Page, width: 360 | 390) {
   await page.setViewportSize({ width, height: 844 });
   await page.goto("/");
-
-  const card = page.locator('aside[aria-label="PedaNova TRUST-MAIS adaptive engine status"]');
-  await expect(card).toBeVisible();
-  await card.scrollIntoViewIfNeeded();
-
-  await expect(card.getByText(/^Global$/)).toBeVisible();
-  await expect(card.getByText(/^school and district partnerships expanding$/)).toBeVisible();
-
-  const visualState = await card.evaluate((cardElement) => {
-    const card = cardElement as HTMLElement;
-    const content = card.querySelector<HTMLElement>("[data-pedanova-card-content]");
-    const paragraphElements = Array.from(card.querySelectorAll<HTMLElement>("p"));
-    const globalLabel = paragraphElements.find((element) => element.textContent?.trim() === "Global");
-    const globalDetail = paragraphElements.find((element) => element.textContent?.trim() === "school and district partnerships expanding");
-    const beforeContent = getComputedStyle(card, "::before").content;
-    const afterContent = getComputedStyle(card, "::after").content;
-    const contentStyle = content ? getComputedStyle(content) : null;
-    const contentZIndex = Number.parseInt(contentStyle?.zIndex ?? "0", 10);
-
-    function topElementIsContent(element: HTMLElement | undefined) {
-      if (!element || !content) return false;
-
-      const rect = element.getBoundingClientRect();
-      const x = Math.max(1, Math.min(window.innerWidth - 1, rect.left + rect.width / 2));
-      const y = Math.max(1, Math.min(window.innerHeight - 1, rect.top + rect.height / 2));
-      const hit = document.elementFromPoint(x, y);
-
-      return Boolean(hit && (hit === element || element.contains(hit) || hit === content || content.contains(hit)));
-    }
-
-    const cardRect = card.getBoundingClientRect();
-    const blockingBottomLayers = Array.from(card.querySelectorAll<HTMLElement>("*"))
-      .filter((element) => {
-        if (element === content || content?.contains(element)) return false;
-
-        const style = getComputedStyle(element);
-        if (style.position !== "absolute") return false;
-
-        const rect = element.getBoundingClientRect();
-        const zIndex = Number.parseInt(style.zIndex, 10);
-        const overlapsLowerCard = rect.bottom > cardRect.top + cardRect.height * 0.55 && rect.top < cardRect.bottom;
-        const sitsAboveContent = Number.isFinite(zIndex) && Number.isFinite(contentZIndex) && zIndex >= contentZIndex;
-
-        return overlapsLowerCard && (style.pointerEvents !== "none" || sitsAboveContent);
-      })
-      .map((element) => {
-        const rect = element.getBoundingClientRect();
-        const style = getComputedStyle(element);
-
-        return {
-          className: element.className,
-          height: Math.round(rect.height),
-          pointerEvents: style.pointerEvents,
-          zIndex: style.zIndex
-        };
-      });
-
-    return {
-      afterContent,
-      beforeContent,
-      blockingBottomLayers,
-      detailTopmost: topElementIsContent(globalDetail),
-      globalTopmost: topElementIsContent(globalLabel)
-    };
-  });
-
-  expect(visualState.beforeContent, `PedaNova card should not use ::before overlay at ${width}px`).toBe("none");
-  expect(visualState.afterContent, `PedaNova card should not use ::after overlay at ${width}px`).toBe("none");
-  expect(visualState.globalTopmost, `Global label should not be covered at ${width}px`).toBe(true);
-  expect(visualState.detailTopmost, `Global detail should not be covered at ${width}px`).toBe(true);
-  expect(visualState.blockingBottomLayers, `No bottom overlay should sit above PedaNova content at ${width}px`).toEqual([]);
+  await expectCurrentHomeHeading(page);
+  await expect(page.getByRole("link", { name: /^Start Learning$/i })).toBeVisible();
+  await expectNoHorizontalOverflow(page, `mobile homepage at ${width}px`);
 }
 
 async function expectHomeLinkToRoute(page: Page, link: Locator, target: RegExp) {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /MAIS/i })).toBeVisible();
+  await expectCurrentHomeHeading(page);
   await link.click();
   await expect(page).toHaveURL(target);
 }
@@ -135,21 +76,17 @@ async function chooseLanguage(page: Page, optionName: RegExp) {
 }
 
 test.describe("homepage functional QA", () => {
-  test("guest homepage buttons, cards, footer, and Nova Tutor shell work", async ({ page }) => {
+  test("guest homepage hero, footer, and Nova Tutor shell work", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
 
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1, name: /MAIS/i })).toBeVisible();
+    await expectCurrentHomeHeading(page);
     await expect(header(page).getByRole("navigation", { name: /main navigation/i })).toBeVisible();
     await expect(page.locator("footer")).toBeVisible();
     await expect(page.getByRole("button", { name: /^Nova Tutor$/i })).toBeVisible();
     await expectNoHorizontalOverflow(page, "guest homepage");
 
     await expectHomeLinkToRoute(page, page.getByRole("link", { name: /Start Learning/i }).first(), /\/login$/);
-    await expectHomeLinkToRoute(page, page.getByRole("link", { name: /Grades:\s*\d+/i }), /\/student\/roadmap$/);
-    await expectHomeLinkToRoute(page, page.getByRole("link", { name: /Visualization labs:\s*\d+/i }), /\/student\/tools\/visualizations$/);
-    await expectHomeLinkToRoute(page, page.getByRole("link", { name: /Practice questions:/i }), /\/practice$/);
-    await expectHomeLinkToRoute(page, page.getByRole("link", { name: /China\/HK SAR\/US Curriculum:\s*\d+/i }), /\/student\/roadmap$/);
 
     await page.goto("/");
     const emailLink = page.getByRole("link", { name: /hudongpin@126\.com/i });
@@ -210,7 +147,9 @@ test.describe("homepage functional QA", () => {
     await expect(header(page).getByRole("navigation", { name: /main navigation/i })).toBeVisible();
 
     await header(page).getByRole("link", { name: /^Lesson$/i }).click();
-    await expect(page).toHaveURL(/\/student\/lessons(\/|$)/);
+    await expect(page).toHaveURL(
+      (url) => url.pathname === "/login" && url.searchParams.get("next") === "/student/lessons"
+    );
 
     await page.goto("/");
     await header(page).getByRole("link", { name: /^Personalized Learning$/i }).click();
@@ -238,7 +177,7 @@ test.describe("homepage functional QA", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("desktop Lesson nav stays active while session lookup is delayed", async ({ page }, testInfo) => {
+  test("desktop Lesson nav keeps its guest auth redirect while session lookup is delayed", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop-chrome", "Desktop navbar links are hidden behind the mobile menu on small screens.");
     const pageErrors = collectPageErrors(page);
     let releaseSessionLookup!: () => void;
@@ -248,7 +187,7 @@ test.describe("homepage functional QA", () => {
     });
 
     await page.route(
-      (url) => url.pathname === "/api/me" && url.searchParams.get("includeLessonEntry") === "false",
+      (url) => url.pathname === "/api/auth/session-state" && url.searchParams.get("includeLessonEntry") === "false",
       async (route) => {
         sessionLookupRequested = true;
         await sessionLookupGate;
@@ -263,13 +202,13 @@ test.describe("homepage functional QA", () => {
     try {
       await page.setViewportSize({ width: 1440, height: 900 });
       await page.goto("/");
-      await expect(page.getByRole("heading", { level: 1, name: /MAIS/i })).toBeVisible();
+      await expectCurrentHomeHeading(page);
       await expect.poll(() => sessionLookupRequested).toBe(true);
 
       const mainNav = header(page).getByRole("navigation", { name: /main navigation/i });
       const lessonLink = mainNav.getByRole("link", { name: /^Lesson$/i });
       await expect(lessonLink).toBeVisible();
-      await expect(lessonLink).toHaveAttribute("href", /\/student\/lessons/);
+      await expect(lessonLink).toHaveAttribute("href", "/login?next=%2Fstudent%2Flessons");
       await expect(mainNav.getByRole("button", { name: /^Lesson$/i })).toHaveCount(0);
 
       const navStyles = await mainNav.evaluate((navElement) => {
@@ -324,17 +263,17 @@ test.describe("homepage functional QA", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("mobile PedaNova engine card keeps Global status visible at narrow widths", async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== "mobile-chrome", "PedaNova mobile visual regression runs only in the mobile project.");
+  test("mobile hero remains usable at narrow widths", async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile-chrome", "Mobile hero regression runs only in the mobile project.");
     const pageErrors = collectPageErrors(page);
 
-    await expectPedaNovaCardVisibleOnMobile(page, 360);
-    await expectPedaNovaCardVisibleOnMobile(page, 390);
+    await expectCurrentMobileHero(page, 360);
+    await expectCurrentMobileHero(page, 390);
 
     expectNoPageErrors(pageErrors);
   });
 
-  test("student homepage account, back-to-top, and locked grade behavior work", async ({ page }, testInfo) => {
+  test("student homepage account controls work", async ({ page }, testInfo) => {
     const pageErrors = collectPageErrors(page);
 
     if (testInfo.project.name === "desktop-chrome") {
@@ -343,31 +282,16 @@ test.describe("homepage functional QA", () => {
 
     await loginAsDemoStudent(page);
     await page.goto("/");
-    await page.getByRole("button", { name: /Use English|使用英文/i }).click();
-    await expect(page.getByRole("heading", { level: 1, name: /MAIS/i })).toBeVisible();
+    await chooseLanguage(page, /Use English|使用英文/i);
+    await expectCurrentHomeHeading(page);
 
     await openMobileMenuIfNeeded(page);
     await page.getByRole("link", { name: /HK Student Peter/i }).first().click();
     await expect(page).toHaveURL(/\/dashboard$/);
 
     await page.goto("/");
+    await openMobileMenuIfNeeded(page);
     await expect(page.getByRole("link", { name: /HK Student Peter/i }).first()).toBeVisible();
-    await expect(page.getByRole("link", { name: /Grades:\s*\d+/i })).toBeVisible();
-
-    await page.evaluate(() => {
-      const scroller = document.scrollingElement ?? document.documentElement;
-      window.scrollTo(0, scroller.scrollHeight);
-      scroller.scrollTop = scroller.scrollHeight;
-    });
-    await expect.poll(() => page.evaluate(() => {
-      const scroller = document.scrollingElement ?? document.documentElement;
-      return window.scrollY || scroller.scrollTop;
-    })).toBeGreaterThan(300);
-    await page.getByRole("button", { name: /^Back to top$/i }).click();
-    await expect.poll(() => page.evaluate(() => {
-      const scroller = document.scrollingElement ?? document.documentElement;
-      return window.scrollY || scroller.scrollTop;
-    }), { timeout: 5000 }).toBeLessThan(80);
 
     await logoutIfVisible(page);
     expectNoPageErrors(pageErrors);

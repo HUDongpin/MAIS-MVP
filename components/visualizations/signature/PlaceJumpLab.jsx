@@ -493,6 +493,7 @@ export default function PlaceJumpLab() {
           background:radial-gradient(120% 120% at 30% 18%,#fdfefe 0%,#eef3f7 60%,#e3ebf1 100%);}
         .stage canvas{display:block;width:100%;height:100%;}
         .jumps{margin:12px 4px 2px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+        @media (max-width:560px){.jumps{grid-template-columns:repeat(2,minmax(44px,1fr));}}
         .jbtn{font:700 16px/1 ui-monospace,Menlo,monospace;padding:13px 6px;border-radius:8px;cursor:pointer;
           border:2px solid var(--curve);background:rgba(200,30,79,.06);color:var(--curve);transition:filter .15s;}
         .jbtn.hund{border-color:var(--blue);background:rgba(58,110,165,.08);color:var(--blue);}

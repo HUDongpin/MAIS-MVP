@@ -1642,6 +1642,22 @@ export default function OperationsLab() {
           font-size: 11px;
           color: var(--ink-soft);
         }
+        @media (max-width: 560px) {
+          .nums {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 6px;
+          }
+          .ops-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 4px;
+          }
+          .ops-row .seg {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+            width: 100%;
+          }
+        }
         .quiz {
           margin-top: 16px;
           padding-top: 14px;
