@@ -1,7 +1,12 @@
+import { lstat } from "node:fs/promises";
+import path from "node:path";
+
 import {
   PromotionGateError,
   assertSafeRepoRelativePath,
   fingerprint,
+  parseCanonicalJsonBytes,
+  readAuthoritativeFile,
   sha256,
   stableJson
 } from "../promotion-gate-lib.mjs";
@@ -12,6 +17,10 @@ import {
 
 export const PROMOTION_SHADOW_CLOSURE_V2_SCHEMA = "promotion-shadow-closure.v2";
 export const PROMOTION_LIFECYCLE_REGISTRY_V2_SCHEMA = "promotion-lifecycle-registry.v2";
+export const PROMOTION_SHADOW_CLOSURE_V2_PATH =
+  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/shadow-closure.v2.json";
+export const PROMOTION_LIFECYCLE_REGISTRY_V2_PATH =
+  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/lifecycle-registry.v2.json";
 
 const MATURITY_CLAIM = "Shadow-mature / live-unproven";
 const TRUST_BOUNDARY =
@@ -719,6 +728,113 @@ export function validateV2LifecycleRegistry(registry, context = {}) {
     result: "pass",
     state: "shadow_passed",
     registryDigest: registry.registryDigest,
+    liveAllowed: false
+  };
+}
+
+async function repositoryPathExists(repoRoot, relativePath) {
+  const absolutePath = path.resolve(repoRoot, ...relativePath.split("/"));
+  try {
+    await lstat(absolutePath);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    fail("V2_FINALIZATION_REPOSITORY_READ_INVALID", "Finalization artifact existence could not be read safely.");
+  }
+}
+
+async function readRepositoryArtifact(repoRoot, relativePath, label) {
+  let loaded;
+  try {
+    loaded = await readAuthoritativeFile(repoRoot, relativePath);
+  } catch {
+    fail("V2_FINALIZATION_REPOSITORY_READ_INVALID", `${label} is not one authoritative regular repository file.`);
+  }
+  let value;
+  try {
+    value = parseCanonicalJsonBytes(
+      loaded.bytes,
+      "V2_FINALIZATION_REPOSITORY_READ_INVALID",
+      label
+    );
+  } catch (error) {
+    if (error instanceof PromotionGateError) throw error;
+    fail("V2_FINALIZATION_REPOSITORY_READ_INVALID", `${label} is not canonical UTF-8 JSON.`);
+  }
+  if (!isPlainObject(value)) {
+    fail("V2_FINALIZATION_REPOSITORY_READ_INVALID", `${label} must contain one JSON object.`);
+  }
+  return { path: relativePath, bytes: loaded.bytes, value };
+}
+
+export async function verifyRepositoryV2Finalization(repoRoot) {
+  assertNonEmptyString(
+    repoRoot,
+    "V2_FINALIZATION_REPOSITORY_READ_INVALID",
+    "Finalization repository root"
+  );
+  if (!path.isAbsolute(repoRoot)) {
+    fail("V2_FINALIZATION_REPOSITORY_READ_INVALID", "Finalization repository root must be absolute.");
+  }
+  const [closurePresent, registryPresent] = await Promise.all([
+    repositoryPathExists(repoRoot, PROMOTION_SHADOW_CLOSURE_V2_PATH),
+    repositoryPathExists(repoRoot, PROMOTION_LIFECYCLE_REGISTRY_V2_PATH)
+  ]);
+  if (!closurePresent && !registryPresent) {
+    return {
+      result: "pending",
+      state: "shadow_ready",
+      closurePresent: false,
+      registryPresent: false,
+      liveAllowed: false
+    };
+  }
+  if (closurePresent !== registryPresent) {
+    fail(
+      "V2_FINALIZATION_PARTIAL",
+      "Promotion finalization must add closure and lifecycle registry together or neither."
+    );
+  }
+  const [closureArtifact, registryArtifact] = await Promise.all([
+    readRepositoryArtifact(repoRoot, PROMOTION_SHADOW_CLOSURE_V2_PATH, "Promotion Shadow closure"),
+    readRepositoryArtifact(repoRoot, PROMOTION_LIFECYCLE_REGISTRY_V2_PATH, "Promotion lifecycle registry")
+  ]);
+  assertExactKeys(
+    closureArtifact.value.artifacts,
+    ARTIFACT_KEYS,
+    "V2_FINALIZATION_CLOSURE_INVALID",
+    "Promotion Shadow closure artifacts"
+  );
+  const artifactEntries = await Promise.all(ARTIFACT_KEYS.map(async (key) => {
+    const reference = closureArtifact.value.artifacts[key];
+    assertExactKeys(
+      reference,
+      ["path", "rawSha256"],
+      "V2_FINALIZATION_ARTIFACT_INVALID",
+      `Promotion Shadow closure ${key} reference`
+    );
+    try {
+      assertSafeRepoRelativePath(reference.path);
+    } catch {
+      fail("V2_FINALIZATION_ARTIFACT_INVALID", `Promotion Shadow closure ${key} path is unsafe.`);
+    }
+    return [key, await readRepositoryArtifact(repoRoot, reference.path, `Promotion finalization ${key}`)];
+  }));
+  const artifacts = Object.fromEntries(artifactEntries);
+  const closureResult = validateV2ShadowClosure(closureArtifact.value, artifacts);
+  const registryResult = validateV2LifecycleRegistry(registryArtifact.value, {
+    manifest: artifacts.manifest,
+    evidenceIndex: artifacts.evidenceIndex,
+    closure: closureArtifact.value,
+    closurePath: PROMOTION_SHADOW_CLOSURE_V2_PATH,
+    closureArtifacts: artifacts
+  });
+  return {
+    result: "pass",
+    state: "shadow_passed",
+    closureDigest: closureResult.closureDigest,
+    registryDigest: registryResult.registryDigest,
+    semanticReceiptDigest: closureResult.semanticReceiptDigest,
     liveAllowed: false
   };
 }

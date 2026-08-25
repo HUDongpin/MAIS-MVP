@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -15,6 +16,8 @@ const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(testDirectory, "../../..");
 const modulePath = path.join(testDirectory, "promotion-shadow-finalization-v2-lib.mjs");
 const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003";
+const finalClosurePath = `${pilotRoot}/shadow-closure.v2.json`;
+const finalRegistryPath = `${pilotRoot}/lifecycle-registry.v2.json`;
 const trustBoundary =
   "Repository hash-bound readback record; GitHub API authenticity requires independent repository-admin readback.";
 
@@ -516,4 +519,73 @@ test("Promotion Gate test script and CI execute the finalization suite without a
   assert.match(workflowSource, /name: Validate Promotion Shadow finalization contract/u);
   assert.match(workflowSource, /npm run test:promotion-gate/u);
   assert.doesNotMatch(workflowSource, /promotion:(?:preview|deploy|live|promote-live)/u);
+});
+
+test("repository finalization verifier accepts only one coherent paired repository state", async () => {
+  const api = await loadApi();
+  assert.equal(typeof api.verifyRepositoryV2Finalization, "function");
+  const result = await api.verifyRepositoryV2Finalization(repoRoot);
+  if (result.result === "pending") {
+    assert.deepEqual(result, {
+      result: "pending",
+      state: "shadow_ready",
+      closurePresent: false,
+      registryPresent: false,
+      liveAllowed: false
+    });
+  } else {
+    assert.equal(result.result, "pass");
+    assert.equal(result.state, "shadow_passed");
+    assert.match(result.closureDigest, /^[a-f0-9]{64}$/u);
+    assert.match(result.registryDigest, /^[a-f0-9]{64}$/u);
+    assert.match(result.semanticReceiptDigest, /^[a-f0-9]{64}$/u);
+    assert.equal(result.liveAllowed, false);
+  }
+});
+
+test("repository finalization verifier fails closed when only one terminal artifact exists", async () => {
+  const api = await loadApi();
+  assert.equal(typeof api.verifyRepositoryV2Finalization, "function");
+  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-finalization-partial-"));
+  try {
+    const closurePath = path.join(fixtureRoot, finalClosurePath);
+    await mkdir(path.dirname(closurePath), { recursive: true });
+    await writeFile(closurePath, "{}\n", { flag: "wx" });
+    await assert.rejects(
+      () => api.verifyRepositoryV2Finalization(fixtureRoot),
+      (error) => error instanceof PromotionGateError && error.code === "V2_FINALIZATION_PARTIAL"
+    );
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+test("repository finalization verifier loads and validates every committed artifact when closure is present", async () => {
+  const api = await loadApi();
+  assert.equal(typeof api.verifyRepositoryV2Finalization, "function");
+  const fixture = await buildFixture();
+  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-finalization-complete-"));
+  try {
+    for (const artifact of Object.values(fixture.artifacts)) {
+      const target = path.join(fixtureRoot, artifact.path);
+      await mkdir(path.dirname(target), { recursive: true });
+      await writeFile(target, artifact.bytes, { flag: "wx" });
+    }
+    const closurePath = path.join(fixtureRoot, finalClosurePath);
+    const registryPath = path.join(fixtureRoot, finalRegistryPath);
+    await mkdir(path.dirname(closurePath), { recursive: true });
+    await writeFile(closurePath, `${JSON.stringify(fixture.closure, null, 2)}\n`, { flag: "wx" });
+    await writeFile(registryPath, `${JSON.stringify(fixture.registry, null, 2)}\n`, { flag: "wx" });
+    const result = await api.verifyRepositoryV2Finalization(fixtureRoot);
+    assert.deepEqual(result, {
+      result: "pass",
+      state: "shadow_passed",
+      closureDigest: fixture.closure.closureDigest,
+      registryDigest: fixture.registry.registryDigest,
+      semanticReceiptDigest: fixture.artifacts.receipt.value.semanticReceiptDigest,
+      liveAllowed: false
+    });
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
 });
