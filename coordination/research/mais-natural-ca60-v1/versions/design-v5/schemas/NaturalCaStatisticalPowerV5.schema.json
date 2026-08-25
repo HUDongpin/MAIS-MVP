@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaStatisticalPowerV5.schema.json",
+  "title": "NaturalCaStatisticalPowerV5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "designRegistrationHash",
+    "sampleSize",
+    "confidenceLevel",
+    "decisionBound",
+    "perfectPerformanceRequirements",
+    "precisionGuidance",
+    "decisionCeiling",
+    "thresholdReductionAfterLabelsOrResultsAllowed",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "NaturalCaStatisticalPowerV5"
+    },
+    "artifactKind": {
+      "const": "FROZEN_STRUCTURAL_FEASIBILITY_AND_PRECISION_JUDGMENT"
+    },
+    "designRegistrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sampleSize": {
+      "const": 60
+    },
+    "confidenceLevel": {
+      "const": 0.95
+    },
+    "decisionBound": {
+      "const": "ONE_SIDED_95_PERCENT_WILSON"
+    },
+    "perfectPerformanceRequirements": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "precisionGuidance": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "decisionCeiling": {
+      "const": "INCONCLUSIVE_MACHINE_REFERENCE"
+    },
+    "thresholdReductionAfterLabelsOrResultsAllowed": {
+      "const": false
+    },
+    "selfHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

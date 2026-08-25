@@ -1,0 +1,473 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaPilotDesignRegistrationV5.schema.json",
+  "title": "NaturalCaPilotDesignRegistrationV5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "designId",
+    "designFamily",
+    "designKind",
+    "version",
+    "lifecycleStatus",
+    "freezeAllowed",
+    "activationAllowed",
+    "blockingActivationCodes",
+    "frozenAt",
+    "thresholdsFrozenAt",
+    "implementationBaseline",
+    "ownerProviderDecision",
+    "activeRegistrationAtAssembly",
+    "proposedSupersedesCandidate",
+    "composition",
+    "scope",
+    "runtimePopulation",
+    "eligibility",
+    "stratification",
+    "homologyClustering",
+    "deterministicSelection",
+    "machineReferenceWorkflow",
+    "taxonomy",
+    "labeling",
+    "analysis",
+    "runtimeAccommodation",
+    "providerControls",
+    "executionLifecycle",
+    "interfaces",
+    "crossArtifactIntegrity",
+    "independentReview",
+    "publicReport",
+    "artifactStorage",
+    "artifactKinds",
+    "freezeChain",
+    "preExecutionState",
+    "executionChronology",
+    "providerEventCount",
+    "firstProviderExecutionAllowed",
+    "frozenContractHashes",
+    "frozenContractRootHash",
+    "registrationHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "NaturalCaPilotDesignRegistrationV5"
+    },
+    "artifactKind": {
+      "const": "FROZEN_PRE_EXECUTION_DESIGN_CANDIDATE_NOT_EXECUTION_AUTHORIZATION"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "designFamily": {
+      "const": "MAIS-NATURAL-CA60"
+    },
+    "designKind": {
+      "const": "APPEND_ONLY_COMPOSITE_PRE_EXECUTION_DESIGN_REGISTRATION"
+    },
+    "version": {
+      "const": 5
+    },
+    "lifecycleStatus": {
+      "const": "SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW"
+    },
+    "freezeAllowed": {
+      "const": true
+    },
+    "activationAllowed": {
+      "const": false
+    },
+    "blockingActivationCodes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "frozenAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "thresholdsFrozenAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "implementationBaseline": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "ownerProviderDecision": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "activeRegistrationAtAssembly": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "proposedSupersedesCandidate": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "runtimePopulation": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "stratification": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "homologyClustering": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "deterministicSelection": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "machineReferenceWorkflow": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "taxonomy": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "labeling": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "runtimeAccommodation": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "providerControls": {
+      "type": "object",
+      "required": [
+        "firstProviderExecutionAllowed",
+        "providerEventCount",
+        "requiredAuthorizationSchema",
+        "requiredAttemptReceiptSchema",
+        "openaiReferenceEnvelope",
+        "deepSeekEnvelope",
+        "authorizationTemplates",
+        "currentOpenAIReferenceAuthorizationHash",
+        "currentDeepSeekAuthorizationHash"
+      ],
+      "properties": {
+        "firstProviderExecutionAllowed": {
+          "const": false
+        },
+        "providerEventCount": {
+          "const": 0
+        },
+        "requiredAuthorizationSchema": {
+          "const": "ProviderAuthorizationV2"
+        },
+        "requiredAttemptReceiptSchema": {
+          "const": "ProviderAttemptReceiptV2"
+        },
+        "allowedOrigins": {
+          "type": "array"
+        },
+        "egress": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "openaiReferenceEnvelope": {
+          "type": "object",
+          "required": [
+            "provider",
+            "projectResidency",
+            "region",
+            "method",
+            "endpoint",
+            "requestedOrigin",
+            "observedOriginRequired",
+            "requestedModel",
+            "observedModelRequired",
+            "apiSurface",
+            "requestTemplate",
+            "wireRequestTemplate",
+            "logicalRequestTemplateHash",
+            "wireRequestTemplateHash",
+            "providerEventCount",
+            "successfulCallCap",
+            "attemptCap",
+            "totalTokenCap",
+            "usdCap",
+            "currency",
+            "concurrencyCap",
+            "roleAttemptCap",
+            "worstCaseBufferGate",
+            "currentAuthorizationHash",
+            "projectRoutePreflightReceiptHash",
+            "credentialReadinessReceiptHash",
+            "priceSnapshotHash",
+            "priceNotHardcoded",
+            "fullAuthorizationAllowed",
+            "fullAuthorizationBlockers",
+            "officialCapabilityEvidence"
+          ],
+          "properties": {
+            "provider": {
+              "const": "OPENAI_DIRECT"
+            },
+            "projectResidency": {
+              "const": "US_STORAGE_PROCESSING"
+            },
+            "region": {
+              "const": "US"
+            },
+            "method": {
+              "const": "POST"
+            },
+            "endpoint": {
+              "const": "https://us.api.openai.com/v1/responses"
+            },
+            "requestedOrigin": {
+              "const": "https://us.api.openai.com/v1/responses"
+            },
+            "observedOriginRequired": {
+              "const": "https://us.api.openai.com/v1/responses"
+            },
+            "requestedModel": {
+              "const": "gpt-5.6-luna"
+            },
+            "observedModelRequired": {
+              "const": "gpt-5.6-luna"
+            },
+            "apiSurface": {
+              "const": "RESPONSES_API_V1"
+            },
+            "requestTemplate": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "wireRequestTemplate": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "logicalRequestTemplateHash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "wireRequestTemplateHash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "providerEventCount": {
+              "const": 0
+            },
+            "successfulCallCap": {
+              "const": 300
+            },
+            "attemptCap": {
+              "const": 610
+            },
+            "totalTokenCap": {
+              "const": 4000000
+            },
+            "usdCap": {
+              "const": 25
+            },
+            "currency": {
+              "const": "USD"
+            },
+            "concurrencyCap": {
+              "const": 4
+            },
+            "roleAttemptCap": {
+              "const": 2
+            },
+            "worstCaseBufferGate": {
+              "const": 0.2
+            },
+            "currentAuthorizationHash": {
+              "type": "null"
+            },
+            "projectRoutePreflightReceiptHash": {
+              "type": "null"
+            },
+            "credentialReadinessReceiptHash": {
+              "type": "null"
+            },
+            "priceSnapshotHash": {
+              "type": "null"
+            },
+            "priceNotHardcoded": {
+              "const": true
+            },
+            "fullAuthorizationAllowed": {
+              "const": false
+            },
+            "fullAuthorizationBlockers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "officialCapabilityEvidence": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "deepSeekEnvelope": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "openaiReferenceRoleContractCatalog": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "deepSeekRoleContractCatalog": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "combinedEnvelope": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "authorizationRequiredBindings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "priceRatePolicy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authorizationSeparation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attemptStateMachine": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "attemptGraphPolicy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authorizationTemplates": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "currentOpenAIReferenceAuthorizationHash": {
+          "type": "null"
+        },
+        "currentDeepSeekAuthorizationHash": {
+          "type": "null"
+        },
+        "openaiProjectRoutePreflightAuthorizationHash": {
+          "type": "null"
+        },
+        "openaiProjectRoutePreflightReceiptHash": {
+          "type": "null"
+        },
+        "deepSeekRouteProbeAuthorizationHash": {
+          "type": "null"
+        },
+        "deepSeekRouteProbeReceiptHash": {
+          "type": "null"
+        }
+      },
+      "additionalProperties": false
+    },
+    "executionLifecycle": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "interfaces": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "crossArtifactIntegrity": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "independentReview": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "publicReport": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "artifactStorage": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "artifactKinds": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "freezeChain": {
+      "type": "array",
+      "minItems": 17,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "preExecutionState": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "executionChronology": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "providerEventCount": {
+      "const": 0
+    },
+    "firstProviderExecutionAllowed": {
+      "const": false
+    },
+    "frozenContractHashes": {
+      "type": "object",
+      "minProperties": 10,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "frozenContractRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProviderAuthorizationV2.schema.json",
+  "title": "ProviderAuthorizationV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "authorizationId",
+    "authorizationKind",
+    "designId",
+    "registrationHash",
+    "frameRegistrationHash",
+    "samplingFrameHash",
+    "sampleManifestHash",
+    "runtimeConfigHash",
+    "promptSetHash",
+    "schemaSetHash",
+    "runnerCommit",
+    "runnerHash",
+    "adapterHash",
+    "providerRouteDecisionHash",
+    "projectRoutePreflightReceiptHash",
+    "provider",
+    "projectResidency",
+    "dataRegion",
+    "apiSurface",
+    "endpoint",
+    "model",
+    "roleSet",
+    "logicalRequestTemplateHash",
+    "wireRequestTemplateHash",
+    "payloadSetHash",
+    "allowedOrigin",
+    "egressAllowlist",
+    "egressDenylist",
+    "privacyScreenHash",
+    "rightsScreenHash",
+    "issuedAt",
+    "expiresAt",
+    "maximumAttempts",
+    "maximumSuccessfulCalls",
+    "maximumInputTokens",
+    "maximumOutputTokens",
+    "maximumTokens",
+    "maximumEstimatedUsd",
+    "currency",
+    "concurrencyCap",
+    "worstCaseCostPreviewUsd",
+    "costBufferMultiplier",
+    "bufferedWorstCaseUsd",
+    "priceSnapshotHash",
+    "authorizedBy",
+    "ownerGrantHash",
+    "authorizationEvidenceHash",
+    "nonAuthorizations",
+    "previousAuthorizationHash",
+    "isCurrentAuthorization",
+    "referenceSealHash",
+    "referenceAttemptChainHash",
+    "routeProbeAuthorizationHash",
+    "routeProbeReceiptHash",
+    "authorizationHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderAuthorizationV2"
+    },
+    "authorizationId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorizationKind": {
+      "enum": [
+        "OPENAI_REFERENCE_LABELING",
+        "DEEPSEEK_EVALUATION",
+        "OPENAI_PROJECT_ROUTE_PREFLIGHT",
+        "DEEPSEEK_ROUTE_PROBE"
+      ]
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "frameRegistrationHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "samplingFrameHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sampleManifestHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runtimeConfigHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "promptSetHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schemaSetHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runnerCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runnerHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "adapterHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "providerRouteDecisionHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "projectRoutePreflightReceiptHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "provider": {
+      "enum": [
+        "OPENAI_DIRECT",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "projectResidency": {
+      "enum": [
+        "US_STORAGE_PROCESSING",
+        "UNKNOWN_PENDING_ROUTE_PROBE_EVIDENCE"
+      ]
+    },
+    "dataRegion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "apiSurface": {
+      "type": "string",
+      "minLength": 1
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roleSet": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "logicalRequestTemplateHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "wireRequestTemplateHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "payloadSetHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "allowedOrigin": {
+      "type": "string",
+      "format": "uri"
+    },
+    "egressAllowlist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "egressDenylist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "privacyScreenHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rightsScreenHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "issuedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "maximumAttempts": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "maximumSuccessfulCalls": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "maximumInputTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maximumOutputTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maximumTokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "maximumEstimatedUsd": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "currency": {
+      "const": "USD"
+    },
+    "concurrencyCap": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    },
+    "worstCaseCostPreviewUsd": {
+      "type": "number",
+      "minimum": 0
+    },
+    "costBufferMultiplier": {
+      "const": 1.2
+    },
+    "bufferedWorstCaseUsd": {
+      "type": "number",
+      "minimum": 0
+    },
+    "priceSnapshotHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorizedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerGrantHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorizationEvidenceHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nonAuthorizations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "previousAuthorizationHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "isCurrentAuthorization": {
+      "type": "boolean"
+    },
+    "referenceSealHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "referenceAttemptChainHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "routeProbeAuthorizationHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "routeProbeReceiptHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "authorizationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

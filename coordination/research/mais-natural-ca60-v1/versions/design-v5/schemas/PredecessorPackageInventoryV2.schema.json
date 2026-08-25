@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/PredecessorPackageInventoryV2.schema.json",
+  "title": "PredecessorPackageInventoryV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "designId",
+    "version",
+    "disposition",
+    "providerEventCount",
+    "registrationByteSha256",
+    "inventoryAlgorithm",
+    "entries",
+    "fileCount",
+    "inventoryRootHash",
+    "recordedAt",
+    "reasonCode"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "PredecessorPackageInventoryV2"
+    },
+    "artifactKind": {
+      "const": "EXACT_IMMUTABLE_PREDECESSOR_PACKAGE_INVENTORY"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "version": {
+      "const": 4
+    },
+    "disposition": {
+      "const": "SUPERSEDED_NOT_EXECUTED"
+    },
+    "providerEventCount": {
+      "const": 0
+    },
+    "registrationByteSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "inventoryAlgorithm": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "byteLength",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "byteLength": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "fileCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "inventoryRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "recordedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reasonCode": {
+      "const": "OWNER_REPLACED_QWEN_WITH_OPENAI_GPT_5_6_LUNA_BEFORE_ANY_PROVIDER_CALL"
+    }
+  }
+}

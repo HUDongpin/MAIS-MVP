@@ -1,0 +1,386 @@
+{
+  "schemaVersion": "PredecessorPackageInventoryV2",
+  "artifactKind": "EXACT_IMMUTABLE_PREDECESSOR_PACKAGE_INVENTORY",
+  "designId": "MAIS-NATURAL-CA60-V4",
+  "version": 4,
+  "disposition": "SUPERSEDED_NOT_EXECUTED",
+  "providerEventCount": 0,
+  "registrationByteSha256": "d62d024abac1bc3c49c6050eb2cc8fcce92172adbb319f84fb8f8a989db41659",
+  "inventoryAlgorithm": "SHA256(UTF8(JCS(sorted[{path,byteLength,sha256}])))",
+  "entries": [
+    {
+      "path": "PRE-EXECUTION-ERRATUM.md",
+      "byteLength": 2935,
+      "sha256": "feec74495743cc4b9222767be917714d6a8d08dd4c0a4b142a49925b9399009a"
+    },
+    {
+      "path": "README.md",
+      "byteLength": 6823,
+      "sha256": "47e396387bc2e70797a362f70dac412dd0f0e4d4aed8ed4b572fad2806448ac4"
+    },
+    {
+      "path": "c0-contracts.test.mjs",
+      "byteLength": 25566,
+      "sha256": "94fdb6e27374019fe3c149b08c83cf2e6e2b903c78cc2b48eef60512a6db6097"
+    },
+    {
+      "path": "design-contract.mjs",
+      "byteLength": 312825,
+      "sha256": "d052b3e661ed2c2810ae3f1f0265cd6281b81e5e7329e3c97215a5a7c56aecb0"
+    },
+    {
+      "path": "design-registration.json",
+      "byteLength": 167786,
+      "sha256": "d62d024abac1bc3c49c6050eb2cc8fcce92172adbb319f84fb8f8a989db41659"
+    },
+    {
+      "path": "design-v3-completeness.test.mjs",
+      "byteLength": 6421,
+      "sha256": "b8aa03cf17946ad4a58ed995538cc3aa38e6d99ff0e2a023b8b306e4cba6245f"
+    },
+    {
+      "path": "final-evaluation.test.mjs",
+      "byteLength": 36006,
+      "sha256": "a33cc634fcf8c2ed0bafa82b931270f082ad7ecc635c54e881da2dead739beed"
+    },
+    {
+      "path": "frame-contract-p0.test.mjs",
+      "byteLength": 101901,
+      "sha256": "c9302470c98214941657853f4d3897fcec407f8ddd975ac0f6da814277de5300"
+    },
+    {
+      "path": "package-integrity.test.mjs",
+      "byteLength": 12395,
+      "sha256": "223aae63126c720084d826bd7305e6a9d4e6e64deebd240768ff73b3737767a1"
+    },
+    {
+      "path": "predecessor-golden-hashes.json",
+      "byteLength": 8827,
+      "sha256": "17542a1b1b5c012f49daa4e9eed637338758b10db7b5860c0830b554c200a6fd"
+    },
+    {
+      "path": "predecessor-package-inventory-v3.json",
+      "byteLength": 8545,
+      "sha256": "f15b34799c7aa2d3607e50408c854216299f2d1f6b464ea3dd85d490095b8a7e"
+    },
+    {
+      "path": "preflight-oversized-components-aggregate.json",
+      "byteLength": 1670,
+      "sha256": "e29303025723059fdfd5a65e1dcc903bd3636d8ff483b8414c17731364aeeecb"
+    },
+    {
+      "path": "provider-contracts.test.mjs",
+      "byteLength": 45093,
+      "sha256": "7374452c140d6ed459804728c809a9906ebc404213ad172724e3de7bf2087fe7"
+    },
+    {
+      "path": "reference-global.test.mjs",
+      "byteLength": 102576,
+      "sha256": "1e5d4b4a867695794e8f57cad32446fe5b787f1bf1c96a9cc3c991db4dfb10ca"
+    },
+    {
+      "path": "reference-seal.test.mjs",
+      "byteLength": 40795,
+      "sha256": "26a665dac48400d9e800dd7f550f48c0fa1765b41957b96aca9f5ae55a7700fc"
+    },
+    {
+      "path": "registration-v4-audit.test.mjs",
+      "byteLength": 24874,
+      "sha256": "64c3cc5d95d60490daac6f1062fc9ee0eb00a42af6d3758a2dce46e508d641b8"
+    },
+    {
+      "path": "review-gate-v4-integration.test.mjs",
+      "byteLength": 42831,
+      "sha256": "14b34de62b4bc13c1d005aa798e7195e32f0ae025fafdb3f1d995f287960ac12"
+    },
+    {
+      "path": "review-gate.mjs",
+      "byteLength": 107145,
+      "sha256": "077dc9d67e4cc52386d3921c20c940c4229045be3b0947f213653f4222dbc9c9"
+    },
+    {
+      "path": "review-gate.test.mjs",
+      "byteLength": 65061,
+      "sha256": "622a189dd103b23ccd6d34cdc7efc0e37c7f4d7127571f61de4634497e990431"
+    },
+    {
+      "path": "review-test-fixtures.mjs",
+      "byteLength": 14499,
+      "sha256": "8bfd1bf858cc8f38d1d61142a3c0c5c0de2605ef9d8e48c50c484314132f4dd1"
+    },
+    {
+      "path": "sample-contract.mjs",
+      "byteLength": 268048,
+      "sha256": "792690965ccfef65862f517c754c5459200abf34bb89cfcb7263db53b8620f41"
+    },
+    {
+      "path": "sample-contract.test.mjs",
+      "byteLength": 121702,
+      "sha256": "cc5cac9b27bd2c8486b6347e5800607591f4f8dfab524f2abc4723a91bed6c9f"
+    },
+    {
+      "path": "schemas.test.mjs",
+      "byteLength": 59527,
+      "sha256": "ad7c650be7a68ba5632fe07d822279ae2e7e669aced412e63239d7c6dc3d8a0e"
+    },
+    {
+      "path": "schemas/AssetEgressLedgerV1.schema.json",
+      "byteLength": 1894,
+      "sha256": "47fe193d6c0f9ee7ce87031bcd673f91e675491e6b0423a2c44d3e3f3bfd916a"
+    },
+    {
+      "path": "schemas/C0ExecutionSetV1.schema.json",
+      "byteLength": 2647,
+      "sha256": "cde9718fbcffcd449533a3eeac38e15496b734c6a6a38cd583cd72592082b9ad"
+    },
+    {
+      "path": "schemas/C0RandomAuditSelectionV1.schema.json",
+      "byteLength": 1934,
+      "sha256": "2ba46599780b92fa466bbdac8d6370fda2498dc4a9e092b54b47722013df7223"
+    },
+    {
+      "path": "schemas/C0TriggerInputV1.schema.json",
+      "byteLength": 6930,
+      "sha256": "a34a5b587e31aacee083f3d8f2b3f2843566643699edf96b18e51180b9542f81"
+    },
+    {
+      "path": "schemas/ClaimBoundaryReviewReceiptV1.schema.json",
+      "byteLength": 4623,
+      "sha256": "ac09379ef23923950a3b06b95df7f9cd2a402c82cfc32849b73f14ae49531a4a"
+    },
+    {
+      "path": "schemas/ClusterAuditReceiptV1.schema.json",
+      "byteLength": 2298,
+      "sha256": "5e489e0077acbd85695247a18ede15a2ae00a1528f2eb54a9d8fda0bfc4e5b12"
+    },
+    {
+      "path": "schemas/CompletedItemCommitMarkerV1.schema.json",
+      "byteLength": 1845,
+      "sha256": "c26fe4f41335fcfa980c81fc24ff8610f1d3a33dd8632a604994b89a6fa62275"
+    },
+    {
+      "path": "schemas/CounterfactualLedgerV1.schema.json",
+      "byteLength": 11686,
+      "sha256": "81d353e2a9f88c69b70b0f80c6bedb6f5808bc3bda461d437d9281095fee8677"
+    },
+    {
+      "path": "schemas/CredentialReadinessReceiptV1.schema.json",
+      "byteLength": 1340,
+      "sha256": "7b4a667c003d852f5ad1646035487643cbf5d9142a8a7af48b03c80cdbcb890e"
+    },
+    {
+      "path": "schemas/DeepSeekRoleOutputV1.schema.json",
+      "byteLength": 4324,
+      "sha256": "81be3f893617dabd645583c967f0c4afc3921aba6e268cbd87f96e20584ffdbf"
+    },
+    {
+      "path": "schemas/DeepSeekRouteProbeAuthorizationV1.schema.json",
+      "byteLength": 2001,
+      "sha256": "a30c591bc52e3146cea20e56407f41d427cf0ce99cc523de4c82cace129cb293"
+    },
+    {
+      "path": "schemas/DeepSeekRouteProbeReceiptV1.schema.json",
+      "byteLength": 2265,
+      "sha256": "3efc737c7b10dc27dd9f7708747bd9f7cd79f566a5c8436c4061cef1fa8a2f8d"
+    },
+    {
+      "path": "schemas/ExecutionDeviationEvidenceV1.schema.json",
+      "byteLength": 1443,
+      "sha256": "27beb72849ef833e33bff4d4288b09ca1081604509104d8aedf6924a0acbce44"
+    },
+    {
+      "path": "schemas/ExecutionRegistrationV1.schema.json",
+      "byteLength": 4482,
+      "sha256": "1dc17fc2a8210cb1a0e25791bcac55da8a2cb1bf12e68887c7ae80f88749f935"
+    },
+    {
+      "path": "schemas/FinalEvaluationReceiptV1.schema.json",
+      "byteLength": 20270,
+      "sha256": "d2e916f9c248e58ac316f3c1ce4de4054c8124f309b2369a4e3bc45eeffd0898"
+    },
+    {
+      "path": "schemas/FrameFailureLedgerV1.schema.json",
+      "byteLength": 1961,
+      "sha256": "96a3fa8e8659bd0703a994737dc219e4a19f63c5c47804755a364670d04d5d17"
+    },
+    {
+      "path": "schemas/FrameRegistrationV1.schema.json",
+      "byteLength": 10839,
+      "sha256": "897fb67c35b653ba02cff310014125c1908d1fb181aa63da4b7483127e452348"
+    },
+    {
+      "path": "schemas/IndependentReviewReceiptV1.schema.json",
+      "byteLength": 6958,
+      "sha256": "b934702633fea882c546040399b87cdc317e00f5bbf5176671ecd96c4c6d4ae9"
+    },
+    {
+      "path": "schemas/ItemEvaluationResultV1.schema.json",
+      "byteLength": 5059,
+      "sha256": "dbae12e5f64b3883e5d3af0a74669cb58d6fe6e31f44828542f32b5baf6b5c32"
+    },
+    {
+      "path": "schemas/ItemReferenceLabelSealV1.schema.json",
+      "byteLength": 2791,
+      "sha256": "a37c6bbe6b0b47e25e7f81b2c3babe7f996dbf9bd96ab920f92c3ed1863592b0"
+    },
+    {
+      "path": "schemas/LineageRuleApprovalV1.schema.json",
+      "byteLength": 1678,
+      "sha256": "373dbc1503ac845dd0686cf0afcf837260d04e703b1b2fd082c430ee841246d3"
+    },
+    {
+      "path": "schemas/MachineReferenceLabelV1.schema.json",
+      "byteLength": 10003,
+      "sha256": "f35a068a21851303fd171a4f994cc47159f7f4dcf54659e91e5e5e7576f2317b"
+    },
+    {
+      "path": "schemas/MissingReceiptItemBundleV1.schema.json",
+      "byteLength": 6061,
+      "sha256": "7723d0269e8f0b15f8cc16e05b093b2ef0eabe2bec5d14ccc60200c35054221c"
+    },
+    {
+      "path": "schemas/NaturalCaPilotDesignRegistrationV4.schema.json",
+      "byteLength": 384063,
+      "sha256": "e825b65b26e196532f2e1b38305405306edc4a02ebb7f5cb8100dab82ac2fa62"
+    },
+    {
+      "path": "schemas/PersistedArtifactDefinitionsV1.schema.json",
+      "byteLength": 98257,
+      "sha256": "cf5065275b01e886ab86ebdbb44172b15529d66f2ac666b8b756f2388b8cf6fe"
+    },
+    {
+      "path": "schemas/PreExecutionStateV1.schema.json",
+      "byteLength": 2987,
+      "sha256": "b332fd5b816ebf578fd3bca1873d6562ca96adf5fb0b8618397813f7f3fe8745"
+    },
+    {
+      "path": "schemas/PredecessorPackageInventoryV1.schema.json",
+      "byteLength": 2510,
+      "sha256": "ccb542548fd5c450c178df6a3c736924470281df7b6fa21e17a248bc34dd9c7d"
+    },
+    {
+      "path": "schemas/ProviderAttemptReceiptV1.schema.json",
+      "byteLength": 17675,
+      "sha256": "92042fd2cc3ae950a94d946770dfa3b2fda011cba97b8408640f9458f8de2871"
+    },
+    {
+      "path": "schemas/ProviderAuthorizationV1.schema.json",
+      "byteLength": 10006,
+      "sha256": "3fa96ea150e73acb377e32977a7106083c4307a30d3c6fa860007c0886a06bca"
+    },
+    {
+      "path": "schemas/ProviderLogicalRequestV1.schema.json",
+      "byteLength": 2173,
+      "sha256": "f33b77d76afcea08f2a93ac31a9ea061d8df6cdcd867221b93a3e3045d4b17fa"
+    },
+    {
+      "path": "schemas/ProviderWireEvidenceV1.schema.json",
+      "byteLength": 5843,
+      "sha256": "4d00f35a0dd05614040e7c72b4851f4bb2e35115c25e6347816ff1febc885425"
+    },
+    {
+      "path": "schemas/ReferenceLabelSealV1.schema.json",
+      "byteLength": 5827,
+      "sha256": "a9482e787b1eaf49519ff830f4415abb5a3a1db15abf97eeeb40eaad676d0258"
+    },
+    {
+      "path": "schemas/RightsDecisionTableV1.schema.json",
+      "byteLength": 1516,
+      "sha256": "9ed677e2358a5fb1eae445422f89560537d39dd257b6bd7e0c7d5fe1bf976f46"
+    },
+    {
+      "path": "schemas/RunnerPersistenceProofV1.schema.json",
+      "byteLength": 1670,
+      "sha256": "2be94c5ac1b6f1cf3f65bb1f7fc25fafacde81a8c6431a0fd49a077f57205d8d"
+    },
+    {
+      "path": "schemas/RuntimeConfigSnapshotV1.schema.json",
+      "byteLength": 1987,
+      "sha256": "df88ce31d0209ba021f20ef5ffeb1c7a2fa6e0c354d3b07008f18561ef153da5"
+    },
+    {
+      "path": "schemas/RuntimeExtractionSnapshotV1.schema.json",
+      "byteLength": 32916,
+      "sha256": "9132a121d90ba2ba16c3321c9867d2d9454ae61e26f732b9992bc12b0c5fde5e"
+    },
+    {
+      "path": "schemas/RuntimeGradeProjectionInvocationLeafV1.schema.json",
+      "byteLength": 1728,
+      "sha256": "6690fb74a859569315e13453ff5a72e772cd0a9395b83c1ae6aa0e1f3949d293"
+    },
+    {
+      "path": "schemas/RuntimeSourceEnumerationReceiptV1.schema.json",
+      "byteLength": 3200,
+      "sha256": "0135f43909981c8c1e9ae062c36a096674a55d9d9b6be9493c415113080e4559"
+    },
+    {
+      "path": "schemas/RuntimeSourceLeafV1.schema.json",
+      "byteLength": 2272,
+      "sha256": "0e0be562d4fdc83a7e328c0252cb4c684d7f0a3959bd3f698bf87dfd1537944a"
+    },
+    {
+      "path": "schemas/RuntimeSourceModuleManifestV1.schema.json",
+      "byteLength": 1940,
+      "sha256": "f4d6f7000d8d8d6c72dd201285e0ec79d7bb940ed762b50cbad07c3e6ec48367"
+    },
+    {
+      "path": "schemas/RuntimeThreeRouteParityReceiptV1.schema.json",
+      "byteLength": 2295,
+      "sha256": "86e74c29d9e8a93d023fc1d6b7b45cf3dc8eab82b6f9f1cf63b61372caa3648e"
+    },
+    {
+      "path": "schemas/SampleManifestV1.schema.json",
+      "byteLength": 4458,
+      "sha256": "6935c0737cbca84681dc05802e139ebb0697ced95be9acc47f59cf2c8758d50b"
+    },
+    {
+      "path": "schemas/SampleManifestV2.schema.json",
+      "byteLength": 13936,
+      "sha256": "ade16d54d7b59dc6dea8bade67c651084847105a65fe0d18ba999e8c378cc2be"
+    },
+    {
+      "path": "schemas/SamplingFrameRowV1.schema.json",
+      "byteLength": 5391,
+      "sha256": "f73852e97e5bb518ff880132a8cd7541a1b60bba9470339b83d70f22db2b7620"
+    },
+    {
+      "path": "schemas/SamplingFrameRowV2.schema.json",
+      "byteLength": 8521,
+      "sha256": "137cabaf73070dd6de988982d1b30bb44f2d54c1eeeba4387d301e12562ebd8d"
+    },
+    {
+      "path": "schemas/generate-natural-design-schema.mjs",
+      "byteLength": 2273,
+      "sha256": "03b4d63b46c6f19b35b0059cd9d5365604ab3f122b98b96861508892a62d5205"
+    },
+    {
+      "path": "statistical-power.json",
+      "byteLength": 2426,
+      "sha256": "f44bb101b45076abd29c8b87e928cc2405f26581fc8a1b014e436ef58780fecd"
+    },
+    {
+      "path": "test-fixtures.mjs",
+      "byteLength": 33990,
+      "sha256": "a57f9c0f6179a641dd94c95dcc1575478e32d9f0550e48cdc9c198a99914ffae"
+    },
+    {
+      "path": "v4-review-findings.test.mjs",
+      "byteLength": 30647,
+      "sha256": "c2d00cb47821373175edaf6e2eca648612545b922c41827986f22659222882a1"
+    },
+    {
+      "path": "validate-design-registration.mjs",
+      "byteLength": 65994,
+      "sha256": "fcb8da3fbe1d5c603f0d9be86aa96ac02b15f96a391dfa5cfb4b1d4293317222"
+    },
+    {
+      "path": "validate-design-registration.test.mjs",
+      "byteLength": 29657,
+      "sha256": "1b3d9d1ad72f9b43958758dfcb3797cdb23cd6f54c5ee01868f4cbc0b5956bd5"
+    }
+  ],
+  "fileCount": 74,
+  "inventoryRootHash": "afed113ab5a20023a22ed94595b28f8886b6a4a82def52d05eb1ab9fc4cb7071",
+  "recordedAt": "2026-08-25T16:39:10.000Z",
+  "reasonCode": "OWNER_REPLACED_QWEN_WITH_OPENAI_GPT_5_6_LUNA_BEFORE_ANY_PROVIDER_CALL"
+}

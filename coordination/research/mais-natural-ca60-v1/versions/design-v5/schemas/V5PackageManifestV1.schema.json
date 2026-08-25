@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/V5PackageManifestV1.schema.json",
+  "title": "V5PackageManifestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "designId",
+    "registrationHash",
+    "schemaSetHash",
+    "providerEventCount",
+    "firstProviderExecutionAllowed",
+    "excludedSelfPath",
+    "inventoryAlgorithm",
+    "entries",
+    "fileCount",
+    "packageRootHash",
+    "generatedAt",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "V5PackageManifestV1"
+    },
+    "artifactKind": {
+      "const": "EXACT_V5_PACKAGE_MANIFEST_EXCLUDING_SELF"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schemaSetHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "providerEventCount": {
+      "const": 0
+    },
+    "firstProviderExecutionAllowed": {
+      "const": false
+    },
+    "excludedSelfPath": {
+      "const": "package-manifest.json"
+    },
+    "inventoryAlgorithm": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "byteLength",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "byteLength": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "fileCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "packageRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "selfHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

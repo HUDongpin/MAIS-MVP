@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProviderWireEvidenceV2.schema.json",
+  "title": "ProviderWireEvidenceV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "provider",
+    "endpoint",
+    "method",
+    "model",
+    "projectResidency",
+    "logicalRequestHash",
+    "requestHeadersAllowlistHash",
+    "requestBodyHash",
+    "responseHeadersAllowlistHash",
+    "rawResponseBodyHash",
+    "parsedEnvelopeHash",
+    "responseId",
+    "observedModel",
+    "observedReasoningContext",
+    "wireEvidenceHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderWireEvidenceV2"
+    },
+    "provider": {
+      "enum": [
+        "OPENAI_DIRECT",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "method": {
+      "const": "POST"
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectResidency": {
+      "type": "string",
+      "minLength": 1
+    },
+    "logicalRequestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requestHeadersAllowlistHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requestBodyHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "responseHeadersAllowlistHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rawResponseBodyHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parsedEnvelopeHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "responseId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observedModel": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observedReasoningContext": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "wireEvidenceHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

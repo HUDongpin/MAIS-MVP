@@ -1,0 +1,412 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProviderAttemptReceiptV2.schema.json",
+  "title": "ProviderAttemptReceiptV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "runId",
+    "registrationHash",
+    "frameRegistrationHash",
+    "sampleManifestHash",
+    "authorizationHash",
+    "referenceSealHash",
+    "executionRegistrationHash",
+    "itemIdPseudonym",
+    "itemHash",
+    "clusterId",
+    "role",
+    "attemptId",
+    "sequenceNumber",
+    "requestedProvider",
+    "observedProvider",
+    "requestedModel",
+    "observedModel",
+    "requestedEndpoint",
+    "observedEndpoint",
+    "projectResidency",
+    "responseId",
+    "providerRequestId",
+    "requestBodyHash",
+    "responseBodyHash",
+    "parsedOutputHash",
+    "logicalRequestHash",
+    "wireRequestBodyHash",
+    "reasoningContextRequested",
+    "reasoningContextObserved",
+    "storeRequested",
+    "backgroundRequested",
+    "startedAt",
+    "finishedAt",
+    "latencyMs",
+    "httpStatus",
+    "finishReason",
+    "parseStatus",
+    "schemaStatus",
+    "attemptStatus",
+    "inputTokens",
+    "outputTokens",
+    "reasoningTokens",
+    "totalTokens",
+    "costRateSnapshotHash",
+    "estimatedCost",
+    "cumulativeCost",
+    "retryClassification",
+    "redactedError",
+    "appendOnly",
+    "atomicWrite",
+    "fileMode",
+    "cacheHit",
+    "providerInvoiceAuthoritative",
+    "previousReceiptHash",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderAttemptReceiptV2"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "frameRegistrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sampleManifestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorizationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "referenceSealHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "executionRegistrationHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "itemIdPseudonym": {
+      "type": "string",
+      "minLength": 1
+    },
+    "itemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "clusterId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attemptId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequenceNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "requestedProvider": {
+      "enum": [
+        "OPENAI_DIRECT",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "observedProvider": {
+      "enum": [
+        "OPENAI_DIRECT",
+        "DEEPSEEK_DIRECT",
+        "UNOBSERVED_REQUEST_NOT_SENT"
+      ]
+    },
+    "requestedModel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observedModel": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requestedEndpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "observedEndpoint": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "projectResidency": {
+      "type": "string",
+      "minLength": 1
+    },
+    "responseId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "providerRequestId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requestBodyHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "responseBodyHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parsedOutputHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "logicalRequestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "wireRequestBodyHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reasoningContextRequested": {
+      "enum": [
+        "current_turn",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "reasoningContextObserved": {
+      "enum": [
+        "current_turn",
+        "all_turns",
+        "auto",
+        "NOT_APPLICABLE",
+        "UNOBSERVED"
+      ]
+    },
+    "storeRequested": {
+      "type": "boolean"
+    },
+    "backgroundRequested": {
+      "type": "boolean"
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "latencyMs": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "httpStatus": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finishReason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parseStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attemptStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inputTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "outputTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reasoningTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "totalTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "costRateSnapshotHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "estimatedCost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "cumulativeCost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "retryClassification": {
+      "type": "string",
+      "minLength": 1
+    },
+    "redactedError": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "appendOnly": {
+      "const": true
+    },
+    "atomicWrite": {
+      "const": true
+    },
+    "fileMode": {
+      "const": "0600"
+    },
+    "cacheHit": {
+      "const": false
+    },
+    "providerInvoiceAuthoritative": {
+      "const": true
+    },
+    "previousReceiptHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selfHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

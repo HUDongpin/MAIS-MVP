@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "V5PackageManifestV1",
+  "artifactKind": "EXACT_V5_PACKAGE_MANIFEST_EXCLUDING_SELF",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "registrationHash": "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+  "schemaSetHash": "b9681215afeada2f8cb586841ceb006f77963a228645093d603ea9bf71e81096",
+  "providerEventCount": 0,
+  "firstProviderExecutionAllowed": false,
+  "excludedSelfPath": "package-manifest.json",
+  "inventoryAlgorithm": "SHA256(UTF8(JCS(sorted[{path,byteLength,sha256}])))",
+  "entries": [
+    {
+      "path": "PRE-EXECUTION-ERRATUM.md",
+      "byteLength": 2485,
+      "sha256": "1f57bc356a2798f3e14141255bb9c19652f6b467f91484e8cc497ec817535e75"
+    },
+    {
+      "path": "README.md",
+      "byteLength": 6428,
+      "sha256": "d7d73944aef1b8c11445be4ea4cd8627c69823e201c058a74a51aafbf28de808"
+    },
+    {
+      "path": "build-design-registration.mjs",
+      "byteLength": 1036,
+      "sha256": "7f2af99894a909fc525e3ab3a12c967a5b2b72eb09ca6841728a5ff178fe160d"
+    },
+    {
+      "path": "design-contract.mjs",
+      "byteLength": 28223,
+      "sha256": "6d5445edb3c65ee0bc021fdad9cbb92be88b008467b079bc45ce392cc9662d97"
+    },
+    {
+      "path": "design-registration.json",
+      "byteLength": 107162,
+      "sha256": "d48ff4325a9b1d55ec18a01149a9a038ab8068b9c1f066e5fcf4ed709a4f65a6"
+    },
+    {
+      "path": "design-v5-completeness.test.mjs",
+      "byteLength": 12544,
+      "sha256": "f918d4a0f811dfd845a3735e3329b3414eaaedbea1af3c9acbe7c8edbdacb2f2"
+    },
+    {
+      "path": "package-integrity.test.mjs",
+      "byteLength": 3340,
+      "sha256": "725999bc45048403c28f0227ad66fed81e97cef2d32597f72ec687584b026387"
+    },
+    {
+      "path": "predecessor-package-inventory-v4.json",
+      "byteLength": 13811,
+      "sha256": "74fc799c14ef0fadd7cf2b709731f6113b5c61e07d60398f0087958134398d1e"
+    },
+    {
+      "path": "provider-migration-v5.test.mjs",
+      "byteLength": 3330,
+      "sha256": "84b32d19dae1f65c63d8c2278ac6baccf8d2a27ddc250cb3f881647c26be822b"
+    },
+    {
+      "path": "schemas.test.mjs",
+      "byteLength": 6299,
+      "sha256": "26467aaa74674dc8e778c1ad98021699bea079c35dee568617ebdd5a2ce758cf"
+    },
+    {
+      "path": "schemas/NaturalCaPilotDesignRegistrationV5.schema.json",
+      "byteLength": 12247,
+      "sha256": "a2ac6cd177d039ea24b70abf689e61e699254b8f6cbe5521ec15abecd2028a51"
+    },
+    {
+      "path": "schemas/NaturalCaStatisticalPowerV5.schema.json",
+      "byteLength": 1456,
+      "sha256": "e78f8d7630be1c8ce366b3fc04242bdcae11c50714fe463993a6adc3e01971db"
+    },
+    {
+      "path": "schemas/OpenAIProjectRoutePreflightReceiptV1.schema.json",
+      "byteLength": 2698,
+      "sha256": "2d7fd001862c3c2881dd943f44fe3b76060b732ad59379c645f38026abc11568"
+    },
+    {
+      "path": "schemas/OpenAIReferenceRoleOutputV1.schema.json",
+      "byteLength": 1933,
+      "sha256": "a75c31b9b1eb15243c906eab9fdfe6f24b45818626c26b111a1dd86c62e3994c"
+    },
+    {
+      "path": "schemas/PredecessorPackageInventoryV2.schema.json",
+      "byteLength": 2051,
+      "sha256": "cb8052767223157dd7f8630a1ee8deb10e70d7673263f9f6919f63a827599f5e"
+    },
+    {
+      "path": "schemas/ProviderAttemptReceiptV2.schema.json",
+      "byteLength": 7730,
+      "sha256": "b434d93ef6de85d72791b9434403073b21322aae30d60727d07ca39c805427a5"
+    },
+    {
+      "path": "schemas/ProviderAuthorizationV2.schema.json",
+      "byteLength": 7810,
+      "sha256": "dacb21e3a1077d46f18e2380cc06b2eceb83ef9f1c6204dfe643c5595ef04b3d"
+    },
+    {
+      "path": "schemas/ProviderLogicalRequestV2.schema.json",
+      "byteLength": 2221,
+      "sha256": "49f1f7fa8e95e1a80a457809b1a7ba114767b03b02f45e525486536014a32f05"
+    },
+    {
+      "path": "schemas/ProviderWireEvidenceV2.schema.json",
+      "byteLength": 2566,
+      "sha256": "519b0ecb5d6bf658e400cf6d5e8c0378da1eba2df2569c946ab0b92a01f4fff5"
+    },
+    {
+      "path": "schemas/V5PackageManifestV1.schema.json",
+      "byteLength": 2134,
+      "sha256": "74d6a8eb9dc35ed0c2dadd2c51fdd3de8ce5824b7080a685d58b7b8284592ba3"
+    },
+    {
+      "path": "schemas/generate-v5-schemas.mjs",
+      "byteLength": 19742,
+      "sha256": "c8bce1940624d424bbd073988714d362b19050281f285f8d6792eacc9be12fdb"
+    },
+    {
+      "path": "statistical-power.json",
+      "byteLength": 1048,
+      "sha256": "b20de2578d62134f5255cbffec907d37d646d79d18eb89813016a41bb0a4f0de"
+    },
+    {
+      "path": "validate-design-registration.mjs",
+      "byteLength": 15120,
+      "sha256": "a034bfe034feba52e56213e9a03e98c39f69405795a543aad583b614c26918b7"
+    },
+    {
+      "path": "validate-design-registration.test.mjs",
+      "byteLength": 2896,
+      "sha256": "b73a2c1745cec806cec92a793b72269777fab8c10c0f9367affa776fbc7f2845"
+    }
+  ],
+  "fileCount": 24,
+  "packageRootHash": "5e8ba0d47de9dcc1fa419dd43bfb1dc424e49d3ebcab47ccc6fa72e86684d7f2",
+  "generatedAt": "2026-08-25T16:39:10.000Z",
+  "selfHash": "1df9c32b89d011b0ed04aa3c8ec52eb929976817d6ca1d51873a8fcfca15e29a"
+}

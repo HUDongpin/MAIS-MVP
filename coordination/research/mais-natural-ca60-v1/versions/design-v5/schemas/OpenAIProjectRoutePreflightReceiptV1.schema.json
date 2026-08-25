@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/OpenAIProjectRoutePreflightReceiptV1.schema.json",
+  "title": "OpenAIProjectRoutePreflightReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "preflightAuthorizationHash",
+    "credentialReadinessReceiptHash",
+    "provider",
+    "requestedProjectResidency",
+    "requestedEndpoint",
+    "requestedModel",
+    "containsNaturalQuestionText",
+    "observedEndpoint",
+    "observedModel",
+    "projectResidencyConsoleEvidenceHash",
+    "projectStorageAndProcessingConfirmed",
+    "modelAvailableOnProject",
+    "providerAttemptReceiptHash",
+    "priceSnapshotHash",
+    "preflightStatus",
+    "completedAt",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "OpenAIProjectRoutePreflightReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "preflightAuthorizationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "credentialReadinessReceiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "provider": {
+      "const": "OPENAI_DIRECT"
+    },
+    "requestedProjectResidency": {
+      "const": "US_STORAGE_PROCESSING"
+    },
+    "requestedEndpoint": {
+      "const": "https://us.api.openai.com/v1/responses"
+    },
+    "requestedModel": {
+      "const": "gpt-5.6-luna"
+    },
+    "containsNaturalQuestionText": {
+      "const": false
+    },
+    "observedEndpoint": {
+      "anyOf": [
+        {
+          "const": "https://us.api.openai.com/v1/responses"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observedModel": {
+      "anyOf": [
+        {
+          "const": "gpt-5.6-luna"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "projectResidencyConsoleEvidenceHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "projectStorageAndProcessingConfirmed": {
+      "type": "boolean"
+    },
+    "modelAvailableOnProject": {
+      "type": "boolean"
+    },
+    "providerAttemptReceiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "priceSnapshotHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "preflightStatus": {
+      "enum": [
+        "CONFIRMED",
+        "BLOCKED",
+        "FAILED"
+      ]
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "selfHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

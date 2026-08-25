@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/OpenAIReferenceRoleOutputV1.schema.json",
+  "title": "OpenAIReferenceRoleOutputV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "itemIdPseudonym",
+    "itemHash",
+    "role",
+    "provider",
+    "requestedModel",
+    "observedModel",
+    "responseId",
+    "attemptReceiptHash",
+    "promptHash",
+    "responseSchemaHash",
+    "structuredPayload",
+    "structuredPayloadHash",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "OpenAIReferenceRoleOutputV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "itemIdPseudonym": {
+      "type": "string",
+      "minLength": 1
+    },
+    "itemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "role": {
+      "enum": [
+        "A_SOLVE",
+        "A_LABEL",
+        "B_SOLVE",
+        "B_LABEL",
+        "ADJUDICATOR"
+      ]
+    },
+    "provider": {
+      "const": "OPENAI_DIRECT"
+    },
+    "requestedModel": {
+      "const": "gpt-5.6-luna"
+    },
+    "observedModel": {
+      "const": "gpt-5.6-luna"
+    },
+    "responseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attemptReceiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "promptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "responseSchemaHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "structuredPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "structuredPayloadHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "selfHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

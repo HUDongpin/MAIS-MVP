@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "NaturalCaStatisticalPowerV5",
+  "artifactKind": "FROZEN_STRUCTURAL_FEASIBILITY_AND_PRECISION_JUDGMENT",
+  "designRegistrationHash": "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+  "sampleSize": 60,
+  "confidenceLevel": 0.95,
+  "decisionBound": "ONE_SIDED_95_PERCENT_WILSON",
+  "perfectPerformanceRequirements": {
+    "sensitivityMinimumPositiveItems": 25,
+    "specificityMinimumNegativeItems": 52,
+    "combinedMinimumItems": 77,
+    "exceedsCa60By": 17,
+    "simultaneousSurfaceGateFeasibleAtN60": false
+  },
+  "precisionGuidance": {
+    "twoSided95ApproximateHalfWidthAtPPoint5PercentagePoints": 12,
+    "zeroObservedP0MissesForOneSided95UcbBelowPoint05MinimumOpportunities": 59,
+    "futureWorstCaseFivePointPrecisionIndependentClustersApproximately": 400,
+    "automaticExpansionAuthorized": false
+  },
+  "decisionCeiling": "INCONCLUSIVE_MACHINE_REFERENCE",
+  "thresholdReductionAfterLabelsOrResultsAllowed": false,
+  "selfHash": "e5f6262c11d5c367d209dfbd8dc63147a93f814b3ba60e382a76db15bbeb81b8"
+}

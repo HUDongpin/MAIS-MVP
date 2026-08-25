@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProviderLogicalRequestV2.schema.json",
+  "title": "ProviderLogicalRequestV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "provider",
+    "role",
+    "endpoint",
+    "projectResidency",
+    "model",
+    "systemPrompt",
+    "inputPayload",
+    "responseSchema",
+    "responseSchemaLiteral",
+    "responseSchemaHash",
+    "logicalRequestTemplateHash",
+    "wireRequestTemplateHash",
+    "requestedSeed",
+    "previousResponseId",
+    "conversation",
+    "adapterTransformVersion",
+    "adapterTransformHash",
+    "logicalRequestHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderLogicalRequestV2"
+    },
+    "provider": {
+      "enum": [
+        "OPENAI_DIRECT",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "projectResidency": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "systemPrompt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inputPayload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "responseSchema": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "responseSchemaLiteral": {
+      "type": "string",
+      "minLength": 1
+    },
+    "responseSchemaHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "logicalRequestTemplateHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "wireRequestTemplateHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requestedSeed": {
+      "type": "null"
+    },
+    "previousResponseId": {
+      "type": "null"
+    },
+    "conversation": {
+      "type": "null"
+    },
+    "adapterTransformVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adapterTransformHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "logicalRequestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
