@@ -1693,7 +1693,7 @@ export function buildDataDisplayLayout(diagram: DataDisplayQuestionDiagram, text
     const yFor = (value: number) => baselineY - (value / axisTop) * plotHeight;
     layout.viewBox = {
       width: axisColumn + categories.length * (barWidth + barGap) + 14,
-      height: baselineY + 30
+      height: baselineY + (layout.unitText ? 38 : 26)
     };
     const plotRight = layout.viewBox.width - 8;
 
