@@ -294,7 +294,7 @@ test("the webServer passes a repository-relative tsconfig path to the Next loade
   );
 });
 
-test("the .tmp-local temporary tsconfig still resolves repository sources and dist types", () => {
+test("the .tmp-local temporary tsconfig resolves repository sources and only its isolated dist types", () => {
   const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
 
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
@@ -331,7 +331,6 @@ test("the .tmp-local temporary tsconfig still resolves repository sources and di
     path.join(repoRoot, "next-env.d.ts"),
     path.join(repoRoot, "**", "*.ts"),
     path.join(repoRoot, "**", "*.tsx"),
-    path.join(repoRoot, ".next", "types", "**", "*.ts"),
     path.join(runRoot, "next-dist", "types", "**", "*.ts")
   ]);
   assert.ok(resolvedExcludes.includes(path.join(repoRoot, "node_modules")));

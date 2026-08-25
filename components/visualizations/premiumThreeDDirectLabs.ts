@@ -232,7 +232,7 @@ const catalogTemplateByPremiumLabId: Record<string, VisualizationTemplateId> = {
   "us-ca-math-s5-chapter-03": "trig-unit-wave",
   "us-ca-math-s6-chapter-02": "function-family",
   "us-ca-math-s6-chapter-03": "statistics-distribution",
-  "us-ca-math-s6-chapter-04": "function-family",
+  "us-ca-math-s6-chapter-04": "calculus-rate-area",
   "us-ca-math-s6-chapter-05": "statistics-distribution",
   "us-fl-math-s2-chapter-02-functions-and-rate-of-change": "function-family",
 };
@@ -252,7 +252,7 @@ const specialTemplateByLabId: Record<string, VisualizationTemplateId> = {
   "us-ca-math-s5-chapter-03": "trig-unit-wave",
   "us-ca-math-s6-chapter-02": "calculus-rate-area",
   "us-ca-math-s6-chapter-03": "statistics-distribution",
-  "us-ca-math-s6-chapter-04": "function-family",
+  "us-ca-math-s6-chapter-04": "calculus-rate-area",
   "us-ca-math-s6-chapter-05": "statistics-distribution"
 };
 

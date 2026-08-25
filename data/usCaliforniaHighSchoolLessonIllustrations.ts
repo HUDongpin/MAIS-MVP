@@ -82,7 +82,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "情境中的方程"
       },
       "standards": [
-        "CA.CCSS.Math.HS.N-RN"
+        "CA.CCSS.Math.HS.A-CED"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-01/concept.webp",
@@ -206,7 +206,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "函数记号与解读"
       },
       "standards": [
-        "CA.CCSS.Math.HS.A-CED"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-02/concept.webp",
@@ -330,7 +330,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "一次与二次模型"
       },
       "standards": [
-        "CA.CCSS.Math.HS.A-REI"
+        "CA.CCSS.Math.HS.F-LE"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-03/concept.webp",
@@ -454,7 +454,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "坐标几何方法"
       },
       "standards": [
-        "CA.CCSS.Math.HS.F-IF"
+        "CA.CCSS.Math.HS.G-GPE"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-04/concept.webp",
@@ -606,7 +606,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "用证据建模"
       },
       "standards": [
-        "CA.CCSS.Math.HS.G-GPE"
+        "CA.CCSS.Math.HS.S-ID"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-05/concept.webp",
@@ -2256,7 +2256,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "决策统计"
       },
       "standards": [
-        "CA.CCSS.Math.HS.F-IF"
+        "CA.CCSS.Math.HS.S-MD"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-03/concept.webp",
@@ -2387,7 +2387,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "函数分析与变化率"
       },
       "standards": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-04/concept.webp",

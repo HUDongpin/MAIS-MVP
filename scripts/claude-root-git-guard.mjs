@@ -8,7 +8,7 @@
 import { existsSync, realpathSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-const CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
+const CANONICAL_ROOT = "/Volumes/Starship/MAIS-MVP";
 
 function safeRealpath(p) {
   try {

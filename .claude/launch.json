@@ -162,6 +162,26 @@
       ],
       "port": 3210,
       "autoPort": false
+    },
+    {
+      "name": "mais-nova-tutor-wt",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Volumes/Starship/MAIS-nova-tutor-wt && AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_ENABLE_DEMO_USER=true HK_MATH_DB_PATH=.tmp/nova-tutor-wt/hk-math.sqlite NEXT_DIST_DIR=.tmp/nova-tutor-wt/next-dist exec npx next dev -p 3420"
+      ],
+      "port": 3420,
+      "autoPort": false
+    },
+    {
+      "name": "mais-dev-ca-content-qa-wt",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Volumes/Starship/MAIS-ca-content-qa-wt && AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_PROVIDER_PROFILE=offline-fixture OPENAI_API_KEY= ANTHROPIC_API_KEY= HK_MATH_DB_PATH=.tmp/ca-content-qa-wt/hk-math.sqlite NEXT_DIST_DIR=.tmp/ca-content-qa-wt/next-dist exec npx next dev -p 3318"
+      ],
+      "port": 3318,
+      "autoPort": false
     }
   ]
 }
