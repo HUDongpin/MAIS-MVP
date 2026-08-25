@@ -280,7 +280,8 @@ test("MathFormulaOverlay renders projected spatial label anchors separately from
   assert.match(source, /activeProjectedLabelTextByObjectId/);
   assert.match(source, /anchorForObject/);
   assert.match(source, /textForObject: \(node\) => activeProjectedLabelTextByObjectId\[node\.id\] \?\? node\.conceptId/);
-  assert.match(source, /const projectedLabelAnchors = runtimeState/);
+  assert.match(source, /buildSceneProjectedLabelAnchorsFromRuntimeState/);
+  assert.match(source, /const projectedLabelAnchors = \[\.\.\.sceneProjectedLabelAnchors, \.\.\.activeProjectedLabelAnchors\]/);
   assert.match(source, /const projectedLabels = projectedLabelAnchors\.filter\(\(label\) => label\.visible\)/);
   assert.match(source, /data-viz-manim-projected-label-count=\{projectedLabelAttributes\["data-viz-manim-projected-label-count"\]\}/);
   assert.match(source, /data-viz-manim-projected-label-visible-count/);

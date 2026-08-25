@@ -484,7 +484,7 @@ test("complex plane ODE trajectory expands into runtime Mobjects and evidence", 
   assert.match(snapshot.streamLineSummary, /ids=complex-rotation-streamlines/);
 });
 
-test("builds a deterministic trig unit-wave scene spec with unit-circle bindings", () => {
+test("builds a deterministic trig unit-wave scene spec with synchronized projection teaching aids", () => {
   const spec = buildMathSceneSpecForThreeDFamily({
     accent: "#38bdf8",
     state: {
@@ -503,9 +503,9 @@ test("builds a deterministic trig unit-wave scene spec with unit-circle bindings
   assert.ok(spec);
   assert.equal(spec?.sceneId, "mais-manim-trig-unit-wave");
   assert.equal(spec?.familyId, "three-trig-unit-wave");
-  assert.equal(spec?.objects.length, 6);
-  assert.equal(spec?.timeline.length, 7);
-  assert.equal(spec?.cameraShots.length, 3);
+  assert.equal(spec?.objects.length, 18);
+  assert.equal(spec?.timeline.length, 20);
+  assert.equal(spec?.cameraShots.length, 1);
   assert.deepEqual(validateFormulaBindings(spec!), []);
   assertFormulaSummary(spec!);
 });

@@ -24,6 +24,7 @@ export type FormulaLayerTokenState = {
 export type FormulaLayerFormulaState = {
   id: string;
   latex: string;
+  mobileLatex?: string;
   tokens: FormulaLayerTokenState[];
 };
 
@@ -129,6 +130,7 @@ export function buildFormulaLayerState(scene: MathSceneSpec, options: FormulaLay
     return {
       id: formula.id,
       latex: formula.latex,
+      ...(formula.mobileLatex ? { mobileLatex: formula.mobileLatex } : {}),
       tokens: formula.tokens.map((token, index) => {
         const bindings = tokenBindings(scene, formula, token.id);
         const objectIds = boundObjectIds(scene, bindings);

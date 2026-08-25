@@ -587,58 +587,80 @@ function clampValue(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-function trigAmplitude(state: ThreeDStateSummary) {
-  // Matches the 2D panel: the "Amplitude A" slider (comparison) sets amplitude.
-  return clampValue(state.comparison / 9, 0.1, 1);
-}
-
-function trigPhase(state: ThreeDStateSummary) {
-  // Matches the 2D mode buttons: 0 / +45deg / +90deg.
-  return normalizeFunctionMode(state.mode) * Math.PI / 4;
-}
-
-function trigTheta(state: ThreeDStateSummary) {
-  // Matches the 2D panel: the "Angle theta" slider (value) sets theta.
-  return ((state.value - 1) / 8) * Math.PI * 2 + trigPhase(state);
-}
-
-function trigThetaDegrees(state: ThreeDStateSummary) {
-  return ((((state.value - 1) / 8) * 360 + normalizeFunctionMode(state.mode) * 45) % 360 + 360) % 360;
-}
-
-function formulaForTrigUnitWave(state: ThreeDStateSummary) {
-  return `$y=${formatCoefficient(trigAmplitude(state))}\\sin(x+\\theta);\\ (\\cos\\theta,\\sin\\theta);\\ \\theta=${formatCoefficient(trigThetaDegrees(state))}^\\circ$`;
-}
-
-export function buildTrigUnitWaveMathSceneSpec({
-  state
-}: {
+export function buildTrigUnitWaveMathSceneSpec(_input: {
   accent: string;
   state: ThreeDStateSummary;
 }): MathSceneSpec {
+  const graphDisplayScale = 0.76;
+  const graphWorldMax = Math.PI * 2 * graphDisplayScale;
   const coordinateSpace = {
     mathRange: {
-      x: [-2.5, 6.8] as [number, number],
-      y: [-1.6, 1.6] as [number, number],
-      z: [-1, 1] as [number, number]
+      x: [-3.2, graphWorldMax + 0.45] as [number, number],
+      y: [-1.45, 1.45] as [number, number],
+      z: [-0.2, 0.2] as [number, number]
     },
     worldRange: {
-      x: [-2.35, 2.35] as [number, number],
-      y: [0.18, 2.15] as [number, number],
-      z: [-0.55, 0.55] as [number, number]
+      x: [-3.2, graphWorldMax + 0.45] as [number, number],
+      y: [-1.45, 1.45] as [number, number],
+      z: [-0.2, 0.2] as [number, number]
     }
   };
-  const centerX = -1.35;
-  const circleRadius = 0.72;
-  const amplitude = trigAmplitude(state);
-  const activeTheta = trigTheta(state);
+  const centerX = -2;
+  const centerY = 0;
+  const circleRadius = 1;
+  const objectZ = 0.05;
   const coordinateSystem = createCoordinateSystem3D(coordinateSpace);
-  const center: Vec3 = [centerX, 0, -0.32];
-  const radiusTip: Vec3 = [
-    centerX + Math.cos(activeTheta) * circleRadius,
-    Math.sin(activeTheta) * circleRadius,
-    -0.32
-  ];
+  const graphCoordinateSystem = createCoordinateSystem3D({
+    mathRange: {
+      x: [0, Math.PI * 2],
+      y: coordinateSpace.mathRange.y,
+      z: coordinateSpace.mathRange.z
+    },
+    worldRange: {
+      x: [0, graphWorldMax],
+      y: coordinateSpace.worldRange.y,
+      z: coordinateSpace.worldRange.z
+    }
+  });
+  const angleExpression = trackerExpression("trig-angle");
+  const cosineExpression = sinExpression(addExpression(angleExpression, constantExpression(Math.PI / 2)));
+  const sineExpression = sinExpression(angleExpression);
+  const circleXExpression = addExpression(
+    constantExpression(centerX),
+    multiplyExpression(constantExpression(circleRadius), cosineExpression)
+  );
+  const circleYExpression = addExpression(
+    constantExpression(centerY),
+    multiplyExpression(constantExpression(circleRadius), sineExpression)
+  );
+  const waveXExpression = multiplyExpression(angleExpression, constantExpression(graphDisplayScale));
+  const waveYExpression = circleYExpression;
+  const traceAngleExpression = multiplyExpression(tExpression(), angleExpression);
+  const traceXExpression = multiplyExpression(traceAngleExpression, constantExpression(graphDisplayScale));
+  const traceYExpression = addExpression(
+    constantExpression(centerY),
+    multiplyExpression(constantExpression(circleRadius), sinExpression(traceAngleExpression))
+  );
+  const projectionXExpression = addExpression(
+    circleXExpression,
+    multiplyExpression(
+      tExpression(),
+      addExpression(waveXExpression, multiplyExpression(circleXExpression, constantExpression(-1)))
+    )
+  );
+  const arcAngleExpression = multiplyExpression(tExpression(), angleExpression);
+  const arcRadius = 0.34;
+  const arcXExpression = addExpression(
+    constantExpression(centerX),
+    multiplyExpression(
+      constantExpression(arcRadius),
+      sinExpression(addExpression(arcAngleExpression, constantExpression(Math.PI / 2)))
+    )
+  );
+  const arcYExpression = addExpression(
+    constantExpression(centerY),
+    multiplyExpression(constantExpression(arcRadius), sinExpression(arcAngleExpression))
+  );
   const unitCircleCurve = buildParametricCurveObject({
     colorRole: "trace",
     conceptId: "unit-circle",
@@ -649,77 +671,445 @@ export function buildTrigUnitWaveMathSceneSpec({
     tRange: [0, 1],
     valueAt: (t): Vec3 => {
       const theta = t * Math.PI * 2;
-      return [centerX + Math.cos(theta) * circleRadius, Math.sin(theta) * circleRadius, -0.32];
+      return [
+        centerX + Math.cos(theta) * circleRadius,
+        centerY + Math.sin(theta) * circleRadius,
+        0
+      ];
     }
   });
   const sineWaveCurve = buildGraphCurveObject({
     colorRole: "function",
     conceptId: "sine-wave",
-    coordinateSystem,
+    coordinateSystem: graphCoordinateSystem,
     displaySampleCount: 84,
     id: "sine-wave",
     sampleCount: 112,
-    valueAt: (x): Vec3 => [x, amplitude * Math.sin(x + activeTheta), 0.24],
-    xRange: [0.12, 0.12 + Math.PI * 2]
+    valueAt: (x): Vec3 => [x, Math.sin(x), 0],
+    xRange: [0, Math.PI * 2]
   });
   const circleSamples = unitCircleCurve.curve.samples;
   const waveSamples = sineWaveCurve.curve.samples;
+  const lineSamples = (from: Vec3, to: Vec3): Vec3[] => [from, to];
+  const initialCirclePoint: Vec3 = [centerX + circleRadius, centerY, objectZ];
+  const initialWavePoint: Vec3 = [0, centerY, objectZ];
+  const initialTrace = Array.from({ length: 97 }, (): Vec3 => [0, centerY, objectZ]);
 
   return {
+    alwaysMethodUpdaters: [
+      {
+        id: "circle-probe:follow-angle",
+        objectId: "circle-probe",
+        operation: {
+          type: "moveTo",
+          pointExpression: {
+            x: circleXExpression,
+            y: circleYExpression,
+            z: constantExpression(objectZ)
+          }
+        }
+      },
+      {
+        id: "wave-probe:follow-angle",
+        objectId: "wave-probe",
+        operation: {
+          type: "moveTo",
+          pointExpression: {
+            x: waveXExpression,
+            y: waveYExpression,
+            z: constantExpression(objectZ)
+          }
+        }
+      }
+    ],
+    alwaysRedraw: [
+      {
+        dependencyTrackerIds: ["trig-angle"],
+        factory: {
+          colorRole: "parameter",
+          conceptId: "angle-parameter",
+          sampleCount: 2,
+          style: { strokeOpacity: 0.92, strokeWidth: 4 },
+          tRange: [0, 1],
+          type: "parametricCurve",
+          x: addExpression(
+            constantExpression(centerX),
+            multiplyExpression(tExpression(), constantExpression(circleRadius), cosineExpression)
+          ),
+          y: addExpression(
+            constantExpression(centerY),
+            multiplyExpression(tExpression(), constantExpression(circleRadius), sineExpression)
+          ),
+          z: constantExpression(objectZ)
+        },
+        id: "phase-radius:always-redraw",
+        objectId: "phase-radius"
+      },
+      {
+        dependencyTrackerIds: ["trig-angle"],
+        factory: {
+          colorRole: "parameter",
+          conceptId: "angle-parameter",
+          sampleCount: 25,
+          style: { strokeOpacity: 0.9, strokeWidth: 4 },
+          tRange: [0, 1],
+          type: "parametricCurve",
+          x: arcXExpression,
+          y: arcYExpression,
+          z: constantExpression(objectZ)
+        },
+        id: "angle-arc:always-redraw",
+        objectId: "angle-arc"
+      },
+      {
+        dependencyTrackerIds: ["trig-angle"],
+        factory: {
+          colorRole: "trace",
+          conceptId: "sine-value",
+          sampleCount: 2,
+          style: { strokeOpacity: 0.72, strokeWidth: 3 },
+          tRange: [0, 1],
+          type: "parametricCurve",
+          x: projectionXExpression,
+          y: waveYExpression,
+          z: constantExpression(objectZ)
+        },
+        id: "projection-guide:always-redraw",
+        objectId: "projection-guide"
+      },
+      {
+        dependencyTrackerIds: ["trig-angle"],
+        factory: {
+          colorRole: "function",
+          conceptId: "sine-value",
+          sampleCount: initialTrace.length,
+          style: { strokeOpacity: 1, strokeWidth: 6 },
+          tRange: [0, 1],
+          type: "parametricCurve",
+          x: traceXExpression,
+          y: traceYExpression,
+          z: constantExpression(objectZ)
+        },
+        id: "sine-trace:always-redraw",
+        objectId: "sine-trace"
+      }
+    ],
     bindings: [
-      { conceptId: "unit-circle", formulaId: "trig-formula", objectId: "unit-circle", tokenId: "circle-token" },
-      { conceptId: "sine-wave", formulaId: "trig-formula", objectId: "sine-wave", tokenId: "wave-token" },
-      { conceptId: "phase-probe", formulaId: "trig-formula", objectId: "wave-probe", tokenId: "probe-token" },
-      { conceptId: "phase-angle", formulaId: "trig-formula", objectId: "phase-radius", tokenId: "angle-token" }
+      { anchorName: "upperLeft", conceptId: "circle-point", formulaId: "trig-formula", objectId: "circle-probe", tokenId: "circle-point-token" },
+      { anchorName: "upperRight", conceptId: "wave-point", formulaId: "trig-formula", objectId: "wave-probe", tokenId: "wave-point-token" },
+      { anchorName: "bottom", conceptId: "sine-value", formulaId: "trig-formula", objectId: "projection-guide", tokenId: "sine-value-token" },
+      { anchorName: "top", conceptId: "sine-value", formulaId: "trig-formula", objectId: "sine-trace", tokenId: "sine-value-token" },
+      { anchorName: "upperRight", conceptId: "sine-curve", formulaId: "trig-formula", objectId: "sine-wave", tokenId: "sine-curve-token" },
+      { anchorName: "top", conceptId: "angle-parameter", formulaId: "trig-formula", objectId: "phase-radius", tokenId: "angle-token" },
+      { anchorName: "upperRight", conceptId: "angle-parameter", formulaId: "trig-formula", objectId: "angle-arc", tokenId: "angle-token" }
     ],
     cameraShots: [
-      { id: "overview", fov: 48, position: [3.35, 2.85, 4.05], target: [0, 0.9, 0] },
-      { id: "unit-circle-link", fov: 43, position: [2.25, 2.25, 2.7], target: [-0.65, 1.05, -0.08] },
-      { id: "wave-detail", fov: 42, position: [2.55, 2.15, 2.6], target: [0.65, 1.05, 0.2] }
+      { id: "overview", fov: 44, position: [1.01, 0, 6.5], target: [1.01, 0, 0] }
+    ],
+    captions: [
+      {
+        endSeconds: 2.2,
+        id: "caption-unit-circle",
+        mobileText: "先看单位圆",
+        startSeconds: 0.6,
+        text: "先认识单位圆 / Start with the unit circle"
+      },
+      {
+        endSeconds: 4.1,
+        id: "caption-height",
+        mobileText: "P 的高度 = sin t",
+        startSeconds: 2.2,
+        text: "圆上点 P 的高度就是 sin t / P's height is sin t"
+      },
+      {
+        endSeconds: 10.5,
+        id: "caption-projection",
+        mobileText: "同高投影 → 正弦波",
+        startSeconds: 4.1,
+        text: "保持相同高度向右投影，Q 会画出正弦波 / Keep the same height: Q draws the sine wave"
+      },
+      {
+        endSeconds: 11.8,
+        id: "caption-period",
+        mobileText: "2π = 一个周期",
+        startSeconds: 10.5,
+        text: "一圈 2π，对应一个完整周期 / One turn, one full period"
+      }
     ],
     coordinateSpace,
     diagnostics: {
-      expectedBindingCount: 4,
-      expectedObjectCount: 6,
-      expectedTokenCount: 4
+      expectedBindingCount: 7,
+      expectedObjectCount: 18,
+      expectedTokenCount: 5
     },
     familyId: "three-trig-unit-wave",
     formulas: [
       {
         id: "trig-formula",
-        latex: formulaForTrigUnitWave(state),
+        latex: "$P(t)=(\\cos t,\\sin t);\\quad Q(t)=(t,\\sin t);\\quad y=\\sin t$",
+        mobileLatex: "$P_y(t)=Q_y(t)=\\sin t$",
         tokens: [
-          { conceptId: "unit-circle", id: "circle-token", text: "unit circle" },
-          { conceptId: "sine-wave", id: "wave-token", text: "sin wave" },
-          { conceptId: "phase-probe", id: "probe-token", text: "wave point" },
-          { conceptId: "phase-angle", id: "angle-token", text: "theta" }
+          { conceptId: "circle-point", id: "circle-point-token", text: "P(t)" },
+          { conceptId: "wave-point", id: "wave-point-token", text: "Q(t)" },
+          { conceptId: "sine-value", id: "sine-value-token", text: "\\sin t" },
+          { conceptId: "sine-curve", id: "sine-curve-token", text: "y=\\sin t" },
+          { conceptId: "angle-parameter", id: "angle-token", text: "t" }
         ]
       }
     ],
     objects: [
-      { type: "axis3d", id: "axes", range: coordinateSpace.mathRange, conceptId: "coordinate-frame" },
-      { type: "parametricCurve", id: "unit-circle", samples: circleSamples, colorRole: "trace", conceptId: "unit-circle" },
-      { type: "parametricCurve", id: "sine-wave", samples: waveSamples, colorRole: "function", conceptId: "sine-wave" },
-      { type: "movingPoint", id: "wave-probe", pathObjectId: "sine-wave", colorRole: "probe", conceptId: "phase-probe" },
       {
-        type: "vector",
-        id: "phase-radius",
-        from: coordinateSystem.c2p(center[0], center[1], center[2]),
-        to: coordinateSystem.c2p(radiusTip[0], radiusTip[1], radiusTip[2]),
-        colorRole: "probe",
-        conceptId: "phase-angle"
+        type: "parametricCurve",
+        id: "circle-x-axis",
+        samples: lineSamples([-3.2, 0, -0.05], [-0.8, 0, -0.05]),
+        colorRole: "reference",
+        conceptId: "coordinate-frame",
+        style: { strokeOpacity: 0.5, strokeWidth: 2 }
       },
-      { type: "trace", id: "phase-trace", sourceObjectId: "wave-probe", durationSeconds: 1.2, colorRole: "trace" }
+      {
+        type: "parametricCurve",
+        id: "circle-y-axis",
+        samples: lineSamples([centerX, -1.25, -0.05], [centerX, 1.25, -0.05]),
+        colorRole: "reference",
+        conceptId: "coordinate-frame",
+        style: { strokeOpacity: 0.5, strokeWidth: 2 }
+      },
+      {
+        type: "parametricCurve",
+        id: "graph-x-axis",
+        samples: lineSamples([-0.15, 0, -0.05], [graphWorldMax + 0.15, 0, -0.05]),
+        colorRole: "reference",
+        conceptId: "coordinate-frame",
+        style: { strokeOpacity: 0.5, strokeWidth: 2 }
+      },
+      {
+        type: "parametricCurve",
+        id: "graph-y-axis",
+        samples: lineSamples([0, -1.25, -0.05], [0, 1.25, -0.05]),
+        colorRole: "reference",
+        conceptId: "coordinate-frame",
+        style: { strokeOpacity: 0.5, strokeWidth: 2 }
+      },
+      ...[
+        { id: "x-tick-0", x: 0 },
+        { id: "x-tick-pi-over-2", x: Math.PI / 2 * graphDisplayScale },
+        { id: "x-tick-pi", x: Math.PI * graphDisplayScale },
+        { id: "x-tick-3pi-over-2", x: Math.PI * 1.5 * graphDisplayScale },
+        { id: "x-tick-2pi", x: Math.PI * 2 * graphDisplayScale }
+      ].map(({ id, x }) => ({
+        type: "parametricCurve" as const,
+        id,
+        samples: lineSamples([x, -0.07, -0.04], [x, 0.07, -0.04]),
+        colorRole: "reference",
+        conceptId: "radian-tick",
+        style: { strokeOpacity: 0.72, strokeWidth: 2.5 }
+      })),
+      {
+        type: "parametricCurve",
+        id: "graph-x-axis-title",
+        samples: lineSamples(
+          [graphWorldMax + 0.18, -0.42, -0.04],
+          [graphWorldMax + 0.181, -0.42, -0.04]
+        ),
+        colorRole: "reference",
+        conceptId: "coordinate-frame",
+        style: { strokeOpacity: 0, strokeWidth: 0 }
+      },
+      {
+        type: "parametricCurve",
+        id: "unit-circle",
+        samples: circleSamples,
+        colorRole: "trace",
+        conceptId: "unit-circle",
+        style: { strokeOpacity: 0.85, strokeWidth: 5 }
+      },
+      {
+        type: "parametricCurve",
+        id: "sine-wave",
+        samples: waveSamples,
+        colorRole: "function",
+        conceptId: "sine-curve",
+        style: { strokeOpacity: 0.22, strokeWidth: 4 }
+      },
+      {
+        type: "parametricCurve",
+        id: "sine-trace",
+        samples: initialTrace,
+        colorRole: "function",
+        conceptId: "sine-value",
+        style: { strokeOpacity: 1, strokeWidth: 6 }
+      },
+      {
+        type: "movingPoint",
+        id: "circle-probe",
+        pathObjectId: "unit-circle",
+        colorRole: "probe",
+        conceptId: "circle-point",
+        zIndex: 5
+      },
+      {
+        type: "movingPoint",
+        id: "wave-probe",
+        pathObjectId: "sine-wave",
+        colorRole: "probe",
+        conceptId: "wave-point",
+        zIndex: 5
+      },
+      {
+        type: "parametricCurve",
+        id: "projection-guide",
+        samples: lineSamples(initialCirclePoint, initialWavePoint),
+        colorRole: "trace",
+        conceptId: "sine-value",
+        style: { strokeOpacity: 0.72, strokeWidth: 3 }
+      },
+      {
+        type: "parametricCurve",
+        id: "phase-radius",
+        samples: lineSamples([centerX, centerY, objectZ], initialCirclePoint),
+        colorRole: "parameter",
+        conceptId: "angle-parameter",
+        style: { strokeOpacity: 0.92, strokeWidth: 4 }
+      },
+      {
+        type: "parametricCurve",
+        id: "angle-arc",
+        samples: lineSamples([centerX + arcRadius, centerY, objectZ], [centerX + arcRadius, centerY, objectZ]),
+        colorRole: "parameter",
+        conceptId: "angle-parameter",
+        style: { strokeOpacity: 0.9, strokeWidth: 4 }
+      }
+    ],
+    projectedLabels: [
+      {
+        anchorName: "upperLeft",
+        endSeconds: 4.1,
+        id: "unit-circle-intro",
+        mobileText: "单位圆",
+        objectId: "unit-circle",
+        screenOffset: [0, -12],
+        startSeconds: 1.2,
+        text: "单位圆 / Unit circle"
+      },
+      {
+        anchorName: "upperRight",
+        endSeconds: 4.1,
+        id: "circle-point-intro",
+        mobileText: "P(t)",
+        objectId: "circle-probe",
+        screenOffset: [0, -22],
+        startSeconds: 1.4,
+        text: "P(t) 圆上点 / point"
+      },
+      {
+        anchorName: "upperRight",
+        id: "circle-point-live",
+        mobileScreenOffset: [0, -24],
+        mobileText: "P(t)",
+        objectId: "circle-probe",
+        screenOffset: [0, -18],
+        startSeconds: 4.1,
+        text: "P(t)"
+      },
+      {
+        anchorName: "upperRight",
+        endSeconds: 4.1,
+        id: "wave-point-intro",
+        mobileText: "Q(t)",
+        objectId: "wave-probe",
+        screenOffset: [0, -22],
+        startSeconds: 3.75,
+        text: "Q(t) 波形点 / point"
+      },
+      {
+        anchorName: "upperRight",
+        id: "wave-point-live",
+        mobileText: "Q(t)",
+        objectId: "wave-probe",
+        screenOffset: [0, -22],
+        startSeconds: 4.1,
+        text: "Q(t)"
+      },
+      {
+        anchorName: "top",
+        endSeconds: 6,
+        id: "projection-guide-intro",
+        mobileScreenOffset: [0, 8],
+        mobileText: "同高 / same y",
+        objectId: "projection-guide",
+        screenOffset: [0, 20],
+        startSeconds: 4.1,
+        text: "同高 / same y"
+      },
+      {
+        anchorName: "upperRight",
+        endSeconds: 4.1,
+        id: "sine-wave-intro",
+        mobileText: "y = sin t",
+        objectId: "sine-wave",
+        screenOffset: [0, -14],
+        startSeconds: 3.4,
+        text: "正弦波 / sine wave"
+      },
+      {
+        anchorName: "center",
+        id: "radian-axis",
+        mobileScreenOffset: [0, 24],
+        mobileText: "t (rad)",
+        objectId: "graph-x-axis-title",
+        screenOffset: [0, 6],
+        startSeconds: 2.9,
+        text: "t（弧度 / radians）",
+        variant: "tick"
+      },
+      { anchorName: "bottom", id: "tick-0", mobileText: "0", objectId: "x-tick-0", screenOffset: [0, 10], startSeconds: 2.9, text: "0", variant: "tick" },
+      { anchorName: "bottom", id: "tick-pi-over-2", mobileText: "π/2", objectId: "x-tick-pi-over-2", screenOffset: [0, 10], startSeconds: 2.9, text: "π/2", variant: "tick" },
+      { anchorName: "bottom", id: "tick-pi", mobileText: "π", objectId: "x-tick-pi", screenOffset: [0, 10], startSeconds: 2.9, text: "π", variant: "tick" },
+      { anchorName: "bottom", id: "tick-3pi-over-2", mobileText: "3π/2", objectId: "x-tick-3pi-over-2", screenOffset: [0, 10], startSeconds: 2.9, text: "3π/2", variant: "tick" },
+      { anchorName: "bottom", id: "tick-2pi", mobileText: "2π", objectId: "x-tick-2pi", screenOffset: [0, 10], startSeconds: 2.9, text: "2π", variant: "tick" }
     ],
     sceneId: "mais-manim-trig-unit-wave",
+    suppressActiveProjectedLabels: true,
     timeline: [
-      { type: "revealCurve", objectId: "unit-circle", duration: 1.8, easing: "smooth" },
-      { type: "revealCurve", objectId: "sine-wave", duration: 2.3, easing: "smooth" },
-      { type: "moveAlongPath", objectId: "wave-probe", pathObjectId: "sine-wave", duration: 3.4 },
-      { type: "highlight", conceptId: "phase-angle", duration: 1 },
-      { type: "cameraTo", shotId: "unit-circle-link", duration: 1.2 },
-      { type: "highlight", conceptId: "sine-wave", duration: 1 },
-      { type: "wait", duration: 0.8 }
+      { type: "fadeInObject", objectId: "circle-x-axis", duration: 0.25, easing: "smooth" },
+      { type: "fadeInObject", objectId: "circle-y-axis", duration: 0.25, easing: "smooth" },
+      { type: "growFromCenter", objectId: "unit-circle", duration: 0.7, easing: "smooth" },
+      { type: "fadeInObject", objectId: "circle-probe", duration: 0.2, easing: "smooth" },
+      { type: "fadeInObject", objectId: "phase-radius", duration: 0.35, easing: "smooth" },
+      { type: "fadeInObject", objectId: "angle-arc", duration: 0.35, easing: "smooth" },
+      { type: "fadeInObject", objectId: "graph-x-axis", duration: 0.25, easing: "smooth" },
+      { type: "fadeInObject", objectId: "graph-y-axis", duration: 0.25, easing: "smooth" },
+      { type: "fadeInObject", objectId: "x-tick-0", duration: 0.06, easing: "smooth" },
+      { type: "fadeInObject", objectId: "x-tick-pi-over-2", duration: 0.06, easing: "smooth" },
+      { type: "fadeInObject", objectId: "x-tick-pi", duration: 0.06, easing: "smooth" },
+      { type: "fadeInObject", objectId: "x-tick-3pi-over-2", duration: 0.06, easing: "smooth" },
+      { type: "fadeInObject", objectId: "x-tick-2pi", duration: 0.06, easing: "smooth" },
+      { type: "fadeInObject", objectId: "sine-wave", duration: 0.5, easing: "smooth" },
+      { type: "fadeInObject", objectId: "sine-trace", duration: 0.15, easing: "smooth" },
+      { type: "fadeInObject", objectId: "wave-probe", duration: 0.2, easing: "smooth" },
+      { type: "fadeInObject", objectId: "projection-guide", duration: 0.35, easing: "smooth" },
+      {
+        type: "sweepParameter",
+        conceptId: "angle-parameter",
+        duration: 6.4,
+        easing: "linear",
+        formulaTokenIds: ["angle-token", "sine-value-token"],
+        fromValue: 0,
+        targetValue: Math.PI * 2,
+        trackerId: "trig-angle"
+      },
+      { type: "highlight", conceptId: "sine-value", duration: 0.7 },
+      { type: "wait", duration: 0.6 }
+    ],
+    valueTrackers: [
+      {
+        conceptId: "angle-parameter",
+        id: "trig-angle",
+        label: "Angle t",
+        max: Math.PI * 2,
+        min: 0,
+        value: 0
+      }
     ]
   };
 }

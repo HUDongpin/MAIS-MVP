@@ -53,6 +53,7 @@ export type FormulaTokenSpec = {
 export type FormulaSpec = {
   id: string;
   latex: string;
+  mobileLatex?: string;
   tokens: FormulaTokenSpec[];
 };
 
@@ -103,6 +104,29 @@ export type MathSceneValueTrackerSpec = {
   max?: number;
   min?: number;
   value: number;
+};
+
+export type MathSceneProjectedLabelSpec = {
+  anchorName?: MathMobjectAnchorName;
+  ariaLabel?: string;
+  endSeconds?: number;
+  id: string;
+  mobileScreenOffset?: [number, number];
+  mobileText?: string;
+  objectId: string;
+  screenOffset?: [number, number];
+  startSeconds?: number;
+  text: string;
+  variant?: "pill" | "tick";
+};
+
+export type MathSceneCaptionSpec = {
+  ariaLabel?: string;
+  endSeconds: number;
+  id: string;
+  mobileText?: string;
+  startSeconds: number;
+  text: string;
 };
 
 export type AnimationStep =
@@ -485,6 +509,7 @@ export type MathSceneSpec = {
   bindings: FormulaBinding[];
   cameraShots: CameraShot[];
   cameraUpdaters?: MathSceneCameraUpdaterSpec[];
+  captions?: MathSceneCaptionSpec[];
   coordinateSpace: CoordinateSpaceSpec;
   diagnostics: MathSceneDiagnosticsSpec;
   familyId: ThreeDFamilyId;
@@ -494,11 +519,13 @@ export type MathSceneSpec = {
   objects: MathObjectSpec[];
   odeTrajectories?: MathSceneOdeTrajectorySpec[];
   parameters?: MathSceneParameterSpec[];
+  projectedLabels?: MathSceneProjectedLabelSpec[];
   randomSeed?: MathSceneRandomSeedSpec;
   renderGroups?: MathSceneRenderGroupsSpec;
   sceneId: string;
   soundCues?: MathSceneSoundCueSpec[];
   streamLines?: MathSceneStreamLineSpec[];
+  suppressActiveProjectedLabels?: boolean;
   timeline: AnimationStep[];
   valueTrackers?: MathSceneValueTrackerSpec[];
   vectorFields?: MathSceneVectorFieldSpec[];

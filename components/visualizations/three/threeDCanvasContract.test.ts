@@ -6808,13 +6808,16 @@ test("ThreeDLabCanvas exposes screenshot and video capture hooks for MAIS Manim 
     /import \{ buildMathSceneRenderQualityBridgePlan, MANIM_RENDER_QUALITY_BRIDGE_SOURCE_CONTRACT, renderQualityBridgeDataAttributes, serializeMathSceneRenderQualityBridgePlan \} from "\.\/manim\/mathSceneRenderQualityBridge"/
   );
   assert.match(canvasSource, /const \[manimCaptureKind, setManimCaptureKind\] = useState<MathSceneCaptureKind>\("screenshot"\)/);
+  assert.match(canvasSource, /const \[manimCaptureQualityPreset, setManimCaptureQualityPreset\] = useState<MathSceneRenderQualityPreset>\("interactive"\)/);
   assert.match(canvasSource, /const \[manimRenderQualityPreset, setManimRenderQualityPreset\] = useState<MathSceneRenderQualityPreset>\("interactive"\)/);
   assert.match(canvasSource, /const \[manimRenderTransparentBackground, setManimRenderTransparentBackground\] = useState\(false\)/);
   assert.match(canvasSource, /const webglCanvasRef = useRef<HTMLCanvasElement \| null>\(null\)/);
   assert.match(canvasSource, /webglCanvasRef\.current = gl\.domElement/);
   assert.match(canvasSource, /const manimRenderQualityPlan = useMemo\(/);
   assert.match(canvasSource, /buildMathSceneRenderQualityPlan\(\{[\s\S]*preset: manimRenderQualityPreset/);
-  assert.match(canvasSource, /rendererMode: manimCaptureKind === "video" \? "capture" : "interactive"/);
+  assert.match(canvasSource, /preset: manimRenderQualityPreset,[\s\S]{0,120}rendererMode: "interactive"/);
+  assert.match(canvasSource, /const manimCaptureRenderQualityPlan = useMemo\(/);
+  assert.match(canvasSource, /preset: manimCaptureQualityPreset,[\s\S]{0,120}rendererMode: manimCaptureKind === "video" \? "capture" : "interactive"/);
   assert.match(canvasSource, /transparentBackground: manimRenderTransparentBackground/);
   assert.match(canvasSource, /renderQualityDataAttributes\(manimRenderQualityPlan\)/);
   assert.match(canvasSource, /const manimRenderQualityBridgePlan = useMemo\(/);
@@ -6833,7 +6836,7 @@ test("ThreeDLabCanvas exposes screenshot and video capture hooks for MAIS Manim 
   assert.match(canvasSource, /powerPreference: runtime === "mais-manim" \? manimRenderQualityBridgePlan\.powerPreference : "default"/);
   assert.match(canvasSource, /const canvasDevicePixelRatio = runtime === "mais-manim" \? manimRenderQualityBridgePlan\.devicePixelRatio : threeDCanvasRendererContract\.devicePixelRatioRange/);
   assert.match(canvasSource, /buildMathSceneCapturePlan\(\{/);
-  assert.match(canvasSource, /renderQuality: manimRenderQualityPlan/);
+  assert.match(canvasSource, /renderQuality: manimCaptureRenderQualityPlan/);
   assert.match(canvasSource, /renderGroups: manimRuntimeState\?\.sceneGraph\.renderGroups/);
   assert.match(canvasSource, /height: manimCaptureKind === "video" \? undefined : manimFormulaOverlayViewport\.height/);
   assert.match(canvasSource, /width: manimCaptureKind === "video" \? undefined : manimFormulaOverlayViewport\.width/);
@@ -8378,8 +8381,8 @@ test("ThreeDLabCanvas exposes MAIS Manim frame-audit evidence for browser QA", (
     canvasSource,
     /import \{ SCENE_FRAME_AUDIT_SOURCE_CONTRACT, SCENE_FRAME_DIRECTOR_TRACE_SOURCE_CONTRACT, buildMathSceneFrameAudit, frameAuditDataAttributes, serializeMathSceneFrameAuditSummary, summarizeMathSceneFrameAudit \} from "\.\/manim\/mathSceneFrameAudit"/
   );
-  assert.match(canvasSource, /buildMathSceneFrameAudit\(manimScene, \{[\s\S]*fps: manimRenderQualityPlan\.captureFps/);
-  assert.match(canvasSource, /renderQuality: manimRenderQualityPlan/);
+  assert.match(canvasSource, /buildMathSceneFrameAudit\(manimScene, \{[\s\S]*fps: manimCaptureRenderQualityPlan\.captureFps/);
+  assert.match(canvasSource, /renderQuality: manimCaptureRenderQualityPlan/);
   assert.match(canvasSource, /const manimFrameAuditSummary = useMemo\(/);
   assert.match(canvasSource, /summarizeMathSceneFrameAudit\(manimFrameAudit\)/);
   assert.match(canvasSource, /frameAuditDataAttributes\(manimFrameAuditSummary\)/);

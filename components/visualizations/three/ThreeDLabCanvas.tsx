@@ -73,6 +73,8 @@ import { SCENE_REMOVE_ALL_EXCEPT_MOBJECT_BRIDGE_SOURCE_CONTRACT, serializeSceneR
 import { SCENE_REPLACE_MOBJECT_BRIDGE_SOURCE_CONTRACT, serializeSceneReplaceMobjectBridgePlan, type MathSceneReplaceMobjectBridgePlan } from "./manim/mathSceneReplaceMobjectBridge";
 import { SCENE_REMOVE_MOBJECT_BRIDGE_SOURCE_CONTRACT, serializeSceneRemoveMobjectBridgePlan, type MathSceneRemoveMobjectBridgePlan } from "./manim/mathSceneRemoveMobjectBridge";
 import { buildMathSceneCapturePlan, capturePlanDataAttributes, SCENE_CAPTURE_SOURCE_CONTRACT, serializeMathSceneCapturePlan, type MathSceneCaptureKind, type MathSceneCaptureStatus } from "./manim/mathSceneCapture";
+import { buildMathSceneBrowserVideoCapturePlan, captureMathSceneWebm } from "./manim/mathSceneBrowserVideoCapture";
+import { drawTrigUnitWaveVideoFrame } from "./manim/mathTrigUnitWaveVideoFrame";
 import { buildMathSceneRenderQualityPlan, MANIM_RENDER_QUALITY_SOURCE_CONTRACT, renderQualityDataAttributes, serializeMathSceneRenderQualityPlan, type MathSceneRenderQualityPreset } from "./manim/mathSceneRenderQuality";
 import { buildMathSceneRenderQualityBridgePlan, MANIM_RENDER_QUALITY_BRIDGE_SOURCE_CONTRACT, renderQualityBridgeDataAttributes, serializeMathSceneRenderQualityBridgePlan } from "./manim/mathSceneRenderQualityBridge";
 import { buildMathCheckpointPastePlan, checkpointPastePlanDataAttributes, SCENE_CHECKPOINT_PASTE_REPLAY_POLICY, SCENE_CHECKPOINT_PASTE_SOURCE_CONTRACT, serializeMathCheckpointPastePlan } from "./manim/mathCheckpointPastePlan";
@@ -422,6 +424,7 @@ function ManimRuntimeClock({
   elapsedSeconds,
   formulaLayerViewport,
   frameIndex,
+  loop,
   playing,
   previousRuntimeStateRef,
   reducedMotion,
@@ -433,6 +436,7 @@ function ManimRuntimeClock({
   elapsedSeconds: number;
   formulaLayerViewport: ProjectionViewport;
   frameIndex: number;
+  loop: boolean;
   playing: boolean;
   previousRuntimeStateRef: MutableRefObject<MathSceneFrameStep["runtimeState"] | null>;
   reducedMotion: boolean;
@@ -463,12 +467,16 @@ function ManimRuntimeClock({
       reducedMotion
     });
     const totalDuration = frame.runtimeState.timeline.totalDuration;
-    const wrappedElapsedSeconds = reducedMotion || totalDuration === 0 ? frame.preciseElapsedSeconds : frame.preciseElapsedSeconds % totalDuration;
-    const nextFrame = wrappedElapsedSeconds === frame.preciseElapsedSeconds
+    const normalizedElapsedSeconds = reducedMotion || totalDuration === 0
+      ? frame.preciseElapsedSeconds
+      : loop
+        ? frame.preciseElapsedSeconds % totalDuration
+        : Math.min(totalDuration, frame.preciseElapsedSeconds);
+    const nextFrame = normalizedElapsedSeconds === frame.preciseElapsedSeconds
       ? frame
       : stepMathSceneFrame(scene, {
           deltaSeconds: 0,
-          elapsedSeconds: wrappedElapsedSeconds,
+          elapsedSeconds: normalizedElapsedSeconds,
           formulaLayerViewport,
           frameIndex: nextFrameIndex,
           reducedMotion
@@ -525,6 +533,7 @@ export function ThreeDLabCanvas({
   const [manimCameraMode, setManimCameraMode] = useState<ManimCameraMode>("guided");
   const [manimCaptureByteCount, setManimCaptureByteCount] = useState(0);
   const [manimCaptureKind, setManimCaptureKind] = useState<MathSceneCaptureKind>("screenshot");
+  const [manimCaptureQualityPreset, setManimCaptureQualityPreset] = useState<MathSceneRenderQualityPreset>("interactive");
   const [manimCaptureRequestCount, setManimCaptureRequestCount] = useState(0);
   const [manimCaptureStatus, setManimCaptureStatus] = useState<MathSceneCaptureStatus>("planned");
   const [manimRenderQualityPreset, setManimRenderQualityPreset] = useState<MathSceneRenderQualityPreset>("interactive");
@@ -540,6 +549,9 @@ export function ThreeDLabCanvas({
     createSceneHistoryStore(initialManimCheckpointState(`primitive-${state.familyId}`), { label: "initial" })
   );
   const [manimPlaybackState, setManimPlaybackState] = useState<ManimPlaybackState>("paused");
+  const [manimVideoCaptureActive, setManimVideoCaptureActive] = useState(false);
+  const [manimVideoCaptureError, setManimVideoCaptureError] = useState<string | null>(null);
+  const [manimVideoDownload, setManimVideoDownload] = useState<{ fileName: string; url: string } | null>(null);
   const [manimRunFromBeatIndex, setManimRunFromBeatIndex] = useState(0);
   const [manimSelectedSceneFamilyId, setManimSelectedSceneFamilyId] = useState<ThreeDFamilyId>(state.familyId);
   const [manimSelectedParameterId, setManimSelectedParameterId] = useState("value");
@@ -554,6 +566,7 @@ export function ThreeDLabCanvas({
   const readyFrameRef = useRef<number | null>(null);
   const surfaceRef = useRef<HTMLDivElement | null>(null);
   const webglCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const manimVideoDownloadUrlRef = useRef<string | null>(null);
   const activeSceneFamilyId = runtime === "mais-manim" ? manimSelectedSceneFamilyId : state.familyId;
   const sceneVariant = sceneVariantForThreeDFamily(activeSceneFamilyId);
   const sceneMetadata = threeDSceneVariantMetadata[sceneVariant];
@@ -3195,6 +3208,22 @@ export function ThreeDLabCanvas({
     () =>
       buildMathSceneRenderQualityPlan({
         preset: manimRenderQualityPreset,
+        rendererMode: "interactive",
+        transparentBackground: manimRenderTransparentBackground,
+        viewportHeight: manimFormulaOverlayViewport.height,
+        viewportWidth: manimFormulaOverlayViewport.width
+      }),
+    [
+      manimFormulaOverlayViewport.height,
+      manimFormulaOverlayViewport.width,
+      manimRenderQualityPreset,
+      manimRenderTransparentBackground
+    ]
+  );
+  const manimCaptureRenderQualityPlan = useMemo(
+    () =>
+      buildMathSceneRenderQualityPlan({
+        preset: manimCaptureQualityPreset,
         rendererMode: manimCaptureKind === "video" ? "capture" : "interactive",
         transparentBackground: manimRenderTransparentBackground,
         viewportHeight: manimFormulaOverlayViewport.height,
@@ -3202,9 +3231,9 @@ export function ThreeDLabCanvas({
       }),
     [
       manimCaptureKind,
+      manimCaptureQualityPreset,
       manimFormulaOverlayViewport.height,
       manimFormulaOverlayViewport.width,
-      manimRenderQualityPreset,
       manimRenderTransparentBackground
     ]
   );
@@ -3212,13 +3241,13 @@ export function ThreeDLabCanvas({
     () =>
       manimScene
         ? buildMathSceneFrameAudit(manimScene, {
-            fps: manimRenderQualityPlan.captureFps,
+            fps: manimCaptureRenderQualityPlan.captureFps,
             formulaLayerViewport: manimFormulaOverlayViewport,
-            renderQuality: manimRenderQualityPlan,
+            renderQuality: manimCaptureRenderQualityPlan,
             skipAnimations: manimSkipAnimations
           })
         : null,
-    [manimFormulaOverlayViewport, manimRenderQualityPlan, manimScene, manimSkipAnimations]
+    [manimCaptureRenderQualityPlan, manimFormulaOverlayViewport, manimScene, manimSkipAnimations]
   );
   const manimFrameAuditSummary = useMemo(
     () => (manimFrameAudit ? summarizeMathSceneFrameAudit(manimFrameAudit) : null),
@@ -3273,7 +3302,7 @@ export function ThreeDLabCanvas({
             elapsedSeconds: manimElapsedSeconds,
             height: manimCaptureKind === "video" ? undefined : manimFormulaOverlayViewport.height,
             kind: manimCaptureKind,
-            renderQuality: manimRenderQualityPlan,
+            renderQuality: manimCaptureRenderQualityPlan,
             renderGroups: manimRuntimeState?.sceneGraph.renderGroups,
             requestCount: manimCaptureRequestCount,
             scene: manimScene,
@@ -3289,7 +3318,7 @@ export function ThreeDLabCanvas({
       manimCaptureStatus,
       manimElapsedSeconds,
       manimFormulaOverlayViewport,
-      manimRenderQualityPlan,
+      manimCaptureRenderQualityPlan,
       manimRuntimeState,
       manimScene,
       manimSceneExport,
@@ -3719,21 +3748,96 @@ export function ThreeDLabCanvas({
     const dataUrl = webglCanvasRef.current?.toDataURL("image/png");
 
     setManimCaptureKind("screenshot");
+    setManimCaptureQualityPreset(manimRenderQualityPreset);
     setManimCaptureByteCount(dataUrl?.length ?? 0);
     setManimCaptureRequestCount((current) => current + 1);
     setManimCaptureStatus(dataUrl ? "captured" : "unavailable");
     setManimPlaybackState("paused");
-  }, [manimScene]);
+  }, [manimRenderQualityPreset, manimScene]);
 
-  const planManimVideoCapture = useCallback(() => {
-    if (!manimScene) return;
+  const captureManimVideo = useCallback(async () => {
+    const sourceCanvas = webglCanvasRef.current;
+    const overlayRoot = surfaceRef.current;
+    if (!manimScene || !sourceCanvas || !overlayRoot || manimVideoCaptureActive) return;
 
+    const effectiveCapturePreset = manimRenderQualityPreset === "interactive"
+      ? "preview"
+      : manimRenderQualityPreset;
+    const captureQuality = buildMathSceneRenderQualityPlan({
+      preset: effectiveCapturePreset,
+      rendererMode: "capture",
+      transparentBackground: manimRenderTransparentBackground,
+      viewportHeight: manimFormulaOverlayViewport.height,
+      viewportWidth: manimFormulaOverlayViewport.width
+    });
+    const browserCapturePlan = buildMathSceneBrowserVideoCapturePlan({
+      durationSeconds: manimTotalDuration,
+      familyId: manimScene.familyId,
+      fps: captureQuality.captureFps,
+      height: captureQuality.captureHeight,
+      sceneId: manimScene.sceneId,
+      width: captureQuality.captureWidth
+    });
+
+    setManimVideoCaptureActive(true);
+    setManimVideoCaptureError(null);
+    if (manimVideoDownloadUrlRef.current) URL.revokeObjectURL(manimVideoDownloadUrlRef.current);
+    manimVideoDownloadUrlRef.current = null;
+    setManimVideoDownload(null);
     setManimCaptureKind("video");
+    setManimCaptureQualityPreset(effectiveCapturePreset);
     setManimCaptureByteCount(0);
     setManimCaptureRequestCount((current) => current + 1);
     setManimCaptureStatus("planned");
+    setManimAuthoringMode("playback");
+    setManimCameraMode("guided");
+    setManimElapsedSeconds(0);
+    setManimFrameIndex(0);
+    setSteppedManimFrameStep(null);
     setManimPlaybackState("paused");
-  }, [manimScene]);
+    previousManimRuntimeStateRef.current = null;
+
+    try {
+      await new Promise<void>((resolve) => {
+        window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
+      });
+      const result = await captureMathSceneWebm({
+        backgroundColor: captureQuality.backgroundColor,
+        deterministicFrameRenderer: manimScene.sceneId === "mais-manim-trig-unit-wave"
+          ? drawTrigUnitWaveVideoFrame
+          : undefined,
+        onRecordingStart: manimScene.sceneId === "mais-manim-trig-unit-wave"
+          ? undefined
+          : () => setManimPlaybackState("playing"),
+        overlayRoot,
+        plan: browserCapturePlan,
+        sourceCanvas,
+        transparentBackground: captureQuality.transparentBackground
+      });
+
+      setManimPlaybackState("paused");
+      setManimCaptureByteCount(result.byteCount);
+      setManimCaptureStatus("captured");
+      const downloadUrl = URL.createObjectURL(result.blob);
+      manimVideoDownloadUrlRef.current = downloadUrl;
+      setManimVideoDownload({ fileName: result.plan.fileName, url: downloadUrl });
+    } catch (error) {
+      setManimPlaybackState("paused");
+      setManimCaptureByteCount(0);
+      setManimCaptureStatus("unavailable");
+      setManimVideoCaptureError(error instanceof Error ? error.message : "Unable to encode the WebM video.");
+    } finally {
+      setManimVideoCaptureActive(false);
+    }
+  }, [
+    manimFormulaOverlayViewport.height,
+    manimFormulaOverlayViewport.width,
+    manimRenderQualityPreset,
+    manimRenderTransparentBackground,
+    manimScene,
+    manimTotalDuration,
+    manimVideoCaptureActive
+  ]);
 
   useEffect(() => {
     setWebglSupported(canUseWebGL());
@@ -3754,8 +3858,14 @@ export function ThreeDLabCanvas({
     setManimCameraMode("guided");
     setManimCaptureByteCount(0);
     setManimCaptureKind("screenshot");
+    setManimCaptureQualityPreset("interactive");
     setManimCaptureRequestCount(0);
     setManimCaptureStatus("planned");
+    setManimVideoCaptureActive(false);
+    setManimVideoCaptureError(null);
+    if (manimVideoDownloadUrlRef.current) URL.revokeObjectURL(manimVideoDownloadUrlRef.current);
+    manimVideoDownloadUrlRef.current = null;
+    setManimVideoDownload(null);
     setManimCheckpointStore(createCheckpointStore<ManimCheckpointState>());
     setManimCheckpointPasteText("");
     setManimElapsedSeconds(0);
@@ -3771,6 +3881,7 @@ export function ThreeDLabCanvas({
   useEffect(() => {
     return () => {
       if (readyFrameRef.current !== null) window.cancelAnimationFrame(readyFrameRef.current);
+      if (manimVideoDownloadUrlRef.current) URL.revokeObjectURL(manimVideoDownloadUrlRef.current);
     };
   }, []);
 
@@ -4103,6 +4214,9 @@ export function ThreeDLabCanvas({
       }
       data-viz-manim-capture-target={manimCaptureAttributes?.["data-viz-manim-capture-target"] ?? "canvas"}
       data-viz-manim-capture-width={manimCaptureAttributes?.["data-viz-manim-capture-width"] ?? "0"}
+      data-viz-manim-browser-video-active={String(manimVideoCaptureActive)}
+      data-viz-manim-browser-video-download-ready={String(Boolean(manimVideoDownload))}
+      data-viz-manim-browser-video-error={manimVideoCaptureError ?? "none"}
       data-viz-manim-creation-primitive-count={manimCreationPrimitiveAttributes?.["data-viz-manim-creation-primitive-count"] ?? "0"}
       data-viz-manim-creation-show-count={manimCreationPrimitiveAttributes?.["data-viz-manim-creation-show-count"] ?? "0"}
       data-viz-manim-creation-draw-border-count={manimCreationPrimitiveAttributes?.["data-viz-manim-creation-draw-border-count"] ?? "0"}
@@ -9215,6 +9329,7 @@ export function ThreeDLabCanvas({
               elapsedSeconds={manimElapsedSeconds}
               formulaLayerViewport={manimFormulaOverlayViewport}
               frameIndex={manimFrameIndex}
+              loop={!manimVideoCaptureActive}
               playing={manimPlaybackState === "playing"}
               previousRuntimeStateRef={previousManimRuntimeStateRef}
               reducedMotion={manimSkipAnimations}
@@ -11135,11 +11250,35 @@ export function ThreeDLabCanvas({
             <button
               type="button"
               data-viz-manim-capture-video-plan
-              onClick={planManimVideoCapture}
-              className="focus-ring rounded-xl border border-white/10 bg-white/10 px-2.5 py-1.5 text-cyan-50 transition hover:bg-white/15"
+              data-viz-manim-capture-video
+              disabled={manimVideoCaptureActive}
+              onClick={captureManimVideo}
+              aria-label="Record and download MAIS Manim WebM video"
+              className="focus-ring rounded-xl border border-white/10 bg-white/10 px-2.5 py-1.5 text-cyan-50 transition hover:bg-white/15 disabled:cursor-wait disabled:opacity-60"
             >
-              Video
+              {manimVideoCaptureActive ? "Encoding…" : "Video"}
             </button>
+            <span
+              data-viz-manim-browser-video-status
+              role="status"
+              className="max-w-[11rem] text-[10px] font-bold text-cyan-100/80"
+            >
+              {manimVideoCaptureActive
+                ? "Recording the full timeline…"
+                : manimCaptureKind === "video" && manimCaptureStatus === "captured"
+                  ? `Ready ${(manimCaptureByteCount / 1_048_576).toFixed(1)} MB WebM`
+                  : manimVideoCaptureError ?? ""}
+            </span>
+            {manimVideoDownload ? (
+              <a
+                data-viz-manim-video-download
+                download={manimVideoDownload.fileName}
+                href={manimVideoDownload.url}
+                className="focus-ring rounded-xl bg-emerald-300 px-2.5 py-1.5 text-[10px] font-black text-emerald-950 shadow-sm shadow-emerald-300/20 transition hover:bg-emerald-200"
+              >
+                Download WebM
+              </a>
+            ) : null}
           </div>
             </div>
             ) : null}

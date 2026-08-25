@@ -1,7 +1,7 @@
 import type { CameraFrameState } from "./mathCameraFrame";
 import { mobjectAnchorPointForNode, type MobjectAnchorName } from "./mathMobjectAnchors";
 import type { MathSceneRuntimeState, RuntimeMathObjectNode } from "./mathSceneRuntimeState";
-import type { Vec3 } from "./mathSceneTypes";
+import type { MathSceneProjectedLabelSpec, Vec3 } from "./mathSceneTypes";
 
 export const PROJECTED_LABEL_SOURCE_CONTRACT =
   "CameraFrame projection|fixed FormulaLayer overlay|projected spatial label anchors" as const;
@@ -27,6 +27,7 @@ export type ProjectedLabelAnchor = ProjectedPoint & {
   objectId: string;
   placement: "projected-3d-anchor";
   text: string;
+  variant?: MathSceneProjectedLabelSpec["variant"];
   world: Vec3;
 };
 
@@ -218,6 +219,43 @@ export function buildProjectedLabelAnchorsFromRuntimeState(
   }
 
   return anchors;
+}
+
+export function buildSceneProjectedLabelAnchorsFromRuntimeState(
+  runtimeState: MathSceneRuntimeState,
+  viewport: ProjectionViewport,
+  labels: MathSceneProjectedLabelSpec[]
+): ProjectedLabelAnchor[] {
+  const useMobileText = viewport.width < 640;
+  const elapsedSeconds = runtimeState.timeline.elapsedSeconds;
+
+  return labels.flatMap((label) => {
+    if (elapsedSeconds < (label.startSeconds ?? 0)) return [];
+    if (label.endSeconds !== undefined && elapsedSeconds >= label.endSeconds) return [];
+
+    const node = runtimeState.objectGraph.byId[label.objectId];
+    if (!node) return [];
+
+    const text = useMobileText ? label.mobileText ?? label.text : label.text;
+    const projected = buildProjectedLabelAnchorFromNode(node, {
+      anchorName: label.anchorName,
+      cameraFrame: runtimeState.cameraDirector.frame,
+      text,
+      viewport
+    });
+    const screenOffset = useMobileText ? label.mobileScreenOffset ?? label.screenOffset : label.screenOffset;
+
+    return [{
+      ...projected,
+      ariaLabel: label.ariaLabel ?? `${text}, projected label for ${node.conceptId}`,
+      id: `scene-label:${label.id}`,
+      screen: [
+        projected.screen[0] + (screenOffset?.[0] ?? 0),
+        projected.screen[1] + (screenOffset?.[1] ?? 0)
+      ],
+      variant: label.variant ?? "pill"
+    }];
+  });
 }
 
 export function summarizeProjectedLabels(anchors: ProjectedLabelAnchor[]) {
