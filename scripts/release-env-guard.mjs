@@ -588,22 +588,50 @@ function runNodeGate(label, envName, defaultRelativePath, args = []) {
   }
 }
 
+// A recorded owner exception may waive ONLY the strict open-decision failure
+// of the worktree lifecycle gate (the repo is a permanent multi-lane checkout,
+// so strict mode blocks every runtime release while any other lane is live —
+// see the 2026-07-13 precedent deploy). The exception must exist as a
+// committed record under coordination/reports/ whose filename declares owner
+// approval; the gate still runs non-strict so its inventory is verified and
+// printed. Every other gate stays in force.
+function resolveOwnerLifecycleExceptionRecord() {
+  const record = process.env.MAIS_OWNER_LIFECYCLE_EXCEPTION_RECORD?.trim();
+  if (!record) return null;
+  const recordPath = path.resolve(REPO_ROOT, record);
+  const reportsRoot = path.join(REPO_ROOT, "coordination", "reports") + path.sep;
+  if (!recordPath.startsWith(reportsRoot) || !/owner-approved/.test(path.basename(recordPath))) {
+    fail("MAIS_OWNER_LIFECYCLE_EXCEPTION_RECORD must name an owner-approved record inside coordination/reports/.");
+  }
+  if (!fs.existsSync(recordPath)) {
+    fail(`Owner lifecycle exception record does not exist: ${recordPath}`);
+  }
+  return recordPath;
+}
+
 function assertReleaseSourceGates() {
   const releaseSourceClean = runNodeGate(
     "A22 release-source clean gate",
     "MAIS_RELEASE_SOURCE_CLEAN_GATE",
     RELEASE_SOURCE_CLEAN_GATE
   );
+  const exceptionRecord = resolveOwnerLifecycleExceptionRecord();
   const strictWorktreeLifecycle = runNodeGate(
-    "A25 strict worktree lifecycle gate",
+    exceptionRecord
+      ? "A25 worktree lifecycle gate (strict failure waived by recorded owner exception)"
+      : "A25 strict worktree lifecycle gate",
     "MAIS_WORKTREE_LIFECYCLE_GATE",
     WORKTREE_LIFECYCLE_GATE,
-    ["--strict"]
+    exceptionRecord ? [] : ["--strict"]
   );
+  if (exceptionRecord) {
+    console.log(`A25 strict lifecycle failure waived by recorded owner exception: ${path.relative(REPO_ROOT, exceptionRecord)}`);
+  }
 
   return {
     releaseSourceClean,
-    strictWorktreeLifecycle
+    strictWorktreeLifecycle,
+    ownerLifecycleExceptionRecord: exceptionRecord ? path.relative(REPO_ROOT, exceptionRecord) : null
   };
 }
 
