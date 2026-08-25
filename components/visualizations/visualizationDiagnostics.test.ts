@@ -48,7 +48,8 @@ test("builds stable direct-entry Visualization Lab URLs for browser sweeps", () 
 test("premium Three.js launch labs expose canonical topic-specific page URLs", () => {
   const premiumLabs = visualizationLabCatalog.filter((lab) => lab.threeD?.premiumLaunch);
 
-  assert.equal(premiumLabs.length, 80);
+  // 80 -> 68 on 2026-08-25: California premium-3D topics retired (Phase 2a).
+  assert.equal(premiumLabs.length, 68);
 
   for (const lab of premiumLabs) {
     const href = buildVisualizationLabHref(lab);
@@ -79,7 +80,8 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
     "projection-views",
     "solid-net-fold",
     "space-vector-plane",
-    "statistical-inference",
+    // "statistical-inference" left with the California descope (2026-08-25):
+    // its only premium lab was us-ca-math-s6-chapter-03, now a signature-bench topic.
     "vector-conic-strategy"
   ]);
 

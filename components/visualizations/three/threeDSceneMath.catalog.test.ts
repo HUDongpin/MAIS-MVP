@@ -39,9 +39,14 @@ test("catalog metadata marks every lab and preserves the premium regional launch
   const standard3DCapsules = threeDEnabled.filter((lab) => !lab.threeD?.premiumLaunch);
 
   assert.ok(visualizationLabCatalog.length >= threeDEnabled.length);
-  assert.equal(threeDEnabled.length, 90);
+  // 90/80 -> 78/68 on 2026-08-25: the California premium-3D descope (Codex-lab
+  // replacement plan Phase 2a) also restored the invariant below — premium
+  // topic pages are configured-module labs only, which the 12 CA
+  // signature-module premium labs had been violating since the signature
+  // migration.
+  assert.equal(threeDEnabled.length, 78);
   assert.equal(nonThreeDLabs.length, visualizationLabCatalog.length - threeDEnabled.length);
-  assert.equal(premium.length, 80);
+  assert.equal(premium.length, 68);
   assert.deepEqual(
     standard3DCapsules.map((lab) => lab.labId).sort(),
     [...mainlandPepPrimaryThreeDCapsuleLabIds, ...mainlandPepJuniorStandard3DCapsuleLabIds, ...hongKongStandardThreeDCapsuleLabIds].sort(),
@@ -67,9 +72,12 @@ test("catalog metadata marks every lab and preserves the premium regional launch
     premiumCounts[lab.threeD.regionalPriority] += 1;
   }
 
+  // california went 12 -> 0 on 2026-08-25: the CA premium-3D topics were
+  // retired in favour of their Claude signature benches (replacement plan
+  // Phase 2a), so no CA lab may carry premiumLaunch metadata any more.
   assert.deepEqual(premiumCounts, {
     mainland: 40,
-    california: 12,
+    california: 0,
     "hong-kong": 9,
     "cross-region": 19
   });
