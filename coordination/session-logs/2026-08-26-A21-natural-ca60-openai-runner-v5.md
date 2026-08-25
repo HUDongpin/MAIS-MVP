@@ -85,3 +85,18 @@ The implementation then added:
 - Fixture transport results are explicitly `fixtureOnly=true`, `providerEventCount=0`, and `httpRequestCount=0`; they are not provider evidence.
 - V5 remains non-active pending A11 review and an append-only pointer/activation decision. This implementation does not remove the OpenAI route/preflight, credential, price, rights/egress, frame/sample, or two-live-authorization gates.
 - The decision ceiling remains `INCONCLUSIVE_MACHINE_REFERENCE`; no `PASS`, `APPROVED`, `PRODUCTION_READY`, or `LIMITED_GENERALIZATION_EVIDENCE` claim is available.
+
+## Closeout and protected custody
+
+- Reviewable runner implementation commit: `1dc093a1d0a300495dcd671091c849d24410fd5e`.
+- Remote branch verification matched that exact commit before custody creation.
+- Protected registry path: `.local/mais-natural-ca60-v1/custody/registry-v5.json` in this worktree; ignored by Git and observed mode `0600`.
+- V5 design package root: `66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1`.
+- Runner source files bound: `17` committed, non-test package files.
+- Runner source manifest root: `2d333700f464fc856beea60f8f96c276eaaaaaed10b476b841c06ba4b9a127b0`.
+- Adapter hash: `63beb1ca15a26c71563a73447f347383bdaa31cb27a2b932b33d534007767013`.
+- Runner hash: `cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c`.
+- Custody registry hash: `aa48b5d02996ceed02daff2579b8961a4e5ea3c373dfdc023085fa181c2914a1`.
+- Custody read-back validation passed and both authorization flags remained `false`.
+
+Next gate: A11 must review the exact V5 design package and A21 runner/custody roots. This A21 closeout does not itself activate V5 or authorize any provider event.
