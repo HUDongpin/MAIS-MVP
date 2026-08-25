@@ -429,12 +429,58 @@ const CHECKER_CAPABILITY_SOURCE_PATHS = Object.freeze([
   "coordination/integration/promotion-gate.mjs"
 ]);
 const FORBIDDEN_CHECKER_CAPABILITY_MODULES = Object.freeze([
-  "http", "https", "net", "tls", "dgram", "dns", "undici",
+  "http", "https", "net", "tls", "dgram", "dns", "undici", "child_process",
   "axios", "got", "openai", "anthropic", "@anthropic-ai/sdk",
   "pg", "postgres", "mysql", "mysql2", "mongodb", "mongoose",
   "redis", "ioredis", "sqlite3", "better-sqlite3", "@prisma/client",
   "@supabase/supabase-js", "firebase", "firebase-admin", "vercel", "@vercel/client"
 ]);
+const CHECKER_ALLOWED_IMPORTS_BY_SOURCE = Object.freeze({
+  [CHECKER_CAPABILITY_SOURCE_PATHS[0]]: Object.freeze([
+    "node:async_hooks",
+    "node:child_process",
+    "node:crypto",
+    "node:fs",
+    "node:fs/promises",
+    "node:os",
+    "node:path",
+    "typescript"
+  ]),
+  [CHECKER_CAPABILITY_SOURCE_PATHS[1]]: Object.freeze([
+    "./promotion-gate-lib.mjs",
+    "node:path",
+    "node:url"
+  ])
+});
+const FORBIDDEN_CHECKER_RUNTIME_IDENTIFIERS = new Set([
+  "globalThis", "window", "self", "global",
+  "fetch", "WebSocket", "EventSource", "XMLHttpRequest", "WebTransport", "navigator",
+  "Reflect", "eval", "Function", "require", "module", "createRequire", "execFile", "Deno", "Bun"
+]);
+const ALLOWED_CHECKER_PROCESS_PROPERTIES = new Set(["argv", "env", "exitCode", "stdout"]);
+const REGISTERED_GIT_PROBE_SOURCE_SHA256 = "a5d4742c961056dc1dc645a91e5cd70cde7c3bb2e186dbbe3d441fc43ca86e00";
+
+function checkerIdentifierIsStaticPropertyName(identifier) {
+  const parent = identifier.parent;
+  if (ts.isPropertyAccessExpression(parent) && parent.name === identifier) return true;
+  if (ts.isPropertyAssignment(parent) && parent.name === identifier) return true;
+  if (ts.isMethodDeclaration(parent) && parent.name === identifier) return true;
+  if (ts.isGetAccessorDeclaration(parent) && parent.name === identifier) return true;
+  if (ts.isSetAccessorDeclaration(parent) && parent.name === identifier) return true;
+  if (ts.isPropertyDeclaration(parent) && parent.name === identifier) return true;
+  if (ts.isBindingElement(parent) && parent.propertyName === identifier) return true;
+  if (ts.isImportSpecifier(parent) && parent.propertyName === identifier) return true;
+  if (ts.isExportSpecifier(parent) && parent.propertyName === identifier) return true;
+  return ts.isLabeledStatement(parent) && parent.label === identifier ||
+    ts.isBreakOrContinueStatement(parent) && parent.label === identifier;
+}
+
+function checkerProcessIdentifierIsAllowed(identifier) {
+  const parent = identifier.parent;
+  return ts.isPropertyAccessExpression(parent) &&
+    parent.expression === identifier &&
+    ALLOWED_CHECKER_PROCESS_PROPERTIES.has(parent.name.text);
+}
 
 function normalizeCapabilityModuleSpecifier(specifier) {
   return specifier.startsWith("node:") ? specifier.slice(5) : specifier;
@@ -450,26 +496,101 @@ function checkerModuleSpecifierIsForbidden(specifier) {
 export async function collectCheckerCapabilityProof(repoRoot, checkerBundleDigest) {
   assertSha256(checkerBundleDigest, "checker capability bundleDigest");
   const sourceBindings = [];
+  const checkerBundleBindings = [];
+  const checkerBundleFiles = new Map();
+  for (const bundlePath of CHECKER_BUNDLE_PATHS) {
+    const loaded = await readAuthoritativeFile(repoRoot, bundlePath);
+    checkerBundleBindings.push({ path: bundlePath, rawSha256: loaded.rawSha256 });
+    checkerBundleFiles.set(bundlePath, loaded);
+  }
+  if (fingerprint(checkerBundleBindings) !== checkerBundleDigest) {
+    throw new PromotionGateError(
+      "CHECKER_CAPABILITY_BUNDLE_MISMATCH",
+      "Checker capability audit requires the exact ledger-bound checker bundle bytes.",
+      {},
+      "blocked"
+    );
+  }
   const violations = [];
   let registeredExecFileImportCount = 0;
   let registeredExecFileCallCount = 0;
+  let registeredGitExecutableDeclarationCount = 0;
+  let registeredGitPathDeclarationCount = 0;
+  let registeredGitProbeDeclarationCount = 0;
   for (const sourcePath of CHECKER_CAPABILITY_SOURCE_PATHS) {
-    const loaded = await readAuthoritativeFile(repoRoot, sourcePath);
+    const loaded = checkerBundleFiles.get(sourcePath);
     const source = decodeRuntimeSource(loaded.bytes, sourcePath);
     sourceBindings.push({ path: sourcePath, rawSha256: loaded.rawSha256 });
     const sourceFile = ts.createSourceFile(sourcePath, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+    if (sourceFile.parseDiagnostics.length > 0) {
+      violations.push({ sourcePath, kind: "checker-source-parse", position: 0 });
+    }
+    const constInitializers = new Map();
+    const collectConstInitializers = (node) => {
+      if (
+        ts.isVariableDeclaration(node) &&
+        ts.isIdentifier(node.name) &&
+        node.initializer &&
+        ts.isVariableDeclarationList(node.parent) &&
+        (node.parent.flags & ts.NodeFlags.Const) !== 0
+      ) {
+        if (constInitializers.has(node.name.text)) constInitializers.set(node.name.text, null);
+        else constInitializers.set(node.name.text, node.initializer);
+      }
+      ts.forEachChild(node, collectConstInitializers);
+    };
+    collectConstInitializers(sourceFile);
+    const unwrapCheckerExpression = (expression) => {
+      let current = expression;
+      while (
+        ts.isParenthesizedExpression(current) ||
+        ts.isAwaitExpression(current) ||
+        ts.isAsExpression(current) ||
+        ts.isTypeAssertionExpression(current) ||
+        ts.isNonNullExpression(current) ||
+        ts.isSatisfiesExpression(current)
+      ) current = current.expression;
+      return current;
+    };
+    const checkerExpressionProducesFunctionObject = (expression, seen = new Set()) => {
+      const current = unwrapCheckerExpression(expression);
+      if (ts.isArrowFunction(current) || ts.isFunctionExpression(current) || ts.isClassExpression(current)) {
+        return true;
+      }
+      if (ts.isIdentifier(current)) {
+        if (seen.has(current.text)) return false;
+        const initializer = constInitializers.get(current.text);
+        if (!initializer) return false;
+        const nextSeen = new Set(seen);
+        nextSeen.add(current.text);
+        return checkerExpressionProducesFunctionObject(initializer, nextSeen);
+      }
+      return ts.isCallExpression(current) &&
+        ts.isPropertyAccessExpression(current.expression) &&
+        ts.isIdentifier(current.expression.expression) &&
+        current.expression.expression.text === "Object" &&
+        current.expression.name.text === "getPrototypeOf" &&
+        current.arguments.length === 1 &&
+        checkerExpressionProducesFunctionObject(current.arguments[0], seen);
+    };
     const visit = (node) => {
       if (ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
         const specifier = node.moduleSpecifier.text;
         const normalized = normalizeCapabilityModuleSpecifier(specifier);
+        if (!CHECKER_ALLOWED_IMPORTS_BY_SOURCE[sourcePath].includes(specifier)) {
+          violations.push({ sourcePath, kind: "unregistered-module-import", position: node.getStart(sourceFile) });
+        }
         if (normalized === "child_process") {
           const named = node.importClause?.namedBindings;
-          const importedNames = ts.isNamedImports(named)
-            ? named.elements.map((element) => element.propertyName?.text ?? element.name.text)
-            : [];
+          const exactExecFileImport = ts.isNamedImports(named) &&
+            named.elements.length === 1 &&
+            !named.elements[0].isTypeOnly &&
+            named.elements[0].propertyName === undefined &&
+            named.elements[0].name.text === "execFile";
           if (
             sourcePath !== CHECKER_CAPABILITY_SOURCE_PATHS[0] ||
-            stableJson(importedNames) !== stableJson(["execFile"])
+            node.importClause?.isTypeOnly ||
+            !exactExecFileImport
           ) {
             violations.push({ sourcePath, kind: "child-process-import", position: node.getStart(sourceFile) });
           } else {
@@ -479,8 +600,71 @@ export async function collectCheckerCapabilityProof(repoRoot, checkerBundleDiges
           violations.push({ sourcePath, kind: "forbidden-module-import", position: node.getStart(sourceFile) });
         }
       }
+      if (ts.isExportDeclaration(node) && node.moduleSpecifier) {
+        violations.push({ sourcePath, kind: "module-reexport", position: node.getStart(sourceFile) });
+      }
+      if (
+        ts.isVariableDeclaration(node) &&
+        ts.isIdentifier(node.name) &&
+        node.name.text === "REGISTERED_GIT_EXECUTABLE"
+      ) {
+        const declarationList = node.parent;
+        const statement = declarationList.parent;
+        const exactDeclaration =
+          sourcePath === CHECKER_CAPABILITY_SOURCE_PATHS[0] &&
+          ts.isVariableDeclarationList(declarationList) &&
+          (declarationList.flags & ts.NodeFlags.Const) !== 0 &&
+          ts.isVariableStatement(statement) &&
+          ts.isSourceFile(statement.parent) &&
+          ts.isStringLiteral(node.initializer) &&
+          node.initializer.text === "/usr/bin/git";
+        if (exactDeclaration) registeredGitExecutableDeclarationCount += 1;
+        else violations.push({
+          sourcePath,
+          kind: "registered-executable-declaration",
+          position: node.getStart(sourceFile)
+        });
+      }
+      if (
+        ts.isVariableDeclaration(node) &&
+        ts.isIdentifier(node.name) &&
+        node.name.text === "REGISTERED_GIT_PATH"
+      ) {
+        const declarationList = node.parent;
+        const statement = declarationList.parent;
+        const exactDeclaration =
+          sourcePath === CHECKER_CAPABILITY_SOURCE_PATHS[0] &&
+          ts.isVariableDeclarationList(declarationList) &&
+          (declarationList.flags & ts.NodeFlags.Const) !== 0 &&
+          ts.isVariableStatement(statement) &&
+          ts.isSourceFile(statement.parent) &&
+          ts.isStringLiteral(node.initializer) &&
+          node.initializer.text === "/usr/bin:/bin";
+        if (exactDeclaration) registeredGitPathDeclarationCount += 1;
+        else violations.push({
+          sourcePath,
+          kind: "registered-path-declaration",
+          position: node.getStart(sourceFile)
+        });
+      }
+      if (
+        ts.isFunctionDeclaration(node) &&
+        node.name?.text === "runRegisteredGitProbe"
+      ) {
+        const exactProbe = sourcePath === CHECKER_CAPABILITY_SOURCE_PATHS[0] &&
+          sha256(Buffer.from(node.getText(sourceFile))) === REGISTERED_GIT_PROBE_SOURCE_SHA256;
+        if (exactProbe) registeredGitProbeDeclarationCount += 1;
+        else violations.push({
+          sourcePath,
+          kind: "registered-git-probe-drift",
+          position: node.getStart(sourceFile)
+        });
+      }
       if (ts.isCallExpression(node)) {
         const expression = node.expression;
+        if (expression.kind === ts.SyntaxKind.ImportKeyword) {
+          violations.push({ sourcePath, kind: "dynamic-module-load", position: node.getStart(sourceFile) });
+        }
         const moduleSpecifier = (
           (expression.kind === ts.SyntaxKind.ImportKeyword ||
             (ts.isIdentifier(expression) && expression.text === "require")) &&
@@ -497,9 +681,12 @@ export async function collectCheckerCapabilityProof(repoRoot, checkerBundleDiges
           const firstArgument = node.arguments[0];
           if (
             sourcePath !== CHECKER_CAPABILITY_SOURCE_PATHS[0] ||
+            node.questionDotToken !== undefined ||
+            identifierIsShadowedBelowSource(expression, "execFile") ||
             !firstArgument ||
             !ts.isIdentifier(firstArgument) ||
-            firstArgument.text !== "REGISTERED_GIT_EXECUTABLE"
+            firstArgument.text !== "REGISTERED_GIT_EXECUTABLE" ||
+            identifierIsShadowedBelowSource(firstArgument, "REGISTERED_GIT_EXECUTABLE")
           ) {
             violations.push({ sourcePath, kind: "unregistered-process-execution", position: node.getStart(sourceFile) });
           } else {
@@ -514,9 +701,109 @@ export async function collectCheckerCapabilityProof(repoRoot, checkerBundleDiges
       ) {
         violations.push({ sourcePath, kind: "network-constructor", position: node.getStart(sourceFile) });
       }
+      if (
+        (ts.isPropertyAccessExpression(node) && node.name.text === "constructor") ||
+        (ts.isElementAccessExpression(node) &&
+          node.argumentExpression &&
+          exactModuleString(node.argumentExpression) === "constructor")
+      ) {
+        violations.push({ sourcePath, kind: "runtime-code-constructor", position: node.getStart(sourceFile) });
+      }
+      if (
+        ts.isElementAccessExpression(node) &&
+        checkerExpressionProducesFunctionObject(node.expression)
+      ) {
+        violations.push({ sourcePath, kind: "runtime-code-computed-constructor", position: node.getStart(sourceFile) });
+      }
+      if (
+        ts.isBindingElement(node) &&
+        (
+          (node.propertyName && (
+            (ts.isComputedPropertyName(node.propertyName) &&
+              exactModuleString(node.propertyName.expression) === "constructor") ||
+            ((ts.isIdentifier(node.propertyName) || ts.isStringLiteral(node.propertyName)) &&
+              node.propertyName.text === "constructor")
+          )) ||
+          (!node.propertyName && ts.isIdentifier(node.name) && node.name.text === "constructor")
+        )
+      ) {
+        violations.push({ sourcePath, kind: "runtime-code-constructor-binding", position: node.getStart(sourceFile) });
+      }
+      if (
+        ts.isCallExpression(node) &&
+        ts.isPropertyAccessExpression(node.expression) &&
+        ts.isIdentifier(node.expression.expression) &&
+        node.expression.expression.text === "Object" &&
+        node.expression.name.text === "getOwnPropertyDescriptor"
+      ) {
+        violations.push({ sourcePath, kind: "runtime-code-constructor-descriptor", position: node.getStart(sourceFile) });
+      }
+      if (
+        ts.isIdentifier(node) &&
+        !checkerIdentifierIsStaticPropertyName(node) &&
+        FORBIDDEN_CHECKER_RUNTIME_IDENTIFIERS.has(node.text) &&
+        !(
+          node.text === "execFile" &&
+          sourcePath === CHECKER_CAPABILITY_SOURCE_PATHS[0] &&
+          (
+            (ts.isImportSpecifier(node.parent) &&
+              node.parent.name === node &&
+              node.parent.propertyName === undefined) ||
+            (ts.isCallExpression(node.parent) &&
+              node.parent.expression === node &&
+              node.parent.questionDotToken === undefined &&
+              !identifierIsShadowedBelowSource(node, "execFile"))
+          )
+        )
+      ) {
+        violations.push({ sourcePath, kind: "forbidden-runtime-capability", position: node.getStart(sourceFile) });
+      }
+      if (
+        ts.isIdentifier(node) &&
+        node.text === "process" &&
+        !checkerIdentifierIsStaticPropertyName(node) &&
+        !checkerProcessIdentifierIsAllowed(node)
+      ) {
+        violations.push({ sourcePath, kind: "unregistered-process-capability", position: node.getStart(sourceFile) });
+      }
       ts.forEachChild(node, visit);
     };
     visit(sourceFile);
+    const runtimeCodeAnalysis = analyzeRuntimeLoaderCalls(sourcePath, source);
+    for (const callsite of runtimeCodeAnalysis.zeroBaselineCalls) {
+      if (
+        callsite.kind === "function-constructor" ||
+        callsite.kind === "indirect-code-evaluation" ||
+        callsite.kind === "node-vm-evaluation"
+      ) {
+        violations.push({
+          sourcePath,
+          kind: `runtime-code-${callsite.kind}`,
+          position: callsite.position
+        });
+      }
+    }
+  }
+  if (registeredGitExecutableDeclarationCount !== 1) {
+    violations.push({
+      sourcePath: CHECKER_CAPABILITY_SOURCE_PATHS[0],
+      kind: "registered-executable-declaration-count",
+      position: 0
+    });
+  }
+  if (registeredGitPathDeclarationCount !== 1) {
+    violations.push({
+      sourcePath: CHECKER_CAPABILITY_SOURCE_PATHS[0],
+      kind: "registered-path-declaration-count",
+      position: 0
+    });
+  }
+  if (registeredGitProbeDeclarationCount !== 1) {
+    violations.push({
+      sourcePath: CHECKER_CAPABILITY_SOURCE_PATHS[0],
+      kind: "registered-git-probe-count",
+      position: 0
+    });
   }
   if (
     violations.length > 0 ||
@@ -4241,32 +4528,52 @@ function bindingNameContains(name, sought) {
   );
 }
 
-function statementDeclaresName(statement, sought) {
-  if (ts.isVariableStatement(statement)) {
-    return statement.declarationList.declarations.some(({ name }) => bindingNameContains(name, sought));
-  }
-  if (
-    (ts.isFunctionDeclaration(statement) || ts.isClassDeclaration(statement) ||
-      ts.isEnumDeclaration(statement) || ts.isInterfaceDeclaration(statement) ||
-      ts.isTypeAliasDeclaration(statement) || ts.isModuleDeclaration(statement)) &&
-    statement.name
-  ) return statement.name.text === sought;
-  if (ts.isImportEqualsDeclaration(statement)) return statement.name.text === sought;
-  if (ts.isImportDeclaration(statement) && statement.importClause) {
-    if (statement.importClause.name?.text === sought) return true;
-    const bindings = statement.importClause.namedBindings;
-    if (bindings && ts.isNamespaceImport(bindings)) return bindings.name.text === sought;
-    if (bindings && ts.isNamedImports(bindings)) {
-      return bindings.elements.some(({ name }) => name.text === sought);
-    }
-  }
-  return false;
+function declarationHasModifier(node, modifierKind) {
+  return node.modifiers?.some(({ kind }) => kind === modifierKind) ?? false;
 }
 
-function scopeDeclaresName(scope, sought) {
+function statementDeclaresRuntimeValueName(statement, sought) {
+  if (ts.isVariableStatement(statement)) {
+    return !declarationHasModifier(statement, ts.SyntaxKind.DeclareKeyword) &&
+      statement.declarationList.declarations.some(({ name }) => bindingNameContains(name, sought));
+  }
+  if (ts.isFunctionDeclaration(statement)) {
+    return statement.name?.text === sought &&
+      statement.body !== undefined &&
+      !declarationHasModifier(statement, ts.SyntaxKind.DeclareKeyword);
+  }
+  if (
+    (ts.isClassDeclaration(statement) || ts.isEnumDeclaration(statement) ||
+      ts.isModuleDeclaration(statement)) &&
+    statement.name
+  ) {
+    const runtimeName = ts.isIdentifier(statement.name) || ts.isStringLiteral(statement.name)
+      ? statement.name.text
+      : null;
+    return runtimeName === sought &&
+      !declarationHasModifier(statement, ts.SyntaxKind.DeclareKeyword);
+  }
+  if (ts.isImportEqualsDeclaration(statement)) {
+    return statement.name.text === sought && statement.isTypeOnly !== true;
+  }
+  if (!ts.isImportDeclaration(statement) || !statement.importClause) return false;
+  if (statement.importClause.isTypeOnly) return false;
+  if (statement.importClause.name?.text === sought) return true;
+  const bindings = statement.importClause.namedBindings;
+  if (bindings && ts.isNamespaceImport(bindings)) return bindings.name.text === sought;
+  return bindings && ts.isNamedImports(bindings)
+    ? bindings.elements.some((element) => !element.isTypeOnly && element.name.text === sought)
+    : false;
+}
+
+function scopeDeclaresRuntimeValueName(scope, sought) {
   if (ts.isFunctionLike(scope) && scope.parameters.some(({ name }) => bindingNameContains(name, sought))) {
     return true;
   }
+  if (
+    (ts.isFunctionExpression(scope) || ts.isClassExpression(scope)) &&
+    scope.name?.text === sought
+  ) return true;
   if (ts.isCatchClause(scope) && scope.variableDeclaration) {
     return bindingNameContains(scope.variableDeclaration.name, sought);
   }
@@ -4275,7 +4582,7 @@ function scopeDeclaresName(scope, sought) {
     : ts.isFunctionLike(scope) && scope.body && ts.isBlock(scope.body)
       ? scope.body.statements
       : undefined;
-  return statements?.some((statement) => statementDeclaresName(statement, sought)) ?? false;
+  return statements?.some((statement) => statementDeclaresRuntimeValueName(statement, sought)) ?? false;
 }
 
 function identifierIsLexicallyShadowed(identifier, sought) {
@@ -4283,8 +4590,8 @@ function identifierIsLexicallyShadowed(identifier, sought) {
   while (current) {
     if (
       (ts.isSourceFile(current) || ts.isBlock(current) || ts.isModuleBlock(current) ||
-        ts.isFunctionLike(current) || ts.isCatchClause(current)) &&
-      scopeDeclaresName(current, sought)
+        ts.isFunctionLike(current) || ts.isClassExpression(current) || ts.isCatchClause(current)) &&
+      scopeDeclaresRuntimeValueName(current, sought)
     ) return true;
     current = current.parent;
   }
@@ -4419,6 +4726,45 @@ const RUNTIME_CODE_CAPABILITY_MODULES = new Map([
   ["vm", "node:vm"],
   ["node:vm", "node:vm"]
 ]);
+const RUNTIME_GLOBAL_ROOTS_BY_NAME = new Map([
+  ["globalThis", "global.globalThis"],
+  ["window", "global.window"],
+  ["self", "global.self"],
+  ["global", "global.global"]
+]);
+const BROWSER_GLOBAL_ROOTS = new Set(RUNTIME_GLOBAL_ROOTS_BY_NAME.values());
+const BROWSER_WORKER_CONSTRUCTORS = new Set([
+  "global.Worker",
+  "global.SharedWorker",
+  ...[...BROWSER_GLOBAL_ROOTS].flatMap((root) => [
+    `${root}.Worker`,
+    `${root}.SharedWorker`
+  ])
+]);
+const BROWSER_REFLECT_ROOTS = new Set([
+  "global.Reflect",
+  ...[...BROWSER_GLOBAL_ROOTS].map((root) => `${root}.Reflect`)
+]);
+const BROWSER_REFLECT_CONSTRUCTORS = new Set(
+  [...BROWSER_REFLECT_ROOTS].map((root) => `${root}.construct`)
+);
+const BROWSER_REFLECT_APPLIERS = new Set(
+  [...BROWSER_REFLECT_ROOTS].map((root) => `${root}.apply`)
+);
+const GLOBAL_EVALUATORS = new Set([
+  "global.eval",
+  ...[...BROWSER_GLOBAL_ROOTS].map((root) => `${root}.eval`)
+]);
+const GLOBAL_FUNCTION_CONSTRUCTORS = new Set([
+  "global.Function",
+  ...[...BROWSER_GLOBAL_ROOTS].map((root) => `${root}.Function`)
+]);
+const GLOBAL_OBJECT_ROOTS = new Set([
+  "global.Object",
+  ...[...BROWSER_GLOBAL_ROOTS].map((root) => `${root}.Object`)
+]);
+const RUNTIME_CONSTRUCTOR_DESCRIPTOR = "runtime.constructor-descriptor";
+const RUNTIME_PROPERTY_DESCRIPTORS = "runtime.property-descriptors";
 const ZERO_BASELINE_FS_KINDS = new Map([
   ["readFileSync", "read-file-sync"],
   ["open", "fs-open"],
@@ -4434,8 +4780,8 @@ function identifierIsShadowedBelowSource(identifier, sought) {
   while (current && !ts.isSourceFile(current)) {
     if (
       (ts.isBlock(current) || ts.isModuleBlock(current) || ts.isFunctionLike(current) ||
-        ts.isCatchClause(current)) &&
-      scopeDeclaresName(current, sought)
+        ts.isClassExpression(current) || ts.isCatchClause(current)) &&
+      scopeDeclaresRuntimeValueName(current, sought)
     ) return true;
     current = current.parent;
   }
@@ -4563,7 +4909,14 @@ function collectLoaderBindings(sourceFile) {
     }
   }
   const canonicalForExpression = (expression) => {
-    if (ts.isParenthesizedExpression(expression) || ts.isAwaitExpression(expression)) {
+    if (
+      ts.isParenthesizedExpression(expression) ||
+      ts.isAwaitExpression(expression) ||
+      ts.isAsExpression(expression) ||
+      ts.isTypeAssertionExpression(expression) ||
+      ts.isNonNullExpression(expression) ||
+      ts.isSatisfiesExpression(expression)
+    ) {
       return canonicalForExpression(expression.expression);
     }
     if (ts.isIdentifier(expression)) {
@@ -4578,6 +4931,8 @@ function collectLoaderBindings(sourceFile) {
         Reflect: "global.Reflect",
         globalThis: "global.globalThis",
         window: "global.window",
+        self: "global.self",
+        global: "global.global",
         createRequire: "unbound.createRequire"
       };
       const canonical = globals[expression.text];
@@ -4624,7 +4979,10 @@ function collectLoaderBindings(sourceFile) {
     if (ts.isPropertyAccessExpression(expression)) {
       const parent = canonicalForExpression(expression.expression);
       if (parent === null) return null;
-      const joined = `${parent}.${expression.name.text}`;
+      const joined = BROWSER_GLOBAL_ROOTS.has(parent) &&
+        RUNTIME_GLOBAL_ROOTS_BY_NAME.has(expression.name.text)
+        ? RUNTIME_GLOBAL_ROOTS_BY_NAME.get(expression.name.text)
+        : `${parent}.${expression.name.text}`;
       return joined
         .replace(/^node:fs\.promises\./u, "node:fs/promises.")
         .replace(/^node:fs\/promises\.promises\./u, "node:fs/promises.");
@@ -4635,7 +4993,11 @@ function collectLoaderBindings(sourceFile) {
         ? exactModuleString(expression.argumentExpression)
         : null;
       if (parent === null || propertyName === null) return null;
-      return `${parent}.${propertyName}`
+      const joined = BROWSER_GLOBAL_ROOTS.has(parent) &&
+        RUNTIME_GLOBAL_ROOTS_BY_NAME.has(propertyName)
+        ? RUNTIME_GLOBAL_ROOTS_BY_NAME.get(propertyName)
+        : `${parent}.${propertyName}`;
+      return joined
         .replace(/^node:fs\.promises\./u, "node:fs/promises.")
         .replace(/^node:fs\/promises\.promises\./u, "node:fs/promises.");
     }
@@ -4696,24 +5058,983 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
     let current = expression;
     while (
       ts.isParenthesizedExpression(current) ||
+      ts.isAwaitExpression(current) ||
       ts.isAsExpression(current) ||
       ts.isTypeAssertionExpression(current) ||
-      ts.isNonNullExpression(current)
+      ts.isNonNullExpression(current) ||
+      ts.isSatisfiesExpression(current)
     ) current = current.expression;
     return current;
   };
-  const indirectEvaluationTarget = (expression) => {
+  const simpleBindingTarget = (name, sought) => {
+    if (ts.isIdentifier(name)) {
+      return name.text === sought ? { kind: "direct", propertySteps: [] } : null;
+    }
+    if (ts.isArrayBindingPattern(name)) {
+      for (const [index, element] of name.elements.entries()) {
+        if (ts.isOmittedExpression(element) || !bindingNameContains(element.name, sought)) continue;
+        if (element.dotDotDotToken) return { kind: "unsupported" };
+        const nested = simpleBindingTarget(element.name, sought);
+        if (nested === null || nested.kind === "unsupported") return { kind: "unsupported" };
+        return {
+          kind: "property-path",
+          propertySteps: [
+            { propertyName: String(index), propertyExpression: null },
+            ...nested.propertySteps
+          ]
+        };
+      }
+      return null;
+    }
+    if (!ts.isObjectBindingPattern(name)) {
+      return bindingNameContains(name, sought) ? { kind: "unsupported" } : null;
+    }
+    for (const element of name.elements) {
+      if (!bindingNameContains(element.name, sought)) continue;
+      if (element.dotDotDotToken) return { kind: "unsupported" };
+      const nested = simpleBindingTarget(element.name, sought);
+      if (nested === null || nested.kind === "unsupported") return { kind: "unsupported" };
+      let propertyName = ts.isIdentifier(element.name) ? element.name.text : null;
+      let propertyExpression = null;
+      if (element.propertyName) {
+        if (
+          ts.isIdentifier(element.propertyName) ||
+          ts.isStringLiteral(element.propertyName) ||
+          ts.isNumericLiteral(element.propertyName)
+        ) propertyName = element.propertyName.text;
+        else if (ts.isComputedPropertyName(element.propertyName)) {
+          const computedName = exactModuleString(element.propertyName.expression);
+          if (computedName === null) {
+            propertyExpression = element.propertyName.expression;
+            propertyName = null;
+          } else {
+            propertyName = computedName;
+          }
+        } else return { kind: "unsupported" };
+      }
+      if (propertyName === null && propertyExpression === null) return { kind: "unsupported" };
+      return {
+        kind: "property-path",
+        propertySteps: [
+          { propertyName, propertyExpression },
+          ...nested.propertySteps
+        ]
+      };
+    }
+    return null;
+  };
+  const lexicalBindingFromDeclarationList = (declarationList, sought, forOfCollection = null) => {
+    for (const declaration of declarationList.declarations) {
+      const target = simpleBindingTarget(declaration.name, sought);
+      if (target === null) continue;
+      const initializer = declaration.initializer ?? null;
+      if (
+        target.kind === "unsupported" ||
+        (declarationList.flags & ts.NodeFlags.Const) === 0
+      ) return { kind: "shadow" };
+      if (!initializer) {
+        if (
+          forOfCollection &&
+          declarationList.declarations.length === 1 &&
+          target.kind === "direct"
+        ) {
+          return { kind: "bounded-for-of-alias", declaration, collection: forOfCollection };
+        }
+        return { kind: "shadow" };
+      }
+      return {
+        kind: "const-alias",
+        declaration,
+        initializer,
+        propertySteps: target.propertySteps,
+        propertyName: target.propertySteps.length === 1
+          ? target.propertySteps[0].propertyName
+          : null,
+        dynamicProperty: target.propertySteps.length === 1 &&
+          target.propertySteps[0].propertyExpression !== null,
+        propertyExpression: target.propertySteps.length === 1
+          ? target.propertySteps[0].propertyExpression
+          : null
+      };
+    }
+    return null;
+  };
+  const scopeStatementBindingCache = new WeakMap();
+  const statementBindingInScope = (scope, sought) => {
+    let cachedBindings = scopeStatementBindingCache.get(scope);
+    if (cachedBindings === undefined) {
+      cachedBindings = new Map();
+      scopeStatementBindingCache.set(scope, cachedBindings);
+    }
+    if (cachedBindings.has(sought)) return cachedBindings.get(sought);
+    const statements = ts.isSourceFile(scope) || ts.isBlock(scope) || ts.isModuleBlock(scope)
+      ? scope.statements
+      : ts.isCaseBlock(scope)
+        ? scope.clauses.flatMap((clause) => [...clause.statements])
+        : undefined;
+    let binding = null;
+    if (statements) {
+      for (const statement of statements) {
+        if (ts.isVariableStatement(statement)) {
+          if (declarationHasModifier(statement, ts.SyntaxKind.DeclareKeyword)) continue;
+          binding = lexicalBindingFromDeclarationList(statement.declarationList, sought);
+          if (binding !== null) break;
+        } else if (statementDeclaresRuntimeValueName(statement, sought)) {
+          binding = { kind: "shadow" };
+          break;
+        }
+      }
+    }
+    cachedBindings.set(sought, binding);
+    return binding;
+  };
+  const lexicalBindingCache = new WeakMap();
+  const lexicalBindingForIdentifierUncached = (identifier) => {
+    const sought = identifier.text;
+    let current = identifier.parent;
+    while (current) {
+      if (
+        ts.isFunctionLike(current) &&
+        current.parameters.some(({ name }) => bindingNameContains(name, sought))
+      ) return { kind: "shadow" };
+      if (
+        ts.isFunctionLike(current) &&
+        current.name &&
+        ts.isIdentifier(current.name) &&
+        current.name.text === sought
+      ) return { kind: "shadow" };
+      if (
+        ts.isClassExpression(current) &&
+        current.name?.text === sought
+      ) return { kind: "shadow" };
+      if (
+        ts.isCatchClause(current) &&
+        current.variableDeclaration &&
+        bindingNameContains(current.variableDeclaration.name, sought)
+      ) return { kind: "shadow" };
+      const loopInitializer = ts.isForStatement(current)
+        ? current.initializer
+        : ts.isForInStatement(current) || ts.isForOfStatement(current)
+          ? current.initializer
+          : undefined;
+      if (loopInitializer && ts.isVariableDeclarationList(loopInitializer)) {
+        const loopBinding = lexicalBindingFromDeclarationList(
+          loopInitializer,
+          sought,
+          ts.isForOfStatement(current) ? current.expression : null
+        );
+        if (loopBinding !== null) return loopBinding;
+      }
+      if (
+        ts.isSourceFile(current) ||
+        ts.isBlock(current) ||
+        ts.isModuleBlock(current) ||
+        ts.isCaseBlock(current)
+      ) {
+        const statementBinding = statementBindingInScope(current, sought);
+        if (statementBinding !== null) return statementBinding;
+      }
+      current = current.parent;
+    }
+    return { kind: "global" };
+  };
+  const lexicalBindingForIdentifier = (identifier) => {
+    const cached = lexicalBindingCache.get(identifier);
+    if (cached !== undefined) return cached;
+    const binding = lexicalBindingForIdentifierUncached(identifier);
+    lexicalBindingCache.set(identifier, binding);
+    return binding;
+  };
+  const unknownStaticKey = () => ({ value: null, constructorPossible: false });
+  const exactStaticKey = (value) => ({
+    value,
+    constructorPossible: value === "constructor"
+  });
+  const mergeStaticKeyAlternatives = (left, right) => {
+    if (left.value !== null && left.value === right.value) return exactStaticKey(left.value);
+    return {
+      value: null,
+      constructorPossible:
+        left.constructorPossible || right.constructorPossible ||
+        left.value === "constructor" || right.value === "constructor"
+    };
+  };
+  function resolveBoundedStaticKeyCollection(collection, seenDeclarations) {
+    const current = unwrapTransparentExpression(collection);
+    if (ts.isArrayLiteralExpression(current)) {
+      let merged = null;
+      for (const element of current.elements) {
+        if (ts.isSpreadElement(element)) return unknownStaticKey();
+        const resolved = ts.isOmittedExpression(element)
+          ? unknownStaticKey()
+          : resolveStaticPropertyKey(element, seenDeclarations);
+        merged = merged === null ? resolved : mergeStaticKeyAlternatives(merged, resolved);
+      }
+      return merged ?? unknownStaticKey();
+    }
+    if (ts.isConditionalExpression(current)) {
+      return mergeStaticKeyAlternatives(
+        resolveBoundedStaticKeyCollection(current.whenTrue, seenDeclarations),
+        resolveBoundedStaticKeyCollection(current.whenFalse, seenDeclarations)
+      );
+    }
+    if (
+      ts.isBinaryExpression(current) &&
+      [
+        ts.SyntaxKind.QuestionQuestionToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.AmpersandAmpersandToken
+      ].includes(current.operatorToken.kind)
+    ) {
+      return mergeStaticKeyAlternatives(
+        resolveBoundedStaticKeyCollection(current.left, seenDeclarations),
+        resolveBoundedStaticKeyCollection(current.right, seenDeclarations)
+      );
+    }
+    return unknownStaticKey();
+  }
+  function selectBoundedStaticValueExpressions(
+    expression,
+    propertyResolution,
+    seenDeclarations
+  ) {
+    if (propertyResolution.value === null) return [];
+    const current = unwrapTransparentExpression(expression);
+    if (ts.isIdentifier(current)) {
+      const binding = lexicalBindingForIdentifier(current);
+      if (
+        binding.kind !== "const-alias" ||
+        binding.propertySteps.length !== 0 ||
+        seenDeclarations.has(binding.declaration)
+      ) return [];
+      const nextSeen = new Set(seenDeclarations);
+      nextSeen.add(binding.declaration);
+      return selectBoundedStaticValueExpressions(
+        binding.initializer,
+        propertyResolution,
+        nextSeen
+      );
+    }
+    if (ts.isPropertyAccessExpression(current) || ts.isElementAccessExpression(current)) {
+      const innerProperty = ts.isPropertyAccessExpression(current)
+        ? exactStaticKey(current.name.text)
+        : current.argumentExpression
+          ? resolveStaticPropertyKey(current.argumentExpression, seenDeclarations)
+          : unknownStaticKey();
+      const innerValues = selectBoundedStaticValueExpressions(
+        current.expression,
+        innerProperty,
+        seenDeclarations
+      );
+      return innerValues.flatMap((value) =>
+        selectBoundedStaticValueExpressions(value, propertyResolution, seenDeclarations)
+      );
+    }
+    if (ts.isObjectLiteralExpression(current)) {
+      const selected = [];
+      for (const property of current.properties) {
+        if (ts.isSpreadAssignment(property) || !property.name) continue;
+        const propertyName = ts.isIdentifier(property.name) ||
+            ts.isStringLiteral(property.name) ||
+            ts.isNumericLiteral(property.name)
+          ? exactStaticKey(property.name.text)
+          : ts.isComputedPropertyName(property.name)
+            ? resolveStaticPropertyKey(property.name.expression, seenDeclarations)
+            : unknownStaticKey();
+        if (propertyName.value !== propertyResolution.value) continue;
+        if (ts.isPropertyAssignment(property)) selected.push(property.initializer);
+        else if (ts.isShorthandPropertyAssignment(property)) selected.push(property.name);
+      }
+      return selected;
+    }
+    if (ts.isArrayLiteralExpression(current) && /^\d+$/u.test(propertyResolution.value)) {
+      const element = current.elements[Number(propertyResolution.value)];
+      return element && !ts.isOmittedExpression(element) && !ts.isSpreadElement(element)
+        ? [element]
+        : [];
+    }
+    if (
+      ts.isBinaryExpression(current) &&
+      current.operatorToken.kind === ts.SyntaxKind.CommaToken
+    ) {
+      return selectBoundedStaticValueExpressions(
+        current.right,
+        propertyResolution,
+        seenDeclarations
+      );
+    }
+    if (ts.isConditionalExpression(current)) {
+      return [
+        ...selectBoundedStaticValueExpressions(current.whenTrue, propertyResolution, seenDeclarations),
+        ...selectBoundedStaticValueExpressions(current.whenFalse, propertyResolution, seenDeclarations)
+      ];
+    }
+    return [];
+  }
+  const staticPropertyKeyCache = new WeakMap();
+  function resolveStaticPropertyKey(expression, seenDeclarations = new Set()) {
+    const current = unwrapTransparentExpression(expression);
+    if (seenDeclarations.size === 0) {
+      const cached = staticPropertyKeyCache.get(current);
+      if (cached !== undefined) return cached;
+      const resolved = resolveStaticPropertyKeyUncached(current, seenDeclarations);
+      staticPropertyKeyCache.set(current, resolved);
+      return resolved;
+    }
+    return resolveStaticPropertyKeyUncached(current, seenDeclarations);
+  }
+  function resolveStaticPropertyKeyUncached(current, seenDeclarations) {
+    if (
+      ts.isStringLiteral(current) ||
+      ts.isNoSubstitutionTemplateLiteral(current) ||
+      ts.isNumericLiteral(current)
+    ) return exactStaticKey(current.text);
+    if (ts.isTemplateExpression(current)) {
+      let value = current.head.text;
+      for (const span of current.templateSpans) {
+        const resolved = resolveStaticPropertyKey(span.expression, seenDeclarations);
+        if (resolved.value === null) {
+          return { value: null, constructorPossible: resolved.constructorPossible };
+        }
+        value += resolved.value + span.literal.text;
+      }
+      return exactStaticKey(value);
+    }
+    if (ts.isIdentifier(current)) {
+      const binding = lexicalBindingForIdentifier(current);
+      if (binding.kind === "bounded-for-of-alias") {
+        if (seenDeclarations.has(binding.declaration)) return unknownStaticKey();
+        const nextSeen = new Set(seenDeclarations);
+        nextSeen.add(binding.declaration);
+        return resolveBoundedStaticKeyCollection(binding.collection, nextSeen);
+      }
+      if (
+        binding.kind !== "const-alias" ||
+        binding.propertySteps.length !== 0 ||
+        seenDeclarations.has(binding.declaration)
+      ) return unknownStaticKey();
+      const nextSeen = new Set(seenDeclarations);
+      nextSeen.add(binding.declaration);
+      return resolveStaticPropertyKey(binding.initializer, nextSeen);
+    }
+    if (ts.isPropertyAccessExpression(current) || ts.isElementAccessExpression(current)) {
+      const propertyResolution = ts.isPropertyAccessExpression(current)
+        ? exactStaticKey(current.name.text)
+        : current.argumentExpression
+          ? resolveStaticPropertyKey(current.argumentExpression, seenDeclarations)
+          : unknownStaticKey();
+      const selected = selectBoundedStaticValueExpressions(
+        current.expression,
+        propertyResolution,
+        seenDeclarations
+      );
+      let merged = null;
+      for (const value of selected) {
+        const resolved = resolveStaticPropertyKey(value, seenDeclarations);
+        merged = merged === null ? resolved : mergeStaticKeyAlternatives(merged, resolved);
+      }
+      return merged ?? unknownStaticKey();
+    }
+    if (ts.isConditionalExpression(current)) {
+      return mergeStaticKeyAlternatives(
+        resolveStaticPropertyKey(current.whenTrue, seenDeclarations),
+        resolveStaticPropertyKey(current.whenFalse, seenDeclarations)
+      );
+    }
+    if (ts.isBinaryExpression(current)) {
+      if (current.operatorToken.kind === ts.SyntaxKind.CommaToken) {
+        return resolveStaticPropertyKey(current.right, seenDeclarations);
+      }
+      if (
+        [
+          ts.SyntaxKind.QuestionQuestionToken,
+          ts.SyntaxKind.BarBarToken,
+          ts.SyntaxKind.AmpersandAmpersandToken
+        ].includes(current.operatorToken.kind)
+      ) {
+        return mergeStaticKeyAlternatives(
+          resolveStaticPropertyKey(current.left, seenDeclarations),
+          resolveStaticPropertyKey(current.right, seenDeclarations)
+        );
+      }
+      if (current.operatorToken.kind === ts.SyntaxKind.PlusToken) {
+        const left = resolveStaticPropertyKey(current.left, seenDeclarations);
+        const right = resolveStaticPropertyKey(current.right, seenDeclarations);
+        if (left.value !== null && right.value !== null) {
+          return exactStaticKey(left.value + right.value);
+        }
+        return {
+          value: null,
+          constructorPossible: left.constructorPossible || right.constructorPossible
+        };
+      }
+    }
+    return unknownStaticKey();
+  }
+  const joinBrowserCapability = (base, propertyName) => {
+    if (BROWSER_GLOBAL_ROOTS.has(base) && RUNTIME_GLOBAL_ROOTS_BY_NAME.has(propertyName)) {
+      return RUNTIME_GLOBAL_ROOTS_BY_NAME.get(propertyName);
+    }
+    if (
+      BROWSER_GLOBAL_ROOTS.has(base) &&
+      ["Worker", "SharedWorker", "Reflect", "eval", "Function", "Object"].includes(propertyName)
+    ) return `${base}.${propertyName}`;
+    if (BROWSER_REFLECT_ROOTS.has(base) && ["apply", "construct"].includes(propertyName)) {
+      return `${base}.${propertyName}`;
+    }
+    if (
+      GLOBAL_FUNCTION_CONSTRUCTORS.has(base) &&
+      ["call", "apply", "bind"].includes(propertyName)
+    ) return `${base}.${propertyName}`;
+    return null;
+  };
+  const isRecognizedBrowserCapability = ({ canonical, dynamicMember }) =>
+    dynamicMember ||
+    BROWSER_WORKER_CONSTRUCTORS.has(canonical) ||
+    BROWSER_GLOBAL_ROOTS.has(canonical) ||
+    BROWSER_REFLECT_ROOTS.has(canonical) ||
+    BROWSER_REFLECT_CONSTRUCTORS.has(canonical) ||
+    BROWSER_REFLECT_APPLIERS.has(canonical) ||
+    GLOBAL_EVALUATORS.has(canonical) ||
+    GLOBAL_FUNCTION_CONSTRUCTORS.has(canonical) ||
+    canonical === RUNTIME_CONSTRUCTOR_DESCRIPTOR ||
+    canonical === RUNTIME_PROPERTY_DESCRIPTORS;
+  const mergeBrowserCapabilityAlternatives = (left, right) => {
+    if (
+      left.canonical === right.canonical &&
+      left.dynamicMember === right.dynamicMember &&
+      (left.dynamicBase ?? null) === (right.dynamicBase ?? null)
+    ) return left;
+    if (isRecognizedBrowserCapability(left) || isRecognizedBrowserCapability(right)) {
+      return {
+        canonical: null,
+        dynamicMember: true,
+        dynamicBase: "conditional-browser-capability"
+      };
+    }
+    return { canonical: null, dynamicMember: false };
+  };
+  const constructorCapability = () => ({ canonical: "global.Function", dynamicMember: false });
+  const descriptorCapability = () => ({
+    canonical: RUNTIME_CONSTRUCTOR_DESCRIPTOR,
+    dynamicMember: false
+  });
+  const propertyDescriptorsCapability = () => ({
+    canonical: RUNTIME_PROPERTY_DESCRIPTORS,
+    dynamicMember: false
+  });
+  const memberNameResolution = (member, seenDeclarations) => {
+    if (ts.isPropertyAccessExpression(member)) return exactStaticKey(member.name.text);
+    return member.argumentExpression
+      ? resolveStaticPropertyKey(member.argumentExpression, seenDeclarations)
+      : unknownStaticKey();
+  };
+  const propertyNameResolution = (name, seenDeclarations) => {
+    if (ts.isIdentifier(name) || ts.isStringLiteral(name) || ts.isNumericLiteral(name)) {
+      return exactStaticKey(name.text);
+    }
+    return ts.isComputedPropertyName(name)
+      ? resolveStaticPropertyKey(name.expression, seenDeclarations)
+      : unknownStaticKey();
+  };
+  function selectBoundedCapabilityValueExpressions(
+    expression,
+    propertyResolution,
+    seenDeclarations
+  ) {
+    if (propertyResolution.value === null) return [];
+    const current = unwrapTransparentExpression(expression);
+    if (ts.isIdentifier(current)) {
+      const binding = lexicalBindingForIdentifier(current);
+      if (
+        binding.kind !== "const-alias" ||
+        binding.propertySteps.length !== 0 ||
+        seenDeclarations.has(binding.declaration)
+      ) return [];
+      const nextSeen = new Set(seenDeclarations);
+      nextSeen.add(binding.declaration);
+      return selectBoundedCapabilityValueExpressions(
+        binding.initializer,
+        propertyResolution,
+        nextSeen
+      );
+    }
+    if (ts.isPropertyAccessExpression(current) || ts.isElementAccessExpression(current)) {
+      const innerProperty = memberNameResolution(current, seenDeclarations);
+      const innerValues = selectBoundedCapabilityValueExpressions(
+        current.expression,
+        innerProperty,
+        seenDeclarations
+      );
+      return innerValues.flatMap((value) =>
+        selectBoundedCapabilityValueExpressions(value, propertyResolution, seenDeclarations)
+      );
+    }
+    if (ts.isObjectLiteralExpression(current)) {
+      const selected = [];
+      for (const property of current.properties) {
+        if (ts.isSpreadAssignment(property) || !property.name) continue;
+        const candidateName = propertyNameResolution(property.name, seenDeclarations);
+        if (candidateName.value !== propertyResolution.value) continue;
+        if (ts.isPropertyAssignment(property)) selected.push(property.initializer);
+        else if (ts.isShorthandPropertyAssignment(property)) selected.push(property.name);
+      }
+      return selected;
+    }
+    if (ts.isArrayLiteralExpression(current) && /^\d+$/u.test(propertyResolution.value)) {
+      const element = current.elements[Number(propertyResolution.value)];
+      return element && !ts.isOmittedExpression(element) && !ts.isSpreadElement(element)
+        ? [element]
+        : [];
+    }
+    if (
+      ts.isBinaryExpression(current) &&
+      current.operatorToken.kind === ts.SyntaxKind.CommaToken
+    ) {
+      return selectBoundedCapabilityValueExpressions(
+        current.right,
+        propertyResolution,
+        seenDeclarations
+      );
+    }
+    if (ts.isConditionalExpression(current)) {
+      return [
+        ...selectBoundedCapabilityValueExpressions(current.whenTrue, propertyResolution, seenDeclarations),
+        ...selectBoundedCapabilityValueExpressions(current.whenFalse, propertyResolution, seenDeclarations)
+      ];
+    }
+    if (
+      ts.isBinaryExpression(current) &&
+      [
+        ts.SyntaxKind.QuestionQuestionToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.AmpersandAmpersandToken
+      ].includes(current.operatorToken.kind)
+    ) {
+      return [
+        ...selectBoundedCapabilityValueExpressions(current.left, propertyResolution, seenDeclarations),
+        ...selectBoundedCapabilityValueExpressions(current.right, propertyResolution, seenDeclarations)
+      ];
+    }
+    return [];
+  }
+  function resolveBoundedContainerMemberCapability(
+    expression,
+    propertyResolution,
+    seenDeclarations = new Set()
+  ) {
     const current = unwrapTransparentExpression(expression);
     if (
       ts.isBinaryExpression(current) &&
       current.operatorToken.kind === ts.SyntaxKind.CommaToken
-    ) return indirectEvaluationTarget(current.right);
+    ) {
+      return resolveBoundedContainerMemberCapability(
+        current.right,
+        propertyResolution,
+        seenDeclarations
+      );
+    }
     if (
-      ts.isIdentifier(current) &&
-      ["eval", "Function"].includes(current.text) &&
-      !identifierIsLexicallyShadowed(current, current.text)
-    ) return current.text;
-    return null;
+      ts.isBinaryExpression(current) &&
+      [
+        ts.SyntaxKind.QuestionQuestionToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.AmpersandAmpersandToken
+      ].includes(current.operatorToken.kind)
+    ) {
+      return mergeBrowserCapabilityAlternatives(
+        resolveBoundedContainerMemberCapability(current.left, propertyResolution, seenDeclarations),
+        resolveBoundedContainerMemberCapability(current.right, propertyResolution, seenDeclarations)
+      );
+    }
+    if (ts.isConditionalExpression(current)) {
+      return mergeBrowserCapabilityAlternatives(
+        resolveBoundedContainerMemberCapability(current.whenTrue, propertyResolution, seenDeclarations),
+        resolveBoundedContainerMemberCapability(current.whenFalse, propertyResolution, seenDeclarations)
+      );
+    }
+    if (ts.isPropertyAccessExpression(current) || ts.isElementAccessExpression(current)) {
+      const innerProperty = memberNameResolution(current, seenDeclarations);
+      const innerValues = selectBoundedCapabilityValueExpressions(
+        current.expression,
+        innerProperty,
+        seenDeclarations
+      );
+      let merged = null;
+      for (const value of innerValues) {
+        const resolved = resolveBoundedContainerMemberCapability(
+          value,
+          propertyResolution,
+          seenDeclarations
+        );
+        merged = merged === null
+          ? resolved
+          : mergeBrowserCapabilityAlternatives(merged, resolved);
+      }
+      if (merged !== null) return merged;
+    }
+    if (ts.isIdentifier(current)) {
+      const binding = lexicalBindingForIdentifier(current);
+      if (binding.kind === "bounded-for-of-alias") {
+        if (seenDeclarations.has(binding.declaration)) {
+          return { canonical: null, dynamicMember: false };
+        }
+        const nextSeen = new Set(seenDeclarations);
+        nextSeen.add(binding.declaration);
+        const collection = unwrapTransparentExpression(binding.collection);
+        if (!ts.isArrayLiteralExpression(collection)) return { canonical: null, dynamicMember: false };
+        let merged = null;
+        for (const element of collection.elements) {
+          if (ts.isSpreadElement(element)) return { canonical: null, dynamicMember: false };
+          const resolved = ts.isOmittedExpression(element)
+            ? { canonical: null, dynamicMember: false }
+            : resolveBoundedContainerMemberCapability(element, propertyResolution, nextSeen);
+          merged = merged === null
+            ? resolved
+            : mergeBrowserCapabilityAlternatives(merged, resolved);
+        }
+        return merged ?? { canonical: null, dynamicMember: false };
+      }
+      if (binding.kind === "shadow") return { canonical: null, dynamicMember: false };
+      if (
+        binding.kind === "const-alias" &&
+        binding.propertySteps.length === 0 &&
+        !seenDeclarations.has(binding.declaration)
+      ) {
+        const nextSeen = new Set(seenDeclarations);
+        nextSeen.add(binding.declaration);
+        return resolveBoundedContainerMemberCapability(
+          binding.initializer,
+          propertyResolution,
+          nextSeen
+        );
+      }
+    }
+    if (ts.isObjectLiteralExpression(current)) {
+      let merged = null;
+      for (const property of current.properties) {
+        if (ts.isSpreadAssignment(property)) continue;
+        const name = property.name;
+        if (!name) continue;
+        const candidateName = propertyNameResolution(name, seenDeclarations);
+        if (candidateName.value !== propertyResolution.value) continue;
+        let resolved = { canonical: null, dynamicMember: false };
+        if (ts.isPropertyAssignment(property)) {
+          resolved = resolveBrowserCapability(property.initializer, seenDeclarations);
+        } else if (ts.isShorthandPropertyAssignment(property)) {
+          resolved = resolveBrowserCapability(property.name, seenDeclarations);
+        }
+        merged = merged === null
+          ? resolved
+          : mergeBrowserCapabilityAlternatives(merged, resolved);
+      }
+      return merged ?? { canonical: null, dynamicMember: false };
+    }
+    if (ts.isArrayLiteralExpression(current)) {
+      if (!/^\d+$/u.test(propertyResolution.value)) return { canonical: null, dynamicMember: false };
+      const index = Number(propertyResolution.value);
+      const element = current.elements[index];
+      if (!element || ts.isOmittedExpression(element) || ts.isSpreadElement(element)) {
+        return { canonical: null, dynamicMember: false };
+      }
+      return resolveBrowserCapability(element, seenDeclarations);
+    }
+    const currentCapability = resolveBrowserCapability(current, seenDeclarations);
+    if (
+      currentCapability.canonical === RUNTIME_CONSTRUCTOR_DESCRIPTOR &&
+      propertyResolution.value === "value"
+    ) return constructorCapability();
+    if (
+      currentCapability.canonical === RUNTIME_PROPERTY_DESCRIPTORS &&
+      propertyResolution.value === "constructor"
+    ) return descriptorCapability();
+    if (propertyResolution.constructorPossible) return constructorCapability();
+    if (currentCapability.dynamicMember) return currentCapability;
+    if (propertyResolution.value === null) {
+      const recognizedBase = BROWSER_GLOBAL_ROOTS.has(currentCapability.canonical) ||
+        BROWSER_REFLECT_ROOTS.has(currentCapability.canonical);
+      return {
+        canonical: null,
+        dynamicMember: recognizedBase,
+        dynamicBase: recognizedBase ? currentCapability.canonical : null
+      };
+    }
+    return {
+      canonical: currentCapability.canonical === null
+        ? null
+        : joinBrowserCapability(currentCapability.canonical, propertyResolution.value),
+      dynamicMember: false
+    };
+  }
+  function resolveBoundedPropertyPathCapability(
+    expression,
+    propertySteps,
+    seenDeclarations
+  ) {
+    if (propertySteps.length === 0) {
+      return resolveBrowserCapability(expression, seenDeclarations);
+    }
+    const [step, ...remaining] = propertySteps;
+    const propertyResolution = step.propertyExpression === null
+      ? exactStaticKey(step.propertyName)
+      : resolveStaticPropertyKey(step.propertyExpression, seenDeclarations);
+    if (remaining.length === 0) {
+      return resolveBoundedContainerMemberCapability(
+        expression,
+        propertyResolution,
+        seenDeclarations
+      );
+    }
+    const selected = selectBoundedCapabilityValueExpressions(
+      expression,
+      propertyResolution,
+      seenDeclarations
+    );
+    let merged = null;
+    for (const value of selected) {
+      const resolved = resolveBoundedPropertyPathCapability(
+        value,
+        remaining,
+        seenDeclarations
+      );
+      merged = merged === null
+        ? resolved
+        : mergeBrowserCapabilityAlternatives(merged, resolved);
+    }
+    if (merged !== null) return merged;
+    let capability = resolveBoundedContainerMemberCapability(
+      expression,
+      propertyResolution,
+      seenDeclarations
+    );
+    for (const remainingStep of remaining) {
+      const remainingProperty = remainingStep.propertyExpression === null
+        ? exactStaticKey(remainingStep.propertyName)
+        : resolveStaticPropertyKey(remainingStep.propertyExpression, seenDeclarations);
+      if (
+        capability.canonical === RUNTIME_PROPERTY_DESCRIPTORS &&
+        remainingProperty.value === "constructor"
+      ) capability = descriptorCapability();
+      else if (
+        capability.canonical === RUNTIME_CONSTRUCTOR_DESCRIPTOR &&
+        remainingProperty.value === "value"
+      ) capability = constructorCapability();
+      else if (remainingProperty.constructorPossible) capability = constructorCapability();
+      else if (capability.dynamicMember || remainingProperty.value === null) {
+        return capability.dynamicMember
+          ? capability
+          : { canonical: null, dynamicMember: false };
+      } else {
+        capability = {
+          canonical: capability.canonical === null
+            ? null
+            : joinBrowserCapability(capability.canonical, remainingProperty.value),
+          dynamicMember: false
+        };
+      }
+    }
+    return capability;
+  }
+  const resolveBoundedForOfCapability = (collection, seenDeclarations) => {
+    const current = unwrapTransparentExpression(collection);
+    if (ts.isArrayLiteralExpression(current)) {
+      let merged = null;
+      for (const element of current.elements) {
+        if (ts.isSpreadElement(element)) return { canonical: null, dynamicMember: false };
+        const resolved = ts.isOmittedExpression(element)
+          ? { canonical: null, dynamicMember: false }
+          : resolveBrowserCapability(element, seenDeclarations);
+        merged = merged === null
+          ? resolved
+          : mergeBrowserCapabilityAlternatives(merged, resolved);
+      }
+      return merged ?? { canonical: null, dynamicMember: false };
+    }
+    if (ts.isConditionalExpression(current)) {
+      return mergeBrowserCapabilityAlternatives(
+        resolveBoundedForOfCapability(current.whenTrue, seenDeclarations),
+        resolveBoundedForOfCapability(current.whenFalse, seenDeclarations)
+      );
+    }
+    if (
+      ts.isBinaryExpression(current) &&
+      [
+        ts.SyntaxKind.QuestionQuestionToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.AmpersandAmpersandToken
+      ].includes(current.operatorToken.kind)
+    ) {
+      return mergeBrowserCapabilityAlternatives(
+        resolveBoundedForOfCapability(current.left, seenDeclarations),
+        resolveBoundedForOfCapability(current.right, seenDeclarations)
+      );
+    }
+    return { canonical: null, dynamicMember: false };
+  };
+  const browserCapabilityCache = new WeakMap();
+  const resolveBrowserCapability = (expression, seenDeclarations = new Set()) => {
+    const current = unwrapTransparentExpression(expression);
+    if (seenDeclarations.size === 0) {
+      const cached = browserCapabilityCache.get(current);
+      if (cached !== undefined) return cached;
+      const resolved = resolveBrowserCapabilityUncached(current, seenDeclarations);
+      browserCapabilityCache.set(current, resolved);
+      return resolved;
+    }
+    return resolveBrowserCapabilityUncached(current, seenDeclarations);
+  };
+  const resolveBrowserCapabilityUncached = (current, seenDeclarations) => {
+    if (
+      ts.isBinaryExpression(current) &&
+      current.operatorToken.kind === ts.SyntaxKind.CommaToken
+    ) return resolveBrowserCapability(current.right, seenDeclarations);
+    if (
+      ts.isBinaryExpression(current) &&
+      [
+        ts.SyntaxKind.QuestionQuestionToken,
+        ts.SyntaxKind.BarBarToken,
+        ts.SyntaxKind.AmpersandAmpersandToken
+      ].includes(current.operatorToken.kind)
+    ) {
+      return mergeBrowserCapabilityAlternatives(
+        resolveBrowserCapability(current.left, seenDeclarations),
+        resolveBrowserCapability(current.right, seenDeclarations)
+      );
+    }
+    if (ts.isConditionalExpression(current)) {
+      return mergeBrowserCapabilityAlternatives(
+        resolveBrowserCapability(current.whenTrue, seenDeclarations),
+        resolveBrowserCapability(current.whenFalse, seenDeclarations)
+      );
+    }
+    if (ts.isCallExpression(current)) {
+      if (
+        ts.isPropertyAccessExpression(current.expression) ||
+        ts.isElementAccessExpression(current.expression)
+      ) {
+        const calleeName = memberNameResolution(current.expression, seenDeclarations);
+        const calleeBase = resolveBrowserCapability(
+          current.expression.expression,
+          seenDeclarations
+        );
+        if (
+          GLOBAL_OBJECT_ROOTS.has(calleeBase.canonical) &&
+          calleeName.value === "getOwnPropertyDescriptor" &&
+          current.arguments.length >= 2
+        ) {
+          const descriptorKey = resolveStaticPropertyKey(
+            current.arguments[1],
+            seenDeclarations
+          );
+          if (descriptorKey.constructorPossible) return descriptorCapability();
+        }
+        if (
+          GLOBAL_OBJECT_ROOTS.has(calleeBase.canonical) &&
+          calleeName.value === "getOwnPropertyDescriptors" &&
+          current.arguments.length >= 1
+        ) return propertyDescriptorsCapability();
+        if (
+          BROWSER_REFLECT_ROOTS.has(calleeBase.canonical) &&
+          calleeName.value === "get" &&
+          current.arguments.length >= 2 &&
+          resolveStaticPropertyKey(current.arguments[1], seenDeclarations).constructorPossible
+        ) return constructorCapability();
+        if (
+          BROWSER_REFLECT_ROOTS.has(calleeBase.canonical) &&
+          calleeName.value === "getOwnPropertyDescriptor" &&
+          current.arguments.length >= 2 &&
+          resolveStaticPropertyKey(current.arguments[1], seenDeclarations).constructorPossible
+        ) return descriptorCapability();
+      }
+      const called = resolveBrowserCapability(current.expression, seenDeclarations);
+      if (
+        typeof called.canonical === "string" &&
+        called.canonical.endsWith(".bind") &&
+        [...GLOBAL_FUNCTION_CONSTRUCTORS].some((constructor) =>
+          called.canonical === `${constructor}.bind`
+        )
+      ) return constructorCapability();
+      return { canonical: null, dynamicMember: false };
+    }
+    if (ts.isIdentifier(current)) {
+      const binding = lexicalBindingForIdentifier(current);
+      if (binding.kind === "shadow") return { canonical: null, dynamicMember: false };
+      if (binding.kind === "bounded-for-of-alias") {
+        if (seenDeclarations.has(binding.declaration)) {
+          return { canonical: null, dynamicMember: false };
+        }
+        const nextSeen = new Set(seenDeclarations);
+        nextSeen.add(binding.declaration);
+        return resolveBoundedForOfCapability(binding.collection, nextSeen);
+      }
+      if (binding.kind === "const-alias") {
+        if (seenDeclarations.has(binding.declaration)) {
+          return { canonical: null, dynamicMember: false };
+        }
+        const nextSeen = new Set(seenDeclarations);
+        nextSeen.add(binding.declaration);
+        if (binding.propertySteps.length > 0) {
+          return resolveBoundedPropertyPathCapability(
+            binding.initializer,
+            binding.propertySteps,
+            nextSeen
+          );
+        }
+        return resolveBrowserCapability(binding.initializer, nextSeen);
+      }
+      const globals = new Map([
+        ["globalThis", "global.globalThis"],
+        ["window", "global.window"],
+        ["self", "global.self"],
+        ["global", "global.global"],
+        ["Reflect", "global.Reflect"],
+        ["Worker", "global.Worker"],
+        ["SharedWorker", "global.SharedWorker"],
+        ["eval", "global.eval"],
+        ["Function", "global.Function"],
+        ["Object", "global.Object"]
+      ]);
+      return {
+        canonical: binding.kind === "global" ? globals.get(current.text) ?? null : null,
+        dynamicMember: false
+      };
+    }
+    if (ts.isPropertyAccessExpression(current) || ts.isElementAccessExpression(current)) {
+      const propertyResolution = memberNameResolution(current, seenDeclarations);
+      const contained = resolveBoundedContainerMemberCapability(
+        current.expression,
+        propertyResolution,
+        seenDeclarations
+      );
+      if (isRecognizedBrowserCapability(contained)) return contained;
+      const base = resolveBrowserCapability(current.expression, seenDeclarations);
+      if (
+        base.canonical === RUNTIME_PROPERTY_DESCRIPTORS &&
+        propertyResolution.value === "constructor"
+      ) return descriptorCapability();
+      if (propertyResolution.constructorPossible) return constructorCapability();
+      if (
+        base.canonical === RUNTIME_CONSTRUCTOR_DESCRIPTOR &&
+        propertyResolution.value === "value"
+      ) return constructorCapability();
+      if (base.dynamicMember) return base;
+      if (propertyResolution.value === null) {
+        const recognizedBase = BROWSER_GLOBAL_ROOTS.has(base.canonical) ||
+          BROWSER_REFLECT_ROOTS.has(base.canonical);
+        return {
+          canonical: null,
+          dynamicMember: recognizedBase,
+          dynamicBase: recognizedBase ? base.canonical : null
+        };
+      }
+      return {
+        canonical: base.canonical === null
+          ? null
+          : joinBrowserCapability(base.canonical, propertyResolution.value),
+        dynamicMember: false
+      };
+    }
+    return { canonical: null, dynamicMember: false };
   };
   const visit = (node) => {
     if (ts.isCallExpression(node)) {
@@ -4777,6 +6098,14 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
           !(ts.isIdentifier(node.expression) && node.expression.text === "require")
         ) {
           pushZeroBaseline("indirect-require", node, canonical);
+        } else if (canonical === "commonjs.require.resolve") {
+          pushZeroBaseline("require-resolve", node, canonical);
+        } else if (canonical === "commonjs.require.context") {
+          pushZeroBaseline("require-context", node, canonical);
+        } else if (canonical === "commonjs.module.require") {
+          pushZeroBaseline("module-require", node, canonical);
+        } else if (canonical === "node.process.getBuiltinModule") {
+          pushZeroBaseline("process-get-builtin-module", node, canonical);
         } else if (
           (canonical.startsWith("commonjs.require.") &&
             canonical !== "commonjs.require.resolve" &&
@@ -4792,27 +6121,49 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
           pushZeroBaseline("child-process-execution", node, canonical);
         } else if (canonical.startsWith("node:worker_threads.")) {
           pushZeroBaseline("worker-thread-loader", node, canonical);
-        } else if (canonical === "global.eval") {
-          pushZeroBaseline("indirect-code-evaluation", node, canonical);
+        }
+      }
+
+      const browserCall = resolveBrowserCapability(node.expression);
+      if (browserCall.dynamicMember) {
+        pushZeroBaseline("element-access-loader", node, "browser-global[?]");
+      } else if (GLOBAL_EVALUATORS.has(browserCall.canonical)) {
+        pushZeroBaseline("indirect-code-evaluation", node, browserCall.canonical);
+      } else if (GLOBAL_FUNCTION_CONSTRUCTORS.has(browserCall.canonical)) {
+        pushZeroBaseline("function-constructor", node, browserCall.canonical);
+      } else if (
+        typeof browserCall.canonical === "string" &&
+        [...GLOBAL_FUNCTION_CONSTRUCTORS].some((constructor) =>
+          browserCall.canonical === `${constructor}.call` ||
+          browserCall.canonical === `${constructor}.apply`
+        )
+      ) {
+        pushZeroBaseline("function-constructor", node, browserCall.canonical);
+      } else if (BROWSER_REFLECT_APPLIERS.has(browserCall.canonical) && node.arguments.length > 0) {
+        const applied = resolveBrowserCapability(node.arguments[0]);
+        const appliedCanonical = canonicalForExpression(node.arguments[0]);
+        if (applied.dynamicMember) {
+          pushZeroBaseline("element-access-loader", node, browserCall.canonical);
+        } else if (GLOBAL_EVALUATORS.has(applied.canonical)) {
+          pushZeroBaseline("indirect-code-evaluation", node, browserCall.canonical);
+        } else if (GLOBAL_FUNCTION_CONSTRUCTORS.has(applied.canonical)) {
+          pushZeroBaseline("function-constructor", node, browserCall.canonical);
         } else if (
-          canonical === "global.Function" ||
-          canonical === "global.globalThis.Function" ||
-          canonical === "global.window.Function"
+          appliedCanonical === "commonjs.require" ||
+          appliedCanonical === "node:module.require-instance"
         ) {
-          pushZeroBaseline("function-constructor", node, canonical);
-        } else if (canonical === "global.Reflect.apply" && node.arguments.length > 0) {
-          const applied = canonicalForExpression(node.arguments[0]);
-          if (applied === "commonjs.require" || applied === "node:module.require-instance") {
-            pushZeroBaseline("indirect-require", node, canonical);
-          } else if (applied === "global.eval") {
-            pushZeroBaseline("indirect-code-evaluation", node, canonical);
-          } else if (
-            applied === "global.Function" ||
-            applied === "global.globalThis.Function" ||
-            applied === "global.window.Function"
-          ) {
-            pushZeroBaseline("function-constructor", node, canonical);
-          }
+          pushZeroBaseline("indirect-require", node, browserCall.canonical);
+        }
+      } else if (BROWSER_REFLECT_CONSTRUCTORS.has(browserCall.canonical) && node.arguments.length > 0) {
+        const constructed = resolveBrowserCapability(node.arguments[0]);
+        if (constructed.dynamicMember) {
+          pushZeroBaseline("element-access-loader", node, browserCall.canonical);
+        } else if (BROWSER_WORKER_CONSTRUCTORS.has(constructed.canonical)) {
+          pushZeroBaseline("worker-loader", node, browserCall.canonical);
+        } else if (GLOBAL_FUNCTION_CONSTRUCTORS.has(constructed.canonical)) {
+          pushZeroBaseline("function-constructor", node, browserCall.canonical);
+        } else if (canonicalForExpression(node.arguments[0]) === "node:worker_threads.Worker") {
+          pushZeroBaseline("worker-thread-loader", node, browserCall.canonical);
         }
       }
 
@@ -4831,29 +6182,6 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
       }
 
       if (
-        ts.isPropertyAccessExpression(node.expression) &&
-        ts.isIdentifier(node.expression.expression) &&
-        node.expression.expression.text === "require" &&
-        !identifierIsLexicallyShadowed(node.expression.expression, "require")
-      ) {
-        if (node.expression.name.text === "resolve") pushZeroBaseline("require-resolve", node, "require.resolve");
-        if (node.expression.name.text === "context") pushZeroBaseline("require-context", node, "require.context");
-      }
-      if (
-        (ts.isPropertyAccessExpression(node.expression) || ts.isElementAccessExpression(node.expression)) &&
-        ts.isIdentifier(node.expression.expression) &&
-        node.expression.expression.text === "module" &&
-        !identifierIsLexicallyShadowed(node.expression.expression, "module")
-      ) {
-        const propertyName = ts.isPropertyAccessExpression(node.expression)
-          ? node.expression.name.text
-          : node.expression.argumentExpression
-            ? exactModuleString(node.expression.argumentExpression)
-            : null;
-        if (propertyName === "require") pushZeroBaseline("module-require", node, "module.require");
-        else if (propertyName === null) pushZeroBaseline("element-access-loader", node, "module[?]");
-      }
-      if (
         ts.isElementAccessExpression(node.expression) &&
         ts.isIdentifier(node.expression.expression) &&
         node.expression.expression.text === "require" &&
@@ -4862,43 +6190,22 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
         const propertyName = node.expression.argumentExpression
           ? exactModuleString(node.expression.argumentExpression)
           : null;
-        if (propertyName === "resolve") pushZeroBaseline("require-resolve", node, "require.resolve");
-        else if (propertyName === "context") pushZeroBaseline("require-context", node, "require.context");
-        else pushZeroBaseline("element-access-loader", node, "require[?]");
+        if (propertyName === null) pushZeroBaseline("element-access-loader", node, "require[?]");
       }
       if (
-        ts.isPropertyAccessExpression(node.expression) &&
+        ts.isElementAccessExpression(node.expression) &&
         ts.isIdentifier(node.expression.expression) &&
-        node.expression.expression.text === "process" &&
-        !identifierIsLexicallyShadowed(node.expression.expression, "process") &&
-        node.expression.name.text === "getBuiltinModule"
-      ) {
-        pushZeroBaseline("process-get-builtin-module", node, "process.getBuiltinModule");
-      }
-      if (
-        ts.isIdentifier(node.expression) &&
-        node.expression.text === "eval" &&
-        !identifierIsLexicallyShadowed(node.expression, "eval")
-      ) {
-        pushZeroBaseline("indirect-code-evaluation", node, "eval");
-      }
-      if (
-        ts.isIdentifier(node.expression) &&
-        node.expression.text === "Function" &&
-        !identifierIsLexicallyShadowed(node.expression, "Function")
-      ) {
-        pushZeroBaseline("function-constructor", node, "Function");
-      }
-      const indirectTarget = indirectEvaluationTarget(node.expression);
-      if (
-        indirectTarget !== null &&
-        !(ts.isIdentifier(node.expression) && node.expression.text === indirectTarget) &&
-        !["global.eval", "global.Function"].includes(canonical)
+        ["module", "process"].includes(node.expression.expression.text) &&
+        !identifierIsLexicallyShadowed(
+          node.expression.expression,
+          node.expression.expression.text
+        ) &&
+        (!node.expression.argumentExpression || exactModuleString(node.expression.argumentExpression) === null)
       ) {
         pushZeroBaseline(
-          indirectTarget === "eval" ? "indirect-code-evaluation" : "function-constructor",
+          "element-access-loader",
           node,
-          `indirect-${indirectTarget}`
+          `${node.expression.expression.text}[?]`
         );
       }
       if (
@@ -4907,37 +6214,6 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
         !identifierIsLexicallyShadowed(node.expression, "__non_webpack_require__")
       ) {
         pushZeroBaseline("webpack-require-escape", node, "__non_webpack_require__");
-      }
-      if (
-        ts.isPropertyAccessExpression(node.expression) &&
-        ts.isIdentifier(node.expression.expression) &&
-        ["globalThis", "window"].includes(node.expression.expression.text) &&
-        ["eval", "Function"].includes(node.expression.name.text)
-      ) {
-        pushZeroBaseline(
-          node.expression.name.text === "eval" ? "indirect-code-evaluation" : "function-constructor",
-          node,
-          `${node.expression.expression.text}.${node.expression.name.text}`
-        );
-      }
-      if (
-        ts.isElementAccessExpression(node.expression) &&
-        ts.isIdentifier(node.expression.expression) &&
-        ["globalThis", "window"].includes(node.expression.expression.text) &&
-        !identifierIsLexicallyShadowed(node.expression.expression, node.expression.expression.text)
-      ) {
-        const propertyName = node.expression.argumentExpression
-          ? exactModuleString(node.expression.argumentExpression)
-          : null;
-        if (propertyName === "eval" || propertyName === "Function") {
-          pushZeroBaseline(
-            propertyName === "eval" ? "indirect-code-evaluation" : "function-constructor",
-            node,
-            `${node.expression.expression.text}[${propertyName}]`
-          );
-        } else {
-          pushZeroBaseline("element-access-loader", node, `${node.expression.expression.text}[?]`);
-        }
       }
       if (
         ts.isElementAccessExpression(node.expression) &&
@@ -4964,16 +6240,16 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
       const specifier = exactModuleString(node.arguments[0]);
       if (specifier === null) pushZeroBaseline("import-meta-url-nonliteral", node, "new URL");
       else importMetaUrlReferences.push(specifier);
-    } else if (
-      ts.isNewExpression(node) &&
-      ts.isIdentifier(node.expression) &&
-      node.expression.text === "Function" &&
-      !identifierIsShadowedBelowSource(node.expression, "Function")
-    ) {
-      pushZeroBaseline("function-constructor", node, "new Function");
     } else if (ts.isNewExpression(node)) {
+      const browserConstructor = resolveBrowserCapability(node.expression);
       const canonical = canonicalForExpression(node.expression);
-      if (
+      if (browserConstructor.dynamicMember) {
+        pushZeroBaseline("element-access-loader", node, "browser-global[?]");
+      } else if (BROWSER_WORKER_CONSTRUCTORS.has(browserConstructor.canonical)) {
+        pushZeroBaseline("worker-loader", node, browserConstructor.canonical);
+      } else if (GLOBAL_FUNCTION_CONSTRUCTORS.has(browserConstructor.canonical)) {
+        pushZeroBaseline("function-constructor", node, browserConstructor.canonical);
+      } else if (
         canonical === "global.Function" ||
         canonical === "global.globalThis.Function" ||
         canonical === "global.window.Function"
@@ -4982,12 +6258,13 @@ export function analyzeRuntimeLoaderCalls(filePath, source) {
         pushZeroBaseline("worker-thread-loader", node, canonical);
       } else if (canonical?.startsWith("node:vm.")) {
         pushZeroBaseline("node-vm-evaluation", node, canonical);
-      } else if (
-        ts.isIdentifier(node.expression) &&
-        ["Worker", "SharedWorker"].includes(node.expression.text) &&
-        !identifierIsShadowedBelowSource(node.expression, node.expression.text)
-      ) {
-        pushZeroBaseline("worker-loader", node, node.expression.text);
+      }
+    } else if (ts.isTaggedTemplateExpression(node)) {
+      const tagCapability = resolveBrowserCapability(node.tag);
+      if (tagCapability.dynamicMember) {
+        pushZeroBaseline("element-access-loader", node, "runtime-constructor[?]");
+      } else if (GLOBAL_FUNCTION_CONSTRUCTORS.has(tagCapability.canonical)) {
+        pushZeroBaseline("function-constructor", node, tagCapability.canonical);
       }
     }
     ts.forEachChild(node, visit);

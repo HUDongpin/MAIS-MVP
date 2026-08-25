@@ -2981,6 +2981,31 @@ test("bounded loader analysis conservatively blocks Node and CommonJS capability
   }
 });
 
+test("bounded loader analysis classifies terminal CommonJS and process const aliases", () => {
+  const probes = [
+    [
+      "type require = { resolve(value: string): string }; const resolver = require; resolver.resolve(moduleName);",
+      "require-resolve"
+    ],
+    [
+      "declare const require: { context(value: string): unknown }; const loader = require; loader.context(moduleName);",
+      "require-context"
+    ],
+    [
+      "type module = { require(value: string): unknown }; const commonjs = module; commonjs.require(moduleName);",
+      "module-require"
+    ],
+    [
+      "declare const process: { getBuiltinModule(value: string): unknown }; const runtime = process; runtime.getBuiltinModule(moduleName);",
+      "process-get-builtin-module"
+    ]
+  ];
+  for (const [index, [source, expectedKind]] of probes.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/terminal-capability-alias-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), [expectedKind], source);
+  }
+});
+
 test("bounded loader analysis blocks child processes, workers, and VM module evaluation", () => {
   const probes = [
     "import { execFileSync } from 'node:child_process'; execFileSync('/bin/cat', [candidatePath]);",
@@ -2993,6 +3018,483 @@ test("bounded loader analysis blocks child processes, workers, and VM module eva
   for (const [index, source] of probes.entries()) {
     const result = gateLib.analyzeRuntimeLoaderCalls(`lib/execution-capability-${index}.ts`, source);
     assert.equal(result.zeroBaselineCalls.length > 0, true, source);
+  }
+});
+
+test("bounded loader analysis blocks executed constructor acquisitions without flagging passive metadata reads", () => {
+  const probes = [
+    "const constructorKey='constructor'; const {[constructorKey]: HiddenFunction}=(()=>{}); HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const {[constructorKey]: AsyncFunction}=Object.getPrototypeOf(async function(){}); AsyncFunction('return process')();",
+    "function carrier(){} const constructorKey='constructor'; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "async function carrier(){} const constructorKey='constructor'; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "class Carrier{} const constructorKey='constructor'; const HiddenFunction=Carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const HiddenFunction=(0,()=>{})[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const HiddenFunction=(ready?()=>{}:()=>{})[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const carrier=ready?()=>{}:()=>{}; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; for(const carrier of [()=>{}]){const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();}",
+    "const constructorKey='con'+'structor'; const HiddenFunction=path.join[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey=ready?'constructor':'name'; const HiddenFunction=path.join[constructorKey]; HiddenFunction('return process')();",
+    "const constructors=[(()=>{}).constructor]; constructors[0]('return process')();",
+    "const carriers={HiddenFunction:(()=>{}).constructor}; carriers.HiddenFunction('return process')();",
+    "const carriers={HiddenFunction:(()=>{}).constructor}; const {HiddenFunction}=carriers; HiddenFunction('return process')();",
+    "const constructors=[(()=>{}).constructor]; const [HiddenFunction]=constructors; HiddenFunction('return process')();",
+    "for(const HiddenFunction of [(()=>{}).constructor]){HiddenFunction('return process')();}",
+    "const constructorKey='constructor'; const descriptor=Object.getOwnPropertyDescriptor(()=>{},constructorKey); descriptor.value('return process')();",
+    "const constructorKey='constructor'; const descriptors=Object.getOwnPropertyDescriptors(()=>{}); descriptors[constructorKey].value('return process')();",
+    "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction.call(null,'return process')();",
+    "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction.apply(null,['return process'])();",
+    "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; const BoundFunction=HiddenFunction.bind(null); BoundFunction('return process')();",
+    "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction`return process`();",
+    "const constructorKey='constructor'; const carrier=ready&&(()=>{}); const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const carrier=ready||(()=>{}); const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const carrier=[()=>{}][0]; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const carrier={value:()=>{}}.value; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const {value:carrier}={value:()=>{}}; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const {value:HiddenFunction}=Object.getOwnPropertyDescriptor(()=>{},constructorKey); HiddenFunction('return process')();",
+    "const keys=['constructor']; const constructorKey=keys[0]; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction('return process')();",
+    "const keys={danger:'constructor'}; const constructorKey=keys.danger; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const {[constructorKey]:{value:HiddenFunction}}=Object.getOwnPropertyDescriptors(()=>{}); HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const {value:{nested:HiddenFunction}}={value:{nested:(()=>{})[constructorKey]}}; HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const box={nested:{HiddenFunction:(()=>{})[constructorKey]}}; box.nested.HiddenFunction('return process')();",
+    "const constructorKey='constructor'; const box=[[(()=>{})[constructorKey]]]; box[0][0]('return process')();",
+    "const constructorKey='constructor'; Reflect.get(()=>{},constructorKey)('return process')();",
+    "const constructorKey='constructor'; const {value:HiddenFunction}=Reflect.getOwnPropertyDescriptor(()=>{},constructorKey); HiddenFunction('return process')();"
+  ];
+  for (const [index, source] of probes.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/function-constructor-acquisition-${index}.ts`, source);
+    assert.deepEqual(
+      [...new Set(result.zeroBaselineCalls.map(({ kind }) => kind))],
+      ["function-constructor"],
+      source
+    );
+  }
+
+  const passiveResult = gateLib.analyzeRuntimeLoaderCalls(
+    "lib/passive-constructor-metadata.ts",
+    "const name = material.constructor.name; export { name };"
+  );
+  assert.deepEqual(passiveResult.zeroBaselineCalls, []);
+
+  const ordinaryContainerResult = gateLib.analyzeRuntimeLoaderCalls(
+    "lib/ordinary-function-container.ts",
+    "function local(value:string){return value;} const box={nested:{local}}; const {nested:{local:alias}}=box; box.nested.local(code); alias(code);"
+  );
+  assert.deepEqual(ordinaryContainerResult.zeroBaselineCalls, []);
+});
+
+test("bounded loader analysis normalizes browser Worker and SharedWorker constructor equivalents", () => {
+  const probes = [
+    "new globalThis.Worker(candidatePath);",
+    "new window.Worker(candidatePath);",
+    "new self.Worker(candidatePath);",
+    "const W = Worker; new W(candidatePath);",
+    "Reflect.construct(Worker, [candidatePath]);",
+    "new (0, Worker)(candidatePath);",
+    "new globalThis.SharedWorker(candidatePath);",
+    "new window.SharedWorker(candidatePath);",
+    "new self.SharedWorker(candidatePath);",
+    "const SW = SharedWorker; new SW(candidatePath);",
+    "Reflect.construct(SharedWorker, [candidatePath]);",
+    "new (0, SharedWorker)(candidatePath);",
+    "new (globalThis.Worker as any)(candidatePath);",
+    "new Worker!(candidatePath);",
+    "new globalThis['Worker'](candidatePath);",
+    "Reflect['construct'](Worker, [candidatePath]);",
+    "const { Worker: W } = globalThis; new W(candidatePath);",
+    "new (globalThis.SharedWorker as any)(candidatePath);",
+    "new SharedWorker!(candidatePath);",
+    "new globalThis['SharedWorker'](candidatePath);",
+    "Reflect['construct'](SharedWorker, [candidatePath]);",
+    "const { SharedWorker: SW } = globalThis; new SW(candidatePath);",
+    "function start() { const W = Worker; new W(candidatePath); } start();",
+    "{ const SW = SharedWorker; new SW(candidatePath); }",
+    "function start() { const root = globalThis; new root.Worker(candidatePath); } start();",
+    "function start() { const root = self; new root.SharedWorker(candidatePath); } start();",
+    "for (const W = Worker; ready;) { new W(candidatePath); break; }",
+    "for (const root = globalThis; ready;) { new root.Worker(candidatePath); break; }",
+    "for (const W of [globalThis.Worker]) { new W(candidatePath); break; }",
+    "for (const root of [globalThis]) { new root.Worker(candidatePath); break; }",
+    "switch (mode) { case 'start': const W = globalThis.Worker; new W(candidatePath); break; }",
+    "globalThis.Reflect.construct(Worker, [candidatePath]);",
+    "window.Reflect.construct(SharedWorker, [candidatePath]);",
+    "self.Reflect.construct(Worker, [candidatePath]);",
+    "globalThis?.Reflect?.construct(SharedWorker, [candidatePath]);",
+    "globalThis['Reflect']['construct'](Worker, [candidatePath]);",
+    "const constructWorker = Reflect.construct; constructWorker(Worker, [candidatePath]);",
+    "const { ['Worker']: W } = globalThis; new W(candidatePath);",
+    "new (globalThis?.Worker)(candidatePath);",
+    "new (self?.['SharedWorker'])(candidatePath);",
+    "async function start() { new (await Worker)(candidatePath); } start();",
+    "async function start() { const W = await Worker; new W(candidatePath); } start();",
+    "async function start() { const root = await globalThis; new root.Worker(candidatePath); } start();",
+    "async function start() { const constructWorker = await Reflect.construct; constructWorker(Worker, [candidatePath]); } start();",
+    "async function start() { Reflect.construct(await Worker, [candidatePath]); } start();",
+    "new (Worker ?? Worker)(candidatePath);",
+    "const W = Worker || Worker; new W(candidatePath);",
+    "new (Worker && Worker)(candidatePath);",
+    "const W = Worker && Worker; new W(candidatePath);",
+    "new (flag ? Worker : Worker)(candidatePath);",
+    "Reflect.construct(flag ? Worker : Worker, [candidatePath]);",
+    "const root = globalThis ?? globalThis; new root.Worker(candidatePath);"
+  ];
+  for (const [index, source] of probes.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/browser-worker-probe-${index}.ts`, source);
+    assert.deepEqual(
+      result.zeroBaselineCalls.map(({ kind }) => kind),
+      ["worker-loader"],
+      source
+    );
+  }
+});
+
+test("bounded loader analysis does not treat lexically shadowed Worker globals as browser loaders", () => {
+  const source = [
+    "type Constructor = new (url: string) => unknown;",
+    "function localOnly(",
+    "  Worker: Constructor,",
+    "  SharedWorker: Constructor,",
+    "  globalThis: { Worker: Constructor; SharedWorker: Constructor },",
+    "  window: { Worker: Constructor; SharedWorker: Constructor },",
+    "  self: { Worker: Constructor; SharedWorker: Constructor },",
+    "  Reflect: { construct: (target: Constructor, args: unknown[]) => unknown }",
+    ") {",
+    "  const W = Worker;",
+    "  const SW = SharedWorker;",
+    "  const { Worker: MemberW, SharedWorker: MemberSW } = globalThis;",
+    "  new Worker(candidatePath);",
+    "  new SharedWorker(candidatePath);",
+    "  new W(candidatePath);",
+    "  new SW(candidatePath);",
+    "  new globalThis.Worker(candidatePath);",
+    "  new globalThis.SharedWorker(candidatePath);",
+    "  new window.Worker(candidatePath);",
+    "  new window.SharedWorker(candidatePath);",
+    "  new self.Worker(candidatePath);",
+    "  new self.SharedWorker(candidatePath);",
+    "  new MemberW(candidatePath);",
+    "  new MemberSW(candidatePath);",
+    "  Reflect.construct(Worker, [candidatePath]);",
+    "  Reflect.construct(SharedWorker, [candidatePath]);",
+    "}"
+  ].join("\n");
+  const result = gateLib.analyzeRuntimeLoaderCalls("lib/local-worker-constructors.ts", source);
+  assert.deepEqual(result.zeroBaselineCalls, []);
+
+  const sourceLocalClasses = [
+    "class Worker { constructor(_url: string) {} }",
+    "class SharedWorker { constructor(_url: string) {} }",
+    "new Worker(candidatePath);",
+    "new SharedWorker(candidatePath);"
+  ].join("\n");
+  const localClassResult = gateLib.analyzeRuntimeLoaderCalls(
+    "lib/local-worker-classes.ts",
+    sourceLocalClasses
+  );
+  assert.deepEqual(localClassResult.zeroBaselineCalls, []);
+
+  const shadowedAliasSources = [
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "const W = Worker;",
+      "function localOnly(W: Constructor) { new W(candidatePath); }"
+    ].join("\n"),
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "const root = globalThis;",
+      "function localOnly(root: { Worker: Constructor }) { new root.Worker(candidatePath); }"
+    ].join("\n"),
+    [
+      "const globalThis = { Worker: class LocalWorker {} };",
+      "new globalThis.Worker(candidatePath);"
+    ].join("\n"),
+    [
+      "import Worker from './local-worker';",
+      "import { SharedWorker } from './local-shared-worker';",
+      "new Worker(candidatePath);",
+      "new SharedWorker(candidatePath);"
+    ].join("\n"),
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "function localOnly(globalThis: Record<string, Constructor>) {",
+      "  const { [workerConstructor]: W } = globalThis;",
+      "  new W(candidatePath);",
+      "}"
+    ].join("\n"),
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "function localOnly(Worker: Constructor, globalThis: { Worker: Constructor }) {",
+      "  for (const W = Worker; ready;) { new W(candidatePath); break; }",
+      "  for (const root = globalThis; ready;) { new root.Worker(candidatePath); break; }",
+      "}"
+    ].join("\n"),
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "function localOnly(",
+      "  Reflect: Record<string, (target: Constructor, args: unknown[]) => unknown>,",
+      "  Worker: Constructor",
+      ") { Reflect[method](Worker, [candidatePath]); }"
+    ].join("\n")
+  ];
+  for (const [index, shadowedSource] of shadowedAliasSources.entries()) {
+    const shadowedResult = gateLib.analyzeRuntimeLoaderCalls(
+      `lib/local-worker-shadow-${index}.ts`,
+      shadowedSource
+    );
+    assert.deepEqual(shadowedResult.zeroBaselineCalls, [], shadowedSource);
+  }
+
+  const emittedValueShadows = [
+    "const Worker = class LocalWorker {}; new Worker(candidatePath);",
+    "function SharedWorker(_url: string) {} new SharedWorker(candidatePath);",
+    "const Local = class Worker { static start() { return new Worker(candidatePath); } }; Local.start();",
+    [
+      "namespace Reflect { export function construct() { return null; } }",
+      "const Worker = class LocalWorker {};",
+      "Reflect.construct(Worker, [candidatePath]);"
+    ].join("\n"),
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "function localOnly(Worker: Constructor, globalThis: { Worker: Constructor }) {",
+      "  for (const W of [Worker]) { new W(candidatePath); break; }",
+      "  for (const root of [globalThis]) { new root.Worker(candidatePath); break; }",
+      "  switch (mode) { case 'start': const W = globalThis.Worker; new W(candidatePath); break; }",
+      "}"
+    ].join("\n"),
+    [
+      "const Worker = class LocalWorker {};",
+      "const SharedWorker = class LocalSharedWorker {};",
+      "new (Worker ?? Worker)(candidatePath);",
+      "new (SharedWorker && SharedWorker)(candidatePath);",
+      "new (flag ? Worker : SharedWorker)(candidatePath);"
+    ].join("\n"),
+    [
+      "type Constructor = new (url: string) => unknown;",
+      "async function localOnly(",
+      "  Worker: Constructor,",
+      "  globalThis: { Worker: Constructor },",
+      "  Reflect: { construct: (target: Constructor, args: unknown[]) => unknown }",
+      ") {",
+      "  new (await Worker)(candidatePath);",
+      "  const W = await Worker; new W(candidatePath);",
+      "  const root = await globalThis; new root.Worker(candidatePath);",
+      "  const constructWorker = await Reflect.construct; constructWorker(Worker, [candidatePath]);",
+      "}"
+    ].join("\n")
+  ];
+  for (const [index, shadowedSource] of emittedValueShadows.entries()) {
+    const shadowedResult = gateLib.analyzeRuntimeLoaderCalls(
+      `lib/emitted-worker-shadow-${index}.ts`,
+      shadowedSource
+    );
+    assert.deepEqual(shadowedResult.zeroBaselineCalls, [], shadowedSource);
+  }
+});
+
+test("bounded loader analysis does not confuse type-only or ambient declarations with runtime Worker shadows", () => {
+  const probes = [
+    "type Worker = new (url: string) => unknown; new Worker(candidatePath);",
+    "interface Worker { new (url: string): unknown } new Worker(candidatePath);",
+    "type SharedWorker = new (url: string) => unknown; new SharedWorker(candidatePath);",
+    "interface SharedWorker { new (url: string): unknown } new SharedWorker(candidatePath);",
+    "interface Reflect { construct: unknown } Reflect.construct(Worker, [candidatePath]);",
+    "import type Worker from './worker-types'; new Worker(candidatePath);",
+    "import { type Worker } from './worker-types'; new Worker(candidatePath);",
+    "import type { SharedWorker } from './worker-types'; new SharedWorker(candidatePath);",
+    "declare const Worker: new (url: string) => unknown; new Worker(candidatePath);",
+    "declare const SharedWorker: new (url: string) => unknown; new SharedWorker(candidatePath);",
+    "declare function Worker(url: string): unknown; new Worker(candidatePath);",
+    "declare class Worker { constructor(url: string) } new Worker(candidatePath);",
+    "declare class SharedWorker { constructor(url: string) } new SharedWorker(candidatePath);",
+    "declare enum Worker { Local } new Worker(candidatePath);",
+    "declare namespace Worker { const Local: true } new Worker(candidatePath);",
+    "declare namespace SharedWorker { const Local: true } new SharedWorker(candidatePath);",
+    "type globalThis = { Worker: new (url: string) => unknown }; new globalThis.Worker(candidatePath);",
+    "declare const Reflect: { construct: Function }; Reflect.construct(Worker, [candidatePath]);",
+    "declare namespace Reflect { function construct(target: unknown, args: unknown[]): unknown } Reflect.construct(Worker, [candidatePath]);"
+  ];
+  for (const [index, source] of probes.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/type-only-worker-probe-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), ["worker-loader"], source);
+  }
+});
+
+test("bounded loader analysis ignores erased declarations when resolving global runtime capabilities", () => {
+  const loaderProbes = [
+    ["type Function = (body: string) => unknown; Function(code);", "function-constructor"],
+    ["interface Function { (body: string): unknown } Function(code);", "function-constructor"],
+    ["declare const Function: (body: string) => unknown; Function(code);", "function-constructor"],
+    ["type Function = (body: string) => unknown; const F = Function; F(code);", "function-constructor"],
+    ["declare const Function: (body: string) => unknown; const F = Function; F(code);", "function-constructor"],
+    ["function run() { type Function = FunctionConstructor; new Function(code); }", "function-constructor"],
+    ["function run() { declare const Function: FunctionConstructor; new Function(code); }", "function-constructor"],
+    ["type eval = (body: string) => unknown; eval(code);", "indirect-code-evaluation"],
+    ["declare const eval: (body: string) => unknown; eval(code);", "indirect-code-evaluation"],
+    ["type eval = (body: string) => unknown; const E = eval; E(code);", "indirect-code-evaluation"],
+    ["declare const eval: (body: string) => unknown; const E = eval; E(code);", "indirect-code-evaluation"],
+    ["type require = { resolve(value: string): string }; require.resolve(moduleName);", "require-resolve"],
+    ["declare const module: { require(value: string): unknown }; module.require(moduleName);", "module-require"],
+    ["type module = { require(value: string): unknown }; module.require(moduleName);", "module-require"],
+    ["declare const process: { getBuiltinModule(value: string): unknown }; process.getBuiltinModule(moduleName);", "process-get-builtin-module"],
+    ["type process = { getBuiltinModule(value: string): unknown }; process.getBuiltinModule(moduleName);", "process-get-builtin-module"],
+    ["type createRequire = (url: string) => (value: string) => unknown; createRequire(import.meta.url)(moduleName);", "indirect-require"],
+    ["declare const createRequire: (url: string) => (value: string) => unknown; createRequire(import.meta.url)(moduleName);", "indirect-require"],
+    ["declare const Reflect: { apply: Function }; Reflect.apply(eval, null, [code]);", "indirect-code-evaluation"],
+    ["type Reflect = { apply: Function }; Reflect.apply(Function, null, [code]);", "function-constructor"],
+    ["self.Function(code);", "function-constructor"],
+    ["self.eval(code);", "indirect-code-evaluation"],
+    ["global.eval(code);", "indirect-code-evaluation"],
+    ["global.Function(code);", "function-constructor"],
+    ["new global.Function(code);", "function-constructor"],
+    ["Reflect.apply(globalThis.eval, null, [code]);", "indirect-code-evaluation"],
+    ["globalThis.Reflect.apply(window.Function, null, [code]);", "function-constructor"],
+    ["self.Reflect.apply(self.eval, null, [code]);", "indirect-code-evaluation"],
+    ["Reflect.construct(Function, [code]);", "function-constructor"],
+    ["globalThis.Reflect.construct(globalThis.Function, [code]);", "function-constructor"],
+    ["window.Reflect.construct(window.Function, [code]);", "function-constructor"],
+    ["self.Reflect.construct(self.Function, [code]);", "function-constructor"],
+    ["const a = self; const b = a; b.eval(code);", "indirect-code-evaluation"],
+    ["const a = self; const b = a; b.Function(code);", "function-constructor"]
+  ];
+  for (const [index, [source, expectedKind]] of loaderProbes.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/global-capability-probe-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), [expectedKind], source);
+  }
+
+  for (const [index, source] of [
+    "type require = (value: string) => unknown; require(moduleName);",
+    "declare const require: (value: string) => unknown; require(moduleName);"
+  ].entries()) {
+    const result = gateLib.analyzeRuntimeModuleReferences(`lib/erased-require-${index}.ts`, source);
+    assert.deepEqual(result.unresolvedCalls.map(({ call }) => call), ["require"], source);
+  }
+});
+
+test("bounded loader analysis preserves emitted local shadows for global runtime capabilities", () => {
+  const safeSources = [
+    [
+      "function localOnly(",
+      "  Function: (body: string) => unknown,",
+      "  eval: (body: string) => unknown,",
+      "  require: (value: string) => unknown,",
+      "  module: { require(value: string): unknown },",
+      "  process: { getBuiltinModule(value: string): unknown },",
+      "  createRequire: (url: string) => (value: string) => unknown,",
+      "  Reflect: { apply(target: unknown, receiver: unknown, args: unknown[]): unknown; construct(target: unknown, args: unknown[]): unknown },",
+      "  globalThis: { Function: (body: string) => unknown; eval(body: string): unknown },",
+      "  window: { Function: (body: string) => unknown; eval(body: string): unknown },",
+      "  self: { Function: (body: string) => unknown; eval(body: string): unknown },",
+      "  global: { Function: (body: string) => unknown; eval(body: string): unknown }",
+      ") {",
+      "  Function(code); eval(code); require(moduleName); module.require(moduleName);",
+      "  process.getBuiltinModule(moduleName); createRequire(import.meta.url)(moduleName);",
+      "  Reflect.apply(eval, null, [code]); Reflect.construct(Function, [code]);",
+      "  globalThis.Function(code); window.eval(code); self.Function(code); global.eval(code);",
+      "}"
+    ].join("\n"),
+    "const Local = function Function(body: string) { return Function(body); }; Local(code);",
+    "const Local = class Function { static make(body: string) { return new Function(body); } }; Local.make(code);",
+    "const Local = function eval(body: string) { return eval(body); }; Local(code);",
+    "const Local = class eval { static run(body: string) { return eval(body); } }; Local.run(code);"
+  ];
+  for (const [index, source] of safeSources.entries()) {
+    const loaderResult = gateLib.analyzeRuntimeLoaderCalls(`lib/local-global-capability-${index}.ts`, source);
+    const moduleResult = gateLib.analyzeRuntimeModuleReferences(`lib/local-global-capability-${index}.ts`, source);
+    assert.deepEqual(loaderResult.zeroBaselineCalls, [], source);
+    assert.deepEqual(moduleResult.unresolvedCalls, [], source);
+  }
+});
+
+test("bounded loader analysis covers Node global aliases and recursive recognized global-root chains", () => {
+  const exactWorkerSources = [
+    "new global.Worker(candidatePath);",
+    "new global.SharedWorker(candidatePath);",
+    "global.Reflect.construct(global.Worker, [candidatePath]);",
+    "new globalThis.window.Worker(candidatePath);",
+    "new window.self.SharedWorker(candidatePath);",
+    "global.globalThis.Reflect.construct(global.self.Worker, [candidatePath]);",
+    "const root = global; new root.Worker(candidatePath);",
+    "const a = global; const reflect = a.Reflect; const construct = reflect.construct; construct(a.SharedWorker, [candidatePath]);",
+    "const a = globalThis; const b = a; const { Worker: W } = b; new W(candidatePath);"
+  ];
+  for (const [index, source] of exactWorkerSources.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/global-worker-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), ["worker-loader"], source);
+  }
+
+  for (const [index, source] of [
+    "new global[operation](candidatePath);",
+    "new globalThis.window[operation](candidatePath);",
+    "const a = global; const b = a; new b[operation](candidatePath);"
+  ].entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/global-dynamic-worker-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), ["element-access-loader"], source);
+  }
+
+  for (const [index, source] of [
+    "function localOnly(global: { Worker: new (url: string) => unknown }) { new global.Worker(candidatePath); }",
+    "function localOnly(globalThis: { window: { Worker: new (url: string) => unknown } }) { new globalThis.window.Worker(candidatePath); }",
+    "function localOnly(global: { Worker: new (url: string) => unknown; eval(body: string): unknown; Function(body: string): unknown }) { new global.Worker(candidatePath); global.eval(code); global.Function(code); }",
+    "const global = { Worker: class LocalWorker {}, eval() {}, Function() {} }; new global.Worker(candidatePath); global.eval(code); global.Function(code);",
+    "function localOnly(self: { Worker: new (url: string) => unknown; eval(body: string): unknown }) { const a = self; const b = a; new b.Worker(candidatePath); b.eval(code); }"
+  ].entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/local-global-worker-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls, [], source);
+  }
+});
+
+test("bounded loader analysis resolves only bounded for-of literal capability collections", () => {
+  const exactSources = [
+    "for (const W of [Worker, Worker]) { new W(candidatePath); }",
+    "for (const SW of [SharedWorker, SharedWorker]) { new SW(candidatePath); }",
+    "for (const W of ([Worker] as const)) { new W(candidatePath); }",
+    "for (const W of (flag ? [Worker] : [Worker])) { new W(candidatePath); }"
+  ];
+  for (const [index, source] of exactSources.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/bounded-for-of-exact-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), ["worker-loader"], source);
+  }
+
+  const mixedSources = [
+    "const LocalWorker = class {}; for (const W of [Worker, LocalWorker]) { new W(candidatePath); }",
+    "for (const W of (flag ? [Worker] : [SharedWorker])) { new W(candidatePath); }"
+  ];
+  for (const [index, source] of mixedSources.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/bounded-for-of-mixed-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls.map(({ kind }) => kind), ["element-access-loader"], source);
+  }
+
+  const excludedOrLocalSources = [
+    "const LocalWorker = class {}; for (const W of [LocalWorker, LocalWorker]) { new W(candidatePath); }",
+    "function localOnly(Worker: new (url: string) => unknown) { for (const W of [Worker, Worker]) { new W(candidatePath); } }",
+    "for (const W of workerConstructors) { new W(candidatePath); }"
+  ];
+  for (const [index, source] of excludedOrLocalSources.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/bounded-for-of-excluded-${index}.ts`, source);
+    assert.deepEqual(result.zeroBaselineCalls, [], source);
+  }
+});
+
+test("bounded loader analysis fails closed on dynamic constructor members of a recognized browser root", () => {
+  const probes = [
+    "new globalThis[workerConstructor](candidatePath);",
+    "const root = globalThis; new root[workerConstructor](candidatePath);",
+    "new self[workerConstructor](candidatePath);",
+    "Reflect.construct(self[workerConstructor], [candidatePath]);",
+    "const { [workerConstructor]: W } = globalThis; new W(candidatePath);",
+    "Reflect[method](Worker, [candidatePath]);",
+    "globalThis.Reflect[method](Worker, [candidatePath]);",
+    "const LocalWorker = class {}; new (flag ? Worker : LocalWorker)(candidatePath);",
+    "const LocalWorker = class {}; new (Worker ?? LocalWorker)(candidatePath);",
+    "const LocalWorker = class {}; Reflect.construct(flag ? Worker : LocalWorker, [candidatePath]);",
+    "const localRoot = { Worker: class {} }; const root = flag ? globalThis : localRoot; new root.Worker(candidatePath);"
+  ];
+  for (const [index, source] of probes.entries()) {
+    const result = gateLib.analyzeRuntimeLoaderCalls(`lib/dynamic-worker-probe-${index}.ts`, source);
+    assert.deepEqual(
+      result.zeroBaselineCalls.map(({ kind }) => kind),
+      ["element-access-loader"],
+      source
+    );
   }
 });
 
@@ -3013,6 +3515,15 @@ test("reachable indirect loader escape hatches fail closed without a literal can
       "const candidatePath = prefix + suffix;",
       "const operation = 'readFileSync';",
       "export function loadOpaque() { return require('fs')[operation](candidatePath); }"
+    ].join("\n"));
+    await assert.rejects(
+      gateLib.scanLiveReachability(repoRoot, manifest),
+      (error) => error?.code === "UNREGISTERED_RUNTIME_LOADER" && error?.outcome === "blocked"
+    );
+
+    await writeFile(loaderPath, [
+      "const W = globalThis.Worker;",
+      "export function loadOpaque() { return new W(candidatePath); }"
     ].join("\n"));
     await assert.rejects(
       gateLib.scanLiveReachability(repoRoot, manifest),
@@ -3364,7 +3875,7 @@ test("resolver observer itself rejects inherited aliases and unmodelled Next con
 });
 
 test("real b6 runtime roots match the frozen TypeScript graph and bounded-loader golden", {
-  timeout: 60_000
+  timeout: 180_000
 }, async () => {
   const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
   const observation = await gateLib.observeCanonicalRuntimePolicy(repoRoot, makeManifest());
@@ -4140,7 +4651,16 @@ test("external-side-effect proof binds the registered local-only operation and r
     delete process.env.NEXT_TSCONFIG_PATH;
     delete process.env.NEXT_DIST_DIR;
     assert.equal(typeof gateLib.collectExternalSideEffectProof, "function");
-    const proof = await gateLib.collectExternalSideEffectProof(repoRoot, makeManifest());
+    const manifest = makeManifest();
+    const bundleBindings = [];
+    for (const bundlePath of CHECKER_BUNDLE_PATHS) {
+      bundleBindings.push({
+        path: bundlePath,
+        rawSha256: gateLib.sha256(await readFile(path.join(repoRoot, bundlePath)))
+      });
+    }
+    manifest.checkerRelease.bundleDigest = gateLib.fingerprint(bundleBindings);
+    const proof = await gateLib.collectExternalSideEffectProof(repoRoot, manifest);
     assert.deepEqual(Object.keys(proof), [
       "schemaVersion",
       "result",
@@ -4195,18 +4715,41 @@ test("checker capability audit blocks network, provider, database, deploy, and u
   const repoRoot = await mkdtemp(path.join(tmpdir(), "mais-promotion-checker-capability-"));
   try {
     const sourceRepoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-    for (const sourcePath of CHECKER_BUNDLE_PATHS.slice(0, 2)) {
+    for (const sourcePath of CHECKER_BUNDLE_PATHS) {
       await mkdir(path.dirname(path.join(repoRoot, sourcePath)), { recursive: true });
       await writeFile(path.join(repoRoot, sourcePath), await readFile(path.join(sourceRepoRoot, sourcePath)));
     }
-    const digest = "e".repeat(64);
+    const computeFixtureBundleDigest = async () => {
+      const bindings = [];
+      for (const bundlePath of CHECKER_BUNDLE_PATHS) {
+        bindings.push({
+          path: bundlePath,
+          rawSha256: gateLib.sha256(await readFile(path.join(repoRoot, bundlePath)))
+        });
+      }
+      return gateLib.fingerprint(bindings);
+    };
+    const digest = await computeFixtureBundleDigest();
     const proof = await gateLib.collectCheckerCapabilityProof(repoRoot, digest);
     assert.equal(proof.result, "pass");
     assert.equal(proof.checkerBundleDigest, digest);
     const cliPath = CHECKER_BUNDLE_PATHS[1];
+    const libPath = CHECKER_BUNDLE_PATHS[0];
     const cleanCli = await readFile(path.join(repoRoot, cliPath), "utf8");
+    const cleanLib = await readFile(path.join(repoRoot, libPath), "utf8");
     for (const injected of [
       "\nfetch('https://example.invalid');\n",
+      "\nglobalThis.fetch('https://example.invalid');\n",
+      "\nconst networkFetch = fetch; networkFetch('https://example.invalid');\n",
+      "\nnew globalThis.WebSocket('wss://example.invalid');\n",
+      "\nconst Socket = WebSocket; new Socket('wss://example.invalid');\n",
+      "\nReflect.construct(WebSocket, ['wss://example.invalid']);\n",
+      "\nrequire('node:child_process').execSync('/bin/false');\n",
+      "\nconst childProcess = require('child_process'); childProcess.spawn('/bin/false');\n",
+      "\nprocess.getBuiltinModule('node:http');\n",
+      "\nconst getBuiltin = process.getBuiltinModule; getBuiltin('node:https');\n",
+      "\nprocess[loaderName]('node:http');\n",
+      "\nimport('node:http');\n",
       "\nimport OpenAI from 'openai'; void OpenAI;\n",
       "\nimport pg from 'pg'; void pg;\n",
       "\nimport deploy from 'vercel'; void deploy;\n",
@@ -4214,10 +4757,124 @@ test("checker capability audit blocks network, provider, database, deploy, and u
     ]) {
       await writeFile(path.join(repoRoot, cliPath), `${cleanCli}${injected}`);
       await assert.rejects(
-        gateLib.collectCheckerCapabilityProof(repoRoot, digest),
+        gateLib.collectCheckerCapabilityProof(repoRoot, await computeFixtureBundleDigest()),
         (error) => error?.code === "CHECKER_CAPABILITY_POLICY_VIOLATION" && error?.outcome === "blocked"
       );
     }
+
+    const retargetedLib = cleanLib.replace(
+      'const REGISTERED_GIT_EXECUTABLE = "/usr/bin/git";',
+      'const REGISTERED_GIT_EXECUTABLE = "/bin/sh";'
+    );
+    const optionalExecLib = cleanLib.replace(
+      "    execFile(REGISTERED_GIT_EXECUTABLE, [",
+      "    execFile?.(REGISTERED_GIT_EXECUTABLE, ["
+    );
+    const escapedGitArgvLib = cleanLib.replace(
+      '      "-C", canonicalRoot,\n      ...argv',
+      '      "-C", canonicalRoot,\n      "-c", "alias.pwn=!/bin/false", "pwn"'
+    );
+    const retargetedPathLib = cleanLib.replace(
+      'const REGISTERED_GIT_PATH = "/usr/bin:/bin";',
+      'const REGISTERED_GIT_PATH = "/tmp:/usr/bin:/bin";'
+    );
+    const shellEnabledLib = cleanLib.replace("      shell: false,", "      shell: true,");
+    assert.notEqual(retargetedLib, cleanLib);
+    assert.notEqual(optionalExecLib, cleanLib);
+    assert.notEqual(escapedGitArgvLib, cleanLib);
+    assert.notEqual(retargetedPathLib, cleanLib);
+    assert.notEqual(shellEnabledLib, cleanLib);
+    const adversarialMutations = [
+      { path: cliPath, source: `${cleanCli}\nexport * from 'node:http';\n` },
+      { path: cliPath, source: `${cleanCli}\nexport { request as hiddenRequest } from 'node:https';\n` },
+      { path: cliPath, source: `${cleanCli}\nexport { default as HiddenProvider } from 'openai';\n` },
+      { path: libPath, source: `${cleanLib}\nconst hiddenExec = execFile; hiddenExec('/bin/sh', []);\n` },
+      { path: libPath, source: `${cleanLib}\n(0, execFile)('/bin/sh', []);\n` },
+      { path: libPath, source: `${cleanLib}\nexecFile.call(null, '/bin/sh', []);\n` },
+      { path: libPath, source: retargetedLib },
+      { path: libPath, source: optionalExecLib },
+      { path: libPath, source: escapedGitArgvLib },
+      { path: libPath, source: retargetedPathLib },
+      { path: libPath, source: shellEnabledLib },
+      {
+        path: cliPath,
+        source: `${cleanCli}\nconst HiddenFunction = (() => {}).constructor; HiddenFunction('return process')();\n`
+      },
+      {
+        path: cliPath,
+        source: `${cleanCli}\nconst AsyncFunction = Object.getPrototypeOf(async function () {}).constructor; AsyncFunction('return fetch(\"https://example.invalid\")')();\n`
+      },
+      {
+        path: cliPath,
+        source: `${cleanCli}\nconst constructorKey = 'con' + 'structor'; const DynamicFunction = (() => {})[constructorKey]; DynamicFunction('return process')();\n`
+      },
+      {
+        path: cliPath,
+        source: `${cleanCli}\nconst asyncConstructorKey = 'constructor'; const DynamicAsyncFunction = Object.getPrototypeOf(async function () {})[asyncConstructorKey]; DynamicAsyncFunction('return fetch(\"https://example.invalid\")')();\n`
+      },
+      {
+        path: cliPath,
+        source: `${cleanCli}\nconst { constructor: DestructuredFunction } = (() => {}); DestructuredFunction('return process')();\n`
+      },
+      {
+        path: cliPath,
+        source: `${cleanCli}\nconst DescriptorFunction = Object.getOwnPropertyDescriptor(() => {}, 'constructor').value; DescriptorFunction('return process')();\n`
+      },
+      ...[
+        "const constructorKey='constructor'; const {[constructorKey]: HiddenFunction}=(()=>{}); HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const {[constructorKey]: AsyncFunction}=Object.getPrototypeOf(async function(){}); AsyncFunction('return process')();",
+        "function carrier(){} const constructorKey='constructor'; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+        "async function carrier(){} const constructorKey='constructor'; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+        "class Carrier{} const constructorKey='constructor'; const HiddenFunction=Carrier[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const HiddenFunction=(0,()=>{})[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const HiddenFunction=(ready?()=>{}:()=>{})[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const carrier=ready?()=>{}:()=>{}; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; for(const carrier of [()=>{}]){const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();}",
+        "const constructorKey='con'+'structor'; const HiddenFunction=path.join[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey=ready?'constructor':'name'; const HiddenFunction=path.join[constructorKey]; HiddenFunction('return process')();",
+        "const constructors=[(()=>{}).constructor]; constructors[0]('return process')();",
+        "const carriers={HiddenFunction:(()=>{}).constructor}; carriers.HiddenFunction('return process')();",
+        "const carriers={HiddenFunction:(()=>{}).constructor}; const {HiddenFunction}=carriers; HiddenFunction('return process')();",
+        "const constructors=[(()=>{}).constructor]; const [HiddenFunction]=constructors; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const descriptors=Object.getOwnPropertyDescriptors(()=>{}); descriptors[constructorKey].value('return process')();",
+        "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction.call(null,'return process')();",
+        "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; const BoundFunction=HiddenFunction.bind(null); BoundFunction('return process')();",
+        "const constructorKey='con'+'structor'; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction`return process`();",
+        "const constructorKey='constructor'; const carrier=[()=>{}][0]; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const carrier={value:()=>{}}.value; const HiddenFunction=carrier[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const {value:HiddenFunction}=Object.getOwnPropertyDescriptor(()=>{},constructorKey); HiddenFunction('return process')();",
+        "const keys=['constructor']; const constructorKey=keys[0]; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction('return process')();",
+        "const keys={danger:'constructor'}; const constructorKey=keys.danger; const HiddenFunction=(()=>{})[constructorKey]; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const {[constructorKey]:{value:HiddenFunction}}=Object.getOwnPropertyDescriptors(()=>{}); HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const {value:{nested:HiddenFunction}}={value:{nested:(()=>{})[constructorKey]}}; HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const box={nested:{HiddenFunction:(()=>{})[constructorKey]}}; box.nested.HiddenFunction('return process')();",
+        "const constructorKey='constructor'; const box=[[(()=>{})[constructorKey]]]; box[0][0]('return process')();",
+        "const constructorKey='constructor'; Reflect.get(()=>{},constructorKey)('return process')();",
+        "const constructorKey='constructor'; const {value:HiddenFunction}=Reflect.getOwnPropertyDescriptor(()=>{},constructorKey); HiddenFunction('return process')();"
+      ].map((suffix) => ({
+        path: cliPath,
+        source: `${cleanCli}\n${suffix}\n`
+      }))
+    ];
+    for (const mutation of adversarialMutations) {
+      await writeFile(path.join(repoRoot, libPath), cleanLib);
+      await writeFile(path.join(repoRoot, cliPath), cleanCli);
+      await writeFile(path.join(repoRoot, mutation.path), mutation.source);
+      await assert.rejects(
+        gateLib.collectCheckerCapabilityProof(repoRoot, await computeFixtureBundleDigest()),
+        (error) => error?.code === "CHECKER_CAPABILITY_POLICY_VIOLATION" && error?.outcome === "blocked"
+      );
+    }
+
+    await writeFile(path.join(repoRoot, libPath), cleanLib);
+    await writeFile(path.join(repoRoot, cliPath), `${cleanCli}\n// capability-neutral checker bundle drift\n`);
+    await assert.rejects(
+      gateLib.collectCheckerCapabilityProof(repoRoot, digest),
+      (error) => error?.code === "CHECKER_CAPABILITY_BUNDLE_MISMATCH" && error?.outcome === "blocked"
+    );
+    const recomputedDigest = await computeFixtureBundleDigest();
+    const reboundProof = await gateLib.collectCheckerCapabilityProof(repoRoot, recomputedDigest);
+    assert.equal(reboundProof.checkerBundleDigest, recomputedDigest);
   } finally {
     await rm(repoRoot, { recursive: true, force: true });
   }
@@ -4453,8 +5110,8 @@ test("checker release blocks bundle drift and same-version remapping", async () 
       producedAt: "2026-08-25T01:00:00.000Z"
     });
     assert.equal(driftReceipt.result, "blocked");
-    assert.equal(driftReceipt.exitReason.code, "CHECKER_BUNDLE_DRIFT");
-    assert.equal(driftReceipt.exitReason.checkId, "manifest-contract");
+    assert.equal(driftReceipt.exitReason.code, "CHECKER_CAPABILITY_BUNDLE_MISMATCH");
+    assert.equal(driftReceipt.exitReason.checkId, "forbidden-diff");
 
     const remapFixture = await writeSyntheticPromotionRepo(remapRoot);
     const originalReleaseCommit = remapFixture.checkerRelease.releaseCommit;
