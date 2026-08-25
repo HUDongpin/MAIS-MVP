@@ -54,3 +54,11 @@ This slice does **not** solve terminal-aware current-HEAD auditing. Current HEAD
 No hosted GitHub Actions job, artifact upload, required-check enforcement, branch-protection mutation, PR merge, Preview, provider call, database operation, Vercel command, deployment, production write, live registry change, or live promotion was performed. The Gate remains a controlled red `repair_required` boundary, not `Shadow-mature` and not CI-enforced.
 
 The frozen seven-file checker bundle, Manifest, Receipts, disposition, lifecycle registry, A25 record, candidate content, and every live file were left byte-unchanged.
+
+## macOS default-TMPDIR portability follow-up
+
+Independent replay without a `TMPDIR` override exposed a fixture-only pathname alias: macOS returned `/var/...` from `mkdtemp`, while the production resolver correctly canonicalized its working directory to `/private/var/...` and rejected the two unequal strings. The test fixture now calls `realpath` immediately after `mkdtemp` and builds all resolver inputs from that canonical root. The production workflow and resolver were not weakened or changed.
+
+- Focused canonical-execution resolver fixture under the default macOS TMPDIR — `1/1` passed.
+- Full `npm run test:release-governance` under the default macOS TMPDIR — `94/94` passed in 23.4 seconds.
+- Full `TMPDIR=/Volumes/Starship/.promotion-gate-test-tmp.hVyj3o npm run test:release-governance` — `94/94` passed in 31.9 seconds.
