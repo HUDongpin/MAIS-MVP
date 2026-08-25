@@ -1,4 +1,3 @@
-import kG5TextbookLessonPackJson from "./generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json";
 import { findStandard } from "./ccss";
 import { ccssLessonMetasForTopic, hasCcssLessonAssignment } from "./ccssLessonAssignments";
 import { getSignatureLabAssignment } from "./signatureLabAssignments";
@@ -6,11 +5,6 @@ import {
   californiaKnowledgePointDisplayTitle,
   californiaKnowledgePointForTopic
 } from "./usCaliforniaKnowledgePoints";
-import {
-  californiaElementaryMicroLessonSpecs,
-  californiaElementaryMicroLessonTopicIds,
-  type CaliforniaElementaryMicroLessonSpec
-} from "./usCaliforniaMicroLessons";
 import { generatedCaliforniaQuestions, usCaliforniaTopics, type CaliforniaK5GradeId, type GeneratedCaliforniaQuestion } from "./usCaliforniaTopics";
 import { getPrimaryVisualizationLabForTopic } from "./visualizationLabs";
 import type { Difficulty, LocalizedText, Topic } from "@/types";
@@ -87,13 +81,6 @@ type GeneratedCaliforniaK5TextbookLesson = {
     };
   };
 };
-
-type GeneratedCaliforniaK5TextbookLessonPack = {
-  packageId: "us-ca-math-k-g5-textbooks-v1";
-  lessons: GeneratedCaliforniaK5TextbookLesson[];
-};
-
-const kG5TextbookLessonPack = kG5TextbookLessonPackJson as GeneratedCaliforniaK5TextbookLessonPack;
 
 const practiceDifficultyQuotas: Array<[Difficulty, number]> = [
   ["Low", 2],
@@ -489,79 +476,6 @@ function withCaliforniaVisualizationBlock(topicId: string, blocks: ProductionLes
   ];
 }
 
-function microCoverageRecord(lesson: CaliforniaElementaryMicroLessonSpec): CaliforniaLessonCoverageRecord {
-  const knowledgePoint = californiaKnowledgePointForTopic(lesson.topicId, lesson.grade, lesson.maisTitle);
-  return {
-    topicId: lesson.topicId,
-    grade: lesson.grade,
-    standardIds: unique(lesson.standardIds),
-    domainTags: [lesson.domainTitle],
-    conceptIds: [knowledgePoint.code, knowledgePoint.title, ...lesson.competencyTags],
-    skillStageIds: skillStages.map((stage) => `${lesson.topicId}:${stage}`),
-    practiceQuestionIds: selectPracticeQuestionIds(lesson.topicId)
-  };
-}
-
-function microLessonBlocks(lesson: CaliforniaElementaryMicroLessonSpec): ProductionLessonBlock[] {
-  return withCaliforniaVisualizationBlock(lesson.topicId, [
-    {
-      idSuffix: "concept",
-      type: "concept",
-      title: textOnly("Concept explanation"),
-      // Learning goals live with the launch/concept narrative so the guided
-      // practice checklist stays within the 3-5 item authored block standard.
-      content: textOnly(
-        `${lesson.launch}\n\nLearning goals:\n${lesson.learningGoals.map((goal) => `- ${goal}`).join("\n")}\n\n${lesson.conceptExplanation}`
-      )
-    },
-    {
-      idSuffix: "worked-example",
-      type: "worked-example",
-      title: textOnly("Worked example"),
-      content: textOnly(
-        `${lesson.workedExample.prompt}\n\nAnswer: ${lesson.workedExample.answer}.\n\nReasoning: ${lesson.workedExample.reasoning}`
-      )
-    },
-    {
-      idSuffix: "guided-practice",
-      type: "checklist",
-      title: textOnly("Guided practice"),
-      items: lesson.guidedPractice.map(textOnly)
-    },
-    {
-      idSuffix: "mistake-repair",
-      type: "extension",
-      title: textOnly("Mistake repair"),
-      items: [
-        ...lesson.independentPractice.map(textOnly),
-        ...lesson.commonPitfalls.map((item) => textOnly(`${item.pitfall}: ${item.repairMove}`)),
-        textOnly(lesson.exitTicket)
-      ]
-    },
-    {
-      idSuffix: "standards-coverage",
-      type: "teacher-guide",
-      title: textOnly("Progress and standards coverage"),
-      content: textOnly(
-        `${lesson.knowledgePointCode} is a MAIS-authored knowledge point for ${lesson.domainTitle}, aligned to ${lesson.standardIds.join(", ")}. The lesson copy is text-only and uses original story contexts, models, examples, and mistake-repair prompts; the practice checkpoint links the separate live California Math Practice Beta bank.`
-      )
-    }
-  ]);
-}
-
-function toMicroLessonSeed(lesson: CaliforniaElementaryMicroLessonSpec): ProductionLessonSeed {
-  const title = californiaKnowledgePointDisplayTitle(lesson.topicId, lesson.grade, lesson.maisTitle);
-  return {
-    topicId: lesson.topicId,
-    productionReady: true,
-    title: textOnly(title),
-    description: textOnly(`${lesson.description} Knowledge point: ${lesson.knowledgePointCode}.`),
-    estimatedMinutes: lesson.estimatedMinutes,
-    practiceQuestionIds: selectPracticeQuestionIds(lesson.topicId),
-    blocks: microLessonBlocks(lesson)
-  };
-}
-
 function textbookCoverageRecord(lesson: GeneratedCaliforniaK5TextbookLesson): CaliforniaLessonCoverageRecord {
   const knowledgePoint = californiaKnowledgePointForTopic(
     lesson.metadata.topicId,
@@ -789,18 +703,15 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
   };
 }
 
-const californiaK5TextbookTopicIds = new Set(kG5TextbookLessonPack.lessons.map((lesson) => lesson.metadata.topicId));
+// These explicit empty projections are part of the fail-closed boundary: the
+// former K-G5 and micro-lesson sources remain preserved as candidates, but no
+// runtime lesson is built from them before exact-current QA and promotion.
+export const californiaElementaryMicroLessonCoverageRecords: CaliforniaLessonCoverageRecord[] = [];
 
-export const californiaElementaryMicroLessonCoverageRecords: CaliforniaLessonCoverageRecord[] =
-  californiaElementaryMicroLessonSpecs.map(microCoverageRecord);
-
-export const californiaK5TextbookLessonCoverageRecords: CaliforniaLessonCoverageRecord[] =
-  kG5TextbookLessonPack.lessons.map(textbookCoverageRecord);
+export const californiaK5TextbookLessonCoverageRecords: CaliforniaLessonCoverageRecord[] = [];
 
 export const californiaQuestionLessonCoverageRecords: CaliforniaLessonCoverageRecord[] =
-  usCaliforniaTopics
-    .filter((topic) => !californiaK5TextbookTopicIds.has(topic.id) && !californiaElementaryMicroLessonTopicIds.has(topic.id))
-    .map(toCoverageRecord);
+  usCaliforniaTopics.map(toCoverageRecord);
 
 export const usCaliforniaLessonCoverageRecords: CaliforniaLessonCoverageRecord[] = [
   ...californiaK5TextbookLessonCoverageRecords,
@@ -812,20 +723,14 @@ export const usCaliforniaLessonCoverageByTopicId = new Map(
   usCaliforniaLessonCoverageRecords.map((record) => [record.topicId, record])
 );
 
-export const californiaK5TextbookLessonSeeds: ProductionLessonSeed[] =
-  kG5TextbookLessonPack.lessons.map(toTextbookLessonSeed);
+export const californiaK5TextbookLessonSeeds: ProductionLessonSeed[] = [];
 
-export const californiaElementaryMicroLessonSeeds: ProductionLessonSeed[] =
-  californiaElementaryMicroLessonSpecs.map(toMicroLessonSeed);
+export const californiaElementaryMicroLessonSeeds: ProductionLessonSeed[] = [];
 
 export const californiaQuestionLessonSeeds: ProductionLessonSeed[] =
-  usCaliforniaTopics
-    .filter((topic) => !californiaK5TextbookTopicIds.has(topic.id) && !californiaElementaryMicroLessonTopicIds.has(topic.id))
-    .map(toLessonSeed);
+  usCaliforniaTopics.map(toLessonSeed);
 
 export const usCaliforniaLessonSeeds: ProductionLessonSeed[] = [
-  ...californiaK5TextbookLessonSeeds,
-  ...californiaElementaryMicroLessonSeeds,
   ...californiaQuestionLessonSeeds
 ];
 

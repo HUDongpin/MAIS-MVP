@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { CaliforniaMiddleSchoolTextbookPage } from "@/components/lesson/CaliforniaMiddleSchoolTextbookPage";
+import { CaliforniaMiddleSchoolReplacementTextbookPage } from "@/components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage";
 
 export const runtime = "nodejs";
 
 export const metadata: Metadata = {
-  title: "California Middle School Mathematics Textbook QA Review",
-  description: "Noindex QA review copy for the repaired California Grade 6-8 MAIS textbook composition.",
+  title: "California Middle School Mathematics Approved Review",
+  description: "Noindex review route for the exact approved California Grade 6-8 replacement lesson package.",
   robots: {
     index: false,
     follow: false
@@ -13,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function CaliforniaMiddleSchoolTextbookRoute() {
-  return <CaliforniaMiddleSchoolTextbookPage surface="review" />;
+  return <CaliforniaMiddleSchoolReplacementTextbookPage />;
 }
