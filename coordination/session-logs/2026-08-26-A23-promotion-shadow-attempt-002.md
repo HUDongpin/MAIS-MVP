@@ -3,7 +3,7 @@
 - Owner: A23 Integration and promotion lead
 - Branch: `codex/a23-promotion-shadow-attempt-002-20260826`
 - Worktree: `.worktrees/a23-promotion-shadow-attempt-002-20260826`
-- Target PR: pending; the earlier attempt-001 package remains isolated in draft PR #154
+- Target PR: draft PR #162 (`https://github.com/HUDongpin/MAIS-MVP/pull/162`); the earlier attempt-001 package remains isolated in draft PR #154
 - Created: 2026-08-26 (Asia/Hong_Kong)
 - Expected closeout: 2026-08-27
 - Baseline: `origin/main@7f7c4859877c9808fb4bdf98287bb5645b6e751b`
@@ -16,6 +16,7 @@
 - Clean worktree created directly from the refreshed remote `main` SHA.
 - Attempt 001 remains immutable and terminal `repair_required`; its manifest, receipt, and semantic digest will not be reused as attempt 002.
 - Main branch protection currently requires only `validate`; `promotion-shadow-gate` is implemented on the earlier draft branch but is not yet a required check.
+- The reviewed attempt-001 implementation merged cleanly onto the refreshed baseline. The first current-main core run passed 118/120 tests; the two expected fail-closed assertions expose runtime-graph growth (3666 to 3692 covered files) and candidate-like discovery growth (36 to 37 packages). No frozen golden was relaxed.
 
 ## Handoff / closeout
 
