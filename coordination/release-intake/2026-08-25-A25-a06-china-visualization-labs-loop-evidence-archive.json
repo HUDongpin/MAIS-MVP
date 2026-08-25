@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-25T07:32:29Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a06-china-visualization-labs-loop",
+  "worktreePath": "/Volumes/Starship/MAIS-china-viz-labs-wt",
+  "originalBranchHead": "f865cadd51220bd5da2acc5f9659ba55d72a887a",
+  "archiveCommit": "eedf0977047369a54ef4694201ecb647d713d090",
+  "remoteArchiveRef": "origin/archive/a06-china-visualization-labs-loop-wip-20260825",
+  "repositoryVisibilityAtArchive": "PRIVATE",
+  "originalBranchContainedByLiveOriginMain": false,
+  "originalBranchOnOriginRefs": [
+    "origin/codex/a06-china-visualization-labs-loop",
+    "origin/archive/a23-closeouts-main-merge-20260823"
+  ],
+  "originalBranchPullRequests": [],
+  "archivedPathCount": 127,
+  "pathProvenance": {
+    "byteIdenticalToHkArchiveRef": 25,
+    "byteIdenticalToCaArchiveRef": 2,
+    "localOnlyBeforeThisArchive": 100
+  },
+  "siblingArchiveSymmetry": {
+    "ca": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823",
+    "hk": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823",
+    "chinaHadNoArchiveRefBeforeThis": true
+  },
+  "owners": {
+    "visualizationRuntime": "A06",
+    "semanticOracleLedgerAndRemediation": "A18",
+    "stateApiPersistence": ["A08", "A12"],
+    "acceptanceAndRelease": ["A11", "A22"],
+    "closureIntake": "A25"
+  },
+  "verification": {
+    "secretPatternScanHits": 0,
+    "stagedViaExplicitPathspecFile": true,
+    "gitAddAllUsed": false,
+    "postCommitWorktreeStatusClean": true,
+    "localAndRemoteArchiveTipsIdentical": true,
+    "runtimeOrBrowserTestsRun": false,
+    "remoteBranchesDeleted": []
+  },
+  "worktreeRemoval": {
+    "method": "plain non-forced git worktree remove",
+    "succeeded": true,
+    "removedAt": "2026-08-25T07:32Z"
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/a06-china-visualization-labs-loop-wip-20260825",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-china-viz-labs-recovered-wt eedf0977047369a54ef4694201ecb647d713d090"
+  },
+  "promotionPreconditions": [
+    "start from fresh main",
+    "hunk-level reconciliation of shared visualization hosts",
+    "resolve the 65 semantic-oracle repair-required labs",
+    "renew the C5 frozen-hash chain",
+    "A18/A11/A22 sign-off",
+    "drop or gate the frozen-scripts-violating package.json test-script additions"
+  ]
+}

@@ -1,0 +1,746 @@
+{
+  "schema_version": "1.0",
+  "title": "MAIS-NATURAL-CA60-V1 A25 preservation-first intake",
+  "agent_id": "A25",
+  "status": "DONE_WITH_CONCERNS",
+  "final_state": "evidence_archive_candidate_pending_owner_git_authorization",
+  "date": "2026-08-24",
+  "creation_date": "2026-08-24",
+  "expected_closeout_date": "2026-08-24",
+  "target_pr": "pending",
+  "scope": "Preservation-only evidence intake; no promotion, implementation, provider call, network call, or Git mutation.",
+  "source_worktree": {
+    "path": "/Volumes/Starship/MAIS-MVP/.worktrees/a16-rsi-lite-calibration-f0-f2-20260823",
+    "owner": "A16",
+    "branch": "codex/a16-rsi-lite-calibration-f0-f2-20260823",
+    "head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+    "baseline_commit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+    "status_porcelain_format": "git status --porcelain=v1 --untracked-files=all",
+    "status_sha256": "d6db42a51fb3e9dbd0b6fdd4395b67c5cdde692e46b806fc88c9a8a18ed0e075",
+    "counts": {
+      "dirty_entries": 126,
+      "modified_entries": 1,
+      "untracked_entries": 125
+    },
+    "full_porcelain_status": [
+      " M AGENTS.md",
+      "?? coordination/content-qa/MAIS-MACHINE-QA-OPERATING-POLICY.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/README.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/a18-blind-review-materials.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/a18-blind-review-materials.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/a18-owner-waiver.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/a18-owner-waiver.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/arm-contracts.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/artifact-contract.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/calibration-design.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/calibration-design.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f0-f2-verification-receipt.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f1-artifact-commit.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f1-generation-receipt.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f2-r-isolation-receipt-candidate.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f2-sacrificial-summary.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f2-snapshot-commit-manifest.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-authorization.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-campaign.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-campaign.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-execution-contract.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-execution-contract.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-formal-runner.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-formal-runner.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-persistent-budget-ledger.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-persistent-budget-ledger.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-provider-adapter.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-provider-adapter.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-provider-smoke.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-provider-smoke.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-resource-carryover.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-resource-carryover.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-role-projection-worker.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-score-results.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-score-results.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-start-preflight.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-start-preflight.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-v2-retry-bootstrap.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/f3-v2-retry-bootstrap.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/formal-preflight-cli.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/formal-preflight.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/formal-preflight.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/generate-a18-blind-review-materials.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/generate-a18-blind-review-materials.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/generate-calibration-artifacts.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/generate-calibration-artifacts.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/generate-f3-entrypoint-receipt.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/generate-f3-final-authorization-pack.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/isolation-harness.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/isolation-harness.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/isolation-probe-worker.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/package-artifacts.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/package-artifacts.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/process-lifecycle.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/process-lifecycle.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/public-manifest.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/refresh-sacrificial-snapshot.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/refresh-sacrificial-snapshot.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/A11-runner-receipt-candidate.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/A18-bundle-readiness-candidate.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/A18-human-evidence-owner-waiver.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/A22-isolation-evidence-candidate.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/a18-blind-review-registration-v2.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/a18-blind-review-registration.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/review-gates/owner-budget-signature-template.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-f3-formal-campaign.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-f3-formal-campaign.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-f3-provider-smoke.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-f3-rehearsal.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-isolation-proof.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-isolation-proof.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-sacrificial-dry-run.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/run-sacrificial-dry-run.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-bundle.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/A.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/B.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/C.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/C0.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-role-worker.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-runner.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/sacrificial-runner.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/score-f3-formal-results.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/seed-commitment.txt",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/verify-f0-f2-local.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/verify-f0-f2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v1/verify-f0-f2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/FORMAL-CONCLUSION.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/NEXT-RUN-PROTOCOL.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/README.md",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/V2-CANDIDATE-READINESS-RECEIPT.json",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/call-record-contract.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/call-record-contract.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/candidate-set-builder.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/candidate-set-builder.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/credential-loader-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/credential-loader-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/deterministic-baseline.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/deterministic-baseline.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-authorization-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-authorization-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-campaign-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-campaign-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-dry-rehearsal-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-execution-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-execution-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-runner-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/formal-runner-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/protocol-design.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/protocol-design.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/provider-adapter-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/provider-adapter-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/role-contract.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/role-contract.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/run-formal-v2.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/run-formal-v2.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/scoring.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/scoring.test.mjs",
+      "?? coordination/content-qa/rsi-lite-calibration-v2/test-fixtures.mjs",
+      "?? coordination/integration/MACHINE-QA-PROMOTION-GATE.md",
+      "?? coordination/release-intake/2026-08-23-A25-rsi-lite-f0-f2-worktree-preflight-candidate.md",
+      "?? coordination/research/2026-08-23-A16-rsi-lite-f0-f2-status-and-handoff.md",
+      "?? coordination/research/2026-08-23-A16-rsi-lite-matched-quadruplets-f0-f2-protocol.md",
+      "?? coordination/research/MAIS-MACHINE-QA-NATURAL-SAMPLE-EVALUATION.md",
+      "?? coordination/session-logs/2026-08-23-A16-rsi-lite-calibration-f0-f2.md",
+      "?? coordination/session-logs/2026-08-24-A10-machine-qa-policy-integration.md",
+      "?? coordination/session-logs/2026-08-24-A16-rsi-lite-calibration-v2.md"
+    ],
+    "outside_archive_scope": [
+      {
+        "status": " M",
+        "path": "AGENTS.md",
+        "note": "Modified in the A16 source worktree but deliberately excluded from this exact archive scope."
+      }
+    ],
+    "source_mutation": false
+  },
+  "baseline_and_root_distinction": {
+    "live_origin_main": {
+      "sha": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "evidence": "Verified live by the controller; this preservation subtask performed no network call."
+    },
+    "a25_worktree": {
+      "path": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824",
+      "branch": "codex/a25-natural-ca60-intake-20260824",
+      "starting_head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "role": "Isolated report and recovery-archive destination."
+    },
+    "integration_root": {
+      "path": "/Volumes/Starship/MAIS-MVP",
+      "role": "Distinct integration inventory/root; not the archive source and not modified by this subtask."
+    },
+    "a16_candidate_distinction": "The A16 candidate artifacts are untracked worktree content above the shared baseline; they are not claimed to exist in baseline commit or origin/main."
+  },
+  "routing": {
+    "artifact_owner": "A16",
+    "preservation_and_release_intake_owner": "A25",
+    "downstream_owner_action": "Owner Git authorization remains required before any stage, commit, push, merge, delete, reset, or other disposition."
+  },
+  "candidate_scopes": [
+    {
+      "path": "coordination/research/MAIS-MACHINE-QA-NATURAL-SAMPLE-EVALUATION.md",
+      "type": "file",
+      "file_count": 1,
+      "sha256": "85bc51cec9e160c1a23e94e671c85d2de4b52e8b2b8e9afcbcf04b7b19528867"
+    },
+    {
+      "path": "coordination/content-qa/MAIS-MACHINE-QA-OPERATING-POLICY.md",
+      "type": "file",
+      "file_count": 1,
+      "sha256": "8432e9271594c951fae7b2933079351625efc8f16631f9c0665ab7240cbc903d"
+    },
+    {
+      "path": "coordination/integration/MACHINE-QA-PROMOTION-GATE.md",
+      "type": "file",
+      "file_count": 1,
+      "sha256": "f0205ed8ebf6eabd9fc9d3bfd01604ccc3374660d0367e1bb267a99f34532c4f"
+    },
+    {
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/**",
+      "type": "directory_tree",
+      "file_count": 32,
+      "deterministic_scope_manifest_sha256": "bbacd3951d57e8fe91c5d726cbd4434f3bb07a718db52a2cb6769f9fd79c11e1",
+      "digest_definition": "SHA-256 of the LC_ALL=C sorted '<file-sha256><two spaces><relative-path>\\n' records for this directory tree."
+    }
+  ],
+  "candidate_file_count": 35,
+  "candidate_file_hashes": [
+    {
+      "sha256": "8432e9271594c951fae7b2933079351625efc8f16631f9c0665ab7240cbc903d",
+      "path": "coordination/content-qa/MAIS-MACHINE-QA-OPERATING-POLICY.md"
+    },
+    {
+      "sha256": "0f0f8f42a6bf04c6f7c483f7f34359ef67e6023e2b9d29af89acfcf758a60fe4",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/FORMAL-CONCLUSION.md"
+    },
+    {
+      "sha256": "975e82de6d490f3118985f9ff0af1cd928bfd9ba17aa878e1d9d81456e87ba64",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/NEXT-RUN-PROTOCOL.md"
+    },
+    {
+      "sha256": "ca7c7b2ec28d4526e61dd9afe3acc901aa5dd4d4706eecbf16f49e7710a08404",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/README.md"
+    },
+    {
+      "sha256": "63600181961d781d57a459d2fac2a6a476ca6bbb90d3dd536670394bb9c1ee02",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/V2-CANDIDATE-READINESS-RECEIPT.json"
+    },
+    {
+      "sha256": "7e192489b3ce4406c79477324a032d59c54831d1190da0068f11a121017e4221",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/call-record-contract.mjs"
+    },
+    {
+      "sha256": "b53cccde5be65c2b99e6633d0e8d7cee2227eda65a38832b86c531de5f1bbff9",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/call-record-contract.test.mjs"
+    },
+    {
+      "sha256": "95ca3be75693a949a01e612596941f2f8bb1793dcb4dd8865afb5f545ce8bf3c",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/candidate-set-builder.mjs"
+    },
+    {
+      "sha256": "0203b772602516b5f4462a63a5052e6f7acaa5987a07da902dad5c64e0ff8c1f",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/candidate-set-builder.test.mjs"
+    },
+    {
+      "sha256": "cc7b3cc387b06c34713047052eace4cd59e03a027e62a884315c57186ca49638",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/credential-loader-v2.mjs"
+    },
+    {
+      "sha256": "22df7461c062a3810b4eba21ec68086612d73edfde5b342276cbe0826c4d8c11",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/credential-loader-v2.test.mjs"
+    },
+    {
+      "sha256": "47a4f98546caafe3b822e3bfe7709839bcb0ff650f3cfd2e8860884e59d9969b",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/deterministic-baseline.mjs"
+    },
+    {
+      "sha256": "35343ed23e70e5d0e0fbc96e0f51d30d42e4452ae890bc5a430fc3b941e4cc7c",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/deterministic-baseline.test.mjs"
+    },
+    {
+      "sha256": "6e3fe5954a5c1f86b65e8645d56717cc9210dc3793b05f5f5dee067ef5cbfddc",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-authorization-v2.mjs"
+    },
+    {
+      "sha256": "51f0feead09494d058de01748a394f4753a428d92ee7c5cc3075ac515f7ba770",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-authorization-v2.test.mjs"
+    },
+    {
+      "sha256": "d4c58e865e6f61ee2a21f95d8761395ee7b2b1abf95be42ec11511e3277655f5",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-campaign-v2.mjs"
+    },
+    {
+      "sha256": "ba71418133671550d07c572faf2ecd33cc10eb9aef91eb00e759ae7b00b2a583",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-campaign-v2.test.mjs"
+    },
+    {
+      "sha256": "42d87397cbd1371929e4015c06c05c01a6183cd7240f2d3736c34b3552cb1b31",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-dry-rehearsal-v2.test.mjs"
+    },
+    {
+      "sha256": "dc5aebd7875bc2348c1999a7453b34a86be04b975d559de637fe9850a94238bb",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-execution-v2.mjs"
+    },
+    {
+      "sha256": "988ca30ab31804a70287877431a15620564e4d980e8a40e842e556aa5b8f1b77",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-execution-v2.test.mjs"
+    },
+    {
+      "sha256": "12fff36def89b32ff711f790f49c5d2334e919f6ff98d1f3c5297d9c172e05d6",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-runner-v2.mjs"
+    },
+    {
+      "sha256": "d7d4ce64ff1453204f6675125bec0b5cd9f3542e7478568e40da1b2849bebc89",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/formal-runner-v2.test.mjs"
+    },
+    {
+      "sha256": "add975e5d8ca12644c2eeab795c9d39652a0d277185a6fef76c0129d8e180cb3",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/protocol-design.mjs"
+    },
+    {
+      "sha256": "44b04516922ae3a8a6e20fc96199ab0fc7ed1eec744f28468f5a0bcaaa913cb7",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/protocol-design.test.mjs"
+    },
+    {
+      "sha256": "904ed995c10a4ff051fc95d487b9d611049fb41fb1dd1870d6d924b3dd449989",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/provider-adapter-v2.mjs"
+    },
+    {
+      "sha256": "1811f20a581594641908f17210872b2a207ca129bed8e1388f25cdcddc46452d",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/provider-adapter-v2.test.mjs"
+    },
+    {
+      "sha256": "ff6ceac7b3badd91155ba98eec8028133532ccf6b64ffeb503b70c42e3b1e164",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/role-contract.mjs"
+    },
+    {
+      "sha256": "6ce7b18ee95b226efc88cd78416f94b35764a55806a3fa0753524b3d9d7780bd",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/role-contract.test.mjs"
+    },
+    {
+      "sha256": "c2ccfdb9212484fdc5dd470ac39814aaeaeb0e5f3b35e366438816275cbfde4c",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/run-formal-v2.mjs"
+    },
+    {
+      "sha256": "20450044dd940bc48bb2e8585f4e758f4622dd5eb0df975e2084e8192ef77f0a",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/run-formal-v2.test.mjs"
+    },
+    {
+      "sha256": "3f1413d225be6d41fda12d81699200e678c8e051b099a2c9bfb66571ddd01ca4",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/scoring.mjs"
+    },
+    {
+      "sha256": "eb4734da9a149789045bbba2616a09e4dd6d5bfcf6c836e772c3abbae96f3da8",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/scoring.test.mjs"
+    },
+    {
+      "sha256": "3e4dd8098a6198fe8b4b02e440b8a362e5181d07adb63bc8f06b73a30ac1a690",
+      "path": "coordination/content-qa/rsi-lite-calibration-v2/test-fixtures.mjs"
+    },
+    {
+      "sha256": "f0205ed8ebf6eabd9fc9d3bfd01604ccc3374660d0367e1bb267a99f34532c4f",
+      "path": "coordination/integration/MACHINE-QA-PROMOTION-GATE.md"
+    },
+    {
+      "sha256": "85bc51cec9e160c1a23e94e671c85d2de4b52e8b2b8e9afcbcf04b7b19528867",
+      "path": "coordination/research/MAIS-MACHINE-QA-NATURAL-SAMPLE-EVALUATION.md"
+    }
+  ],
+  "filename_only_secret_scan": {
+    "filename_policy_status": "PASS",
+    "scope": "Filename admission only",
+    "fail_closed_for_filename_admission_only": true,
+    "content_clearance_claimed": false,
+    "secret_values_read_or_printed": false,
+    "secret_store_filename_match_count": 0,
+    "method": "Candidate filename/path metadata only. Admission rejects .env files, known API-key documents, credentials.json, private-key basenames, key/certificate-store extensions, and explicit password/secret/token-store filenames.",
+    "note": "Two scoped JavaScript source/test filenames contain 'credential-loader'; their .mjs/.test.mjs source-code naming did not match a secret-store filename or key-bearing file type. A filename result is not a content-secret clearance."
+  },
+  "recovery_archive": {
+    "directory": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824/.local/a25-natural-ca60-intake-20260824",
+    "directory_mode": "0700",
+    "archive_path": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824/.local/a25-natural-ca60-intake-20260824/MAIS-NATURAL-CA60-V1-evidence-archive.tar",
+    "archive_mode": "0600",
+    "archive_sha256": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+    "manifest_path": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824/.local/a25-natural-ca60-intake-20260824/MANIFEST.sha256",
+    "manifest_mode": "0600",
+    "manifest_sha256": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+    "archive_regular_file_count": 36,
+    "membership": "Exactly 35 candidate files plus MANIFEST.sha256; directory entries are structural only.",
+    "worktree_directory_relative": ".local/a25-natural-ca60-intake-20260824",
+    "worktree_archive_relative": ".local/a25-natural-ca60-intake-20260824/MAIS-NATURAL-CA60-V1-evidence-archive.tar",
+    "worktree_manifest_relative": ".local/a25-natural-ca60-intake-20260824/MANIFEST.sha256",
+    "durable_directory_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823",
+    "durable_directory_relative_to_integration_root": ".local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823",
+    "durable_directory_mode": "0700",
+    "durable_archive_path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/MAIS-NATURAL-CA60-V1-evidence-archive.tar",
+    "durable_archive_mode": "0600",
+    "durable_archive_sha256": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+    "durable_manifest_path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/MANIFEST.sha256",
+    "durable_manifest_mode": "0600",
+    "durable_manifest_sha256": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+    "durable_copy_verified": false,
+    "durable_reports_and_inventory": [
+      "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/2026-08-24-A25-natural-ca60-preservation-intake.json",
+      "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/2026-08-24-A25-natural-ca60-preservation-intake.md",
+      "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-INVENTORY.sha256",
+      "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json"
+    ],
+    "note": "The durable archive and manifest were verified before these final report bytes were copied. This report intentionally does not claim that its own final bytes or the regenerated inventory are post-copy verified; only the later external DURABLE-ATTESTATION.json may establish that state.",
+    "durable_archive_manifest_copy_verified": true,
+    "durable_archive_manifest_verified_at_utc": "2026-08-24T15:24:34Z",
+    "final_report_inventory_attestation_status": "EXTERNAL_POST_COPY_ATTESTATION_REQUIRED",
+    "external_attestation_path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json"
+  },
+  "verification": [
+    {
+      "observation": "A16 source status snapshot",
+      "status": "PASS",
+      "expected": {
+        "dirty_entries": 126,
+        "modified_entries": 1,
+        "untracked_entries": 125
+      },
+      "observed": {
+        "dirty_entries": 126,
+        "modified_entries": 1,
+        "untracked_entries": 125,
+        "source_edited_by_a25": false
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "d6db42a51fb3e9dbd0b6fdd4395b67c5cdde692e46b806fc88c9a8a18ed0e075",
+        "subject": "full porcelain status stream"
+      },
+      "verified_at_utc": "2026-08-24T15:21:48Z"
+    },
+    {
+      "observation": "Worktree archive payloads against manifest",
+      "status": "PASS",
+      "expected": {
+        "candidate_files": 35,
+        "passing_hashes": 35
+      },
+      "observed": {
+        "candidate_files": 35,
+        "passing_hashes": 35
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+        "subject": "worktree archive"
+      },
+      "verified_at_utc": "2026-08-24T15:22:06Z"
+    },
+    {
+      "observation": "Embedded manifest identity",
+      "status": "PASS",
+      "expected": {
+        "embedded_manifest_matches_detached": true
+      },
+      "observed": {
+        "embedded_manifest_matches_detached": true
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+        "subject": "manifest"
+      },
+      "verified_at_utc": "2026-08-24T15:22:06Z"
+    },
+    {
+      "observation": "Exact archive regular-file member set",
+      "status": "PASS",
+      "expected": {
+        "candidate_files": 35,
+        "manifest_files": 1,
+        "total_regular_files": 36
+      },
+      "observed": {
+        "candidate_files": 35,
+        "manifest_files": 1,
+        "total_regular_files": 36
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+        "subject": "expected candidate member list"
+      },
+      "verified_at_utc": "2026-08-24T15:22:06Z"
+    },
+    {
+      "observation": "Durable archive copy",
+      "status": "PASS",
+      "expected": {
+        "sha256": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+        "mode": "0600"
+      },
+      "observed": {
+        "sha256": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+        "mode": "0600",
+        "byte_identical_to_worktree_copy": true
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+        "subject": "durable archive"
+      },
+      "verified_at_utc": "2026-08-24T15:24:34Z",
+      "chronology": "Pre-final-report-copy archive validation; remains valid only for the recorded archive bytes."
+    },
+    {
+      "observation": "Durable manifest copy",
+      "status": "PASS",
+      "expected": {
+        "sha256": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+        "mode": "0600"
+      },
+      "observed": {
+        "sha256": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+        "mode": "0600",
+        "byte_identical_to_worktree_copy": true
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+        "subject": "durable manifest"
+      },
+      "verified_at_utc": "2026-08-24T15:24:34Z",
+      "chronology": "Pre-final-report-copy manifest validation; remains valid only for the recorded manifest bytes."
+    },
+    {
+      "observation": "Filename admission policy",
+      "status": "PASS",
+      "expected": {
+        "secret_store_filename_matches": 0
+      },
+      "observed": {
+        "secret_store_filename_matches": 0,
+        "content_clearance_claimed": false
+      },
+      "hash": {
+        "algorithm": "SHA-256",
+        "value": "79f2a04ce1e66b143b03af0c13f9da73bf0fc2b98bebf2414c59188a893584f6",
+        "subject": "candidate filename/path manifest assessed"
+      },
+      "verified_at_utc": "2026-08-24T15:22:06Z"
+    },
+    {
+      "observation": "Content-secret delivery readiness",
+      "status": "CONCERN",
+      "expected": {
+        "repository_delivery_secret_scan_required": true,
+        "unresolved_fixture_marker_issue": false
+      },
+      "observed": {
+        "repository_delivery_secret_scan_required": true,
+        "key_shaped_fixture_strings_observed_redacted": true,
+        "at_least_one_fixture_without_explicit_not_real_marker": true,
+        "live_secret_established": false
+      },
+      "hash": {
+        "algorithm": "NONE",
+        "value": null,
+        "subject": "No secret-shaped value is hashed or reproduced in this report"
+      },
+      "verified_at_utc": "2026-08-24T15:24:34Z"
+    },
+    {
+      "observation": "Final report copies and regenerated durable inventory",
+      "status": "EXTERNAL_POST_COPY_ATTESTATION_REQUIRED",
+      "expected": {
+        "report_files": 2,
+        "report_modes": "0600",
+        "inventory_mode": "0600",
+        "inventory_entries": 4,
+        "byte_identical_to_final_a25_report_candidates": true,
+        "attestation_generated_after_all_covered_mtimes": true
+      },
+      "observed": {
+        "verified_within_this_report": false,
+        "reason": "A report cannot non-self-referentially attest its own final copied bytes or the inventory generated from those bytes."
+      },
+      "hash": {
+        "algorithm": "EXTERNAL_SHA-256_ATTESTATION",
+        "value": null,
+        "subject": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json"
+      },
+      "attestation_contract": {
+        "path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json",
+        "required_status": "PASS",
+        "required_coverage": [
+          "Worktree and durable archive hashes and byte identity",
+          "Worktree and durable manifest hashes and byte identity",
+          "Final JSON and Markdown report hashes and byte identity",
+          "DURABLE-INVENTORY.sha256 hash and 4/4 validation",
+          "Modes and file counts",
+          "All covered mtimes at or before the attestation timestamp",
+          "No covered file changed after validation"
+        ]
+      }
+    }
+  ],
+  "prohibited_actions": {
+    "a25_subtask_created_branch": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false,
+    "merged": false,
+    "deleted": false,
+    "reset": false,
+    "stashed": false,
+    "a16_source_worktree_edited": false,
+    "a25_report_files_created": true,
+    "a25_local_archive_created": true,
+    "integration_root_tracked_files_edited": false,
+    "durable_ignored_copy_created": true,
+    "provider_called": false,
+    "network_called": false,
+    "final_report_copy_verification_claimed_inside_report": false
+  },
+  "concerns": [
+    {
+      "id": "DELIVERY_SECRET_SCAN_REQUIRED",
+      "severity": "important",
+      "status": "OPEN",
+      "detail": "Key-shaped strings were observed in test fixtures during bounded redacted review; no live credential was established, but at least one fixture lacks an explicit not-real marker. A repository-delivery content secret scan is required before any Git delivery."
+    },
+    {
+      "id": "WORKTREE_CLOSEOUT_BLOCKED",
+      "severity": "important",
+      "status": "OPEN",
+      "detail": "Durable preservation does not authorize cleanup. The report candidates are uncommitted, and the report/durable inventory plus both archive copies must be revalidated immediately before any owner-authorized closeout."
+    }
+  ],
+  "generated_at_utc": "2026-08-24T15:36:02Z",
+  "timestamps": {
+    "report_generated_and_finalized_at_utc": "2026-08-24T15:36:02Z",
+    "source_verification_at_utc": "2026-08-24T15:21:48Z",
+    "worktree_archive_verification_at_utc": "2026-08-24T15:22:06Z",
+    "durable_archive_and_manifest_pre_report_copy_verification_at_utc": "2026-08-24T15:24:34Z"
+  },
+  "worktree_closeout_blocked": true,
+  "release_condition": "Release eligibility requires: (1) a repository-delivery content secret scan with no unresolved finding; (2) a PASS external DURABLE-ATTESTATION.json generated after the final report copies and DURABLE-INVENTORY.sha256; (3) owner review of the A25 reports, durable inventory, and external attestation; (4) explicit owner authorization for the exact Git pathspecs and Git operations; and (5) immediate pre-closeout revalidation of source status, report candidates, both archives, both manifests, durable inventory, attestation, and lifecycle state. Neither these reports nor the preservation archives authorize release or cleanup.",
+  "durable_copy_verified": false,
+  "lifecycle_state": "DURABLE_ARCHIVE_MANIFEST_VERIFIED_FINAL_REPORT_POST_COPY_ATTESTATION_REQUIRED_DELIVERY_SECRET_SCAN_AND_OWNER_GIT_AUTHORIZATION_PENDING",
+  "cleanup_authorized": false,
+  "locations": {
+    "integration_root_absolute": "/Volumes/Starship/MAIS-MVP",
+    "a25_worktree_absolute": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824",
+    "a25_worktree_relative_to_integration_root": ".worktrees/a25-natural-ca60-intake-20260824",
+    "a16_source_worktree_absolute": "/Volumes/Starship/MAIS-MVP/.worktrees/a16-rsi-lite-calibration-f0-f2-20260823",
+    "a16_source_worktree_relative_to_integration_root": ".worktrees/a16-rsi-lite-calibration-f0-f2-20260823",
+    "report_json_relative_to_a25_worktree": "coordination/release-intake/2026-08-24-A25-natural-ca60-preservation-intake.json",
+    "report_markdown_relative_to_a25_worktree": "coordination/release-intake/2026-08-24-A25-natural-ca60-preservation-intake.md",
+    "worktree_archive_relative_to_a25_worktree": ".local/a25-natural-ca60-intake-20260824/MAIS-NATURAL-CA60-V1-evidence-archive.tar",
+    "worktree_manifest_relative_to_a25_worktree": ".local/a25-natural-ca60-intake-20260824/MANIFEST.sha256",
+    "worktree_archive_absolute": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824/.local/a25-natural-ca60-intake-20260824/MAIS-NATURAL-CA60-V1-evidence-archive.tar",
+    "worktree_manifest_absolute": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-natural-ca60-intake-20260824/.local/a25-natural-ca60-intake-20260824/MANIFEST.sha256",
+    "durable_directory_relative_to_integration_root": ".local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823",
+    "durable_directory_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823",
+    "durable_archive_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/MAIS-NATURAL-CA60-V1-evidence-archive.tar",
+    "durable_manifest_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/MANIFEST.sha256",
+    "durable_report_json_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/2026-08-24-A25-natural-ca60-preservation-intake.json",
+    "durable_report_markdown_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/2026-08-24-A25-natural-ca60-preservation-intake.md",
+    "durable_inventory_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-INVENTORY.sha256",
+    "durable_attestation_absolute": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json"
+  },
+  "filename_policy_status": "PASS",
+  "content_secret_assessment_status": "COMPLETED_FIXTURES_ONLY_NO_LIVE_SECRET_ESTABLISHED",
+  "delivery_secret_scan_required": true,
+  "content_secret_assessment": {
+    "status": "COMPLETED_FIXTURES_ONLY_NO_LIVE_SECRET_ESTABLISHED",
+    "assessment_scope": "Bounded, redacted reviewer classification of test-fixture semantics; no value is reproduced in this report.",
+    "observations": [
+      "The reviewer observed key-shaped strings in test fixtures.",
+      "No real or live credential was established by the bounded review.",
+      "At least one fixture lacks an explicit not-real marker."
+    ],
+    "limitations": [
+      "This is not a repository-delivery secret scan.",
+      "The classification does not establish that the candidate set is safe for Git delivery.",
+      "No matching string or candidate value is printed, copied into the report, or treated as a credential."
+    ],
+    "delivery_secret_scan_required": true,
+    "delivery_disposition": "BLOCKED_PENDING_REPOSITORY_DELIVERY_SECRET_SCAN"
+  },
+  "lifecycle": {
+    "state": "DURABLE_ARCHIVE_MANIFEST_VERIFIED_FINAL_REPORT_POST_COPY_ATTESTATION_REQUIRED_DELIVERY_SECRET_SCAN_AND_OWNER_GIT_AUTHORIZATION_PENDING",
+    "worktree_closeout_blocked": true,
+    "cleanup_authorized": false,
+    "durable_archive_manifest_copy_verified": true,
+    "final_report_inventory_post_copy_status": "EXTERNAL_POST_COPY_ATTESTATION_REQUIRED",
+    "external_attestation_path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json",
+    "release_condition": "Release eligibility requires: (1) a repository-delivery content secret scan with no unresolved finding; (2) a PASS external DURABLE-ATTESTATION.json generated after the final report copies and DURABLE-INVENTORY.sha256; (3) owner review of the A25 reports, durable inventory, and external attestation; (4) explicit owner authorization for the exact Git pathspecs and Git operations; and (5) immediate pre-closeout revalidation of source status, report candidates, both archives, both manifests, durable inventory, attestation, and lifecycle state. Neither these reports nor the preservation archives authorize release or cleanup.",
+    "current_blockers": [
+      "Repository-delivery content secret scan is still required.",
+      "External post-copy attestation of the final report copies and regenerated durable inventory is required.",
+      "The two A25 report candidates remain uncommitted because no Git mutation was authorized.",
+      "Immediate pre-closeout revalidation and owner authorization have not occurred."
+    ],
+    "closeout_rule": "Cleanup remains prohibited. A later PASS external attestation is evidence, not cleanup authorization. Immediately before any owner-authorized closeout, revalidate the A25 report candidates, both archives, both manifests, durable inventory, external attestation, A16 source status, and worktree lifecycle state."
+  },
+  "restoration_recipe": {
+    "purpose": "Restore evidence for inspection without overwriting the live A16 source or any existing checkout.",
+    "preconditions": [
+      "Use the durable archive copy unless the owner explicitly selects the worktree copy.",
+      "Choose a restore parent outside the integration root and all registered worktrees.",
+      "Create a new empty destination; abort if it already exists or contains any entry.",
+      "Never extract over the A16 source, A25 worktree, integration root, or another live directory."
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "action": "Verify the archive SHA-256 equals the recorded archive digest.",
+        "command": "printf '%s  %s\\n' '2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71' \"$archive_file\" | shasum -a 256 -c -"
+      },
+      {
+        "order": 2,
+        "action": "Validate that the regular-file member set is exactly the detached-manifest paths plus MANIFEST.sha256.",
+        "command": "diff -u <({ awk '{print $2}' \"$manifest_file\"; printf '%s\\n' MANIFEST.sha256; } | LC_ALL=C sort) <(tar -tf \"$archive_file\" | sed '/\\/$/d' | LC_ALL=C sort)"
+      },
+      {
+        "order": 3,
+        "action": "Create a new empty destination under an owner-selected restore parent outside live source/worktrees.",
+        "command": "restore_dir=$(mktemp -d \"$restore_parent/mais-natural-ca60-v1-restore.XXXXXX\")"
+      },
+      {
+        "order": 4,
+        "action": "Confirm the new destination is empty, then extract only there.",
+        "command": "test -z \"$(find \"$restore_dir\" -mindepth 1 -print -quit)\" && COPYFILE_DISABLE=1 tar -xf \"$archive_file\" -C \"$restore_dir\""
+      },
+      {
+        "order": 5,
+        "action": "Verify every extracted candidate against the embedded manifest.",
+        "command": "(cd \"$restore_dir\" && shasum -a 256 -c MANIFEST.sha256)"
+      }
+    ],
+    "expected_result": "35 candidate files and one embedded manifest in a new isolated restore directory; all 35 candidate hashes pass.",
+    "overwrite_live_source": false
+  },
+  "finalized_at_utc": "2026-08-24T15:36:02Z",
+  "durable_archive_manifest_copy_verified": true,
+  "external_post_copy_attestation_status": "EXTERNAL_POST_COPY_ATTESTATION_REQUIRED",
+  "external_post_copy_attestation_path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json",
+  "external_post_copy_attestation_contract": {
+    "status": "EXTERNAL_POST_COPY_ATTESTATION_REQUIRED",
+    "path": "/Volumes/Starship/MAIS-MVP/.local/evidence-archives/mais-natural-ca60-v1/a16-rsi-lite-20260823/DURABLE-ATTESTATION.json",
+    "generated_after_report_finalization": true,
+    "generated_after_inventory": true,
+    "report_bytes_must_not_change_after_attestation": true,
+    "attestation_need_not_hash_itself": true,
+    "required_fields": [
+      "RFC3339 UTC attestation timestamp after all covered file mtimes",
+      "Exact SHA-256 values for archive, manifest, final JSON, final Markdown, and durable inventory",
+      "Byte-identity results against worktree sources",
+      "File modes and counts",
+      "Inventory 4/4 validation result",
+      "Statement that no covered file changed after validation"
+    ]
+  }
+}
