@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/CounterfactualLedgerV1.schema.json",
+  "title": "CounterfactualLedgerV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "registrationHash", "sampleManifestHash",
+    "referenceSealHash", "executionRegistrationHash", "observedItemResultSetHash",
+    "observedConfusionMatrix", "observedFindingCounts", "nonresolvedItems",
+    "nonresolvedItemCount", "integrityLimitExceeded",
+    "referenceUnidentifiedItemCount", "machineNonresolvedResolvedReferenceItemCount",
+    "findingDecisionBoundUnidentified", "findingDecisionBound",
+    "maximumAdverseFindingOpportunityAdditions", "surfaceWorlds", "surfaceAssignmentCount",
+    "surfaceEnumerationRule", "surfaceEnumerationDisposition",
+    "p0MissingFalseNegativesFabricated", "p0Rule",
+    "counterfactualLedgerSeparateFromObservedCounts", "counterfactualLedgerHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "CounterfactualLedgerV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "referenceSealHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "observedItemResultSetHash": { "$ref": "#/$defs/sha256" },
+    "observedConfusionMatrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tp", "fp", "fn", "tn"],
+      "properties": {
+        "tp": { "$ref": "#/$defs/count" },
+        "fp": { "$ref": "#/$defs/count" },
+        "fn": { "$ref": "#/$defs/count" },
+        "tn": { "$ref": "#/$defs/count" }
+      }
+    },
+    "observedFindingCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "referenceFindingCount", "machineFindingCount", "familyMatchedReferenceCount",
+        "exactMatchedReferenceCount", "familyMatchedMachineCount", "exactMatchedMachineCount",
+        "unmatchedReferenceCount", "unmatchedMachineCount", "p0ReferenceCount",
+        "p0FalseNegativeCount", "p0OpportunityItemCount", "p0FalseNegativeItemCount",
+        "p1ReferenceCount", "p1MatchedCount", "p1OpportunityItemCount", "p2ReferenceCount",
+        "p2MissedCount", "p2OpportunityItemCount", "familyOpportunityItemCount",
+        "precisionOpportunityItemCount"
+      ],
+      "properties": {
+        "referenceFindingCount": { "$ref": "#/$defs/count" },
+        "machineFindingCount": { "$ref": "#/$defs/count" },
+        "familyMatchedReferenceCount": { "$ref": "#/$defs/count" },
+        "exactMatchedReferenceCount": { "$ref": "#/$defs/count" },
+        "familyMatchedMachineCount": { "$ref": "#/$defs/count" },
+        "exactMatchedMachineCount": { "$ref": "#/$defs/count" },
+        "unmatchedReferenceCount": { "$ref": "#/$defs/count" },
+        "unmatchedMachineCount": { "$ref": "#/$defs/count" },
+        "p0ReferenceCount": { "$ref": "#/$defs/count" },
+        "p0FalseNegativeCount": { "$ref": "#/$defs/count" },
+        "p0OpportunityItemCount": { "$ref": "#/$defs/count" },
+        "p0FalseNegativeItemCount": { "$ref": "#/$defs/count" },
+        "p1ReferenceCount": { "$ref": "#/$defs/count" },
+        "p1MatchedCount": { "$ref": "#/$defs/count" },
+        "p1OpportunityItemCount": { "$ref": "#/$defs/count" },
+        "p2ReferenceCount": { "$ref": "#/$defs/count" },
+        "p2MissedCount": { "$ref": "#/$defs/count" },
+        "p2OpportunityItemCount": { "$ref": "#/$defs/count" },
+        "familyOpportunityItemCount": { "$ref": "#/$defs/count" },
+        "precisionOpportunityItemCount": { "$ref": "#/$defs/count" }
+      }
+    },
+    "nonresolvedItems": {
+      "type": "array",
+      "maxItems": 60,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["itemId", "clusterId", "reason", "sealedReferenceDisposition", "observedMachineSurfacePrediction", "sealedReferenceFindingCount", "sealedP1ReferenceFindingCount", "sealedP2ReferenceFindingCount"],
+        "properties": {
+          "itemId": { "$ref": "#/$defs/nonempty" },
+          "clusterId": { "$ref": "#/$defs/nonempty" },
+          "reason": { "enum": ["MISSING_RECEIPT", "UNRESOLVED_REFERENCE", "UNRESOLVED_MACHINE", "INVALID"] },
+          "sealedReferenceDisposition": { "enum": ["RESOLVED_POSITIVE", "RESOLVED_NEGATIVE", "UNRESOLVED_REFERENCE", "INVALID"] },
+          "observedMachineSurfacePrediction": { "type": ["boolean", "null"] },
+          "sealedReferenceFindingCount": { "$ref": "#/$defs/count" },
+          "sealedP1ReferenceFindingCount": { "$ref": "#/$defs/count" },
+          "sealedP2ReferenceFindingCount": { "$ref": "#/$defs/count" }
+        }
+      }
+    },
+    "nonresolvedItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "integrityLimitExceeded": { "type": "boolean" },
+    "referenceUnidentifiedItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "machineNonresolvedResolvedReferenceItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "findingDecisionBoundUnidentified": { "type": "boolean" },
+    "findingDecisionBound": { "anyOf": [{ "type": "object", "additionalProperties": false, "required": ["lower", "upper"], "properties": { "lower": { "type": "number", "minimum": 0, "maximum": 1 }, "upper": { "type": "number", "minimum": 0, "maximum": 1 } } }, { "type": "null" }] },
+    "maximumAdverseFindingOpportunityAdditions": {
+      "anyOf": [{
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["familyRecall", "exactCodeAndFamilyRecall", "p1Recall", "p2MissedOrUnresolved"],
+        "properties": {
+          "familyRecall": { "$ref": "#/$defs/count" },
+          "exactCodeAndFamilyRecall": { "$ref": "#/$defs/count" },
+          "p1Recall": { "$ref": "#/$defs/count" },
+          "p2MissedOrUnresolved": { "$ref": "#/$defs/count" }
+        }
+      }, { "type": "null" }]
+    },
+    "surfaceWorlds": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["worldIndex", "assignments", "confusionMatrix"],
+        "properties": {
+          "worldIndex": { "type": "integer", "minimum": 0 },
+          "assignments": {
+            "type": "array",
+            "maxItems": 60,
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["itemId", "clusterId", "reason", "observedMachineSurfacePrediction", "assignedMachineSurfaceFinding", "assignedReferenceDisposition", "classification"],
+              "properties": {
+                "itemId": { "$ref": "#/$defs/nonempty" },
+                "clusterId": { "$ref": "#/$defs/nonempty" },
+                "reason": { "enum": ["MISSING_RECEIPT", "UNRESOLVED_REFERENCE", "UNRESOLVED_MACHINE", "INVALID"] },
+                "observedMachineSurfacePrediction": { "type": ["boolean", "null"] },
+                "assignedMachineSurfaceFinding": { "type": "boolean" },
+                "assignedReferenceDisposition": { "enum": ["RESOLVED_POSITIVE", "RESOLVED_NEGATIVE"] },
+                "classification": { "enum": ["TP", "FP", "FN", "TN"] }
+              }
+            }
+          },
+          "confusionMatrix": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tp", "fp", "fn", "tn"],
+            "properties": {
+              "tp": { "$ref": "#/$defs/count" },
+              "fp": { "$ref": "#/$defs/count" },
+              "fn": { "$ref": "#/$defs/count" },
+              "tn": { "$ref": "#/$defs/count" }
+            }
+          }
+        }
+      }
+    },
+    "surfaceAssignmentCount": { "type": "integer", "minimum": 0, "maximum": 64 },
+    "surfaceEnumerationRule": { "const": "FIX_SEALED_REFERENCE_WHEN_RESOLVED_AND_ENUMERATE_TWO_MACHINE_STATES_FOR_MACHINE_NONRESOLUTION; FIX_OBSERVED_MACHINE_STATE_AND_ENUMERATE_TWO_REFERENCE_STATES_FOR_REFERENCE_NONRESOLUTION" },
+    "surfaceEnumerationDisposition": { "enum": ["ENUMERATED_WITHIN_UNIFIED_NONRESOLVED_LIMIT", "NOT_ENUMERATED_UNIFIED_NONRESOLVED_LIMIT_EXCEEDED"] },
+    "p0MissingFalseNegativesFabricated": { "const": 0 },
+    "p0Rule": { "const": "OBSERVED_FALSE_NEGATIVES_ONLY" },
+    "counterfactualLedgerSeparateFromObservedCounts": { "const": true },
+    "counterfactualLedgerHash": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "nonresolvedItemCount": { "maximum": 3 } }, "required": ["nonresolvedItemCount"] },
+      "then": { "properties": { "integrityLimitExceeded": { "const": false }, "surfaceWorlds": { "minItems": 1, "maxItems": 64 }, "surfaceAssignmentCount": { "minimum": 1, "maximum": 64 }, "surfaceEnumerationDisposition": { "const": "ENUMERATED_WITHIN_UNIFIED_NONRESOLVED_LIMIT" } } }
+    },
+    {
+      "if": { "properties": { "nonresolvedItemCount": { "minimum": 4 } }, "required": ["nonresolvedItemCount"] },
+      "then": { "properties": { "integrityLimitExceeded": { "const": true }, "surfaceWorlds": { "maxItems": 0 }, "surfaceAssignmentCount": { "const": 0 }, "surfaceEnumerationDisposition": { "const": "NOT_ENUMERATED_UNIFIED_NONRESOLVED_LIMIT_EXCEEDED" } } }
+    },
+    {
+      "if": { "properties": { "referenceUnidentifiedItemCount": { "const": 0 } }, "required": ["referenceUnidentifiedItemCount"] },
+      "then": {
+        "properties": {
+          "findingDecisionBoundUnidentified": { "const": false },
+          "findingDecisionBound": { "type": "null" },
+          "maximumAdverseFindingOpportunityAdditions": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["familyRecall", "exactCodeAndFamilyRecall", "p1Recall", "p2MissedOrUnresolved"],
+            "properties": {
+              "familyRecall": { "$ref": "#/$defs/count" },
+              "exactCodeAndFamilyRecall": { "$ref": "#/$defs/count" },
+              "p1Recall": { "$ref": "#/$defs/count" },
+              "p2MissedOrUnresolved": { "$ref": "#/$defs/count" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "referenceUnidentifiedItemCount": { "minimum": 1 } }, "required": ["referenceUnidentifiedItemCount"] },
+      "then": {
+        "properties": {
+          "findingDecisionBoundUnidentified": { "const": true },
+          "findingDecisionBound": { "const": { "lower": 0, "upper": 1 } },
+          "maximumAdverseFindingOpportunityAdditions": { "const": { "familyRecall": null, "exactCodeAndFamilyRecall": null, "p1Recall": null, "p2MissedOrUnresolved": null } }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 },
+    "count": { "type": "integer", "minimum": 0 }
+  },
+  "x-mais-surface-world-cardinality": "surfaceAssignmentCount=PRODUCT(perItemCardinality); perItemCardinality=(machinePredictionKnown?1:2)*(referenceDispositionResolved?1:2); nonresolvedItemCount<=3 implies maximum 64",
+  "x-mais-cross-field-constraints": [
+    "nonresolvedItemCount=length(nonresolvedItems)",
+    "finding additions derive only from sealed resolved-reference finding counts; any unresolved or invalid reference makes the finding decision bound unidentified [0,1] and UNDERPOWERED",
+    "surfaceAssignmentCount=length(surfaceWorlds)=PRODUCT(per-item cardinality); unified nonresolved<=3 implies maximum 64",
+    "missing, unresolved-reference, and invalid items form one nonresolved universe; intact execution requires count<=3"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/FrameFailureLedgerV1.schema.json",
+  "title": "FrameFailureLedgerV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "sourceCommit",
+    "runtimeConfigHash",
+    "entries",
+    "entryCount",
+    "freezeAllowed",
+    "closedCodes",
+    "ledgerHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "FrameFailureLedgerV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "runtimeConfigHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "entries": {
+      "type": "array"
+    },
+    "entryCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "freezeAllowed": {
+      "type": "boolean"
+    },
+    "closedCodes": {
+      "const": [
+        "SOURCE_IMPORT_FAILED",
+        "RUNTIME_ENUMERATION_FAILED",
+        "ID_COLLISION",
+        "RAW_FULL_ID_MISMATCH",
+        "FULL_PUBLIC_ID_MISMATCH",
+        "PUBLIC_FIELD_MISMATCH",
+        "SERIALIZATION_FAILED",
+        "RIGHTS_UNRESOLVED",
+        "PII_SCREEN_FAILED",
+        "ASSET_UNRESOLVED",
+        "LINEAGE_FIELD_MISSING",
+        "UNSUPPORTED_RESPONSE_FORM"
+      ]
+    },
+    "ledgerHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

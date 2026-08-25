@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/RuntimeThreeRouteParityReceiptV1.schema.json",
+  "title": "RuntimeThreeRouteParityReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "sourceCommit",
+    "runtimeConfigHash",
+    "rawRouteCount",
+    "fullRouteCount",
+    "publicRouteCount",
+    "rawRouteIdRootHash",
+    "fullRouteIdRootHash",
+    "publicRouteIdRootHash",
+    "idCollisionsAbsent",
+    "rawFullIdParity",
+    "fullPublicIdParity",
+    "publicFieldParity",
+    "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "RuntimeThreeRouteParityReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "runtimeConfigHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rawRouteCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "fullRouteCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "publicRouteCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rawRouteIdRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fullRouteIdRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "publicRouteIdRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "idCollisionsAbsent": {
+      "const": true
+    },
+    "rawFullIdParity": {
+      "const": true
+    },
+    "fullPublicIdParity": {
+      "const": true
+    },
+    "publicFieldParity": {
+      "const": true
+    },
+    "receiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

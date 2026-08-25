@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/RunnerPersistenceProofV1.schema.json",
+  "title": "RunnerPersistenceProofV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "appendOnlyTestPassed",
+    "atomicRenameTestPassed",
+    "fileModeObserved",
+    "fileStatTestPassed",
+    "fsyncFileTestPassed",
+    "fsyncDirectoryTestPassed",
+    "secretSentinelAbsent",
+    "rawErrorSentinelAbsent",
+    "testCommandHash",
+    "fixtureRootHash",
+    "proofHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "RunnerPersistenceProofV1"
+    },
+    "appendOnlyTestPassed": {
+      "const": true
+    },
+    "atomicRenameTestPassed": {
+      "const": true
+    },
+    "fileModeObserved": {
+      "const": "0600"
+    },
+    "fileStatTestPassed": {
+      "const": true
+    },
+    "fsyncFileTestPassed": {
+      "const": true
+    },
+    "fsyncDirectoryTestPassed": {
+      "const": true
+    },
+    "secretSentinelAbsent": {
+      "const": true
+    },
+    "rawErrorSentinelAbsent": {
+      "const": true
+    },
+    "testCommandHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fixtureRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "proofHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/AssetEgressLedgerV1.schema.json",
+  "title": "AssetEgressLedgerV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "itemHash",
+    "diagramPresent",
+    "questionAssetCount",
+    "identityBindsDiagramAndAssets",
+    "providerEgressEligible",
+    "disposition",
+    "ownerApprovalHash",
+    "entryHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "AssetEgressLedgerV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "itemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "diagramPresent": {
+      "type": "boolean"
+    },
+    "questionAssetCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "identityBindsDiagramAndAssets": {
+      "const": true
+    },
+    "providerEgressEligible": {
+      "type": "boolean"
+    },
+    "disposition": {
+      "enum": [
+        "NO_VISUAL_ASSET",
+        "ASSET_UNRESOLVED",
+        "OWNER_APPROVED_ASSET_EGRESS"
+      ]
+    },
+    "ownerApprovalHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "entryHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

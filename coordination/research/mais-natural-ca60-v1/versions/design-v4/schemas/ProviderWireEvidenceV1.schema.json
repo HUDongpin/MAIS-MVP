@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ProviderWireEvidenceV1.schema.json",
+  "title": "ProviderWireEvidenceV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "logicalRequest",
+    "logicalRequestHash",
+    "wireRequestBody",
+    "wireRequestSerializationAlgorithm",
+    "wireRequestBodyBytes",
+    "wireRequestBodyHash",
+    "rawWireResponseEncoding",
+    "rawWireResponseBytes",
+    "rawWireResponseHash",
+    "parsedProviderEnvelope",
+    "parsedProviderEnvelopeHash",
+    "providerResponseId",
+    "providerResponseModel",
+    "finishReason",
+    "providerUsage",
+    "providerUsageHash",
+    "extractedMessageContent",
+    "extractedMessageContentHash",
+    "parsedRolePayload",
+    "parsedRolePayloadHash",
+    "parsedRolePayloadSchemaStatus",
+    "parsedRolePayloadSchemaErrorHash",
+    "adapterTransformHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderWireEvidenceV1"
+    },
+    "logicalRequest": {
+      "$ref": "https://mais.hk/schemas/research/ProviderLogicalRequestV1.schema.json"
+    },
+    "logicalRequestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "wireRequestBody": {
+      "oneOf": [
+        { "$ref": "#/$defs/qwenWireRequestBody" },
+        { "$ref": "#/$defs/deepSeekWireRequestBody" }
+      ]
+    },
+    "wireRequestSerializationAlgorithm": {
+      "const": "UTF8_RFC8785_JCS_EXACT_BYTES_V1"
+    },
+    "wireRequestBodyBytes": {
+      "type": "string",
+      "minLength": 2
+    },
+    "wireRequestBodyHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rawWireResponseEncoding": {
+      "const": "PROVIDER_HTTP_BODY_EXACT_UTF8_BYTES_V1"
+    },
+    "rawWireResponseBytes": {
+      "type": "string"
+    },
+    "rawWireResponseHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "parsedProviderEnvelope": {
+      "type": "object"
+    },
+    "parsedProviderEnvelopeHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "providerResponseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "providerResponseModel": {
+      "enum": ["qwen3.8-max", "deepseek-v4-pro"]
+    },
+    "finishReason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "providerUsage": {
+      "$ref": "#/$defs/providerUsage"
+    },
+    "providerUsageHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "extractedMessageContent": {
+      "type": "string"
+    },
+    "extractedMessageContentHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "parsedRolePayload": {
+      "type": "object"
+    },
+    "parsedRolePayloadHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "parsedRolePayloadSchemaStatus": {
+      "enum": ["CONFORMING", "NONCONFORMING_RAW_PROVIDER_PAYLOAD"]
+    },
+    "parsedRolePayloadSchemaErrorHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "adapterTransformHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "content"],
+      "properties": {
+        "role": { "enum": ["system", "user"] },
+        "content": { "type": "string" }
+      }
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        { "$ref": "#/$defs/message", "properties": { "role": { "const": "system" } } },
+        { "$ref": "#/$defs/message", "properties": { "role": { "const": "user" } } }
+      ],
+      "items": false
+    },
+    "responseFormat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": { "type": { "const": "json_object" } }
+    },
+    "providerUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["promptTokens", "completionTokens", "reasoningTokens", "totalTokens"],
+      "properties": {
+        "promptTokens": { "type": "integer", "minimum": 0 },
+        "completionTokens": { "type": "integer", "minimum": 0 },
+        "reasoningTokens": { "type": "integer", "minimum": 0 },
+        "totalTokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "qwenWireRequestBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "messages", "stream", "temperature", "response_format", "max_tokens", "enable_thinking", "enable_search"],
+      "properties": {
+        "model": { "const": "qwen3.8-max" },
+        "messages": { "$ref": "#/$defs/messages" },
+        "stream": { "const": false },
+        "temperature": { "const": 0 },
+        "response_format": { "$ref": "#/$defs/responseFormat" },
+        "max_tokens": { "const": 8192 },
+        "enable_thinking": { "const": true },
+        "enable_search": { "const": false }
+      }
+    },
+    "deepSeekWireRequestBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "messages", "stream", "temperature", "response_format", "max_tokens", "thinking", "reasoning_effort"],
+      "properties": {
+        "model": { "const": "deepseek-v4-pro" },
+        "messages": { "$ref": "#/$defs/messages" },
+        "stream": { "const": false },
+        "temperature": { "const": 0 },
+        "response_format": { "$ref": "#/$defs/responseFormat" },
+        "max_tokens": { "const": 8192 },
+        "thinking": { "type": "object", "additionalProperties": false, "required": ["type"], "properties": { "type": { "const": "enabled" } } },
+        "reasoning_effort": { "const": "high" }
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

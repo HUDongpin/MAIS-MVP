@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ReferenceLabelSealV1.schema.json",
+  "title": "ReferenceLabelSealV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "registrationHash", "frameRegistrationHash",
+    "sampleManifestHash", "qwenAuthorizationHash", "expectedItemCount", "itemSeals",
+    "itemSealRoot", "attemptChainHash", "totalAttemptCount", "baseSuccessfulCallCount",
+    "adjudicationSuccessfulCallCount", "totalSuccessfulCallCount", "retryAttemptCount",
+    "adjudicationRate", "agreementStatistics", "labelSourceType", "humanGold",
+    "sameModelCorrelatedErrorRisk", "referenceLabelsFrozenAt", "providerEventCountAtSeal",
+    "sealHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ReferenceLabelSealV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "qwenAuthorizationHash": { "$ref": "#/$defs/sha256" },
+    "expectedItemCount": { "const": 60 },
+    "itemSeals": {
+      "type": "array",
+      "minItems": 60,
+      "maxItems": 60,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["itemId", "itemHash", "clusterId", "itemSealHash", "finalLabelHash", "sealMode", "adjudicationAttemptReceiptHash"],
+        "properties": {
+          "itemId": { "$ref": "#/$defs/nonempty" },
+          "itemHash": { "$ref": "#/$defs/sha256" },
+          "clusterId": { "$ref": "#/$defs/nonempty" },
+          "itemSealHash": { "$ref": "#/$defs/sha256" },
+          "finalLabelHash": { "$ref": "#/$defs/sha256" },
+          "sealMode": { "enum": ["FINAL_AGREEMENT_MERGE", "FINAL_ADJUDICATED"] },
+          "adjudicationAttemptReceiptHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "sealMode": { "const": "FINAL_AGREEMENT_MERGE" } }, "required": ["sealMode"] },
+            "then": { "properties": { "adjudicationAttemptReceiptHash": { "type": "null" } } }
+          },
+          {
+            "if": { "properties": { "sealMode": { "const": "FINAL_ADJUDICATED" } }, "required": ["sealMode"] },
+            "then": { "properties": { "adjudicationAttemptReceiptHash": { "$ref": "#/$defs/sha256" } } }
+          }
+        ]
+      }
+    },
+    "itemSealRoot": { "$ref": "#/$defs/sha256" },
+    "attemptChainHash": { "$ref": "#/$defs/sha256" },
+    "totalAttemptCount": { "type": "integer", "minimum": 240, "maximum": 610 },
+    "baseSuccessfulCallCount": { "const": 240 },
+    "adjudicationSuccessfulCallCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "totalSuccessfulCallCount": { "type": "integer", "minimum": 240, "maximum": 300 },
+    "retryAttemptCount": { "type": "integer", "minimum": 0, "maximum": 370 },
+    "adjudicationRate": { "$ref": "#/$defs/probability" },
+    "agreementStatistics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "denominator", "rawLabelAgreement", "allFieldAgreement", "cohenKappa",
+        "cohenKappaDegenerateReason", "gwetAc1", "gwetAc1DegenerateReason",
+        "rawLabelCategories", "meanCodeJaccard", "meanFamilyJaccard",
+        "severityAgreement", "adjudicationCount", "adjudicationRate", "interpretation"
+      ],
+      "properties": {
+        "denominator": { "const": 60 },
+        "rawLabelAgreement": { "$ref": "#/$defs/probability" },
+        "allFieldAgreement": { "$ref": "#/$defs/probability" },
+        "cohenKappa": { "$ref": "#/$defs/nullableAgreement" },
+        "cohenKappaDegenerateReason": { "enum": ["SINGLE_CATEGORY_NO_CHANCE_VARIANCE", null] },
+        "gwetAc1": { "$ref": "#/$defs/nullableAgreement" },
+        "gwetAc1DegenerateReason": { "enum": ["NO_REMAINING_VARIANCE", null] },
+        "rawLabelCategories": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["DEFECT", "NO_FINDING", "UNRESOLVED_REFERENCE"] }
+        },
+        "meanCodeJaccard": { "$ref": "#/$defs/probability" },
+        "meanFamilyJaccard": { "$ref": "#/$defs/probability" },
+        "severityAgreement": { "$ref": "#/$defs/probability" },
+        "adjudicationCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+        "adjudicationRate": { "$ref": "#/$defs/probability" },
+        "interpretation": { "const": "CORRELATED_SAME_MODEL_MACHINE_PANEL_AGREEMENT_ONLY_NOT_HUMAN_VALIDITY" }
+      }
+    },
+    "labelSourceType": { "const": "machine_reference_panel" },
+    "humanGold": { "const": false },
+    "sameModelCorrelatedErrorRisk": { "const": true },
+    "referenceLabelsFrozenAt": { "type": "string", "format": "date-time" },
+    "providerEventCountAtSeal": { "type": "integer", "minimum": 240, "maximum": 610 },
+    "sealHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 },
+    "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "nullableAgreement": {
+      "anyOf": [
+        { "type": "number", "minimum": -1, "maximum": 1 },
+        { "type": "null" }
+      ]
+    }
+  },
+  "x-mais-cross-field-constraints": [
+    "itemSeals are physically sorted by itemId and contain 60 unique item and cluster identities",
+    "adjudicationSuccessfulCallCount=count(FINAL_ADJUDICATED)",
+    "totalSuccessfulCallCount=240+adjudicationSuccessfulCallCount",
+    "retryAttemptCount=totalAttemptCount-totalSuccessfulCallCount",
+    "providerEventCountAtSeal=totalAttemptCount",
+    "adjudicationRate=adjudicationSuccessfulCallCount/60"
+  ]
+}

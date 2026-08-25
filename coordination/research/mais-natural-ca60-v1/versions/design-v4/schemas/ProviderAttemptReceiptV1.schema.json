@@ -1,0 +1,835 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ProviderAttemptReceiptV1.schema.json",
+  "title": "ProviderAttemptReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "runId",
+    "registrationHash",
+    "frameRegistrationHash",
+    "sampleManifestHash",
+    "runtimeConfigHash",
+    "authorizationHash",
+    "referenceSealHash",
+    "executionRegistrationHash",
+    "itemIdPseudonym",
+    "itemHash",
+    "clusterId",
+    "role",
+    "attemptId",
+    "sequenceNumber",
+    "requestedProvider",
+    "observedProvider",
+    "requestedModel",
+    "observedModel",
+    "requestedEndpoint",
+    "observedEndpointHostname",
+    "provider",
+    "model",
+    "endpoint",
+    "requestBodyHash",
+    "responseBodyHash",
+    "parsedOutputHash",
+    "logicalRequestHash",
+    "wireRequestBodyHash",
+    "rawWireResponseHash",
+    "parsedProviderEnvelopeHash",
+    "extractedMessageContentHash",
+    "parsedRolePayloadHash",
+    "providerUsageHash",
+    "adapterTransformHash",
+    "dispatchState",
+    "usageState",
+    "reservedTokens",
+    "reservedUsd",
+    "reconciliationReceiptHash",
+    "startedAt",
+    "finishedAt",
+    "latencyMs",
+    "httpStatus",
+    "providerRequestId",
+    "finishReason",
+    "parseStatus",
+    "schemaStatus",
+    "attemptStatus",
+    "inputTokens",
+    "outputTokens",
+    "reasoningTokens",
+    "totalTokens",
+    "rawUsage",
+    "usageMappingVersion",
+    "costRateSnapshotHash",
+    "estimatedCost",
+    "cumulativeCost",
+    "retryClassification",
+    "redactedError",
+    "appendOnly",
+    "atomicWrite",
+    "fileMode",
+    "completedItemCommitMarkerHash",
+    "cacheHit",
+    "providerInvoiceAuthoritative",
+    "previousReceiptHash",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderAttemptReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "frameRegistrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sampleManifestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtimeConfigHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorizationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "referenceSealHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "executionRegistrationHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "itemIdPseudonym": {
+      "type": "string",
+      "pattern": "^ca60-[0-9a-f]{32}$"
+    },
+    "itemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "clusterId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "enum": [
+        "A_SOLVE",
+        "A_LABEL",
+        "B_SOLVE",
+        "B_LABEL",
+        "ADJUDICATOR",
+        "B_PRIME_CRITIQUE",
+        "B_PRIME_REVISION",
+        "C0_PRIME_ROLE_1",
+        "C0_PRIME_ROLE_2",
+        "C0_PRIME_ROLE_3",
+        "C0_PRIME_ROLE_4",
+        "C0_PRIME_ROLE_5"
+      ]
+    },
+    "attemptId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequenceNumber": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "requestedProvider": {
+      "enum": [
+        "ALIBABA_CLOUD_MODEL_STUDIO",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "observedProvider": {
+      "anyOf": [
+        {
+          "enum": [
+            "ALIBABA_CLOUD_MODEL_STUDIO",
+            "DEEPSEEK_DIRECT"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requestedModel": {
+      "enum": [
+        "qwen3.8-max",
+        "deepseek-v4-pro"
+      ]
+    },
+    "observedModel": {
+      "anyOf": [
+        {
+          "enum": [
+            "qwen3.8-max",
+            "deepseek-v4-pro"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requestedEndpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "observedEndpointHostname": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "provider": {
+      "enum": [
+        "ALIBABA_CLOUD_MODEL_STUDIO",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "model": {
+      "enum": [
+        "qwen3.8-max",
+        "deepseek-v4-pro"
+      ]
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "requestBodyHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "responseBodyHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parsedOutputHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "logicalRequestHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "wireRequestBodyHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rawWireResponseHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parsedProviderEnvelopeHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "extractedMessageContentHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parsedRolePayloadHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "providerUsageHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "adapterTransformHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "dispatchState": {
+      "enum": [
+        "NOT_DISPATCHED",
+        "DISPATCHED"
+      ]
+    },
+    "usageState": {
+      "enum": [
+        "ZERO_COST_PRE_DISPATCH",
+        "USAGE_UNKNOWN_PENDING_PROVIDER_RECONCILIATION",
+        "PROVIDER_USAGE_RECONCILED"
+      ]
+    },
+    "reservedTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reservedUsd": {
+      "type": "number",
+      "minimum": 0
+    },
+    "reconciliationReceiptHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "latencyMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "httpStatus": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "providerRequestId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finishReason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "parseStatus": {
+      "enum": [
+        "NOT_ATTEMPTED",
+        "VALID",
+        "INVALID"
+      ]
+    },
+    "schemaStatus": {
+      "enum": [
+        "NOT_ATTEMPTED",
+        "VALID",
+        "INVALID"
+      ]
+    },
+    "attemptStatus": {
+      "enum": [
+        "SUCCESS",
+        "TRANSIENT_NETWORK_FAILURE",
+        "TIMEOUT",
+        "HTTP_429",
+        "HTTP_500",
+        "CONNECTION_LOST_AFTER_DISPATCH",
+        "MALFORMED_200",
+        "SCHEMA_FAILURE",
+        "CAP_BLOCKED_BEFORE_REQUEST"
+      ]
+    },
+    "inputTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "outputTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reasoningTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "totalTokens": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rawUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promptTokens",
+        "completionTokens",
+        "reasoningTokens",
+        "totalTokens"
+      ],
+      "properties": {
+        "promptTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completionTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reasoningTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "totalTokens": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "usageMappingVersion": {
+      "const": "OPENAI_COMPAT_REASONING_INCLUDED_IN_COMPLETION_V1"
+    },
+    "costRateSnapshotHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "estimatedCost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "cumulativeCost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "retryClassification": {
+      "enum": [
+        "NONE",
+        "TRANSIENT_RETRY_ALLOWED_ONLY_IF_REMAINING_CAP_COVERS_NEW_RESERVE",
+        "SCHEMA_RETRY_ALLOWED",
+        "PERMANENT_NO_RETRY",
+        "CAP_BLOCKED"
+      ]
+    },
+    "redactedError": {
+      "anyOf": [
+        {
+          "enum": [
+            "PROVIDER_TIMEOUT_REDACTED",
+            "TRANSIENT_NETWORK_FAILURE_REDACTED",
+            "HTTP_429_REDACTED",
+            "HTTP_500_REDACTED",
+            "MALFORMED_RESPONSE_REDACTED",
+            "SCHEMA_VALIDATION_FAILURE_REDACTED",
+            "LOCAL_PREFLIGHT_REJECTION_REDACTED",
+            "UNCLASSIFIED_ERROR_REDACTED"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "appendOnly": {
+      "const": true
+    },
+    "atomicWrite": {
+      "const": true
+    },
+    "fileMode": {
+      "const": "0600"
+    },
+    "completedItemCommitMarkerHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "cacheHit": {
+      "const": false
+    },
+    "providerInvoiceAuthoritative": {
+      "const": true
+    },
+    "previousReceiptHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selfHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "provider": {
+            "const": "ALIBABA_CLOUD_MODEL_STUDIO"
+          }
+        },
+        "required": [
+          "provider"
+        ]
+      },
+      "then": {
+        "properties": {
+          "model": {
+            "const": "qwen3.8-max"
+          },
+          "referenceSealHash": {
+            "type": "null"
+          },
+          "executionRegistrationHash": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "provider": {
+            "const": "DEEPSEEK_DIRECT"
+          }
+        },
+        "required": [
+          "provider"
+        ]
+      },
+      "then": {
+        "properties": {
+          "model": {
+            "const": "deepseek-v4-pro"
+          },
+          "endpoint": {
+            "const": "https://api.deepseek.com/chat/completions"
+          },
+          "referenceSealHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "executionRegistrationHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "attemptStatus": {
+            "const": "SUCCESS"
+          }
+        },
+        "required": [
+          "attemptStatus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "dispatchState": {
+            "const": "DISPATCHED"
+          },
+          "usageState": {
+            "const": "PROVIDER_USAGE_RECONCILED"
+          },
+          "reservedTokens": {
+            "const": 0
+          },
+          "reservedUsd": {
+            "const": 0
+          },
+          "rawWireResponseHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "parsedProviderEnvelopeHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "extractedMessageContentHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "parsedRolePayloadHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "providerUsageHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "retryClassification": {
+            "const": "NONE"
+          },
+          "redactedError": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "attemptStatus": {
+            "const": "SCHEMA_FAILURE"
+          }
+        },
+        "required": [
+          "attemptStatus"
+        ]
+      },
+      "then": {
+        "properties": {
+          "dispatchState": {
+            "const": "DISPATCHED"
+          },
+          "usageState": {
+            "const": "PROVIDER_USAGE_RECONCILED"
+          },
+          "reservedTokens": {
+            "const": 0
+          },
+          "reservedUsd": {
+            "const": 0
+          },
+          "reconciliationReceiptHash": {
+            "type": "null"
+          },
+          "rawWireResponseHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "parsedProviderEnvelopeHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "extractedMessageContentHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "parsedRolePayloadHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "providerUsageHash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "httpStatus": {
+            "const": 200
+          },
+          "providerRequestId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finishReason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parseStatus": {
+            "const": "VALID"
+          },
+          "schemaStatus": {
+            "const": "INVALID"
+          },
+          "retryClassification": {
+            "const": "SCHEMA_RETRY_ALLOWED"
+          },
+          "redactedError": {
+            "const": "SCHEMA_VALIDATION_FAILURE_REDACTED"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "usageState": {
+            "const": "USAGE_UNKNOWN_PENDING_PROVIDER_RECONCILIATION"
+          }
+        },
+        "required": [
+          "usageState"
+        ]
+      },
+      "then": {
+        "properties": {
+          "dispatchState": {
+            "const": "DISPATCHED"
+          },
+          "reservedTokens": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reservedUsd": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "reconciliationReceiptHash": {
+            "type": "null"
+          },
+          "retryClassification": {
+            "const": "TRANSIENT_RETRY_ALLOWED_ONLY_IF_REMAINING_CAP_COVERS_NEW_RESERVE"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dispatchState": {
+            "const": "NOT_DISPATCHED"
+          }
+        },
+        "required": [
+          "dispatchState"
+        ]
+      },
+      "then": {
+        "properties": {
+          "usageState": {
+            "const": "ZERO_COST_PRE_DISPATCH"
+          },
+          "reservedTokens": {
+            "const": 0
+          },
+          "reservedUsd": {
+            "const": 0
+          },
+          "rawWireResponseHash": {
+            "type": "null"
+          },
+          "parsedProviderEnvelopeHash": {
+            "type": "null"
+          },
+          "extractedMessageContentHash": {
+            "type": "null"
+          },
+          "parsedRolePayloadHash": {
+            "type": "null"
+          },
+          "providerUsageHash": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "x-mais-cross-field-constraint": "requestBodyHash=wireRequestBodyHash; responseBodyHash=rawWireResponseHash; parsedOutputHash=parsedRolePayloadHash; providerUsageHash binds the exact raw provider usage object while rawUsage binds normalized prompt/completion/reasoning/total counters; itemId is forbidden",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

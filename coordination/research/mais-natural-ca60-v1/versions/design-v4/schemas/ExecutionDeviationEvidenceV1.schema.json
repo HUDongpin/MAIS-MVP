@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ExecutionDeviationEvidenceV1.schema.json",
+  "title": "ExecutionDeviationEvidenceV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "executionRegistrationHash", "materialDeviationRecords", "postResultDesignDriftRecords", "labelLeakageRecords", "unauthorizedProviderCallRecords", "terminalProviderFailureRecords", "deviationEvidenceHash"],
+  "properties": {
+    "schemaVersion": { "const": "ExecutionDeviationEvidenceV1" }, "designId": { "const": "MAIS-NATURAL-CA60-V4" }, "registrationHash": { "$ref": "#/$defs/sha256" }, "executionRegistrationHash": { "$ref": "#/$defs/sha256" }, "materialDeviationRecords": { "$ref": "#/$defs/records" }, "postResultDesignDriftRecords": { "$ref": "#/$defs/records" }, "labelLeakageRecords": { "$ref": "#/$defs/records" }, "unauthorizedProviderCallRecords": { "$ref": "#/$defs/records" }, "terminalProviderFailureRecords": { "$ref": "#/$defs/records" }, "deviationEvidenceHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }, "records": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["code", "evidenceHash"], "properties": { "code": { "type": "string", "minLength": 1 }, "evidenceHash": { "$ref": "#/$defs/sha256" } } } } }
+}

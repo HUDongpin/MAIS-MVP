@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ClaimBoundaryReviewReceiptV1.schema.json",
+  "title": "ClaimBoundaryReviewReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "executionRegistrationHash", "finalEvaluationReceiptHash", "referenceSealHash", "frameRegistrationHash", "sampleManifestHash", "thresholdHash", "taxonomyHash", "labelSchemaHash", "adjudicationMethodHash", "severityRuleHash", "publicLimitationSetHash", "publicClaimTemplateHash", "independentReviewReceiptHash", "reviewLedgerHeadHash", "reviewerLane", "provenanceType", "reviewScope", "humanGoldLabelReview", "sourceArtifactsReadOnly", "reviewedDecision", "reviewedClaimScopeCeiling", "methodReviewEvidence", "claimBoundaryStatus", "objectionCodes", "objectionReason", "reviewedAt", "previousReceiptHash", "receiptHash"],
+  "properties": {
+    "schemaVersion": { "const": "ClaimBoundaryReviewReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "finalEvaluationReceiptHash": { "$ref": "#/$defs/sha256" },
+    "referenceSealHash": { "$ref": "#/$defs/sha256" },
+    "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "thresholdHash": { "$ref": "#/$defs/sha256" },
+    "taxonomyHash": { "$ref": "#/$defs/sha256" },
+    "labelSchemaHash": { "$ref": "#/$defs/sha256" },
+    "adjudicationMethodHash": { "$ref": "#/$defs/sha256" },
+    "severityRuleHash": { "$ref": "#/$defs/sha256" },
+    "publicLimitationSetHash": { "$ref": "#/$defs/sha256" },
+    "publicClaimTemplateHash": { "$ref": "#/$defs/sha256" },
+    "independentReviewReceiptHash": { "$ref": "#/$defs/sha256" },
+    "reviewLedgerHeadHash": { "$ref": "#/$defs/sha256" },
+    "reviewerLane": { "const": "A18" },
+    "provenanceType": { "const": "A18_METHOD_AND_CLAIM_BOUNDARY_REVIEW" },
+    "reviewScope": { "const": "TAXONOMY_ADJUDICATION_SEVERITY_AND_CLAIM_WORDING_ONLY" },
+    "humanGoldLabelReview": { "const": false },
+    "sourceArtifactsReadOnly": { "const": true },
+    "reviewedDecision": { "$ref": "#/$defs/conclusion" },
+    "reviewedClaimScopeCeiling": { "const": "CALIFORNIA_RUNTIME_EGRESS_ELIGIBLE_MACHINE_REFERENCE_PILOT_ONLY" },
+    "methodReviewEvidence": { "$ref": "#/$defs/methodReviewEvidence" },
+    "claimBoundaryStatus": { "enum": ["NO_OBJECTION", "OBJECTION"] },
+    "objectionCodes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "objectionReason": { "type": ["string", "null"] },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "previousReceiptHash": { "$ref": "#/$defs/sha256" },
+    "receiptHash": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    { "if": { "properties": { "claimBoundaryStatus": { "const": "NO_OBJECTION" } }, "required": ["claimBoundaryStatus"] }, "then": { "properties": { "objectionCodes": { "maxItems": 0 }, "objectionReason": { "type": "null" } } } },
+    { "if": { "properties": { "claimBoundaryStatus": { "const": "OBJECTION" } }, "required": ["claimBoundaryStatus"] }, "then": { "properties": { "objectionCodes": { "minItems": 1 }, "objectionReason": { "type": "string", "minLength": 1 } } } }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "conclusion": { "enum": ["INVALID_FOR_GENERALIZATION", "EXECUTION_INTEGRITY_FAILED", "POLICY_REVISION_REQUIRED_MACHINE_REFERENCE", "INCONCLUSIVE_MACHINE_REFERENCE"] },
+    "methodReviewEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "taxonomyHash", "labelSchemaHash", "adjudicationMethodHash", "severityRuleHash", "publicLimitationSetHash", "publicClaimTemplateHash", "finalEvaluationReceiptHash", "methodComponentRootSetHash", "methodReviewEvidenceHash"],
+      "properties": { "schemaVersion": { "const": "A18MethodReviewEvidenceV1" }, "designId": { "const": "MAIS-NATURAL-CA60-V4" }, "taxonomyHash": { "$ref": "#/$defs/sha256" }, "labelSchemaHash": { "$ref": "#/$defs/sha256" }, "adjudicationMethodHash": { "$ref": "#/$defs/sha256" }, "severityRuleHash": { "$ref": "#/$defs/sha256" }, "publicLimitationSetHash": { "$ref": "#/$defs/sha256" }, "publicClaimTemplateHash": { "$ref": "#/$defs/sha256" }, "finalEvaluationReceiptHash": { "$ref": "#/$defs/sha256" }, "methodComponentRootSetHash": { "$ref": "#/$defs/sha256" }, "methodReviewEvidenceHash": { "$ref": "#/$defs/sha256" } }
+    }
+  }
+}

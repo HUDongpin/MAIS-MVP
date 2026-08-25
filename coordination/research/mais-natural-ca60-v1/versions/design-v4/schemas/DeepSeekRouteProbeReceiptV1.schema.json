@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/DeepSeekRouteProbeReceiptV1.schema.json",
+  "title": "DeepSeekRouteProbeReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "authorizationHash",
+    "provider",
+    "endpoint",
+    "observedEndpointHostname",
+    "requestedModel",
+    "observedModel",
+    "role",
+    "containsNaturalItemText",
+    "payloadKind",
+    "attemptCountAgainstDeepSeekCap",
+    "tokenCountAgainstDeepSeekCap",
+    "estimatedUsdAgainstDeepSeekCap",
+    "directBillingEvidenceHash",
+    "dataRegionEvidenceHash",
+    "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "DeepSeekRouteProbeReceiptV1"
+    },
+    "authorizationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "provider": {
+      "const": "DEEPSEEK_DIRECT"
+    },
+    "endpoint": {
+      "const": "https://api.deepseek.com/chat/completions"
+    },
+    "observedEndpointHostname": {
+      "const": "api.deepseek.com"
+    },
+    "requestedModel": {
+      "const": "deepseek-v4-pro"
+    },
+    "observedModel": {
+      "const": "deepseek-v4-pro"
+    },
+    "role": {
+      "const": "DEEPSEEK_DIRECT_ROUTE_PROBE"
+    },
+    "containsNaturalItemText": {
+      "const": false
+    },
+    "payloadKind": {
+      "const": "STATIC_NON_NATURAL_ROUTE_PROBE"
+    },
+    "attemptCountAgainstDeepSeekCap": {
+      "const": 1
+    },
+    "tokenCountAgainstDeepSeekCap": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 256
+    },
+    "estimatedUsdAgainstDeepSeekCap": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 0.1
+    },
+    "directBillingEvidenceHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "dataRegionEvidenceHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "receiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

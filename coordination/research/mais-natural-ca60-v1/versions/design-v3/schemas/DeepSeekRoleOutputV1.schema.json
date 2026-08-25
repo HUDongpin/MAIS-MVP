@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/DeepSeekRoleOutputV1.schema.json",
+  "title": "DeepSeekRoleOutputV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "sampleManifestHash", "referenceSealHash", "executionRegistrationHash", "authorizationHash", "itemId", "itemIdPseudonym", "itemHash", "clusterId", "role", "promptHash", "schemaHash", "parsedPayload", "parsedOutputHash", "attemptReceiptHash", "outputHash"],
+  "properties": {
+    "schemaVersion": { "const": "DeepSeekRoleOutputV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "referenceSealHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "authorizationHash": { "$ref": "#/$defs/sha256" },
+    "itemId": { "type": "string", "minLength": 1 },
+    "itemIdPseudonym": { "type": "string", "minLength": 1 },
+    "itemHash": { "$ref": "#/$defs/sha256" },
+    "clusterId": { "type": "string", "minLength": 1 },
+    "role": { "$ref": "#/$defs/role" },
+    "promptHash": { "$ref": "#/$defs/sha256" },
+    "schemaHash": { "$ref": "#/$defs/sha256" },
+    "parsedPayload": {
+      "oneOf": [
+        { "$ref": "#/$defs/critiquePayload" },
+        { "$ref": "#/$defs/revisionPayload" },
+        { "$ref": "#/$defs/c0Payload" }
+      ]
+    },
+    "parsedOutputHash": { "$ref": "#/$defs/sha256" },
+    "attemptReceiptHash": { "$ref": "#/$defs/sha256" },
+    "outputHash": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "role": { "const": "B_PRIME_CRITIQUE" } }, "required": ["role"] },
+      "then": { "properties": { "parsedPayload": { "$ref": "#/$defs/critiquePayload" } } }
+    },
+    {
+      "if": { "properties": { "role": { "const": "B_PRIME_REVISION" } }, "required": ["role"] },
+      "then": { "properties": { "parsedPayload": { "$ref": "#/$defs/revisionPayload" } } }
+    },
+    {
+      "if": { "properties": { "role": { "enum": ["C0_PRIME_ROLE_1", "C0_PRIME_ROLE_2", "C0_PRIME_ROLE_3", "C0_PRIME_ROLE_4", "C0_PRIME_ROLE_5"] } }, "required": ["role"] },
+      "then": { "properties": { "parsedPayload": { "$ref": "#/$defs/c0Payload" } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "role": { "enum": ["B_PRIME_CRITIQUE", "B_PRIME_REVISION", "C0_PRIME_ROLE_1", "C0_PRIME_ROLE_2", "C0_PRIME_ROLE_3", "C0_PRIME_ROLE_4", "C0_PRIME_ROLE_5"] },
+    "finding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["findingId", "evidenceLocator", "code", "family", "severity"],
+      "properties": { "findingId": { "type": "string", "minLength": 1 }, "evidenceLocator": { "type": "string", "minLength": 1 }, "code": { "type": "string", "minLength": 1 }, "family": { "type": "string", "minLength": 1 }, "severity": { "enum": ["P0", "P1", "P2"] } }
+    },
+    "critiquePayload": {
+      "type": "object", "additionalProperties": false,
+      "required": ["valid", "surfaceDisposition", "findings", "requiredRevisionCodes"],
+      "properties": { "valid": { "const": true }, "surfaceDisposition": { "enum": ["FINDING", "NO_FINDING", "UNASSESSABLE"] }, "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } }, "requiredRevisionCodes": { "type": "array", "uniqueItems": true, "items": { "type": "string" } } }
+    },
+    "revisionPayload": {
+      "type": "object", "additionalProperties": false,
+      "required": ["valid", "surfaceDisposition", "findings", "resolvedCritiqueCodes"],
+      "properties": { "valid": { "const": true }, "surfaceDisposition": { "enum": ["FINDING", "NO_FINDING", "UNASSESSABLE"] }, "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } }, "resolvedCritiqueCodes": { "type": "array", "uniqueItems": true, "items": { "type": "string" } } }
+    },
+    "c0Payload": {
+      "type": "object", "additionalProperties": false,
+      "required": ["valid", "surfaceDisposition", "findings"],
+      "properties": { "valid": { "type": "boolean" }, "surfaceDisposition": { "enum": ["FINDING", "NO_FINDING", "UNASSESSABLE"] }, "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } } }
+    }
+  }
+}

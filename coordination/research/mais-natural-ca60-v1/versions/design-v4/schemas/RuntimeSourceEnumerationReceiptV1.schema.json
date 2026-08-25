@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/RuntimeSourceEnumerationReceiptV1.schema.json",
+  "title": "RuntimeSourceEnumerationReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "sourceCommit",
+    "runtimeConfigHash",
+    "evidenceContractHash",
+    "extractorImplementationHash",
+    "extractorRunnerCommit",
+    "extractorRunnerHash",
+    "rawEvidenceArtifactRootHash",
+    "gradeProjectionInvocations",
+    "fullSourceEnumerationRootHash",
+    "expectedRuntimeInventoryRootHash",
+    "serializedRuntimeVisibleRootHash",
+    "serializationFailureInventoryRootHash",
+    "sourceExclusionLedgerRootHash",
+    "enumeratedAt",
+    "sourceEnumerationReceiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "RuntimeSourceEnumerationReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "runtimeConfigHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidenceContractHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "extractorImplementationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "extractorRunnerCommit": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "extractorRunnerHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rawEvidenceArtifactRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gradeProjectionInvocations": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "$ref": "https://mais.hk/schemas/research/RuntimeGradeProjectionInvocationLeafV1.schema.json"
+      }
+    },
+    "fullSourceEnumerationRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "expectedRuntimeInventoryRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "serializedRuntimeVisibleRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "serializationFailureInventoryRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceExclusionLedgerRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "enumeratedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceEnumerationReceiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

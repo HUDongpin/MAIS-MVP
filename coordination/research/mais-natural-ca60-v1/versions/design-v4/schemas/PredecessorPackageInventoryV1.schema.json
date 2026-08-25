@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/PredecessorPackageInventoryV1.schema.json",
+  "title": "PredecessorPackageInventoryV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "predecessorDesignId",
+    "predecessorDisposition",
+    "registrationHash",
+    "registrationByteSha256",
+    "inventoryAlgorithm",
+    "pathBase",
+    "sortOrder",
+    "fileCount",
+    "entries",
+    "inventoryRootHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "PredecessorPackageInventoryV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "predecessorDesignId": {
+      "const": "MAIS-NATURAL-CA60-V3"
+    },
+    "predecessorDisposition": {
+      "const": "SUPERSEDED_NOT_EXECUTED"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "registrationByteSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "inventoryAlgorithm": {
+      "const": "SHA256(UTF8(JCS(sorted[{path,byteLength,sha256}])))"
+    },
+    "pathBase": {
+      "const": "versions/design-v3/"
+    },
+    "sortOrder": {
+      "const": "UTF16_CODE_UNIT_ASCENDING_EQUIVALENT_TO_UTF8_BYTEWISE_FOR_ASCII_PATHS"
+    },
+    "fileCount": {
+      "const": 45
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 45,
+      "maxItems": 45,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "byteLength",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "byteLength": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "inventoryRootHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

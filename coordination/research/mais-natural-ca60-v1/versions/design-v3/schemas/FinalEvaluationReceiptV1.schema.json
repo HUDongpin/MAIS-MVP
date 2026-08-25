@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/FinalEvaluationReceiptV1.schema.json",
+  "title": "FinalEvaluationReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "x-mais-cross-field-constraint": "completeReceiptItemCount+missingReceiptItemCount=60; unifiedNonresolvedItemCount=missingReceiptItemCount+unresolvedReferenceItemCount+invalidItemCount; values above 3 require EXECUTION_INTEGRITY_FAILED",
+  "required": [
+    "schemaVersion", "designId", "registrationHash", "frameRegistrationHash", "samplingFrameHash",
+    "sampleManifestHash", "referenceSealHash", "qwenAuthorizationHash", "deepSeekAuthorizationHash",
+    "executionRegistrationHash", "runtimeConfigHash", "runnerHash", "adapterHash", "itemResultSetHash",
+    "counterfactualLedgerHash", "metricInputLedgerHash", "expectedSampleSize", "completeReceiptItemCount",
+    "missingReceiptItemCount", "resolvedPositiveItemCount", "resolvedNegativeItemCount",
+    "unresolvedReferenceItemCount", "invalidItemCount", "unifiedNonresolvedItemCount", "confusionMatrix", "metricResults",
+    "completeAttemptReceiptCount", "receiptChainValid", "providerTupleValid", "capsValid",
+    "terminalProviderFailure", "materialDeviation", "postResultDesignDrift", "labelLeakage",
+    "unauthorizedProviderCall", "executionIntegrityStatus", "policyRevisionRequired",
+    "structuralFeasibilityGatePassed", "decisionCeiling", "claimCeiling", "conclusion",
+    "recomputedFrameHash", "recomputedSampleHash", "recomputedAttemptChainHash", "recomputedMatchingHash",
+    "recomputedMetricSetHash", "completedItemMarkerRoot", "c0ExecutionSetHash", "deviationEvidenceHash",
+    "providerAggregates", "providerAggregatesHash", "calculatedAt", "finalFinishedAt",
+    "previousReceiptHash", "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "FinalEvaluationReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "samplingFrameHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "referenceSealHash": { "$ref": "#/$defs/sha256" },
+    "qwenAuthorizationHash": { "$ref": "#/$defs/sha256" },
+    "deepSeekAuthorizationHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "runtimeConfigHash": { "$ref": "#/$defs/sha256" },
+    "runnerHash": { "$ref": "#/$defs/sha256" },
+    "adapterHash": { "$ref": "#/$defs/sha256" },
+    "itemResultSetHash": { "$ref": "#/$defs/sha256" },
+    "counterfactualLedgerHash": { "$ref": "#/$defs/sha256" },
+    "metricInputLedgerHash": { "$ref": "#/$defs/sha256" },
+    "expectedSampleSize": { "const": 60 },
+    "completeReceiptItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "missingReceiptItemCount": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "resolvedPositiveItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "resolvedNegativeItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "unresolvedReferenceItemCount": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "invalidItemCount": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "unifiedNonresolvedItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "confusionMatrix": { "$ref": "#/$defs/confusionMatrix" },
+    "metricResults": {
+      "type": "array", "minItems": 11, "maxItems": 11,
+      "prefixItems": [
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "SURFACE_SENSITIVITY" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "SPECIFICITY" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "FALSE_POSITIVE_RATE" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "FAMILY_RECALL" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "EXACT_CODE_AND_FAMILY_RECALL" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "FAMILY_PRECISION" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "EXACT_CODE_PRECISION" } } },
+        { "$ref": "#/$defs/falseFindingsMetric" },
+        { "$ref": "#/$defs/p0Metric" },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "P1_RECALL" } } },
+        { "$ref": "#/$defs/metric", "properties": { "metric": { "const": "P2_MISSED_OR_UNRESOLVED_RATE" } } }
+      ],
+      "items": false
+    },
+    "completeAttemptReceiptCount": { "type": "integer", "minimum": 0, "maximum": 1460 },
+    "receiptChainValid": { "type": "boolean" },
+    "providerTupleValid": { "type": "boolean" },
+    "capsValid": { "type": "boolean" },
+    "terminalProviderFailure": { "type": "boolean" },
+    "materialDeviation": { "type": "boolean" },
+    "postResultDesignDrift": { "type": "boolean" },
+    "labelLeakage": { "type": "boolean" },
+    "unauthorizedProviderCall": { "type": "boolean" },
+    "executionIntegrityStatus": { "enum": ["INTACT", "FAILED"] },
+    "policyRevisionRequired": { "type": "boolean" },
+    "structuralFeasibilityGatePassed": { "const": false },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "claimCeiling": { "const": "CALIFORNIA_RUNTIME_EGRESS_ELIGIBLE_MACHINE_REFERENCE_PILOT_ONLY" },
+    "conclusion": { "enum": ["INVALID_FOR_GENERALIZATION", "EXECUTION_INTEGRITY_FAILED", "POLICY_REVISION_REQUIRED_MACHINE_REFERENCE", "INCONCLUSIVE_MACHINE_REFERENCE"] },
+    "recomputedFrameHash": { "$ref": "#/$defs/sha256" },
+    "recomputedSampleHash": { "$ref": "#/$defs/sha256" },
+    "recomputedAttemptChainHash": { "$ref": "#/$defs/sha256" },
+    "recomputedMatchingHash": { "$ref": "#/$defs/sha256" },
+    "recomputedMetricSetHash": { "$ref": "#/$defs/sha256" },
+    "completedItemMarkerRoot": { "$ref": "#/$defs/sha256" },
+    "c0ExecutionSetHash": { "$ref": "#/$defs/sha256" },
+    "deviationEvidenceHash": { "$ref": "#/$defs/sha256" },
+    "providerAggregates": { "$ref": "#/$defs/providerAggregates" },
+    "providerAggregatesHash": { "$ref": "#/$defs/sha256" },
+    "calculatedAt": { "type": "string", "format": "date-time" },
+    "finalFinishedAt": { "type": "string", "format": "date-time" },
+    "previousReceiptHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "receiptHash": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "conclusion": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" } }, "required": ["conclusion"] },
+      "then": { "properties": { "executionIntegrityStatus": { "const": "INTACT" }, "policyRevisionRequired": { "const": false } } }
+    },
+    {
+      "if": { "properties": { "conclusion": { "const": "POLICY_REVISION_REQUIRED_MACHINE_REFERENCE" } }, "required": ["conclusion"] },
+      "then": { "properties": { "executionIntegrityStatus": { "const": "INTACT" }, "policyRevisionRequired": { "const": true } } }
+    },
+    {
+      "if": { "properties": { "conclusion": { "const": "EXECUTION_INTEGRITY_FAILED" } }, "required": ["conclusion"] },
+      "then": { "properties": { "executionIntegrityStatus": { "const": "FAILED" } } }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nullableProbability": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "status": { "enum": ["MET", "NOT_MET", "UNDERPOWERED"] },
+    "confusionMatrix": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tp", "fp", "fn", "tn"],
+      "properties": { "tp": { "type": "integer", "minimum": 0 }, "fp": { "type": "integer", "minimum": 0 }, "fn": { "type": "integer", "minimum": 0 }, "tn": { "type": "integer", "minimum": 0 } }
+    },
+    "metric": {
+      "type": "object", "additionalProperties": false,
+      "required": ["metric", "metricKind", "numerator", "denominator", "independentContributingClusterCount", "pointEstimate", "oneSidedWilsonLcb95", "oneSidedWilsonUcb95", "twoSidedWilsonL95", "twoSidedWilsonU95", "clusterBootstrapP5", "clusterBootstrapP95", "bootstrapReplicates", "bootstrapValidReplicateCount", "bootstrapZeroDenominatorReplicateCount", "bootstrapZeroDenominatorRule", "bootstrapSeedDerivation", "bootstrapPercentileConvention", "worstCaseMissingLower", "worstCaseMissingUpper", "worstCaseMissingMethod", "adverseOpportunityAdditions", "conservativeLower", "conservativeUpper", "thresholdDirection", "threshold", "minimumN", "status", "decisionEligible"],
+      "properties": {
+        "metric": { "enum": ["SURFACE_SENSITIVITY", "SPECIFICITY", "FALSE_POSITIVE_RATE", "FAMILY_RECALL", "EXACT_CODE_AND_FAMILY_RECALL", "FAMILY_PRECISION", "EXACT_CODE_PRECISION", "P1_RECALL", "P2_MISSED_OR_UNRESOLVED_RATE"] },
+        "metricKind": { "const": "PROPORTION_DECISION_METRIC" },
+        "numerator": { "type": "integer", "minimum": 0 }, "denominator": { "type": "integer", "minimum": 0 }, "independentContributingClusterCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+        "pointEstimate": { "$ref": "#/$defs/nullableProbability" }, "oneSidedWilsonLcb95": { "$ref": "#/$defs/nullableProbability" }, "oneSidedWilsonUcb95": { "$ref": "#/$defs/nullableProbability" }, "twoSidedWilsonL95": { "$ref": "#/$defs/nullableProbability" }, "twoSidedWilsonU95": { "$ref": "#/$defs/nullableProbability" }, "clusterBootstrapP5": { "$ref": "#/$defs/nullableProbability" }, "clusterBootstrapP95": { "$ref": "#/$defs/nullableProbability" },
+        "bootstrapReplicates": { "enum": [0, 10000] }, "bootstrapValidReplicateCount": { "type": "integer", "minimum": 0, "maximum": 10000 }, "bootstrapZeroDenominatorReplicateCount": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "bootstrapZeroDenominatorRule": { "enum": ["NOT_APPLICABLE", "ASSIGN_ADVERSE_BOUND_ZERO_FOR_MINIMUM_ONE_FOR_MAXIMUM"] }, "bootstrapSeedDerivation": { "type": "string", "minLength": 1 }, "bootstrapPercentileConvention": { "type": "string", "minLength": 1 },
+        "worstCaseMissingLower": { "$ref": "#/$defs/nullableProbability" }, "worstCaseMissingUpper": { "$ref": "#/$defs/nullableProbability" }, "worstCaseMissingMethod": { "enum": ["EXACT_FEASIBLE_SURFACE_WORLD_ENUMERATION_WITH_ONE_SIDED_95_WILSON_PER_WORLD", "FINITE_OPERATIONAL_CODE_MONOTONE_CLOSED_FORM_WITH_ONE_SIDED_95_WILSON_PROVEN_EQUIVALENT_TO_EXHAUSTIVE_ADDITION_COUNT_ENUMERATION_FOR_U_0_THROUGH_3", "INTEGRITY_LIMIT_EXCEEDED_NO_DECISION_BOUND"] }, "adverseOpportunityAdditions": { "type": "integer", "minimum": 0 }, "conservativeLower": { "$ref": "#/$defs/nullableProbability" }, "conservativeUpper": { "$ref": "#/$defs/nullableProbability" },
+        "thresholdDirection": { "enum": ["MINIMUM", "MAXIMUM", "DESCRIPTIVE"] }, "threshold": { "$ref": "#/$defs/nullableProbability" }, "minimumN": { "type": "integer", "minimum": 0 }, "status": { "$ref": "#/$defs/status" }, "decisionEligible": { "type": "boolean" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "metric": { "enum": ["SURFACE_SENSITIVITY", "SPECIFICITY", "FALSE_POSITIVE_RATE"] } }, "required": ["metric"] },
+          "then": { "properties": { "bootstrapReplicates": { "const": 0 }, "worstCaseMissingMethod": { "enum": ["EXACT_FEASIBLE_SURFACE_WORLD_ENUMERATION_WITH_ONE_SIDED_95_WILSON_PER_WORLD", "INTEGRITY_LIMIT_EXCEEDED_NO_DECISION_BOUND"] } } }
+        },
+        {
+          "if": { "properties": { "metric": { "enum": ["FAMILY_RECALL", "EXACT_CODE_AND_FAMILY_RECALL", "FAMILY_PRECISION", "EXACT_CODE_PRECISION", "P1_RECALL", "P2_MISSED_OR_UNRESOLVED_RATE"] } }, "required": ["metric"] },
+          "then": { "properties": { "bootstrapReplicates": { "const": 10000 }, "worstCaseMissingMethod": { "enum": ["FINITE_OPERATIONAL_CODE_MONOTONE_CLOSED_FORM_WITH_ONE_SIDED_95_WILSON_PROVEN_EQUIVALENT_TO_EXHAUSTIVE_ADDITION_COUNT_ENUMERATION_FOR_U_0_THROUGH_3", "INTEGRITY_LIMIT_EXCEEDED_NO_DECISION_BOUND"] } } }
+        },
+        {
+          "if": { "properties": { "metric": { "enum": ["FAMILY_PRECISION", "EXACT_CODE_PRECISION"] } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "DESCRIPTIVE" }, "threshold": { "type": "null" }, "minimumN": { "const": 0 }, "status": { "const": "UNDERPOWERED" }, "decisionEligible": { "const": false } } }
+        },
+        {
+          "if": { "properties": { "metric": { "const": "SURFACE_SENSITIVITY" } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "MINIMUM" }, "threshold": { "const": 0.9 }, "minimumN": { "const": 25 }, "decisionEligible": { "const": true } } }
+        },
+        {
+          "if": { "properties": { "metric": { "const": "SPECIFICITY" } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "MINIMUM" }, "threshold": { "const": 0.95 }, "minimumN": { "const": 52 }, "decisionEligible": { "const": true } } }
+        },
+        {
+          "if": { "properties": { "metric": { "const": "FALSE_POSITIVE_RATE" } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "MAXIMUM" }, "threshold": { "const": 0.05 }, "minimumN": { "const": 52 }, "decisionEligible": { "const": true } } }
+        },
+        {
+          "if": { "properties": { "metric": { "enum": ["FAMILY_RECALL", "EXACT_CODE_AND_FAMILY_RECALL"] } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "MINIMUM" }, "threshold": { "const": 0.85 }, "minimumN": { "const": 16 }, "decisionEligible": { "const": true } } }
+        },
+        {
+          "if": { "properties": { "metric": { "const": "P1_RECALL" } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "MINIMUM" }, "threshold": { "const": 0.9 }, "minimumN": { "const": 25 }, "decisionEligible": { "const": true } } }
+        },
+        {
+          "if": { "properties": { "metric": { "const": "P2_MISSED_OR_UNRESOLVED_RATE" } }, "required": ["metric"] },
+          "then": { "properties": { "thresholdDirection": { "const": "MAXIMUM" }, "threshold": { "const": 0.1 }, "minimumN": { "const": 25 }, "decisionEligible": { "const": true } } }
+        }
+      ]
+    },
+    "falseFindingsMetric": {
+      "type": "object", "additionalProperties": false,
+      "required": ["metric", "metricKind", "unmatchedFindingCount", "registeredItemCount", "ratePer100", "status", "decisionEligible"],
+      "properties": { "metric": { "const": "FALSE_FINDINGS_PER_100" }, "metricKind": { "const": "DESCRIPTIVE_RATE_PER_100" }, "unmatchedFindingCount": { "type": "integer", "minimum": 0 }, "registeredItemCount": { "const": 60 }, "ratePer100": { "type": "number", "minimum": 0 }, "status": { "const": "UNDERPOWERED" }, "decisionEligible": { "const": false } }
+    },
+    "p0Metric": {
+      "type": "object", "additionalProperties": false,
+      "required": ["metric", "metricKind", "observedFalseNegativeCount", "observedOpportunityCount", "observedMissRate", "oneSidedWilsonMissRateLcb95", "oneSidedWilsonMissRateUcb95", "twoSidedWilsonMissRateL95", "twoSidedWilsonMissRateU95", "observedFindingFalseNegativeCount", "observedFindingCount", "missingFalseNegativesFabricated", "minimumN", "status", "decisionEligible"],
+      "properties": { "metric": { "const": "P0_FALSE_NEGATIVE_COUNT" }, "metricKind": { "const": "OBSERVED_COUNT_GATE" }, "observedFalseNegativeCount": { "type": "integer", "minimum": 0 }, "observedOpportunityCount": { "type": "integer", "minimum": 0 }, "observedMissRate": { "$ref": "#/$defs/nullableProbability" }, "oneSidedWilsonMissRateLcb95": { "$ref": "#/$defs/nullableProbability" }, "oneSidedWilsonMissRateUcb95": { "$ref": "#/$defs/nullableProbability" }, "twoSidedWilsonMissRateL95": { "$ref": "#/$defs/nullableProbability" }, "twoSidedWilsonMissRateU95": { "$ref": "#/$defs/nullableProbability" }, "observedFindingFalseNegativeCount": { "type": "integer", "minimum": 0 }, "observedFindingCount": { "type": "integer", "minimum": 0 }, "missingFalseNegativesFabricated": { "const": 0 }, "minimumN": { "const": 59 }, "status": { "$ref": "#/$defs/status" }, "decisionEligible": { "const": true } }
+    },
+    "providerAggregate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requestedProvider", "requestedModel", "observedProvider", "observedModel", "attemptCount", "successfulCallCount", "retryCount", "totalTokens", "estimatedCost", "totalLatencyMs"],
+      "properties": { "requestedProvider": { "enum": ["ALIBABA_CLOUD_MODEL_STUDIO", "DEEPSEEK_DIRECT"] }, "requestedModel": { "enum": ["qwen3.8-max", "deepseek-v4-pro"] }, "observedProvider": { "enum": ["ALIBABA_CLOUD_MODEL_STUDIO", "DEEPSEEK_DIRECT"] }, "observedModel": { "enum": ["qwen3.8-max", "deepseek-v4-pro"] }, "attemptCount": { "type": "integer", "minimum": 0 }, "successfulCallCount": { "type": "integer", "minimum": 0 }, "retryCount": { "type": "integer", "minimum": 0 }, "totalTokens": { "type": "integer", "minimum": 0 }, "estimatedCost": { "type": "number", "minimum": 0 }, "totalLatencyMs": { "type": "integer", "minimum": 0 } }
+    },
+    "providerAggregates": {
+      "type": "object", "additionalProperties": false, "required": ["QWEN", "DEEPSEEK"],
+      "properties": { "QWEN": { "$ref": "#/$defs/providerAggregate", "properties": { "requestedProvider": { "const": "ALIBABA_CLOUD_MODEL_STUDIO" }, "requestedModel": { "const": "qwen3.8-max" }, "observedProvider": { "const": "ALIBABA_CLOUD_MODEL_STUDIO" }, "observedModel": { "const": "qwen3.8-max" } } }, "DEEPSEEK": { "$ref": "#/$defs/providerAggregate", "properties": { "requestedProvider": { "const": "DEEPSEEK_DIRECT" }, "requestedModel": { "const": "deepseek-v4-pro" }, "observedProvider": { "const": "DEEPSEEK_DIRECT" }, "observedModel": { "const": "deepseek-v4-pro" } } } }
+    }
+  }
+}

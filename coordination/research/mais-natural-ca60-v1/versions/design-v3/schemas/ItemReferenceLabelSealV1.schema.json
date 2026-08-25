@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ItemReferenceLabelSealV1.schema.json",
+  "title": "ItemReferenceLabelSealV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "registrationHash", "sampleManifestHash",
+    "qwenAuthorizationHash", "itemId", "itemHash", "clusterId", "aSolveHash",
+    "bSolveHash", "aLabelHash", "bLabelHash", "finalLabelHash",
+    "baseAttemptReceiptHashes", "sealMode", "finalizationMode",
+    "adjudicationAttemptReceiptHash", "sealHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ItemReferenceLabelSealV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "qwenAuthorizationHash": { "$ref": "#/$defs/sha256" },
+    "itemId": { "$ref": "#/$defs/nonempty" },
+    "itemHash": { "$ref": "#/$defs/sha256" },
+    "clusterId": { "$ref": "#/$defs/nonempty" },
+    "aSolveHash": { "$ref": "#/$defs/sha256" },
+    "bSolveHash": { "$ref": "#/$defs/sha256" },
+    "aLabelHash": { "$ref": "#/$defs/sha256" },
+    "bLabelHash": { "$ref": "#/$defs/sha256" },
+    "finalLabelHash": { "$ref": "#/$defs/sha256" },
+    "baseAttemptReceiptHashes": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sha256" }
+    },
+    "sealMode": { "enum": ["FINAL_AGREEMENT_MERGE", "FINAL_ADJUDICATED"] },
+    "finalizationMode": { "enum": ["FINAL_AGREEMENT_MERGE", "FINAL_ADJUDICATED"] },
+    "adjudicationAttemptReceiptHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "sealHash": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "sealMode": { "const": "FINAL_AGREEMENT_MERGE" } }, "required": ["sealMode"] },
+      "then": {
+        "properties": {
+          "finalizationMode": { "const": "FINAL_AGREEMENT_MERGE" },
+          "adjudicationAttemptReceiptHash": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "sealMode": { "const": "FINAL_ADJUDICATED" } }, "required": ["sealMode"] },
+      "then": {
+        "properties": {
+          "finalizationMode": { "const": "FINAL_ADJUDICATED" },
+          "adjudicationAttemptReceiptHash": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 }
+  },
+  "x-mais-cross-field-constraints": [
+    "baseAttemptReceiptHashes preserve A_SOLVE,A_LABEL,B_SOLVE,B_LABEL order",
+    "sealMode=finalizationMode",
+    "FINAL_ADJUDICATED binds exactly one adjudication attempt; agreement merge binds none"
+  ]
+}

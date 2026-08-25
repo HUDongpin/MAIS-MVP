@@ -1,0 +1,2238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/PersistedArtifactDefinitionsV1.schema.json",
+  "title": "PersistedArtifactDefinitionsV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "catalogPurpose"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "PersistedArtifactDefinitionsV1"
+    },
+    "catalogPurpose": {
+      "const": "CLOSED_PARENT_DEFINITIONS_FOR_PERSISTED_V4_ARTIFACT_VERSIONS"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "A11C0ReviewRecomputationV4": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sampleManifestHash",
+        "executionRegistrationHash",
+        "triggerInputCount",
+        "triggerDecisionCount",
+        "triggerInputRootHash",
+        "triggerDecisionRootHash",
+        "executionSetHash",
+        "recomputationRootHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "A11C0ReviewRecomputationV4"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "sampleManifestHash": {},
+        "executionRegistrationHash": {},
+        "triggerInputCount": {},
+        "triggerDecisionCount": {},
+        "triggerInputRootHash": {},
+        "triggerDecisionRootHash": {},
+        "executionSetHash": {},
+        "recomputationRootHash": {}
+      }
+    },
+    "AggregatePublicationAuthorizationStatusV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "allowed",
+        "status",
+        "authorizationAvailable",
+        "callerSuppliedRootsAuthorized",
+        "blockerCodes",
+        "requiredCustodyArtifactSchema",
+        "protectedRegistryRootHash",
+        "runnerHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "AggregatePublicationAuthorizationStatusV1"
+        },
+        "allowed": {
+          "const": false
+        },
+        "status": {
+          "const": "BLOCKED_PENDING_A21_PROTECTED_CUSTODY_REGISTRY"
+        },
+        "authorizationAvailable": {
+          "const": false
+        },
+        "callerSuppliedRootsAuthorized": {
+          "const": false
+        },
+        "blockerCodes": {
+          "const": [
+            "EXECUTION_CUSTODY_REGISTRY_NOT_IMPLEMENTED"
+          ]
+        },
+        "requiredCustodyArtifactSchema": {
+          "const": "ProtectedExecutionCustodyRegistryV1"
+        },
+        "protectedRegistryRootHash": {
+          "type": "null"
+        },
+        "runnerHash": {
+          "type": "null"
+        }
+      }
+    },
+    "BPrimeAuthoritativeReducerV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "itemHash",
+        "critiqueHash",
+        "findings",
+        "withdrawnFindingIds",
+        "everyCritiqueResolved",
+        "authoritativeForScoring",
+        "reducerHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "BPrimeAuthoritativeReducerV1"
+        },
+        "designId": {},
+        "itemHash": {},
+        "critiqueHash": {},
+        "findings": {},
+        "withdrawnFindingIds": {},
+        "everyCritiqueResolved": {},
+        "authoritativeForScoring": {},
+        "reducerHash": {}
+      }
+    },
+    "BPrimeCritiqueArtifactV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "itemHash",
+        "role",
+        "promptHash",
+        "schemaHash",
+        "parsedPayload",
+        "parsedOutputHash",
+        "sourceOutputHash",
+        "critiqueArtifactHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "BPrimeCritiqueArtifactV1"
+        },
+        "designId": {},
+        "itemHash": {},
+        "role": {},
+        "promptHash": {},
+        "schemaHash": {},
+        "parsedPayload": {},
+        "parsedOutputHash": {},
+        "sourceOutputHash": {},
+        "critiqueArtifactHash": {}
+      }
+    },
+    "BPrimeRevisionLogicalRequestV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "role",
+        "itemHash",
+        "input",
+        "logicalRequestHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "BPrimeRevisionLogicalRequestV1"
+        },
+        "designId": {},
+        "role": {},
+        "itemHash": {},
+        "input": {},
+        "logicalRequestHash": {}
+      }
+    },
+    "C0ReducedResultV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sampleManifestHash",
+        "executionRegistrationHash",
+        "authorizationHash",
+        "itemIdPseudonym",
+        "itemHash",
+        "clusterId",
+        "triggerDecisionHash",
+        "roleOrder",
+        "successfulRoleCallCount",
+        "status",
+        "findings",
+        "unknownCodes",
+        "conflictCodes",
+        "sixthCallAllowed",
+        "reducerHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "C0ReducedResultV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "sampleManifestHash": {},
+        "executionRegistrationHash": {},
+        "authorizationHash": {},
+        "itemIdPseudonym": {},
+        "itemHash": {},
+        "clusterId": {},
+        "triggerDecisionHash": {},
+        "roleOrder": {},
+        "successfulRoleCallCount": {},
+        "status": {},
+        "findings": {},
+        "unknownCodes": {},
+        "conflictCodes": {},
+        "sixthCallAllowed": {},
+        "reducerHash": {}
+      }
+    },
+    "C0TriggerDecisionV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sampleManifestHash",
+        "executionRegistrationHash",
+        "itemHash",
+        "clusterId",
+        "itemIdPseudonym",
+        "triggerInputHash",
+        "mandatoryReasonCodes",
+        "failSafeReasonCodes",
+        "selectionReasonCodes",
+        "selectedForC0",
+        "qwenInputCount",
+        "evaluatedAtStage",
+        "decisionHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "C0TriggerDecisionV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "sampleManifestHash": {},
+        "executionRegistrationHash": {},
+        "itemHash": {},
+        "clusterId": {},
+        "itemIdPseudonym": {},
+        "triggerInputHash": {},
+        "mandatoryReasonCodes": {},
+        "failSafeReasonCodes": {},
+        "selectionReasonCodes": {},
+        "selectedForC0": {},
+        "qwenInputCount": {},
+        "evaluatedAtStage": {},
+        "decisionHash": {}
+      }
+    },
+    "CleanSourceEvidenceV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "sourceCommit",
+        "verifiedAt",
+        "verificationMode",
+        "gitStatusPorcelainHash",
+        "dirtyEntryCount",
+        "sourceObjectType",
+        "sourceCommitExists",
+        "worktreeClean",
+        "evidenceDerivedFromReadOnlyCommands",
+        "sourceEvidenceHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "CleanSourceEvidenceV1"
+        },
+        "designId": {},
+        "sourceCommit": {},
+        "verifiedAt": {},
+        "verificationMode": {},
+        "gitStatusPorcelainHash": {},
+        "dirtyEntryCount": {},
+        "sourceObjectType": {},
+        "sourceCommitExists": {},
+        "worktreeClean": {},
+        "evidenceDerivedFromReadOnlyCommands": {},
+        "sourceEvidenceHash": {}
+      }
+    },
+    "DependencyClosureRunnerReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "repositoryIdentity",
+        "sourceCommit",
+        "extractorImplementationHash",
+        "runnerCommit",
+        "runnerHash",
+        "executedAt",
+        "runnerReceiptHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "DependencyClosureRunnerReceiptV1"
+        },
+        "repositoryIdentity": {},
+        "sourceCommit": {},
+        "extractorImplementationHash": {},
+        "runnerCommit": {},
+        "runnerHash": {},
+        "executedAt": {},
+        "runnerReceiptHash": {}
+      }
+    },
+    "ClusterAuditV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "samplingFrameHash",
+        "frameSelectionContentRootHash",
+        "clusterAuditSelectionContentHash",
+        "clusteringAlgorithmHash",
+        "sampleAlgorithmVersion",
+        "sampleAlgorithmHash",
+        "representativeSelectionFormula",
+        "selectionDigestCanonicalization",
+        "selectionDigestByteEncoding",
+        "selectionDigestFieldOrder",
+        "selectionDesignHashSemantic",
+        "selectionFrameHashSemantic",
+        "selectionGoldenVectorDigest",
+        "auditedAt",
+        "frameRowCount",
+        "eligibleRowCount",
+        "eligibleClusterCount",
+        "singletonCount",
+        "singletonRate",
+        "largest20Components",
+        "componentSizeDistribution",
+        "crossCellComponentCount",
+        "anomalyLedger",
+        "anomalyLedgerCount",
+        "anomalyLedgerRootHash",
+        "edgeCount",
+        "edges",
+        "connectedComponents",
+        "clusters",
+        "clusterAuditHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ClusterAuditV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "samplingFrameHash": {},
+        "frameSelectionContentRootHash": {},
+        "clusterAuditSelectionContentHash": {},
+        "clusteringAlgorithmHash": {},
+        "sampleAlgorithmVersion": {},
+        "sampleAlgorithmHash": {},
+        "representativeSelectionFormula": {},
+        "selectionDigestCanonicalization": {},
+        "selectionDigestByteEncoding": {},
+        "selectionDigestFieldOrder": {},
+        "selectionDesignHashSemantic": {},
+        "selectionFrameHashSemantic": {},
+        "selectionGoldenVectorDigest": {},
+        "auditedAt": {},
+        "frameRowCount": {},
+        "eligibleRowCount": {},
+        "eligibleClusterCount": {},
+        "singletonCount": {},
+        "singletonRate": {},
+        "largest20Components": {},
+        "componentSizeDistribution": {},
+        "crossCellComponentCount": {},
+        "anomalyLedger": {},
+        "anomalyLedgerCount": {},
+        "anomalyLedgerRootHash": {},
+        "edgeCount": {},
+        "edges": {},
+        "connectedComponents": {},
+        "clusters": {},
+        "clusterAuditHash": {}
+      }
+    },
+    "FrameAssetEgressLedgerEntryV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "itemId",
+        "itemHash",
+        "assetKind",
+        "assetIndex",
+        "assetContentHash",
+        "exclusionCode",
+        "disposition",
+        "entryHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "FrameAssetEgressLedgerEntryV2"
+        },
+        "itemId": {},
+        "itemHash": {},
+        "assetKind": {},
+        "assetIndex": {},
+        "assetContentHash": {},
+        "exclusionCode": {},
+        "disposition": {},
+        "entryHash": {}
+      }
+    },
+    "FrameFreezeEvidenceV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "runtimeConfigHash",
+        "sourceParityEvidenceHash",
+        "sourceModuleManifestHash",
+        "sourceModuleHash",
+        "trustedRouteExecutionRootHash",
+        "trustedDependencyClosureRootHash",
+        "rightsDecisionTableHash",
+        "trustedOwnerApprovalRootHash",
+        "trustedScreeningPolicyHash",
+        "trustedScannerImplementationHash",
+        "trustedScannerRunnerHash",
+        "trustedScannerExecutionReceiptInventoryHash",
+        "scannerExecutionReceiptRootHash",
+        "protectedFrameIdentityRootHash",
+        "itemScreenEvidenceRootHash",
+        "itemEgressDecisionRootHash",
+        "itemCount",
+        "frameFailureLedger",
+        "frameFailureLedgerRootHash",
+        "anomalyLedger",
+        "anomalyLedgerRootHash",
+        "frameFreezeEvidenceHash"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "FrameFreezeEvidenceV2" },
+        "designId": {},
+        "runtimeConfigHash": { "$ref": "#/$defs/sha256" },
+        "sourceParityEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleManifestHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleHash": { "$ref": "#/$defs/sha256" },
+        "trustedRouteExecutionRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedDependencyClosureRootHash": { "$ref": "#/$defs/sha256" },
+        "rightsDecisionTableHash": { "$ref": "#/$defs/sha256" },
+        "trustedOwnerApprovalRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedScreeningPolicyHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerRunnerHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerExecutionReceiptInventoryHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceiptRootHash": { "$ref": "#/$defs/sha256" },
+        "protectedFrameIdentityRootHash": { "$ref": "#/$defs/sha256" },
+        "itemScreenEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "itemEgressDecisionRootHash": { "$ref": "#/$defs/sha256" },
+        "itemCount": { "type": "integer", "minimum": 1 },
+        "frameFailureLedger": { "type": "array" },
+        "frameFailureLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "anomalyLedger": { "type": "array" },
+        "anomalyLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "frameFreezeEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "FrameItemEgressDecisionV3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "itemId",
+        "itemHash",
+        "rightsDecisionTableHash",
+        "screenEvidenceHash",
+        "scannerExecutionReceiptHash",
+        "scannerExecutionReceiptInventoryHash",
+        "eligible",
+        "exclusionCode",
+        "exclusionReasonCodes",
+        "assetLedger",
+        "frameFailureLedger",
+        "anomalyLedger",
+        "itemEgressDecisionHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "FrameItemEgressDecisionV3"
+        },
+        "itemId": {},
+        "itemHash": {},
+        "rightsDecisionTableHash": {},
+        "screenEvidenceHash": {},
+        "scannerExecutionReceiptHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceiptInventoryHash": { "$ref": "#/$defs/sha256" },
+        "eligible": {},
+        "exclusionCode": {},
+        "exclusionReasonCodes": {},
+        "assetLedger": {},
+        "frameFailureLedger": {},
+        "anomalyLedger": {},
+        "itemEgressDecisionHash": {}
+      }
+    },
+    "FrameItemLineageDecisionV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "lineageKind",
+        "compoundKeyFields",
+        "lineageKeyHash",
+        "sourceEdgeEligible",
+        "frameFailureLedger",
+        "anomalyLedger"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "FrameItemLineageDecisionV1"
+        },
+        "lineageKind": {},
+        "compoundKeyFields": {},
+        "lineageKeyHash": {},
+        "sourceEdgeEligible": {},
+        "frameFailureLedger": {},
+        "anomalyLedger": {}
+      }
+    },
+    "FrameItemPreflightV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "frameFailureLedger",
+        "anomalyLedger",
+        "lineageDecision",
+        "freezeEligible"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "FrameItemPreflightV1"
+        },
+        "frameFailureLedger": {},
+        "anomalyLedger": {},
+        "lineageDecision": {},
+        "freezeEligible": {}
+      }
+    },
+    "IndependentRawRecomputationV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "executionRegistrationHash",
+        "frameHash",
+        "sampleHash",
+        "recomputedRuntimeSourceEnumerationRootHash",
+        "independentSourceEnumerationReceiptHash",
+        "referenceSealHash",
+        "qwenAttemptChainHash",
+        "deepSeekAttemptChainHash",
+        "itemResultSetHash",
+        "observedLedgerHash",
+        "counterfactualLedgerHash",
+        "matchingHash",
+        "metricSetHash",
+        "metricResults",
+        "matchingRecords",
+        "totalAttemptCount",
+        "qwenAttemptCount",
+        "deepSeekAttemptCount",
+        "decision",
+        "trustedAuthorizationRootSetHash",
+        "c0TriggerInputRootHash",
+        "c0TriggerDecisionRootHash",
+        "c0ExecutionSetHash",
+        "finalReceiptSummaryRootHash",
+        "recomputationHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "IndependentRawRecomputationV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "executionRegistrationHash": {},
+        "frameHash": {},
+        "sampleHash": {},
+        "recomputedRuntimeSourceEnumerationRootHash": {},
+        "independentSourceEnumerationReceiptHash": {},
+        "referenceSealHash": {},
+        "qwenAttemptChainHash": {},
+        "deepSeekAttemptChainHash": {},
+        "itemResultSetHash": {},
+        "observedLedgerHash": {},
+        "counterfactualLedgerHash": {},
+        "matchingHash": {},
+        "metricSetHash": {},
+        "metricResults": {},
+        "matchingRecords": {},
+        "totalAttemptCount": {},
+        "qwenAttemptCount": {},
+        "deepSeekAttemptCount": {},
+        "decision": {},
+        "trustedAuthorizationRootSetHash": {},
+        "c0TriggerInputRootHash": {},
+        "c0TriggerDecisionRootHash": {},
+        "c0ExecutionSetHash": {},
+        "finalReceiptSummaryRootHash": {},
+        "recomputationHash": {}
+      }
+    },
+    "IndependentVerifierProofV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "sourceFiles",
+        "verifierSourceTreeHash",
+        "dependencyLock",
+        "dependencyLockHash",
+        "importGraph",
+        "importGraphHash",
+        "forbiddenScorerPatterns",
+        "forbiddenScorerFindings",
+        "forbiddenScorerScanHash",
+        "verificationCommand",
+        "verificationCommandHash",
+        "runtime",
+        "runtimeHash",
+        "baselineProof",
+        "baselineProofHash",
+        "proofHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "IndependentVerifierProofV1"
+        },
+        "designId": {},
+        "sourceFiles": {},
+        "verifierSourceTreeHash": {},
+        "dependencyLock": {},
+        "dependencyLockHash": {},
+        "importGraph": {},
+        "importGraphHash": {},
+        "forbiddenScorerPatterns": {},
+        "forbiddenScorerFindings": {},
+        "forbiddenScorerScanHash": {},
+        "verificationCommand": {},
+        "verificationCommandHash": {},
+        "runtime": {},
+        "runtimeHash": {},
+        "baselineProof": {},
+        "baselineProofHash": {},
+        "proofHash": {}
+      }
+    },
+    "ItemEgressScreenEvidenceV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "itemId",
+        "itemHash",
+        "screeningPolicyHash",
+        "scannerImplementationHash",
+        "scannerRunnerHash",
+        "scannerExecutionReceiptHash",
+        "scannerExecutionReceipt",
+        "scannerExecutionStatus",
+        "piiEvidenceRootHash",
+        "secretEvidenceRootHash",
+        "piiFindingCount",
+        "secretFindingCount",
+        "screenDisposition",
+        "screenedAt",
+        "screenEvidenceHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ItemEgressScreenEvidenceV2"
+        },
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "screeningPolicyHash": { "$ref": "#/$defs/sha256" },
+        "scannerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "scannerRunnerHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceiptHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceipt": { "$ref": "#/$defs/ScannerExecutionReceiptV1" },
+        "scannerExecutionStatus": { "enum": ["COMPLETED", "FAILED"] },
+        "piiEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "secretEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "piiFindingCount": { "type": "integer", "minimum": 0 },
+        "secretFindingCount": { "type": "integer", "minimum": 0 },
+        "screenDisposition": { "enum": ["EXECUTION_FAILED", "PASSED", "CONTENT_RESTRICTED"] },
+        "screenedAt": { "$ref": "#/$defs/timestamp" },
+        "screenEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "ScannerExecutionReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "itemId",
+        "itemHash",
+        "screeningPolicyHash",
+        "scannerImplementationHash",
+        "scannerRunnerHash",
+        "scannerExecutionStatus",
+        "piiEvidenceRootHash",
+        "secretEvidenceRootHash",
+        "piiFindingCount",
+        "secretFindingCount",
+        "executedAt",
+        "scannerExecutionReceiptHash"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "ScannerExecutionReceiptV1" },
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "screeningPolicyHash": { "$ref": "#/$defs/sha256" },
+        "scannerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "scannerRunnerHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionStatus": { "enum": ["COMPLETED", "FAILED"] },
+        "piiEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "secretEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "piiFindingCount": { "type": "integer", "minimum": 0 },
+        "secretFindingCount": { "type": "integer", "minimum": 0 },
+        "executedAt": { "$ref": "#/$defs/timestamp" },
+        "scannerExecutionReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "ScannerExecutionReceiptInventoryV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "recordedAt",
+        "entries",
+        "receiptCount",
+        "scannerExecutionReceiptRootHash",
+        "scannerExecutionReceiptInventoryHash"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "ScannerExecutionReceiptInventoryV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/scannerExecutionReceiptInventoryEntry" }
+        },
+        "receiptCount": { "type": "integer", "minimum": 1 },
+        "scannerExecutionReceiptRootHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceiptInventoryHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "MachineReferenceSolveV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sampleManifestHash",
+        "clusterId",
+        "itemId",
+        "itemHash",
+        "role",
+        "promptLiteral",
+        "promptHash",
+        "schemaHash",
+        "inputFieldNames",
+        "solveAttemptReceiptHash",
+        "deepSeekOutputNotSeen",
+        "otherRaterArtifactsNotSeen",
+        "solveOutput",
+        "parsedOutputHash",
+        "artifactHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "MachineReferenceSolveV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "sampleManifestHash": {},
+        "clusterId": {},
+        "itemId": {},
+        "itemHash": {},
+        "role": {},
+        "promptLiteral": {},
+        "promptHash": {},
+        "schemaHash": {},
+        "inputFieldNames": {},
+        "solveAttemptReceiptHash": {},
+        "deepSeekOutputNotSeen": {},
+        "otherRaterArtifactsNotSeen": {},
+        "solveOutput": {},
+        "parsedOutputHash": {},
+        "artifactHash": {}
+      }
+    },
+    "MetricInputLedgerV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sampleManifestHash",
+        "referenceSealHash",
+        "executionRegistrationHash",
+        "itemResultSetHash",
+        "contributions",
+        "metricInputLedgerHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "MetricInputLedgerV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "sampleManifestHash": {},
+        "referenceSealHash": {},
+        "executionRegistrationHash": {},
+        "itemResultSetHash": {},
+        "contributions": {},
+        "metricInputLedgerHash": {}
+      }
+    },
+    "NaturalCaPredecessorGoldenHashesV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "capturedFromCommit",
+        "hashAlgorithm",
+        "mutablePointer",
+        "immutableFiles"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "NaturalCaPredecessorGoldenHashesV1"
+        },
+        "capturedFromCommit": {},
+        "hashAlgorithm": {},
+        "mutablePointer": {},
+        "immutableFiles": {}
+      }
+    },
+    "NaturalCaSourceLineagePreflightAggregateV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "activeDesignId",
+        "evidenceOriginDesignId",
+        "preflightAt",
+        "baselineCommitSha",
+        "predecessorRegistrationHash",
+        "containsItemText",
+        "containsItemIds",
+        "containsCredentialsOrPersonalData",
+        "aggregateOversizedGroups",
+        "finding",
+        "disposition",
+        "v3Disposition",
+        "frameFrozen",
+        "sampleFrozen",
+        "providerCallsMade"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "NaturalCaSourceLineagePreflightAggregateV1"
+        },
+        "designId": {},
+        "activeDesignId": {},
+        "evidenceOriginDesignId": {},
+        "preflightAt": {},
+        "baselineCommitSha": {},
+        "predecessorRegistrationHash": {},
+        "containsItemText": {},
+        "containsItemIds": {},
+        "containsCredentialsOrPersonalData": {},
+        "aggregateOversizedGroups": {},
+        "finding": {},
+        "disposition": {},
+        "v3Disposition": {},
+        "frameFrozen": {},
+        "sampleFrozen": {},
+        "providerCallsMade": {}
+      }
+    },
+    "NaturalCaStatisticalPowerV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "bindingStatus",
+        "designRegistrationHash",
+        "calculationPolicy",
+        "binaryThresholdOpportunity",
+        "ca60WorstCasePrecision",
+        "zeroMissOpportunity",
+        "planningScale",
+        "ca60Conclusion",
+        "powerArtifactHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "NaturalCaStatisticalPowerV1"
+        },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "bindingStatus": { "const": "CANDIDATE_UNBOUND_PENDING_REGISTRATION_FREEZE" },
+        "designRegistrationHash": { "type": "null" },
+        "calculationPolicy": {},
+        "binaryThresholdOpportunity": {},
+        "ca60WorstCasePrecision": {},
+        "zeroMissOpportunity": {},
+        "planningScale": {},
+        "ca60Conclusion": {},
+        "powerArtifactHash": { "type": "null" }
+      }
+    },
+    "ObservedEvaluationLedgerV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sampleManifestHash",
+        "referenceSealHash",
+        "executionRegistrationHash",
+        "itemResultSetHash",
+        "accounting",
+        "confusionMatrix",
+        "findingCounts",
+        "matchRecords",
+        "contributions",
+        "observedLedgerHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ObservedEvaluationLedgerV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "sampleManifestHash": {},
+        "referenceSealHash": {},
+        "executionRegistrationHash": {},
+        "itemResultSetHash": {},
+        "accounting": {},
+        "confusionMatrix": {},
+        "findingCounts": {},
+        "matchRecords": {},
+        "contributions": {},
+        "observedLedgerHash": {}
+      }
+    },
+    "PreResultReplacementV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "frameRegistrationHash",
+        "previousSampleManifestHash",
+        "newSampleManifestHash",
+        "sampleVersion",
+        "registeredAt",
+        "newManifestFrozenAt",
+        "exclusionItemId",
+        "exclusionItemHash",
+        "exclusionCode",
+        "exclusionEvidenceHash",
+        "replacementItemId",
+        "replacementItemHash",
+        "replacementClusterId",
+        "replacementStratum",
+        "selectionRule",
+        "providerAttemptReceiptCountAtRegistration",
+        "referenceLabelCountAtRegistration",
+        "evaluationResultCountAtRegistration",
+        "resultBlind",
+        "replacementAfterAnyLabelOrResult",
+        "replacementReceiptHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "PreResultReplacementV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "frameRegistrationHash": {},
+        "previousSampleManifestHash": {},
+        "newSampleManifestHash": {},
+        "sampleVersion": {},
+        "registeredAt": {},
+        "newManifestFrozenAt": {},
+        "exclusionItemId": {},
+        "exclusionItemHash": {},
+        "exclusionCode": {},
+        "exclusionEvidenceHash": {},
+        "replacementItemId": {},
+        "replacementItemHash": {},
+        "replacementClusterId": {},
+        "replacementStratum": {},
+        "selectionRule": {},
+        "providerAttemptReceiptCountAtRegistration": {},
+        "referenceLabelCountAtRegistration": {},
+        "evaluationResultCountAtRegistration": {},
+        "resultBlind": {},
+        "replacementAfterAnyLabelOrResult": {},
+        "replacementReceiptHash": {}
+      }
+    },
+    "ProtectedReviewInputRootV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "currentHeads",
+        "designRegistration",
+        "executionRegistration",
+        "frozenArtifacts",
+        "frameRows",
+        "runtimeExtractionSnapshot",
+        "independentRuntimeSourceEnumerationReceipt",
+        "cleanSourceEvidence",
+        "clusterAudit",
+        "frameRegistration",
+        "sampleManifest",
+        "c0RandomAudit",
+        "executionEvidence",
+        "finalEvaluationBundle",
+        "reviewLedgerHead",
+        "mainScorerImplementationHash",
+        "mainScorerDependencyHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ProtectedReviewInputRootV1"
+        },
+        "designId": {},
+        "currentHeads": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "activeDesignRegistrationHash",
+            "activeExecutionRegistrationHash",
+            "latestFinalEvaluationReceiptHash",
+            "referenceSealHash",
+            "frameRegistrationHash",
+            "sampleManifestHash",
+            "thresholdHash",
+            "taxonomyHash",
+            "labelSchemaHash",
+            "adjudicationMethodHash",
+            "severityRuleHash",
+            "promptSetHash",
+            "schemaSetHash",
+            "runnerHash",
+            "adapterHash",
+            "statisticalPowerHash",
+            "designSupersedesHash",
+            "methodComponentRootSetHash",
+            "reviewLedgerHeadHash",
+            "finalFinishedAt"
+          ],
+          "properties": {
+            "activeDesignRegistrationHash": { "$ref": "#/$defs/sha256" },
+            "activeExecutionRegistrationHash": { "$ref": "#/$defs/sha256" },
+            "latestFinalEvaluationReceiptHash": { "$ref": "#/$defs/sha256" },
+            "referenceSealHash": { "$ref": "#/$defs/sha256" },
+            "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+            "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+            "thresholdHash": { "$ref": "#/$defs/sha256" },
+            "taxonomyHash": { "$ref": "#/$defs/sha256" },
+            "labelSchemaHash": { "$ref": "#/$defs/sha256" },
+            "adjudicationMethodHash": { "$ref": "#/$defs/sha256" },
+            "severityRuleHash": { "$ref": "#/$defs/sha256" },
+            "promptSetHash": { "$ref": "#/$defs/sha256" },
+            "schemaSetHash": { "$ref": "#/$defs/sha256" },
+            "runnerHash": { "$ref": "#/$defs/sha256" },
+            "adapterHash": { "$ref": "#/$defs/sha256" },
+            "statisticalPowerHash": { "$ref": "#/$defs/sha256" },
+            "designSupersedesHash": { "$ref": "#/$defs/sha256" },
+            "methodComponentRootSetHash": { "$ref": "#/$defs/sha256" },
+            "reviewLedgerHeadHash": { "$ref": "#/$defs/sha256" },
+            "finalFinishedAt": { "type": "string", "format": "date-time" }
+          }
+        },
+        "designRegistration": {},
+        "executionRegistration": {},
+        "frozenArtifacts": {},
+        "frameRows": {},
+        "runtimeExtractionSnapshot": {},
+        "independentRuntimeSourceEnumerationReceipt": {},
+        "cleanSourceEvidence": {},
+        "clusterAudit": {},
+        "frameRegistration": {},
+        "sampleManifest": {},
+        "c0RandomAudit": {},
+        "executionEvidence": {},
+        "finalEvaluationBundle": {},
+        "reviewLedgerHead": {},
+        "mainScorerImplementationHash": {},
+        "mainScorerDependencyHash": {}
+      }
+    },
+    "ProtectedReviewInputRootV4": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "protectedEvidenceRootHash",
+        "trustedAuthorizationRootSetHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ProtectedReviewInputRootV4"
+        },
+        "designId": {},
+        "protectedEvidenceRootHash": {},
+        "trustedAuthorizationRootSetHash": {}
+      }
+    },
+    "PublicAggregateReportV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "finalEvaluationReceiptHash",
+        "independentReviewReceiptHash",
+        "claimBoundaryReviewReceiptHash",
+        "contentClass",
+        "conclusion",
+        "decisionCeiling",
+        "claimScopeCeiling",
+        "aggregateStatistics",
+        "artifactHashes",
+        "limitations",
+        "reportHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "PublicAggregateReportV1"
+        },
+        "designId": {},
+        "registrationHash": {},
+        "finalEvaluationReceiptHash": {},
+        "independentReviewReceiptHash": {},
+        "claimBoundaryReviewReceiptHash": {},
+        "contentClass": {},
+        "conclusion": {},
+        "decisionCeiling": {},
+        "claimScopeCeiling": {},
+        "aggregateStatistics": {},
+        "artifactHashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "activeDesignRegistrationHash",
+            "activeExecutionRegistrationHash",
+            "latestFinalEvaluationReceiptHash",
+            "referenceSealHash",
+            "frameRegistrationHash",
+            "sampleManifestHash",
+            "thresholdHash",
+            "taxonomyHash",
+            "labelSchemaHash",
+            "adjudicationMethodHash",
+            "severityRuleHash",
+            "promptSetHash",
+            "schemaSetHash",
+            "runnerHash",
+            "adapterHash",
+            "statisticalPowerHash",
+            "designSupersedesHash",
+            "methodComponentRootSetHash",
+            "reviewLedgerHeadHash"
+          ],
+          "properties": {
+            "activeDesignRegistrationHash": { "$ref": "#/$defs/sha256" },
+            "activeExecutionRegistrationHash": { "$ref": "#/$defs/sha256" },
+            "latestFinalEvaluationReceiptHash": { "$ref": "#/$defs/sha256" },
+            "referenceSealHash": { "$ref": "#/$defs/sha256" },
+            "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+            "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+            "thresholdHash": { "$ref": "#/$defs/sha256" },
+            "taxonomyHash": { "$ref": "#/$defs/sha256" },
+            "labelSchemaHash": { "$ref": "#/$defs/sha256" },
+            "adjudicationMethodHash": { "$ref": "#/$defs/sha256" },
+            "severityRuleHash": { "$ref": "#/$defs/sha256" },
+            "promptSetHash": { "$ref": "#/$defs/sha256" },
+            "schemaSetHash": { "$ref": "#/$defs/sha256" },
+            "runnerHash": { "$ref": "#/$defs/sha256" },
+            "adapterHash": { "$ref": "#/$defs/sha256" },
+            "statisticalPowerHash": { "$ref": "#/$defs/sha256" },
+            "designSupersedesHash": { "$ref": "#/$defs/sha256" },
+            "methodComponentRootSetHash": { "$ref": "#/$defs/sha256" },
+            "reviewLedgerHeadHash": { "$ref": "#/$defs/sha256" }
+          }
+        },
+        "limitations": {},
+        "reportHash": {}
+      }
+    },
+    "RightsEgressDecisionTableV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "sourceCoverage",
+        "sourceCoverageRootHash",
+        "authorizationBoundary",
+        "builderProvesOwnerAuthorization",
+        "ownerApprovalClaimRootHash",
+        "decisions",
+        "allSourcesEgressEligible",
+        "frameFailureLedger",
+        "rightsDecisionTableHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "RightsEgressDecisionTableV1"
+        },
+        "sourceCoverage": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonempty" }
+        },
+        "sourceCoverageRootHash": { "$ref": "#/$defs/sha256" },
+        "authorizationBoundary": { "const": "REQUIRES_OUT_OF_BAND_OWNER_APPROVAL_ROOT_AT_FINAL_EGRESS_VALIDATION" },
+        "builderProvesOwnerAuthorization": { "const": false },
+        "ownerApprovalClaimRootHash": { "$ref": "#/$defs/sha256" },
+        "decisions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/rightsEgressDecision" }
+        },
+        "allSourcesEgressEligible": { "type": "boolean" },
+        "frameFailureLedger": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/rightsFailureLedgerEntry" }
+        },
+        "rightsDecisionTableHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "RuntimeConfigEvidenceV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "actor",
+        "curriculumProfile",
+        "gradeProjectionUnion",
+        "maxAnswerChoices",
+        "accommodationOptionTruncation",
+        "perStudentReducedChoicesApplied",
+        "localePolicy",
+        "standardUnaccommodatedProjection",
+        "activePackStateHash",
+        "featureFlagStateHash",
+        "runtimeConfigHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "RuntimeConfigEvidenceV1"
+        },
+        "actor": {},
+        "curriculumProfile": {},
+        "gradeProjectionUnion": {},
+        "maxAnswerChoices": {},
+        "accommodationOptionTruncation": {},
+        "perStudentReducedChoicesApplied": {},
+        "localePolicy": {},
+        "standardUnaccommodatedProjection": {},
+        "activePackStateHash": {},
+        "featureFlagStateHash": {},
+        "runtimeConfigHash": {}
+      }
+    },
+    "RuntimeSourceEnumerationEvidenceContractV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "receiptSchemaVersion",
+        "gradeProjectionInvocationSchemaVersion",
+        "gradeProjectionInvocationCount",
+        "gradeProjectionOrder",
+        "region",
+        "curriculumProfile",
+        "runtimeOrigin",
+        "requiredReceiptBindings",
+        "requiredInvocationLeafBindings",
+        "requiredProtectedSnapshotBindings",
+        "sourceItemDispositionSet",
+        "closedExclusionCodes",
+        "accountingEquations",
+        "duplicateIdRule",
+        "chronologyRule",
+        "sourceCompletenessEvidenceBoundary",
+        "designDoesNotSelfProveSourceCompleteness",
+        "requiresIndependentExtractorExecutionAgainstFrozenSource",
+        "requiresIndependentA11ExtractorRerun",
+        "independentA11ExtractorRerunRule",
+        "immutableAfterFreeze"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "RuntimeSourceEnumerationEvidenceContractV1"
+        },
+        "receiptSchemaVersion": {},
+        "gradeProjectionInvocationSchemaVersion": {},
+        "gradeProjectionInvocationCount": {},
+        "gradeProjectionOrder": {},
+        "region": {},
+        "curriculumProfile": {},
+        "runtimeOrigin": {},
+        "requiredReceiptBindings": {},
+        "requiredInvocationLeafBindings": {},
+        "requiredProtectedSnapshotBindings": {},
+        "sourceItemDispositionSet": {},
+        "closedExclusionCodes": {},
+        "accountingEquations": {},
+        "duplicateIdRule": {},
+        "chronologyRule": {},
+        "sourceCompletenessEvidenceBoundary": {},
+        "designDoesNotSelfProveSourceCompleteness": {},
+        "requiresIndependentExtractorExecutionAgainstFrozenSource": {},
+        "requiresIndependentA11ExtractorRerun": {},
+        "independentA11ExtractorRerunRule": {},
+        "immutableAfterFreeze": {}
+      }
+    },
+    "ThreeRouteSourceParityEvidenceV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "runtimeLoaderEvidence",
+        "mapFirstWinsUsed",
+        "collisionCheckPrecedesAnyMapOrDeduplication",
+        "rawItems",
+        "convertedFullItems",
+        "gradePublicItems",
+        "rawRootHash",
+        "convertedFullRootHash",
+        "gradePublicUnionRootHash",
+        "routeParityProved",
+        "parityEvidenceHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "ThreeRouteSourceParityEvidenceV2"
+        },
+        "runtimeLoaderEvidence": {},
+        "mapFirstWinsUsed": {},
+        "collisionCheckPrecedesAnyMapOrDeduplication": {},
+        "rawItems": {},
+        "convertedFullItems": {},
+        "gradePublicItems": {},
+        "rawRootHash": {},
+        "convertedFullRootHash": {},
+        "gradePublicUnionRootHash": {},
+        "routeParityProved": {},
+        "parityEvidenceHash": {}
+      }
+    },
+    "TransitiveSourceModuleManifestV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "repositoryIdentity",
+        "sourceCommit",
+        "routeExecutionTrustRootHash",
+        "dependencyClosureExtractorImplementationHash",
+        "dependencyClosureRunnerReceiptHash",
+        "dependencyClosureTrustDescriptor",
+        "dependencyClosureTrustRootHash",
+        "dependencyClosureAuthorizationBoundary",
+        "files",
+        "fileCount",
+        "rootFormula",
+        "sourceModuleHash",
+        "sourceModuleManifestHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "TransitiveSourceModuleManifestV1"
+        },
+        "repositoryIdentity": {},
+        "sourceCommit": {},
+        "routeExecutionTrustRootHash": { "$ref": "#/$defs/sha256" },
+        "dependencyClosureExtractorImplementationHash": {},
+        "dependencyClosureRunnerReceiptHash": {},
+        "dependencyClosureTrustDescriptor": { "$ref": "#/$defs/DependencyClosureTrustDescriptorV1" },
+        "dependencyClosureTrustRootHash": { "$ref": "#/$defs/sha256" },
+        "dependencyClosureAuthorizationBoundary": { "const": "REQUIRES_OUT_OF_BAND_TRUSTED_DEPENDENCY_CLOSURE_ROOT_AT_FRAME_FREEZE" },
+        "files": {},
+        "fileCount": {},
+        "rootFormula": {},
+        "sourceModuleHash": {},
+        "sourceModuleManifestHash": {}
+      }
+    },
+    "DependencyClosureTrustDescriptorV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "repositoryIdentity", "sourceCommit", "extractorImplementationHash", "runnerCommit", "runnerHash", "fileCount", "sourceModuleHash"],
+      "properties": {
+        "schemaVersion": { "const": "DependencyClosureTrustDescriptorV1" },
+        "repositoryIdentity": { "type": "string", "minLength": 1 },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "extractorImplementationHash": { "$ref": "#/$defs/sha256" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "fileCount": { "type": "integer", "minimum": 1 },
+        "sourceModuleHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "RouteExecutionTrustDescriptorV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "repositoryIdentity", "sourceCommit", "converter", "normalization", "publicProjection"],
+      "properties": {
+        "schemaVersion": { "const": "RouteExecutionTrustDescriptorV2" },
+        "repositoryIdentity": { "type": "string", "minLength": 1 },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "converter": { "$ref": "#/$defs/converterRouteExecutionBinding" },
+        "normalization": { "$ref": "#/$defs/normalizationRouteExecutionBinding" },
+        "publicProjection": { "$ref": "#/$defs/publicProjectionRouteExecutionBinding" }
+      }
+    },
+    "RawToRuntimeQuestionConverterRunnerReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "implementationHash", "sourceCommit", "runnerCommit", "runnerHash", "executedAt", "entries", "entryRootHash", "rawRootHash", "convertedFullRootHash", "runnerReceiptHash"],
+      "properties": {
+        "schemaVersion": { "const": "RawToRuntimeQuestionConverterRunnerReceiptV1" },
+        "implementationHash": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "executedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/rawConverterEntry" } },
+        "entryRootHash": { "$ref": "#/$defs/sha256" },
+        "rawRootHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "runnerReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "RuntimeQuestionToResearchLeafNormalizerRunnerReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "implementationHash", "sourceCommit", "runnerCommit", "runnerHash", "executedAt", "entries", "entryRootHash", "convertedFullRootHash", "normalizedFullRootHash", "runnerReceiptHash"],
+      "properties": {
+        "schemaVersion": { "const": "RuntimeQuestionToResearchLeafNormalizerRunnerReceiptV1" },
+        "implementationHash": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "executedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/researchNormalizerEntry" } },
+        "entryRootHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "normalizedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "runnerReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "RuntimeQuestionToPublicQuestionRunnerReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "implementationHash", "sourceCommit", "runnerCommit", "runnerHash", "executedAt", "entries", "entryRootHash", "convertedFullRootHash", "gradePublicUnionRootHash", "gradeProjectionInvocationRootHash", "runnerReceiptHash"],
+      "properties": {
+        "schemaVersion": { "const": "RuntimeQuestionToPublicQuestionRunnerReceiptV1" },
+        "implementationHash": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "executedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/publicProjectionEntry" } },
+        "entryRootHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "gradePublicUnionRootHash": { "$ref": "#/$defs/sha256" },
+        "gradeProjectionInvocationRootHash": { "$ref": "#/$defs/sha256" },
+        "runnerReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "ThreeRouteSourceParityEvidenceV4": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "repositoryIdentity", "sourceCommit", "routeExecutionTrustDescriptor", "routeExecutionTrustRootHash", "runtimeLoaderEvidence", "mapFirstWinsUsed", "collisionCheckPrecedesAnyMapOrDeduplication", "rawItems", "convertedRuntimeItems", "convertedFullItems", "gradePublicItems", "rawRootHash", "convertedFullRootHash", "normalizedFullRootHash", "gradePublicUnionRootHash", "gradeProjectionInvocationRootHash", "converterRunnerReceiptHash", "normalizationRunnerReceiptHash", "publicProjectionRunnerReceiptHash", "routeParityProved", "parityEvidenceHash"],
+      "properties": {
+        "schemaVersion": { "const": "ThreeRouteSourceParityEvidenceV4" },
+        "repositoryIdentity": { "type": "string", "minLength": 1 },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "routeExecutionTrustDescriptor": { "$ref": "#/$defs/RouteExecutionTrustDescriptorV2" },
+        "routeExecutionTrustRootHash": { "$ref": "#/$defs/sha256" },
+        "runtimeLoaderEvidence": { "$ref": "#/$defs/runtimeLoaderEvidenceV3" },
+        "mapFirstWinsUsed": { "const": false },
+        "collisionCheckPrecedesAnyMapOrDeduplication": { "const": true },
+        "rawItems": { "type": "array", "items": { "$ref": "#/$defs/rawIdentity" } },
+        "convertedRuntimeItems": { "type": "array", "items": { "$ref": "#/$defs/runtimeIdentity" } },
+        "convertedFullItems": { "type": "array", "items": { "$ref": "#/$defs/normalizedIdentity" } },
+        "gradePublicItems": { "$ref": "#/$defs/gradePublicIdentities" },
+        "rawRootHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "normalizedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "gradePublicUnionRootHash": { "$ref": "#/$defs/sha256" },
+        "gradeProjectionInvocationRootHash": { "$ref": "#/$defs/sha256" },
+        "converterRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "normalizationRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "publicProjectionRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "routeParityProved": { "const": true },
+        "parityEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "SampleBoundProtectedItemEnvelopeV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "projectionDisposition", "itemId", "itemHash", "sourceLineageClusterId", "homologyClusterId", "itemPseudonym", "sampleManifestHash", "pseudonymSeedRootHash", "pseudonymMappingRootHash", "protectedEnvelopeHash"],
+      "properties": {
+        "schemaVersion": { "const": "SampleBoundProtectedItemEnvelopeV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "projectionDisposition": { "const": "PROTECTED_LOCAL_ONLY_NOT_PROVIDER_PAYLOAD" },
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "sourceLineageClusterId": { "anyOf": [{ "$ref": "#/$defs/nonempty" }, { "type": "null" }] },
+        "homologyClusterId": { "$ref": "#/$defs/nonempty" },
+        "itemPseudonym": { "type": "string", "pattern": "^ca60-[0-9a-f]{32}$" },
+        "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "pseudonymSeedRootHash": { "$ref": "#/$defs/sha256" },
+        "pseudonymMappingRootHash": { "$ref": "#/$defs/sha256" },
+        "protectedEnvelopeHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "SampleExecutionLedgerEntryV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "sequenceNumber", "eventType", "itemId", "itemHash", "eventArtifactHash", "occurredAt", "entryHash"],
+      "properties": {
+        "schemaVersion": { "const": "SampleExecutionLedgerEntryV1" },
+        "sequenceNumber": { "type": "integer", "minimum": 1 },
+        "eventType": { "enum": ["PROVIDER_ATTEMPT", "REFERENCE_LABEL_RECORDED", "EVALUATION_RESULT_RECORDED", "PRE_RESULT_REPLACEMENT_REGISTERED"] },
+        "itemId": { "anyOf": [{ "$ref": "#/$defs/nonempty" }, { "type": "null" }] },
+        "itemHash": { "$ref": "#/$defs/nullableSha256" },
+        "eventArtifactHash": { "$ref": "#/$defs/sha256" },
+        "occurredAt": { "$ref": "#/$defs/timestamp" },
+        "entryHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "SampleExecutionLedgerV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "sampleManifestHash", "previousExecutionLedgerHash", "recorderImplementationHash", "recorderRunnerReceiptHash", "recordedAt", "entries", "entryCount", "entryRootHash", "appendOnly", "executionLedgerHash"],
+      "properties": {
+        "schemaVersion": { "const": "SampleExecutionLedgerV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "previousExecutionLedgerHash": { "$ref": "#/$defs/nullableSha256" },
+        "recorderImplementationHash": { "$ref": "#/$defs/sha256" },
+        "recorderRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/SampleExecutionLedgerEntryV1" } },
+        "entryCount": { "type": "integer", "minimum": 0 },
+        "entryRootHash": { "$ref": "#/$defs/sha256" },
+        "appendOnly": { "const": true },
+        "executionLedgerHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "TransitiveSourceModuleManifestV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "repositoryIdentity", "sourceCommit", "routeExecutionTrustRootHash", "dependencyClosureExtractorImplementationHash", "dependencyClosureRunnerReceiptHash", "dependencyClosureCompletedAt", "dependencyClosureTrustDescriptor", "dependencyClosureTrustRootHash", "dependencyClosureAuthorizationBoundary", "files", "fileCount", "rootFormula", "sourceModuleHash", "sourceModuleManifestHash"],
+      "properties": {
+        "schemaVersion": { "const": "TransitiveSourceModuleManifestV2" },
+        "repositoryIdentity": { "$ref": "#/$defs/nonempty" },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "routeExecutionTrustRootHash": { "$ref": "#/$defs/sha256" },
+        "dependencyClosureExtractorImplementationHash": { "$ref": "#/$defs/sha256" },
+        "dependencyClosureRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "dependencyClosureCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "dependencyClosureTrustDescriptor": { "$ref": "#/$defs/DependencyClosureTrustDescriptorV1" },
+        "dependencyClosureTrustRootHash": { "$ref": "#/$defs/sha256" },
+        "dependencyClosureAuthorizationBoundary": { "const": "REQUIRES_OUT_OF_BAND_TRUSTED_DEPENDENCY_CLOSURE_ROOT_AT_FRAME_FREEZE" },
+        "files": { "type": "array", "minItems": 1 },
+        "fileCount": { "type": "integer", "minimum": 1 },
+        "rootFormula": { "$ref": "#/$defs/nonempty" },
+        "sourceModuleHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleManifestHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "ThreeRouteSourceParityEvidenceV5": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "repositoryIdentity", "sourceCommit", "routeExecutionTrustDescriptor", "routeExecutionTrustRootHash", "runtimeLoaderEvidence", "mapFirstWinsUsed", "collisionCheckPrecedesAnyMapOrDeduplication", "rawItems", "convertedRuntimeItems", "convertedFullItems", "gradePublicItems", "rawRootHash", "convertedFullRootHash", "normalizedFullRootHash", "gradePublicUnionRootHash", "gradeProjectionInvocationRootHash", "converterRunnerReceiptHash", "normalizationRunnerReceiptHash", "publicProjectionRunnerReceiptHash", "routeExecutionCompletedAt", "routeParityProved", "parityEvidenceHash"],
+      "properties": {
+        "schemaVersion": { "const": "ThreeRouteSourceParityEvidenceV5" },
+        "repositoryIdentity": { "$ref": "#/$defs/nonempty" },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "routeExecutionTrustDescriptor": { "$ref": "#/$defs/RouteExecutionTrustDescriptorV2" },
+        "routeExecutionTrustRootHash": { "$ref": "#/$defs/sha256" },
+        "runtimeLoaderEvidence": { "$ref": "#/$defs/runtimeLoaderEvidenceV3" },
+        "mapFirstWinsUsed": { "const": false },
+        "collisionCheckPrecedesAnyMapOrDeduplication": { "const": true },
+        "rawItems": { "type": "array", "items": { "$ref": "#/$defs/rawIdentity" } },
+        "convertedRuntimeItems": { "type": "array", "items": { "$ref": "#/$defs/runtimeIdentity" } },
+        "convertedFullItems": { "type": "array", "items": { "$ref": "#/$defs/normalizedIdentity" } },
+        "gradePublicItems": { "$ref": "#/$defs/gradePublicIdentities" },
+        "rawRootHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "normalizedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "gradePublicUnionRootHash": { "$ref": "#/$defs/sha256" },
+        "gradeProjectionInvocationRootHash": { "$ref": "#/$defs/sha256" },
+        "converterRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "normalizationRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "publicProjectionRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "routeExecutionCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "routeParityProved": { "const": true },
+        "parityEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "FrameFreezeEvidenceV3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "runtimeConfigHash", "sourceParityEvidenceHash", "sourceModuleManifestHash", "sourceModuleHash", "routeExecutionCompletedAt", "dependencyClosureCompletedAt", "scannerExecutionCompletedAt", "trustedRouteExecutionRootHash", "trustedDependencyClosureRootHash", "rightsDecisionTableHash", "trustedOwnerApprovalRootHash", "trustedScreeningPolicyHash", "trustedScannerImplementationHash", "trustedScannerRunnerHash", "trustedScannerExecutionReceiptInventoryHash", "scannerExecutionReceiptRootHash", "protectedFrameIdentityRootHash", "itemScreenEvidenceRootHash", "itemEgressDecisionRootHash", "itemCount", "frameFailureLedger", "frameFailureLedgerRootHash", "anomalyLedger", "anomalyLedgerRootHash", "frameFreezeEvidenceHash"],
+      "properties": {
+        "schemaVersion": { "const": "FrameFreezeEvidenceV3" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "runtimeConfigHash": { "$ref": "#/$defs/sha256" },
+        "sourceParityEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleManifestHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleHash": { "$ref": "#/$defs/sha256" },
+        "routeExecutionCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "dependencyClosureCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "scannerExecutionCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "trustedRouteExecutionRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedDependencyClosureRootHash": { "$ref": "#/$defs/sha256" },
+        "rightsDecisionTableHash": { "$ref": "#/$defs/sha256" },
+        "trustedOwnerApprovalRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedScreeningPolicyHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerRunnerHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerExecutionReceiptInventoryHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceiptRootHash": { "$ref": "#/$defs/sha256" },
+        "protectedFrameIdentityRootHash": { "$ref": "#/$defs/sha256" },
+        "itemScreenEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "itemEgressDecisionRootHash": { "$ref": "#/$defs/sha256" },
+        "itemCount": { "type": "integer", "minimum": 1 },
+        "frameFailureLedger": { "type": "array" },
+        "frameFailureLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "anomalyLedger": { "type": "array" },
+        "anomalyLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "frameFreezeEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "SampleExecutionLedgerV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "sampleBindingKind", "sampleSelectionContentRootHash", "sampleVersion", "previousSampleManifestHash", "previousExecutionLedgerHash", "recorderImplementationHash", "recorderRunnerReceiptHash", "recordedAt", "entries", "entryCount", "entryRootHash", "appendOnly", "executionLedgerHash"],
+      "properties": {
+        "schemaVersion": { "const": "SampleExecutionLedgerV2" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "sampleBindingKind": { "const": "SAMPLE_SELECTION_CONTENT_ROOT" },
+        "sampleSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "sampleVersion": { "type": "integer", "minimum": 2 },
+        "previousSampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "previousExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "recorderImplementationHash": { "$ref": "#/$defs/sha256" },
+        "recorderRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": { "type": "array", "items": { "$ref": "#/$defs/SampleExecutionLedgerEntryV1" } },
+        "entryCount": { "type": "integer", "minimum": 1 },
+        "entryRootHash": { "$ref": "#/$defs/sha256" },
+        "appendOnly": { "const": true },
+        "executionLedgerHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "PreResultReplacementV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "registrationHash", "frameRegistrationHash", "previousSampleManifestHash", "newSampleSelectionContentRootHash", "sampleVersion", "registeredAt", "newManifestFrozenAt", "exclusionItemId", "exclusionItemHash", "exclusionCode", "exclusionEvidenceHash", "trustedExclusionEvidenceInventoryHash", "beforeExecutionLedgerHash", "afterExecutionLedgerHash", "replacementItemId", "replacementItemHash", "replacementClusterId", "replacementStratum", "selectionRule", "providerAttemptReceiptCountAtRegistration", "referenceLabelCountAtRegistration", "evaluationResultCountAtRegistration", "resultBlind", "replacementAfterAnyLabelOrResult", "replacementReceiptHash"],
+      "properties": {
+        "schemaVersion": { "const": "PreResultReplacementV2" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "registrationHash": { "$ref": "#/$defs/sha256" },
+        "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+        "previousSampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "newSampleSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "sampleVersion": { "type": "integer", "minimum": 2 },
+        "registeredAt": { "$ref": "#/$defs/timestamp" },
+        "newManifestFrozenAt": { "$ref": "#/$defs/timestamp" },
+        "exclusionItemId": { "$ref": "#/$defs/nonempty" },
+        "exclusionItemHash": { "$ref": "#/$defs/sha256" },
+        "exclusionCode": { "enum": ["RESTRICTED_EGRESS_CONTENT", "UNSTABLE_SERIALIZATION"] },
+        "exclusionEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "trustedExclusionEvidenceInventoryHash": { "$ref": "#/$defs/sha256" },
+        "beforeExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "afterExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "replacementItemId": { "$ref": "#/$defs/nonempty" },
+        "replacementItemHash": { "$ref": "#/$defs/sha256" },
+        "replacementClusterId": { "$ref": "#/$defs/nonempty" },
+        "replacementStratum": { "$ref": "#/$defs/nonempty" },
+        "selectionRule": { "const": "EXACT_NEXT_RANK_IN_SAME_FROZEN_STRATUM" },
+        "providerAttemptReceiptCountAtRegistration": { "const": 0 },
+        "referenceLabelCountAtRegistration": { "const": 0 },
+        "evaluationResultCountAtRegistration": { "const": 0 },
+        "resultBlind": { "const": true },
+        "replacementAfterAnyLabelOrResult": { "const": false },
+        "replacementReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "SampleReplacementAuthorizationV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "registrationHash", "frameRegistrationHash", "previousSampleManifestHash", "newSampleVersion", "newSampleSelectionContentRootHash", "newManifestFrozenAt", "exclusionEvidenceHash", "exclusionEvidenceInventoryHash", "trustedExclusionEvidenceInventoryHash", "exclusionEvidenceInventoryRecordedAt", "beforeExecutionLedgerHash", "beforeExecutionLedgerRecordedAt", "afterExecutionLedgerHash", "afterExecutionLedgerRecordedAt", "trustedExecutionLedgerRecorderImplementationHash", "trustedExecutionLedgerRunnerReceiptHash", "replacementReceiptHash", "exclusionEvidenceInventory", "beforeExecutionLedger", "afterExecutionLedger", "replacementReceipt", "replacementAuthorizationHash"],
+      "properties": {
+        "schemaVersion": { "const": "SampleReplacementAuthorizationV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "registrationHash": { "$ref": "#/$defs/sha256" },
+        "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+        "previousSampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "newSampleVersion": { "type": "integer", "minimum": 2 },
+        "newSampleSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "newManifestFrozenAt": { "$ref": "#/$defs/timestamp" },
+        "exclusionEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "exclusionEvidenceInventoryHash": { "$ref": "#/$defs/sha256" },
+        "trustedExclusionEvidenceInventoryHash": { "$ref": "#/$defs/sha256" },
+        "exclusionEvidenceInventoryRecordedAt": { "$ref": "#/$defs/timestamp" },
+        "beforeExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "beforeExecutionLedgerRecordedAt": { "$ref": "#/$defs/timestamp" },
+        "afterExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "afterExecutionLedgerRecordedAt": { "$ref": "#/$defs/timestamp" },
+        "trustedExecutionLedgerRecorderImplementationHash": { "$ref": "#/$defs/sha256" },
+        "trustedExecutionLedgerRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "replacementReceiptHash": { "$ref": "#/$defs/sha256" },
+        "exclusionEvidenceInventory": { "$ref": "#/$defs/PreResultExclusionEvidenceInventoryV1" },
+        "beforeExecutionLedger": { "$ref": "#/$defs/SampleExecutionLedgerV1" },
+        "afterExecutionLedger": { "$ref": "#/$defs/SampleExecutionLedgerV2" },
+        "replacementReceipt": { "$ref": "#/$defs/PreResultReplacementV2" },
+        "replacementAuthorizationHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "replacementHistoryV3Entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exclusionIndex", "removedItemId", "removedItemHash", "exclusionCode", "exclusionEvidenceHash", "replacementItemId", "replacementItemHash", "replacementClusterId", "replacementStratum", "trustedExclusionEvidenceInventoryHash", "beforeExecutionLedgerHash", "afterExecutionLedgerHash", "replacementReceiptHash", "replacementAuthorizationHash"],
+      "properties": {
+        "exclusionIndex": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "removedItemId": { "$ref": "#/$defs/nonempty" },
+        "removedItemHash": { "$ref": "#/$defs/sha256" },
+        "exclusionCode": { "enum": ["RESTRICTED_EGRESS_CONTENT", "UNSTABLE_SERIALIZATION"] },
+        "exclusionEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "replacementItemId": { "$ref": "#/$defs/nonempty" },
+        "replacementItemHash": { "$ref": "#/$defs/sha256" },
+        "replacementClusterId": { "$ref": "#/$defs/nonempty" },
+        "replacementStratum": { "$ref": "#/$defs/nonempty" },
+        "trustedExclusionEvidenceInventoryHash": { "$ref": "#/$defs/sha256" },
+        "beforeExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "afterExecutionLedgerHash": { "$ref": "#/$defs/sha256" },
+        "replacementReceiptHash": { "$ref": "#/$defs/sha256" },
+        "replacementAuthorizationHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "FrameRegistrationV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "registrationHash", "region", "curriculumProfile", "runtimeOrigin", "runtimeVisibleOnly", "responseForms", "difficulties", "closedExclusionCodes", "egressPopulationClaim", "runtimeConfigHash", "runtimeConfigEvidenceHash", "sourceParityEvidenceHash", "sourceModuleManifestHash", "sourceModuleHash", "routeExecutionCompletedAt", "dependencyClosureCompletedAt", "scannerExecutionCompletedAt", "trustedRouteExecutionRootHash", "trustedDependencyClosureRootHash", "rightsDecisionTableHash", "trustedOwnerApprovalRootHash", "frameFreezeEvidenceHash", "frameFailureLedgerRootHash", "frameAnomalyLedgerRootHash", "sourceCommit", "frozenAt", "freezeSequence", "predecessorArtifactHash", "samplingFrameHash", "frameSelectionContentRootHash", "frameTupleRootFormula", "frameRowCount", "eligibleRowCount", "excludedRowCount", "eligibleClusterCount", "clusterAuditHash", "clusterAuditSelectionContentHash", "runtimeExtractionSnapshotHash", "sourceEnumerationReceiptHash", "sourceEnumerationEvidenceContractHash", "fullSourceEnumerationRootHash", "rawEvidenceArtifactRootHash", "extractorImplementationHash", "extractorRunnerCommit", "extractorRunnerHash", "sourceEnumeratedAt", "runtimeExtractedAt", "sourceItemCount", "runtimeVisibleItemCount", "eligibleRuntimeItemCount", "restrictedRuntimeItemCount", "sourceExclusionCount", "exclusionCounts", "gradeProjectionSummary", "sourceExclusionLedgerRootHash", "expectedRuntimeInventoryCount", "expectedInventoryRootHash", "serializationFailureCount", "failureLedgerRootHash", "cleanSourceEvidenceHash", "cleanSourceVerifiedAt", "lineageRuleHash", "lineageRuleApprovalHash", "frameRegistrationHash"],
+      "properties": {
+        "schemaVersion": { "const": "FrameRegistrationV2" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "registrationHash": { "$ref": "#/$defs/sha256" },
+        "region": { "const": "CALIFORNIA" },
+        "curriculumProfile": { "const": "US_CA_MATH" },
+        "runtimeOrigin": { "const": "QUESTION_STORE_AUTHENTICATED_STUDENT_PROJECTION" },
+        "runtimeVisibleOnly": { "const": true },
+        "responseForms": { "type": "array" },
+        "difficulties": { "type": "array" },
+        "closedExclusionCodes": { "type": "array" },
+        "egressPopulationClaim": { "const": "EGRESS_ELIGIBLE_SUBPOPULATION_ONLY" },
+        "runtimeConfigHash": { "$ref": "#/$defs/sha256" },
+        "runtimeConfigEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "sourceParityEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleManifestHash": { "$ref": "#/$defs/sha256" },
+        "sourceModuleHash": { "$ref": "#/$defs/sha256" },
+        "routeExecutionCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "dependencyClosureCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "scannerExecutionCompletedAt": { "$ref": "#/$defs/timestamp" },
+        "trustedRouteExecutionRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedDependencyClosureRootHash": { "$ref": "#/$defs/sha256" },
+        "rightsDecisionTableHash": { "$ref": "#/$defs/sha256" },
+        "trustedOwnerApprovalRootHash": { "$ref": "#/$defs/sha256" },
+        "frameFreezeEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "frameFailureLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "frameAnomalyLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/gitOid" },
+        "frozenAt": { "$ref": "#/$defs/timestamp" },
+        "freezeSequence": { "const": 1 },
+        "predecessorArtifactHash": { "$ref": "#/$defs/sha256" },
+        "samplingFrameHash": { "$ref": "#/$defs/sha256" },
+        "frameSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "frameTupleRootFormula": { "$ref": "#/$defs/nonempty" },
+        "frameRowCount": { "type": "integer", "minimum": 1 },
+        "eligibleRowCount": { "type": "integer", "minimum": 0 },
+        "excludedRowCount": { "type": "integer", "minimum": 0 },
+        "eligibleClusterCount": { "type": "integer", "minimum": 1 },
+        "clusterAuditHash": { "$ref": "#/$defs/sha256" },
+        "clusterAuditSelectionContentHash": { "$ref": "#/$defs/sha256" },
+        "runtimeExtractionSnapshotHash": { "$ref": "#/$defs/sha256" },
+        "sourceEnumerationReceiptHash": { "$ref": "#/$defs/sha256" },
+        "sourceEnumerationEvidenceContractHash": { "$ref": "#/$defs/sha256" },
+        "fullSourceEnumerationRootHash": { "$ref": "#/$defs/sha256" },
+        "rawEvidenceArtifactRootHash": { "$ref": "#/$defs/sha256" },
+        "extractorImplementationHash": { "$ref": "#/$defs/sha256" },
+        "extractorRunnerCommit": { "$ref": "#/$defs/gitOid" },
+        "extractorRunnerHash": { "$ref": "#/$defs/sha256" },
+        "sourceEnumeratedAt": { "$ref": "#/$defs/timestamp" },
+        "runtimeExtractedAt": { "$ref": "#/$defs/timestamp" },
+        "sourceItemCount": { "type": "integer", "minimum": 1 },
+        "runtimeVisibleItemCount": { "type": "integer", "minimum": 1 },
+        "eligibleRuntimeItemCount": { "type": "integer", "minimum": 0 },
+        "restrictedRuntimeItemCount": { "type": "integer", "minimum": 0 },
+        "sourceExclusionCount": { "type": "integer", "minimum": 0 },
+        "exclusionCounts": { "type": "object" },
+        "gradeProjectionSummary": { "type": "array", "minItems": 13, "maxItems": 13 },
+        "sourceExclusionLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "expectedRuntimeInventoryCount": { "type": "integer", "minimum": 1 },
+        "expectedInventoryRootHash": { "$ref": "#/$defs/sha256" },
+        "serializationFailureCount": { "const": 0 },
+        "failureLedgerRootHash": { "$ref": "#/$defs/sha256" },
+        "cleanSourceEvidenceHash": { "$ref": "#/$defs/sha256" },
+        "cleanSourceVerifiedAt": { "$ref": "#/$defs/timestamp" },
+        "lineageRuleHash": { "$ref": "#/$defs/sha256" },
+        "lineageRuleApprovalHash": { "$ref": "#/$defs/sha256" },
+        "frameRegistrationHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "SampleManifestV3": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "registrationHash", "designHash", "frameRegistrationHash", "samplingFrameHash", "frameSelectionContentRootHash", "frameHash", "sourceEnumerationReceiptHash", "sourceEnumerationEvidenceContractHash", "fullSourceEnumerationRootHash", "rawEvidenceArtifactRootHash", "extractorImplementationHash", "extractorRunnerCommit", "extractorRunnerHash", "clusterAuditHash", "clusterAuditSelectionContentHash", "manifestFrozenAt", "freezeSequence", "predecessorArtifactHash", "sampleVersion", "supersedesSampleManifestHash", "supersededSampleManifest", "registeredPreResultExclusions", "replacementHistory", "algorithmVersion", "algorithmHash", "selectionFormula", "selectionDigestCanonicalization", "selectionDigestByteEncoding", "selectionDigestFieldOrder", "selectionDesignHashSemantic", "selectionFrameHashSemantic", "selectionGoldenVectorDigest", "allocationMethod", "clusterOwnershipRule", "selectedClusterRule", "stratumAllocations", "hamiltonAudit", "totalEligibleClusterCount", "clusterCount", "selectedRows", "manifestTupleRootOrder", "manifestTupleRootFormula", "manifestTupleRootHash", "primaryAnalysisWeight", "secondaryWeightMethod", "secondaryEstimand", "representativeSelectionRule", "secondaryWeightSummary", "resultBlind", "rerollAfterAnyLabelOrResult", "replacementAfterAnyLabelOrResult", "pseudonymFormula", "pseudonymSeedRootHash", "pseudonymMappingRootHash", "sampleSelectionContentRootHash", "replacementAuthorization", "replacementAuthorizationHash", "replacementAuthorityHistoryRootHash", "sampleManifestHash"],
+      "properties": {
+        "schemaVersion": { "const": "SampleManifestV3" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "registrationHash": { "$ref": "#/$defs/sha256" },
+        "designHash": { "$ref": "#/$defs/sha256" },
+        "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+        "samplingFrameHash": { "$ref": "#/$defs/sha256" },
+        "frameSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "frameHash": { "$ref": "#/$defs/sha256" },
+        "sourceEnumerationReceiptHash": { "$ref": "#/$defs/sha256" },
+        "sourceEnumerationEvidenceContractHash": { "$ref": "#/$defs/sha256" },
+        "fullSourceEnumerationRootHash": { "$ref": "#/$defs/sha256" },
+        "rawEvidenceArtifactRootHash": { "$ref": "#/$defs/sha256" },
+        "extractorImplementationHash": { "$ref": "#/$defs/sha256" },
+        "extractorRunnerCommit": { "$ref": "#/$defs/gitOid" },
+        "extractorRunnerHash": { "$ref": "#/$defs/sha256" },
+        "clusterAuditHash": { "$ref": "#/$defs/sha256" },
+        "clusterAuditSelectionContentHash": { "$ref": "#/$defs/sha256" },
+        "manifestFrozenAt": { "$ref": "#/$defs/timestamp" },
+        "freezeSequence": { "const": 2 },
+        "predecessorArtifactHash": { "$ref": "#/$defs/sha256" },
+        "sampleVersion": { "type": "integer", "minimum": 2 },
+        "supersedesSampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "supersededSampleManifest": { "type": "object" },
+        "registeredPreResultExclusions": { "type": "array", "minItems": 1, "maxItems": 60 },
+        "replacementHistory": { "type": "array", "minItems": 1, "maxItems": 60, "items": { "$ref": "#/$defs/replacementHistoryV3Entry" } },
+        "algorithmVersion": { "$ref": "#/$defs/nonempty" },
+        "algorithmHash": { "$ref": "#/$defs/sha256" },
+        "selectionFormula": { "$ref": "#/$defs/nonempty" },
+        "selectionDigestCanonicalization": { "$ref": "#/$defs/nonempty" },
+        "selectionDigestByteEncoding": { "$ref": "#/$defs/nonempty" },
+        "selectionDigestFieldOrder": { "type": "array" },
+        "selectionDesignHashSemantic": { "$ref": "#/$defs/nonempty" },
+        "selectionFrameHashSemantic": { "$ref": "#/$defs/nonempty" },
+        "selectionGoldenVectorDigest": { "$ref": "#/$defs/sha256" },
+        "allocationMethod": { "$ref": "#/$defs/nonempty" },
+        "clusterOwnershipRule": { "$ref": "#/$defs/nonempty" },
+        "selectedClusterRule": { "$ref": "#/$defs/nonempty" },
+        "stratumAllocations": { "type": "array" },
+        "hamiltonAudit": { "type": "array" },
+        "totalEligibleClusterCount": { "type": "integer", "minimum": 60 },
+        "clusterCount": { "const": 60 },
+        "selectedRows": { "type": "array", "minItems": 60, "maxItems": 60 },
+        "manifestTupleRootOrder": { "$ref": "#/$defs/nonempty" },
+        "manifestTupleRootFormula": { "$ref": "#/$defs/nonempty" },
+        "manifestTupleRootHash": { "$ref": "#/$defs/sha256" },
+        "primaryAnalysisWeight": { "const": 1 },
+        "secondaryWeightMethod": { "$ref": "#/$defs/nonempty" },
+        "secondaryEstimand": { "$ref": "#/$defs/nonempty" },
+        "representativeSelectionRule": { "$ref": "#/$defs/nonempty" },
+        "secondaryWeightSummary": { "type": "object" },
+        "resultBlind": { "const": true },
+        "rerollAfterAnyLabelOrResult": { "const": false },
+        "replacementAfterAnyLabelOrResult": { "const": false },
+        "pseudonymFormula": { "$ref": "#/$defs/nonempty" },
+        "pseudonymSeedRootHash": { "$ref": "#/$defs/sha256" },
+        "pseudonymMappingRootHash": { "$ref": "#/$defs/sha256" },
+        "sampleSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "replacementAuthorization": { "$ref": "#/$defs/SampleReplacementAuthorizationV1" },
+        "replacementAuthorizationHash": { "$ref": "#/$defs/sha256" },
+        "replacementAuthorityHistoryRootHash": { "$ref": "#/$defs/sha256" },
+        "sampleManifestHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "RuntimeSerializationFailureEvidenceV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "itemId", "itemHash", "runtimeProjectionHash", "exclusionCode", "reasonCode", "redactedDetailHash", "recordedAt", "serializationFailureEvidenceHash"],
+      "properties": {
+        "schemaVersion": { "const": "RuntimeSerializationFailureEvidenceV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "runtimeProjectionHash": { "$ref": "#/$defs/sha256" },
+        "exclusionCode": { "const": "UNSTABLE_SERIALIZATION" },
+        "reasonCode": { "$ref": "#/$defs/nonempty" },
+        "redactedDetailHash": { "$ref": "#/$defs/sha256" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "serializationFailureEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "PreResultExclusionRunnerReceiptV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "itemId", "itemHash", "exclusionCode", "reasonCode", "registeredAt", "exclusionSourceArtifactHash", "issuerImplementationHash", "runnerCommit", "runnerHash", "executedAt", "exclusionRunnerReceiptHash"],
+      "properties": {
+        "schemaVersion": { "const": "PreResultExclusionRunnerReceiptV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "exclusionCode": { "enum": ["RESTRICTED_EGRESS_CONTENT", "UNSTABLE_SERIALIZATION"] },
+        "reasonCode": { "$ref": "#/$defs/nonempty" },
+        "registeredAt": { "$ref": "#/$defs/timestamp" },
+        "exclusionSourceArtifactHash": { "$ref": "#/$defs/sha256" },
+        "issuerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "executedAt": { "$ref": "#/$defs/timestamp" },
+        "exclusionRunnerReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "PreResultExclusionEvidenceV2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "itemId", "itemHash", "exclusionCode", "reasonCode", "registeredAt", "exclusionSourceArtifact", "egressDecisionInput", "sourceArtifactHash", "exclusionRunnerReceipt", "exclusionRunnerReceiptHash", "exclusionEvidenceHash"],
+      "properties": {
+        "schemaVersion": { "const": "PreResultExclusionEvidenceV2" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "exclusionCode": { "enum": ["RESTRICTED_EGRESS_CONTENT", "UNSTABLE_SERIALIZATION"] },
+        "reasonCode": { "$ref": "#/$defs/nonempty" },
+        "registeredAt": { "$ref": "#/$defs/timestamp" },
+        "exclusionSourceArtifact": { "oneOf": [{ "$ref": "#/$defs/FrameItemEgressDecisionV3" }, { "$ref": "#/$defs/RuntimeSerializationFailureEvidenceV1" }] },
+        "egressDecisionInput": { "oneOf": [{ "$ref": "#/$defs/frameItemEgressDecisionInput" }, { "type": "null" }] },
+        "sourceArtifactHash": { "$ref": "#/$defs/sha256" },
+        "exclusionRunnerReceipt": { "$ref": "#/$defs/PreResultExclusionRunnerReceiptV1" },
+        "exclusionRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "exclusionEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "PreResultExclusionEvidenceInventoryV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "designId", "recordedAt", "entries", "evidenceCount", "exclusionEvidenceRootHash", "exclusionEvidenceInventoryHash"],
+      "properties": {
+        "schemaVersion": { "const": "PreResultExclusionEvidenceInventoryV1" },
+        "designId": { "const": "MAIS-NATURAL-CA60-V4" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/preResultExclusionEvidenceInventoryEntry" }
+        },
+        "evidenceCount": { "type": "integer", "minimum": 1 },
+        "exclusionEvidenceRootHash": { "$ref": "#/$defs/sha256" },
+        "exclusionEvidenceInventoryHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "scannerExecutionReceiptInventoryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["itemId", "itemHash", "scannerExecutionReceiptHash"],
+      "properties": {
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "scannerExecutionReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "preResultExclusionEvidenceInventoryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["itemId", "itemHash", "exclusionCode", "reasonCode", "sourceArtifactHash", "exclusionRunnerReceiptHash", "exclusionEvidenceHash"],
+      "properties": {
+        "itemId": { "$ref": "#/$defs/nonempty" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "exclusionCode": { "enum": ["RESTRICTED_EGRESS_CONTENT", "UNSTABLE_SERIALIZATION"] },
+        "reasonCode": { "$ref": "#/$defs/nonempty" },
+        "sourceArtifactHash": { "$ref": "#/$defs/sha256" },
+        "exclusionRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "exclusionEvidenceHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "rightsEgressDecision": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceId", "disposition", "egressEligible", "failureCode"],
+          "properties": {
+            "sourceId": { "$ref": "#/$defs/nonempty" },
+            "disposition": { "const": "DENIED" },
+            "egressEligible": { "const": false },
+            "failureCode": { "type": "null" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceId", "disposition", "egressEligible", "failureCode"],
+          "properties": {
+            "sourceId": { "$ref": "#/$defs/nonempty" },
+            "disposition": { "const": "OWNER_REVIEW_REQUIRED" },
+            "egressEligible": { "const": false },
+            "failureCode": { "const": "RIGHTS_UNRESOLVED" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceId", "disposition", "egressEligible", "failureCode", "ownerApprovalHash"],
+          "properties": {
+            "sourceId": { "$ref": "#/$defs/nonempty" },
+            "disposition": { "const": "OWNER_APPROVED" },
+            "egressEligible": { "const": true },
+            "failureCode": { "type": "null" },
+            "ownerApprovalHash": { "$ref": "#/$defs/sha256" }
+          }
+        }
+      ]
+    },
+    "rightsFailureLedgerEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "sourceId"],
+      "properties": {
+        "code": { "const": "RIGHTS_UNRESOLVED" },
+        "sourceId": { "$ref": "#/$defs/nonempty" }
+      }
+    },
+    "rightsDecisionInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceIds", "registry", "ownerApprovalClaimsBySource"],
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonempty" }
+        },
+        "registry": { "type": "object" },
+        "ownerApprovalClaimsBySource": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "frameItemEgressDecisionInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item",
+        "rightsDecisionInput",
+        "rightsDecisionTable",
+        "trustedOwnerApprovalRootHash",
+        "screenEvidence",
+        "scannerExecutionReceiptInventory",
+        "trustedScannerExecutionReceiptInventoryHash",
+        "trustedScreeningPolicyHash",
+        "trustedScannerImplementationHash",
+        "trustedScannerRunnerHash"
+      ],
+      "properties": {
+        "item": { "type": "object" },
+        "rightsDecisionInput": { "$ref": "#/$defs/rightsDecisionInput" },
+        "rightsDecisionTable": { "$ref": "#/$defs/RightsEgressDecisionTableV1" },
+        "trustedOwnerApprovalRootHash": { "$ref": "#/$defs/sha256" },
+        "screenEvidence": { "$ref": "#/$defs/ItemEgressScreenEvidenceV2" },
+        "scannerExecutionReceiptInventory": { "$ref": "#/$defs/ScannerExecutionReceiptInventoryV1" },
+        "trustedScannerExecutionReceiptInventoryHash": { "$ref": "#/$defs/sha256" },
+        "trustedScreeningPolicyHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerRunnerHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "gitOid": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "nonempty": { "type": "string", "minLength": 1 },
+    "nullableSha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "converterRouteExecutionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementationHash", "runnerCommit", "runnerHash", "runnerReceiptHash", "rawRootHash", "convertedFullRootHash"],
+      "properties": {
+        "implementationHash": { "$ref": "#/$defs/sha256" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "runnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "rawRootHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "normalizationRouteExecutionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementationHash", "runnerCommit", "runnerHash", "runnerReceiptHash", "convertedFullRootHash", "normalizedFullRootHash"],
+      "properties": {
+        "implementationHash": { "$ref": "#/$defs/sha256" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "runnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "normalizedFullRootHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "publicProjectionRouteExecutionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementationHash", "runnerCommit", "runnerHash", "runnerReceiptHash", "convertedFullRootHash", "gradePublicUnionRootHash", "gradeProjectionInvocationRootHash"],
+      "properties": {
+        "implementationHash": { "$ref": "#/$defs/sha256" },
+        "runnerCommit": { "$ref": "#/$defs/gitOid" },
+        "runnerHash": { "$ref": "#/$defs/sha256" },
+        "runnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "convertedFullRootHash": { "$ref": "#/$defs/sha256" },
+        "gradePublicUnionRootHash": { "$ref": "#/$defs/sha256" },
+        "gradeProjectionInvocationRootHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "rawConverterEntry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "rawContentHash", "convertedFullContentHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "rawContentHash": { "$ref": "#/$defs/sha256" }, "convertedFullContentHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "researchNormalizerEntry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "convertedFullContentHash", "normalizedItemHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "convertedFullContentHash": { "$ref": "#/$defs/sha256" }, "normalizedItemHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "publicProjectionEntry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "grade", "convertedFullContentHash", "publicContentHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "grade": { "$ref": "#/$defs/grade" }, "convertedFullContentHash": { "$ref": "#/$defs/sha256" }, "publicContentHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "rawIdentity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "rawContentHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "rawContentHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "runtimeIdentity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "convertedFullContentHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "convertedFullContentHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "normalizedIdentity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "itemHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "itemHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "publicIdentity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "publicContentHash"],
+      "properties": { "itemId": { "$ref": "#/$defs/nonempty" }, "publicContentHash": { "$ref": "#/$defs/sha256" } }
+    },
+    "grade": { "enum": ["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"] },
+    "gradePublicIdentities": {
+      "type": "object", "additionalProperties": false,
+      "required": ["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"],
+      "properties": {
+        "K": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "P1": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "P2": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "P3": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "P4": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "P5": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "P6": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "S1": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "S2": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "S3": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "S4": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "S5": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }, "S6": { "type": "array", "items": { "$ref": "#/$defs/publicIdentity" } }
+      }
+    },
+    "runtimeLoaderEvidenceV3": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rawLoader", "convertedFullLoader", "gradePublicLoader", "optionalQuestionModuleUsed", "apiPreviewUsed", "gradeProjectionCount", "rawConversionUsed", "converterImplementationHash", "converterRunnerReceiptHash", "normalizationImplementationHash", "normalizationRunnerReceiptHash", "publicProjectionImplementationHash", "publicProjectionRunnerReceiptHash"],
+      "properties": {
+        "rawLoader": { "const": "DIRECT_IMPORT" }, "convertedFullLoader": { "const": "DIRECT_IMPORT" }, "gradePublicLoader": { "const": "DIRECT_IMPORT" },
+        "optionalQuestionModuleUsed": { "const": false }, "apiPreviewUsed": { "const": false }, "gradeProjectionCount": { "const": 13 }, "rawConversionUsed": { "const": true },
+        "converterImplementationHash": { "$ref": "#/$defs/sha256" }, "converterRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "normalizationImplementationHash": { "$ref": "#/$defs/sha256" }, "normalizationRunnerReceiptHash": { "$ref": "#/$defs/sha256" },
+        "publicProjectionImplementationHash": { "$ref": "#/$defs/sha256" }, "publicProjectionRunnerReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/C0TriggerInputV1.schema.json",
+  "title": "C0TriggerInputV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "registrationHash", "sampleManifestHash",
+    "executionRegistrationHash", "itemHash", "clusterId", "itemIdPseudonym",
+    "localDeterministicEvidence", "bPrimeCritique", "bPrimeRevision", "validatedScope",
+    "registeredRandomAudit", "qwenInputCount", "derivedAtStage", "inputHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "C0TriggerInputV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "itemHash": { "$ref": "#/$defs/sha256" },
+    "clusterId": { "$ref": "#/$defs/nonempty" },
+    "itemIdPseudonym": { "$ref": "#/$defs/nonempty" },
+    "localDeterministicEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion", "algorithmSetHash", "itemHash", "mathAnswerKey",
+        "rightsProvenanceReconstruction", "learnerFit", "answerCriticalEvidence",
+        "validation", "deterministicFindingKeys"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "C0LocalDeterministicEvidenceV1" },
+        "algorithmSetHash": { "$ref": "#/$defs/sha256" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "mathAnswerKey": { "$ref": "#/$defs/screenEvidence" },
+        "rightsProvenanceReconstruction": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["screenComplete", "disposition", "issueCodes"],
+          "properties": {
+            "screenComplete": { "type": "boolean" },
+            "disposition": {
+              "enum": [
+                "CLEARED_FOR_AUTHORIZED_EGRESS", "RESTRICTED_EGRESS",
+                "COPYRIGHT_OR_LICENSE_RISK", "PROVENANCE_RISK", "RECONSTRUCTION_RISK",
+                "UNKNOWN", "MALFORMED"
+              ]
+            },
+            "issueCodes": { "$ref": "#/$defs/stringSet" }
+          }
+        },
+        "learnerFit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["screenComplete", "checkedDimensions", "issueCodes"],
+          "properties": {
+            "screenComplete": { "type": "boolean" },
+            "checkedDimensions": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
+              "uniqueItems": true,
+              "items": { "enum": ["AGE", "GRADE", "CURRICULUM", "LANGUAGE", "REGION"] },
+              "allOf": [
+                { "contains": { "const": "AGE" }, "minContains": 1, "maxContains": 1 },
+                { "contains": { "const": "GRADE" }, "minContains": 1, "maxContains": 1 },
+                { "contains": { "const": "CURRICULUM" }, "minContains": 1, "maxContains": 1 },
+                { "contains": { "const": "LANGUAGE" }, "minContains": 1, "maxContains": 1 },
+                { "contains": { "const": "REGION" }, "minContains": 1, "maxContains": 1 }
+              ]
+            },
+            "issueCodes": { "$ref": "#/$defs/stringSet" }
+          }
+        },
+        "answerCriticalEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["screenComplete", "requiredAssetTypes", "verifiedAssetTypes", "issueCodes"],
+          "properties": {
+            "screenComplete": { "type": "boolean" },
+            "requiredAssetTypes": { "$ref": "#/$defs/stringSet" },
+            "verifiedAssetTypes": { "$ref": "#/$defs/stringSet" },
+            "issueCodes": { "$ref": "#/$defs/stringSet" }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schemaValid", "roleSequenceValid", "taxonomyCodesValid", "errorCodes"],
+          "properties": {
+            "schemaValid": { "type": "boolean" },
+            "roleSequenceValid": { "type": "boolean" },
+            "taxonomyCodesValid": { "type": "boolean" },
+            "errorCodes": { "$ref": "#/$defs/stringSet" }
+          }
+        },
+        "deterministicFindingKeys": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "bPrimeCritique": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "itemHash", "requiredRevisionCodes", "validityStatus", "artifactHash"],
+      "properties": {
+        "schemaVersion": { "const": "BPrimeCritiqueEvidenceV1" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "requiredRevisionCodes": { "$ref": "#/$defs/stringSet" },
+        "validityStatus": { "enum": ["VALID", "UNKNOWN", "MALFORMED"] },
+        "artifactHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "bPrimeRevision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "itemHash", "resolvedCritiqueCodes", "finalFindingKeys", "validityStatus", "artifactHash"],
+      "properties": {
+        "schemaVersion": { "const": "BPrimeRevisionEvidenceV1" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "resolvedCritiqueCodes": { "$ref": "#/$defs/stringSet" },
+        "finalFindingKeys": { "$ref": "#/$defs/stringSet" },
+        "validityStatus": { "enum": ["VALID", "UNKNOWN", "MALFORMED"] },
+        "artifactHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "validatedScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "itemHash", "itemScopeTags", "allowedScopeTags", "metadataEvidenceComplete", "declaredDistribution"],
+      "properties": {
+        "schemaVersion": { "const": "C0ValidatedScopeV1" },
+        "itemHash": { "$ref": "#/$defs/sha256" },
+        "itemScopeTags": { "$ref": "#/$defs/stringSet" },
+        "allowedScopeTags": { "$ref": "#/$defs/stringSet" },
+        "metadataEvidenceComplete": { "type": "boolean" },
+        "declaredDistribution": { "enum": ["IN_SCOPE", "OUT_OF_DISTRIBUTION", "UNKNOWN", "MALFORMED"] }
+      }
+    },
+    "registeredRandomAudit": { "type": "boolean" },
+    "qwenInputCount": { "const": 0 },
+    "derivedAtStage": { "const": "AFTER_B_PRIME_REVISION_BEFORE_ANY_C0_CALL" },
+    "inputHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 },
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "screenEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["screenComplete", "issueCodes"],
+      "properties": {
+        "screenComplete": { "type": "boolean" },
+        "issueCodes": { "$ref": "#/$defs/stringSet" }
+      }
+    }
+  }
+}

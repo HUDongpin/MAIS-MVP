@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/RuntimeSourceLeafV1.schema.json",
+  "title": "RuntimeSourceLeafV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registrationHash",
+    "sourceCommit",
+    "runtimeConfigHash",
+    "itemId",
+    "rawRouteItemHash",
+    "fullRouteItemHash",
+    "publicRouteItemHash",
+    "runtimeVisible",
+    "disposition",
+    "sourceModuleHash",
+    "sourceLeafHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "RuntimeSourceLeafV1"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceCommit": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "runtimeConfigHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "itemId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rawRouteItemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fullRouteItemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "publicRouteItemHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtimeVisible": {
+      "type": "boolean"
+    },
+    "disposition": {
+      "enum": [
+        "RUNTIME_VISIBLE_SERIALIZED_ELIGIBLE",
+        "RUNTIME_VISIBLE_SERIALIZED_RESTRICTED",
+        "RUNTIME_VISIBLE_SERIALIZATION_FAILURE",
+        "SOURCE_EXCLUDED_NON_CA_TRACK",
+        "SOURCE_EXCLUDED_RUNTIME_NOT_VISIBLE",
+        "SOURCE_EXCLUDED_SYNTHETIC_TEST_CANDIDATE_ONLY"
+      ]
+    },
+    "sourceModuleHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceLeafHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

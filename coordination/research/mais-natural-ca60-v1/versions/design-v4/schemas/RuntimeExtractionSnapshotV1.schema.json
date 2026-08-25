@@ -1,0 +1,1216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/RuntimeExtractionSnapshotV1.schema.json",
+  "title": "RuntimeExtractionSnapshotV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "region",
+    "curriculumProfile",
+    "runtimeOrigin",
+    "runtimeVisibleOnly",
+    "responseForms",
+    "difficulties",
+    "closedExclusionCodes",
+    "egressPopulationClaim",
+    "runtimeConfigHash",
+    "runtimeConfigEvidenceHash",
+    "sourceParityEvidenceHash",
+    "sourceModuleManifestHash",
+    "sourceModuleHash",
+    "trustedRouteExecutionRootHash",
+    "trustedDependencyClosureRootHash",
+    "trustedOwnerApprovalRootHash",
+    "sourceCommit",
+    "extractedAt",
+    "runtimeSourceEnumerationReceipt",
+    "frameFreezeEvidenceInput",
+    "frameFreezeEvidence",
+    "frameFreezeEvidenceHash",
+    "runtimeSourceEnumerationReceiptHash",
+    "sourceEnumerationEvidenceContractHash",
+    "fullSourceEnumerationRootHash",
+    "rawEvidenceArtifactRootHash",
+    "extractorImplementationHash",
+    "extractorRunnerCommit",
+    "extractorRunnerHash",
+    "sourceItemCount",
+    "runtimeVisibleItemCount",
+    "eligibleItemCount",
+    "restrictedItemCount",
+    "sourceExclusionCount",
+    "exclusionCounts",
+    "sourceCompletenessEvidenceBoundary",
+    "sourceCompletenessProvedByDesign",
+    "expectedInventoryLeaves",
+    "expectedRuntimeInventoryCount",
+    "expectedInventoryRootHash",
+    "serializedProjectionLeaves",
+    "serializedFrameRowCount",
+    "serializedProjectionRootHash",
+    "serializationFailureLedger",
+    "serializationFailureCount",
+    "failureLedgerRootHash",
+    "completenessEquation",
+    "completenessProved",
+    "runtimeExtractionSnapshotHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "RuntimeExtractionSnapshotV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "region": {
+      "const": "CALIFORNIA"
+    },
+    "curriculumProfile": {
+      "const": "US_CA_MATH"
+    },
+    "runtimeOrigin": {
+      "const": "QUESTION_STORE_AUTHENTICATED_STUDENT_PROJECTION"
+    },
+    "runtimeVisibleOnly": {
+      "const": true
+    },
+    "responseForms": {
+      "const": [
+        "multiple-choice",
+        "fill-in",
+        "short-answer"
+      ]
+    },
+    "difficulties": {
+      "const": [
+        "Low",
+        "Medium",
+        "High"
+      ]
+    },
+    "closedExclusionCodes": {
+      "const": [
+        "NON_CA_TRACK",
+        "RUNTIME_NOT_VISIBLE",
+        "SYNTHETIC_TEST_CANDIDATE_ONLY",
+        "RESTRICTED_EGRESS_CONTENT",
+        "UNSTABLE_SERIALIZATION"
+      ]
+    },
+    "egressPopulationClaim": {
+      "const": "EGRESS_ELIGIBLE_SUBPOPULATION_ONLY"
+    },
+    "runtimeConfigHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runtimeConfigEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceParityEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceModuleManifestHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceModuleHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trustedRouteExecutionRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trustedDependencyClosureRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trustedOwnerApprovalRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceCommit": {
+      "$ref": "#/$defs/gitOid"
+    },
+    "extractedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "runtimeSourceEnumerationReceipt": {
+      "$ref": "#/$defs/sourceEnumerationReceipt"
+    },
+    "frameFreezeEvidenceInput": {
+      "$ref": "#/$defs/frameFreezeEvidenceInput"
+    },
+    "frameFreezeEvidence": {
+      "$ref": "https://mais.hk/schemas/research/PersistedArtifactDefinitionsV1.schema.json#/$defs/FrameFreezeEvidenceV3"
+    },
+    "frameFreezeEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runtimeSourceEnumerationReceiptHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceEnumerationEvidenceContractHash": {
+      "const": "7dbcce3a4f723fdfa8c9aa08acb0bcf4b78f3a696d144209f352d7c7677e005f"
+    },
+    "fullSourceEnumerationRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "rawEvidenceArtifactRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "extractorImplementationHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "extractorRunnerCommit": {
+      "$ref": "#/$defs/gitOid"
+    },
+    "extractorRunnerHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceItemCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "runtimeVisibleItemCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "eligibleItemCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "restrictedItemCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sourceExclusionCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exclusionCounts": {
+      "$ref": "#/$defs/exclusionCounts"
+    },
+    "sourceCompletenessEvidenceBoundary": {
+      "const": "CONTRACT_BINDS_EXTERNAL_EXTRACTOR_AND_RAW_EVIDENCE_ROOT_BUT_DOES_NOT_SELF_PROVE_SOURCE_COMPLETENESS"
+    },
+    "sourceCompletenessProvedByDesign": {
+      "const": false
+    },
+    "expectedInventoryLeaves": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/inventoryLeaf"
+      }
+    },
+    "expectedRuntimeInventoryCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expectedInventoryRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "serializedProjectionLeaves": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/inventoryLeaf"
+      }
+    },
+    "serializedFrameRowCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "serializedProjectionRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "serializationFailureLedger": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/failureEntry"
+      }
+    },
+    "serializationFailureCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failureLedgerRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "completenessEquation": {
+      "const": "sourceReceiptExpectedRuntimeInventoryCount=serializedFrameRowCount+serializationFailureCount"
+    },
+    "completenessProved": {
+      "const": true
+    },
+    "runtimeExtractionSnapshotHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "exclusionCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "NON_CA_TRACK",
+        "RUNTIME_NOT_VISIBLE",
+        "SYNTHETIC_TEST_CANDIDATE_ONLY",
+        "RESTRICTED_EGRESS_CONTENT",
+        "UNSTABLE_SERIALIZATION"
+      ],
+      "properties": {
+        "NON_CA_TRACK": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RUNTIME_NOT_VISIBLE": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "SYNTHETIC_TEST_CANDIDATE_ONLY": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RESTRICTED_EGRESS_CONTENT": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "UNSTABLE_SERIALIZATION": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "inventoryLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "runtimeProjectionHash"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^|]+$"
+        },
+        "runtimeProjectionHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "serializedRuntimeVisibleLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "runtimeProjectionHash",
+        "eligible",
+        "exclusionCode"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^|]+$"
+        },
+        "runtimeProjectionHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "exclusionCode": {
+          "enum": [
+            null,
+            "RESTRICTED_EGRESS_CONTENT"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "eligible": {
+                "const": true
+              }
+            },
+            "required": [
+              "eligible"
+            ]
+          },
+          "then": {
+            "properties": {
+              "exclusionCode": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "eligible": {
+                "const": false
+              }
+            },
+            "required": [
+              "eligible"
+            ]
+          },
+          "then": {
+            "properties": {
+              "exclusionCode": {
+                "const": "RESTRICTED_EGRESS_CONTENT"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "serializationFailureInventoryLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "runtimeProjectionHash",
+        "exclusionCode"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^|]+$"
+        },
+        "runtimeProjectionHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "exclusionCode": {
+          "const": "UNSTABLE_SERIALIZATION"
+        }
+      }
+    },
+    "sourceExclusionEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grade",
+        "itemId",
+        "sourceItemHash",
+        "sourceModuleHash",
+        "exclusionCode"
+      ],
+      "properties": {
+        "grade": {
+          "enum": [
+            "K",
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "P5",
+            "P6",
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5",
+            "S6"
+          ]
+        },
+        "itemId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^|]+$"
+        },
+        "sourceItemHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceModuleHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "exclusionCode": {
+          "enum": [
+            "NON_CA_TRACK",
+            "RUNTIME_NOT_VISIBLE",
+            "SYNTHETIC_TEST_CANDIDATE_ONLY"
+          ]
+        }
+      }
+    },
+    "failureEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "runtimeProjectionHash",
+        "exclusionCode",
+        "failureClass",
+        "redactedDetailHash",
+        "recordedAt",
+        "entryHash"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^|]+$"
+        },
+        "runtimeProjectionHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "exclusionCode": {
+          "const": "UNSTABLE_SERIALIZATION"
+        },
+        "failureClass": {
+          "const": "SERIALIZATION_OR_READ_CRASH"
+        },
+        "redactedDetailHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "entryHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "frameFreezeEvidenceInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemEgressDecisions",
+        "itemScreenEvidence",
+        "rightsDecisionInput",
+        "rightsDecisionTable",
+        "runtimeConfigEvidence",
+        "runtimeConfigInput",
+        "scannerExecutionReceiptInventory",
+        "sourceModuleManifest",
+        "sourceModuleManifestInput",
+        "sourceParityEvidence",
+        "sourceParityInput",
+        "trustedDependencyClosureRootHash",
+        "trustedOwnerApprovalRootHash",
+        "trustedRouteExecutionRootHash",
+        "trustedScannerExecutionReceiptInventoryHash",
+        "trustedScannerImplementationHash",
+        "trustedScannerRunnerHash",
+        "trustedScreeningPolicyHash"
+      ],
+      "properties": {
+        "itemEgressDecisions": { "type": "array", "items": { "type": "object" } },
+        "itemScreenEvidence": { "type": "array", "items": { "type": "object" } },
+        "rightsDecisionInput": { "type": "object" },
+        "rightsDecisionTable": { "type": "object" },
+        "runtimeConfigEvidence": { "type": "object" },
+        "runtimeConfigInput": { "type": "object" },
+        "scannerExecutionReceiptInventory": { "type": "object" },
+        "sourceModuleManifest": { "type": "object" },
+        "sourceModuleManifestInput": { "type": "object" },
+        "sourceParityEvidence": { "type": "object" },
+        "sourceParityInput": { "type": "object" },
+        "trustedDependencyClosureRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedOwnerApprovalRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedRouteExecutionRootHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerExecutionReceiptInventoryHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerImplementationHash": { "$ref": "#/$defs/sha256" },
+        "trustedScannerRunnerHash": { "$ref": "#/$defs/sha256" },
+        "trustedScreeningPolicyHash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "sourceItemLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "sourceItemHash",
+        "sourceModuleHash",
+        "runtimeProjectionHash",
+        "disposition",
+        "runtimeVisible",
+        "serializationStatus",
+        "eligible",
+        "exclusionCode"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^|]+$"
+        },
+        "sourceItemHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceModuleHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "runtimeProjectionHash": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disposition": {
+          "enum": [
+            "RUNTIME_VISIBLE_SERIALIZED_ELIGIBLE",
+            "RUNTIME_VISIBLE_SERIALIZED_RESTRICTED",
+            "RUNTIME_VISIBLE_SERIALIZATION_FAILURE",
+            "SOURCE_EXCLUDED_NON_CA_TRACK",
+            "SOURCE_EXCLUDED_RUNTIME_NOT_VISIBLE",
+            "SOURCE_EXCLUDED_SYNTHETIC_TEST_CANDIDATE_ONLY"
+          ]
+        },
+        "runtimeVisible": {
+          "type": "boolean"
+        },
+        "serializationStatus": {
+          "enum": [
+            "SERIALIZED",
+            "FAILED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "exclusionCode": {
+          "enum": [
+            null,
+            "NON_CA_TRACK",
+            "RUNTIME_NOT_VISIBLE",
+            "SYNTHETIC_TEST_CANDIDATE_ONLY",
+            "RESTRICTED_EGRESS_CONTENT",
+            "UNSTABLE_SERIALIZATION"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "RUNTIME_VISIBLE_SERIALIZED_ELIGIBLE"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "properties": {
+              "runtimeProjectionHash": {
+                "$ref": "#/$defs/sha256"
+              },
+              "runtimeVisible": {
+                "const": true
+              },
+              "serializationStatus": {
+                "const": "SERIALIZED"
+              },
+              "eligible": {
+                "const": true
+              },
+              "exclusionCode": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "RUNTIME_VISIBLE_SERIALIZED_RESTRICTED"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "properties": {
+              "runtimeProjectionHash": {
+                "$ref": "#/$defs/sha256"
+              },
+              "runtimeVisible": {
+                "const": true
+              },
+              "serializationStatus": {
+                "const": "SERIALIZED"
+              },
+              "eligible": {
+                "const": false
+              },
+              "exclusionCode": {
+                "const": "RESTRICTED_EGRESS_CONTENT"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "RUNTIME_VISIBLE_SERIALIZATION_FAILURE"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "properties": {
+              "runtimeProjectionHash": {
+                "$ref": "#/$defs/sha256"
+              },
+              "runtimeVisible": {
+                "const": true
+              },
+              "serializationStatus": {
+                "const": "FAILED"
+              },
+              "eligible": {
+                "const": false
+              },
+              "exclusionCode": {
+                "const": "UNSTABLE_SERIALIZATION"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "SOURCE_EXCLUDED_NON_CA_TRACK"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "properties": {
+              "runtimeProjectionHash": {
+                "type": "null"
+              },
+              "runtimeVisible": {
+                "const": false
+              },
+              "serializationStatus": {
+                "const": "NOT_APPLICABLE"
+              },
+              "eligible": {
+                "const": false
+              },
+              "exclusionCode": {
+                "const": "NON_CA_TRACK"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "SOURCE_EXCLUDED_RUNTIME_NOT_VISIBLE"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "properties": {
+              "runtimeProjectionHash": {
+                "type": "null"
+              },
+              "runtimeVisible": {
+                "const": false
+              },
+              "serializationStatus": {
+                "const": "NOT_APPLICABLE"
+              },
+              "eligible": {
+                "const": false
+              },
+              "exclusionCode": {
+                "const": "RUNTIME_NOT_VISIBLE"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "SOURCE_EXCLUDED_SYNTHETIC_TEST_CANDIDATE_ONLY"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "properties": {
+              "runtimeProjectionHash": {
+                "type": "null"
+              },
+              "runtimeVisible": {
+                "const": false
+              },
+              "serializationStatus": {
+                "const": "NOT_APPLICABLE"
+              },
+              "eligible": {
+                "const": false
+              },
+              "exclusionCode": {
+                "const": "SYNTHETIC_TEST_CANDIDATE_ONLY"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "gradeProjectionInvocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sourceCommit",
+        "runtimeConfigHash",
+        "extractorImplementationHash",
+        "extractorRunnerCommit",
+        "extractorRunnerHash",
+        "invocationSequenceNumber",
+        "grade",
+        "region",
+        "curriculumProfile",
+        "runtimeOrigin",
+        "evidenceContractSchemaVersion",
+        "evidenceContractHash",
+        "projectionInputHash",
+        "itemLeaves",
+        "orderedItemRootFormula",
+        "orderedItemRootHash",
+        "sourceModuleHashes",
+        "sourceModuleRootFormula",
+        "sourceModuleRootHash",
+        "sourceItemCount",
+        "runtimeVisibleItemCount",
+        "eligibleItemCount",
+        "restrictedItemCount",
+        "serializationFailureCount",
+        "sourceExclusionCount",
+        "excludedItemCount",
+        "exclusionCounts",
+        "accountingEquations",
+        "invocationLeafHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "RuntimeGradeProjectionInvocationLeafV1"
+        },
+        "designId": {
+          "const": "MAIS-NATURAL-CA60-V4"
+        },
+        "registrationHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitOid"
+        },
+        "runtimeConfigHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "extractorImplementationHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "extractorRunnerCommit": {
+          "$ref": "#/$defs/gitOid"
+        },
+        "extractorRunnerHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "invocationSequenceNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 13
+        },
+        "grade": {
+          "enum": [
+            "K",
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "P5",
+            "P6",
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5",
+            "S6"
+          ]
+        },
+        "region": {
+          "const": "CALIFORNIA"
+        },
+        "curriculumProfile": {
+          "const": "US_CA_MATH"
+        },
+        "runtimeOrigin": {
+          "const": "QUESTION_STORE_AUTHENTICATED_STUDENT_PROJECTION"
+        },
+        "evidenceContractSchemaVersion": {
+          "const": "RuntimeSourceEnumerationEvidenceContractV1"
+        },
+        "evidenceContractHash": {
+          "const": "7dbcce3a4f723fdfa8c9aa08acb0bcf4b78f3a696d144209f352d7c7677e005f"
+        },
+        "projectionInputHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "itemLeaves": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sourceItemLeaf"
+          }
+        },
+        "orderedItemRootFormula": {
+          "const": "SHA256(JCS(SORTED_FULL_SOURCE_ITEM_LEAVES_BY_ITEM_ID_THEN_SOURCE_ITEM_HASH))"
+        },
+        "orderedItemRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceModuleHashes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "sourceModuleRootFormula": {
+          "const": "SHA256(JCS(SORTED_UNIQUE_SOURCE_MODULE_HASHES))"
+        },
+        "sourceModuleRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "runtimeVisibleItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eligibleItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "restrictedItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "serializationFailureCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceExclusionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "excludedItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exclusionCounts": {
+          "$ref": "#/$defs/exclusionCounts"
+        },
+        "accountingEquations": {
+          "const": [
+            "sourceItemCount=runtimeVisibleItemCount+sourceExclusionCount",
+            "runtimeVisibleItemCount=eligibleItemCount+restrictedItemCount+serializationFailureCount",
+            "sourceItemCount=eligibleItemCount+excludedItemCount"
+          ]
+        },
+        "invocationLeafHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "sourceEnumerationReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "designId",
+        "registrationHash",
+        "sourceCommit",
+        "runtimeConfigHash",
+        "runtimeConfigEvidenceHash",
+        "sourceParityEvidenceHash",
+        "sourceModuleManifestHash",
+        "region",
+        "curriculumProfile",
+        "runtimeOrigin",
+        "evidenceContractSchemaVersion",
+        "evidenceContractHash",
+        "extractorImplementationHash",
+        "extractorRunnerCommit",
+        "extractorRunnerHash",
+        "rawEvidenceArtifactRootHash",
+        "enumeratedAt",
+        "gradeProjectionInvocations",
+        "gradeProjectionInvocationCount",
+        "gradeProjectionOrder",
+        "fullSourceEnumerationRootFormula",
+        "fullSourceEnumerationRootHash",
+        "expectedRuntimeInventoryLeaves",
+        "expectedRuntimeInventoryRootHash",
+        "serializedRuntimeVisibleLeaves",
+        "serializedRuntimeVisibleRootHash",
+        "serializationFailureInventoryLeaves",
+        "serializationFailureInventoryRootHash",
+        "sourceExclusionLedger",
+        "sourceExclusionLedgerRootHash",
+        "sourceItemCount",
+        "runtimeVisibleItemCount",
+        "eligibleItemCount",
+        "restrictedItemCount",
+        "serializationFailureCount",
+        "sourceExclusionCount",
+        "excludedItemCount",
+        "exclusionCounts",
+        "accountingEquations",
+        "duplicateIdRule",
+        "sourceCompletenessEvidenceBoundary",
+        "sourceCompletenessProvedByDesign",
+        "requiresIndependentExtractorExecutionAgainstFrozenSource",
+        "immutableAfterFreeze",
+        "sourceEnumerationReceiptHash"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "RuntimeSourceEnumerationReceiptV1"
+        },
+        "designId": {
+          "const": "MAIS-NATURAL-CA60-V4"
+        },
+        "registrationHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceCommit": {
+          "$ref": "#/$defs/gitOid"
+        },
+        "runtimeConfigHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "runtimeConfigEvidenceHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceParityEvidenceHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceModuleManifestHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "region": {
+          "const": "CALIFORNIA"
+        },
+        "curriculumProfile": {
+          "const": "US_CA_MATH"
+        },
+        "runtimeOrigin": {
+          "const": "QUESTION_STORE_AUTHENTICATED_STUDENT_PROJECTION"
+        },
+        "evidenceContractSchemaVersion": {
+          "const": "RuntimeSourceEnumerationEvidenceContractV1"
+        },
+        "evidenceContractHash": {
+          "const": "7dbcce3a4f723fdfa8c9aa08acb0bcf4b78f3a696d144209f352d7c7677e005f"
+        },
+        "extractorImplementationHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "extractorRunnerCommit": {
+          "$ref": "#/$defs/gitOid"
+        },
+        "extractorRunnerHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rawEvidenceArtifactRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "enumeratedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gradeProjectionInvocations": {
+          "type": "array",
+          "minItems": 13,
+          "maxItems": 13,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/gradeProjectionInvocation"
+          }
+        },
+        "gradeProjectionInvocationCount": {
+          "const": 13
+        },
+        "gradeProjectionOrder": {
+          "const": [
+            "K",
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "P5",
+            "P6",
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5",
+            "S6"
+          ]
+        },
+        "fullSourceEnumerationRootFormula": {
+          "const": "SHA256(JCS([[grade,invocationSequenceNumber,invocationLeafHash,orderedItemRootHash,sourceModuleRootHash],...]))"
+        },
+        "fullSourceEnumerationRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "expectedRuntimeInventoryLeaves": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/inventoryLeaf"
+          }
+        },
+        "expectedRuntimeInventoryRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "serializedRuntimeVisibleLeaves": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/serializedRuntimeVisibleLeaf"
+          }
+        },
+        "serializedRuntimeVisibleRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "serializationFailureInventoryLeaves": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/serializationFailureInventoryLeaf"
+          }
+        },
+        "serializationFailureInventoryRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceExclusionLedger": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sourceExclusionEntry"
+          }
+        },
+        "sourceExclusionLedgerRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceItemCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "runtimeVisibleItemCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "eligibleItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "restrictedItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "serializationFailureCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceExclusionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "excludedItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exclusionCounts": {
+          "$ref": "#/$defs/exclusionCounts"
+        },
+        "accountingEquations": {
+          "const": [
+            "sourceItemCount=runtimeVisibleItemCount+sourceExclusionCount",
+            "runtimeVisibleItemCount=eligibleItemCount+restrictedItemCount+serializationFailureCount",
+            "sourceItemCount=eligibleItemCount+excludedItemCount"
+          ]
+        },
+        "duplicateIdRule": {
+          "const": "ANY_REPEATED_ITEM_ID_WITHIN_OR_ACROSS_13_GRADE_PROJECTIONS_BLOCKS_FREEZE_NO_COLLAPSE_NO_FIRST_WINS"
+        },
+        "sourceCompletenessEvidenceBoundary": {
+          "const": "CONTRACT_BINDS_EXTERNAL_EXTRACTOR_AND_RAW_EVIDENCE_ROOT_BUT_DOES_NOT_SELF_PROVE_SOURCE_COMPLETENESS"
+        },
+        "sourceCompletenessProvedByDesign": {
+          "const": false
+        },
+        "requiresIndependentExtractorExecutionAgainstFrozenSource": {
+          "const": true
+        },
+        "immutableAfterFreeze": {
+          "const": true
+        },
+        "sourceEnumerationReceiptHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  },
+  "x-mais-cross-field-constraints": [
+    "runtimeSourceEnumerationReceiptHash equals embedded receipt sourceEnumerationReceiptHash",
+    "source/runtime/extractor hashes and counts equal the embedded receipt",
+    "expected inventory equals serialized projection union serialization failure ledger",
+    "embedded receipt enumeratedAt is strictly earlier than extractedAt"
+  ],
+  "$comment": "Protected runtime evidence artifact. It may record serialization failures; any nonzero failure count blocks FrameRegistrationV1 freeze. Source completeness remains an externally evidenced boundary and is not proved by the design document itself."
+}

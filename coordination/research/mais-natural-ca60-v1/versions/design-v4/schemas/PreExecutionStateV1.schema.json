@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/PreExecutionStateV1.schema.json",
+  "title": "PreExecutionStateV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "state",
+    "providerEventCount",
+    "firstProviderExecutionAllowed",
+    "frameRegistrationHash",
+    "sampleManifestHash",
+    "currentQwenAuthorizationHash",
+    "qwenReferenceAttemptCount",
+    "firstQwenReferenceAttemptAt",
+    "referenceLabelSealHash",
+    "deepSeekRouteProbeAuthorizationHash",
+    "deepSeekRouteProbeReceiptHash",
+    "deepSeekRouteProbeAttemptCount",
+    "currentDeepSeekAuthorizationHash",
+    "deepSeekNaturalItemAttemptCount",
+    "firstDeepSeekNaturalItemAttemptAt",
+    "executionRegistrationHash",
+    "naturalQuestionResultCount",
+    "independentReviewReceiptHash",
+    "claimBoundaryReviewReceiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "PreExecutionStateV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "const": "DESIGN_CANDIDATE_OWNER_DECISIONS_PENDING"
+    },
+    "providerEventCount": {
+      "const": 0
+    },
+    "firstProviderExecutionAllowed": {
+      "const": false
+    },
+    "frameRegistrationHash": {
+      "type": "null"
+    },
+    "sampleManifestHash": {
+      "type": "null"
+    },
+    "currentQwenAuthorizationHash": {
+      "type": "null"
+    },
+    "qwenReferenceAttemptCount": {
+      "const": 0
+    },
+    "firstQwenReferenceAttemptAt": {
+      "type": "null"
+    },
+    "referenceLabelSealHash": {
+      "type": "null"
+    },
+    "deepSeekRouteProbeAuthorizationHash": {
+      "type": "null"
+    },
+    "deepSeekRouteProbeReceiptHash": {
+      "type": "null"
+    },
+    "deepSeekRouteProbeAttemptCount": {
+      "const": 0
+    },
+    "currentDeepSeekAuthorizationHash": {
+      "type": "null"
+    },
+    "deepSeekNaturalItemAttemptCount": {
+      "const": 0
+    },
+    "firstDeepSeekNaturalItemAttemptAt": {
+      "type": "null"
+    },
+    "executionRegistrationHash": {
+      "type": "null"
+    },
+    "naturalQuestionResultCount": {
+      "const": 0
+    },
+    "independentReviewReceiptHash": {
+      "type": "null"
+    },
+    "claimBoundaryReviewReceiptHash": {
+      "type": "null"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

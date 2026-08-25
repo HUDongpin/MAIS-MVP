@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ProviderLogicalRequestV1.schema.json",
+  "title": "ProviderLogicalRequestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "provider",
+    "role",
+    "endpoint",
+    "model",
+    "systemPrompt",
+    "userPayload",
+    "responseSchema",
+    "responseSchemaLiteral",
+    "responseSchemaHash",
+    "wireSystemPrompt",
+    "requestedSeed",
+    "adapterTransformVersion",
+    "adapterTransformHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ProviderLogicalRequestV1"
+    },
+    "provider": {
+      "enum": [
+        "ALIBABA_CLOUD_MODEL_STUDIO",
+        "DEEPSEEK_DIRECT"
+      ]
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri"
+    },
+    "model": {
+      "enum": [
+        "qwen3.8-max",
+        "deepseek-v4-pro"
+      ]
+    },
+    "systemPrompt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "userPayload": {
+      "type": [
+        "object",
+        "array",
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "responseSchema": {
+      "type": [
+        "object",
+        "array",
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "responseSchemaLiteral": {
+      "type": "string",
+      "minLength": 2
+    },
+    "responseSchemaHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "wireSystemPrompt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requestedSeed": {
+      "type": "null"
+    },
+    "adapterTransformVersion": {
+      "const": "OPENAI_COMPAT_EXACT_MESSAGES_JSON_SCHEMA_V4"
+    },
+    "adapterTransformHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

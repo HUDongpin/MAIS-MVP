@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ExecutionRegistrationV1.schema.json",
+  "title": "ExecutionRegistrationV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "frameRegistrationHash", "samplingFrameHash", "sampleManifestHash", "referenceSealHash", "qwenAuthorizationHash", "deepSeekAuthorizationHash", "runtimeConfigHash", "promptSetHash", "schemaSetHash", "runnerCommit", "runnerHash", "adapterHash", "c0RandomAuditSelectionHash", "thresholdHash", "taxonomyHash", "labelSchemaHash", "adjudicationMethodHash", "severityRuleHash", "statisticalPowerHash", "designSupersedesHash", "frozenAt", "registeredAt", "firstProviderCallAt", "providerEventCountBeforeRegistration", "executionRegistrationHash"],
+  "properties": {
+    "schemaVersion": { "const": "ExecutionRegistrationV1" }, "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" }, "frameRegistrationHash": { "$ref": "#/$defs/sha256" }, "samplingFrameHash": { "$ref": "#/$defs/sha256" }, "sampleManifestHash": { "$ref": "#/$defs/sha256" }, "referenceSealHash": { "$ref": "#/$defs/sha256" }, "qwenAuthorizationHash": { "$ref": "#/$defs/sha256" }, "deepSeekAuthorizationHash": { "$ref": "#/$defs/sha256" }, "runtimeConfigHash": { "$ref": "#/$defs/sha256" }, "promptSetHash": { "$ref": "#/$defs/sha256" }, "schemaSetHash": { "$ref": "#/$defs/sha256" }, "runnerCommit": { "$ref": "#/$defs/gitOid" }, "runnerHash": { "$ref": "#/$defs/sha256" }, "adapterHash": { "$ref": "#/$defs/sha256" }, "c0RandomAuditSelectionHash": { "$ref": "#/$defs/sha256" },
+    "thresholdHash": { "$ref": "#/$defs/sha256" }, "taxonomyHash": { "$ref": "#/$defs/sha256" }, "labelSchemaHash": { "$ref": "#/$defs/sha256" }, "adjudicationMethodHash": { "$ref": "#/$defs/sha256" }, "severityRuleHash": { "$ref": "#/$defs/sha256" }, "statisticalPowerHash": { "$ref": "#/$defs/sha256" }, "designSupersedesHash": { "$ref": "#/$defs/sha256" },
+    "frozenAt": { "type": "string", "format": "date-time" }, "registeredAt": { "type": "string", "format": "date-time" }, "firstProviderCallAt": { "type": "string", "format": "date-time" }, "providerEventCountBeforeRegistration": { "const": 0 }, "executionRegistrationHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }, "gitOid": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" } }
+}

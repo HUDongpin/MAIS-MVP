@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/MachineReferenceLabelV1.schema.json",
+  "title": "MachineReferenceLabelV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "sampleManifestHash", "clusterId", "itemId", "itemHash", "labelStage", "role", "labelHash"],
+  "properties": {
+    "schemaVersion": { "const": "MachineReferenceLabelV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "clusterId": { "$ref": "#/$defs/nonempty" },
+    "itemId": { "$ref": "#/$defs/nonempty" },
+    "itemHash": { "$ref": "#/$defs/sha256" },
+    "labelStage": { "enum": ["RAW_RATER", "FINAL_AGREEMENT_MERGE", "FINAL_ADJUDICATED"] },
+    "finalizationMode": { "enum": ["FINAL_AGREEMENT_MERGE", "FINAL_ADJUDICATED"] },
+    "role": { "enum": ["A_LABEL", "B_LABEL", "DETERMINISTIC_MERGER", "ADJUDICATOR"] },
+    "providerCall": { "type": "boolean" },
+    "promptLiteral": { "type": "string", "minLength": 1 },
+    "promptHash": { "$ref": "#/$defs/sha256" },
+    "schemaHash": { "$ref": "#/$defs/sha256" },
+    "inputFieldNames": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "ownSolveArtifactHash": { "$ref": "#/$defs/sha256" },
+    "labelAttemptReceiptHash": { "$ref": "#/$defs/sha256" },
+    "rawLabel": { "$ref": "#/$defs/label" },
+    "rawTaxonomyCodes": { "$ref": "#/$defs/codes" },
+    "rawSeverity": { "$ref": "#/$defs/severity" },
+    "rawFindingFamilies": { "$ref": "#/$defs/familyMap" },
+    "rawFindings": { "$ref": "#/$defs/findings" },
+    "rawUncertain": { "type": "boolean" },
+    "parsedOutputHash": { "$ref": "#/$defs/sha256" },
+    "deepSeekOutputNotSeen": { "const": true },
+    "rawLabelHashes": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "finalLabel": { "$ref": "#/$defs/label" },
+    "finalTaxonomyCodes": { "$ref": "#/$defs/codes" },
+    "finalSeverity": { "$ref": "#/$defs/severity" },
+    "finalFindingFamilies": { "$ref": "#/$defs/familyMap" },
+    "finalFindings": { "$ref": "#/$defs/findings" },
+    "acceptedCodeSets": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/acceptedCodeSet" } },
+    "disagreementStatus": { "enum": ["AGREEMENT", "DISAGREEMENT", "ADJUDICATOR_UNDECIDED"] },
+    "adjudicationReasonCodes": { "type": "array", "uniqueItems": true, "items": { "enum": ["ANY_FIELD_DISAGREEMENT", "ANY_RATER_UNCERTAIN", "ANY_RATER_P0", "ANY_RATER_P1"] } },
+    "disagreementAdjudicationReceiptHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "labelHash": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "labelStage": { "const": "RAW_RATER" } }, "required": ["labelStage"] },
+      "then": {
+        "required": ["promptLiteral", "promptHash", "schemaHash", "inputFieldNames", "ownSolveArtifactHash", "labelAttemptReceiptHash", "rawLabel", "rawTaxonomyCodes", "rawSeverity", "rawFindingFamilies", "rawFindings", "rawUncertain", "parsedOutputHash", "deepSeekOutputNotSeen"],
+        "properties": { "role": { "enum": ["A_LABEL", "B_LABEL"] } },
+        "not": { "anyOf": [{ "required": ["finalizationMode"] }, { "required": ["providerCall"] }, { "required": ["rawLabelHashes"] }, { "required": ["finalLabel"] }, { "required": ["finalTaxonomyCodes"] }, { "required": ["finalSeverity"] }, { "required": ["finalFindingFamilies"] }, { "required": ["finalFindings"] }, { "required": ["acceptedCodeSets"] }, { "required": ["disagreementStatus"] }, { "required": ["adjudicationReasonCodes"] }, { "required": ["disagreementAdjudicationReceiptHash"] }] }
+      }
+    },
+    {
+      "if": { "properties": { "labelStage": { "const": "FINAL_AGREEMENT_MERGE" } }, "required": ["labelStage"] },
+      "then": {
+        "required": ["finalizationMode", "providerCall", "rawLabelHashes", "finalLabel", "finalTaxonomyCodes", "finalSeverity", "finalFindingFamilies", "finalFindings", "acceptedCodeSets", "disagreementStatus", "adjudicationReasonCodes", "disagreementAdjudicationReceiptHash"],
+        "properties": { "finalizationMode": { "const": "FINAL_AGREEMENT_MERGE" }, "role": { "const": "DETERMINISTIC_MERGER" }, "providerCall": { "const": false }, "disagreementStatus": { "const": "AGREEMENT" }, "adjudicationReasonCodes": { "maxItems": 0 }, "disagreementAdjudicationReceiptHash": { "type": "null" } },
+        "not": { "anyOf": [{ "required": ["promptLiteral"] }, { "required": ["promptHash"] }, { "required": ["schemaHash"] }, { "required": ["inputFieldNames"] }, { "required": ["ownSolveArtifactHash"] }, { "required": ["labelAttemptReceiptHash"] }, { "required": ["rawLabel"] }, { "required": ["rawTaxonomyCodes"] }, { "required": ["rawSeverity"] }, { "required": ["rawFindingFamilies"] }, { "required": ["rawFindings"] }, { "required": ["rawUncertain"] }, { "required": ["parsedOutputHash"] }, { "required": ["deepSeekOutputNotSeen"] }] }
+      }
+    },
+    {
+      "if": { "properties": { "labelStage": { "const": "FINAL_ADJUDICATED" } }, "required": ["labelStage"] },
+      "then": {
+        "required": ["finalizationMode", "providerCall", "rawLabelHashes", "finalLabel", "finalTaxonomyCodes", "finalSeverity", "finalFindingFamilies", "finalFindings", "acceptedCodeSets", "disagreementStatus", "adjudicationReasonCodes", "disagreementAdjudicationReceiptHash", "promptLiteral", "promptHash", "schemaHash", "inputFieldNames", "parsedOutputHash"],
+        "properties": { "finalizationMode": { "const": "FINAL_ADJUDICATED" }, "role": { "const": "ADJUDICATOR" }, "providerCall": { "const": true }, "adjudicationReasonCodes": { "minItems": 1 }, "disagreementAdjudicationReceiptHash": { "$ref": "#/$defs/sha256" } },
+        "not": { "anyOf": [{ "required": ["ownSolveArtifactHash"] }, { "required": ["labelAttemptReceiptHash"] }, { "required": ["rawLabel"] }, { "required": ["rawTaxonomyCodes"] }, { "required": ["rawSeverity"] }, { "required": ["rawFindingFamilies"] }, { "required": ["rawFindings"] }, { "required": ["rawUncertain"] }, { "required": ["deepSeekOutputNotSeen"] }] }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 },
+    "label": { "enum": ["DEFECT", "NO_FINDING", "UNRESOLVED_REFERENCE"] },
+    "severity": { "enum": ["NONE", "P2", "P1", "P0", "UNRESOLVED"] },
+    "operationalCode": { "enum": ["WRONG_CANONICAL_ANSWER", "UNSOLVABLE_OR_INTERNALLY_INCONSISTENT", "FALSE_ACCEPT_CORRECT_RESPONSE", "FALSE_ACCEPT_NEAR_MISS", "FALSE_REJECT_CORRECT_RESPONSE", "ORACLE_OR_PROMPT_LEAKAGE", "EQUIVALENT_ANSWER_NOT_ACCEPTED", "MULTIPLE_CORRECT_OPTIONS", "MISSING_OR_MISMATCHED_OPTIONS", "EXPLANATION_ANSWER_MISMATCH", "EVIDENCE_MISMATCH", "LANGUAGE_SEMANTIC_MISMATCH", "CURRICULUM_OR_METADATA_MISMATCH", "MINOR_WORDING_OR_FORMAT", "MINOR_EXPLANATION_WEAKNESS", "REDUNDANT_OR_NEAR_DUPLICATE", "MINOR_METADATA_MISMATCH"] },
+    "code": { "anyOf": [{ "$ref": "#/$defs/operationalCode" }, { "enum": ["NO_FINDING", "UNASSESSABLE", "SCHEMA_GAP"] }] },
+    "codes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/code" } },
+    "family": { "enum": ["CANONICAL_ANSWER_SOLVABILITY", "RESPONSE_ACCEPTANCE", "ORACLE_PROMPT_INTEGRITY", "OPTION_SET_INTEGRITY", "EXPLANATION_INTEGRITY", "EVIDENCE_INTEGRITY", "LANGUAGE_SEMANTICS", "CURRICULUM_METADATA", "WORDING_FORMAT", "DUPLICATION_HOMOLOGY"] },
+    "familyMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "WRONG_CANONICAL_ANSWER": { "const": "CANONICAL_ANSWER_SOLVABILITY" },
+        "UNSOLVABLE_OR_INTERNALLY_INCONSISTENT": { "const": "CANONICAL_ANSWER_SOLVABILITY" },
+        "FALSE_ACCEPT_CORRECT_RESPONSE": { "const": "RESPONSE_ACCEPTANCE" },
+        "FALSE_ACCEPT_NEAR_MISS": { "const": "RESPONSE_ACCEPTANCE" },
+        "FALSE_REJECT_CORRECT_RESPONSE": { "const": "RESPONSE_ACCEPTANCE" },
+        "ORACLE_OR_PROMPT_LEAKAGE": { "const": "ORACLE_PROMPT_INTEGRITY" },
+        "EQUIVALENT_ANSWER_NOT_ACCEPTED": { "const": "RESPONSE_ACCEPTANCE" },
+        "MULTIPLE_CORRECT_OPTIONS": { "const": "OPTION_SET_INTEGRITY" },
+        "MISSING_OR_MISMATCHED_OPTIONS": { "const": "OPTION_SET_INTEGRITY" },
+        "EXPLANATION_ANSWER_MISMATCH": { "const": "EXPLANATION_INTEGRITY" },
+        "EVIDENCE_MISMATCH": { "const": "EVIDENCE_INTEGRITY" },
+        "LANGUAGE_SEMANTIC_MISMATCH": { "const": "LANGUAGE_SEMANTICS" },
+        "CURRICULUM_OR_METADATA_MISMATCH": { "const": "CURRICULUM_METADATA" },
+        "MINOR_WORDING_OR_FORMAT": { "const": "WORDING_FORMAT" },
+        "MINOR_EXPLANATION_WEAKNESS": { "const": "EXPLANATION_INTEGRITY" },
+        "REDUNDANT_OR_NEAR_DUPLICATE": { "const": "DUPLICATION_HOMOLOGY" },
+        "MINOR_METADATA_MISMATCH": { "const": "CURRICULUM_METADATA" },
+        "NO_FINDING": { "type": "null" },
+        "UNASSESSABLE": { "type": "null" },
+        "SCHEMA_GAP": { "type": "null" }
+      }
+    },
+    "finding": { "type": "object", "additionalProperties": false, "required": ["findingId", "evidenceLocator", "code", "family", "severity"], "properties": { "findingId": { "$ref": "#/$defs/nonempty" }, "evidenceLocator": { "$ref": "#/$defs/nonempty" }, "code": { "$ref": "#/$defs/operationalCode" }, "family": { "$ref": "#/$defs/family" }, "severity": { "enum": ["P0", "P1", "P2"] } } },
+    "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "acceptedCodeSet": { "type": "object", "additionalProperties": false, "required": ["primaryCode", "family", "acceptedCodes"], "properties": { "primaryCode": { "$ref": "#/$defs/operationalCode" }, "family": { "$ref": "#/$defs/family" }, "acceptedCodes": { "type": "array", "minItems": 1, "maxItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/operationalCode" } } } }
+  }
+}

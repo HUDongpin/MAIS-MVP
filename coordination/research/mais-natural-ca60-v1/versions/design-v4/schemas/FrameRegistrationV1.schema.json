@@ -1,0 +1,429 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/FrameRegistrationV1.schema.json",
+  "title": "FrameRegistrationV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "region",
+    "curriculumProfile",
+    "runtimeOrigin",
+    "runtimeVisibleOnly",
+    "responseForms",
+    "difficulties",
+    "closedExclusionCodes",
+    "egressPopulationClaim",
+    "runtimeConfigHash",
+    "runtimeConfigEvidenceHash",
+    "sourceParityEvidenceHash",
+    "sourceModuleManifestHash",
+    "sourceModuleHash",
+    "trustedRouteExecutionRootHash",
+    "trustedDependencyClosureRootHash",
+    "rightsDecisionTableHash",
+    "trustedOwnerApprovalRootHash",
+    "frameFreezeEvidenceHash",
+    "frameFailureLedgerRootHash",
+    "frameAnomalyLedgerRootHash",
+    "sourceCommit",
+    "frozenAt",
+    "freezeSequence",
+    "predecessorArtifactHash",
+    "samplingFrameHash",
+    "frameSelectionContentRootHash",
+    "frameTupleRootFormula",
+    "frameRowCount",
+    "eligibleRowCount",
+    "excludedRowCount",
+    "eligibleClusterCount",
+    "clusterAuditHash",
+    "clusterAuditSelectionContentHash",
+    "runtimeExtractionSnapshotHash",
+    "sourceEnumerationReceiptHash",
+    "sourceEnumerationEvidenceContractHash",
+    "fullSourceEnumerationRootHash",
+    "rawEvidenceArtifactRootHash",
+    "extractorImplementationHash",
+    "extractorRunnerCommit",
+    "extractorRunnerHash",
+    "sourceEnumeratedAt",
+    "runtimeExtractedAt",
+    "sourceItemCount",
+    "runtimeVisibleItemCount",
+    "eligibleRuntimeItemCount",
+    "restrictedRuntimeItemCount",
+    "sourceExclusionCount",
+    "exclusionCounts",
+    "gradeProjectionSummary",
+    "sourceExclusionLedgerRootHash",
+    "expectedRuntimeInventoryCount",
+    "expectedInventoryRootHash",
+    "serializationFailureCount",
+    "failureLedgerRootHash",
+    "cleanSourceEvidenceHash",
+    "cleanSourceVerifiedAt",
+    "lineageRuleHash",
+    "lineageRuleApprovalHash",
+    "frameRegistrationHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "FrameRegistrationV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "region": {
+      "const": "CALIFORNIA"
+    },
+    "curriculumProfile": {
+      "const": "US_CA_MATH"
+    },
+    "runtimeOrigin": {
+      "const": "QUESTION_STORE_AUTHENTICATED_STUDENT_PROJECTION"
+    },
+    "runtimeVisibleOnly": {
+      "const": true
+    },
+    "responseForms": {
+      "const": [
+        "multiple-choice",
+        "fill-in",
+        "short-answer"
+      ]
+    },
+    "difficulties": {
+      "const": [
+        "Low",
+        "Medium",
+        "High"
+      ]
+    },
+    "closedExclusionCodes": {
+      "const": [
+        "NON_CA_TRACK",
+        "RUNTIME_NOT_VISIBLE",
+        "SYNTHETIC_TEST_CANDIDATE_ONLY",
+        "RESTRICTED_EGRESS_CONTENT",
+        "UNSTABLE_SERIALIZATION"
+      ]
+    },
+    "egressPopulationClaim": {
+      "const": "EGRESS_ELIGIBLE_SUBPOPULATION_ONLY"
+    },
+    "runtimeConfigHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runtimeConfigEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceParityEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceModuleManifestHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceModuleHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trustedRouteExecutionRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trustedDependencyClosureRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "rightsDecisionTableHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "trustedOwnerApprovalRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "frameFreezeEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "frameFailureLedgerRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "frameAnomalyLedgerRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceCommit": {
+      "$ref": "#/$defs/gitOid"
+    },
+    "frozenAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "freezeSequence": {
+      "const": 1
+    },
+    "predecessorArtifactHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "samplingFrameHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "frameSelectionContentRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "frameTupleRootFormula": {
+      "const": "SHA256(JCS(SORTED([itemId,itemHash,homologyClusterId,rowHash,eligible])))"
+    },
+    "frameRowCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "eligibleRowCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "excludedRowCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "eligibleClusterCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "clusterAuditHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "clusterAuditSelectionContentHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runtimeExtractionSnapshotHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceEnumerationReceiptHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceEnumerationEvidenceContractHash": {
+      "const": "7dbcce3a4f723fdfa8c9aa08acb0bcf4b78f3a696d144209f352d7c7677e005f"
+    },
+    "fullSourceEnumerationRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "rawEvidenceArtifactRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "extractorImplementationHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "extractorRunnerCommit": {
+      "$ref": "#/$defs/gitOid"
+    },
+    "extractorRunnerHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sourceEnumeratedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "runtimeExtractedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceItemCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "runtimeVisibleItemCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "eligibleRuntimeItemCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "restrictedRuntimeItemCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sourceExclusionCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exclusionCounts": {
+      "$ref": "#/$defs/exclusionCounts"
+    },
+    "gradeProjectionSummary": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/gradeProjectionSummary"
+      }
+    },
+    "sourceExclusionLedgerRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "expectedRuntimeInventoryCount": {
+      "type": "integer",
+      "minimum": 60
+    },
+    "expectedInventoryRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "serializationFailureCount": {
+      "const": 0
+    },
+    "failureLedgerRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "cleanSourceEvidenceHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "cleanSourceVerifiedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lineageRuleHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "lineageRuleApprovalHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "frameRegistrationHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "exclusionCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "NON_CA_TRACK",
+        "RUNTIME_NOT_VISIBLE",
+        "SYNTHETIC_TEST_CANDIDATE_ONLY",
+        "RESTRICTED_EGRESS_CONTENT",
+        "UNSTABLE_SERIALIZATION"
+      ],
+      "properties": {
+        "NON_CA_TRACK": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RUNTIME_NOT_VISIBLE": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "SYNTHETIC_TEST_CANDIDATE_ONLY": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RESTRICTED_EGRESS_CONTENT": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "UNSTABLE_SERIALIZATION": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "gradeProjectionSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grade",
+        "invocationSequenceNumber",
+        "sourceItemCount",
+        "runtimeVisibleItemCount",
+        "eligibleItemCount",
+        "restrictedItemCount",
+        "serializationFailureCount",
+        "sourceExclusionCount",
+        "exclusionCounts",
+        "orderedItemRootHash",
+        "sourceModuleRootHash",
+        "invocationLeafHash"
+      ],
+      "properties": {
+        "grade": {
+          "enum": [
+            "K",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"
+          ]
+        },
+        "invocationSequenceNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 13
+        },
+        "sourceItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "runtimeVisibleItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eligibleItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "restrictedItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "serializationFailureCount": {
+          "const": 0
+        },
+        "sourceExclusionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exclusionCounts": {
+          "$ref": "#/$defs/exclusionCounts"
+        },
+        "orderedItemRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sourceModuleRootHash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "invocationLeafHash": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  },
+  "x-mais-public-protected-separation": {
+    "publicFrameContainsOnlyHashesCountsAndProjectionRootSummaries": true,
+    "protectedRuntimeExtractionSnapshotEmbedded": false,
+    "protectedCleanSourceEvidenceEmbedded": false
+  },
+  "x-mais-cross-field-constraints": [
+    "frameRowCount equals eligibleRowCount plus excludedRowCount",
+    "public source, extraction, and projection summaries exactly match the separately protected runtime snapshot",
+    "sourceEnumeratedAt is earlier than runtimeExtractedAt and both are earlier than frozenAt",
+    "serializationFailureCount must be zero before frame freeze"
+  ],
+  "$comment": "Public hash/count/root registration only. The protected RuntimeExtractionSnapshotV1 and clean-source evidence are not embedded and are joined by their immutable hashes in the semantic frame validator."
+}

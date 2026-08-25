@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ClusterAuditReceiptV1.schema.json",
+  "title": "ClusterAuditReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "frameRegistrationHash",
+    "algorithmHash",
+    "lineageRuleHash",
+    "exactDuplicateGroupCount",
+    "homologyClusterCount",
+    "singletonRate",
+    "largestComponentShare",
+    "bridgeAnomalyCount",
+    "clusterSizeDistributionHash",
+    "anomalyLedgerHash",
+    "freezeAllowed",
+    "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ClusterAuditReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "frameRegistrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "algorithmHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "lineageRuleHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "exactDuplicateGroupCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "homologyClusterCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "singletonRate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "largestComponentShare": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "bridgeAnomalyCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "clusterSizeDistributionHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "anomalyLedgerHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "freezeAllowed": {
+      "type": "boolean"
+    },
+    "receiptHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gitOid": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/C0ExecutionSetV1.schema.json",
+  "title": "C0ExecutionSetV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "registrationHash", "sampleManifestHash",
+    "executionRegistrationHash", "registeredRandomAuditCount", "mandatoryItemCount",
+    "uniqueC0ItemCount", "bPrimeSuccessfulCallCount", "c0SuccessfulCallCount",
+    "expectedSuccessfulCallCount", "roleCallsPerC0Item", "c0Rows", "executionSetHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "C0ExecutionSetV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "registeredRandomAuditCount": { "const": 12 },
+    "mandatoryItemCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "uniqueC0ItemCount": { "type": "integer", "minimum": 12, "maximum": 60 },
+    "bPrimeSuccessfulCallCount": { "const": 120 },
+    "c0SuccessfulCallCount": { "type": "integer", "minimum": 60, "maximum": 300, "multipleOf": 5 },
+    "expectedSuccessfulCallCount": { "type": "integer", "minimum": 180, "maximum": 420 },
+    "roleCallsPerC0Item": { "const": 5 },
+    "c0Rows": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 60,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["itemIdPseudonym", "itemHash", "clusterId", "selectionReasonCodes"],
+        "properties": {
+          "itemIdPseudonym": { "$ref": "#/$defs/nonempty" },
+          "itemHash": { "$ref": "#/$defs/sha256" },
+          "clusterId": { "$ref": "#/$defs/nonempty" },
+          "selectionReasonCodes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": { "enum": ["REGISTERED_RANDOM_AUDIT", "MANDATORY_POLICY_TRIGGER"] }
+          }
+        }
+      }
+    },
+    "executionSetHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 }
+  },
+  "x-mais-cross-field-constraints": [
+    "uniqueC0ItemCount=cardinality(c0Rows.clusterId)=cardinality(c0Rows.itemIdPseudonym)",
+    "c0SuccessfulCallCount=5*uniqueC0ItemCount",
+    "expectedSuccessfulCallCount=120+c0SuccessfulCallCount",
+    "mandatoryItemCount counts unique mandatory clusters and may overlap registeredRandomAuditCount"
+  ]
+}
