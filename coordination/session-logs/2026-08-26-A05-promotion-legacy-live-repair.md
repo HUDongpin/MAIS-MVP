@@ -18,4 +18,13 @@
 
 ## Handoff / closeout
 
-- Pending.
+- Removed candidate-backed lesson seeds from the live lesson aggregate for BNU primary, HJB primary/high, Arkansas middle school, and Florida middle school. Approved BNU high/junior and HJB junior lesson paths remain unchanged.
+- Removed all runtime imports and projections for the drifted California K-G5 textbook candidate and the non-machine-verifiable micro-lesson candidate. Their topic, coverage, and lesson-seed compatibility exports are explicitly empty; candidate artifacts remain preserved for future exact review.
+- Repointed the noindex California middle-school review route from the unapproved v1 review package to the exact approved v2 replacement component already used by the student and canonical lesson routes.
+- Verification:
+  - `npm ci` completed (dependency audit separately reports 1 moderate and 4 high advisories; no dependency mutation was attempted).
+  - `npm run type-check` passed.
+  - Loading the compiled production lesson aggregate produced 251 live seeds, including 64 California seeds, and loaded none of the forbidden BNU-primary, HJB-primary/high, Arkansas-textbook, Florida-textbook, California K-G5 textbook, or California micro-lesson modules.
+  - `npm run test:mvp` completed 30/32 tests; the two red tests explicitly encode the retired Arkansas-live and old global illustration-count assumptions. They are handed to A11 for independent update and are not represented as a green gate.
+- Remaining composition dependencies: A03 must remove HJB primary/high roadmap imports; A12 must remove dynamic candidate question loaders and stale California demo IDs; A11 must replace old live assertions with fail-closed absence and approved-content retention checks.
+- No generated candidate JSON, approved v2 lesson JSON, live credentials, provider, deployment, database, or production state was modified. `liveAllowed` remains false.
