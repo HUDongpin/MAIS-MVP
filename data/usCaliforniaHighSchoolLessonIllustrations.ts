@@ -2256,7 +2256,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "决策统计"
       },
       "standards": [
-        "CA.CCSS.Math.HS.F-IF"
+        "CA.CCSS.Math.HS.S-MD"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-03/concept.webp",
@@ -2387,7 +2387,7 @@ export const californiaHighSchoolTextbookDraft = {
         "zhHans": "函数分析与变化率"
       },
       "standards": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "concept": {
         "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-04/concept.webp",
