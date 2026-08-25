@@ -1,6 +1,6 @@
 {
   "note": "SHA-256 (first 16 hex) of each bench at port time. `upstreamSha: null, authored: true` marks a bench written for MAIS rather than ported — it has no upstream to drift from. Regenerate with: npm run check:port-drift -- --write",
-  "generatedAt": "2026-07-25",
+  "generatedAt": "2026-08-25",
   "benches": {
     "AbsoluteValueLab": {
       "upstreamSha": "73970bd999d816b9",
@@ -44,7 +44,7 @@
     },
     "BoxPlotLab": {
       "upstreamSha": "95ffda6cdca792c3",
-      "portedSha": "ace0b2a184be47c9"
+      "portedSha": "129af9522b3f84c6"
     },
     "CircleLab": {
       "upstreamSha": "9f1c2f0b465dd681",
@@ -61,7 +61,7 @@
     },
     "CommutativeLab": {
       "upstreamSha": "db5e89c2e396457b",
-      "portedSha": "27296d2a07cf26bd"
+      "portedSha": "269fba35fd773f85"
     },
     "CompareFunctionsLab": {
       "upstreamSha": "e79396e6868117c6",
@@ -69,7 +69,7 @@
     },
     "ComparingLab": {
       "upstreamSha": "716a37de4cf322c3",
-      "portedSha": "35f9c56974791ef0"
+      "portedSha": "303623cad7091c01"
     },
     "CompassLab": {
       "upstreamSha": "f196abc0a3e37789",
@@ -86,7 +86,7 @@
     },
     "ComposingShapesLab": {
       "upstreamSha": "9609dd56a0f80c5d",
-      "portedSha": "849c109ec3398039"
+      "portedSha": "6846ef476d14e5a3"
     },
     "CompositionLab": {
       "upstreamSha": "2d2d1430417aadef",
@@ -94,7 +94,7 @@
     },
     "ConditionalLab": {
       "upstreamSha": "8439fe6f9cb848c4",
-      "portedSha": "c9a345a75842f505"
+      "portedSha": "957a324246795c1b"
     },
     "ConeLab": {
       "upstreamSha": "bc40ba279d186be7",
@@ -102,7 +102,7 @@
     },
     "CongruenceLab": {
       "upstreamSha": "2f406deb1dcde878",
-      "portedSha": "111244e3e9a71052"
+      "portedSha": "3c58bd93ec4dd280"
     },
     "CoordinateMethodsLab": {
       "upstreamSha": null,
@@ -127,7 +127,7 @@
     },
     "CountingLab": {
       "upstreamSha": "1702491de0f71c22",
-      "portedSha": "41287ccc00e45fb1"
+      "portedSha": "0944fecb0e586ce7"
     },
     "CovariationLab": {
       "upstreamSha": "e5db09d4cf9ec8ea",
@@ -147,7 +147,7 @@
     },
     "DataLab": {
       "upstreamSha": "d147136a16823c17",
-      "portedSha": "f1128d0ca9aaa00f"
+      "portedSha": "e9c420aebb06bbb4"
     },
     "DecimalArithmeticLab": {
       "upstreamSha": "73f6b25349e27f19",
@@ -184,7 +184,7 @@
     },
     "EllipseLab": {
       "upstreamSha": "670066721c1b42a5",
-      "portedSha": "6c755d19533b2b56"
+      "portedSha": "f4c8266cb5e2e905"
     },
     "EqualAreasLab": {
       "upstreamSha": "4f600053779807d0",
@@ -192,7 +192,7 @@
     },
     "EqualSharesLab": {
       "upstreamSha": "aa5e4bc7215aad95",
-      "portedSha": "c21ff6ee681bf76c"
+      "portedSha": "5a79b9460acb6d4b"
     },
     "EqualSignLab": {
       "upstreamSha": "a311b2e078b6ccce",
@@ -256,7 +256,7 @@
     },
     "FractionLinePlotLab": {
       "upstreamSha": "f2143ff229327291",
-      "portedSha": "e042efb22daeb8f1"
+      "portedSha": "9e91e03bc7b95a95"
     },
     "FractionMultiplicationLab": {
       "upstreamSha": "ada545afdc7314b5",
@@ -285,7 +285,7 @@
     },
     "GraphsLab": {
       "upstreamSha": "2893210f44b0fa6c",
-      "portedSha": "7a4fbf5fcda5b2f6"
+      "portedSha": "bc52c9a18491e07f"
     },
     "GreatestCommonFactorLab": {
       "upstreamSha": "4dc0dfe218bd4011",
@@ -297,7 +297,7 @@
     },
     "HundredChartLab": {
       "upstreamSha": "b0f064a016c68958",
-      "portedSha": "ef3a25a8faa04e42"
+      "portedSha": "0c14b0698e6847ec"
     },
     "HyperbolaLab": {
       "upstreamSha": "bf3158b8576cccb5",
@@ -305,7 +305,7 @@
     },
     "InequalityLab": {
       "upstreamSha": "0a0fc6df5b8f1cec",
-      "portedSha": "44fc603790d2ac9f"
+      "portedSha": "ad28ebf7f91a733a"
     },
     "IntegerLab": {
       "upstreamSha": "42a86c7725e99383",
@@ -325,7 +325,7 @@
     },
     "LengthComparisonLab": {
       "upstreamSha": "0538b21d8a09a079",
-      "portedSha": "9b71aedf1bccc569"
+      "portedSha": "f90074c65d15e978"
     },
     "LikeTermsLab": {
       "upstreamSha": "c93e517471bc771a",
@@ -353,11 +353,11 @@
     },
     "LogarithmLab": {
       "upstreamSha": "0ffbc1dae9508a66",
-      "portedSha": "f0b90e3bd53aa588"
+      "portedSha": "ac6c74e57d43e581"
     },
     "LongDivisionLab": {
       "upstreamSha": "59a5a9e9ce770b4f",
-      "portedSha": "291c42be87f06724"
+      "portedSha": "61294c4b65ad1095"
     },
     "LurkingVariableLab": {
       "upstreamSha": "192aacef21a5d7e3",
@@ -369,7 +369,7 @@
     },
     "MeanLab": {
       "upstreamSha": "fed13cd490a353b2",
-      "portedSha": "e4d6b5cb02ec0536"
+      "portedSha": "12e903d95df26068"
     },
     "MeasurementLab": {
       "upstreamSha": "41a9978f5fc1d02b",
@@ -377,11 +377,11 @@
     },
     "MedianLab": {
       "upstreamSha": "653f3b195b2402fc",
-      "portedSha": "f0ec433dfe097dd6"
+      "portedSha": "e08a57631c544b36"
     },
     "ModeLab": {
       "upstreamSha": "d89b478a7c6777a9",
-      "portedSha": "08d44bb5507b98fc"
+      "portedSha": "ba497b40f0f4a389"
     },
     "MoneyLab": {
       "upstreamSha": "f254abf16063e24e",
@@ -405,11 +405,11 @@
     },
     "NormalDistributionLab": {
       "upstreamSha": "e4f8178371a4ff59",
-      "portedSha": "874182392ee9bc68"
+      "portedSha": "e2c962b8f47de13f"
     },
     "NumberBondLab": {
       "upstreamSha": "2333ee80fd6bc4f4",
-      "portedSha": "8d4a83787be3dc76"
+      "portedSha": "5f20547504faf163"
     },
     "NumberLab": {
       "upstreamSha": "c4d77be86e535a4c",
@@ -421,7 +421,7 @@
     },
     "OperationsLab": {
       "upstreamSha": "e3f5d1c37d4fd8cc",
-      "portedSha": "9b0050728abd5498"
+      "portedSha": "16ea59ef4ff4efc6"
     },
     "OptimizationLab": {
       "upstreamSha": "815cdbb339399870",
@@ -429,11 +429,11 @@
     },
     "ParabolaLab": {
       "upstreamSha": "c479257dfb306788",
-      "portedSha": "14b29ff72968f368"
+      "portedSha": "3582b5878b6f8387"
     },
     "ParallelogramLab": {
       "upstreamSha": "809a08f21655e5fa",
-      "portedSha": "e0856215b2eec694"
+      "portedSha": "e187e177a06a5c6c"
     },
     "PatternsLab": {
       "upstreamSha": "660ad43d9e726779",
@@ -461,7 +461,7 @@
     },
     "PlaceJumpLab": {
       "upstreamSha": "4e5b3a865d7ed91f",
-      "portedSha": "b3c9edb196619f79"
+      "portedSha": "487f42c6ce21c88e"
     },
     "PlaceValueStrategiesLab": {
       "upstreamSha": "86720b94821d7f9d",
@@ -477,11 +477,11 @@
     },
     "PolynomialFunctionLab": {
       "upstreamSha": "49f782f6b77aab32",
-      "portedSha": "a8e4666c1bbfc631"
+      "portedSha": "42191d5ca5d25808"
     },
     "PositionLab": {
       "upstreamSha": "892770dd5c6e5b6a",
-      "portedSha": "8098aef6c0713945"
+      "portedSha": "b16c7b7d72944a1e"
     },
     "PowersOfTenLab": {
       "upstreamSha": "9d64417a760ce475",
@@ -501,7 +501,7 @@
     },
     "ProofChainLab": {
       "upstreamSha": "572325dfac07565e",
-      "portedSha": "9e2bce4025e13a70"
+      "portedSha": "ed4188f79c76ba7f"
     },
     "ProportionalLab": {
       "upstreamSha": "44495bd6099e4233",
@@ -597,7 +597,7 @@
     },
     "ScatterPlotLab": {
       "upstreamSha": "9af1ca23dc183141",
-      "portedSha": "746d43ce4d2c43c4"
+      "portedSha": "7a4345ca1e2ef661"
     },
     "ScientificNotationLab": {
       "upstreamSha": "11af2ab8c1132852",
@@ -609,7 +609,7 @@
     },
     "SequencesLab": {
       "upstreamSha": "f3ea4b704b2c4d73",
-      "portedSha": "0d4123be86cdf45e"
+      "portedSha": "463fa752bd7aa4c2"
     },
     "SeriesLab": {
       "upstreamSha": "bd8cbc5d1d712879",
@@ -617,11 +617,11 @@
     },
     "SetTheoryLab": {
       "upstreamSha": "06b4b5da42390c12",
-      "portedSha": "d070f8d3405951fb"
+      "portedSha": "0a29c01d18989768"
     },
     "ShapesLab": {
       "upstreamSha": "81591768f7469818",
-      "portedSha": "150c7fea9453ca00"
+      "portedSha": "f402a950f101ce42"
     },
     "SignedAdditionLab": {
       "upstreamSha": "b9218c65bde2c8ca",
@@ -633,11 +633,11 @@
     },
     "SineFunctionLab": {
       "upstreamSha": "6227497f378e3d1e",
-      "portedSha": "18a4ec876782e4e6"
+      "portedSha": "a2c3f6c05f3c5caf"
     },
     "SortLab": {
       "upstreamSha": "9f1d3243093e02f3",
-      "portedSha": "b2491bc79986f21b"
+      "portedSha": "f095622878a23417"
     },
     "SphereLab": {
       "upstreamSha": "09cd2054510fac41",
@@ -645,7 +645,7 @@
     },
     "StandardDeviationLab": {
       "upstreamSha": "c28b99ccd5055b90",
-      "portedSha": "a71beff8593a05e9"
+      "portedSha": "c7a885c625e9da90"
     },
     "StatisticalQuestionLab": {
       "upstreamSha": "dd43834405b6d0ee",
@@ -653,7 +653,7 @@
     },
     "StoryProblemLab": {
       "upstreamSha": "f4d04c6462cdde04",
-      "portedSha": "a2aad259bf0f681d"
+      "portedSha": "db3f3c508215f8dc"
     },
     "SubstitutionLab": {
       "upstreamSha": "6ad05c768be25459",
@@ -661,7 +661,7 @@
     },
     "SubtractionLab": {
       "upstreamSha": "da122c05ef04297b",
-      "portedSha": "a18a8d7469ff0019"
+      "portedSha": "cde911efb7001899"
     },
     "SymmetryLab": {
       "upstreamSha": "4180358ff5ff8bea",
@@ -673,7 +673,7 @@
     },
     "TableLab": {
       "upstreamSha": "9b635bb6ffa0102e",
-      "portedSha": "b969a1c93a57093e"
+      "portedSha": "332672e31aa47717"
     },
     "TangentFunctionLab": {
       "upstreamSha": "08b44fdc127ee461",
@@ -681,11 +681,11 @@
     },
     "TeenNumbersLab": {
       "upstreamSha": "8712cbb3132d0122",
-      "portedSha": "f1bba5e7a846f2d3"
+      "portedSha": "c105fea78d21c4e6"
     },
     "TimeLab": {
       "upstreamSha": "a61b42e384e62022",
-      "portedSha": "75717de3c0aacbde"
+      "portedSha": "84ea31f33904dc7e"
     },
     "TransformationsLab": {
       "upstreamSha": "171d76b210be2dd7",
@@ -733,11 +733,11 @@
     },
     "TwoStepLab": {
       "upstreamSha": "fa0db719edef6b88",
-      "portedSha": "bd267c699f77311b"
+      "portedSha": "c92a21b57800c3ee"
     },
     "TwoVariableInequalityLab": {
       "upstreamSha": "f3ab2b2e2eaf30e5",
-      "portedSha": "2cfc4b952cac7b27"
+      "portedSha": "501176752019cd50"
     },
     "UndoLab": {
       "upstreamSha": "cb681cab3713894a",
@@ -765,7 +765,7 @@
     },
     "VarianceLab": {
       "upstreamSha": "817fd1efd049f3e9",
-      "portedSha": "9ff7f05ba9942c97"
+      "portedSha": "9c4fce8cf137912c"
     },
     "VectorLab": {
       "upstreamSha": "91c77140fc24b0a0",

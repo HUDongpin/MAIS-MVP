@@ -513,6 +513,11 @@ const GeometryExplorer = dynamic<LessonVisualizationProps>(
   { loading: () => <DeferredLessonPanel />, ssr: false }
 );
 
+const LessonSignatureLab = dynamic<LessonVisualizationProps>(
+  () => import("@/components/visualizations/LessonSignatureLab").then((module) => module.LessonSignatureLab as ComponentType<LessonVisualizationProps>),
+  { loading: () => <DeferredLessonPanel />, ssr: false }
+);
+
 const ProbabilitySimulator = dynamic<LessonVisualizationProps>(
   () => import("@/components/visualizations/ProbabilitySimulator").then((module) => module.ProbabilitySimulator as ComponentType<LessonVisualizationProps>),
   { loading: () => <DeferredLessonPanel />, ssr: false }
@@ -610,11 +615,11 @@ const lessonVisualizationRegistry: Record<VisualizationModuleId, ComponentType<L
   "trig-wave-explorer": TrigWaveExplorer,
   "calculus-stats-lab": CalculusStatsLab,
   "configured-visualization-lab": ConfiguredVisualizationLab,
-  // Scope boundary (Phase 0): signature benches render on the Visualization Lab
-  // page only. In-lesson embeds keep the template renderer, so a signature topic
-  // shows its bench in the lab and the template inside the lesson. Deliberate —
-  // wiring the lesson embed is Phase 1 and needs its own regression evidence.
-  "signature-lab": ConfiguredVisualizationLab
+  // Phase 1 of the Codex-lab replacement plan (2026-08-25): a signature topic now
+  // shows the same Claude bench in the lesson as on the Visualization Lab page.
+  // LessonSignatureLab resolves the topic's primary bench and falls back to the
+  // template renderer only when a topic carries no signature assignment.
+  "signature-lab": LessonSignatureLab
 };
 
 function getLessonVisualization(moduleId: string | undefined) {

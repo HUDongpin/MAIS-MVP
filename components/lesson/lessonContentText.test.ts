@@ -98,6 +98,15 @@ test("removes generated California visualization safeguard prefaces from lesson 
     ),
     ""
   );
+
+  // The signature-bench variant of the block copy (Phase 1, 2026-08-25) is
+  // hidden the same way.
+  assert.equal(
+    cleanLessonVisualizationContent(
+      "Use the Hundred Chart interactive bench to manipulate this knowledge point before checkpoint practice. The bench is aligned to CA.CCSS.Math.1.NBT (1.NBT.1, 1.NBT.2, 1.NBT.3, 1.NBT.4...), carries a Safeguard Review record, and shows its Read me first note before students interact with the model."
+    ),
+    ""
+  );
 });
 
 test("keeps regular lesson visualization descriptions", () => {
