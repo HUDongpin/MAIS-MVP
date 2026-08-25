@@ -205,8 +205,8 @@ test("CI and package preserve the parent, delivery, webhook, and readiness union
   }
   assert.equal(
     workflow.jobs["postgres-integration"]["timeout-minutes"],
-    15,
-    "the heavy Nova PostgreSQL gate must retain checkout and WAL-checkpoint headroom"
+    30,
+    "the heavy Nova PostgreSQL gate must retain checkout, migration, and WAL-checkpoint headroom"
   );
   assert.equal(
     workflow.jobs["teacher-notice-outbox-postgres16"]["timeout-minutes"],

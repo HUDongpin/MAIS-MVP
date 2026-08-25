@@ -200,7 +200,9 @@ jobs:
     # rollback, or concurrent-bootstrap behavior.
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The total job budget includes a multi-minute checkout on the large repository,
+    # followed by the full v4 migration, lock-contention, rollback, and WAL gates.
+    timeout-minutes: 30
     services:
       postgres:
         image: postgres:16-alpine
