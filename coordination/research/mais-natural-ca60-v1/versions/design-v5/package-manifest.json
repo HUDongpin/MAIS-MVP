@@ -2,8 +2,8 @@
   "schemaVersion": "V5PackageManifestV1",
   "artifactKind": "EXACT_V5_PACKAGE_MANIFEST_EXCLUDING_SELF",
   "designId": "MAIS-NATURAL-CA60-V5",
-  "registrationHash": "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
-  "schemaSetHash": "b9681215afeada2f8cb586841ceb006f77963a228645093d603ea9bf71e81096",
+  "registrationHash": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+  "schemaSetHash": "374972393faa8d856f916d271cfb03a5ab7dd34a2db0d86140720c0cf09ef593",
   "providerEventCount": 0,
   "firstProviderExecutionAllowed": false,
   "excludedSelfPath": "package-manifest.json",
@@ -11,13 +11,13 @@
   "entries": [
     {
       "path": "PRE-EXECUTION-ERRATUM.md",
-      "byteLength": 2485,
-      "sha256": "1f57bc356a2798f3e14141255bb9c19652f6b467f91484e8cc497ec817535e75"
+      "byteLength": 3195,
+      "sha256": "cf6934a75f200b98fb8c2c53e0e86ebf5e813eab032db7cc8f56d21b74eb270d"
     },
     {
       "path": "README.md",
-      "byteLength": 6428,
-      "sha256": "d7d73944aef1b8c11445be4ea4cd8627c69823e201c058a74a51aafbf28de808"
+      "byteLength": 6904,
+      "sha256": "a326d7664d3e023979d801de4f9af67a9053d838a99b01b59bbfae396aae5757"
     },
     {
       "path": "build-design-registration.mjs",
@@ -26,18 +26,18 @@
     },
     {
       "path": "design-contract.mjs",
-      "byteLength": 28223,
-      "sha256": "6d5445edb3c65ee0bc021fdad9cbb92be88b008467b079bc45ce392cc9662d97"
+      "byteLength": 29189,
+      "sha256": "51fc29947361576e95c21ee88b235abe56a8ff81b0bc2e9f5f738f2b9e5d988f"
     },
     {
       "path": "design-registration.json",
-      "byteLength": 107162,
-      "sha256": "d48ff4325a9b1d55ec18a01149a9a038ab8068b9c1f066e5fcf4ed709a4f65a6"
+      "byteLength": 108105,
+      "sha256": "c2e962b4e8dba0f558a08cdb8e654ae97139ee0a9db7c90eccb03666764e08a9"
     },
     {
       "path": "design-v5-completeness.test.mjs",
-      "byteLength": 12544,
-      "sha256": "f918d4a0f811dfd845a3735e3329b3414eaaedbea1af3c9acbe7c8edbdacb2f2"
+      "byteLength": 13915,
+      "sha256": "f5f134a75f45a4ec78c6432a22c06446bcf05466d115d9ffc452acc1531a2c65"
     },
     {
       "path": "package-integrity.test.mjs",
@@ -61,8 +61,8 @@
     },
     {
       "path": "schemas/NaturalCaPilotDesignRegistrationV5.schema.json",
-      "byteLength": 12247,
-      "sha256": "a2ac6cd177d039ea24b70abf689e61e699254b8f6cbe5521ec15abecd2028a51"
+      "byteLength": 12620,
+      "sha256": "411822977973c7d580932448aa688cdfe0d2c9f8f9c94c4d4f452879535917e5"
     },
     {
       "path": "schemas/NaturalCaStatisticalPowerV5.schema.json",
@@ -92,7 +92,7 @@
     {
       "path": "schemas/ProviderAuthorizationV2.schema.json",
       "byteLength": 7810,
-      "sha256": "dacb21e3a1077d46f18e2380cc06b2eceb83ef9f1c6204dfe643c5595ef04b3d"
+      "sha256": "b16f899d704a2e0b0d8045b0017386a6fa46a4bc1bcb986af0720955e9590006"
     },
     {
       "path": "schemas/ProviderLogicalRequestV2.schema.json",
@@ -111,13 +111,13 @@
     },
     {
       "path": "schemas/generate-v5-schemas.mjs",
-      "byteLength": 19742,
-      "sha256": "c8bce1940624d424bbd073988714d362b19050281f285f8d6792eacc9be12fdb"
+      "byteLength": 19953,
+      "sha256": "d41d63760bc12da61bd0d2703c407f5a424871c98c1c531a468f8340dbfbdd38"
     },
     {
       "path": "statistical-power.json",
       "byteLength": 1048,
-      "sha256": "b20de2578d62134f5255cbffec907d37d646d79d18eb89813016a41bb0a4f0de"
+      "sha256": "26ebf9b16677eabea7e19b8da76a4e9960917c819c36eb633c5467a84b0d9168"
     },
     {
       "path": "validate-design-registration.mjs",
@@ -131,7 +131,7 @@
     }
   ],
   "fileCount": 24,
-  "packageRootHash": "5e8ba0d47de9dcc1fa419dd43bfb1dc424e49d3ebcab47ccc6fa72e86684d7f2",
-  "generatedAt": "2026-08-25T16:39:10.000Z",
-  "selfHash": "1df9c32b89d011b0ed04aa3c8ec52eb929976817d6ca1d51873a8fcfca15e29a"
+  "packageRootHash": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1",
+  "generatedAt": "2026-08-25T17:21:42.000Z",
+  "selfHash": "4259ab209d61dfec458e54c5343e30be4533492411a52b07bb23af0b7425b5b3"
 }

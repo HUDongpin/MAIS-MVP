@@ -11,6 +11,9 @@
     "designFamily",
     "designKind",
     "version",
+    "candidateRevision",
+    "supersedesCandidateRegistrationHash",
+    "preIndependentReviewCorrection",
     "lifecycleStatus",
     "freezeAllowed",
     "activationAllowed",
@@ -68,6 +71,17 @@
     },
     "version": {
       "const": 5
+    },
+    "candidateRevision": {
+      "const": 2
+    },
+    "supersedesCandidateRegistrationHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "preIndependentReviewCorrection": {
+      "type": "object",
+      "additionalProperties": true
     },
     "lifecycleStatus": {
       "const": "SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW"

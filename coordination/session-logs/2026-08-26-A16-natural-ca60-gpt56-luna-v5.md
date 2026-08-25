@@ -60,3 +60,10 @@ The user decision authorizes a design-registration migration. It is not a hash-b
 - V5 `--require-active`: intentionally failed closed only on `active V5 design pointer is required` and `A11 independent review receipt is required`.
 - Full V1-V5 historical regression: `627` tests, `626` passed, `1` failed, duration `1217736.966458ms`.
 - Sole historical failure: `versions/design-v2/package-integrity.test.mjs` still expects `ACTIVE-DESIGN-REGISTRATION.json` to point to V2, while the immutable current pointer intentionally points to V3. V3, V4, and V5 tests passed. V2 was not rewritten to conceal this stale assertion.
+
+## Pre-review correction
+
+- A21 integration exposed that candidate revision 1 incorrectly constrained `ProviderAuthorizationV2.runnerCommit` to a 64-hex SHA-256.
+- Current repository commits are 40-hex Git SHA-1 object IDs; retaining the old pattern would make a truthful runner-commit authorization binding impossible.
+- Before independent review, activation, credential access, or any provider call, V5 candidate revision 2 corrected the pattern to `^[0-9a-f]{40}$`.
+- Revision 2 records revision 1 commit `32bab56fac164631ba095a36aafc5eb0c8ee6bc5`, registration hash `74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b`, and package root `5e8ba0d47de9dcc1fa419dd43bfb1dc424e49d3ebcab47ccc6fa72e86684d7f2` as `SUPERSEDED_PRE_INDEPENDENT_REVIEW`.

@@ -5,6 +5,22 @@
   "designFamily": "MAIS-NATURAL-CA60",
   "designKind": "APPEND_ONLY_COMPOSITE_PRE_EXECUTION_DESIGN_REGISTRATION",
   "version": 5,
+  "candidateRevision": 2,
+  "supersedesCandidateRegistrationHash": "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+  "preIndependentReviewCorrection": {
+    "correctionId": "V5-CANDIDATE-REVISION-2-RUNNER-COMMIT-GIT-OID",
+    "recordedAt": "2026-08-25T17:21:42.000Z",
+    "priorCommit": "32bab56fac164631ba095a36aafc5eb0c8ee6bc5",
+    "priorRegistrationHash": "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+    "priorPackageRootHash": "5e8ba0d47de9dcc1fa419dd43bfb1dc424e49d3ebcab47ccc6fa72e86684d7f2",
+    "priorDisposition": "SUPERSEDED_PRE_INDEPENDENT_REVIEW",
+    "providerEventCountAtCorrection": 0,
+    "firstProviderExecutionOccurred": false,
+    "changedContract": "ProviderAuthorizationV2.properties.runnerCommit.pattern",
+    "previousPattern": "^[0-9a-f]{64}$",
+    "correctedPattern": "^[0-9a-f]{40}$",
+    "reasonCode": "RUNNER_COMMIT_MUST_BIND_CURRENT_REPOSITORY_GIT_SHA1_OBJECT_ID"
+  },
   "lifecycleStatus": "SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW",
   "freezeAllowed": true,
   "activationAllowed": false,
@@ -15,7 +31,7 @@
     "HASH_BOUND_OPENAI_AUTHORIZATION_REQUIRED",
     "HASH_BOUND_DEEPSEEK_AUTHORIZATION_REQUIRED"
   ],
-  "frozenAt": "2026-08-25T16:39:10.000Z",
+  "frozenAt": "2026-08-25T17:21:42.000Z",
   "thresholdsFrozenAt": "2026-08-25T03:20:00.000Z",
   "implementationBaseline": {
     "commit": "07c9a99eb329f253b2aa9ad19f8e8777fa51c656",
@@ -1922,7 +1938,7 @@
       "NaturalCaPilotDesignRegistrationV5": {
         "filename": "NaturalCaPilotDesignRegistrationV5.schema.json",
         "id": "https://mais.local/schemas/NaturalCaPilotDesignRegistrationV5.schema.json",
-        "canonicalHash": "ee103e9e27038fb90ed1e53a8156ce67a10798830a5fe6e2943cd1c3f718db0e"
+        "canonicalHash": "40857ad030f7ccbd127212b2c538dc716ab544410f4ac3c973d493328b8643c5"
       },
       "NaturalCaStatisticalPowerV5": {
         "filename": "NaturalCaStatisticalPowerV5.schema.json",
@@ -1952,7 +1968,7 @@
       "ProviderAuthorizationV2": {
         "filename": "ProviderAuthorizationV2.schema.json",
         "id": "https://mais.local/schemas/ProviderAuthorizationV2.schema.json",
-        "canonicalHash": "6eeb638819e7c10ec148f14bf87da6969f48e7d5367bae48d8022cdd8c2600d0"
+        "canonicalHash": "aae3992f9d80ce757b90979f0cc337c8d188f470add032d2d8280d07110e6522"
       },
       "ProviderLogicalRequestV2": {
         "filename": "ProviderLogicalRequestV2.schema.json",
@@ -1970,7 +1986,7 @@
         "canonicalHash": "c53623dba6a13db32c914c1c15bbc2fa7c6ddf8781b9a2baf8bd19743a2d56b3"
       }
     },
-    "schemaSetHash": "b9681215afeada2f8cb586841ceb006f77963a228645093d603ea9bf71e81096",
+    "schemaSetHash": "374972393faa8d856f916d271cfb03a5ab7dd34a2db0d86140720c0cf09ef593",
     "inheritedV4SchemaPackage": {
       "inventoryRootHash": "afed113ab5a20023a22ed94595b28f8886b6a4a82def52d05eb1ab9fc4cb7071",
       "reuseStatus": "METHOD_SCHEMAS_INHERITED_EXCEPT_EXPLICIT_V5_PROVIDER_OVERRIDES"
@@ -2153,10 +2169,10 @@
     "labeling": "1fa05b20ff970cba00a8e181c8eb05d60203955e8746a9cffb516881707ea9c4",
     "analysis": "33592fabdaf467abd30355cc9101502f6bd6eea70ebfa3db3632cc5826920fce",
     "providerControls": "7363be95bd486770f439b91dad7811bc4c0cc24ed0d938d1afa1be8b8e4e1374",
-    "interfaces": "5f69e9f3fffa8d209044367dcd62f0745e92c01ff5438b9c2f5be6e512e78f99",
+    "interfaces": "1867a100d868e95dde835972219e1048eab3ccd49639604d4ab219fb401743b5",
     "freezeChain": "9fa2d4adce17d1eb94005b966a4582ade5083c5475a67c0efd93dbbb3da7d6e7",
     "preExecutionState": "4ada1c7b177e9f3478652baa4ec5da8762ab9528712fa6b15be155ef9ed6a385"
   },
-  "frozenContractRootHash": "58da174099ab0ce11a4a145e64ed4d150c0e26ea99512fd6805b78cc76b752d3",
-  "registrationHash": "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b"
+  "frozenContractRootHash": "a5f8be5de958d97d7b9a74ceec9cc23f9855a79cf32db94ac8e38580abadc31a",
+  "registrationHash": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632"
 }

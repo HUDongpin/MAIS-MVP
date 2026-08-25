@@ -15,7 +15,7 @@ const SCHEMA_DIRECTORY = path.join(HERE, "schemas");
 
 export const DESIGN_ID_V5 = "MAIS-NATURAL-CA60-V5";
 export const DESIGN_SCHEMA_VERSION_V5 = "NaturalCaPilotDesignRegistrationV5";
-export const FROZEN_AT_V5 = "2026-08-25T16:39:10.000Z";
+export const FROZEN_AT_V5 = "2026-08-25T17:21:42.000Z";
 export const OWNER_DECISION_RECORDED_AT_V5 = "2026-08-25T16:39:10.000Z";
 export const V4_DISPOSITION_REASON = "OWNER_REPLACED_QWEN_WITH_OPENAI_GPT_5_6_LUNA_BEFORE_ANY_PROVIDER_CALL";
 
@@ -194,7 +194,7 @@ export async function buildPredecessorPackageInventoryV4() {
     entries,
     fileCount: entries.length,
     inventoryRootHash: jcsHash(entries),
-    recordedAt: FROZEN_AT_V5,
+    recordedAt: OWNER_DECISION_RECORDED_AT_V5,
     reasonCode: V4_DISPOSITION_REASON,
   };
 }
@@ -345,6 +345,22 @@ export async function buildDesignRegistrationV5() {
     designFamily: "MAIS-NATURAL-CA60",
     designKind: "APPEND_ONLY_COMPOSITE_PRE_EXECUTION_DESIGN_REGISTRATION",
     version: 5,
+    candidateRevision: 2,
+    supersedesCandidateRegistrationHash: "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+    preIndependentReviewCorrection: {
+      correctionId: "V5-CANDIDATE-REVISION-2-RUNNER-COMMIT-GIT-OID",
+      recordedAt: FROZEN_AT_V5,
+      priorCommit: "32bab56fac164631ba095a36aafc5eb0c8ee6bc5",
+      priorRegistrationHash: "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+      priorPackageRootHash: "5e8ba0d47de9dcc1fa419dd43bfb1dc424e49d3ebcab47ccc6fa72e86684d7f2",
+      priorDisposition: "SUPERSEDED_PRE_INDEPENDENT_REVIEW",
+      providerEventCountAtCorrection: 0,
+      firstProviderExecutionOccurred: false,
+      changedContract: "ProviderAuthorizationV2.properties.runnerCommit.pattern",
+      previousPattern: "^[0-9a-f]{64}$",
+      correctedPattern: "^[0-9a-f]{40}$",
+      reasonCode: "RUNNER_COMMIT_MUST_BIND_CURRENT_REPOSITORY_GIT_SHA1_OBJECT_ID",
+    },
     lifecycleStatus: "SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW",
     freezeAllowed: true,
     activationAllowed: false,
@@ -521,7 +537,7 @@ export async function buildDesignRegistrationV5() {
         ],
         officialCapabilityEvidence: {
           evidenceType: "OFFICIAL_DOCUMENTATION_CAPABILITY_ONLY",
-          checkedAt: FROZEN_AT_V5,
+          checkedAt: OWNER_DECISION_RECORDED_AT_V5,
           urls: [...OFFICIAL_CAPABILITY_URLS],
           supportsResponsesApi: true,
           supportsStructuredOutputs: true,

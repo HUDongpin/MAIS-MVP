@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DRAFT = "https://json-schema.org/draft/2020-12/schema";
 const HASH = { type: "string", pattern: "^[0-9a-f]{64}$" };
+const GIT_SHA1 = { type: "string", pattern: "^[0-9a-f]{40}$" };
 const NULLABLE_HASH = { anyOf: [HASH, { type: "null" }] };
 const INSTANT = { type: "string", format: "date-time" };
 const NULLABLE_INSTANT = { anyOf: [INSTANT, { type: "null" }] };
@@ -43,6 +44,9 @@ const schemas = {
       designFamily: { const: "MAIS-NATURAL-CA60" },
       designKind: { const: "APPEND_ONLY_COMPOSITE_PRE_EXECUTION_DESIGN_REGISTRATION" },
       version: { const: 5 },
+      candidateRevision: { const: 2 },
+      supersedesCandidateRegistrationHash: HASH,
+      preIndependentReviewCorrection: anyClosedObject,
       lifecycleStatus: { const: "SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW" },
       freezeAllowed: { const: true },
       activationAllowed: { const: false },
@@ -255,7 +259,7 @@ const schemas = {
       runtimeConfigHash: NULLABLE_HASH,
       promptSetHash: HASH,
       schemaSetHash: HASH,
-      runnerCommit: HASH,
+      runnerCommit: GIT_SHA1,
       runnerHash: HASH,
       adapterHash: HASH,
       providerRouteDecisionHash: HASH,

@@ -69,6 +69,25 @@ test("V5 is a sealed non-active candidate with a valid registration hash and no 
   const contract = await import("./design-contract.mjs");
 
   assert.equal(registration.designKind, "APPEND_ONLY_COMPOSITE_PRE_EXECUTION_DESIGN_REGISTRATION");
+  assert.equal(registration.candidateRevision, 2);
+  assert.equal(
+    registration.supersedesCandidateRegistrationHash,
+    "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+  );
+  assert.deepEqual(registration.preIndependentReviewCorrection, {
+    correctionId: "V5-CANDIDATE-REVISION-2-RUNNER-COMMIT-GIT-OID",
+    recordedAt: "2026-08-25T17:21:42.000Z",
+    priorCommit: "32bab56fac164631ba095a36aafc5eb0c8ee6bc5",
+    priorRegistrationHash: "74729685c89abf873c3dbf49ec41d429c4107a2b4707167208856648fd9b788b",
+    priorPackageRootHash: "5e8ba0d47de9dcc1fa419dd43bfb1dc424e49d3ebcab47ccc6fa72e86684d7f2",
+    priorDisposition: "SUPERSEDED_PRE_INDEPENDENT_REVIEW",
+    providerEventCountAtCorrection: 0,
+    firstProviderExecutionOccurred: false,
+    changedContract: "ProviderAuthorizationV2.properties.runnerCommit.pattern",
+    previousPattern: "^[0-9a-f]{64}$",
+    correctedPattern: "^[0-9a-f]{40}$",
+    reasonCode: "RUNNER_COMMIT_MUST_BIND_CURRENT_REPOSITORY_GIT_SHA1_OBJECT_ID",
+  });
   assert.equal(registration.lifecycleStatus, "SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW");
   assert.equal(registration.freezeAllowed, true);
   assert.equal(registration.activationAllowed, false);
@@ -94,6 +113,14 @@ test("V5 is a sealed non-active candidate with a valid registration hash and no 
     contract.jcsHash(Object.entries(registration.frozenContractHashes)),
   );
   assert.deepEqual(registration, await contract.buildDesignRegistrationV5());
+});
+
+test("ProviderAuthorizationV2 accepts the repository's exact 40-hex Git commit instead of a fabricated SHA-256", async () => {
+  const schema = JSON.parse(await readFile(path.join(HERE, "schemas/ProviderAuthorizationV2.schema.json"), "utf8"));
+  assert.deepEqual(schema.properties.runnerCommit, {
+    type: "string",
+    pattern: "^[0-9a-f]{40}$",
+  });
 });
 
 test("V5 freezes unchanged sampling, label, threshold, decision, power, and claim boundaries", async () => {

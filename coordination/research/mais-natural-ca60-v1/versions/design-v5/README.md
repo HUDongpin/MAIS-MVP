@@ -12,6 +12,8 @@ apiSurface = RESPONSES_API_V1
 
 V5 is a sealed candidate, not an active execution registration. Its lifecycle is `SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW`; `activationAllowed=false`, `firstProviderExecutionAllowed=false`, and `providerEventCount=0`. The mutable active pointer remains on V3 until an A11 independent review concurs and a separately reviewed pointer update occurs.
 
+This package is candidate revision 2. Revision 1 at commit `32bab56fac164631ba095a36aafc5eb0c8ee6bc5` used an incorrect 64-hex pattern for `ProviderAuthorizationV2.runnerCommit`; it is explicitly recorded as `SUPERSEDED_PRE_INDEPENDENT_REVIEW`. Revision 2 corrects that field to the repository's actual 40-hex Git SHA-1 object ID. The prior registration and package roots remain recorded in `preIndependentReviewCorrection`. No provider event occurred before the correction.
+
 ## What changed
 
 The unexecuted Qwen V4 candidate is recorded as `SUPERSEDED_NOT_EXECUTED`. Its bytes were not edited. `predecessor-package-inventory-v4.json` exact-binds every V4 file, its byte length, and its SHA-256 hash. V5 then changes only the registered reference-provider surface:
