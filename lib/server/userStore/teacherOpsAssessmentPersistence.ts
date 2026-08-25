@@ -503,17 +503,17 @@ type TeacherOpsSeedAssessmentRecordsOptions = {
   questionExists: (questionId: string) => boolean;
 };
 
-// The California Grade 1 demo classroom, its teacher, and four questions from the
-// Grade 1 add-and-subtract checkpoint pack. Kept as named constants because the
-// only thing that makes this assessment openable is that all three agree with the
-// seeded class, enrollment, and question bank.
+// The California Grade 1 demo classroom, its teacher, and four hand-checked CCSS
+// textbook-practice questions. Kept as named constants because the only thing
+// that makes this assessment openable is that all three agree with the seeded
+// class, enrollment, and currently approved question bank.
 const californiaGradeOneClassId = "class-us-ca-p1-2026";
 const californiaGradeOneTeacherId = "teacher-scott-us";
 const californiaGradeOneCheckQuestionIds = [
-  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q01",
-  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q02",
-  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q03",
-  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q04"
+  "ccss-textbook-practice-v1-make-ten-to-add-q01",
+  "ccss-textbook-practice-v1-make-ten-to-add-q02",
+  "ccss-textbook-practice-v1-make-ten-to-add-q03",
+  "ccss-textbook-practice-v1-add-subtract-stories-q01"
 ];
 
 export function teacherOpsSeedAssessmentRecords(
