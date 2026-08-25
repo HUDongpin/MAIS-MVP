@@ -1577,21 +1577,31 @@ test("a live recycled child PGID with the wrong process-birth identity is recove
       childName
     }), { mode: 0o600 });
 
+    // Keep a wide separation between normal process-startup noise and the
+    // stale-heartbeat window. A busy CI runner can take more than 450ms merely
+    // to spawn the wrapper; an implementation that actually waits for this
+    // four-second lease must still fail the two-second recovery budget.
+    const recycledLockLeaseTimeoutMs = 4_000;
+    const immediateRecoveryBudgetMs = 2_000;
     const startedAt = Date.now();
     const [command, ...args] = mutatingChild(0);
     const recovered = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
       cwd,
       env: {
         ...process.env,
-        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: String(recycledLockLeaseTimeoutMs)
       },
       encoding: "utf8",
-      timeout: 2_000,
+      timeout: 5_000,
       killSignal: "SIGKILL"
     });
     assert.equal(recovered.status, 0, `${recovered.stdout}\n${recovered.stderr}`);
     assert.equal(recovered.signal, null, `${recovered.stdout}\n${recovered.stderr}`);
-    assert.ok(Date.now() - startedAt < 450, "wrong process-birth identity must not hold the lock for a stale heartbeat window");
+    const elapsedMs = Date.now() - startedAt;
+    assert.ok(
+      elapsedMs < immediateRecoveryBudgetMs,
+      `wrong process-birth identity must not hold the lock for a stale heartbeat window (${elapsedMs}ms >= ${immediateRecoveryBudgetMs}ms; lease ${recycledLockLeaseTimeoutMs}ms)`
+    );
     assert.equal(processGroupIsAlive(decoy.pid), true, "a recycled, unrelated process group must never be killed");
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
   } finally {
