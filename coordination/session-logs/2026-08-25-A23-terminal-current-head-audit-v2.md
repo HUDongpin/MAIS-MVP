@@ -28,4 +28,34 @@ Close the independent-review findings without rewriting the frozen v1 audit:
 
 ## Current status
 
-Implementation is ready for an exact-path commit. The v2 release ledger and real two-run audit must be produced only after the implementation commit is frozen. Maturity remains `not-shadow-mature`; `liveAllowed=false`.
+The v2 implementation and ledger are frozen without rewriting either v1 or the immutable Promotion attempt:
+
+- Implementation commit: `87679c4f229d3befc8e858fe3a671e534e72ea2f`.
+- Ledger-only release commit: `ca89c923065a1b9dd6aee40fbc78326be13aae07`.
+- Audit bundle digest: `f8cbd2f42ce8b0090dcc0cb2d4a79dfcffce79a21c2274de3cbf0c5e7653d052`.
+- Frozen core bundle digest: `517f670a46ce82be60b11ee1b179f63e274517ca5f431d95be58805fa96ededf`.
+
+## Exact release verification
+
+The release was checked from a separate clean detached worktree at
+`ca89c923065a1b9dd6aee40fbc78326be13aae07`, with its own `npm ci --ignore-scripts`
+dependency installation:
+
+- `promotion-terminal-audit-v2.test.mjs` with the real-audit opt-in: 59 pass, 0 fail, 0 skipped.
+- `promotion-gate.test.mjs`: 120 pass, 0 fail, 0 skipped.
+- Two direct CLI runs both returned the required `fail` / exit `1` with primary reason
+  `LEGACY_NEW_CONFLICT`, 15 new conflicts, and one opaque conflict retained as the
+  secondary `LEGACY_DISCOVERY_INCOMPLETE` condition.
+- Raw audit digests differed (`c861ab37dd0a6a66086499abdcf1b5a3b72e66f23e6b5318dfa061c8a8fbb72f`
+  and `c5b499755224f91780e4e2784edb216da8a75d38336e6618de0cb5fb28b6d778`),
+  while both semantic audit digests were
+  `a0fff2329eec0c60f7a5e178c52040882ee5daa0348b60a222aac1f467cbad50`.
+- Both reports proved identical pre/post HEAD, clean status, stable index and candidate
+  digest, and `observedPersistentRepositoryMutationCount=0`.
+- A deliberately malformed absolute `--policy` invocation was rejected as `PATH_UNSAFE`;
+  the public CLI contract accepts only a repository-relative policy path.
+
+The immutable attempt remains `repair_required`. Maturity remains
+`not-shadow-mature`; `liveAllowed=false`. This closeout log is deliberately outside the
+frozen audit bundle; its own log-only commit must receive one final current-HEAD audit
+before handoff.
