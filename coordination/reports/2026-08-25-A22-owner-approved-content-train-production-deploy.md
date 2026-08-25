@@ -51,6 +51,39 @@ smokes.
 
 ## Dry run and deploy
 
-(Filled in by the sections appended below: dry-run JSON summary — forbidden
-path count, staging file count, local build gate — then the production deploy
-and post-deploy smoke results.)
+- Dry run (`--dry-run --json`, run id `20260825-content-train`): **exit 0** —
+  `forbiddenPathCount: 0`, `stagingFileCount: 3243`, local build gate passed,
+  release-source clean gate passed, lifecycle gate passed non-strict under the
+  recorded exception (waiver printed with this record's path).
+- Guard change enabling the exception: `scripts/release-env-guard.mjs` gained
+  `MAIS_OWNER_LIFECYCLE_EXCEPTION_RECORD` (must name an owner-approved record
+  committed under `coordination/reports/`; the gate then runs non-strict with
+  its inventory still printed). `release-env-guard.test.mjs` 3/3. The
+  test-only gate-override hardening and all other preflights are unchanged.
+- Production run: preflight passed → build gate passed → pruned staging
+  audited → **deployment created** (`--skip-domain`, fail-closed):
+  `https://mais-mvp-peter-dongpin-hu-s-projects.vercel.app` → dashboard smoke
+  passed with `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1` → **AI Tutor live latency
+  gate NOT passed: production (correctly) has no `HK_MATH_ENABLE_DEMO_USER`,
+  so the demo-login probe gets HTTP 401. The gate requires owner-supplied
+  `AI_TUTOR_LIVE_USERNAME`/`AI_TUTOR_LIVE_PASSWORD`.**
+- **Domain state: unchanged.** `www.mais.ac` / `www.mais.hk` remain on the
+  previous production deployment. No promotion occurred.
+
+## Remaining step (owner-run)
+
+Promotion completes by re-running the deploy with the owner's live-account
+credentials in the environment (the executor deliberately does not handle
+credentials):
+
+```sh
+cd /Volumes/Starship/MAIS-release-checkpoint-wt
+MAIS_OWNER_LIFECYCLE_EXCEPTION_RECORD=coordination/reports/2026-08-25-A22-owner-approved-content-train-production-deploy.md \
+MAIS_RELEASE_SOURCE_KIND=pruned-staging MAIS_OWNER_APPROVED_PRUNED_STAGING=1 \
+DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 \
+AI_TUTOR_LIVE_USERNAME='<owner account>' AI_TUTOR_LIVE_PASSWORD='<owner password>' \
+npm run vercel:production -- --run-id "20260825-content-train"
+```
+
+(If the tree shows `M next-env.d.ts` from a prior build, `git restore
+next-env.d.ts` first — the clean gate counts it.)
