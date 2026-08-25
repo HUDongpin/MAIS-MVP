@@ -11,6 +11,18 @@ export type ParentIdempotencyAttempt = {
   key: string;
 };
 
+export function parentExpectedUserRequestInit(expectedUserId: string, init: RequestInit = {}) {
+  const headers = new Headers(init.headers);
+  headers.set("X-MAIS-Expected-User-Id", expectedUserId);
+  return { ...init, headers };
+}
+
+export function parentResponseRequiresSessionRevalidation(status: number, payload: unknown) {
+  if (status === 401 || status === 403) return true;
+  if (status !== 409 || typeof payload !== "object" || payload === null) return false;
+  return (payload as { code?: unknown }).code === "authenticated-user-changed";
+}
+
 function createParentIdempotencyKey() {
   const randomPart = typeof globalThis.crypto?.randomUUID === "function"
     ? globalThis.crypto.randomUUID()

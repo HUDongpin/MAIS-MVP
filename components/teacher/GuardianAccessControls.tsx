@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { isValidGuardianInviteToken } from "@/lib/parentConstraints";
 import type { GuardianLink, Language, LocalizedText } from "@/types";
@@ -12,6 +12,10 @@ export function guardianInvitationIssuePath(classId: string, studentId: string) 
 
 export function guardianLinkRevokePath(classId: string, studentId: string, linkId: string) {
   return `/api/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(studentId)}/guardian-links/${encodeURIComponent(linkId)}`;
+}
+
+export function guardianExpectedUserHeaders(userId: string) {
+  return { "X-MAIS-Expected-User-Id": userId };
 }
 
 export function guardianAccessErrorCopy(
@@ -61,6 +65,25 @@ type RevealedInvitation = {
   expiresAt: string;
 };
 
+export function readRevealedGuardianInvitation(value: unknown): RevealedInvitation | null {
+  if (typeof value !== "object" || value === null) return null;
+  const invitation = (value as { invitation?: unknown }).invitation;
+  if (typeof invitation !== "object" || invitation === null) return null;
+  const candidate = invitation as Partial<RevealedInvitation>;
+  if (
+    typeof candidate.token !== "string" ||
+    !isValidGuardianInviteToken(candidate.token) ||
+    !Number.isInteger(candidate.version) ||
+    typeof candidate.expiresAt !== "string" ||
+    !Number.isFinite(Date.parse(candidate.expiresAt))
+  ) return null;
+  return {
+    token: candidate.token,
+    version: candidate.version as number,
+    expiresAt: candidate.expiresAt
+  };
+}
+
 type GuardianAccessControlsProps = {
   classId: string;
   studentId: string;
@@ -69,7 +92,9 @@ type GuardianAccessControlsProps = {
 
 export function GuardianAccessControls({ classId, studentId, guardianLinks }: GuardianAccessControlsProps) {
   const router = useRouter();
-  const { language, t } = useSettings();
+  const { currentUser, language, t } = useSettings();
+  const expectedTeacherIdRef = useRef(currentUser?.role === "teacher" ? currentUser.id : null);
+  const expectedTeacherId = expectedTeacherIdRef.current;
   const [busyOperation, setBusyOperation] = useState<"issue" | string | null>(null);
   const [revealedInvitation, setRevealedInvitation] = useState<RevealedInvitation | null>(null);
   const [hiddenLinkIds, setHiddenLinkIds] = useState<string[]>([]);
@@ -84,30 +109,29 @@ export function GuardianAccessControls({ classId, studentId, guardianLinks }: Gu
   };
 
   const issueInvitation = async () => {
-    if (!classId || isBusy) return;
+    if (!classId || !expectedTeacherId || isBusy) return;
     setBusyOperation("issue");
     setRevealedInvitation(null);
     setStatusMessage(null);
     setErrorMessage(null);
 
     try {
-      const response = await fetch(guardianInvitationIssuePath(classId, studentId), { method: "POST" });
-      const payload = await response.json().catch(() => null) as { invitation?: RevealedInvitation } | null;
+      const response = await fetch(guardianInvitationIssuePath(classId, studentId), {
+        method: "POST",
+        headers: guardianExpectedUserHeaders(expectedTeacherId)
+      });
+      const payload: unknown = await response.json().catch(() => null);
       if (!response.ok) {
         setResponseError(response);
         return;
       }
-      if (
-        !payload?.invitation ||
-        !isValidGuardianInviteToken(payload.invitation.token) ||
-        !Number.isInteger(payload.invitation.version) ||
-        !Number.isFinite(Date.parse(payload.invitation.expiresAt))
-      ) {
+      const invitation = readRevealedGuardianInvitation(payload);
+      if (!invitation) {
         setErrorMessage(guardianAccessErrorCopy(503));
         return;
       }
 
-      setRevealedInvitation(payload.invitation);
+      setRevealedInvitation(invitation);
       setStatusMessage({
         en: "A one-time guardian invitation was issued.",
         zh: "已發出一次性家長邀請。"
@@ -135,7 +159,7 @@ export function GuardianAccessControls({ classId, studentId, guardianLinks }: Gu
   };
 
   const revokeLink = async (link: GuardianLink) => {
-    if (!classId || isBusy) return;
+    if (!classId || !expectedTeacherId || isBusy) return;
     const confirmed = window.confirm(t({
       en: `Revoke parent access for ${link.parentName}? Existing sessions will lose access immediately.`,
       zh: `確定撤銷 ${link.parentName} 的家長存取權嗎？現有存取將立即失效。`
@@ -146,18 +170,27 @@ export function GuardianAccessControls({ classId, studentId, guardianLinks }: Gu
     setStatusMessage(null);
     setErrorMessage(null);
     try {
-      const response = await fetch(guardianLinkRevokePath(classId, studentId, link.id), { method: "DELETE" });
-      await response.json().catch(() => null);
+      const response = await fetch(guardianLinkRevokePath(classId, studentId, link.id), {
+        method: "DELETE",
+        headers: guardianExpectedUserHeaders(expectedTeacherId)
+      });
+      const payload: unknown = await response.json().catch(() => null);
       if (!response.ok) {
         setResponseError(response);
         return;
       }
+      const invitation = readRevealedGuardianInvitation(payload);
+      if (!invitation) {
+        setErrorMessage(guardianAccessErrorCopy(503));
+        router.refresh();
+        return;
+      }
 
       setHiddenLinkIds((current) => [...current, link.id]);
-      setRevealedInvitation(null);
+      setRevealedInvitation(invitation);
       setStatusMessage({
-        en: `Parent access for ${link.parentName} was revoked.`,
-        zh: `已撤銷 ${link.parentName} 的家長存取權。`
+        en: `Parent access for ${link.parentName} was revoked. Copy the replacement one-time code now.`,
+        zh: `已撤銷 ${link.parentName} 的家長存取權；請立即複製新的單次邀請碼。`
       });
       router.refresh();
     } catch {
@@ -183,7 +216,7 @@ export function GuardianAccessControls({ classId, studentId, guardianLinks }: Gu
         </div>
         <button
           type="button"
-          disabled={!classId || isBusy}
+          disabled={!classId || !expectedTeacherId || isBusy}
           onClick={issueInvitation}
           className="focus-ring rounded-full bg-cyan-500 px-4 py-2 text-sm font-black text-slate-950 disabled:cursor-not-allowed disabled:opacity-50"
         >

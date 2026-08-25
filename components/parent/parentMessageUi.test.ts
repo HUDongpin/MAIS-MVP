@@ -3,16 +3,41 @@ import test from "node:test";
 
 import {
   parentFetchWithTimeout,
+  parentExpectedUserRequestInit,
   parentIdempotencyAttempt,
   parentLatestRequestIsCurrent,
   parentMessageContextKey,
   parentMessageHref,
   parentMessageOutcome,
+  parentResponseRequiresSessionRevalidation,
   parentReportPrefillSubject,
   parentWeekdayLabel,
   resolveParentComposeTarget,
   resolveComposeClassId
 } from "@/components/parent/parentMessageUi";
+
+test("parent requests preserve existing headers while binding the expected parent identity", () => {
+  const init = parentExpectedUserRequestInit("parent-a", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Trace": "trace-a" },
+    body: "{}"
+  });
+  const headers = new Headers(init.headers);
+
+  assert.equal(init.method, "POST");
+  assert.equal(init.body, "{}");
+  assert.equal(headers.get("Content-Type"), "application/json");
+  assert.equal(headers.get("X-Trace"), "trace-a");
+  assert.equal(headers.get("X-MAIS-Expected-User-Id"), "parent-a");
+});
+
+test("authentication and authorization boundaries trigger parent session revalidation", () => {
+  assert.equal(parentResponseRequiresSessionRevalidation(409, { code: "authenticated-user-changed" }), true);
+  assert.equal(parentResponseRequiresSessionRevalidation(401, {}), true);
+  assert.equal(parentResponseRequiresSessionRevalidation(403, {}), true);
+  assert.equal(parentResponseRequiresSessionRevalidation(409, { error: "idempotency conflict" }), false);
+  assert.equal(parentResponseRequiresSessionRevalidation(409, null), false);
+});
 
 test("bounded parent requests abort a hung fetch", async () => {
   const originalFetch = globalThis.fetch;

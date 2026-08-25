@@ -52,6 +52,7 @@ export type TeacherReportRequestKey = Readonly<{
 }>;
 
 export type TeacherReportPreviewLoadFailure =
+  | "authenticated-user-changed"
   | "not-found"
   | "service-unavailable"
   | "invalid-response"
@@ -108,8 +109,153 @@ export type TeacherReportPreviewLoadResult =
 
 export type TeacherReportPreviewFetcher = (
   input: string,
-  init: { cache: "no-store"; signal: AbortSignal }
+  init: {
+    cache: "no-store";
+    headers: Record<string, string>;
+    signal: AbortSignal;
+  }
 ) => Promise<Pick<Response, "ok" | "status" | "json">>;
+
+export type TeacherReportExportResult =
+  | { status: "ready"; response: Response }
+  | { status: "authenticated-user-changed" }
+  | { status: "aborted" }
+  | { status: "failed" }
+  | { status: "network-error" };
+
+export type TeacherReportExportFormat = "pdf" | "csv";
+
+export type TeacherReportExportIdentity = Readonly<{
+  id: string;
+  role: "teacher" | "admin";
+}>;
+
+export type TeacherReportExportFetcher = (
+  input: string,
+  init: {
+    cache: "no-store";
+    headers: Record<string, string>;
+    signal: AbortSignal;
+  }
+) => Promise<Response>;
+
+export function teacherReportExpectedUserHeaders(expectedTeacherId: string) {
+  return { "X-MAIS-Expected-User-Id": expectedTeacherId };
+}
+
+export async function requestTeacherReportExport({
+  fetcher,
+  url,
+  expectedTeacherId,
+  format,
+  signal
+}: {
+  fetcher: TeacherReportExportFetcher;
+  url: string;
+  expectedTeacherId: string;
+  format: TeacherReportExportFormat;
+  signal: AbortSignal;
+}): Promise<TeacherReportExportResult> {
+  try {
+    const response = await fetcher(url, {
+      cache: "no-store",
+      headers: teacherReportExpectedUserHeaders(expectedTeacherId),
+      signal
+    });
+    if (signal.aborted) return { status: "aborted" };
+    if (response.status === 409) return { status: "authenticated-user-changed" };
+    if (!response.ok) return { status: "failed" };
+    const mediaType = response.headers.get("Content-Type")?.split(";", 1)[0]?.trim().toLowerCase();
+    const expectedMediaType = format === "pdf" ? "application/pdf" : "text/csv";
+    if (mediaType !== expectedMediaType) return { status: "failed" };
+    return { status: "ready", response };
+  } catch (error) {
+    if (
+      signal.aborted ||
+      (typeof error === "object" && error !== null && "name" in error && error.name === "AbortError")
+    ) {
+      return { status: "aborted" };
+    }
+    return { status: "network-error" };
+  }
+}
+
+export function teacherReportExportIdentityMatches(
+  current: TeacherReportExportIdentity | null,
+  expected: TeacherReportExportIdentity
+) {
+  return current?.id === expected.id && current.role === expected.role;
+}
+
+export type TeacherReportExportDownloadResult =
+  | { status: "started" }
+  | { status: "identity-changed" }
+  | { status: "aborted" }
+  | { status: "failed" };
+
+export async function completeTeacherReportExportDownload({
+  response,
+  signal,
+  expectedIdentity,
+  currentIdentity,
+  fallbackFilename,
+  createObjectURL,
+  triggerDownload,
+  revokeObjectURL
+}: {
+  response: Pick<Response, "blob" | "headers">;
+  signal: AbortSignal;
+  expectedIdentity: TeacherReportExportIdentity;
+  currentIdentity: () => TeacherReportExportIdentity | null;
+  fallbackFilename: string;
+  createObjectURL: (blob: Blob) => string;
+  triggerDownload: (href: string, filename: string) => void;
+  revokeObjectURL: (href: string) => void;
+}): Promise<TeacherReportExportDownloadResult> {
+  const identityMatches = () => teacherReportExportIdentityMatches(currentIdentity(), expectedIdentity);
+  if (signal.aborted) return { status: "aborted" };
+  if (!identityMatches()) return { status: "identity-changed" };
+
+  let blob: Blob;
+  try {
+    blob = await response.blob();
+  } catch (error) {
+    if (
+      signal.aborted ||
+      (typeof error === "object" && error !== null && "name" in error && error.name === "AbortError")
+    ) {
+      return { status: "aborted" };
+    }
+    return { status: "failed" };
+  }
+  if (signal.aborted) return { status: "aborted" };
+  if (!identityMatches()) return { status: "identity-changed" };
+
+  const disposition = response.headers.get("Content-Disposition");
+  const dispositionFilename = disposition?.match(/filename="?([^";]+)"?/iu)?.[1];
+  const safeFilename = dispositionFilename
+    ?.split(/[\\/]/u)
+    .at(-1)
+    ?.replace(/[^a-zA-Z0-9._-]/gu, "_");
+  let objectUrl: string | null = null;
+  try {
+    objectUrl = createObjectURL(blob);
+    if (signal.aborted) {
+      revokeObjectURL(objectUrl);
+      return { status: "aborted" };
+    }
+    if (!identityMatches()) {
+      revokeObjectURL(objectUrl);
+      return { status: "identity-changed" };
+    }
+    triggerDownload(objectUrl, safeFilename || fallbackFilename);
+    revokeObjectURL(objectUrl);
+    return { status: "started" };
+  } catch {
+    if (objectUrl) revokeObjectURL(objectUrl);
+    return { status: "failed" };
+  }
+}
 
 export function teacherReportStudentsForClass(
   students: readonly TeacherReportTarget[],
@@ -361,7 +507,8 @@ export function teacherReportRequestKeysEqual(
 
 export function teacherReportRequestSearchParams(
   request: TeacherReportRequest,
-  format?: "pdf" | "csv"
+  format?: "pdf" | "csv",
+  expectedTeacherId?: string
 ): URLSearchParams {
   const params = new URLSearchParams({
     type: request.type,
@@ -373,6 +520,7 @@ export function teacherReportRequestSearchParams(
   if (request.assignmentId) params.set("assignmentId", request.assignmentId);
   if (request.assessmentId) params.set("assessmentId", request.assessmentId);
   if (format) params.set("format", format);
+  if (expectedTeacherId) params.set("expectedUserId", expectedTeacherId);
   return params;
 }
 
@@ -449,18 +597,25 @@ export async function loadTeacherReportPreview({
   fetcher,
   url,
   request,
+  expectedTeacherId,
   signal
 }: {
   fetcher: TeacherReportPreviewFetcher;
   url: string;
   request: TeacherReportRequest;
+  expectedTeacherId: string;
   signal: AbortSignal;
 }): Promise<TeacherReportPreviewLoadResult> {
   const requestKey = teacherReportRequestKey(request);
   try {
-    const response = await fetcher(url, { cache: "no-store", signal });
+    const response = await fetcher(url, {
+      cache: "no-store",
+      headers: teacherReportExpectedUserHeaders(expectedTeacherId),
+      signal
+    });
     if (signal.aborted) return { status: "aborted", requestKey };
     if (!response.ok) {
+      if (response.status === 409) return { status: "failed", reason: "authenticated-user-changed", requestKey };
       if (response.status === 404) return { status: "failed", reason: "not-found", requestKey };
       if (response.status === 503) return { status: "failed", reason: "service-unavailable", requestKey };
       return { status: "failed", reason: "http-error", requestKey };

@@ -48,6 +48,29 @@ test("parent write actions recover busy state and use a bounded request", () => 
   assert.match(parentRequestSource, /controller\.abort\(\)/, "the bounded request helper must abort timed-out fetches");
 });
 
+test("every parent client API request binds the current parent identity and revalidates only the auth-conflict response", () => {
+  assert.match(parentViewsSource, /currentUser, revalidateSession/);
+  assert.match(parentNoticesSource, /currentUser, revalidateSession/);
+  assert.equal(
+    (parentViewsSource.match(/parentExpectedUserRequestInit\(expectedParentId,/g) ?? []).length,
+    4,
+    "message reload, create, reply, and child-link must bind the captured parent"
+  );
+  assert.equal(
+    (parentNoticesSource.match(/parentExpectedUserRequestInit\(expectedParentId,/g) ?? []).length,
+    1,
+    "notice acknowledgement must bind the captured parent"
+  );
+  assert.equal(
+    (`${parentViewsSource}\n${parentNoticesSource}`.match(/parentResponseRequiresSessionRevalidation\(response\.status, payload\)/g) ?? []).length,
+    5,
+    "all client parent API paths must quarantine and revalidate a stable identity conflict"
+  );
+  assert.match(parentViewsSource, /const expectedParentId = currentUser\?\.role === "parent" \? currentUser\.id : "";/);
+  assert.match(parentNoticesSource, /const expectedParentId = currentUser\?\.role === "parent" \? currentUser\.id : "";/);
+  assert.match(`${parentViewsSource}\n${parentNoticesSource}`, /if \(parentResponseRequiresSessionRevalidation\(response\.status, payload\)\) \{[\s\S]*?void revalidateSession\(\);/);
+});
+
 test("thread navigation isolates drafts and prevents stale selection commits", () => {
   assert.match(parentViewsSource, /data-parent-messages-layout="three-panel"/);
   assert.match(parentViewsSource, /replyThreadRef\.current = selectedThreadId;[\s\S]*?setReply\(""\);[\s\S]*?replyAttemptRef\.current = null;/);
@@ -81,7 +104,10 @@ test("a linked report locks the compose form to its exact safe author target", (
 });
 
 test("external student navigation invalidates old reads and resolves from the matching server props", () => {
-  assert.match(parentViewsSource, /renderedNavigationContextKeyRef\.current = navigationContextKey/);
+  assert.match(
+    parentViewsSource,
+    /useLayoutEffect\(\(\) => \{\s*renderedNavigationContextKeyRef\.current = navigationContextKey;\s*\}, \[navigationContextKey\]\)/u
+  );
   assert.match(parentViewsSource, /threadSelectionGenerationRef\.current \+= 1;[\s\S]*?threadSelectionControllerRef\.current\?\.abort\(\);[\s\S]*?setSelectingThreadId\(""\)/);
   assert.match(parentViewsSource, /const nextReport = nextReportId \? initialData\.reports\.find/);
   assert.match(parentViewsSource, /const availableTargets = initialData\.composeTargets/);

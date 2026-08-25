@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ParentMotivationSummary } from "@/components/gamification/ParentMotivationSummary";
 import { useSettings } from "@/components/providers/AppProviders";
 import {
+  parentExpectedUserRequestInit,
   parentFetchWithTimeout,
   parentIdempotencyAttempt,
   parentLatestRequestIsCurrent,
   parentMessageContextKey,
   parentMessageHref,
   parentMessageOutcome,
+  parentResponseRequiresSessionRevalidation,
   parentReportPrefillSubject,
   parentWeekdayLabel,
   resolveParentComposeTarget,
@@ -400,7 +402,7 @@ function ChildWorkflowStrip({ child }: { child: ParentChildSummarySafe }) {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link href={`/parent/messages?${messageParams.toString()}`} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-            {t({ en: "Message teacher", zh: "聯絡教師" })}
+            {t({ en: "Message teacher", zh: "聯絡教師", zhHans: "联系教师" })}
           </Link>
           <Link href={`/parent/reports?${childParams.toString()}`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
             {t({ en: "Reports", zh: "報告" })}
@@ -596,7 +598,11 @@ export function ParentReportsView({ data }: { data: ParentReportSafeData }) {
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
               {selectedChild
                 ? t({ en: "Focused on the selected child. Open a report to turn teacher context into a parent-teacher question.", zh: "目前聚焦所選孩子。可把教師摘要直接轉成家校查詢。" })
-                : t({ en: "All linked children are shown. Use child filters to focus reports before messaging teachers.", zh: "目前顯示所有已綁定孩子。可先用孩子篩選聚焦摘要，再聯絡教師。" })}
+                : t({
+                    en: "All linked children are shown. Use child filters to focus reports before messaging teachers.",
+                    zh: "目前顯示所有已綁定孩子。可先用孩子篩選聚焦摘要，再聯絡教師。",
+                    zhHans: "目前显示所有已绑定孩子。可先用孩子筛选聚焦摘要，再联系教师。"
+                  })}
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-4 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-300">
@@ -652,7 +658,7 @@ function requestFailure(status?: number, retryAfter?: string | null) {
 export function ParentMessagesView({ initialData }: { initialData: ParentMessagesSafeData }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { language, t, text } = useSettings();
+  const { language, t, text, currentUser, revalidateSession } = useSettings();
   const [data, setData] = useState(initialData);
   const searchCategory = searchParams.get("category") as ParentMessageCategory | null;
   const initialCategory = searchCategory && initialData.categories.some((item) => item.id === searchCategory) ? searchCategory : "learning-support";
@@ -715,7 +721,9 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     subject: searchParams.get("subject")
   });
   const renderedNavigationContextKeyRef = useRef(navigationContextKey);
-  renderedNavigationContextKeyRef.current = navigationContextKey;
+  useLayoutEffect(() => {
+    renderedNavigationContextKeyRef.current = navigationContextKey;
+  }, [navigationContextKey]);
   const processedNavigationContextKeyRef = useRef(navigationContextKey);
   const dataRequestGenerationRef = useRef(0);
   const replyThreadRef = useRef(selectedThread?.id ?? "");
@@ -887,16 +895,28 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     expectedContextKey?: string;
     expectedDataGeneration?: number;
   } = {}) {
+    const expectedParentId = currentUser?.role === "parent" ? currentUser.id : "";
+    if (!expectedParentId) {
+      void revalidateSession();
+      throw requestFailure(409);
+    }
     const params = new URLSearchParams();
     if (studentId) params.set("studentId", studentId);
     if (threadId) params.set("thread", threadId);
     let response: Response;
     try {
-      response = await parentFetchWithTimeout(`/api/parent/messages${params.size ? `?${params.toString()}` : ""}`, { cache: "no-store", signal });
+      response = await parentFetchWithTimeout(
+        `/api/parent/messages${params.size ? `?${params.toString()}` : ""}`,
+        parentExpectedUserRequestInit(expectedParentId, { cache: "no-store", signal })
+      );
     } catch {
       throw requestFailure();
     }
-    const payload = await response.json().catch(() => null) as { data?: ParentMessagesSafeData } | null;
+    const payload = await response.json().catch(() => null) as { code?: string; data?: ParentMessagesSafeData } | null;
+    if (parentResponseRequiresSessionRevalidation(response.status, payload)) {
+      void revalidateSession();
+      throw requestFailure(response.status);
+    }
     if (!response.ok) throw requestFailure(response.status, response.headers.get("Retry-After"));
     if (!payload?.data) throw requestFailure();
     if (renderedNavigationContextKeyRef.current !== expectedContextKey) return null;
@@ -957,6 +977,11 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     const trimmedSubject = subject.trim();
     const trimmedBody = body.trim();
     if (!composeStudentId || !effectiveClassId || !trimmedSubject || !trimmedBody || isSending) return;
+    const expectedParentId = currentUser?.role === "parent" ? currentUser.id : "";
+    if (!expectedParentId) {
+      void revalidateSession();
+      return;
+    }
     const expectedContextKey = renderedNavigationContextKeyRef.current;
     const expectedDataGeneration = dataRequestGenerationRef.current + 1;
     dataRequestGenerationRef.current = expectedDataGeneration;
@@ -984,7 +1009,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     try {
       let response: Response;
       try {
-        response = await parentFetchWithTimeout("/api/parent/messages", {
+        response = await parentFetchWithTimeout("/api/parent/messages", parentExpectedUserRequestInit(expectedParentId, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -996,11 +1021,15 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
             subject: trimmedSubject,
             body: trimmedBody
           })
-        });
+        }));
       } catch {
         throw requestFailure();
       }
-      const payload = await response.json().catch(() => null) as { thread?: { id: string } } | null;
+      const payload = await response.json().catch(() => null) as { code?: string; thread?: { id: string } } | null;
+      if (parentResponseRequiresSessionRevalidation(response.status, payload)) {
+        void revalidateSession();
+        throw requestFailure(response.status);
+      }
       if (!response.ok) throw requestFailure(response.status, response.headers.get("Retry-After"));
       if (!payload?.thread?.id) throw requestFailure();
       if (!actionIsCurrent()) return;
@@ -1033,6 +1062,11 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
   async function sendReply() {
     const trimmedReply = reply.trim();
     if (!selectedThread || !trimmedReply || isReplying || selectingThreadId) return;
+    const expectedParentId = currentUser?.role === "parent" ? currentUser.id : "";
+    if (!expectedParentId) {
+      void revalidateSession();
+      return;
+    }
     const expectedContextKey = renderedNavigationContextKeyRef.current;
     const expectedDataGeneration = dataRequestGenerationRef.current + 1;
     dataRequestGenerationRef.current = expectedDataGeneration;
@@ -1052,15 +1086,19 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     try {
       let response: Response;
       try {
-        response = await parentFetchWithTimeout(`/api/parent/messages/${encodeURIComponent(selectedThread.id)}/reply`, {
+        response = await parentFetchWithTimeout(`/api/parent/messages/${encodeURIComponent(selectedThread.id)}/reply`, parentExpectedUserRequestInit(expectedParentId, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ body: trimmedReply, idempotencyKey })
-        });
+        }));
       } catch {
         throw requestFailure();
       }
-      const payload = await response.json().catch(() => null) as { entryId?: string } | null;
+      const payload = await response.json().catch(() => null) as { code?: string; entryId?: string } | null;
+      if (parentResponseRequiresSessionRevalidation(response.status, payload)) {
+        void revalidateSession();
+        throw requestFailure(response.status);
+      }
       if (!response.ok) throw requestFailure(response.status, response.headers.get("Retry-After"));
       if (!payload?.entryId) throw requestFailure();
       if (!actionIsCurrent()) return;
@@ -1181,9 +1219,10 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
               ))}
             </div>
             <div className="mt-5 grid gap-3">
-              <label className="grid min-w-0 gap-2">
+              <label className="grid min-w-0 gap-2" htmlFor="parent-message-reply">
                 <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Reply", zh: "回覆", zhHans: "回复" })}</span>
                 <textarea
+                  id="parent-message-reply"
                   value={reply}
                   onChange={(event) => setReply(event.target.value)}
                   disabled={Boolean(selectingThreadId)}
@@ -1207,7 +1246,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
       </section>
 
       <aside className="glass-panel min-w-0 overflow-hidden p-4">
-        <h2 id="parent-ask-teacher-heading" className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Ask teacher", zh: "聯絡教師" })}</h2>
+        <h2 id="parent-ask-teacher-heading" className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Ask teacher", zh: "聯絡教師", zhHans: "联系教师" })}</h2>
         <div className="mt-3 flex flex-wrap gap-2">
           {messageTemplates.map((template) => (
             <button
@@ -1351,7 +1390,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
 
 export function ParentConnectView() {
   const router = useRouter();
-  const { t } = useSettings();
+  const { t, currentUser, revalidateSession } = useSettings();
   const [inviteCode, setInviteCode] = useState("");
   const [relationship, setRelationship] = useState<GuardianRelationship>("guardian");
   const [feedback, setFeedback] = useState<ParentActionFeedback | null>(null);
@@ -1379,18 +1418,28 @@ export function ParentConnectView() {
   async function connect(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!inviteCode.trim() || isConnecting) return;
+    const expectedParentId = currentUser?.role === "parent" ? currentUser.id : "";
+    if (!expectedParentId) {
+      void revalidateSession();
+      return;
+    }
     setFeedback(null);
     setIsConnecting(true);
     try {
       let response: Response;
       try {
-        response = await parentFetchWithTimeout("/api/parent/children/link", {
+        response = await parentFetchWithTimeout("/api/parent/children/link", parentExpectedUserRequestInit(expectedParentId, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ inviteCode: inviteCode.trim(), relationship })
-        });
+        }));
       } catch {
         setFeedback(linkFailure());
+        return;
+      }
+      const payload = await response.json().catch(() => null) as { code?: string } | null;
+      if (parentResponseRequiresSessionRevalidation(response.status, payload)) {
+        void revalidateSession();
         return;
       }
       if (!response.ok) {

@@ -1,9 +1,8 @@
-import { cookies } from "next/headers";
 import { unstable_cache } from "next/cache";
 import { redirect } from "next/navigation";
 import { cache } from "react";
-import { SESSION_COOKIE_NAME } from "@/lib/session";
 import { getInternalFastNoClassTeacherShellByUserId } from "@/lib/server/internalCaliforniaFastLogin";
+import { getAuthenticatedRequestSession } from "@/lib/server/requestSession";
 import { emptyTeacherFoundationData } from "./emptyTeacherData";
 import type { StudentSession } from "@/types";
 
@@ -35,10 +34,7 @@ const cachedTeacherFoundationDataByUserId = unstable_cache(
 );
 
 export const getTeacherAuthenticationForPage = cache(async () => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  const { getAuthenticatedUserFromToken } = await import("@/lib/server/auth");
-  const authenticated = await getAuthenticatedUserFromToken(token);
+  const authenticated = await getAuthenticatedRequestSession();
 
   if (!authenticated) {
     redirect("/login?next=/teacher/dashboard");

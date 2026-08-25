@@ -6,17 +6,21 @@ import { useSettings } from "@/components/providers/AppProviders";
 import { TeacherReportsBackToTopButton } from "@/components/teacher/TeacherReportsBackToTopButton";
 import {
   buildTeacherReportRequest,
+  completeTeacherReportExportDownload,
   hasTeacherReportTarget,
   initialTeacherReportTarget,
   loadTeacherReportPreview,
+  requestTeacherReportExport,
   reduceTeacherReportFormState,
   teacherReportAssessmentsForClass,
   teacherReportAssignmentsForClass,
+  teacherReportExportIdentityMatches,
   teacherReportRequestKey,
   teacherReportRequestSearchParams,
   teacherReportPreviewMatchesRequest,
   teacherReportStudentsForClass,
   visibleTeacherReportPreview,
+  type TeacherReportExportIdentity,
   type TeacherReportFormState
 } from "@/components/teacher/teacherReportFormState";
 import { textForLanguage } from "@/lib/i18n";
@@ -129,7 +133,23 @@ function ReportList({ title, items }: { title: string; items: string[] }) {
 }
 
 export function TeacherReportsView({ reports }: { reports: TeacherReportsData }) {
-  const { currentUser, language: appLanguage, t, text } = useSettings();
+  const { currentUser, language: appLanguage, revalidateSession, t, text } = useSettings();
+  const expectedTeacherIdRef = useRef(
+    currentUser?.role === "teacher" || currentUser?.role === "admin"
+      ? currentUser.id
+      : null
+  );
+  const expectedTeacherRoleRef = useRef<"teacher" | "admin" | null>(
+    currentUser?.role === "teacher" || currentUser?.role === "admin"
+      ? currentUser.role
+      : null
+  );
+  const expectedTeacherId = expectedTeacherIdRef.current;
+  const expectedTeacherRole = expectedTeacherRoleRef.current;
+  const liveTeacherIdentityRef = useRef<TeacherReportExportIdentity | null>(null);
+  liveTeacherIdentityRef.current = currentUser?.role === "teacher" || currentUser?.role === "admin"
+    ? { id: currentUser.id, role: currentUser.role }
+    : null;
   const appReportLanguage = reportLanguageForApp(appLanguage);
   const reportsHeading = currentUser?.curriculumProfile?.region === "US"
     ? { en: "Learning reports", zh: "學習報告" }
@@ -170,6 +190,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   const { target, previewState } = formState;
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState<"pdf" | "csv" | null>(null);
   const [saveMessage, setSaveMessage] = useState("");
   const [reportHistory, setReportHistory] = useState(reports.reportHistory);
   const [latestSavedReportId, setLatestSavedReportId] = useState<string | null>(null);
@@ -177,7 +198,26 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   const previousRequestedClassIdRef = useRef(requestedClassId);
   const latestReportTypeRef = useRef(type);
   const previewGenerationRef = useRef(0);
+  const activeExportControllerRef = useRef<AbortController | null>(null);
   latestReportTypeRef.current = type;
+
+  useEffect(() => {
+    const expectedIdentity = expectedTeacherId && expectedTeacherRole
+      ? { id: expectedTeacherId, role: expectedTeacherRole }
+      : null;
+    if (
+      activeExportControllerRef.current &&
+      (!expectedIdentity || !teacherReportExportIdentityMatches(liveTeacherIdentityRef.current, expectedIdentity))
+    ) {
+      activeExportControllerRef.current.abort();
+    }
+  }, [currentUser?.id, currentUser?.role, expectedTeacherId, expectedTeacherRole]);
+
+  useEffect(() => () => {
+    activeExportControllerRef.current?.abort();
+    activeExportControllerRef.current = null;
+  }, []);
+
   // The shell's "Class focus" navigates client-side without remounting this view,
   // so follow actual param changes. Catalog refreshes preserve a still-owned
   // manual class selection and report-type changes do not run this effect.
@@ -216,13 +256,19 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     ? visibleTeacherReportPreview(formState, reportRequest)
     : null;
   const csvUrl = useMemo(
-    () => `/api/teacher/report-exports?${teacherReportRequestSearchParams(reportRequest, "csv").toString()}`,
-    [reportRequest]
+    () => expectedTeacherId
+      ? `/api/teacher/report-exports?${teacherReportRequestSearchParams(reportRequest, "csv", expectedTeacherId).toString()}`
+      : null,
+    [expectedTeacherId, reportRequest]
   );
   const pdfUrl = useMemo(
-    () => `/api/teacher/report-exports?${teacherReportRequestSearchParams(reportRequest, "pdf").toString()}`,
-    [reportRequest]
+    () => expectedTeacherId
+      ? `/api/teacher/report-exports?${teacherReportRequestSearchParams(reportRequest, "pdf", expectedTeacherId).toString()}`
+      : null,
+    [expectedTeacherId, reportRequest]
   );
+  const pdfDownloadFilename = `${reportRequest.type}-report.pdf`;
+  const csvDownloadFilename = `${reportRequest.type}-report.csv`;
 
   function clearPreviewFor(nextType: TeacherReportType) {
     setFormState((current) => reduceTeacherReportFormState(current, {
@@ -242,22 +288,127 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   }
 
   async function saveReport() {
+    if (!expectedTeacherId) return;
     setIsSaving(true);
     setSaveMessage("");
-    const response = await fetch("/api/teacher/saved-reports", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(reportRequest)
-    });
-    const payload = await response.json().catch(() => null) as { report?: TeacherReport } | null;
-    setIsSaving(false);
-    if (response.ok && payload?.report) {
-      setReportHistory((current) => [payload.report!, ...current.filter((report) => report.id !== payload.report!.id)].slice(0, 12));
-      setLatestSavedReportId(payload.report.id);
-      setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。" }));
+    try {
+      const response = await fetch("/api/teacher/saved-reports", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedTeacherId
+        },
+        body: JSON.stringify({ ...reportRequest, expectedUserId: expectedTeacherId })
+      });
+      if (response.status === 409) {
+        setSaveMessage(t({ en: "The signed-in teacher changed. Rechecking this session.", zh: "登入的教師帳戶已變更，正在重新核實工作階段。" }));
+        await revalidateSession();
+        return;
+      }
+      const payload = await response.json().catch(() => null) as { report?: TeacherReport } | null;
+      if (response.ok && payload?.report) {
+        setReportHistory((current) => [payload.report!, ...current.filter((report) => report.id !== payload.report!.id)].slice(0, 12));
+        setLatestSavedReportId(payload.report.id);
+        setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。" }));
+        return;
+      }
+      setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。" }));
+    } catch {
+      setSaveMessage(t({ en: "The report save request did not complete. Try again.", zh: "報告儲存請求未能完成，請重試。" }));
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  async function exportReport(format: "pdf" | "csv", url: string | null) {
+    if (!expectedTeacherId || !expectedTeacherRole || !url || isExporting) return;
+    const expectedIdentity: TeacherReportExportIdentity = {
+      id: expectedTeacherId,
+      role: expectedTeacherRole
+    };
+    if (!teacherReportExportIdentityMatches(liveTeacherIdentityRef.current, expectedIdentity)) {
+      setSaveMessage(t({ en: "The signed-in teacher changed. Rechecking this session.", zh: "登入的教師帳戶已變更，正在重新核實工作階段。" }));
+      await revalidateSession();
       return;
     }
-    setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。" }));
+
+    const controller = new AbortController();
+    activeExportControllerRef.current?.abort();
+    activeExportControllerRef.current = controller;
+    setIsExporting(format);
+    setSaveMessage("");
+    try {
+      const exportResult = await requestTeacherReportExport({
+        fetcher: fetch,
+        url,
+        expectedTeacherId,
+        format,
+        signal: controller.signal
+      });
+      if (exportResult.status === "authenticated-user-changed") {
+        setSaveMessage(t({ en: "The signed-in teacher changed. Rechecking this session.", zh: "登入的教師帳戶已變更，正在重新核實工作階段。" }));
+        await revalidateSession();
+        return;
+      }
+      if (exportResult.status === "aborted") {
+        if (!teacherReportExportIdentityMatches(liveTeacherIdentityRef.current, expectedIdentity)) {
+          setSaveMessage(t({ en: "The signed-in teacher changed. Rechecking this session.", zh: "登入的教師帳戶已變更，正在重新核實工作階段。" }));
+          await revalidateSession();
+        }
+        return;
+      }
+      if (exportResult.status !== "ready") {
+        setSaveMessage(t({ en: "Could not export this report yet.", zh: "暫時未能匯出此報告。" }));
+        return;
+      }
+
+      const { response } = exportResult;
+      const disposition = response.headers.get("Content-Disposition");
+      const dispositionFilename = disposition?.match(/filename="?([^";]+)"?/iu)?.[1];
+      const safeFilename = dispositionFilename
+        ?.split(/[\\/]/u)
+        .at(-1)
+        ?.replace(/[^a-zA-Z0-9._-]/gu, "_");
+      const downloadResult = await completeTeacherReportExportDownload({
+        response,
+        signal: controller.signal,
+        expectedIdentity,
+        currentIdentity: () => liveTeacherIdentityRef.current,
+        fallbackFilename: safeFilename || `${reportRequest.type}-report-${new Date().toISOString().slice(0, 10)}.${format}`,
+        createObjectURL: (blob) => URL.createObjectURL(blob),
+        triggerDownload: (href, filename) => {
+          const download = document.createElement("a");
+          download.href = href;
+          download.download = filename;
+          download.hidden = true;
+          document.body.appendChild(download);
+          download.click();
+          download.remove();
+        },
+        revokeObjectURL: (href) => window.setTimeout(() => URL.revokeObjectURL(href), 0)
+      });
+      if (downloadResult.status === "identity-changed") {
+        controller.abort();
+        setSaveMessage(t({ en: "The signed-in teacher changed. Rechecking this session.", zh: "登入的教師帳戶已變更，正在重新核實工作階段。" }));
+        await revalidateSession();
+        return;
+      }
+      if (downloadResult.status === "aborted") return;
+      if (downloadResult.status !== "started") {
+        setSaveMessage(t({ en: "Could not export this report yet.", zh: "暫時未能匯出此報告。" }));
+        return;
+      }
+      setSaveMessage(t({ en: "Report export started.", zh: "報告匯出已開始。" }));
+    } catch {
+      if (!controller.signal.aborted) {
+        setSaveMessage(t({ en: "The report export request did not complete. Try again.", zh: "報告匯出請求未能完成，請重試。" }));
+      }
+    } finally {
+      if (activeExportControllerRef.current === controller) {
+        activeExportControllerRef.current = null;
+        setIsExporting(null);
+      }
+    }
   }
 
   useEffect(() => {
@@ -287,6 +438,11 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       setIsLoading(false);
       return () => controller.abort();
     }
+    if (!expectedTeacherId) {
+      setIsLoading(false);
+      return () => controller.abort();
+    }
+    const requestExpectedTeacherId = expectedTeacherId;
 
     const requestKey = teacherReportRequestKey(reportRequest);
     const generation = ++previewGenerationRef.current;
@@ -300,11 +456,16 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       try {
         const result = await loadTeacherReportPreview({
           fetcher: fetch,
-          url: `/api/teacher/report-previews?${teacherReportRequestSearchParams(reportRequest).toString()}`,
+          url: `/api/teacher/report-previews?${teacherReportRequestSearchParams(reportRequest, undefined, requestExpectedTeacherId).toString()}`,
           request: reportRequest,
+          expectedTeacherId: requestExpectedTeacherId,
           signal: controller.signal
         });
         if (result.status === "aborted") return;
+        if (result.status === "failed" && result.reason === "authenticated-user-changed") {
+          await revalidateSession();
+          return;
+        }
         if (result.status === "loaded") {
           setFormState((current) => reduceTeacherReportFormState(current, {
             type: "preview-load-succeeded",
@@ -330,7 +491,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       window.clearTimeout(previewTimer);
       controller.abort();
     };
-  }, [hasExportTarget, reportCatalog, reportRequest, reports.defaultPreview, type]);
+  }, [expectedTeacherId, hasExportTarget, reportCatalog, reportRequest, reports.defaultPreview, revalidateSession, type]);
 
   return (
     <div className="grid gap-7">
@@ -417,13 +578,19 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
           }} rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
         </label>
         <div className="mt-4 flex flex-wrap gap-3">
-          {hasExportTarget ? (
+          {hasExportTarget && pdfUrl && csvUrl ? (
             <>
-              <a href={pdfUrl} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-                {t({ en: "Export PDF", zh: "匯出 PDF" })}
+              <a href={pdfUrl} download={pdfDownloadFilename} aria-disabled={isExporting !== null} onClick={(event) => {
+                event.preventDefault();
+                void exportReport("pdf", pdfUrl);
+              }} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white aria-disabled:opacity-50 dark:bg-white dark:text-slate-950">
+                {isExporting === "pdf" ? t({ en: "Exporting PDF", zh: "正在匯出 PDF" }) : t({ en: "Export PDF", zh: "匯出 PDF" })}
               </a>
-              <a href={csvUrl} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
-                {t({ en: "Export CSV", zh: "匯出 CSV" })}
+              <a href={csvUrl} download={csvDownloadFilename} aria-disabled={isExporting !== null} onClick={(event) => {
+                event.preventDefault();
+                void exportReport("csv", csvUrl);
+              }} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black aria-disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
+                {isExporting === "csv" ? t({ en: "Exporting CSV", zh: "正在匯出 CSV" }) : t({ en: "Export CSV", zh: "匯出 CSV" })}
               </a>
             </>
           ) : (
@@ -436,7 +603,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
               </button>
             </>
           )}
-          <button type="button" onClick={saveReport} disabled={isSaving || isLoading || !hasExportTarget} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
+          <button type="button" onClick={saveReport} disabled={isSaving || isLoading || isExporting !== null || !hasExportTarget || !expectedTeacherId} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
             {isSaving ? t({ en: "Saving", zh: "儲存中" }) : t({ en: "Save report", zh: "儲存報告" })}
           </button>
           {isLoading ? <span className="self-center text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Updating", zh: "更新中" })}</span> : null}

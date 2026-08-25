@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { parentFetchWithTimeout } from "@/components/parent/parentMessageUi";
+import {
+  parentExpectedUserRequestInit,
+  parentFetchWithTimeout,
+  parentResponseRequiresSessionRevalidation
+} from "@/components/parent/parentMessageUi";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatDateInHongKong } from "@/lib/utils";
 import type { Language, ParentNoticeRecipientSafe, ParentNoticeSafeData } from "@/types";
@@ -37,7 +41,7 @@ function recipientMatchesFilter(recipient: ParentNoticeRecipientSafe | null, fil
 export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNoticeSafeData; targetRecipientId?: string | null }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { language, t, text } = useSettings();
+  const { language, t, text, currentUser, revalidateSession } = useSettings();
   const [feedback, setFeedback] = useState<{ kind: "status" | "error"; text: string } | null>(null);
   const [filter, setFilter] = useState<NoticeFilter>("all");
   const [acknowledgingId, setAcknowledgingId] = useState("");
@@ -74,17 +78,29 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
 
   async function acknowledge(recipientId: string) {
     if (acknowledgingId) return;
+    const expectedParentId = currentUser?.role === "parent" ? currentUser.id : "";
+    if (!expectedParentId) {
+      void revalidateSession();
+      return;
+    }
     setAcknowledgingId(recipientId);
     setFeedback(null);
     try {
       let response: Response;
       try {
-        response = await parentFetchWithTimeout(`/api/parent/notices/${encodeURIComponent(recipientId)}/ack`, { method: "POST" });
+        response = await parentFetchWithTimeout(
+          `/api/parent/notices/${encodeURIComponent(recipientId)}/ack`,
+          parentExpectedUserRequestInit(expectedParentId, { method: "POST" })
+        );
       } catch {
         setFeedback({ kind: "error", text: t({ en: "The connection ended before confirmation. Check your network and try again.", zh: "連線在確認回執前中斷，請檢查網絡後再試。", zhHans: "连接在确认回执前中断，请检查网络后重试。" }) });
         return;
       }
-      const payload = await response.json().catch(() => null) as { receipt?: { recipientId?: string; status?: string } } | null;
+      const payload = await response.json().catch(() => null) as { code?: string; receipt?: { recipientId?: string; status?: string } } | null;
+      if (parentResponseRequiresSessionRevalidation(response.status, payload)) {
+        void revalidateSession();
+        return;
+      }
       if (!response.ok) {
         if (response.status === 400) {
           setFeedback({ kind: "error", text: t({ en: "This receipt request is invalid and was not confirmed.", zh: "此回執要求無效，尚未確認。", zhHans: "此回执请求无效，尚未确认。" }) });

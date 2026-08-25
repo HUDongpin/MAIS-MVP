@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { ReactNode } from "react";
+import { useTransition, type MouseEvent, type ReactNode } from "react";
 import { ParentNavIcon, type ParentNavIconName } from "@/components/parent/parentNavIcons";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel, formatLearnerName } from "@/lib/i18n";
@@ -58,6 +58,7 @@ export function ParentShell({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language, t } = useSettings();
+  const [isNavigating, startNavigation] = useTransition();
   const detailStudentId = childIdFromDetailPath(pathname);
   const routeStudentId = detailStudentId && linkedChildren.some((child) => child.student.id === detailStudentId) ? detailStudentId : null;
   const selectedStudentId = routeStudentId ?? searchParams.get("studentId") ?? linkedChildren[0]?.student.id ?? "";
@@ -66,7 +67,7 @@ export function ParentShell({
   const switchChild = (studentId: string) => {
     if (!studentId) return;
     if (pathname.startsWith("/parent/children/")) {
-      router.push(`/parent/children/${encodeURIComponent(studentId)}`);
+      startNavigation(() => router.push(`/parent/children/${encodeURIComponent(studentId)}`));
       return;
     }
     const params = new URLSearchParams(searchParams.toString());
@@ -76,14 +77,31 @@ export function ParentShell({
       params.delete("reportId");
       params.delete("subject");
     }
-    router.push(params.toString() ? `${pathname}?${params.toString()}` : pathname);
+    startNavigation(() => router.push(params.toString() ? `${pathname}?${params.toString()}` : pathname));
+  };
+
+  const navigateFromLink = (href: string, event: MouseEvent<HTMLAnchorElement>) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) return;
+    event.preventDefault();
+    startNavigation(() => router.push(href));
   };
 
   return (
     <div className="page-container py-5 sm:py-7" data-parent-shell>
       <header className="glass-panel overflow-hidden p-3 sm:p-4">
         <div className="grid gap-4 px-1 sm:px-2 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-end">
-          <Link href={overviewHref} className="focus-ring block rounded-2xl px-2 py-2 transition hover:bg-slate-950/[0.03] dark:hover:bg-white/[0.05]">
+          <Link
+            href={overviewHref}
+            onClick={(event) => navigateFromLink(overviewHref, event)}
+            className="focus-ring block rounded-2xl px-2 py-2 transition hover:bg-slate-950/[0.03] dark:hover:bg-white/[0.05]"
+          >
             <p className="text-xs font-black tracking-[0.08em] text-cyan-600 dark:text-cyan-300">
               {t({ en: "Family space", zh: "家庭空間", zhHans: "家庭空间" })}
             </p>
@@ -93,11 +111,12 @@ export function ParentShell({
             </p>
           </Link>
 
-          <label className="grid gap-2 px-2 py-1">
+          <label className="grid gap-2 px-2 py-1" htmlFor="parent-child-focus">
             <span className="text-xs font-black tracking-[0.08em] text-cyan-600 dark:text-cyan-300">
               {t({ en: "Child focus", zh: "孩子焦點", zhHans: "孩子焦点" })}
             </span>
             <select
+              id="parent-child-focus"
               value={selectedStudentId}
               onChange={(event) => switchChild(event.target.value)}
               className="focus-ring h-11 min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-3 text-sm font-bold text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
@@ -125,6 +144,7 @@ export function ParentShell({
                 <Link
                   key={item.href}
                   href={href}
+                  onClick={(event) => navigateFromLink(href, event)}
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "focus-ring flex min-h-11 items-center gap-2 rounded-2xl border px-4 py-2.5 text-sm font-black transition",
@@ -142,7 +162,21 @@ export function ParentShell({
         </nav>
       </header>
 
-      <div className="mt-5 min-w-0">{childrenContent}</div>
+      <div
+        className={cn(
+          "mt-3 min-h-6 px-2 text-sm font-semibold text-cyan-700 dark:text-cyan-200",
+          isNavigating ? "visible" : "invisible"
+        )}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {isNavigating
+          ? t({ en: "Loading family view…", zh: "正在載入家庭頁面…", zhHans: "正在加载家庭页面…" })
+          : ""}
+      </div>
+
+      <div className="mt-2 min-w-0" aria-busy={isNavigating}>{childrenContent}</div>
     </div>
   );
 }

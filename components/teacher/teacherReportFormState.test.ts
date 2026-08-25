@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
 
 const catalog = {
@@ -246,6 +248,174 @@ test("preview, save, PDF and CSV derive the same stable classId and studentId", 
     assert.equal(target.get("classId"), "class-b", `${channel} classId`);
     assert.equal(target.get("studentId"), "student-b", `${channel} studentId`);
   }
+});
+
+test("preview and export requests bind the captured teacher identity in headers and query constraints", async () => {
+  const module = await loadFormState();
+  const loadTeacherReportPreview = requireFunction(module, "loadTeacherReportPreview");
+  const teacherReportRequestKey = requireFunction(module, "teacherReportRequestKey");
+  const teacherReportRequestSearchParams = requireFunction(module, "teacherReportRequestSearchParams");
+  const request = parentSummaryRequest();
+  const expectedTeacherId = "teacher-old-document";
+  let observedInit: { headers?: Record<string, string> } | undefined;
+
+  const result = await loadTeacherReportPreview({
+    fetcher: async (_url: string, init: { headers?: Record<string, string> }) => {
+      observedInit = init;
+      return new Response(JSON.stringify({ error: "changed" }), { status: 409 });
+    },
+    url: "https://example.test/api/teacher/report-previews",
+    request,
+    expectedTeacherId,
+    signal: new AbortController().signal
+  });
+
+  assert.deepEqual(observedInit?.headers, {
+    "X-MAIS-Expected-User-Id": expectedTeacherId
+  });
+  assert.deepEqual(result, {
+    status: "failed",
+    reason: "authenticated-user-changed",
+    requestKey: teacherReportRequestKey(request)
+  });
+  assert.equal(
+    teacherReportRequestSearchParams(request, "pdf", expectedTeacherId).get("expectedUserId"),
+    expectedTeacherId
+  );
+});
+
+test("report export requests freeze the captured identity and classify a 409 before any download", async () => {
+  const module = await loadFormState();
+  const requestTeacherReportExport = requireFunction(module, "requestTeacherReportExport");
+  const expectedTeacherId = "teacher-old-document";
+  const controller = new AbortController();
+  let observedUrl = "";
+  let observedInit: { cache?: string; headers?: Record<string, string>; signal?: AbortSignal } | undefined;
+
+  const result = await requestTeacherReportExport({
+    fetcher: async (url: string, init: { cache?: string; headers?: Record<string, string>; signal?: AbortSignal }) => {
+      observedUrl = url;
+      observedInit = init;
+      return new Response(JSON.stringify({
+        code: "authenticated-user-changed",
+        error: "The authenticated user changed. Reload before retrying."
+      }), { status: 409 });
+    },
+    url: "/api/teacher/report-exports?format=pdf&expectedUserId=teacher-old-document",
+    expectedTeacherId,
+    format: "pdf",
+    signal: controller.signal
+  });
+
+  assert.equal(observedUrl, "/api/teacher/report-exports?format=pdf&expectedUserId=teacher-old-document");
+  assert.deepEqual(observedInit, {
+    cache: "no-store",
+    headers: { "X-MAIS-Expected-User-Id": expectedTeacherId },
+    signal: controller.signal
+  });
+  assert.deepEqual(result, { status: "authenticated-user-changed" });
+});
+
+test("report export requests reject successful responses with the wrong MIME type", async () => {
+  const module = await loadFormState();
+  const requestTeacherReportExport = requireFunction(module, "requestTeacherReportExport");
+
+  for (const contract of [
+    { format: "pdf", validMime: "application/pdf", wrongMime: "text/csv; charset=utf-8" },
+    { format: "csv", validMime: "text/csv; charset=utf-8", wrongMime: "application/pdf" }
+  ] as const) {
+    const signal = new AbortController().signal;
+    const request = (contentType: string) => requestTeacherReportExport({
+      fetcher: async () => new Response("report", {
+        status: 200,
+        headers: { "Content-Type": contentType }
+      }),
+      url: `/api/teacher/report-exports?format=${contract.format}&expectedUserId=teacher-old-document`,
+      expectedTeacherId: "teacher-old-document",
+      format: contract.format,
+      signal
+    });
+
+    assert.equal((await request(contract.validMime)).status, "ready", `${contract.format} valid MIME`);
+    assert.deepEqual(await request(contract.wrongMime), { status: "failed" }, `${contract.format} wrong MIME`);
+    assert.deepEqual(await request("application/json"), { status: "failed" }, `${contract.format} JSON MIME`);
+  }
+});
+
+test("a delayed export blob cannot create an object URL or click after the teacher identity changes", async () => {
+  const module = await loadFormState();
+  const completeTeacherReportExportDownload = requireFunction(module, "completeTeacherReportExportDownload");
+  const expectedIdentity = { id: "teacher-old-document", role: "teacher" as const };
+  let currentIdentity: { id: string; role: "teacher" | "admin" } | null = expectedIdentity;
+  let objectUrlCount = 0;
+  let clickCount = 0;
+  const controller = new AbortController();
+  const identityTimer = setTimeout(() => {
+    currentIdentity = { id: "teacher-new-document", role: "teacher" };
+  }, 210);
+
+  const result = await completeTeacherReportExportDownload({
+    response: {
+      headers: new Headers({ "Content-Disposition": 'attachment; filename="student-report.pdf"' }),
+      blob: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 230));
+        return new Blob(["pdf"], { type: "application/pdf" });
+      }
+    },
+    signal: controller.signal,
+    expectedIdentity,
+    currentIdentity: () => currentIdentity,
+    fallbackFilename: "student-report.pdf",
+    createObjectURL: () => {
+      objectUrlCount += 1;
+      return "blob:teacher-report";
+    },
+    triggerDownload: () => {
+      clickCount += 1;
+    },
+    revokeObjectURL: () => undefined
+  });
+  clearTimeout(identityTimer);
+
+  assert.deepEqual(result, { status: "identity-changed" });
+  assert.equal(objectUrlCount, 0);
+  assert.equal(clickCount, 0);
+});
+
+test("teacher report view captures one teacher identity and revalidates every 409 channel", async () => {
+  const source = await readFile(path.join(process.cwd(), "components/teacher/TeacherReportsView.tsx"), "utf8");
+
+  assert.match(source, /expectedTeacherIdRef = useRef\([\s\S]{0,160}currentUser\?\.role === "teacher"/u);
+  assert.match(source, /currentUser\?\.role === "admin"/u, "admin teacher-area access must not regress");
+  assert.match(source, /teacherReportRequestSearchParams\(reportRequest, "csv", expectedTeacherId\)/u);
+  assert.match(source, /teacherReportRequestSearchParams\(reportRequest, "pdf", expectedTeacherId\)/u);
+  assert.match(source, /expectedTeacherId,[\s\S]*loadTeacherReportPreview/u);
+  assert.match(source, /"X-MAIS-Expected-User-Id": expectedTeacherId/u);
+  assert.match(source, /expectedUserId:\s*expectedTeacherId/u);
+  assert.match(
+    source,
+    /<a href=\{pdfUrl\} download=\{pdfDownloadFilename\}[\s\S]{0,220}onClick=\{\(event\)[\s\S]{0,180}exportReport\("pdf", pdfUrl\)/u,
+    "PDF export must expose href + download and retain its guarded click path"
+  );
+  assert.match(
+    source,
+    /<a href=\{csvUrl\} download=\{csvDownloadFilename\}[\s\S]{0,220}onClick=\{\(event\)[\s\S]{0,180}exportReport\("csv", csvUrl\)/u,
+    "CSV export must expose href + download and retain its guarded click path"
+  );
+  assert.match(source, /Content-Disposition/u, "fetch-based export must preserve the server filename");
+  assert.match(source, /activeExportControllerRef/u, "every export must own an abort controller");
+  assert.match(source, /liveTeacherIdentityRef/u, "downloads must compare against the live account identity");
+  assert.match(source, /completeTeacherReportExportDownload\(/u, "blob completion must retain the identity guard");
+  assert.ok(
+    (source.match(/authenticated-user-changed[\s\S]{0,240}revalidateSession\(\)/gu)?.length ?? 0) >= 1,
+    "preview identity conflicts must quarantine through session revalidation"
+  );
+  assert.match(source, /response\.status === 409[\s\S]{0,240}revalidateSession\(\)/u, "save 409 must revalidate");
+  assert.match(
+    source,
+    /exportResult\.status === "authenticated-user-changed"[\s\S]{0,240}revalidateSession\(\)/u,
+    "export 409 must revalidate before any download"
+  );
 });
 
 test("request building preserves the selected class and never silently rewrites an illegal pair", async () => {
