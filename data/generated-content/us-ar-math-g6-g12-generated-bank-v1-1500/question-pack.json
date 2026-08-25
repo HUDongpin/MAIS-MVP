@@ -45961,9 +45961,9 @@
       "difficulty": "Challenge",
       "type": "fill-in",
       "prompt": {
-        "en": "A line passes through points (2, 5) and (6, 13). What is the slope of a line perpendicular to it?\nReview focus B: include one concise sentence checking whether the result is reasonable.",
-        "zh": "一條直線穿過點 (2, 5) 和 (6, 13)。與它垂直的直線的斜率是多少？\n複核重點 B：用一句簡潔句子檢查結果是否合理。",
-        "zhHans": "一条直线穿过点 (2, 5) 和 (6, 13)。与它垂直的直线的斜率是多少？\n复核重点 B：用一句简洁句子检查结果是否合理。"
+        "en": "A line passes through the points (2, 5) and (6, 13). What is the slope of a line perpendicular to this line?",
+        "zh": "一條直線通過點 (2, 5) 和 (6, 13)。與這條直線垂直的直線的斜率是多少？",
+        "zhHans": "一条直线通过点 (2, 5) 和 (6, 13)。与这条直线垂直的直线的斜率是多少？"
       },
       "options": [],
       "answer": "-1/2",
@@ -46002,7 +46002,7 @@
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
       "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.] [Codex S18 2026-06-04T14:19:12.287Z: remaining global duplicate prompt differentiated with non-answer-changing review focus B.]"
+      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.] [Codex S18 2026-06-04T14:19:12.287Z: remaining global duplicate prompt differentiated with non-answer-changing review focus B.] [Claude 2026-08-25: stripped leaked \"Review focus\" generator text from prompt (all locales) and reworded slightly to stay distinct from g08-c01-q006, whose duplicate the suffix had been differentiating; question and key unchanged.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g08-c04-q022",
