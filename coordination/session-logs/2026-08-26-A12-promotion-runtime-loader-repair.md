@@ -17,4 +17,21 @@
 
 ## Handoff / closeout
 
-- Pending.
+- Removed backend dynamic-loader reachability for the candidate-only BNU primary,
+  HJB primary/high, and Florida question packages. The retained BNU junior/high,
+  HJB junior, Arkansas K-5, California, and CCSS paths are unchanged by this
+  slice.
+- Replaced the seeded California Grade 1 assessment's four 492-package IDs with
+  four exact IDs from the retained `ccss-textbook-practice-v1` live aggregate.
+- Verification on this clean worktree:
+  - `npm run type-check` — pass.
+  - `npx tsx --tsconfig tsconfig.json --test lib/server/userStoreTeacherOpsAssessmentPersistence.test.ts`
+    — 53/53 pass.
+  - Direct aggregate lookup — each replacement ID occurs exactly once in
+    `data/questions.ts` (16,499 total live questions at this slice).
+  - Static forbidden-string scan — no removed package loader or old 492 seed ID
+    remains in the three changed runtime/test files.
+  - `git diff --check` — pass.
+- Candidate source files, immutable Promotion Gate attempt-001 artifacts, live
+  authorization, deployment surfaces, credentials, and production state were not
+  changed.
