@@ -18,9 +18,9 @@ import {
 export const PROMOTION_SHADOW_CLOSURE_V2_SCHEMA = "promotion-shadow-closure.v2";
 export const PROMOTION_LIFECYCLE_REGISTRY_V2_SCHEMA = "promotion-lifecycle-registry.v2";
 export const PROMOTION_SHADOW_CLOSURE_V2_PATH =
-  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/shadow-closure.v2.json";
+  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-closure.v2.json";
 export const PROMOTION_LIFECYCLE_REGISTRY_V2_PATH =
-  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/lifecycle-registry.v2.json";
+  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/lifecycle-registry.v2.json";
 
 const MATURITY_CLAIM = "Shadow-mature / live-unproven";
 const TRUST_BOUNDARY =
@@ -218,7 +218,7 @@ function validateManifestAndReceipt(closure, values) {
     receipt.lifecycle.recommendedState !== "shadow_passed" ||
     receipt.lifecycle.liveAllowed !== false
   ) {
-    fail("V2_FINALIZATION_RECEIPT_MISMATCH", "Canonical Receipt is stale or not a passing non-live attempt-006 Receipt.");
+    fail("V2_FINALIZATION_RECEIPT_MISMATCH", "Canonical Receipt is stale or not a passing non-live attempt-007 Receipt.");
   }
   return { manifest, receipt };
 }
