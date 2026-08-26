@@ -745,6 +745,25 @@ test("production inspect JSON binds immutable provider fields while marking Git 
   }
 });
 
+test("production inspect accepts current CLI metadata omission without claiming metadata proof", () => {
+  const candidateSha = "c".repeat(40);
+  const deploymentUrl = "https://candidate-production.vercel.app";
+  const evidence = parseVercelInspectEvidence(JSON.stringify({
+    id: "dpl_ProductionFixture123",
+    url: "candidate-production.vercel.app",
+    readyState: "READY",
+    target: "production"
+  }), {
+    candidateSha,
+    deploymentUrl,
+    target: "production"
+  });
+
+  assert.equal(evidence.metadataVerified, false);
+  assert.equal(evidence.deploymentId, "dpl_ProductionFixture123");
+  assert.equal(evidence.providerGitShaVerified, false);
+});
+
 test("production rollback restores only this candidate and never overwrites unrelated alias drift", () => {
   const candidateDeploymentId = "dpl_CandidateRollbackFixture123";
   const previousDeploymentId = "dpl_PreviousRollbackFixture123";
