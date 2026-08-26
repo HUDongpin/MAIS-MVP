@@ -194,9 +194,27 @@ function isLocaleNeutral(en) {
   return !/[A-Za-z]{2,}/.test(en);
 }
 
-function L(en) {
+/**
+ * Per-item overrides, keyed "slug#index" exactly like curated-distractors.json, then by
+ * the English string. Needed because the main table is keyed by the bare English string,
+ * which collapses homographs: "composite" is a composite *shape* in compose-2d but a
+ * composite *number* in factors-multiples, and one entry cannot be right for both.
+ * 158 English strings are shared across more than one lesson, so this is a class, not a
+ * one-off. Only add an entry when the shared string genuinely needs different Chinese.
+ */
+const translationOverrides = JSON.parse(
+  readFileSync(path.join(sourceDir, "translation-overrides.json"), "utf8")
+);
+
+function L(en, contextKey) {
   localizedCount += 1;
   if (isLocaleNeutral(en)) return { en, zh: en, zhHans: en };
+
+  const override = contextKey ? translationOverrides[contextKey]?.[en] : undefined;
+  if (override) {
+    translatedCount += 1;
+    return { en, zh: override.zh, zhHans: override.zhHans ?? override.zh };
+  }
 
   if (!(en in translations)) {
     if (syncTranslations) {
@@ -281,11 +299,11 @@ for (const lesson of snapshot.lessons) {
       questions.push({
         ...base,
         type: "multiple-choice",
-        prompt: L(question.prompt),
-        options: options.map(L),
+        prompt: L(question.prompt, key),
+        options: options.map((option) => L(option, key)),
         answer: answerText,
         acceptedAnswers: [answerText],
-        explanation: L(question.explanation),
+        explanation: L(question.explanation, key),
         independentAnswer: answerText,
         independentSolution: question.explanation
       });
@@ -298,10 +316,10 @@ for (const lesson of snapshot.lessons) {
     questions.push({
       ...base,
       type: "fill-in",
-      prompt: L(question.prompt),
+      prompt: L(question.prompt, key),
       answer: answerText,
       acceptedAnswers: accepted,
-      explanation: L(question.explanation),
+      explanation: L(question.explanation, key),
       independentAnswer: answerText,
       independentSolution: question.explanation
     });
