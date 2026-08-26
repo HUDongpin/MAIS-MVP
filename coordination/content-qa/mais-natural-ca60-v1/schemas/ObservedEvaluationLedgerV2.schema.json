@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ObservedEvaluationLedgerV2.schema.json",
+  "title":"ObservedEvaluationLedgerV2",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","sampleExecutionInventoryHash","referenceSealHash","executionRegistrationHash","itemResultSetHash","accounting","confusionMatrix","findingCounts","matchRecords","contributions","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ObservedEvaluationLedgerV2"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "sampleExecutionInventoryHash":{"$ref":"#/$defs/hash"},
+    "referenceSealHash":{"$ref":"#/$defs/hash"},
+    "executionRegistrationHash":{"$ref":"#/$defs/hash"},
+    "itemResultSetHash":{"$ref":"#/$defs/hash"},
+    "accounting":{"$ref":"#/$defs/accounting"},
+    "confusionMatrix":{"$ref":"#/$defs/confusion"},
+    "findingCounts":{"type":"object"},
+    "matchRecords":{"type":"array"},
+    "contributions":{"type":"array","minItems":60,"maxItems":60},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{
+    "hash":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "count":{"type":"integer","minimum":0,"maximum":60},
+    "accounting":{"type":"object","additionalProperties":false,"required":["expectedSampleSize","completeReceiptItemCount","missingReceiptItemCount","resolvedPositiveItemCount","resolvedNegativeItemCount","unresolvedReferenceItemCount","invalidItemCount","unifiedNonresolvedItemCount"],"properties":{"expectedSampleSize":{"const":60},"completeReceiptItemCount":{"$ref":"#/$defs/count"},"missingReceiptItemCount":{"$ref":"#/$defs/count"},"resolvedPositiveItemCount":{"$ref":"#/$defs/count"},"resolvedNegativeItemCount":{"$ref":"#/$defs/count"},"unresolvedReferenceItemCount":{"$ref":"#/$defs/count"},"invalidItemCount":{"$ref":"#/$defs/count"},"unifiedNonresolvedItemCount":{"$ref":"#/$defs/count"}}},
+    "confusion":{"type":"object","additionalProperties":false,"required":["tp","fp","fn","tn"],"properties":{"tp":{"$ref":"#/$defs/count"},"fp":{"$ref":"#/$defs/count"},"fn":{"$ref":"#/$defs/count"},"tn":{"$ref":"#/$defs/count"}}}
+  }
+}

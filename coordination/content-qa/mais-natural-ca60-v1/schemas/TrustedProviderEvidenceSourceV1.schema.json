@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/TrustedProviderEvidenceSourceV1.schema.json",
+  "title": "TrustedProviderEvidenceSourceV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "evidenceKind", "provider", "model", "endpoint", "subjectIdentityHash", "authenticatedSource", "retrievalMode", "sourceLocator", "contentSha256", "selfHash"],
+  "properties": {
+    "schemaVersion": {"const": "TrustedProviderEvidenceSourceV1"},
+    "designId": {"const": "MAIS-NATURAL-CA60-V5"},
+    "evidenceKind": {"enum": ["ACCOUNT_PROJECT_IDENTITY", "DIRECT_BILLING_ROUTE", "DATA_REGION", "PRICE_SOURCE", "ZERO_CONTENT_PROBE_GRAPH"]},
+    "provider": {"enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"]},
+    "model": {"enum": ["gpt-5.6-luna", "deepseek-v4-pro"]},
+    "endpoint": {"enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"]},
+    "subjectIdentityHash": {"$ref": "#/$defs/hash"},
+    "authenticatedSource": {"const": true},
+    "retrievalMode": {"enum": ["AUTHENTICATED_PROVIDER_EXPORT", "OFFICIAL_PROVIDER_RATE_CARD", "GUARDED_ZERO_CONTENT_PROBE_GRAPH"]},
+    "sourceLocator": {"type": "string", "pattern": "^https://"},
+    "contentSha256": {"$ref": "#/$defs/hash"},
+    "projectResidency": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "dataRegion": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "directBilling": {"anyOf": [{"type": "boolean"}, {"type": "null"}]},
+    "currency": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "inputUsdPerMillionTokens": {"anyOf": [{"type": "number", "minimum": 0}, {"type": "null"}]},
+    "outputUsdPerMillionTokens": {"anyOf": [{"type": "number", "minimum": 0}, {"type": "null"}]},
+    "graphStatus": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "providerEventCount": {"anyOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]},
+    "httpRequestCount": {"anyOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]},
+    "naturalQuestionContentCount": {"anyOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]},
+    "requestArtifactHash": {"$ref": "#/$defs/nullableHash"},
+    "providerEventReceiptHash": {"$ref": "#/$defs/nullableHash"},
+    "rawResponseArtifactHash": {"$ref": "#/$defs/nullableHash"},
+    "rawResponseBindingReceiptHash": {"$ref": "#/$defs/nullableHash"},
+    "resolvedAttemptReceiptHash": {"$ref": "#/$defs/nullableHash"},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "selfHash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"anyOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ExactRunnerSupersedingRegistrationEvidenceV4.schema.json",
+  "title":"ExactRunnerSupersedingRegistrationEvidenceV4",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","registrationCommit","registrationPath","registrationPathMutationCount","registrationHash","runnerSourceCommit","productionSourceRootHash","testSourceRootHash","importClosureRootHash","runtimeSourceEnumerationRootHash","supersededRunnerRegistrationHash","discrepancyReviewHash","discrepancyReviewCommit","verifiedFromGitObjects","currentRuntimeBytesMatchRegisteredSource","immutableSingleAddPathVerified","activeRegistration","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ExactRunnerSupersedingRegistrationEvidenceV4"},
+    "registrationCommit":{"$ref":"#/$defs/commit"},
+    "registrationPath":{"const":"coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r8/runner-registration.json"},
+    "registrationPathMutationCount":{"const":1},
+    "registrationHash":{"$ref":"#/$defs/hash"},
+    "runnerSourceCommit":{"$ref":"#/$defs/commit"},
+    "productionSourceRootHash":{"$ref":"#/$defs/hash"},
+    "testSourceRootHash":{"$ref":"#/$defs/hash"},
+    "importClosureRootHash":{"$ref":"#/$defs/hash"},
+    "runtimeSourceEnumerationRootHash":{"$ref":"#/$defs/hash"},
+    "supersededRunnerRegistrationHash":{"const":"97b65940b0573064b4d1206e1f80dfb555c1a41e6c782e7439f9ec53df66b003"},
+    "discrepancyReviewHash":{"const":"20d261e83982b29323383eec56c1df99e4f6b45fa7051482a47860e8bcaadd91"},
+    "discrepancyReviewCommit":{"const":"ef6bb7da5151ec114882b9c349559afaaa145859"},
+    "verifiedFromGitObjects":{"const":true},
+    "currentRuntimeBytesMatchRegisteredSource":{"const":true},
+    "immutableSingleAddPathVerified":{"const":true},
+    "activeRegistration":{"type":"object"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"},"commit":{"type":"string","pattern":"^[0-9a-f]{40}$"}}
+}

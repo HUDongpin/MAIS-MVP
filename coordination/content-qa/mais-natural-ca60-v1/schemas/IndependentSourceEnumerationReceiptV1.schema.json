@@ -1,0 +1,21 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/IndependentSourceEnumerationReceiptV1.schema.json",
+  "title":"IndependentSourceEnumerationReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","runnerVersion","baselineCommit","registeredRuntimeSourceEnumerationRootHash","recomputedRuntimeSourceEnumerationRootHash","enumeratedPathCount","conclusion","derivedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"IndependentSourceEnumerationReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "runnerVersion":{"const":"V5-R8"},
+    "baselineCommit":{"$ref":"#/$defs/commit"},
+    "registeredRuntimeSourceEnumerationRootHash":{"$ref":"#/$defs/hash"},
+    "recomputedRuntimeSourceEnumerationRootHash":{"$ref":"#/$defs/hash"},
+    "enumeratedPathCount":{"type":"integer","minimum":1},
+    "conclusion":{"const":"EXACT_MATCH"},
+    "derivedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"},"commit":{"type":"string","pattern":"^[0-9a-f]{40}$"}}
+}

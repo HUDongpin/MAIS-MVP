@@ -1,0 +1,33 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/CounterfactualLedgerV2.schema.json",
+  "title":"CounterfactualLedgerV2",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","observedItemResultSetHash","observedConfusionMatrix","observedFindingCounts","nonresolvedItems","nonresolvedItemCount","referenceUnidentifiedItemCount","machineNonresolvedResolvedReferenceItemCount","findingDecisionBoundUnidentified","findingDecisionBound","integrityLimitExceeded","maximumAdverseFindingOpportunityAdditions","surfaceWorlds","surfaceAssignmentCount","surfaceEnumerationDisposition","surfaceEnumerationRule","p0MissingFalseNegativesFabricated","p0Rule","counterfactualLedgerSeparateFromObservedCounts","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"CounterfactualLedgerV2"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "observedItemResultSetHash":{"$ref":"#/$defs/hash"},
+    "observedConfusionMatrix":{"type":"object"},
+    "observedFindingCounts":{"type":"object"},
+    "nonresolvedItems":{"type":"array","maxItems":60},
+    "nonresolvedItemCount":{"type":"integer","minimum":0,"maximum":60},
+    "referenceUnidentifiedItemCount":{"type":"integer","minimum":0,"maximum":60},
+    "machineNonresolvedResolvedReferenceItemCount":{"type":"integer","minimum":0,"maximum":60},
+    "findingDecisionBoundUnidentified":{"type":"boolean"},
+    "findingDecisionBound":{"anyOf":[{"type":"object","additionalProperties":false,"required":["lower","upper"],"properties":{"lower":{"const":0},"upper":{"const":1}}},{"type":"null"}]},
+    "integrityLimitExceeded":{"type":"boolean"},
+    "maximumAdverseFindingOpportunityAdditions":{"type":"object"},
+    "surfaceWorlds":{"type":"array","maxItems":64},
+    "surfaceAssignmentCount":{"type":"integer","minimum":0,"maximum":64},
+    "surfaceEnumerationDisposition":{"enum":["ENUMERATED_WITHIN_UNIFIED_NONRESOLVED_LIMIT","NOT_ENUMERATED_UNIFIED_NONRESOLVED_LIMIT_EXCEEDED"]},
+    "surfaceEnumerationRule":{"type":"string","minLength":1},
+    "p0MissingFalseNegativesFabricated":{"const":0},
+    "p0Rule":{"const":"OBSERVED_FALSE_NEGATIVES_ONLY"},
+    "counterfactualLedgerSeparateFromObservedCounts":{"const":true},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/MetricInputLedgerV2.schema.json",
+  "title":"MetricInputLedgerV2",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","itemResultSetHash","contributions","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"MetricInputLedgerV2"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "itemResultSetHash":{"$ref":"#/$defs/hash"},
+    "contributions":{"type":"array","minItems":60,"maxItems":60},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

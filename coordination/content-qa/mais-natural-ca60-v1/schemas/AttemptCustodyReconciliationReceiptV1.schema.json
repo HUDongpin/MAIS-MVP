@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/AttemptCustodyReconciliationReceiptV1.schema.json",
+  "title": "AttemptCustodyReconciliationReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash", "providerAuthorizationHash", "recoveryAuthorizationHash", "reservationHash", "requestArtifactHash", "custodyStateBefore", "custodyStateAfterPlannedAppend", "intentHash", "completionHash", "resolvedAttemptReceiptHash", "plannedActions", "dispatchKnowledge", "attemptBudgetConsumed", "tokenAndUsdDisposition", "providerSuccessCreatedByRecovery", "zeroHttpRecovery", "httpRequestCount", "providerEventCount", "credentialReadCount", "naturalQuestionEgressCount", "resumeAllowedAfterPlannedAppend", "recoveredBy", "recoveredAt", "selfHash"],
+  "properties": {
+    "schemaVersion": {"const": "AttemptCustodyReconciliationReceiptV1"},
+    "designId": {"const": "MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash": {"$ref": "#/$defs/hash"},
+    "providerAuthorizationHash": {"$ref": "#/$defs/hash"},
+    "recoveryAuthorizationHash": {"$ref": "#/$defs/hash"},
+    "reservationHash": {"$ref": "#/$defs/hash"},
+    "requestArtifactHash": {"$ref": "#/$defs/hash"},
+    "custodyStateBefore": {"enum": ["RESERVATION_WITHOUT_DURABLE_INTENT", "INTENT_WITHOUT_LEDGER_COMPLETION", "COMPLETION_WITHOUT_RESOLVED_RECEIPT", "FULLY_RECONCILED"]},
+    "custodyStateAfterPlannedAppend": {"enum": ["RESERVATION_WITHOUT_DURABLE_INTENT", "RECOVERED_COMPLETION_AND_RESOLVED_RECEIPT_PENDING_ATOMIC_APPEND", "RECOVERED_RESOLVED_RECEIPT_PENDING_ATOMIC_APPEND", "FULLY_RECONCILED"]},
+    "intentHash": {"$ref": "#/$defs/nullableHash"},
+    "completionHash": {"$ref": "#/$defs/nullableHash"},
+    "resolvedAttemptReceiptHash": {"$ref": "#/$defs/nullableHash"},
+    "plannedActions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "dispatchKnowledge": {"enum": ["UNCERTAIN_AFTER_RESERVATION", "COMPLETION_RECEIPT_RECOVERED"]},
+    "attemptBudgetConsumed": {"const": true},
+    "tokenAndUsdDisposition": {"enum": ["RESERVED_WORST_CASE_CONSUMED", "USE_RECOVERED_PROVIDER_RECEIPT"]},
+    "providerSuccessCreatedByRecovery": {"const": false},
+    "zeroHttpRecovery": {"const": true},
+    "httpRequestCount": {"const": 0},
+    "providerEventCount": {"const": 0},
+    "credentialReadCount": {"const": 0},
+    "naturalQuestionEgressCount": {"const": 0},
+    "resumeAllowedAfterPlannedAppend": {"type": "boolean"},
+    "recoveredBy": {"type": "string", "minLength": 1},
+    "recoveredAt": {"type": "string", "format": "date-time"},
+    "selfHash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"anyOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]}
+  }
+}

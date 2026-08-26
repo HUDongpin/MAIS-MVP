@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/TrustedProviderEvidenceEnvelopeV1.schema.json",
+  "title": "TrustedProviderEvidenceEnvelopeV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash", "provider", "model", "endpoint", "projectResidency", "dataRegion", "subjectIdentityHash", "directBilling", "priceSnapshotHash", "zeroContentProbeGraphHash", "claims", "evidenceArtifactHashes", "evidenceArtifactSetHash", "trustAnchorId", "signatureAlgorithm", "signaturePayload", "signaturePayloadHash", "signatureBase64", "evidenceDisposition", "capturedAt", "expiresAt", "selfHash"],
+  "properties": {
+    "schemaVersion": {"const": "TrustedProviderEvidenceEnvelopeV1"},
+    "designId": {"const": "MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash": {"$ref": "#/$defs/hash"},
+    "provider": {"enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"]},
+    "model": {"enum": ["gpt-5.6-luna", "deepseek-v4-pro"]},
+    "endpoint": {"enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"]},
+    "projectResidency": {"type": "string", "minLength": 1},
+    "dataRegion": {"type": "string", "minLength": 1},
+    "subjectIdentityHash": {"$ref": "#/$defs/hash"},
+    "directBilling": {"const": true},
+    "priceSnapshotHash": {"$ref": "#/$defs/hash"},
+    "zeroContentProbeGraphHash": {"$ref": "#/$defs/hash"},
+    "claims": {"$ref": "#/$defs/claims"},
+    "evidenceArtifactHashes": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": {"$ref": "#/$defs/hash"}},
+    "evidenceArtifactSetHash": {"$ref": "#/$defs/hash"},
+    "trustAnchorId": {"type": "string", "minLength": 1},
+    "signatureAlgorithm": {"const": "Ed25519"},
+    "signaturePayload": {"$ref": "#/$defs/payload"},
+    "signaturePayloadHash": {"$ref": "#/$defs/hash"},
+    "signatureBase64": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "evidenceDisposition": {"enum": ["TRUST_ANCHOR_SIGNATURE_PRESENT_REQUIRES_FULL_SOURCE_AND_PROBE_RECONSTRUCTION", "UNRESOLVED_NO_TRUST_ANCHOR_SIGNATURE"]},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "expiresAt": {"type": "string", "format": "date-time"},
+    "selfHash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "claims": {"type": "object", "additionalProperties": false, "required": ["provider", "model", "endpoint", "projectResidency", "dataRegion", "subjectIdentityHash", "directBilling", "priceSnapshotHash", "zeroContentProbeGraphHash"], "properties": {"provider": {"enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"]}, "model": {"enum": ["gpt-5.6-luna", "deepseek-v4-pro"]}, "endpoint": {"enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"]}, "projectResidency": {"type": "string", "minLength": 1}, "dataRegion": {"type": "string", "minLength": 1}, "subjectIdentityHash": {"$ref": "#/$defs/hash"}, "directBilling": {"const": true}, "priceSnapshotHash": {"$ref": "#/$defs/hash"}, "zeroContentProbeGraphHash": {"$ref": "#/$defs/hash"}}},
+    "payload": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash", "claims", "evidenceArtifactHashes", "trustAnchorId", "capturedAt", "expiresAt"], "properties": {"schemaVersion": {"const": "TrustedProviderEvidenceSignaturePayloadV1"}, "designId": {"const": "MAIS-NATURAL-CA60-V5"}, "activeRunnerRegistrationHash": {"$ref": "#/$defs/hash"}, "claims": {"$ref": "#/$defs/claims"}, "evidenceArtifactHashes": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": {"$ref": "#/$defs/hash"}}, "trustAnchorId": {"type": "string", "minLength": 1}, "capturedAt": {"type": "string", "format": "date-time"}, "expiresAt": {"type": "string", "format": "date-time"}}}
+  }
+}
