@@ -14,11 +14,17 @@ export const RELEASE_REQUIRED_GITHUB_CHECKS = Object.freeze([
   "resend-webhook-postgres-integration",
   "teacher-parent-e2e"
 ]);
+export const RELEASE_REQUIRED_PROTECTED_GITHUB_CHECKS = Object.freeze([
+  "validate",
+  "promotion-shadow-gate"
+]);
 
 const SHA1_PATTERN = /^[a-f0-9]{40}$/u;
 const CHECK_NAME_PATTERN = /^[A-Za-z0-9][A-Za-z0-9 _./()-]{0,99}$/u;
 const GITHUB_JOB_URL_PATTERN = /^https:\/\/github\.com\/HUDongpin\/MAIS-MVP\/actions\/runs\/([1-9][0-9]{0,18})\/job\/([1-9][0-9]{0,18})$/u;
 const EXPECTED_CI_WORKFLOW_PATH = ".github/workflows/ci.yml";
+const EXPECTED_PROMOTION_WORKFLOW_PATH = ".github/workflows/promotion-shadow.yml";
+const EXPECTED_PROMOTION_WORKFLOW_NAME = "promotion-shadow-gate";
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const GITHUB_API_ORIGIN = "https://api.github.com";
 const GITHUB_REQUEST_TIMEOUT_MS = 15_000;
@@ -120,8 +126,15 @@ async function verifyGithubCandidateChecksInternal(options) {
   const protectionPayload = await fetchGithubJson(urls.protection, requestOptions);
   const checkRunsPayload = await fetchGithubJson(urls.checks, requestOptions);
   const { actionsRunId } = selectReleaseCheckEvidence(candidateSha, checkRunsPayload);
+  const { actionsRunId: promotionActionsRunId } = selectPromotionCheckEvidence(
+    candidateSha,
+    checkRunsPayload
+  );
   const actionsRunUrl = `${GITHUB_API_ORIGIN}${repositoryPath}/actions/runs/${actionsRunId}`;
+  const promotionActionsRunUrl =
+    `${GITHUB_API_ORIGIN}${repositoryPath}/actions/runs/${promotionActionsRunId}`;
   const actionsRunPayload = await fetchGithubJson(actionsRunUrl, requestOptions);
+  const promotionRunPayload = await fetchGithubJson(promotionActionsRunUrl, requestOptions);
   const finalMainRefPayload = await fetchGithubJson(urls.mainRef, requestOptions);
 
   validatePrivateRepository(repositoryPayload);
@@ -136,7 +149,8 @@ async function verifyGithubCandidateChecksInternal(options) {
     commitPayload,
     protectionPayload: requiredStatusChecks,
     checkRunsPayload,
-    actionsRunPayload
+    actionsRunPayload,
+    promotionRunPayload
   });
   await assertLocalCandidateBinding({ candidateSha, expectedTreeSha, env, repoRoot, runCommand });
 
@@ -511,7 +525,8 @@ export function validateGithubCandidateEvidence({
   commitPayload,
   protectionPayload,
   checkRunsPayload,
-  actionsRunPayload
+  actionsRunPayload,
+  promotionRunPayload
 }) {
   if (!SHA1_PATTERN.test(candidateSha) || !SHA1_PATTERN.test(expectedTreeSha)) {
     throw new Error("GitHub candidate evidence failed: candidate or tree SHA was invalid.");
@@ -533,19 +548,36 @@ export function validateGithubCandidateEvidence({
   }
 
   const protectedChecks = validateProtection(protectionPayload);
-  if (protectedChecks.some((check) =>
-    check.appId !== GITHUB_ACTIONS_APP_ID ||
-    !RELEASE_REQUIRED_GITHUB_CHECKS.includes(check.context)
-  )) {
+  if (
+    protectedChecks.length !== RELEASE_REQUIRED_PROTECTED_GITHUB_CHECKS.length ||
+    RELEASE_REQUIRED_PROTECTED_GITHUB_CHECKS.some((context) =>
+      !protectedChecks.some((check) =>
+        check.context === context && check.appId === GITHUB_ACTIONS_APP_ID
+      )
+    ) ||
+    protectedChecks.some((check) =>
+      check.appId !== GITHUB_ACTIONS_APP_ID ||
+      !RELEASE_REQUIRED_PROTECTED_GITHUB_CHECKS.includes(check.context)
+    )
+  ) {
     throw new Error("GitHub candidate evidence failed: main protection contained an unexpected release context.");
   }
   const { actionsRunId, selected } = selectReleaseCheckEvidence(
     candidateSha,
     checkRunsPayload
   );
+  const {
+    actionsRunId: promotionActionsRunId,
+    selected: promotionCheck
+  } = selectPromotionCheckEvidence(candidateSha, checkRunsPayload);
   const workflow = validateGithubActionsRun(
     actionsRunPayload,
     actionsRunId,
+    candidateSha
+  );
+  const promotionWorkflow = validatePromotionGithubActionsRun(
+    promotionRunPayload,
+    promotionActionsRunId,
     candidateSha
   );
 
@@ -557,14 +589,44 @@ export function validateGithubCandidateEvidence({
     treeSha: expectedTreeSha,
     protectedChecks: protectedChecks.map((check) => check.context),
     releaseChecks: selected,
-    workflow
+    workflow,
+    promotionCheck,
+    promotionWorkflow
   };
 }
 
 function selectReleaseCheckEvidence(candidateSha, checkRunsPayload) {
+  validateCheckRunsPayload(checkRunsPayload);
   const requiredChecks = new Map(
     RELEASE_REQUIRED_GITHUB_CHECKS.map((name) => [name, GITHUB_ACTIONS_APP_ID])
   );
+  const selected = [];
+  const actionsRunIds = new Set();
+  for (const [name, appId] of requiredChecks) {
+    const check = selectLatestRequiredCheck(candidateSha, checkRunsPayload, name, appId);
+    actionsRunIds.add(check.actionsRunId);
+    selected.push(check);
+  }
+  if (actionsRunIds.size !== 1) {
+    throw new Error(
+      "GitHub candidate evidence failed: required checks did not belong to one trusted Actions run."
+    );
+  }
+  return { actionsRunId: [...actionsRunIds][0], selected };
+}
+
+function selectPromotionCheckEvidence(candidateSha, checkRunsPayload) {
+  validateCheckRunsPayload(checkRunsPayload);
+  const selected = selectLatestRequiredCheck(
+    candidateSha,
+    checkRunsPayload,
+    EXPECTED_PROMOTION_WORKFLOW_NAME,
+    GITHUB_ACTIONS_APP_ID
+  );
+  return { actionsRunId: selected.actionsRunId, selected };
+}
+
+function validateCheckRunsPayload(checkRunsPayload) {
   if (
     !checkRunsPayload ||
     typeof checkRunsPayload !== "object" ||
@@ -577,56 +639,69 @@ function selectReleaseCheckEvidence(candidateSha, checkRunsPayload) {
   ) {
     throw new Error("GitHub candidate evidence failed: check-run response was invalid or incomplete.");
   }
+}
 
-  const selected = [];
-  const actionsRunIds = new Set();
-  for (const [name, appId] of requiredChecks) {
-    const candidates = checkRunsPayload.check_runs
-      .filter((run) => run?.name === name && run?.app?.id === appId)
-      .sort((left, right) => Number(right.id ?? 0) - Number(left.id ?? 0));
-    const latest = candidates[0];
-    const detailsMatch = String(latest?.details_url ?? "").match(GITHUB_JOB_URL_PATTERN);
-    const actionsRunId = Number(detailsMatch?.[1]);
-    if (
-      !latest ||
-      !Number.isSafeInteger(latest.id) ||
-      latest.id < 1 ||
-      latest.head_sha !== candidateSha ||
-      latest.status !== "completed" ||
-      latest.conclusion !== "success" ||
-      latest.app?.slug !== "github-actions" ||
-      !Number.isSafeInteger(actionsRunId) ||
-      actionsRunId < 1 ||
-      !isValidCompletedInterval(latest.started_at, latest.completed_at)
-    ) {
-      throw new Error(`GitHub candidate evidence failed: required check ${name} was not a latest successful exact-SHA GitHub Actions run.`);
-    }
-    actionsRunIds.add(actionsRunId);
-    selected.push({
-      actionsRunId,
-      appId,
-      checkRunId: latest.id,
-      completedAt: latest.completed_at,
-      name
-    });
+function selectLatestRequiredCheck(candidateSha, checkRunsPayload, name, appId) {
+  const candidates = checkRunsPayload.check_runs
+    .filter((run) => run?.name === name)
+    .sort((left, right) => Number(right.id ?? 0) - Number(left.id ?? 0));
+  const latest = candidates[0];
+  const detailsMatch = String(latest?.details_url ?? "").match(GITHUB_JOB_URL_PATTERN);
+  const actionsRunId = Number(detailsMatch?.[1]);
+  if (
+    !latest ||
+    !Number.isSafeInteger(latest.id) ||
+    latest.id < 1 ||
+    latest.head_sha !== candidateSha ||
+    latest.status !== "completed" ||
+    latest.conclusion !== "success" ||
+    latest.app?.id !== appId ||
+    latest.app?.slug !== "github-actions" ||
+    !Number.isSafeInteger(actionsRunId) ||
+    actionsRunId < 1 ||
+    !isValidCompletedInterval(latest.started_at, latest.completed_at)
+  ) {
+    throw new Error(`GitHub candidate evidence failed: required check ${name} was not a latest successful exact-SHA GitHub Actions run.`);
   }
-  if (actionsRunIds.size !== 1) {
-    throw new Error(
-      "GitHub candidate evidence failed: required checks did not belong to one trusted Actions run."
-    );
-  }
-  return { actionsRunId: [...actionsRunIds][0], selected };
+  return {
+    actionsRunId,
+    appId,
+    checkRunId: latest.id,
+    completedAt: latest.completed_at,
+    name
+  };
 }
 
 function validateGithubActionsRun(payload, actionsRunId, candidateSha) {
+  return validateTrustedGithubActionsRun(payload, actionsRunId, candidateSha, {
+    expectedName: "CI",
+    expectedPath: EXPECTED_CI_WORKFLOW_PATH,
+    label: "CI"
+  });
+}
+
+function validatePromotionGithubActionsRun(payload, actionsRunId, candidateSha) {
+  return validateTrustedGithubActionsRun(payload, actionsRunId, candidateSha, {
+    expectedName: EXPECTED_PROMOTION_WORKFLOW_NAME,
+    expectedPath: EXPECTED_PROMOTION_WORKFLOW_PATH,
+    label: "promotion"
+  });
+}
+
+function validateTrustedGithubActionsRun(
+  payload,
+  actionsRunId,
+  candidateSha,
+  { expectedName, expectedPath, label }
+) {
   const workflowId = payload?.workflow_id;
   const allowedEvent = payload?.event === "push" || payload?.event === "workflow_dispatch";
   if (
     !payload ||
     typeof payload !== "object" ||
     payload.id !== actionsRunId ||
-    payload.name !== "CI" ||
-    payload.path !== EXPECTED_CI_WORKFLOW_PATH ||
+    payload.name !== expectedName ||
+    payload.path !== expectedPath ||
     !allowedEvent ||
     payload.status !== "completed" ||
     payload.conclusion !== "success" ||
@@ -646,12 +721,12 @@ function validateGithubActionsRun(payload, actionsRunId, candidateSha) {
     payload.head_repository?.full_name !== MAIS_GITHUB_REPOSITORY
   ) {
     throw new Error(
-      "GitHub candidate evidence failed: required checks were not bound to the trusted CI Actions run."
+      `GitHub candidate evidence failed: required checks were not bound to the trusted ${label} Actions run.`
     );
   }
   return {
     event: payload.event,
-    path: EXPECTED_CI_WORKFLOW_PATH,
+    path: expectedPath,
     runAttempt: payload.run_attempt,
     runId: actionsRunId,
     workflowId
