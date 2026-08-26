@@ -84,6 +84,16 @@ const PRODUCTION_CHILD_PURPOSE_ENV_KEYS = Object.freeze({
     "VERCEL_TOKEN"
   ]),
   schema: Object.freeze([
+    "GITHUB_ACTIONS",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_REF",
+    "GITHUB_REF_PROTECTED",
+    "GITHUB_REPOSITORY",
+    "GITHUB_RUN_ATTEMPT",
+    "GITHUB_RUN_ID",
+    "GITHUB_SHA",
+    "GITHUB_WORKFLOW_REF",
+    "MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT",
     "MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM",
     "VERCEL_TOKEN"
   ]),
@@ -120,6 +130,11 @@ export function buildProductionChildEnvironment(purpose, env = process.env) {
       GIT_NO_LAZY_FETCH: "1",
       GIT_OPTIONAL_LOCKS: "0",
       GIT_TERMINAL_PROMPT: "0"
+    });
+  }
+  if (purpose === "schema") {
+    Object.assign(childEnv, {
+      MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1"
     });
   }
   return childEnv;
