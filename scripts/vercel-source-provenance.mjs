@@ -11,11 +11,16 @@ const MAX_SOURCE_PATH_BYTES = 4_096;
 const MAX_MANIFEST_BYTES = 32 * 1024 * 1024;
 const MAX_SOURCE_FILE_BYTES = 128 * 1024 * 1024;
 const MAX_SOURCE_TOTAL_BYTES = 1024 * 1024 * 1024;
-const REGULAR_FILE_MODES = new Set([33188, 33261]);
-const GIT_MODE_TO_PROVIDER_MODE = new Map([
-  ["100644", 33188],
-  ["100755", 33261]
+// The upload-time staging seal removes write/group/other bits. Depending on
+// provider normalization, Vercel reports either that sealed mode or the
+// canonical Git mode; both representations must preserve the executable bit.
+const GIT_MODE_TO_PROVIDER_MODES = new Map([
+  ["100644", new Set([0o100400, 0o100644])],
+  ["100755", new Set([0o100500, 0o100755])]
 ]);
+const REGULAR_FILE_MODES = new Set(
+  [...GIT_MODE_TO_PROVIDER_MODES.values()].flatMap((modes) => [...modes])
+);
 
 export function flattenVercelDeploymentSourceFiles(payload) {
   if (!Array.isArray(payload)) {
@@ -203,7 +208,7 @@ function inspectVercelCliSourcePackage({
   if (!manifestEntry) {
     throw new Error("Vercel source provenance failed: deployed staging manifest was absent.");
   }
-  if (manifestEntry.mode !== 33188) {
+  if (!providerModeMatchesGitMode(manifestEntry.mode, "100644")) {
     throw new Error("Vercel source provenance failed: deployed staging manifest mode was invalid.");
   }
   const manifestBytes = decodeManifestContent(manifestContentPayload);
@@ -236,7 +241,7 @@ function inspectVercelCliSourcePackage({
     if (
       !providerEntry ||
       providerEntry.uid !== file.rawSha1 ||
-      providerEntry.mode !== GIT_MODE_TO_PROVIDER_MODE.get(file.mode)
+      !providerModeMatchesGitMode(providerEntry.mode, file.mode)
     ) {
       throw new Error("Vercel source provenance failed: provider source bytes or file mode did not match the Git-bound package.");
     }
@@ -247,6 +252,10 @@ function inspectVercelCliSourcePackage({
     }
   }
   return { files, manifest, manifestRawSha1, manifestSha256, providerFiles };
+}
+
+function providerModeMatchesGitMode(providerMode, gitMode) {
+  return GIT_MODE_TO_PROVIDER_MODES.get(gitMode)?.has(providerMode) === true;
 }
 
 function sourceContentRequests(files, providerFiles) {
@@ -340,7 +349,7 @@ function validateManifest(manifest, releaseBinding, expectedStaging) {
       !Number.isSafeInteger(file.size) ||
       file.size < 0 ||
       file.size > MAX_SOURCE_FILE_BYTES ||
-      !GIT_MODE_TO_PROVIDER_MODE.has(file.mode) ||
+      !GIT_MODE_TO_PROVIDER_MODES.has(file.mode) ||
       !SHA1_PATTERN.test(String(file.rawSha1 ?? "")) ||
       !SHA256_PATTERN.test(String(file.sha256 ?? "")) ||
       !SHA1_PATTERN.test(String(file.gitBlobOid ?? "")) ||
@@ -376,7 +385,7 @@ function decodeManifestContent(payload) {
     encoded.length === 0 ||
     encoded.length > Math.ceil(MAX_MANIFEST_BYTES / 3) * 4 + 4 ||
     encoded.length % 4 !== 0 ||
-    !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(encoded)
+    !hasCanonicalBase64Syntax(encoded)
   ) {
     throw new Error("Vercel source provenance failed: manifest content encoding was invalid.");
   }
@@ -392,7 +401,7 @@ function decodeCanonicalBase64(encoded, expectedBytes, label) {
   if (
     typeof encoded !== "string" ||
     encoded.length !== expectedEncodedLength ||
-    !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(encoded)
+    !hasCanonicalBase64Syntax(encoded)
   ) {
     throw new Error(`Vercel source provenance failed: ${label} encoding was invalid.`);
   }
@@ -401,6 +410,31 @@ function decodeCanonicalBase64(encoded, expectedBytes, label) {
     throw new Error(`Vercel source provenance failed: ${label} encoding was invalid.`);
   }
   return bytes;
+}
+
+function hasCanonicalBase64Syntax(encoded) {
+  if (encoded.length % 4 !== 0) return false;
+  let paddingLength = 0;
+  if (encoded.endsWith("=")) paddingLength += 1;
+  if (encoded.endsWith("==")) paddingLength += 1;
+  const contentLength = encoded.length - paddingLength;
+  const expectedRemainder = paddingLength === 0 ? 0 : 4 - paddingLength;
+  if (contentLength % 4 !== expectedRemainder) return false;
+
+  for (let index = 0; index < contentLength; index += 1) {
+    const code = encoded.charCodeAt(index);
+    const isBase64Character =
+      (code >= 0x41 && code <= 0x5a) ||
+      (code >= 0x61 && code <= 0x7a) ||
+      (code >= 0x30 && code <= 0x39) ||
+      code === 0x2b ||
+      code === 0x2f;
+    if (!isBase64Character) return false;
+  }
+  for (let index = contentLength; index < encoded.length; index += 1) {
+    if (encoded.charCodeAt(index) !== 0x3d) return false;
+  }
+  return true;
 }
 
 function requireCanonicalManifestPath(value) {
