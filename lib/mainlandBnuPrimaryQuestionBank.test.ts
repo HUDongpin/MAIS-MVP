@@ -16,7 +16,6 @@ import { GET as getQuestionsRoute } from "../app/api/questions/route";
 import { createSessionToken, SESSION_COOKIE_NAME } from "./session";
 import {
   createStudentUser,
-  getLessonBySlug,
   getLessonEntryTarget,
   getPublicQuestions,
   getRoadmapData
@@ -45,7 +44,7 @@ function batchCount(questionIds: string[], batch: "bnu-primary-v1" | "bnu-primar
   return questionIds.filter((questionId) => mainlandBnuPrimaryQuestionGenerationMetadata[questionId]?.batch === batch).length;
 }
 
-test("Mainland BNU primary public bank promotes approved v1 and v2 1500-question packages", () => {
+test("Mainland BNU primary candidate banks stay preserved but absent from the public aggregate", () => {
   const publicBnuQuestions = questions.filter((question) => Boolean(mainlandBnuPrimaryQuestionGenerationMetadata[question.id]));
   const v1Ids = new Set(mainlandBnuPrimaryV1Questions.map((question) => question.id));
   const v2Ids = new Set(mainlandBnuPrimaryV2Questions.map((question) => question.id));
@@ -53,11 +52,11 @@ test("Mainland BNU primary public bank promotes approved v1 and v2 1500-question
   assert.equal(mainlandBnuPrimaryQuestions.length, expectedBnuPrimaryQuestionCount);
   assert.equal(mainlandBnuPrimaryV1Questions.length, expectedBnuPrimaryQuestionCountPerBatch);
   assert.equal(mainlandBnuPrimaryV2Questions.length, expectedBnuPrimaryQuestionCountPerBatch);
-  assert.equal(publicBnuQuestions.length, expectedBnuPrimaryQuestionCount);
+  assert.equal(publicBnuQuestions.length, 0);
   assert.equal(v1Ids.size, expectedBnuPrimaryQuestionCountPerBatch);
   assert.equal(v2Ids.size, expectedBnuPrimaryQuestionCountPerBatch);
   assert.equal(mainlandBnuPrimaryV2Questions.some((question) => v1Ids.has(question.id)), false);
-  assert.equal(publicBnuQuestions.every((question) => v1Ids.has(question.id) || v2Ids.has(question.id)), true);
+  assert.equal(questions.some((question) => v1Ids.has(question.id) || v2Ids.has(question.id)), false);
   assert.equal(Object.keys(mainlandBnuPrimaryQuestionGenerationMetadata).filter((questionId) => v2Ids.has(questionId)).length, expectedBnuPrimaryQuestionCountPerBatch);
 });
 
@@ -89,7 +88,7 @@ test("Mainland BNU primary v1+v2 bank keeps the approved grade, topic, type, and
   });
 });
 
-test("Mainland BNU primary questions are app-integrated, publisher-scoped, and independently answerable", () => {
+test("Mainland BNU primary candidate questions are publisher-scoped and independently answerable", () => {
   const topicIds = new Set(mainlandBnuPrimaryTopics.map((topic) => topic.id));
   const ids = new Set<string>();
   const prompts = new Set<string>();
@@ -113,7 +112,7 @@ test("Mainland BNU primary questions are app-integrated, publisher-scoped, and i
   });
 });
 
-test("Mainland BNU primary production metadata marks v1 and v2 rows approved and cites valid evidence", () => {
+test("Mainland BNU primary candidate metadata preserves its row QA and evidence", () => {
   const ragCardIds = new Set(mainlandBnuPrimaryRagCards.map((card) => card.id));
   const assessmentPatternCardIds = new Set(mainlandBnuPrimaryAssessmentPatternCards.map((card) => card.id));
 
@@ -170,9 +169,8 @@ test("Mainland BNU primary lesson seeds provide 8-question v1+v2 balanced checkp
   });
 });
 
-test("Mainland BNU P1-P6 Lesson and Practice surfaces expose only approved BNUP primary content", async () => {
+test("Mainland BNU P1-P6 candidate content remains unreachable from Lesson and Practice", async () => {
   const bnuQuestionIds = new Set(mainlandBnuPrimaryQuestions.map((question) => question.id));
-  const expectedTopicCounts: Record<(typeof primaryGrades)[number], number> = { P1: 16, P2: 17, P3: 17, P4: 16, P5: 17, P6: 14 };
 
   for (const grade of primaryGrades) {
     const result = await createStudentUser({
@@ -189,29 +187,14 @@ test("Mainland BNU P1-P6 Lesson and Practice surfaces expose only approved BNUP 
 
     const roadmap = await getRoadmapData(result.session.user.id, grade, result.session.user.curriculumProfile);
     assert.equal(roadmap.contentUnavailable, null);
-    assert.equal(roadmap.topics.length, expectedTopicCounts[grade]);
-    assert.ok(roadmap.topics.every((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.publisher === "MAINLAND_BNU"));
+    assert.equal(roadmap.topics.length, 0);
 
     const questionsForGrade = await getPublicQuestions({ grade, curriculumProfile: result.session.user.curriculumProfile });
-    assert.equal(questionsForGrade.length, 500);
-    assert.ok(questionsForGrade.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_BNU"));
-    assert.ok(questionsForGrade.every((question) => bnuQuestionIds.has(question.id) && /^bnu-primary-ds-v[12]-/.test(question.id)));
-    assert.equal(batchCount(questionsForGrade.map((question) => question.id), "bnu-primary-v1"), 250);
-    assert.equal(batchCount(questionsForGrade.map((question) => question.id), "bnu-primary-v2"), 250);
+    assert.equal(questionsForGrade.length, 0);
+    assert.equal(questionsForGrade.some((question) => bnuQuestionIds.has(question.id)), false);
 
     const entryTarget = await getLessonEntryTarget(result.session.user.id, grade, result.session.user.curriculumProfile);
-    assert.ok(entryTarget, `${grade} should resolve a BNUP primary lesson entry`);
-    assert.match(entryTarget?.slug ?? "", /^bnu-primary-/);
-    const lesson = entryTarget ? await getLessonBySlug(result.session.user.id, entryTarget.slug, result.session.user.curriculumProfile) : null;
-    assert.ok(lesson, `${grade} should load the scoped BNUP primary lesson`);
-    assert.equal(lesson?.publisher, "MAINLAND_BNU");
-    assert.equal(lesson?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
-    assert.equal(lesson?.topic.publisher, "MAINLAND_BNU");
-    assert.equal(lesson?.practiceQuestions.length, 8);
-    assert.ok(lesson?.practiceQuestions.every((question) => question.publisher === "MAINLAND_BNU" && bnuQuestionIds.has(question.id) && /^bnu-primary-ds-v[12]-/.test(question.id)));
-    assert.equal(batchCount(lesson?.practiceQuestions.map((question) => question.id) ?? [], "bnu-primary-v1"), 4);
-    assert.equal(batchCount(lesson?.practiceQuestions.map((question) => question.id) ?? [], "bnu-primary-v2"), 4);
-    assert.ok(lesson?.blocks.some((block) => block.type === "teacher-guide"));
+    assert.equal(entryTarget, null);
   }
 
   const pepP1Questions = await getPublicQuestions({ grade: "P1", curriculumProfile: mainlandPepProfile });
@@ -223,7 +206,7 @@ test("Mainland BNU P1-P6 Lesson and Practice surfaces expose only approved BNUP 
   assert.ok(hjbP1Questions.every((question) => question.publisher === "MAINLAND_HJB"));
 });
 
-test("Mainland BNU Practice Arena topic ordering interleaves v1 and v2 for the first free-selection round", async () => {
+test("Mainland BNU primary candidate topics cannot select questions in Practice Arena", async () => {
   const firstPrimaryTopic = mainlandBnuPrimaryTopics.find((topic) => topic.grade === "P1");
   assert.ok(firstPrimaryTopic, "BNUP primary should include a P1 topic");
 
@@ -232,12 +215,7 @@ test("Mainland BNU Practice Arena topic ordering interleaves v1 and v2 for the f
     topicId: firstPrimaryTopic.id,
     curriculumProfile: mainlandBnuProfile
   });
-  const firstRoundQuestionIds = topicQuestions.slice(0, 5).map((question) => question.id);
-
-  assert.ok(topicQuestions.length >= 10);
-  assert.equal(firstRoundQuestionIds.length, 5);
-  assert.ok(batchCount(firstRoundQuestionIds, "bnu-primary-v1") > 0);
-  assert.ok(batchCount(firstRoundQuestionIds, "bnu-primary-v2") > 0);
+  assert.deepEqual(topicQuestions, []);
 });
 
 test("Mainland BNU S1-S6 Practice surfaces expose approved secondary content", async () => {
@@ -290,7 +268,7 @@ test("Mainland BNU S1-S6 Practice surfaces expose approved secondary content", a
   }
 });
 
-test("question API returns BNUP primary questions only for a BNUP primary authenticated user", async () => {
+test("question API returns no BNUP primary candidate questions to an authenticated user", async () => {
   const result = await createStudentUser({
     name: "Mainland BNU API P1",
     username: `mainland-bnu-api-p1-${Date.now()}@example.test`,
@@ -310,8 +288,5 @@ test("question API returns BNUP primary questions only for a BNUP primary authen
   const body = await response.json() as { questions?: Array<{ curriculumTrack?: string; publisher?: string; id?: string }> };
 
   assert.equal(response.status, 200);
-  assert.equal(body.questions?.length, 500);
-  assert.ok(body.questions?.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_BNU" && /^bnu-primary-ds-v[12]-/.test(question.id ?? "")));
-  assert.equal(batchCount(body.questions?.map((question) => question.id ?? "") ?? [], "bnu-primary-v1"), 250);
-  assert.equal(batchCount(body.questions?.map((question) => question.id ?? "") ?? [], "bnu-primary-v2"), 250);
+  assert.deepEqual(body.questions, []);
 });

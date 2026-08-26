@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { usCaliforniaLessonSeeds } from "@/data/usCaliforniaLessons";
+import { californiaElementaryMicroLessonSpecs } from "@/data/usCaliforniaMicroLessons";
 import { buildWorkedExampleIllustrationMetadata, inferWorkedExampleVisualKind } from "./workedExampleIllustrationMetadata";
 
 test("upper-primary grouped multiplication expressions use a concrete counting model", () => {
@@ -19,52 +19,32 @@ test("upper-primary grouped multiplication expressions use a concrete counting m
   assert.match(metadata.caption, /concrete equal groups/i);
 });
 
-test("California Grade 1 reported worked examples use exact scene contracts instead of generic visuals", () => {
-  // The two topic-level lessons this list used to open with —
-  // `us-ca-math-p1-1-md-measure-data` (measurement-ribbon-string-difference) and
-  // `us-ca-math-p1-1-g-shape-reasoning` (geometry-equal-share-rectangles) — no
-  // longer carry a worked-example block in the seeds: the CCSS textbook port
-  // moved them into the CCSS registry, which owns its own visuals. What remains
-  // here is the Grade 1 micro-lesson set, whose worked examples are still
-  // seed-hosted and still have to resolve to exact scene contracts.
+test("live California Grade 1 topic scenes keep exact runtime contracts", () => {
   const expectedScenes = new Map([
-    ["us-ca-math-p1-1-h1-picture-join-stories-to-10", "counters-red-blue-join"],
-    ["us-ca-math-p1-1-h2-picture-story-addition-equations", "birds-fence-tree-addition"],
-    ["us-ca-math-p1-1-h3-cube-train-join-models-to-10", "cube-train-green-yellow-join"],
-    ["us-ca-math-p1-1-h5-model-equation-join-stories-to-10", "apple-basket-join"],
-    ["us-ca-math-p1-1-h6-equation-match-join-stories-to-10", "fish-equation-match-join"],
-    ["us-ca-math-p1-1-l1-picture-take-away-stories-to-10", "balloon-take-away"],
-    ["us-ca-math-p1-1-l2-picture-story-subtraction-equations", "crackers-subtraction-equation"],
-    ["us-ca-math-p1-1-l3-cube-train-take-away-models-to-10", "cube-train-cover-take-away"],
-    ["us-ca-math-p1-1-l4-take-away-stories-within-10", "sticker-take-away"],
-    ["us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10", "counter-cross-out-take-away"],
-    ["us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10", "shells-break-apart-subtraction"]
+    ["us-ca-math-p1-1-md-measure-data", "measurement-ribbon-string-difference"],
+    ["us-ca-math-p1-1-g-shape-reasoning", "geometry-equal-share-rectangles"]
   ] as const);
 
-  const issues: string[] = [];
-
   for (const [topicId, expectedSceneId] of expectedScenes) {
-    const lesson = usCaliforniaLessonSeeds.find((seed) => seed.topicId === topicId);
-    const workedExample = lesson?.blocks.find((block) => block.type === "worked-example");
-    assert.ok(lesson, `Missing lesson ${topicId}`);
-    assert.ok(workedExample, `Missing worked example ${topicId}`);
-    assert.ok(workedExample.content, `Missing worked example content ${topicId}`);
-
     const metadata = buildWorkedExampleIllustrationMetadata({
-      content: workedExample.content.en,
+      content: "A standards-aligned worked example.",
       grade: "P1",
-      title: lesson.title.en,
+      title: topicId,
       topicId
     });
-    const sceneId = (metadata as { sceneId?: string }).sceneId;
-
-    if (sceneId !== expectedSceneId) {
-      issues.push(`${topicId}: expected ${expectedSceneId}, received ${sceneId ?? "none"}`);
-    }
-    if (/data display|spatial and vector|balanced equation model/i.test(metadata.caption)) {
-      issues.push(`${topicId}: still using generic wrong visual caption "${metadata.caption}"`);
-    }
+    assert.equal(metadata.sceneId, expectedSceneId);
   }
+});
 
-  assert.deepEqual(issues, []);
+test("candidate-only California micro lessons have no runtime scene override", () => {
+  for (const lesson of californiaElementaryMicroLessonSpecs) {
+    const metadata = buildWorkedExampleIllustrationMetadata({
+      content: lesson.workedExample.reasoning,
+      grade: lesson.grade,
+      title: lesson.maisTitle,
+      topicId: lesson.topicId
+    });
+
+    assert.equal(metadata.sceneId, "generic", `${lesson.topicId} remains bound to an exact live scene`);
+  }
 });

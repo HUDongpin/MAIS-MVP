@@ -58,8 +58,8 @@ test("full question bank is independently solvable and answer-key matched", () =
   assert.equal(report.summary.batchCounts["rag-v2"], 900);
   assert.equal(report.summary.batchCounts["rag-v3"], 1500);
   assert.equal(report.summary.batchCounts["rag-v4"], 1500);
-  assert.equal(report.summary.batchCounts["bnu-primary-v1"] ?? 0, 1500);
-  assert.equal(report.summary.batchCounts["bnu-primary-v2"] ?? 0, 1500);
+  assert.equal(report.summary.batchCounts["bnu-primary-v1"] ?? 0, 0);
+  assert.equal(report.summary.batchCounts["bnu-primary-v2"] ?? 0, 0);
   assert.equal(report.summary.batchCounts["bnu-junior-v1-1500"] ?? 0, expectedMainlandBnuJuniorQuestionCount);
   assert.equal(report.summary.batchCounts["bnu-high-v1-approved"] ?? 0, expectedMainlandBnuHighQuestionCount);
   assert.equal(report.summary.batchCounts["hjb-junior-v2-1500"] ?? 0, expectedMainlandHjbJuniorQuestionCount);
