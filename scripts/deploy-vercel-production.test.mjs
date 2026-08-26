@@ -289,7 +289,7 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   const expectedTreeSha = "b".repeat(40);
   const targetFingerprint = "c".repeat(64);
   const exactPostflight = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     candidateSha,
     expectedTreeSha,
     projectId: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1",
@@ -298,18 +298,23 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
     teamSlug: "peter-dongpin-hu-s-projects",
     targetFingerprint,
     postgresMajor: 16,
+    outboxState: "exact",
     webhookState: "exact",
     heartbeatState: "exact",
     operations: [],
     statistics: { tableBytes: "4096", indexBytes: "2048", rowEstimate: "8" },
     preflightDigest: "d".repeat(64),
     requiredConfirmation:
-      `confirm:teacher-notice-production-schema:v2:${candidateSha}:must-not-be-recorded`
+      `confirm:teacher-notice-production-schema:v3:${candidateSha}:must-not-be-recorded`
   };
   const applyPayload = {
     candidateSha,
     expectedTreeSha,
-    operations: ["webhook-v2-to-v3", "heartbeat-install-v2"],
+    operations: [
+      "outbox-install-v2",
+      "webhook-install-v3",
+      "heartbeat-install-v2"
+    ],
     preflightDigest: "e".repeat(64),
     projectId: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1",
     teamId: "team_i9xhhYXUeYBOCLcfWBjTqlYG",
@@ -331,6 +336,7 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   );
   assert.deepEqual(applied.operations, applyPayload.operations);
   assert.equal(applied.targetFingerprint, targetFingerprint);
+  assert.equal(applied.postflight.outboxState, "exact");
   assert.equal(applied.postflight.webhookState, "exact");
   assert.equal(applied.sameConnectionPostflight.statistics.rowEstimate, "7");
   assert.equal(applied.postflight.statistics.rowEstimate, "8");
@@ -360,6 +366,7 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
     { candidateSha, expectedTreeSha, mode: "preflight", targetFingerprint }
   );
   assert.equal(preflight.webhookState, "exact");
+  assert.equal(preflight.outboxState, "exact");
   assert.deepEqual(preflight.operations, []);
   assert.doesNotMatch(JSON.stringify(preflight), /requiredConfirmation/u);
   assert.throws(
@@ -403,6 +410,25 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
         heartbeatState: "v1",
         operations: []
       }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...preflightPayload,
+        schemaVersion: 2,
+        requiredConfirmation:
+          `confirm:teacher-notice-production-schema:v2:${candidateSha}:legacy`
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({ ...preflightPayload, outboxState: undefined }),
       { candidateSha, expectedTreeSha, mode: "preflight" }
     ),
     /schema gate evidence/u

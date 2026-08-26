@@ -142,7 +142,7 @@ function databaseInspection(overrides = {}) {
       ...identityOverrides
     },
     heartbeatState: "empty",
-    outboxDependencyExact: true,
+    outboxState: "exact",
     statistics: {
       indexBytes: "8192",
       rowEstimate: "42",
@@ -173,6 +173,15 @@ test("builds the exact production migration plan from independently attested sch
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
       heartbeatState: "empty",
+      outboxState: "empty",
+      webhookState: "empty"
+    }),
+    ["outbox-install-v2", "webhook-install-v3", "heartbeat-install-v2"]
+  );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      heartbeatState: "empty",
+      outboxState: "exact",
       webhookState: "upgradeable"
     }),
     ["webhook-v2-to-v3", "heartbeat-install-v2"]
@@ -180,6 +189,7 @@ test("builds the exact production migration plan from independently attested sch
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
       heartbeatState: "v1",
+      outboxState: "exact",
       webhookState: "exact"
     }),
     ["heartbeat-v1-to-v2"]
@@ -187,6 +197,7 @@ test("builds the exact production migration plan from independently attested sch
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
       heartbeatState: "exact",
+      outboxState: "exact",
       webhookState: "exact"
     }),
     []
@@ -194,7 +205,24 @@ test("builds the exact production migration plan from independently attested sch
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       heartbeatState: "partial",
+      outboxState: "exact",
       webhookState: "exact"
+    }),
+    /rejected/u
+  );
+  assert.throws(
+    () => buildTeacherNoticeProductionSchemaPlan({
+      heartbeatState: "exact",
+      outboxState: "partial",
+      webhookState: "exact"
+    }),
+    /rejected/u
+  );
+  assert.throws(
+    () => buildTeacherNoticeProductionSchemaPlan({
+      heartbeatState: "exact",
+      outboxState: "empty",
+      webhookState: "upgradeable"
     }),
     /rejected/u
   );
@@ -205,6 +233,7 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
     candidateSha,
     expectedTreeSha,
     heartbeatState: "empty",
+    outboxState: "empty",
     postgresMajor: 16,
     statistics: {
       indexBytes: "2048",
@@ -212,18 +241,20 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
       tableBytes: "4096"
     },
     targetFingerprint,
-    webhookState: "upgradeable"
+    webhookState: "empty"
   });
 
   assert.deepEqual(evidence.operations, [
-    "webhook-v2-to-v3",
+    "outbox-install-v2",
+    "webhook-install-v3",
     "heartbeat-install-v2"
   ]);
-  assert.equal(evidence.schemaVersion, 2);
+  assert.equal(evidence.schemaVersion, 3);
+  assert.equal(evidence.outboxState, "empty");
   assert.match(evidence.preflightDigest, /^[a-f0-9]{64}$/u);
   assert.match(
     evidence.requiredConfirmation,
-    /^confirm:teacher-notice-production-schema:v2:/u
+    /^confirm:teacher-notice-production-schema:v3:/u
   );
   assert.doesNotThrow(() => assertTeacherNoticeProductionSchemaConfirmation(
     evidence,
@@ -234,10 +265,11 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
     candidateSha,
     expectedTreeSha,
     heartbeatState: "exact",
+    outboxState: "exact",
     postgresMajor: 16,
     statistics: evidence.statistics,
     targetFingerprint,
-    webhookState: "upgradeable"
+    webhookState: "empty"
   });
   assert.throws(
     () => assertTeacherNoticeProductionSchemaConfirmation(
@@ -267,13 +299,13 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
         serverVersionNum: "160004"
       },
       heartbeatState: "empty",
-      outboxDependencyExact: true,
+      outboxState: "empty",
       statistics: {
         indexBytes: "8192",
         rowEstimate: "42",
         tableBytes: "16384"
       },
-      webhookState: "upgradeable"
+      webhookState: "empty"
     }),
     readTokenImpl: async () => "vct_test_token_value_1234567890",
     repoRoot: process.cwd(),
@@ -282,7 +314,8 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
 
   assert.equal(connectedUrl, productionUrl);
   assert.equal(closed, true);
-  assert.equal(evidence.webhookState, "upgradeable");
+  assert.equal(evidence.outboxState, "empty");
+  assert.equal(evidence.webhookState, "empty");
   assert.equal(evidence.heartbeatState, "empty");
   assert.match(evidence.targetFingerprint, /^[a-f0-9]{64}$/u);
   const serialized = JSON.stringify(evidence);
@@ -341,7 +374,8 @@ test("production provider pull fails closed before connecting outside the protec
 });
 
 test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applies only the confirmed operations, and post-attests exact state", async () => {
-  let webhookState = "upgradeable";
+  let outboxState = "empty";
+  let webhookState = "empty";
   let heartbeatState = "empty";
   let environmentReads = 0;
   let inspections = 0;
@@ -365,7 +399,7 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
           serverVersionNum: "160004"
         },
         heartbeatState,
-        outboxDependencyExact: true,
+        outboxState,
         statistics: {
           indexBytes: "8192",
           rowEstimate: inspections === 5 ? "43" : "42",
@@ -384,6 +418,7 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
     ...dependencies,
     applyMigrations: async (_client, operations) => {
       appliedOperations.push(...operations);
+      outboxState = "exact";
       webhookState = "exact";
       heartbeatState = "exact";
     },
@@ -391,10 +426,12 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
   });
 
   assert.deepEqual(appliedOperations, [
-    "webhook-v2-to-v3",
+    "outbox-install-v2",
+    "webhook-install-v3",
     "heartbeat-install-v2"
   ]);
   assert.equal(result.preflightDigest, preflight.preflightDigest);
+  assert.equal(result.postflight.outboxState, "exact");
   assert.equal(result.postflight.webhookState, "exact");
   assert.equal(result.postflight.heartbeatState, "exact");
   assert.equal(result.sameConnectionPostflight.statistics.rowEstimate, "42");
@@ -454,7 +491,7 @@ test("preflight rejects malformed provider-pull payloads and missing production 
   }
 });
 
-test("preflight fails closed for wrong Vercel ownership, PostgreSQL below 16, missing outbox, and partial schemas", async () => {
+test("preflight fails closed for wrong Vercel ownership, PostgreSQL below 16, and partial schemas", async () => {
   const cases = [
     preflightDependencies({
       fetchJsonImpl: providerPullFetchJson({ projectAccountId: "team_wrong" })
@@ -466,7 +503,7 @@ test("preflight fails closed for wrong Vercel ownership, PostgreSQL below 16, mi
     }),
     preflightDependencies({
       inspectDatabase: async () => databaseInspection({
-        outboxDependencyExact: false
+        outboxState: "partial"
       })
     }),
     preflightDependencies({

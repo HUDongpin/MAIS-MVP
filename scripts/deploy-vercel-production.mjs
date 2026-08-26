@@ -503,17 +503,23 @@ const productionSchemaPlans = new Set([
   '["webhook-v2-to-v3","heartbeat-v1-to-v2"]',
   '["webhook-v2-to-v3","heartbeat-install-v2"]',
   '["webhook-install-v3","heartbeat-v1-to-v2"]',
-  '["webhook-install-v3","heartbeat-install-v2"]'
+  '["webhook-install-v3","heartbeat-install-v2"]',
+  '["outbox-install-v2","webhook-install-v3"]',
+  '["outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]'
 ]);
 
-function expectedProductionSchemaPlan({ heartbeatState, webhookState }) {
+function expectedProductionSchemaPlan({ heartbeatState, outboxState, webhookState }) {
   if (
+    !["empty", "exact"].includes(outboxState) ||
     !["empty", "upgradeable", "exact"].includes(webhookState) ||
-    !["empty", "v1", "exact"].includes(heartbeatState)
+    !["empty", "v1", "exact"].includes(heartbeatState) ||
+    (outboxState === "empty" && webhookState !== "empty")
   ) {
     return null;
   }
   const operations = [];
+  if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
   if (webhookState === "empty") operations.push("webhook-install-v3");
   if (heartbeatState === "v1") operations.push("heartbeat-v1-to-v2");
@@ -526,10 +532,11 @@ function safeProductionSchemaSnapshot(payload, { candidateSha, expectedTreeSha }
   const statistics = payload?.statistics;
   const expectedOperations = expectedProductionSchemaPlan({
     heartbeatState: payload?.heartbeatState,
+    outboxState: payload?.outboxState,
     webhookState: payload?.webhookState
   });
   if (
-    payload?.schemaVersion !== 2 ||
+    payload?.schemaVersion !== 3 ||
     payload?.candidateSha !== candidateSha ||
     payload?.expectedTreeSha !== expectedTreeSha ||
     payload?.projectId !== APPROVED_VERCEL_PROJECT_ID ||
@@ -550,7 +557,7 @@ function safeProductionSchemaSnapshot(payload, { candidateSha, expectedTreeSha }
     !/^[a-f0-9]{64}$/u.test(String(payload?.preflightDigest ?? "")) ||
     typeof payload?.requiredConfirmation !== "string" ||
     !payload.requiredConfirmation.startsWith(
-      "confirm:teacher-notice-production-schema:v2:"
+      "confirm:teacher-notice-production-schema:v3:"
     ) ||
     payload.requiredConfirmation.length > 1_024
   ) {
@@ -560,6 +567,7 @@ function safeProductionSchemaSnapshot(payload, { candidateSha, expectedTreeSha }
     candidateSha,
     expectedTreeSha,
     heartbeatState: payload.heartbeatState,
+    outboxState: payload.outboxState,
     operations: [...operations],
     postgresMajor: payload.postgresMajor,
     preflightDigest: payload.preflightDigest,
@@ -602,6 +610,7 @@ export function parseTeacherNoticeProductionSchemaGateEvidence(output, expected)
       if (
         expected?.targetFingerprint !== undefined &&
         (safe.targetFingerprint !== expected.targetFingerprint ||
+          safe.outboxState !== "exact" ||
           safe.webhookState !== "exact" ||
           safe.heartbeatState !== "exact" ||
           safe.operations.length !== 0)
@@ -634,6 +643,8 @@ export function parseTeacherNoticeProductionSchemaGateEvidence(output, expected)
     if (
       postflight.targetFingerprint !== payload.targetFingerprint ||
       sameConnectionPostflight.targetFingerprint !== payload.targetFingerprint ||
+      postflight.outboxState !== "exact" ||
+      sameConnectionPostflight.outboxState !== "exact" ||
       postflight.webhookState !== "exact" ||
       sameConnectionPostflight.webhookState !== "exact" ||
       postflight.heartbeatState !== "exact" ||
