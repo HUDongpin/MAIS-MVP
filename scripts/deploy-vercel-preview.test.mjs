@@ -318,3 +318,21 @@ test("preview inspect JSON returns only exact immutable candidate evidence and r
     /inspect evidence failed/u
   );
 });
+
+test("preview inspect accepts current CLI metadata omission without claiming metadata proof", () => {
+  const candidateSha = "a".repeat(40);
+  const deploymentUrl = "https://candidate-preview.vercel.app";
+  const evidence = parseVercelInspectEvidence(JSON.stringify({
+    id: "dpl_PreviewFixture123",
+    url: "candidate-preview.vercel.app",
+    readyState: "READY",
+    target: "preview"
+  }), {
+    candidateSha,
+    deploymentUrl,
+    target: "preview"
+  });
+
+  assert.equal(evidence.metadataVerified, false);
+  assert.equal(evidence.providerGitShaVerified, false);
+});
