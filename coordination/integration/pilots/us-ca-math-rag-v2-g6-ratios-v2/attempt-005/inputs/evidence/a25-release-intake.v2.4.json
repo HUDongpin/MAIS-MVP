@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a25-us-ca-g6-ratios-v2-intake-v24-attempt005",
+  "role": "A25",
+  "result": "pass",
+  "producedAt": "2026-08-26T10:15:19+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.4",
+  "semanticPayload": {
+    "contractVersion": "promotion-a25-release-intake.v2",
+    "finalDisposition": "reviewed commit",
+    "reviewedCompositionCommit": "b256fc8249d1f880584dc30617b6b25f0b45fcb1",
+    "reviewedBranch": "codex/a23-promotion-shadow-attempt-002-20260826",
+    "targetPullRequest": "https://github.com/HUDongpin/MAIS-MVP/pull/162",
+    "reviewSession": {
+      "owner": "A25",
+      "branch": "codex/a25-promotion-shadow-review-v2-20260826",
+      "worktree": ".worktrees/a25-promotion-shadow-review-v2-20260826",
+      "createdAt": "2026-08-26",
+      "expectedCloseoutAt": "2026-08-26",
+      "worktreeCleanBeforeReview": true,
+      "sharedDirtyRootUsedAsEvidence": false
+    },
+    "baselineReview": {
+      "originMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+      "originMainVerifiedWithLsRemote": true,
+      "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+      "targetBaselineContainsOriginMain": true
+    },
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "packageReview": {
+      "promotionUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+      "attemptId": "attempt-005",
+      "candidatePackageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+      "candidateVersion": "2.0.0-shadow.1",
+      "parentPackageStatus": "candidate-only",
+      "candidateSourceMutationAllowed": false,
+      "attempt001MutationAllowed": false,
+      "attempt002MutationAllowed": false,
+      "attempt002ReceiptReuseAllowed": false,
+      "exactPathspecStagingRequired": true,
+      "ownerEvidenceRoleCount": 9,
+      "ownerEvidenceRoles": [
+        "A21",
+        "A18",
+        "A23",
+        "A04",
+        "A05",
+        "A11",
+        "A22",
+        "A24",
+        "A25"
+      ],
+      "unresolvedPathConflictCount": 0,
+      "attempt003MutationAllowed": false,
+      "attempt003ReceiptReuseAllowed": false,
+      "attempt004MutationAllowed": false,
+      "attempt004ReceiptReuseAllowed": false
+    },
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.4",
+      "releaseCommit": "0b46b9740ff87eb0a947c58cf63653d4dfa02cf9",
+      "bundleDigest": "b78526bc7c34a2f7c1471ab71c79a38f0435ebd2e6a89f8b502eab99cf74dd20",
+      "ledgerRawSha256": "6329bb002ff8efdcf32341567a286e58cf7d98dc32fba34eb7fa5b78642fb73b"
+    },
+    "legacyResolutionRegistryPath": "coordination/integration/v2/legacy-resolution-registry.v2.json",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "legacyResolutionCount": 18,
+    "activeLegacyExceptionCount": 0,
+    "selectedCandidateLiveHitCount": 0,
+    "unresolvedDynamicImportCount": 0,
+    "unknownLiveRegistryCount": 0,
+    "enforcementBoundary": {
+      "requiredCheckName": "promotion-shadow-gate",
+      "branchProtectionEnforced": false,
+      "mainPostMergeProofPresent": false,
+      "shadowExecutionAuthorized": true,
+      "integrationAuthorized": false,
+      "liveAuthorized": false,
+      "ciImplementedForAttempt005": true
+    },
+    "remainingCloseoutConditions": [
+      "freeze and validate the immutable attempt-005 Manifest and evidence index",
+      "produce a passing canonical Shadow Receipt from its exact execution commit",
+      "independently replay the exact execution commit with the same semantic Receipt digest",
+      "record A22 post-run non-live isolation proof",
+      "merge the reviewed package and obtain a green main post-merge promotion-shadow-gate run",
+      "configure promotion-shadow-gate as a branch-protection required check"
+    ],
+    "maturityClaim": "not-mature-before-real-shadow-replay-and-enforcement",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.3",
+      "toCheckerVersion": "promotion-gate-shadow-v2.4",
+      "changeScope": "checker-release-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-004",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "5c6d0c6c513769fce699c3640b710d6f37ec189f5188c57b3bf36c011ed10a01",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/inputs/evidence/a25-release-intake.v2.3.json",
+      "priorEvidenceRawSha256": "de376b341154ed426981d3b1ec0161fa64d31fc030ebf78974dca25c28a35ea7",
+      "priorEvidenceReviewedCommit": "d6c1804ce0bc34ece932e12c88df75f738bcaf8f"
+    }
+  }
+}
