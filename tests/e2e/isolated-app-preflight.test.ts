@@ -50,10 +50,15 @@ const processGroupIsRunning = isolatedAppProcessGroupIsRunning;
 
 async function waitForProcessGroupExit(processGroupId: number, timeoutMs = 5_000) {
   const deadline = Date.now() + timeoutMs;
-  while (processGroupIsRunning(processGroupId) && Date.now() < deadline) {
+  while (Date.now() < deadline) {
+    if (!processGroupIsRunning(processGroupId)) return;
     await new Promise((resolve) => setTimeout(resolve, 25));
   }
-  assert.equal(processGroupIsRunning(processGroupId), false, `process group ${processGroupId} should exit`);
+  assert.equal(
+    processGroupIsRunning(processGroupId),
+    false,
+    `process group ${processGroupId} should exit`
+  );
 }
 
 async function assertZombieOnlyProcessGroupIsExited() {

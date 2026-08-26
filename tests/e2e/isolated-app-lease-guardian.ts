@@ -44,7 +44,8 @@ const processGroupIsAlive = isolatedAppProcessGroupIsRunning;
 
 async function waitForProcessGroupExit(processGroupId: number, timeoutMs = 5_000) {
   const deadline = Date.now() + timeoutMs;
-  while (processGroupIsAlive(processGroupId) && Date.now() < deadline) {
+  while (Date.now() < deadline) {
+    if (!processGroupIsAlive(processGroupId)) return true;
     await new Promise((resolve) => setTimeout(resolve, 25));
   }
   return !processGroupIsAlive(processGroupId);
