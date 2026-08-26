@@ -119,6 +119,9 @@ function patternDistractors(question, needed) {
 
 /** Extra accepted spellings for decimal / fraction-valued fill-ins. */
 const curatedAcceptedAnswers = {
+  // The prompt rounds to a whole number, but the exact value is worth accepting too:
+  // a student who computes 2 × 3.14 × 5 and types 31.4 has done the mathematics right.
+  "circle-pi#1": ["31.4"],
   "powers-of-ten#1": ["0.45", ".45"],
   "round-decimals#0": ["3.5", "3.50"],
   "round-decimals#2": ["3.47"],
@@ -166,8 +169,51 @@ function synthesizeNumericDistractors(question, needed) {
   return picked.map((value) => formatLikeChoices(value, question.choices));
 }
 
+/**
+ * Localized-string table, keyed by the exact English string, in
+ * `ccss-textbook-source-v1/translations.json`. A `null` value means "registered but
+ * not yet translated" and falls back to English; a missing key fails the build, so a
+ * new upstream string cannot silently ship untranslated the way all 810 items did
+ * before this table existed (see the 2026-08-26 California content QA, §2.5).
+ *
+ * Run with `--sync-translations` to register new strings as `null` instead of failing.
+ */
+const translationsPath = path.join(sourceDir, "translations.json");
+const translations = JSON.parse(readFileSync(translationsPath, "utf8"));
+const syncTranslations = process.argv.includes("--sync-translations");
+const untranslated = new Set();
+const newlyRegistered = new Set();
+let translatedCount = 0;
+let localizedCount = 0;
+
+/**
+ * Numbers, bare symbols and short algebraic fragments are identical in every locale;
+ * translating "3/4" or "πr²" is meaningless, so they never enter the table.
+ */
+function isLocaleNeutral(en) {
+  return !/[A-Za-z]{2,}/.test(en);
+}
+
 function L(en) {
-  return { en, zh: en, zhHans: en };
+  localizedCount += 1;
+  if (isLocaleNeutral(en)) return { en, zh: en, zhHans: en };
+
+  if (!(en in translations)) {
+    if (syncTranslations) {
+      translations[en] = null;
+      newlyRegistered.add(en);
+    } else {
+      problems.push(`translations.json: unregistered string — ${JSON.stringify(en)}`);
+    }
+  }
+
+  const entry = translations[en];
+  if (!entry) {
+    untranslated.add(en);
+    return { en, zh: en, zhHans: en };
+  }
+  translatedCount += 1;
+  return { en, zh: entry.zh, zhHans: entry.zhHans ?? entry.zh };
 }
 
 const questions = [];
@@ -262,9 +308,36 @@ for (const lesson of snapshot.lessons) {
   });
 }
 
+if (syncTranslations && newlyRegistered.size) {
+  const sorted = Object.fromEntries(Object.keys(translations).sort().map((k) => [k, translations[k]]));
+  writeFileSync(translationsPath, `${JSON.stringify(sorted, null, 2)}\n`);
+  console.log(`translations.json: registered ${newlyRegistered.size} new string(s) as null`);
+}
+
+/**
+ * Coverage ratchet. Raise this as translation lands so coverage can only go up;
+ * it lives here rather than in package.json because the npm scripts are frozen.
+ */
+const MIN_TRANSLATION_COVERAGE = 0;
+const translatableTotal = translatedCount + untranslated.size;
+const coverage = translatableTotal === 0 ? 1 : translatedCount / translatableTotal;
+console.log(
+  `translations: ${translatedCount}/${translatableTotal} translatable strings ` +
+    `(${(coverage * 100).toFixed(1)}%), ${localizedCount - translatableTotal} locale-neutral`
+);
+if (coverage < MIN_TRANSLATION_COVERAGE) {
+  problems.push(
+    `translation coverage ${(coverage * 100).toFixed(1)}% is below the ratchet ` +
+      `${(MIN_TRANSLATION_COVERAGE * 100).toFixed(1)}% — do not lower the ratchet to pass`
+  );
+}
+
 if (problems.length) {
-  console.error(problems.join("\n"));
+  const shown = problems.slice(0, 20);
+  console.error(shown.join("\n"));
+  if (problems.length > shown.length) console.error(`… and ${problems.length - shown.length} more`);
   console.error(`\nbuild-ccss-practice-pack: ${problems.length} problem(s).`);
+  console.error("If these are new upstream strings, re-run with --sync-translations.");
   process.exit(1);
 }
 

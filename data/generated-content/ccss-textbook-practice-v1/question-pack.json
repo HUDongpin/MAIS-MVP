@@ -63,8 +63,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "A full ten-frame is completely filled. How many counters is that?",
-        "zh": "A full ten-frame is completely filled. How many counters is that?",
-        "zhHans": "A full ten-frame is completely filled. How many counters is that?"
+        "zh": "一個十格框已完全填滿。那是多少個計數片？",
+        "zhHans": "一个十格框已完全填满。那是多少个计数片？"
       },
       "options": [
         {
@@ -137,8 +137,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A ten-frame shows 7 counters. How many empty spots are left?",
-        "zh": "A ten-frame shows 7 counters. How many empty spots are left?",
-        "zhHans": "A ten-frame shows 7 counters. How many empty spots are left?"
+        "zh": "十格框中有 7 個計數片。還剩多少個空格？",
+        "zhHans": "十格框中有 7 个计数片。还剩多少个空格？"
       },
       "answer": "3",
       "acceptedAnswers": [
@@ -7041,8 +7041,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "On a number line, each whole number is a ___ from 0.",
-        "zh": "On a number line, each whole number is a ___ from 0.",
-        "zhHans": "On a number line, each whole number is a ___ from 0."
+        "zh": "在數軸上，每個整數與 0 相距一個 ___。",
+        "zhHans": "在数轴上，每个整数与 0 相距一个 ___。"
       },
       "options": [
         {
@@ -10917,8 +10917,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A square has sides of 5. What is its perimeter?",
-        "zh": "A square has sides of 5. What is its perimeter?",
-        "zhHans": "A square has sides of 5. What is its perimeter?"
+        "zh": "一個正方形的邊長是 5。它的周長是多少？",
+        "zhHans": "一个正方形的边长是 5。它的周长是多少？"
       },
       "answer": "20",
       "acceptedAnswers": [
@@ -14703,8 +14703,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A rectangle is 7 by 4. What is its perimeter?",
-        "zh": "A rectangle is 7 by 4. What is its perimeter?",
-        "zhHans": "A rectangle is 7 by 4. What is its perimeter?"
+        "zh": "一個長方形長 7、寬 4。它的周長是多少？",
+        "zhHans": "一个长方形长 7、宽 4。它的周长是多少？"
       },
       "answer": "22",
       "acceptedAnswers": [
@@ -15162,8 +15162,8 @@
       ],
       "explanation": {
         "en": "Exactly 90° is a right angle.",
-        "zh": "Exactly 90° is a right angle.",
-        "zhHans": "Exactly 90° is a right angle."
+        "zh": "剛好 90° 就是直角。",
+        "zhHans": "刚好 90° 就是直角。"
       },
       "independentAnswer": "a right angle",
       "independentSolution": "Exactly 90° is a right angle."
@@ -15341,8 +15341,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A right angle (90°) is split into 35° and ?°",
-        "zh": "A right angle (90°) is split into 35° and ?°",
-        "zhHans": "A right angle (90°) is split into 35° and ?°"
+        "zh": "一個直角（90°）被分成 35° 和 ?°",
+        "zhHans": "一个直角（90°）被分成 35° 和 ?°"
       },
       "answer": "55",
       "acceptedAnswers": [
@@ -17689,12 +17689,12 @@
         "22"
       ],
       "explanation": {
-        "en": "432 ÷ 20 = 21.6 → about 22.",
-        "zh": "432 ÷ 20 = 21.6 → about 22.",
-        "zhHans": "432 ÷ 20 = 21.6 → about 22."
+        "en": "432 ÷ 20 = 21.6, which rounds to about 22.",
+        "zh": "432 ÷ 20 = 21.6, which rounds to about 22.",
+        "zhHans": "432 ÷ 20 = 21.6, which rounds to about 22."
       },
       "independentAnswer": "22",
-      "independentSolution": "432 ÷ 20 = 21.6 → about 22."
+      "independentSolution": "432 ÷ 20 = 21.6, which rounds to about 22."
     },
     {
       "id": "ccss-textbook-practice-v1-divide-two-digit-q03",
@@ -23866,8 +23866,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "Adding a negative number moves you which way on the number line?",
-        "zh": "Adding a negative number moves you which way on the number line?",
-        "zhHans": "Adding a negative number moves you which way on the number line?"
+        "zh": "在數軸上，加上一個負數會往哪個方向移動？",
+        "zhHans": "在数轴上，加上一个负数会往哪个方向移动？"
       },
       "options": [
         {
@@ -31984,7 +31984,7 @@
         "N-Q.3"
       ],
       "domainTags": [
-        "modeling"
+        "quantitative reasoning"
       ],
       "conceptIds": [
         "units-quantities",
@@ -32036,7 +32036,7 @@
         "N-Q.3"
       ],
       "domainTags": [
-        "modeling"
+        "quantitative reasoning"
       ],
       "conceptIds": [
         "units-quantities",
@@ -32110,7 +32110,7 @@
         "N-Q.3"
       ],
       "domainTags": [
-        "modeling"
+        "quantitative reasoning"
       ],
       "conceptIds": [
         "units-quantities",
@@ -32161,7 +32161,7 @@
         "N-CN.2"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-numbers",
@@ -32233,7 +32233,7 @@
         "N-CN.2"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-numbers",
@@ -32305,7 +32305,7 @@
         "N-CN.2"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-numbers",
@@ -32376,7 +32376,7 @@
         "N-CN.3"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-conjugates",
@@ -32446,7 +32446,7 @@
         "N-CN.3"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-conjugates",
@@ -32494,7 +32494,7 @@
         "N-CN.3"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-conjugates",
@@ -32544,7 +32544,7 @@
         "N-CN.6"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-plane",
@@ -32618,7 +32618,7 @@
         "N-CN.6"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-plane",
@@ -32692,7 +32692,7 @@
         "N-CN.6"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-plane",
@@ -32766,7 +32766,7 @@
         "N-CN.9"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-solutions",
@@ -32840,7 +32840,7 @@
         "N-CN.9"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-solutions",
@@ -32914,7 +32914,7 @@
         "N-CN.9"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "complex-solutions",
@@ -32988,7 +32988,7 @@
         "N-VM.3"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "vectors",
@@ -33062,7 +33062,7 @@
         "N-VM.3"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "vectors",
@@ -33114,7 +33114,7 @@
         "N-VM.3"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "vectors",
@@ -33187,7 +33187,7 @@
         "N-VM.5"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "vector-operations",
@@ -33259,7 +33259,7 @@
         "N-VM.5"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "vector-operations",
@@ -33331,7 +33331,7 @@
         "N-VM.5"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "vector-operations",
@@ -33404,7 +33404,7 @@
         "N-VM.8"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrices",
@@ -33478,7 +33478,7 @@
         "N-VM.8"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrices",
@@ -33552,7 +33552,7 @@
         "N-VM.8"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrices",
@@ -33625,7 +33625,7 @@
         "N-VM.10"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-algebra",
@@ -33697,7 +33697,7 @@
         "N-VM.10"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-algebra",
@@ -33769,7 +33769,7 @@
         "N-VM.10"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-algebra",
@@ -33841,7 +33841,7 @@
         "N-VM.12"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-transformations",
@@ -33913,7 +33913,7 @@
         "N-VM.12"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-transformations",
@@ -33963,7 +33963,7 @@
         "N-VM.12"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-transformations",
@@ -34250,7 +34250,7 @@
         "A-SSE.3"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "rewrite-expressions",
@@ -34320,7 +34320,7 @@
         "A-SSE.3"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "rewrite-expressions",
@@ -34368,7 +34368,7 @@
         "A-SSE.3"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "rewrite-expressions",
@@ -34604,7 +34604,7 @@
         "A-APR.1"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "polynomial-operations",
@@ -34674,7 +34674,7 @@
         "A-APR.1"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "polynomial-operations",
@@ -34744,7 +34744,7 @@
         "A-APR.1"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "polynomial-operations",
@@ -34815,7 +34815,7 @@
         "A-APR.3"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "remainder-theorem",
@@ -34887,7 +34887,7 @@
         "A-APR.3"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "remainder-theorem",
@@ -34959,7 +34959,7 @@
         "A-APR.3"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "remainder-theorem",
@@ -35009,7 +35009,7 @@
         "A-APR.5"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "polynomial-identities",
@@ -35081,7 +35081,7 @@
         "A-APR.5"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "polynomial-identities",
@@ -35153,7 +35153,7 @@
         "A-APR.5"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "polynomial-identities",
@@ -35225,7 +35225,7 @@
         "A-APR.7"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "rational-expressions",
@@ -35297,7 +35297,7 @@
         "A-APR.7"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "rational-expressions",
@@ -35369,7 +35369,7 @@
         "A-APR.7"
       ],
       "domainTags": [
-        "quantitative reasoning"
+        "polynomial structure"
       ],
       "conceptIds": [
         "rational-expressions",
@@ -35829,7 +35829,7 @@
         "A-REI.3"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "solve-equations-steps",
@@ -35879,7 +35879,7 @@
         "A-REI.3"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "solve-equations-steps",
@@ -35951,7 +35951,7 @@
         "A-REI.3"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "solve-equations-steps",
@@ -36022,7 +36022,7 @@
         "A-REI.2"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "rational-radical-equations",
@@ -36070,7 +36070,7 @@
         "A-REI.2"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "rational-radical-equations",
@@ -36140,7 +36140,7 @@
         "A-REI.2"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "rational-radical-equations",
@@ -36210,7 +36210,7 @@
         "A-REI.4"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "solve-quadratics",
@@ -36280,7 +36280,7 @@
         "A-REI.4"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "solve-quadratics",
@@ -36350,7 +36350,7 @@
         "A-REI.4"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "solve-quadratics",
@@ -36399,7 +36399,7 @@
         "A-REI.6"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "systems-elimination",
@@ -36471,7 +36471,7 @@
         "A-REI.6"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "systems-elimination",
@@ -36543,7 +36543,7 @@
         "A-REI.6"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "systems-elimination",
@@ -36592,7 +36592,7 @@
         "A-REI.7"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "linear-quadratic-systems",
@@ -36662,7 +36662,7 @@
         "A-REI.7"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "linear-quadratic-systems",
@@ -36732,7 +36732,7 @@
         "A-REI.7"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "linear-quadratic-systems",
@@ -36781,7 +36781,7 @@
         "A-REI.9"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-equations",
@@ -36853,7 +36853,7 @@
         "A-REI.9"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-equations",
@@ -36925,7 +36925,7 @@
         "A-REI.9"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "matrix-equations",
@@ -36975,7 +36975,7 @@
         "A-REI.11"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "graphs-and-solutions",
@@ -37047,7 +37047,7 @@
         "A-REI.11"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "graphs-and-solutions",
@@ -37119,7 +37119,7 @@
         "A-REI.11"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "graphs-and-solutions",
@@ -37190,7 +37190,7 @@
         "A-REI.12"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "graph-inequalities",
@@ -37260,7 +37260,7 @@
         "A-REI.12"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "graph-inequalities",
@@ -37330,7 +37330,7 @@
         "A-REI.12"
       ],
       "domainTags": [
-        "coordinate geometry"
+        "modeling"
       ],
       "conceptIds": [
         "graph-inequalities",
@@ -38443,7 +38443,7 @@
         "F-LE.5"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "construct-linear-exponential",
@@ -38515,7 +38515,7 @@
         "F-LE.5"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "construct-linear-exponential",
@@ -38587,7 +38587,7 @@
         "F-LE.5"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "construct-linear-exponential",
@@ -38636,7 +38636,7 @@
         "F-LE.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "logarithms",
@@ -38684,7 +38684,7 @@
         "F-LE.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "logarithms",
@@ -38732,7 +38732,7 @@
         "F-LE.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "logarithms",
@@ -38802,7 +38802,7 @@
         "F-TF.3"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "special-angle-values",
@@ -38872,7 +38872,7 @@
         "F-TF.3"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "special-angle-values",
@@ -38942,7 +38942,7 @@
         "F-TF.3"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "special-angle-values",
@@ -39012,7 +39012,7 @@
         "F-TF.4"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "trig-symmetry",
@@ -39082,7 +39082,7 @@
         "F-TF.4"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "trig-symmetry",
@@ -39152,7 +39152,7 @@
         "F-TF.4"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "trig-symmetry",
@@ -39222,7 +39222,7 @@
         "F-TF.5"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "periodic-models",
@@ -39292,7 +39292,7 @@
         "F-TF.5"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "periodic-models",
@@ -39362,7 +39362,7 @@
         "F-TF.5"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "periodic-models",
@@ -39411,7 +39411,7 @@
         "F-TF.7"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "inverse-trig",
@@ -39483,7 +39483,7 @@
         "F-TF.7"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "inverse-trig",
@@ -39533,7 +39533,7 @@
         "F-TF.7"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "inverse-trig",
@@ -39605,7 +39605,7 @@
         "F-TF.9"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "trig-identities",
@@ -39677,7 +39677,7 @@
         "F-TF.9"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "trig-identities",
@@ -39749,7 +39749,7 @@
         "F-TF.9"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "trig-identities",
@@ -42871,7 +42871,7 @@
         "G-C.2"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "circle-angles",
@@ -42921,7 +42921,7 @@
         "G-C.2"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "circle-angles",
@@ -42971,7 +42971,7 @@
         "G-C.2"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "circle-angles",
@@ -43043,7 +43043,7 @@
         "G-C.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "circle-constructions",
@@ -43115,7 +43115,7 @@
         "G-C.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "circle-constructions",
@@ -43187,7 +43187,7 @@
         "G-C.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "circle-constructions",
@@ -43258,7 +43258,7 @@
         "G-C.5"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "arc-length-sector",
@@ -43328,7 +43328,7 @@
         "G-C.5"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "arc-length-sector",
@@ -43398,7 +43398,7 @@
         "G-C.5"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "arc-length-sector",
@@ -43468,7 +43468,7 @@
         "G-GPE.1"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "equation-of-circle",
@@ -43538,7 +43538,7 @@
         "G-GPE.1"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "equation-of-circle",
@@ -43608,7 +43608,7 @@
         "G-GPE.1"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "equation-of-circle",
@@ -43679,7 +43679,7 @@
         "G-GPE.3"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "conic-sections",
@@ -43751,7 +43751,7 @@
         "G-GPE.3"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "conic-sections",
@@ -43823,7 +43823,7 @@
         "G-GPE.3"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "conic-sections",
@@ -43895,7 +43895,7 @@
         "G-GPE.5"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "coordinate-proofs",
@@ -43967,7 +43967,7 @@
         "G-GPE.5"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "coordinate-proofs",
@@ -44039,7 +44039,7 @@
         "G-GPE.5"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "coordinate-proofs",
@@ -44088,7 +44088,7 @@
         "G-GPE.6"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "partition-segment",
@@ -44158,7 +44158,7 @@
         "G-GPE.6"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "partition-segment",
@@ -44228,7 +44228,7 @@
         "G-GPE.6"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "partition-segment",
@@ -44276,7 +44276,7 @@
         "G-GPE.7"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "coordinate-perimeter-area",
@@ -44324,7 +44324,7 @@
         "G-GPE.7"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "coordinate-perimeter-area",
@@ -44394,7 +44394,7 @@
         "G-GPE.7"
       ],
       "domainTags": [
-        "modeling"
+        "coordinate geometry"
       ],
       "conceptIds": [
         "coordinate-perimeter-area",
@@ -44465,7 +44465,7 @@
         "G-GMD.2"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "volume-arguments",
@@ -44537,7 +44537,7 @@
         "G-GMD.2"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "volume-arguments",
@@ -44609,7 +44609,7 @@
         "G-GMD.2"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "volume-arguments",
@@ -44680,7 +44680,7 @@
         "G-GMD.3"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "volume-formulas",
@@ -44750,7 +44750,7 @@
         "G-GMD.3"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "volume-formulas",
@@ -44820,7 +44820,7 @@
         "G-GMD.3"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "volume-formulas",
@@ -44890,7 +44890,7 @@
         "G-GMD.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "solids-cross-sections",
@@ -44960,7 +44960,7 @@
         "G-GMD.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "solids-cross-sections",
@@ -45030,7 +45030,7 @@
         "G-GMD.4"
       ],
       "domainTags": [
-        "trigonometry"
+        "geometry"
       ],
       "conceptIds": [
         "solids-cross-sections",
@@ -45102,7 +45102,7 @@
         "G-MG.3"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "geometric-modeling",
@@ -45176,7 +45176,7 @@
         "G-MG.3"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "geometric-modeling",
@@ -45250,7 +45250,7 @@
         "G-MG.3"
       ],
       "domainTags": [
-        "calculus readiness"
+        "modeling"
       ],
       "conceptIds": [
         "geometric-modeling",
@@ -49188,7 +49188,7 @@
         "S-MD.1"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "random-variables",
@@ -49258,7 +49258,7 @@
         "S-MD.1"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "random-variables",
@@ -49328,7 +49328,7 @@
         "S-MD.1"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "random-variables",
@@ -49400,7 +49400,7 @@
         "S-MD.4"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "expected-value",
@@ -49474,7 +49474,7 @@
         "S-MD.4"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "expected-value",
@@ -49526,7 +49526,7 @@
         "S-MD.4"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "expected-value",
@@ -49600,7 +49600,7 @@
         "S-MD.7"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "decisions-probability",
@@ -49674,7 +49674,7 @@
         "S-MD.7"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "decisions-probability",
@@ -49726,7 +49726,7 @@
         "S-MD.7"
       ],
       "domainTags": [
-        "polynomial structure"
+        "statistics"
       ],
       "conceptIds": [
         "decisions-probability",
@@ -49999,7 +49999,7 @@
         "F-LE.3"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "exponential-vs-linear",
@@ -50071,7 +50071,7 @@
         "F-LE.3"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "exponential-vs-linear",
@@ -50121,7 +50121,7 @@
         "F-LE.3"
       ],
       "domainTags": [
-        "trigonometry"
+        "exponential models"
       ],
       "conceptIds": [
         "exponential-vs-linear",
@@ -50193,7 +50193,7 @@
         "F-TF.2"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "unit-circle",
@@ -50265,7 +50265,7 @@
         "F-TF.2"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "unit-circle",
@@ -50315,7 +50315,7 @@
         "F-TF.2"
       ],
       "domainTags": [
-        "exponential models"
+        "trigonometry"
       ],
       "conceptIds": [
         "unit-circle",
