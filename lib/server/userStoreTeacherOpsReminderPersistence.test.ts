@@ -5,10 +5,45 @@ import test from "node:test";
 
 import {
   createTeacherOpsReminderPersistenceStore,
+  selectTeacherOpsReminderBatch,
   teacherOpsMissingWorkItemsForClasses,
+  type TeacherOpsReminderPersistenceStoreDependencies,
   type TeacherOpsReminderPersistenceDatabase,
   type TeacherOpsReminderRunRecord
 } from "@/lib/server/userStore/teacherOpsReminderPersistence";
+
+test("reminder cursor uses one code-unit ordering for mixed-case and punctuation IDs", () => {
+  const prefixes = ["A", "a", "Z", "z", "_", "-", "0", "~"];
+  const items = Array.from({ length: 213 }, (_, index) => ({
+    assignmentId: `assignment-${prefixes[index % prefixes.length]}-${String(index).padStart(3, "0")}`,
+    studentId: `student-${prefixes[(index * 3) % prefixes.length]}-${String(212 - index).padStart(3, "0")}`
+  }));
+  const cursorFor = (item: { assignmentId: string; studentId: string }) =>
+    `${item.assignmentId}\u0000${item.studentId}`;
+  const expected = [...items]
+    .sort((left, right) => cursorFor(left) < cursorFor(right) ? -1 : cursorFor(left) > cursorFor(right) ? 1 : 0)
+    .map(cursorFor);
+  const actual: string[] = [];
+  let cursor: string | null = null;
+
+  do {
+    const page: {
+      items: Array<{ assignmentId: string; studentId: string }>;
+      nextCursor: string | null;
+    } = selectTeacherOpsReminderBatch({
+      items,
+      cursor,
+      limit: 37,
+      isEligible: () => true
+    });
+    actual.push(...page.items.map(cursorFor));
+    cursor = page.nextCursor;
+  } while (cursor);
+
+  assert.equal(actual.length, 213);
+  assert.equal(new Set(actual).size, 213);
+  assert.deepEqual(actual, expected);
+});
 
 function createDatabase(): TeacherOpsReminderPersistenceDatabase {
   return {
@@ -64,14 +99,38 @@ function toRun(record: TeacherOpsReminderRunRecord) {
   };
 }
 
-function createTestStore(database: TeacherOpsReminderPersistenceDatabase) {
+function createTestStore(
+  database: TeacherOpsReminderPersistenceDatabase,
+  {
+    simulateNoEligible = false,
+    deliverWeCom = false
+  }: { simulateNoEligible?: boolean; deliverWeCom?: boolean } = {}
+) {
   const noticeCalls: Array<{ assignmentId: string; now: string; studentIds: string[] }> = [];
-  const sendCalls: Array<{ noticeId: string; origin?: string }> = [];
+  const outboxPublications: string[][] = [];
+  const wecomRequestKeys: string[] = [];
+  const contactedKeys = new Set<string>();
+  let wecomProviderCalls = 0;
 
-  const store = createTeacherOpsReminderPersistenceStore({
+  const dependencies: TeacherOpsReminderPersistenceStoreDependencies = {
     createId: () => "run-new",
     now: () => new Date("2026-06-21T08:00:00.000Z"),
-    mutateDatabase: async (mutator) => mutator(database),
+    mutateDatabaseWithNoticeOutbox: async (_teacherId, mutator) => {
+      const mutationDatabase = simulateNoEligible ? structuredClone(database) : database;
+      const mutation = await mutator(mutationDatabase);
+      outboxPublications.push(mutation.noticeIds);
+      if (simulateNoEligible && mutation.noticeIds.length > 0) {
+        assert.ok(mutation.noEligibleResult, "reminder mutation must define a no-eligible rollback result");
+        return {
+          result: mutation.noEligibleResult,
+          outbox: { queued: 0, reused: 0, recovered: 0, skipped: mutation.noticeIds.length }
+        };
+      }
+      return {
+        result: mutation.result,
+        outbox: { queued: mutation.noticeIds.length, reused: 0, recovered: 0, skipped: 0 }
+      };
+    },
     teacherOperationClassRecordsFor: (db, user) => user.id === "teacher-1" ? db.teacher_classes : [],
     teacherCanMutateOperationsClass: (db, user, classId) =>
       user.id === "teacher-1" && classId === "class-owned"
@@ -112,17 +171,36 @@ function createTestStore(database: TeacherOpsReminderPersistenceDatabase) {
       noticeCalls.push({ assignmentId, now, studentIds });
       return notice;
     },
-    sendNoticeRecord: async (_db, notice, origin) => {
-      sendCalls.push({ noticeId: notice.id, origin });
+    sendNotice: async (input: { teacherId: string; noticeId: string; idempotencyKey: string }) => {
+      wecomRequestKeys.push(input.idempotencyKey);
+      if (!contactedKeys.has(input.idempotencyKey)) {
+        contactedKeys.add(input.idempotencyKey);
+        wecomProviderCalls += 1;
+      }
       return {
-        status: "sent",
-        attempted_at: "2026-06-21T08:01:00.000Z"
+        status: "sent" as const,
+        attempt: { status: "sent" as const, attemptedAt: "2026-06-21T08:00:01.000Z" }
       };
     },
+    recordDeliveryResult: async ({ runId, status }: { runId: string; status: "queued" | "sent" | "failed" | "disabled" }) => {
+      const run = database.teacher_reminder_runs.find((candidate) => candidate.id === runId);
+      if (run) run.status = status;
+    },
     toTeacherReminderRun: (_db, record) => toRun(record)
-  });
+  };
+  if (!deliverWeCom) {
+    delete dependencies.sendNotice;
+    delete dependencies.recordDeliveryResult;
+  }
+  const store = createTeacherOpsReminderPersistenceStore(dependencies);
 
-  return { store, noticeCalls, sendCalls };
+  return {
+    store,
+    noticeCalls,
+    outboxPublications,
+    wecomRequestKeys,
+    wecomProviderCalls: () => wecomProviderCalls
+  };
 }
 
 test("teacher ops reminder persistence runs automatic reminders without legacy userStore imports", async () => {
@@ -131,10 +209,9 @@ test("teacher ops reminder persistence runs automatic reminders without legacy u
   assert.doesNotMatch(source, /from ["']@\/lib\/server\/userStore["']/);
 
   const database = createDatabase();
-  const { store, noticeCalls, sendCalls } = createTestStore(database);
+  const { store, noticeCalls, outboxPublications } = createTestStore(database);
   const result = await store.runTeacherMissingWorkReminders({
-    teacherId: "teacher-1",
-    origin: "teacher-console"
+    teacherId: "teacher-1"
   });
 
   assert.equal(result.status, "ran");
@@ -147,16 +224,16 @@ test("teacher ops reminder persistence runs automatic reminders without legacy u
     studentId: "student-1",
     noticeId: "notice-1",
     threshold: "overdue-24h",
-    status: "sent",
-    reason: "Automatic missing-work threshold overdue-24h.",
-    createdAt: "2026-06-21T08:01:00.000Z"
+    status: "queued",
+    reason: "Automatic missing-work threshold overdue-24h queued.",
+    createdAt: "2026-06-21T08:00:00.000Z"
   });
   assert.deepEqual(noticeCalls, [{
     assignmentId: "assignment-1",
     now: "2026-06-21T08:00:00.000Z",
     studentIds: ["student-1"]
   }]);
-  assert.deepEqual(sendCalls, [{ noticeId: "notice-1", origin: "teacher-console" }]);
+  assert.deepEqual(outboxPublications, [["notice-1"]]);
   assert.equal(database.teacher_reminder_runs[0]?.threshold, "overdue-24h");
 });
 
@@ -174,12 +251,12 @@ test("teacher ops reminder persistence skips duplicate automatic runs and suppor
     reason: "Existing",
     created_at: "2026-06-21T07:00:00.000Z"
   });
-  const { store, sendCalls } = createTestStore(database);
+  const { store, outboxPublications } = createTestStore(database);
 
   assert.deepEqual(await store.runTeacherMissingWorkReminders({
     teacherId: "teacher-1"
-  }), { status: "ran", runs: [] });
-  assert.equal(sendCalls.length, 0);
+  }), { status: "ran", runs: [], nextCursor: null });
+  assert.deepEqual(outboxPublications, [[]]);
 
   const manual = await store.runTeacherMissingWorkReminders({
     teacherId: "teacher-1",
@@ -190,7 +267,141 @@ test("teacher ops reminder persistence skips duplicate automatic runs and suppor
   assert.equal(manual.status, "ran");
   assert.equal(manual.runs[0]?.threshold, "manual");
   assert.equal(manual.runs[0]?.assignmentId, "assignment-2");
-  assert.equal(manual.runs[0]?.reason, "Manual reminder sent by teacher.");
+  assert.equal(manual.runs[0]?.reason, "Manual reminder queued by teacher.");
+  assert.deepEqual(outboxPublications, [[], ["notice-1"]]);
+});
+
+test("reminder request replay returns the original runs and a conflicting payload fails closed", async () => {
+  const database = createDatabase();
+  const { store, noticeCalls } = createTestStore(database);
+  const first = await store.runTeacherMissingWorkReminders({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    idempotencyKey: "teacher-reminder-request-0001"
+  });
+  const replay = await store.runTeacherMissingWorkReminders({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    idempotencyKey: "teacher-reminder-request-0001"
+  });
+  const conflict = await store.runTeacherMissingWorkReminders({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    assignmentId: "assignment-2",
+    manual: true,
+    idempotencyKey: "teacher-reminder-request-0001"
+  });
+
+  assert.equal(first.status, "ran");
+  assert.deepEqual(replay, first);
+  assert.deepEqual(conflict, { status: "conflict" });
+  assert.equal(noticeCalls.length, 1);
+  assert.match(database.teacher_reminder_runs[0]?.request_idempotency_key_hash ?? "", /^[a-f0-9]{64}$/u);
+  assert.match(database.teacher_reminder_runs[0]?.request_idempotency_request_hash ?? "", /^[a-f0-9]{64}$/u);
+});
+
+test("automatic and manual reminder retries reuse one derived WeCom attempt per durable run", async () => {
+  const database = createDatabase();
+  const { store, wecomProviderCalls, wecomRequestKeys } = createTestStore(database, { deliverWeCom: true });
+  const automaticRequest = {
+    teacherId: "teacher-1",
+    idempotencyKey: "automatic-reminder-request-0001"
+  };
+  const automatic = await store.runTeacherMissingWorkReminders(automaticRequest);
+  const automaticReplay = await store.runTeacherMissingWorkReminders(automaticRequest);
+  assert.equal(automatic.status, "ran");
+  assert.equal(automatic.runs[0]?.status, "sent");
+  assert.deepEqual(automaticReplay, automatic);
+  assert.equal(wecomProviderCalls(), 1);
+
+  const manualRequest = {
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    assignmentId: "assignment-2",
+    manual: true,
+    idempotencyKey: "manual-reminder-request-0001"
+  };
+  const manual = await store.runTeacherMissingWorkReminders(manualRequest);
+  const manualReplay = await store.runTeacherMissingWorkReminders(manualRequest);
+  assert.equal(manual.status, "ran");
+  assert.equal(manual.runs[0]?.status, "sent");
+  assert.deepEqual(manualReplay, manual);
+  assert.equal(wecomProviderCalls(), 2);
+  assert.equal(new Set(wecomRequestKeys).size, 2);
+  assert.ok(wecomRequestKeys.every((key) => /^teacher-reminder-wecom\//u.test(key)));
+});
+
+test("reminder execution pages past 100 already-processed candidates without starvation", async () => {
+  const database = createDatabase();
+  database.assignments = Array.from({ length: 205 }, (_, index) => ({
+    id: `assignment-${String(index).padStart(3, "0")}`,
+    class_id: "class-owned",
+    title_en: `Assignment ${index}`,
+    title_zh: `Assignment ${index}`,
+    due_at: "2026-06-20T08:00:00.000Z"
+  }));
+  const items = database.assignments.map((assignment) => ({
+    assignmentId: assignment.id,
+    assignmentTitle: { en: assignment.title_en, zh: assignment.title_zh },
+    classId: "class-owned",
+    className: "S3A",
+    studentId: "student-1",
+    studentName: "Ada",
+    submissionId: `missing-${assignment.id}`,
+    submissionStatus: "not-started" as const,
+    dueAt: assignment.due_at,
+    nextThreshold: "overdue-24h" as const,
+    lastReminderAt: null
+  }));
+  let id = 0;
+  const store = createTeacherOpsReminderPersistenceStore({
+    createId: () => `page-${++id}`,
+    now: () => new Date("2026-06-21T08:00:00.000Z"),
+    mutateDatabaseWithNoticeOutbox: async (_teacherId, mutator) => {
+      const mutation = await mutator(database);
+      return {
+        result: mutation.result,
+        outbox: { queued: mutation.noticeIds.length, reused: 0, recovered: 0, skipped: 0 }
+      };
+    },
+    teacherOperationClassRecordsFor: (db) => db.teacher_classes.filter((entry) => entry.id === "class-owned"),
+    teacherCanMutateOperationsClass: (db, _user, classId) =>
+      db.teacher_classes.find((entry) => entry.id === classId) ?? null,
+    missingWorkItemsForClasses: () => items,
+    createNoticeRecord: ({ assignmentId }) => ({ id: `notice-${assignmentId}` }),
+    toTeacherReminderRun: (_db, record) => toRun(record)
+  });
+
+  const first = await store.runTeacherMissingWorkReminders({ teacherId: "teacher-1" });
+  assert.equal(first.status, "ran");
+  assert.equal(first.runs.length, 100);
+  assert.ok(first.nextCursor);
+  const second = await store.runTeacherMissingWorkReminders({
+    teacherId: "teacher-1",
+    cursor: first.nextCursor
+  });
+  assert.equal(second.status, "ran");
+  assert.equal(second.runs.length, 100);
+  assert.ok(second.nextCursor);
+  const third = await store.runTeacherMissingWorkReminders({
+    teacherId: "teacher-1",
+    cursor: second.nextCursor
+  });
+  assert.equal(third.status, "ran");
+  assert.equal(third.runs.length, 5);
+  assert.equal(third.nextCursor, null);
+  assert.equal(new Set(database.teacher_reminder_runs.map((run) => run.assignment_id)).size, 205);
+});
+
+test("teacher ops reminder no-eligible publication returns an explicit skip and leaves no queued run", async () => {
+  const database = createDatabase();
+  const { store, outboxPublications } = createTestStore(database, { simulateNoEligible: true });
+
+  assert.deepEqual(await store.runTeacherMissingWorkReminders({ teacherId: "teacher-1" }), {
+    status: "no-eligible"
+  });
+  assert.deepEqual(outboxPublications, [["notice-1"]]);
+  assert.deepEqual(database.teacher_reminder_runs, [], "the transaction snapshot must not publish a queued run");
 });
 
 test("teacher ops reminder persistence rejects forbidden and missing class requests", async () => {

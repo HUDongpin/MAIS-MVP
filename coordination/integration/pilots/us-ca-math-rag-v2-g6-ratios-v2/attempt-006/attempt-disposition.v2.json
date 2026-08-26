@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "promotion-attempt-disposition.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-006",
+  "producedAt": "2026-08-26T13:02:16+08:00",
+  "phase": "evidence-ancestry-validation-before-shadow",
+  "result": "repair_required",
+  "reasonCode": "V2_GIT_ANCESTRY_INVALID",
+  "reason": "The frozen attempt-006 Manifest contains a mistyped full reviewedCommit SHA for all nine owner evidence bindings. The actual evidence commit shares the displayed short prefix but has different remaining bytes. Fail-closed ancestry validation blocked before Shadow execution. The Manifest, evidence index, and evidence files remain immutable and cannot be corrected in place.",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/promotion-manifest.v2.json",
+    "rawSha256": "6da8e4c7ad590c168bbbbf61748ca029d46ab942fb73098414609aefabfeff6c",
+    "executionCommit": "aee0abccaf8caa4f4b8de321e19be1aa85973eca"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "checkerVersion": "promotion-gate-shadow-v2.5",
+    "checkerBundleDigest": "3121b70a4a2742f5fd203a57a0c5e584b833a905c2afebc3cbd65218ce2ed9e5",
+    "manifestEvidenceReviewedCommit": "d980bc23d93c70220f35b008bf201387dbaf2120",
+    "actualEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+  },
+  "validationProof": {
+    "command": "npm --silent run promotion:validate -- --manifest coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/promotion-manifest.v2.json --json",
+    "result": "blocked",
+    "exitCode": 2,
+    "reasonCode": "V2_GIT_ANCESTRY_INVALID",
+    "firstRejectedRole": "A21"
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "repair_required",
+    "shadowExecuted": false,
+    "receiptProduced": false,
+    "receiptReuseAllowed": false,
+    "manifestOverwriteAllowed": false,
+    "replacementAttemptId": "attempt-007"
+  },
+  "parentPackageStatus": "candidate-only",
+  "liveAllowed": false,
+  "maturityClaim": "not-mature"
+}

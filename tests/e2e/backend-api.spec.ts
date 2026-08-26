@@ -165,6 +165,10 @@ async function readJson<T>(response: APIResponse, expectedStatus = 200) {
   return await response.json() as T;
 }
 
+function expectedUserHeaders(userId: string) {
+  return { "X-MAIS-Expected-User-Id": userId };
+}
+
 async function registerStudent(contexts: APIRequestContext[], testInfo: TestInfo, label: string, grade = "S3") {
   const context = await newApiContext(contexts);
   const id = uniqueSlug(testInfo, label);
@@ -238,7 +242,7 @@ async function loginDemoTeacher(contexts: APIRequestContext[]) {
   );
 
   expect(session.user.role).toBe("teacher");
-  return context;
+  return { context, session };
 }
 
 async function disposeAll(contexts: APIRequestContext[]) {
@@ -587,7 +591,8 @@ test.describe("backend API integration", () => {
 
       const settings = await readJson<AuthSession>(
         await student.context.patch("/api/me/settings", {
-          data: { language: "zh", theme: "light", selectedGrade: "S3" }
+          headers: { "X-MAIS-Expected-User-Id": student.userId },
+          data: { expectedUserId: student.userId, language: "zh", theme: "light", selectedGrade: "S3" }
         })
       );
       expect(settings.settings.language).toBe("zh");
@@ -598,7 +603,10 @@ test.describe("backend API integration", () => {
       expect(lesson.lesson.slug).toBe("quadratic-functions");
       expect((await student.context.get("/api/lessons/missing-lesson")).status()).toBe(404);
 
-      expect((await student.context.post("/api/learning-events", { data: { events: [{ id: "bad" }] } })).status()).toBe(400);
+      expect((await student.context.post("/api/learning-events", {
+        headers: { "X-MAIS-Expected-User-Id": student.userId },
+        data: { expectedUserId: student.userId, events: [{ id: "bad" }] }
+      })).status()).toBe(400);
       const analyticsEvent = {
         id: `${student.id}-page-view`,
         type: "page-view",
@@ -609,7 +617,10 @@ test.describe("backend API integration", () => {
         durationSeconds: 30
       };
       const accepted = await readJson<{ accepted: number }>(
-        await student.context.post("/api/learning-events", { data: { events: [analyticsEvent] } })
+        await student.context.post("/api/learning-events", {
+          headers: { "X-MAIS-Expected-User-Id": student.userId },
+          data: { expectedUserId: student.userId, events: [analyticsEvent] }
+        })
       );
       expect(accepted.accepted).toBe(1);
 
@@ -687,7 +698,9 @@ test.describe("backend API integration", () => {
 
       const attempt = await readJson<{ correct: boolean; correctAnswer?: string }>(
         await student.context.post("/api/attempts", {
+          headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
+            expectedUserId: student.userId,
             questionId,
             selectedAnswer: "__definitely_wrong__",
             durationSeconds: 45
@@ -698,16 +711,22 @@ test.describe("backend API integration", () => {
       expect(attempt.correctAnswer).toBeTruthy();
 
       const activeMistakes = await readJson<{ mistakes: Array<{ question: { id: string }; mastered: boolean }> }>(
-        await student.context.get("/api/mistakes?status=active")
+        await student.context.get("/api/mistakes?status=active", {
+          headers: { "X-MAIS-Expected-User-Id": student.userId }
+        })
       );
       expect(activeMistakes.mistakes.some((mistake) => mistake.question.id === questionId && !mistake.mastered)).toBe(true);
 
       const mastered = await readJson<{ mistake: { question: { id: string }; mastered: boolean } }>(
-        await student.context.patch(`/api/mistakes/${encodeURIComponent(questionId)}`)
+        await student.context.patch(`/api/mistakes/${encodeURIComponent(questionId)}`, {
+          headers: { "X-MAIS-Expected-User-Id": student.userId }
+        })
       );
       expect(mastered.mistake.mastered).toBe(true);
       const removed = await readJson<{ ok: true; removed: boolean }>(
-        await student.context.delete(`/api/mistakes/${encodeURIComponent(questionId)}`)
+        await student.context.delete(`/api/mistakes/${encodeURIComponent(questionId)}`, {
+          headers: { "X-MAIS-Expected-User-Id": student.userId }
+        })
       );
       expect(removed.removed).toBe(true);
 
@@ -856,7 +875,9 @@ test.describe("backend API integration", () => {
       const baselineSnapshot = adaptiveSnapshot(baseline.decision);
       const lessonPracticeAttempt = await readJson<{ correct: boolean }>(
         await student.context.post("/api/attempts", {
+          headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
+            expectedUserId: student.userId,
             questionId: "q2",
             selectedAnswer: "5x",
             durationSeconds: 35
@@ -923,7 +944,7 @@ test.describe("backend API integration", () => {
 
     try {
       const anonymous = await newApiContext(contexts);
-      const teacher = await loginDemoTeacher(contexts);
+      const { context: teacher, session: teacherSession } = await loginDemoTeacher(contexts);
       const student = await registerStudent(contexts, testInfo, "teacher-flow-student");
       const joinStudent = await registerStudent(contexts, testInfo, "join-flow-student");
       const outsideStudent = await registerStudent(contexts, testInfo, "outside-live-student");
@@ -1185,16 +1206,29 @@ test.describe("backend API integration", () => {
       expect(remediationAssessment.assessment.sourceType).toBe("mixed");
 
       const reportQuery = `type=class&language=en&classId=${encodeURIComponent(classId)}&remarks=API%20test`;
-      await readJson<{ preview: { title: string } }>(await teacher.get(`/api/teacher/reports/preview?${reportQuery}`));
-      const reportCsv = await teacher.get(`/api/teacher/reports/export?${reportQuery}`);
+      await readJson<{ preview: { title: string } }>(await teacher.get(`/api/teacher/reports/preview?${reportQuery}`, {
+        headers: expectedUserHeaders(teacherSession.user.id)
+      }));
+      const reportCsv = await teacher.get(`/api/teacher/reports/export?${reportQuery}`, {
+        headers: expectedUserHeaders(teacherSession.user.id)
+      });
       expect(reportCsv.status()).toBe(200);
       expect(reportCsv.headers()["content-type"]).toContain("text/csv");
-      const reportPdf = await teacher.get(`/api/teacher/reports/pdf?${reportQuery}`);
+      const reportPdf = await teacher.get(`/api/teacher/reports/pdf?${reportQuery}`, {
+        headers: expectedUserHeaders(teacherSession.user.id)
+      });
       expect(reportPdf.status()).toBe(200);
       expect(reportPdf.headers()["content-type"]).toContain("application/pdf");
       await readJson<{ report: { id: string } }>(
         await teacher.post("/api/teacher/reports/save", {
-          data: { type: "class", language: "en", classId, remarks: "API test" }
+          headers: expectedUserHeaders(teacherSession.user.id),
+          data: {
+            type: "class",
+            language: "en",
+            classId,
+            remarks: "API test",
+            expectedUserId: teacherSession.user.id
+          }
         }),
         201
       );

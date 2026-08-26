@@ -1,13 +1,11 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { SESSION_COOKIE_NAME } from "@/lib/session";
-import { canAccessParentArea, getAuthenticatedUserFromToken } from "@/lib/server/auth";
+import { notFound, redirect } from "next/navigation";
+import { canAccessParentArea } from "@/lib/server/auth";
+import { getAuthenticatedRequestSession } from "@/lib/server/requestSession";
 import { getParentFoundationData } from "@/lib/server/userStore";
+import { toParentFoundationSafeData } from "@/lib/server/userStore/parentSafeDto";
 
 export async function getParentFoundationForPage(selectedStudentId?: string | null) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  const authenticated = await getAuthenticatedUserFromToken(token);
+  const authenticated = await getAuthenticatedRequestSession();
 
   if (!authenticated) {
     redirect("/login?next=/parent");
@@ -19,8 +17,9 @@ export async function getParentFoundationForPage(selectedStudentId?: string | nu
 
   const foundation = await getParentFoundationData(authenticated.user.id, selectedStudentId);
   if (!foundation) {
+    if (selectedStudentId !== undefined && selectedStudentId !== null) notFound();
     redirect("/dashboard");
   }
 
-  return foundation;
+  return toParentFoundationSafeData(foundation);
 }

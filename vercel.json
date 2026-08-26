@@ -16,6 +16,14 @@
     {
       "path": "/api/warm",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/teacher-notice-email",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/teacher-notice-resend-webhook-maintenance",
+      "schedule": "*/5 * * * *"
     }
   ]
 }

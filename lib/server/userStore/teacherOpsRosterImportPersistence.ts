@@ -23,6 +23,8 @@ type TeacherOpsRosterImportUserRecord = {
   password_salt?: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
   role: TeacherOpsRosterImportUserRole;
   created_at?: string;
 };
@@ -152,7 +154,6 @@ export type TeacherOpsRosterImportPersistenceStoreDependencies = {
     teacherClass: TeacherOpsRosterImportClassRecord
   ) => CurriculumTrack | undefined;
   createId: (prefix: string) => string;
-  createParentInviteCode: (database: TeacherOpsRosterImportPersistenceDatabase) => string;
   createTemporaryPassword: () => string;
   defaultSettings: (userId: string, grade: GradeId) => TeacherOpsRosterImportUserSettingsRecord;
   ensureClassStudentWorkRecords: (
@@ -400,29 +401,10 @@ function findRosterStudent(database: TeacherOpsRosterImportPersistenceDatabase, 
   );
 }
 
-function ensureParentInviteCodeInDatabase(
-  database: TeacherOpsRosterImportPersistenceDatabase,
-  studentId: string,
-  createParentInviteCode: (database: TeacherOpsRosterImportPersistenceDatabase) => string
-) {
-  const profile = database.student_profiles.find((candidate) => candidate.user_id === studentId);
-  if (!profile) return null;
-  const existingCode = profile.parent_invite_code?.trim().toUpperCase() ?? "";
-  if (existingCode) {
-    profile.parent_invite_code = existingCode;
-    return existingCode;
-  }
-
-  const inviteCode = createParentInviteCode(database);
-  profile.parent_invite_code = inviteCode;
-  return inviteCode;
-}
-
 export function createTeacherOpsRosterImportPersistenceStore({
   addSchoolMembership,
   classCurriculumTrack,
   createId,
-  createParentInviteCode,
   createTemporaryPassword,
   defaultSettings,
   ensureClassStudentWorkRecords,
@@ -466,6 +448,9 @@ export function createTeacherOpsRosterImportPersistenceStore({
       const validation = teacherRosterRowsFromCsv(database, teacherClass, csvText);
       if (!validation.valid) return { status: "invalid" as const, validation, credentials: [] as ProvisioningCredential[] };
 
+      for (const profile of database.student_profiles) profile.parent_invite_code = "";
+      for (const link of database.guardian_links) link.invite_code = "";
+
       const timestamp = now().toISOString();
       const school = teacherClass.school_id ? database.schools.find((candidate) => candidate.id === teacherClass.school_id) : null;
       const credentials: ProvisioningCredential[] = [];
@@ -486,6 +471,8 @@ export function createTeacherOpsRosterImportPersistenceStore({
             password_salt: passwordHash.salt,
             school_id: teacherClass.school_id ?? user.school_id,
             password_must_change: true,
+            session_revision: 1,
+            disabled_at: null,
             role: "student",
             created_at: timestamp
           };
@@ -494,8 +481,7 @@ export function createTeacherOpsRosterImportPersistenceStore({
             user_id: student.id,
             name: row.name,
             grade: row.grade || teacherClass.grade,
-            curriculum_track: classCurriculumTrack(database, teacherClass),
-            parent_invite_code: createParentInviteCode(database)
+            curriculum_track: classCurriculumTrack(database, teacherClass)
           });
           database.user_settings.push(defaultSettings(student.id, row.grade || teacherClass.grade));
           credentials.push({
@@ -571,6 +557,8 @@ export function createTeacherOpsRosterImportPersistenceStore({
               password_salt: passwordHash.salt,
               school_id: teacherClass.school_id ?? user.school_id,
               password_must_change: true,
+              session_revision: 1,
+              disabled_at: null,
               role: "parent",
               created_at: timestamp
             };
@@ -592,7 +580,11 @@ export function createTeacherOpsRosterImportPersistenceStore({
             });
           }
 
-          const existingLink = database.guardian_links.find((link) => link.parent_id === parent?.id && link.student_id === student?.id);
+          const existingLink = database.guardian_links.find((link) => (
+            link.parent_id === parent?.id &&
+            link.student_id === student?.id &&
+            link.status === "active"
+          ));
           if (parent && student && !existingLink) {
             database.guardian_links.push({
               id: createId("guardian-link"),
@@ -600,7 +592,7 @@ export function createTeacherOpsRosterImportPersistenceStore({
               student_id: student.id,
               relationship: "guardian",
               status: "active",
-              invite_code: ensureParentInviteCodeInDatabase(database, student.id, createParentInviteCode) ?? createParentInviteCode(database),
+              invite_code: "",
               created_by: user.id,
               created_at: timestamp,
               updated_at: timestamp

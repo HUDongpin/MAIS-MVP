@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { CurriculumTrack, GradeId, StudentSession, TextbookPublisher } from "@/types";
 
+type VisualizationSessionUser = Pick<StudentSession, "curriculumProfile" | "curriculumTrack">;
+
 type VisualizationCatalogModule = typeof import("@/data/visualizationLabs");
 type FeaturedLabDefinition = VisualizationCatalogModule["visualizationLabCatalog"][number];
 type GradeLabGroupDefinition = VisualizationCatalogModule["gradeLabGroups"][number];
@@ -1867,13 +1869,13 @@ function isMainlandPepVisualizationTrack(track: VisualizationCurriculumTrack) {
   return mainlandPepVisualizationTracks.includes(track);
 }
 
-function isUnitedStatesMathUser(currentUser: StudentSession) {
+function isUnitedStatesMathUser(currentUser: VisualizationSessionUser) {
   return currentUser.curriculumProfile.region === "US" ||
     unitedStatesPublishers.has(currentUser.curriculumProfile.publisher) ||
     unitedStatesCurriculumTracks.has(currentUser.curriculumTrack);
 }
 
-function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: StudentSession | null) {
+function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: VisualizationSessionUser | null) {
   if (!currentUser) return true;
 
   const publisher = currentUser.curriculumProfile.publisher;
@@ -1888,7 +1890,7 @@ function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: St
   return false;
 }
 
-function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: StudentSession | null) {
+function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: VisualizationSessionUser | null) {
   return groups
     .map((group) => ({
       ...group,
@@ -1925,7 +1927,7 @@ function buildInitialVisualizationLabRouteState({
   location
 }: {
   activeGroupGrade: GradeId;
-  currentUser: StudentSession | null;
+  currentUser: VisualizationSessionUser | null;
   getVisualizationLabByLabId: VisualizationCatalogState["getVisualizationLabByLabId"];
   gradeLabGroups: GradeLabGroupDefinition[];
   initialGrade: GradeId | null;

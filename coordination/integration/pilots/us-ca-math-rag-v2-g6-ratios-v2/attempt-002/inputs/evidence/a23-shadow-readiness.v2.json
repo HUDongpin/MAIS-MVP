@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a23-us-ca-g6-ratios-v2-shadow-readiness",
+  "role": "A23",
+  "result": "pass",
+  "producedAt": "2026-08-26T14:30:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "d7ce01d9406d717451b7c43b6d7c48d70fd99ec1",
+  "checkerVersion": "promotion-gate-shadow-v2",
+  "semanticPayload": {
+    "contractVersion": "promotion-a23-shadow-readiness.v2",
+    "currentState": "candidate_hold",
+    "authorizedState": "shadow_ready",
+    "requestedRunTransition": "shadow_ready-to-shadow_passed",
+    "candidatePackageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+    "candidateVersion": "2.0.0-shadow.1",
+    "legacyResolutionRegistryPath": "coordination/integration/v2/legacy-resolution-registry.v2.json",
+    "legacyResolutionRegistryRawSha256": "dbe8b881d575028a46bc38492f7403b1d3618f1941435e300608fac270d45a71",
+    "legacyResolutionCount": 18,
+    "approvedProjectionCount": 3,
+    "dereachedCount": 15,
+    "activeLegacyExceptionCount": 0,
+    "canonicalLegacyAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+    "runtimePolicyDigest": "e19b7c0f5cec2f7e6f4650b5a63635f7f7017713b810823703eaf2e504ad84d0",
+    "targetBaselineCommit": "d7ce01d9406d717451b7c43b6d7c48d70fd99ec1",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2",
+      "bundleDigest": "4d83cb2623849f3309c61a9e1427c568eaba745bed8e82e690647ae6024c6562",
+      "releaseCommit": "a0c27b7029c4aab6832997ddf9dae88ef1dfdef2"
+    },
+    "parentPackageStatus": "candidate-only",
+    "liveAllowed": false
+  }
+}

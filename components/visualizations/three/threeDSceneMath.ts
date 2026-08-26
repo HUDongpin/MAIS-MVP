@@ -62,8 +62,6 @@ export const threeDFamilyOverrideByLabId: Partial<Record<string, ThreeDFamilyId>
   "pep-junior-s1-lower-lines-coordinates": "three-coordinate-transform",
   "pep-junior-s3-lower-inverse-similarity-trigonometry": "three-projection-views",
   "pep-high-s4-solid-geometry-intro": "three-solid-nets-folding",
-  "bnu-primary-p6-lower-cylinders-cones": "three-cross-section-slicer",
-  "hjb-primary-p6-lower-cylinder-cone": "three-cross-section-slicer",
   "bnu-junior-s1-upper-spatial-figures": "three-solid-nets-folding",
   "bnu-junior-s3-upper-projection-views": "three-projection-views",
   "pep-high-s5-space-vectors": "three-space-vectors-lines-planes",
@@ -105,58 +103,30 @@ export const threeDSceneVariantByFamilyId: Record<ThreeDFamilyId, ThreeDSceneVar
 };
 
 export const threeDLaunchRegionByLabId: Partial<Record<string, ThreeDRegionalPriority>> = {
-  "hjb-high-s6-三角-向量与解析几何综合": "mainland",
-  "hjb-high-s6-圆锥曲线综合复习": "mainland",
-  "hjb-high-s6-空间向量综合复习": "mainland",
-  "hjb-high-s6-立体几何与空间向量综合": "mainland",
   "pep-high-s6-analytic-geometry-synthesis": "mainland",
   "bnu-high-s5-圆锥曲线": "mainland",
   "bnu-high-s5-数学建模活动-三": "mainland",
   "bnu-high-s5-空间向量与立体几何": "mainland",
-  "hjb-high-s5-圆锥曲线": "mainland",
-  "hjb-high-s5-空间向量及其应用": "mainland",
-  "hjb-high-s5-空间直线与平面": "mainland",
-  "hjb-high-s5-简单几何体": "mainland",
   "pep-high-s5-conics": "mainland",
   "pep-high-s5-space-vectors": "mainland",
   "bnu-high-s4-平面向量及其应用": "mainland",
   "bnu-high-s4-立体几何初步": "mainland",
-  "hjb-high-s4-平面向量": "mainland",
   "pep-high-s4-plane-vectors": "mainland",
   "pep-high-s4-solid-geometry-intro": "mainland",
   "bnu-junior-s3-upper-projection-views": "mainland",
   "bnu-high-s4-复数": "mainland",
-  "hjb-high-s4-复数": "mainland",
   "pep-high-s4-complex-numbers": "mainland",
   "bnu-high-s6-导数及其应用": "mainland",
   "bnu-high-s6-高三数列与导数综合复习": "mainland",
-  "hjb-high-s6-函数-导数与不等式综合": "mainland",
-  "hjb-high-s6-导数及其运用": "mainland",
   "pep-high-s6-derivative-synthesis": "mainland",
   "bnu-junior-s1-upper-spatial-figures": "mainland",
   "pep-high-s5-derivatives": "mainland",
-  "bnu-primary-p6-lower-cylinders-cones": "mainland",
-  "hjb-primary-p6-lower-cylinder-cone": "mainland",
   "bnu-high-s4-三角函数": "mainland",
   "bnu-high-s4-三角恒等变换": "mainland",
   "bnu-high-s4-数学建模活动-二": "mainland",
-  "hjb-high-s4-三角": "mainland",
-  "hjb-high-s4-三角函数": "mainland",
   "pep-high-s4-trigonometry": "mainland",
   "bnu-junior-s3-lower-right-triangle-trigonometry": "mainland",
   "hjb-junior-s3-upper-acute-trigonometry": "mainland",
-  "us-ca-math-s6-chapter-05": "california",
-  "us-ca-math-s5-chapter-03": "california",
-  "us-ca-math-s2-chapter-02": "california",
-  "us-ca-math-s4-chapter-04": "california",
-  "us-ca-math-s6-chapter-02": "california",
-  "us-ca-math-s6-chapter-04": "california",
-  "us-ca-math-s5-chapter-01": "california",
-  "us-ca-math-s5-chapter-02": "california",
-  "us-ca-math-s3-chapter-03": "california",
-  "us-ca-math-s3-chapter-02": "california",
-  "us-ca-math-s4-chapter-05": "california",
-  "us-ca-math-s6-chapter-03": "california",
   calculus: "hong-kong",
   "differentiation-intro": "hong-kong",
   "trigonometry-s5": "hong-kong",
@@ -171,23 +141,84 @@ export const threeDLaunchRegionByLabId: Partial<Record<string, ThreeDRegionalPri
   "capstone-junior-algebra-geometry-bridge": "cross-region",
   "capstone-primary-number-sense-bridge": "cross-region",
   "capstone-primary-measurement-proportion-bridge": "cross-region",
-  "us-ar-math-g12-chapter-05-capstone-modeling": "cross-region",
-  "us-ar-math-g10-chapter-04-quadratic-structure-in-geometry-contexts": "cross-region",
-  "us-ar-math-g12-chapter-02-polynomial-structure-and-behavior": "cross-region",
-  "us-ar-math-g12-chapter-04-function-analysis-and-rates": "cross-region",
   "pep-junior-s3-lower-inverse-similarity-trigonometry": "cross-region",
-  "us-ar-math-g11-chapter-03-trigonometric-functions-and-graphs": "cross-region",
   "pep-high-s4-quadratic-inequalities": "cross-region",
   "bnu-high-s6-数列": "cross-region",
-  "hjb-high-s6-数列与计数综合": "cross-region",
-  "hjb-high-s6-数列综合复习": "cross-region",
-  "pep-high-s6-exam-practice": "cross-region",
-  "us-ar-math-g08-chapter-02-functions-and-rate-of-change": "cross-region",
-  "us-fl-math-s2-chapter-02-functions-and-rate-of-change": "cross-region",
-  "hjb-high-s5-数列": "cross-region"
+  "pep-high-s6-exam-practice": "cross-region"
 };
 
 export const premiumThreeDLaunchLabIds = new Set(Object.keys(threeDLaunchRegionByLabId));
+
+/**
+ * Direct topic pages are live entrypoints, so packages returned to candidate
+ * hold must also disappear from the premium launch manifest. Keep the exact
+ * former anchors here as a non-expanding negative regression set: they are
+ * allowed as source identifiers, but never as static params or direct labs.
+ */
+export const heldCandidatePremiumThreeDLabIds = new Set<string>([
+  "bnu-primary-p6-lower-cylinders-cones",
+  "hjb-high-s4-三角",
+  "hjb-high-s4-三角函数",
+  "hjb-high-s4-复数",
+  "hjb-high-s4-平面向量",
+  "hjb-high-s5-圆锥曲线",
+  "hjb-high-s5-数列",
+  "hjb-high-s5-空间向量及其应用",
+  "hjb-high-s5-空间直线与平面",
+  "hjb-high-s5-简单几何体",
+  "hjb-high-s6-三角-向量与解析几何综合",
+  "hjb-high-s6-函数-导数与不等式综合",
+  "hjb-high-s6-圆锥曲线综合复习",
+  "hjb-high-s6-导数及其运用",
+  "hjb-high-s6-数列与计数综合",
+  "hjb-high-s6-数列综合复习",
+  "hjb-high-s6-空间向量综合复习",
+  "hjb-high-s6-立体几何与空间向量综合",
+  "hjb-primary-p6-lower-cylinder-cone",
+  "us-ar-math-g08-chapter-02-functions-and-rate-of-change",
+  "us-ar-math-g10-chapter-04-quadratic-structure-in-geometry-contexts",
+  "us-ar-math-g11-chapter-03-trigonometric-functions-and-graphs",
+  "us-ar-math-g12-chapter-02-polynomial-structure-and-behavior",
+  "us-ar-math-g12-chapter-04-function-analysis-and-rates",
+  "us-ar-math-g12-chapter-05-capstone-modeling",
+  "us-fl-math-s2-chapter-02-functions-and-rate-of-change"
+]);
+
+// The cross-section renderer remains a supported, tested capability, but its
+// only two former topic anchors are held candidate packages. Keeping the scene
+// dormant is different from mapping either candidate into the live catalog.
+export const dormantThreeDFamilyIds = new Set<ThreeDFamilyId>([
+  "three-cross-section-slicer"
+]);
+
+/**
+ * California premium-3D topics retired on 2026-08-25 (Phase 2a of the Codex-lab
+ * replacement plan). Every one of these topics has a curated Claude signature
+ * bench as its canonical lab, so the Codex 3D scene no longer launches for
+ * them; the old direct-route URLs redirect to the topic's bench on the
+ * Visualization Lab page. The `california` coverage band below is pinned to
+ * zero so a CA id reappearing in `threeDLaunchRegionByLabId` fails the
+ * coverage contract instead of silently relaunching.
+ */
+export const retiredCaliforniaPremiumThreeDLabIds = new Set<string>([
+  "us-ca-math-s2-chapter-02",
+  "us-ca-math-s3-chapter-02",
+  "us-ca-math-s3-chapter-03",
+  "us-ca-math-s4-chapter-04",
+  "us-ca-math-s4-chapter-05",
+  "us-ca-math-s5-chapter-01",
+  "us-ca-math-s5-chapter-02",
+  "us-ca-math-s5-chapter-03",
+  "us-ca-math-s6-chapter-02",
+  "us-ca-math-s6-chapter-03",
+  "us-ca-math-s6-chapter-04",
+  "us-ca-math-s6-chapter-05"
+]);
+
+export function hubRouteForRetiredPremiumThreeDLab(labId: string) {
+  if (!retiredCaliforniaPremiumThreeDLabIds.has(labId)) return null;
+  return `/visualization-lab?lab=${encodeURIComponent(labId)}`;
+}
 
 export type PremiumThreeDTopicStaticParam = {
   labId: string;
@@ -199,7 +230,6 @@ export function buildPremiumThreeDTopicStaticParams(): PremiumThreeDTopicStaticP
 
 const threeDRegionalSmokeOrder: readonly ThreeDRegionalPriority[] = [
   "mainland",
-  "california",
   "hong-kong",
   "cross-region"
 ];
@@ -264,17 +294,23 @@ export type ThreeDLaunchCoverageBand = {
 
 export const threeDLaunchCoverageRequirement = {
   familyCount: { min: 24, max: 28 },
-  topicPageCount: { min: 80, max: 100 },
+  // Exact live-only pins: a candidate package cannot silently expand the
+  // static direct-route graph under the guise of maintaining a coverage band.
+  topicPageCount: { min: 42, max: 42 },
   regionalCounts: {
-    mainland: { min: 35, max: 45 },
-    california: { min: 10, max: 15 },
-    "hong-kong": { min: 8, max: 10 }
+    mainland: { min: 24, max: 24 },
+    // Descoped 2026-08-25: California topics render Claude signature benches;
+    // any CA id back in the launch map trips this band on purpose.
+    california: { min: 0, max: 0 },
+    "hong-kong": { min: 9, max: 9 },
+    "cross-region": { min: 9, max: 9 }
   }
 } as const;
 
 export type ThreeDLaunchCoverageRegionalBandKey = keyof typeof threeDLaunchCoverageRequirement.regionalCounts;
 
 export type ThreeDLaunchCoverageReport = {
+  dormantFamilyIds: ThreeDFamilyId[];
   familyCount: number;
   familyCountInRange: boolean;
   overrideFamilyCount: number;
@@ -311,8 +347,12 @@ export function summarizeThreeDLaunchCoverage(): ThreeDLaunchCoverageReport {
   const overrideFamilyIds = new Set(Object.values(threeDFamilyOverrideByLabId).filter(isThreeDFamilyId));
   const reachableFamilyIds = new Set<ThreeDFamilyId>([...templateFamilyIds, ...overrideFamilyIds]);
   const topicPageCount = Object.keys(threeDLaunchRegionByLabId).length;
+  const dormantFamilyIds = threeDFamilyIds.filter(
+    (familyId) => dormantThreeDFamilyIds.has(familyId) && !reachableFamilyIds.has(familyId)
+  );
 
   return {
+    dormantFamilyIds,
     familyCount: threeDFamilyIds.length,
     familyCountInRange: inBand(threeDFamilyIds.length, threeDLaunchCoverageRequirement.familyCount),
     overrideFamilyCount: overrideFamilyIds.size,
@@ -320,13 +360,16 @@ export function summarizeThreeDLaunchCoverage(): ThreeDLaunchCoverageReport {
     regionalCountsInRange: {
       mainland: inBand(regionalCounts.mainland, threeDLaunchCoverageRequirement.regionalCounts.mainland),
       california: inBand(regionalCounts.california, threeDLaunchCoverageRequirement.regionalCounts.california),
-      "hong-kong": inBand(regionalCounts["hong-kong"], threeDLaunchCoverageRequirement.regionalCounts["hong-kong"])
+      "hong-kong": inBand(regionalCounts["hong-kong"], threeDLaunchCoverageRequirement.regionalCounts["hong-kong"]),
+      "cross-region": inBand(regionalCounts["cross-region"], threeDLaunchCoverageRequirement.regionalCounts["cross-region"])
     },
     requirement: threeDLaunchCoverageRequirement,
     templateFamilyCount: templateFamilyIds.size,
     topicPageCount,
     topicPageCountInRange: inBand(topicPageCount, threeDLaunchCoverageRequirement.topicPageCount),
-    unreachableFamilyIds: threeDFamilyIds.filter((familyId) => !reachableFamilyIds.has(familyId))
+    unreachableFamilyIds: threeDFamilyIds.filter(
+      (familyId) => !reachableFamilyIds.has(familyId) && !dormantThreeDFamilyIds.has(familyId)
+    )
   };
 }
 

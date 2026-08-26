@@ -1,0 +1,225 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a18-independent-qa-v1",
+  "role": "A18",
+  "result": "pass",
+  "producedAt": "2026-08-25T00:00:00.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a18-shadow-qa.v1",
+    "decisions": [
+      {
+        "kind": "safe-card",
+        "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios",
+        "decision": "accept-for-shadow",
+        "liveDecision": "repair-before-live",
+        "rejected": false
+      },
+      {
+        "kind": "practice",
+        "id": "s04-ca-rag-v2-q031-6-rp-ratios",
+        "decision": "accept-for-shadow",
+        "liveDecision": "repair-before-live",
+        "rejected": false
+      },
+      {
+        "kind": "lesson",
+        "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios",
+        "decision": "accept-for-shadow",
+        "liveDecision": "repair-before-live",
+        "rejected": false
+      }
+    ],
+    "independentMath": {
+      "firstQuantity": "oats-cups",
+      "secondQuantity": "fruit-cups",
+      "orderedRatio": [
+        3,
+        5
+      ],
+      "targetQuantity": "fruit-cups",
+      "targetValue": 20,
+      "scaleFactor": 4,
+      "scaleCheck": {
+        "leftExpression": "5 * 4",
+        "leftValue": 20,
+        "rightExpression": "3 * 4",
+        "rightValue": 12
+      },
+      "numericAnswer": 12,
+      "canonicalAnswer": "12 cups",
+      "acceptedAnswers": [
+        "12",
+        "12 cups"
+      ],
+      "acceptedAnswerPolicy": "exact-trimmed-forms-v1",
+      "ratioOrderPreserved": true,
+      "reasoning": [
+        "preserve-ratio-order",
+        "scale-both-quantities-by-4"
+      ]
+    },
+    "standards": {
+      "declaredCluster": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "candidateMaisIds": [
+        "CA.CCSS.Math.G6.RP.1",
+        "CA.CCSS.Math.G6.RP.2",
+        "CA.CCSS.Math.G6.RP.3"
+      ],
+      "primaryStandardId": "6.RP.3",
+      "directlyAssessed": [
+        "6.RP.3"
+      ],
+      "embeddedPrerequisite": [
+        "6.RP.1"
+      ],
+      "notDemonstrated": [
+        "6.RP.2"
+      ],
+      "proposedLiveAlias": "6.RP.A.3",
+      "liveMappingStatus": "unverified-incompatible-preserved-outside-runtime"
+    },
+    "lessonReview": {
+      "sourceSequence": [
+        "objective",
+        "prerequisiteCheck",
+        "conceptExplanation",
+        "workedExample",
+        "guidedPractice",
+        "independentPractice",
+        "remediation",
+        "teacherNotes"
+      ],
+      "shadowMappedSequence": [
+        "objective",
+        "workedExample",
+        "guidedPractice",
+        "independentPractice",
+        "remediation"
+      ],
+      "workedExampleMatchesPractice": true,
+      "misconceptions": {
+        "safeCardTags": [
+          "ratio order reversed",
+          "unit rate not normalized"
+        ],
+        "lessonMetadataTargets": [
+          "ratio order reversed",
+          "unit rate not normalized"
+        ],
+        "practiceFeedback": "ratio order reversed",
+        "remediationTarget": "ratio order reversed"
+      }
+    },
+    "priorReviewDrift": {
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s18-representative-sample-review.md",
+      "rawSha256": "7b3bfa54b84e105e703e31b5f27e3a135e5a48d5e0ebac1805129056e05318f4",
+      "recordedClaim": "additive-vs-multiplicative confusion",
+      "actualRemediationTarget": "ratio order reversed",
+      "matchesSelectedRecord": false,
+      "mustBeSupersededBeforeLive": true
+    },
+    "liveBlockers": [
+      {
+        "code": "item-standard-scope-overclaim",
+        "declaredCluster": [
+          "6.RP.1",
+          "6.RP.2",
+          "6.RP.3"
+        ],
+        "directlyAssessed": [
+          "6.RP.3"
+        ],
+        "embeddedPrerequisite": [
+          "6.RP.1"
+        ],
+        "notDemonstrated": [
+          "6.RP.2"
+        ],
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "fine-grained-standard-id-live-mapping-unbound",
+        "candidateMaisIds": [
+          "CA.CCSS.Math.G6.RP.1",
+          "CA.CCSS.Math.G6.RP.2",
+          "CA.CCSS.Math.G6.RP.3"
+        ],
+        "proposedLiveAlias": "6.RP.A.3",
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "unresolved-live-source-ids",
+        "candidateSourceIds": [
+          "california-math-common-core-skill",
+          "cde-ca-ccss-math-resources",
+          "common-core-state-standards-public-license",
+          "ixl-california-math-standards-navigation-only"
+        ],
+        "verifiedLiveSourceIds": [
+          "cde-ca-ccss-math-resources",
+          "common-core-state-standards-public-license"
+        ],
+        "unresolvedSourceIds": [
+          "california-math-common-core-skill",
+          "ixl-california-math-standards-navigation-only"
+        ],
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "missing-bilingual-fields",
+        "paths": [
+          "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json/108/bilingualTerminologyNotes",
+          "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json/questions/30",
+          "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json/lessons/30"
+        ],
+        "presentLocales": [
+          "en"
+        ],
+        "requiredLocalesBeforeLive": [
+          "en",
+          "zh",
+          "zhHans"
+        ],
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "known-grammar-issue",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json/lessons/30/lessonModule/conceptExplanation",
+        "observedFragment": "The double number lines and ratio tables becomes your map",
+        "requiredFragment": "The double number lines and ratio tables become your map",
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "student-feedback-exposes-internal-misconception-label",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json/questions/30/studentContent/misconceptionFeedback/en",
+        "observedValue": "ratio order reversed",
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "open-ended-practice-without-answer-or-rubric",
+        "paths": [
+          "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json/lessons/30/lessonModule/guidedPractice",
+          "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json/lessons/30/lessonModule/independentPractice"
+        ],
+        "status": "blocked-for-live"
+      },
+      {
+        "code": "prior-s18-evidence-record-mismatch",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s18-representative-sample-review.md",
+        "recordedClaim": "additive-vs-multiplicative confusion",
+        "actualRemediationTarget": "ratio order reversed",
+        "status": "blocked-for-live"
+      }
+    ],
+    "shadowEligible": true,
+    "liveEligible": false
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v23-attempt004",
+  "role": "A05",
+  "result": "pass",
+  "producedAt": "2026-08-26T09:50:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.3",
+  "semanticPayload": {
+    "contractVersion": "promotion-a05-lesson-semantics.v2",
+    "lessonId": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+    "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+    "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49",
+    "outputContract": "shadow-lesson-dto.v2",
+    "instructionalSpine": [
+      "objective",
+      "workedExample",
+      "guidedPractice",
+      "independentPractice",
+      "remediation"
+    ],
+    "compatibilityPreservation": [
+      {
+        "field": "prerequisiteCheck",
+        "disposition": "preserved-outside-runtime"
+      },
+      {
+        "field": "conceptExplanation",
+        "disposition": "preserved-outside-runtime"
+      }
+    ],
+    "workedExampleBinding": {
+      "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "promptMatchesPractice": true,
+      "answer": "12 cups",
+      "numericOracle": 12,
+      "ratioOrderPreserved": true
+    },
+    "practiceChecks": {
+      "guidedExpectedAnswer": "8 cups",
+      "guidedHasCheck": true,
+      "independentExpectedAnswer": "12 centimeters",
+      "independentRubricItemCount": 3
+    },
+    "remediationTargets": [
+      "ratio order reversed",
+      "unit rate not normalized"
+    ],
+    "standards": {
+      "clusterScope": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "directlyAssessed": [
+        "6.RP.3"
+      ],
+      "prerequisite": [
+        "6.RP.1"
+      ],
+      "notDirectlyAssessed": [
+        "6.RP.2"
+      ]
+    },
+    "localization": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false,
+      "runtimeDisposition": "preserved-outside-runtime"
+    },
+    "defaultsForbidden": [
+      "grade",
+      "standard",
+      "answer",
+      "lessonId",
+      "localizedText"
+    ],
+    "candidateBytesChangedSincePriorReview": false,
+    "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.2",
+      "toCheckerVersion": "promotion-gate-shadow-v2.3",
+      "changeScope": "semantic-receipt-host-temp-environment-projection-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-003",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "948a305bd2fcebdd39dd293df397c045168a95931c395a799f18219f80e4cda3"
+    }
+  }
+}

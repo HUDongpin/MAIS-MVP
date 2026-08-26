@@ -1,5 +1,6 @@
-import { usCaliforniaQuestions } from "../data/usCaliforniaQuestions";
+import californiaKnowledgePointCandidatePackJson from "../data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json";
 import {
+  usCaliforniaPracticeFigureFor,
   usCaliforniaPracticeFigureSpecVersion,
   usCaliforniaPracticeFigureSpecs,
   type UsCaliforniaPracticeFigureSpec
@@ -53,6 +54,7 @@ export type PracticeFigureAuditRow = {
 };
 
 export type PracticeFigureAuditReport = {
+  scope: "candidate-only-not-live";
   specVersion: string;
   checked: number;
   passed: number;
@@ -63,6 +65,21 @@ export type PracticeFigureAuditReport = {
 /** Ten frames model quantities to 20; past Grade 2 they stop being the right picture. */
 const tenFrameGradeBand: GradeId[] = ["K", "P1", "P2"];
 const tenFrameStandardPrefixes = ["K.", "1.", "2."];
+
+type CaliforniaKnowledgePointCandidatePack = {
+  packageId: string;
+  questions: Question[];
+};
+
+const californiaKnowledgePointCandidatePack =
+  californiaKnowledgePointCandidatePackJson as unknown as CaliforniaKnowledgePointCandidatePack;
+
+function candidateQuestionsWithFigureSpecs() {
+  return californiaKnowledgePointCandidatePack.questions.map((question) => {
+    const diagram = usCaliforniaPracticeFigureFor(question.id);
+    return diagram ? { ...question, diagram } : question;
+  });
+}
 
 /**
  * The California knowledge-point pack prefixes every stem with a label
@@ -163,13 +180,13 @@ export function auditPracticeFigureSpec(
   question: Question | undefined
 ): PracticeFigureAuditIssue[] {
   if (!question) {
-    return [{ code: "question-missing", detail: `${spec.questionId} is not in the live California bank` }];
+    return [{ code: "question-missing", detail: `${spec.questionId} is not in the frozen California candidate package` }];
   }
 
   const issues: PracticeFigureAuditIssue[] = [];
 
   if (question.diagram !== spec.diagram) {
-    issues.push({ code: "diagram-not-attached", detail: "spec is not reaching the question the app serves" });
+    issues.push({ code: "diagram-not-attached", detail: "spec is not attached to the frozen candidate audit view" });
   }
 
   const normalized = normalizeQuestionDiagram(spec.diagram);
@@ -186,7 +203,7 @@ export function auditPracticeFigureSpec(
 export function buildPracticeFigureAuditReport(
   specs: UsCaliforniaPracticeFigureSpec[] = usCaliforniaPracticeFigureSpecs
 ): PracticeFigureAuditReport {
-  const questionById = new Map(usCaliforniaQuestions.map((question) => [question.id, question]));
+  const questionById = new Map(candidateQuestionsWithFigureSpecs().map((question) => [question.id, question]));
 
   const rows: PracticeFigureAuditRow[] = specs.map((spec) => {
     const question = questionById.get(spec.questionId);
@@ -201,6 +218,7 @@ export function buildPracticeFigureAuditReport(
 
   const failed = rows.filter((row) => row.issues.length).length;
   return {
+    scope: "candidate-only-not-live",
     specVersion: usCaliforniaPracticeFigureSpecVersion,
     checked: rows.length,
     passed: rows.length - failed,
@@ -213,6 +231,7 @@ export function practiceFigureAuditMarkdown(report: PracticeFigureAuditReport) {
   const lines = [
     `# Practice figure audit — ${report.specVersion}`,
     "",
+    `- Scope: ${report.scope}`,
     `- Checked: ${report.checked}`,
     `- Passed: ${report.passed}`,
     `- Failed: ${report.failed}`,

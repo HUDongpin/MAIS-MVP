@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "promotion-attempt-disposition.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-004",
+  "producedAt": "2026-08-26T10:06:45+08:00",
+  "phase": "checker-release-ancestry-before-shadow",
+  "result": "repair_required",
+  "reasonCode": "V2_CHECKER_RELEASE_COMMIT_UNRESOLVABLE",
+  "reason": "The frozen attempt-004 Manifest binds promotion-gate-shadow-v2.3 to a mistyped full release commit SHA that does not resolve in the repository. The actual checker commit has the same 10-character prefix but different remaining bytes. Fail-closed checker ancestry validation blocked the attempt before Shadow execution, so the Manifest and its evidence remain immutable and cannot be corrected in place.",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/promotion-manifest.v2.json",
+    "rawSha256": "2c143f9199e97134695f5efb250167c0cc7b6c3d254a0e112e2b024e99f9ee4d",
+    "executionCommit": "7e935e2fd5dbf74230f4a73afb92a9b9ddfaa94a"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "checkerVersion": "promotion-gate-shadow-v2.3",
+    "manifestCheckerReleaseCommit": "9213143023d0f743516895392e2a50dd8271b8ef",
+    "actualCheckerReleaseCommit": "92131430232d729fd381062cd4dbfee08c30d9d6",
+    "checkerBundleDigest": "cae1fef6d02ef01f647d2ec4fe6298f77750260618a232510ff906d6078686b1"
+  },
+  "testProof": {
+    "suite": "node --test coordination/integration/v2/promotion-gate-v2.test.mjs",
+    "total": 23,
+    "passed": 22,
+    "failed": 1,
+    "skipped": 0,
+    "failingTest": "workflow-selected real Manifest has an executable immutable checker release",
+    "failingCode": "V2_GIT_ANCESTRY_INVALID"
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "repair_required",
+    "shadowExecuted": false,
+    "receiptProduced": false,
+    "receiptReuseAllowed": false,
+    "manifestOverwriteAllowed": false,
+    "replacementAttemptId": "attempt-005"
+  },
+  "parentPackageStatus": "candidate-only",
+  "liveAllowed": false,
+  "maturityClaim": "not-mature"
+}

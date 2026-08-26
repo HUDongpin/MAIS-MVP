@@ -10,15 +10,15 @@ const authPath = join(process.cwd(), "lib/server/auth.ts");
 test("Nova Postgres admission uses a narrow policy read and atomic per-user rate ledger", async () => {
   const source = await readFile(userStorePath, "utf8");
 
-  assert.match(source, /const hotAuthSchemaVersion = 3;/);
-  assert.match(source, /CREATE TABLE IF NOT EXISTS ai_governance_rate_limit_events/);
+  assert.match(source, /const hotAuthSchemaVersion = 4;/);
+  assert.match(source, /CREATE TABLE IF NOT EXISTS public\.ai_governance_rate_limit_events/);
   assert.match(
     source,
     /CREATE INDEX IF NOT EXISTS ai_governance_rate_limit_events_user_capability_idx/
   );
   assert.match(source, /AS event_items\(event_record\)/);
   assert.match(source, /async function resolveStudentAiTutorPolicyFromPostgresHotPath/);
-  assert.match(source, /CREATE TABLE IF NOT EXISTS projection_class_ai_tutor_policies/);
+  assert.match(source, /CREATE TABLE IF NOT EXISTS public\.projection_class_ai_tutor_policies/);
   assert.match(source, /async function consumeAiCapabilityRateLimitFromPostgresHotPath/);
   assert.match(source, /pg_advisory_xact_lock\(hashtextextended/);
   assert.match(source, /set_config\('lock_timeout'/);
@@ -175,12 +175,12 @@ test("Nova journal writers dual-write the legacy snapshot without full snapshot 
   assert.ok(messageStart >= 0 && usageStart > messageStart && writerEnd > usageStart);
   const messageSource = source.slice(messageStart, usageStart);
   const usageSource = source.slice(usageStart, writerEnd);
-  assert.match(messageSource, /INSERT INTO ai_tutor_message_journal/);
-  assert.match(usageSource, /INSERT INTO ai_tutor_usage_journal/);
+  assert.match(messageSource, /INSERT INTO public\.ai_tutor_message_journal/);
+  assert.match(usageSource, /INSERT INTO public\.ai_tutor_usage_journal/);
   for (const writerSource of [messageSource, usageSource]) {
     assert.match(writerSource, /aiTutorPersistenceLane\.run\(\(\) => getPostgresClient\(\)\.begin/);
     assert.match(writerSource, /ON CONFLICT \(id\) DO NOTHING/);
-    assert.match(writerSource, /UPDATE app_state/);
+    assert.match(writerSource, /UPDATE public\.app_state/);
     assert.match(writerSource, /jsonb_set/);
     assert.match(writerSource, /jsonb_array_elements/);
     assert.doesNotMatch(writerSource, /mutateDatabase/);
@@ -189,17 +189,17 @@ test("Nova journal writers dual-write the legacy snapshot without full snapshot 
     assert.doesNotMatch(writerSource, /syncPostgresProjectionTablesWith/);
   }
 
-  assert.match(source, /CREATE TABLE IF NOT EXISTS ai_tutor_message_journal/);
-  assert.match(source, /CREATE TABLE IF NOT EXISTS ai_tutor_usage_journal/);
+  assert.match(source, /CREATE TABLE IF NOT EXISTS public\.ai_tutor_message_journal/);
+  assert.match(source, /CREATE TABLE IF NOT EXISTS public\.ai_tutor_usage_journal/);
   assert.match(source, /CREATE OR REPLACE TRIGGER app_state_ai_tutor_compatibility/);
   assert.match(source, /NEW\.payload := new_state_payload/);
-  assert.match(source, /BEFORE INSERT OR UPDATE OF payload ON app_state/);
+  assert.match(source, /BEFORE INSERT OR UPDATE OF payload ON public\.app_state/);
   assert.match(source, /INSERT INTO projection_ai_tutor_messages/);
   assert.match(source, /old_state_payload->'ai_tutor_messages'[\s\S]*IS DISTINCT FROM new_state_payload->'ai_tutor_messages'/);
   assert.match(source, /old_state_payload->'ai_tutor_usage'[\s\S]*IS DISTINCT FROM new_state_payload->'ai_tutor_usage'/);
   assert.match(source, /WITH ORDINALITY AS policy_items\(policy_record, ordinality\)/);
-  assert.ok(source.indexOf("INSERT INTO ai_tutor_message_journal") < markerIndex);
-  assert.ok(source.indexOf("INSERT INTO ai_tutor_usage_journal") < markerIndex);
+  assert.ok(source.indexOf("CREATE TABLE IF NOT EXISTS public.ai_tutor_message_journal") < markerIndex);
+  assert.ok(source.indexOf("CREATE TABLE IF NOT EXISTS public.ai_tutor_usage_journal") < markerIndex);
   assert.ok(source.indexOf("CREATE OR REPLACE TRIGGER app_state_ai_tutor_compatibility") < markerIndex);
 });
 
@@ -210,8 +210,8 @@ test("Nova v3 migration makes classroom projections authoritative before the mar
   const bootstrapSource = source.slice(bootstrapStart, markerIndex);
 
   assert.match(bootstrapSource, /return sql\.begin\(async \(migrationSql\) =>/);
-  assert.match(bootstrapSource, /pg_advisory_xact_lock\(hashtextextended\('mais-ai-tutor-schema-v3'/);
-  assert.match(bootstrapSource, /FROM app_state[\s\S]*FOR UPDATE OF app_state/);
+  assert.match(bootstrapSource, /pg_catalog\.pg_advisory_xact_lock\([\s\S]*postgresStorageContractAdvisoryLockKey/);
+  assert.match(bootstrapSource, /FROM public\.app_state[\s\S]*FOR UPDATE OF app_state/);
   assert.match(bootstrapSource, /failedClassroomChecks/);
   assert.match(bootstrapSource, /teacher_classes_array_valid/);
   assert.match(bootstrapSource, /enrollments_resolve/);
@@ -266,8 +266,8 @@ test("Nova authentication uses one authoritative abort-bounded Postgres join wit
   const source = await readFile(userStorePath, "utf8");
   const clientStart = source.indexOf("function createAiTutorAdmissionPostgresClient");
   const clientEnd = source.indexOf("\nasync function resolveStudentAiTutorPolicyFromPostgresHotPath", clientStart + 1);
-  const start = source.indexOf("async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath");
-  const end = source.indexOf("\nexport const getAuthenticatedUserByIdForAiTutorAdmission", start + 1);
+  const start = source.indexOf("async function getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotPath");
+  const end = source.indexOf("\nexport const getAuthenticatedUserById", start + 1);
 
   assert.ok(clientStart >= 0 && clientEnd > clientStart, "expected a bounded dedicated client factory");
   const clientSource = source.slice(clientStart, clientEnd);
@@ -317,7 +317,9 @@ test("Nova authentication uses one authoritative abort-bounded Postgres join wit
   assert.match(functionSource, /WHERE version = \$\{hotAuthSchemaVersion\}/);
   assert.match(functionSource, /FALSE AS schema_ready/);
   assert.match(functionSource, /runCancellableAuthAdmissionQuery/);
-  assert.match(functionSource, /storageFreeExampleAuthenticatedUser/);
+  assert.match(functionSource, /auth_user\.session_revision = \$\{sessionRevision\}/);
+  assert.match(functionSource, /auth_user\.disabled_at IS NULL/);
+  assert.doesNotMatch(functionSource, /storageFreeExampleAuthenticatedUser/);
   assert.match(
     functionSource,
     /if \(!postgresHotAuthTablesEnabled\(\)\)\s*\{[\s\S]*throw new Error/,
@@ -340,9 +342,9 @@ test("Nova authentication verifies the session before the dedicated admission lo
 
   assert.ok(
     functionSource.indexOf("verifySessionToken(token)")
-      < functionSource.indexOf("getAuthenticatedUserByIdForAiTutorAdmission"),
+      < functionSource.indexOf("getAuthenticatedUserForSession"),
     "signed session verification must complete before the database lookup"
   );
   assert.match(functionSource, /if \(!payload\) return null/);
-  assert.match(functionSource, /getAuthenticatedUserByIdForAiTutorAdmission\(payload\.sub, signal\)/);
+  assert.match(functionSource, /getAuthenticatedUserForSession\(payload\.sub, payload\.sr, signal\)/);
 });

@@ -304,6 +304,12 @@ function normalizedAnswerVariants(value: string) {
   for (const normalized of answerCandidateStrings(value)) {
     variants.add(normalized);
 
+    // A single terminal period is sentence punctuation, not answer content
+    // ("marker.", "f.", "1.5.") — offer the stripped form as a variant.
+    if (normalized.length > 1 && normalized.endsWith(".") && !normalized.endsWith("..")) {
+      variants.add(normalized.slice(0, -1));
+    }
+
     // For mixed numbers the collapsed string ("13/7" from "1 3/7") is a
     // different value — offer the true improper fraction instead.
     const improper = improperFractionForMixed(normalized);
@@ -352,6 +358,19 @@ export function parseScalarAnswer(value: string) {
     .replace(/^hk\$/, "")
     .replace(/^\$/, "")
     .replace(/(?:cm\^2|cm2|cm\^3|cm3|cm|ml|l|km\/h|kmh|km|°|%)$/i, "");
+
+  // Scalar-only leniency: an explicit leading plus ("+8"), a bare trailing
+  // decimal point ("8."), and digit-grouping commas ("5,523") are correct
+  // ways to type a number; strip them here rather than in normalizeAnswer,
+  // which also serves algebraic string forms where a sign, dot, or comma is
+  // meaningful (e.g. coordinate pairs like "3,4" stay untouched — grouping
+  // requires full 3-digit groups).
+  normalized = normalized.replace(/^\+(?=[\d.])/, "").replace(/^(-?\d+)\.$/, "$1");
+  if (/^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(normalized)) {
+    normalized = normalized.replace(/,/g, "");
+  }
+  // A bare leading decimal point (".7", "-.5") reads as the zero-prefixed value.
+  normalized = normalized.replace(/^(-?)\.(?=\d)/, "$10.");
 
   const fraction = normalized.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
   if (fraction) {

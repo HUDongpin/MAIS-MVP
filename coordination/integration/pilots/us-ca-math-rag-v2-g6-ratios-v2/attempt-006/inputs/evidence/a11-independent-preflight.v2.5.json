@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v25-attempt006",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T12:55:39+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+  "checkerVersion": "promotion-gate-shadow-v2.5",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "reviewedCompositionCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "82a4ca01daeea4f2292a57a684391fd86feae42df1a0c7e31ff5d1d6844c0433",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.5",
+      "releaseCommit": "d9e6ce2bcaebaa1bd2f066584f81eb0e2e24de65",
+      "bundleDigest": "3121b70a4a2742f5fd203a57a0c5e584b833a905c2afebc3cbd65218ce2ed9e5",
+      "ledgerRawSha256": "d4069894b705c58c1047b52181b57c619c8febc1f43bf27311c912c3f9cc22a5"
+    },
+    "independentReplayRequired": true,
+    "replayMustUseExactExecutionCommit": true,
+    "semanticReceiptDigestEqualityRequired": true,
+    "preflightResults": [
+      {
+        "check": "origin-main-live-readback",
+        "result": "pass",
+        "commit": "c8009edf7015f9eab5072f70948245091b4201e4"
+      },
+      {
+        "check": "npm-run-type-check",
+        "result": "pass"
+      },
+      {
+        "check": "npm-run-test-mvp",
+        "result": "pass",
+        "passed": 32,
+        "failed": 0
+      },
+      {
+        "check": "npm-run-test-question-bank",
+        "result": "pass",
+        "passed": 98,
+        "failed": 0
+      },
+      {
+        "check": "npm-run-test-visualizations",
+        "result": "pass",
+        "passed": 166,
+        "failed": 0
+      },
+      {
+        "check": "npm-run-test-components",
+        "result": "pass",
+        "passed": 570,
+        "failed": 0
+      },
+      {
+        "check": "npm-run-test-signature-labs",
+        "result": "pass",
+        "passed": 7,
+        "failed": 0
+      },
+      {
+        "check": "teacher-workspace-canonical-route-repeat-3",
+        "result": "pass",
+        "passed": 3,
+        "failed": 0
+      },
+      {
+        "check": "promotion-gate-v2.5-pure-security-and-workflow-tests",
+        "result": "pass",
+        "passed": 24,
+        "failed": 0,
+        "expectedSkippedUntilManifestFreeze": 2
+      }
+    ],
+    "ratchetedAssertions": [
+      "492-question candidate package is absent from live California questions",
+      "unapproved K-5 textbook candidate seeds are absent",
+      "Grade 1 micro-lesson candidate seeds and topics are absent",
+      "hand-checked CCSS practice remains live",
+      "hand-built CCSS cardinality replacement remains live"
+    ],
+    "negativeCoverage": [
+      "evidence-currentness-baseline-mismatch",
+      "absolute-path",
+      "path-traversal",
+      "NUL-path",
+      "case-collision",
+      "symlink-escape",
+      "output-creation-collision",
+      "source-drift",
+      "runtime-baseline-drift",
+      "unknown-cli-command",
+      "live-command-alias",
+      "fuzzy-answer-form"
+    ],
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A11",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.4",
+      "toCheckerVersion": "promotion-gate-shadow-v2.5",
+      "changeScope": "target-baseline-rebind-after-reviewed-live-contract-repair",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": true,
+      "liveRuntimeChanged": true,
+      "priorAttemptId": "attempt-005",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "5c64fddf5d3fe38a75b3916e7b08b80e875a51ad8d3acb43f1b610e68584b7e3",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a11-independent-preflight.v2.4.json",
+      "priorEvidenceRawSha256": "82758570b81fc9e29c5ac659f12e6c58babe46ebf55c1b1c33d2a6f1dcc7567e",
+      "priorEvidenceReviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3"
+    },
+    "releaseIdentityRegression": {
+      "test": "workflow-selected real Manifest has an executable immutable checker release",
+      "preFreezeDisposition": "expected-skip-until-attempt-006-manifest-freeze",
+      "expectedGreenAfterManifestFreeze": true
+    },
+    "priorAttemptBaselineDrift": {
+      "attemptId": "attempt-005",
+      "result": "blocked",
+      "failureCode": "V2_TARGET_BASELINE_DRIFT",
+      "changedPathCount": 8,
+      "changedPathsDigest": "0fa95f346de403e2a4c3e79e34eb02d3f3114589af24ca286cfeb21d9aa31ee1",
+      "replacementAttemptId": "attempt-006"
+    }
+  }
+}

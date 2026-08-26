@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
 import type {
   SubmissionStatus,
   TeacherMissingWorkItem,
@@ -6,6 +6,7 @@ import type {
   TeacherReminderRun,
   TeacherReminderThreshold
 } from "@/types";
+import { normalizeTeacherNoticeRequestIdempotency } from "@/lib/server/userStore/teacherOpsNoticePersistence";
 
 type TeacherOpsReminderUserRole = "student" | "teacher" | "parent" | "admin";
 
@@ -59,11 +60,6 @@ type TeacherOpsReminderNoticeRecord = {
   id: string;
 };
 
-type TeacherOpsReminderDeliveryAttemptRecord = {
-  status: TeacherNoticeDeliveryStatus | "skipped";
-  attempted_at: string;
-};
-
 export type TeacherOpsReminderRunRecord = {
   id: string;
   teacher_id: string;
@@ -75,7 +71,14 @@ export type TeacherOpsReminderRunRecord = {
   status: TeacherNoticeDeliveryStatus | "skipped";
   reason: string;
   created_at: string;
+  request_idempotency_key_hash?: string;
+  request_idempotency_request_hash?: string;
+  request_next_cursor?: string | null;
 };
+
+type RunTeacherMissingWorkRemindersResult =
+  | { status: "ran"; runs: TeacherReminderRun[]; nextCursor?: string | null }
+  | { status: "conflict" | "forbidden" | "invalid" | "no-eligible" | "not-found" };
 
 export type TeacherOpsReminderPersistenceDatabase = {
   assignments: TeacherOpsReminderAssignmentRecord[];
@@ -90,9 +93,15 @@ export type TeacherOpsReminderPersistenceDatabase = {
 export type TeacherOpsReminderPersistenceStoreDependencies = {
   createId?: () => string;
   now?: () => Date;
-  mutateDatabase: <T>(
-    mutator: (database: TeacherOpsReminderPersistenceDatabase) => T | Promise<T>
-  ) => Promise<T>;
+  mutateDatabaseWithNoticeOutbox: (
+    teacherId: string,
+    mutator: (database: TeacherOpsReminderPersistenceDatabase) =>
+      | { result: RunTeacherMissingWorkRemindersResult; noticeIds: string[]; noEligibleResult?: RunTeacherMissingWorkRemindersResult; commitWithoutEligibleRows?: boolean }
+      | Promise<{ result: RunTeacherMissingWorkRemindersResult; noticeIds: string[]; noEligibleResult?: RunTeacherMissingWorkRemindersResult; commitWithoutEligibleRows?: boolean }>
+  ) => Promise<{
+    result: RunTeacherMissingWorkRemindersResult;
+    outbox: { queued: number; reused: number; recovered: number; skipped: number };
+  }>;
   teacherOperationClassRecordsFor: (
     database: TeacherOpsReminderPersistenceDatabase,
     user: TeacherOpsReminderUserRecord
@@ -118,11 +127,19 @@ export type TeacherOpsReminderPersistenceStoreDependencies = {
     studentIds: string[];
     now: string;
   }) => TeacherOpsReminderNoticeRecord;
-  sendNoticeRecord: (
-    database: TeacherOpsReminderPersistenceDatabase,
-    notice: TeacherOpsReminderNoticeRecord,
-    origin?: string
-  ) => Promise<TeacherOpsReminderDeliveryAttemptRecord>;
+  sendNotice?: (input: {
+    teacherId: string;
+    noticeId: string;
+    idempotencyKey: string;
+  }) => Promise<
+    | { status: "sent"; attempt: { status: TeacherNoticeDeliveryStatus; attemptedAt: string } }
+    | { status: "invalid" | "conflict" | "not-found" }
+  >;
+  recordDeliveryResult?: (input: {
+    runId: string;
+    status: TeacherNoticeDeliveryStatus;
+    attemptedAt: string;
+  }) => Promise<void>;
   toTeacherReminderRun: (
     database: TeacherOpsReminderPersistenceDatabase,
     record: TeacherOpsReminderRunRecord
@@ -132,6 +149,42 @@ export type TeacherOpsReminderPersistenceStoreDependencies = {
 export type TeacherOpsReminderPersistenceStore = ReturnType<typeof createTeacherOpsReminderPersistenceStore>;
 
 const dayMs = 24 * 60 * 60 * 1000;
+
+function teacherOpsReminderCursorFor(item: { assignmentId: string; studentId: string }) {
+  return `${item.assignmentId}\u0000${item.studentId}`;
+}
+
+function compareTeacherOpsReminderCursors(left: string, right: string) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+export function selectTeacherOpsReminderBatch<Item extends { assignmentId: string; studentId: string }>({
+  items,
+  cursor,
+  limit,
+  isEligible
+}: {
+  items: Item[];
+  cursor?: string | null;
+  limit: number;
+  isEligible: (item: Item) => boolean;
+}) {
+  const boundedLimit = Number.isInteger(limit) ? Math.max(1, Math.min(100, limit)) : 100;
+  const ordered = [...items].sort((left, right) => compareTeacherOpsReminderCursors(
+    teacherOpsReminderCursorFor(left),
+    teacherOpsReminderCursorFor(right)
+  ));
+  const eligible = ordered.filter((item) =>
+    (!cursor || compareTeacherOpsReminderCursors(teacherOpsReminderCursorFor(item), cursor) > 0) && isEligible(item)
+  );
+  const selected = eligible.slice(0, boundedLimit);
+  return {
+    items: selected,
+    nextCursor: eligible.length > selected.length && selected.length
+      ? teacherOpsReminderCursorFor(selected[selected.length - 1]!)
+      : null
+  };
+}
 
 export function teacherOpsCurrentMissingWorkThreshold(
   assignment: { due_at: string | null },
@@ -235,18 +288,19 @@ export function toTeacherOpsReminderRun(
 }
 
 function canUseTeacherArea(user?: TeacherOpsReminderUserRecord | null): user is TeacherOpsReminderUserRecord {
-  return user?.role === "teacher" || user?.role === "admin";
+  return user?.role === "teacher";
 }
 
 export function createTeacherOpsReminderPersistenceStore({
   createId = () => randomUUID(),
   now = () => new Date(),
-  mutateDatabase,
+  mutateDatabaseWithNoticeOutbox,
   teacherOperationClassRecordsFor,
   teacherCanMutateOperationsClass,
   missingWorkItemsForClasses,
   createNoticeRecord,
-  sendNoticeRecord,
+  sendNotice,
+  recordDeliveryResult,
   toTeacherReminderRun
 }: TeacherOpsReminderPersistenceStoreDependencies) {
   return {
@@ -255,27 +309,76 @@ export function createTeacherOpsReminderPersistenceStore({
       classId,
       assignmentId,
       manual = false,
-      origin
+      idempotencyKey,
+      cursor = null
     }: {
       teacherId: string;
       classId?: string | null;
       assignmentId?: string | null;
       manual?: boolean;
-      origin?: string;
+      idempotencyKey?: string;
+      cursor?: string | null;
     }) {
-      return mutateDatabase(async (database) => {
+      const idempotency = idempotencyKey === undefined
+        ? null
+        : normalizeTeacherNoticeRequestIdempotency({
+            actorId: teacherId,
+            key: idempotencyKey,
+            operation: "reminder-run",
+            payload: { assignmentId: assignmentId ?? null, classId: classId ?? null, cursor, manual }
+          });
+      if (idempotencyKey !== undefined && !idempotency) return { status: "invalid" as const };
+      const publication = await mutateDatabaseWithNoticeOutbox(teacherId, async (database) => {
         const user = database.users.find((candidate) => candidate.id === teacherId);
-        if (!canUseTeacherArea(user)) return { status: "forbidden" as const };
+        if (!canUseTeacherArea(user)) {
+          return { result: { status: "forbidden" as const }, noticeIds: [] };
+        }
         const classRecords = teacherOperationClassRecordsFor(database, user)
           .filter((teacherClass) => !classId || teacherClass.id === classId)
           .filter((teacherClass) => Boolean(teacherCanMutateOperationsClass(database, user, teacherClass.id)));
-        if (classId && !classRecords.length) return { status: "not-found" as const };
+        if (classId && !classRecords.length) {
+          return { result: { status: "not-found" as const }, noticeIds: [] };
+        }
 
-        const items = missingWorkItemsForClasses(database, classRecords)
-          .filter((item) => !assignmentId || item.assignmentId === assignmentId)
-          .filter((item) => manual || Boolean(item.nextThreshold))
-          .slice(0, 100);
+        if (idempotency) {
+          const replayRuns = database.teacher_reminder_runs.filter(
+            (run) => run.request_idempotency_key_hash === idempotency.keyHash
+          );
+          if (replayRuns.some((run) => run.request_idempotency_request_hash !== idempotency.requestHash)) {
+            return { result: { status: "conflict" as const }, noticeIds: [] };
+          }
+          if (replayRuns.length) {
+            return {
+              result: {
+                status: "ran" as const,
+                runs: replayRuns.map((run) => toTeacherReminderRun(database, run)),
+                nextCursor: replayRuns[0]?.request_next_cursor ?? null
+              },
+              noticeIds: replayRuns.flatMap((run) => run.notice_id ? [run.notice_id] : [])
+            };
+          }
+        }
+
+        const selection = selectTeacherOpsReminderBatch({
+          items: missingWorkItemsForClasses(database, classRecords),
+          cursor,
+          limit: 100,
+          isEligible: (item) => {
+            if (assignmentId && item.assignmentId !== assignmentId) return false;
+            const threshold = manual ? "manual" : item.nextThreshold;
+            if (!threshold) return false;
+            return manual || !database.teacher_reminder_runs.some(
+              (run) =>
+                run.assignment_id === item.assignmentId &&
+                run.student_id === item.studentId &&
+                run.threshold === threshold &&
+                run.status !== "skipped"
+            );
+          }
+        });
+        const items = selection.items;
         const runs: TeacherOpsReminderRunRecord[] = [];
+        const noticeIds: string[] = [];
 
         for (const item of items) {
           const threshold = manual ? "manual" : item.nextThreshold;
@@ -304,7 +407,7 @@ export function createTeacherOpsReminderPersistenceStore({
             studentIds: [item.studentId],
             now: now().toISOString()
           });
-          const attempt = await sendNoticeRecord(database, notice, origin);
+          const queuedAt = now().toISOString();
           const run: TeacherOpsReminderRunRecord = {
             id: `teacher-reminder-run-${createId()}`,
             teacher_id: user.id,
@@ -313,16 +416,61 @@ export function createTeacherOpsReminderPersistenceStore({
             student_id: item.studentId,
             notice_id: notice.id,
             threshold,
-            status: attempt.status,
-            reason: manual ? "Manual reminder sent by teacher." : `Automatic missing-work threshold ${threshold}.`,
-            created_at: attempt.attempted_at
+            status: "queued",
+            reason: manual ? "Manual reminder queued by teacher." : `Automatic missing-work threshold ${threshold} queued.`,
+            created_at: queuedAt,
+            request_idempotency_key_hash: idempotency?.keyHash,
+            request_idempotency_request_hash: idempotency?.requestHash,
+            request_next_cursor: selection.nextCursor
           };
           database.teacher_reminder_runs.unshift(run);
           runs.push(run);
+          noticeIds.push(notice.id);
         }
 
-        return { status: "ran" as const, runs: runs.map((run) => toTeacherReminderRun(database, run)) };
+        return {
+          commitWithoutEligibleRows: true,
+          result: {
+            status: "ran" as const,
+            runs: runs.map((run) => toTeacherReminderRun(database, run)),
+            nextCursor: selection.nextCursor
+          },
+          noEligibleResult: { status: "no-eligible" as const },
+          noticeIds
+        };
       });
+      if (
+        publication.result.status !== "ran" ||
+        !sendNotice ||
+        !recordDeliveryResult
+      ) return publication.result;
+
+      const runs = [] as TeacherReminderRun[];
+      for (const run of publication.result.runs) {
+        if (!run.noticeId) {
+          runs.push(run);
+          continue;
+        }
+        const runKey = createHash("sha256")
+          .update(JSON.stringify({ noticeId: run.noticeId, runId: run.id }), "utf8")
+          .digest("hex");
+        const delivery = await sendNotice({
+          teacherId,
+          noticeId: run.noticeId,
+          idempotencyKey: `teacher-reminder-wecom/${runKey}`
+        });
+        if (delivery.status !== "sent") {
+          runs.push(run);
+          continue;
+        }
+        await recordDeliveryResult({
+          runId: run.id,
+          status: delivery.attempt.status,
+          attemptedAt: delivery.attempt.attemptedAt
+        });
+        runs.push({ ...run, status: delivery.attempt.status });
+      }
+      return { ...publication.result, runs };
     }
   };
 }

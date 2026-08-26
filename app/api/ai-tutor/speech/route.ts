@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guardAiTutorExpectedUser } from "@/app/api/ai-tutor/expectedUser";
 import { readQwenAsrRealtimeProviderConfig } from "@/lib/server/llmProvider";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { consumeAiCapabilityRateLimit, resolveStudentAiTutorPolicy } from "@/lib/server/userStore";
@@ -211,11 +212,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Authentication required." }, { status: 401 });
   }
 
-  const classroomPolicy = await resolveStudentAiTutorPolicy(authenticated.user.id);
-  if (classroomPolicy.mode === "fallback-only") {
-    return NextResponse.json({ error: "Class AI Tutor speech is paused." }, { status: 409 });
-  }
-
   let body: unknown;
   try {
     body = await request.json();
@@ -225,6 +221,14 @@ export async function POST(request: Request) {
 
   if (!isRecord(body)) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
+  }
+
+  const expectedUserConflict = guardAiTutorExpectedUser(authenticated, request, body);
+  if (expectedUserConflict) return expectedUserConflict;
+
+  const classroomPolicy = await resolveStudentAiTutorPolicy(authenticated.user.id);
+  if (classroomPolicy.mode === "fallback-only") {
+    return NextResponse.json({ error: "Class AI Tutor speech is paused." }, { status: 409 });
   }
 
   const maxAudioSeconds = boundedNumber(

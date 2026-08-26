@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
+import { createSessionToken, verifySessionToken } from "@/lib/session";
 import {
   type AuthDemoAccountSeed,
   type AuthLoginResult,
@@ -389,7 +390,6 @@ function createTestStore(
     mutateDatabase: async (mutator) => mutator(database),
     mediaObjectUrlForKey: (objectKey) => `/media/${objectKey}`,
     createId: () => "generated-id",
-    createParentInviteCode: () => "MAIS-INVITE-CODE",
     createResetToken: () => "plain-reset-token",
     hashPasswordResetToken: (token) => `hashed:${token}`,
     hashPassword: (password) => ({ hash: `hash:${password}`, salt: `salt:${password}` }),
@@ -701,6 +701,8 @@ test("auth session persistence owns auth user record normalization for legacy us
     normalized_email: "ada@example.com",
     school_id: " school-1 ",
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "student"
   });
 
@@ -719,6 +721,8 @@ test("auth session persistence owns auth user record normalization for legacy us
     normalized_email: "teacher.one@example.com",
     school_id: undefined,
     password_must_change: true,
+    session_revision: 1,
+    disabled_at: null,
     role: "teacher"
   });
 
@@ -737,6 +741,8 @@ test("auth session persistence owns auth user record normalization for legacy us
     normalized_email: undefined,
     school_id: undefined,
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "parent"
   });
 });
@@ -841,9 +847,6 @@ test("auth session persistence owns student profile record normalization for leg
       avatar_id?: unknown;
       avatar_image_data_url?: unknown;
       avatar_media_object_key?: unknown;
-    },
-    dependencies: {
-      normalizeParentInviteCode: (value: string) => string;
     }
   ) => Record<string, unknown>) | undefined;
 
@@ -853,10 +856,6 @@ test("auth session persistence owns student profile record normalization for leg
   assert.doesNotMatch(rootSource, /const studentProfiles = \(database\.student_profiles \?\? \[\]\)\.map\(\(profile\): StudentProfileRecord => \{/);
   assert.doesNotMatch(rootSource, /avatarMediaObjectKey = normalizeStoredMediaObjectKey\(profile\.avatar_media_object_key\)/);
   assert.doesNotMatch(rootSource, /parentInviteCode = normalizeParentInviteCodeFromParentAccess/);
-
-  const dependencies = {
-    normalizeParentInviteCode: (value: string) => value.trim().toUpperCase().replace(/[^A-Z0-9-]+/g, "")
-  };
 
   const normalizedInvalid = normalizeProfile?.({
     user_id: "student-1",
@@ -869,13 +868,13 @@ test("auth session persistence owns student profile record normalization for leg
     avatar_id: "bad-avatar",
     avatar_image_data_url: "https://example.test/avatar.png",
     avatar_media_object_key: " ../unsafe.png "
-  }, dependencies);
+  });
 
   assert.equal(normalizedInvalid?.avatar_id, "delta");
   assert.equal(normalizedInvalid?.curriculum_track, "MAINLAND_PEP_HIGH");
   assert.equal(normalizedInvalid?.curriculum_region, "MAINLAND");
   assert.equal(normalizedInvalid?.textbook_publisher, "MAINLAND_PEP");
-  assert.equal(normalizedInvalid?.parent_invite_code, "MAIS-123");
+  assert.equal(normalizedInvalid?.parent_invite_code, "");
   assert.equal(normalizedInvalid?.avatar_media_object_key, undefined);
   assert.equal(normalizedInvalid?.avatar_image_data_url, "https://example.test/avatar.png");
 
@@ -890,13 +889,13 @@ test("auth session persistence owns student profile record normalization for leg
     avatar_id: "theta",
     avatar_image_data_url: "data:image/png;base64,QUJD",
     avatar_media_object_key: "avatars/student-2.webp"
-  }, dependencies);
+  });
 
   assert.equal(normalizedValid?.avatar_id, "theta");
   assert.equal(normalizedValid?.curriculum_track, "HK");
   assert.equal(normalizedValid?.curriculum_region, "HK");
   assert.equal(normalizedValid?.textbook_publisher, "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY");
-  assert.equal(normalizedValid?.parent_invite_code, "   ");
+  assert.equal(normalizedValid?.parent_invite_code, "");
   assert.equal(normalizedValid?.avatar_media_object_key, "avatars/student-2.webp");
   assert.equal(normalizedValid?.avatar_image_data_url, "data:image/png;base64,QUJD");
 });
@@ -1121,6 +1120,8 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     password_salt: "salt",
     school_id: "school-1",
     password_must_change: true,
+    session_revision: 1,
+    disabled_at: null,
     role: "student",
     created_at: "2026-06-20T10:00:00.000Z"
   }), {
@@ -1133,6 +1134,8 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     password_salt: "salt",
     school_id: "school-1",
     password_must_change: true,
+    session_revision: 1,
+    disabled_at: null,
     role: "student",
     created_at: "2026-06-20T10:00:00.000Z"
   });
@@ -1146,7 +1149,7 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     curriculum_track: "US_CA_MATH",
     curriculum_region: "US",
     textbook_publisher: "US_CA_MATH",
-    parent_invite_code: "INVITE",
+    parent_invite_code: `MAIS-${"A".repeat(24)}`,
     avatar_id: "delta",
     avatar_image_data_url: "data:image/png;base64,AAAA",
     avatar_media_object_key: "avatars/student-1.webp"
@@ -1157,7 +1160,7 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     curriculum_track: "US_CA_MATH",
     curriculum_region: "US",
     textbook_publisher: "US_CA_MATH",
-    parent_invite_code: "INVITE",
+    parent_invite_code: "",
     avatar_id: "delta",
     avatar_image_data_url: "data:image/png;base64,AAAA",
     avatar_media_object_key: "avatars/student-1.webp"
@@ -1195,6 +1198,22 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     created_at: "2026-06-20T10:00:00.000Z"
   });
   assert.equal(projectedPasswordResetTokenRecord({ id: "token-1", user_id: "student-1" }), null);
+  assert.equal(projectedPasswordResetTokenRecord({
+    id: "token-1",
+    user_id: "student-1",
+    token_hash: "hash",
+    expires_at: "not-a-timestamp",
+    used_at: null,
+    created_at: "2026-06-20T10:00:00.000Z"
+  }), null);
+  assert.equal(projectedPasswordResetTokenRecord({
+    id: "token-1",
+    user_id: "student-1",
+    token_hash: "hash",
+    expires_at: "2026-06-20T11:00:00.000Z",
+    used_at: null,
+    created_at: "not-a-timestamp"
+  }), null);
 });
 
 test("auth session persistence owns default user settings records for legacy userStore", async () => {
@@ -1461,6 +1480,7 @@ test("auth session persistence authenticates login users and preserves snapshot 
 
   assert.equal(authenticated.status, "authenticated");
   assert.equal(authenticated.status === "authenticated" ? authenticated.session.user.id : null, "student-1");
+  assert.equal(authenticated.status === "authenticated" ? authenticated.sessionRevision : null, 1);
   assert.equal(authenticated.status === "authenticated" ? authenticated.database : null, database);
 
   const requiresCurriculum = await store.authenticateUserForLogin("setup@example.com", "current-password");
@@ -1502,12 +1522,13 @@ test("auth session persistence lets login fast hooks short-circuit or fall back 
     readDatabase: async () => {
       throw new Error("snapshot should not be read after hot login hit");
     },
-    authenticateUserForLoginBeforeSnapshot: async () => ({ status: "authenticated", session: hotSession })
+    authenticateUserForLoginBeforeSnapshot: async () => ({ status: "authenticated", session: hotSession, sessionRevision: 5 })
   });
 
   assert.deepEqual(await hotStore.authenticateUserForLogin("hot@example.com", "current-password"), {
     status: "authenticated",
-    session: hotSession
+    session: hotSession,
+    sessionRevision: 5
   });
 
   const noRetryStore = createAuthSessionPersistenceStore({
@@ -1798,8 +1819,7 @@ test("auth session persistence owns demo account sync helpers for legacy userSto
     demoPassword: "demo-pass",
     fixedExampleScopeForUserId,
     internalExampleAccountSeedForUserId,
-    hashPassword: (password: string) => ({ hash: `hash:${password}`, salt: "sync-salt" }),
-    passwordMatches: (password: string, user: { password_hash?: string }) => user.password_hash === `hash:${password}`
+    hashPassword: (password: string) => ({ hash: `hash:${password}`, salt: "sync-salt" })
   };
 
   assert.equal(typeof module.authDemoRecordsNeedSync, "function");
@@ -1900,8 +1920,20 @@ test("auth session persistence owns demo account sync helpers for legacy userSto
     }
   ]);
 
-  users[0].password_hash = "stale";
+  users[0].password_hash = "hash:changed-pass";
+  users[0].password_salt = "changed-salt";
+  assert.equal(module.authDemoRecordsNeedSync?.({ users, student_profiles: studentProfiles, user_settings: userSettings }, syncOptions), false);
+  module.syncAuthDemoAccounts?.(users, studentProfiles, userSettings, "2026-06-20T11:00:00.000Z", syncOptions);
+  assert.equal(users[0].password_hash, "hash:changed-pass");
+  assert.equal(users[0].password_salt, "changed-salt");
+  assert.equal(users[0].session_revision, 1);
+
+  users[0].password_hash = "";
   assert.equal(module.authDemoRecordsNeedSync?.({ users, student_profiles: studentProfiles, user_settings: userSettings }, syncOptions), true);
+  module.syncAuthDemoAccounts?.(users, studentProfiles, userSettings, "2026-06-20T12:00:00.000Z", syncOptions);
+  assert.equal(users[0].password_hash, "hash:demo-pass");
+  assert.equal(users[0].password_salt, "sync-salt");
+  assert.equal(users[0].session_revision, 2);
 });
 
 test("auth session persistence owns bootstrap admin helpers for legacy userStore", async () => {
@@ -1971,6 +2003,8 @@ test("auth session persistence owns bootstrap admin helpers for legacy userStore
       password_hash: "hash:admin-pass",
       password_salt: "admin-salt",
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: "admin",
       created_at: "2026-06-20T10:00:00.000Z"
     }
@@ -2212,6 +2246,8 @@ test("auth session persistence owns storage-free example account records for leg
       password_hash: "",
       password_salt: "",
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: "student",
       created_at: "2026-06-20T10:00:00.000Z"
     },
@@ -2483,6 +2519,96 @@ test("auth session persistence authenticates flexible fixed example accounts", a
   }), { status: "invalid" });
 });
 
+test("flexible fixed example login authenticates the persisted active user and never fabricates revision or password state", async () => {
+  const fixedSeed: AuthDemoAccountSeed = {
+    id: "fixed-demo-student",
+    username: "Demo Student",
+    email: "demo.student@example.test",
+    role: "student",
+    grade: "S3",
+    curriculumTrack: "HK",
+    avatarId: "delta"
+  };
+  const persistedDatabase = createDatabase();
+  persistedDatabase.users.push({
+    id: fixedSeed.id,
+    username: fixedSeed.username,
+    normalized_username: "demo student",
+    email: fixedSeed.email,
+    normalized_email: fixedSeed.email,
+    password_hash: "hash:demo-pass",
+    password_salt: "persisted-salt",
+    password_must_change: false,
+    session_revision: 7,
+    disabled_at: null,
+    role: "student",
+    created_at: generatedAt.toISOString()
+  });
+  persistedDatabase.student_profiles.push({
+    user_id: fixedSeed.id,
+    name: fixedSeed.username,
+    grade: "S3",
+    curriculum_track: "HK",
+    curriculum_region: "HK",
+    textbook_publisher: "HK_UNITED_PRIME_MIA",
+    avatar_id: "delta"
+  });
+  persistedDatabase.user_settings.push({
+    user_id: fixedSeed.id,
+    language: "en",
+    theme: "dark",
+    selected_grade: "S3",
+    updated_at: generatedAt.toISOString()
+  });
+  const publicDatabase = createDatabase();
+  const store = createTestStore(persistedDatabase, {
+    demoAccountSeeds: [fixedSeed],
+    demoPassword: "demo-pass",
+    fixedExampleScopeForUserId: (userId) => userId === fixedSeed.id
+      ? {
+        grade: "S4",
+        curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
+        language: "en"
+      }
+      : null,
+    passwordMatches: (password, user) => user.password_hash === `hash:${password}`,
+    publicContentDatabaseForExampleLogin: () => publicDatabase
+  });
+
+  const current = await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "demo-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  });
+  assert.equal(current.status, "authenticated");
+  assert.equal(current.status === "authenticated" ? current.sessionRevision : null, 7);
+  assert.equal(current.status === "authenticated" ? current.database : null, publicDatabase);
+
+  const persistedUser = persistedDatabase.users.find((user) => user.id === fixedSeed.id);
+  assert.ok(persistedUser);
+  persistedUser.disabled_at = "2026-06-20T10:30:00.000Z";
+  assert.deepEqual(await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "demo-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  }), { status: "invalid" });
+
+  persistedUser.disabled_at = null;
+  persistedUser.password_hash = "hash:changed-pass";
+  const changed = await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "changed-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  });
+  assert.equal(changed.status, "authenticated");
+  assert.equal(changed.status === "authenticated" ? changed.sessionRevision : null, 7);
+  assert.deepEqual(await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "demo-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  }), { status: "invalid" });
+});
+
 test("auth session persistence completes missing student curriculum setup", async () => {
   const database = createDatabase();
   const store = createTestStore(database);
@@ -2581,6 +2707,8 @@ test("auth session persistence creates parent users through snapshot storage", a
     password_hash: "hash:parent-password",
     password_salt: "salt:parent-password",
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "parent",
     created_at: generatedAt.toISOString()
   });
@@ -2682,6 +2810,8 @@ test("auth session persistence creates student users and seeds lesson progress",
     normalized_email: "studenttwo@example.com",
     password_hash: "hash:student-password",
     password_salt: "salt:student-password",
+    session_revision: 1,
+    disabled_at: null,
     role: "student",
     created_at: generatedAt.toISOString()
   });
@@ -2692,9 +2822,9 @@ test("auth session persistence creates student users and seeds lesson progress",
     curriculum_track: "HK",
     curriculum_region: "HK",
     textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
-    parent_invite_code: "MAIS-INVITE-CODE",
     avatar_id: "delta"
   });
+  assert.doesNotMatch(JSON.stringify(database), /MAIS-[A-F0-9]{24}/i);
   assert.deepEqual(database.lesson_progress, [
     {
       user_id: "student-generated-id",
@@ -3039,6 +3169,182 @@ test("auth session persistence changes authenticated passwords through snapshot 
   );
 });
 
+test("successful password changes revoke every unused reset token for only that account", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push({
+    id: "other-user-token",
+    user_id: "teacher-1",
+    token_hash: "hashed:other-user",
+    expires_at: "2026-06-20T11:00:00.000Z",
+    used_at: null,
+    created_at: "2026-06-20T09:00:00.000Z"
+  });
+
+  const result = await createTestStore(database).changeAuthenticatedUserPassword({
+    userId: "student-1",
+    currentPassword: "current-password",
+    password: "changed-password"
+  });
+
+  assert.equal(result.status, "updated");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "expired-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "used-token")?.used_at, "2026-06-20T09:30:00.000Z");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "other-user-token")?.used_at, null);
+});
+
+test("disabling an account revokes every unused reset token for only that account", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push({
+    id: "other-user-token",
+    user_id: "teacher-1",
+    token_hash: "hashed:other-user",
+    expires_at: "2026-06-20T11:00:00.000Z",
+    used_at: null,
+    created_at: "2026-06-20T09:00:00.000Z"
+  });
+
+  const result = await createTestStore(database).setUserDisabledState("student-1", true);
+
+  assert.equal(result.status, "updated");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "expired-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "used-token")?.used_at, "2026-06-20T09:30:00.000Z");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "other-user-token")?.used_at, null);
+});
+
+test("session-aware authentication treats legacy users as revision one and fails closed", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 1))?.user.id, "student-1");
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 2), null);
+  assert.equal(await store.getAuthenticatedUserForSession("missing-user", 1), null);
+
+  const user = database.users.find((candidate) => candidate.id === "student-1");
+  assert.ok(user);
+  user.disabled_at = generatedAt.toISOString();
+
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal(await store.getActiveUserSessionRevision("student-1"), null);
+  assert.deepEqual(await store.authenticateUserForLogin("student-one", "current-password"), { status: "invalid" });
+});
+
+test("session admission and issuance fall back to revision-aware snapshot state when hot auth opts out", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database, {
+    lookupSessionBeforeRead: async () => undefined,
+    lookupSessionRevisionBeforeRead: async () => undefined
+  });
+
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 1))?.user.id, "student-1");
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 2), null);
+  assert.equal(await store.getActiveUserSessionRevision("student-1"), 1);
+
+  database.users.find((candidate) => candidate.id === "student-1")!.disabled_at = generatedAt.toISOString();
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal(await store.getActiveUserSessionRevision("student-1"), null);
+});
+
+test("password changes and resets atomically increment the stored session revision", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const changed = await store.changeAuthenticatedUserPassword({
+    userId: "student-1",
+    currentPassword: "current-password",
+    password: "changed-password"
+  });
+  assert.equal(changed.status, "updated");
+  assert.equal(changed.status === "updated" ? changed.sessionRevision : null, 2);
+  assert.equal(database.users.find((candidate) => candidate.id === "student-1")?.session_revision, 2);
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 2))?.user.id, "student-1");
+
+  const resetDatabase = createDatabase();
+  const resetStore = createTestStore(resetDatabase);
+  const reset = await resetStore.resetUserPassword("active", "reset-password");
+  assert.equal(reset.status, "reset");
+  assert.equal(reset.status === "reset" ? reset.sessionRevision : null, 2);
+  assert.equal(resetDatabase.users.find((candidate) => candidate.id === "student-1")?.session_revision, 2);
+  assert.equal(await resetStore.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal((await resetStore.getAuthenticatedUserForSession("student-1", 2))?.user.id, "student-1");
+});
+
+test("logout-all and disable state transitions each revoke every previously minted session", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  assert.deepEqual(await store.revokeAllUserSessions("student-1"), {
+    status: "revoked",
+    sessionRevision: 2
+  });
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+
+  assert.deepEqual(await store.setUserDisabledState("student-1", true), {
+    status: "updated",
+    disabledAt: generatedAt.toISOString(),
+    sessionRevision: 3
+  });
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 2), null);
+  assert.deepEqual(await store.authenticateUserForLogin("student-one", "current-password"), { status: "invalid" });
+
+  assert.deepEqual(await store.setUserDisabledState("student-1", false), {
+    status: "updated",
+    disabledAt: null,
+    sessionRevision: 4
+  });
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 3), null);
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 4))?.user.id, "student-1");
+});
+
+test("password change, reset, and logout-all revoke two independently minted device tokens", async () => {
+  const previousSecret = process.env.AUTH_SESSION_SECRET;
+  process.env.AUTH_SESSION_SECRET = "two-device-session-revision-test-secret";
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const authenticateToken = async (token: string) => {
+    const payload = await verifySessionToken(token);
+    return payload ? store.getAuthenticatedUserForSession(payload.sub, payload.sr) : null;
+  };
+  const mintPair = async (sessionRevision: number) => Promise.all([
+    createSessionToken({ userId: "student-1", sessionRevision }),
+    createSessionToken({ userId: "student-1", sessionRevision })
+  ]);
+
+  try {
+    const passwordDevices = await mintPair(1);
+    assert.ok(await authenticateToken(passwordDevices[0]));
+    assert.ok(await authenticateToken(passwordDevices[1]));
+    assert.equal((await store.changeAuthenticatedUserPassword({
+      userId: "student-1",
+      currentPassword: "current-password",
+      password: "changed-password"
+    })).status, "updated");
+    assert.equal(await authenticateToken(passwordDevices[0]), null);
+    assert.equal(await authenticateToken(passwordDevices[1]), null);
+
+    const resetRequest = await store.createPasswordResetRequest("student@example.com");
+    assert.ok(resetRequest);
+    const resetDevices = await mintPair(2);
+    assert.equal((await store.resetUserPassword(resetRequest.token, "reset-password")).status, "reset");
+    assert.equal(await authenticateToken(resetDevices[0]), null);
+    assert.equal(await authenticateToken(resetDevices[1]), null);
+
+    const logoutDevices = await mintPair(3);
+    assert.equal((await store.revokeAllUserSessions("student-1")).status, "revoked");
+    assert.equal(await authenticateToken(logoutDevices[0]), null);
+    assert.equal(await authenticateToken(logoutDevices[1]), null);
+
+    const current = await createSessionToken({ userId: "student-1", sessionRevision: 4 });
+    assert.equal((await authenticateToken(current))?.user.id, "student-1");
+  } finally {
+    if (previousSecret === undefined) delete process.env.AUTH_SESSION_SECRET;
+    else process.env.AUTH_SESSION_SECRET = previousSecret;
+  }
+});
+
 test("auth session persistence creates password reset requests without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/authSessionPersistence.ts"), "utf8");
   assert.doesNotMatch(source, /from ["']\.\.\/userStore["']/);
@@ -3103,6 +3409,64 @@ test("auth session persistence resets passwords and consumes valid reset tokens"
   assert.deepEqual(await store.resetUserPassword("expired", "1234"), { status: "invalid" });
 });
 
+test("successful password resets revoke every unused sibling token for only that account", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push(
+    {
+      id: "second-active-token",
+      user_id: "student-1",
+      token_hash: "hashed:second-active",
+      expires_at: "2026-06-20T10:30:00.000Z",
+      used_at: null,
+      created_at: "2026-06-20T09:30:00.000Z"
+    },
+    {
+      id: "other-user-token",
+      user_id: "teacher-1",
+      token_hash: "hashed:other-user",
+      expires_at: "2026-06-20T11:00:00.000Z",
+      used_at: null,
+      created_at: "2026-06-20T09:00:00.000Z"
+    }
+  );
+  const store = createTestStore(database);
+
+  const result = await store.resetUserPassword("second-active", "new-password");
+
+  assert.equal(result.status, "reset");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "second-active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "active-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "expired-token")?.used_at, generatedAt.toISOString());
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "used-token")?.used_at, "2026-06-20T09:30:00.000Z");
+  assert.equal(passwordResetTokens(database).find((token) => token.id === "other-user-token")?.used_at, null);
+  assert.deepEqual(await store.resetUserPassword("active", "another-password"), { status: "invalid" });
+});
+
+test("auth session persistence rejects malformed reset expiry without mutating account state", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push({
+    id: "malformed-expiry-token",
+    user_id: "student-1",
+    token_hash: "hashed:malformed-expiry-token",
+    expires_at: "not-a-timestamp",
+    used_at: null,
+    created_at: "2026-06-20T09:30:00.000Z"
+  });
+  const originalUser = structuredClone(database.users.find((candidate) => candidate.id === "student-1"));
+
+  const result = await createTestStore(database).resetUserPassword(
+    "malformed-expiry-token",
+    "new-password"
+  );
+
+  assert.deepEqual(result, { status: "invalid" });
+  assert.deepEqual(database.users.find((candidate) => candidate.id === "student-1"), originalUser);
+  assert.equal(
+    passwordResetTokens(database).find((token) => token.id === "malformed-expiry-token")?.used_at,
+    null
+  );
+});
+
 test("auth session persistence lets password reset hot hooks short-circuit snapshot storage", async () => {
   const requestResult = {
     token: "hot-token",
@@ -3135,11 +3499,19 @@ test("auth session persistence lets password reset hot hooks short-circuit snaps
       throw new Error("snapshot should not be mutated after hot password reset hit");
     },
     createPasswordResetRequestBeforeSnapshot: async () => requestResult,
-    resetUserPasswordBeforeSnapshot: async () => ({ status: "reset", session: resetSession })
+    resetUserPasswordBeforeSnapshot: async () => ({
+      status: "reset",
+      session: resetSession,
+      sessionRevision: 9
+    })
   });
 
   assert.equal(await store.createPasswordResetRequest("hot@example.com"), requestResult);
-  assert.deepEqual(await store.resetUserPassword("hot-token", "new-password"), { status: "reset", session: resetSession });
+  assert.deepEqual(await store.resetUserPassword("hot-token", "new-password"), {
+    status: "reset",
+    session: resetSession,
+    sessionRevision: 9
+  });
 });
 
 test("legacy userStore delegates authenticated user lookup to extracted auth session persistence", async () => {

@@ -225,11 +225,13 @@ function majorityTopicId(roundQuestions: Array<{ topicId: string }>) {
   return bestTopicId;
 }
 
-async function submitCorrectAttempts(app: IsolatedApp, page: Page, questionIds: string[]) {
+async function submitCorrectAttempts(app: IsolatedApp, page: Page, questionIds: string[], expectedUserId: string) {
   const answersById = new Map(questions.map((question) => [question.id, question.answer]));
   for (const questionId of questionIds) {
     const response = await page.request.post(app.url("/api/attempts"), {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId,
         selectedAnswer: answersById.get(questionId),
         durationSeconds: 10
@@ -239,11 +241,13 @@ async function submitCorrectAttempts(app: IsolatedApp, page: Page, questionIds: 
   }
 }
 
-async function submitAttempts(app: IsolatedApp, page: Page, questionIds: string[], correctCount: number) {
+async function submitAttempts(app: IsolatedApp, page: Page, questionIds: string[], correctCount: number, expectedUserId: string) {
   const answersById = new Map(questions.map((question) => [question.id, question.answer]));
   for (const [index, questionId] of questionIds.entries()) {
     const response = await page.request.post(app.url("/api/attempts"), {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId,
         selectedAnswer: index < correctCount ? answersById.get(questionId) : `wrong-${index}`,
         durationSeconds: 10
@@ -380,7 +384,7 @@ test.describe.serial("Practice Arena Fishing Game", () => {
     const diagnostics = attachFishingRuntimeDiagnostics(page);
 
     try {
-      const { roundQuestions } = await completeFreeSelectionRound({
+      const { roundQuestions, session } = await completeFreeSelectionRound({
         app,
         page,
         testInfo,
@@ -390,7 +394,7 @@ test.describe.serial("Practice Arena Fishing Game", () => {
       await completeAdventureForPayload(app, page, firstPayload);
 
       const secondPayload = roundPayload("quadratic-patterns", roundQuestions, 5, `post-adventure-${Date.now()}`);
-      await submitAttempts(app, page, secondPayload.roundQuestionIds, 5);
+      await submitAttempts(app, page, secondPayload.roundQuestionIds, 5, session.user.id);
       await page.evaluate(({ key, payload }) => {
         window.sessionStorage.setItem(key, JSON.stringify(payload));
       }, { key: fishingRoundStorageKey, payload: secondPayload });
@@ -497,7 +501,7 @@ test.describe.serial("Practice Arena Fishing Game", () => {
       await page.unroute("**/api/gamification/fishing-game/complete");
 
       const before = await readJson<StudentGamificationPayload>(await page.request.get(app.url("/api/gamification/summary")));
-      await submitCorrectAttempts(app, page, topicQuestions.slice(1, 2).map((question) => question.id));
+      await submitCorrectAttempts(app, page, topicQuestions.slice(1, 2).map((question) => question.id), session.user.id);
       const apiRoundKey = `e2e-fishing-${Date.now()}`;
       const completion = await readJson<FishingCompletion>(await page.request.post(app.url("/api/gamification/fishing-game/complete"), {
         data: {

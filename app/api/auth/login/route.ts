@@ -5,9 +5,8 @@ import {
   consumeAuthRateLimit,
   withAuthRouteJsonBoundary
 } from "@/lib/server/authRouteGuards";
-import { sessionSecretMissingResponse, setSessionCookie } from "@/lib/server/sessionCookie";
+import { sessionCookieFailureResponse, setSessionCookie } from "@/lib/server/sessionCookie";
 import { shouldCompleteCurriculumTrackSelectionForLogin } from "@/lib/server/authLoginFlow";
-import { authenticateInternalCaliforniaFastLogin } from "@/lib/server/internalCaliforniaFastLogin";
 import { isValidLanguage } from "@/lib/i18n";
 import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import type { CurriculumProfile, CurriculumTrack, TextbookPublisher, ThemeMode } from "@/types";
@@ -80,31 +79,6 @@ async function handleLogin(request: Request) {
     rule: authRateLimitRules.loginIdentifier
   });
   if (identifierRateLimit) return identifierRateLimit;
-
-  const internalCaliforniaFastLogin = await authenticateInternalCaliforniaFastLogin({
-    username,
-    password,
-    grade: body.grade,
-    curriculumTrack: body.curriculumTrack,
-    curriculumProfile: body.curriculumProfile,
-    language: body.language,
-    theme: body.theme
-  });
-  if (internalCaliforniaFastLogin?.status === "invalid") {
-    return NextResponse.json({ error: "Invalid email/username or password." }, { status: 401 });
-  }
-  if (internalCaliforniaFastLogin?.status === "authenticated") {
-    const response = NextResponse.json({
-      ...internalCaliforniaFastLogin.session,
-      settingsPersisted: false
-    });
-    try {
-      await setSessionCookie(response, internalCaliforniaFastLogin.session.user.id, request);
-    } catch {
-      return sessionSecretMissingResponse();
-    }
-    return response;
-  }
 
   const rawSelectedCurriculumTrack = validCurriculumTracks.has(body.curriculumTrack as CurriculumTrack)
     ? (body.curriculumTrack as CurriculumTrack)
@@ -201,9 +175,9 @@ async function handleLogin(request: Request) {
     : null;
   const response = NextResponse.json({ ...sessionData, lessonEntryTarget });
   try {
-    await setSessionCookie(response, sessionData.user.id, request);
-  } catch {
-    return sessionSecretMissingResponse();
+    await setSessionCookie(response, sessionData.user.id, request, authenticated.sessionRevision);
+  } catch (error) {
+    return sessionCookieFailureResponse(error, request);
   }
 
   return response;

@@ -21,13 +21,25 @@ function isProtectedPath(pathname: string) {
   return protectedPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 }
 
+function applyPrivateNoStore(response: NextResponse) {
+  response.headers.set("Cache-Control", "private, no-store");
+  response.headers.set("CDN-Cache-Control", "private, no-store");
+  response.headers.set("Vercel-CDN-Cache-Control", "private, no-store");
+  return response;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (!isProtectedPath(pathname)) return NextResponse.next();
 
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
   const session = token ? await verifySessionToken(token) : null;
-  if (session) return NextResponse.next();
+  if (session) {
+    const response = NextResponse.next();
+    return pathname === "/parent" || pathname.startsWith("/parent/")
+      ? applyPrivateNoStore(response)
+      : response;
+  }
 
   const loginUrl = buildLoginRedirectUrl({
     pathname,
@@ -35,7 +47,10 @@ export async function middleware(request: NextRequest) {
     search: request.nextUrl.search
   });
 
-  return NextResponse.redirect(loginUrl);
+  const response = NextResponse.redirect(loginUrl);
+  return pathname === "/parent" || pathname.startsWith("/parent/")
+    ? applyPrivateNoStore(response)
+    : response;
 }
 
 export const config = {

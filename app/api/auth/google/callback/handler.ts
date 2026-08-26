@@ -11,7 +11,7 @@ import {
 } from "@/lib/server/googleOAuth";
 import {
   sessionCookieOptions,
-  sessionSecretMissingResponse,
+  sessionCookieFailureResponse,
   setSessionCookie as defaultSetSessionCookie
 } from "@/lib/server/sessionCookie";
 import { authenticateGoogleIdentityForLogin as defaultAuthenticateGoogleIdentityForLogin } from "@/lib/server/userStore";
@@ -67,9 +67,14 @@ export type GoogleCallbackDependencies = {
   }) => Promise<
     | { status: "teacher-invite-required" }
     | { status: "invalid" }
-    | { status: "created" | "linked" | "authenticated"; session: GoogleCallbackAuthenticatedSession }
+    | { status: "created" | "linked" | "authenticated"; session: GoogleCallbackAuthenticatedSession; sessionRevision: number }
   >;
-  setSessionCookie: (response: NextResponse, userId: string, request: Request) => Promise<void>;
+  setSessionCookie: (
+    response: NextResponse,
+    userId: string,
+    request: Request,
+    expectedSessionRevision: number
+  ) => Promise<void>;
 };
 
 const defaultDependencies: GoogleCallbackDependencies = {
@@ -180,9 +185,22 @@ export async function handleGoogleOAuthCallback(
   const response = NextResponse.redirect(new URL(targetPath, request.url));
   clearGoogleStateCookie(response, request);
   try {
-    await dependencies.setSessionCookie(response, authenticated.session.user.id, request);
-  } catch {
-    return sessionSecretMissingResponse();
+    await dependencies.setSessionCookie(
+      response,
+      authenticated.session.user.id,
+      request,
+      authenticated.sessionRevision
+    );
+  } catch (error) {
+    const failureResponse = sessionCookieFailureResponse(error, request, {
+      committedAction: authenticated.status === "created"
+        ? "account-created"
+        : authenticated.status === "linked"
+          ? "identity-linked"
+          : undefined
+    });
+    clearGoogleStateCookie(failureResponse, request);
+    return failureResponse;
   }
   return response;
 }

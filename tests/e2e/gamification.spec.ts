@@ -1,5 +1,5 @@
 import { expect, test, type APIResponse, type Page } from "@playwright/test";
-import { demoParent, demoStudent, demoTeacher } from "./helpers";
+import { demoParent, demoParentUserId, demoStudent, demoTeacher } from "./helpers";
 import { startIsolatedApp, type IsolatedApp } from "./isolated-app";
 
 type StudentGamificationPayload = {
@@ -250,7 +250,9 @@ test.describe.serial("gamification core workflows", () => {
       await expect(page.getByText(/calm next step/i)).toBeVisible();
 
       const parentSummary = await readJson<ParentChildSummaryPayload>(
-        await page.request.get(app.url("/api/parent/children/student-peter/summary"))
+        await page.request.get(app.url("/api/parent/children/student-peter/summary"), {
+          headers: { "X-MAIS-Expected-User-Id": demoParentUserId }
+        })
       );
       expect(parentSummary.summary.motivationSummary?.level.current.level).toBeGreaterThanOrEqual(1);
       expect(parentSummary.summary.motivationSummary?.rewardSummary.available).toBe(afterRedemption.gamification.rewardSummary.available);
