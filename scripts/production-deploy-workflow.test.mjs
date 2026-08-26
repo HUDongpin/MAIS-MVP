@@ -159,6 +159,7 @@ test("deploy requires the exact confirmation and invokes the serialized producti
     GITHUB_TOKEN: "${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}",
     MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: "github-actions-serialized-v1",
     MAIS_RELEASE_MIN_FREE_GB: "8",
+    NODE_OPTIONS: "--max-old-space-size=6144",
     VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
   });
   assert.match(
