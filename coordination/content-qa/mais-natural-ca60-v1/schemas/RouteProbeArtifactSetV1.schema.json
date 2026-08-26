@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/RouteProbeArtifactSetV1.schema.json",
+  "title": "RouteProbeArtifactSetV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "activeRunnerRegistrationHash", "provider",
+    "requestArtifact", "dispatchAuthority", "reservation", "dispatchPermit",
+    "providerEventReceipt", "rawResponseArtifact", "rawResponseBindingReceipt",
+    "attemptCommitIntent", "completion", "resolvedAttemptReceipt", "artifactHashes",
+    "artifactSetHash", "naturalQuestionContentCount", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "RouteProbeArtifactSetV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "activeRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "requestArtifact": { "type": "object" },
+    "dispatchAuthority": { "type": "object" },
+    "reservation": { "type": "object" },
+    "dispatchPermit": { "type": "object" },
+    "providerEventReceipt": { "type": "object" },
+    "rawResponseArtifact": { "type": "object" },
+    "rawResponseBindingReceipt": { "type": "object" },
+    "attemptCommitIntent": { "type": "object" },
+    "completion": { "type": "object" },
+    "resolvedAttemptReceipt": { "type": "object" },
+    "artifactHashes": {
+      "type": "array", "minItems": 10, "maxItems": 10, "uniqueItems": true,
+      "items": { "$ref": "#/$defs/hash" }
+    },
+    "artifactSetHash": { "$ref": "#/$defs/hash" },
+    "naturalQuestionContentCount": { "const": 0 },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

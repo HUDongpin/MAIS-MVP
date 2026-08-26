@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/TerminalC0RequirementScopeV1.schema.json",
+  "title": "TerminalC0RequirementScopeV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash",
+    "sampleExecutionInventoryHash", "selectedItemHashes", "selectionStatus",
+    "conservativePotentialC0Scope", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "TerminalC0RequirementScopeV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "activeRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleExecutionInventoryHash": { "$ref": "#/$defs/hash" },
+    "selectedItemHashes": { "type": "array", "minItems": 60, "maxItems": 60,
+      "uniqueItems": true, "items": { "$ref": "#/$defs/hash" } },
+    "selectionStatus": { "const": "NORMAL_C0_SET_NOT_YET_DERIVABLE_TERMINAL_CONSERVATIVE_SCOPE" },
+    "conservativePotentialC0Scope": { "const": true },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

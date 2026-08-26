@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/AttemptRecoveryCommandAuthorizationBundleV1.schema.json",
+  "title": "AttemptRecoveryCommandAuthorizationBundleV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash", "provider",
+    "providerAuthorizationHash", "reservationHash", "reconciliationAuthorization",
+    "ledgerRecoveryAuthorization", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "AttemptRecoveryCommandAuthorizationBundleV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "activeRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "providerAuthorizationHash": { "$ref": "#/$defs/hash" },
+    "reservationHash": { "$ref": "#/$defs/hash" },
+    "reconciliationAuthorization": { "type": "object" },
+    "ledgerRecoveryAuthorization": { "type": ["object", "null"] },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}
