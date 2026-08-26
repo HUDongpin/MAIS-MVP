@@ -1623,6 +1623,24 @@ export type Grade = {
   color: string;
 };
 
+/**
+ * How a curriculum organizes its secondary (post-grade-8) mathematics.
+ *
+ * `grade`      — secondary content is addressed by grade (Grade 9 … Grade 12).
+ * `course`     — secondary content is addressed by named course (Algebra I,
+ *                Geometry, Algebra II). Texas TEKS and Virginia SOL are shaped
+ *                this way, and a course is commonly taken in more than one
+ *                grade, so a grade label alone is a false statement to the
+ *                learner.
+ * `integrated` — a single integrated pathway with no Algebra/Geometry split
+ *                (e.g. NC Math 1/2/3).
+ *
+ * A track that declares `course` or `integrated` must carry `courseId` on its
+ * secondary topics; `auditSecondaryCourseLabelling` in `lib/curriculumCourses`
+ * is the gate.
+ */
+export type SecondaryOrganization = "grade" | "course" | "integrated";
+
 export type Topic = {
   id: string;
   curriculumTrack: CurriculumTrack;
@@ -1631,6 +1649,13 @@ export type Topic = {
   publisher?: TextbookPublisher;
   canonicalTopicId?: string;
   grade: GradeId;
+  /**
+   * Named course this topic belongs to, for tracks whose secondary mathematics
+   * is course-organized or integrated. Absent for grade-organized tracks and
+   * for primary/middle grades everywhere.
+   */
+  courseId?: string;
+  courseLabel?: LocalizedText;
   title: LocalizedText;
   description: LocalizedText;
   status: TopicStatus;

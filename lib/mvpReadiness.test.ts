@@ -3,6 +3,14 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { normalizeQuestionDiagram, validateQuestionDiagram } from "./questionFigure";
+import {
+  formatTopicGradeOrCourseLabel,
+  requiresCourseId,
+  secondaryCourseLabellingCeilings,
+  secondaryOrganizationByTrack,
+  secondaryCourseLabellingViolationsByTrack
+} from "./curriculumCourses";
+import type { CurriculumTrack, Topic } from "../types";
 import californiaMiddleSchoolLivePack from "../data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json";
 import californiaMiddleSchoolTextbookPack from "../data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json";
 import { buildWorkedExampleIllustrationMetadata } from "../components/lesson/workedExampleIllustrationMetadata";
@@ -915,4 +923,90 @@ test("parent console API surface and authorization hooks are present", () => {
   assert.match(parentReportPersistenceSource, /type === "parent-summary"/);
   assert.match(typeSource, /role: "student" \| "teacher" \| "parent" \| "admin"/);
   assert.match(typeSource, /export type ParentFoundationData/);
+});
+
+// --- Course seam (state adaptation) ---------------------------------------
+//
+// `Topic.grade` is a single required GradeId and is persisted in three record
+// types, so a curriculum that addresses secondary mathematics by COURSE rather
+// than by grade cannot be represented without this seam — and adding it after a
+// state is live is a data migration, not a config change. These assertions pin
+// the seam and hold the one track that is already mis-modelled under a ratchet.
+
+test("every curriculum track declares how its secondary mathematics is organized", () => {
+  // `satisfies Record<CurriculumTrack, SecondaryOrganization>` makes this
+  // exhaustive at compile time; this asserts the runtime shape agrees, so a
+  // track cannot be added with an undefined organization.
+  const tracks = Object.keys(secondaryOrganizationByTrack) as CurriculumTrack[];
+  assert.ok(tracks.length > 0);
+  for (const topic of topics) {
+    assert.ok(
+      secondaryOrganizationByTrack[topic.curriculumTrack] !== undefined,
+      `track ${topic.curriculumTrack} has no declared secondary organization`
+    );
+  }
+});
+
+test("Arkansas is modelled as course-organized, matching its own standards profile", () => {
+  // data/rag/usMath.ts records the AR standards as "... for K-8, Algebra I,
+  // Geometry, and secondary mathematics courses" and instructs the repo to
+  // "Preserve ... course-level Algebra/Geometry organization".
+  assert.equal(secondaryOrganizationByTrack.US_AR_MATH, "course");
+  const usMathSource = readFileSync(path.join(process.cwd(), "data/rag/usMath.ts"), "utf8");
+  assert.match(usMathSource, /course-level Algebra\/Geometry organization/);
+});
+
+test("secondary topics missing a course id stay under their recorded ceiling", () => {
+  // DECLARED DEBT, NOT AN ALLOWANCE. Arkansas ships 20 secondary chapter topics
+  // with no course, because nothing in this tree says which Arkansas course
+  // each one belongs to and inventing that mapping would be fabricated
+  // curriculum metadata. The count may fall; it may never rise.
+  const counts = secondaryCourseLabellingViolationsByTrack(topics);
+  for (const [track, count] of Object.entries(counts) as [CurriculumTrack, number][]) {
+    const ceiling = secondaryCourseLabellingCeilings[track];
+    assert.ok(
+      count <= ceiling,
+      `${track} has ${count} secondary topics without a course id, above its recorded ceiling of ${ceiling}. ` +
+        `Give them a cited courseId, or lower the ceiling — never raise it.`
+    );
+  }
+  // Pin the known defect so a silent regression in either direction is visible.
+  assert.equal(counts.US_AR_MATH, 20);
+});
+
+test("a topic that carries a course renders the course, not a bare grade", () => {
+  // The whole point of the seam: a course-organized topic must not tell a
+  // learner "Grade 10" when their school teaches the course in grade 9.
+  const arkansasSecondary: Topic = {
+    id: "us-ar-math-g10-chapter-01-congruence-and-proof",
+    curriculumTrack: "US_AR_MATH",
+    grade: "S4",
+    courseId: "ar-geometry",
+    courseLabel: { en: "Geometry", zh: "幾何", zhHans: "几何" },
+    title: { en: "t", zh: "t", zhHans: "t" },
+    description: { en: "d", zh: "d", zhHans: "d" },
+    status: "not-started",
+    difficulty: "Medium",
+    minutes: 30,
+    mastery: 0
+  };
+  assert.equal(formatTopicGradeOrCourseLabel(arkansasSecondary, "en"), "Geometry");
+  assert.equal(formatTopicGradeOrCourseLabel(arkansasSecondary, "zh-Hans"), "几何");
+
+  // Grade-organized tracks are untouched — California still says Grade 10.
+  const californiaSecondary: Topic = { ...arkansasSecondary, curriculumTrack: "US_CA_MATH", courseId: undefined, courseLabel: undefined };
+  assert.equal(formatTopicGradeOrCourseLabel(californiaSecondary, "en"), "Grade 10");
+
+  // A course-organized topic with no course still falls back rather than
+  // rendering nothing — the ratchet above is what drives the count to zero.
+  const arkansasUnlabelled: Topic = { ...arkansasSecondary, courseId: undefined, courseLabel: undefined };
+  assert.equal(formatTopicGradeOrCourseLabel(arkansasUnlabelled, "en"), "Grade 10");
+});
+
+test("course requirement applies to secondary grades only", () => {
+  assert.equal(requiresCourseId("US_AR_MATH", "P4"), false);
+  assert.equal(requiresCourseId("US_AR_MATH", "S2"), false); // US grade 8
+  assert.equal(requiresCourseId("US_AR_MATH", "S3"), true); // US grade 9
+  assert.equal(requiresCourseId("US_NC_MATH", "S3"), true); // integrated pathway
+  assert.equal(requiresCourseId("US_CA_MATH", "S3"), false); // grade-organized
 });
