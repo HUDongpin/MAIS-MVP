@@ -1,0 +1,2186 @@
+{
+  "schemaVersion": "NaturalCaExecutionRunnerSupersedingRegistrationV4",
+  "runnerVersion": "V5-R8",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "registeredAt": "2026-08-26T14:23:32.000Z",
+  "supersedesRunnerRegistrationHash": "97b65940b0573064b4d1206e1f80dfb555c1a41e6c782e7439f9ec53df66b003",
+  "supersededRunnerRegistrationCommit": "aa07d9b72cf06fbcf100ed0f6bf358fedd94222d",
+  "supersededRunnerSourceCommit": "237413734a41431e51c8a29ecef6628b67bbafb1",
+  "discrepancyReviewHash": "20d261e83982b29323383eec56c1df99e4f6b45fa7051482a47860e8bcaadd91",
+  "discrepancyReviewCommit": "ef6bb7da5151ec114882b9c349559afaaa145859",
+  "previousReceiptHash": "20d261e83982b29323383eec56c1df99e4f6b45fa7051482a47860e8bcaadd91",
+  "ownerRunnerImplementationAuthorizationTextHash": "36233641da9de2db0dfa31fc6970db9e6b01ab11104ed8c89376925f669e0288",
+  "designRegistrationHash": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+  "frameRegistrationHash": "b8a4752e05fb8bf39a34afa6c63beb363731d08530069d9c454ad1b3e3fe975f",
+  "samplingFrameHash": "c5446c0cd2f29f00e865b949095045e439d1b946a46b132f811af398415046c7",
+  "sampleManifestHash": "d8856f0fb60f38eeecce5249e2018ba90417d68e0f84ef6e2ad9522016d9e159",
+  "samplePayloadSetHash": "952d8b54540e6ef000be2cbc9b3aff3e0686c8c49d65c283f1b98b2a3c3ccda0",
+  "sampleSelectionContentRootHash": "aebf850db9981d576a7d83f220423c808157340836b2936d8a1e59cb1bf69d57",
+  "c0RandomAuditHash": "f1f20cd071e7e95b0f344c123796aeb68a62a4d31dd23dbfaee2991fcdb2be4e",
+  "privacyScreenHash": "eaf318921d47d8832c54a5df42b0e6fb6abe4d7e7484bc65153bae4043a9e446",
+  "rightsScreenHash": "62afebea22efc89645134100f082cfaf4d82d024e7c15a26c16861fac1d784cb",
+  "ownerDecisionRequestHash": "2d0e8c24f270aa39292fea1ef8d1d11c4e9bd5d9ecd1bdf5a5bbf5119b964f78",
+  "ownerDecisionReceiptHash": "855af9696548359bc7364a987aa0dc3a3f9cd5883f87911edd8067bc78ac3ad0",
+  "rightsPolicyHash": "c7f2832a701d813e928f1fa34f1b74d1d26a62c96f5bdea8be58d8bff134fe66",
+  "lineageRuleHash": "8130bcd70f3e42332478a284b5a5b54e0c73b9f3696b1c1c06f25254ea0fe449",
+  "taxonomyHash": "987ff97aa683f8b577736814ee384d2f66bad742d8252b28855221758667a091",
+  "labelingAndAdjudicationHash": "1fa05b20ff970cba00a8e181c8eb05d60203955e8746a9cffb516881707ea9c4",
+  "thresholdsDecisionAndPowerHash": "33592fabdaf467abd30355cc9101502f6bd6eea70ebfa3db3632cc5826920fce",
+  "decisionCeiling": "INCONCLUSIVE_MACHINE_REFERENCE",
+  "providerContractErratumHash": "f9fad74c0250b4e3e816ba755aca44070d87d23dce03b98bd7b6a60ad5492f1d",
+  "runnerSourceCommit": "94abd3f1907a43e8378c181d56d8389a1de08020",
+  "productionEntryPoints": [
+    "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/attempt-graph-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/attempt-recovery-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/native-provider-adapter-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/review-evidence-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-cli.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-runtime.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/scorer-verifier-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/statistical-kernel-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/trusted-provider-evidence-v5-r8.mjs",
+    "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r8.mjs"
+  ],
+  "productionSourceManifest": [
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r5.mjs",
+      "byteLength": 14976,
+      "sha256": "c076f1351d8106bbd759049f17e46f5050c479dc96a9725ca386c001c0a2462e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r6.mjs",
+      "byteLength": 9859,
+      "sha256": "f0a5bf18197cbb2385231f09abf10a7f05ade000073f4a4fb1f3268d78f78110"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r8.mjs",
+      "byteLength": 13842,
+      "sha256": "f0799c2c66c972ad9fd5794fea5f6a96e1aa6310dc34f949f71444f2355e19e2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/atomic-execution-ledger-v5-r4.mjs",
+      "byteLength": 22647,
+      "sha256": "01bd4d62b8e08c56194a81e425b73fb7625eb113a8793fd474ebd2748c8bb341"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-graph-v5-r7.mjs",
+      "byteLength": 20742,
+      "sha256": "6f48ecbf8e249375140c313c5db52543d482fb080a91cca29e3eebdd0406227e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-graph-v5-r8.mjs",
+      "byteLength": 8504,
+      "sha256": "5b95d39ca52df8f16668f463ee7e9131b5effbf9cd571458684904f7b6a5225d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-recovery-v5-r8.mjs",
+      "byteLength": 14531,
+      "sha256": "bcc4b09999a594ba6cd0670fd5c72b96a90fab0fd457905d383557db277cad39"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-transaction-v5-r7.mjs",
+      "byteLength": 12084,
+      "sha256": "158ccc15d3d6cadcbea9f171ce8583c49bc52b9760df63937d46bfef8fd48dc6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/c0-state-v5-r7.mjs",
+      "byteLength": 13956,
+      "sha256": "6df42747f9bd22dfd641a5a2a520b42225dc664b73a079b5c75bad4f8e626ed9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/c0-trigger-v5-r5.mjs",
+      "byteLength": 19538,
+      "sha256": "fa0e65c7e665b7b5a2eaab2fd920b1f31a8b9e90c8afb0737dcebdc85da20e74"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/deepseek-evaluation-adapter-v5-r2.mjs",
+      "byteLength": 6941,
+      "sha256": "c24143092543d448250e84fbc1b387f32aa9c982ac9c719c6ad9701dc715daf2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/deepseek-execution-control-v5-r4.mjs",
+      "byteLength": 16795,
+      "sha256": "f985e6c93d545bf09055a64883b95b126410e1d9c5b6dba52f9de5a6d9f01fdf"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/deepseek-execution-registration-v5-r5.mjs",
+      "byteLength": 6228,
+      "sha256": "3fb8201787f5a8b3f370910b10eb2562c119f82afa985f2b2d0dc6a9f1ec4b4e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/dispatch-authority-v5-r7.mjs",
+      "byteLength": 7050,
+      "sha256": "dea308f8561d379cdbcc6a9395dbf2d80bf25cdb709b0de3c4c5bf08b1e1e99b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r4.mjs",
+      "byteLength": 20664,
+      "sha256": "aa871c8ee15c3224f5adec86b264be8317c06368496f5cc97d255f47daab82e1"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r5.mjs",
+      "byteLength": 21105,
+      "sha256": "4553a940f8513e7553a2f30cfa7f2746310300288f40d52cb730b2714345ea60"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r6.mjs",
+      "byteLength": 18271,
+      "sha256": "b5a7cd59281ebfb11f9f0a1185c3ea799a3c160fc3d10e14d3a3b523653791d0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r7.mjs",
+      "byteLength": 19228,
+      "sha256": "a466839700d5766ce8014edb184f4e053bf3b4864948d554bab157ccb1bd0095"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r8.mjs",
+      "byteLength": 21903,
+      "sha256": "a9c0b9827b01c6d470ebc4c66b1c9802814cd0a83b3aa4e6f4afd49ca2302d5d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-integrity-v5-r3.mjs",
+      "byteLength": 29483,
+      "sha256": "f21ff8aa356d42a1314612e36f6fb6ed63b4e93b316001004e1406d75f291e34"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-state-v5-r4.mjs",
+      "byteLength": 13175,
+      "sha256": "0d59cd71dabb262ec7fe2b2c722de82f148dde528d7c3ab8c0063037dc385d75"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/guarded-provider-attempt-v5-r6.mjs",
+      "byteLength": 32037,
+      "sha256": "a0be2b054723e619a6e159df491ad766741d2d6240a473aa75482e13ec864f09"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/method-kernel-v5-r4.mjs",
+      "byteLength": 1673,
+      "sha256": "dc449414e32d640233fc04ee6fd1d9eee77954a54c73dd0fc4b72ba53a07a6bf"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/native-provider-adapter-v5-r8.mjs",
+      "byteLength": 9550,
+      "sha256": "eee6e8c78541179e7ba5c3e9b45015518c32c47888e8b1b0c1f60490f63175f9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/openai-reference-adapter-v5.mjs",
+      "byteLength": 32981,
+      "sha256": "1bb49d3f060e5dd298e8a083b383e8881b652151acfc9fdb2f9a1345cd071494"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/protected-storage-v5-r4.mjs",
+      "byteLength": 6261,
+      "sha256": "b69178fbb6b7575302843a3073ef7d7b16f0a333b6b400868b3b21a945ff5a7e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/provider-request-v5-r4.mjs",
+      "byteLength": 20586,
+      "sha256": "d9db6e8504f730e08fd517fda2438a909280e7aad520ac36a308da98734dad85"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/provider-request-v5-r6.mjs",
+      "byteLength": 11151,
+      "sha256": "63762ad382ef8c92a32cbe219542b1596a24c9ade7fc37d5aaf51264a4daf963"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/raw-authoritative-reference-v5-r7.mjs",
+      "byteLength": 10985,
+      "sha256": "682e1a58b21c9d7c21ab789235aba16aec3acb8abfb34e92595d7e185b333a68"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/raw-response-custody-v5-r6.mjs",
+      "byteLength": 10182,
+      "sha256": "878f84d8a8b1a15f509424c156f3b1a6f190ab0dcd6bda92fd479a5728767e95"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/reference-agreement-v5-r5.mjs",
+      "byteLength": 1868,
+      "sha256": "f0d0dfa839f99cc7ba4b3422955f8b37448350644265eba2fca8a0d9e635ed57"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/reference-label-seal-v5-r4.mjs",
+      "byteLength": 20185,
+      "sha256": "eb229589189b305dd842f9b034228de9ff8e018eef2b5fb13275c12c0950bcfd"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/reference-label-seal-v5-r5.mjs",
+      "byteLength": 4688,
+      "sha256": "80172482476d17ea5cc743c0218c06079719d6d1f6f4d95ffaaf97078844102c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/review-evidence-v5-r8.mjs",
+      "byteLength": 10683,
+      "sha256": "38861c5784ddc3a82916032fac8f48f8e85b8f3303fbe3deb025c37516ae9fc8"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/route-authorization-v5-r4.mjs",
+      "byteLength": 20529,
+      "sha256": "9759d6406bdb0df836c9314f637a1851de625261e1df57d53137c02c4f6fa3b7"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/route-authorization-v5-r5.mjs",
+      "byteLength": 13820,
+      "sha256": "87896a44b2c4198606f622014f56700de8e79146cb3f0c98f93c3839d53223d2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/route-evidence-custody-v5-r6.mjs",
+      "byteLength": 16176,
+      "sha256": "d28b41c25efc94e27b7e107240bf510997608700d9092b87f752e76156c3f96b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-cli.mjs",
+      "byteLength": 9802,
+      "sha256": "692375e4c57dc585740312096f36fb274e6adef496efe4181d6652cf8bd7ed48"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-runtime.mjs",
+      "byteLength": 24166,
+      "sha256": "6e1fd3ce29eae2ff35174c077c6c60912af4277d49f2b62fd903336f23411fce"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/sample-contract-v5.mjs",
+      "byteLength": 280311,
+      "sha256": "461de891cf1208716fd47b132c87cf97e019b75d47a03bec456751833da576b0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r4.mjs",
+      "byteLength": 14999,
+      "sha256": "e35ba2b276fd857ab473a015460846cd401b8ef42be4446c92400e6d876d8698"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r5.mjs",
+      "byteLength": 13119,
+      "sha256": "c19cce69ae01ed053a54dd7b879f80986fdc1fe6cded4261c17a0d434eec6cbb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r6.mjs",
+      "byteLength": 5205,
+      "sha256": "4de62d654a884d2b3a63e3ca6675fc6ea70ee1c521895f1e090bd4c42284ac47"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r7.mjs",
+      "byteLength": 5370,
+      "sha256": "9618ecb8541d2824bf3bf075f4d2be0444f9150e6cf859a5f6bba420516be652"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r8.mjs",
+      "byteLength": 4519,
+      "sha256": "62ed54989acd0c26418d7d5b8cd75e3c4ee4cae441eab81a18ecc4078b1d7007"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AggregatePublicationAuthorizationV1.schema.json",
+      "byteLength": 1488,
+      "sha256": "1cca711589d5df7b424c62c802a9a3fb7858544a52829680bf0cad2365031ab5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptCustodyReconciliationAuthorizationV1.schema.json",
+      "byteLength": 1379,
+      "sha256": "c0769709327d205081c4881ad300e4ee68750351f4c1b0bbfd22cd23f0c033be"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptCustodyReconciliationReceiptV1.schema.json",
+      "byteLength": 2889,
+      "sha256": "3171cc72117a2f9bd5c771e268232979713ef14ec3125919f33c5aedc2854e81"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptGraphReconstructionReceiptV1.schema.json",
+      "byteLength": 5540,
+      "sha256": "3e436a8e01d2443fc6042f101d901b10395e492dcfb847681f2cd580876aa108"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptGraphReconstructionReceiptV2.schema.json",
+      "byteLength": 4731,
+      "sha256": "8381c7055884f47d1011d8bd706feb3da5b95dc1f4897172870bdf5f6e04e295"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceReceiptV1.schema.json",
+      "byteLength": 2895,
+      "sha256": "43db854d91233dfad6fa63ba39d0c900936abd3c22fc7b55ff570c055d157505"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceReceiptV2.schema.json",
+      "byteLength": 2233,
+      "sha256": "a4478eb8b7af6608f2d71fa5f0f6d28c4261cfc99924b4354699532aa8265346"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceReceiptV3.schema.json",
+      "byteLength": 2766,
+      "sha256": "008228d13c6fc5800d56cf14d112e8fd6d18ee0b4e202248b467b67063b96a4c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceSourceV1.schema.json",
+      "byteLength": 1312,
+      "sha256": "ab3c36e17b0a3dff1eda4c613ec08af94ebca6f65f59687b0b8f7e874e9d7a30"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CanaryGateReceiptV1.schema.json",
+      "byteLength": 1782,
+      "sha256": "d8adb853d01cd9e45c92b79402aca379eb49242b8cc0add8c34394e4ce88490c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CanaryGateReceiptV2.schema.json",
+      "byteLength": 2091,
+      "sha256": "de403c01e34c5353e42e1e9182473c682d7695fd87d48cc270373f40aca6f43b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CanaryGateReceiptV3.schema.json",
+      "byteLength": 2685,
+      "sha256": "697c5406c9eb38cc8998ed05ab11d13c2dccb1a04b932b396ba4d55edca6213d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ClaimBoundaryReviewReceiptV2.schema.json",
+      "byteLength": 1631,
+      "sha256": "36eda8a1b221bde8851ab505441ef5227ab5370e2801e3fe8770eb5e09675609"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionIntentReceiptV1.schema.json",
+      "byteLength": 1325,
+      "sha256": "be8ce3d5bc56b296036f9173aecf87d5b08962d7d5f4361a12a2b91fd80d6332"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionJournalReceiptV1.schema.json",
+      "byteLength": 1540,
+      "sha256": "540c904f31725cdb5cd91620068069ba4855c9aa45bef6053ff4037da79108da"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionJournalReceiptV2.schema.json",
+      "byteLength": 2702,
+      "sha256": "5928e19eba6fdb4ad3f7fb7348db04deac859afd2759290023dd306eec42f24b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionSubreceiptV1.schema.json",
+      "byteLength": 1251,
+      "sha256": "64de25fa0489d89963f16ddca69cd675e96e4b358568e8f12407fed82d882cf5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CompletedItemCommitMarkerV2.schema.json",
+      "byteLength": 1873,
+      "sha256": "c55dc3a0544eb949d1273c8c5f1b98f585f4609a71c5485124b6ce91bea1aa75"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CounterfactualLedgerV2.schema.json",
+      "byteLength": 2450,
+      "sha256": "c3e3ef2c91b66849ddbc75985e78493d292cd9f9007c0088f3297a7476343b8a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CredentialReadinessReceiptV2.schema.json",
+      "byteLength": 922,
+      "sha256": "c3465d26f3bb9557d16234afe41a1ae2962b7a117af7fae9c438ed36ac1478b6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0ExecutionSetV2.schema.json",
+      "byteLength": 2455,
+      "sha256": "bdccabe19ae15ca080a5a29cfe16d5d92bf1d77b2bbe63f3e9c227aa113d778e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0ExecutionSetV3.schema.json",
+      "byteLength": 1811,
+      "sha256": "f793c7282c0a06c381fe3e3c3efb5934490d750596b7c6645978c5526b2f8f71"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0ExecutionSetV4.schema.json",
+      "byteLength": 1761,
+      "sha256": "a07089670ce0398453f96fb34de375ad133d4320d7cf3f22ed7838da5b134f48"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0PredicateReceiptV1.schema.json",
+      "byteLength": 6045,
+      "sha256": "3d73f656b4d7afe323a946519ab7e86158ef9cc1a542a38b9fed091e527f825f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0TerminalPredicateReceiptV1.schema.json",
+      "byteLength": 2019,
+      "sha256": "8a7d39185912b59bf7da8dacaf3a2efe00331c2ea6c8a641352a35d0ea57f7ae"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekExecutionRegistrationV2.schema.json",
+      "byteLength": 1709,
+      "sha256": "9fa27b392f1b2d8df7d026f3b13a09ab34571bb28b9585280d114f815fa9380a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekExecutionRegistrationV3.schema.json",
+      "byteLength": 2066,
+      "sha256": "da545e59d7f02d6449815352224932f28a1b07b01081c18fb9e6bebe64199898"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekExecutionRegistrationV4.schema.json",
+      "byteLength": 2393,
+      "sha256": "e9d383235f95596ff07fabb20f9c304504c1a24c9910ecb28d522851f4a6aa99"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV1.schema.json",
+      "byteLength": 1571,
+      "sha256": "575426b23dd034ddfe1d7743f23b6b88ddffcc069c7d5e465119f57e8bffb9b2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV2.schema.json",
+      "byteLength": 1746,
+      "sha256": "60e27cf1c333e4c027d7b93a94088cb8e253d1f68ee5214c8b12e0e3f1eec7f5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV3.schema.json",
+      "byteLength": 1852,
+      "sha256": "4b9da53c70588f2fa7b6e520cf7b99ea68bb252f2bd6fe686c7348a287e03bd6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV4.schema.json",
+      "byteLength": 2061,
+      "sha256": "99af352d7e1cc06472dcf094f8a529e361b998111b91dc2a462a85e47653e194"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionIntegrityEvidenceV1.schema.json",
+      "byteLength": 3330,
+      "sha256": "74b20608545172824af369ddadc9fbff1540006ae9f9422899ec0edcb3290fed"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionIntegrityEvidenceV2.schema.json",
+      "byteLength": 3557,
+      "sha256": "0bdf65755410b0bc1afe7c5325f6452478517a74151ace1e283c1f95c5aef549"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionLedgerLockV1.schema.json",
+      "byteLength": 874,
+      "sha256": "762d724c4064bf84d372fac32da804f1ca5884debafa127b609dae57e096ea76"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionPlanReceiptV1.schema.json",
+      "byteLength": 1449,
+      "sha256": "2495e062e856a407e5f83f8c540d7d69df3d12dc507a1c6de11f0eccfea4fe11"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionPlanReceiptV2.schema.json",
+      "byteLength": 2613,
+      "sha256": "fc7ce1003f2ff59d591d57d391ecaae2873ec29ee9b44f2dded810709762162d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/FinalEvaluationReceiptV2.schema.json",
+      "byteLength": 2983,
+      "sha256": "2865d34208a3acf1f3f0df833b06829a3eac1bbc1c1ae60cb5639fd5f163c345"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/FinalExecutionVerificationReceiptV1.schema.json",
+      "byteLength": 1737,
+      "sha256": "c093fd6f951af6c85ec8e7f3ed2ec610a5949205c748582d7f64f26e70f320e3"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/FinalExecutionVerificationReceiptV2.schema.json",
+      "byteLength": 2464,
+      "sha256": "ed73c1be743dc7d4f84e277bb41bb43f8e2889639e87b32160adb62152e9155a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ForbiddenPrimaryScorerPathScanReceiptV1.schema.json",
+      "byteLength": 1111,
+      "sha256": "30554edca53d81e92dc205eea4012c6bc626ca23979b7c1c97417a46a5c02287"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentCommandRuntimeReceiptV1.schema.json",
+      "byteLength": 1403,
+      "sha256": "4fa65da9ebc67a4326fcbf3105a6a8d7e648a82724d3eb6c06a84b970cc6779f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionResultReviewReceiptV1.schema.json",
+      "byteLength": 1438,
+      "sha256": "f224219ac0d4bad8a9ed1f87c23c5b7e1a35d436bbd02f6cdc59941b919d5b16"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV2.schema.json",
+      "byteLength": 1440,
+      "sha256": "d5b77f49ffea04a97d71482a60872bb9c523d045cd250d547311840181d83208"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV3.schema.json",
+      "byteLength": 1620,
+      "sha256": "3da5f07c1e6e5dcfe810651fdf66aa3d2e354717ffd203bac9c2dfc0e543ac99"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV4.schema.json",
+      "byteLength": 1874,
+      "sha256": "7768ea77d070e4d11947d11153c92e62c93dcf966a1b1cd0a242d594ab7a3a6f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV5.schema.json",
+      "byteLength": 2169,
+      "sha256": "2897b36e6d1402ba360d9a78e35d93ee7a3b26c18db4c661cfb93fe042e8d5bb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV6.schema.json",
+      "byteLength": 3082,
+      "sha256": "8f74d3519ae4bf34214787ac631223774a429ac364b6e7f86848c5a1c3022d4b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentSourceEnumerationReceiptV1.schema.json",
+      "byteLength": 1168,
+      "sha256": "259b3d88f4e552075671dac015d7bc4560c74d5e992a95a4a5aef0fbcf4a0fd1"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentStaticImportGraphReceiptV1.schema.json",
+      "byteLength": 1076,
+      "sha256": "ad50b2b24d4a18a0b9f96cabcb07daf5374e96cfbee836c29278e3f2bdf70d5e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/InterruptedAttemptRecoveryReceiptV1.schema.json",
+      "byteLength": 2041,
+      "sha256": "6b52af29267b3c91aa0b1ff9ee89bc3cc810a2de88c61c03b7f54cfb7dcc6fcd"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ItemEvaluationResultV2.schema.json",
+      "byteLength": 3863,
+      "sha256": "1c49348da043956ea79e24963c7cd02bd49b34cbf6bbe5b7f0c2ff5db7691050"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/LedgerRecoveryAuthorizationV1.schema.json",
+      "byteLength": 1223,
+      "sha256": "b5866dd3908405b186e4d34fd0250b8bffbf95c4dfba04d7aefc42ae72d286bb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceLabelV1.schema.json",
+      "byteLength": 2625,
+      "sha256": "400c02781d6abe25cab1d9c6c027530beefbfdf857c5f0a68e2c4ba303d10430"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV3.schema.json",
+      "byteLength": 5055,
+      "sha256": "82780ec975ce59e6272f04c8ca929006c9d6edf8e8ad2dafb5b55bd420b07887"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV4.schema.json",
+      "byteLength": 7315,
+      "sha256": "80ac8001a9a9ad197ae900a39f3b17babc843a9931ce7b8a907140922778533f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV5.schema.json",
+      "byteLength": 2714,
+      "sha256": "c077885d0bd1572f03281c97ba59e5f0126c9416ff08f4ae7b1e472021c9542b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV6.schema.json",
+      "byteLength": 3290,
+      "sha256": "515cad61cea0b77abfa51e1ef06b5a84bb30a6c8a7437d3ce049d9507e7c90c2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MetricInputLedgerV2.schema.json",
+      "byteLength": 741,
+      "sha256": "731169a1c9bd016722a50db8f8cd1c983be5258c760352427c0e0b5cf184b4c0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV1.schema.json",
+      "byteLength": 6900,
+      "sha256": "9c6b4f7b8a446a5e3cea77dffa989b5c6e76a09f9df9f82b4a9dd12853bb3480"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV2.schema.json",
+      "byteLength": 4694,
+      "sha256": "784856f60f4790e6721d270cf44d4279a393f024f8679738f8a2dc17250bbceb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV3.schema.json",
+      "byteLength": 1635,
+      "sha256": "d249dab1821a7e21474cb468c8c258215ae80e3b1c4d6502da2b7df48b905037"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV4.schema.json",
+      "byteLength": 2140,
+      "sha256": "74a06112341dd2c592604fdfe5fa8fe2f891c00b40cc33a871e322b55d59ea85"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV5.schema.json",
+      "byteLength": 2445,
+      "sha256": "237758c7ae4356437d0e948f6ccc5f571989e6dca46fba4fdb4e3c1ec13f77ca"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV6.schema.json",
+      "byteLength": 2735,
+      "sha256": "ef3286d18054f5352270e2fb2f178086fa69c92eec54fd347bdc58f24bade382"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerRegistrationV3.schema.json",
+      "byteLength": 7247,
+      "sha256": "b31e44a28ca7706769eff51bf6c6c9f49471f3b450d78dd2eb28ec607b7d0686"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV1.schema.json",
+      "byteLength": 7896,
+      "sha256": "d4469b6df2c74d96888687724313349e92ab3dbcdeaf41e76785cb0969be0379"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV2.schema.json",
+      "byteLength": 8212,
+      "sha256": "d271a1b314e285a30ee35f1947c1fe6e16bc1494afb12bd22c8cc8aff69eeb5b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV3.schema.json",
+      "byteLength": 8233,
+      "sha256": "368e0e9af26e132b33d1f839a6cd59dbc6bc8de806d0f8849d35ffa3f0b7830b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV4.schema.json",
+      "byteLength": 7974,
+      "sha256": "ad17b708b1085c7ea0edfbc704c08404bdaf3094b058119186945f91243d73e9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV3.schema.json",
+      "byteLength": 1167,
+      "sha256": "61c0ecb31a57fc3d61b13b08b0a3a51436ef96530582340c2032c5f5a1182420"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV4.schema.json",
+      "byteLength": 2127,
+      "sha256": "aa33814ed85f416e485e7d8a413b5d9c51d8370a47c5eb70b51dfaf8b98b0e39"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV5.schema.json",
+      "byteLength": 2547,
+      "sha256": "1399c8066ab56c76368e0cdd39a9f384320fbe87f8d9863b668030772b19b667"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV6.schema.json",
+      "byteLength": 2645,
+      "sha256": "9a334654da55b28f0756e499c9ec896957c34fd80933f84b146b90d266d1e009"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV7.schema.json",
+      "byteLength": 3014,
+      "sha256": "d8a61dd0245f4d343973ba1f6146817000121a9827d8428df00d9daae8a4cdef"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaScoringInputV1.schema.json",
+      "byteLength": 1859,
+      "sha256": "20629c7a12015388385fdd6f27ad84fdd51e5a272a41e2e25963f49f076e2d67"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ObservedEvaluationLedgerV2.schema.json",
+      "byteLength": 2243,
+      "sha256": "46f81fb4210d42df410ceddbfbc7cc6a4d0e56f5bdfbf20b26c4e2ced60adc64"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OpenAIAdjudicationTriggerReceiptV1.schema.json",
+      "byteLength": 934,
+      "sha256": "d9d8c94b96320003ab35e00c8c8921d7d181827ca6232d18541a8e8633e1aa11"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OwnerEvidenceAttestationReceiptV1.schema.json",
+      "byteLength": 1263,
+      "sha256": "04764b734939d569df3fc96449d1162b6ffe08eb9c6ccc437f84437c2a059e22"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OwnerProviderGrantV2.schema.json",
+      "byteLength": 3317,
+      "sha256": "79dc1be5a435854ae5bd46c3f1d46979d8336bbfdc558c4bee71b14488717ba9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OwnerRunnerActivationGrantV1.schema.json",
+      "byteLength": 2938,
+      "sha256": "888b3cb5a5b3d2c0c00c81d8fa16bf685ffb171985930c556b367f14123b9e6e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProtectedProviderEvidenceArtifactV1.schema.json",
+      "byteLength": 2092,
+      "sha256": "8efdf21b7e3fa57638596ba380546803ee2c8f386bc34496113e96a0813aeb93"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProtectedWorkflowIndexV1.schema.json",
+      "byteLength": 1559,
+      "sha256": "53781d68d4e4e5a6be17b1716a9eaf398819a92c107182a7b75dcb0602a998ca"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProtectedWorkflowIndexV2.schema.json",
+      "byteLength": 1666,
+      "sha256": "d263f287b33f53b2793374c2cc8c1376d0fc228508b29e957fce3db2c1710172"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderAttemptCommitIntentV1.schema.json",
+      "byteLength": 2023,
+      "sha256": "9b8d5fe343b760fc70f46a1ff582979015fa2860c138faedfeaefa7a201081d0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderAuthorizationV4.schema.json",
+      "byteLength": 4388,
+      "sha256": "f7c85a877272f3c8a5de49ed78159710ca48cb9201320d17d78ba7dfa8c3cfa4"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderAuthorizationV5.schema.json",
+      "byteLength": 3340,
+      "sha256": "5c0617287ba196663cdde2267bbde295b4439c5b4219a9ea00d90bb913bbdb82"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderCostPreviewReceiptV1.schema.json",
+      "byteLength": 1911,
+      "sha256": "cd798575b34f1ab92ea076979f5bcfa01adac8f119032fd58010b9b772892f04"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchCompletionV2.schema.json",
+      "byteLength": 1150,
+      "sha256": "e6206179b4dead731f619bdba6b402562b912e3aec14545a1b23288fd15559af"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchPermitV3.schema.json",
+      "byteLength": 1890,
+      "sha256": "5c52ac03aec988462f24c382c4e0855a4b2ce2980a047281a6debbb271f0b294"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchPermitV4.schema.json",
+      "byteLength": 2306,
+      "sha256": "44f768061509bbae617cb4659fcbe2d93c9cd692527c26654847b1967a66a96d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchPermitV5.schema.json",
+      "byteLength": 2222,
+      "sha256": "a13832e53ddfe3a49b40f187a41b74f29aac4121a7d72e8d4f8ac6cd9b7564bb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchReservationV2.schema.json",
+      "byteLength": 1507,
+      "sha256": "9f65b790f739376b1cb80446f1745334c498894c7b212372445327fafe0d8025"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderEventReceiptV4.schema.json",
+      "byteLength": 4171,
+      "sha256": "9da92eba92b4f4ff2a10433a64bd9567180ea0b29919dc693e5a197d13bd1b06"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderEvidenceCaptureReceiptV1.schema.json",
+      "byteLength": 2468,
+      "sha256": "f2c612850a3c3fd65e8077365bb8e8ffc13855e30e52e606118466a5bb2a44a9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderEvidenceCaptureReceiptV2.schema.json",
+      "byteLength": 1563,
+      "sha256": "4a15837bd8fe29d0391e8a37ca731939affafe5566d3a531e71fd8b19c23a885"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderPriceSnapshotV2.schema.json",
+      "byteLength": 1303,
+      "sha256": "914aaf3c4baf2e5b12de8e15782c235654edd8ae0720f367a16d3099925885fc"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRawResponseArtifactV1.schema.json",
+      "byteLength": 1815,
+      "sha256": "e71b0cd7b040773cddb05b695e74a165ce9a25d62d94abdd469c309dae9d06f8"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRawResponseBindingReceiptV1.schema.json",
+      "byteLength": 1450,
+      "sha256": "3507d5c1e4b290fd3848da386f1870430a1205a67efb6db13c9850f4f46e3736"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRequestArtifactV4.schema.json",
+      "byteLength": 2727,
+      "sha256": "2b0382e6b77f0ccebd1c411af7579e3e3c14eee58df97ffe1354d11c9ffaf3db"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRequestArtifactV5.schema.json",
+      "byteLength": 3432,
+      "sha256": "971dd967f4ad76826c43a2f75d37bd811dd55de593a966d5bf9b2fc162cd4c80"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRoleOutputV1.schema.json",
+      "byteLength": 1978,
+      "sha256": "12bc7fea6973331708ac80ace18d3f81f946bee03690c695ee3bd5c984e487aa"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRouteEvidenceLeafV1.schema.json",
+      "byteLength": 1501,
+      "sha256": "d0870e3b5468434d5238432d379b40954c14e3cf287d1941b7638971b9549962"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRouteProbeAttemptReceiptV1.schema.json",
+      "byteLength": 2033,
+      "sha256": "19bc3383718a3fdc43fb7f60f59b36c5ec9b7a1d8d775c7077bd3c9eaf3ef45a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRouteProbeAttemptReceiptV2.schema.json",
+      "byteLength": 2361,
+      "sha256": "d9859afff5cace6b60d440acf1fff6105839451f00881ed2204e20375de88094"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/PublicAggregateReportV1.schema.json",
+      "byteLength": 2636,
+      "sha256": "4398b71c8b8f57f839824a68b89784de87c91f3b6896acc1a4d8044af049978d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RawMachineReferenceLabelV1.schema.json",
+      "byteLength": 2348,
+      "sha256": "6fea76c2eaf68071cb0cc25cdb877c4334a1ffa9efb909e383f72a189728126c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceDispatchAuthorityReceiptV1.schema.json",
+      "byteLength": 2089,
+      "sha256": "c8f1fd1b1af208ad5bbffe41dcd237f588eb0811c4cd3bddc7d03b897ec2cc1d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV1.schema.json",
+      "byteLength": 1305,
+      "sha256": "946f0288da731a06e9b466a9269f84a7a19f6859e3f6e99d3e1a3eceb08a9ccb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV2.schema.json",
+      "byteLength": 1321,
+      "sha256": "edf0bd15743c7d1cb5c1e2f9cf883123f6eec4c9a85ae8d00d0283b9502833b8"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV3.schema.json",
+      "byteLength": 1796,
+      "sha256": "a8befb7b2ddf43ade1a3593fa6c133f6037d549fb1a6368331e4033a710a5e1f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV4.schema.json",
+      "byteLength": 2232,
+      "sha256": "e39585e1667440705f4ebd1f2314aae3580b8479bab06d9e5536581c82d3fe4f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ResolvedProviderAttemptReceiptV1.schema.json",
+      "byteLength": 4322,
+      "sha256": "2c67927b011c948b04b90cbd1d3373a218f4a43e5059799582d127332f889ab2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ResolvedProviderAttemptReceiptV2.schema.json",
+      "byteLength": 3958,
+      "sha256": "70ef1d63c10b684d8fc3f110fb8727745f9c9b4ec4fc43851baff459c4de5da9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RoleAttemptEvidenceReceiptV1.schema.json",
+      "byteLength": 2723,
+      "sha256": "962b3156f4a0847887042c1c4d3fb48493d3df950ac434e240f4c6f6136e49a2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RouteEvidenceBundleV1.schema.json",
+      "byteLength": 1406,
+      "sha256": "f7ee52218fb2cd47db8fa387938fa7b9fc0b6c4d9a351ac25d3fee92f3b7bb9b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RouteProbeAuthorizationV1.schema.json",
+      "byteLength": 1945,
+      "sha256": "d09de3a053fcb6e0615da71d31ded35f515387b1623f8d318619754f0fe9a3c6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/SampleExecutionInventoryV2.schema.json",
+      "byteLength": 2097,
+      "sha256": "20106ded15084d80df0e7f75727cb54eff29330d46eef2f96e2180697308a38d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/SemanticDispatchAuthorityReceiptV1.schema.json",
+      "byteLength": 2641,
+      "sha256": "07d905e0e59d20a578acf06e23160c8cb39803cf6b4008c3780ed22a2e166959"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/SemanticDispatchVerificationReceiptV1.schema.json",
+      "byteLength": 2023,
+      "sha256": "6c80885065bc0b558dfb4b5b5ae0a6f185be7b93273ebc6d91723b651931d9f5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/StaleLedgerLockRecoveryReceiptV1.schema.json",
+      "byteLength": 1320,
+      "sha256": "a5e8fd04ad2c797e14d1498954452341addc972a1f2db00c6b219bc440b15656"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/StateBoundDispatchAuditReceiptV1.schema.json",
+      "byteLength": 3153,
+      "sha256": "d7b2be34cc548913fc7cd49f3839c1511e61596bd67bd33fef92be2a6122d9cd"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/StateBoundDispatchAuditReceiptV2.schema.json",
+      "byteLength": 2456,
+      "sha256": "f64e1823af6dc55ddd654f65356b4080ef1fd78ebe4812ee019c78a19dc98bed"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/TerminalExecutionDecisionReceiptV1.schema.json",
+      "byteLength": 2250,
+      "sha256": "fd46394362025ea2e361190d1d0898d3e9d2bcc75ac80e27cfa126b38eadb768"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/TrustedProviderEvidenceEnvelopeV1.schema.json",
+      "byteLength": 3925,
+      "sha256": "24d0f85b28051693670ac983e9c534d23fc3b362f861ab02d4f29013d2844ba5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/TrustedProviderEvidenceSourceV1.schema.json",
+      "byteLength": 2798,
+      "sha256": "3ca87f612e09304ca38540bb24c23c5c55db24999b9b1b006099c3ef16249214"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/WorkflowCommandTransitionReceiptV1.schema.json",
+      "byteLength": 1281,
+      "sha256": "be780e8ef5b9301f27b9945ddb9573ec8475cef5e7aaff3e9ee63717dfc292e5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/scorer-verifier-v5-r8.mjs",
+      "byteLength": 26860,
+      "sha256": "cd14e9e44f3186cb16dbe361e20e05f21f7577dd464999dc970435b18c2c3d2c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/semantic-dispatch-v5-r7.mjs",
+      "byteLength": 13922,
+      "sha256": "356e6ed4594f1a92f307daa39dff6d4bd1d9abdbcbc0c2f01fc794e9dc633c6f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/source-closure-v5-r6.mjs",
+      "byteLength": 4995,
+      "sha256": "5e0661e1db6ffac000ef162fe5a92efb7b2958324c12fb675ce75071f0ea0e1f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/state-bound-dispatch-v5-r5.mjs",
+      "byteLength": 19236,
+      "sha256": "ffd986fd4080aaec99e379ae7d786806d6d7ed249878d8237ccf686327d6705b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/statistical-kernel-v5-r8.mjs",
+      "byteLength": 49018,
+      "sha256": "df35702a403bbb85a213de7a34ef64ca7e95c9998d0b1d1acef2fb93fb36e685"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/trusted-provider-evidence-v5-r8.mjs",
+      "byteLength": 10798,
+      "sha256": "e39f0c94b1456aa1111c8efdb8e5efb467bde500a55ca0d03c3283cf169f4d28"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r5.mjs",
+      "byteLength": 12416,
+      "sha256": "135621ff1c0d9e6710365fa2e03bfc6e042d3d0016965e7709ff3e5f33bfeea7"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r6.mjs",
+      "byteLength": 12447,
+      "sha256": "20be11d64d48681a047d4643e628d260ecfe6c258c5331491ead8c3c674c576f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r7.mjs",
+      "byteLength": 5725,
+      "sha256": "60ad11a9277d04ba76b0912a2d589d64170e289aa6d181e244976843f6e357e5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r8.mjs",
+      "byteLength": 6275,
+      "sha256": "282ea03996a7486fcfa44de2e216ceccfab5b10522ab0d532531c7889800c585"
+    },
+    {
+      "path": "coordination/reports/mais-natural-ca60-v5-r6-runner-review/independent-runner-review-receipt.json",
+      "byteLength": 943,
+      "sha256": "1463c287de7c350a294d9e7736964c67164a662379c128948433ec0b1538056b"
+    },
+    {
+      "path": "coordination/reports/mais-natural-ca60-v5-r7-runner-review/independent-runner-review-receipt.json",
+      "byteLength": 1359,
+      "sha256": "5eec2fdc158f99d79dfa63af807dd097746a3405987f64f24dca61341fb6546d"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/authorization-requests/2026-08-26-provider-authorization-sequencing.json",
+      "byteLength": 8493,
+      "sha256": "10858b16d0267d2fd909ff376c2e76bea6b63c5d985f90d03e8caf9510373894"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/owner-decisions/2026-08-26-frame-rights-lineage/owner-decision-receipt.json",
+      "byteLength": 3885,
+      "sha256": "006471b7e0b48af8d62eb9956cd2525076fe76b4bed54a839a48afd04ecf636a"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r3/runner-registration.json",
+      "byteLength": 15314,
+      "sha256": "2cf7d74076cb66c51729f154ed2cbf8f1537d5151c9f188c76c8995e7bbabc8f"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r4/runner-registration.json",
+      "byteLength": 20593,
+      "sha256": "3821507c081e813f91cc446d717d2ba4e0fbb0c948593f466315d753a6597501"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r5/runner-registration.json",
+      "byteLength": 16580,
+      "sha256": "899c6d68ca74622d570283c8de4e93e649e8704d26500055e4b50118cc8ac4f0"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r6/runner-registration.json",
+      "byteLength": 41452,
+      "sha256": "0c278a54d3900f1b09fb46a47781ad5c0e7509896ce0624b47d4f8198c6a1f8e"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r7/runner-registration.json",
+      "byteLength": 94143,
+      "sha256": "2f1f619d66dc8d51c161449a17ae023866748ab987c38eb508bfc65d276a025f"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v2/design-contract.mjs",
+      "byteLength": 74552,
+      "sha256": "1e5439f447b7001756b9cca10d0c02e23686ee767a6ae815723ff21a8e0fc4d8"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/design-contract.mjs",
+      "byteLength": 312825,
+      "sha256": "d052b3e661ed2c2810ae3f1f0265cd6281b81e5e7329e3c97215a5a7c56aecb0"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/sample-contract.mjs",
+      "byteLength": 268048,
+      "sha256": "792690965ccfef65862f517c754c5459200abf34bb89cfcb7263db53b8620f41"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/schemas/ProviderAttemptReceiptV1.schema.json",
+      "byteLength": 17675,
+      "sha256": "92042fd2cc3ae950a94d946770dfa3b2fda011cba97b8408640f9458f8de2871"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/schemas/ProviderAuthorizationV1.schema.json",
+      "byteLength": 10006,
+      "sha256": "3fa96ea150e73acb377e32977a7106083c4307a30d3c6fa860007c0886a06bca"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/design-contract.mjs",
+      "byteLength": 29189,
+      "sha256": "51fc29947361576e95c21ee88b235abe56a8ff81b0bc2e9f5f738f2b9e5d988f"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/design-registration.json",
+      "byteLength": 108105,
+      "sha256": "c2e962b4e8dba0f558a08cdb8e654ae97139ee0a9db7c90eccb03666764e08a9"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/OpenAIReferenceRoleOutputV1.schema.json",
+      "byteLength": 1933,
+      "sha256": "a75c31b9b1eb15243c906eab9fdfe6f24b45818626c26b111a1dd86c62e3994c"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/ProviderAttemptReceiptV2.schema.json",
+      "byteLength": 7730,
+      "sha256": "b434d93ef6de85d72791b9434403073b21322aae30d60727d07ca39c805427a5"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/ProviderLogicalRequestV2.schema.json",
+      "byteLength": 2221,
+      "sha256": "49f1f7fa8e95e1a80a457809b1a7ba114767b03b02f45e525486536014a32f05"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/ProviderWireEvidenceV2.schema.json",
+      "byteLength": 2566,
+      "sha256": "519b0ecb5d6bf658e400cf6d5e8c0378da1eba2df2569c946ab0b92a01f4fff5"
+    }
+  ],
+  "productionSourceRootHash": "121fd08aaf4ba08ffc9fb91f5f992116aaaffc926960bcb9082a9c2e486131d9",
+  "productionImportEdgeCount": 411,
+  "importClosureRootHash": "8e048d2d6f7f60e17adea7c6076dc050df6192c65dd6273edc9d45d602cc6a91",
+  "testSourceManifest": [
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r5.mjs",
+      "byteLength": 14976,
+      "sha256": "c076f1351d8106bbd759049f17e46f5050c479dc96a9725ca386c001c0a2462e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r6.mjs",
+      "byteLength": 9859,
+      "sha256": "f0a5bf18197cbb2385231f09abf10a7f05ade000073f4a4fb1f3268d78f78110"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/activation-guard-v5-r8.mjs",
+      "byteLength": 13842,
+      "sha256": "f0799c2c66c972ad9fd5794fea5f6a96e1aa6310dc34f949f71444f2355e19e2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/atomic-execution-ledger-v5-r4.mjs",
+      "byteLength": 22647,
+      "sha256": "01bd4d62b8e08c56194a81e425b73fb7625eb113a8793fd474ebd2748c8bb341"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-graph-v5-r7.mjs",
+      "byteLength": 20742,
+      "sha256": "6f48ecbf8e249375140c313c5db52543d482fb080a91cca29e3eebdd0406227e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-graph-v5-r8.mjs",
+      "byteLength": 8504,
+      "sha256": "5b95d39ca52df8f16668f463ee7e9131b5effbf9cd571458684904f7b6a5225d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-recovery-v5-r8.mjs",
+      "byteLength": 14531,
+      "sha256": "bcc4b09999a594ba6cd0670fd5c72b96a90fab0fd457905d383557db277cad39"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/attempt-transaction-v5-r7.mjs",
+      "byteLength": 12084,
+      "sha256": "158ccc15d3d6cadcbea9f171ce8583c49bc52b9760df63937d46bfef8fd48dc6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/c0-state-v5-r7.mjs",
+      "byteLength": 13956,
+      "sha256": "6df42747f9bd22dfd641a5a2a520b42225dc664b73a079b5c75bad4f8e626ed9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/c0-trigger-v5-r5.mjs",
+      "byteLength": 19538,
+      "sha256": "fa0e65c7e665b7b5a2eaab2fd920b1f31a8b9e90c8afb0737dcebdc85da20e74"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/deepseek-evaluation-adapter-v5-r2.mjs",
+      "byteLength": 6941,
+      "sha256": "c24143092543d448250e84fbc1b387f32aa9c982ac9c719c6ad9701dc715daf2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/deepseek-execution-control-v5-r4.mjs",
+      "byteLength": 16795,
+      "sha256": "f985e6c93d545bf09055a64883b95b126410e1d9c5b6dba52f9de5a6d9f01fdf"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/deepseek-execution-registration-v5-r5.mjs",
+      "byteLength": 6228,
+      "sha256": "3fb8201787f5a8b3f370910b10eb2562c119f82afa985f2b2d0dc6a9f1ec4b4e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/dispatch-authority-v5-r7.mjs",
+      "byteLength": 7050,
+      "sha256": "dea308f8561d379cdbcc6a9395dbf2d80bf25cdb709b0de3c4c5bf08b1e1e99b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r4.mjs",
+      "byteLength": 20664,
+      "sha256": "aa871c8ee15c3224f5adec86b264be8317c06368496f5cc97d255f47daab82e1"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r5.mjs",
+      "byteLength": 21105,
+      "sha256": "4553a940f8513e7553a2f30cfa7f2746310300288f40d52cb730b2714345ea60"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r6.mjs",
+      "byteLength": 18271,
+      "sha256": "b5a7cd59281ebfb11f9f0a1185c3ea799a3c160fc3d10e14d3a3b523653791d0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r7.mjs",
+      "byteLength": 19228,
+      "sha256": "a466839700d5766ce8014edb184f4e053bf3b4864948d554bab157ccb1bd0095"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-evidence-v5-r8.mjs",
+      "byteLength": 21903,
+      "sha256": "a9c0b9827b01c6d470ebc4c66b1c9802814cd0a83b3aa4e6f4afd49ca2302d5d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-integrity-v5-r3.mjs",
+      "byteLength": 29483,
+      "sha256": "f21ff8aa356d42a1314612e36f6fb6ed63b4e93b316001004e1406d75f291e34"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/execution-state-v5-r4.mjs",
+      "byteLength": 13175,
+      "sha256": "0d59cd71dabb262ec7fe2b2c722de82f148dde528d7c3ab8c0063037dc385d75"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/guarded-provider-attempt-v5-r6.mjs",
+      "byteLength": 32037,
+      "sha256": "a0be2b054723e619a6e159df491ad766741d2d6240a473aa75482e13ec864f09"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/method-kernel-v5-r4.mjs",
+      "byteLength": 1673,
+      "sha256": "dc449414e32d640233fc04ee6fd1d9eee77954a54c73dd0fc4b72ba53a07a6bf"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/native-provider-adapter-v5-r8.mjs",
+      "byteLength": 9550,
+      "sha256": "eee6e8c78541179e7ba5c3e9b45015518c32c47888e8b1b0c1f60490f63175f9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/openai-reference-adapter-v5.mjs",
+      "byteLength": 32981,
+      "sha256": "1bb49d3f060e5dd298e8a083b383e8881b652151acfc9fdb2f9a1345cd071494"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/protected-storage-v5-r4.mjs",
+      "byteLength": 6261,
+      "sha256": "b69178fbb6b7575302843a3073ef7d7b16f0a333b6b400868b3b21a945ff5a7e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/provider-request-v5-r4.mjs",
+      "byteLength": 20586,
+      "sha256": "d9db6e8504f730e08fd517fda2438a909280e7aad520ac36a308da98734dad85"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/provider-request-v5-r6.mjs",
+      "byteLength": 11151,
+      "sha256": "63762ad382ef8c92a32cbe219542b1596a24c9ade7fc37d5aaf51264a4daf963"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/raw-authoritative-reference-v5-r7.mjs",
+      "byteLength": 10985,
+      "sha256": "682e1a58b21c9d7c21ab789235aba16aec3acb8abfb34e92595d7e185b333a68"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/raw-response-custody-v5-r6.mjs",
+      "byteLength": 10182,
+      "sha256": "878f84d8a8b1a15f509424c156f3b1a6f190ab0dcd6bda92fd479a5728767e95"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/reference-agreement-v5-r5.mjs",
+      "byteLength": 1868,
+      "sha256": "f0d0dfa839f99cc7ba4b3422955f8b37448350644265eba2fca8a0d9e635ed57"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/reference-label-seal-v5-r4.mjs",
+      "byteLength": 20185,
+      "sha256": "eb229589189b305dd842f9b034228de9ff8e018eef2b5fb13275c12c0950bcfd"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/reference-label-seal-v5-r5.mjs",
+      "byteLength": 4688,
+      "sha256": "80172482476d17ea5cc743c0218c06079719d6d1f6f4d95ffaaf97078844102c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/review-evidence-v5-r8.mjs",
+      "byteLength": 10683,
+      "sha256": "38861c5784ddc3a82916032fac8f48f8e85b8f3303fbe3deb025c37516ae9fc8"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/route-authorization-v5-r4.mjs",
+      "byteLength": 20529,
+      "sha256": "9759d6406bdb0df836c9314f637a1851de625261e1df57d53137c02c4f6fa3b7"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/route-authorization-v5-r5.mjs",
+      "byteLength": 13820,
+      "sha256": "87896a44b2c4198606f622014f56700de8e79146cb3f0c98f93c3839d53223d2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/route-evidence-custody-v5-r6.mjs",
+      "byteLength": 16176,
+      "sha256": "d28b41c25efc94e27b7e107240bf510997608700d9092b87f752e76156c3f96b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-cli.mjs",
+      "byteLength": 9802,
+      "sha256": "692375e4c57dc585740312096f36fb274e6adef496efe4181d6652cf8bd7ed48"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-cli.test.mjs",
+      "byteLength": 4454,
+      "sha256": "6dbdede04fd9e553b11feeb1bf458812feb8b11f761ed5cca2aa7603b2487f97"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-evidence.test.mjs",
+      "byteLength": 5528,
+      "sha256": "55e13ad54bac8a0738c29f8b2891dd424dd0f8baaca243ea217480de0a295f39"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-remediation.test.mjs",
+      "byteLength": 25804,
+      "sha256": "17becedb3607e7c299c4e53c0a6dd0f99c7e5602a442589f177f9a97160fba9e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-runtime.mjs",
+      "byteLength": 24166,
+      "sha256": "6e1fd3ce29eae2ff35174c077c6c60912af4277d49f2b62fd903336f23411fce"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-runtime.test.mjs",
+      "byteLength": 4520,
+      "sha256": "ca6bdb7fcc6c134253d9dfdf2f678edca3674275411caa4a4df82bfb4f497849"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-schemas.test.mjs",
+      "byteLength": 2276,
+      "sha256": "570872e32629d7c72af43840642806d21b9cf4a37dcbe636011ce87176dedc65"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-scorer-verifier.test.mjs",
+      "byteLength": 5212,
+      "sha256": "568b1fd5d664406676aece91f4b040c93f84100208877a53247ba57ea3a37222"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/sample-contract-v5.mjs",
+      "byteLength": 280311,
+      "sha256": "461de891cf1208716fd47b132c87cf97e019b75d47a03bec456751833da576b0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r4.mjs",
+      "byteLength": 14999,
+      "sha256": "e35ba2b276fd857ab473a015460846cd401b8ef42be4446c92400e6d876d8698"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r5.mjs",
+      "byteLength": 13119,
+      "sha256": "c19cce69ae01ed053a54dd7b879f80986fdc1fe6cded4261c17a0d434eec6cbb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r6.mjs",
+      "byteLength": 5205,
+      "sha256": "4de62d654a884d2b3a63e3ca6675fc6ea70ee1c521895f1e090bd4c42284ac47"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r7.mjs",
+      "byteLength": 5370,
+      "sha256": "9618ecb8541d2824bf3bf075f4d2be0444f9150e6cf859a5f6bba420516be652"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schema-contract-v5-r8.mjs",
+      "byteLength": 4519,
+      "sha256": "62ed54989acd0c26418d7d5b8cd75e3c4ee4cae441eab81a18ecc4078b1d7007"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AggregatePublicationAuthorizationV1.schema.json",
+      "byteLength": 1488,
+      "sha256": "1cca711589d5df7b424c62c802a9a3fb7858544a52829680bf0cad2365031ab5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptCustodyReconciliationAuthorizationV1.schema.json",
+      "byteLength": 1379,
+      "sha256": "c0769709327d205081c4881ad300e4ee68750351f4c1b0bbfd22cd23f0c033be"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptCustodyReconciliationReceiptV1.schema.json",
+      "byteLength": 2889,
+      "sha256": "3171cc72117a2f9bd5c771e268232979713ef14ec3125919f33c5aedc2854e81"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptGraphReconstructionReceiptV1.schema.json",
+      "byteLength": 5540,
+      "sha256": "3e436a8e01d2443fc6042f101d901b10395e492dcfb847681f2cd580876aa108"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AttemptGraphReconstructionReceiptV2.schema.json",
+      "byteLength": 4731,
+      "sha256": "8381c7055884f47d1011d8bd706feb3da5b95dc1f4897172870bdf5f6e04e295"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceReceiptV1.schema.json",
+      "byteLength": 2895,
+      "sha256": "43db854d91233dfad6fa63ba39d0c900936abd3c22fc7b55ff570c055d157505"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceReceiptV2.schema.json",
+      "byteLength": 2233,
+      "sha256": "a4478eb8b7af6608f2d71fa5f0f6d28c4261cfc99924b4354699532aa8265346"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceReceiptV3.schema.json",
+      "byteLength": 2766,
+      "sha256": "008228d13c6fc5800d56cf14d112e8fd6d18ee0b4e202248b467b67063b96a4c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/AuthenticatedRouteEvidenceSourceV1.schema.json",
+      "byteLength": 1312,
+      "sha256": "ab3c36e17b0a3dff1eda4c613ec08af94ebca6f65f59687b0b8f7e874e9d7a30"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CanaryGateReceiptV1.schema.json",
+      "byteLength": 1782,
+      "sha256": "d8adb853d01cd9e45c92b79402aca379eb49242b8cc0add8c34394e4ce88490c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CanaryGateReceiptV2.schema.json",
+      "byteLength": 2091,
+      "sha256": "de403c01e34c5353e42e1e9182473c682d7695fd87d48cc270373f40aca6f43b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CanaryGateReceiptV3.schema.json",
+      "byteLength": 2685,
+      "sha256": "697c5406c9eb38cc8998ed05ab11d13c2dccb1a04b932b396ba4d55edca6213d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ClaimBoundaryReviewReceiptV2.schema.json",
+      "byteLength": 1631,
+      "sha256": "36eda8a1b221bde8851ab505441ef5227ab5370e2801e3fe8770eb5e09675609"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionIntentReceiptV1.schema.json",
+      "byteLength": 1325,
+      "sha256": "be8ce3d5bc56b296036f9173aecf87d5b08962d7d5f4361a12a2b91fd80d6332"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionJournalReceiptV1.schema.json",
+      "byteLength": 1540,
+      "sha256": "540c904f31725cdb5cd91620068069ba4855c9aa45bef6053ff4037da79108da"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionJournalReceiptV2.schema.json",
+      "byteLength": 2702,
+      "sha256": "5928e19eba6fdb4ad3f7fb7348db04deac859afd2759290023dd306eec42f24b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CommandTransitionSubreceiptV1.schema.json",
+      "byteLength": 1251,
+      "sha256": "64de25fa0489d89963f16ddca69cd675e96e4b358568e8f12407fed82d882cf5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CompletedItemCommitMarkerV2.schema.json",
+      "byteLength": 1873,
+      "sha256": "c55dc3a0544eb949d1273c8c5f1b98f585f4609a71c5485124b6ce91bea1aa75"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CounterfactualLedgerV2.schema.json",
+      "byteLength": 2450,
+      "sha256": "c3e3ef2c91b66849ddbc75985e78493d292cd9f9007c0088f3297a7476343b8a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/CredentialReadinessReceiptV2.schema.json",
+      "byteLength": 922,
+      "sha256": "c3465d26f3bb9557d16234afe41a1ae2962b7a117af7fae9c438ed36ac1478b6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0ExecutionSetV2.schema.json",
+      "byteLength": 2455,
+      "sha256": "bdccabe19ae15ca080a5a29cfe16d5d92bf1d77b2bbe63f3e9c227aa113d778e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0ExecutionSetV3.schema.json",
+      "byteLength": 1811,
+      "sha256": "f793c7282c0a06c381fe3e3c3efb5934490d750596b7c6645978c5526b2f8f71"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0ExecutionSetV4.schema.json",
+      "byteLength": 1761,
+      "sha256": "a07089670ce0398453f96fb34de375ad133d4320d7cf3f22ed7838da5b134f48"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0PredicateReceiptV1.schema.json",
+      "byteLength": 6045,
+      "sha256": "3d73f656b4d7afe323a946519ab7e86158ef9cc1a542a38b9fed091e527f825f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekC0TerminalPredicateReceiptV1.schema.json",
+      "byteLength": 2019,
+      "sha256": "8a7d39185912b59bf7da8dacaf3a2efe00331c2ea6c8a641352a35d0ea57f7ae"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekExecutionRegistrationV2.schema.json",
+      "byteLength": 1709,
+      "sha256": "9fa27b392f1b2d8df7d026f3b13a09ab34571bb28b9585280d114f815fa9380a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekExecutionRegistrationV3.schema.json",
+      "byteLength": 2066,
+      "sha256": "da545e59d7f02d6449815352224932f28a1b07b01081c18fb9e6bebe64199898"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/DeepSeekExecutionRegistrationV4.schema.json",
+      "byteLength": 2393,
+      "sha256": "e9d383235f95596ff07fabb20f9c304504c1a24c9910ecb28d522851f4a6aa99"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV1.schema.json",
+      "byteLength": 1571,
+      "sha256": "575426b23dd034ddfe1d7743f23b6b88ddffcc069c7d5e465119f57e8bffb9b2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV2.schema.json",
+      "byteLength": 1746,
+      "sha256": "60e27cf1c333e4c027d7b93a94088cb8e253d1f68ee5214c8b12e0e3f1eec7f5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV3.schema.json",
+      "byteLength": 1852,
+      "sha256": "4b9da53c70588f2fa7b6e520cf7b99ea68bb252f2bd6fe686c7348a287e03bd6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExactRunnerSupersedingRegistrationEvidenceV4.schema.json",
+      "byteLength": 2061,
+      "sha256": "99af352d7e1cc06472dcf094f8a529e361b998111b91dc2a462a85e47653e194"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionIntegrityEvidenceV1.schema.json",
+      "byteLength": 3330,
+      "sha256": "74b20608545172824af369ddadc9fbff1540006ae9f9422899ec0edcb3290fed"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionIntegrityEvidenceV2.schema.json",
+      "byteLength": 3557,
+      "sha256": "0bdf65755410b0bc1afe7c5325f6452478517a74151ace1e283c1f95c5aef549"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionLedgerLockV1.schema.json",
+      "byteLength": 874,
+      "sha256": "762d724c4064bf84d372fac32da804f1ca5884debafa127b609dae57e096ea76"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionPlanReceiptV1.schema.json",
+      "byteLength": 1449,
+      "sha256": "2495e062e856a407e5f83f8c540d7d69df3d12dc507a1c6de11f0eccfea4fe11"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ExecutionPlanReceiptV2.schema.json",
+      "byteLength": 2613,
+      "sha256": "fc7ce1003f2ff59d591d57d391ecaae2873ec29ee9b44f2dded810709762162d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/FinalEvaluationReceiptV2.schema.json",
+      "byteLength": 2983,
+      "sha256": "2865d34208a3acf1f3f0df833b06829a3eac1bbc1c1ae60cb5639fd5f163c345"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/FinalExecutionVerificationReceiptV1.schema.json",
+      "byteLength": 1737,
+      "sha256": "c093fd6f951af6c85ec8e7f3ed2ec610a5949205c748582d7f64f26e70f320e3"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/FinalExecutionVerificationReceiptV2.schema.json",
+      "byteLength": 2464,
+      "sha256": "ed73c1be743dc7d4f84e277bb41bb43f8e2889639e87b32160adb62152e9155a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ForbiddenPrimaryScorerPathScanReceiptV1.schema.json",
+      "byteLength": 1111,
+      "sha256": "30554edca53d81e92dc205eea4012c6bc626ca23979b7c1c97417a46a5c02287"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentCommandRuntimeReceiptV1.schema.json",
+      "byteLength": 1403,
+      "sha256": "4fa65da9ebc67a4326fcbf3105a6a8d7e648a82724d3eb6c06a84b970cc6779f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionResultReviewReceiptV1.schema.json",
+      "byteLength": 1438,
+      "sha256": "f224219ac0d4bad8a9ed1f87c23c5b7e1a35d436bbd02f6cdc59941b919d5b16"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV2.schema.json",
+      "byteLength": 1440,
+      "sha256": "d5b77f49ffea04a97d71482a60872bb9c523d045cd250d547311840181d83208"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV3.schema.json",
+      "byteLength": 1620,
+      "sha256": "3da5f07c1e6e5dcfe810651fdf66aa3d2e354717ffd203bac9c2dfc0e543ac99"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV4.schema.json",
+      "byteLength": 1874,
+      "sha256": "7768ea77d070e4d11947d11153c92e62c93dcf966a1b1cd0a242d594ab7a3a6f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV5.schema.json",
+      "byteLength": 2169,
+      "sha256": "2897b36e6d1402ba360d9a78e35d93ee7a3b26c18db4c661cfb93fe042e8d5bb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentExecutionRunnerReviewReceiptV6.schema.json",
+      "byteLength": 3082,
+      "sha256": "8f74d3519ae4bf34214787ac631223774a429ac364b6e7f86848c5a1c3022d4b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentSourceEnumerationReceiptV1.schema.json",
+      "byteLength": 1168,
+      "sha256": "259b3d88f4e552075671dac015d7bc4560c74d5e992a95a4a5aef0fbcf4a0fd1"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/IndependentStaticImportGraphReceiptV1.schema.json",
+      "byteLength": 1076,
+      "sha256": "ad50b2b24d4a18a0b9f96cabcb07daf5374e96cfbee836c29278e3f2bdf70d5e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/InterruptedAttemptRecoveryReceiptV1.schema.json",
+      "byteLength": 2041,
+      "sha256": "6b52af29267b3c91aa0b1ff9ee89bc3cc810a2de88c61c03b7f54cfb7dcc6fcd"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ItemEvaluationResultV2.schema.json",
+      "byteLength": 3863,
+      "sha256": "1c49348da043956ea79e24963c7cd02bd49b34cbf6bbe5b7f0c2ff5db7691050"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/LedgerRecoveryAuthorizationV1.schema.json",
+      "byteLength": 1223,
+      "sha256": "b5866dd3908405b186e4d34fd0250b8bffbf95c4dfba04d7aefc42ae72d286bb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceLabelV1.schema.json",
+      "byteLength": 2625,
+      "sha256": "400c02781d6abe25cab1d9c6c027530beefbfdf857c5f0a68e2c4ba303d10430"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV3.schema.json",
+      "byteLength": 5055,
+      "sha256": "82780ec975ce59e6272f04c8ca929006c9d6edf8e8ad2dafb5b55bd420b07887"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV4.schema.json",
+      "byteLength": 7315,
+      "sha256": "80ac8001a9a9ad197ae900a39f3b17babc843a9931ce7b8a907140922778533f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV5.schema.json",
+      "byteLength": 2714,
+      "sha256": "c077885d0bd1572f03281c97ba59e5f0126c9416ff08f4ae7b1e472021c9542b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MachineReferenceSealV6.schema.json",
+      "byteLength": 3290,
+      "sha256": "515cad61cea0b77abfa51e1ef06b5a84bb30a6c8a7437d3ce049d9507e7c90c2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/MetricInputLedgerV2.schema.json",
+      "byteLength": 741,
+      "sha256": "731169a1c9bd016722a50db8f8cd1c983be5258c760352427c0e0b5cf184b4c0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV1.schema.json",
+      "byteLength": 6900,
+      "sha256": "9c6b4f7b8a446a5e3cea77dffa989b5c6e76a09f9df9f82b4a9dd12853bb3480"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV2.schema.json",
+      "byteLength": 4694,
+      "sha256": "784856f60f4790e6721d270cf44d4279a393f024f8679738f8a2dc17250bbceb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV3.schema.json",
+      "byteLength": 1635,
+      "sha256": "d249dab1821a7e21474cb468c8c258215ae80e3b1c4d6502da2b7df48b905037"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV4.schema.json",
+      "byteLength": 2140,
+      "sha256": "74a06112341dd2c592604fdfe5fa8fe2f891c00b40cc33a871e322b55d59ea85"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV5.schema.json",
+      "byteLength": 2445,
+      "sha256": "237758c7ae4356437d0e948f6ccc5f571989e6dca46fba4fdb4e3c1ec13f77ca"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaAggregateScoreReceiptV6.schema.json",
+      "byteLength": 2735,
+      "sha256": "ef3286d18054f5352270e2fb2f178086fa69c92eec54fd347bdc58f24bade382"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerRegistrationV3.schema.json",
+      "byteLength": 7247,
+      "sha256": "b31e44a28ca7706769eff51bf6c6c9f49471f3b450d78dd2eb28ec607b7d0686"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV1.schema.json",
+      "byteLength": 7896,
+      "sha256": "d4469b6df2c74d96888687724313349e92ab3dbcdeaf41e76785cb0969be0379"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV2.schema.json",
+      "byteLength": 8212,
+      "sha256": "d271a1b314e285a30ee35f1947c1fe6e16bc1494afb12bd22c8cc8aff69eeb5b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV3.schema.json",
+      "byteLength": 8233,
+      "sha256": "368e0e9af26e132b33d1f839a6cd59dbc6bc8de806d0f8849d35ffa3f0b7830b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaExecutionRunnerSupersedingRegistrationV4.schema.json",
+      "byteLength": 7974,
+      "sha256": "ad17b708b1085c7ea0edfbc704c08404bdaf3094b058119186945f91243d73e9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV3.schema.json",
+      "byteLength": 1167,
+      "sha256": "61c0ecb31a57fc3d61b13b08b0a3a51436ef96530582340c2032c5f5a1182420"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV4.schema.json",
+      "byteLength": 2127,
+      "sha256": "aa33814ed85f416e485e7d8a413b5d9c51d8370a47c5eb70b51dfaf8b98b0e39"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV5.schema.json",
+      "byteLength": 2547,
+      "sha256": "1399c8066ab56c76368e0cdd39a9f384320fbe87f8d9863b668030772b19b667"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV6.schema.json",
+      "byteLength": 2645,
+      "sha256": "9a334654da55b28f0756e499c9ec896957c34fd80933f84b146b90d266d1e009"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaRunnerCommandReceiptV7.schema.json",
+      "byteLength": 3014,
+      "sha256": "d8a61dd0245f4d343973ba1f6146817000121a9827d8428df00d9daae8a4cdef"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/NaturalCaScoringInputV1.schema.json",
+      "byteLength": 1859,
+      "sha256": "20629c7a12015388385fdd6f27ad84fdd51e5a272a41e2e25963f49f076e2d67"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ObservedEvaluationLedgerV2.schema.json",
+      "byteLength": 2243,
+      "sha256": "46f81fb4210d42df410ceddbfbc7cc6a4d0e56f5bdfbf20b26c4e2ced60adc64"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OpenAIAdjudicationTriggerReceiptV1.schema.json",
+      "byteLength": 934,
+      "sha256": "d9d8c94b96320003ab35e00c8c8921d7d181827ca6232d18541a8e8633e1aa11"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OwnerEvidenceAttestationReceiptV1.schema.json",
+      "byteLength": 1263,
+      "sha256": "04764b734939d569df3fc96449d1162b6ffe08eb9c6ccc437f84437c2a059e22"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OwnerProviderGrantV2.schema.json",
+      "byteLength": 3317,
+      "sha256": "79dc1be5a435854ae5bd46c3f1d46979d8336bbfdc558c4bee71b14488717ba9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/OwnerRunnerActivationGrantV1.schema.json",
+      "byteLength": 2938,
+      "sha256": "888b3cb5a5b3d2c0c00c81d8fa16bf685ffb171985930c556b367f14123b9e6e"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProtectedProviderEvidenceArtifactV1.schema.json",
+      "byteLength": 2092,
+      "sha256": "8efdf21b7e3fa57638596ba380546803ee2c8f386bc34496113e96a0813aeb93"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProtectedWorkflowIndexV1.schema.json",
+      "byteLength": 1559,
+      "sha256": "53781d68d4e4e5a6be17b1716a9eaf398819a92c107182a7b75dcb0602a998ca"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProtectedWorkflowIndexV2.schema.json",
+      "byteLength": 1666,
+      "sha256": "d263f287b33f53b2793374c2cc8c1376d0fc228508b29e957fce3db2c1710172"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderAttemptCommitIntentV1.schema.json",
+      "byteLength": 2023,
+      "sha256": "9b8d5fe343b760fc70f46a1ff582979015fa2860c138faedfeaefa7a201081d0"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderAuthorizationV4.schema.json",
+      "byteLength": 4388,
+      "sha256": "f7c85a877272f3c8a5de49ed78159710ca48cb9201320d17d78ba7dfa8c3cfa4"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderAuthorizationV5.schema.json",
+      "byteLength": 3340,
+      "sha256": "5c0617287ba196663cdde2267bbde295b4439c5b4219a9ea00d90bb913bbdb82"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderCostPreviewReceiptV1.schema.json",
+      "byteLength": 1911,
+      "sha256": "cd798575b34f1ab92ea076979f5bcfa01adac8f119032fd58010b9b772892f04"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchCompletionV2.schema.json",
+      "byteLength": 1150,
+      "sha256": "e6206179b4dead731f619bdba6b402562b912e3aec14545a1b23288fd15559af"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchPermitV3.schema.json",
+      "byteLength": 1890,
+      "sha256": "5c52ac03aec988462f24c382c4e0855a4b2ce2980a047281a6debbb271f0b294"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchPermitV4.schema.json",
+      "byteLength": 2306,
+      "sha256": "44f768061509bbae617cb4659fcbe2d93c9cd692527c26654847b1967a66a96d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchPermitV5.schema.json",
+      "byteLength": 2222,
+      "sha256": "a13832e53ddfe3a49b40f187a41b74f29aac4121a7d72e8d4f8ac6cd9b7564bb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderDispatchReservationV2.schema.json",
+      "byteLength": 1507,
+      "sha256": "9f65b790f739376b1cb80446f1745334c498894c7b212372445327fafe0d8025"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderEventReceiptV4.schema.json",
+      "byteLength": 4171,
+      "sha256": "9da92eba92b4f4ff2a10433a64bd9567180ea0b29919dc693e5a197d13bd1b06"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderEvidenceCaptureReceiptV1.schema.json",
+      "byteLength": 2468,
+      "sha256": "f2c612850a3c3fd65e8077365bb8e8ffc13855e30e52e606118466a5bb2a44a9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderEvidenceCaptureReceiptV2.schema.json",
+      "byteLength": 1563,
+      "sha256": "4a15837bd8fe29d0391e8a37ca731939affafe5566d3a531e71fd8b19c23a885"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderPriceSnapshotV2.schema.json",
+      "byteLength": 1303,
+      "sha256": "914aaf3c4baf2e5b12de8e15782c235654edd8ae0720f367a16d3099925885fc"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRawResponseArtifactV1.schema.json",
+      "byteLength": 1815,
+      "sha256": "e71b0cd7b040773cddb05b695e74a165ce9a25d62d94abdd469c309dae9d06f8"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRawResponseBindingReceiptV1.schema.json",
+      "byteLength": 1450,
+      "sha256": "3507d5c1e4b290fd3848da386f1870430a1205a67efb6db13c9850f4f46e3736"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRequestArtifactV4.schema.json",
+      "byteLength": 2727,
+      "sha256": "2b0382e6b77f0ccebd1c411af7579e3e3c14eee58df97ffe1354d11c9ffaf3db"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRequestArtifactV5.schema.json",
+      "byteLength": 3432,
+      "sha256": "971dd967f4ad76826c43a2f75d37bd811dd55de593a966d5bf9b2fc162cd4c80"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRoleOutputV1.schema.json",
+      "byteLength": 1978,
+      "sha256": "12bc7fea6973331708ac80ace18d3f81f946bee03690c695ee3bd5c984e487aa"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRouteEvidenceLeafV1.schema.json",
+      "byteLength": 1501,
+      "sha256": "d0870e3b5468434d5238432d379b40954c14e3cf287d1941b7638971b9549962"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRouteProbeAttemptReceiptV1.schema.json",
+      "byteLength": 2033,
+      "sha256": "19bc3383718a3fdc43fb7f60f59b36c5ec9b7a1d8d775c7077bd3c9eaf3ef45a"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ProviderRouteProbeAttemptReceiptV2.schema.json",
+      "byteLength": 2361,
+      "sha256": "d9859afff5cace6b60d440acf1fff6105839451f00881ed2204e20375de88094"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/PublicAggregateReportV1.schema.json",
+      "byteLength": 2636,
+      "sha256": "4398b71c8b8f57f839824a68b89784de87c91f3b6896acc1a4d8044af049978d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RawMachineReferenceLabelV1.schema.json",
+      "byteLength": 2348,
+      "sha256": "6fea76c2eaf68071cb0cc25cdb877c4334a1ffa9efb909e383f72a189728126c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceDispatchAuthorityReceiptV1.schema.json",
+      "byteLength": 2089,
+      "sha256": "c8f1fd1b1af208ad5bbffe41dcd237f588eb0811c4cd3bddc7d03b897ec2cc1d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV1.schema.json",
+      "byteLength": 1305,
+      "sha256": "946f0288da731a06e9b466a9269f84a7a19f6859e3f6e99d3e1a3eceb08a9ccb"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV2.schema.json",
+      "byteLength": 1321,
+      "sha256": "edf0bd15743c7d1cb5c1e2f9cf883123f6eec4c9a85ae8d00d0283b9502833b8"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV3.schema.json",
+      "byteLength": 1796,
+      "sha256": "a8befb7b2ddf43ade1a3593fa6c133f6037d549fb1a6368331e4033a710a5e1f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ReferenceSealValidationReceiptV4.schema.json",
+      "byteLength": 2232,
+      "sha256": "e39585e1667440705f4ebd1f2314aae3580b8479bab06d9e5536581c82d3fe4f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ResolvedProviderAttemptReceiptV1.schema.json",
+      "byteLength": 4322,
+      "sha256": "2c67927b011c948b04b90cbd1d3373a218f4a43e5059799582d127332f889ab2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/ResolvedProviderAttemptReceiptV2.schema.json",
+      "byteLength": 3958,
+      "sha256": "70ef1d63c10b684d8fc3f110fb8727745f9c9b4ec4fc43851baff459c4de5da9"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RoleAttemptEvidenceReceiptV1.schema.json",
+      "byteLength": 2723,
+      "sha256": "962b3156f4a0847887042c1c4d3fb48493d3df950ac434e240f4c6f6136e49a2"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RouteEvidenceBundleV1.schema.json",
+      "byteLength": 1406,
+      "sha256": "f7ee52218fb2cd47db8fa387938fa7b9fc0b6c4d9a351ac25d3fee92f3b7bb9b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/RouteProbeAuthorizationV1.schema.json",
+      "byteLength": 1945,
+      "sha256": "d09de3a053fcb6e0615da71d31ded35f515387b1623f8d318619754f0fe9a3c6"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/SampleExecutionInventoryV2.schema.json",
+      "byteLength": 2097,
+      "sha256": "20106ded15084d80df0e7f75727cb54eff29330d46eef2f96e2180697308a38d"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/SemanticDispatchAuthorityReceiptV1.schema.json",
+      "byteLength": 2641,
+      "sha256": "07d905e0e59d20a578acf06e23160c8cb39803cf6b4008c3780ed22a2e166959"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/SemanticDispatchVerificationReceiptV1.schema.json",
+      "byteLength": 2023,
+      "sha256": "6c80885065bc0b558dfb4b5b5ae0a6f185be7b93273ebc6d91723b651931d9f5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/StaleLedgerLockRecoveryReceiptV1.schema.json",
+      "byteLength": 1320,
+      "sha256": "a5e8fd04ad2c797e14d1498954452341addc972a1f2db00c6b219bc440b15656"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/StateBoundDispatchAuditReceiptV1.schema.json",
+      "byteLength": 3153,
+      "sha256": "d7b2be34cc548913fc7cd49f3839c1511e61596bd67bd33fef92be2a6122d9cd"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/StateBoundDispatchAuditReceiptV2.schema.json",
+      "byteLength": 2456,
+      "sha256": "f64e1823af6dc55ddd654f65356b4080ef1fd78ebe4812ee019c78a19dc98bed"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/TerminalExecutionDecisionReceiptV1.schema.json",
+      "byteLength": 2250,
+      "sha256": "fd46394362025ea2e361190d1d0898d3e9d2bcc75ac80e27cfa126b38eadb768"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/TrustedProviderEvidenceEnvelopeV1.schema.json",
+      "byteLength": 3925,
+      "sha256": "24d0f85b28051693670ac983e9c534d23fc3b362f861ab02d4f29013d2844ba5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/TrustedProviderEvidenceSourceV1.schema.json",
+      "byteLength": 2798,
+      "sha256": "3ca87f612e09304ca38540bb24c23c5c55db24999b9b1b006099c3ef16249214"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/schemas/WorkflowCommandTransitionReceiptV1.schema.json",
+      "byteLength": 1281,
+      "sha256": "be780e8ef5b9301f27b9945ddb9573ec8475cef5e7aaff3e9ee63717dfc292e5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/scorer-verifier-v5-r8.mjs",
+      "byteLength": 26860,
+      "sha256": "cd14e9e44f3186cb16dbe361e20e05f21f7577dd464999dc970435b18c2c3d2c"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/semantic-dispatch-v5-r7.mjs",
+      "byteLength": 13922,
+      "sha256": "356e6ed4594f1a92f307daa39dff6d4bd1d9abdbcbc0c2f01fc794e9dc633c6f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/source-closure-v5-r6.mjs",
+      "byteLength": 4995,
+      "sha256": "5e0661e1db6ffac000ef162fe5a92efb7b2958324c12fb675ce75071f0ea0e1f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/state-bound-dispatch-v5-r5.mjs",
+      "byteLength": 19236,
+      "sha256": "ffd986fd4080aaec99e379ae7d786806d6d7ed249878d8237ccf686327d6705b"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/statistical-kernel-v5-r8.mjs",
+      "byteLength": 49018,
+      "sha256": "df35702a403bbb85a213de7a34ef64ca7e95c9998d0b1d1acef2fb93fb36e685"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/trusted-provider-evidence-v5-r8.mjs",
+      "byteLength": 10798,
+      "sha256": "e39f0c94b1456aa1111c8efdb8e5efb467bde500a55ca0d03c3283cf169f4d28"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r5.mjs",
+      "byteLength": 12416,
+      "sha256": "135621ff1c0d9e6710365fa2e03bfc6e042d3d0016965e7709ff3e5f33bfeea7"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r6.mjs",
+      "byteLength": 12447,
+      "sha256": "20be11d64d48681a047d4643e628d260ecfe6c258c5331491ead8c3c674c576f"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r7.mjs",
+      "byteLength": 5725,
+      "sha256": "60ad11a9277d04ba76b0912a2d589d64170e289aa6d181e244976843f6e357e5"
+    },
+    {
+      "path": "coordination/content-qa/mais-natural-ca60-v1/workflow-index-v5-r8.mjs",
+      "byteLength": 6275,
+      "sha256": "282ea03996a7486fcfa44de2e216ceccfab5b10522ab0d532531c7889800c585"
+    },
+    {
+      "path": "coordination/reports/mais-natural-ca60-v5-r6-runner-review/independent-runner-review-receipt.json",
+      "byteLength": 943,
+      "sha256": "1463c287de7c350a294d9e7736964c67164a662379c128948433ec0b1538056b"
+    },
+    {
+      "path": "coordination/reports/mais-natural-ca60-v5-r7-runner-review/independent-runner-review-receipt.json",
+      "byteLength": 1359,
+      "sha256": "5eec2fdc158f99d79dfa63af807dd097746a3405987f64f24dca61341fb6546d"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/authorization-requests/2026-08-26-provider-authorization-sequencing.json",
+      "byteLength": 8493,
+      "sha256": "10858b16d0267d2fd909ff376c2e76bea6b63c5d985f90d03e8caf9510373894"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/owner-decisions/2026-08-26-frame-rights-lineage/owner-decision-receipt.json",
+      "byteLength": 3885,
+      "sha256": "006471b7e0b48af8d62eb9956cd2525076fe76b4bed54a839a48afd04ecf636a"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r3/runner-registration.json",
+      "byteLength": 15314,
+      "sha256": "2cf7d74076cb66c51729f154ed2cbf8f1537d5151c9f188c76c8995e7bbabc8f"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r4/runner-registration.json",
+      "byteLength": 20593,
+      "sha256": "3821507c081e813f91cc446d717d2ba4e0fbb0c948593f466315d753a6597501"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r5/runner-registration.json",
+      "byteLength": 16580,
+      "sha256": "899c6d68ca74622d570283c8de4e93e649e8704d26500055e4b50118cc8ac4f0"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r6/runner-registration.json",
+      "byteLength": 41452,
+      "sha256": "0c278a54d3900f1b09fb46a47781ad5c0e7509896ce0624b47d4f8198c6a1f8e"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r7/runner-registration.json",
+      "byteLength": 94143,
+      "sha256": "2f1f619d66dc8d51c161449a17ae023866748ab987c38eb508bfc65d276a025f"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r8/build-runner-registration.mjs",
+      "byteLength": 10442,
+      "sha256": "a0f1c2ab69fb092872b252629b712fee09cf6e3a325474ead7ff79e092b30944"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r8/runner-registration-artifact.test.mjs",
+      "byteLength": 4422,
+      "sha256": "5e11bdff72b671ee94d60303a2681cd096e4e3d2531bb4925c4944658c87b07c"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v2/design-contract.mjs",
+      "byteLength": 74552,
+      "sha256": "1e5439f447b7001756b9cca10d0c02e23686ee767a6ae815723ff21a8e0fc4d8"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/design-contract.mjs",
+      "byteLength": 312825,
+      "sha256": "d052b3e661ed2c2810ae3f1f0265cd6281b81e5e7329e3c97215a5a7c56aecb0"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/sample-contract.mjs",
+      "byteLength": 268048,
+      "sha256": "792690965ccfef65862f517c754c5459200abf34bb89cfcb7263db53b8620f41"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/schemas/ProviderAttemptReceiptV1.schema.json",
+      "byteLength": 17675,
+      "sha256": "92042fd2cc3ae950a94d946770dfa3b2fda011cba97b8408640f9458f8de2871"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v4/schemas/ProviderAuthorizationV1.schema.json",
+      "byteLength": 10006,
+      "sha256": "3fa96ea150e73acb377e32977a7106083c4307a30d3c6fa860007c0886a06bca"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/design-contract.mjs",
+      "byteLength": 29189,
+      "sha256": "51fc29947361576e95c21ee88b235abe56a8ff81b0bc2e9f5f738f2b9e5d988f"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/design-registration.json",
+      "byteLength": 108105,
+      "sha256": "c2e962b4e8dba0f558a08cdb8e654ae97139ee0a9db7c90eccb03666764e08a9"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/OpenAIReferenceRoleOutputV1.schema.json",
+      "byteLength": 1933,
+      "sha256": "a75c31b9b1eb15243c906eab9fdfe6f24b45818626c26b111a1dd86c62e3994c"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/ProviderAttemptReceiptV2.schema.json",
+      "byteLength": 7730,
+      "sha256": "b434d93ef6de85d72791b9434403073b21322aae30d60727d07ca39c805427a5"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/ProviderLogicalRequestV2.schema.json",
+      "byteLength": 2221,
+      "sha256": "49f1f7fa8e95e1a80a457809b1a7ba114767b03b02f45e525486536014a32f05"
+    },
+    {
+      "path": "coordination/research/mais-natural-ca60-v1/versions/design-v5/schemas/ProviderWireEvidenceV2.schema.json",
+      "byteLength": 2566,
+      "sha256": "519b0ecb5d6bf658e400cf6d5e8c0378da1eba2df2569c946ab0b92a01f4fff5"
+    },
+    {
+      "path": "coordination/session-logs/2026-08-26-A07-mais-natural-ca60-v5-r8.md",
+      "byteLength": 9919,
+      "sha256": "8dfbed8cc8da895b48927d187e80887e92482ffbd56d6c832ac18c6bd4fce9e6"
+    }
+  ],
+  "testSourceRootHash": "a2673d551d3bbde11389f9d870e7d081bb80a95e75196af90780c5d21c642b54",
+  "supersededProductionSourceRootHash": "7657d0f6682da71d7935405dfb3dd5c899b2f96735042f9639431dc3900b1bf7",
+  "supersededTestSourceRootHash": "f5f3f9b88c4851d2adbb5f8792aaf7646d091b30db3697eb6f1e93be81b37c00",
+  "supersededImportClosureRootHash": "d68081aabcb3b6a738117970607f9d9edf240ef3dd04fdbdfabd73b29a2b4866",
+  "sourceClosureMode": "FULL_TRANSITIVE_RUNTIME_CLOSURE_GIT_OBJECT_BYTES_VERIFIED",
+  "registrationPathPolicy": "IMMUTABLE_SINGLE_ADD_COMMIT_NO_LATER_TOUCH",
+  "remediatedFindingIds": [
+    "A11-R7-001",
+    "A11-R7-002",
+    "A11-R7-003",
+    "A11-R7-004",
+    "A11-R7-005",
+    "A11-R7-006",
+    "A11-R7-007",
+    "A11-R7-008"
+  ],
+  "closureKernels": {
+    "statisticsAndItemCustodyHash": "e173e82bcd701a8fe1bfb81981261d42a755e93d0c47a6f919e5fa5f6435d98c",
+    "attemptGraphAndRecoveryHash": "bd45b81a445ded9086ae43da0821cc0979a5d0504ac9afc93975b1070d51f0e3",
+    "trustedProviderEvidenceHash": "69f987d56918a9eafc62e32e2fbc49f10207b729fc86d174011e8128004e4420",
+    "freshReviewAndGitCustodyHash": "17bda8b6042a3feea4e85aefbd7b18c304beec75a86533300c393e693df2bc4a",
+    "runtimeCliActivationHash": "3de45a8b376d8ee546205e86629e95f0f8df6e0581f0039580d030bada0ec2e6",
+    "closedSchemaCatalogHash": "53125d79ad8991c7b28dcc1f27a6a99b5aa6d734a6060556095e7acbd57cdca0",
+    "fullTransitiveSourceClosureHash": "121fd08aaf4ba08ffc9fb91f5f992116aaaffc926960bcb9082a9c2e486131d9"
+  },
+  "runtimeSourceEnumerationRootHash": "6a27196d501cc26661b57698ce80ca14a3c5eb49cde6a53e23648a23d8414e56",
+  "trustedProviderEvidenceAnchors": [],
+  "routeAuthenticityState": "ROUTE_AUTHENTICITY_BLOCKED_NO_PINNED_TRUST_ANCHOR",
+  "providerEntrypoints": {
+    "openAI": {
+      "provider": "OPENAI_DIRECT",
+      "model": "gpt-5.6-luna",
+      "endpoint": "https://us.api.openai.com/v1/responses",
+      "projectResidency": "US_STORAGE_PROCESSING",
+      "registeredCli": "runner-v5-r8-cli.mjs",
+      "coreGuardHash": "5c6813d6999b613c9658d187901fd55ab06f18eb5385a2b460243cfea8c6149a",
+      "providerCallsMade": 0
+    },
+    "deepSeek": {
+      "provider": "DEEPSEEK_DIRECT",
+      "model": "deepseek-v4-pro",
+      "endpoint": "https://api.deepseek.com/chat/completions",
+      "projectResidency": "UNRESOLVED",
+      "registeredCli": "runner-v5-r8-cli.mjs",
+      "coreGuardHash": "5c6813d6999b613c9658d187901fd55ab06f18eb5385a2b460243cfea8c6149a",
+      "providerCallsMade": 0
+    }
+  },
+  "authorizationState": {
+    "credentialReadAuthorized": false,
+    "providerExecutionAuthorized": false,
+    "naturalQuestionEgressAuthorized": false,
+    "tokenAuthorizationCreated": false,
+    "attemptAuthorizationCreated": false,
+    "usdAuthorizationCreated": false,
+    "credentialReadCount": 0,
+    "providerEventCount": 0,
+    "naturalQuestionEgressCount": 0,
+    "tokenCount": 0,
+    "attemptCount": 0,
+    "usdSpent": 0,
+    "referenceLabelCount": 0,
+    "naturalQuestionResultCount": 0
+  },
+  "status": "OFFLINE_IMPLEMENTED_PENDING_FRESH_A11_V5_R8_REVIEW_PROVIDER_EXECUTION_BLOCKED",
+  "claimCeiling": "FRAME_AND_SAMPLE_FROZEN_RUNNER_OFFLINE_IMPLEMENTED_NOT_EXECUTED",
+  "selfHash": "ea5cb617a77a2521e473846c35267f419723fd9bf6c0ca8bef8cd6fc9fa46160"
+}
