@@ -82,7 +82,6 @@ test("Visualization Lab browser regression plan keeps canonical premium variants
 
   assert.deepEqual(plan.premiumSceneVariants, [
     "conic-section-deep",
-    "cross-section-slicer",
     "curriculum-crosswalk",
     "distribution-machine",
     "exam-strategy-capstone",
@@ -123,7 +122,7 @@ test("Visualization Lab browser regression plan serializes stable A11 handoff at
     attributes["data-viz-browser-regression-plan-source-contract"],
     VISUALIZATION_BROWSER_REGRESSION_PLAN_SOURCE_CONTRACT
   );
-  assert.equal(attributes["data-viz-browser-regression-plan-premium-variant-count"], "14");
+  assert.equal(attributes["data-viz-browser-regression-plan-premium-variant-count"], "13");
   assert.equal(attributes["data-viz-browser-regression-plan-projection-views"], "included");
   assert.equal(attributes["data-viz-browser-regression-plan-hk-package-max-labs"], "8");
   assert.match(attributes["data-viz-browser-regression-plan-premium-variants"], /projection-views/);

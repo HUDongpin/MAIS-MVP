@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a22-us-ca-g6-ratios-v2-build-isolation-baseline-c689",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-26T16:25:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyInstall": {"command": "npm ci", "result": "pass"},
+    "typeCheck": {"command": "npm run type-check", "result": "pass"},
+    "productionBuild": {
+      "command": "npm run build",
+      "result": "pass",
+      "compiled": true,
+      "staticPageGenerationCount": 228,
+      "deploymentPerformed": false
+    },
+    "buildIsolationProof": {
+      "unitAndPathSafetyTestsPassed": 80,
+      "unitAndPathSafetyTestsFailed": 0,
+      "nextEnvTrackedPreimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageMatchesPreimage": true,
+      "worktreeTrackedDiffCountAfterBuild": 0
+    },
+    "runtimeBaselineDiff": {
+      "protectedRuntimeChangeCount": 0,
+      "candidateSourceChangeCount": 0,
+      "liveFileChangeCount": 0
+    },
+    "externalSideEffects": {
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0
+    },
+    "postRunOwner": "A22",
+    "liveAllowed": false
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "promotion-terminal-current-head-audit-policy.v1",
+  "policyId": "us-ca-math-rag-v2-g6-ratios-v1-attempt-001-terminal-current-head-audit-v1",
+  "gateId": "promotion-gate-shadow-v1",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+  "attemptId": "attempt-001",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "terminalArtifacts": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json",
+      "rawSha256": "7bcb27d6b9604a1dd4c41f75fba18718b03a7d97046f44923790aa7f207943bc"
+    },
+    "evidenceIndex": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence-index.v1.json",
+      "rawSha256": "257384dc22fa6d46c2a9220c9de12c8fb164412bf2bec673685fde1277760297"
+    },
+    "canonicalReceipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json",
+      "rawSha256": "04c83d2b44fd0ec1daf588b7b28509c6a193eee539d99be09a5dc7420ee8e668"
+    },
+    "independentReceipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/a11-independent-shadow-receipt.v1.json",
+      "rawSha256": "0ef983a268e9d0f89620c499ddde885475a6b9b2c7c5d739b735b5ca0a87ecf7"
+    },
+    "a18Authority": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/authorities/a18-repair-required.v1.json",
+      "rawSha256": "d37e72c5dd8d9892519ed504d76603b03a449e2fc182bf3611889fafffb0ca18"
+    },
+    "a23Authority": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/authorities/a23-repair-required.v1.json",
+      "rawSha256": "146e885ff840ca8260bfffdb31dac9d620f0622bf30f9c5b54409530d75f6e10"
+    },
+    "disposition": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/attempt-disposition.v1.json",
+      "rawSha256": "a9de500e46aca1b9c9d6be100838d39e35d90e3b3cc57b0d8764a9f1dded9fc1"
+    },
+    "registry": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/lifecycle-registry.v1.json",
+      "rawSha256": "3e13c8afa90a77a5ce8328bf75bd06f6f3e8a76aed20d0f023ebd1aa0fda698f"
+    },
+    "a11Postrun": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/postrun/a11-independent-replay.v1.json",
+      "rawSha256": "6b1c3e9bf20179ac18e93d42a8bd93fdd88d30d133dd71ff4e1e804f889adc18"
+    },
+    "a22Postrun": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/postrun/a22-shadow-isolation.v1.json",
+      "rawSha256": "370eec6b1a65029ea53b26784f65fac871cf88d99a3d81d4bf67f34a8faae5f3"
+    }
+  },
+  "auditRelease": {
+    "version": "promotion-terminal-current-head-audit-v1",
+    "releaseCommit": "b1226be686472afac926603040b2fe0b14b7801c",
+    "ledger": {
+      "path": "coordination/integration/current-head-audit/promotion-terminal-audit-releases.v1.json",
+      "rawSha256": "3e338aa8eecb21fa082a4396131df0d39fd6d1ecc68f6e214b8b650ecbadb423"
+    },
+    "bundleAlgorithm": "sha256-stable-json-path-raw-v1",
+    "bundleDigest": "2562953e2a72bd17f7bd2825c8d7778f7c36801e07a262fe2483545b30a26f47",
+    "frozenCoreBundleDigest": "517f670a46ce82be60b11ee1b179f63e274517ca5f431d95be58805fa96ededf"
+  },
+  "authorizations": {
+    "auditAllowed": true,
+    "shadowRetryAllowed": false,
+    "integrationAllowed": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false
+  },
+  "liveAllowed": false,
+  "maturityClaim": "not-shadow-mature",
+  "policyDigest": "0b4642fa5987e60ce4cca448ebfcf04b4ee2e4892d2bec153641e5c9309594a7"
+}

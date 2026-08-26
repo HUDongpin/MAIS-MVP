@@ -19,6 +19,7 @@ import { assertNoBrokenStrayGeneratedTypes } from "./check-stray-generated-types
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_NEXT_DIST_DIR = ".next";
+const NEXT_ENV_SIDECAR = "next-env.d.ts";
 const BUILD_ATTESTATION_FILENAME = "mais-build-attestation.json";
 const BUILD_ATTESTATION_ARTIFACT_PATHS = Object.freeze([
   "BUILD_ID",
@@ -94,6 +95,52 @@ export async function cleanNextBuildDirectory(config) {
   return true;
 }
 
+export async function captureNextEnvPreimage(repoRoot) {
+  const absolutePath = path.join(repoRoot, NEXT_ENV_SIDECAR);
+  try {
+    const entry = await fs.lstat(absolutePath);
+    if (entry.isSymbolicLink() || !entry.isFile()) {
+      throw new Error(`${NEXT_ENV_SIDECAR} must be a regular non-symlink file before build.`);
+    }
+    return {
+      path: absolutePath,
+      existed: true,
+      mode: entry.mode,
+      bytes: await fs.readFile(absolutePath)
+    };
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return { path: absolutePath, existed: false, mode: null, bytes: null };
+    }
+    throw error;
+  }
+}
+
+export async function restoreNextEnvPreimage(preimage) {
+  if (!preimage?.path || path.basename(preimage.path) !== NEXT_ENV_SIDECAR) {
+    throw new Error("Refusing to restore an invalid Next environment sidecar preimage.");
+  }
+  let currentEntry = null;
+  try {
+    currentEntry = await fs.lstat(preimage.path);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+  if (currentEntry?.isSymbolicLink() || (currentEntry && !currentEntry.isFile())) {
+    throw new Error(`${NEXT_ENV_SIDECAR} changed into an unsafe non-file during build.`);
+  }
+  if (!preimage.existed) {
+    if (currentEntry) await fs.rm(preimage.path, { force: false });
+    return;
+  }
+  if (!Buffer.isBuffer(preimage.bytes)) {
+    throw new Error(`Missing ${NEXT_ENV_SIDECAR} byte preimage.`);
+  }
+  const currentBytes = currentEntry ? await fs.readFile(preimage.path) : null;
+  if (currentBytes?.equals(preimage.bytes)) return;
+  await fs.writeFile(preimage.path, preimage.bytes, { mode: preimage.mode });
+}
+
 export async function assertSharedNextBuildIsIsolated(
   config,
   _env = process.env,
@@ -132,6 +179,8 @@ export async function runNextCleanBuild({
   const cleanBuildDir = operations.cleanNextBuildDirectory ?? cleanNextBuildDirectory;
   const spawnBuild = operations.spawnNextBuild ?? spawnNextBuild;
   const checkStrayGeneratedTypes = operations.checkStrayGeneratedTypes ?? assertNoBrokenStrayGeneratedTypes;
+  const captureNextEnv = operations.captureNextEnvPreimage ?? captureNextEnvPreimage;
+  const restoreNextEnv = operations.restoreNextEnvPreimage ?? restoreNextEnvPreimage;
 
   return await withGeneratedCleanupLock(
     {
@@ -149,8 +198,13 @@ export async function runNextCleanBuild({
       if (env.MAIS_SKIP_STRAY_TYPES_CHECK !== "1") {
         checkStrayGeneratedTypes({ repoRoot: config.repoRoot });
       }
-      await cleanBuildDir(config);
-      return await spawnBuild(config, env);
+      const nextEnvPreimage = await captureNextEnv(config.repoRoot);
+      try {
+        await cleanBuildDir(config);
+        return await spawnBuild(config, env);
+      } finally {
+        await restoreNextEnv(nextEnvPreimage);
+      }
     }
   );
 }

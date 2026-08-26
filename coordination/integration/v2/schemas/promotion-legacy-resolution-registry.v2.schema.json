@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.example/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+  "title": "Promotion Gate legacy resolution registry v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "observerVersion", "targetBaselineCommit", "expectedCanonicalAudit", "ratchet", "resolutions"],
+  "properties": {
+    "schemaVersion": { "const": "promotion-legacy-resolution-registry.v2" },
+    "observerVersion": { "const": "promotion-legacy-resolution-observer.v2" },
+    "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+    "expectedCanonicalAudit": { "type": "object" },
+    "ratchet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["originalPackageId", "introducedAt", "expiresAt", "closedAt", "terminalDecision", "activeExceptions", "remediationOwners", "reviewOwners"],
+      "properties": {
+        "originalPackageId": { "const": "us-ca-k5-knowledge-point-practice-v1" },
+        "introducedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "closedAt": { "type": "string", "format": "date-time" },
+        "terminalDecision": { "const": "remove-live" },
+        "activeExceptions": { "const": [] },
+        "remediationOwners": { "const": ["A04", "A18", "A23", "A11", "A22"] },
+        "reviewOwners": { "const": ["A23", "A25"] }
+      }
+    },
+    "resolutions": {
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["resolutionId", "historicalClass", "decision", "candidate", "liveProjection", "approvalReferences", "resolutionCommits", "enforcement"],
+        "properties": {
+          "resolutionId": { "type": "string", "minLength": 1 },
+          "historicalClass": { "enum": ["new", "opaque", "known", "approved-projection"] },
+          "decision": { "enum": ["de-reached", "approved-projection"] },
+          "candidate": { "$ref": "#/$defs/contentBinding" },
+          "liveProjection": { "anyOf": [{ "$ref": "#/$defs/contentBinding" }, { "type": "null" }] },
+          "approvalReferences": { "type": "array", "items": { "$ref": "#/$defs/approval" } },
+          "resolutionCommits": { "type": "array", "items": { "$ref": "#/$defs/commit" } },
+          "enforcement": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["candidateMustBeUnreachable", "liveProjectionMustBeReachable", "liveAllowed"],
+            "properties": {
+              "candidateMustBeUnreachable": { "const": true },
+              "liveProjectionMustBeReachable": { "type": "boolean" },
+              "liveAllowed": { "const": false }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "contentBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256", "packageId", "containerKeys", "idCount", "idSetDigest"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "packageId": { "type": ["string", "null"] },
+        "containerKeys": { "type": "array", "minItems": 1, "items": { "type": "string" }, "uniqueItems": true },
+        "idCount": { "type": "integer", "minimum": 1 },
+        "idSetDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256", "decision"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "decision": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "promotion-a22-shadow-isolation.v2",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-26T10:40:00+08:00",
+  "executionCommit": "ea1207067e0eadec3d27872fe7dc57dcc7f97b9e",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/promotion-manifest.v2.json",
+    "rawSha256": "f178737874a7cc02244f9ec2ecda70fa512cd50190a3879ba30fc2fd18d9c948"
+  },
+  "receipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/shadow-receipt.v2.json",
+    "fileRawSha256": "22f7a52a7f84dd6d983288163652859066301cb9d0b10dc6a5c76e7662516a78",
+    "rawReceiptDigest": "7bcdf2f289114633e5c05e88d6dbcc87f210635fd243523fe7ba97199af6378f",
+    "semanticReceiptDigest": "c5ad3178ed0e265259a7f2d2468c1be0d59cd31b16a2fd3289817c5006394ee2"
+  },
+  "cleanSourceProof": {
+    "worktree": "os-temp-detached-worktree/canonical",
+    "worktreeClean": true,
+    "exactExecutionCommit": true,
+    "candidateSnapshotMatchesReceipt": true,
+    "forbiddenSnapshotMatchesReceipt": true,
+    "candidateSourceByteIdentical": true,
+    "forbiddenChangedPathCount": 0
+  },
+  "outputIsolationProof": {
+    "outputAggregateDigest": "3b73e25c5add052dd2e3549438780dd81e2bf94b479f005bbd6fb93e1a277081",
+    "semanticOutputDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192",
+    "rollbackStrategy": "remove-new-isolated-temp-root",
+    "preimage": "absent",
+    "postimage": "absent",
+    "exactPreimageRestored": true
+  },
+  "preflightBuildProof": {
+    "typeCheckPassed": true,
+    "unitAndPathSafetyTestsPassed": 26,
+    "productionBuildPassed": true,
+    "staticPageGenerationCount": 228,
+    "nextEnvPreimageRestored": true,
+    "deploymentPerformed": false
+  },
+  "externalSideEffects": {
+    "networkRequestCount": 0,
+    "providerCallCount": 0,
+    "databaseWriteCount": 0,
+    "deploymentCommandCount": 0,
+    "productionWriteCount": 0,
+    "liveRegistryWriteCount": 0
+  },
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitStatus": "shadow_passed",
+  "liveAllowed": false,
+  "maturityClaim": "shadow-passed / ci-enforcement-pending"
+}

@@ -4,6 +4,7 @@ import type { ThreeDRegionalPriority } from "./threeDSceneTypes";
 import {
   buildThreeDStateSummary,
   familyForVisualizationTemplate,
+  heldCandidatePremiumThreeDLabIds,
   familyForVisualizationLab,
   isPremiumThreeDLaunchLab,
   premiumThreeDLaunchLabIds,
@@ -66,10 +67,7 @@ test("selects the approved regional premium launch bands", () => {
     "cross-region": 0
   };
 
-  // 80 -> 68 on 2026-08-25: the 12 California premium-3D topics were retired
-  // (Codex-lab replacement plan Phase 2a); their canonical lab is the Claude
-  // signature bench.
-  assert.equal(premiumThreeDLaunchLabIds.size, 68);
+  assert.equal(premiumThreeDLaunchLabIds.size, 42);
 
   for (const labId of premiumThreeDLaunchLabIds) {
     const region = regionalPriorityForThreeDLaunchLab(labId);
@@ -79,10 +77,10 @@ test("selects the approved regional premium launch bands", () => {
   }
 
   assert.deepEqual(counts, {
-    mainland: 40,
+    mainland: 24,
     california: 0,
     "hong-kong": 9,
-    "cross-region": 19
+    "cross-region": 9
   });
 
   assert.equal(isPremiumThreeDLaunchLab("pep-high-s5-conics"), true);
@@ -90,6 +88,7 @@ test("selects the approved regional premium launch bands", () => {
   assert.equal(isPremiumThreeDLaunchLab("calculus"), true);
   assert.equal(isPremiumThreeDLaunchLab("capstone-hk-mainland-crosswalk-explorer"), true);
   assert.equal(isPremiumThreeDLaunchLab("p1-counting-number-bonds"), false);
+  assert.ok([...heldCandidatePremiumThreeDLabIds].every((labId) => !isPremiumThreeDLaunchLab(labId)));
 });
 
 test("looks up fallback family for a template", () => {

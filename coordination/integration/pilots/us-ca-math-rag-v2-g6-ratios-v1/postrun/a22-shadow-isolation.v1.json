@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "promotion-a22-postrun.v1",
+  "role": "A22",
+  "result": "pass",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+  "attemptId": "attempt-001",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "canonicalRunId": "a23-shadow-attempt-001-canonical",
+  "independentRunId": "a11-shadow-attempt-001-replay",
+  "canonicalRawReceiptDigest": "6599be3bb414e1737d631aaaa5a46ddc253ca4c26c605f3b842dceda2ae5aa92",
+  "independentRawReceiptDigest": "b230ee81e1cd37ddcb1c5dca773cff7fa9f0de5d90c30fc8aaea79f14498990a",
+  "semanticReceiptDigest": "e7be6e6db1031794b6522bedd7cc87496b2efa8832abf81ed43d58cf6a4f3316",
+  "shadowExecuted": true,
+  "rollbackRehearsed": true,
+  "replayCompleted": true,
+  "noDeployment": true,
+  "noProductionWrite": true
+}

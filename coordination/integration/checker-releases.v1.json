@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "promotion-checker-releases.v1",
+  "entries": [
+    {
+      "version": "promotion-gate-shadow-v1",
+      "bundleAlgorithm": "sha256-stable-json-path-raw-v1",
+      "bundlePaths": [
+        "coordination/integration/promotion-gate-lib.mjs",
+        "coordination/integration/promotion-gate.mjs",
+        "coordination/integration/schemas/promotion-manifest.v1.schema.json",
+        "coordination/integration/schemas/promotion-receipt.v1.schema.json",
+        "coordination/integration/promotion-gate.test.mjs",
+        "package.json",
+        "package-lock.json"
+      ],
+      "bundleDigest": "517f670a46ce82be60b11ee1b179f63e274517ca5f431d95be58805fa96ededf"
+    }
+  ]
+}

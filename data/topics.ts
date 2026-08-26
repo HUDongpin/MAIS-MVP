@@ -1,16 +1,12 @@
 import type { Topic } from "@/types";
 import { mainlandBnuHighTopics } from "./mainlandBnuHighTopics";
 import { mainlandBnuJuniorTopics } from "./mainlandBnuJuniorTopics";
-import { mainlandBnuPrimaryTopics } from "./mainlandBnuPrimaryTopics";
-import { mainlandHjbHighTopics } from "./mainlandHjbHighTopics";
 import { mainlandHjbJuniorTopics } from "./mainlandHjbJuniorTopics";
-import { mainlandHjbPrimaryTopics } from "./mainlandHjbPrimaryTopics";
 import { mainlandPepHighTopics } from "./mainlandPepHighTopics";
 import { mainlandPepJuniorTopics } from "./mainlandPepJuniorTopics";
 import { mainlandPepPrimaryTopics } from "./mainlandPepPrimaryTopics";
 import { usArkansasTopics } from "./usArkansasTopics";
 import { usCaliforniaTopics } from "./usCaliforniaTopics";
-import { usFloridaMiddleSchoolTopics } from "./usFloridaMiddleSchoolTopics";
 import { usMathLiveTopics } from "./usMathTopics";
 
 const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
@@ -512,13 +508,9 @@ export const topics: Topic[] = [
   ...mainlandPepJuniorTopics,
   ...mainlandPepHighTopics,
   ...mainlandBnuJuniorTopics,
-  ...mainlandBnuPrimaryTopics,
   ...mainlandBnuHighTopics,
-  ...mainlandHjbPrimaryTopics,
   ...mainlandHjbJuniorTopics,
-  ...mainlandHjbHighTopics,
   ...usArkansasTopics,
-  ...usFloridaMiddleSchoolTopics,
   ...usMathLiveTopics.filter((topic) => topic.curriculumTrack !== "US_CA_MATH"),
   ...usCaliforniaTopics
 ];

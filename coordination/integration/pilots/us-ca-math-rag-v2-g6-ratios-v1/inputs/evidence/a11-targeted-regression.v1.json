@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a11-targeted-regression-v1",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-24T19:57:53.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-replay.v1",
+    "evidencePhase": "preflight",
+    "replayContract": "independent-synthetic-and-real-shaped-v1",
+    "selectedArtifactIds": [
+      "ca-rag-v2-cluster-grade-6-6-rp-ratios",
+      "s04-ca-rag-v2-q031-6-rp-ratios",
+      "s05-ca-rag-v2-lesson-031-6-rp-ratios"
+    ],
+    "historicalStaticPreview": {
+      "reportPath": "coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.json",
+      "reportRawSha256": "653c9f6c15d7ec604aa55a4231178d7f45fea98d40cb7c4683c9731e21a1eca9",
+      "reportStatus": "pass",
+      "practiceCards": 2,
+      "lessonCards": 2,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "liveAppRegression": false,
+      "referencedHtmlPresent": false,
+      "referencedScreenshotPresent": false,
+      "usableAsFinalPilotProof": false
+    },
+    "preflightAssertions": {
+      "testCommand": "npm run test:promotion-gate",
+      "syntheticSuiteRequired": true,
+      "realManifestValidationRequired": true,
+      "realShadowRequired": true,
+      "independentReplayRequired": true,
+      "verifyReceiptRequired": true
+    },
+    "postRunReportBoundary": {
+      "status": "required-after-execution",
+      "validationEnvelopeSchema": "promotion-validation.v1",
+      "validationResult": "pass",
+      "requiredCheckIds": [
+        "manifest-contract",
+        "candidate-integrity",
+        "evidence-currentness",
+        "mapping-compatibility",
+        "rollback-rehearsal",
+        "live-reachability",
+        "forbidden-diff",
+        "legacy-ratchet"
+      ],
+      "requiredReceiptSchema": "promotion-receipt.v1",
+      "requiredReceiptCount": 2,
+      "distinctRunIdsRequired": true,
+      "semanticReceiptDigestEqualityRequired": true,
+      "rawReceiptDigestInequalityRequired": false,
+      "verifyReceiptCount": 2,
+      "selectedCandidateReachableExpected": false,
+      "legacyRatchetResultExpected": "pass"
+    },
+    "legacy492Expectation": {
+      "packagePath": "data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json",
+      "questionCount": 492,
+      "uniqueIdCount": 492
+    },
+    "claims": {
+      "finalReplayCompleted": false,
+      "liveAppRegressionCompleted": false,
+      "previewVerified": false,
+      "deploymentVerified": false
+    }
+  }
+}

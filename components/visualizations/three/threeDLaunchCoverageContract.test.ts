@@ -3,6 +3,8 @@ import fs from "node:fs";
 import test from "node:test";
 import {
   buildPremiumThreeDTopicStaticParams,
+  dormantThreeDFamilyIds,
+  heldCandidatePremiumThreeDLabIds,
   hubRouteForRetiredPremiumThreeDLab,
   premiumThreeDLaunchLabIds,
   retiredCaliforniaPremiumThreeDLabIds,
@@ -20,16 +22,12 @@ test("approved aggressive Three.js launch coverage stays inside required bands w
 
   assert.deepEqual(issues, []);
   assert.equal(report.familyCount, 27);
-  // 80 until 2026-08-25, when the 12 California premium-3D topics were retired
-  // (Phase 2a of the Codex-lab replacement plan): their canonical lab is the
-  // Claude signature bench, and the california band is pinned to 0-0 so a CA
-  // id reappearing in the launch map fails this contract.
-  assert.equal(report.topicPageCount, 68);
+  assert.equal(report.topicPageCount, 42);
   assert.deepEqual(report.regionalCounts, {
     california: 0,
-    "cross-region": 19,
+    "cross-region": 9,
     "hong-kong": 9,
-    mainland: 40
+    mainland: 24
   });
   assert.equal(report.requirement, threeDLaunchCoverageRequirement);
   assert.equal(report.familyCountInRange, true);
@@ -44,7 +42,9 @@ test("every approved Three.js family is reachable from a template or premium ove
 
   assert.deepEqual(report.unreachableFamilyIds, []);
   assert.equal(report.templateFamilyCount, 18);
-  assert.equal(report.overrideFamilyCount, 10);
+  assert.equal(report.overrideFamilyCount, 9);
+  assert.deepEqual(report.dormantFamilyIds, ["three-cross-section-slicer"]);
+  assert.deepEqual(dormantThreeDFamilyIds, new Set(["three-cross-section-slicer"]));
 });
 
 test("premium Three.js topic static params come from the approved launch manifest", () => {
@@ -52,7 +52,7 @@ test("premium Three.js topic static params come from the approved launch manifes
   const labIds = params.map((param) => param.labId);
   const uniqueLabIds = new Set(labIds);
 
-  assert.equal(params.length, 68);
+  assert.equal(params.length, 42);
   assert.equal(uniqueLabIds.size, params.length);
   assert.deepEqual(uniqueLabIds, premiumThreeDLaunchLabIds);
   assert.ok(params.every((param) => typeof param.labId === "string" && param.labId.length > 0));
@@ -120,6 +120,16 @@ test("retired California premium-3D topics stay off the launch manifest and redi
   const routeSource = fs.readFileSync("app/student/tools/visualizations/[labId]/page.tsx", "utf8");
   assert.match(routeSource, /hubRouteForRetiredPremiumThreeDLab\(normalizedLabId\)/);
   assert.match(routeSource, /if \(hubRoute\) redirect\(hubRoute\);/);
+});
+
+test("held candidate premium topics never become static direct-route params", () => {
+  const staticParamIds = new Set(buildPremiumThreeDTopicStaticParams().map((param) => param.labId));
+
+  assert.equal(heldCandidatePremiumThreeDLabIds.size, 26);
+  for (const labId of heldCandidatePremiumThreeDLabIds) {
+    assert.equal(premiumThreeDLaunchLabIds.has(labId), false, `${labId} remains in the launch manifest`);
+    assert.equal(staticParamIds.has(labId), false, `${labId} remains in generated static params`);
+  }
 });
 
 test("pure Three.js coverage contracts avoid importing the live visualization catalog", () => {
