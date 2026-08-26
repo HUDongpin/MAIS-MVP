@@ -39,7 +39,7 @@ const execFile = promisify(execFileCallback);
 
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002";
-const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/promotion-manifest.v2.json";
+const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/promotion-manifest.v2.json";
 
 async function readJson(relativePath) {
   const loaded = await readAuthoritativeFile(repoRoot, relativePath);
@@ -314,6 +314,88 @@ test("semantic Receipt digest ignores run metadata while raw digest remains uniq
   assert.notEqual(first.rawReceiptDigest, second.rawReceiptDigest);
 });
 
+test("semantic Receipt digest normalizes safe host temp paths while raw proof remains exact", () => {
+  const externalProofA = {
+    schemaVersion: "promotion-external-side-effect-proof.v2",
+    policy: "read-only-git-local-temp-only.v2",
+    checkerBundleDigest: "a".repeat(64),
+    registeredOperations: ["create-new-os-temp-root"],
+    sourceBindings: [],
+    sourceBindingsDigest: "b".repeat(64),
+    tempEnvironment: [
+      {
+        name: "node-os-tmpdir",
+        canonicalPathDigest: "c".repeat(64),
+        outsideRepository: true
+      },
+      {
+        name: "TMPDIR",
+        canonicalPathDigest: "c".repeat(64),
+        outsideRepository: true
+      }
+    ],
+    networkRequestCount: 0,
+    providerCallCount: 0,
+    databaseWriteCount: 0,
+    deploymentCommandCount: 0,
+    productionWriteCount: 0,
+    liveRegistryWriteCount: 0,
+    digest: "d".repeat(64)
+  };
+  const externalProofB = {
+    ...externalProofA,
+    tempEnvironment: [
+      {
+        name: "node-os-tmpdir",
+        canonicalPathDigest: "e".repeat(64),
+        outsideRepository: true
+      }
+    ],
+    digest: "f".repeat(64)
+  };
+  const base = {
+    schemaVersion: "promotion-receipt.v2",
+    run: { runId: "run-a", producedAt: "2026-08-26T00:00:00Z", ciMetadata: null },
+    result: "pass",
+    binding: { candidateDigest: "a".repeat(64), liveAllowed: false },
+    externalSideEffectProof: externalProofA,
+    checks: [
+      {
+        id: "external-side-effects-v2",
+        result: "pass",
+        details: { proofDigest: externalProofA.digest, externalSideEffectCount: 0 },
+        digest: "1".repeat(64)
+      }
+    ]
+  };
+  const first = attachV2ReceiptDigests(base);
+  const second = attachV2ReceiptDigests({
+    ...base,
+    externalSideEffectProof: externalProofB,
+    checks: [
+      {
+        id: "external-side-effects-v2",
+        result: "pass",
+        details: { proofDigest: externalProofB.digest, externalSideEffectCount: 0 },
+        digest: "2".repeat(64)
+      }
+    ]
+  });
+  const unsafe = attachV2ReceiptDigests({
+    ...base,
+    externalSideEffectProof: {
+      ...externalProofA,
+      tempEnvironment: externalProofA.tempEnvironment.map((entry, index) =>
+        index === 0 ? { ...entry, outsideRepository: false } : entry
+      )
+    }
+  });
+
+  assert.equal(first.semanticReceiptDigest, second.semanticReceiptDigest);
+  assert.notEqual(first.rawReceiptDigest, second.rawReceiptDigest);
+  assert.notEqual(first.semanticReceiptDigest, unsafe.semanticReceiptDigest);
+});
+
 test("shadow output creation rejects target collisions and case collisions, then removes its owned temp root", async () => {
   const collisionRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-shadow-v2-"));
   try {
@@ -387,7 +469,7 @@ test("pure Manifest validation rejects currentness drift before evidence I/O", a
   const previous = await readJson(`${pilotRoot}/promotion-manifest.v2.json`);
   const manifest = {
     ...previous,
-    attemptId: "attempt-003",
+    attemptId: "attempt-004",
     checkerVersion: PROMOTION_V2_CHECKER_VERSION,
     checkerRelease: {
       ...previous.checkerRelease,

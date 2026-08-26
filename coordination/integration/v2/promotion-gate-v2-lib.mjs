@@ -32,7 +32,7 @@ import {
 
 const execFile = promisify(execFileCallback);
 
-export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.2";
+export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.3";
 export const PROMOTION_V2_MANIFEST_SCHEMA = "promotion-manifest.v2";
 export const PROMOTION_V2_RECEIPT_SCHEMA = "promotion-receipt.v2";
 export const PROMOTION_V2_EVIDENCE_SCHEMA = "promotion-evidence.v2";
@@ -510,13 +510,13 @@ export function validateV2Manifest(manifest) {
   if (
     manifest.gateId !== "promotion-shadow-gate-v2" ||
     manifest.pilotUnitId !== PROMOTION_V2_CANDIDATE.promotionUnitId ||
-    manifest.attemptId !== "attempt-003" ||
+    manifest.attemptId !== "attempt-004" ||
     manifest.mode !== "shadow" ||
     manifest.checkerVersion !== PROMOTION_V2_CHECKER_VERSION
   ) {
     throw new PromotionGateError(
       "V2_MANIFEST_IDENTITY_INVALID",
-      "Manifest identity must describe the immutable attempt-003 shadow pilot."
+      "Manifest identity must describe the immutable attempt-004 shadow pilot."
     );
   }
   validateCheckerReleaseBinding(manifest.checkerRelease);
@@ -2250,8 +2250,42 @@ function createCheck(id, result, details) {
   return attachDigest({ id, result, details });
 }
 
+function semanticExternalSideEffectProjection(proof) {
+  if (!isPlainObject(proof)) return proof;
+  const { digest: _rawDigest, tempEnvironment, ...stableProof } = proof;
+  const normalized = {
+    ...stableProof,
+    tempEnvironment: {
+      observed: Array.isArray(tempEnvironment) && tempEnvironment.length > 0,
+      allOutsideRepository:
+        Array.isArray(tempEnvironment) &&
+        tempEnvironment.length > 0 &&
+        tempEnvironment.every((entry) => isPlainObject(entry) && entry.outsideRepository === true)
+    }
+  };
+  return { ...normalized, digest: fingerprint(normalized) };
+}
+
+function semanticChecksProjection(checks, externalSideEffectProof) {
+  if (!Array.isArray(checks)) return checks;
+  return checks.map((check) => {
+    if (!isPlainObject(check) || check.id !== "external-side-effects-v2") return check;
+    const { digest: _rawDigest, ...withoutDigest } = check;
+    const normalized = {
+      ...withoutDigest,
+      details: isPlainObject(check.details)
+        ? { ...check.details, proofDigest: externalSideEffectProof?.digest ?? check.details.proofDigest }
+        : check.details
+    };
+    return { ...normalized, digest: fingerprint(normalized) };
+  });
+}
+
 function receiptSemanticProjection(receiptWithoutDigests) {
-  return {
+  const externalSideEffectProof = semanticExternalSideEffectProjection(
+    receiptWithoutDigests.externalSideEffectProof
+  );
+  const projection = {
     ...receiptWithoutDigests,
     run: {
       ...receiptWithoutDigests.run,
@@ -2260,6 +2294,13 @@ function receiptSemanticProjection(receiptWithoutDigests) {
       ciMetadata: null
     }
   };
+  if (Object.hasOwn(receiptWithoutDigests, "externalSideEffectProof")) {
+    projection.externalSideEffectProof = externalSideEffectProof;
+  }
+  if (Object.hasOwn(receiptWithoutDigests, "checks")) {
+    projection.checks = semanticChecksProjection(receiptWithoutDigests.checks, externalSideEffectProof);
+  }
+  return projection;
 }
 
 export function attachV2ReceiptDigests(receiptWithoutDigests) {
@@ -2353,7 +2394,7 @@ export function validateV2ReceiptStructure(receipt) {
   if (
     receipt.binding.gateId !== "promotion-shadow-gate-v2" ||
     receipt.binding.pilotUnitId !== PROMOTION_V2_CANDIDATE.promotionUnitId ||
-    receipt.binding.attemptId !== "attempt-003" ||
+    receipt.binding.attemptId !== "attempt-004" ||
     receipt.binding.parentPackageId !== PROMOTION_V2_CANDIDATE.parentPackageId ||
     receipt.binding.parentPackageStatus !== "candidate-only" ||
     receipt.binding.checkerVersion !== PROMOTION_V2_CHECKER_VERSION ||
@@ -2876,7 +2917,7 @@ export function renderV2PromotionDecisionMarkdown(receipt) {
   validateV2ReceiptStructure(receipt);
   const transition = receipt.lifecycle.recommendedState;
   const lines = [
-    "# Promotion Gate Shadow Decision — attempt-003",
+    "# Promotion Gate Shadow Decision — attempt-004",
     "",
     "> This file is derived from the machine Receipt. It is not an approval source.",
     "",
