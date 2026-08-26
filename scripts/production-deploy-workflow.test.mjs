@@ -160,6 +160,7 @@ test("deploy requires the exact confirmation and invokes the serialized producti
     MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: "github-actions-serialized-v1",
     MAIS_RELEASE_MIN_FREE_GB: "8",
     NODE_OPTIONS: "--max-old-space-size=6144",
+    VERCEL_AUTOMATION_BYPASS_SECRET: "${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}",
     VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
   });
   assert.match(
@@ -255,6 +256,7 @@ test("no shell body interpolates a secret or emits a credential-like value", asy
   }
   assert.doesNotMatch(text, /secrets\.GITHUB_TOKEN/u);
   assert.match(text, /secrets\.MAIS_RELEASE_GITHUB_TOKEN/u);
+  assert.match(text, /secrets\.VERCEL_AUTOMATION_BYPASS_SECRET/u);
   assert.match(text, /secrets\.VERCEL_TOKEN/u);
   assert.doesNotMatch(text, /\b(?:git push|git pull|vercel promote|vercel deploy)\b/iu);
 });

@@ -174,6 +174,7 @@ jobs:
           # The isolated release build exceeds Node's default ~2 GB old-space on
           # hosted runners. Match the already-green CI build jobs.
           NODE_OPTIONS: --max-old-space-size=6144
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |-
           test -n "$MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM"
