@@ -15,6 +15,9 @@ const resultPrefix = "NOVA_POSTGRES_INTEGRATION_RESULT=";
 const workerTimeoutMs = 120_000;
 const lockObservationTimeoutMs = 30_000;
 const workerClientExitTimeoutMs = 5_000;
+const transientReadinessAttemptLimit = 4;
+const transientReadinessRetryDelayMs = 250;
+const transientReadinessError = "Postgres storage readiness is unavailable.";
 // The controller deliberately expands its own pool while it coordinates lock
 // contention. Give those sibling backends a stable identity so the worker-leak
 // assertion observes workers, not whichever controller connection ran it.
@@ -35,6 +38,17 @@ const admissionDeadlinesMs = {
 type WorkerOutcome = {
   exitCode: number;
   result: Record<string, unknown>;
+};
+
+type WorkerOptions = {
+  bootstrapLockHoldMs?: number;
+  capabilityBarrier?: boolean;
+  capabilityStateLockHoldMs?: number;
+  hotAuthTables?: boolean;
+  mutationLockTimeoutMs?: number;
+  mutationStatementTimeoutMs?: number;
+  readinessObservationLockHoldMs?: number;
+  shadowSearchPath?: boolean;
 };
 
 type StateRow = {
@@ -89,16 +103,7 @@ function redactWorkerOutput(value: string) {
 async function runWorker(
   command: string,
   input: unknown = {},
-  options: {
-    bootstrapLockHoldMs?: number;
-    capabilityBarrier?: boolean;
-    capabilityStateLockHoldMs?: number;
-    hotAuthTables?: boolean;
-    mutationLockTimeoutMs?: number;
-    mutationStatementTimeoutMs?: number;
-    readinessObservationLockHoldMs?: number;
-    shadowSearchPath?: boolean;
-  } = {}
+  options: WorkerOptions = {}
 ): Promise<WorkerOutcome> {
   if (!integrationUrl) throw new Error("MAIS_POSTGRES_INTEGRATION_URL is unavailable.");
   return new Promise((resolve, reject) => {
@@ -179,21 +184,35 @@ async function runWorker(
   });
 }
 
+function isTransientReadinessContention(outcome: WorkerOutcome) {
+  return outcome.exitCode === 1 && outcome.result.error === transientReadinessError;
+}
+
+async function runWorkerForStableSemanticOutcome(
+  command: string,
+  input: unknown = {},
+  options: WorkerOptions = {}
+) {
+  let outcome: WorkerOutcome | null = null;
+  for (let attempt = 1; attempt <= transientReadinessAttemptLimit; attempt += 1) {
+    outcome = await runWorker(command, input, options);
+    if (!isTransientReadinessContention(outcome)) return outcome;
+    if (attempt < transientReadinessAttemptLimit) {
+      await new Promise<void>((resolve) => (
+        setTimeout(resolve, transientReadinessRetryDelayMs * attempt)
+      ));
+    }
+  }
+  assert.ok(outcome, `${command} produced no integration-worker outcome`);
+  return outcome;
+}
+
 async function runSuccessfulWorker(
   command: string,
   input: unknown = {},
-  options: {
-    bootstrapLockHoldMs?: number;
-    capabilityBarrier?: boolean;
-    capabilityStateLockHoldMs?: number;
-    hotAuthTables?: boolean;
-    mutationLockTimeoutMs?: number;
-    mutationStatementTimeoutMs?: number;
-    readinessObservationLockHoldMs?: number;
-    shadowSearchPath?: boolean;
-  } = {}
+  options: WorkerOptions = {}
 ) {
-  const outcome = await runWorker(command, input, options);
+  const outcome = await runWorkerForStableSemanticOutcome(command, input, options);
   assert.equal(outcome.exitCode, 0, `${command} failed: ${String(outcome.result.error ?? "unknown error")}`);
   return outcome.result;
 }
@@ -510,6 +529,31 @@ test("Nova PostgreSQL harness rejects destructive targets before creating a clie
     }));
     assert.equal(clientCreated, false, `client creation must remain blocked for ${rejectedUrl}`);
   }
+
+  assert.equal(
+    isTransientReadinessContention({
+      exitCode: 1,
+      result: { error: transientReadinessError }
+    }),
+    true,
+    "the exact fail-closed readiness error is the only retryable worker outcome"
+  );
+  assert.equal(
+    isTransientReadinessContention({
+      exitCode: 0,
+      result: { error: transientReadinessError }
+    }),
+    false,
+    "a successful worker result must never be retried"
+  );
+  assert.equal(
+    isTransientReadinessContention({
+      exitCode: 1,
+      result: { error: "snapshot is incomplete" }
+    }),
+    false,
+    "semantic worker failures must never be retried as readiness contention"
+  );
 
   let clientCreated = false;
   afterIntegrationDatabaseBoundary(
@@ -1226,7 +1270,10 @@ test(
           1
         );
 
-        const collision = await runWorker("write-message", { ...message, content: "conflicting content" });
+        const collision = await runWorkerForStableSemanticOutcome(
+          "write-message",
+          { ...message, content: "conflicting content" }
+        );
         assert.equal(collision.exitCode, 1);
         assert.match(String(collision.result.error), /conflicting/i);
         const afterCollision = await readState(sql);
@@ -1730,7 +1777,7 @@ test(
           `;
           const nonArrayEvidence = await readStateEvidence(sql);
           assert.equal(await readStorageReadinessMarkerCount(sql), 0);
-          const rejectedRead = await runWorker("guardian-invitation-read");
+          const rejectedRead = await runWorkerForStableSemanticOutcome("guardian-invitation-read");
           assert.equal(rejectedRead.exitCode, 1);
           assert.match(String(rejectedRead.result.error), /snapshot is incomplete/u);
           assert.deepEqual(await readStateEvidence(sql), nonArrayEvidence);
@@ -2076,7 +2123,7 @@ test(
         `;
         await sql`INSERT INTO auth_schema_migrations (version) VALUES (2)`;
 
-        const readiness = await runWorker("readiness");
+        const readiness = await runWorkerForStableSemanticOutcome("readiness");
         assert.equal(readiness.exitCode, 1);
         assert.match(String(readiness.result.error), /classroom source data failed migration validation/i);
         assert.match(String(readiness.result.error), /policy_records_valid/i);
@@ -2097,7 +2144,7 @@ test(
           null,
           "failed migration must roll back its v4-only tables"
         );
-        const strictReadiness = await runWorker("strict-readiness");
+        const strictReadiness = await runWorkerForStableSemanticOutcome("strict-readiness");
         assert.equal(
           strictReadiness.exitCode,
           1,
