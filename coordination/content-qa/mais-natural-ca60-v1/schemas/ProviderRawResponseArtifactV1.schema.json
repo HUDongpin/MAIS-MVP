@@ -1,0 +1,31 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ProviderRawResponseArtifactV1.schema.json",
+  "title":"ProviderRawResponseArtifactV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","authorizationHash","requestArtifactHash","reservationHash","dispatchAuditHash","attemptId","provider","role","itemHash","transportStatus","bodyReadStatus","httpStatus","rawResponseEncoding","rawResponseByteLength","rawResponseBodyHash","rawResponseBody","capturedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ProviderRawResponseArtifactV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "authorizationHash":{"$ref":"#/$defs/hash"},
+    "requestArtifactHash":{"$ref":"#/$defs/hash"},
+    "reservationHash":{"$ref":"#/$defs/hash"},
+    "dispatchAuditHash":{"$ref":"#/$defs/hash"},
+    "attemptId":{"type":"string","minLength":1},
+    "provider":{"enum":["OPENAI_DIRECT","DEEPSEEK_DIRECT"]},
+    "role":{"type":"string","minLength":1},
+    "itemHash":{"$ref":"#/$defs/hash"},
+    "transportStatus":{"type":"string","minLength":1},
+    "bodyReadStatus":{"enum":["COMPLETE","NOT_AVAILABLE"]},
+    "httpStatus":{"anyOf":[{"type":"integer","minimum":100,"maximum":599},{"type":"null"}]},
+    "rawResponseEncoding":{"const":"UTF-8"},
+    "rawResponseByteLength":{"type":"integer","minimum":0,"maximum":16777216},
+    "rawResponseBodyHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "rawResponseBody":{"anyOf":[{"type":"string"},{"type":"null"}]},
+    "capturedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

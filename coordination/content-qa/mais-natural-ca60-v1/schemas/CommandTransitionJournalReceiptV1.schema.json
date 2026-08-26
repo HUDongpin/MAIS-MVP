@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/CommandTransitionJournalReceiptV1.schema.json",
+  "title":"CommandTransitionJournalReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","commandId","activeRunnerRegistrationHash","status","committedTransitionCount","committedSteps","subreceiptHashes","subreceipts","lastDurableWorkflowIndexHash","errorClass","startedAt","finishedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"CommandTransitionJournalReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "commandId":{"$ref":"#/$defs/hash"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "status":{"enum":["COMPLETED","FAILED_AFTER_DURABLE_TRANSITION","FAILED_BEFORE_DURABLE_TRANSITION"]},
+    "committedTransitionCount":{"type":"integer","minimum":0},
+    "committedSteps":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
+    "subreceiptHashes":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/hash"}},
+    "subreceipts":{"type":"array","items":{"type":"object"}},
+    "lastDurableWorkflowIndexHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "errorClass":{"anyOf":[{"type":"string","minLength":1},{"type":"null"}]},
+    "startedAt":{"type":"string","format":"date-time"},
+    "finishedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

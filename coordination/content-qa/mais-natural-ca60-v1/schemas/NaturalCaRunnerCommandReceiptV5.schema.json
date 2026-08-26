@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaRunnerCommandReceiptV5.schema.json",
+  "title": "NaturalCaRunnerCommandReceiptV5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runnerVersion", "designId", "command", "status", "activeRunnerRegistrationHash", "providerCommandInvoked", "providerEventCount", "httpRequestCount", "credentialReadCount", "naturalQuestionEgressCount", "referenceLabelCount", "naturalQuestionResultCount", "stateTransitionCommitted", "transitionJournalHash", "committedTransitionCount", "committedTransitionSteps", "lastDurableWorkflowIndexHash", "decisionCeiling", "claimCeiling", "passClaimAllowed", "limitedGeneralizationEvidenceAllowed", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaRunnerCommandReceiptV5" },
+    "runnerVersion": { "const": "V5-R6" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "command": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "minLength": 1 },
+    "activeRunnerRegistrationHash": { "$ref": "#/$defs/maybeHash" },
+    "providerCommandInvoked": { "type": "boolean" },
+    "providerEventCount": { "type": "integer", "minimum": 0 },
+    "httpRequestCount": { "type": "integer", "minimum": 0 },
+    "credentialReadCount": { "type": "integer", "minimum": 0 },
+    "naturalQuestionEgressCount": { "type": "integer", "minimum": 0 },
+    "referenceLabelCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "naturalQuestionResultCount": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "stateTransitionCommitted": { "type": "boolean" },
+    "transitionJournalHash": { "$ref": "#/$defs/maybeHash" },
+    "committedTransitionCount": { "type": "integer", "minimum": 0 },
+    "committedTransitionSteps": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "lastDurableWorkflowIndexHash": { "$ref": "#/$defs/maybeHash" },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "claimCeiling": { "enum": ["FRAME_AND_SAMPLE_FROZEN_RUNNER_OFFLINE_IMPLEMENTED_NOT_EXECUTED", "CALIFORNIA_RUNTIME_EGRESS_ELIGIBLE_MACHINE_REFERENCE_PILOT_ONLY"] },
+    "passClaimAllowed": { "const": false },
+    "limitedGeneralizationEvidenceAllowed": { "const": false },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "maybeHash": { "anyOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }] }
+  }
+}

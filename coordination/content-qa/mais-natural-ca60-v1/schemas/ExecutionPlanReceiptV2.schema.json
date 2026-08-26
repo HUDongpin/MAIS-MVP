@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ExecutionPlanReceiptV2.schema.json",
+  "title": "ExecutionPlanReceiptV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash", "compatibilityBaseRunnerRegistrationHash", "freshRunnerReviewHash", "providerAuthorizationHash", "authenticatedRouteEvidenceHash", "costPreviewHash", "sampleExecutionInventoryHash", "provider", "model", "endpoint", "projectResidency", "dataRegion", "mode", "planStatus", "itemHash", "manifestOrdinal", "role", "failedAttemptsForItemRole", "attemptOrdinal", "ledgerTerminalHash", "c0DecisionHash", "compatibilityPlanHash", "generatedAt", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "ExecutionPlanReceiptV2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "activeRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "compatibilityBaseRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "freshRunnerReviewHash": { "$ref": "#/$defs/hash" },
+    "providerAuthorizationHash": { "$ref": "#/$defs/hash" },
+    "authenticatedRouteEvidenceHash": { "$ref": "#/$defs/hash" },
+    "costPreviewHash": { "$ref": "#/$defs/hash" },
+    "sampleExecutionInventoryHash": { "$ref": "#/$defs/hash" },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "model": { "enum": ["gpt-5.6-luna", "deepseek-v4-pro"] },
+    "endpoint": { "enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"] },
+    "projectResidency": { "type": "string", "minLength": 2 },
+    "dataRegion": { "type": "string", "minLength": 2 },
+    "mode": { "enum": ["REFERENCE_RESUME", "DEEPSEEK_CANARY", "DEEPSEEK_RESUME", "ROUTE_PROBE_ZERO_CONTENT"] },
+    "planStatus": { "const": "NEXT_ACTION" },
+    "itemHash": { "$ref": "#/$defs/hash" },
+    "manifestOrdinal": { "type": "integer", "minimum": 1, "maximum": 60 },
+    "role": { "type": "string", "minLength": 1 },
+    "failedAttemptsForItemRole": { "type": "integer", "minimum": 0, "maximum": 1 },
+    "attemptOrdinal": { "type": "integer", "minimum": 1, "maximum": 2 },
+    "ledgerTerminalHash": { "$ref": "#/$defs/maybeHash" },
+    "c0DecisionHash": { "$ref": "#/$defs/maybeHash" },
+    "compatibilityPlanHash": { "$ref": "#/$defs/hash" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "maybeHash": { "anyOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }] }
+  }
+}

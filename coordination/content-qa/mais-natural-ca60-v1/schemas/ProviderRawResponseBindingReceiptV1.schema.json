@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ProviderRawResponseBindingReceiptV1.schema.json",
+  "title":"ProviderRawResponseBindingReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","attemptId","rawResponseArtifactHash","rawResponseBodyHash","providerEventReceiptHash","roleOutputHash","parsedPayloadHash","parserVersion","parserImplementationHash","independentReparseVerified","boundAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ProviderRawResponseBindingReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "attemptId":{"type":"string","minLength":1},
+    "rawResponseArtifactHash":{"$ref":"#/$defs/hash"},
+    "rawResponseBodyHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "providerEventReceiptHash":{"$ref":"#/$defs/hash"},
+    "roleOutputHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "parsedPayloadHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "parserVersion":{"type":"string","minLength":1},
+    "parserImplementationHash":{"$ref":"#/$defs/hash"},
+    "independentReparseVerified":{"type":"boolean"},
+    "boundAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

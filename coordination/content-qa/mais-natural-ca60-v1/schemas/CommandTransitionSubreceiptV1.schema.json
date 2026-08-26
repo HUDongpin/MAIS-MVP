@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/CommandTransitionSubreceiptV1.schema.json",
+  "title":"CommandTransitionSubreceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","commandId","activeRunnerRegistrationHash","stepOrdinal","stepName","priorWorkflowIndexHash","nextWorkflowIndexHash","workflowTransitionReceiptHash","derivedArtifactHashes","committedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"CommandTransitionSubreceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "commandId":{"$ref":"#/$defs/hash"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "stepOrdinal":{"type":"integer","minimum":1},
+    "stepName":{"type":"string","minLength":1},
+    "priorWorkflowIndexHash":{"$ref":"#/$defs/hash"},
+    "nextWorkflowIndexHash":{"$ref":"#/$defs/hash"},
+    "workflowTransitionReceiptHash":{"$ref":"#/$defs/hash"},
+    "derivedArtifactHashes":{"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/hash"}},
+    "committedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

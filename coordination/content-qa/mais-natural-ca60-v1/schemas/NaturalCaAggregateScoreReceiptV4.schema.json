@@ -1,0 +1,31 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/NaturalCaAggregateScoreReceiptV4.schema.json",
+  "title":"NaturalCaAggregateScoreReceiptV4",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","sampleExecutionInventoryHash","c0ExecutionSetHash","executionIntegrityEvidenceHash","executionIntegrityEvidence","analysisStatus","observedItemResultCount","observedItemResultSetHash","missingItemCount","metricResults","overallDecision","decisionCeiling","claimCeiling","passClaimAllowed","limitedGeneralizationEvidenceAllowed","missingDataImputedAsNegative","scoredAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"NaturalCaAggregateScoreReceiptV4"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "sampleExecutionInventoryHash":{"$ref":"#/$defs/hash"},
+    "c0ExecutionSetHash":{"$ref":"#/$defs/hash"},
+    "executionIntegrityEvidenceHash":{"$ref":"#/$defs/hash"},
+    "executionIntegrityEvidence":{"type":"object"},
+    "analysisStatus":{"enum":["INCOMPLETE_EXECUTION_NO_METRIC_INFERENCE","COMPLETE_FROZEN_METRIC_ANALYSIS"]},
+    "observedItemResultCount":{"type":"integer","minimum":0,"maximum":60},
+    "observedItemResultSetHash":{"$ref":"#/$defs/hash"},
+    "missingItemCount":{"type":"integer","minimum":0,"maximum":60},
+    "metricResults":{"anyOf":[{"type":"object"},{"type":"null"}]},
+    "overallDecision":{"enum":["INVALID_FOR_GENERALIZATION","EXECUTION_INTEGRITY_FAILED","POLICY_REVISION_REQUIRED_MACHINE_REFERENCE","INCONCLUSIVE_MACHINE_REFERENCE"]},
+    "decisionCeiling":{"const":"INCONCLUSIVE_MACHINE_REFERENCE"},
+    "claimCeiling":{"const":"CALIFORNIA_RUNTIME_EGRESS_ELIGIBLE_MACHINE_REFERENCE_PILOT_ONLY"},
+    "passClaimAllowed":{"const":false},
+    "limitedGeneralizationEvidenceAllowed":{"const":false},
+    "missingDataImputedAsNegative":{"const":false},
+    "scoredAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

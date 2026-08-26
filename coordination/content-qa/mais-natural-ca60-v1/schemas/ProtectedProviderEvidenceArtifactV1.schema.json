@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProtectedProviderEvidenceArtifactV1.schema.json",
+  "title": "ProtectedProviderEvidenceArtifactV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "activeRunnerRegistrationHash", "provider", "model", "endpoint", "projectResidency", "dataRegion", "evidenceKind", "sourceKind", "sourceLocatorHash", "rawSourceEncoding", "rawSourceByteLength", "rawSourceBytesHash", "rawSourceBody", "credentialLikeMaterialDetected", "secretScanVersion", "capturedAt", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "ProtectedProviderEvidenceArtifactV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "activeRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "model": { "enum": ["gpt-5.6-luna", "deepseek-v4-pro"] },
+    "endpoint": { "enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"] },
+    "projectResidency": { "type": "string", "minLength": 2 },
+    "dataRegion": { "type": "string", "minLength": 2 },
+    "evidenceKind": { "enum": ["ACCOUNT_PROJECT_IDENTITY", "DIRECT_BILLING_ROUTE", "DATA_REGION", "PRICE", "ROUTE_PROBE_RESPONSE"] },
+    "sourceKind": { "enum": ["PROVIDER_CONSOLE_EXPORT", "PROVIDER_BILLING_EXPORT", "PROVIDER_OFFICIAL_RATE_CARD", "GUARDED_ZERO_CONTENT_ROUTE_PROBE"] },
+    "sourceLocatorHash": { "$ref": "#/$defs/hash" },
+    "rawSourceEncoding": { "const": "UTF-8" },
+    "rawSourceByteLength": { "type": "integer", "minimum": 2, "maximum": 16777216 },
+    "rawSourceBytesHash": { "$ref": "#/$defs/hash" },
+    "rawSourceBody": { "type": "string", "minLength": 2 },
+    "credentialLikeMaterialDetected": { "const": false },
+    "secretScanVersion": { "const": "RECURSIVE_SECRET_LIKE_MATERIAL_SCAN_V1" },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ReferenceSealValidationReceiptV3.schema.json",
+  "title":"ReferenceSealValidationReceiptV3",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","freshRunnerReviewHash","referenceSealHash","compatibilityReferenceSealHash","openAIReferenceAuthorizationHash","compatibilityOpenAIReferenceAuthorizationHash","sampleExecutionInventoryHash","referenceAttemptChainHash","referenceLedgerTerminalHash","finalLabelRoot","itemCount","labelBlindnessVerified","sameModelCorrelatedErrorRisk","validationStatus","validatedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ReferenceSealValidationReceiptV3"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "freshRunnerReviewHash":{"$ref":"#/$defs/hash"},
+    "referenceSealHash":{"$ref":"#/$defs/hash"},
+    "compatibilityReferenceSealHash":{"$ref":"#/$defs/hash"},
+    "openAIReferenceAuthorizationHash":{"$ref":"#/$defs/hash"},
+    "compatibilityOpenAIReferenceAuthorizationHash":{"$ref":"#/$defs/hash"},
+    "sampleExecutionInventoryHash":{"$ref":"#/$defs/hash"},
+    "referenceAttemptChainHash":{"$ref":"#/$defs/hash"},
+    "referenceLedgerTerminalHash":{"$ref":"#/$defs/hash"},
+    "finalLabelRoot":{"$ref":"#/$defs/hash"},
+    "itemCount":{"const":60},
+    "labelBlindnessVerified":{"const":true},
+    "sameModelCorrelatedErrorRisk":{"const":true},
+    "validationStatus":{"const":"FULL_RAW_LEDGER_RECONSTRUCTION_VALID_AND_BOUND_TO_R6"},
+    "validatedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}
