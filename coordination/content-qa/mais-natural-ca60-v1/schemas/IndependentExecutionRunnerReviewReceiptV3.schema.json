@@ -1,0 +1,14 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/IndependentExecutionRunnerReviewReceiptV3.schema.json",
+  "title":"IndependentExecutionRunnerReviewReceiptV3","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","runnerVersion","reviewedAt","decision","reviewerLane","independentImplementation","findingCount",
+    "reviewedRunnerRegistrationHash","reviewedRunnerSourceCommit","reviewedProductionSourceRootHash","reviewedTestSourceRootHash","selfHash"],
+  "properties":{"schemaVersion":{"const":"IndependentExecutionRunnerReviewReceiptV3"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "runnerVersion":{"const":"V5-R5"},"reviewedAt":{"type":"string","format":"date-time"},"decision":{"enum":["CONCURRED","DISCREPANCY","UNREVIEWABLE"]},
+    "reviewerLane":{"const":"A11"},"independentImplementation":{"const":true},"findingCount":{"type":"integer","minimum":0},
+    "reviewedRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"reviewedRunnerSourceCommit":{"$ref":"#/$defs/commit"},
+    "reviewedProductionSourceRootHash":{"$ref":"#/$defs/hash"},"reviewedTestSourceRootHash":{"$ref":"#/$defs/hash"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "allOf":[{"if":{"properties":{"decision":{"const":"CONCURRED"}},"required":["decision"]},"then":{"properties":{"findingCount":{"const":0}}}},
+    {"if":{"properties":{"decision":{"const":"DISCREPANCY"}},"required":["decision"]},"then":{"properties":{"findingCount":{"minimum":1}}}}],
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"},"commit":{"type":"string","pattern":"^[0-9a-f]{40}$"}}
+}

@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/ReferenceSealValidationReceiptV2.schema.json","title":"ReferenceSealValidationReceiptV2","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","compatibilityBaseRunnerRegistrationHash","referenceSealHash","referenceAttemptChainHash","referenceLedgerTerminalHash","finalLabelRoot","itemCount","labelBlindnessVerified","sameModelCorrelatedErrorRisk","validationStatus","validatedAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"ReferenceSealValidationReceiptV2"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},"activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"compatibilityBaseRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"referenceSealHash":{"$ref":"#/$defs/hash"},"referenceAttemptChainHash":{"$ref":"#/$defs/hash"},"referenceLedgerTerminalHash":{"$ref":"#/$defs/hash"},"finalLabelRoot":{"$ref":"#/$defs/hash"},"itemCount":{"const":60},"labelBlindnessVerified":{"const":true},"sameModelCorrelatedErrorRisk":{"const":true},"validationStatus":{"const":"FULL_RAW_LEDGER_RECONSTRUCTION_VALID"},"validatedAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

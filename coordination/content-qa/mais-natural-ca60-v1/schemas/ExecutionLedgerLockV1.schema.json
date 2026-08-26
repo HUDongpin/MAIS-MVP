@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/ExecutionLedgerLockV1.schema.json","title":"ExecutionLedgerLockV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","authorizationHash","ledgerRelativePathHash","ownerPid","lockNonce","acquiredAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"ExecutionLedgerLockV1"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},"activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"authorizationHash":{"$ref":"#/$defs/hash"},"ledgerRelativePathHash":{"$ref":"#/$defs/hash"},"ownerPid":{"type":"integer","minimum":1},"lockNonce":{"type":"string","minLength":16},"acquiredAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/AuthenticatedRouteEvidenceSourceV1.schema.json","title":"AuthenticatedRouteEvidenceSourceV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","evidenceKind","sourceKind","mediaType","sourceLocatorHash","sourceByteLength","sourceBytesHash","sourceBytes","parsedClaimsHash","capturedAt","expiresAt","credentialLikeMaterialDetected","selfHash"],
+  "properties":{"schemaVersion":{"const":"AuthenticatedRouteEvidenceSourceV1"},"evidenceKind":{"enum":["ACCOUNT_PROJECT_IDENTITY","DIRECT_BILLING_ROUTE","DATA_REGION","PRICE","ROUTE_PROBE_RESPONSE"]},"sourceKind":{"enum":["PROVIDER_CONSOLE_EXPORT","PROVIDER_BILLING_EXPORT","PROVIDER_RESPONSE","PROVIDER_OFFICIAL_RATE_CARD"]},"mediaType":{"const":"application/json"},"sourceLocatorHash":{"$ref":"#/$defs/hash"},"sourceByteLength":{"type":"integer","minimum":2},"sourceBytesHash":{"$ref":"#/$defs/hash"},"sourceBytes":{"type":"string","minLength":2},"parsedClaimsHash":{"$ref":"#/$defs/hash"},"capturedAt":{"type":"string","format":"date-time"},"expiresAt":{"type":"string","format":"date-time"},"credentialLikeMaterialDetected":{"const":false},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/LedgerRecoveryAuthorizationV1.schema.json","title":"LedgerRecoveryAuthorizationV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","providerAuthorizationHash","ledgerRelativePathHash","recoveryKind","exactTargetHash","automaticRecoveryAuthorized","authorizedBy","ownerAuthorizationTextHash","issuedAt","expiresAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"LedgerRecoveryAuthorizationV1"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},"activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"providerAuthorizationHash":{"$ref":"#/$defs/hash"},"ledgerRelativePathHash":{"$ref":"#/$defs/hash"},"recoveryKind":{"enum":["STALE_LOCK","INTERRUPTED_RESERVATION"]},"exactTargetHash":{"$ref":"#/$defs/hash"},"automaticRecoveryAuthorized":{"const":false},"authorizedBy":{"type":"string","minLength":1},"ownerAuthorizationTextHash":{"$ref":"#/$defs/hash"},"issuedAt":{"type":"string","format":"date-time"},"expiresAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

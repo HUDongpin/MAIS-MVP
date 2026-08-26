@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/StaleLedgerLockRecoveryReceiptV1.schema.json","title":"StaleLedgerLockRecoveryReceiptV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","authorizationHash","ledgerTerminalHash","lockBytesHash","lockOwnerPid","lockOwnerAlive","lockNonce","lockAcquiredAt","recoveryAction","automaticRecoveryAllowed","recoveredBy","recoveredAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"StaleLedgerLockRecoveryReceiptV1"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},"activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"authorizationHash":{"$ref":"#/$defs/hash"},"ledgerTerminalHash":{"$ref":"#/$defs/hash"},"lockBytesHash":{"$ref":"#/$defs/hash"},"lockOwnerPid":{"type":"integer","minimum":1},"lockOwnerAlive":{"const":false},"lockNonce":{"type":"string","minLength":16},"lockAcquiredAt":{"type":"string","format":"date-time"},"recoveryAction":{"const":"MOVE_EXACT_LOCK_TO_APPEND_ONLY_QUARANTINE_AFTER_RECEIPT"},"automaticRecoveryAllowed":{"const":false},"recoveredBy":{"type":"string","minLength":1},"recoveredAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

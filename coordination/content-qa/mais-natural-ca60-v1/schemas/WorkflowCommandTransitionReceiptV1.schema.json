@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/WorkflowCommandTransitionReceiptV1.schema.json","title":"WorkflowCommandTransitionReceiptV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","command","priorWorkflowIndexHash","nextWorkflowIndexHash","derivedArtifactHash","crossProcessResumeStateCommitted","committedAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"WorkflowCommandTransitionReceiptV1"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},"activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},"command":{"enum":["adopt-r5-index","register-route-evidence","build-cost-preview","record-owner-activation","label-openai","seal-reference-labels","freeze-deepseek-registration","execute-deepseek-canary","execute-deepseek-resume","freeze-c0-set","recover-attempt","recover-stale-lock","score","verify"]},"priorWorkflowIndexHash":{"$ref":"#/$defs/hash"},"nextWorkflowIndexHash":{"$ref":"#/$defs/hash"},"derivedArtifactHash":{"$ref":"#/$defs/hash"},"crossProcessResumeStateCommitted":{"const":true},"committedAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ExactRunnerSupersedingRegistrationEvidenceV1.schema.json",
+  "title":"ExactRunnerSupersedingRegistrationEvidenceV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","registrationCommit","registrationPath","registrationHash","runnerSourceCommit","productionSourceRootHash","testSourceRootHash","compatibilityBaseRunnerRegistrationHash","discrepancyReviewHash","verifiedFromGitObjects","activeRegistration","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ExactRunnerSupersedingRegistrationEvidenceV1"},
+    "registrationCommit":{"$ref":"#/$defs/commit"},
+    "registrationPath":{"const":"coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r5/runner-registration.json"},
+    "registrationHash":{"$ref":"#/$defs/hash"},
+    "runnerSourceCommit":{"$ref":"#/$defs/commit"},
+    "productionSourceRootHash":{"$ref":"#/$defs/hash"},
+    "testSourceRootHash":{"$ref":"#/$defs/hash"},
+    "compatibilityBaseRunnerRegistrationHash":{"const":"2dd4b0e17d577f085aee33f9ada3a2de0f7db79b02b32524e9d6a05858a61dc6"},
+    "discrepancyReviewHash":{"const":"32a59ad2dd12a80cf772acb1be1110683f5b56d718c66681426eef0c739e6abc"},
+    "verifiedFromGitObjects":{"const":true},
+    "activeRegistration":{"$ref":"NaturalCaExecutionRunnerSupersedingRegistrationV1.schema.json"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"},"commit":{"type":"string","pattern":"^[0-9a-f]{40}$"}}
+}
