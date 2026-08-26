@@ -1,4 +1,3 @@
-import g6G12QuestionPackJson from "./generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json";
 import kG5QuestionPackJson from "./generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json";
 import {
   type ArkansasGradeId,
@@ -35,9 +34,7 @@ export type ArkansasQuestionGenerationMetadata = {
 };
 
 const kG5QuestionPack = kG5QuestionPackJson as GeneratedArkansasQuestionPack;
-const g6G12QuestionPack = g6G12QuestionPackJson as GeneratedArkansasQuestionPack;
-const questionPacks = [kG5QuestionPack, g6G12QuestionPack];
-const generatedQuestions = questionPacks.flatMap((pack) => pack.questions);
+const generatedQuestions = kG5QuestionPack.questions;
 const arkansasProfile = { region: "US", publisher: "US_AR_MATH" } satisfies CurriculumProfile;
 
 function uniqueNonEmpty(values: string[]) {
@@ -130,10 +127,13 @@ function metadataForQuestion(question: GeneratedArkansasQuestion): ArkansasQuest
 }
 
 export const expectedUnitedStatesArkansasK5QuestionCount = 1500;
-export const expectedUnitedStatesArkansasG6G12QuestionCount = 1500;
+// The G6-G12 package remains candidate-only until every row has independent
+// curriculum QA. Keeping the live count explicit makes accidental re-entry fail
+// the aggregate and API regression assertions.
+export const expectedUnitedStatesArkansasG6G12QuestionCount = 0;
 export const expectedUnitedStatesArkansasQuestionCount =
   expectedUnitedStatesArkansasK5QuestionCount + expectedUnitedStatesArkansasG6G12QuestionCount;
-export const expectedUnitedStatesArkansasTopicCount = 209;
+export const expectedUnitedStatesArkansasTopicCount = 174;
 export const usArkansasQuestions: Question[] = generatedQuestions.map(toQuestion);
 
 export const usArkansasQuestionGenerationMetadata: Record<string, ArkansasQuestionGenerationMetadata> =

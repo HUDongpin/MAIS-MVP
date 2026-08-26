@@ -7,6 +7,7 @@ import {
   selectThreeDSceneVariantSmokeLabs,
   selectPremiumThreeDSceneVariantSmokeLabs
 } from "./visualizationDiagnostics";
+import { heldCandidatePremiumThreeDLabIds } from "./three/threeDSceneMath";
 
 const baseLab = {
   analyticsSource: "visualization-lab",
@@ -210,5 +211,18 @@ test("premium direct topic labs render the same template and 3D family as the ca
       catalogLab!.threeD?.familyId,
       `${labId} direct-route 3D family must match the catalog`
     );
+  }
+});
+
+test("held candidate premium topics fail closed on catalog and direct routes", async () => {
+  const [{ getPremiumThreeDDirectLab }, { getVisualizationLabByLabId }] = await Promise.all([
+    import("./premiumThreeDDirectLabs"),
+    import("../../data/visualizationLabs")
+  ]);
+
+  assert.equal(heldCandidatePremiumThreeDLabIds.size, 26);
+  for (const labId of heldCandidatePremiumThreeDLabIds) {
+    assert.equal(getVisualizationLabByLabId(labId), null, `${labId} remains in the live visualization catalog`);
+    assert.equal(getPremiumThreeDDirectLab(labId), null, `${labId} remains reachable from a premium direct route`);
   }
 });

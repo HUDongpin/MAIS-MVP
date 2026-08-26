@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "cluster-safe-card-v2",
+  "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+  "packageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+  "parentPackageId": "us-ca-math-rag-v2-candidate",
+  "status": "candidate-only",
+  "curriculumTrack": "US_CA_MATH",
+  "state": "CA",
+  "grade": "P6",
+  "usGradeLabel": "Grade 6",
+  "domainIds": [
+    "6.RP"
+  ],
+  "maisDomainIds": [
+    "CA.CCSS.Math.G6.RP"
+  ],
+  "canonicalStandardIds": [
+    "6.RP.1",
+    "6.RP.2",
+    "6.RP.3"
+  ],
+  "maisStandardIds": [
+    "CA.CCSS.Math.G6.RP.1",
+    "CA.CCSS.Math.G6.RP.2",
+    "CA.CCSS.Math.G6.RP.3"
+  ],
+  "clusterId": "6.RP.ratios",
+  "domainTitle": {
+    "en": "Ratios and Proportional Relationships"
+  },
+  "safeSummary": {
+    "en": "Use ratios, unit rates, percent, and equivalent relationships to solve contextual problems while preserving the order and units of both quantities."
+  },
+  "misconceptionTags": [
+    "ratio order reversed",
+    "unit rate not normalized"
+  ],
+  "representationOptions": [
+    "double number lines",
+    "ratio tables",
+    "tape diagrams"
+  ],
+  "sourceRecord": {
+    "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+    "jsonPointer": "/108",
+    "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios",
+    "recordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284"
+  },
+  "sourceSafety": {
+    "allowedUse": "standards structure, identifiers, and MAIS-authored abstraction",
+    "copiedSourceText": false,
+    "releaseClaim": "candidate-only"
+  },
+  "localization": {
+    "presentLocales": [
+      "en"
+    ],
+    "missingLiveLocales": [
+      "zh",
+      "zhHans"
+    ]
+  }
+}

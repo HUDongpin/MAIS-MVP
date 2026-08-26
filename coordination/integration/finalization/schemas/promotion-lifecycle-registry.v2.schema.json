@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.example/schemas/promotion-lifecycle-registry.v2.schema.json",
+  "title": "Promotion lifecycle registry v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "pilotUnitId",
+    "attemptId",
+    "parentPackageStatus",
+    "pilotUnitStatus",
+    "liveAllowed",
+    "liveEvidence",
+    "maturityClaim",
+    "events",
+    "registryDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "promotion-lifecycle-registry.v2" },
+    "pilotUnitId": { "const": "us-ca-math-rag-v2-g6-ratios-v2" },
+    "attemptId": { "const": "attempt-007" },
+    "parentPackageStatus": { "const": "candidate-only" },
+    "pilotUnitStatus": { "const": "shadow_passed" },
+    "liveAllowed": { "const": false },
+    "liveEvidence": { "const": "none" },
+    "maturityClaim": { "const": "Shadow-mature / live-unproven" },
+    "events": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "registryDigest": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*\\u0000).+$"
+    },
+    "fileReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "closureReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "digest"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "eventId",
+        "fromState",
+        "toState",
+        "evidence",
+        "previousEventDigest",
+        "eventDigest"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "eventId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "fromState": {
+          "enum": [null, "candidate_hold", "shadow_ready"]
+        },
+        "toState": {
+          "enum": ["candidate_hold", "shadow_ready", "shadow_passed"]
+        },
+        "evidence": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["manifest", "evidenceIndex"],
+              "properties": {
+                "manifest": { "$ref": "#/$defs/fileReference" },
+                "evidenceIndex": { "$ref": "#/$defs/fileReference" }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["closure"],
+              "properties": {
+                "closure": { "$ref": "#/$defs/closureReference" }
+              }
+            }
+          ]
+        },
+        "previousEventDigest": {
+          "anyOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sha256" }
+          ]
+        },
+        "eventDigest": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

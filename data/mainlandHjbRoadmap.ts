@@ -1,6 +1,4 @@
-import { mainlandHjbHighTopicMetadata, mainlandHjbHighTopics } from "@/data/mainlandHjbHighTopics";
 import { mainlandHjbJuniorTopicMetadata, mainlandHjbJuniorTopics } from "@/data/mainlandHjbJuniorTopics";
-import { mainlandHjbPrimaryTopicMetadata, mainlandHjbPrimaryTopics } from "@/data/mainlandHjbPrimaryTopics";
 import { lessonSlugForTopicId } from "@/lib/lessonLinks";
 import type { CurriculumProfile, GradeId, LocalizedText, MainlandPepSemester, Topic } from "@/types";
 
@@ -133,19 +131,6 @@ function bandForGrade(grade: GradeId): MainlandHjbRoadmapBand {
 }
 
 function metadataForTopic(topic: Topic): HjbTopicMetadata {
-  const primary = mainlandHjbPrimaryTopicMetadata[topic.id];
-  if (primary) {
-    return {
-      stage: "primary",
-      semester: primary.semester,
-      volume: primary.volume,
-      unitTitle: primary.titleZhHans,
-      conceptIds: primary.conceptIds,
-      evidenceCardIds: primary.evidenceCardIds,
-      questionCount: primary.questionCount
-    };
-  }
-
   const junior = mainlandHjbJuniorTopicMetadata[topic.id];
   if (junior) {
     return {
@@ -155,19 +140,6 @@ function metadataForTopic(topic: Topic): HjbTopicMetadata {
       unitTitle: junior.titleZhHans,
       conceptIds: junior.conceptIds,
       evidenceCardIds: junior.evidenceCardIds
-    };
-  }
-
-  const high = mainlandHjbHighTopicMetadata[topic.id];
-  if (high) {
-    return {
-      stage: "senior-secondary",
-      semester: "full-year",
-      volume: high.volume,
-      unitTitle: high.chapter,
-      conceptIds: high.conceptIds,
-      evidenceCardIds: high.evidenceCardIds,
-      questionCount: high.questionCount
     };
   }
 
@@ -287,9 +259,7 @@ function buildRoadmapNode(topic: Topic): MainlandHjbRoadmapNode {
 }
 
 export const mainlandHjbRoadmapTopics: Topic[] = [
-  ...mainlandHjbPrimaryTopics,
-  ...mainlandHjbJuniorTopics,
-  ...mainlandHjbHighTopics
+  ...mainlandHjbJuniorTopics
 ].map((topic) => ({
   ...topic,
   curriculumTrack: "MAINLAND_PEP_HIGH",

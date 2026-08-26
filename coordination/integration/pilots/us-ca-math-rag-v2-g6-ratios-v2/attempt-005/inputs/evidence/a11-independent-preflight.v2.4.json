@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v24-attempt005",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T10:15:19+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.4",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "reviewedCompositionCommit": "b256fc8249d1f880584dc30617b6b25f0b45fcb1",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.4",
+      "releaseCommit": "0b46b9740ff87eb0a947c58cf63653d4dfa02cf9",
+      "bundleDigest": "b78526bc7c34a2f7c1471ab71c79a38f0435ebd2e6a89f8b502eab99cf74dd20",
+      "ledgerRawSha256": "6329bb002ff8efdcf32341567a286e58cf7d98dc32fba34eb7fa5b78642fb73b"
+    },
+    "independentReplayRequired": true,
+    "replayMustUseExactExecutionCommit": true,
+    "semanticReceiptDigestEqualityRequired": true,
+    "preflightResults": [
+      {
+        "check": "npm-ci-ignore-scripts",
+        "result": "pass"
+      },
+      {
+        "check": "npm-run-type-check",
+        "result": "pass"
+      },
+      {
+        "check": "california-live-dereach-and-approved-replacement-regression",
+        "result": "pass",
+        "passed": 12,
+        "failed": 0
+      },
+      {
+        "check": "promotion-gate-v2.4-pure-security-and-workflow-tests",
+        "result": "pass",
+        "passed": 24,
+        "failed": 0,
+        "expectedSkippedUntilManifestFreeze": 2
+      },
+      {
+        "check": "npm-run-type-check-after-lockfile-install",
+        "result": "pass"
+      }
+    ],
+    "ratchetedAssertions": [
+      "492-question candidate package is absent from live California questions",
+      "unapproved K-5 textbook candidate seeds are absent",
+      "Grade 1 micro-lesson candidate seeds and topics are absent",
+      "hand-checked CCSS practice remains live",
+      "hand-built CCSS cardinality replacement remains live"
+    ],
+    "negativeCoverage": [
+      "evidence-currentness-baseline-mismatch",
+      "absolute-path",
+      "path-traversal",
+      "NUL-path",
+      "case-collision",
+      "symlink-escape",
+      "output-creation-collision",
+      "source-drift",
+      "runtime-baseline-drift",
+      "unknown-cli-command",
+      "live-command-alias",
+      "fuzzy-answer-form"
+    ],
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A11",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.3",
+      "toCheckerVersion": "promotion-gate-shadow-v2.4",
+      "changeScope": "checker-release-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-004",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "5c6d0c6c513769fce699c3640b710d6f37ec189f5188c57b3bf36c011ed10a01",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/inputs/evidence/a11-independent-preflight.v2.3.json",
+      "priorEvidenceRawSha256": "deec871823e156e7047e72a628729a6d1536cd1ce3a87f5e20122c6a84effdf2",
+      "priorEvidenceReviewedCommit": "d7466c50413200ba3e69b0fdb6902a764d90555c"
+    },
+    "releaseIdentityRegression": {
+      "test": "workflow-selected real Manifest has an executable immutable checker release",
+      "redFailureCode": "V2_GIT_ANCESTRY_INVALID",
+      "expectedGreenAfterManifestFreeze": true
+    }
+  }
+}

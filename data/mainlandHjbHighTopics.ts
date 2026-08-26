@@ -1,10 +1,18 @@
-import v1QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json";
 import v2QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json";
-import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
-import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
 import { mainlandHjbHighRagCards } from "./rag/mainlandHjbHigh";
 import { mapDifficultyToActive } from "@/lib/difficulty";
+import {
+  formatHjbHighChapterTitleEn,
+  formatHjbHighVolumeTitleEn,
+  translateHjbHighDisplayTextEn
+} from "@/lib/hjbHighDisplayText";
 import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, Topic } from "@/types";
+
+export {
+  formatHjbHighChapterTitleEn,
+  formatHjbHighVolumeTitleEn,
+  translateHjbHighDisplayTextEn
+} from "@/lib/hjbHighDisplayText";
 
 type GeneratedHjbQuestion = {
   grade: Extract<GradeId, "S4" | "S5" | "S6">;
@@ -32,13 +40,8 @@ export type MainlandHjbHighTopicMetadata = {
   questionCount: number;
 };
 
-const approvedQuestionPacks = [
-  v1QuestionPackJson as GeneratedHjbQuestionPack,
-  v2QuestionPackJson as GeneratedHjbQuestionPack,
-  v3RemediatedQuestionPackJson as GeneratedHjbQuestionPack,
-  v4RemediatedQuestionPackJson as GeneratedHjbQuestionPack
-];
-const approvedQuestions = approvedQuestionPacks.flatMap((pack) => pack.questions);
+const candidateQuestionPacks = [v2QuestionPackJson as GeneratedHjbQuestionPack];
+const candidateQuestions = candidateQuestionPacks.flatMap((pack) => pack.questions);
 const mainlandHjbHighProfile = { region: "MAINLAND", publisher: "MAINLAND_HJB" } satisfies CurriculumProfile;
 const minutesByDifficulty: Record<Difficulty, number> = {
   Low: 38,
@@ -47,58 +50,8 @@ const minutesByDifficulty: Record<Difficulty, number> = {
 };
 const difficultyPriority: Difficulty[] = ["High", "Medium", "Low"];
 const ragCardById = new Map(mainlandHjbHighRagCards.map((card) => [card.id, card]));
-const chapterTitleEnByZhHans: Record<string, string> = {
-  "集合与逻辑": "Sets and Logic",
-  "等式与不等式": "Equations and Inequalities",
-  "幂、指数与对数": "Powers, Exponents, and Logarithms",
-  "幂函数、指数函数与对数函数": "Power, Exponential, and Logarithmic Functions",
-  "函数的概念、性质及应用": "Function Concepts, Properties, and Applications",
-  "三角": "Trigonometry",
-  "三角函数": "Trigonometric Functions",
-  "平面向量": "Plane Vectors",
-  "复数": "Complex Numbers",
-  "空间直线与平面": "Lines and Planes in Space",
-  "简单几何体": "Basic Solid Geometry",
-  "概率初步": "Introductory Probability",
-  "统计": "Statistics",
-  "平面直角坐标系中的直线": "Lines in the Coordinate Plane",
-  "圆锥曲线": "Conic Sections",
-  "空间向量及其应用": "Spatial Vectors and Applications",
-  "数列": "Sequences",
-  "导数及其运用": "Derivatives and Applications",
-  "计数原理": "Counting Principles",
-  "概率初步续": "Further Introductory Probability",
-  "成对数据的统计分析": "Statistical Analysis of Paired Data"
-};
-const volumeTitleEnByZhHans: Record<string, string> = {
-  "必修 第一册": "Compulsory Volume 1",
-  "必修 第二册": "Compulsory Volume 2",
-  "必修 第三册": "Compulsory Volume 3",
-  "选择性必修 第一册": "Selective Compulsory Volume 1",
-  "选择性必修 第二册": "Selective Compulsory Volume 2"
-};
-
-function containsChineseText(value: string) {
-  return /[\u3400-\u9fff]/u.test(value);
-}
-
 function uniqueValues<T>(values: T[]) {
   return Array.from(new Set(values));
-}
-
-export function formatHjbHighChapterTitleEn(chapter: string) {
-  return chapterTitleEnByZhHans[chapter] ?? (containsChineseText(chapter) ? "Senior Mathematics Unit" : chapter);
-}
-
-export function formatHjbHighVolumeTitleEn(volume: string) {
-  return volumeTitleEnByZhHans[volume] ?? (containsChineseText(volume) ? "HJB Senior Mathematics Volume" : volume);
-}
-
-export function translateHjbHighDisplayTextEn(value: string) {
-  return [...Object.entries(volumeTitleEnByZhHans), ...Object.entries(chapterTitleEnByZhHans)].reduce(
-    (text, [source, target]) => text.split(source).join(target),
-    value
-  );
 }
 
 function dominantDifficulty(questions: GeneratedHjbQuestion[]) {
@@ -116,7 +69,7 @@ function topEvidenceCardId(questions: GeneratedHjbQuestion[]) {
   return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0];
 }
 
-const questionsByTopicId = approvedQuestions.reduce((map, question) => {
+const questionsByTopicId = candidateQuestions.reduce((map, question) => {
   const bucket = map.get(question.topicId) ?? [];
   bucket.push(question);
   map.set(question.topicId, bucket);
@@ -159,9 +112,9 @@ export const mainlandHjbHighTopics: Topic[] = Array.from(questionsByTopicId.entr
       grade: metadata.grade,
       title: { en: titleEn, zh: metadata.titleZhHans, zhHans: metadata.titleZhHans },
       description: {
-        en: ragCard?.safeSummary ?? `Shanghai Education Press approved unit for ${titleEn}.`,
-        zh: `沪教版${metadata.volume}《${metadata.chapter}》已批准题库单元，围绕${conceptList}建立概念、例题与课堂检查。`,
-        zhHans: `沪教版${metadata.volume}《${metadata.chapter}》已批准题库单元，围绕${conceptList}建立概念、例题与课堂检查。`
+        en: ragCard?.safeSummary ?? `Shanghai Education Press review-pending unit for ${titleEn}.`,
+        zh: `沪教版${metadata.volume}《${metadata.chapter}》候选单元，需完成整包审核后方可进入学生内容。`,
+        zhHans: `沪教版${metadata.volume}《${metadata.chapter}》候选单元，需完成整包审核后方可进入学生内容。`
       },
       status: "not-started",
       difficulty,

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-v23-attempt004",
+  "role": "A21",
+  "result": "pass",
+  "producedAt": "2026-08-26T09:50:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.3",
+  "semanticPayload": {
+    "contractVersion": "promotion-a21-candidate.v2",
+    "candidatePackage": {
+      "id": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+      "parentPackageId": "us-ca-math-rag-v2-candidate",
+      "candidateVersion": "2.0.0-shadow.1",
+      "status": "candidate-only",
+      "packagePath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+      "packageRawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+      "immutableDuringShadow": true
+    },
+    "artifacts": [
+      {
+        "kind": "safe-card",
+        "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+        "rawFileSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+        "recordSha256": "896121e5fb79814fc0f2d8048c21df80eba45026e6139cfa98254849bd9f7053"
+      },
+      {
+        "kind": "practice",
+        "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+        "rawFileSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+        "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864"
+      },
+      {
+        "kind": "lesson",
+        "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+        "rawFileSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+        "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49"
+      }
+    ],
+    "aggregateCandidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceRecordPolicy": "versioned-copy-with-explicit-parent-record-digest",
+    "checkerUpgradeReason": "attempt-002 stopped before Shadow because the v2.1 checker self-test exposed a pure currentness-validation gap; candidate bytes are unchanged",
+    "localizationBoundary": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false
+    },
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.2",
+      "toCheckerVersion": "promotion-gate-shadow-v2.3",
+      "changeScope": "semantic-receipt-host-temp-environment-projection-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-003",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "948a305bd2fcebdd39dd293df397c045168a95931c395a799f18219f80e4cda3"
+    }
+  }
+}

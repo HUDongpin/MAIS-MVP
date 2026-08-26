@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import californiaKnowledgePointCandidatePackJson from "../data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json";
 import { usCaliforniaQuestions } from "../data/usCaliforniaQuestions";
 import {
+  usCaliforniaPracticeFigureFor,
   usCaliforniaPracticeFigureSpecs,
   type UsCaliforniaPracticeFigureSpec
 } from "../data/usCaliforniaPracticeFigures";
@@ -9,7 +11,12 @@ import { auditPracticeFigureSpec, buildPracticeFigureAuditReport } from "./pract
 import { questionDiagramAltText, tenFrameRenderedCounts } from "./questionFigure";
 import type { Question, TenFrameQuestionDiagram } from "../types";
 
-const questionById = new Map(usCaliforniaQuestions.map((question) => [question.id, question]));
+const candidatePack = californiaKnowledgePointCandidatePackJson as unknown as { questions: Question[] };
+const candidateQuestions = candidatePack.questions.map((question) => {
+  const diagram = usCaliforniaPracticeFigureFor(question.id);
+  return diagram ? { ...question, diagram } : question;
+});
+const questionById = new Map(candidateQuestions.map((question) => [question.id, question]));
 
 function specFor(idSuffix: string): UsCaliforniaPracticeFigureSpec {
   const spec = usCaliforniaPracticeFigureSpecs.find((candidate) => candidate.questionId.endsWith(idSuffix));
@@ -19,7 +26,7 @@ function specFor(idSuffix: string): UsCaliforniaPracticeFigureSpec {
 
 function questionFor(spec: UsCaliforniaPracticeFigureSpec): Question {
   const question = questionById.get(spec.questionId);
-  assert.ok(question, `Expected ${spec.questionId} in the live California bank`);
+  assert.ok(question, `Expected ${spec.questionId} in the frozen California candidate package`);
   return question;
 }
 
@@ -34,9 +41,10 @@ function withDiagram(
   return { ...spec, diagram };
 }
 
-test("every shipped California practice figure passes the conceptual-correctness audit", () => {
+test("every preserved California candidate figure passes the conceptual-correctness audit", () => {
   const report = buildPracticeFigureAuditReport();
 
+  assert.equal(report.scope, "candidate-only-not-live");
   assert.equal(report.checked, 10);
   assert.equal(
     report.failed,
@@ -48,16 +56,19 @@ test("every shipped California practice figure passes the conceptual-correctness
   );
 });
 
-test("shipped figures reach the questions the Practice Arena actually serves", () => {
+test("candidate figures bind frozen records while remaining unreachable from Practice Arena", () => {
   usCaliforniaPracticeFigureSpecs.forEach((spec) => {
     const question = questionFor(spec);
     assert.equal(question.diagram?.kind, "ten-frame", `${spec.questionId} should carry its ten frame`);
     assert.equal(question.diagram, spec.diagram);
+    assert.equal(usCaliforniaQuestions.some((liveQuestion) => liveQuestion.id === spec.questionId), false);
   });
 
-  // The audit's reach is deliberately narrow: only the specs opt in to a figure.
-  const figured = usCaliforniaQuestions.filter((question) => question.diagram);
+  // The audit's reach is deliberately narrow: only frozen candidate records
+  // opt in, and no held figure may appear in the live California aggregate.
+  const figured = candidateQuestions.filter((question) => question.diagram);
   assert.equal(figured.length, usCaliforniaPracticeFigureSpecs.length);
+  assert.equal(usCaliforniaQuestions.some((question) => question.diagram), false);
 });
 
 test("a figure drawing one counter too many is rejected", () => {
