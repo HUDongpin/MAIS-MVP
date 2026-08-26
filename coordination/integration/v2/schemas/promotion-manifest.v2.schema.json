@@ -34,9 +34,9 @@
     "schemaVersion": { "const": "promotion-manifest.v2" },
     "gateId": { "const": "promotion-shadow-gate-v2" },
     "pilotUnitId": { "const": "us-ca-math-rag-v2-g6-ratios-v2" },
-    "attemptId": { "const": "attempt-005" },
+    "attemptId": { "const": "attempt-006" },
     "mode": { "const": "shadow" },
-    "checkerVersion": { "const": "promotion-gate-shadow-v2.4" },
+    "checkerVersion": { "const": "promotion-gate-shadow-v2.5" },
     "checkerRelease": {
       "type": "object",
       "additionalProperties": false,
@@ -44,7 +44,7 @@
       "properties": {
         "ledgerPath": { "$ref": "#/$defs/path" },
         "ledgerRawSha256": { "$ref": "#/$defs/sha256" },
-        "version": { "const": "promotion-gate-shadow-v2.4" },
+        "version": { "const": "promotion-gate-shadow-v2.5" },
         "bundleAlgorithm": { "const": "sha256-stable-json-path-raw-v2" },
         "bundleDigest": { "$ref": "#/$defs/sha256" },
         "releaseCommit": { "$ref": "#/$defs/commit" }
@@ -214,7 +214,7 @@
             "candidateDigest": { "$ref": "#/$defs/sha256" },
             "sourceCommit": { "$ref": "#/$defs/commit" },
             "targetBaselineCommit": { "$ref": "#/$defs/commit" },
-            "checkerVersion": { "const": "promotion-gate-shadow-v2.4" }
+            "checkerVersion": { "const": "promotion-gate-shadow-v2.5" }
           }
         }
       }

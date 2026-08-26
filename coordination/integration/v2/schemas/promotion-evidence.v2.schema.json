@@ -27,7 +27,7 @@
     "candidateDigest": { "$ref": "#/$defs/sha256" },
     "sourceCommit": { "$ref": "#/$defs/commit" },
     "targetBaselineCommit": { "$ref": "#/$defs/commit" },
-    "checkerVersion": { "const": "promotion-gate-shadow-v2.4" },
+    "checkerVersion": { "const": "promotion-gate-shadow-v2.5" },
     "semanticPayload": { "type": "object" }
   },
   "$defs": {

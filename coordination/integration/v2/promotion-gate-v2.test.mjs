@@ -40,7 +40,7 @@ const execFile = promisify(execFileCallback);
 
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002";
-const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/promotion-manifest.v2.json";
+const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/promotion-manifest.v2.json";
 const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
 
 async function readJson(relativePath) {
@@ -496,7 +496,7 @@ test("pure Manifest validation rejects currentness drift before evidence I/O", a
   const previous = await readJson(`${pilotRoot}/promotion-manifest.v2.json`);
   const manifest = {
     ...previous,
-    attemptId: "attempt-005",
+    attemptId: "attempt-006",
     checkerVersion: PROMOTION_V2_CHECKER_VERSION,
     checkerRelease: {
       ...previous.checkerRelease,
