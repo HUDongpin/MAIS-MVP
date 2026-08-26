@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/DeepSeekDirectRouteProbeReceiptV1.schema.json",
+  "title": "DeepSeekDirectRouteProbeReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "probeAuthorizationHash", "credentialReadinessReceiptHash", "provider", "requestedEndpoint", "requestedModel", "containsNaturalQuestionText", "observedEndpoint", "observedModel", "directBillingEvidenceHash", "dataRegionEvidenceHash", "directBillingConfirmed", "dataRegion", "providerAttemptReceiptHash", "priceSnapshotHash", "probeStatus", "completedAt", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "DeepSeekDirectRouteProbeReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/hash" },
+    "probeAuthorizationHash": { "$ref": "#/$defs/hash" },
+    "credentialReadinessReceiptHash": { "$ref": "#/$defs/hash" },
+    "provider": { "const": "DEEPSEEK_DIRECT" },
+    "requestedEndpoint": { "const": "https://api.deepseek.com/chat/completions" },
+    "requestedModel": { "const": "deepseek-v4-pro" },
+    "containsNaturalQuestionText": { "const": false },
+    "observedEndpoint": { "anyOf": [{ "const": "https://api.deepseek.com/chat/completions" }, { "type": "null" }] },
+    "observedModel": { "anyOf": [{ "const": "deepseek-v4-pro" }, { "type": "null" }] },
+    "directBillingEvidenceHash": { "$ref": "#/$defs/hash" },
+    "dataRegionEvidenceHash": { "$ref": "#/$defs/hash" },
+    "directBillingConfirmed": { "type": "boolean" },
+    "dataRegion": { "type": "string", "minLength": 1 },
+    "providerAttemptReceiptHash": { "$ref": "#/$defs/hash" },
+    "priceSnapshotHash": { "$ref": "#/$defs/hash" },
+    "probeStatus": { "enum": ["CONFIRMED", "BLOCKED", "FAILED"] },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

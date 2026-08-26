@@ -5,10 +5,12 @@
 This package implements the A21 offline execution substrate for the California
 60-item machine-reference pilot. Its current state is:
 
-> `V5_METHOD_ACTIVE / FRAME_READINESS_IMPLEMENTED / LIVE_EXECUTION_BLOCKED`
+> `V5_FRAME_AND_SAMPLE_FROZEN / V5-R3_OFFLINE_RUNNER_IMPLEMENTED / FRESH_A11_REVIEW_PENDING / PROVIDER_EXECUTION_BLOCKED`
 
-This runner step does not itself freeze a design, frame, sample, provider
-authorization, reference label seal, or execution registration. It has made no
+The V5 design, California runtime frame, one-cluster-per-item CA60 sample,
+rights/privacy screens, taxonomy, thresholds, P0/P1/P2 rules, and decision
+ceiling are already frozen upstream. This runner step does not create a provider
+authorization, reference label seal, or natural-question execution registration. It has made no
 OpenAI or DeepSeek request, has produced no natural-item result, and cannot emit
 `PASS`, `APPROVED`, `PRODUCTION_READY`, or
 `LIMITED_GENERALIZATION_EVIDENCE`.
@@ -17,10 +19,13 @@ The tracked V5 design passed its preactivation A11 review and is now the active
 method registration. It freezes the owner-selected reference tuple as
 `OPENAI_DIRECT` / `US_STORAGE_PROCESSING` /
 `https://us.api.openai.com/v1/responses` / `gpt-5.6-luna`, but this is a design
-selection, not a live-execution grant. The active pointer and activation receipt
-both keep `firstProviderExecutionAllowed = false`. The production guard accepts
-the reviewed V5 roots, then returns zero dispatches until every downstream frame,
-sample, route, price, credential-readiness, and authorization gate is present.
+selection, not a live-execution grant. V5-R2 was independently reviewed and
+frozen as `DISCREPANCY`; its registration and review receipt remain immutable.
+V5-R3 supersedes only the pre-first-provider runner surface and leaves every
+frozen research root unchanged. Its production guard returns zero dispatches
+until a post-registration fresh A11 `CONCURRED` receipt, project/route evidence,
+redacted credential-readiness evidence, current price evidence, an owner grant,
+and a complete `ProviderAuthorizationV3` are present and mutually hash-bound.
 
 ## Implemented contracts
 
@@ -28,10 +33,16 @@ sample, route, price, credential-readiness, and authorization gate is present.
 - Historical V4 custody remains unchanged; V5 adds a separately named,
   self-hashed, nonauthorizing `ProtectedExecutionCustodyRegistryV2`.
 - Deterministic runner source manifest over regular package-local files only.
-- Append-only canonical JSONL attempt chain with sequence numbers,
-  `previousReceiptHash`, `selfHash`, file and directory fsync, and mode `0600`.
-- Semantic `ProviderAttemptReceiptV2` validation occurs before a receipt can be
-  appended, and the actual lock-assigned sequence/hash is revalidated.
+- Authoritative receipt-derived attempt/token/USD/concurrency accounting with an
+  atomic pre-dispatch reservation. Caller-supplied budget snapshots are ignored;
+  duplicate attempt IDs and stale/concurrent reservations fail closed.
+- Immutable per-entry canonical receipts with sequence numbers,
+  `previousEntryHash`, `selfHash`, fsync, atomic same-directory publication,
+  mode `0600`, and explicit stale-lock/orphan recovery blockers.
+- Every post-dispatch outcome embeds a self-hashed `ProviderEventReceiptV3` in
+  the atomic completion entry. Body-read failure, malformed/schema-invalid 200,
+  provider-origin/model/finish drift, observed usage, pessimistic reserved cost,
+  and provider-invoice authority are retained.
 - Atomic, idempotent completed-item markers; conflicting bytes fail closed.
 - Secret-bearing field/value screening before persistence.
 - Deterministic logical-to-wire projection for all five frozen OpenAI reference
@@ -45,17 +56,23 @@ sample, route, price, credential-readiness, and authorization gate is present.
   expiry, payload-set, origin, provider/model/endpoint, role, input/output/total
   token, per-role/total attempt, USD, and concurrency guards fail before any
   dispatch.
-- `IndependentDesignReviewReceiptV1` is a pre-activation A11 contract distinct
-  from the later 60-item `IndependentReviewReceiptV1`: it binds the exact V5
-  design package root plus the reviewed runner commit/hash and adapter hash.
-- The authorization `payloadSetHash` binds the sorted frozen sample item-hash
-  set. Each dispatch separately binds its item pseudonym/hash/cluster and checks
-  that prior solve/label artifacts belong to the same item and expected panel
-  role; later labels therefore need not pretend their not-yet-created solve
-  receipts were knowable at authorization time.
-- A21 transport restriction to `FIXTURE_ONLY_NO_NETWORK_V2`; the adapter and
-  guard contain no `fetch`, SDK, socket, key, or environment-variable primitive.
-  Live provider transport remains A07-owned.
+- `IndependentExecutionRunnerReviewReceiptV2` is a post-registration A11
+  contract. Future owner authorization must bind the exact V5-R3 registration,
+  source commit, production/test roots, and a zero-finding `CONCURRED` receipt.
+- `SampleExecutionInventoryV1` carries exactly 60 unique item pseudonym/hash/
+  cluster tuples plus each item's protected privacy- and rights-screen evidence
+  hash. The guard recomputes the frozen payload, privacy, and rights roots and
+  rejects any dispatch outside that exact egress-eligible inventory before a
+  ledger reservation. Future owner grants and provider authorizations must bind
+  the inventory hash, exact egress allow/deny policy hash, and exact per-role
+  reservation-policy hash.
+- Each dispatch checks that prior solve/label artifacts belong to the same item
+  and expected panel role; later labels therefore need not pretend their
+  not-yet-created solve receipts were knowable at authorization time.
+- A07 live transport is implemented but not invoked by this registration. It is
+  pinned to the exact OpenAI US Responses and DeepSeek direct endpoints, rejects
+  redirects/origin drift, binds the OpenAI project identity, and reads a
+  credential only after all static evidence and the atomic reservation pass.
 - Registered-canary selection from manifest row 1, formal-sample membership,
   two-attempt-per-role resume logic, fixed B-prime/C0-prime role order, and
   execution-leaf drift invalidation.
@@ -93,20 +110,28 @@ verify
 export-aggregate-report
 ```
 
-Run the read-only command contract with:
+Run the V5-R3 command contract with:
 
 ```bash
-node coordination/content-qa/mais-natural-ca60-v1/cli.mjs --help
-node coordination/content-qa/mais-natural-ca60-v1/cli.mjs dry-run
-node coordination/content-qa/mais-natural-ca60-v1/cli.mjs authorize-check
+node coordination/content-qa/mais-natural-ca60-v1/runner-v5-r3-cli.mjs dry-run \
+  --context /absolute/protected/context.json
+node coordination/content-qa/mais-natural-ca60-v1/runner-v5-r3-cli.mjs authorize-check --context /absolute/protected/context.json
 ```
 
-At the current V5 candidate state, `dry-run` is the only successful operational
-command. All registration, freeze, labeling, execution, scoring, verification,
-and export commands fail closed with a nonzero exit and a self-hashed
-`NaturalCaRunnerCommandReceiptV1`. Those command receipts state zero provider
-requests, zero protected mutations, zero natural results, and `formalDecision =
-null`.
+Provider, scoring, verification, sealing, and export commands are connected to
+the guarded filesystem runtime. They require a canonical self-hashed context
+inside the fixed protected root under mode `0600`; a blocker returns nonzero and
+does not claim provider invocation. At the current authorization boundary they
+therefore remain blocked with zero provider requests and zero natural results.
+The offline reference seal builder reconstructs every A/B/adjudicator label
+from the complete append-only ledger, requires 240 base successes plus exactly
+one adjudicator success for every triggered item, and reports raw agreement,
+Cohen kappa, Gwet AC1, family/code Jaccard, severity agreement, and adjudication
+rate while retaining the correlated-machine-panel limitation. The offline
+scorer implements deterministic one-to-one exact-then-family
+matching, Wilson bounds, 10,000-replicate item-cluster bootstrap, conservative
+missing-item bounds, P0/P1/P2 precedence, and the frozen
+`INCONCLUSIVE_MACHINE_REFERENCE` decision ceiling; it cannot emit `PASS`.
 
 ## Reproducible runtime diagnostic
 
@@ -177,23 +202,21 @@ credentials or call a model provider.
 
 Before any natural-item provider execution, the following remain mandatory:
 
-1. A18/owner bind the fine-grained lineage rule and rights/egress decision roots.
-2. A11 independently reruns the exact extractor roots, while A22 creates an
-   exact-SHA clean execution worktree and produces source,
-   dependency-closure, runtime-config, and route-parity evidence.
-3. The complete protected frame and 60-cluster sample are frozen and bound to
-   the runner/adapter hashes.
-4. A07 supplies independently reviewed OpenAI Responses and DeepSeek live
-   transports; no fallback provider/model/route is allowed. It must first prove
-   that the owner project is entitled to the exact US route and exact model.
-5. A19 performs redacted credential readiness checks. A current US-route price
+1. Fresh A11 independently reviews the exact V5-R3 registration commit and must
+   return `CONCURRED`; any discrepancy requires another append-only supersession.
+2. A22 creates a clean exact-SHA execution worktree and confirms dependency,
+   runtime-config, protected-storage, and route-parity evidence.
+3. A separately authorized static OpenAI project-route preflight must prove the
+   owner project identity, US storage/processing selection, exact model
+   entitlement, and current billing route without natural-question content.
+4. A19 performs redacted credential readiness checks. A current US-route price
    snapshot and two separate, unexpired, hash-bound owner authorization receipts
    must bind the exact design/frame/sample/prompt/schema/runner/adapter/payload
    roots and nontransferable attempts, tokens, and USD caps.
-6. GPT-5.6 Luna reference labels are completed and sealed before any DeepSeek
+5. GPT-5.6 Luna reference labels are completed and sealed before any DeepSeek
    item request; DeepSeek remains blind to those labels. The same-model A/B and
    adjudicator panel remains correlated machine evidence, not human gold.
-7. A11 independently recomputes the final evidence, and A18 approves the claim
+6. A11 independently recomputes the final evidence, and A18 approves the claim
    boundary before any aggregate report is exported.
 
 Even after a valid 60-item execution, the registered decision ceiling remains

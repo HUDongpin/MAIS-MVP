@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/IndependentExecutionRunnerReviewReceiptV2.schema.json",
+  "title": "IndependentExecutionRunnerReviewReceiptV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "runnerVersion", "reviewedAt", "decision", "reviewerLane", "findingCount", "reviewedRunnerRegistrationHash", "reviewedRunnerSourceCommit", "reviewedProductionSourceRootHash", "reviewedTestSourceRootHash", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "IndependentExecutionRunnerReviewReceiptV2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerVersion": { "type": "string", "pattern": "^V5-R[3-9][0-9]*$" },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "decision": { "enum": ["CONCURRED", "DISCREPANCY", "UNREVIEWABLE"] },
+    "reviewerLane": { "const": "A11" },
+    "findingCount": { "type": "integer", "minimum": 0 },
+    "reviewedRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "reviewedRunnerSourceCommit": { "$ref": "#/$defs/commit" },
+    "reviewedProductionSourceRootHash": { "$ref": "#/$defs/hash" },
+    "reviewedTestSourceRootHash": { "$ref": "#/$defs/hash" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+  }
+}

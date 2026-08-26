@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProviderDispatchPermitV2.schema.json",
+  "title": "ProviderDispatchPermitV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "mode", "provider", "endpoint", "model", "authorizationHash", "runnerReviewReceiptHash", "reservationHash", "attemptId", "projectIdentityHash", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "ProviderDispatchPermitV2" },
+    "mode": { "enum": ["FIXTURE", "LIVE"] },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "endpoint": { "enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"] },
+    "model": { "enum": ["gpt-5.6-luna", "deepseek-v4-pro"] },
+    "authorizationHash": { "$ref": "#/$defs/hash" },
+    "runnerReviewReceiptHash": { "$ref": "#/$defs/hash" },
+    "reservationHash": { "$ref": "#/$defs/hash" },
+    "attemptId": { "type": "string", "minLength": 1 },
+    "projectIdentityHash": { "anyOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }] },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "provider": { "const": "OPENAI_DIRECT" } }, "required": ["provider"] },
+      "then": { "properties": { "endpoint": { "const": "https://us.api.openai.com/v1/responses" }, "model": { "const": "gpt-5.6-luna" }, "projectIdentityHash": { "$ref": "#/$defs/hash" } } }
+    },
+    {
+      "if": { "properties": { "provider": { "const": "DEEPSEEK_DIRECT" } }, "required": ["provider"] },
+      "then": { "properties": { "endpoint": { "const": "https://api.deepseek.com/chat/completions" }, "model": { "const": "deepseek-v4-pro" }, "projectIdentityHash": { "type": "null" } } }
+    }
+  ],
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

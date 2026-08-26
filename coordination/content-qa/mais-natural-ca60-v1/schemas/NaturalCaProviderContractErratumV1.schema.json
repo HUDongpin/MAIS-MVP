@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaProviderContractErratumV1.schema.json",
+  "title": "NaturalCaProviderContractErratumV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "erratumId", "recordedAt", "ownerProviderDecisionHash", "designRegistrationHash", "affectedRole", "inheritedPromptHash", "legacyProviderToken", "operativeInterpretation", "promptBytesChanged", "referenceProvider", "referenceInputCountRequiredForDeepSeek", "deepSeekDenylist", "supersedesRunnerRegistrationHash", "previousReceiptHash", "status", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaProviderContractErratumV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "erratumId": { "const": "MAIS-NATURAL-CA60-V5-R3-REFERENCE-BLINDNESS-ERRATUM" },
+    "recordedAt": { "type": "string", "format": "date-time" },
+    "ownerProviderDecisionHash": { "$ref": "#/$defs/hash" },
+    "designRegistrationHash": { "$ref": "#/$defs/hash" },
+    "affectedRole": { "const": "B_PRIME_REVISION" },
+    "inheritedPromptHash": { "$ref": "#/$defs/hash" },
+    "legacyProviderToken": { "const": "Qwen" },
+    "operativeInterpretation": { "type": "string", "minLength": 40 },
+    "promptBytesChanged": { "const": false },
+    "referenceProvider": { "const": "OPENAI_DIRECT/gpt-5.6-luna" },
+    "referenceInputCountRequiredForDeepSeek": { "const": 0 },
+    "deepSeekDenylist": { "type": "array", "minItems": 5, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "supersedesRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "previousReceiptHash": { "$ref": "#/$defs/hash" },
+    "status": { "const": "ACCEPTED_APPEND_ONLY_NON_SEMANTIC_PROVIDER_NAME_ERRATUM" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

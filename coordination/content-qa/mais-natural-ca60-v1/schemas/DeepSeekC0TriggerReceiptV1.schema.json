@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/DeepSeekC0TriggerReceiptV1.schema.json","title":"DeepSeekC0TriggerReceiptV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","itemHash","itemIdPseudonym","triggerEngineHash","randomAuditSelectionReceiptHash","mandatoryTriggerReceiptHash","reasons","c0Required","selfHash"],
+  "properties":{"schemaVersion":{"const":"DeepSeekC0TriggerReceiptV1"},"itemHash":{"$ref":"#/$defs/hash"},"itemIdPseudonym":{"type":"string","minLength":1},"triggerEngineHash":{"$ref":"#/$defs/hash"},"randomAuditSelectionReceiptHash":{"$ref":"#/$defs/hash"},"mandatoryTriggerReceiptHash":{"$ref":"#/$defs/hash"},"reasons":{"type":"array","uniqueItems":true,"items":{"enum":["REGISTERED_RANDOM_AUDIT","MANDATORY_POLICY_TRIGGER"]}},"c0Required":{"type":"boolean"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

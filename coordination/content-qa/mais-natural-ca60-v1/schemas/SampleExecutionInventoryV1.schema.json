@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/SampleExecutionInventoryV1.schema.json",
+  "title": "SampleExecutionInventoryV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "runnerRegistrationHash", "sampleManifestHash", "samplePayloadSetHash", "privacyScreenHash", "rightsScreenHash", "itemCount", "items", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "SampleExecutionInventoryV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleManifestHash": { "$ref": "#/$defs/hash" },
+    "samplePayloadSetHash": { "$ref": "#/$defs/hash" },
+    "privacyScreenHash": { "$ref": "#/$defs/hash" },
+    "rightsScreenHash": { "$ref": "#/$defs/hash" },
+    "itemCount": { "const": 60 },
+    "items": {
+      "type": "array",
+      "minItems": 60,
+      "maxItems": 60,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["itemHash", "itemIdPseudonym", "clusterId", "privacyScreenEvidenceHash", "rightsScreenEvidenceHash", "egressEligible"],
+        "properties": {
+          "itemHash": { "$ref": "#/$defs/hash" },
+          "itemIdPseudonym": { "type": "string", "minLength": 1 },
+          "clusterId": { "type": "string", "minLength": 1 },
+          "privacyScreenEvidenceHash": { "$ref": "#/$defs/hash" },
+          "rightsScreenEvidenceHash": { "$ref": "#/$defs/hash" },
+          "egressEligible": { "const": true }
+        }
+      }
+    },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "x-mais-cross-field-constraint": "Exactly 60 unique itemHash, itemIdPseudonym, and clusterId values are required. SHA256(JCS(sorted item hashes)) must equal samplePayloadSetHash. The sorted itemHash-evidenceHash tuple roots must equal the frozen privacy and rights roots."
+}

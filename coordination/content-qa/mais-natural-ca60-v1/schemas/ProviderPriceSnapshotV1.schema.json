@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/ProviderPriceSnapshotV1.schema.json","title":"ProviderPriceSnapshotV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","provider","model","currency","inputUsdPerMillionTokens","outputUsdPerMillionTokens","capturedAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"ProviderPriceSnapshotV1"},"provider":{"enum":["OPENAI_DIRECT","DEEPSEEK_DIRECT"]},"model":{"enum":["gpt-5.6-luna","deepseek-v4-pro"]},"currency":{"const":"USD"},"inputUsdPerMillionTokens":{"type":"number","minimum":0},"outputUsdPerMillionTokens":{"type":"number","minimum":0},"capturedAt":{"type":"string","format":"date-time"},"selfHash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

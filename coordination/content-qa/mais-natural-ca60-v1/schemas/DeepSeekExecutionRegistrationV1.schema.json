@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/DeepSeekExecutionRegistrationV1.schema.json",
+  "title": "DeepSeekExecutionRegistrationV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registeredAt", "runnerRegistrationHash", "freshRunnerReviewHash", "authorizationHash", "referenceSealHash", "referenceAttemptChainHash", "frameRegistrationHash", "sampleManifestHash", "routeReceiptHash", "provider", "model", "endpoint", "adapterHash", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "DeepSeekExecutionRegistrationV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registeredAt": { "type": "string", "format": "date-time" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "freshRunnerReviewHash": { "$ref": "#/$defs/hash" },
+    "authorizationHash": { "$ref": "#/$defs/hash" },
+    "referenceSealHash": { "$ref": "#/$defs/hash" },
+    "referenceAttemptChainHash": { "$ref": "#/$defs/hash" },
+    "frameRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleManifestHash": { "$ref": "#/$defs/hash" },
+    "routeReceiptHash": { "$ref": "#/$defs/hash" },
+    "provider": { "const": "DEEPSEEK_DIRECT" },
+    "model": { "const": "deepseek-v4-pro" },
+    "endpoint": { "const": "https://api.deepseek.com/chat/completions" },
+    "adapterHash": { "$ref": "#/$defs/hash" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/OpenAIAdjudicationTriggerReceiptV1.schema.json","title":"OpenAIAdjudicationTriggerReceiptV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","itemHash","itemIdPseudonym","triggerEngineHash","labelAHash","labelBHash","reasons","adjudicationRequired","selfHash"],
+  "properties":{"schemaVersion":{"const":"OpenAIAdjudicationTriggerReceiptV1"},"itemHash":{"$ref":"#/$defs/hash"},"itemIdPseudonym":{"type":"string","minLength":1},"triggerEngineHash":{"$ref":"#/$defs/hash"},"labelAHash":{"$ref":"#/$defs/hash"},"labelBHash":{"$ref":"#/$defs/hash"},"reasons":{"type":"array","uniqueItems":true,"items":{"enum":["FIELD_DISAGREEMENT","UNCERTAIN","P0_RAISED","P1_RAISED"]}},"adjudicationRequired":{"type":"boolean"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

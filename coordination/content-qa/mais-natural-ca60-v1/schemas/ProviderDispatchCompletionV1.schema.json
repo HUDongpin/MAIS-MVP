@@ -1,0 +1,6 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/ProviderDispatchCompletionV1.schema.json","title":"ProviderDispatchCompletionV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","entryType","status","sequenceNumber","previousEntryHash","authorizationHash","reservationHash","providerEventReceiptHash","providerEventReceipt","attemptStatus","selfHash"],
+  "properties":{"schemaVersion":{"const":"ProviderDispatchCompletionV1"},"entryType":{"const":"DISPATCH_COMPLETED"},"status":{"const":"COMPLETED"},"sequenceNumber":{"type":"integer","minimum":2},"previousEntryHash":{"type":"string","pattern":"^[0-9a-f]{64}$"},"authorizationHash":{"$ref":"#/$defs/hash"},"reservationHash":{"$ref":"#/$defs/hash"},"providerEventReceiptHash":{"$ref":"#/$defs/hash"},"providerEventReceipt":{"$ref":"ProviderEventReceiptV3.schema.json"},"attemptStatus":{"type":"string","minLength":1},"selfHash":{"$ref":"#/$defs/hash"}},
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}
