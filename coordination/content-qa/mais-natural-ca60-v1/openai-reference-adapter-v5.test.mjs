@@ -162,6 +162,27 @@ test("fixture response parsing accepts reasoning items, validates the structured
   assert.equal(api.validateProviderWireEvidenceV2(parsed.wireEvidence, { logicalRequest: logical, wireRequest: wire }).length, 0);
 });
 
+test("live response parsing preserves the same frozen schema while recording one provider event", async () => {
+  const api = await subject();
+  assert.equal(typeof api.parseOpenAIReferenceLiveResponseV5R2, "function");
+  const logical = api.buildOpenAIReferenceLogicalRequestV5({ role: "A_SOLVE", providerInput: solveInput() });
+  const wire = api.buildOpenAIReferenceWireRequestV5(logical);
+  const response = responseEnvelope();
+  const parsed = api.parseOpenAIReferenceLiveResponseV5R2({
+    role: "A_SOLVE",
+    logicalRequest: logical,
+    wireRequest: wire,
+    rawResponseBody: JSON.stringify(response),
+    responseEnvelope: response,
+    responseHeaders: { "x-request-id": "req_live_parser_fixture_001" },
+  });
+  assert.equal(parsed.fixtureOnly, false);
+  assert.equal(parsed.providerEventCount, 1);
+  assert.equal(parsed.observedModel, "gpt-5.6-luna");
+  assert.equal(parsed.parseStatus, "PARSED");
+  assert.equal(parsed.schemaStatus, "VALID");
+});
+
 test("response parsing fails closed on model drift, duplicate output leaves, schema failure, and inconsistent usage", async () => {
   const api = await subject();
   const logical = api.buildOpenAIReferenceLogicalRequestV5({ role: "A_SOLVE", providerInput: solveInput() });

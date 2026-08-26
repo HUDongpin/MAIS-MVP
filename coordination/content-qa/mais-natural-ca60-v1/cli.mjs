@@ -3,6 +3,8 @@
 import { pathToFileURL } from "node:url";
 
 import DESIGN_REGISTRATION from "../../research/mais-natural-ca60-v1/versions/design-v5/design-registration.json" with { type: "json" };
+import ACTIVE_DESIGN_POINTER from "../../research/mais-natural-ca60-v1/ACTIVE-DESIGN-REGISTRATION.json" with { type: "json" };
+import AUTHORIZATION_SEQUENCING from "../../research/mais-natural-ca60-v1/authorization-requests/2026-08-26-provider-authorization-sequencing.json" with { type: "json" };
 import {
   jcsHash,
 } from "../../research/mais-natural-ca60-v1/versions/design-v5/design-contract.mjs";
@@ -42,21 +44,23 @@ function statusFor(command) {
     case "help":
       return { ok: true, status: "HELP", executionMode: "READ_ONLY" };
     case "dry-run":
-      return { ok: true, status: "OFFLINE_DRY_RUN_READY", executionMode: "OFFLINE_NO_PROVIDER" };
+      return { ok: true, status: "OFFLINE_V5_R2_RUNNER_READY_PENDING_FRESH_A11", executionMode: "OFFLINE_NO_PROVIDER" };
     case "register":
-      return { ok: false, status: "V5_ACTIVATION_BLOCKED", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: true, status: "PRE_FIRST_PROVIDER_SUPERSEDING_REGISTRATION_INTERFACE_READY", executionMode: "OFFLINE_NO_PROVIDER" };
     case "freeze-frame":
-      return { ok: false, status: "ACTIVE_DESIGN_NOT_V5", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: true, status: "FRAME_ALREADY_FROZEN_IMMUTABLE", executionMode: "READ_ONLY" };
     case "audit-clusters":
+      return { ok: true, status: "CLUSTER_AUDIT_ALREADY_FROZEN_IMMUTABLE", executionMode: "READ_ONLY" };
     case "freeze-sample":
-      return { ok: false, status: "FRAME_NOT_FROZEN", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: true, status: "SAMPLE_ALREADY_FROZEN_IMMUTABLE", executionMode: "READ_ONLY" };
     case "label-openai":
-      return { ok: false, status: "OPENAI_AUTHORIZATION_NOT_FROZEN", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: false, status: "OPENAI_PROJECT_ROUTE_AND_LABEL_AUTHORIZATIONS_MISSING", executionMode: "READ_ONLY_PREFLIGHT" };
     case "seal-reference-labels":
       return { ok: false, status: "REFERENCE_LABELS_NOT_COMPLETE", executionMode: "READ_ONLY_PREFLIGHT" };
     case "authorize-check":
+      return { ok: false, status: "PROVIDER_AUTHORIZATIONS_MISSING", executionMode: "READ_ONLY_PREFLIGHT" };
     case "execute-deepseek":
-      return { ok: false, status: "AUTHORIZATION_BLOCKED", executionMode: "READ_ONLY_PREFLIGHT" };
+      return { ok: false, status: "REFERENCE_LABEL_SEAL_MISSING", executionMode: "READ_ONLY_PREFLIGHT" };
     case "score":
       return { ok: false, status: "NO_NATURAL_RESULTS", executionMode: "READ_ONLY_PREFLIGHT" };
     case "verify":
@@ -70,11 +74,11 @@ function statusFor(command) {
 
 function messagesFor(command, status) {
   if (status === "HELP") return ["Public command contract only; no provider or protected-artifact action was performed."];
-  if (status === "OFFLINE_DRY_RUN_READY") {
+  if (status === "OFFLINE_V5_R2_RUNNER_READY_PENDING_FRESH_A11") {
     return [
-      "Offline runner contracts are loadable.",
+      "The V5-R2 OpenAI and DeepSeek runner contracts and fixture seams are loadable; fresh A11 review is still required.",
       "No natural question, provider request, reference label, or natural result was produced.",
-      "The tracked V5 design is a sealed candidate; the active pointer remains V3 until independent review and explicit activation.",
+      "The V5 design, California frame, cluster audit, sample, rights screens, and privacy screens remain frozen and immutable.",
       "GPT-5.6 Luna, US_STORAGE_PROCESSING, and the US Responses endpoint are design selections, not live execution authorization.",
     ];
   }
@@ -101,6 +105,13 @@ function buildReceipt({ argv, command, state, now }) {
     designLifecycleStatus: DESIGN_REGISTRATION.lifecycleStatus ?? null,
     designFreezeAllowed: DESIGN_REGISTRATION.freezeAllowed === true,
     designRegistrationHash: DESIGN_REGISTRATION.registrationHash ?? null,
+    activeDesignId: ACTIVE_DESIGN_POINTER.activeDesignId ?? null,
+    activeDesignRegistrationHash: ACTIVE_DESIGN_POINTER.activeRegistrationHash ?? null,
+    frameRegistrationHash: AUTHORIZATION_SEQUENCING.frameSampleEvidence?.frameRegistrationHash ?? null,
+    samplingFrameHash: AUTHORIZATION_SEQUENCING.frameSampleEvidence?.samplingFrameHash ?? null,
+    sampleManifestHash: AUTHORIZATION_SEQUENCING.frameSampleEvidence?.sampleManifestHash ?? null,
+    selectedRightsScreenRootHash: AUTHORIZATION_SEQUENCING.frameSampleEvidence?.selectedRightsScreenRootHash ?? null,
+    selectedPrivacyScreenRootHash: AUTHORIZATION_SEQUENCING.frameSampleEvidence?.selectedPrivacyScreenRootHash ?? null,
     blockingDecisionCodes: blockers,
     providerRequestCount: 0,
     fixtureDispatchCount: 0,

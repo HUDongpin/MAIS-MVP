@@ -563,6 +563,18 @@ export function parseOpenAIReferenceFixtureResponseV5({
   return Object.freeze({ ...body, fixtureParseHash: jcsHash(body) });
 }
 
+export function parseOpenAIReferenceLiveResponseV5R2(input) {
+  const fixture = parseOpenAIReferenceFixtureResponseV5(input);
+  const { fixtureParseHash: _fixtureParseHash, ...shared } = fixture;
+  const body = {
+    ...shared,
+    schemaVersion: "OpenAIReferenceLiveParseV1",
+    fixtureOnly: false,
+    providerEventCount: 1,
+  };
+  return Object.freeze({ ...body, liveParseHash: jcsHash(body) });
+}
+
 export function buildProviderAttemptPayloadV2(input) {
   if (!exactFields(input, ATTEMPT_INPUT_FIELDS)) throw new Error("ProviderAttemptReceiptV2 input fields are invalid");
   const payload = {

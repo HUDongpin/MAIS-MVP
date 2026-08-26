@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/DeepSeekEvaluationRoleOutputV5R2.schema.json",
+  "title": "DeepSeekEvaluationRoleOutputV5R2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "referenceSealHash", "executionRegistrationHash", "itemIdPseudonym", "itemHash", "clusterId", "role", "provider", "requestedModel", "observedModel", "responseId", "attemptReceiptHash", "promptHash", "responseSchemaHash", "parsedPayload", "parsedPayloadHash", "referenceInputCount", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "DeepSeekEvaluationRoleOutputV5R2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "referenceSealHash": { "$ref": "#/$defs/sha256" },
+    "executionRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "itemIdPseudonym": { "type": "string", "minLength": 1 },
+    "itemHash": { "$ref": "#/$defs/sha256" },
+    "clusterId": { "type": "string", "minLength": 1 },
+    "role": { "enum": ["B_PRIME_CRITIQUE", "B_PRIME_REVISION", "C0_PRIME_ROLE_1", "C0_PRIME_ROLE_2", "C0_PRIME_ROLE_3", "C0_PRIME_ROLE_4", "C0_PRIME_ROLE_5"] },
+    "provider": { "const": "DEEPSEEK_DIRECT" },
+    "requestedModel": { "const": "deepseek-v4-pro" },
+    "observedModel": { "const": "deepseek-v4-pro" },
+    "responseId": { "type": "string", "minLength": 1 },
+    "attemptReceiptHash": { "$ref": "#/$defs/sha256" },
+    "promptHash": { "$ref": "#/$defs/sha256" },
+    "responseSchemaHash": { "$ref": "#/$defs/sha256" },
+    "parsedPayload": { "type": "object" },
+    "parsedPayloadHash": { "$ref": "#/$defs/sha256" },
+    "referenceInputCount": { "const": 0 },
+    "selfHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/NaturalCaExecutionRunnerRegistrationV1.schema.json",
+  "title": "NaturalCaExecutionRunnerRegistrationV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "artifactKind", "designId", "runnerVersion", "status", "designRegistrationHash", "supersedes", "frozenBindings", "sourceRoots", "providerImplementations", "authorizationState", "authorityBoundary", "claimCeiling", "decisionCeiling", "createdAt", "previousReceiptHash", "registrationHash"],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaExecutionRunnerRegistrationV1" },
+    "artifactKind": { "const": "PRE_FIRST_PROVIDER_SUPERSEDING_EXECUTION_RUNNER_REGISTRATION" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerVersion": { "const": "V5-R2" },
+    "status": { "const": "OFFLINE_IMPLEMENTED_PENDING_FRESH_A11_REVIEW_PROVIDER_EXECUTION_BLOCKED" },
+    "designRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "supersedes": { "type": "object", "additionalProperties": false, "required": ["preActivationRunner", "formalFrameFreezeRunner", "reason", "providerEventCountBeforeSupersede"], "properties": { "preActivationRunner": { "$ref": "#/$defs/priorRunner" }, "formalFrameFreezeRunner": { "$ref": "#/$defs/priorRunner" }, "reason": { "const": "LIVE_TRANSPORTS_IMPLEMENTED_OFFLINE_BEFORE_FIRST_PROVIDER_EVENT" }, "providerEventCountBeforeSupersede": { "const": 0 } } },
+    "frozenBindings": { "type": "object", "minProperties": 12 },
+    "sourceRoots": { "type": "object", "additionalProperties": false, "required": ["runnerCommit", "productionSourceManifest", "productionSourceRootHash", "testSourceManifest", "testSourceRootHash"], "properties": { "runnerCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" }, "productionSourceManifest": { "$ref": "#/$defs/sourceManifest" }, "productionSourceRootHash": { "$ref": "#/$defs/sha256" }, "testSourceManifest": { "$ref": "#/$defs/sourceManifest" }, "testSourceRootHash": { "$ref": "#/$defs/sha256" } } },
+    "providerImplementations": { "type": "object", "additionalProperties": false, "required": ["openAIReference", "deepSeekEvaluation"], "properties": { "openAIReference": { "type": "object" }, "deepSeekEvaluation": { "type": "object" } } },
+    "authorizationState": { "type": "object" },
+    "authorityBoundary": { "type": "object", "additionalProperties": false, "required": ["providerExecutionAuthorized", "credentialReadAuthorized", "naturalQuestionEgressAuthorized", "tokenAuthorizationCreated", "attemptAuthorizationCreated", "usdAuthorizationCreated", "providerEventCount", "credentialReadCount", "naturalQuestionEgressCount", "referenceLabelCount", "naturalQuestionResultCount"], "properties": { "providerExecutionAuthorized": { "const": false }, "credentialReadAuthorized": { "const": false }, "naturalQuestionEgressAuthorized": { "const": false }, "tokenAuthorizationCreated": { "const": false }, "attemptAuthorizationCreated": { "const": false }, "usdAuthorizationCreated": { "const": false }, "providerEventCount": { "const": 0 }, "credentialReadCount": { "const": 0 }, "naturalQuestionEgressCount": { "const": 0 }, "referenceLabelCount": { "const": 0 }, "naturalQuestionResultCount": { "const": 0 } } },
+    "claimCeiling": { "const": "FRAME_AND_SAMPLE_FROZEN_RUNNER_OFFLINE_IMPLEMENTED_NOT_EXECUTED" },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "previousReceiptHash": { "$ref": "#/$defs/sha256" },
+    "registrationHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "priorRunner": { "type": "object", "additionalProperties": false, "required": ["runnerCommit", "runnerHash", "adapterHash"], "properties": { "runnerCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" }, "runnerHash": { "$ref": "#/$defs/sha256" }, "adapterHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] } } },
+    "sourceManifest": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["path", "byteLength", "sha256"], "properties": { "path": { "type": "string", "minLength": 1 }, "byteLength": { "type": "integer", "minimum": 1 }, "sha256": { "$ref": "#/$defs/sha256" } } } }
+  }
+}

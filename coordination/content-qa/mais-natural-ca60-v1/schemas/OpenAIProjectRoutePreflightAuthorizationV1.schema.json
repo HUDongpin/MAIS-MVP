@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/OpenAIProjectRoutePreflightAuthorizationV1.schema.json",
+  "title": "OpenAIProjectRoutePreflightAuthorizationV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "authorizationKind", "designId", "registrationHash", "runnerRegistrationHash", "provider", "projectResidency", "endpoint", "model", "containsNaturalQuestionTextAuthorized", "credentialReadAuthorized", "providerCallAuthorized", "maximumAttempts", "maximumTokens", "maximumEstimatedUsd", "currency", "issuedAt", "expiresAt", "authorizedBy", "ownerGrantHash", "authorizationHash"],
+  "properties": {
+    "schemaVersion": { "const": "OpenAIProjectRoutePreflightAuthorizationV1" },
+    "authorizationKind": { "const": "OPENAI_PROJECT_ROUTE_PREFLIGHT" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/sha256" },
+    "provider": { "const": "OPENAI_DIRECT" },
+    "projectResidency": { "const": "US_STORAGE_PROCESSING" },
+    "endpoint": { "const": "https://us.api.openai.com/v1/responses" },
+    "model": { "const": "gpt-5.6-luna" },
+    "containsNaturalQuestionTextAuthorized": { "const": false },
+    "credentialReadAuthorized": { "const": true },
+    "providerCallAuthorized": { "const": true },
+    "maximumAttempts": { "const": 1 },
+    "maximumTokens": { "type": "integer", "minimum": 1, "maximum": 256 },
+    "maximumEstimatedUsd": { "type": "number", "exclusiveMinimum": 0, "maximum": 0.1 },
+    "currency": { "const": "USD" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "authorizedBy": { "type": "string", "minLength": 1 },
+    "ownerGrantHash": { "$ref": "#/$defs/sha256" },
+    "authorizationHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

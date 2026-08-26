@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/ProviderDispatchPermitV1.schema.json",
+  "title": "ProviderDispatchPermitV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "transportKind", "provider", "productionEndpoint", "expectedModel", "dispatchAllowed", "credentialReadAllowed", "providerCallAllowed", "providerEventCount", "authorizationHash", "permitHash"],
+  "properties": {
+    "schemaVersion": { "const": "ProviderDispatchPermitV1" },
+    "transportKind": { "enum": ["FIXTURE_HTTP_LOOPBACK_NO_PROVIDER_EVENT_V1", "LIVE_PROVIDER_HTTP_AUTHORIZED_V1"] },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "productionEndpoint": { "enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"] },
+    "expectedModel": { "enum": ["gpt-5.6-luna", "deepseek-v4-pro"] },
+    "dispatchAllowed": { "const": true },
+    "credentialReadAllowed": { "const": true },
+    "providerCallAllowed": { "type": "boolean" },
+    "providerEventCount": { "enum": [0, 1] },
+    "authorizationHash": { "anyOf": [{ "type": "string", "pattern": "^[0-9a-f]{64}$" }, { "type": "null" }] },
+    "permitHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

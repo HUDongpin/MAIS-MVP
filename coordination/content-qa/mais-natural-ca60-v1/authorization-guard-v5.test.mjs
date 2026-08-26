@@ -242,16 +242,16 @@ async function validContext() {
   };
 }
 
-test("production dispatch stays at zero because the immutable active pointer is still V3", async () => {
+test("production fixture dispatch stays at zero because a hypothetical fresh runner review cannot replace the bound V5 activation chronology", async () => {
   const api = await subject();
   const context = await validContext();
   const result = await api.dispatchAuthorizedOpenAIFixtureTransportV5(context);
-  assert.equal(ACTIVE_POINTER.activeDesignId, "MAIS-NATURAL-CA60-V3");
+  assert.equal(ACTIVE_POINTER.activeDesignId, "MAIS-NATURAL-CA60-V5");
   assert.equal(result.dispatchAllowed, false);
   assert.equal(result.httpRequestCount, 0);
   assert.equal(result.fixtureDispatchCount, 0);
   assert.equal(context.transport.calls, 0);
-  assert.match(result.errors.join("\n"), /active.*V5|pointer/iu);
+  assert.match(result.errors.join("\n"), /review chronology|reviewedAt|A11/iu);
 });
 
 test("the V5 guard exposes no live network, credential, or environment-variable primitive", async () => {

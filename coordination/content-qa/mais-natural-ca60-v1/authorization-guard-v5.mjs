@@ -25,6 +25,7 @@ const {
 } = OPENAI_REFERENCE_V5_CONSTANTS;
 
 const FIXTURE_TRANSPORT_KIND = "FIXTURE_ONLY_NO_NETWORK_V2";
+const LIVE_TRANSPORT_KIND = "LIVE_PROVIDER_HTTP_AUTHORIZED_V1";
 const SHA256 = /^[0-9a-f]{64}$/u;
 const GIT_SHA1 = /^[0-9a-f]{40}$/u;
 const REQUEST_FIELDS = Object.freeze([
@@ -480,6 +481,63 @@ export function evaluateOpenAIFixtureDispatchPreflightV5({
   });
 }
 
+export function evaluateOpenAILiveDispatchPreflightV5R2({
+  designRegistration,
+  activeDesignPointer,
+  independentReviewReceipt,
+  authorization,
+  trustedAuthorization,
+  request,
+  budgetState,
+  transport,
+}) {
+  const errors = [];
+  validateDesignRegistration(designRegistration).forEach((error) => add(errors, error));
+  validateActivePointer(activeDesignPointer, designRegistration).forEach((error) => add(errors, error));
+  validateIndependentReview(independentReviewReceipt, designRegistration, activeDesignPointer).forEach((error) => add(errors, error));
+  validateRequest(request, authorization).forEach((error) => add(errors, error));
+  validateOpenAIProviderAuthorizationV2(authorization, {
+    trustedAuthorization,
+    request,
+    independentReviewReceipt,
+    activeDesignPointer,
+  }).forEach((error) => add(errors, error));
+  validateBudgetState(budgetState, request, authorization).forEach((error) => add(errors, error));
+  if (!plainObject(transport) || transport.kind !== LIVE_TRANSPORT_KIND || typeof transport.send !== "function") {
+    add(errors, "A07 live OpenAI transport kind or send primitive is missing");
+  }
+  let permit = null;
+  if (errors.length === 0) {
+    const body = {
+      schemaVersion: "ProviderDispatchPermitV1",
+      transportKind: LIVE_TRANSPORT_KIND,
+      provider: PROVIDER,
+      productionEndpoint: ENDPOINT,
+      expectedModel: MODEL,
+      dispatchAllowed: true,
+      credentialReadAllowed: true,
+      providerCallAllowed: true,
+      providerEventCount: 1,
+      authorizationHash: authorization.authorizationHash,
+    };
+    permit = Object.freeze({ ...body, permitHash: jcsHash(body) });
+  }
+  return Object.freeze({
+    schemaVersion: "OpenAILiveDispatchPreflightV5R2",
+    designId: DESIGN_ID,
+    registrationHash: REGISTRATION_HASH,
+    executionMode: "LIVE_PROVIDER_ONLY_AFTER_EXACT_AUTHORIZATION",
+    dispatchAllowed: errors.length === 0,
+    providerEventCount: 0,
+    itemIdPseudonym: request?.itemIdPseudonym ?? null,
+    itemHash: request?.itemHash ?? null,
+    clusterId: request?.clusterId ?? null,
+    httpRequestCount: 0,
+    permit,
+    errors: Object.freeze([...errors]),
+  });
+}
+
 /**
  * Test seam only. The explicit context can exercise a hypothetical post-review
  * branch, but the only accepted transport declares that it has no network
@@ -525,6 +583,7 @@ export async function dispatchAuthorizedOpenAIFixtureTransportV5(input = {}) {
 
 export const OPENAI_AUTHORIZATION_GUARD_V5_CONSTANTS = Object.freeze({
   fixtureTransportKind: FIXTURE_TRANSPORT_KIND,
+  liveTransportKind: LIVE_TRANSPORT_KIND,
   egressAllowlist: OPENAI_EGRESS_ALLOWLIST,
   egressDenylist: OPENAI_EGRESS_DENYLIST,
   requiredNonAuthorizations: REQUIRED_NON_AUTHORIZATIONS,

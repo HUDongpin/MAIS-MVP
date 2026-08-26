@@ -16,6 +16,13 @@
     "designLifecycleStatus",
     "designFreezeAllowed",
     "designRegistrationHash",
+    "activeDesignId",
+    "activeDesignRegistrationHash",
+    "frameRegistrationHash",
+    "samplingFrameHash",
+    "sampleManifestHash",
+    "selectedRightsScreenRootHash",
+    "selectedPrivacyScreenRootHash",
     "blockingDecisionCodes",
     "providerRequestCount",
     "fixtureDispatchCount",
@@ -85,13 +92,15 @@
     "status": {
       "enum": [
         "HELP",
-        "OFFLINE_DRY_RUN_READY",
-        "V5_ACTIVATION_BLOCKED",
-        "ACTIVE_DESIGN_NOT_V5",
-        "FRAME_NOT_FROZEN",
-        "OPENAI_AUTHORIZATION_NOT_FROZEN",
+        "OFFLINE_V5_R2_RUNNER_READY_PENDING_FRESH_A11",
+        "PRE_FIRST_PROVIDER_SUPERSEDING_REGISTRATION_INTERFACE_READY",
+        "FRAME_ALREADY_FROZEN_IMMUTABLE",
+        "CLUSTER_AUDIT_ALREADY_FROZEN_IMMUTABLE",
+        "SAMPLE_ALREADY_FROZEN_IMMUTABLE",
+        "OPENAI_PROJECT_ROUTE_AND_LABEL_AUTHORIZATIONS_MISSING",
         "REFERENCE_LABELS_NOT_COMPLETE",
-        "AUTHORIZATION_BLOCKED",
+        "PROVIDER_AUTHORIZATIONS_MISSING",
+        "REFERENCE_LABEL_SEAL_MISSING",
         "NO_NATURAL_RESULTS",
         "NO_EXECUTION_RECEIPTS",
         "AGGREGATE_PUBLICATION_BLOCKED",
@@ -114,6 +123,27 @@
       "type": "boolean"
     },
     "designRegistrationHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "activeDesignId": {
+      "const": "MAIS-NATURAL-CA60-V5"
+    },
+    "activeDesignRegistrationHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "frameRegistrationHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "samplingFrameHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "sampleManifestHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "selectedRightsScreenRootHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "selectedPrivacyScreenRootHash": {
       "$ref": "#/$defs/nullableSha256"
     },
     "blockingDecisionCodes": {
