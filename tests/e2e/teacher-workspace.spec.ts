@@ -52,11 +52,13 @@ test.describe.serial("teacher workspace frontend workflows", () => {
       await expect(page.getByText(visibleText).filter({ visible: true }).first()).toBeVisible();
     }
 
-    await page.goto("/teacher");
+    // The route loop above already verifies the /teacher alias. Exercise the
+    // search form on its canonical route so Enter cannot race the alias
+    // redirect and hydrate with a stale /teacher pathname on a cold CI run.
+    await page.goto("/teacher/dashboard");
+    await expect(page).toHaveURL(/\/teacher\/dashboard$/);
     await page.getByPlaceholder(/Search students, assignments, resources/i).fill("quadratic");
     await page.getByPlaceholder(/Search students, assignments, resources/i).press("Enter");
-    // Parameter changes submitted while /teacher is still redirecting must skip
-    // the transient root and resolve on the one canonical workspace URL.
     await expect(page).toHaveURL(/\/teacher\/dashboard\?q=quadratic$/);
     await page.getByLabel(/Class focus/i).selectOption("class-s3a-2026");
     await expect(page).toHaveURL(/classId=class-s3a-2026/);

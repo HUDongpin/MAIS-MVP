@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "promotion-a22-shadow-isolation.v2",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-26T13:19:51+08:00",
+  "executionCommit": "71a859c379903bc0b28c0dbe176fddc07cd723a1",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+    "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61"
+  },
+  "receipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json",
+    "fileRawSha256": "336e6de6e8292b2e8278ccf3335f77a77a4b32a73142657a60748ef24477a484",
+    "rawReceiptDigest": "afbfc67008ea786d2f460deded78f595ebb0bb91c2e11ef64ebd22e47a5b096a",
+    "semanticReceiptDigest": "8fd60bfdcc2c389da3614dcc4fddf99c4b27417f6625be30c453384b430987d2"
+  },
+  "cleanSourceProof": {
+    "worktree": "os-temp-detached-worktree/replay",
+    "worktreeClean": true,
+    "exactExecutionCommit": true,
+    "candidateSnapshotMatchesReceipt": true,
+    "forbiddenSnapshotMatchesReceipt": true,
+    "candidateSourceByteIdentical": true,
+    "forbiddenChangedPathCount": 0
+  },
+  "outputIsolationProof": {
+    "outputAggregateDigest": "3b73e25c5add052dd2e3549438780dd81e2bf94b479f005bbd6fb93e1a277081",
+    "semanticOutputDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192",
+    "compatibilityReportDigest": "2a43fd1e3c663dbe58a0f2db5b75d962aa23ea4e94cfd60fd18b8f40f524efe0",
+    "rollbackStrategy": "remove-new-isolated-temp-root",
+    "preimage": "absent",
+    "postimage": "absent",
+    "exactPreimageRestored": true
+  },
+  "preflightBuildProof": {
+    "typeCheckPassed": true,
+    "unitAndPathSafetyTestsPassed": 26,
+    "productionBuildPassed": true,
+    "staticPageGenerationCount": 202,
+    "nextEnvPreimageRestored": true,
+    "deploymentPerformed": false
+  },
+  "externalSideEffects": {
+    "networkRequestCount": 0,
+    "providerCallCount": 0,
+    "databaseWriteCount": 0,
+    "deploymentCommandCount": 0,
+    "productionWriteCount": 0,
+    "liveRegistryWriteCount": 0
+  },
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitStatus": "shadow_passed",
+  "liveAllowed": false,
+  "maturityClaim": "shadow-passed / ci-enforcement-pending"
+}

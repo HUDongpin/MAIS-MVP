@@ -1,0 +1,38 @@
+{
+  "attemptId": "attempt-001",
+  "authorityEvidence": {
+    "a18": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/authorities/a18-repair-required.v1.json",
+      "rawSha256": "d37e72c5dd8d9892519ed504d76603b03a449e2fc182bf3611889fafffb0ca18",
+      "result": "approve",
+      "role": "A18",
+      "semanticSha256": "17688deac75de3ce39c34dbd7402a97653c3074f081a66a34d1af34cf9db8dc5"
+    },
+    "a23": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/authorities/a23-repair-required.v1.json",
+      "rawSha256": "146e885ff840ca8260bfffdb31dac9d620f0622bf30f9c5b54409530d75f6e10",
+      "result": "approve",
+      "role": "A23",
+      "semanticSha256": "f50ac3cac3c562d4637cb6b4eb1ec09cdd4b9240424f4aadd74498fb03c56291"
+    }
+  },
+  "authorityRoles": [
+    "A18",
+    "A23"
+  ],
+  "authorizationReference": "a18-a23-us-ca-math-rag-v2-g6-ratios-v1-attempt-001-repair-required",
+  "decision": "repair_required",
+  "newAttemptRequired": true,
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+  "reasonCode": "LEGACY_NEW_CONFLICT",
+  "receipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json",
+    "rawReceiptDigest": "6599be3bb414e1737d631aaaa5a46ddc253ca4c26c605f3b842dceda2ae5aa92",
+    "rawSha256": "04c83d2b44fd0ec1daf588b7b28509c6a193eee539d99be09a5dc7420ee8e668",
+    "result": "fail",
+    "runId": "a23-shadow-attempt-001-canonical",
+    "semanticReceiptDigest": "e7be6e6db1031794b6522bedd7cc87496b2efa8832abf81ed43d58cf6a4f3316"
+  },
+  "schemaVersion": "promotion-attempt-disposition.v1",
+  "dispositionDigest": "203911b6f84852090e4a66681bc56c1c547a221260abd4adfb4ba97f2c763688"
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "promotion-candidate-package.v2",
+  "packageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+  "parentPackageId": "us-ca-math-rag-v2-candidate",
+  "candidateVersion": "2.0.0-shadow.1",
+  "status": "candidate-only",
+  "createdAt": "2026-08-26",
+  "promotionUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "supersedesAttempt": {
+    "promotionUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+    "attemptId": "attempt-001",
+    "disposition": "repair_required",
+    "reuseReceipt": false
+  },
+  "records": [
+    {
+      "kind": "safe-card",
+      "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json"
+    },
+    {
+      "kind": "practice",
+      "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json"
+    },
+    {
+      "kind": "lesson",
+      "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json"
+    }
+  ],
+  "localization": {
+    "presentLocales": [
+      "en"
+    ],
+    "missingLiveLocales": [
+      "zh",
+      "zhHans"
+    ],
+    "adapterMayInventMissingLocales": false
+  },
+  "authorizations": {
+    "shadowAllowed": true,
+    "integrationAllowed": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v22-attempt003",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T05:20:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.2",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "reviewedCompositionCommit": "2b92352b47977cc5615cd87eb3bd1656fa406f45",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.2",
+      "releaseCommit": "326dc6547619abb2673c358ea961679c8e325c8a",
+      "bundleDigest": "a4a3d9273552c23b0a8756219069551a556ec5af0514ea43bb8a9459d5503102",
+      "ledgerRawSha256": "c2da8f9dad8beb070b82e2772d73a44032b3de16e70f8f0eb5338b7bb0c548df"
+    },
+    "independentReplayRequired": true,
+    "replayMustUseExactExecutionCommit": true,
+    "semanticReceiptDigestEqualityRequired": true,
+    "preflightResults": [
+      {"check": "npm-ci-ignore-scripts", "result": "pass"},
+      {"check": "npm-run-type-check", "result": "pass"},
+      {"check": "california-live-dereach-and-approved-replacement-regression", "result": "pass", "passed": 12, "failed": 0},
+      {"check": "promotion-gate-v2.2-pure-security-and-workflow-tests", "result": "pass", "passed": 23, "failed": 0, "expectedSkippedUntilManifestFreeze": 1}
+    ],
+    "ratchetedAssertions": [
+      "492-question candidate package is absent from live California questions",
+      "unapproved K-5 textbook candidate seeds are absent",
+      "Grade 1 micro-lesson candidate seeds and topics are absent",
+      "hand-checked CCSS practice remains live",
+      "hand-built CCSS cardinality replacement remains live"
+    ],
+    "negativeCoverage": [
+      "evidence-currentness-baseline-mismatch",
+      "absolute-path",
+      "path-traversal",
+      "NUL-path",
+      "case-collision",
+      "symlink-escape",
+      "output-creation-collision",
+      "source-drift",
+      "runtime-baseline-drift",
+      "unknown-cli-command",
+      "live-command-alias",
+      "fuzzy-answer-form"
+    ],
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A11",
+    "liveAllowed": false
+  }
+}

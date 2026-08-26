@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/promotion-terminal-current-head-audit.v1.schema.json",
+  "title": "Promotion Terminal Current-HEAD Audit v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "auditVersion",
+    "gateId",
+    "pilotUnitId",
+    "attemptId",
+    "candidateDigest",
+    "sourceCommit",
+    "targetBaselineCommit",
+    "policy",
+    "targetHead",
+    "expectedHead",
+    "result",
+    "exitReason",
+    "checks",
+    "terminalBindings",
+    "auditReleaseProof",
+    "candidateProof",
+    "evidenceProof",
+    "liveProof",
+    "legacyProof",
+    "worktreeProof",
+    "liveAllowed",
+    "maturityClaim",
+    "terminalAttemptState",
+    "runMetadata",
+    "semanticAuditDigest",
+    "rawAuditDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "promotion-terminal-current-head-audit.v1" },
+    "auditVersion": { "const": "promotion-terminal-current-head-audit-v1" },
+    "gateId": { "const": "promotion-gate-shadow-v1" },
+    "pilotUnitId": { "const": "us-ca-math-rag-v2-g6-ratios-v1" },
+    "attemptId": { "const": "attempt-001" },
+    "candidateDigest": { "$ref": "#/$defs/sha256" },
+    "sourceCommit": { "$ref": "#/$defs/commit" },
+    "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256", "policyDigest"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "policyDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "targetHead": { "$ref": "#/$defs/commit" },
+    "expectedHead": { "$ref": "#/$defs/commit" },
+    "result": { "enum": ["pass", "fail", "blocked", "internal"] },
+    "exitReason": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/exitReason" }
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "prefixItems": [
+        { "$ref": "#/$defs/terminalCheck" },
+        { "$ref": "#/$defs/releaseCheck" },
+        { "$ref": "#/$defs/candidateCheck" },
+        { "$ref": "#/$defs/evidenceCheck" },
+        { "$ref": "#/$defs/liveCheck" },
+        { "$ref": "#/$defs/legacyCheck" },
+        { "$ref": "#/$defs/mutationCheck" }
+      ],
+      "items": false
+    },
+    "terminalBindings": { "$ref": "#/$defs/proof" },
+    "auditReleaseProof": { "$ref": "#/$defs/proof" },
+    "candidateProof": { "$ref": "#/$defs/proof" },
+    "evidenceProof": { "$ref": "#/$defs/proof" },
+    "liveProof": { "$ref": "#/$defs/proof" },
+    "legacyProof": { "$ref": "#/$defs/proof" },
+    "worktreeProof": { "$ref": "#/$defs/proof" },
+    "liveAllowed": { "const": false },
+    "maturityClaim": { "const": "not-shadow-mature" },
+    "terminalAttemptState": { "const": "repair_required" },
+    "runMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["auditId", "evaluatedAt", "ciJobId"],
+      "properties": {
+        "auditId": { "type": "string", "minLength": 1 },
+        "evaluatedAt": { "type": "string", "format": "date-time" },
+        "ciJobId": { "type": ["string", "null"] }
+      }
+    },
+    "semanticAuditDigest": { "$ref": "#/$defs/sha256" },
+    "rawAuditDigest": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "proof": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "object" }
+      ]
+    },
+    "exitReason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkId", "code", "message", "details"],
+      "properties": {
+        "checkId": { "type": "string" },
+        "code": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 },
+        "details": { "type": "object" }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkId", "result", "code", "message", "details", "evidenceDigest"],
+      "properties": {
+        "checkId": { "type": "string" },
+        "result": { "enum": ["pass", "fail", "blocked", "internal"] },
+        "code": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 },
+        "details": { "type": "object" },
+        "evidenceDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "terminalCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "terminal-attempt-binding" } } }] },
+    "releaseCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "audit-checker-release" } } }] },
+    "candidateCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "candidate-integrity" } } }] },
+    "evidenceCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "evidence-currentness" } } }] },
+    "liveCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "selected-live-reachability" } } }] },
+    "legacyCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "legacy-ratchet" } } }] },
+    "mutationCheck": { "allOf": [{ "$ref": "#/$defs/check" }, { "properties": { "checkId": { "const": "no-repository-mutation" } } }] }
+  }
+}

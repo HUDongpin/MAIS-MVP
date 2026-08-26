@@ -134,6 +134,14 @@
       "pathspecs": ["MAIS_Competitive_Analysis_K12_Math.docx"]
     },
     {
+      "id": "A10-promotion-shadow-workflow",
+      "owner": "A10",
+      "role": "Promotion Shadow CI tooling and check contract",
+      "coordinatesWith": ["A11", "A22", "A23"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [".github/workflows/promotion-shadow.yml"]
+    },
+    {
       "id": "A18-california-content-qa-report",
       "owner": "A18",
       "role": "Curriculum and content QA report",
@@ -513,6 +521,7 @@
     { "path": "coordination/reports/example.md", "expectedOwner": "A10" },
     { "path": "coordination/release-intake/assert-release-source-clean.mjs", "expectedOwner": "A22" },
     { "path": "coordination/release-intake/assert-worktree-lifecycle.mjs", "expectedOwner": "A22" },
+    { "path": ".github/workflows/promotion-shadow.yml", "expectedOwner": "A10" },
     { "path": "scripts/release-env-guard.mjs", "expectedOwner": "A22" },
     { "path": "scripts/cleanup-generated-artifacts.mjs", "expectedOwner": "A22" },
     { "path": "scripts/cleanup-generated-artifacts.test.mjs", "expectedOwner": "A22" },

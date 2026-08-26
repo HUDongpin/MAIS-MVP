@@ -1,0 +1,374 @@
+name: promotion-shadow-gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promotion-shadow-gate:
+    name: promotion-shadow-gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      GIT_CONFIG_COUNT: "4"
+      GIT_CONFIG_KEY_0: gc.auto
+      GIT_CONFIG_VALUE_0: "0"
+      GIT_CONFIG_KEY_1: gc.autoDetach
+      GIT_CONFIG_VALUE_1: "false"
+      GIT_CONFIG_KEY_2: maintenance.auto
+      GIT_CONFIG_VALUE_2: "false"
+      GIT_CONFIG_KEY_3: maintenance.autoDetach
+      GIT_CONFIG_VALUE_3: "false"
+      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json
+      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json
+      PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: ${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json
+      PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      PROMOTION_REPLAY_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-replay
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install current dependencies from lockfile
+        run: npm ci --ignore-scripts
+
+      - name: Validate Promotion Shadow finalization contract
+        run: npm run test:promotion-gate
+
+      - name: Configure isolated Promotion Shadow paths
+        run: |
+          set -euo pipefail
+          umask 077
+          : "${RUNNER_TEMP:?RUNNER_TEMP is required}"
+          : "${GITHUB_ENV:?GITHUB_ENV is required}"
+          runner_temp="${RUNNER_TEMP%/}"
+          if [[ "$runner_temp" != /* || "$runner_temp" == "/" || "$runner_temp" == *$'\n'* ]]; then
+            echo "RUNNER_TEMP must be a non-root absolute path without newlines." >&2
+            exit 1
+          fi
+          artifact_root="$runner_temp/promotion-shadow-gate-v2-artifacts"
+          canonical_copy="$runner_temp/promotion-canonical-receipt.v2.json"
+          execution_worktree="$runner_temp/promotion-shadow-v2-execution"
+          for target in "$artifact_root" "$canonical_copy" "$execution_worktree"; do
+            if [[ -e "$target" || -L "$target" ]]; then
+              echo "Promotion Shadow isolated target already exists: $target" >&2
+              exit 1
+            fi
+          done
+          install -d -m 0700 "$artifact_root"
+          {
+            printf 'PROMOTION_ARTIFACT_ROOT=%s\n' "$artifact_root"
+            printf 'PROMOTION_CANONICAL_RECEIPT_COPY=%s\n' "$canonical_copy"
+            printf 'PROMOTION_EXECUTION_WORKTREE=%s\n' "$execution_worktree"
+            printf 'PROMOTION_CURRENT_VALIDATION=%s\n' "$artifact_root/promotion-current-validation.v2.json"
+            printf 'PROMOTION_FRESH_RECEIPT=%s\n' "$artifact_root/promotion-shadow-receipt.v2.json"
+            printf 'PROMOTION_REPLAY_RECEIPT=%s\n' "$artifact_root/promotion-shadow-replay-receipt.v2.json"
+            printf 'PROMOTION_FRESH_VERIFICATION=%s\n' "$artifact_root/promotion-fresh-verification.v2.json"
+            printf 'PROMOTION_REPLAY_VERIFICATION=%s\n' "$artifact_root/promotion-replay-verification.v2.json"
+            printf 'PROMOTION_CANONICAL_VERIFICATION=%s\n' "$artifact_root/promotion-canonical-verification.v2.json"
+          } >> "$GITHUB_ENV"
+
+      - name: Validate current Promotion inputs and runtime graph
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          umask 077
+          set +e
+          npm --silent run promotion:validate -- --manifest "$PROMOTION_MANIFEST" --json > "$PROMOTION_CURRENT_VALIDATION"
+          cli_exit=$?
+          set -e
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [reportPath, cliExitText] = process.argv.slice(1);
+            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
+            const cliExit = Number(cliExitText);
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Validation CLI exit ${cliExit} does not match result ${String(report.result)}.`);
+            }
+            if (report.result === "pass" && (
+              report.schemaVersion !== "promotion-validation-result.v2" ||
+              report.liveAllowed !== false ||
+              report.pilotUnitStatus !== "shadow_ready"
+            )) {
+              throw new Error("Passing current validation has an invalid v2 non-live envelope.");
+            }
+          ' "$PROMOTION_CURRENT_VALIDATION" "$cli_exit"
+
+      - name: Resolve committed canonical Receipt execution commit
+        id: resolve-promotion-execution
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          umask 077
+          node --input-type=module -e '
+            import { execFileSync } from "node:child_process";
+            import { closeSync, lstatSync, openSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
+            import path from "node:path";
+            const [receiptPath, receiptRelativePath, manifestPath, copyPath, runnerTemp, outputPath] = process.argv.slice(1);
+            const assertSafeRepoPath = (value, label) => {
+              if (!value || path.posix.isAbsolute(value) || path.posix.normalize(value) !== value || value.startsWith("../") || value.includes("\\") || value.includes("\u0000")) {
+                throw new Error(`${label} must be a canonical POSIX repository-relative path.`);
+              }
+            };
+            assertSafeRepoPath(receiptRelativePath, "Canonical Receipt path");
+            assertSafeRepoPath(manifestPath, "Manifest path");
+            for (const [value, label] of [[receiptPath, "Receipt"], [copyPath, "Receipt copy"], [runnerTemp, "Runner temp"], [outputPath, "GitHub output"]]) {
+              if (!path.isAbsolute(value)) throw new Error(`${label} path must be absolute.`);
+            }
+            const repoRoot = realpathSync(process.cwd());
+            const expectedReceipt = path.resolve(repoRoot, receiptRelativePath);
+            if (receiptPath !== expectedReceipt || realpathSync(receiptPath) !== expectedReceipt || !lstatSync(receiptPath).isFile()) {
+              throw new Error("Canonical Receipt must be one regular file at its exact repository path.");
+            }
+            const workingBytes = readFileSync(receiptPath);
+            const committedBytes = execFileSync("git", ["show", `HEAD:${receiptRelativePath}`], { cwd: repoRoot, encoding: null, maxBuffer: 32 * 1024 * 1024 });
+            if (!workingBytes.equals(committedBytes)) throw new Error("Canonical Receipt bytes must equal the current committed Git object.");
+            const receipt = JSON.parse(workingBytes.toString("utf8"));
+            if (
+              receipt.schemaVersion !== "promotion-receipt.v2" ||
+              receipt.result !== "pass" ||
+              receipt.manifest?.path !== manifestPath ||
+              receipt.binding?.liveAllowed !== false ||
+              receipt.lifecycle?.liveAllowed !== false
+            ) {
+              throw new Error("Canonical Receipt must be a passing, non-live v2 Receipt for the fixed Manifest.");
+            }
+            const executionCommit = receipt.worktreeProof?.executionCommit;
+            if (typeof executionCommit !== "string" || !/^[a-f0-9]{40}$/.test(executionCommit)) {
+              throw new Error("Canonical Receipt execution commit is invalid.");
+            }
+            const expectedCopy = path.join(realpathSync(runnerTemp), "promotion-canonical-receipt.v2.json");
+            if (copyPath !== expectedCopy) throw new Error("Canonical copy path is not the fixed runner-temp path.");
+            let descriptor;
+            try {
+              descriptor = openSync(copyPath, "wx", 0o600);
+              writeFileSync(descriptor, workingBytes);
+            } finally {
+              if (descriptor !== undefined) closeSync(descriptor);
+            }
+            const copyEntry = lstatSync(copyPath);
+            if (!copyEntry.isFile() || copyEntry.isSymbolicLink() || copyEntry.nlink !== 1 || (copyEntry.mode & 0o777) !== 0o600 || realpathSync(copyPath) !== copyPath) {
+              throw new Error("Canonical Receipt copy must be one exact 0600 regular file.");
+            }
+            writeFileSync(outputPath, `execution_commit=${executionCommit}\n`, { flag: "a" });
+          ' \
+            "$PROMOTION_CANONICAL_RECEIPT_ABSOLUTE" \
+            "$PROMOTION_CANONICAL_RECEIPT" \
+            "$PROMOTION_MANIFEST" \
+            "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            "$RUNNER_TEMP" \
+            "$GITHUB_OUTPUT"
+
+      - name: Prepare detached canonical execution worktree
+        if: ${{ always() }}
+        env:
+          PROMOTION_EXECUTION_COMMIT: ${{ steps.resolve-promotion-execution.outputs.execution_commit }}
+        run: |
+          set -euo pipefail
+          : "${RUNNER_TEMP:?RUNNER_TEMP is required}"
+          : "${PROMOTION_EXECUTION_COMMIT:?Canonical execution commit is required}"
+          if [[ ! "$PROMOTION_EXECUTION_COMMIT" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "Canonical execution commit must be exactly 40 lowercase hexadecimal characters." >&2
+            exit 1
+          fi
+          expected_worktree="${RUNNER_TEMP%/}/promotion-shadow-v2-execution"
+          if [[ "$PROMOTION_EXECUTION_WORKTREE" != "$expected_worktree" || -e "$PROMOTION_EXECUTION_WORKTREE" || -L "$PROMOTION_EXECUTION_WORKTREE" ]]; then
+            echo "Canonical execution worktree target is unsafe or already exists." >&2
+            exit 1
+          fi
+          git cat-file -e "${PROMOTION_EXECUTION_COMMIT}^{commit}"
+          git merge-base --is-ancestor "$PROMOTION_EXECUTION_COMMIT" HEAD
+          git worktree add --detach "$PROMOTION_EXECUTION_WORKTREE" "$PROMOTION_EXECUTION_COMMIT"
+          test "$(git -C "$PROMOTION_EXECUTION_WORKTREE" rev-parse HEAD)" = "$PROMOTION_EXECUTION_COMMIT"
+          test -z "$(git -C "$PROMOTION_EXECUTION_WORKTREE" status --porcelain=v1 --untracked-files=all)"
+
+      - name: Install canonical execution dependencies
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          npm ci --ignore-scripts
+
+      - name: Execute canonical pilot shadow
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          umask 077
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_RUN_ID" --json > "$PROMOTION_FRESH_RECEIPT"
+          cli_exit=$?
+          set -e
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [receiptPath, runId, cliExitText] = process.argv.slice(1);
+            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[receipt.result];
+            if (Number(cliExitText) !== expectedExit || receipt.schemaVersion !== "promotion-receipt.v2" || receipt.run?.runId !== runId) {
+              throw new Error("Fresh v2 Receipt envelope or CLI exit is invalid.");
+            }
+          ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_RUN_ID" "$cli_exit"
+
+      - name: Replay canonical pilot with distinct run identity
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          umask 077
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_REPLAY_RUN_ID" --json > "$PROMOTION_REPLAY_RECEIPT"
+          cli_exit=$?
+          set -e
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [receiptPath, runId, cliExitText] = process.argv.slice(1);
+            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[receipt.result];
+            if (Number(cliExitText) !== expectedExit || receipt.schemaVersion !== "promotion-receipt.v2" || receipt.run?.runId !== runId) {
+              throw new Error("Replay v2 Receipt envelope or CLI exit is invalid.");
+            }
+          ' "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_RUN_ID" "$cli_exit"
+
+      - name: Compare canonical semantic Receipt digests
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const paths = process.argv.slice(1);
+            const receipts = paths.map((receiptPath) => JSON.parse(readFileSync(receiptPath, "utf8")));
+            if (receipts.length !== 3 || receipts.some((receipt) => receipt.result !== "pass" || receipt.binding?.liveAllowed !== false)) {
+              throw new Error("All three semantic comparison inputs must be passing non-live Receipts.");
+            }
+            const digests = receipts.map((receipt) => receipt.semanticReceiptDigest);
+            if (digests.some((digest) => !/^[a-f0-9]{64}$/.test(digest)) || !digests.every((digest) => digest === digests[0])) {
+              throw new Error(`Semantic Receipt digest mismatch: ${digests.join(", ")}`);
+            }
+          ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_CANONICAL_RECEIPT_COPY"
+
+      - name: Verify fresh replay and canonical Receipts
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          umask 077
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          verify_one() {
+            local receipt_path="$1"
+            local report_path="$2"
+            set +e
+            npm --silent run promotion:verify-receipt -- --receipt "$receipt_path" --json > "$report_path"
+            local cli_exit=$?
+            set -e
+            node --input-type=module -e '
+              import { readFileSync } from "node:fs";
+              const [reportPath, cliExitText] = process.argv.slice(1);
+              const report = JSON.parse(readFileSync(reportPath, "utf8"));
+              const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
+              if (
+                Number(cliExitText) !== expectedExit ||
+                report.schemaVersion !== "promotion-receipt-verification.v2" ||
+                report.valid !== true ||
+                report.liveAllowed !== false
+              ) {
+                throw new Error("Receipt verification report is not an exact passing v2 non-live envelope.");
+              }
+            ' "$report_path" "$cli_exit"
+          }
+          verify_one "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_FRESH_VERIFICATION"
+          verify_one "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_VERIFICATION"
+          verify_one "$PROMOTION_CANONICAL_RECEIPT_COPY" "$PROMOTION_CANONICAL_VERIFICATION"
+
+      - name: Assert exact Promotion Shadow artifact set
+        id: assert-artifact-set
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          node --input-type=module -e '
+            import { lstatSync, readFileSync, readdirSync, realpathSync } from "node:fs";
+            import path from "node:path";
+            const [artifactRoot, ...artifactPaths] = process.argv.slice(1);
+            if (!path.isAbsolute(artifactRoot) || realpathSync(artifactRoot) !== artifactRoot) throw new Error("Artifact root is unsafe.");
+            const expected = [
+              "promotion-current-validation.v2.json",
+              "promotion-shadow-receipt.v2.json",
+              "promotion-shadow-replay-receipt.v2.json",
+              "promotion-fresh-verification.v2.json",
+              "promotion-replay-verification.v2.json",
+              "promotion-canonical-verification.v2.json"
+            ].sort();
+            const supplied = artifactPaths.map((entry) => {
+              if (!path.isAbsolute(entry) || path.dirname(entry) !== artifactRoot) throw new Error("Artifact path escapes its root.");
+              return path.basename(entry);
+            }).sort();
+            if (JSON.stringify(supplied) !== JSON.stringify(expected) || JSON.stringify(readdirSync(artifactRoot).sort()) !== JSON.stringify(expected)) {
+              throw new Error("Promotion artifact set is incomplete or contains unexpected files.");
+            }
+            for (const artifactPath of artifactPaths) {
+              const entry = lstatSync(artifactPath);
+              if (!entry.isFile() || entry.isSymbolicLink() || entry.nlink !== 1 || entry.size === 0 || realpathSync(artifactPath) !== artifactPath) {
+                throw new Error(`Unsafe Promotion artifact: ${artifactPath}`);
+              }
+              JSON.parse(readFileSync(artifactPath, "utf8"));
+            }
+          ' \
+            "$PROMOTION_ARTIFACT_ROOT" \
+            "$PROMOTION_CURRENT_VALIDATION" \
+            "$PROMOTION_FRESH_RECEIPT" \
+            "$PROMOTION_REPLAY_RECEIPT" \
+            "$PROMOTION_FRESH_VERIFICATION" \
+            "$PROMOTION_REPLAY_VERIFICATION" \
+            "$PROMOTION_CANONICAL_VERIFICATION"
+
+      - name: Upload Promotion Shadow gate artifacts
+        if: ${{ always() && steps.assert-artifact-set.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: promotion-shadow-gate-v2-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/promotion-shadow-gate-v2-artifacts/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce Promotion Shadow Gate outcome
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [validationPath, freshPath, replayPath, canonicalPath, freshVerifyPath, replayVerifyPath, canonicalVerifyPath] = process.argv.slice(1);
+            const outcomes = {
+              currentValidation: JSON.parse(readFileSync(validationPath, "utf8")).result,
+              freshReceipt: JSON.parse(readFileSync(freshPath, "utf8")).result,
+              replayReceipt: JSON.parse(readFileSync(replayPath, "utf8")).result,
+              canonicalReceipt: JSON.parse(readFileSync(canonicalPath, "utf8")).result,
+              freshVerification: JSON.parse(readFileSync(freshVerifyPath, "utf8")).result,
+              replayVerification: JSON.parse(readFileSync(replayVerifyPath, "utf8")).result,
+              canonicalVerification: JSON.parse(readFileSync(canonicalVerifyPath, "utf8")).result
+            };
+            const nonPassing = Object.entries(outcomes).filter(([, result]) => result !== "pass");
+            if (nonPassing.length > 0) {
+              throw new Error(`Promotion Shadow Gate remains red: ${nonPassing.map(([name, result]) => `${name}=${String(result)}`).join(", ")}`);
+            }
+          ' \
+            "$PROMOTION_CURRENT_VALIDATION" \
+            "$PROMOTION_FRESH_RECEIPT" \
+            "$PROMOTION_REPLAY_RECEIPT" \
+            "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            "$PROMOTION_FRESH_VERIFICATION" \
+            "$PROMOTION_REPLAY_VERIFICATION" \
+            "$PROMOTION_CANONICAL_VERIFICATION"

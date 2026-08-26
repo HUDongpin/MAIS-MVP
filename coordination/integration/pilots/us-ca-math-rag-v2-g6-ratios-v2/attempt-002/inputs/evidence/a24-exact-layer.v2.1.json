@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-baseline-c689",
+  "role": "A24",
+  "result": "not_applicable",
+  "producedAt": "2026-08-26T15:50:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a24-exact-layer.v2",
+    "exactLayerDisposition": "not-applicable",
+    "scannedRecordIds": [
+      "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2"
+    ],
+    "prohibitedFieldFamilies": ["bitmap", "image", "illustration", "asset", "svg", "plotly", "coordinate", "formula-overlay", "exact-layer"],
+    "matchingFieldPaths": [],
+    "rationale": "All three candidate records are text-and-metadata contracts. They contain no bitmap, image, illustration, asset, SVG, Plotly, coordinate, formula-overlay, or deterministic exact-layer field, so an exact-layer artifact would be invented scope.",
+    "futureChangeInvalidatesEvidence": true,
+    "liveAllowed": false
+  }
+}

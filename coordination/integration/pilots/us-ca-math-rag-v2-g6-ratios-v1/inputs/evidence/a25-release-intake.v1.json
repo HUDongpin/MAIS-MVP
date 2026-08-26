@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a25-release-intake-v1",
+  "role": "A25",
+  "result": "pass",
+  "producedAt": "2026-08-24T19:51:47.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a25-release-intake.v1",
+    "evidencePhase": "preflight-observation",
+    "selectedCandidateSource": {
+      "branch": "codex/a23-promotion-shadow-v1-20260825",
+      "headCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "pathspecs": [
+        "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+        "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+        "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json"
+      ],
+      "allTracked": true,
+      "stagedChangeCount": 0,
+      "unstagedChangeCount": 0,
+      "untrackedChangeCount": 0,
+      "selectedPathspecClean": true
+    },
+    "a23ImplementationWorktree": {
+      "headCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "clean": false,
+      "statusSha256": "1d992eb2e1f951073d2bfcd1247f767c014a1cac661810fb675e43522bca42a1",
+      "statusEntryCount": 6,
+      "untrackedPaths": [
+        "coordination/integration/promotion-gate-lib.mjs",
+        "coordination/integration/promotion-gate.mjs",
+        "coordination/integration/promotion-gate.test.mjs",
+        "coordination/integration/schemas/promotion-manifest.v1.schema.json",
+        "coordination/integration/schemas/promotion-receipt.v1.schema.json",
+        "coordination/session-logs/2026-08-25-A23-promotion-shadow-v1.md"
+      ],
+      "wholeWorktreeReleaseSourceEligible": false
+    },
+    "primaryRootStrictGate": {
+      "observedAt": "2026-08-24T17:25:23.195Z",
+      "branch": "codex/edulab-mais",
+      "headCommit": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "statusSignature": "48c14842fbbe976ca2471df3ee14233705aeaffb919e7edc60f95269834c7bc1",
+      "statusSha256": "3a423cca663282895e47341ca316d0eea356d1e2b517310e5e92bc0165fa2f67",
+      "collapsedStatusEntries": 52,
+      "expandedStatusEntries": 106,
+      "trackedModified": 2,
+      "untrackedFiles": 104,
+      "strictUnmappedEntries": 56,
+      "ambiguousOwnerEntries": 0,
+      "secretQuarantineEntries": 0,
+      "assertCommand": [
+        "npm",
+        "run",
+        "release:dirty-map",
+        "--",
+        "--assert-current",
+        "--max-age-minutes",
+        "60",
+        "--json"
+      ],
+      "exitCode": 1,
+      "result": "fail",
+      "reasonCode": "strict-unmapped-owner-entries",
+      "rootReleaseFrozen": true,
+      "releaseSourceEligible": false
+    },
+    "reviewPackageDisposition": "candidate-only-shadow-review",
+    "releaseDisposition": "blocked-until-committed-clean-worktree"
+  }
+}

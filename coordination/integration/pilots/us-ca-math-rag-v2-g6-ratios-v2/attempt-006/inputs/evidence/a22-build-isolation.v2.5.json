@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v25-attempt006",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-26T12:55:39+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+  "checkerVersion": "promotion-gate-shadow-v2.5",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "reviewedCompositionCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "82a4ca01daeea4f2292a57a684391fd86feae42df1a0c7e31ff5d1d6844c0433",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.5",
+      "releaseCommit": "d9e6ce2bcaebaa1bd2f066584f81eb0e2e24de65",
+      "bundleDigest": "3121b70a4a2742f5fd203a57a0c5e584b833a905c2afebc3cbd65218ce2ed9e5",
+      "ledgerRawSha256": "d4069894b705c58c1047b52181b57c619c8febc1f43bf27311c912c3f9cc22a5"
+    },
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyInstall": {
+      "mode": "npm-ci-ignore-scripts",
+      "result": "pass"
+    },
+    "typeCheck": {
+      "mode": "npm-run-type-check",
+      "result": "pass"
+    },
+    "productionBuild": {
+      "mode": "npm-run-build",
+      "result": "pass",
+      "compiled": true,
+      "staticPageGenerationCount": 202,
+      "deploymentPerformed": false
+    },
+    "buildIsolationProof": {
+      "unitAndPathSafetyTestsPassed": 24,
+      "unitAndPathSafetyTestsFailed": 0,
+      "nextEnvTrackedPreimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageMatchesPreimage": true,
+      "worktreeTrackedDiffCountAfterBuild": 0,
+      "expectedSkippedUntilManifestFreeze": 2
+    },
+    "runtimeBaselineDiff": {
+      "protectedRuntimeChangeCount": 0,
+      "candidateSourceChangeCount": 0,
+      "liveFileChangeCount": 0,
+      "comparisonTarget": "14a041f372fb27fa4282104c247886ff1eea623b"
+    },
+    "externalSideEffects": {
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0
+    },
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A22",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.4",
+      "toCheckerVersion": "promotion-gate-shadow-v2.5",
+      "changeScope": "target-baseline-rebind-after-reviewed-live-contract-repair",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": true,
+      "liveRuntimeChanged": true,
+      "priorAttemptId": "attempt-005",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "5c64fddf5d3fe38a75b3916e7b08b80e875a51ad8d3acb43f1b610e68584b7e3",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a22-build-isolation.v2.4.json",
+      "priorEvidenceRawSha256": "7c461cc2d6869c58a06e1cb258b7c6740bab3b7c87498b3976dc325914a5f909",
+      "priorEvidenceReviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3"
+    },
+    "priorAttemptBaselineDrift": {
+      "attemptId": "attempt-005",
+      "result": "blocked",
+      "failureCode": "V2_TARGET_BASELINE_DRIFT",
+      "protectedRuntimeChangeCount": 8,
+      "replacementAttemptId": "attempt-006"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "promotion-a11-independent-replay.v2",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T05:40:00.000+08:00",
+  "executionCommit": "fb3ef72e389b6ce2795a78caddaeadc65918df14",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/promotion-manifest.v2.json",
+    "rawSha256": "be8552ededb4236a8d5705a26097fa5c01ce94fa4093285dc1e0dc0974ead340"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "checkerVersion": "promotion-gate-shadow-v2.2",
+    "checkerBundleDigest": "a4a3d9273552c23b0a8756219069551a556ec5af0514ea43bb8a9459d5503102"
+  },
+  "canonicalReceipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/shadow-receipt.v2.json",
+    "fileRawSha256": "40452e7293df3c3158e6048e57c5c6ff08338dad6c79a8ad4b3532207e0f925a",
+    "runId": "a23-attempt003-canonical-20260826-01",
+    "rawReceiptDigest": "89ae149d6b777541c4b241e2e9c0ca70631d8cc0d98ea0d2321ac57ae4454864",
+    "semanticReceiptDigest": "e95e847efe65d0848d4be86e5a9579fff8fec5d749660bdb5fa6c7fa727ba710"
+  },
+  "independentReplay": {
+    "worktree": ".worktrees/a11-promotion-shadow-replay-v22-20260826",
+    "detachedExactExecutionCommit": true,
+    "cleanBeforeAndAfter": true,
+    "runId": "a11-attempt003-independent-replay-20260826-01",
+    "result": "pass",
+    "rawReceiptDigest": "818792eda3cc725e2d74f07fafa10fc16edc01f1438ea952312321448598a6a6",
+    "semanticReceiptDigest": "e95e847efe65d0848d4be86e5a9579fff8fec5d749660bdb5fa6c7fa727ba710",
+    "semanticDigestMatchesCanonical": true,
+    "rawDigestDiffersFromCanonical": true,
+    "hardGateCount": 13,
+    "allHardGatesPass": true,
+    "candidateSourceByteIdentical": true,
+    "forbiddenChangedPathCount": 0,
+    "rollbackExactPreimage": true,
+    "externalSideEffectCount": 0
+  },
+  "canonicalVerification": {
+    "schemaVersion": "promotion-receipt-verification.v2",
+    "result": "pass",
+    "valid": true,
+    "semanticReplayMatches": true,
+    "executionCommitMatches": true
+  },
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitStatus": "shadow_passed",
+  "liveAllowed": false,
+  "maturityClaim": "shadow-passed / enforcement-pending"
+}
