@@ -5,6 +5,7 @@ import { textForLanguage } from "@/lib/i18n";
 import { serializeMathAngleContract } from "@/lib/mathDiagramGeometry";
 import {
   buildCoordinateGridLayout,
+  buildDataDisplayLayout,
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
@@ -16,6 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 import type {
   CoordinateGridQuestionDiagram,
+  DataDisplayQuestionDiagram,
   Language,
   NumberLineQuestionDiagram,
   PlaneFigureQuestionDiagram,
@@ -455,6 +457,112 @@ function TenFrameView({
   );
 }
 
+function DataDisplayView({
+  diagram,
+  theme,
+  textFor
+}: {
+  diagram: DataDisplayQuestionDiagram;
+  theme: FigureTheme;
+  textFor: FigureTextResolver;
+}) {
+  const layout = buildDataDisplayLayout(diagram, textFor);
+  const isDay = theme.isDay;
+  const gridColor = isDay ? "#d8e0ea" : "rgb(203 213 225)";
+  const gridOpacity = isDay ? 1 : 0.65;
+  const markArm = 4.5;
+
+  return (
+    <div className="grid gap-2">
+      <svg viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
+        <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={isDay ? 0 : 8} className={theme.plotFillClassName} />
+        {layout.titleText ? (
+          <text x={layout.viewBox.width / 2} y={16} textAnchor="middle" className={theme.axisLabelClassName}>
+            {layout.titleText}
+          </text>
+        ) : null}
+        {layout.pictureRows.map((row) => (
+          <g key={row.key}>
+            <text x={row.labelX} y={row.labelY} textAnchor="end" dominantBaseline="central" className={theme.measureLabelClassName}>
+              {row.labelText}
+            </text>
+            {row.symbols.map((symbol) => (
+              <circle
+                data-diagram-plot-mark
+                key={symbol.key}
+                cx={symbol.cx}
+                cy={symbol.cy}
+                r={symbol.r}
+                fill={theme.accentStroke}
+                stroke={isDay ? "#ffffff" : "rgba(15, 23, 42, 0.85)"}
+                strokeWidth={1.5}
+              />
+            ))}
+          </g>
+        ))}
+        {layout.valueTicks.map((tick) => (
+          <g key={tick.key}>
+            <line x1={tick.x1} x2={tick.x2} y1={tick.y} y2={tick.y} stroke={gridColor} strokeWidth={1} opacity={gridOpacity} />
+            <text x={tick.x1 - 6} y={tick.y + 3} textAnchor="end" className={theme.tickLabelClassName}>
+              {tick.labelText}
+            </text>
+          </g>
+        ))}
+        {layout.bars.map((bar) => (
+          <g key={bar.key}>
+            <rect data-diagram-plot-mark x={bar.x} y={bar.y} width={bar.width} height={bar.height} rx={2} fill={theme.accentStroke} />
+            <text x={bar.labelX} y={bar.labelY} textAnchor="middle" className={theme.tickLabelClassName}>
+              {bar.labelText}
+            </text>
+          </g>
+        ))}
+        {diagram.display === "bar-graph" && layout.valueTicks.length ? (
+          <line
+            x1={layout.valueTicks[0].x1}
+            x2={layout.valueTicks[0].x1}
+            y1={layout.valueTicks[layout.valueTicks.length - 1].y}
+            y2={layout.valueTicks[0].y}
+            stroke={theme.mainStroke}
+            strokeWidth={1.6}
+          />
+        ) : null}
+        {diagram.display === "bar-graph" && layout.unitText ? (
+          <text x={layout.viewBox.width / 2} y={layout.viewBox.height - 4} textAnchor="middle" className={theme.tickLabelClassName}>
+            {layout.unitText}
+          </text>
+        ) : null}
+        {layout.axis ? (
+          <line x1={layout.axis.x1} x2={layout.axis.x2} y1={layout.axis.y} y2={layout.axis.y} stroke={theme.mainStroke} strokeWidth={2} />
+        ) : null}
+        {layout.ticks.map((tick) => (
+          <g key={tick.key}>
+            <line x1={tick.x} x2={tick.x} y1={tick.y1} y2={tick.y2} stroke={theme.mainStroke} strokeWidth={1.4} />
+            {tick.labelText ? (
+              <text x={tick.x} y={tick.labelY} textAnchor="middle" className={theme.tickLabelClassName}>
+                {tick.labelText}
+              </text>
+            ) : null}
+          </g>
+        ))}
+        {layout.marks.map((mark) => (
+          <g data-diagram-plot-mark key={mark.key}>
+            <line x1={mark.x - markArm} x2={mark.x + markArm} y1={mark.y - markArm} y2={mark.y + markArm} stroke={theme.accentStroke} strokeWidth={2.2} strokeLinecap="round" />
+            <line x1={mark.x - markArm} x2={mark.x + markArm} y1={mark.y + markArm} y2={mark.y - markArm} stroke={theme.accentStroke} strokeWidth={2.2} strokeLinecap="round" />
+          </g>
+        ))}
+        {diagram.display === "line-plot" && layout.unitText ? (
+          <text x={layout.viewBox.width / 2} y={layout.viewBox.height - 6} textAnchor="middle" className={theme.axisLabelClassName}>
+            {layout.unitText}
+          </text>
+        ) : null}
+      </svg>
+      {layout.legendText ? (
+        <p className="text-center text-xs font-bold text-slate-700 dark:text-slate-200">{layout.legendText}</p>
+      ) : null}
+    </div>
+  );
+}
+
 type QuestionFigureProps = {
   diagram: QuestionDiagram;
   variant?: QuestionFigureVariant;
@@ -481,6 +589,7 @@ export function QuestionFigure({ diagram, variant = "default", compact = false, 
       {diagram.kind === "number-line" ? <NumberLineView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "solid-figure" ? <SolidFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "ten-frame" ? <TenFrameView diagram={diagram} theme={theme} textFor={textFor} /> : null}
+      {diagram.kind === "data-display" ? <DataDisplayView diagram={diagram} theme={theme} textFor={textFor} /> : null}
     </div>
   );
 }

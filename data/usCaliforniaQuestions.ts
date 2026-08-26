@@ -92,7 +92,9 @@ function reviewNotesForQuestion(question: GeneratedCaliforniaQuestion) {
 function toQuestion(question: GeneratedCaliforniaQuestion): Question {
   const topic = usCaliforniaTopicById.get(question.topicId);
   if (!topic) throw new Error(`Missing California topic for ${question.topicId}`);
-  const figure = usCaliforniaPracticeFigureFor(question.id);
+  const figure =
+    usCaliforniaPracticeFigureFor(question.id) ??
+    (question.batch === "ccss-textbook-practice-v1" ? question.diagram : undefined);
 
   return {
     id: question.id,

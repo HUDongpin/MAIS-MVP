@@ -3916,21 +3916,62 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?",
-        "zh": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?",
-        "zhHans": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?"
+        "en": "The picture graph shows the pets in our class. How many pets are there in all?",
+        "zh": "The picture graph shows the pets in our class. How many pets are there in all?",
+        "zhHans": "The picture graph shows the pets in our class. How many pets are there in all?"
+      },
+      "diagram": {
+        "kind": "data-display",
+        "display": "picture-graph",
+        "title": {
+          "en": "Pets We Have",
+          "zh": "我們的寵物",
+          "zhHans": "我们的宠物"
+        },
+        "unit": {
+          "en": "pet",
+          "zh": "隻寵物",
+          "zhHans": "只宠物"
+        },
+        "scale": 1,
+        "categories": [
+          {
+            "label": {
+              "en": "Dogs",
+              "zh": "狗",
+              "zhHans": "狗"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Cats",
+              "zh": "貓",
+              "zhHans": "猫"
+            },
+            "value": 4
+          },
+          {
+            "label": {
+              "en": "Fish",
+              "zh": "魚",
+              "zhHans": "鱼"
+            },
+            "value": 8
+          }
+        ]
       },
       "answer": "18",
       "acceptedAnswers": [
         "18"
       ],
       "explanation": {
-        "en": "6 + 4 + 8 = 18.",
-        "zh": "6 + 4 + 8 = 18.",
-        "zhHans": "6 + 4 + 8 = 18."
+        "en": "The graph shows 6 dogs, 4 cats, and 8 fish. 6 + 4 + 8 = 18.",
+        "zh": "The graph shows 6 dogs, 4 cats, and 8 fish. 6 + 4 + 8 = 18.",
+        "zhHans": "The graph shows 6 dogs, 4 cats, and 8 fish. 6 + 4 + 8 = 18."
       },
       "independentAnswer": "18",
-      "independentSolution": "6 + 4 + 8 = 18."
+      "independentSolution": "The graph shows 6 dogs, 4 cats, and 8 fish. 6 + 4 + 8 = 18."
     },
     {
       "id": "ccss-textbook-practice-v1-picture-graph-q02",
@@ -3964,9 +4005,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "There are 6 dogs and 4 cats. How many more dogs than cats?",
-        "zh": "There are 6 dogs and 4 cats. How many more dogs than cats?",
-        "zhHans": "There are 6 dogs and 4 cats. How many more dogs than cats?"
+        "en": "Use the picture graph. How many more dogs than cats are there?",
+        "zh": "Use the picture graph. How many more dogs than cats are there?",
+        "zhHans": "Use the picture graph. How many more dogs than cats are there?"
       },
       "options": [
         {
@@ -3990,17 +4031,58 @@
           "zhHans": "3"
         }
       ],
+      "diagram": {
+        "kind": "data-display",
+        "display": "picture-graph",
+        "title": {
+          "en": "Pets We Have",
+          "zh": "我們的寵物",
+          "zhHans": "我们的宠物"
+        },
+        "unit": {
+          "en": "pet",
+          "zh": "隻寵物",
+          "zhHans": "只宠物"
+        },
+        "scale": 1,
+        "categories": [
+          {
+            "label": {
+              "en": "Dogs",
+              "zh": "狗",
+              "zhHans": "狗"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Cats",
+              "zh": "貓",
+              "zhHans": "猫"
+            },
+            "value": 4
+          },
+          {
+            "label": {
+              "en": "Fish",
+              "zh": "魚",
+              "zhHans": "鱼"
+            },
+            "value": 8
+          }
+        ]
+      },
       "answer": "2",
       "acceptedAnswers": [
         "2"
       ],
       "explanation": {
-        "en": "6 − 4 = 2.",
-        "zh": "6 − 4 = 2.",
-        "zhHans": "6 − 4 = 2."
+        "en": "The graph shows 6 dogs and 4 cats. 6 − 4 = 2.",
+        "zh": "The graph shows 6 dogs and 4 cats. 6 − 4 = 2.",
+        "zhHans": "The graph shows 6 dogs and 4 cats. 6 − 4 = 2."
       },
       "independentAnswer": "2",
-      "independentSolution": "6 − 4 = 2."
+      "independentSolution": "The graph shows 6 dogs and 4 cats. 6 − 4 = 2."
     },
     {
       "id": "ccss-textbook-practice-v1-picture-graph-q03",
@@ -7630,21 +7712,69 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "Apple got 6 votes, banana got 9. How many more votes for banana?",
-        "zh": "Apple got 6 votes, banana got 9. How many more votes for banana?",
-        "zhHans": "Apple got 6 votes, banana got 9. How many more votes for banana?"
+        "en": "The bar graph shows the fruit votes. How many more votes did bananas get than apples?",
+        "zh": "The bar graph shows the fruit votes. How many more votes did bananas get than apples?",
+        "zhHans": "The bar graph shows the fruit votes. How many more votes did bananas get than apples?"
+      },
+      "diagram": {
+        "kind": "data-display",
+        "display": "bar-graph",
+        "title": {
+          "en": "Favorite Fruit Votes",
+          "zh": "最喜歡的水果投票",
+          "zhHans": "最喜欢的水果投票"
+        },
+        "unit": {
+          "en": "votes",
+          "zh": "票",
+          "zhHans": "票"
+        },
+        "categories": [
+          {
+            "label": {
+              "en": "Apples",
+              "zh": "蘋果",
+              "zhHans": "苹果"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Bananas",
+              "zh": "香蕉",
+              "zhHans": "香蕉"
+            },
+            "value": 9
+          },
+          {
+            "label": {
+              "en": "Grapes",
+              "zh": "葡萄",
+              "zhHans": "葡萄"
+            },
+            "value": 3
+          },
+          {
+            "label": {
+              "en": "Oranges",
+              "zh": "橙",
+              "zhHans": "橙子"
+            },
+            "value": 5
+          }
+        ]
       },
       "answer": "3",
       "acceptedAnswers": [
         "3"
       ],
       "explanation": {
-        "en": "9 − 6 = 3.",
-        "zh": "9 − 6 = 3.",
-        "zhHans": "9 − 6 = 3."
+        "en": "The bars show 9 votes for bananas and 6 for apples. 9 − 6 = 3.",
+        "zh": "The bars show 9 votes for bananas and 6 for apples. 9 − 6 = 3.",
+        "zhHans": "The bars show 9 votes for bananas and 6 for apples. 9 − 6 = 3."
       },
       "independentAnswer": "3",
-      "independentSolution": "9 − 6 = 3."
+      "independentSolution": "The bars show 9 votes for bananas and 6 for apples. 9 − 6 = 3."
     },
     {
       "id": "ccss-textbook-practice-v1-bar-graph-q02",
@@ -7678,21 +7808,69 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "Bars show 6, 9, 3, and 5. What is the total?",
-        "zh": "Bars show 6, 9, 3, and 5. What is the total?",
-        "zhHans": "Bars show 6, 9, 3, and 5. What is the total?"
+        "en": "Use the bar graph of fruit votes. How many votes were counted in all?",
+        "zh": "Use the bar graph of fruit votes. How many votes were counted in all?",
+        "zhHans": "Use the bar graph of fruit votes. How many votes were counted in all?"
+      },
+      "diagram": {
+        "kind": "data-display",
+        "display": "bar-graph",
+        "title": {
+          "en": "Favorite Fruit Votes",
+          "zh": "最喜歡的水果投票",
+          "zhHans": "最喜欢的水果投票"
+        },
+        "unit": {
+          "en": "votes",
+          "zh": "票",
+          "zhHans": "票"
+        },
+        "categories": [
+          {
+            "label": {
+              "en": "Apples",
+              "zh": "蘋果",
+              "zhHans": "苹果"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Bananas",
+              "zh": "香蕉",
+              "zhHans": "香蕉"
+            },
+            "value": 9
+          },
+          {
+            "label": {
+              "en": "Grapes",
+              "zh": "葡萄",
+              "zhHans": "葡萄"
+            },
+            "value": 3
+          },
+          {
+            "label": {
+              "en": "Oranges",
+              "zh": "橙",
+              "zhHans": "橙子"
+            },
+            "value": 5
+          }
+        ]
       },
       "answer": "23",
       "acceptedAnswers": [
         "23"
       ],
       "explanation": {
-        "en": "6 + 9 + 3 + 5 = 23.",
-        "zh": "6 + 9 + 3 + 5 = 23.",
-        "zhHans": "6 + 9 + 3 + 5 = 23."
+        "en": "The bars show 6, 9, 3, and 5 votes. 6 + 9 + 3 + 5 = 23.",
+        "zh": "The bars show 6, 9, 3, and 5 votes. 6 + 9 + 3 + 5 = 23.",
+        "zhHans": "The bars show 6, 9, 3, and 5 votes. 6 + 9 + 3 + 5 = 23."
       },
       "independentAnswer": "23",
-      "independentSolution": "6 + 9 + 3 + 5 = 23."
+      "independentSolution": "The bars show 6, 9, 3, and 5 votes. 6 + 9 + 3 + 5 = 23."
     },
     {
       "id": "ccss-textbook-practice-v1-bar-graph-q03",
@@ -10508,9 +10686,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Halfway between 1 inch and 2 inches is…",
-        "zh": "Halfway between 1 inch and 2 inches is…",
-        "zhHans": "Halfway between 1 inch and 2 inches is…"
+        "en": "The line plot shows ribbon lengths in inches. Which length appears exactly twice?",
+        "zh": "The line plot shows ribbon lengths in inches. Which length appears exactly twice?",
+        "zhHans": "The line plot shows ribbon lengths in inches. Which length appears exactly twice?"
       },
       "options": [
         {
@@ -10534,17 +10712,44 @@
           "zhHans": "2½"
         }
       ],
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Ribbon Lengths",
+          "zh": "絲帶長度",
+          "zhHans": "丝带长度"
+        },
+        "unit": {
+          "en": "inches",
+          "zh": "英寸",
+          "zhHans": "英寸"
+        },
+        "values": [
+          1,
+          1.25,
+          1.5,
+          1.5,
+          1.75,
+          2
+        ],
+        "range": [
+          1,
+          2
+        ],
+        "tickInterval": 0.25
+      },
       "answer": "1½",
       "acceptedAnswers": [
         "1½"
       ],
       "explanation": {
-        "en": "The half-inch mark.",
-        "zh": "The half-inch mark.",
-        "zhHans": "The half-inch mark."
+        "en": "Two X marks stand above 1½; every other length has one X.",
+        "zh": "Two X marks stand above 1½; every other length has one X.",
+        "zhHans": "Two X marks stand above 1½; every other length has one X."
       },
       "independentAnswer": "1½",
-      "independentSolution": "The half-inch mark."
+      "independentSolution": "Two X marks stand above 1½; every other length has one X."
     },
     {
       "id": "ccss-textbook-practice-v1-measure-line-plot-q02",
@@ -10578,21 +10783,48 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "How many quarter-inches make one whole inch?",
-        "zh": "How many quarter-inches make one whole inch?",
-        "zhHans": "How many quarter-inches make one whole inch?"
+        "en": "Use the ribbon line plot. How many ribbons are longer than 1¼ inches?",
+        "zh": "Use the ribbon line plot. How many ribbons are longer than 1¼ inches?",
+        "zhHans": "Use the ribbon line plot. How many ribbons are longer than 1¼ inches?"
+      },
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Ribbon Lengths",
+          "zh": "絲帶長度",
+          "zhHans": "丝带长度"
+        },
+        "unit": {
+          "en": "inches",
+          "zh": "英寸",
+          "zhHans": "英寸"
+        },
+        "values": [
+          1,
+          1.25,
+          1.5,
+          1.5,
+          1.75,
+          2
+        ],
+        "range": [
+          1,
+          2
+        ],
+        "tickInterval": 0.25
       },
       "answer": "4",
       "acceptedAnswers": [
         "4"
       ],
       "explanation": {
-        "en": "Four quarters = 1.",
-        "zh": "Four quarters = 1.",
-        "zhHans": "Four quarters = 1."
+        "en": "The X marks at 1½, 1½, 1¾, and 2 are longer than 1¼ inches: 4 ribbons.",
+        "zh": "The X marks at 1½, 1½, 1¾, and 2 are longer than 1¼ inches: 4 ribbons.",
+        "zhHans": "The X marks at 1½, 1½, 1¾, and 2 are longer than 1¼ inches: 4 ribbons."
       },
       "independentAnswer": "4",
-      "independentSolution": "Four quarters = 1."
+      "independentSolution": "The X marks at 1½, 1½, 1¾, and 2 are longer than 1¼ inches: 4 ribbons."
     },
     {
       "id": "ccss-textbook-practice-v1-measure-line-plot-q03",
@@ -18761,21 +18993,45 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "Beakers hold 1/4, 1/4, and 1/2 cup. What is the total, in cups?",
-        "zh": "Beakers hold 1/4, 1/4, and 1/2 cup. What is the total, in cups?",
-        "zhHans": "Beakers hold 1/4, 1/4, and 1/2 cup. What is the total, in cups?"
+        "en": "The line plot shows the cups of water in each beaker. How many cups are there in all?",
+        "zh": "The line plot shows the cups of water in each beaker. How many cups are there in all?",
+        "zhHans": "The line plot shows the cups of water in each beaker. How many cups are there in all?"
+      },
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Water in Beakers",
+          "zh": "燒杯中的水",
+          "zhHans": "烧杯中的水"
+        },
+        "unit": {
+          "en": "cups",
+          "zh": "杯",
+          "zhHans": "杯"
+        },
+        "values": [
+          0.25,
+          0.25,
+          0.5
+        ],
+        "range": [
+          0,
+          1
+        ],
+        "tickInterval": 0.25
       },
       "answer": "1",
       "acceptedAnswers": [
         "1"
       ],
       "explanation": {
-        "en": "1/4 + 1/4 + 2/4 = 4/4 = 1.",
-        "zh": "1/4 + 1/4 + 2/4 = 4/4 = 1.",
-        "zhHans": "1/4 + 1/4 + 2/4 = 4/4 = 1."
+        "en": "The X marks show 1/4, 1/4, and 1/2 cup. 1/4 + 1/4 + 2/4 = 4/4 = 1.",
+        "zh": "The X marks show 1/4, 1/4, and 1/2 cup. 1/4 + 1/4 + 2/4 = 4/4 = 1.",
+        "zhHans": "The X marks show 1/4, 1/4, and 1/2 cup. 1/4 + 1/4 + 2/4 = 4/4 = 1."
       },
       "independentAnswer": "1",
-      "independentSolution": "1/4 + 1/4 + 2/4 = 4/4 = 1."
+      "independentSolution": "The X marks show 1/4, 1/4, and 1/2 cup. 1/4 + 1/4 + 2/4 = 4/4 = 1."
     },
     {
       "id": "ccss-textbook-practice-v1-line-plot-operations-q02",
@@ -18809,43 +19065,67 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "To share a total equally among the beakers, you…",
-        "zh": "To share a total equally among the beakers, you…",
-        "zhHans": "To share a total equally among the beakers, you…"
+        "en": "The line plot shows the cups of water in three beakers. If the total were shared equally among the beakers, how much would each beaker hold?",
+        "zh": "The line plot shows the cups of water in three beakers. If the total were shared equally among the beakers, how much would each beaker hold?",
+        "zhHans": "The line plot shows the cups of water in three beakers. If the total were shared equally among the beakers, how much would each beaker hold?"
       },
       "options": [
         {
-          "en": "divide",
-          "zh": "divide",
-          "zhHans": "divide"
+          "en": "1/3 cup",
+          "zh": "1/3 cup",
+          "zhHans": "1/3 cup"
         },
         {
-          "en": "multiply",
-          "zh": "multiply",
-          "zhHans": "multiply"
+          "en": "1/4 cup",
+          "zh": "1/4 cup",
+          "zhHans": "1/4 cup"
         },
         {
-          "en": "add again",
-          "zh": "add again",
-          "zhHans": "add again"
+          "en": "1/2 cup",
+          "zh": "1/2 cup",
+          "zhHans": "1/2 cup"
         },
         {
-          "en": "subtract",
-          "zh": "subtract",
-          "zhHans": "subtract"
+          "en": "1 cup",
+          "zh": "1 cup",
+          "zhHans": "1 cup"
         }
       ],
-      "answer": "divide",
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Water in Beakers",
+          "zh": "燒杯中的水",
+          "zhHans": "烧杯中的水"
+        },
+        "unit": {
+          "en": "cups",
+          "zh": "杯",
+          "zhHans": "杯"
+        },
+        "values": [
+          0.25,
+          0.25,
+          0.5
+        ],
+        "range": [
+          0,
+          1
+        ],
+        "tickInterval": 0.25
+      },
+      "answer": "1/3 cup",
       "acceptedAnswers": [
-        "divide"
+        "1/3 cup"
       ],
       "explanation": {
-        "en": "Divide the total by the number of beakers.",
-        "zh": "Divide the total by the number of beakers.",
-        "zhHans": "Divide the total by the number of beakers."
+        "en": "The total is 1/4 + 1/4 + 1/2 = 1 cup. 1 ÷ 3 = 1/3 cup each.",
+        "zh": "The total is 1/4 + 1/4 + 1/2 = 1 cup. 1 ÷ 3 = 1/3 cup each.",
+        "zhHans": "The total is 1/4 + 1/4 + 1/2 = 1 cup. 1 ÷ 3 = 1/3 cup each."
       },
-      "independentAnswer": "divide",
-      "independentSolution": "Divide the total by the number of beakers."
+      "independentAnswer": "1/3 cup",
+      "independentSolution": "1/4 + 1/4 + 1/2 = 1 cup; 1 cup ÷ 3 beakers = 1/3 cup each."
     },
     {
       "id": "ccss-textbook-practice-v1-line-plot-operations-q03",
@@ -18879,9 +19159,34 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "6 cups shared equally among 4 beakers = ? cups each",
-        "zh": "6 cups shared equally among 4 beakers = ? cups each",
-        "zhHans": "6 cups shared equally among 4 beakers = ? cups each"
+        "en": "The line plot shows the cups of juice in four beakers. If the total were shared equally, how many cups would each beaker get?",
+        "zh": "The line plot shows the cups of juice in four beakers. If the total were shared equally, how many cups would each beaker get?",
+        "zhHans": "The line plot shows the cups of juice in four beakers. If the total were shared equally, how many cups would each beaker get?"
+      },
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Juice in Beakers",
+          "zh": "燒杯中的果汁",
+          "zhHans": "烧杯中的果汁"
+        },
+        "unit": {
+          "en": "cups",
+          "zh": "杯",
+          "zhHans": "杯"
+        },
+        "values": [
+          1,
+          1.5,
+          1.5,
+          2
+        ],
+        "range": [
+          0,
+          2
+        ],
+        "tickInterval": 0.5
       },
       "answer": "1.5",
       "acceptedAnswers": [
@@ -18890,12 +19195,12 @@
         "3/2"
       ],
       "explanation": {
-        "en": "6 ÷ 4 = 1.5.",
-        "zh": "6 ÷ 4 = 1.5.",
-        "zhHans": "6 ÷ 4 = 1.5."
+        "en": "The X marks show 1 + 1½ + 1½ + 2 = 6 cups. 6 ÷ 4 = 1.5.",
+        "zh": "The X marks show 1 + 1½ + 1½ + 2 = 6 cups. 6 ÷ 4 = 1.5.",
+        "zhHans": "The X marks show 1 + 1½ + 1½ + 2 = 6 cups. 6 ÷ 4 = 1.5."
       },
       "independentAnswer": "1.5",
-      "independentSolution": "6 ÷ 4 = 1.5."
+      "independentSolution": "1 + 1.5 + 1.5 + 2 = 6 cups; 6 ÷ 4 = 1.5."
     },
     {
       "id": "ccss-textbook-practice-v1-shape-hierarchy-q01",

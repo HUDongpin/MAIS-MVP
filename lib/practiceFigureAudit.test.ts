@@ -55,9 +55,22 @@ test("shipped figures reach the questions the Practice Arena actually serves", (
     assert.equal(question.diagram, spec.diagram);
   });
 
-  // The audit's reach is deliberately narrow: only the specs opt in to a figure.
+  // The audit's reach is deliberately narrow: only the specs opt in to a
+  // figure — plus the CCSS textbook pack's data-display questions, whose
+  // figures ship inside the pack and are answer-gated independently by
+  // scripts/audit-us-ca-ccss-textbook-k5-independent.mjs.
+  const specQuestionIds = new Set(usCaliforniaPracticeFigureSpecs.map((spec) => spec.questionId));
   const figured = usCaliforniaQuestions.filter((question) => question.diagram);
-  assert.equal(figured.length, usCaliforniaPracticeFigureSpecs.length);
+  const packFigured = figured.filter((question) => !specQuestionIds.has(question.id));
+  assert.equal(figured.length - packFigured.length, usCaliforniaPracticeFigureSpecs.length);
+  assert.equal(packFigured.length, 9);
+  packFigured.forEach((question) => {
+    assert.ok(
+      question.id.startsWith("ccss-textbook-practice-v1-"),
+      `${question.id} carries a diagram without a figure spec or a pack-gated source`
+    );
+    assert.equal(question.diagram?.kind, "data-display", `${question.id} may only ship a data-display figure from the pack`);
+  });
 });
 
 test("a figure drawing one counter too many is rejected", () => {

@@ -2,6 +2,8 @@ import { angleAt, distance, formatNumber } from "./math";
 import { buildMathAngleContract, type MathAngleContract } from "./mathDiagramGeometry";
 import type {
   CoordinateGridQuestionDiagram,
+  DataDisplayCategory,
+  DataDisplayQuestionDiagram,
   LocalizedText,
   NumberLineHighlight,
   NumberLinePoint,
@@ -1526,7 +1528,283 @@ function tenFrameAltText(diagram: TenFrameQuestionDiagram): LocalizedText {
   };
 }
 
+// --- Data display -----------------------------------------------------------
+
+const dataDisplayNames: Record<DataDisplayQuestionDiagram["display"], LocalizedText> = {
+  "picture-graph": { en: "Picture graph", zh: "象形圖", zhHans: "象形统计图" },
+  "bar-graph": { en: "Bar graph", zh: "棒形圖", zhHans: "条形统计图" },
+  "line-plot": { en: "Line plot", zh: "數據點圖", zhHans: "数据点图" }
+};
+
+const dataDisplayQuarterGlyphs: Record<string, string> = { "0.25": "¼", "0.5": "½", "0.75": "¾" };
+
+/**
+ * Quarter-grid values print with the vulgar-fraction glyphs the question
+ * options use ("1½", not "1.5"), so the axis a learner reads matches the
+ * notation they answer in. Anything off the quarter grid falls back to the
+ * plain decimal form.
+ */
+export function dataDisplayValueText(value: number) {
+  const whole = Math.trunc(value);
+  const fraction = Math.abs(value - whole);
+  const glyph = dataDisplayQuarterGlyphs[formatNumber(fraction, 2)];
+  if (!glyph) return formatNumber(value, 4);
+  const sign = value < 0 && whole === 0 ? "-" : "";
+  return `${sign}${whole === 0 ? "" : formatNumber(whole, 0)}${glyph}`;
+}
+
+/**
+ * Line-plot axis contract: every recorded value must land exactly on a tick,
+ * because a line plot draws frequency as stacked marks over tick positions —
+ * a value between ticks is un-drawable, and (like ten-frame overflow) gets
+ * rejected at normalization instead of silently misplotted.
+ */
+export function dataDisplayLinePlotTicks(diagram: {
+  values?: number[];
+  range?: [number, number];
+  tickInterval?: number;
+}): { lo: number; hi: number; interval: number; tickValues: number[] } | null {
+  const values = diagram.values ?? [];
+  if (!values.length || !values.every((value) => Number.isFinite(value))) return null;
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const lo = diagram.range?.[0] ?? Math.floor(minValue);
+  const hi = diagram.range?.[1] ?? Math.max(Math.ceil(maxValue), lo + 1);
+  if (!(hi > lo) || minValue < lo || maxValue > hi) return null;
+
+  const onGrid = (interval: number) =>
+    [hi - lo, ...values.map((value) => value - lo)].every(
+      (offset) => Math.abs(offset / interval - Math.round(offset / interval)) < 0.000001
+    );
+  const interval = diagram.tickInterval ?? [1, 0.5, 0.25].find(onGrid);
+  if (!interval || !(interval > 0) || !onGrid(interval)) return null;
+
+  const count = Math.round((hi - lo) / interval);
+  if (count < 1 || count + 1 > maxDataDisplayLinePlotTicks) return null;
+  return {
+    lo,
+    hi,
+    interval,
+    tickValues: Array.from({ length: count + 1 }, (_, index) => lo + index * interval)
+  };
+}
+
+export type DataDisplayLayout = {
+  viewBox: { width: number; height: number };
+  display: DataDisplayQuestionDiagram["display"];
+  titleText: string | null;
+  unitText: string | null;
+  /** Picture graph: one row of symbols per category. */
+  pictureRows: {
+    key: string;
+    labelText: string;
+    labelX: number;
+    labelY: number;
+    symbols: { key: string; cx: number; cy: number; r: number }[];
+  }[];
+  /** Picture graph: key line under the rows ("Each symbol = 1 pet"). */
+  legendText: string | null;
+  /** Bar graph: bars plus the value-axis gridline ticks they are read against. */
+  bars: { key: string; x: number; y: number; width: number; height: number; labelText: string; labelX: number; labelY: number }[];
+  valueTicks: { key: string; x1: number; x2: number; y: number; labelText: string }[];
+  /** Line plot: axis, labelled ticks, and the stacked frequency marks. */
+  axis: { x1: number; x2: number; y: number } | null;
+  ticks: { key: string; x: number; y1: number; y2: number; labelText: string; labelY: number }[];
+  marks: { key: string; x: number; y: number }[];
+  issues: string[];
+};
+
+const maxDataDisplayLabelChars = 12;
+
+function emptyDataDisplayLayout(display: DataDisplayQuestionDiagram["display"]): DataDisplayLayout {
+  return {
+    viewBox: { width: 280, height: 96 },
+    display,
+    titleText: null,
+    unitText: null,
+    pictureRows: [],
+    legendText: null,
+    bars: [],
+    valueTicks: [],
+    axis: null,
+    ticks: [],
+    marks: [],
+    issues: []
+  };
+}
+
+export function buildDataDisplayLayout(diagram: DataDisplayQuestionDiagram, textFor: FigureTextResolver): DataDisplayLayout {
+  const layout = emptyDataDisplayLayout(diagram.display);
+  layout.titleText = diagram.title ? textFor(diagram.title) : null;
+  layout.unitText = diagram.unit ? textFor(diagram.unit) : null;
+  const topPad = layout.titleText ? 26 : 8;
+  const categories = diagram.categories ?? [];
+
+  if (diagram.display === "picture-graph") {
+    const scale = diagram.scale ?? 1;
+    const labelColumn = 92;
+    const symbolStep = 22;
+    const rowStep = 28;
+    const symbolCounts = categories.map((category) => Math.round(category.value / scale));
+    const maxSymbols = Math.max(1, ...symbolCounts);
+    layout.viewBox = { width: labelColumn + maxSymbols * symbolStep + 16, height: topPad + categories.length * rowStep + 10 };
+
+    layout.pictureRows = categories.map((category, index) => {
+      const labelText = textFor(category.label);
+      if (labelText.length > maxDataDisplayLabelChars) {
+        layout.issues.push(`data-display: category label "${labelText}" is too long to draw`);
+      }
+      const rowCenterY = topPad + index * rowStep + rowStep / 2;
+      return {
+        key: `row-${index}`,
+        labelText,
+        labelX: labelColumn - 10,
+        labelY: rowCenterY,
+        symbols: Array.from({ length: symbolCounts[index] }, (_, symbolIndex) => ({
+          key: `row-${index}-symbol-${symbolIndex}`,
+          cx: labelColumn + symbolIndex * symbolStep + symbolStep / 2,
+          cy: rowCenterY,
+          r: 8
+        }))
+      };
+    });
+
+    if (diagram.unit) {
+      const unit = diagram.unit;
+      layout.legendText = textFor({
+        en: `Each symbol = ${scale} ${unit.en}`,
+        zh: `每個符號代表 ${scale} ${unit.zh}`,
+        zhHans: `每个符号代表 ${scale} ${unit.zhHans ?? unit.zh}`
+      });
+    }
+    return layout;
+  }
+
+  if (diagram.display === "bar-graph") {
+    const axisColumn = 42;
+    const barWidth = 30;
+    const barGap = 22;
+    const plotHeight = 120;
+    const maxValue = Math.max(1, ...categories.map((category) => category.value));
+    const step = diagram.tickInterval ?? [1, 2, 5, 10].find((candidate) => maxValue / candidate <= 10) ?? 10;
+    const axisTop = Math.ceil(maxValue / step) * step;
+    const plotTop = topPad + 6;
+    const baselineY = plotTop + plotHeight;
+    const yFor = (value: number) => baselineY - (value / axisTop) * plotHeight;
+    layout.viewBox = {
+      width: axisColumn + categories.length * (barWidth + barGap) + 14,
+      height: baselineY + (layout.unitText ? 38 : 26)
+    };
+    const plotRight = layout.viewBox.width - 8;
+
+    for (let tick = 0; tick <= axisTop; tick += step) {
+      layout.valueTicks.push({
+        key: `value-tick-${tick}`,
+        x1: axisColumn,
+        x2: plotRight,
+        y: yFor(tick),
+        labelText: formatNumber(tick, 4)
+      });
+    }
+
+    layout.bars = categories.map((category, index) => {
+      const labelText = textFor(category.label);
+      if (labelText.length > maxDataDisplayLabelChars) {
+        layout.issues.push(`data-display: category label "${labelText}" is too long to draw`);
+      }
+      const x = axisColumn + barGap / 2 + index * (barWidth + barGap);
+      return {
+        key: `bar-${index}`,
+        x,
+        y: yFor(category.value),
+        width: barWidth,
+        height: baselineY - yFor(category.value),
+        labelText,
+        labelX: x + barWidth / 2,
+        labelY: baselineY + 16
+      };
+    });
+    return layout;
+  }
+
+  const plotScale = dataDisplayLinePlotTicks(diagram);
+  if (!plotScale) {
+    layout.issues.push("data-display: line-plot values do not fit a drawable tick grid");
+    return layout;
+  }
+
+  const values = diagram.values ?? [];
+  const frequencyByTick = plotScale.tickValues.map(
+    (tickValue) => values.filter((value) => Math.abs(value - tickValue) < 0.000001).length
+  );
+  const maxStack = Math.max(1, ...frequencyByTick);
+  const axisY = topPad + maxStack * 13 + 12;
+  const axis = { x1: 16, x2: 264, y: axisY };
+  const span = plotScale.hi - plotScale.lo;
+  const xFor = (value: number) => 24 + ((value - plotScale.lo) / span) * 232;
+  layout.axis = axis;
+  layout.viewBox = { width: 280, height: axisY + (layout.unitText ? 44 : 28) };
+
+  const labelEveryTick = plotScale.tickValues.length <= 9;
+  layout.ticks = plotScale.tickValues.map((tickValue, index) => ({
+    key: `tick-${index}`,
+    x: xFor(tickValue),
+    y1: axisY - 5,
+    y2: axisY + 5,
+    labelText:
+      labelEveryTick || Math.abs(tickValue - Math.round(tickValue)) < 0.000001 ? dataDisplayValueText(tickValue) : "",
+    labelY: axisY + 18
+  }));
+
+  layout.marks = plotScale.tickValues.flatMap((tickValue, tickIndex) =>
+    Array.from({ length: frequencyByTick[tickIndex] }, (_, level) => ({
+      key: `mark-${tickIndex}-${level}`,
+      x: xFor(tickValue),
+      y: axisY - 11 - level * 13
+    }))
+  );
+  return layout;
+}
+
+function dataDisplayAltText(diagram: DataDisplayQuestionDiagram): LocalizedText {
+  const name = dataDisplayNames[diagram.display];
+  const title = diagram.title;
+  const headEn = `${name.en}${title ? ` "${title.en}"` : ""}`;
+  const headZh = `${name.zh}${title ? `「${title.zh}」` : ""}`;
+  const headZhHans = `${name.zhHans}${title ? `“${title.zhHans ?? title.zh}”` : ""}`;
+
+  if (diagram.display === "line-plot") {
+    const valueText = (diagram.values ?? []).map(dataDisplayValueText).join(", ");
+    const unit = diagram.unit;
+    return {
+      en: `${headEn} with values ${valueText}${unit ? ` ${unit.en}` : ""}.`,
+      zh: `${headZh}，數值為 ${valueText}${unit ? ` ${unit.zh}` : ""}。`,
+      zhHans: `${headZhHans}，数值为 ${valueText}${unit ? ` ${unit.zhHans ?? unit.zh}` : ""}。`
+    };
+  }
+
+  const categories = diagram.categories ?? [];
+  const listEn = categories.map((category) => `${category.label.en} ${formatNumber(category.value, 4)}`).join(", ");
+  const listZh = categories.map((category) => `${category.label.zh} ${formatNumber(category.value, 4)}`).join("、");
+  const listZhHans = categories
+    .map((category) => `${category.label.zhHans ?? category.label.zh} ${formatNumber(category.value, 4)}`)
+    .join("、");
+  const unit = diagram.unit;
+  const scaleSuffixEn =
+    diagram.display === "picture-graph" && unit ? ` Each symbol = ${diagram.scale ?? 1} ${unit.en}.` : "";
+  const scaleSuffixZh =
+    diagram.display === "picture-graph" && unit ? `每個符號代表 ${diagram.scale ?? 1} ${unit.zh}。` : "";
+  const scaleSuffixZhHans =
+    diagram.display === "picture-graph" && unit ? `每个符号代表 ${diagram.scale ?? 1} ${unit.zhHans ?? unit.zh}。` : "";
+  return {
+    en: `${headEn}: ${listEn}${unit && diagram.display === "bar-graph" ? ` ${unit.en}` : ""}.${scaleSuffixEn}`,
+    zh: `${headZh}：${listZh}${unit && diagram.display === "bar-graph" ? ` ${unit.zh}` : ""}。${scaleSuffixZh}`,
+    zhHans: `${headZhHans}：${listZhHans}${unit && diagram.display === "bar-graph" ? ` ${unit.zhHans ?? unit.zh}` : ""}。${scaleSuffixZhHans}`
+  };
+}
+
 export function questionDiagramAltText(diagram: QuestionDiagram): LocalizedText {
+  if (diagram.kind === "data-display") return dataDisplayAltText(diagram);
   if (diagram.kind === "ten-frame") return tenFrameAltText(diagram);
 
   if (diagram.kind === "coordinate-grid") {
@@ -1610,6 +1888,12 @@ const maxGridLinePoints = 32;
 const maxPlainLabelLength = 24;
 const maxLocalizedLabelLength = 60;
 const maxPointIdLength = 16;
+const maxDataDisplayCategories = 6;
+const maxDataDisplayCategoryValue = 50;
+const maxDataDisplayPictureSymbols = 12;
+const maxDataDisplayScale = 10;
+const maxDataDisplayLinePlotValues = 24;
+const maxDataDisplayLinePlotTicks = 25;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -1982,6 +2266,105 @@ function normalizeTenFrame(value: Record<string, unknown>): TenFrameQuestionDiag
   return normalized;
 }
 
+function normalizeDataDisplay(value: Record<string, unknown>): DataDisplayQuestionDiagram | undefined {
+  if (!hasOnlyKeys(value, ["kind", "display", "title", "unit", "scale", "categories", "values", "range", "tickInterval"])) {
+    return undefined;
+  }
+  const display = value.display;
+  if (display !== "picture-graph" && display !== "bar-graph" && display !== "line-plot") return undefined;
+
+  const title = typeof value.title === "undefined" ? undefined : readLocalizedLabel(value.title) ?? undefined;
+  if (typeof value.title !== "undefined" && !title) return undefined;
+  const unit = typeof value.unit === "undefined" ? undefined : readLocalizedLabel(value.unit) ?? undefined;
+  if (typeof value.unit !== "undefined" && !unit) return undefined;
+
+  if (display === "picture-graph" || display === "bar-graph") {
+    if (typeof value.values !== "undefined" || typeof value.range !== "undefined") return undefined;
+    if (display === "picture-graph" && typeof value.tickInterval !== "undefined") return undefined;
+    if (display === "bar-graph" && typeof value.scale !== "undefined") return undefined;
+
+    let scale: number | undefined;
+    if (typeof value.scale !== "undefined") {
+      const parsed = readBoundedNumber(value.scale, 1, maxDataDisplayScale);
+      if (parsed === null || !Number.isInteger(parsed)) return undefined;
+      scale = parsed;
+    }
+    let tickInterval: number | undefined;
+    if (typeof value.tickInterval !== "undefined") {
+      const parsed = readBoundedNumber(value.tickInterval, 1, maxDataDisplayScale);
+      if (parsed === null || !Number.isInteger(parsed)) return undefined;
+      tickInterval = parsed;
+    }
+
+    if (!Array.isArray(value.categories) || value.categories.length < 1 || value.categories.length > maxDataDisplayCategories) {
+      return undefined;
+    }
+    const categories: DataDisplayCategory[] = [];
+    for (const entry of value.categories) {
+      if (!isRecord(entry) || !hasOnlyKeys(entry, ["label", "value"])) return undefined;
+      const label = readLocalizedLabel(entry.label);
+      const categoryValue = readBoundedNumber(entry.value, 0, maxDataDisplayCategoryValue);
+      if (!label || categoryValue === null || !Number.isInteger(categoryValue)) return undefined;
+      // Picture graphs draw value/scale symbols, so the value must divide
+      // cleanly and the row must stay countable at a glance.
+      if (display === "picture-graph") {
+        const symbols = categoryValue / (scale ?? 1);
+        if (!Number.isInteger(symbols) || symbols > maxDataDisplayPictureSymbols) return undefined;
+      }
+      categories.push({ label, value: categoryValue });
+    }
+
+    return {
+      kind: "data-display",
+      display,
+      ...(title ? { title } : {}),
+      ...(unit ? { unit } : {}),
+      ...(typeof scale === "number" ? { scale } : {}),
+      ...(typeof tickInterval === "number" ? { tickInterval } : {}),
+      categories
+    };
+  }
+
+  if (typeof value.categories !== "undefined" || typeof value.scale !== "undefined") return undefined;
+  if (!Array.isArray(value.values) || value.values.length < 1 || value.values.length > maxDataDisplayLinePlotValues) {
+    return undefined;
+  }
+  const values: number[] = [];
+  for (const entry of value.values) {
+    const parsed = readBoundedNumber(entry, -maxAbsoluteCoordinate, maxAbsoluteCoordinate);
+    if (parsed === null) return undefined;
+    values.push(parsed);
+  }
+
+  let range: [number, number] | undefined;
+  if (typeof value.range !== "undefined") {
+    const parsed = readRange(value.range);
+    if (!parsed) return undefined;
+    range = parsed;
+  }
+  let tickInterval: number | undefined;
+  if (typeof value.tickInterval !== "undefined") {
+    const parsed = readBoundedNumber(value.tickInterval, 0.000001, maxAbsoluteCoordinate);
+    if (parsed === null) return undefined;
+    tickInterval = parsed;
+  }
+
+  const normalized: DataDisplayQuestionDiagram = {
+    kind: "data-display",
+    display,
+    ...(title ? { title } : {}),
+    ...(unit ? { unit } : {}),
+    values,
+    ...(range ? { range } : {}),
+    ...(typeof tickInterval === "number" ? { tickInterval } : {})
+  };
+
+  // A value that does not land on a drawable tick cannot be plotted: reject
+  // at the door, mirroring the ten-frame overflow rule.
+  if (!dataDisplayLinePlotTicks(normalized)) return undefined;
+  return normalized;
+}
+
 export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | undefined {
   if (!isRecord(value)) return undefined;
 
@@ -1990,6 +2373,7 @@ export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | unde
   if (value.kind === "number-line") return normalizeNumberLine(value);
   if (value.kind === "solid-figure") return normalizeSolidFigure(value);
   if (value.kind === "ten-frame") return normalizeTenFrame(value);
+  if (value.kind === "data-display") return normalizeDataDisplay(value);
   return undefined;
 }
 
@@ -2107,6 +2491,14 @@ export function validateQuestionDiagram(diagram: QuestionDiagram): string[] {
   if (diagram.kind === "number-line") {
     resolvers.forEach((textFor, index) => {
       const layout = buildNumberLineLayout(diagram, textFor);
+      layout.issues.forEach((issue) => issues.push(index === 0 ? issue : `${issue} (zh)`));
+    });
+    return Array.from(new Set(issues));
+  }
+
+  if (diagram.kind === "data-display") {
+    resolvers.forEach((textFor, index) => {
+      const layout = buildDataDisplayLayout(diagram, textFor);
       layout.issues.forEach((issue) => issues.push(index === 0 ? issue : `${issue} (zh)`));
     });
     return Array.from(new Set(issues));
