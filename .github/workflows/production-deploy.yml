@@ -171,6 +171,9 @@ jobs:
           # Standard ubuntu-latest runners expose 14 GB total storage. Keep the
           # 20 GB local default, but require 8 GB free in this serialized CI path.
           MAIS_RELEASE_MIN_FREE_GB: "8"
+          # The isolated release build exceeds Node's default ~2 GB old-space on
+          # hosted runners. Match the already-green CI build jobs.
+          NODE_OPTIONS: --max-old-space-size=6144
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |-
           test -n "$MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM"
