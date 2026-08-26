@@ -163,10 +163,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Live number-bond model", zh: "即時數的組合模型" },
+      title: { en: "Split a total on the number line", zh: "在數線上分拆總數" },
       content: {
-        en: "Use the counter grid to split a whole into two visible parts, then read the number sentence that changes with the model.",
-        zh: "使用粒子格把整體分成兩個可見部分，然後讀出隨模型改變的算式。"
+        en: "Set the two ends on the number line and read the jump between them, so the whole and its parts stay visible together.",
+        zh: "在數線上設定兩端，讀出兩端之間的跳距，讓整體和部分同時可見。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane",
@@ -211,8 +211,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     visualization: {
       title: { en: "Walk the number line", zh: "在數線上行走" },
       content: {
-        en: "Use the coordinate grid as a number line and describe each forward or backward step.",
-        zh: "把坐標網格作為數線，描述每一步向前或向後移動。"
+        en: "Move the start and the step along the marked number line, and say each jump forward or backward as an addition or subtraction.",
+        zh: "在有刻度的數線上移動起點和步長，把每次向前或向後的跳動說成加法或減法。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -254,10 +254,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Move a shape and compare its corners", zh: "移動圖形並比較角" },
+      title: { en: "Name a shape by its sides and corners", zh: "用邊和角命名圖形" },
       content: {
-        en: "Drag the points to see how sides and corners help name a shape.",
-        zh: "拖曳點，觀察邊和角如何幫助命名圖形。"
+        en: "Choose how many sides the shape has and how big it is, then count its sides and corners to name it.",
+        zh: "選擇圖形的邊數和大小，再數一數它的邊和角，然後說出名稱。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -335,10 +335,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Build numbers on a grid", zh: "在方格上建立數" },
+      title: { en: "Build a three-digit number", zh: "建立三位數" },
       content: {
-        en: "Use the grid to arrange hundreds, tens, and ones before comparing three-digit numbers.",
-        zh: "用方格整理百、十、個，再比較三位數。"
+        en: "Set the hundreds and tens on one dial and the ones on the other, then read the flats, rods and units against the number they make.",
+        zh: "用一個滑桿設定百位和十位，另一個設定個位，再對照百格板、十條和單位方塊讀出所組成的數。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -382,8 +382,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     visualization: {
       title: { en: "Arrange an array", zh: "排列陣列" },
       content: {
-        en: "Use the geometry panel as an array board and connect rows, columns, and repeated addition.",
-        zh: "把幾何面板作為陣列板，連繫行、列和重複加法。"
+        en: "Set the rows and the columns, then read the array as repeated addition and as a multiplication fact.",
+        zh: "設定行數和列數，再把陣列讀成重複加法和乘法算式。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -461,10 +461,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Compare lengths on a diagram", zh: "在圖形上比較長度" },
+      title: { en: "Compare two lengths on a ruler", zh: "用直尺比較兩個長度" },
       content: {
-        en: "Move points and compare side lengths to support measurement language.",
-        zh: "移動點並比較邊長，支援度量語言。"
+        en: "Set the length of each object in centimetres and read the difference between them straight off the scale.",
+        zh: "以厘米設定兩件物件的長度，並直接從刻度讀出兩者的差。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -544,8 +544,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     visualization: {
       title: { en: "Compare fraction bars", zh: "比較分數條" },
       content: {
-        en: "Use partitions as fraction bars to compare halves, thirds, quarters, and equivalent fractions.",
-        zh: "把分割圖形作分數條，比較二分之一、三分之一、四分之一和等值分數。"
+        en: "Set the denominator to cut the bar into equal parts and the numerator to shade them, then compare the bar with an equivalent fraction.",
+        zh: "用分母把長條分成相等份數，用分子塗色，再把該分數與等值分數比較。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -623,10 +623,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Drag angles and compare", zh: "拖曳角並比較" },
+      title: { en: "Compare two angles", zh: "比較兩個角" },
       content: {
-        en: "Use the geometry model to compare angle sizes and describe the pattern.",
-        zh: "使用幾何模型比較角度大小，並描述規律。"
+        en: "Set each angle in fifteen-degree steps and compare their sizes, their difference and their sum.",
+        zh: "以十五度為一步設定兩個角，比較它們的大小、差和和。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -704,10 +704,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Place decimals on a number line", zh: "把小數放在數線上" },
+      title: { en: "Read positions on a number line", zh: "讀出數線上的位置" },
       content: {
-        en: "Use the coordinate plane to locate tenths and hundredths, then compare decimals by position.",
-        zh: "利用坐標平面定位十分位和百分位，再按位置比較小數。"
+        en: "Set the ends of the number line and read each labelled whole-number position, then say which of two positions is larger.",
+        zh: "設定數線兩端，讀出每個標示的整數位置，再說出兩個位置中哪一個較大。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -749,10 +749,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Move points and watch angle size", zh: "移動點並觀察角度大小" },
+      title: { en: "Compare angle sizes", zh: "比較角的大小" },
       content: {
-        en: "Drag the geometry model and compare angle types visually.",
-        zh: "拖曳幾何模型，以視覺方式比較角的種類。"
+        en: "Set each angle in fifteen-degree steps, name it as acute, right or obtuse, and check whether the pair is complementary or supplementary.",
+        zh: "以十五度為一步設定每個角，判斷它是銳角、直角還是鈍角，並檢查兩角是否互餘或互補。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -794,10 +794,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Build area with shapes", zh: "用圖形建立面積" },
+      title: { en: "Build a rectangle from unit squares", zh: "用單位正方形砌長方形" },
       content: {
-        en: "Drag shapes and reason about perimeter, area, arrays, and composite shape splitting.",
-        zh: "拖曳圖形，思考周界、面積、陣列和組合圖形分割。"
+        en: "Set the rows and the columns, count the squares for the area, and count the squares around the edge for the perimeter.",
+        zh: "設定行數和列數，數方格得出面積，數邊上的方格得出周界。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -839,10 +839,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Operate with fraction bars", zh: "用分數條運算" },
+      title: { en: "Compare fractions with bars", zh: "用分數條比較分數" },
       content: {
-        en: "Use partitioned bars to reason about equivalent fractions, addition, subtraction, and simplification.",
-        zh: "用分割條推理等值分數、加減和約簡。"
+        en: "Set a denominator and numerator, then use the equivalent bar to see the same amount written with different numbers.",
+        zh: "設定分母和分子，再用等值分數條觀察同一份量如何用不同的數表示。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -884,10 +884,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Build a cuboid in layers", zh: "按層建立長方體" },
+      title: { en: "Count unit squares in a rectangle", zh: "數長方形中的單位方格" },
       content: {
-        en: "Use the geometry canvas to discuss unit cubes, layers, cuboids, and cubic units.",
-        zh: "用幾何畫布討論小立方體、分層、長方體和立方單位。"
+        en: "Set the rows and the columns and count the unit squares. This is the base layer of a cuboid — stack it in your head to reach volume.",
+        zh: "設定行數和列數並數出單位方格。這是長方體的底層，在腦海中把它層層疊起便得出體積。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -965,10 +965,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Simulate data and compare frequencies", zh: "模擬數據並比較頻率" },
+      title: { en: "Compare two totals", zh: "比較兩個總數" },
       content: {
-        en: "Use repeated trials to see how counts change and why averages need enough data.",
-        zh: "透過重複試驗觀察數量如何變化，理解平均數需要足夠數據。"
+        en: "Set each bar and read the difference between them. Use it to talk about which total is larger and by how much.",
+        zh: "設定兩條長條並讀出兩者的差，用來討論哪個總數較大和大多少。"
       },
       moduleId: "configured-visualization-lab",
       source: "probability"
@@ -1010,10 +1010,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Compare percent and ratio bars", zh: "比較百分數與比例條" },
+      title: { en: "Read a fraction as a percentage", zh: "把分數讀成百分數" },
       content: {
-        en: "Use model comparisons as scalable bars for fractions, decimals, percentages, and ratio relationships.",
-        zh: "用模型比較作可縮放條形，連繫分數、小數、百分數和比例關係。"
+        en: "Set the denominator and numerator, then read the same amount as a fraction, an equivalent fraction, and a percentage of the whole bar.",
+        zh: "設定分母和分子，再把同一份量讀成分數、等值分數，以及佔整條的百分數。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -1091,10 +1091,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Plot movement on a coordinate plane", zh: "在坐標平面標示移動" },
+      title: { en: "Read a rate from an array", zh: "從陣列讀出比率" },
       content: {
-        en: "Use the coordinate plane to prepare for reading distance-time graphs and movement patterns.",
-        zh: "使用坐標平面，準備閱讀距離時間圖和移動規律。"
+        en: "Set the rows and the columns and read the total. Treat one side as time and the other as distance covered each unit, so the total is the distance travelled.",
+        zh: "設定行數和列數並讀出總數。把一邊當作時間、另一邊當作每單位時間的路程，總數便是行走的距離。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -1172,10 +1172,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Move along an integer line", zh: "沿整數線移動" },
+      title: { en: "Read positions on a number line", zh: "讀出數線上的位置" },
       content: {
-        en: "Use the coordinate plane as a number-line model for positive and negative movement.",
-        zh: "把坐標平面作為數線模型，觀察正負方向移動。"
+        en: "Set the two ends of the line and read the marked positions and the gap between them, then order them from smallest to largest.",
+        zh: "設定數線兩端，讀出標示的位置和兩者之間的距離，再由小至大排序。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -1253,10 +1253,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Drag a triangle and watch the angle sum", zh: "拖曳三角形並觀察內角和" },
+      title: { en: "Compare and combine two angles", zh: "比較並合併兩個角" },
       content: {
-        en: "Move the vertices and compare individual angle sizes with the fixed triangle angle sum.",
-        zh: "移動頂點，比較個別角度大小與固定的三角形內角和。"
+        en: "Set each angle in fifteen-degree steps, then read their difference and their sum to test complementary and supplementary pairs.",
+        zh: "以十五度為一步設定每個角，再讀出兩角的差和和，檢驗互餘和互補的關係。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -1406,10 +1406,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Plot and connect points", zh: "標示並連接點" },
+      title: { en: "Plot a point and move a figure", zh: "標示點並移動圖形" },
       content: {
-        en: "Plot points, connect them, and animate transformations such as translation and reflection.",
-        zh: "標示點、連接點，並以動畫呈現平移和反射等變換。"
+        en: "Enter a point by its coordinates, then translate the triangle and compare each vertex with its image.",
+        zh: "以坐標輸入一點，再平移三角形，並比較每個頂點和它的像。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -1451,10 +1451,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Test transformations on a coordinate plane", zh: "在坐標平面測試變換" },
+      title: { en: "Translate, reflect, and dilate", zh: "平移、反射與放縮" },
       content: {
-        en: "Plot points, switch transformation modes, and compare original and image positions.",
-        zh: "標示點、切換變換模式，並比較原像和影像位置。"
+        en: "Switch between the three transformations and compare each vertex with its image. Points on the mirror line stay put, and so does the centre of a dilation.",
+        zh: "在三種變換之間切換，比較每個頂點和它的像。鏡像線上的點不會移動，放縮的中心亦然。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -1496,10 +1496,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Run repeated dice trials", zh: "進行重複擲骰試驗" },
+      title: { en: "Record outcomes and read the probability", zh: "記錄結果並讀出概率" },
       content: {
-        en: "Use the simulator to see how frequencies change after 1 trial, 20 trials, and more.",
-        zh: "使用模擬器觀察 1 次、20 次及更多試驗後頻率如何改變。"
+        en: "Set how many successes and how many failures were recorded, then read P(success) as a fraction of all trials, and as a decimal and a percentage.",
+        zh: "設定記錄到的成功和失敗次數，再把 P(成功) 讀成佔全部試驗的分數，以及小數和百分數。"
       },
       moduleId: "configured-visualization-lab",
       source: "probability"
@@ -1577,10 +1577,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Change parameters and explain the motion", zh: "改變參數並解釋圖像變化" },
+      title: { en: "Change a and c on a parabola", zh: "改變拋物線的 a 和 c" },
       content: {
-        en: `Adjust ${math("a")}, ${math("b")}, and ${math("c")} and describe what changes in the graph, vertex, symmetry axis, and intercepts.`,
-        zh: `調整 ${math("a")}、${math("b")} 和 ${math("c")}，描述圖像、頂點、對稱軸和截距如何改變。`
+        en: "Adjust the coefficient a and the constant c in y = ax² + c, and describe how the width, direction and intercepts change. The axis of symmetry stays on the y-axis.",
+        zh: "調整 y = ax² + c 中的係數 a 和常數 c，描述闊度、開口方向和截距如何改變。對稱軸固定在 y 軸上。"
       },
       moduleId: "configured-visualization-lab",
       source: "function-graph"
@@ -1694,10 +1694,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Compare function model families", zh: "比較函數模型類型" },
+      title: { en: "Read a graph as an input-output rule", zh: "把圖像讀成輸入輸出規則" },
       content: {
-        en: "Use the comparer to see how polynomial, exponential, and logarithmic models separate as x increases.",
-        zh: "使用比較器觀察多項式、指數和對數模型在 x 增加時如何分別變化。"
+        en: "Adjust y = ax² + c and trace how each input is sent to exactly one output, which is what makes the rule a function.",
+        zh: "調整 y = ax² + c，追蹤每個輸入如何對應唯一一個輸出，這正是規則成為函數的條件。"
       },
       moduleId: "configured-visualization-lab",
       source: "function-graph"
@@ -1739,10 +1739,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Plot and compare coordinates", zh: "標示並比較坐標" },
+      title: { en: "Compare a figure with its image", zh: "比較圖形和它的像" },
       content: {
-        en: "Use the coordinate plane to plot points and reason about slope and movement.",
-        zh: "使用坐標平面標示點，並推理斜率和移動。"
+        en: "Enter a point by its coordinates, apply a translation, reflection or dilation, and compare the coordinates of each vertex before and after.",
+        zh: "以坐標輸入一點，施加平移、反射或放縮，再比較每個頂點變換前後的坐標。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -1856,10 +1856,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Tune and compare model shapes", zh: "調整並比較模型形狀" },
+      title: { en: "Compare curve families", zh: "比較函數族" },
       content: {
-        en: "Use the model comparer to test how growth strength changes each family.",
-        zh: "使用模型比較器測試增長強度如何改變各類函數。"
+        en: "Adjust the model and compare how each family bends as x grows, so you can tell polynomial growth from exponential growth by shape.",
+        zh: "調整模型，比較各函數族在 x 增大時的彎曲情況，從形狀分辨多項式增長與指數增長。"
       },
       moduleId: "configured-visualization-lab",
       source: "function-model"
@@ -1901,10 +1901,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Adjust the trig wave", zh: "調整三角波形" },
+      title: { en: "Adjust amplitude and phase", zh: "調整振幅和相位" },
       content: {
-        en: "Adjust amplitude, period, and phase shift to connect graph transformations with sine-wave equations.",
-        zh: "調整振幅、周期和平移，連繫圖像變換與正弦波方程。"
+        en: "Set the amplitude A and the angle θ in y = A sin(x + θ), and match the height of the rotating radius with the height of the wave.",
+        zh: "設定 y = A sin(x + θ) 中的振幅 A 和角 θ，並把旋轉半徑的高度與波形的高度對應起來。"
       },
       moduleId: "configured-visualization-lab",
       source: "trig-wave"
@@ -1984,8 +1984,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     visualization: {
       title: { en: "Move the tangent point", zh: "移動切線點" },
       content: {
-        en: "Use the calculus lab to move the tangent point and compare the curve with its local linear model.",
-        zh: "使用微積分實驗室移動切線點，比較曲線和局部線性模型。"
+        en: "Move the probe along the curve and read the gradient of the tangent there, then compare it with the average rate over a nearby interval.",
+        zh: "沿曲線移動探針，讀出該處切線的斜率，再與鄰近區間的平均變化率比較。"
       },
       moduleId: "configured-visualization-lab",
       source: "calculus-stats"
@@ -2027,10 +2027,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Explore tangent gradients", zh: "探索切線斜率" },
+      title: { en: "Compare gradient and accumulated area", zh: "比較斜率與累積面積" },
       content: {
-        en: "Use the calculus lab to see how tangent gradients change across a curve.",
-        zh: "使用微積分實驗室觀察切線斜率如何沿曲線改變。"
+        en: "Move the probe to read the gradient of the tangent, and watch the area accumulated under the curve from x = −3 grow as the probe moves right.",
+        zh: "移動探針讀出切線斜率，並觀察由 x = −3 起在曲線下累積的面積如何隨探針右移而增加。"
       },
       moduleId: "configured-visualization-lab",
       source: "calculus-stats"
@@ -2072,10 +2072,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Adjust the z-score model", zh: "調整 z 分數模型" },
+      title: { en: "Read gradient and area on a curve", zh: "讀出曲線的斜率與面積" },
       content: {
-        en: "Use the statistics mode in the senior lab to move the observed value and watch the z-score update.",
-        zh: "使用高中實驗室的統計模式移動觀察值，並觀察 z 分數更新。"
+        en: "Move the probe along the curve to read the tangent gradient and the accumulated area. This lab models rate and area, not the normal distribution — use it for the calculus half of the topic.",
+        zh: "沿曲線移動探針，讀出切線斜率和累積面積。此實驗模擬變化率與面積，而非常態分布，請用於本課題的微積分部分。"
       },
       moduleId: "configured-visualization-lab",
       source: "probability"
