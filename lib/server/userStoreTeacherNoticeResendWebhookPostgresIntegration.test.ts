@@ -7,7 +7,11 @@ import {
   prepareTeacherNoticeResendWebhookMutationTarget
 } from "../../scripts/teacher-notice-resend-webhook-target-guard.mjs";
 import {
+  applyTeacherNoticeProductionSchemaOperationsAtomic
+} from "../../scripts/teacher-notice-production-schema-gate.mjs";
+import {
   attestTeacherNoticeResendWebhookPostgresSchema,
+  inspectTeacherNoticeResendWebhookPostgresSchema,
   maintainTeacherNoticeResendWebhookPostgres,
   migrateTeacherNoticeResendWebhookPostgresSchema,
   persistTeacherNoticeResendWebhookEventPostgres,
@@ -134,6 +138,197 @@ async function webhookCatalogDigest(sql: postgres.Sql) {
     ) AS digest
   `);
 }
+
+test("production schema bootstrap is atomic from an empty PostgreSQL 16 database and idempotent", async () => {
+  const sql = postgres(integrationUrl, { max: 2, prepare: false });
+  const operations = [
+    "outbox-install-v2",
+    "webhook-install-v3",
+    "heartbeat-install-v2"
+  ];
+  try {
+    await sql.unsafe(`
+      DROP TABLE IF EXISTS public.teacher_notice_resend_message_state CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_resend_webhook_events CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_resend_webhook_schema_migrations CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_cron_heartbeat CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_cron_heartbeat_schema_migrations CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_outbox CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_outbox_schema_migrations CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_schema_gate_conflict_fixture CASCADE;
+      CREATE TABLE public.teacher_notice_schema_gate_conflict_fixture (
+        id pg_catalog.text NOT NULL
+      );
+      CREATE INDEX teacher_notice_resend_webhook_events_provider_order_idx
+        ON public.teacher_notice_schema_gate_conflict_fixture (id);
+    `);
+
+    await assert.rejects(
+      applyTeacherNoticeProductionSchemaOperationsAtomic(sql, operations),
+      /schema|relation|already exists/i
+    );
+    const rollbackRows = await sql<Array<{ relation_count: number }>>`
+      SELECT pg_catalog.count(*)::pg_catalog.int4 AS relation_count
+      FROM pg_catalog.pg_class AS relation
+      JOIN pg_catalog.pg_namespace AS namespace
+        ON namespace.oid = relation.relnamespace
+      WHERE namespace.nspname = 'public'
+        AND relation.relname IN (
+          'teacher_notice_email_outbox',
+          'teacher_notice_email_outbox_schema_migrations',
+          'teacher_notice_resend_webhook_events',
+          'teacher_notice_resend_message_state',
+          'teacher_notice_resend_webhook_schema_migrations',
+          'teacher_notice_email_cron_heartbeat',
+          'teacher_notice_email_cron_heartbeat_schema_migrations'
+        )
+    `;
+    assert.equal(rollbackRows[0]?.relation_count, 0);
+
+    await sql`DROP TABLE public.teacher_notice_schema_gate_conflict_fixture CASCADE`;
+    await applyTeacherNoticeProductionSchemaOperationsAtomic(sql, operations);
+    assert.deepEqual(
+      await inspectTeacherNoticeResendWebhookPostgresSchema(sql),
+      { outboxDependencyExact: true, webhookState: "exact" }
+    );
+    assert.equal(await attestTeacherNoticeEmailCronHeartbeatPostgresSchema(sql), true);
+
+    const before = Array.from(await sql<Array<{
+      heartbeat_applied_at: string;
+      heartbeat_version: number;
+      outbox_applied_at: string;
+      outbox_version: number;
+      webhook_applied_at: string;
+      webhook_version: number;
+    }>>`
+      SELECT
+        (SELECT applied_at::pg_catalog.text
+          FROM public.teacher_notice_email_outbox_schema_migrations
+          WHERE singleton = TRUE) AS outbox_applied_at,
+        (SELECT version
+          FROM public.teacher_notice_email_outbox_schema_migrations
+          WHERE singleton = TRUE) AS outbox_version,
+        (SELECT applied_at::pg_catalog.text
+          FROM public.teacher_notice_resend_webhook_schema_migrations
+          WHERE singleton = TRUE) AS webhook_applied_at,
+        (SELECT version
+          FROM public.teacher_notice_resend_webhook_schema_migrations
+          WHERE singleton = TRUE) AS webhook_version,
+        (SELECT applied_at::pg_catalog.text
+          FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+          WHERE singleton = TRUE) AS heartbeat_applied_at,
+        (SELECT version
+          FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+          WHERE singleton = TRUE) AS heartbeat_version
+    `);
+    await applyTeacherNoticeProductionSchemaOperationsAtomic(sql, []);
+    const after = Array.from(await sql<typeof before>`
+      SELECT
+        (SELECT applied_at::pg_catalog.text
+          FROM public.teacher_notice_email_outbox_schema_migrations
+          WHERE singleton = TRUE) AS outbox_applied_at,
+        (SELECT version
+          FROM public.teacher_notice_email_outbox_schema_migrations
+          WHERE singleton = TRUE) AS outbox_version,
+        (SELECT applied_at::pg_catalog.text
+          FROM public.teacher_notice_resend_webhook_schema_migrations
+          WHERE singleton = TRUE) AS webhook_applied_at,
+        (SELECT version
+          FROM public.teacher_notice_resend_webhook_schema_migrations
+          WHERE singleton = TRUE) AS webhook_version,
+        (SELECT applied_at::pg_catalog.text
+          FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+          WHERE singleton = TRUE) AS heartbeat_applied_at,
+        (SELECT version
+          FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+          WHERE singleton = TRUE) AS heartbeat_version
+    `);
+    assert.deepEqual(after, before);
+    assert.deepEqual(
+      before.map(({ outbox_version, webhook_version, heartbeat_version }) => ({
+        outbox_version,
+        webhook_version,
+        heartbeat_version
+      })),
+      [{ outbox_version: 2, webhook_version: 3, heartbeat_version: 2 }]
+    );
+
+    await sql.unsafe(`
+      DROP TABLE public.teacher_notice_resend_message_state CASCADE;
+      DROP TABLE public.teacher_notice_resend_webhook_events CASCADE;
+      DROP TABLE public.teacher_notice_resend_webhook_schema_migrations CASCADE;
+      DROP TABLE public.teacher_notice_email_cron_heartbeat CASCADE;
+      DROP TABLE public.teacher_notice_email_cron_heartbeat_schema_migrations CASCADE;
+    `);
+    for (const statement of teacherNoticeResendWebhookPostgresSchemaV2Statements) {
+      await sql.unsafe(statement);
+    }
+    await sql.unsafe(`INSERT INTO public.teacher_notice_resend_webhook_events (
+      event_id, provider_message_id, event_type, occurred_at, occurred_at_ns,
+      priority, received_at, matched_outbox_id, retention_expires_at
+    ) VALUES (
+      'evt-production-schema-upgrade',
+      '550e8400-e29b-41d4-a716-446655440099',
+      'email.sent', pg_catalog.clock_timestamp(), 1, 0,
+      pg_catalog.clock_timestamp(), NULL,
+      pg_catalog.clock_timestamp() + pg_catalog.make_interval(days => 400)
+    )`);
+    for (const statement of teacherNoticeEmailCronHeartbeatPostgresSchemaV1Statements) {
+      await sql.unsafe(statement);
+    }
+    await sql.unsafe(`INSERT INTO public.teacher_notice_email_cron_heartbeat (
+      singleton, run_id, release_sha, status, started_at, completed_at, updated_at
+    ) VALUES (
+      TRUE, '00000000-0000-4000-8000-000000000098', '${"8".repeat(40)}',
+      'failed', pg_catalog.clock_timestamp(), pg_catalog.clock_timestamp(),
+      pg_catalog.clock_timestamp()
+    )`);
+    await applyTeacherNoticeProductionSchemaOperationsAtomic(sql, [
+      "webhook-v2-to-v3",
+      "heartbeat-v1-to-v2"
+    ]);
+    assert.equal(await attestTeacherNoticeResendWebhookPostgresSchema(sql), true);
+    assert.equal(await attestTeacherNoticeEmailCronHeartbeatPostgresSchema(sql), true);
+    assert.deepEqual(
+      Array.from(await sql<Array<{
+        event_count: number;
+        failure_preserved: boolean;
+        heartbeat_version: number;
+        webhook_version: number;
+      }>>`
+        SELECT
+          (SELECT pg_catalog.count(*)::pg_catalog.int4
+            FROM public.teacher_notice_resend_webhook_events
+            WHERE event_id = 'evt-production-schema-upgrade') AS event_count,
+          (SELECT version FROM public.teacher_notice_resend_webhook_schema_migrations
+            WHERE singleton = TRUE) AS webhook_version,
+          (SELECT version FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+            WHERE singleton = TRUE) AS heartbeat_version,
+          (SELECT last_failed_at = completed_at
+            FROM public.teacher_notice_email_cron_heartbeat
+            WHERE singleton = TRUE) AS failure_preserved
+      `),
+      [{
+        event_count: 1,
+        failure_preserved: true,
+        heartbeat_version: 2,
+        webhook_version: 3
+      }]
+    );
+  } finally {
+    await sql.unsafe(`
+      DROP TABLE IF EXISTS public.teacher_notice_schema_gate_conflict_fixture CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_resend_message_state CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_resend_webhook_events CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_resend_webhook_schema_migrations CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_cron_heartbeat CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_cron_heartbeat_schema_migrations CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_outbox CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_outbox_schema_migrations CASCADE;
+    `);
+    await sql.end({ timeout: 5 });
+  }
+});
 
 test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness are real", async () => {
   const sql = postgres(integrationUrl, { max: 6, prepare: false });
