@@ -16,9 +16,29 @@ const expectedTreeSha = "b".repeat(40);
 const targetFingerprint = "c".repeat(64);
 const productionUrl = "postgresql://secret-user:secret-password@db.example.invalid:5432/secret-production?sslmode=require";
 
+function injectedProductionEnvironment(overrides = {}) {
+  return {
+    PATH: process.env.PATH ?? "/usr/bin:/bin",
+    CI: "true",
+    GITHUB_ACTIONS: "true",
+    GITHUB_EVENT_NAME: "workflow_dispatch",
+    GITHUB_REF: "refs/heads/main",
+    GITHUB_REF_PROTECTED: "true",
+    GITHUB_REPOSITORY: "HUDongpin/MAIS-MVP",
+    GITHUB_RUN_ATTEMPT: "1",
+    GITHUB_RUN_ID: "123456789",
+    GITHUB_SHA: candidateSha,
+    GITHUB_WORKFLOW_REF:
+      "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main",
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
+    VERCEL_TOKEN: "fixture-vercel-token-not-real",
+    ...overrides
+  };
+}
+
 test("schema gate Git children receive no provider or confirmation credentials", async () => {
   const parentEnv = {
-    PATH: process.env.PATH ?? "/usr/bin:/bin",
+    ...injectedProductionEnvironment(),
     TMPDIR: "/tmp/schema-gate-fixture",
     VERCEL_TOKEN: "fixture-vercel-token-not-real",
     MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM: "fixture-confirmation-not-real",
@@ -79,10 +99,11 @@ function cleanGitRunner() {
   };
 }
 
-function vercelFetchJson({
-  duplicateProductionRecord = false,
+function providerPullFetchJson({
+  buildUrlValue,
   projectAccountId = "team_i9xhhYXUeYBOCLcfWBjTqlYG",
-  productionUrlValue = productionUrl
+  productionUrlValue = productionUrl,
+  pullPayload
 } = {}) {
   return async (url) => {
     const parsed = new URL(url);
@@ -97,27 +118,13 @@ function vercelFetchJson({
     }
     assert.equal(
       parsed.pathname,
-      "/v10/projects/prj_rjuY7fXculXzklpoG1L8xg7Tfdr1/env"
+      "/v3/env/pull/prj_rjuY7fXculXzklpoG1L8xg7Tfdr1/production"
     );
-    assert.equal(parsed.searchParams.get("decrypt"), "true");
-    assert.equal(parsed.searchParams.get("source"), "vercel-cli:pull");
-    const envs = [{
-      id: "env_fixture",
-      key: "POSTGRES_URL",
-      target: ["production", "preview"],
-      type: "encrypted",
-      value: productionUrlValue
-    }];
-    if (duplicateProductionRecord) {
-      envs.push({
-        id: "env_duplicate",
-        key: "POSTGRES_URL",
-        target: ["production"],
-        type: "encrypted",
-        value: productionUrlValue
-      });
-    }
-    return { envs };
+    assert.equal(parsed.searchParams.get("source"), "vercel-cli:env:run");
+    return pullPayload ?? {
+      env: { POSTGRES_URL: productionUrlValue },
+      buildEnv: { POSTGRES_URL: buildUrlValue ?? productionUrlValue }
+    };
   };
 }
 
@@ -152,7 +159,8 @@ function preflightDependencies(overrides = {}) {
     candidateSha,
     connectPostgres: async () => ({ end: async () => {} }),
     expectedTreeSha,
-    fetchJsonImpl: vercelFetchJson(),
+    env: injectedProductionEnvironment(),
+    fetchJsonImpl: providerPullFetchJson(),
     inspectDatabase: async () => databaseInspection(),
     readTokenImpl: async () => "vct_test_token_value_1234567890",
     repoRoot: process.cwd(),
@@ -250,7 +258,8 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
       return { end: async () => { closed = true; } };
     },
     expectedTreeSha,
-    fetchJsonImpl: vercelFetchJson(),
+    env: injectedProductionEnvironment(),
+    fetchJsonImpl: providerPullFetchJson(),
     inspectDatabase: async () => ({
       databaseIdentity: {
         databaseName: "secret-production",
@@ -283,6 +292,54 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
   assert.equal(serialized.includes("secret-production"), false);
 });
 
+test("protected production preflight pulls one exact runtime and build URL without reading the ciphertext list API", async () => {
+  let connectedUrl = null;
+  let pullReads = 0;
+  const baseFetch = providerPullFetchJson();
+  const evidence = await preflightTeacherNoticeProductionSchema(preflightDependencies({
+    connectPostgres: async (url) => {
+      connectedUrl = url;
+      return { end: async () => {} };
+    },
+    env: injectedProductionEnvironment(),
+    fetchJsonImpl: async (url, token, options) => {
+      const pathname = new URL(url).pathname;
+      assert.equal(pathname.endsWith("/env"), false);
+      if (pathname.startsWith("/v3/env/pull/")) pullReads += 1;
+      return baseFetch(url, token, options);
+    }
+  }));
+
+  assert.equal(connectedUrl, productionUrl);
+  assert.equal(pullReads, 1);
+  assert.equal(evidence.candidateSha, candidateSha);
+  assert.equal(evidence.expectedTreeSha, expectedTreeSha);
+});
+
+test("production provider pull fails closed before connecting outside the protected exact-main workflow", async () => {
+  for (const env of [
+    injectedProductionEnvironment({ MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "local-shell" }),
+    injectedProductionEnvironment({ GITHUB_REF: "refs/heads/feature" }),
+    injectedProductionEnvironment({ GITHUB_SHA: "d".repeat(40) }),
+    injectedProductionEnvironment({ GITHUB_WORKFLOW_REF: "HUDongpin/MAIS-MVP/.github/workflows/ci.yml@refs/heads/main" }),
+    injectedProductionEnvironment({ GITHUB_RUN_ID: "0" }),
+    injectedProductionEnvironment({ GITHUB_RUN_ATTEMPT: "not-a-number" })
+  ]) {
+    let connected = false;
+    await assert.rejects(
+      preflightTeacherNoticeProductionSchema(preflightDependencies({
+        connectPostgres: async () => {
+          connected = true;
+          return { end: async () => {} };
+        },
+        env
+      })),
+      /details redacted/u
+    );
+    assert.equal(connected, false);
+  }
+});
+
 test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applies only the confirmed operations, and post-attests exact state", async () => {
   let webhookState = "upgradeable";
   let heartbeatState = "empty";
@@ -290,12 +347,13 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
   let inspections = 0;
   const fetchJsonImpl = async (url, token, options) => {
     const parsed = new URL(url);
-    if (parsed.pathname.endsWith("/env")) environmentReads += 1;
-    return vercelFetchJson()(url, token, options);
+    if (parsed.pathname.startsWith("/v3/env/pull/")) environmentReads += 1;
+    return providerPullFetchJson()(url, token, options);
   };
   const dependencies = {
     candidateSha,
     connectPostgres: async () => ({ end: async () => {} }),
+    env: injectedProductionEnvironment(),
     expectedTreeSha,
     fetchJsonImpl,
     inspectDatabase: async () => {
@@ -349,7 +407,7 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
 test("target fingerprint binds canonical database identity and never derives from rotated credentials", async () => {
   const first = await preflightTeacherNoticeProductionSchema(preflightDependencies());
   const rotated = await preflightTeacherNoticeProductionSchema(preflightDependencies({
-    fetchJsonImpl: vercelFetchJson({
+    fetchJsonImpl: providerPullFetchJson({
       productionUrlValue:
         "postgresql://rotated-user:rotated-password@DB.EXAMPLE.INVALID/secret-production?sslmode=require"
     })
@@ -360,7 +418,7 @@ test("target fingerprint binds canonical database identity and never derives fro
   assert.equal(JSON.stringify(rotated).includes("rotated"), false);
 });
 
-test("preflight rejects duplicate production POSTGRES_URL records before connecting", async () => {
+test("preflight rejects mismatched runtime and build POSTGRES_URL values before connecting", async () => {
   let connected = false;
   await assert.rejects(
     preflightTeacherNoticeProductionSchema(preflightDependencies({
@@ -368,29 +426,26 @@ test("preflight rejects duplicate production POSTGRES_URL records before connect
         connected = true;
         return { end: async () => {} };
       },
-      fetchJsonImpl: vercelFetchJson({ duplicateProductionRecord: true })
+      fetchJsonImpl: providerPullFetchJson({
+        buildUrlValue:
+          "postgresql://other-user:other-password@other.example.invalid:5432/secret-production?sslmode=require"
+      })
     })),
     /details redacted/u
   );
   assert.equal(connected, false);
 });
 
-test("preflight rejects non-array env payloads and non-encrypted production variables", async () => {
-  for (const environmentPayload of [
-    { envs: { key: "POSTGRES_URL", value: productionUrl } },
-    { envs: [{
-      id: "env_plain",
-      key: "POSTGRES_URL",
-      target: ["production"],
-      type: "plain",
-      value: productionUrl
-    }] }
+test("preflight rejects malformed provider-pull payloads and missing production URLs", async () => {
+  for (const pullPayload of [
+    { env: [], buildEnv: { POSTGRES_URL: productionUrl } },
+    { env: {}, buildEnv: { POSTGRES_URL: productionUrl } },
+    { env: { POSTGRES_URL: productionUrl }, buildEnv: {} }
   ]) {
-    const baseFetch = vercelFetchJson();
+    const baseFetch = providerPullFetchJson({ pullPayload });
     await assert.rejects(
       preflightTeacherNoticeProductionSchema(preflightDependencies({
         fetchJsonImpl: async (url, token, options) => {
-          if (new URL(url).pathname.endsWith("/env")) return environmentPayload;
           return baseFetch(url, token, options);
         }
       })),
@@ -402,7 +457,7 @@ test("preflight rejects non-array env payloads and non-encrypted production vari
 test("preflight fails closed for wrong Vercel ownership, PostgreSQL below 16, missing outbox, and partial schemas", async () => {
   const cases = [
     preflightDependencies({
-      fetchJsonImpl: vercelFetchJson({ projectAccountId: "team_wrong" })
+      fetchJsonImpl: providerPullFetchJson({ projectAccountId: "team_wrong" })
     }),
     preflightDependencies({
       inspectDatabase: async () => databaseInspection({
@@ -445,7 +500,7 @@ test("dirty local candidate fails before any Vercel or PostgreSQL access", async
       },
       fetchJsonImpl: async (...args) => {
         providerRead = true;
-        return vercelFetchJson()(...args);
+        return providerPullFetchJson()(...args);
       },
       runCommand: async (command, args, options) => {
         if (args[0] === "status") {
@@ -467,11 +522,11 @@ test("apply rejects a Vercel database target change between confirmed preflight 
     "postgresql://new-user:new-password@other.example.invalid:5432/secret-production?sslmode=require";
   const fetchJsonImpl = async (url, token, options) => {
     const parsed = new URL(url);
-    if (!parsed.pathname.endsWith("/env")) {
-      return vercelFetchJson()(url, token, options);
+    if (!parsed.pathname.startsWith("/v3/env/pull/")) {
+      return providerPullFetchJson()(url, token, options);
     }
     environmentReads += 1;
-    return vercelFetchJson({
+    return providerPullFetchJson({
       productionUrlValue: environmentReads >= 3 ? changedUrl : productionUrl
     })(url, token, options);
   };
