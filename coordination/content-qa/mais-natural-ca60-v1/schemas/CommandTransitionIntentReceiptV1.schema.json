@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/CommandTransitionIntentReceiptV1.schema.json",
+  "title":"CommandTransitionIntentReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","commandId","activeRunnerRegistrationHash","intentOrdinal","intentKind","stepName","attemptId","providerActivityPossible","naturalQuestionEgressPossible","priorWorkflowIndexHash","preparedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"CommandTransitionIntentReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "commandId":{"$ref":"#/$defs/hash"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "intentOrdinal":{"type":"integer","minimum":1},
+    "intentKind":{"enum":["WORKFLOW_TRANSITION","PROVIDER_DISPATCH"]},
+    "stepName":{"type":"string","minLength":1},
+    "attemptId":{"anyOf":[{"type":"string","minLength":1},{"type":"null"}]},
+    "providerActivityPossible":{"type":"boolean"},
+    "naturalQuestionEgressPossible":{"type":"boolean"},
+    "priorWorkflowIndexHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "preparedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

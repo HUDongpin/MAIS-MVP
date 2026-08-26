@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/SemanticDispatchVerificationReceiptV1.schema.json",
+  "title":"SemanticDispatchVerificationReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","authorizationHash","executionRegistrationHash","sampleExecutionInventoryHash","mode","ledgerPrefixTerminalHash","dispatchAuditHashes","semanticDispatchAuthorityHashes","roleAttemptEvidenceHashes","verifiedAttemptCount","canaryPredicateReceiptHash","canaryGateHash","c0ExecutionSetHash","semanticStatus","verifiedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"SemanticDispatchVerificationReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "authorizationHash":{"$ref":"#/$defs/hash"},
+    "executionRegistrationHash":{"$ref":"#/$defs/hash"},
+    "sampleExecutionInventoryHash":{"$ref":"#/$defs/hash"},
+    "mode":{"enum":["DEEPSEEK_CANARY","DEEPSEEK_RESUME"]},
+    "ledgerPrefixTerminalHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "dispatchAuditHashes":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/hash"}},
+    "semanticDispatchAuthorityHashes":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/hash"}},
+    "roleAttemptEvidenceHashes":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/hash"}},
+    "verifiedAttemptCount":{"type":"integer","minimum":0,"maximum":850},
+    "canaryPredicateReceiptHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "canaryGateHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "c0ExecutionSetHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "semanticStatus":{"const":"EXACT_PLANNER_AND_EVIDENCE_RECONSTRUCTION_VALID"},
+    "verifiedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

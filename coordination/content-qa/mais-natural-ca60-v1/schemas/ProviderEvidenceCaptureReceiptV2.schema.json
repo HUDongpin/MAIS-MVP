@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ProviderEvidenceCaptureReceiptV2.schema.json",
+  "title":"ProviderEvidenceCaptureReceiptV2",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","provider","evidenceKind","sourceArtifactHash","acquisitionMode","sourceHostname","authenticatedSubjectHash","protectedRawBytesHash","naturalQuestionContentCount","credentialValueRecorded","capturedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ProviderEvidenceCaptureReceiptV2"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "provider":{"enum":["OPENAI_DIRECT","DEEPSEEK_DIRECT"]},
+    "evidenceKind":{"enum":["ACCOUNT_PROJECT_IDENTITY","DIRECT_BILLING_ROUTE","DATA_REGION","PRICE","ROUTE_PROBE_RESPONSE"]},
+    "sourceArtifactHash":{"$ref":"#/$defs/hash"},
+    "acquisitionMode":{"enum":["AUTHENTICATED_PROVIDER_CONSOLE_EXPORT","AUTHENTICATED_PROVIDER_BILLING_EXPORT","OFFICIAL_RATE_CARD_SNAPSHOT","GUARDED_ZERO_NATURAL_CONTENT_PROBE"]},
+    "sourceHostname":{"type":"string","minLength":1},
+    "authenticatedSubjectHash":{"$ref":"#/$defs/hash"},
+    "protectedRawBytesHash":{"$ref":"#/$defs/hash"},
+    "naturalQuestionContentCount":{"const":0},
+    "credentialValueRecorded":{"const":false},
+    "capturedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

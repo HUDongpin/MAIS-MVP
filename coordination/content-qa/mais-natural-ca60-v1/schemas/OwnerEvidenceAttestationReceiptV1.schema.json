@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/OwnerEvidenceAttestationReceiptV1.schema.json",
+  "title":"OwnerEvidenceAttestationReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","provider","sourceSetHash","captureSetHash","routeProbeAttemptReceiptHash","authenticatedSubjectHash","attestedBy","attestationScope","attestedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"OwnerEvidenceAttestationReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "provider":{"enum":["OPENAI_DIRECT","DEEPSEEK_DIRECT"]},
+    "sourceSetHash":{"$ref":"#/$defs/hash"},
+    "captureSetHash":{"$ref":"#/$defs/hash"},
+    "routeProbeAttemptReceiptHash":{"$ref":"#/$defs/hash"},
+    "authenticatedSubjectHash":{"$ref":"#/$defs/hash"},
+    "attestedBy":{"type":"string","minLength":1},
+    "attestationScope":{"const":"EXACT_PROTECTED_RAW_SOURCES_CAPTURE_RECEIPTS_AND_ZERO_CONTENT_PROBE_ONLY"},
+    "attestedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,33 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/ReferenceDispatchAuthorityReceiptV1.schema.json",
+  "title":"ReferenceDispatchAuthorityReceiptV1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","activeRunnerRegistrationHash","authorizationHash","compatibilityAuthorizationHash","sampleExecutionInventoryHash","mode","ledgerPrefixRootHash","ledgerPrefixTerminalHash","compatibilityPlanHash","itemHash","itemIdPseudonym","manifestOrdinal","role","failedAttemptsForItemRole","attemptOrdinal","attemptId","roleOrderVerified","referenceBlindnessVerified","authorityStatus","issuedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ReferenceDispatchAuthorityReceiptV1"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "activeRunnerRegistrationHash":{"$ref":"#/$defs/hash"},
+    "authorizationHash":{"$ref":"#/$defs/hash"},
+    "compatibilityAuthorizationHash":{"$ref":"#/$defs/hash"},
+    "sampleExecutionInventoryHash":{"$ref":"#/$defs/hash"},
+    "mode":{"const":"REFERENCE_RESUME"},
+    "ledgerPrefixRootHash":{"$ref":"#/$defs/hash"},
+    "ledgerPrefixTerminalHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},
+    "compatibilityPlanHash":{"$ref":"#/$defs/hash"},
+    "itemHash":{"$ref":"#/$defs/hash"},
+    "itemIdPseudonym":{"type":"string","minLength":1},
+    "manifestOrdinal":{"type":"integer","minimum":1,"maximum":60},
+    "role":{"enum":["A_SOLVE","A_LABEL","B_SOLVE","B_LABEL","ADJUDICATOR"]},
+    "failedAttemptsForItemRole":{"type":"integer","minimum":0,"maximum":1},
+    "attemptOrdinal":{"type":"integer","minimum":1,"maximum":2},
+    "attemptId":{"type":"string","pattern":"^V5R7O:[0-9a-f]{64}:[0-9a-f]{64}:[12]$"},
+    "roleOrderVerified":{"const":true},
+    "referenceBlindnessVerified":{"const":true},
+    "authorityStatus":{"const":"EXACT_REFERENCE_PLANNER_REBUILT_BEFORE_RESERVATION"},
+    "issuedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}
