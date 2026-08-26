@@ -32,7 +32,7 @@ import {
 
 const execFile = promisify(execFileCallback);
 
-export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.5";
+export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.6";
 export const PROMOTION_V2_MANIFEST_SCHEMA = "promotion-manifest.v2";
 export const PROMOTION_V2_RECEIPT_SCHEMA = "promotion-receipt.v2";
 export const PROMOTION_V2_EVIDENCE_SCHEMA = "promotion-evidence.v2";
@@ -510,13 +510,13 @@ export function validateV2Manifest(manifest) {
   if (
     manifest.gateId !== "promotion-shadow-gate-v2" ||
     manifest.pilotUnitId !== PROMOTION_V2_CANDIDATE.promotionUnitId ||
-    manifest.attemptId !== "attempt-006" ||
+    manifest.attemptId !== "attempt-007" ||
     manifest.mode !== "shadow" ||
     manifest.checkerVersion !== PROMOTION_V2_CHECKER_VERSION
   ) {
     throw new PromotionGateError(
       "V2_MANIFEST_IDENTITY_INVALID",
-      "Manifest identity must describe the immutable attempt-006 shadow pilot."
+      "Manifest identity must describe the immutable attempt-007 shadow pilot."
     );
   }
   validateCheckerReleaseBinding(manifest.checkerRelease);
@@ -2394,7 +2394,7 @@ export function validateV2ReceiptStructure(receipt) {
   if (
     receipt.binding.gateId !== "promotion-shadow-gate-v2" ||
     receipt.binding.pilotUnitId !== PROMOTION_V2_CANDIDATE.promotionUnitId ||
-    receipt.binding.attemptId !== "attempt-006" ||
+    receipt.binding.attemptId !== "attempt-007" ||
     receipt.binding.parentPackageId !== PROMOTION_V2_CANDIDATE.parentPackageId ||
     receipt.binding.parentPackageStatus !== "candidate-only" ||
     receipt.binding.checkerVersion !== PROMOTION_V2_CHECKER_VERSION ||
@@ -2917,7 +2917,7 @@ export function renderV2PromotionDecisionMarkdown(receipt) {
   validateV2ReceiptStructure(receipt);
   const transition = receipt.lifecycle.recommendedState;
   const lines = [
-    "# Promotion Gate Shadow Decision — attempt-006",
+    "# Promotion Gate Shadow Decision — attempt-007",
     "",
     "> This file is derived from the machine Receipt. It is not an approval source.",
     "",
