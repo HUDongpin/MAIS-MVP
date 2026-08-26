@@ -1207,7 +1207,13 @@ export function isolatedAppProcessGroupIsRunning(processGroupId: number) {
 
 async function waitForProcessGroupToExit(processGroupId: number, timeoutMs: number) {
   const deadline = Date.now() + timeoutMs;
-  while (processGroupIsRunning(processGroupId) && Date.now() < deadline) await delay(50);
+  while (Date.now() < deadline) {
+    // This fail-closed probe returns false only after proving that no
+    // executable group member remains. That proof is terminal; a second
+    // numeric-PGID probe could observe later reaping or identifier reuse.
+    if (!processGroupIsRunning(processGroupId)) return true;
+    await delay(50);
+  }
   return !processGroupIsRunning(processGroupId);
 }
 
