@@ -7,6 +7,7 @@ import {
   signatureLabAssignments,
   signatureLabIds
 } from "@/data/signatureLabAssignments";
+import { californiaElementaryMicroLessonTopicIds } from "@/data/usCaliforniaMicroLessons";
 
 /**
  * Contract test for the signature-lab assignments (Phase 0 QA gate — the
@@ -55,6 +56,13 @@ test("every assignment carries a curation rationale", () => {
 test("every assigned topic id exists in the visualization catalog", () => {
   for (const [topicId] of assignmentEntries) {
     assert.ok(labsByTopicId.has(topicId), `assignment key "${topicId}" matches no lab in visualizationLabCatalog`);
+  }
+});
+
+test("candidate-only California micro lessons cannot reach a signature or catalog lab", () => {
+  for (const topicId of californiaElementaryMicroLessonTopicIds) {
+    assert.equal(signatureLabAssignments[topicId], undefined, `${topicId} remains reachable through signatureLabAssignments`);
+    assert.equal(labsByTopicId.has(topicId), false, `${topicId} remains reachable through visualizationLabCatalog`);
   }
 });
 

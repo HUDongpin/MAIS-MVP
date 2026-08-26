@@ -1,0 +1,23 @@
+# A08/A12/A14 Parent Gap Remediation Session
+
+- Date: 2026-08-23
+- Agent IDs: A08 shared state semantics + A12 backend/API platform + A14 parent console
+- Baseline: `a592242b370bfd9a38461aef0c42433e24e188d0`
+- Worktree: `/Volumes/Starship/MAIS-MVP/.worktrees/a12-a14-parent-gap-ack-report-20260823`
+- Branch: `codex/parent-gap-ack-report-20260823`
+- Objective: Close the remaining parent notice acknowledgement, exact report-author routing, pending-assignment total, invalid parent-page selection, and admin/parent role-boundary gaps.
+- Intended write scope: parent API routes, parent-safe DTO and parent persistence modules/tests, parent page helpers/tests, parent UI/helper modules/tests, the AppProviders parent-only revalidation predicate, and this session log.
+- Forbidden scope: A11 shared tests/scripts/config, middleware/session internals, unrelated AppProviders behavior, deployment, production data, and unrelated product surfaces.
+- Plan: add failing focused tests; implement fail-closed and allowlisted behavior; run focused parent tests, parent-domain suite, type-check, and relevant backend/build checks; obtain independent review; exact-stage and commit only this slice.
+- TDD evidence:
+  - Initial focused parent gaps: 80 tests, 69 passed / 11 failed before implementation; 80/80 after implementation.
+  - Final admin/parent boundary: the access persistence and AppProviders contract tests both failed before the two-line role-boundary implementation; focused rerun passed 23/23.
+- Verification evidence:
+  - Complete focused parent-domain set: 106/106 passed, 0 failed, 0 skipped.
+  - Current wired `npm run test:parent-console`: 24/24 passed.
+  - `npm run type-check`: passed.
+  - `npm run build`: passed; tracked `next-env.d.ts` remained clean after the build.
+  - `test:backend` with bundled Chromium: 4/5 passed, including the teacher/reports/messaging/admin integration scenario that covers this slice. The unrelated Nova Tutor rate-limit scenario expected 429 but received 200. System Chrome separately suffered launch-time SIGKILL; the bundled-browser rerun removed that environment failure.
+  - Playwright's tracked `next-env.d.ts` rewrite was restored exactly to `./.next/types/routes.d.ts`; no A11 harness files were changed.
+- Independent review: APPROVED after a read-only full-diff review focused on persisted report-author binding, safe DTOs, opaque notice acknowledgements, full pending totals, invalid-student 404 behavior, and residual admin access. The reviewer independently confirmed 106/106 parent-domain tests, 24/24 wired parent-console tests, type-check, and diff checks.
+- Status: Complete and ready for committed handoff; no push or deployment performed.

@@ -164,7 +164,6 @@ export type TeacherOpsStudentProfilePersistenceDatabase = {
 export type TeacherOpsStudentProfilePersistenceStoreDependencies = {
   now?: () => Date;
   readDatabase: () => Promise<TeacherOpsStudentProfilePersistenceDatabase>;
-  ensureParentInviteCodeForStudent: (studentId: string) => Promise<string | null>;
   studentSessionProjection: (
     database: TeacherOpsStudentProfilePersistenceDatabase,
     user: TeacherOpsStudentProfileUserRecord
@@ -311,7 +310,6 @@ function isSubmissionComplete(submission: TeacherOpsStudentProfileSubmissionReco
 export function createTeacherOpsStudentProfilePersistenceStore({
   now = () => new Date(),
   readDatabase,
-  ensureParentInviteCodeForStudent,
   studentSessionProjection,
   classProjection,
   guardianLinkProjection,
@@ -397,14 +395,12 @@ export function createTeacherOpsStudentProfilePersistenceStore({
             createdAt: attempt.created_at
           };
         });
-      const parentInviteCode = await ensureParentInviteCodeForStudent(studentId);
       const topicIdList = Array.from(topicIds);
       const nowMs = now().getTime();
 
       return {
         student,
         classes: classRecords.map((record) => classProjection(database, record)),
-        parentInviteCode: parentInviteCode ?? "",
         guardianLinks: database.guardian_links
           .filter((link) => link.student_id === studentId && link.status === "active")
           .map((link) => guardianLinkProjection(database, link)),

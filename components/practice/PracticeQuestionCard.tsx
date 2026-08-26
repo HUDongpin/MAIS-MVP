@@ -166,11 +166,34 @@ function isPhotoFile(file: File) {
   return file.type.startsWith("image/") || /\.(heic|heif|jpe?g|png|webp)$/i.test(file.name);
 }
 
-function readPhotoDataUrl(file: File) {
+function readPhotoDataUrl(file: File, signal: AbortSignal) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
-    reader.addEventListener("load", () => resolve(typeof reader.result === "string" ? reader.result : ""));
-    reader.addEventListener("error", () => reject(reader.error ?? new Error("Could not read photo.")));
+    function cleanup() {
+      signal.removeEventListener("abort", handleAbort);
+    }
+    function handleAbort() {
+      cleanup();
+      if (reader.readyState === FileReader.LOADING) reader.abort();
+      reject(new DOMException("Photo read was aborted.", "AbortError"));
+    }
+    reader.addEventListener("load", () => {
+      cleanup();
+      resolve(typeof reader.result === "string" ? reader.result : "");
+    }, { once: true });
+    reader.addEventListener("error", () => {
+      cleanup();
+      reject(reader.error ?? new Error("Could not read photo."));
+    }, { once: true });
+    reader.addEventListener("abort", () => {
+      cleanup();
+      reject(new DOMException("Photo read was aborted.", "AbortError"));
+    }, { once: true });
+    if (signal.aborted) {
+      handleAbort();
+      return;
+    }
+    signal.addEventListener("abort", handleAbort, { once: true });
     reader.readAsDataURL(file);
   });
 }
@@ -186,14 +209,26 @@ function serializeAnswerWorkPhotos(attachments: PhotoAttachment[]) {
     .filter((media): media is NonNullable<PhotoAttachment["mediaObject"]> => Boolean(media));
 }
 
-async function uploadAnswerWorkPhoto(dataUrl: string) {
+async function uploadAnswerWorkPhoto(
+  dataUrl: string,
+  expectedUserId: string,
+  signal: AbortSignal
+) {
   if (!dataUrl.startsWith("data:image/")) return null;
 
   try {
     const response = await fetch("/api/media-objects", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ capability: "practice-work-photo", dataUrl })
+      headers: {
+        "Content-Type": "application/json",
+        "X-MAIS-Expected-User-Id": expectedUserId
+      },
+      body: JSON.stringify({
+        capability: "practice-work-photo",
+        dataUrl,
+        expectedUserId
+      }),
+      signal
     });
     if (!response.ok) return null;
 
@@ -321,6 +356,9 @@ export function PracticeQuestionCard({
   const answerControlRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const photoInputRef = useRef<HTMLInputElement | null>(null);
   const photoAttachmentsRef = useRef<PhotoAttachment[]>([]);
+  const activeUserIdRef = useRef<string | null>(currentUser?.id ?? null);
+  const photoUploadAbortRef = useRef<AbortController | null>(null);
+  const attemptAbortRef = useRef<AbortController | null>(null);
   const [selected, setSelected] = useState(initialSelectedAnswer);
   const [answerInputMode, setAnswerInputMode] = useState<AnswerInputMode>("keyboard");
   const [photoAttachments, setPhotoAttachments] = useState<PhotoAttachment[]>([]);
@@ -370,7 +408,23 @@ export function PracticeQuestionCard({
     photoAttachmentsRef.current = photoAttachments;
   }, [photoAttachments]);
 
+  useEffect(() => {
+    activeUserIdRef.current = currentUser?.id ?? null;
+    photoUploadAbortRef.current?.abort();
+    photoUploadAbortRef.current = null;
+    attemptAbortRef.current?.abort();
+    attemptAbortRef.current = null;
+    setIsChecking(false);
+    setPhotoUploadsAvailable(currentUser?.id ? null : false);
+    setPhotoAttachments((attachments) => {
+      revokePhotoAttachments(attachments);
+      return [];
+    });
+  }, [currentUser?.id]);
+
   useEffect(() => () => {
+    photoUploadAbortRef.current?.abort();
+    attemptAbortRef.current?.abort();
     revokePhotoAttachments(photoAttachmentsRef.current);
   }, []);
 
@@ -380,24 +434,38 @@ export function PracticeQuestionCard({
       return;
     }
 
+    const expectedUserId = currentUser.id;
+    const controller = new AbortController();
     let cancelled = false;
-    fetch("/api/media-objects")
+    fetch("/api/media-objects", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
+      signal: controller.signal
+    })
       .then((response) => (response.ok ? response.json() : null))
       .then((payload: { uploadsAvailable?: unknown } | null) => {
-        if (!cancelled) setPhotoUploadsAvailable(payload?.uploadsAvailable === true);
+        if (!cancelled && activeUserIdRef.current === expectedUserId) {
+          setPhotoUploadsAvailable(payload?.uploadsAvailable === true);
+        }
       })
       .catch(() => {
-        if (!cancelled) setPhotoUploadsAvailable(false);
+        if (!cancelled && !controller.signal.aborted && activeUserIdRef.current === expectedUserId) {
+          setPhotoUploadsAvailable(false);
+        }
       });
 
     return () => {
       cancelled = true;
+      controller.abort();
     };
-  }, [currentUser]);
+  }, [currentUser?.id]);
 
   useEffect(() => () => stopPracticeReadAloud(), []);
 
   useEffect(() => {
+    photoUploadAbortRef.current?.abort();
+    photoUploadAbortRef.current = null;
+    attemptAbortRef.current?.abort();
+    attemptAbortRef.current = null;
     setSelected(initialSelectedAnswer);
     setPhotoAttachments((current) => {
       revokePhotoAttachments(current);
@@ -446,7 +514,11 @@ export function PracticeQuestionCard({
       return;
     }
 
+    const expectedUserId = currentUser.id;
     const durationSeconds = startedAt === null ? 1 : Math.max(1, Math.round((Date.now() - startedAt) / 1000));
+    attemptAbortRef.current?.abort();
+    const controller = new AbortController();
+    attemptAbortRef.current = controller;
 
     setError("");
     setNeedsLogin(false);
@@ -456,23 +528,29 @@ export function PracticeQuestionCard({
       const response = await fetch("/api/attempts", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedUserId
         },
         body: JSON.stringify({
           questionId: question.id,
           selectedAnswer: selected,
           durationSeconds,
-          answerWorkPhotos: serializeAnswerWorkPhotos(photoAttachments)
-        })
+          answerWorkPhotos: serializeAnswerWorkPhotos(photoAttachments),
+          expectedUserId
+        }),
+        signal: controller.signal
       });
       const responseBody = await response.json().catch(() => null);
       const result = readAttemptFeedback(responseBody);
 
-      if (response.status === 401) {
+      if (controller.signal.aborted || activeUserIdRef.current !== expectedUserId) return;
+
+      if (response.status === 401 || response.status === 403 || response.status === 409) {
         setNeedsLogin(true);
         throw new Error(t({
-          en: "Your sign-in session could not be verified. Log in again before checking answers.",
-          zh: "未能驗證你的登入狀態。請重新登入後再檢查答案。"
+          en: "Your sign-in account changed or could not be verified. Reload before checking answers.",
+          zh: "登入帳戶已變更或未能驗證。請重新載入後再檢查答案。",
+          zhHans: "登录账户已变更或未能验证。请重新加载后再检查答案。"
         }));
       }
 
@@ -491,9 +569,15 @@ export function PracticeQuestionCard({
       setFeedback(result);
       onAnswered?.(question, result, selected);
     } catch (caughtError) {
+      if (
+        controller.signal.aborted ||
+        activeUserIdRef.current !== expectedUserId ||
+        (caughtError instanceof DOMException && caughtError.name === "AbortError")
+      ) return;
       setError(caughtError instanceof Error ? caughtError.message : "Could not check this answer yet.");
     } finally {
-      setIsChecking(false);
+      if (attemptAbortRef.current === controller) attemptAbortRef.current = null;
+      if (activeUserIdRef.current === expectedUserId) setIsChecking(false);
     }
   }
 
@@ -542,6 +626,16 @@ export function PracticeQuestionCard({
     const files = Array.from(event.target.files ?? []).filter(isPhotoFile);
     event.target.value = "";
     if (!files.length) return;
+    const expectedUserId = currentUser?.id;
+    if (!expectedUserId) {
+      setNeedsLogin(true);
+      setError(t(dictionary.practice.loginRequired));
+      return;
+    }
+
+    photoUploadAbortRef.current?.abort();
+    const controller = new AbortController();
+    photoUploadAbortRef.current = controller;
 
     beginAttempt();
     recordLearningEvent({
@@ -554,8 +648,16 @@ export function PracticeQuestionCard({
     setError("");
 
     const createdAt = Date.now();
-    const newAttachments = await Promise.all(files.map(async (file, index) => {
-      const dataUrl = await readPhotoDataUrl(file).catch(() => "");
+    const newAttachments = (await Promise.all(files.map(async (file, index): Promise<PhotoAttachment | null> => {
+      const dataUrl = await readPhotoDataUrl(file, controller.signal).catch(() => "");
+      if (
+        !dataUrl ||
+        controller.signal.aborted ||
+        activeUserIdRef.current !== expectedUserId
+      ) return null;
+
+      const mediaObject = await uploadAnswerWorkPhoto(dataUrl, expectedUserId, controller.signal);
+      if (controller.signal.aborted || activeUserIdRef.current !== expectedUserId) return null;
 
       return {
         dataUrl,
@@ -566,9 +668,15 @@ export function PracticeQuestionCard({
         url: URL.createObjectURL(file),
         // Uploaded at attach time, while the student is still working, so the
         // answer submission carries references instead of megabytes of base64.
-        mediaObject: await uploadAnswerWorkPhoto(dataUrl)
+        mediaObject
       };
-    }));
+    }))).filter((attachment): attachment is PhotoAttachment => attachment !== null);
+
+    if (photoUploadAbortRef.current === controller) photoUploadAbortRef.current = null;
+    if (controller.signal.aborted || activeUserIdRef.current !== expectedUserId) {
+      revokePhotoAttachments(newAttachments);
+      return;
+    }
 
     setPhotoAttachments((current) => {
       const remainingSlots = Math.max(0, maxAnswerPhotoAttachments - current.length);

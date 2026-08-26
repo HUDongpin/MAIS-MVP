@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v23-attempt004",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T09:50:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.3",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "reviewedCompositionCommit": "08c209e3a68184a1e590c1ea874875f14a357da9",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.3",
+      "releaseCommit": "9213143023d0f743516895392e2a50dd8271b8ef",
+      "bundleDigest": "cae1fef6d02ef01f647d2ec4fe6298f77750260618a232510ff906d6078686b1",
+      "ledgerRawSha256": "df44d35e2b77237f02ff3fc52ffc3bb600a3f91332b4c13e771f0d7d50cb796f"
+    },
+    "independentReplayRequired": true,
+    "replayMustUseExactExecutionCommit": true,
+    "semanticReceiptDigestEqualityRequired": true,
+    "preflightResults": [
+      {
+        "check": "npm-ci-ignore-scripts",
+        "result": "pass"
+      },
+      {
+        "check": "npm-run-type-check",
+        "result": "pass"
+      },
+      {
+        "check": "california-live-dereach-and-approved-replacement-regression",
+        "result": "pass",
+        "passed": 12,
+        "failed": 0
+      },
+      {
+        "check": "promotion-gate-v2.3-pure-security-and-workflow-tests",
+        "result": "pass",
+        "passed": 24,
+        "failed": 0,
+        "expectedSkippedUntilManifestFreeze": 1
+      },
+      {
+        "check": "npm-run-type-check-after-lockfile-install",
+        "result": "pass"
+      }
+    ],
+    "ratchetedAssertions": [
+      "492-question candidate package is absent from live California questions",
+      "unapproved K-5 textbook candidate seeds are absent",
+      "Grade 1 micro-lesson candidate seeds and topics are absent",
+      "hand-checked CCSS practice remains live",
+      "hand-built CCSS cardinality replacement remains live"
+    ],
+    "negativeCoverage": [
+      "evidence-currentness-baseline-mismatch",
+      "absolute-path",
+      "path-traversal",
+      "NUL-path",
+      "case-collision",
+      "symlink-escape",
+      "output-creation-collision",
+      "source-drift",
+      "runtime-baseline-drift",
+      "unknown-cli-command",
+      "live-command-alias",
+      "fuzzy-answer-form"
+    ],
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A11",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.2",
+      "toCheckerVersion": "promotion-gate-shadow-v2.3",
+      "changeScope": "semantic-receipt-host-temp-environment-projection-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-003",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "948a305bd2fcebdd39dd293df397c045168a95931c395a799f18219f80e4cda3"
+    }
+  }
+}

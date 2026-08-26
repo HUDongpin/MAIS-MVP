@@ -5,7 +5,7 @@ import test from "node:test";
 
 import {
   createTeacherOpsNoticePersistenceStore,
-  type TeacherOpsNoticeDeliveryResult,
+  type TeacherOpsNoticePersistenceStoreDependencies,
   type TeacherOpsNoticePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsNoticePersistence";
 import type { TeacherNotice, TeacherNoticeDeliveryAttempt, TeacherNoticeRecipient } from "@/types";
@@ -131,11 +131,18 @@ function projectNotice(database: TeacherOpsNoticePersistenceDatabase, noticeId: 
 
 function createTestStore(
   database: TeacherOpsNoticePersistenceDatabase,
-  deliveryResult: TeacherOpsNoticeDeliveryResult = { status: "sent", providerMessageId: "provider-1" }
+  {
+    queueResult = { status: "queued" as const, queued: 1, reused: 0, recovered: 0, skipped: 0 }
+  }: {
+    queueResult?:
+      | { status: "queued"; queued: number; reused: number; recovered: number; skipped: number }
+      | { status: "no-eligible"; skipped: number };
+  } = {}
 ) {
   let idCounter = 0;
-  const deliveries: Array<{ channelId: string; markdown: string }> = [];
-  const store = createTeacherOpsNoticePersistenceStore({
+  const queued: Array<{ teacherId: string; noticeId: string; idempotencyKey: string }> = [];
+  const notifications: Array<{ channelId: string; markdown: string }> = [];
+  const dependencies: TeacherOpsNoticePersistenceStoreDependencies = {
     createId: () => `generated-${++idCounter}`,
     getNotificationSummary: () => ({
       channels: [
@@ -146,24 +153,18 @@ function createTestStore(
     mutateDatabase: async (mutator) => mutator(database),
     now: () => new Date(fixedNow),
     readDatabase: async () => database,
-    sendNotification: async ({ channelId, markdown }) => {
-      deliveries.push({ channelId, markdown });
-      return deliveryResult;
+    queueNoticeEmail: async (input) => {
+      queued.push(input);
+      return queueResult;
     },
-    toDeliveryAttempt: (attempt) => ({
-      id: attempt.id,
-      noticeId: attempt.notice_id,
-      channelId: attempt.channel_id,
-      channelName: attempt.channel_name,
-      status: attempt.status,
-      providerMessageId: attempt.provider_message_id,
-      errorCode: attempt.error_code,
-      errorMessage: attempt.error_message,
-      attemptedAt: attempt.attempted_at
-    }) satisfies TeacherNoticeDeliveryAttempt,
+    sendNotification: async (input: { channelId: string; markdown: string }) => {
+      notifications.push(input);
+      return { status: "sent" as const, providerMessageId: "wecom-provider-1" };
+    },
     toNotice: (sourceDatabase, notice) => projectNotice(sourceDatabase, notice.id)
-  });
-  return { deliveries, store };
+  };
+  const store = createTeacherOpsNoticePersistenceStore(dependencies);
+  return { notifications, queued, store };
 }
 
 test("teacher ops notice persistence owns source-kind validation helpers instead of root userStore", async () => {
@@ -256,7 +257,7 @@ test("teacher ops notice persistence owns notice composition helpers used by rem
   }
 
   assert.match(rootSource, /createTeacherOpsNoticeRecord as createNoticeRecordFromTeacherOpsNotice/);
-  assert.match(rootSource, /sendTeacherOpsNoticeRecord as sendNoticeRecordFromTeacherOpsNotice/);
+  assert.doesNotMatch(rootSource, /sendTeacherOpsNoticeRecord as sendNoticeRecordFromTeacherOpsNotice/);
   assert.doesNotMatch(rootSource, /function noticeRecipientRecordsForClass\b/);
   assert.doesNotMatch(rootSource, /function noticeAckLink\b/);
   assert.doesNotMatch(rootSource, /function buildWeComNoticeMarkdown\b/);
@@ -443,7 +444,7 @@ test("teacher ops notice persistence owns notice projection helpers for legacy u
   assert.doesNotMatch(rootSource, /function toTeacherNoticeDeliveryAttempt\(/);
   assert.doesNotMatch(rootSource, /function toTeacherNotice\(/);
   assert.match(rootSource, /toTeacherOpsNotice as toTeacherNoticeFromTeacherOpsNotice/);
-  assert.match(rootSource, /toTeacherOpsNoticeDeliveryAttempt as toTeacherNoticeDeliveryAttemptFromTeacherOpsNotice/);
+  assert.doesNotMatch(rootSource, /toTeacherOpsNoticeDeliveryAttempt as toTeacherNoticeDeliveryAttemptFromTeacherOpsNotice/);
 });
 
 test("teacher ops notice persistence creates notices and recipients without legacy userStore imports", async () => {
@@ -495,47 +496,91 @@ test("teacher ops notice persistence rejects invalid or unavailable creation req
   assert.deepEqual(await store.createTeacherNotice({ teacherId: "teacher-1", classId: "class-owned", audience: "parents", subject: "Subject", body: "Body", assignmentId: "assignment-other" }), { status: "assignment-not-found" });
 });
 
-test("teacher ops notice persistence sends notices and records delivery attempts", async () => {
+test("teacher ops notice persistence preserves the WeCom read model and adds durable email status", async () => {
   const database = createDatabase();
-  const { deliveries, store } = createTestStore(database);
-  const result = await store.sendTeacherNotice({ teacherId: "teacher-1", noticeId: "notice-existing", origin: "https://mais.example" });
+  const { notifications, queued, store } = createTestStore(database);
+  const result = await store.sendTeacherNotice({
+    teacherId: "teacher-1",
+    noticeId: "notice-existing",
+    idempotencyKey: "teacher-send-request-0001"
+  });
 
   assert.equal(result.status, "sent");
-  assert.equal(result.status === "sent" ? result.notice.status : null, "sent");
-  assert.equal(result.status === "sent" ? result.attempt.id : null, "notice-delivery-generated-3");
-  assert.deepEqual(database.teacher_notice_recipients.map((recipient) => ({
-    id: recipient.id,
-    studentId: recipient.student_id,
-    guardianId: recipient.guardian_id
-  })), [
-    { id: "notice-recipient-generated-1", studentId: "student-1", guardianId: undefined },
-    { id: "notice-recipient-generated-2", studentId: "student-2", guardianId: undefined }
-  ]);
-  assert.equal(database.teacher_notice_delivery_attempts[0].status, "sent");
-  assert.equal(database.teacher_notices[0].status, "sent");
+  assert.deepEqual(result.status === "sent" ? result.email : null, {
+    status: "queued", queued: 1, reused: 0, recovered: 0, skipped: 0
+  });
+  assert.equal(result.status === "sent" ? result.notice.id : null, "notice-existing");
+  assert.equal(result.status === "sent" ? result.attempt.status : null, "sent");
+  assert.deepEqual(queued, [{
+    teacherId: "teacher-1",
+    noticeId: "notice-existing",
+    idempotencyKey: "teacher-send-request-0001"
+  }]);
+  assert.equal(notifications.length, 1);
+  assert.equal(database.teacher_notice_delivery_attempts.length, 1);
   assert.equal(database.teacher_notices[0].sent_at, fixedNow);
-  assert.equal(deliveries[0]?.channelId, "channel-class");
-  assert.match(deliveries[0]?.markdown ?? "", /Existing/);
-  assert.match(deliveries[0]?.markdown ?? "", /https:\/\/mais\.example\/parent\/notices/);
 });
 
-test("teacher ops notice persistence maps disabled delivery to queued notice status", async () => {
+test("student notices preserve one idempotent WeCom attempt while email remains no-eligible", async () => {
   const database = createDatabase();
-  const { store } = createTestStore(database, { status: "disabled" });
-  const result = await store.sendTeacherNotice({ teacherId: "admin-1", noticeId: "notice-existing" });
+  const { notifications, queued, store } = createTestStore(database, {
+    queueResult: { status: "no-eligible", skipped: 1 }
+  });
+  const request = {
+    teacherId: "teacher-1",
+    noticeId: "notice-existing",
+    idempotencyKey: "teacher-send-student-0001"
+  };
 
-  assert.equal(result.status, "sent");
-  assert.equal(database.teacher_notices[0].status, "queued");
-  assert.equal(database.teacher_notices[0].sent_at, fixedNow);
-  assert.equal(database.teacher_notice_delivery_attempts[0].status, "disabled");
+  const first = await store.sendTeacherNotice(request);
+  const replay = await store.sendTeacherNotice(request);
+
+  assert.equal(first.status, "sent");
+  assert.deepEqual(replay, first, "a lost successful response must replay the same notice and attempt");
+  assert.equal(notifications.length, 1, "request retry must never duplicate the WeCom provider side effect");
+  assert.equal(database.teacher_notice_delivery_attempts.length, 1);
+  assert.equal(database.teacher_notice_delivery_attempts[0]?.status, "sent");
+  assert.match(database.teacher_notice_delivery_attempts[0]?.request_idempotency_key_hash ?? "", /^[a-f0-9]{64}$/u);
+  assert.match(database.teacher_notice_delivery_attempts[0]?.request_idempotency_request_hash ?? "", /^[a-f0-9]{64}$/u);
+  assert.equal(database.teacher_notice_delivery_attempts[0]?.queued_by_id, "teacher-1");
+  assert.equal(database.teacher_notice_delivery_attempts[0]?.provider_contact_started_at, fixedNow);
+  assert.deepEqual(first.status === "sent" ? first.email : null, { status: "no-eligible", skipped: 1 });
+  assert.equal(queued.length, 2, "email replay may re-attest the same durable row without duplicate delivery");
 });
 
-test("teacher ops notice persistence rejects unavailable send requests", async () => {
-  const { store } = createTestStore(createDatabase());
+test("one notice-send idempotency key cannot contact WeCom for a conflicting notice", async () => {
+  const database = createDatabase();
+  database.teacher_notices.push({
+    ...database.teacher_notices[0]!,
+    id: "notice-conflicting",
+    subject_en: "Conflicting",
+    subject_zh: "Conflicting"
+  });
+  const { notifications, store } = createTestStore(database);
+  const idempotencyKey = "teacher-send-conflict-0001";
 
-  assert.deepEqual(await store.sendTeacherNotice({ teacherId: "student-1", noticeId: "notice-existing" }), { status: "forbidden" });
-  assert.deepEqual(await store.sendTeacherNotice({ teacherId: "teacher-1", noticeId: "missing" }), { status: "not-found" });
-  assert.deepEqual(await store.sendTeacherNotice({ teacherId: "teacher-4", noticeId: "notice-existing" }), { status: "forbidden" });
+  assert.equal((await store.sendTeacherNotice({
+    teacherId: "teacher-1",
+    noticeId: "notice-existing",
+    idempotencyKey
+  })).status, "sent");
+  assert.deepEqual(await store.sendTeacherNotice({
+    teacherId: "teacher-1",
+    noticeId: "notice-conflicting",
+    idempotencyKey
+  }), { status: "conflict" });
+  assert.equal(notifications.length, 1);
+});
+
+test("teacher notice send fails before persistence when its idempotency key is invalid", async () => {
+  const database = createDatabase();
+  const { queued, store } = createTestStore(database);
+  assert.deepEqual(await store.sendTeacherNotice({
+    teacherId: "teacher-1",
+    noticeId: "notice-existing",
+    idempotencyKey: "short"
+  }), { status: "invalid" });
+  assert.deepEqual(queued, []);
 });
 
 test("legacy userStore delegates teacher notice operations to extracted persistence", async () => {

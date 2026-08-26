@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "promotion-manifest.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-002",
+  "mode": "shadow",
+  "checkerVersion": "promotion-gate-shadow-v2.1",
+  "checkerRelease": {
+    "ledgerPath": "coordination/integration/checker-releases.v2.json",
+    "ledgerRawSha256": "acc3f66eb6de474f5ecf096e24104ea629169c5ca4dac23708efd2a01898d0ff",
+    "version": "promotion-gate-shadow-v2.1",
+    "bundleAlgorithm": "sha256-stable-json-path-raw-v2",
+    "bundleDigest": "bb05687eb4edd5abb25828664089a80a44ab99a4382593e2d816247d039ae641",
+    "releaseCommit": "2840acc2f8141187995a702f5e708b097fa9d73b"
+  },
+  "parentPackage": {
+    "id": "us-ca-math-rag-v2-candidate",
+    "status": "candidate-only"
+  },
+  "candidatePackage": {
+    "id": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+    "version": "2.0.0-shadow.1",
+    "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+    "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+    "status": "candidate-only"
+  },
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "candidateArtifacts": [
+    {
+      "kind": "safe-card",
+      "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+      "rawFileSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+      "recordSha256": "896121e5fb79814fc0f2d8048c21df80eba45026e6139cfa98254849bd9f7053"
+    },
+    {
+      "kind": "practice",
+      "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "rawFileSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+      "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864"
+    },
+    {
+      "kind": "lesson",
+      "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+      "rawFileSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+      "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49"
+    }
+  ],
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "accessPolicy": {
+    "readPaths": [
+      "app",
+      "components",
+      "coordination/content-qa",
+      "coordination/integration",
+      "coordination/release-intake",
+      "coordination/reports",
+      "data",
+      "lib",
+      "middleware.ts",
+      "next.config.ts",
+      "public",
+      "tsconfig.json"
+    ],
+    "forbiddenModifyPaths": [
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+      "app",
+      "components",
+      "data",
+      "lib",
+      "public",
+      "middleware.ts",
+      "next.config.ts",
+      "tsconfig.json"
+    ],
+    "tempWritePolicy": "new-os-temp-root-outside-repository-only",
+    "forbiddenCapabilities": [
+      "database-write",
+      "deployment",
+      "live-registry-write",
+      "network",
+      "production-write",
+      "provider",
+      "vercel"
+    ]
+  },
+  "requiredOwners": [
+    "A21",
+    "A18",
+    "A23",
+    "A04",
+    "A05",
+    "A11",
+    "A22",
+    "A24",
+    "A25"
+  ],
+  "evidenceIndex": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence-index.v2.json",
+    "rawSha256": "f3c6aa6acae998e6b19a96f626b9a9e94c99570514af75cb0ae8b7ba24748fef"
+  },
+  "evidenceBindings": [
+    {
+      "role": "A21",
+      "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-source-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a21-candidate-generation.v2.1.json",
+      "rawSha256": "b60d4287beac1b57e12e57125f331c106585bb2339a2255cd8c351c831623baa",
+      "semanticDigest": "b05265d1cdf91bef049209cc045a262d850a78aec3be368dd417acffd5c7b231",
+      "reviewedCommit": "affa06809f3ad312bf628a1b7592a264e41d361e",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A18",
+      "evidenceId": "a18-us-ca-g6-ratios-v2-independent-qa-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a18-independent-qa.v2.1.json",
+      "rawSha256": "2a85b068794a72cc8f5a7ee433e1dcc5ca3689260558ae7c1211f3cbb5a6d930",
+      "semanticDigest": "65de2c4b98d8dfe6a0af53c86228655d685bc9434933c6673245ee313edfc15e",
+      "reviewedCommit": "0ba008a6f65e7fd5134a58c0365a20a5150f31fd",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A23",
+      "evidenceId": "a23-us-ca-g6-ratios-v2-shadow-readiness-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a23-shadow-readiness.v2.1.json",
+      "rawSha256": "ee7860967ec6726f2a997783275e44c99610f73a8bcc98ef397c3595695db5f6",
+      "semanticDigest": "8fc37a6047cb36e9df235f1dca8b97c48a01be78c15979dcf80bd249c9200ea3",
+      "reviewedCommit": "c69c3ead3156b14a0cc931dea37d62bc73b1a5ad",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A04",
+      "evidenceId": "a04-us-ca-g6-ratios-v2-practice-semantics-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a04-practice-semantics.v2.1.json",
+      "rawSha256": "a7bb27976bb9faa6bf6388aee16f94b1801474c863a09f04ff9775d26e71ed1e",
+      "semanticDigest": "08bcbdfaa30125d7bc56690ec18432a4c9cee09791ee6ef087bd7cbc79f68b01",
+      "reviewedCommit": "ad4a812d7f4cf1a3becb13aab85e4a6104cfc246",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A05",
+      "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-semantics-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a05-lesson-semantics.v2.1.json",
+      "rawSha256": "0ba4627104771b8d6806b6d2f84a2074cd99a08ce999aa4308fc6987a07b5d49",
+      "semanticDigest": "1cda5661bd697db11fe82164b93ea80a7275456a77ce69085b2da4d3c40089c8",
+      "reviewedCommit": "885d6cadb2188472958ffdc6452c9d2e9a352371",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A11",
+      "evidenceId": "a11-us-ca-g6-ratios-v2-independent-preflight-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a11-independent-preflight.v2.1.json",
+      "rawSha256": "06c05ad33056e7b34feced79fd775ab24942c98c5a72e7f09614a76e66dcc5ac",
+      "semanticDigest": "59192bc7b7d94694657e2322ed26a1ef899ac56a10066fadc572f7bdc3ea6568",
+      "reviewedCommit": "c5fae55f1559a4840de27bfe03452796630b617f",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A22",
+      "evidenceId": "a22-us-ca-g6-ratios-v2-build-isolation-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a22-build-isolation.v2.1.json",
+      "rawSha256": "8014131fe9b00a2ea445e6d72fd021608be7adb6c65d09cc80ce61ddfbed7d8f",
+      "semanticDigest": "2f5cf3a74f7ec35916337fceec24515ade30b7a8e5810e73e243ac9fe95ff148",
+      "reviewedCommit": "23cf0574e0d41bfd244cd35b27f81dd30cdca713",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A24",
+      "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a24-exact-layer.v2.1.json",
+      "rawSha256": "8119ad19a33b2364e0eb13bf8dbbb4e0713313529d8fbfb8234dd784b25d56cd",
+      "semanticDigest": "a802e39597c1d4779c834b98ca6afe099a278329c9ad86f40d1310bff5aee04d",
+      "reviewedCommit": "281ea4507e13cf935e587f99bfca0efbee5e9e58",
+      "expectedResult": "not_applicable",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A25",
+      "evidenceId": "a25-us-ca-g6-ratios-v2-release-intake-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a25-release-intake.v2.1.json",
+      "rawSha256": "6edf88af1b3fb01c1caf8ca191ea70dded8092be738f47e4029f9a8cb87e9940",
+      "semanticDigest": "d486c55dba74f1597f2c1fca6b7c9d19b5a35440f09c1d8d1ad547be9d187ea4",
+      "reviewedCommit": "5e5b5dae4c438fdd988c1d834ab19fa2e04992ff",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    }
+  ],
+  "allowlistedCheckIds": [
+    "candidate-binding-v2",
+    "git-baseline-v2",
+    "owner-evidence-v2",
+    "content-qa-v2",
+    "shadow-adapter-v2",
+    "live-unreachable-v2",
+    "legacy-drift-ratchet-v2",
+    "source-immutability-v2",
+    "output-isolation-v2",
+    "rollback-rehearsal-v2",
+    "external-side-effects-v2",
+    "state-transition-v2",
+    "semantic-stability-v2"
+  ],
+  "legacyResolution": {
+    "registryPath": "coordination/integration/v2/legacy-resolution-registry.v2.json",
+    "rawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9"
+  },
+  "liveReachability": {
+    "compatibilityManifestPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json",
+    "compatibilityManifestRawSha256": "7bcb27d6b9604a1dd4c41f75fba18718b03a7d97046f44923790aa7f207943bc",
+    "expectedRuntimePolicy": {
+      "coveredFileCount": 3799,
+      "coveredFilesDigest": "8585a68202d8850a3b229e10fd802187364bff15cec55d8530291d283f948001",
+      "classificationsDigest": "51fd2d89f61947155b857556350041403c4cd4c8dc4a6d22614ede68e6382fab",
+      "frameworkEntrypointCount": 301,
+      "seedCount": 316,
+      "reachablePathCount": 1451,
+      "reachablePathsDigest": "a496097308627e0d965b32b840058dfb9a831a1fc261448386dfcdeb10c23de2",
+      "edgeCount": 3582,
+      "edgeDigest": "bba8587bdff44d2a2318e6125f21272c73196785e17009f1bde65b8fcfa89274",
+      "topologyEdgeCount": 3582,
+      "topologyEdgeDigest": "9fc703ff5a59317e9394aef86e7145cb66f2b6d22ca4f626b33a03d98efd6edb",
+      "nextDynamicCallCount": 482,
+      "nextDynamicLiteralImportCount": 944,
+      "nextDynamicNonliteralImportCount": 0,
+      "nextDynamicCallsiteDigest": "978ae59f38e810ebae19627930893f7761f372a42c662cfa9846aaaba982f7d6",
+      "fsReadAllowlistCount": 5,
+      "fsReadAllowlistDigest": "a905863aed72fc48d3bd1be804af7e72eccc0666aeb66906b676b429c1ceb365",
+      "zeroBaselineCallCount": 0
+    }
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "requestedState": "shadow_passed",
+    "failureStates": [
+      "repair_required",
+      "rejected"
+    ]
+  },
+  "operationPlan": {
+    "adapterId": "promotion-ratios-shadow-adapter.v2",
+    "operationIds": [
+      "map-safe-card",
+      "map-practice-item",
+      "map-lesson",
+      "emit-compatibility-report"
+    ],
+    "expectedOperationCount": 4,
+    "outputContracts": [
+      "shadow-standards-dto.v2",
+      "shadow-practice-dto.v2",
+      "shadow-lesson-dto.v2",
+      "shadow-compatibility-report.v2"
+    ],
+    "rollbackPlan": {
+      "strategy": "remove-new-isolated-temp-root",
+      "expectedPreimage": "absent"
+    }
+  },
+  "authorizations": {
+    "shadowAllowed": true,
+    "integrationAllowed": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false
+  },
+  "knownBlockers": [
+    {
+      "scope": "live",
+      "code": "LIVE_LOCALIZATION_MISSING",
+      "owner": "A09/A18/A21",
+      "description": "The frozen records contain English only; Chinese and Simplified Chinese fields may not be invented by the adapter."
+    },
+    {
+      "scope": "live",
+      "code": "LIVE_INTEGRATION_UNPROVEN",
+      "owner": "A04/A05/A23",
+      "description": "No reviewed live Practice, Lesson, topic, card, or route integration exists for this promotion unit."
+    },
+    {
+      "scope": "live",
+      "code": "LIVE_RELEASE_UNPROVEN",
+      "owner": "A11/A22",
+      "description": "No same-SHA deployment, production readback, live rollback, or monitoring evidence exists."
+    }
+  ]
+}

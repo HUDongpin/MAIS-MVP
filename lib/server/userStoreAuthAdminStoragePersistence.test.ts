@@ -10,6 +10,14 @@ import {
 
 const fixedNow = "2026-06-21T13:00:00.000Z";
 
+function sourceSection(source: string, startMarker: string, endMarker: string) {
+  const start = source.indexOf(startMarker);
+  const end = source.indexOf(endMarker, start);
+  assert.notEqual(start, -1, `missing source marker: ${startMarker}`);
+  assert.notEqual(end, -1, `missing source marker: ${endMarker}`);
+  return source.slice(start, end);
+}
+
 function createDatabase(): AuthAdminStoragePersistenceDatabase {
   return {
     guardian_links: [
@@ -219,7 +227,6 @@ function createTestStore(database: AuthAdminStoragePersistenceDatabase, options:
     stateRecordId: "primary",
     stateTenantId: "platform",
     storageProvider: "sqlite",
-    verifyPostgresDatabase: async () => undefined,
     ...options
   });
 }
@@ -360,6 +367,248 @@ test("auth admin storage persistence reports readiness and hot-auth backfill gat
     provider: "postgres",
     actorId: "admin-1"
   });
+});
+
+test("postgres readiness uses only the bounded scalar catalog and exact revision marker", async () => {
+  const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  const helperSource = await readFile(
+    path.join(process.cwd(), "lib/server/userStore/authAdminStoragePersistence.ts"),
+    "utf8"
+  );
+  const readinessSource = sourceSection(
+    rootSource,
+    "export async function probePostgresDurableReadinessStrict(",
+    "export async function countPostgresHotAuthRowsForAdminDiagnostics("
+  );
+
+  assert.doesNotMatch(helperSource, /verifyPostgresMetadataReadiness/u);
+  assert.doesNotMatch(helperSource, /verifyPostgresDatabase/);
+  assert.doesNotMatch(
+    readinessSource,
+    /ensurePostgresStateTable|bootstrapPostgresStateTables|pg_advisory_xact_lock|\b(?:CREATE|ALTER|DROP|INSERT|UPDATE|DELETE)\b/iu
+  );
+  assert.doesNotMatch(readinessSource, /\bpayload\b|FOR\s+UPDATE|readPostgresDatabase/iu);
+  assert.match(rootSource, /marker\.state_revision = state\.revision/u);
+  assert.match(rootSource, /marker\.tenant_id = state\.tenant_id/u);
+  assert.match(rootSource, /marker\.state_kind = state\.state_kind/u);
+  assert.match(rootSource, /marker\.schema_version = state\.schema_version/u);
+  assert.match(
+    rootSource,
+    /const ensurePostgresStateTable = createPostgresSchemaReadinessGate\(\{\s*readCurrentMarker: hasCurrentPostgresSchemaMarker,\s*bootstrap: \(\) => runPostgresBootstrapWithContentionRecovery\(\{[\s\S]*bootstrap: bootstrapPostgresStateTables,[\s\S]*readCurrentMarker: hasCurrentPostgresSchemaMarker[\s\S]*\}\)\s*\}\)/u
+  );
+});
+
+test("canonical postgres bootstrap is the only metadata DDL path and writes the full marker last", async () => {
+  const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  const canonicalBootstrapSource = sourceSection(
+    rootSource,
+    "async function bootstrapPostgresStateTables()",
+    "const ensurePostgresStateTable"
+  );
+  const timeoutIndex = canonicalBootstrapSource.indexOf("set_config('lock_timeout', '1000ms', true)");
+  const statementTimeoutIndex = canonicalBootstrapSource.indexOf("set_config('statement_timeout', '5000ms', true)");
+  const advisoryLockIndex = canonicalBootstrapSource.indexOf("pg_advisory_xact_lock");
+  const appStateDdlIndex = canonicalBootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state");
+  const earlyPhysicalAttestationIndex = canonicalBootstrapSource.indexOf(
+    "postgresStoragePhysicalRelationsAreCanonical("
+  );
+  const initialStateMutationIndex = canonicalBootstrapSource.indexOf("ensureInitialPostgresState(");
+  const schemaVersionMarkerIndex = canonicalBootstrapSource.lastIndexOf("INSERT INTO auth_schema_migrations");
+  const storagePhysicalAttestationIndex = canonicalBootstrapSource.lastIndexOf(
+    "postgresStorageReadinessCatalogIsComplete("
+  );
+  const invalidationAttestationIndex = canonicalBootstrapSource.lastIndexOf(
+    "postgresStorageReadinessInvalidationIsComplete("
+  );
+  const hotAuthPhysicalAttestationIndex = canonicalBootstrapSource.lastIndexOf(
+    "postgresHotAuthReadinessCatalogIsComplete("
+  );
+  const fullMarkerIndex = canonicalBootstrapSource.lastIndexOf("attestValidatedPostgresStorageSnapshot");
+
+  assert.ok(timeoutIndex >= 0);
+  assert.ok(statementTimeoutIndex >= 0);
+  assert.ok(advisoryLockIndex > statementTimeoutIndex);
+  assert.ok(appStateDdlIndex > advisoryLockIndex);
+  assert.ok(earlyPhysicalAttestationIndex > appStateDdlIndex);
+  assert.ok(initialStateMutationIndex > earlyPhysicalAttestationIndex);
+  assert.ok(schemaVersionMarkerIndex > appStateDdlIndex);
+  assert.ok(storagePhysicalAttestationIndex > schemaVersionMarkerIndex);
+  assert.ok(invalidationAttestationIndex > storagePhysicalAttestationIndex);
+  assert.ok(hotAuthPhysicalAttestationIndex > invalidationAttestationIndex);
+  assert.ok(fullMarkerIndex > hotAuthPhysicalAttestationIndex);
+  assert.ok(fullMarkerIndex > schemaVersionMarkerIndex);
+  assert.equal((canonicalBootstrapSource.match(/CREATE TABLE IF NOT EXISTS public\.app_state\s*\(/gu) ?? []).length, 1);
+  assert.doesNotMatch(rootSource, /ensurePostgresStorageMetadataSchema|createPostgresStorageReadinessGate/u);
+  assert.match(canonicalBootstrapSource, /validateCompletePostgresStorageSnapshot/u);
+  const fullSnapshotWriter = sourceSection(
+    rootSource,
+    "async function writePostgresDatabaseWith",
+    "async function readDatabase"
+  );
+  assert.equal(
+    (fullSnapshotWriter.match(/validateCompletePostgresStorageSnapshot\(writtenState\.payload\)/gu) ?? []).length,
+    1
+  );
+  assert.match(fullSnapshotWriter, /RETURNING[\s\S]*state\.payload[\s\S]*state\.revision[\s\S]*payload_matches/iu);
+  assert.match(fullSnapshotWriter, /advancePostgresStorageReadinessAfterMutation\(/u);
+  assert.doesNotMatch(fullSnapshotWriter, /attestCompletePostgresStorageSnapshot/u);
+});
+
+test("postgres readiness keeps row counts off the hot path and enables admin diagnostics on demand", async () => {
+  const callOrder: string[] = [];
+  const readinessOptions: unknown[] = [];
+  const store = createTestStore(createDatabase(), {
+    postgresUrlConfigured: true,
+    storageProvider: "postgres",
+    readDatabase: async () => {
+      throw new Error("readiness must not load the application snapshot");
+    },
+    getHotAuthReadinessSnapshot: async (...args: unknown[]) => {
+      callOrder.push("durable");
+      readinessOptions.push(args[0] ?? null);
+      const includeDiagnosticsCounts = (
+        typeof args[0] === "object"
+        && args[0] !== null
+        && "includeDiagnosticsCounts" in args[0]
+        && args[0].includeDiagnosticsCounts === true
+      );
+      return {
+        mode: "postgres-row-hot-path",
+        readFlagEnv: "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
+        readEnabled: true,
+        shadowSyncOnPostgres: true,
+        tables: [
+          "auth_users",
+          "auth_student_profiles",
+          "auth_user_settings",
+          "auth_password_reset_tokens"
+        ],
+        tablesReady: true,
+        counts: includeDiagnosticsCounts
+          ? {
+              auth_users: 4,
+              auth_student_profiles: 2,
+              auth_user_settings: 2,
+              auth_password_reset_tokens: 1
+            }
+          : null
+      };
+    }
+  });
+
+  const snapshot = await store.getStorageReadinessSnapshot();
+
+  assert.deepEqual(callOrder, ["durable"]);
+  assert.deepEqual(readinessOptions, [{ includeDiagnosticsCounts: false }]);
+  assert.equal(snapshot.status, "durable-ready");
+  assert.equal(snapshot.durableReady, true);
+  assert.equal(snapshot.hotAuthTables.tablesReady, true);
+  assert.equal(snapshot.hotAuthTables.counts, null);
+
+  const diagnosticSnapshot = await (
+    store.getStorageReadinessSnapshot as (
+      options: { includeDiagnosticsCounts: true }
+    ) => ReturnType<typeof store.getStorageReadinessSnapshot>
+  )({ includeDiagnosticsCounts: true });
+
+  assert.deepEqual(callOrder, ["durable", "durable"]);
+  assert.deepEqual(readinessOptions, [
+    { includeDiagnosticsCounts: false },
+    { includeDiagnosticsCounts: true }
+  ]);
+  assert.deepEqual(diagnosticSnapshot.hotAuthTables.counts, {
+    auth_users: 4,
+    auth_student_profiles: 2,
+    auth_user_settings: 2,
+    auth_password_reset_tokens: 1
+  });
+});
+
+test("postgres durable readiness wiring has no second metadata verifier transaction", async () => {
+  const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  const helperSource = await readFile(
+    path.join(process.cwd(), "lib/server/userStore/authAdminStoragePersistence.ts"),
+    "utf8"
+  );
+  const snapshotSource = sourceSection(
+    rootSource,
+    "async function getPostgresHotAuthReadinessSnapshot(",
+    "async function runPostgresHotAuthBackfillForAdmin"
+  );
+  const storeWiring = sourceSection(
+    rootSource,
+    "const authAdminStoragePersistenceStore = createAuthAdminStoragePersistenceStore({",
+    "const authUserStore = createAuthUserStore({"
+  );
+
+  assert.match(snapshotSource, /runPostgresDurableReadinessWithinDeadline/u);
+  assert.doesNotMatch(snapshotSource, /countPostgresHotAuthRowsForAdminDiagnostics/u);
+  assert.doesNotMatch(helperSource, /verifyPostgresMetadataReadiness/u);
+  assert.doesNotMatch(storeWiring, /verifyPostgresMetadataReadiness/u);
+});
+
+test("postgres readiness fails closed when the combined durable probe rejects invalid metadata", async () => {
+  let hotAuthReadinessCalls = 0;
+  const store = createTestStore(createDatabase(), {
+    postgresUrlConfigured: true,
+    storageProvider: "postgres",
+    getHotAuthReadinessSnapshot: async () => {
+      hotAuthReadinessCalls += 1;
+      throw new Error("invalid app_state metadata");
+    }
+  });
+
+  const snapshot = await store.getStorageReadinessSnapshot();
+
+  assert.equal(hotAuthReadinessCalls, 1);
+  assert.equal(snapshot.status, "postgres-unavailable");
+  assert.equal(snapshot.durableReady, false);
+  assert.equal(snapshot.hotAuthTables.tablesReady, false);
+  assert.equal(snapshot.hotAuthTables.counts, null);
+});
+
+test("postgres readiness fails closed when the hot-auth tables are unavailable", async () => {
+  const store = createTestStore(createDatabase(), {
+    postgresUrlConfigured: true,
+    storageProvider: "postgres",
+    getHotAuthReadinessSnapshot: async () => ({
+      mode: "postgres-row-hot-path",
+      readFlagEnv: "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
+      readEnabled: true,
+      shadowSyncOnPostgres: true,
+      tables: [
+        "auth_users",
+        "auth_student_profiles",
+        "auth_user_settings",
+        "auth_password_reset_tokens"
+      ],
+      tablesReady: false,
+      counts: null
+    })
+  });
+
+  const snapshot = await store.getStorageReadinessSnapshot();
+  assert.equal(snapshot.status, "postgres-unavailable");
+  assert.equal(snapshot.durableReady, false);
+  assert.equal(snapshot.hotAuthTables.tablesReady, false);
+  assert.equal(snapshot.hotAuthTables.counts, null);
+});
+
+test("postgres readiness converts a rejected hot-auth probe into a private unavailable snapshot", async () => {
+  const store = createTestStore(createDatabase(), {
+    postgresUrlConfigured: true,
+    storageProvider: "postgres",
+    getHotAuthReadinessSnapshot: async () => {
+      throw new Error("secret-host.internal:5432 timed out with sensitive diagnostics");
+    }
+  });
+
+  const snapshot = await store.getStorageReadinessSnapshot();
+  assert.equal(snapshot.status, "postgres-unavailable");
+  assert.equal(snapshot.durableReady, false);
+  assert.equal(snapshot.hotAuthTables.tablesReady, false);
+  assert.equal(snapshot.databasePath, "postgres://[redacted]");
+  assert.doesNotMatch(snapshot.message, /secret-host|5432|sensitive/iu);
 });
 
 test("auth admin storage persistence owns hot-auth readiness summary helpers", async () => {
@@ -535,6 +784,8 @@ test("auth admin storage persistence owns hot-auth table row serializers", async
       password_salt: "salt",
       school_id: null,
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: "student",
       created_at: "2026-06-20T10:00:00.000Z"
     }
@@ -546,7 +797,8 @@ test("auth admin storage persistence owns hot-auth table row serializers", async
       grade: "S3",
       curriculum_track: "HK",
       curriculum_region: "HK",
-      textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"
+      textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+      parent_invite_code: `MAIS-${"A".repeat(24)}`
     }
   ]), [
     {
@@ -556,7 +808,7 @@ test("auth admin storage persistence owns hot-auth table row serializers", async
       curriculum_track: "HK",
       curriculum_region: "HK",
       textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
-      parent_invite_code: null,
+      parent_invite_code: "",
       avatar_id: null,
       avatar_image_data_url: null,
       avatar_media_object_key: null

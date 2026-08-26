@@ -8,37 +8,61 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
 const DEFAULT_TSCONFIG_PATH = "tsconfig.next.json";
-const REQUIRED_BUILD_OUTPUTS = [
+const RELEASE_BUILD_CHILD_BASE_ENV_KEYS = Object.freeze([
+  "CI",
+  "COLORTERM",
+  "COMSPEC",
+  "FORCE_COLOR",
+  "LANG",
+  "LC_ALL",
+  "LC_CTYPE",
+  "NODE_OPTIONS",
+  "NO_COLOR",
+  "PATH",
+  "PATHEXT",
+  "SHELL",
+  "SYSTEMROOT",
+  "TEMP",
+  "TERM",
+  "TMP",
+  "TMPDIR",
+  "TZ",
+  "WINDIR"
+]);
+const RELEASE_BUILD_CHILD_OVERRIDE_KEYS = new Set([
+  "MAIS_RELEASE_SHA",
+  "NEXT_DIST_DIR",
+  "NEXT_TELEMETRY_DISABLED",
+  "NEXT_TSCONFIG_PATH"
+]);
+export const REQUIRED_BUILD_OUTPUTS = Object.freeze([
   "BUILD_ID",
   "server/app/api/auth/login/route.js",
   "server/app/api/dashboard/route.js",
   "server/app/api/gamification/summary/route.js",
   "server/app/api/rewards/route.js",
-  "server/app/dashboard.html"
-];
+  "server/app/dashboard/page.js"
+]);
 
 export async function runReleaseBuildGate(options = {}) {
-  const config = buildReleaseBuildGateConfig(options, process.env);
+  const parentEnv = options.env ?? process.env;
+  const config = buildReleaseBuildGateConfig(options, parentEnv);
   const startedAt = new Date().toISOString();
-  const tsconfigSnapshot = await snapshotFile(path.resolve(REPO_ROOT, config.tsconfigPath));
-  let result;
-
-  try {
-    result = await runCommand(
+  const result = await withRestoredReleaseBuildInputs(
+    { repoRoot: REPO_ROOT, tsconfigPath: config.tsconfigPath },
+    () => runCommand(
       process.execPath,
       ["scripts/next-clean-build.mjs"],
       {
         cwd: REPO_ROOT,
-        env: {
-          ...process.env,
+        env: buildReleaseBuildChildEnvironment(parentEnv, {
           NEXT_DIST_DIR: config.distDir,
+          NEXT_TELEMETRY_DISABLED: "1",
           NEXT_TSCONFIG_PATH: config.tsconfigPath
-        }
+        })
       }
-    );
-  } finally {
-    await restoreFileSnapshot(tsconfigSnapshot);
-  }
+    )
+  );
 
   if (result.exitCode !== 0) {
     throw new Error(
@@ -67,6 +91,20 @@ export async function runReleaseBuildGate(options = {}) {
   };
 }
 
+export function buildReleaseBuildChildEnvironment(env = {}, overrides = {}) {
+  const childEnv = {};
+  for (const key of RELEASE_BUILD_CHILD_BASE_ENV_KEYS) {
+    if (typeof env?.[key] === "string") childEnv[key] = env[key];
+  }
+  for (const [key, value] of Object.entries(overrides)) {
+    if (!RELEASE_BUILD_CHILD_OVERRIDE_KEYS.has(key) || typeof value !== "string") {
+      throw new Error("Release build environment override was rejected.");
+    }
+    childEnv[key] = value;
+  }
+  return childEnv;
+}
+
 export async function snapshotFile(absolutePath) {
   const content = await fs.readFile(absolutePath, "utf8").catch((error) => {
     if (error?.code === "ENOENT") return null;
@@ -77,6 +115,19 @@ export async function snapshotFile(absolutePath) {
     absolutePath,
     content
   };
+}
+
+export async function withRestoredReleaseBuildInputs({ repoRoot = REPO_ROOT, tsconfigPath }, action) {
+  const snapshots = await Promise.all([
+    snapshotFile(path.resolve(repoRoot, tsconfigPath)),
+    snapshotFile(path.join(repoRoot, "next-env.d.ts"))
+  ]);
+
+  try {
+    return await action();
+  } finally {
+    await Promise.all(snapshots.map((snapshot) => restoreFileSnapshot(snapshot)));
+  }
 }
 
 export async function restoreFileSnapshot(snapshot) {
@@ -107,7 +158,7 @@ export function buildReleaseBuildGateConfig(options = {}, env = process.env) {
   };
 }
 
-async function verifyBuildOutputs(absoluteDistDir) {
+export async function verifyBuildOutputs(absoluteDistDir) {
   const checks = [];
   for (const relativePath of REQUIRED_BUILD_OUTPUTS) {
     const absolutePath = path.join(absoluteDistDir, relativePath);

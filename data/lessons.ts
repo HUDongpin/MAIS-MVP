@@ -2,16 +2,11 @@ import type { LearningAnalyticsEventSource, LessonBlockType, LocalizedText } fro
 import type { VisualizationModuleId } from "@/data/visualizationLabs";
 import { mainlandBnuHighLessonSeeds } from "./mainlandBnuHighLessons";
 import { mainlandBnuJuniorLessonSeeds } from "./mainlandBnuJuniorLessons";
-import { mainlandBnuPrimaryLessonSeeds } from "./mainlandBnuPrimaryLessons";
-import { mainlandHjbHighLessonSeeds } from "./mainlandHjbHighLessons";
 import { mainlandHjbJuniorLessonSeeds } from "./mainlandHjbJuniorLessons";
-import { mainlandHjbPrimaryLessonSeeds } from "./mainlandHjbPrimaryLessons";
 import { mainlandPepHighLessonSeeds } from "./mainlandPepHighLessons";
 import { mainlandPepJuniorLessonSeeds } from "./mainlandPepJuniorLessons";
 import { mainlandPepPrimaryLessonSeeds } from "./mainlandPepPrimaryLessons";
-import { usArkansasMiddleSchoolLessonSeeds } from "./usArkansasMiddleSchoolLessons";
 import { usCaliforniaLessonSeeds } from "./usCaliforniaLessons";
-import { usFloridaMiddleSchoolLessonSeeds } from "./usFloridaMiddleSchoolLessons";
 
 const math = (expression: string) => `\\(${expression}\\)`;
 
@@ -2168,13 +2163,8 @@ export const productionLessonSeeds: ProductionLessonSeed[] = [
   ...mainlandPepHighLessonSeeds,
   ...mainlandBnuHighLessonSeeds,
   ...mainlandBnuJuniorLessonSeeds,
-  ...mainlandBnuPrimaryLessonSeeds,
-  ...mainlandHjbPrimaryLessonSeeds,
   ...mainlandHjbJuniorLessonSeeds,
-  ...mainlandHjbHighLessonSeeds,
-  ...usArkansasMiddleSchoolLessonSeeds,
-  ...usCaliforniaLessonSeeds,
-  ...usFloridaMiddleSchoolLessonSeeds
+  ...usCaliforniaLessonSeeds
 ];
 
 export const liveProductionLessonSeeds = productionLessonSeeds.filter((lessonSeed) => lessonSeed.productionReady);

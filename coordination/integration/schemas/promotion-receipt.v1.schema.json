@@ -1,0 +1,1546 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/promotion-receipt.v1.schema.json",
+  "title": "MAIS Promotion Gate shadow receipt v1",
+  "description": "Fail-closed machine receipt for a started Promotion Gate shadow attempt. Pass, controlled fail, and blocked attempts are receipted; invalid pre-attempt input uses the CLI error envelope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "mode",
+    "result",
+    "exitReason",
+    "nextOwner",
+    "manifest",
+    "runMetadata",
+    "binding",
+    "checkerReleaseProof",
+    "worktreeProof",
+    "checkResults",
+    "sourceSnapshots",
+    "candidateSourceProof",
+    "candidateInventoryProof",
+    "candidateProvenanceProof",
+    "targetBaselineProof",
+    "evidenceIndexProof",
+    "shadowOutput",
+    "mappingCompatibility",
+    "rollbackProof",
+    "reachability",
+    "legacyRatchetProof",
+    "liveBlockers",
+    "noLiveAuthorizations",
+    "forbiddenDiff",
+    "externalSideEffects",
+    "lifecycleRecommendation",
+    "unmetConditions",
+    "trustBoundary",
+    "semanticReceiptDigest",
+    "rawReceiptDigest"
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "role": {
+      "type": "string",
+      "pattern": "^A(?:0[1-9]|1[0-9]|2[0-5])$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "repoRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*\\u0000)[^/]+(?:/[^/]+)*$"
+    },
+    "jsonPointer": {
+      "type": "string",
+      "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "checkerRelease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "releaseCommit", "mappingPath", "mappingRawSha256", "bundleDigest"],
+      "properties": {
+        "version": { "const": "promotion-gate-shadow-v1" },
+        "releaseCommit": { "$ref": "#/$defs/commit" },
+        "mappingPath": { "const": "coordination/integration/checker-releases.v1.json" },
+        "mappingRawSha256": { "$ref": "#/$defs/sha256" },
+        "bundleDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "path", "jsonPointer", "rawFileSha256", "recordSha256"],
+      "properties": {
+        "kind": { "enum": ["safe-card", "practice", "lesson"] },
+        "id": { "$ref": "#/$defs/identifier" },
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "jsonPointer": { "$ref": "#/$defs/jsonPointer" },
+        "rawFileSha256": { "$ref": "#/$defs/sha256" },
+        "recordSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "knownBlocker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "owner", "status", "liveBlocking"],
+      "properties": {
+        "code": { "$ref": "#/$defs/identifier" },
+        "owner": { "enum": ["A04", "A05", "A18", "A23"] },
+        "status": { "enum": ["preserved-outside-runtime", "ratcheted-temporary"] },
+        "liveBlocking": { "const": true }
+      }
+    },
+    "exitReason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "checkId", "message", "details"],
+      "properties": {
+        "code": { "$ref": "#/$defs/identifier" },
+        "checkId": {
+          "enum": [
+            "manifest-contract",
+            "candidate-integrity",
+            "evidence-currentness",
+            "mapping-compatibility",
+            "rollback-rehearsal",
+            "live-reachability",
+            "forbidden-diff",
+            "legacy-ratchet"
+          ]
+        },
+        "message": { "type": "string", "minLength": 1 },
+        "details": { "type": "object" }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "roots", "files", "fileCount", "aggregateBytes", "digest"],
+      "properties": {
+        "schemaVersion": { "const": "promotion-source-snapshot.v1" },
+        "roots": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "files": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/fileDigest" }
+        },
+        "fileCount": { "type": "integer", "minimum": 0 },
+        "aggregateBytes": { "type": "integer", "minimum": 0 },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "sourceSnapshots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pre", "post", "equal"],
+      "properties": {
+        "pre": { "$ref": "#/$defs/snapshot" },
+        "post": { "$ref": "#/$defs/snapshot" },
+        "equal": { "type": "boolean" }
+      }
+    },
+    "candidateSourceProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paths", "preAggregateDigest", "postAggregateDigest", "equal"],
+      "properties": {
+        "paths": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "preAggregateDigest": { "$ref": "#/$defs/sha256" },
+        "postAggregateDigest": { "$ref": "#/$defs/sha256" },
+        "equal": { "type": "boolean" }
+      }
+    },
+    "candidateInventoryEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "path",
+        "containerPointer",
+        "recordCount",
+        "idSetDigest",
+        "selectedId",
+        "selectedOccurrenceCount",
+        "selectedIndex"
+      ],
+      "properties": {
+        "kind": { "enum": ["safe-card", "practice", "lesson"] },
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "containerPointer": { "$ref": "#/$defs/jsonPointer" },
+        "recordCount": { "type": "integer", "minimum": 1 },
+        "idSetDigest": { "$ref": "#/$defs/sha256" },
+        "selectedId": { "$ref": "#/$defs/identifier" },
+        "selectedOccurrenceCount": { "const": 1 },
+        "selectedIndex": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "candidateInventoryProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "entries", "aggregateDigest"],
+      "properties": {
+        "schemaVersion": { "const": "promotion-candidate-inventory-proof.v1" },
+        "entries": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/candidateInventoryEntry" }
+        },
+        "aggregateDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "candidateProvenanceProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "candidateSourceCommit",
+        "targetBaselineCommit",
+        "sourceCommitExists",
+        "targetBaselineCommitExists",
+        "sourceAncestorOfExecution",
+        "targetBaselineAncestorOfExecution",
+        "artifacts",
+        "sourceAggregateDigest",
+        "currentAggregateDigest",
+        "equal",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-candidate-provenance.v1" },
+        "candidateSourceCommit": { "$ref": "#/$defs/commit" },
+        "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+        "sourceCommitExists": { "const": true },
+        "targetBaselineCommitExists": { "const": true },
+        "sourceAncestorOfExecution": { "const": true },
+        "targetBaselineAncestorOfExecution": { "const": true },
+        "artifacts": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/artifact" }
+        },
+        "sourceAggregateDigest": { "$ref": "#/$defs/sha256" },
+        "currentAggregateDigest": { "$ref": "#/$defs/sha256" },
+        "equal": { "const": true },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "targetBaselineProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "targetBaselineCommit",
+        "scope",
+        "fileCount",
+        "pathsDigest",
+        "targetTreeDigest",
+        "currentTreeDigest",
+        "equal",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-target-baseline-proof.v1" },
+        "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+        "scope": { "const": "app-components-data-lib-public-middleware-resolver-v1" },
+        "fileCount": { "type": "integer", "minimum": 1 },
+        "pathsDigest": { "$ref": "#/$defs/sha256" },
+        "targetTreeDigest": { "$ref": "#/$defs/sha256" },
+        "currentTreeDigest": { "$ref": "#/$defs/sha256" },
+        "equal": { "const": true },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "evidenceIndexProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "rawSha256",
+        "entryCount",
+        "entriesDigest",
+        "reviewedCommitCount",
+        "reviewedCommitsDigest"
+      ],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "entryCount": { "const": 9 },
+        "entriesDigest": { "$ref": "#/$defs/sha256" },
+        "reviewedCommitCount": { "const": 9 },
+        "reviewedCommitsDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "attemptHistoryProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "result",
+        "policy",
+        "historyScope",
+        "otherRefsCovered",
+        "historyTrustBoundary",
+        "executionCommit",
+        "roots",
+        "inspectedCommitCount",
+        "currentArtifactCount",
+        "uniqueArtifactVersionCount",
+        "uniqueArtifactBytes",
+        "attemptCount",
+        "frozenAttemptCount",
+        "terminalAttemptCount",
+        "registeredManifest",
+        "expectedAttemptStatus",
+        "expectedAttemptTerminal",
+        "manifestPathDigest",
+        "pilotAttemptDigest",
+        "historyDigest",
+        "currentTreeDigest",
+        "currentTrackedInputCount",
+        "currentTrackedInputAggregateDigest",
+        "cleanWorktree",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-attempt-history-proof.v1" },
+        "result": { "const": "pass" },
+        "policy": { "const": "immutable-attempt-artifacts.v1" },
+        "historyScope": { "const": "execution-head-first-parent" },
+        "otherRefsCovered": { "const": false },
+        "historyTrustBoundary": {
+          "const": "Execution HEAD first-parent history only; remote and divergent ref uniqueness requires required PR/main post-merge enforcement."
+        },
+        "executionCommit": { "$ref": "#/$defs/commit" },
+        "roots": {
+          "const": [
+            "coordination/integration/pilots",
+            "coordination/integration/receipts",
+            "coordination/integration/dispositions",
+            "coordination/integration/closures",
+            "coordination/integration/registries"
+          ]
+        },
+        "inspectedCommitCount": { "type": "integer", "minimum": 1, "maximum": 512 },
+        "currentArtifactCount": { "type": "integer", "minimum": 1, "maximum": 512 },
+        "uniqueArtifactVersionCount": { "type": "integer", "minimum": 1 },
+        "uniqueArtifactBytes": { "type": "integer", "minimum": 1, "maximum": 134217728 },
+        "attemptCount": { "type": "integer", "minimum": 1 },
+        "frozenAttemptCount": { "type": "integer", "minimum": 0 },
+        "terminalAttemptCount": { "type": "integer", "minimum": 0 },
+        "registeredManifest": { "const": true },
+        "expectedAttemptStatus": {
+          "enum": ["draft", "shadow_ready", "shadow_passed", "repair_required", "rejected"]
+        },
+        "expectedAttemptTerminal": { "type": "boolean" },
+        "manifestPathDigest": { "$ref": "#/$defs/sha256" },
+        "pilotAttemptDigest": { "$ref": "#/$defs/sha256" },
+        "historyDigest": { "$ref": "#/$defs/sha256" },
+        "currentTreeDigest": { "$ref": "#/$defs/sha256" },
+        "currentTrackedInputCount": { "type": "integer", "minimum": 1 },
+        "currentTrackedInputAggregateDigest": { "$ref": "#/$defs/sha256" },
+        "cleanWorktree": { "const": true },
+        "digest": { "$ref": "#/$defs/sha256" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "expectedAttemptStatus": {
+                "enum": ["shadow_passed", "repair_required", "rejected"]
+              }
+            },
+            "required": ["expectedAttemptStatus"]
+          },
+          "then": { "properties": { "expectedAttemptTerminal": { "const": true } } },
+          "else": { "properties": { "expectedAttemptTerminal": { "const": false } } }
+        }
+      ]
+    },
+    "worktreeProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executionCommit",
+        "preClean",
+        "postClean",
+        "preStatusSha256",
+        "postStatusSha256",
+        "preStatusEntryCount",
+        "postStatusEntryCount",
+        "trackedInputCount",
+        "trackedInputAggregateDigest",
+        "attemptHistoryProof"
+      ],
+      "properties": {
+        "executionCommit": { "$ref": "#/$defs/commit" },
+        "preClean": { "type": "boolean" },
+        "postClean": { "type": "boolean" },
+        "preStatusSha256": { "$ref": "#/$defs/sha256" },
+        "postStatusSha256": { "$ref": "#/$defs/sha256" },
+        "preStatusEntryCount": { "type": "integer", "minimum": 0 },
+        "postStatusEntryCount": { "type": "integer", "minimum": 0 },
+        "trackedInputCount": {
+          "oneOf": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "trackedInputAggregateDigest": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "attemptHistoryProof": {
+          "oneOf": [
+            { "$ref": "#/$defs/attemptHistoryProof" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "preClean": { "const": true },
+                "preStatusSha256": { "const": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+                "preStatusEntryCount": { "const": 0 }
+              }
+            },
+            {
+              "properties": {
+                "preClean": { "const": false },
+                "preStatusEntryCount": { "type": "integer", "minimum": 1 }
+              }
+            }
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "postClean": { "const": true },
+                "postStatusSha256": { "const": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" },
+                "postStatusEntryCount": { "const": 0 }
+              }
+            },
+            {
+              "properties": {
+                "postClean": { "const": false },
+                "postStatusEntryCount": { "type": "integer", "minimum": 1 }
+              }
+            }
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "trackedInputCount": { "type": "integer", "minimum": 1 },
+                "trackedInputAggregateDigest": { "$ref": "#/$defs/sha256" }
+              }
+            },
+            {
+              "properties": {
+                "trackedInputCount": { "const": null },
+                "trackedInputAggregateDigest": { "const": null }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "checkerGenesisProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "releaseParentCommit",
+        "ledgerOnlyCommit",
+        "parentMappingAbsent",
+        "sameVersionGenesisCount",
+        "sameVersionGenesisDigest"
+      ],
+      "properties": {
+        "releaseParentCommit": { "$ref": "#/$defs/commit" },
+        "ledgerOnlyCommit": { "const": true },
+        "parentMappingAbsent": { "const": true },
+        "sameVersionGenesisCount": { "const": 1 },
+        "sameVersionGenesisDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "checkerReleaseProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "version",
+        "releaseCommit",
+        "mappingPath",
+        "mappingRawSha256",
+        "bundleAlgorithm",
+        "bundlePaths",
+        "bundleFiles",
+        "bundleDigest",
+        "currentMatchesRelease",
+        "targetBaselineMappingStatus",
+        "genesisProof",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-checker-release-proof.v1" },
+        "version": { "const": "promotion-gate-shadow-v1" },
+        "releaseCommit": { "$ref": "#/$defs/commit" },
+        "mappingPath": { "const": "coordination/integration/checker-releases.v1.json" },
+        "mappingRawSha256": { "$ref": "#/$defs/sha256" },
+        "bundleAlgorithm": { "const": "sha256-stable-json-path-raw-v1" },
+        "bundlePaths": {
+          "const": [
+            "coordination/integration/promotion-gate-lib.mjs",
+            "coordination/integration/promotion-gate.mjs",
+            "coordination/integration/schemas/promotion-manifest.v1.schema.json",
+            "coordination/integration/schemas/promotion-receipt.v1.schema.json",
+            "coordination/integration/promotion-gate.test.mjs",
+            "package.json",
+            "package-lock.json"
+          ]
+        },
+        "bundleFiles": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": { "$ref": "#/$defs/fileDigest" }
+        },
+        "bundleDigest": { "$ref": "#/$defs/sha256" },
+        "currentMatchesRelease": { "const": true },
+        "targetBaselineMappingStatus": { "enum": ["initial-release-absent", "same-version-identical"] },
+        "genesisProof": {
+          "oneOf": [
+            { "$ref": "#/$defs/checkerGenesisProof" },
+            { "type": "null" }
+          ]
+        },
+        "digest": { "$ref": "#/$defs/sha256" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "targetBaselineMappingStatus": { "const": "initial-release-absent" } },
+            "required": ["targetBaselineMappingStatus"]
+          },
+          "then": { "properties": { "genesisProof": { "$ref": "#/$defs/checkerGenesisProof" } } },
+          "else": { "properties": { "genesisProof": { "const": null } } }
+        }
+      ]
+    },
+    "checkResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkId", "result", "evidenceDigest"],
+      "properties": {
+        "checkId": {
+          "enum": [
+            "manifest-contract",
+            "candidate-integrity",
+            "evidence-currentness",
+            "mapping-compatibility",
+            "rollback-rehearsal",
+            "live-reachability",
+            "forbidden-diff",
+            "legacy-ratchet"
+          ]
+        },
+        "result": { "enum": ["pass", "not_run", "fail", "blocked"] },
+        "code": { "$ref": "#/$defs/identifier" },
+        "message": { "type": "string", "minLength": 1 },
+        "details": { "type": "object" },
+        "evidenceDigest": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "result": { "const": "pass" },
+            "evidenceDigest": { "$ref": "#/$defs/sha256" }
+          },
+          "not": {
+            "anyOf": [
+              { "required": ["code"] },
+              { "required": ["message"] },
+              { "required": ["details"] }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "result": { "const": "not_run" },
+            "evidenceDigest": { "const": null }
+          },
+          "not": {
+            "anyOf": [
+              { "required": ["code"] },
+              { "required": ["message"] },
+              { "required": ["details"] }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "result": { "enum": ["fail", "blocked"] },
+            "evidenceDigest": { "$ref": "#/$defs/sha256" }
+          },
+          "required": ["code", "message", "details"]
+        }
+      ]
+    },
+    "shadowOutputRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path", "rawSha256", "semanticSha256"],
+      "properties": {
+        "kind": { "enum": ["safe-card", "practice", "lesson"] },
+        "path": {
+          "allOf": [
+            { "$ref": "#/$defs/repoRelativePath" },
+            { "not": { "pattern": "/" } }
+          ]
+        },
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "semanticSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "shadowOutput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tempRootPolicy", "outputs", "aggregateDigest"],
+      "properties": {
+        "tempRootPolicy": { "const": "os-temp-only" },
+        "outputs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/shadowOutputRecord" },
+          "allOf": [
+            { "contains": { "properties": { "kind": { "const": "safe-card" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 },
+            { "contains": { "properties": { "kind": { "const": "practice" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 },
+            { "contains": { "properties": { "kind": { "const": "lesson" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 }
+          ]
+        },
+        "aggregateDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "mappingCompatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result", "dtoSchemaVersion", "outputSemanticDigests", "digest"],
+      "properties": {
+        "result": { "const": "pass" },
+        "dtoSchemaVersion": { "const": "promotion-shadow-dto.v1" },
+        "outputSemanticDigests": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "semanticSha256"],
+            "properties": {
+              "kind": { "enum": ["safe-card", "practice", "lesson"] },
+              "semanticSha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "rollbackProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "preimageDigest",
+        "postRollbackDigest",
+        "digest",
+        "deletedPaths",
+        "verifiedAbsent",
+        "rootRemoved"
+      ],
+      "properties": {
+        "method": { "const": "delete-and-verify-absent" },
+        "preimageDigest": { "$ref": "#/$defs/sha256" },
+        "postRollbackDigest": { "$ref": "#/$defs/sha256" },
+        "digest": { "$ref": "#/$defs/sha256" },
+        "deletedPaths": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "allOf": [
+              { "$ref": "#/$defs/repoRelativePath" },
+              { "not": { "pattern": "/" } }
+            ]
+          }
+        },
+        "verifiedAbsent": { "const": true },
+        "rootRemoved": { "const": true }
+      }
+    },
+    "typescriptParser": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "const": "typescript" },
+        "version": { "const": "5.8.3" }
+      }
+    },
+    "runtimeGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parser",
+        "seedCount",
+        "seedDigest",
+        "reachablePathCount",
+        "reachablePathsDigest",
+        "edgeCount",
+        "edgeDigest",
+        "topologyEdgeCount",
+        "topologyEdgeDigest"
+      ],
+      "properties": {
+        "parser": { "$ref": "#/$defs/typescriptParser" },
+        "seedCount": { "type": "integer", "minimum": 19 },
+        "seedDigest": { "$ref": "#/$defs/sha256" },
+        "reachablePathCount": { "type": "integer", "minimum": 19 },
+        "reachablePathsDigest": { "$ref": "#/$defs/sha256" },
+        "edgeCount": { "type": "integer", "minimum": 0 },
+        "edgeDigest": { "$ref": "#/$defs/sha256" },
+        "topologyEdgeCount": { "type": "integer", "minimum": 0 },
+        "topologyEdgeDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "fsReadAllowlistEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourcePath",
+        "sourceRawSha256",
+        "callee",
+        "position",
+        "argumentShape",
+        "normalizedExpressionDigest",
+        "policy"
+      ],
+      "properties": {
+        "sourcePath": { "$ref": "#/$defs/repoRelativePath" },
+        "sourceRawSha256": { "$ref": "#/$defs/sha256" },
+        "callee": { "enum": ["node:fs.readFile", "node:fs/promises.readFile"] },
+        "position": { "type": "integer", "minimum": 0 },
+        "argumentShape": { "type": "string", "minLength": 1 },
+        "normalizedExpressionDigest": { "$ref": "#/$defs/sha256" },
+        "policy": { "const": "runtime-storage-read-only-non-module" }
+      }
+    },
+    "importMetaUrlReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourcePath", "sourceRawSha256", "specifier"],
+      "properties": {
+        "sourcePath": { "$ref": "#/$defs/repoRelativePath" },
+        "sourceRawSha256": { "$ref": "#/$defs/sha256" },
+        "specifier": { "type": "string", "minLength": 1 }
+      }
+    },
+    "runtimeLoaderPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "parser",
+        "fsReadAllowlist",
+        "fsReadAllowlistDigest",
+        "nextDynamic",
+        "importMetaUrlReferences",
+        "importMetaUrlReferencesDigest",
+        "zeroBaselineKinds",
+        "zeroBaselineCallCount"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-runtime-loader-policy.v1" },
+        "parser": { "$ref": "#/$defs/typescriptParser" },
+        "fsReadAllowlist": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/fsReadAllowlistEntry" }
+        },
+        "fsReadAllowlistDigest": { "$ref": "#/$defs/sha256" },
+        "nextDynamic": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["callCount", "literalImportCount", "nonliteralImportCount", "callsiteDigest"],
+          "properties": {
+            "callCount": { "type": "integer", "minimum": 0 },
+            "literalImportCount": { "type": "integer", "minimum": 0 },
+            "nonliteralImportCount": { "const": 0 },
+            "callsiteDigest": { "$ref": "#/$defs/sha256" }
+          }
+        },
+        "importMetaUrlReferences": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/importMetaUrlReference" }
+        },
+        "importMetaUrlReferencesDigest": { "$ref": "#/$defs/sha256" },
+        "zeroBaselineKinds": {
+          "const": [
+            "create-read-stream",
+            "create-require",
+            "element-access-loader",
+            "fs-open",
+            "fs-open-sync",
+            "glob",
+            "import-meta-glob",
+            "import-meta-resolve",
+            "import-meta-url-nonliteral",
+            "indirect-require",
+            "indirect-code-evaluation",
+            "function-constructor",
+            "module-require",
+            "next-dynamic-unresolved-wrapper",
+            "node-vm-evaluation",
+            "open-directory",
+            "process-get-builtin-module",
+            "read-directory",
+            "read-directory-sync",
+            "read-file-sync",
+            "require-context",
+            "require-resolve",
+            "webpack-require-escape"
+          ]
+        },
+        "zeroBaselineCallCount": { "const": 0 }
+      }
+    },
+    "runtimeClassification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "count", "pathsDigest"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "test-code",
+            "audit-script",
+            "generated-code",
+            "data-json",
+            "asset",
+            "documentation",
+            "placeholder",
+            "runtime-metadata",
+            "runtime-code"
+          ]
+        },
+        "count": { "type": "integer", "minimum": 0 },
+        "pathsDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "rawObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "coveredFileCount",
+        "coveredFilesDigest",
+        "coveredFilesAggregateDigest",
+        "classifications",
+        "classificationDigest"
+      ],
+      "properties": {
+        "coveredFileCount": { "type": "integer", "minimum": 1 },
+        "coveredFilesDigest": { "$ref": "#/$defs/sha256" },
+        "coveredFilesAggregateDigest": { "$ref": "#/$defs/sha256" },
+        "classifications": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": { "$ref": "#/$defs/runtimeClassification" }
+        },
+        "classificationDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "registryProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rawSha256",
+        "resolverPolicyDigest",
+        "frameworkBoundaryDigest",
+        "frameworkEntrypointCount",
+        "frameworkEntrypointsDigest",
+        "runtimeGraphDigest",
+        "loaderPolicyDigest",
+        "sensitiveAnchorsDigest"
+      ],
+      "properties": {
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "resolverPolicyDigest": { "$ref": "#/$defs/sha256" },
+        "frameworkBoundaryDigest": { "$ref": "#/$defs/sha256" },
+        "frameworkEntrypointCount": { "type": "integer", "minimum": 0 },
+        "frameworkEntrypointsDigest": { "$ref": "#/$defs/sha256" },
+        "runtimeGraphDigest": { "$ref": "#/$defs/sha256" },
+        "loaderPolicyDigest": { "$ref": "#/$defs/sha256" },
+        "sensitiveAnchorsDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "excludedNonRuntimeMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "classification", "marker"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "classification": { "enum": ["test-code", "audit-script"] },
+        "marker": { "type": "string", "minLength": 1 }
+      }
+    },
+    "reachability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "result",
+        "selectedCandidateReachable",
+        "scannedPaths",
+        "matches",
+        "unresolvedDynamicImports",
+        "excludedNonRuntimeMatches",
+        "runtimeGraph",
+        "loaderPolicyProof",
+        "rawObservation",
+        "registryProof"
+      ],
+      "properties": {
+        "policy": { "const": "selected-candidate-unreachable" },
+        "result": { "const": "pass" },
+        "selectedCandidateReachable": { "const": false },
+        "scannedPaths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "matches": { "const": [] },
+        "unresolvedDynamicImports": { "const": [] },
+        "excludedNonRuntimeMatches": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/excludedNonRuntimeMatch" }
+        },
+        "runtimeGraph": { "$ref": "#/$defs/runtimeGraph" },
+        "loaderPolicyProof": { "$ref": "#/$defs/runtimeLoaderPolicy" },
+        "rawObservation": { "$ref": "#/$defs/rawObservation" },
+        "registryProof": { "$ref": "#/$defs/registryProof" }
+      }
+    },
+    "legacyDiscoveryProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "registryDigest",
+        "observerVersion",
+        "candidateShapeVersion",
+        "discoveryJsonFileCount",
+        "discoveryJsonFilesDigest",
+        "inspectedJsonFileCount",
+        "inspectedJsonFilesDigest",
+        "runtimeFileCount",
+        "runtimeFilesDigest",
+        "runtimeGraphPathCount",
+        "runtimeGraphPathsDigest"
+      ],
+      "properties": {
+        "policy": { "const": "reachable-candidate-package-conflicts-v1" },
+        "registryDigest": { "$ref": "#/$defs/sha256" },
+        "observerVersion": { "const": "promotion-legacy-discovery-observer.v1" },
+        "candidateShapeVersion": { "const": "promotion-legacy-candidate-shape.v1" },
+        "discoveryJsonFileCount": { "type": "integer", "minimum": 0 },
+        "discoveryJsonFilesDigest": { "$ref": "#/$defs/sha256" },
+        "inspectedJsonFileCount": { "type": "integer", "minimum": 0 },
+        "inspectedJsonFilesDigest": { "$ref": "#/$defs/sha256" },
+        "runtimeFileCount": { "type": "integer", "minimum": 1 },
+        "runtimeFilesDigest": { "$ref": "#/$defs/sha256" },
+        "runtimeGraphPathCount": { "type": "integer", "minimum": 1 },
+        "runtimeGraphPathsDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "legacyRatchetProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "result",
+        "ratchetPath",
+        "ratchetRawSha256",
+        "introducedAt",
+        "expiresAt",
+        "knownConflictCount",
+        "observedConflictCount",
+        "removedConflictCount",
+        "observedEntriesDigest",
+        "discoveryProof",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-legacy-ratchet-proof.v1" },
+        "result": { "const": "pass" },
+        "ratchetPath": { "$ref": "#/$defs/repoRelativePath" },
+        "ratchetRawSha256": { "$ref": "#/$defs/sha256" },
+        "introducedAt": { "const": "2026-08-25T00:00:00Z" },
+        "expiresAt": { "const": "2026-09-24T00:00:00Z" },
+        "knownConflictCount": { "type": "integer", "minimum": 0 },
+        "observedConflictCount": { "type": "integer", "minimum": 0 },
+        "removedConflictCount": { "type": "integer", "minimum": 0 },
+        "observedEntriesDigest": { "$ref": "#/$defs/sha256" },
+        "discoveryProof": { "$ref": "#/$defs/legacyDiscoveryProof" },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "checkerCapabilityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "result",
+        "policy",
+        "checkerBundleDigest",
+        "sourceBindings",
+        "sourceBindingsDigest",
+        "forbiddenModuleSetDigest",
+        "registeredExecFileImportCount",
+        "registeredExecFileCallCount",
+        "forbiddenCapabilityCount",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-checker-capability-proof.v1" },
+        "result": { "const": "pass" },
+        "policy": { "const": "no-network-provider-database-deploy.v1" },
+        "checkerBundleDigest": { "$ref": "#/$defs/sha256" },
+        "sourceBindings": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "rawSha256"],
+              "properties": {
+                "path": { "const": "coordination/integration/promotion-gate-lib.mjs" },
+                "rawSha256": { "$ref": "#/$defs/sha256" }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "rawSha256"],
+              "properties": {
+                "path": { "const": "coordination/integration/promotion-gate.mjs" },
+                "rawSha256": { "$ref": "#/$defs/sha256" }
+              }
+            }
+          ],
+          "items": false
+        },
+        "sourceBindingsDigest": { "$ref": "#/$defs/sha256" },
+        "forbiddenModuleSetDigest": { "$ref": "#/$defs/sha256" },
+        "registeredExecFileImportCount": { "const": 1 },
+        "registeredExecFileCallCount": { "const": 1 },
+        "forbiddenCapabilityCount": { "const": 0 },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "externalSideEffectProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "result",
+        "policy",
+        "registeredOperations",
+        "gitPolicy",
+        "resolverEnvironment",
+        "tempRootProof",
+        "checkerCapabilityPolicy",
+        "networkRequestCount",
+        "providerCallCount",
+        "databaseWriteCount",
+        "deploymentCommandCount",
+        "digest"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "promotion-external-side-effect-proof.v1" },
+        "result": { "const": "pass" },
+        "policy": { "const": "registered-local-only-operations.v1" },
+        "registeredOperations": {
+          "const": [
+            "authoritative-repository-read",
+            "registered-read-only-git-probe",
+            "fresh-os-temp-exclusive-write-delete"
+          ]
+        },
+        "gitPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "executable",
+            "path",
+            "optionalLocks",
+            "fsmonitor",
+            "hooks",
+            "pager",
+            "terminalPrompt",
+            "systemConfig",
+            "globalConfig",
+            "inheritedGitEnvironment"
+          ],
+          "properties": {
+            "executable": { "const": "/usr/bin/git" },
+            "path": { "const": "/usr/bin:/bin" },
+            "optionalLocks": { "const": false },
+            "fsmonitor": { "const": false },
+            "hooks": { "const": false },
+            "pager": { "const": "cat" },
+            "terminalPrompt": { "const": false },
+            "systemConfig": { "const": false },
+            "globalConfig": { "const": false },
+            "inheritedGitEnvironment": { "const": false }
+          }
+        },
+        "resolverEnvironment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["NEXT_TSCONFIG_PATH", "NEXT_DIST_DIR"],
+          "properties": {
+            "NEXT_TSCONFIG_PATH": { "const": "unset" },
+            "NEXT_DIST_DIR": { "const": "unset" }
+          }
+        },
+        "tempRootProof": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rootSource", "outsideRepository", "outsideForbiddenPaths"],
+          "properties": {
+            "rootSource": { "const": "node-os-tmpdir" },
+            "outsideRepository": { "const": true },
+            "outsideForbiddenPaths": { "const": true }
+          }
+        },
+        "checkerCapabilityPolicy": { "$ref": "#/$defs/checkerCapabilityPolicy" },
+        "networkRequestCount": { "const": 0 },
+        "providerCallCount": { "const": 0 },
+        "databaseWriteCount": { "const": 0 },
+        "deploymentCommandCount": { "const": 0 },
+        "digest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "forbiddenDiff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result", "changedPaths"],
+      "properties": {
+        "result": { "enum": ["pass", "fail", "blocked"] },
+        "changedPaths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "result": { "const": "pass" } },
+            "required": ["result"]
+          },
+          "then": { "properties": { "changedPaths": { "const": [] } } }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "schemaVersion": { "const": "promotion-receipt.v1" },
+    "mode": { "const": "shadow" },
+    "result": { "enum": ["pass", "fail", "blocked"] },
+    "exitReason": {
+      "oneOf": [
+        { "$ref": "#/$defs/exitReason" },
+        { "type": "null" }
+      ]
+    },
+    "nextOwner": {
+      "oneOf": [
+        { "$ref": "#/$defs/role" },
+        { "type": "null" }
+      ]
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "runMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runId", "producedAt", "runnerVersion", "ciMetadata"],
+      "properties": {
+        "runId": { "$ref": "#/$defs/identifier" },
+        "producedAt": { "type": "string", "format": "date-time" },
+        "runnerVersion": { "const": "promotion-gate-shadow-v1" },
+        "ciMetadata": {
+          "oneOf": [
+            { "type": "object" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gateId",
+        "pilotUnitId",
+        "attemptId",
+        "parentPackage",
+        "candidateDigest",
+        "sourceCommit",
+        "targetBaselineCommit",
+        "checkerVersion",
+        "checkerRelease"
+      ],
+      "properties": {
+        "gateId": { "$ref": "#/$defs/identifier" },
+        "pilotUnitId": { "$ref": "#/$defs/identifier" },
+        "attemptId": { "$ref": "#/$defs/identifier" },
+        "parentPackage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "sourceVersion", "candidatePackagingVersion", "status"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "sourceVersion": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "candidatePackagingVersion": { "const": "promotion-package.v1" },
+            "status": { "const": "candidate-only" }
+          }
+        },
+        "candidateDigest": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/commit" },
+        "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+        "checkerVersion": { "const": "promotion-gate-shadow-v1" },
+        "checkerRelease": { "$ref": "#/$defs/checkerRelease" }
+      }
+    },
+    "checkerReleaseProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/checkerReleaseProof" },
+        { "type": "null" }
+      ]
+    },
+    "worktreeProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/worktreeProof" },
+        { "type": "null" }
+      ]
+    },
+    "checkResults": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "prefixItems": [
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "manifest-contract" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "candidate-integrity" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "evidence-currentness" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "mapping-compatibility" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "rollback-rehearsal" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "live-reachability" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "forbidden-diff" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/checkResult" }, { "properties": { "checkId": { "const": "legacy-ratchet" } } }] }
+      ],
+      "items": false
+    },
+    "sourceSnapshots": {
+      "oneOf": [
+        { "$ref": "#/$defs/sourceSnapshots" },
+        { "type": "null" }
+      ]
+    },
+    "candidateSourceProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/candidateSourceProof" },
+        { "type": "null" }
+      ]
+    },
+    "candidateInventoryProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/candidateInventoryProof" },
+        { "type": "null" }
+      ]
+    },
+    "candidateProvenanceProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/candidateProvenanceProof" },
+        { "type": "null" }
+      ]
+    },
+    "targetBaselineProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/targetBaselineProof" },
+        { "type": "null" }
+      ]
+    },
+    "evidenceIndexProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/evidenceIndexProof" },
+        { "type": "null" }
+      ]
+    },
+    "shadowOutput": {
+      "oneOf": [
+        { "$ref": "#/$defs/shadowOutput" },
+        { "type": "null" }
+      ]
+    },
+    "mappingCompatibility": {
+      "oneOf": [
+        { "$ref": "#/$defs/mappingCompatibility" },
+        { "type": "null" }
+      ]
+    },
+    "rollbackProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/rollbackProof" },
+        { "type": "null" }
+      ]
+    },
+    "reachability": {
+      "oneOf": [
+        { "$ref": "#/$defs/reachability" },
+        { "type": "null" }
+      ]
+    },
+    "legacyRatchetProof": {
+      "oneOf": [
+        { "$ref": "#/$defs/legacyRatchetProof" },
+        { "type": "null" }
+      ]
+    },
+    "liveBlockers": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": { "$ref": "#/$defs/knownBlocker" }
+    },
+    "noLiveAuthorizations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["integration", "live", "preview", "deploy"],
+      "properties": {
+        "integration": { "const": false },
+        "live": { "const": false },
+        "preview": { "const": false },
+        "deploy": { "const": false }
+      }
+    },
+    "forbiddenDiff": {
+      "oneOf": [
+        { "$ref": "#/$defs/forbiddenDiff" },
+        { "type": "null" }
+      ]
+    },
+    "externalSideEffects": {
+      "oneOf": [
+        { "$ref": "#/$defs/externalSideEffectProof" },
+        { "type": "null" }
+      ]
+    },
+    "lifecycleRecommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currentState", "suggestedTransition"],
+      "properties": {
+        "currentState": { "const": "shadow_ready" },
+        "suggestedTransition": { "enum": ["shadow_passed", null] }
+      }
+    },
+    "unmetConditions": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/identifier" }
+    },
+    "trustBoundary": {
+      "const": "Evidence role is a hash/path-bound self-declaration, not cryptographic identity or human authentication."
+    },
+    "semanticReceiptDigest": { "$ref": "#/$defs/sha256" },
+    "rawReceiptDigest": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "result": { "const": "pass" } },
+        "required": ["result"]
+      },
+      "then": {
+        "properties": {
+          "exitReason": { "const": null },
+          "nextOwner": { "const": null },
+          "checkerReleaseProof": { "$ref": "#/$defs/checkerReleaseProof" },
+          "worktreeProof": {
+            "allOf": [
+              { "$ref": "#/$defs/worktreeProof" },
+              {
+                "properties": {
+                  "preClean": { "const": true },
+                  "postClean": { "const": true },
+                  "trackedInputCount": { "type": "integer", "minimum": 1 },
+                  "trackedInputAggregateDigest": { "$ref": "#/$defs/sha256" },
+                  "attemptHistoryProof": { "$ref": "#/$defs/attemptHistoryProof" }
+                }
+              }
+            ]
+          },
+          "sourceSnapshots": {
+            "allOf": [
+              { "$ref": "#/$defs/sourceSnapshots" },
+              { "properties": { "equal": { "const": true } } }
+            ]
+          },
+          "candidateSourceProof": {
+            "allOf": [
+              { "$ref": "#/$defs/candidateSourceProof" },
+              { "properties": { "equal": { "const": true } } }
+            ]
+          },
+          "candidateInventoryProof": { "$ref": "#/$defs/candidateInventoryProof" },
+          "candidateProvenanceProof": { "$ref": "#/$defs/candidateProvenanceProof" },
+          "targetBaselineProof": { "$ref": "#/$defs/targetBaselineProof" },
+          "evidenceIndexProof": { "$ref": "#/$defs/evidenceIndexProof" },
+          "shadowOutput": { "$ref": "#/$defs/shadowOutput" },
+          "mappingCompatibility": { "$ref": "#/$defs/mappingCompatibility" },
+          "rollbackProof": { "$ref": "#/$defs/rollbackProof" },
+          "reachability": { "$ref": "#/$defs/reachability" },
+          "legacyRatchetProof": { "$ref": "#/$defs/legacyRatchetProof" },
+          "forbiddenDiff": {
+            "allOf": [
+              { "$ref": "#/$defs/forbiddenDiff" },
+              { "properties": { "result": { "const": "pass" }, "changedPaths": { "const": [] } } }
+            ]
+          },
+          "externalSideEffects": { "$ref": "#/$defs/externalSideEffectProof" },
+          "lifecycleRecommendation": {
+            "properties": { "suggestedTransition": { "const": null } }
+          },
+          "unmetConditions": {
+            "const": [
+              "a11-independent-replay-required",
+              "a22-postrun-isolation-required",
+              "ci-semantic-replay-required",
+              "integration-not-authorized",
+              "live-not-authorized",
+              "preview-not-authorized",
+              "deploy-not-authorized"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "result": { "const": "blocked" } },
+        "required": ["result"]
+      },
+      "then": {
+        "properties": {
+          "exitReason": { "$ref": "#/$defs/exitReason" },
+          "nextOwner": { "$ref": "#/$defs/role" },
+          "checkResults": {
+            "contains": {
+              "properties": { "result": { "const": "blocked" } },
+              "required": ["result"]
+            },
+            "minContains": 1
+          },
+          "lifecycleRecommendation": { "properties": { "suggestedTransition": { "const": null } } },
+          "unmetConditions": { "type": "array", "minItems": 8, "maxItems": 8 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "result": { "const": "fail" } },
+        "required": ["result"]
+      },
+      "then": {
+        "properties": {
+          "exitReason": { "$ref": "#/$defs/exitReason" },
+          "nextOwner": { "const": null },
+          "checkResults": {
+            "contains": {
+              "properties": { "result": { "const": "fail" } },
+              "required": ["result"]
+            },
+            "minContains": 1
+          },
+          "lifecycleRecommendation": { "properties": { "suggestedTransition": { "const": null } } },
+          "unmetConditions": { "type": "array", "minItems": 8, "maxItems": 8 }
+        }
+      }
+    }
+  ]
+}

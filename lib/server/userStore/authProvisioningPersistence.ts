@@ -37,6 +37,8 @@ type AuthProvisioningUserRecord = {
   password_salt?: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
   role: AuthProvisioningUserRole;
   created_at?: string;
 };
@@ -196,7 +198,6 @@ type ProvisioningPlan = {
 
 export type AuthProvisioningPersistenceStoreDependencies = {
   createId?: (prefix: string) => string;
-  createParentInviteCode: (database: AuthProvisioningPersistenceDatabase) => string;
   createTemporaryPassword?: () => string;
   ensureClassStudentWorkRecords: (
     database: AuthProvisioningPersistenceDatabase,
@@ -985,7 +986,6 @@ function csvEscape(value: unknown) {
 
 export function createAuthProvisioningPersistenceStore({
   createId = defaultCreateId,
-  createParentInviteCode,
   createTemporaryPassword = createAuthTemporaryPassword,
   ensureClassStudentWorkRecords,
   hashPassword,
@@ -1088,6 +1088,8 @@ export function createAuthProvisioningPersistenceStore({
             password_salt: hashed.salt,
             school_id: schoolId,
             password_must_change: true,
+            session_revision: 1,
+            disabled_at: null,
             role: "teacher",
             created_at: timestamp
           });
@@ -1188,6 +1190,8 @@ export function createAuthProvisioningPersistenceStore({
             password_salt: hashed.salt,
             school_id: schoolId,
             password_must_change: true,
+            session_revision: 1,
+            disabled_at: null,
             role: "student",
             created_at: timestamp
           });
@@ -1196,7 +1200,6 @@ export function createAuthProvisioningPersistenceStore({
             name: student.name,
             grade: student.grade,
             curriculum_track: defaultCurriculumTrack,
-            parent_invite_code: createParentInviteCode(database),
             avatar_id: defaultStudentAvatarId
           });
           database.user_settings.push({

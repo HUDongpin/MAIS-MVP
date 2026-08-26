@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/promotion-manifest.v1.schema.json",
+  "title": "MAIS Promotion Gate shadow manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "gateId",
+    "pilotUnitId",
+    "attemptId",
+    "mode",
+    "parentPackage",
+    "sourceCommit",
+    "targetBaselineCommit",
+    "checkerVersion",
+    "checkerRelease",
+    "candidateArtifacts",
+    "candidateDigest",
+    "knownBlockers",
+    "accessPolicy",
+    "requiredOwners",
+    "evidenceBindings",
+    "evidenceIndex",
+    "allowlistedCheckIds",
+    "operationPlan",
+    "authorizations",
+    "lifecycle",
+    "liveReachability",
+    "legacyDiscovery",
+    "legacyRatchet"
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "repoRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\\\)(?!.*\\u0000)[^/]+(?:/[^/]+)*$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "path", "jsonPointer", "rawFileSha256", "recordSha256"],
+      "properties": {
+        "kind": { "enum": ["safe-card", "practice", "lesson"] },
+        "id": { "$ref": "#/$defs/identifier" },
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "jsonPointer": {
+          "type": "string",
+          "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+        },
+        "rawFileSha256": { "$ref": "#/$defs/sha256" },
+        "recordSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "evidenceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "role", "path", "rawSha256", "semanticSha256", "reviewedCommit"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "candidate-generation",
+            "independent-qa",
+            "practice-semantics",
+            "lesson-semantics",
+            "promotion-plan",
+            "targeted-regression",
+            "release-readiness",
+            "exact-layer",
+            "release-intake"
+          ]
+        },
+        "role": { "enum": ["A21", "A18", "A04", "A05", "A23", "A11", "A22", "A24", "A25"] },
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" },
+        "semanticSha256": { "$ref": "#/$defs/sha256" },
+        "reviewedCommit": { "$ref": "#/$defs/commit" }
+      },
+      "oneOf": [
+        { "properties": { "role": { "const": "A21" }, "kind": { "const": "candidate-generation" } } },
+        { "properties": { "role": { "const": "A18" }, "kind": { "const": "independent-qa" } } },
+        { "properties": { "role": { "const": "A04" }, "kind": { "const": "practice-semantics" } } },
+        { "properties": { "role": { "const": "A05" }, "kind": { "const": "lesson-semantics" } } },
+        { "properties": { "role": { "const": "A23" }, "kind": { "const": "promotion-plan" } } },
+        { "properties": { "role": { "const": "A11" }, "kind": { "const": "targeted-regression" } } },
+        { "properties": { "role": { "const": "A22" }, "kind": { "const": "release-readiness" } } },
+        { "properties": { "role": { "const": "A24" }, "kind": { "const": "exact-layer" } } },
+        { "properties": { "role": { "const": "A25" }, "kind": { "const": "release-intake" } } }
+      ]
+    },
+    "knownBlocker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "owner", "status", "liveBlocking"],
+      "properties": {
+        "code": { "$ref": "#/$defs/identifier" },
+        "owner": { "enum": ["A04", "A05", "A18", "A23"] },
+        "status": { "enum": ["preserved-outside-runtime", "ratcheted-temporary"] },
+        "liveBlocking": { "const": true }
+      }
+    },
+    "shadowOutput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path"],
+      "properties": {
+        "kind": { "enum": ["safe-card", "practice", "lesson"] },
+        "path": {
+          "allOf": [
+            { "$ref": "#/$defs/repoRelativePath" },
+            { "not": { "pattern": "/" } }
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "schemaVersion": { "const": "promotion-manifest.v1" },
+    "gateId": { "$ref": "#/$defs/identifier" },
+    "pilotUnitId": { "$ref": "#/$defs/identifier" },
+    "attemptId": { "$ref": "#/$defs/identifier" },
+    "mode": { "const": "shadow" },
+    "parentPackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sourceVersion", "candidatePackagingVersion", "status"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "sourceVersion": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "candidatePackagingVersion": { "const": "promotion-package.v1" },
+        "status": { "const": "candidate-only" }
+      }
+    },
+    "sourceCommit": { "$ref": "#/$defs/commit" },
+    "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+    "checkerVersion": { "const": "promotion-gate-shadow-v1" },
+    "checkerRelease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "releaseCommit", "mappingPath", "mappingRawSha256", "bundleDigest"],
+      "properties": {
+        "version": { "const": "promotion-gate-shadow-v1" },
+        "releaseCommit": { "$ref": "#/$defs/commit" },
+        "mappingPath": { "const": "coordination/integration/checker-releases.v1.json" },
+        "mappingRawSha256": { "$ref": "#/$defs/sha256" },
+        "bundleDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "candidateArtifacts": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/artifact",
+        "properties": {
+          "kind": { "enum": ["safe-card", "practice", "lesson"] }
+        }
+      },
+      "allOf": [
+        { "contains": { "properties": { "kind": { "const": "safe-card" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "properties": { "kind": { "const": "practice" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "properties": { "kind": { "const": "lesson" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 }
+      ]
+    },
+    "candidateDigest": { "$ref": "#/$defs/sha256" },
+    "knownBlockers": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "prefixItems": [
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "item-standard-scope-overclaim" }, "owner": { "const": "A18" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "fine-grained-standard-id-live-mapping-unbound" }, "owner": { "const": "A04" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "unresolved-live-source-ids" }, "owner": { "const": "A23" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "missing-bilingual-fields" }, "owner": { "const": "A05" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "known-grammar-issue" }, "owner": { "const": "A18" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "student-feedback-exposes-internal-misconception-label" }, "owner": { "const": "A04" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "open-ended-practice-without-answer-or-rubric" }, "owner": { "const": "A05" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "prior-s18-evidence-record-mismatch" }, "owner": { "const": "A18" }, "status": { "const": "preserved-outside-runtime" } } },
+        { "$ref": "#/$defs/knownBlocker", "properties": { "code": { "const": "legacy-live-package-conflict" }, "owner": { "const": "A23" }, "status": { "const": "ratcheted-temporary" } } }
+      ],
+      "items": false
+    },
+    "accessPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowedReadPaths", "allowedTemporaryWritePaths", "forbiddenModificationPaths", "tempRootPolicy"],
+      "properties": {
+        "allowedReadPaths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "allowedTemporaryWritePaths": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "allOf": [
+              { "$ref": "#/$defs/repoRelativePath" },
+              { "not": { "pattern": "/" } }
+            ]
+          }
+        },
+        "forbiddenModificationPaths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "tempRootPolicy": { "const": "os-temp-only" }
+      }
+    },
+    "requiredOwners": {
+      "const": ["A21", "A18", "A04", "A05", "A23", "A11", "A22", "A24", "A25"]
+    },
+    "evidenceBindings": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/evidenceBinding" }
+    },
+    "evidenceIndex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoRelativePath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "allowlistedCheckIds": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "manifest-contract",
+          "candidate-integrity",
+          "evidence-currentness",
+          "mapping-compatibility",
+          "rollback-rehearsal",
+          "live-reachability",
+          "forbidden-diff",
+          "legacy-ratchet"
+        ]
+      }
+    },
+    "operationPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expectedOperationCount", "expectedOutputTypes", "outputs", "rollback"],
+      "properties": {
+        "expectedOperationCount": { "const": 3 },
+        "expectedOutputTypes": { "const": ["safe-card", "practice", "lesson"] },
+        "outputs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/shadowOutput" },
+          "allOf": [
+            { "contains": { "properties": { "kind": { "const": "safe-card" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 },
+            { "contains": { "properties": { "kind": { "const": "practice" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 },
+            { "contains": { "properties": { "kind": { "const": "lesson" } }, "required": ["kind"] }, "minContains": 1, "maxContains": 1 }
+          ]
+        },
+        "rollback": { "const": "delete-and-verify-absent" }
+      }
+    },
+    "authorizations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shadow", "integration", "live", "preview", "deploy"],
+      "properties": {
+        "shadow": { "const": true },
+        "integration": { "const": false },
+        "live": { "const": false },
+        "preview": { "const": false },
+        "deploy": { "const": false }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currentState", "requestedState"],
+      "properties": {
+        "currentState": { "const": "shadow_ready" },
+        "requestedState": { "const": "shadow_passed" }
+      }
+    },
+    "liveReachability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "roots", "entrypoints", "specialFiles", "registry"],
+      "properties": {
+        "policy": { "const": "selected-candidate-unreachable" },
+        "roots": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "entrypoints": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repoRelativePath" }
+        },
+        "specialFiles": {
+          "const": ["middleware.ts"]
+        },
+        "registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "rawSha256"],
+          "properties": {
+            "path": { "$ref": "#/$defs/repoRelativePath" },
+            "rawSha256": { "$ref": "#/$defs/sha256" }
+          }
+        }
+      }
+    },
+    "legacyDiscovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "roots", "registry"],
+      "properties": {
+        "policy": { "const": "reachable-candidate-package-conflicts-v1" },
+        "roots": {
+          "const": ["coordination/content-qa", "data/generated-content", "data/rag"]
+        },
+        "registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "rawSha256"],
+          "properties": {
+            "path": { "$ref": "#/$defs/repoRelativePath" },
+            "rawSha256": { "$ref": "#/$defs/sha256" }
+          }
+        }
+      }
+    },
+    "legacyRatchet": { "$ref": "#/$defs/repoRelativePath" }
+  }
+}

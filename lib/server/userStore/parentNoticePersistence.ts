@@ -1,6 +1,7 @@
 import type {
   ParentChildSummary,
   ParentNoticeData,
+  ParentNoticeReceiptSafe,
   ParentSafeTeacherDraft,
   StudentSession,
   TeacherNotice,
@@ -18,6 +19,7 @@ type UserRole = StudentSession["role"];
 type ParentNoticeUserRecord = {
   id: string;
   username?: string;
+  disabled_at?: string | null;
   role: UserRole;
 };
 
@@ -119,6 +121,12 @@ export type ParentNoticePersistenceDatabase = {
   users: ParentNoticeUserRecord[];
 };
 
+export type ParentNoticeMutationScope = {
+  kind: "ack";
+  parentId: string;
+  recipientId: string;
+};
+
 export type ParentNoticePersistenceStoreDependencies = {
   getParentChildSummaries: (
     database: ParentNoticePersistenceDatabase,
@@ -126,15 +134,28 @@ export type ParentNoticePersistenceStoreDependencies = {
   ) => ParentChildSummary[];
   now?: () => Date;
   readDatabase: () => Promise<ParentNoticePersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentNoticePersistenceDatabase>;
   mutateDatabase: <T>(
     mutator: (database: ParentNoticePersistenceDatabase) => T | Promise<T>
+  ) => Promise<T>;
+  mutateMutationDatabase?: <T>(
+    scope: ParentNoticeMutationScope,
+    mutator: (database: ParentNoticePersistenceDatabase) => T
   ) => Promise<T>;
 };
 
 export type ParentNoticePersistenceStore = ReturnType<typeof createParentNoticePersistenceStore>;
 
+function toParentNoticeReceiptSafe(record: ParentNoticeRecipientRecord): ParentNoticeReceiptSafe {
+  return {
+    recipientId: record.id,
+    status: "acknowledged",
+    acknowledgedAt: record.acknowledged_at ?? ""
+  };
+}
+
 function canUseParentArea(user?: ParentNoticeUserRecord | null): user is ParentNoticeUserRecord {
-  return user?.role === "parent" || user?.role === "admin";
+  return user?.role === "parent";
 }
 
 function studentProfileFor(database: ParentNoticePersistenceDatabase, userId: string) {
@@ -143,8 +164,7 @@ function studentProfileFor(database: ParentNoticePersistenceDatabase, userId: st
 
 function displayNameFor(database: ParentNoticePersistenceDatabase, userId: string, fallback: string) {
   const profile = studentProfileFor(database, userId);
-  const user = database.users.find((candidate) => candidate.id === userId);
-  return profile?.name ?? user?.username ?? fallback;
+  return profile?.name ?? fallback;
 }
 
 function parentCanAccessStudentInDatabase(
@@ -152,10 +172,6 @@ function parentCanAccessStudentInDatabase(
   parentId: string,
   studentId: string
 ) {
-  const parent = database.users.find((candidate) => candidate.id === parentId);
-  if (parent?.role === "admin") {
-    return database.users.some((candidate) => candidate.id === studentId && candidate.role === "student");
-  }
   return database.guardian_links.some((link) => (
     link.parent_id === parentId &&
     link.student_id === studentId &&
@@ -310,28 +326,40 @@ export function createParentNoticePersistenceStore({
   getParentChildSummaries,
   now = () => new Date(),
   readDatabase,
-  mutateDatabase
+  readParentDatabase,
+  mutateDatabase,
+  mutateMutationDatabase
 }: ParentNoticePersistenceStoreDependencies) {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
+
   return {
     async getParentNoticeData(
       parentId: string,
       options: { selectedStudentId?: string | null; recipientId?: string | null } = {}
     ): Promise<ParentNoticeData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user)) return null;
       const children = getParentChildSummaries(database, user);
       const allowedStudentIds = new Set(children.map((child) => child.student.id));
-      const targetRecipient = options.recipientId
-        ? database.teacher_notice_recipients.find((recipient) =>
-            recipient.id === options.recipientId &&
-            allowedStudentIds.has(recipient.student_id) &&
-            (recipient.guardian_id === parentId || user.role === "admin")
-          ) ?? null
-        : null;
-      const selectedStudentId = options.selectedStudentId && allowedStudentIds.has(options.selectedStudentId)
-        ? options.selectedStudentId
-        : null;
+      let selectedStudentId: string | null = null;
+      if (options.selectedStudentId !== undefined && options.selectedStudentId !== null) {
+        if (!options.selectedStudentId || !allowedStudentIds.has(options.selectedStudentId)) return null;
+        selectedStudentId = options.selectedStudentId;
+      }
+
+      let targetRecipient: ParentNoticeRecipientRecord | null = null;
+      if (options.recipientId !== undefined && options.recipientId !== null) {
+        if (!options.recipientId) return null;
+        targetRecipient = database.teacher_notice_recipients.find((recipient) =>
+          recipient.id === options.recipientId &&
+          allowedStudentIds.has(recipient.student_id) &&
+          recipient.guardian_id === parentId
+        ) ?? null;
+        if (!targetRecipient) return null;
+      }
+      if (selectedStudentId && targetRecipient && targetRecipient.student_id !== selectedStudentId) return null;
+
       const visibleStudentIds = targetRecipient
         ? new Set([targetRecipient.student_id])
         : selectedStudentId
@@ -346,7 +374,7 @@ export function createParentNoticePersistenceStore({
             (recipient) =>
               recipient.notice_id === notice.id &&
               visibleStudentIds.has(recipient.student_id) &&
-              (recipient.guardian_id === parentId || user.role === "admin")
+              recipient.guardian_id === parentId
           )
         )
         .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
@@ -355,7 +383,7 @@ export function createParentNoticePersistenceStore({
           const recipients = fullNotice.recipients.filter(
             (recipient) =>
               visibleStudentIds.has(recipient.studentId) &&
-              (recipient.guardianId === parentId || user.role === "admin") &&
+              recipient.guardianId === parentId &&
               (!targetRecipient || recipient.id === targetRecipient.id)
           );
           const acknowledged = recipients.filter((recipient) => recipient.status === "acknowledged").length;
@@ -391,14 +419,17 @@ export function createParentNoticePersistenceStore({
       parentId: string;
       recipientId: string;
     }) {
-      return mutateDatabase((database) => {
+      const mutate = (database: ParentNoticePersistenceDatabase) => {
         const user = database.users.find((candidate) => candidate.id === parentId);
-        if (!canUseParentArea(user)) return { status: "forbidden" as const };
+        if (user?.role !== "parent") return { status: "forbidden" as const };
         const recipient = database.teacher_notice_recipients.find((candidate) => candidate.id === recipientId);
         if (!recipient) return { status: "not-found" as const };
-        if (recipient.guardian_id !== parentId && user.role !== "admin") return { status: "forbidden" as const };
-        if (!parentCanAccessStudentInDatabase(database, parentId, recipient.student_id) && user.role !== "admin") {
-          return { status: "forbidden" as const };
+        // Once the caller is known to be a parent, every inaccessible recipient is deliberately
+        // indistinguishable from an absent one. A 403 here would reveal that another family's
+        // recipient id exists; revoked links must close the same side channel.
+        if (recipient.guardian_id !== parentId) return { status: "not-found" as const };
+        if (!parentCanAccessStudentInDatabase(database, parentId, recipient.student_id)) {
+          return { status: "not-found" as const };
         }
 
         // Acknowledgement is a receipt of record: `acknowledged_at` is the evidence of WHEN a
@@ -407,10 +438,9 @@ export function createParentNoticePersistenceStore({
         // authorization checks above so a re-acknowledgement is still authorized, not waved
         // through by the early return.
         if (recipient.status === "acknowledged" && recipient.acknowledged_at) {
-          const acknowledgedNotice = database.teacher_notices.find((candidate) => candidate.id === recipient.notice_id);
           return {
             status: "acknowledged" as const,
-            notice: acknowledgedNotice ? toTeacherNotice(database, acknowledgedNotice) : null
+            receipt: toParentNoticeReceiptSafe(recipient)
           };
         }
 
@@ -420,8 +450,11 @@ export function createParentNoticePersistenceStore({
         recipient.acknowledged_at = updatedAt;
         const notice = database.teacher_notices.find((candidate) => candidate.id === recipient.notice_id);
         if (notice) notice.updated_at = updatedAt;
-        return { status: "acknowledged" as const, notice: notice ? toTeacherNotice(database, notice) : null };
-      });
+        return { status: "acknowledged" as const, receipt: toParentNoticeReceiptSafe(recipient) };
+      };
+      return mutateMutationDatabase
+        ? mutateMutationDatabase({ kind: "ack", parentId, recipientId }, mutate)
+        : mutateDatabase(mutate);
     }
   };
 }

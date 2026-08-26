@@ -33,6 +33,7 @@ function childSummary(studentId: string, name: string): ParentChildSummary {
     strengths: [],
     supportTopics: [],
     assignments: [],
+    pendingAssignmentCount: 0,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -55,6 +56,9 @@ function createDatabase(): ParentReportPersistenceDatabase {
       { parent_id: "parent-1", student_id: "student-1", status: "active" },
       { parent_id: "parent-1", student_id: "student-2", status: "active" },
       { parent_id: "parent-2", student_id: "student-3", status: "active" }
+    ],
+    student_profiles: [
+      { user_id: "teacher-1", name: "Teacher Chan" }
     ],
     teacher_reports: [
       {
@@ -137,6 +141,7 @@ function createDatabase(): ParentReportPersistenceDatabase {
     users: [
       { id: "parent-1", username: "Pat Parent", role: "parent" },
       { id: "parent-2", username: "Other Parent", role: "parent" },
+      { id: "admin-1", username: "Support Admin", role: "admin" },
       { id: "teacher-1", username: "Teacher Chan", role: "teacher" },
       { id: "student-1", username: "Ada", role: "student" },
       { id: "student-2", username: "Ben", role: "student" },
@@ -145,7 +150,13 @@ function createDatabase(): ParentReportPersistenceDatabase {
   };
 }
 
-function createTestStore(database = createDatabase()) {
+function createTestStore(
+  database = createDatabase(),
+  readers: {
+    readDatabase?: () => Promise<ParentReportPersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentReportPersistenceDatabase>;
+  } = {}
+) {
   return createParentReportPersistenceStore({
     now: () => new Date(generatedAt),
     getParentChildSummaries: (_database, user) => {
@@ -155,9 +166,30 @@ function createTestStore(database = createDatabase()) {
         childSummary("student-2", "Ben Student")
       ];
     },
-    readDatabase: async () => database
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {})
   });
 }
+
+test("parent report GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.equal((await store.getParentReportData("parent-1"))?.reports.length, 3);
+  assert.deepEqual(scopedParentIds, ["parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
 
 test("parent report persistence returns every linked child's reports without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentReportPersistence.ts"), "utf8");
@@ -178,8 +210,11 @@ test("parent report persistence returns every linked child's reports without leg
     "report-older",
     "report-second-child"
   ]);
+  assert.equal(data?.reports.some((report) => report.id === "report-other-parent"), false);
   assert.equal(data?.reports[0].title.en, "Newer report");
   assert.equal(data?.reports[0].summary.zh, "較新摘要");
+  assert.equal(data?.reports[0].generatedBy, "teacher-1");
+  assert.equal(data?.reports[0].generatedByName, "Teacher Chan");
   assert.equal(data?.reports[0].preview?.metrics.averageMastery, 82);
 });
 
@@ -195,6 +230,10 @@ test("parent report persistence rejects unavailable parent report data", async (
 
   assert.equal(await store.getParentReportData("teacher-1"), null);
   assert.deepEqual((await store.getParentReportData("parent-2"))?.reports, []);
+});
+
+test("parent report persistence rejects admin reads", async () => {
+  assert.equal(await createTestStore().getParentReportData("admin-1"), null);
 });
 
 test("parent report persistence owns parent report lookup helper for legacy userStore", async () => {
@@ -254,11 +293,14 @@ test("an explicit studentId still narrows to that child alone", async () => {
   assert.deepEqual([...new Set(data?.reports.map((report) => report.studentId))], ["student-2"]);
 });
 
-test("an unknown studentId falls back to the all-children view, not to child #1", async () => {
-  // A stale or hand-edited URL must not silently scope the parent to one child.
-  const data = await createTestStore().getParentReportData("parent-1", "student-does-not-exist");
+test("every explicitly invalid report studentId fails closed instead of expanding to all children", async () => {
+  const store = createTestStore();
 
-  assert.equal(data?.selectedChild, null);
-  const studentIds = new Set(data?.reports.map((report) => report.studentId));
-  assert.ok(studentIds.has("student-1") && studentIds.has("student-2"));
+  for (const studentId of ["", "student-does-not-exist", "student-3"]) {
+    assert.equal(
+      await store.getParentReportData("parent-1", studentId),
+      null,
+      `explicit filter ${JSON.stringify(studentId)} must not expand to all linked reports`
+    );
+  }
 });

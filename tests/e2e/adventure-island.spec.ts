@@ -155,10 +155,18 @@ function adventureEligibilityUrl(app: IsolatedApp, payload: ReturnType<typeof ro
   return app.url(`/api/gamification/adventure-island?${params.toString()}`);
 }
 
-async function submitTopicAttempts(app: IsolatedApp, page: Page, roundQuestions: Array<{ id: string; answer: string }>, correctCount: number) {
+async function submitTopicAttempts(
+  app: IsolatedApp,
+  page: Page,
+  roundQuestions: Array<{ id: string; answer: string }>,
+  correctCount: number,
+  expectedUserId: string
+) {
   for (const [index, question] of roundQuestions.entries()) {
     const response = await page.request.post(app.url("/api/attempts"), {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId: question.id,
         selectedAnswer: index < correctCount ? question.answer : "__wrong__",
         durationSeconds: 12
@@ -471,7 +479,7 @@ test.describe.serial("topic-bound Adventure Island game", () => {
     const grade = "S3";
 
     try {
-      await registerStudentThroughApi(app, page, testInfo, grade);
+      const session = await registerStudentThroughApi(app, page, testInfo, grade);
       const roundQuestions = topicRoundQuestions();
       const roundQuestionIds = roundQuestions.map((question) => question.id);
 
@@ -486,7 +494,7 @@ test.describe.serial("topic-bound Adventure Island game", () => {
         accuracyPercent: 0
       });
 
-      await submitTopicAttempts(app, page, roundQuestions, 3);
+      await submitTopicAttempts(app, page, roundQuestions, 3, session.user.id);
       const lowPayload = roundPayloadFor(roundQuestionIds, roundQuestionIds.slice(0, 3), `low-${Date.now()}`);
       const lowCumulativeEligibility = await readJson<AdventureIslandEligibility>(
         await page.request.get(adventureEligibilityUrl(app, lowPayload))
@@ -499,7 +507,7 @@ test.describe.serial("topic-bound Adventure Island game", () => {
         accuracyPercent: 60
       });
 
-      await submitTopicAttempts(app, page, roundQuestions, 4);
+      await submitTopicAttempts(app, page, roundQuestions, 4, session.user.id);
       const strongPayload = roundPayloadFor(roundQuestionIds, roundQuestionIds.slice(0, 4), `strong-${Date.now()}`);
 
       const unlockedEligibility = await readJson<AdventureIslandEligibility>(
@@ -533,10 +541,10 @@ test.describe.serial("topic-bound Adventure Island game", () => {
     const grade = "S3";
 
     try {
-      await registerStudentThroughApi(app, page, testInfo, grade);
+      const session = await registerStudentThroughApi(app, page, testInfo, grade);
       const roundQuestions = topicRoundQuestions();
       const roundQuestionIds = roundQuestions.map((question) => question.id);
-      await submitTopicAttempts(app, page, roundQuestions, 5);
+      await submitTopicAttempts(app, page, roundQuestions, 5, session.user.id);
       const strongPayload = roundPayloadFor(roundQuestionIds, roundQuestionIds, `adventure-${Date.now()}`);
 
       const initialEligibility = await readJson<AdventureIslandEligibility>(

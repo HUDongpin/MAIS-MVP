@@ -31,7 +31,7 @@ async function withEnv(env: Record<string, string | undefined>, run: () => Promi
 }
 
 async function authenticatedRequest(url: string, userId = "student-peter") {
-  const token = await createSessionToken(userId);
+  const token = await createSessionToken({ userId, sessionRevision: 1 });
   return new Request(url, {
     headers: {
       cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`

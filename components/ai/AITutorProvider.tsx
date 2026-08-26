@@ -10,6 +10,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState
@@ -24,6 +25,7 @@ import {
   normalizeAITutorVisualization,
   type AITutorVisualization
 } from "@/lib/aiTutorVisualization";
+import { appShellSessionSyncStorageKey } from "@/lib/appShellBootstrap";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isChineseLanguage, simplifyChineseText, textForLanguage, traditionalToSimplifiedMap } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -98,6 +100,7 @@ type TutorMessage = {
 };
 
 type TutorApiResponse = {
+  code?: string;
   reply?: string;
   visualization?: AITutorVisualization;
   error?: string;
@@ -237,6 +240,17 @@ const AITutorContext = createContext<AITutorContextValue | null>(null);
 
 type TutorDraftOwner = Pick<TutorDraft, "userId" | "role">;
 
+export type TutorSessionIdentity = {
+  userId: string;
+  role: StudentSession["role"];
+} | null;
+
+type TutorSessionSnapshot = {
+  controller: AbortController;
+  epoch: number;
+  identity: TutorSessionIdentity;
+};
+
 type TutorPanelSize = {
   width: number;
   height: number;
@@ -304,6 +318,70 @@ const simplifiedChineseSignalCharacters = new Set(
 );
 
 const latestTutorDrafts = new Map<string, TutorDraft>();
+
+function tutorSessionIdentityForUser(
+  user: Pick<StudentSession, "id" | "role"> | null
+): TutorSessionIdentity {
+  return user ? { userId: user.id, role: user.role } : null;
+}
+
+function sameTutorSessionIdentity(
+  left: TutorSessionIdentity,
+  right: TutorSessionIdentity
+) {
+  if (!left || !right) return left === right;
+  return left.userId === right.userId && left.role === right.role;
+}
+
+export function tutorSessionRequestMayContinue({
+  aborted,
+  currentEpoch,
+  currentIdentity,
+  mounted,
+  snapshotEpoch,
+  snapshotIdentity
+}: {
+  aborted: boolean;
+  currentEpoch: number;
+  currentIdentity: TutorSessionIdentity;
+  mounted: boolean;
+  snapshotEpoch: number;
+  snapshotIdentity: TutorSessionIdentity;
+}) {
+  return Boolean(
+    mounted &&
+      !aborted &&
+      snapshotEpoch === currentEpoch &&
+      sameTutorSessionIdentity(snapshotIdentity, currentIdentity)
+  );
+}
+
+function sessionSignalMatchesTutorIdentity(
+  value: unknown,
+  identity: TutorSessionIdentity
+) {
+  let parsed: unknown = value;
+  if (typeof parsed === "string") {
+    try {
+      parsed = JSON.parse(parsed) as unknown;
+    } catch {
+      return false;
+    }
+  }
+  if (!parsed || typeof parsed !== "object") return false;
+
+  const signal = parsed as { userId?: unknown; userRole?: unknown };
+  if (signal.userId === null && signal.userRole === null) return identity === null;
+  return Boolean(
+    identity &&
+      signal.userId === identity.userId &&
+      signal.userRole === identity.role
+  );
+}
+
+function tutorSessionAbortError() {
+  return new DOMException("AI Tutor session changed.", "AbortError");
+}
 
 const tutorNames = {
   en: "Professor Nova",
@@ -1339,11 +1417,23 @@ function readApiResponse(value: unknown): TutorApiResponse {
   if (!isRecord(value)) return {};
   const visualization = normalizeAITutorVisualization(value.visualization);
   return {
+    code: typeof value.code === "string" ? value.code : undefined,
     reply: typeof value.reply === "string" ? value.reply : undefined,
     ...(visualization ? { visualization } : {}),
     error: typeof value.error === "string" ? value.error : undefined,
     mode: typeof value.mode === "string" ? value.mode : undefined
   };
+}
+
+async function tutorResponseRequiresSessionRevalidation(response: Response) {
+  if (response.status === 401 || response.status === 403) return true;
+  if (response.status !== 409) return false;
+  try {
+    const body = await response.clone().json() as { code?: unknown };
+    return body.code === "authenticated-user-changed";
+  } catch {
+    return false;
+  }
 }
 
 function readTutorStreamFinalPayload(value: unknown) {
@@ -1593,7 +1683,7 @@ function isGuestSignupTutorMessage(message: TutorMessage) {
   return /AI Tutor (?:is available|needs|required|需要).*(?:register|sign in|註冊|登入|注册|登录)|Please create a learning account|請先建立.*學習帳戶|请先建立.*学习帐户/i.test(message.content);
 }
 
-function tutorDraftOwnerForUser(user: StudentSession | null): TutorDraftOwner {
+function tutorDraftOwnerForUser(user: Pick<StudentSession, "id" | "role"> | null): TutorDraftOwner {
   return user
     ? { userId: user.id, role: user.role }
     : { userId: "guest", role: "guest" };
@@ -1704,7 +1794,10 @@ async function requestTutorReply({
   language,
   page,
   attachments,
-  signedInUserId,
+  expectedUserId,
+  signal,
+  assertSessionCurrent,
+  onSessionConflict,
   onStreamChunk
 }: {
   input: string;
@@ -1714,18 +1807,22 @@ async function requestTutorReply({
   language: string;
   page: string;
   attachments: TutorAttachment[];
-  signedInUserId?: string;
+  expectedUserId?: string;
+  signal: AbortSignal;
+  assertSessionCurrent: () => void;
+  onSessionConflict: () => void;
   onStreamChunk?: (delta: string) => void;
 }) {
   const payload = {
     input,
-    messages: signedInUserId
+    messages: expectedUserId
       ? messages.filter((message) => !isGuestSignupTutorMessage(message))
       : messages,
     context: stripQuestionAnswer(context),
     grade,
     language,
-    page
+    page,
+    ...(expectedUserId ? { expectedUserId } : {})
   };
 
   function buildRequestInit(): RequestInit {
@@ -1737,29 +1834,53 @@ async function requestTutorReply({
           return {
             method: "POST",
             headers: {
-              Accept: "text/event-stream"
+              Accept: "text/event-stream",
+              ...(expectedUserId
+                ? { "X-MAIS-Expected-User-Id": expectedUserId }
+                : {})
             },
             body: formData,
             cache: "no-store",
-            credentials: "same-origin"
+            credentials: "same-origin",
+            signal
           };
         })()
       : {
           method: "POST",
           headers: {
             Accept: "text/event-stream",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            ...(expectedUserId
+              ? { "X-MAIS-Expected-User-Id": expectedUserId }
+              : {})
           },
           body: JSON.stringify(payload),
           cache: "no-store",
-          credentials: "same-origin"
+          credentials: "same-origin",
+          signal
         };
   }
 
   async function postTutorRequest(): Promise<TutorTransportResult> {
+    assertSessionCurrent();
     const response = await fetch("/api/ai-tutor", buildRequestInit());
+    assertSessionCurrent();
     if ((response.headers.get("content-type") ?? "").toLowerCase().includes("text/event-stream")) {
-      return readTutorStreamResponse(response, { onChunk: onStreamChunk });
+      const result = await readTutorStreamResponse(response, {
+        onChunk: (delta) => {
+          assertSessionCurrent();
+          onStreamChunk?.(delta);
+        }
+      });
+      if (
+        result.response.status === 401 ||
+        result.response.status === 403 ||
+        (result.response.status === 409 && result.data.code === "authenticated-user-changed")
+      ) {
+        onSessionConflict();
+      }
+      assertSessionCurrent();
+      return result;
     }
 
     let data: TutorApiResponse = {};
@@ -1768,6 +1889,14 @@ async function requestTutorReply({
     } catch {
       data = {};
     }
+    if (
+      response.status === 401 ||
+      response.status === 403 ||
+      (response.status === 409 && data.code === "authenticated-user-changed")
+    ) {
+      onSessionConflict();
+    }
+    assertSessionCurrent();
     return {
       response: {
         ok: response.ok,
@@ -1778,17 +1907,26 @@ async function requestTutorReply({
   }
 
   let { response, data } = await postTutorRequest();
-  if (response.ok && data.mode === "registration-required" && signedInUserId) {
+  if (response.ok && data.mode === "registration-required" && expectedUserId) {
+    assertSessionCurrent();
     const sessionResponse = await fetch("/api/me", {
       cache: "no-store",
-      credentials: "same-origin"
+      credentials: "same-origin",
+      headers: {
+        "X-MAIS-Expected-User-Id": expectedUserId
+      },
+      signal
     });
+    if (await tutorResponseRequiresSessionRevalidation(sessionResponse)) {
+      onSessionConflict();
+    }
+    assertSessionCurrent();
     if (sessionResponse.ok) {
       ({ response, data } = await postTutorRequest());
     }
   }
 
-  if (response.ok && data.mode === "registration-required" && signedInUserId) {
+  if (response.ok && data.mode === "registration-required" && expectedUserId) {
     throw new Error("AI Tutor API request failed.");
   }
 
@@ -1845,6 +1983,11 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   const tutorVoiceAudioRef = useRef<HTMLAudioElement | null>(null);
   const tutorVoiceObjectUrlRef = useRef<string | null>(null);
   const sendTutorMessageRef = useRef<((options: SendTutorMessageOptions) => Promise<void>) | null>(null);
+  const tutorSessionIdentityRef = useRef<TutorSessionIdentity>(tutorSessionIdentityForUser(currentUser));
+  const tutorSessionUserRef = useRef(currentUser);
+  const tutorAuthEpochRef = useRef(0);
+  const tutorAccountRequestControllersRef = useRef(new Set<AbortController>());
+  const tutorProviderMountedRef = useRef(true);
   const voiceInputBaseRef = useRef("");
   const nativeSpeechFinalTranscriptRef = useRef("");
   const nativeSpeechInterimTranscriptRef = useRef("");
@@ -1873,24 +2016,38 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
     return "";
   }, [messages]);
-  const loadClassroomPolicy = useCallback(async () => {
-    if (!currentUser) {
-      setClassroomPolicy(null);
-      return null;
+  const invalidateTutorAuthEpoch = useCallback(() => {
+    tutorAuthEpochRef.current += 1;
+    for (const controller of tutorAccountRequestControllersRef.current) {
+      controller.abort(tutorSessionAbortError());
     }
-    try {
-      const response = await fetch("/api/ai-tutor/classroom-policy", {
-        cache: "no-store",
-        credentials: "same-origin"
-      });
-      if (!response.ok) return null;
-      const policy = readClassAiTutorPolicy(await response.json().catch(() => null));
-      if (policy) setClassroomPolicy(policy);
-      return policy;
-    } catch {
-      return null;
-    }
-  }, [currentUser?.id]);
+    tutorAccountRequestControllersRef.current.clear();
+  }, []);
+  const beginTutorSessionRequest = useCallback((): TutorSessionSnapshot => {
+    const controller = new AbortController();
+    tutorAccountRequestControllersRef.current.add(controller);
+    return {
+      controller,
+      epoch: tutorAuthEpochRef.current,
+      identity: tutorSessionIdentityRef.current
+    };
+  }, []);
+  const tutorSessionSnapshotIsCurrent = useCallback((snapshot: TutorSessionSnapshot) => (
+    tutorSessionRequestMayContinue({
+      aborted: snapshot.controller.signal.aborted,
+      currentEpoch: tutorAuthEpochRef.current,
+      currentIdentity: tutorSessionIdentityRef.current,
+      mounted: tutorProviderMountedRef.current,
+      snapshotEpoch: snapshot.epoch,
+      snapshotIdentity: snapshot.identity
+    })
+  ), []);
+  const assertTutorSessionSnapshotCurrent = useCallback((snapshot: TutorSessionSnapshot) => {
+    if (!tutorSessionSnapshotIsCurrent(snapshot)) throw tutorSessionAbortError();
+  }, [tutorSessionSnapshotIsCurrent]);
+  const releaseTutorSessionRequest = useCallback((snapshot: TutorSessionSnapshot) => {
+    tutorAccountRequestControllersRef.current.delete(snapshot.controller);
+  }, []);
   const scrollMessagesToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ block: "end" });
   }, []);
@@ -1953,6 +2110,110 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
     abortNativeSpeechCapture(nextStatus);
     abortQwenSpeechCapture(nextStatus);
   }, [abortNativeSpeechCapture, abortQwenSpeechCapture]);
+  useLayoutEffect(() => {
+    tutorProviderMountedRef.current = true;
+    const nextIdentity = tutorSessionIdentityForUser(currentUser);
+    if (
+      tutorSessionUserRef.current !== currentUser ||
+      !sameTutorSessionIdentity(tutorSessionIdentityRef.current, nextIdentity)
+    ) {
+      invalidateTutorAuthEpoch();
+      abortVoiceInputCapture();
+      stopTutorVoicePlayback();
+    }
+    tutorSessionIdentityRef.current = nextIdentity;
+    tutorSessionUserRef.current = currentUser;
+    return () => {
+      tutorProviderMountedRef.current = false;
+      invalidateTutorAuthEpoch();
+    };
+  }, [abortVoiceInputCapture, currentUser, invalidateTutorAuthEpoch, stopTutorVoicePlayback]);
+
+  useEffect(() => {
+    const quarantineTutorWork = () => {
+      invalidateTutorAuthEpoch();
+      abortVoiceInputCapture();
+      stopTutorVoicePlayback();
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== appShellSessionSyncStorageKey) return;
+      if (!sessionSignalMatchesTutorIdentity(event.newValue, tutorSessionIdentityRef.current)) {
+        quarantineTutorWork();
+      }
+    };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") quarantineTutorWork();
+    };
+    const handleBroadcastMessage = (event: MessageEvent<unknown>) => {
+      if (!sessionSignalMatchesTutorIdentity(event.data, tutorSessionIdentityRef.current)) {
+        quarantineTutorWork();
+      }
+    };
+    let channel: BroadcastChannel | null = null;
+    try {
+      channel = new BroadcastChannel(appShellSessionSyncStorageKey);
+      channel.addEventListener("message", handleBroadcastMessage);
+    } catch {
+      channel = null;
+    }
+
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("blur", quarantineTutorWork);
+    window.addEventListener("pagehide", quarantineTutorWork);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("blur", quarantineTutorWork);
+      window.removeEventListener("pagehide", quarantineTutorWork);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      channel?.removeEventListener("message", handleBroadcastMessage);
+      channel?.close();
+    };
+  }, [abortVoiceInputCapture, invalidateTutorAuthEpoch, stopTutorVoicePlayback]);
+
+  const loadClassroomPolicy = useCallback(async (existingSnapshot?: TutorSessionSnapshot) => {
+    const snapshot = existingSnapshot ?? beginTutorSessionRequest();
+    const ownsSnapshot = existingSnapshot === undefined;
+    const expectedUserId = snapshot.identity?.userId;
+    if (!expectedUserId) {
+      if (tutorSessionSnapshotIsCurrent(snapshot)) setClassroomPolicy(null);
+      if (ownsSnapshot) releaseTutorSessionRequest(snapshot);
+      return null;
+    }
+
+    try {
+      assertTutorSessionSnapshotCurrent(snapshot);
+      const response = await fetch("/api/ai-tutor/classroom-policy", {
+        cache: "no-store",
+        credentials: "same-origin",
+        headers: {
+          "X-MAIS-Expected-User-Id": expectedUserId
+        },
+        signal: snapshot.controller.signal
+      });
+      if (await tutorResponseRequiresSessionRevalidation(response)) {
+        invalidateTutorAuthEpoch();
+        return null;
+      }
+      assertTutorSessionSnapshotCurrent(snapshot);
+      if (!response.ok) return null;
+      const policy = readClassAiTutorPolicy(await response.json().catch(() => null));
+      assertTutorSessionSnapshotCurrent(snapshot);
+      if (policy) setClassroomPolicy(policy);
+      return policy;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return null;
+      return null;
+    } finally {
+      if (ownsSnapshot) releaseTutorSessionRequest(snapshot);
+    }
+  }, [
+    assertTutorSessionSnapshotCurrent,
+    beginTutorSessionRequest,
+    invalidateTutorAuthEpoch,
+    releaseTutorSessionRequest,
+    tutorSessionSnapshotIsCurrent
+  ]);
   const submitVoiceTranscript = useCallback((transcript: string) => {
     const rawInput = voiceTranscriptMessageInput(voiceInputBaseRef.current, transcript);
     if (!rawInput) {
@@ -1977,39 +2238,53 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   const finishQwenSpeechCapture = useCallback(async () => {
     const recorder = qwenSpeechRecorderRef.current;
     if (!recorder) return;
+    const sessionSnapshot = beginTutorSessionRequest();
+    const expectedUserId = sessionSnapshot.identity?.userId;
 
     qwenSpeechRecorderRef.current = null;
     teardownQwenSpeechRecorder(recorder);
     setIsVoiceListening(false);
     setVoiceStatus("processing");
 
+    if (!expectedUserId) {
+      releaseTutorSessionRequest(sessionSnapshot);
+      setVoiceInputIssue("auth-required");
+      setVoiceStatus("error");
+      return;
+    }
+
     const pcm = downsampleToPcm16(mergeAudioChunks(recorder.chunks), recorder.inputSampleRate);
     if (pcm.length < 1600) {
+      releaseTutorSessionRequest(sessionSnapshot);
       setVoiceInputIssue("no-speech");
       setVoiceStatus("error");
       return;
     }
 
     try {
+      assertTutorSessionSnapshotCurrent(sessionSnapshot);
       const response = await fetch("/api/ai-tutor/speech", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedUserId
         },
         body: JSON.stringify({
           audio: pcm16ToBase64(pcm),
+          expectedUserId,
           language: qwenSpeechLanguage(language),
           sampleRate: 16000
         }),
         cache: "no-store",
-        credentials: "same-origin"
+        credentials: "same-origin",
+        signal: sessionSnapshot.controller.signal
       });
 
-      if (response.status === 401) {
-        setVoiceInputIssue("not-allowed");
-        setVoiceStatus("error");
+      if (await tutorResponseRequiresSessionRevalidation(response)) {
+        invalidateTutorAuthEpoch();
         return;
       }
+      assertTutorSessionSnapshotCurrent(sessionSnapshot);
 
       if (!response.ok) {
         setVoiceInputIssue(response.status === 400 ? "no-speech" : "network");
@@ -2018,6 +2293,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       }
 
       const payload = (await response.json()) as TutorSpeechApiResponse;
+      assertTutorSessionSnapshotCurrent(sessionSnapshot);
       const finalDraft = cleanVoiceTranscript(payload.transcript ?? "");
       if (!finalDraft) {
         setVoiceInputIssue("no-speech");
@@ -2026,11 +2302,26 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       }
 
       submitVoiceTranscript(finalDraft);
-    } catch {
+    } catch (error) {
+      if (
+        (error instanceof DOMException && error.name === "AbortError") ||
+        !tutorSessionSnapshotIsCurrent(sessionSnapshot)
+      ) return;
       setVoiceInputIssue("network");
       setVoiceStatus("error");
+    } finally {
+      releaseTutorSessionRequest(sessionSnapshot);
     }
-  }, [language, submitVoiceTranscript, teardownQwenSpeechRecorder]);
+  }, [
+    assertTutorSessionSnapshotCurrent,
+    beginTutorSessionRequest,
+    invalidateTutorAuthEpoch,
+    language,
+    releaseTutorSessionRequest,
+    submitVoiceTranscript,
+    teardownQwenSpeechRecorder,
+    tutorSessionSnapshotIsCurrent
+  ]);
   const startQwenSpeechCapture = useCallback(async () => {
     const AudioContextConstructor = getAudioContextConstructor();
     if (!currentUser || !navigator.mediaDevices?.getUserMedia || !AudioContextConstructor) {
@@ -2236,21 +2527,31 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
       const speechText = cleanTutorSpeechText(text);
       if (!speechText) return;
+      const sessionSnapshot = beginTutorSessionRequest();
+      const expectedUserId = sessionSnapshot.identity?.userId;
+      if (!expectedUserId) {
+        releaseTutorSessionRequest(sessionSnapshot);
+        setVoicePlaybackStatus("auth-required");
+        return;
+      }
 
       abortVoiceInputCapture();
       setVoiceStatus((current) => (current === "listening" || current === "processing" ? "idle" : current));
       stopTutorVoicePlayback();
       setVoicePlaybackStatus("loading");
-      const controller = new AbortController();
+      const controller = sessionSnapshot.controller;
       tutorVoiceAbortRef.current = controller;
 
       try {
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
         const response = await fetch("/api/ai-tutor/voice", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-MAIS-Expected-User-Id": expectedUserId
           },
           body: JSON.stringify({
+            expectedUserId,
             text: speechText,
             language: fallbackLanguageForInput(language, speechText, [])
           }),
@@ -2259,10 +2560,11 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
           signal: controller.signal
         });
 
-        if (response.status === 401) {
-          setVoicePlaybackStatus("auth-required");
+        if (await tutorResponseRequiresSessionRevalidation(response)) {
+          invalidateTutorAuthEpoch();
           return;
         }
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
 
         if (!response.ok) {
           setVoicePlaybackStatus("error");
@@ -2270,7 +2572,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         }
 
         const audioBlob = await response.blob();
-        if (controller.signal.aborted) return;
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
 
         const objectUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(objectUrl);
@@ -2285,24 +2587,45 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         };
         audio.onended = () => {
           cleanupAudio();
+          if (!tutorSessionSnapshotIsCurrent(sessionSnapshot)) return;
           setVoicePlaybackStatus((current) => (current === "playing" ? "idle" : current));
         };
         audio.onerror = () => {
           cleanupAudio();
+          if (!tutorSessionSnapshotIsCurrent(sessionSnapshot)) return;
           setVoicePlaybackStatus("error");
         };
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
         await audio.play();
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
         setVoicePlaybackStatus("playing");
       } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") return;
+        if (
+          (error instanceof DOMException && error.name === "AbortError") ||
+          !tutorSessionSnapshotIsCurrent(sessionSnapshot)
+        ) return;
         stopTutorVoicePlayback("error");
       } finally {
+        releaseTutorSessionRequest(sessionSnapshot);
         if (tutorVoiceAbortRef.current === controller) {
           tutorVoiceAbortRef.current = null;
         }
       }
     },
-    [abortVoiceInputCapture, classroomFallbackOnly, currentUser, language, setupStatus.voice?.configured, stopTutorVoicePlayback, voicePlaybackEnabled]
+    [
+      abortVoiceInputCapture,
+      assertTutorSessionSnapshotCurrent,
+      beginTutorSessionRequest,
+      classroomFallbackOnly,
+      currentUser,
+      invalidateTutorAuthEpoch,
+      language,
+      releaseTutorSessionRequest,
+      setupStatus.voice?.configured,
+      stopTutorVoicePlayback,
+      tutorSessionSnapshotIsCurrent,
+      voicePlaybackEnabled
+    ]
   );
 
   function handleReplyVoiceToggle() {
@@ -2373,6 +2696,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
     }: SendTutorMessageOptions) => {
       const trimmed = rawInput.trim();
       if (!trimmed || isSending) return;
+      const sessionSnapshot = beginTutorSessionRequest();
 
       const activeContext = contextOverride ?? context;
       const activeAttachments = attachmentsOverride ?? attachments;
@@ -2402,7 +2726,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       setIsSending(true);
 
       try {
-        const effectiveClassroomPolicy = await loadClassroomPolicy();
+        const effectiveClassroomPolicy = await loadClassroomPolicy(sessionSnapshot);
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
         if ((effectiveClassroomPolicy ?? classroomPolicy)?.mode === "fallback-only") {
           const classroomReply = isChineseLanguage(fallbackLanguage)
             ? `${textForLanguage({
@@ -2430,8 +2755,12 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
           language: fallbackLanguage,
           page: pathname,
           attachments: activeAttachments,
-          signedInUserId: currentUser?.id,
+          expectedUserId: sessionSnapshot.identity?.userId,
+          signal: sessionSnapshot.controller.signal,
+          assertSessionCurrent: () => assertTutorSessionSnapshotCurrent(sessionSnapshot),
+          onSessionConflict: invalidateTutorAuthEpoch,
           onStreamChunk: (delta) => {
+            assertTutorSessionSnapshotCurrent(sessionSnapshot);
             setMessages((current) =>
               current.map((message) =>
                 message.id === pendingMessageId
@@ -2445,6 +2774,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
             );
           }
         });
+        assertTutorSessionSnapshotCurrent(sessionSnapshot);
 
         setMessages((current) =>
           current.map((message) =>
@@ -2455,6 +2785,10 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         );
         setAttachments([]);
       } catch (error) {
+        if (
+          (error instanceof DOMException && error.name === "AbortError") ||
+          !tutorSessionSnapshotIsCurrent(sessionSnapshot)
+        ) return;
         const safeReason = visibleFallbackReason(error instanceof Error ? error.message : "");
         const fallbackModeLabel = setupStatus.state === "configured"
           ? textForLanguage({ en: "Nova fallback hint", zh: "Nova 暫時提示" }, fallbackLanguage)
@@ -2473,7 +2807,13 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         );
         setAttachments([]);
       } finally {
-        setIsSending(false);
+        releaseTutorSessionRequest(sessionSnapshot);
+        if (
+          tutorProviderMountedRef.current &&
+          sameTutorSessionIdentity(sessionSnapshot.identity, tutorSessionIdentityRef.current)
+        ) {
+          setIsSending(false);
+        }
       }
     },
     [
@@ -2483,6 +2823,9 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       currentUser?.id,
       classroomPolicy,
       isSending,
+      assertTutorSessionSnapshotCurrent,
+      beginTutorSessionRequest,
+      invalidateTutorAuthEpoch,
       language,
       loadClassroomPolicy,
       messages,
@@ -2490,6 +2833,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       selectedGrade,
       setupStatus.state,
       abortVoiceInputCapture,
+      releaseTutorSessionRequest,
+      tutorSessionSnapshotIsCurrent,
       voiceStatus
     ]
   );

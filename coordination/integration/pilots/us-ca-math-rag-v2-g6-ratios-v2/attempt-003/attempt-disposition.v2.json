@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "promotion-attempt-disposition.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-003",
+  "producedAt": "2026-08-26T09:32:31+08:00",
+  "phase": "required-ci-semantic-replay",
+  "result": "repair_required",
+  "reasonCode": "V2_SEMANTIC_RECEIPT_HOST_TEMP_ENVIRONMENT_DRIFT",
+  "reason": "The canonical macOS Receipt and both GitHub runner Receipts passed their Shadow executions, but checker v2.2 included host-specific TMP and TMPDIR path evidence in semanticReceiptDigest. The two Linux CI Receipts reproduced each other while the committed macOS canonical Receipt did not, so attempt-003 cannot be promoted or overwritten.",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/promotion-manifest.v2.json",
+    "rawSha256": "be8552ededb4236a8d5705a26097fa5c01ce94fa4093285dc1e0dc0974ead340",
+    "executionCommit": "fb3ef72e389b6ce2795a78caddaeadc65918df14"
+  },
+  "receipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/shadow-receipt.v2.json",
+    "rawSha256": "40452e7293df3c3158e6048e57c5c6ff08338dad6c79a8ad4b3532207e0f925a",
+    "result": "pass",
+    "rawReceiptDigest": "89ae149d6b777541c4b241e2e9c0ca70631d8cc0d98ea0d2321ac57ae4454864",
+    "semanticReceiptDigest": "e95e847efe65d0848d4be86e5a9579fff8fec5d749660bdb5fa6c7fa727ba710"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "checkerVersion": "promotion-gate-shadow-v2.2",
+    "checkerReleaseCommit": "326dc6547619abb2673c358ea961679c8e325c8a",
+    "checkerBundleDigest": "a4a3d9273552c23b0a8756219069551a556ec5af0514ea43bb8a9459d5503102"
+  },
+  "ciProof": {
+    "repository": "HUDongpin/MAIS-MVP",
+    "workflow": "promotion-shadow-gate",
+    "runId": "32901730243",
+    "runAttempt": 2,
+    "runUrl": "https://github.com/HUDongpin/MAIS-MVP/actions/runs/32901730243",
+    "headSha": "04a5a49ecfc481f6f13bdbdb1f7636c6ddeb09d2",
+    "jobId": "98022987140",
+    "jobConclusion": "failure",
+    "freshSemanticReceiptDigest": "ca065bf68421b21e3e41a8caa0dee2fc58ed7d82247aff83e3d7c60a818709f8",
+    "replaySemanticReceiptDigest": "ca065bf68421b21e3e41a8caa0dee2fc58ed7d82247aff83e3d7c60a818709f8",
+    "canonicalSemanticReceiptDigest": "e95e847efe65d0848d4be86e5a9579fff8fec5d749660bdb5fa6c7fa727ba710",
+    "artifactId": "9588714870",
+    "artifactDigest": "62b806fd0a422aff107b0989710cda792602c7b1fa7f2107b53559adbc3fdc16"
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "repair_required",
+    "shadowExecuted": true,
+    "receiptProduced": true,
+    "receiptReuseAllowed": false,
+    "manifestOverwriteAllowed": false,
+    "replacementAttemptId": "attempt-004"
+  },
+  "parentPackageStatus": "candidate-only",
+  "liveAllowed": false,
+  "maturityClaim": "not-mature"
+}

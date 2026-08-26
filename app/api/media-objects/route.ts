@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  bodyExpectedUserConstraints,
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { aiCapabilityRateLimitRulesFromEnv, type AiCapability } from "@/lib/server/aiGovernance";
 import {
   mediaObjectReferenceFromUnknown,
@@ -42,6 +47,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
+
   return NextResponse.json({ uploadsAvailable: mediaObjectUploadsAvailable() });
 }
 
@@ -51,10 +63,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
+  const transportExpectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request)
+  );
+  if (transportExpectedUserConflict) return transportExpectedUserConflict;
+
   const body = await request.json().catch(() => null) as {
     capability?: unknown;
     dataUrl?: unknown;
+    expectedUserId?: unknown;
   } | null;
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    [
+      ...expectedUserConstraintsFromRequest(request),
+      ...bodyExpectedUserConstraints(body)
+    ],
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
+
   if (!body || typeof body.dataUrl !== "string") {
     return NextResponse.json({ error: "Media upload payload must include a dataUrl." }, { status: 400 });
   }

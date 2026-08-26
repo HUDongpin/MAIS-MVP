@@ -339,12 +339,14 @@ async function registerStudent(app: IsolatedApp, page: Page, testInfo: TestInfo,
   throw new Error(`Could not register Fishing Master student for ${label}.`);
 }
 
-async function submitCorrectAttempts(app: IsolatedApp, page: Page, questionIds: string[]) {
+async function submitCorrectAttempts(app: IsolatedApp, page: Page, questionIds: string[], expectedUserId: string) {
   for (const questionId of questionIds) {
     const answer = answerByQuestionId.get(questionId);
     expect(answer, `Missing local answer for ${questionId}`).toBeTruthy();
     const response = await page.request.post(app.url("/api/attempts"), {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId,
         selectedAnswer: answer,
         durationSeconds: 8
@@ -381,7 +383,7 @@ async function prepareFishingRound({
   const session = await registerStudent(app, page, testInfo, label, grade);
   const roundQuestions = answeredQuestionsForTopic(topicId, Math.max(questionCount, 5), offset).slice(0, questionCount);
   const correctRoundQuestionIds = roundQuestions.slice(0, correctCount).map((question) => question.id);
-  await submitCorrectAttempts(app, page, correctRoundQuestionIds);
+  await submitCorrectAttempts(app, page, correctRoundQuestionIds, session.user.id);
   const payload: FishingRoundPayload = {
     topicId,
     roundQuestionIds: roundQuestions.map((question) => question.id),
@@ -572,7 +574,7 @@ async function runHappyPath(spec: ScenarioSpec, ctx: ScenarioContext, result: Ad
 
   if (spec.index >= 5) {
     const caught = answeredQuestionsForTopic(defaultTopicId, 1, spec.index + 20);
-    await submitCorrectAttempts(ctx.app, ctx.page, [caught[0].id]);
+    await submitCorrectAttempts(ctx.app, ctx.page, [caught[0].id], setup.session.user.id);
     const completion = await postFishingCompletion(ctx.app, ctx.page, setup.payload, {
       caughtQuestionIds: [caught[0].id],
       correctCaughtQuestionIds: [caught[0].id],
@@ -650,7 +652,7 @@ async function runOperationExploration(spec: ScenarioSpec, ctx: ScenarioContext,
   if (spec.index >= 5) {
     const caught = answeredQuestionsForTopic(defaultTopicId, 2, spec.index + 30);
     const shouldAwardCoin = spec.variant !== "wrong-answer" && spec.variant !== "keyboard-extreme-miss";
-    if (shouldAwardCoin) await submitCorrectAttempts(ctx.app, ctx.page, [caught[0].id]);
+    if (shouldAwardCoin) await submitCorrectAttempts(ctx.app, ctx.page, [caught[0].id], setup.session.user.id);
     const completion = await postFishingCompletion(ctx.app, ctx.page, setup.payload, {
       caughtQuestionIds: spec.variant === "keyboard-extreme-miss" ? [] : [caught[0].id],
       correctCaughtQuestionIds: shouldAwardCoin ? [caught[0].id] : [],
@@ -718,7 +720,7 @@ async function runApiAdversarial(spec: ScenarioSpec, ctx: ScenarioContext, resul
 
   const setup = await prepareFishingRound({ ...ctx, label: spec.id, offset: spec.index });
   const caught = answeredQuestionsForTopic(defaultTopicId, 3, spec.index + 5);
-  await submitCorrectAttempts(ctx.app, ctx.page, caught.slice(0, 2).map((question) => question.id));
+  await submitCorrectAttempts(ctx.app, ctx.page, caught.slice(0, 2).map((question) => question.id), setup.session.user.id);
   const baseBody = {
     caughtQuestionIds: caught.slice(0, 2).map((question) => question.id),
     correctCaughtQuestionIds: caught.slice(0, 2).map((question) => question.id),
@@ -890,7 +892,7 @@ async function runLongBoundary(spec: ScenarioSpec, ctx: ScenarioContext, result:
     expect(completion.json?.reward.rewardPoints).toBe(0);
   } else if (spec.variant === "api-max-coin-legal") {
     const caught = answeredQuestionsForTopic(defaultTopicId, 10, spec.index + 10);
-    await submitCorrectAttempts(ctx.app, ctx.page, caught.map((question) => question.id));
+    await submitCorrectAttempts(ctx.app, ctx.page, caught.map((question) => question.id), setup.session.user.id);
     const completion = await postFishingCompletion(ctx.app, ctx.page, setup.payload, {
       caughtQuestionIds: caught.map((question) => question.id),
       correctCaughtQuestionIds: caught.map((question) => question.id),
@@ -902,7 +904,7 @@ async function runLongBoundary(spec: ScenarioSpec, ctx: ScenarioContext, result:
     expect(completion.json?.reward.rewardPoints).toBe(30);
   } else if (spec.variant === "api-duration-120-legal") {
     const caught = answeredQuestionsForTopic(defaultTopicId, 1, spec.index + 4);
-    await submitCorrectAttempts(ctx.app, ctx.page, [caught[0].id]);
+    await submitCorrectAttempts(ctx.app, ctx.page, [caught[0].id], setup.session.user.id);
     const completion = await postFishingCompletion(ctx.app, ctx.page, setup.payload, {
       caughtQuestionIds: [caught[0].id],
       correctCaughtQuestionIds: [caught[0].id],

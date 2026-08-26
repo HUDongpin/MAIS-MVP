@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import {
   demoHongKongTeacherAccount,
@@ -71,6 +70,11 @@ const authLinkCopy = {
     en: "That page needs a teacher account. Log in with a teacher account to open the teacher console.",
     zh: "該頁面需要教師帳戶。請以教師帳戶登入，才可開啟教師工作台。",
     zhHans: "该页面需要教师账号。请以教师账号登录，才可打开教师工作台。"
+  },
+  passwordUpdatedSignInRequired: {
+    en: "Your password was updated, but this device could not keep the session active. Sign in again with your new password.",
+    zh: "你的密碼已更新，但此裝置未能保持登入。請使用新密碼重新登入。",
+    zhHans: "你的密码已更新，但此设备未能保持登录。请使用新密码重新登录。"
   },
   googleDivider: { en: "or", zh: "或", zhHans: "或" },
   googleAction: { en: "Continue with Google", zh: "使用 Google 繼續", zhHans: "使用 Google 继续" },
@@ -285,7 +289,6 @@ function safeWorkspaceTarget(value: string | null, role?: "student" | "teacher" 
 }
 
 export default function LoginPage() {
-  const router = useRouter();
   const { currentUser, language, login, logout, setSelectedGrade, settingsReady, t, theme } = useSettings();
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -426,8 +429,7 @@ export default function LoginPage() {
         const nextPath = new URLSearchParams(window.location.search).get("next");
         const targetPath = safeWorkspaceTarget(nextPath, result.role);
         const routeTarget = result.passwordMustChange ? `/change-password?next=${encodeURIComponent(targetPath)}` : targetPath;
-        router.prefetch(routeTarget);
-        router.replace(routeTarget);
+        window.location.replace(routeTarget);
         return;
       }
 
@@ -557,6 +559,12 @@ export default function LoginPage() {
           {loginReason === "teacher-account-required" ? (
             <p className="mt-5 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-semibold text-amber-800 dark:border-amber-300/25 dark:text-amber-100">
               {t(authLinkCopy.teacherAccountRequired)}
+            </p>
+          ) : null}
+
+          {loginReason === "password-updated-sign-in-required" ? (
+            <p role="status" className="mt-5 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-semibold text-amber-800 dark:border-amber-300/25 dark:text-amber-100">
+              {t(authLinkCopy.passwordUpdatedSignInRequired)}
             </p>
           ) : null}
 

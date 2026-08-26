@@ -1,14 +1,15 @@
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
 import { parentMessageBodyMaxLength, parentMessageSubjectMaxLength } from "@/lib/parentConstraints";
+import { toParentChildSummarySafe, toParentReportSafe } from "@/lib/server/userStore/parentSafeDto";
 import type {
   GradeId,
   ParentChildSummary,
+  ParentMessageEntrySafe,
   ParentMessageCategory,
   ParentMessagesData,
-  ParentMessageThread,
+  ParentMessageThreadSafe,
   StudentSession,
   TeacherMessageAttachment,
-  TeacherMessageEntry,
   TeacherMessagePriority,
   TeacherMessageSenderRole,
   TeacherMessageStatus,
@@ -21,6 +22,7 @@ type UserRole = StudentSession["role"];
 type ParentMessageUserRecord = {
   id: string;
   username?: string;
+  disabled_at?: string | null;
   role: UserRole;
 };
 
@@ -48,6 +50,12 @@ type ParentMessageTeacherClassRecord = {
   grade?: GradeId;
 };
 
+type ParentMessageSchoolMembershipRecord = {
+  user_id: string;
+  role: UserRole;
+  class_id?: string;
+};
+
 type ParentMessageThreadRecord = {
   id: string;
   class_id?: string;
@@ -66,6 +74,8 @@ type ParentMessageThreadRecord = {
   starred: boolean;
   last_message_at: string;
   created_at: string;
+  parent_idempotency_key_hash?: string;
+  parent_idempotency_request_hash?: string;
 };
 
 type ParentMessageEntryRecord = {
@@ -77,17 +87,22 @@ type ParentMessageEntryRecord = {
   body: string;
   attachments: TeacherMessageAttachment[];
   created_at: string;
+  parent_idempotency_key_hash?: string;
+  parent_idempotency_request_hash?: string;
 };
 
 type ParentMessageReportRecord = {
   id: string;
   type: TeacherReportType;
   student_id?: string;
+  class_id?: string;
+  generated_by?: string;
 };
 
 export type ParentMessagePersistenceDatabase = {
   class_enrollments: ParentMessageClassEnrollmentRecord[];
   guardian_links: ParentMessageGuardianLinkRecord[];
+  school_memberships?: ParentMessageSchoolMembershipRecord[];
   student_profiles?: ParentMessageStudentProfileRecord[];
   teacher_classes: ParentMessageTeacherClassRecord[];
   teacher_message_entries: ParentMessageEntryRecord[];
@@ -95,6 +110,22 @@ export type ParentMessagePersistenceDatabase = {
   teacher_reports?: ParentMessageReportRecord[];
   users: ParentMessageUserRecord[];
 };
+
+export type ParentMessageMutationScope =
+  | {
+      kind: "create";
+      parentId: string;
+      studentId: string;
+      classId: string;
+      reportId: string | null;
+      idempotencyKeyHash: string;
+    }
+  | {
+      kind: "reply";
+      parentId: string;
+      threadId: string;
+      idempotencyKeyHash: string;
+    };
 
 export type ParentMessagePersistenceStoreDependencies = {
   createEntryId?: () => string;
@@ -110,19 +141,60 @@ export type ParentMessagePersistenceStoreDependencies = {
   mutateDatabase?: <T>(
     mutator: (database: ParentMessagePersistenceDatabase) => T | Promise<T>
   ) => Promise<T>;
+  mutateMutationDatabase?: <T>(
+    scope: ParentMessageMutationScope,
+    mutator: (database: ParentMessagePersistenceDatabase) => T
+  ) => Promise<T>;
   now?: () => Date;
   readDatabase: () => Promise<ParentMessagePersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentMessagePersistenceDatabase>;
+  readMutationDatabase?: (
+    scope: ParentMessageMutationScope
+  ) => Promise<ParentMessagePersistenceDatabase>;
 };
 
 export type ParentMessagePersistenceStore = ReturnType<typeof createParentMessagePersistenceStore>;
 
 type ParentMessageCreateResult =
-  | { status: "created"; thread: ParentMessageThread }
-  | { status: "forbidden" | "invalid" | "not-found" | "too-long"; thread?: undefined };
+  | { status: "created" | "replayed"; thread: ParentMessageThreadSafe }
+  | { status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long"; thread?: undefined };
 
 type ParentMessageReplyResult =
-  | { status: "sent"; thread: ParentMessageThread }
-  | { status: "forbidden" | "invalid" | "not-found" | "too-long"; thread?: undefined };
+  | {
+      status: "sent" | "replayed";
+      thread: ParentMessageThreadSafe;
+      entry: ParentMessageEntrySafe;
+      entryId: string;
+    }
+  | {
+      status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long";
+      entry?: undefined;
+      entryId?: undefined;
+      thread?: undefined;
+    };
+
+type ParentMessageCreateReplayResult =
+  | { status: "missing" }
+  | { status: "replayed"; thread: ParentMessageThreadSafe }
+  | { status: "conflict" | "forbidden" | "invalid" | "too-long"; thread?: undefined };
+
+type ParentMessageReplyReplayResult =
+  | { status: "missing" }
+  | {
+      status: "replayed";
+      thread: ParentMessageThreadSafe;
+      entry: ParentMessageEntrySafe;
+      entryId: string;
+    }
+  | {
+      status: "conflict" | "forbidden" | "invalid" | "not-found" | "too-long";
+      entry?: undefined;
+      entryId?: undefined;
+      thread?: undefined;
+    };
+
+export const parentMessageIdempotencyKeyMinLength = 16;
+export const parentMessageIdempotencyKeyMaxLength = 128;
 
 const validParentMessageCategories = new Set<ParentMessageCategory>([
   "learning-support",
@@ -151,7 +223,7 @@ export function normalizeParentMessageCategory(value: unknown): ParentMessageCat
 }
 
 function canUseParentArea(user?: ParentMessageUserRecord | null): user is ParentMessageUserRecord {
-  return user?.role === "parent" || user?.role === "admin";
+  return user?.role === "parent";
 }
 
 function studentProfileFor(database: ParentMessagePersistenceDatabase, userId: string) {
@@ -163,10 +235,6 @@ function parentCanAccessStudentInDatabase(
   parentId: string,
   studentId: string
 ) {
-  const parent = database.users.find((candidate) => candidate.id === parentId);
-  if (parent?.role === "admin") {
-    return database.users.some((candidate) => candidate.id === studentId && candidate.role === "student");
-  }
   return database.guardian_links.some((link) => (
     link.parent_id === parentId &&
     link.student_id === studentId &&
@@ -174,59 +242,187 @@ function parentCanAccessStudentInDatabase(
   ));
 }
 
+function validIdempotencyKey(value: string) {
+  return value.length >= parentMessageIdempotencyKeyMinLength &&
+    value.length <= parentMessageIdempotencyKeyMaxLength &&
+    /^[A-Za-z0-9._:~-]+$/u.test(value);
+}
+
+function digest(value: string) {
+  return createHash("sha256").update(value, "utf8").digest("hex");
+}
+
+function idempotencyKeyHash(scope: "create" | "reply", parentId: string, key: string) {
+  return digest(`${scope}\u0000${parentId}\u0000${key}`);
+}
+
+function createRequestHash({
+  parentId,
+  studentId,
+  classId,
+  category,
+  subject,
+  body,
+  reportId
+}: {
+  parentId: string;
+  studentId: string;
+  classId: string;
+  category?: ParentMessageCategory;
+  subject: string;
+  body: string;
+  reportId?: string | null;
+}) {
+  return digest(JSON.stringify({
+    parentId,
+    studentId,
+    classId,
+    category: normalizeParentMessageCategory(category),
+    subject,
+    body,
+    reportId: reportId || null
+  }));
+}
+
+function replyRequestHash({ parentId, threadId, body }: { parentId: string; threadId: string; body: string }) {
+  return digest(JSON.stringify({ parentId, threadId, body }));
+}
+
+function exactClassForStudent(
+  database: ParentMessagePersistenceDatabase,
+  studentId: string,
+  classId: string
+) {
+  if (!classId) return null;
+  const enrolled = database.class_enrollments.some((enrollment) => (
+    enrollment.class_id === classId && enrollment.student_id === studentId
+  ));
+  if (!enrolled) return null;
+  return database.teacher_classes.find((candidate) => candidate.id === classId) ?? null;
+}
+
+function teacherHasCurrentClassMessageAccess(
+  database: ParentMessagePersistenceDatabase,
+  teacherId: string,
+  classId: string
+) {
+  const teacher = database.users.find((candidate) => (
+    candidate.id === teacherId &&
+    candidate.role === "teacher" &&
+    (candidate.disabled_at ?? null) === null
+  ));
+  if (!teacher) return false;
+  const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId) ?? null;
+  if (!teacherClass) return false;
+  if (teacherClass.teacher_id === teacher.id) return true;
+  return (database.school_memberships ?? []).some((membership) => (
+    membership.user_id === teacher.id &&
+    membership.class_id === classId &&
+    membership.role === "teacher"
+  ));
+}
+
+function exactTeacherClassForStudent(
+  database: ParentMessagePersistenceDatabase,
+  studentId: string,
+  classId: string
+) {
+  const teacherClass = exactClassForStudent(database, studentId, classId);
+  return teacherClass && teacherHasCurrentClassMessageAccess(database, teacherClass.teacher_id, teacherClass.id)
+    ? teacherClass
+    : null;
+}
+
+function exactReportTeacherClass(
+  database: ParentMessagePersistenceDatabase,
+  studentId: string,
+  classId: string,
+  reportId: string
+) {
+  const report = database.teacher_reports?.find((candidate) => (
+    candidate.id === reportId &&
+    candidate.type === "parent-summary" &&
+    candidate.student_id === studentId &&
+    candidate.class_id === classId &&
+    typeof candidate.generated_by === "string" &&
+    Boolean(candidate.generated_by)
+  )) ?? null;
+  const teacherId = report?.generated_by;
+  if (!report || !teacherId) return null;
+  const teacherClass = exactClassForStudent(database, studentId, classId);
+  if (!teacherClass || !teacherHasCurrentClassMessageAccess(database, teacherId, classId)) {
+    return null;
+  }
+  return { report, teacherClass, teacherId };
+}
+
 function teacherClassesForStudent(database: ParentMessagePersistenceDatabase, studentId: string) {
   return database.class_enrollments
     .filter((enrollment) => enrollment.student_id === studentId)
-    .map((enrollment) => database.teacher_classes.find((teacherClass) => teacherClass.id === enrollment.class_id))
+    .map((enrollment) => exactTeacherClassForStudent(database, studentId, enrollment.class_id))
     .filter((teacherClass): teacherClass is ParentMessageTeacherClassRecord => Boolean(teacherClass));
 }
 
-function firstTeacherClassForParentMessage(database: ParentMessagePersistenceDatabase, studentId: string) {
-  return teacherClassesForStudent(database, studentId)[0] ?? null;
+function parentDisplayName(
+  database: ParentMessagePersistenceDatabase,
+  userId: string,
+  fallback: string
+) {
+  const profile = studentProfileFor(database, userId);
+  return profile?.name ?? fallback;
 }
 
-function toParentMessageThreadBase(database: ParentMessagePersistenceDatabase, record: ParentMessageThreadRecord) {
-  const profile = studentProfileFor(database, record.student_id);
-  const guardianProfile = record.guardian_id ? studentProfileFor(database, record.guardian_id) : null;
-  const guardianUser = record.guardian_id ? database.users.find((candidate) => candidate.id === record.guardian_id) : null;
+function parentSafeReport(
+  database: ParentMessagePersistenceDatabase,
+  report: TeacherReport
+) {
+  const persisted = database.teacher_reports?.find((candidate) => (
+    candidate.id === report.id &&
+    candidate.type === "parent-summary" &&
+    candidate.student_id === report.studentId
+  ));
+  const teacherId = persisted?.generated_by ?? report.generatedBy;
+  return toParentReportSafe({
+    ...report,
+    ...(persisted?.student_id ? { studentId: persisted.student_id } : {}),
+    ...(persisted?.class_id ? { classId: persisted.class_id } : {}),
+    generatedBy: teacherId,
+    generatedByName: parentDisplayName(database, teacherId, "Teacher")
+  });
+}
 
+function reportComposeTarget(
+  database: ParentMessagePersistenceDatabase,
+  report: TeacherReport
+) {
+  const studentId = report.studentId;
+  const classId = report.classId;
+  if (!studentId || !classId) return null;
+  const target = exactReportTeacherClass(database, studentId, classId, report.id);
+  if (!target) return null;
   return {
-    id: record.id,
-    classId: record.class_id,
-    studentId: record.student_id,
-    studentName: profile?.name ?? "Unknown student",
-    teacherId: record.teacher_id,
-    guardianId: record.guardian_id,
-    guardianName: guardianProfile?.name ?? guardianUser?.username,
-    assignmentId: record.assignment_id,
-    topicId: record.topic_id,
-    reportId: record.report_id,
-    parentCategory: record.parent_category,
-    subject: {
-      en: record.subject_en,
-      zh: record.subject_zh
-    },
-    latestMessage: record.latest_message,
-    status: record.status,
-    priority: record.priority,
-    starred: record.starred,
-    lastMessageAt: record.last_message_at,
-    createdAt: record.created_at
+    studentId,
+    classId,
+    className: target.teacherClass.name,
+    teacherId: target.teacherId,
+    teacherName: parentDisplayName(database, target.teacherId, "Teacher"),
+    reportId: target.report.id
   };
 }
 
-function toParentMessageEntry(database: ParentMessagePersistenceDatabase, record: ParentMessageEntryRecord): TeacherMessageEntry {
-  const senderProfile = studentProfileFor(database, record.sender_id);
-  const senderUser = database.users.find((candidate) => candidate.id === record.sender_id);
+function toParentMessageEntrySafe(
+  database: ParentMessagePersistenceDatabase,
+  record: ParentMessageEntryRecord
+): ParentMessageEntrySafe {
   return {
     id: record.id,
-    threadId: record.thread_id,
-    senderId: record.sender_id,
     senderRole: record.sender_role,
-    senderName: senderProfile?.name ?? senderUser?.username ?? (record.sender_role === "teacher" ? "Teacher" : "Student"),
-    recipientId: record.recipient_id,
+    senderName: parentDisplayName(
+      database,
+      record.sender_id,
+      record.sender_role === "teacher" ? "Teacher" : record.sender_role === "parent" ? "Parent" : "Student"
+    ),
     body: record.body,
-    attachments: record.attachments ?? [],
     createdAt: record.created_at
   };
 }
@@ -234,18 +430,32 @@ function toParentMessageEntry(database: ParentMessagePersistenceDatabase, record
 function buildParentMessageThread(
   database: ParentMessagePersistenceDatabase,
   thread: ParentMessageThreadRecord
-): ParentMessageThread {
-  const teacher = database.users.find((candidate) => candidate.id === thread.teacher_id);
+): ParentMessageThreadSafe {
   const teacherProfile = studentProfileFor(database, thread.teacher_id);
   const classRecord = thread.class_id ? database.teacher_classes.find((candidate) => candidate.id === thread.class_id) : null;
+  const studentProfile = studentProfileFor(database, thread.student_id);
   return {
-    ...toParentMessageThreadBase(database, thread),
-    className: classRecord?.name,
-    teacherName: teacherProfile?.name ?? teacher?.username ?? "Teacher",
+    id: thread.id,
+    classId: thread.class_id ?? "",
+    className: classRecord?.name ?? "",
+    studentId: thread.student_id,
+    studentName: studentProfile?.name ?? "Unknown student",
+    teacherName: teacherProfile?.name ?? "Teacher",
+    ...(thread.report_id ? { reportId: thread.report_id } : {}),
+    ...(thread.parent_category ? { parentCategory: thread.parent_category } : {}),
+    subject: {
+      en: thread.subject_en,
+      zh: thread.subject_zh
+    },
+    latestMessage: thread.latest_message,
+    status: thread.status,
+    priority: thread.priority,
+    lastMessageAt: thread.last_message_at,
+    createdAt: thread.created_at,
     messages: database.teacher_message_entries
       .filter((entry) => entry.thread_id === thread.id)
       .sort((a, b) => a.created_at.localeCompare(b.created_at))
-      .map((entry) => toParentMessageEntry(database, entry))
+      .map((entry) => toParentMessageEntrySafe(database, entry))
   };
 }
 
@@ -255,15 +465,152 @@ export function createParentMessagePersistenceStore({
   getParentChildSummaries,
   getParentReportsForStudent,
   mutateDatabase,
+  mutateMutationDatabase,
   now = () => new Date(),
-  readDatabase
+  readDatabase,
+  readParentDatabase,
+  readMutationDatabase
 }: ParentMessagePersistenceStoreDependencies) {
-  const runMutation = async <T>(mutator: (database: ParentMessagePersistenceDatabase) => T | Promise<T>) => {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
+  const runMutation = async <T>(
+    scope: ParentMessageMutationScope,
+    mutator: (database: ParentMessagePersistenceDatabase) => T
+  ) => {
+    if (mutateMutationDatabase) {
+      return mutateMutationDatabase(scope, mutator);
+    }
     if (!mutateDatabase) {
       throw new Error("Parent message persistence mutation dependency is not configured.");
     }
     return mutateDatabase(mutator);
   };
+
+  type CreateParams = {
+    parentId: string;
+    studentId: string;
+    classId: string;
+    idempotencyKey: string;
+    category?: ParentMessageCategory;
+    subject: string;
+    body: string;
+    reportId?: string | null;
+  };
+  type ReplyParams = {
+    parentId: string;
+    threadId: string;
+    idempotencyKey: string;
+    body: string;
+  };
+
+  function normalizedCreateInput(input: CreateParams) {
+    const normalized = {
+      ...input,
+      parentId: input.parentId.trim(),
+      studentId: input.studentId.trim(),
+      classId: input.classId.trim(),
+      idempotencyKey: input.idempotencyKey.trim(),
+      subject: input.subject.trim(),
+      body: input.body.trim(),
+      reportId: input.reportId?.trim() || null
+    };
+    if (
+      !normalized.parentId ||
+      !normalized.studentId ||
+      !normalized.classId ||
+      !normalized.subject ||
+      !normalized.body ||
+      !validIdempotencyKey(normalized.idempotencyKey) ||
+      (normalized.category !== undefined && !validParentMessageCategories.has(normalized.category))
+    ) return { status: "invalid" as const };
+    if (
+      normalized.subject.length > parentMessageSubjectMaxLength ||
+      normalized.body.length > parentMessageBodyMaxLength
+    ) return { status: "too-long" as const };
+    return { status: "valid" as const, value: normalized };
+  }
+
+  function normalizedReplyInput(input: ReplyParams) {
+    const normalized = {
+      ...input,
+      parentId: input.parentId.trim(),
+      threadId: input.threadId.trim(),
+      idempotencyKey: input.idempotencyKey.trim(),
+      body: input.body.trim()
+    };
+    if (
+      !normalized.parentId ||
+      !normalized.threadId ||
+      !normalized.body ||
+      !validIdempotencyKey(normalized.idempotencyKey)
+    ) return { status: "invalid" as const };
+    if (normalized.body.length > parentMessageBodyMaxLength) return { status: "too-long" as const };
+    return { status: "valid" as const, value: normalized };
+  }
+
+  function createReplayFromDatabase(
+    database: ParentMessagePersistenceDatabase,
+    input: ReturnType<typeof normalizedCreateInput> & { status: "valid" }
+  ): ParentMessageCreateReplayResult {
+    const { value } = input;
+    const parent = database.users.find((candidate) => candidate.id === value.parentId);
+    if (!canUseParentArea(parent) || !parentCanAccessStudentInDatabase(database, value.parentId, value.studentId)) {
+      return { status: "forbidden" };
+    }
+    const keyHash = idempotencyKeyHash("create", value.parentId, value.idempotencyKey);
+    const existing = database.teacher_messages.find((candidate) => (
+      candidate.guardian_id === value.parentId &&
+      candidate.parent_idempotency_key_hash === keyHash
+    ));
+    if (!existing) return { status: "missing" };
+    const requestHash = createRequestHash(value);
+    if (existing.parent_idempotency_request_hash !== requestHash) return { status: "conflict" };
+    return { status: "replayed", thread: buildParentMessageThread(database, existing) };
+  }
+
+  function currentReplyTarget(
+    database: ParentMessagePersistenceDatabase,
+    parentId: string,
+    threadId: string
+  ) {
+    const parent = database.users.find((candidate) => candidate.id === parentId);
+    if (!canUseParentArea(parent)) return { status: "forbidden" as const };
+    const thread = database.teacher_messages.find((candidate) => (
+      candidate.id === threadId && candidate.guardian_id === parentId
+    ));
+    if (
+      !thread ||
+      !thread.class_id ||
+      !parentCanAccessStudentInDatabase(database, parentId, thread.student_id)
+    ) return { status: "not-found" as const };
+    const teacherClass = exactClassForStudent(database, thread.student_id, thread.class_id);
+    if (!teacherClass || !teacherHasCurrentClassMessageAccess(database, thread.teacher_id, thread.class_id)) {
+      return { status: "not-found" as const };
+    }
+    return { status: "found" as const, parent, teacherClass, thread };
+  }
+
+  function replyReplayFromDatabase(
+    database: ParentMessagePersistenceDatabase,
+    input: ReturnType<typeof normalizedReplyInput> & { status: "valid" }
+  ): ParentMessageReplyReplayResult {
+    const { value } = input;
+    const target = currentReplyTarget(database, value.parentId, value.threadId);
+    if (target.status !== "found") return target;
+    const keyHash = idempotencyKeyHash("reply", value.parentId, value.idempotencyKey);
+    const existing = database.teacher_message_entries.find((candidate) => (
+      candidate.thread_id === value.threadId &&
+      candidate.sender_id === value.parentId &&
+      candidate.parent_idempotency_key_hash === keyHash
+    ));
+    if (!existing) return { status: "missing" };
+    if (existing.parent_idempotency_request_hash !== replyRequestHash(value)) return { status: "conflict" };
+    return {
+      status: "replayed",
+      entry: toParentMessageEntrySafe(database, existing),
+      entryId: existing.id,
+      thread: buildParentMessageThread(database, target.thread)
+    };
+  }
 
   return {
     async getParentMessagesData(
@@ -271,24 +618,29 @@ export function createParentMessagePersistenceStore({
       selectedStudentId?: string | null,
       selectedThreadId?: string | null
     ): Promise<ParentMessagesData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user)) return null;
-      const children = getParentChildSummaries(database, user);
+      const rawChildren = getParentChildSummaries(database, user);
+      const children = rawChildren.map(toParentChildSummarySafe);
       const allowedStudentIds = new Set(children.map((child) => child.student.id));
-      const selectedThreadRecord = selectedThreadId
-        ? database.teacher_messages.find((thread) =>
+      const hasStudentFilter = selectedStudentId !== undefined && selectedStudentId !== null;
+      const hasThreadFilter = selectedThreadId !== undefined && selectedThreadId !== null;
+      if (hasStudentFilter && !allowedStudentIds.has(selectedStudentId)) return null;
+      const selectedThreadRecord = hasThreadFilter
+        ? database.teacher_messages.find((thread) => (
             thread.id === selectedThreadId &&
             thread.guardian_id === parentId &&
             allowedStudentIds.has(thread.student_id)
-          ) ?? null
+          )) ?? null
         : null;
-      const selectedStudent = selectedThreadRecord?.student_id ??
-        (selectedStudentId && allowedStudentIds.has(selectedStudentId) ? selectedStudentId : null);
-      const selectedChild = selectedStudent
-        ? children.find((child) => child.student.id === selectedStudent) ?? null
+      if (hasThreadFilter && !selectedThreadRecord) return null;
+      if (selectedThreadRecord && hasStudentFilter && selectedThreadRecord.student_id !== selectedStudentId) return null;
+
+      const selectedChild = hasStudentFilter
+        ? children.find((child) => child.student.id === selectedStudentId) ?? null
         : null;
-      const visibleStudentIds = selectedStudent ? new Set([selectedStudent]) : allowedStudentIds;
+      const visibleStudentIds = hasStudentFilter ? new Set([selectedStudentId]) : allowedStudentIds;
       const threads = database.teacher_messages
         .filter((thread) => (
           thread.guardian_id === parentId &&
@@ -297,9 +649,23 @@ export function createParentMessagePersistenceStore({
         ))
         .sort((a, b) => b.last_message_at.localeCompare(a.last_message_at))
         .map((thread) => buildParentMessageThread(database, thread));
-      const selectedThread = selectedThreadId
-        ? threads.find((thread) => thread.id === selectedThreadId) ?? null
-        : threads[0] ?? null;
+      const selectedThread = selectedThreadRecord
+        ? buildParentMessageThread(database, selectedThreadRecord)
+        : null;
+      const reports = Array.from(visibleStudentIds)
+        .flatMap((studentId) => getParentReportsForStudent(database, studentId));
+      const generalComposeTargets = Array.from(visibleStudentIds).flatMap((studentId) => (
+        teacherClassesForStudent(database, studentId).map((teacherClass) => ({
+          studentId,
+          classId: teacherClass.id,
+          className: teacherClass.name,
+          teacherId: teacherClass.teacher_id,
+          teacherName: parentDisplayName(database, teacherClass.teacher_id, "Teacher")
+        }))
+      ));
+      const reportComposeTargets = reports
+        .map((report) => reportComposeTarget(database, report))
+        .filter((target): target is NonNullable<typeof target> => Boolean(target));
 
       return {
         generatedAt: now().toISOString(),
@@ -308,115 +674,173 @@ export function createParentMessagePersistenceStore({
         threads,
         selectedThread,
         categories: parentMessageCategories,
-        reports: Array.from(visibleStudentIds).flatMap((studentId) => getParentReportsForStudent(database, studentId))
+        reports: reports.map((report) => parentSafeReport(database, report)),
+        composeTargets: [...generalComposeTargets, ...reportComposeTargets]
       };
     },
-    async createParentMessageThread({
-      parentId,
-      studentId,
-      category,
-      subject,
-      body,
-      reportId
-    }: {
-      parentId: string;
-      studentId: string;
-      category?: ParentMessageCategory;
-      subject: string;
-      body: string;
-      reportId?: string | null;
-    }): Promise<ParentMessageCreateResult> {
-      const trimmedSubject = subject.trim();
-      const trimmedBody = body.trim();
-      if (!trimmedSubject || !trimmedBody) return { status: "invalid" };
-      if (trimmedSubject.length > parentMessageSubjectMaxLength || trimmedBody.length > parentMessageBodyMaxLength) {
-        return { status: "too-long" };
-      }
-      if (category !== undefined && !validParentMessageCategories.has(category)) return { status: "invalid" };
 
-      return runMutation((database) => {
-        const parent = database.users.find((candidate) => candidate.id === parentId);
-        if (!canUseParentArea(parent) || !parentCanAccessStudentInDatabase(database, parentId, studentId)) {
-          return { status: "forbidden" };
-        }
-        const teacherClass = firstTeacherClassForParentMessage(database, studentId);
-        if (!teacherClass) return { status: "not-found" };
-        const report = reportId
-          ? database.teacher_reports?.find((candidate) =>
-              candidate.id === reportId &&
-              candidate.type === "parent-summary" &&
-              candidate.student_id === studentId
-            ) ?? null
+    async findParentMessageCreateReplay(input: CreateParams): Promise<ParentMessageCreateReplayResult> {
+      const normalized = normalizedCreateInput(input);
+      if (normalized.status !== "valid") return normalized;
+      const scope: ParentMessageMutationScope = {
+        kind: "create",
+        parentId: normalized.value.parentId,
+        studentId: normalized.value.studentId,
+        classId: normalized.value.classId,
+        reportId: normalized.value.reportId,
+        idempotencyKeyHash: idempotencyKeyHash(
+          "create",
+          normalized.value.parentId,
+          normalized.value.idempotencyKey
+        )
+      };
+      const database = readMutationDatabase
+        ? await readMutationDatabase(scope)
+        : await readDatabase();
+      const replay = createReplayFromDatabase(database, normalized);
+      if (replay.status !== "replayed" || !mutateMutationDatabase || !readMutationDatabase) {
+        return replay;
+      }
+      // The unlocked narrow read keeps brand-new requests off the global app_state row lock.
+      // A replay may bypass rate limiting, so confirm that privileged result under the same
+      // scoped transaction/row lock used by the actual mutation before returning it.
+      return mutateMutationDatabase(scope, (lockedDatabase) => (
+        createReplayFromDatabase(lockedDatabase, normalized)
+      ));
+    },
+
+    async createParentMessageThread(input: CreateParams): Promise<ParentMessageCreateResult> {
+      const normalized = normalizedCreateInput(input);
+      if (normalized.status !== "valid") return normalized;
+      const { value } = normalized;
+
+      const scope: ParentMessageMutationScope = {
+        kind: "create",
+        parentId: value.parentId,
+        studentId: value.studentId,
+        classId: value.classId,
+        reportId: value.reportId,
+        idempotencyKeyHash: idempotencyKeyHash("create", value.parentId, value.idempotencyKey)
+      };
+      return runMutation(scope, (database): ParentMessageCreateResult => {
+        const replay = createReplayFromDatabase(database, normalized);
+        if (replay.status !== "missing") return replay;
+
+        const parent = database.users.find((candidate) => candidate.id === value.parentId);
+        if (!canUseParentArea(parent)) return { status: "forbidden" };
+        const reportTarget = value.reportId
+          ? exactReportTeacherClass(database, value.studentId, value.classId, value.reportId)
           : null;
-        if (reportId && !report) return { status: "not-found" };
+        const teacherClass = value.reportId
+          ? reportTarget?.teacherClass ?? null
+          : exactTeacherClassForStudent(database, value.studentId, value.classId);
+        if (!teacherClass || (value.reportId && !reportTarget)) return { status: "not-found" };
+        const teacherId = reportTarget?.teacherId ?? teacherClass.teacher_id;
+
+        const keyHash = idempotencyKeyHash("create", value.parentId, value.idempotencyKey);
+        const requestHash = createRequestHash(value);
         const timestamp = now().toISOString();
         const thread: ParentMessageThreadRecord = {
           id: createThreadId(),
           class_id: teacherClass.id,
-          student_id: studentId,
-          teacher_id: teacherClass.teacher_id,
+          student_id: value.studentId,
+          teacher_id: teacherId,
           guardian_id: parent.id,
-          report_id: report?.id,
-          parent_category: normalizeParentMessageCategory(category),
-          subject_en: trimmedSubject,
-          subject_zh: trimmedSubject,
-          latest_message: trimmedBody,
+          ...(reportTarget ? { report_id: reportTarget.report.id } : {}),
+          parent_category: normalizeParentMessageCategory(value.category),
+          subject_en: value.subject,
+          subject_zh: value.subject,
+          latest_message: value.body,
           status: "unread",
           priority: "normal",
           starred: false,
           last_message_at: timestamp,
-          created_at: timestamp
+          created_at: timestamp,
+          parent_idempotency_key_hash: keyHash,
+          parent_idempotency_request_hash: requestHash
         };
+        const entryId = createEntryId();
         database.teacher_messages.unshift(thread);
         database.teacher_message_entries.push({
-          id: createEntryId(),
+          id: entryId,
           thread_id: thread.id,
           sender_id: parent.id,
           sender_role: "parent",
-          recipient_id: teacherClass.teacher_id,
-          body: trimmedBody,
+          recipient_id: teacherId,
+          body: value.body,
           attachments: [],
           created_at: timestamp
         });
         return { status: "created", thread: buildParentMessageThread(database, thread) };
       });
     },
-    async replyToParentMessageThread({
-      parentId,
-      threadId,
-      body
-    }: {
-      parentId: string;
-      threadId: string;
-      body: string;
-    }): Promise<ParentMessageReplyResult> {
-      const trimmedBody = body.trim();
-      if (!trimmedBody) return { status: "invalid" };
-      if (trimmedBody.length > parentMessageBodyMaxLength) return { status: "too-long" };
 
-      return runMutation((database) => {
-        const parent = database.users.find((candidate) => candidate.id === parentId);
-        if (!canUseParentArea(parent)) return { status: "forbidden" };
-        const thread = database.teacher_messages.find((candidate) => candidate.id === threadId && candidate.guardian_id === parentId);
-        if (!thread || !parentCanAccessStudentInDatabase(database, parentId, thread.student_id)) {
-          return { status: "not-found" };
-        }
+    async findParentMessageReplyReplay(input: ReplyParams): Promise<ParentMessageReplyReplayResult> {
+      const normalized = normalizedReplyInput(input);
+      if (normalized.status !== "valid") return normalized;
+      const scope: ParentMessageMutationScope = {
+        kind: "reply",
+        parentId: normalized.value.parentId,
+        threadId: normalized.value.threadId,
+        idempotencyKeyHash: idempotencyKeyHash(
+          "reply",
+          normalized.value.parentId,
+          normalized.value.idempotencyKey
+        )
+      };
+      const database = readMutationDatabase
+        ? await readMutationDatabase(scope)
+        : await readDatabase();
+      const replay = replyReplayFromDatabase(database, normalized);
+      if (replay.status !== "replayed" || !mutateMutationDatabase || !readMutationDatabase) {
+        return replay;
+      }
+      return mutateMutationDatabase(scope, (lockedDatabase) => (
+        replyReplayFromDatabase(lockedDatabase, normalized)
+      ));
+    },
+
+    async replyToParentMessageThread(input: ReplyParams): Promise<ParentMessageReplyResult> {
+      const normalized = normalizedReplyInput(input);
+      if (normalized.status !== "valid") return normalized;
+      const { value } = normalized;
+
+      const scope: ParentMessageMutationScope = {
+        kind: "reply",
+        parentId: value.parentId,
+        threadId: value.threadId,
+        idempotencyKeyHash: idempotencyKeyHash("reply", value.parentId, value.idempotencyKey)
+      };
+      return runMutation(scope, (database): ParentMessageReplyResult => {
+        const replay = replyReplayFromDatabase(database, normalized);
+        if (replay.status !== "missing") return replay;
+        const target = currentReplyTarget(database, value.parentId, value.threadId);
+        if (target.status !== "found") return target;
 
         const timestamp = now().toISOString();
-        database.teacher_message_entries.push({
-          id: createEntryId(),
-          thread_id: thread.id,
-          sender_id: parent.id,
+        const entryId = createEntryId();
+        const entry: ParentMessageEntryRecord = {
+          id: entryId,
+          thread_id: target.thread.id,
+          sender_id: target.parent.id,
           sender_role: "parent",
-          recipient_id: thread.teacher_id,
-          body: trimmedBody,
+          recipient_id: target.thread.teacher_id,
+          body: value.body,
           attachments: [],
-          created_at: timestamp
-        });
-        thread.latest_message = trimmedBody;
-        thread.status = "unread";
-        thread.last_message_at = timestamp;
-        return { status: "sent", thread: buildParentMessageThread(database, thread) };
+          created_at: timestamp,
+          parent_idempotency_key_hash: idempotencyKeyHash("reply", value.parentId, value.idempotencyKey),
+          parent_idempotency_request_hash: replyRequestHash(value)
+        };
+        database.teacher_message_entries.push(entry);
+        target.thread.latest_message = value.body;
+        target.thread.status = "unread";
+        target.thread.last_message_at = timestamp;
+        return {
+          status: "sent",
+          entry: toParentMessageEntrySafe(database, entry),
+          entryId,
+          thread: buildParentMessageThread(database, target.thread)
+        };
       });
     }
   };

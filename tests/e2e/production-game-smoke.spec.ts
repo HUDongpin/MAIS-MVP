@@ -408,13 +408,15 @@ async function fetchAnsweredQuestions(page: Page, query: string, count: number) 
   return answeredQuestions.slice(0, count);
 }
 
-async function submitCorrectAttempts(page: Page, questionsToSubmit: PublicQuestionSummary[]) {
+async function submitCorrectAttempts(page: Page, questionsToSubmit: PublicQuestionSummary[], expectedUserId: string) {
   for (const question of questionsToSubmit) {
     const selectedAnswer = answerByQuestionId.get(question.id);
     expect(selectedAnswer, `Missing local answer for production question ${question.id}`).toBeTruthy();
 
     const response = await requestWithRetries(page, "POST", "/api/attempts", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId: question.id,
         selectedAnswer,
         durationSeconds: 12
@@ -491,7 +493,7 @@ test.describe("Vercel Production authenticated game smoke", () => {
     ]);
     const student = await registerSmokeStudent(page, testInfo, "fishing-s3", "S3");
     const roundQuestions = await fetchAnsweredQuestions(page, "grade=S3&topicId=quadratic-patterns", 5);
-    await submitCorrectAttempts(page, roundQuestions);
+    await submitCorrectAttempts(page, roundQuestions, student.userId);
 
     try {
       await loginThroughBrowser(page, student);
@@ -594,7 +596,7 @@ test.describe("Vercel Production authenticated game smoke", () => {
     ]);
     const student = await registerSmokeStudent(page, testInfo, "adventure-p5", "P5");
     const gradeQuestions = await fetchAnsweredQuestions(page, "grade=P5", 5);
-    await submitCorrectAttempts(page, gradeQuestions);
+    await submitCorrectAttempts(page, gradeQuestions, student.userId);
 
     try {
       await loginThroughBrowser(page, student);
