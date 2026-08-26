@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import test from "node:test";
 
 import YAML from "yaml";
@@ -129,14 +132,20 @@ test("production schema execution does not vendor the Vercel CLI dependency", as
 test("deploy requires the exact confirmation and invokes the serialized production wrapper", async () => {
   const { workflow } = await readWorkflow();
   const job = workflow.jobs.deploy;
+  const maskConfirmation = stepByName(job, "Load and mask schema confirmation");
   const deploy = stepByName(job, "Apply schema and deploy the exact candidate");
 
   assert.ok(job["timeout-minutes"] >= 60);
+  assert.equal(maskConfirmation.env, undefined);
+  assert.match(maskConfirmation.run, /GITHUB_EVENT_PATH/u);
+  assert.match(maskConfirmation.run, /GITHUB_ENV/u);
+  assert.match(maskConfirmation.run, /::add-mask::/u);
+  assert.match(maskConfirmation.run, /MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM/u);
+  assert.doesNotMatch(maskConfirmation.run, /\$\{\{\s*inputs\.schema_confirmation/u);
   assert.deepEqual(deploy.env, {
     GITHUB_TOKEN: "${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}",
     MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: "github-actions-serialized-v1",
-    MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM:
-      "${{ inputs.schema_confirmation }}",
+    MAIS_RELEASE_MIN_FREE_GB: "8",
     VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
   });
   assert.match(
@@ -148,8 +157,14 @@ test("deploy requires the exact confirmation and invokes the serialized producti
     (step) => step.name === "Bind protected main SHA and tree"
   );
   const installIndex = job.steps.findIndex((step) => step.name === "Install locked dependencies");
+  const maskConfirmationIndex = job.steps.indexOf(maskConfirmation);
   const deployIndex = job.steps.indexOf(deploy);
-  assert.ok(bindingIndex >= 0 && bindingIndex < installIndex && installIndex < deployIndex);
+  assert.ok(
+    bindingIndex >= 0 &&
+      bindingIndex < installIndex &&
+      installIndex < maskConfirmationIndex &&
+      maskConfirmationIndex < deployIndex
+  );
 
   const releaseRecord = stepByName(job, "Retain the safe production release record");
   assert.equal(
@@ -165,6 +180,50 @@ test("deploy requires the exact confirmation and invokes the serialized producti
     "compression-level": 0
   });
   assert.ok(job.steps.indexOf(releaseRecord) > deployIndex);
+});
+
+test("schema confirmation is loaded from the event file, masked, and exported without YAML interpolation", async () => {
+  const { workflow } = await readWorkflow();
+  const maskConfirmation = stepByName(
+    workflow.jobs.deploy,
+    "Load and mask schema confirmation"
+  );
+  const tempDir = await mkdtemp(path.join(os.tmpdir(), "mais-schema-confirmation-"));
+  const eventPath = path.join(tempDir, "event.json");
+  const environmentPath = path.join(tempDir, "github-env");
+  const confirmation =
+    `confirm:teacher-notice-production-schema:v3:${"a".repeat(40)}:${"b".repeat(40)}:` +
+    "fixture-binding-not-real";
+
+  try {
+    await writeFile(
+      eventPath,
+      JSON.stringify({ inputs: { schema_confirmation: confirmation } }),
+      "utf8"
+    );
+    await writeFile(environmentPath, "", "utf8");
+    const result = spawnSync(
+      "bash",
+      ["-eu", "-o", "pipefail", "-c", maskConfirmation.run],
+      {
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          GITHUB_ENV: environmentPath,
+          GITHUB_EVENT_PATH: eventPath
+        }
+      }
+    );
+
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    assert.equal(result.stdout, `::add-mask::${confirmation}\n`);
+    assert.equal(
+      await readFile(environmentPath, "utf8"),
+      `MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM=${confirmation}\n`
+    );
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
 });
 
 test("no shell body interpolates a secret or emits a credential-like value", async () => {

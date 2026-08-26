@@ -45,6 +45,7 @@ test("production child environments grant only purpose-specific credentials", ()
     GITHUB_WORKFLOW_REF:
       "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main",
     MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: "github-actions-serialized-v1",
+    MAIS_RELEASE_MIN_FREE_GB: "8",
     MAIS_ALLOW_EXTERNAL_ARTIFACTS: "1",
     MAIS_ALLOW_EXTERNAL_VERCEL_STAGING: "1",
     MAIS_OWNER_APPROVED_PRUNED_STAGING: "1",
@@ -125,6 +126,10 @@ test("production child environments grant only purpose-specific credentials", ()
   assert.equal(preflightEnv.GIT_CONFIG_VALUE_1, "/dev/null");
   assert.equal(preflightEnv.GITHUB_TOKEN, undefined);
   assert.equal(preflightEnv.MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM, undefined);
+  assert.equal(
+    preflightEnv.MAIS_RELEASE_MIN_FREE_GB,
+    fixture.MAIS_RELEASE_MIN_FREE_GB
+  );
   assert.equal(preflightEnv.MAIS_ALLOW_EXTERNAL_ARTIFACTS, undefined);
   assert.equal(preflightEnv.MAIS_ALLOW_EXTERNAL_VERCEL_STAGING, undefined);
   assert.equal(preflightEnv.MAIS_OWNER_APPROVED_PRUNED_STAGING, undefined);
@@ -135,6 +140,9 @@ test("production child environments grant only purpose-specific credentials", ()
     assert.equal(scoped.RESEND_API_KEY, undefined);
     assert.equal(scoped.AWS_SECRET_ACCESS_KEY, undefined);
     assert.equal(scoped.GH_TOKEN, undefined);
+  }
+  for (const scoped of [gitEnv, githubEnv, vercelEnv, schemaEnv, smokeEnv]) {
+    assert.equal(scoped.MAIS_RELEASE_MIN_FREE_GB, undefined);
   }
 });
 
