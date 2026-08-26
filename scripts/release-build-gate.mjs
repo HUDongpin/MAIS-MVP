@@ -35,14 +35,14 @@ const RELEASE_BUILD_CHILD_OVERRIDE_KEYS = new Set([
   "NEXT_TELEMETRY_DISABLED",
   "NEXT_TSCONFIG_PATH"
 ]);
-const REQUIRED_BUILD_OUTPUTS = [
+export const REQUIRED_BUILD_OUTPUTS = Object.freeze([
   "BUILD_ID",
   "server/app/api/auth/login/route.js",
   "server/app/api/dashboard/route.js",
   "server/app/api/gamification/summary/route.js",
   "server/app/api/rewards/route.js",
-  "server/app/dashboard.html"
-];
+  "server/app/dashboard/page.js"
+]);
 
 export async function runReleaseBuildGate(options = {}) {
   const parentEnv = options.env ?? process.env;
@@ -158,7 +158,7 @@ export function buildReleaseBuildGateConfig(options = {}, env = process.env) {
   };
 }
 
-async function verifyBuildOutputs(absoluteDistDir) {
+export async function verifyBuildOutputs(absoluteDistDir) {
   const checks = [];
   for (const relativePath of REQUIRED_BUILD_OUTPUTS) {
     const absolutePath = path.join(absoluteDistDir, relativePath);

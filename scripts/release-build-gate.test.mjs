@@ -1,18 +1,45 @@
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
 import * as releaseBuildGate from "./release-build-gate.mjs";
 
 const {
+  REQUIRED_BUILD_OUTPUTS,
   buildReleaseBuildChildEnvironment,
   buildReleaseBuildGateConfig,
   restoreFileSnapshot,
-  snapshotFile
+  snapshotFile,
+  verifyBuildOutputs
 } = releaseBuildGate;
 
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+
+test("release build gate validates the App Router dashboard server output", async (t) => {
+  assert.ok(REQUIRED_BUILD_OUTPUTS.includes("server/app/dashboard/page.js"));
+  assert.ok(!REQUIRED_BUILD_OUTPUTS.includes("server/app/dashboard.html"));
+
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "mais-release-build-output-"));
+  t.after(() => fs.rm(tempDir, { recursive: true, force: true }));
+
+  for (const relativePath of REQUIRED_BUILD_OUTPUTS) {
+    const absolutePath = path.join(tempDir, relativePath);
+    await fs.mkdir(path.dirname(absolutePath), { recursive: true });
+    await fs.writeFile(absolutePath, "fixture\n");
+  }
+
+  const checks = await verifyBuildOutputs(tempDir);
+  assert.equal(checks.length, REQUIRED_BUILD_OUTPUTS.length);
+  assert.ok(checks.every((check) => check.present));
+
+  await fs.rm(path.join(tempDir, "server/app/dashboard/page.js"));
+  await assert.rejects(
+    verifyBuildOutputs(tempDir),
+    /server\/app\/dashboard\/page\.js/u
+  );
+});
 
 test("release build child environment is a strict non-credential allowlist", () => {
   const childEnv = buildReleaseBuildChildEnvironment(
