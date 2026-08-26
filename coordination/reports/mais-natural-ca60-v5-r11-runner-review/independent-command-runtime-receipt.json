@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "IndependentCommandRuntimeReceiptV2",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "runnerVersion": "V5-R11",
+  "verifierSourceTreeRoot": "d9217e6d70a2dd528cfacedfe40fd10ee691132155ef6ac9360748d8d6998db4",
+  "dependencyLockRoot": "4a0d2a884e0d7141da1da021073dbd48aba5c699bba753c60f399469b3b67fc6",
+  "nodeVersion": "v24.15.0",
+  "platform": "darwin",
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "coordination/reports/mais-natural-ca60-v5-r11-runner-review/independent-runner-registration-verifier.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutHash": "1784e04bdd01ec1fcee29e91fe726a3fe0bd10ace26f8567c7b223856c570267",
+      "stderrHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutHash": "83c43d8070d93b6fa390e400af017590e3852d1b2a5c45e5055ff9266cb93956",
+      "stderrHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "allCommandsExitedZero": true,
+  "derivedAt": "2026-08-26T21:09:04.701Z",
+  "selfHash": "ff9785367512233441b9238c31bd99e537a07edd680e0c67a4e1875753f4be9a"
+}

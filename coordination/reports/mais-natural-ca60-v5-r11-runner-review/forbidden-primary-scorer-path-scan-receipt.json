@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "ForbiddenPrimaryScorerPathScanReceiptV2",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "runnerVersion": "V5-R11",
+  "verifierSourceTreeRoot": "d9217e6d70a2dd528cfacedfe40fd10ee691132155ef6ac9360748d8d6998db4",
+  "forbiddenPathPatterns": [
+    "decision-evidence-v5-r11.mjs",
+    "decision-engine",
+    "scorer-verifier-v5-r11.mjs",
+    "statistical-kernel-v5-r11.mjs"
+  ],
+  "scannedPathCount": 3,
+  "forbiddenPathMatchCount": 0,
+  "matchedPaths": [],
+  "derivedAt": "2026-08-26T21:09:04.701Z",
+  "selfHash": "03bf494effdec29e961226a1177eeec89fe4658279c4f787aa95ed66f248bd17"
+}

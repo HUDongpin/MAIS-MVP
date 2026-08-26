@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "IndependentStaticImportGraphReceiptV2",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "runnerVersion": "V5-R11",
+  "verifierSourceTreeRoot": "d9217e6d70a2dd528cfacedfe40fd10ee691132155ef6ac9360748d8d6998db4",
+  "importEdges": [
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:assert/strict"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:child_process"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:crypto"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:fs"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:path"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:test"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/a11-adversarial-boundary.test.mjs",
+      "node:url"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/build-independent-review-evidence.mjs",
+      "node:child_process"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/build-independent-review-evidence.mjs",
+      "node:crypto"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/build-independent-review-evidence.mjs",
+      "node:fs"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/build-independent-review-evidence.mjs",
+      "node:path"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/build-independent-review-evidence.mjs",
+      "node:url"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/independent-runner-registration-verifier.mjs",
+      "node:child_process"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/independent-runner-registration-verifier.mjs",
+      "node:crypto"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/independent-runner-registration-verifier.mjs",
+      "node:fs"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/independent-runner-registration-verifier.mjs",
+      "node:path"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r11-runner-review/independent-runner-registration-verifier.mjs",
+      "node:url"
+    ]
+  ],
+  "importEdgeCount": 17,
+  "forbiddenPrimaryScorerImportCount": 0,
+  "derivedAt": "2026-08-26T21:09:04.701Z",
+  "selfHash": "787e2cf3978ff608d6cec09680dd7856ea559bed149be0ed5149530858b8d142"
+}
