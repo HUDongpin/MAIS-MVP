@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ExactRunnerSupersedingRegistrationEvidenceV7.schema.json",
+  "title": "ExactRunnerSupersedingRegistrationEvidenceV7",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registrationCommit",
+    "registrationPath",
+    "registrationPathMutationCount",
+    "registrationHash",
+    "runnerSourceCommit",
+    "productionSourceRootHash",
+    "testSourceRootHash",
+    "importClosureRootHash",
+    "runtimeSourceEnumerationRootHash",
+    "supersededRunnerRegistrationHash",
+    "supersededRunnerCloseoutCommit",
+    "discrepancyReviewHash",
+    "discrepancyReviewCommit",
+    "verifiedFromGitObjects",
+    "currentRuntimeBytesMatchRegisteredSource",
+    "immutableSingleAddPathVerified",
+    "activeRegistration",
+    "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "ExactRunnerSupersedingRegistrationEvidenceV7"
+    },
+    "registrationCommit": {
+      "$ref": "#/$defs/commit"
+    },
+    "registrationPath": {
+      "const": "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r11/runner-registration.json"
+    },
+    "registrationPathMutationCount": {
+      "const": 1
+    },
+    "registrationHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "runnerSourceCommit": {
+      "$ref": "#/$defs/commit"
+    },
+    "productionSourceRootHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "testSourceRootHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "importClosureRootHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "runtimeSourceEnumerationRootHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "supersededRunnerRegistrationHash": {
+      "const": "99b298b415d42756e8c3cc9b513e0b5ef6b33c8fe184ba98247fccc9eca8d9ed"
+    },
+    "supersededRunnerCloseoutCommit": {
+      "const": "39f5a607dd64d71b18f1ce2cfd904a3c440977b0"
+    },
+    "discrepancyReviewHash": {
+      "const": "e8aeaf8b5d4567a5e2f936baacea0ecd64487a00ab976a9f3106e35869ef9bde"
+    },
+    "discrepancyReviewCommit": {
+      "const": "81e5d632cd19f5f9645a9f8c49d8397f081d76b7"
+    },
+    "verifiedFromGitObjects": {
+      "const": true
+    },
+    "currentRuntimeBytesMatchRegisteredSource": {
+      "const": true
+    },
+    "immutableSingleAddPathVerified": {
+      "const": true
+    },
+    "activeRegistration": {
+      "type": "object"
+    },
+    "selfHash": {
+      "$ref": "#/$defs/hash"
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    }
+  }
+}

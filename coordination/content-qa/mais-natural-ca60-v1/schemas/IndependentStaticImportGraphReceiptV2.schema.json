@@ -1,0 +1,20 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/IndependentStaticImportGraphReceiptV2.schema.json",
+  "title":"IndependentStaticImportGraphReceiptV2",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","runnerVersion","verifierSourceTreeRoot","importEdges","importEdgeCount","forbiddenPrimaryScorerImportCount","derivedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"IndependentStaticImportGraphReceiptV2"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "runnerVersion":{"const":"V5-R11"},
+    "verifierSourceTreeRoot":{"$ref":"#/$defs/hash"},
+    "importEdges":{"type":"array","uniqueItems":true,"items":{"type":"array","minItems":2,"maxItems":2,"items":{"type":"string","minLength":1}}},
+    "importEdgeCount":{"type":"integer","minimum":0},
+    "forbiddenPrimaryScorerImportCount":{"const":0},
+    "derivedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mais.local/schemas/IndependentCommandRuntimeReceiptV2.schema.json",
+  "title":"IndependentCommandRuntimeReceiptV2",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","designId","runnerVersion","verifierSourceTreeRoot","dependencyLockRoot","nodeVersion","platform","commands","allCommandsExitedZero","derivedAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"IndependentCommandRuntimeReceiptV2"},
+    "designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "runnerVersion":{"const":"V5-R11"},
+    "verifierSourceTreeRoot":{"$ref":"#/$defs/hash"},
+    "dependencyLockRoot":{"$ref":"#/$defs/hash"},
+    "nodeVersion":{"type":"string","minLength":1},
+    "platform":{"type":"string","minLength":1},
+    "commands":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/command"}},
+    "allCommandsExitedZero":{"const":true},
+    "derivedAt":{"type":"string","format":"date-time"},
+    "selfHash":{"$ref":"#/$defs/hash"}
+  },
+  "$defs":{
+    "hash":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "command":{"type":"object","additionalProperties":false,"required":["argv","exitCode","stdoutHash","stderrHash"],"properties":{"argv":{"type":"array","minItems":1,"items":{"type":"string"}},"exitCode":{"const":0},"stdoutHash":{"$ref":"#/$defs/hash"},"stderrHash":{"$ref":"#/$defs/hash"}}}
+  }
+}
