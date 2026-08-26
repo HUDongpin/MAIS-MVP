@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "promotion-lifecycle-registry.v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-007",
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitStatus": "shadow_passed",
+  "liveAllowed": false,
+  "liveEvidence": "none",
+  "maturityClaim": "Shadow-mature / live-unproven",
+  "events": [
+    {
+      "sequence": 1,
+      "eventId": "attempt-007-candidate-hold",
+      "fromState": null,
+      "toState": "candidate_hold",
+      "evidence": null,
+      "previousEventDigest": null,
+      "eventDigest": "104150a3a0f378bfcab9104a384cd4f608e4427a8feec05c10ed001ba8992569"
+    },
+    {
+      "sequence": 2,
+      "eventId": "attempt-007-shadow-ready",
+      "fromState": "candidate_hold",
+      "toState": "shadow_ready",
+      "evidence": {
+        "manifest": {
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+          "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61"
+        },
+        "evidenceIndex": {
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence-index.v2.json",
+          "rawSha256": "b6f702e844b8933e002038299aa49bc75a98c0bef050fb9c68432b53be8848c1"
+        }
+      },
+      "previousEventDigest": "104150a3a0f378bfcab9104a384cd4f608e4427a8feec05c10ed001ba8992569",
+      "eventDigest": "8157e0fecbe2cd4d8b8c9c748fc15acb0929b68cd111b45cf9a2781e014f809c"
+    },
+    {
+      "sequence": 3,
+      "eventId": "attempt-007-shadow-passed",
+      "fromState": "shadow_ready",
+      "toState": "shadow_passed",
+      "evidence": {
+        "closure": {
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-closure.v2.json",
+          "digest": "5d6c2f733b55211bc820cf3501ac07b75edcd445a7b6f281d7a3041712c2ed31"
+        }
+      },
+      "previousEventDigest": "8157e0fecbe2cd4d8b8c9c748fc15acb0929b68cd111b45cf9a2781e014f809c",
+      "eventDigest": "c3cdb2f6251f3e0f6f6d82dd57d37752f87e5d72cf236a014eecc11e7e34e9db"
+    }
+  ],
+  "registryDigest": "5ce33cc55322ddbbe4362bd7896cfcdaa943b0d7d45ccc06e5203e51cb107ad8"
+}
