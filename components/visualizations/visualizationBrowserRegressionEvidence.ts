@@ -45,6 +45,33 @@ export type VisualizationBrowserRegressionEvidenceMatrix = {
   sourceContract: typeof VISUALIZATION_BROWSER_REGRESSION_EVIDENCE_CONTRACT;
 };
 
+/**
+ * The date the Hong Kong visualization surface last changed in a way a browser
+ * sweep would see. Bump it whenever HK lab definitions, the configured template
+ * model, or the scenes those labs run are changed.
+ *
+ * Recorded evidence older than this date certifies a configuration that no
+ * longer exists. Twelve packages reporting "passed" from a run that predates
+ * their subject reads as green when it proves nothing, which is why this is a
+ * declared constant rather than something a reader has to infer from run ids.
+ */
+export const hongKongVisualizationSurfaceRevision = "2026-08-26";
+
+/** Date the recorded run below was captured (encoded in every runId). */
+export const recordedHkGradePackageBrowserEvidenceCapturedOn = "2026-06-28";
+
+/**
+ * True when the recorded run predates the surface it certifies.
+ *
+ * Currently true: the run is from 2026-06-28, HK lab definitions last changed
+ * on 2026-07-17, and the configured template model and three curriculum scenes
+ * were corrected on 2026-08-26. Re-run the twelve `hk-demo-*` packages and
+ * update both the run ids and `recordedHkGradePackageBrowserEvidenceCapturedOn`
+ * to clear it.
+ */
+export const recordedHkGradePackageBrowserEvidenceIsStale =
+  recordedHkGradePackageBrowserEvidenceCapturedOn < hongKongVisualizationSurfaceRevision;
+
 export const recordedHkGradePackageBrowserEvidence: VisualizationBrowserRegressionRecordedRun[] = [
   { duration: "1.2m", packageId: "hk-demo-P1-part-1", port: 3178, runId: "manim-v2-a11-20260628ai", status: "passed" },
   { duration: "1.2m", packageId: "hk-demo-P2-part-1", port: 3179, runId: "manim-v2-a11-20260628aj", status: "passed" },

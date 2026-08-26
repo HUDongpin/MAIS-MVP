@@ -2072,10 +2072,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Read gradient and area on a curve", zh: "讀出曲線的斜率與面積" },
+      title: { en: "Set the centre and the spread", zh: "設定中心與離散程度" },
       content: {
-        en: "Move the probe along the curve to read the tangent gradient and the accumulated area. This lab models rate and area, not the normal distribution — use it for the calculus half of the topic.",
-        zh: "沿曲線移動探針，讀出切線斜率和累積面積。此實驗模擬變化率與面積，而非常態分布，請用於本課題的微積分部分。"
+        en: "Move the centre marker and widen or narrow the spread band, and describe how a distribution shifts and how it spreads. The model shows centre and spread only — it holds no data set, so read standard deviation and sampling from the lesson, not from this panel.",
+        zh: "移動中心標記並調整離散帶的闊窄，描述分布如何平移和如何散開。此模型只顯示中心和離散程度，並不載有數據集，標準差和抽樣請從課文理解，而非從此面板讀取。"
       },
       moduleId: "configured-visualization-lab",
       source: "probability"
