@@ -26,6 +26,7 @@ import {
   captureIsolatedAppRunRootIdentity,
   captureIsolatedAppTempTsconfigIdentity,
   cleanupIsolatedAppLifecycle,
+  isolatedAppProcessGroupIsRunning,
   isolatedAppProcessEnvironment,
   isolatedAppProcessIdentity,
   removeCapturedIsolatedAppRunRoot,
@@ -45,21 +46,69 @@ async function stopChild(child: ChildProcessWithoutNullStreams) {
   await exited;
 }
 
-function processGroupIsRunning(processGroupId: number) {
-  try {
-    process.kill(-processGroupId, 0);
-    return true;
-  } catch (error) {
-    return (error as NodeJS.ErrnoException).code === "EPERM";
-  }
-}
+const processGroupIsRunning = isolatedAppProcessGroupIsRunning;
 
 async function waitForProcessGroupExit(processGroupId: number, timeoutMs = 5_000) {
   const deadline = Date.now() + timeoutMs;
-  while (processGroupIsRunning(processGroupId) && Date.now() < deadline) {
+  while (Date.now() < deadline) {
+    if (!processGroupIsRunning(processGroupId)) return;
     await new Promise((resolve) => setTimeout(resolve, 25));
   }
-  assert.equal(processGroupIsRunning(processGroupId), false, `process group ${processGroupId} should exit`);
+  assert.equal(
+    processGroupIsRunning(processGroupId),
+    false,
+    `process group ${processGroupId} should exit`
+  );
+}
+
+async function assertZombieOnlyProcessGroupIsExited() {
+  const keeper = spawn("python3", [
+    "-c",
+    [
+      "import os, time",
+      "pid = os.fork()",
+      "if pid == 0:",
+      "    os.setsid()",
+      "    os._exit(0)",
+      "print(pid, flush=True)",
+      "time.sleep(30)"
+    ].join("\n")
+  ]);
+
+  try {
+    const [chunk] = await Promise.race([
+      once(keeper.stdout, "data"),
+      once(keeper, "exit").then(([code, signal]) => {
+        throw new Error(`zombie keeper exited before publishing its child: code=${code} signal=${signal}`);
+      })
+    ]);
+    const zombiePid = Number(String(chunk).trim());
+    assert.ok(Number.isSafeInteger(zombiePid) && zombiePid > 0);
+
+    const deadline = Date.now() + 2_000;
+    let state = "";
+    while (Date.now() < deadline) {
+      try {
+        state = execFileSync("/bin/ps", ["-o", "state=", "-p", String(zombiePid)], {
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "ignore"]
+        }).trim();
+      } catch {
+        state = "";
+      }
+      if (state.startsWith("Z")) break;
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+
+    assert.match(state, /^Z/u, "fixture child must remain as an unreaped zombie");
+    assert.equal(
+      processGroupIsRunning(zombiePid),
+      false,
+      "a zombie-only process group cannot execute or retain runtime resources"
+    );
+  } finally {
+    await stopChild(keeper);
+  }
 }
 
 async function unusedLocalPort() {
@@ -1886,6 +1935,7 @@ test("persistent lease state fails closed when the guardian crashes before its a
   timeout: 20_000,
   skip: process.platform === "win32"
 }, async () => {
+  await assertZombieOnlyProcessGroupIsExited();
   const root = mkdtempSync(path.join(tmpdir(), "mais-isolated-guardian-crash-"));
   const dbPath = path.join(root, "guardian-crash.sqlite");
   const port = await unusedLocalPort();
