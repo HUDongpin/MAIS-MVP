@@ -588,8 +588,11 @@ function clampValue(value: number, min: number, max: number) {
 }
 
 function trigAmplitude(state: ThreeDStateSummary) {
-  // Matches the 2D panel: the "Amplitude A" slider (comparison) sets amplitude.
-  return clampValue(state.comparison / 9, 0.1, 1);
+  // Matches the 2D panel: the "Amplitude A" slider (comparison) sets amplitude,
+  // in exact tenths over a 1..10 slider (see trigState in
+  // configuredVisualizationLabModel.ts). Ninths here would put the scene and the
+  // panel on different amplitudes for the same dial position.
+  return clampValue(state.comparison / 10, 0.1, 1);
 }
 
 function trigPhase(state: ThreeDStateSummary) {
@@ -629,8 +632,13 @@ export function buildTrigUnitWaveMathSceneSpec({
     }
   };
   const centerX = -1.35;
-  const circleRadius = 0.72;
   const amplitude = trigAmplitude(state);
+  // The circle's radius IS the wave's amplitude — that is the correspondence
+  // this scene exists to show, and at A = 1 it is the unit circle. It used to be
+  // pinned at 0.72 while the amplitude varied, so the height of the rotating
+  // point equalled the height of the wave at exactly one unreachable dial
+  // setting, and the scene asserted a link it never drew.
+  const circleRadius = amplitude;
   const activeTheta = trigTheta(state);
   const coordinateSystem = createCoordinateSystem3D(coordinateSpace);
   const center: Vec3 = [centerX, 0, -0.32];
@@ -660,7 +668,10 @@ export function buildTrigUnitWaveMathSceneSpec({
     id: "sine-wave",
     sampleCount: 112,
     valueAt: (x): Vec3 => [x, amplitude * Math.sin(x + activeTheta), 0.24],
-    xRange: [0.12, 0.12 + Math.PI * 2]
+    // Starts at x = 0 so the point carrying the correspondence is actually
+    // drawn: there the wave height is A sin(theta), which is exactly the height
+    // of the rotating radius tip. The old range began at 0.12 and skipped it.
+    xRange: [0, Math.PI * 2]
   });
   const circleSamples = unitCircleCurve.curve.samples;
   const waveSamples = sineWaveCurve.curve.samples;
@@ -743,10 +754,39 @@ function calculusDerivativeValue(state: ThreeDStateSummary, x: number) {
   return calculusCoefficient(state) * x;
 }
 
+/** Lower limit of the accumulation, matching the curve's drawn x range. */
+const calculusAreaLowerLimit = -3;
+
+/**
+ * The exact accumulated area A(t) = the integral of f from -3 to t.
+ *
+ * With f(x) = (a/2)x^2 + 0.35 the antiderivative is (a/6)x^3 + 0.35x, so
+ * A(t) = (a/6)(t^3 + 27) + 0.35(t + 3).
+ *
+ * This used to be `max(0, f(x)) * 0.72` — a scaled copy of f drawn under a
+ * formula strip that claimed it was the integral. The shape was wrong (a
+ * parabola where the accumulation is cubic), the value was wrong, and no
+ * antiderivative was computed anywhere in the tree.
+ */
+function calculusAreaValue(state: ThreeDStateSummary, t: number) {
+  const a = calculusCoefficient(state);
+  const lower = calculusAreaLowerLimit;
+
+  return (a / 6) * (t ** 3 - lower ** 3) + 0.35 * (t - lower);
+}
+
+/**
+ * A(t) reaches about 8 at the top of the dial ranges while the frame holds
+ * y in [-2, 5], so the accumulation curve is drawn at half height. The factor is
+ * named here and published on the curve object rather than folded silently into
+ * the sampled values, and the formula strip reports A(a) unscaled.
+ */
+const calculusAreaDisplayScale = 0.5;
+
 function formulaForCalculusRateArea(state: ThreeDStateSummary) {
   const probe = calculusProbeX(state);
 
-  return `$f'(a)\\approx ${formatCoefficient(calculusDerivativeValue(state, probe))};\\ A(a)=\\int_{-3}^{a} f(x)\\,dx$`;
+  return `$f'(a)\\approx ${formatCoefficient(calculusDerivativeValue(state, probe))};\\ A(a)=\\int_{-3}^{a} f(x)\\,dx\\approx ${formatCoefficient(calculusAreaValue(state, probe))}$`;
 }
 
 export function buildCalculusRateAreaMathSceneSpec({
@@ -791,8 +831,8 @@ export function buildCalculusRateAreaMathSceneSpec({
     displaySampleCount: 54,
     id: "area-accumulation",
     sampleCount: 72,
-    valueAt: (x): Vec3 => [x, Math.max(0, calculusCurveValue(state, x)) * 0.72, -0.28],
-    xRange: [-3, probeX]
+    valueAt: (x): Vec3 => [x, calculusAreaValue(state, x) * calculusAreaDisplayScale, -0.28],
+    xRange: [calculusAreaLowerLimit, probeX]
   });
   const curveSamples = rateCurve.curve.samples;
   const areaSamples = areaCurve.curve.samples;
@@ -1527,11 +1567,30 @@ function probabilityMeanX(state: ThreeDStateSummary) {
   return (probabilitySuccessRate(state) - 0.5) * 3.2;
 }
 
+/** Sample size the formula strip quotes and the sampling error is derived from. */
+function probabilitySampleSize(state: ThreeDStateSummary) {
+  return Math.round(18 + probabilitySampleScale(state) * 28);
+}
+
+/**
+ * Standard error of a sample proportion, sqrt(p(1 - p) / n).
+ *
+ * The deviation of the experimental curve from the theoretical one used to be
+ * `sin(...) * 0.08 * sampleScale`, whose amplitude GREW with n — the exact
+ * inverse of the law this topic exists to teach. Tying it to the standard error
+ * makes a bigger sample visibly settle onto the model, which is the point.
+ */
+function probabilityStandardError(state: ThreeDStateSummary) {
+  const p = probabilitySuccessRate(state);
+
+  return Math.sqrt((p * (1 - p)) / probabilitySampleSize(state));
+}
+
 function formulaForProbabilityMachine(state: ThreeDStateSummary) {
   const p = probabilitySuccessRate(state);
-  const sampleSize = Math.round(18 + probabilitySampleScale(state) * 28);
+  const sampleSize = probabilitySampleSize(state);
 
-  return `$P(A)=${formatCoefficient(p)};\\ \\hat p_n\\to p;\\ n\\approx ${sampleSize}$`;
+  return `$P(A)=${formatCoefficient(p)};\\ \\hat p_n\\to p;\\ n\\approx ${sampleSize};\\ SE=${formatCoefficient(probabilityStandardError(state))}$`;
 }
 
 export function buildProbabilityMachineMathSceneSpec({
@@ -1582,7 +1641,9 @@ export function buildProbabilityMachineMathSceneSpec({
     valueAt: (t): Vec3 => {
       const x = -2.55 + t * 5.1;
       const density = Math.exp(-((x - meanX) * (x - meanX)) / (2 * (spread * 1.08) * (spread * 1.08)));
-      const samplingNoise = Math.sin(t * Math.PI * 8 + state.mode * 0.5) * 0.08 * sampleScale;
+      // Amplitude follows sqrt(p(1 - p)/n), so raising n settles the
+      // experimental curve onto the model instead of shaking it harder.
+      const samplingNoise = Math.sin(t * Math.PI * 8 + state.mode * 0.5) * probabilityStandardError(state) * 1.6;
       return [x, 0.28 + density * 1.25 + samplingNoise, 0.28];
     }
   });
