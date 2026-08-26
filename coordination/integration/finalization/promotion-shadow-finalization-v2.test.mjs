@@ -15,7 +15,7 @@ import {
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(testDirectory, "../../..");
 const modulePath = path.join(testDirectory, "promotion-shadow-finalization-v2-lib.mjs");
-const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005";
+const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006";
 const finalClosurePath = `${pilotRoot}/shadow-closure.v2.json`;
 const finalRegistryPath = `${pilotRoot}/lifecycle-registry.v2.json`;
 const trustBoundary =
@@ -226,7 +226,7 @@ async function buildFixture() {
 
   const genesis = lifecycleEvent({
     sequence: 1,
-    eventId: "attempt-005-candidate-hold",
+    eventId: "attempt-006-candidate-hold",
     fromState: null,
     toState: "candidate_hold",
     evidence: null,
@@ -234,7 +234,7 @@ async function buildFixture() {
   });
   const ready = lifecycleEvent({
     sequence: 2,
-    eventId: "attempt-005-shadow-ready",
+    eventId: "attempt-006-shadow-ready",
     fromState: "candidate_hold",
     toState: "shadow_ready",
     evidence: {
@@ -245,7 +245,7 @@ async function buildFixture() {
   });
   const passed = lifecycleEvent({
     sequence: 3,
-    eventId: "attempt-005-shadow-passed",
+    eventId: "attempt-006-shadow-passed",
     fromState: "shadow_ready",
     toState: "shadow_passed",
     evidence: {
@@ -313,12 +313,12 @@ test("finalization module and public schemas exist outside the frozen checker bu
     path.join(repoRoot, "coordination/integration/checker-releases.v2.json"),
     "utf8"
   ));
-  const frozen = releaseLedger.entries.find(({ version }) => version === "promotion-gate-shadow-v2.4");
+  const frozen = releaseLedger.entries.find(({ version }) => version === "promotion-gate-shadow-v2.5");
   assert.ok(frozen);
   assert.equal(frozen.bundlePaths.some((entry) => entry.includes("finalization")), false);
 });
 
-test("valid external proofs close attempt-005 into one shadow_passed non-live registry", async () => {
+test("valid external proofs close attempt-006 into one shadow_passed non-live registry", async () => {
   const api = await loadApi();
   const fixture = await buildFixture();
   const closureResult = api.validateV2ShadowClosure(fixture.closure, fixture.artifacts);
