@@ -14,6 +14,12 @@ const tsxPath = path.join(repositoryRoot, "node_modules/.bin/tsx");
 const resultPrefix = "NOVA_POSTGRES_INTEGRATION_RESULT=";
 const workerTimeoutMs = 120_000;
 const lockObservationTimeoutMs = 30_000;
+const workerClientExitTimeoutMs = 5_000;
+// The controller deliberately expands its own pool while it coordinates lock
+// contention. Give those sibling backends a stable identity so the worker-leak
+// assertion observes workers, not whichever controller connection ran it.
+const controllerApplicationName = "mais-nova-postgres-integration-controller";
+const workerDefaultApplicationName = "mais-nova-postgres-integration-worker";
 const storageContractAdvisoryLockKey = "mais-postgres-storage-contract-v1";
 const fourWriterCapabilityBarrierKey = "mais-test-postgres-capability-barrier-v1";
 const fourWriterMutationLockTimeoutMs = 30_000;
@@ -120,6 +126,7 @@ async function runWorker(
           options.readinessObservationLockHoldMs ?? 0
         ),
         NODE_ENV: "test",
+        PGAPPNAME: workerDefaultApplicationName,
         PGOPTIONS: options.shadowSearchPath
           ? "-c search_path=integration_shadow,public"
           : process.env.PGOPTIONS,
@@ -189,6 +196,32 @@ async function runSuccessfulWorker(
   const outcome = await runWorker(command, input, options);
   assert.equal(outcome.exitCode, 0, `${command} failed: ${String(outcome.result.error ?? "unknown error")}`);
   return outcome.result;
+}
+
+async function assertIntegrationWorkerClientsClosed(sql: postgres.Sql) {
+  const deadline = performance.now() + workerClientExitTimeoutMs;
+  let activeRows: Array<{ application_name: string; state: string }> = [];
+
+  do {
+    activeRows = await sql<Array<{ application_name: string; state: string }>>`
+      SELECT
+        application_name,
+        COALESCE(state, 'unknown') AS state
+      FROM pg_catalog.pg_stat_activity
+      WHERE datname = pg_catalog.current_database()
+        AND backend_type = 'client backend'
+        AND application_name IS DISTINCT FROM ${controllerApplicationName}
+      ORDER BY application_name, state
+    `;
+    if (activeRows.length === 0) return;
+    await new Promise<void>((resolve) => setTimeout(resolve, 25));
+  } while (performance.now() < deadline);
+
+  assert.deepEqual(
+    activeRows,
+    [],
+    `integration workers must close every postgres.js client before exit: ${JSON.stringify(activeRows)}`
+  );
 }
 
 async function waitForStorageContractAdvisoryLock(
@@ -510,6 +543,9 @@ test(
     );
     const sql = afterIntegrationDatabaseBoundary(integrationUrl, () => postgres(integrationUrl, {
       connect_timeout: 5,
+      connection: {
+        application_name: controllerApplicationName
+      },
       idle_timeout: 5,
       max: 4,
       onnotice: () => undefined,
@@ -796,13 +832,7 @@ test(
         await sql`ALTER TABLE public.app_state ALTER COLUMN updated_at SET NOT NULL`;
         await assertStrictStorageReady(true);
 
-        const activeRows = await sql<Array<{ count: number }>>`
-          SELECT COUNT(*)::int AS count
-          FROM pg_stat_activity
-          WHERE datname = 'mais_nova_ci'
-            AND pid <> pg_backend_pid()
-        `;
-        assert.equal(activeRows[0]?.count, 0, "worker must close every postgres.js client before exit");
+        await assertIntegrationWorkerClientsClosed(sql);
       });
 
       let studentId = "";
@@ -2092,17 +2122,7 @@ test(
         await assertStrictStorageReady(true);
       });
 
-      const residualConnections = await sql<Array<{ count: number }>>`
-        SELECT COUNT(*)::int AS count
-        FROM pg_stat_activity
-        WHERE datname = 'mais_nova_ci'
-          AND pid <> pg_backend_pid()
-      `;
-      assert.equal(
-        residualConnections[0]?.count,
-        0,
-        "every integration worker must close all postgres.js clients"
-      );
+      await assertIntegrationWorkerClientsClosed(sql);
     } finally {
       await sql.end({ timeout: 5 });
     }
