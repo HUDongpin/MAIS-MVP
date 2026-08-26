@@ -7,15 +7,22 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import postgres from "postgres";
 
 import {
+  attestTeacherNoticeEmailCronHeartbeatPostgresSchema,
   inspectTeacherNoticeEmailCronHeartbeatPostgresSchema,
-  migrateTeacherNoticeEmailCronHeartbeatPostgresSchema,
-  teacherNoticeEmailCronHeartbeatPostgresAdvisoryNamespace
+  teacherNoticeEmailCronHeartbeatPostgresAdvisoryNamespace,
+  teacherNoticeEmailCronHeartbeatPostgresSchemaStatements,
+  teacherNoticeEmailCronHeartbeatPostgresV1ToV2Statements
 } from "../lib/server/userStore/teacherNoticeEmailCronHeartbeatPersistence.ts";
 import {
+  teacherNoticeEmailOutboxPostgresAdvisoryKey,
+  teacherNoticeEmailOutboxPostgresSchemaStatements
+} from "../lib/server/userStore/teacherNoticeEmailOutboxPersistence.ts";
+import {
   inspectTeacherNoticeResendWebhookPostgresSchema,
-  migrateTeacherNoticeResendWebhookPostgresSchema,
   teacherNoticeEmailOutboxPostgresAdvisoryDependency,
-  teacherNoticeResendWebhookPostgresAdvisoryNamespace
+  teacherNoticeResendWebhookPostgresAdvisoryNamespace,
+  teacherNoticeResendWebhookPostgresSchemaStatements,
+  teacherNoticeResendWebhookPostgresV2ToV3Statements
 } from "../lib/server/userStore/teacherNoticeResendWebhookPersistence.ts";
 
 import {
@@ -28,6 +35,7 @@ import {
 } from "./vercel-provider-evidence.mjs";
 import { MAIS_GITHUB_REPOSITORY } from "./github-candidate-checks.mjs";
 
+const outboxStates = new Set(["empty", "exact", "partial"]);
 const webhookStates = new Set(["empty", "upgradeable", "exact", "partial"]);
 const heartbeatStates = new Set(["empty", "v1", "exact", "partial"]);
 const sha1Pattern = /^[a-f0-9]{40}$/u;
@@ -42,15 +50,26 @@ const productionSchemaEnvironmentSource = "vercel-api-pull-v1";
 
 export function buildTeacherNoticeProductionSchemaPlan({
   heartbeatState,
+  outboxState,
   webhookState
 }) {
-  if (!webhookStates.has(webhookState) || !heartbeatStates.has(heartbeatState)) {
+  if (
+    !outboxStates.has(outboxState) ||
+    !webhookStates.has(webhookState) ||
+    !heartbeatStates.has(heartbeatState)
+  ) {
     throw new Error("Teacher notice production schema state was rejected.");
   }
-  if (webhookState === "partial" || heartbeatState === "partial") {
+  if (
+    outboxState === "partial" ||
+    webhookState === "partial" ||
+    heartbeatState === "partial" ||
+    (outboxState === "empty" && webhookState !== "empty")
+  ) {
     throw new Error("Teacher notice production partial schema was rejected.");
   }
   const operations = [];
+  if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
   if (webhookState === "empty") operations.push("webhook-install-v3");
   if (heartbeatState === "v1") operations.push("heartbeat-v1-to-v2");
@@ -84,6 +103,7 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
   candidateSha,
   expectedTreeSha,
   heartbeatState,
+  outboxState,
   postgresMajor,
   statistics,
   targetFingerprint,
@@ -104,11 +124,12 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
   }
   const operations = buildTeacherNoticeProductionSchemaPlan({
     heartbeatState,
+    outboxState,
     webhookState
   });
   const normalizedStatistics = assertAggregateStatistics(statistics);
   const safeBinding = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     candidateSha: normalizedCandidateSha,
     expectedTreeSha: normalizedTreeSha,
     projectId: APPROVED_VERCEL_PROJECT_ID,
@@ -117,6 +138,7 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
     teamSlug: APPROVED_VERCEL_TEAM_SLUG,
     targetFingerprint: normalizedTargetFingerprint,
     postgresMajor,
+    outboxState,
     webhookState,
     heartbeatState,
     operations,
@@ -127,7 +149,7 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
   const requiredConfirmation = [
     "confirm",
     "teacher-notice-production-schema",
-    "v2",
+    "v3",
     normalizedCandidateSha,
     normalizedTreeSha,
     APPROVED_VERCEL_PROJECT_ID,
@@ -430,8 +452,9 @@ function validateDatabaseInspection(inspection, productionUrl) {
   if (!Number.isSafeInteger(serverVersionNum) || postgresMajor < 16) {
     throw new Error("Teacher notice production PostgreSQL version was rejected.");
   }
-  if (inspection?.outboxDependencyExact !== true) {
-    throw new Error("Teacher notice production outbox dependency was rejected.");
+  const outboxState = inspection?.outboxState;
+  if (!outboxStates.has(outboxState)) {
+    throw new Error("Teacher notice production outbox state was rejected.");
   }
   const targetFingerprint = sha256([
     "teacher-notice-production-schema-target-v1",
@@ -445,6 +468,7 @@ function validateDatabaseInspection(inspection, productionUrl) {
   ].join("\0"));
   return {
     heartbeatState: inspection?.heartbeatState,
+    outboxState,
     postgresMajor,
     statistics: assertAggregateStatistics(inspection?.statistics),
     targetFingerprint,
@@ -457,6 +481,36 @@ async function closePostgresClient(client) {
     throw new Error("Teacher notice production database client was rejected.");
   }
   await client.end({ timeout: 5 });
+}
+
+async function inspectOutboxAndWebhookSchema(sql) {
+  const relationRows = await sql`
+    SELECT pg_catalog.count(*)::pg_catalog.int4 AS "relationCount"
+    FROM pg_catalog.pg_class AS relation
+    JOIN pg_catalog.pg_namespace AS namespace
+      ON namespace.oid = relation.relnamespace
+    WHERE namespace.nspname = 'public'
+      AND relation.relname IN (
+        'teacher_notice_email_outbox',
+        'teacher_notice_email_outbox_schema_migrations'
+      )
+  `;
+  if (!Array.isArray(relationRows) || relationRows.length !== 1) {
+    throw new Error("Teacher notice production outbox inspection was rejected.");
+  }
+  const relationCount = Number(relationRows[0]?.relationCount);
+  if (!Number.isInteger(relationCount) || relationCount < 0 || relationCount > 2) {
+    throw new Error("Teacher notice production outbox inspection was rejected.");
+  }
+  const webhook = await inspectTeacherNoticeResendWebhookPostgresSchema(sql);
+  return {
+    outboxState: webhook.outboxDependencyExact
+      ? "exact"
+      : relationCount === 0
+        ? "empty"
+        : "partial",
+    webhookState: webhook.webhookState
+  };
 }
 
 async function inspectProductionDatabase(client) {
@@ -489,7 +543,7 @@ async function inspectProductionDatabase(client) {
       if (!Array.isArray(identityRows) || identityRows.length !== 1) {
         throw new Error("Teacher notice production database identity was rejected.");
       }
-      const webhook = await inspectTeacherNoticeResendWebhookPostgresSchema(sql);
+      const schema = await inspectOutboxAndWebhookSchema(sql);
       const heartbeatState =
         await inspectTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
       const statisticRows = await sql`
@@ -528,9 +582,9 @@ async function inspectProductionDatabase(client) {
       return {
         databaseIdentity: identityRows[0],
         heartbeatState,
-        outboxDependencyExact: webhook.outboxDependencyExact,
+        outboxState: schema.outboxState,
         statistics: statisticRows[0],
-        webhookState: webhook.webhookState
+        webhookState: schema.webhookState
       };
     }
   );
@@ -623,19 +677,76 @@ export async function preflightTeacherNoticeProductionSchema(options = {}) {
   }
 }
 
-async function applyConfirmedMigrations(client, operations) {
-  for (const operation of operations) {
-    if (operation === "webhook-v2-to-v3" || operation === "webhook-install-v3") {
-      await migrateTeacherNoticeResendWebhookPostgresSchema(client);
-    } else if (
-      operation === "heartbeat-install-v2" ||
-      operation === "heartbeat-v1-to-v2"
-    ) {
-      await migrateTeacherNoticeEmailCronHeartbeatPostgresSchema(client);
-    } else {
-      throw new Error("Teacher notice production schema operation was rejected.");
-    }
+function statementsForProductionSchemaOperation(operation) {
+  if (operation === "outbox-install-v2") {
+    return teacherNoticeEmailOutboxPostgresSchemaStatements;
   }
+  if (operation === "webhook-install-v3") {
+    return teacherNoticeResendWebhookPostgresSchemaStatements;
+  }
+  if (operation === "webhook-v2-to-v3") {
+    return teacherNoticeResendWebhookPostgresV2ToV3Statements;
+  }
+  if (operation === "heartbeat-install-v2") {
+    return teacherNoticeEmailCronHeartbeatPostgresSchemaStatements;
+  }
+  if (operation === "heartbeat-v1-to-v2") {
+    return teacherNoticeEmailCronHeartbeatPostgresV1ToV2Statements;
+  }
+  throw new Error("Teacher notice production schema operation was rejected.");
+}
+
+export async function applyTeacherNoticeProductionSchemaOperationsAtomic(
+  client,
+  operations
+) {
+  if (!client || typeof client.begin !== "function" || !Array.isArray(operations)) {
+    throw new Error("Teacher notice production schema client was rejected.");
+  }
+  await client.begin(async (sql) => {
+    await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
+    await sql.unsafe("SET LOCAL lock_timeout = '2000ms'");
+    await sql.unsafe("SET LOCAL statement_timeout = '15000ms'");
+    await sql.unsafe("SET LOCAL idle_in_transaction_session_timeout = '15000ms'");
+    for (const namespace of [
+      teacherNoticeEmailOutboxPostgresAdvisoryKey,
+      teacherNoticeResendWebhookPostgresAdvisoryNamespace,
+      teacherNoticeEmailCronHeartbeatPostgresAdvisoryNamespace
+    ]) {
+      await sql`SELECT pg_catalog.pg_advisory_xact_lock(
+        pg_catalog.hashtextextended(${namespace}, 0))`;
+    }
+
+    const schema = await inspectOutboxAndWebhookSchema(sql);
+    const heartbeatState =
+      await inspectTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
+    const expectedOperations = buildTeacherNoticeProductionSchemaPlan({
+      heartbeatState,
+      outboxState: schema.outboxState,
+      webhookState: schema.webhookState
+    });
+    if (JSON.stringify(operations) !== JSON.stringify(expectedOperations)) {
+      throw new Error("Teacher notice production schema operation plan changed.");
+    }
+
+    for (const operation of operations) {
+      for (const statement of statementsForProductionSchemaOperation(operation)) {
+        await sql.unsafe(statement);
+      }
+    }
+
+    const postSchema = await inspectOutboxAndWebhookSchema(sql);
+    const postHeartbeatState =
+      await inspectTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
+    if (
+      postSchema.outboxState !== "exact" ||
+      postSchema.webhookState !== "exact" ||
+      postHeartbeatState !== "exact" ||
+      !await attestTeacherNoticeEmailCronHeartbeatPostgresSchema(sql)
+    ) {
+      throw new Error("Teacher notice production schema atomic attestation failed.");
+    }
+  });
 }
 
 function assertSameConfirmedPreflight(expected, current) {
@@ -650,6 +761,7 @@ function assertSameConfirmedPreflight(expected, current) {
 
 function assertExactPostflight(preflight, postflight) {
   if (
+    postflight?.outboxState !== "exact" ||
     postflight?.webhookState !== "exact" ||
     postflight?.heartbeatState !== "exact" ||
     !constantTimeStringEqual(
@@ -665,7 +777,8 @@ export async function applyTeacherNoticeProductionSchema(options = {}) {
   try {
     const dependencies = resolveProductionGateDependencies(options);
     const localBinding = localBindingFromDependencies(dependencies);
-    const applyMigrations = options.applyMigrations ?? applyConfirmedMigrations;
+    const applyMigrations = options.applyMigrations ??
+      applyTeacherNoticeProductionSchemaOperationsAtomic;
     if (typeof applyMigrations !== "function") {
       throw new Error("invalid apply dependency");
     }
