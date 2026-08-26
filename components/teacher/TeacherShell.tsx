@@ -246,7 +246,8 @@ export function TeacherShell({
     const params = new URLSearchParams(window.location.search);
     if (value && value !== "all") params.set(key, value);
     else params.delete(key);
-    router.push(params.toString() ? `${pathname}?${params.toString()}` : pathname);
+    const targetPathname = pathname === "/teacher" ? "/teacher/dashboard" : pathname;
+    router.push(params.toString() ? `${targetPathname}?${params.toString()}` : targetPathname);
   }
 
   function warmTeacherRoute(href: string) {

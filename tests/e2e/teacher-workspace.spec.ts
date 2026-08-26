@@ -55,8 +55,9 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.goto("/teacher");
     await page.getByPlaceholder(/Search students, assignments, resources/i).fill("quadratic");
     await page.getByPlaceholder(/Search students, assignments, resources/i).press("Enter");
-    // /teacher now redirects to /teacher/dashboard, so workspace search resolves there.
-    await expect(page).toHaveURL(/\/teacher(?:\/dashboard)?\?q=quadratic/);
+    // Parameter changes submitted while /teacher is still redirecting must skip
+    // the transient root and resolve on the one canonical workspace URL.
+    await expect(page).toHaveURL(/\/teacher\/dashboard\?q=quadratic$/);
     await page.getByLabel(/Class focus/i).selectOption("class-s3a-2026");
     await expect(page).toHaveURL(/classId=class-s3a-2026/);
 
