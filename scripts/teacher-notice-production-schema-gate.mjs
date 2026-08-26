@@ -21,8 +21,7 @@ import {
   inspectTeacherNoticeResendWebhookPostgresSchema,
   teacherNoticeEmailOutboxPostgresAdvisoryDependency,
   teacherNoticeResendWebhookPostgresAdvisoryNamespace,
-  teacherNoticeResendWebhookPostgresSchemaStatements,
-  teacherNoticeResendWebhookPostgresV2ToV3Statements
+  teacherNoticeResendWebhookPostgresSchemaStatements
 } from "../lib/server/userStore/teacherNoticeResendWebhookPersistence.ts";
 
 import {
@@ -47,6 +46,23 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const maxGitOutputBytes = 1024 * 1024;
 const maxVercelEnvironmentBytes = 4 * 1024 * 1024;
 const productionSchemaEnvironmentSource = "vercel-api-pull-v1";
+const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
+  `CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
+    ON public.teacher_notice_resend_webhook_events (received_at)
+    WHERE matched_outbox_id IS NULL`,
+  `ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+    DROP CONSTRAINT teacher_notice_resend_webhook_schema_version_ck`,
+  `ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+    ALTER COLUMN version SET DEFAULT 3`,
+  `UPDATE public.teacher_notice_resend_webhook_schema_migrations
+    SET version = 3, applied_at = pg_catalog.clock_timestamp()
+    WHERE singleton = TRUE AND version = 2`,
+  `ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+    ADD CONSTRAINT teacher_notice_resend_webhook_schema_version_ck
+    CHECK (version = 3)`,
+  `COMMENT ON TABLE public.teacher_notice_resend_webhook_schema_migrations
+    IS 'mais-resend-teacher-notice-webhook-schema-v3'`
+];
 
 export function buildTeacherNoticeProductionSchemaPlan({
   heartbeatState,

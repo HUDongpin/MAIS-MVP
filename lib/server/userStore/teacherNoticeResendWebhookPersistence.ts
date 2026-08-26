@@ -305,24 +305,6 @@ export const teacherNoticeResendWebhookPostgresSchemaV2Statements =
       .replace("webhook-schema-v3", "webhook-schema-v2")
       .replace("VALUES (TRUE, 3)", "VALUES (TRUE, 2)"));
 
-export const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
-  `CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
-    ON public.teacher_notice_resend_webhook_events (received_at)
-    WHERE matched_outbox_id IS NULL`,
-  `ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
-    DROP CONSTRAINT teacher_notice_resend_webhook_schema_version_ck`,
-  `ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
-    ALTER COLUMN version SET DEFAULT 3`,
-  `UPDATE public.teacher_notice_resend_webhook_schema_migrations
-    SET version = 3, applied_at = pg_catalog.clock_timestamp()
-    WHERE singleton = TRUE AND version = 2`,
-  `ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
-    ADD CONSTRAINT teacher_notice_resend_webhook_schema_version_ck
-    CHECK (version = 3)`,
-  `COMMENT ON TABLE public.teacher_notice_resend_webhook_schema_migrations
-    IS 'mais-resend-teacher-notice-webhook-schema-v3'`
-] as const;
-
 const pgTextOpclass = {
   schema: "pg_catalog", name: "text_ops", inputType: "text", accessMethod: "btree", isDefault: true
 };
@@ -918,9 +900,21 @@ export async function migrateTeacherNoticeResendWebhookPostgresSchema(
       }
     },
     upgrade: async (sql) => {
-      for (const statement of teacherNoticeResendWebhookPostgresV2ToV3Statements) {
-        await sql.unsafe(statement);
-      }
+      await sql.unsafe(`CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
+        ON public.teacher_notice_resend_webhook_events (received_at)
+        WHERE matched_outbox_id IS NULL`);
+      await sql.unsafe(`ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+        DROP CONSTRAINT teacher_notice_resend_webhook_schema_version_ck`);
+      await sql.unsafe(`ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+        ALTER COLUMN version SET DEFAULT 3`);
+      await sql.unsafe(`UPDATE public.teacher_notice_resend_webhook_schema_migrations
+        SET version = 3, applied_at = pg_catalog.clock_timestamp()
+        WHERE singleton = TRUE AND version = 2`);
+      await sql.unsafe(`ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+        ADD CONSTRAINT teacher_notice_resend_webhook_schema_version_ck
+        CHECK (version = 3)`);
+      await sql.unsafe(`COMMENT ON TABLE public.teacher_notice_resend_webhook_schema_migrations
+        IS 'mais-resend-teacher-notice-webhook-schema-v3'`);
     },
     attest: attestTeacherNoticeResendWebhookPostgresSchema
   });

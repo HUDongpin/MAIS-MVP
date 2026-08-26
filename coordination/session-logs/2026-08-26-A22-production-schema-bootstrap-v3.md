@@ -3,10 +3,10 @@
 - Owner lanes: A22 release engineering, borrowing A12 backend schema scope for this reviewed slice.
 - Branch: `codex/a22-production-schema-bootstrap-v3-20260826`.
 - Baseline: `origin/main` at `1e056b84c87a86ea9def50b9108ed70d5cea8112`.
-- Target PR: pending at session creation.
+- Target PR: [#171](https://github.com/HUDongpin/MAIS-MVP/pull/171).
 - Creation date: 2026-08-26.
 - Expected closeout date: 2026-08-26.
-- Write scope: the production teacher-notice schema gate and deploy evidence parser, the reusable webhook v2-to-v3 statement list, their focused tests, and this handoff.
+- Write scope: the production teacher-notice schema gate and deploy evidence parser, their focused tests, and this handoff.
 
 ## Problem and implementation
 
@@ -20,6 +20,13 @@ The v3 contract now:
 4. Re-inspects the confirmed plan under ordered exclusive advisory locks.
 5. Applies all confirmed statements in one PostgreSQL transaction and rolls the full transaction back on any conflict or failed exact attestation.
 6. Rejects legacy v2 evidence and any v3 evidence without an outbox state at the deployment parser boundary.
+
+The webhook v2-to-v3 SQL used by the release gate remains local to the release
+script. The existing runtime migration file was restored byte-for-byte to the
+reviewed `origin/main` baseline. This keeps a deployment-only bootstrap concern
+out of the Promotion Gate's protected runtime graph without weakening or
+allowlisting the gate; the disposable PostgreSQL test below still executes and
+attests the complete upgrade path.
 
 ## Verification
 
@@ -37,6 +44,10 @@ The v3 contract now:
 - `npm run test:parent-console`: manifest gate 76 passed, then runtime 400 passed with 0 skipped and 0 failed.
 - `npm run test:release-governance`: 91 passed, 11 intentional Promotion Shadow skips, 0 failed.
 - `git diff --check`: passed.
+- Post-review release-only SQL placement rerun: 31/31 focused unit/workflow tests,
+  strict type-check, 2/2 fresh PostgreSQL 16.15 tests, and diff check all passed;
+  `lib/server/userStore/teacherNoticeResendWebhookPersistence.ts` is identical
+  to baseline `1e056b84c87a86ea9def50b9108ed70d5cea8112`.
 
 ## Evidence boundary and handoff
 
