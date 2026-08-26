@@ -77,7 +77,7 @@ async function buildFixture() {
   const receipt = await readArtifact(`${pilotRoot}/shadow-receipt.v2.json`);
   const a11Replay = await readArtifact(`${pilotRoot}/postrun/a11-independent-replay.v2.json`);
   const a22Isolation = await readArtifact(`${pilotRoot}/postrun/a22-shadow-isolation.v2.json`);
-  const legacyRegistry = await readArtifact("coordination/integration/v2/legacy-resolution-registry.v2.json");
+  const legacyRegistry = await readArtifact(manifest.value.legacyResolution.registryPath);
   const compositionHeadCommit = "1".repeat(40);
   const mergeCommit = "2".repeat(40);
 
