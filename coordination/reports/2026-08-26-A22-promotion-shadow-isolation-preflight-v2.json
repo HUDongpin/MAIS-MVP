@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a22-us-ca-g6-ratios-v2-shadow-isolation-preflight",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-26T15:30:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "d7ce01d9406d717451b7c43b6d7c48d70fd99ec1",
+  "checkerVersion": "promotion-gate-shadow-v2",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "targetBaselineCommit": "d7ce01d9406d717451b7c43b6d7c48d70fd99ec1",
+    "legacyResolutionRegistryRawSha256": "dbe8b881d575028a46bc38492f7403b1d3618f1941435e300608fac270d45a71",
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyInstall": {
+      "command": "npm ci",
+      "result": "pass"
+    },
+    "typeCheck": {
+      "command": "npm run type-check",
+      "result": "pass"
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "result": "pass",
+      "compiled": true,
+      "staticPageCount": 225,
+      "deploymentPerformed": false
+    },
+    "buildIsolationRemediation": {
+      "initialObservation": "Next rewrote tracked next-env.d.ts to the local dist path",
+      "policy": "capture-and-restore-exact-byte-preimage-in-finally",
+      "unitAndPathSafetyTestsPassed": 47,
+      "unitAndPathSafetyTestsFailed": 0,
+      "secondBuildResult": "pass",
+      "nextEnvPostimageMatchesPreimage": true
+    },
+    "runtimeBaselineDiff": {
+      "protectedRuntimeChangeCount": 0,
+      "candidateSourceChangeCount": 0,
+      "liveFileChangeCount": 0
+    },
+    "externalSideEffects": {
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0
+    },
+    "postRunOwner": "A22",
+    "liveAllowed": false
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "promotion-evidence-index.v2",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.4",
+  "entries": [
+    {
+      "role": "A21",
+      "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a21-candidate-generation.v2.4.json",
+      "rawSha256": "490c6c74408a1e0cb9897fab5eddad64d30c88c1eb3534460dcccbc44a8ef9fb",
+      "semanticDigest": "2f7ab46f5e3a8b07192d180a99261d418c6804cbb167a6246d3bfd7bf135caf3",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A18",
+      "evidenceId": "a18-us-ca-g6-ratios-v2-qa-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a18-independent-qa.v2.4.json",
+      "rawSha256": "95b40b81141483a90d9a6aa4895e40a28b35e0d3825b50a2bdebaf19fb538d15",
+      "semanticDigest": "a2d3d4dadebb9cca6d999e17f76a7fe2750432aaafc405037567627e501809f9",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A23",
+      "evidenceId": "a23-us-ca-g6-ratios-v2-readiness-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a23-shadow-readiness.v2.4.json",
+      "rawSha256": "da62121d4d68c6a53cee0b7cdce903896eb731c89458e38df2f3cdafe88d8cf9",
+      "semanticDigest": "dbed1d15e96b44f9e6b69700689b0b6dec4510f18018c50dad754833a762ab49",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A04",
+      "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a04-practice-semantics.v2.4.json",
+      "rawSha256": "3ddda990a37d88ac0627c7f2e25911ada4c241af1c98828d5176caa1a769a7ac",
+      "semanticDigest": "3aabca63110d2db521030aeb8a3e7c602b4fd38abba5e2990999f92d1e897f0a",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A05",
+      "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a05-lesson-semantics.v2.4.json",
+      "rawSha256": "82c2ee8f06b5d03bc727e05753f71640f6c7b4a50f631bee16bf5ddfa017b785",
+      "semanticDigest": "8d13e952712ad6e737b721893971610376627dff5a685ed2a92e8fde1253c9ed",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A11",
+      "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a11-independent-preflight.v2.4.json",
+      "rawSha256": "82758570b81fc9e29c5ac659f12e6c58babe46ebf55c1b1c33d2a6f1dcc7567e",
+      "semanticDigest": "80a90be36abc57e31b10842f60f6377c5a13db80ce2d939a1018628cf75daee4",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A22",
+      "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a22-build-isolation.v2.4.json",
+      "rawSha256": "7c461cc2d6869c58a06e1cb258b7c6740bab3b7c87498b3976dc325914a5f909",
+      "semanticDigest": "330cedf9b5811d10e3cddce8a79baebc9c03b98f7962da4f57e25128b8c76679",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A24",
+      "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a24-exact-layer.v2.4.json",
+      "rawSha256": "e81ee77f37c09c3da47480c5bf34a5bc78619001768f8759725c64a218904620",
+      "semanticDigest": "41d161867c15e3cf79f3ba78257d820b79a2a414185532a3eb1e36dc57d2983b",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "not_applicable",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    },
+    {
+      "role": "A25",
+      "evidenceId": "a25-us-ca-g6-ratios-v2-intake-v24-attempt005",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a25-release-intake.v2.4.json",
+      "rawSha256": "3c66c0638b7df814185f747a7e3fc26f4ced320d50fa9697e66adba40ba512e5",
+      "semanticDigest": "76df752c6adb9731131d90f99395c51951cb1ccfd3137ffc6c7e277230bf60d0",
+      "reviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.4"
+      }
+    }
+  ]
+}

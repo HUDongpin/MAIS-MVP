@@ -81919,12 +81919,12 @@
         "0.36"
       ],
       "explanation": {
-        "en": "The probability is the ratio of the area of triangle ACD to the area of triangle ABC. Since CD is the altitude to the hypotenuse, triangles ACD and ABC are similar with scale factor AD/AB = 9/25. The ratio of their areas is the square of the scale factor, so (9/25)^2 = 81/625. However, careful geometric reasoning shows that the area of triangle ACD is proportional to AD, and the area of triangle ABC is proportional to AB, so the probability is AD/AB = 9/25.",
-        "zh": "概率為三角形ACD的面積與三角形ABC的面積之比。由於CD是斜邊上的高，三角形ACD與三角形ABC相似，相似比為AD/AB = 9/25。面積比為相似比的平方，即(9/25)^2 = 81/625。但仔細的幾何推理表明，三角形ACD的面積與AD成正比，三角形ABC的面積與AB成正比，因此概率為AD/AB = 9/25。",
-        "zhHans": "概率为三角形ACD的面积与三角形ABC的面积之比。由于CD是斜边上的高，三角形ACD与三角形ABC相似，相似比为AD/AB = 9/25。面积比为相似比的平方，即(9/25)^2 = 81/625。但仔细的几何推理表明，三角形ACD的面积与AD成正比，三角形ABC的面积与AB成正比，因此概率为AD/AB = 9/25。"
+        "en": "The probability is the ratio of the area of triangle ACD to the area of triangle ABC. Since AB = AD + DB = 9 + 16 = 25 and CD is the altitude to the hypotenuse, both triangles have the same height CD over bases AD and AB on line AB. So area(ACD) = (1/2)*AD*CD and area(ABC) = (1/2)*AB*CD, and the ratio of the areas is AD/AB = 9/25. Equivalently, triangles ACD and ABC are similar with scale factor AC/AB, where AC = sqrt(AD*AB) = 15, and the area ratio (15/25)^2 = 9/25 confirms the result. The probability is 9/25.",
+        "zh": "概率為三角形ACD的面積與三角形ABC的面積之比。由於AB = AD + DB = 9 + 16 = 25，且CD是斜邊AB上的高，兩個三角形都以CD為高，底邊AD和AB都在直線AB上，因此面積(ACD) = (1/2)*AD*CD，面積(ABC) = (1/2)*AB*CD，面積之比為AD/AB = 9/25。也可以用相似驗證：三角形ACD與三角形ABC相似，相似比為AC/AB，其中AC = sqrt(AD*AB) = 15，面積比(15/25)^2 = 9/25，結果一致。因此概率為9/25。",
+        "zhHans": "概率为三角形ACD的面积与三角形ABC的面积之比。由于AB = AD + DB = 9 + 16 = 25，且CD是斜边AB上的高，两个三角形都以CD为高，底边AD和AB都在直线AB上，因此面积(ACD) = (1/2)*AD*CD，面积(ABC) = (1/2)*AB*CD，面积之比为AD/AB = 9/25。也可以用相似验证：三角形ACD与三角形ABC相似，相似比为AC/AB，其中AC = sqrt(AD*AB) = 15，面积比(15/25)^2 = 9/25，结果一致。因此概率为9/25。"
       },
       "independentAnswer": "9/25",
-      "independentSolution": "In right triangle ABC, CD is the altitude to the hypotenuse. Triangles ACD and ABC share angle A, and both have a right angle (angle ADC and angle ACB), so they are similar. The ratio of their hypotenuses is AD/AB = 9/(9+16) = 9/25. The ratio of areas of similar triangles is the square of the scale factor, but here we need the ratio of area(ACD) to area(ABC). Since area(ACD) = (1/2)*AD*CD and area(ABC) = (1/2)*AB*CD? Wait, that's not correct. Actually, area(ABC) = (1/2)*AB*CD (since CD is altitude to AB). Area(ACD) = (1/2)*AD*CD. So the ratio is (AD*CD)/(AB*CD) = AD/AB = 9/25. Thus the probability is 9/25.",
+      "independentSolution": "In right triangle ABC, CD is the altitude to the hypotenuse AB, and AB = AD + DB = 9 + 16 = 25. The required probability is the ratio of the area of triangle ACD to the area of triangle ABC. Both triangles have their bases AD and AB on line AB and share the same height CD, so area(ACD) = (1/2)*AD*CD and area(ABC) = (1/2)*AB*CD. The ratio is (AD*CD)/(AB*CD) = AD/AB = 9/25. As a check: CD = sqrt(AD*DB) = sqrt(144) = 12, so area(ACD) = (1/2)*9*12 = 54, area(ABC) = (1/2)*25*12 = 150, and 54/150 = 9/25. Thus the probability is 9/25.",
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
         "us-ar-standards-s4-hs-s-cp",
@@ -86827,7 +86827,7 @@
         "zhHans": "变换 g(x) = 3f(2x - 4) + 1 包含水平压缩（因子 1/2）、向右平移 2 个单位、垂直拉伸（因子 3）及向上平移 1 个单位。求 (6,5) 的像，设 2x - 4 = 6 得 x = 5，然后 y = 3*5 + 1 = 16，故点为 (5,16)。"
       },
       "independentAnswer": "(5, 16)",
-      "independentSolution": "Given g(x) = 3f(2x - 4) + 1 and point (6,5) on f. The transformation maps x to (x+4)/2? Actually, to find x such that 2x-4 = 6, solve 2x-4=6 => 2x=10 => x=5. Then g(5) = 3f(6) + 1 = 3*5 + 1 = 16. So the corresponding point is (5,16).",
+      "independentSolution": "Given g(x) = 3f(2x - 4) + 1 and point (6,5) on f. The input to f must equal 6, so set 2x - 4 = 6: then 2x = 10 and x = 5. Then g(5) = 3f(6) + 1 = 3*5 + 1 = 16. So the corresponding point is (5,16).",
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-bf",
@@ -113272,7 +113272,7 @@
         "zhHans": "求临界点：设 P'(x) = -6x^2 + 30x - 24 = 0，得 x = 1 和 x = 4。计算 P 在临界点及端点的值：P(0)=10, P(1)=-1, P(4)=26, P(5)=15。最大利润在 x = 4 时出现。"
       },
       "independentAnswer": "x = 4",
-      "independentSolution": "To maximize P(x) = -2x^3 + 15x^2 - 24x + 10 on [0,5], find derivative: P'(x) = -6x^2 + 30x - 24. Set P'(x)=0: -6(x^2 - 5x + 4)=0 => x^2 - 5x + 4 = 0 => (x-1)(x-4)=0, so critical points at x=1, x=4. Evaluate P at endpoints and critical points: P(0)=10, P(1)=-2+15-24+10=-1, P(4)=-128+240-96+10=26. Check: -2(64)+15(16)-24(4)+10 = -128+240-96+10=26? Actually -128+240=112, 112-96=16, 16+10=26. So P(4)=26. P(5) = -2*125 + 15*25 - 24*5 + 10 = -250 + 375 - 120 + 10 = 15. So values: P(0)=10, P(1)=-1, P(4)=26, P(5)=15. Maximum is 26 at x=4. So answer x=4.",
+      "independentSolution": "To maximize P(x) = -2x^3 + 15x^2 - 24x + 10 on [0,5], find derivative: P'(x) = -6x^2 + 30x - 24. Set P'(x)=0: -6(x^2 - 5x + 4)=0 => x^2 - 5x + 4 = 0 => (x-1)(x-4)=0, so critical points at x=1, x=4. Evaluate P at endpoints and critical points: P(0)=10, P(1)=-2+15-24+10=-1, P(4) = -2(64)+15(16)-24(4)+10 = -128+240-96+10 = 26. P(5) = -2*125 + 15*25 - 24*5 + 10 = -250 + 375 - 120 + 10 = 15. So values: P(0)=10, P(1)=-1, P(4)=26, P(5)=15. Maximum is 26 at x=4. So answer x=4.",
       "evidenceCardIds": [
         "us-ar-math-g12-modeling-statistics-calculus-readiness",
         "us-ar-standards-s6-hs-f-if",
@@ -115113,7 +115113,7 @@
       },
       "independentAnswer": "2024",
       "independentSolution": {
-        "en": "To find the maximum profit, we analyze the cubic function P(t) = -2t^3 + 15t^2 - 24t + 10 on [0,5]. First, find the derivative: P'(t) = -6t^2 + 30t - 24. Set P'(t) = 0: -6(t^2 - 5t + 4) = 0 → t^2 - 5t + 4 = 0 → (t-1)(t-4)=0, so critical points at t=1 and t=4. Evaluate P at critical points and endpoints: P(0)=10, P(1)=-2+15-24+10=-1, P(4)=-128+240-96+10=26. Check: -2(64)+15(16)-24(4)+10 = -128+240-96+10 = 26? Actually -128+240=112, 112-96=16, 16+10=26. So P(4)=26. P(5) = -2*125 + 15*25 - 24*5 + 10 = -250 + 375 - 120 + 10 = 15. So values: P(0)=10, P(1)=-1, P(4)=26, P(5)=15. Maximum is 26 at t=4. Thus the year is 2020+4=2024."
+        "en": "To find the maximum profit, we analyze the cubic function P(t) = -2t^3 + 15t^2 - 24t + 10 on [0,5]. First, find the derivative: P'(t) = -6t^2 + 30t - 24. Set P'(t) = 0: -6(t^2 - 5t + 4) = 0 → t^2 - 5t + 4 = 0 → (t-1)(t-4)=0, so critical points at t=1 and t=4. Evaluate P at critical points and endpoints: P(0)=10, P(1)=-2+15-24+10=-1, P(4) = -2(64)+15(16)-24(4)+10 = -128+240-96+10 = 26. P(5) = -2*125 + 15*25 - 24*5 + 10 = -250 + 375 - 120 + 10 = 15. So values: P(0)=10, P(1)=-1, P(4)=26, P(5)=15. Maximum is 26 at t=4. Thus the year is 2020+4=2024."
       },
       "evidenceCardIds": [
         "us-ar-math-g12-modeling-statistics-calculus-readiness",

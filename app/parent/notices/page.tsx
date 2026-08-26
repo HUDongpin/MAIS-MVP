@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ParentNoticesView } from "@/components/parent/ParentNoticesView";
 import { getParentNoticeData } from "@/lib/server/userStore";
+import { toParentNoticeDataSafe } from "@/lib/server/userStore/parentSafeDto";
 import { getParentFoundationForPage } from "../getParentFoundation";
 
 export default async function ParentNoticesPage({ searchParams }: { searchParams: Promise<{ studentId?: string; recipientId?: string }> }) {
@@ -12,6 +13,7 @@ export default async function ParentNoticesPage({ searchParams }: { searchParams
   });
 
   if (!data) notFound();
+  const safeData = toParentNoticeDataSafe(data);
 
-  return <ParentNoticesView data={data} targetRecipientId={params.recipientId} />;
+  return <ParentNoticesView data={safeData} targetRecipientId={params.recipientId} />;
 }

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, FormEvent, ReactNode } from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useAITutor, type TutorContext, type TutorSelectionHelpType } from "@/components/ai/AITutorProvider";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
@@ -16,6 +17,26 @@ import {
   lessonCompletionTitleForGrade
 } from "@/components/lesson/lessonCompletionChecklist";
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
+import { formatLessonPartDisplay, type LessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
+import {
+  lessonModuleProgressOwnerScopeKey,
+  lessonModuleProgressRequestScopeKey,
+  mergeCompletedLessonModuleOverrides,
+  readLessonModulesFromRoadmapResponse,
+  upsertCompletedLessonModuleOverride,
+  type CompletedLessonModuleOverride
+} from "@/components/lesson/lessonModuleProgress";
+import {
+  createLessonContentPaneScrollRequest,
+  createLessonTargetViewportRealignment
+} from "@/components/lesson/lessonPaneNavigation";
+import {
+  createLessonPracticeAutoAdvanceRequest,
+  lessonPracticeAutoAdvanceRequestIsActive,
+  resolveLessonPracticeAutoAdvanceIndex,
+  scheduleLessonPracticeAutoAdvance,
+  type LessonPracticeAutoAdvanceState
+} from "@/components/lesson/lessonPracticeAutoAdvance";
 import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
 import { LessonMenuRail, LessonMenuRevealPill } from "@/components/lesson/worlds/LessonMenuRail";
 import {
@@ -118,7 +139,6 @@ type LessonPracticeCardProps = {
 };
 
 type LessonVisualizationProps = {
-  controlFooterAction?: ReactNode;
   topicId: string;
   showAxisLabels?: boolean;
   // Server-resolved lab definition. When provided, ConfiguredVisualizationLab uses it
@@ -165,19 +185,28 @@ type LessonIllustration = {
   ragCardIds: string[];
 };
 
+function LessonSummaryPortal({ children }: { children: ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+  return createPortal(children, document.body);
+}
+
 const celebrationColors = ["#06b6d4", "#8b5cf6", "#22c55e", "#f59e0b", "#ec4899", "#38bdf8"];
 const lessonGalaxyCollapseDurationMs = 520;
 const lessonPracticeQuestionLimit = 5;
-const autoAdvanceDelayMs = 1200;
 const handwritingCapableQuestionTypes = new Set<PublicQuestion["type"]>(["fill-in", "short-answer", "graph"]);
 const lessonGalaxySectionId = "lesson-galaxy-directory";
 const lessonOverviewSectionId = "lesson-overview";
 const lessonPracticeSectionId = "lesson-practice";
-const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem] w-full max-w-full items-center justify-center gap-4 rounded-xl bg-blue-600 px-8 py-4 text-xl font-black text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 dark:bg-blue-500 dark:hover:bg-blue-400";
-const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
-const nextLessonItemPanelButtonClassName = `${nextLessonItemButtonBaseClassName} sm:text-2xl`;
-const nextLessonItemClickSafeAreaPx = 96;
-const nextLessonItemScrollRevealDelayMs = 420;
+const lessonDesktopMinWidthQuery = "(min-width: 1024px)";
+const lessonDesktopPaneLayoutClassName = "lg:h-[calc(100dvh-8rem)] lg:min-h-0 lg:overflow-hidden";
+const lessonDesktopScrollablePaneClassName = "lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain";
+const lessonContentPaneTopPaddingPx = 24;
+const mobileLessonTargetSafeTopPx = 96;
+const mobileLessonTargetStabilizationMaxMs = 8000;
 const lessonSelectionMaxLength = 500;
 const lessonSelectionSurroundingMaxLength = 900;
 const lessonSelectionPopoverWidth = 320;
@@ -484,6 +513,11 @@ const GeometryExplorer = dynamic<LessonVisualizationProps>(
   { loading: () => <DeferredLessonPanel />, ssr: false }
 );
 
+const LessonSignatureLab = dynamic<LessonVisualizationProps>(
+  () => import("@/components/visualizations/LessonSignatureLab").then((module) => module.LessonSignatureLab as ComponentType<LessonVisualizationProps>),
+  { loading: () => <DeferredLessonPanel />, ssr: false }
+);
+
 const ProbabilitySimulator = dynamic<LessonVisualizationProps>(
   () => import("@/components/visualizations/ProbabilitySimulator").then((module) => module.ProbabilitySimulator as ComponentType<LessonVisualizationProps>),
   { loading: () => <DeferredLessonPanel />, ssr: false }
@@ -581,11 +615,11 @@ const lessonVisualizationRegistry: Record<VisualizationModuleId, ComponentType<L
   "trig-wave-explorer": TrigWaveExplorer,
   "calculus-stats-lab": CalculusStatsLab,
   "configured-visualization-lab": ConfiguredVisualizationLab,
-  // Scope boundary (Phase 0): signature benches render on the Visualization Lab
-  // page only. In-lesson embeds keep the template renderer, so a signature topic
-  // shows its bench in the lab and the template inside the lesson. Deliberate —
-  // wiring the lesson embed is Phase 1 and needs its own regression evidence.
-  "signature-lab": ConfiguredVisualizationLab
+  // Phase 1 of the Codex-lab replacement plan (2026-08-25): a signature topic now
+  // shows the same Claude bench in the lesson as on the Visualization Lab page.
+  // LessonSignatureLab resolves the topic's primary bench and falls back to the
+  // template renderer only when a topic carries no signature assignment.
+  "signature-lab": LessonSignatureLab
 };
 
 function getLessonVisualization(moduleId: string | undefined) {
@@ -609,6 +643,7 @@ function clampLessonQuestionIndex(index: number, questionCount: number) {
 type LessonQuestionPagerProps = {
   allAnswersChecked: boolean;
   answerResults: Record<string, boolean>;
+  displayTitle?: string;
   lesson: LessonDetail;
   onAnswered: (question: PublicQuestion, feedback: AttemptFeedback) => void;
   onCheckAllAnswers: () => void;
@@ -619,6 +654,7 @@ type LessonQuestionPagerProps = {
 function LessonQuestionPager({
   allAnswersChecked,
   answerResults,
+  displayTitle,
   lesson,
   onAnswered,
   onCheckAllAnswers,
@@ -632,16 +668,35 @@ function LessonQuestionPager({
   const [soundEnabled, setSoundEnabled] = useState(false);
   const { accommodations } = useStudentAccommodations();
   const readAloud = useReadAloud(language);
-  const autoAdvanceTimerRef = useRef<number | null>(null);
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
   const questionCount = questions.length;
+  const currentQuestionId = questions[currentIndex]?.id ?? null;
+  const autoAdvanceTimerRef = useRef<ReturnType<typeof scheduleLessonPracticeAutoAdvance> | null>(null);
+  const autoAdvanceStateRef = useRef<LessonPracticeAutoAdvanceState | null>(null);
   const currentQuestionNumber = questionCount ? currentIndex + 1 : 0;
 
   const clearAutoAdvance = useCallback(() => {
     if (autoAdvanceTimerRef.current === null) return;
-    window.clearTimeout(autoAdvanceTimerRef.current);
+    globalThis.clearTimeout(autoAdvanceTimerRef.current);
     autoAdvanceTimerRef.current = null;
   }, []);
+
+  useLayoutEffect(() => {
+    const committedAutoAdvanceState: LessonPracticeAutoAdvanceState = {
+      currentIndex,
+      currentQuestionId,
+      isActive: true,
+      lessonSlug: lesson.slug,
+      questionCount,
+      questionSignature
+    };
+    autoAdvanceStateRef.current = committedAutoAdvanceState;
+    return () => {
+      if (autoAdvanceStateRef.current !== committedAutoAdvanceState) return;
+      autoAdvanceStateRef.current = { ...committedAutoAdvanceState, isActive: false };
+      clearAutoAdvance();
+    };
+  }, [clearAutoAdvance, currentIndex, currentQuestionId, lesson.slug, questionCount, questionSignature]);
 
   const goToIndex = useCallback((index: number) => {
     if (!questionCount) return;
@@ -689,8 +744,6 @@ function LessonQuestionPager({
     stopReadAloud();
   }, [currentIndex, questionSignature, stopReadAloud]);
 
-  useEffect(() => () => clearAutoAdvance(), [clearAutoAdvance]);
-
   useEffect(() => {
     if (questionCount < 2) return;
 
@@ -731,16 +784,33 @@ function LessonQuestionPager({
     if (soundEnabled) {
       playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
     }
-    if (answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
+    const autoAdvanceRequest = createLessonPracticeAutoAdvanceRequest({
+      answeredIndex,
+      answeredQuestionId: question.id,
+      currentIndex,
+      lessonSlug: lesson.slug,
+      questionCount,
+      questionSignature
+    });
+    const committedAutoAdvanceState = autoAdvanceStateRef.current;
+    if (!autoAdvanceRequest || !committedAutoAdvanceState
+      || !lessonPracticeAutoAdvanceRequestIsActive(autoAdvanceRequest, committedAutoAdvanceState)) {
+      return;
+    }
 
     clearAutoAdvance();
-    autoAdvanceTimerRef.current = window.setTimeout(() => {
+    autoAdvanceTimerRef.current = scheduleLessonPracticeAutoAdvance(() => {
       autoAdvanceTimerRef.current = null;
-      setCurrentIndex((latestIndex) => (
-        latestIndex === answeredIndex ? clampLessonQuestionIndex(answeredIndex + 1, questionCount) : latestIndex
-      ));
-    }, autoAdvanceDelayMs);
-  }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
+      const latestAutoAdvanceState = autoAdvanceStateRef.current;
+      if (!latestAutoAdvanceState
+        || !lessonPracticeAutoAdvanceRequestIsActive(autoAdvanceRequest, latestAutoAdvanceState)) return;
+      setCurrentIndex((latestIndex) => resolveLessonPracticeAutoAdvanceIndex(autoAdvanceRequest, {
+        ...latestAutoAdvanceState,
+        currentIndex: latestIndex,
+        currentQuestionId: questions[latestIndex]?.id ?? null
+      }));
+    });
+  }, [answerResults, clearAutoAdvance, currentIndex, lesson.slug, onAnswered, questionCount, questionSignature, questions, soundEnabled]);
 
   const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
   // Pager header shows the round's live star haul on the right of the heading.
@@ -755,7 +825,7 @@ function LessonQuestionPager({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-black text-slate-950 dark:text-white">
-              {t({ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" })}
+              {displayTitle ?? t({ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" })}
             </h2>
             <p aria-live="polite" className="mt-1 text-sm font-black uppercase tracking-[0.18em] text-blue-600 dark:text-cyan-200">
               {t({
@@ -2052,6 +2122,9 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const { openTutor } = useAITutor();
   const prefersReducedMotion = useReducedMotion();
   const lessonSelectionRootRef = useRef<HTMLDivElement | null>(null);
+  const lessonDirectoryPaneRef = useRef<HTMLDivElement | null>(null);
+  const lessonContentPaneRef = useRef<HTMLDivElement | null>(null);
+  const mobileLessonTargetStabilizationCleanupRef = useRef<(() => void) | null>(null);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const lessonPracticeSectionRef = useRef<HTMLElement | null>(null);
   const summaryCloseButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -2061,6 +2134,15 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const galaxyDirectoryCloseTimerRef = useRef<number | null>(null);
   const normalizedInitialLesson = useMemo(() => limitLessonPracticeQuestions(initialLesson), [initialLesson]);
   const [lesson, setLesson] = useState<LessonDetail | null>(normalizedInitialLesson);
+  const [lessonModules, setLessonModules] = useState<LessonSummary[]>(gradeLessons);
+  const lessonModulesRequestGenerationRef = useRef(0);
+  const lessonModulesRequestRef = useRef<{ generation: number; scopeKey: string } | null>(null);
+  const lessonModulesRoadmapAbortRef = useRef<AbortController | null>(null);
+  const lessonModulesActiveOwnerScopeKeyRef = useRef("");
+  const completedLessonModuleOverridesRef = useRef<{
+    ownerScopeKey: string;
+    overrides: CompletedLessonModuleOverride[];
+  }>({ ownerScopeKey: "", overrides: [] });
   const [lessonLoadState, setLessonLoadState] = useState<LessonLoadState>(normalizedInitialLesson ? "ready" : "idle");
   const [questionResults, setQuestionResults] = useState<Record<string, LessonQuestionResult>>({});
   const [checklistState, setChecklistState] = useState<Record<string, boolean>>(normalizedInitialLesson?.checklistState ?? {});
@@ -2099,10 +2181,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     : [], [checklistBlocks, lesson]);
   const primaryConceptBlockId = useMemo(
     () => conceptBlocks.find((block) => block.type === "concept")?.id ?? null,
-    [conceptBlocks]
-  );
-  const firstWorkedExampleBlockId = useMemo(
-    () => conceptBlocks.find((block) => block.type === "worked-example")?.id ?? null,
     [conceptBlocks]
   );
   const lessonPracticeQuestions = useMemo(
@@ -2289,9 +2367,30 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     visualizationBlock,
     visualizationContent
   ]);
+  const activeLessonUnitIndex = Math.max(
+    0,
+    gradeLessons.findIndex((module) => module.slug === slug || module.slug === lesson?.slug)
+  );
+  const lessonPartDisplayByTargetId = useMemo(() => new Map<string, LessonPartDisplay>(
+    lessonGalaxyItems.map((item, itemIndex) => [
+      item.targetId,
+      formatLessonPartDisplay({
+        itemIndex,
+        title: item.title,
+        unitIndex: activeLessonUnitIndex
+      })
+    ])
+  ), [activeLessonUnitIndex, lessonGalaxyItems]);
+  const visualizationDisplayTitle = lessonPartDisplayByTargetId.get("visualization")?.contentTitle;
+  const practiceDisplayTitle = lessonPartDisplayByTargetId.get(lessonPracticeSectionId)?.contentTitle;
 
   useLayoutEffect(() => {
     const currentLessonHref = lessonHrefForSlug(slug);
+    cancelMobileLessonTargetStabilization();
+    lessonContentPaneRef.current?.scrollTo({
+      behavior: "auto",
+      top: 0
+    });
     const entryDecision = lessonGalaxyPlanetEntryDecision(
       currentLessonHref,
       lessonGalaxyPlanetEntryDecisionRef.current
@@ -2325,11 +2424,116 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     }, 1200);
   }, [slug]);
 
+  useEffect(() => () => cancelMobileLessonTargetStabilization(), []);
+
   useEffect(() => {
     setLesson(normalizedInitialLesson);
     setChecklistState(normalizedInitialLesson?.checklistState ?? {});
     setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
   }, [normalizedInitialLesson]);
+
+  useEffect(() => {
+    lessonModulesRoadmapAbortRef.current?.abort();
+    lessonModulesRoadmapAbortRef.current = null;
+    lessonModulesRequestRef.current = null;
+    const generation = lessonModulesRequestGenerationRef.current + 1;
+    lessonModulesRequestGenerationRef.current = generation;
+
+    if (!settingsReady || currentUser?.role !== "student" || !lesson) {
+      lessonModulesActiveOwnerScopeKeyRef.current = "";
+      completedLessonModuleOverridesRef.current = { ownerScopeKey: "", overrides: [] };
+      setLessonModules(gradeLessons);
+      return;
+    }
+
+    const curriculumProfile = currentUser.curriculumProfile;
+    const curriculumTrack = currentUser.curriculumTrack;
+    const lessonGrade = lesson.grade;
+    const ownerScopeKey = lessonModuleProgressOwnerScopeKey({
+      curriculumProfile,
+      curriculumTrack,
+      grade: lessonGrade,
+      userId: currentUser.id
+    });
+    lessonModulesActiveOwnerScopeKeyRef.current = ownerScopeKey;
+    if (completedLessonModuleOverridesRef.current.ownerScopeKey !== ownerScopeKey) {
+      completedLessonModuleOverridesRef.current = { ownerScopeKey, overrides: [] };
+    }
+    setLessonModules(mergeCompletedLessonModuleOverrides(
+      gradeLessons,
+      completedLessonModuleOverridesRef.current.overrides
+    ));
+
+    const controller = new AbortController();
+    const requestScopeKey = lessonModuleProgressRequestScopeKey({
+      curriculumProfile,
+      curriculumTrack,
+      grade: lessonGrade,
+      slug,
+      userId: currentUser.id
+    });
+    lessonModulesRoadmapAbortRef.current = controller;
+    lessonModulesRequestRef.current = { generation, scopeKey: requestScopeKey };
+
+    async function loadPersonalizedLessonModules() {
+      try {
+        const response = await fetch(`/api/roadmap?grade=${encodeURIComponent(lessonGrade)}`, {
+          cache: "no-store",
+          signal: controller.signal
+        });
+        if (!response.ok) return;
+        const body: unknown = await response.json();
+        const personalizedModules = readLessonModulesFromRoadmapResponse(body, {
+          curriculumProfile,
+          curriculumTrack,
+          grade: lessonGrade,
+          slug
+        });
+        if (!personalizedModules) return;
+
+        const request = lessonModulesRequestRef.current;
+        if (
+          !request ||
+          request.generation !== generation ||
+          request.scopeKey !== requestScopeKey ||
+          controller.signal.aborted
+        ) return;
+        const completedOverrides = completedLessonModuleOverridesRef.current.ownerScopeKey === ownerScopeKey
+          ? completedLessonModuleOverridesRef.current.overrides
+          : [];
+        setLessonModules(mergeCompletedLessonModuleOverrides(personalizedModules, completedOverrides));
+      } catch {
+        // The public SSR modules remain usable when personalized progress is unavailable.
+      } finally {
+        if (lessonModulesRoadmapAbortRef.current === controller) {
+          lessonModulesRoadmapAbortRef.current = null;
+        }
+      }
+    }
+
+    void loadPersonalizedLessonModules();
+
+    return () => {
+      controller.abort();
+      if (lessonModulesRoadmapAbortRef.current === controller) {
+        lessonModulesRoadmapAbortRef.current = null;
+      }
+      const request = lessonModulesRequestRef.current;
+      if (request?.generation === generation && request.scopeKey === requestScopeKey) {
+        lessonModulesRequestRef.current = null;
+      }
+    };
+  }, [
+    currentUser?.curriculumProfile.publisher,
+    currentUser?.curriculumProfile.region,
+    currentUser?.curriculumTrack,
+    currentUser?.id,
+    currentUser?.role,
+    gradeLessons,
+    lesson?.grade,
+    settingsReady,
+    slug
+  ]);
 
   // Keyed on the slug, NOT on initialLesson identity: a server re-render
   // (router.refresh, dev RSC refresh) delivers a fresh initialLesson object for
@@ -2667,16 +2871,42 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         throw new Error("Could not mark this lesson complete yet.");
       }
 
+      const completedLesson = body.lesson;
+
       setLesson((currentLesson) =>
         currentLesson
           ? {
             ...currentLesson,
             checklistState,
-            mastery: body.lesson?.mastery ?? currentLesson.mastery,
-            status: body.lesson?.status ?? currentLesson.status
+            mastery: completedLesson.mastery,
+            status: completedLesson.status
           }
           : currentLesson
       );
+      if (
+        currentUser?.role === "student" &&
+        lesson &&
+        completedLesson.slug === slug &&
+        completedLesson.grade === lesson.grade
+      ) {
+        const ownerScopeKey = lessonModuleProgressOwnerScopeKey({
+          curriculumProfile: currentUser.curriculumProfile,
+          curriculumTrack: currentUser.curriculumTrack,
+          grade: lesson.grade,
+          userId: currentUser.id
+        });
+        if (lessonModulesActiveOwnerScopeKeyRef.current !== ownerScopeKey) return;
+        const existingOverrides = completedLessonModuleOverridesRef.current.ownerScopeKey === ownerScopeKey
+          ? completedLessonModuleOverridesRef.current.overrides
+          : [];
+        const completedOverrides = upsertCompletedLessonModuleOverride(existingOverrides, completedLesson);
+        completedLessonModuleOverridesRef.current = { ownerScopeKey, overrides: completedOverrides };
+        // Keep a same-scope roadmap GET alive: it may carry earlier completions
+        // missing from the public baseline, and its response re-merges this override.
+        setLessonModules((currentModules) =>
+          mergeCompletedLessonModuleOverrides(currentModules, completedOverrides)
+        );
+      }
     } catch {
       setLessonProgressError(t({
         en: "Could not mark this lesson complete yet.",
@@ -2701,62 +2931,103 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     });
   }
 
-  function revealLastNextLessonItemButton(target: HTMLElement, behavior: ScrollBehavior) {
-    const revealButton = () => {
-      const nextItemButtons = target.querySelectorAll<HTMLButtonElement>("[data-lesson-next-item-button='true']");
-      const lastNextItemButton = nextItemButtons[nextItemButtons.length - 1];
-      if (!lastNextItemButton) return;
-
-      const buttonRect = lastNextItemButton.getBoundingClientRect();
-      const bottomOverflow = buttonRect.bottom + nextLessonItemClickSafeAreaPx - window.innerHeight;
-      if (bottomOverflow <= 0) return;
-
-      window.scrollBy({
-        top: bottomOverflow,
-        behavior
-      });
-    };
-
-    if (behavior === "smooth") {
-      window.setTimeout(revealButton, nextLessonItemScrollRevealDelayMs);
-      return;
-    }
-
-    window.requestAnimationFrame(revealButton);
+  function cancelMobileLessonTargetStabilization() {
+    mobileLessonTargetStabilizationCleanupRef.current?.();
+    mobileLessonTargetStabilizationCleanupRef.current = null;
   }
 
-  function scrollToLessonSection(targetId: string, options: { revealLastNextItemButton?: boolean } = {}) {
-    const target = document.getElementById(targetId);
+  function handleLessonItemSelect(targetId: string) {
+    cancelMobileLessonTargetStabilization();
+    const contentPane = lessonContentPaneRef.current;
+    if (!contentPane) return;
+
+    const target = Array.from(contentPane.querySelectorAll<HTMLElement>("[id]"))
+      .find((candidate) => candidate.id === targetId);
     if (!target) return;
 
     const behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth";
-    target.scrollIntoView({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "start"
-    });
+    const desktopMediaQuery = typeof window.matchMedia === "function"
+      ? window.matchMedia(lessonDesktopMinWidthQuery)
+      : null;
+    const isDesktop = desktopMediaQuery?.matches ?? false;
+    if (!isDesktop) {
+      target.scrollIntoView({ behavior, block: "start" });
+      if (typeof ResizeObserver === "undefined") return;
 
-    if (options.revealLastNextItemButton) {
-      revealLastNextLessonItemButton(target, behavior);
+      let animationFrameId: number | null = null;
+      let hardLimitTimerId: number | null = null;
+      let isCleanedUp = false;
+      let observedHeight = contentPane.getBoundingClientRect().height;
+      let observer: ResizeObserver | null = null;
+
+      function cancelOnUserInput() {
+        cleanup();
+      }
+
+      function cancelOnDesktopBreakpoint(event: MediaQueryListEvent) {
+        if (event.matches) cleanup();
+      }
+
+      function cleanup() {
+        if (isCleanedUp) return;
+        isCleanedUp = true;
+        observer?.disconnect();
+        if (animationFrameId !== null) window.cancelAnimationFrame(animationFrameId);
+        if (hardLimitTimerId !== null) window.clearTimeout(hardLimitTimerId);
+        desktopMediaQuery?.removeEventListener("change", cancelOnDesktopBreakpoint);
+        window.removeEventListener("pointerdown", cancelOnUserInput);
+        window.removeEventListener("touchstart", cancelOnUserInput);
+        window.removeEventListener("wheel", cancelOnUserInput);
+        window.removeEventListener("keydown", cancelOnUserInput);
+        if (mobileLessonTargetStabilizationCleanupRef.current === cleanup) {
+          mobileLessonTargetStabilizationCleanupRef.current = null;
+        }
+      }
+
+      observer = new ResizeObserver(() => {
+        if (isCleanedUp) return;
+        const nextHeight = contentPane.getBoundingClientRect().height;
+        if (nextHeight === observedHeight) return;
+        observedHeight = nextHeight;
+
+        if (animationFrameId !== null) window.cancelAnimationFrame(animationFrameId);
+        animationFrameId = window.requestAnimationFrame(() => {
+          animationFrameId = null;
+          if (isCleanedUp) return;
+          if (!target.isConnected || !contentPane.contains(target)) {
+            cleanup();
+            return;
+          }
+
+          const request = createLessonTargetViewportRealignment({
+            safeTop: mobileLessonTargetSafeTopPx,
+            targetTop: target.getBoundingClientRect().top,
+            viewportHeight: window.innerHeight
+          });
+          if (request) target.scrollIntoView(request);
+        });
+      });
+      observer.observe(contentPane);
+      if (desktopMediaQuery) {
+        desktopMediaQuery.addEventListener("change", cancelOnDesktopBreakpoint);
+      }
+      window.addEventListener("pointerdown", cancelOnUserInput, { passive: true });
+      window.addEventListener("touchstart", cancelOnUserInput, { passive: true });
+      window.addEventListener("wheel", cancelOnUserInput, { passive: true });
+      window.addEventListener("keydown", cancelOnUserInput);
+      hardLimitTimerId = window.setTimeout(cleanup, mobileLessonTargetStabilizationMaxMs);
+      mobileLessonTargetStabilizationCleanupRef.current = cleanup;
+      return;
     }
-  }
 
-  function scrollToNextLessonItem() {
-    const targetId =
-      firstWorkedExampleBlockId
-        ? lessonBlockSectionId(firstWorkedExampleBlockId)
-        : visualizationBlock
-          ? "visualization"
-          : lessonPracticeSectionId;
-
-    scrollToLessonSection(targetId, { revealLastNextItemButton: true });
-  }
-
-  function scrollToLessonItemAfterWorkedExample() {
-    scrollToLessonSection(visualizationBlock ? "visualization" : lessonPracticeSectionId, { revealLastNextItemButton: true });
-  }
-
-  function scrollToLessonPracticeItem() {
-    scrollToLessonSection(lessonPracticeSectionId);
+    const request = createLessonContentPaneScrollRequest({
+      currentScrollTop: contentPane.scrollTop,
+      paneTop: contentPane.getBoundingClientRect().top,
+      prefersReducedMotion: Boolean(prefersReducedMotion),
+      targetTop: target.getBoundingClientRect().top,
+      topPadding: lessonContentPaneTopPaddingPx
+    });
+    if (request) contentPane.scrollTo(request);
   }
 
   function scheduleLessonOverviewScroll(behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth") {
@@ -2973,14 +3244,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     mastery: lesson.mastery,
     status: lesson.status
   });
-  const renderNextLessonItemButton = (onClick: () => void, className: string) => (
-    <button type="button" onClick={onClick} data-lesson-next-item-button="true" className={className}>
-      <span>{t({ en: "Go to next item", zh: "前往下一項", zhHans: "前往下一项" })}</span>
-      <span aria-hidden="true" className="text-3xl leading-none">→</span>
-    </button>
-  );
-  const visualizationNextItemAction = renderNextLessonItemButton(scrollToLessonPracticeItem, nextLessonItemPanelButtonClassName);
-  const usesConfiguredVisualizationFooterAction = visualizationBlock?.visualizationConfig?.moduleId === "configured-visualization-lab";
   const lessonContentSections = (
     <>
       <section id={lessonOverviewSectionId} data-tour="student-lesson-body" className="mt-8 scroll-mt-28 min-w-0">
@@ -2990,6 +3253,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
             const blockTitle = shouldUseSingularWorkedExampleTitle(block)
               ? t(singularWorkedExampleTitle)
               : text(block.title);
+            const blockDisplayTitle = lessonPartDisplayByTargetId.get(lessonBlockSectionId(block.id))?.contentTitle ?? blockTitle;
             const blockContent = block.content ? text(block.content) : "";
             const displayContent =
               block.type === "concept"
@@ -3043,15 +3307,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                 data-ai-title={blockTitle}
                 className={`${index === 0 ? "" : "mt-6 "}scroll-mt-28`}
               >
-                {block.id === firstWorkedExampleBlockId ? (
-                  <div className="mb-6 flex flex-col gap-4 border-t border-slate-200/90 pt-6 dark:border-white/10 sm:flex-row sm:items-center sm:justify-end">
-                    {renderNextLessonItemButton(scrollToNextLessonItem, nextLessonItemInlineButtonClassName)}
-                  </div>
-                ) : block.type === "worked-example" ? (
+                {block.type === "worked-example" ? (
                   <div aria-hidden="true" className="mb-6 h-px w-full bg-slate-200/90 dark:bg-white/10" />
                 ) : null}
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <MathText as="h2" text={blockTitle} className="min-w-0 flex-1 text-2xl font-black text-slate-950 dark:text-white" />
+                  <MathText as="h2" text={blockDisplayTitle} className="min-w-0 flex-1 text-2xl font-black text-slate-950 dark:text-white" />
                   {displayContent && (block.type === "concept" || block.type === "interactive-lesson") ? (
                     <ConceptAudioPlayer
                       content={displayContent}
@@ -3100,19 +3360,9 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                     topicId={lesson.topicId}
                   />
                 ) : null}
-                {block.id === firstWorkedExampleBlockId ? (
-                  <div className="mt-7 flex justify-end">
-                    {renderNextLessonItemButton(scrollToLessonItemAfterWorkedExample, nextLessonItemInlineButtonClassName)}
-                  </div>
-                ) : null}
               </div>
             );
           })}
-          {firstWorkedExampleBlockId ? null : (
-            <div className="mt-7 flex justify-end">
-              {renderNextLessonItemButton(scrollToNextLessonItem, nextLessonItemInlineButtonClassName)}
-            </div>
-          )}
         </article>
       </section>
 
@@ -3120,35 +3370,32 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         <section id="visualization" ref={visualizationMountRef} className="mt-8 scroll-mt-28 glass-panel p-5 sm:p-6">
           <div className="mb-5">
             <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t(dictionary.lesson.visualizationPanel)}</p>
-            <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white">
-              {visualizationTitleLines.map((line, index) => (
-                <MathText
-                  key={`${index}-${line}`}
-                  as="span"
-                  text={line}
-                  className={index === 0 ? "block" : "mt-1 block"}
-                />
-              ))}
-            </h2>
+            {visualizationDisplayTitle ? (
+              <MathText as="h2" text={visualizationDisplayTitle} className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white" />
+            ) : null}
+            {visualizationTitleLines.length ? (
+              <p className="mt-2 text-base font-bold leading-6 text-slate-600 dark:text-slate-300">
+                {visualizationTitleLines.map((line, index) => (
+                  <MathText
+                    key={`${index}-${line}`}
+                    as="span"
+                    text={line}
+                    className={index === 0 ? "block" : "mt-1 block"}
+                  />
+                ))}
+              </p>
+            ) : null}
             {visualizationContent ? (
               <MathText as="p" text={visualizationContent} className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300" />
             ) : null}
           </div>
           {VisualizationModule ? (
             shouldMountVisualization ? (
-              <>
-                <VisualizationModule
-                  controlFooterAction={usesConfiguredVisualizationFooterAction ? visualizationNextItemAction : undefined}
-                  topicId={visualizationTopicId}
-                  showAxisLabels={showVisualizationAxisLabels}
-                  lab={visualizationLab}
-                />
-                {usesConfiguredVisualizationFooterAction ? null : (
-                  <div className="mt-5 flex justify-end">
-                    {visualizationNextItemAction}
-                  </div>
-                )}
-              </>
+              <VisualizationModule
+                topicId={visualizationTopicId}
+                showAxisLabels={showVisualizationAxisLabels}
+                lab={visualizationLab}
+              />
             ) : (
               <DeferredLessonPanel />
             )
@@ -3264,6 +3511,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
             <LessonQuestionPager
               allAnswersChecked={allLessonPracticeAnswersChecked}
               answerResults={lessonAnswerResults}
+              displayTitle={practiceDisplayTitle}
               lesson={lesson}
               onAnswered={handleLessonQuestionAnswered}
               onCheckAllAnswers={checkAllLessonAnswers}
@@ -3312,10 +3560,43 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       </section>
     </>
   );
+  const lessonTeacherGuideSections = canViewTeacherGuide && teacherGuideBlocks.length ? (
+    <section
+      className="mt-8 grid gap-4"
+      aria-label={t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
+    >
+      {teacherGuideBlocks.map((block) => {
+        const teacherGuideDisplayTitle = lessonPartDisplayByTargetId.get(lessonBlockSectionId(block.id))?.contentTitle ?? text(block.title);
+
+        return (
+          <article key={block.id} id={lessonBlockSectionId(block.id)} className="scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/70 p-6 dark:bg-emerald-950/20 sm:p-8">
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-200">
+              {t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
+            </p>
+            <MathText as="h2" text={teacherGuideDisplayTitle} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
+            {block.content ? (
+              <MathText as="p" text={formatLessonMathText(text(block.content))} className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300" />
+            ) : null}
+            {block.items?.length ? (
+              <ul className="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+                {block.items.map((item, index) => (
+                  <li key={`${block.id}-${index}`} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
+                    <MathText as="span" text={formatLessonMathText(text(item))} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </article>
+        );
+      })}
+    </section>
+  ) : null;
   const lessonContentPanel = (
     <div className="min-w-0">
       <div className="min-w-0">
         <div className="min-w-0 [&>section:first-child]:mt-0">{lessonContentSections}</div>
+        {lessonTeacherGuideSections}
       </div>
     </div>
   );
@@ -3379,60 +3660,72 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       {shouldRenderGalaxyDirectory ? (
         <div
           id={lessonGalaxySectionId}
+          data-lesson-pane-layout="true"
           // The single-column track below `lg` is declared, not implicit. An
           // implicit `auto` track is sized by its content and refuses to shrink
           // below it, so on a phone this grid laid out ~562px wide inside a
           // 393px screen and dragged the whole page into horizontal overflow.
           // `minmax(0,1fr)` lets the column shrink to the viewport instead.
-          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:items-start lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${
+          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:items-stretch lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${lessonDesktopPaneLayoutClassName} ${
             lessonMenu.isHidden
               ? "lg:grid-cols-[3.5rem_minmax(0,1fr)]"
               : "lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)]"
           } ${prefersReducedMotion ? "" : "lg:transition-[grid-template-columns] lg:ease-out"}`}
           style={prefersReducedMotion ? undefined : { transitionDuration: `${lessonMenuColumnDurationMs}ms` }}
         >
-          {lessonMenu.isHidden ? (
-            <LessonMenuRail
-              onDismissCoachMark={lessonMenu.dismissCoachMark}
-              onShow={lessonMenu.showMenu}
-              showCoachMark={lessonMenu.showCoachMark}
-              theme={lessonWorldTheme}
-            />
-          ) : (
-            <AnimatePresence initial={false}>
-              <motion.div
-                ref={lessonMenu.menuPanelRef}
-                id={lessonMenuPanelId}
-                data-tour="student-lesson-map"
-                className="origin-top-right lg:sticky lg:top-24 lg:self-start"
-                initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
-                animate={isGalaxyDirectoryClosing
-                  ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
-                  : lessonMenu.isCollapsing
-                    ? { filter: "blur(2px)", opacity: 0, x: -28 }
-                    : { filter: "blur(0px)", opacity: 1, x: 0, y: 0 }}
-                transition={{
-                  duration: isGalaxyDirectoryClosing
-                    ? lessonGalaxyCollapseDurationMs / 1000
+          <div
+            ref={lessonDirectoryPaneRef}
+            data-lesson-directory-pane="true"
+            className={`min-w-0 ${lessonDesktopScrollablePaneClassName}`}
+          >
+            {lessonMenu.isHidden ? (
+              <LessonMenuRail
+                onDismissCoachMark={lessonMenu.dismissCoachMark}
+                onShow={lessonMenu.showMenu}
+                showCoachMark={lessonMenu.showCoachMark}
+                theme={lessonWorldTheme}
+              />
+            ) : (
+              <AnimatePresence initial={false}>
+                <motion.div
+                  ref={lessonMenu.menuPanelRef}
+                  id={lessonMenuPanelId}
+                  data-tour="student-lesson-map"
+                  className="origin-top-right"
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
+                  animate={isGalaxyDirectoryClosing
+                    ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
                     : lessonMenu.isCollapsing
-                      ? lessonMenu.collapseDurationMs / 1000
-                      : 0.24,
-                  ease: isGalaxyDirectoryClosing ? [0.22, 1, 0.36, 1] : "easeOut"
-                }}
-                style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
-                {...lessonMenu.menuHoldHandlers}
-              >
-                <WorldMenu
-                  currentSlug={slug}
-                  items={lessonGalaxyItems}
-                  lesson={lesson}
-                  modules={gradeLessons}
-                  onHide={lessonMenu.hideMenu}
-                />
-              </motion.div>
-            </AnimatePresence>
-          )}
-          <div className="min-w-0 lg:w-full">
+                      ? { filter: "blur(2px)", opacity: 0, x: -28 }
+                      : { filter: "blur(0px)", opacity: 1, x: 0, y: 0 }}
+                  transition={{
+                    duration: isGalaxyDirectoryClosing
+                      ? lessonGalaxyCollapseDurationMs / 1000
+                      : lessonMenu.isCollapsing
+                        ? lessonMenu.collapseDurationMs / 1000
+                        : 0.24,
+                    ease: isGalaxyDirectoryClosing ? [0.22, 1, 0.36, 1] : "easeOut"
+                  }}
+                  style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
+                  {...lessonMenu.menuHoldHandlers}
+                >
+                  <WorldMenu
+                    currentSlug={slug}
+                    items={lessonGalaxyItems}
+                    lesson={lesson}
+                    modules={lessonModules}
+                    onHide={lessonMenu.hideMenu}
+                    onSelectLessonItem={handleLessonItemSelect}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
+          <div
+            ref={lessonContentPaneRef}
+            data-lesson-content-pane="true"
+            className={`min-w-0 lg:w-full ${lessonDesktopScrollablePaneClassName}`}
+          >
             {lessonContentPanel}
           </div>
         </div>
@@ -3442,61 +3735,37 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         <LessonMenuRevealPill onShow={lessonMenu.showMenu} theme={lessonWorldTheme} />
       ) : null}
 
-      {!shouldRenderGalaxyDirectory ? lessonContentSections : null}
-
-      {canViewTeacherGuide && teacherGuideBlocks.length ? (
-        // Same declared single-column track as the directory grid above, and for
-        // the same reason: an implicit `auto` column would be content-sized.
-        <div className={shouldRenderGalaxyDirectory ? "mt-8 grid grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)] lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12" : ""}>
-          {shouldRenderGalaxyDirectory ? <div aria-hidden="true" className="hidden lg:block" /> : null}
-          <section className={`${shouldRenderGalaxyDirectory ? "min-w-0" : "mt-8"} grid gap-4`} aria-label={t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}>
-            {teacherGuideBlocks.map((block) => (
-              <article key={block.id} id={lessonBlockSectionId(block.id)} className="scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/70 p-6 dark:bg-emerald-950/20 sm:p-8">
-                <p className="text-sm font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-200">
-                  {t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
-                </p>
-                <MathText as="h2" text={text(block.title)} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
-                {block.content ? (
-                  <MathText as="p" text={formatLessonMathText(text(block.content))} className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300" />
-                ) : null}
-                {block.items?.length ? (
-                  <ul className="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                    {block.items.map((item, index) => (
-                      <li key={`${block.id}-${index}`} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
-                        <MathText as="span" text={formatLessonMathText(text(item))} />
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            ))}
-          </section>
-        </div>
+      {!shouldRenderGalaxyDirectory ? (
+        <>
+          {lessonContentSections}
+          {lessonTeacherGuideSections}
+        </>
       ) : null}
 
-      <AnimatePresence>
-        {isSummaryOpen && lessonPracticeSummary ? (
-          <motion.div
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onMouseDown={(event) => {
-              if (event.target === event.currentTarget) setIsSummaryOpen(false);
-            }}
-          >
-            <motion.section
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="lesson-summary-title"
-              aria-describedby="lesson-summary-description"
-              className="max-h-[calc(100dvh-2rem)] w-full max-w-4xl overflow-y-auto rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-2xl shadow-slate-950/25 dark:border-white/10 dark:bg-slate-950 sm:p-6"
-              initial={{ opacity: 0, y: 20, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.98 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
+      <LessonSummaryPortal>
+        <AnimatePresence>
+          {isSummaryOpen && lessonPracticeSummary ? (
+            <motion.div
+              data-lesson-summary-overlay="true"
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/65 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) setIsSummaryOpen(false);
+              }}
             >
+              <motion.section
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="lesson-summary-title"
+                aria-describedby="lesson-summary-description"
+                className="max-h-[calc(100dvh-6rem-env(safe-area-inset-top)-env(safe-area-inset-bottom))] w-full max-w-4xl overflow-y-auto rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-2xl shadow-slate-950/25 dark:border-white/10 dark:bg-slate-950 sm:p-6"
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 12, scale: 0.98 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+              >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
@@ -3519,15 +3788,15 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                       : t(lessonSummaryEncouragement(lessonPracticeSummary.accuracyPercent))}
                   </p>
                 </div>
-                <button
-                  ref={summaryCloseButtonRef}
-                  type="button"
-                  onClick={() => setIsSummaryOpen(false)}
-                  aria-label={t({ en: "Close lesson summary", zh: "關閉課節摘要" })}
-                  className="focus-ring self-start rounded-full border border-slate-200/80 bg-white px-4 py-2 text-lg font-black text-slate-600 transition hover:-translate-y-0.5 hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200 dark:hover:text-white"
-                >
-                  ×
-                </button>
+                  <button
+                    ref={summaryCloseButtonRef}
+                    type="button"
+                    onClick={() => setIsSummaryOpen(false)}
+                    aria-label={t({ en: "Close lesson summary", zh: "關閉課節摘要", zhHans: "关闭课时摘要" })}
+                    className="focus-ring min-h-11 min-w-11 self-start rounded-full border border-slate-200/80 bg-white px-4 py-2 text-lg font-black text-slate-600 transition hover:-translate-y-0.5 hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200 dark:hover:text-white"
+                  >
+                    ×
+                  </button>
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-3">
@@ -3667,10 +3936,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   </div>
                 </section>
               </div>
-            </motion.section>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+              </motion.section>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </LessonSummaryPortal>
       <LessonBackToTopButton />
     </div>
   );

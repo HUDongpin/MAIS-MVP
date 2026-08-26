@@ -161,7 +161,7 @@ export default function ChangePasswordPage() {
           </p>
           <h2 className="mt-3 text-2xl font-black text-slate-950 dark:text-white">{t(changePasswordCopy.signedInAs)}</h2>
           <p className="mt-4 text-sm font-bold text-slate-600 dark:text-slate-300">
-            {currentUser?.name ?? currentUser?.username ?? ""}
+            {currentUser?.name ?? ""}
           </p>
           <Link href="/login" className="focus-ring mt-6 inline-flex rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
             {t({ en: "Use another account", zh: "使用其他帳戶", zhHans: "使用其他账户" })}

@@ -1,7 +1,4 @@
-import v1QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json";
 import v2QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json";
-import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
-import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandHjbHighTopics } from "./mainlandHjbHighTopics";
 import { mapDifficultyToActive } from "@/lib/difficulty";
@@ -35,7 +32,7 @@ type GeneratedHjbQuestionPack = {
 };
 
 export type MainlandHjbHighQuestionGenerationMetadata = {
-  batch: "hjb-v1" | "hjb-v2" | "hjb-v3-remediated" | "hjb-v4-remediated";
+  batch: "hjb-v2";
   grade: Extract<GradeId, "S4" | "S5" | "S6">;
   topicId: string;
   volume: string;
@@ -45,21 +42,15 @@ export type MainlandHjbHighQuestionGenerationMetadata = {
   evidenceCardIds: string[];
   examPatternCardIds: string[];
   sourceDistanceStatus: "passed-auto-source-scan";
-  mathQaStatus: "pass";
-  terminologyQaStatus: "pass";
-  manualQaStatus: "approved";
+  mathQaStatus: GeneratedHjbQuestion["mathQaStatus"];
+  terminologyQaStatus: GeneratedHjbQuestion["terminologyQaStatus"];
+  manualQaStatus: "not-approved";
   independentAnswer: string;
 };
 
-const v1QuestionPack = v1QuestionPackJson as GeneratedHjbQuestionPack;
 const v2QuestionPack = v2QuestionPackJson as GeneratedHjbQuestionPack;
-const v3RemediatedQuestionPack = v3RemediatedQuestionPackJson as GeneratedHjbQuestionPack;
-const v4RemediatedQuestionPack = v4RemediatedQuestionPackJson as GeneratedHjbQuestionPack;
-const approvedQuestionPacks = [
-  { batch: "hjb-v1" as const, questions: v1QuestionPack.questions },
-  { batch: "hjb-v2" as const, questions: v2QuestionPack.questions },
-  { batch: "hjb-v3-remediated" as const, questions: v3RemediatedQuestionPack.questions },
-  { batch: "hjb-v4-remediated" as const, questions: v4RemediatedQuestionPack.questions }
+const candidateQuestionPacks = [
+  { batch: "hjb-v2" as const, questions: v2QuestionPack.questions }
 ];
 const mainlandHjbProfile = { region: "MAINLAND" as const, publisher: "MAINLAND_HJB" as const };
 const topicById = new Map(mainlandHjbHighTopics.map((topic) => [topic.id, topic]));
@@ -91,7 +82,7 @@ function toQuestion(question: GeneratedHjbQuestion): Question {
 
 export const mainlandHjbHighQuestionGenerationMetadata: Record<string, MainlandHjbHighQuestionGenerationMetadata> =
   Object.fromEntries(
-    approvedQuestionPacks.flatMap((pack) => pack.questions.map((question) => [question, pack.batch] as const)).map(([question, batch]) => [
+    candidateQuestionPacks.flatMap((pack) => pack.questions.map((question) => [question, pack.batch] as const)).map(([question, batch]) => [
       question.id,
       {
         batch,
@@ -104,9 +95,9 @@ export const mainlandHjbHighQuestionGenerationMetadata: Record<string, MainlandH
         evidenceCardIds: question.evidenceCardIds,
         examPatternCardIds: question.examPatternCardIds,
         sourceDistanceStatus: question.sourceDistanceStatus,
-        mathQaStatus: "pass",
-        terminologyQaStatus: "pass",
-        manualQaStatus: "approved",
+        mathQaStatus: question.mathQaStatus,
+        terminologyQaStatus: question.terminologyQaStatus,
+        manualQaStatus: "not-approved",
         independentAnswer: question.answer
       }
     ])
@@ -116,14 +107,16 @@ export function independentMainlandHjbHighAnswer(question: Question) {
   return mainlandHjbHighQuestionGenerationMetadata[question.id]?.independentAnswer ?? question.answer;
 }
 
-export const mainlandHjbHighV1Questions: Question[] = v1QuestionPack.questions.map(toQuestion);
-
 export const mainlandHjbHighV2Questions: Question[] = v2QuestionPack.questions.map(toQuestion);
 
-export const mainlandHjbHighV3RemediatedQuestions: Question[] = v3RemediatedQuestionPack.questions.map(toQuestion);
+// Candidate-only compatibility exports contain no live rows. V1, V3-remediated,
+// and V4-remediated stay in their immutable package paths and are deliberately
+// not imported by this adapter.
+export const mainlandHjbHighV1Questions: Question[] = [];
+export const mainlandHjbHighV3RemediatedQuestions: Question[] = [];
+export const mainlandHjbHighV4RemediatedQuestions: Question[] = [];
 
-export const mainlandHjbHighV4RemediatedQuestions: Question[] = v4RemediatedQuestionPack.questions.map(toQuestion);
-
-// V2 is the stable default HJB high-school bank for production surfaces.
-// V1, V3-remediated, and V4-remediated remain available through explicit exports.
-export const mainlandHjbHighQuestions: Question[] = mainlandHjbHighV2Questions;
+// V2 was formerly the production default, but its A18 decision authorized only
+// integration planning. It remains inspectable through the explicit V2 export;
+// the generic runtime export is fail-closed until a full exact-pack promotion.
+export const mainlandHjbHighQuestions: Question[] = [];

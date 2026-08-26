@@ -1,4 +1,3 @@
-import g6G12QuestionPackJson from "./generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json";
 import kG5QuestionPackJson from "./generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json";
 import { mapDifficultyToActive } from "@/lib/difficulty";
 import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, LocalizedText, QuestionType, Topic } from "@/types";
@@ -81,9 +80,10 @@ type TopicSeed = {
 };
 
 const kG5QuestionPack = kG5QuestionPackJson as GeneratedArkansasQuestionPack;
-const g6G12QuestionPack = g6G12QuestionPackJson as GeneratedArkansasQuestionPack;
-const questionPacks = [kG5QuestionPack, g6G12QuestionPack];
-const generatedQuestions = questionPacks.flatMap((pack) => pack.questions);
+// G6-G12 is intentionally not imported here. The current candidate contains
+// rows still pending independent A18 review and therefore cannot shape a live
+// topic or become reachable through the public question API.
+const generatedQuestions = kG5QuestionPack.questions;
 const arkansasProfile = { region: "US", publisher: "US_AR_MATH" } satisfies CurriculumProfile;
 const gradeOrder: ArkansasGradeId[] = ["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"];
 const difficultyOrder: Difficulty[] = ["Low", "Medium", "High"];

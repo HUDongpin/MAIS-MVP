@@ -79,6 +79,9 @@ function resolverHeaders(request: Request) {
   const authorization = request.headers.get("authorization");
   if (authorization) headers.set("Authorization", authorization);
 
+  const expectedUserId = request.headers.get("x-mais-expected-user-id");
+  if (expectedUserId) headers.set("X-MAIS-Expected-User-Id", expectedUserId);
+
   return headers;
 }
 

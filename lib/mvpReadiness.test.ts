@@ -606,22 +606,30 @@ test("Mainland HJB primary lesson illustrations cover approved concept and worke
   assert.deepEqual(issues, []);
 });
 
-test("US Arkansas middle-school lessons stay live while S24 exact-layer illustrations remain withdrawn", () => {
+test("US Arkansas middle-school candidate lessons stay preserved but unreachable pending promotion", () => {
   const slots = ["concept", "worked-example"] as const;
   const topicIds = usArkansasMiddleSchoolLessonSeeds.map((lessonSeed) => lessonSeed.topicId);
-  const topicIdSet = new Set(usArkansasTopics.map((topic) => topic.id));
-  const productionTopicIds = new Set(productionLessonSeeds.map((lessonSeed) => lessonSeed.topicId));
+  const candidateTopicIds = new Set(topicIds);
+  const liveArkansasTopicIds = new Set(usArkansasTopics.map((topic) => topic.id));
+  const liveTopicIds = new Set(topics.map((topic) => topic.id));
+  const liveProductionTopicIds = new Set(productionLessonSeeds.map((lessonSeed) => lessonSeed.topicId));
   const issues: string[] = [];
 
   assert.equal(topicIds.length, 15);
+  assert.equal(candidateTopicIds.size, topicIds.length);
   // Metadata was drafted ahead of S24 exact-layer asset production; no PNG
-  // assets exist, so the live illustration surface is withdrawn (drafts are
-  // preserved in data/usArkansasMiddleSchoolLessonIllustrations.ts).
+  // assets exist. The immutable candidate lesson source remains reviewable,
+  // while its topic, lesson, practice, and illustration projections all stay
+  // outside the live aggregates until an exact promotion closes.
   assert.equal(usArkansasMiddleSchoolLessonIllustrations.length, 0);
 
   topicIds.forEach((topicId) => {
-    if (!topicIdSet.has(topicId)) issues.push(`${topicId}: missing Arkansas live topic`);
-    if (!productionTopicIds.has(topicId)) issues.push(`${topicId}: missing production lesson seed`);
+    if (liveArkansasTopicIds.has(topicId)) issues.push(`${topicId}: candidate remains in Arkansas live topics`);
+    if (liveTopicIds.has(topicId)) issues.push(`${topicId}: candidate remains in the global live topic aggregate`);
+    if (liveProductionTopicIds.has(topicId)) issues.push(`${topicId}: candidate remains in production lesson seeds`);
+    if (questions.some((question) => question.topicId === topicId)) {
+      issues.push(`${topicId}: candidate remains reachable from live practice questions`);
+    }
     slots.forEach((slot) => {
       if (getUsArkansasMiddleSchoolLessonIllustration(topicId, slot)) {
         issues.push(`${topicId}: ${slot} illustration should be withdrawn`);
@@ -633,7 +641,9 @@ test("US Arkansas middle-school lessons stay live while S24 exact-layer illustra
     const blockTypes = new Set(lessonSeed.blocks.map((block) => block.type));
     if (!blockTypes.has("concept")) issues.push(`${lessonSeed.topicId}: missing concept block`);
     if (!blockTypes.has("worked-example")) issues.push(`${lessonSeed.topicId}: missing worked-example block`);
-    if (!lessonSeed.practiceQuestionIds?.length) issues.push(`${lessonSeed.topicId}: missing practice question links`);
+    if (lessonSeed.practiceQuestionIds?.length) {
+      issues.push(`${lessonSeed.topicId}: candidate source retains a live practice-question link`);
+    }
   });
 
   assert.deepEqual(issues, []);
@@ -648,11 +658,11 @@ test("worked-example illustration renderer covers all curriculum lesson units", 
   const kinds = new Set<string>();
   const topicById = new Map(topics.map((topic) => [topic.id, topic]));
 
-  // 490 before the CCSS textbook port; the 64 assigned California topics
-  // (29 K–G5 + 35 G6–G12 chapters) retired their generated worked-example
-  // blocks in favor of interactive CCSS lesson cores (2026-07-19), which
-  // carry their own worked reasoning and need no generated illustration.
-  assert.equal(lessonSeedsWithWorkedExamples.length, 426);
+  // The fail-closed promotion audit removed 239 unverified candidate-backed
+  // lesson seeds from live aggregation. The remaining 187 authored
+  // worked-example units are the exact renderer coverage baseline; candidate
+  // source modules are tested separately and must not inflate this live count.
+  assert.equal(lessonSeedsWithWorkedExamples.length, 187);
 
   lessonSeedsWithWorkedExamples.forEach((lessonSeed) => {
     const workedExample = lessonSeed.blocks.find((block) => block.type === "worked-example");
@@ -850,7 +860,7 @@ test("session tokens require an explicit production secret", async () => {
     delete process.env.NEXTAUTH_SECRET;
     setEnv("NODE_ENV", "production");
 
-    await assert.rejects(() => createSessionToken("student-peter"));
+    await assert.rejects(() => createSessionToken({ userId: "student-peter", sessionRevision: 1 }));
     assert.equal(await verifySessionToken("invalid.token"), null);
   } finally {
     restoreEnv("AUTH_SESSION_SECRET", previousSecret);
@@ -869,7 +879,11 @@ test("session tokens verify with a configured secret", async () => {
     delete process.env.NEXTAUTH_SECRET;
     setEnv("NODE_ENV", "production");
 
-    const token = await createSessionToken("student-peter", Date.UTC(2026, 4, 7));
+    const token = await createSessionToken({
+      userId: "student-peter",
+      sessionRevision: 1,
+      now: Date.UTC(2026, 4, 7)
+    });
     const payload = await verifySessionToken(token, Date.UTC(2026, 4, 7));
 
     assert.equal(payload?.sub, "student-peter");

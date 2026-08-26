@@ -1,4 +1,3 @@
-import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
 import type { GradeId } from "@/types";
 
 export {
@@ -35,10 +34,6 @@ const generatedChapterPattern = /^us-ca-math-(p6|s1|s2|s3|s4|s5|s6)-chapter-(\d+
 
 function letterForIndex(index: number) {
   return String.fromCharCode("A".charCodeAt(0) + index);
-}
-
-function stripCodePrefix(title: string, code: string) {
-  return title.replace(new RegExp(`^${code.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s+`), "");
 }
 
 function stripCaliforniaGradePrefix(title: string) {
@@ -230,18 +225,7 @@ const californiaK5KnowledgePointSpecs: CaliforniaKnowledgePoint[] = [
   }
 ];
 
-const californiaMicroKnowledgePointSpecs: CaliforniaKnowledgePoint[] =
-  californiaElementaryMicroLessonSpecs.map((lesson) => ({
-    topicId: lesson.topicId,
-    grade: lesson.grade,
-    code: lesson.knowledgePointCode,
-    title: stripCodePrefix(lesson.maisTitle, lesson.knowledgePointCode)
-  }));
-
-export const californiaStaticKnowledgePointSpecs: CaliforniaKnowledgePoint[] = [
-  ...californiaK5KnowledgePointSpecs,
-  ...californiaMicroKnowledgePointSpecs
-];
+export const californiaStaticKnowledgePointSpecs: CaliforniaKnowledgePoint[] = californiaK5KnowledgePointSpecs;
 
 export const californiaStaticKnowledgePointByTopicId = new Map(
   californiaStaticKnowledgePointSpecs.map((knowledgePoint) => [knowledgePoint.topicId, knowledgePoint])

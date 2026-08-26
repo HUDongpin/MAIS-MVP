@@ -2972,10 +2972,10 @@ test("teacher ops assessment persistence owns seed assessment records for legacy
       source_type: "question-bank",
       source_resource_id: undefined,
       question_ids: [
-        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q01",
-        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q02",
-        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q03",
-        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q04"
+        "ccss-textbook-practice-v1-make-ten-to-add-q01",
+        "ccss-textbook-practice-v1-make-ten-to-add-q02",
+        "ccss-textbook-practice-v1-make-ten-to-add-q03",
+        "ccss-textbook-practice-v1-add-subtract-stories-q01"
       ],
       manual_questions: [],
       paper_sections: [],

@@ -46,6 +46,7 @@ function previewFixture(patch: Partial<TeacherReportPreview> = {}): TeacherRepor
     subtitle: "S3 Algebra",
     generatedAt: "2026-06-20T10:00:00.000Z",
     subjectName: "Class 3A",
+    classId: "class-1",
     className: "3A",
     metrics: {
       learningMinutes: 120,
@@ -65,6 +66,9 @@ function previewFixture(patch: Partial<TeacherReportPreview> = {}): TeacherRepor
 
 function createDatabase(): TeacherOpsReportPersistenceDatabase {
   return {
+    class_enrollments: [
+      { class_id: "class-1", student_id: "student-1" }
+    ],
     student_profiles: [
       {
         user_id: "teacher-1",
@@ -447,8 +451,9 @@ test("teacher ops report persistence stores parent-summary preview JSON and reje
   const store = createTestStore(database);
   const preview = previewFixture({
     type: "parent-summary",
+    studentId: "student-1",
     subjectName: "Ada Student",
-    className: undefined
+    className: "3A"
   });
 
   const result = await store.saveTeacherReportPreview("teacher-1", preview);
@@ -457,6 +462,136 @@ test("teacher ops report persistence stores parent-summary preview JSON and reje
   assert.equal(result.report.studentId, "student-1");
   assert.deepEqual(result.report.preview, JSON.parse(JSON.stringify(preview)));
   assert.deepEqual(await store.saveTeacherReportPreview("student-1", preview), { status: "forbidden" });
+});
+
+test("parent-summary preview rejects a student outside the requested accessible class", async () => {
+  const database = createReportPreviewDatabase();
+  database.users.push({ id: "teacher-2", role: "teacher" }, { id: "student-3", role: "student" });
+  database.student_profiles.push({ user_id: "student-3", name: "Outside Student", grade: "S3" });
+  database.teacher_classes.push({ id: "class-2", teacher_id: "teacher-2", name: "Other Class", grade: "S3" });
+  database.class_enrollments?.push({ class_id: "class-2", student_id: "student-3" });
+
+  const preview = await createTestStore(database).getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "parent-summary",
+    language: "en",
+    classId: "class-1",
+    studentId: "student-3"
+  });
+
+  assert.equal(preview, null);
+});
+
+test("parent-summary preview carries the authorized stable class and student ids", async () => {
+  const preview = await createTestStore(createReportPreviewDatabase()).getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "parent-summary",
+    language: "en",
+    classId: "class-1",
+    studentId: "student-1"
+  });
+
+  assert.equal(preview?.classId, "class-1");
+  assert.equal(preview?.studentId, "student-1");
+});
+
+for (const type of ["student", "parent-summary"] as const) {
+  test(`${type} preview requires explicit non-empty classId and studentId`, async () => {
+    const store = createTestStore(createDatabase());
+
+    const missingClassId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      studentId: "student-1"
+    });
+    const emptyClassId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      classId: "",
+      studentId: "student-1"
+    });
+    const missingStudentId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      classId: "class-1"
+    });
+    const emptyStudentId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      classId: "class-1",
+      studentId: ""
+    });
+
+    assert.deepEqual(
+      { missingClassId, emptyClassId, missingStudentId, emptyStudentId },
+      { missingClassId: null, emptyClassId: null, missingStudentId: null, emptyStudentId: null }
+    );
+  });
+
+  test(`${type} save rejects missing or empty stable ids without inserting`, async () => {
+    const database = createDatabase();
+    const store = createTestStore(database);
+    const originalReportIds = database.teacher_reports.map((report) => report.id);
+
+    const results = await Promise.all([
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: undefined, studentId: "student-1" })),
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: "", studentId: "student-1" })),
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: "class-1", studentId: undefined })),
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: "class-1", studentId: "" }))
+    ]);
+
+    assert.deepEqual(results, Array.from({ length: 4 }, () => ({ status: "not-found" })));
+    assert.deepEqual(database.teacher_reports.map((report) => report.id), originalReportIds);
+  });
+}
+
+test("student-scoped report preview never derives a class from studentId", async () => {
+  const source = await readFile(path.join(process.cwd(), "lib/server/userStore/teacherOpsReportPersistence.ts"), "utf8");
+
+  assert.doesNotMatch(source, /teacherClassForStudent/);
+});
+
+test("parent-summary save binds stable ids instead of duplicate display names", async () => {
+  const database = createDatabase();
+  database.users.push({ id: "teacher-2", role: "teacher" }, { id: "student-other", role: "student" });
+  database.teacher_classes.unshift({ id: "class-other", teacher_id: "teacher-2", name: "3A" });
+  database.student_profiles.unshift({ user_id: "student-other", name: "Ada Student", grade: "S3" });
+  const store = createTestStore(database);
+
+  const result = await store.saveTeacherReportPreview("teacher-1", previewFixture({
+    type: "parent-summary",
+    classId: "class-1",
+    studentId: "student-1",
+    subjectName: "Ada Student"
+  }));
+
+  assert.equal(result.status, "saved");
+  assert.equal(result.report.classId, "class-1");
+  assert.equal(result.report.studentId, "student-1");
+});
+
+test("parent-summary save rejects stable ids outside the teacher scope", async () => {
+  const database = createDatabase();
+  database.users.push({ id: "teacher-2", role: "teacher" }, { id: "student-other", role: "student" });
+  database.teacher_classes.push({ id: "class-other", teacher_id: "teacher-2", name: "Other" });
+  database.student_profiles.push({ user_id: "student-other", name: "Other Student", grade: "S3" });
+  database.class_enrollments = [{ class_id: "class-other", student_id: "student-other" }];
+  const store = createTestStore(database);
+
+  const result = await store.saveTeacherReportPreview("teacher-1", previewFixture({
+    type: "parent-summary",
+    classId: "class-other",
+    studentId: "student-other",
+    subjectName: "Other Student",
+    className: "Other"
+  }));
+
+  assert.deepEqual(result, { status: "not-found" });
+  assert.equal(database.teacher_reports.some((report) => report.student_id === "student-other"), false);
 });
 
 test("teacher ops report persistence lists scoped reports without legacy userStore imports", async () => {
@@ -468,10 +603,149 @@ test("teacher ops report persistence lists scoped reports without legacy userSto
 
   assert.deepEqual(reports?.map((report: TeacherReport) => report.id), [
     "report-shared",
-    "report-unscoped",
     "report-owned-old"
   ]);
-  assert.equal(reports?.[1]?.preview?.title, "Unscoped");
+  assert.equal(JSON.stringify(reports).includes("Unscoped"), false);
+});
+
+test("student-scoped report history requires a real class enrollment pair for teachers and admins", async () => {
+  const database = createReportListDatabase();
+  database.class_enrollments = [
+    { class_id: "class-owned", student_id: "student-owned" },
+    { class_id: "class-other", student_id: "student-other" }
+  ];
+  database.teacher_reports.unshift(
+    {
+      id: "report-valid-owned-student",
+      type: "student",
+      title_en: "Owned student",
+      title_zh: "Owned student",
+      class_id: "class-owned",
+      student_id: "student-owned",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-28T00:00:00.000Z",
+      summary_en: "Owned student summary",
+      summary_zh: "Owned student summary"
+    },
+    {
+      id: "report-valid-owned-parent",
+      type: "parent-summary",
+      title_en: "Owned parent",
+      title_zh: "Owned parent",
+      class_id: "class-owned",
+      student_id: "student-owned",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-27T00:00:00.000Z",
+      summary_en: "Owned parent summary",
+      summary_zh: "Owned parent summary"
+    },
+    {
+      id: "report-valid-other-student",
+      type: "student",
+      title_en: "Other student",
+      title_zh: "Other student",
+      class_id: "class-other",
+      student_id: "student-other",
+      generated_by: "teacher-2",
+      generated_at: "2026-06-26T00:00:00.000Z",
+      summary_en: "Other student summary",
+      summary_zh: "Other student summary"
+    },
+    {
+      id: "report-foreign-pair-student",
+      type: "student",
+      title_en: "Foreign pair student",
+      title_zh: "Foreign pair student",
+      class_id: "class-owned",
+      student_id: "student-other",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-25T00:00:00.000Z",
+      summary_en: "FOREIGN_STUDENT_SECRET",
+      summary_zh: "FOREIGN_STUDENT_SECRET"
+    },
+    {
+      id: "report-foreign-pair-parent",
+      type: "parent-summary",
+      title_en: "Foreign pair parent",
+      title_zh: "Foreign pair parent",
+      class_id: "class-owned",
+      student_id: "student-other",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-24T00:00:00.000Z",
+      summary_en: "FOREIGN_PARENT_SECRET",
+      summary_zh: "FOREIGN_PARENT_SECRET"
+    },
+    {
+      id: "report-missing-student",
+      type: "student",
+      title_en: "Missing student",
+      title_zh: "Missing student",
+      class_id: "class-owned",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-23T00:00:00.000Z",
+      summary_en: "MISSING_STUDENT_SECRET",
+      summary_zh: "MISSING_STUDENT_SECRET"
+    }
+  );
+
+  const teacherReports = await createTestStore(database).getTeacherReports("teacher-1");
+  const adminReports = await createTestStore(database).getTeacherReports("admin-1");
+  const studentScopedIds = (reports: TeacherReport[] | null) => reports
+    ?.filter((report) => report.type === "student" || report.type === "parent-summary")
+    .map((report) => report.id);
+
+  assert.deepEqual(studentScopedIds(teacherReports), [
+    "report-valid-owned-student",
+    "report-valid-owned-parent"
+  ]);
+  assert.deepEqual(studentScopedIds(adminReports), [
+    "report-valid-owned-student",
+    "report-valid-owned-parent",
+    "report-valid-other-student"
+  ]);
+  assert.doesNotMatch(JSON.stringify(teacherReports), /FOREIGN_|MISSING_STUDENT/u);
+  assert.doesNotMatch(JSON.stringify(adminReports), /FOREIGN_|MISSING_STUDENT/u);
+});
+
+test("ordinary teachers cannot read another teacher's unscoped sensitive preview and only retain their own non-parent legacy reports", async () => {
+  const database = createReportListDatabase();
+  database.teacher_reports.unshift(
+    {
+      id: "report-other-unscoped-sensitive",
+      type: "class",
+      title_en: "Other teacher private report",
+      title_zh: "Other teacher private report",
+      generated_by: "teacher-2",
+      generated_at: "2026-06-24T00:00:00.000Z",
+      summary_en: "CROSS_TEACHER_SECRET_SUMMARY",
+      summary_zh: "CROSS_TEACHER_SECRET_SUMMARY",
+      preview_json: JSON.stringify(previewFixture({
+        title: "CROSS_TEACHER_SECRET_PREVIEW",
+        teacherRemarks: "CROSS_TEACHER_SECRET_REMARK"
+      }))
+    },
+    {
+      id: "report-own-unscoped-legacy",
+      type: "class",
+      title_en: "Own legacy report",
+      title_zh: "Own legacy report",
+      generated_by: "teacher-1",
+      generated_at: "2026-06-23T00:00:00.000Z",
+      summary_en: "Own legacy summary",
+      summary_zh: "Own legacy summary"
+    }
+  );
+
+  const reports = await createTestStore(database).getTeacherReports("teacher-1");
+  const serialized = JSON.stringify(reports);
+
+  assert.deepEqual(reports?.map((report) => report.id), [
+    "report-own-unscoped-legacy",
+    "report-shared",
+    "report-owned-old"
+  ]);
+  assert.doesNotMatch(serialized, /CROSS_TEACHER_SECRET/);
+  assert.equal(reports?.some((report) => report.id === "report-unscoped"), false);
 });
 
 test("teacher ops report persistence supports admins and rejects non-teachers", async () => {
@@ -480,7 +754,6 @@ test("teacher ops report persistence supports admins and rejects non-teachers", 
   assert.deepEqual((await store.getTeacherReports("admin-1"))?.map((report: TeacherReport) => report.id), [
     "report-other-new",
     "report-shared",
-    "report-unscoped",
     "report-owned-old"
   ]);
   assert.equal(await store.getTeacherReports("student-1"), null);
@@ -522,6 +795,121 @@ test("teacher ops report persistence builds class report previews without legacy
   assert.deepEqual(preview?.mistakeTypes, ["Factorisation: 3 wrong attempts"]);
   assert.deepEqual(preview?.suggestedPractice, ["Redo Factorisation (50%)"]);
   assert.equal(preview?.teacherRemarks, "Bring manipulatives.");
+});
+
+test("explicit invalid assignment and assessment ids fail closed while omitted ids may use the first accessible target", async () => {
+  const store = createTestStore(createReportPreviewDatabase());
+
+  const [missingAssignment, emptyAssignment, missingAssessment, emptyAssessment] = await Promise.all([
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-1",
+      assignmentId: "assignment-does-not-exist"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-1",
+      assignmentId: ""
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-1",
+      assessmentId: "assessment-does-not-exist"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-1",
+      assessmentId: ""
+    })
+  ]);
+
+  assert.deepEqual(
+    { missingAssignment, emptyAssignment, missingAssessment, emptyAssessment },
+    { missingAssignment: null, emptyAssignment: null, missingAssessment: null, emptyAssessment: null }
+  );
+
+  const defaultAssignment = await store.getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "assignment",
+    language: "en",
+    classId: "class-1"
+  });
+  const defaultAssessment = await store.getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "assessment",
+    language: "en",
+    classId: "class-1"
+  });
+  assert.equal(defaultAssignment?.subjectName, "Linear Homework");
+  assert.equal(defaultAssessment?.subjectName, "Linear Quiz");
+});
+
+test("explicit assignment and assessment class ids must match the selected target across two accessible classes", async () => {
+  const database = createReportPreviewDatabase();
+  database.teacher_classes.push({
+    id: "class-2",
+    teacher_id: "teacher-1",
+    name: "3B",
+    grade: "S3"
+  });
+  database.class_enrollments?.push({ class_id: "class-2", student_id: "student-2" });
+  database.assignments?.push({
+    id: "assignment-2",
+    class_id: "class-2",
+    title_en: "Geometry Homework",
+    title_zh: "幾何作業"
+  });
+  database.assessments?.push({
+    id: "assessment-2",
+    class_id: "class-2",
+    title_en: "Geometry Quiz",
+    title_zh: "幾何小測"
+  });
+  const store = createTestStore(database);
+
+  const [assignmentMismatch, assessmentMismatch, matchingAssignment, matchingAssessment] = await Promise.all([
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-2",
+      assignmentId: "assignment-1"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-2",
+      assessmentId: "assessment-1"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assignment",
+      language: "en",
+      classId: "class-2",
+      assignmentId: "assignment-2"
+    }),
+    store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type: "assessment",
+      language: "en",
+      classId: "class-2",
+      assessmentId: "assessment-2"
+    })
+  ]);
+
+  assert.equal(assignmentMismatch, null);
+  assert.equal(assessmentMismatch, null);
+  assert.equal(matchingAssignment?.classId, "class-2");
+  assert.equal(matchingAssessment?.classId, "class-2");
 });
 
 test("teacher ops report persistence builds report page data without eager preview generation", async () => {
@@ -569,7 +957,14 @@ test("teacher ops report persistence owns report projection helpers", async () =
   assert.equal(typeof helpers.readTeacherOpsReportPreview, "function");
   assert.equal(typeof helpers.toTeacherOpsReport, "function");
   assert.deepEqual(readTeacherOpsReportPreview(JSON.stringify(preview)), preview);
-  assert.equal(readTeacherOpsReportPreview("not-json"), undefined);
+  assert.throws(() => readTeacherOpsReportPreview("not-json"), /Invalid teacher report preview/);
+  assert.throws(
+    () => readTeacherOpsReportPreview(JSON.stringify({
+      ...preview,
+      strengths: [{ answerText: "raw minor answer", providerMessageId: "private-provider-id" }]
+    })),
+    /Invalid teacher report preview/
+  );
   assert.deepEqual(toTeacherOpsReport({
     id: "report-1",
     type: "class",
@@ -732,7 +1127,9 @@ test("teacher ops report persistence owns seed teacher report records for legacy
     subtitle: "HK Student Peter · S3A Mathematics",
     generatedAt: "2026-06-20T10:00:00.000Z",
     subjectName: "HK Student Peter",
+    classId: "class-s3a-2026",
     className: "S3A Mathematics",
+    studentId: "student-peter",
     metrics: {
       learningMinutes: 95,
       masteryChange: 8,

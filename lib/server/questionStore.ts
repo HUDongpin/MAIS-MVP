@@ -105,9 +105,6 @@ async function mainlandPepQuestions(grade?: GradeId) {
 async function mainlandBnuQuestions(grade?: GradeId) {
   const band = gradeBand(grade);
   const loaders = [
-    ...(band === "primary" || band === "all"
-      ? [() => optionalQuestionModule(async () => (await import("@/data/mainlandBnuPrimaryQuestions")).mainlandBnuPrimaryQuestions)]
-      : []),
     ...(band === "junior" || band === "all"
       ? [() => optionalQuestionModule(async () => (await import("@/data/mainlandBnuJuniorQuestions")).mainlandBnuJuniorQuestions)]
       : []),
@@ -121,14 +118,8 @@ async function mainlandBnuQuestions(grade?: GradeId) {
 async function mainlandHjbQuestions(grade?: GradeId) {
   const band = gradeBand(grade);
   const loaders = [
-    ...(band === "primary" || band === "all"
-      ? [() => optionalQuestionModule(async () => (await import("@/data/mainlandHjbPrimaryQuestions")).mainlandHjbPrimaryQuestions)]
-      : []),
     ...(band === "junior" || band === "all"
       ? [() => optionalQuestionModule(async () => (await import("@/data/mainlandHjbJuniorQuestions")).mainlandHjbJuniorQuestions)]
-      : []),
-    ...(band === "high" || band === "all"
-      ? [() => optionalQuestionModule(async () => (await import("@/data/mainlandHjbHighQuestions")).mainlandHjbHighQuestions)]
       : [])
   ];
   return uniqueQuestions((await Promise.all(loaders.map((loader) => loader()))).flat());
@@ -139,7 +130,7 @@ async function unitedStatesQuestions(profile: CurriculumProfile) {
     return optionalQuestionModule(async () => (await import("@/data/usArkansasQuestions")).usArkansasQuestions);
   }
   if (profile.publisher === "US_FL_MATH") {
-    return optionalQuestionModule(async () => (await import("@/data/usFloridaMiddleSchoolQuestions")).usFloridaMiddleSchoolQuestions);
+    return [];
   }
   if (profile.publisher === "US_NC_MATH") {
     return optionalQuestionModule(async () => (await import("@/data/usMathQuestions")).usMathLiveQuestions);

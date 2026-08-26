@@ -235,8 +235,10 @@ async function expectHjbSession(page: Page, baseURL: string, role: "student" | "
   expect(session.user.curriculumProfile?.publisher).toBe("MAINLAND_HJB");
 }
 
-async function getStudentHjbLessonSlug(page: Page, baseURL: string, grade = "S4") {
-  const response = await page.request.get(appUrl(baseURL, `/api/lesson-entry?grade=${encodeURIComponent(grade)}`));
+async function getStudentHjbLessonSlug(page: Page, baseURL: string, expectedUserId: string, grade = "S4") {
+  const response = await page.request.get(appUrl(baseURL, `/api/lesson-entry?grade=${encodeURIComponent(grade)}`), {
+    headers: { "X-MAIS-Expected-User-Id": expectedUserId }
+  });
   expect(response.status(), `GET /api/lesson-entry for Mainland HJB ${grade} student`).toBe(200);
   const body = (await response.json()) as LessonEntryResponse;
   expect(body.lessonEntryTarget?.slug, "HJB student receives a lesson entry slug").toBeTruthy();
@@ -245,8 +247,10 @@ async function getStudentHjbLessonSlug(page: Page, baseURL: string, grade = "S4"
   return body.lessonEntryTarget?.slug ?? "";
 }
 
-async function getTeacherHjbLessonSlug(page: Page, baseURL: string, grade = "S4") {
-  const response = await page.request.get(appUrl(baseURL, `/api/lesson-entry?grade=${encodeURIComponent(grade)}`));
+async function getTeacherHjbLessonSlug(page: Page, baseURL: string, expectedUserId: string, grade = "S4") {
+  const response = await page.request.get(appUrl(baseURL, `/api/lesson-entry?grade=${encodeURIComponent(grade)}`), {
+    headers: { "X-MAIS-Expected-User-Id": expectedUserId }
+  });
   expect(response.status(), `GET /api/lesson-entry for Mainland HJB ${grade} teacher`).toBe(200);
   const body = (await response.json()) as LessonEntryResponse;
   expect(body.lessonEntryTarget?.slug, "HJB teacher receives a lesson entry slug").toBeTruthy();
@@ -390,9 +394,9 @@ test.describe("Mainland HJB high approved lesson and practice release gate", () 
 
     const student = await newPage(browser);
     try {
-      await registerHjbAccount(student.page, resolvedBaseURL, testInfo, "student");
+      const studentAccount = await registerHjbAccount(student.page, resolvedBaseURL, testInfo, "student");
       await expectHjbSession(student.page, resolvedBaseURL, "student");
-      slug = await getStudentHjbLessonSlug(student.page, resolvedBaseURL);
+      slug = await getStudentHjbLessonSlug(student.page, resolvedBaseURL, studentAccount.session.user.id);
       const lesson = await expectHjbLessonApi(student.page, resolvedBaseURL, slug);
       title = lesson.title?.zhHans ?? lesson.title?.zh ?? lesson.title?.en ?? "";
       expect(title, "HJB lesson title is present").toBeTruthy();
@@ -408,7 +412,7 @@ test.describe("Mainland HJB high approved lesson and practice release gate", () 
       setUserRole(teacherAccount.session.user.id, "teacher");
       await loginHjbAccount(teacher.page, resolvedBaseURL, teacherAccount.username, teacherAccount.password);
       await expectHjbSession(teacher.page, resolvedBaseURL, "teacher");
-      expect(await getTeacherHjbLessonSlug(teacher.page, resolvedBaseURL)).toBe(slug);
+      expect(await getTeacherHjbLessonSlug(teacher.page, resolvedBaseURL, teacherAccount.session.user.id)).toBe(slug);
       await expectHjbLessonApi(teacher.page, resolvedBaseURL, slug);
       await expectApprovedPracticeQuestions(teacher.page, resolvedBaseURL);
       await expectTeacherLessonPage(teacher.page, resolvedBaseURL, slug, title);
@@ -426,9 +430,9 @@ test.describe("Mainland HJB high approved lesson and practice release gate", () 
     for (const grade of ["S1", "S2", "S3"]) {
       const student = await newPage(browser);
       try {
-        await registerHjbAccount(student.page, resolvedBaseURL, testInfo, `junior-${grade}`, grade);
+        const studentAccount = await registerHjbAccount(student.page, resolvedBaseURL, testInfo, `junior-${grade}`, grade);
         await expectHjbSession(student.page, resolvedBaseURL, "student", grade);
-        const slug = await getStudentHjbLessonSlug(student.page, resolvedBaseURL, grade);
+        const slug = await getStudentHjbLessonSlug(student.page, resolvedBaseURL, studentAccount.session.user.id, grade);
         expect(slug).toMatch(/^hjb-junior-/);
         const lesson = await expectHjbLessonApi(student.page, resolvedBaseURL, slug, grade, 8, /^hjb-junior-ds-v2-/i);
         const title = lesson.title?.zhHans ?? lesson.title?.zh ?? lesson.title?.en ?? "";

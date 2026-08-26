@@ -24,25 +24,24 @@ test("teacher shell and foundation data use cross-request cache by teacher id", 
   assert.match(helperSource, /revalidate:\s*300/);
 });
 
-test("Teacher Scott first dashboard entry stays on the lightweight fixed-demo auth and shell path", async () => {
+test("Teacher Scott fixed-demo shell remains behind persisted revision-aware authentication", async () => {
   const helperSource = await readFile(path.join(process.cwd(), "app/teacher/getTeacherFoundation.ts"), "utf8");
 
   assert.doesNotMatch(helperSource, /from ["']@\/lib\/server\/auth["']/);
   assert.doesNotMatch(helperSource, /from ["']@\/lib\/server\/userStore["']/);
-  assert.match(helperSource, /verifySessionToken/);
-  assert.match(helperSource, /getInternalFastNoClassTeacherSessionByUserId/);
+  assert.doesNotMatch(helperSource, /verifySessionToken/);
+  assert.doesNotMatch(helperSource, /getInternalFastNoClassTeacherSessionByUserId/);
   assert.match(helperSource, /getInternalFastNoClassTeacherShellByUserId/);
   assert.match(helperSource, /await import\("@\/lib\/server\/auth"\)/);
   assert.match(helperSource, /await import\("@\/lib\/server\/userStore"\)/);
 
-  const fastSessionIndex = helperSource.indexOf("const fastNoClassTeacherSession = getInternalFastNoClassTeacherSessionByUserId");
   const fastShellIndex = helperSource.indexOf("const fastNoClassTeacherShell = getInternalFastNoClassTeacherShellByUserId");
   const authImportIndex = helperSource.indexOf('await import("@/lib/server/auth")');
   const storageShellCallIndex = helperSource.indexOf("cachedTeacherShellDataByUserId(authenticated.user.id)");
 
   assert.ok(
-    fastSessionIndex !== -1 && authImportIndex !== -1 && fastSessionIndex < authImportIndex,
-    "Teacher Scott auth should resolve before importing storage-backed auth."
+    authImportIndex !== -1 && fastShellIndex !== -1 && authImportIndex < fastShellIndex,
+    "Teacher Scott's fixed-demo shell must only be considered after persisted session authentication."
   );
   // The fixed-demo shell must only be a FALLBACK after the cached store shell read.
   // Serving it unconditionally hid real classes (seeded or newly created) from the

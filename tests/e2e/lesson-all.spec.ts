@@ -91,7 +91,7 @@ const requestedLessonQaLimit = (() => {
   const parsed = Number.parseInt(process.env.LESSON_QA_LIMIT ?? "", 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
 })();
-const lessonQuestionAutoAdvanceTimeoutMs = 2_200;
+const lessonQuestionAutoAdvanceTimeoutMs = 4_200;
 
 function lessonTargets() {
   const targets = topics

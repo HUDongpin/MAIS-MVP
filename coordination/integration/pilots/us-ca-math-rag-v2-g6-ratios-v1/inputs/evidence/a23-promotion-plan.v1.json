@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a23-promotion-plan-v1",
+  "role": "A23",
+  "result": "pass",
+  "producedAt": "2026-08-25T00:00:00.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a23-shadow-plan.v1",
+    "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+    "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+    "mode": "shadow",
+    "currentState": "shadow_ready",
+    "requestedState": "shadow_passed",
+    "authorizations": {
+      "shadow": true,
+      "integration": false,
+      "live": false,
+      "preview": false,
+      "deploy": false
+    },
+    "operationPlan": {
+      "outputs": [
+        {
+          "kind": "safe-card",
+          "path": "cluster-safe-card.shadow.v1.json"
+        },
+        {
+          "kind": "practice",
+          "path": "practice-item.shadow.v1.json"
+        },
+        {
+          "kind": "lesson",
+          "path": "lesson.shadow.v1.json"
+        }
+      ],
+      "rollback": "delete-and-verify-absent"
+    },
+    "preflightMarkerScan": {
+      "schemaVersion": "promotion-runtime-marker-scan.v1",
+      "scanKind": "all-bytes-exact-needle",
+      "roots": [
+        "app",
+        "components",
+        "data",
+        "lib",
+        "public"
+      ],
+      "fileCount": 3666,
+      "byteCount": 337194582,
+      "candidatePathNeedles": [
+        "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+        "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+        "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json"
+      ],
+      "identityNeedles": [
+        "us-ca-math-rag-v2-g6-ratios-v1",
+        "us-ca-math-rag-v2-candidate",
+        "ca-rag-v2-cluster-grade-6-6-rp-ratios",
+        "s04-ca-rag-v2-q031-6-rp-ratios",
+        "s05-ca-rag-v2-lesson-031-6-rp-ratios"
+      ],
+      "candidatePathHits": [],
+      "identityMarkerHits": [],
+      "selectedCandidateMarkerReachable": false,
+      "nonliteralDynamicImportsAssessed": false,
+      "finalRegistryScanRequired": true
+    },
+    "canonicalRuntimeSurfaceV1": {
+      "status": "frozen",
+      "roots": [
+        "app",
+        "components",
+        "data",
+        "lib",
+        "public"
+      ],
+      "entrypoints": [
+        "data/rag/usMath.ts",
+        "lib/rag/usMath.ts",
+        "data/usCaliforniaTopics.ts",
+        "data/usCaliforniaQuestions.ts",
+        "data/questions.ts",
+        "data/usCaliforniaLessons.ts",
+        "data/lessons.ts",
+        "lib/server/questionStore.ts",
+        "lib/server/userStore.ts",
+        "app/api/questions/route.ts",
+        "app/api/lesson-entry/route.ts",
+        "app/api/lessons/[slug]/route.ts",
+        "app/practice/page.tsx",
+        "components/providers/AppProviders.tsx",
+        "components/lesson/lessonEntryTarget.ts",
+        "components/lesson/StudentLessonPage.tsx",
+        "components/lesson/StudentLessonEntryPage.tsx",
+        "components/lesson/LessonView.tsx",
+        "app/student/lessons/route.ts"
+      ]
+    },
+    "liveAllowed": false
+  }
+}

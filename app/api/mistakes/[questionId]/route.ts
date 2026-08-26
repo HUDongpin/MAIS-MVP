@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { deleteMistake, markMistakeMastered } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
@@ -16,6 +20,13 @@ export async function PATCH(request: Request, context: RouteContext) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
+
   const { questionId } = await context.params;
   const mistake = await markMistakeMastered(authenticated.user.id, decodeURIComponent(questionId));
   if (!mistake) {
@@ -30,6 +41,13 @@ export async function DELETE(request: Request, context: RouteContext) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
 
   const { questionId } = await context.params;
   const deleted = await deleteMistake(authenticated.user.id, decodeURIComponent(questionId));

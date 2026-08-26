@@ -4,6 +4,7 @@ import {
   authenticateAsTeacher,
   collectPageErrors,
   demoStudent,
+  demoTeacherUserId,
   expectDownloadFrom,
   expectNoPageErrors,
   fixturePath,
@@ -227,18 +228,22 @@ test.describe("teacher action endpoint sanity", () => {
       expect.soft(await resourceDownload.text()).toContain("File name: s3-quadratics-intro.pptx");
     }
 
-    const reportPdf = await page.request.get("/api/teacher/report-exports?format=pdf&type=class&language=en&classId=class-s3a-2026&remarks=Endpoint%20sanity");
+    const reportPdf = await page.request.get("/api/teacher/report-exports?format=pdf&type=class&language=en&classId=class-s3a-2026&remarks=Endpoint%20sanity", {
+      headers: { "X-MAIS-Expected-User-Id": demoTeacherUserId }
+    });
     expect.soft(reportPdf.status(), "teacher report PDF route should return a PDF").toBe(200);
     if (reportPdf.ok()) {
       expect.soft(reportPdf.headers()["content-type"]).toContain("application/pdf");
     }
 
     const reportSave = await page.request.post("/api/teacher/saved-reports", {
+      headers: { "X-MAIS-Expected-User-Id": demoTeacherUserId },
       data: {
         type: "class",
         language: "en",
         classId: "class-s3a-2026",
-        remarks: "Endpoint sanity save"
+        remarks: "Endpoint sanity save",
+        expectedUserId: demoTeacherUserId
       }
     });
     expect.soft([200, 201], "teacher report save route should persist a valid report request").toContain(reportSave.status());

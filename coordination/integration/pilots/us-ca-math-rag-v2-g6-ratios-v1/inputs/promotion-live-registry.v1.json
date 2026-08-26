@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "promotion-live-registry.v1",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+  "roots": [
+    "app",
+    "components",
+    "data",
+    "lib",
+    "public"
+  ],
+  "entrypoints": [
+    "data/rag/usMath.ts",
+    "lib/rag/usMath.ts",
+    "data/usCaliforniaTopics.ts",
+    "data/usCaliforniaQuestions.ts",
+    "data/questions.ts",
+    "data/usCaliforniaLessons.ts",
+    "data/lessons.ts",
+    "lib/server/questionStore.ts",
+    "lib/server/userStore.ts",
+    "app/api/questions/route.ts",
+    "app/api/lesson-entry/route.ts",
+    "app/api/lessons/[slug]/route.ts",
+    "app/practice/page.tsx",
+    "components/providers/AppProviders.tsx",
+    "components/lesson/lessonEntryTarget.ts",
+    "components/lesson/StudentLessonPage.tsx",
+    "components/lesson/StudentLessonEntryPage.tsx",
+    "components/lesson/LessonView.tsx",
+    "app/student/lessons/route.ts"
+  ],
+  "specialFiles": [
+    {
+      "path": "middleware.ts",
+      "rawSha256": "59f0ebac85cb128163491fb640de898945e0cb7ee41794f6f1faf11ca8e1efd9"
+    }
+  ],
+  "classificationPolicy": {
+    "schemaVersion": "promotion-runtime-classifier.v1",
+    "kinds": [
+      "test-code",
+      "audit-script",
+      "generated-code",
+      "data-json",
+      "asset",
+      "documentation",
+      "placeholder",
+      "runtime-metadata",
+      "runtime-code"
+    ]
+  },
+  "resolverPolicy": {
+    "schemaVersion": "promotion-runtime-resolver-policy.v1",
+    "parser": {
+      "name": "typescript",
+      "version": "5.8.3"
+    },
+    "tsconfig": {
+      "path": "tsconfig.json",
+      "rawSha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8",
+      "extends": null,
+      "baseUrl": null,
+      "paths": {
+        "@/*": [
+          "./*"
+        ]
+      },
+      "resolutionMode": "bundler-or-default-no-overrides-v1"
+    },
+    "nextTsconfig": {
+      "path": "tsconfig.next.json",
+      "rawSha256": "1f39ca3df18b90924fdf68bea41304033b29cf0de5311dccb15b23cd2dee1970",
+      "extends": "./tsconfig.json",
+      "resolutionOverrides": false
+    },
+    "nextConfig": {
+      "path": "next.config.ts",
+      "rawSha256": "bc1aef29abe3909a85549ee745dc83ea2c5dfde592544baca3a2fc1c82d76f9e",
+      "pageExtensions": "next-default",
+      "configurationShape": "static-object-no-resolver-hooks-v1"
+    },
+    "jsconfigPaths": []
+  },
+  "frameworkBoundary": {
+    "schemaVersion": "promotion-framework-entrypoint-boundary.v1",
+    "alternateRoots": [
+      "pages",
+      "src/app",
+      "src/pages"
+    ],
+    "rootSpecialBasenames": [
+      "middleware",
+      "proxy",
+      "instrumentation",
+      "instrumentation-client"
+    ],
+    "alternateEntrypoints": [],
+    "alternateEntrypointsDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "frameworkEntrypointCount": 290,
+  "frameworkEntrypointsDigest": "c15c22d3d087757d5c51d85454e5e2b0c81ce2f43a7ab803d8a4f1fefeff8214",
+  "runtimeGraph": {
+    "parser": {
+      "name": "typescript",
+      "version": "5.8.3"
+    },
+    "seedCount": 305,
+    "seedDigest": "47149ed4f1582b63c95a38880ca3c437b43ede499c5b7eba68dfee4462c34ec6",
+    "reachablePathCount": 1419,
+    "reachablePathsDigest": "eeac14c127dd3b2624ec9578fc3894d161a661356ca4059ceb16e1e17d013785",
+    "edgeCount": 3366,
+    "edgeDigest": "7cfbc25ed7e616d27cb168ae7fc2651adf6b9a07df7e9f7f7d637dec1e5d6e9f",
+    "topologyEdgeCount": 3366,
+    "topologyEdgeDigest": "7e5056f1142e073d89d1e33028c334ddfcf3e0ef74fcbc9864ae72839e68c1dc"
+  },
+  "loaderPolicy": {
+    "schemaVersion": "promotion-runtime-loader-policy.v1",
+    "parser": {
+      "name": "typescript",
+      "version": "5.8.3"
+    },
+    "fsReadAllowlist": [
+      {
+        "sourcePath": "lib/server/mediaObjectStore.ts",
+        "sourceRawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f",
+        "callee": "node:fs/promises.readFile",
+        "position": 15591,
+        "argumentShape": "identifier(metadataPath),literal(string)",
+        "normalizedExpressionDigest": "00926cf237a67346ca2b85b90ad73d9a046d4c79f2a004f31d1e8a6830f4b3eb",
+        "policy": "runtime-storage-read-only-non-module"
+      },
+      {
+        "sourcePath": "lib/server/mediaObjectStore.ts",
+        "sourceRawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f",
+        "callee": "node:fs/promises.readFile",
+        "position": 16555,
+        "argumentShape": "identifier(objectPath)",
+        "normalizedExpressionDigest": "7f7038325696d107a9a824fba5c63cbdb03890c453f2f39f936a8d957039234c",
+        "policy": "runtime-storage-read-only-non-module"
+      },
+      {
+        "sourcePath": "lib/server/userStore.ts",
+        "sourceRawSha256": "c53aa98b98da34a640fd862d10187a99cf86ecd8eb34c970f6f9c7212da94164",
+        "callee": "node:fs/promises.readFile",
+        "position": 221372,
+        "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+        "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+        "policy": "runtime-storage-read-only-non-module"
+      },
+      {
+        "sourcePath": "lib/server/userStore/studentActivityPersistence.ts",
+        "sourceRawSha256": "662bd54dbe5a8897d910638348fe1c3bcb86d5766f42430bc58cef592f7c28cc",
+        "callee": "node:fs/promises.readFile",
+        "position": 107453,
+        "argumentShape": "property(storage_path)",
+        "normalizedExpressionDigest": "8301f5f8c64c1ff646e26047434382ae5a86e2ed600587bad5c5cb4610446bef",
+        "policy": "runtime-storage-read-only-non-module"
+      },
+      {
+        "sourcePath": "lib/server/userStore/teacherOpsResourcePersistence.ts",
+        "sourceRawSha256": "a74f69510012187fc813943b795cf1f3bd500da331853a0389f415b272325fe7",
+        "callee": "node:fs/promises.readFile",
+        "position": 10370,
+        "argumentShape": "property(storage_path)",
+        "normalizedExpressionDigest": "8301f5f8c64c1ff646e26047434382ae5a86e2ed600587bad5c5cb4610446bef",
+        "policy": "runtime-storage-read-only-non-module"
+      }
+    ],
+    "fsReadAllowlistDigest": "a4e30c8322d2f5d74c82b99222080beee4ddc634ee63f432d9b269e53ab598f0",
+    "nextDynamic": {
+      "callCount": 479,
+      "literalImportCount": 941,
+      "nonliteralImportCount": 0,
+      "callsiteDigest": "185724b0e5bc661c3a85f07fbb3ac1ef8b730281f0d040be3751e40e1aaa086e"
+    },
+    "importMetaUrlReferences": [],
+    "importMetaUrlReferencesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "zeroBaselineKinds": [
+      "create-read-stream",
+      "create-require",
+      "element-access-loader",
+      "fs-open",
+      "fs-open-sync",
+      "glob",
+      "import-meta-glob",
+      "import-meta-resolve",
+      "import-meta-url-nonliteral",
+      "indirect-require",
+      "indirect-code-evaluation",
+      "function-constructor",
+      "module-require",
+      "next-dynamic-unresolved-wrapper",
+      "node-vm-evaluation",
+      "open-directory",
+      "process-get-builtin-module",
+      "read-directory",
+      "read-directory-sync",
+      "read-file-sync",
+      "require-context",
+      "require-resolve",
+      "webpack-require-escape"
+    ],
+    "zeroBaselineCallCount": 0
+  },
+  "sensitiveAnchors": [
+    {
+      "path": "app/api/lesson-entry/route.ts",
+      "rawSha256": "355ce779943f4098a75adfbe06e54f4ccf43ec92db89bcea2bd8708ffd8e5edd"
+    },
+    {
+      "path": "app/api/lessons/[slug]/route.ts",
+      "rawSha256": "b3e40ea4a56446bf0365a7e2cbc6ae214beb9cbdfdb8210f6f9058a4e681662a"
+    },
+    {
+      "path": "app/api/questions/route.ts",
+      "rawSha256": "326762efa8e9254c7c569540a7cfb303039da1d7ed8aaeb9113b424d4040360d"
+    },
+    {
+      "path": "app/practice/page.tsx",
+      "rawSha256": "e50d07b18527ac8f57522a4106afdce5a48ee03234c9b5ed9e89bec5000e642d"
+    },
+    {
+      "path": "app/student/lessons/route.ts",
+      "rawSha256": "2a0ec45f85553e4c89c65c417272e7fafac7da9f49d5b1edf8225a21c0180e7d"
+    },
+    {
+      "path": "components/lesson/LessonView.tsx",
+      "rawSha256": "21f196ca10c2a5b12519098d92c2503d1fe751bbe35c529b8badf040c1764a96"
+    },
+    {
+      "path": "components/lesson/StudentLessonEntryPage.tsx",
+      "rawSha256": "c8f36e0bb44482788bfa9b1f5496d7e7be0132632f9a21617d175fb502924f1d"
+    },
+    {
+      "path": "components/lesson/StudentLessonPage.tsx",
+      "rawSha256": "41a0e985de794636896286c45bbddf66917b2398002e494ae53e513e29f8418d"
+    },
+    {
+      "path": "components/lesson/lessonEntryTarget.ts",
+      "rawSha256": "9008b6770f760901567162269c26bd01a44e3b0dd8f77cf66644b2737aa7a95f"
+    },
+    {
+      "path": "components/providers/AppProviders.tsx",
+      "rawSha256": "1d2c00424a4f9059e45cd7a7ac498ef823a8f12be6770bc43ac3910580be15dc"
+    },
+    {
+      "path": "data/lessons.ts",
+      "rawSha256": "ab17c0645dba6c4589259c7c5c51b3a698eb0bf6554efdef1bbda632df0572fd"
+    },
+    {
+      "path": "data/questions.ts",
+      "rawSha256": "7c3fefc4033579b9631e549bf40c4c203e34f44bf88cab2adc4d140e60a67e09"
+    },
+    {
+      "path": "data/rag/usMath.ts",
+      "rawSha256": "927d8fc751c6736e158339128a4e95030098cf050ddfe90168cabfe832dcfd71"
+    },
+    {
+      "path": "data/usCaliforniaLessons.ts",
+      "rawSha256": "b2c09fd7886b66180299e20c1cc26aa1c2f9094b90670856ff01c2ef9622fae4"
+    },
+    {
+      "path": "data/usCaliforniaQuestions.ts",
+      "rawSha256": "4ba7fe5797ddef170f04d69e63b39faeb1d7b3b272de55882377acaccde0c9f2"
+    },
+    {
+      "path": "data/usCaliforniaTopics.ts",
+      "rawSha256": "c91fa464412532c60d45d75692c428f4e69ec318da17d62047f2b0fd80f2a7f2"
+    },
+    {
+      "path": "lib/rag/usMath.ts",
+      "rawSha256": "3031a3ec6bb2ad4ce2a0af85900f8f146fd1426eb7dba5408b33e7c016de8a67"
+    },
+    {
+      "path": "lib/server/questionStore.ts",
+      "rawSha256": "f23090c4a8d0cdbf9325a99ccaf8d000f38d6ddab3e4cc59d8dd6c320b7c2b62"
+    },
+    {
+      "path": "lib/server/userStore.ts",
+      "rawSha256": "c53aa98b98da34a640fd862d10187a99cf86ecd8eb34c970f6f9c7212da94164"
+    },
+    {
+      "path": "middleware.ts",
+      "rawSha256": "59f0ebac85cb128163491fb640de898945e0cb7ee41794f6f1faf11ca8e1efd9"
+    },
+    {
+      "path": "next.config.ts",
+      "rawSha256": "bc1aef29abe3909a85549ee745dc83ea2c5dfde592544baca3a2fc1c82d76f9e"
+    },
+    {
+      "path": "tsconfig.json",
+      "rawSha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8"
+    },
+    {
+      "path": "tsconfig.next.json",
+      "rawSha256": "1f39ca3df18b90924fdf68bea41304033b29cf0de5311dccb15b23cd2dee1970"
+    }
+  ],
+  "sensitiveAnchorsDigest": "e69f14166944716ac83c20a7f32d9c4904628e110afdc1f2a28f8d68809deb8e",
+  "checkIds": [
+    "canonical-runtime-file-set",
+    "deterministic-file-classification",
+    "framework-entrypoint-derivation",
+    "typescript-ast-runtime-graph",
+    "bounded-runtime-loaders",
+    "identity-marker",
+    "reachable-nonliteral-import-require"
+  ]
+}

@@ -853,14 +853,19 @@ test.describe("learner <-> teacher interaction matrix", () => {
         durationSeconds: 30
       }));
       const accepted = await readJson<{ accepted: number }>(
-        await struggling.context.post("/api/learning-events", { data: { events: wrongAnswers } })
+        await struggling.context.post("/api/learning-events", {
+          headers: { "X-MAIS-Expected-User-Id": struggling.userId },
+          data: { expectedUserId: struggling.userId, events: wrongAnswers }
+        })
       );
       expect(accepted.accepted).toBe(2);
 
       // The steady learner answers correctly and must NOT be flagged.
       await readJson<{ accepted: number }>(
         await steady.context.post("/api/learning-events", {
+          headers: { "X-MAIS-Expected-User-Id": steady.userId },
           data: {
+            expectedUserId: steady.userId,
             events: [{
               id: `${suffix}-right-1`,
               type: "answer-correct",

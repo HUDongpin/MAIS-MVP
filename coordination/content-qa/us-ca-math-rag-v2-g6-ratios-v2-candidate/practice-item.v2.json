@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "promotion-practice-item.v2",
+  "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+  "packageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+  "parentPackageId": "us-ca-math-rag-v2-candidate",
+  "status": "candidate-only",
+  "curriculumTrack": "US_CA_MATH",
+  "state": "CA",
+  "grade": "P6",
+  "usGradeLabel": "Grade 6",
+  "domainId": "6.RP",
+  "clusterId": "6.RP.ratios",
+  "canonicalStandardIds": [
+    "6.RP.1",
+    "6.RP.2",
+    "6.RP.3"
+  ],
+  "maisStandardIds": [
+    "CA.CCSS.Math.G6.RP.1",
+    "CA.CCSS.Math.G6.RP.2",
+    "CA.CCSS.Math.G6.RP.3"
+  ],
+  "assessedStandardIds": [
+    "6.RP.3"
+  ],
+  "prerequisiteStandardIds": [
+    "6.RP.1"
+  ],
+  "notDirectlyAssessedStandardIds": [
+    "6.RP.2"
+  ],
+  "type": "short-answer-ratio",
+  "languageMode": "en",
+  "prompt": {
+    "en": "A recipe uses 3 cups of oats for every 5 cups of fruit. If a batch uses 20 cups of fruit, how many cups of oats are needed?"
+  },
+  "answer": "12 cups",
+  "acceptedAnswers": [
+    "12",
+    "12 cups"
+  ],
+  "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+  "solutionSteps": [
+    "Keep the ratio order as 3 cups of oats for 5 cups of fruit.",
+    "Compute the scale factor: 20 ÷ 5 = 4.",
+    "Scale the oats by the same factor: 3 × 4 = 12.",
+    "Therefore, 12 cups of oats are needed."
+  ],
+  "misconceptionFeedback": {
+    "ratio order reversed": {
+      "en": "Label both quantities before scaling: 3 is the oats amount and 5 is the fruit amount."
+    },
+    "unit rate not normalized": {
+      "en": "Find how many groups of 5 fruit cups fit into 20, then apply that same factor to the oats."
+    }
+  },
+  "evidenceCardIds": [
+    "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2"
+  ],
+  "sourceRecord": {
+    "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+    "jsonPointer": "/questions/30",
+    "id": "s04-ca-rag-v2-q031-6-rp-ratios",
+    "recordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305"
+  },
+  "validation": {
+    "numericOracle": 12,
+    "ratioOrderPreserved": true,
+    "deterministicCheck": "computed-equivalent-ratio-v2"
+  },
+  "localization": {
+    "presentLocales": [
+      "en"
+    ],
+    "missingLiveLocales": [
+      "zh",
+      "zhHans"
+    ]
+  }
+}

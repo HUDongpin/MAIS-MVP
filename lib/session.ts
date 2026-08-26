@@ -3,10 +3,23 @@ export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
 export type SessionPayload = {
   sub: string;
+  sr: number;
+  jti: string;
+  iat: number;
   exp: number;
 };
 
+export type CreateSessionTokenInput = {
+  userId: string;
+  sessionRevision: number;
+  now?: number;
+};
+
 const fallbackSecret = "hk-math-lab-local-development-secret";
+const sessionClockSkewMs = 5 * 60 * 1000;
+const sessionJtiPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
+const sessionMaxLifetimeMs = SESSION_MAX_AGE_SECONDS * 1000;
+const sessionTokenMaxLength = 4096;
 
 function getSessionSecret() {
   const configuredSecret = process.env.AUTH_SESSION_SECRET ?? process.env.NEXTAUTH_SECRET;
@@ -57,9 +70,20 @@ function constantTimeEqual(left: string, right: string) {
   return result === 0;
 }
 
-export async function createSessionToken(userId: string, now = Date.now()) {
+export async function createSessionToken({
+  userId,
+  sessionRevision,
+  now = Date.now()
+}: CreateSessionTokenInput) {
+  if (!userId.trim() || !Number.isSafeInteger(sessionRevision) || sessionRevision < 1) {
+    throw new Error("A valid user ID and session revision are required to create a session token.");
+  }
+
   const payload: SessionPayload = {
     sub: userId,
+    sr: sessionRevision,
+    jti: crypto.randomUUID(),
+    iat: now,
     exp: now + SESSION_MAX_AGE_SECONDS * 1000
   };
   const encodedPayload = base64UrlEncode(new TextEncoder().encode(JSON.stringify(payload)));
@@ -69,7 +93,10 @@ export async function createSessionToken(userId: string, now = Date.now()) {
 }
 
 export async function verifySessionToken(token: string, now = Date.now()): Promise<SessionPayload | null> {
-  const [encodedPayload, signature] = token.split(".");
+  if (!Number.isSafeInteger(now) || token.length > sessionTokenMaxLength) return null;
+  const parts = token.split(".");
+  if (parts.length !== 2) return null;
+  const [encodedPayload, signature] = parts;
   if (!encodedPayload || !signature) return null;
 
   let expectedSignature: string;
@@ -82,9 +109,31 @@ export async function verifySessionToken(token: string, now = Date.now()): Promi
 
   try {
     const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(encodedPayload))) as Partial<SessionPayload>;
-    if (typeof payload.sub !== "string" || typeof payload.exp !== "number") return null;
-    if (payload.exp <= now) return null;
-    return { sub: payload.sub, exp: payload.exp };
+    const { sub, sr, jti, iat, exp } = payload;
+    if (
+      typeof sub !== "string" ||
+      !sub.trim() ||
+      typeof sr !== "number" ||
+      !Number.isSafeInteger(sr) ||
+      sr < 1 ||
+      typeof jti !== "string" ||
+      !sessionJtiPattern.test(jti) ||
+      typeof iat !== "number" ||
+      !Number.isSafeInteger(iat) ||
+      typeof exp !== "number" ||
+      !Number.isSafeInteger(exp)
+    ) return null;
+    if (exp <= iat) return null;
+    if (iat > now + sessionClockSkewMs) return null;
+    if (exp - iat > sessionMaxLifetimeMs) return null;
+    if (exp <= now) return null;
+    return {
+      sub,
+      sr,
+      jti,
+      iat,
+      exp
+    };
   } catch {
     return null;
   }

@@ -2,6 +2,8 @@ import type { ParentUserStore } from "./domainContracts";
 import {
   acknowledgeParentNotice,
   createParentMessageThread,
+  findParentMessageCreateReplay,
+  findParentMessageReplyReplay,
   getParentChildSummary,
   getParentFoundationData,
   getParentMessagesData,
@@ -17,6 +19,8 @@ export type { ParentUserStore } from "./domainContracts";
 export {
   acknowledgeParentNotice,
   createParentMessageThread,
+  findParentMessageCreateReplay,
+  findParentMessageReplyReplay,
   getParentChildSummary,
   getParentFoundationData,
   getParentMessagesData,
@@ -35,7 +39,9 @@ export const parentUserStore = {
   getParentChildSummary,
   getParentReportData,
   getParentMessagesData,
+  findParentMessageCreateReplay,
   createParentMessageThread,
+  findParentMessageReplyReplay,
   replyToParentMessageThread,
   linkParentToStudentByInviteCode
 } satisfies ParentUserStore;

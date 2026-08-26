@@ -5,6 +5,22 @@ labs cover the **US California** math curriculum only — California is the sole
 track carrying CCSS standard ids, which is the join key. Arkansas, Florida, and
 North Carolina keep the template renderer.
 
+## Surfaces (updated 2026-08-25)
+
+Where a California student meets a bench, after Phases 1 and 2a of
+"Claude's Plan on Replacing Codex's Visualization Labs":
+
+- **Visualization Lab page** — every CA topic renders its `primary` bench, with
+  `related` benches on the `SignatureBenchSwitcher` chip row (unchanged).
+- **Lesson embeds** — the lesson visualization block renders the topic's
+  `primary` bench through `LessonSignatureLab` (Phase 1 lifted the old Phase-0
+  boundary that kept lessons on the `ConfiguredVisualizationLab` template).
+  Lessons show the primary only; the fan-out stays a lab-page affordance.
+- **Premium 3D routes** — retired for CA (Phase 2a). The 12
+  `/student/tools/visualizations/us-ca-*` URLs redirect to the topic's bench on
+  the lab page, and the `california` launch-coverage band is pinned to 0-0 so a
+  CA id cannot silently relaunch.
+
 Regenerate the numbers with
 `npx tsx --tsconfig ./tsconfig.json scripts/build-signature-lab-candidates.ts`.
 
@@ -119,6 +135,16 @@ met, and the coverage figure overstates what learners actually see.
 `data/signatureLabCcssOverrides.ts` is a standard the bench's own lesson
 demonstrably teaches; a near-miss tag re-creates exactly the paper coverage that
 audit exposed. That judgement is the part no tool can check for you.
+
+The same rule applies to **upstream tags in `labs.json`** — they are not all
+trustworthy. The 2026-08-25 alignment audit (every primary's lesson read against
+the official standard text, adversarially verified; record in
+`coordination/content-qa/2026-08-25-ca-curriculum-alignment-audit.md`) found ten
+upstream paper tags (e.g. PositionLab `1.G.A.1`, FractionAdditionLab `5.NF.A.1`,
+TwoDigitNumberLab `2.NBT.A.1`, CommutativeLab `7.EE.A.1`, ExpectedValueLab
+`S-MD.A.4`) and re-anchored 12 topics onto primaries whose lessons actually
+teach the topic's standards — each swap's rationale in
+`data/signatureLabAssignments.ts` names the evidence.
 
 When a bench already has an entry, **extend it rather than adding a second key** —
 in JavaScript the later key would win and the first tag would be lost. This is not

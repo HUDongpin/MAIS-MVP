@@ -5,7 +5,7 @@ import {
   consumeAuthRateLimit,
   withAuthRouteJsonBoundary
 } from "@/lib/server/authRouteGuards";
-import { sessionSecretMissingResponse, setSessionCookie } from "@/lib/server/sessionCookie";
+import { sessionCookieFailureResponse, setSessionCookie } from "@/lib/server/sessionCookie";
 import {
   createParentUser,
   createStudentUser,
@@ -108,9 +108,9 @@ async function handleRegister(request: Request) {
 
     const response = NextResponse.json(result.session);
     try {
-      await setSessionCookie(response, result.session.user.id, request);
-    } catch {
-      return sessionSecretMissingResponse();
+      await setSessionCookie(response, result.session.user.id, request, result.sessionRevision);
+    } catch (error) {
+      return sessionCookieFailureResponse(error, request, { committedAction: "account-created" });
     }
 
     return response;
@@ -160,9 +160,9 @@ async function handleRegister(request: Request) {
     : result.session;
   const response = NextResponse.json(responseBody);
   try {
-    await setSessionCookie(response, result.session.user.id, request);
-  } catch {
-    return sessionSecretMissingResponse();
+    await setSessionCookie(response, result.session.user.id, request, result.sessionRevision);
+  } catch (error) {
+    return sessionCookieFailureResponse(error, request, { committedAction: "account-created" });
   }
 
   return response;

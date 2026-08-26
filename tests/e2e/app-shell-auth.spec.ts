@@ -185,9 +185,14 @@ test.describe("app shell, preferences, and auth", () => {
         theme: "light"
       }
     });
-    expect(loginResponse.status(), await loginResponse.text()).toBe(200);
+    const loginBody = await loginResponse.text();
+    expect(loginResponse.status(), loginBody).toBe(200);
+    const loginSession = JSON.parse(loginBody) as { user?: { id?: string } };
+    expect(loginSession.user?.id).toBeTruthy();
+    const expectedUserId = loginSession.user?.id ?? "";
     const baselineSettingsResponse = await page.request.patch("/api/me/settings", {
-      data: { language: "en", theme: "light", selectedGrade: "P1" }
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
+      data: { expectedUserId, language: "en", theme: "light", selectedGrade: "P1" }
     });
     expect(baselineSettingsResponse.status(), await baselineSettingsResponse.text()).toBe(200);
 

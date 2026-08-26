@@ -187,6 +187,7 @@ export type ParentFoundationPersistenceStoreDependencies = {
     studentId: string
   ) => ParentChildSummary | null;
   readDatabase: () => Promise<ParentFoundationPersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentFoundationPersistenceDatabase>;
   toGuardianLink: (
     database: ParentFoundationPersistenceDatabase,
     link: ParentFoundationGuardianLinkRecord
@@ -200,15 +201,16 @@ export type ParentFoundationPersistenceStoreDependencies = {
 export type ParentFoundationPersistenceStore = ReturnType<typeof createParentFoundationPersistenceStore>;
 
 function canUseParentArea(user?: ParentFoundationUserRecord | null): user is ParentFoundationUserRecord {
-  return user?.role === "parent" || user?.role === "admin";
+  return user?.role === "parent";
 }
 
 export function parentGuardianLinkRecordsFor(
   database: ParentFoundationPersistenceDatabase,
   user: ParentFoundationUserRecord
 ) {
+  if (!canUseParentArea(user)) return [];
   return database.guardian_links
-    .filter((link) => link.status === "active" && (user.role === "admin" || link.parent_id === user.id))
+    .filter((link) => link.status === "active" && link.parent_id === user.id)
     .sort((a, b) => (a.created_at ?? "").localeCompare(b.created_at ?? ""));
 }
 
@@ -218,9 +220,7 @@ function parentCanAccessStudentInDatabase(
   studentId: string
 ) {
   const parent = database.users.find((candidate) => candidate.id === parentId);
-  if (parent?.role === "admin") {
-    return database.users.some((candidate) => candidate.id === studentId && candidate.role === "student");
-  }
+  if (!canUseParentArea(parent)) return false;
   return database.guardian_links.some((link) => (
     link.parent_id === parentId &&
     link.student_id === studentId &&
@@ -264,13 +264,19 @@ export function parentTopicIdsForStudent<Database extends ParentClassTopicCandid
 }
 
 export function selectedParentChild(children: ParentChildSummary[], selectedStudentId?: string | null) {
-  return selectedStudentId
-    ? children.find((child) => child.student.id === selectedStudentId) ?? null
-    : children[0] ?? null;
+  if (selectedStudentId === undefined || selectedStudentId === null) return children[0] ?? null;
+  return children.find((child) => child.student.id === selectedStudentId) ?? null;
 }
 
-function isPendingAssignmentStatus(status: SubmissionStatus) {
-  return status !== "submitted" && status !== "graded";
+const parentPendingSubmissionStatuses = new Set<SubmissionStatus>([
+  "not-started",
+  "in-progress",
+  "late",
+  "correction-required"
+]);
+
+export function parentSubmissionNeedsAttention(status: SubmissionStatus) {
+  return parentPendingSubmissionStatuses.has(status);
 }
 
 export function buildParentWeeklyActivity(
@@ -391,13 +397,16 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     .filter((topic) => topic.mastery >= 70)
     .sort((a, b) => b.mastery - a.mastery)
     .slice(0, 3);
-  const assignments = parentAssignmentItemsForStudent(
+  const allAssignmentItems = parentAssignmentItemsForStudent(
     database,
     studentId,
     dependencies.toAssignment,
     dependencies.toSubmission
-  ).slice(0, 6);
-  const pendingAssignments = assignments.filter((item) => item.submission.status !== "submitted" && item.submission.status !== "graded").length;
+  );
+  const pendingAssignmentCount = allAssignmentItems.filter((item) => (
+    parentSubmissionNeedsAttention(item.submission.status)
+  )).length;
+  const assignments = allAssignmentItems.slice(0, 6);
   const rewardSummary = dependencies.rewardSummaryForStudent(database, studentId);
   const motivationSummary = dependencies.motivationSummaryForStudent(database, studentId, now);
   const latestParentReport = dependencies.parentReportsForStudent(database, studentId)[0] ?? null;
@@ -417,9 +426,17 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     supportTopics[0]
       ? { en: `Review ${supportTopics[0].title.en} together for 10 minutes.`, zh: `可一起用 10 分鐘重溫 ${supportTopics[0].title.zh}。` }
       : { en: "Ask your child to explain one solved question aloud.", zh: "可請孩子口頭講解一題已完成題目。" },
-    pendingAssignments > 0
-      ? { en: `${pendingAssignments} recent assignment item needs attention.`, zh: `有 ${pendingAssignments} 項近期作業需要留意。` }
-      : { en: "No urgent assignment follow-up in the latest list.", zh: "最近作業列表暫無緊急跟進。" }
+    pendingAssignmentCount > 0
+      ? {
+          en: `${pendingAssignmentCount} assignment item${pendingAssignmentCount === 1 ? "" : "s"} need${pendingAssignmentCount === 1 ? "s" : ""} attention.`,
+          zh: `有 ${pendingAssignmentCount} 項作業需要留意。`,
+          zhHans: `有 ${pendingAssignmentCount} 项作业需要留意。`
+        }
+      : {
+          en: "No assignment follow-up needs attention.",
+          zh: "目前沒有作業需要跟進。",
+          zhHans: "目前没有作业需要跟进。"
+        }
   ];
 
   return {
@@ -433,6 +450,7 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     strengths,
     supportTopics,
     assignments,
+    pendingAssignmentCount,
     rewardSummary,
     motivationSummary,
     latestParentReport,
@@ -455,23 +473,27 @@ export function createParentChildSummaryBuilder<SourceDatabase, Database extends
 export function createParentFoundationPersistenceStore({
   buildParentChildSummary,
   readDatabase,
+  readParentDatabase,
   toGuardianLink,
   toParentSession
 }: ParentFoundationPersistenceStoreDependencies) {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
+
   return {
     async getParentFoundationData(
       parentId: string,
       selectedStudentId?: string | null
     ): Promise<ParentFoundationData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
-      if (!canUseParentArea(user)) return null;
+      if (user?.role !== "parent") return null;
       const parent = toParentSession(database, user);
       if (!parent) return null;
 
       const links = parentGuardianLinkRecordsFor(database, user).map((link) => toGuardianLink(database, link));
       const children = parentChildSummariesFor(database, user, buildParentChildSummary);
       const selectedChild = selectedParentChild(children, selectedStudentId);
+      if (selectedStudentId !== undefined && selectedStudentId !== null && !selectedChild) return null;
       const linkedStudentIds = new Set(children.map((child) => child.student.id));
 
       return {
@@ -492,13 +514,13 @@ export function createParentFoundationPersistenceStore({
             message.status !== "resolved"
           ).length,
           pendingAssignments: children.reduce((sum, child) => {
-            return sum + child.assignments.filter((item) => isPendingAssignmentStatus(item.submission.status)).length;
+            return sum + child.pendingAssignmentCount;
           }, 0)
         }
       };
     },
     async getParentChildSummary(parentId: string, studentId: string): Promise<ParentChildSummary | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user) || !parentCanAccessStudentInDatabase(database, parentId, studentId)) return null;
       return buildParentChildSummary(database, studentId);

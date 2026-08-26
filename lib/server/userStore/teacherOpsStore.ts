@@ -1,4 +1,5 @@
 import type { TeacherReportPreview } from "@/types";
+import type { ParentAccessPersistenceStore } from "./parentAccessPersistence";
 import type { TeacherOpsAssessmentPersistenceStore } from "./teacherOpsAssessmentPersistence";
 import type { TeacherOpsAssignmentPersistenceStore } from "./teacherOpsAssignmentPersistence";
 import type { TeacherOpsClassCollaboratorPersistenceStore } from "./teacherOpsClassCollaboratorPersistence";
@@ -25,6 +26,7 @@ import type { TeacherOpsSubmissionPersistenceStore } from "./teacherOpsSubmissio
 import type { TeacherOpsTermArchivePersistenceStore } from "./teacherOpsTermArchivePersistence";
 
 export type TeacherOpsUserStoreDependencies = {
+  parentAccessPersistenceStore: ParentAccessPersistenceStore;
   teacherOpsAssessmentPersistenceStore: TeacherOpsAssessmentPersistenceStore;
   teacherOpsAssignmentPersistenceStore: TeacherOpsAssignmentPersistenceStore;
   teacherOpsClassCollaboratorPersistenceStore: TeacherOpsClassCollaboratorPersistenceStore;
@@ -54,6 +56,7 @@ export type TeacherOpsUserStoreDependencies = {
 };
 
 export function createTeacherOpsUserStore({
+  parentAccessPersistenceStore,
   teacherOpsAssessmentPersistenceStore,
   teacherOpsAssignmentPersistenceStore,
   teacherOpsClassCollaboratorPersistenceStore,
@@ -130,6 +133,8 @@ export function createTeacherOpsUserStore({
     joinClassByInviteCode: teacherOpsClassPersistenceStore.joinClassByInviteCode,
     getTeacherClassDetailData: teacherOpsClassPersistenceStore.getTeacherClassDetailData,
     getTeacherStudentProfileData: teacherOpsStudentProfilePersistenceStore.getTeacherStudentProfileData,
+    issueGuardianInvitationForTeacher: parentAccessPersistenceStore.issueGuardianInvitationForTeacher,
+    revokeGuardianLinkForTeacher: parentAccessPersistenceStore.revokeGuardianLinkForTeacher,
     getTeacherAssignments: teacherOpsAssignmentPersistenceStore.getTeacherAssignments,
     getTeacherResourceLibraryData: teacherOpsResourcePersistenceStore.getTeacherResourceLibraryData,
     createTeacherResource: teacherOpsResourcePersistenceStore.createTeacherResource,

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "promotion-lesson.v2",
+  "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+  "packageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+  "parentPackageId": "us-ca-math-rag-v2-candidate",
+  "status": "candidate-only",
+  "curriculumTrack": "US_CA_MATH",
+  "state": "CA",
+  "grade": "P6",
+  "usGradeLabel": "Grade 6",
+  "domainId": "6.RP",
+  "clusterId": "6.RP.ratios",
+  "canonicalStandardIds": [
+    "6.RP.1",
+    "6.RP.2",
+    "6.RP.3"
+  ],
+  "maisStandardIds": [
+    "CA.CCSS.Math.G6.RP.1",
+    "CA.CCSS.Math.G6.RP.2",
+    "CA.CCSS.Math.G6.RP.3"
+  ],
+  "assessedStandardIds": [
+    "6.RP.3"
+  ],
+  "prerequisiteStandardIds": [
+    "6.RP.1"
+  ],
+  "notDirectlyAssessedStandardIds": [
+    "6.RP.2"
+  ],
+  "languageMode": "en",
+  "title": {
+    "en": "Grade 6 Ratios: Preserve the Relationship"
+  },
+  "objective": {
+    "en": "Students will preserve ratio order and scale both quantities by the same factor to solve contextual ratio problems."
+  },
+  "prerequisiteCheck": {
+    "teacherPrompt": {
+      "en": "Ask students to label which number belongs to each quantity before they calculate."
+    },
+    "studentPrompt": {
+      "en": "In 3 cups of oats for every 5 cups of fruit, which number belongs to oats and which belongs to fruit?"
+    },
+    "expectedEvidence": {
+      "en": "The student identifies 3 as oats and 5 as fruit."
+    }
+  },
+  "conceptExplanation": {
+    "en": "A ratio table or double number line keeps two quantities in the same order. To create an equivalent ratio, multiply or divide both quantities by the same nonzero factor. Label the units before scaling so the relationship is not reversed."
+  },
+  "workedExample": {
+    "practiceItemId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+    "prompt": {
+      "en": "A recipe uses 3 cups of oats for every 5 cups of fruit. If a batch uses 20 cups of fruit, how many cups of oats are needed?"
+    },
+    "answer": "12 cups",
+    "reasoningSteps": [
+      "Keep the ratio order as 3 cups of oats for 5 cups of fruit.",
+      "20 ÷ 5 = 4, so the fruit amount is scaled by 4.",
+      "3 × 4 = 12, so the oats amount is 12 cups."
+    ]
+  },
+  "guidedPractice": {
+    "prompt": {
+      "en": "A paint mix uses 2 cups of blue paint for every 3 cups of white paint. How many cups of blue paint are needed for 12 cups of white paint?"
+    },
+    "expectedAnswer": "8 cups",
+    "check": {
+      "en": "12 ÷ 3 = 4 and 2 × 4 = 8; the order remains blue to white."
+    }
+  },
+  "independentPractice": {
+    "prompt": {
+      "en": "A trail map uses 4 centimeters for every 7 kilometers. How many centimeters represent 21 kilometers?"
+    },
+    "expectedAnswer": "12 centimeters",
+    "rubric": [
+      "Labels centimeters and kilometers in the original ratio.",
+      "Computes 21 ÷ 7 = 3.",
+      "Computes 4 × 3 = 12 and includes the correct unit."
+    ]
+  },
+  "remediation": [
+    {
+      "targetMisconception": "ratio order reversed",
+      "move": {
+        "en": "Write the units above both ratio columns and point to the matching column before scaling."
+      }
+    },
+    {
+      "targetMisconception": "unit rate not normalized",
+      "move": {
+        "en": "First find the multiplicative factor between the known and target amount, then apply exactly that factor to the paired quantity."
+      }
+    }
+  ],
+  "evidenceCardIds": [
+    "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2"
+  ],
+  "sourceRecord": {
+    "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json",
+    "jsonPointer": "/lessons/30",
+    "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios",
+    "recordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d"
+  },
+  "localization": {
+    "presentLocales": [
+      "en"
+    ],
+    "missingLiveLocales": [
+      "zh",
+      "zhHans"
+    ]
+  }
+}
