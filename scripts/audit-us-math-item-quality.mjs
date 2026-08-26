@@ -824,8 +824,10 @@ function auditArithmeticClaims(question, { includeIndependentSolution = true } =
 
 // ---------- reasoning-leakage check ----------
 // Generated items occasionally retain the generator's chain-of-thought
-// ("...= 26? Wait recalc: ..."). Student-visible fields must never carry it.
-const LEAK_RE = /\bwait,|\bwait recalc|\brecalc\b|\brecompute\b|\bhmm\b|\boops\b|let me re|let's re-?c/i;
+// ("...= 26? Wait recalc: ..." or "...= 26? Actually -128+240=112...").
+// Student-visible fields must never carry it.
+const LEAK_RE =
+  /\bwait,|\bwait no\b|\bwait recalc|\brecalc\b|\brecompute\b|\bhmm\b|\boops\b|let me re|let's re-?c|\?\s*actually\b|\bactually,? that(?:'s| is) (?:not )?(?:correct|right|wrong)\b|\bscratch that\b|\bon second thought\b/i;
 
 function auditReasoningLeakage(question) {
   const visible = [question.prompt?.en, question.explanation?.en].filter(Boolean).join(" || ");
