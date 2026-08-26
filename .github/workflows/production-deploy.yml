@@ -124,6 +124,15 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
+      - name: Install pinned Vercel CLI
+        env:
+          MAIS_VERCEL_CLI_ROOT: ${{ runner.temp }}/mais-vercel-cli-54.9.0
+        run: |-
+          npm install --prefix "$MAIS_VERCEL_CLI_ROOT" --ignore-scripts --no-audit --no-fund --no-save vercel@54.9.0
+          vercel_version="$("$MAIS_VERCEL_CLI_ROOT/node_modules/.bin/vercel" --version | tail -n 1)"
+          test "$vercel_version" = "54.9.0"
+          printf '%s\n' "$MAIS_VERCEL_CLI_ROOT/node_modules/.bin" >> "$GITHUB_PATH"
+
       - name: Load and mask schema confirmation
         shell: bash
         run: |-

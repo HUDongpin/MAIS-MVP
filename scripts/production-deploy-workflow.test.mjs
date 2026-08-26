@@ -132,10 +132,23 @@ test("production schema execution does not vendor the Vercel CLI dependency", as
 test("deploy requires the exact confirmation and invokes the serialized production wrapper", async () => {
   const { workflow } = await readWorkflow();
   const job = workflow.jobs.deploy;
+  const installVercel = stepByName(job, "Install pinned Vercel CLI");
   const maskConfirmation = stepByName(job, "Load and mask schema confirmation");
   const deploy = stepByName(job, "Apply schema and deploy the exact candidate");
 
   assert.ok(job["timeout-minutes"] >= 60);
+  assert.deepEqual(installVercel.env, {
+    MAIS_VERCEL_CLI_ROOT: "${{ runner.temp }}/mais-vercel-cli-54.9.0"
+  });
+  assert.equal(
+    installVercel.run,
+    [
+      'npm install --prefix "$MAIS_VERCEL_CLI_ROOT" --ignore-scripts --no-audit --no-fund --no-save vercel@54.9.0',
+      'vercel_version="$("$MAIS_VERCEL_CLI_ROOT/node_modules/.bin/vercel" --version | tail -n 1)"',
+      'test "$vercel_version" = "54.9.0"',
+      'printf \'%s\\n\' "$MAIS_VERCEL_CLI_ROOT/node_modules/.bin" >> "$GITHUB_PATH"'
+    ].join("\n")
+  );
   assert.equal(maskConfirmation.env, undefined);
   assert.match(maskConfirmation.run, /GITHUB_EVENT_PATH/u);
   assert.match(maskConfirmation.run, /GITHUB_ENV/u);
@@ -157,12 +170,14 @@ test("deploy requires the exact confirmation and invokes the serialized producti
     (step) => step.name === "Bind protected main SHA and tree"
   );
   const installIndex = job.steps.findIndex((step) => step.name === "Install locked dependencies");
+  const installVercelIndex = job.steps.indexOf(installVercel);
   const maskConfirmationIndex = job.steps.indexOf(maskConfirmation);
   const deployIndex = job.steps.indexOf(deploy);
   assert.ok(
     bindingIndex >= 0 &&
       bindingIndex < installIndex &&
-      installIndex < maskConfirmationIndex &&
+      installIndex < installVercelIndex &&
+      installVercelIndex < maskConfirmationIndex &&
       maskConfirmationIndex < deployIndex
   );
 
