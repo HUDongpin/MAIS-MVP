@@ -655,7 +655,7 @@ test("production staging evidence rejects absolute manifests and strips build pa
   const build = buildSafeBuildEvidence({
     cleanup: false,
     completedAt: "2026-08-24T12:01:00.000Z",
-    outputChecks: [{ path: "server/app/dashboard.html", present: true }],
+    outputChecks: [{ path: "server/app/dashboard/page.js", present: true }],
     privatePath: "/Volumes/private/build",
     startedAt: "2026-08-24T12:00:00.000Z"
   });
