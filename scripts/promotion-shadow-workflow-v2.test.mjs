@@ -14,7 +14,7 @@ async function loadWorkflow() {
   return { source, workflow: parseYaml(source) };
 }
 
-test("Promotion Gate public scripts select v2.3 and expose no live-capable command", async () => {
+test("Promotion Gate public scripts select v2.4 and expose no live-capable command", async () => {
   const pkg = JSON.parse(await readFile(path.join(repoRoot, "package.json"), "utf8"));
   assert.deepEqual(
     Object.fromEntries([
@@ -58,15 +58,15 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   assert.equal(job.permissions?.contents, "read");
   assert.equal(
     job.env?.PROMOTION_MANIFEST,
-    "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/promotion-manifest.v2.json"
+    "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/promotion-manifest.v2.json"
   );
   assert.equal(
     job.env?.PROMOTION_CANONICAL_RECEIPT,
-    "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/shadow-receipt.v2.json"
+    "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/shadow-receipt.v2.json"
   );
   assert.equal(
     job.env?.PROMOTION_CANONICAL_RECEIPT_ABSOLUTE,
-    "${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/shadow-receipt.v2.json"
+    "${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/shadow-receipt.v2.json"
   );
   assert.ok(Array.isArray(job.steps));
   const stepByName = new Map(job.steps.map((step) => [step.name, step]));

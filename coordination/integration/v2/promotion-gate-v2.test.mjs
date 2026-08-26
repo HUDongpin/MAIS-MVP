@@ -25,6 +25,7 @@ import {
   attachV2ReceiptDigests,
   buildV2ShadowDtos,
   collectV2BaselineProof,
+  collectV2CheckerReleaseProof,
   collectV2ExternalSideEffectProof,
   computeV2EvidenceSemanticDigest,
   evaluateV2AcceptedAnswer,
@@ -39,11 +40,19 @@ const execFile = promisify(execFileCallback);
 
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002";
-const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/promotion-manifest.v2.json";
+const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/promotion-manifest.v2.json";
+const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
 
 async function readJson(relativePath) {
   const loaded = await readAuthoritativeFile(repoRoot, relativePath);
   return parseCanonicalJsonBytes(loaded.bytes, "TEST_JSON_INVALID", relativePath);
+}
+
+async function readWorkflowManifestPath() {
+  const workflowSource = await readFile(workflowPath, "utf8");
+  const match = workflowSource.match(/^\s*PROMOTION_MANIFEST:\s+([^\s]+)\s*$/mu);
+  assert.ok(match, "Promotion Shadow workflow must declare PROMOTION_MANIFEST");
+  return match[1];
 }
 
 async function loadCandidateFixture() {
@@ -440,6 +449,24 @@ test("checker bundle has no receipt, mutable manifest, package script, or releas
   ));
 });
 
+test("workflow-selected real Manifest has an executable immutable checker release", async (t) => {
+  const activeManifestPath = await readWorkflowManifestPath();
+  let manifest;
+  try {
+    manifest = await readJson(activeManifestPath);
+  } catch (error) {
+    if (error?.code === "AUTHORITATIVE_PATH_MISSING") {
+      return t.skip("active Manifest is frozen after the checker release commit");
+    }
+    throw error;
+  }
+  const { stdout } = await execFile("git", ["rev-parse", "HEAD"], { cwd: repoRoot });
+  const proof = await collectV2CheckerReleaseProof(repoRoot, manifest, stdout.trim());
+  assert.equal(proof.version, manifest.checkerVersion);
+  assert.equal(proof.releaseCommit, manifest.checkerRelease.releaseCommit);
+  assert.equal(proof.bundleDigest, manifest.checkerRelease.bundleDigest);
+});
+
 test("checker capability proof permits only local read-only Git and owned temp output", async () => {
   const proof = await collectV2ExternalSideEffectProof(repoRoot, {
     checkerRelease: { bundleDigest: "a".repeat(64) }
@@ -469,7 +496,7 @@ test("pure Manifest validation rejects currentness drift before evidence I/O", a
   const previous = await readJson(`${pilotRoot}/promotion-manifest.v2.json`);
   const manifest = {
     ...previous,
-    attemptId: "attempt-004",
+    attemptId: "attempt-005",
     checkerVersion: PROMOTION_V2_CHECKER_VERSION,
     checkerRelease: {
       ...previous.checkerRelease,
