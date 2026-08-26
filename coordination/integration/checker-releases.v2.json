@@ -64,6 +64,22 @@
       ],
       "bundleDigest": "cae1fef6d02ef01f647d2ec4fe6298f77750260618a232510ff906d6078686b1",
       "releaseCommit": "9213143023d0f743516895392e2a50dd8271b8ef"
+    },
+    {
+      "version": "promotion-gate-shadow-v2.4",
+      "bundleAlgorithm": "sha256-stable-json-path-raw-v2",
+      "bundlePaths": [
+        "coordination/integration/promotion-gate-lib.mjs",
+        "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "coordination/integration/v2/promotion-gate-v2.mjs",
+        "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json"
+      ],
+      "bundleDigest": "b78526bc7c34a2f7c1471ab71c79a38f0435ebd2e6a89f8b502eab99cf74dd20",
+      "releaseCommit": "0b46b9740ff87eb0a947c58cf63653d4dfa02cf9"
     }
   ]
 }
