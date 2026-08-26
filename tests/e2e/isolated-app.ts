@@ -1141,12 +1141,68 @@ async function waitForCapturedProcessesToExit(processes: Map<number, CapturedPro
 }
 
 function processGroupIsRunning(processGroupId: number) {
+  return isolatedAppProcessGroupIsRunning(processGroupId);
+}
+
+function linuxProcessState(pid: number) {
+  try {
+    const stat = readFileSync(path.join("/proc", String(pid), "stat"), "utf8");
+    const commandEnd = stat.lastIndexOf(")");
+    if (commandEnd === -1) return null;
+    return stat.slice(commandEnd + 2, commandEnd + 3) || null;
+  } catch {
+    return null;
+  }
+}
+
+function processGroupHasLivePsMember(processGroupId: number) {
+  let output: string;
+  try {
+    output = execFileSync("/bin/ps", ["-axo", "pgid=,state="], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        LC_ALL: "C",
+        LANG: "C",
+        LANGUAGE: "C"
+      },
+      stdio: ["ignore", "pipe", "ignore"]
+    });
+  } catch {
+    return null;
+  }
+
+  const states = output
+    .split("\n")
+    .map((line) => line.trim().split(/\s+/u))
+    .filter(([rawProcessGroupId, state]) => Number(rawProcessGroupId) === processGroupId && Boolean(state))
+    .map(([, state]) => state);
+  if (!states.length) return null;
+  return states.some((state) => !/^[XZ]/u.test(state));
+}
+
+export function isolatedAppProcessGroupIsRunning(processGroupId: number) {
+  let signalProbe: "running" | "permission-denied";
   try {
     process.kill(-processGroupId, 0);
-    return true;
+    signalProbe = "running";
   } catch (error) {
-    return (error as NodeJS.ErrnoException).code === "EPERM";
+    if ((error as NodeJS.ErrnoException).code !== "EPERM") return false;
+    signalProbe = "permission-denied";
   }
+
+  if (process.platform === "linux") {
+    const leaderState = linuxProcessState(processGroupId);
+    if (leaderState && !/^[XZ]/u.test(leaderState)) return true;
+  } else if (signalProbe === "running") {
+    return true;
+  }
+
+  // POSIX signal probes keep reporting zombie-only groups as present (and can
+  // report EPERM on macOS). Zombies cannot execute or retain file descriptors,
+  // but a live descendant in the same group still blocks cleanup. Inspect the
+  // complete group and fail closed whenever membership cannot be proven.
+  return processGroupHasLivePsMember(processGroupId) ?? true;
 }
 
 async function waitForProcessGroupToExit(processGroupId: number, timeoutMs: number) {
