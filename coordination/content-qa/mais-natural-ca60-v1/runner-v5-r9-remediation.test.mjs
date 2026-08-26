@@ -308,8 +308,10 @@ test("R9 runtime has no caller-authored scoring or all-missing terminal fallback
   const source = await readFile(new URL("./runner-v5-r9-runtime.mjs", import.meta.url), "utf8");
   const scorerSource = await readFile(new URL("./scorer-verifier-v5-r9.mjs", import.meta.url), "utf8");
   assert.doesNotMatch(source, /scoringInputBuilder|terminalEvidenceBuilder|buildTerminalMissingItemResultsV5R9/u);
+  assert.doesNotMatch(source, /naturalQuestionEgressCount:\s*run\.providerEventCount/u);
   assert.doesNotMatch(scorerSource, /buildTerminalMissingItemResultsV5R9/u);
   assert.match(source, /buildTerminalExecutionBundleFromRawCustodyV5R9/u);
   assert.match(scorerSource, /buildTerminalItemEvaluationEvidenceV5R9/u);
   assert.match(source, /nativeScoringEvidence/u);
+  assert.match(source, /naturalQuestionEgressCount:\s*run\.naturalQuestionEgressCount/u);
 });
