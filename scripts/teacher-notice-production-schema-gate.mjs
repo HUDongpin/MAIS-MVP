@@ -46,6 +46,51 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const maxGitOutputBytes = 1024 * 1024;
 const maxVercelEnvironmentBytes = 4 * 1024 * 1024;
 const productionSchemaEnvironmentSource = "vercel-api-pull-v1";
+const productionSchemaFailureStages = new Set([
+  "candidate-binding-after",
+  "candidate-binding-before",
+  "evidence-build",
+  "input-binding",
+  "postgres-close",
+  "postgres-connect",
+  "postgres-inspect",
+  "provider-context",
+  "provider-environment-binding",
+  "provider-environment-read",
+  "provider-project-identity",
+  "provider-project-read",
+  "provider-token-read",
+  "unknown"
+]);
+
+class TeacherNoticeProductionSchemaStageError extends Error {
+  constructor(stage) {
+    super("Teacher notice production schema operation failed; details redacted.");
+    this.name = "TeacherNoticeProductionSchemaStageError";
+    this.stage = productionSchemaFailureStages.has(stage) ? stage : "unknown";
+  }
+}
+
+function stageError(stage, error) {
+  if (error instanceof TeacherNoticeProductionSchemaStageError) return error;
+  return new TeacherNoticeProductionSchemaStageError(stage);
+}
+
+async function runProductionSchemaStage(stage, operation) {
+  try {
+    return await operation();
+  } catch (error) {
+    throw stageError(stage, error);
+  }
+}
+
+export function teacherNoticeProductionSchemaFailureStage(error) {
+  return error instanceof TeacherNoticeProductionSchemaStageError &&
+    productionSchemaFailureStages.has(error.stage)
+    ? error.stage
+    : "unknown";
+}
+
 const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
   `CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
     ON public.teacher_notice_resend_webhook_events (received_at)
@@ -386,55 +431,72 @@ async function withProductionPostgresSecret({
   fetchJsonImpl,
   readTokenImpl
 }, operation) {
-  assertProductionProviderPullBinding({ candidateSha, env });
-  const token = await readTokenImpl({ env });
+  await runProductionSchemaStage("provider-context", async () => {
+    assertProductionProviderPullBinding({ candidateSha, env });
+  });
+  const token = await runProductionSchemaStage(
+    "provider-token-read",
+    () => readTokenImpl({ env })
+  );
   const projectUrl = new URL(
     `https://api.vercel.com/v9/projects/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}`
   );
   projectUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-  const project = await fetchJsonImpl(projectUrl.href, token, {
-    fetchImpl,
-    maxBytes: maxVercelEnvironmentBytes,
-    timeoutMs: 30_000
+  const project = await runProductionSchemaStage(
+    "provider-project-read",
+    () => fetchJsonImpl(projectUrl.href, token, {
+      fetchImpl,
+      maxBytes: maxVercelEnvironmentBytes,
+      timeoutMs: 30_000
+    })
+  );
+  await runProductionSchemaStage("provider-project-identity", async () => {
+    if (
+      project?.id !== APPROVED_VERCEL_PROJECT_ID ||
+      project?.name !== APPROVED_VERCEL_PROJECT_NAME ||
+      project?.accountId !== APPROVED_VERCEL_TEAM_ID
+    ) {
+      throw new Error("Teacher notice production Vercel identity was rejected.");
+    }
   });
-  if (
-    project?.id !== APPROVED_VERCEL_PROJECT_ID ||
-    project?.name !== APPROVED_VERCEL_PROJECT_NAME ||
-    project?.accountId !== APPROVED_VERCEL_TEAM_ID
-  ) {
-    throw new Error("Teacher notice production Vercel identity was rejected.");
-  }
   const environmentUrl = new URL(
     `https://api.vercel.com/v3/env/pull/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}/production`
   );
   environmentUrl.searchParams.set("source", "vercel-cli:env:run");
   environmentUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-  let payload = await fetchJsonImpl(environmentUrl.href, token, {
-    fetchImpl,
-    maxBytes: maxVercelEnvironmentBytes,
-    timeoutMs: 30_000
-  });
+  let payload = await runProductionSchemaStage(
+    "provider-environment-read",
+    () => fetchJsonImpl(environmentUrl.href, token, {
+      fetchImpl,
+      maxBytes: maxVercelEnvironmentBytes,
+      timeoutMs: 30_000
+    })
+  );
   let runtimeEnvironment = payload?.env;
   let buildEnvironment = payload?.buildEnv;
-  if (
-    !runtimeEnvironment ||
-    typeof runtimeEnvironment !== "object" ||
-    Array.isArray(runtimeEnvironment) ||
-    !buildEnvironment ||
-    typeof buildEnvironment !== "object" ||
-    Array.isArray(buildEnvironment)
-  ) {
-    throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
-  }
-  let runtimeSecret = validateProductionPostgresUrl(
-    runtimeEnvironment.POSTGRES_URL
-  ).raw;
-  let buildSecret = validateProductionPostgresUrl(
-    buildEnvironment.POSTGRES_URL
-  ).raw;
-  if (!constantTimeStringEqual(runtimeSecret, buildSecret)) {
-    throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
-  }
+  let runtimeSecret;
+  let buildSecret;
+  await runProductionSchemaStage("provider-environment-binding", async () => {
+    if (
+      !runtimeEnvironment ||
+      typeof runtimeEnvironment !== "object" ||
+      Array.isArray(runtimeEnvironment) ||
+      !buildEnvironment ||
+      typeof buildEnvironment !== "object" ||
+      Array.isArray(buildEnvironment)
+    ) {
+      throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
+    }
+    runtimeSecret = validateProductionPostgresUrl(
+      runtimeEnvironment.POSTGRES_URL
+    ).raw;
+    buildSecret = validateProductionPostgresUrl(
+      buildEnvironment.POSTGRES_URL
+    ).raw;
+    if (!constantTimeStringEqual(runtimeSecret, buildSecret)) {
+      throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
+    }
+  });
   let secret = runtimeSecret;
   payload = null;
   runtimeEnvironment = null;
@@ -660,14 +722,31 @@ function localBindingFromDependencies(dependencies) {
 
 async function readProductionInspection(dependencies) {
   return withProductionPostgresSecret(dependencies, async (productionUrl) => {
-    const client = await dependencies.connectPostgres(productionUrl);
+    const client = await runProductionSchemaStage(
+      "postgres-connect",
+      () => dependencies.connectPostgres(productionUrl)
+    );
+    let primaryError = null;
     try {
-      return validateDatabaseInspection(
-        await dependencies.inspectDatabase(client),
-        productionUrl
+      return await runProductionSchemaStage(
+        "postgres-inspect",
+        async () => validateDatabaseInspection(
+          await dependencies.inspectDatabase(client),
+          productionUrl
+        )
       );
+    } catch (error) {
+      primaryError = error;
+      throw error;
     } finally {
-      await closePostgresClient(client);
+      try {
+        await runProductionSchemaStage(
+          "postgres-close",
+          () => closePostgresClient(client)
+        );
+      } catch (closeError) {
+        if (primaryError === null) throw closeError;
+      }
     }
   });
 }
@@ -682,14 +761,26 @@ function evidenceFromInspection(dependencies, inspection) {
 
 export async function preflightTeacherNoticeProductionSchema(options = {}) {
   try {
-    const dependencies = resolveProductionGateDependencies(options);
+    const dependencies = await runProductionSchemaStage(
+      "input-binding",
+      async () => resolveProductionGateDependencies(options)
+    );
     const localBinding = localBindingFromDependencies(dependencies);
-    await assertLocalCandidateBinding(localBinding);
+    await runProductionSchemaStage(
+      "candidate-binding-before",
+      () => assertLocalCandidateBinding(localBinding)
+    );
     const inspected = await readProductionInspection(dependencies);
-    await assertLocalCandidateBinding(localBinding);
-    return evidenceFromInspection(dependencies, inspected);
-  } catch {
-    throw new Error("Teacher notice production schema preflight failed; details redacted.");
+    await runProductionSchemaStage(
+      "candidate-binding-after",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    return await runProductionSchemaStage(
+      "evidence-build",
+      async () => evidenceFromInspection(dependencies, inspected)
+    );
+  } catch (error) {
+    throw stageError("unknown", error);
   }
 }
 
@@ -938,10 +1029,11 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
 ) {
-  main().catch(() => {
+  main().catch((error) => {
     process.stderr.write(`${JSON.stringify({
       ok: false,
       status: "teacher-notice-production-schema-gate-failed",
+      stage: teacherNoticeProductionSchemaFailureStage(error),
       detail: "redacted"
     })}\n`);
     process.exitCode = 1;
