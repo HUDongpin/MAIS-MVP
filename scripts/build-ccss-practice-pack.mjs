@@ -318,7 +318,7 @@ if (syncTranslations && newlyRegistered.size) {
  * Coverage ratchet. Raise this as translation lands so coverage can only go up;
  * it lives here rather than in package.json because the npm scripts are frozen.
  */
-const MIN_TRANSLATION_COVERAGE = 0;
+const MIN_TRANSLATION_COVERAGE = 1;
 const translatableTotal = translatedCount + untranslated.size;
 const coverage = translatableTotal === 0 ? 1 : translatedCount / translatableTotal;
 console.log(
