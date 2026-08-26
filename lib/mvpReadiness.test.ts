@@ -11,6 +11,7 @@ import {
   secondaryCourseLabellingViolationsByTrack
 } from "./curriculumCourses";
 import type { CurriculumTrack, Topic } from "../types";
+import { inferK5Answer, k5ItemTemplates } from "./itemTemplates/k5Templates";
 import californiaMiddleSchoolLivePack from "../data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json";
 import californiaMiddleSchoolTextbookPack from "../data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json";
 import { buildWorkedExampleIllustrationMetadata } from "../components/lesson/workedExampleIllustrationMetadata";
@@ -1009,4 +1010,85 @@ test("course requirement applies to secondary grades only", () => {
   assert.equal(requiresCourseId("US_AR_MATH", "S3"), true); // US grade 9
   assert.equal(requiresCourseId("US_NC_MATH", "S3"), true); // integrated pathway
   assert.equal(requiresCourseId("US_CA_MATH", "S3"), false); // grade-organized
+});
+
+// --- Verified K-5 item machinery (state adaptation) ------------------------
+//
+// Before these families existed, exactly one of the sixteen question packs in
+// the repo carried a `generationTemplate` — the CA grades 6-12 bank. Every K-5
+// pack, California's included, carried zero, so no state could inherit a
+// verified K-5 practice asset and Arkansas K-5 (174 of its 209 topics) could
+// never clear a launch gate that requires independently re-solved items.
+//
+// The contract these tests pin: each family generates deterministically, and
+// re-solves its own items BY PARSING THE PROMPT, never by reading back stored
+// parameters. That is what makes the check independent — prompt/key drift is
+// caught rather than rubber-stamped.
+
+test("every K-5 template re-solves its own generated items from the prompt text", () => {
+  assert.ok(k5ItemTemplates.length >= 30, `expected at least 30 K-5 families, found ${k5ItemTemplates.length}`);
+  for (const template of k5ItemTemplates) {
+    for (let seed = 0; seed < 60; seed += 1) {
+      const generated = template.generate(seed);
+      assert.equal(generated.templateId, template.id);
+      assert.ok(Number.isFinite(generated.answer), `${template.id} seed ${seed} produced a non-finite answer`);
+      const solved = template.solve(generated.prompt);
+      assert.equal(
+        solved,
+        generated.answer,
+        `${template.id} seed ${seed}: prompt "${generated.prompt}" re-solved to ${solved}, stored answer ${generated.answer}`
+      );
+    }
+  }
+});
+
+test("K-5 generation is deterministic — a seed always reproduces its item", () => {
+  for (const template of k5ItemTemplates) {
+    for (const seed of [0, 7, 41]) {
+      assert.deepEqual(template.generate(seed), template.generate(seed), `${template.id} is not deterministic at seed ${seed}`);
+    }
+  }
+});
+
+test("K-5 solvers never disagree with each other on the same prompt", () => {
+  // Families are allowed to overlap (two products are still a product); what
+  // they may never do is return DIFFERENT answers for one prompt, because that
+  // is what makes a free-form bank unjudgeable.
+  for (const template of k5ItemTemplates) {
+    for (let seed = 0; seed < 30; seed += 1) {
+      const generated = template.generate(seed);
+      const inferred = inferK5Answer(generated.prompt);
+      assert.ok(inferred, `${template.id}: no solver matched its own prompt "${generated.prompt}"`);
+      assert.ok(
+        !("ambiguous" in inferred),
+        `${template.id}: solvers disagree on "${generated.prompt}" (${"ambiguous" in inferred ? inferred.ambiguous.join(", ") : ""})`
+      );
+      if ("value" in inferred) {
+        assert.equal(inferred.value, generated.answer, `${template.id}: inferred answer disagrees with the key`);
+      }
+    }
+  }
+});
+
+test("K-5 families carry real CCSS tags and span the K-5 grade band", () => {
+  const grades = new Set<string>();
+  for (const template of k5ItemTemplates) {
+    assert.ok(template.ccss.length > 0, `${template.id} carries no CCSS tag`);
+    for (const code of template.ccss) {
+      // K-5 CCSS ids only — a grades 6-12 tag here would mean the family is
+      // filed in the wrong band.
+      assert.match(code, /^(K|[1-5])\./, `${template.id} carries a non-K-5 standard ${code}`);
+    }
+    assert.ok(template.grades.length > 0, `${template.id} declares no grade`);
+    template.grades.forEach((grade) => grades.add(grade));
+  }
+  for (const expected of ["K", "P1", "P2", "P3", "P4", "P5"]) {
+    assert.ok(grades.has(expected), `no K-5 template family covers grade ${expected}`);
+  }
+});
+
+test("K-5 template ids are unique and stable-looking", () => {
+  const ids = k5ItemTemplates.map((template) => template.id);
+  assert.equal(new Set(ids).size, ids.length, "duplicate K-5 template id");
+  for (const id of ids) assert.match(id, /^k5_[a-z0-9_]+$/, `${id} is not a well-formed template id`);
 });
