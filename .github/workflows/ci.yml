@@ -178,6 +178,12 @@ jobs:
       - name: Run CCSS depth-coverage audit (standards with no bench)
         run: npm run audit:ccss-depth
 
+      # Invoked through tsx rather than `npm run qa:full-question-bank`: that script
+      # compiles the whole project with tsc first (80s), which the type-check step
+      # already covers, while the audit itself takes ~6s. Same audit, same exit codes.
+      - name: Run full question-bank solvability audit (all tracks, non-pass rows fail)
+        run: npx tsx --tsconfig tsconfig.json scripts/audit-full-question-bank-solvability.ts
+
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions
 
