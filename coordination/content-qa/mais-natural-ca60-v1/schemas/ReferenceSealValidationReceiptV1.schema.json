@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ReferenceSealValidationReceiptV1.schema.json",
+  "title": "ReferenceSealValidationReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runnerRegistrationHash", "sampleExecutionInventoryHash", "openAIReferenceAuthorizationHash", "referenceSealHash", "referenceAttemptChainHash", "referenceLedgerTerminalHash", "finalLabelRoot", "itemCount", "validationStatus", "validatedAt", "selfHash"],
+  "properties": {
+    "schemaVersion": { "const": "ReferenceSealValidationReceiptV1" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleExecutionInventoryHash": { "$ref": "#/$defs/hash" },
+    "openAIReferenceAuthorizationHash": { "$ref": "#/$defs/hash" },
+    "referenceSealHash": { "$ref": "#/$defs/hash" },
+    "referenceAttemptChainHash": { "$ref": "#/$defs/hash" },
+    "referenceLedgerTerminalHash": { "$ref": "#/$defs/hash" },
+    "finalLabelRoot": { "$ref": "#/$defs/hash" },
+    "itemCount": { "const": 60 },
+    "validationStatus": { "const": "VALID" },
+    "validatedAt": { "type": "string", "format": "date-time" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

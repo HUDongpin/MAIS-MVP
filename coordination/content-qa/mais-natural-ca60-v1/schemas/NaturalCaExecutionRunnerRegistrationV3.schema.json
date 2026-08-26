@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaExecutionRunnerRegistrationV3.schema.json",
+  "title": "NaturalCaExecutionRunnerRegistrationV3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "runnerVersion", "designId", "registeredAt", "supersedesRunnerRegistrationHash",
+    "discrepancyReviewHash", "discrepancyReviewCommit", "previousReceiptHash", "designRegistrationHash",
+    "frameRegistrationHash", "samplingFrameHash", "sampleManifestHash", "samplePayloadSetHash",
+    "sampleSelectionContentRootHash", "c0RandomAuditHash", "privacyScreenHash", "rightsScreenHash",
+    "ownerDecisionRequestHash", "ownerDecisionReceiptHash", "rightsPolicyHash", "lineageRuleHash", "taxonomyHash", "labelingAndAdjudicationHash",
+    "thresholdsDecisionAndPowerHash", "decisionCeiling", "providerContractErratumHash", "runnerSourceCommit",
+    "productionSourceManifest", "productionSourceRootHash", "testSourceManifest", "testSourceRootHash",
+    "methodKernel", "providerImplementations", "authorizationState", "status", "claimCeiling", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaExecutionRunnerRegistrationV3" },
+    "runnerVersion": { "const": "V5-R4" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registeredAt": { "type": "string", "format": "date-time" },
+    "supersedesRunnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "discrepancyReviewHash": { "$ref": "#/$defs/hash" },
+    "discrepancyReviewCommit": { "$ref": "#/$defs/commit" },
+    "previousReceiptHash": { "$ref": "#/$defs/hash" },
+    "designRegistrationHash": { "$ref": "#/$defs/hash" },
+    "frameRegistrationHash": { "$ref": "#/$defs/hash" },
+    "samplingFrameHash": { "$ref": "#/$defs/hash" },
+    "sampleManifestHash": { "$ref": "#/$defs/hash" },
+    "samplePayloadSetHash": { "$ref": "#/$defs/hash" },
+    "sampleSelectionContentRootHash": { "$ref": "#/$defs/hash" },
+    "c0RandomAuditHash": { "$ref": "#/$defs/hash" },
+    "privacyScreenHash": { "$ref": "#/$defs/hash" },
+    "rightsScreenHash": { "$ref": "#/$defs/hash" },
+    "ownerDecisionRequestHash": { "const": "2d0e8c24f270aa39292fea1ef8d1d11c4e9bd5d9ecd1bdf5a5bbf5119b964f78" },
+    "ownerDecisionReceiptHash": { "const": "855af9696548359bc7364a987aa0dc3a3f9cd5883f87911edd8067bc78ac3ad0" },
+    "rightsPolicyHash": { "$ref": "#/$defs/hash" },
+    "lineageRuleHash": { "$ref": "#/$defs/hash" },
+    "taxonomyHash": { "$ref": "#/$defs/hash" },
+    "labelingAndAdjudicationHash": { "$ref": "#/$defs/hash" },
+    "thresholdsDecisionAndPowerHash": { "$ref": "#/$defs/hash" },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "providerContractErratumHash": { "$ref": "#/$defs/hash" },
+    "runnerSourceCommit": { "$ref": "#/$defs/commit" },
+    "productionSourceManifest": { "$ref": "#/$defs/sourceManifest" },
+    "productionSourceRootHash": { "$ref": "#/$defs/hash" },
+    "testSourceManifest": { "$ref": "#/$defs/sourceManifest" },
+    "testSourceRootHash": { "$ref": "#/$defs/hash" },
+    "methodKernel": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inheritedStatisticalMethodHash", "bootstrapGoldenVectorHash", "missingDataMethodHash", "c0TriggerEngineHash", "providerRequestConstructionHash", "protectedStorageHash"],
+      "properties": {
+        "inheritedStatisticalMethodHash": { "$ref": "#/$defs/hash" },
+        "bootstrapGoldenVectorHash": { "$ref": "#/$defs/hash" },
+        "missingDataMethodHash": { "$ref": "#/$defs/hash" },
+        "c0TriggerEngineHash": { "$ref": "#/$defs/hash" },
+        "providerRequestConstructionHash": { "$ref": "#/$defs/hash" },
+        "protectedStorageHash": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "providerImplementations": {
+      "type": "object", "additionalProperties": false, "required": ["openAI", "deepSeek"],
+      "properties": {
+        "openAI": { "$ref": "#/$defs/providerImplementation" },
+        "deepSeek": { "$ref": "#/$defs/providerImplementation" }
+      }
+    },
+    "authorizationState": {
+      "type": "object", "additionalProperties": false,
+      "required": ["credentialReadAuthorized", "providerExecutionAuthorized", "naturalQuestionEgressAuthorized", "tokenAuthorizationCreated", "attemptAuthorizationCreated", "usdAuthorizationCreated", "credentialReadCount", "providerEventCount", "naturalQuestionEgressCount", "tokenCount", "attemptCount", "usdSpent", "referenceLabelCount", "naturalQuestionResultCount"],
+      "properties": {
+        "credentialReadAuthorized": { "const": false }, "providerExecutionAuthorized": { "const": false },
+        "naturalQuestionEgressAuthorized": { "const": false }, "tokenAuthorizationCreated": { "const": false },
+        "attemptAuthorizationCreated": { "const": false }, "usdAuthorizationCreated": { "const": false },
+        "credentialReadCount": { "const": 0 }, "providerEventCount": { "const": 0 },
+        "naturalQuestionEgressCount": { "const": 0 }, "tokenCount": { "const": 0 },
+        "attemptCount": { "const": 0 }, "usdSpent": { "const": 0 },
+        "referenceLabelCount": { "const": 0 }, "naturalQuestionResultCount": { "const": 0 }
+      }
+    },
+    "status": { "const": "OFFLINE_IMPLEMENTED_PENDING_FRESH_A11_V5_R4_REVIEW_PROVIDER_EXECUTION_BLOCKED" },
+    "claimCeiling": { "const": "FRAME_AND_SAMPLE_FROZEN_RUNNER_OFFLINE_IMPLEMENTED_NOT_EXECUTED" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sourceManifest": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "object", "additionalProperties": false, "required": ["path", "byteLength", "sha256"],
+        "properties": { "path": { "type": "string", "minLength": 1 }, "byteLength": { "type": "integer", "minimum": 1 }, "sha256": { "$ref": "#/$defs/hash" } }
+      }
+    },
+    "providerImplementation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "model", "endpoint", "projectResidency", "adapterHash", "requestConstructionHash", "authorizationGuardHash", "transportHash", "atomicLedgerHash", "routeEvidenceValidatorHash", "resumeAndCanaryHash", "runnerHash", "scorerHash", "providerCallsMade"],
+      "properties": {
+        "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+        "model": { "enum": ["gpt-5.6-luna", "deepseek-v4-pro"] },
+        "endpoint": { "enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"] },
+        "projectResidency": { "enum": ["US_STORAGE_PROCESSING", "UNKNOWN_PENDING_ROUTE_PROBE_EVIDENCE"] },
+        "adapterHash": { "$ref": "#/$defs/hash" }, "requestConstructionHash": { "$ref": "#/$defs/hash" },
+        "authorizationGuardHash": { "$ref": "#/$defs/hash" }, "transportHash": { "$ref": "#/$defs/hash" },
+        "atomicLedgerHash": { "$ref": "#/$defs/hash" }, "routeEvidenceValidatorHash": { "$ref": "#/$defs/hash" },
+        "resumeAndCanaryHash": { "$ref": "#/$defs/hash" }, "runnerHash": { "$ref": "#/$defs/hash" },
+        "scorerHash": { "$ref": "#/$defs/hash" }, "providerCallsMade": { "const": 0 }
+      }
+    }
+  }
+}

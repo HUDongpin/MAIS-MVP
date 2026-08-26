@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/SampleExecutionInventoryV2.schema.json","title":"SampleExecutionInventoryV2","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","runnerRegistrationHash","sampleManifestHash","sampleSelectionContentRootHash","samplePayloadSetHash","privacyScreenHash","rightsScreenHash","c0RandomAuditHash","canaryItemHash","itemCount","items","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"SampleExecutionInventoryV2"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},
+    "runnerRegistrationHash":{"$ref":"#/$defs/hash"},"sampleManifestHash":{"$ref":"#/$defs/hash"},"sampleSelectionContentRootHash":{"$ref":"#/$defs/hash"},"samplePayloadSetHash":{"$ref":"#/$defs/hash"},"privacyScreenHash":{"$ref":"#/$defs/hash"},"rightsScreenHash":{"$ref":"#/$defs/hash"},"c0RandomAuditHash":{"$ref":"#/$defs/hash"},"canaryItemHash":{"$ref":"#/$defs/hash"},"itemCount":{"const":60},
+    "items":{"type":"array","minItems":60,"maxItems":60,"items":{"type":"object","additionalProperties":false,"required":["manifestOrdinal","itemHash","itemIdPseudonym","clusterId","stratum","primaryAnalysisWeight","secondaryAnalysisWeight","inclusionProbability","privacyScreenEvidenceHash","rightsScreenEvidenceHash","egressEligible","registeredRandomAudit"],"properties":{
+      "manifestOrdinal":{"type":"integer","minimum":1,"maximum":60},"itemHash":{"$ref":"#/$defs/hash"},"itemIdPseudonym":{"type":"string","minLength":1},"clusterId":{"type":"string","minLength":1},"stratum":{"type":"string","minLength":1},"primaryAnalysisWeight":{"type":"number","exclusiveMinimum":0},"secondaryAnalysisWeight":{"type":"number","exclusiveMinimum":0},"inclusionProbability":{"type":"number","exclusiveMinimum":0,"maximum":1},"privacyScreenEvidenceHash":{"$ref":"#/$defs/hash"},"rightsScreenEvidenceHash":{"$ref":"#/$defs/hash"},"egressEligible":{"const":true},"registeredRandomAudit":{"type":"boolean"}
+    }}},"selfHash":{"$ref":"#/$defs/hash"}
+  },"$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ItemEvaluationResultV2.schema.json",
+  "title": "ItemEvaluationResultV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "runnerRegistrationHash", "sampleExecutionInventoryHash",
+    "referenceSealHash", "executionRegistrationHash", "deepSeekAuthorizationHash", "c0ExecutionSetHash",
+    "manifestOrdinal", "itemHash", "itemIdPseudonym", "clusterId", "executionDisposition",
+    "machineDisposition", "machineNonresolvedReasonCodes", "referenceDisposition", "machineSurfaceFinding",
+    "referenceFindings", "machineFindings", "finalReferenceLabelHash", "requiredRoleOrder",
+    "successfulRoleOutputHashes", "attemptReceiptHashes", "completedItemMarkerHash", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ItemEvaluationResultV2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleExecutionInventoryHash": { "$ref": "#/$defs/hash" },
+    "referenceSealHash": { "$ref": "#/$defs/hash" },
+    "executionRegistrationHash": { "$ref": "#/$defs/hash" },
+    "deepSeekAuthorizationHash": { "$ref": "#/$defs/hash" },
+    "c0ExecutionSetHash": { "$ref": "#/$defs/hash" },
+    "manifestOrdinal": { "type": "integer", "minimum": 1, "maximum": 60 },
+    "itemHash": { "$ref": "#/$defs/hash" },
+    "itemIdPseudonym": { "type": "string", "minLength": 1 },
+    "clusterId": { "type": "string", "minLength": 1 },
+    "executionDisposition": { "enum": ["COMPLETE", "MISSING_RECEIPT"] },
+    "machineDisposition": { "enum": ["RESOLVED", "UNRESOLVED_MACHINE", "MISSING_RECEIPT"] },
+    "machineNonresolvedReasonCodes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "referenceDisposition": { "enum": ["RESOLVED_POSITIVE", "RESOLVED_NEGATIVE", "UNRESOLVED_REFERENCE", "INVALID"] },
+    "machineSurfaceFinding": { "anyOf": [{ "type": "boolean" }, { "type": "null" }] },
+    "referenceFindings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "machineFindings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "finalReferenceLabelHash": { "$ref": "#/$defs/hash" },
+    "requiredRoleOrder": { "type": "array", "minItems": 2, "maxItems": 7, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "successfulRoleOutputHashes": { "type": "array", "maxItems": 7, "uniqueItems": true, "items": { "$ref": "#/$defs/hash" } },
+    "attemptReceiptHashes": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/hash" } },
+    "completedItemMarkerHash": { "anyOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }] },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "allOf": [
+    { "if": { "properties": { "executionDisposition": { "const": "COMPLETE" } }, "required": ["executionDisposition"] },
+      "then": { "properties": { "completedItemMarkerHash": { "$ref": "#/$defs/hash" } } } },
+    { "if": { "properties": { "executionDisposition": { "const": "MISSING_RECEIPT" } }, "required": ["executionDisposition"] },
+      "then": { "properties": { "completedItemMarkerHash": { "type": "null" } } } }
+  ],
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "finding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["itemId", "findingId", "evidenceLocator", "code", "family", "severity"],
+      "properties": {
+        "itemId": { "type": "string", "minLength": 1 },
+        "findingId": { "type": "string", "minLength": 1 },
+        "evidenceLocator": { "type": "string", "minLength": 1 },
+        "code": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["P0", "P1", "P2"] }
+      }
+    }
+  }
+}

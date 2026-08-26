@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaAggregateScoreReceiptV2.schema.json",
+  "title": "NaturalCaAggregateScoreReceiptV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "runnerRegistrationHash", "sampleExecutionInventoryHash",
+    "referenceSealHash", "executionRegistrationHash", "deepSeekAuthorizationHash", "c0ExecutionSetHash",
+    "itemResultSetHash", "itemResults", "completedItemMarkerRootHash", "completedItemMarkers",
+    "observedLedger", "counterfactualLedger", "metricInputLedger",
+    "metricResults", "statisticalKernel", "inventoryWeightedDescriptive", "executionIntegrity",
+    "deviationFlags", "overallDecision", "decisionCeiling", "claimCeiling", "passClaimAllowed",
+    "limitedGeneralizationEvidenceAllowed", "scoredAt", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaAggregateScoreReceiptV2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleExecutionInventoryHash": { "$ref": "#/$defs/hash" },
+    "referenceSealHash": { "$ref": "#/$defs/hash" },
+    "executionRegistrationHash": { "$ref": "#/$defs/hash" },
+    "deepSeekAuthorizationHash": { "$ref": "#/$defs/hash" },
+    "c0ExecutionSetHash": { "$ref": "#/$defs/hash" },
+    "itemResultSetHash": { "$ref": "#/$defs/hash" },
+    "itemResults": { "type": "array", "minItems": 60, "maxItems": 60, "items": { "type": "object" } },
+    "completedItemMarkerRootHash": { "$ref": "#/$defs/hash" },
+    "completedItemMarkers": { "type": "array", "maxItems": 60, "uniqueItems": true, "items": { "type": "object" } },
+    "observedLedger": { "type": "object" },
+    "counterfactualLedger": { "type": "object" },
+    "metricInputLedger": { "type": "object" },
+    "metricResults": { "type": "array", "minItems": 1, "items": { "type": "object" } },
+    "statisticalKernel": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inheritedMethodVersion", "metricDecisionMethodHash", "bootstrapGoldenVectorHash", "missingDataMethodHash", "bootstrapReplicates", "bootstrapPrng", "goldenVectorsVerified"],
+      "properties": {
+        "inheritedMethodVersion": { "const": "MAIS-NATURAL-CA60-V4_FROZEN_STATISTICAL_KERNEL" },
+        "metricDecisionMethodHash": { "$ref": "#/$defs/hash" },
+        "bootstrapGoldenVectorHash": { "$ref": "#/$defs/hash" },
+        "missingDataMethodHash": { "$ref": "#/$defs/hash" },
+        "bootstrapReplicates": { "const": 10000 },
+        "bootstrapPrng": { "type": "string", "minLength": 1 },
+        "goldenVectorsVerified": { "const": true }
+      }
+    },
+    "inventoryWeightedDescriptive": {
+      "type": "object", "additionalProperties": false,
+      "required": ["purpose", "weightSum", "weightSquareSum", "kishEffectiveSampleSize", "weightedResolvedReferencePositiveRate", "decisionEligible"],
+      "properties": {
+        "purpose": { "const": "SECONDARY_DESCRIPTIVE_ONLY" },
+        "weightSum": { "type": "number", "exclusiveMinimum": 0 },
+        "weightSquareSum": { "type": "number", "exclusiveMinimum": 0 },
+        "kishEffectiveSampleSize": { "type": "number", "exclusiveMinimum": 0, "maximum": 60 },
+        "weightedResolvedReferencePositiveRate": { "anyOf": [{ "type": "number", "minimum": 0, "maximum": 1 }, { "type": "null" }] },
+        "decisionEligible": { "const": false }
+      }
+    },
+    "executionIntegrity": { "type": "object" },
+    "deviationFlags": {
+      "type": "object", "additionalProperties": false,
+      "required": ["materialDeviation", "postResultDesignDrift", "labelLeakage", "unauthorizedProviderCall", "thresholdFrozenAfterLabelOrResult"],
+      "properties": {
+        "materialDeviation": { "type": "boolean" },
+        "postResultDesignDrift": { "type": "boolean" },
+        "labelLeakage": { "type": "boolean" },
+        "unauthorizedProviderCall": { "type": "boolean" },
+        "thresholdFrozenAfterLabelOrResult": { "type": "boolean" }
+      }
+    },
+    "overallDecision": { "enum": ["INVALID_FOR_GENERALIZATION", "EXECUTION_INTEGRITY_FAILED", "POLICY_REVISION_REQUIRED_MACHINE_REFERENCE", "INCONCLUSIVE_MACHINE_REFERENCE"] },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "claimCeiling": { "const": "CALIFORNIA_RUNTIME_EGRESS_ELIGIBLE_MACHINE_REFERENCE_PILOT_ONLY" },
+    "passClaimAllowed": { "const": false },
+    "limitedGeneralizationEvidenceAllowed": { "const": false },
+    "scoredAt": { "type": "string", "format": "date-time" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

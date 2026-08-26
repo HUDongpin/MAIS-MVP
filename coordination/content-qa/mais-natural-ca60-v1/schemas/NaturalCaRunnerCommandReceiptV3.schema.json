@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/NaturalCaRunnerCommandReceiptV3.schema.json","title":"NaturalCaRunnerCommandReceiptV3","type":"object","additionalProperties":false,
+  "required":["schemaVersion","runnerVersion","command","status","providerCommandInvoked","providerEventCount","httpRequestCount","credentialReadCount","referenceLabelCount","naturalQuestionResultCount","decisionCeiling","passClaimAllowed","selfHash"],
+  "properties":{"schemaVersion":{"const":"NaturalCaRunnerCommandReceiptV3"},"runnerVersion":{"const":"V5-R4"},"command":{"type":"string","minLength":1},"status":{"type":"string","minLength":1},"providerCommandInvoked":{"type":"boolean"},"providerEventCount":{"type":"integer","minimum":0},"httpRequestCount":{"type":"integer","minimum":0},"credentialReadCount":{"type":"integer","minimum":0},"referenceLabelCount":{"type":"integer","minimum":0,"maximum":60},"naturalQuestionResultCount":{"type":"integer","minimum":0,"maximum":60},"decisionCeiling":{"const":"INCONCLUSIVE_MACHINE_REFERENCE"},"passClaimAllowed":{"const":false},"selfHash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/ProviderRoleOutputV1.schema.json",
+  "title": "ProviderRoleOutputV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "runnerRegistrationHash", "sampleExecutionInventoryHash",
+    "authorizationHash", "provider", "model", "endpoint", "role", "attemptId",
+    "attemptReceiptHash", "requestArtifactHash", "itemHash", "itemIdPseudonym", "clusterId",
+    "rolePromptHash", "roleSchemaHash", "parsedPayload", "parsedPayloadHash",
+    "referenceInputCount", "deepSeekInputCount", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ProviderRoleOutputV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleExecutionInventoryHash": { "$ref": "#/$defs/hash" },
+    "authorizationHash": { "$ref": "#/$defs/hash" },
+    "provider": { "enum": ["OPENAI_DIRECT", "DEEPSEEK_DIRECT"] },
+    "model": { "enum": ["gpt-5.6-luna", "deepseek-v4-pro"] },
+    "endpoint": { "enum": ["https://us.api.openai.com/v1/responses", "https://api.deepseek.com/chat/completions"] },
+    "role": { "type": "string", "minLength": 1 },
+    "attemptId": { "type": "string", "minLength": 1 },
+    "attemptReceiptHash": { "$ref": "#/$defs/hash" },
+    "requestArtifactHash": { "$ref": "#/$defs/hash" },
+    "itemHash": { "$ref": "#/$defs/hash" },
+    "itemIdPseudonym": { "type": "string", "minLength": 1 },
+    "clusterId": { "type": "string", "minLength": 1 },
+    "rolePromptHash": { "$ref": "#/$defs/hash" },
+    "roleSchemaHash": { "$ref": "#/$defs/hash" },
+    "parsedPayload": { "type": "object" },
+    "parsedPayloadHash": { "$ref": "#/$defs/hash" },
+    "referenceInputCount": { "const": 0 },
+    "deepSeekInputCount": { "const": 0 },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

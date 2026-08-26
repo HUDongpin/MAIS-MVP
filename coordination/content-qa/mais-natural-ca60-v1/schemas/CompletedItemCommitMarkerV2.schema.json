@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/CompletedItemCommitMarkerV2.schema.json",
+  "title": "CompletedItemCommitMarkerV2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "designId", "runnerRegistrationHash", "sampleManifestHash", "referenceSealHash",
+    "executionRegistrationHash", "itemHash", "itemIdPseudonym", "clusterId", "requiredRoleOrder",
+    "successfulRoleOutputHashes", "attemptReceiptHashes", "executionDisposition", "atomicWrite", "fileMode", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "CompletedItemCommitMarkerV2" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "runnerRegistrationHash": { "$ref": "#/$defs/hash" },
+    "sampleManifestHash": { "$ref": "#/$defs/hash" },
+    "referenceSealHash": { "$ref": "#/$defs/hash" },
+    "executionRegistrationHash": { "$ref": "#/$defs/hash" },
+    "itemHash": { "$ref": "#/$defs/hash" },
+    "itemIdPseudonym": { "type": "string", "minLength": 1 },
+    "clusterId": { "type": "string", "minLength": 1 },
+    "requiredRoleOrder": {
+      "type": "array", "minItems": 2, "maxItems": 7, "uniqueItems": true,
+      "items": { "enum": ["B_PRIME_CRITIQUE", "B_PRIME_REVISION", "C0_PRIME_ROLE_1", "C0_PRIME_ROLE_2", "C0_PRIME_ROLE_3", "C0_PRIME_ROLE_4", "C0_PRIME_ROLE_5"] }
+    },
+    "successfulRoleOutputHashes": { "type": "array", "maxItems": 7, "uniqueItems": true, "items": { "$ref": "#/$defs/hash" } },
+    "attemptReceiptHashes": { "type": "array", "maxItems": 14, "uniqueItems": true, "items": { "$ref": "#/$defs/hash" } },
+    "executionDisposition": { "const": "COMPLETE" },
+    "atomicWrite": { "const": true },
+    "fileMode": { "const": "0600" },
+    "selfHash": { "$ref": "#/$defs/hash" }
+  },
+  "$defs": { "hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

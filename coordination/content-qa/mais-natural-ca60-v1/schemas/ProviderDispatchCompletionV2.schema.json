@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/ProviderDispatchCompletionV2.schema.json","title":"ProviderDispatchCompletionV2","type":"object","additionalProperties":false,
+  "required":["schemaVersion","entryType","status","sequenceNumber","previousEntryHash","authorizationHash","reservationHash","providerEventReceiptHash","providerEventReceipt","roleOutputHash","roleOutput","attemptStatus","selfHash"],
+  "properties":{"schemaVersion":{"const":"ProviderDispatchCompletionV2"},"entryType":{"const":"DISPATCH_COMPLETED"},"status":{"const":"COMPLETED"},"sequenceNumber":{"type":"integer","minimum":1},"previousEntryHash":{"$ref":"#/$defs/hash"},"authorizationHash":{"$ref":"#/$defs/hash"},"reservationHash":{"$ref":"#/$defs/hash"},"providerEventReceiptHash":{"$ref":"#/$defs/hash"},"providerEventReceipt":{"type":"object"},"roleOutputHash":{"anyOf":[{"$ref":"#/$defs/hash"},{"type":"null"}]},"roleOutput":{"anyOf":[{"type":"object"},{"type":"null"}]},"attemptStatus":{"type":"string","minLength":1},"selfHash":{"$ref":"#/$defs/hash"}},"$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,7 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/IndependentExecutionResultReviewReceiptV1.schema.json","title":"IndependentExecutionResultReviewReceiptV1","type":"object","additionalProperties":false,
+  "required":["schemaVersion","designId","runnerRegistrationHash","aggregateScoreReceiptHash","finalVerificationReceiptHash","reviewerLane","independentImplementation","decision","discrepancyCodes","reviewedAt","selfHash"],
+  "properties":{"schemaVersion":{"const":"IndependentExecutionResultReviewReceiptV1"},"designId":{"const":"MAIS-NATURAL-CA60-V5"},"runnerRegistrationHash":{"$ref":"#/$defs/hash"},"aggregateScoreReceiptHash":{"$ref":"#/$defs/hash"},"finalVerificationReceiptHash":{"$ref":"#/$defs/hash"},"reviewerLane":{"const":"A11"},"independentImplementation":{"const":true},"decision":{"enum":["CONCURRED","DISCREPANCY","UNREVIEWABLE"]},"discrepancyCodes":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},"reviewedAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}},
+  "allOf":[{"if":{"properties":{"decision":{"const":"CONCURRED"}},"required":["decision"]},"then":{"properties":{"discrepancyCodes":{"maxItems":0}}}},{"if":{"properties":{"decision":{"const":"DISCREPANCY"}},"required":["decision"]},"then":{"properties":{"discrepancyCodes":{"minItems":1}}}}],
+  "$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}

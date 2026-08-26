@@ -1,0 +1,7 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://mais.local/schemas/ProviderPriceSnapshotV2.schema.json","title":"ProviderPriceSnapshotV2","type":"object","additionalProperties":false,
+  "required":["schemaVersion","provider","model","endpoint","dataRegion","currency","inputUsdPerMillionTokens","outputUsdPerMillionTokens","sourceKind","sourceLocatorHash","sourceBytesHash","capturedAt","expiresAt","selfHash"],
+  "properties":{
+    "schemaVersion":{"const":"ProviderPriceSnapshotV2"},"provider":{"enum":["OPENAI_DIRECT","DEEPSEEK_DIRECT"]},"model":{"enum":["gpt-5.6-luna","deepseek-v4-pro"]},"endpoint":{"enum":["https://us.api.openai.com/v1/responses","https://api.deepseek.com/chat/completions"]},"dataRegion":{"enum":["US","UNKNOWN_PENDING_ROUTE_PROBE_EVIDENCE"]},"currency":{"const":"USD"},"inputUsdPerMillionTokens":{"type":"number","minimum":0},"outputUsdPerMillionTokens":{"type":"number","minimum":0},"sourceKind":{"enum":["PROVIDER_CONSOLE","PROVIDER_OFFICIAL_RATE_CARD"]},"sourceLocatorHash":{"$ref":"#/$defs/hash"},"sourceBytesHash":{"$ref":"#/$defs/hash"},"capturedAt":{"type":"string","format":"date-time"},"expiresAt":{"type":"string","format":"date-time"},"selfHash":{"$ref":"#/$defs/hash"}
+  },"$defs":{"hash":{"type":"string","pattern":"^[0-9a-f]{64}$"}}
+}
