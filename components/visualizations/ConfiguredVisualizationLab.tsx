@@ -75,11 +75,12 @@ const arrayAreaLayout = {
 };
 // Three place columns — hundreds flats, ten rods, one units — laid out left to
 // right inside the panel (x 84..556) and clear of the summary pill at y = 266.
-// Worst case is 9 of each: hundreds reach x 228 / y 224, tens reach x 444,
-// ones reach x 532 / y 158.
+// Worst case is 9 of each: hundreds reach x 228 / y 256, tens reach x 444 / y
+// 256, ones reach x 532 / y 190 — all clear of the summary pill at y 266 and
+// below the title badge clearance at y 96.
 const baseTenLayout = {
-  columnTop: 92,
-  headingY: 84,
+  columnTop: 124,
+  headingY: 114,
   hundredSize: 40,
   hundredsStep: 46,
   hundredsX: 96,
@@ -1912,11 +1913,13 @@ function TemplateMarks({
           fill={vizTheme.labelText}
           className="text-xs font-black"
         >
+          {/* Reflection and dilation each take one parameter; naming a vertical
+              shift here described a transformation the model no longer applies. */}
           {mode === 0
             ? `T(${state.dx}, ${state.dy})`
             : mode === 1
-              ? `reflect x = ${formatNumber(state.reflectionLineX, 1)}, dy = ${state.dy}`
-              : `scale = ${formatNumber(state.dilationScale, 2)}, dy = ${state.dy}`}
+              ? `reflect in x = ${formatNumber(state.reflectionLineX, 1)}`
+              : `dilate about (0, 0), scale = ${formatNumber(state.dilationScale, 2)}`}
         </text>
       </>
     );

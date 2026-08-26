@@ -37,7 +37,7 @@ const directLabTemplateMetadata: Record<VisualizationTemplateId, DirectLabTempla
     accent: "#22d3ee",
     analyticsSource: "coordinate-plane",
     category: { en: "Place value", zh: "位值", zhHans: "位值" },
-    formula: { en: "tens + ones", zh: "十位 + 個位", zhHans: "十位 + 个位" },
+    formula: { en: "hundreds + tens + ones", zh: "百位 + 十位 + 個位", zhHans: "百位 + 十位 + 个位" },
     qaProfile: "standard"
   },
   "calculus-rate-area": {
