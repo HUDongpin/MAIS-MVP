@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "A11IndependentRunnerFindingLedgerV1",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "runnerVersion": "V5-R8",
+  "reviewDecision": "DISCREPANCY",
+  "reviewedRunnerRegistrationHash": "ea5cb617a77a2521e473846c35267f419723fd9bf6c0ca8bef8cd6fc9fa46160",
+  "findings": [
+    {
+      "findingId": "A11-R8-001",
+      "severity": "CRITICAL",
+      "code": "PUBLIC_WORKFLOW_NOT_FUTURE_REACHABLE",
+      "mapsToPriorFindings": [
+        "A11-R7-006"
+      ]
+    },
+    {
+      "findingId": "A11-R8-002",
+      "severity": "CRITICAL",
+      "code": "SIDE_EFFECTING_ADAPTER_BYPASSES_GIT_CUSTODIED_REVIEW",
+      "mapsToPriorFindings": [
+        "A11-R7-004"
+      ]
+    },
+    {
+      "findingId": "A11-R8-003",
+      "severity": "CRITICAL",
+      "code": "SIGNED_ROUTE_SUMMARIES_LACK_RAW_SOURCE_AND_PROBE_RECONSTRUCTION",
+      "mapsToPriorFindings": [
+        "A11-R7-005"
+      ]
+    },
+    {
+      "findingId": "A11-R8-004",
+      "severity": "CRITICAL",
+      "code": "TERMINAL_RECEIPT_DOES_NOT_PRESERVE_ACTUAL_PARTIAL_CUSTODY",
+      "mapsToPriorFindings": [
+        "A11-R7-003"
+      ]
+    },
+    {
+      "findingId": "A11-R8-005",
+      "severity": "CRITICAL",
+      "code": "DECISION_INTEGRITY_FLAGS_ARE_CALLER_CONTROLLED",
+      "mapsToPriorFindings": []
+    },
+    {
+      "findingId": "A11-R8-006",
+      "severity": "HIGH",
+      "code": "INTERRUPTED_ATTEMPT_RECOVERY_NOT_SAFE_FROM_RELOADED_CUSTODY",
+      "mapsToPriorFindings": [
+        "A11-R7-006"
+      ]
+    },
+    {
+      "findingId": "A11-R8-007",
+      "severity": "HIGH",
+      "code": "FINDING_ID_WRONGLY_GLOBAL_ACROSS_ITEMS",
+      "mapsToPriorFindings": [
+        "A11-R7-001",
+        "A11-R7-002"
+      ]
+    },
+    {
+      "findingId": "A11-R8-008",
+      "severity": "MEDIUM",
+      "code": "A07_CLOSEOUT_REMAINS_CONDITIONAL_AND_PRE_REGISTRATION",
+      "mapsToPriorFindings": [
+        "A11-R7-008"
+      ]
+    }
+  ],
+  "severityCounts": {
+    "critical": 5,
+    "high": 2,
+    "medium": 1,
+    "low": 0
+  },
+  "findingCount": 8,
+  "requiresSupersedingRegistration": true,
+  "derivedAt": "2026-08-26T14:49:30.000Z",
+  "selfHash": "a30f96feab03437137e019116377345b241fe949b1c5c2b8f2c70c730c1acdb3"
+}

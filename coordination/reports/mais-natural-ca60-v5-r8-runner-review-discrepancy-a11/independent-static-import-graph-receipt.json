@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "IndependentStaticImportGraphReceiptV1",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "runnerVersion": "V5-R8",
+  "verifierSourceTreeRoot": "d649b4edc62cfb52aaf071edb7795fb1c8ae7da4d3ade8bf9444693f2fcb048f",
+  "importEdges": [
+    [
+      "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/independent-runner-registration-verifier.mjs",
+      "node:child_process"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/independent-runner-registration-verifier.mjs",
+      "node:crypto"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/independent-runner-registration-verifier.mjs",
+      "node:fs"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/independent-runner-registration-verifier.mjs",
+      "node:path"
+    ],
+    [
+      "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/independent-runner-registration-verifier.mjs",
+      "node:url"
+    ]
+  ],
+  "importEdgeCount": 5,
+  "forbiddenPrimaryScorerImportCount": 0,
+  "derivedAt": "2026-08-26T14:49:30.000Z",
+  "selfHash": "25257506a1a8baff332cf20b2f02187c5b7c4055940d15dfb9149066231ebd54"
+}

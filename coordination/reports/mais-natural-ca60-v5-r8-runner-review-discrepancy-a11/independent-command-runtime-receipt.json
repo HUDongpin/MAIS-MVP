@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "IndependentCommandRuntimeReceiptV1",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "runnerVersion": "V5-R8",
+  "verifierSourceTreeRoot": "d649b4edc62cfb52aaf071edb7795fb1c8ae7da4d3ade8bf9444693f2fcb048f",
+  "dependencyLockRoot": "4a0d2a884e0d7141da1da021073dbd48aba5c699bba753c60f399469b3b67fc6",
+  "nodeVersion": "v24.15.0",
+  "platform": "darwin",
+  "commands": [
+    {
+      "argv": [
+        "node",
+        "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/independent-runner-registration-verifier.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutHash": "7b14820ce254c3418b6fb33eccf428d3c26cc01d50eff70d925acee0326a2113",
+      "stderrHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "--test",
+        "coordination/reports/mais-natural-ca60-v5-r8-runner-review-discrepancy-a11/a11-adversarial-boundary.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutHash": "b3b95b96a314e5a3d9d3ec244988b5b23df4962e13f91571df8178327e114263",
+      "stderrHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "--test",
+        "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-cli.test.mjs",
+        "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-evidence.test.mjs",
+        "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-remediation.test.mjs",
+        "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-runtime.test.mjs",
+        "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-schemas.test.mjs",
+        "coordination/content-qa/mais-natural-ca60-v1/runner-v5-r8-scorer-verifier.test.mjs",
+        "coordination/research/mais-natural-ca60-v1/runner-registrations/v5-r8/runner-registration-artifact.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutHash": "e8da10d1d5e02188e773ab0a7bd5d4972339ccf98125f3de9fcd36f6d6b2a537",
+      "stderrHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "allCommandsExitedZero": true,
+  "derivedAt": "2026-08-26T14:49:30.000Z",
+  "selfHash": "db31bca0cd6459eaa0f9496573a20625106f6ca01722d2f6a52036c2c0f5dacd"
+}
