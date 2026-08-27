@@ -59,12 +59,36 @@ Unblocking requires one of:
 2. **Scope the workflow** to `paths: coordination/integration/**` *and* remove it from required — a skipped required check never reports and blocks forever, so path-scoping alone makes things worse, or
 3. Re-point `PROMOTION_MANIFEST` at a live pilot once one exists.
 
-Option 1 is the minimal unblock:
+Option 1 is the minimal unblock. The exact current configuration was captured first, so the change is fully reversible:
+
+```
+strict:   false
+contexts: ["validate", "promotion-shadow-gate"]
+checks:   [{"context":"validate","app_id":15368},
+           {"context":"promotion-shadow-gate","app_id":15368}]
+```
+
+**Disable** (drops the gate to informational, keeps `validate` required):
 
 ```bash
 gh api -X PATCH repos/HUDongpin/MAIS-MVP/branches/main/protection/required_status_checks \
-  -f 'contexts[]=validate'
+  -F strict=false -f 'contexts[]=validate'
 ```
+
+**Restore**, byte-for-byte, once the pilot is finalized or re-pointed:
+
+```bash
+gh api -X PATCH repos/HUDongpin/MAIS-MVP/branches/main/protection/required_status_checks \
+  -F strict=false -f 'contexts[]=validate' -f 'contexts[]=promotion-shadow-gate'
+```
+
+Verify either with:
+
+```bash
+gh api repos/HUDongpin/MAIS-MVP/branches/main/protection/required_status_checks --jq '.contexts'
+```
+
+Note the `app_id` binding (15368, GitHub Actions) is re-derived from the context name on write, so the restore above reproduces the captured state exactly.
 
 This was **not run**. This session holds `admin` on the repository, but permission is not authorization: dropping a required governance check is a merge-control change, it was not among the options put to this session, and it should be an explicit owner decision recorded in its own right.
 
