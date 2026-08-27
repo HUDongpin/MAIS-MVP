@@ -1,0 +1,92 @@
+{
+  "pep-primary": {
+    "n": 1200,
+    "grades": {
+      "P1": 200,
+      "P2": 200,
+      "P3": 200,
+      "P4": 200,
+      "P5": 200,
+      "P6": 200
+    },
+    "file": "slices/pep-primary.jsonl"
+  },
+  "pep-junior": {
+    "n": 1200,
+    "grades": {
+      "S1": 400,
+      "S2": 400,
+      "S3": 400
+    },
+    "file": "slices/pep-junior.jsonl"
+  },
+  "pep-high": {
+    "n": 4800,
+    "grades": {
+      "S4": 1600,
+      "S5": 1600,
+      "S6": 1600
+    },
+    "file": "slices/pep-high.jsonl"
+  },
+  "bnu-junior": {
+    "n": 1500,
+    "grades": {
+      "S1": 500,
+      "S2": 500,
+      "S3": 500
+    },
+    "file": "slices/bnu-junior.jsonl"
+  },
+  "bnu-primary": {
+    "n": 3000,
+    "grades": {
+      "P1": 500,
+      "P2": 500,
+      "P3": 500,
+      "P4": 500,
+      "P5": 500,
+      "P6": 500
+    },
+    "file": "slices/bnu-primary.jsonl"
+  },
+  "bnu-high": {
+    "n": 1500,
+    "grades": {
+      "S4": 500,
+      "S5": 500,
+      "S6": 500
+    },
+    "file": "slices/bnu-high.jsonl"
+  },
+  "hjb-junior": {
+    "n": 1500,
+    "grades": {
+      "S1": 500,
+      "S2": 500,
+      "S3": 500
+    },
+    "file": "slices/hjb-junior.jsonl"
+  },
+  "hjb-primary": {
+    "n": 1500,
+    "grades": {
+      "P1": 250,
+      "P2": 250,
+      "P3": 250,
+      "P4": 250,
+      "P5": 250,
+      "P6": 250
+    },
+    "file": "slices/hjb-primary.jsonl"
+  },
+  "hjb-high": {
+    "n": 1500,
+    "grades": {
+      "S4": 500,
+      "S5": 500,
+      "S6": 500
+    },
+    "file": "slices/hjb-high.jsonl"
+  }
+}
