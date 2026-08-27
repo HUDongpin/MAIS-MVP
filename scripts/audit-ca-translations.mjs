@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Enforces the English-only policy for United States curriculum packs.
+// Enforces the English-only policy across EVERY United States curriculum pack.
 //
 // Standing owner decision (reaffirmed 2026-08-27): American curriculum — California
 // included — ships in English. There is no multi-language support for the US tracks.
@@ -12,9 +12,10 @@
 // data/generated-content/. That blind spot is what allowed a translation workstream to
 // be started against a track that is not supposed to be translated.
 //
-// All three live US California packs are ENFORCED. The 1,992 pre-existing translated
-// items in the K-5 knowledge-point and G6-G12 banks were de-translated on 2026-08-27
-// under the owner decision, so there is no longer a reported-only tier.
+// Scope is every US pack under data/generated-content, California and Arkansas and
+// Florida, live and dormant alike. Scoping an earlier version of this audit to
+// California alone left 8,028 non-English fields in the two Arkansas banks passing
+// silently — the policy is "American curriculum", not "California".
 //
 // Usage: node scripts/audit-ca-translations.mjs [--json out.json]
 // Exits non-zero if an ENFORCED pack ships a localized field that differs from English.
@@ -25,11 +26,20 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
+// Every generated-content pack on a United States track, live or dormant. A dormant
+// pack is still enforced: it carries the policy with it if it is ever promoted, which
+// is exactly how us-ar-math-g6-g12 accumulated 4,108 non-English fields unnoticed.
 const PACKS = [
-  { id: "ccss-textbook-practice-v1", enforced: true },
-  { id: "us-ca-k5-knowledge-point-practice-v1", enforced: true },
-  { id: "us-ca-math-g6-g12-generated-bank-v2-1500", enforced: true }
-];
+  { id: "ccss-textbook-practice-v1", file: "question-pack.json" },
+  { id: "us-ca-k5-knowledge-point-practice-v1", file: "question-pack.json" },
+  { id: "us-ca-math-g6-g12-generated-bank-v2-1500", file: "question-pack.json" },
+  { id: "us-ca-math-k-g5-generated-bank-v3-deepseek-1500", file: "question-pack.json" },
+  { id: "us-ar-math-k-g5-generated-bank-v1-1500", file: "question-pack.json" },
+  { id: "us-ar-math-g6-g12-generated-bank-v1-1500", file: "question-pack.json" },
+  { id: "us-ar-math-textbooks-v1", file: "textbook-pack.json" },
+  { id: "us-fl-math-middle-school-textbooks-v1", file: "textbook-pack.json" },
+  { id: "us-ca-math-textbooks-v1", file: "textbook-pack.json" }
+].map((pack) => ({ ...pack, enforced: true }));
 
 /** Every localized {en, zh, zhHans} object reachable from a record. */
 function* localizedNodes(node) {
@@ -47,14 +57,17 @@ const summary = [];
 let enforcedViolations = 0;
 
 for (const pack of PACKS) {
-  const file = path.join(repoRoot, "data/generated-content", pack.id, "question-pack.json");
-  let questions;
+  const file = path.join(repoRoot, "data/generated-content", pack.id, pack.file);
+  let root;
   try {
-    questions = JSON.parse(readFileSync(file, "utf8")).questions;
+    root = JSON.parse(readFileSync(file, "utf8"));
   } catch (error) {
-    console.error(`audit-ca-translations: cannot read ${pack.id} — ${error.message}`);
+    console.error(`audit-ca-translations: cannot read ${pack.id}/${pack.file} — ${error.message}`);
     process.exit(2);
   }
+  // Question banks expose `questions`; textbook packs nest problems under books/chapters,
+  // so walk the whole document rather than a fixed key.
+  const questions = root.questions ?? root.books ?? [];
 
   let fields = 0;
   const offenders = new Set();
