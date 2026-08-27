@@ -10,6 +10,10 @@ import {
   applyPostgresStorageSchemaForProductionGate,
   inspectPostgresStorageSchemaForProductionGate
 } from "../lib/server/userStore.ts";
+import {
+  diagnosePostgresStoragePartialSchemaForProductionGate,
+  teacherNoticeProductionSchemaPartialComponents
+} from "./teacher-notice-production-schema-diagnostic.mjs";
 
 import {
   attestTeacherNoticeEmailCronHeartbeatPostgresSchema,
@@ -47,6 +51,9 @@ const appStorageStates = new Set([
   "exact",
   "partial"
 ]);
+const appStoragePartialComponents = new Set(
+  teacherNoticeProductionSchemaPartialComponents
+);
 const appStorageSeedModes = new Set([
   "demo-disabled",
   "demo-enabled",
@@ -101,19 +108,27 @@ const productionSchemaFailureReasons = new Set([
 ]);
 
 class TeacherNoticeProductionSchemaReasonError extends Error {
-  constructor(reason) {
+  constructor(reason, component = "unknown") {
     super("Teacher notice production schema state was rejected; details redacted.");
     this.name = "TeacherNoticeProductionSchemaReasonError";
     this.reason = productionSchemaFailureReasons.has(reason) ? reason : "unknown";
+    this.component = this.reason === "app-storage-partial"
+      && appStoragePartialComponents.has(component)
+      ? component
+      : "unknown";
   }
 }
 
 class TeacherNoticeProductionSchemaStageError extends Error {
-  constructor(stage, reason = "unknown") {
+  constructor(stage, reason = "unknown", component = "unknown") {
     super("Teacher notice production schema operation failed; details redacted.");
     this.name = "TeacherNoticeProductionSchemaStageError";
     this.stage = productionSchemaFailureStages.has(stage) ? stage : "unknown";
     this.reason = productionSchemaFailureReasons.has(reason) ? reason : "unknown";
+    this.component = this.reason === "app-storage-partial"
+      && appStoragePartialComponents.has(component)
+      ? component
+      : "unknown";
   }
 }
 
@@ -123,6 +138,9 @@ function stageError(stage, error) {
     stage,
     error instanceof TeacherNoticeProductionSchemaReasonError
       ? error.reason
+      : "unknown",
+    error instanceof TeacherNoticeProductionSchemaReasonError
+      ? error.component
       : "unknown"
   );
 }
@@ -149,6 +167,14 @@ export function teacherNoticeProductionSchemaFailureReason(error) {
     : "unknown";
 }
 
+export function teacherNoticeProductionSchemaFailureComponent(error) {
+  return error instanceof TeacherNoticeProductionSchemaStageError
+    && error.reason === "app-storage-partial"
+    && appStoragePartialComponents.has(error.component)
+    ? error.component
+    : "unknown";
+}
+
 const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
   `CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
     ON public.teacher_notice_resend_webhook_events (received_at)
@@ -168,6 +194,7 @@ const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
 ];
 
 export function buildTeacherNoticeProductionSchemaPlan({
+  appStoragePartialComponent = "unknown",
   appStorageState,
   heartbeatState,
   outboxState,
@@ -182,7 +209,10 @@ export function buildTeacherNoticeProductionSchemaPlan({
     throw new TeacherNoticeProductionSchemaReasonError("schema-state-invalid");
   }
   if (appStorageState === "partial") {
-    throw new TeacherNoticeProductionSchemaReasonError("app-storage-partial");
+    throw new TeacherNoticeProductionSchemaReasonError(
+      "app-storage-partial",
+      appStoragePartialComponent
+    );
   }
   if (outboxState === "partial") {
     throw new TeacherNoticeProductionSchemaReasonError("outbox-partial");
@@ -237,6 +267,7 @@ function sha256(value) {
 }
 
 export function buildTeacherNoticeProductionSchemaPreflightEvidence({
+  appStoragePartialComponent,
   appStorageSeedMode,
   appStorageState,
   candidateSha,
@@ -263,6 +294,7 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
     throw new Error("Teacher notice production preflight binding was rejected.");
   }
   const operations = buildTeacherNoticeProductionSchemaPlan({
+    appStoragePartialComponent,
     appStorageState,
     heartbeatState,
     outboxState,
@@ -662,7 +694,12 @@ function validateDatabaseInspection(inspection, productionUrl) {
   }
   const outboxState = inspection?.outboxState;
   const appStorageState = inspection?.appStorageState;
-  if (!outboxStates.has(outboxState) || !appStorageStates.has(appStorageState)) {
+  const appStoragePartialComponent = inspection?.appStoragePartialComponent ?? "unknown";
+  if (
+    !outboxStates.has(outboxState)
+    || !appStorageStates.has(appStorageState)
+    || !appStoragePartialComponents.has(appStoragePartialComponent)
+  ) {
     throw new Error("Teacher notice production outbox state was rejected.");
   }
   const targetFingerprint = sha256([
@@ -676,6 +713,7 @@ function validateDatabaseInspection(inspection, productionUrl) {
     versionText
   ].join("\0"));
   return {
+    appStoragePartialComponent,
     appStorageState,
     heartbeatState: inspection?.heartbeatState,
     outboxState,
@@ -740,6 +778,16 @@ async function inspectProductionDatabase(client) {
     throw new Error("Teacher notice production database client was rejected.");
   }
   const appStorageState = await inspectPostgresStorageSchemaForProductionGate(client);
+  let appStoragePartialComponent = "unknown";
+  if (appStorageState === "partial") {
+    try {
+      appStoragePartialComponent =
+        await diagnosePostgresStoragePartialSchemaForProductionGate(client);
+    } catch {
+      // Supplemental catalog diagnosis must never replace the controlling
+      // fail-closed app-storage-partial result or expose provider detail.
+    }
+  }
   const teacherNoticeInspection = await client.begin(
     "isolation level repeatable read read only",
     async (sql) => {
@@ -822,6 +870,7 @@ async function inspectProductionDatabase(client) {
   );
   return {
     ...teacherNoticeInspection,
+    appStoragePartialComponent,
     appStorageState
   };
 }
@@ -1323,6 +1372,7 @@ if (
       status: "teacher-notice-production-schema-gate-failed",
       stage: teacherNoticeProductionSchemaFailureStage(error),
       reason: teacherNoticeProductionSchemaFailureReason(error),
+      component: teacherNoticeProductionSchemaFailureComponent(error),
       detail: "redacted"
     })}\n`);
     process.exitCode = 1;

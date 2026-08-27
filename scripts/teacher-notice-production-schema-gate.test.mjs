@@ -10,6 +10,7 @@ import {
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   preflightTeacherNoticeProductionSchema,
+  teacherNoticeProductionSchemaFailureComponent,
   teacherNoticeProductionSchemaFailureReason,
   teacherNoticeProductionSchemaFailureStage
 } from "./teacher-notice-production-schema-gate.mjs";
@@ -986,11 +987,24 @@ test("preflight preserves only an allowlisted stage code across provider and dat
     ),
     "unknown"
   );
+  assert.equal(
+    teacherNoticeProductionSchemaFailureComponent(
+      Object.assign(new Error(sensitiveDiagnostic), {
+        component: "legacy-compatibility-contract"
+      })
+    ),
+    "unknown"
+  );
 });
 
 test("preflight preserves only an allowlisted partial-schema reason", async () => {
   const cases = [
-    { appStorageState: "partial", expectedReason: "app-storage-partial" },
+    {
+      appStoragePartialComponent: "legacy-compatibility-contract",
+      appStorageState: "partial",
+      expectedComponent: "legacy-compatibility-contract",
+      expectedReason: "app-storage-partial"
+    },
     { heartbeatState: "partial", expectedReason: "heartbeat-partial" },
     { outboxState: "partial", expectedReason: "outbox-partial" },
     { webhookState: "partial", expectedReason: "webhook-partial" },
@@ -1001,7 +1015,7 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
     }
   ];
 
-  for (const { expectedReason, ...overrides } of cases) {
+  for (const { expectedComponent = "unknown", expectedReason, ...overrides } of cases) {
     await assert.rejects(
       preflightTeacherNoticeProductionSchema(preflightDependencies({
         inspectDatabase: async () => databaseInspection(overrides)
@@ -1009,6 +1023,10 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
       (error) => {
         assert.equal(teacherNoticeProductionSchemaFailureStage(error), "evidence-build");
         assert.equal(teacherNoticeProductionSchemaFailureReason(error), expectedReason);
+        assert.equal(
+          teacherNoticeProductionSchemaFailureComponent(error),
+          expectedComponent
+        );
         assert.match(error.message, /details redacted/u);
         assert.equal(error.message.includes("secret"), false);
         return true;
@@ -1047,6 +1065,7 @@ test("CLI preflight failure emits one fixed safe stage without raw diagnostics",
     status: "teacher-notice-production-schema-gate-failed",
     stage: "input-binding",
     reason: "unknown",
+    component: "unknown",
     detail: "redacted"
   });
   assert.equal(`${result.stdout}${result.stderr}`.includes(poison), false);

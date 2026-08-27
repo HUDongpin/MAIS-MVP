@@ -138,6 +138,18 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-diagnose-partial") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const diagnostic = await import("./teacher-notice-production-schema-diagnostic.mjs");
+        return {
+          component: await diagnostic.diagnosePostgresStoragePartialSchemaForProductionGate(sql)
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-complete-legacy") {
       const sql = createDirectIntegrationClient();
       try {

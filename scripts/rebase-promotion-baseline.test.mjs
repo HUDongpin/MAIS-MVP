@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import {
   buildReaffirmedEvidence,
   buildReaffirmedLegacyRegistry,
+  buildReviewedRuntimePolicyEvolution,
   buildReaffirmedRuntimePolicyRefresh
 } from "./rebase-promotion-baseline.mjs";
 
@@ -47,6 +48,7 @@ test("baseline re-affirmation exposes an append-only revision and two committed 
   assert.match(result.stdout, /--write-bindings/u);
   assert.match(result.stdout, /--evidence-commit/u);
   assert.match(result.stdout, /--refresh-runtime-policy/u);
+  assert.match(result.stdout, /--review-runtime-policy/u);
 });
 
 test("the unsafe monolithic write mode is rejected before changing historical artifacts", () => {
@@ -59,6 +61,20 @@ test("the unsafe monolithic write mode is rejected before changing historical ar
   ]);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Monolithic --write is disabled/u);
+  assert.deepEqual(digestFiles(), before);
+});
+
+test("runtime-policy refresh modes are mutually exclusive", () => {
+  const before = digestFiles();
+  const result = run([
+    "--manifest", manifest,
+    "--target", "HEAD",
+    "--revision-root", revisionRoot,
+    "--refresh-runtime-policy",
+    "--review-runtime-policy"
+  ]);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /mutually exclusive/u);
   assert.deepEqual(digestFiles(), before);
 });
 
@@ -203,5 +219,148 @@ test("runtime-policy refresh rejects a changed target graph or fs-read callsite"
       targetFsReadAllowlist: [{ ...allowlist[0], argumentShape: "identifier(otherPath)" }]
     }),
     /fs-read allowlist differs/u
+  );
+});
+
+test("reviewed runtime-policy evolution accepts only literal-import graph growth with no capability or reachability expansion", () => {
+  const source = {
+    coveredFileCount: 3799,
+    coveredFilesDigest: "1".repeat(64),
+    classificationsDigest: "2".repeat(64),
+    frameworkEntrypointCount: 301,
+    seedCount: 316,
+    reachablePathCount: 1451,
+    reachablePathsDigest: "3".repeat(64),
+    edgeCount: 3582,
+    edgeDigest: "4".repeat(64),
+    topologyEdgeCount: 3582,
+    topologyEdgeDigest: "5".repeat(64),
+    nextDynamicCallCount: 482,
+    nextDynamicLiteralImportCount: 944,
+    nextDynamicNonliteralImportCount: 0,
+    nextDynamicCallsiteDigest: "6".repeat(64),
+    fsReadAllowlistCount: 5,
+    fsReadAllowlistDigest: "7".repeat(64),
+    zeroBaselineCallCount: 0
+  };
+  const target = {
+    ...source,
+    coveredFileCount: 3800,
+    coveredFilesDigest: "8".repeat(64),
+    classificationsDigest: "9".repeat(64),
+    edgeCount: 3589,
+    edgeDigest: "a".repeat(64),
+    topologyEdgeCount: 3589,
+    topologyEdgeDigest: "b".repeat(64),
+    nextDynamicCallCount: 489,
+    nextDynamicLiteralImportCount: 951,
+    nextDynamicCallsiteDigest: "c".repeat(64)
+  };
+  const fsReadAllowlist = Array.from({ length: 5 }, (_, index) => ({
+    sourcePath: `lib/server/userStore${index}.ts`,
+    sourceRawSha256: "d".repeat(64),
+    callee: "node:fs/promises.readFile",
+    position: 123 + index,
+    argumentShape: "identifier(path)",
+    normalizedExpressionDigest: "e".repeat(64),
+    policy: "runtime-storage-read-only-non-module"
+  }));
+  const proof = buildReviewedRuntimePolicyEvolution({
+    sourceExpectedPolicy: source,
+    sourceObservedPolicy: structuredClone(source),
+    targetObservedPolicy: target,
+    sourceFsReadAllowlist: fsReadAllowlist,
+    targetFsReadAllowlist: structuredClone(fsReadAllowlist)
+  });
+  assert.equal(proof.schemaVersion, "promotion-runtime-policy-reviewed-evolution.v1");
+  assert.equal(proof.literalDynamicImportDelta, 7);
+  assert.equal(proof.sourceAndTargetReachablePathsEqual, true);
+  assert.equal(proof.sourceAndTargetFsReadAllowlistEqual, true);
+  assert.deepEqual(proof.changedFields, [
+    "classificationsDigest",
+    "coveredFileCount",
+    "coveredFilesDigest",
+    "edgeCount",
+    "edgeDigest",
+    "nextDynamicCallCount",
+    "nextDynamicCallsiteDigest",
+    "nextDynamicLiteralImportCount",
+    "topologyEdgeCount",
+    "topologyEdgeDigest"
+  ]);
+});
+
+test("reviewed runtime-policy evolution rejects reachability, loader capability, blind-spot, and incoherent edge changes", () => {
+  const source = {
+    coveredFileCount: 10,
+    coveredFilesDigest: "1".repeat(64),
+    classificationsDigest: "2".repeat(64),
+    frameworkEntrypointCount: 2,
+    seedCount: 3,
+    reachablePathCount: 4,
+    reachablePathsDigest: "3".repeat(64),
+    edgeCount: 8,
+    edgeDigest: "4".repeat(64),
+    topologyEdgeCount: 8,
+    topologyEdgeDigest: "5".repeat(64),
+    nextDynamicCallCount: 2,
+    nextDynamicLiteralImportCount: 2,
+    nextDynamicNonliteralImportCount: 0,
+    nextDynamicCallsiteDigest: "6".repeat(64),
+    fsReadAllowlistCount: 1,
+    fsReadAllowlistDigest: "7".repeat(64),
+    zeroBaselineCallCount: 0
+  };
+  const validTarget = {
+    ...source,
+    coveredFileCount: 11,
+    coveredFilesDigest: "8".repeat(64),
+    classificationsDigest: "9".repeat(64),
+    edgeCount: 9,
+    edgeDigest: "a".repeat(64),
+    topologyEdgeCount: 9,
+    topologyEdgeDigest: "b".repeat(64),
+    nextDynamicCallCount: 3,
+    nextDynamicLiteralImportCount: 3,
+    nextDynamicCallsiteDigest: "c".repeat(64)
+  };
+  const allowlist = [{ sourcePath: "lib/server/userStore.ts", policy: "read-only" }];
+  const build = (targetObservedPolicy, targetFsReadAllowlist = allowlist) =>
+    buildReviewedRuntimePolicyEvolution({
+      sourceExpectedPolicy: source,
+      sourceObservedPolicy: structuredClone(source),
+      targetObservedPolicy,
+      sourceFsReadAllowlist: allowlist,
+      targetFsReadAllowlist
+    });
+  assert.throws(
+    () => build({ ...validTarget, reachablePathsDigest: "f".repeat(64) }),
+    /reachable path set/u
+  );
+  assert.throws(
+    () => build(validTarget, [{ sourcePath: "lib/server/other.ts", policy: "read-only" }]),
+    /fs-read allowlist/u
+  );
+  assert.throws(
+    () => build({ ...validTarget, nextDynamicNonliteralImportCount: 1 }),
+    /nonliteral dynamic imports/u
+  );
+  assert.throws(
+    () => build({ ...validTarget, edgeCount: 10, topologyEdgeCount: 10 }),
+    /literal-import and edge deltas/u
+  );
+  assert.throws(
+    () => build({ ...validTarget, zeroBaselineCallCount: 1 }),
+    /zero-baseline loader calls/u
+  );
+  assert.throws(
+    () => buildReviewedRuntimePolicyEvolution({
+      sourceExpectedPolicy: source,
+      sourceObservedPolicy: { ...source, coveredFileCount: 11 },
+      targetObservedPolicy: validTarget,
+      sourceFsReadAllowlist: allowlist,
+      targetFsReadAllowlist: allowlist
+    }),
+    /source expected policy differs/u
   );
 });
