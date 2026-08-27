@@ -531,7 +531,19 @@ const productionSchemaPlans = new Set([
   '["app-storage-complete-readiness-v1","webhook-install-v3","heartbeat-install-v2"]',
   '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3"]',
   '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
-  '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]'
+  '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-v2-to-v3"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]'
 ]);
 
 function expectedProductionSchemaPlan({
@@ -541,7 +553,12 @@ function expectedProductionSchemaPlan({
   webhookState
 }) {
   if (
-    !["empty", "legacy-no-readiness-marker", "exact"].includes(appStorageState) ||
+    ![
+      "empty",
+      "legacy-no-readiness-marker",
+      "legacy-v1-compatibility-no-readiness-marker",
+      "exact"
+    ].includes(appStorageState) ||
     !["empty", "exact"].includes(outboxState) ||
     !["empty", "upgradeable", "exact"].includes(webhookState) ||
     !["empty", "v1", "exact"].includes(heartbeatState) ||
@@ -553,6 +570,9 @@ function expectedProductionSchemaPlan({
   if (appStorageState === "empty") operations.push("app-storage-install-v1");
   if (appStorageState === "legacy-no-readiness-marker") {
     operations.push("app-storage-complete-readiness-v1");
+  }
+  if (appStorageState === "legacy-v1-compatibility-no-readiness-marker") {
+    operations.push("app-storage-upgrade-legacy-compat-readiness-v2");
   }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");

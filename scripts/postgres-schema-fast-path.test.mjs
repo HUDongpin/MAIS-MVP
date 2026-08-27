@@ -255,7 +255,7 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   assert.match(userStoreSource, /attestValidatedPostgresStorageSnapshot\(/);
 });
 
-test("production schema gate keeps empty install and legacy marker completion separately locked and strict", () => {
+test("production schema gate keeps empty install and both legacy upgrades separately locked and strict", () => {
   const canonicalBootstrapSource = sourceSection(
     userStoreSource,
     "async function bootstrapPostgresStateTablesOnClient(",
@@ -294,16 +294,21 @@ test("production schema gate keeps empty install and legacy marker completion se
   const legacyMarkerInstall = legacyCompletionSource.indexOf(
     "installPostgresStorageReadinessMarkerContract"
   );
+  const legacyCompatibilityUpgrade = legacyCompletionSource.indexOf(
+    "installPostgresStorageCompatibilityContract"
+  );
   const legacyAttestation = legacyCompletionSource.indexOf(
     "attestValidatedPostgresStorageSnapshot"
   );
   assert.notEqual(legacyExclusiveLock, -1);
   assert.notEqual(legacyStateCheck, -1);
+  assert.notEqual(legacyCompatibilityUpgrade, -1);
   assert.notEqual(legacyMarkerInstall, -1);
   assert.notEqual(legacyAttestation, -1);
   assert.equal(
     legacyExclusiveLock < legacyStateCheck
-      && legacyStateCheck < legacyMarkerInstall
+      && legacyStateCheck < legacyCompatibilityUpgrade
+      && legacyCompatibilityUpgrade < legacyMarkerInstall
       && legacyMarkerInstall < legacyAttestation,
     true
   );
@@ -322,6 +327,10 @@ test("production schema gate keeps empty install and legacy marker completion se
   assert.match(`${inspectSource}\n${applySource}`, /GITHUB_REF_PROTECTED/u);
   assert.match(applySource, /expectedState/u);
   assert.match(applySource, /legacy-no-readiness-marker/u);
+  assert.match(
+    applySource,
+    /legacy-v1-compatibility-no-readiness-marker/u
+  );
   assert.match(applySource, /bootstrapPostgresStateTablesOnClient/u);
   assert.match(applySource, /completePostgresStorageReadinessMarkerOnClient/u);
   assert.match(applySource, /postflightState !== "exact"/u);

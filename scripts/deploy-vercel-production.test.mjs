@@ -442,6 +442,27 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
     ["app-storage-complete-readiness-v1"]
   );
 
+  const upgradingLegacyV1Compatibility = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-v1-compatibility-no-readiness-marker",
+      operations: ["app-storage-upgrade-legacy-compat-readiness-v2"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    upgradingLegacyV1Compatibility.appStorageState,
+    "legacy-v1-compatibility-no-readiness-marker"
+  );
+  assert.deepEqual(
+    upgradingLegacyV1Compatibility.operations,
+    ["app-storage-upgrade-legacy-compat-readiness-v2"]
+  );
+
   assert.throws(
     () => parseTeacherNoticeProductionSchemaGateEvidence(
       JSON.stringify({
