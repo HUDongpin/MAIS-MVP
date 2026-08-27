@@ -3,6 +3,11 @@ import { spawnSync } from "node:child_process";
 import test from "node:test";
 
 import {
+  diagnosePostgresStorageLegacySnapshotRows,
+  diagnosePostgresStorageSnapshotContract,
+  postgresStorageSnapshotContractIsComplete
+} from "../lib/server/userStore.ts";
+import {
   applyMaisProductionSchemaOperations,
   assertTeacherNoticeProductionSchemaConfirmation,
   applyTeacherNoticeProductionSchema,
@@ -19,6 +24,60 @@ const candidateSha = "a".repeat(40);
 const expectedTreeSha = "b".repeat(40);
 const targetFingerprint = "c".repeat(64);
 const productionUrl = "postgresql://secret-user:secret-password@db.example.invalid:5432/secret-production?sslmode=require";
+
+test("snapshot diagnostics share the controlling fixed-enum contract", () => {
+  const structurallyValidButIncomplete = {
+    users: [],
+    student_profiles: [],
+    user_settings: [],
+    guardian_links: [],
+    teacher_classes: [],
+    teacher_messages: [],
+    teacher_message_entries: [],
+    teacher_notices: [],
+    teacher_notice_recipients: []
+  };
+  const fixedCases = [
+    { value: null, expected: "root-contract" },
+    { value: [], expected: "root-contract" },
+    { value: "poison-secret", expected: "root-contract" },
+    { value: {}, expected: "core-contract" },
+    {
+      value: { ...structurallyValidButIncomplete, guardian_links: {} },
+      expected: "critical-collections-contract"
+    },
+    {
+      value: { ...structurallyValidButIncomplete, users: [null] },
+      expected: "normalization-contract"
+    },
+    {
+      value: structurallyValidButIncomplete,
+      expected: "persistence-sync-contract"
+    }
+  ];
+
+  for (const { value, expected } of fixedCases) {
+    assert.equal(diagnosePostgresStorageSnapshotContract(value), expected);
+    assert.equal(postgresStorageSnapshotContractIsComplete(value), false);
+  }
+
+  assert.equal(diagnosePostgresStorageLegacySnapshotRows([]), "row-contract");
+  assert.equal(
+    diagnosePostgresStorageLegacySnapshotRows([
+      { payload: structurallyValidButIncomplete, revision: 1 },
+      { payload: structurallyValidButIncomplete, revision: 2 }
+    ]),
+    "row-contract"
+  );
+  for (const revision of [0, -1, Number.MAX_SAFE_INTEGER + 1, "not-a-revision"]) {
+    assert.equal(
+      diagnosePostgresStorageLegacySnapshotRows([
+        { payload: structurallyValidButIncomplete, revision }
+      ]),
+      "revision-contract"
+    );
+  }
+});
 
 function injectedProductionEnvironment(overrides = {}) {
   return {
@@ -1005,6 +1064,13 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
       "legacy-hot-auth-contract",
       "legacy-relation-contract",
       "legacy-readiness-artifact",
+      "legacy-snapshot-core-contract",
+      "legacy-snapshot-critical-collections-contract",
+      "legacy-snapshot-normalization-contract",
+      "legacy-snapshot-persistence-sync-contract",
+      "legacy-snapshot-revision-contract",
+      "legacy-snapshot-root-contract",
+      "legacy-snapshot-row-contract",
       "legacy-snapshot-contract",
       "relation-set"
     ].map((appStoragePartialComponent) => ({

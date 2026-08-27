@@ -2016,6 +2016,12 @@ const stateRecordId = "primary";
 const stateTenantId = "platform";
 const stateKind = "app-snapshot";
 const schemaVersion = 1;
+export const postgresStorageProductionStateIdentity = Object.freeze({
+  id: stateRecordId,
+  tenantId: stateTenantId,
+  stateKind,
+  schemaVersion
+});
 // Increment when the canonical hot-auth schema changes. Storage-readiness
 // attestation has its own contract version below.
 const hotAuthSchemaVersion = 4;
@@ -3645,15 +3651,7 @@ async function postgresStorageLegacyV1CompatibilityTriggerIsComplete(
 function postgresStorageLegacySnapshotIsComplete(
   rows: Array<{ payload: unknown; revision: unknown }>
 ) {
-  if (rows.length !== 1 || safePostgresRevision(rows[0]?.revision) === null) {
-    return false;
-  }
-  try {
-    validateCompletePostgresStorageSnapshot(rows[0]?.payload);
-    return true;
-  } catch {
-    return false;
-  }
+  return diagnosePostgresStorageLegacySnapshotRows(rows) === "exact";
 }
 
 async function postgresStorageNoReadinessMarkerIsComplete(
@@ -7467,6 +7465,27 @@ export const postgresStorageCriticalReadinessCollections = [
   "teacher_notice_recipients"
 ] as const satisfies readonly (keyof Database)[];
 
+export const postgresStorageSnapshotContractDiagnostics = [
+  "root-contract",
+  "core-contract",
+  "critical-collections-contract",
+  "normalization-contract",
+  "persistence-sync-contract",
+  "exact"
+] as const;
+
+export type PostgresStorageSnapshotContractDiagnostic =
+  typeof postgresStorageSnapshotContractDiagnostics[number];
+
+export const postgresStorageLegacySnapshotContractDiagnostics = [
+  "row-contract",
+  "revision-contract",
+  ...postgresStorageSnapshotContractDiagnostics
+] as const;
+
+export type PostgresStorageLegacySnapshotContractDiagnostic =
+  typeof postgresStorageLegacySnapshotContractDiagnostics[number];
+
 function databaseNeedsPersistenceSync(
   parsed: Partial<Database>,
   database: Database,
@@ -7592,19 +7611,43 @@ function databaseNeedsPersistenceSync(
   );
 }
 
-export function postgresStorageSnapshotContractIsComplete(value: unknown) {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
+export function diagnosePostgresStorageSnapshotContract(
+  value: unknown
+): PostgresStorageSnapshotContractDiagnostic {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return "root-contract";
+  }
   const parsed = value;
-  if (!hasCoreTables(parsed)) return false;
+  if (!hasCoreTables(parsed)) return "core-contract";
   if (postgresStorageCriticalReadinessCollections.some((collection) => !Array.isArray(parsed[collection]))) {
-    return false;
+    return "critical-collections-contract";
   }
   try {
     const database = normalizeDatabase(parsed);
-    return !databaseNeedsPersistenceSync(parsed, database, { allowGuardianInvitationSanitization: true });
+    return databaseNeedsPersistenceSync(
+      parsed,
+      database,
+      { allowGuardianInvitationSanitization: true }
+    )
+      ? "persistence-sync-contract"
+      : "exact";
   } catch {
-    return false;
+    return "normalization-contract";
   }
+}
+
+export function diagnosePostgresStorageLegacySnapshotRows(
+  rows: Array<{ payload: unknown; revision: unknown }>
+): PostgresStorageLegacySnapshotContractDiagnostic {
+  if (rows.length !== 1) return "row-contract";
+  if (safePostgresRevision(rows[0]?.revision) === null) {
+    return "revision-contract";
+  }
+  return diagnosePostgresStorageSnapshotContract(rows[0]?.payload);
+}
+
+export function postgresStorageSnapshotContractIsComplete(value: unknown) {
+  return diagnosePostgresStorageSnapshotContract(value) === "exact";
 }
 
 const validatedPostgresStorageSnapshotBrand = Symbol("validated-postgres-storage-snapshot");

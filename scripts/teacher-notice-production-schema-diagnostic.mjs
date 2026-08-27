@@ -1,5 +1,11 @@
 import { createHash } from "node:crypto";
 
+import {
+  diagnosePostgresStorageLegacySnapshotRows,
+  postgresStorageLegacySnapshotContractDiagnostics,
+  postgresStorageProductionStateIdentity
+} from "../lib/server/userStore.ts";
+
 const storageContractAdvisoryLockKey = "mais-postgres-storage-contract-v1";
 const canonicalRelationNames = Object.freeze([
   "app_state",
@@ -99,12 +105,39 @@ export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "legacy-compatibility-contract",
   "legacy-hot-auth-contract",
   "legacy-readiness-artifact",
+  "legacy-snapshot-row-contract",
+  "legacy-snapshot-revision-contract",
+  "legacy-snapshot-root-contract",
+  "legacy-snapshot-core-contract",
+  "legacy-snapshot-critical-collections-contract",
+  "legacy-snapshot-normalization-contract",
+  "legacy-snapshot-persistence-sync-contract",
   "legacy-snapshot-contract",
   "legacy-other-contract",
   "current-readiness-contract",
   "state-changed",
   "unknown"
 ]);
+
+const legacySnapshotDiagnosticComponents = new Map([
+  ["row-contract", "legacy-snapshot-row-contract"],
+  ["revision-contract", "legacy-snapshot-revision-contract"],
+  ["root-contract", "legacy-snapshot-root-contract"],
+  ["core-contract", "legacy-snapshot-core-contract"],
+  ["critical-collections-contract", "legacy-snapshot-critical-collections-contract"],
+  ["normalization-contract", "legacy-snapshot-normalization-contract"],
+  ["persistence-sync-contract", "legacy-snapshot-persistence-sync-contract"]
+]);
+
+if (
+  postgresStorageLegacySnapshotContractDiagnostics.length
+    !== legacySnapshotDiagnosticComponents.size + 1
+  || !postgresStorageLegacySnapshotContractDiagnostics.every((diagnostic) =>
+    diagnostic === "exact" || legacySnapshotDiagnosticComponents.has(diagnostic)
+  )
+) {
+  throw new Error("Postgres production schema diagnostic contract was rejected.");
+}
 
 function normalizedPostgresDefinition(value) {
   return typeof value === "string" ? value.replace(/\s+/gu, " ").trim() : null;
@@ -473,7 +506,24 @@ export async function diagnosePostgresStoragePartialSchemaForProductionGate(clie
         readinessArtifacts.length !== 1
         || readinessArtifacts[0]?.invalidation_function_present !== false
       ) return "legacy-readiness-artifact";
-      return "legacy-snapshot-contract";
+      const snapshotRows = await sql`
+        /* teacher_notice_production_schema_partial_snapshot_diagnostic */
+        SELECT state.payload, state.revision
+        FROM public.app_state AS state
+        WHERE state.id = ${postgresStorageProductionStateIdentity.id}
+          AND state.tenant_id = ${postgresStorageProductionStateIdentity.tenantId}
+          AND state.state_kind = ${postgresStorageProductionStateIdentity.stateKind}
+          AND state.schema_version = ${postgresStorageProductionStateIdentity.schemaVersion}
+          AND (
+            SELECT pg_catalog.count(*)
+            FROM public.app_state AS counted_state
+          ) = 1
+      `;
+      const snapshotDiagnostic = diagnosePostgresStorageLegacySnapshotRows(
+        snapshotRows
+      );
+      if (snapshotDiagnostic === "exact") return "state-changed";
+      return legacySnapshotDiagnosticComponents.get(snapshotDiagnostic) ?? "unknown";
     }
     if (hasExactNames(relations, canonicalRelationNames)) {
       return "current-readiness-contract";
