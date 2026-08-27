@@ -99,7 +99,22 @@ gh api repos/HUDongpin/MAIS-MVP/branches/main/protection/required_status_checks 
 
 Note the `app_id` binding (15368, GitHub Actions) is re-derived from the context name on write, so the restore above reproduces the captured state exactly.
 
-This was **not run**. This session holds `admin` on the repository, but permission is not authorization: dropping a required governance check is a merge-control change, it was not among the options put to this session, and it should be an explicit owner decision recorded in its own right.
+**EXECUTED 2026-08-27** on explicit owner authorization ("run it"), after the owner was shown the captured state, the restore command and the reasoning below.
+
+```
+before: contexts ["validate","promotion-shadow-gate"]  strict false
+after:  contexts ["validate"]                          strict false
+```
+
+Nothing else in the protection changed — `enforce_admins` remains true,
+`required_approving_review_count` remains 0, and `promotion-shadow-gate` still runs on
+every pull request as an **informational** workflow. It is no longer a merge blocker.
+
+**This is a temporary measure, and it should be reverted.** The restore command above
+reproduces the previous state byte-for-byte. Revert it once the pilot is finalized
+(post-merge A25 closeout) or `PROMOTION_MANIFEST` is re-pointed at an open attempt —
+otherwise the promotion gate silently protects nothing, which is the failure mode this
+whole review has been about. This session holds `admin` on the repository, but permission is not authorization: dropping a required governance check is a merge-control change, it was not among the options put to this session, and it should be an explicit owner decision recorded in its own right.
 
 ## Recommendation
 
