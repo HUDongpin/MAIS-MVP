@@ -1,6 +1,10 @@
 import { requireParentUser } from "@/lib/server/auth";
 import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import {
+  PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER,
+  resolveParentProductionCertificationInstanceProof
+} from "@/lib/server/parentProductionCertification";
+import {
   createParentMessageThread,
   findParentMessageCreateReplay,
   findParentMessageReplyReplay,
@@ -17,6 +21,7 @@ import {
 type ParentAuthentication = (request: Request) => Promise<{ user: { id: string } } | null>;
 type RateLimitResult = { allowed: boolean; retryAfterSeconds: number };
 type RateLimiter = (key: string) => RateLimitResult;
+type InstanceProofResolver = (request: Request) => string | null;
 
 const createMessageRateLimit = { max: 12, windowMs: 60_000 };
 const replyRateLimit = { max: 30, windowMs: 60_000 };
@@ -55,6 +60,20 @@ function messageError(status: string, kind: "create" | "reply") {
   return kind === "create" ? "Could not create parent message." : "Could not send parent reply.";
 }
 
+function parentMessageSuccessResponse(
+  body: unknown,
+  request: Request,
+  resolveInstanceProof: InstanceProofResolver,
+  init?: ResponseInit
+) {
+  const instanceProof = resolveInstanceProof(request);
+  if (!instanceProof) return parentPrivateJson(body, init);
+
+  const headers = new Headers(init?.headers);
+  headers.set(PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER, instanceProof);
+  return parentPrivateJson(body, { ...init, headers });
+}
+
 export function createParentMessagesGetHandler({
   authenticateParent = requireParentUser,
   loadMessages = getParentMessagesData
@@ -87,12 +106,14 @@ export function createParentMessagePostHandler({
   authenticateParent = requireParentUser,
   findReplay = findParentMessageCreateReplay,
   createThread = createParentMessageThread,
-  rateLimit = createRateLimiter
+  rateLimit = createRateLimiter,
+  resolveInstanceProof = resolveParentProductionCertificationInstanceProof
 }: {
   authenticateParent?: ParentAuthentication;
   findReplay?: typeof findParentMessageCreateReplay;
   createThread?: typeof createParentMessageThread;
   rateLimit?: RateLimiter;
+  resolveInstanceProof?: InstanceProofResolver;
 } = {}) {
   return async function parentMessagePost(request: Request) {
     try {
@@ -121,7 +142,11 @@ export function createParentMessagePostHandler({
       };
       const replay = await findReplay(input);
       if (replay.status === "replayed") {
-        return parentPrivateJson({ thread: replay.thread, replayed: true });
+        return parentMessageSuccessResponse(
+          { thread: replay.thread, replayed: true },
+          request,
+          resolveInstanceProof
+        );
       }
       if (replay.status !== "missing") {
         return parentPrivateJson({ error: messageError(replay.status, "create") }, { status: errorStatus(replay.status) });
@@ -136,8 +161,21 @@ export function createParentMessagePostHandler({
       }
 
       const result = await createThread(input);
-      if (result.status === "created") return parentPrivateJson({ thread: result.thread, replayed: false }, { status: 201 });
-      if (result.status === "replayed") return parentPrivateJson({ thread: result.thread, replayed: true });
+      if (result.status === "created") {
+        return parentMessageSuccessResponse(
+          { thread: result.thread, replayed: false },
+          request,
+          resolveInstanceProof,
+          { status: 201 }
+        );
+      }
+      if (result.status === "replayed") {
+        return parentMessageSuccessResponse(
+          { thread: result.thread, replayed: true },
+          request,
+          resolveInstanceProof
+        );
+      }
       return parentPrivateJson({ error: messageError(result.status, "create") }, { status: errorStatus(result.status) });
     } catch {
       return parentPersistenceUnavailable();
@@ -151,12 +189,14 @@ export function createParentMessageReplyPostHandler({
   authenticateParent = requireParentUser,
   findReplay = findParentMessageReplyReplay,
   replyToThread = replyToParentMessageThread,
-  rateLimit = replyRateLimiter
+  rateLimit = replyRateLimiter,
+  resolveInstanceProof = resolveParentProductionCertificationInstanceProof
 }: {
   authenticateParent?: ParentAuthentication;
   findReplay?: typeof findParentMessageReplyReplay;
   replyToThread?: typeof replyToParentMessageThread;
   rateLimit?: RateLimiter;
+  resolveInstanceProof?: InstanceProofResolver;
 } = {}) {
   return async function parentMessageReplyPost(request: Request, { params }: ParentMessageReplyContext) {
     try {
@@ -188,12 +228,16 @@ export function createParentMessageReplyPostHandler({
       };
       const replay = await findReplay(input);
       if (replay.status === "replayed") {
-        return parentPrivateJson({
-          thread: replay.thread,
-          entry: replay.entry,
-          entryId: replay.entryId,
-          replayed: true
-        });
+        return parentMessageSuccessResponse(
+          {
+            thread: replay.thread,
+            entry: replay.entry,
+            entryId: replay.entryId,
+            replayed: true
+          },
+          request,
+          resolveInstanceProof
+        );
       }
       if (replay.status !== "missing") {
         return parentPrivateJson({ error: messageError(replay.status, "reply") }, { status: errorStatus(replay.status) });
@@ -209,20 +253,29 @@ export function createParentMessageReplyPostHandler({
 
       const result = await replyToThread(input);
       if (result.status === "sent") {
-        return parentPrivateJson({
-          thread: result.thread,
-          entry: result.entry,
-          entryId: result.entryId,
-          replayed: false
-        }, { status: 201 });
+        return parentMessageSuccessResponse(
+          {
+            thread: result.thread,
+            entry: result.entry,
+            entryId: result.entryId,
+            replayed: false
+          },
+          request,
+          resolveInstanceProof,
+          { status: 201 }
+        );
       }
       if (result.status === "replayed") {
-        return parentPrivateJson({
-          thread: result.thread,
-          entry: result.entry,
-          entryId: result.entryId,
-          replayed: true
-        });
+        return parentMessageSuccessResponse(
+          {
+            thread: result.thread,
+            entry: result.entry,
+            entryId: result.entryId,
+            replayed: true
+          },
+          request,
+          resolveInstanceProof
+        );
       }
       return parentPrivateJson({ error: messageError(result.status, "reply") }, { status: errorStatus(result.status) });
     } catch {
