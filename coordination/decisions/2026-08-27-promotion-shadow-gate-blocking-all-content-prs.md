@@ -41,17 +41,15 @@ What fails is **re-validation of a frozen, already-passed attempt on every later
 
 **3. Its own blockers are all open** — `LIVE_LOCALIZATION_MISSING`, `LIVE_INTEGRATION_UNPROVEN`, `LIVE_RELEASE_UNPROVEN`.
 
-**4. Three consecutive attempts have failed** without reaching `shadow_passed`: 005 `V2_TARGET_BASELINE_DRIFT`, 006 `V2_GIT_ANCESTRY_INVALID`, 007 `V2_TARGET_BASELINE_DRIFT`. Two of the three are the same baseline-freshness failure, which will recur for any attempt frozen against a moving repository.
-
-**5. Attempt-008 would require forging nine independent sign-offs.** Each attempt carries evidence files for `A21 A18 A23 A04 A05 A11 A22 A24 A25`, each asserting `result: "pass"` for that role's independent review. `AGENTS.md:322` states the promotion chain "A21 → A18 → A24 → A23 → A04/A05/A11/A22" and that it must not be bypassed. Those attestations must come from their owning roles. **They were deliberately not authored in this session**, and no scheduling pressure justifies writing them: they are the record the project uses to decide what is safe to ship.
+**4. Attempts 005 and 006 failed, but 007 succeeded** — 005 `V2_TARGET_BASELINE_DRIFT`, 006 `V2_GIT_ANCESTRY_INVALID`, **007 `pass`**. The pilot reached `shadow_passed` on the third try. Its remaining state is finalization, which is a post-merge act.
 
 ## What was done here
 
-- `attempt-007/attempt-disposition.v2.json` — the factual disposition attempt-007 was missing (005 and 006 both have one). It records only the reproducible validation output (`blocked`, exit 2, `V2_TARGET_BASELINE_DRIFT`, 6 drifting paths, manifest `rawSha256 a5a4fe98…`) and is explicitly marked as not an owner sign-off.
+- `attempt-007/attempt-disposition.v2.json` — the factual disposition attempt-007 was missing (005 and 006 both have one). It records the passing shadow outcome, the reproducible re-validation output (`blocked`, exit 2, `V2_TARGET_BASELINE_DRIFT`, 6 drifting paths, manifest `rawSha256 a5a4fe98…`), and is explicitly marked as not an owner sign-off. An earlier version of it wrongly said `repair_required`; that is corrected.
 
 ## What is still owner-gated
 
-**A. Closure itself.** `promotion-shadow-closure.v2` requires `receiptDigests`, `legacyDisposition`, `unmetShadowConditions`, `liveBlockers` and a `trustBoundary` that states *"GitHub API authenticity requires independent repository-admin readback."* It is an A23/A25 finalization act with an independent-readback requirement, so it is not produced here.
+**A. Closure itself.** Requires an A25 closeout asserting all ten owner packages reached `finalState: "reviewed commit"`, plus a `mergeCommit` matching a post-merge proof on `main`. It is both an owner attestation and a post-merge act, so it is not produced here — and, as shown above, it could not unblock this PR even if it were.
 
 **B. The gate rescope — and this is the one that actually unblocks.** ⚠️ **Closing the pilot does NOT clear the check.** The gate validates a hardcoded manifest path and does not consult the lifecycle registry, so it will keep failing for every content PR regardless of the pilot's state.
 
@@ -72,4 +70,4 @@ This was **not run**. This session holds `admin` on the repository, but permissi
 
 ## Recommendation
 
-Close the pilot (A23/A25), and separately rescope the required check so that one frozen shadow pilot cannot block unrelated content work. Until (B) is done, **every content PR in this repository is unmergeable.**
+Finalize the pilot after merge (A23/A25), and **first** rescope the required check so that one frozen, already-passed shadow pilot cannot block unrelated content work. Until the required-checks change is made, **every content PR in this repository is unmergeable** — this is not specific to PR #174.
