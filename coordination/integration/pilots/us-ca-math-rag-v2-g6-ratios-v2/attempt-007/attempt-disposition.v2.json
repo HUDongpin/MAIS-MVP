@@ -6,9 +6,9 @@
   "producedAt": "2026-08-27T00:00:00+08:00",
   "producedBy": "Automated validation readback from the i18n/ca-translation-scaffold session. This record states only the reproducible output of the validation command below. It is NOT an owner role sign-off and asserts no independent review.",
   "phase": "git-baseline-validation-before-shadow",
-  "result": "repair_required",
-  "reasonCode": "V2_TARGET_BASELINE_DRIFT",
-  "reason": "Live/runtime paths moved after the evidence-bound target baseline 14a041f372. The frozen attempt-007 Manifest, evidence index and nine owner evidence files remain immutable and cannot be re-bound in place. The drift is not a defect in the candidate package: it is ordinary repository progress on protected roots since the baseline was frozen.",
+  "result": "shadow_passed",
+  "reasonCode": "V2_SHADOW_PASSED_AWAITING_FINALIZATION",
+  "reason": "CORRECTED 2026-08-27. An earlier version of this record said repair_required. That was wrong: attempt-007 EXECUTED and PASSED. shadow-receipt.v2.json records result:pass with recommendedState:shadow_passed, and both postrun artifacts pass (A11 independent replay, A22 shadow isolation). Nothing about the attempt failed. What fails is RE-VALIDATION of this frozen, already-passed attempt on later pull requests: the Manifest pins targetBaselineCommit 14a041f372 and is immutable, so V2_TARGET_BASELINE_DRIFT becomes permanent and unavoidable as the repository moves past that commit. The correct next step is finalization/closure, not a repair attempt and not rejection.",
   "manifest": {
     "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
     "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61",
@@ -39,23 +39,31 @@
   "lifecycle": {
     "priorState": "candidate_hold",
     "currentState": "shadow_ready",
-    "recommendedState": "rejected",
+    "recommendedState": "shadow_passed",
     "shadowExecuted": true,
     "receiptProduced": true,
     "receiptReuseAllowed": false,
     "manifestOverwriteAllowed": false,
     "replacementAttemptId": null,
-    "recommendedDisposition": "close-pilot"
+    "recommendedDisposition": "finalize-closure"
   },
   "recommendationRationale": [
-    "The finalization library already hardcodes this attempt as the closure target (coordination/integration/finalization/promotion-shadow-finalization-v2-lib.mjs:21-23 names attempt-007 shadow-closure.v2.json and lifecycle-registry.v2.json), so closure — not a further attempt — is the designed next step.",
-    "The unit is shadow-only: liveAllowed, integrationAllowed, previewAllowed and deployAllowed are all false, so no student-facing surface depends on it.",
-    "Its own knownBlockers record LIVE_LOCALIZATION_MISSING, LIVE_INTEGRATION_UNPROVEN and LIVE_RELEASE_UNPROVEN, none of which is closed.",
-    "Three consecutive attempts have failed without reaching shadow_passed: 005 V2_TARGET_BASELINE_DRIFT, 006 V2_GIT_ANCESTRY_INVALID, 007 V2_TARGET_BASELINE_DRIFT.",
-    "A replacement attempt-008 would require nine fresh owner evidence attestations (A21 A18 A23 A04 A05 A11 A22 A24 A25) each asserting result:pass. AGENTS.md:322 forbids bypassing that chain, so those attestations must be produced by their owning roles and were deliberately not authored here."
+    "attempt-007 passed shadow. It does not need repair and must not be recorded as rejected.",
+    "The finalization library already hardcodes this attempt as the closure target (promotion-shadow-finalization-v2-lib.mjs:20-23 names attempt-007 shadow-closure.v2.json and lifecycle-registry.v2.json), and its MATURITY_CLAIM constant, \"Shadow-mature / live-unproven\", matches this receipt. Closure is the designed terminal step.",
+    "Re-validating a frozen passed attempt on every later pull request can only ever go red, because targetBaselineCommit is immutable while the repository advances. That is a wiring defect in the gate, not a defect in the candidate package.",
+    "attempt-008 is NOT indicated. A replacement attempt exists to retry a FAILED attempt; this one passed. It would also require nine fresh owner attestations (A21 A18 A23 A04 A05 A11 A22 A24 A25) asserting result:pass, and AGENTS.md:322 forbids bypassing that chain."
   ],
   "gateBlockingNote": "Closing this pilot does NOT clear the required promotion-shadow-gate check. The workflow validates a hardcoded PROMOTION_MANIFEST path on every pull_request with no paths filter and no conditional, and the gate does not consult the lifecycle registry. Any pull request touching protected live roots will keep failing until the required check is rescoped or removed. Observed blocking today on i18n/ca-translation-scaffold, codex/a12-a22-production-app-storage-schema-20260827 and codex/a12-auth-private-no-store-20260827.",
   "parentPackageStatus": "candidate-only",
   "liveAllowed": false,
-  "maturityClaim": "not-mature"
+  "maturityClaim": "not-mature",
+  "shadowOutcome": {
+    "receiptResult": "pass",
+    "recommendedState": "shadow_passed",
+    "maturityClaim": "shadow-passed / maturity-pending-independent-replay-and-enforcement",
+    "postrun": {
+      "a11IndependentReplay": "pass",
+      "a22ShadowIsolation": "pass"
+    }
+  }
 }

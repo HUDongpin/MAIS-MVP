@@ -2,7 +2,7 @@
 
 - **Date:** 2026-08-27 (Asia/Hong_Kong)
 - **Raised from:** `i18n/ca-translation-scaffold` (PR #174), blocked by the required `promotion-shadow-gate` check
-- **Status:** **RECOMMENDED — close the pilot.** Two follow-up actions are owner-gated and deliberately not taken here.
+- **Status:** **CORRECTED 2026-08-27.** attempt-007 **passed**. Neither option originally put to this session can unblock the gate — proof below. The only unblock is a required-checks change.
 
 ## The problem
 
@@ -19,7 +19,21 @@ That manifest pins `targetBaselineCommit: 14a041f372`. `collectV2BaselineProof`
 
 `main` stays green only incidentally: its two changed live-root files since that baseline are both `*.test.ts`, which classify as test-code and are allowed.
 
-## Decision: close the pilot, do not open attempt-008
+## Correction: attempt-007 did not fail
+
+An earlier version of this record said `repair_required`. That was wrong. `attempt-007/shadow-receipt.v2.json` records `result: "pass"` with `recommendedState: "shadow_passed"`, and both postrun artifacts pass (A11 independent replay, A22 shadow isolation). The attempt executed and succeeded.
+
+What fails is **re-validation of a frozen, already-passed attempt on every later pull request**. `targetBaselineCommit` is immutable and the repository advances past it, so `V2_TARGET_BASELINE_DRIFT` is permanent and unavoidable.
+
+## Neither offered option can unblock this gate
+
+**attempt-008 cannot.** A replacement attempt exists to retry a *failed* attempt; this one passed. It would also require nine fresh owner attestations (`A21 A18 A23 A04 A05 A11 A22 A24 A25`) each asserting `result: "pass"` for that role's independent review. `AGENTS.md:322` forbids bypassing that chain.
+
+**Closure cannot, and this is structural.** `validateA25Closeout` (`promotion-shadow-finalization-v2-lib.mjs`) requires `role: "A25"`, `result: "pass"`, all ten owners at `finalState: "reviewed commit"`, **and a `mergeCommit` matching a post-merge proof on `main`**. Closure is a *post-merge* artifact. It cannot be the thing that unblocks a *pre-merge* required check — the ordering makes it impossible, independent of who authors it.
+
+**Rewiring the gate cannot either, legitimately.** `scripts/promotion-shadow-workflow-v2.test.mjs` asserts *"Promotion Shadow v2 CI validates current HEAD and replays the exact canonical execution commit"*. Making the workflow skip validation would defeat a control the repository deliberately guards with a test.
+
+## Decision: the pilot is shadow-passed and awaiting finalization
 
 **1. Closure is the designed next step, not another attempt.** The finalization library already hardcodes this attempt as the closure target — `coordination/integration/finalization/promotion-shadow-finalization-v2-lib.mjs:21-23` names `attempt-007/shadow-closure.v2.json` and `attempt-007/lifecycle-registry.v2.json`, neither of which exists yet. The machinery was written for closing attempt-007.
 
