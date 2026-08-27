@@ -186,3 +186,46 @@ Verification for the correction:
 The failed first revision is not referenced by the workflow and grants no
 permission. Only the successor may proceed to receipts and workflow binding,
 and `liveAllowed: false` remains mandatory throughout.
+
+## Fail-closed legacy candidate binding and final reviewed target
+
+Validation of the static-edge-safe successor passed the runtime-policy layer
+and then stopped at `V2_LEGACY_CANDIDATE_DRIFT`. Exact registry comparison
+identified three changed records, all already terminally `de-reached`:
+
+1. `data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json`
+2. `data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json`
+3. `data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json`
+
+The byte changes are the reviewed English-only locale-policy transformations
+already described above. For all three candidates, the package ID, container
+keys, record count and complete ID-set digest remain exactly equal. None is
+runtime reachable; none has an approved live projection; none can be refreshed
+silently because the new path is opt-in only.
+
+`scripts/rebase-promotion-baseline.mjs` now exposes the explicit
+`--review-legacy-candidate-bytes` path. It may refresh a legacy raw digest only
+when every changed candidate:
+
+- is present in the exact protected runtime delta;
+- is already `de-reached` (an `approved-projection` change is rejected);
+- preserves package/container/count/ID-set semantic identity;
+- is read from the exact target Git commit, not mutable worktree bytes; and
+- produces a hash-bound evidence proof with `liveAllowed: false`.
+
+The helper refuses hidden, approved, missing, duplicated, malformed, unchanged
+or semantic candidate changes. Its focused test suite passes `12/12`, including
+the new acceptance and rejection cases. The active pilot candidate remains
+unchanged (`candidateBytesChanged: false`); the separate proof records
+`legacyCandidateBytesChanged: true` for these three terminally de-reached
+artifacts.
+
+The final reviewed implementation target is
+`e81f6b53515cf97dcd5351d0ff7add4224d7eab2`. The only revision eligible to
+replace the workflow pointer is:
+
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828`
+
+Its exact lanes are `A21`, `A18`, `A23`, `A04`, `A05`, `A11`, `A22`, `A24`,
+and `A25`. Earlier c0 revision directories remain audit evidence of fail-closed
+progress, are not referenced by the workflow, and grant no live permission.
