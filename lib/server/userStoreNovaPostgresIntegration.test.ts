@@ -1069,14 +1069,29 @@ test(
         }
         await assertCanonicalLegacyStateRestored();
 
-        await sql`UPDATE public.app_state SET payload = '[]'::jsonb WHERE id = 'primary'`;
         try {
+          await sql`
+            ALTER TABLE public.app_state
+            DISABLE TRIGGER app_state_ai_tutor_compatibility
+          `;
+          await sql`UPDATE public.app_state SET payload = '[]'::jsonb WHERE id = 'primary'`;
+          await sql`
+            ALTER TABLE public.app_state
+            ENABLE TRIGGER app_state_ai_tutor_compatibility
+          `;
           assert.deepEqual(
             await runSuccessfulWorker("production-schema-diagnose-partial"),
             { component: "legacy-snapshot-root-contract" }
           );
         } finally {
-          await restoreCanonicalLegacyState();
+          try {
+            await restoreCanonicalLegacyState();
+          } finally {
+            await sql`
+              ALTER TABLE public.app_state
+              ENABLE TRIGGER app_state_ai_tutor_compatibility
+            `;
+          }
         }
         await assertCanonicalLegacyStateRestored();
 
