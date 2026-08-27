@@ -96,3 +96,32 @@ focused bespoke-lab routing test is the only synchronized protected test path.
 The schema diagnostic implementation and fail-closed production release
 controls are unchanged. Candidate bytes remain unchanged and
 `liveAllowed: false` remains mandatory.
+
+## Reviewed protected-main runtime-graph re-affirmation justification
+
+The valid pre-drift source Manifest is the immutable production-schema
+diagnostic revision, and its exact observed runtime policy still equals its
+recorded expected policy. The reviewed target is the exact protected-main
+merge composition
+`cca547df300e5a199322d61d9873eb37b0e33040`. The new append-only revision root
+is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827`.
+
+The exact independent re-affirming roles are A21, A18, A23, A04, A05, A11,
+A22, A24, and A25. The target contains the reviewed protected changes already
+merged through PR #176 and PR #179. Exact source-versus-target observation
+shows seven additional literal `next/dynamic` imports, seven additional
+dynamic callsites, and seven corresponding graph/topology edges. The reachable
+path count and digest are unchanged; framework entrypoints and seed counts are
+unchanged; the exact file-read allowlist and its digest are unchanged; and
+nonliteral dynamic imports and zero-baseline loader calls both remain zero.
+The covered-file inventory grows by one and does not shrink.
+
+This reviewed evolution cannot authorize arbitrary graph drift. The new mode
+fails closed unless the source Manifest exactly matches its own source-commit
+observation, both commit trees bind the same compatibility Manifest bytes, all
+loader and reachability invariants remain exact, and every positive graph
+delta is a one-for-one literal import edge. Candidate bytes remain unchanged,
+the schema diagnostic remains read-only, and `liveAllowed: false` remains
+mandatory. The resulting proof and target policy are written only through the
+existing two-phase append-only evidence and binding workflow.
