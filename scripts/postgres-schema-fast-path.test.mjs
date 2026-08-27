@@ -8,6 +8,10 @@ const warmHandlerSource = readFileSync("app/api/warm/handler.ts", "utf8");
 const storageHealthRouteSource = readFileSync("app/api/admin/storage/health/route.ts", "utf8");
 const storageHealthHandlerSource = readFileSync("app/api/admin/storage/health/handler.ts", "utf8");
 const storageAdminSource = readFileSync("scripts/storage-admin-snapshot-merge.mjs", "utf8");
+const productionSchemaGateSource = readFileSync(
+  "scripts/teacher-notice-production-schema-gate.mjs",
+  "utf8"
+);
 
 function sourceSection(source, startMarker, endMarker) {
   const start = source.indexOf(startMarker);
@@ -161,7 +165,7 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   const bootstrapSource = sourceSection(
     userStoreSource,
     "async function bootstrapPostgresStateTables()",
-    "async function repairPostgresStorageMissingCollectionsOnClient("
+    "async function completePostgresStorageReadinessMarkerOnClient("
   );
   const defaultLockTimeout = bootstrapSource.indexOf('lockTimeout: "1000ms"');
   const defaultStatementTimeout = bootstrapSource.indexOf('statementTimeout: "5000ms"');
@@ -259,7 +263,7 @@ test("production schema gate keeps empty install and both legacy upgrades separa
   const canonicalBootstrapSource = sourceSection(
     userStoreSource,
     "async function bootstrapPostgresStateTablesOnClient(",
-    "async function repairPostgresStorageMissingCollectionsOnClient("
+    "async function completePostgresStorageReadinessMarkerOnClient("
   );
   const legacyCompletionSource = sourceSection(
     userStoreSource,
@@ -322,14 +326,6 @@ test("production schema gate keeps empty install and both legacy upgrades separa
   assert.match(inspectSource, /acquirePostgresStorageContractSharedAdvisoryLock/u);
   assert.match(inspectSource, /postgresStorageReadinessCatalogIsComplete/u);
   assert.match(inspectSource, /postgresHotAuthReadinessCatalogIsComplete/u);
-  assert.match(
-    inspectSource,
-    /postgresStorageMissingCollectionsNoReadinessMarkerIsComplete/u
-  );
-  assert.match(
-    inspectSource,
-    /legacy-missing-collections-no-readiness-marker/u
-  );
   assert.doesNotMatch(inspectSource, /\b(?:CREATE|ALTER|DROP|INSERT|UPDATE|DELETE)\b/iu);
   assert.match(`${inspectSource}\n${applySource}`, /MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE/u);
   assert.match(`${inspectSource}\n${applySource}`, /GITHUB_REF_PROTECTED/u);
@@ -339,52 +335,42 @@ test("production schema gate keeps empty install and both legacy upgrades separa
     applySource,
     /legacy-v1-compatibility-no-readiness-marker/u
   );
-  assert.match(
-    applySource,
-    /legacy-missing-collections-no-readiness-marker/u
-  );
   assert.match(applySource, /bootstrapPostgresStateTablesOnClient/u);
   assert.match(applySource, /completePostgresStorageReadinessMarkerOnClient/u);
-  assert.match(applySource, /repairPostgresStorageMissingCollectionsOnClient/u);
   assert.match(applySource, /postflightState !== "exact"/u);
 });
 
-test("production missing-collection repair is one CAS-bounded transaction before readiness attestation", () => {
+test("production missing-collection repair is script-owned, CAS-bounded, and recoverable", () => {
   const repairSource = sourceSection(
-    userStoreSource,
-    "async function repairPostgresStorageMissingCollectionsOnClient(",
-    "async function completePostgresStorageReadinessMarkerOnClient("
+    productionSchemaGateSource,
+    "export async function repairPostgresStorageMissingCollectionsForProductionGate(",
+    "function constantTimeStringEqual("
   );
   const exclusiveLock = repairSource.indexOf(
     "postgres_storage_contract_exclusive_advisory_lock"
   );
   const stateLock = repairSource.indexOf("FOR UPDATE OF state");
   const repairValidation = repairSource.indexOf(
-    "repairPostgresStorageLegacySnapshotMissingCollections"
+    "buildPostgresStorageMissingCollectionRepair"
   );
   const update = repairSource.indexOf(
     "postgres_storage_legacy_missing_collections_repair"
   );
-  const markerInstall = repairSource.indexOf(
-    "installPostgresStorageReadinessMarkerContract"
-  );
-  const attestation = repairSource.indexOf(
-    "attestValidatedPostgresStorageSnapshot"
+  const validation = repairSource.indexOf(
+    "postgresStorageSnapshotContractIsComplete"
   );
   for (const index of [
     exclusiveLock,
     stateLock,
     repairValidation,
     update,
-    markerInstall,
-    attestation
+    validation
   ]) assert.notEqual(index, -1);
   assert.equal(
     exclusiveLock < stateLock
       && stateLock < repairValidation
       && repairValidation < update
-      && update < markerInstall
-      && markerInstall < attestation,
+      && update < validation,
     true
   );
   assert.equal(
@@ -392,10 +378,28 @@ test("production missing-collection repair is one CAS-bounded transaction before
     1
   );
   assert.match(repairSource, /AND state\.revision = \$\{previousRevision\}/u);
-  assert.match(repairSource, /payload_matches/u);
-  assert.match(repairSource, /revision_matches/u);
-  assert.match(repairSource, /state_identity_matches/u);
-  assert.match(repairSource, /validateCompletePostgresStorageSnapshot/u);
+  assert.match(repairSource, /payloadMatches/u);
+  assert.match(repairSource, /revisionMatches/u);
+  assert.match(repairSource, /identityMatches/u);
+  assert.doesNotMatch(
+    repairSource,
+    /installPostgresStorageReadinessMarkerContract/u
+  );
+
+  const combinedApplySource = sourceSection(
+    productionSchemaGateSource,
+    "export async function applyMaisProductionSchemaOperations(",
+    "export async function applyTeacherNoticeProductionSchemaOperationsAtomic("
+  );
+  const repairCall = combinedApplySource.indexOf(
+    "await repairAppStorageMissingCollections(client)"
+  );
+  const markerCall = combinedApplySource.indexOf(
+    "applyAppStorageSchema(client, repairedState)"
+  );
+  assert.notEqual(repairCall, -1);
+  assert.notEqual(markerCall, -1);
+  assert.equal(repairCall < markerCall, true);
 });
 
 test("shared canonical marker installer creates one transactional invalidation trigger with a locked-down function", () => {

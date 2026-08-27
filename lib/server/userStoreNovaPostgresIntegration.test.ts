@@ -1066,7 +1066,7 @@ test(
         await assertIntegrationWorkerClientsClosed(sql);
       });
 
-      await t.test("production missing-collection repair is additive, atomic, and rejects high-risk loss", async () => {
+      await t.test("production missing-collection repair is additive, recoverable, and rejects high-risk loss", async () => {
         const removeReadinessMarkerContract = async () => {
           await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
           await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
@@ -1103,19 +1103,34 @@ test(
           WHERE id = 'primary'
         `;
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
-          state: "legacy-missing-collections-no-readiness-marker"
+          state: "partial"
         });
         assert.deepEqual(
+          await runSuccessfulWorker("production-schema-diagnose-partial"),
+          { component: "legacy-snapshot-missing-collections" }
+        );
+        assert.deepEqual(
           await runSuccessfulWorker("production-schema-repair-missing-collections"),
-          { repaired: true }
+          { repaired: true, state: "legacy-no-readiness-marker" }
+        );
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "legacy-no-readiness-marker"
+        });
+        const afterRepair = await readStateEvidence(sql);
+        assert.equal(afterRepair.payload_digest, before.payload_digest);
+        assert.equal(Number(afterRepair.revision), Number(before.revision) + 1);
+        assert.notEqual(afterRepair.updated_at, before.updated_at);
+        assert.equal(await readStorageReadinessMarkerCount(sql), 0);
+
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-complete-legacy"),
+          { completed: true }
         );
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "exact"
         });
         const after = await readStateEvidence(sql);
-        assert.equal(after.payload_digest, before.payload_digest);
-        assert.equal(Number(after.revision), Number(before.revision) + 1);
-        assert.notEqual(after.updated_at, before.updated_at);
+        assert.deepEqual(after, afterRepair);
         assert.equal(await readStorageReadinessMarkerCount(sql), 1);
 
         const repeated = await runWorker("production-schema-repair-missing-collections");

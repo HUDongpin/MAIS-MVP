@@ -6,6 +6,7 @@ import {
   applyMaisProductionSchemaOperations,
   assertTeacherNoticeProductionSchemaConfirmation,
   applyTeacherNoticeProductionSchema,
+  buildPostgresStorageMissingCollectionRepair,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
@@ -52,6 +53,34 @@ test("legacy snapshot diagnostics expose only a fixed schema-shape component", a
     payload_type: "object",
     revision_valid: true
   }]), "legacy-snapshot-record-contract");
+});
+
+test("missing-collection repair adds only safe empty collections and fails closed", async () => {
+  const store = await import("../lib/server/userStore.ts");
+  const complete = store.__userStorePostgresStorageReadinessTestHooks
+    .createCompleteSnapshot();
+  const safeMissing = structuredClone(complete);
+  delete safeMissing.teacher_notice_delivery_attempts;
+  const repaired = buildPostgresStorageMissingCollectionRepair(safeMissing);
+  assert.ok(repaired);
+  assert.equal(repaired.addedCollectionCount, 1);
+  assert.deepEqual(repaired.payload.teacher_notice_delivery_attempts, []);
+  for (const [key, value] of Object.entries(safeMissing)) {
+    assert.deepEqual(repaired.payload[key], value, `${key} must be preserved`);
+  }
+  assert.equal(store.postgresStorageSnapshotContractIsComplete(repaired.payload), true);
+
+  const highRiskMissing = structuredClone(complete);
+  delete highRiskMissing.teacher_classes;
+  assert.equal(
+    buildPostgresStorageMissingCollectionRepair(highRiskMissing),
+    null
+  );
+
+  const malformed = structuredClone(complete);
+  malformed.teacher_notice_delivery_attempts = {};
+  assert.equal(buildPostgresStorageMissingCollectionRepair(malformed), null);
+  assert.equal(buildPostgresStorageMissingCollectionRepair(complete), null);
 });
 
 function injectedProductionEnvironment(overrides = {}) {
@@ -435,13 +464,15 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     ["app-storage-repair-missing-collections-v1"],
     productionEnvironment,
     {
+      repairAppStorageMissingCollections: async (receivedClient) => {
+        assert.equal(receivedClient, client);
+        missingCollectionStages.push("app-storage-missing-collection-repair");
+        return "legacy-no-readiness-marker";
+      },
       applyAppStorageSchema: async (receivedClient, expectedState) => {
         assert.equal(receivedClient, client);
-        assert.equal(
-          expectedState,
-          "legacy-missing-collections-no-readiness-marker"
-        );
-        missingCollectionStages.push("app-storage-missing-collection-repair");
+        assert.equal(expectedState, "legacy-no-readiness-marker");
+        missingCollectionStages.push("app-storage-readiness-marker");
       },
       applyTeacherNoticeSchema: async () => {
         throw new Error("must not run");
@@ -450,7 +481,10 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   );
   assert.deepEqual(
     missingCollectionStages,
-    ["app-storage-missing-collection-repair"]
+    [
+      "app-storage-missing-collection-repair",
+      "app-storage-readiness-marker"
+    ]
   );
 
   await assert.rejects(
