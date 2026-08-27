@@ -1,0 +1,302 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import JSZip from "jszip";
+
+import { importScormPackage } from "./importer";
+
+const fixedZipDate = new Date("2020-01-01T00:00:00.000Z");
+
+async function createScormPackage(
+  manifest: string,
+  files: Record<string, string | Uint8Array> = {}
+) {
+  const zip = new JSZip();
+  zip.file("imsmanifest.xml", manifest, { date: fixedZipDate, createFolders: false });
+  for (const [path, content] of Object.entries(files)) {
+    zip.file(path, content, { date: fixedZipDate, createFolders: false });
+  }
+  return zip.generateAsync({
+    type: "uint8array",
+    compression: "DEFLATE",
+    compressionOptions: { level: 6 },
+    platform: "UNIX"
+  });
+}
+
+function scormManifest({
+  schemaVersion = "1.2",
+  adlcpNamespace = "http://www.adlnet.org/xsd/adlcp_rootv1p2",
+  resourceHref = "content.txt"
+}: {
+  schemaVersion?: string;
+  adlcpNamespace?: string;
+  resourceHref?: string;
+} = {}) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="course-minimal" version="1.0"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="${adlcpNamespace}">
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>${schemaVersion}</schemaversion>
+  </metadata>
+  <organizations default="org-1">
+    <organization identifier="org-1">
+      <title>Minimal course</title>
+      <item identifier="item-1" identifierref="resource-1">
+        <title>Lesson one</title>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="resource-1" type="webcontent" adlcp:scormtype="asset" href="${resourceHref}">
+      <file href="${resourceHref}" />
+    </resource>
+  </resources>
+</manifest>`;
+}
+
+test("imports a minimal SCORM 1.2 package into the canonical course model", async () => {
+  const importedAt = "2026-08-27T06:00:00.000Z";
+  const bytes = await createScormPackage(scormManifest(), { "content.txt": "Static lesson" });
+
+  const report = await importScormPackage(bytes, { importedAt });
+
+  assert.equal(report.source.format, "SCORM");
+  assert.equal(report.source.version, "1.2");
+  assert.match(report.packageIdentity.sha256, /^[a-f0-9]{64}$/);
+  assert.equal(report.packageIdentity.sourceFormat, "scorm-1.2");
+  assert.equal(report.packageIdentity.importedAt, importedAt);
+  assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
+  assert.equal(report.courseVersion.course.title, "Minimal course");
+  assert.deepEqual(report.courseVersion.modules.map(({ id, parentId, order }) => ({ id, parentId, order })), [{
+    id: "scorm:organization:org-1",
+    parentId: "scorm:manifest:course-minimal",
+    order: 0
+  }]);
+  assert.deepEqual(report.courseVersion.units.map(({ id, parentId, resourceIds }) => ({ id, parentId, resourceIds })), [{
+    id: "scorm:item:item-1",
+    parentId: "scorm:organization:org-1",
+    resourceIds: ["scorm:resource:resource-1"]
+  }]);
+  assert.deepEqual(report.courseVersion.resources[0]?.referencedByIds, ["scorm:item:item-1"]);
+  assert.deepEqual(report.courseVersion.assessments, []);
+  assert.equal(report.archive.fileCount, 2);
+  assert.deepEqual(report.warnings, []);
+  assert.ok(Object.isFrozen(report.courseVersion));
+});
+
+test("identifies SCORM 2004 packages without treating them as SCORM 1.2", async () => {
+  const bytes = await createScormPackage(scormManifest({
+    schemaVersion: "2004 4th Edition",
+    adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
+  }), { "content.txt": "Static lesson" });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:10:00.000Z" });
+
+  assert.equal(report.source.version, "2004");
+  assert.equal(report.packageIdentity.sourceFormat, "scorm-2004");
+});
+
+test("rejects ZIP packages that do not contain a root imsmanifest.xml", async () => {
+  const zip = new JSZip();
+  zip.file("content.txt", "No manifest", { date: fixedZipDate, createFolders: false });
+  const bytes = await zip.generateAsync({ type: "uint8array", compression: "DEFLATE" });
+
+  await assert.rejects(
+    importScormPackage(bytes),
+    (error: unknown) => {
+      assert.deepEqual(
+        error && typeof error === "object"
+          ? { code: Reflect.get(error, "code"), status: Reflect.get(error, "status"), message: Reflect.get(error, "message") }
+          : null,
+        {
+          code: "MANIFEST_MISSING",
+          status: 422,
+          message: "The ZIP does not contain a root imsmanifest.xml file."
+        }
+      );
+      return true;
+    }
+  );
+});
+
+test("rejects compressed and expanded package sizes before parsing the manifest", async () => {
+  const bytes = await createScormPackage(scormManifest(), {
+    "content.txt": "A".repeat(10_000)
+  });
+
+  await assert.rejects(
+    importScormPackage(bytes, {
+      limits: { maxPackageBytes: bytes.byteLength - 1 }
+    }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "PACKAGE_TOO_LARGE" &&
+      Reflect.get(Object(error), "status") === 413
+  );
+
+  await assert.rejects(
+    importScormPackage(bytes, {
+      limits: { maxTotalUncompressedBytes: 5_000 }
+    }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_TOTAL_SIZE_EXCEEDED" &&
+      Reflect.get(Object(error), "status") === 413
+  );
+});
+
+test("rejects path traversal and duplicate canonical ZIP paths without echoing entry names", async () => {
+  const traversalBytes = await createScormPackage(scormManifest(), {
+    "content.txt": "Static lesson",
+    "../outside.txt": "must remain unreachable"
+  });
+  const duplicateBytes = await createScormPackage(scormManifest(), {
+    "content.txt": "Static lesson",
+    "assets/lesson.js": "first",
+    "assets/./lesson.js": "second"
+  });
+
+  for (const [bytes, code] of [
+    [traversalBytes, "ZIP_PATH_UNSAFE"],
+    [duplicateBytes, "ZIP_DUPLICATE_PATH"]
+  ] as const) {
+    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), code);
+      assert.equal(Reflect.get(Object(error), "status"), 422);
+      assert.doesNotMatch(String(Reflect.get(Object(error), "message")), /outside|lesson\.js/);
+      return true;
+    });
+  }
+});
+
+test("rejects DOCTYPE and ENTITY declaration surfaces before XML entity expansion", async () => {
+  const base = scormManifest();
+  const declarations = [
+    "<!DOCTYPE manifest [<!ENTITY xxe SYSTEM \"file:///private/sensitive\">]>",
+    "<!ENTITY injected \"unsafe\">"
+  ];
+
+  for (const declaration of declarations) {
+    const manifest = base.replace("?>", `?>\n${declaration}`);
+    const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), "MANIFEST_XML_DTD_FORBIDDEN");
+      assert.equal(Reflect.get(Object(error), "status"), 422);
+      assert.doesNotMatch(String(Reflect.get(Object(error), "message")), /private|sensitive/);
+      return true;
+    });
+  }
+});
+
+test("reports HTML and JavaScript as blocked static metadata without executing either file", async () => {
+  const marker = "__maisScormPackageExecuted";
+  const runtime = globalThis as Record<string, unknown>;
+  delete runtime[marker];
+  const bytes = await createScormPackage(scormManifest({ resourceHref: "launch.html" }), {
+    "launch.html": `<script>globalThis.${marker} = "html"</script>`,
+    "scripts/run.js": `globalThis.${marker} = "javascript"`
+  });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:20:00.000Z" });
+
+  assert.equal(runtime[marker], undefined);
+  assert.deepEqual(report.blockedExecutables.map((entry) => ({
+    path: entry.path,
+    mediaType: entry.mediaType,
+    referencedByResourceIds: entry.referencedByResourceIds,
+    reason: entry.reason
+  })), [
+    {
+      path: "launch.html",
+      mediaType: "text/html",
+      referencedByResourceIds: ["scorm:resource:resource-1"],
+      reason: "execution-disabled"
+    },
+    {
+      path: "scripts/run.js",
+      mediaType: "text/javascript",
+      referencedByResourceIds: [],
+      reason: "execution-disabled"
+    }
+  ]);
+  delete runtime[marker];
+});
+
+test("omits external manifest references as warnings without making a network request", async () => {
+  const originalFetch = globalThis.fetch;
+  let fetchCalls = 0;
+  globalThis.fetch = async () => {
+    fetchCalls += 1;
+    throw new Error("network access is forbidden");
+  };
+  try {
+    const bytes = await createScormPackage(scormManifest({
+      resourceHref: "https://lms.example.invalid/launch.html"
+    }));
+
+    const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:30:00.000Z" });
+
+    assert.equal(fetchCalls, 0);
+    assert.equal(report.courseVersion.resources[0]?.href, null);
+    assert.deepEqual(report.courseVersion.resources[0]?.filePaths, []);
+    assert.ok(report.warnings.length >= 1);
+    assert.ok(report.warnings.every((warning) => warning.code === "RESOURCE_PATH_OMITTED"));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("rejects ZIP entries marked as encrypted before loading the manifest", async () => {
+  const generated = await createScormPackage(scormManifest(), { "content.txt": "Static lesson" });
+  const bytes = new Uint8Array(generated);
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  let marked = false;
+  for (let offset = 0; offset <= bytes.byteLength - 46; offset += 1) {
+    if (view.getUint32(offset, true) !== 0x02014b50) continue;
+    view.setUint16(offset + 8, view.getUint16(offset + 8, true) | 0x0001, true);
+    marked = true;
+    break;
+  }
+  assert.equal(marked, true);
+
+  await assert.rejects(
+    importScormPackage(bytes),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_ENCRYPTED_ENTRY" &&
+      Reflect.get(Object(error), "status") === 422
+  );
+});
+
+test("enforces entry-count and single-file resource limits", async () => {
+  const bytes = await createScormPackage(scormManifest(), {
+    "content.txt": "B".repeat(3_000)
+  });
+
+  await assert.rejects(
+    importScormPackage(bytes, { limits: { maxFiles: 1 } }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_ENTRY_LIMIT_EXCEEDED"
+  );
+  await assert.rejects(
+    importScormPackage(bytes, {
+      limits: { maxSingleFileBytes: 2_000, maxManifestBytes: 1_000 }
+    }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_ENTRY_TOO_LARGE"
+  );
+});
+
+test("warns and omits an unidentifiable resource instead of fabricating a canonical ID", async () => {
+  const manifest = scormManifest().replace(
+    "<resource identifier=\"resource-1\" type=\"webcontent\"",
+    "<resource type=\"webcontent\""
+  );
+  const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:40:00.000Z" });
+
+  assert.deepEqual(report.courseVersion.resources, []);
+  assert.deepEqual(report.courseVersion.units[0]?.resourceIds, []);
+  assert.deepEqual(report.warnings.map((warning) => warning.code), [
+    "RESOURCE_REFERENCE_UNRESOLVED",
+    "RESOURCE_SKIPPED"
+  ]);
+  assert.doesNotMatch(JSON.stringify(report.courseVersion), /generated|synthetic|resource-1/);
+});
+
+export { createScormPackage, scormManifest };
