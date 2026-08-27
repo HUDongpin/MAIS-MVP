@@ -9,6 +9,7 @@
 > **[`2026-08-27-china-math-audit-rebaseline.md`](./2026-08-27-china-math-audit-rebaseline.md)**,
 > which records what SURVIVES, CHANGED, was FIXED, or is MOOT — including several claims in this
 > document that did not reproduce. Do not schedule work from this file alone.
+> **The operative plan is now** [`2026-08-27-china-math-plan-v3-path-b.md`](./2026-08-27-china-math-plan-v3-path-b.md), which supersedes this one: Path A is dead (two of its three slices are withdrawn) and the sequencing changed to platform-before-content.
 
 
 
