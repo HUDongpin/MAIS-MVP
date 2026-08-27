@@ -105,6 +105,50 @@ function numbersDropped(en, translated) {
 }
 const hasProse = (value) => /[A-Za-z]{4,}/.test(value);
 
+/**
+ * Overwrite detection.
+ *
+ * A whole sentence silently replaced by a short label is the failure this table is
+ * most exposed to: the entries are keyed by English string, and any tooling that
+ * looks a key up by substring rather than exact match will land a short option's
+ * translation on top of a long explanation that merely CONTAINS that option's text.
+ * That happened during this branch's authoring — "Minute hand on 6 means half past."
+ * was overwritten with the bare 幾點半 from the "half past" entry, leaving a Grade 1
+ * child the single phrase "half past" as the entire rationale for their answer.
+ *
+ * It was caught only because that sentence happened to contain a digit, so the
+ * number-drift check fired. A numberless sentence would have shipped silently.
+ * This check closes that gap: a long English string whose translation is
+ * byte-identical to the translation of a much shorter English string is the exact
+ * signature of that overwrite, and is not something a real translation produces.
+ */
+/**
+ * Genuine paraphrase pairs: two English strings that really do say the same thing and
+ * therefore legitimately share one translation. Kept as an explicit allowlist rather
+ * than a similarity heuristic, because the damage case ("half past" inside "Minute hand
+ * on 6 means half past.") and the legitimate case ("Biggest place first." vs "The
+ * biggest place decides first.") both show high word overlap — no automatic measure
+ * separates them. A new pair must be justified here rather than silently tolerated.
+ */
+const SHARED_TRANSLATION_ALLOWLIST = new Set([
+  "The biggest place decides first." // paraphrase of "Biggest place first."; both -> 先看最高位。
+]);
+
+function detectOverwrites(entries) {
+  const wordCount = (value) => value.split(/\s+/).filter(Boolean).length;
+  const shortByTranslation = new Map();
+  for (const [en, entry] of entries) {
+    if (wordCount(en) <= 3) shortByTranslation.set(entry.zh, en);
+  }
+  const hits = [];
+  for (const [en, entry] of entries) {
+    if (wordCount(en) < 5 || SHARED_TRANSLATION_ALLOWLIST.has(en)) continue;
+    const donor = shortByTranslation.get(entry.zh);
+    if (donor !== undefined && donor !== en) hits.push({ en, donor, value: entry.zh });
+  }
+  return hits;
+}
+
 const table = JSON.parse(readFileSync(tablePath, "utf8"));
 const findings = [];
 const add = (severity, check, key, detail) =>
@@ -151,6 +195,16 @@ for (const [en, entry] of Object.entries(table)) {
       add("P2", "ascii-multiply", en, `${field} uses ASCII "x" for multiplication — use ×`);
     }
   }
+}
+
+for (const hit of detectOverwrites(Object.entries(table).filter(([, v]) => v))) {
+  add(
+    "P0",
+    "overwritten",
+    hit.en,
+    `translation is byte-identical to the much shorter entry ${JSON.stringify(hit.donor)} ` +
+      `("${hit.value}") — a long string cannot legitimately share a short label's translation`
+  );
 }
 
 const total = translated + pending;
