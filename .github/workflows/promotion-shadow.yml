@@ -26,9 +26,9 @@ jobs:
       GIT_CONFIG_VALUE_2: "false"
       GIT_CONFIG_KEY_3: maintenance.autoDetach
       GIT_CONFIG_VALUE_3: "false"
-      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/promotion-manifest.v2.json
-      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/shadow-receipt.v2.json
-      PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: ${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/shadow-receipt.v2.json
+      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/promotion-manifest.v2.json
+      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/shadow-receipt.v2.json
+      PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: ${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/shadow-receipt.v2.json
       PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
       PROMOTION_REPLAY_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-replay
     steps:
