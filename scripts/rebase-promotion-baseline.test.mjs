@@ -7,11 +7,18 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  assertExactReconstructedBytes,
+  assertSourceEvidenceBinding,
   buildReaffirmedEvidence,
   buildReaffirmedLegacyRegistry,
   buildReviewedRuntimePolicyEvolution,
-  buildReaffirmedRuntimePolicyRefresh
+  buildReaffirmedRuntimePolicyRefresh,
+  jsonPointerDifferences
 } from "./rebase-promotion-baseline.mjs";
+import {
+  computeV2EvidenceSemanticDigest,
+  projectV2RuntimePolicy
+} from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const script = path.join(repoRoot, "scripts/rebase-promotion-baseline.mjs");
@@ -98,10 +105,78 @@ test("legacy registry re-affirmation updates only the top-level baseline identit
     targetBaselineCommit: "1".repeat(40),
     resolutions: [{ resolutionCommits: ["1".repeat(40)] }]
   };
-  const next = buildReaffirmedLegacyRegistry(source, "2".repeat(40));
+  const next = buildReaffirmedLegacyRegistry(source, "2".repeat(40), "1".repeat(40));
   assert.equal(next.targetBaselineCommit, "2".repeat(40));
   assert.deepEqual(next.resolutions[0].resolutionCommits, ["1".repeat(40)]);
+  assert.deepEqual(jsonPointerDifferences(source, next), ["/targetBaselineCommit"]);
   assert.equal(source.targetBaselineCommit, "1".repeat(40));
+});
+
+test("recursive JSON-pointer differences identify exact nested fields with RFC 6901 escaping", () => {
+  const source = {
+    targetBaselineCommit: "1".repeat(40),
+    nested: { "a/b": { "x~y": "source" } },
+    array: [{ value: 1 }]
+  };
+  const target = structuredClone(source);
+  target.targetBaselineCommit = "2".repeat(40);
+  target.nested["a/b"]["x~y"] = "target";
+  target.array[0].value = 2;
+  assert.deepEqual(jsonPointerDifferences(source, target), [
+    "/array/0/value",
+    "/nested/a~1b/x~0y",
+    "/targetBaselineCommit"
+  ]);
+});
+
+test("binding phase accepts only bytes reconstructed exactly from the reviewed plan", () => {
+  const planned = Buffer.from("exact planned evidence bytes\n", "utf8");
+  assert.equal(assertExactReconstructedBytes(planned, Buffer.from(planned)), true);
+  assert.throws(
+    () => assertExactReconstructedBytes(planned, Buffer.from("different bytes\n", "utf8"), "A23 evidence"),
+    /A23 evidence bytes do not exactly match the reviewed plan/u
+  );
+});
+
+test("source evidence binding requires exact semantic identity and current Manifest fields", () => {
+  const manifest = {
+    candidateDigest: "1".repeat(64),
+    sourceCommit: "2".repeat(40),
+    targetBaselineCommit: "3".repeat(40),
+    checkerVersion: "promotion-gate-shadow-v2.6"
+  };
+  const sourceEvidence = {
+    evidenceId: "a23-source",
+    role: "A23",
+    result: "pass",
+    candidateDigest: manifest.candidateDigest,
+    sourceCommit: manifest.sourceCommit,
+    targetBaselineCommit: manifest.targetBaselineCommit,
+    checkerVersion: manifest.checkerVersion,
+    semanticPayload: { readiness: "reviewed" }
+  };
+  const binding = {
+    evidenceId: sourceEvidence.evidenceId,
+    role: sourceEvidence.role,
+    expectedResult: sourceEvidence.result,
+    semanticDigest: computeV2EvidenceSemanticDigest(sourceEvidence),
+    currentness: structuredClone(manifest)
+  };
+  assert.equal(assertSourceEvidenceBinding(sourceEvidence, binding, manifest), true);
+
+  const stale = structuredClone(binding);
+  stale.currentness.targetBaselineCommit = "4".repeat(40);
+  assert.throws(
+    () => assertSourceEvidenceBinding(sourceEvidence, stale, manifest),
+    /semantic identity or currentness is invalid/u
+  );
+
+  const semanticallyChanged = structuredClone(sourceEvidence);
+  semanticallyChanged.semanticPayload.readiness = "unreviewed";
+  assert.throws(
+    () => assertSourceEvidenceBinding(semanticallyChanged, binding, manifest),
+    /semantic identity or currentness is invalid/u
+  );
 });
 
 test("evidence re-affirmation preserves historical commits and records the exact current delta", () => {
@@ -131,7 +206,8 @@ test("evidence re-affirmation preserves historical commits and records the exact
       runtimePaths: ["lib/server/authRouteGuards.ts"]
     },
     sourceEvidencePath: "source.json",
-    sourceEvidenceRawSha256: "c".repeat(64)
+    sourceEvidenceRawSha256: "c".repeat(64),
+    candidateBytesChanged: false
   });
   assert.equal(next.targetBaselineCommit, "2".repeat(40));
   assert.equal(next.semanticPayload.targetBaselineCommit, "2".repeat(40));
@@ -222,145 +298,483 @@ test("runtime-policy refresh rejects a changed target graph or fs-read callsite"
   );
 });
 
-test("reviewed runtime-policy evolution accepts only literal-import graph growth with no capability or reachability expansion", () => {
-  const source = {
-    coveredFileCount: 3799,
-    coveredFilesDigest: "1".repeat(64),
-    classificationsDigest: "2".repeat(64),
-    frameworkEntrypointCount: 301,
-    seedCount: 316,
-    reachablePathCount: 1451,
-    reachablePathsDigest: "3".repeat(64),
-    edgeCount: 3582,
-    edgeDigest: "4".repeat(64),
-    topologyEdgeCount: 3582,
-    topologyEdgeDigest: "5".repeat(64),
-    nextDynamicCallCount: 482,
-    nextDynamicLiteralImportCount: 944,
-    nextDynamicNonliteralImportCount: 0,
-    nextDynamicCallsiteDigest: "6".repeat(64),
-    fsReadAllowlistCount: 5,
-    fsReadAllowlistDigest: "7".repeat(64),
-    zeroBaselineCallCount: 0
+const runtimePaths = {
+  languageToggle: "components/ui/LanguageToggle.tsx",
+  i18n: "lib/i18n.ts",
+  storageBase: "lib/server/storageBase.ts",
+  userStore: "lib/server/userStore.ts"
+};
+const sourceBaselineCommit = "1".repeat(40);
+const targetBaselineCommit = "2".repeat(40);
+const sourceUserStoreRawSha256 = "3".repeat(64);
+const targetUserStoreRawSha256 = "4".repeat(64);
+const stableRuntimeRawSha256 = "5".repeat(64);
+const candidateRawSha256 = "6".repeat(64);
+const normalizedFsDigest = "7".repeat(64);
+const normalizedNextDigest = "8".repeat(64);
+
+function sha256CanonicalJson(value) {
+  return crypto.createHash("sha256").update(`${JSON.stringify(value, null, 2)}\n`).digest("hex");
+}
+
+function makeRuntimeObservation({ target = false, fsRawTransition = true } = {}) {
+  const actualFiles = Object.values(runtimePaths).sort();
+  const classifications = [{
+    kind: "runtime-code",
+    count: actualFiles.length,
+    pathsDigest: "9".repeat(64)
+  }];
+  const sourceEdge = {
+    from: runtimePaths.userStore,
+    specifier: "./storageBase",
+    to: runtimePaths.storageBase,
+    kind: "import",
+    typeOnly: false
   };
-  const target = {
-    ...source,
-    coveredFileCount: 3800,
-    coveredFilesDigest: "8".repeat(64),
-    classificationsDigest: "9".repeat(64),
-    edgeCount: 3589,
-    edgeDigest: "a".repeat(64),
-    topologyEdgeCount: 3589,
-    topologyEdgeDigest: "b".repeat(64),
-    nextDynamicCallCount: 489,
-    nextDynamicLiteralImportCount: 951,
-    nextDynamicCallsiteDigest: "c".repeat(64)
+  const addedEdge = {
+    from: runtimePaths.languageToggle,
+    specifier: "@/lib/i18n",
+    to: runtimePaths.i18n,
+    kind: "import",
+    typeOnly: false
   };
-  const fsReadAllowlist = Array.from({ length: 5 }, (_, index) => ({
-    sourcePath: `lib/server/userStore${index}.ts`,
-    sourceRawSha256: "d".repeat(64),
+  const edges = target ? [sourceEdge, addedEdge] : [sourceEdge];
+  const topologyEdges = edges.map(({ from, to }) => ({ from, to }));
+  const sourceFsRead = {
+    sourcePath: runtimePaths.userStore,
+    sourceRawSha256: sourceUserStoreRawSha256,
     callee: "node:fs/promises.readFile",
-    position: 123 + index,
-    argumentShape: "identifier(path)",
-    normalizedExpressionDigest: "e".repeat(64),
+    position: 101,
+    argumentShape: "identifier(legacyJsonDbPath),literal(string)",
+    normalizedExpressionDigest: normalizedFsDigest,
     policy: "runtime-storage-read-only-non-module"
-  }));
-  const proof = buildReviewedRuntimePolicyEvolution({
-    sourceExpectedPolicy: source,
-    sourceObservedPolicy: structuredClone(source),
-    targetObservedPolicy: target,
-    sourceFsReadAllowlist: fsReadAllowlist,
-    targetFsReadAllowlist: structuredClone(fsReadAllowlist)
-  });
-  assert.equal(proof.schemaVersion, "promotion-runtime-policy-reviewed-evolution.v1");
-  assert.equal(proof.literalDynamicImportDelta, 7);
-  assert.equal(proof.sourceAndTargetReachablePathsEqual, true);
-  assert.equal(proof.sourceAndTargetFsReadAllowlistEqual, true);
-  assert.deepEqual(proof.changedFields, [
-    "classificationsDigest",
-    "coveredFileCount",
-    "coveredFilesDigest",
+  };
+  const targetFsRead = fsRawTransition
+    ? { ...sourceFsRead, sourceRawSha256: targetUserStoreRawSha256, position: 103 }
+    : structuredClone(sourceFsRead);
+  const fsReadAllowlist = [target ? targetFsRead : sourceFsRead];
+  const nextDynamicCalls = [{
+    sourcePath: runtimePaths.storageBase,
+    sourceRawSha256: stableRuntimeRawSha256,
+    position: 41,
+    literalImports: ["./storage-adapter"],
+    nonliteralImportCount: 0,
+    normalizedExpressionDigest: normalizedNextDigest
+  }];
+  const importMetaUrlReferences = [{
+    sourcePath: runtimePaths.storageBase,
+    sourceRawSha256: stableRuntimeRawSha256,
+    specifier: "./storage-schema.json"
+  }];
+  const graphPolicy = {
+    parser: { name: "typescript", version: "test" },
+    seedCount: 2,
+    seedDigest: "a".repeat(64),
+    reachablePathCount: actualFiles.length,
+    reachablePathsDigest: "b".repeat(64),
+    edgeCount: edges.length,
+    edgeDigest: (target ? "c" : "d").repeat(64),
+    topologyEdgeCount: topologyEdges.length,
+    topologyEdgeDigest: (target ? "e" : "f").repeat(64)
+  };
+  return {
+    snapshot: { digest: "0".repeat(64), files: actualFiles.map((pathValue) => ({ path: pathValue })) },
+    actualFiles,
+    classifications,
+    resolverPolicy: { schemaVersion: "runtime-resolver-policy.test.v1", aliases: ["@/*"] },
+    frameworkBoundary: { schemaVersion: "framework-boundary.test.v1", alternateEntrypoints: [] },
+    frameworkEntrypoints: [runtimePaths.languageToggle],
+    specialFiles: [{ path: "middleware.ts", rawSha256: stableRuntimeRawSha256 }],
+    graph: {
+      frameworkEntrypoints: [runtimePaths.languageToggle],
+      runtimeSeeds: [runtimePaths.languageToggle, runtimePaths.userStore],
+      reachablePaths: new Set(actualFiles),
+      edges,
+      topologyEdges,
+      detachedEdges: [],
+      unresolvedCalls: [],
+      loaderInventory: {
+        fsReads: structuredClone(fsReadAllowlist),
+        nextDynamicCalls,
+        zeroBaselineCalls: [],
+        importMetaUrlReferences: structuredClone(importMetaUrlReferences)
+      }
+    },
+    graphPolicy,
+    loaderPolicy: {
+      schemaVersion: "promotion-runtime-loader-policy.v1",
+      parser: { name: "typescript", version: "test" },
+      fsReadAllowlist,
+      fsReadAllowlistDigest: (target && fsRawTransition ? "0" : "1").repeat(64),
+      nextDynamic: {
+        callCount: nextDynamicCalls.length,
+        literalImportCount: 1,
+        nonliteralImportCount: 0,
+        callsiteDigest: "2".repeat(64)
+      },
+      importMetaUrlReferences,
+      importMetaUrlReferencesDigest: "3".repeat(64),
+      zeroBaselineKinds: ["require-context"],
+      zeroBaselineCallCount: 0
+    },
+    sensitiveAnchors: [{ path: "middleware.ts", rawSha256: stableRuntimeRawSha256 }],
+    sensitiveAnchorsDigest: "4".repeat(64),
+    rawObservation: {
+      coveredFileCount: actualFiles.length,
+      coveredFilesDigest: "5".repeat(64),
+      coveredFilesAggregateDigest: "6".repeat(64),
+      classifications,
+      classificationDigest: "7".repeat(64)
+    }
+  };
+}
+
+function makeRuntimeEvolutionCase({ fsRawTransition = true } = {}) {
+  const sourceObservation = makeRuntimeObservation();
+  const targetObservation = makeRuntimeObservation({ target: true, fsRawTransition });
+  const reviewedRuntimeDiff = [
+    { path: runtimePaths.userStore, status: "M" },
+    { path: runtimePaths.languageToggle, status: "M" }
+  ];
+  const reviewedPaths = structuredClone(reviewedRuntimeDiff).sort((left, right) =>
+    left.path < right.path ? -1 : left.path > right.path ? 1 : 0
+  );
+  const candidateArtifactBindings = [{
+    path: "coordination/content-qa/candidate.json",
+    sourceRawSha256: candidateRawSha256,
+    targetRawSha256: candidateRawSha256,
+    unchanged: true
+  }];
+  const addedEdges = [structuredClone(targetObservation.graph.edges[1])];
+  const addedTopologyEdges = [{ from: addedEdges[0].from, to: addedEdges[0].to }];
+  const sourceFsRead = sourceObservation.loaderPolicy.fsReadAllowlist[0];
+  const targetFsRead = targetObservation.loaderPolicy.fsReadAllowlist[0];
+  const fsRawTransitions = fsRawTransition
+    ? [{
+        normalized: {
+          sourcePath: sourceFsRead.sourcePath,
+          callee: sourceFsRead.callee,
+          argumentShape: sourceFsRead.argumentShape,
+          normalizedExpressionDigest: sourceFsRead.normalizedExpressionDigest,
+          policy: sourceFsRead.policy
+        },
+        source: structuredClone(sourceFsRead),
+        target: structuredClone(targetFsRead)
+      }]
+    : [];
+  const changedPolicyFields = [
     "edgeCount",
     "edgeDigest",
-    "nextDynamicCallCount",
-    "nextDynamicCallsiteDigest",
-    "nextDynamicLiteralImportCount",
+    ...(fsRawTransition ? ["fsReadAllowlistDigest"] : []),
     "topologyEdgeCount",
     "topologyEdgeDigest"
-  ]);
+  ].sort();
+  const reviewAttestation = {
+    schemaVersion: "promotion-runtime-policy-review-attestation.v1",
+    sourceBaselineCommit,
+    targetBaselineCommit,
+    reviewedPaths,
+    changedPolicyFields,
+    addedEdges,
+    removedEdges: [],
+    addedTopologyEdges,
+    removedTopologyEdges: [],
+    fsRawTransitions,
+    nextDynamicRawTransitions: [],
+    candidateArtifactBindings: structuredClone(candidateArtifactBindings),
+    candidateBytesChanged: false,
+    liveAllowed: false
+  };
+  return {
+    sourceExpectedPolicy: projectV2RuntimePolicy(sourceObservation),
+    sourceObservation,
+    targetObservation,
+    reviewedRuntimeDiff,
+    sourceBaselineCommit,
+    targetBaselineCommit,
+    reviewAttestation,
+    reviewAttestationRawSha256: sha256CanonicalJson(reviewAttestation),
+    candidateArtifactBindings,
+    rawBindingsVerified: true
+  };
+}
+
+test("reviewed runtime-policy evolution v2 accepts one exact reviewed static edge and an optional raw-only fs transition", async (t) => {
+  for (const fsRawTransition of [true, false]) {
+    await t.test(`fs raw transition ${fsRawTransition ? "present" : "absent"}`, () => {
+      const args = makeRuntimeEvolutionCase({ fsRawTransition });
+      const proof = buildReviewedRuntimePolicyEvolution(args);
+      assert.equal(proof.schemaVersion, "promotion-runtime-policy-reviewed-evolution.v2");
+      assert.equal(proof.sourceBaselineCommit, sourceBaselineCommit);
+      assert.equal(proof.targetBaselineCommit, targetBaselineCommit);
+      assert.deepEqual(proof.graphProof.addedEdges, [args.targetObservation.graph.edges[1]]);
+      assert.deepEqual(proof.graphProof.removedEdges, []);
+      assert.equal(proof.inventoryProof.actualFiles.equal, true);
+      assert.equal(proof.inventoryProof.reachablePaths.equal, true);
+      assert.equal(proof.loaderProof.fsRead.normalizedEqual, true);
+      assert.equal(proof.loaderProof.fsRead.transitions.length, fsRawTransition ? 1 : 0);
+      assert.equal(proof.candidateBytesChanged, false);
+      assert.equal(proof.rawBindingsVerified, true);
+      assert.equal(proof.reviewAttestationRawSha256, args.reviewAttestationRawSha256);
+      assert.equal(proof.liveAllowed, false);
+    });
+  }
 });
 
-test("reviewed runtime-policy evolution rejects reachability, loader capability, blind-spot, and incoherent edge changes", () => {
-  const source = {
-    coveredFileCount: 10,
-    coveredFilesDigest: "1".repeat(64),
-    classificationsDigest: "2".repeat(64),
-    frameworkEntrypointCount: 2,
-    seedCount: 3,
-    reachablePathCount: 4,
-    reachablePathsDigest: "3".repeat(64),
-    edgeCount: 8,
-    edgeDigest: "4".repeat(64),
-    topologyEdgeCount: 8,
-    topologyEdgeDigest: "5".repeat(64),
-    nextDynamicCallCount: 2,
-    nextDynamicLiteralImportCount: 2,
-    nextDynamicNonliteralImportCount: 0,
-    nextDynamicCallsiteDigest: "6".repeat(64),
-    fsReadAllowlistCount: 1,
-    fsReadAllowlistDigest: "7".repeat(64),
-    zeroBaselineCallCount: 0
-  };
-  const validTarget = {
-    ...source,
-    coveredFileCount: 11,
-    coveredFilesDigest: "8".repeat(64),
-    classificationsDigest: "9".repeat(64),
-    edgeCount: 9,
-    edgeDigest: "a".repeat(64),
-    topologyEdgeCount: 9,
-    topologyEdgeDigest: "b".repeat(64),
-    nextDynamicCallCount: 3,
-    nextDynamicLiteralImportCount: 3,
-    nextDynamicCallsiteDigest: "c".repeat(64)
-  };
-  const allowlist = [{ sourcePath: "lib/server/userStore.ts", policy: "read-only" }];
-  const build = (targetObservedPolicy, targetFsReadAllowlist = allowlist) =>
-    buildReviewedRuntimePolicyEvolution({
-      sourceExpectedPolicy: source,
-      sourceObservedPolicy: structuredClone(source),
-      targetObservedPolicy,
-      sourceFsReadAllowlist: allowlist,
-      targetFsReadAllowlist
+test("reviewed runtime-policy evolution v2 rejects removals hidden by a net-positive edge count", () => {
+  const args = makeRuntimeEvolutionCase();
+  const replacementEdges = [
+    args.targetObservation.graph.edges[1],
+    {
+      from: runtimePaths.languageToggle,
+      specifier: "@/lib/server/storageBase",
+      to: runtimePaths.storageBase,
+      kind: "import",
+      typeOnly: false
+    }
+  ];
+  args.targetObservation.graph.edges = replacementEdges;
+  args.targetObservation.graph.topologyEdges = replacementEdges.map(({ from, to }) => ({ from, to }));
+  assert.equal(
+    args.targetObservation.graph.edges.length - args.sourceObservation.graph.edges.length,
+    1,
+    "the fixture must retain a misleading positive net edge delta"
+  );
+  assert.throws(
+    () => buildReviewedRuntimePolicyEvolution(args),
+    /additive-only exact static graph edges/u
+  );
+});
+
+test("reviewed runtime-policy evolution v2 rejects same-count inventory substitutions", async (t) => {
+  const cases = [
+    {
+      name: "actual file",
+      mutate: ({ targetObservation }) => {
+        targetObservation.actualFiles[0] = "components/ui/Replaced.tsx";
+      },
+      pattern: /actual files multiset/u
+    },
+    {
+      name: "classification",
+      mutate: ({ targetObservation }) => {
+        targetObservation.classifications[0] = {
+          ...targetObservation.classifications[0],
+          kind: "test-code"
+        };
+      },
+      pattern: /runtime classifications multiset/u
+    },
+    {
+      name: "runtime seed",
+      mutate: ({ targetObservation }) => {
+        targetObservation.graph.runtimeSeeds[0] = runtimePaths.i18n;
+      },
+      pattern: /runtime seeds multiset/u
+    },
+    {
+      name: "reachable path",
+      mutate: ({ targetObservation }) => {
+        const paths = [...targetObservation.graph.reachablePaths];
+        paths[0] = "lib/replacement.ts";
+        targetObservation.graph.reachablePaths = new Set(paths);
+      },
+      pattern: /reachable paths multiset/u
+    }
+  ];
+  for (const entry of cases) {
+    await t.test(entry.name, () => {
+      const args = makeRuntimeEvolutionCase();
+      entry.mutate(args);
+      assert.throws(() => buildReviewedRuntimePolicyEvolution(args), entry.pattern);
     });
-  assert.throws(
-    () => build({ ...validTarget, reachablePathsDigest: "f".repeat(64) }),
-    /reachable path set/u
-  );
-  assert.throws(
-    () => build(validTarget, [{ sourcePath: "lib/server/other.ts", policy: "read-only" }]),
-    /fs-read allowlist/u
-  );
-  assert.throws(
-    () => build({ ...validTarget, nextDynamicNonliteralImportCount: 1 }),
-    /nonliteral dynamic imports/u
-  );
-  assert.throws(
-    () => build({ ...validTarget, edgeCount: 10, topologyEdgeCount: 10 }),
-    /literal-import and edge deltas/u
-  );
-  assert.throws(
-    () => build({ ...validTarget, zeroBaselineCallCount: 1 }),
-    /zero-baseline loader calls/u
-  );
-  assert.throws(
-    () => buildReviewedRuntimePolicyEvolution({
-      sourceExpectedPolicy: source,
-      sourceObservedPolicy: { ...source, coveredFileCount: 11 },
-      targetObservedPolicy: validTarget,
-      sourceFsReadAllowlist: allowlist,
-      targetFsReadAllowlist: allowlist
-    }),
-    /source expected policy differs/u
-  );
+  }
+});
+
+test("reviewed runtime-policy evolution v2 accepts only reviewed non-type static imports to source-reachable targets", async (t) => {
+  const cases = [
+    {
+      name: "unreviewed importer",
+      mutate: (edge) => {
+        edge.from = runtimePaths.storageBase;
+      }
+    },
+    {
+      name: "new target",
+      mutate: (edge) => {
+        edge.to = "lib/newly-reachable.ts";
+      }
+    },
+    {
+      name: "wrong kind",
+      mutate: (edge) => {
+        edge.kind = "dynamic-import";
+      }
+    },
+    {
+      name: "type-only edge",
+      mutate: (edge) => {
+        edge.typeOnly = true;
+      }
+    }
+  ];
+  for (const entry of cases) {
+    await t.test(entry.name, () => {
+      const args = makeRuntimeEvolutionCase();
+      entry.mutate(args.targetObservation.graph.edges[1]);
+      assert.throws(
+        () => buildReviewedRuntimePolicyEvolution(args),
+        /unreviewed or capability-expanding static edge/u
+      );
+    });
+  }
+});
+
+test("reviewed runtime-policy evolution v2 rejects normalized fs capability and multiplicity changes", async (t) => {
+  await t.test("normalized field", () => {
+    const args = makeRuntimeEvolutionCase();
+    args.targetObservation.loaderPolicy.fsReadAllowlist[0].argumentShape = "identifier(otherPath)";
+    assert.throws(
+      () => buildReviewedRuntimePolicyEvolution(args),
+      /fs-read allowlist normalized entries multiset/u
+    );
+  });
+  await t.test("normalized multiplicity", () => {
+    const args = makeRuntimeEvolutionCase();
+    args.targetObservation.loaderPolicy.fsReadAllowlist.push(
+      structuredClone(args.targetObservation.loaderPolicy.fsReadAllowlist[0])
+    );
+    assert.throws(
+      () => buildReviewedRuntimePolicyEvolution(args),
+      /fs-read allowlist normalized entries multiset|fs-read allowlist multiplicity/u
+    );
+  });
+});
+
+test("reviewed runtime-policy evolution v2 rejects loader blind spots and incomplete graphs", async (t) => {
+  const cases = [
+    {
+      name: "nonliteral next/dynamic",
+      mutate: (args) => {
+        for (const observation of [args.sourceObservation, args.targetObservation]) {
+          observation.graph.loaderInventory.nextDynamicCalls[0].nonliteralImportCount = 1;
+          observation.loaderPolicy.nextDynamic.nonliteralImportCount = 1;
+        }
+        args.sourceExpectedPolicy = projectV2RuntimePolicy(args.sourceObservation);
+      },
+      pattern: /nonliteral dynamic imports/u
+    },
+    {
+      name: "zero-baseline loader",
+      mutate: (args) => {
+        for (const observation of [args.sourceObservation, args.targetObservation]) {
+          observation.graph.loaderInventory.zeroBaselineCalls = [{
+            sourcePath: runtimePaths.storageBase,
+            sourceRawSha256: stableRuntimeRawSha256,
+            position: 52,
+            kind: "require-context"
+          }];
+          observation.loaderPolicy.zeroBaselineCallCount = 1;
+        }
+        args.sourceExpectedPolicy = projectV2RuntimePolicy(args.sourceObservation);
+      },
+      pattern: /zero-baseline loader calls/u
+    },
+    {
+      name: "detached edge",
+      mutate: ({ sourceObservation }) => {
+        sourceObservation.graph.detachedEdges = [{
+          from: runtimePaths.userStore,
+          specifier: "./candidate",
+          target: "coordination/content-qa/candidate.json"
+        }];
+      },
+      pattern: /detached edges/u
+    },
+    {
+      name: "unresolved call",
+      mutate: ({ targetObservation }) => {
+        targetObservation.graph.unresolvedCalls = [{ path: runtimePaths.userStore, call: "require" }];
+      },
+      pattern: /unresolved calls/u
+    }
+  ];
+  for (const entry of cases) {
+    await t.test(entry.name, () => {
+      const args = makeRuntimeEvolutionCase();
+      entry.mutate(args);
+      assert.throws(() => buildReviewedRuntimePolicyEvolution(args), entry.pattern);
+    });
+  }
+});
+
+test("reviewed runtime-policy evolution v2 requires an exact committed review attestation", async (t) => {
+  const cases = [
+    {
+      name: "missing attestation",
+      mutate: (args) => {
+        args.reviewAttestation = undefined;
+      }
+    },
+    {
+      name: "wrong reviewed path",
+      mutate: ({ reviewAttestation }) => {
+        reviewAttestation.reviewedPaths[0].path = "lib/unreviewed.ts";
+      }
+    },
+    {
+      name: "wrong reviewed status",
+      mutate: ({ reviewAttestation }) => {
+        reviewAttestation.reviewedPaths[0].status = "A";
+      }
+    },
+    {
+      name: "wrong added edge",
+      mutate: ({ reviewAttestation }) => {
+        reviewAttestation.addedEdges[0].specifier = "@/lib/not-i18n";
+      }
+    },
+    {
+      name: "wrong changed fields",
+      mutate: ({ reviewAttestation }) => {
+        reviewAttestation.changedPolicyFields = ["edgeCount", "edgeDigest"];
+      }
+    },
+    {
+      name: "wrong fs raw transition",
+      mutate: ({ reviewAttestation }) => {
+        reviewAttestation.fsRawTransitions[0].target.position += 1;
+      }
+    }
+  ];
+  for (const entry of cases) {
+    await t.test(entry.name, () => {
+      const args = makeRuntimeEvolutionCase();
+      entry.mutate(args);
+      assert.throws(
+        () => buildReviewedRuntimePolicyEvolution(args),
+        /does not exactly match the committed review attestation/u
+      );
+    });
+  }
+});
+
+test("reviewed runtime-policy evolution v2 rejects changed candidates and unverified raw bindings", async (t) => {
+  await t.test("candidate bytes changed", () => {
+    const args = makeRuntimeEvolutionCase();
+    args.candidateArtifactBindings[0].targetRawSha256 = "a".repeat(64);
+    args.candidateArtifactBindings[0].unchanged = false;
+    assert.throws(
+      () => buildReviewedRuntimePolicyEvolution(args),
+      /byte-identical candidate artifacts/u
+    );
+  });
+  await t.test("raw bindings unverified", () => {
+    const args = makeRuntimeEvolutionCase();
+    args.rawBindingsVerified = false;
+    assert.throws(
+      () => buildReviewedRuntimePolicyEvolution(args),
+      /verified raw commit bindings/u
+    );
+  });
 });

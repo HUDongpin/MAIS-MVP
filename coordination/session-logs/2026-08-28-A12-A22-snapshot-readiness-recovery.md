@@ -100,3 +100,48 @@ Changing that persistent Promotion acceptance policy requires explicit owner
 approval. Until then, Promotion remains red and no merge, schema apply, or
 deploy is authorized. No production mutation or deploy has been performed in
 this session.
+
+## Owner-approved Track C implementation (2026-08-28)
+
+The owner explicitly approved the bounded Promotion hardening after reviewing
+the blast radius. A23 owns the Promotion integration, A10 owns the generator
+and package-script wiring, A22 owns release fail-closed invariants, and A11 owns
+the negative regression matrix. This approval does not authorize merge,
+production schema mutation, or deployment.
+
+Authorized write scope for this phase:
+
+- `scripts/rebase-promotion-baseline.mjs`
+- `scripts/rebase-promotion-baseline.test.mjs`
+- `scripts/promotion-shadow-workflow-v2.test.mjs`
+- `package.json`
+- this session log
+- a new append-only justification/evidence/binding/Receipt revision and the
+  three Promotion workflow selector paths, only after the generator is proven
+  fail closed and the exact target commit is fixed.
+
+Implementation plan:
+
+1. Add failing unit/integration fixtures for source-to-target ancestry, exact
+   count-aware inventories, static-edge deltas, normalized loader equivalence,
+   legacy one-field mutation, and byte-exact evidence binding.
+2. Replace summary-only reviewed evolution with a full observation comparison.
+   Allow only reviewed non-type static edges from reviewed runtime paths to
+   already source-reachable targets; reject every removal or capability change.
+3. Compare fs-read and `next/dynamic` eligibility as normalized count-aware
+   multisets while retaining exact raw source/target digests and transitions in
+   a new `promotion-runtime-policy-reviewed-evolution.v2` proof.
+4. Require the source baseline to be an ancestor of the target, verify source
+   evidence semantics/currentness, prove candidate bytes unchanged, and require
+   the legacy registry recursive diff to be exactly `/targetBaselineCommit`.
+5. Require the same explicit `producedAt` in both write phases and reconstruct
+   every planned evidence/legacy byte before binding the committed evidence.
+6. Wire `scripts/rebase-promotion-baseline.test.mjs` into the formal
+   `test:promotion-gate` suite and guard that wiring in workflow tests.
+7. Only after these checks pass, generate one new append-only evidence chain for
+   the exact reviewed PR head. Promotion remains red until that chain and its
+   canonical Receipt validate in CI.
+
+Stop conditions remain unchanged: no broad drift allowance, no deleted or
+replaced runtime item, no nonliteral loader call, no direct main push, and no
+production write/deploy while required checks are red.

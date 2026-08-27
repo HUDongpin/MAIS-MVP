@@ -29,6 +29,7 @@ test("Promotion Gate public scripts select v2.6 and expose no live-capable comma
     }
   );
   assert.match(pkg.scripts["test:promotion-gate"], /coordination\/integration\/v2\/promotion-gate-v2\.test\.mjs/u);
+  assert.match(pkg.scripts["test:promotion-gate"], /scripts\/rebase-promotion-baseline\.test\.mjs/u);
   assert.match(pkg.scripts["test:promotion-gate"], /scripts\/promotion-shadow-workflow-v2\.test\.mjs/u);
   for (const forbidden of [
     "promotion:preview",
