@@ -92,6 +92,79 @@ const hotAuthRequiredColumns = Object.freeze([
   { table: "auth_password_reset_tokens", column: "created_at", type: "text", nullable: false, primaryKey: ["id"] }
 ]);
 
+const legacySnapshotRequiredArrayKeys = Object.freeze([
+  "adaptive_recommendation_cache",
+  "adaptive_skill_state",
+  "ai_governance_events",
+  "ai_tutor_messages",
+  "ai_tutor_usage",
+  "assessment_submissions",
+  "assessments",
+  "assignment_grading_runs",
+  "assignment_submission_attempts",
+  "assignment_teacher_reviews",
+  "assignments",
+  "attempts",
+  "auth_identities",
+  "class_enrollments",
+  "class_roster_profiles",
+  "classroom_work_samples",
+  "forum_audit_events",
+  "forum_notifications",
+  "forum_reports",
+  "forum_threads",
+  "gamification_events",
+  "guardian_invitations",
+  "guardian_links",
+  "learner_profiles",
+  "learning_event_clears",
+  "learning_events",
+  "lesson_blocks",
+  "lesson_progress",
+  "lessons",
+  "mistakes",
+  "nova_lens_policy_events",
+  "nova_lens_runs",
+  "password_reset_tokens",
+  "prep_team_shares",
+  "prep_teams",
+  "provisioning_batches",
+  "provisioning_row_results",
+  "questions",
+  "reward_campaigns",
+  "reward_catalog",
+  "reward_point_ledger",
+  "reward_redemptions",
+  "school_memberships",
+  "schools",
+  "student_profiles",
+  "submissions",
+  "teacher_class_collaborators",
+  "teacher_classes",
+  "teacher_lesson_kits",
+  "teacher_live_prompts",
+  "teacher_live_responses",
+  "teacher_live_sessions",
+  "teacher_live_tool_states",
+  "teacher_mastery_targets",
+  "teacher_message_entries",
+  "teacher_messages",
+  "teacher_notice_delivery_attempts",
+  "teacher_notice_recipients",
+  "teacher_notices",
+  "teacher_reminder_runs",
+  "teacher_reports",
+  "teacher_review_lessons",
+  "teaching_resources",
+  "term_archives",
+  "topics",
+  "user_settings",
+  "users",
+  "visualization_events",
+  "visualization_sessions"
+]);
+const legacySnapshotRequiredObjectKeys = Object.freeze(["nova_lens_policy"]);
+
 export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "relation-set",
   "legacy-relation-contract",
@@ -100,11 +173,57 @@ export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "legacy-hot-auth-contract",
   "legacy-readiness-artifact",
   "legacy-snapshot-contract",
+  "legacy-snapshot-malformed-collections",
+  "legacy-snapshot-missing-collections",
+  "legacy-snapshot-record-contract",
+  "legacy-snapshot-shape",
   "legacy-other-contract",
   "current-readiness-contract",
   "state-changed",
   "unknown"
 ]);
+
+function safeSchemaCount(value, upperBound) {
+  return Number.isInteger(value) && value >= 0 && value <= upperBound
+    ? value
+    : null;
+}
+
+export function classifyLegacySnapshotShapeForProductionDiagnostic(rows) {
+  if (!Array.isArray(rows) || rows.length !== 1) return "legacy-snapshot-shape";
+  const row = rows[0];
+  const missingArrays = safeSchemaCount(
+    row?.missing_required_array_count,
+    legacySnapshotRequiredArrayKeys.length
+  );
+  const malformedArrays = safeSchemaCount(
+    row?.malformed_required_array_count,
+    legacySnapshotRequiredArrayKeys.length
+  );
+  const missingObjects = safeSchemaCount(
+    row?.missing_required_object_count,
+    legacySnapshotRequiredObjectKeys.length
+  );
+  const malformedObjects = safeSchemaCount(
+    row?.malformed_required_object_count,
+    legacySnapshotRequiredObjectKeys.length
+  );
+  if (
+    row?.payload_type !== "object"
+    || row?.revision_valid !== true
+    || missingArrays === null
+    || malformedArrays === null
+    || missingObjects === null
+    || malformedObjects === null
+  ) return "legacy-snapshot-shape";
+  if (malformedArrays > 0 || malformedObjects > 0) {
+    return "legacy-snapshot-malformed-collections";
+  }
+  if (missingArrays > 0 || missingObjects > 0) {
+    return "legacy-snapshot-missing-collections";
+  }
+  return "legacy-snapshot-record-contract";
+}
 
 function normalizedPostgresDefinition(value) {
   return typeof value === "string" ? value.replace(/\s+/gu, " ").trim() : null;
@@ -473,7 +592,51 @@ export async function diagnosePostgresStoragePartialSchemaForProductionGate(clie
         readinessArtifacts.length !== 1
         || readinessArtifacts[0]?.invalidation_function_present !== false
       ) return "legacy-readiness-artifact";
-      return "legacy-snapshot-contract";
+      try {
+        const snapshotRows = await sql`
+          /* teacher_notice_production_schema_partial_snapshot_shape_diagnostic */
+          SELECT
+            pg_catalog.jsonb_typeof(state.payload) AS payload_type,
+            state.revision >= 1 AS revision_valid,
+            (
+              SELECT pg_catalog.count(*)::pg_catalog.int4
+              FROM pg_catalog.unnest(${legacySnapshotRequiredArrayKeys}::text[])
+                AS required_array(key)
+              WHERE NOT (state.payload ? required_array.key)
+            ) AS missing_required_array_count,
+            (
+              SELECT pg_catalog.count(*)::pg_catalog.int4
+              FROM pg_catalog.unnest(${legacySnapshotRequiredArrayKeys}::text[])
+                AS required_array(key)
+              WHERE state.payload ? required_array.key
+                AND pg_catalog.jsonb_typeof(state.payload -> required_array.key)
+                  IS DISTINCT FROM 'array'
+            ) AS malformed_required_array_count,
+            (
+              SELECT pg_catalog.count(*)::pg_catalog.int4
+              FROM pg_catalog.unnest(${legacySnapshotRequiredObjectKeys}::text[])
+                AS required_object(key)
+              WHERE NOT (state.payload ? required_object.key)
+            ) AS missing_required_object_count,
+            (
+              SELECT pg_catalog.count(*)::pg_catalog.int4
+              FROM pg_catalog.unnest(${legacySnapshotRequiredObjectKeys}::text[])
+                AS required_object(key)
+              WHERE state.payload ? required_object.key
+                AND pg_catalog.jsonb_typeof(state.payload -> required_object.key)
+                  IS DISTINCT FROM 'object'
+            ) AS malformed_required_object_count
+          FROM public.app_state AS state
+          WHERE state.id = 'primary'
+            AND state.tenant_id = 'platform'
+            AND state.state_kind = 'app-snapshot'
+            AND state.schema_version = 1
+            AND (SELECT pg_catalog.count(*) FROM public.app_state) = 1
+        `;
+        return classifyLegacySnapshotShapeForProductionDiagnostic(snapshotRows);
+      } catch {
+        return "legacy-snapshot-contract";
+      }
     }
     if (hasExactNames(relations, canonicalRelationNames)) {
       return "current-readiness-contract";

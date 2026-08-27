@@ -20,6 +20,40 @@ const expectedTreeSha = "b".repeat(40);
 const targetFingerprint = "c".repeat(64);
 const productionUrl = "postgresql://secret-user:secret-password@db.example.invalid:5432/secret-production?sslmode=require";
 
+test("legacy snapshot diagnostics expose only a fixed schema-shape component", async () => {
+  const diagnostic = await import("./teacher-notice-production-schema-diagnostic.mjs");
+  assert.equal(
+    typeof diagnostic.classifyLegacySnapshotShapeForProductionDiagnostic,
+    "function"
+  );
+  const classify = diagnostic.classifyLegacySnapshotShapeForProductionDiagnostic;
+  assert.equal(classify([]), "legacy-snapshot-shape");
+  assert.equal(classify([{
+    malformed_required_array_count: 0,
+    malformed_required_object_count: 0,
+    missing_required_array_count: 1,
+    missing_required_object_count: 0,
+    payload_type: "object",
+    revision_valid: true
+  }]), "legacy-snapshot-missing-collections");
+  assert.equal(classify([{
+    malformed_required_array_count: 1,
+    malformed_required_object_count: 0,
+    missing_required_array_count: 0,
+    missing_required_object_count: 0,
+    payload_type: "object",
+    revision_valid: true
+  }]), "legacy-snapshot-malformed-collections");
+  assert.equal(classify([{
+    malformed_required_array_count: 0,
+    malformed_required_object_count: 0,
+    missing_required_array_count: 0,
+    missing_required_object_count: 0,
+    payload_type: "object",
+    revision_valid: true
+  }]), "legacy-snapshot-record-contract");
+});
+
 function injectedProductionEnvironment(overrides = {}) {
   return {
     PATH: process.env.PATH ?? "/usr/bin:/bin",
@@ -1006,6 +1040,10 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
       "legacy-relation-contract",
       "legacy-readiness-artifact",
       "legacy-snapshot-contract",
+      "legacy-snapshot-malformed-collections",
+      "legacy-snapshot-missing-collections",
+      "legacy-snapshot-record-contract",
+      "legacy-snapshot-shape",
       "relation-set"
     ].map((appStoragePartialComponent) => ({
       appStoragePartialComponent,
