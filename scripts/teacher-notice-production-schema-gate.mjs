@@ -90,18 +90,41 @@ const productionSchemaFailureStages = new Set([
   "provider-token-read",
   "unknown"
 ]);
+const productionSchemaFailureReasons = new Set([
+  "app-storage-partial",
+  "heartbeat-partial",
+  "outbox-partial",
+  "outbox-webhook-inconsistent",
+  "schema-state-invalid",
+  "unknown",
+  "webhook-partial"
+]);
+
+class TeacherNoticeProductionSchemaReasonError extends Error {
+  constructor(reason) {
+    super("Teacher notice production schema state was rejected; details redacted.");
+    this.name = "TeacherNoticeProductionSchemaReasonError";
+    this.reason = productionSchemaFailureReasons.has(reason) ? reason : "unknown";
+  }
+}
 
 class TeacherNoticeProductionSchemaStageError extends Error {
-  constructor(stage) {
+  constructor(stage, reason = "unknown") {
     super("Teacher notice production schema operation failed; details redacted.");
     this.name = "TeacherNoticeProductionSchemaStageError";
     this.stage = productionSchemaFailureStages.has(stage) ? stage : "unknown";
+    this.reason = productionSchemaFailureReasons.has(reason) ? reason : "unknown";
   }
 }
 
 function stageError(stage, error) {
   if (error instanceof TeacherNoticeProductionSchemaStageError) return error;
-  return new TeacherNoticeProductionSchemaStageError(stage);
+  return new TeacherNoticeProductionSchemaStageError(
+    stage,
+    error instanceof TeacherNoticeProductionSchemaReasonError
+      ? error.reason
+      : "unknown"
+  );
 }
 
 async function runProductionSchemaStage(stage, operation) {
@@ -116,6 +139,13 @@ export function teacherNoticeProductionSchemaFailureStage(error) {
   return error instanceof TeacherNoticeProductionSchemaStageError &&
     productionSchemaFailureStages.has(error.stage)
     ? error.stage
+    : "unknown";
+}
+
+export function teacherNoticeProductionSchemaFailureReason(error) {
+  return error instanceof TeacherNoticeProductionSchemaStageError &&
+    productionSchemaFailureReasons.has(error.reason)
+    ? error.reason
     : "unknown";
 }
 
@@ -149,16 +179,24 @@ export function buildTeacherNoticeProductionSchemaPlan({
     !webhookStates.has(webhookState) ||
     !heartbeatStates.has(heartbeatState)
   ) {
-    throw new Error("Teacher notice production schema state was rejected.");
+    throw new TeacherNoticeProductionSchemaReasonError("schema-state-invalid");
   }
-  if (
-    appStorageState === "partial" ||
-    outboxState === "partial" ||
-    webhookState === "partial" ||
-    heartbeatState === "partial" ||
-    (outboxState === "empty" && webhookState !== "empty")
-  ) {
-    throw new Error("Teacher notice production partial schema was rejected.");
+  if (appStorageState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("app-storage-partial");
+  }
+  if (outboxState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("outbox-partial");
+  }
+  if (webhookState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("webhook-partial");
+  }
+  if (heartbeatState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("heartbeat-partial");
+  }
+  if (outboxState === "empty" && webhookState !== "empty") {
+    throw new TeacherNoticeProductionSchemaReasonError(
+      "outbox-webhook-inconsistent"
+    );
   }
   const operations = [];
   if (appStorageState === "empty") operations.push("app-storage-install-v1");
@@ -1284,6 +1322,7 @@ if (
       ok: false,
       status: "teacher-notice-production-schema-gate-failed",
       stage: teacherNoticeProductionSchemaFailureStage(error),
+      reason: teacherNoticeProductionSchemaFailureReason(error),
       detail: "redacted"
     })}\n`);
     process.exitCode = 1;
