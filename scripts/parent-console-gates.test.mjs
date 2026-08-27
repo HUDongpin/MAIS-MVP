@@ -35,8 +35,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
 
   assert.deepEqual(discovered, manifest.parentDomainTestFiles);
   assert.equal(manifest.parentDomainTestFiles.length, 17);
-  assert.equal(manifest.expectedParentDomainTestCount, 153);
-  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 153);
+  assert.equal(manifest.expectedParentDomainTestCount, 154);
+  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 154);
   assert.equal(
     countStaticNodeTests(manifest.parentDomainTestFiles),
     manifest.expectedParentDomainStaticDeclarationCount
@@ -56,8 +56,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "tests/e2e/isolated-app-lease-guardian.ts",
     "tests/e2e/isolated-app-process-supervisor.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 53);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 53);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 54);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 54);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
@@ -99,8 +99,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   );
 
   assert.equal(manifest.parentConsoleTestFiles.length, 44);
-  assert.equal(manifest.expectedParentConsoleTestCount, 400);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 397);
+  assert.equal(manifest.expectedParentConsoleTestCount, 402);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 399);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount

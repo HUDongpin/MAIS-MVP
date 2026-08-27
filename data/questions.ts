@@ -2285,7 +2285,14 @@ const curatedQuestions: Question[] = [
   ...coreQuestions.map(withHongKongTrack),
   ...primaryQuestions.map(withHongKongTrack),
   ...graphQuestions.map(withHongKongTrack),
-  ...topics.filter((topic) => topic.curriculumTrack === "HK").flatMap(supplementalQuestionsForTopic).map(withHongKongTrack),
+  // EASE practice units are excluded: they already carry their own imported
+  // questions, so generating supplemental drills for them would add templated
+  // filler on top of real content — and defaultDrillForTopic has no drill for
+  // them, so it would throw.
+  ...topics
+    .filter((topic) => topic.curriculumTrack === "HK" && !topic.id.startsWith("hk-ease-"))
+    .flatMap(supplementalQuestionsForTopic)
+    .map(withHongKongTrack),
   ...hongKongEasePracticeQuestions,
   ...mainlandPepPrimaryRagV1Questions,
   ...mainlandPepJuniorQuestions,

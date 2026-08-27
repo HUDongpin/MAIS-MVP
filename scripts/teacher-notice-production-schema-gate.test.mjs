@@ -3,12 +3,14 @@ import { spawnSync } from "node:child_process";
 import test from "node:test";
 
 import {
+  applyMaisProductionSchemaOperations,
   assertTeacherNoticeProductionSchemaConfirmation,
   applyTeacherNoticeProductionSchema,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   preflightTeacherNoticeProductionSchema,
+  teacherNoticeProductionSchemaFailureReason,
   teacherNoticeProductionSchemaFailureStage
 } from "./teacher-notice-production-schema-gate.mjs";
 
@@ -123,8 +125,18 @@ function providerPullFetchJson({
     );
     assert.equal(parsed.searchParams.get("source"), "vercel-cli:env:run");
     return pullPayload ?? {
-      env: { POSTGRES_URL: productionUrlValue },
-      buildEnv: { POSTGRES_URL: buildUrlValue ?? productionUrlValue }
+      env: {
+        HK_MATH_ENABLE_DEMO_USER: "false",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_STORAGE_PROVIDER: "postgres",
+        POSTGRES_URL: productionUrlValue
+      },
+      buildEnv: {
+        HK_MATH_ENABLE_DEMO_USER: "false",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_STORAGE_PROVIDER: "postgres",
+        POSTGRES_URL: buildUrlValue ?? productionUrlValue
+      }
     };
   };
 }
@@ -136,6 +148,8 @@ function databaseInspection(overrides = {}) {
     ...stateOverrides
   } = overrides;
   return {
+    appStorageSeedMode: "demo-disabled",
+    appStorageState: "exact",
     databaseIdentity: {
       databaseName: "secret-production",
       databaseOid: "16401",
@@ -173,14 +187,21 @@ function preflightDependencies(overrides = {}) {
 test("builds the exact production migration plan from independently attested schema states", () => {
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "empty",
       heartbeatState: "empty",
       outboxState: "empty",
       webhookState: "empty"
     }),
-    ["outbox-install-v2", "webhook-install-v3", "heartbeat-install-v2"]
+    [
+      "app-storage-install-v1",
+      "outbox-install-v2",
+      "webhook-install-v3",
+      "heartbeat-install-v2"
+    ]
   );
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState: "empty",
       outboxState: "exact",
       webhookState: "upgradeable"
@@ -189,6 +210,7 @@ test("builds the exact production migration plan from independently attested sch
   );
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState: "v1",
       outboxState: "exact",
       webhookState: "exact"
@@ -197,14 +219,34 @@ test("builds the exact production migration plan from independently attested sch
   );
   assert.deepEqual(
     buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState: "exact",
       outboxState: "exact",
       webhookState: "exact"
     }),
     []
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-complete-readiness-v1"]
+  );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-v1-compatibility-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-upgrade-legacy-compat-readiness-v2"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState: "partial",
       outboxState: "exact",
       webhookState: "exact"
@@ -213,6 +255,7 @@ test("builds the exact production migration plan from independently attested sch
   );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState: "exact",
       outboxState: "partial",
       webhookState: "exact"
@@ -221,16 +264,145 @@ test("builds the exact production migration plan from independently attested sch
   );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState: "exact",
       outboxState: "empty",
       webhookState: "upgradeable"
     }),
     /rejected/u
   );
+  assert.throws(
+    () => buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "partial",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    /rejected/u
+  );
+});
+
+test("combined apply runs the canonical app bootstrap before notice DDL and restores production seed secrets", { concurrency: false }, async () => {
+  const originalPassword = process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
+  delete process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
+  const stages = [];
+  const client = { begin: async () => undefined };
+  const productionEnvironment = {
+    HK_MATH_ENABLE_DEMO_USER: "false",
+    HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+    HK_MATH_STORAGE_PROVIDER: "postgres",
+    MAIS_BOOTSTRAP_ADMIN_PASSWORD: "fixture-bootstrap-password-never-output"
+  };
+
+  try {
+    await applyMaisProductionSchemaOperations(
+      client,
+      [
+        "app-storage-install-v1",
+        "outbox-install-v2",
+        "webhook-install-v3",
+        "heartbeat-install-v2"
+      ],
+      productionEnvironment,
+      {
+        applyAppStorageSchema: async (receivedClient, expectedState) => {
+          assert.equal(receivedClient, client);
+          assert.equal(expectedState, "empty");
+          assert.equal(
+            process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD,
+            productionEnvironment.MAIS_BOOTSTRAP_ADMIN_PASSWORD
+          );
+          stages.push("app-storage");
+        },
+        applyTeacherNoticeSchema: async (receivedClient, operations) => {
+          assert.equal(receivedClient, client);
+          assert.deepEqual(operations, [
+            "outbox-install-v2",
+            "webhook-install-v3",
+            "heartbeat-install-v2"
+          ]);
+          assert.equal(process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD, undefined);
+          stages.push("teacher-notice");
+        }
+      }
+    );
+    assert.deepEqual(stages, ["app-storage", "teacher-notice"]);
+    assert.equal(process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD, undefined);
+  } finally {
+    if (originalPassword === undefined) delete process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
+    else process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD = originalPassword;
+  }
+
+  await assert.rejects(
+    applyMaisProductionSchemaOperations(
+      client,
+      ["outbox-install-v2", "app-storage-install-v1"],
+      productionEnvironment,
+      {
+        applyAppStorageSchema: async () => { throw new Error("must not run"); },
+        applyTeacherNoticeSchema: async () => { throw new Error("must not run"); }
+      }
+    ),
+    /operation plan/u
+  );
+
+  const legacyStages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-complete-readiness-v1"],
+    productionEnvironment,
+    {
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(expectedState, "legacy-no-readiness-marker");
+        legacyStages.push("app-storage-readiness");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(legacyStages, ["app-storage-readiness"]);
+
+  const legacyV1Stages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-upgrade-legacy-compat-readiness-v2"],
+    productionEnvironment,
+    {
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(
+          expectedState,
+          "legacy-v1-compatibility-no-readiness-marker"
+        );
+        legacyV1Stages.push("app-storage-legacy-v1-upgrade");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(legacyV1Stages, ["app-storage-legacy-v1-upgrade"]);
+
+  await assert.rejects(
+    applyMaisProductionSchemaOperations(
+      client,
+      ["app-storage-install-v1", "app-storage-complete-readiness-v1"],
+      productionEnvironment,
+      {
+        applyAppStorageSchema: async () => { throw new Error("must not run"); },
+        applyTeacherNoticeSchema: async () => { throw new Error("must not run"); }
+      }
+    ),
+    /operation plan/u
+  );
 });
 
 test("binds the production confirmation to SHA, tree, target, plan, and preflight digest", () => {
   const evidence = buildTeacherNoticeProductionSchemaPreflightEvidence({
+    appStorageSeedMode: "demo-disabled",
+    appStorageState: "empty",
     candidateSha,
     expectedTreeSha,
     heartbeatState: "empty",
@@ -246,16 +418,19 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
   });
 
   assert.deepEqual(evidence.operations, [
+    "app-storage-install-v1",
     "outbox-install-v2",
     "webhook-install-v3",
     "heartbeat-install-v2"
   ]);
-  assert.equal(evidence.schemaVersion, 3);
+  assert.equal(evidence.schemaVersion, 4);
+  assert.equal(evidence.appStorageSeedMode, "demo-disabled");
+  assert.equal(evidence.appStorageState, "empty");
   assert.equal(evidence.outboxState, "empty");
   assert.match(evidence.preflightDigest, /^[a-f0-9]{64}$/u);
   assert.match(
     evidence.requiredConfirmation,
-    /^confirm:teacher-notice-production-schema:v3:/u
+    /^confirm:mais-production-schema:v4:/u
   );
   assert.doesNotThrow(() => assertTeacherNoticeProductionSchemaConfirmation(
     evidence,
@@ -263,6 +438,8 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
   ));
 
   const changed = buildTeacherNoticeProductionSchemaPreflightEvidence({
+    appStorageSeedMode: "demo-disabled",
+    appStorageState: "exact",
     candidateSha,
     expectedTreeSha,
     heartbeatState: "exact",
@@ -275,6 +452,25 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
   assert.throws(
     () => assertTeacherNoticeProductionSchemaConfirmation(
       changed,
+      evidence.requiredConfirmation
+    ),
+    /confirmation/u
+  );
+  const changedSeedMode = buildTeacherNoticeProductionSchemaPreflightEvidence({
+    appStorageSeedMode: "demo-enabled",
+    appStorageState: "empty",
+    candidateSha,
+    expectedTreeSha,
+    heartbeatState: "empty",
+    outboxState: "empty",
+    postgresMajor: 16,
+    statistics: evidence.statistics,
+    targetFingerprint,
+    webhookState: "empty"
+  });
+  assert.throws(
+    () => assertTeacherNoticeProductionSchemaConfirmation(
+      changedSeedMode,
       evidence.requiredConfirmation
     ),
     /confirmation/u
@@ -294,6 +490,8 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
     env: injectedProductionEnvironment(),
     fetchJsonImpl: providerPullFetchJson(),
     inspectDatabase: async () => ({
+      appStorageSeedMode: "demo-disabled",
+      appStorageState: "empty",
       databaseIdentity: {
         databaseName: "secret-production",
         databaseOid: "16401",
@@ -316,6 +514,8 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
   assert.equal(connectedUrl, productionUrl);
   assert.equal(closed, true);
   assert.equal(evidence.outboxState, "empty");
+  assert.equal(evidence.appStorageState, "empty");
+  assert.equal(evidence.appStorageSeedMode, "demo-disabled");
   assert.equal(evidence.webhookState, "empty");
   assert.equal(evidence.heartbeatState, "empty");
   assert.match(evidence.targetFingerprint, /^[a-f0-9]{64}$/u);
@@ -375,6 +575,7 @@ test("production provider pull fails closed before connecting outside the protec
 });
 
 test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applies only the confirmed operations, and post-attests exact state", async () => {
+  let appStorageState = "empty";
   let outboxState = "empty";
   let webhookState = "empty";
   let heartbeatState = "empty";
@@ -394,6 +595,8 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
     inspectDatabase: async () => {
       inspections += 1;
       return {
+        appStorageSeedMode: "demo-disabled",
+        appStorageState,
         databaseIdentity: {
           databaseName: "secret-production",
           databaseOid: "16401",
@@ -419,6 +622,7 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
     ...dependencies,
     applyMigrations: async (_client, operations) => {
       appliedOperations.push(...operations);
+      appStorageState = "exact";
       outboxState = "exact";
       webhookState = "exact";
       heartbeatState = "exact";
@@ -427,12 +631,14 @@ test("apply re-fetches the Vercel target, revalidates the clean SHA/tree, applie
   });
 
   assert.deepEqual(appliedOperations, [
+    "app-storage-install-v1",
     "outbox-install-v2",
     "webhook-install-v3",
     "heartbeat-install-v2"
   ]);
   assert.equal(result.preflightDigest, preflight.preflightDigest);
   assert.equal(result.postflight.outboxState, "exact");
+  assert.equal(result.postflight.appStorageState, "exact");
   assert.equal(result.postflight.webhookState, "exact");
   assert.equal(result.postflight.heartbeatState, "exact");
   assert.equal(result.sameConnectionPostflight.statistics.rowEstimate, "42");
@@ -474,6 +680,118 @@ test("preflight rejects mismatched runtime and build POSTGRES_URL values before 
   assert.equal(connected, false);
 });
 
+test("preflight rejects drifted or unsafe production app-storage bootstrap settings before connecting", async () => {
+  for (const pullPayload of [
+    {
+      env: {
+        HK_MATH_ENABLE_DEMO_USER: "false",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_STORAGE_PROVIDER: "postgres",
+        POSTGRES_URL: productionUrl
+      },
+      buildEnv: {
+        HK_MATH_ENABLE_DEMO_USER: "true",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_STORAGE_PROVIDER: "postgres",
+        POSTGRES_URL: productionUrl
+      }
+    },
+    {
+      env: {
+        HK_MATH_ENABLE_DEMO_USER: "yes",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_STORAGE_PROVIDER: "postgres",
+        POSTGRES_URL: productionUrl
+      },
+      buildEnv: {
+        HK_MATH_ENABLE_DEMO_USER: "yes",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_STORAGE_PROVIDER: "postgres",
+        POSTGRES_URL: productionUrl
+      }
+    },
+    {
+      env: { POSTGRES_URL: productionUrl },
+      buildEnv: { POSTGRES_URL: productionUrl }
+    }
+  ]) {
+    let connected = false;
+    await assert.rejects(
+      preflightTeacherNoticeProductionSchema(preflightDependencies({
+        connectPostgres: async () => {
+          connected = true;
+          return { end: async () => {} };
+        },
+        fetchJsonImpl: providerPullFetchJson({ pullPayload })
+      })),
+      /details redacted/u
+    );
+    assert.equal(connected, false);
+  }
+});
+
+test("preflight safely binds the explicitly enabled production demo seed mode", async () => {
+  const pullPayload = {
+    env: {
+      HK_MATH_ENABLE_DEMO_USER: "true",
+      HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: productionUrl
+    },
+    buildEnv: {
+      HK_MATH_ENABLE_DEMO_USER: "true",
+      HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: productionUrl
+    }
+  };
+  const evidence = await preflightTeacherNoticeProductionSchema(preflightDependencies({
+    fetchJsonImpl: providerPullFetchJson({ pullPayload })
+  }));
+  assert.equal(evidence.appStorageSeedMode, "demo-enabled");
+  assert.equal(JSON.stringify(evidence).includes("HK_MATH_ENABLE_DEMO_USER"), false);
+});
+
+test("preflight safely binds the current missing-variable demo default", async () => {
+  const pullPayload = {
+    env: {
+      HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: productionUrl
+    },
+    buildEnv: {
+      HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: productionUrl
+    }
+  };
+  const evidence = await preflightTeacherNoticeProductionSchema(preflightDependencies({
+    fetchJsonImpl: providerPullFetchJson({ pullPayload })
+  }));
+  assert.equal(evidence.appStorageSeedMode, "demo-enabled-default");
+});
+
+test("preflight preserves the production empty-string demo setting exactly", async () => {
+  const pullPayload = {
+    env: {
+      HK_MATH_ENABLE_DEMO_USER: "",
+      HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: productionUrl
+    },
+    buildEnv: {
+      HK_MATH_ENABLE_DEMO_USER: "",
+      HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: productionUrl
+    }
+  };
+  const evidence = await preflightTeacherNoticeProductionSchema(preflightDependencies({
+    fetchJsonImpl: providerPullFetchJson({ pullPayload })
+  }));
+  assert.equal(evidence.appStorageSeedMode, "demo-enabled-empty");
+});
+
 test("preflight rejects malformed provider-pull payloads and missing production URLs", async () => {
   for (const pullPayload of [
     { env: [], buildEnv: { POSTGRES_URL: productionUrl } },
@@ -512,6 +830,9 @@ test("preflight fails closed for wrong Vercel ownership, PostgreSQL below 16, an
     }),
     preflightDependencies({
       inspectDatabase: async () => databaseInspection({ heartbeatState: "partial" })
+    }),
+    preflightDependencies({
+      inspectDatabase: async () => databaseInspection({ appStorageState: "partial" })
     })
   ];
   for (const options of cases) {
@@ -659,6 +980,41 @@ test("preflight preserves only an allowlisted stage code across provider and dat
     teacherNoticeProductionSchemaFailureStage(new Error(sensitiveDiagnostic)),
     "unknown"
   );
+  assert.equal(
+    teacherNoticeProductionSchemaFailureReason(
+      Object.assign(new Error(sensitiveDiagnostic), { reason: "webhook-partial" })
+    ),
+    "unknown"
+  );
+});
+
+test("preflight preserves only an allowlisted partial-schema reason", async () => {
+  const cases = [
+    { appStorageState: "partial", expectedReason: "app-storage-partial" },
+    { heartbeatState: "partial", expectedReason: "heartbeat-partial" },
+    { outboxState: "partial", expectedReason: "outbox-partial" },
+    { webhookState: "partial", expectedReason: "webhook-partial" },
+    {
+      outboxState: "empty",
+      webhookState: "upgradeable",
+      expectedReason: "outbox-webhook-inconsistent"
+    }
+  ];
+
+  for (const { expectedReason, ...overrides } of cases) {
+    await assert.rejects(
+      preflightTeacherNoticeProductionSchema(preflightDependencies({
+        inspectDatabase: async () => databaseInspection(overrides)
+      })),
+      (error) => {
+        assert.equal(teacherNoticeProductionSchemaFailureStage(error), "evidence-build");
+        assert.equal(teacherNoticeProductionSchemaFailureReason(error), expectedReason);
+        assert.match(error.message, /details redacted/u);
+        assert.equal(error.message.includes("secret"), false);
+        return true;
+      }
+    );
+  }
 });
 
 test("CLI preflight failure emits one fixed safe stage without raw diagnostics", () => {
@@ -690,6 +1046,7 @@ test("CLI preflight failure emits one fixed safe stage without raw diagnostics",
     ok: false,
     status: "teacher-notice-production-schema-gate-failed",
     stage: "input-binding",
+    reason: "unknown",
     detail: "redacted"
   });
   assert.equal(`${result.stdout}${result.stderr}`.includes(poison), false);

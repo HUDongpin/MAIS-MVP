@@ -6,6 +6,12 @@ import {
   createParentMessageReplyPostHandler,
   createParentMessagesGetHandler
 } from "@/app/api/parent/messageHandlers";
+import {
+  PARENT_PRODUCTION_CERTIFICATION_HEADER,
+  PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER,
+  PARENT_PRODUCTION_CERTIFICATION_MODE,
+  resolveParentProductionCertificationInstanceProof
+} from "@/lib/server/auth";
 import type { ParentMessageEntrySafe, ParentMessageThreadSafe } from "@/types";
 
 const thread: ParentMessageThreadSafe = {
@@ -75,6 +81,10 @@ test("stale parent identity is rejected before message reads, JSON parsing, repl
     createThread: async () => {
       calls.push("create-write");
       throw new Error("must not write as parent B");
+    },
+    resolveInstanceProof: () => {
+      calls.push("create-instance-proof");
+      throw new Error("must not prove an instance for parent B");
     }
   });
   const reply = createParentMessageReplyPostHandler({
@@ -90,6 +100,10 @@ test("stale parent identity is rejected before message reads, JSON parsing, repl
     replyToThread: async () => {
       calls.push("reply-write");
       throw new Error("must not write as parent B");
+    },
+    resolveInstanceProof: () => {
+      calls.push("reply-instance-proof");
+      throw new Error("must not prove an instance for parent B");
     }
   });
 
@@ -152,6 +166,99 @@ test("settled create idempotency replay bypasses rate limiting and returns the s
   assert.equal(rateLimitCalls, 0);
   assert.equal(createCalls, 0);
   assert.equal(response.headers.get("Cache-Control"), "private, no-store");
+});
+
+test("production instance proof is process-stable and limited to explicitly authorized successful parent writes", async () => {
+  const healthSecret = "production-health-secret-that-is-long-enough-0001";
+  const certifiedRequest = (authorization = `Bearer ${healthSecret}`, mode = PARENT_PRODUCTION_CERTIFICATION_MODE) => {
+    const request = postRequest({
+      studentId: "student-a",
+      classId: "class-a",
+      idempotencyKey: "stable-create-key-proof-0001",
+      category: "homework",
+      subject: "Question",
+      body: "Please help."
+    });
+    request.headers.set(PARENT_PRODUCTION_CERTIFICATION_HEADER, mode);
+    request.headers.set("Authorization", authorization);
+    return request;
+  };
+
+  const proof = resolveParentProductionCertificationInstanceProof(certifiedRequest(), {
+    vercelEnvironment: "production",
+    healthSecret
+  });
+  const repeatedProof = resolveParentProductionCertificationInstanceProof(certifiedRequest(), {
+    vercelEnvironment: "production",
+    healthSecret
+  });
+  assert.match(proof ?? "", /^v1\.[A-Za-z0-9_-]{22}$/u);
+  assert.equal(repeatedProof, proof);
+  assert.doesNotMatch(proof ?? "", /production-health-secret/u);
+
+  const handler = createParentMessagePostHandler({
+    authenticateParent,
+    findReplay: async () => ({ status: "replayed", thread }),
+    createThread: async () => ({ status: "created", thread }),
+    rateLimit: () => ({ allowed: true, retryAfterSeconds: 0 }),
+    resolveInstanceProof: (request) => resolveParentProductionCertificationInstanceProof(request, {
+      vercelEnvironment: "production",
+      healthSecret
+    })
+  });
+  const certifiedResponse = await handler(certifiedRequest());
+  assert.equal(certifiedResponse.status, 200);
+  assert.equal(certifiedResponse.headers.get(PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER), proof);
+
+  const replyHandler = createParentMessageReplyPostHandler({
+    authenticateParent,
+    findReplay: async () => ({ status: "replayed", thread, entry: replyEntry, entryId: "entry-a" }),
+    replyToThread: async () => ({ status: "sent", thread, entry: replyEntry, entryId: "entry-a" }),
+    rateLimit: () => ({ allowed: true, retryAfterSeconds: 0 }),
+    resolveInstanceProof: (request) => resolveParentProductionCertificationInstanceProof(request, {
+      vercelEnvironment: "production",
+      healthSecret
+    })
+  });
+  const certifiedReply = await replyHandler(certifiedRequest(), {
+    params: Promise.resolve({ threadId: "thread-safe" })
+  });
+  assert.equal(certifiedReply.status, 200);
+  assert.equal(certifiedReply.headers.get(PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER), proof);
+
+  for (const request of [
+    postRequest({ body: "ordinary request" }),
+    certifiedRequest("Bearer wrong-production-health-secret-0001"),
+    certifiedRequest(`Bearer ${healthSecret}`, "wrong-mode")
+  ]) {
+    const response = await handler(request);
+    assert.equal(response.headers.get(PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER), null);
+  }
+
+  assert.equal(resolveParentProductionCertificationInstanceProof(certifiedRequest(), {
+    vercelEnvironment: "preview",
+    healthSecret
+  }), null);
+  assert.equal(resolveParentProductionCertificationInstanceProof(certifiedRequest(), {
+    vercelEnvironment: "production",
+    healthSecret: undefined
+  }), null);
+
+  let proofResolutionCalls = 0;
+  const rejected = createParentMessagePostHandler({
+    authenticateParent: async () => null,
+    findReplay: async () => ({ status: "replayed", thread }),
+    createThread: async () => ({ status: "created", thread }),
+    rateLimit: () => ({ allowed: true, retryAfterSeconds: 0 }),
+    resolveInstanceProof: () => {
+      proofResolutionCalls += 1;
+      return "v1.must-not-be-emitted";
+    }
+  });
+  const rejectedResponse = await rejected(certifiedRequest());
+  assert.equal(rejectedResponse.status, 403);
+  assert.equal(rejectedResponse.headers.get(PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER), null);
+  assert.equal(proofResolutionCalls, 0);
 });
 
 test("new create forwards stable class and idempotency IDs, returns 201, and preserves Retry-After", async () => {

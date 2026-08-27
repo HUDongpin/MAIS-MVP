@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -291,6 +292,16 @@ function currentCompatibilityFunctionSource() {
   return match[1];
 }
 
+function legacyV1CompatibilityFunctionSource() {
+  return readFileSync(
+    path.join(
+      process.cwd(),
+      "scripts/fixtures/postgres-legacy-v1-compatibility-function.sql"
+    ),
+    "utf8"
+  );
+}
+
 function readyStorageCompatibilityCatalogRow(): StorageInvalidationCatalogRow {
   return {
     function_config: ["search_path=pg_catalog, public"],
@@ -315,6 +326,28 @@ function readyStorageCompatibilityCatalogRow(): StorageInvalidationCatalogRow {
     trigger_update_columns: ["payload"]
   };
 }
+
+function legacyV1StorageCompatibilityCatalogRow(): StorageInvalidationCatalogRow {
+  return {
+    ...readyStorageCompatibilityCatalogRow(),
+    function_config: null,
+    function_source: legacyV1CompatibilityFunctionSource()
+  };
+}
+
+test("reviewed legacy v1 compatibility fixture remains bound to its production fingerprint", () => {
+  const normalized = legacyV1CompatibilityFunctionSource().replace(/\s+/gu, " ").trim();
+  assert.equal(
+    createHash("sha256").update(normalized).digest("hex"),
+    "0e7449b917d004feb44700d9e003a72e1bf958c57bf9804739a3c9a0ad9830ea"
+  );
+  const legacyRow = legacyV1StorageCompatibilityCatalogRow();
+  assert.equal(legacyRow.function_config, null);
+  assert.notEqual(
+    legacyRow.function_source,
+    readyStorageCompatibilityCatalogRow().function_source
+  );
+});
 
 function readyStorageTriggerCatalogRows(
   invalidation = readyStorageInvalidationCatalogRow()
@@ -780,8 +813,8 @@ test("trigger attestation uses exact PostgreSQL 16 definitions for OLD and NEW p
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   const invalidationProbe = sourceSection(
     source,
-    "async function postgresStorageReadinessInvalidationIsComplete(",
-    "async function postgresStorageReadinessMarkerIsCurrent("
+    "async function postgresStorageTriggerContractsAreComplete(",
+    "async function postgresStorageReadinessInvalidationIsComplete("
   );
   assert.match(
     invalidationProbe,

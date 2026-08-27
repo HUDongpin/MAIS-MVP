@@ -208,8 +208,23 @@ test("Nova v3 migration makes classroom projections authoritative before the mar
   const bootstrapStart = source.indexOf("async function bootstrapPostgresStateTables");
   const markerIndex = source.indexOf("INSERT INTO auth_schema_migrations (version, applied_at)", bootstrapStart);
   const bootstrapSource = source.slice(bootstrapStart, markerIndex);
+  const compatibilityInstallerStart = source.indexOf(
+    "async function installPostgresStorageCompatibilityContract"
+  );
+  const compatibilityInstallerEnd = source.indexOf(
+    "async function installPostgresStorageReadinessMarkerContract",
+    compatibilityInstallerStart
+  );
+  const compatibilityInstallerSource = source.slice(
+    compatibilityInstallerStart,
+    compatibilityInstallerEnd
+  );
 
   assert.match(bootstrapSource, /return sql\.begin\(async \(migrationSql\) =>/);
+  assert.match(
+    bootstrapSource,
+    /await installPostgresStorageCompatibilityContract\(/
+  );
   assert.match(bootstrapSource, /pg_catalog\.pg_advisory_xact_lock\([\s\S]*postgresStorageContractAdvisoryLockKey/);
   assert.match(bootstrapSource, /FROM public\.app_state[\s\S]*FOR UPDATE OF app_state/);
   assert.match(bootstrapSource, /failedClassroomChecks/);
@@ -221,8 +236,8 @@ test("Nova v3 migration makes classroom projections authoritative before the mar
   assert.match(bootstrapSource, /INSERT INTO projection_class_enrollments[\s\S]*FROM app_state/);
   assert.match(bootstrapSource, /DELETE FROM projection_teacher_classes/);
   assert.match(bootstrapSource, /DELETE FROM projection_class_enrollments/);
-  assert.match(bootstrapSource, /old_state_payload->'teacher_classes'[\s\S]*IS DISTINCT FROM new_state_payload->'teacher_classes'/);
-  assert.match(bootstrapSource, /old_state_payload->'class_enrollments'[\s\S]*IS DISTINCT FROM new_state_payload->'class_enrollments'/);
+  assert.match(compatibilityInstallerSource, /old_state_payload->'teacher_classes'[\s\S]*IS DISTINCT FROM new_state_payload->'teacher_classes'/);
+  assert.match(compatibilityInstallerSource, /old_state_payload->'class_enrollments'[\s\S]*IS DISTINCT FROM new_state_payload->'class_enrollments'/);
   assert.ok(bootstrapSource.indexOf("INSERT INTO projection_teacher_classes") < bootstrapSource.indexOf("INSERT INTO projection_class_ai_tutor_policies"));
   assert.ok(bootstrapSource.indexOf("INSERT INTO projection_class_enrollments") < bootstrapSource.indexOf("INSERT INTO projection_class_ai_tutor_policies"));
 });
