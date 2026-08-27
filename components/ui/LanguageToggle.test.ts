@@ -4,6 +4,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 import {
+  isUnitedStatesLanguageRestricted,
   languageToggleLabels,
   nextLanguageMenuIndex
 } from "@/components/ui/LanguageToggle";
@@ -29,6 +30,24 @@ test("language menu arrow, Home and End keys move focus with wrapping", () => {
   assert.equal(nextLanguageMenuIndex(0, "ArrowUp", 3), 2);
   assert.equal(nextLanguageMenuIndex(1, "Home", 3), 0);
   assert.equal(nextLanguageMenuIndex(1, "End", 3), 2);
+});
+
+test("US curriculum accounts are restricted to English without a new runtime i18n edge", () => {
+  for (const track of ["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"] as const) {
+    assert.equal(isUnitedStatesLanguageRestricted(track), true);
+  }
+  assert.equal(isUnitedStatesLanguageRestricted("HK"), false);
+  assert.equal(isUnitedStatesLanguageRestricted("MAINLAND_PEP_HIGH"), false);
+
+  const source = readFileSync(
+    join(process.cwd(), "components", "ui", "LanguageToggle.tsx"),
+    "utf8"
+  );
+  assert.doesNotMatch(
+    source,
+    /from\s+["']@\/lib\/i18n["']/,
+    "the header control must not expand the frozen live runtime import graph"
+  );
 });
 
 test("the rendered menu wires the keyboard focus model to its public controls", () => {
