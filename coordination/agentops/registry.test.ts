@@ -79,3 +79,32 @@ test("probe and specialist registries expose ids but never arbitrary commands or
     ),
   );
 });
+
+test("question machine QA pins reviewed source provenance without promoting currentness", async () => {
+  const { SPECIALIST_REGISTRY } = await import("./registry");
+  const workflow = SPECIALIST_REGISTRY["question-machine-qa.v1"];
+
+  assert.deepEqual(workflow.reviewedSource, {
+    status: "reviewed-external-source-only",
+    suiteName: "mais-question-qa-skill-suite",
+    suiteVersion: "1.0.0",
+    sourceBranch: "codex/a10-qa-skill-distillation-20260827",
+    sourceCommit: "e33bf615846b708edf8339a4a82c6b760574c349",
+    baseCommit: "f001a9570f2a0ef066b1a83a33619f72215ff354",
+    sourceScope: "coordination/skills/**",
+    changedFileCount: 92,
+    packageName: "mais-rsi-machine-qa-workflow",
+    packagePath: "coordination/skills/mais-rsi-machine-qa-workflow",
+    packageBuildVerified: false,
+    installationReadbackVerified: false,
+    backupRollbackDrillVerified: false,
+    finalReceiptCommitVerified: false,
+    discoveryBlocker: "WORKFLOW_JSON_PARSE_UNTRUSTED",
+  });
+  assert.equal(workflow.availabilityPolicy, "reviewed-currentness-marker-required");
+  assert.ok(
+    workflow.requiredPaths.includes(
+      "coordination/agentops/currentness/question-machine-qa.reviewed-current.json",
+    ),
+  );
+});

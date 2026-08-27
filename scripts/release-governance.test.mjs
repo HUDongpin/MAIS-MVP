@@ -3277,6 +3277,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
 
   assert.deepEqual(current.dependencies, {
     ...baseline.dependencies,
+    "@langchain/core": "1.2.9",
+    "@langchain/langgraph": "1.4.13",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     next: "15.5.23",

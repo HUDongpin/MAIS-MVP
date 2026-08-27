@@ -184,8 +184,16 @@ A21 immutable candidate
 No arrow is automatic. A machine packet is not natural-sample evidence, A18's
 `approved-for-integration-review` ceiling is not promotion, and release
 readiness is not deployment or same-SHA live proof. The question-machine-QA
-adapter remains `currentness-blocked` until its reviewed-currentness marker is
-available in the repository; AgentOps does not copy an unmerged worktree.
+registry pins the exact reviewed external source commit
+`e33bf615846b708edf8339a4a82c6b760574c349` for
+`mais-rsi-machine-qa-workflow`, but this is provenance only. Its own suite
+manifest remains `source-reviewed-package-and-installation-pending`; packaging,
+local installation/readback, the backup/rollback drill, the final
+manifest/benchmark receipt commit, and the
+`WORKFLOW_JSON_PARSE_UNTRUSTED` discovery blocker remain unresolved. Therefore
+the adapter stays `currentness-blocked` until its reviewed-currentness marker is
+available in the repository. AgentOps does not copy or install the source
+branch.
 
 Nova and Adaptive Learning adapters are audits only. They preserve Nova's
 owner-controlled runtime/fallback contract and Adaptive Learning's deterministic
