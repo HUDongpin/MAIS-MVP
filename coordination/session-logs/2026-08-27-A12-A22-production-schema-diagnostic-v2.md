@@ -82,3 +82,27 @@ A22, A24, and A25. Protected runtime scope remains only
 `lib/server/userStoreNovaPostgresIntegration.test.ts`, candidate content bytes
 remain unchanged, and `liveAllowed: false` remains mandatory. No policy
 refresh or reviewed-policy exception is requested.
+
+## Release-tooling-only re-affirmation justification
+
+The loader-stable attempt above still changed the allowlisted source file's
+whole-file digest, so it also remains unselected. The final implementation
+keeps `lib/server/userStore.ts`, the production inspector, and all live runtime
+bytes identical to the current main baseline. Detailed classification now
+exists only in the already isolated, read-only production schema diagnostic
+script. It runs after the production inspector has authoritatively returned
+`partial`; it cannot return `exact`, create a migration plan, or authorize a
+write.
+
+The exact final implementation target is
+`47ae2db0c2187ce2204afe700af72836e7b03c0b`. The new append-only revision root
+is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827`.
+
+The exact independent re-affirming roles are A21, A18, A23, A04, A05, A11,
+A22, A24, and A25. The protected runtime diff is empty. The only protected
+test path is `lib/server/userStoreNovaPostgresIntegration.test.ts`; the other
+final changes are fail-closed release diagnostic code and its unit assertion.
+Candidate content bytes, runtime reachability, loader policy, and the
+`liveAllowed: false` posture remain unchanged. No policy refresh or exception
+is requested.
