@@ -44,13 +44,25 @@ function assertValidXmlCodePoints(xml: string) {
 }
 
 function decodeXmlEntities(value: string) {
-  return value.replace(/&([^;]+);/g, (_match, entity: string) => {
+  let decoded = "";
+  let cursor = 0;
+  while (cursor < value.length) {
+    const entityStart = value.indexOf("&", cursor);
+    if (entityStart < 0) {
+      decoded += value.slice(cursor);
+      break;
+    }
+    decoded += value.slice(cursor, entityStart);
+    const entityEnd = value.indexOf(";", entityStart + 1);
+    if (entityEnd < 0) invalidXml();
+    const entity = value.slice(entityStart + 1, entityEnd);
+    let replacement: string;
     switch (entity) {
-      case "amp": return "&";
-      case "lt": return "<";
-      case "gt": return ">";
-      case "quot": return "\"";
-      case "apos": return "'";
+      case "amp": replacement = "&"; break;
+      case "lt": replacement = "<"; break;
+      case "gt": replacement = ">"; break;
+      case "quot": replacement = "\""; break;
+      case "apos": replacement = "'"; break;
       default: {
         const decimal = /^#([0-9]+)$/.exec(entity);
         const hexadecimal = /^#x([0-9a-f]+)$/i.exec(entity);
@@ -60,10 +72,13 @@ function decodeXmlEntities(value: string) {
             ? Number.parseInt(hexadecimal[1]!, 16)
             : Number.NaN;
         if (!Number.isSafeInteger(codePoint) || !isValidXmlCodePoint(codePoint)) invalidXml();
-        return String.fromCodePoint(codePoint);
+        replacement = String.fromCodePoint(codePoint);
       }
     }
-  });
+    decoded += replacement;
+    cursor = entityEnd + 1;
+  }
+  return decoded;
 }
 
 function findTagEnd(xml: string, start: number) {
@@ -110,7 +125,9 @@ function parseStartTag(content: string) {
     const valueEnd = content.indexOf(quote, cursor);
     if (valueEnd < 0) invalidXml();
     if (Object.prototype.hasOwnProperty.call(attributes, attributeName)) invalidXml();
-    attributes[attributeName] = decodeXmlEntities(content.slice(cursor, valueEnd));
+    const rawAttributeValue = content.slice(cursor, valueEnd);
+    if (rawAttributeValue.includes("<")) invalidXml();
+    attributes[attributeName] = decodeXmlEntities(rawAttributeValue);
     if (Object.keys(attributes).length > MAX_ATTRIBUTES_PER_ELEMENT) invalidXml();
     cursor = valueEnd + 1;
   }
@@ -145,7 +162,9 @@ export function parseStaticXml(xml: string): StaticXmlElement {
     if (xml[cursor] !== "<") {
       const nextTag = xml.indexOf("<", cursor);
       const end = nextTag < 0 ? xml.length : nextTag;
-      const text = decodeXmlEntities(xml.slice(cursor, end));
+      const rawText = xml.slice(cursor, end);
+      if (rawText.includes("]]>")) invalidXml();
+      const text = decodeXmlEntities(rawText);
       if (stack.length > 0) stack.at(-1)!.textParts.push(text);
       else if (text.trim().length > 0) invalidXml();
       cursor = end;
@@ -154,6 +173,7 @@ export function parseStaticXml(xml: string): StaticXmlElement {
     if (xml.startsWith("<!--", cursor)) {
       const end = xml.indexOf("-->", cursor + 4);
       if (end < 0) invalidXml();
+      if (xml.slice(cursor + 4, end).includes("--")) invalidXml();
       cursor = end + 3;
       continue;
     }

@@ -263,6 +263,35 @@ test("rejects illegal literal XML 1.0 controls in attributes and text", async ()
   }
 });
 
+test("rejects malformed raw XML entity, attribute, text, and comment surfaces", async () => {
+  const manifests = [
+    scormManifest().replace("Minimal course", "Minimal & course"),
+    scormManifest().replace("course-minimal", "course&minimal"),
+    scormManifest().replace("resource-1\" type", "resource<1\" type"),
+    scormManifest().replace("<metadata>", "<!-- invalid -- comment -->\n  <metadata>"),
+    scormManifest().replace("Minimal course", "Minimal ]]> course")
+  ];
+
+  for (const manifest of manifests) {
+    const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), "MANIFEST_XML_INVALID");
+      assert.equal(Reflect.get(Object(error), "status"), 422);
+      return true;
+    });
+  }
+});
+
+test("decodes predefined XML entities without enabling declaration expansion", async () => {
+  const bytes = await createScormPackage(
+    scormManifest().replace("Minimal course", "Minimal &amp; safe course"),
+    { "content.txt": "Static lesson" }
+  );
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:15:00.000Z" });
+  assert.equal(report.courseVersion.modules[0]?.title, "Minimal & safe course");
+});
+
 test("reports HTML and JavaScript as blocked static metadata without executing either file", async () => {
   const marker = "__maisScormPackageExecuted";
   const runtime = globalThis as Record<string, unknown>;
