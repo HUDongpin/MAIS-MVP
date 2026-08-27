@@ -1120,7 +1120,12 @@ test(
         assert.equal(afterRepair.payload_digest, before.payload_digest);
         assert.equal(Number(afterRepair.revision), Number(before.revision) + 1);
         assert.notEqual(afterRepair.updated_at, before.updated_at);
-        assert.equal(await readStorageReadinessMarkerCount(sql), 0);
+        const markerRelationRows = await sql<Array<{ marker_absent: boolean }>>`
+          SELECT pg_catalog.to_regclass(
+            'public.app_state_readiness_markers'
+          ) IS NULL AS marker_absent
+        `;
+        assert.deepEqual(markerRelationRows, [{ marker_absent: true }]);
 
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-complete-legacy"),

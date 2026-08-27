@@ -75,6 +75,13 @@ is now owned only by the serialized production schema script.
   payload digest preservation, later marker attestation, and repeated-plan
   rejection. Local Docker did not answer the bounded probe, so PR CI remains
   the authoritative real PostgreSQL result.
+- PR #207's first PostgreSQL 16 run reached the new repair scenario and exposed
+  a test-only fixture assertion: after intentionally dropping the marker table,
+  the test queried that absent table to assert a zero row count. The product
+  repair completed, but the helper query correctly failed and left the next
+  subtest with an unrestored fixture. The amendment queries `pg_catalog` for
+  relation absence instead. Type-check passes; the exact-head PostgreSQL rerun
+  remains the merge gate.
 
 No production row, secret, cookie, database URL, notification payload, or
 guardian identifier is recorded in this handoff.
