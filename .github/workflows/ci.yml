@@ -183,6 +183,18 @@ jobs:
       - name: Run visualization gate
         run: npm run test:visualizations
 
+      # The repo tsconfig sets jsx: "preserve" for Next, under which tsc emits
+      # .jsx and no test can mount a component — which is why every other
+      # visualization test asserts against source text and a lab rendering blank
+      # was undetectable. This runs the render harness with the automatic JSX
+      # runtime instead. Invoked directly because package.json scripts are frozen
+      # by the release governance gate.
+      - name: Run lesson visualization render gate (mounts the real components)
+        run: >-
+          npx tsx --test
+          --tsconfig tsconfig.lesson-visualization-render.json
+          components/visualizations/lessonVisualizationRender.test.tsx
+
       - name: Run component gate (discovers every components/**/*.test.ts)
         run: npm run test:components
 

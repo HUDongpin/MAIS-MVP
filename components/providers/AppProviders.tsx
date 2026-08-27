@@ -112,7 +112,14 @@ type SettingsContextValue = {
   t: (value: LocalizedText) => string;
 };
 
-const SettingsContext = createContext<SettingsContextValue | null>(null);
+/**
+ * Exported as a test seam. Mounting AppProviders requires Next's app router, so a
+ * render harness cannot use it — which is why no test could mount a lesson
+ * visualization, and why "renders blank under real props" was undetectable.
+ * Supplying this context directly lets a harness render those components without
+ * a router. Production code should use useSettings, never this.
+ */
+export const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 function isFirstPaintSensitiveStudentPath(pathname: string) {
   return (
