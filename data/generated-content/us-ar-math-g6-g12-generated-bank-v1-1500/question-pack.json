@@ -15039,18 +15039,18 @@
         "zhHans": "一班有24名学生参加数学测验，分数如下：8, 7, 9, 6, 8, 7, 10, 5, 9, 8, 7, 6, 8, 9, 7, 10, 6, 8, 7, 9, 8, 6, 7, 9。中位数分数是多少？"
       },
       "options": [],
-      "answer": "7.5",
+      "answer": "8",
       "acceptedAnswers": [
-        "7.5"
+        "8"
       ],
       "explanation": {
-        "en": "To find the median, first sort the scores: 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10. Since there are 24 scores (an even number), the median is the average of the 12th and 13th values. The 12th value is 7, and the 13th value is 8. Their average is (7+8)/2 = 7.5.",
-        "zh": "要找出中位數，首先將分數排序：5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10。由於有24個分數（偶數），中位數是第12和第13個數值的平均數。第12個數值是7，第13個數值是8。它們的平均數是(7+8)/2 = 7.5。",
-        "zhHans": "要找出中位数，首先将分数排序：5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10。由于有24个分数（偶数），中位数是第12和第13个数值的平均数。第12个数值是7，第13个数值是8。它们的平均数是(7+8)/2 = 7.5。"
+        "en": "To find the median, first sort the scores: 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10. The list contains one 5, four 6s, six 7s, six 8s, five 9s and two 10s, so 1 + 4 + 6 = 11 values come before the first 8, and the 8s occupy positions 12 through 17. Since there are 24 scores (an even number), the median is the average of the 12th and 13th values. The 12th value is 8 and the 13th value is 8, so the median is (8 + 8)/2 = 8.",
+        "zh": "要找出中位數，首先將分數排序：5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10。當中有一個 5、四個 6、六個 7、六個 8、五個 9 和兩個 10，因此 1 + 4 + 6 = 11 個數值排在第一個 8 之前，而 8 佔據第12至第17個位置。由於有24個分數（偶數），中位數是第12和第13個數值的平均數。第12個數值是8，第13個數值也是8，所以中位數是 (8 + 8)/2 = 8。",
+        "zhHans": "要找出中位数，首先将分数排序：5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10。当中有一个 5、四个 6、六个 7、六个 8、五个 9 和两个 10，因此 1 + 4 + 6 = 11 个数值排在第一个 8 之前，而 8 占据第12至第17个位置。由于有24个分数（偶数），中位数是第12和第13个数值的平均数。第12个数值是8，第13个数值也是8，所以中位数是 (8 + 8)/2 = 8。"
       },
-      "independentAnswer": "7.5",
+      "independentAnswer": "8",
       "independentSolution": {
-        "en": "Sort the 24 scores: 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10. The median is the average of the 12th and 13th values: (7 + 8) / 2 = 7.5."
+        "en": "Sorted 24 scores; counts 5x1, 6x4, 7x6, 8x6, 9x5, 10x2; 12th = 8, 13th = 8, (8+8)/2 = 8"
       },
       "evidenceCardIds": [
         "us-ar-math-g6-ratios-expressions-equations-statistics",
@@ -15075,8 +15075,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored median was 7.5 and the explanation misplaced the 8s by claiming the 12th value was 7 -> answer is now 8, with the explanation counting 1 + 4 + 6 = 11 values before the first 8 so that positions 12 and 13 are both 8 and (8 + 8)/2 = 8. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g06-c05-q020",
@@ -16728,9 +16728,9 @@
       "difficulty": "Core",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A bakery records the number of muffins sold each day for a week: 24, 30, 28, 26, 32, 30, 28. What is the mean number of muffins sold per day?",
-        "zh": "一家麵包店記錄了一週內每天售出的鬆餅數量：24、30、28、26、32、30、28。每天售出的鬆餅平均數量是多少？",
-        "zhHans": "一家面包店记录了一周内每天售出的松饼数量：24、30、28、26、32、30、28。每天售出的松饼平均数量是多少？"
+        "en": "A bakery records the number of muffins sold each day for a week: 22, 30, 28, 26, 32, 30, 28. What is the mean number of muffins sold per day?",
+        "zh": "一家麵包店記錄了一週內每天售出的鬆餅數量：22、30、28、26、32、30、28。每天售出的鬆餅平均數量是多少？",
+        "zhHans": "一家面包店记录了一周内每天售出的松饼数量：22、30、28、26、32、30、28。每天售出的松饼平均数量是多少？"
       },
       "options": [
         {
@@ -16759,13 +16759,13 @@
         "28"
       ],
       "explanation": {
-        "en": "To find the mean, add all the values and divide by the number of values. Sum = 24 + 30 + 28 + 26 + 32 + 30 + 28 = 198. There are 7 days. Mean = 198 ÷ 7 = 28.2857..., which rounds to 28.3, but since the options are whole numbers, the closest is 28. However, the exact mean is 198/7 ≈ 28.29, so 28 is the best choice.",
-        "zh": "要計算平均數，將所有數值相加，然後除以數值的個數。總和 = 24 + 30 + 28 + 26 + 32 + 30 + 28 = 198。共有 7 天。平均數 = 198 ÷ 7 = 28.2857...，四捨五入後為 28.3，但由於選項是整數，最接近的是 28。",
-        "zhHans": "要计算平均数，将所有数值相加，然后除以数值的个数。总和 = 24 + 30 + 28 + 26 + 32 + 30 + 28 = 198。共有 7 天。平均数 = 198 ÷ 7 = 28.2857...，四舍五入后为 28.3，但由于选项是整数，最接近的是 28。"
+        "en": "To find the mean, add all the values and divide by the number of values. Sum = 22 + 30 + 28 + 26 + 32 + 30 + 28 = 196. There are 7 days, so the mean = 196 ÷ 7 = 28. The bakery sold a mean of 28 muffins per day.",
+        "zh": "要計算平均數，將所有數值相加，然後除以數值的個數。總和 = 22 + 30 + 28 + 26 + 32 + 30 + 28 = 196。共有 7 天，所以平均數 = 196 ÷ 7 = 28。麵包店每天平均售出 28 個鬆餅。",
+        "zhHans": "要计算平均数，将所有数值相加，然后除以数值的个数。总和 = 22 + 30 + 28 + 26 + 32 + 30 + 28 = 196。共有 7 天，所以平均数 = 196 ÷ 7 = 28。面包店每天平均售出 28 个松饼。"
       },
       "independentAnswer": "28",
       "independentSolution": {
-        "en": "Sum = 24 + 30 + 28 + 26 + 32 + 30 + 28 = 198. Number of days = 7. Mean = 198 / 7 = 28.2857... The closest whole number is 28."
+        "en": "(22+30+28+26+32+30+28)/7 = 196/7 = 28"
       },
       "evidenceCardIds": [
         "us-ar-math-g6-ratios-expressions-equations-statistics",
@@ -16790,8 +16790,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the data 24, 30, 28, 26, 32, 30, 28 summed to 198 and gave a mean of 198/7 = 28.2857..., which matched none of the four options, and the explanation hedged toward 'the closest is 28' -> the first value is now 22 so the sum is 196 and the mean is exactly 196 ÷ 7 = 28, matching option B, with a clean true arithmetic chain. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g06-c05-q039",
@@ -68342,19 +68342,21 @@
         "zhHans": "在三角形ABC中，角A为50°，角B为60°，边AB长10厘米。求边BC的长度，精确至十分之一厘米。\n附加指引：先写出有标签的等式，再给出答案。"
       },
       "options": [],
-      "answer": "8.7 cm",
+      "answer": "8.2 cm",
       "acceptedAnswers": [
-        "8.7 cm",
-        "8.7cm",
-        "8.7"
+        "8.2 cm",
+        "8.2cm",
+        "8.2"
       ],
       "explanation": {
-        "en": "Use the Law of Sines: BC/sin(50°) = 10/sin(70°). So BC = 10 * sin(50°)/sin(70°) ≈ 8.7 cm.",
-        "zh": "使用正弦定理：BC/sin(50°) = 10/sin(70°)。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.7 厘米。",
-        "zhHans": "使用正弦定理：BC/sin(50°) = 10/sin(70°)。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.7 厘米。"
+        "en": "Angle C = 180° - 50° - 60° = 70°. Side AB is opposite angle C and side BC is opposite angle A, so the Law of Sines gives BC/sin(50°) = 10/sin(70°). Then BC = 10 * sin(50°)/sin(70°) ≈ 8.15, which is 8.2 cm to the nearest tenth.",
+        "zh": "角C = 180° - 50° - 60° = 70°。邊AB對應角C，邊BC對應角A，故由正弦定理得：BC/sin(50°) = 10/sin(70°)。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.15，四捨五入至十分之一為 8.2 厘米。",
+        "zhHans": "角C = 180° - 50° - 60° = 70°。边AB对应角C，边BC对应角A，故由正弦定理得：BC/sin(50°) = 10/sin(70°)。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.15，四舍五入至十分之一为 8.2 厘米。"
       },
-      "independentAnswer": "8.7 cm",
-      "independentSolution": "Angle C = 180° - 50° - 60° = 70°. By Law of Sines: BC / sin(50°) = AB / sin(70°). BC = 10 * sin(50°) / sin(70°). sin(50°) ≈ 0.7660, sin(70°) ≈ 0.9397. BC ≈ 10 * 0.7660 / 0.9397 ≈ 8.15. Rounded to nearest tenth: 8.2 cm. Check: 10*0.7660=7.66, 7.66/0.9397=8.15. So 8.2 cm. But answer says 8.7? Let's check: sin(50°)=0.766044, sin(70°)=0.939693, 10*0.766044/0.939693=8.152. So 8.2 cm. I'll correct answer to 8.2 cm.",
+      "independentAnswer": "8.2 cm",
+      "independentSolution": {
+        "en": "180-50-60 = 70; 10*sin(50)/sin(70) = 8.15, rounds to 8.2"
+      },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
         "us-ar-standards-s4-hs-g-co",
@@ -68378,8 +68380,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: duplicate prompt differentiated with a non-answer-changing direction.] [Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: answer key and explanation both stated 8.7 cm while the stored independentSolution computed 8.15 and contained leaked self-correction text -> answer, acceptedAnswers, explanation (en/zh/zhHans) and independentSolution now carry the correct Law of Sines value 8.2 cm with a clean derivation. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c01-q005",
@@ -69116,14 +69118,9 @@
       },
       "options": [
         {
-          "en": "5",
-          "zh": "5",
-          "zhHans": "5"
-        },
-        {
-          "en": "5√3",
-          "zh": "5√3",
-          "zhHans": "5√3"
+          "en": "20√3 - 30",
+          "zh": "20√3 - 30",
+          "zhHans": "20√3 - 30"
         },
         {
           "en": "10/3",
@@ -69131,23 +69128,31 @@
           "zhHans": "10/3"
         },
         {
+          "en": "5",
+          "zh": "5",
+          "zhHans": "5"
+        },
+        {
           "en": "10√3/3",
           "zh": "10√3/3",
           "zhHans": "10√3/3"
         }
       ],
-      "answer": "10/3",
+      "answer": "20√3 - 30",
       "acceptedAnswers": [
-        "10/3"
+        "20√3 - 30",
+        "20*sqrt(3) - 30",
+        "4.641",
+        "4.64"
       ],
       "explanation": {
-        "en": "Triangle ABC is a 30-60-90 triangle. AB=10 is opposite 90°, so BC=5√3 and AC=5. Using the angle bisector theorem, BD/DC = AB/AC = 10/5 = 2. Since DE ∥ AB, triangle CDE ~ triangle CBA. CD = BC/3 = 5√3/3. Then DE/AB = CD/CB = 1/3, so DE = AB/3 = 10/3.",
-        "zh": "三角形ABC是一個30-60-90三角形。AB=10對應90°，所以BC=5√3，AC=5。利用角平分線定理，BD/DC = AB/AC = 10/5 = 2。由於DE平行AB，三角形CDE相似於三角形CBA。CD = BC/3 = 5√3/3。然後DE/AB = CD/CB = 1/3，所以DE = AB/3 = 10/3。",
-        "zhHans": "三角形ABC是一个30-60-90三角形。AB=10对应90°，所以BC=5√3，AC=5。利用角平分线定理，BD/DC = AB/AC = 10/5 = 2。由于DE平行AB，三角形CDE相似于三角形CBA。CD = BC/3 = 5√3/3。然后DE/AB = CD/CB = 1/3，所以DE = AB/3 = 10/3。"
+        "en": "Angle C = 180° - 30° - 60° = 90°, so AB = 10 is the hypotenuse. The side opposite the 30° angle is BC = 10·sin(30°) = 5, and the side opposite the 60° angle is AC = 10·sin(60°) = 5√3. By the angle bisector theorem, BD/DC = AB/AC = 10/(5√3) = 2/√3, so DC = BC·√3/(√3 + 2) = 5√3/(√3 + 2) = 10√3 - 15. Since DE ∥ AB, triangle CDE ~ triangle CBA, giving DE = AB·(DC/CB) = 10·(10√3 - 15)/5 = 20√3 - 30 ≈ 4.64.",
+        "zh": "角C = 180° - 30° - 60° = 90°，所以AB = 10是斜邊。30°角的對邊為BC = 10·sin(30°) = 5，60°角的對邊為AC = 10·sin(60°) = 5√3。由角平分線定理，BD/DC = AB/AC = 10/(5√3) = 2/√3，所以DC = BC·√3/(√3 + 2) = 5√3/(√3 + 2) = 10√3 - 15。由於DE平行AB，三角形CDE相似於三角形CBA，因此DE = AB·(DC/CB) = 10·(10√3 - 15)/5 = 20√3 - 30 ≈ 4.64。",
+        "zhHans": "角C = 180° - 30° - 60° = 90°，所以AB = 10是斜边。30°角的对边为BC = 10·sin(30°) = 5，60°角的对边为AC = 10·sin(60°) = 5√3。由角平分线定理，BD/DC = AB/AC = 10/(5√3) = 2/√3，所以DC = BC·√3/(√3 + 2) = 5√3/(√3 + 2) = 10√3 - 15。由于DE平行AB，三角形CDE相似于三角形CBA，因此DE = AB·(DC/CB) = 10·(10√3 - 15)/5 = 20√3 - 30 ≈ 4.64。"
       },
-      "independentAnswer": "10/3",
+      "independentAnswer": "20√3 - 30",
       "independentSolution": {
-        "en": "Given triangle ABC with angles A=30°, B=60°, so C=90°. AB=10 is the hypotenuse. In a 30-60-90 triangle, sides are in ratio 1:√3:2. So AC = AB/2 = 5, BC = AB*√3/2 = 5√3. AD is angle bisector of A, so by Angle Bisector Theorem: BD/DC = AB/AC = 10/5 = 2. Thus BD = 2*DC, and BD+DC = BC = 5√3, so 3*DC = 5√3, DC = 5√3/3. Since DE ∥ AB, triangle CDE ~ triangle CBA. Therefore DE/AB = CD/CB = (5√3/3)/(5√3) = 1/3. Hence DE = AB/3 = 10/3."
+        "en": "10*(5*sqrt(3)/(sqrt(3)+2))/5 = 20*sqrt(3)-30 = 4.641"
       },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
@@ -69172,8 +69177,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: no option was correct — the explanation swapped AC and BC (claiming BC = 5√3, AC = 5) and then assumed CD = BC/3, keying the false value 10/3 -> the correct option 20√3 - 30 (≈ 4.641) replaces 5√3, the explanation now uses BC = 5 and AC = 5√3 with DC = 5√3/(√3 + 2) = 10√3 - 15 and DE = AB·DC/CB, and 10/3 plus 5 are retained as misconception distractors. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c01-q015",
@@ -70853,18 +70858,21 @@
         "zhHans": "在三角形ABC中，角A为50°，角B为60°，边AB长10厘米。求边BC的长度，精确至十分之一厘米。\n附加指引：说明计算中每个数字代表什么。"
       },
       "options": [],
-      "answer": "8.7",
+      "answer": "8.2",
       "acceptedAnswers": [
-        "8.7",
-        "8.7 cm"
+        "8.2",
+        "8.2 cm",
+        "8.2cm"
       ],
       "explanation": {
-        "en": "Use the Law of Sines: BC/sin(50°) = 10/sin(70°). So BC = 10 * sin(50°)/sin(70°) ≈ 8.7 cm.",
-        "zh": "使用正弦定理：BC/sin(50°) = 10/sin(70°)。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.7 厘米。",
-        "zhHans": "使用正弦定理：BC/sin(50°) = 10/sin(70°)。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.7 厘米。"
+        "en": "Angle C = 180° - 50° - 60° = 70°. Side AB is opposite angle C and side BC is opposite angle A, so the Law of Sines gives BC/sin(50°) = 10/sin(70°). Here 10 is the known side AB, 70° is the angle opposite it, and 50° is the angle opposite BC. Then BC = 10 * sin(50°)/sin(70°) ≈ 8.15, so BC ≈ 8.2 cm to the nearest tenth.",
+        "zh": "角C = 180° - 50° - 60° = 70°。邊AB對應角C，邊BC對應角A，故由正弦定理得：BC/sin(50°) = 10/sin(70°)。式中10是已知邊AB，70°是它所對的角，50°是BC所對的角。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.15，四捨五入至十分之一為 8.2 厘米。",
+        "zhHans": "角C = 180° - 50° - 60° = 70°。边AB对应角C，边BC对应角A，故由正弦定理得：BC/sin(50°) = 10/sin(70°)。式中10是已知边AB，70°是它所对的角，50°是BC所对的角。因此 BC = 10 * sin(50°)/sin(70°) ≈ 8.15，四舍五入至十分之一为 8.2 厘米。"
       },
-      "independentAnswer": "8.7",
-      "independentSolution": "Angle C = 180° - 50° - 60° = 70°. By Law of Sines: BC/sin(50°) = AB/sin(70°) => BC = 10 * sin(50°)/sin(70°). sin(50°) ≈ 0.7660, sin(70°) ≈ 0.9397. BC ≈ 10 * 0.7660 / 0.9397 ≈ 8.15, rounded to 8.2. Check: 0.7660/0.9397 = 0.8152, times 10 = 8.152, nearest tenth 8.2. But earlier I said 8.7, that was a mistake. Check: carefully: sin(50°) = 0.7660444431, sin(70°) = 0.9396926208. 0.7660444431 / 0.9396926208 = 0.815207... times 10 = 8.15207, so 8.2 to nearest tenth. I'll correct answer to 8.2.",
+      "independentAnswer": "8.2",
+      "independentSolution": {
+        "en": "180-50-60 = 70; 10*sin(50)/sin(70) = 8.15, rounds to 8.2"
+      },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
         "us-ar-standards-s4-hs-g-co",
@@ -70888,8 +70896,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: duplicate prompt differentiated with a non-answer-changing direction.] [Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: answer key and explanation both stated 8.7 while the stored independentSolution computed 8.15 and contained leaked self-correction text -> answer, acceptedAnswers, explanation (en/zh/zhHans) and independentSolution now carry the correct Law of Sines value 8.2 with a clean derivation, and the explanation now names what each number stands for as the prompt directs. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c01-q037",
@@ -75282,9 +75290,9 @@
       "difficulty": "Core",
       "type": "fill-in",
       "prompt": {
-        "en": "A circle has a radius of 10 cm. A chord is 12 cm from the center. Find the length of the chord in cm.",
-        "zh": "一個圓的半徑為10厘米。一條弦距離圓心12厘米。求弦的長度（以厘米為單位）。",
-        "zhHans": "一个圆的半径为10厘米。一条弦距离圆心12厘米。求弦的长度（以厘米为单位）。"
+        "en": "A circle has a radius of 10 cm. A chord is 6 cm from the center. Find the length of the chord in cm.",
+        "zh": "一個圓的半徑為10厘米。一條弦距離圓心6厘米。求弦的長度（以厘米為單位）。",
+        "zhHans": "一个圆的半径为10厘米。一条弦距离圆心6厘米。求弦的长度（以厘米为单位）。"
       },
       "options": [],
       "answer": "16",
@@ -75294,12 +75302,14 @@
         "16cm"
       ],
       "explanation": {
-        "en": "The distance from the center to the chord is 12 cm, but the radius is only 10 cm, so the chord cannot be 12 cm from the center. Re-check: The perpendicular distance from the center to the chord is 12 cm, which is greater than the radius, so no such chord exists. However, if we assume the distance is 6 cm (half of 12), then half the chord length is sqrt(10^2 - 6^2) = 8 cm, so the chord is 16 cm. The problem likely intended the distance to be 6 cm. Answer: 16 cm.",
-        "zh": "從圓心到弦的距離為12厘米，但半徑只有10厘米，因此弦不可能距離圓心12厘米。重新檢查：從圓心到弦的垂直距離為12厘米，大於半徑，因此不存在這樣的弦。然而，如果我們假設距離為6厘米（12的一半），則半弦長度為sqrt(10^2 - 6^2) = 8厘米，因此弦長為16厘米。問題可能意指距離為6厘米。答案：16厘米。",
-        "zhHans": "从圆心到弦的距离为12厘米，但半径只有10厘米，因此弦不可能距离圆心12厘米。重新检查：从圆心到弦的垂直距离为12厘米，大于半径，因此不存在这样的弦。然而，如果我们假设距离为6厘米（12的一半），则半弦长度为sqrt(10^2 - 6^2) = 8厘米，因此弦长为16厘米。问题可能意指距离为6厘米。答案：16厘米。"
+        "en": "The perpendicular distance from the center to the chord is d = 6 cm and the radius is r = 10 cm. The perpendicular from the center bisects the chord, so half the chord = sqrt(r^2 - d^2) = sqrt(100 - 36) = sqrt(64) = 8 cm. The whole chord is twice that: 2 × 8 = 16 cm.",
+        "zh": "從圓心到弦的垂直距離為d = 6厘米，半徑為r = 10厘米。從圓心所作的垂線平分該弦，所以半弦長 = sqrt(r^2 - d^2) = sqrt(100 - 36) = sqrt(64) = 8厘米。整條弦長是它的兩倍：2 × 8 = 16厘米。",
+        "zhHans": "从圆心到弦的垂直距离为d = 6厘米，半径为r = 10厘米。从圆心所作的垂线平分该弦，所以半弦长 = sqrt(r^2 - d^2) = sqrt(100 - 36) = sqrt(64) = 8厘米。整条弦长是它的两倍：2 × 8 = 16厘米。"
       },
-      "independentAnswer": "16 cm",
-      "independentSolution": "Let the distance from the center to the chord be d = 6 cm (assuming the intended distance is half of 12). Radius r = 10 cm. Half the chord length = sqrt(r^2 - d^2) = sqrt(100 - 36) = sqrt(64) = 8 cm. Full chord length = 2 * 8 = 16 cm.",
+      "independentAnswer": "16",
+      "independentSolution": {
+        "en": "2*sqrt(10^2 - 6^2) = 16"
+      },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
         "us-ar-standards-s4-hs-g-c",
@@ -75323,8 +75333,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: prompt posed an impossible chord distance of 12 cm with radius 10 cm (r^2 - d^2 = -44), and the explanation openly invented a 6 cm premise with leaked self-correction -> prompt distance changed to 6 cm in all three locales and the explanation rewritten as a clean half-chord = sqrt(100 - 36) = 8, chord = 16 derivation; independentAnswer normalized to the bare number 16. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c03-q008",
@@ -91072,19 +91082,21 @@
         "zhHans": "一个兔子种群按照模型 P(t) = 200 * e^(0.4t) 增长，其中 t 以年为单位。引入捕食者后，种群数量变为 Q(t) = 200 * e^(0.4t) * cos(πt/2)。求引入捕食者后，种群数量首次达到 100 只兔子的正时间 t。答案四舍五入至小数点后两位。"
       },
       "options": [],
-      "answer": "0.74",
+      "answer": "0.76",
       "acceptedAnswers": [
-        "0.74",
-        "0.74 years",
-        "t = 0.74"
+        "0.76",
+        "0.76 years",
+        "t = 0.76"
       ],
       "explanation": {
-        "en": "Set Q(t) = 100: 200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5. Solve numerically: at t=0.74, e^(0.4*0.74)≈1.344, cos(π*0.74/2)≈cos(1.162)≈0.372, product≈0.5. This is the first positive solution.",
-        "zh": "設 Q(t) = 100：200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5。數值求解：當 t=0.74 時，e^(0.4*0.74)≈1.344，cos(π*0.74/2)≈cos(1.162)≈0.372，乘積≈0.5。此為首個正解。",
-        "zhHans": "设 Q(t) = 100：200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5。数值求解：当 t=0.74 时，e^(0.4*0.74)≈1.344，cos(π*0.74/2)≈cos(1.162)≈0.372，乘积≈0.5。此为首个正解。"
+        "en": "Set Q(t) = 100: 200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5. The left side equals 1 at t = 0 and falls to 0 at t = 1, so the first positive solution lies between 0 and 1. At t = 0.75: e^(0.3) ≈ 1.3499 and cos(0.375π) ≈ 0.3827, so the product ≈ 0.5166. At t = 0.77: e^(0.308) ≈ 1.3607 and cos(0.385π) ≈ 0.3535, so the product ≈ 0.4810. Narrowing the bracket gives the root t ≈ 0.7594, which rounds to 0.76.",
+        "zh": "設 Q(t) = 100：200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5。左邊在 t = 0 時等於 1，在 t = 1 時降至 0，故首個正解位於 0 與 1 之間。當 t = 0.75 時，e^(0.3) ≈ 1.3499，cos(0.375π) ≈ 0.3827，乘積 ≈ 0.5166。當 t = 0.77 時，e^(0.308) ≈ 1.3607，cos(0.385π) ≈ 0.3535，乘積 ≈ 0.4810。縮小區間得到根 t ≈ 0.7594，四捨五入後為 0.76。",
+        "zhHans": "设 Q(t) = 100：200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5。左边在 t = 0 时等于 1，在 t = 1 时降至 0，故首个正解位于 0 与 1 之间。当 t = 0.75 时，e^(0.3) ≈ 1.3499，cos(0.375π) ≈ 0.3827，乘积 ≈ 0.5166。当 t = 0.77 时，e^(0.308) ≈ 1.3607，cos(0.385π) ≈ 0.3535，乘积 ≈ 0.4810。缩小区间得到根 t ≈ 0.7594，四舍五入后为 0.76。"
       },
-      "independentAnswer": "0.74",
-      "independentSolution": "Set Q(t) = 100: 200 e^(0.4t) cos(πt/2) = 100 → e^(0.4t) cos(πt/2) = 0.5. Solve numerically: try t=0.5: e^0.2≈1.221, cos(π/4)≈0.707, product≈0.863 >0.5. t=1: e^0.4≈1.492, cos(π/2)=0, product=0 <0.5. So root between 0.5 and 1. t=0.7: e^0.28≈1.323, cos(0.35π)≈cos(1.0996)≈0.454, product≈0.601. t=0.75: e^0.3≈1.350, cos(0.375π)≈cos(1.1781)≈0.382, product≈0.516. t=0.74: e^0.296≈1.344, cos(0.37π)≈cos(1.1624)≈0.372, product≈0.500. So t≈0.74 years.",
+      "independentAnswer": "0.76",
+      "independentSolution": {
+        "en": "first positive root of e^(0.4t)*cos(pi*t/2) = 0.5 is t = 0.759386, rounded to 0.76"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-le",
@@ -91107,8 +91119,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer 0.74 was not a root (200*e^(0.4*0.74)*cos(pi*0.74/2) = 106.8 rabbits, not 100) and the explanation quoted cos(1.1624) as 0.372 when it is 0.3971 -> answer corrected to the true first positive root t = 0.759386, rounded to 0.76, with a bracketed numerical derivation whose stated values are all accurate. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c02-q040",
@@ -91532,19 +91544,23 @@
         "zhHans": "一个公园内的兔子数量随季节变化，可以用模型 P(t) = 800 + 200 sin(π t / 6) 表示，其中 t 是从 1 月 1 日起的月数。同时，一个保育团体推行喂食计划，令兔子数量按指数增长，模型为 Q(t) = 500 e^{0.05 t}。求第一个 t > 0 的月份，使得两个模型预测的兔子数量相同。答案四舍五入至小数点后一位。"
       },
       "options": [],
-      "answer": "7.2",
+      "answer": "6.9",
       "acceptedAnswers": [
-        "7.2",
-        "7.2 months",
-        "7.2 months after January"
+        "6.9",
+        "t ≈ 6.9",
+        "6.9 months",
+        "t = 6.9 months",
+        "6.9 months after January 1"
       ],
       "explanation": {
-        "en": "Set 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. This equation cannot be solved algebraically; use technology to find the intersection. The first positive solution is approximately t = 7.2 months.",
-        "zh": "設 800 + 200 sin(π t / 6) = 500 e^{0.05 t}。此方程無法用代數方法求解，須用科技工具找出交點。第一個正解約為 t = 7.2 個月。",
-        "zhHans": "设 800 + 200 sin(π t / 6) = 500 e^{0.05 t}。此方程无法用代数方法求解，须用科技工具找出交点。第一个正解约为 t = 7.2 个月。"
+        "en": "Set P(t) = Q(t): 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. The equation mixes a sinusoid with an exponential, so it has no closed-form solution and the intersection must be found graphically or with a numerical solver. Track the sign of P(t) − Q(t): at t = 6, P(6) = 800 while Q(6) ≈ 674.9, so P is above Q; at t = 7, P(7) = 700 while Q(7) ≈ 709.5, so P is below Q. The first crossing therefore lies between t = 6 and t = 7, and a numerical solver refines it to t ≈ 6.925. Rounded to one decimal place, the answer is 6.9 months.",
+        "zh": "設 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。方程同時含正弦函數與指數函數，無法用代數方法求出封閉解，須以圖像或數值方法找出交點。考察 P(t) − Q(t) 的符號：當 t = 6 時，P(6) = 800 而 Q(6) ≈ 674.9，P 在 Q 之上；當 t = 7 時，P(7) = 700 而 Q(7) ≈ 709.5，P 在 Q 之下。故第一個交點在 t = 6 與 t = 7 之間，數值求解得 t ≈ 6.925。四捨五入至小數點後一位，答案為 6.9 個月。",
+        "zhHans": "设 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。方程同时含正弦函数与指数函数，无法用代数方法求出封闭解，须以图像或数值方法找出交点。考察 P(t) − Q(t) 的符号：当 t = 6 时，P(6) = 800 而 Q(6) ≈ 674.9，P 在 Q 之上；当 t = 7 时，P(7) = 700 而 Q(7) ≈ 709.5，P 在 Q 之下。故第一个交点在 t = 6 与 t = 7 之间，数值求解得 t ≈ 6.925。四舍五入至小数点后一位，答案为 6.9 个月。"
       },
-      "independentAnswer": "7.2",
-      "independentSolution": "Set the two models equal: 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. This is a transcendental equation. Using a graphing calculator or software, graph y1 = 800 + 200 sin(π x / 6) and y2 = 500 e^{0.05 x}. Find the first positive intersection point. The x-coordinate is approximately 7.2. Thus, t ≈ 7.2 months.",
+      "independentAnswer": "6.9",
+      "independentSolution": {
+        "en": "first positive root of 800+200*sin(pi*t/6) - 500*exp(0.05*t) by bisection on [6,7]: t = 6.925 -> 6.9"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-tf",
@@ -91567,8 +91583,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer 7.2 is not a root of 800 + 200 sin(π t / 6) = 500 e^{0.05 t} (at t = 7.2 the two sides differ by about 34), and the explanation only asserted a number without any derivation -> answer is now the bare value 6.9, the true first positive root being t = 6.92499, with an explanation that brackets the crossing by sign change on [6, 7] and states that the transcendental equation must be solved numerically. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c03-q003",
@@ -91994,21 +92010,23 @@
         "zhHans": "公园内兔子的数量随季节变化，可用模型 P(t) = 1200 + 300 sin(π t / 6) 表示，其中 t 为 1 月 1 日后的月数。同时，保育团体推行喂食计划，使数量按指数增长，模型为 Q(t) = 800 e^{0.02 t}。求 t > 0 时两个模型预测数量相同的第一个月份，答案四舍五入至小数点后一位。"
       },
       "options": [],
-      "answer": "t ≈ 14.3 months",
+      "answer": "8.0",
       "acceptedAnswers": [
-        "t ≈ 14.3 months",
-        "14.3",
-        "14.3 months",
-        "t = 14.3",
-        "t ≈ 14.3"
+        "8.0",
+        "t ≈ 8.0",
+        "8.0 months",
+        "t = 8.0 months",
+        "8"
       ],
       "explanation": {
-        "en": "Set P(t) = Q(t): 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}. This equation cannot be solved algebraically; use technology to find the intersection. The first positive solution is approximately t = 14.3 months.",
-        "zh": "設 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。此方程無法用代數方法求解，須用科技工具找出交點。第一個正解約為 t = 14.3 個月。",
-        "zhHans": "设 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。此方程无法用代数方法求解，须用科技工具找出交点。第一个正解约为 t = 14.3 个月。"
+        "en": "Set P(t) = Q(t): 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}. A sinusoid set equal to an exponential has no closed-form solution, so the first intersection is located graphically or with a numerical solver. Track the sign of P(t) − Q(t): at t = 7, P(7) = 1050 while Q(7) ≈ 920.2, so P is above Q; at t = 9, P(9) = 900 while Q(9) ≈ 957.8, so P is below Q. The first crossing lies between t = 7 and t = 9, and a numerical solver refines it to t ≈ 8.014. Rounded to one decimal place, the answer is 8.0 months.",
+        "zh": "設 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。正弦函數與指數函數相等的方程沒有封閉解，須以圖像或數值方法找出第一個交點。考察 P(t) − Q(t) 的符號：當 t = 7 時，P(7) = 1050 而 Q(7) ≈ 920.2，P 在 Q 之上；當 t = 9 時，P(9) = 900 而 Q(9) ≈ 957.8，P 在 Q 之下。故第一個交點在 t = 7 與 t = 9 之間，數值求解得 t ≈ 8.014。四捨五入至小數點後一位，答案為 8.0 個月。",
+        "zhHans": "设 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。正弦函数与指数函数相等的方程没有封闭解，须以图像或数值方法找出第一个交点。考察 P(t) − Q(t) 的符号：当 t = 7 时，P(7) = 1050 而 Q(7) ≈ 920.2，P 在 Q 之上；当 t = 9 时，P(9) = 900 而 Q(9) ≈ 957.8，P 在 Q 之下。故第一个交点在 t = 7 与 t = 9 之间，数值求解得 t ≈ 8.014。四舍五入至小数点后一位，答案为 8.0 个月。"
       },
-      "independentAnswer": "t ≈ 14.3 months",
-      "independentSolution": "Set 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}. Using a graphing calculator or software, graph y1 = 1200 + 300 sin(π x / 6) and y2 = 800 e^{0.02 x}. Find the first positive intersection point. The x-coordinate is approximately 14.3. Thus, t ≈ 14.3 months.",
+      "independentAnswer": "8.0",
+      "independentSolution": {
+        "en": "first positive root of 1200+300*sin(pi*t/6) - 800*exp(0.02*t) by bisection on [7,9]: t = 8.0143 -> 8.0"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-tf",
@@ -92031,8 +92049,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 14.3 months\" was wrong (at t = 14.3 the sinusoid is near 1480 while the exponential is near 1065, and the true first root of 1200 + 300 sin(π t / 6) = 800 e^{0.02 t} is t = 8.01429) and the \"t ≈ \" prefix made it unparseable -> answer is now the bare value 8.0 with an explanation that brackets the crossing on [7, 9] by sign change before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c03-q009",
@@ -92929,21 +92947,23 @@
         "zhHans": "一个公园的兔子数量随季节变化，可以用模型 P(t) = 800 + 200 sin(π t / 6) 表示，其中 t 是从 1 月 1 日起的月数。同时，一个保育团体引入喂食计划，使数量按指数增长，模型为 Q(t) = 500 e^{0.05 t}。求 t > 0 时两个模型预测相同数量的第一个时间。答案四舍五入至小数点后两位。"
       },
       "options": [],
-      "answer": "t ≈ 7.85 months",
+      "answer": "6.92",
       "acceptedAnswers": [
-        "t ≈ 7.85 months",
-        "7.85",
-        "7.85 months",
-        "t = 7.85",
-        "t ≈ 7.85"
+        "6.92",
+        "t ≈ 6.92",
+        "6.92 months",
+        "t = 6.92 months",
+        "6.9"
       ],
       "explanation": {
-        "en": "Set P(t) = Q(t): 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. This equation cannot be solved algebraically. Using technology (graphing or numerical solver), the first positive intersection occurs at t ≈ 7.85 months.",
-        "zh": "設 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。此方程無法用代數方法求解。使用科技（圖像或數值解），第一個正數交點出現在 t ≈ 7.85 個月。",
-        "zhHans": "设 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。此方程无法用代数方法求解。使用科技（图像或数值解），第一个正数交点出现在 t ≈ 7.85 个月。"
+        "en": "Set P(t) = Q(t): 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. The equation mixes a sinusoid with an exponential, so it has no closed-form solution and the intersection must be found graphically or with a numerical solver. Track the sign of P(t) − Q(t): at t = 6, P(6) = 800 while Q(6) ≈ 674.9, so P is above Q; at t = 7, P(7) = 700 while Q(7) ≈ 709.5, so P is below Q. The first crossing lies between t = 6 and t = 7, and a numerical solver refines it to t ≈ 6.925. Rounded to two decimal places, the answer is 6.92 months.",
+        "zh": "設 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。方程同時含正弦函數與指數函數，無法用代數方法求出封閉解，須以圖像或數值方法找出交點。考察 P(t) − Q(t) 的符號：當 t = 6 時，P(6) = 800 而 Q(6) ≈ 674.9，P 在 Q 之上；當 t = 7 時，P(7) = 700 而 Q(7) ≈ 709.5，P 在 Q 之下。故第一個交點在 t = 6 與 t = 7 之間，數值求解得 t ≈ 6.925。四捨五入至小數點後兩位，答案為 6.92 個月。",
+        "zhHans": "设 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。方程同时含正弦函数与指数函数，无法用代数方法求出封闭解，须以图像或数值方法找出交点。考察 P(t) − Q(t) 的符号：当 t = 6 时，P(6) = 800 而 Q(6) ≈ 674.9，P 在 Q 之上；当 t = 7 时，P(7) = 700 而 Q(7) ≈ 709.5，P 在 Q 之下。故第一个交点在 t = 6 与 t = 7 之间，数值求解得 t ≈ 6.925。四舍五入至小数点后两位，答案为 6.92 个月。"
       },
-      "independentAnswer": "t ≈ 7.85 months",
-      "independentSolution": "Set 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. This is a transcendental equation. Graph both functions or use a numerical solver. The first positive solution is approximately t = 7.85 months.",
+      "independentAnswer": "6.92",
+      "independentSolution": {
+        "en": "first positive root of 800+200*sin(pi*t/6) - 500*exp(0.05*t) by bisection on [6,7]: t = 6.9250 -> 6.92 (this prompt asks for two decimals)"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-tf",
@@ -92966,8 +92986,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 7.85 months\" was wrong (the first root of 800 + 200 sin(π t / 6) = 500 e^{0.05 t} is t = 6.92499) and the \"t ≈ \" prefix made it unparseable -> answer is now the bare value 6.92, matching this item's own instruction to round to two decimal places, with an explanation that brackets the crossing on [6, 7] before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c03-q021",
@@ -94107,22 +94127,23 @@
         "zhHans": "公园里的兔子数量随季节变化，可用模型 P(t) = 1200 + 300 sin(π t / 6) 表示，其中 t 为 1 月 1 日后的月数。同时，保育团体推行喂食计划，令数量按指数增长，模型为 Q(t) = 800 e^{0.02 t}。求 t > 0 的第一个月份，使两个模型预测的数量相同。将 t 四舍五入至小数点后一位。"
       },
       "options": [],
-      "answer": "t ≈ 7.2 months",
+      "answer": "8.0",
       "acceptedAnswers": [
-        "t ≈ 7.2 months",
-        "7.2",
-        "7.2 months",
-        "t=7.2",
-        "t ≈ 7.2",
-        "about 7.2 months"
+        "8.0",
+        "t ≈ 8.0",
+        "8.0 months",
+        "t = 8.0",
+        "about 8.0 months"
       ],
       "explanation": {
-        "en": "Set 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}. This equation cannot be solved algebraically. Using technology (graphing or numerical solver), the first positive intersection occurs at t ≈ 7.2 months.",
-        "zh": "設 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。此方程無法用代數方法求解。利用科技（圖像或數值解），第一個正數交點出現在 t ≈ 7.2 個月。",
-        "zhHans": "设 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。此方程无法用代数方法求解。利用科技（图像或数值解），第一个正数交点出现在 t ≈ 7.2 个月。"
+        "en": "Set 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}. The equation mixes a sinusoid with an exponential, so it has no closed-form solution and the first intersection must be found graphically or with a numerical solver. Track the sign of P(t) − Q(t): at t = 7, P(7) = 1050 while Q(7) ≈ 920.2, so P is above Q; at t = 9, P(9) = 900 while Q(9) ≈ 957.8, so P is below Q. The first crossing lies between t = 7 and t = 9, and a numerical solver refines it to t ≈ 8.014. Rounded to one decimal place, the answer is 8.0 months.",
+        "zh": "設 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。方程同時含正弦函數與指數函數，無法用代數方法求出封閉解，須以圖像或數值方法找出第一個交點。考察 P(t) − Q(t) 的符號：當 t = 7 時，P(7) = 1050 而 Q(7) ≈ 920.2，P 在 Q 之上；當 t = 9 時，P(9) = 900 而 Q(9) ≈ 957.8，P 在 Q 之下。故第一個交點在 t = 7 與 t = 9 之間，數值求解得 t ≈ 8.014。四捨五入至小數點後一位，答案為 8.0 個月。",
+        "zhHans": "设 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}。方程同时含正弦函数与指数函数，无法用代数方法求出封闭解，须以图像或数值方法找出第一个交点。考察 P(t) − Q(t) 的符号：当 t = 7 时，P(7) = 1050 而 Q(7) ≈ 920.2，P 在 Q 之上；当 t = 9 时，P(9) = 900 而 Q(9) ≈ 957.8，P 在 Q 之下。故第一个交点在 t = 7 与 t = 9 之间，数值求解得 t ≈ 8.014。四舍五入至小数点后一位，答案为 8.0 个月。"
       },
-      "independentAnswer": "t ≈ 7.2 months",
-      "independentSolution": "Set the two functions equal: 1200 + 300 sin(π t / 6) = 800 e^{0.02 t}. This is a transcendental equation. Graph both functions or use a numerical solver. The first positive intersection is at t ≈ 7.2. Thus, after about 7.2 months, the models predict the same population.",
+      "independentAnswer": "8.0",
+      "independentSolution": {
+        "en": "first positive root of 1200+300*sin(pi*t/6) - 800*exp(0.02*t) by bisection on [7,9]: t = 8.0143 -> 8.0"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-tf",
@@ -94145,8 +94166,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 7.2 months\" was wrong (the first root of 1200 + 300 sin(π t / 6) = 800 e^{0.02 t} is t = 8.01429; at t = 7.2 the sinusoid is about 1024 against an exponential of about 924) and the \"t ≈ \" prefix made it unparseable -> answer is now the bare value 8.0 with a bracketed sign-change derivation on [7, 9] followed by the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c03-q036",
@@ -94180,40 +94201,42 @@
       },
       "options": [
         {
-          "en": "8.3 months",
-          "zh": "8.3 個月",
-          "zhHans": "8.3 个月"
+          "en": "2.4 months",
+          "zh": "2.4 個月",
+          "zhHans": "2.4 个月"
+        },
+        {
+          "en": "6.6 months",
+          "zh": "6.6 個月",
+          "zhHans": "6.6 个月"
+        },
+        {
+          "en": "8.1 months",
+          "zh": "8.1 個月",
+          "zhHans": "8.1 个月"
         },
         {
           "en": "10.1 months",
           "zh": "10.1 個月",
           "zhHans": "10.1 个月"
-        },
-        {
-          "en": "12.5 months",
-          "zh": "12.5 個月",
-          "zhHans": "12.5 个月"
-        },
-        {
-          "en": "14.7 months",
-          "zh": "14.7 個月",
-          "zhHans": "14.7 个月"
         }
       ],
-      "answer": "10.1 months",
+      "answer": "6.6 months",
       "acceptedAnswers": [
-        "10.1 months",
-        "10.1 個月",
-        "10.1 个月"
+        "6.6 months",
+        "6.6",
+        "6.6 個月",
+        "6.6 个月",
+        "t ≈ 6.6 months"
       ],
       "explanation": {
-        "en": "Set P(t) = Q(t): 1200 + 300 sin(π t / 6) = 800 e^{0.05 t}. Solve numerically (e.g., using graphing or iteration). The first positive intersection occurs at t ≈ 10.1 months.",
-        "zh": "設 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.05 t}。用數值方法（例如圖解法或迭代法）求解，首個正數交點約在 t ≈ 10.1 個月。",
-        "zhHans": "设 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.05 t}。用数值方法（例如图解法或迭代法）求解，首个正数交点约在 t ≈ 10.1 个月。"
+        "en": "Set P(t) = Q(t): 1200 + 300 sin(π t / 6) = 800 e^{0.05 t}. A sinusoid set equal to an exponential has no closed-form solution, so the first intersection is located graphically or with a numerical solver. Track the sign of P(t) − Q(t): at t = 6, P(6) = 1200 while Q(6) ≈ 1079.9, so P is above Q; at t = 7, P(7) = 1050 while Q(7) ≈ 1135.3, so P is below Q. The crossing lies between t = 6 and t = 7, and a numerical solver refines it to t ≈ 6.573. To the nearest tenth the populations are first equal after 6.6 months.",
+        "zh": "設 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.05 t}。正弦函數與指數函數相等的方程沒有封閉解，須以圖像或數值方法找出第一個交點。考察 P(t) − Q(t) 的符號：當 t = 6 時，P(6) = 1200 而 Q(6) ≈ 1079.9，P 在 Q 之上；當 t = 7 時，P(7) = 1050 而 Q(7) ≈ 1135.3，P 在 Q 之下。故交點在 t = 6 與 t = 7 之間，數值求解得 t ≈ 6.573。準確至小數點後一位，兩個數量首次相等在 6.6 個月後。",
+        "zhHans": "设 P(t) = Q(t)：1200 + 300 sin(π t / 6) = 800 e^{0.05 t}。正弦函数与指数函数相等的方程没有封闭解，须以图像或数值方法找出第一个交点。考察 P(t) − Q(t) 的符号：当 t = 6 时，P(6) = 1200 而 Q(6) ≈ 1079.9，P 在 Q 之上；当 t = 7 时，P(7) = 1050 而 Q(7) ≈ 1135.3，P 在 Q 之下。故交点在 t = 6 与 t = 7 之间，数值求解得 t ≈ 6.573。准确至小数点后一位，两个数量首次相等在 6.6 个月后。"
       },
-      "independentAnswer": "10.1 months",
+      "independentAnswer": "6.6 months",
       "independentSolution": {
-        "en": "Set 1200 + 300 sin(π t / 6) = 800 e^{0.05 t}. Using a graphing calculator or numerical solver, find the smallest positive t where the graphs intersect. The intersection occurs at t ≈ 10.1 months."
+        "en": "first positive root of 1200+300*sin(pi*t/6) - 800*exp(0.05*t) by bisection on [6,7]: t = 6.5733 -> 6.6"
       },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
@@ -94237,8 +94260,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the keyed option 10.1 months was wrong and none of the four options was correct, since the first root of 1200 + 300 sin(π t / 6) = 800 e^{0.05 t} is t = 6.57331 -> the option set now carries the correct 6.6 months alongside three misconception distractors (2.4 from using the seasonal minimum 900, 8.1 from dropping the sine term, 10.1 the former key), and the explanation brackets the crossing on [6, 7] before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c03-q037",
@@ -94574,20 +94597,22 @@
         "zhHans": "公园内兔子的数量随季节变化，可用模型 P(t) = 800 + 200 sin(π t / 6) 表示，其中 t 为 1 月 1 日后的月数。同时，保育团体推行喂食计划，使数量按指数增长，模型为 Q(t) = 500 e^{0.05 t}。求 t > 0 时两个模型预测数量相同的第一个月份，并将 t 四舍五入至小数点后一位。"
       },
       "options": [],
-      "answer": "t ≈ 7.2",
+      "answer": "6.9",
       "acceptedAnswers": [
-        "t ≈ 7.2",
-        "7.2",
-        "7.2 months",
-        "t = 7.2"
+        "6.9",
+        "t ≈ 6.9",
+        "6.9 months",
+        "t = 6.9"
       ],
       "explanation": {
-        "en": "Set P(t) = Q(t): 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. This equation cannot be solved algebraically; use technology to find the intersection. The first positive solution is approximately t = 7.2 months.",
-        "zh": "設 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。此方程無法用代數方法求解，須用科技工具找出交點。第一個正解約為 t = 7.2 個月。",
-        "zhHans": "设 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。此方程无法用代数方法求解，须用科技工具找出交点。第一个正解约为 t = 7.2 个月。"
+        "en": "Set P(t) = Q(t): 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. A sinusoid set equal to an exponential has no closed-form solution, so the first intersection is located graphically or with a numerical solver. Track the sign of P(t) − Q(t): at t = 6, P(6) = 800 while Q(6) ≈ 674.9, so P is above Q; at t = 7, P(7) = 700 while Q(7) ≈ 709.5, so P is below Q. The first crossing lies between t = 6 and t = 7, and a numerical solver refines it to t ≈ 6.925. Rounded to one decimal place, the answer is 6.9 months.",
+        "zh": "設 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。正弦函數與指數函數相等的方程沒有封閉解，須以圖像或數值方法找出第一個交點。考察 P(t) − Q(t) 的符號：當 t = 6 時，P(6) = 800 而 Q(6) ≈ 674.9，P 在 Q 之上；當 t = 7 時，P(7) = 700 而 Q(7) ≈ 709.5，P 在 Q 之下。故第一個交點在 t = 6 與 t = 7 之間，數值求解得 t ≈ 6.925。四捨五入至小數點後一位，答案為 6.9 個月。",
+        "zhHans": "设 P(t) = Q(t)：800 + 200 sin(π t / 6) = 500 e^{0.05 t}。正弦函数与指数函数相等的方程没有封闭解，须以图像或数值方法找出第一个交点。考察 P(t) − Q(t) 的符号：当 t = 6 时，P(6) = 800 而 Q(6) ≈ 674.9，P 在 Q 之上；当 t = 7 时，P(7) = 700 而 Q(7) ≈ 709.5，P 在 Q 之下。故第一个交点在 t = 6 与 t = 7 之间，数值求解得 t ≈ 6.925。四舍五入至小数点后一位，答案为 6.9 个月。"
       },
-      "independentAnswer": "t ≈ 7.2",
-      "independentSolution": "Set 800 + 200 sin(π t / 6) = 500 e^{0.05 t}. Using a graphing calculator or software, graph y1 = 800 + 200 sin(π x / 6) and y2 = 500 e^{0.05 x}. Find the first intersection point for x > 0. The intersection occurs at approximately x = 7.2. Thus, t ≈ 7.2 months.",
+      "independentAnswer": "6.9",
+      "independentSolution": {
+        "en": "first positive root of 800+200*sin(pi*t/6) - 500*exp(0.05*t) by bisection on [6,7]: t = 6.925 -> 6.9"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-f-tf",
@@ -94610,8 +94635,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 7.2\" was both wrong (the first root of 800 + 200 sin(π t / 6) = 500 e^{0.05 t} is t = 6.92499) and unparseable because of the \"t ≈ \" prefix -> answer is now the bare value 6.9 with prefixed and unit-bearing variants kept as accepted aliases, and the explanation now brackets the crossing on [6, 7] before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c03-q042",
@@ -95901,22 +95926,24 @@
         "zhHans": "一位生物学家使用指数函数 P(t)=200·e^(0.05t) 模拟一个物种随时间的种群数量，其中 t 以年为单位。10 年后，实际种群数量为 330。计算 t=10 时的残差。"
       },
       "options": [],
-      "answer": "330 - 200*e^(0.5)",
+      "answer": "0.26",
       "acceptedAnswers": [
+        "0.26",
+        "0.256",
+        "0.2557",
+        "0.25574586",
         "330 - 200*e^(0.5)",
-        "330 - 200*exp(0.5)",
-        "330 - 200e^0.5",
-        "approximately 0.3",
-        "0.3",
-        "0.30"
+        "330 - 200*exp(0.5)"
       ],
       "explanation": {
-        "en": "The residual is the actual value minus the predicted value. Predicted P(10)=200·e^(0.05*10)=200·e^0.5. Residual = 330 - 200·e^0.5.",
-        "zh": "殘差是實際值減去預測值。預測值 P(10)=200·e^(0.05*10)=200·e^0.5。殘差 = 330 - 200·e^0.5。",
-        "zhHans": "残差是实际值减去预测值。预测值 P(10)=200·e^(0.05*10)=200·e^0.5。残差 = 330 - 200·e^0.5。"
+        "en": "The residual is the actual value minus the predicted value. Predicted: P(10) = 200·e^(0.05×10) = 200·e^0.5 ≈ 200 × 1.64872 = 329.744. Residual = 330 − 329.744 = 0.256, which rounds to 0.26. The positive residual means the model slightly underestimates the population.",
+        "zh": "殘差 = 實際值 − 預測值。預測值：P(10) = 200·e^(0.05×10) = 200·e^0.5 ≈ 200 × 1.64872 = 329.744。殘差 = 330 − 329.744 = 0.256，四捨五入到小數點後兩位為 0.26。殘差為正表示模型略微低估了族群數量。",
+        "zhHans": "残差 = 实际值 − 预测值。预测值：P(10) = 200·e^(0.05×10) = 200·e^0.5 ≈ 200 × 1.64872 = 329.744。残差 = 330 − 329.744 = 0.256，四舍五入到小数点后两位为 0.26。残差为正表示模型略微低估了种群数量。"
       },
-      "independentAnswer": "330 - 200*e^(0.5)",
-      "independentSolution": "Predicted value: P(10) = 200 * e^(0.05*10) = 200 * e^0.5. Residual = actual - predicted = 330 - 200*e^0.5. Numerically, e^0.5 ≈ 1.64872, so 200*1.64872 ≈ 329.744, residual ≈ 0.256. The exact expression is 330 - 200*e^0.5.",
+      "independentAnswer": "0.26",
+      "independentSolution": {
+        "en": "330 - 200*exp(0.5) = 330 - 329.74425414 = 0.25574586 -> 0.26"
+      },
       "evidenceCardIds": [
         "us-ar-math-g11-advanced-functions-trigonometry-statistics",
         "us-ar-standards-s5-hs-s-id",
@@ -95939,8 +95966,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer was the unevaluated string \"330 - 200*e^(0.5)\" with aliases rounding it to 0.3, so the graded key was unparseable and wrong to the requested precision -> answer is now the evaluated two-decimal value 0.26, with 0.256/0.2557/0.25574586 and the exact-form expressions kept as aliases and the explanation carrying the full numeric derivation in all three locales. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g11-c04-q016",
@@ -112171,17 +112198,21 @@
         "zhHans": "某公司的利润 P(t)（以千元为单位）由 P(t) = -2t^3 + 15t^2 - 24t + 10 模拟，其中 t 是自 2020 年起的年数。求从 t=1 到 t=4 累积的总利润，四舍五入至最接近的千元。"
       },
       "options": [],
-      "answer": "42",
+      "answer": "38",
       "acceptedAnswers": [
-        "42"
+        "38",
+        "38 thousand dollars",
+        "38 thousand"
       ],
       "explanation": {
-        "en": "To find the total accumulated profit from t=1 to t=4, integrate P(t) = -2t^3 + 15t^2 - 24t + 11.5 with respect to t over [1,4]. The antiderivative is F(t) = -0.5t^4 + 5t^3 - 12t^2 + 11.5t. Evaluate F(4) - F(1): F(4) = -0.5(256) + 5(64) - 12(16) + 11.5(4) = -128 + 320 - 192 + 46 = 46. F(1) = -0.5(1) + 5(1) - 12(1) + 11.5(1) = -0.5 + 5 - 12 + 11.5 = 4. The difference is 46 - 4 = 42. Thus, the total profit is 42 thousand dollars.",
-        "zh": "對 P(t) 從 1 到 4 積分：∫(-2t^3+15t^2-24t+11.5)dt = [-0.5t^4+5t^3-12t^2+11.5t] 從 1 到 4。在 t=4：-0.5(256)+5(64)-12(16)+11.5(4) = -128+320-192+46=46。在 t=1：-0.5+5-12+11.5=4。差值：46-4=42。",
-        "zhHans": "对 P(t) 从 1 到 4 积分：∫(-2t^3+15t^2-24t+11.5)dt = [-0.5t^4+5t^3-12t^2+11.5t] 从 1 到 4。在 t=4：-0.5(256)+5(64)-12(16)+11.5(4) = -128+320-192+46=46。在 t=1：-0.5+5-12+11.5=4。差值：46-4=42。"
+        "en": "Total accumulated profit is the integral of P(t) = -2t^3 + 15t^2 - 24t + 10 from t=1 to t=4. An antiderivative is F(t) = -0.5t^4 + 5t^3 - 12t^2 + 10t. Evaluate at the limits: F(4) = -0.5(256) + 5(64) - 12(16) + 10(4) = -128 + 320 - 192 + 40 = 40, and F(1) = -0.5 + 5 - 12 + 10 = 2.5. The definite integral is 40 - 2.5 = 37.5, measured in thousands of dollars. Rounded to the nearest thousand dollars, the total accumulated profit is 38 thousand dollars.",
+        "zh": "累積總利潤為 P(t) = -2t^3 + 15t^2 - 24t + 10 從 t=1 到 t=4 的積分。原函數為 F(t) = -0.5t^4 + 5t^3 - 12t^2 + 10t。代入上下限：F(4) = -0.5(256)+5(64)-12(16)+10(4) = -128+320-192+40 = 40；F(1) = -0.5+5-12+10 = 2.5。定積分為 40-2.5 = 37.5（以千元為單位）。四捨五入至最接近的千元，累積總利潤為 38 千元。",
+        "zhHans": "累积总利润为 P(t) = -2t^3 + 15t^2 - 24t + 10 从 t=1 到 t=4 的积分。原函数为 F(t) = -0.5t^4 + 5t^3 - 12t^2 + 10t。代入上下限：F(4) = -0.5(256)+5(64)-12(16)+10(4) = -128+320-192+40 = 40；F(1) = -0.5+5-12+10 = 2.5。定积分为 40-2.5 = 37.5（以千元为单位）。四舍五入至最接近的千元，累积总利润为 38 千元。"
       },
-      "independentAnswer": "42",
-      "independentSolution": "To find the total accumulated profit from t=1 to t=4, integrate P(t) = -2t^3 + 15t^2 - 24t + 11.5 with respect to t over [1,4]. The antiderivative is F(t) = -0.5t^4 + 5t^3 - 12t^2 + 11.5t. Evaluate F(4) - F(1): F(4) = -0.5(256) + 5(64) - 12(16) + 11.5(4) = -128 + 320 - 192 + 46 = 46. F(1) = -0.5(1) + 5(1) - 12(1) + 11.5(1) = -0.5 + 5 - 12 + 11.5 = 4. The difference is 46 - 4 = 42. Thus, the total profit is 42 thousand dollars.",
+      "independentAnswer": "38",
+      "independentSolution": {
+        "en": "F(t) = -0.5t^4+5t^3-12t^2+10t; F(4)-F(1) = 40 - 2.5 = 37.5, rounds to 38"
+      },
       "evidenceCardIds": [
         "us-ar-math-g12-modeling-statistics-calculus-readiness",
         "us-ar-standards-s6-hs-f-if",
@@ -112204,8 +112235,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: explanation integrated P(t) = -2t^3 + 15t^2 - 24t + 11.5 instead of the prompt's constant term 10, and the stored answer 42 came from that wrong constant -> explanation now integrates the prompt's polynomial, giving F(4)=40, F(1)=2.5, integral 37.5, which rounds to 38 thousand dollars. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g12-c04-q015",
@@ -112868,17 +112899,21 @@
         "zhHans": "某工厂的每日利润 P（以美元计）由 P(x) = -2x^3 + 45x^2 - 300x + 1000 建模，其中 x 为生产的单位数量（以百计）。工厂可生产 0 至 20 百个单位。求最大每日利润。四舍五入至最接近的美元。"
       },
       "options": [],
-      "answer": "1500",
+      "answer": "1000",
       "acceptedAnswers": [
-        "1500"
+        "1000",
+        "1000 dollars",
+        "$1000"
       ],
       "explanation": {
-        "en": "To find the maximum profit, we analyze the cubic function P(x) = -2x^3 + 45x^2 - 300x + 1500 on the interval [0,20]. First, find the derivative: P'(x) = -6x^2 + 90x - 300. Set P'(x)=0: -6(x^2 - 15x + 50)=0 => x^2 -15x +50=0 => (x-5)(x-10)=0, so critical points at x=5 and x=10. Evaluate P at critical points and endpoints: P(0)=1500, P(5)= -2(125)+45(25)-300(5)+1500 = -250+1125-1500+1500=875, P(10)= -2(1000)+45(100)-300(10)+1500 = -2000+4500-3000+1500=1000, P(20)= -2(8000)+45(400)-300(20)+1500 = -16000+18000-6000+1500= -2500. The maximum value is 1500 at x=0. Thus, the maximum daily profit is $1500.",
-        "zh": "為求最大利潤，在 [0,20] 上求 P(x) 的臨界點。P'(x) = -6x^2 + 90x - 300 = -6(x^2 - 15x + 50) = -6(x-5)(x-10)。臨界點為 x=5 和 x=10。計算 P(0)=1500，P(5)=875，P(10)=1000，P(20)=-2500。最大值為 1500，在 x=0 處。",
-        "zhHans": "为求最大利润，在 [0,20] 上求 P(x) 的临界点。P'(x) = -6x^2 + 90x - 300 = -6(x^2 - 15x + 50) = -6(x-5)(x-10)。临界点为 x=5 和 x=10。计算 P(0)=1500，P(5)=875，P(10)=1000，P(20)=-2500。最大值为 1500，在 x=0 处。"
+        "en": "The model is P(x) = -2x^3 + 45x^2 - 300x + 1000 on the interval [0,20]. Differentiate: P'(x) = -6x^2 + 90x - 300 = -6(x^2 - 15x + 50) = -6(x - 5)(x - 10), so the critical points are x = 5 and x = 10. Evaluate P at the critical points and at the endpoints: P(0) = 1000; P(5) = -250 + 1125 - 1500 + 1000 = 375; P(10) = -2000 + 4500 - 3000 + 1000 = 500; P(20) = -16000 + 18000 - 6000 + 1000 = -3000. The largest of these values is 1000, attained at x = 0. Thus the maximum daily profit is $1000.",
+        "zh": "模型為 P(x) = -2x^3 + 45x^2 - 300x + 1000，區間為 [0,20]。求導：P'(x) = -6x^2 + 90x - 300 = -6(x^2 - 15x + 50) = -6(x-5)(x-10)，故臨界點為 x=5 與 x=10。計算臨界點與端點的值：P(0) = 1000；P(5) = -250+1125-1500+1000 = 375；P(10) = -2000+4500-3000+1000 = 500；P(20) = -16000+18000-6000+1000 = -3000。其中最大值為 1000，在 x=0 處取得。因此最大每日利潤為 1000 美元。",
+        "zhHans": "模型为 P(x) = -2x^3 + 45x^2 - 300x + 1000，区间为 [0,20]。求导：P'(x) = -6x^2 + 90x - 300 = -6(x^2 - 15x + 50) = -6(x-5)(x-10)，故临界点为 x=5 与 x=10。计算临界点与端点的值：P(0) = 1000；P(5) = -250+1125-1500+1000 = 375；P(10) = -2000+4500-3000+1000 = 500；P(20) = -16000+18000-6000+1000 = -3000。其中最大值为 1000，在 x=0 处取得。因此最大每日利润为 1000 美元。"
       },
-      "independentAnswer": "1500",
-      "independentSolution": "To find the maximum profit, we analyze the cubic function P(x) = -2x^3 + 45x^2 - 300x + 1500 on the interval [0,20]. First, find the derivative: P'(x) = -6x^2 + 90x - 300. Set P'(x)=0: -6(x^2 - 15x + 50)=0 => x^2 -15x +50=0 => (x-5)(x-10)=0, so critical points at x=5 and x=10. Evaluate P at critical points and endpoints: P(0)=1500, P(5)= -2(125)+45(25)-300(5)+1500 = -250+1125-1500+1500=875, P(10)= -2(1000)+45(100)-300(10)+1500 = -2000+4500-3000+1500=1000, P(20)= -2(8000)+45(400)-300(20)+1500 = -16000+18000-6000+1500= -2500. The maximum value is 1500 at x=0. Thus, the maximum daily profit is $1500.",
+      "independentAnswer": "1000",
+      "independentSolution": {
+        "en": "P'(x) = -6(x-5)(x-10); P(0)=1000, P(5)=375, P(10)=500, P(20)=-3000; max = 1000"
+      },
       "evidenceCardIds": [
         "us-ar-math-g12-modeling-statistics-calculus-readiness",
         "us-ar-standards-s6-hs-f-if",
@@ -112901,8 +112936,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: explanation analyzed P(x) = -2x^3 + 45x^2 - 300x + 1500 instead of the prompt's constant term 1000, and the stored answer 1500 came from that wrong constant -> explanation now uses the prompt's polynomial, giving P(0)=1000, P(5)=375, P(10)=500, P(20)=-3000 and a maximum of 1000. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g12-c04-q024",
@@ -115696,7 +115731,8 @@
         "t = 4（2024 年）",
         "t = 4",
         "year 2024",
-        "2024 年"
+        "2024 年",
+        "2024"
       ],
       "explanation": {
         "en": "Find critical points by setting P'(t) = -6t^2 + 30t - 24 = 0, giving t = 1 and t = 4. Use the second derivative test: P''(t) = -12t + 30. At t = 1, P''(1) = 18 > 0 (local minimum). At t = 4, P''(4) = -18 < 0 (local maximum). So the local maximum occurs at t = 4, which is the year 2024.",
