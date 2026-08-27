@@ -8,7 +8,7 @@
 
 | Source | Date | States |
 |---|---|---|
-| `components/ui/LanguageToggle.tsx:81` | **2026-07-12** | The US-curriculum language restriction was **removed as a bug fix**: *"Every account keeps access to the full language menu. Restricting US-curriculum users to English made the header selector a silent no-op even though the product UI is fully bilingual (and Reports already offers all three languages)."* Committed by the owner in `76eb979c63 fix(teacher-console): resolve QA bug report BUG-001..BUG-010`. |
+| `components/ui/LanguageToggle.tsx:81` | **2026-07-12** | The US-curriculum language restriction was removed as **BUG-008 (P2)**: *"header language selector works for US-curriculum users (removed the silent English-only lock)"*. Commit `76eb979c63`, **`Co-Authored-By: Claude Fable 5`** — agent-produced, committed under the owner's git identity. See the authority note below. |
 | `ccss-textbook-practice-v1` header | 2026-07-19 | `languageVariant: "en-first (owner decision 2026-07-19: US California track ships English lesson bodies; zh/zhHans mirror en **until the localization workstream**)"` |
 | `us-ca-k5-knowledge-point-practice-v1` header | 2026-06-23 | `languageVariant: "en-zh-zhHans"` — declares itself trilingual, and its 492 live items are fully translated |
 | `us-ca-math-g6-g12-generated-bank-v2-1500` | 2026-06-01 | no `languageVariant` at all; its 1,500 live items are fully translated |
@@ -35,13 +35,38 @@ The report's largest finding — *"810 live items have no Chinese translation"*,
 
 The accurate finding was *"the CA track's language support is inconsistent and the product exposes a language the content does not fully cover"*, which is resolvable in either direction. The owner has now chosen English-only.
 
+## Correction: BUG-008 was not an owner ruling
+
+An earlier version of this record called the 2026-07-12 removal owner-authored and
+treated it as an owner decision in tension with today's policy. That overstated it.
+
+- The commit carries `Co-Authored-By: Claude Fable 5`. Git authorship in this repository
+  is always the owner's identity — 500 recent commits are all authored by it, and 93 of
+  them carry an explicit agent co-author trailer. Authorship therefore does not indicate
+  the owner made the call.
+- BUG-008 was rated **P2** in a batch of ten, and its stated reasoning is a UX
+  observation — the selector was "a silent no-op" — not a policy ruling.
+- The source document, "MAIS Teacher Console bug detection report (2026-07-09
+  exploratory QA)", **is not in the repository**. `git grep BUG-008` returns nothing;
+  the only surviving records are the commit message and the code comment. There is no
+  evidence the owner reviewed that specific item.
+
+So the record contains one owner statement about US-track language — today's, English
+only — and one agent's P2 reclassification of a deliberate restriction as a defect.
+That is the same category of error this session's QA report made with the `en-first`
+header: an agent read an intentional constraint as a bug. It happened twice,
+independently, to the same constraint.
+
+Re-gating the selector for US accounts therefore **reverses an agent's classification,
+not an owner decision**, and does not need to be recorded as superseding an owner ruling.
+
 ## Open consequence of the English-only decision
 
 Stripping Chinese from the remaining 1,992 items makes the content consistently English — but it re-creates the exact condition the owner fixed on 2026-07-12: a CA student can still open the selector, choose Chinese, and get an English experience. **The header selector becomes a partial no-op for US accounts again.**
 
 Resolving English-only therefore needs a UI decision as well as a content one:
 
-1. Strip the 1,992 items **and** re-gate the selector for US-curriculum accounts — coherent, but reverts the July 12 bug fix, so it should be recorded as superseding it rather than silently undone; or
+1. Strip the 1,992 items **and** re-gate the selector for US-curriculum accounts — coherent, and per the correction above this reverses an agent's P2 call rather than an owner decision; or
 2. Strip the content and leave the selector open, accepting that Chinese is selectable but the maths is English; or
 3. Keep the selector open and treat the CA track as genuinely trilingual, which is what two of its three live packs already assume.
 
