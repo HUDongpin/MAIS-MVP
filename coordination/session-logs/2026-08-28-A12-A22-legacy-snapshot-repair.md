@@ -66,9 +66,10 @@ is now owned only by the serialized production schema script.
   pass.
 - `npm run test:parent-console`: tooling `76/76`; runtime `403/403`; zero
   skipped and zero failed.
-- `npm run test:promotion-gate`: `40/40` pass. Manifest validation is deferred
-  until the exact final commit because it intentionally rejects a dirty
-  worktree.
+- `npm run test:promotion-gate`: `40/40` pass. The selected c0 manifest also
+  validated on clean implementation commit `56bd25e272`; result `pass`, with
+  `liveAllowed: false`. A final log-only commit requires the same validation to
+  be replayed on its resulting exact SHA before handoff.
 - PostgreSQL 16 integration coverage is wired for safe additive repair,
   high-risk rejection, recoverable no-marker postflight, revision increment,
   payload digest preservation, later marker attestation, and repeated-plan
