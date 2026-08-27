@@ -299,8 +299,11 @@ function writeBindingPhase(options, manifestFile, manifest, targetCommit, eviden
   }
   for (const entry of nextIndex.entries) Object.assign(entry, refreshedBindings.get(entry.role));
 
+  const nextIndexBytes = Buffer.from(canonicalJson(nextIndex), "utf8");
+  nextManifest.evidenceIndex.rawSha256 = sha256(nextIndexBytes);
+
   fs.writeFileSync(manifestFile.absolute, canonicalJson(nextManifest));
-  fs.writeFileSync(evidenceIndex.absolute, canonicalJson(nextIndex));
+  fs.writeFileSync(evidenceIndex.absolute, nextIndexBytes);
   process.stdout.write(
     `Binding phase written for evidence commit ${evidenceCommit}. Commit only the Manifest and evidence index, then run Promotion validation.\n`
   );
@@ -326,7 +329,7 @@ function main() {
   const targetCommit = resolveCommit(options.target, "Target baseline");
   const headCommit = resolveCommit("HEAD", "HEAD");
   assertAncestor(targetCommit, headCommit, "Target baseline");
-  if (manifest.targetBaselineCommit === targetCommit) {
+  if (manifest.targetBaselineCommit === targetCommit && !options.writeBindings) {
     process.stdout.write(`Baseline already points at ${targetCommit}. Nothing to do.\n`);
     return;
   }

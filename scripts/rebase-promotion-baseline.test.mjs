@@ -69,3 +69,11 @@ test("binding mode bypasses phase-one stale Manifest hash validation", () => {
     /writeBindingPhase\(options, manifestFile, manifest, targetCommit, evidenceIndex\);[\s\S]*return;/u
   );
 });
+
+test("binding mode refreshes the Manifest digest for the rewritten evidence index", () => {
+  const source = fs.readFileSync(script, "utf8");
+  assert.match(source, /const nextIndexBytes = Buffer\.from\(canonicalJson\(nextIndex\), "utf8"\);/u);
+  assert.match(source, /nextManifest\.evidenceIndex\.rawSha256 = sha256\(nextIndexBytes\);/u);
+  assert.match(source, /fs\.writeFileSync\(evidenceIndex\.absolute, nextIndexBytes\);/u);
+  assert.match(source, /manifest\.targetBaselineCommit === targetCommit && !options\.writeBindings/u);
+});
