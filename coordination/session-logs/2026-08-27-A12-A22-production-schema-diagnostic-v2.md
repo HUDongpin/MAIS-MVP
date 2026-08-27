@@ -58,3 +58,27 @@ runtime dependency policy is unchanged and can be retained without a policy
 refresh. Candidate content bytes, live-content reachability, and the
 fail-closed `liveAllowed: false` posture remain unchanged. This diagnostic is
 read-only and cannot authorize a schema mutation or production deployment.
+
+## Loader-position-preserving re-affirmation justification
+
+The first generated revision above remains append-only but is not eligible for
+workflow selection: validation correctly detected that inserting the new
+inspector before the existing legacy JSON `readFile` call changed that
+allowlisted callsite's byte position. The call count, callee, source path,
+argument shape, normalized expression digest, and read-only policy were
+unchanged, but the frozen policy intentionally rejected the positional drift.
+
+The implementation was therefore laid out again without weakening the policy:
+the original inspector and the existing allowlisted `readFile` call retain
+their original source bytes and position, and the new read-only evidence
+inspector is declared after that callsite. The exact new implementation target
+is `ee3cf01c506562ffd330fb3b8887b37f85094d90`. The new append-only revision
+root is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-layout-20260827`.
+
+The exact independent re-affirming roles are A21, A18, A23, A04, A05, A11,
+A22, A24, and A25. Protected runtime scope remains only
+`lib/server/userStore.ts`, protected test scope remains only
+`lib/server/userStoreNovaPostgresIntegration.test.ts`, candidate content bytes
+remain unchanged, and `liveAllowed: false` remains mandatory. No policy
+refresh or reviewed-policy exception is requested.
