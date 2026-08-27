@@ -421,6 +421,27 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   assert.equal(installingAppStorage.appStorageState, "empty");
   assert.deepEqual(installingAppStorage.operations, ["app-storage-install-v1"]);
 
+  const completingAppStorageReadiness = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-no-readiness-marker",
+      operations: ["app-storage-complete-readiness-v1"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    completingAppStorageReadiness.appStorageState,
+    "legacy-no-readiness-marker"
+  );
+  assert.deepEqual(
+    completingAppStorageReadiness.operations,
+    ["app-storage-complete-readiness-v1"]
+  );
+
   assert.throws(
     () => parseTeacherNoticeProductionSchemaGateEvidence(
       JSON.stringify({

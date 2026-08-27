@@ -780,8 +780,8 @@ test("trigger attestation uses exact PostgreSQL 16 definitions for OLD and NEW p
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   const invalidationProbe = sourceSection(
     source,
-    "async function postgresStorageReadinessInvalidationIsComplete(",
-    "async function postgresStorageReadinessMarkerIsCurrent("
+    "async function postgresStorageTriggerContractsAreComplete(",
+    "async function postgresStorageReadinessInvalidationIsComplete("
   );
   assert.match(
     invalidationProbe,

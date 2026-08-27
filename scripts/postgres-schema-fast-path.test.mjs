@@ -108,7 +108,7 @@ test("userStore wires the migration marker probe ahead of the schema bootstrap",
   assert.match(userStoreSource, /FROM public\.auth_schema_migrations\s+WHERE version = \$\{hotAuthSchemaVersion\}/);
   const catalogProbeStart = userStoreSource.indexOf("/* postgres_storage_readiness_catalog_probe */");
   const catalogProbeEnd = userStoreSource.indexOf(
-    "async function postgresStorageReadinessMarkerIsCurrent",
+    "async function postgresStoragePhysicalRelationsAreCanonical",
     catalogProbeStart
   );
   const catalogProbeSource = userStoreSource.slice(catalogProbeStart, catalogProbeEnd);
@@ -161,7 +161,7 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   const bootstrapSource = sourceSection(
     userStoreSource,
     "async function bootstrapPostgresStateTables()",
-    "const ensurePostgresStateTable"
+    "async function completePostgresStorageReadinessMarkerOnClient("
   );
   const defaultLockTimeout = bootstrapSource.indexOf('lockTimeout: "1000ms"');
   const defaultStatementTimeout = bootstrapSource.indexOf('statementTimeout: "5000ms"');
@@ -170,7 +170,7 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   const advisoryLock = bootstrapSource.indexOf("pg_advisory_xact_lock");
   const appStateTable = bootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state (");
   const readinessMarkerTable = bootstrapSource.indexOf(
-    "CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers"
+    "installPostgresStorageReadinessMarkerContract"
   );
   const hotAuthTable = bootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.auth_users");
   const authMigrationTable = bootstrapSource.indexOf(
@@ -226,7 +226,7 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   assert.equal(
     (userStoreSource.match(/CREATE TABLE IF NOT EXISTS public\.app_state_readiness_markers/g) ?? []).length,
     1,
-    "readiness marker DDL must exist only in canonical bootstrap"
+    "readiness marker DDL must exist only in the shared canonical installer"
   );
   assert.doesNotMatch(
     bootstrapSource,
@@ -255,10 +255,15 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   assert.match(userStoreSource, /attestValidatedPostgresStorageSnapshot\(/);
 });
 
-test("production schema gate reuses the canonical bootstrap with an empty-state lock and strict postflight", () => {
+test("production schema gate keeps empty install and legacy marker completion separately locked and strict", () => {
   const canonicalBootstrapSource = sourceSection(
     userStoreSource,
     "async function bootstrapPostgresStateTablesOnClient(",
+    "async function completePostgresStorageReadinessMarkerOnClient("
+  );
+  const legacyCompletionSource = sourceSection(
+    userStoreSource,
+    "async function completePostgresStorageReadinessMarkerOnClient(",
     "const ensurePostgresStateTable"
   );
   const inspectSource = sourceSection(
@@ -279,6 +284,35 @@ test("production schema gate reuses the canonical bootstrap with an empty-state 
   assert.notEqual(emptyStateCheck, -1);
   assert.notEqual(firstDdl, -1);
   assert.equal(exclusiveLock < emptyStateCheck && emptyStateCheck < firstDdl, true);
+
+  const legacyExclusiveLock = legacyCompletionSource.indexOf(
+    "postgres_storage_contract_exclusive_advisory_lock"
+  );
+  const legacyStateCheck = legacyCompletionSource.indexOf(
+    "postgres_storage_production_gate_legacy_readiness_check"
+  );
+  const legacyMarkerInstall = legacyCompletionSource.indexOf(
+    "installPostgresStorageReadinessMarkerContract"
+  );
+  const legacyAttestation = legacyCompletionSource.indexOf(
+    "attestValidatedPostgresStorageSnapshot"
+  );
+  assert.notEqual(legacyExclusiveLock, -1);
+  assert.notEqual(legacyStateCheck, -1);
+  assert.notEqual(legacyMarkerInstall, -1);
+  assert.notEqual(legacyAttestation, -1);
+  assert.equal(
+    legacyExclusiveLock < legacyStateCheck
+      && legacyStateCheck < legacyMarkerInstall
+      && legacyMarkerInstall < legacyAttestation,
+    true
+  );
+  assert.doesNotMatch(
+    legacyCompletionSource,
+    /CREATE TABLE IF NOT EXISTS public\.(?!app_state_readiness_markers)/u
+  );
+  assert.doesNotMatch(legacyCompletionSource, /\b(?:ALTER|DROP) TABLE\b/iu);
+  assert.doesNotMatch(legacyCompletionSource, /\bUPDATE public\.app_state\b/iu);
   assert.match(inspectSource, /REPEATABLE READ, READ ONLY/u);
   assert.match(inspectSource, /acquirePostgresStorageContractSharedAdvisoryLock/u);
   assert.match(inspectSource, /postgresStorageReadinessCatalogIsComplete/u);
@@ -286,45 +320,46 @@ test("production schema gate reuses the canonical bootstrap with an empty-state 
   assert.doesNotMatch(inspectSource, /\b(?:CREATE|ALTER|DROP|INSERT|UPDATE|DELETE)\b/iu);
   assert.match(`${inspectSource}\n${applySource}`, /MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE/u);
   assert.match(`${inspectSource}\n${applySource}`, /GITHUB_REF_PROTECTED/u);
-  assert.match(applySource, /expectedState: "empty"/u);
+  assert.match(applySource, /expectedState/u);
+  assert.match(applySource, /legacy-no-readiness-marker/u);
   assert.match(applySource, /bootstrapPostgresStateTablesOnClient/u);
+  assert.match(applySource, /completePostgresStorageReadinessMarkerOnClient/u);
   assert.match(applySource, /postflightState !== "exact"/u);
 });
 
-test("canonical bootstrap installs one transactional marker invalidation trigger with a locked-down function", () => {
-  const bootstrapSource = sourceSection(
+test("shared canonical marker installer creates one transactional invalidation trigger with a locked-down function", () => {
+  const markerInstallerSource = sourceSection(
     userStoreSource,
-    "async function bootstrapPostgresStateTables()",
-    "const ensurePostgresStateTable"
+    "async function installPostgresStorageReadinessMarkerContract(",
+    "type PostgresStorageBootstrapExpectedState"
   );
-  const markerTableIndex = bootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers");
-  const functionIndex = bootstrapSource.indexOf(
+  const markerTableIndex = markerInstallerSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers");
+  const functionIndex = markerInstallerSource.indexOf(
     "CREATE OR REPLACE FUNCTION public.invalidate_app_state_readiness_marker()"
   );
-  const triggerIndex = bootstrapSource.indexOf("CREATE TRIGGER app_state_readiness_invalidate");
-  const firstPayloadMutationIndex = bootstrapSource.indexOf("UPDATE public.app_state");
+  const triggerIndex = markerInstallerSource.indexOf("CREATE TRIGGER app_state_readiness_invalidate");
 
   assert.notEqual(markerTableIndex, -1);
   assert.equal(markerTableIndex < functionIndex, true);
   assert.equal(functionIndex < triggerIndex, true);
-  assert.equal(triggerIndex < firstPayloadMutationIndex, true);
   assert.match(
-    bootstrapSource,
+    markerInstallerSource,
     /CREATE OR REPLACE FUNCTION public\.invalidate_app_state_readiness_marker\(\)\s+RETURNS trigger\s+LANGUAGE plpgsql\s+VOLATILE\s+SECURITY INVOKER\s+SET search_path = pg_catalog, public/iu
   );
   assert.match(
-    bootstrapSource,
+    markerInstallerSource,
     /IF TG_OP = 'UPDATE' THEN[\s\S]*DELETE FROM public\.app_state_readiness_markers\s+WHERE state_id IN \(OLD\.id, NEW\.id\);[\s\S]*ELSE[\s\S]*WHERE state_id = NEW\.id;[\s\S]*RETURN NEW;/iu
   );
   assert.match(
-    bootstrapSource,
+    markerInstallerSource,
     /CREATE TRIGGER app_state_readiness_invalidate\s+AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version\s+ON public\.app_state\s+FOR EACH ROW\s+EXECUTE FUNCTION public\.invalidate_app_state_readiness_marker\(\)/iu
   );
   assert.equal(
-    (bootstrapSource.match(/CREATE TRIGGER app_state_readiness_invalidate/g) ?? []).length,
+    (markerInstallerSource.match(/CREATE TRIGGER app_state_readiness_invalidate/g) ?? []).length,
     1,
     "there must be one canonical invalidation trigger DDL path"
   );
+  assert.doesNotMatch(markerInstallerSource, /\bUPDATE public\.app_state\b/iu);
   assert.match(userStoreSource, /\/\* postgres_storage_readiness_invalidation_probe \*\//);
 });
 

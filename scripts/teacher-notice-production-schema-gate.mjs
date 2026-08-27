@@ -40,7 +40,12 @@ import {
 import { MAIS_GITHUB_REPOSITORY } from "./github-candidate-checks.mjs";
 
 const outboxStates = new Set(["empty", "exact", "partial"]);
-const appStorageStates = new Set(["empty", "exact", "partial"]);
+const appStorageStates = new Set([
+  "empty",
+  "legacy-no-readiness-marker",
+  "exact",
+  "partial"
+]);
 const appStorageSeedModes = new Set([
   "demo-disabled",
   "demo-enabled",
@@ -156,6 +161,9 @@ export function buildTeacherNoticeProductionSchemaPlan({
   }
   const operations = [];
   if (appStorageState === "empty") operations.push("app-storage-install-v1");
+  if (appStorageState === "legacy-no-readiness-marker") {
+    operations.push("app-storage-complete-readiness-v1");
+  }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
   if (webhookState === "empty") operations.push("webhook-install-v3");
@@ -975,11 +983,15 @@ export async function applyMaisProductionSchemaOperations(
   if (!client || typeof client.begin !== "function" || !Array.isArray(operations)) {
     throw new Error("MAIS production schema client was rejected.");
   }
+  const appStorageOperationExpectedStates = new Map([
+    ["app-storage-install-v1", "empty"],
+    ["app-storage-complete-readiness-v1", "legacy-no-readiness-marker"]
+  ]);
   const appOperationIndexes = operations
-    .map((operation, index) => operation === "app-storage-install-v1" ? index : -1)
+    .map((operation, index) => appStorageOperationExpectedStates.has(operation) ? index : -1)
     .filter((index) => index >= 0);
   const teacherNoticeOperations = operations.filter(
-    (operation) => operation !== "app-storage-install-v1"
+    (operation) => !appStorageOperationExpectedStates.has(operation)
   );
   const allowedTeacherNoticeOperations = new Set([
     "outbox-install-v2",
@@ -1009,9 +1021,14 @@ export async function applyMaisProductionSchemaOperations(
     throw new Error("MAIS production schema apply dependency was rejected.");
   }
   if (appOperationIndexes.length === 1) {
+    const appStorageOperation = operations[appOperationIndexes[0]];
+    const expectedState = appStorageOperationExpectedStates.get(appStorageOperation);
+    if (!expectedState) {
+      throw new Error("MAIS production schema operation plan was rejected.");
+    }
     await withTemporaryProductionAppStorageEnvironment(
       productionEnvironment,
-      () => applyAppStorageSchema(client)
+      () => applyAppStorageSchema(client, expectedState)
     );
   }
   if (teacherNoticeOperations.length > 0) {
