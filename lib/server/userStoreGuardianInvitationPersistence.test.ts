@@ -1074,7 +1074,7 @@ test("legacy userStore persists guardian invitations as a first-class snapshot c
 
   assert.match(
     rootSource,
-    /databaseNeedsPersistenceSync\(parsed, database, \{\s*allowGuardianInvitationSanitization: true\s*\}\)/u,
+    /databaseNeedsPersistenceSync\(\s*parsed,\s*database,\s*\{\s*allowGuardianInvitationSanitization:\s*true\s*\}\s*\)/u,
     "only Postgres snapshot completeness may accept a safely normalized guardian invitation array"
   );
   assert.match(

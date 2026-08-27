@@ -1000,11 +1000,65 @@ test(
           await sql`DROP DOMAIN public.integration_hot_auth_text`;
         }
 
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-diagnose-partial"),
+          { component: "state-changed" },
+          "an exact legacy snapshot must be reported as state-changed, never as a deployable plan"
+        );
+
+        const canonicalLegacyState = await readState(sql);
+        const restoreCanonicalLegacyState = async () => {
+          await sql`
+            UPDATE public.app_state
+            SET
+              payload = ${sql.json(postgresJson(canonicalLegacyState.payload))}::jsonb,
+              revision = ${canonicalLegacyState.revision}
+            WHERE id = 'primary'
+          `;
+        };
+        const assertCanonicalLegacyStateRestored = async () => {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-inspect"),
+            { state: "legacy-no-readiness-marker" }
+          );
+          assert.deepEqual(await readStateEvidence(sql), before);
+        };
+        await assertCanonicalLegacyStateRestored();
+
+        await sql`
+          INSERT INTO public.app_state (
+            id,
+            tenant_id,
+            state_kind,
+            schema_version,
+            revision,
+            payload,
+            updated_at
+          ) VALUES (
+            'integration-snapshot-row-drift',
+            'platform',
+            'app-snapshot',
+            1,
+            1,
+            ${sql.json(postgresJson(canonicalLegacyState.payload))}::jsonb,
+            NOW()
+          )
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-row-contract" }
+          );
+        } finally {
+          await sql`DELETE FROM public.app_state WHERE id = 'integration-snapshot-row-drift'`;
+        }
+        await assertCanonicalLegacyStateRestored();
+
         await sql`UPDATE public.app_state SET revision = 0 WHERE id = 'primary'`;
         try {
           assert.deepEqual(
             await runSuccessfulWorker("production-schema-diagnose-partial"),
-            { component: "legacy-snapshot-contract" }
+            { component: "legacy-snapshot-revision-contract" }
           );
         } finally {
           await sql`
@@ -1013,6 +1067,103 @@ test(
             WHERE id = 'primary'
           `;
         }
+        await assertCanonicalLegacyStateRestored();
+
+        try {
+          await sql`
+            ALTER TABLE public.app_state
+            DISABLE TRIGGER app_state_ai_tutor_compatibility
+          `;
+          await sql`UPDATE public.app_state SET payload = '[]'::jsonb WHERE id = 'primary'`;
+          await sql`
+            ALTER TABLE public.app_state
+            ENABLE TRIGGER app_state_ai_tutor_compatibility
+          `;
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-root-contract" }
+          );
+        } finally {
+          try {
+            await restoreCanonicalLegacyState();
+          } finally {
+            await sql`
+              ALTER TABLE public.app_state
+              ENABLE TRIGGER app_state_ai_tutor_compatibility
+            `;
+          }
+        }
+        await assertCanonicalLegacyStateRestored();
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = payload - 'users'
+          WHERE id = 'primary'
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-core-contract" }
+          );
+        } finally {
+          await restoreCanonicalLegacyState();
+        }
+        await assertCanonicalLegacyStateRestored();
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = pg_catalog.jsonb_set(
+            payload,
+            '{guardian_links}',
+            '{}'::jsonb,
+            false
+          )
+          WHERE id = 'primary'
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-critical-collections-contract" }
+          );
+        } finally {
+          await restoreCanonicalLegacyState();
+        }
+        await assertCanonicalLegacyStateRestored();
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = pg_catalog.jsonb_set(
+            payload,
+            '{users}',
+            '[null]'::jsonb,
+            false
+          )
+          WHERE id = 'primary'
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-normalization-contract" }
+          );
+        } finally {
+          await restoreCanonicalLegacyState();
+        }
+        await assertCanonicalLegacyStateRestored();
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = payload - 'questions'
+          WHERE id = 'primary'
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-persistence-sync-contract" }
+          );
+        } finally {
+          await restoreCanonicalLegacyState();
+        }
+        await assertCanonicalLegacyStateRestored();
 
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-complete-legacy"),
