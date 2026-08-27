@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "promotion-attempt-disposition.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-007",
+  "producedAt": "2026-08-27T00:00:00+08:00",
+  "producedBy": "Automated validation readback from the i18n/ca-translation-scaffold session. This record states only the reproducible output of the validation command below. It is NOT an owner role sign-off and asserts no independent review.",
+  "phase": "git-baseline-validation-before-shadow",
+  "result": "repair_required",
+  "reasonCode": "V2_TARGET_BASELINE_DRIFT",
+  "reason": "Live/runtime paths moved after the evidence-bound target baseline 14a041f372. The frozen attempt-007 Manifest, evidence index and nine owner evidence files remain immutable and cannot be re-bound in place. The drift is not a defect in the candidate package: it is ordinary repository progress on protected roots since the baseline was frozen.",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+    "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61",
+    "executionCommit": "283e962c912100dc14c1f12af78f1b133b40adf6"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "checkerVersion": "promotion-gate-shadow-v2.6"
+  },
+  "validationProof": {
+    "command": "npm --silent run promotion:validate -- --manifest coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json --json",
+    "result": "blocked",
+    "exitCode": 2,
+    "reasonCode": "V2_TARGET_BASELINE_DRIFT",
+    "changedPathCount": 6,
+    "changedPathsDigest": "25b0766ffcbdf0c6f82e420d563751d167d4e6439258ec5f1237f52b537a77ef"
+  },
+  "driftingPaths": [
+    "data/generated-content/ccss-textbook-practice-v1/question-pack.json",
+    "data/generated-content/ccss-textbook-source-v1/source.json",
+    "data/generated-content/ccss-textbook-source-v1/translation-overrides.json",
+    "data/generated-content/ccss-textbook-source-v1/translations.json",
+    "data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json",
+    "data/generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json"
+  ],
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "rejected",
+    "shadowExecuted": true,
+    "receiptProduced": true,
+    "receiptReuseAllowed": false,
+    "manifestOverwriteAllowed": false,
+    "replacementAttemptId": null,
+    "recommendedDisposition": "close-pilot"
+  },
+  "recommendationRationale": [
+    "The finalization library already hardcodes this attempt as the closure target (coordination/integration/finalization/promotion-shadow-finalization-v2-lib.mjs:21-23 names attempt-007 shadow-closure.v2.json and lifecycle-registry.v2.json), so closure — not a further attempt — is the designed next step.",
+    "The unit is shadow-only: liveAllowed, integrationAllowed, previewAllowed and deployAllowed are all false, so no student-facing surface depends on it.",
+    "Its own knownBlockers record LIVE_LOCALIZATION_MISSING, LIVE_INTEGRATION_UNPROVEN and LIVE_RELEASE_UNPROVEN, none of which is closed.",
+    "Three consecutive attempts have failed without reaching shadow_passed: 005 V2_TARGET_BASELINE_DRIFT, 006 V2_GIT_ANCESTRY_INVALID, 007 V2_TARGET_BASELINE_DRIFT.",
+    "A replacement attempt-008 would require nine fresh owner evidence attestations (A21 A18 A23 A04 A05 A11 A22 A24 A25) each asserting result:pass. AGENTS.md:322 forbids bypassing that chain, so those attestations must be produced by their owning roles and were deliberately not authored here."
+  ],
+  "gateBlockingNote": "Closing this pilot does NOT clear the required promotion-shadow-gate check. The workflow validates a hardcoded PROMOTION_MANIFEST path on every pull_request with no paths filter and no conditional, and the gate does not consult the lifecycle registry. Any pull request touching protected live roots will keep failing until the required check is rescoped or removed. Observed blocking today on i18n/ca-translation-scaffold, codex/a12-a22-production-app-storage-schema-20260827 and codex/a12-auth-private-no-store-20260827.",
+  "parentPackageStatus": "candidate-only",
+  "liveAllowed": false,
+  "maturityClaim": "not-mature"
+}
