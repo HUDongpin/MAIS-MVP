@@ -183,3 +183,32 @@ source/target raw-SHA transition because that same path is in the reviewed
 runtime diff; the transition is recorded in the committed attestation and
 proof. Any anchor member replacement or raw transition outside a reviewed path
 still fails closed.
+
+## PR #205 checkpoint validation and release-governance binding (2026-08-28)
+
+After the complete local Promotion suite passed 93/93, the clean checkpoint
+`72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b` was pushed by ordinary
+fast-forward from remote checkpoint `dce3e2ee`; no force push was used. GitHub
+confirmed that PR #205 points to `72e36c5f` with seven commits and ten changed
+files.
+
+CI run `33107902686`, validate job `98642622099`, then exposed one exact
+release-governance contract failure. `package.json` intentionally added
+`scripts/rebase-promotion-baseline.test.mjs` to the formal
+`test:promotion-gate` command, but the audited aggregate command-body digest in
+`scripts/release-governance.test.mjs` still described the prior command. The
+job and a local focused reproduction both observed:
+
+- actual digest: `55a00f5813743ffc5cf24f314736fba9e0ef72d3091639d2ebfb55ab7957268a`;
+- previous reviewed digest: `8a59d333637faf9b9507733d8680b0cfc1dd323291193567beacbaafa0c55530`;
+- assertion: `Reviewed command bodies must remain exact`.
+
+A10/A11 fixed only that explicit review contract: the exact new
+`test:promotion-gate` command is now also listed readably in
+`expectedP0Scripts`, and the aggregate digest is updated to the independently
+observed value. No package-lock, runtime, workflow, frozen Promotion checker,
+or production path changed. The focused regression passed 1/1 and the complete
+release-governance suite passed 91/91 executable tests with 11 intentional
+skips. The Promotion template test requires a clean worktree by design, so the
+full 93-test Promotion suite is rerun only after this exact governance update
+is committed.

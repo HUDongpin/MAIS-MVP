@@ -3136,6 +3136,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
     "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
+    "test:promotion-gate":
+      "node --test --test-concurrency=1 coordination/integration/v2/promotion-gate-v2.test.mjs coordination/integration/finalization/promotion-shadow-finalization-v2.test.mjs scripts/rebase-promotion-baseline.test.mjs scripts/promotion-shadow-workflow-v2.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
   const expectedParentDeliveryAndReadinessScripts = {
@@ -3255,7 +3257,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "8a59d333637faf9b9507733d8680b0cfc1dd323291193567beacbaafa0c55530",
+    "55a00f5813743ffc5cf24f314736fba9e0ef72d3091639d2ebfb55ab7957268a",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
