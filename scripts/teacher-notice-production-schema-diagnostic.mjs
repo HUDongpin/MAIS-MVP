@@ -92,7 +92,7 @@ const hotAuthRequiredColumns = Object.freeze([
   { table: "auth_password_reset_tokens", column: "created_at", type: "text", nullable: false, primaryKey: ["id"] }
 ]);
 
-const legacySnapshotRequiredArrayKeys = Object.freeze([
+export const legacySnapshotRequiredArrayKeys = Object.freeze([
   "adaptive_recommendation_cache",
   "adaptive_skill_state",
   "ai_governance_events",
@@ -163,7 +163,7 @@ const legacySnapshotRequiredArrayKeys = Object.freeze([
   "visualization_events",
   "visualization_sessions"
 ]);
-const legacySnapshotRequiredObjectKeys = Object.freeze(["nova_lens_policy"]);
+export const legacySnapshotRequiredObjectKeys = Object.freeze(["nova_lens_policy"]);
 
 export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "relation-set",
@@ -173,6 +173,7 @@ export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "legacy-hot-auth-contract",
   "legacy-readiness-artifact",
   "legacy-snapshot-contract",
+  "legacy-snapshot-required-collections",
   "legacy-snapshot-malformed-collections",
   "legacy-snapshot-missing-collections",
   "legacy-snapshot-record-contract",

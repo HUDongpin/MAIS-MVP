@@ -6,10 +6,13 @@ import {
   applyMaisProductionSchemaOperations,
   assertTeacherNoticeProductionSchemaConfirmation,
   applyTeacherNoticeProductionSchema,
+  buildPostgresStorageMissingCollectionRepair,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   preflightTeacherNoticeProductionSchema,
+  postgresStorageProductionRequiredArrayKeys,
+  repairPostgresStorageMissingCollectionsForProductionGate,
   teacherNoticeProductionSchemaFailureComponent,
   teacherNoticeProductionSchemaFailureReason,
   teacherNoticeProductionSchemaFailureStage
@@ -52,6 +55,115 @@ test("legacy snapshot diagnostics expose only a fixed schema-shape component", a
     payload_type: "object",
     revision_valid: true
   }]), "legacy-snapshot-record-contract");
+});
+
+test("missing-collection repair adds only safe empty collections and fails closed", async () => {
+  const store = await import("../lib/server/userStore.ts");
+  const complete = store.__userStorePostgresStorageReadinessTestHooks
+    .createCompleteSnapshot();
+  assert.deepEqual(
+    Object.entries(complete)
+      .filter(([, value]) => Array.isArray(value))
+      .map(([key]) => key)
+      .sort(),
+    [...postgresStorageProductionRequiredArrayKeys].sort(),
+    "production marker admission must cover every current snapshot array"
+  );
+  const safeMissing = structuredClone(complete);
+  delete safeMissing.teacher_notice_delivery_attempts;
+  const repaired = buildPostgresStorageMissingCollectionRepair(safeMissing);
+  assert.ok(repaired);
+  assert.equal(repaired.addedCollectionCount, 1);
+  assert.deepEqual(repaired.payload.teacher_notice_delivery_attempts, []);
+  for (const [key, value] of Object.entries(safeMissing)) {
+    assert.deepEqual(repaired.payload[key], value, `${key} must be preserved`);
+  }
+  assert.equal(store.postgresStorageSnapshotContractIsComplete(repaired.payload), true);
+
+  for (const highRiskKey of [
+    "ai_tutor_messages",
+    "ai_tutor_usage",
+    "class_ai_tutor_policies",
+    "class_enrollments",
+    "password_reset_tokens",
+    "student_profiles",
+    "teacher_classes",
+    "user_settings",
+    "users"
+  ]) {
+    const highRiskOnlyMissing = structuredClone(complete);
+    delete highRiskOnlyMissing[highRiskKey];
+    assert.equal(
+      buildPostgresStorageMissingCollectionRepair(highRiskOnlyMissing),
+      null,
+      `${highRiskKey} must be present even without another missing key`
+    );
+    const highRiskMissing = structuredClone(complete);
+    delete highRiskMissing.teacher_notice_delivery_attempts;
+    delete highRiskMissing[highRiskKey];
+    assert.equal(
+      buildPostgresStorageMissingCollectionRepair(highRiskMissing),
+      null,
+      `${highRiskKey} must never be synthesized or ignored`
+    );
+  }
+
+  for (const nonRepairableKey of [
+    "assessment_submissions",
+    "forum_threads",
+    "guardian_links",
+    "reward_point_ledger",
+    "submissions",
+    "teacher_messages"
+  ]) {
+    const nonRepairableMissing = structuredClone(complete);
+    delete nonRepairableMissing.teacher_notice_delivery_attempts;
+    delete nonRepairableMissing[nonRepairableKey];
+    assert.equal(
+      buildPostgresStorageMissingCollectionRepair(nonRepairableMissing),
+      null,
+      `${nonRepairableKey} has no independent empty-state proof`
+    );
+  }
+  const missingPolicy = structuredClone(complete);
+  delete missingPolicy.teacher_notice_delivery_attempts;
+  delete missingPolicy.nova_lens_policy;
+  assert.equal(buildPostgresStorageMissingCollectionRepair(missingPolicy), null);
+
+  const malformed = structuredClone(complete);
+  malformed.teacher_notice_delivery_attempts = {};
+  assert.equal(buildPostgresStorageMissingCollectionRepair(malformed), null);
+  assert.equal(buildPostgresStorageMissingCollectionRepair(complete), null);
+});
+
+test("missing-collection mutator ignores a caller-forged production environment", { concurrency: false }, async () => {
+  const originalNodeEnvironment = process.env.NODE_ENV;
+  process.env.NODE_ENV = "production";
+  let began = false;
+  try {
+    await assert.rejects(
+      repairPostgresStorageMissingCollectionsForProductionGate(
+        {
+          begin: async () => {
+            began = true;
+            throw new Error("must not begin");
+          }
+        },
+        {
+          environment: {
+            ...injectedProductionEnvironment(),
+            MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE:
+              "github-actions-serialized-v1"
+          }
+        }
+      ),
+      /execution context/u
+    );
+    assert.equal(began, false);
+  } finally {
+    if (originalNodeEnvironment === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = originalNodeEnvironment;
+  }
 });
 
 function injectedProductionEnvironment(overrides = {}) {
@@ -279,6 +391,15 @@ test("builds the exact production migration plan from independently attested sch
     }),
     ["app-storage-upgrade-legacy-compat-readiness-v2"]
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-missing-collections-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-repair-missing-collections-v1"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       appStorageState: "exact",
@@ -321,7 +442,28 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   const originalPassword = process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
   delete process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
   const stages = [];
-  const client = { begin: async () => undefined };
+  let requiredCollectionsComplete = true;
+  let client;
+  client = Object.assign(
+    async (strings) => {
+      const query = Array.isArray(strings) ? strings.join("") : "";
+      if (query.includes("postgres_storage_required_collection_inspection")) {
+        return [{ requiredCollectionsComplete }];
+      }
+      if (query.includes("postgres_storage_contract_session_advisory_lock")) {
+        return [{ backendPid: "12345" }];
+      }
+      if (query.includes("pg_advisory_unlock")) {
+        return [{ backendPid: "12345", released: true }];
+      }
+      return [];
+    },
+    {
+      begin: async (...args) => args.at(-1)(client),
+      options: { max: 1 },
+      unsafe: async () => []
+    }
+  );
   const productionEnvironment = {
     HK_MATH_ENABLE_DEMO_USER: "false",
     HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
@@ -399,6 +541,27 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   );
   assert.deepEqual(legacyStages, ["app-storage-readiness"]);
 
+  requiredCollectionsComplete = false;
+  let unsafeMarkerApplyReached = false;
+  await assert.rejects(
+    applyMaisProductionSchemaOperations(
+      client,
+      ["app-storage-complete-readiness-v1"],
+      productionEnvironment,
+      {
+        applyAppStorageSchema: async () => {
+          unsafeMarkerApplyReached = true;
+        },
+        applyTeacherNoticeSchema: async () => {
+          throw new Error("must not run");
+        }
+      }
+    ),
+    /operation plan/u
+  );
+  assert.equal(unsafeMarkerApplyReached, false);
+  requiredCollectionsComplete = true;
+
   const legacyV1Stages = [];
   await applyMaisProductionSchemaOperations(
     client,
@@ -419,6 +582,35 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     }
   );
   assert.deepEqual(legacyV1Stages, ["app-storage-legacy-v1-upgrade"]);
+
+  const missingCollectionStages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-repair-missing-collections-v1"],
+    productionEnvironment,
+    {
+      repairAppStorageMissingCollections: async (receivedClient) => {
+        assert.equal(receivedClient, client);
+        missingCollectionStages.push("app-storage-missing-collection-repair");
+        return "legacy-no-readiness-marker";
+      },
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(expectedState, "legacy-no-readiness-marker");
+        missingCollectionStages.push("app-storage-readiness-marker");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(
+    missingCollectionStages,
+    [
+      "app-storage-missing-collection-repair",
+      "app-storage-readiness-marker"
+    ]
+  );
 
   await assert.rejects(
     applyMaisProductionSchemaOperations(
@@ -515,6 +707,11 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
 test("preflight binds clean local Git, fixed Vercel production env, and read-only database evidence without leaking target identity", async () => {
   let connectedUrl = null;
   let closed = false;
+  const priorStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER;
+  const priorDemoSetting = process.env.HK_MATH_ENABLE_DEMO_USER;
+  const priorHotAuthSetting = process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES;
+  const priorSchemaGate = process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE;
+  const inspectedEnvironment = {};
   const evidence = await preflightTeacherNoticeProductionSchema({
     candidateSha,
     connectPostgres: async (url) => {
@@ -524,23 +721,29 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
     expectedTreeSha,
     env: injectedProductionEnvironment(),
     fetchJsonImpl: providerPullFetchJson(),
-    inspectDatabase: async () => ({
-      appStorageSeedMode: "demo-disabled",
-      appStorageState: "empty",
-      databaseIdentity: {
-        databaseName: "secret-production",
-        databaseOid: "16401",
-        serverVersionNum: "160004"
-      },
-      heartbeatState: "empty",
-      outboxState: "empty",
-      statistics: {
-        indexBytes: "8192",
-        rowEstimate: "42",
-        tableBytes: "16384"
-      },
-      webhookState: "empty"
-    }),
+    inspectDatabase: async () => {
+      inspectedEnvironment.storageProvider = process.env.HK_MATH_STORAGE_PROVIDER;
+      inspectedEnvironment.demoSetting = process.env.HK_MATH_ENABLE_DEMO_USER;
+      inspectedEnvironment.hotAuthSetting = process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES;
+      inspectedEnvironment.schemaGate = process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE;
+      return {
+        appStorageSeedMode: "demo-disabled",
+        appStorageState: "empty",
+        databaseIdentity: {
+          databaseName: "secret-production",
+          databaseOid: "16401",
+          serverVersionNum: "160004"
+        },
+        heartbeatState: "empty",
+        outboxState: "empty",
+        statistics: {
+          indexBytes: "8192",
+          rowEstimate: "42",
+          tableBytes: "16384"
+        },
+        webhookState: "empty"
+      };
+    },
     readTokenImpl: async () => "vct_test_token_value_1234567890",
     repoRoot: process.cwd(),
     runCommand: cleanGitRunner()
@@ -548,6 +751,16 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
 
   assert.equal(connectedUrl, productionUrl);
   assert.equal(closed, true);
+  assert.deepEqual(inspectedEnvironment, {
+    demoSetting: "false",
+    hotAuthSetting: "true",
+    schemaGate: "github-actions-serialized-v1",
+    storageProvider: "postgres"
+  });
+  assert.equal(process.env.HK_MATH_STORAGE_PROVIDER, priorStorageProvider);
+  assert.equal(process.env.HK_MATH_ENABLE_DEMO_USER, priorDemoSetting);
+  assert.equal(process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES, priorHotAuthSetting);
+  assert.equal(process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE, priorSchemaGate);
   assert.equal(evidence.outboxState, "empty");
   assert.equal(evidence.appStorageState, "empty");
   assert.equal(evidence.appStorageSeedMode, "demo-disabled");
@@ -1040,6 +1253,7 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
       "legacy-relation-contract",
       "legacy-readiness-artifact",
       "legacy-snapshot-contract",
+      "legacy-snapshot-required-collections",
       "legacy-snapshot-malformed-collections",
       "legacy-snapshot-missing-collections",
       "legacy-snapshot-record-contract",
