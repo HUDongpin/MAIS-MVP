@@ -88,6 +88,11 @@ export const postgresStorageProductionRequiredArrayKeys = Object.freeze([
 const postgresStorageMissingCollectionRepairableArrayKeys = new Set([
   "teacher_notice_delivery_attempts"
 ]);
+const postgresStorageCollectionGapStatuses = new Set([
+  "exact",
+  "malformed",
+  "missing"
+]);
 const sha1Pattern = /^[a-f0-9]{40}$/u;
 const sha256Pattern = /^[a-f0-9]{64}$/u;
 const aggregatePattern = /^(?:0|[1-9][0-9]{0,29})$/u;
@@ -170,6 +175,119 @@ export function buildPostgresStorageMissingCollectionRepair(
   return Object.freeze({
     addedCollectionCount,
     payload: Object.freeze(repaired)
+  });
+}
+
+function classifyPostgresStorageCollectionRows(rows, expectedKeys) {
+  if (!Array.isArray(rows) || rows.length !== expectedKeys.length) {
+    throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+  }
+  const expected = new Set(expectedKeys);
+  const seen = new Set();
+  const malformed = [];
+  const missing = [];
+  for (const row of rows) {
+    if (
+      typeof row !== "object"
+      || row === null
+      || Array.isArray(row)
+      || JSON.stringify(Object.keys(row).sort()) !== JSON.stringify(["key", "status"])
+      || typeof row.key !== "string"
+      || !expected.has(row.key)
+      || seen.has(row.key)
+      || !postgresStorageCollectionGapStatuses.has(row.status)
+    ) {
+      throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+    }
+    seen.add(row.key);
+    if (row.status === "malformed") malformed.push(row.key);
+    if (row.status === "missing") missing.push(row.key);
+  }
+  if (seen.size !== expected.size) {
+    throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+  }
+  return {
+    malformed: Object.freeze(malformed.sort()),
+    missing: Object.freeze(missing.sort())
+  };
+}
+
+export function buildPostgresStorageCollectionGapDiagnostic({
+  arrayRows,
+  objectRows
+}) {
+  const arrays = classifyPostgresStorageCollectionRows(
+    arrayRows,
+    postgresStorageProductionRequiredArrayKeys
+  );
+  const objects = classifyPostgresStorageCollectionRows(
+    objectRows,
+    legacySnapshotRequiredObjectKeys
+  );
+  return Object.freeze({
+    malformedArrays: arrays.malformed,
+    malformedObjects: objects.malformed,
+    missingArrays: arrays.missing,
+    missingObjects: objects.missing
+  });
+}
+
+function validatePostgresStorageCollectionGapDiagnostic(value) {
+  if (
+    typeof value !== "object"
+    || value === null
+    || Array.isArray(value)
+    || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify([
+      "malformedArrays",
+      "malformedObjects",
+      "missingArrays",
+      "missingObjects"
+    ])
+  ) {
+    throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+  }
+  const validateKeys = (keys, expectedKeys) => {
+    if (!Array.isArray(keys)) {
+      throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+    }
+    const expected = new Set(expectedKeys);
+    const unique = new Set(keys);
+    if (
+      keys.some((key) => typeof key !== "string" || !expected.has(key))
+      || unique.size !== keys.length
+      || JSON.stringify(keys) !== JSON.stringify([...keys].sort())
+    ) {
+      throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+    }
+    return Object.freeze([...keys]);
+  };
+  const malformedArrays = validateKeys(
+    value.malformedArrays,
+    postgresStorageProductionRequiredArrayKeys
+  );
+  const malformedObjects = validateKeys(
+    value.malformedObjects,
+    legacySnapshotRequiredObjectKeys
+  );
+  const missingArrays = validateKeys(
+    value.missingArrays,
+    postgresStorageProductionRequiredArrayKeys
+  );
+  const missingObjects = validateKeys(
+    value.missingObjects,
+    legacySnapshotRequiredObjectKeys
+  );
+  if (
+    malformedArrays.some((key) => missingArrays.includes(key))
+    || malformedObjects.some((key) => missingObjects.includes(key))
+  ) {
+    throw new Error("Postgres production collection-gap diagnostic contract was rejected.");
+  }
+  return Object.freeze({
+    malformedArrays,
+    malformedObjects,
+    missingArrays,
+    missingObjects
   });
 }
 
@@ -925,6 +1043,85 @@ export async function inspectPostgresStorageRequiredCollectionsForProductionGate
   });
 }
 
+export async function inspectPostgresStorageCollectionGapForProductionGate(
+  client
+) {
+  if (!client || typeof client.begin !== "function") {
+    throw new Error("Postgres production collection-gap diagnostic was rejected.");
+  }
+  return client.begin("isolation level repeatable read read only", async (sql) => {
+    await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
+    await sql.unsafe("SET LOCAL lock_timeout = '2000ms'");
+    await sql.unsafe("SET LOCAL statement_timeout = '15000ms'");
+    await sql.unsafe("SET LOCAL idle_in_transaction_session_timeout = '15000ms'");
+    await sql`SELECT pg_catalog.pg_advisory_xact_lock_shared(
+      pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+    )`;
+    const identityRows = await sql`
+      /* postgres_storage_collection_gap_identity */
+      SELECT
+        pg_catalog.jsonb_typeof(state.payload) AS "payloadType",
+        state.revision >= 1 AS "revisionValid",
+        (SELECT pg_catalog.count(*) FROM public.app_state)::int4 AS "rowCount"
+      FROM public.app_state AS state
+      WHERE state.id = ${postgresStorageStateIdentity.id}
+        AND state.tenant_id = ${postgresStorageStateIdentity.tenantId}
+        AND state.state_kind = ${postgresStorageStateIdentity.stateKind}
+        AND state.schema_version = ${postgresStorageStateIdentity.schemaVersion}
+    `;
+    if (
+      identityRows.length !== 1
+      || identityRows[0]?.payloadType !== "object"
+      || identityRows[0]?.revisionValid !== true
+      || identityRows[0]?.rowCount !== 1
+    ) {
+      throw new Error("Postgres production collection-gap diagnostic was rejected.");
+    }
+    const arrayRows = await sql`
+      /* postgres_storage_collection_gap_arrays */
+      SELECT required.key,
+        CASE
+          WHEN NOT (state.payload ? required.key) THEN 'missing'
+          WHEN pg_catalog.jsonb_typeof(state.payload -> required.key)
+            IS DISTINCT FROM 'array' THEN 'malformed'
+          ELSE 'exact'
+        END AS status
+      FROM public.app_state AS state
+      CROSS JOIN pg_catalog.unnest(
+        ${[...postgresStorageProductionRequiredArrayKeys]}::text[]
+      ) AS required(key)
+      WHERE state.id = ${postgresStorageStateIdentity.id}
+        AND state.tenant_id = ${postgresStorageStateIdentity.tenantId}
+        AND state.state_kind = ${postgresStorageStateIdentity.stateKind}
+        AND state.schema_version = ${postgresStorageStateIdentity.schemaVersion}
+      ORDER BY required.key
+    `;
+    const objectRows = await sql`
+      /* postgres_storage_collection_gap_objects */
+      SELECT required.key,
+        CASE
+          WHEN NOT (state.payload ? required.key) THEN 'missing'
+          WHEN pg_catalog.jsonb_typeof(state.payload -> required.key)
+            IS DISTINCT FROM 'object' THEN 'malformed'
+          ELSE 'exact'
+        END AS status
+      FROM public.app_state AS state
+      CROSS JOIN pg_catalog.unnest(
+        ${[...legacySnapshotRequiredObjectKeys]}::text[]
+      ) AS required(key)
+      WHERE state.id = ${postgresStorageStateIdentity.id}
+        AND state.tenant_id = ${postgresStorageStateIdentity.tenantId}
+        AND state.state_kind = ${postgresStorageStateIdentity.stateKind}
+        AND state.schema_version = ${postgresStorageStateIdentity.schemaVersion}
+      ORDER BY required.key
+    `;
+    return buildPostgresStorageCollectionGapDiagnostic({
+      arrayRows,
+      objectRows
+    });
+  });
+}
+
 export async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
@@ -1222,6 +1419,8 @@ function resolveProductionGateDependencies(options) {
       max: 1,
       prepare: false
     })),
+    inspectCollectionGap: options.inspectCollectionGap
+      ?? inspectPostgresStorageCollectionGapForProductionGate,
     inspectDatabase: options.inspectDatabase ?? inspectProductionDatabase
   };
   if (
@@ -1230,6 +1429,7 @@ function resolveProductionGateDependencies(options) {
     typeof dependencies.fetchJsonImpl !== "function" ||
     typeof dependencies.fetchImpl !== "function" ||
     typeof dependencies.connectPostgres !== "function" ||
+    typeof dependencies.inspectCollectionGap !== "function" ||
     typeof dependencies.inspectDatabase !== "function"
   ) {
     throw new Error("invalid dependencies");
@@ -1285,6 +1485,36 @@ async function readProductionInspection(dependencies) {
   });
 }
 
+async function readProductionCollectionGap(dependencies) {
+  return withProductionPostgresSecret(dependencies, async (productionUrl) => {
+    const client = await runProductionSchemaStage(
+      "postgres-connect",
+      () => dependencies.connectPostgres(productionUrl)
+    );
+    let primaryError = null;
+    try {
+      return await runProductionSchemaStage(
+        "postgres-inspect",
+        async () => validatePostgresStorageCollectionGapDiagnostic(
+          await dependencies.inspectCollectionGap(client)
+        )
+      );
+    } catch (error) {
+      primaryError = error;
+      throw error;
+    } finally {
+      try {
+        await runProductionSchemaStage(
+          "postgres-close",
+          () => closePostgresClient(client)
+        );
+      } catch (closeError) {
+        if (primaryError === null) throw closeError;
+      }
+    }
+  });
+}
+
 function evidenceFromInspection(dependencies, inspection) {
   return buildTeacherNoticeProductionSchemaPreflightEvidence({
     candidateSha: dependencies.candidateSha,
@@ -1313,6 +1543,34 @@ export async function preflightTeacherNoticeProductionSchema(options = {}) {
       "evidence-build",
       async () => evidenceFromInspection(dependencies, inspected)
     );
+  } catch (error) {
+    throw stageError("unknown", error);
+  }
+}
+
+export async function diagnoseTeacherNoticeProductionSchemaCollections(
+  options = {}
+) {
+  try {
+    const dependencies = await runProductionSchemaStage(
+      "input-binding",
+      async () => resolveProductionGateDependencies(options)
+    );
+    const localBinding = localBindingFromDependencies(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-before",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    const diagnostic = await readProductionCollectionGap(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-after",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    return Object.freeze({
+      candidateSha: dependencies.candidateSha,
+      expectedTreeSha: dependencies.expectedTreeSha,
+      ...diagnostic
+    });
   } catch (error) {
     throw stageError("unknown", error);
   }
@@ -1723,6 +1981,7 @@ export async function applyTeacherNoticeProductionSchema(options = {}) {
 function parseCliArguments(argv) {
   const parsed = {
     apply: false,
+    diagnoseCollections: false,
     dryRun: false,
     preflight: false,
     candidateSha: undefined,
@@ -1730,6 +1989,7 @@ function parseCliArguments(argv) {
   };
   for (const argument of argv) {
     if (argument === "--apply") parsed.apply = true;
+    else if (argument === "--diagnose-collections") parsed.diagnoseCollections = true;
     else if (argument === "--dry-run") parsed.dryRun = true;
     else if (argument === "--preflight") parsed.preflight = true;
     else if (argument.startsWith("--candidate-sha=")) {
@@ -1742,7 +2002,10 @@ function parseCliArguments(argv) {
       throw new Error("unknown argument");
     }
   }
-  const modeCount = Number(parsed.apply) + Number(parsed.dryRun) + Number(parsed.preflight);
+  const modeCount = Number(parsed.apply)
+    + Number(parsed.diagnoseCollections)
+    + Number(parsed.dryRun)
+    + Number(parsed.preflight);
   if (modeCount !== 1) throw new Error("exactly one mode is required");
   return parsed;
 }
@@ -1762,6 +2025,20 @@ async function main() {
   }
   const candidateSha = arguments_.candidateSha ?? process.env.MAIS_RELEASE_SHA;
   const expectedTreeSha = arguments_.expectedTreeSha ?? process.env.MAIS_RELEASE_TREE_SHA;
+  if (arguments_.diagnoseCollections) {
+    const evidence = await diagnoseTeacherNoticeProductionSchemaCollections({
+      candidateSha,
+      expectedTreeSha
+    });
+    process.stdout.write(`${JSON.stringify({
+      ...evidence,
+      mode: "collection-gap-diagnostic",
+      mutation: false,
+      network: true,
+      ok: true
+    })}\n`);
+    return;
+  }
   if (arguments_.preflight) {
     const evidence = await preflightTeacherNoticeProductionSchema({
       candidateSha,

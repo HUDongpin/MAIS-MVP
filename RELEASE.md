@@ -151,7 +151,15 @@ successful for that exact SHA. In GitHub Actions, manually run **MAIS production
 1. `mode=schema-preflight` and the exact 40-character `candidate_sha`. The job performs a
    read-only production Postgres attestation and emits a redacted confirmation bound to the SHA,
    tree, production target fingerprint, schema plan, and preflight digest.
-2. Review that safe JSON and obtain the explicit production-environment approval. Then run the
+2. If preflight fails specifically with `legacy-snapshot-missing-collections`, run
+   `mode=collection-gap-diagnostic` with the same exact `candidate_sha`. This separate read-only
+   job returns only required, allowlisted collection names classified as missing or malformed. It
+   emits no values, identifiers, target details, schema confirmation, artifact, or deploy output;
+   it cannot authorize a repair. Preserve the run ID and route the fixed schema-name result to
+   A12/A22 review. Any allowlist change still requires a new versioned operation and independent
+   evidence.
+3. Review a successful preflight's safe JSON and obtain the explicit production-environment
+   approval. Then run the
    same workflow with `mode=deploy`, the same `candidate_sha`, and the exact confirmation. Any
    repository, ref, SHA/tree, schema, database target, alias target, check run, or source-byte
    drift fails closed.
@@ -189,6 +197,13 @@ concurrent dashboard or CLI promotion outside this workflow is therefore outside
 concurrency lock and is prohibited during a release window.
 
 #### Legacy snapshot missing-collection repair
+
+`collection-gap-diagnostic` uses the same protected-main SHA/tree binding, production environment,
+and non-cancelling workflow lock as preflight and deploy. Its PostgreSQL transaction is
+`REPEATABLE READ, READ ONLY`; it takes only the shared storage-contract advisory lock and computes
+presence/type status server-side. It never selects or serializes a collection value. The job's
+diagnostic command is its final step, has no workflow output or artifact step, and cannot accept or
+emit a schema confirmation.
 
 The read-only schema preflight may classify an otherwise reviewed legacy app-storage contract as
 `legacy-missing-collections-no-readiness-marker` and bind the operation
