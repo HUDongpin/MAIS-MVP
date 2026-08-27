@@ -132,3 +132,57 @@ following bounded changes:
 - `A25`: the revision is an isolated branch/worktree slice and will stage only
   the exact session log, append-only evidence, bindings, receipts and workflow
   pointer files created for this re-affirmation.
+
+## Fail-closed first revision and static-edge correction
+
+The first append-only revision at `c0-i18n-content-20260828` was deliberately
+retained after its first real validation blocked with `V2_RUNTIME_GRAPH_DRIFT`.
+Comparing the complete observed policy with the prior frozen policy showed only
+these four changed fields:
+
+- `edgeCount`: `3589` to `3590`
+- `topologyEdgeCount`: `3589` to `3590`
+- the corresponding edge and topology digests
+
+Covered files, reachable paths, entrypoints, seeds, dynamic import counts,
+nonliteral imports, zero-baseline calls and the file-read allowlist were all
+unchanged. The single added edge was the new runtime import from
+`components/ui/LanguageToggle.tsx` to `lib/i18n.ts`. The existing reviewed
+runtime-policy evolution path correctly rejected that case because it is
+restricted to coherent positive literal-dynamic-import evolution; this static
+edge was not mislabeled as such.
+
+The English-only US-account behavior is now implemented by the pure exported
+`isUnitedStatesLanguageRestricted` helper local to `LanguageToggle.tsx`.
+`lib/i18n.ts` returns to its prior non-exported helper, so the runtime graph is
+byte-for-byte equal at every projected policy field while the product behavior
+is unchanged. A new component test first failed against the imported helper,
+then passed for all four US tracks and both non-US tracks while asserting the
+runtime `@/lib/i18n` edge stays absent.
+
+Verification for the correction:
+
+- `components/ui/LanguageToggle.test.ts`: `4/4` passed.
+- `npm run type-check`: passed.
+- `npm run test:parent-console`: tooling contracts `76/76` and authoritative
+  parent runtime `403/403` passed, with the explicit support/test manifest
+  counts increased only for the new regression test.
+- Complete runtime-policy comparison: all fields equal; changed-field set is
+  empty.
+
+## Exact successor revision
+
+- Reviewed implementation target:
+  `081ee5b7f035f51ec80fd92d8d12ec897a5a0d8d`
+- Append-only successor root:
+  `coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-static-edge-fix-20260828`
+- Exact re-affirming lanes remain: `A21`, `A18`, `A23`, `A04`, `A05`, `A11`,
+  `A22`, `A24`, `A25`.
+- The successor dry run reports the same 10 content/UI runtime paths as the
+  reviewed c0 delta except that `lib/i18n.ts` is no longer changed, plus the
+  explicit test-only path `components/ui/LanguageToggle.test.ts`; runtime
+  policy is retained.
+
+The failed first revision is not referenced by the workflow and grants no
+permission. Only the successor may proceed to receipts and workflow binding,
+and `liveAllowed: false` remains mandatory throughout.
