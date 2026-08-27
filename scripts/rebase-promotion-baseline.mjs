@@ -47,8 +47,8 @@ function usage() {
   return [
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
-    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy]",
-    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy]"
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy]",
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy]"
   ].join("\n");
 }
 
@@ -64,6 +64,7 @@ function parseArgs(argv) {
     writeEvidence: false,
     writeBindings: false,
     refreshRuntimePolicy: false,
+    reviewRuntimePolicy: false,
     rejectedMonolithicWrite: false,
     help: false
   };
@@ -81,6 +82,7 @@ function parseArgs(argv) {
     else if (argument === "--write-evidence") options.writeEvidence = true;
     else if (argument === "--write-bindings") options.writeBindings = true;
     else if (argument === "--refresh-runtime-policy") options.refreshRuntimePolicy = true;
+    else if (argument === "--review-runtime-policy") options.reviewRuntimePolicy = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
     else if (argument === "--help" || argument === "-h") options.help = true;
     else throw new Error(`Unknown argument: ${argument}`);
@@ -240,6 +242,130 @@ export function buildReaffirmedRuntimePolicyRefresh({
     targetObservedPolicyDigest: jsonDigest(targetObservedPolicy),
     fsReadAllowlistCount,
     sourceAndTargetRuntimePolicyEqual: true,
+    sourceAndTargetFsReadAllowlistEqual: true,
+    nextDynamicNonliteralImportCount: 0,
+    zeroBaselineCallCount: 0,
+    liveAllowed: false
+  };
+}
+
+export function buildReviewedRuntimePolicyEvolution({
+  sourceExpectedPolicy,
+  sourceObservedPolicy,
+  targetObservedPolicy,
+  sourceFsReadAllowlist,
+  targetFsReadAllowlist
+}) {
+  for (const [value, label] of [
+    [sourceExpectedPolicy, "source expected runtime policy"],
+    [sourceObservedPolicy, "source observed runtime policy"],
+    [targetObservedPolicy, "target observed runtime policy"]
+  ]) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      throw new Error(`${label} must be one object.`);
+    }
+  }
+  if (!Array.isArray(sourceFsReadAllowlist) || !Array.isArray(targetFsReadAllowlist)) {
+    throw new Error("Reviewed runtime-policy evolution requires both exact fs-read allowlists.");
+  }
+  const expectedKeys = Object.keys(sourceExpectedPolicy).sort();
+  const sourceKeys = Object.keys(sourceObservedPolicy).sort();
+  const targetKeys = Object.keys(targetObservedPolicy).sort();
+  if (!jsonEqual(expectedKeys, sourceKeys) || !jsonEqual(sourceKeys, targetKeys)) {
+    throw new Error("Reviewed runtime-policy evolution cannot change the policy schema.");
+  }
+  if (!jsonEqual(sourceExpectedPolicy, sourceObservedPolicy)) {
+    throw new Error("Reviewed runtime-policy evolution source expected policy differs from its exact observed baseline.");
+  }
+  if (!jsonEqual(sourceFsReadAllowlist, targetFsReadAllowlist)) {
+    throw new Error("Reviewed runtime-policy evolution fs-read allowlist differs from its source baseline.");
+  }
+  const fsReadAllowlistCount = sourceFsReadAllowlist.length;
+  if (
+    sourceExpectedPolicy.fsReadAllowlistCount !== fsReadAllowlistCount
+    || sourceObservedPolicy.fsReadAllowlistCount !== fsReadAllowlistCount
+    || targetObservedPolicy.fsReadAllowlistCount !== fsReadAllowlistCount
+    || sourceObservedPolicy.fsReadAllowlistDigest !== targetObservedPolicy.fsReadAllowlistDigest
+  ) {
+    throw new Error("Reviewed runtime-policy evolution cannot change loader file-read capability.");
+  }
+  if (
+    sourceObservedPolicy.reachablePathCount !== targetObservedPolicy.reachablePathCount
+    || sourceObservedPolicy.reachablePathsDigest !== targetObservedPolicy.reachablePathsDigest
+  ) {
+    throw new Error("Reviewed runtime-policy evolution cannot change the reachable path set.");
+  }
+  if (
+    sourceObservedPolicy.frameworkEntrypointCount !== targetObservedPolicy.frameworkEntrypointCount
+    || sourceObservedPolicy.seedCount !== targetObservedPolicy.seedCount
+  ) {
+    throw new Error("Reviewed runtime-policy evolution cannot change framework entrypoints or seeds.");
+  }
+  if (
+    sourceObservedPolicy.nextDynamicNonliteralImportCount !== 0
+    || targetObservedPolicy.nextDynamicNonliteralImportCount !== 0
+  ) {
+    throw new Error("Reviewed runtime-policy evolution cannot introduce nonliteral dynamic imports.");
+  }
+  if (
+    sourceObservedPolicy.zeroBaselineCallCount !== 0
+    || targetObservedPolicy.zeroBaselineCallCount !== 0
+  ) {
+    throw new Error("Reviewed runtime-policy evolution cannot introduce zero-baseline loader calls.");
+  }
+  if (
+    sourceObservedPolicy.topologyEdgeCount !== sourceObservedPolicy.edgeCount
+    || targetObservedPolicy.topologyEdgeCount !== targetObservedPolicy.edgeCount
+  ) {
+    throw new Error("Reviewed runtime-policy evolution requires a complete topology edge inventory.");
+  }
+  const literalDynamicImportDelta =
+    targetObservedPolicy.nextDynamicLiteralImportCount - sourceObservedPolicy.nextDynamicLiteralImportCount;
+  const dynamicCallDelta =
+    targetObservedPolicy.nextDynamicCallCount - sourceObservedPolicy.nextDynamicCallCount;
+  const edgeDelta = targetObservedPolicy.edgeCount - sourceObservedPolicy.edgeCount;
+  const topologyEdgeDelta =
+    targetObservedPolicy.topologyEdgeCount - sourceObservedPolicy.topologyEdgeCount;
+  if (
+    !Number.isSafeInteger(literalDynamicImportDelta)
+    || literalDynamicImportDelta <= 0
+    || dynamicCallDelta !== literalDynamicImportDelta
+    || edgeDelta !== literalDynamicImportDelta
+    || topologyEdgeDelta !== literalDynamicImportDelta
+  ) {
+    throw new Error("Reviewed runtime-policy evolution requires coherent positive literal-import and edge deltas.");
+  }
+  if (targetObservedPolicy.coveredFileCount < sourceObservedPolicy.coveredFileCount) {
+    throw new Error("Reviewed runtime-policy evolution cannot shrink the covered file inventory.");
+  }
+  const changedFields = expectedKeys.filter(
+    (field) => !jsonEqual(sourceObservedPolicy[field], targetObservedPolicy[field])
+  );
+  const allowedChangedFields = new Set([
+    "classificationsDigest",
+    "coveredFileCount",
+    "coveredFilesDigest",
+    "edgeCount",
+    "edgeDigest",
+    "nextDynamicCallCount",
+    "nextDynamicCallsiteDigest",
+    "nextDynamicLiteralImportCount",
+    "topologyEdgeCount",
+    "topologyEdgeDigest"
+  ]);
+  if (changedFields.some((field) => !allowedChangedFields.has(field))) {
+    throw new Error("Reviewed runtime-policy evolution changed an unreviewable runtime-policy field.");
+  }
+  return {
+    schemaVersion: "promotion-runtime-policy-reviewed-evolution.v1",
+    changedFields,
+    sourceExpectedPolicyDigest: jsonDigest(sourceExpectedPolicy),
+    sourceObservedPolicyDigest: jsonDigest(sourceObservedPolicy),
+    targetObservedPolicyDigest: jsonDigest(targetObservedPolicy),
+    literalDynamicImportDelta,
+    coveredFileDelta: targetObservedPolicy.coveredFileCount - sourceObservedPolicy.coveredFileCount,
+    fsReadAllowlistCount,
+    sourceAndTargetReachablePathsEqual: true,
     sourceAndTargetFsReadAllowlistEqual: true,
     nextDynamicNonliteralImportCount: 0,
     zeroBaselineCallCount: 0,
@@ -419,6 +545,56 @@ async function collectRuntimePolicyRefresh(manifest) {
   }
 }
 
+async function collectReviewedRuntimePolicyEvolution(manifest, targetCommit) {
+  const compatibilityPath = manifest.liveReachability?.compatibilityManifestPath;
+  const compatibilityRawSha256 = manifest.liveReachability?.compatibilityManifestRawSha256;
+  if (typeof compatibilityPath !== "string" || !/^[a-f0-9]{64}$/u.test(compatibilityRawSha256 ?? "")) {
+    throw new Error("Source Manifest runtime compatibility binding is invalid.");
+  }
+  const sourceProjection = materializeCommitTree(manifest.targetBaselineCommit);
+  let targetProjection;
+  try {
+    targetProjection = materializeCommitTree(targetCommit);
+    const sourceCompatibility = loadCanonicalJsonAtRoot(
+      sourceProjection.root,
+      compatibilityPath,
+      "Source-baseline runtime compatibility Manifest"
+    );
+    const targetCompatibility = loadCanonicalJsonAtRoot(
+      targetProjection.root,
+      compatibilityPath,
+      "Target-baseline runtime compatibility Manifest"
+    );
+    if (
+      sourceCompatibility.rawSha256 !== compatibilityRawSha256
+      || targetCompatibility.rawSha256 !== compatibilityRawSha256
+    ) {
+      throw new Error("Reviewed runtime-policy evolution compatibility Manifest bytes drifted.");
+    }
+    const sourceObservation = await observeCanonicalRuntimePolicy(
+      sourceProjection.root,
+      sourceCompatibility.value
+    );
+    const targetObservation = await observeCanonicalRuntimePolicy(
+      targetProjection.root,
+      targetCompatibility.value
+    );
+    const sourceObservedPolicy = projectV2RuntimePolicy(sourceObservation);
+    const targetObservedPolicy = projectV2RuntimePolicy(targetObservation);
+    const proof = buildReviewedRuntimePolicyEvolution({
+      sourceExpectedPolicy: manifest.liveReachability.expectedRuntimePolicy,
+      sourceObservedPolicy,
+      targetObservedPolicy,
+      sourceFsReadAllowlist: sourceObservation.loaderPolicy.fsReadAllowlist,
+      targetFsReadAllowlist: targetObservation.loaderPolicy.fsReadAllowlist
+    });
+    return { proof, targetObservedPolicy };
+  } finally {
+    targetProjection?.dispose();
+    sourceProjection.dispose();
+  }
+}
+
 export function buildReaffirmedLegacyRegistry(sourceRegistry, targetCommit) {
   const next = structuredClone(sourceRegistry);
   if (!commitPattern.test(next?.targetBaselineCommit ?? "")) {
@@ -485,9 +661,11 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const legacyBytes = Buffer.from(canonicalJson(legacyValue), "utf8");
   const legacyRawSha256 = sha256(legacyBytes);
   const protectedDiff = collectProtectedDiff(manifest.targetBaselineCommit, targetCommit);
-  const runtimePolicyRefresh = options.refreshRuntimePolicy
+  const runtimePolicyRevision = options.refreshRuntimePolicy
     ? await collectRuntimePolicyRefresh(manifest)
-    : null;
+    : options.reviewRuntimePolicy
+      ? await collectReviewedRuntimePolicyEvolution(manifest, targetCommit)
+      : null;
 
   const evidence = manifest.evidenceBindings.map((binding) => {
     const sourceFile = resolveRepositoryFile(binding.evidencePath, `${binding.role} source evidence`);
@@ -509,7 +687,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
           legacyRegistryRawSha256: legacyRawSha256,
           justificationPath: options.justification,
           protectedDiff,
-          runtimePolicyReaffirmation: runtimePolicyRefresh?.proof ?? null,
+          runtimePolicyReaffirmation: runtimePolicyRevision?.proof ?? null,
           sourceEvidencePath: sourceFile.relative,
           sourceEvidenceRawSha256: sourceLoaded.rawSha256
         })
@@ -529,7 +707,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
     targetCommit,
     revisionRoot,
     protectedDiff,
-    runtimePolicyRefresh,
+    runtimePolicyRevision,
     legacy: {
       source: legacySource,
       destination: assertSafeRelative(legacyRelative, "Revision legacy registry"),
@@ -553,7 +731,13 @@ function printPlan(plan) {
     `  roles        : ${requiredRoles(plan.manifest).join(", ")}`,
     `  runtime diff : ${plan.protectedDiff.runtimePaths.join(", ") || "none"}`,
     `  test diff    : ${plan.protectedDiff.testOnlyPaths.join(", ") || "none"}`,
-    `  runtime policy: ${plan.runtimePolicyRefresh ? "strict stale-fs-digest refresh" : "retained"}`,
+    `  runtime policy: ${
+      plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reaffirmation.v1"
+        ? "strict stale-fs-digest refresh"
+        : plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reviewed-evolution.v1"
+          ? "reviewed literal-import graph evolution"
+          : "retained"
+    }`,
     "",
     `Evidence phase (${plan.evidence.length + 1} new files):`,
     `  legacy ${plan.legacy.destination.relative}`,
@@ -672,8 +856,8 @@ function writeBindingPhase(options, plan) {
 
   const nextManifest = structuredClone(plan.manifest);
   nextManifest.targetBaselineCommit = plan.targetCommit;
-  if (plan.runtimePolicyRefresh) {
-    nextManifest.liveReachability.expectedRuntimePolicy = plan.runtimePolicyRefresh.targetObservedPolicy;
+  if (plan.runtimePolicyRevision) {
+    nextManifest.liveReachability.expectedRuntimePolicy = plan.runtimePolicyRevision.targetObservedPolicy;
   }
   nextManifest.legacyResolution = {
     registryPath: plan.legacy.destination.relative,
@@ -701,6 +885,9 @@ export async function main(argv = process.argv.slice(2)) {
   if (options.rejectedMonolithicWrite) {
     throw new Error("Monolithic --write is disabled; create an append-only revision with the two committed phases.");
   }
+  if (options.refreshRuntimePolicy && options.reviewRuntimePolicy) {
+    throw new Error("--refresh-runtime-policy and --review-runtime-policy are mutually exclusive.");
+  }
   if (
     !options.manifest ||
     !options.target ||
@@ -716,7 +903,7 @@ export async function main(argv = process.argv.slice(2)) {
   assertAncestor(targetCommit, resolveCommit("HEAD", "HEAD"), "Target baseline");
   const revisionRoot = resolveRevisionRoot(manifestFile.relative, options.revisionRoot);
   if (options.writeEvidence) assertProducedAt(options.producedAt);
-  if (options.refreshRuntimePolicy) assertCleanWorktree();
+  if (options.refreshRuntimePolicy || options.reviewRuntimePolicy) assertCleanWorktree();
   const plan = await planRevision(manifestFile, targetCommit, revisionRoot, options);
   printPlan(plan);
   if (options.writeEvidence) writeEvidencePhase(options, plan);
