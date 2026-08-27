@@ -234,6 +234,15 @@ test("builds the exact production migration plan from independently attested sch
     }),
     ["app-storage-complete-readiness-v1"]
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-v1-compatibility-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-upgrade-legacy-compat-readiness-v2"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       appStorageState: "exact",
@@ -353,6 +362,27 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     }
   );
   assert.deepEqual(legacyStages, ["app-storage-readiness"]);
+
+  const legacyV1Stages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-upgrade-legacy-compat-readiness-v2"],
+    productionEnvironment,
+    {
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(
+          expectedState,
+          "legacy-v1-compatibility-no-readiness-marker"
+        );
+        legacyV1Stages.push("app-storage-legacy-v1-upgrade");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(legacyV1Stages, ["app-storage-legacy-v1-upgrade"]);
 
   await assert.rejects(
     applyMaisProductionSchemaOperations(

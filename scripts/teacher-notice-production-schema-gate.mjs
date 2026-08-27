@@ -43,6 +43,7 @@ const outboxStates = new Set(["empty", "exact", "partial"]);
 const appStorageStates = new Set([
   "empty",
   "legacy-no-readiness-marker",
+  "legacy-v1-compatibility-no-readiness-marker",
   "exact",
   "partial"
 ]);
@@ -163,6 +164,9 @@ export function buildTeacherNoticeProductionSchemaPlan({
   if (appStorageState === "empty") operations.push("app-storage-install-v1");
   if (appStorageState === "legacy-no-readiness-marker") {
     operations.push("app-storage-complete-readiness-v1");
+  }
+  if (appStorageState === "legacy-v1-compatibility-no-readiness-marker") {
+    operations.push("app-storage-upgrade-legacy-compat-readiness-v2");
   }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
@@ -985,7 +989,11 @@ export async function applyMaisProductionSchemaOperations(
   }
   const appStorageOperationExpectedStates = new Map([
     ["app-storage-install-v1", "empty"],
-    ["app-storage-complete-readiness-v1", "legacy-no-readiness-marker"]
+    ["app-storage-complete-readiness-v1", "legacy-no-readiness-marker"],
+    [
+      "app-storage-upgrade-legacy-compat-readiness-v2",
+      "legacy-v1-compatibility-no-readiness-marker"
+    ]
   ]);
   const appOperationIndexes = operations
     .map((operation, index) => appStorageOperationExpectedStates.has(operation) ? index : -1)
