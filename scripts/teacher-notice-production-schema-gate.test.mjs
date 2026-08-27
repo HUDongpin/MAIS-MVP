@@ -989,8 +989,26 @@ test("preflight preserves only an allowlisted stage code across provider and dat
 });
 
 test("preflight preserves only an allowlisted partial-schema reason", async () => {
+  const appStorageReasons = [
+    "app-storage-canonical-catalog-partial",
+    "app-storage-canonical-hot-auth-partial",
+    "app-storage-canonical-invalidation-partial",
+    "app-storage-canonical-marker-partial",
+    "app-storage-legacy-catalog-partial",
+    "app-storage-legacy-compatibility-partial",
+    "app-storage-legacy-hot-auth-partial",
+    "app-storage-legacy-physical-relations-partial",
+    "app-storage-legacy-readiness-artifact-partial",
+    "app-storage-legacy-snapshot-partial",
+    "app-storage-relation-set-partial"
+  ];
   const cases = [
     { appStorageState: "partial", expectedReason: "app-storage-partial" },
+    ...appStorageReasons.map((appStoragePartialReason) => ({
+      appStoragePartialReason,
+      appStorageState: "partial",
+      expectedReason: appStoragePartialReason
+    })),
     { heartbeatState: "partial", expectedReason: "heartbeat-partial" },
     { outboxState: "partial", expectedReason: "outbox-partial" },
     { webhookState: "partial", expectedReason: "webhook-partial" },
@@ -1015,6 +1033,26 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
       }
     );
   }
+});
+
+test("preflight rejects an unallowlisted app-storage partial reason before evidence build", async () => {
+  const poison = "secret-user secret-password db.example.invalid secret-production";
+  await assert.rejects(
+    preflightTeacherNoticeProductionSchema(preflightDependencies({
+      inspectDatabase: async () => databaseInspection({
+        appStoragePartialReason: poison,
+        appStorageState: "partial"
+      })
+    })),
+    (error) => {
+      assert.equal(teacherNoticeProductionSchemaFailureStage(error), "postgres-inspect");
+      assert.equal(teacherNoticeProductionSchemaFailureReason(error), "unknown");
+      assert.equal(error.message.includes("secret"), false);
+      assert.equal(error.message.includes("db.example.invalid"), false);
+      assert.match(error.message, /details redacted/u);
+      return true;
+    }
+  );
 });
 
 test("CLI preflight failure emits one fixed safe stage without raw diagnostics", () => {

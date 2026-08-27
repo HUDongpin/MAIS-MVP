@@ -8,7 +8,7 @@ import postgres from "postgres";
 
 import {
   applyPostgresStorageSchemaForProductionGate,
-  inspectPostgresStorageSchemaForProductionGate
+  inspectPostgresStorageSchemaEvidenceForProductionGate
 } from "../lib/server/userStore.ts";
 
 import {
@@ -90,8 +90,22 @@ const productionSchemaFailureStages = new Set([
   "provider-token-read",
   "unknown"
 ]);
+const appStoragePartialReasons = new Set([
+  "app-storage-canonical-catalog-partial",
+  "app-storage-canonical-hot-auth-partial",
+  "app-storage-canonical-invalidation-partial",
+  "app-storage-canonical-marker-partial",
+  "app-storage-legacy-catalog-partial",
+  "app-storage-legacy-compatibility-partial",
+  "app-storage-legacy-hot-auth-partial",
+  "app-storage-legacy-physical-relations-partial",
+  "app-storage-legacy-readiness-artifact-partial",
+  "app-storage-legacy-snapshot-partial",
+  "app-storage-relation-set-partial"
+]);
 const productionSchemaFailureReasons = new Set([
   "app-storage-partial",
+  ...appStoragePartialReasons,
   "heartbeat-partial",
   "outbox-partial",
   "outbox-webhook-inconsistent",
@@ -168,6 +182,7 @@ const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
 ];
 
 export function buildTeacherNoticeProductionSchemaPlan({
+  appStoragePartialReason,
   appStorageState,
   heartbeatState,
   outboxState,
@@ -182,7 +197,11 @@ export function buildTeacherNoticeProductionSchemaPlan({
     throw new TeacherNoticeProductionSchemaReasonError("schema-state-invalid");
   }
   if (appStorageState === "partial") {
-    throw new TeacherNoticeProductionSchemaReasonError("app-storage-partial");
+    throw new TeacherNoticeProductionSchemaReasonError(
+      appStoragePartialReasons.has(appStoragePartialReason)
+        ? appStoragePartialReason
+        : "app-storage-partial"
+    );
   }
   if (outboxState === "partial") {
     throw new TeacherNoticeProductionSchemaReasonError("outbox-partial");
@@ -237,6 +256,7 @@ function sha256(value) {
 }
 
 export function buildTeacherNoticeProductionSchemaPreflightEvidence({
+  appStoragePartialReason,
   appStorageSeedMode,
   appStorageState,
   candidateSha,
@@ -263,6 +283,7 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
     throw new Error("Teacher notice production preflight binding was rejected.");
   }
   const operations = buildTeacherNoticeProductionSchemaPlan({
+    appStoragePartialReason,
     appStorageState,
     heartbeatState,
     outboxState,
@@ -662,8 +683,17 @@ function validateDatabaseInspection(inspection, productionUrl) {
   }
   const outboxState = inspection?.outboxState;
   const appStorageState = inspection?.appStorageState;
+  const rawAppStoragePartialReason = inspection?.appStoragePartialReason;
   if (!outboxStates.has(outboxState) || !appStorageStates.has(appStorageState)) {
     throw new Error("Teacher notice production outbox state was rejected.");
+  }
+  if (
+    (rawAppStoragePartialReason !== undefined
+      && rawAppStoragePartialReason !== null
+      && !appStoragePartialReasons.has(rawAppStoragePartialReason))
+    || (appStorageState !== "partial" && rawAppStoragePartialReason != null)
+  ) {
+    throw new Error("Teacher notice production app-storage evidence was rejected.");
   }
   const targetFingerprint = sha256([
     "teacher-notice-production-schema-target-v1",
@@ -676,6 +706,9 @@ function validateDatabaseInspection(inspection, productionUrl) {
     versionText
   ].join("\0"));
   return {
+    appStoragePartialReason: appStorageState === "partial"
+      ? rawAppStoragePartialReason ?? null
+      : null,
     appStorageState,
     heartbeatState: inspection?.heartbeatState,
     outboxState,
@@ -739,7 +772,8 @@ async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
   }
-  const appStorageState = await inspectPostgresStorageSchemaForProductionGate(client);
+  const appStorageInspection =
+    await inspectPostgresStorageSchemaEvidenceForProductionGate(client);
   const teacherNoticeInspection = await client.begin(
     "isolation level repeatable read read only",
     async (sql) => {
@@ -822,7 +856,8 @@ async function inspectProductionDatabase(client) {
   );
   return {
     ...teacherNoticeInspection,
-    appStorageState
+    appStoragePartialReason: appStorageInspection.partialReason,
+    appStorageState: appStorageInspection.state
   };
 }
 
