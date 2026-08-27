@@ -279,6 +279,56 @@ async function waitForStorageContractAdvisoryLock(
   throw new Error("Timed out waiting for the fixture advisory lock boundary.");
 }
 
+async function waitForStorageContractAdvisoryWaiters(
+  sql: postgres.Sql,
+  expectedWaiting: number
+) {
+  const deadline = performance.now() + lockObservationTimeoutMs;
+  while (performance.now() < deadline) {
+    const rows = await sql<Array<{ waiting_count: number }>>`
+      SELECT pg_catalog.count(*)::pg_catalog.int4 AS waiting_count
+      FROM pg_catalog.pg_locks
+      WHERE locktype = 'advisory'
+        AND database = (
+          SELECT oid
+          FROM pg_catalog.pg_database
+          WHERE datname = pg_catalog.current_database()
+        )
+        AND NOT granted
+        AND pid <> pg_backend_pid()
+        AND classid::bigint = (
+          (pg_catalog.hashtextextended(${storageContractAdvisoryLockKey}, 0) >> 32)
+          & 4294967295
+        )
+        AND objid::bigint = (
+          pg_catalog.hashtextextended(${storageContractAdvisoryLockKey}, 0)
+          & 4294967295
+        )
+        AND objsubid = 1
+    `;
+    if (rows[0]?.waiting_count === expectedWaiting) return;
+    await new Promise<void>((resolve) => setTimeout(resolve, 10));
+  }
+  throw new Error("Timed out waiting for storage-contract advisory waiters.");
+}
+
+async function acquireStorageContractAdvisoryBarrier(sql: postgres.ReservedSql) {
+  await sql`
+    SELECT pg_catalog.pg_advisory_lock(
+      pg_catalog.hashtextextended(${storageContractAdvisoryLockKey}, 0)
+    )
+  `;
+}
+
+async function releaseStorageContractAdvisoryBarrier(sql: postgres.ReservedSql) {
+  const rows = await sql<Array<{ released: boolean }>>`
+    SELECT pg_catalog.pg_advisory_unlock(
+      pg_catalog.hashtextextended(${storageContractAdvisoryLockKey}, 0)
+    ) AS released
+  `;
+  assert.equal(rows[0]?.released, true, "storage-contract advisory barrier was not held");
+}
+
 async function waitForBootstrapAdvisoryLock(sql: postgres.Sql) {
   await waitForStorageContractAdvisoryLock(sql, { granted: true });
 }
@@ -1066,11 +1116,51 @@ test(
         await assertIntegrationWorkerClientsClosed(sql);
       });
 
-      await t.test("production missing-collection repair is additive, recoverable, and rejects high-risk loss", async () => {
+      await t.test("production missing-collection repair is additive, serialized, recoverable, and rejects every high-risk loss", async (t) => {
+        const highRiskKeys = [
+          "ai_tutor_messages",
+          "ai_tutor_usage",
+          "class_ai_tutor_policies",
+          "class_enrollments",
+          "password_reset_tokens",
+          "student_profiles",
+          "teacher_classes",
+          "user_settings",
+          "users"
+        ];
         const removeReadinessMarkerContract = async () => {
           await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
           await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
           await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+        };
+        const writeFixtureState = async ({
+          payload,
+          revision,
+          updatedAt
+        }: {
+          payload: Record<string, unknown>;
+          revision: string;
+          updatedAt: string;
+        }) => {
+          await sql`
+            ALTER TABLE public.app_state
+            DISABLE TRIGGER app_state_ai_tutor_compatibility
+          `;
+          try {
+            await sql`
+              UPDATE public.app_state
+              SET
+                payload = ${sql.json(postgresJson(payload))}::pg_catalog.jsonb,
+                revision = ${Number(revision)},
+                updated_at = ${updatedAt}::pg_catalog.timestamptz
+              WHERE id = 'primary'
+            `;
+          } finally {
+            await sql`
+              ALTER TABLE public.app_state
+              ENABLE TRIGGER app_state_ai_tutor_compatibility
+            `;
+          }
         };
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "exact"
@@ -1078,30 +1168,67 @@ test(
         const beforeState = await readState(sql);
         const before = await readStateEvidence(sql);
         assert.deepEqual(beforeState.payload.teacher_notice_delivery_attempts, []);
+        for (const highRiskKey of highRiskKeys) {
+          assert.equal(
+            Object.hasOwn(beforeState.payload, highRiskKey),
+            true,
+            `${highRiskKey} must exist in the complete fixture`
+          );
+        }
+        t.after(async () => {
+          await removeReadinessMarkerContract();
+          await writeFixtureState({
+            payload: beforeState.payload,
+            revision: before.revision,
+            updatedAt: before.updated_at
+          });
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-complete-legacy"),
+            { completed: true }
+          );
+          assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+            state: "exact"
+          });
+        });
         await removeReadinessMarkerContract();
 
-        await sql`
-          UPDATE public.app_state
-          SET payload = payload - 'teacher_classes'
-          WHERE id = 'primary'
-        `;
-        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
-          state: "partial"
-        });
-        const rejected = await runWorker("production-schema-repair-missing-collections");
-        assert.equal(rejected.exitCode, 1);
-        assert.match(String(rejected.result.error), /operation plan changed/u);
-        await sql`
-          UPDATE public.app_state
-          SET payload = ${sql.json(postgresJson(beforeState.payload))}::pg_catalog.jsonb
-          WHERE id = 'primary'
-        `;
+        for (const highRiskKey of highRiskKeys) {
+          const missingHighRiskPayload = structuredClone(beforeState.payload);
+          delete missingHighRiskPayload.teacher_notice_delivery_attempts;
+          delete missingHighRiskPayload[highRiskKey];
+          await writeFixtureState({
+            payload: missingHighRiskPayload,
+            revision: before.revision,
+            updatedAt: before.updated_at
+          });
+          try {
+            assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+              state: "partial"
+            });
+            assert.deepEqual(
+              await runSuccessfulWorker("production-schema-diagnose-partial"),
+              { component: "legacy-snapshot-missing-collections" }
+            );
+            const rejected =
+              await runWorker("production-schema-repair-missing-collections");
+            assert.equal(rejected.exitCode, 1, `${highRiskKey} must fail closed`);
+            assert.match(String(rejected.result.error), /operation plan changed/u);
+          } finally {
+            await writeFixtureState({
+              payload: beforeState.payload,
+              revision: before.revision,
+              updatedAt: before.updated_at
+            });
+          }
+        }
 
-        await sql`
-          UPDATE public.app_state
-          SET payload = payload - 'teacher_notice_delivery_attempts'
-          WHERE id = 'primary'
-        `;
+        const safeMissingPayload = structuredClone(beforeState.payload);
+        delete safeMissingPayload.teacher_notice_delivery_attempts;
+        await writeFixtureState({
+          payload: safeMissingPayload,
+          revision: before.revision,
+          updatedAt: before.updated_at
+        });
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "partial"
         });
@@ -1109,9 +1236,44 @@ test(
           await runSuccessfulWorker("production-schema-diagnose-partial"),
           { component: "legacy-snapshot-missing-collections" }
         );
-        assert.deepEqual(
-          await runSuccessfulWorker("production-schema-repair-missing-collections"),
-          { repaired: true, state: "legacy-no-readiness-marker" }
+        const advisoryBarrierSql = await sql.reserve();
+        let advisoryBarrierHeld = false;
+        const repairWorkers: Array<Promise<WorkerOutcome>> = [];
+        let repairOutcomes: WorkerOutcome[] = [];
+        try {
+          await acquireStorageContractAdvisoryBarrier(advisoryBarrierSql);
+          advisoryBarrierHeld = true;
+          repairWorkers.push(
+            runWorker("production-schema-repair-missing-collections"),
+            runWorker("production-schema-repair-missing-collections")
+          );
+          for (const worker of repairWorkers) void worker.catch(() => undefined);
+          await waitForStorageContractAdvisoryWaiters(sql, 2);
+          await releaseStorageContractAdvisoryBarrier(advisoryBarrierSql);
+          advisoryBarrierHeld = false;
+          repairOutcomes = await Promise.all(repairWorkers);
+        } finally {
+          if (advisoryBarrierHeld) {
+            await releaseStorageContractAdvisoryBarrier(advisoryBarrierSql);
+          }
+          await Promise.allSettled(repairWorkers);
+          advisoryBarrierSql.release();
+        }
+        const successfulRepairs = repairOutcomes.filter(
+          (outcome) => outcome.exitCode === 0
+        );
+        const rejectedRepairs = repairOutcomes.filter(
+          (outcome) => outcome.exitCode === 1
+        );
+        assert.equal(successfulRepairs.length, 1);
+        assert.deepEqual(successfulRepairs[0]?.result, {
+          repaired: true,
+          state: "legacy-no-readiness-marker"
+        });
+        assert.equal(rejectedRepairs.length, 1);
+        assert.match(
+          String(rejectedRepairs[0]?.result.error),
+          /operation plan changed/u
         );
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "legacy-no-readiness-marker"

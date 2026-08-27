@@ -141,6 +141,9 @@ export function buildPostgresStorageMissingCollectionRepair(
     || typeof isComplete !== "function"
   ) return null;
 
+  for (const key of postgresStorageMissingCollectionRepairHighRiskKeys) {
+    if (!Object.hasOwn(snapshot, key)) return null;
+  }
   const repaired = { ...snapshot };
   let addedCollectionCount = 0;
   for (const key of legacySnapshotRequiredArrayKeys) {
@@ -984,9 +987,9 @@ async function inspectProductionDatabase(client) {
 }
 
 function assertPostgresStorageMissingCollectionRepairContext({
-  allowIntegrationTest = false,
-  environment = process.env
+  allowIntegrationTest = false
 } = {}) {
+  const environment = process.env;
   if (allowIntegrationTest === true) {
     if (environment.NODE_ENV !== "test") {
       throw new Error("Postgres production schema execution context was rejected.");

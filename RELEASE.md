@@ -188,14 +188,47 @@ promotion, so the final alias reread narrows but cannot eliminate the command-bo
 concurrent dashboard or CLI promotion outside this workflow is therefore outside the workflow
 concurrency lock and is prohibited during a release window.
 
+#### Legacy snapshot missing-collection repair
+
+The read-only schema preflight may classify an otherwise reviewed legacy app-storage contract as
+`legacy-missing-collections-no-readiness-marker` and bind the operation
+`app-storage-repair-missing-collections-v1` into the exact confirmation. This operation is allowed
+only from the serialized, protected-main production workflow after A12 storage review, A19
+value-free runtime/build environment parity attestation, A11 PostgreSQL regression approval, A22
+release approval, and the explicit production confirmation described above.
+
+The operation never reconstructs records. It refuses malformed collections and refuses any
+missing user, student-profile, authentication, class/enrollment, or AI Tutor collection. For a
+snapshot that is missing only reviewed empty-container fields, phase 1 takes the storage-contract
+exclusive advisory lock, the canonical relation locks, and the primary state-row lock; re-runs the
+fixed diagnostic; writes the complete payload with a revision compare-and-swap; and verifies the
+returned payload, revision, identity, and full snapshot contract. Phase 2 passes the resulting
+complete no-marker state to the unchanged canonical readiness-marker operation and requires an
+independent exact-state postflight before deployment may continue.
+
+If phase 1 fails, its transaction rolls back. If phase 1 commits but phase 2 fails, normal runtime
+remains fail closed because no current readiness marker exists. Do not manually edit the row or
+marker. Preserve the failed workflow record and run a new read-only `schema-preflight` against the
+then-current protected-main SHA. A complete canonical snapshot will authorize
+`app-storage-complete-readiness-v1`; a complete legacy-v1 compatibility snapshot will authorize
+`app-storage-upgrade-legacy-compat-readiness-v2`; a snapshot that again lacks only safe containers
+will re-authorize the repair operation. Any other state is a blocker for A12/A22 investigation.
+
+This additive snapshot mutation and its revision increment are database changes and are **not**
+reversed by a Vercel alias rollback. The prior deployment must remain compatible with the added
+empty containers during the release window. Record only the safe preflight state, operation,
+candidate/tree binding, run ID, and exact postflight result; never record the payload, collection
+contents, environment values, database URL, or provider diagnostics.
+
 ### 6. Rollback
 Rollback is a Vercel **promotion swap back to the previous production deployment** (the prior
 alias target) — no code revert needed. For a slice-level undo, drop the slice commit(s) from the
 release branch and re-run the dry run. Keep the pre-deploy staging manifest so rollback is exactly
 "remove these files / re-point the alias." The teacher-notice schema migration is additive and is
-not rolled back by an alias swap; the prior deployment must be proven compatible with the additive
-tables/indexes before production apply, and any future destructive migration requires a separate
-database rollback plan and approval.
+not rolled back by an alias swap. The legacy snapshot repair described above is also not rolled
+back by an alias swap. The prior deployment must be proven compatible with those additive database
+changes before production apply, and any future destructive migration requires a separate database
+rollback plan and approval.
 
 ---
 

@@ -3,7 +3,10 @@
 - Session slice: `codex/a12-a22-legacy-snapshot-repair-20260828`
 - Baseline: `56b4c1bb644725effe14d58cca0596202a36c7eb`
 - Owner: A12 backend/API platform with A22 production reliability
-- Target PR: pending
+- Explicit cross-lane scope: A10 release tooling/runbook, A11 PostgreSQL
+  assertions, A19 value-free environment parity, and A23 append-only evidence
+  archive
+- Target PR: https://github.com/HUDongpin/MAIS-MVP/pull/207
 - Created: 2026-08-28
 - Expected closeout: 2026-08-28 after protected-main schema preflight and release
 
@@ -97,3 +100,61 @@ the final protected runtime diff is empty: `lib/server/userStore.ts` and
 `lib/server/userStore/postgresStorageReadiness.test.ts` match baseline exactly.
 The current workflow pointer is unchanged, legacy candidate bytes and runtime
 loader policy remain unchanged, and `liveAllowed: false` remains mandatory.
+
+## Final handoff contract
+
+### Files changed relative to baseline
+
+- `RELEASE.md`
+- `coordination/session-logs/2026-08-28-A12-A22-legacy-snapshot-repair.md`
+- `lib/server/userStoreNovaPostgresIntegration.test.ts`
+- `scripts/deploy-vercel-production.mjs`
+- `scripts/deploy-vercel-production.test.mjs`
+- `scripts/nova-postgres-integration-worker.ts`
+- `scripts/postgres-schema-fast-path.test.mjs`
+- `scripts/teacher-notice-production-schema-diagnostic.mjs`
+- `scripts/teacher-notice-production-schema-gate.mjs`
+- `scripts/teacher-notice-production-schema-gate.test.mjs`
+- Under the unselected A23 evidence-archive root
+  `.../c0-i18n-content-legacy-byte-review-20260828/reaffirmations/legacy-snapshot-repair-20260828/`:
+  `promotion-manifest.v2.json`, `inputs/evidence-index.v2.json`,
+  `inputs/legacy-resolution-registry.v2.6.json`, and the nine exact role files
+  `a04-practice-semantics.v2.6.json`, `a05-lesson-semantics.v2.6.json`,
+  `a11-independent-preflight.v2.6.json`, `a18-independent-qa.v2.6.json`,
+  `a21-candidate-generation.v2.6.json`, `a22-build-isolation.v2.6.json`,
+  `a23-shadow-readiness.v2.6.json`, `a24-exact-layer.v2.6.json`, and
+  `a25-release-intake.v2.6.json`.
+
+`lib/server/userStore.ts` and
+`lib/server/userStore/postgresStorageReadiness.test.ts` have no net baseline
+diff and remain outside the final files-changed set.
+
+### Checks and current boundary
+
+- Completed locally before the final review amendments: type-check; schema
+  gate/fast-path `36/36`; deployment/readiness `50/50`; parent tooling `76/76`;
+  parent runtime `403/403`; Promotion tests `40/40`; selected-manifest validate
+  pass with `liveAllowed: false`.
+- The review-amended high-risk matrix and non-forgeable execution-context tests
+  must be rerun locally before the next commit.
+- Real PostgreSQL 16 was not run locally because the bounded Docker probe did
+  not answer. PR #207's exact-head `postgres-integration` job is mandatory.
+- Production schema preflight, database mutation, deployment, domain smoke,
+  provider delivery, monitoring drill, dedicated-family writes, and manual
+  assistive-technology acceptance are not performed by this slice.
+
+### Assumptions, risks, blockers, and disposition
+
+- Assumption: only a field whose absence can be converted to an empty container
+  while preserving the full snapshot contract is repairable; every declared
+  high-risk field must already exist.
+- Risk: phase 1 is an additive database mutation and revision increment that an
+  alias rollback cannot undo. A phase-2 failure deliberately leaves a complete
+  no-marker state for a newly confirmed serialized recovery run.
+- Merge blockers: no unresolved Critical/Important review issue; exact-head
+  PostgreSQL integration, CI validate/build, parent E2E, and Promotion Shadow
+  must all pass.
+- Dirty-state final action: reviewed commits plus an A23 evidence archive for
+  the rejected runtime attempt; no discard, cleanup, or history rewrite.
+- Worktree lifecycle: retain clean with PR #207 open; remove only after merge
+  and after proving no uncommitted or untracked work needs preservation.

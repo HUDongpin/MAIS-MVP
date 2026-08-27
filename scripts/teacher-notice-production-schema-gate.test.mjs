@@ -11,6 +11,7 @@ import {
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   preflightTeacherNoticeProductionSchema,
+  repairPostgresStorageMissingCollectionsForProductionGate,
   teacherNoticeProductionSchemaFailureComponent,
   teacherNoticeProductionSchemaFailureReason,
   teacherNoticeProductionSchemaFailureStage
@@ -70,17 +71,61 @@ test("missing-collection repair adds only safe empty collections and fails close
   }
   assert.equal(store.postgresStorageSnapshotContractIsComplete(repaired.payload), true);
 
-  const highRiskMissing = structuredClone(complete);
-  delete highRiskMissing.teacher_classes;
-  assert.equal(
-    buildPostgresStorageMissingCollectionRepair(highRiskMissing),
-    null
-  );
+  for (const highRiskKey of [
+    "ai_tutor_messages",
+    "ai_tutor_usage",
+    "class_ai_tutor_policies",
+    "class_enrollments",
+    "password_reset_tokens",
+    "student_profiles",
+    "teacher_classes",
+    "user_settings",
+    "users"
+  ]) {
+    const highRiskMissing = structuredClone(complete);
+    delete highRiskMissing.teacher_notice_delivery_attempts;
+    delete highRiskMissing[highRiskKey];
+    assert.equal(
+      buildPostgresStorageMissingCollectionRepair(highRiskMissing),
+      null,
+      `${highRiskKey} must never be synthesized or ignored`
+    );
+  }
 
   const malformed = structuredClone(complete);
   malformed.teacher_notice_delivery_attempts = {};
   assert.equal(buildPostgresStorageMissingCollectionRepair(malformed), null);
   assert.equal(buildPostgresStorageMissingCollectionRepair(complete), null);
+});
+
+test("missing-collection mutator ignores a caller-forged production environment", { concurrency: false }, async () => {
+  const originalNodeEnvironment = process.env.NODE_ENV;
+  process.env.NODE_ENV = "production";
+  let began = false;
+  try {
+    await assert.rejects(
+      repairPostgresStorageMissingCollectionsForProductionGate(
+        {
+          begin: async () => {
+            began = true;
+            throw new Error("must not begin");
+          }
+        },
+        {
+          environment: {
+            ...injectedProductionEnvironment(),
+            MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE:
+              "github-actions-serialized-v1"
+          }
+        }
+      ),
+      /execution context/u
+    );
+    assert.equal(began, false);
+  } finally {
+    if (originalNodeEnvironment === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = originalNodeEnvironment;
+  }
 });
 
 function injectedProductionEnvironment(overrides = {}) {
