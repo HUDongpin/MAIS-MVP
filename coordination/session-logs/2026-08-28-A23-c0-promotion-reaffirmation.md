@@ -229,3 +229,28 @@ replace the workflow pointer is:
 Its exact lanes are `A21`, `A18`, `A23`, `A04`, `A05`, `A11`, `A22`, `A24`,
 and `A25`. Earlier c0 revision directories remain audit evidence of fail-closed
 progress, are not referenced by the workflow, and grant no live permission.
+
+## Final local Promotion receipts and workflow selection
+
+- Final Manifest validation passed all 10 checks at current branch HEAD with
+  target baseline `e81f6b53515cf97dcd5351d0ff7add4224d7eab2` and
+  `liveAllowed: false`.
+- Two distinct local shadow runs,
+  `c0-legacy-review-fresh-20260828` and
+  `c0-legacy-review-replay-20260828`, both passed at exact clean execution
+  commit `95c93175c29c286e1dc1cf8960ac1060c8116874`.
+- Both receipts have the identical semantic digest
+  `782c5842717d59001fa7f7bda82a604d3331bcb4901511177b3674e896f6dc87`;
+  both independent receipt-verification reports passed. The committed canonical
+  receipt is byte-identical to the fresh receipt.
+- `.github/workflows/promotion-shadow.yml` and its pinned source test now select
+  only `c0-i18n-content-legacy-byte-review-20260828/promotion-manifest.v2.json`.
+  The two earlier fail-closed c0 revision directories are never selected.
+- `npm run test:promotion-gate`: `40/40` passed.
+- `node --test scripts/rebase-promotion-baseline.test.mjs`: `12/12` passed.
+
+The receipt verifier intentionally rejects running that immutable receipt at a
+later branch HEAD: its exact execution commit is its parent evidence state. The
+workflow therefore materializes and verifies the receipt at that exact clean
+commit before comparing fresh, replay and canonical semantic digests. This
+expected head binding is not relaxed.
