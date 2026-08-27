@@ -298,6 +298,8 @@ const nextDynamicNormalizedKeys = [
   "nonliteralImportCount",
   "normalizedExpressionDigest"
 ];
+const sensitiveAnchorRawKeys = ["path", "rawSha256"];
+const sensitiveAnchorNormalizedKeys = ["path"];
 
 function normalizeExactEntry(entry, rawKeys, normalizedKeys, label) {
   exactObjectKeys(entry, rawKeys, label);
@@ -517,6 +519,13 @@ export function analyzeReviewedRuntimePolicyEvolution({
     reviewedPaths.filter(({ path: reviewedPath }) => !isTestOnlyPath(reviewedPath)).map(({ path: reviewedPath }) => reviewedPath)
   );
   const candidateBindings = normalizeCandidateArtifactBindings(candidateArtifactBindings);
+  const sensitiveAnchorProof = pairRawOnlyTransitions(
+    sourceObservation.sensitiveAnchors,
+    targetObservation.sensitiveAnchors,
+    sensitiveAnchorRawKeys,
+    sensitiveAnchorNormalizedKeys,
+    "runtime sensitive anchors"
+  );
   const inventoryProof = {
     actualFiles: assertExactMultiset(sourceObservation.actualFiles, targetObservation.actualFiles, "actual files"),
     classifications: assertExactMultiset(
@@ -544,11 +553,7 @@ export function analyzeReviewedRuntimePolicyEvolution({
       targetObservation.specialFiles,
       "runtime special files"
     ),
-    sensitiveAnchors: assertExactMultiset(
-      sourceObservation.sensitiveAnchors,
-      targetObservation.sensitiveAnchors,
-      "runtime sensitive anchors"
-    )
+    sensitiveAnchors: sensitiveAnchorProof
   };
   for (const [sourceValue, targetValue, label] of [
     [sourceObservation.resolverPolicy, targetObservation.resolverPolicy, "resolver policy"],
@@ -650,6 +655,13 @@ export function analyzeReviewedRuntimePolicyEvolution({
       throw new Error("Reviewed runtime-policy evolution has a raw loader transition outside reviewed runtime paths.");
     }
   }
+  for (const transition of sensitiveAnchorProof.transitions) {
+    if (!reviewedRuntimePaths.has(transition.normalized.path)) {
+      throw new Error(
+        "Reviewed runtime-policy evolution has a sensitive-anchor transition outside reviewed runtime paths."
+      );
+    }
+  }
 
   const changedFields = expectedKeys.filter(
     (field) => !jsonEqual(sourceObservedPolicy[field], targetObservedPolicy[field])
@@ -658,6 +670,7 @@ export function analyzeReviewedRuntimePolicyEvolution({
     edgeDelta.added.length === 0
     && fsReadProof.transitions.length === 0
     && nextDynamicProof.transitions.length === 0
+    && sensitiveAnchorProof.transitions.length === 0
   ) {
     throw new Error("Reviewed runtime-policy evolution requires at least one exact reviewable runtime delta.");
   }
@@ -687,6 +700,7 @@ export function analyzeReviewedRuntimePolicyEvolution({
     removedTopologyEdges: [],
     fsRawTransitions: fsReadProof.transitions,
     nextDynamicRawTransitions: nextDynamicProof.transitions,
+    sensitiveAnchorRawTransitions: sensitiveAnchorProof.transitions,
     candidateArtifactBindings: candidateBindings,
     candidateBytesChanged: false,
     liveAllowed: false

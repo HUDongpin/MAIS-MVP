@@ -598,7 +598,13 @@ function makeRuntimeObservation({ target = false, fsRawTransition = true, static
       zeroBaselineKinds: ["require-context"],
       zeroBaselineCallCount: 0
     },
-    sensitiveAnchors: [{ path: "middleware.ts", rawSha256: stableRuntimeRawSha256 }],
+    sensitiveAnchors: [
+      {
+        path: runtimePaths.userStore,
+        rawSha256: target && fsRawTransition ? targetUserStoreRawSha256 : sourceUserStoreRawSha256
+      },
+      { path: "middleware.ts", rawSha256: stableRuntimeRawSha256 }
+    ],
     sensitiveAnchorsDigest: "4".repeat(64),
     rawObservation: {
       coveredFileCount: actualFiles.length,
@@ -643,6 +649,19 @@ function makeRuntimeEvolutionCase({ fsRawTransition = true, staticEdge = true } 
         target: structuredClone(targetFsRead)
       }]
     : [];
+  const sensitiveAnchorRawTransitions = fsRawTransition
+    ? [{
+        normalized: { path: runtimePaths.userStore },
+        source: {
+          path: runtimePaths.userStore,
+          rawSha256: sourceUserStoreRawSha256
+        },
+        target: {
+          path: runtimePaths.userStore,
+          rawSha256: targetUserStoreRawSha256
+        }
+      }]
+    : [];
   const changedPolicyFields = [
     ...(staticEdge ? ["edgeCount", "edgeDigest"] : []),
     ...(fsRawTransition ? ["fsReadAllowlistDigest"] : []),
@@ -660,6 +679,7 @@ function makeRuntimeEvolutionCase({ fsRawTransition = true, staticEdge = true } 
     removedTopologyEdges: [],
     fsRawTransitions,
     nextDynamicRawTransitions: [],
+    sensitiveAnchorRawTransitions,
     candidateArtifactBindings: structuredClone(candidateArtifactBindings),
     candidateBytesChanged: false,
     liveAllowed: false
@@ -741,6 +761,7 @@ test("reviewed runtime-policy evolution v2 accepts one exact reviewed static edg
       assert.equal(proof.inventoryProof.reachablePaths.equal, true);
       assert.equal(proof.loaderProof.fsRead.normalizedEqual, true);
       assert.equal(proof.loaderProof.fsRead.transitions.length, fsRawTransition ? 1 : 0);
+      assert.equal(proof.inventoryProof.sensitiveAnchors.transitions.length, fsRawTransition ? 1 : 0);
       assert.equal(proof.candidateBytesChanged, false);
       assert.equal(proof.rawBindingsVerified, true);
       assert.equal(proof.reviewAttestationRawSha256, args.reviewAttestationRawSha256);
@@ -757,6 +778,7 @@ test("reviewed runtime-policy evolution v2 accepts an fs raw-only transition wit
   assert.deepEqual(proof.graphProof.addedEdges, []);
   assert.deepEqual(proof.graphProof.addedTopologyEdges, []);
   assert.equal(proof.loaderProof.fsRead.transitions.length, 1);
+  assert.equal(proof.inventoryProof.sensitiveAnchors.transitions.length, 1);
 });
 
 test("reviewed runtime-policy evolution v2 rejects an empty review with no exact delta", () => {
@@ -827,6 +849,13 @@ test("reviewed runtime-policy evolution v2 rejects same-count inventory substitu
         targetObservation.graph.reachablePaths = new Set(paths);
       },
       pattern: /reachable paths multiset/u
+    },
+    {
+      name: "sensitive anchor path",
+      mutate: ({ targetObservation }) => {
+        targetObservation.sensitiveAnchors[0].path = "lib/replacement.ts";
+      },
+      pattern: /runtime sensitive anchors normalized entries multiset/u
     }
   ];
   for (const entry of cases) {
@@ -875,6 +904,15 @@ test("reviewed runtime-policy evolution v2 accepts only reviewed non-type static
       );
     });
   }
+});
+
+test("reviewed runtime-policy evolution v2 rejects a sensitive-anchor transition outside reviewed paths", () => {
+  const args = makeRuntimeEvolutionCase();
+  args.targetObservation.sensitiveAnchors[1].rawSha256 = "f".repeat(64);
+  assert.throws(
+    () => buildReviewedRuntimePolicyEvolution(args),
+    /sensitive-anchor transition outside reviewed runtime paths/u
+  );
 });
 
 test("reviewed runtime-policy evolution v2 rejects normalized fs capability and multiplicity changes", async (t) => {

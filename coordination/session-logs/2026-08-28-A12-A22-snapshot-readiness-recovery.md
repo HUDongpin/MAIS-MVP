@@ -171,3 +171,15 @@ or refresh flag, and never create files. The normal evidence path will continue
 to require that the later committed justification digest and inner attestation
 exactly equal a fresh recomputation; template generation is not an attestation
 bypass.
+
+The exact selected workflow Manifest is the nested
+`c0-i18n-content-legacy-byte-review-20260828` revision at baseline
+`e81f6b53515cf97dcd5351d0ff7add4224d7eab2`, not the historical attempt-root
+Manifest. Relative to that baseline, the protected delta contains only
+`lib/server/userStore.ts` and its two tests, all with status `M`.
+`userStore.ts` is also a canonical runtime entrypoint and therefore a sensitive
+anchor. Track C keeps the anchor-path multiset exact and permits only its
+source/target raw-SHA transition because that same path is in the reviewed
+runtime diff; the transition is recorded in the committed attestation and
+proof. Any anchor member replacement or raw transition outside a reviewed path
+still fails closed.
