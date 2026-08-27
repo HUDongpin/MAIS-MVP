@@ -19,6 +19,15 @@ type RateLimitScope =
   | "password-change-user"
   | "funnel-ip";
 
+const privateNoStore = "private, no-store";
+
+function applyAuthPrivateCacheBoundary<T extends Response>(response: T) {
+  response.headers.set("Cache-Control", privateNoStore);
+  response.headers.set("CDN-Cache-Control", privateNoStore);
+  response.headers.set("Vercel-CDN-Cache-Control", privateNoStore);
+  return response;
+}
+
 /**
  * Production ceiling for per-identifier login attempts. This is the brute-force control: 12
  * attempts per identifier per 15 minutes. Do not change it to accommodate a test suite.
@@ -96,8 +105,7 @@ export function authRateLimitResponse(retryAfterSeconds: number, rule: RateLimit
   response.headers.set("RateLimit-Limit", String(rule.max));
   response.headers.set("RateLimit-Remaining", "0");
   response.headers.set("RateLimit-Reset", String(Math.ceil(resetAt / 1000)));
-  response.headers.set("Cache-Control", "no-store");
-  return response;
+  return applyAuthPrivateCacheBoundary(response);
 }
 
 export function consumeAuthRateLimit({
@@ -133,8 +141,7 @@ function authFailureKind(error: unknown) {
 export async function withAuthRouteJsonBoundary(routeName: string, action: () => Promise<NextResponse>) {
   try {
     const response = await action();
-    response.headers.set("Cache-Control", "no-store");
-    return response;
+    return applyAuthPrivateCacheBoundary(response);
   } catch (error) {
     console.error("Auth route failed", {
       route: routeName,
@@ -148,7 +155,6 @@ export async function withAuthRouteJsonBoundary(routeName: string, action: () =>
       },
       { status: 503 }
     );
-    response.headers.set("Cache-Control", "no-store");
-    return response;
+    return applyAuthPrivateCacheBoundary(response);
   }
 }
