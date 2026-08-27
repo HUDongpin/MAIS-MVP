@@ -131,6 +131,11 @@ function isUsArkansasMiddleSchoolLessonTopic(topic: (typeof topics)[number]) {
 }
 
 function isProductionLessonRequiredTopic(topic: (typeof topics)[number]) {
+  // Hong Kong EASE units are practice-only: they exist so the 701 imported EASE
+  // questions have a Topic record and can feed grade-topic mastery. They are not
+  // taught topics and deliberately carry no lesson seed, so requiring one would
+  // only produce filler lessons.
+  if (topic.id.startsWith("hk-ease-")) return false;
   if (isUsArkansasMiddleSchoolLessonTopic(topic)) return true;
   if (topic.curriculumTrack === "US_AR_MATH" || topic.curriculumTrack === "US_CA_MATH" || topic.curriculumTrack === "US_NC_MATH") {
     return false;
