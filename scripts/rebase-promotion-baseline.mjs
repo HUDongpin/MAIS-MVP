@@ -22,7 +22,10 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
-import { observeCanonicalRuntimePolicy } from "../coordination/integration/promotion-gate-lib.mjs";
+import {
+  inspectLegacyCandidateDocument,
+  observeCanonicalRuntimePolicy
+} from "../coordination/integration/promotion-gate-lib.mjs";
 import {
   computeV2EvidenceSemanticDigest,
   projectV2RuntimePolicy
@@ -47,8 +50,8 @@ function usage() {
   return [
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
-    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy]",
-    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --produced-at <same-ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy]"
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]",
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --produced-at <same-ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]"
   ].join("\n");
 }
 
@@ -65,6 +68,7 @@ function parseArgs(argv) {
     writeBindings: false,
     refreshRuntimePolicy: false,
     reviewRuntimePolicy: false,
+    reviewLegacyCandidateBytes: false,
     rejectedMonolithicWrite: false,
     help: false
   };
@@ -83,6 +87,7 @@ function parseArgs(argv) {
     else if (argument === "--write-bindings") options.writeBindings = true;
     else if (argument === "--refresh-runtime-policy") options.refreshRuntimePolicy = true;
     else if (argument === "--review-runtime-policy") options.reviewRuntimePolicy = true;
+    else if (argument === "--review-legacy-candidate-bytes") options.reviewLegacyCandidateBytes = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
     else if (argument === "--help" || argument === "-h") options.help = true;
     else throw new Error(`Unknown argument: ${argument}`);
@@ -1202,6 +1207,120 @@ export function assertSourceEvidenceBinding(sourceEvidence, binding, manifest) {
   return true;
 }
 
+export function buildReviewedLegacyCandidateByteRefresh({
+  sourceRegistry,
+  targetCommit,
+  protectedRuntimePaths,
+  targetCandidates
+}) {
+  const registry = buildReaffirmedLegacyRegistry(sourceRegistry, targetCommit);
+  if (!Array.isArray(registry.resolutions) || registry.resolutions.length === 0) {
+    throw new Error("Reviewed legacy candidate bytes require a non-empty source registry.");
+  }
+  if (!Array.isArray(protectedRuntimePaths) || !Array.isArray(targetCandidates)) {
+    throw new Error("Reviewed legacy candidate bytes require exact runtime paths and target candidates.");
+  }
+  const protectedSet = new Set(protectedRuntimePaths);
+  const targetByPath = new Map();
+  for (const target of targetCandidates) {
+    if (!target || typeof target.path !== "string" || targetByPath.has(target.path)) {
+      throw new Error("Reviewed legacy target candidates are missing or duplicated.");
+    }
+    targetByPath.set(target.path, target);
+  }
+  if (
+    targetByPath.size !== registry.resolutions.length
+    || registry.resolutions.some(({ candidate }) => !targetByPath.has(candidate?.path))
+  ) {
+    throw new Error("Reviewed legacy target candidates do not exactly match the source registry.");
+  }
+
+  const changed = [];
+  for (const resolution of registry.resolutions) {
+    const target = targetByPath.get(resolution.candidate.path);
+    if (!/^[a-f0-9]{64}$/u.test(target.rawSha256 ?? "") || !target.profile) {
+      throw new Error("Reviewed legacy target candidate evidence is malformed.");
+    }
+    if (target.rawSha256 === resolution.candidate.rawSha256) continue;
+    if (resolution.decision !== "de-reached") {
+      throw new Error("Reviewed legacy candidate byte changes are restricted to de-reached candidates.");
+    }
+    if (!protectedSet.has(resolution.candidate.path)) {
+      throw new Error("Reviewed legacy candidate byte change is absent from the protected runtime delta.");
+    }
+    const expectedProfile = {
+      packageId: resolution.candidate.packageId,
+      containerKeys: resolution.candidate.containerKeys,
+      idCount: resolution.candidate.idCount,
+      idSetDigest: resolution.candidate.idSetDigest
+    };
+    if (!jsonEqual(target.profile, expectedProfile)) {
+      throw new Error("Reviewed legacy candidate semantic identity changed.");
+    }
+    const sourceRawSha256 = resolution.candidate.rawSha256;
+    resolution.candidate.rawSha256 = target.rawSha256;
+    changed.push({
+      path: resolution.candidate.path,
+      packageId: resolution.candidate.packageId,
+      decision: resolution.decision,
+      sourceRawSha256,
+      targetRawSha256: target.rawSha256,
+      semanticIdentityUnchanged: true
+    });
+  }
+  if (changed.length === 0) {
+    throw new Error("Reviewed legacy candidate byte refresh found no changed candidate bytes.");
+  }
+  changed.sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
+  const changedPaths = changed.map(({ path: candidatePath }) => candidatePath);
+  return {
+    registry,
+    proof: {
+      schemaVersion: "promotion-legacy-candidate-byte-reaffirmation.v1",
+      targetBaselineCommit: targetCommit,
+      changedCandidateCount: changed.length,
+      changedPaths,
+      changedPathsDigest: jsonDigest(changedPaths),
+      candidates: changed,
+      allChangedCandidatesDeReached: true,
+      semanticIdentityUnchanged: true,
+      liveAllowed: false
+    }
+  };
+}
+
+function collectReviewedLegacyCandidateByteRefresh(sourceRegistry, targetCommit, protectedDiff) {
+  const targetCandidates = sourceRegistry.resolutions.map((resolution) => {
+    const bytes = gitBlob(targetCommit, resolution.candidate.path);
+    let value;
+    try {
+      value = JSON.parse(bytes.toString("utf8"));
+    } catch {
+      throw new Error("Reviewed legacy target candidate is not valid JSON.");
+    }
+    const profile = inspectLegacyCandidateDocument(value).contentProfile;
+    if (!profile) {
+      throw new Error("Reviewed legacy target candidate has no stable semantic profile.");
+    }
+    return {
+      path: resolution.candidate.path,
+      rawSha256: sha256(bytes),
+      profile: {
+        packageId: profile.packageId,
+        containerKeys: profile.containerKeys,
+        idCount: profile.idCount,
+        idSetDigest: profile.idSetDigest
+      }
+    };
+  });
+  return buildReviewedLegacyCandidateByteRefresh({
+    sourceRegistry,
+    targetCommit,
+    protectedRuntimePaths: protectedDiff.runtimePaths,
+    targetCandidates
+  });
+}
+
 export function buildReaffirmedEvidence(sourceEvidence, context) {
   const next = structuredClone(sourceEvidence);
   const sourceTarget = sourceEvidence.targetBaselineCommit;
@@ -1235,11 +1354,15 @@ export function buildReaffirmedEvidence(sourceEvidence, context) {
     protectedChangedPaths: context.protectedDiff.changedPaths,
     testOnlyChangedPaths: context.protectedDiff.testOnlyPaths,
     runtimeChangedPaths: context.protectedDiff.runtimePaths,
-    candidateBytesChanged: context.candidateBytesChanged,
+    candidateBytesChanged: false,
+    legacyCandidateBytesChanged: Boolean(context.legacyCandidateByteReaffirmation),
     liveAllowed: false
   };
   if (context.runtimePolicyReaffirmation) {
     baselineReaffirmation.runtimePolicyReaffirmation = context.runtimePolicyReaffirmation;
+  }
+  if (context.legacyCandidateByteReaffirmation) {
+    baselineReaffirmation.legacyCandidateByteReaffirmation = context.legacyCandidateByteReaffirmation;
   }
   next.semanticPayload.baselineReaffirmation = baselineReaffirmation;
   return next;
@@ -1257,14 +1380,6 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   if (legacySource.rawSha256 !== manifest.legacyResolution.rawSha256) {
     throw new Error("Source legacy registry bytes do not match the Source Manifest.");
   }
-  const legacyValue = buildReaffirmedLegacyRegistry(
-    legacySource.value,
-    targetCommit,
-    manifest.targetBaselineCommit
-  );
-  const legacyRelative = `${revisionRoot.relative}/inputs/legacy-resolution-registry.v2.6.json`;
-  const legacyBytes = Buffer.from(canonicalJson(legacyValue), "utf8");
-  const legacyRawSha256 = sha256(legacyBytes);
   const protectedDiff = collectProtectedDiff(manifest.targetBaselineCommit, targetCommit);
   const roles = requiredRoles(manifest);
   const reviewJustification = options.reviewRuntimePolicy
@@ -1284,6 +1399,18 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
     manifest.targetBaselineCommit,
     targetCommit
   );
+  const legacyCandidateRevision = options.reviewLegacyCandidateBytes
+    ? collectReviewedLegacyCandidateByteRefresh(legacySource.value, targetCommit, protectedDiff)
+    : null;
+  const legacyValue = legacyCandidateRevision?.registry
+    ?? buildReaffirmedLegacyRegistry(
+      legacySource.value,
+      targetCommit,
+      manifest.targetBaselineCommit
+    );
+  const legacyRelative = `${revisionRoot.relative}/inputs/legacy-resolution-registry.v2.6.json`;
+  const legacyBytes = Buffer.from(canonicalJson(legacyValue), "utf8");
+  const legacyRawSha256 = sha256(legacyBytes);
   const runtimePolicyRevision = options.refreshRuntimePolicy
     ? await collectRuntimePolicyRefresh(manifest)
     : options.reviewRuntimePolicy
@@ -1318,6 +1445,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
           protectedDiff,
           candidateBytesChanged: candidateArtifactBindings.some(({ unchanged }) => unchanged !== true),
           runtimePolicyReaffirmation: runtimePolicyRevision?.proof ?? null,
+          legacyCandidateByteReaffirmation: legacyCandidateRevision?.proof ?? null,
           sourceEvidencePath: sourceFile.relative,
           sourceEvidenceRawSha256: sourceLoaded.rawSha256
         })
@@ -1341,6 +1469,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
     justificationCommit: options.justificationCommit,
     candidateArtifactBindings,
     runtimePolicyRevision,
+    legacyCandidateRevision,
     legacy: {
       source: legacySource,
       destination: assertSafeRelative(legacyRelative, "Revision legacy registry"),
@@ -1370,6 +1499,11 @@ function printPlan(plan) {
         : plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reviewed-evolution.v2"
           ? "reviewed exact static-edge/runtime-policy evolution"
           : "retained"
+    }`,
+    `  legacy candidate bytes: ${
+      plan.legacyCandidateRevision
+        ? `reviewed ${plan.legacyCandidateRevision.proof.changedCandidateCount} de-reached change(s)`
+        : "retained"
     }`,
     "",
     `Evidence phase (${plan.evidence.length + 1} new files):`,

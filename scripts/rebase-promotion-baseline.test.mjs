@@ -11,6 +11,7 @@ import {
   assertSourceEvidenceBinding,
   buildReaffirmedEvidence,
   buildReaffirmedLegacyRegistry,
+  buildReviewedLegacyCandidateByteRefresh,
   buildReviewedRuntimePolicyEvolution,
   buildReaffirmedRuntimePolicyRefresh,
   jsonPointerDifferences
@@ -56,6 +57,7 @@ test("baseline re-affirmation exposes an append-only revision and two committed 
   assert.match(result.stdout, /--evidence-commit/u);
   assert.match(result.stdout, /--refresh-runtime-policy/u);
   assert.match(result.stdout, /--review-runtime-policy/u);
+  assert.match(result.stdout, /--review-legacy-candidate-bytes/u);
 });
 
 test("the unsafe monolithic write mode is rejected before changing historical artifacts", () => {
@@ -176,6 +178,115 @@ test("source evidence binding requires exact semantic identity and current Manif
   assert.throws(
     () => assertSourceEvidenceBinding(semanticallyChanged, binding, manifest),
     /semantic identity or currentness is invalid/u
+  );
+});
+
+test("reviewed legacy candidate refresh accepts only de-reached byte changes with stable semantic identity", () => {
+  const source = {
+    targetBaselineCommit: "1".repeat(40),
+    resolutions: [
+      {
+        decision: "de-reached",
+        candidate: {
+          path: "data/generated-content/legacy-a/question-pack.json",
+          rawSha256: "a".repeat(64),
+          packageId: "legacy-a",
+          containerKeys: ["questions"],
+          idCount: 2,
+          idSetDigest: "b".repeat(64)
+        }
+      },
+      {
+        decision: "de-reached",
+        candidate: {
+          path: "data/generated-content/legacy-b/question-pack.json",
+          rawSha256: "c".repeat(64),
+          packageId: "legacy-b",
+          containerKeys: ["questions"],
+          idCount: 3,
+          idSetDigest: "d".repeat(64)
+        }
+      }
+    ]
+  };
+  const result = buildReviewedLegacyCandidateByteRefresh({
+    sourceRegistry: source,
+    targetCommit: "2".repeat(40),
+    protectedRuntimePaths: ["data/generated-content/legacy-a/question-pack.json"],
+    targetCandidates: [
+      {
+        path: "data/generated-content/legacy-a/question-pack.json",
+        rawSha256: "e".repeat(64),
+        profile: {
+          packageId: "legacy-a",
+          containerKeys: ["questions"],
+          idCount: 2,
+          idSetDigest: "b".repeat(64)
+        }
+      },
+      {
+        path: "data/generated-content/legacy-b/question-pack.json",
+        rawSha256: "c".repeat(64),
+        profile: {
+          packageId: "legacy-b",
+          containerKeys: ["questions"],
+          idCount: 3,
+          idSetDigest: "d".repeat(64)
+        }
+      }
+    ]
+  });
+
+  assert.equal(result.registry.targetBaselineCommit, "2".repeat(40));
+  assert.equal(result.registry.resolutions[0].candidate.rawSha256, "e".repeat(64));
+  assert.equal(result.registry.resolutions[1].candidate.rawSha256, "c".repeat(64));
+  assert.equal(result.proof.schemaVersion, "promotion-legacy-candidate-byte-reaffirmation.v1");
+  assert.equal(result.proof.changedCandidateCount, 1);
+  assert.equal(result.proof.allChangedCandidatesDeReached, true);
+  assert.equal(result.proof.semanticIdentityUnchanged, true);
+  assert.equal(result.proof.liveAllowed, false);
+  assert.deepEqual(result.proof.changedPaths, ["data/generated-content/legacy-a/question-pack.json"]);
+  assert.equal(source.resolutions[0].candidate.rawSha256, "a".repeat(64));
+});
+
+test("reviewed legacy candidate refresh rejects approved, hidden, or semantic candidate changes", () => {
+  const candidate = {
+    path: "data/generated-content/legacy-a/question-pack.json",
+    rawSha256: "a".repeat(64),
+    packageId: "legacy-a",
+    containerKeys: ["questions"],
+    idCount: 2,
+    idSetDigest: "b".repeat(64)
+  };
+  const target = {
+    path: candidate.path,
+    rawSha256: "c".repeat(64),
+    profile: {
+      packageId: candidate.packageId,
+      containerKeys: candidate.containerKeys,
+      idCount: candidate.idCount,
+      idSetDigest: candidate.idSetDigest
+    }
+  };
+  const build = (decision, protectedRuntimePaths, targetCandidates = [target]) =>
+    buildReviewedLegacyCandidateByteRefresh({
+      sourceRegistry: {
+        targetBaselineCommit: "1".repeat(40),
+        resolutions: [{ decision, candidate }]
+      },
+      targetCommit: "2".repeat(40),
+      protectedRuntimePaths,
+      targetCandidates
+    });
+
+  assert.throws(() => build("approved-projection", [candidate.path]), /de-reached/u);
+  assert.throws(() => build("de-reached", []), /protected runtime delta/u);
+  assert.throws(
+    () => build("de-reached", [candidate.path], [{
+      ...target,
+      profile: { ...target.profile, idSetDigest: "d".repeat(64) }
+    }]),
+    /semantic identity/u
   );
 });
 
