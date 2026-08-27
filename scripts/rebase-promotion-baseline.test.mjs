@@ -8,7 +8,8 @@ import { fileURLToPath } from "node:url";
 
 import {
   buildReaffirmedEvidence,
-  buildReaffirmedLegacyRegistry
+  buildReaffirmedLegacyRegistry,
+  buildReaffirmedRuntimePolicyRefresh
 } from "./rebase-promotion-baseline.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -45,6 +46,7 @@ test("baseline re-affirmation exposes an append-only revision and two committed 
   assert.match(result.stdout, /--write-evidence/u);
   assert.match(result.stdout, /--write-bindings/u);
   assert.match(result.stdout, /--evidence-commit/u);
+  assert.match(result.stdout, /--refresh-runtime-policy/u);
 });
 
 test("the unsafe monolithic write mode is rejected before changing historical artifacts", () => {
@@ -123,4 +125,83 @@ test("evidence re-affirmation preserves historical commits and records the exact
   assert.equal(next.semanticPayload.legacyResolutionRegistryRawSha256, "b".repeat(64));
   assert.deepEqual(next.semanticPayload.baselineReaffirmation.runtimeChangedPaths, ["lib/server/authRouteGuards.ts"]);
   assert.equal(source.semanticPayload.targetBaselineCommit, "1".repeat(40));
+});
+
+test("runtime-policy refresh accepts only an unchanged observed graph with source-bound fs callsites", () => {
+  const expected = {
+    reachablePathCount: 10,
+    reachablePathsDigest: "1".repeat(64),
+    fsReadAllowlistCount: 1,
+    fsReadAllowlistDigest: "2".repeat(64),
+    nextDynamicNonliteralImportCount: 0,
+    zeroBaselineCallCount: 0
+  };
+  const observed = {
+    ...expected,
+    fsReadAllowlistDigest: "3".repeat(64)
+  };
+  const allowlist = [{
+    sourcePath: "lib/server/userStore.ts",
+    sourceRawSha256: "4".repeat(64),
+    callee: "node:fs/promises.readFile",
+    position: 123,
+    argumentShape: "identifier(path)",
+    normalizedExpressionDigest: "5".repeat(64),
+    policy: "runtime-storage-read-only-non-module"
+  }];
+  const refresh = buildReaffirmedRuntimePolicyRefresh({
+    sourceExpectedPolicy: expected,
+    sourceObservedPolicy: observed,
+    targetObservedPolicy: structuredClone(observed),
+    sourceFsReadAllowlist: allowlist,
+    targetFsReadAllowlist: structuredClone(allowlist)
+  });
+  assert.deepEqual(refresh.changedFields, ["fsReadAllowlistDigest"]);
+  assert.equal(refresh.fsReadAllowlistCount, 1);
+  assert.equal(refresh.sourceAndTargetRuntimePolicyEqual, true);
+  assert.equal(refresh.sourceAndTargetFsReadAllowlistEqual, true);
+});
+
+test("runtime-policy refresh rejects a changed target graph or fs-read callsite", () => {
+  const expected = {
+    reachablePathCount: 10,
+    reachablePathsDigest: "1".repeat(64),
+    fsReadAllowlistCount: 1,
+    fsReadAllowlistDigest: "2".repeat(64),
+    nextDynamicNonliteralImportCount: 0,
+    zeroBaselineCallCount: 0
+  };
+  const observed = {
+    ...expected,
+    fsReadAllowlistDigest: "3".repeat(64)
+  };
+  const allowlist = [{
+    sourcePath: "lib/server/userStore.ts",
+    sourceRawSha256: "4".repeat(64),
+    callee: "node:fs/promises.readFile",
+    position: 123,
+    argumentShape: "identifier(path)",
+    normalizedExpressionDigest: "5".repeat(64),
+    policy: "runtime-storage-read-only-non-module"
+  }];
+  assert.throws(
+    () => buildReaffirmedRuntimePolicyRefresh({
+      sourceExpectedPolicy: expected,
+      sourceObservedPolicy: observed,
+      targetObservedPolicy: { ...observed, reachablePathCount: 11 },
+      sourceFsReadAllowlist: allowlist,
+      targetFsReadAllowlist: allowlist
+    }),
+    /target runtime policy differs/u
+  );
+  assert.throws(
+    () => buildReaffirmedRuntimePolicyRefresh({
+      sourceExpectedPolicy: expected,
+      sourceObservedPolicy: observed,
+      targetObservedPolicy: observed,
+      sourceFsReadAllowlist: allowlist,
+      targetFsReadAllowlist: [{ ...allowlist[0], argumentShape: "identifier(otherPath)" }]
+    }),
+    /fs-read allowlist differs/u
+  );
 });
