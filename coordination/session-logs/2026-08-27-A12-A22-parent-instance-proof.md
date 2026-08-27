@@ -24,5 +24,12 @@ non-production, wrongly authorized, and failed requests receive no proof header.
 - Complete parent Node gate: 401/401 passed, zero skipped.
 - `npm run type-check`: passed.
 - Fresh `npm run build`: passed; generated `next-env.d.ts` preimage restored.
+- Runtime policy: the first separate-helper layout was correctly rejected with
+  `V2_RUNTIME_GRAPH_DRIFT` because it added one covered/reachable module and two
+  dependency edges. That rejected append-only evidence remains an audit record.
+  The implementation was then moved into the already imported auth module;
+  the canonical observer reports zero changed runtime-policy fields, and the
+  focused tests, complete 401-test gate, type-check, and fresh build passed
+  again after the refactor.
 
 No credential value is stored in this log or in the implementation.

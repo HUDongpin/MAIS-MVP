@@ -11,7 +11,7 @@ import {
   PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER,
   PARENT_PRODUCTION_CERTIFICATION_MODE,
   resolveParentProductionCertificationInstanceProof
-} from "@/lib/server/parentProductionCertification";
+} from "@/lib/server/auth";
 import type { ParentMessageEntrySafe, ParentMessageThreadSafe } from "@/types";
 
 const thread: ParentMessageThreadSafe = {

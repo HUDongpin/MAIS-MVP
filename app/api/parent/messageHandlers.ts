@@ -1,9 +1,9 @@
-import { requireParentUser } from "@/lib/server/auth";
-import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import {
   PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER,
+  requireParentUser,
   resolveParentProductionCertificationInstanceProof
-} from "@/lib/server/parentProductionCertification";
+} from "@/lib/server/auth";
+import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import {
   createParentMessageThread,
   findParentMessageCreateReplay,

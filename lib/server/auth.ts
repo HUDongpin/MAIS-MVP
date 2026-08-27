@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
 import {
   getAuthenticatedUserForSession
@@ -17,6 +17,30 @@ function readCookie(header: string | null, name: string) {
 }
 
 const expectedUserHeaderName = "x-mais-expected-user-id";
+
+export const PARENT_PRODUCTION_CERTIFICATION_HEADER =
+  "X-MAIS-Production-Certification";
+export const PARENT_PRODUCTION_CERTIFICATION_INSTANCE_HEADER =
+  "X-MAIS-Production-Instance-Proof";
+export const PARENT_PRODUCTION_CERTIFICATION_MODE =
+  "parent-idempotency-v1";
+
+const productionCertificationSecretMinimumLength = 32;
+const productionCertificationSecretMaximumLength = 512;
+const productionCertificationDisallowedSecretPattern = /[\s\u0000-\u001f\u007f-\u009f]/u;
+const productionCertificationInstanceProofPattern = /^v1\.[A-Za-z0-9_-]{22}$/u;
+const productionCertificationInstanceProofGlobalKey =
+  "__maisParentProductionCertificationInstanceProofV1";
+
+type GlobalWithParentProductionCertification = typeof globalThis & {
+  [productionCertificationInstanceProofGlobalKey]?: string;
+};
+
+export type ParentProductionCertificationRuntime = {
+  vercelEnvironment?: string;
+  healthSecret?: string;
+  instanceProof?: string;
+};
 
 type AuthenticatedUserIdentity = {
   user: {
@@ -42,6 +66,103 @@ function expectedUserIdsMatch(expectedUserId: unknown, authenticatedUserId: stri
   // Keep exact string equality as the authority; the constant-time digest check
   // prevents an early content-dependent exit for equal-length identifiers.
   return constantTimeDigestMatch && expectedUserId === authenticatedUserId;
+}
+
+function configuredProductionCertificationValue<
+  K extends keyof ParentProductionCertificationRuntime
+>(
+  runtime: ParentProductionCertificationRuntime,
+  key: K,
+  fallback: ParentProductionCertificationRuntime[K]
+) {
+  return Object.prototype.hasOwnProperty.call(runtime, key)
+    ? runtime[key]
+    : fallback;
+}
+
+function isConfiguredProductionCertificationSecret(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    value.length >= productionCertificationSecretMinimumLength &&
+    value.length <= productionCertificationSecretMaximumLength &&
+    value === value.trim() &&
+    !productionCertificationDisallowedSecretPattern.test(value)
+  );
+}
+
+function productionCertificationBearerMatches(
+  authorization: string | null,
+  secret: unknown
+) {
+  if (!isConfiguredProductionCertificationSecret(secret)) return false;
+  const actualDigest = createHash("sha256").update(authorization ?? "", "utf8").digest();
+  const expectedDigest = createHash("sha256").update(`Bearer ${secret}`, "utf8").digest();
+  return timingSafeEqual(actualDigest, expectedDigest);
+}
+
+function currentProductionCertificationInstanceProof() {
+  const processGlobal = globalThis as GlobalWithParentProductionCertification;
+  const existing = processGlobal[productionCertificationInstanceProofGlobalKey];
+  if (
+    typeof existing === "string" &&
+    productionCertificationInstanceProofPattern.test(existing)
+  ) {
+    return existing;
+  }
+
+  const created = `v1.${randomBytes(16).toString("base64url")}`;
+  Object.defineProperty(processGlobal, productionCertificationInstanceProofGlobalKey, {
+    configurable: false,
+    enumerable: false,
+    value: created,
+    writable: false
+  });
+  return created;
+}
+
+/**
+ * Returns an opaque, process-stable proof only for the internal production
+ * certification request. Callers must invoke this after authenticating the
+ * parent and enforcing the expected-user guard; ordinary responses never need
+ * or receive an execution-instance identifier.
+ */
+export function resolveParentProductionCertificationInstanceProof(
+  request: Request,
+  runtime: ParentProductionCertificationRuntime = {}
+) {
+  const vercelEnvironment = configuredProductionCertificationValue(
+    runtime,
+    "vercelEnvironment",
+    process.env.VERCEL_ENV
+  );
+  if (vercelEnvironment !== "production" || request.method !== "POST") return null;
+  if (
+    request.headers.get(PARENT_PRODUCTION_CERTIFICATION_HEADER) !==
+    PARENT_PRODUCTION_CERTIFICATION_MODE
+  ) {
+    return null;
+  }
+
+  const healthSecret = configuredProductionCertificationValue(
+    runtime,
+    "healthSecret",
+    process.env.TEACHER_NOTICE_HEALTH_SECRET
+  );
+  if (!productionCertificationBearerMatches(request.headers.get("authorization"), healthSecret)) {
+    return null;
+  }
+
+  const instanceProof = configuredProductionCertificationValue(
+    runtime,
+    "instanceProof",
+    currentProductionCertificationInstanceProof()
+  );
+  return (
+    typeof instanceProof === "string" &&
+    productionCertificationInstanceProofPattern.test(instanceProof)
+  )
+    ? instanceProof
+    : null;
 }
 
 export function expectedUserConstraintsFromRequest(request: Request): unknown[] {
