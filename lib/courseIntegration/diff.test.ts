@@ -13,19 +13,13 @@ function versionInput(
   overrides: Pick<CanonicalCourseVersionInput, "units" | "activities">
 ): CanonicalCourseVersionInput {
   return {
-    packageIdentity: {
-      sha256,
+    sourceProvenance: {
+      packageSha256: sha256,
       schemaVersion: COURSE_INTEGRATION_SCHEMA_VERSION,
-      sourceFormat: "scorm-2004",
-      importedAt: "2026-08-27T05:00:00.000Z"
+      source: { format: "common-cartridge", version: "1.3" },
+      adapter: { id: "org.mais.common-cartridge", version: "1.0.0" }
     },
-    versionMetadata: {
-      versionId: `sha256:${sha256}`,
-      createdAt: "2026-08-27T05:00:00.000Z",
-      predecessorVersionId: null,
-      contentSha256: sha256,
-      immutable: true
-    },
+    predecessorVersionId: null,
     course: {
       kind: "course",
       id: "course:stable",

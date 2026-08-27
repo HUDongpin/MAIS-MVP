@@ -11,6 +11,7 @@ const productionFiles = [
   "lib/courseIntegration/xml.ts",
   "lib/courseIntegration/readiness.ts",
   "lib/courseIntegration/importer.ts",
+  "app/api/teacher/course-imports/multipart.ts",
   "app/api/teacher/course-imports/handler.ts",
   "app/api/teacher/course-imports/route.ts"
 ];
@@ -25,6 +26,7 @@ test("course integration production modules expose no network, filesystem-write,
     /\bfetch\s*\(/,
     /\bXMLHttpRequest\b/,
     /\bWebSocket\b/,
+    /\.formData\s*\(/,
     /\b(?:eval|Function)\s*\(/,
     /\bimport\s*\(/,
     /\b(?:writeFile|appendFile|createWriteStream|mkdir|rename|unlink|rm)\s*\(/

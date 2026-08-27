@@ -9,7 +9,6 @@ import {
   type CanonicalModule,
   type CanonicalResource,
   type CanonicalUnit,
-  type CoursePackageIdentity,
   type CanonicalCourseVersion
 } from "./model";
 import { EXTERNAL_COURSE_INTEGRATION_READINESS } from "./readiness";
@@ -62,7 +61,12 @@ export interface ScormStaticImportReport {
     readonly format: "SCORM";
     readonly version: ScormVersion;
   };
-  readonly packageIdentity: CoursePackageIdentity;
+  readonly sourcePackage: {
+    readonly sha256: string;
+  };
+  readonly importEvent: {
+    readonly importedAt: string;
+  };
   readonly courseVersion: CanonicalCourseVersion;
   readonly archive: {
     readonly entryCount: number;
@@ -229,7 +233,15 @@ function safeManifestPath(value: string | null) {
     return null;
   }
   if (decoded.includes("/") && /%2f/i.test(withoutQuery)) return null;
-  if (decoded.includes("\\") || decoded.includes("\u0000")) return null;
+  if (
+    decoded.includes("\\") ||
+    decoded.includes("\u0000") ||
+    decoded.includes("?") ||
+    decoded.includes("#") ||
+    decoded.startsWith("/") ||
+    decoded.startsWith("//") ||
+    /^[A-Za-z][A-Za-z0-9+.-]*:/.test(decoded)
+  ) return null;
   try {
     return canonicalizeArchivePath(decoded).canonicalPath;
   } catch {
@@ -281,6 +293,15 @@ function deepFreeze<T>(value: T): T {
   return Object.freeze(value);
 }
 
+function resolveImportedAt(value: string | undefined) {
+  const importedAt = value ?? new Date().toISOString();
+  const parsed = new Date(importedAt);
+  if (!Number.isFinite(parsed.valueOf()) || parsed.toISOString() !== importedAt) {
+    throw new TypeError("importedAt must be a canonical ISO-8601 timestamp.");
+  }
+  return importedAt;
+}
+
 export async function importScormPackage(
   input: Buffer | Uint8Array,
   options: ImportScormPackageOptions = {}
@@ -329,14 +350,8 @@ export async function importScormPackage(
     );
   }
 
-  const importedAt = options.importedAt ?? new Date().toISOString();
+  const importedAt = resolveImportedAt(options.importedAt);
   const sha256 = createHash("sha256").update(bytes).digest("hex");
-  const packageIdentity: CoursePackageIdentity = {
-    sha256,
-    schemaVersion: COURSE_INTEGRATION_SCHEMA_VERSION,
-    sourceFormat: scormVersion === "1.2" ? "scorm-1.2" : "scorm-2004",
-    importedAt
-  };
   const courseId = `scorm:manifest:${manifestSourceId}`;
   const warnings: StaticImportWarning[] = [];
   const archivePaths = new Set(archive.entries.filter((entry) => !entry.isDirectory).map((entry) => entry.pathKey));
@@ -386,6 +401,7 @@ export async function importScormPackage(
         sourceId
       });
     }
+    const scormType = xmlAttribute(resourceElement, "scormtype")?.trim().toLowerCase() || null;
     const builder: ResourceBuilder = {
       kind: "resource",
       id: resourceStableId(sourceId),
@@ -394,8 +410,12 @@ export async function importScormPackage(
       order: resourceBuilders.length,
       title: null,
       href,
-      scormType: xmlAttribute(resourceElement, "scormtype")?.trim().toLowerCase() || null,
       filePaths,
+      ...(scormType === null ? {} : {
+        extensions: {
+          "org.adlnet.scorm": { resourceType: scormType }
+        }
+      }),
       dependencySourceIds: xmlChildren(resourceElement, "dependency")
         .map((dependency) => xmlAttribute(dependency, "identifierref")?.trim())
         .filter((value): value is string => Boolean(value)),
@@ -523,10 +543,10 @@ export async function importScormPackage(
       order: builder.order,
       title: builder.title,
       href: builder.href,
-      scormType: builder.scormType,
       filePaths: builder.filePaths,
       dependencyResourceIds,
-      referencedByIds: [...builder.referencedByIds]
+      referencedByIds: [...builder.referencedByIds],
+      ...(builder.extensions === undefined ? {} : { extensions: builder.extensions })
     };
   });
 
@@ -534,14 +554,25 @@ export async function importScormPackage(
     ? modules.find((module) => module.sourceId === defaultOrganizationSourceId)
     : null;
   const courseVersion = createCanonicalCourseVersion({
-    packageIdentity,
-    versionMetadata: {
-      versionId: `sha256:${sha256}`,
-      createdAt: importedAt,
-      predecessorVersionId: options.predecessorVersionId ?? null,
-      contentSha256: sha256,
-      immutable: true
+    sourceProvenance: {
+      packageSha256: sha256,
+      schemaVersion: COURSE_INTEGRATION_SCHEMA_VERSION,
+      source: {
+        format: "scorm",
+        version: scormVersion
+      },
+      adapter: {
+        id: "org.mais.scorm-static",
+        version: "1.0.0"
+      },
+      extensions: {
+        "org.adlnet.scorm": {
+          manifestIdentifier: manifestSourceId,
+          version: scormVersion
+        }
+      }
     },
+    predecessorVersionId: options.predecessorVersionId ?? null,
     course: {
       kind: "course",
       id: courseId,
@@ -561,7 +592,8 @@ export async function importScormPackage(
   return deepFreeze({
     reportVersion: "mais.scorm-static-import-report.v1" as const,
     source: { format: "SCORM" as const, version: scormVersion },
-    packageIdentity: { ...packageIdentity },
+    sourcePackage: { sha256 },
+    importEvent: { importedAt },
     courseVersion,
     archive: {
       entryCount: archive.entryCount,

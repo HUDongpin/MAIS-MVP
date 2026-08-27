@@ -8,7 +8,8 @@ const fixedZipDate = new Date("2020-01-01T00:00:00.000Z");
 
 async function createScormPackage(
   manifest: string,
-  files: Record<string, string | Uint8Array> = {}
+  files: Record<string, string | Uint8Array> = {},
+  options: { readonly streamFiles?: boolean } = {}
 ) {
   const zip = new JSZip();
   zip.file("imsmanifest.xml", manifest, { date: fixedZipDate, createFolders: false });
@@ -19,8 +20,20 @@ async function createScormPackage(
     type: "uint8array",
     compression: "DEFLATE",
     compressionOptions: { level: 6 },
-    platform: "UNIX"
+    platform: "UNIX",
+    streamFiles: options.streamFiles ?? false
   });
+}
+
+function findCentralEntryOffset(bytes: Uint8Array, expectedName: string) {
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  for (let offset = 0; offset <= bytes.byteLength - 46; offset += 1) {
+    if (view.getUint32(offset, true) !== 0x02014b50) continue;
+    const nameLength = view.getUint16(offset + 28, true);
+    const name = new TextDecoder().decode(bytes.subarray(offset + 46, offset + 46 + nameLength));
+    if (name === expectedName) return offset;
+  }
+  throw new Error(`Missing central ZIP entry in test fixture: ${expectedName}`);
 }
 
 function scormManifest({
@@ -64,9 +77,17 @@ test("imports a minimal SCORM 1.2 package into the canonical course model", asyn
 
   assert.equal(report.source.format, "SCORM");
   assert.equal(report.source.version, "1.2");
-  assert.match(report.packageIdentity.sha256, /^[a-f0-9]{64}$/);
-  assert.equal(report.packageIdentity.sourceFormat, "scorm-1.2");
-  assert.equal(report.packageIdentity.importedAt, importedAt);
+  assert.match(report.sourcePackage.sha256, /^[a-f0-9]{64}$/);
+  assert.equal(report.importEvent.importedAt, importedAt);
+  assert.equal(report.courseVersion.sourceProvenance.source.format, "scorm");
+  assert.equal(report.courseVersion.sourceProvenance.source.version, "1.2");
+  assert.equal(report.courseVersion.sourceProvenance.adapter.id, "org.mais.scorm-static");
+  assert.deepEqual(report.courseVersion.sourceProvenance.extensions, {
+    "org.adlnet.scorm": {
+      manifestIdentifier: "course-minimal",
+      version: "1.2"
+    }
+  });
   assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
   assert.equal(report.courseVersion.course.title, "Minimal course");
   assert.deepEqual(report.courseVersion.modules.map(({ id, parentId, order }) => ({ id, parentId, order })), [{
@@ -80,6 +101,9 @@ test("imports a minimal SCORM 1.2 package into the canonical course model", asyn
     resourceIds: ["scorm:resource:resource-1"]
   }]);
   assert.deepEqual(report.courseVersion.resources[0]?.referencedByIds, ["scorm:item:item-1"]);
+  assert.deepEqual(report.courseVersion.resources[0]?.extensions, {
+    "org.adlnet.scorm": { resourceType: "asset" }
+  });
   assert.deepEqual(report.courseVersion.assessments, []);
   assert.equal(report.archive.fileCount, 2);
   assert.deepEqual(report.warnings, []);
@@ -95,7 +119,30 @@ test("identifies SCORM 2004 packages without treating them as SCORM 1.2", async 
   const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:10:00.000Z" });
 
   assert.equal(report.source.version, "2004");
-  assert.equal(report.packageIdentity.sourceFormat, "scorm-2004");
+  assert.equal(report.courseVersion.sourceProvenance.source.format, "scorm");
+  assert.equal(report.courseVersion.sourceProvenance.source.version, "2004");
+});
+
+test("repeat imports keep canonical version identity independent of import-event time and bind predecessors", async () => {
+  const bytes = await createScormPackage(scormManifest(), { "content.txt": "Static lesson" });
+
+  const first = await importScormPackage(bytes, { importedAt: "2026-08-27T06:00:00.000Z" });
+  const later = await importScormPackage(bytes, { importedAt: "2026-08-28T06:00:00.000Z" });
+  const successor = await importScormPackage(bytes, {
+    importedAt: "2026-08-29T06:00:00.000Z",
+    predecessorVersionId: first.courseVersion.versionMetadata.versionId
+  });
+
+  assert.deepEqual(later.courseVersion, first.courseVersion);
+  assert.notEqual(later.importEvent.importedAt, first.importEvent.importedAt);
+  assert.equal(successor.courseVersion.versionMetadata.contentSha256,
+    first.courseVersion.versionMetadata.contentSha256);
+  assert.notEqual(successor.courseVersion.versionMetadata.versionId,
+    first.courseVersion.versionMetadata.versionId);
+  assert.equal(successor.courseVersion.versionMetadata.predecessorVersionId,
+    first.courseVersion.versionMetadata.versionId);
+  assert.equal("importedAt" in successor.courseVersion.sourceProvenance, false);
+  assert.equal("createdAt" in successor.courseVersion.versionMetadata, false);
 });
 
 test("rejects ZIP packages that do not contain a root imsmanifest.xml", async () => {
@@ -167,6 +214,20 @@ test("rejects path traversal and duplicate canonical ZIP paths without echoing e
   }
 });
 
+test("rejects absolute ZIP entry paths", async () => {
+  const bytes = await createScormPackage(scormManifest(), {
+    "content.txt": "Static lesson",
+    "/absolute.txt": "must never become package-relative"
+  });
+
+  await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+    assert.equal(Reflect.get(Object(error), "code"), "ZIP_PATH_UNSAFE");
+    assert.equal(Reflect.get(Object(error), "status"), 422);
+    assert.doesNotMatch(String(Reflect.get(Object(error), "message")), /absolute/);
+    return true;
+  });
+});
+
 test("rejects DOCTYPE and ENTITY declaration surfaces before XML entity expansion", async () => {
   const base = scormManifest();
   const declarations = [
@@ -181,6 +242,22 @@ test("rejects DOCTYPE and ENTITY declaration surfaces before XML entity expansio
       assert.equal(Reflect.get(Object(error), "code"), "MANIFEST_XML_DTD_FORBIDDEN");
       assert.equal(Reflect.get(Object(error), "status"), 422);
       assert.doesNotMatch(String(Reflect.get(Object(error), "message")), /private|sensitive/);
+      return true;
+    });
+  }
+});
+
+test("rejects illegal literal XML 1.0 controls in attributes and text", async () => {
+  const manifests = [
+    scormManifest().replace("course-minimal", "course\u0001minimal"),
+    scormManifest().replace("Minimal course", "Minimal\u0001course")
+  ];
+
+  for (const manifest of manifests) {
+    const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), "MANIFEST_XML_INVALID");
+      assert.equal(Reflect.get(Object(error), "status"), 422);
       return true;
     });
   }
@@ -242,6 +319,148 @@ test("omits external manifest references as warnings without making a network re
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("rechecks percent-decoded manifest paths and blocks encoded dangerous schemes", async () => {
+  const bytes = await createScormPackage(scormManifest({
+    resourceHref: "%68%74%74%70%73%3Aevil"
+  }));
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:35:00.000Z" });
+
+  assert.equal(report.courseVersion.resources[0]?.href, null);
+  assert.deepEqual(report.courseVersion.resources[0]?.filePaths, []);
+  assert.ok(report.warnings.length >= 1);
+  assert.ok(report.warnings.every((warning) => warning.code === "RESOURCE_PATH_OMITTED"));
+});
+
+test("fails closed on signed ZIP data descriptors, including corrupted descriptor relationships", async () => {
+  const generated = await createScormPackage(
+    scormManifest(),
+    { "content.txt": "Static lesson" },
+    { streamFiles: true }
+  );
+  const bytes = new Uint8Array(generated);
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  let descriptorOffset = -1;
+  for (let offset = 0; offset <= bytes.byteLength - 16; offset += 1) {
+    if (view.getUint32(offset, true) === 0x08074b50) {
+      descriptorOffset = offset;
+      break;
+    }
+  }
+  assert.notEqual(descriptorOffset, -1, "fixture must contain a signed ZIP data descriptor");
+  view.setUint32(descriptorOffset + 4, view.getUint32(descriptorOffset + 4, true) ^ 1, true);
+
+  await assert.rejects(
+    importScormPackage(bytes),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_DATA_DESCRIPTOR_UNSUPPORTED" &&
+      Reflect.get(Object(error), "status") === 422
+  );
+});
+
+test("fails closed on unsigned ZIP data descriptors", async () => {
+  const zip = new JSZip();
+  zip.file("imsmanifest.xml", scormManifest(), { date: fixedZipDate, createFolders: false });
+  const signed = await zip.generateAsync({
+    type: "uint8array",
+    compression: "DEFLATE",
+    streamFiles: true,
+    platform: "UNIX"
+  });
+  const signedView = new DataView(signed.buffer, signed.byteOffset, signed.byteLength);
+  let descriptorOffset = -1;
+  for (let offset = 0; offset <= signed.byteLength - 16; offset += 1) {
+    if (signedView.getUint32(offset, true) === 0x08074b50) {
+      descriptorOffset = offset;
+      break;
+    }
+  }
+  assert.notEqual(descriptorOffset, -1, "fixture must contain a signed ZIP data descriptor");
+
+  const unsigned = new Uint8Array(signed.byteLength - 4);
+  unsigned.set(signed.subarray(0, descriptorOffset), 0);
+  unsigned.set(signed.subarray(descriptorOffset + 4), descriptorOffset);
+  const unsignedView = new DataView(unsigned.buffer, unsigned.byteOffset, unsigned.byteLength);
+  let eocdOffset = -1;
+  for (let offset = unsigned.byteLength - 22; offset >= 0; offset -= 1) {
+    if (unsignedView.getUint32(offset, true) === 0x06054b50) {
+      eocdOffset = offset;
+      break;
+    }
+  }
+  assert.notEqual(eocdOffset, -1, "fixture must contain an end-of-central-directory record");
+  unsignedView.setUint32(
+    eocdOffset + 16,
+    unsignedView.getUint32(eocdOffset + 16, true) - 4,
+    true
+  );
+
+  await assert.rejects(
+    importScormPackage(unsigned),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_DATA_DESCRIPTOR_UNSUPPORTED" &&
+      Reflect.get(Object(error), "status") === 422
+  );
+});
+
+test("rejects forged directory attributes instead of skipping file size accounting", async () => {
+  const generated = await createScormPackage(scormManifest(), {
+    "content.txt": "B".repeat(3_000)
+  });
+  const bytes = new Uint8Array(generated);
+  const centralOffset = findCentralEntryOffset(bytes, "content.txt");
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const attributes = view.getUint32(centralOffset + 38, true);
+  view.setUint32(
+    centralOffset + 38,
+    ((attributes & 0x0fffffff) | 0x40000000 | 0x10) >>> 0,
+    true
+  );
+
+  await assert.rejects(
+    importScormPackage(bytes, {
+      limits: { maxSingleFileBytes: 2_000, maxManifestBytes: 1_000 }
+    }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_DIRECTORY_INVALID" &&
+      Reflect.get(Object(error), "status") === 422
+  );
+});
+
+test("accepts canonical trailing-slash directories with zero declared data", async () => {
+  const zip = new JSZip();
+  zip.file(
+    "imsmanifest.xml",
+    scormManifest({ resourceHref: "assets/content.txt" }),
+    { date: fixedZipDate, createFolders: false }
+  );
+  zip.file("assets/", null, { date: fixedZipDate, dir: true, createFolders: false });
+  zip.file("assets/content.txt", "Static lesson", { date: fixedZipDate, createFolders: false });
+  const bytes = await zip.generateAsync({
+    type: "uint8array",
+    compression: "DEFLATE",
+    platform: "UNIX"
+  });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-27T06:37:00.000Z" });
+
+  assert.equal(report.archive.entryCount, 3);
+  assert.equal(report.archive.fileCount, 2);
+  assert.equal(report.courseVersion.resources[0]?.href, "assets/content.txt");
+});
+
+test("rejects contradictory local and central ZIP size declarations", async () => {
+  const generated = await createScormPackage(scormManifest(), { "content.txt": "Static lesson" });
+  const bytes = new Uint8Array(generated);
+  const centralOffset = findCentralEntryOffset(bytes, "imsmanifest.xml");
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const localOffset = view.getUint32(centralOffset + 42, true);
+  view.setUint32(localOffset + 22, view.getUint32(localOffset + 22, true) ^ 1, true);
+
+  await assert.rejects(
+    importScormPackage(bytes),
+    (error: unknown) => Reflect.get(Object(error), "code") === "ZIP_INVALID" &&
+      Reflect.get(Object(error), "status") === 400
+  );
 });
 
 test("rejects ZIP entries marked as encrypted before loading the manifest", async () => {

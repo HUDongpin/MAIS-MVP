@@ -35,6 +35,14 @@ function isValidXmlCodePoint(codePoint: number) {
     (codePoint >= 0x10000 && codePoint <= 0x10ffff);
 }
 
+function assertValidXmlCodePoints(xml: string) {
+  for (let index = 0; index < xml.length;) {
+    const codePoint = xml.codePointAt(index);
+    if (codePoint === undefined || !isValidXmlCodePoint(codePoint)) invalidXml();
+    index += codePoint > 0xffff ? 2 : 1;
+  }
+}
+
 function decodeXmlEntities(value: string) {
   return value.replace(/&([^;]+);/g, (_match, entity: string) => {
     switch (entity) {
@@ -119,7 +127,7 @@ function freezeElement(element: MutableXmlElement): StaticXmlElement {
 }
 
 export function parseStaticXml(xml: string): StaticXmlElement {
-  if (xml.includes("\u0000")) invalidXml();
+  assertValidXmlCodePoints(xml);
   if (XML_DECLARATION_SURFACE.test(xml)) {
     throw new CourseImportError(
       "MANIFEST_XML_DTD_FORBIDDEN",

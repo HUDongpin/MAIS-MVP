@@ -194,6 +194,7 @@ export function preflightZip(
       fail("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
     }
 
+    const versionMadeBy = u16(view, cursor + 4);
     const flags = u16(view, cursor + 8);
     const compressionMethod = u16(view, cursor + 10);
     const crc = u32(view, cursor + 16);
@@ -221,6 +222,13 @@ export function preflightZip(
     if ((flags & (ENCRYPTED_FLAG | STRONG_ENCRYPTION_FLAG)) !== 0) {
       fail("ZIP_ENCRYPTED_ENTRY", "Encrypted ZIP entries are not supported.", 422);
     }
+    if ((flags & DATA_DESCRIPTOR_FLAG) !== 0) {
+      fail(
+        "ZIP_DATA_DESCRIPTOR_UNSUPPORTED",
+        "ZIP data descriptors are not supported by this static importer.",
+        422
+      );
+    }
     if (compressionMethod !== 0 && compressionMethod !== 8) {
       fail(
         "ZIP_COMPRESSION_UNSUPPORTED",
@@ -237,8 +245,24 @@ export function preflightZip(
     }
     pathKeys.add(canonical.pathKey);
 
-    const isDirectory = rawName.replaceAll("\\", "/").endsWith("/") ||
-      (externalAttributes & 0x10) !== 0;
+    const hasDirectorySuffix = rawName.replaceAll("\\", "/").endsWith("/");
+    const sourcePlatform = versionMadeBy >>> 8;
+    const unixFileType = (externalAttributes >>> 16) & 0xf000;
+    const attributesDeclareDirectory = (externalAttributes & 0x10) !== 0 ||
+      (sourcePlatform === 3 && unixFileType === 0x4000);
+    const attributesDeclareRegularFile = sourcePlatform === 3 && unixFileType === 0x8000;
+    if (
+      (!hasDirectorySuffix && attributesDeclareDirectory) ||
+      (hasDirectorySuffix && attributesDeclareRegularFile) ||
+      (hasDirectorySuffix && (compressedSize !== 0 || uncompressedSize !== 0 || crc !== 0))
+    ) {
+      fail(
+        "ZIP_DIRECTORY_INVALID",
+        "The ZIP contains contradictory directory metadata.",
+        422
+      );
+    }
+    const isDirectory = hasDirectorySuffix;
     if (!isDirectory) {
       fileCount += 1;
       if (uncompressedSize > limits.maxSingleFileBytes) {
@@ -276,17 +300,18 @@ export function preflightZip(
       localHeaderOffset + 30 + localFilenameLength
     );
     const localRawName = decodeFilename(localFilenameBytes, (localFlags & UTF8_FILENAME_FLAG) !== 0);
-    if (canonicalizeArchivePath(localRawName).pathKey !== canonical.pathKey) {
+    if (
+      canonicalizeArchivePath(localRawName).pathKey !== canonical.pathKey ||
+      localRawName.replaceAll("\\", "/").endsWith("/") !== hasDirectorySuffix
+    ) {
       fail("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
     }
-    if ((flags & DATA_DESCRIPTOR_FLAG) === 0) {
-      if (
-        u32(view, localHeaderOffset + 14) !== crc ||
-        u32(view, localHeaderOffset + 18) !== compressedSize ||
-        u32(view, localHeaderOffset + 22) !== uncompressedSize
-      ) {
-        fail("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
-      }
+    if (
+      u32(view, localHeaderOffset + 14) !== crc ||
+      u32(view, localHeaderOffset + 18) !== compressedSize ||
+      u32(view, localHeaderOffset + 22) !== uncompressedSize
+    ) {
+      fail("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
     }
     const dataStart = localHeaderOffset + localHeaderLength;
     assertRange(dataStart, compressedSize, centralDirectoryOffset);

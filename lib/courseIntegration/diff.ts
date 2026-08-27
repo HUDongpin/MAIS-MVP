@@ -58,7 +58,8 @@ function semanticProjection(node: CanonicalCourseNode) {
   const base = {
     kind: node.kind,
     sourceId: node.sourceId,
-    title: node.title
+    title: node.title,
+    extensions: node.extensions ?? null
   };
 
   switch (node.kind) {
@@ -73,7 +74,6 @@ function semanticProjection(node: CanonicalCourseNode) {
       return {
         ...base,
         href: node.href,
-        scormType: node.scormType,
         filePaths: node.filePaths,
         dependencyResourceIds: node.dependencyResourceIds,
         referencedByIds: node.referencedByIds

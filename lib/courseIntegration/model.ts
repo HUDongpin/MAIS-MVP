@@ -1,6 +1,7 @@
+import { createHash } from "node:crypto";
+
 export const COURSE_INTEGRATION_SCHEMA_VERSION = "mais.course-integration.v1" as const;
 
-export type CoursePackageSourceFormat = "scorm-1.2" | "scorm-2004";
 export type CanonicalCourseNodeKind =
   | "course"
   | "module"
@@ -9,16 +10,32 @@ export type CanonicalCourseNodeKind =
   | "resource"
   | "assessment";
 
-export interface CoursePackageIdentity {
-  readonly sha256: string;
+export type CanonicalExtensionValue =
+  | string
+  | number
+  | boolean
+  | null
+  | readonly CanonicalExtensionValue[]
+  | { readonly [key: string]: CanonicalExtensionValue };
+
+export type CanonicalExtensions = Readonly<Record<string, CanonicalExtensionValue>>;
+
+export interface CanonicalSourceProvenance {
+  readonly packageSha256: string;
   readonly schemaVersion: typeof COURSE_INTEGRATION_SCHEMA_VERSION;
-  readonly sourceFormat: CoursePackageSourceFormat;
-  readonly importedAt: string;
+  readonly source: {
+    readonly format: string;
+    readonly version: string | null;
+  };
+  readonly adapter: {
+    readonly id: string;
+    readonly version: string;
+  };
+  readonly extensions?: CanonicalExtensions;
 }
 
 export interface ImmutableCourseVersionMetadata {
   readonly versionId: string;
-  readonly createdAt: string;
   readonly predecessorVersionId: string | null;
   readonly contentSha256: string;
   readonly immutable: true;
@@ -31,6 +48,7 @@ interface CanonicalNodeBase<Kind extends CanonicalCourseNodeKind> {
   readonly parentId: string | null;
   readonly order: number;
   readonly title: string | null;
+  readonly extensions?: CanonicalExtensions;
 }
 
 export type CanonicalCourse = CanonicalNodeBase<"course">;
@@ -48,7 +66,6 @@ export interface CanonicalActivity extends CanonicalNodeBase<"activity"> {
 
 export interface CanonicalResource extends CanonicalNodeBase<"resource"> {
   readonly href: string | null;
-  readonly scormType: string | null;
   readonly filePaths: readonly string[];
   readonly dependencyResourceIds: readonly string[];
   readonly referencedByIds: readonly string[];
@@ -60,8 +77,8 @@ export interface CanonicalAssessment extends CanonicalNodeBase<"assessment"> {
 }
 
 export interface CanonicalCourseVersionInput {
-  readonly packageIdentity: CoursePackageIdentity;
-  readonly versionMetadata: ImmutableCourseVersionMetadata;
+  readonly sourceProvenance: CanonicalSourceProvenance;
+  readonly predecessorVersionId: string | null;
   readonly course: CanonicalCourse;
   readonly modules: readonly CanonicalModule[];
   readonly units: readonly CanonicalUnit[];
@@ -70,7 +87,20 @@ export interface CanonicalCourseVersionInput {
   readonly assessments: readonly CanonicalAssessment[];
 }
 
-export type CanonicalCourseVersion = Readonly<CanonicalCourseVersionInput>;
+interface CanonicalCourseContent {
+  readonly sourceProvenance: CanonicalSourceProvenance;
+  readonly course: CanonicalCourse;
+  readonly modules: readonly CanonicalModule[];
+  readonly units: readonly CanonicalUnit[];
+  readonly activities: readonly CanonicalActivity[];
+  readonly resources: readonly CanonicalResource[];
+  readonly assessments: readonly CanonicalAssessment[];
+}
+
+export type CanonicalCourseVersion = Readonly<CanonicalCourseContent & {
+  readonly versionMetadata: ImmutableCourseVersionMetadata;
+}>;
+
 export type CanonicalCourseNode =
   | CanonicalCourse
   | CanonicalModule
@@ -79,17 +109,23 @@ export type CanonicalCourseNode =
   | CanonicalResource
   | CanonicalAssessment;
 
-function assertNonEmptyString(value: string, field: string) {
-  if (value.trim().length === 0) {
+const EXTENSION_NAMESPACE = /^(?:[A-Za-z][A-Za-z0-9-]*\.)+[A-Za-z][A-Za-z0-9-]*$/;
+const MAX_EXTENSION_DEPTH = 16;
+const MAX_EXTENSION_COLLECTION_SIZE = 1_000;
+
+function compareText(left: string, right: string) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function assertNonEmptyString(value: unknown, field: string): asserts value is string {
+  if (typeof value !== "string" || value.trim().length === 0) {
     throw new TypeError(`${field} must be a non-empty string.`);
   }
 }
 
-function assertIsoTimestamp(value: string, field: string) {
-  assertNonEmptyString(value, field);
-  const parsed = new Date(value);
-  if (!Number.isFinite(parsed.valueOf()) || parsed.toISOString() !== value) {
-    throw new TypeError(`${field} must be a canonical ISO-8601 timestamp.`);
+function assertSha256(value: unknown, field: string): asserts value is string {
+  if (typeof value !== "string" || !/^[a-f0-9]{64}$/.test(value)) {
+    throw new TypeError(`${field} must be a lowercase SHA-256 digest.`);
   }
 }
 
@@ -102,6 +138,69 @@ function assertUniqueStrings(values: readonly string[], field: string) {
   }
 }
 
+function assertExtensionValue(value: CanonicalExtensionValue, field: string, depth = 0): void {
+  if (depth > MAX_EXTENSION_DEPTH) throw new TypeError(`${field} exceeds the extension depth limit.`);
+  if (value === null || typeof value === "string" || typeof value === "boolean") return;
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) throw new TypeError(`${field} numbers must be finite.`);
+    return;
+  }
+  if (Array.isArray(value)) {
+    if (value.length > MAX_EXTENSION_COLLECTION_SIZE) {
+      throw new TypeError(`${field} exceeds the extension collection limit.`);
+    }
+    for (const child of value) assertExtensionValue(child, field, depth + 1);
+    return;
+  }
+  if (typeof value !== "object") throw new TypeError(`${field} contains an unsupported value.`);
+  const prototype = Object.getPrototypeOf(value);
+  if (prototype !== Object.prototype && prototype !== null) {
+    throw new TypeError(`${field} must contain only plain JSON objects.`);
+  }
+  const entries = Object.entries(value);
+  if (entries.length > MAX_EXTENSION_COLLECTION_SIZE) {
+    throw new TypeError(`${field} exceeds the extension collection limit.`);
+  }
+  for (const [key, child] of entries) {
+    assertNonEmptyString(key, `${field} key`);
+    assertExtensionValue(child, `${field}.${key}`, depth + 1);
+  }
+}
+
+function assertExtensions(extensions: CanonicalExtensions | undefined, field: string) {
+  if (extensions === undefined) return;
+  const prototype = Object.getPrototypeOf(extensions);
+  if (prototype !== Object.prototype && prototype !== null) {
+    throw new TypeError(`${field} must be a plain JSON object.`);
+  }
+  for (const [namespace, value] of Object.entries(extensions)) {
+    if (!EXTENSION_NAMESPACE.test(namespace)) {
+      throw new TypeError(`${field} keys must use reverse-domain namespaces.`);
+    }
+    assertExtensionValue(value, `${field}.${namespace}`);
+  }
+}
+
+function cloneExtensionValue(value: CanonicalExtensionValue): CanonicalExtensionValue {
+  if (Array.isArray(value)) return value.map((child) => cloneExtensionValue(child));
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value)
+        .sort(([left], [right]) => compareText(left, right))
+        .map(([key, child]) => [key, cloneExtensionValue(child)])
+    );
+  }
+  return value;
+}
+
+function cloneExtensions(extensions: CanonicalExtensions): CanonicalExtensions {
+  return Object.fromEntries(
+    Object.entries(extensions)
+      .sort(([left], [right]) => compareText(left, right))
+      .map(([namespace, value]) => [namespace, cloneExtensionValue(value)])
+  );
+}
+
 function cloneNodeBase<Kind extends CanonicalCourseNodeKind>(
   node: CanonicalNodeBase<Kind>
 ): CanonicalNodeBase<Kind> {
@@ -111,39 +210,63 @@ function cloneNodeBase<Kind extends CanonicalCourseNodeKind>(
     sourceId: node.sourceId,
     parentId: node.parentId,
     order: node.order,
-    title: node.title
+    title: node.title,
+    ...(node.extensions === undefined ? {} : { extensions: cloneExtensions(node.extensions) })
   };
 }
 
-function cloneCourseVersion(input: CanonicalCourseVersionInput): CanonicalCourseVersionInput {
+function compareNodes(left: CanonicalCourseNode, right: CanonicalCourseNode) {
+  return compareText(left.parentId ?? "", right.parentId ?? "") ||
+    left.order - right.order ||
+    compareText(left.id, right.id);
+}
+
+function cloneCourseContent(input: CanonicalCourseVersionInput): CanonicalCourseContent {
+  const modules = input.modules.map((node) => cloneNodeBase(node));
+  const units = input.units.map((node): CanonicalUnit => ({
+    ...cloneNodeBase(node),
+    resourceIds: [...node.resourceIds],
+    assessmentIds: [...node.assessmentIds]
+  }));
+  const activities = input.activities.map((node): CanonicalActivity => ({
+    ...cloneNodeBase(node),
+    resourceIds: [...node.resourceIds],
+    assessmentIds: [...node.assessmentIds]
+  }));
+  const resources = input.resources.map((node): CanonicalResource => ({
+    ...cloneNodeBase(node),
+    href: node.href,
+    filePaths: [...node.filePaths],
+    dependencyResourceIds: [...node.dependencyResourceIds],
+    referencedByIds: [...node.referencedByIds]
+  }));
+  const assessments = input.assessments.map((node): CanonicalAssessment => ({
+    ...cloneNodeBase(node),
+    assessmentType: node.assessmentType,
+    resourceIds: [...node.resourceIds]
+  }));
+  modules.sort(compareNodes);
+  units.sort(compareNodes);
+  activities.sort(compareNodes);
+  resources.sort(compareNodes);
+  assessments.sort(compareNodes);
+
   return {
-    packageIdentity: { ...input.packageIdentity },
-    versionMetadata: { ...input.versionMetadata },
+    sourceProvenance: {
+      packageSha256: input.sourceProvenance.packageSha256,
+      schemaVersion: input.sourceProvenance.schemaVersion,
+      source: { ...input.sourceProvenance.source },
+      adapter: { ...input.sourceProvenance.adapter },
+      ...(input.sourceProvenance.extensions === undefined
+        ? {}
+        : { extensions: cloneExtensions(input.sourceProvenance.extensions) })
+    },
     course: cloneNodeBase(input.course),
-    modules: input.modules.map((node) => cloneNodeBase(node)),
-    units: input.units.map((node) => ({
-      ...cloneNodeBase(node),
-      resourceIds: [...node.resourceIds],
-      assessmentIds: [...node.assessmentIds]
-    })),
-    activities: input.activities.map((node) => ({
-      ...cloneNodeBase(node),
-      resourceIds: [...node.resourceIds],
-      assessmentIds: [...node.assessmentIds]
-    })),
-    resources: input.resources.map((node) => ({
-      ...cloneNodeBase(node),
-      href: node.href,
-      scormType: node.scormType,
-      filePaths: [...node.filePaths],
-      dependencyResourceIds: [...node.dependencyResourceIds],
-      referencedByIds: [...node.referencedByIds]
-    })),
-    assessments: input.assessments.map((node) => ({
-      ...cloneNodeBase(node),
-      assessmentType: node.assessmentType,
-      resourceIds: [...node.resourceIds]
-    }))
+    modules,
+    units,
+    activities,
+    resources,
+    assessments
   };
 }
 
@@ -163,6 +286,7 @@ function assertNodeBase(node: CanonicalCourseNode) {
   if (node.title !== null && typeof node.title !== "string") {
     throw new TypeError(`${node.kind}.title must be a string or null.`);
   }
+  assertExtensions(node.extensions, `${node.kind}.extensions`);
 }
 
 function assertContiguousSiblingOrder(nodes: readonly CanonicalCourseNode[]) {
@@ -184,33 +308,20 @@ function assertContiguousSiblingOrder(nodes: readonly CanonicalCourseNode[]) {
   }
 }
 
-function assertCourseVersion(input: CanonicalCourseVersionInput) {
-  if (!/^[a-f0-9]{64}$/.test(input.packageIdentity.sha256)) {
-    throw new TypeError("packageIdentity.sha256 must be a lowercase SHA-256 digest.");
-  }
-  if (input.packageIdentity.schemaVersion !== COURSE_INTEGRATION_SCHEMA_VERSION) {
+function assertCourseVersionInput(input: CanonicalCourseVersionInput) {
+  assertSha256(input.sourceProvenance.packageSha256, "sourceProvenance.packageSha256");
+  if (input.sourceProvenance.schemaVersion !== COURSE_INTEGRATION_SCHEMA_VERSION) {
     throw new TypeError("Unsupported canonical course schema version.");
   }
-  if (!(["scorm-1.2", "scorm-2004"] as const).includes(input.packageIdentity.sourceFormat)) {
-    throw new TypeError("Unsupported course package source format.");
+  assertNonEmptyString(input.sourceProvenance.source.format, "sourceProvenance.source.format");
+  if (input.sourceProvenance.source.version !== null) {
+    assertNonEmptyString(input.sourceProvenance.source.version, "sourceProvenance.source.version");
   }
-  assertIsoTimestamp(input.packageIdentity.importedAt, "packageIdentity.importedAt");
-  assertIsoTimestamp(input.versionMetadata.createdAt, "versionMetadata.createdAt");
-  assertNonEmptyString(input.versionMetadata.versionId, "versionMetadata.versionId");
-  if (input.versionMetadata.predecessorVersionId !== null) {
-    assertNonEmptyString(input.versionMetadata.predecessorVersionId, "versionMetadata.predecessorVersionId");
-  }
-  if (input.versionMetadata.immutable !== true) {
-    throw new TypeError("versionMetadata must be immutable.");
-  }
-  if (input.versionMetadata.contentSha256 !== input.packageIdentity.sha256) {
-    throw new TypeError("Version content hash must match the source package hash.");
-  }
-  if (input.versionMetadata.createdAt !== input.packageIdentity.importedAt) {
-    throw new TypeError("Version creation time must match the immutable package import time.");
-  }
-  if (input.versionMetadata.predecessorVersionId === input.versionMetadata.versionId) {
-    throw new TypeError("A canonical course version cannot name itself as its predecessor.");
+  assertNonEmptyString(input.sourceProvenance.adapter.id, "sourceProvenance.adapter.id");
+  assertNonEmptyString(input.sourceProvenance.adapter.version, "sourceProvenance.adapter.version");
+  assertExtensions(input.sourceProvenance.extensions, "sourceProvenance.extensions");
+  if (input.predecessorVersionId !== null) {
+    assertNonEmptyString(input.predecessorVersionId, "predecessorVersionId");
   }
 
   const nodes: CanonicalCourseNode[] = [
@@ -252,6 +363,9 @@ function assertCourseVersion(input: CanonicalCourseVersionInput) {
   for (const resource of input.resources) {
     if (resource.parentId !== input.course.id) {
       throw new TypeError("Resources must belong to the canonical course.");
+    }
+    if (resource.href !== null && typeof resource.href !== "string") {
+      throw new TypeError("resource.href must be a string or null.");
     }
     assertUniqueStrings(resource.filePaths, "resource.filePaths");
     assertUniqueStrings(resource.dependencyResourceIds, "resource.dependencyResourceIds");
@@ -334,12 +448,58 @@ function assertCourseVersion(input: CanonicalCourseVersionInput) {
   assertContiguousSiblingOrder(nodes.filter((node) => node.kind !== "course"));
 }
 
+function stableJson(value: unknown): string {
+  if (value === null || typeof value !== "object") {
+    const encoded = JSON.stringify(value);
+    if (encoded === undefined) throw new TypeError("Canonical content contains an unsupported value.");
+    return encoded;
+  }
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
+  const object = value as Record<string, unknown>;
+  return `{${Object.keys(object)
+    .sort(compareText)
+    .map((key) => `${JSON.stringify(key)}:${stableJson(object[key])}`)
+    .join(",")}}`;
+}
+
+function sha256StableValue(value: unknown) {
+  return createHash("sha256").update(stableJson(value), "utf8").digest("hex");
+}
+
+export function deriveCanonicalVersionId(
+  contentSha256: string,
+  predecessorVersionId: string | null
+) {
+  assertSha256(contentSha256, "contentSha256");
+  if (predecessorVersionId !== null) {
+    assertNonEmptyString(predecessorVersionId, "predecessorVersionId");
+  }
+  return `sha256:${sha256StableValue({
+    schemaVersion: COURSE_INTEGRATION_SCHEMA_VERSION,
+    contentSha256,
+    predecessorVersionId
+  })}`;
+}
+
 export function createCanonicalCourseVersion(
   input: CanonicalCourseVersionInput
 ): CanonicalCourseVersion {
-  const cloned = cloneCourseVersion(input);
-  assertCourseVersion(cloned);
-  return deepFreeze(cloned);
+  assertCourseVersionInput(input);
+  const content = cloneCourseContent(input);
+  const contentSha256 = sha256StableValue(content);
+  const versionId = deriveCanonicalVersionId(contentSha256, input.predecessorVersionId);
+  if (versionId === input.predecessorVersionId) {
+    throw new TypeError("A canonical course version cannot name itself as its predecessor.");
+  }
+  return deepFreeze({
+    ...content,
+    versionMetadata: {
+      versionId,
+      predecessorVersionId: input.predecessorVersionId,
+      contentSha256,
+      immutable: true as const
+    }
+  });
 }
 
 export function canonicalCourseNodes(version: CanonicalCourseVersion): readonly CanonicalCourseNode[] {
