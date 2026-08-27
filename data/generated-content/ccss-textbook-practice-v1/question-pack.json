@@ -189,8 +189,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "You touch the counters and say “1, 2, 3, 4, 5.” How many are there?",
-        "zh": "你一邊點著計數片，一邊說「1, 2, 3, 4, 5」。一共有多少個？",
-        "zhHans": "你一边点着计数片，一边说“1, 2, 3, 4, 5”。一共有多少个？"
+        "zh": "你一邊點著計數片，一邊說「1、2、3、4、5」。一共有多少個？",
+        "zhHans": "你一边点着计数片，一边说“1、2、3、4、5”。一共有多少个？"
       },
       "options": [
         {
@@ -1076,8 +1076,8 @@
         },
         {
           "en": "measure only the thicker one",
-          "zh": "只量較粗的那個",
-          "zhHans": "只量更粗的那个"
+          "zh": "只量較粗的那根",
+          "zhHans": "只量更粗的那根"
         }
       ],
       "answer": "line up one end of each",
@@ -1127,7 +1127,7 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "Which of these can you measure?",
-        "zh": "下面哪一樣可以測量？",
+        "zh": "下面哪一樣可以量度？",
         "zhHans": "下面哪一样可以测量？"
       },
       "options": [
@@ -1267,8 +1267,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "5 apples + 3 bananas + 4 grapes. How many pieces of fruit in all?",
-        "zh": "5 個蘋果 + 3 個香蕉 + 4 個葡萄。一共有多少個水果？",
-        "zhHans": "5 个苹果 + 3 个香蕉 + 4 个葡萄。一共有多少个水果？"
+        "zh": "5 個蘋果 + 3 根香蕉 + 4 顆葡萄。一共有多少個水果？",
+        "zhHans": "5 个苹果 + 3 根香蕉 + 4 颗葡萄。一共有多少个水果？"
       },
       "answer": "12",
       "acceptedAnswers": [
@@ -1336,8 +1336,8 @@
         },
         {
           "en": "skip counting altogether",
-          "zh": "完全不數數數",
-          "zhHans": "完全不数数数"
+          "zh": "乾脆不數",
+          "zhHans": "干脆不数"
         }
       ],
       "answer": "count each group",
@@ -1587,8 +1587,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "Two triangles can be joined to make a…",
-        "zh": "兩個三角形可以拼成一個……",
-        "zhHans": "两个三角形可以拼成一个……"
+        "zh": "兩個三角形可以拼成……",
+        "zhHans": "两个三角形可以拼成……"
       },
       "options": [
         {
@@ -1737,8 +1737,8 @@
       "options": [
         {
           "en": "composing",
-          "zh": "合成",
-          "zhHans": "合成"
+          "zh": "組合",
+          "zhHans": "组合"
         },
         {
           "en": "counting",
@@ -1941,8 +1941,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "A chair right next to a desk is ___ the desk.",
-        "zh": "一張椅子就在書桌旁邊。這張椅子在書桌的 ___。",
-        "zhHans": "一张椅子就在书桌旁边。这张椅子在书桌的 ___。"
+        "zh": "椅子緊靠著書桌。這張椅子在書桌的 ___。",
+        "zhHans": "椅子紧靠着书桌。这张椅子在书桌的 ___。"
       },
       "options": [
         {
@@ -2072,8 +2072,8 @@
       ],
       "explanation": {
         "en": "9 + 1 = 10, then 10 + 5 = 15.",
-        "zh": "9 + 1 = 10，再 10 + 5 = 15。",
-        "zhHans": "9 + 1 = 10，再 10 + 5 = 15。"
+        "zh": "9 + 1 = 10，再算 10 + 5 = 15。",
+        "zhHans": "9 + 1 = 10，再算 10 + 5 = 15。"
       },
       "independentAnswer": "15",
       "independentSolution": "9 + 1 = 10, then 10 + 5 = 15."
@@ -2144,8 +2144,8 @@
       ],
       "explanation": {
         "en": "7 needs 3 to reach ten, leaving 2: 10 + 2 = 12.",
-        "zh": "7 需要 3 才湊成十，剩下 2：10 + 2 = 12。",
-        "zhHans": "7 需要 3 才凑成十，剩下 2：10 + 2 = 12。"
+        "zh": "7 再添 3 就湊成 10，5 還剩下 2：10 + 2 = 12。",
+        "zhHans": "7 再添 3 就凑成 10，5 还剩下 2：10 + 2 = 12。"
       },
       "independentAnswer": "3 and 2",
       "independentSolution": "7 needs 3 to reach ten, leaving 2: 10 + 2 = 12."
@@ -2285,8 +2285,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "4 red, 2 blue, and 3 green balloons. How many balloons in all?",
-        "zh": "4 個紅色、2 個藍色和 3 個綠色的氣球。一共有多少個氣球？",
-        "zhHans": "4 个红色、2 个蓝色和 3 个绿色的气球。一共有多少个气球？"
+        "zh": "有 4 個紅氣球、2 個藍氣球和 3 個綠氣球，一共有多少個氣球？",
+        "zhHans": "有 4 个红气球、2 个蓝气球和 3 个绿气球，一共有多少个气球？"
       },
       "answer": "9",
       "acceptedAnswers": [
@@ -2673,8 +2673,8 @@
       "options": [
         {
           "en": "the same as",
-          "zh": "與……相同",
-          "zhHans": "与……相同"
+          "zh": "兩邊一樣多",
+          "zhHans": "两边一样多"
         },
         {
           "en": "add these",
@@ -2688,8 +2688,8 @@
         },
         {
           "en": "makes it bigger",
-          "zh": "使它變大",
-          "zhHans": "使它变大"
+          "zh": "讓數變大",
+          "zhHans": "让数变大"
         }
       ],
       "answer": "the same as",
@@ -2745,13 +2745,13 @@
       "options": [
         {
           "en": "true",
-          "zh": "正確",
-          "zhHans": "正确"
+          "zh": "對",
+          "zhHans": "对"
         },
         {
           "en": "false",
-          "zh": "錯誤",
-          "zhHans": "错误"
+          "zh": "錯",
+          "zhHans": "错"
         },
         {
           "en": "cannot tell",
@@ -2760,8 +2760,8 @@
         },
         {
           "en": "only sometimes",
-          "zh": "只是有時候",
-          "zhHans": "只是有时候"
+          "zh": "有時候才對",
+          "zhHans": "有时候才对"
         }
       ],
       "answer": "false",
@@ -2964,8 +2964,8 @@
       ],
       "explanation": {
         "en": "The chart goes up to 120.",
-        "zh": "這張表一直數到 120。",
-        "zhHans": "这张表一直数到 120。"
+        "zh": "這張表一直排到 120。",
+        "zhHans": "这张表一直排到 120。"
       },
       "independentAnswer": "120",
       "independentSolution": "The chart goes up to 120."
@@ -3254,8 +3254,8 @@
       ],
       "explanation": {
         "en": "Same tens (5), and 1 one < 7 ones, so 51 < 57.",
-        "zh": "十位相同（都是 5），而 1 個一 < 7 個一，所以 51 < 57。",
-        "zhHans": "十位相同（都是 5），而 1 个一 < 7 个一，所以 51 < 57。"
+        "zh": "十位都是 5，個位上 1 比 7 小，所以 51 < 57。",
+        "zhHans": "十位都是 5，个位上 1 比 7 小，所以 51 < 57。"
       },
       "independentAnswer": "<",
       "independentSolution": "Same tens (5), and 1 one < 7 ones, so 51 < 57."
@@ -3515,8 +3515,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A strip is covered by 6 same-size tiles with no gaps. How long is it, in units?",
-        "zh": "一條長條被 6 塊大小相同的方塊鋪滿，中間沒有空隙。它的長度是多少個單位？",
-        "zhHans": "一条长条被 6 块大小相同的方块铺满，中间没有空隙。它的长度是多少个单位？"
+        "zh": "一條紙條上剛好鋪滿 6 塊一樣大的方塊，中間沒有空隙。它的長度是多少個單位？",
+        "zhHans": "一条纸条上刚好铺满 6 块一样大的方块，中间没有空隙。它的长度是多少个单位？"
       },
       "answer": "6",
       "acceptedAnswers": [
@@ -3586,8 +3586,8 @@
         },
         {
           "en": "they are all the same",
-          "zh": "它們全都相同",
-          "zhHans": "它们全都相同"
+          "zh": "三條一樣長",
+          "zhHans": "三条一样长"
         }
       ],
       "answer": "red",
@@ -3637,8 +3637,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "When you measure with tiles, the tiles must be…",
-        "zh": "當你用方塊來量度時，這些方塊必須是……",
-        "zhHans": "当你用方块来测量时，这些方块必须是……"
+        "zh": "用方塊量長度時，這些方塊必須……",
+        "zhHans": "用方块量长度时，这些方块必须……"
       },
       "options": [
         {
@@ -3728,8 +3728,8 @@
         },
         {
           "en": "quarter past",
-          "zh": "過一刻鐘",
-          "zhHans": "过一刻钟"
+          "zh": "幾點一刻",
+          "zhHans": "几点一刻"
         }
       ],
       "answer": "o'clock",
@@ -3798,8 +3798,8 @@
         },
         {
           "en": "quarter to",
-          "zh": "差一刻鐘",
-          "zhHans": "差一刻钟"
+          "zh": "差一刻",
+          "zhHans": "差一刻"
         }
       ],
       "answer": "half past the hour",
@@ -3808,8 +3808,8 @@
       ],
       "explanation": {
         "en": "Minute hand on 6 means half past.",
-        "zh": "分針指向 6 表示半點。",
-        "zhHans": "分针指向 6 表示半点。"
+        "zh": "分針指向 6，就是幾點半。",
+        "zhHans": "分针指向 6，就是几点半。"
       },
       "independentAnswer": "half past the hour",
       "independentSolution": "Minute hand on 6 means half past."
@@ -4056,8 +4056,8 @@
         },
         {
           "en": "they are equal",
-          "zh": "它們相等",
-          "zhHans": "它们相等"
+          "zh": "一樣多",
+          "zhHans": "一样多"
         }
       ],
       "answer": "fish",
@@ -4066,8 +4066,8 @@
       ],
       "explanation": {
         "en": "8 is the largest count.",
-        "zh": "8 是最大的數量。",
-        "zhHans": "8 是最大的数量。"
+        "zh": "8 最多。",
+        "zhHans": "8 最多。"
       },
       "independentAnswer": "fish",
       "independentSolution": "8 is the largest count."
@@ -4136,8 +4136,8 @@
       ],
       "explanation": {
         "en": "Three straight sides is the defining attribute.",
-        "zh": "三條直邊就是它的定義特徵。",
-        "zhHans": "三条直边就是它的定义特征。"
+        "zh": "有三條直直的邊，就一定是三角形。",
+        "zhHans": "有三条直直的边，就一定是三角形。"
       },
       "independentAnswer": "having 3 sides",
       "independentSolution": "Three straight sides is the defining attribute."
@@ -4175,8 +4175,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "One triangle is red and big; another is blue and small. They are…",
-        "zh": "一個三角形又紅又大，另一個是藍色而且小的。它們是……",
-        "zhHans": "一个三角形又红又大，另一个是蓝色而且小的。它们是……"
+        "zh": "一個三角形又紅又大，另一個又藍又小。它們是……",
+        "zhHans": "一个三角形又红又大，另一个又蓝又小。它们是……"
       },
       "options": [
         {
@@ -4466,8 +4466,8 @@
         },
         {
           "en": "tiny",
-          "zh": "很小",
-          "zhHans": "很小"
+          "zh": "很小的",
+          "zhHans": "很小的"
         },
         {
           "en": "flat",
@@ -4665,8 +4665,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "Which is bigger: one half or one fourth of the same shape?",
-        "zh": "同一個圖形的二分之一和四分之一，哪一個比較大？",
-        "zhHans": "同一个图形的二分之一和四分之一，哪一个比较大？"
+        "zh": "同一個圖形的二分之一和四分之一，哪一個較大？",
+        "zhHans": "同一个图形的二分之一和四分之一，哪一个更大？"
       },
       "options": [
         {
@@ -4681,8 +4681,8 @@
         },
         {
           "en": "they are the same",
-          "zh": "它們相同",
-          "zhHans": "它们相同"
+          "zh": "一樣大",
+          "zhHans": "一样大"
         },
         {
           "en": "cannot tell",
@@ -4696,8 +4696,8 @@
       ],
       "explanation": {
         "en": "More equal parts means each part is smaller, so a half is bigger.",
-        "zh": "分成的相等部分越多，每一份就越小，所以一半比較大。",
-        "zhHans": "分成的相等部分越多，每一份就越小，所以一半比较大。"
+        "zh": "分成的相等部分越多，每一份就越小，所以一半較大。",
+        "zhHans": "分成的相等部分越多，每一份就越小，所以一半更大。"
       },
       "independentAnswer": "one half",
       "independentSolution": "More equal parts means each part is smaller, so a half is bigger."
@@ -4879,8 +4879,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Doubles: 7 + 7 = ?",
-        "zh": "加倍：7 + 7 = ?",
-        "zhHans": "加倍：7 + 7 = ?"
+        "zh": "雙倍：7 + 7 = ?",
+        "zhHans": "双倍：7 + 7 = ?"
       },
       "answer": "14",
       "acceptedAnswers": [
@@ -5169,8 +5169,8 @@
       "options": [
         {
           "en": "two equal groups",
-          "zh": "兩個相等的組",
-          "zhHans": "两个相等的组"
+          "zh": "同樣多的兩組",
+          "zhHans": "同样多的两组"
         },
         {
           "en": "three groups",
@@ -5184,8 +5184,8 @@
         },
         {
           "en": "one group and one left over",
-          "zh": "一組和剩下一個",
-          "zhHans": "一组和剩下一个"
+          "zh": "一組，還剩一個",
+          "zhHans": "一组，还剩一个"
         }
       ],
       "answer": "two equal groups",
@@ -6246,8 +6246,8 @@
       ],
       "explanation": {
         "en": "Regroup ones and tens: 423.",
-        "zh": "把個位和十位重新分組：423。",
-        "zhHans": "把个位和十位重新分组：423。"
+        "zh": "個位和十位滿十進一：423。",
+        "zhHans": "个位和十位满十进一：423。"
       },
       "independentAnswer": "423",
       "independentSolution": "Regroup ones and tens: 423."
@@ -6554,7 +6554,7 @@
       "prompt": {
         "en": "When you measure with smaller units, the number gets…",
         "zh": "用較小的單位去量，數字會……",
-        "zhHans": "当你用更小的单位去测量时，数字会……"
+        "zhHans": "用更小的单位量，数字会……"
       },
       "options": [
         {
@@ -6875,7 +6875,7 @@
       "options": [
         {
           "en": "7 inches",
-          "zh": "7 英寸",
+          "zh": "7 英吋",
           "zhHans": "7 英寸"
         },
         {
@@ -7449,7 +7449,7 @@
       "options": [
         {
           "en": "one measurement",
-          "zh": "一次測量",
+          "zh": "一次量度",
           "zhHans": "一次测量"
         },
         {
@@ -7749,7 +7749,7 @@
         {
           "en": "width of the bar",
           "zh": "長條的寬度",
-          "zhHans": "条形的宽度"
+          "zhHans": "长条的宽度"
         }
       ],
       "answer": "scale",
@@ -10273,7 +10273,7 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "You measure how heavy an object is in…",
-        "zh": "你測量一個物件有多重時，用的是……",
+        "zh": "你量度一個物件有多重時，用的是……",
         "zhHans": "你测量一个物品有多重时，用的是……"
       },
       "options": [
@@ -10540,7 +10540,7 @@
       ],
       "explanation": {
         "en": "The half-inch mark.",
-        "zh": "半英寸的刻度。",
+        "zh": "半英吋的刻度。",
         "zhHans": "半英寸的刻度。"
       },
       "independentAnswer": "1½",
@@ -10648,7 +10648,7 @@
         },
         {
           "en": "¾ inch",
-          "zh": "¾ 英寸",
+          "zh": "¾ 英吋",
           "zhHans": "¾ 英寸"
         }
       ],
@@ -22265,7 +22265,7 @@
         },
         {
           "en": "measure at the end",
-          "zh": "在末端測量",
+          "zh": "在末端量度",
           "zhHans": "在末端测量"
         }
       ],
@@ -47062,7 +47062,7 @@
         },
         {
           "en": "measurement",
-          "zh": "測量",
+          "zh": "量度",
           "zhHans": "测量"
         }
       ],
