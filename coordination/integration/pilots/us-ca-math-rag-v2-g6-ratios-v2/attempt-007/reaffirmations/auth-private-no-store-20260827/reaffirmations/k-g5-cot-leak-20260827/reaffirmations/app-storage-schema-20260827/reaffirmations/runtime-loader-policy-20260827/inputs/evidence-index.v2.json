@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "promotion-evidence-index.v2",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "entries": [
+    {
+      "role": "A21",
+      "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "rawSha256": "b429f20ca8fa9cd5be1a97f960892dfb7bbe4173218cfa95db02e8564aa006b8",
+      "semanticDigest": "c9cf5df0b56a1b279277d10098e06175d93e2a2eed07d1be7b95a5f7f9e916f4",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A18",
+      "evidenceId": "a18-us-ca-g6-ratios-v2-qa-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a18-independent-qa.v2.6.json",
+      "rawSha256": "217a21becfcdefce3664d89a9472c9bb60bff77e1675c0b96e9c6fc2a84c3681",
+      "semanticDigest": "fd44ba7bed5dda6cb1d45436fb763e07d890f6e4ba4ad9724260ff3310b70aa5",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A23",
+      "evidenceId": "a23-us-ca-g6-ratios-v2-readiness-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a23-shadow-readiness.v2.6.json",
+      "rawSha256": "22d9d9eac38579c2dfc5a3cf7c809ee8be72d80d87c3acfb047886b1cef278ac",
+      "semanticDigest": "77d52b6c8efef579d5e0015efb56768be40fa8d800dfee0218ba239d6847f249",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A04",
+      "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "rawSha256": "530e52439b3ff40284b7871d56c89c2bfb2b7838a796d4ea13fbe635707ea479",
+      "semanticDigest": "b415b372b8689baedad694ef0ed9703ed072ded0b2e97db59fd176160af9c3ba",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A05",
+      "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "rawSha256": "e8382f3a4f5fb90c620541e4f66d2eedfc434f7ecf8f0c6c564c4dbd02011d25",
+      "semanticDigest": "632645198c4f46e8834dae62ef636b691fa32b44bed6645e11d35053a4748aef",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A11",
+      "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a11-independent-preflight.v2.6.json",
+      "rawSha256": "97675386b300e29935c2e15aeb55ac056fe96bff359bb9d60e2c0d35f57a6b9e",
+      "semanticDigest": "8ed3fdcf1219e35042da209de14c2535028666e04de97dfef32f27de288a3e4e",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A22",
+      "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a22-build-isolation.v2.6.json",
+      "rawSha256": "2f68177909342b4057b754cc5d780a6b03486d125a4b9bd20014e379e3e0a0ea",
+      "semanticDigest": "2e226c460df1af36a283fb678290cbc5760c41f9b643b1d0d28692646349ceb6",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A24",
+      "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a24-exact-layer.v2.6.json",
+      "rawSha256": "9bfee9f02f3d8bbbb53976ce586ad610d9a6050573085f621a67270de93a4d0d",
+      "semanticDigest": "e220c853fb16f75da355fb8700c0c5ffa6b32a9c97b71b6f8aa8eacabd969efe",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "not_applicable",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A25",
+      "evidenceId": "a25-us-ca-g6-ratios-v2-intake-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/inputs/evidence/a25-release-intake.v2.6.json",
+      "rawSha256": "a32fdba9499410b306794fa5208085cf625504f9b15a38e104c14503db58d16b",
+      "semanticDigest": "f29a527343be5b951ce19a9c47deb4129d472ac2277000bcfb80df89b4ec66de",
+      "reviewedCommit": "b401139754ac783cd66b0f5789052ed56cd64a94",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "ba4bad6fdb2da2d3fc0b68e73529a382d87ca7c3",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    }
+  ]
+}
