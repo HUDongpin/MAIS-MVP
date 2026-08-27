@@ -1,0 +1,93 @@
+{
+  "skill_name": "mais-rsi-machine-qa-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit a frozen exact-package machine-QA packet. The candidate hash, fresh independentReviewState, and deterministic/B-prime receipts are present, but C0-prime says required and the evidence-verifier role receipt is missing. Tell me whether the packet can pass and which proofBoundaries can be claimed.",
+      "expected_output": "A read-only blocked audit that identifies incomplete C0-prime evidence and preserves the machine-only claim ceiling.",
+      "expectations": [
+        "Classifies the task as exact-package-machine-review.",
+        "Returns blocked because all five C0-prime roles are mandatory when C0-prime is required.",
+        "Requires a closed control-plane C0 trigger assessment and derives required=true for every registered trigger, including P0/P1 answer, math, coverage, and schema risk.",
+        "Requires every active result to bind a canonical ValidationReceiptBodyV1 with nonempty response bytes, response/output digest equality, passed parse/projection/schema/role/taxonomy/coverage, exact slot-derived role and surface parity, current schema/taxonomy/control-plane bindings, false redaction flags, and rejects SHA-256 of empty.",
+        "Names evidence-verifier as missing without inventing its result.",
+        "Does not let a passed independentReviewState compensate for incomplete C0-prime evidence.",
+        "Rejects reuse of any deterministic, B-prime, C0-prime, or independent-review receipt hash and rejects any passed proof hash that reuses an active review receipt.",
+        "Keeps receipt proof blocked or unverified rather than inferring tracked commit, main, CI, deployment, or live proof.",
+        "Does not claim A18 acceptance, promotion, release readiness, deployment, or live proof.",
+        "Names the exact resume gate as a valid fresh-context evidence-verifier receipt followed by packet revalidation."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We have the RSI-Lite v2 synthetic figures: B-prime found 106 of 108 and C0-prime found all 108 families. Use that to certify that the current natural MAIS bank is at least 98 percent clean and ready for content approval.",
+      "expected_output": "A refusal to generalize a dated synthetic calibration to natural-bank quality or content acceptance, with correct routing.",
+      "expectations": [
+        "Identifies RSI-Lite v2 as dated non-normative synthetic-calibration evidence.",
+        "States that 108 denotes injected synthetic defect surfaces rather than natural bad questions.",
+        "Does not calculate or assert a natural-bank clean rate.",
+        "Routes natural-bank estimation to the natural-sample workflow and content acceptance to A18.",
+        "Preserves the recorded stream and repeatability deviations if discussing the case study."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The provider is configured and a credential file exists, so run B-prime live now on candidate sha 111... The old authorization named another candidate and expired yesterday, and the proposed liveExecution runner is untracked. We can update the receipt afterward.",
+      "expected_output": "A hard stop before any provider call because live authorization is stale and identity-mismatched.",
+      "expectations": [
+        "Does not call a provider or access the credential source.",
+        "States that provider configuration and credential presence are not authorization.",
+        "Returns blocked for expired and candidate-mismatched authorization.",
+        "Requires a canonical redacted authorizationProjection whose recomputed digest binds the full candidate/control plane, provider/model/roles, executable-code-manifest digest, runner, scopes, caps, and issue/expiry window.",
+        "Requires a source-bound VERIFIED external-comparison anchor whose canonical receipt identity binds the exact authorization digest and changes whenever the projection changes.",
+        "States that packet hashes prove internal closure but do not authenticate an issuer, and that a structurally valid packet is never provider authority; the current task's exact authorization still must be compared to the external trusted receipt.",
+        "Requires one recomputed canonical executable-code-manifest digest across identity, authorization, liveExecution, and runtime, with current commit/runtime, sorted unique exact package.json/package-lock.json/100755 entrypoint/recursive local closure, exact HEAD and working bytes/modes, and no symlink, submodule, untracked, dynamic, unresolved, custom-loader, outside, omitted, or extra dependency.",
+        "Requires both declared and observed repository clean=true and requires the packet input to be outside that runtime repository or in a verified Git-ignored quarantine without subtracting it from status.",
+        "Requires performedRoles to equal B-prime plus all five C0 roles if and only if C0 is canonically required and complete, while allowedRoles may be a superset.",
+        "Requires the fixed LIVE_AUTHORIZATION_RECEIPT common authority code and authorization hash coverage in evidenceHashes.",
+        "Rejects retroactive receipt or authorization repair."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "B-prime found an answer mismatch. I edited the answer in place but kept the candidate ID and old deterministic receipt. Please mark proofBoundaries.receipt passed and approved-for-integration-review; it was only a tiny repair.",
+      "expected_output": "A mutation/currentness blocker and a fresh D-prime remediation sequence without an approval verdict.",
+      "expectations": [
+        "Treats the edit as a new candidate identity rather than a tiny exception.",
+        "Rejects the retained old receipt through the mandatory canonical activeReceiptManifest even if candidateMutated is left false.",
+        "Requires each slot's resultSha256 to recompute from a closed redacted result body containing fixed status/count/output digest fields and the exact complete control plane, so wrapper rehashing cannot preserve an old result digest.",
+        "Requires distinct priorCandidate/newCandidate identities and authoritative priorReceiptBindings.",
+        "Requires the exact prior envelope/active-manifest digest plus explicit prior C0 required/status state, and derives the complete prior active set from that closed manifest.",
+        "Requires a source-bound VERIFIED prior-envelope comparison anchor and canonical receipt identity, while stating that replacing both prior body and anchor is a different untrusted evidence source until externally re-verified.",
+        "Requires invalidatedReceiptHashes to equal the complete derived prior six-domain output/validation-receipt/validation-projection/result/artifact/bound-receipt set without omission, including all six hashes for every prior C0 role when required.",
+        "Requires new canonical control-plane-bound deterministic/B-prime/required-C0/independent receipts and current hash references disjoint from prior and invalidated receipts.",
+        "Requires B-prime critique-before-fresh-revision predecessor binding with critiqueThenRevision and freshContext fixed true.",
+        "Requires a fresh D-prime validation receipt bound in newReceiptBindings and disjoint from prior, invalidated, current active, and proof hashes.",
+        "Requires top-level deterministic and B-prime finding counts to equal their bound active result counts.",
+        "Also requires the complete new active receipt set to be pairwise distinct and every passed proof hash to be disjoint from it.",
+        "Requires a passed fresh independentReviewState bound to the new candidate.",
+        "Refuses approved-for-integration-review and uses only the three-value machine disposition enum.",
+        "Keeps the receipt proof boundary unverified or failed until the new packet validates."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Summarize this machine-review receipt for an A18 handoff. It includes proofBoundaries and independentReviewState but also rawQuestion, rawProviderResponse, apiKey, providerReasoning, and a supplied selfHash. Even if I replace it with a matching selfHash, machineDisposition says approved-for-production.",
+      "expected_output": "A blocked redacted strict-allowlist summary that reports self-hash integrity separately and emits no protected values.",
+      "expectations": [
+        "Uses or follows safe-receipt-summary behavior rather than reproducing the raw receipt.",
+        "Applies a closed positive generic-receipt field inventory and blocks every unknown verdict or protected alias even with a valid selfHash.",
+        "Does not output rawQuestion, rawProviderResponse, apiKey, providerReasoning, their keys, or their values.",
+        "Treats a matching selfHash as canonical-value integrity only and still blocks the forbidden disposition.",
+        "Omits invalid disposition, claim ceiling, IDs, hashes, independent review, or proof states rather than copying unsafe values.",
+        "Emits only validated hashes, fixed states, counts, boundaries, and issue codes; input-controlled IDs are not echoed.",
+        "For a full packet, exposes only fixed trust status and canonical receipt-identity hash, never issuer/account/source details, and does not present that status as provider authority.",
+        "Treats field-specific positive grammars as the acceptance boundary, so a valid self-hash cannot legalize prose or a synthetic token placed in any string-bearing packet field.",
+        "Uses context-specific closed authority, blocker, check, deviation, and C0 trigger registries and rejects generalized approval/readiness-bearing codes.",
+        "Uses the same evidence-class/status/disposition/action/receipt-proof/independent-review resolver for generic and full packets; returns consistent blocked/invalid receipts only as safe blocked summaries with exit 2 and suppresses contradictory semantic summaries.",
+        "Maps complete exact-package candidate-only only to handoff-to-a18 and needs-repair only to repair-candidate; maps synthetic results only to record-calibration-result or revise-machine-qa-policy and never to A18.",
+        "Routes the redacted machine evidence to A18 without claiming A18 acceptance."
+      ]
+    }
+  ]
+}

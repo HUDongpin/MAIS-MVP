@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Audit the A23 Promotion Manifest and canonical Receipt for this frozen candidate; verify candidate/source/baseline/checker bindings and tell me whether it is shadow_ready or shadow_passed.",
+    "should_trigger": true
+  },
+  {
+    "query": "The promotion-shadow workflow now selects an append-only baseline re-affirmation. Check whether it preserves the base attempt Closure and whether the candidate digest stayed unchanged.",
+    "should_trigger": true
+  },
+  {
+    "query": "Compare canonical, fresh, and independent replay Promotion Receipts. Raw digests differ; confirm whether their semantic Receipt digests and exact bindings agree.",
+    "should_trigger": true
+  },
+  {
+    "query": "Current-head Promotion validation reports V2_TARGET_BASELINE_DRIFT. Is the old passing Shadow Receipt current, stale, or historical-only?",
+    "should_trigger": true
+  },
+  {
+    "query": "Candidate bytes changed after Promotion review. Decide whether this needs a new immutable attempt or an append-only re-affirmation, without overwriting old evidence.",
+    "should_trigger": true
+  },
+  {
+    "query": "Discover the repository-advertised promotion:validate, promotion:shadow, and promotion:verify-receipt surfaces and fail if the workflow selector or checker ledger is ambiguous.",
+    "should_trigger": true
+  },
+  {
+    "query": "Finalize a non-live Promotion Shadow only if the native Closure/Registry plus A11 replay, A22 isolation, required checks, main readback, and A25 closeout all bind the exact package.",
+    "should_trigger": true
+  },
+  {
+    "query": "The Promotion gate is green. Prepare a redacted exact-SHA handoff to release hygiene, but do not deploy or call Vercel.",
+    "should_trigger": true
+  },
+  {
+    "query": "A checker release commit SHA and an evidence reviewedCommit may be mistyped. Audit the immutable Promotion attempt and stop before Shadow if ancestry is unresolved.",
+    "should_trigger": true
+  },
+  {
+    "query": "Does this Promotion Shadow rollback prove only temporary-output isolation, or can it support database and live deployment rollback? Keep the live boundary explicit.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review these twenty candidate questions for mathematical correctness, bilingual wording, age appropriateness, and final A18 content acceptance.",
+    "should_trigger": false
+  },
+  {
+    "query": "Draw a stratified natural sample from the live bank and estimate error prevalence by region, language, difficulty, and response form with confidence intervals.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run B-prime and conditional C0-prime machine reviewers on this exact question package and validate the provider authorization caps.",
+    "should_trigger": false
+  },
+  {
+    "query": "Build the clean release worktree, deploy the current SHA to Vercel production, verify the public route in a browser, and rehearse production rollback.",
+    "should_trigger": false
+  },
+  {
+    "query": "Generate a new candidate package of Grade 6 ratio questions from the RAG corpus and produce bilingual lesson assets.",
+    "should_trigger": false
+  },
+  {
+    "query": "Fix the failing student Playwright selector on the Practice Arena mobile page and update its regression test.",
+    "should_trigger": false
+  },
+  {
+    "query": "Check whether the DeepSeek environment variable is present locally and in Vercel, then make a live provider request.",
+    "should_trigger": false
+  },
+  {
+    "query": "Prepare the daily A25 dirty-tree ownership map and recommend reviewable commit slices for all active worktrees.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain what a CI required check is and how GitHub branch protection works in a generic repository; there is no MAIS candidate or Promotion evidence.",
+    "should_trigger": false
+  },
+  {
+    "query": "Rewrite this lesson explanation to be clearer for primary students and translate it into Traditional Chinese.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0",
+  "suiteName": "mais-question-qa-skill-suite",
+  "suiteVersion": "1.0.0",
+  "status": "source-reviewed-package-and-installation-pending",
+  "baseline": {
+    "repository": "MAIS-MVP",
+    "originMainCommit": "f001a9570f2a0ef066b1a83a33619f72215ff354",
+    "verifiedAt": "2026-08-27T05:01:45.000Z",
+    "worktree": "isolated-a10-slice"
+  },
+  "components": [
+    {
+      "name": "mais-rsi-machine-qa-workflow",
+      "version": "1.0.0",
+      "kind": "new-specialist",
+      "compatibilityPatch": false,
+      "sourceHash": null,
+      "packageHash": null,
+      "sourceCommit": null,
+      "caseStudySnapshot": "synthetic-calibration-evidence-not-integration-or-live-proof",
+      "installation": {"state": "not-installed-by-this-suite", "readbackHash": null}
+    },
+    {
+      "name": "mais-natural-sample-evaluation",
+      "version": "1.0.0",
+      "kind": "new-specialist",
+      "compatibilityPatch": false,
+      "sourceHash": null,
+      "packageHash": null,
+      "sourceCommit": null,
+      "caseStudySnapshot": "runner-reviewed-provider-unexecuted-no-natural-population-conclusion",
+      "installation": {"state": "not-installed-by-this-suite", "readbackHash": null}
+    },
+    {
+      "name": "mais-content-promotion-gate",
+      "version": "1.0.0",
+      "kind": "new-specialist",
+      "compatibilityPatch": false,
+      "sourceHash": null,
+      "packageHash": null,
+      "sourceCommit": null,
+      "caseStudySnapshot": "shadow-mature-live-unproven-live-allowed-false",
+      "installation": {"state": "not-installed-by-this-suite", "readbackHash": null}
+    },
+    {
+      "name": "mais-content-qa-approval-workflow",
+      "version": "1.0.0-compat.1",
+      "kind": "compatibility-update",
+      "compatibilityPatch": true,
+      "sourceHash": null,
+      "packageHash": null,
+      "sourceCommit": null,
+      "caseStudySnapshot": "legacy-sxx-and-self-production-approval-removed",
+      "installation": {"state": "existing-install-not-yet-replaced", "readbackHash": null}
+    },
+    {
+      "name": "mais-release-hygiene-deploy-workflow",
+      "version": "1.0.0-compat.1",
+      "kind": "compatibility-update",
+      "compatibilityPatch": true,
+      "sourceHash": null,
+      "packageHash": null,
+      "sourceCommit": null,
+      "caseStudySnapshot": "promotion-negative-routing-and-same-sha-live-boundary-added",
+      "installation": {"state": "existing-install-not-yet-replaced", "readbackHash": null}
+    }
+  ],
+  "evaluation": {
+    "behaviorScenarios": 19,
+    "triggerQueries": 100,
+    "requiredRounds": 2,
+    "status": "pass-two-round-local-artifacts-summary-pending"
+  },
+  "packageBuild": {
+    "binaryArchivesCommitted": false,
+    "status": "pending"
+  },
+  "installationReceipt": {
+    "backupManifest": null,
+    "installedAt": null,
+    "status": "pending"
+  }
+}
