@@ -3637,8 +3637,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "When you measure with tiles, the tiles must be…",
-        "zh": "用方塊量長度時，這些方塊必須是……",
-        "zhHans": "用方块量长度时，这些方块必须是……"
+        "zh": "用方塊量長度時，這些方塊應該怎樣？",
+        "zhHans": "用方块量长度时，这些方块应该怎样？"
       },
       "options": [
         {
@@ -5571,8 +5571,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Skip-count by 10: 40, 50, 60, then?",
-        "zh": "每次數 10：40、50、60，接下來是？",
-        "zhHans": "每次数 10：40、50、60，接下来是？"
+        "zh": "10 個 10 個地數：40、50、60，接下來是？",
+        "zhHans": "10 个 10 个地数：40、50、60，接下来是？"
       },
       "answer": "70",
       "acceptedAnswers": [
@@ -5619,8 +5619,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Skip-count by 5: 15, 20, 25, then?",
-        "zh": "每次數 5：15、20、25，接下來是？",
-        "zhHans": "每次数 5：15、20、25，接下来是？"
+        "zh": "5 個 5 個地數：15、20、25，接下來是？",
+        "zhHans": "5 个 5 个地数：15、20、25，接下来是？"
       },
       "answer": "30",
       "acceptedAnswers": [
@@ -5667,8 +5667,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Skip-count by 100: 300, 400, then?",
-        "zh": "每次數 100：300、400，接下來是？",
-        "zhHans": "每次数 100：300、400，接下来是？"
+        "zh": "100 個 100 個地數：300、400，接下來是？",
+        "zhHans": "100 个 100 个地数：300、400，接下来是？"
       },
       "answer": "500",
       "acceptedAnswers": [
@@ -6625,8 +6625,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A bar is 4 big units. In small (half) units, that is ___ units.",
-        "zh": "一條長條是 4 個大單位。用小單位（一半大小）來量，就是 ___ 個單位。",
-        "zhHans": "一条长条是 4 个大单位。用小单位（一半大小）来量，就是 ___ 个单位。"
+        "zh": "一條紙條長 4 個大單位。改用小單位（只有一半大）來量，就是 ___ 個單位。",
+        "zhHans": "一条纸条长 4 个大单位。改用小单位（只有一半大）来量，就是 ___ 个单位。"
       },
       "answer": "8",
       "acceptedAnswers": [
@@ -6675,8 +6675,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "To measure, line the ruler's ___ up with one end.",
-        "zh": "量度時，要把尺的 ___ 對齊物件的一端。",
-        "zhHans": "测量时，要把尺的 ___ 对齐物品的一端。"
+        "zh": "量度時，要把尺的 ___ 對齊物品的一端。",
+        "zhHans": "测量时，要把尺子的 ___ 对准物品的一端。"
       },
       "options": [
         {
@@ -6747,8 +6747,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "One bar is 7 units, another is 4. How much longer is the first?",
-        "zh": "一條長條是 7 個單位，另一條是 4 個單位。第一條比另一條長多少？",
-        "zhHans": "一条长条是 7 个单位，另一条是 4 个单位。第一条比另一条长多少？"
+        "zh": "一條紙條長 7 個單位，另一條長 4 個單位。第一條比第二條長多少個單位？",
+        "zhHans": "一条纸条长 7 个单位，另一条长 4 个单位。第一条比第二条长多少个单位？"
       },
       "answer": "3",
       "acceptedAnswers": [
@@ -7459,8 +7459,8 @@
         },
         {
           "en": "a guess",
-          "zh": "一個猜一猜",
-          "zhHans": "一个猜一猜"
+          "zh": "一次猜測",
+          "zhHans": "一次猜测"
         },
         {
           "en": "the total of everything",
@@ -7474,7 +7474,7 @@
       ],
       "explanation": {
         "en": "One X = one measured object.",
-        "zh": "一個 X = 一件量度過的物件。",
+        "zh": "一個 X = 一件量度過的物品。",
         "zhHans": "一个 X = 一件测量过的物品。"
       },
       "independentAnswer": "one measurement",
@@ -7513,8 +7513,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A length has 4 X's stacked above it. How many objects were that length?",
-        "zh": "某個長度上方疊了 4 個 X。有多少個物品是這麼長？",
-        "zhHans": "某个长度上方叠了 4 个 X。有多少个物品是这么长？"
+        "zh": "某個長度上方疊了 4 個 X。有多少件物品是這麼長？",
+        "zhHans": "某个长度上方叠了 4 个 X。有多少件物品是这么长？"
       },
       "answer": "4",
       "acceptedAnswers": [
@@ -10627,8 +10627,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "An X above 1¾ on the line plot means a length of…",
-        "zh": "線圖上 1¾ 上方的一個 X 表示長度是……",
-        "zhHans": "线图上 1¾ 上方的一个 X 表示长度是……"
+        "zh": "點狀圖上 1¾ 上方的一個 X 表示長度是……",
+        "zhHans": "点状图上 1¾ 上方的一个 X 表示长度是……"
       },
       "options": [
         {
