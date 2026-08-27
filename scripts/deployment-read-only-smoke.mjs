@@ -311,6 +311,16 @@ export function parseVercelInspectEvidence(output, expected) {
 
   const candidateSha = String(expected?.candidateSha ?? "").trim().toLowerCase();
   const target = expected?.target;
+  // Current Vercel CLI inspect JSON omits deployment metadata. Callers must keep
+  // metadataVerified false until the management-API provider proof succeeds.
+  const hasInspectMetadata = Object.prototype.hasOwnProperty.call(payload ?? {}, "meta");
+  const inspectMetadataMatches =
+    !hasInspectMetadata ||
+    (
+      payload?.meta &&
+      typeof payload.meta === "object" &&
+      String(payload.meta.maisCandidateSha ?? "").toLowerCase() === candidateSha
+    );
   let expectedOrigin;
   let providerOrigin;
   try {
@@ -329,7 +339,7 @@ export function parseVercelInspectEvidence(output, expected) {
     providerOrigin !== expectedOrigin ||
     payload?.readyState !== "READY" ||
     payload?.target !== target ||
-    String(payload?.meta?.maisCandidateSha ?? "").toLowerCase() !== candidateSha
+    !inspectMetadataMatches
   ) {
     fail();
   }
@@ -338,7 +348,7 @@ export function parseVercelInspectEvidence(output, expected) {
     candidateSha,
     deploymentId: payload.id,
     deploymentUrl: expectedOrigin,
-    metadataVerified: true,
+    metadataVerified: hasInspectMetadata,
     providerGitShaVerified: false,
     readyState: "READY",
     target

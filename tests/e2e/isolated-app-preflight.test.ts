@@ -1938,6 +1938,7 @@ test("persistent lease state fails closed when the guardian crashes before its a
   await assertZombieOnlyProcessGroupIsExited();
   const root = mkdtempSync(path.join(tmpdir(), "mais-isolated-guardian-crash-"));
   const dbPath = path.join(root, "guardian-crash.sqlite");
+  const readyMarkerPath = path.join(root, "app-ready");
   const port = await unusedLocalPort();
   const guardian = await startSqliteAppLeaseGuardian(dbPath, {
     runId: "guardian-crash-owner",
@@ -1945,7 +1946,15 @@ test("persistent lease state fails closed when the guardian crashes before its a
   });
   const spawned = await guardian.spawnApp(
     process.execPath,
-    ["-e", "setInterval(() => {}, 1_000)"],
+    [
+      "-e",
+      [
+        "const { writeFileSync } = require('node:fs');",
+        "writeFileSync(process.argv[1], 'ready');",
+        "setInterval(() => {}, 1_000);"
+      ].join("\n"),
+      readyMarkerPath
+    ],
     port
   );
   const appPid = spawned.processGroupId;
@@ -1955,6 +1964,15 @@ test("persistent lease state fails closed when the guardian crashes before its a
 
   try {
     assert.ok(processGroupIsRunning(appPid));
+    const readyDeadline = Date.now() + 5_000;
+    while (!existsSync(readyMarkerPath) && Date.now() < readyDeadline) {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+    assert.equal(
+      existsSync(readyMarkerPath),
+      true,
+      "guardian-crash fixture app must be running before its guardian is killed"
+    );
     process.kill(-guardian.guardianPid, "SIGKILL");
 
     const deadline = Date.now() + 5_000;

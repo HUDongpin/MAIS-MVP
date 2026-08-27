@@ -19,6 +19,9 @@ const githubToken = "github_pat_fixture_token_never_output_1234567890";
 const repositoryApiUrl = `https://api.github.com/repos/${MAIS_GITHUB_REPOSITORY}`;
 const actionsRunId = 123;
 const workflowId = 456;
+const promotionActionsRunId = 124;
+const promotionWorkflowId = 457;
+const promotionCheckName = "promotion-shadow-gate";
 
 test("candidate verifier Git children receive no provider credentials or hostile Git helpers", () => {
   const env = buildGithubCandidateGitEnvironment({
@@ -71,22 +74,38 @@ function fixture() {
     },
     protectionPayload: {
       strict: false,
-      contexts: ["validate"],
-      checks: [{ context: "validate", app_id: GITHUB_ACTIONS_APP_ID }]
+      contexts: ["validate", promotionCheckName],
+      checks: [
+        { context: "validate", app_id: GITHUB_ACTIONS_APP_ID },
+        { context: promotionCheckName, app_id: GITHUB_ACTIONS_APP_ID }
+      ]
     },
     checkRunsPayload: {
-      total_count: RELEASE_REQUIRED_GITHUB_CHECKS.length,
-      check_runs: RELEASE_REQUIRED_GITHUB_CHECKS.map((name, index) => ({
-        id: 10_000 + index,
-        name,
-        head_sha: candidateSha,
-        status: "completed",
-        conclusion: "success",
-        started_at: startedAt,
-        completed_at: completedAt,
-        details_url: `https://github.com/${MAIS_GITHUB_REPOSITORY}/actions/runs/${actionsRunId}/job/${10_000 + index}`,
-        app: { id: GITHUB_ACTIONS_APP_ID, slug: "github-actions" }
-      }))
+      total_count: RELEASE_REQUIRED_GITHUB_CHECKS.length + 1,
+      check_runs: [
+        ...RELEASE_REQUIRED_GITHUB_CHECKS.map((name, index) => ({
+          id: 10_000 + index,
+          name,
+          head_sha: candidateSha,
+          status: "completed",
+          conclusion: "success",
+          started_at: startedAt,
+          completed_at: completedAt,
+          details_url: `https://github.com/${MAIS_GITHUB_REPOSITORY}/actions/runs/${actionsRunId}/job/${10_000 + index}`,
+          app: { id: GITHUB_ACTIONS_APP_ID, slug: "github-actions" }
+        })),
+        {
+          id: 20_000,
+          name: promotionCheckName,
+          head_sha: candidateSha,
+          status: "completed",
+          conclusion: "success",
+          started_at: startedAt,
+          completed_at: completedAt,
+          details_url: `https://github.com/${MAIS_GITHUB_REPOSITORY}/actions/runs/${promotionActionsRunId}/job/20000`,
+          app: { id: GITHUB_ACTIONS_APP_ID, slug: "github-actions" }
+        }
+      ]
     },
     actionsRunPayload: {
       id: actionsRunId,
@@ -103,6 +122,30 @@ function fixture() {
       html_url: `https://github.com/${MAIS_GITHUB_REPOSITORY}/actions/runs/${actionsRunId}`,
       jobs_url: `${repositoryApiUrl}/actions/runs/${actionsRunId}/jobs`,
       workflow_url: `${repositoryApiUrl}/actions/workflows/${workflowId}`,
+      repository: {
+        id: MAIS_GITHUB_REPOSITORY_ID,
+        full_name: MAIS_GITHUB_REPOSITORY
+      },
+      head_repository: {
+        id: MAIS_GITHUB_REPOSITORY_ID,
+        full_name: MAIS_GITHUB_REPOSITORY
+      }
+    },
+    promotionRunPayload: {
+      id: promotionActionsRunId,
+      name: promotionCheckName,
+      path: ".github/workflows/promotion-shadow.yml",
+      event: "push",
+      status: "completed",
+      conclusion: "success",
+      head_branch: "main",
+      head_sha: candidateSha,
+      run_attempt: 1,
+      workflow_id: promotionWorkflowId,
+      url: `${repositoryApiUrl}/actions/runs/${promotionActionsRunId}`,
+      html_url: `https://github.com/${MAIS_GITHUB_REPOSITORY}/actions/runs/${promotionActionsRunId}`,
+      jobs_url: `${repositoryApiUrl}/actions/runs/${promotionActionsRunId}/jobs`,
+      workflow_url: `${repositoryApiUrl}/actions/workflows/${promotionWorkflowId}`,
       repository: {
         id: MAIS_GITHUB_REPOSITORY_ID,
         full_name: MAIS_GITHUB_REPOSITORY
@@ -159,7 +202,8 @@ function createProviderHarness(overrides = {}) {
     mainRef: `${repositoryApiUrl}/git/ref/heads/main`,
     protection: `${repositoryApiUrl}/branches/main/protection`,
     checks: `${repositoryApiUrl}/commits/${candidateSha}/check-runs?filter=latest&per_page=100`,
-    actionsRun: `${repositoryApiUrl}/actions/runs/${actionsRunId}`
+    actionsRun: `${repositoryApiUrl}/actions/runs/${actionsRunId}`,
+    promotionActionsRun: `${repositoryApiUrl}/actions/runs/${promotionActionsRunId}`
   };
   const payloads = new Map([
     [urls.repository, value.repositoryPayload],
@@ -167,7 +211,8 @@ function createProviderHarness(overrides = {}) {
     [urls.mainRef, value.mainRefPayload],
     [urls.protection, value.protectionPayload],
     [urls.checks, value.checkRunsPayload],
-    [urls.actionsRun, value.actionsRunPayload]
+    [urls.actionsRun, value.actionsRunPayload],
+    [urls.promotionActionsRun, value.promotionRunPayload]
   ]);
   const requests = [];
   const gitCalls = [];
@@ -198,7 +243,7 @@ function createProviderHarness(overrides = {}) {
   return { fetchImpl, gitCalls, payloads, requests, runCommand, urls, value };
 }
 
-test("read-only provider verification binds clean local Git, main, private repo, protection, and seven exact-SHA checks", async () => {
+test("read-only provider verification binds clean local Git, main, private repo, protection, CI, and promotion checks", async () => {
   const harness = createProviderHarness();
   const evidence = await verifyGithubCandidateChecks({
     candidateSha,
@@ -214,6 +259,8 @@ test("read-only provider verification binds clean local Git, main, private repo,
   assert.equal(evidence.treeSha, expectedTreeSha);
   assert.equal(evidence.mainRef, "refs/heads/main");
   assert.equal(evidence.releaseChecks.length, 7);
+  assert.equal(evidence.promotionCheck.name, promotionCheckName);
+  assert.equal(evidence.promotionWorkflow.path, ".github/workflows/promotion-shadow.yml");
   assert.deepEqual(harness.requests.map(({ url }) => url), [
     harness.urls.repository,
     harness.urls.commit,
@@ -221,6 +268,7 @@ test("read-only provider verification binds clean local Git, main, private repo,
     harness.urls.protection,
     harness.urls.checks,
     harness.urls.actionsRun,
+    harness.urls.promotionActionsRun,
     harness.urls.mainRef
   ]);
   assert.ok(harness.requests.every(({ init }) => init.method === "GET" && init.redirect === "error"));
@@ -274,6 +322,12 @@ test("provider verification rejects wrong main/repository/protection, stale succ
     },
     (harness) => {
       harness.value.actionsRunPayload.event = "pull_request";
+    },
+    (harness) => {
+      harness.value.promotionRunPayload.path = ".github/workflows/colliding-checks.yml";
+    },
+    (harness) => {
+      harness.value.promotionRunPayload.event = "pull_request";
     }
   ];
 
@@ -557,7 +611,7 @@ test("candidate evidence binds the GitHub repository, commit tree, branch policy
   assert.equal(evidence.verified, true);
   assert.equal(evidence.candidateSha, candidateSha);
   assert.equal(evidence.treeSha, expectedTreeSha);
-  assert.deepEqual(evidence.protectedChecks, ["validate"]);
+  assert.deepEqual(evidence.protectedChecks, ["validate", promotionCheckName]);
   assert.deepEqual(
     evidence.releaseChecks.map((check) => check.name),
     RELEASE_REQUIRED_GITHUB_CHECKS
@@ -565,6 +619,10 @@ test("candidate evidence binds the GitHub repository, commit tree, branch policy
   assert.equal(evidence.workflow.path, ".github/workflows/ci.yml");
   assert.equal(evidence.workflow.runId, actionsRunId);
   assert.equal(evidence.workflow.event, "push");
+  assert.equal(evidence.promotionCheck.actionsRunId, promotionActionsRunId);
+  assert.equal(evidence.promotionWorkflow.path, ".github/workflows/promotion-shadow.yml");
+  assert.equal(evidence.promotionWorkflow.runId, promotionActionsRunId);
+  assert.equal(evidence.promotionWorkflow.event, "push");
 });
 
 test("same-SHA same-name checks from a wrong or mixed Actions workflow cannot satisfy release", () => {
@@ -582,6 +640,13 @@ test("same-SHA same-name checks from a wrong or mixed Actions workflow cannot sa
     () => validateGithubCandidateEvidence(mixedRuns),
     /workflow|Actions run/i
   );
+
+  const wrongPromotionWorkflow = fixture();
+  wrongPromotionWorkflow.promotionRunPayload.path = ".github/workflows/colliding-checks.yml";
+  assert.throws(
+    () => validateGithubCandidateEvidence(wrongPromotionWorkflow),
+    /promotion|Actions run/i
+  );
 });
 
 test("wrong repository, commit, or Git tree fails closed", () => {
@@ -597,7 +662,7 @@ test("wrong repository, commit, or Git tree fails closed", () => {
   }
 });
 
-test("branch protection must keep the GitHub Actions validate context", () => {
+test("branch protection must keep only the trusted validate and promotion contexts", () => {
   const missing = fixture();
   missing.protectionPayload = { strict: false, contexts: [], checks: [] };
   assert.throws(() => validateGithubCandidateEvidence(missing), /protection/i);
@@ -605,6 +670,40 @@ test("branch protection must keep the GitHub Actions validate context", () => {
   const wrongApp = fixture();
   wrongApp.protectionPayload.checks[0].app_id = 1;
   assert.throws(() => validateGithubCandidateEvidence(wrongApp), /validate context/i);
+
+  const missingPromotion = fixture();
+  missingPromotion.protectionPayload.contexts = ["validate"];
+  missingPromotion.protectionPayload.checks = [
+    { context: "validate", app_id: GITHUB_ACTIONS_APP_ID }
+  ];
+  assert.throws(() => validateGithubCandidateEvidence(missingPromotion), /protection|promotion/i);
+
+  const wrongPromotionApp = fixture();
+  wrongPromotionApp.protectionPayload.checks[1].app_id = 1;
+  assert.throws(() => validateGithubCandidateEvidence(wrongPromotionApp), /protection|release context/i);
+});
+
+test("promotion protection cannot be satisfied by a stale, failed, incomplete, or wrong-app check", () => {
+  for (const changed of [
+    { conclusion: "failure" },
+    { conclusion: null, status: "in_progress", completed_at: null },
+    { head_sha: "c".repeat(40) },
+    { details_url: "https://example.test/job/1" },
+    { app: { id: 1, slug: "other" } }
+  ]) {
+    const value = fixture();
+    const current = value.checkRunsPayload.check_runs.find((run) => run.name === promotionCheckName);
+    Object.assign(current, changed, { id: 99_999 });
+    value.checkRunsPayload.check_runs.push({
+      ...fixture().checkRunsPayload.check_runs.find((run) => run.name === promotionCheckName),
+      id: 1
+    });
+    value.checkRunsPayload.total_count += 1;
+    assert.throws(
+      () => validateGithubCandidateEvidence(value),
+      /promotion-shadow-gate|promotion/i
+    );
+  }
 });
 
 test("a stale success cannot hide a newer failed or incomplete required check", () => {

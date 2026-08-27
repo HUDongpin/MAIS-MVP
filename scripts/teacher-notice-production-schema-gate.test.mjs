@@ -8,7 +8,8 @@ import {
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
-  preflightTeacherNoticeProductionSchema
+  preflightTeacherNoticeProductionSchema,
+  teacherNoticeProductionSchemaFailureStage
 } from "./teacher-notice-production-schema-gate.mjs";
 
 const candidateSha = "a".repeat(40);
@@ -616,6 +617,83 @@ test("provider and database errors are redacted even when dependencies contain c
       }
     );
   }
+});
+
+test("preflight preserves only an allowlisted stage code across provider and database failures", async () => {
+  const sensitiveDiagnostic =
+    "secret-user secret-password db.example.invalid secret-production";
+  const cases = [
+    {
+      expectedStage: "provider-project-read",
+      overrides: {
+        fetchJsonImpl: async () => { throw new Error(sensitiveDiagnostic); }
+      }
+    },
+    {
+      expectedStage: "postgres-inspect",
+      overrides: {
+        inspectDatabase: async () => { throw new Error(sensitiveDiagnostic); }
+      }
+    },
+    {
+      expectedStage: "postgres-connect",
+      overrides: {
+        connectPostgres: async () => { throw new Error(sensitiveDiagnostic); }
+      }
+    }
+  ];
+
+  for (const { expectedStage, overrides } of cases) {
+    await assert.rejects(
+      preflightTeacherNoticeProductionSchema(preflightDependencies(overrides)),
+      (error) => {
+        assert.equal(teacherNoticeProductionSchemaFailureStage(error), expectedStage);
+        assert.equal(error.message.includes("secret"), false);
+        assert.equal(error.message.includes("db.example.invalid"), false);
+        return true;
+      }
+    );
+  }
+
+  assert.equal(
+    teacherNoticeProductionSchemaFailureStage(new Error(sensitiveDiagnostic)),
+    "unknown"
+  );
+});
+
+test("CLI preflight failure emits one fixed safe stage without raw diagnostics", () => {
+  const poison = "postgresql://secret-user:secret-password@secret-host/secret-db";
+  const result = spawnSync(
+    process.execPath,
+    [
+      "--import",
+      "tsx",
+      "scripts/teacher-notice-production-schema-gate.mjs",
+      "--preflight",
+      "--candidate-sha=invalid",
+      "--expected-tree-sha=invalid"
+    ],
+    {
+      cwd: process.cwd(),
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        POSTGRES_URL: poison,
+        VERCEL_TOKEN: "poison-token-that-must-not-be-used-or-printed"
+      }
+    }
+  );
+
+  assert.equal(result.status, 1);
+  assert.equal(result.stdout, "");
+  assert.deepEqual(JSON.parse(result.stderr), {
+    ok: false,
+    status: "teacher-notice-production-schema-gate-failed",
+    stage: "input-binding",
+    detail: "redacted"
+  });
+  assert.equal(`${result.stdout}${result.stderr}`.includes(poison), false);
+  assert.equal(`${result.stdout}${result.stderr}`.includes("secret-password"), false);
 });
 
 test("CLI dry-run performs no provider or database work and emits only a fixed safe plan", () => {
