@@ -225,6 +225,15 @@ test("builds the exact production migration plan from independently attested sch
     }),
     []
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-complete-readiness-v1"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       appStorageState: "exact",
@@ -286,8 +295,9 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
       ],
       productionEnvironment,
       {
-        applyAppStorageSchema: async (receivedClient) => {
+        applyAppStorageSchema: async (receivedClient, expectedState) => {
           assert.equal(receivedClient, client);
+          assert.equal(expectedState, "empty");
           assert.equal(
             process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD,
             productionEnvironment.MAIS_BOOTSTRAP_ADMIN_PASSWORD
@@ -317,6 +327,37 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     applyMaisProductionSchemaOperations(
       client,
       ["outbox-install-v2", "app-storage-install-v1"],
+      productionEnvironment,
+      {
+        applyAppStorageSchema: async () => { throw new Error("must not run"); },
+        applyTeacherNoticeSchema: async () => { throw new Error("must not run"); }
+      }
+    ),
+    /operation plan/u
+  );
+
+  const legacyStages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-complete-readiness-v1"],
+    productionEnvironment,
+    {
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(expectedState, "legacy-no-readiness-marker");
+        legacyStages.push("app-storage-readiness");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(legacyStages, ["app-storage-readiness"]);
+
+  await assert.rejects(
+    applyMaisProductionSchemaOperations(
+      client,
+      ["app-storage-install-v1", "app-storage-complete-readiness-v1"],
       productionEnvironment,
       {
         applyAppStorageSchema: async () => { throw new Error("must not run"); },

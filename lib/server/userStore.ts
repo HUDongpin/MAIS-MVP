@@ -3032,6 +3032,19 @@ const postgresStorageCanonicalRelationNames = [
   ...hotAuthTableNames
 ] as const;
 
+type PostgresStorageReadinessRequiredColumn =
+  (typeof postgresStorageReadinessRequiredColumns)[number];
+
+const postgresStorageLegacyNoReadinessMarkerRequiredColumns =
+  postgresStorageReadinessRequiredColumns.filter(
+    (entry) => entry.table !== "app_state_readiness_markers"
+  );
+
+const postgresStorageLegacyNoReadinessMarkerRelationNames =
+  postgresStorageCanonicalRelationNames.filter(
+    (relationName) => relationName !== "app_state_readiness_markers"
+  );
+
 type PostgresStorageReadinessCatalogRow = {
   relation_name: unknown;
   column_name: unknown;
@@ -3269,14 +3282,18 @@ async function withBoundedPostgresReadinessTransaction<T>(
   });
 }
 
-async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessTransaction) {
+async function postgresStorageReadinessCatalogIsComplete(
+  sql: PostgresReadinessTransaction,
+  requiredColumns: readonly PostgresStorageReadinessRequiredColumn[] =
+    postgresStorageReadinessRequiredColumns
+) {
   const rows = await sql`
     /* postgres_storage_readiness_catalog_probe */
     WITH required_columns(relation_name, column_name, ordinality) AS (
       SELECT required.relation_name, required.column_name, required.ordinality
       FROM unnest(
-        ${postgresStorageReadinessRequiredColumns.map((entry) => entry.table)}::text[],
-        ${postgresStorageReadinessRequiredColumns.map((entry) => entry.column)}::text[]
+        ${requiredColumns.map((entry) => entry.table)}::text[],
+        ${requiredColumns.map((entry) => entry.column)}::text[]
       ) WITH ORDINALITY AS required(relation_name, column_name, ordinality)
     )
     SELECT
@@ -3371,7 +3388,7 @@ async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessT
     ORDER BY required.ordinality
   ` as PostgresStorageReadinessCatalogRow[];
 
-  if (rows.length !== postgresStorageReadinessRequiredColumns.length) return false;
+  if (rows.length !== requiredColumns.length) return false;
   const rowsByColumn = new Map<string, PostgresStorageReadinessCatalogRow>();
   for (const row of rows) {
     if (typeof row.relation_name !== "string" || typeof row.column_name !== "string") return false;
@@ -3380,7 +3397,7 @@ async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessT
     rowsByColumn.set(key, row);
   }
 
-  return postgresStorageReadinessRequiredColumns.every((required) => {
+  return requiredColumns.every((required) => {
     const row = rowsByColumn.get(`${required.table}\u0000${required.column}`);
     return Boolean(
       row
@@ -3410,7 +3427,8 @@ async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessT
 }
 
 async function postgresStoragePhysicalRelationsAreCanonical(
-  sql: PostgresReadinessTransaction
+  sql: PostgresReadinessTransaction,
+  expectedRelationNames: readonly string[] = postgresStorageCanonicalRelationNames
 ) {
   const rows = await sql`
     /* postgres_storage_bootstrap_physical_relation_probe */
@@ -3432,9 +3450,9 @@ async function postgresStoragePhysicalRelationsAreCanonical(
     relation_row_security: unknown;
     relation_force_row_security: unknown;
   }>;
-  if (rows.length !== postgresStorageCanonicalRelationNames.length) return false;
+  if (rows.length !== expectedRelationNames.length) return false;
   const rowsByName = new Map(rows.map((row) => [row.relation_name, row]));
-  return postgresStorageCanonicalRelationNames.every((relationName) => {
+  return expectedRelationNames.every((relationName) => {
     const row = rowsByName.get(relationName);
     return Boolean(
       row
@@ -3450,8 +3468,9 @@ function normalizedPostgresDefinition(value: unknown) {
   return typeof value === "string" ? value.replace(/\s+/gu, " ").trim() : null;
 }
 
-async function postgresStorageReadinessInvalidationIsComplete(
-  sql: PostgresReadinessTransaction
+async function postgresStorageTriggerContractsAreComplete(
+  sql: PostgresReadinessTransaction,
+  includeReadinessInvalidation: boolean
 ) {
   const rows = await sql`
     /* postgres_storage_readiness_invalidation_probe */
@@ -3522,7 +3541,7 @@ async function postgresStorageReadinessInvalidationIsComplete(
     WHERE namespace.nspname = 'public'
   ` as PostgresStorageInvalidationCatalogRow[];
 
-  if (rows.length !== 2) return false;
+  if (rows.length !== (includeReadinessInvalidation ? 2 : 1)) return false;
   const rowsByTrigger = new Map<string, PostgresStorageInvalidationCatalogRow>();
   for (const row of rows) {
     if (typeof row.trigger_name !== "string" || rowsByTrigger.has(row.trigger_name)) return false;
@@ -3551,23 +3570,9 @@ async function postgresStorageReadinessInvalidationIsComplete(
     && row.function_config.length === 1
     && row.function_config[0] === "search_path=pg_catalog, public"
   );
-  if (!commonTriggerContractIsComplete(invalidation)) return false;
   if (!commonTriggerContractIsComplete(compatibility)) return false;
-  return Boolean(
-    invalidation
-    && invalidation.trigger_name === postgresStorageInvalidationTriggerName
-    && invalidation.trigger_type === 21
-    && normalizedPostgresDefinition(invalidation.trigger_definition)
-      === postgresStorageInvalidationTriggerDefinition
-    && Array.isArray(invalidation.trigger_update_columns)
-    && invalidation.trigger_update_columns.length === postgresStorageInvalidationUpdateColumns.length
-    && invalidation.trigger_update_columns.every((column, index) =>
-      column === postgresStorageInvalidationUpdateColumns[index]
-    )
-    && invalidation.function_name === postgresStorageInvalidationFunctionName
-    && normalizedPostgresDefinition(invalidation.function_source)
-      === normalizedPostgresDefinition(postgresStorageInvalidationFunctionSource)
-    && compatibility
+  const compatibilityIsComplete = Boolean(
+    compatibility
     && compatibility.trigger_name === postgresStorageCompatibilityTriggerName
     && compatibility.trigger_type === 23
     && normalizedPostgresDefinition(compatibility.trigger_definition)
@@ -3583,6 +3588,97 @@ async function postgresStorageReadinessInvalidationIsComplete(
       .update(normalizedPostgresDefinition(compatibility.function_source) ?? "")
       .digest("hex") === postgresStorageCompatibilityFunctionSourceSha256
   );
+  if (!compatibilityIsComplete || !includeReadinessInvalidation) {
+    return compatibilityIsComplete && invalidation === undefined;
+  }
+  if (!commonTriggerContractIsComplete(invalidation)) return false;
+  return Boolean(
+    invalidation
+    && invalidation.trigger_name === postgresStorageInvalidationTriggerName
+    && invalidation.trigger_type === 21
+    && normalizedPostgresDefinition(invalidation.trigger_definition)
+      === postgresStorageInvalidationTriggerDefinition
+    && Array.isArray(invalidation.trigger_update_columns)
+    && invalidation.trigger_update_columns.length === postgresStorageInvalidationUpdateColumns.length
+    && invalidation.trigger_update_columns.every((column, index) =>
+      column === postgresStorageInvalidationUpdateColumns[index]
+    )
+    && invalidation.function_name === postgresStorageInvalidationFunctionName
+    && normalizedPostgresDefinition(invalidation.function_source)
+      === normalizedPostgresDefinition(postgresStorageInvalidationFunctionSource)
+  );
+}
+
+async function postgresStorageReadinessInvalidationIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageTriggerContractsAreComplete(sql, true);
+}
+
+async function postgresStorageLegacyCompatibilityTriggerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageTriggerContractsAreComplete(sql, false);
+}
+
+function postgresStorageLegacySnapshotIsComplete(
+  rows: Array<{ payload: unknown; revision: unknown }>
+) {
+  if (rows.length !== 1 || safePostgresRevision(rows[0]?.revision) === null) {
+    return false;
+  }
+  try {
+    validateCompletePostgresStorageSnapshot(rows[0]?.payload);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function postgresStorageLegacyNoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  if (!await postgresStoragePhysicalRelationsAreCanonical(
+    sql,
+    postgresStorageLegacyNoReadinessMarkerRelationNames
+  )) return false;
+  if (!await postgresStorageReadinessCatalogIsComplete(
+    sql,
+    postgresStorageLegacyNoReadinessMarkerRequiredColumns
+  )) return false;
+  if (!await postgresStorageLegacyCompatibilityTriggerIsComplete(sql)) return false;
+  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return false;
+
+  const orphanRows = await sql`
+    /* postgres_storage_legacy_readiness_artifact_probe */
+    SELECT NOT EXISTS (
+      SELECT 1
+      FROM pg_catalog.pg_proc AS routine
+      INNER JOIN pg_catalog.pg_namespace AS namespace
+        ON namespace.oid = routine.pronamespace
+      WHERE namespace.nspname = 'public'
+        AND routine.proname::text = ${postgresStorageInvalidationFunctionName}
+    ) AS invalidation_function_absent
+  ` as Array<{ invalidation_function_absent: boolean }>;
+  if (
+    orphanRows.length !== 1
+    || orphanRows[0]?.invalidation_function_absent !== true
+  ) return false;
+
+  const snapshotRows = await sql`
+    /* postgres_storage_legacy_snapshot_probe */
+    SELECT state.payload, state.revision
+    FROM public.app_state AS state
+    WHERE state.id = ${stateRecordId}
+      AND state.tenant_id = ${stateTenantId}
+      AND state.state_kind = ${stateKind}
+      AND state.schema_version = ${schemaVersion}
+      AND (
+        SELECT pg_catalog.count(*)
+        FROM public.app_state AS counted_state
+      ) = 1
+  ` as Array<{ payload: unknown; revision: unknown }>;
+  return postgresStorageLegacySnapshotIsComplete(snapshotRows);
 }
 
 async function postgresStorageReadinessMarkerIsCurrent(
@@ -4086,6 +4182,53 @@ async function hasCurrentPostgresSchemaMarker() {
   )) === true;
 }
 
+async function installPostgresStorageReadinessMarkerContract(
+  sql: PostgresReadinessTransaction
+) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers (
+      state_id TEXT NOT NULL,
+      tenant_id TEXT NOT NULL,
+      state_kind TEXT NOT NULL,
+      schema_version INTEGER NOT NULL,
+      state_revision BIGINT NOT NULL,
+      contract_version INTEGER NOT NULL,
+      attested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (state_id, tenant_id, state_kind, schema_version)
+    )
+  `;
+  await sql`
+    CREATE OR REPLACE FUNCTION public.invalidate_app_state_readiness_marker()
+    RETURNS trigger
+    LANGUAGE plpgsql
+    VOLATILE
+    SECURITY INVOKER
+    SET search_path = pg_catalog, public
+    AS $mais_readiness$
+    BEGIN
+      IF TG_OP = 'UPDATE' THEN
+        DELETE FROM public.app_state_readiness_markers
+        WHERE state_id IN (OLD.id, NEW.id);
+      ELSE
+        DELETE FROM public.app_state_readiness_markers
+        WHERE state_id = NEW.id;
+      END IF;
+      RETURN NEW;
+    END
+    $mais_readiness$
+  `;
+  await sql`
+    DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state
+  `;
+  await sql`
+    CREATE TRIGGER app_state_readiness_invalidate
+    AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version
+    ON public.app_state
+    FOR EACH ROW
+    EXECUTE FUNCTION public.invalidate_app_state_readiness_marker()
+  `;
+}
+
 type PostgresStorageBootstrapExpectedState = "any" | "empty";
 
 async function bootstrapPostgresStateTables() {
@@ -4184,48 +4327,9 @@ async function bootstrapPostgresStateTablesOnClient(
           applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
-      await migrationSql`
-        CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers (
-          state_id TEXT NOT NULL,
-          tenant_id TEXT NOT NULL,
-          state_kind TEXT NOT NULL,
-          schema_version INTEGER NOT NULL,
-          state_revision BIGINT NOT NULL,
-          contract_version INTEGER NOT NULL,
-          attested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-          PRIMARY KEY (state_id, tenant_id, state_kind, schema_version)
-        )
-      `;
-      await migrationSql`
-        CREATE OR REPLACE FUNCTION public.invalidate_app_state_readiness_marker()
-        RETURNS trigger
-        LANGUAGE plpgsql
-        VOLATILE
-        SECURITY INVOKER
-        SET search_path = pg_catalog, public
-        AS $mais_readiness$
-        BEGIN
-          IF TG_OP = 'UPDATE' THEN
-            DELETE FROM public.app_state_readiness_markers
-            WHERE state_id IN (OLD.id, NEW.id);
-          ELSE
-            DELETE FROM public.app_state_readiness_markers
-            WHERE state_id = NEW.id;
-          END IF;
-          RETURN NEW;
-        END
-        $mais_readiness$
-      `;
-      await migrationSql`
-        DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state
-      `;
-      await migrationSql`
-        CREATE TRIGGER app_state_readiness_invalidate
-        AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version
-        ON public.app_state
-        FOR EACH ROW
-        EXECUTE FUNCTION public.invalidate_app_state_readiness_marker()
-      `;
+      await installPostgresStorageReadinessMarkerContract(
+        migrationSql as unknown as PostgresReadinessTransaction
+      );
       await migrationSql`
         CREATE TABLE IF NOT EXISTS public.auth_users (
           id TEXT PRIMARY KEY,
@@ -5361,6 +5465,92 @@ async function bootstrapPostgresStateTablesOnClient(
   });
 }
 
+async function completePostgresStorageReadinessMarkerOnClient(
+  sql: postgres.Sql
+) {
+  return sql.begin(async (migrationSql) => {
+    const transactionSql = migrationSql as unknown as PostgresReadinessTransaction;
+    await migrationSql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '5000ms', true),
+        pg_catalog.set_config('statement_timeout', '60000ms', true),
+        pg_catalog.set_config('idle_in_transaction_session_timeout', '60000ms', true)
+    `;
+    await migrationSql`
+      /* postgres_storage_contract_exclusive_advisory_lock */
+      SELECT pg_catalog.pg_advisory_xact_lock(
+        pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+      )
+    `;
+    await migrationSql`
+      LOCK TABLE
+        public.app_state,
+        public.auth_schema_migrations,
+        public.ai_tutor_message_journal,
+        public.ai_tutor_usage_journal,
+        public.auth_users,
+        public.auth_student_profiles,
+        public.auth_user_settings,
+        public.auth_password_reset_tokens
+      IN SHARE ROW EXCLUSIVE MODE
+    `;
+
+    /* postgres_storage_production_gate_legacy_readiness_check */
+    if (!await postgresStorageLegacyNoReadinessMarkerIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    const snapshotRows = await migrationSql<Array<{
+      payload: unknown;
+      revision: unknown;
+    }>>`
+      SELECT state.payload, state.revision
+      FROM public.app_state AS state
+      WHERE state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion}
+        AND (
+          SELECT pg_catalog.count(*)
+          FROM public.app_state AS counted_state
+        ) = 1
+      FOR UPDATE OF state
+    `;
+    if (!postgresStorageLegacySnapshotIsComplete(snapshotRows)) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    const readinessRevision = safePostgresRevision(snapshotRows[0]?.revision);
+    const validatedSnapshot = validateCompletePostgresStorageSnapshot(
+      snapshotRows[0]?.payload
+    );
+    if (readinessRevision === null) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+
+    await installPostgresStorageReadinessMarkerContract(transactionSql);
+    if (!await postgresStoragePhysicalRelationsAreCanonical(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresStorageReadinessCatalogIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresStorageReadinessInvalidationIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresHotAuthReadinessCatalogIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    await attestValidatedPostgresStorageSnapshot(
+      transactionSql,
+      validatedSnapshot,
+      currentPostgresStorageReadinessState(),
+      readinessRevision
+    );
+  }).catch((error) => {
+    throw normalizePostgresSchemaBootstrapError(error);
+  });
+}
+
 const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
   readCurrentMarker: hasCurrentPostgresSchemaMarker,
   bootstrap: () => runPostgresBootstrapWithContentionRecovery({
@@ -5369,7 +5559,11 @@ const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
   })
 });
 
-export type PostgresStorageProductionSchemaState = "empty" | "exact" | "partial";
+export type PostgresStorageProductionSchemaState =
+  | "empty"
+  | "legacy-no-readiness-marker"
+  | "exact"
+  | "partial";
 
 export async function inspectPostgresStorageSchemaForProductionGate(
   client: postgres.Sql
@@ -5403,6 +5597,10 @@ export async function inspectPostgresStorageSchemaForProductionGate(
     }
     const relationCount = relationRows[0]?.relation_count;
     if (relationCount === 0) return "empty";
+    if (
+      relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
+      && await postgresStorageLegacyNoReadinessMarkerIsComplete(sql)
+    ) return "legacy-no-readiness-marker";
     if (relationCount !== postgresStorageCanonicalRelationNames.length) return "partial";
     if (!await postgresStorageReadinessCatalogIsComplete(sql)) return "partial";
     if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return "partial";
@@ -5437,18 +5635,29 @@ function assertPostgresStorageProductionSchemaGateContext(
 }
 
 export async function applyPostgresStorageSchemaForProductionGate(
-  client: postgres.Sql
+  client: postgres.Sql,
+  expectedState: "empty" | "legacy-no-readiness-marker" = "empty"
 ) {
   assertPostgresStorageProductionSchemaGateContext();
-  const preflightState = await inspectPostgresStorageSchemaForProductionGate(client);
-  if (preflightState !== "empty") {
+  if (
+    expectedState !== "empty"
+    && expectedState !== "legacy-no-readiness-marker"
+  ) {
     throw new Error("Postgres production schema operation plan changed.");
   }
-  await bootstrapPostgresStateTablesOnClient(client, {
-    expectedState: "empty",
-    lockTimeout: "5000ms",
-    statementTimeout: "60000ms"
-  });
+  const preflightState = await inspectPostgresStorageSchemaForProductionGate(client);
+  if (preflightState !== expectedState) {
+    throw new Error("Postgres production schema operation plan changed.");
+  }
+  if (expectedState === "empty") {
+    await bootstrapPostgresStateTablesOnClient(client, {
+      expectedState: "empty",
+      lockTimeout: "5000ms",
+      statementTimeout: "60000ms"
+    });
+  } else {
+    await completePostgresStorageReadinessMarkerOnClient(client);
+  }
   const postflightState = await inspectPostgresStorageSchemaForProductionGate(client);
   if (postflightState !== "exact") {
     throw new Error("Postgres production schema postflight was rejected.");
@@ -7631,6 +7840,12 @@ export const __userStorePostgresStorageReadinessTestHooks = {
     }
     postgresFullWriterFaultModeForIntegrationTest = mode;
     postgresFullWriterStageObserverForIntegrationTest = observeStage;
+  },
+  completeLegacyReadinessMarker: async (client: postgres.Sql) => {
+    if (process.env.NODE_ENV !== "test") {
+      throw new Error("Postgres legacy readiness completion is available only to integration tests.");
+    }
+    await completePostgresStorageReadinessMarkerOnClient(client);
   },
   createDeadlineHarness: () => {
     const slot = createAbortableAuthAdmissionSlot();

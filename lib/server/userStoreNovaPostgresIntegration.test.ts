@@ -879,6 +879,103 @@ test(
         await assertIntegrationWorkerClientsClosed(sql);
       });
 
+      await t.test("production legacy marker completion preserves the snapshot and rolls back on drift", async () => {
+        const removeReadinessMarkerContract = async () => {
+          await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
+          await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
+          await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+        };
+        const markerContractIsAbsent = async () => {
+          const rows = await sql<Array<{
+            function_absent: boolean;
+            marker_absent: boolean;
+            trigger_absent: boolean;
+          }>>`
+            SELECT
+              pg_catalog.to_regclass('public.app_state_readiness_markers') IS NULL
+                AS marker_absent,
+              pg_catalog.to_regprocedure(
+                'public.invalidate_app_state_readiness_marker()'
+              ) IS NULL AS function_absent,
+              NOT EXISTS (
+                SELECT 1
+                FROM pg_catalog.pg_trigger AS trigger
+                INNER JOIN pg_catalog.pg_class AS relation
+                  ON relation.oid = trigger.tgrelid
+                INNER JOIN pg_catalog.pg_namespace AS namespace
+                  ON namespace.oid = relation.relnamespace
+                WHERE namespace.nspname = 'public'
+                  AND relation.relname = 'app_state'
+                  AND trigger.tgname = 'app_state_readiness_invalidate'
+                  AND NOT trigger.tgisinternal
+              ) AS trigger_absent
+          `;
+          return rows[0];
+        };
+
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        const before = await readStateEvidence(sql);
+        await removeReadinessMarkerContract();
+        assert.deepEqual(await markerContractIsAbsent(), {
+          function_absent: true,
+          marker_absent: true,
+          trigger_absent: true
+        });
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "legacy-no-readiness-marker"
+        });
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-complete-legacy"),
+          { completed: true }
+        );
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        assert.deepEqual(
+          await readStateEvidence(sql),
+          before,
+          "marker completion must not change snapshot payload, revision, or updated_at"
+        );
+        assert.equal(await readStorageReadinessMarkerCount(sql), 1);
+
+        const repeated = await runWorker("production-schema-complete-legacy");
+        assert.equal(repeated.exitCode, 1, "an exact schema must reject a repeated legacy plan");
+        assert.match(String(repeated.result.error), /operation plan changed/u);
+
+        await removeReadinessMarkerContract();
+        await sql`ALTER TABLE public.auth_users ENABLE ROW LEVEL SECURITY`;
+        try {
+          assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+            state: "partial"
+          });
+          const drifted = await runWorker("production-schema-complete-legacy");
+          assert.equal(drifted.exitCode, 1, "legacy completion must reject catalog drift");
+          assert.match(String(drifted.result.error), /operation plan changed/u);
+          assert.deepEqual(
+            await markerContractIsAbsent(),
+            {
+              function_absent: true,
+              marker_absent: true,
+              trigger_absent: true
+            },
+            "a rejected completion must roll back every marker artifact"
+          );
+        } finally {
+          await sql`ALTER TABLE public.auth_users DISABLE ROW LEVEL SECURITY`;
+        }
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-complete-legacy"),
+          { completed: true }
+        );
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        assert.deepEqual(await readStateEvidence(sql), before);
+        await assertIntegrationWorkerClientsClosed(sql);
+      });
+
       let studentId = "";
       const restrictedClassId = "000-integration-fallback-class";
       await t.test("two concurrent v2-to-v4 bootstraps reconcile classroom projections before readiness", async () => {

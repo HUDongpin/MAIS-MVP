@@ -127,6 +127,28 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-inspect") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return {
+          state: await store.inspectPostgresStorageSchemaForProductionGate(sql)
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-complete-legacy") {
+      const sql = createDirectIntegrationClient();
+      try {
+        await store.__userStorePostgresStorageReadinessTestHooks
+          .completeLegacyReadinessMarker(sql);
+        return { completed: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "hot-auth-readiness") {
       const sql = createDirectIntegrationClient();
       try {
