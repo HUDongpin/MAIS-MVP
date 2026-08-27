@@ -163,8 +163,10 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
     "async function bootstrapPostgresStateTables()",
     "const ensurePostgresStateTable"
   );
-  const timeoutStatement = bootstrapSource.indexOf("set_config('lock_timeout', '1000ms', true)");
-  const statementTimeout = bootstrapSource.indexOf("set_config('statement_timeout', '5000ms', true)");
+  const defaultLockTimeout = bootstrapSource.indexOf('lockTimeout: "1000ms"');
+  const defaultStatementTimeout = bootstrapSource.indexOf('statementTimeout: "5000ms"');
+  const timeoutStatement = bootstrapSource.indexOf("set_config('lock_timeout', ${lockTimeout}, true)");
+  const statementTimeout = bootstrapSource.indexOf("set_config('statement_timeout', ${statementTimeout}, true)");
   const advisoryLock = bootstrapSource.indexOf("pg_advisory_xact_lock");
   const appStateTable = bootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state (");
   const readinessMarkerTable = bootstrapSource.indexOf(
@@ -191,6 +193,8 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   for (const index of [
     timeoutStatement,
     statementTimeout,
+    defaultLockTimeout,
+    defaultStatementTimeout,
     advisoryLock,
     appStateTable,
     readinessMarkerTable,
@@ -249,6 +253,42 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
   );
   assert.match(userStoreSource, /validateCompletePostgresStorageSnapshot\(/);
   assert.match(userStoreSource, /attestValidatedPostgresStorageSnapshot\(/);
+});
+
+test("production schema gate reuses the canonical bootstrap with an empty-state lock and strict postflight", () => {
+  const canonicalBootstrapSource = sourceSection(
+    userStoreSource,
+    "async function bootstrapPostgresStateTablesOnClient(",
+    "const ensurePostgresStateTable"
+  );
+  const inspectSource = sourceSection(
+    userStoreSource,
+    "export async function inspectPostgresStorageSchemaForProductionGate(",
+    "export async function applyPostgresStorageSchemaForProductionGate("
+  );
+  const applySource = sourceSection(
+    userStoreSource,
+    "export async function applyPostgresStorageSchemaForProductionGate(",
+    "async function configureTeacherNoticeEmailOutboxPostgresTransaction("
+  );
+
+  const exclusiveLock = canonicalBootstrapSource.indexOf("postgres_storage_contract_exclusive_advisory_lock");
+  const emptyStateCheck = canonicalBootstrapSource.indexOf("postgres_storage_production_gate_empty_check");
+  const firstDdl = canonicalBootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state");
+  assert.notEqual(exclusiveLock, -1);
+  assert.notEqual(emptyStateCheck, -1);
+  assert.notEqual(firstDdl, -1);
+  assert.equal(exclusiveLock < emptyStateCheck && emptyStateCheck < firstDdl, true);
+  assert.match(inspectSource, /REPEATABLE READ, READ ONLY/u);
+  assert.match(inspectSource, /acquirePostgresStorageContractSharedAdvisoryLock/u);
+  assert.match(inspectSource, /postgresStorageReadinessCatalogIsComplete/u);
+  assert.match(inspectSource, /postgresHotAuthReadinessCatalogIsComplete/u);
+  assert.doesNotMatch(inspectSource, /\b(?:CREATE|ALTER|DROP|INSERT|UPDATE|DELETE)\b/iu);
+  assert.match(`${inspectSource}\n${applySource}`, /MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE/u);
+  assert.match(`${inspectSource}\n${applySource}`, /GITHUB_REF_PROTECTED/u);
+  assert.match(applySource, /expectedState: "empty"/u);
+  assert.match(applySource, /bootstrapPostgresStateTablesOnClient/u);
+  assert.match(applySource, /postflightState !== "exact"/u);
 });
 
 test("canonical bootstrap installs one transactional marker invalidation trigger with a locked-down function", () => {

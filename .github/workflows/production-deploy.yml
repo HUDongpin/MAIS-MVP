@@ -149,7 +149,7 @@ jobs:
           const confirmation = String(event?.inputs?.schema_confirmation ?? "");
           if (
             confirmation.length > 1_024 ||
-            !/^confirm:teacher-notice-production-schema:v3:[A-Za-z0-9_:+.-]{1,900}$/u.test(
+            !/^confirm:mais-production-schema:v4:[A-Za-z0-9_:+.-]{1,900}$/u.test(
               confirmation
             )
           ) {
