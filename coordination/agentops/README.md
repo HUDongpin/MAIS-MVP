@@ -186,14 +186,19 @@ No arrow is automatic. A machine packet is not natural-sample evidence, A18's
 readiness is not deployment or same-SHA live proof. The question-machine-QA
 registry pins the exact reviewed external source commit
 `e33bf615846b708edf8339a4a82c6b760574c349` for
-`mais-rsi-machine-qa-workflow`, but this is provenance only. Its own suite
-manifest remains `source-reviewed-package-and-installation-pending`; packaging,
-local installation/readback, the backup/rollback drill, the final
-manifest/benchmark receipt commit, and the
-`WORKFLOW_JSON_PARSE_UNTRUSTED` discovery blocker remain unresolved. Therefore
-the adapter stays `currentness-blocked` until its reviewed-currentness marker is
-available in the repository. AgentOps does not copy or install the source
-branch.
+`mais-rsi-machine-qa-workflow`, plus the receipt-bearing suite tip
+`a49914a4dc34212354a64dbcad13c28f899c3782`. The registry binds the committed
+source, package-view, archive, installed-readback, and installation-receipt
+hashes. That redacted receipt records package build, installation/readback, and
+the compatibility backup/rollback drill as verified; AgentOps did not rerun
+those external operations.
+
+Package/install provenance is not repository currentness. The adapter stays
+`currentness-blocked` until its reviewed-currentness marker is available in the
+repository; an installation under `$CODEX_HOME/skills` cannot satisfy that
+repo-local gate. AgentOps does not copy, install, or execute the source branch.
+The suite's separate `WORKFLOW_JSON_PARSE_UNTRUSTED` observation belongs to the
+Promotion workflow and does not become a machine-QA availability claim.
 
 Nova and Adaptive Learning adapters are audits only. They preserve Nova's
 owner-controlled runtime/fallback contract and Adaptive Learning's deterministic
