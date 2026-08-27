@@ -3656,24 +3656,67 @@ function postgresStorageLegacySnapshotIsComplete(
   }
 }
 
-async function postgresStorageNoReadinessMarkerIsComplete(
-  sql: PostgresReadinessTransaction,
-  compatibilityVersion: "canonical" | "legacy-v1"
-) {
+export type PostgresStorageProductionSchemaPartialReason =
+  | "app-storage-canonical-catalog-partial"
+  | "app-storage-canonical-hot-auth-partial"
+  | "app-storage-canonical-invalidation-partial"
+  | "app-storage-canonical-marker-partial"
+  | "app-storage-legacy-catalog-partial"
+  | "app-storage-legacy-compatibility-partial"
+  | "app-storage-legacy-hot-auth-partial"
+  | "app-storage-legacy-physical-relations-partial"
+  | "app-storage-legacy-readiness-artifact-partial"
+  | "app-storage-legacy-snapshot-partial"
+  | "app-storage-relation-set-partial";
+
+async function inspectPostgresStorageLegacyNoReadinessMarker(
+  sql: PostgresReadinessTransaction
+): Promise<{
+  state:
+    | "legacy-no-readiness-marker"
+    | "legacy-v1-compatibility-no-readiness-marker"
+    | "partial";
+  partialReason: PostgresStorageProductionSchemaPartialReason | null;
+}> {
   if (!await postgresStoragePhysicalRelationsAreCanonical(
     sql,
     postgresStorageLegacyNoReadinessMarkerRelationNames
-  )) return false;
+  )) {
+    return {
+      state: "partial",
+      partialReason: "app-storage-legacy-physical-relations-partial"
+    };
+  }
   if (!await postgresStorageReadinessCatalogIsComplete(
     sql,
     postgresStorageLegacyNoReadinessMarkerRequiredColumns
-  )) return false;
-  if (!await (
-    compatibilityVersion === "canonical"
-      ? postgresStorageCanonicalCompatibilityTriggerIsComplete(sql)
-      : postgresStorageLegacyV1CompatibilityTriggerIsComplete(sql)
-  )) return false;
-  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return false;
+  )) {
+    return {
+      state: "partial",
+      partialReason: "app-storage-legacy-catalog-partial"
+    };
+  }
+
+  let state:
+    | "legacy-no-readiness-marker"
+    | "legacy-v1-compatibility-no-readiness-marker";
+  if (await postgresStorageCanonicalCompatibilityTriggerIsComplete(sql)) {
+    state = "legacy-no-readiness-marker";
+  } else if (await postgresStorageLegacyV1CompatibilityTriggerIsComplete(sql)) {
+    state = "legacy-v1-compatibility-no-readiness-marker";
+  } else {
+    return {
+      state: "partial",
+      partialReason: "app-storage-legacy-compatibility-partial"
+    };
+  }
+
+  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) {
+    return {
+      state: "partial",
+      partialReason: "app-storage-legacy-hot-auth-partial"
+    };
+  }
 
   const orphanRows = await sql`
     /* postgres_storage_legacy_readiness_artifact_probe */
@@ -3689,7 +3732,12 @@ async function postgresStorageNoReadinessMarkerIsComplete(
   if (
     orphanRows.length !== 1
     || orphanRows[0]?.invalidation_function_absent !== true
-  ) return false;
+  ) {
+    return {
+      state: "partial",
+      partialReason: "app-storage-legacy-readiness-artifact-partial"
+    };
+  }
 
   const snapshotRows = await sql`
     /* postgres_storage_legacy_snapshot_probe */
@@ -3704,7 +3752,25 @@ async function postgresStorageNoReadinessMarkerIsComplete(
         FROM public.app_state AS counted_state
       ) = 1
   ` as Array<{ payload: unknown; revision: unknown }>;
-  return postgresStorageLegacySnapshotIsComplete(snapshotRows);
+  if (!postgresStorageLegacySnapshotIsComplete(snapshotRows)) {
+    return {
+      state: "partial",
+      partialReason: "app-storage-legacy-snapshot-partial"
+    };
+  }
+  return { state, partialReason: null };
+}
+
+async function postgresStorageNoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction,
+  compatibilityVersion: "canonical" | "legacy-v1"
+) {
+  const inspection = await inspectPostgresStorageLegacyNoReadinessMarker(sql);
+  return inspection.state === (
+    compatibilityVersion === "canonical"
+      ? "legacy-no-readiness-marker"
+      : "legacy-v1-compatibility-no-readiness-marker"
+  );
 }
 
 async function postgresStorageLegacyNoReadinessMarkerIsComplete(
@@ -5621,9 +5687,22 @@ export type PostgresStorageProductionSchemaState =
   | "exact"
   | "partial";
 
+export type PostgresStorageProductionSchemaInspection = Readonly<{
+  state: PostgresStorageProductionSchemaState;
+  partialReason: PostgresStorageProductionSchemaPartialReason | null;
+}>;
+
 export async function inspectPostgresStorageSchemaForProductionGate(
   client: postgres.Sql
 ): Promise<PostgresStorageProductionSchemaState> {
+  return (
+    await inspectPostgresStorageSchemaEvidenceForProductionGate(client)
+  ).state;
+}
+
+export async function inspectPostgresStorageSchemaEvidenceForProductionGate(
+  client: postgres.Sql
+): Promise<PostgresStorageProductionSchemaInspection> {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Postgres production schema client was rejected.");
   }
@@ -5652,24 +5731,44 @@ export async function inspectPostgresStorageSchemaForProductionGate(
       throw new Error("Postgres production schema inspection was rejected.");
     }
     const relationCount = relationRows[0]?.relation_count;
-    if (relationCount === 0) return "empty";
-    if (
-      relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
-      && await postgresStorageLegacyNoReadinessMarkerIsComplete(sql)
-    ) return "legacy-no-readiness-marker";
-    if (
-      relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
-      && await postgresStorageLegacyV1NoReadinessMarkerIsComplete(sql)
-    ) return "legacy-v1-compatibility-no-readiness-marker";
-    if (relationCount !== postgresStorageCanonicalRelationNames.length) return "partial";
-    if (!await postgresStorageReadinessCatalogIsComplete(sql)) return "partial";
-    if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return "partial";
+    if (relationCount === 0) return { state: "empty", partialReason: null };
+    if (relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length) {
+      return inspectPostgresStorageLegacyNoReadinessMarker(sql);
+    }
+    if (relationCount !== postgresStorageCanonicalRelationNames.length) {
+      return {
+        state: "partial",
+        partialReason: "app-storage-relation-set-partial"
+      };
+    }
+    if (!await postgresStorageReadinessCatalogIsComplete(sql)) {
+      return {
+        state: "partial",
+        partialReason: "app-storage-canonical-catalog-partial"
+      };
+    }
+    if (!await postgresStorageReadinessInvalidationIsComplete(sql)) {
+      return {
+        state: "partial",
+        partialReason: "app-storage-canonical-invalidation-partial"
+      };
+    }
     if (!await postgresStorageReadinessMarkerIsCurrent(
       sql,
       currentPostgresStorageReadinessState()
-    )) return "partial";
-    if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return "partial";
-    return "exact";
+    )) {
+      return {
+        state: "partial",
+        partialReason: "app-storage-canonical-marker-partial"
+      };
+    }
+    if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) {
+      return {
+        state: "partial",
+        partialReason: "app-storage-canonical-hot-auth-partial"
+      };
+    }
+    return { state: "exact", partialReason: null };
   });
 }
 

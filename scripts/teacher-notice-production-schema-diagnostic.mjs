@@ -29,9 +29,16 @@ const compatibilityTriggerDefinition =
 export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "relation-set",
   "legacy-relation-contract",
+  "legacy-catalog-contract",
   "legacy-compatibility-contract",
+  "legacy-hot-auth-contract",
   "legacy-readiness-artifact",
+  "legacy-snapshot-contract",
   "legacy-other-contract",
+  "current-catalog-contract",
+  "current-hot-auth-contract",
+  "current-invalidation-contract",
+  "current-marker-contract",
   "current-readiness-contract",
   "state-changed",
   "unknown"

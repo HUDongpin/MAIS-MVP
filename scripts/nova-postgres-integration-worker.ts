@@ -138,6 +138,15 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-inspect-evidence") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return await store.inspectPostgresStorageSchemaEvidenceForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-diagnose-partial") {
       const sql = createDirectIntegrationClient();
       try {
