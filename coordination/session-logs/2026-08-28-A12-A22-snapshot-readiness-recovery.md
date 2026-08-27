@@ -145,3 +145,29 @@ Implementation plan:
 Stop conditions remain unchanged: no broad drift allowance, no deleted or
 replaced runtime item, no nonliteral loader call, no direct main push, and no
 production write/deploy while required checks are red.
+
+## Track C main reconciliation and template boundary (2026-08-28)
+
+While Track C was in progress, `origin/main` advanced to `3572ecf69144fa344979fae73f3656a83cb7597d`
+through PR #204. That change added reviewed legacy-candidate byte handling and
+new immutable Promotion evidence. The branch merged that exact main commit in
+local merge commit `66608234` and retained both the upstream legacy-candidate
+tests and the stricter Track C runtime-policy proof. The combined generator
+suite passed 45/45 after the partial clone's three Manifest-bound candidate
+blobs were fetched read-only.
+
+A22 verified that frozen checker v2.6 accepts the nested
+`promotion-runtime-policy-reviewed-evolution.v2` proof and binds its complete
+bytes through the evidence raw digest, semantic digest, and reviewed commit.
+The frozen checker independently re-observes the target runtime graph but does
+not interpret each historical-delta field. Modifying the frozen checker would
+require a separately authorized v2.7 release and is outside this Track C.
+
+Before any evidence write, the generator will add a distinct read-only
+`--print-review-justification-template` mode. It must compute the exact full
+outer justification from materialized source and target commits, emit only
+canonical JSON, require a clean worktree and exact ancestry, reject every write
+or refresh flag, and never create files. The normal evidence path will continue
+to require that the later committed justification digest and inner attestation
+exactly equal a fresh recomputation; template generation is not an attestation
+bypass.

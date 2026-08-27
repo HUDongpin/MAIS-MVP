@@ -7,8 +7,10 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  analyzeReviewedRuntimePolicyEvolution,
   assertExactReconstructedBytes,
   assertSourceEvidenceBinding,
+  buildReviewJustificationTemplate,
   buildReaffirmedEvidence,
   buildReaffirmedLegacyRegistry,
   buildReviewedLegacyCandidateByteRefresh,
@@ -18,7 +20,8 @@ import {
 } from "./rebase-promotion-baseline.mjs";
 import {
   computeV2EvidenceSemanticDigest,
-  projectV2RuntimePolicy
+  projectV2RuntimePolicy,
+  validateV2Evidence
 } from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -48,6 +51,15 @@ function run(args) {
   });
 }
 
+function currentHead() {
+  const result = spawnSync("git", ["rev-parse", "HEAD"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  assert.equal(result.status, 0, result.stderr);
+  return result.stdout.trim();
+}
+
 test("baseline re-affirmation exposes an append-only revision and two committed phases", () => {
   const result = run(["--help"]);
   assert.equal(result.status, 0);
@@ -58,6 +70,7 @@ test("baseline re-affirmation exposes an append-only revision and two committed 
   assert.match(result.stdout, /--refresh-runtime-policy/u);
   assert.match(result.stdout, /--review-runtime-policy/u);
   assert.match(result.stdout, /--review-legacy-candidate-bytes/u);
+  assert.match(result.stdout, /--print-review-justification-template/u);
 });
 
 test("the unsafe monolithic write mode is rejected before changing historical artifacts", () => {
@@ -84,6 +97,62 @@ test("runtime-policy refresh modes are mutually exclusive", () => {
   ]);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /mutually exclusive/u);
+  assert.deepEqual(digestFiles(), before);
+});
+
+test("review-justification template mode rejects every write or alternate-review mode without mutation", () => {
+  const before = digestFiles();
+  const base = [
+    "--manifest", manifest,
+    "--target", "HEAD",
+    "--revision-root", revisionRoot,
+    "--print-review-justification-template"
+  ];
+  for (const extra of [
+    ["--write-evidence"],
+    ["--write-bindings", "--evidence-commit", "HEAD"],
+    ["--evidence-commit", "HEAD"],
+    ["--refresh-runtime-policy"],
+    ["--review-runtime-policy"],
+    ["--review-legacy-candidate-bytes"],
+    ["--produced-at", "2026-08-28T00:00:00.000Z"],
+    ["--attested-by", "A23"],
+    ["--justification", "coordination/session-logs/not-allowed.json"]
+  ]) {
+    const result = run([...base, ...extra]);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /template mode is read-only and mutually exclusive/u);
+  }
+  assert.deepEqual(digestFiles(), before);
+});
+
+test("review-justification template mode emits only canonical JSON and never mutates protected inputs", () => {
+  const before = digestFiles();
+  const result = run([
+    "--manifest", manifest,
+    "--target", "HEAD",
+    "--revision-root", revisionRoot,
+    "--print-review-justification-template"
+  ]);
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stderr, "");
+  const value = JSON.parse(result.stdout);
+  assert.equal(result.stdout, `${JSON.stringify(value, null, 2)}\n`);
+  assert.deepEqual(Object.keys(value), [
+    "schemaVersion",
+    "sourceBaselineCommit",
+    "targetBaselineCommit",
+    "revisionRoot",
+    "roles",
+    "runtimePolicyReview",
+    "liveAllowed"
+  ]);
+  assert.equal(value.sourceBaselineCommit, manifestValue.targetBaselineCommit);
+  assert.equal(value.targetBaselineCommit, currentHead());
+  assert.equal(value.revisionRoot, revisionRoot);
+  assert.deepEqual(value.roles, manifestValue.evidenceBindings.map(({ role }) => role));
+  assert.equal(value.runtimePolicyReview.schemaVersion, "promotion-runtime-policy-review-attestation.v1");
+  assert.equal(value.liveAllowed, false);
   assert.deepEqual(digestFiles(), before);
 });
 
@@ -428,7 +497,7 @@ function sha256CanonicalJson(value) {
   return crypto.createHash("sha256").update(`${JSON.stringify(value, null, 2)}\n`).digest("hex");
 }
 
-function makeRuntimeObservation({ target = false, fsRawTransition = true } = {}) {
+function makeRuntimeObservation({ target = false, fsRawTransition = true, staticEdge = target } = {}) {
   const actualFiles = Object.values(runtimePaths).sort();
   const classifications = [{
     kind: "runtime-code",
@@ -449,7 +518,8 @@ function makeRuntimeObservation({ target = false, fsRawTransition = true } = {})
     kind: "import",
     typeOnly: false
   };
-  const edges = target ? [sourceEdge, addedEdge] : [sourceEdge];
+  const includesStaticEdge = target && staticEdge;
+  const edges = includesStaticEdge ? [sourceEdge, addedEdge] : [sourceEdge];
   const topologyEdges = edges.map(({ from, to }) => ({ from, to }));
   const sourceFsRead = {
     sourcePath: runtimePaths.userStore,
@@ -484,9 +554,9 @@ function makeRuntimeObservation({ target = false, fsRawTransition = true } = {})
     reachablePathCount: actualFiles.length,
     reachablePathsDigest: "b".repeat(64),
     edgeCount: edges.length,
-    edgeDigest: (target ? "c" : "d").repeat(64),
+    edgeDigest: (includesStaticEdge ? "c" : "d").repeat(64),
     topologyEdgeCount: topologyEdges.length,
-    topologyEdgeDigest: (target ? "e" : "f").repeat(64)
+    topologyEdgeDigest: (includesStaticEdge ? "e" : "f").repeat(64)
   };
   return {
     snapshot: { digest: "0".repeat(64), files: actualFiles.map((pathValue) => ({ path: pathValue })) },
@@ -540,12 +610,12 @@ function makeRuntimeObservation({ target = false, fsRawTransition = true } = {})
   };
 }
 
-function makeRuntimeEvolutionCase({ fsRawTransition = true } = {}) {
+function makeRuntimeEvolutionCase({ fsRawTransition = true, staticEdge = true } = {}) {
   const sourceObservation = makeRuntimeObservation();
-  const targetObservation = makeRuntimeObservation({ target: true, fsRawTransition });
+  const targetObservation = makeRuntimeObservation({ target: true, fsRawTransition, staticEdge });
   const reviewedRuntimeDiff = [
     { path: runtimePaths.userStore, status: "M" },
-    { path: runtimePaths.languageToggle, status: "M" }
+    ...(staticEdge ? [{ path: runtimePaths.languageToggle, status: "M" }] : [])
   ];
   const reviewedPaths = structuredClone(reviewedRuntimeDiff).sort((left, right) =>
     left.path < right.path ? -1 : left.path > right.path ? 1 : 0
@@ -556,8 +626,8 @@ function makeRuntimeEvolutionCase({ fsRawTransition = true } = {}) {
     targetRawSha256: candidateRawSha256,
     unchanged: true
   }];
-  const addedEdges = [structuredClone(targetObservation.graph.edges[1])];
-  const addedTopologyEdges = [{ from: addedEdges[0].from, to: addedEdges[0].to }];
+  const addedEdges = staticEdge ? [structuredClone(targetObservation.graph.edges[1])] : [];
+  const addedTopologyEdges = addedEdges.map(({ from, to }) => ({ from, to }));
   const sourceFsRead = sourceObservation.loaderPolicy.fsReadAllowlist[0];
   const targetFsRead = targetObservation.loaderPolicy.fsReadAllowlist[0];
   const fsRawTransitions = fsRawTransition
@@ -574,11 +644,9 @@ function makeRuntimeEvolutionCase({ fsRawTransition = true } = {}) {
       }]
     : [];
   const changedPolicyFields = [
-    "edgeCount",
-    "edgeDigest",
+    ...(staticEdge ? ["edgeCount", "edgeDigest"] : []),
     ...(fsRawTransition ? ["fsReadAllowlistDigest"] : []),
-    "topologyEdgeCount",
-    "topologyEdgeDigest"
+    ...(staticEdge ? ["topologyEdgeCount", "topologyEdgeDigest"] : [])
   ].sort();
   const reviewAttestation = {
     schemaVersion: "promotion-runtime-policy-review-attestation.v1",
@@ -610,6 +678,55 @@ function makeRuntimeEvolutionCase({ fsRawTransition = true } = {}) {
   };
 }
 
+test("reviewed runtime-policy analyzer produces the exact canonical outer justification template", () => {
+  const args = makeRuntimeEvolutionCase();
+  const analysis = analyzeReviewedRuntimePolicyEvolution(args);
+  assert.deepEqual(analysis.expectedAttestation, args.reviewAttestation);
+  const template = buildReviewJustificationTemplate({
+    sourceBaselineCommit,
+    targetBaselineCommit,
+    revisionRoot,
+    roles: ["A21", "A23", "A22"],
+    runtimePolicyReview: analysis.expectedAttestation
+  });
+  assert.deepEqual(template, {
+    schemaVersion: "promotion-baseline-review-justification.v1",
+    sourceBaselineCommit,
+    targetBaselineCommit,
+    revisionRoot,
+    roles: ["A21", "A23", "A22"],
+    runtimePolicyReview: args.reviewAttestation,
+    liveAllowed: false
+  });
+  const canonical = `${JSON.stringify(template, null, 2)}\n`;
+  assert.deepEqual(JSON.parse(canonical), template);
+  assert.equal(canonical.endsWith("\n"), true);
+});
+
+test("frozen checker v2.6 accepts proof v2 as integrity-bound semantic evidence", () => {
+  const proof = buildReviewedRuntimePolicyEvolution(makeRuntimeEvolutionCase());
+  const evidence = {
+    schemaVersion: "promotion-evidence.v2",
+    evidenceId: "a23-reviewed-runtime-policy-v2",
+    role: "A23",
+    result: "pass",
+    producedAt: "2026-08-28T00:00:00.000Z",
+    candidateDigest: "a".repeat(64),
+    sourceCommit: "b".repeat(40),
+    targetBaselineCommit: "c".repeat(40),
+    checkerVersion: "promotion-gate-shadow-v2.6",
+    semanticPayload: {
+      baselineReaffirmation: { runtimePolicyReaffirmation: proof }
+    }
+  };
+  assert.equal(validateV2Evidence(evidence), evidence);
+  const digest = computeV2EvidenceSemanticDigest(evidence);
+  assert.notEqual(
+    digest,
+    computeV2EvidenceSemanticDigest({ ...evidence, semanticPayload: { baselineReaffirmation: {} } })
+  );
+});
+
 test("reviewed runtime-policy evolution v2 accepts one exact reviewed static edge and an optional raw-only fs transition", async (t) => {
   for (const fsRawTransition of [true, false]) {
     await t.test(`fs raw transition ${fsRawTransition ? "present" : "absent"}`, () => {
@@ -630,6 +747,25 @@ test("reviewed runtime-policy evolution v2 accepts one exact reviewed static edg
       assert.equal(proof.liveAllowed, false);
     });
   }
+});
+
+test("reviewed runtime-policy evolution v2 accepts an fs raw-only transition without a static edge", () => {
+  const proof = buildReviewedRuntimePolicyEvolution(
+    makeRuntimeEvolutionCase({ fsRawTransition: true, staticEdge: false })
+  );
+  assert.deepEqual(proof.changedFields, ["fsReadAllowlistDigest"]);
+  assert.deepEqual(proof.graphProof.addedEdges, []);
+  assert.deepEqual(proof.graphProof.addedTopologyEdges, []);
+  assert.equal(proof.loaderProof.fsRead.transitions.length, 1);
+});
+
+test("reviewed runtime-policy evolution v2 rejects an empty review with no exact delta", () => {
+  assert.throws(
+    () => buildReviewedRuntimePolicyEvolution(
+      makeRuntimeEvolutionCase({ fsRawTransition: false, staticEdge: false })
+    ),
+    /at least one exact reviewable runtime delta/u
+  );
 });
 
 test("reviewed runtime-policy evolution v2 rejects removals hidden by a net-positive edge count", () => {

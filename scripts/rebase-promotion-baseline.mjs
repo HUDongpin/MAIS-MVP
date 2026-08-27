@@ -50,6 +50,7 @@ function usage() {
   return [
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --print-review-justification-template",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --produced-at <same-ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]"
   ].join("\n");
@@ -69,6 +70,7 @@ function parseArgs(argv) {
     refreshRuntimePolicy: false,
     reviewRuntimePolicy: false,
     reviewLegacyCandidateBytes: false,
+    printReviewJustificationTemplate: false,
     rejectedMonolithicWrite: false,
     help: false
   };
@@ -88,6 +90,7 @@ function parseArgs(argv) {
     else if (argument === "--refresh-runtime-policy") options.refreshRuntimePolicy = true;
     else if (argument === "--review-runtime-policy") options.reviewRuntimePolicy = true;
     else if (argument === "--review-legacy-candidate-bytes") options.reviewLegacyCandidateBytes = true;
+    else if (argument === "--print-review-justification-template") options.printReviewJustificationTemplate = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
     else if (argument === "--help" || argument === "-h") options.help = true;
     else throw new Error(`Unknown argument: ${argument}`);
@@ -135,7 +138,7 @@ function assertExactCommitChangedPaths(commit, expectedPaths, label) {
 
 function assertCleanWorktree() {
   if (git(["status", "--porcelain=v1", "--untracked-files=all"]).trim() !== "") {
-    throw new Error("A write phase requires an otherwise clean worktree.");
+    throw new Error("A protected review or write phase requires an otherwise clean worktree.");
   }
 }
 
@@ -459,15 +462,13 @@ export function buildReaffirmedRuntimePolicyRefresh({
   };
 }
 
-export function buildReviewedRuntimePolicyEvolution({
+export function analyzeReviewedRuntimePolicyEvolution({
   sourceExpectedPolicy,
   sourceObservation,
   targetObservation,
   reviewedRuntimeDiff,
   sourceBaselineCommit,
   targetBaselineCommit,
-  reviewAttestation,
-  reviewAttestationRawSha256,
   candidateArtifactBindings,
   rawBindingsVerified
 }) {
@@ -494,9 +495,6 @@ export function buildReviewedRuntimePolicyEvolution({
     || sourceBaselineCommit === targetBaselineCommit
   ) {
     throw new Error("Reviewed runtime-policy evolution requires distinct exact source and target commits.");
-  }
-  if (!/^[a-f0-9]{64}$/u.test(reviewAttestationRawSha256 ?? "")) {
-    throw new Error("Reviewed runtime-policy evolution requires the exact review-attestation digest.");
   }
   if (rawBindingsVerified !== true) {
     throw new Error("Reviewed runtime-policy evolution requires verified raw commit bindings.");
@@ -610,7 +608,7 @@ export function buildReviewedRuntimePolicyEvolution({
     targetObservation.graph.edges,
     "runtime graph edges"
   );
-  if (edgeDelta.removed.length > 0 || edgeDelta.added.length === 0) {
+  if (edgeDelta.removed.length > 0) {
     throw new Error("Reviewed runtime-policy evolution requires additive-only exact static graph edges.");
   }
   const sourceReachablePaths = new Set(collectionArray(sourceObservation.graph.reachablePaths, "source reachable paths"));
@@ -656,7 +654,15 @@ export function buildReviewedRuntimePolicyEvolution({
   const changedFields = expectedKeys.filter(
     (field) => !jsonEqual(sourceObservedPolicy[field], targetObservedPolicy[field])
   );
-  const expectedChangedFields = ["edgeCount", "edgeDigest"];
+  if (
+    edgeDelta.added.length === 0
+    && fsReadProof.transitions.length === 0
+    && nextDynamicProof.transitions.length === 0
+  ) {
+    throw new Error("Reviewed runtime-policy evolution requires at least one exact reviewable runtime delta.");
+  }
+  const expectedChangedFields = [];
+  if (edgeDelta.added.length > 0) expectedChangedFields.push("edgeCount", "edgeDigest");
   if (topologyDelta.added.length > 0) expectedChangedFields.push("topologyEdgeCount", "topologyEdgeDigest");
   if (fsReadProof.sourceRawDigest !== fsReadProof.targetRawDigest) {
     expectedChangedFields.push("fsReadAllowlistDigest");
@@ -685,42 +691,96 @@ export function buildReviewedRuntimePolicyEvolution({
     candidateBytesChanged: false,
     liveAllowed: false
   };
-  if (!jsonEqual(reviewAttestation, expectedAttestation)) {
+  return {
+    expectedAttestation,
+    proof: {
+      schemaVersion: "promotion-runtime-policy-reviewed-evolution.v2",
+      sourceBaselineCommit,
+      targetBaselineCommit,
+      reviewedPaths,
+      reviewedPathsDigest: jsonDigest(reviewedPaths),
+      changedFields,
+      sourceExpectedPolicyDigest: jsonDigest(sourceExpectedPolicy),
+      sourceObservedPolicyDigest: jsonDigest(sourceObservedPolicy),
+      targetObservedPolicyDigest: jsonDigest(targetObservedPolicy),
+      inventoryProof,
+      graphProof: {
+        sourceEdgeDigest: jsonDigest(edgeDelta.source),
+        targetEdgeDigest: jsonDigest(edgeDelta.target),
+        addedEdges: edgeDelta.added,
+        removedEdges: [],
+        sourceTopologyDigest: jsonDigest(topologyDelta.source),
+        targetTopologyDigest: jsonDigest(topologyDelta.target),
+        addedTopologyEdges: topologyDelta.added,
+        removedTopologyEdges: []
+      },
+      loaderProof: {
+        fsRead: fsReadProof,
+        nextDynamic: nextDynamicProof,
+        importMetaUrlReferences: importMetaProof
+      },
+      candidateArtifactBindings: candidateBindings,
+      candidateBytesChanged: false,
+      rawBindingsVerified: true,
+      nextDynamicNonliteralImportCount: 0,
+      zeroBaselineCallCount: 0,
+      liveAllowed: false
+    }
+  };
+}
+
+export function buildReviewedRuntimePolicyEvolution({
+  reviewAttestation,
+  reviewAttestationRawSha256,
+  ...analysisInput
+}) {
+  if (!/^[a-f0-9]{64}$/u.test(reviewAttestationRawSha256 ?? "")) {
+    throw new Error("Reviewed runtime-policy evolution requires the exact review-attestation digest.");
+  }
+  const analysis = analyzeReviewedRuntimePolicyEvolution(analysisInput);
+  if (!jsonEqual(reviewAttestation, analysis.expectedAttestation)) {
     throw new Error("Reviewed runtime-policy evolution does not exactly match the committed review attestation.");
   }
-
   return {
-    schemaVersion: "promotion-runtime-policy-reviewed-evolution.v2",
+    ...analysis.proof,
+    reviewAttestationRawSha256
+  };
+}
+
+export function buildReviewJustificationTemplate({
+  sourceBaselineCommit,
+  targetBaselineCommit,
+  revisionRoot,
+  roles,
+  runtimePolicyReview
+}) {
+  if (
+    !commitPattern.test(sourceBaselineCommit ?? "")
+    || !commitPattern.test(targetBaselineCommit ?? "")
+    || sourceBaselineCommit === targetBaselineCommit
+    || typeof revisionRoot !== "string"
+    || revisionRoot.length === 0
+    || !Array.isArray(roles)
+    || roles.length === 0
+    || new Set(roles).size !== roles.length
+    || roles.some((role) => typeof role !== "string" || role.length === 0)
+    || !runtimePolicyReview
+    || typeof runtimePolicyReview !== "object"
+    || Array.isArray(runtimePolicyReview)
+    || runtimePolicyReview.schemaVersion !== "promotion-runtime-policy-review-attestation.v1"
+    || runtimePolicyReview.sourceBaselineCommit !== sourceBaselineCommit
+    || runtimePolicyReview.targetBaselineCommit !== targetBaselineCommit
+    || runtimePolicyReview.liveAllowed !== false
+  ) {
+    throw new Error("Review-justification template inputs do not bind one exact non-live review.");
+  }
+  return {
+    schemaVersion: "promotion-baseline-review-justification.v1",
     sourceBaselineCommit,
     targetBaselineCommit,
-    reviewedPaths,
-    reviewedPathsDigest: jsonDigest(reviewedPaths),
-    changedFields,
-    sourceExpectedPolicyDigest: jsonDigest(sourceExpectedPolicy),
-    sourceObservedPolicyDigest: jsonDigest(sourceObservedPolicy),
-    targetObservedPolicyDigest: jsonDigest(targetObservedPolicy),
-    inventoryProof,
-    graphProof: {
-      sourceEdgeDigest: jsonDigest(edgeDelta.source),
-      targetEdgeDigest: jsonDigest(edgeDelta.target),
-      addedEdges: edgeDelta.added,
-      removedEdges: [],
-      sourceTopologyDigest: jsonDigest(topologyDelta.source),
-      targetTopologyDigest: jsonDigest(topologyDelta.target),
-      addedTopologyEdges: topologyDelta.added,
-      removedTopologyEdges: []
-    },
-    loaderProof: {
-      fsRead: fsReadProof,
-      nextDynamic: nextDynamicProof,
-      importMetaUrlReferences: importMetaProof
-    },
-    candidateArtifactBindings: candidateBindings,
-    candidateBytesChanged: false,
-    rawBindingsVerified: true,
-    reviewAttestationRawSha256,
-    nextDynamicNonliteralImportCount: 0,
-    zeroBaselineCallCount: 0,
+    revisionRoot,
+    roles: structuredClone(roles),
+    runtimePolicyReview: structuredClone(runtimePolicyReview),
     liveAllowed: false
   };
 }
@@ -1111,19 +1171,29 @@ async function collectReviewedRuntimePolicyEvolution(
       manifest.targetBaselineCommit,
       targetCommit
     );
-    const proof = buildReviewedRuntimePolicyEvolution({
+    const analysisInput = {
       sourceExpectedPolicy: manifest.liveReachability.expectedRuntimePolicy,
       sourceObservation,
       targetObservation,
       reviewedRuntimeDiff: protectedDiff.entries,
       sourceBaselineCommit: manifest.targetBaselineCommit,
       targetBaselineCommit: targetCommit,
-      reviewAttestation: reviewJustification.value.runtimePolicyReview,
-      reviewAttestationRawSha256: reviewJustification.rawSha256,
       candidateArtifactBindings,
       rawBindingsVerified: sourceRawBindingsVerified && targetRawBindingsVerified
-    });
-    return { proof, targetObservedPolicy };
+    };
+    const analysis = analyzeReviewedRuntimePolicyEvolution(analysisInput);
+    const proof = reviewJustification
+      ? buildReviewedRuntimePolicyEvolution({
+          ...analysisInput,
+          reviewAttestation: reviewJustification.value.runtimePolicyReview,
+          reviewAttestationRawSha256: reviewJustification.rawSha256
+        })
+      : null;
+    return {
+      proof,
+      targetObservedPolicy,
+      expectedAttestation: analysis.expectedAttestation
+    };
   } finally {
     targetProjection?.dispose();
     sourceProjection.dispose();
@@ -1413,7 +1483,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const legacyRawSha256 = sha256(legacyBytes);
   const runtimePolicyRevision = options.refreshRuntimePolicy
     ? await collectRuntimePolicyRefresh(manifest)
-    : options.reviewRuntimePolicy
+    : options.reviewRuntimePolicy || options.printReviewJustificationTemplate
       ? await collectReviewedRuntimePolicyEvolution(
           manifest,
           targetCommit,
@@ -1688,6 +1758,22 @@ export async function main(argv = process.argv.slice(2)) {
   if (options.rejectedMonolithicWrite) {
     throw new Error("Monolithic --write is disabled; create an append-only revision with the two committed phases.");
   }
+  if (
+    options.printReviewJustificationTemplate
+    && (
+      options.writeEvidence
+      || options.writeBindings
+      || options.refreshRuntimePolicy
+      || options.reviewRuntimePolicy
+      || options.reviewLegacyCandidateBytes
+      || options.producedAt !== null
+      || options.attestedBy.length > 0
+      || options.justification !== null
+      || options.evidenceCommit !== null
+    )
+  ) {
+    throw new Error("Review-justification template mode is read-only and mutually exclusive.");
+  }
   if (options.refreshRuntimePolicy && options.reviewRuntimePolicy) {
     throw new Error("--refresh-runtime-policy and --review-runtime-policy are mutually exclusive.");
   }
@@ -1718,8 +1804,26 @@ export async function main(argv = process.argv.slice(2)) {
   } else {
     options.justificationCommit = resolveCommit("HEAD", "HEAD");
   }
-  if (options.refreshRuntimePolicy || options.reviewRuntimePolicy) assertCleanWorktree();
+  if (
+    options.refreshRuntimePolicy
+    || options.reviewRuntimePolicy
+    || options.printReviewJustificationTemplate
+  ) assertCleanWorktree();
   const plan = await planRevision(manifestFile, targetCommit, revisionRoot, options);
+  if (options.printReviewJustificationTemplate) {
+    if (!plan.runtimePolicyRevision?.expectedAttestation) {
+      throw new Error("Review-justification template analysis did not produce an exact attestation.");
+    }
+    const template = buildReviewJustificationTemplate({
+      sourceBaselineCommit,
+      targetBaselineCommit: targetCommit,
+      revisionRoot: revisionRoot.relative,
+      roles: requiredRoles(manifestFile.value),
+      runtimePolicyReview: plan.runtimePolicyRevision.expectedAttestation
+    });
+    process.stdout.write(canonicalJson(template));
+    return;
+  }
   printPlan(plan);
   if (options.writeEvidence) writeEvidencePhase(options, plan);
   else if (options.writeBindings) writeBindingPhase(options, plan);
