@@ -58,3 +58,17 @@ current snapshot contract before any write is admitted.
 
 No production row, secret, cookie, database URL, notification payload, or
 guardian identifier is recorded in this handoff.
+
+## Promotion baseline re-affirmation justification
+
+The exact reviewed implementation target is
+`177711825c5b851edd41873380ac96d93c588314`. The append-only revision root is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/legacy-snapshot-repair-20260828`.
+
+The exact re-affirming roles are `A21`, `A18`, `A23`, `A04`, `A05`, `A11`,
+`A22`, `A24`, and `A25`. The protected runtime diff is limited to
+`lib/server/userStore.ts`; the protected test diff is limited to
+`lib/server/userStore/postgresStorageReadiness.test.ts` and
+`lib/server/userStoreNovaPostgresIntegration.test.ts`. Runtime import policy
+and legacy candidate bytes remain unchanged, and `liveAllowed: false` remains
+mandatory.
