@@ -205,10 +205,10 @@ operation. The schema runner holds one session-level storage-contract advisory l
 phases. Within it, phase 1 takes the transaction-level exclusive advisory lock, the canonical
 relation locks, and the primary state-row lock; re-runs the fixed diagnostic; writes the complete
 payload with a revision compare-and-swap; and verifies the returned payload, revision, identity,
-and full snapshot contract. Before phase 2, the runner rechecks every high-risk collection under
-the still-held session lock. Phase 2 passes the resulting complete no-marker state to the unchanged
-canonical readiness-marker operation and requires an independent exact-state postflight before
-deployment may continue.
+and full snapshot contract. Before phase 2, the runner rechecks the complete closed set of current
+snapshot arrays plus `nova_lens_policy` under the still-held session lock. Phase 2 passes the
+resulting complete no-marker state to the unchanged canonical readiness-marker operation and
+requires an independent exact-state postflight before deployment may continue.
 
 If phase 1 fails, its transaction rolls back. If phase 1 commits but phase 2 fails, normal runtime
 remains fail closed because no current readiness marker exists. Do not manually edit the row or

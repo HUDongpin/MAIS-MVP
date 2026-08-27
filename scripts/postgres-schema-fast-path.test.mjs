@@ -394,16 +394,20 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
   const repairCall = combinedApplySource.indexOf(
     "await repairAppStorageMissingCollections(lockedClient)"
   );
-  const highRiskCheck = combinedApplySource.indexOf(
-    "inspectPostgresStorageHighRiskCollectionsForProductionGate"
+  const requiredCollectionCheck = combinedApplySource.indexOf(
+    "inspectPostgresStorageRequiredCollectionsForProductionGate"
   );
   const markerCall = combinedApplySource.indexOf(
     "applyAppStorageSchema(lockedClient, repairedState)"
   );
   assert.notEqual(repairCall, -1);
-  assert.notEqual(highRiskCheck, -1);
+  assert.notEqual(requiredCollectionCheck, -1);
   assert.notEqual(markerCall, -1);
-  assert.equal(repairCall < highRiskCheck && highRiskCheck < markerCall, true);
+  assert.equal(
+    repairCall < requiredCollectionCheck
+      && requiredCollectionCheck < markerCall,
+    true
+  );
 
   const sessionLockSource = sourceSection(
     productionSchemaGateSource,

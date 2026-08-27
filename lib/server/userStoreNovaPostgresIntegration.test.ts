@@ -1206,7 +1206,7 @@ test(
           assert.deepEqual(
             await runSuccessfulWorker("production-schema-gate-inspect"),
             {
-              component: "legacy-snapshot-high-risk-collections",
+              component: "legacy-snapshot-required-collections",
               state: "partial"
             }
           );
@@ -1354,7 +1354,8 @@ test(
             'public.app_state_readiness_markers'
           ) IS NULL AS marker_absent
         `;
-        assert.deepEqual(markerRelationRows, [{ marker_absent: true }]);
+        assert.equal(markerRelationRows.length, 1);
+        assert.equal(markerRelationRows[0]?.marker_absent, true);
 
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-apply-complete-legacy"),

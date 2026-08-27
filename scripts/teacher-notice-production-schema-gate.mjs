@@ -74,16 +74,16 @@ const postgresStorageStateIdentity = Object.freeze({
   stateKind: "app-snapshot",
   tenantId: "platform"
 });
-const postgresStorageMissingCollectionRepairHighRiskKeys = new Set([
-  "ai_tutor_messages",
-  "ai_tutor_usage",
+export const postgresStorageProductionRequiredArrayKeys = Object.freeze([
+  ...legacySnapshotRequiredArrayKeys,
+  "ai_tutor_transcript_access_events",
   "class_ai_tutor_policies",
-  "class_enrollments",
-  "password_reset_tokens",
-  "student_profiles",
-  "teacher_classes",
-  "user_settings",
-  "users"
+  "content_safety_flags",
+  "deleted_assignment_ids",
+  "learning_path_step_progress",
+  "student_accommodations",
+  "teacher_learning_paths",
+  "teacher_student_groups"
 ]);
 const postgresStorageMissingCollectionRepairableArrayKeys = new Set([
   "teacher_notice_delivery_attempts"
@@ -144,12 +144,9 @@ export function buildPostgresStorageMissingCollectionRepair(
     || typeof isComplete !== "function"
   ) return null;
 
-  for (const key of postgresStorageMissingCollectionRepairHighRiskKeys) {
-    if (!Object.hasOwn(snapshot, key)) return null;
-  }
   const repaired = { ...snapshot };
   let addedCollectionCount = 0;
-  for (const key of legacySnapshotRequiredArrayKeys) {
+  for (const key of postgresStorageProductionRequiredArrayKeys) {
     if (Object.hasOwn(snapshot, key)) {
       if (!Array.isArray(snapshot[key])) return null;
       continue;
@@ -880,11 +877,11 @@ export async function inspectPostgresStorageMissingCollectionRepairForProduction
   });
 }
 
-export async function inspectPostgresStorageHighRiskCollectionsForProductionGate(
+export async function inspectPostgresStorageRequiredCollectionsForProductionGate(
   client
 ) {
   if (!client || typeof client.begin !== "function") {
-    throw new Error("Postgres production schema high-risk inspection was rejected.");
+    throw new Error("Postgres production schema collection inspection was rejected.");
   }
   return client.begin("isolation level repeatable read read only", async (sql) => {
     await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
@@ -895,16 +892,26 @@ export async function inspectPostgresStorageHighRiskCollectionsForProductionGate
       pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
     )`;
     const rows = await sql`
-      /* postgres_storage_high_risk_collection_inspection */
-      SELECT NOT EXISTS (
+      /* postgres_storage_required_collection_inspection */
+      SELECT
+        NOT EXISTS (
         SELECT 1
         FROM pg_catalog.unnest(
-          ${[...postgresStorageMissingCollectionRepairHighRiskKeys]}::text[]
+          ${[...postgresStorageProductionRequiredArrayKeys]}::text[]
         ) AS required_collection(key)
         WHERE NOT (state.payload ? required_collection.key)
           OR pg_catalog.jsonb_typeof(state.payload -> required_collection.key)
             IS DISTINCT FROM 'array'
-      ) AS "highRiskCollectionsComplete"
+        )
+        AND NOT EXISTS (
+          SELECT 1
+          FROM pg_catalog.unnest(
+            ${[...legacySnapshotRequiredObjectKeys]}::text[]
+          ) AS required_object(key)
+          WHERE NOT (state.payload ? required_object.key)
+            OR pg_catalog.jsonb_typeof(state.payload -> required_object.key)
+              IS DISTINCT FROM 'object'
+        ) AS "requiredCollectionsComplete"
       FROM public.app_state AS state
       WHERE state.id = ${postgresStorageStateIdentity.id}
         AND state.tenant_id = ${postgresStorageStateIdentity.tenantId}
@@ -914,7 +921,7 @@ export async function inspectPostgresStorageHighRiskCollectionsForProductionGate
         AND (SELECT pg_catalog.count(*) FROM public.app_state) = 1
     `;
     return rows.length === 1
-      && rows[0]?.highRiskCollectionsComplete === true;
+      && rows[0]?.requiredCollectionsComplete === true;
   });
 }
 
@@ -930,10 +937,10 @@ export async function inspectProductionDatabase(client) {
     "legacy-v1-compatibility-no-readiness-marker"
   ].includes(appStorageState)) {
     try {
-      if (!await inspectPostgresStorageHighRiskCollectionsForProductionGate(client)) {
+      if (!await inspectPostgresStorageRequiredCollectionsForProductionGate(client)) {
         appStorageState = "partial";
         appStoragePartialComponent =
-          "legacy-snapshot-high-risk-collections";
+          "legacy-snapshot-required-collections";
       }
     } catch {
       appStorageState = "partial";
@@ -1507,7 +1514,7 @@ export async function applyMaisProductionSchemaOperations(
               throw new Error("MAIS production schema operation plan changed.");
             }
             if (
-              !await inspectPostgresStorageHighRiskCollectionsForProductionGate(
+              !await inspectPostgresStorageRequiredCollectionsForProductionGate(
                 lockedClient
               )
             ) {
@@ -1517,7 +1524,7 @@ export async function applyMaisProductionSchemaOperations(
           }
           if (
             expectedState !== "empty"
-            && !await inspectPostgresStorageHighRiskCollectionsForProductionGate(
+            && !await inspectPostgresStorageRequiredCollectionsForProductionGate(
               lockedClient
             )
           ) {

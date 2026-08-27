@@ -11,6 +11,7 @@ import {
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   preflightTeacherNoticeProductionSchema,
+  postgresStorageProductionRequiredArrayKeys,
   repairPostgresStorageMissingCollectionsForProductionGate,
   teacherNoticeProductionSchemaFailureComponent,
   teacherNoticeProductionSchemaFailureReason,
@@ -60,6 +61,14 @@ test("missing-collection repair adds only safe empty collections and fails close
   const store = await import("../lib/server/userStore.ts");
   const complete = store.__userStorePostgresStorageReadinessTestHooks
     .createCompleteSnapshot();
+  assert.deepEqual(
+    Object.entries(complete)
+      .filter(([, value]) => Array.isArray(value))
+      .map(([key]) => key)
+      .sort(),
+    [...postgresStorageProductionRequiredArrayKeys].sort(),
+    "production marker admission must cover every current snapshot array"
+  );
   const safeMissing = structuredClone(complete);
   delete safeMissing.teacher_notice_delivery_attempts;
   const repaired = buildPostgresStorageMissingCollectionRepair(safeMissing);
@@ -433,12 +442,12 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   const originalPassword = process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
   delete process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
   const stages = [];
-  let highRiskCollectionsComplete = true;
+  let requiredCollectionsComplete = true;
   const lockedClient = Object.assign(
     async (strings) => {
       const query = Array.isArray(strings) ? strings.join("") : "";
-      if (query.includes("postgres_storage_high_risk_collection_inspection")) {
-        return [{ highRiskCollectionsComplete }];
+      if (query.includes("postgres_storage_required_collection_inspection")) {
+        return [{ requiredCollectionsComplete }];
       }
       if (query.includes("pg_advisory_unlock")) return [{ released: true }];
       return [];
@@ -530,7 +539,7 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   );
   assert.deepEqual(legacyStages, ["app-storage-readiness"]);
 
-  highRiskCollectionsComplete = false;
+  requiredCollectionsComplete = false;
   let unsafeMarkerApplyReached = false;
   await assert.rejects(
     applyMaisProductionSchemaOperations(
@@ -549,7 +558,7 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     /operation plan/u
   );
   assert.equal(unsafeMarkerApplyReached, false);
-  highRiskCollectionsComplete = true;
+  requiredCollectionsComplete = true;
 
   const legacyV1Stages = [];
   await applyMaisProductionSchemaOperations(
@@ -1242,7 +1251,7 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
       "legacy-relation-contract",
       "legacy-readiness-artifact",
       "legacy-snapshot-contract",
-      "legacy-snapshot-high-risk-collections",
+      "legacy-snapshot-required-collections",
       "legacy-snapshot-malformed-collections",
       "legacy-snapshot-missing-collections",
       "legacy-snapshot-record-contract",

@@ -147,17 +147,19 @@ diff and remain outside the final files-changed set.
 - Assumption: only a field whose absence can be converted to an empty container
   with independent schema-evolution evidence is repairable. Version 1 permits
   only `teacher_notice_delivery_attempts`; every other missing array/object is
-  rejected, and every declared high-risk field must already exist before
-  preflight or marker completion can succeed.
+  rejected. Marker admission requires the closed set of every array in the
+  current complete snapshot plus `nova_lens_policy` before preflight or marker
+  completion can succeed.
 - Risk: phase 1 is an additive database mutation and revision increment that an
   alias rollback cannot undo. A phase-2 failure deliberately leaves a complete
   no-marker state for a newly confirmed serialized recovery run. One
   session-level storage-contract advisory lock now spans both phases and the
-  high-risk recheck, preventing cooperating runtime writers from entering the
-  inter-phase boundary.
+  closed-set collection recheck, preventing cooperating runtime writers from
+  entering the inter-phase boundary.
 - Review findings closed in this amendment: caller-supplied environment objects
   cannot authorize the mutator; high-risk-only loss is rejected before marker
-  completion; all nine high-risk keys are covered in pure and PostgreSQL
+  completion; every current snapshot array is covered by the closed-set marker
+  predicate; all nine high-risk keys are covered in pure and PostgreSQL
   matrices; non-allowlisted data/audit/policy collections are rejected; and two
   real repair workers queue behind one session advisory barrier so exactly one
   revision-CAS repair can succeed.

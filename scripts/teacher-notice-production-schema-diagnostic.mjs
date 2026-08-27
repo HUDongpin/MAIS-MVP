@@ -173,7 +173,7 @@ export const teacherNoticeProductionSchemaPartialComponents = Object.freeze([
   "legacy-hot-auth-contract",
   "legacy-readiness-artifact",
   "legacy-snapshot-contract",
-  "legacy-snapshot-high-risk-collections",
+  "legacy-snapshot-required-collections",
   "legacy-snapshot-malformed-collections",
   "legacy-snapshot-missing-collections",
   "legacy-snapshot-record-contract",
