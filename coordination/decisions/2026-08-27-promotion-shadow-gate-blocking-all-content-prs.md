@@ -31,7 +31,16 @@ What fails is **re-validation of a frozen, already-passed attempt on every later
 
 **Closure cannot, and this is structural.** `validateA25Closeout` (`promotion-shadow-finalization-v2-lib.mjs`) requires `role: "A25"`, `result: "pass"`, all ten owners at `finalState: "reviewed commit"`, **and a `mergeCommit` matching a post-merge proof on `main`**. Closure is a *post-merge* artifact. It cannot be the thing that unblocks a *pre-merge* required check — the ordering makes it impossible, independent of who authors it.
 
-**Rewiring the gate cannot either, legitimately.** `scripts/promotion-shadow-workflow-v2.test.mjs` asserts *"Promotion Shadow v2 CI validates current HEAD and replays the exact canonical execution commit"*. Making the workflow skip validation would defeat a control the repository deliberately guards with a test.
+**Rewiring the gate cannot either, legitimately — verified at the assertion level.** The obvious fix would be to let the workflow skip validation once an attempt is terminally dispositioned. That is not available: `scripts/promotion-shadow-workflow-v2.test.mjs:87` pins the condition *exactly* —
+
+```js
+const currentValidation = stepByName.get("Validate current Promotion inputs and runtime graph");
+assert.equal(currentValidation.if, "${{ always() }}");
+```
+
+and does the same for the resolver, worktree-prepare, fresh-execute, replay, compare and verify steps. Adding any conditional to those steps fails that test, so skipping validation is not a code change — it is an edit to the guard that exists to stop exactly this. Separately, `coordination/integration/v2/promotion-gate-v2.test.mjs:290` pins that the library throws `V2_TARGET_BASELINE_DRIFT` on drifting inputs, so the check cannot be relaxed there either.
+
+The repository has, deliberately and in two independent places, made this gate hard to soften. That is a design intent to respect, not an obstacle to route around.
 
 ## Decision: the pilot is shadow-passed and awaiting finalization
 
