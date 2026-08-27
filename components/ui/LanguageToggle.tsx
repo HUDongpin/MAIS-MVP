@@ -2,9 +2,8 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
-import { isUnitedStatesCurriculumTrack } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import type { Language } from "@/types";
+import type { CurriculumTrack, Language } from "@/types";
 
 const languageOptions = [
   { value: "en", triggerLabel: "English", menuLabel: "English", ariaLabel: { en: "Use English", zh: "使用英文", zhHans: "使用英文" } },
@@ -34,6 +33,13 @@ export function nextLanguageMenuIndex(
   if (key === "End") return optionCount - 1;
   const direction = key === "ArrowDown" ? 1 : -1;
   return (currentIndex + direction + optionCount) % optionCount;
+}
+
+export function isUnitedStatesLanguageRestricted(curriculumTrack: CurriculumTrack) {
+  return curriculumTrack === "US_CA_MATH"
+    || curriculumTrack === "US_NC_MATH"
+    || curriculumTrack === "US_AR_MATH"
+    || curriculumTrack === "US_FL_MATH";
 }
 
 function ChevronIcon({ open }: { open: boolean }) {
@@ -87,7 +93,7 @@ export function LanguageToggle() {
   // preference would otherwise sit in a Chinese shell with no visible way back. Snap such
   // accounts to English instead of stranding them.
   const isUnitedStatesAccount = currentUser
-    ? isUnitedStatesCurriculumTrack(currentUser.curriculumTrack)
+    ? isUnitedStatesLanguageRestricted(currentUser.curriculumTrack)
     : false;
   const visibleLanguageOptions = isUnitedStatesAccount
     ? languageOptions.filter((option) => option.value === "en")

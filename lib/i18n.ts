@@ -555,7 +555,7 @@ export function formatUnitedStatesGradeLabel(grade: GradeId, language: Language,
   return textForLanguage(label, language);
 }
 
-export function isUnitedStatesCurriculumTrack(curriculumTrack: CurriculumTrack) {
+function isUnitedStatesCurriculumTrack(curriculumTrack: CurriculumTrack) {
   return curriculumTrack === "US_CA_MATH" || curriculumTrack === "US_NC_MATH" || curriculumTrack === "US_AR_MATH" || curriculumTrack === "US_FL_MATH";
 }
 
