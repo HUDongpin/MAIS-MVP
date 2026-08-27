@@ -1902,6 +1902,21 @@ const templateSolvers = {
     if (rx(F`What is the measure of angle C`).test(p)) return angleC;
     if (rx(F`triangle DEF is similar to triangle ABC\. What is the measure of angle F in triangle DEF`).test(p)) return angleC;
     return null;
+  },
+  t_ar_geoprob_closer_to_hypotenuse(p) {
+    // Region closer to the hypotenuse than to either leg is the triangle cut off by
+    // the two acute-angle bisectors meeting at the incenter: area (1/2)c*r against
+    // r*s for the whole triangle, so the ratio is c / (a + b + c).
+    const m = p.match(
+      rx(F`length of the hypotenuse is (\d+(?:\.\d+)?)(?: cm)? and one leg is (\d+(?:\.\d+)?)(?: cm)?\..*closer to the hypotenuse than to either leg`)
+    );
+    if (!m) return null;
+    const c = num(m, 1);
+    const a = num(m, 2);
+    const b2 = c * c - a * a;
+    if (b2 <= 0) return null;
+    const b = Math.sqrt(b2);
+    return c / (a + b + c);
   }
 };
 
@@ -2007,7 +2022,8 @@ const solverGuards = {
   t_ar_triangle_abc_missing_leg_ac: /length of side AC/,
   t_ar_triangle_abc_parallel_bisector_de: /length of DE/,
   t_ar_triangle_abc_sin_a: /sin A/,
-  t_ar_triangle_abc_third_angle: /measure of angle/
+  t_ar_triangle_abc_third_angle: /measure of angle/,
+  t_ar_geoprob_closer_to_hypotenuse: /closer to the hypotenuse/
 };
 for (const [name, guard] of Object.entries(solverGuards)) {
   const base = templateSolvers[name];

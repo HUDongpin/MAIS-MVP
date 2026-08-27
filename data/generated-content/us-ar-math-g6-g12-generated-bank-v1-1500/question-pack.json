@@ -81702,6 +81702,11 @@
       },
       "options": [
         {
+          "en": "13/30",
+          "zh": "13/30",
+          "zhHans": "13/30"
+        },
+        {
           "en": "1/3",
           "zh": "1/3",
           "zhHans": "1/3"
@@ -81715,26 +81720,21 @@
           "en": "1/2",
           "zh": "1/2",
           "zhHans": "1/2"
-        },
-        {
-          "en": "2/3",
-          "zh": "2/3",
-          "zhHans": "2/3"
         }
       ],
-      "answer": "1/4",
+      "answer": "13/30",
       "acceptedAnswers": [
-        "1/4",
-        "0.25"
+        "13/30",
+        "0.4333"
       ],
       "explanation": {
-        "en": "The region closer to the hypotenuse is the triangle formed by the angle bisectors of the two acute angles. Its area is one-fourth of the original triangle's area.",
-        "zh": "距離斜邊較近的區域是由兩個銳角的角平分線所形成的三角形。其面積是原三角形面積的四分之一。",
-        "zhHans": "距离斜边较近的区域是由两个锐角的角平分线所形成的三角形。其面积是原三角形面积的四分之一。"
+        "en": "By the Pythagorean theorem the other leg is 12 cm. A point is closer to the hypotenuse than to a given leg exactly when it lies on the hypotenuse side of that leg's angle bisector, so the region closer to the hypotenuse than to both legs is the triangle cut off by the two acute-angle bisectors, which meet at the incenter. That triangle has the hypotenuse as its base and the inradius r as its height, so its area is (1/2)(13)(r), while the whole triangle has area r(a + b + c)/2. The ratio is 13/(5 + 12 + 13) = 13/30.",
+        "zh": "由畢氏定理，另一條直角邊為 12厘米。一點到斜邊比到某條直角邊近，當且僅當它位於該直角邊角平分線的斜邊一側；因此到斜邊比到兩條直角邊都近的區域，是由兩個銳角的角平分線所截出的三角形，這兩條角平分線相交於內心。該三角形以斜邊為底、內切圓半徑 r 為高，面積為 (1/2)(13)(r)，而整個三角形的面積為 r(a + b + c)/2。因此比值為 13/(5 + 12 + 13) = 13/30。",
+        "zhHans": "由勾股定理，另一条直角边为 12厘米。一点到斜边比到某条直角边近，当且仅当它位于该直角边角平分线的斜边一侧；因此到斜边比到两条直角边都近的区域，是由两个锐角的角平分线所截出的三角形，这两条角平分线相交于内心。该三角形以斜边为底、内切圆半径 r 为高，面积为 (1/2)(13)(r)，而整个三角形的面积为 r(a + b + c)/2。因此比值为 13/(5 + 12 + 13) = 13/30。"
       },
-      "independentAnswer": "1/4",
+      "independentAnswer": "13/30",
       "independentSolution": {
-        "en": "The other leg is 12 cm (by Pythagorean theorem). The region closer to the hypotenuse is the triangle formed by the intersection of the angle bisectors of the two acute angles. This triangle is similar to the original with scale factor 1/2, so its area is (1/2)^2 = 1/4 of the original. Hence probability = 1/4."
+        "en": "other leg 12; 13/(5+12+13) = 13/30"
       },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
@@ -81759,8 +81759,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-independent-solver",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the stored key came from a false claim that the region closer to the hypotenuse is similar to the whole triangle (giving 1/4, or (5/13)^2 = 25/169). That region is the triangle cut off by the two acute-angle bisectors through the incenter, whose area ratio is c/(a+b+c); the four offered options contained no correct value. Answer, options and explanation corrected and a solver added so the value is re-derived on every audit run; cross-checked against a 4,000,000-sample Monte Carlo simulation.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c05-q005",
@@ -82167,38 +82167,39 @@
       },
       "options": [
         {
-          "en": "1/4",
-          "zh": "1/4",
-          "zhHans": "1/4"
-        },
-        {
           "en": "1/3",
           "zh": "1/3",
           "zhHans": "1/3"
         },
         {
+          "en": "1/4",
+          "zh": "1/4",
+          "zhHans": "1/4"
+        },
+        {
+          "en": "13/30",
+          "zh": "13/30",
+          "zhHans": "13/30"
+        },
+        {
           "en": "1/2",
           "zh": "1/2",
           "zhHans": "1/2"
-        },
-        {
-          "en": "2/3",
-          "zh": "2/3",
-          "zhHans": "2/3"
         }
       ],
-      "answer": "1/4",
+      "answer": "13/30",
       "acceptedAnswers": [
-        "1/4"
+        "13/30",
+        "0.4333"
       ],
       "explanation": {
-        "en": "The region closer to the hypotenuse is the triangle formed by the angle bisectors of the two acute angles. Its area is one-fourth of the original triangle.",
-        "zh": "距離斜邊較近的區域是由兩個銳角的角平分線所形成的三角形，其面積是原三角形的四分之一。",
-        "zhHans": "距离斜边较近的区域是由两个锐角的角平分线所形成的三角形，其面积是原三角形的四分之一。"
+        "en": "By the Pythagorean theorem the other leg is 12. A point is closer to the hypotenuse than to a given leg exactly when it lies on the hypotenuse side of that leg's angle bisector, so the region closer to the hypotenuse than to both legs is the triangle cut off by the two acute-angle bisectors, which meet at the incenter. That triangle has the hypotenuse as its base and the inradius r as its height, so its area is (1/2)(13)(r), while the whole triangle has area r(a + b + c)/2. The ratio is 13/(5 + 12 + 13) = 13/30.",
+        "zh": "由畢氏定理，另一條直角邊為 12。一點到斜邊比到某條直角邊近，當且僅當它位於該直角邊角平分線的斜邊一側；因此到斜邊比到兩條直角邊都近的區域，是由兩個銳角的角平分線所截出的三角形，這兩條角平分線相交於內心。該三角形以斜邊為底、內切圓半徑 r 為高，面積為 (1/2)(13)(r)，而整個三角形的面積為 r(a + b + c)/2。因此比值為 13/(5 + 12 + 13) = 13/30。",
+        "zhHans": "由勾股定理，另一条直角边为 12。一点到斜边比到某条直角边近，当且仅当它位于该直角边角平分线的斜边一侧；因此到斜边比到两条直角边都近的区域，是由两个锐角的角平分线所截出的三角形，这两条角平分线相交于内心。该三角形以斜边为底、内切圆半径 r 为高，面积为 (1/2)(13)(r)，而整个三角形的面积为 r(a + b + c)/2。因此比值为 13/(5 + 12 + 13) = 13/30。"
       },
-      "independentAnswer": "1/4",
+      "independentAnswer": "13/30",
       "independentSolution": {
-        "en": "The other leg is 12 by Pythagorean theorem. The region closer to the hypotenuse is the triangle formed by the angle bisectors of the two acute angles. This triangle is similar to the original with scale factor 1/2, so its area is (1/2)^2 = 1/4 of the original. Thus the probability is 1/4."
+        "en": "other leg 12; 13/(5+12+13) = 13/30"
       },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
@@ -82223,8 +82224,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-independent-solver",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the stored key came from a false claim that the region closer to the hypotenuse is similar to the whole triangle (giving 1/4, or (5/13)^2 = 25/169). That region is the triangle cut off by the two acute-angle bisectors through the incenter, whose area ratio is c/(a+b+c); the four offered options contained no correct value. Answer, options and explanation corrected and a solver added so the value is re-derived on every audit run; cross-checked against a 4,000,000-sample Monte Carlo simulation.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c05-q011",
@@ -82492,19 +82493,20 @@
         "zhHans": "在一个直角三角形中，斜边长度为13厘米，其中一条直角边为5厘米。在三角形内随机选取一点。该点到斜边的距离比到两条直角边的距离都近的概率是多少？请以最简分数表示答案。"
       },
       "options": [],
-      "answer": "25/169",
+      "answer": "13/30",
       "acceptedAnswers": [
-        "25/169",
-        "0.14792899408284024",
-        "~0.148"
+        "13/30",
+        "0.4333"
       ],
       "explanation": {
-        "en": "The region closer to the hypotenuse is a smaller similar triangle with legs 5/13 of the original. Its area is (5/13)^2 = 25/169 of the whole triangle.",
-        "zh": "距離斜邊較近的區域是一個較小的相似三角形，其直角邊長度為原三角形的5/13。其面積為原三角形的(5/13)^2 = 25/169。",
-        "zhHans": "距离斜边较近的区域是一个较小的相似三角形，其直角边长度为原三角形的5/13。其面积为原三角形的(5/13)^2 = 25/169。"
+        "en": "By the Pythagorean theorem the other leg is 12 cm. A point is closer to the hypotenuse than to a given leg exactly when it lies on the hypotenuse side of that leg's angle bisector, so the region closer to the hypotenuse than to both legs is the triangle cut off by the two acute-angle bisectors, which meet at the incenter. That triangle has the hypotenuse as its base and the inradius r as its height, so its area is (1/2)(13)(r), while the whole triangle has area r(a + b + c)/2. The ratio is 13/(5 + 12 + 13) = 13/30.",
+        "zh": "由畢氏定理，另一條直角邊為 12厘米。一點到斜邊比到某條直角邊近，當且僅當它位於該直角邊角平分線的斜邊一側；因此到斜邊比到兩條直角邊都近的區域，是由兩個銳角的角平分線所截出的三角形，這兩條角平分線相交於內心。該三角形以斜邊為底、內切圓半徑 r 為高，面積為 (1/2)(13)(r)，而整個三角形的面積為 r(a + b + c)/2。因此比值為 13/(5 + 12 + 13) = 13/30。",
+        "zhHans": "由勾股定理，另一条直角边为 12厘米。一点到斜边比到某条直角边近，当且仅当它位于该直角边角平分线的斜边一侧；因此到斜边比到两条直角边都近的区域，是由两个锐角的角平分线所截出的三角形，这两条角平分线相交于内心。该三角形以斜边为底、内切圆半径 r 为高，面积为 (1/2)(13)(r)，而整个三角形的面积为 r(a + b + c)/2。因此比值为 13/(5 + 12 + 13) = 13/30。"
       },
-      "independentAnswer": "25/169",
-      "independentSolution": "Let the right triangle have legs a=5, b=12 (since hypotenuse 13). The region closer to the hypotenuse is bounded by the angle bisectors of the acute angles. This region is a triangle similar to the original with scale factor 5/13. Its area is (5/13)^2 = 25/169 of the whole triangle. Since the point is chosen uniformly, the probability equals the area ratio: 25/169.",
+      "independentAnswer": "13/30",
+      "independentSolution": {
+        "en": "other leg 12; 13/(5+12+13) = 13/30"
+      },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
         "us-ar-standards-s4-hs-s-cp",
@@ -82528,8 +82530,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-independent-solver",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the stored key came from a false claim that the region closer to the hypotenuse is similar to the whole triangle (giving 1/4, or (5/13)^2 = 25/169). That region is the triangle cut off by the two acute-angle bisectors through the incenter, whose area ratio is c/(a+b+c); the four offered options contained no correct value. Answer, options and explanation corrected and a solver added so the value is re-derived on every audit run; cross-checked against a 4,000,000-sample Monte Carlo simulation.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c05-q015",
@@ -82634,38 +82636,39 @@
       },
       "options": [
         {
-          "en": "1/4",
-          "zh": "1/4",
-          "zhHans": "1/4"
-        },
-        {
           "en": "1/3",
           "zh": "1/3",
           "zhHans": "1/3"
         },
         {
+          "en": "5/12",
+          "zh": "5/12",
+          "zhHans": "5/12"
+        },
+        {
+          "en": "1/4",
+          "zh": "1/4",
+          "zhHans": "1/4"
+        },
+        {
           "en": "1/2",
           "zh": "1/2",
           "zhHans": "1/2"
-        },
-        {
-          "en": "2/3",
-          "zh": "2/3",
-          "zhHans": "2/3"
         }
       ],
-      "answer": "1/4",
+      "answer": "5/12",
       "acceptedAnswers": [
-        "1/4"
+        "5/12",
+        "0.4167"
       ],
       "explanation": {
-        "en": "The region closer to the hypotenuse is the triangle formed by the angle bisectors of the two acute angles. This region is similar to the original triangle with scale factor 1/2, so its area is 1/4 of the original triangle.",
-        "zh": "距離斜邊較近的區域是由兩個銳角的角平分線所形成的三角形。該區域與原三角形相似，比例因子為1/2，因此其面積為原三角形的1/4。",
-        "zhHans": "距离斜边较近的区域是由两个锐角的角平分线所形成的三角形。该区域与原三角形相似，比例因子为1/2，因此其面积为原三角形的1/4。"
+        "en": "By the Pythagorean theorem the other leg is 8. A point is closer to the hypotenuse than to a given leg exactly when it lies on the hypotenuse side of that leg's angle bisector, so the region closer to the hypotenuse than to both legs is the triangle cut off by the two acute-angle bisectors, which meet at the incenter. That triangle has the hypotenuse as its base and the inradius r as its height, so its area is (1/2)(10)(r), while the whole triangle has area r(a + b + c)/2. The ratio is 10/(6 + 8 + 10) = 10/24 = 5/12.",
+        "zh": "由畢氏定理，另一條直角邊為 8。一點到斜邊比到某條直角邊近，當且僅當它位於該直角邊角平分線的斜邊一側；因此到斜邊比到兩條直角邊都近的區域，是由兩個銳角的角平分線所截出的三角形，這兩條角平分線相交於內心。該三角形以斜邊為底、內切圓半徑 r 為高，面積為 (1/2)(10)(r)，而整個三角形的面積為 r(a + b + c)/2。因此比值為 10/(6 + 8 + 10) = 10/24 = 5/12。",
+        "zhHans": "由勾股定理，另一条直角边为 8。一点到斜边比到某条直角边近，当且仅当它位于该直角边角平分线的斜边一侧；因此到斜边比到两条直角边都近的区域，是由两个锐角的角平分线所截出的三角形，这两条角平分线相交于内心。该三角形以斜边为底、内切圆半径 r 为高，面积为 (1/2)(10)(r)，而整个三角形的面积为 r(a + b + c)/2。因此比值为 10/(6 + 8 + 10) = 10/24 = 5/12。"
       },
-      "independentAnswer": "1/4",
+      "independentAnswer": "5/12",
       "independentSolution": {
-        "en": "The other leg is 8 by Pythagorean theorem. The region closer to the hypotenuse is the set of points whose distance to the hypotenuse is less than the distance to either leg. This region is the triangle formed by the intersection of the angle bisectors of the two acute angles. The incenter is the intersection of angle bisectors. The region closer to the hypotenuse is the triangle with vertices at the right angle vertex and the two points where the angle bisectors intersect the legs. This triangle is similar to the original triangle with scale factor 1/2, so its area is (1/2)^2 = 1/4 of the original triangle. Therefore, the probability is 1/4."
+        "en": "other leg 8; 10/(6+8+10) = 5/12"
       },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
@@ -82690,8 +82693,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-independent-solver",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the stored key came from a false claim that the region closer to the hypotenuse is similar to the whole triangle (giving 1/4, or (5/13)^2 = 25/169). That region is the triangle cut off by the two acute-angle bisectors through the incenter, whose area ratio is c/(a+b+c); the four offered options contained no correct value. Answer, options and explanation corrected and a solver added so the value is re-derived on every audit run; cross-checked against a 4,000,000-sample Monte Carlo simulation.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c05-q017",
@@ -82959,14 +82962,14 @@
       },
       "options": [
         {
-          "en": "1/4",
-          "zh": "1/4",
-          "zhHans": "1/4"
-        },
-        {
           "en": "1/3",
           "zh": "1/3",
           "zhHans": "1/3"
+        },
+        {
+          "en": "1/4",
+          "zh": "1/4",
+          "zhHans": "1/4"
         },
         {
           "en": "1/2",
@@ -82974,24 +82977,24 @@
           "zhHans": "1/2"
         },
         {
-          "en": "2/3",
-          "zh": "2/3",
-          "zhHans": "2/3"
+          "en": "13/30",
+          "zh": "13/30",
+          "zhHans": "13/30"
         }
       ],
-      "answer": "1/4",
+      "answer": "13/30",
       "acceptedAnswers": [
-        "1/4",
-        "0.25"
+        "13/30",
+        "0.4333"
       ],
       "explanation": {
-        "en": "The region closer to the hypotenuse is the triangle formed by the angle bisectors of the two acute angles. Its area is one-fourth of the original triangle.",
-        "zh": "距離斜邊較近的區域是由兩個銳角的角平分線所形成的三角形，其面積是原三角形面積的四分之一。",
-        "zhHans": "距离斜边较近的区域是由两个锐角的角平分线所形成的三角形，其面积是原三角形面积的四分之一。"
+        "en": "By the Pythagorean theorem the other leg is 12 cm. A point is closer to the hypotenuse than to a given leg exactly when it lies on the hypotenuse side of that leg's angle bisector, so the region closer to the hypotenuse than to both legs is the triangle cut off by the two acute-angle bisectors, which meet at the incenter. That triangle has the hypotenuse as its base and the inradius r as its height, so its area is (1/2)(13)(r), while the whole triangle has area r(a + b + c)/2. The ratio is 13/(5 + 12 + 13) = 13/30.",
+        "zh": "由畢氏定理，另一條直角邊為 12厘米。一點到斜邊比到某條直角邊近，當且僅當它位於該直角邊角平分線的斜邊一側；因此到斜邊比到兩條直角邊都近的區域，是由兩個銳角的角平分線所截出的三角形，這兩條角平分線相交於內心。該三角形以斜邊為底、內切圓半徑 r 為高，面積為 (1/2)(13)(r)，而整個三角形的面積為 r(a + b + c)/2。因此比值為 13/(5 + 12 + 13) = 13/30。",
+        "zhHans": "由勾股定理，另一条直角边为 12厘米。一点到斜边比到某条直角边近，当且仅当它位于该直角边角平分线的斜边一侧；因此到斜边比到两条直角边都近的区域，是由两个锐角的角平分线所截出的三角形，这两条角平分线相交于内心。该三角形以斜边为底、内切圆半径 r 为高，面积为 (1/2)(13)(r)，而整个三角形的面积为 r(a + b + c)/2。因此比值为 13/(5 + 12 + 13) = 13/30。"
       },
-      "independentAnswer": "1/4",
+      "independentAnswer": "13/30",
       "independentSolution": {
-        "en": "The other leg is 12 cm (by Pythagoras). The region closer to the hypotenuse is bounded by the angle bisectors of the acute angles. These bisectors intersect at the incenter. The desired region is a triangle similar to the original with scale factor 1/2, so its area is (1/2)^2 = 1/4 of the original. Thus probability = 1/4."
+        "en": "other leg 12; 13/(5+12+13) = 13/30"
       },
       "evidenceCardIds": [
         "us-ar-math-g10-geometry-quadratics-probability",
@@ -83016,8 +83019,8 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "accepted-s18-manual-review",
-      "reviewNotes": "[Codex full manual review 2026-06-04T14:09:59.757Z: duplicate prompt differentiated with a non-answer-changing direction.] [Codex full manual review 2026-06-04T14:09:59.757Z: accepted for candidate package release handoff; not live app integration.]"
+      "manualQaStatus": "machine-verified-independent-solver",
+      "reviewNotes": "[Claude independent-solver repair 2026-08-26: the stored key came from a false claim that the region closer to the hypotenuse is similar to the whole triangle (giving 1/4, or (5/13)^2 = 25/169). That region is the triangle cut off by the two acute-angle bisectors through the incenter, whose area ratio is c/(a+b+c); the four offered options contained no correct value. Answer, options and explanation corrected and a solver added so the value is re-derived on every audit run; cross-checked against a 4,000,000-sample Monte Carlo simulation.]"
     },
     {
       "id": "us-ar-g6-g12-v1-g10-c05-q021",
