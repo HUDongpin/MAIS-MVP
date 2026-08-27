@@ -33,6 +33,7 @@ type GeneratedArkansasQuestionBase = {
   manualQaStatus:
     | "accepted-s18-manual-review"
     | "accepted-auto-s18-standard-sample"
+    | "machine-verified-independent-solver"
     | "machine-verified-pending-s18-manual-review";
   reviewNotes: string;
 };
@@ -59,7 +60,10 @@ export type GeneratedArkansasG6G12Question = GeneratedArkansasQuestionBase & {
   chapterTitle: string;
   independentSolution: Pick<LocalizedText, "en">;
   mathQaStatus: "passed-auto-math-qa";
-  manualQaStatus: "accepted-s18-manual-review" | "machine-verified-pending-s18-manual-review";
+  manualQaStatus:
+    | "accepted-s18-manual-review"
+    | "machine-verified-independent-solver"
+    | "machine-verified-pending-s18-manual-review";
 };
 
 export type GeneratedArkansasQuestion = GeneratedArkansasK5Question | GeneratedArkansasG6G12Question;
