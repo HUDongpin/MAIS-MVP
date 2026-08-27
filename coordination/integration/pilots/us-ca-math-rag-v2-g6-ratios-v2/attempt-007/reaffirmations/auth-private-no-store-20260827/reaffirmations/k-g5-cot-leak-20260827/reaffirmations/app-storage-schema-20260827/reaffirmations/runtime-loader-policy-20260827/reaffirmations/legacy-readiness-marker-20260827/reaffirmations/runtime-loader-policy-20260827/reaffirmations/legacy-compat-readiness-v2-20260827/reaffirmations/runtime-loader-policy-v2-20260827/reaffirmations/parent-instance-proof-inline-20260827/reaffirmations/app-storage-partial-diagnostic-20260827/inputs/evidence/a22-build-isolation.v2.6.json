@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-app-storage-partial-diagnostic-20260827",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-27T19:36:49+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "e8606e3fd47b68b70cb34fb79524e197b9ecbb4c",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "reviewedCompositionCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "targetBaselineCommit": "e8606e3fd47b68b70cb34fb79524e197b9ecbb4c",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "29ecb2b68e782109cce4faf44795607fa2502045a18a1ca46a374360f22dd8b4",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.6",
+      "releaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+      "bundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+      "ledgerRawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f"
+    },
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyInstall": {
+      "mode": "npm-ci-ignore-scripts",
+      "result": "pass"
+    },
+    "typeCheck": {
+      "mode": "npm-run-type-check",
+      "result": "pass"
+    },
+    "productionBuild": {
+      "mode": "npm-run-build",
+      "result": "pass",
+      "compiled": true,
+      "staticPageGenerationCount": 202,
+      "deploymentPerformed": false
+    },
+    "buildIsolationProof": {
+      "unitAndPathSafetyTestsPassed": 24,
+      "unitAndPathSafetyTestsFailed": 0,
+      "nextEnvTrackedPreimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageMatchesPreimage": true,
+      "worktreeTrackedDiffCountAfterBuild": 0,
+      "expectedSkippedUntilManifestFreeze": 2
+    },
+    "runtimeBaselineDiff": {
+      "protectedRuntimeChangeCount": 0,
+      "candidateSourceChangeCount": 0,
+      "liveFileChangeCount": 0,
+      "comparisonTarget": "14a041f372fb27fa4282104c247886ff1eea623b"
+    },
+    "externalSideEffects": {
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0
+    },
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A22",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.5",
+      "toCheckerVersion": "promotion-gate-shadow-v2.6",
+      "changeScope": "reviewed-commit-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-006",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "79e804b08c1856d38fdc896968090c12fe490f878b68636d98eaafab7c64d574",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/evidence/a22-build-isolation.v2.5.json",
+      "priorEvidenceRawSha256": "0592bdb25c1ad2e3e2b10ee35bb79a8d419ff36a498dc8e15d062d11f176126e",
+      "priorEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+    },
+    "priorAttemptBaselineDrift": {
+      "attemptId": "attempt-005",
+      "result": "blocked",
+      "failureCode": "V2_TARGET_BASELINE_DRIFT",
+      "protectedRuntimeChangeCount": 8,
+      "replacementAttemptId": "attempt-006"
+    },
+    "attempt006AncestryFailure": {
+      "result": "blocked",
+      "failureCode": "V2_GIT_ANCESTRY_INVALID",
+      "externalSideEffectCount": 0,
+      "shadowExecuted": false,
+      "replacementAttemptId": "attempt-007"
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "app-storage-partial-diagnostic-20260827",
+      "sourceEvidenceId": "a22-us-ca-g6-ratios-v2-isolation-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/inputs/evidence/a22-build-isolation.v2.6.json",
+      "sourceEvidenceRawSha256": "5705b43d31dd77f8a4a810dcbf8ed63b93411a3b5660326999ce2687bfa5e904",
+      "priorTargetBaselineCommit": "55608eaca1d631b0475cb27d7e4a30ff5c362de5",
+      "targetBaselineCommit": "e8606e3fd47b68b70cb34fb79524e197b9ecbb4c",
+      "justificationPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/baseline-reaffirmation-app-storage-partial-diagnostic-20260827.md",
+      "protectedChangedPaths": [
+        "lib/server/userStore.ts",
+        "lib/server/userStoreNovaPostgresIntegration.test.ts"
+      ],
+      "testOnlyChangedPaths": [
+        "lib/server/userStoreNovaPostgresIntegration.test.ts"
+      ],
+      "runtimeChangedPaths": [
+        "lib/server/userStore.ts"
+      ],
+      "candidateBytesChanged": false,
+      "liveAllowed": false
+    }
+  }
+}
