@@ -42,3 +42,19 @@ schema mutation.
 
 No credential value, database URL, production row, function source, schema
 confirmation, or notification payload is recorded in this handoff.
+
+## Promotion baseline re-affirmation justification
+
+The immutable promotion baseline will be re-affirmed from the currently
+selected finalized Manifest to the exact implementation target
+`9aa15be57c182d388c324823a5d936d3d9f81e1a`. The append-only revision root is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-20260827`.
+
+The exact independent re-affirming roles are A21, A18, A23, A04, A05, A11,
+A22, A24, and A25. The protected runtime diff is limited to the canonical
+`lib/server/userStore.ts` schema inspector, while the protected test diff is
+limited to `lib/server/userStoreNovaPostgresIntegration.test.ts`. The observed
+runtime dependency policy is unchanged and can be retained without a policy
+refresh. Candidate content bytes, live-content reachability, and the
+fail-closed `liveAllowed: false` posture remain unchanged. This diagnostic is
+read-only and cannot authorize a schema mutation or production deployment.
