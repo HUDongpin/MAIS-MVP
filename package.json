@@ -86,6 +86,7 @@
     "vercel:production": "node scripts/deploy-vercel-production.mjs",
     "test:backend": "playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
     "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
+    "test:graphops": "node --import tsx --test coordination/graphops/*.test.ts",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:promotion-gate": "node --test --test-concurrency=1 coordination/integration/v2/promotion-gate-v2.test.mjs coordination/integration/finalization/promotion-shadow-finalization-v2.test.mjs scripts/promotion-shadow-workflow-v2.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs",
@@ -125,6 +126,9 @@
     "check": "npm run type-check && npm run audit:zh-hans:strict && npm run test:analytics && npm run test:accommodations && npm run test:content-safety && npm run test:rag && npm run test:question-bank && npm run test:mvp && npm run test:components && npm run build"
   },
   "dependencies": {
+    "@langchain/core": "1.2.9",
+    "@langchain/langgraph": "1.4.13",
+    "@langchain/langgraph-checkpoint-postgres": "1.0.5",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     "@vercel/analytics": "^2.0.1",

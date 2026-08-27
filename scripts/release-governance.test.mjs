@@ -3211,6 +3211,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:components",
     "test:content-safety",
     "test:e2e",
+    "test:graphops",
     "test:imports",
     "test:lesson-menu",
     "test:mvp",
@@ -3255,7 +3256,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "8a59d333637faf9b9507733d8680b0cfc1dd323291193567beacbaafa0c55530",
+    "f75e91cc5ce1335846f82bceb0f584a1c2ab0d5a66720537ed76f6a702e9c58b",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -3267,6 +3268,11 @@ test("P0 package delta and default release gates are self-contained in Git objec
   for (const [name, command] of Object.entries(expectedParentDeliveryAndReadinessScripts)) {
     assert.equal(current.scripts[name], command, `${name} command`);
   }
+  assert.equal(
+    current.scripts["test:graphops"],
+    "node --import tsx --test coordination/graphops/*.test.ts",
+    "test:graphops command"
+  );
 
   for (const command of Object.values(changedScripts)) {
     if (typeof command !== "string") continue;
@@ -3277,6 +3283,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
 
   assert.deepEqual(current.dependencies, {
     ...baseline.dependencies,
+    "@langchain/core": "1.2.9",
+    "@langchain/langgraph": "1.4.13",
+    "@langchain/langgraph-checkpoint-postgres": "1.0.5",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     next: "15.5.23",

@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/graphops/schemas/receipt.v1.schema.json",
+  "title": "MAIS GraphOps Foundation Receipt v1",
+  "description": "Canonical public receipt. Foundation receipts are read-only, side-effect free, and carry no approval authority.",
+  "x-mais-contract-version": "mais-graphops-receipt.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "runnerId": { "const": "git.bind-protected-main" },
+        "sequence": { "const": 1 }
+      }
+    },
+    {
+      "properties": {
+        "runnerId": { "const": "release.owner-currentness" },
+        "sequence": { "const": 2 }
+      }
+    },
+    {
+      "properties": {
+        "runnerId": { "const": "github.required-checks" },
+        "sequence": { "const": 3 }
+      }
+    }
+  ],
+  "required": [
+    "schemaVersion",
+    "registryVersion",
+    "graphId",
+    "graphVersion",
+    "graphSpecDigest",
+    "runnerRegistryDigest",
+    "runId",
+    "manifestDigest",
+    "runnerId",
+    "sequence",
+    "attempt",
+    "correlationId",
+    "causationEventId",
+    "sourceSha",
+    "treeSha",
+    "runnerReleaseDigest",
+    "outcome",
+    "evidenceDigest",
+    "rawInputDigest",
+    "semanticInputDigest",
+    "rawOutputDigest",
+    "semanticOutputDigest",
+    "stateBefore",
+    "stateAfter",
+    "artifactRefs",
+    "sideEffects",
+    "approvalEnvelopeDigest",
+    "previousRawReceiptDigest",
+    "previousSemanticReceiptDigest",
+    "producedAt",
+    "rawReceiptDigest",
+    "semanticReceiptDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mais-graphops-receipt.v1" },
+    "registryVersion": { "const": "mais-graphops-runner-registry.v1" },
+    "graphId": { "const": "mais.release.v1" },
+    "graphVersion": { "const": "1.0.0" },
+    "graphSpecDigest": {
+      "const": "511dd394edad9e98fc7634ce1fee76902eea4184c69c88564678722f272d0b4e"
+    },
+    "runnerRegistryDigest": {
+      "const": "3c73ce7384d45b44a9be09618371f939544d4d23e44b9fbdfb463d9cd734ff2a"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "manifestDigest": { "$ref": "#/$defs/digest" },
+    "runnerId": {
+      "enum": [
+        "git.bind-protected-main",
+        "release.owner-currentness",
+        "github.required-checks"
+      ]
+    },
+    "sequence": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "attempt": { "const": 1 },
+    "correlationId": { "$ref": "#/$defs/digest" },
+    "causationEventId": { "$ref": "#/$defs/digest" },
+    "sourceSha": { "$ref": "#/$defs/gitObjectId" },
+    "treeSha": { "$ref": "#/$defs/gitObjectId" },
+    "runnerReleaseDigest": { "$ref": "#/$defs/digest" },
+    "outcome": {
+      "enum": [
+        "PASS",
+        "BLOCKED",
+        "REPAIR_REQUIRED",
+        "INCONCLUSIVE",
+        "CANCELLED",
+        "FAILED_INTERNAL"
+      ]
+    },
+    "evidenceDigest": { "$ref": "#/$defs/digest" },
+    "rawInputDigest": { "$ref": "#/$defs/digest" },
+    "semanticInputDigest": { "$ref": "#/$defs/digest" },
+    "rawOutputDigest": { "$ref": "#/$defs/digest" },
+    "semanticOutputDigest": { "$ref": "#/$defs/digest" },
+    "stateBefore": { "$ref": "#/$defs/stateBinding" },
+    "stateAfter": { "$ref": "#/$defs/stateBinding" },
+    "artifactRefs": { "type": "array", "maxItems": 0 },
+    "sideEffects": { "type": "array", "maxItems": 0 },
+    "approvalEnvelopeDigest": { "type": "null", "const": null },
+    "previousRawReceiptDigest": {
+      "oneOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }]
+    },
+    "previousSemanticReceiptDigest": {
+      "oneOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }]
+    },
+    "producedAt": { "type": "string", "format": "date-time" },
+    "rawReceiptDigest": { "$ref": "#/$defs/digest" },
+    "semanticReceiptDigest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "gitObjectId": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "stateBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lifecycle", "evidenceLevel"],
+      "properties": {
+        "lifecycle": {
+          "enum": [
+            "PLANNED",
+            "VALIDATING",
+            "BLOCKED",
+            "REPAIR_REQUIRED",
+            "REJECTED",
+            "INCONCLUSIVE",
+            "CANCELLED",
+            "FAILED_INTERNAL"
+          ]
+        },
+        "evidenceLevel": { "enum": ["E0", "E3"] }
+      }
+    }
+  }
+}

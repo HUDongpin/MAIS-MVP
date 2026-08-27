@@ -64,6 +64,9 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run GraphOps Foundation contract gates
+        run: npm run test:graphops
+
       - name: Run AI Tutor authentication-admission gates
         run: |
           npx tsx --tsconfig tsconfig.json --test \

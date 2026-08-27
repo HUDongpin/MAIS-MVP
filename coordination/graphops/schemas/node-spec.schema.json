@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/graphops/schemas/node-spec.v1.schema.json",
+  "title": "MAIS GraphOps NodeSpec v1",
+  "description": "Describes registry entries; the TypeScript versioned registry remains the runtime source of truth.",
+  "x-mais-contract-version": "mais-graphops-node-spec.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "ownerRole",
+    "reviewerRoles",
+    "runnerId",
+    "dependsOn",
+    "inputSchema",
+    "outputSchema",
+    "requiredEvidence",
+    "allowedReadScopes",
+    "allowedWriteScopes",
+    "sideEffectClass",
+    "authorizationClass",
+    "timeoutMs",
+    "retryPolicy",
+    "terminalOutcomes"
+  ],
+  "properties": {
+    "id": { "$ref": "#/$defs/runnerId" },
+    "version": { "const": "1.0.0" },
+    "ownerRole": { "$ref": "#/$defs/role" },
+    "reviewerRoles": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/role" },
+      "uniqueItems": true
+    },
+    "runnerId": { "$ref": "#/$defs/runnerId" },
+    "dependsOn": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/runnerId" },
+      "uniqueItems": true
+    },
+    "inputSchema": { "type": "string", "minLength": 1 },
+    "outputSchema": { "type": "string", "minLength": 1 },
+    "requiredEvidence": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "allowedReadScopes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "allowedWriteScopes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "sideEffectClass": {
+      "enum": [
+        "READ_ONLY",
+        "LOCAL_EPHEMERAL_WRITE",
+        "EXTERNAL_PREVIEW_WRITE",
+        "PRODUCTION_SCHEMA_WRITE",
+        "PRODUCTION_DEPLOYMENT_WRITE",
+        "PRODUCTION_TRAFFIC_SWITCH",
+        "COMPENSATING_ROLLBACK"
+      ]
+    },
+    "authorizationClass": {
+      "enum": ["none", "preview-authorized", "production-owner"]
+    },
+    "timeoutMs": { "type": "integer", "minimum": 1 },
+    "retryPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxAttempts",
+        "backoff",
+        "retryableCategories",
+        "reconcileBeforeRetry"
+      ],
+      "properties": {
+        "maxAttempts": { "enum": [1, 3] },
+        "backoff": { "enum": ["none", "short-exponential"] },
+        "retryableCategories": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "read-transient",
+              "runner-infrastructure-transient"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "reconcileBeforeRetry": { "type": "boolean" }
+      }
+    },
+    "terminalOutcomes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nodeOutcome" }
+    }
+  },
+  "$defs": {
+    "runnerId": {
+      "enum": [
+        "git.bind-protected-main",
+        "release.owner-currentness",
+        "github.required-checks",
+        "release.build-gate",
+        "vercel.prepare-staging",
+        "vercel.deploy-preview",
+        "vercel.inspect-preview",
+        "smoke.preview-readonly",
+        "github.verify-production-approval",
+        "schema.production-preflight",
+        "schema.production-apply",
+        "vercel.deploy-production-candidate",
+        "vercel.verify-production-candidate",
+        "vercel.promote",
+        "smoke.production-readonly",
+        "vercel.restore-previous",
+        "release.closeout"
+      ]
+    },
+    "role": {
+      "enum": ["A10", "A11", "A12", "A19", "A22", "A23", "A25"]
+    },
+    "nodeOutcome": {
+      "enum": [
+        "PASS",
+        "BLOCKED",
+        "REPAIR_REQUIRED",
+        "REJECTED",
+        "INCONCLUSIVE",
+        "ROLLED_BACK",
+        "CANCELLED",
+        "FAILED_INTERNAL"
+      ]
+    }
+  }
+}

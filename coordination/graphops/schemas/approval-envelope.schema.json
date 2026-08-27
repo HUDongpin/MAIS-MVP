@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/graphops/schemas/approval-envelope.v1.schema.json",
+  "title": "MAIS GraphOps Preview-pilot ApprovalEnvelope v1",
+  "description": "Canonical deterministic approval challenge. It is not a resume token or execution authority.",
+  "x-mais-contract-version": "mais-graphops-approval-envelope.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runId",
+    "candidateSha",
+    "candidateTreeSha",
+    "graphVersion",
+    "graphSpecDigest",
+    "runnerRegistryDigest",
+    "previewDeploymentId",
+    "previewEvidenceDigest",
+    "requiredChecksDigest",
+    "changedPathPolicyDigest",
+    "schemaSourcePlanDigest",
+    "previousProductionBinding",
+    "approvalExpiresAt",
+    "rollbackAuthorization",
+    "approvalDigest"
+  ],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "candidateSha": { "$ref": "#/$defs/gitObjectId" },
+    "candidateTreeSha": { "$ref": "#/$defs/gitObjectId" },
+    "graphVersion": { "const": "1.0.0" },
+    "graphSpecDigest": {
+      "const": "511dd394edad9e98fc7634ce1fee76902eea4184c69c88564678722f272d0b4e"
+    },
+    "runnerRegistryDigest": {
+      "const": "3c73ce7384d45b44a9be09618371f939544d4d23e44b9fbdfb463d9cd734ff2a"
+    },
+    "previewDeploymentId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "previewEvidenceDigest": { "$ref": "#/$defs/digest" },
+    "requiredChecksDigest": { "$ref": "#/$defs/digest" },
+    "changedPathPolicyDigest": { "$ref": "#/$defs/digest" },
+    "schemaSourcePlanDigest": { "$ref": "#/$defs/digest" },
+    "previousProductionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deploymentId", "candidateSha"],
+      "properties": {
+        "deploymentId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "candidateSha": { "$ref": "#/$defs/gitObjectId" }
+      }
+    },
+    "approvalExpiresAt": { "type": "string", "format": "date-time" },
+    "rollbackAuthorization": { "const": true },
+    "approvalDigest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "gitObjectId": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+  }
+}

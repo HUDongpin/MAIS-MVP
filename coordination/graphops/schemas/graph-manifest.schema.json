@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/graphops/schemas/graph-manifest.v1.schema.json",
+  "title": "MAIS GraphOps Foundation Graph Manifest v1",
+  "description": "Describes the inert Foundation manifest contract. Runtime topology is owned by mais.release.v1, not this artifact.",
+  "x-mais-contract-version": "mais-graphops-manifest.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registryVersion",
+    "graphId",
+    "graphVersion",
+    "graphSpecDigest",
+    "runnerRegistryDigest",
+    "runId",
+    "candidate",
+    "authorizations",
+    "runnerIds"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mais-graphops-manifest.v1" },
+    "registryVersion": { "const": "mais-graphops-runner-registry.v1" },
+    "graphId": { "const": "mais.release.v1" },
+    "graphVersion": { "const": "1.0.0" },
+    "graphSpecDigest": {
+      "const": "511dd394edad9e98fc7634ce1fee76902eea4184c69c88564678722f272d0b4e"
+    },
+    "runnerRegistryDigest": {
+      "const": "3c73ce7384d45b44a9be09618371f939544d4d23e44b9fbdfb463d9cd734ff2a"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commitSha", "treeSha"],
+      "properties": {
+        "commitSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "treeSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "authorizations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["previewAllowed", "productionAllowed"],
+      "properties": {
+        "previewAllowed": { "const": false },
+        "productionAllowed": { "const": false }
+      }
+    },
+    "runnerIds": {
+      "type": "array",
+      "minItems": 17,
+      "maxItems": 17,
+      "prefixItems": [
+        { "const": "git.bind-protected-main" },
+        { "const": "release.owner-currentness" },
+        { "const": "github.required-checks" },
+        { "const": "release.build-gate" },
+        { "const": "vercel.prepare-staging" },
+        { "const": "vercel.deploy-preview" },
+        { "const": "vercel.inspect-preview" },
+        { "const": "smoke.preview-readonly" },
+        { "const": "github.verify-production-approval" },
+        { "const": "schema.production-preflight" },
+        { "const": "schema.production-apply" },
+        { "const": "vercel.deploy-production-candidate" },
+        { "const": "vercel.verify-production-candidate" },
+        { "const": "vercel.promote" },
+        { "const": "smoke.production-readonly" },
+        { "const": "vercel.restore-previous" },
+        { "const": "release.closeout" }
+      ],
+      "items": false
+    }
+  }
+}

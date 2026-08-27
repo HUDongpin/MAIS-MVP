@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/graphops/schemas/release-state.v1.schema.json",
+  "title": "MAIS GraphOps ReleaseState v1",
+  "x-mais-contract-version": "mais-graphops-release-state.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registryVersion",
+    "graphId",
+    "graphVersion",
+    "graphSpecDigest",
+    "runnerRegistryDigest",
+    "runId",
+    "threadId",
+    "candidate",
+    "manifestDigest",
+    "lifecycle",
+    "evidenceLevel",
+    "nodeReceipts",
+    "preview",
+    "approval",
+    "productionCandidate",
+    "previousProduction",
+    "schema",
+    "sideEffects",
+    "blocker"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mais-graphops-release-state.v1" },
+    "registryVersion": { "const": "mais-graphops-runner-registry.v1" },
+    "graphId": { "const": "mais.release.v1" },
+    "graphVersion": { "const": "1.0.0" },
+    "graphSpecDigest": {
+      "const": "511dd394edad9e98fc7634ce1fee76902eea4184c69c88564678722f272d0b4e"
+    },
+    "runnerRegistryDigest": {
+      "const": "3c73ce7384d45b44a9be09618371f939544d4d23e44b9fbdfb463d9cd734ff2a"
+    },
+    "runId": { "$ref": "#/$defs/identifier" },
+    "threadId": { "$ref": "#/$defs/identifier" },
+    "candidate": { "$ref": "#/$defs/candidate" },
+    "manifestDigest": { "$ref": "#/$defs/digest" },
+    "lifecycle": { "$ref": "#/$defs/lifecycle" },
+    "evidenceLevel": { "$ref": "#/$defs/evidenceLevel" },
+    "nodeReceipts": {
+      "type": "array",
+      "items": { "$ref": "receipt.v1.schema.json" }
+    },
+    "preview": { "type": "null", "const": null },
+    "approval": { "type": "null", "const": null },
+    "productionCandidate": { "type": "null", "const": null },
+    "previousProduction": { "type": "null", "const": null },
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "sourcePlanDigest"],
+      "properties": {
+        "status": { "const": "NOT_PLANNED" },
+        "sourcePlanDigest": { "type": "null", "const": null }
+      }
+    },
+    "sideEffects": { "type": "array", "maxItems": 0 },
+    "blocker": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["runnerId", "outcome", "evidenceDigest"],
+          "properties": {
+            "runnerId": { "$ref": "#/$defs/publicRunnerId" },
+            "outcome": {
+              "enum": [
+                "BLOCKED",
+                "REPAIR_REQUIRED",
+                "REJECTED",
+                "INCONCLUSIVE",
+                "CANCELLED",
+                "FAILED_INTERNAL"
+              ]
+            },
+            "evidenceDigest": { "$ref": "#/$defs/digest" }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commitSha", "treeSha"],
+      "properties": {
+        "commitSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "treeSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "publicRunnerId": {
+      "enum": [
+        "git.bind-protected-main",
+        "release.owner-currentness",
+        "github.required-checks"
+      ]
+    },
+    "lifecycle": {
+      "enum": [
+        "PLANNED",
+        "VALIDATING",
+        "PREVIEW_DEPLOYED",
+        "PREVIEW_VERIFIED",
+        "AWAITING_PRODUCTION_APPROVAL",
+        "PRODUCTION_APPROVED",
+        "SCHEMA_APPLIED",
+        "PRODUCTION_CANDIDATE_VERIFIED",
+        "PROMOTED",
+        "LIVE_VERIFIED",
+        "CLOSED",
+        "BLOCKED",
+        "REPAIR_REQUIRED",
+        "REJECTED",
+        "INCONCLUSIVE",
+        "ROLLED_BACK",
+        "CANCELLED",
+        "FAILED_INTERNAL"
+      ]
+    },
+    "evidenceLevel": {
+      "enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"]
+    }
+  }
+}
