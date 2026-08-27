@@ -15075,7 +15075,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored median was 7.5 and the explanation misplaced the 8s by claiming the 12th value was 7 -> answer is now 8, with the explanation counting 1 + 4 + 6 = 11 values before the first 8 so that positions 12 and 13 are both 8 and (8 + 8)/2 = 8. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -16790,7 +16790,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: the data 24, 30, 28, 26, 32, 30, 28 summed to 198 and gave a mean of 198/7 = 28.2857..., which matched none of the four options, and the explanation hedged toward 'the closest is 28' -> the first value is now 22 so the sum is 196 and the mean is exactly 196 ÷ 7 = 28, matching option B, with a clean true arithmetic chain. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -41118,7 +41118,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41209,7 +41209,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41279,7 +41279,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41439,7 +41439,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41510,7 +41510,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41580,7 +41580,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41741,7 +41741,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41811,7 +41811,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -41902,7 +41902,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42042,7 +42042,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42134,7 +42134,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42204,7 +42204,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42365,7 +42365,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42436,7 +42436,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42506,7 +42506,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42667,7 +42667,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42737,7 +42737,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42829,7 +42829,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -42975,7 +42975,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43067,7 +43067,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43137,7 +43137,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43297,7 +43297,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43437,7 +43437,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43598,7 +43598,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43669,7 +43669,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43760,7 +43760,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43901,7 +43901,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -43993,7 +43993,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44133,7 +44133,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44224,7 +44224,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44364,7 +44364,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G transformations-and-similarity item (translate-point / reflect-point / similar-sides archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44602,7 +44602,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44694,7 +44694,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44837,7 +44837,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -44928,7 +44928,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45159,7 +45159,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45302,7 +45302,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45394,7 +45394,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45537,7 +45537,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45628,7 +45628,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45771,7 +45771,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -45932,7 +45932,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -46092,7 +46092,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -46234,7 +46234,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -46395,7 +46395,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -46557,7 +46557,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -46707,7 +46707,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -46869,7 +46869,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47031,7 +47031,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47172,7 +47172,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47335,7 +47335,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47405,7 +47405,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47496,7 +47496,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47566,7 +47566,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -47637,7 +47637,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter slope-two-points archetype (chapter 1/2 EE/F content); replaced with a G8.G Pythagorean-and-coordinate-geometry item (hypotenuse / distance-points / midpoint archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61455,7 +61455,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61546,7 +61546,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61617,7 +61617,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61687,7 +61687,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61778,7 +61778,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61848,7 +61848,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -61918,7 +61918,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62009,7 +62009,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62079,7 +62079,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62149,7 +62149,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62241,7 +62241,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62311,7 +62311,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62381,7 +62381,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62472,7 +62472,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62543,7 +62543,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62613,7 +62613,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62704,7 +62704,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62774,7 +62774,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62844,7 +62844,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -62935,7 +62935,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63005,7 +63005,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63075,7 +63075,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63166,7 +63166,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63236,7 +63236,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63306,7 +63306,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63397,7 +63397,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63468,7 +63468,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63538,7 +63538,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63629,7 +63629,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63699,7 +63699,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63769,7 +63769,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63860,7 +63860,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -63930,7 +63930,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64000,7 +64000,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64092,7 +64092,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64162,7 +64162,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64232,7 +64232,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64323,7 +64323,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64394,7 +64394,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64464,7 +64464,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64555,7 +64555,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64625,7 +64625,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64696,7 +64696,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with a G-GPE coordinate-geometry item (midpoint / distance / perpendicular-slope / circle-equation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64788,7 +64788,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64859,7 +64859,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -64930,7 +64930,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65022,7 +65022,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65093,7 +65093,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65164,7 +65164,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65329,7 +65329,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65400,7 +65400,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65492,7 +65492,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65563,7 +65563,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65634,7 +65634,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65726,7 +65726,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65797,7 +65797,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -65868,7 +65868,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66033,7 +66033,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66104,7 +66104,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66196,7 +66196,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66267,7 +66267,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66359,7 +66359,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66430,7 +66430,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66595,7 +66595,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66687,7 +66687,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66758,7 +66758,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66850,7 +66850,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -66921,7 +66921,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67085,7 +67085,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67177,7 +67177,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67248,7 +67248,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67340,7 +67340,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67411,7 +67411,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67576,7 +67576,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67647,7 +67647,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67718,7 +67718,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67789,7 +67789,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67860,7 +67860,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -67931,7 +67931,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -68002,7 +68002,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -68073,7 +68073,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter projectile-quadratic archetype; replaced with an S-ID line-of-best-fit item (prediction / residual / interpretation archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -68380,7 +68380,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: answer key and explanation both stated 8.7 cm while the stored independentSolution computed 8.15 and contained leaked self-correction text -> answer, acceptedAnswers, explanation (en/zh/zhHans) and independentSolution now carry the correct Law of Sines value 8.2 cm with a clean derivation. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -69177,7 +69177,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: no option was correct — the explanation swapped AC and BC (claiming BC = 5√3, AC = 5) and then assumed CD = BC/3, keying the false value 10/3 -> the correct option 20√3 - 30 (≈ 4.641) replaces 5√3, the explanation now uses BC = 5 and AC = 5√3 with DC = 5√3/(√3 + 2) = 10√3 - 15 and DE = AB·DC/CB, and 10/3 plus 5 are retained as misconception distractors. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -70896,7 +70896,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: answer key and explanation both stated 8.7 while the stored independentSolution computed 8.15 and contained leaked self-correction text -> answer, acceptedAnswers, explanation (en/zh/zhHans) and independentSolution now carry the correct Law of Sines value 8.2 with a clean derivation, and the explanation now names what each number stands for as the prompt directs. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -91119,7 +91119,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer 0.74 was not a root (200*e^(0.4*0.74)*cos(pi*0.74/2) = 106.8 rabbits, not 100) and the explanation quoted cos(1.1624) as 0.372 when it is 0.3971 -> answer corrected to the true first positive root t = 0.759386, rounded to 0.76, with a bracketed numerical derivation whose stated values are all accurate. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -91583,7 +91583,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer 7.2 is not a root of 800 + 200 sin(π t / 6) = 500 e^{0.05 t} (at t = 7.2 the two sides differ by about 34), and the explanation only asserted a number without any derivation -> answer is now the bare value 6.9, the true first positive root being t = 6.92499, with an explanation that brackets the crossing by sign change on [6, 7] and states that the transcendental equation must be solved numerically. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -92049,7 +92049,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 14.3 months\" was wrong (at t = 14.3 the sinusoid is near 1480 while the exponential is near 1065, and the true first root of 1200 + 300 sin(π t / 6) = 800 e^{0.02 t} is t = 8.01429) and the \"t ≈ \" prefix made it unparseable -> answer is now the bare value 8.0 with an explanation that brackets the crossing on [7, 9] by sign change before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -92986,7 +92986,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 7.85 months\" was wrong (the first root of 800 + 200 sin(π t / 6) = 500 e^{0.05 t} is t = 6.92499) and the \"t ≈ \" prefix made it unparseable -> answer is now the bare value 6.92, matching this item's own instruction to round to two decimal places, with an explanation that brackets the crossing on [6, 7] before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -94166,7 +94166,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 7.2 months\" was wrong (the first root of 1200 + 300 sin(π t / 6) = 800 e^{0.02 t} is t = 8.01429; at t = 7.2 the sinusoid is about 1024 against an exponential of about 924) and the \"t ≈ \" prefix made it unparseable -> answer is now the bare value 8.0 with a bracketed sign-change derivation on [7, 9] followed by the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -94260,7 +94260,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: the keyed option 10.1 months was wrong and none of the four options was correct, since the first root of 1200 + 300 sin(π t / 6) = 800 e^{0.05 t} is t = 6.57331 -> the option set now carries the correct 6.6 months alongside three misconception distractors (2.4 from using the seasonal minimum 900, 8.1 from dropping the sine term, 10.1 the former key), and the explanation brackets the crossing on [6, 7] before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -94635,7 +94635,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer \"t ≈ 7.2\" was both wrong (the first root of 800 + 200 sin(π t / 6) = 500 e^{0.05 t} is t = 6.92499) and unparseable because of the \"t ≈ \" prefix -> answer is now the bare value 6.9 with prefixed and unit-bearing variants kept as accepted aliases, and the explanation now brackets the crossing on [6, 7] before reporting the numerical root. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -95966,7 +95966,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: stored answer was the unevaluated string \"330 - 200*e^(0.5)\" with aliases rounding it to 0.3, so the graded key was unparseable and wrong to the requested precision -> answer is now the evaluated two-decimal value 0.26, with 0.256/0.2557/0.25574586 and the exact-form expressions kept as aliases and the explanation carrying the full numeric derivation in all three locales. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -108003,7 +108003,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108073,7 +108073,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108164,7 +108164,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108233,7 +108233,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108303,7 +108303,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108465,7 +108465,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108535,7 +108535,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108626,7 +108626,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108695,7 +108695,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108765,7 +108765,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108856,7 +108856,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108926,7 +108926,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -108995,7 +108995,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109157,7 +109157,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109227,7 +109227,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109318,7 +109318,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109388,7 +109388,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109458,7 +109458,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109548,7 +109548,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109618,7 +109618,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109688,7 +109688,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109779,7 +109779,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109849,7 +109849,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -109919,7 +109919,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110080,7 +110080,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110150,7 +110150,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110241,7 +110241,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110311,7 +110311,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110380,7 +110380,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110471,7 +110471,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110541,7 +110541,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110611,7 +110611,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110773,7 +110773,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110843,7 +110843,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -110934,7 +110934,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -111003,7 +111003,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -111073,7 +111073,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -111164,7 +111164,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude content regeneration 2026-08-25: original item was an off-chapter cubic-profit archetype; replaced with an S-MD decision-statistics item (z-score / expected-value / expected-payoff-comparison archetypes) matching the chapter identity restored in ef45fc9174. Machine-verified by scripts/audit-us-math-item-quality.mjs and the full-bank solvability audit; pending fresh S18 manual review.]"
     },
     {
@@ -112235,7 +112235,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: explanation integrated P(t) = -2t^3 + 15t^2 - 24t + 11.5 instead of the prompt's constant term 10, and the stored answer 42 came from that wrong constant -> explanation now integrates the prompt's polynomial, giving F(4)=40, F(1)=2.5, integral 37.5, which rounds to 38 thousand dollars. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
@@ -112936,7 +112936,7 @@
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
       "mathQaStatus": "passed-auto-math-qa",
-      "manualQaStatus": "machine-verified-pending-s18-manual-review",
+      "manualQaStatus": "machine-verified-independent-solver",
       "reviewNotes": "[Claude independent-solver repair 2026-08-26: explanation analyzed P(x) = -2x^3 + 45x^2 - 300x + 1500 instead of the prompt's constant term 1000, and the stored answer 1500 came from that wrong constant -> explanation now uses the prompt's polynomial, giving P(0)=1000, P(5)=375, P(10)=500, P(20)=-3000 and a maximum of 1000. Verified by scripts/audit-us-math-item-quality.mjs; pending fresh S18 manual review.]"
     },
     {
