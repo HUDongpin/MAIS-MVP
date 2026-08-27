@@ -12,8 +12,7 @@ import {
   preflightTeacherNoticeProductionSchema,
   teacherNoticeProductionSchemaFailureComponent,
   teacherNoticeProductionSchemaFailureReason,
-  teacherNoticeProductionSchemaFailureStage,
-  teacherNoticeProductionSchemaPartialReasonComponent
+  teacherNoticeProductionSchemaFailureStage
 } from "./teacher-notice-production-schema-gate.mjs";
 
 const candidateSha = "a".repeat(40);
@@ -1000,12 +999,20 @@ test("preflight preserves only an allowlisted stage code across provider and dat
 
 test("preflight preserves only an allowlisted partial-schema reason", async () => {
   const cases = [
-    {
-      appStoragePartialComponent: "legacy-compatibility-contract",
+    ...[
+      "legacy-catalog-contract",
+      "legacy-compatibility-contract",
+      "legacy-hot-auth-contract",
+      "legacy-relation-contract",
+      "legacy-readiness-artifact",
+      "legacy-snapshot-contract",
+      "relation-set"
+    ].map((appStoragePartialComponent) => ({
+      appStoragePartialComponent,
       appStorageState: "partial",
-      expectedComponent: "legacy-compatibility-contract",
+      expectedComponent: appStoragePartialComponent,
       expectedReason: "app-storage-partial"
-    },
+    })),
     { heartbeatState: "partial", expectedReason: "heartbeat-partial" },
     { outboxState: "partial", expectedReason: "outbox-partial" },
     { webhookState: "partial", expectedReason: "webhook-partial" },
@@ -1032,55 +1039,6 @@ test("preflight preserves only an allowlisted partial-schema reason", async () =
         assert.equal(error.message.includes("secret"), false);
         return true;
       }
-    );
-  }
-});
-
-test("maps detailed app-storage inspection reasons to fixed safe components", () => {
-  const cases = [
-    ["app-storage-relation-set-partial", "relation-set"],
-    ["app-storage-legacy-physical-relations-partial", "legacy-relation-contract"],
-    ["app-storage-legacy-catalog-partial", "legacy-catalog-contract"],
-    ["app-storage-legacy-compatibility-partial", "legacy-compatibility-contract"],
-    ["app-storage-legacy-hot-auth-partial", "legacy-hot-auth-contract"],
-    ["app-storage-legacy-readiness-artifact-partial", "legacy-readiness-artifact"],
-    ["app-storage-legacy-snapshot-partial", "legacy-snapshot-contract"],
-    ["app-storage-canonical-catalog-partial", "current-catalog-contract"],
-    ["app-storage-canonical-invalidation-partial", "current-invalidation-contract"],
-    ["app-storage-canonical-marker-partial", "current-marker-contract"],
-    ["app-storage-canonical-hot-auth-partial", "current-hot-auth-contract"]
-  ];
-
-  for (const [partialReason, expectedComponent] of cases) {
-    assert.equal(
-      teacherNoticeProductionSchemaPartialReasonComponent(partialReason),
-      expectedComponent
-    );
-    assert.throws(
-      () => buildTeacherNoticeProductionSchemaPlan({
-        appStoragePartialComponent: expectedComponent,
-        appStorageState: "partial",
-        heartbeatState: "exact",
-        outboxState: "exact",
-        webhookState: "exact"
-      }),
-      (error) => {
-        assert.equal(error.component, expectedComponent);
-        return true;
-      }
-    );
-  }
-
-  for (const rejected of [
-    "",
-    "app-storage-private-host-partial",
-    "postgresql://secret-user:secret-password@db.example.invalid/secret-production",
-    null,
-    undefined
-  ]) {
-    assert.equal(
-      teacherNoticeProductionSchemaPartialReasonComponent(rejected),
-      "unknown"
     );
   }
 });

@@ -8,7 +8,7 @@ import postgres from "postgres";
 
 import {
   applyPostgresStorageSchemaForProductionGate,
-  inspectPostgresStorageSchemaEvidenceForProductionGate
+  inspectPostgresStorageSchemaForProductionGate
 } from "../lib/server/userStore.ts";
 import {
   diagnosePostgresStoragePartialSchemaForProductionGate,
@@ -54,19 +54,6 @@ const appStorageStates = new Set([
 const appStoragePartialComponents = new Set(
   teacherNoticeProductionSchemaPartialComponents
 );
-const appStoragePartialReasonComponents = new Map([
-  ["app-storage-relation-set-partial", "relation-set"],
-  ["app-storage-legacy-physical-relations-partial", "legacy-relation-contract"],
-  ["app-storage-legacy-catalog-partial", "legacy-catalog-contract"],
-  ["app-storage-legacy-compatibility-partial", "legacy-compatibility-contract"],
-  ["app-storage-legacy-hot-auth-partial", "legacy-hot-auth-contract"],
-  ["app-storage-legacy-readiness-artifact-partial", "legacy-readiness-artifact"],
-  ["app-storage-legacy-snapshot-partial", "legacy-snapshot-contract"],
-  ["app-storage-canonical-catalog-partial", "current-catalog-contract"],
-  ["app-storage-canonical-invalidation-partial", "current-invalidation-contract"],
-  ["app-storage-canonical-marker-partial", "current-marker-contract"],
-  ["app-storage-canonical-hot-auth-partial", "current-hot-auth-contract"]
-]);
 const appStorageSeedModes = new Set([
   "demo-disabled",
   "demo-enabled",
@@ -185,15 +172,6 @@ export function teacherNoticeProductionSchemaFailureComponent(error) {
     && error.reason === "app-storage-partial"
     && appStoragePartialComponents.has(error.component)
     ? error.component
-    : "unknown";
-}
-
-export function teacherNoticeProductionSchemaPartialReasonComponent(reason) {
-  const component = typeof reason === "string"
-    ? appStoragePartialReasonComponents.get(reason)
-    : undefined;
-  return component && appStoragePartialComponents.has(component)
-    ? component
     : "unknown";
 }
 
@@ -799,22 +777,15 @@ async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
   }
-  const appStorageInspection =
-    await inspectPostgresStorageSchemaEvidenceForProductionGate(client);
-  const appStorageState = appStorageInspection.state;
-  let appStoragePartialComponent =
-    teacherNoticeProductionSchemaPartialReasonComponent(
-      appStorageInspection.partialReason
-    );
+  const appStorageState = await inspectPostgresStorageSchemaForProductionGate(client);
+  let appStoragePartialComponent = "unknown";
   if (appStorageState === "partial") {
-    if (appStoragePartialComponent === "unknown") {
-      try {
-        appStoragePartialComponent =
-          await diagnosePostgresStoragePartialSchemaForProductionGate(client);
-      } catch {
-        // Supplemental catalog diagnosis must never replace the controlling
-        // fail-closed app-storage-partial result or expose provider detail.
-      }
+    try {
+      appStoragePartialComponent =
+        await diagnosePostgresStoragePartialSchemaForProductionGate(client);
+    } catch {
+      // Supplemental catalog diagnosis must never replace the controlling
+      // fail-closed app-storage-partial result or expose provider detail.
     }
   }
   const teacherNoticeInspection = await client.begin(

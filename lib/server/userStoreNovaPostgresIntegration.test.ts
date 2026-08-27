@@ -917,10 +917,6 @@ test(
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "exact"
         });
-        assert.deepEqual(
-          await runSuccessfulWorker("production-schema-inspect-evidence"),
-          { partialReason: null, state: "exact" }
-        );
         const before = await readStateEvidence(sql);
         await removeReadinessMarkerContract();
         assert.deepEqual(await markerContractIsAbsent(), {
@@ -931,10 +927,6 @@ test(
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "legacy-no-readiness-marker"
         });
-        assert.deepEqual(
-          await runSuccessfulWorker("production-schema-inspect-evidence"),
-          { partialReason: null, state: "legacy-no-readiness-marker" }
-        );
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-complete-legacy"),
           { completed: true }
@@ -963,13 +955,6 @@ test(
             await runSuccessfulWorker("production-schema-diagnose-partial"),
             { component: "legacy-relation-contract" }
           );
-          assert.deepEqual(
-            await runSuccessfulWorker("production-schema-inspect-evidence"),
-            {
-              partialReason: "app-storage-legacy-physical-relations-partial",
-              state: "partial"
-            }
-          );
           const drifted = await runWorker("production-schema-complete-legacy");
           assert.equal(drifted.exitCode, 1, "legacy completion must reject catalog drift");
           assert.match(String(drifted.result.error), /operation plan changed/u);
@@ -989,11 +974,8 @@ test(
         await sql`ALTER TABLE public.app_state ALTER COLUMN updated_at DROP NOT NULL`;
         try {
           assert.deepEqual(
-            await runSuccessfulWorker("production-schema-inspect-evidence"),
-            {
-              partialReason: "app-storage-legacy-catalog-partial",
-              state: "partial"
-            }
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-catalog-contract" }
           );
         } finally {
           await sql`ALTER TABLE public.app_state ALTER COLUMN updated_at SET NOT NULL`;
@@ -1007,11 +989,8 @@ test(
         `;
         try {
           assert.deepEqual(
-            await runSuccessfulWorker("production-schema-inspect-evidence"),
-            {
-              partialReason: "app-storage-legacy-hot-auth-partial",
-              state: "partial"
-            }
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-hot-auth-contract" }
           );
         } finally {
           await sql`
@@ -1024,11 +1003,8 @@ test(
         await sql`UPDATE public.app_state SET revision = 0 WHERE id = 'primary'`;
         try {
           assert.deepEqual(
-            await runSuccessfulWorker("production-schema-inspect-evidence"),
-            {
-              partialReason: "app-storage-legacy-snapshot-partial",
-              state: "partial"
-            }
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-contract" }
           );
         } finally {
           await sql`
@@ -1045,10 +1021,6 @@ test(
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "exact"
         });
-        assert.deepEqual(
-          await runSuccessfulWorker("production-schema-inspect-evidence"),
-          { partialReason: null, state: "exact" }
-        );
         assert.deepEqual(await readStateEvidence(sql), before);
         await assertIntegrationWorkerClientsClosed(sql);
       });
@@ -1127,13 +1099,6 @@ test(
           state: "legacy-v1-compatibility-no-readiness-marker"
         });
         assert.deepEqual(
-          await runSuccessfulWorker("production-schema-inspect-evidence"),
-          {
-            partialReason: null,
-            state: "legacy-v1-compatibility-no-readiness-marker"
-          }
-        );
-        assert.deepEqual(
           await runSuccessfulWorker("production-schema-upgrade-legacy-v1"),
           { upgraded: true }
         );
@@ -1162,13 +1127,6 @@ test(
           await runSuccessfulWorker("production-schema-diagnose-partial"),
           { component: "legacy-compatibility-contract" }
         );
-        assert.deepEqual(
-          await runSuccessfulWorker("production-schema-inspect-evidence"),
-          {
-            partialReason: "app-storage-legacy-compatibility-partial",
-            state: "partial"
-          }
-        );
         const drifted = await runWorker("production-schema-upgrade-legacy-v1");
         assert.equal(drifted.exitCode, 1);
         assert.match(String(drifted.result.error), /operation plan changed/u);
@@ -1190,13 +1148,6 @@ test(
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-diagnose-partial"),
           { component: "legacy-compatibility-contract" }
-        );
-        assert.deepEqual(
-          await runSuccessfulWorker("production-schema-inspect-evidence"),
-          {
-            partialReason: "app-storage-legacy-compatibility-partial",
-            state: "partial"
-          }
         );
         const searchPathDrifted = await runWorker(
           "production-schema-upgrade-legacy-v1"
