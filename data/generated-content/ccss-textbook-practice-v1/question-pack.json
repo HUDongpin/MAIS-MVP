@@ -63,8 +63,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "A full ten-frame is completely filled. How many counters is that?",
-        "zh": "一個十格框已完全填滿。那是多少個計數片？",
-        "zhHans": "一个十格框已完全填满。那是多少个计数片？"
+        "zh": "一個十格框已完全填滿。一共有多少個計數片？",
+        "zhHans": "一个十格框已完全填满。一共有多少个计数片？"
       },
       "options": [
         {
@@ -189,8 +189,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "You touch the counters and say “1, 2, 3, 4, 5.” How many are there?",
-        "zh": "你一邊摸著計數片，一邊說「1, 2, 3, 4, 5」。一共有多少個？",
-        "zhHans": "你一边摸着计数片，一边说“1, 2, 3, 4, 5”。一共有多少个？"
+        "zh": "你一邊點著計數片，一邊說「1, 2, 3, 4, 5」。一共有多少個？",
+        "zhHans": "你一边点着计数片，一边说“1, 2, 3, 4, 5”。一共有多少个？"
       },
       "options": [
         {
@@ -261,8 +261,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Counting by tens: 10, 20, 30, then what?",
-        "zh": "十個十個地數：10、20、30，接下來是什麼？",
-        "zhHans": "十个十个地数：10、20、30，接下来是什么？"
+        "zh": "十個十個地數：10、20、30，接下來是多少？",
+        "zhHans": "十个十个地数：10、20、30，接下来是多少？"
       },
       "answer": "40",
       "acceptedAnswers": [
@@ -311,8 +311,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Count forward from 27. What number comes next?",
-        "zh": "從 27 開始繼續數。下一個數是什麼？",
-        "zhHans": "从 27 开始继续数。下一个数是什么？"
+        "zh": "從 27 開始繼續數。下一個數是多少？",
+        "zhHans": "从 27 开始继续数。下一个数是多少？"
       },
       "answer": "28",
       "acceptedAnswers": [
@@ -449,8 +449,8 @@
         },
         {
           "en": "They are equal",
-          "zh": "它們相等",
-          "zhHans": "它们相等"
+          "zh": "它們一樣多",
+          "zhHans": "它们一样多"
         },
         {
           "en": "11",
@@ -577,14 +577,14 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "5 balls and 5 blocks. The two groups are…",
-        "zh": "5 個球和 5 個積木。這兩組是……",
-        "zhHans": "5 个球和 5 个积木。这两组是……"
+        "zh": "5 個球和 5 個積木。這兩組……",
+        "zhHans": "5 个球和 5 个积木。这两组……"
       },
       "options": [
         {
           "en": "equal",
-          "zh": "相等",
-          "zhHans": "相等"
+          "zh": "一樣多",
+          "zhHans": "一样多"
         },
         {
           "en": "5 is greater",
@@ -608,8 +608,8 @@
       ],
       "explanation": {
         "en": "Same count, so the groups are equal.",
-        "zh": "數目相同，所以各組相等。",
-        "zhHans": "数目相同，所以各组相等。"
+        "zh": "數目一樣，所以兩組一樣多。",
+        "zhHans": "数目一样，所以两组一样多。"
       },
       "independentAnswer": "equal",
       "independentSolution": "Same count, so the groups are equal."
@@ -655,8 +655,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "5 is made of 2 and ___.",
-        "zh": "5 由 2 和 ___ 組成。",
-        "zhHans": "5 由 2 和 ___ 组成。"
+        "zh": "5 可以分成 2 和 ___。",
+        "zhHans": "5 可以分成 2 和 ___。"
       },
       "answer": "3",
       "acceptedAnswers": [
@@ -720,8 +720,8 @@
       ],
       "explanation": {
         "en": "6 and 4 are ten-partners: 6 + 4 = 10.",
-        "zh": "6 和 4 是湊十夥伴：6 + 4 = 10。",
-        "zhHans": "6 和 4 是凑十伙伴：6 + 4 = 10。"
+        "zh": "6 和 4 是湊十好朋友：6 + 4 = 10。",
+        "zhHans": "6 和 4 是凑十好朋友：6 + 4 = 10。"
       },
       "independentAnswer": "4",
       "independentSolution": "6 and 4 are ten-partners: 6 + 4 = 10."
@@ -1014,8 +1014,8 @@
       ],
       "explanation": {
         "en": "8 is more than 5, so it reaches further.",
-        "zh": "8 比 5 多，所以伸展得更遠。",
-        "zhHans": "8 比 5 多，所以伸展得更远。"
+        "zh": "8 比 5 多，所以更長。",
+        "zhHans": "8 比 5 多，所以更长。"
       },
       "independentAnswer": "longer",
       "independentSolution": "8 is more than 5, so it reaches further."
@@ -1055,8 +1055,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "To compare two sticks fairly, you should…",
-        "zh": "要公平地比較兩根棒子，你應該……",
-        "zhHans": "要公平地比较两根棒子，你应该……"
+        "zh": "要公平地比較兩根小棒，你應該……",
+        "zhHans": "要公平地比较两根小棒，你应该……"
       },
       "options": [
         {
@@ -1071,8 +1071,8 @@
         },
         {
           "en": "guess",
-          "zh": "猜測",
-          "zhHans": "猜测"
+          "zh": "猜一猜",
+          "zhHans": "猜一猜"
         },
         {
           "en": "measure only the thicker one",
@@ -1127,8 +1127,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "Which of these can you measure?",
-        "zh": "以下哪一項可以測量？",
-        "zhHans": "以下哪一项可以测量？"
+        "zh": "下面哪一樣可以測量？",
+        "zhHans": "下面哪一样可以测量？"
       },
       "options": [
         {
@@ -1158,8 +1158,8 @@
       ],
       "explanation": {
         "en": "Length is a measurable attribute; color and sound are not lengths.",
-        "zh": "長度是可以量度的屬性；顏色和聲音不是長度。",
-        "zhHans": "长度是可以测量的属性；颜色和声音不是长度。"
+        "zh": "長度是可以量度的特徵；顏色和聲音不是長度。",
+        "zhHans": "长度是可以测量的特征；颜色和声音不是长度。"
       },
       "independentAnswer": "length",
       "independentSolution": "Length is a measurable attribute; color and sound are not lengths."
@@ -1218,8 +1218,8 @@
         },
         {
           "en": "they are all equal",
-          "zh": "它們全都相等",
-          "zhHans": "它们全都相等"
+          "zh": "它們全都一樣多",
+          "zhHans": "它们全都一样多"
         }
       ],
       "answer": "apples",
@@ -1336,8 +1336,8 @@
         },
         {
           "en": "skip counting altogether",
-          "zh": "完全略過數數",
-          "zhHans": "完全略过数数"
+          "zh": "完全不數數數",
+          "zhHans": "完全不数数数"
         }
       ],
       "answer": "count each group",
@@ -2907,8 +2907,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "Count by tens: 100, 110, then what?",
-        "zh": "十個十個地數：100、110，接下來是什麼？",
-        "zhHans": "十个十个地数：100、110，接下来是什么？"
+        "zh": "十個十個地數：100、110，接下來是多少？",
+        "zhHans": "十个十个地数：100、110，接下来是多少？"
       },
       "answer": "120",
       "acceptedAnswers": [
@@ -3515,8 +3515,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "A strip is covered by 6 same-size tiles with no gaps. How long is it, in units?",
-        "zh": "一條長條被 6 塊大小相同的磚塊鋪滿，中間沒有空隙。它的長度是多少個單位？",
-        "zhHans": "一条长条被 6 块大小相同的砖块铺满，中间没有空隙。它的长度是多少个单位？"
+        "zh": "一條長條被 6 塊大小相同的方塊鋪滿，中間沒有空隙。它的長度是多少個單位？",
+        "zhHans": "一条长条被 6 块大小相同的方块铺满，中间没有空隙。它的长度是多少个单位？"
       },
       "answer": "6",
       "acceptedAnswers": [
@@ -4136,8 +4136,8 @@
       ],
       "explanation": {
         "en": "Three straight sides is the defining attribute.",
-        "zh": "三條直邊就是它的定義屬性。",
-        "zhHans": "三条直边就是它的定义属性。"
+        "zh": "三條直邊就是它的定義特徵。",
+        "zhHans": "三条直边就是它的定义特征。"
       },
       "independentAnswer": "having 3 sides",
       "independentSolution": "Three straight sides is the defining attribute."
@@ -5329,8 +5329,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "4 + 4 + 4 is the same as…",
-        "zh": "4 + 4 + 4 等同於……",
-        "zhHans": "4 + 4 + 4 等同于……"
+        "zh": "4 + 4 + 4 就是……",
+        "zhHans": "4 + 4 + 4 就是……"
       },
       "options": [
         {
@@ -7459,8 +7459,8 @@
         },
         {
           "en": "a guess",
-          "zh": "一個猜測",
-          "zhHans": "一个猜测"
+          "zh": "一個猜一猜",
+          "zhHans": "一个猜一猜"
         },
         {
           "en": "the total of everything",
