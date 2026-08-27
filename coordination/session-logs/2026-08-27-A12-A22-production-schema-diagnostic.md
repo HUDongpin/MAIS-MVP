@@ -80,3 +80,19 @@ already merged through PR #176; the synchronized protected test paths are
 `lib/server/questionStore.test.ts`. The schema diagnostic implementation and
 its fail-closed deployment controls are unchanged by the live-main merge.
 Candidate bytes remain unchanged and `liveAllowed: false` remains mandatory.
+
+## Visualization live-main synchronization re-affirmation justification
+
+Live `origin/main` next advanced to
+`7efebfe5d0e617819233c3a61d4465b813d62b16` through reviewed PR #179. It was
+merged without conflict into this session branch, producing the exact target
+`cca547df300e5a199322d61d9873eb37b0e33040`. The append-only revision root is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/main-sync-schema-diagnostic-20260827/reaffirmations/visualization-main-sync-20260827`.
+
+The exact independent re-affirming roles are A21, A18, A23, A04, A05, A11,
+A22, A24, and A25. The synchronized protected runtime paths are the reviewed
+Visualization Lab route map, lesson data, and lab data files from PR #179; its
+focused bespoke-lab routing test is the only synchronized protected test path.
+The schema diagnostic implementation and fail-closed production release
+controls are unchanged. Candidate bytes remain unchanged and
+`liveAllowed: false` remains mandatory.
