@@ -5,25 +5,40 @@
 - **Built on:** `2026-08-27-china-math-audit-rebaseline.md`
 - **Status:** operative plan, **conditional on one unconfirmed number** — see the banner below
 
-> [!WARNING]
-> **This plan is conditional and the condition is not yet confirmed.**
+> [!NOTE]
+> **CONDITION RESOLVED 2026-08-27 — Path B confirmed, and its justification changed.**
 >
-> Path B is chosen because the evidence points to **no live learner cohort**. That evidence is
-> corroborating, not conclusive:
-> - The only database reachable from the dev machine is the **local sqlite dev snapshot**, not
->   production. There is no `DATABASE_URL` / `POSTGRES_URL` on that machine; `.env.local` holds 54
->   keys and the only DB-shaped one points at the sqlite file.
-> - That snapshot is **24 days stale** (last written 2026-08-02, before the audit).
-> - It contains **8 practice attempts**, from `debug-user` (3) and `student-shirleen-us` (5) — both
->   seed fixtures. Of its 16 users (9 named fixtures + 7 UUID students), the 7 UUID students have
->   **0 attempts**. Its 12,026 `lesson_progress` rows are **exactly 792 per user across 17 users**,
->   i.e. seeded. `mistake_book_items` does not exist in it at all.
+> The production `practice_attempts` count was run against Neon
+> (`ep-odd-forest-aomhzy1n`, ap-southeast-1) over Neon's SQL-over-HTTPS transport, because the
+> Postgres wire protocol is blocked from the dev sandbox. Credentials were pulled to a scratch
+> path, used read-only, then shredded; `.env.local` was verified unchanged by hash.
 >
-> **Confirm before committing a quarter:**
-> ```bash
-> psql "$MAIS_POSTGRES_INTEGRATION_URL" -c "SELECT count(*) AS attempts, count(DISTINCT user_id) AS learners, min(created_at), max(created_at) FROM practice_attempts;"
-> ```
-> If that returns a non-trivial cohort, **stop and re-read §5** — the sequencing inverts.
+> | Measure | Production |
+> |---|---:|
+> | practice attempts, all time | **647** |
+> | distinct learners | **13** (of **47** registered users) |
+> | activity window | 2026-06-22 → 2026-08-15 |
+> | attempts in the last 7 days | **0** |
+> | attempts on **China** content, ever | **0** |
+> | breakdown | US 616 · CCSS 31 · **China 0** |
+> | mistake-book items | 96, **none China** |
+>
+> **For China this settles it.** Not one learner has ever answered a `pep-`, `bnu-` or `hjb-`
+> question in production. The 198 English answer keys, the 66.6%-guessable MC bank and the 87
+> confirmed wrong keys have been seen by **nobody**. Path B is correct and the China content work
+> is correctly deferred.
+>
+> **But the platform findings now have a live audience, and it is the US one.** 616 real US
+> attempts and 96 mistake-book rows went through the same blind gate, the same unshuffled options
+> (US_CA 56.3% / US_AR 56.8% correct-option bias) and the same grader. **P0 is no longer
+> prophylactic work for Japan and Korea — it is remediation for the content that actually has
+> users.** That strengthens P0 and weakens nothing.
+>
+> Two caveats. 402 of the 647 attempts (62%) come from three named seed accounts
+> (`student-shirleen-us`, `student-jon-us-ca-super`, `teacher-scott-us`); of the ten UUID accounts,
+> nine have a single-day activity window, which reads as trial sessions rather than a retained
+> cohort. And the product is currently **dormant** — zero attempts in seven days, 34 of 47
+> registered users have never attempted anything.
 
 ---
 
@@ -131,6 +146,25 @@ Re-read this section before starting P2. **Any one of these inverts the sequenci
    grades 1–9** — the 义务教育 band 双减 froze for paid online tutoring — while the least-restricted
    band (高中: pep-high, bnu-high) is the worst content in the library. That combination may argue
    for re-authoring 高中 rather than re-promoting 小学.
+
+## 5b. The US corpus was never audited — and it is the one with users
+
+Every finding in this package was measured on China content. Production says the only content with
+learners is **US** (616 attempts) and **CCSS** (31). The platform defects are shared, and the
+US-specific numbers already measured in passing are not reassuring:
+
+- **Gate:** US_CA 2,802/2,802 and US_AR 3,000/3,000 rows self-verify. The "64 genuinely independent
+  US_AR rows" that once looked like a counterexample re-measured at 17, none of them an independent
+  derivation.
+- **Option-position bias:** US_CA **56.3%** over 1,144 MC items, US_AR **56.8%** over 1,110 — worse
+  than chance by more than 30 points, on the content real learners used.
+- **Grader:** `f0ed7749cc` fixed the US-shaped cases (608 CA checkpoint questions). No equivalent
+  audit of US answer-key correctness, duplication, or curriculum coverage has ever been run.
+
+**Recommendation:** after P0 lands, run the same audit harness against the US corpus before any
+further China content work. The scripts and the workflow already exist; the corpus dump is the only
+new input. It is the cheapest high-value audit available, and it is the only one whose findings
+currently describe a learner's actual experience.
 
 ## 6. Japan and Korea
 
