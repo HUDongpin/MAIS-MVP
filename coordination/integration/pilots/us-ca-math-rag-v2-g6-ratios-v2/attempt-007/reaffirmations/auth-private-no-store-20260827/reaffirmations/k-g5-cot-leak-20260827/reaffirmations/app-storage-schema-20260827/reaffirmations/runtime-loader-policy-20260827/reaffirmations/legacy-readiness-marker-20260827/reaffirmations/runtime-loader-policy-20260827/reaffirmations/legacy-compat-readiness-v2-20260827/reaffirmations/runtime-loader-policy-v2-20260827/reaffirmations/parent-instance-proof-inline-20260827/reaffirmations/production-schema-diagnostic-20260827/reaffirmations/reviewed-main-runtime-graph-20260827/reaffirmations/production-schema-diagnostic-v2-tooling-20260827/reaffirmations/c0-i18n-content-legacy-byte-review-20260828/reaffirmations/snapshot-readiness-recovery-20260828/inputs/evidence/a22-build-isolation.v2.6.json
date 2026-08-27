@@ -1,0 +1,301 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-snapshot-readiness-recovery-20260828",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-27T19:56:20.000Z",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "reviewedCompositionCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "targetBaselineCommit": "72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "dab59fe80649ceed8901120428e824efe18879e704ac6e4b4289418d112481db",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.6",
+      "releaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+      "bundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+      "ledgerRawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f"
+    },
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyInstall": {
+      "mode": "npm-ci-ignore-scripts",
+      "result": "pass"
+    },
+    "typeCheck": {
+      "mode": "npm-run-type-check",
+      "result": "pass"
+    },
+    "productionBuild": {
+      "mode": "npm-run-build",
+      "result": "pass",
+      "compiled": true,
+      "staticPageGenerationCount": 202,
+      "deploymentPerformed": false
+    },
+    "buildIsolationProof": {
+      "unitAndPathSafetyTestsPassed": 24,
+      "unitAndPathSafetyTestsFailed": 0,
+      "nextEnvTrackedPreimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageMatchesPreimage": true,
+      "worktreeTrackedDiffCountAfterBuild": 0,
+      "expectedSkippedUntilManifestFreeze": 2
+    },
+    "runtimeBaselineDiff": {
+      "protectedRuntimeChangeCount": 0,
+      "candidateSourceChangeCount": 0,
+      "liveFileChangeCount": 0,
+      "comparisonTarget": "14a041f372fb27fa4282104c247886ff1eea623b"
+    },
+    "externalSideEffects": {
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0
+    },
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A22",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.5",
+      "toCheckerVersion": "promotion-gate-shadow-v2.6",
+      "changeScope": "reviewed-commit-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-006",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "79e804b08c1856d38fdc896968090c12fe490f878b68636d98eaafab7c64d574",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/evidence/a22-build-isolation.v2.5.json",
+      "priorEvidenceRawSha256": "0592bdb25c1ad2e3e2b10ee35bb79a8d419ff36a498dc8e15d062d11f176126e",
+      "priorEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+    },
+    "priorAttemptBaselineDrift": {
+      "attemptId": "attempt-005",
+      "result": "blocked",
+      "failureCode": "V2_TARGET_BASELINE_DRIFT",
+      "protectedRuntimeChangeCount": 8,
+      "replacementAttemptId": "attempt-006"
+    },
+    "attempt006AncestryFailure": {
+      "result": "blocked",
+      "failureCode": "V2_GIT_ANCESTRY_INVALID",
+      "externalSideEffectCount": 0,
+      "shadowExecuted": false,
+      "replacementAttemptId": "attempt-007"
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "snapshot-readiness-recovery-20260828",
+      "sourceEvidenceId": "a22-us-ca-g6-ratios-v2-isolation-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/inputs/evidence/a22-build-isolation.v2.6.json",
+      "sourceEvidenceRawSha256": "ed7e1f65022eaa95af32cc607433586cba2f6ec9fba16de12b174cfc1e565ac5",
+      "priorTargetBaselineCommit": "e81f6b53515cf97dcd5351d0ff7add4224d7eab2",
+      "targetBaselineCommit": "72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b",
+      "justificationPath": "coordination/session-logs/2026-08-28-A23-snapshot-readiness-promotion-review.json",
+      "protectedChangedPaths": [
+        "lib/server/userStore.ts",
+        "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+        "lib/server/userStoreNovaPostgresIntegration.test.ts"
+      ],
+      "testOnlyChangedPaths": [
+        "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+        "lib/server/userStoreNovaPostgresIntegration.test.ts"
+      ],
+      "runtimeChangedPaths": [
+        "lib/server/userStore.ts"
+      ],
+      "candidateBytesChanged": false,
+      "legacyCandidateBytesChanged": false,
+      "liveAllowed": false,
+      "runtimePolicyReaffirmation": {
+        "schemaVersion": "promotion-runtime-policy-reviewed-evolution.v2",
+        "sourceBaselineCommit": "e81f6b53515cf97dcd5351d0ff7add4224d7eab2",
+        "targetBaselineCommit": "72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b",
+        "reviewedPaths": [
+          {
+            "path": "lib/server/userStore.ts",
+            "status": "M"
+          },
+          {
+            "path": "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+            "status": "M"
+          },
+          {
+            "path": "lib/server/userStoreNovaPostgresIntegration.test.ts",
+            "status": "M"
+          }
+        ],
+        "reviewedPathsDigest": "2d1c9a2cdfa9db4f6881fe5012395270a30a5dc1cd1fb685a03bbce394a122f7",
+        "changedFields": [
+          "fsReadAllowlistDigest"
+        ],
+        "sourceExpectedPolicyDigest": "96ea85c77342f948ed2d0125000a8b3f487eace2aa6ba4250129c12250a3f855",
+        "sourceObservedPolicyDigest": "96ea85c77342f948ed2d0125000a8b3f487eace2aa6ba4250129c12250a3f855",
+        "targetObservedPolicyDigest": "020df2c7424a078e81e61ba1f621bc7a837d7861d633d8bbcb6b40862664a034",
+        "inventoryProof": {
+          "actualFiles": {
+            "count": 3800,
+            "sourceDigest": "f50bedf1caafee375e0ac36640f2e7c1505f9d561f199cc8eba30ce6d62f75d1",
+            "targetDigest": "f50bedf1caafee375e0ac36640f2e7c1505f9d561f199cc8eba30ce6d62f75d1",
+            "equal": true
+          },
+          "classifications": {
+            "count": 9,
+            "sourceDigest": "3e5fc0a2703505497d252dfa3fecc1df560a650d17df4987184491e5268cc0f0",
+            "targetDigest": "3e5fc0a2703505497d252dfa3fecc1df560a650d17df4987184491e5268cc0f0",
+            "equal": true
+          },
+          "frameworkEntrypoints": {
+            "count": 301,
+            "sourceDigest": "1c264809f87ea3d7d63eeb12857cf4ef6687db79e3a11d4849ed31919f32de27",
+            "targetDigest": "1c264809f87ea3d7d63eeb12857cf4ef6687db79e3a11d4849ed31919f32de27",
+            "equal": true
+          },
+          "runtimeSeeds": {
+            "count": 316,
+            "sourceDigest": "b7b057e366e46ac3f5cfe576b6349b5da375cd0c5c2c080fc8a98668c118f1af",
+            "targetDigest": "b7b057e366e46ac3f5cfe576b6349b5da375cd0c5c2c080fc8a98668c118f1af",
+            "equal": true
+          },
+          "reachablePaths": {
+            "count": 1451,
+            "sourceDigest": "eecd43c5e8a11c17cf097e39f5446a6026da34f367ab5f214d235f8d7870f287",
+            "targetDigest": "eecd43c5e8a11c17cf097e39f5446a6026da34f367ab5f214d235f8d7870f287",
+            "equal": true
+          },
+          "specialFiles": {
+            "count": 1,
+            "sourceDigest": "4f1bca084bc38eddfab76ef11c4a4efed769fc7db4d99048bb948a908b476381",
+            "targetDigest": "4f1bca084bc38eddfab76ef11c4a4efed769fc7db4d99048bb948a908b476381",
+            "equal": true
+          },
+          "sensitiveAnchors": {
+            "count": 23,
+            "normalizedDigest": "be7f01b794ff9fa6310d48bb1dc78c6a9fa03d4d3c555acc544118740683c388",
+            "sourceRawDigest": "df72a64ee8c6559315c0cf845e5d0b408020432d7203cbaf506b371a2018d8e7",
+            "targetRawDigest": "1cb99a4b33a41ea1eaeb3d9cbe2b2d513505b6321b0279960e8644d241a62e5c",
+            "transitions": [
+              {
+                "normalized": {
+                  "path": "lib/server/userStore.ts"
+                },
+                "source": {
+                  "path": "lib/server/userStore.ts",
+                  "rawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6"
+                },
+                "target": {
+                  "path": "lib/server/userStore.ts",
+                  "rawSha256": "233b330f527f11994bfca0d2c8dd7bc10b47723226ce7ee9b99c950c7e5e4c17"
+                }
+              }
+            ],
+            "normalizedEqual": true
+          }
+        },
+        "graphProof": {
+          "sourceEdgeDigest": "882fb234b084dbc58e3bcbbe52c5adee2a2b05686f8e49fa1c4db414721cf393",
+          "targetEdgeDigest": "882fb234b084dbc58e3bcbbe52c5adee2a2b05686f8e49fa1c4db414721cf393",
+          "addedEdges": [],
+          "removedEdges": [],
+          "sourceTopologyDigest": "574fb8a386a257aa5a3d501841e4ad4b15c843a18d6239049301fa22c019b4b8",
+          "targetTopologyDigest": "574fb8a386a257aa5a3d501841e4ad4b15c843a18d6239049301fa22c019b4b8",
+          "addedTopologyEdges": [],
+          "removedTopologyEdges": []
+        },
+        "loaderProof": {
+          "fsRead": {
+            "count": 5,
+            "normalizedDigest": "ec5226082f18c97614100540ea6c978a6d6cabcb6cb6424ec04b1bfe4d708a7c",
+            "sourceRawDigest": "9a99526df7b5def7497d03e89aa76f6d93aa9aa5a0548fab8098073132d679ae",
+            "targetRawDigest": "cedf73aae82b71c86ccdd0f7bf42fcd697db74d8b477259eb07ae3ffcdd9bd13",
+            "transitions": [
+              {
+                "normalized": {
+                  "sourcePath": "lib/server/userStore.ts",
+                  "callee": "node:fs/promises.readFile",
+                  "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+                  "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+                  "policy": "runtime-storage-read-only-non-module"
+                },
+                "source": {
+                  "sourcePath": "lib/server/userStore.ts",
+                  "sourceRawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6",
+                  "callee": "node:fs/promises.readFile",
+                  "position": 308204,
+                  "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+                  "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+                  "policy": "runtime-storage-read-only-non-module"
+                },
+                "target": {
+                  "sourcePath": "lib/server/userStore.ts",
+                  "sourceRawSha256": "233b330f527f11994bfca0d2c8dd7bc10b47723226ce7ee9b99c950c7e5e4c17",
+                  "callee": "node:fs/promises.readFile",
+                  "position": 308202,
+                  "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+                  "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+                  "policy": "runtime-storage-read-only-non-module"
+                }
+              }
+            ],
+            "normalizedEqual": true
+          },
+          "nextDynamic": {
+            "count": 489,
+            "normalizedDigest": "74df1d153bf4670cba2d271ce213737141178195cb0cc5d480fd70c2b855c6f6",
+            "sourceRawDigest": "a8de7e878a3332b382306ed89ac063db3c94ffbeba3f2edc7e8fa8a76188f01b",
+            "targetRawDigest": "a8de7e878a3332b382306ed89ac063db3c94ffbeba3f2edc7e8fa8a76188f01b",
+            "transitions": [],
+            "normalizedEqual": true
+          },
+          "importMetaUrlReferences": {
+            "count": 0,
+            "sourceDigest": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+            "targetDigest": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+            "equal": true
+          }
+        },
+        "candidateArtifactBindings": [
+          {
+            "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+            "sourceRawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+            "targetRawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+            "unchanged": true
+          },
+          {
+            "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+            "sourceRawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+            "targetRawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+            "unchanged": true
+          },
+          {
+            "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+            "sourceRawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+            "targetRawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+            "unchanged": true
+          }
+        ],
+        "candidateBytesChanged": false,
+        "rawBindingsVerified": true,
+        "nextDynamicNonliteralImportCount": 0,
+        "zeroBaselineCallCount": 0,
+        "liveAllowed": false,
+        "reviewAttestationRawSha256": "10fa8d62553b52f4d6db653a590bcc87d95c98c7f24f7ae0a4aa452192b58861"
+      }
+    }
+  }
+}
