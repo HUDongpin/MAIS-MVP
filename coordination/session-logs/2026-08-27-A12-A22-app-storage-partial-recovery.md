@@ -56,3 +56,14 @@ Identify the exact fail-closed app-storage subcondition without exposing catalog
 ## Next protected step
 
 Open the diagnostic PR and require all branch checks plus Promotion Shadow on its exact head. After merge, require exact-main CI and Promotion Shadow before dispatching another read-only protected schema preflight. Production mutation remains prohibited until that run returns a specifically authorized operation and confirmation.
+
+## PR and Promotion evidence recovery
+
+- PR `#197` exact-head CI run `33067047272` passed every real PostgreSQL 16, validation, browser, snapshot, and parent-console job. In particular, the expanded Nova PostgreSQL migration/rollback job passed in `6m12s`.
+- Promotion Shadow run `33067047225` completed both distinct Shadow executions, semantic comparison, Receipt verification, exact artifact-set validation, and artifact upload. Final enforcement blocked only because the selected parent Manifest reported `V2_TARGET_BASELINE_DRIFT` for the reviewed `userStore.ts` runtime change.
+- The local clone was discovered to be shallow. After fetching the complete history used by CI (`fetch-depth: 0`), candidate ancestry passed and the newly bound diagnostic Manifest advanced to the expected `V2_RUNTIME_GRAPH_DRIFT`; no source commit or historical evidence was rewritten.
+- The repository append-only re-affirmation tool bound the exact diagnostic target `e8606e3fd47b68b70cb34fb79524e197b9ecbb4c`, with exactly one protected runtime path and one protected test path. Its nested constrained runtime-policy refresh bound target `63e62ae7704f57c898d8bab1a786fd1c82cf4852`, with zero protected runtime and test path changes.
+- The nested Manifest validates as `pass`, remains `liveAllowed=false`, and preserves the original immutable candidate source. Two distinct local Shadow runs produced the same semantic Receipt digest and different raw digests. The selected canonical Receipt was independently verified against its exact clean execution commit `0999ca14012bcb51cbbddd2984994dc07e7503c7`.
+- Promotion Gate finalization and workflow-contract tests pass `40/40`; the focused workflow selection tests pass `3/3`.
+- The workflow now selects only the new append-only Manifest and canonical Receipt. Historical Manifests, evidence, registries, and Receipts remain untouched.
+- No production preflight, database mutation, Vercel deployment, or live-domain write occurred during this evidence repair.
