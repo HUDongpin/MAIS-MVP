@@ -62,7 +62,7 @@ not an owner decision**, and does not need to be recorded as superseding an owne
 
 ## Open consequence of the English-only decision
 
-Stripping Chinese from the remaining 1,992 items makes the content consistently English — but it re-creates the exact condition the owner fixed on 2026-07-12: a CA student can still open the selector, choose Chinese, and get an English experience. **The header selector becomes a partial no-op for US accounts again.**
+Stripping Chinese from the remaining 1,992 items makes the content consistently English — but it re-creates the condition BUG-008 removed on 2026-07-12: a CA student can still open the selector, choose Chinese, and get an English experience. **The header selector becomes a partial no-op for US accounts again.**
 
 Resolving English-only therefore needs a UI decision as well as a content one:
 
