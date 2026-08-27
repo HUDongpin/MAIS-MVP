@@ -17,11 +17,16 @@
 
 import crypto from "node:crypto";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
-import { computeV2EvidenceSemanticDigest } from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
+import { observeCanonicalRuntimePolicy } from "../coordination/integration/promotion-gate-lib.mjs";
+import {
+  computeV2EvidenceSemanticDigest,
+  projectV2RuntimePolicy
+} from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = fs.realpathSync(path.resolve(path.dirname(scriptPath), ".."));
@@ -42,8 +47,8 @@ function usage() {
   return [
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
-    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path>",
-    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path>"
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy]",
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy]"
   ].join("\n");
 }
 
@@ -58,6 +63,7 @@ function parseArgs(argv) {
     evidenceCommit: null,
     writeEvidence: false,
     writeBindings: false,
+    refreshRuntimePolicy: false,
     rejectedMonolithicWrite: false,
     help: false
   };
@@ -74,6 +80,7 @@ function parseArgs(argv) {
     else if (argument === "--evidence-commit") options.evidenceCommit = next();
     else if (argument === "--write-evidence") options.writeEvidence = true;
     else if (argument === "--write-bindings") options.writeBindings = true;
+    else if (argument === "--refresh-runtime-policy") options.refreshRuntimePolicy = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
     else if (argument === "--help" || argument === "-h") options.help = true;
     else throw new Error(`Unknown argument: ${argument}`);
@@ -170,6 +177,76 @@ function canonicalJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
+function jsonEqual(left, right) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function jsonDigest(value) {
+  return sha256(Buffer.from(canonicalJson(value), "utf8"));
+}
+
+export function buildReaffirmedRuntimePolicyRefresh({
+  sourceExpectedPolicy,
+  sourceObservedPolicy,
+  targetObservedPolicy,
+  sourceFsReadAllowlist,
+  targetFsReadAllowlist
+}) {
+  for (const [value, label] of [
+    [sourceExpectedPolicy, "source expected runtime policy"],
+    [sourceObservedPolicy, "source observed runtime policy"],
+    [targetObservedPolicy, "target observed runtime policy"]
+  ]) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      throw new Error(`${label} must be one object.`);
+    }
+  }
+  if (!Array.isArray(sourceFsReadAllowlist) || !Array.isArray(targetFsReadAllowlist)) {
+    throw new Error("Runtime-policy refresh requires both exact fs-read allowlists.");
+  }
+  const expectedKeys = Object.keys(sourceExpectedPolicy).sort();
+  const sourceKeys = Object.keys(sourceObservedPolicy).sort();
+  const targetKeys = Object.keys(targetObservedPolicy).sort();
+  if (!jsonEqual(expectedKeys, sourceKeys) || !jsonEqual(sourceKeys, targetKeys)) {
+    throw new Error("Runtime-policy refresh cannot change the policy schema.");
+  }
+  const changedFields = expectedKeys.filter(
+    (field) => !jsonEqual(sourceExpectedPolicy[field], sourceObservedPolicy[field])
+  );
+  if (!jsonEqual(changedFields, ["fsReadAllowlistDigest"])) {
+    throw new Error("Runtime-policy refresh may repair only one stale fs-read allowlist digest.");
+  }
+  if (!jsonEqual(sourceObservedPolicy, targetObservedPolicy)) {
+    throw new Error("Runtime-policy refresh target runtime policy differs from its source baseline.");
+  }
+  if (!jsonEqual(sourceFsReadAllowlist, targetFsReadAllowlist)) {
+    throw new Error("Runtime-policy refresh target fs-read allowlist differs from its source baseline.");
+  }
+  const fsReadAllowlistCount = sourceFsReadAllowlist.length;
+  if (
+    sourceExpectedPolicy.fsReadAllowlistCount !== fsReadAllowlistCount
+    || sourceObservedPolicy.fsReadAllowlistCount !== fsReadAllowlistCount
+    || targetObservedPolicy.fsReadAllowlistCount !== fsReadAllowlistCount
+    || sourceObservedPolicy.nextDynamicNonliteralImportCount !== 0
+    || sourceObservedPolicy.zeroBaselineCallCount !== 0
+  ) {
+    throw new Error("Runtime-policy refresh cannot weaken loader completeness invariants.");
+  }
+  return {
+    schemaVersion: "promotion-runtime-policy-reaffirmation.v1",
+    changedFields,
+    sourceExpectedPolicyDigest: jsonDigest(sourceExpectedPolicy),
+    sourceObservedPolicyDigest: jsonDigest(sourceObservedPolicy),
+    targetObservedPolicyDigest: jsonDigest(targetObservedPolicy),
+    fsReadAllowlistCount,
+    sourceAndTargetRuntimePolicyEqual: true,
+    sourceAndTargetFsReadAllowlistEqual: true,
+    nextDynamicNonliteralImportCount: 0,
+    zeroBaselineCallCount: 0,
+    liveAllowed: false
+  };
+}
+
 function loadCanonicalJson(file, label) {
   const bytes = fs.readFileSync(file.absolute);
   let value;
@@ -254,6 +331,94 @@ function collectProtectedDiff(fromCommit, toCommit) {
   };
 }
 
+function loadCanonicalJsonAtRoot(root, relativePath, label) {
+  assertSafeRelative(relativePath, label);
+  const absolute = path.resolve(root, relativePath);
+  if (!absolute.startsWith(`${root}${path.sep}`)) {
+    throw new Error(`${label} escapes its projected repository root.`);
+  }
+  const entry = fs.lstatSync(absolute);
+  if (!entry.isFile() || entry.isSymbolicLink()) {
+    throw new Error(`${label} must be one regular projected repository file.`);
+  }
+  const bytes = fs.readFileSync(absolute);
+  let value;
+  try {
+    value = JSON.parse(bytes.toString("utf8"));
+  } catch {
+    throw new Error(`${label} is not valid JSON.`);
+  }
+  return { absolute, bytes, value, rawSha256: sha256(bytes) };
+}
+
+function materializeCommitTree(commit) {
+  const ownerRoot = fs.mkdtempSync(path.join(os.tmpdir(), "mais-promotion-runtime-policy-"));
+  const treeRoot = path.join(ownerRoot, "tree");
+  const archivePath = path.join(ownerRoot, "source.tar");
+  fs.mkdirSync(treeRoot, { mode: 0o700 });
+  try {
+    execFileSync("git", ["archive", "--format=tar", `--output=${archivePath}`, commit], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      maxBuffer: 16 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    execFileSync("tar", ["-xf", archivePath, "-C", treeRoot], {
+      encoding: "utf8",
+      maxBuffer: 16 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    fs.unlinkSync(archivePath);
+    return {
+      root: fs.realpathSync(treeRoot),
+      dispose: () => fs.rmSync(ownerRoot, { recursive: true, force: false })
+    };
+  } catch (error) {
+    fs.rmSync(ownerRoot, { recursive: true, force: false });
+    throw error;
+  }
+}
+
+async function collectRuntimePolicyRefresh(manifest) {
+  const compatibilityPath = manifest.liveReachability?.compatibilityManifestPath;
+  const compatibilityRawSha256 = manifest.liveReachability?.compatibilityManifestRawSha256;
+  if (typeof compatibilityPath !== "string" || !/^[a-f0-9]{64}$/u.test(compatibilityRawSha256 ?? "")) {
+    throw new Error("Source Manifest runtime compatibility binding is invalid.");
+  }
+  const currentCompatibility = loadCanonicalJson(
+    resolveRepositoryFile(compatibilityPath, "Current runtime compatibility Manifest"),
+    "Current runtime compatibility Manifest"
+  );
+  if (currentCompatibility.rawSha256 !== compatibilityRawSha256) {
+    throw new Error("Current runtime compatibility Manifest bytes drifted.");
+  }
+  const projection = materializeCommitTree(manifest.targetBaselineCommit);
+  try {
+    const sourceCompatibility = loadCanonicalJsonAtRoot(
+      projection.root,
+      compatibilityPath,
+      "Source-baseline runtime compatibility Manifest"
+    );
+    if (sourceCompatibility.rawSha256 !== compatibilityRawSha256) {
+      throw new Error("Source-baseline runtime compatibility Manifest bytes drifted.");
+    }
+    const sourceObservation = await observeCanonicalRuntimePolicy(projection.root, sourceCompatibility.value);
+    const targetObservation = await observeCanonicalRuntimePolicy(repoRoot, currentCompatibility.value);
+    const sourceObservedPolicy = projectV2RuntimePolicy(sourceObservation);
+    const targetObservedPolicy = projectV2RuntimePolicy(targetObservation);
+    const proof = buildReaffirmedRuntimePolicyRefresh({
+      sourceExpectedPolicy: manifest.liveReachability.expectedRuntimePolicy,
+      sourceObservedPolicy,
+      targetObservedPolicy,
+      sourceFsReadAllowlist: sourceObservation.loaderPolicy.fsReadAllowlist,
+      targetFsReadAllowlist: targetObservation.loaderPolicy.fsReadAllowlist
+    });
+    return { proof, targetObservedPolicy };
+  } finally {
+    projection.dispose();
+  }
+}
+
 export function buildReaffirmedLegacyRegistry(sourceRegistry, targetCommit) {
   const next = structuredClone(sourceRegistry);
   if (!commitPattern.test(next?.targetBaselineCommit ?? "")) {
@@ -281,7 +446,7 @@ export function buildReaffirmedEvidence(sourceEvidence, context) {
   if (Object.hasOwn(next.semanticPayload, "legacyResolutionRegistryRawSha256")) {
     next.semanticPayload.legacyResolutionRegistryRawSha256 = context.legacyRegistryRawSha256;
   }
-  next.semanticPayload.baselineReaffirmation = {
+  const baselineReaffirmation = {
     schemaVersion: "promotion-baseline-reaffirmation.v1",
     revisionId: context.revisionId,
     sourceEvidenceId: sourceEvidence.evidenceId,
@@ -296,10 +461,14 @@ export function buildReaffirmedEvidence(sourceEvidence, context) {
     candidateBytesChanged: false,
     liveAllowed: false
   };
+  if (context.runtimePolicyReaffirmation) {
+    baselineReaffirmation.runtimePolicyReaffirmation = context.runtimePolicyReaffirmation;
+  }
+  next.semanticPayload.baselineReaffirmation = baselineReaffirmation;
   return next;
 }
 
-function planRevision(manifestFile, targetCommit, revisionRoot, options) {
+async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const manifest = manifestFile.value;
   if (manifest.targetBaselineCommit === targetCommit) {
     throw new Error("The source Manifest already names the requested target; create no redundant revision.");
@@ -316,6 +485,9 @@ function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const legacyBytes = Buffer.from(canonicalJson(legacyValue), "utf8");
   const legacyRawSha256 = sha256(legacyBytes);
   const protectedDiff = collectProtectedDiff(manifest.targetBaselineCommit, targetCommit);
+  const runtimePolicyRefresh = options.refreshRuntimePolicy
+    ? await collectRuntimePolicyRefresh(manifest)
+    : null;
 
   const evidence = manifest.evidenceBindings.map((binding) => {
     const sourceFile = resolveRepositoryFile(binding.evidencePath, `${binding.role} source evidence`);
@@ -337,6 +509,7 @@ function planRevision(manifestFile, targetCommit, revisionRoot, options) {
           legacyRegistryRawSha256: legacyRawSha256,
           justificationPath: options.justification,
           protectedDiff,
+          runtimePolicyReaffirmation: runtimePolicyRefresh?.proof ?? null,
           sourceEvidencePath: sourceFile.relative,
           sourceEvidenceRawSha256: sourceLoaded.rawSha256
         })
@@ -356,6 +529,7 @@ function planRevision(manifestFile, targetCommit, revisionRoot, options) {
     targetCommit,
     revisionRoot,
     protectedDiff,
+    runtimePolicyRefresh,
     legacy: {
       source: legacySource,
       destination: assertSafeRelative(legacyRelative, "Revision legacy registry"),
@@ -379,6 +553,7 @@ function printPlan(plan) {
     `  roles        : ${requiredRoles(plan.manifest).join(", ")}`,
     `  runtime diff : ${plan.protectedDiff.runtimePaths.join(", ") || "none"}`,
     `  test diff    : ${plan.protectedDiff.testOnlyPaths.join(", ") || "none"}`,
+    `  runtime policy: ${plan.runtimePolicyRefresh ? "strict stale-fs-digest refresh" : "retained"}`,
     "",
     `Evidence phase (${plan.evidence.length + 1} new files):`,
     `  legacy ${plan.legacy.destination.relative}`,
@@ -497,6 +672,9 @@ function writeBindingPhase(options, plan) {
 
   const nextManifest = structuredClone(plan.manifest);
   nextManifest.targetBaselineCommit = plan.targetCommit;
+  if (plan.runtimePolicyRefresh) {
+    nextManifest.liveReachability.expectedRuntimePolicy = plan.runtimePolicyRefresh.targetObservedPolicy;
+  }
   nextManifest.legacyResolution = {
     registryPath: plan.legacy.destination.relative,
     rawSha256: legacyRawSha256
@@ -514,7 +692,7 @@ function writeBindingPhase(options, plan) {
   );
 }
 
-export function main(argv = process.argv.slice(2)) {
+export async function main(argv = process.argv.slice(2)) {
   const options = parseArgs(argv);
   if (options.help) {
     process.stdout.write(`${usage()}\n`);
@@ -538,11 +716,12 @@ export function main(argv = process.argv.slice(2)) {
   assertAncestor(targetCommit, resolveCommit("HEAD", "HEAD"), "Target baseline");
   const revisionRoot = resolveRevisionRoot(manifestFile.relative, options.revisionRoot);
   if (options.writeEvidence) assertProducedAt(options.producedAt);
-  const plan = planRevision(manifestFile, targetCommit, revisionRoot, options);
+  if (options.refreshRuntimePolicy) assertCleanWorktree();
+  const plan = await planRevision(manifestFile, targetCommit, revisionRoot, options);
   printPlan(plan);
   if (options.writeEvidence) writeEvidencePhase(options, plan);
   else if (options.writeBindings) writeBindingPhase(options, plan);
   else process.stdout.write("\nDRY RUN — no files written.\n");
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) main();
+if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) await main();

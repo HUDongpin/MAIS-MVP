@@ -209,7 +209,7 @@ test("schema confirmation is loaded from the event file, masked, and exported wi
   const eventPath = path.join(tempDir, "event.json");
   const environmentPath = path.join(tempDir, "github-env");
   const confirmation =
-    `confirm:teacher-notice-production-schema:v3:${"a".repeat(40)}:${"b".repeat(40)}:` +
+    `confirm:mais-production-schema:v4:${"a".repeat(40)}:${"b".repeat(40)}:` +
     "fixture-binding-not-real";
 
   try {

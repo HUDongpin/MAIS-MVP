@@ -4086,14 +4086,34 @@ async function hasCurrentPostgresSchemaMarker() {
   )) === true;
 }
 
+type PostgresStorageBootstrapExpectedState = "any" | "empty";
+
 async function bootstrapPostgresStateTables() {
-  const sql = getPostgresClient();
+  return bootstrapPostgresStateTablesOnClient(getPostgresClient(), {
+    expectedState: "any",
+    lockTimeout: "1000ms",
+    statementTimeout: "5000ms"
+  });
+}
+
+async function bootstrapPostgresStateTablesOnClient(
+  sql: postgres.Sql,
+  {
+    expectedState,
+    lockTimeout,
+    statementTimeout
+  }: {
+    expectedState: PostgresStorageBootstrapExpectedState;
+    lockTimeout: "1000ms" | "5000ms";
+    statementTimeout: "5000ms" | "60000ms";
+  }
+) {
   return sql.begin(async (migrationSql) => {
     await migrationSql`
       SELECT
         pg_catalog.set_config('search_path', 'pg_catalog, public', true),
-        pg_catalog.set_config('lock_timeout', '1000ms', true),
-        pg_catalog.set_config('statement_timeout', '5000ms', true)
+        pg_catalog.set_config('lock_timeout', ${lockTimeout}, true),
+        pg_catalog.set_config('statement_timeout', ${statementTimeout}, true)
     `;
     try {
       await migrationSql`
@@ -4112,6 +4132,20 @@ async function bootstrapPostgresStateTables() {
         throw new PostgresAdvisoryBootstrapContentionError(error);
       }
       throw error;
+    }
+    if (expectedState === "empty") {
+      const relationRows = await migrationSql<Array<{ relation_count: number }>>`
+        /* postgres_storage_production_gate_empty_check */
+        SELECT pg_catalog.count(*)::pg_catalog.int4 AS relation_count
+        FROM pg_catalog.pg_class AS relation
+        INNER JOIN pg_catalog.pg_namespace AS namespace
+          ON namespace.oid = relation.relnamespace
+        WHERE namespace.nspname = 'public'
+          AND relation.relname::text = ANY(${[...postgresStorageCanonicalRelationNames]}::text[])
+      `;
+      if (relationRows.length !== 1 || relationRows[0]?.relation_count !== 0) {
+        throw new Error("Postgres production schema operation plan changed.");
+      }
     }
     const testLockHoldMs = process.env.NODE_ENV === "test"
       ? Number.parseInt(process.env.MAIS_TEST_POSTGRES_BOOTSTRAP_LOCK_HOLD_MS ?? "0", 10)
@@ -5334,6 +5368,97 @@ const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
     readCurrentMarker: hasCurrentPostgresSchemaMarker
   })
 });
+
+export type PostgresStorageProductionSchemaState = "empty" | "exact" | "partial";
+
+export async function inspectPostgresStorageSchemaForProductionGate(
+  client: postgres.Sql
+): Promise<PostgresStorageProductionSchemaState> {
+  if (!client || typeof client.begin !== "function") {
+    throw new Error("Postgres production schema client was rejected.");
+  }
+  return client.begin(async (transactionSql) => {
+    const sql = transactionSql as unknown as PostgresReadinessTransaction;
+    await sql`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY`;
+    await sql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '2000ms', true),
+        pg_catalog.set_config('statement_timeout', '15000ms', true),
+        pg_catalog.set_config('idle_in_transaction_session_timeout', '15000ms', true)
+    `;
+    await acquirePostgresStorageContractSharedAdvisoryLock(sql);
+    const relationRows = await sql`
+      /* postgres_storage_production_gate_relation_probe */
+      SELECT pg_catalog.count(*)::pg_catalog.int4 AS relation_count
+      FROM pg_catalog.pg_class AS relation
+      INNER JOIN pg_catalog.pg_namespace AS namespace
+        ON namespace.oid = relation.relnamespace
+      WHERE namespace.nspname = 'public'
+        AND relation.relkind IN ('r', 'p')
+        AND relation.relname::text = ANY(${[...postgresStorageCanonicalRelationNames]}::text[])
+    ` as Array<{ relation_count: number }>;
+    if (relationRows.length !== 1) {
+      throw new Error("Postgres production schema inspection was rejected.");
+    }
+    const relationCount = relationRows[0]?.relation_count;
+    if (relationCount === 0) return "empty";
+    if (relationCount !== postgresStorageCanonicalRelationNames.length) return "partial";
+    if (!await postgresStorageReadinessCatalogIsComplete(sql)) return "partial";
+    if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return "partial";
+    if (!await postgresStorageReadinessMarkerIsCurrent(
+      sql,
+      currentPostgresStorageReadinessState()
+    )) return "partial";
+    if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return "partial";
+    return "exact";
+  });
+}
+
+function assertPostgresStorageProductionSchemaGateContext(
+  environment: NodeJS.ProcessEnv = process.env
+) {
+  if (
+    environment.CI !== "true"
+    || environment.GITHUB_ACTIONS !== "true"
+    || environment.GITHUB_EVENT_NAME !== "workflow_dispatch"
+    || environment.GITHUB_REF !== "refs/heads/main"
+    || environment.GITHUB_REF_PROTECTED !== "true"
+    || environment.GITHUB_REPOSITORY !== "HUDongpin/MAIS-MVP"
+    || !/^[a-f0-9]{40}$/u.test(String(environment.GITHUB_SHA ?? ""))
+    || environment.GITHUB_WORKFLOW_REF
+      !== "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+    || environment.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE
+      !== "github-actions-serialized-v1"
+    || environment.NODE_ENV === "test"
+  ) {
+    throw new Error("Postgres production schema execution context was rejected.");
+  }
+}
+
+export async function applyPostgresStorageSchemaForProductionGate(
+  client: postgres.Sql
+) {
+  assertPostgresStorageProductionSchemaGateContext();
+  const preflightState = await inspectPostgresStorageSchemaForProductionGate(client);
+  if (preflightState !== "empty") {
+    throw new Error("Postgres production schema operation plan changed.");
+  }
+  await bootstrapPostgresStateTablesOnClient(client, {
+    expectedState: "empty",
+    lockTimeout: "5000ms",
+    statementTimeout: "60000ms"
+  });
+  const postflightState = await inspectPostgresStorageSchemaForProductionGate(client);
+  if (postflightState !== "exact") {
+    throw new Error("Postgres production schema postflight was rejected.");
+  }
+  return Object.freeze({
+    appStorageState: postflightState,
+    hotAuthSchemaVersion,
+    schemaVersion
+  });
+}
 
 async function configureTeacherNoticeEmailOutboxPostgresTransaction(
   sql: PostgresExecutor,
