@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "promotion-baseline-review-justification.v1",
+  "sourceBaselineCommit": "e81f6b53515cf97dcd5351d0ff7add4224d7eab2",
+  "targetBaselineCommit": "72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b",
+  "revisionRoot": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/snapshot-readiness-recovery-20260828",
+  "roles": [
+    "A21",
+    "A18",
+    "A23",
+    "A04",
+    "A05",
+    "A11",
+    "A22",
+    "A24",
+    "A25"
+  ],
+  "runtimePolicyReview": {
+    "schemaVersion": "promotion-runtime-policy-review-attestation.v1",
+    "sourceBaselineCommit": "e81f6b53515cf97dcd5351d0ff7add4224d7eab2",
+    "targetBaselineCommit": "72e36c5f99e4963aace6146b6ca1a9cd2cd0b11b",
+    "reviewedPaths": [
+      {
+        "path": "lib/server/userStore.ts",
+        "status": "M"
+      },
+      {
+        "path": "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+        "status": "M"
+      },
+      {
+        "path": "lib/server/userStoreNovaPostgresIntegration.test.ts",
+        "status": "M"
+      }
+    ],
+    "changedPolicyFields": [
+      "fsReadAllowlistDigest"
+    ],
+    "addedEdges": [],
+    "removedEdges": [],
+    "addedTopologyEdges": [],
+    "removedTopologyEdges": [],
+    "fsRawTransitions": [
+      {
+        "normalized": {
+          "sourcePath": "lib/server/userStore.ts",
+          "callee": "node:fs/promises.readFile",
+          "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+          "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+          "policy": "runtime-storage-read-only-non-module"
+        },
+        "source": {
+          "sourcePath": "lib/server/userStore.ts",
+          "sourceRawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6",
+          "callee": "node:fs/promises.readFile",
+          "position": 308204,
+          "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+          "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+          "policy": "runtime-storage-read-only-non-module"
+        },
+        "target": {
+          "sourcePath": "lib/server/userStore.ts",
+          "sourceRawSha256": "233b330f527f11994bfca0d2c8dd7bc10b47723226ce7ee9b99c950c7e5e4c17",
+          "callee": "node:fs/promises.readFile",
+          "position": 308202,
+          "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+          "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+          "policy": "runtime-storage-read-only-non-module"
+        }
+      }
+    ],
+    "nextDynamicRawTransitions": [],
+    "sensitiveAnchorRawTransitions": [
+      {
+        "normalized": {
+          "path": "lib/server/userStore.ts"
+        },
+        "source": {
+          "path": "lib/server/userStore.ts",
+          "rawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6"
+        },
+        "target": {
+          "path": "lib/server/userStore.ts",
+          "rawSha256": "233b330f527f11994bfca0d2c8dd7bc10b47723226ce7ee9b99c950c7e5e4c17"
+        }
+      }
+    ],
+    "candidateArtifactBindings": [
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+        "sourceRawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+        "targetRawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+        "sourceRawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+        "targetRawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+        "sourceRawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+        "targetRawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+        "unchanged": true
+      }
+    ],
+    "candidateBytesChanged": false,
+    "liveAllowed": false
+  },
+  "liveAllowed": false
+}
