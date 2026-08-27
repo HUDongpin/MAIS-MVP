@@ -165,9 +165,11 @@ jobs:
       - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
         run: npm run audit:lesson-illustrations
 
-      # The zh-Hans and HK Chinese audits parse .ts/.tsx only, so neither has ever
-      # scanned a question pack. This one reads the JSON the packs are built from.
-      - name: Run California translation gate (coverage + script leakage + corrected-term regressions)
+      # American curriculum ships English only — the US tracks have no multi-language
+      # support. The zh-Hans and HK Chinese audits parse .ts/.tsx only, so neither has
+      # ever scanned a question pack; this one reads the JSON the packs are built from
+      # and fails if a US pack ships a zh that differs from its en.
+      - name: Run US curriculum English-only gate (American tracks ship English; zh must mirror en)
         run: node scripts/audit-ca-translations.mjs
 
       # Uses the :strict variant deliberately — plain `audit:zh-hans` always exits 0

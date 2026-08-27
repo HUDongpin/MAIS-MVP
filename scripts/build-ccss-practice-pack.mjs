@@ -170,69 +170,19 @@ function synthesizeNumericDistractors(question, needed) {
 }
 
 /**
- * Localized-string table, keyed by the exact English string, in
- * `ccss-textbook-source-v1/translations.json`. A `null` value means "registered but
- * not yet translated" and falls back to English; a missing key fails the build, so a
- * new upstream string cannot silently ship untranslated the way all 810 items did
- * before this table existed (see the 2026-08-26 California content QA, §2.5).
+ * US curriculum ships English only — American tracks have no multi-language support
+ * (standing owner decision, reaffirmed 2026-08-27; the pack header records the
+ * 2026-07-19 original). `zh` and `zhHans` deliberately mirror `en`: they are
+ * structural placeholders so the shared LocalizedText shape holds, NOT a translation
+ * gap to be filled.
  *
- * Run with `--sync-translations` to register new strings as `null` instead of failing.
+ * scripts/audit-ca-translations.mjs enforces this and fails if any US pack ships a
+ * `zh` that differs from its `en`.
  */
-const translationsPath = path.join(sourceDir, "translations.json");
-const translations = JSON.parse(readFileSync(translationsPath, "utf8"));
-const syncTranslations = process.argv.includes("--sync-translations");
-const untranslated = new Set();
-const newlyRegistered = new Set();
-let translatedCount = 0;
-let localizedCount = 0;
-
-/**
- * Numbers, bare symbols and short algebraic fragments are identical in every locale;
- * translating "3/4" or "πr²" is meaningless, so they never enter the table.
- */
-function isLocaleNeutral(en) {
-  return !/[A-Za-z]{2,}/.test(en);
+function L(en) {
+  return { en, zh: en, zhHans: en };
 }
 
-/**
- * Per-item overrides, keyed "slug#index" exactly like curated-distractors.json, then by
- * the English string. Needed because the main table is keyed by the bare English string,
- * which collapses homographs: "composite" is a composite *shape* in compose-2d but a
- * composite *number* in factors-multiples, and one entry cannot be right for both.
- * 158 English strings are shared across more than one lesson, so this is a class, not a
- * one-off. Only add an entry when the shared string genuinely needs different Chinese.
- */
-const translationOverrides = JSON.parse(
-  readFileSync(path.join(sourceDir, "translation-overrides.json"), "utf8")
-);
-
-function L(en, contextKey) {
-  localizedCount += 1;
-  if (isLocaleNeutral(en)) return { en, zh: en, zhHans: en };
-
-  const override = contextKey ? translationOverrides[contextKey]?.[en] : undefined;
-  if (override) {
-    translatedCount += 1;
-    return { en, zh: override.zh, zhHans: override.zhHans ?? override.zh };
-  }
-
-  if (!(en in translations)) {
-    if (syncTranslations) {
-      translations[en] = null;
-      newlyRegistered.add(en);
-    } else {
-      problems.push(`translations.json: unregistered string — ${JSON.stringify(en)}`);
-    }
-  }
-
-  const entry = translations[en];
-  if (!entry) {
-    untranslated.add(en);
-    return { en, zh: en, zhHans: en };
-  }
-  translatedCount += 1;
-  return { en, zh: entry.zh, zhHans: entry.zhHans ?? entry.zh };
-}
 
 const questions = [];
 const problems = [];
@@ -282,7 +232,9 @@ for (const lesson of snapshot.lessons) {
       let distractors = [];
       if (needed > 0) {
         if (question.choices.every(isNumericChoice)) {
-          distractors = synthesizeNumericDistractors(question, needed);
+          // A curated entry wins even for a numeric set: the deterministic synthesizer
+          // cannot know that a value it invents also SATISFIES the prompt (inequalities#0).
+          distractors = curatedDistractors[key] ?? synthesizeNumericDistractors(question, needed);
         } else {
           distractors = curatedDistractors[key] ?? patternDistractors(question, needed) ?? [];
           if (distractors.length !== needed) {
@@ -299,11 +251,11 @@ for (const lesson of snapshot.lessons) {
       questions.push({
         ...base,
         type: "multiple-choice",
-        prompt: L(question.prompt, key),
-        options: options.map((option) => L(option, key)),
+        prompt: L(question.prompt),
+        options: options.map(L),
         answer: answerText,
         acceptedAnswers: [answerText],
-        explanation: L(question.explanation, key),
+        explanation: L(question.explanation),
         independentAnswer: answerText,
         independentSolution: question.explanation
       });
@@ -316,38 +268,14 @@ for (const lesson of snapshot.lessons) {
     questions.push({
       ...base,
       type: "fill-in",
-      prompt: L(question.prompt, key),
+      prompt: L(question.prompt),
       answer: answerText,
       acceptedAnswers: accepted,
-      explanation: L(question.explanation, key),
+      explanation: L(question.explanation),
       independentAnswer: answerText,
       independentSolution: question.explanation
     });
   });
-}
-
-if (syncTranslations && newlyRegistered.size) {
-  const sorted = Object.fromEntries(Object.keys(translations).sort().map((k) => [k, translations[k]]));
-  writeFileSync(translationsPath, `${JSON.stringify(sorted, null, 2)}\n`);
-  console.log(`translations.json: registered ${newlyRegistered.size} new string(s) as null`);
-}
-
-/**
- * Coverage ratchet. Raise this as translation lands so coverage can only go up;
- * it lives here rather than in package.json because the npm scripts are frozen.
- */
-const MIN_TRANSLATION_COVERAGE = 1;
-const translatableTotal = translatedCount + untranslated.size;
-const coverage = translatableTotal === 0 ? 1 : translatedCount / translatableTotal;
-console.log(
-  `translations: ${translatedCount}/${translatableTotal} translatable strings ` +
-    `(${(coverage * 100).toFixed(1)}%), ${localizedCount - translatableTotal} locale-neutral`
-);
-if (coverage < MIN_TRANSLATION_COVERAGE) {
-  problems.push(
-    `translation coverage ${(coverage * 100).toFixed(1)}% is below the ratchet ` +
-      `${(MIN_TRANSLATION_COVERAGE * 100).toFixed(1)}% — do not lower the ratchet to pass`
-  );
 }
 
 if (problems.length) {
@@ -355,7 +283,7 @@ if (problems.length) {
   console.error(shown.join("\n"));
   if (problems.length > shown.length) console.error(`… and ${problems.length - shown.length} more`);
   console.error(`\nbuild-ccss-practice-pack: ${problems.length} problem(s).`);
-  console.error("If these are new upstream strings, re-run with --sync-translations.");
+
   process.exit(1);
 }
 
