@@ -1,0 +1,3202 @@
+{
+  "schemaVersion": 1,
+  "reportType": "MAIS-MVP Stage C-D-E delta revalidation",
+  "generatedAt": "2026-08-23T04:23:45Z",
+  "timezone": "Asia/Hong_Kong",
+  "repository": "/Volumes/Starship/MAIS-MVP",
+  "owner": "A25",
+  "authorizationBoundary": {
+    "evidenceOnly": true,
+    "historicalLedgerImmutable": true,
+    "localBranchDeletionAuthorized": false,
+    "worktreeRemovalAuthorized": false,
+    "forceRemovalAuthorized": false,
+    "pushAuthorized": false,
+    "mergeAuthorized": false,
+    "pullRequestMutationAuthorized": false,
+    "githubRemoteDeletionAuthorized": false,
+    "productCodeChangesAuthorized": false,
+    "allowedNewFiles": [
+      "coordination/release-intake/2026-08-23-A25-stage-c-d-e-delta-revalidation.md",
+      "coordination/release-intake/2026-08-23-A25-stage-c-d-e-delta-revalidation.json"
+    ]
+  },
+  "historicalBaseline": {
+    "ledger": "coordination/release-intake/2026-08-23-A25-stage-c-d-e-branch-pr-closure.md",
+    "machineLedger": "coordination/release-intake/2026-08-23-A25-stage-c-d-e-branch-pr-closure.json",
+    "immutable": true,
+    "generatedAt": "2026-08-22T21:53:39Z",
+    "finalSnapshot": {
+      "originMain": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "localMain": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "localMainAhead": 1,
+      "localMainBehind": 50,
+      "localBranches": 43,
+      "worktrees": 32,
+      "branchWorktrees": 30,
+      "detachedWorktrees": 2,
+      "cleanWorktrees": 17,
+      "dirtyWorktrees": 15,
+      "githubRemoteBranchesExcludingOriginHead": 53,
+      "openPullRequests": 0,
+      "worktreePruneDryRunOutputEmpty": true
+    }
+  },
+  "preWriteProtection": {
+    "capturedAt": "2026-08-23T04:16:10Z",
+    "rootHead": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+    "rootBranch": "main",
+    "trackedStatus": [
+      " M AGENTS.md",
+      " M CLAUDE.md"
+    ],
+    "trackedStatusSha256": "151d6f2b1cb73a2f652c078b9ca883c66591e5a11d70eb97c2a7261be4b3406f",
+    "trackedDiffSha256": "137ac2a65b36e7417eb002027c30d47029dc2cee3b8e31741509d2387c206647",
+    "stagedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trackedFileSha256": {
+      "AGENTS.md": "bccede9b1cea2c702948eea9ca08ffc9578ac96a53483b02b64a54d298e3d012",
+      "CLAUDE.md": "ea003661c10d290aa27ac77e6a087f34579c5a93b29a92e4399a2b10562643a3"
+    },
+    "preExistingUntrackedEntries": 100,
+    "preExistingStatusEntries": 102,
+    "filteredStatusSha256": "bc71508fa2b9c93c4c14a4354f19b195035f5ac2c96a1c03f8da3b1195da79f8",
+    "protectionDecision": "do not touch, stage, commit, reset, stash, switch, clean, or overwrite pre-existing root changes"
+  },
+  "snapshot": {
+    "capturedAt": "2026-08-23T04:23:45Z",
+    "localMain": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+    "originMain": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+    "localMainAhead": 1,
+    "localMainBehind": 50,
+    "localBranches": 48,
+    "worktrees": 37,
+    "branchWorktrees": 35,
+    "detachedWorktrees": 2,
+    "cleanWorktrees": 23,
+    "dirtyWorktrees": 14,
+    "githubRemoteHeads": 53,
+    "openPullRequests": 0,
+    "worktreePruneDryRunOutputEmpty": true,
+    "rootCwdProcesses": [
+      {
+        "pid": 2565,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 38539,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 46427,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 63159,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 63201,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 64142,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 64418,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      },
+      {
+        "pid": 72393,
+        "command": "node_repl",
+        "cwd": "/Volumes/Starship/MAIS-MVP"
+      }
+    ]
+  },
+  "postWriteDeltaSnapshot": {
+    "capturedAt": "2026-08-23T04:48:17Z",
+    "localBranches": 49,
+    "worktrees": 38,
+    "branchWorktrees": 36,
+    "detachedWorktrees": 2,
+    "cleanWorktrees": 24,
+    "dirtyWorktrees": 14,
+    "rootTrackedEntries": 2,
+    "rootUntrackedEntries": 102,
+    "changedRowsSincePreWrite": [
+      {
+        "worktreePath": "/Volumes/Starship/MAIS-MVP",
+        "reason": "the two authorized untracked delta reports were created",
+        "before": {
+          "tracked": 2,
+          "untracked": 100,
+          "status": "dirty"
+        },
+        "after": {
+          "tracked": 2,
+          "untracked": 102,
+          "status": "dirty"
+        }
+      },
+      {
+        "branch": "codex/parent-full-remediation-20260823-v3",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823-v3",
+        "reason": "concurrent owner/session row became dirty, was stopped and fingerprinted, then was committed clean at a new local tip",
+        "before": {
+          "head": "56e7a3c8852f35de3defd5f987690e255583c908",
+          "tracked": 0,
+          "untracked": 0,
+          "status": "clean"
+        },
+        "intermediate": {
+          "observedAt": "2026-08-23T04:34:02Z",
+          "head": "56e7a3c8852f35de3defd5f987690e255583c908",
+          "tracked": 2,
+          "untracked": 0,
+          "status": "dirty"
+        },
+        "after": {
+          "observedAt": "2026-08-23T04:43:01Z",
+          "head": "c83d14e35c126cac8920b0487624521967af7693",
+          "tracked": 0,
+          "untracked": 0,
+          "status": "clean"
+        }
+      },
+      {
+        "branch": "codex/a06-trig-unit-wave-redesign-20260823",
+        "worktreePath": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt",
+        "reason": "active writer added one tracked modification while three Node cwd processes remained active",
+        "before": {
+          "tracked": 5,
+          "untracked": 2,
+          "status": "dirty"
+        },
+        "intermediate": {
+          "observedAt": "2026-08-23T04:37:57Z",
+          "tracked": 6,
+          "untracked": 2,
+          "status": "dirty"
+        },
+        "after": {
+          "observedAt": "2026-08-23T04:48:17Z",
+          "tracked": 6,
+          "untracked": 4,
+          "status": "dirty"
+        }
+      }
+    ],
+    "addedRowsSincePreWrite": [
+      {
+        "branch": "codex/a06-mais-manim-v3-rc-20260823",
+        "head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+        "worktreePath": "/Users/dongpinhu/Documents/Codex/2026-08-23/mais-manim-v3-implementation-wt",
+        "ownerSession": "A06",
+        "detached": false,
+        "dirty": {
+          "tracked": 0,
+          "untracked": 0,
+          "status": "clean"
+        },
+        "githubSameNameBranch": false,
+        "remoteFullyContainsLocalTip": true,
+        "originMainContainsLocalTip": true,
+        "ahead": 0,
+        "behind": 0,
+        "processAudit": {
+          "isolatedRecheckAt": "2026-08-23T04:45:47Z",
+          "persistentCwdProcesses": [],
+          "parallelAuditSubprocessesExcluded": true
+        },
+        "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+        "ownerDecision": "retain untouched; owner/session confirmation required"
+      }
+    ],
+    "otherWorktreeRowsUnchanged": true
+  },
+  "driftFromHistoricalLedgerFinalSnapshot": {
+    "localBranches": {
+      "prior": 43,
+      "current": 48,
+      "delta": 5
+    },
+    "worktrees": {
+      "prior": 32,
+      "current": 37,
+      "delta": 5
+    },
+    "branchWorktrees": {
+      "prior": 30,
+      "current": 35,
+      "delta": 5
+    },
+    "detachedWorktrees": {
+      "prior": 2,
+      "current": 2,
+      "delta": 0
+    },
+    "cleanWorktrees": {
+      "prior": 17,
+      "current": 23,
+      "delta": 6
+    },
+    "dirtyWorktrees": {
+      "prior": 15,
+      "current": 14,
+      "delta": -1
+    },
+    "githubRemoteHeads": {
+      "prior": 53,
+      "current": 53,
+      "delta": 0
+    },
+    "openPullRequests": {
+      "prior": 0,
+      "current": 0,
+      "delta": 0
+    }
+  },
+  "liveGitHub": {
+    "openPullRequests": [],
+    "remoteHeads": [
+      {
+        "name": "archive/a01-home-hero-local-tip-20260823",
+        "ref": "refs/heads/archive/a01-home-hero-local-tip-20260823",
+        "trackingRef": "origin/archive/a01-home-hero-local-tip-20260823",
+        "sha": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4"
+      },
+      {
+        "name": "archive/a04-practice-two-doors-pre-review-20260823",
+        "ref": "refs/heads/archive/a04-practice-two-doors-pre-review-20260823",
+        "trackingRef": "origin/archive/a04-practice-two-doors-pre-review-20260823",
+        "sha": "f48f118c3da2e5396d5d6a49bd589272dbf264e0"
+      },
+      {
+        "name": "archive/a05-15-bug-loop-wip-20260823",
+        "ref": "refs/heads/archive/a05-15-bug-loop-wip-20260823",
+        "trackingRef": "origin/archive/a05-15-bug-loop-wip-20260823",
+        "sha": "8c4d06ab2760b82b34ab2946d0688e75b8740e29"
+      },
+      {
+        "name": "archive/a06-ca-visualization-labs-loop-wip-20260823",
+        "ref": "refs/heads/archive/a06-ca-visualization-labs-loop-wip-20260823",
+        "trackingRef": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823",
+        "sha": "777f46db6ef16c209f3493f58ec1fb13df8daf94"
+      },
+      {
+        "name": "archive/a06-hk-visualization-labs-loop-wip-20260823",
+        "ref": "refs/heads/archive/a06-hk-visualization-labs-loop-wip-20260823",
+        "trackingRef": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823",
+        "sha": "d5595131afb3028e769689998e7a67090865afae"
+      },
+      {
+        "name": "archive/a18-hk-all-math-lesson-qa-wip-20260823",
+        "ref": "refs/heads/archive/a18-hk-all-math-lesson-qa-wip-20260823",
+        "trackingRef": "origin/archive/a18-hk-all-math-lesson-qa-wip-20260823",
+        "sha": "47dc3395521044ac8728d790c90d30516b9c94fa"
+      },
+      {
+        "name": "archive/a23-closeouts-main-merge-20260823",
+        "ref": "refs/heads/archive/a23-closeouts-main-merge-20260823",
+        "trackingRef": "origin/archive/a23-closeouts-main-merge-20260823",
+        "sha": "543d8ec8b02eae0b42f0690d3929191c777adaac"
+      },
+      {
+        "name": "archive/a23-closeouts-main-ready-20260823",
+        "ref": "refs/heads/archive/a23-closeouts-main-ready-20260823",
+        "trackingRef": "origin/archive/a23-closeouts-main-ready-20260823",
+        "sha": "66fddde4782b125c49f50c43348c1829ef8e1267"
+      },
+      {
+        "name": "archive/detached-fervent-murdock-e2535c-20260823",
+        "ref": "refs/heads/archive/detached-fervent-murdock-e2535c-20260823",
+        "trackingRef": "origin/archive/detached-fervent-murdock-e2535c-20260823",
+        "sha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661"
+      },
+      {
+        "name": "archive/detached-qwen-3-8-max-prod-20260823",
+        "ref": "refs/heads/archive/detached-qwen-3-8-max-prod-20260823",
+        "trackingRef": "origin/archive/detached-qwen-3-8-max-prod-20260823",
+        "sha": "bd0928ef52ff000976d9abab279bc79fc1aef1ae"
+      },
+      {
+        "name": "archive/google-oauth-loop-blocked-20260823",
+        "ref": "refs/heads/archive/google-oauth-loop-blocked-20260823",
+        "trackingRef": "origin/archive/google-oauth-loop-blocked-20260823",
+        "sha": "22d7c0f645837f8e1ef2094fdacb037879eb37af"
+      },
+      {
+        "name": "archive/lesson-remove-viz-completion-wip-20260823",
+        "ref": "refs/heads/archive/lesson-remove-viz-completion-wip-20260823",
+        "trackingRef": "origin/archive/lesson-remove-viz-completion-wip-20260823",
+        "sha": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d"
+      },
+      {
+        "name": "archive/next16-3-parity-hold-20260823",
+        "ref": "refs/heads/archive/next16-3-parity-hold-20260823",
+        "trackingRef": "origin/archive/next16-3-parity-hold-20260823",
+        "sha": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8"
+      },
+      {
+        "name": "archive/pr119-owner-selected-hero-20260823",
+        "ref": "refs/heads/archive/pr119-owner-selected-hero-20260823",
+        "trackingRef": "origin/archive/pr119-owner-selected-hero-20260823",
+        "sha": "d741a0aa8a14bf428ed3d2fdb98bbb41caff6fbf"
+      },
+      {
+        "name": "archive/pr134-app-state-row-tables-20260823",
+        "ref": "refs/heads/archive/pr134-app-state-row-tables-20260823",
+        "trackingRef": "origin/archive/pr134-app-state-row-tables-20260823",
+        "sha": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed"
+      },
+      {
+        "name": "archive/pr86-legal-accessibility-foundation-20260823",
+        "ref": "refs/heads/archive/pr86-legal-accessibility-foundation-20260823",
+        "trackingRef": "origin/archive/pr86-legal-accessibility-foundation-20260823",
+        "sha": "4a26ef985f1324bebeec72c8efe5ceb818cc0898"
+      },
+      {
+        "name": "archive/pr91-starship-migration-cleanup-20260823",
+        "ref": "refs/heads/archive/pr91-starship-migration-cleanup-20260823",
+        "trackingRef": "origin/archive/pr91-starship-migration-cleanup-20260823",
+        "sha": "d2ffff12aed07cf60ef790c1133c031f74be00a9"
+      },
+      {
+        "name": "archive/pr94-check-answer-fast-path-20260823",
+        "ref": "refs/heads/archive/pr94-check-answer-fast-path-20260823",
+        "trackingRef": "origin/archive/pr94-check-answer-fast-path-20260823",
+        "sha": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6"
+      },
+      {
+        "name": "archive/tutor-moderation-provider-pre-hardening-20260823",
+        "ref": "refs/heads/archive/tutor-moderation-provider-pre-hardening-20260823",
+        "trackingRef": "origin/archive/tutor-moderation-provider-pre-hardening-20260823",
+        "sha": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9"
+      },
+      {
+        "name": "chore/starship-migration-cleanup",
+        "ref": "refs/heads/chore/starship-migration-cleanup",
+        "trackingRef": "origin/chore/starship-migration-cleanup",
+        "sha": "d2ffff12aed07cf60ef790c1133c031f74be00a9"
+      },
+      {
+        "name": "claude/confident-archimedes-43307f",
+        "ref": "refs/heads/claude/confident-archimedes-43307f",
+        "trackingRef": "origin/claude/confident-archimedes-43307f",
+        "sha": "861b96afc690a9beec60def637c33c5eff23552b"
+      },
+      {
+        "name": "claude/fervent-murdock-e2535c",
+        "ref": "refs/heads/claude/fervent-murdock-e2535c",
+        "trackingRef": "origin/claude/fervent-murdock-e2535c",
+        "sha": "5a2ea9eb89d4066b629d77661415b2ce8db21cb7"
+      },
+      {
+        "name": "claude/focused-lehmann-5027fa",
+        "ref": "refs/heads/claude/focused-lehmann-5027fa",
+        "trackingRef": "origin/claude/focused-lehmann-5027fa",
+        "sha": "d9bf553ef864bbeb830e666bf8171bf90aad6106"
+      },
+      {
+        "name": "codex/a01-home-hero-chromebook",
+        "ref": "refs/heads/codex/a01-home-hero-chromebook",
+        "trackingRef": "origin/codex/a01-home-hero-chromebook",
+        "sha": "d741a0aa8a14bf428ed3d2fdb98bbb41caff6fbf"
+      },
+      {
+        "name": "codex/a04-a05-fix-15-product-bugs",
+        "ref": "refs/heads/codex/a04-a05-fix-15-product-bugs",
+        "trackingRef": "origin/codex/a04-a05-fix-15-product-bugs",
+        "sha": "61cd245c8ee5e1a41ba8474ef27a74e301fea4a0"
+      },
+      {
+        "name": "codex/a04-math-keyboard-fix",
+        "ref": "refs/heads/codex/a04-math-keyboard-fix",
+        "trackingRef": "origin/codex/a04-math-keyboard-fix",
+        "sha": "1ee9816948e34fade17b70aa71ebbc07fe81f01f"
+      },
+      {
+        "name": "codex/a04-practice-two-doors-review-20260822",
+        "ref": "refs/heads/codex/a04-practice-two-doors-review-20260822",
+        "trackingRef": "origin/codex/a04-practice-two-doors-review-20260822",
+        "sha": "a1379c643f3e18d43a137f30593135375b7bcac0"
+      },
+      {
+        "name": "codex/a06-ca-viz-resume-20260819",
+        "ref": "refs/heads/codex/a06-ca-viz-resume-20260819",
+        "trackingRef": "origin/codex/a06-ca-viz-resume-20260819",
+        "sha": "48be11db27be7aa58e5b9593522288af5167083b"
+      },
+      {
+        "name": "codex/a06-china-visualization-labs-loop",
+        "ref": "refs/heads/codex/a06-china-visualization-labs-loop",
+        "trackingRef": "origin/codex/a06-china-visualization-labs-loop",
+        "sha": "f865cadd51220bd5da2acc5f9659ba55d72a887a"
+      },
+      {
+        "name": "codex/a10-a11-ci-contract-fix-20260822",
+        "ref": "refs/heads/codex/a10-a11-ci-contract-fix-20260822",
+        "trackingRef": "origin/codex/a10-a11-ci-contract-fix-20260822",
+        "sha": "9755bcd95ccfecccdfd09958bde7a75bdb566554"
+      },
+      {
+        "name": "codex/a11-practice-pager-two-door-e2e-20260822",
+        "ref": "refs/heads/codex/a11-practice-pager-two-door-e2e-20260822",
+        "trackingRef": "origin/codex/a11-practice-pager-two-door-e2e-20260822",
+        "sha": "9ba0884e7e0cf4ee983c4e81ac4be7c463ca73ab"
+      },
+      {
+        "name": "codex/a17-student-rewards-dashboard",
+        "ref": "refs/heads/codex/a17-student-rewards-dashboard",
+        "trackingRef": "origin/codex/a17-student-rewards-dashboard",
+        "sha": "8e39fd054010a8bca324a752c242154bab8ac1ef"
+      },
+      {
+        "name": "codex/a18-china-all-math-qa",
+        "ref": "refs/heads/codex/a18-china-all-math-qa",
+        "trackingRef": "origin/codex/a18-china-all-math-qa",
+        "sha": "1e9f758c033cfcb1cfa8544e0b21a6536c1cd71f"
+      },
+      {
+        "name": "codex/a18-hk-ease-v2-qa",
+        "ref": "refs/heads/codex/a18-hk-ease-v2-qa",
+        "trackingRef": "origin/codex/a18-hk-ease-v2-qa",
+        "sha": "392bc74bc855fb0dc8eb2c07a6f548d4c6b23c47"
+      },
+      {
+        "name": "codex/a18-hk-safe-closeout-20260822",
+        "ref": "refs/heads/codex/a18-hk-safe-closeout-20260822",
+        "trackingRef": "origin/codex/a18-hk-safe-closeout-20260822",
+        "sha": "80f927ceee90e825e57093f810a6ab4fac63feee"
+      },
+      {
+        "name": "compliance/child-data-legal-baseline",
+        "ref": "refs/heads/compliance/child-data-legal-baseline",
+        "trackingRef": "origin/compliance/child-data-legal-baseline",
+        "sha": "5ac94eb8437c552df1bb7a5dbcd34b93c75f446b"
+      },
+      {
+        "name": "content/us-ca-math-lesson-qa",
+        "ref": "refs/heads/content/us-ca-math-lesson-qa",
+        "trackingRef": "origin/content/us-ca-math-lesson-qa",
+        "sha": "9a1ff26e7723e18462a46e7255ba027d4ce1de7a"
+      },
+      {
+        "name": "docs/compliance-data-inventory",
+        "ref": "refs/heads/docs/compliance-data-inventory",
+        "trackingRef": "origin/docs/compliance-data-inventory",
+        "sha": "f4d23db56ce4c4b2da1ff62ca1e1dd44f1216fd6"
+      },
+      {
+        "name": "feat/account-deletion-erasure",
+        "ref": "refs/heads/feat/account-deletion-erasure",
+        "trackingRef": "origin/feat/account-deletion-erasure",
+        "sha": "9ec3281ce5f4902b1c89893154869b5e10a7618a"
+      },
+      {
+        "name": "feat/legal-accessibility-foundation",
+        "ref": "refs/heads/feat/legal-accessibility-foundation",
+        "trackingRef": "origin/feat/legal-accessibility-foundation",
+        "sha": "4a26ef985f1324bebeec72c8efe5ceb818cc0898"
+      },
+      {
+        "name": "feat/region-gated-provider-routing",
+        "ref": "refs/heads/feat/region-gated-provider-routing",
+        "trackingRef": "origin/feat/region-gated-provider-routing",
+        "sha": "f1e8ca01049305f859d9ac5209b2b45d0cc3b934"
+      },
+      {
+        "name": "fix/nova-tutor-functions",
+        "ref": "refs/heads/fix/nova-tutor-functions",
+        "trackingRef": "origin/fix/nova-tutor-functions",
+        "sha": "05841b9900a7abeef7f5ae6a1f2158216b951762"
+      },
+      {
+        "name": "fix/starship-canonical-root",
+        "ref": "refs/heads/fix/starship-canonical-root",
+        "trackingRef": "origin/fix/starship-canonical-root",
+        "sha": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc"
+      },
+      {
+        "name": "i18n/zh-hans-ratchet",
+        "ref": "refs/heads/i18n/zh-hans-ratchet",
+        "trackingRef": "origin/i18n/zh-hans-ratchet",
+        "sha": "5d6cf7e775521c1d29d1d35c74f9c9cbc0ca84c1"
+      },
+      {
+        "name": "main",
+        "ref": "refs/heads/main",
+        "trackingRef": "origin/main",
+        "sha": "b6c7c347a49a813e454e707dd3c16399dcf29909"
+      },
+      {
+        "name": "ops/production-observability",
+        "ref": "refs/heads/ops/production-observability",
+        "trackingRef": "origin/ops/production-observability",
+        "sha": "409d1a987e83e98c61bf164cfd52fa86429608d4"
+      },
+      {
+        "name": "perf/app-state-row-tables",
+        "ref": "refs/heads/perf/app-state-row-tables",
+        "trackingRef": "origin/perf/app-state-row-tables",
+        "sha": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed"
+      },
+      {
+        "name": "perf/check-answer-fast-path",
+        "ref": "refs/heads/perf/check-answer-fast-path",
+        "trackingRef": "origin/perf/check-answer-fast-path",
+        "sha": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6"
+      },
+      {
+        "name": "perf/classroom-load-smoke",
+        "ref": "refs/heads/perf/classroom-load-smoke",
+        "trackingRef": "origin/perf/classroom-load-smoke",
+        "sha": "eb77c9310dae91f87db6ba2982d7e5b61cd2ff9f"
+      },
+      {
+        "name": "qa/learner-teacher-interactions",
+        "ref": "refs/heads/qa/learner-teacher-interactions",
+        "trackingRef": "origin/qa/learner-teacher-interactions",
+        "sha": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56"
+      },
+      {
+        "name": "qa/teacher-coverage",
+        "ref": "refs/heads/qa/teacher-coverage",
+        "trackingRef": "origin/qa/teacher-coverage",
+        "sha": "f17ebd898d62e05d84c13a8526a87c2a37c83849"
+      },
+      {
+        "name": "security/phase0-auth-hardening",
+        "ref": "refs/heads/security/phase0-auth-hardening",
+        "trackingRef": "origin/security/phase0-auth-hardening",
+        "sha": "96f35faf6be5a8eed6a202b2d7e4f69547840d15"
+      },
+      {
+        "name": "test/lesson-menu-phone-e2e-coverage",
+        "ref": "refs/heads/test/lesson-menu-phone-e2e-coverage",
+        "trackingRef": "origin/test/lesson-menu-phone-e2e-coverage",
+        "sha": "63fdc82bfd3c4167422c0adaf45650d80706c130"
+      }
+    ],
+    "remoteHeadsCount": 53,
+    "cachedTrackingRefsExactMatch": true,
+    "missingFromCached": [],
+    "extraVersusCached": [],
+    "shaMismatches": []
+  },
+  "stageC": {
+    "policy": "terminal states are historical and sealed; revalidate only, do not re-execute",
+    "total": 14,
+    "counts": {
+      "reviewed commit": 2,
+      "evidence archive": 9,
+      "owner-approved discard": 0,
+      "blocker report": 3
+    },
+    "packages": [
+      {
+        "branch": "codex/a04-practice-two-doors",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-practice-two-doors-wt",
+        "archiveCommit": "f48f118c3da2e5396d5d6a49bd589272dbf264e0",
+        "recoveryRef": "origin/archive/a04-practice-two-doors-pre-review-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a04-practice-two-doors-evidence-archive.json",
+        "ownerSession": "A04",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "codex/a05-15-bug-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-15-bug-loop-wt",
+        "archiveCommit": "8c4d06ab2760b82b34ab2946d0688e75b8740e29",
+        "recoveryRef": "origin/archive/a05-15-bug-loop-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a05-15-bug-loop-evidence-archive.json",
+        "ownerSession": "A05",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "codex/a06-ca-visualization-labs-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-ca-viz-labs-wt",
+        "archiveCommit": "777f46db6ef16c209f3493f58ec1fb13df8daf94",
+        "recoveryRef": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": true,
+        "forced": false,
+        "physicalResidual": {
+          "approximateTotalSize": "150G",
+          "approximateTmpSize": "149G",
+          "tmpFiles": 1090191,
+          "ownerOrA22DecisionRequired": true
+        },
+        "report": "coordination/release-intake/2026-08-23-A25-a06-ca-visualization-labs-loop-evidence-archive.json",
+        "ownerSession": "A06",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "codex/a06-hk-visualization-labs-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-hk-viz-labs-wt",
+        "archiveCommit": "d5595131afb3028e769689998e7a67090865afae",
+        "recoveryRef": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a06-hk-visualization-labs-loop-evidence-archive.json",
+        "ownerSession": "A06",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "codex/a14-parent-action-ui-20260823",
+        "finalState": "blocker report",
+        "worktreePath": "/Volumes/Starship/MAIS-parent-action-ui-wt",
+        "branchHead": "a7416c67222c92c25fac8c26fccf765eeb4c75a6",
+        "worktreeRegistered": true,
+        "physicalPathPresent": true,
+        "dirtyFingerprintReverified": true,
+        "report": "coordination/release-intake/2026-08-23-A25-a14-parent-action-ui-blocker-report.json",
+        "ownerSession": "A14",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "branchHeadExact": true,
+          "dirtyFingerprintExact": true,
+          "dirtyInventoryBaseline": {
+            "trackedChanges": 4,
+            "stagedChanges": 0,
+            "unstagedChanges": 4,
+            "untrackedEntries": 1,
+            "trackedPatchSha256": "05bf83d5ddca9cd2cc79d7564a917eaff0fb8ebe69ffaa5538561e3e9650d057",
+            "entries": [
+              {
+                "status": "tracked unstaged",
+                "path": "components/parent/ParentShell.tsx",
+                "bytes": 6621,
+                "gitBlob": "74e6aed8f6d35ad263a40f50bdc0dccd548222c8",
+                "sha256": "60085caab1cb2e594ea6b406fb41eadfbfc8da231a536cba5726d5c27843e567"
+              },
+              {
+                "status": "tracked unstaged",
+                "path": "components/parent/ParentViews.tsx",
+                "bytes": 55860,
+                "gitBlob": "b5796b11436486b0aa3e0592b43b53d53e16452d",
+                "sha256": "c1f1ce3b6f723d69dcfdd83c151e44a1e6de2212b5b854c2abd88c8982970679"
+              },
+              {
+                "status": "tracked unstaged",
+                "path": "tests/e2e/parent-console-feature-matrix.spec.ts",
+                "bytes": 16622,
+                "gitBlob": "ed21e601a6d3500494d8d48188149ff86ee09424",
+                "sha256": "7250683443b3a9b758a6dff62d635337d3e8cf4c4e2c73dc2acfdcbd50e55098"
+              },
+              {
+                "status": "tracked unstaged",
+                "path": "tests/e2e/parent-console.spec.ts",
+                "bytes": 29357,
+                "gitBlob": "5639a031bad34a20f5f5c3f71e5394b6a94c5c18",
+                "sha256": "a821e8702103775a8b6f53c4c12eed813eaff11da15dd375e9491923dd0207b3"
+              },
+              {
+                "status": "untracked",
+                "path": "components/parent/parentNavIcons.tsx",
+                "bytes": 1300,
+                "gitBlob": "369dd739dc8cd8992c1873efcbc755b469a01513",
+                "sha256": "d2f960ee0f258faef61552a34547835f0ea49f1829aefb097352e3484bf457ea"
+              }
+            ]
+          },
+          "blockerReport": "coordination/release-intake/2026-08-23-A25-a14-parent-action-ui-blocker-report.json"
+        }
+      },
+      {
+        "branch": "codex/a17-student-rewards-dashboard",
+        "finalState": "reviewed commit",
+        "worktreePath": "/Volumes/Starship/MAIS-rewards-dashboard-wt",
+        "reviewedHead": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+        "recoveryRef": "origin/codex/a17-student-rewards-dashboard",
+        "pullRequest": 139,
+        "mergeCommit": "feb16a61bd23e8cac6b2270f62b85f4c0c6f447e",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a17-student-rewards-dashboard-reviewed-commit.json",
+        "ownerSession": "A17",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true,
+          "originMainAncestor": true
+        }
+      },
+      {
+        "branch": "codex/a18-hk-all-math-lesson-qa",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-hk-content-qa-wt",
+        "archiveCommit": "47dc3395521044ac8728d790c90d30516b9c94fa",
+        "recoveryRef": "origin/archive/a18-hk-all-math-lesson-qa-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a18-hk-all-math-lesson-qa-evidence-archive.json",
+        "ownerSession": "A18",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "fix/starship-canonical-root",
+        "finalState": "blocker report",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6",
+        "branchHead": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+        "worktreeRegistered": true,
+        "physicalPathPresent": true,
+        "dirtyFingerprintReverified": true,
+        "report": "coordination/release-intake/2026-08-23-A25-fix-starship-canonical-root-blocker-report.json",
+        "ownerSession": "A22+A25",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "branchHeadExact": true,
+          "dirtyFingerprintExact": true,
+          "dirtyInventoryBaseline": {
+            "trackedChanges": 2,
+            "stagedChanges": 0,
+            "unstagedChanges": 2,
+            "untrackedEntries": 1,
+            "entries": [
+              {
+                "status": "tracked unstaged",
+                "path": ".claude/launch.json",
+                "bytes": 4518,
+                "gitBlob": "4c51ce94ce34e70ca3e87fa1049898a2418a8c92",
+                "sha256": "de3aab536b297e4e156e545944508cc88bc233aba9013dc32d7f581ac03fbe2c"
+              },
+              {
+                "status": "tracked unstaged",
+                "path": "next-env.d.ts",
+                "bytes": 291,
+                "gitBlob": "64d31b8def9f551326a4d714e500a9aa7705d837",
+                "sha256": "d8bbd40664ddf67a6d4634ef0a215bf9f7e8c9425c2f341f4c7fd4c5bcece83c"
+              },
+              {
+                "status": "untracked",
+                "path": ".codex/hooks.json",
+                "bytes": 412,
+                "gitBlob": "3fe56d21b1db4715a83e871f8099bc58aba352a3",
+                "sha256": "5d2499224b7a00452dec09997bc3a27ac198051299dfd35971d848bc568a52d3"
+              }
+            ],
+            "trackedPatchSha256": "d39d40cf3f05f8b887260d98a24c649d3e0febb82ed2bbf014ae447cc4eabe42"
+          },
+          "blockerReport": "coordination/release-intake/2026-08-23-A25-fix-starship-canonical-root-blocker-report.json"
+        }
+      },
+      {
+        "branch": "codex/a01-a12-google-oauth-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-google-oauth-wt",
+        "archiveCommit": "22d7c0f645837f8e1ef2094fdacb037879eb37af",
+        "recoveryRef": "origin/archive/google-oauth-loop-blocked-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-google-oauth-loop-evidence-archive.json",
+        "ownerSession": "A01+A12",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "worktree-lesson-remove-viz-completion",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/lesson-remove-viz-completion",
+        "archiveCommit": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d",
+        "recoveryRef": "origin/archive/lesson-remove-viz-completion-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-lesson-remove-viz-completion-evidence-archive.json",
+        "ownerSession": "A05",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "codex/next16-3-parity",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP-next16-3-parity",
+        "archiveCommit": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8",
+        "recoveryRef": "origin/archive/next16-3-parity-hold-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-next16-3-parity-evidence-archive.json",
+        "ownerSession": "A10+A22",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      },
+      {
+        "branch": "qa/learner-teacher-interactions",
+        "finalState": "reviewed commit",
+        "worktreePath": "/Volumes/Starship/MAIS-learner-teacher-qa-wt",
+        "reviewedHead": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56",
+        "recoveryRef": "origin/qa/learner-teacher-interactions",
+        "pullRequest": 140,
+        "mergeCommit": "4e8e2a7e6153cfc3319b2687dd42dd413f867a77",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-qa-learner-teacher-interactions-reviewed-commit.json",
+        "ownerSession": "A11+A13",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true,
+          "originMainAncestor": true
+        }
+      },
+      {
+        "branch": "security/ai-tutor-voice-moderation",
+        "finalState": "blocker report",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156",
+        "branchHead": "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17",
+        "worktreeRegistered": true,
+        "physicalPathPresent": true,
+        "dirtyFingerprintReverified": true,
+        "report": "coordination/release-intake/2026-08-23-A25-security-ai-tutor-voice-moderation-blocker-report.json",
+        "ownerSession": "A07+A12",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "branchHeadExact": true,
+          "dirtyFingerprintExact": true,
+          "dirtyInventoryBaseline": {
+            "trackedChanges": 0,
+            "stagedChanges": 0,
+            "unstagedChanges": 0,
+            "untrackedEntries": 1,
+            "entries": [
+              {
+                "status": "untracked",
+                "path": ".codex/hooks.json",
+                "bytes": 412,
+                "sha256": "5d2499224b7a00452dec09997bc3a27ac198051299dfd35971d848bc568a52d3"
+              }
+            ]
+          },
+          "blockerReport": "coordination/release-intake/2026-08-23-A25-security-ai-tutor-voice-moderation-blocker-report.json"
+        }
+      },
+      {
+        "branch": "feat/tutor-moderation-provider",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-tutor-moderation-wt",
+        "archiveCommit": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9",
+        "recoveryRef": "origin/archive/tutor-moderation-provider-pre-hardening-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-tutor-moderation-provider-evidence-archive.json",
+        "ownerSession": "A07",
+        "revalidatedAt": "2026-08-23T04:23:45Z",
+        "revalidation": {
+          "tipExact": true,
+          "worktreeRegisteredExact": true,
+          "physicalPathStateExact": true,
+          "result": "PASS",
+          "recoveryRefExact": true
+        }
+      }
+    ],
+    "reopenedRows": [],
+    "archiveRefsExact": 9,
+    "reviewedHeadsInOriginMain": 2,
+    "blockerFingerprintsUnchanged": 3,
+    "physicalResidual": {
+      "path": "/Volumes/Starship/MAIS-ca-viz-labs-wt",
+      "registeredWorktree": false,
+      "physicalPathPresent": true,
+      "deletionAuthorized": false,
+      "decision": "retain; physical deletion requires separate owner/A22 authorization"
+    }
+  },
+  "stageD": {
+    "openPullRequests": [],
+    "pullRequestMutationCount": 0,
+    "parentRemediationHolds": [
+      {
+        "branch": "codex/a11-parent-gates-20260823",
+        "tip": "a4be486175930c12478a8ca035c43a69b849f198",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a11-parent-gates-20260823",
+        "ahead": 2,
+        "behind": 28,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A11",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a12-parent-guardian-invites-20260823",
+        "tip": "acb666523f4d1164c74c26db8fc6167fd3fdf3e0",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-guardian-invites-20260823",
+        "ahead": 3,
+        "behind": 28,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A12",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a12-parent-messages-20260823",
+        "tip": "7788db92911bda061cc21f0057a1f0b09711a734",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-messages-20260823",
+        "ahead": 5,
+        "behind": 0,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A12",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a12-parent-privacy-api-20260823",
+        "tip": "d965809bf0d7f151921d8ac10be64c3c3c310143",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-privacy-api-20260823",
+        "ahead": 1,
+        "behind": 28,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A12",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a12-parent-session-revocation-20260823",
+        "tip": "d61e3201839f0ad6176b638febf6f9aacfd215ce",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-session-revocation-20260823",
+        "ahead": 3,
+        "behind": 28,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A12",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a13-teacher-report-target-20260823",
+        "tip": "300f97c5e1a3aa3748d39945d95e84e825547f2e",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a13-teacher-report-target-20260823",
+        "ahead": 2,
+        "behind": 28,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A13",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a14-parent-ui-final-20260823",
+        "tip": "2ac7cc6606e665652d6ee8b276ca8a64cbfcb72b",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-final-20260823",
+        "ahead": 4,
+        "behind": 0,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A14",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/a23-parent-integration-20260823-v2",
+        "tip": "56c5c2775ae12eeefad0848247bd3a1699127007",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-integration-20260823-v2",
+        "ahead": 2,
+        "behind": 12,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A23",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/parent-full-remediation-20260823-v3",
+        "tip": "c83d14e35c126cac8920b0487624521967af7693",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823-v3",
+        "ahead": 17,
+        "behind": 0,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A23",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "preWriteState": "clean",
+        "dirtyDriftObservedAt": "2026-08-23T04:34:02Z",
+        "transientDirtyObservation": {
+          "tracked": 2,
+          "staged": 0,
+          "unstaged": 2,
+          "untracked": 0,
+          "trackedPatchSha256": "92cf54cb27be479e04a5b2ea13f60632546797ac21042ef88074c06c36932def",
+          "entries": [
+            {
+              "status": "tracked unstaged",
+              "path": "scripts/parent-console-gates.test.mjs",
+              "bytes": 18882,
+              "sha256": "833f8e6858709227c4d91befe0161fd4ffdcb0052ae87e1cdd68aea32f081c5e"
+            },
+            {
+              "status": "tracked unstaged",
+              "path": "tests/e2e/isolated-app.ts",
+              "bytes": 17014,
+              "sha256": "181257283a9d60982a4092d73a148a849538b734d2977aa443d49b8bc7fc0590"
+            }
+          ]
+        },
+        "finalObservation": {
+          "observedAt": "2026-08-23T04:43:01Z",
+          "head": "c83d14e35c126cac8920b0487624521967af7693",
+          "tracked": 0,
+          "untracked": 0,
+          "status": "clean",
+          "remoteContainment": "NONE"
+        },
+        "cwdProcesses": [],
+        "ownerDecision": "retain clean local branch/worktree; no push, archive, remove, or delete"
+      },
+      {
+        "branch": "codex/parent-gap-ack-report-20260823",
+        "tip": "8b607eef2c5bc31610438cf3d709acbd3154a1c7",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-a14-parent-gap-ack-report-20260823",
+        "ahead": 10,
+        "behind": 0,
+        "clean": true,
+        "remoteContainment": "NONE",
+        "ownerSession": "A12+A14",
+        "sameNameRemote": false,
+        "remoteFullyContainsLocalTip": false,
+        "finalState": "OWNER_HOLD_NO_REMOTE",
+        "ownerDecision": "hold exactly as-is; no push, archive, remove, or delete"
+      }
+    ],
+    "parentOwnerHoldSummary": {
+      "total": 10,
+      "clean": 10,
+      "currentDirtyDrift": 0,
+      "observedDirtyDriftEvents": 1,
+      "remoteUncontained": 10,
+      "affectedRow": "codex/parent-full-remediation-20260823-v3"
+    },
+    "newActiveWorktreeDelta": {
+      "branch": "codex/a06-mais-manim-v3-rc-20260823",
+      "head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "worktreePath": "/Users/dongpinhu/Documents/Codex/2026-08-23/mais-manim-v3-implementation-wt",
+      "ownerSession": "A06",
+      "clean": true,
+      "isolatedProcessRecheckAt": "2026-08-23T04:45:47Z",
+      "persistentCwdProcesses": 0,
+      "parallelAuditSubprocessesExcluded": true,
+      "remoteFullyContainsLocalTip": true,
+      "githubSameNameBranch": false,
+      "finalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "ownerDecision": "retain untouched; owner/session confirmation required"
+    },
+    "activeWriterHold": {
+      "branch": "codex/a06-trig-unit-wave-redesign-20260823",
+      "head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "worktreePath": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt",
+      "ownerSession": "A06",
+      "finalState": "ACTIVE_WRITER_HOLD",
+      "committedHeadInOriginMain": true,
+      "uncommittedWorkAbsorbedByOriginMain": false,
+      "dirtyInventory": {
+        "observedAt": "2026-08-23T04:48:17Z",
+        "initialObservation": {
+          "observedAt": "2026-08-23T04:23:45Z",
+          "tracked": 5,
+          "untracked": 2
+        },
+        "intermediateObservation": {
+          "observedAt": "2026-08-23T04:37:57Z",
+          "tracked": 6,
+          "untracked": 2,
+          "trackedPatchSha256": "976af6c1e950ae84b601ef165c41be2f71f46733ec099758c00b3155f2f31442"
+        },
+        "tracked": 6,
+        "untracked": 4,
+        "entryFingerprintsObservedAt": "2026-08-23T04:37:57Z",
+        "entries": [
+          {
+            "status": " M",
+            "path": "components/visualizations/three/manim/MathFormulaOverlay.tsx",
+            "bytes": 18923,
+            "sha256": "87480d42cd30f0738aebbeb145056185a05768cc1cb2c531d9f39251b6f00e61"
+          },
+          {
+            "status": " M",
+            "path": "components/visualizations/three/manim/mathFormulaLayer.ts",
+            "bytes": 10842,
+            "sha256": "637d04d9edca988c653fdb5774edc376f52c3ba5e0df6b72cc70b578901fbaaf"
+          },
+          {
+            "status": " M",
+            "path": "components/visualizations/three/manim/mathProjectedLabels.ts",
+            "bytes": 10746,
+            "sha256": "57148183806b9379cfbac1ff3cd4c6d79a8c6e914807c3a96eff06d6a7cafe2a"
+          },
+          {
+            "status": " M",
+            "path": "components/visualizations/three/manim/mathSceneRegistry.test.ts",
+            "bytes": 71888,
+            "sha256": "f84781dc1e8044926f1512cd810125b583b85014964456b0a21e0371a5af168c"
+          },
+          {
+            "status": " M",
+            "path": "components/visualizations/three/manim/mathSceneRegistry.ts",
+            "bytes": 177793,
+            "sha256": "945f535cb076749fde79e0cc46adb9b264941b202ba5a478dc69eae96225c264"
+          },
+          {
+            "status": " M",
+            "path": "components/visualizations/three/manim/mathSceneTypes.ts",
+            "bytes": 16322,
+            "sha256": "cbdb422f86721dce9c5431fc6abf7dcd66d8b181232843a3191470b81212de82"
+          },
+          {
+            "status": "??",
+            "path": "components/visualizations/three/manim/mathSceneBrowserVideoCapture.test.ts"
+          },
+          {
+            "status": "??",
+            "path": "components/visualizations/three/manim/mathSceneCaptions.test.ts"
+          },
+          {
+            "status": "??",
+            "path": "components/visualizations/three/manim/mathSceneProjectedLabels.test.ts",
+            "bytes": 3820,
+            "sha256": "2a7685d47d62f4564451ef0e3cd452fb3dfaef65c4a40a02d7a80ce9d9f0448a"
+          },
+          {
+            "status": "??",
+            "path": "components/visualizations/three/manim/mathTrigUnitWaveScene.test.ts",
+            "bytes": 9640,
+            "sha256": "e66463a759b43d2b4fc1f5a6c366d27a785ddf6a54f67bbd9968685703d626fd"
+          }
+        ]
+      },
+      "cwdProcesses": [
+        {
+          "pid": 66662,
+          "command": "node",
+          "cwd": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+        },
+        {
+          "pid": 66687,
+          "command": "node",
+          "cwd": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+        },
+        {
+          "pid": 66788,
+          "command": "node",
+          "cwd": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+        }
+      ],
+      "contentStabilityExpected": false,
+      "lastStatusInventoryRecheckedAt": "2026-08-23T04:39:55Z",
+      "statusInventoryStillSixTrackedTwoUntracked": true,
+      "trackedPatchChangedAfterPointInTimeFingerprint": true,
+      "fingerprintInterpretation": "point-in-time evidence only; active writer content is intentionally not treated as stable or absorbed",
+      "ownerDecision": "retain untouched while writer processes or owner session remain active"
+    },
+    "activeOrNeedsOwnerIntake": [
+      {
+        "branch": "codex/a18-china-all-math-qa",
+        "detached": false,
+        "head": "1e9f758c033cfcb1cfa8544e0b21a6536c1cd71f",
+        "worktreePath": "/Volumes/Starship/MAIS-china-all-math-qa-wt",
+        "ownerSession": "A18",
+        "dirty": {
+          "tracked": 5,
+          "untracked": 2,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "codex/a06-china-visualization-labs-loop",
+        "detached": false,
+        "head": "f865cadd51220bd5da2acc5f9659ba55d72a887a",
+        "worktreePath": "/Volumes/Starship/MAIS-china-viz-labs-wt",
+        "ownerSession": "A06",
+        "dirty": {
+          "tracked": 44,
+          "untracked": 83,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "codex/a18-hk-ease-v2-qa",
+        "detached": false,
+        "head": "392bc74bc855fb0dc8eb2c07a6f548d4c6b23c47",
+        "worktreePath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt",
+        "ownerSession": "A18",
+        "dirty": {
+          "tracked": 0,
+          "untracked": 10,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "codex/a01-home-hero-chromebook",
+        "detached": false,
+        "head": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+        "worktreePath": "/Volumes/Starship/MAIS-home-hero-wt",
+        "ownerSession": "A01",
+        "dirty": {
+          "tracked": 1,
+          "untracked": 0,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "claude/confident-archimedes-43307f",
+        "detached": false,
+        "head": "861b96afc690a9beec60def637c33c5eff23552b",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/confident-archimedes-43307f",
+        "ownerSession": "UNASSIGNED",
+        "dirty": {
+          "tracked": 0,
+          "untracked": 1,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "claude/nervous-borg-384852",
+        "detached": false,
+        "head": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/nervous-borg-384852",
+        "ownerSession": "UNASSIGNED",
+        "dirty": {
+          "tracked": 1,
+          "untracked": 0,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "codex/a06-ca-viz-resume-20260819",
+        "detached": false,
+        "head": "48be11db27be7aa58e5b9593522288af5167083b",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a06-ca-viz-resume-20260819",
+        "ownerSession": "A06",
+        "dirty": {
+          "tracked": 1,
+          "untracked": 0,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      },
+      {
+        "branch": "ops/production-observability",
+        "detached": false,
+        "head": "409d1a987e83e98c61bf164cfd52fa86429608d4",
+        "worktreePath": "/Volumes/Starship/MAIS-observability-wt",
+        "ownerSession": "A12+A22",
+        "dirty": {
+          "tracked": 12,
+          "untracked": 2,
+          "status": "dirty"
+        },
+        "cwdProcesses": [],
+        "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+        "recoveryRef": null,
+        "ownerDecision": "owner/session intake required before any closure action"
+      }
+    ],
+    "detachedRecovery": [
+      {
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/fervent-murdock-e2535c",
+        "sha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+        "recoveryRef": "origin/archive/detached-fervent-murdock-e2535c-20260823",
+        "retained": true,
+        "ownerSession": "UNASSIGNED",
+        "currentHead": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+        "exact": true,
+        "dirty": {
+          "tracked": 0,
+          "untracked": 1,
+          "status": "dirty"
+        },
+        "ownerDecision": "retain detached worktree and exact recovery ref"
+      },
+      {
+        "worktreePath": "/Volumes/Starship/MAIS-qwen-3-8-max-prod-wt",
+        "sha": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+        "recoveryRef": "origin/archive/detached-qwen-3-8-max-prod-20260823",
+        "retained": true,
+        "ownerSession": "UNASSIGNED",
+        "currentHead": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+        "exact": true,
+        "dirty": {
+          "tracked": 0,
+          "untracked": 0,
+          "status": "clean"
+        },
+        "ownerDecision": "retain detached worktree and exact recovery ref"
+      }
+    ],
+    "closureRule": "exact-path slice must first reach reviewed commit, evidence archive, owner-approved discard, or blocker report; then prove remote/ancestry; only then ordinary non-force removal"
+  },
+  "stageE": {
+    "currentDecision": "retain every GitHub remote head",
+    "githubRemoteBranchesDeleted": 0,
+    "archiveRecoveryRefs": [
+      {
+        "recoveryRef": "origin/archive/a01-home-hero-local-tip-20260823",
+        "sha": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+        "exact": true,
+        "observedSha": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a04-practice-two-doors-pre-review-20260823",
+        "sha": "f48f118c3da2e5396d5d6a49bd589272dbf264e0",
+        "exact": true,
+        "observedSha": "f48f118c3da2e5396d5d6a49bd589272dbf264e0",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a05-15-bug-loop-wip-20260823",
+        "sha": "8c4d06ab2760b82b34ab2946d0688e75b8740e29",
+        "exact": true,
+        "observedSha": "8c4d06ab2760b82b34ab2946d0688e75b8740e29",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823",
+        "sha": "777f46db6ef16c209f3493f58ec1fb13df8daf94",
+        "exact": true,
+        "observedSha": "777f46db6ef16c209f3493f58ec1fb13df8daf94",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823",
+        "sha": "d5595131afb3028e769689998e7a67090865afae",
+        "exact": true,
+        "observedSha": "d5595131afb3028e769689998e7a67090865afae",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a18-hk-all-math-lesson-qa-wip-20260823",
+        "sha": "47dc3395521044ac8728d790c90d30516b9c94fa",
+        "exact": true,
+        "observedSha": "47dc3395521044ac8728d790c90d30516b9c94fa",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a23-closeouts-main-merge-20260823",
+        "sha": "543d8ec8b02eae0b42f0690d3929191c777adaac",
+        "exact": true,
+        "observedSha": "543d8ec8b02eae0b42f0690d3929191c777adaac",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/a23-closeouts-main-ready-20260823",
+        "sha": "66fddde4782b125c49f50c43348c1829ef8e1267",
+        "exact": true,
+        "observedSha": "66fddde4782b125c49f50c43348c1829ef8e1267",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/detached-fervent-murdock-e2535c-20260823",
+        "sha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+        "exact": true,
+        "observedSha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/detached-qwen-3-8-max-prod-20260823",
+        "sha": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+        "exact": true,
+        "observedSha": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/google-oauth-loop-blocked-20260823",
+        "sha": "22d7c0f645837f8e1ef2094fdacb037879eb37af",
+        "exact": true,
+        "observedSha": "22d7c0f645837f8e1ef2094fdacb037879eb37af",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/lesson-remove-viz-completion-wip-20260823",
+        "sha": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d",
+        "exact": true,
+        "observedSha": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/next16-3-parity-hold-20260823",
+        "sha": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8",
+        "exact": true,
+        "observedSha": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/pr119-owner-selected-hero-20260823",
+        "sha": "d741a0aa8a14bf428ed3d2fdb98bbb41caff6fbf",
+        "exact": true,
+        "observedSha": "d741a0aa8a14bf428ed3d2fdb98bbb41caff6fbf",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/pr134-app-state-row-tables-20260823",
+        "sha": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed",
+        "exact": true,
+        "observedSha": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/pr86-legal-accessibility-foundation-20260823",
+        "sha": "4a26ef985f1324bebeec72c8efe5ceb818cc0898",
+        "exact": true,
+        "observedSha": "4a26ef985f1324bebeec72c8efe5ceb818cc0898",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/pr91-starship-migration-cleanup-20260823",
+        "sha": "d2ffff12aed07cf60ef790c1133c031f74be00a9",
+        "exact": true,
+        "observedSha": "d2ffff12aed07cf60ef790c1133c031f74be00a9",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/pr94-check-answer-fast-path-20260823",
+        "sha": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6",
+        "exact": true,
+        "observedSha": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6",
+        "ownerDecision": "retain"
+      },
+      {
+        "recoveryRef": "origin/archive/tutor-moderation-provider-pre-hardening-20260823",
+        "sha": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9",
+        "exact": true,
+        "observedSha": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9",
+        "ownerDecision": "retain"
+      }
+    ],
+    "archiveRecoveryRefsExact": 19,
+    "futureOwnerReviewCandidates": [
+      {
+        "remoteRef": "origin/codex/a17-student-rewards-dashboard",
+        "sha": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+        "originMainAncestor": true,
+        "observedSha": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      },
+      {
+        "remoteRef": "origin/codex/a04-practice-two-doors-review-20260822",
+        "sha": "a1379c643f3e18d43a137f30593135375b7bcac0",
+        "originMainAncestor": true,
+        "observedSha": "a1379c643f3e18d43a137f30593135375b7bcac0",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      },
+      {
+        "remoteRef": "origin/qa/learner-teacher-interactions",
+        "sha": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56",
+        "originMainAncestor": true,
+        "observedSha": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      },
+      {
+        "remoteRef": "origin/test/lesson-menu-phone-e2e-coverage",
+        "sha": "63fdc82bfd3c4167422c0adaf45650d80706c130",
+        "originMainAncestor": true,
+        "observedSha": "63fdc82bfd3c4167422c0adaf45650d80706c130",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      },
+      {
+        "remoteRef": "origin/claude/fervent-murdock-e2535c",
+        "sha": "5a2ea9eb89d4066b629d77661415b2ce8db21cb7",
+        "originMainAncestor": true,
+        "observedSha": "5a2ea9eb89d4066b629d77661415b2ce8db21cb7",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      },
+      {
+        "remoteRef": "origin/codex/a04-math-keyboard-fix",
+        "sha": "1ee9816948e34fade17b70aa71ebbc07fe81f01f",
+        "originMainAncestor": true,
+        "observedSha": "1ee9816948e34fade17b70aa71ebbc07fe81f01f",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      },
+      {
+        "remoteRef": "origin/qa/teacher-coverage",
+        "sha": "f17ebd898d62e05d84c13a8526a87c2a37c83849",
+        "originMainAncestor": true,
+        "observedSha": "f17ebd898d62e05d84c13a8526a87c2a37c83849",
+        "remoteExists": true,
+        "ownerDecision": "future owner-review queue only; no remote deletion authorized"
+      }
+    ],
+    "mergedCandidateAncestorsExact": 7,
+    "otherRemoteHeadsRetained": 27,
+    "totalRemoteHeadsRetained": 53,
+    "separateRemoteDeletionAuthorizationRequired": true,
+    "futureRemoteDeletionGate": [
+      "remote exists",
+      "zero unique commit",
+      "tip is ancestor of live origin/main",
+      "associated worktree clean and ended",
+      "item-specific owner authorization"
+    ]
+  },
+  "branchInventory": [
+    {
+      "branch": "claude/confident-archimedes-43307f",
+      "head": "861b96afc690a9beec60def637c33c5eff23552b",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/confident-archimedes-43307f",
+      "ownerSession": "UNASSIGNED",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/confident-archimedes-43307f"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "claude/fervent-murdock-e2535c",
+      "head": "5a2ea9eb89d4066b629d77661415b2ce8db21cb7",
+      "worktreePath": null,
+      "ownerSession": "UNASSIGNED",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "REMOTE_OR_ARCHIVE_BACKED_NO_WORKTREE",
+      "recovery": {
+        "method": "recreate local branch from same-name remote",
+        "reference": "origin/claude/fervent-murdock-e2535c"
+      },
+      "ownerDecision": "retain pending future owner review"
+    },
+    {
+      "branch": "claude/nervous-borg-384852",
+      "head": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/nervous-borg-384852",
+      "ownerSession": "UNASSIGNED",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/nervous-borg-384852"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a01-a12-google-oauth-loop",
+      "head": "22d7c0f645837f8e1ef2094fdacb037879eb37af",
+      "worktreePath": null,
+      "ownerSession": "A01+A12",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/google-oauth-loop-blocked-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/a01-home-hero-chromebook",
+      "head": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+      "worktreePath": "/Volumes/Starship/MAIS-home-hero-wt",
+      "ownerSession": "A01",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-home-hero-wt"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a04-a05-fix-15-product-bugs",
+      "head": "61cd245c8ee5e1a41ba8474ef27a74e301fea4a0",
+      "worktreePath": "/Volumes/Starship/MAIS-15-bug-product-wt",
+      "ownerSession": "A04+A05",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-15-bug-product-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a04-practice-two-doors",
+      "head": "f48f118c3da2e5396d5d6a49bd589272dbf264e0",
+      "worktreePath": null,
+      "ownerSession": "A04",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/a04-practice-two-doors-pre-review-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/a05-15-bug-loop",
+      "head": "8c4d06ab2760b82b34ab2946d0688e75b8740e29",
+      "worktreePath": null,
+      "ownerSession": "A05",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/a05-15-bug-loop-wip-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/a06-ca-visualization-labs-loop",
+      "head": "777f46db6ef16c209f3493f58ec1fb13df8daf94",
+      "worktreePath": null,
+      "ownerSession": "A06",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/a06-ca-viz-resume-20260819",
+      "head": "48be11db27be7aa58e5b9593522288af5167083b",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a06-ca-viz-resume-20260819",
+      "ownerSession": "A06",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a06-ca-viz-resume-20260819"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a06-china-visualization-labs-loop",
+      "head": "f865cadd51220bd5da2acc5f9659ba55d72a887a",
+      "worktreePath": "/Volumes/Starship/MAIS-china-viz-labs-wt",
+      "ownerSession": "A06",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-china-viz-labs-wt"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a06-hk-visualization-labs-loop",
+      "head": "d5595131afb3028e769689998e7a67090865afae",
+      "worktreePath": null,
+      "ownerSession": "A06",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/a06-trig-unit-wave-redesign-20260823",
+      "head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "worktreePath": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt",
+      "ownerSession": "A06",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "ACTIVE_WRITER_HOLD",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+      },
+      "ownerDecision": "active writer hold; do not infer uncommitted WIP from committed-head ancestry"
+    },
+    {
+      "branch": "codex/a08-parent-auth-state-20260823",
+      "head": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a08-parent-auth-state-20260823",
+      "ownerSession": "A08",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a08-parent-auth-state-20260823"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a11-parent-gates-20260823",
+      "head": "a4be486175930c12478a8ca035c43a69b849f198",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a11-parent-gates-20260823",
+      "ownerSession": "A11",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a11-parent-gates-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a11-practice-pager-two-door-e2e-20260822",
+      "head": "9ba0884e7e0cf4ee983c4e81ac4be7c463ca73ab",
+      "worktreePath": "/Volumes/Starship/MAIS-a11-practice-pager-two-door-e2e-wt",
+      "ownerSession": "A11",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-a11-practice-pager-two-door-e2e-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a12-parent-guardian-invites-20260823",
+      "head": "acb666523f4d1164c74c26db8fc6167fd3fdf3e0",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-guardian-invites-20260823",
+      "ownerSession": "A12",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-guardian-invites-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-messages-20260823",
+      "head": "7788db92911bda061cc21f0057a1f0b09711a734",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-messages-20260823",
+      "ownerSession": "A12",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-messages-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-privacy-api-20260823",
+      "head": "d965809bf0d7f151921d8ac10be64c3c3c310143",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-privacy-api-20260823",
+      "ownerSession": "A12",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-privacy-api-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-session-revocation-20260823",
+      "head": "d61e3201839f0ad6176b638febf6f9aacfd215ce",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-session-revocation-20260823",
+      "ownerSession": "A12",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-session-revocation-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a13-teacher-report-target-20260823",
+      "head": "300f97c5e1a3aa3748d39945d95e84e825547f2e",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a13-teacher-report-target-20260823",
+      "ownerSession": "A13",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a13-teacher-report-target-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a14-parent-action-ui-20260823",
+      "head": "a7416c67222c92c25fac8c26fccf765eeb4c75a6",
+      "worktreePath": "/Volumes/Starship/MAIS-parent-action-ui-wt",
+      "ownerSession": "A14",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "SEALED_BLOCKER_REPORT",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-parent-action-ui-wt"
+      },
+      "ownerDecision": "retain worktree; owner chooses reviewed commit, evidence archive, owner-approved discard, or renewed blocker"
+    },
+    {
+      "branch": "codex/a14-parent-ui-final-20260823",
+      "head": "2ac7cc6606e665652d6ee8b276ca8a64cbfcb72b",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-final-20260823",
+      "ownerSession": "A14",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-final-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a14-parent-ui-reliability-20260823",
+      "head": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-reliability-20260823",
+      "ownerSession": "A14",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-reliability-20260823"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a18-china-all-math-qa",
+      "head": "1e9f758c033cfcb1cfa8544e0b21a6536c1cd71f",
+      "worktreePath": "/Volumes/Starship/MAIS-china-all-math-qa-wt",
+      "ownerSession": "A18",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-china-all-math-qa-wt"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a18-hk-all-math-lesson-qa",
+      "head": "47dc3395521044ac8728d790c90d30516b9c94fa",
+      "worktreePath": null,
+      "ownerSession": "A18",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/a18-hk-all-math-lesson-qa-wip-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/a18-hk-ease-v2-qa",
+      "head": "392bc74bc855fb0dc8eb2c07a6f548d4c6b23c47",
+      "worktreePath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt",
+      "ownerSession": "A18",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a18-hk-safe-closeout-20260822",
+      "head": "80f927ceee90e825e57093f810a6ab4fac63feee",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a18-hk-safe-closeout-20260822",
+      "ownerSession": "A18",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a18-hk-safe-closeout-20260822"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a23-closeouts-main-merge-20260822",
+      "head": "543d8ec8b02eae0b42f0690d3929191c777adaac",
+      "worktreePath": null,
+      "ownerSession": "A23",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "REMOTE_OR_ARCHIVE_BACKED_NO_WORKTREE",
+      "recovery": {
+        "method": "identify containing remote ref before any local deletion",
+        "reference": "remote containment proven; exact containing ref recorded elsewhere when closure is authorized"
+      },
+      "ownerDecision": "retain pending future owner review"
+    },
+    {
+      "branch": "codex/a23-closeouts-main-ready-20260822",
+      "head": "66fddde4782b125c49f50c43348c1829ef8e1267",
+      "worktreePath": null,
+      "ownerSession": "A23",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "REMOTE_OR_ARCHIVE_BACKED_NO_WORKTREE",
+      "recovery": {
+        "method": "identify containing remote ref before any local deletion",
+        "reference": "remote containment proven; exact containing ref recorded elsewhere when closure is authorized"
+      },
+      "ownerDecision": "retain pending future owner review"
+    },
+    {
+      "branch": "codex/a23-parent-full-remediation-20260823",
+      "head": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823",
+      "ownerSession": "A23",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a23-parent-integration-20260823-v2",
+      "head": "56c5c2775ae12eeefad0848247bd3a1699127007",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-integration-20260823-v2",
+      "ownerSession": "A23",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-integration-20260823-v2"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/next16-3-parity",
+      "head": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8",
+      "worktreePath": null,
+      "ownerSession": "UNASSIGNED",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/next16-3-parity-hold-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "codex/parent-full-remediation-20260823-v3",
+      "head": "56e7a3c8852f35de3defd5f987690e255583c908",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823-v3",
+      "ownerSession": "A23",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823-v3"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/parent-gap-ack-report-20260823",
+      "head": "8b607eef2c5bc31610438cf3d709acbd3154a1c7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-a14-parent-gap-ack-report-20260823",
+      "ownerSession": "A12+A14",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": false,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "OWNER_HOLD_NO_REMOTE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-a14-parent-gap-ack-report-20260823"
+      },
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "compliance/child-data-legal-baseline",
+      "head": "5ac94eb8437c552df1bb7a5dbcd34b93c75f446b",
+      "worktreePath": "/Volumes/Starship/MAIS-child-legal-wt",
+      "ownerSession": "A10+A12+A18",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-child-legal-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "content/us-ca-math-lesson-qa",
+      "head": "9a1ff26e7723e18462a46e7255ba027d4ce1de7a",
+      "worktreePath": "/Volumes/Starship/MAIS-ca-content-qa-wt",
+      "ownerSession": "A18+A21",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-ca-content-qa-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "feat/legal-accessibility-foundation",
+      "head": "9019b8c224f56616556a4f38ca5c22c97af73a8b",
+      "worktreePath": null,
+      "ownerSession": "A09+A10",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "REMOTE_OR_ARCHIVE_BACKED_NO_WORKTREE",
+      "recovery": {
+        "method": "recreate local branch from same-name remote",
+        "reference": "origin/feat/legal-accessibility-foundation"
+      },
+      "ownerDecision": "retain pending future owner review"
+    },
+    {
+      "branch": "feat/tutor-moderation-provider",
+      "head": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9",
+      "worktreePath": null,
+      "ownerSession": "A07",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/tutor-moderation-provider-pre-hardening-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    },
+    {
+      "branch": "fix/nova-tutor-functions",
+      "head": "05841b9900a7abeef7f5ae6a1f2158216b951762",
+      "worktreePath": "/Volumes/Starship/MAIS-nova-tutor-wt",
+      "ownerSession": "A07+A12",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-nova-tutor-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "fix/starship-canonical-root",
+      "head": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6",
+      "ownerSession": "A10+A25",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "SEALED_BLOCKER_REPORT",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6"
+      },
+      "ownerDecision": "retain worktree; owner chooses reviewed commit, evidence archive, owner-approved discard, or renewed blocker"
+    },
+    {
+      "branch": "i18n/zh-hans-ratchet",
+      "head": "5d6cf7e775521c1d29d1d35c74f9c9cbc0ca84c1",
+      "worktreePath": "/Volumes/Starship/MAIS-zh-hans-wt",
+      "ownerSession": "A09",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-zh-hans-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "main",
+      "head": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP",
+      "ownerSession": "A25",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "INTEGRATION_INVENTORY",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP"
+      },
+      "ownerDecision": "preserve dirty root as read-only integration inventory"
+    },
+    {
+      "branch": "ops/production-observability",
+      "head": "409d1a987e83e98c61bf164cfd52fa86429608d4",
+      "worktreePath": "/Volumes/Starship/MAIS-observability-wt",
+      "ownerSession": "A12+A22",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-observability-wt"
+      },
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "perf/classroom-load-smoke",
+      "head": "eb77c9310dae91f87db6ba2982d7e5b61cd2ff9f",
+      "worktreePath": "/Volumes/Starship/MAIS-classroom-load-wt",
+      "ownerSession": "A11+A22",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-classroom-load-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "security/ai-tutor-voice-moderation",
+      "head": "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156",
+      "ownerSession": "A07+A12",
+      "worktreeStatus": "dirty",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": true,
+      "recommendedFinalState": "SEALED_BLOCKER_REPORT",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156"
+      },
+      "ownerDecision": "retain worktree; owner chooses reviewed commit, evidence archive, owner-approved discard, or renewed blocker"
+    },
+    {
+      "branch": "security/phase0-auth-hardening",
+      "head": "96f35faf6be5a8eed6a202b2d7e4f69547840d15",
+      "worktreePath": "/Volumes/Starship/MAIS-phase0-auth-wt",
+      "ownerSession": "A12",
+      "worktreeStatus": "clean",
+      "githubSameNameBranch": true,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recovery": {
+        "method": "retained registered worktree and local branch",
+        "reference": "/Volumes/Starship/MAIS-phase0-auth-wt"
+      },
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "worktree-lesson-remove-viz-completion",
+      "head": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d",
+      "worktreePath": null,
+      "ownerSession": "A05+A06",
+      "worktreeStatus": "no-worktree",
+      "githubSameNameBranch": false,
+      "remoteFullyContainsLocalTip": true,
+      "originMainContainsLocalTip": false,
+      "recommendedFinalState": "SEALED_EVIDENCE_ARCHIVE",
+      "recovery": {
+        "method": "create a recovery branch from retained ref",
+        "reference": "origin/archive/lesson-remove-viz-completion-wip-20260823"
+      },
+      "ownerDecision": "historical terminal state retained; no re-execution"
+    }
+  ],
+  "worktreeInventory": [
+    {
+      "branch": "main",
+      "detached": false,
+      "head": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP",
+      "ownerSession": "A25",
+      "dirty": {
+        "tracked": 2,
+        "untracked": 100,
+        "status": "dirty"
+      },
+      "cwdProcesses": [
+        {
+          "pid": 2565,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 38539,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 46427,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 63159,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 63201,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 64142,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 64418,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        },
+        {
+          "pid": 72393,
+          "command": "node_repl",
+          "cwd": "/Volumes/Starship/MAIS-MVP"
+        }
+      ],
+      "disposition": "INTEGRATION_INVENTORY",
+      "recoveryRef": null,
+      "ownerDecision": "preserve dirty root as read-only integration inventory"
+    },
+    {
+      "branch": "codex/a04-a05-fix-15-product-bugs",
+      "detached": false,
+      "head": "61cd245c8ee5e1a41ba8474ef27a74e301fea4a0",
+      "worktreePath": "/Volumes/Starship/MAIS-15-bug-product-wt",
+      "ownerSession": "A04+A05",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a11-practice-pager-two-door-e2e-20260822",
+      "detached": false,
+      "head": "9ba0884e7e0cf4ee983c4e81ac4be7c463ca73ab",
+      "worktreePath": "/Volumes/Starship/MAIS-a11-practice-pager-two-door-e2e-wt",
+      "ownerSession": "A11",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "content/us-ca-math-lesson-qa",
+      "detached": false,
+      "head": "9a1ff26e7723e18462a46e7255ba027d4ce1de7a",
+      "worktreePath": "/Volumes/Starship/MAIS-ca-content-qa-wt",
+      "ownerSession": "A18+A21",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "compliance/child-data-legal-baseline",
+      "detached": false,
+      "head": "5ac94eb8437c552df1bb7a5dbcd34b93c75f446b",
+      "worktreePath": "/Volumes/Starship/MAIS-child-legal-wt",
+      "ownerSession": "A10+A12+A18",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a18-china-all-math-qa",
+      "detached": false,
+      "head": "1e9f758c033cfcb1cfa8544e0b21a6536c1cd71f",
+      "worktreePath": "/Volumes/Starship/MAIS-china-all-math-qa-wt",
+      "ownerSession": "A18",
+      "dirty": {
+        "tracked": 5,
+        "untracked": 2,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a06-china-visualization-labs-loop",
+      "detached": false,
+      "head": "f865cadd51220bd5da2acc5f9659ba55d72a887a",
+      "worktreePath": "/Volumes/Starship/MAIS-china-viz-labs-wt",
+      "ownerSession": "A06",
+      "dirty": {
+        "tracked": 44,
+        "untracked": 83,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "perf/classroom-load-smoke",
+      "detached": false,
+      "head": "eb77c9310dae91f87db6ba2982d7e5b61cd2ff9f",
+      "worktreePath": "/Volumes/Starship/MAIS-classroom-load-wt",
+      "ownerSession": "A11+A22",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a18-hk-ease-v2-qa",
+      "detached": false,
+      "head": "392bc74bc855fb0dc8eb2c07a6f548d4c6b23c47",
+      "worktreePath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt",
+      "ownerSession": "A18",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 10,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a01-home-hero-chromebook",
+      "detached": false,
+      "head": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+      "worktreePath": "/Volumes/Starship/MAIS-home-hero-wt",
+      "ownerSession": "A01",
+      "dirty": {
+        "tracked": 1,
+        "untracked": 0,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "claude/confident-archimedes-43307f",
+      "detached": false,
+      "head": "861b96afc690a9beec60def637c33c5eff23552b",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/confident-archimedes-43307f",
+      "ownerSession": "UNASSIGNED",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 1,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "fix/starship-canonical-root",
+      "detached": false,
+      "head": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6",
+      "ownerSession": "A10+A25",
+      "dirty": {
+        "tracked": 2,
+        "untracked": 1,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "BLOCKER_REPORT",
+      "recoveryRef": null,
+      "ownerDecision": "retain pending owner decision"
+    },
+    {
+      "branch": null,
+      "detached": true,
+      "head": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/fervent-murdock-e2535c",
+      "ownerSession": "UNASSIGNED",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 1,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "DETACHED_RECOVERY_RETAIN",
+      "recoveryRef": "origin/archive/detached-fervent-murdock-e2535c-20260823",
+      "ownerDecision": "retain detached worktree and exact recovery ref"
+    },
+    {
+      "branch": "security/ai-tutor-voice-moderation",
+      "detached": false,
+      "head": "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156",
+      "ownerSession": "A07+A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 1,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "BLOCKER_REPORT",
+      "recoveryRef": null,
+      "ownerDecision": "retain pending owner decision"
+    },
+    {
+      "branch": "claude/nervous-borg-384852",
+      "detached": false,
+      "head": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/nervous-borg-384852",
+      "ownerSession": "UNASSIGNED",
+      "dirty": {
+        "tracked": 1,
+        "untracked": 0,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a06-ca-viz-resume-20260819",
+      "detached": false,
+      "head": "48be11db27be7aa58e5b9593522288af5167083b",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a06-ca-viz-resume-20260819",
+      "ownerSession": "A06",
+      "dirty": {
+        "tracked": 1,
+        "untracked": 0,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a08-parent-auth-state-20260823",
+      "detached": false,
+      "head": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a08-parent-auth-state-20260823",
+      "ownerSession": "A08",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a11-parent-gates-20260823",
+      "detached": false,
+      "head": "a4be486175930c12478a8ca035c43a69b849f198",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a11-parent-gates-20260823",
+      "ownerSession": "A11",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/parent-gap-ack-report-20260823",
+      "detached": false,
+      "head": "8b607eef2c5bc31610438cf3d709acbd3154a1c7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-a14-parent-gap-ack-report-20260823",
+      "ownerSession": "A12+A14",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-guardian-invites-20260823",
+      "detached": false,
+      "head": "acb666523f4d1164c74c26db8fc6167fd3fdf3e0",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-guardian-invites-20260823",
+      "ownerSession": "A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-messages-20260823",
+      "detached": false,
+      "head": "7788db92911bda061cc21f0057a1f0b09711a734",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-messages-20260823",
+      "ownerSession": "A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-privacy-api-20260823",
+      "detached": false,
+      "head": "d965809bf0d7f151921d8ac10be64c3c3c310143",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-privacy-api-20260823",
+      "ownerSession": "A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a12-parent-session-revocation-20260823",
+      "detached": false,
+      "head": "d61e3201839f0ad6176b638febf6f9aacfd215ce",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-session-revocation-20260823",
+      "ownerSession": "A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a13-teacher-report-target-20260823",
+      "detached": false,
+      "head": "300f97c5e1a3aa3748d39945d95e84e825547f2e",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a13-teacher-report-target-20260823",
+      "ownerSession": "A13",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a14-parent-ui-final-20260823",
+      "detached": false,
+      "head": "2ac7cc6606e665652d6ee8b276ca8a64cbfcb72b",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-final-20260823",
+      "ownerSession": "A14",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a14-parent-ui-reliability-20260823",
+      "detached": false,
+      "head": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-reliability-20260823",
+      "ownerSession": "A14",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a18-hk-safe-closeout-20260822",
+      "detached": false,
+      "head": "80f927ceee90e825e57093f810a6ab4fac63feee",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a18-hk-safe-closeout-20260822",
+      "ownerSession": "A18",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/a23-parent-full-remediation-20260823",
+      "detached": false,
+      "head": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823",
+      "ownerSession": "A23",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "codex/parent-full-remediation-20260823-v3",
+      "detached": false,
+      "head": "56e7a3c8852f35de3defd5f987690e255583c908",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823-v3",
+      "ownerSession": "A23",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "codex/a23-parent-integration-20260823-v2",
+      "detached": false,
+      "head": "56c5c2775ae12eeefad0848247bd3a1699127007",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-integration-20260823-v2",
+      "ownerSession": "A23",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "OWNER_HOLD_NO_REMOTE",
+      "recoveryRef": null,
+      "ownerDecision": "hold exactly as-is; do not push, archive, remove, or delete"
+    },
+    {
+      "branch": "fix/nova-tutor-functions",
+      "detached": false,
+      "head": "05841b9900a7abeef7f5ae6a1f2158216b951762",
+      "worktreePath": "/Volumes/Starship/MAIS-nova-tutor-wt",
+      "ownerSession": "A07+A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": "ops/production-observability",
+      "detached": false,
+      "head": "409d1a987e83e98c61bf164cfd52fa86429608d4",
+      "worktreePath": "/Volumes/Starship/MAIS-observability-wt",
+      "ownerSession": "A12+A22",
+      "dirty": {
+        "tracked": 12,
+        "untracked": 2,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_NEEDS_OWNER_INTAKE",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session intake required before any closure action"
+    },
+    {
+      "branch": "codex/a14-parent-action-ui-20260823",
+      "detached": false,
+      "head": "a7416c67222c92c25fac8c26fccf765eeb4c75a6",
+      "worktreePath": "/Volumes/Starship/MAIS-parent-action-ui-wt",
+      "ownerSession": "A14",
+      "dirty": {
+        "tracked": 4,
+        "untracked": 1,
+        "status": "dirty"
+      },
+      "cwdProcesses": [],
+      "disposition": "BLOCKER_REPORT",
+      "recoveryRef": null,
+      "ownerDecision": "retain pending owner decision"
+    },
+    {
+      "branch": "security/phase0-auth-hardening",
+      "detached": false,
+      "head": "96f35faf6be5a8eed6a202b2d7e4f69547840d15",
+      "worktreePath": "/Volumes/Starship/MAIS-phase0-auth-wt",
+      "ownerSession": "A12",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    },
+    {
+      "branch": null,
+      "detached": true,
+      "head": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+      "worktreePath": "/Volumes/Starship/MAIS-qwen-3-8-max-prod-wt",
+      "ownerSession": "UNASSIGNED",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "DETACHED_RECOVERY_RETAIN",
+      "recoveryRef": "origin/archive/detached-qwen-3-8-max-prod-20260823",
+      "ownerDecision": "retain detached worktree and exact recovery ref"
+    },
+    {
+      "branch": "codex/a06-trig-unit-wave-redesign-20260823",
+      "detached": false,
+      "head": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "worktreePath": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt",
+      "ownerSession": "A06",
+      "dirty": {
+        "tracked": 5,
+        "untracked": 2,
+        "status": "dirty"
+      },
+      "cwdProcesses": [
+        {
+          "pid": 66662,
+          "command": "node",
+          "cwd": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+        },
+        {
+          "pid": 66687,
+          "command": "node",
+          "cwd": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+        },
+        {
+          "pid": 66788,
+          "command": "node",
+          "cwd": "/Volumes/Starship/MAIS-trig-unit-wave-redesign-wt"
+        }
+      ],
+      "disposition": "ACTIVE_WRITER_HOLD",
+      "recoveryRef": null,
+      "ownerDecision": "active writer hold; do not infer uncommitted WIP from committed-head ancestry"
+    },
+    {
+      "branch": "i18n/zh-hans-ratchet",
+      "detached": false,
+      "head": "5d6cf7e775521c1d29d1d35c74f9c9cbc0ca84c1",
+      "worktreePath": "/Volumes/Starship/MAIS-zh-hans-wt",
+      "ownerSession": "A09",
+      "dirty": {
+        "tracked": 0,
+        "untracked": 0,
+        "status": "clean"
+      },
+      "cwdProcesses": [],
+      "disposition": "ACTIVE_OR_OWNER_CONFIRMATION",
+      "recoveryRef": null,
+      "ownerDecision": "owner/session confirmation required before any closure action"
+    }
+  ],
+  "operationsPerformed": {
+    "reportFilesCreated": 2,
+    "localBranchesDeleted": 0,
+    "worktreesRemoved": 0,
+    "forcedRemovals": 0,
+    "pushes": 0,
+    "merges": 0,
+    "pullRequestMutations": 0,
+    "githubRemoteBranchesDeleted": 0,
+    "productCodeFilesModified": 0,
+    "stagedFiles": 0,
+    "commits": 0,
+    "actualPrunes": 0
+  },
+  "verification": {
+    "preWrite": {
+      "localBranchCountExact": true,
+      "worktreeCountExact": true,
+      "detachedCountExact": true,
+      "cleanDirtyCountExact": true,
+      "liveOpenPullRequestsEmpty": true,
+      "liveRemoteHeadsExact": true,
+      "cachedRemoteHeadsExact": true,
+      "stageCTerminalStatesExactlyOneEach": true,
+      "stageCArchiveRefsExact": true,
+      "stageCReviewedMainAncestryExact": true,
+      "stageCBlockerFingerprintsExact": true,
+      "parentOwnerHoldCountExact": true,
+      "parentOwnerHoldsCleanAndUncontained": true,
+      "trigDirtyInventoryExact": true,
+      "detachedRecoveryExact": true,
+      "archiveRecoveryRefsExact": true,
+      "futureRemoteCandidatesMainAncestorsExact": true,
+      "pruneDryRunEmpty": true
+    },
+    "postWrite": {
+      "status": "PASS_EVIDENCE_ONLY_WITH_CONCURRENT_DELTA_CAPTURED",
+      "verifiedAt": "2026-08-23T04:48:17Z",
+      "result": true,
+      "expectedTrackedDiffSha256": "137ac2a65b36e7417eb002027c30d47029dc2cee3b8e31741509d2387c206647",
+      "expectedTrackedStatusSha256": "151d6f2b1cb73a2f652c078b9ca883c66591e5a11d70eb97c2a7261be4b3406f",
+      "expectedStagedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expectedOnlyNewPaths": [
+        "coordination/release-intake/2026-08-23-A25-stage-c-d-e-delta-revalidation.md",
+        "coordination/release-intake/2026-08-23-A25-stage-c-d-e-delta-revalidation.json"
+      ],
+      "trackedStatusUnchanged": true,
+      "trackedDiffUnchanged": true,
+      "stagedDiffEmpty": true,
+      "protectedFileHashesUnchanged": true,
+      "onlyAuthorizedRootAdditions": true,
+      "rootStatusEntriesBefore": 102,
+      "rootStatusEntriesAfter": 104,
+      "localBranches": 49,
+      "worktrees": 38,
+      "branchWorktrees": 36,
+      "detachedWorktrees": 2,
+      "preWriteCleanWorktrees": 23,
+      "preWriteDirtyWorktrees": 14,
+      "finalCleanWorktrees": 24,
+      "finalDirtyWorktrees": 14,
+      "unexpectedWorktreeDriftAfterListedOverrides": 0,
+      "githubEvidence": {
+        "verifiedAt": "2026-08-23T04:47:50Z",
+        "openPullRequests": 0,
+        "liveRemoteHeads": 53,
+        "remoteHeadsExactToLedger": true
+      },
+      "stageC": {
+        "packagesWithExactlyOneTerminalState": 14,
+        "archiveRefsExact": 9,
+        "reviewedHeadsInLiveOriginMain": 2,
+        "blockerFingerprintsUnchanged": 3,
+        "blockerEvidenceVerifiedAt": "2026-08-23T04:47:50Z"
+      },
+      "stageD": {
+        "parentHolds": 10,
+        "parentHoldsRemoteUncontained": 10,
+        "parentHoldsClean": 10,
+        "parentDirtyDriftRowsStoppedAndLaterClean": 1,
+        "a06CurrentTracked": 6,
+        "a06CurrentUntracked": 4,
+        "a06CwdProcesses": 3,
+        "newA06CleanWorktreeAdded": 1,
+        "newA06WorktreePersistentCwdProcesses": 0,
+        "newA06WorktreeProcessAuditIsolated": true,
+        "a06ContentStabilityClaimed": false,
+        "detachedRecoveryRefsExact": 2
+      },
+      "stageE": {
+        "archiveRecoveryRefsExact": 19,
+        "mergedHeadCandidatesInLiveOriginMain": 7,
+        "githubRemoteBranchesDeleted": 0
+      },
+      "jsonFieldAssertionsPassed": true,
+      "markdownWhitespaceCheckPassed": true,
+      "jsonWhitespaceCheckPassed": true,
+      "worktreePruneDryRunOutputEmpty": true,
+      "actualPruneExecuted": false,
+      "acceptanceNote": "static 48/37, 23/14, and A06 5+2 expectations describe the pre-write snapshot; final evidence records the A23 dirty-to-clean owner commit, active A06 6+4 observation, and one new clean A06 branch/worktree"
+    }
+  }
+}

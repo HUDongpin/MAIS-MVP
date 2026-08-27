@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T19:38:34Z",
+  "timezone": "Asia/Hong_Kong",
+  "finalState": "blocker report",
+  "branch": "codex/a14-parent-action-ui-20260823",
+  "worktreePath": "/Volumes/Starship/MAIS-parent-action-ui-wt",
+  "branchHead": "a7416c67222c92c25fac8c26fccf765eeb4c75a6",
+  "liveOriginMain": "39f0a8f80829b30cf2027ef662b12924391244b7",
+  "ahead": 0,
+  "behind": 2,
+  "sameNameRemote": false,
+  "pullRequest": null,
+  "owners": {
+    "packageOwner": "A14",
+    "testBoundary": "A11",
+    "ownerConfirmationRequired": true
+  },
+  "ownerBoundary": "Same-day parent remediation branches are excluded from the current cleanup batches.",
+  "dirtyInventory": {
+    "trackedChanges": 4,
+    "stagedChanges": 0,
+    "unstagedChanges": 4,
+    "untrackedEntries": 1,
+    "trackedPatchSha256": "05bf83d5ddca9cd2cc79d7564a917eaff0fb8ebe69ffaa5538561e3e9650d057",
+    "entries": [
+      {
+        "status": "tracked unstaged",
+        "path": "components/parent/ParentShell.tsx",
+        "bytes": 6621,
+        "gitBlob": "74e6aed8f6d35ad263a40f50bdc0dccd548222c8",
+        "sha256": "60085caab1cb2e594ea6b406fb41eadfbfc8da231a536cba5726d5c27843e567"
+      },
+      {
+        "status": "tracked unstaged",
+        "path": "components/parent/ParentViews.tsx",
+        "bytes": 55860,
+        "gitBlob": "b5796b11436486b0aa3e0592b43b53d53e16452d",
+        "sha256": "c1f1ce3b6f723d69dcfdd83c151e44a1e6de2212b5b854c2abd88c8982970679"
+      },
+      {
+        "status": "tracked unstaged",
+        "path": "tests/e2e/parent-console-feature-matrix.spec.ts",
+        "bytes": 16622,
+        "gitBlob": "ed21e601a6d3500494d8d48188149ff86ee09424",
+        "sha256": "7250683443b3a9b758a6dff62d635337d3e8cf4c4e2c73dc2acfdcbd50e55098"
+      },
+      {
+        "status": "tracked unstaged",
+        "path": "tests/e2e/parent-console.spec.ts",
+        "bytes": 29357,
+        "gitBlob": "5639a031bad34a20f5f5c3f71e5394b6a94c5c18",
+        "sha256": "a821e8702103775a8b6f53c4c12eed813eaff11da15dd375e9491923dd0207b3"
+      },
+      {
+        "status": "untracked",
+        "path": "components/parent/parentNavIcons.tsx",
+        "bytes": 1300,
+        "gitBlob": "369dd739dc8cd8992c1873efcbc755b469a01513",
+        "sha256": "d2f960ee0f258faef61552a34547835f0ea49f1829aefb097352e3484bf457ea"
+      }
+    ]
+  },
+  "blocker": "All package value is uncommitted local-only owner WIP, and the owner explicitly excluded same-day parent remediation branches from cleanup.",
+  "allowedResolutions": [
+    "reviewed commit",
+    "evidence archive",
+    "owner-approved discard",
+    "exact-byte supersession proof"
+  ],
+  "authorizations": {
+    "cleanupAuthorized": false,
+    "worktreeRemovalAuthorized": false,
+    "localBranchDeletionAuthorized": false,
+    "remoteBranchDeletionAuthorized": false
+  }
+}

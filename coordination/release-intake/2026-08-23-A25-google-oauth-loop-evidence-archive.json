@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:31:00Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a01-a12-google-oauth-loop",
+  "worktreePath": "/Volumes/Starship/MAIS-google-oauth-wt",
+  "originalBranchHead": "b1b89d4cd5f2fc128275d6f84c6361c8ec12808f",
+  "archiveCommit": "22d7c0f645837f8e1ef2094fdacb037879eb37af",
+  "remoteArchiveRef": "origin/archive/google-oauth-loop-blocked-20260823",
+  "repositoryVisibilityAtArchive": "PRIVATE",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "owners": {
+    "publicShell": "A01",
+    "sharedState": "A08",
+    "copyAndMetadata": "A09",
+    "governanceAndReports": "A10",
+    "regression": "A11",
+    "authAndStorage": "A12",
+    "environmentReadiness": "A19",
+    "releaseReliability": "A22",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "pathCount": 57,
+    "pathCountEqualLiveOriginMain": 0,
+    "insertions": 7186,
+    "deletions": 354,
+    "includesUnapprovedLegalDrafts": true,
+    "includesRealCredentialValues": false
+  },
+  "hardGates": {
+    "approvedProductionGoogleClientAndSecret": false,
+    "finalOwnerLegalApproval": false,
+    "finalCounselLegalApproval": false,
+    "operatorProviderRetentionDeletionFactsComplete": false,
+    "realProviderAcceptanceComplete": false,
+    "freshCurrentMainIntegrationComplete": false,
+    "currentCompleteReleaseGateGreen": false
+  },
+  "archiveVerification": {
+    "repositoryPrivateBeforePush": true,
+    "secretPatternGate": "PASS",
+    "exampleSecretAssignmentGate": "PASS",
+    "cachedPathCount": 57,
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "diffCheck": "WARNING_MARKDOWN_HARD_BREAKS_ONLY",
+    "markdownTrailingSpaceFindings": 8,
+    "currentTurnProductTests": "NOT_RUN_EVIDENCE_ARCHIVE"
+  },
+  "ownerDecision": "Preserve exact blocked package privately; do not open a merge PR, publish legal drafts, configure provider credentials, or deploy.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false,
+    "providerConfigurationAuthorized": false,
+    "legalPublicationAuthorized": false,
+    "deploymentAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:31:01Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "externalCwdOwnerFound": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/google-oauth-loop-blocked-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-google-oauth-recovered-wt 22d7c0f645837f8e1ef2094fdacb037879eb37af"
+  }
+}

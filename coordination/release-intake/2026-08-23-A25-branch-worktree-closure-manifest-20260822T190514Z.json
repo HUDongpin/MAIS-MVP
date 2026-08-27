@@ -1,0 +1,2033 @@
+{
+  "schemaVersion": 1,
+  "manifestKind": "A25 branch and worktree closure manifest",
+  "generatedAt": "2026-08-22T19:05:14.962Z",
+  "timezone": "Asia/Hong_Kong",
+  "repository": {
+    "root": "/Volumes/Starship/MAIS-MVP",
+    "originUrl": "https://github.com/HUDongpin/MAIS-MVP.git",
+    "githubRepository": "HUDongpin/MAIS-MVP",
+    "liveOriginMainSha": "39f0a8f80829b30cf2027ef662b12924391244b7",
+    "localMainSha": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6"
+  },
+  "safety": {
+    "inventoryOnly": true,
+    "deletionPerformed": false,
+    "branchSwitchPerformed": false,
+    "stagingPerformed": false,
+    "commitPerformed": false,
+    "pushPerformed": false,
+    "resetOrCleanPerformed": false,
+    "note": "The generator read Git and GitHub state and created only this timestamped JSON/Markdown manifest pair."
+  },
+  "snapshotIntegrity": {
+    "stableAttempt": 1,
+    "localBranchRefSignature": "5b1a8039f687540f4383480f42b85f89911bdbd20376ef2a321287c748f5516b",
+    "worktreeTopologySignature": "9c9ff812a768ee3b0043581c3287f6ee1ca83244d6917fb543c2ecc793af3cc2",
+    "allWorktreeStatusSignature": "6039ca93e40beb332ca549afd7436f85875f00b0f084c5227babc41af7f8de39",
+    "remoteHeadSignature": "14a48599cfd84a3e1fb6744a85a22289bb55a0514467a43f62b1ee715f2933cf",
+    "openPullRequestSignature": "3f9025e7d12e80c96c5e74e507d305e545fcf08f5cd01e549e98d5763dea7c94",
+    "stableLocalRecheckPassed": true
+  },
+  "coverage": {
+    "localBranches": 53,
+    "registeredWorktrees": 46,
+    "checkedOutBranches": 44,
+    "detachedWorktrees": 2,
+    "branchesWithoutWorktree": 9,
+    "cleanWorktrees": 20,
+    "dirtyWorktrees": 26,
+    "githubRemoteBranches": 26,
+    "openPullRequests": 9,
+    "openPrBranchNames": [
+      "chore/starship-migration-cleanup",
+      "claude/fervent-murdock-e2535c",
+      "codex/a01-home-hero-chromebook",
+      "codex/a04-math-keyboard-fix",
+      "feat/legal-accessibility-foundation",
+      "perf/app-state-row-tables",
+      "perf/check-answer-fast-path",
+      "qa/teacher-coverage",
+      "test/lesson-menu-phone-e2e-coverage"
+    ],
+    "manifestRows": 55
+  },
+  "suggestedStatusCounts": {
+    "ACTIVE_OR_UNMERGED_REVIEW": 6,
+    "DETACHED_DIRTY_RECOVERY": 1,
+    "DETACHED_RECOVERY_REVIEW": 1,
+    "INTEGRATION_ROOT_RECONCILE": 1,
+    "LOCAL_ONLY_REVIEW": 6,
+    "MERGED_DIRTY_PRESERVE": 14,
+    "OPEN_PR_DIRTY_PRESERVE": 2,
+    "OPEN_PR_RETAIN": 7,
+    "READY_CLEANUP_PENDING_SESSION_CONFIRMATION": 5,
+    "REMOTE_ARCHIVE_PENDING_OWNER_DECISION": 4,
+    "UNMERGED_DIRTY_REVIEW": 8
+  },
+  "rows": [
+    {
+      "rowKind": "branch",
+      "branch": "main",
+      "commitSha": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "committedAt": "2026-08-19T09:27:26+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP",
+      "ownerSession": {
+        "owners": [
+          "A25"
+        ],
+        "session": "integration-root",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 67,
+        "signature": "f9433c1750787d004ef15291ac5a5d700392576a9f3a0d5467ed31694a46ccc1"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "remoteContainsLocalTip": "no",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "INTEGRATION_ROOT_RECONCILE",
+      "recoveryMethod": "Preserve a444b0dcc6a8 through a reviewed branch/package; classify the root untracked entries; only then reconcile local main with live origin/main under explicit authorization.",
+      "ownerDecision": "PENDING_OWNER_RECONCILIATION_AUTHORIZATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "chore/starship-migration-cleanup",
+      "commitSha": "d2ffff12aed07cf60ef790c1133c031f74be00a9",
+      "committedAt": "2026-08-02T18:21:40+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-cleanup-wt",
+      "ownerSession": {
+        "owners": [
+          "A22",
+          "A25"
+        ],
+        "session": "cleanup-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "d2ffff12aed07cf60ef790c1133c031f74be00a9",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "chore/starship-migration-cleanup",
+          "isDraft": false,
+          "number": 91,
+          "title": "chore: Starship migration cleanup — missing us-ca assets, iCloud dupes, coordination artifacts",
+          "updatedAt": "2026-08-02T10:22:21Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/91"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "claude/confident-archimedes-43307f",
+      "commitSha": "861b96afc690a9beec60def637c33c5eff23552b",
+      "committedAt": "2026-08-03T00:57:31+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/confident-archimedes-43307f",
+      "ownerSession": {
+        "owners": [],
+        "session": "Claude session confident-archimedes-43307f",
+        "source": "unassigned-needs-owner-decision"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 1,
+        "signature": "d3aae39c820c85445a6572aa223c18110a499bbfec6633a3db6167600bfcc26f"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "861b96afc690a9beec60def637c33c5eff23552b",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "claude/fervent-murdock-e2535c",
+      "commitSha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+      "committedAt": "2026-08-03T01:02:04+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [],
+        "session": "Claude session fervent-murdock-e2535c",
+        "source": "unassigned-needs-owner-decision"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "claude/fervent-murdock-e2535c",
+          "isDraft": false,
+          "number": 93,
+          "title": "fix(tests): expect answer_work_photos on persisted attempt record",
+          "updatedAt": "2026-08-02T17:02:39Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/93"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "claude/focused-lehmann-5027fa",
+      "commitSha": "d9bf553ef864bbeb830e666bf8171bf90aad6106",
+      "committedAt": "2026-07-25T19:42:56+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [],
+        "session": "Claude session focused-lehmann-5027fa",
+        "source": "unassigned-needs-owner-decision"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "d9bf553ef864bbeb830e666bf8171bf90aad6106",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "REMOTE_ARCHIVE_PENDING_OWNER_DECISION",
+      "recoveryMethod": "Recreate a local branch/worktree from the same-name GitHub remote tip; record owner purpose or PR before optional local-ref deletion.",
+      "ownerDecision": "PENDING_OWNER_ARCHIVE_OR_PR_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "claude/nervous-borg-384852",
+      "commitSha": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+      "committedAt": "2026-08-19T09:27:26+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/nervous-borg-384852",
+      "ownerSession": {
+        "owners": [],
+        "session": "Claude session nervous-borg-384852",
+        "source": "unassigned-needs-owner-decision"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 1,
+        "stagedChanges": 0,
+        "unstagedChanges": 1,
+        "untrackedEntries": 0,
+        "signature": "42ff7a8122ba25ca3f56546732b36985398895b6f5b5d8f50086e404bd343144"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a01-a12-google-oauth-loop",
+      "commitSha": "b1b89d4cd5f2fc128275d6f84c6361c8ec12808f",
+      "committedAt": "2026-08-09T11:04:47+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-google-oauth-wt",
+      "ownerSession": {
+        "owners": [
+          "A01",
+          "A12"
+        ],
+        "session": "google-oauth-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 39,
+        "stagedChanges": 0,
+        "unstagedChanges": 39,
+        "untrackedEntries": 18,
+        "signature": "f742dbfd6670cf308fbb38279d0b91854bb76d3812645de1538bd90d736ea855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a01-home-hero-chromebook",
+      "commitSha": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+      "committedAt": "2026-08-09T11:22:56+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-home-hero-wt",
+      "ownerSession": {
+        "owners": [
+          "A01"
+        ],
+        "session": "home-hero-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 1,
+        "stagedChanges": 0,
+        "unstagedChanges": 1,
+        "untrackedEntries": 0,
+        "signature": "d4a1e11ebc444887829ef2b5425cb62af29dd90a028b1da9a5dba342d8ff6168"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "d741a0aa8a14bf428ed3d2fdb98bbb41caff6fbf",
+      "remoteContainsLocalTip": "no",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "codex/a01-home-hero-chromebook",
+          "isDraft": false,
+          "number": 119,
+          "title": "feat(home): update hero image and mobile focus",
+          "updatedAt": "2026-08-22T16:28:33Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/119"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_DIRTY_PRESERVE",
+      "recoveryMethod": "Preserve the dirty worktree and reconcile its local changes with the open PR owner; retain the branch/worktree until PR disposition and a clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_AND_DIRTY_WORKTREE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a04-a05-fix-15-product-bugs",
+      "commitSha": "61cd245c8ee5e1a41ba8474ef27a74e301fea4a0",
+      "committedAt": "2026-08-17T01:04:31+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-15-bug-product-wt",
+      "ownerSession": {
+        "owners": [
+          "A04",
+          "A05"
+        ],
+        "session": "15-bug-product-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "LOCAL_ONLY_REVIEW",
+      "recoveryMethod": "Current recovery depends on local ref/reflog; push a named remote branch or create an evidence archive before any deletion.",
+      "ownerDecision": "PENDING_PUSH_ARCHIVE_OR_REVIEW_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a04-math-keyboard-fix",
+      "commitSha": "ea685fd396dce9d11e33a252a4f5d6808751da3c",
+      "committedAt": "2026-08-09T01:36:50+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-math-keyboard-fix-wt",
+      "ownerSession": {
+        "owners": [
+          "A04"
+        ],
+        "session": "math-keyboard-fix-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "ea685fd396dce9d11e33a252a4f5d6808751da3c",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "codex/a04-math-keyboard-fix",
+          "isDraft": true,
+          "number": 117,
+          "title": "fix(practice): make math keyboard equals calculate",
+          "updatedAt": "2026-08-08T17:37:44Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/117"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a04-practice-two-doors",
+      "commitSha": "758ebed96cd279c733574e0e0753d72f95bf3ddf",
+      "committedAt": "2026-08-08T21:58:32+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-practice-two-doors-wt",
+      "ownerSession": {
+        "owners": [
+          "A04"
+        ],
+        "session": "practice-two-doors-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 5,
+        "stagedChanges": 0,
+        "unstagedChanges": 5,
+        "untrackedEntries": 0,
+        "signature": "db30f844b6f91899958e9d3d97adf6646af91805cbde037b08efab2413fb5cb1"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a04-practice-two-doors-review-20260822",
+      "commitSha": "8b91623a5877ddc963a4afb1d818ac0232a7b6d3",
+      "committedAt": "2026-08-22T19:33:12+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-a04-practice-two-doors-review-wt",
+      "ownerSession": {
+        "owners": [
+          "A04"
+        ],
+        "session": "a04-practice-two-doors-review-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "LOCAL_ONLY_REVIEW",
+      "recoveryMethod": "Current recovery depends on local ref/reflog; push a named remote branch or create an evidence archive before any deletion.",
+      "ownerDecision": "PENDING_PUSH_ARCHIVE_OR_REVIEW_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a05-15-bug-loop",
+      "commitSha": "867d17799140e7f45129c928b7af57a540402c75",
+      "committedAt": "2026-08-09T19:09:02+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-15-bug-loop-wt",
+      "ownerSession": {
+        "owners": [
+          "A05"
+        ],
+        "session": "15-bug-loop-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 36,
+        "stagedChanges": 0,
+        "unstagedChanges": 36,
+        "untrackedEntries": 47,
+        "signature": "27198040a196d7a4574df90911272fde3638623c511cc9126504cc93453fae75"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a06-ca-visualization-labs-loop",
+      "commitSha": "b1b89d4cd5f2fc128275d6f84c6361c8ec12808f",
+      "committedAt": "2026-08-09T11:04:47+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-ca-viz-labs-wt",
+      "ownerSession": {
+        "owners": [
+          "A06"
+        ],
+        "session": "ca-viz-labs-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 91,
+        "stagedChanges": 0,
+        "unstagedChanges": 91,
+        "untrackedEntries": 136,
+        "signature": "e6f786ba3d9239759921c19a5b8a07374921a197aaafc455ad26ce480ef8750b"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a06-ca-viz-resume-20260819",
+      "commitSha": "48be11db27be7aa58e5b9593522288af5167083b",
+      "committedAt": "2026-08-22T10:23:29+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a06-ca-viz-resume-20260819",
+      "ownerSession": {
+        "owners": [
+          "A06"
+        ],
+        "session": "a06-ca-viz-resume-20260819",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 1,
+        "stagedChanges": 0,
+        "unstagedChanges": 1,
+        "untrackedEntries": 0,
+        "signature": "ae9f950434c4d8c460910b47804517a7beec95b454f9965da4439e90d5e421c0"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "48be11db27be7aa58e5b9593522288af5167083b",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a06-china-visualization-labs-loop",
+      "commitSha": "f865cadd51220bd5da2acc5f9659ba55d72a887a",
+      "committedAt": "2026-08-22T10:47:32+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-china-viz-labs-wt",
+      "ownerSession": {
+        "owners": [
+          "A06"
+        ],
+        "session": "china-viz-labs-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 44,
+        "stagedChanges": 0,
+        "unstagedChanges": 44,
+        "untrackedEntries": 83,
+        "signature": "0538b5e1e376f81f3e871d6edb98b5787800611be71177788affdc59d36c9781"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "f865cadd51220bd5da2acc5f9659ba55d72a887a",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a06-hk-visualization-labs-loop",
+      "commitSha": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+      "committedAt": "2026-08-09T12:31:18+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-hk-viz-labs-wt",
+      "ownerSession": {
+        "owners": [
+          "A06"
+        ],
+        "session": "hk-viz-labs-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 68,
+        "stagedChanges": 0,
+        "unstagedChanges": 68,
+        "untrackedEntries": 114,
+        "signature": "7804ca26b77ee316cd7543b41767112861b27ae837fa2a02c44e3fb1d72dffc3"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a08-parent-auth-state-20260823",
+      "commitSha": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "committedAt": "2026-08-23T01:10:16+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a08-parent-auth-state-20260823",
+      "ownerSession": {
+        "owners": [
+          "A08"
+        ],
+        "session": "a08-parent-auth-state-20260823",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "READY_CLEANUP_PENDING_SESSION_CONFIRMATION",
+      "recoveryMethod": "Commit is recoverable from origin/main; after session-close confirmation, use normal worktree removal, prune verification, then local branch deletion.",
+      "ownerDecision": "PENDING_SESSION_CLOSE_AND_DELETE_AUTHORIZATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a10-a11-ci-contract-fix-20260822",
+      "commitSha": "9755bcd95ccfecccdfd09958bde7a75bdb566554",
+      "committedAt": "2026-08-22T23:28:39+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-ci-contract-fix-wt",
+      "ownerSession": {
+        "owners": [
+          "A10",
+          "A11"
+        ],
+        "session": "ci-contract-fix-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "9755bcd95ccfecccdfd09958bde7a75bdb566554",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "READY_CLEANUP_PENDING_SESSION_CONFIRMATION",
+      "recoveryMethod": "Commit is recoverable from origin/main; after session-close confirmation, use normal worktree removal, prune verification, then local branch deletion.",
+      "ownerDecision": "PENDING_SESSION_CLOSE_AND_DELETE_AUTHORIZATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a11-parent-gates-20260823",
+      "commitSha": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "committedAt": "2026-08-23T01:10:16+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a11-parent-gates-20260823",
+      "ownerSession": {
+        "owners": [
+          "A11"
+        ],
+        "session": "a11-parent-gates-20260823",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "READY_CLEANUP_PENDING_SESSION_CONFIRMATION",
+      "recoveryMethod": "Commit is recoverable from origin/main; after session-close confirmation, use normal worktree removal, prune verification, then local branch deletion.",
+      "ownerDecision": "PENDING_SESSION_CLOSE_AND_DELETE_AUTHORIZATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a11-practice-pager-two-door-e2e-20260822",
+      "commitSha": "9ba0884e7e0cf4ee983c4e81ac4be7c463ca73ab",
+      "committedAt": "2026-08-22T21:51:16+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-a11-practice-pager-two-door-e2e-wt",
+      "ownerSession": {
+        "owners": [
+          "A11"
+        ],
+        "session": "a11-practice-pager-two-door-e2e-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "LOCAL_ONLY_REVIEW",
+      "recoveryMethod": "Current recovery depends on local ref/reflog; push a named remote branch or create an evidence archive before any deletion.",
+      "ownerDecision": "PENDING_PUSH_ARCHIVE_OR_REVIEW_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a12-parent-privacy-api-20260823",
+      "commitSha": "d53fa7d995a274c4033e39f1950b9d209de4631f",
+      "committedAt": "2026-08-23T02:54:10+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-privacy-api-20260823",
+      "ownerSession": {
+        "owners": [
+          "A12"
+        ],
+        "session": "a12-parent-privacy-api-20260823",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 6,
+        "stagedChanges": 0,
+        "unstagedChanges": 6,
+        "untrackedEntries": 0,
+        "signature": "ca968e34ad1a4704cee1a80801d14a8b12748cf53c236c857bcac6eff564855a"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a14-parent-action-ui-20260823",
+      "commitSha": "a7416c67222c92c25fac8c26fccf765eeb4c75a6",
+      "committedAt": "2026-08-23T00:22:25+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-parent-action-ui-wt",
+      "ownerSession": {
+        "owners": [
+          "A14"
+        ],
+        "session": "parent-action-ui-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 4,
+        "stagedChanges": 0,
+        "unstagedChanges": 4,
+        "untrackedEntries": 1,
+        "signature": "f05646ca8e920b5bf1e62f1e4dfef422063a974175bc89aac9e12d827f7b9d44"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a14-parent-ui-reliability-20260823",
+      "commitSha": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "committedAt": "2026-08-23T01:10:16+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a14-parent-ui-reliability-20260823",
+      "ownerSession": {
+        "owners": [
+          "A14"
+        ],
+        "session": "a14-parent-ui-reliability-20260823",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "READY_CLEANUP_PENDING_SESSION_CONFIRMATION",
+      "recoveryMethod": "Commit is recoverable from origin/main; after session-close confirmation, use normal worktree removal, prune verification, then local branch deletion.",
+      "ownerDecision": "PENDING_SESSION_CLOSE_AND_DELETE_AUTHORIZATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a17-student-rewards-dashboard",
+      "commitSha": "dc7ae1429f050412111e0b50eddbc7afa6838671",
+      "committedAt": "2026-08-09T01:43:52+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-rewards-dashboard-wt",
+      "ownerSession": {
+        "owners": [
+          "A17"
+        ],
+        "session": "rewards-dashboard-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 4,
+        "signature": "448b09f3929e10aac77854669ba2609dc7fbf024e4e76caba325b5019e96afaa"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a18-china-all-math-qa",
+      "commitSha": "1e9f758c033cfcb1cfa8544e0b21a6536c1cd71f",
+      "committedAt": "2026-08-22T10:39:10+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-china-all-math-qa-wt",
+      "ownerSession": {
+        "owners": [
+          "A18"
+        ],
+        "session": "china-all-math-qa-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 5,
+        "stagedChanges": 0,
+        "unstagedChanges": 5,
+        "untrackedEntries": 2,
+        "signature": "55b9a5eca86088233a3535754a722dcbe6264538b00e05520363a2de76fc0595"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a18-hk-all-math-lesson-qa",
+      "commitSha": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+      "committedAt": "2026-08-09T12:31:18+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-hk-content-qa-wt",
+      "ownerSession": {
+        "owners": [
+          "A18"
+        ],
+        "session": "hk-content-qa-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 52,
+        "stagedChanges": 0,
+        "unstagedChanges": 52,
+        "untrackedEntries": 32,
+        "signature": "f8624b410267aac907f94d31e0f3ce25f737744d86b736548ad3c9b94f44b4ba"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a18-hk-ease-v2-qa",
+      "commitSha": "392bc74bc855fb0dc8eb2c07a6f548d4c6b23c47",
+      "committedAt": "2026-08-22T10:32:38+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt",
+      "ownerSession": {
+        "owners": [
+          "A18"
+        ],
+        "session": "hk-ease-v2-qa-wt",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 10,
+        "signature": "fdb3c34c164d14177330ff99ac9911cdeb1791db8ff58b780006b5b492b8354c"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a18-hk-safe-closeout-20260822",
+      "commitSha": "80f927ceee90e825e57093f810a6ab4fac63feee",
+      "committedAt": "2026-08-22T11:55:37+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a18-hk-safe-closeout-20260822",
+      "ownerSession": {
+        "owners": [
+          "A18"
+        ],
+        "session": "a18-hk-safe-closeout-20260822",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "LOCAL_ONLY_REVIEW",
+      "recoveryMethod": "Current recovery depends on local ref/reflog; push a named remote branch or create an evidence archive before any deletion.",
+      "ownerDecision": "PENDING_PUSH_ARCHIVE_OR_REVIEW_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a23-closeouts-main-merge-20260822",
+      "commitSha": "543d8ec8b02eae0b42f0690d3929191c777adaac",
+      "committedAt": "2026-08-22T13:07:06+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A23"
+        ],
+        "session": "a23-closeouts-main-merge-20260822",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "LOCAL_ONLY_REVIEW",
+      "recoveryMethod": "Current recovery depends on local ref/reflog; push a named remote branch or create an evidence archive before any deletion.",
+      "ownerDecision": "PENDING_PUSH_ARCHIVE_OR_REVIEW_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a23-closeouts-main-ready-20260822",
+      "commitSha": "66fddde4782b125c49f50c43348c1829ef8e1267",
+      "committedAt": "2026-08-22T13:15:37+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A23"
+        ],
+        "session": "a23-closeouts-main-ready-20260822",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "LOCAL_ONLY_REVIEW",
+      "recoveryMethod": "Current recovery depends on local ref/reflog; push a named remote branch or create an evidence archive before any deletion.",
+      "ownerDecision": "PENDING_PUSH_ARCHIVE_OR_REVIEW_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/a23-parent-full-remediation-20260823",
+      "commitSha": "39f0a8f80829b30cf2027ef662b12924391244b7",
+      "committedAt": "2026-08-23T01:10:16+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-full-remediation-20260823",
+      "ownerSession": {
+        "owners": [
+          "A23"
+        ],
+        "session": "a23-parent-full-remediation-20260823",
+        "source": "explicit-agent-id-in-branch"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "READY_CLEANUP_PENDING_SESSION_CONFIRMATION",
+      "recoveryMethod": "Commit is recoverable from origin/main; after session-close confirmation, use normal worktree removal, prune verification, then local branch deletion.",
+      "ownerDecision": "PENDING_SESSION_CLOSE_AND_DELETE_AUTHORIZATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "codex/next16-3-parity",
+      "commitSha": "dc7ae1429f050412111e0b50eddbc7afa6838671",
+      "committedAt": "2026-08-09T01:43:52+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP-next16-3-parity",
+      "ownerSession": {
+        "owners": [
+          "A10",
+          "A22"
+        ],
+        "session": "MVP-next16-3-parity",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 24,
+        "stagedChanges": 0,
+        "unstagedChanges": 24,
+        "untrackedEntries": 5,
+        "signature": "340b38f541ed036c1a2cb40dd53b14784758a7946cc8b4b27f2e956256858732"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "compliance/child-data-legal-baseline",
+      "commitSha": "5ac94eb8437c552df1bb7a5dbcd34b93c75f446b",
+      "committedAt": "2026-08-18T23:34:09+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-child-legal-wt",
+      "ownerSession": {
+        "owners": [
+          "A10",
+          "A12",
+          "A18"
+        ],
+        "session": "child-legal-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "5ac94eb8437c552df1bb7a5dbcd34b93c75f446b",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "ACTIVE_OR_UNMERGED_REVIEW",
+      "recoveryMethod": "Recover from the same-name GitHub branch; retain until owner confirms active versus archive disposition.",
+      "ownerDecision": "PENDING_ACTIVE_VS_CLOSEOUT_CONFIRMATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "content/us-ca-math-lesson-qa",
+      "commitSha": "9a1ff26e7723e18462a46e7255ba027d4ce1de7a",
+      "committedAt": "2026-08-11T01:36:55+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-ca-content-qa-wt",
+      "ownerSession": {
+        "owners": [
+          "A18",
+          "A21"
+        ],
+        "session": "ca-content-qa-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "9a1ff26e7723e18462a46e7255ba027d4ce1de7a",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "ACTIVE_OR_UNMERGED_REVIEW",
+      "recoveryMethod": "Recover from the same-name GitHub branch; retain until owner confirms active versus archive disposition.",
+      "ownerDecision": "PENDING_ACTIVE_VS_CLOSEOUT_CONFIRMATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "docs/compliance-data-inventory",
+      "commitSha": "f4d23db56ce4c4b2da1ff62ca1e1dd44f1216fd6",
+      "committedAt": "2026-07-31T00:08:40+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A10",
+          "A12"
+        ],
+        "session": "compliance-data-inventory",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "f4d23db56ce4c4b2da1ff62ca1e1dd44f1216fd6",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "REMOTE_ARCHIVE_PENDING_OWNER_DECISION",
+      "recoveryMethod": "Recreate a local branch/worktree from the same-name GitHub remote tip; record owner purpose or PR before optional local-ref deletion.",
+      "ownerDecision": "PENDING_OWNER_ARCHIVE_OR_PR_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "feat/account-deletion-erasure",
+      "commitSha": "9ec3281ce5f4902b1c89893154869b5e10a7618a",
+      "committedAt": "2026-07-31T09:28:31+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A12",
+          "A14"
+        ],
+        "session": "account-deletion-erasure",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "9ec3281ce5f4902b1c89893154869b5e10a7618a",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "REMOTE_ARCHIVE_PENDING_OWNER_DECISION",
+      "recoveryMethod": "Recreate a local branch/worktree from the same-name GitHub remote tip; record owner purpose or PR before optional local-ref deletion.",
+      "ownerDecision": "PENDING_OWNER_ARCHIVE_OR_PR_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "feat/legal-accessibility-foundation",
+      "commitSha": "9019b8c224f56616556a4f38ca5c22c97af73a8b",
+      "committedAt": "2026-07-31T02:33:09+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A09",
+          "A10"
+        ],
+        "session": "legal-accessibility-foundation",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "4a26ef985f1324bebeec72c8efe5ceb818cc0898",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "feat/legal-accessibility-foundation",
+          "isDraft": false,
+          "number": 86,
+          "title": "feat(compliance): public legal + accessibility foundation and a WCAG audit gate",
+          "updatedAt": "2026-08-01T16:27:11Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/86"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "feat/region-gated-provider-routing",
+      "commitSha": "f1e8ca01049305f859d9ac5209b2b45d0cc3b934",
+      "committedAt": "2026-07-31T09:15:51+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A07",
+          "A12",
+          "A19"
+        ],
+        "session": "region-gated-provider-routing",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "f1e8ca01049305f859d9ac5209b2b45d0cc3b934",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "REMOTE_ARCHIVE_PENDING_OWNER_DECISION",
+      "recoveryMethod": "Recreate a local branch/worktree from the same-name GitHub remote tip; record owner purpose or PR before optional local-ref deletion.",
+      "ownerDecision": "PENDING_OWNER_ARCHIVE_OR_PR_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "feat/tutor-moderation-provider",
+      "commitSha": "07e993f04484cfc838a374c652f72acba6624dbe",
+      "committedAt": "2026-08-09T16:29:20+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-tutor-moderation-wt",
+      "ownerSession": {
+        "owners": [
+          "A07"
+        ],
+        "session": "tutor-moderation-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 3,
+        "stagedChanges": 0,
+        "unstagedChanges": 3,
+        "untrackedEntries": 2,
+        "signature": "76b11bf2195b4809a082b493151a1d643d91c13047e64cb94d44b90c04d58657"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "fix/nova-tutor-functions",
+      "commitSha": "05841b9900a7abeef7f5ae6a1f2158216b951762",
+      "committedAt": "2026-08-09T02:21:28+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-nova-tutor-wt",
+      "ownerSession": {
+        "owners": [
+          "A07",
+          "A12"
+        ],
+        "session": "nova-tutor-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "05841b9900a7abeef7f5ae6a1f2158216b951762",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "ACTIVE_OR_UNMERGED_REVIEW",
+      "recoveryMethod": "Recover from the same-name GitHub branch; retain until owner confirms active versus archive disposition.",
+      "ownerDecision": "PENDING_ACTIVE_VS_CLOSEOUT_CONFIRMATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "fix/starship-canonical-root",
+      "commitSha": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+      "committedAt": "2026-08-02T18:20:40+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6",
+      "ownerSession": {
+        "owners": [
+          "A10",
+          "A25"
+        ],
+        "session": "cool-lamarr-a66bd6",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 2,
+        "stagedChanges": 0,
+        "unstagedChanges": 2,
+        "untrackedEntries": 1,
+        "signature": "b86f16faa381ed608ccf429ab3792a9366280d78a6ca378b1f71d86e7250b017"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "i18n/zh-hans-ratchet",
+      "commitSha": "5d6cf7e775521c1d29d1d35c74f9c9cbc0ca84c1",
+      "committedAt": "2026-08-19T12:43:20+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-zh-hans-wt",
+      "ownerSession": {
+        "owners": [
+          "A09"
+        ],
+        "session": "zh-hans-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "5d6cf7e775521c1d29d1d35c74f9c9cbc0ca84c1",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "ACTIVE_OR_UNMERGED_REVIEW",
+      "recoveryMethod": "Recover from the same-name GitHub branch; retain until owner confirms active versus archive disposition.",
+      "ownerDecision": "PENDING_ACTIVE_VS_CLOSEOUT_CONFIRMATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "ops/production-observability",
+      "commitSha": "409d1a987e83e98c61bf164cfd52fa86429608d4",
+      "committedAt": "2026-08-19T01:13:06+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-observability-wt",
+      "ownerSession": {
+        "owners": [
+          "A12",
+          "A22"
+        ],
+        "session": "observability-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 12,
+        "stagedChanges": 0,
+        "unstagedChanges": 12,
+        "untrackedEntries": 2,
+        "signature": "dad022b6c0ff3ffee42965e932312915b33e309f8241585653f662667d99f2c5"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "409d1a987e83e98c61bf164cfd52fa86429608d4",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "UNMERGED_DIRTY_REVIEW",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "perf/app-state-row-tables",
+      "commitSha": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed",
+      "committedAt": "2026-08-18T22:47:53+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-persistence-wt",
+      "ownerSession": {
+        "owners": [
+          "A08",
+          "A12",
+          "A22"
+        ],
+        "session": "persistence-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "perf/app-state-row-tables",
+          "isDraft": false,
+          "number": 134,
+          "title": "perf(storage): cut the app_state snapshot 84% and stop losing concurrent writes",
+          "updatedAt": "2026-08-18T15:01:11Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/134"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "perf/check-answer-fast-path",
+      "commitSha": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6",
+      "committedAt": "2026-08-03T02:01:25+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-perf-checkanswer-wt",
+      "ownerSession": {
+        "owners": [
+          "A04",
+          "A12",
+          "A22"
+        ],
+        "session": "perf-checkanswer-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "perf/check-answer-fast-path",
+          "isDraft": false,
+          "number": 94,
+          "title": "perf(practice): make Check Answer instant in SQLite mode (hot-row fast path + snapshot cache reuse)",
+          "updatedAt": "2026-08-02T18:08:31Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/94"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "perf/classroom-load-smoke",
+      "commitSha": "eb77c9310dae91f87db6ba2982d7e5b61cd2ff9f",
+      "committedAt": "2026-08-19T10:03:13+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-classroom-load-wt",
+      "ownerSession": {
+        "owners": [
+          "A11",
+          "A22"
+        ],
+        "session": "classroom-load-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "eb77c9310dae91f87db6ba2982d7e5b61cd2ff9f",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "ACTIVE_OR_UNMERGED_REVIEW",
+      "recoveryMethod": "Recover from the same-name GitHub branch; retain until owner confirms active versus archive disposition.",
+      "ownerDecision": "PENDING_ACTIVE_VS_CLOSEOUT_CONFIRMATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "qa/learner-teacher-interactions",
+      "commitSha": "0e6bb4389a3d704cef8f1927f4a7783dd764d168",
+      "committedAt": "2026-08-18T15:06:41+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-learner-teacher-qa-wt",
+      "ownerSession": {
+        "owners": [
+          "A11"
+        ],
+        "session": "learner-teacher-qa-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 2,
+        "stagedChanges": 0,
+        "unstagedChanges": 2,
+        "untrackedEntries": 2,
+        "signature": "1d1bb1f57dc376da3b51a299692efb9bb13455c386ad8573b00b4fc972e10510"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "qa/teacher-coverage",
+      "commitSha": "ad81865f420f98f72799027c38a8ed517d99d396",
+      "committedAt": "2026-08-18T19:57:56+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-teacher-coverage-wt",
+      "ownerSession": {
+        "owners": [
+          "A11",
+          "A13"
+        ],
+        "session": "teacher-coverage-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 1,
+        "stagedChanges": 0,
+        "unstagedChanges": 1,
+        "untrackedEntries": 0,
+        "signature": "ae9f950434c4d8c460910b47804517a7beec95b454f9965da4439e90d5e421c0"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "ad81865f420f98f72799027c38a8ed517d99d396",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "qa/teacher-coverage",
+          "isDraft": false,
+          "number": 133,
+          "title": "test(teacher): cover untested surfaces; stop dead matchers hanging runs",
+          "updatedAt": "2026-08-18T11:58:01Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/133"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_DIRTY_PRESERVE",
+      "recoveryMethod": "Preserve the dirty worktree and reconcile its local changes with the open PR owner; retain the branch/worktree until PR disposition and a clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_AND_DIRTY_WORKTREE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "security/ai-tutor-voice-moderation",
+      "commitSha": "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17",
+      "committedAt": "2026-08-22T15:33:44+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156",
+      "ownerSession": {
+        "owners": [
+          "A07",
+          "A12"
+        ],
+        "session": "happy-lamport-055156",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 1,
+        "signature": "d3aae39c820c85445a6572aa223c18110a499bbfec6633a3db6167600bfcc26f"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "security/phase0-auth-hardening",
+      "commitSha": "96f35faf6be5a8eed6a202b2d7e4f69547840d15",
+      "committedAt": "2026-08-18T22:52:05+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-phase0-auth-wt",
+      "ownerSession": {
+        "owners": [
+          "A12"
+        ],
+        "session": "phase0-auth-wt",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "96f35faf6be5a8eed6a202b2d7e4f69547840d15",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "ACTIVE_OR_UNMERGED_REVIEW",
+      "recoveryMethod": "Recover from the same-name GitHub branch; retain until owner confirms active versus archive disposition.",
+      "ownerDecision": "PENDING_ACTIVE_VS_CLOSEOUT_CONFIRMATION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "test/lesson-menu-phone-e2e-coverage",
+      "commitSha": "e7c9831acf7c2da3d581acab5d81b533acac6a95",
+      "committedAt": "2026-07-26T19:36:56+08:00",
+      "worktreePath": null,
+      "ownerSession": {
+        "owners": [
+          "A05",
+          "A11"
+        ],
+        "session": "lesson-menu-phone-e2e-coverage",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "not-checked-out",
+        "trackedChanges": null,
+        "stagedChanges": null,
+        "unstagedChanges": null,
+        "untrackedEntries": null,
+        "signature": null
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": true,
+      "githubRemoteTipSha": "63fdc82bfd3c4167422c0adaf45650d80706c130",
+      "remoteContainsLocalTip": "yes",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "test/lesson-menu-phone-e2e-coverage",
+          "isDraft": false,
+          "number": 79,
+          "title": "test(e2e): lesson-menu hide/rail/pill + phone-width layout coverage [needs e2e run]",
+          "updatedAt": "2026-08-22T16:27:53Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/79"
+        }
+      ],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "OPEN_PR_RETAIN",
+      "recoveryMethod": "Recover from the open GitHub PR/remote head; retain local worktree until PR disposition and clean-session closeout.",
+      "ownerDecision": "PENDING_PR_OWNER_DECISION"
+    },
+    {
+      "rowKind": "branch",
+      "branch": "worktree-lesson-remove-viz-completion",
+      "commitSha": "1d81110c60df2695917947f3198df06b5bc384ba",
+      "committedAt": "2026-08-02T01:42:22+08:00",
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/lesson-remove-viz-completion",
+      "ownerSession": {
+        "owners": [
+          "A05",
+          "A06"
+        ],
+        "session": "lesson-remove-viz-completion",
+        "source": "scope-inferred-needs-confirmation"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 14,
+        "stagedChanges": 2,
+        "unstagedChanges": 12,
+        "untrackedEntries": 0,
+        "signature": "a1e6f0a6802d51679868dc0a94fbf7e28133e8345b97e254c64e47b4acf8e999"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": false,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": false,
+      "prunable": false,
+      "suggestedFinalStatus": "MERGED_DIRTY_PRESERVE",
+      "recoveryMethod": "Capture exact diff and untracked inventory; route by owner pathspec into reviewed commit, evidence archive, owner-approved discard, or blocker report; remove nothing while dirty.",
+      "ownerDecision": "PENDING_OWNER_PACKAGE_DISPOSITION"
+    },
+    {
+      "rowKind": "detached-worktree",
+      "branch": "(detached@5b044fb169da)",
+      "commitSha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+      "committedAt": null,
+      "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/fervent-murdock-e2535c",
+      "ownerSession": {
+        "owners": [],
+        "session": "fervent-murdock-e2535c",
+        "source": "unassigned-needs-owner-decision"
+      },
+      "status": {
+        "readable": true,
+        "status": "dirty",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 1,
+        "signature": "d3aae39c820c85445a6572aa223c18110a499bbfec6633a3db6167600bfcc26f"
+      },
+      "enteredLiveOriginMain": "no",
+      "githubRemoteBranchExists": null,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [
+        {
+          "baseRefName": "main",
+          "headRefName": "claude/fervent-murdock-e2535c",
+          "isDraft": false,
+          "number": 93,
+          "title": "fix(tests): expect answer_work_photos on persisted attempt record",
+          "updatedAt": "2026-08-02T17:02:39Z",
+          "url": "https://github.com/HUDongpin/MAIS-MVP/pull/93"
+        }
+      ],
+      "detached": true,
+      "prunable": false,
+      "reachableRefs": [
+        "claude/fervent-murdock-e2535c",
+        "origin/claude/fervent-murdock-e2535c"
+      ],
+      "suggestedFinalStatus": "DETACHED_DIRTY_RECOVERY",
+      "recoveryMethod": "Preserve status; verify named refs containing 5b044fb169da (claude/fervent-murdock-e2535c, origin/claude/fervent-murdock-e2535c); create a named recovery branch before any removal if ownership remains unclear.",
+      "ownerDecision": "PENDING_DETACHED_RECOVERY_OWNER_DECISION"
+    },
+    {
+      "rowKind": "detached-worktree",
+      "branch": "(detached@bd0928ef52ff)",
+      "commitSha": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+      "committedAt": null,
+      "worktreePath": "/Volumes/Starship/MAIS-qwen-3-8-max-prod-wt",
+      "ownerSession": {
+        "owners": [],
+        "session": "qwen-3-8-max-prod-wt",
+        "source": "unassigned-needs-owner-decision"
+      },
+      "status": {
+        "readable": true,
+        "status": "clean",
+        "trackedChanges": 0,
+        "stagedChanges": 0,
+        "unstagedChanges": 0,
+        "untrackedEntries": 0,
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "enteredLiveOriginMain": "yes",
+      "githubRemoteBranchExists": null,
+      "githubRemoteTipSha": null,
+      "remoteContainsLocalTip": "not-applicable",
+      "openPullRequests": [],
+      "detached": true,
+      "prunable": false,
+      "reachableRefs": [
+        "archive/branches/2026-08-22/codex/a18-china-safe-closeout-20260822",
+        "archive/branches/2026-08-22/codex/a18-hk-contract-closeout-20260822",
+        "claude/nervous-borg-384852",
+        "codex/a04-a05-fix-15-product-bugs",
+        "codex/a04-practice-two-doors-review-20260822",
+        "codex/a06-ca-viz-resume-20260819",
+        "codex/a08-parent-auth-state-20260823",
+        "codex/a10-a11-ci-contract-fix-20260822",
+        "codex/a11-parent-gates-20260823",
+        "codex/a11-practice-pager-two-door-e2e-20260822",
+        "codex/a12-parent-privacy-api-20260823",
+        "codex/a14-parent-action-ui-20260823",
+        "codex/a14-parent-ui-reliability-20260823",
+        "codex/a18-hk-safe-closeout-20260822",
+        "codex/a23-closeouts-main-merge-20260822",
+        "codex/a23-closeouts-main-ready-20260822",
+        "codex/a23-parent-full-remediation-20260823",
+        "i18n/zh-hans-ratchet",
+        "main",
+        "origin",
+        "origin/codex/a06-ca-viz-resume-20260819",
+        "origin/codex/a10-a11-ci-contract-fix-20260822",
+        "origin/i18n/zh-hans-ratchet",
+        "origin/main",
+        "origin/perf/classroom-load-smoke",
+        "origin/qa/teacher-coverage",
+        "perf/classroom-load-smoke",
+        "qa/teacher-coverage",
+        "security/ai-tutor-voice-moderation"
+      ],
+      "suggestedFinalStatus": "DETACHED_RECOVERY_REVIEW",
+      "recoveryMethod": "Preserve status; verify named refs containing bd0928ef52ff (archive/branches/2026-08-22/codex/a18-china-safe-closeout-20260822, archive/branches/2026-08-22/codex/a18-hk-contract-closeout-20260822, claude/nervous-borg-384852, codex/a04-a05-fix-15-product-bugs); create a named recovery branch before any removal if ownership remains unclear.",
+      "ownerDecision": "PENDING_DETACHED_RECOVERY_OWNER_DECISION"
+    }
+  ]
+}

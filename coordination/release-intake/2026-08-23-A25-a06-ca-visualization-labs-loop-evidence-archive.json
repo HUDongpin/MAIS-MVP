@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:41:47Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a06-ca-visualization-labs-loop",
+  "worktreePath": "/Volumes/Starship/MAIS-ca-viz-labs-wt",
+  "originalBranchHead": "b1b89d4cd5f2fc128275d6f84c6361c8ec12808f",
+  "archiveCommit": "777f46db6ef16c209f3493f58ec1fb13df8daf94",
+  "remoteArchiveRef": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823",
+  "repositoryVisibilityAtArchive": "PRIVATE",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "pr136Boundary": {
+    "pullRequest": 136,
+    "merged": true,
+    "boundedCaliforniaRuntimeComponentPathCount": 61,
+    "laterAcceptanceArchiveAndObsoleteHarnessExplicitlyExcluded": true,
+    "wholeTreeAbsorption": false
+  },
+  "activeResume": {
+    "branch": "codex/a06-ca-viz-resume-20260819",
+    "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a06-ca-viz-resume-20260819",
+    "touchedByA25": false,
+    "exactBlobMatches": 41,
+    "exactWholeTreeSupersession": false
+  },
+  "owners": {
+    "visualizationRuntime": "A06",
+    "stateApiPersistenceAdaptive": ["A08", "A12", "A15"],
+    "browserAndRelease": ["A11", "A22"],
+    "configAndBuild": "A10",
+    "curriculumSemantics": "A18",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "pathCount": 227,
+    "pathCountEqualLiveOriginMain": 30,
+    "pathCountEqualActiveResume": 41,
+    "insertions": 161660,
+    "deletions": 2011,
+    "largeMeasurementAuthorizationHarness": true
+  },
+  "historicalBrowserAttempt": {
+    "collectedIdentities": 102,
+    "passed": 0,
+    "failed": 2,
+    "skipped": 100,
+    "browserExitedBeforePageOrContext": true,
+    "producerSuccessReceiptExists": false,
+    "terminalArtifactManifestExists": false,
+    "terminalSealExists": false,
+    "receiptConsumed": true,
+    "rerunAuthorized": false
+  },
+  "archiveVerification": {
+    "credentialPatternGate": "PASS_AFTER_LEXICAL_FALSE_POSITIVE_CLASSIFICATION",
+    "lexicalSkPrefixFalsePositiveFileCount": 3,
+    "cachedPathCount": 227,
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "diffCheck": "WARNING_FIVE_PRESERVED_BLANK_EOF_FINDINGS",
+    "currentTurnRuntimeBrowserTests": "NOT_RUN_OWNER_AUTHORIZATION_BOUNDARY"
+  },
+  "ownerDecision": "Preserve exact California WIP; do not open a PR, reuse the consumed receipt, rerun Chrome, or claim exhaustive acceptance.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false,
+    "browserAuthorizationLedgerMutationAuthorized": false,
+    "browserRerunAuthorized": false,
+    "activeResumeMutationAuthorized": false,
+    "deploymentAuthorized": false
+  },
+  "closure": {
+    "attemptedAt": "2026-08-22T20:42:44Z",
+    "commandWasPlainNonForcedWorktreeRemove": true,
+    "worktreeRegistrationRemoved": true,
+    "filesystemPathRemoved": false,
+    "filesystemResidualRetained": true,
+    "permissionDenied": true,
+    "forceUsed": false,
+    "permissionMutationUsed": false,
+    "destructiveRetryUsed": false,
+    "residualApproximateTotalSize": "150G",
+    "residualApproximateTmpSize": "149G",
+    "residualTmpFileCount": 1090191,
+    "residualOutsideTmpFileCount": 187,
+    "residualOutsideTmpExactArchiveMatchCount": 184,
+    "residualOutsideTmpArchiveMismatchCount": 0,
+    "residualOutsideTmpNotInArchiveCount": 3,
+    "residualOutsideTmpNotInArchive": [
+      "tsconfig.dist-tmp-a06-pointer-a-next.tmp.json",
+      "tsconfig.dist-tmp-e2e-run-ca-floating-occluder-green-v3-20260810-next-dist.tmp.json",
+      "tsconfig.dist-tmp-ca-viz-loop-next-019fe4a7.tmp.json"
+    ],
+    "a22OrOwnerEvidenceDecisionRequiredBeforePhysicalDeletion": true,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/a06-ca-visualization-labs-loop-wip-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-ca-viz-labs-recovered-wt 777f46db6ef16c209f3493f58ec1fb13df8daf94"
+  }
+}

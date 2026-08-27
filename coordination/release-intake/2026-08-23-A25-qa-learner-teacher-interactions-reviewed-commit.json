@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T21:13:00Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "reviewed commit",
+  "branch": "qa/learner-teacher-interactions",
+  "worktreePath": "/Volumes/Starship/MAIS-learner-teacher-qa-wt",
+  "originalBranchHead": "0e6bb4389a3d704cef8f1927f4a7783dd764d168",
+  "reviewedCommits": {
+    "testPackage": "4776d975a0946dcf69d0ba6ac83c8e018226e05d",
+    "liveMainMerge": "d33e0c90370895943d7eb71ba3f3d3548fff31ac",
+    "harnessFix": "68522d302448eeadfba3fac5a46adc8b931575d0",
+    "loginHydrationFix": "718b488fab22d0b070a08d6d95bc1bc32346450f",
+    "loadedRunnerBudgetFix": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56"
+  },
+  "liveOriginMainIntegrationBaseline": "39f0a8f80829b30cf2027ef662b12924391244b7",
+  "owners": {
+    "qa": "A11",
+    "harness": "A22",
+    "closureIntake": "A25"
+  },
+  "originalDirtyInventory": {
+    "trackedChanges": 2,
+    "stagedChanges": 0,
+    "unstagedChanges": 2,
+    "untrackedEntries": 2,
+    "entries": [
+      {
+        "status": "untracked",
+        "path": "tests/e2e/learner-teacher-interaction-matrix.spec.ts",
+        "disposition": "exact reviewed commit 4776d975a0"
+      },
+      {
+        "status": "untracked",
+        "path": "tests/e2e/learner-teacher-work-photos.spec.ts",
+        "disposition": "exact reviewed commit 4776d975a0"
+      },
+      {
+        "status": "tracked unstaged",
+        "path": "playwright.config.ts",
+        "disposition": "exact evidence patch plus semantic live-main replay in 68522d3024"
+      },
+      {
+        "status": "tracked unstaged",
+        "path": "next-env.d.ts",
+        "disposition": "generated evidence archive then restore"
+      }
+    ]
+  },
+  "evidenceArchive": {
+    "path": "coordination/release-intake/2026-08-23-A25-qa-learner-teacher-preintegration-evidence.patch",
+    "sha256": "4065a25fb1bea61f91fb81ac2035fabe15f537f288460f81304028763b8a1b74",
+    "byteIdenticalToOriginalTrackedDiff": true,
+    "gitApplyCheck": "PASS"
+  },
+  "finalPullRequestDiff": {
+    "files": 5,
+    "insertions": 1179,
+    "deletions": 4,
+    "paths": [
+      "playwright.config.ts",
+      "scripts/playwright-config-path-safety.test.mjs",
+      "tests/e2e/helpers.ts",
+      "tests/e2e/learner-teacher-interaction-matrix.spec.ts",
+      "tests/e2e/learner-teacher-work-photos.spec.ts"
+    ]
+  },
+  "verification": [
+    {
+      "check": "Playwright path-safety contract",
+      "result": "PASS 25/25"
+    },
+    {
+      "check": "Playwright discovery",
+      "result": "PASS 26 project entries"
+    },
+    {
+      "check": "npm run type-check",
+      "result": "PASS"
+    },
+    {
+      "check": "actual focused E2E",
+      "result": "PASS 14 passed, 12 intentionally skipped, 0 failed, 4.9 minutes"
+    },
+    {
+      "check": "focused auth E2E after login hydration fix",
+      "result": "PASS 5/5"
+    },
+    {
+      "check": "full parent console E2E after login hydration fix",
+      "result": "PASS 6/6"
+    },
+    {
+      "check": "PR 140 CI run 32597844658",
+      "result": "PASS snapshot, postgres-integration, visualization-browser, teacher-parent-e2e, validate including build"
+    }
+  ],
+  "remoteDisposition": {
+    "branch": "origin/qa/learner-teacher-interactions",
+    "tip": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56",
+    "pullRequest": 140,
+    "pullRequestStateAtReport": "MERGED",
+    "mergeableAtReport": true,
+    "requiredChecksAtReport": "PASS",
+    "mergedAt": "2026-08-22T21:12:09Z",
+    "mergeCommit": "4e8e2a7e6153cfc3319b2687dd42dd413f867a77",
+    "remoteBranchRestoredAfterAutoDelete": true,
+    "reviewedTipContainedInLiveOriginMain": true
+  },
+  "authorizations": {
+    "cleanupAuthorized": true,
+    "worktreeRemovalAuthorized": true,
+    "localBranchDeletionAuthorized": true,
+    "remoteBranchDeletionAuthorized": false
+  },
+  "localClosure": {
+    "worktreeRemoved": true,
+    "worktreeRemovalForced": false,
+    "localBranchDeleted": true,
+    "localBranchDeletionForced": false,
+    "remoteBranchRetained": true
+  },
+  "nextRequiredState": "Complete: reviewed commit merged, live-main containment proven, local worktree and branch closed, GitHub recovery ref retained."
+}

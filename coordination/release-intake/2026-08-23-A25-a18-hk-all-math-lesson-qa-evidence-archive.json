@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:38:25Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a18-hk-all-math-lesson-qa",
+  "worktreePath": "/Volumes/Starship/MAIS-hk-content-qa-wt",
+  "originalBranchHead": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+  "archiveCommit": "47dc3395521044ac8728d790c90d30516b9c94fa",
+  "remoteArchiveRef": "origin/archive/a18-hk-all-math-lesson-qa-wip-20260823",
+  "repositoryVisibilityAtArchive": "PRIVATE",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "pr136Boundary": {
+    "pullRequest": 136,
+    "merged": true,
+    "fullHongKongCurriculumExplicitlyExcluded": true,
+    "wholeTreeAbsorption": false
+  },
+  "owners": {
+    "curriculumQA": "A18",
+    "liveCurriculumAndContent": ["A03", "A04", "A05"],
+    "sharedSemantics": "A08",
+    "persistenceAndAdaptive": ["A12", "A15"],
+    "contentPipelineAndEvidence": "A21",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "pathCount": 84,
+    "pathCountEqualLiveOriginMain": 1,
+    "pathCountEqualHkSafeCloseout": 0,
+    "insertions": 632411,
+    "deletions": 1247,
+    "largeDerivedAuditArtifacts": true
+  },
+  "archiveVerification": {
+    "secretPatternGate": "PASS",
+    "cachedPathCount": 84,
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "diffCheck": "WARNING_PRESERVED_EVIDENCE_FORMATTING",
+    "currentTurnProductAndContentTests": "NOT_RUN_EVIDENCE_ARCHIVE"
+  },
+  "ownerDecision": "Preserve exact mixed content QA WIP; do not open a PR or claim full HK curriculum acceptance.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false,
+    "liveContentPromotionAuthorized": false,
+    "deploymentAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:39:19Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "externalCwdOwnerFound": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/a18-hk-all-math-lesson-qa-wip-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-hk-content-qa-recovered-wt 47dc3395521044ac8728d790c90d30516b9c94fa"
+  }
+}

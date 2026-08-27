@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T19:27:29Z",
+  "timezone": "Asia/Hong_Kong",
+  "finalState": "blocker report",
+  "branch": "security/ai-tutor-voice-moderation",
+  "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156",
+  "branchHead": "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17",
+  "mergedPullRequest": {
+    "number": 135,
+    "mergeCommit": "b03d03e82b0f1432f7fb7abebb26ddbb85f77880"
+  },
+  "liveOriginMain": "39f0a8f80829b30cf2027ef662b12924391244b7",
+  "owners": {
+    "branchOwners": ["A07", "A12"],
+    "dirtyPathOwners": ["A10", "A25"],
+    "ownerConfirmationRequired": true
+  },
+  "dirtyInventory": {
+    "trackedChanges": 0,
+    "stagedChanges": 0,
+    "unstagedChanges": 0,
+    "untrackedEntries": 1,
+    "entries": [
+      {
+        "status": "untracked",
+        "path": ".codex/hooks.json",
+        "bytes": 412,
+        "sha256": "5d2499224b7a00452dec09997bc3a27ac198051299dfd35971d848bc568a52d3"
+      }
+    ]
+  },
+  "duplicateEvidence": {
+    "commit": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+    "path": ".codex/hooks.json",
+    "byteIdentical": true,
+    "presentInLiveOriginMain": false
+  },
+  "blocker": "The only dirty path belongs to A10/A25 root-guard configuration and is unresolved in the local-main reconciliation package; it must not be committed or discarded from the A07/A12 voice-moderation branch.",
+  "allowedResolutions": [
+    "reviewed commit",
+    "evidence archive",
+    "owner-approved discard",
+    "exact-byte supersession proof"
+  ],
+  "authorizations": {
+    "cleanupAuthorized": false,
+    "worktreeRemovalAuthorized": false,
+    "localBranchDeletionAuthorized": false,
+    "remoteBranchDeletionAuthorized": false
+  }
+}

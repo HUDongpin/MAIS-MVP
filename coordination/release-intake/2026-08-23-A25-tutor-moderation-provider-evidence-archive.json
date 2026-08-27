@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:15:11Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "feat/tutor-moderation-provider",
+  "worktreePath": "/Volumes/Starship/MAIS-tutor-moderation-wt",
+  "originalBranchHead": "07e993f04484cfc838a374c652f72acba6624dbe",
+  "archiveCommit": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9",
+  "remoteArchiveRef": "origin/archive/tutor-moderation-provider-pre-hardening-20260823",
+  "owners": {
+    "provider": "A07",
+    "routeIntegration": "A12",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "trackedChanges": 3,
+    "stagedChangesBeforeIntake": 0,
+    "untrackedEntries": 2,
+    "insertions": 1444,
+    "deletions": 66,
+    "entries": [
+      {
+        "path": "app/api/ai-tutor/resolve/route.ts",
+        "gitBlob": "c5ad32382ad96f96c42f9acf3c5a03e5b5f99d6d"
+      },
+      {
+        "path": "scripts/run-tutor-moderation-tests.mjs",
+        "gitBlob": "b202109f8b65fa36e0378b1adf5c3c221f8d7996"
+      },
+      {
+        "path": "tsconfig.tutor-moderation.json",
+        "gitBlob": "d8c8a896632dac66dfa43ae17ba46f2988f600ed"
+      },
+      {
+        "path": "lib/server/tutorModerationProvider.test.ts",
+        "gitBlob": "b7f86e73715ec22b2cb5f674911c92e62efdc4d5"
+      },
+      {
+        "path": "lib/server/tutorModerationProvider.ts",
+        "gitBlob": "5f0d3796c033652438829a20840ca3e3180ada93"
+      }
+    ]
+  },
+  "semanticSuccessor": {
+    "exactProviderAndTestCommits": [
+      "66d326dc15b66227fb5c080048e82892a9d2f75f",
+      "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17"
+    ],
+    "mergedPullRequest": 135,
+    "containedByLiveOriginMain": true,
+    "exactWholeWorktreeSupersession": false
+  },
+  "archiveVerification": {
+    "secretPatternGate": "PASS",
+    "cachedDiffCheck": "PASS",
+    "worktreeCleanAfterCommit": true,
+    "localTipMatchesRemoteArchive": true
+  },
+  "authorizations": {
+    "worktreeRemovalAuthorized": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:16:12Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/tutor-moderation-provider-pre-hardening-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-tutor-moderation-recovered-wt 919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9"
+  }
+}

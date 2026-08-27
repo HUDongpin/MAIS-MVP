@@ -12,7 +12,7 @@ This file is the coordination contract for AI agent roles (Codex, Claude, and ot
   - `npm run build` runs a production Next build.
   - `npm run type-check` runs `tsc --noEmit`.
   - `npm run test:analytics` compiles and runs `lib/learningAnalytics.test.ts` with Node test runner.
-- Current checkout note: this folder is now a Git repository on `main` and may contain many owner/agent changes at once. Agents must inspect `git status --short` before editing, must not revert unrelated changes, and must not stage, commit, branch, merge, rebase, push, or delete files unless the owner explicitly assigns that Git operation.
+- Current checkout note: this folder is now a Git repository on `main` and may contain many owner/agent changes at once. Agents must inspect `git status --short` before editing, must not revert unrelated changes, and must not stage, commit, branch, merge, rebase, push, or delete files unless the owner explicitly assigns that Git operation. The only standing push exception is the first upstream push for an already-authorized session branch under the continuous-closeout policy below; it does not override A25's stricter role-specific Git-mutation ban.
 - Do not edit generated or local-only outputs: `node_modules/`, `.next/`, `.tmp/`, `tsconfig.tsbuildinfo`, `.DS_Store`, `.env`, `.env.local`, or other real secret files, except for owner-assigned A19 API configuration tasks.
 
 ## Purpose
@@ -57,6 +57,21 @@ Every agent/session must:
 - `coordination/release-intake/owner-pathspecs.json` and `owner-package-manifest.json` are the release-intake source of truth for owner routing, package boundaries, checks, and staging scope.
 - Every release package must end in exactly one recorded final state: `reviewed commit`, `owner-approved discard`, `evidence archive`, or `blocker report`.
 - The root may collect A25 dirty-tree maps, A10/A25 coordination reports, and A22 release-readiness evidence. It must not be used as the production deploy source while dirty.
+
+## Continuous Branch And Worktree Closeout
+
+Closeout is part of every task lifecycle, not a periodic bulk-cleanup exercise:
+
+- Maintain exactly one session per branch and one worktree per session; the branch/worktree pair is the session's reviewable and recoverable unit.
+- When creating a branch/worktree, record its `owner`, `target PR` (number/URL or `pending`), `creation date`, and `expected closeout date` in the session log or A25 lifecycle/release-intake record.
+- Once an assignment authorizes branch creation and commits, push promptly and establish an upstream after the first valid, reviewable commit so the only recoverable copy never remains local; this standing lifecycle authorization does not permit pushing `main`, unrelated refs, work explicitly marked local-only, or any push forbidden by a stricter role-specific rule such as A25's mutation ban.
+- Keep a branch with an open PR until the PR is completed or explicitly closed; an open-PR branch is not a cleanup candidate.
+- After a branch is merged, remove its linked worktree on the same day, but only after proving that the worktree is clean and that no uncommitted or untracked work needs preservation.
+- Never remove a dirty worktree. Treat any staged, unstaged, or untracked content reported by `git status --porcelain --untracked-files=all` as dirty, and resolve it to a recorded final state before removal.
+- A branch with no PR, no recorded owner, and an age greater than 7 calendar days, measured from its recorded creation date, must enter the A25 review queue; it must never be deleted automatically.
+- Never use `git stash` as an isolation mechanism across worktrees.
+- Prohibit destructive cleanup shortcuts: `git branch -D $(...)`, wildcard or bulk branch deletion, `git worktree remove --force`, `git clean -fdx`, and `git reset --hard`.
+- After every authorized cleanup batch, freshly record the local branch count, registered worktree count, dirty worktree count, detached worktree count, and `origin/main` alignment. Count detached worktrees from `git worktree list --porcelain`, and use live remote verification such as `git ls-remote --heads origin main` before claiming remote-main state rather than relying only on a cached tracking ref.
 
 ## Daily Operational Gates
 
@@ -211,6 +226,7 @@ Default shared-area ownership:
 When assigning work, give each agent session a clear package:
 
 - Agent ID: one of `A01` to `A25`.
+- Lifecycle metadata, when a branch/worktree is created: branch, worktree, branch owner, target PR, creation date, and expected closeout date.
 - Objective: the result expected by morning or by the end of the work period.
 - Write scope: exact files/directories the session may edit.
 - Forbidden scope: files/directories the session must not edit.
@@ -408,6 +424,12 @@ Do not ask the automation to edit feature code unless the owner explicitly assig
 - Date:
 - Agent ID:
 - Workstream:
+- Branch:
+- Worktree:
+- Branch owner:
+- Target PR: number/URL or `pending`
+- Branch creation date:
+- Expected closeout date:
 - Objective:
 - Allowed write scope:
 - Forbidden write scope:
@@ -453,6 +475,12 @@ Use this when the owner assigns night work before resting.
 - Date:
 - Agent ID:
 - Workstream:
+- Branch:
+- Worktree:
+- Target PR and status:
+- Branch creation date:
+- Expected closeout date:
+- Worktree lifecycle action: retained clean | PR opened | archived | removed | A25 review queue | blocker
 - Status: Completed | In progress | Blocked
 - Summary:
 - Files changed:
@@ -475,6 +503,12 @@ Append this to the agent's own `coordination/session-logs/YYYY-MM-DD-AXX.md` bef
 - Date:
 - Agent ID:
 - Workstream:
+- Branch:
+- Worktree:
+- Target PR and status:
+- Branch creation date:
+- Expected closeout date:
+- Worktree lifecycle action: retained clean | PR opened | archived | removed | A25 review queue | blocker
 - Status: Completed | In progress | Blocked
 - Objective:
 - Summary of work completed:
@@ -517,6 +551,32 @@ A25 should create or update `coordination/release-intake/YYYY-MM-DD-A25-daily-re
 - Scope: Non-destructive dirty-tree and release-intake inventory
 - Commands run:
   - `npm run release:dirty-map -- --reason "..."`
+- Branch/worktree lifecycle inventory:
+  - Local branch count:
+  - Registered worktree count:
+  - Dirty worktree count:
+  - Detached worktree count:
+  - Cached `origin/main` commit:
+  - Live remote `main` commit:
+  - `origin/main` alignment and verification time:
+- A25 stale-branch review queue:
+  - Branch:
+  - Age from recorded creation date:
+  - Recorded owner:
+  - PR:
+  - Review reason: no PR + no owner + older than 7 calendar days
+  - Review status:
+  - Deletion authorization: none
+- Post-cleanup batch verification, if applicable:
+  - Batch identifier:
+  - Removal mode: normal/non-force
+  - Local branch count:
+  - Registered worktree count:
+  - Dirty worktree count:
+  - Detached worktree count:
+  - Cached `origin/main` commit:
+  - Live remote `main` commit:
+  - Alignment result:
 - Git status counts:
   - Modified:
   - Deleted:

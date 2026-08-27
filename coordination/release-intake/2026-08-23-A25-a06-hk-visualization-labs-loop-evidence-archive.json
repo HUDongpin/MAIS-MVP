@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:39:56Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a06-hk-visualization-labs-loop",
+  "worktreePath": "/Volumes/Starship/MAIS-hk-viz-labs-wt",
+  "originalBranchHead": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+  "archiveCommit": "d5595131afb3028e769689998e7a67090865afae",
+  "remoteArchiveRef": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823",
+  "repositoryVisibilityAtArchive": "PRIVATE",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "pr136Boundary": {
+    "pullRequest": 136,
+    "merged": true,
+    "boundedHongKongSessionContractPathCount": 2,
+    "fullHongKongCurriculumAndSupersededOutboxExplicitlyExcluded": true,
+    "wholeTreeAbsorption": false
+  },
+  "owners": {
+    "visualizationRuntime": "A06",
+    "curriculumAndLiveContent": ["A18", "A03", "A04", "A05"],
+    "stateApiPersistenceAdaptive": ["A08", "A12", "A15"],
+    "browserAndRelease": ["A11", "A22"],
+    "contentArtifacts": "A21",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "pathCount": 182,
+    "pathCountEqualLiveOriginMain": 1,
+    "pathCountEqualHkSafeCloseout": 0,
+    "insertions": 202564,
+    "deletions": 1678,
+    "largeAcceptanceHarness": true
+  },
+  "archiveVerification": {
+    "credentialPatternGate": "PASS_AFTER_SYNTHETIC_FIXTURE_CLASSIFICATION",
+    "syntheticSecretFixtureCount": 1,
+    "cachedPathCount": 182,
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "diffCheck": "WARNING_THREE_PRESERVED_FORMATTING_FINDINGS",
+    "currentTurnRuntimeBrowserContentTests": "NOT_RUN_EVIDENCE_ARCHIVE"
+  },
+  "ownerDecision": "Preserve exact mixed HK visualization WIP; do not open a PR or claim exhaustive acceptance.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false,
+    "browserAuthorizationLedgerMutationAuthorized": false,
+    "liveContentPromotionAuthorized": false,
+    "deploymentAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:41:13Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "externalCwdOwnerFound": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/a06-hk-visualization-labs-loop-wip-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-hk-viz-labs-recovered-wt d5595131afb3028e769689998e7a67090865afae"
+  }
+}

@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T21:53:39Z",
+  "timezone": "Asia/Hong_Kong",
+  "repository": "/Volumes/Starship/MAIS-MVP",
+  "owner": "A25",
+  "policy": {
+    "preserveFirst": true,
+    "forcedWorktreeRemovalUsed": false,
+    "forcedLocalBranchDeletionUsed": false,
+    "githubRemoteBranchesDeleted": 0,
+    "automaticMergedHeadDeletionsRestoredExact": true,
+    "rootCheckoutMutated": false
+  },
+  "baseline": {
+    "manifest": "coordination/release-intake/2026-08-23-A25-branch-worktree-closure-manifest-20260822T190514Z.json",
+    "originMain": "39f0a8f80829b30cf2027ef662b12924391244b7",
+    "localMain": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+    "localBranches": 53,
+    "worktrees": 46,
+    "detachedWorktrees": 2,
+    "cleanWorktrees": 20,
+    "dirtyWorktrees": 26,
+    "githubRemoteBranches": 26,
+    "openPullRequests": 9
+  },
+  "finalSnapshot": {
+    "originMain": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+    "localMain": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+    "localMainAhead": 1,
+    "localMainBehind": 50,
+    "localBranches": 43,
+    "worktrees": 32,
+    "branchWorktrees": 30,
+    "detachedWorktrees": 2,
+    "cleanWorktrees": 17,
+    "dirtyWorktrees": 15,
+    "githubRemoteBranchesExcludingOriginHead": 53,
+    "openPullRequests": 0,
+    "worktreePruneDryRunOutputEmpty": true
+  },
+  "stageC": {
+    "total": 14,
+    "counts": {
+      "reviewed commit": 2,
+      "evidence archive": 9,
+      "owner-approved discard": 0,
+      "blocker report": 3
+    },
+    "packages": [
+      {
+        "branch": "codex/a04-practice-two-doors",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-practice-two-doors-wt",
+        "archiveCommit": "f48f118c3da2e5396d5d6a49bd589272dbf264e0",
+        "recoveryRef": "origin/archive/a04-practice-two-doors-pre-review-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a04-practice-two-doors-evidence-archive.json"
+      },
+      {
+        "branch": "codex/a05-15-bug-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-15-bug-loop-wt",
+        "archiveCommit": "8c4d06ab2760b82b34ab2946d0688e75b8740e29",
+        "recoveryRef": "origin/archive/a05-15-bug-loop-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a05-15-bug-loop-evidence-archive.json"
+      },
+      {
+        "branch": "codex/a06-ca-visualization-labs-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-ca-viz-labs-wt",
+        "archiveCommit": "777f46db6ef16c209f3493f58ec1fb13df8daf94",
+        "recoveryRef": "origin/archive/a06-ca-visualization-labs-loop-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": true,
+        "forced": false,
+        "physicalResidual": {
+          "approximateTotalSize": "150G",
+          "approximateTmpSize": "149G",
+          "tmpFiles": 1090191,
+          "ownerOrA22DecisionRequired": true
+        },
+        "report": "coordination/release-intake/2026-08-23-A25-a06-ca-visualization-labs-loop-evidence-archive.json"
+      },
+      {
+        "branch": "codex/a06-hk-visualization-labs-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-hk-viz-labs-wt",
+        "archiveCommit": "d5595131afb3028e769689998e7a67090865afae",
+        "recoveryRef": "origin/archive/a06-hk-visualization-labs-loop-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a06-hk-visualization-labs-loop-evidence-archive.json"
+      },
+      {
+        "branch": "codex/a14-parent-action-ui-20260823",
+        "finalState": "blocker report",
+        "worktreePath": "/Volumes/Starship/MAIS-parent-action-ui-wt",
+        "branchHead": "a7416c67222c92c25fac8c26fccf765eeb4c75a6",
+        "worktreeRegistered": true,
+        "physicalPathPresent": true,
+        "dirtyFingerprintReverified": true,
+        "report": "coordination/release-intake/2026-08-23-A25-a14-parent-action-ui-blocker-report.json"
+      },
+      {
+        "branch": "codex/a17-student-rewards-dashboard",
+        "finalState": "reviewed commit",
+        "worktreePath": "/Volumes/Starship/MAIS-rewards-dashboard-wt",
+        "reviewedHead": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+        "recoveryRef": "origin/codex/a17-student-rewards-dashboard",
+        "pullRequest": 139,
+        "mergeCommit": "feb16a61bd23e8cac6b2270f62b85f4c0c6f447e",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a17-student-rewards-dashboard-reviewed-commit.json"
+      },
+      {
+        "branch": "codex/a18-hk-all-math-lesson-qa",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-hk-content-qa-wt",
+        "archiveCommit": "47dc3395521044ac8728d790c90d30516b9c94fa",
+        "recoveryRef": "origin/archive/a18-hk-all-math-lesson-qa-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-a18-hk-all-math-lesson-qa-evidence-archive.json"
+      },
+      {
+        "branch": "fix/starship-canonical-root",
+        "finalState": "blocker report",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6",
+        "branchHead": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+        "worktreeRegistered": true,
+        "physicalPathPresent": true,
+        "dirtyFingerprintReverified": true,
+        "report": "coordination/release-intake/2026-08-23-A25-fix-starship-canonical-root-blocker-report.json"
+      },
+      {
+        "branch": "codex/a01-a12-google-oauth-loop",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-google-oauth-wt",
+        "archiveCommit": "22d7c0f645837f8e1ef2094fdacb037879eb37af",
+        "recoveryRef": "origin/archive/google-oauth-loop-blocked-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-google-oauth-loop-evidence-archive.json"
+      },
+      {
+        "branch": "worktree-lesson-remove-viz-completion",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/lesson-remove-viz-completion",
+        "archiveCommit": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d",
+        "recoveryRef": "origin/archive/lesson-remove-viz-completion-wip-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-lesson-remove-viz-completion-evidence-archive.json"
+      },
+      {
+        "branch": "codex/next16-3-parity",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP-next16-3-parity",
+        "archiveCommit": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8",
+        "recoveryRef": "origin/archive/next16-3-parity-hold-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-next16-3-parity-evidence-archive.json"
+      },
+      {
+        "branch": "qa/learner-teacher-interactions",
+        "finalState": "reviewed commit",
+        "worktreePath": "/Volumes/Starship/MAIS-learner-teacher-qa-wt",
+        "reviewedHead": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56",
+        "recoveryRef": "origin/qa/learner-teacher-interactions",
+        "pullRequest": 140,
+        "mergeCommit": "4e8e2a7e6153cfc3319b2687dd42dd413f867a77",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-qa-learner-teacher-interactions-reviewed-commit.json"
+      },
+      {
+        "branch": "security/ai-tutor-voice-moderation",
+        "finalState": "blocker report",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/happy-lamport-055156",
+        "branchHead": "5073eb0b9d5f4a7cec1a9479f57d3a8584c3be17",
+        "worktreeRegistered": true,
+        "physicalPathPresent": true,
+        "dirtyFingerprintReverified": true,
+        "report": "coordination/release-intake/2026-08-23-A25-security-ai-tutor-voice-moderation-blocker-report.json"
+      },
+      {
+        "branch": "feat/tutor-moderation-provider",
+        "finalState": "evidence archive",
+        "worktreePath": "/Volumes/Starship/MAIS-tutor-moderation-wt",
+        "archiveCommit": "919d15eb78d54ad26919c2ce9a8cbfda2e75b1d9",
+        "recoveryRef": "origin/archive/tutor-moderation-provider-pre-hardening-20260823",
+        "worktreeRegistered": false,
+        "physicalPathPresent": false,
+        "forced": false,
+        "report": "coordination/release-intake/2026-08-23-A25-tutor-moderation-provider-evidence-archive.json"
+      }
+    ]
+  },
+  "stageD": {
+    "openPullRequestsAtFinalSnapshot": [],
+    "mergedPullRequests": [
+      {
+        "number": 79,
+        "head": "63fdc82bfd3c4167422c0adaf45650d80706c130",
+        "mergeCommit": "8ff82043437422d280ca3578b14745f6fb94fe13",
+        "mergedAt": "2026-08-22T21:20:51Z",
+        "recoveryRef": "origin/test/lesson-menu-phone-e2e-coverage"
+      },
+      {
+        "number": 93,
+        "head": "5a2ea9eb89d4066b629d77661415b2ce8db21cb7",
+        "mergeCommit": "19c0c95a141760c24ac9b0a8fbd91caa1ff5712c",
+        "mergedAt": "2026-08-22T21:32:56Z",
+        "recoveryRef": "origin/claude/fervent-murdock-e2535c"
+      },
+      {
+        "number": 117,
+        "head": "1ee9816948e34fade17b70aa71ebbc07fe81f01f",
+        "mergeCommit": "40a2d61ad170b1f5fa0f3ed8969c6945ed9b6a87",
+        "mergedAt": "2026-08-22T21:37:14Z",
+        "recoveryRef": "origin/codex/a04-math-keyboard-fix"
+      },
+      {
+        "number": 133,
+        "head": "f17ebd898d62e05d84c13a8526a87c2a37c83849",
+        "mergeCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+        "mergedAt": "2026-08-22T21:48:54Z",
+        "recoveryRef": "origin/qa/teacher-coverage",
+        "ciRun": 32599890657,
+        "ci": {
+          "snapshot": "PASS 39s",
+          "postgresIntegration": "PASS 3m01s",
+          "visualizationBrowser": "PASS 8m19s",
+          "teacherParentE2E": "PASS 11m13s",
+          "validateIncludingBuild": "PASS 15m38s"
+        },
+        "localClosure": {
+          "worktreeRemoved": true,
+          "worktreeRemovalForced": false,
+          "localBranchDeleted": true,
+          "localBranchDeletionForced": false
+        }
+      },
+      {
+        "number": 140,
+        "head": "a7d7e78aa4b14ced28617fd19b5a41c3d8c2bb56",
+        "mergeCommit": "4e8e2a7e6153cfc3319b2687dd42dd413f867a77",
+        "mergedAt": "2026-08-22T21:12:09Z",
+        "recoveryRef": "origin/qa/learner-teacher-interactions",
+        "ciRun": 32597844658
+      },
+      {
+        "number": 139,
+        "head": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+        "mergeCommit": "feb16a61bd23e8cac6b2270f62b85f4c0c6f447e",
+        "mergedAt": "2026-08-22T20:09:41Z",
+        "recoveryRef": "origin/codex/a17-student-rewards-dashboard",
+        "stageCIntegration": true
+      },
+      {
+        "number": 141,
+        "head": "a1379c643f3e18d43a137f30593135375b7bcac0",
+        "mergeCommit": "e9b6243a423e18a5141bf1c6d140fea0f25b7b20",
+        "mergedAt": "2026-08-22T20:25:08Z",
+        "recoveryRef": "origin/codex/a04-practice-two-doors-review-20260822",
+        "stageCIntegration": true
+      }
+    ],
+    "closedAsEvidenceArchives": [
+      {
+        "number": 86,
+        "head": "4a26ef985f1324bebeec72c8efe5ceb818cc0898",
+        "closedAt": "2026-08-22T20:56:01Z",
+        "recoveryRef": "origin/archive/pr86-legal-accessibility-foundation-20260823"
+      },
+      {
+        "number": 91,
+        "head": "d2ffff12aed07cf60ef790c1133c031f74be00a9",
+        "closedAt": "2026-08-22T20:57:20Z",
+        "recoveryRef": "origin/archive/pr91-starship-migration-cleanup-20260823"
+      },
+      {
+        "number": 94,
+        "head": "6c5ddfc46c0b3dff8af57e878d35e496ba777cb6",
+        "closedAt": "2026-08-22T20:56:01Z",
+        "recoveryRef": "origin/archive/pr94-check-answer-fast-path-20260823"
+      },
+      {
+        "number": 119,
+        "head": "d741a0aa8a14bf428ed3d2fdb98bbb41caff6fbf",
+        "closedAt": "2026-08-22T20:56:01Z",
+        "recoveryRef": "origin/archive/pr119-owner-selected-hero-20260823",
+        "dirtyNewerOwnerWorktreeRetained": true
+      },
+      {
+        "number": 134,
+        "head": "e48c2a67e2f0208d4ed8aad4bb5e1feaaf8438ed",
+        "closedAt": "2026-08-22T20:56:01Z",
+        "recoveryRef": "origin/archive/pr134-app-state-row-tables-20260823"
+      }
+    ],
+    "protectedLocalTips": [
+      {
+        "source": "codex/a01-home-hero-chromebook",
+        "tip": "419c81eb68a1dc2b2c5b4188efd62c1f183a5cc4",
+        "recoveryRef": "origin/archive/a01-home-hero-local-tip-20260823"
+      },
+      {
+        "source": "codex/a04-a05-fix-15-product-bugs",
+        "tip": "61cd245c8ee5e1a41ba8474ef27a74e301fea4a0",
+        "recoveryRef": "origin/codex/a04-a05-fix-15-product-bugs"
+      },
+      {
+        "source": "codex/a11-practice-pager-two-door-e2e-20260822",
+        "tip": "9ba0884e7e0cf4ee983c4e81ac4be7c463ca73ab",
+        "recoveryRef": "origin/codex/a11-practice-pager-two-door-e2e-20260822"
+      },
+      {
+        "source": "codex/a18-hk-safe-closeout-20260822",
+        "tip": "80f927ceee90e825e57093f810a6ab4fac63feee",
+        "recoveryRef": "origin/codex/a18-hk-safe-closeout-20260822"
+      },
+      {
+        "source": "codex/a18-china-all-math-qa",
+        "tip": "1e9f758c033cfcb1cfa8544e0b21a6536c1cd71f",
+        "recoveryRef": "origin/codex/a18-china-all-math-qa",
+        "committedTipOnly": true
+      },
+      {
+        "source": "codex/a18-hk-ease-v2-qa",
+        "tip": "392bc74bc855fb0dc8eb2c07a6f548d4c6b23c47",
+        "recoveryRef": "origin/codex/a18-hk-ease-v2-qa",
+        "committedTipOnly": true
+      },
+      {
+        "source": "codex/a23-closeouts-main-merge-20260822",
+        "tip": "543d8ec8b02eae0b42f0690d3929191c777adaac",
+        "recoveryRef": "origin/archive/a23-closeouts-main-merge-20260823"
+      },
+      {
+        "source": "codex/a23-closeouts-main-ready-20260822",
+        "tip": "66fddde4782b125c49f50c43348c1829ef8e1267",
+        "recoveryRef": "origin/archive/a23-closeouts-main-ready-20260823"
+      }
+    ],
+    "localDeletedRemoteRetained": [
+      {
+        "branch": "claude/focused-lehmann-5027fa",
+        "remoteTip": "d9bf553ef864bbeb830e666bf8171bf90aad6106"
+      },
+      {
+        "branch": "docs/compliance-data-inventory",
+        "remoteTip": "f4d23db56ce4c4b2da1ff62ca1e1dd44f1216fd6"
+      },
+      {
+        "branch": "feat/account-deletion-erasure",
+        "remoteTip": "9ec3281ce5f4902b1c89893154869b5e10a7618a"
+      },
+      {
+        "branch": "feat/region-gated-provider-routing",
+        "remoteTip": "f1e8ca01049305f859d9ac5209b2b45d0cc3b934"
+      }
+    ],
+    "detachedRecovery": [
+      {
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/fervent-murdock-e2535c",
+        "sha": "5b044fb169da7169ce7e7c7e6e06ff97b6cd9661",
+        "recoveryRef": "origin/archive/detached-fervent-murdock-e2535c-20260823",
+        "retained": true
+      },
+      {
+        "worktreePath": "/Volumes/Starship/MAIS-qwen-3-8-max-prod-wt",
+        "sha": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+        "recoveryRef": "origin/archive/detached-qwen-3-8-max-prod-20260823",
+        "retained": true
+      }
+    ],
+    "ownerHeldParentBranches": [
+      {
+        "branch": "codex/a11-parent-gates-20260823",
+        "tip": "45a9dbfbb9d7918cf1bdc1fe490888a2f779ff81",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a11-parent-gates-20260823"
+      },
+      {
+        "branch": "codex/a12-parent-guardian-invites-20260823",
+        "tip": "8d01a4bcb994c39c80291c5abcda8b33ed4f2829",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-guardian-invites-20260823",
+        "concurrentActiveChangeObserved": true
+      },
+      {
+        "branch": "codex/a12-parent-privacy-api-20260823",
+        "tip": "d965809bf0d7f151921d8ac10be64c3c3c310143",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-privacy-api-20260823"
+      },
+      {
+        "branch": "codex/a12-parent-session-revocation-20260823",
+        "tip": "8d01a4bcb994c39c80291c5abcda8b33ed4f2829",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-session-revocation-20260823"
+      },
+      {
+        "branch": "codex/a13-teacher-report-target-20260823",
+        "tip": "300f97c5e1a3aa3748d39945d95e84e825547f2e",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a13-teacher-report-target-20260823"
+      },
+      {
+        "branch": "codex/a23-parent-integration-20260823-v2",
+        "tip": "56c5c2775ae12eeefad0848247bd3a1699127007",
+        "worktreePath": "/Volumes/Starship/MAIS-MVP/.worktrees/a23-parent-integration-20260823-v2"
+      }
+    ]
+  },
+  "stageE": {
+    "githubRemoteBranchesDeleted": 0,
+    "currentDecision": "retain all GitHub remote branches",
+    "futureOwnerReviewCandidates": [
+      "origin/codex/a17-student-rewards-dashboard",
+      "origin/codex/a04-practice-two-doors-review-20260822",
+      "origin/qa/learner-teacher-interactions",
+      "origin/test/lesson-menu-phone-e2e-coverage",
+      "origin/claude/fervent-murdock-e2535c",
+      "origin/codex/a04-math-keyboard-fix",
+      "origin/qa/teacher-coverage"
+    ],
+    "archiveRefsRetained": 19,
+    "otherRemoteBranchesRetained": 27,
+    "separateRemoteDeletionAuthorizationRequired": true
+  },
+  "verification": {
+    "openPullRequestListEmpty": true,
+    "stageCJsonValid": 14,
+    "stageCArchiveRefsExact": 9,
+    "stageCReviewedRefsExactAndContainedByMain": 2,
+    "closedPullRequestArchiveRefsExact": 5,
+    "mergedPullRequestRefsExactAndContainedByMain": 5,
+    "blockerDirtyFingerprintsUnchanged": 3,
+    "detachedRecoveryRefsExact": 2,
+    "localDeletedRemoteRetainedExact": 4,
+    "unprotectedLocalTipsOnlyOwnerHeldParentBranches": true,
+    "worktreePruneDryRunOutputEmpty": true,
+    "remoteDeletionCount": 0
+  },
+  "pendingOwnerDecisions": [
+    "Resolve the three Stage C blocker reports before any worktree removal.",
+    "Make an A22 or owner evidence-retention decision before physical deletion of the California residual.",
+    "Let the six same-day parent-remediation branches finish; do not clean them in this batch.",
+    "Authorize a separate remote-only Stage E batch before deleting any merged-head remote candidate."
+  ]
+}

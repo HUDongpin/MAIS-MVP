@@ -1,0 +1,5630 @@
+{
+  "generatedAt": "2026-08-25T20:24:28.308Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "production schema env-run compatibility slice",
+  "statusSignature": "5f8e66663d5743cf2a5e13b23e077f6ea160339c33c3d277ae55b0f63f57929d",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-08-26-A25-dirty-tree-map-20260825T202427Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-08-26-A25-dirty-tree-map-20260825T202427Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 71,
+    "expandedStatusEntries": 157,
+    "trackedModified": 4,
+    "trackedDeleted": 0,
+    "untrackedStatusEntries": 67,
+    "untrackedFiles": 153,
+    "unmappedEntries": 72,
+    "unblockedUnmappedEntries": 72,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 82,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {
+    "Unmapped owner needed": 72,
+    "A25 Git hygiene and release intake": 55,
+    "A18 Curriculum QA and independent content acceptance": 26,
+    "A10 Tooling, docs, report, and coordination contract": 3,
+    "A22 Production reliability and isolated development": 1
+  },
+  "sliceBuckets": {
+    "unmapped/manual": 72,
+    "docs/coordination evidence": 58,
+    "generated/content/RAG backlog": 26,
+    "release hygiene tooling/config": 1
+  },
+  "releaseHygieneEntries": [
+    {
+      "status": " M",
+      "path": ".claude/launch.json",
+      "owner": "A22 Production reliability and isolated development",
+      "ownerId": "A22",
+      "packageId": "A22-dev-isolation",
+      "matchedPathspec": ".claude/launch.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "release hygiene tooling/config",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A22"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1900,
+        "precedence": 0,
+        "matchedPathspec": ".claude/launch.json"
+      },
+      "slice": "release hygiene tooling/config"
+    }
+  ],
+  "unmappedEntries": [
+    {
+      "status": " M",
+      "path": "CLAUDE.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-0422250d060d21428a8cf9099155bda9b1dec6f7",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-076514f9a1a0595b1ef8de7241255691485b0af6",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-0aa816f25307288650bea8bb2e3731fb14302d7f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-10e9300c328b8828803f10b399714da25ecfe3a8",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-15d6506ea56dc008606bb484f21155c116b22720",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-16d50d401342b4b3c4a169db541f71c250b5da83",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-18352d7473e9c096d45c64d04a9edc9281a455b1",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-195ec3c0aa13ba16ede310355558ece0ba3d3c86",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1a2d1eccfd489917bb77d89cd9ea975f988f9581",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1cfa2e2ee11c68bcd8dd209c4c1f4e04dbcbbc65",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1ff348b068daf316ce0b8de31a47ceec450e09d2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-2006d8c1ab9781a37b8734125191a173ae500faa",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-20d17ff2f4118085a33cc41c38ff68d2292e1d96",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-29ec19aa3a84c9703c7d11511753b6f0ddaf49c3",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-2ac54f69fc99fca7187746ad252177be9d06f53c",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-323de3bd4f32a778aefc74b89aa6d49a5d0e963e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-38dbed3aaec5d4b363f7126a163e6fbf7abfc991",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-3ba72947e787d2a7b7dfc3b2775424a184bce9f6",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-3d4cc3e792b67eb9bc51f9bf1d2e2d244b43cb33",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-4ee14574e4d3f73a45e42585034adc2ba0af695f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-519e8c6c862fe0eb60cf41ffb459ec5704c6e328",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-581527178b9c0563224cd72e8baa3b162f0ff4da",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-5b08ea8da529818bdc8decd171ad93954e158795",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-66e7ea98645d42d9aecfbc6174ed8196c2dae5ea",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6766a5f2f74be116ae17e649edfabff3fe25281d",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6a502494dd4b8c909d63352d3dd6de3d1e730a50",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6b0e36c9f81330e5a2429ab22a9a5a21255e84ab",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-78a81e0310b947a660760c20fe1928f39903ed3a",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-808832d0b757535b724b05ee915a5a58082df16f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-827459e3a5c3e086c567e4037455991a5a7c5b5f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-90660e55a7aa23b4edd96bee4771cab85098e47e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-924598c05c13886750c7bb7005d6b08b7d2a1049",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-937a986089a492196210e45511d1c8acdb7c3452",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-9a0e5e17c666722b2471c6a6f8330e6a9170b8a2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-9b71c387543d77af4dff461e878f48eb7063e5d2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-a445ff963cb020137b42286fd063cfb1b2d970b3",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ae57c527039dd63757b1e9cd65fd1feab036f3f2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-b24973f8203340e9aada9bca51bfe027646db8b9",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-be4294bfb53df5c16f8a7098eaa97f872ec17be4",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c08512fbb515b55f8c114b07994e2d108b684cc0",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c0a941998d2d61d6870975339c8879f7f47163aa",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c3edecab4936d58d01d45a4a9984c67e55a193c8",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c8841482df51098e0bf3a74d305e7e0ec5ab8480",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-cd3c2018716bd43165298f55a95a9aea100afc56",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ce08f687ef3b2237c21399284ed4863178e8ec18",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-cfa493bfdc935e7209226a95c22b48fb7b0e3e4a",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d34a15f17c658e13658b961fba9002c8e6508e28",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d43e281f17be7c5f7013c96ae7a336a0d2f812a0",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d99cd059125f226ac952386bfc56e6d9078b513e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-dd301c4a5b1ea4369bd249f59f3b7df4fe0e91be",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-de73fc277750f626adb0ec9367eb46b0354d2941",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-e1e61d6d26911c18518adb787d7ca187b24581a7",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-eb0e67778d8150349bc78ea78d21c45c0fc7eb72",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ed5b7832d09beadb68cbe7087ad1db328a5d8f03",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-f6d997ae94854fe71fec7a3c257493075433b2a5",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "California Math Content QA Report 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Audit of Hong Kong Visualization Labs.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Audit on China's Visualization Labs 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Cross-State Visualization Lab Audit 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Plan on Replacing Codex's Visualization Labs.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "HK Math Content QA Report 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p3-fraction-meaning.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p5-decimals.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p6-statistics.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-s5-trig.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-calculus.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p2-place-value.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p3-fractions-ZH.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p3-fractions-intro.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-statistics-s1.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-trigonometry-basics.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    }
+  ],
+  "unblockedUnmappedEntries": [
+    {
+      "status": " M",
+      "path": "CLAUDE.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-0422250d060d21428a8cf9099155bda9b1dec6f7",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-076514f9a1a0595b1ef8de7241255691485b0af6",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-0aa816f25307288650bea8bb2e3731fb14302d7f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-10e9300c328b8828803f10b399714da25ecfe3a8",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-15d6506ea56dc008606bb484f21155c116b22720",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-16d50d401342b4b3c4a169db541f71c250b5da83",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-18352d7473e9c096d45c64d04a9edc9281a455b1",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-195ec3c0aa13ba16ede310355558ece0ba3d3c86",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1a2d1eccfd489917bb77d89cd9ea975f988f9581",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1cfa2e2ee11c68bcd8dd209c4c1f4e04dbcbbc65",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1ff348b068daf316ce0b8de31a47ceec450e09d2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-2006d8c1ab9781a37b8734125191a173ae500faa",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-20d17ff2f4118085a33cc41c38ff68d2292e1d96",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-29ec19aa3a84c9703c7d11511753b6f0ddaf49c3",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-2ac54f69fc99fca7187746ad252177be9d06f53c",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-323de3bd4f32a778aefc74b89aa6d49a5d0e963e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-38dbed3aaec5d4b363f7126a163e6fbf7abfc991",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-3ba72947e787d2a7b7dfc3b2775424a184bce9f6",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-3d4cc3e792b67eb9bc51f9bf1d2e2d244b43cb33",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-4ee14574e4d3f73a45e42585034adc2ba0af695f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-519e8c6c862fe0eb60cf41ffb459ec5704c6e328",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-581527178b9c0563224cd72e8baa3b162f0ff4da",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-5b08ea8da529818bdc8decd171ad93954e158795",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-66e7ea98645d42d9aecfbc6174ed8196c2dae5ea",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6766a5f2f74be116ae17e649edfabff3fe25281d",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6a502494dd4b8c909d63352d3dd6de3d1e730a50",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6b0e36c9f81330e5a2429ab22a9a5a21255e84ab",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-78a81e0310b947a660760c20fe1928f39903ed3a",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-808832d0b757535b724b05ee915a5a58082df16f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-827459e3a5c3e086c567e4037455991a5a7c5b5f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-90660e55a7aa23b4edd96bee4771cab85098e47e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-924598c05c13886750c7bb7005d6b08b7d2a1049",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-937a986089a492196210e45511d1c8acdb7c3452",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-9a0e5e17c666722b2471c6a6f8330e6a9170b8a2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-9b71c387543d77af4dff461e878f48eb7063e5d2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-a445ff963cb020137b42286fd063cfb1b2d970b3",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ae57c527039dd63757b1e9cd65fd1feab036f3f2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-b24973f8203340e9aada9bca51bfe027646db8b9",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-be4294bfb53df5c16f8a7098eaa97f872ec17be4",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c08512fbb515b55f8c114b07994e2d108b684cc0",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c0a941998d2d61d6870975339c8879f7f47163aa",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c3edecab4936d58d01d45a4a9984c67e55a193c8",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c8841482df51098e0bf3a74d305e7e0ec5ab8480",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-cd3c2018716bd43165298f55a95a9aea100afc56",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ce08f687ef3b2237c21399284ed4863178e8ec18",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-cfa493bfdc935e7209226a95c22b48fb7b0e3e4a",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d34a15f17c658e13658b961fba9002c8e6508e28",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d43e281f17be7c5f7013c96ae7a336a0d2f812a0",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d99cd059125f226ac952386bfc56e6d9078b513e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-dd301c4a5b1ea4369bd249f59f3b7df4fe0e91be",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-de73fc277750f626adb0ec9367eb46b0354d2941",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-e1e61d6d26911c18518adb787d7ca187b24581a7",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-eb0e67778d8150349bc78ea78d21c45c0fc7eb72",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ed5b7832d09beadb68cbe7087ad1db328a5d8f03",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-f6d997ae94854fe71fec7a3c257493075433b2a5",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "California Math Content QA Report 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Audit of Hong Kong Visualization Labs.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Audit on China's Visualization Labs 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Cross-State Visualization Lab Audit 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Plan on Replacing Codex's Visualization Labs.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "HK Math Content QA Report 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p3-fraction-meaning.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p5-decimals.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p6-statistics.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-s5-trig.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-calculus.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p2-place-value.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p3-fractions-ZH.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p3-fractions-intro.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-statistics-s1.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-trigonometry-basics.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    }
+  ],
+  "ambiguousOwnerEntries": [],
+  "entries": [
+    {
+      "status": " M",
+      "path": ".claude/launch.json",
+      "owner": "A22 Production reliability and isolated development",
+      "ownerId": "A22",
+      "packageId": "A22-dev-isolation",
+      "matchedPathspec": ".claude/launch.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "release hygiene tooling/config",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A22"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1900,
+        "precedence": 0,
+        "matchedPathspec": ".claude/launch.json"
+      },
+      "slice": "release hygiene tooling/config"
+    },
+    {
+      "status": " M",
+      "path": "AGENTS.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "AGENTS.md",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 900,
+        "precedence": 0,
+        "matchedPathspec": "AGENTS.md"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": " M",
+      "path": "CLAUDE.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": " M",
+      "path": "next-env.d.ts",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "next-env.d.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1300,
+        "precedence": 0,
+        "matchedPathspec": "next-env.d.ts"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-0422250d060d21428a8cf9099155bda9b1dec6f7",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-076514f9a1a0595b1ef8de7241255691485b0af6",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-0aa816f25307288650bea8bb2e3731fb14302d7f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-10e9300c328b8828803f10b399714da25ecfe3a8",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-15d6506ea56dc008606bb484f21155c116b22720",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-16d50d401342b4b3c4a169db541f71c250b5da83",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-18352d7473e9c096d45c64d04a9edc9281a455b1",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-195ec3c0aa13ba16ede310355558ece0ba3d3c86",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1a2d1eccfd489917bb77d89cd9ea975f988f9581",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1cfa2e2ee11c68bcd8dd209c4c1f4e04dbcbbc65",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-1ff348b068daf316ce0b8de31a47ceec450e09d2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-2006d8c1ab9781a37b8734125191a173ae500faa",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-20d17ff2f4118085a33cc41c38ff68d2292e1d96",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-29ec19aa3a84c9703c7d11511753b6f0ddaf49c3",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-2ac54f69fc99fca7187746ad252177be9d06f53c",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-323de3bd4f32a778aefc74b89aa6d49a5d0e963e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-38dbed3aaec5d4b363f7126a163e6fbf7abfc991",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-3ba72947e787d2a7b7dfc3b2775424a184bce9f6",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-3d4cc3e792b67eb9bc51f9bf1d2e2d244b43cb33",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-4ee14574e4d3f73a45e42585034adc2ba0af695f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-519e8c6c862fe0eb60cf41ffb459ec5704c6e328",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-581527178b9c0563224cd72e8baa3b162f0ff4da",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-5b08ea8da529818bdc8decd171ad93954e158795",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-66e7ea98645d42d9aecfbc6174ed8196c2dae5ea",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6766a5f2f74be116ae17e649edfabff3fe25281d",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6a502494dd4b8c909d63352d3dd6de3d1e730a50",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-6b0e36c9f81330e5a2429ab22a9a5a21255e84ab",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-78a81e0310b947a660760c20fe1928f39903ed3a",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-808832d0b757535b724b05ee915a5a58082df16f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-827459e3a5c3e086c567e4037455991a5a7c5b5f",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-90660e55a7aa23b4edd96bee4771cab85098e47e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-924598c05c13886750c7bb7005d6b08b7d2a1049",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-937a986089a492196210e45511d1c8acdb7c3452",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-9a0e5e17c666722b2471c6a6f8330e6a9170b8a2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-9b71c387543d77af4dff461e878f48eb7063e5d2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-a445ff963cb020137b42286fd063cfb1b2d970b3",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ae57c527039dd63757b1e9cd65fd1feab036f3f2",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-b24973f8203340e9aada9bca51bfe027646db8b9",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-be4294bfb53df5c16f8a7098eaa97f872ec17be4",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c08512fbb515b55f8c114b07994e2d108b684cc0",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c0a941998d2d61d6870975339c8879f7f47163aa",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c3edecab4936d58d01d45a4a9984c67e55a193c8",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-c8841482df51098e0bf3a74d305e7e0ec5ab8480",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-cd3c2018716bd43165298f55a95a9aea100afc56",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ce08f687ef3b2237c21399284ed4863178e8ec18",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-cfa493bfdc935e7209226a95c22b48fb7b0e3e4a",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d34a15f17c658e13658b961fba9002c8e6508e28",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d43e281f17be7c5f7013c96ae7a336a0d2f812a0",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-d99cd059125f226ac952386bfc56e6d9078b513e",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-dd301c4a5b1ea4369bd249f59f3b7df4fe0e91be",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-de73fc277750f626adb0ec9367eb46b0354d2941",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-e1e61d6d26911c18518adb787d7ca187b24581a7",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-eb0e67778d8150349bc78ea78d21c45c0fc7eb72",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-ed5b7832d09beadb68cbe7087ad1db328a5d8f03",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": ".tmp-ca-viz-r21/tsx-501/17872-f6d997ae94854fe71fec7a3c257493075433b2a5",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "California Math Content QA Report 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Audit of Hong Kong Visualization Labs.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Audit on China's Visualization Labs 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Cross-State Visualization Lab Audit 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "Claude's Plan on Replacing Codex's Visualization Labs.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "HK Math Content QA Report 2026-08-26.md",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-ccss-textbook-practice.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-coverage-variety.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-diagrams.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-g6g12-correctness.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-governance.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-k5-knowledge-point.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-lead-content.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-localization.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-student-path.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-california-math-qa/qa-ca-textbook-lessons.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit-report.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/bnu-primary.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/bnu-secondary.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/curriculum-alignment.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/gate-and-governance.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/hjb-primary.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/hjb-secondary.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/language-terminology-ids.json",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/language-terminology.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/lessons-integrity.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/pedagogy-variety.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/pep-high.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/pep-primary-junior.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/scan.json",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/slice-index.json",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-26-china-math-full-audit/topics.json",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-19-A25-dirty-tree-map-20260819T074143Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-19-A25-dirty-tree-map-20260819T074143Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T021046Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T021046Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T050155Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T050155Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T080600Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T080600Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T092648Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-22-A25-dirty-tree-map-20260822T092648Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a04-practice-two-doors-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a04-practice-two-doors-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a05-15-bug-loop-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a05-15-bug-loop-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a06-ca-visualization-labs-loop-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a06-ca-visualization-labs-loop-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a06-hk-visualization-labs-loop-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a06-hk-visualization-labs-loop-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a14-parent-action-ui-blocker-report.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a14-parent-action-ui-blocker-report.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a17-student-rewards-dashboard-reviewed-commit.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a17-student-rewards-dashboard-reviewed-commit.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a18-hk-all-math-lesson-qa-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-a18-hk-all-math-lesson-qa-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-branch-worktree-closure-manifest-20260822T190514Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-branch-worktree-closure-manifest-20260822T190514Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-dirty-tree-map-20260822T164057Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-dirty-tree-map-20260822T164057Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-dirty-tree-map-20260823T100616Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-dirty-tree-map-20260823T100616Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-fix-starship-canonical-root-blocker-report.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-fix-starship-canonical-root-blocker-report.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-google-oauth-loop-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-google-oauth-loop-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-lesson-remove-viz-completion-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-lesson-remove-viz-completion-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-next16-3-parity-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-next16-3-parity-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-qa-learner-teacher-interactions-reviewed-commit.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-qa-learner-teacher-interactions-reviewed-commit.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-qa-learner-teacher-preintegration-evidence.patch",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-security-ai-tutor-voice-moderation-blocker-report.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-security-ai-tutor-voice-moderation-blocker-report.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-stage-c-d-e-branch-pr-closure.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-stage-c-d-e-branch-pr-closure.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-stage-c-d-e-delta-revalidation.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-stage-c-d-e-delta-revalidation.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-tutor-moderation-provider-evidence-archive.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-23-A25-tutor-moderation-provider-evidence-archive.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-25-A25-dirty-tree-map-20260825T112407Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-25-A25-dirty-tree-map-20260825T112407Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-25-A25-dirty-tree-map-20260825T112418Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-25-A25-dirty-tree-map-20260825T112418Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-26-A25-dirty-tree-map-promotion-attempt-002-intake-20260826-b.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-26-A25-dirty-tree-map-promotion-attempt-002-intake-20260826-b.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-08-25-claude-ca-codex-viz-replacement.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p3-fraction-meaning.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p5-decimals.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-p6-statistics.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/ca-s5-trig.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-calculus.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p2-place-value.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p3-fractions-ZH.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-p3-fractions-intro.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-statistics-s1.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "hk-viz-audit-evidence-20260826/hk-trigonometry-basics.png",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    }
+  ]
+}

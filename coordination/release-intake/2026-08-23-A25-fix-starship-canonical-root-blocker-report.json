@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T19:37:10Z",
+  "timezone": "Asia/Hong_Kong",
+  "finalState": "blocker report",
+  "branch": "fix/starship-canonical-root",
+  "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/cool-lamarr-a66bd6",
+  "branchHead": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+  "sameNameRemoteTip": "ee9b5e63fe8e2666850ae5bed7855cffa7d6b7dc",
+  "mergedPullRequest": {
+    "number": 92,
+    "mergeCommit": "39f0a8f80829b30cf2027ef662b12924391244b7"
+  },
+  "liveOriginMain": "39f0a8f80829b30cf2027ef662b12924391244b7",
+  "owners": {
+    "launcher": ["A10", "A22"],
+    "generatedOutput": ["A10", "A22"],
+    "guardConfiguration": ["A10", "A25"],
+    "ownerConfirmationRequired": true
+  },
+  "dirtyInventory": {
+    "trackedChanges": 2,
+    "stagedChanges": 0,
+    "unstagedChanges": 2,
+    "untrackedEntries": 1,
+    "entries": [
+      {
+        "status": "tracked unstaged",
+        "path": ".claude/launch.json",
+        "bytes": 4518,
+        "gitBlob": "4c51ce94ce34e70ca3e87fa1049898a2418a8c92",
+        "sha256": "de3aab536b297e4e156e545944508cc88bc233aba9013dc32d7f581ac03fbe2c"
+      },
+      {
+        "status": "tracked unstaged",
+        "path": "next-env.d.ts",
+        "bytes": 291,
+        "gitBlob": "64d31b8def9f551326a4d714e500a9aa7705d837",
+        "sha256": "d8bbd40664ddf67a6d4634ef0a215bf9f7e8c9425c2f341f4c7fd4c5bcece83c"
+      },
+      {
+        "status": "untracked",
+        "path": ".codex/hooks.json",
+        "bytes": 412,
+        "gitBlob": "3fe56d21b1db4715a83e871f8099bc58aba352a3",
+        "sha256": "5d2499224b7a00452dec09997bc3a27ac198051299dfd35971d848bc568a52d3"
+      }
+    ],
+    "trackedPatchSha256": "d39d40cf3f05f8b887260d98a24c649d3e0febb82ed2bbf014ae447cc4eabe42"
+  },
+  "duplicateEvidence": {
+    "hooksCommit": "a444b0dcc6a86b7a679a48fe14703c98aa0f0cf6",
+    "hooksByteIdentical": true,
+    "hooksPresentInLiveOriginMain": false
+  },
+  "collisionEvidence": {
+    "liveMainLauncher": "mais-dev-ff-loop",
+    "dirtyLauncher": "mais-dev-starship-wt",
+    "sameInsertionPoint": true,
+    "freshMainIntegrationRequired": true
+  },
+  "blocker": "The dirty tree mixes unique launch configuration, generated next-env state, and unresolved guard policy; the owners must promote or archive each path before cleanup.",
+  "authorizations": {
+    "cleanupAuthorized": false,
+    "worktreeRemovalAuthorized": false,
+    "localBranchDeletionAuthorized": false,
+    "remoteBranchDeletionAuthorized": false
+  }
+}

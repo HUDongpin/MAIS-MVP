@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:07:05Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a04-practice-two-doors",
+  "worktreePath": "/Volumes/Starship/MAIS-practice-two-doors-wt",
+  "originalBranchHead": "758ebed96cd279c733574e0e0753d72f95bf3ddf",
+  "archiveCommit": "f48f118c3da2e5396d5d6a49bd589272dbf264e0",
+  "remoteArchiveRef": "origin/archive/a04-practice-two-doors-pre-review-20260823",
+  "owners": {
+    "practice": "A04",
+    "focusedE2E": "A11",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "trackedChanges": 5,
+    "stagedChangesBeforeIntake": 0,
+    "untrackedEntries": 0,
+    "insertions": 1263,
+    "deletions": 566,
+    "entries": [
+      {
+        "path": "app/practice/page.tsx",
+        "gitBlob": "d22a58cad1c0e5309ed71be6565eb9e67c95e61f"
+      },
+      {
+        "path": "app/practice/practiceArenaPageRegressions.test.ts",
+        "gitBlob": "36f1816ea26ff62ddaf78a7a14f9abb6b1993a08"
+      },
+      {
+        "path": "components/practice/PracticeAdventureArenaShell.tsx",
+        "gitBlob": "0cecdc7e9160b3b267eb2802094996d3ec50b74a"
+      },
+      {
+        "path": "components/practice/PracticeQuestPager.tsx",
+        "gitBlob": "9a26b8b33895a9ad8798dd5627d668158c2d96f7"
+      },
+      {
+        "path": "components/practice/practiceAdventureArenaShell.test.ts",
+        "gitBlob": "e7a4a4234f3ab4f7e813667054f4228b97d40c3b"
+      }
+    ]
+  },
+  "archiveVerification": {
+    "cachedDiffCheck": "PASS",
+    "worktreeCleanAfterCommit": true,
+    "localTipMatchesRemoteArchive": true
+  },
+  "semanticSuccessor": {
+    "branch": "codex/a04-practice-two-doors-review-20260822",
+    "tip": "a1379c643f3e18d43a137f30593135375b7bcac0",
+    "pullRequest": 141,
+    "pullRequestStateAtArchive": "OPEN",
+    "mergeableAtArchive": true,
+    "exactByteSupersession": false
+  },
+  "semanticSuccessorClosure": {
+    "mergedAt": "2026-08-22T20:25:08Z",
+    "mergeCommit": "e9b6243a423e18a5141bf1c6d140fea0f25b7b20",
+    "exactHeadGuard": "a1379c643f3e18d43a137f30593135375b7bcac0",
+    "allRequiredChecksPassed": true,
+    "liveOriginMainContainsHead": true,
+    "githubAutoDeletedHead": true,
+    "githubHeadRecreatedExact": true,
+    "githubHeadRetained": true,
+    "reviewWorktreeRemovedAt": "2026-08-22T20:25:31Z",
+    "reviewWorktreeRemovalForced": false,
+    "localReviewBranchDeleted": true
+  },
+  "authorizations": {
+    "worktreeRemovalAuthorized": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:08:51Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/a04-practice-two-doors-pre-review-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-practice-two-doors-recovered-wt f48f118c3da2e5396d5d6a49bd589272dbf264e0"
+  }
+}

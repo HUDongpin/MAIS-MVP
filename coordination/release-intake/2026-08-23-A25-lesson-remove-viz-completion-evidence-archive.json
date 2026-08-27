@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:21:00Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "worktree-lesson-remove-viz-completion",
+  "worktreePath": "/Volumes/Starship/MAIS-MVP/.claude/worktrees/lesson-remove-viz-completion",
+  "originalBranchHead": "1d81110c60df2695917947f3198df06b5bc384ba",
+  "archiveCommit": "93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d",
+  "remoteArchiveRef": "origin/archive/lesson-remove-viz-completion-wip-20260823",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "owners": {
+    "lesson": "A05",
+    "visualization": "A06",
+    "onboardingAndCopy": ["A01", "A09"],
+    "teacherConsole": "A13",
+    "regression": "A11",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "pathCount": 14,
+    "insertions": 33,
+    "deletions": 1035,
+    "paths": [
+      "components/lesson/LessonGalaxyDirectory.tsx",
+      "components/lesson/LessonView.tsx",
+      "components/lesson/StudentLessonPage.tsx",
+      "components/lesson/lessonCompletionChecklist.test.ts",
+      "components/lesson/lessonCompletionChecklist.ts",
+      "components/lesson/lessonContentText.test.ts",
+      "components/lesson/lessonContentText.ts",
+      "components/lesson/lessonGalaxyDirectoryNavigation.test.ts",
+      "components/onboarding/StudentGuidedTour.tsx",
+      "components/teacher/TeacherLiveView.tsx",
+      "lib/i18n.ts",
+      "tests/e2e/lesson-all.spec.ts",
+      "tests/e2e/student-button-dropdown-matrix.spec.ts",
+      "tests/e2e/teacher-console-button-matrix.spec.ts"
+    ]
+  },
+  "archiveVerification": {
+    "secretPatternGate": "PASS",
+    "cachedPathCount": 14,
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "diffCheck": "WARNING",
+    "diffCheckDetail": "components/lesson/lessonContentText.ts:196: new blank line at EOF",
+    "productTests": "NOT_RUN_EVIDENCE_ARCHIVE"
+  },
+  "ownerDecision": "Preserve exact bytes; do not integrate without separate owner reviews.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:21:22Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "externalCwdOwnerFound": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/lesson-remove-viz-completion-wip-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-lesson-remove-viz-recovered-wt 93cefbd1c0fa101e7d26a1fb7bab2d70fe32978d"
+  }
+}

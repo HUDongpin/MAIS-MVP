@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T19:33:43Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "reviewed commit",
+  "branch": "codex/a17-student-rewards-dashboard",
+  "worktreePath": "/Volumes/Starship/MAIS-rewards-dashboard-wt",
+  "originalBranchHead": "dc7ae1429f050412111e0b50eddbc7afa6838671",
+  "reviewedCommit": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+  "liveOriginMainVerificationBaseline": "39f0a8f80829b30cf2027ef662b12924391244b7",
+  "owners": {
+    "packageOwner": "A17",
+    "productionIntegrationBoundary": ["A02", "A12"],
+    "closureIntake": "A25"
+  },
+  "initialDirtyInventory": {
+    "trackedChanges": 0,
+    "stagedChanges": 0,
+    "unstagedChanges": 0,
+    "untrackedEntries": 4,
+    "entries": [
+      {
+        "status": "untracked",
+        "path": "app/design-preview/progress-rewards/page.tsx",
+        "gitBlob": "64917515c4804da171a16cc844032f2b78f72e6f"
+      },
+      {
+        "status": "untracked",
+        "path": "components/gamification/ProgressRewardsDesignPreview.test.ts",
+        "gitBlob": "2d35de5d3dd4bac1f02fc770f339495b1499f745"
+      },
+      {
+        "status": "untracked",
+        "path": "components/gamification/ProgressRewardsDesignPreview.tsx",
+        "gitBlob": "96a248c36ebf6fdc6f2cb0da681ef227e6b66b0d"
+      },
+      {
+        "status": "untracked",
+        "path": "coordination/session-logs/2026-08-09-A17.md",
+        "gitBlob": "1fb169606695e44f5899a137bcfc8794b416765e"
+      }
+    ]
+  },
+  "commitScope": {
+    "files": 4,
+    "insertions": 1002,
+    "deletions": 0,
+    "exactInitialInventory": true
+  },
+  "verification": [
+    {
+      "baseline": "source branch",
+      "check": "focused source-contract test",
+      "result": "PASS 3/3"
+    },
+    {
+      "baseline": "source branch",
+      "check": "npm run type-check",
+      "result": "PASS"
+    },
+    {
+      "baseline": "live origin/main plus exact cherry-pick",
+      "check": "focused source-contract test",
+      "result": "PASS 3/3"
+    },
+    {
+      "baseline": "live origin/main plus exact cherry-pick",
+      "check": "npm run type-check",
+      "result": "PASS"
+    }
+  ],
+  "remoteDisposition": {
+    "branch": "origin/codex/a17-student-rewards-dashboard",
+    "tip": "8e39fd054010a8bca324a752c242154bab8ac1ef",
+    "pullRequest": 139,
+    "pullRequestStateAtReport": "OPEN",
+    "mergeableAtReport": true,
+    "requiredChecksAtReport": "IN_PROGRESS"
+  },
+  "authorizations": {
+    "cleanupAuthorized": true,
+    "worktreeRemovalAuthorized": true,
+    "localBranchDeletionAuthorized": true,
+    "remoteBranchDeletionAuthorized": false
+  },
+  "completion": {
+    "pullRequestState": "MERGED",
+    "mergedAt": "2026-08-22T20:09:41Z",
+    "mergeCommit": "feb16a61bd23e8cac6b2270f62b85f4c0c6f447e",
+    "headContainedByLiveOriginMain": true,
+    "remoteAutomaticallyDeletedAfterMerge": true,
+    "remoteRecreatedAtExactHead": true,
+    "localClosedAt": "2026-08-22T20:10:43Z",
+    "worktreeRemoved": true,
+    "worktreeRemovalForced": false,
+    "localBranchDeleted": true,
+    "localBranchDeletionForced": false,
+    "remoteBranchRetained": true
+  },
+  "nextRequiredState": "Remote branch retention decision remains deferred to a separately authorized remote-deletion stage."
+}

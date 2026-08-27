@@ -1,0 +1,41 @@
+diff --git a/next-env.d.ts b/next-env.d.ts
+index 830fb594ca..2104a0706d 100644
+--- a/next-env.d.ts
++++ b/next-env.d.ts
+@@ -1,6 +1,6 @@
+ /// <reference types="next" />
+ /// <reference types="next/image-types/global" />
+-/// <reference path="./.next/types/routes.d.ts" />
++/// <reference path="./.tmp/e2e-fixcheck/next-dist/types/routes.d.ts" />
+ 
+ // NOTE: This file should not be edited
+ // see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+diff --git a/playwright.config.ts b/playwright.config.ts
+index 1d27a150b7..9f39e8aab7 100644
+--- a/playwright.config.ts
++++ b/playwright.config.ts
+@@ -123,6 +123,16 @@ function e2eTempTsconfigExcludeGlobs() {
+   return Array.from(new Set([...canonical, ...e2eTempTsconfigHardeningExcludes]));
+ }
+ 
++// The e2e build always runs with a custom NEXT_DIST_DIR, so Next writes its
++// generated route types under `${nextDistDir}/types` — never `.next/types`.
++// Including the shared `.next/types` here dragged a foreign, often half-stale
++// artifact into the type-check: the primary root's copy can hold a `validator.ts`
++// that checks routes its own older `routes.d.ts` never learned, which fails the
++// build with `Type '"/teacher/gradebook"' does not satisfy the constraint
++// 'AppRoutes'` before a single test runs. `next.config.ts`'s
++// `disposableTsconfigForDist` already omits it for exactly this reason; this
++// mirrors that rule so a stale root `.next` from another session cannot break a
++// release run.
+ function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
+   const content = JSON.stringify({
+     extends: "./tsconfig.json",
+@@ -130,7 +140,6 @@ function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
+       "next-env.d.ts",
+       "**/*.ts",
+       "**/*.tsx",
+-      ".next/types/**/*.ts",
+       `${nextDistDir}/types/**/*.ts`
+     ],
+     exclude: e2eTempTsconfigExcludeGlobs()

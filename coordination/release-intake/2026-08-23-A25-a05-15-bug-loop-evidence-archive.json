@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:33:28Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/a05-15-bug-loop",
+  "worktreePath": "/Volumes/Starship/MAIS-15-bug-loop-wt",
+  "originalBranchHead": "867d17799140e7f45129c928b7af57a540402c75",
+  "archiveCommit": "8c4d06ab2760b82b34ab2946d0688e75b8740e29",
+  "remoteArchiveRef": "origin/archive/a05-15-bug-loop-wip-20260823",
+  "repositoryVisibilityAtArchive": "PRIVATE",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "activeSuccessor": {
+    "branch": "codex/a04-a05-fix-15-product-bugs",
+    "worktreePath": "/Volumes/Starship/MAIS-15-bug-product-wt",
+    "touchedByA25": false,
+    "exactBlobMatches": 0,
+    "exactWholeTreeSupersession": false
+  },
+  "owners": {
+    "lessonAndPractice": ["A04", "A05"],
+    "stateAndBackend": ["A08", "A12"],
+    "visualizationAndContentQA": ["A06", "A18", "A21"],
+    "configAndReleaseReliability": ["A10", "A22"],
+    "regression": "A11",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "pathCount": 83,
+    "pathCountEqualLiveOriginMain": 0,
+    "pathCountEqualActiveSuccessor": 0,
+    "insertions": 55700,
+    "deletions": 1537,
+    "containsRejectedPatch": true,
+    "rejectedPatchPath": "Oops.rej"
+  },
+  "archiveVerification": {
+    "secretPatternGate": "PASS",
+    "cachedPathCount": 83,
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "diffCheck": "WARNING_REJECT_FILE_ONLY",
+    "currentTurnProductTests": "NOT_RUN_EVIDENCE_ARCHIVE"
+  },
+  "ownerDecision": "Preserve exact mixed WIP; do not open a PR; split any future reuse by owner and review independently.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false,
+    "activeSuccessorMutationAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:34:56Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "externalCwdOwnerFound": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true,
+    "activeSuccessorTouched": false
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/a05-15-bug-loop-wip-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-a05-15-bug-loop-recovered-wt 8c4d06ab2760b82b34ab2946d0688e75b8740e29"
+  }
+}

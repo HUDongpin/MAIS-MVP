@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-22T20:24:08Z",
+  "timezone": "Asia/Hong_Kong",
+  "stageCFinalState": "evidence archive",
+  "branch": "codex/next16-3-parity",
+  "worktreePath": "/Volumes/Starship/MAIS-MVP-next16-3-parity",
+  "originalBranchHead": "dc7ae1429f050412111e0b50eddbc7afa6838671",
+  "archiveCommit": "02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8",
+  "remoteArchiveRef": "origin/archive/next16-3-parity-hold-20260823",
+  "originalBranchContainedByLiveOriginMain": true,
+  "dirtyStateExactlyAbsorbedByLiveOriginMain": false,
+  "originalBranchPullRequests": [],
+  "versions": {
+    "liveOriginMain": {
+      "next": "15.5.23",
+      "react": "^19.1.0",
+      "reactDom": "^19.1.0"
+    },
+    "archive": {
+      "next": "16.3.0",
+      "react": "19.2.8",
+      "reactDom": "19.2.8"
+    }
+  },
+  "owners": {
+    "releaseReliability": "A22",
+    "configAndGovernance": "A10",
+    "runtimeCompatibility": "A12",
+    "lessonCompatibility": "A05",
+    "regression": "A11",
+    "closureIntake": "A25"
+  },
+  "archivedInventory": {
+    "gitChangeEntries": 28,
+    "pathEndpoints": 29,
+    "pathEndpointsEqualLiveOriginMain": 0,
+    "insertions": 727,
+    "deletions": 236,
+    "rename": "middleware.ts -> proxy.ts"
+  },
+  "historicalSessionDisposition": {
+    "releaseState": "HOLD",
+    "a12RuntimeReviewOutstanding": true,
+    "completeBrowserGateGreen": false,
+    "previewRun": false,
+    "soakRun": false,
+    "productionDeployRun": false
+  },
+  "archiveVerification": {
+    "secretPatternGate": "PASS",
+    "diffCheck": "PASS",
+    "localTipMatchesRemoteArchive": true,
+    "worktreeCleanAfterCommit": true,
+    "currentTurnProductTests": "NOT_RUN_EVIDENCE_ARCHIVE"
+  },
+  "ownerDecision": "Preserve exact HOLD package; do not open a merge PR until fresh cross-owner review and release gates are complete.",
+  "authorizations": {
+    "worktreeRemovalAuthorizedAfterFinalStateProof": true,
+    "localBranchDeletionAuthorized": false,
+    "remoteArchiveDeletionAuthorized": false,
+    "otherRemoteBranchDeletionAuthorized": false,
+    "deploymentAuthorized": false
+  },
+  "closure": {
+    "closedAt": "2026-08-22T20:24:24Z",
+    "worktreeRemoved": true,
+    "forced": false,
+    "externalCwdOwnerFound": false,
+    "staleRegistrationAfterRemoval": false,
+    "localBranchRetained": true,
+    "remoteArchiveRetained": true
+  },
+  "recovery": {
+    "fetch": "git fetch origin archive/next16-3-parity-hold-20260823",
+    "worktreeAdd": "git worktree add /Volumes/Starship/MAIS-next16-3-parity-recovered-wt 02a6145dd9ccac86c7f4f4571a32ae9eac14f6d8"
+  }
+}
