@@ -125,3 +125,24 @@ delta is a one-for-one literal import edge. Candidate bytes remain unchanged,
 the schema diagnostic remains read-only, and `liveAllowed: false` remains
 mandatory. The resulting proof and target policy are written only through the
 existing two-phase append-only evidence and binding workflow.
+
+The reviewed re-affirmation was executed in the required committed phases:
+
+- reviewed-policy implementation and justification commit: `facfee5a1e`;
+- evidence commit: `7405e84938`;
+- Manifest/evidence-index binding commit: `611923c4a8`;
+- canonical receipt commit: `cf08331ea5`;
+- workflow-selection commit: `a44b0fefa3`.
+
+The new Manifest passed current validation for target
+`cca547df300e5a199322d61d9873eb37b0e33040` with no failure codes and
+`liveAllowed: false`. Two independent Shadow runs used run IDs
+`reviewed-main-runtime-20260827-a` and
+`reviewed-main-runtime-20260827-b`. Their raw receipt digests differ, while
+their semantic receipt digest is identically
+`7d2b5cac04f4eb9b06d3d960fcaa7d0bef62bc83d12d42f69d9996367d8992bf`.
+Both receipts passed the v2 verifier and record zero network requests,
+database writes, and production writes. The canonical repository receipt is
+byte-identical to the independently verified first receipt. After selecting
+the reviewed Manifest and receipt, `npm run test:promotion-gate` passed
+`40/40`.
