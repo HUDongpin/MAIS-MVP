@@ -917,6 +917,7 @@ test(
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
           state: "exact"
         });
+        const beforeState = await readState(sql);
         const before = await readStateEvidence(sql);
         await removeReadinessMarkerContract();
         assert.deepEqual(await markerContractIsAbsent(), {
@@ -1000,11 +1001,51 @@ test(
           await sql`DROP DOMAIN public.integration_hot_auth_text`;
         }
 
+        await sql`
+          UPDATE public.app_state
+          SET payload = payload - 'teacher_notice_delivery_attempts'
+          WHERE id = 'primary'
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-missing-collections" }
+          );
+        } finally {
+          await sql`
+            UPDATE public.app_state
+            SET payload = ${sql.json(postgresJson(beforeState.payload))}::pg_catalog.jsonb
+            WHERE id = 'primary'
+          `;
+        }
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = pg_catalog.jsonb_set(
+            payload,
+            '{teacher_notice_delivery_attempts}',
+            '{}'::pg_catalog.jsonb
+          )
+          WHERE id = 'primary'
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-malformed-collections" }
+          );
+        } finally {
+          await sql`
+            UPDATE public.app_state
+            SET payload = ${sql.json(postgresJson(beforeState.payload))}::pg_catalog.jsonb
+            WHERE id = 'primary'
+          `;
+        }
+
         await sql`UPDATE public.app_state SET revision = 0 WHERE id = 'primary'`;
         try {
           assert.deepEqual(
             await runSuccessfulWorker("production-schema-diagnose-partial"),
-            { component: "legacy-snapshot-contract" }
+            { component: "legacy-snapshot-shape" }
           );
         } finally {
           await sql`
