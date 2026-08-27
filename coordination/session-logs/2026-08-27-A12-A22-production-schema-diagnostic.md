@@ -3,7 +3,7 @@
 - Session slice: `codex/a12-a22-production-schema-diagnostic-20260827`
 - Baseline: `439750ed525ab3d1bca793562338c095f1533cc8`
 - Owner: A12 backend/API platform with A22 production reliability
-- Target PR: pending
+- Target PR: https://github.com/HUDongpin/MAIS-MVP/pull/198
 - Created: 2026-08-27
 - Expected closeout: 2026-08-27 after protected-main read-only preflight diagnosis
 
@@ -49,3 +49,17 @@ live-content reachability, runtime loader policy, and the fail-closed
 `liveAllowed: false` posture remain unchanged. The new catalog diagnostic and
 schema-gate script changes are read-only release tooling: they cannot mutate
 production, authorize a migration, or authorize deployment.
+
+The re-affirmation was executed in the required committed phases:
+
+- justification commit: `18eb8a8682`;
+- evidence commit: `6af78172a8`;
+- manifest/evidence-index binding commit: `c014c4d4e0`;
+- canonical receipt commit: `abe993edb7`;
+- workflow-selection commit: `14fb6ed008`.
+
+The new manifest passed current validation. Two independent shadow runs used
+different run IDs but produced the same semantic receipt digest; both receipts
+passed the receipt verifier. The canonical proof records zero network requests,
+database writes, and production writes. `npm run test:promotion-gate` passed
+`40/40` after the workflow selection was updated.
