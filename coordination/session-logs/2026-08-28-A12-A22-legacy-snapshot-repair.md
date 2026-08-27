@@ -131,12 +131,11 @@ diff and remain outside the final files-changed set.
 
 ### Checks and current boundary
 
-- Completed locally before the final review amendments: type-check; schema
-  gate/fast-path `36/36`; deployment/readiness `50/50`; parent tooling `76/76`;
-  parent runtime `403/403`; Promotion tests `40/40`; selected-manifest validate
-  pass with `liveAllowed: false`.
-- The review-amended high-risk matrix and non-forgeable execution-context tests
-  must be rerun locally before the next commit.
+- Current review-amended local checks: type-check pass; schema gate, deploy,
+  workflow, and fast-path `54/54`; parent tooling `76/76`; parent runtime
+  `403/403`, zero skipped and zero failed. Earlier Promotion tests were `40/40`
+  and selected-manifest validation passed with `liveAllowed: false`; both must
+  be replayed after the final amendment commit because they bind exact HEAD.
 - Real PostgreSQL 16 was not run locally because the bounded Docker probe did
   not answer. PR #207's exact-head `postgres-integration` job is mandatory.
 - Production schema preflight, database mutation, deployment, domain smoke,
@@ -146,11 +145,22 @@ diff and remain outside the final files-changed set.
 ### Assumptions, risks, blockers, and disposition
 
 - Assumption: only a field whose absence can be converted to an empty container
-  while preserving the full snapshot contract is repairable; every declared
-  high-risk field must already exist.
+  with independent schema-evolution evidence is repairable. Version 1 permits
+  only `teacher_notice_delivery_attempts`; every other missing array/object is
+  rejected, and every declared high-risk field must already exist before
+  preflight or marker completion can succeed.
 - Risk: phase 1 is an additive database mutation and revision increment that an
   alias rollback cannot undo. A phase-2 failure deliberately leaves a complete
-  no-marker state for a newly confirmed serialized recovery run.
+  no-marker state for a newly confirmed serialized recovery run. One
+  session-level storage-contract advisory lock now spans both phases and the
+  high-risk recheck, preventing cooperating runtime writers from entering the
+  inter-phase boundary.
+- Review findings closed in this amendment: caller-supplied environment objects
+  cannot authorize the mutator; high-risk-only loss is rejected before marker
+  completion; all nine high-risk keys are covered in pure and PostgreSQL
+  matrices; non-allowlisted data/audit/policy collections are rejected; and two
+  real repair workers queue behind one session advisory barrier so exactly one
+  revision-CAS repair can succeed.
 - Merge blockers: no unresolved Critical/Important review issue; exact-head
   PostgreSQL integration, CI validate/build, parent E2E, and Promotion Shadow
   must all pass.

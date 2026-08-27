@@ -1192,6 +1192,39 @@ test(
         });
         await removeReadinessMarkerContract();
 
+        const highRiskOnlyPayload = structuredClone(beforeState.payload);
+        delete highRiskOnlyPayload.class_ai_tutor_policies;
+        await writeFixtureState({
+          payload: highRiskOnlyPayload,
+          revision: before.revision,
+          updatedAt: before.updated_at
+        });
+        try {
+          assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+            state: "legacy-no-readiness-marker"
+          });
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-gate-inspect"),
+            {
+              component: "legacy-snapshot-high-risk-collections",
+              state: "partial"
+            }
+          );
+          const markerAdmission =
+            await runWorker("production-schema-apply-complete-legacy");
+          assert.equal(markerAdmission.exitCode, 1);
+          assert.match(
+            String(markerAdmission.result.error),
+            /operation plan changed/u
+          );
+        } finally {
+          await writeFixtureState({
+            payload: beforeState.payload,
+            revision: before.revision,
+            updatedAt: before.updated_at
+          });
+        }
+
         for (const highRiskKey of highRiskKeys) {
           const missingHighRiskPayload = structuredClone(beforeState.payload);
           delete missingHighRiskPayload.teacher_notice_delivery_attempts;
@@ -1212,6 +1245,40 @@ test(
             const rejected =
               await runWorker("production-schema-repair-missing-collections");
             assert.equal(rejected.exitCode, 1, `${highRiskKey} must fail closed`);
+            assert.match(String(rejected.result.error), /operation plan changed/u);
+          } finally {
+            await writeFixtureState({
+              payload: beforeState.payload,
+              revision: before.revision,
+              updatedAt: before.updated_at
+            });
+          }
+        }
+
+        for (const nonRepairableKey of [
+          "guardian_links",
+          "nova_lens_policy",
+          "teacher_messages"
+        ]) {
+          const nonRepairablePayload = structuredClone(beforeState.payload);
+          delete nonRepairablePayload.teacher_notice_delivery_attempts;
+          delete nonRepairablePayload[nonRepairableKey];
+          await writeFixtureState({
+            payload: nonRepairablePayload,
+            revision: before.revision,
+            updatedAt: before.updated_at
+          });
+          try {
+            assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+              state: "partial"
+            });
+            const rejected =
+              await runWorker("production-schema-repair-missing-collections");
+            assert.equal(
+              rejected.exitCode,
+              1,
+              `${nonRepairableKey} must require independent recovery evidence`
+            );
             assert.match(String(rejected.result.error), /operation plan changed/u);
           } finally {
             await writeFixtureState({
@@ -1290,7 +1357,7 @@ test(
         assert.deepEqual(markerRelationRows, [{ marker_absent: true }]);
 
         assert.deepEqual(
-          await runSuccessfulWorker("production-schema-complete-legacy"),
+          await runSuccessfulWorker("production-schema-apply-complete-legacy"),
           { completed: true }
         );
         assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {

@@ -85,6 +85,9 @@ const postgresStorageMissingCollectionRepairHighRiskKeys = new Set([
   "user_settings",
   "users"
 ]);
+const postgresStorageMissingCollectionRepairableArrayKeys = new Set([
+  "teacher_notice_delivery_attempts"
+]);
 const sha1Pattern = /^[a-f0-9]{40}$/u;
 const sha256Pattern = /^[a-f0-9]{64}$/u;
 const aggregatePattern = /^(?:0|[1-9][0-9]{0,29})$/u;
@@ -151,7 +154,7 @@ export function buildPostgresStorageMissingCollectionRepair(
       if (!Array.isArray(snapshot[key])) return null;
       continue;
     }
-    if (postgresStorageMissingCollectionRepairHighRiskKeys.has(key)) return null;
+    if (!postgresStorageMissingCollectionRepairableArrayKeys.has(key)) return null;
     repaired[key] = [];
     addedCollectionCount += 1;
   }
@@ -164,8 +167,7 @@ export function buildPostgresStorageMissingCollectionRepair(
       ) return null;
       continue;
     }
-    repaired[key] = {};
-    addedCollectionCount += 1;
+    return null;
   }
   if (addedCollectionCount === 0 || !isComplete(repaired)) return null;
   return Object.freeze({
@@ -878,13 +880,66 @@ export async function inspectPostgresStorageMissingCollectionRepairForProduction
   });
 }
 
-async function inspectProductionDatabase(client) {
+export async function inspectPostgresStorageHighRiskCollectionsForProductionGate(
+  client
+) {
+  if (!client || typeof client.begin !== "function") {
+    throw new Error("Postgres production schema high-risk inspection was rejected.");
+  }
+  return client.begin("isolation level repeatable read read only", async (sql) => {
+    await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
+    await sql.unsafe("SET LOCAL lock_timeout = '2000ms'");
+    await sql.unsafe("SET LOCAL statement_timeout = '15000ms'");
+    await sql.unsafe("SET LOCAL idle_in_transaction_session_timeout = '15000ms'");
+    await sql`SELECT pg_catalog.pg_advisory_xact_lock_shared(
+      pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+    )`;
+    const rows = await sql`
+      /* postgres_storage_high_risk_collection_inspection */
+      SELECT NOT EXISTS (
+        SELECT 1
+        FROM pg_catalog.unnest(
+          ${[...postgresStorageMissingCollectionRepairHighRiskKeys]}::text[]
+        ) AS required_collection(key)
+        WHERE NOT (state.payload ? required_collection.key)
+          OR pg_catalog.jsonb_typeof(state.payload -> required_collection.key)
+            IS DISTINCT FROM 'array'
+      ) AS "highRiskCollectionsComplete"
+      FROM public.app_state AS state
+      WHERE state.id = ${postgresStorageStateIdentity.id}
+        AND state.tenant_id = ${postgresStorageStateIdentity.tenantId}
+        AND state.state_kind = ${postgresStorageStateIdentity.stateKind}
+        AND state.schema_version = ${postgresStorageStateIdentity.schemaVersion}
+        AND state.revision >= 1
+        AND (SELECT pg_catalog.count(*) FROM public.app_state) = 1
+    `;
+    return rows.length === 1
+      && rows[0]?.highRiskCollectionsComplete === true;
+  });
+}
+
+export async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
   }
   let appStorageState = await inspectPostgresStorageSchemaForProductionGate(client);
   let appStoragePartialComponent = "unknown";
-  if (appStorageState === "partial") {
+  if ([
+    "exact",
+    "legacy-no-readiness-marker",
+    "legacy-v1-compatibility-no-readiness-marker"
+  ].includes(appStorageState)) {
+    try {
+      if (!await inspectPostgresStorageHighRiskCollectionsForProductionGate(client)) {
+        appStorageState = "partial";
+        appStoragePartialComponent =
+          "legacy-snapshot-high-risk-collections";
+      }
+    } catch {
+      appStorageState = "partial";
+      appStoragePartialComponent = "unknown";
+    }
+  } else if (appStorageState === "partial") {
     try {
       appStoragePartialComponent =
         await diagnosePostgresStoragePartialSchemaForProductionGate(client);
@@ -1326,6 +1381,53 @@ async function withTemporaryProductionAppStorageEnvironment(
   }
 }
 
+async function withPostgresStorageSessionAdvisoryLock(client, operation) {
+  if (
+    !client
+    || typeof client.reserve !== "function"
+    || typeof operation !== "function"
+  ) {
+    throw new Error("MAIS production schema client was rejected.");
+  }
+  const sql = await client.reserve();
+  let lockHeld = false;
+  try {
+    await sql`
+      SELECT
+        pg_catalog.set_config('lock_timeout', '5000ms', false),
+        pg_catalog.set_config('statement_timeout', '60000ms', false)
+    `;
+    await sql`
+      /* postgres_storage_contract_session_advisory_lock */
+      SELECT pg_catalog.pg_advisory_lock(
+        pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+      )
+    `;
+    lockHeld = true;
+    return await operation(sql);
+  } finally {
+    try {
+      if (lockHeld) {
+        const rows = await sql`
+          SELECT pg_catalog.pg_advisory_unlock(
+            pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+          ) AS released
+        `;
+        if (rows.length !== 1 || rows[0]?.released !== true) {
+          throw new Error("MAIS production schema advisory lock release failed.");
+        }
+      }
+      await sql`
+        SELECT
+          pg_catalog.set_config('lock_timeout', '0', false),
+          pg_catalog.set_config('statement_timeout', '0', false)
+      `;
+    } finally {
+      sql.release();
+    }
+  }
+}
+
 export async function applyMaisProductionSchemaOperations(
   client,
   operations,
@@ -1392,20 +1494,38 @@ export async function applyMaisProductionSchemaOperations(
     }
     await withTemporaryProductionAppStorageEnvironment(
       productionEnvironment,
-      async () => {
-        if (appStorageOperation === "app-storage-repair-missing-collections-v1") {
-          const repairedState =
-            await repairAppStorageMissingCollections(client);
+      () => withPostgresStorageSessionAdvisoryLock(
+        client,
+        async (lockedClient) => {
+          if (appStorageOperation === "app-storage-repair-missing-collections-v1") {
+            const repairedState =
+              await repairAppStorageMissingCollections(lockedClient);
+            if (
+              repairedState !== "legacy-no-readiness-marker"
+              && repairedState !== "legacy-v1-compatibility-no-readiness-marker"
+            ) {
+              throw new Error("MAIS production schema operation plan changed.");
+            }
+            if (
+              !await inspectPostgresStorageHighRiskCollectionsForProductionGate(
+                lockedClient
+              )
+            ) {
+              throw new Error("MAIS production schema operation plan changed.");
+            }
+            return applyAppStorageSchema(lockedClient, repairedState);
+          }
           if (
-            repairedState !== "legacy-no-readiness-marker"
-            && repairedState !== "legacy-v1-compatibility-no-readiness-marker"
+            expectedState !== "empty"
+            && !await inspectPostgresStorageHighRiskCollectionsForProductionGate(
+              lockedClient
+            )
           ) {
             throw new Error("MAIS production schema operation plan changed.");
           }
-          return applyAppStorageSchema(client, repairedState);
+          return applyAppStorageSchema(lockedClient, expectedState);
         }
-        return applyAppStorageSchema(client, expectedState);
-      }
+      )
     );
   }
   if (teacherNoticeOperations.length > 0) {

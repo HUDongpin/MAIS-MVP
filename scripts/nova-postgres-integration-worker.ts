@@ -150,11 +150,59 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-gate-inspect") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const inspection = await gate.inspectProductionDatabase(sql);
+        return {
+          component: inspection.appStoragePartialComponent,
+          state: inspection.appStorageState
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-complete-legacy") {
       const sql = createDirectIntegrationClient();
       try {
         await store.__userStorePostgresStorageReadinessTestHooks
           .completeLegacyReadinessMarker(sql);
+        return { completed: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-apply-complete-legacy") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        await gate.applyMaisProductionSchemaOperations(
+          sql,
+          ["app-storage-complete-readiness-v1"],
+          {
+            HK_MATH_ENABLE_DEMO_USER: "false",
+            HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+            HK_MATH_STORAGE_PROVIDER: "postgres"
+          },
+          {
+            applyAppStorageSchema: async (
+              lockedClient: postgres.Sql,
+              expectedState: "legacy-no-readiness-marker"
+            ) => {
+              if (expectedState !== "legacy-no-readiness-marker") {
+                throw new Error("Postgres production schema operation plan changed.");
+              }
+              await store.__userStorePostgresStorageReadinessTestHooks
+                .completeLegacyReadinessMarker(lockedClient);
+            },
+            applyTeacherNoticeSchema: async () => {
+              throw new Error("Postgres production schema operation plan changed.");
+            }
+          }
+        );
         return { completed: true };
       } finally {
         await sql.end({ timeout: 5 });

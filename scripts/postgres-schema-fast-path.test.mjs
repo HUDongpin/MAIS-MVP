@@ -392,14 +392,32 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
     "export async function applyTeacherNoticeProductionSchemaOperationsAtomic("
   );
   const repairCall = combinedApplySource.indexOf(
-    "await repairAppStorageMissingCollections(client)"
+    "await repairAppStorageMissingCollections(lockedClient)"
+  );
+  const highRiskCheck = combinedApplySource.indexOf(
+    "inspectPostgresStorageHighRiskCollectionsForProductionGate"
   );
   const markerCall = combinedApplySource.indexOf(
-    "applyAppStorageSchema(client, repairedState)"
+    "applyAppStorageSchema(lockedClient, repairedState)"
   );
   assert.notEqual(repairCall, -1);
+  assert.notEqual(highRiskCheck, -1);
   assert.notEqual(markerCall, -1);
-  assert.equal(repairCall < markerCall, true);
+  assert.equal(repairCall < highRiskCheck && highRiskCheck < markerCall, true);
+
+  const sessionLockSource = sourceSection(
+    productionSchemaGateSource,
+    "async function withPostgresStorageSessionAdvisoryLock(",
+    "export async function applyMaisProductionSchemaOperations("
+  );
+  assert.match(sessionLockSource, /await client\.reserve\(\)/u);
+  assert.match(
+    sessionLockSource,
+    /postgres_storage_contract_session_advisory_lock/u
+  );
+  assert.match(sessionLockSource, /pg_advisory_unlock/u);
+  assert.match(sessionLockSource, /sql\.release\(\)/u);
+  assert.match(combinedApplySource, /withPostgresStorageSessionAdvisoryLock/u);
 });
 
 test("shared canonical marker installer creates one transactional invalidation trigger with a locked-down function", () => {

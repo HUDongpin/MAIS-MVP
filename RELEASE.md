@@ -197,14 +197,18 @@ only from the serialized, protected-main production workflow after A12 storage r
 value-free runtime/build environment parity attestation, A11 PostgreSQL regression approval, A22
 release approval, and the explicit production confirmation described above.
 
-The operation never reconstructs records. It refuses malformed collections and refuses any
-missing user, student-profile, authentication, class/enrollment, or AI Tutor collection. For a
-snapshot that is missing only reviewed empty-container fields, phase 1 takes the storage-contract
-exclusive advisory lock, the canonical relation locks, and the primary state-row lock; re-runs the
-fixed diagnostic; writes the complete payload with a revision compare-and-swap; and verifies the
-returned payload, revision, identity, and full snapshot contract. Phase 2 passes the resulting
-complete no-marker state to the unchanged canonical readiness-marker operation and requires an
-independent exact-state postflight before deployment may continue.
+The operation never reconstructs records. Its version-1 repair allowlist contains exactly
+`teacher_notice_delivery_attempts`; every other missing array or object is rejected, including
+`nova_lens_policy` and any user, student-profile, authentication, class/enrollment, or AI Tutor
+collection. Expanding that allowlist requires new owner-approved evidence and a new versioned
+operation. The schema runner holds one session-level storage-contract advisory lock across both
+phases. Within it, phase 1 takes the transaction-level exclusive advisory lock, the canonical
+relation locks, and the primary state-row lock; re-runs the fixed diagnostic; writes the complete
+payload with a revision compare-and-swap; and verifies the returned payload, revision, identity,
+and full snapshot contract. Before phase 2, the runner rechecks every high-risk collection under
+the still-held session lock. Phase 2 passes the resulting complete no-marker state to the unchanged
+canonical readiness-marker operation and requires an independent exact-state postflight before
+deployment may continue.
 
 If phase 1 fails, its transaction rolls back. If phase 1 commits but phase 2 fails, normal runtime
 remains fail closed because no current readiness marker exists. Do not manually edit the row or
