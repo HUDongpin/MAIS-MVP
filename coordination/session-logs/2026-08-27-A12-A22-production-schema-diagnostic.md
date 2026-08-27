@@ -63,3 +63,20 @@ different run IDs but produced the same semantic receipt digest; both receipts
 passed the receipt verifier. The canonical proof records zero network requests,
 database writes, and production writes. `npm run test:promotion-gate` passed
 `40/40` after the workflow selection was updated.
+
+## Live-main synchronization re-affirmation justification
+
+Live `origin/main` advanced to
+`91523e8333b6e7904f3288f9404eab0210cf1d6c` while PR #198 was running. It was
+merged without conflict into this session branch, producing the exact target
+`0551503db66ee4596cedec1fddc22cbb32719754`. The append-only revision root is
+`coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/main-sync-schema-diagnostic-20260827`.
+
+The exact independent re-affirming roles are A21, A18, A23, A04, A05, A11,
+A22, A24, and A25. The synchronized protected runtime paths are the six
+reviewed Hong Kong question/topic and answer-matching/question-store files
+already merged through PR #176; the synchronized protected test paths are
+`lib/mvpReadiness.test.ts`, `lib/server/answerMatching.test.ts`, and
+`lib/server/questionStore.test.ts`. The schema diagnostic implementation and
+its fail-closed deployment controls are unchanged by the live-main merge.
+Candidate bytes remain unchanged and `liveAllowed: false` remains mandatory.
