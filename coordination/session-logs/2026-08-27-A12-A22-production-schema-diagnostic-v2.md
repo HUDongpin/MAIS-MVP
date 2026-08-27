@@ -3,7 +3,7 @@
 - Session slice: `codex/a12-a22-production-schema-diagnostic-v2-20260827`
 - Baseline: `3d1204d54e7d6cb3e240080fb19f6d78713d84f3`
 - Owner: A12 backend/API platform with A22 production reliability
-- Target PR: pending
+- Target PR: https://github.com/HUDongpin/MAIS-MVP/pull/203
 - Created: 2026-08-27
 - Expected closeout: 2026-08-27 after protected-main read-only preflight diagnosis
 
@@ -106,3 +106,33 @@ final changes are fail-closed release diagnostic code and its unit assertion.
 Candidate content bytes, runtime reachability, loader policy, and the
 `liveAllowed: false` posture remain unchanged. No policy refresh or exception
 is requested.
+
+## Final selected candidate and PR handoff
+
+- Final implementation target: `47ae2db0c2187ce2204afe700af72836e7b03c0b`.
+- Independent evidence commit: `1321cc64dc`.
+- Manifest/evidence-index binding commit: `ee4bc87a53`.
+- Canonical shadow Receipt commit: `6b988fe5e5`.
+- Workflow and A11 contract-test selection commit: `80c1b97ea4`.
+- Protected runtime diff from live remote `main` at
+  `3d1204d54e7d6cb3e240080fb19f6d78713d84f3`: empty.
+- Two distinct shadow run identities both produced passing, non-live Receipts,
+  both independently verified, with one identical semantic Receipt digest.
+  The committed canonical Receipt is byte-identical to the first verified
+  Receipt.
+- Clean-tree manifest validation after workflow selection: pass;
+  `pilotUnitStatus: shadow_ready`; `liveAllowed: false`.
+- Final Promotion Gate after A11 path synchronization: `40/40` pass.
+- Final selected tooling-only schema gate: `24/24` pass. The earlier `25/25`
+  count above belongs to the subsequently unselected runtime-inspector
+  variant and is retained as historical execution evidence.
+- Pull request: https://github.com/HUDongpin/MAIS-MVP/pull/203. PostgreSQL 16 CI
+  remains the authoritative real-engine integration gate because the bounded
+  local Docker attempt did not become ready.
+
+The three owner-authorized notification variables were separately confirmed
+present as encrypted Production variables in the linked Vercel project:
+`TEACHER_NOTICE_EMAIL_ENABLED`, `RESEND_WEBHOOK_SECRET`, and
+`TEACHER_NOTICE_RESEND_API_KEY`. No value was read into this log or recorded in
+Git. Variable presence is configuration evidence only; delivery behavior still
+requires the same-SHA production synthetic-family acceptance run.
