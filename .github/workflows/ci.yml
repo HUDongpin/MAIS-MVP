@@ -159,8 +159,11 @@ jobs:
       - name: Postgres readiness contract
         run: npm run test:postgres-readiness
 
-      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity + platform solvability provenance)
         run: npm run audit:us-math-items
+
+      - name: Run zh-Hans audit (TS strings + generated packs, ratcheted against scripts/zh-hans-pack-baseline.json)
+        run: npm run audit:zh-hans:strict
 
       - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
         run: npm run audit:lesson-illustrations
