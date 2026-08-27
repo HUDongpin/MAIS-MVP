@@ -165,6 +165,27 @@ jobs:
       - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
         run: npm run audit:lesson-illustrations
 
+      # American curriculum ships English only — the US tracks have no multi-language
+      # support. The zh-Hans and HK Chinese audits parse .ts/.tsx only, so neither has
+      # ever scanned a question pack; this one reads the JSON the packs are built from
+      # and fails if a US pack ships a zh that differs from its en.
+      - name: Run US curriculum English-only gate (American tracks ship English; zh must mirror en)
+        run: node scripts/audit-ca-translations.mjs
+
+      # Uses the :strict variant deliberately — plain `audit:zh-hans` always exits 0
+      # and would be a gate that cannot fail.
+      - name: Run PRC Simplified Chinese gate (critical zh-Hans violations)
+        run: npm run audit:zh-hans:strict
+
+      - name: Run CCSS depth-coverage audit (standards with no bench)
+        run: npm run audit:ccss-depth
+
+      # Invoked through tsx rather than `npm run qa:full-question-bank`: that script
+      # compiles the whole project with tsc first (80s), which the type-check step
+      # already covers, while the audit itself takes ~6s. Same audit, same exit codes.
+      - name: Run full question-bank solvability audit (all tracks, non-pass rows fail)
+        run: npx tsx --tsconfig tsconfig.json scripts/audit-full-question-bank-solvability.ts
+
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions
 
