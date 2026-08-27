@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "suiteName": "mais-question-qa-skill-suite",
   "suiteVersion": "1.0.0",
-  "status": "source-reviewed-package-and-installation-pending",
+  "status": "source-package-installation-verified",
   "baseline": {
     "repository": "MAIS-MVP",
     "originMainCommit": "f001a9570f2a0ef066b1a83a33619f72215ff354",
@@ -15,70 +15,126 @@
       "version": "1.0.0",
       "kind": "new-specialist",
       "compatibilityPatch": false,
-      "sourceHash": null,
-      "packageHash": null,
-      "sourceCommit": null,
+      "sourceHash": "6fe8303c91b5ba276632e4ad7a74c0e9c30a15cd8e71e33cc4cebaa790137e24",
+      "sourceFileCount": 19,
+      "packageViewHash": "fd4953c1cde7b0564d7706e1353ef5a80d7d1b976589ee53ad735ae1dc607b01",
+      "packageFileCount": 17,
+      "packageHash": "7d42cf2837a274b678f5e7b00e0aa7464ad4d0498e4c9e3dc89f4d3aa84be1e1",
+      "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
       "caseStudySnapshot": "synthetic-calibration-evidence-not-integration-or-live-proof",
-      "installation": {"state": "not-installed-by-this-suite", "readbackHash": null}
+      "installation": {
+        "state": "installed-verified",
+        "readbackHash": "fd4953c1cde7b0564d7706e1353ef5a80d7d1b976589ee53ad735ae1dc607b01",
+        "readbackFileCount": 17
+      }
     },
     {
       "name": "mais-natural-sample-evaluation",
       "version": "1.0.0",
       "kind": "new-specialist",
       "compatibilityPatch": false,
-      "sourceHash": null,
-      "packageHash": null,
-      "sourceCommit": null,
+      "sourceHash": "3eb2c1a3036dd556ce865bb0395cb2be06d6cfe3e526ecb1866bf0659dcfd012",
+      "sourceFileCount": 23,
+      "packageViewHash": "df44491fd09c12e531b031ac1a9e713f28fe0efa2e57f1d5915f80c5b7eed510",
+      "packageFileCount": 21,
+      "packageHash": "bee5088bea6e7464337f67d176dafbdfb3ae6abdb0c2c0a125ba570bcbb83997",
+      "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
       "caseStudySnapshot": "runner-reviewed-provider-unexecuted-no-natural-population-conclusion",
-      "installation": {"state": "not-installed-by-this-suite", "readbackHash": null}
+      "installation": {
+        "state": "installed-verified",
+        "readbackHash": "df44491fd09c12e531b031ac1a9e713f28fe0efa2e57f1d5915f80c5b7eed510",
+        "readbackFileCount": 21
+      }
     },
     {
       "name": "mais-content-promotion-gate",
       "version": "1.0.0",
       "kind": "new-specialist",
       "compatibilityPatch": false,
-      "sourceHash": null,
-      "packageHash": null,
-      "sourceCommit": null,
+      "sourceHash": "123d2b7e7bcfce1438b54923d1d57d42f36925df8cbc8106d5434f6edcfa779d",
+      "sourceFileCount": 26,
+      "packageViewHash": "9ff8f5ffede7e64e25069660e8c885e1a4864c4709cca4ed0ff3aea992c527e0",
+      "packageFileCount": 24,
+      "packageHash": "2f972cdbeeb14cf0b8cf810a0a37152344882f7edc45c12afb88ebc85c3a4bde",
+      "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
       "caseStudySnapshot": "shadow-mature-live-unproven-live-allowed-false",
-      "installation": {"state": "not-installed-by-this-suite", "readbackHash": null}
+      "installation": {
+        "state": "installed-verified",
+        "readbackHash": "9ff8f5ffede7e64e25069660e8c885e1a4864c4709cca4ed0ff3aea992c527e0",
+        "readbackFileCount": 24
+      }
     },
     {
       "name": "mais-content-qa-approval-workflow",
       "version": "1.0.0-compat.1",
       "kind": "compatibility-update",
       "compatibilityPatch": true,
-      "sourceHash": null,
-      "packageHash": null,
-      "sourceCommit": null,
+      "sourceHash": "ed28587d7de06abb051a301eacdd268e5fbb6086def0ea0b6e97a924ea2cc386",
+      "sourceFileCount": 7,
+      "packageViewHash": "b5612f75eab03a8ddfb2d029b692ed59692cf920b310abb399e3a8588c4f1882",
+      "packageFileCount": 5,
+      "packageHash": "a4b6f3abdd7b424ebfceb70862c1836e3beb292d96104639b59e36782a023814",
+      "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
       "caseStudySnapshot": "legacy-sxx-and-self-production-approval-removed",
-      "installation": {"state": "existing-install-not-yet-replaced", "readbackHash": null}
+      "installation": {
+        "state": "installed-verified",
+        "readbackHash": "b5612f75eab03a8ddfb2d029b692ed59692cf920b310abb399e3a8588c4f1882",
+        "readbackFileCount": 5
+      }
     },
     {
       "name": "mais-release-hygiene-deploy-workflow",
       "version": "1.0.0-compat.1",
       "kind": "compatibility-update",
       "compatibilityPatch": true,
-      "sourceHash": null,
-      "packageHash": null,
-      "sourceCommit": null,
+      "sourceHash": "00ceadf649cedd39b4e9c8643d5c8f117b90a21fa36834b90cdfa403af4bdf37",
+      "sourceFileCount": 7,
+      "packageViewHash": "babf9397c32f2e24e46b448c1994520873ab0164c3430c9e72482b9a4e26f9a5",
+      "packageFileCount": 5,
+      "packageHash": "2107fad4d57f89b450520cf2d2aa832aa76e4187913b3776ea4f4973be88237b",
+      "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
       "caseStudySnapshot": "promotion-negative-routing-and-same-sha-live-boundary-added",
-      "installation": {"state": "existing-install-not-yet-replaced", "readbackHash": null}
+      "installation": {
+        "state": "installed-verified",
+        "readbackHash": "babf9397c32f2e24e46b448c1994520873ab0164c3430c9e72482b9a4e26f9a5",
+        "readbackFileCount": 5
+      }
     }
   ],
   "evaluation": {
     "behaviorScenarios": 19,
     "triggerQueries": 100,
     "requiredRounds": 2,
-    "status": "pass-two-round-local-artifacts-summary-pending"
+    "status": "passed",
+    "benchmarkSummary": {
+      "path": "benchmarks/benchmark-summary.md",
+      "sha256": "8d508203ba548a141c9881f52e126481f73561143f12a6ef2eaf6de23baceeaa"
+    },
+    "provenance": {
+      "path": "benchmarks/benchmark-provenance.json",
+      "sha256": "91a6c0b7f9d1e02a7a6c56d38f3d03f5420f9742c06106eba13cc20230ecc8e0"
+    }
   },
   "packageBuild": {
     "binaryArchivesCommitted": false,
-    "status": "pending"
+    "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
+    "archiveCount": 5,
+    "outputLocation": "ignored-local-storage",
+    "status": "built-validated-readback-matched"
   },
   "installationReceipt": {
-    "backupManifest": null,
-    "installedAt": null,
-    "status": "pending"
+    "path": "benchmarks/installation-receipt.json",
+    "sha256": "250211c582f855d468697e9b364e074e9a9493b8a11bb215c981f64117981927",
+    "backupManifest": "sha256:3a363191f3e8d879b3b30a84b4528110cc8e497b01969fa477254fcc09db2adc",
+    "backupLayoutAddendum": "sha256:2144359a764bd06305389ccf820ba610e4070c3ae529a1ef947acc7a1ba7a4b3",
+    "installedAt": "2026-08-27T20:21:16.657Z",
+    "status": "installed-readback-and-rollback-verified"
+  },
+  "gitDelivery": {
+    "branch": "codex/a10-qa-skill-distillation-20260827",
+    "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
+    "pushed": true,
+    "pullRequest": null,
+    "merged": false
   }
 }
