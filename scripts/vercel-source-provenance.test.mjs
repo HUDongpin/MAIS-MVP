@@ -137,6 +137,40 @@ test("CLI source provenance binds provider bytes to the exact current Git packag
   });
 });
 
+test("CLI source provenance accepts the staging seal's read-only provider modes", () => {
+  const value = fixture();
+  value.filesPayload[0].children[0].children[0].mode = 33088;
+  value.filesPayload[0].children[1].mode = 33024;
+  value.filesPayload[0].children[2].mode = 33024;
+
+  const files = flattenVercelDeploymentSourceFiles(value.filesPayload);
+  assert.deepEqual(files.get("app/page.tsx"), {
+    mode: 33088,
+    uid: value.manifest.files[0].rawSha1
+  });
+  assert.deepEqual(files.get("package.json"), {
+    mode: 33024,
+    uid: value.manifest.files[1].rawSha1
+  });
+  assert.equal(validateVercelCliSourcePackageEvidence(value).fileModesVerified, true);
+});
+
+test("staging seal modes still preserve the Git executable-bit boundary", () => {
+  const executableAsSealedNonExecutable = fixture();
+  executableAsSealedNonExecutable.filesPayload[0].children[0].children[0].mode = 33024;
+  assert.throws(
+    () => validateVercelCliSourcePackageEvidence(executableAsSealedNonExecutable),
+    /file mode/i
+  );
+
+  const regularAsSealedExecutable = fixture();
+  regularAsSealedExecutable.filesPayload[0].children[1].mode = 33088;
+  assert.throws(
+    () => validateVercelCliSourcePackageEvidence(regularAsSealedExecutable),
+    /file mode/i
+  );
+});
+
 test("provider source byte mutation fails closed", () => {
   const value = fixture();
   value.filesPayload[0].children[0].children[0].uid = "f".repeat(40);
@@ -160,6 +194,46 @@ test("every provider source file is fetched and re-hashed with SHA-256", () => {
     () => validateVercelCliSourcePackageEvidence(missing),
     /content proof/i
   );
+});
+
+test("large provider files are validated without a regular-expression stack overflow", () => {
+  const bytes = Buffer.alloc(4 * 1024 * 1024, 0x61);
+  const request = {
+    uid: digest("sha1", bytes),
+    size: bytes.length,
+    rawSha1: digest("sha1", bytes),
+    sha256: digest("sha256", bytes),
+    gitBlobOid: createHash("sha1")
+      .update(Buffer.from(`blob ${bytes.length}\0`))
+      .update(bytes)
+      .digest("hex")
+  };
+
+  assert.deepEqual(
+    validateVercelSourceFileContent(request, { data: bytes.toString("base64") }),
+    { ...request }
+  );
+});
+
+test("provider file content rejects non-canonical Base64 with valid encoded length", () => {
+  const bytes = Buffer.from("a");
+  const request = {
+    uid: digest("sha1", bytes),
+    size: bytes.length,
+    rawSha1: digest("sha1", bytes),
+    sha256: digest("sha256", bytes),
+    gitBlobOid: createHash("sha1")
+      .update(Buffer.from(`blob ${bytes.length}\0`))
+      .update(bytes)
+      .digest("hex")
+  };
+
+  for (const data of ["YQ=A", "Y===", "YQ$="]) {
+    assert.throws(
+      () => validateVercelSourceFileContent(request, { data }),
+      /encoding/i
+    );
+  }
 });
 
 test("provider file mode must equal the Git-bound manifest mode", () => {

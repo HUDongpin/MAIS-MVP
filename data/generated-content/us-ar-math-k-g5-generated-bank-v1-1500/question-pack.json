@@ -79441,7 +79441,7 @@
         "zhHans": "从左到右比较数字。所有数字都以 452 开头，因此看百位。452,381 的百位是 3；只有 452,831 的百位是 8，大于 3。"
       },
       "independentAnswer": "452,831",
-      "independentSolution": "452,381 vs. options: compare hundreds digit: 3. The option 452,831 has hundreds digit 8 > 3, so it is greater. Others have 1, 8? Actually 452,318 has 3? 452,318: hundreds is 3, but tens is 1, so less. 452,183: hundreds 1 < 3. 452,138: hundreds 1 < 3. Only 452,831 is greater.",
+      "independentSolution": "All options share the leading digits 452, so compare the hundreds digit against 452,381 (hundreds digit 3). 452,831 has hundreds digit 8 > 3, so it is greater. 452,318 has hundreds digit 3 and a smaller tens digit (1 < 8), so it is less; 452,183 and 452,138 have hundreds digit 1 < 3. Only 452,831 is greater.",
       "evidenceCardIds": [
         "us-ar-math-g4-fractions-decimals-multi-digit-geometry-data",
         "us-ar-standards-p4-g4-nbt",

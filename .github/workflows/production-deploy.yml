@@ -124,11 +124,57 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
+      - name: Install pinned Vercel CLI
+        env:
+          MAIS_VERCEL_CLI_ROOT: ${{ runner.temp }}/mais-vercel-cli-54.9.0
+        run: |-
+          npm install --prefix "$MAIS_VERCEL_CLI_ROOT" --ignore-scripts --no-audit --no-fund --no-save vercel@54.9.0
+          vercel_version="$("$MAIS_VERCEL_CLI_ROOT/node_modules/.bin/vercel" --version | tail -n 1)"
+          test "$vercel_version" = "54.9.0"
+          printf '%s\n' "$MAIS_VERCEL_CLI_ROOT/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Load and mask schema confirmation
+        shell: bash
+        run: |-
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+
+          const eventPath = process.env.GITHUB_EVENT_PATH;
+          const environmentPath = process.env.GITHUB_ENV;
+          if (!eventPath || !environmentPath) {
+            throw new Error("Production schema confirmation context is unavailable.");
+          }
+
+          const event = JSON.parse(fs.readFileSync(eventPath, "utf8"));
+          const confirmation = String(event?.inputs?.schema_confirmation ?? "");
+          if (
+            confirmation.length > 1_024 ||
+            !/^confirm:mais-production-schema:v4:[A-Za-z0-9_:+.-]{1,900}$/u.test(
+              confirmation
+            )
+          ) {
+            throw new Error("Production schema confirmation input was rejected.");
+          }
+
+          process.stdout.write(`::add-mask::${confirmation}\n`);
+          fs.appendFileSync(
+            environmentPath,
+            `MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM=${confirmation}\n`,
+            "utf8"
+          );
+          NODE
+
       - name: Apply schema and deploy the exact candidate
         env:
           GITHUB_TOKEN: ${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}
           MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: github-actions-serialized-v1
-          MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM: ${{ inputs.schema_confirmation }}
+          # Standard ubuntu-latest runners expose 14 GB total storage. Keep the
+          # 20 GB local default, but require 8 GB free in this serialized CI path.
+          MAIS_RELEASE_MIN_FREE_GB: "8"
+          # The isolated release build exceeds Node's default ~2 GB old-space on
+          # hosted runners. Match the already-green CI build jobs.
+          NODE_OPTIONS: --max-old-space-size=6144
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |-
           test -n "$MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM"

@@ -7,6 +7,11 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import postgres from "postgres";
 
 import {
+  applyPostgresStorageSchemaForProductionGate,
+  inspectPostgresStorageSchemaForProductionGate
+} from "../lib/server/userStore.ts";
+
+import {
   attestTeacherNoticeEmailCronHeartbeatPostgresSchema,
   inspectTeacherNoticeEmailCronHeartbeatPostgresSchema,
   teacherNoticeEmailCronHeartbeatPostgresAdvisoryNamespace,
@@ -35,6 +40,19 @@ import {
 import { MAIS_GITHUB_REPOSITORY } from "./github-candidate-checks.mjs";
 
 const outboxStates = new Set(["empty", "exact", "partial"]);
+const appStorageStates = new Set([
+  "empty",
+  "legacy-no-readiness-marker",
+  "legacy-v1-compatibility-no-readiness-marker",
+  "exact",
+  "partial"
+]);
+const appStorageSeedModes = new Set([
+  "demo-disabled",
+  "demo-enabled",
+  "demo-enabled-empty",
+  "demo-enabled-default"
+]);
 const webhookStates = new Set(["empty", "upgradeable", "exact", "partial"]);
 const heartbeatStates = new Set(["empty", "v1", "exact", "partial"]);
 const sha1Pattern = /^[a-f0-9]{40}$/u;
@@ -46,6 +64,91 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const maxGitOutputBytes = 1024 * 1024;
 const maxVercelEnvironmentBytes = 4 * 1024 * 1024;
 const productionSchemaEnvironmentSource = "vercel-api-pull-v1";
+const productionAppStorageEnvironmentKeys = Object.freeze([
+  "HK_MATH_ENABLE_DEMO_USER",
+  "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
+  "HK_MATH_STORAGE_PROVIDER",
+  "MAIS_BOOTSTRAP_ADMIN_EMAIL",
+  "MAIS_BOOTSTRAP_ADMIN_NAME",
+  "MAIS_BOOTSTRAP_ADMIN_PASSWORD",
+  "MAIS_BOOTSTRAP_ADMIN_USERNAME",
+  "POSTGRES_MAX_CONNECTIONS"
+]);
+const productionSchemaFailureStages = new Set([
+  "candidate-binding-after",
+  "candidate-binding-before",
+  "evidence-build",
+  "input-binding",
+  "postgres-close",
+  "postgres-connect",
+  "postgres-inspect",
+  "provider-context",
+  "provider-environment-binding",
+  "provider-environment-read",
+  "provider-project-identity",
+  "provider-project-read",
+  "provider-token-read",
+  "unknown"
+]);
+const productionSchemaFailureReasons = new Set([
+  "app-storage-partial",
+  "heartbeat-partial",
+  "outbox-partial",
+  "outbox-webhook-inconsistent",
+  "schema-state-invalid",
+  "unknown",
+  "webhook-partial"
+]);
+
+class TeacherNoticeProductionSchemaReasonError extends Error {
+  constructor(reason) {
+    super("Teacher notice production schema state was rejected; details redacted.");
+    this.name = "TeacherNoticeProductionSchemaReasonError";
+    this.reason = productionSchemaFailureReasons.has(reason) ? reason : "unknown";
+  }
+}
+
+class TeacherNoticeProductionSchemaStageError extends Error {
+  constructor(stage, reason = "unknown") {
+    super("Teacher notice production schema operation failed; details redacted.");
+    this.name = "TeacherNoticeProductionSchemaStageError";
+    this.stage = productionSchemaFailureStages.has(stage) ? stage : "unknown";
+    this.reason = productionSchemaFailureReasons.has(reason) ? reason : "unknown";
+  }
+}
+
+function stageError(stage, error) {
+  if (error instanceof TeacherNoticeProductionSchemaStageError) return error;
+  return new TeacherNoticeProductionSchemaStageError(
+    stage,
+    error instanceof TeacherNoticeProductionSchemaReasonError
+      ? error.reason
+      : "unknown"
+  );
+}
+
+async function runProductionSchemaStage(stage, operation) {
+  try {
+    return await operation();
+  } catch (error) {
+    throw stageError(stage, error);
+  }
+}
+
+export function teacherNoticeProductionSchemaFailureStage(error) {
+  return error instanceof TeacherNoticeProductionSchemaStageError &&
+    productionSchemaFailureStages.has(error.stage)
+    ? error.stage
+    : "unknown";
+}
+
+export function teacherNoticeProductionSchemaFailureReason(error) {
+  return error instanceof TeacherNoticeProductionSchemaStageError &&
+    productionSchemaFailureReasons.has(error.reason)
+    ? error.reason
+    : "unknown";
+}
+
 const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
   `CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
     ON public.teacher_notice_resend_webhook_events (received_at)
@@ -65,26 +168,44 @@ const teacherNoticeResendWebhookPostgresV2ToV3Statements = [
 ];
 
 export function buildTeacherNoticeProductionSchemaPlan({
+  appStorageState,
   heartbeatState,
   outboxState,
   webhookState
 }) {
   if (
+    !appStorageStates.has(appStorageState) ||
     !outboxStates.has(outboxState) ||
     !webhookStates.has(webhookState) ||
     !heartbeatStates.has(heartbeatState)
   ) {
-    throw new Error("Teacher notice production schema state was rejected.");
+    throw new TeacherNoticeProductionSchemaReasonError("schema-state-invalid");
   }
-  if (
-    outboxState === "partial" ||
-    webhookState === "partial" ||
-    heartbeatState === "partial" ||
-    (outboxState === "empty" && webhookState !== "empty")
-  ) {
-    throw new Error("Teacher notice production partial schema was rejected.");
+  if (appStorageState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("app-storage-partial");
+  }
+  if (outboxState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("outbox-partial");
+  }
+  if (webhookState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("webhook-partial");
+  }
+  if (heartbeatState === "partial") {
+    throw new TeacherNoticeProductionSchemaReasonError("heartbeat-partial");
+  }
+  if (outboxState === "empty" && webhookState !== "empty") {
+    throw new TeacherNoticeProductionSchemaReasonError(
+      "outbox-webhook-inconsistent"
+    );
   }
   const operations = [];
+  if (appStorageState === "empty") operations.push("app-storage-install-v1");
+  if (appStorageState === "legacy-no-readiness-marker") {
+    operations.push("app-storage-complete-readiness-v1");
+  }
+  if (appStorageState === "legacy-v1-compatibility-no-readiness-marker") {
+    operations.push("app-storage-upgrade-legacy-compat-readiness-v2");
+  }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
   if (webhookState === "empty") operations.push("webhook-install-v3");
@@ -116,6 +237,8 @@ function sha256(value) {
 }
 
 export function buildTeacherNoticeProductionSchemaPreflightEvidence({
+  appStorageSeedMode,
+  appStorageState,
   candidateSha,
   expectedTreeSha,
   heartbeatState,
@@ -134,18 +257,20 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
     !sha256Pattern.test(normalizedTargetFingerprint) ||
     !Number.isSafeInteger(postgresMajor) ||
     postgresMajor < 16 ||
-    postgresMajor > 99
+    postgresMajor > 99 ||
+    !appStorageSeedModes.has(appStorageSeedMode)
   ) {
     throw new Error("Teacher notice production preflight binding was rejected.");
   }
   const operations = buildTeacherNoticeProductionSchemaPlan({
+    appStorageState,
     heartbeatState,
     outboxState,
     webhookState
   });
   const normalizedStatistics = assertAggregateStatistics(statistics);
   const safeBinding = {
-    schemaVersion: 3,
+    schemaVersion: 4,
     candidateSha: normalizedCandidateSha,
     expectedTreeSha: normalizedTreeSha,
     projectId: APPROVED_VERCEL_PROJECT_ID,
@@ -154,6 +279,8 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
     teamSlug: APPROVED_VERCEL_TEAM_SLUG,
     targetFingerprint: normalizedTargetFingerprint,
     postgresMajor,
+    appStorageSeedMode,
+    appStorageState,
     outboxState,
     webhookState,
     heartbeatState,
@@ -164,8 +291,8 @@ export function buildTeacherNoticeProductionSchemaPreflightEvidence({
   const operationBinding = operations.length === 0 ? "none" : operations.join("+");
   const requiredConfirmation = [
     "confirm",
-    "teacher-notice-production-schema",
-    "v3",
+    "mais-production-schema",
+    "v4",
     normalizedCandidateSha,
     normalizedTreeSha,
     APPROVED_VERCEL_PROJECT_ID,
@@ -379,6 +506,48 @@ function assertProductionProviderPullBinding({
   }
 }
 
+function readProductionAppStorageEnvironment(runtimeEnvironment, buildEnvironment) {
+  const environment = {};
+  for (const key of productionAppStorageEnvironmentKeys) {
+    const runtimeValue = runtimeEnvironment?.[key];
+    const buildValue = buildEnvironment?.[key];
+    if (runtimeValue === undefined && buildValue === undefined) continue;
+    if (
+      typeof runtimeValue !== "string" ||
+      typeof buildValue !== "string" ||
+      runtimeValue.length > 16_384 ||
+      buildValue.length > 16_384 ||
+      runtimeValue.includes("\0") ||
+      buildValue.includes("\0") ||
+      !constantTimeStringEqual(runtimeValue, buildValue)
+    ) {
+      throw new Error("Production app-storage environment binding was rejected.");
+    }
+    environment[key] = runtimeValue;
+  }
+  if (
+    environment.HK_MATH_STORAGE_PROVIDER !== "postgres" ||
+    (
+      environment.HK_MATH_ENABLE_DEMO_USER !== undefined &&
+      !["", "false", "true"].includes(environment.HK_MATH_ENABLE_DEMO_USER)
+    ) ||
+    environment.HK_MATH_POSTGRES_HOT_AUTH_TABLES !== "true"
+  ) {
+    throw new Error("Production app-storage environment binding was rejected.");
+  }
+  return Object.freeze(environment);
+}
+
+function appStorageSeedModeFromProductionEnvironment(environment) {
+  if (environment?.HK_MATH_ENABLE_DEMO_USER === "false") return "demo-disabled";
+  if (environment?.HK_MATH_ENABLE_DEMO_USER === "true") return "demo-enabled";
+  if (environment?.HK_MATH_ENABLE_DEMO_USER === "") return "demo-enabled-empty";
+  if (environment?.HK_MATH_ENABLE_DEMO_USER === undefined) {
+    return "demo-enabled-default";
+  }
+  throw new Error("Production app-storage seed mode was rejected.");
+}
+
 async function withProductionPostgresSecret({
   candidateSha,
   env,
@@ -386,55 +555,77 @@ async function withProductionPostgresSecret({
   fetchJsonImpl,
   readTokenImpl
 }, operation) {
-  assertProductionProviderPullBinding({ candidateSha, env });
-  const token = await readTokenImpl({ env });
+  await runProductionSchemaStage("provider-context", async () => {
+    assertProductionProviderPullBinding({ candidateSha, env });
+  });
+  const token = await runProductionSchemaStage(
+    "provider-token-read",
+    () => readTokenImpl({ env })
+  );
   const projectUrl = new URL(
     `https://api.vercel.com/v9/projects/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}`
   );
   projectUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-  const project = await fetchJsonImpl(projectUrl.href, token, {
-    fetchImpl,
-    maxBytes: maxVercelEnvironmentBytes,
-    timeoutMs: 30_000
+  const project = await runProductionSchemaStage(
+    "provider-project-read",
+    () => fetchJsonImpl(projectUrl.href, token, {
+      fetchImpl,
+      maxBytes: maxVercelEnvironmentBytes,
+      timeoutMs: 30_000
+    })
+  );
+  await runProductionSchemaStage("provider-project-identity", async () => {
+    if (
+      project?.id !== APPROVED_VERCEL_PROJECT_ID ||
+      project?.name !== APPROVED_VERCEL_PROJECT_NAME ||
+      project?.accountId !== APPROVED_VERCEL_TEAM_ID
+    ) {
+      throw new Error("Teacher notice production Vercel identity was rejected.");
+    }
   });
-  if (
-    project?.id !== APPROVED_VERCEL_PROJECT_ID ||
-    project?.name !== APPROVED_VERCEL_PROJECT_NAME ||
-    project?.accountId !== APPROVED_VERCEL_TEAM_ID
-  ) {
-    throw new Error("Teacher notice production Vercel identity was rejected.");
-  }
   const environmentUrl = new URL(
     `https://api.vercel.com/v3/env/pull/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}/production`
   );
   environmentUrl.searchParams.set("source", "vercel-cli:env:run");
   environmentUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-  let payload = await fetchJsonImpl(environmentUrl.href, token, {
-    fetchImpl,
-    maxBytes: maxVercelEnvironmentBytes,
-    timeoutMs: 30_000
-  });
+  let payload = await runProductionSchemaStage(
+    "provider-environment-read",
+    () => fetchJsonImpl(environmentUrl.href, token, {
+      fetchImpl,
+      maxBytes: maxVercelEnvironmentBytes,
+      timeoutMs: 30_000
+    })
+  );
   let runtimeEnvironment = payload?.env;
   let buildEnvironment = payload?.buildEnv;
-  if (
-    !runtimeEnvironment ||
-    typeof runtimeEnvironment !== "object" ||
-    Array.isArray(runtimeEnvironment) ||
-    !buildEnvironment ||
-    typeof buildEnvironment !== "object" ||
-    Array.isArray(buildEnvironment)
-  ) {
-    throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
-  }
-  let runtimeSecret = validateProductionPostgresUrl(
-    runtimeEnvironment.POSTGRES_URL
-  ).raw;
-  let buildSecret = validateProductionPostgresUrl(
-    buildEnvironment.POSTGRES_URL
-  ).raw;
-  if (!constantTimeStringEqual(runtimeSecret, buildSecret)) {
-    throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
-  }
+  let runtimeSecret;
+  let buildSecret;
+  let appStorageEnvironment;
+  await runProductionSchemaStage("provider-environment-binding", async () => {
+    if (
+      !runtimeEnvironment ||
+      typeof runtimeEnvironment !== "object" ||
+      Array.isArray(runtimeEnvironment) ||
+      !buildEnvironment ||
+      typeof buildEnvironment !== "object" ||
+      Array.isArray(buildEnvironment)
+    ) {
+      throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
+    }
+    runtimeSecret = validateProductionPostgresUrl(
+      runtimeEnvironment.POSTGRES_URL
+    ).raw;
+    buildSecret = validateProductionPostgresUrl(
+      buildEnvironment.POSTGRES_URL
+    ).raw;
+    if (!constantTimeStringEqual(runtimeSecret, buildSecret)) {
+      throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
+    }
+    appStorageEnvironment = readProductionAppStorageEnvironment(
+      runtimeEnvironment,
+      buildEnvironment
+    );
+  });
   let secret = runtimeSecret;
   payload = null;
   runtimeEnvironment = null;
@@ -442,9 +633,10 @@ async function withProductionPostgresSecret({
   runtimeSecret = null;
   buildSecret = null;
   try {
-    return await operation(secret);
+    return await operation(secret, appStorageEnvironment);
   } finally {
     secret = null;
+    appStorageEnvironment = null;
   }
 }
 
@@ -469,7 +661,8 @@ function validateDatabaseInspection(inspection, productionUrl) {
     throw new Error("Teacher notice production PostgreSQL version was rejected.");
   }
   const outboxState = inspection?.outboxState;
-  if (!outboxStates.has(outboxState)) {
+  const appStorageState = inspection?.appStorageState;
+  if (!outboxStates.has(outboxState) || !appStorageStates.has(appStorageState)) {
     throw new Error("Teacher notice production outbox state was rejected.");
   }
   const targetFingerprint = sha256([
@@ -483,12 +676,25 @@ function validateDatabaseInspection(inspection, productionUrl) {
     versionText
   ].join("\0"));
   return {
+    appStorageState,
     heartbeatState: inspection?.heartbeatState,
     outboxState,
     postgresMajor,
     statistics: assertAggregateStatistics(inspection?.statistics),
     targetFingerprint,
     webhookState: inspection?.webhookState
+  };
+}
+
+function validateBoundProductionInspection(
+  inspection,
+  productionUrl,
+  productionEnvironment
+) {
+  return {
+    ...validateDatabaseInspection(inspection, productionUrl),
+    appStorageSeedMode:
+      appStorageSeedModeFromProductionEnvironment(productionEnvironment)
   };
 }
 
@@ -533,7 +739,8 @@ async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
   }
-  return client.begin(
+  const appStorageState = await inspectPostgresStorageSchemaForProductionGate(client);
+  const teacherNoticeInspection = await client.begin(
     "isolation level repeatable read read only",
     async (sql) => {
       await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
@@ -571,6 +778,15 @@ async function inspectProductionDatabase(client) {
           WHERE namespace.nspname = 'public'
             AND relation.relkind = 'r'
             AND relation.relname IN (
+              'app_state',
+              'app_state_readiness_markers',
+              'auth_schema_migrations',
+              'ai_tutor_message_journal',
+              'ai_tutor_usage_journal',
+              'auth_users',
+              'auth_student_profiles',
+              'auth_user_settings',
+              'auth_password_reset_tokens',
               'teacher_notice_email_outbox',
               'teacher_notice_email_outbox_schema_migrations',
               'teacher_notice_resend_webhook_events',
@@ -604,6 +820,10 @@ async function inspectProductionDatabase(client) {
       };
     }
   );
+  return {
+    ...teacherNoticeInspection,
+    appStorageState
+  };
 }
 
 function constantTimeStringEqual(left, right) {
@@ -659,15 +879,36 @@ function localBindingFromDependencies(dependencies) {
 }
 
 async function readProductionInspection(dependencies) {
-  return withProductionPostgresSecret(dependencies, async (productionUrl) => {
-    const client = await dependencies.connectPostgres(productionUrl);
+  return withProductionPostgresSecret(dependencies, async (
+    productionUrl,
+    productionEnvironment
+  ) => {
+    const client = await runProductionSchemaStage(
+      "postgres-connect",
+      () => dependencies.connectPostgres(productionUrl)
+    );
+    let primaryError = null;
     try {
-      return validateDatabaseInspection(
-        await dependencies.inspectDatabase(client),
-        productionUrl
+      return await runProductionSchemaStage(
+        "postgres-inspect",
+        async () => validateBoundProductionInspection(
+          await dependencies.inspectDatabase(client),
+          productionUrl,
+          productionEnvironment
+        )
       );
+    } catch (error) {
+      primaryError = error;
+      throw error;
     } finally {
-      await closePostgresClient(client);
+      try {
+        await runProductionSchemaStage(
+          "postgres-close",
+          () => closePostgresClient(client)
+        );
+      } catch (closeError) {
+        if (primaryError === null) throw closeError;
+      }
     }
   });
 }
@@ -682,14 +923,26 @@ function evidenceFromInspection(dependencies, inspection) {
 
 export async function preflightTeacherNoticeProductionSchema(options = {}) {
   try {
-    const dependencies = resolveProductionGateDependencies(options);
+    const dependencies = await runProductionSchemaStage(
+      "input-binding",
+      async () => resolveProductionGateDependencies(options)
+    );
     const localBinding = localBindingFromDependencies(dependencies);
-    await assertLocalCandidateBinding(localBinding);
+    await runProductionSchemaStage(
+      "candidate-binding-before",
+      () => assertLocalCandidateBinding(localBinding)
+    );
     const inspected = await readProductionInspection(dependencies);
-    await assertLocalCandidateBinding(localBinding);
-    return evidenceFromInspection(dependencies, inspected);
-  } catch {
-    throw new Error("Teacher notice production schema preflight failed; details redacted.");
+    await runProductionSchemaStage(
+      "candidate-binding-after",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    return await runProductionSchemaStage(
+      "evidence-build",
+      async () => evidenceFromInspection(dependencies, inspected)
+    );
+  } catch (error) {
+    throw stageError("unknown", error);
   }
 }
 
@@ -710,6 +963,123 @@ function statementsForProductionSchemaOperation(operation) {
     return teacherNoticeEmailCronHeartbeatPostgresV1ToV2Statements;
   }
   throw new Error("Teacher notice production schema operation was rejected.");
+}
+
+async function withTemporaryProductionAppStorageEnvironment(
+  productionEnvironment,
+  operation
+) {
+  if (
+    !productionEnvironment ||
+    typeof productionEnvironment !== "object" ||
+    Array.isArray(productionEnvironment) ||
+    typeof operation !== "function" ||
+    productionEnvironment.HK_MATH_STORAGE_PROVIDER !== "postgres" ||
+    (
+      productionEnvironment.HK_MATH_ENABLE_DEMO_USER !== undefined &&
+      !["", "false", "true"].includes(productionEnvironment.HK_MATH_ENABLE_DEMO_USER)
+    ) ||
+    productionEnvironment.HK_MATH_POSTGRES_HOT_AUTH_TABLES !== "true" ||
+    Object.keys(productionEnvironment).some(
+      (key) => !productionAppStorageEnvironmentKeys.includes(key)
+    ) ||
+    Object.values(productionEnvironment).some(
+      (value) =>
+        typeof value !== "string" ||
+        value.length > 16_384 ||
+        value.includes("\0")
+    )
+  ) {
+    throw new Error("Production app-storage environment was rejected.");
+  }
+  const keys = [
+    ...productionAppStorageEnvironmentKeys,
+    "MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE"
+  ];
+  const previous = new Map(keys.map((key) => [key, process.env[key]]));
+  try {
+    for (const key of productionAppStorageEnvironmentKeys) {
+      if (Object.hasOwn(productionEnvironment, key)) {
+        process.env[key] = productionEnvironment[key];
+      } else {
+        delete process.env[key];
+      }
+    }
+    process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE =
+      "github-actions-serialized-v1";
+    return await operation();
+  } finally {
+    for (const [key, value] of previous) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+}
+
+export async function applyMaisProductionSchemaOperations(
+  client,
+  operations,
+  productionEnvironment,
+  options = {}
+) {
+  if (!client || typeof client.begin !== "function" || !Array.isArray(operations)) {
+    throw new Error("MAIS production schema client was rejected.");
+  }
+  const appStorageOperationExpectedStates = new Map([
+    ["app-storage-install-v1", "empty"],
+    ["app-storage-complete-readiness-v1", "legacy-no-readiness-marker"],
+    [
+      "app-storage-upgrade-legacy-compat-readiness-v2",
+      "legacy-v1-compatibility-no-readiness-marker"
+    ]
+  ]);
+  const appOperationIndexes = operations
+    .map((operation, index) => appStorageOperationExpectedStates.has(operation) ? index : -1)
+    .filter((index) => index >= 0);
+  const teacherNoticeOperations = operations.filter(
+    (operation) => !appStorageOperationExpectedStates.has(operation)
+  );
+  const allowedTeacherNoticeOperations = new Set([
+    "outbox-install-v2",
+    "webhook-install-v3",
+    "webhook-v2-to-v3",
+    "heartbeat-install-v2",
+    "heartbeat-v1-to-v2"
+  ]);
+  if (
+    appOperationIndexes.length > 1 ||
+    (appOperationIndexes.length === 1 && appOperationIndexes[0] !== 0) ||
+    teacherNoticeOperations.some(
+      (operation) => !allowedTeacherNoticeOperations.has(operation)
+    ) ||
+    new Set(teacherNoticeOperations).size !== teacherNoticeOperations.length
+  ) {
+    throw new Error("MAIS production schema operation plan was rejected.");
+  }
+  const applyAppStorageSchema = options.applyAppStorageSchema ??
+    applyPostgresStorageSchemaForProductionGate;
+  const applyTeacherNoticeSchema = options.applyTeacherNoticeSchema ??
+    applyTeacherNoticeProductionSchemaOperationsAtomic;
+  if (
+    typeof applyAppStorageSchema !== "function" ||
+    typeof applyTeacherNoticeSchema !== "function"
+  ) {
+    throw new Error("MAIS production schema apply dependency was rejected.");
+  }
+  if (appOperationIndexes.length === 1) {
+    const appStorageOperation = operations[appOperationIndexes[0]];
+    const expectedState = appStorageOperationExpectedStates.get(appStorageOperation);
+    if (!expectedState) {
+      throw new Error("MAIS production schema operation plan was rejected.");
+    }
+    await withTemporaryProductionAppStorageEnvironment(
+      productionEnvironment,
+      () => applyAppStorageSchema(client, expectedState)
+    );
+  }
+  if (teacherNoticeOperations.length > 0) {
+    await applyTeacherNoticeSchema(client, teacherNoticeOperations);
+  }
 }
 
 export async function applyTeacherNoticeProductionSchemaOperationsAtomic(
@@ -737,6 +1107,7 @@ export async function applyTeacherNoticeProductionSchemaOperationsAtomic(
     const heartbeatState =
       await inspectTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
     const expectedOperations = buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "exact",
       heartbeatState,
       outboxState: schema.outboxState,
       webhookState: schema.webhookState
@@ -777,6 +1148,8 @@ function assertSameConfirmedPreflight(expected, current) {
 
 function assertExactPostflight(preflight, postflight) {
   if (
+    postflight?.appStorageSeedMode !== preflight?.appStorageSeedMode ||
+    postflight?.appStorageState !== "exact" ||
     postflight?.outboxState !== "exact" ||
     postflight?.webhookState !== "exact" ||
     postflight?.heartbeatState !== "exact" ||
@@ -794,7 +1167,7 @@ export async function applyTeacherNoticeProductionSchema(options = {}) {
     const dependencies = resolveProductionGateDependencies(options);
     const localBinding = localBindingFromDependencies(dependencies);
     const applyMigrations = options.applyMigrations ??
-      applyTeacherNoticeProductionSchemaOperationsAtomic;
+      applyMaisProductionSchemaOperations;
     if (typeof applyMigrations !== "function") {
       throw new Error("invalid apply dependency");
     }
@@ -808,14 +1181,15 @@ export async function applyTeacherNoticeProductionSchema(options = {}) {
 
     const sameConnectionPostflight = await withProductionPostgresSecret(
       dependencies,
-      async (productionUrl) => {
+      async (productionUrl, productionEnvironment) => {
         const client = await dependencies.connectPostgres(productionUrl);
         try {
           const immediatePreflight = evidenceFromInspection(
             dependencies,
-            validateDatabaseInspection(
+            validateBoundProductionInspection(
               await dependencies.inspectDatabase(client),
-              productionUrl
+              productionUrl,
+              productionEnvironment
             )
           );
           assertSameConfirmedPreflight(confirmedPreflight, immediatePreflight);
@@ -824,12 +1198,17 @@ export async function applyTeacherNoticeProductionSchema(options = {}) {
             options.confirmation
           );
           await assertLocalCandidateBinding(localBinding);
-          await applyMigrations(client, [...immediatePreflight.operations]);
+          await applyMigrations(
+            client,
+            [...immediatePreflight.operations],
+            productionEnvironment
+          );
           const postflight = evidenceFromInspection(
             dependencies,
-            validateDatabaseInspection(
+            validateBoundProductionInspection(
               await dependencies.inspectDatabase(client),
-              productionUrl
+              productionUrl,
+              productionEnvironment
             )
           );
           assertExactPostflight(confirmedPreflight, postflight);
@@ -938,10 +1317,12 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
 ) {
-  main().catch(() => {
+  main().catch((error) => {
     process.stderr.write(`${JSON.stringify({
       ok: false,
       status: "teacher-notice-production-schema-gate-failed",
+      stage: teacherNoticeProductionSchemaFailureStage(error),
+      reason: teacherNoticeProductionSchemaFailureReason(error),
       detail: "redacted"
     })}\n`);
     process.exitCode = 1;

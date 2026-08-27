@@ -1,0 +1,561 @@
+{
+  "schemaVersion": "promotion-legacy-resolution-registry.v2",
+  "observerVersion": "promotion-legacy-resolution-observer.v2",
+  "targetBaselineCommit": "4c5cac64ae817131eb5e5454f03732ed0ce070c0",
+  "expectedCanonicalAudit": {
+    "schemaVersion": "promotion-legacy-conflict-union-audit.v1",
+    "candidateLikeCount": 37,
+    "candidateSetDigest": "6e8cbaea92a7fa4f50d7efbe95849171381624ab553a1eacdea53dd55490f84f",
+    "directConflictCount": 0,
+    "directConflictDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "correlatedConflictCount": 3,
+    "correlatedConflictDigest": "5c70180d917630ca4957db1b4c72e3461ec4a34fb7bcccd313378b164fa948bb",
+    "ambiguousConflictCount": 2,
+    "ambiguousConflictDigest": "0f76afacc72945f16565c534b44f690a76aefa223b8a153801a03d388c396634",
+    "reachableCandidateLikeCount": 5,
+    "knownConflictCount": 0,
+    "newConflictCount": 3,
+    "opaqueConflictCount": 2,
+    "reachableConflictDigest": "67dbef280ec8966db3936ef19609a1a78d2dc4871b2e88fe70ad3a282395c4c1",
+    "newConflictDigest": "5c70180d917630ca4957db1b4c72e3461ec4a34fb7bcccd313378b164fa948bb",
+    "opaqueConflictDigest": "0f76afacc72945f16565c534b44f690a76aefa223b8a153801a03d388c396634",
+    "secondaryBlockedCondition": {
+      "code": "LEGACY_DISCOVERY_INCOMPLETE",
+      "conflictCount": 2,
+      "conflictDigest": "0f76afacc72945f16565c534b44f690a76aefa223b8a153801a03d388c396634"
+    },
+    "auditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91"
+  },
+  "ratchet": {
+    "originalPackageId": "us-ca-k5-knowledge-point-practice-v1",
+    "introducedAt": "2026-08-25T00:00:00Z",
+    "expiresAt": "2026-09-24T00:00:00Z",
+    "closedAt": "2026-08-26T03:03:41+08:00",
+    "terminalDecision": "remove-live",
+    "activeExceptions": [],
+    "remediationOwners": [
+      "A04",
+      "A18",
+      "A23",
+      "A11",
+      "A22"
+    ],
+    "reviewOwners": [
+      "A23",
+      "A25"
+    ]
+  },
+  "resolutions": [
+    {
+      "resolutionId": "de-reach-bnu-primary-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json",
+        "rawSha256": "9b7aead74e77a53fff55eb86c583b5108957940acae5d4d7c4e9b975094050cf",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "a9e3ff77907dfaa77afe57316d5c4dac5ccc3bb7c42d32bad56593414188ceec"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-bnu-primary-v2",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json",
+        "rawSha256": "04bb90e8cb5b0f38f384e582e7330e6b42817c20543943af703ab1d013211238",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "736f47bb0104063cd91c9f1d0ca87b3ac1e0d70411d235e4a50a71e83163f593"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-hjb-primary-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json",
+        "rawSha256": "6f6b09a94560b96e1f8453c32096e4f069e4e53ae55f2abdf5cd27c10077823d",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "e24d4a4c7c01e627061f309fe5d062cb35ad0cc848dd0e1bbc926ce1d70e1239"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "5a377f1ec0752060d356b5dca99ce6c21bb2f2e5"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-hjb-high-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json",
+        "rawSha256": "8a25c85bbe2adf06e252f257d3db54c3f593c8284e372a2b6ad71bd8e4f0097b",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "bd9086ccbb0f7b2e34881ad986ec9d29b89ec8c960f7b3f64a6b173ca2f0a320"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "5a377f1ec0752060d356b5dca99ce6c21bb2f2e5",
+        "4435c7e9c63f01b4dc7d47c0f028bde9611ddb79"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-hjb-high-v2",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json",
+        "rawSha256": "5b1aceeeaca35ea4f3ea03c377f168157c8e031fad1c2843faa106355afcf6be",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "f976e8074486ff4d3a013d43a2578fccbdbe85739227806e6c05dceedfc65c52"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "5a377f1ec0752060d356b5dca99ce6c21bb2f2e5",
+        "4435c7e9c63f01b4dc7d47c0f028bde9611ddb79"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-hjb-high-v3",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json",
+        "rawSha256": "27c2d2f212d0433ba41bd3c1f97b90cb095dfb22e255760a8c944ac2fcd154da",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "c7be09fb7a9138290fe8ffab830fc351a4c5ebaba155f975d201e960a1759948"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "5a377f1ec0752060d356b5dca99ce6c21bb2f2e5",
+        "4435c7e9c63f01b4dc7d47c0f028bde9611ddb79"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-hjb-high-v4",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json",
+        "rawSha256": "c2706f729f12bb682e83869264db20971eb944d2ec1efa622842a356055d8ea3",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "537dfb51a7b7417bf2dc3fff53854b4ad4fbf9c756ff0dccef84601a9d745976"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "5a377f1ec0752060d356b5dca99ce6c21bb2f2e5",
+        "4435c7e9c63f01b4dc7d47c0f028bde9611ddb79"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-arkansas-g6-g12-questions-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json",
+        "rawSha256": "f9ad3f823e1c6212f2755d9883ee0bfd4b5f374ea5b3d4ac8f2291fa36f8e1c6",
+        "packageId": "us-ar-math-g6-g12-generated-bank-v1-1500",
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "68f947bd08aa9e929651097839505df48cb2b0f79836f5d0672ae9d3ebfc91f1"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-arkansas-textbooks-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/us-ar-math-textbooks-v1/textbook-pack.json",
+        "rawSha256": "36da7f14f3d8b2b7e6586c10eddd755a479608a3030db05cd88864fe627c1edb",
+        "packageId": "us-ar-math-textbooks-v1",
+        "containerKeys": [
+          "books"
+        ],
+        "idCount": 7,
+        "idSetDigest": "01aa0b7f8fec3b34877aea69e7a6cba7e01f8210100aa269b4cc1f69fc37a9d5"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-california-k5-lessons-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json",
+        "rawSha256": "2ff0c4f83301ccb68947d5923673a48d804a40c7cd6d9d058b4682539f198288",
+        "packageId": "us-ca-math-k-g5-textbooks-v1",
+        "containerKeys": [
+          "lessons"
+        ],
+        "idCount": 29,
+        "idSetDigest": "b99aa55b8f3ab4d3e42a56b627de20cf51850b6eb717017a5fef941985704a56"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "28592cc62d9eeb88fd7fa13e59e939f71b3eaf3b",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-california-textbooks-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json",
+        "rawSha256": "7e907b4c979124a934d920d4e1f23b44aa74ad4efc6a436d34c90b4f83ade69a",
+        "packageId": "us-ca-math-textbooks-v1",
+        "containerKeys": [
+          "books"
+        ],
+        "idCount": 7,
+        "idSetDigest": "4ae99cea55009d8624e1ec70f6b972c085eca6000c80e463f48a4d8444cddc84"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "28592cc62d9eeb88fd7fa13e59e939f71b3eaf3b",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-florida-middle-school-textbooks-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/us-fl-math-middle-school-textbooks-v1/textbook-pack.json",
+        "rawSha256": "cf20051295e4bef1fa62564ba78ff9ca085d18ac740cb30132c79e0206adced6",
+        "packageId": "us-fl-math-middle-school-textbooks-v1",
+        "containerKeys": [
+          "books"
+        ],
+        "idCount": 3,
+        "idSetDigest": "1b7ecc6274db2c5a47641b6159cd5e4bf355dbcdc4ddd691814c00f5b5eecee4"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-california-grade1-micro-lessons-v1",
+      "historicalClass": "new",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/lessons.json",
+        "rawSha256": "9c698908a207589677b620427c970615dee8c3bac442b0240df9499fb1dce323",
+        "packageId": "us-ca-math-grade1-h-l-micro-lessons-v1",
+        "containerKeys": [
+          "lessons"
+        ],
+        "idCount": 12,
+        "idSetDigest": "e4fcf2a4309fb20039934c4fb73a103b33753736f6fd3e0bb8e51ab44b893f3d"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "28592cc62d9eeb88fd7fa13e59e939f71b3eaf3b",
+        "14a041f372fb27fa4282104c247886ff1eea623b"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-california-adaptive-beta-v1",
+      "historicalClass": "opaque",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/question-pack.json",
+        "rawSha256": "e587994df3a05d7f55bef1a56c8b84a8159f62a48c964f71f09aab5f01635416",
+        "packageId": "us-ca-adaptive-k-g5-beta-seed-v1",
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 12,
+        "idSetDigest": "ad119b90d78c1528722a2d370810a25051bdcce775349e3474ddcdacd6538b86"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "de-reach-california-k5-practice-492-v1",
+      "historicalClass": "known",
+      "decision": "de-reached",
+      "candidate": {
+        "path": "data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json",
+        "rawSha256": "c8b2ee5c2f35782dc4ca8209eca71e98edf47663dd1bdefd20963d06c163c0ab",
+        "packageId": "us-ca-k5-knowledge-point-practice-v1",
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 492,
+        "idSetDigest": "a3cec371c5faade53872c83d60de835500de66c10dd218ee718354dddce66262"
+      },
+      "liveProjection": null,
+      "approvalReferences": [],
+      "resolutionCommits": [
+        "cf1a4822a99f6da7748d15f059f7dbd9c6274a38",
+        "c52d412eb7c4141cf50e017497aae1260e613827"
+      ],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": false,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "approved-projection-bnu-high-v1",
+      "historicalClass": "approved-projection",
+      "decision": "approved-projection",
+      "candidate": {
+        "path": "coordination/content-qa/mainland-bnu-high-generated-bank-v1-1500/question-pack.json",
+        "rawSha256": "6345976d987e89c2d7ca39aa0c0c44807f02c75d23a7a956ba4828d940bb86df",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "62e85d34485a373a92a63dda795700e4d279da4b3ce48376682ede96b22fb9ab"
+      },
+      "liveProjection": {
+        "path": "data/generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json",
+        "rawSha256": "5363ec3f52d09ae631ed824fdaa557365d792cc948da2c6a7fbdf46217a7d3d2",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "62e85d34485a373a92a63dda795700e4d279da4b3ce48376682ede96b22fb9ab"
+      },
+      "approvalReferences": [
+        {
+          "path": "coordination/content-qa/mainland-bnu-high-generated-bank-v1-1500/approval-summary.md",
+          "rawSha256": "74660a888d5730d0f552b0843e482cba4957412e09c4ed0493d3adcc5c89bada",
+          "decision": "approved-exact-projection-only"
+        }
+      ],
+      "resolutionCommits": [],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": true,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "approved-projection-bnu-junior-v1",
+      "historicalClass": "approved-projection",
+      "decision": "approved-projection",
+      "candidate": {
+        "path": "coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/question-pack.json",
+        "rawSha256": "1cadd9c6ea248f05f41fd5c801c866dcd843dc588dde461bb87ab7e64b72d273",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "85fa40a8596adf1444cef02f60b6c594a1c5649344a62932b236bf8be8433936"
+      },
+      "liveProjection": {
+        "path": "data/generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json",
+        "rawSha256": "ec6d28b5599cbb67bacc89364dde85f6c3148840a5d03a09400e95f1dbaf418d",
+        "packageId": null,
+        "containerKeys": [
+          "questions"
+        ],
+        "idCount": 1500,
+        "idSetDigest": "85fa40a8596adf1444cef02f60b6c594a1c5649344a62932b236bf8be8433936"
+      },
+      "approvalReferences": [
+        {
+          "path": "coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/s18-approval-decision.md",
+          "rawSha256": "e143d07806d8ad023f4c88bc27c2ece02d20f7efca2e3a3dda2b4528c8eddf67",
+          "decision": "approved-exact-projection-only"
+        }
+      ],
+      "resolutionCommits": [],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": true,
+        "liveAllowed": false
+      }
+    },
+    {
+      "resolutionId": "approved-projection-california-middle-lessons-v2",
+      "historicalClass": "approved-projection",
+      "decision": "approved-projection",
+      "candidate": {
+        "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/lessons.json",
+        "rawSha256": "4f2df2af8af44672dd75c0fa8be3a1e7fb81afd30b32bdbb0c3cd7ff0856598d",
+        "packageId": "us-ca-math-middle-school-textbooks-v2",
+        "containerKeys": [
+          "lessons"
+        ],
+        "idCount": 15,
+        "idSetDigest": "d3660be3bc114f1b0a0f7e8cab82a3f281d887434e0bffabad43094f4d6bfa8b"
+      },
+      "liveProjection": {
+        "path": "data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json",
+        "rawSha256": "84bd044abef8360385e17cafac9b55f8c9a5a88e100d2059c9c40b68f586adf1",
+        "packageId": "us-ca-math-middle-school-textbooks-v2",
+        "containerKeys": [
+          "lessons"
+        ],
+        "idCount": 15,
+        "idSetDigest": "d3660be3bc114f1b0a0f7e8cab82a3f281d887434e0bffabad43094f4d6bfa8b"
+      },
+      "approvalReferences": [
+        {
+          "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-qa-decision.md",
+          "rawSha256": "959790950f9106ce734e4d57b70d2b1c1c0781b19ad91ddbc39d973310da26bb",
+          "decision": "approved-for-integration-review"
+        },
+        {
+          "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-live-promotion-decision.md",
+          "rawSha256": "a0980cc0bc7e364fbe5021a3ff1be1d518ba125d7e116a946538c084f983c4b7",
+          "decision": "approved-text-only-replacement-surface"
+        }
+      ],
+      "resolutionCommits": [],
+      "enforcement": {
+        "candidateMustBeUnreachable": true,
+        "liveProjectionMustBeReachable": true,
+        "liveAllowed": false
+      }
+    }
+  ]
+}

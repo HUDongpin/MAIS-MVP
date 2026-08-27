@@ -3032,6 +3032,19 @@ const postgresStorageCanonicalRelationNames = [
   ...hotAuthTableNames
 ] as const;
 
+type PostgresStorageReadinessRequiredColumn =
+  (typeof postgresStorageReadinessRequiredColumns)[number];
+
+const postgresStorageLegacyNoReadinessMarkerRequiredColumns =
+  postgresStorageReadinessRequiredColumns.filter(
+    (entry) => entry.table !== "app_state_readiness_markers"
+  );
+
+const postgresStorageLegacyNoReadinessMarkerRelationNames =
+  postgresStorageCanonicalRelationNames.filter(
+    (relationName) => relationName !== "app_state_readiness_markers"
+  );
+
 type PostgresStorageReadinessCatalogRow = {
   relation_name: unknown;
   column_name: unknown;
@@ -3083,6 +3096,8 @@ const postgresStorageCompatibilityTriggerName = "app_state_ai_tutor_compatibilit
 const postgresStorageCompatibilityFunctionName = "sync_ai_tutor_compatibility_from_state";
 const postgresStorageCompatibilityFunctionSourceSha256 =
   "1306f5dabdda23815ef8f255f8c70f5aa72a8395fa0cdf985cd723245510bede";
+const postgresStorageLegacyV1CompatibilityFunctionSourceSha256 =
+  "0e7449b917d004feb44700d9e003a72e1bf958c57bf9804739a3c9a0ad9830ea";
 const postgresStorageInvalidationTriggerDefinition =
   "CREATE TRIGGER app_state_readiness_invalidate AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version ON public.app_state FOR EACH ROW EXECUTE FUNCTION invalidate_app_state_readiness_marker()";
 const postgresStorageCompatibilityTriggerDefinition =
@@ -3269,14 +3284,18 @@ async function withBoundedPostgresReadinessTransaction<T>(
   });
 }
 
-async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessTransaction) {
+async function postgresStorageReadinessCatalogIsComplete(
+  sql: PostgresReadinessTransaction,
+  requiredColumns: readonly PostgresStorageReadinessRequiredColumn[] =
+    postgresStorageReadinessRequiredColumns
+) {
   const rows = await sql`
     /* postgres_storage_readiness_catalog_probe */
     WITH required_columns(relation_name, column_name, ordinality) AS (
       SELECT required.relation_name, required.column_name, required.ordinality
       FROM unnest(
-        ${postgresStorageReadinessRequiredColumns.map((entry) => entry.table)}::text[],
-        ${postgresStorageReadinessRequiredColumns.map((entry) => entry.column)}::text[]
+        ${requiredColumns.map((entry) => entry.table)}::text[],
+        ${requiredColumns.map((entry) => entry.column)}::text[]
       ) WITH ORDINALITY AS required(relation_name, column_name, ordinality)
     )
     SELECT
@@ -3371,7 +3390,7 @@ async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessT
     ORDER BY required.ordinality
   ` as PostgresStorageReadinessCatalogRow[];
 
-  if (rows.length !== postgresStorageReadinessRequiredColumns.length) return false;
+  if (rows.length !== requiredColumns.length) return false;
   const rowsByColumn = new Map<string, PostgresStorageReadinessCatalogRow>();
   for (const row of rows) {
     if (typeof row.relation_name !== "string" || typeof row.column_name !== "string") return false;
@@ -3380,7 +3399,7 @@ async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessT
     rowsByColumn.set(key, row);
   }
 
-  return postgresStorageReadinessRequiredColumns.every((required) => {
+  return requiredColumns.every((required) => {
     const row = rowsByColumn.get(`${required.table}\u0000${required.column}`);
     return Boolean(
       row
@@ -3410,7 +3429,8 @@ async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessT
 }
 
 async function postgresStoragePhysicalRelationsAreCanonical(
-  sql: PostgresReadinessTransaction
+  sql: PostgresReadinessTransaction,
+  expectedRelationNames: readonly string[] = postgresStorageCanonicalRelationNames
 ) {
   const rows = await sql`
     /* postgres_storage_bootstrap_physical_relation_probe */
@@ -3432,9 +3452,9 @@ async function postgresStoragePhysicalRelationsAreCanonical(
     relation_row_security: unknown;
     relation_force_row_security: unknown;
   }>;
-  if (rows.length !== postgresStorageCanonicalRelationNames.length) return false;
+  if (rows.length !== expectedRelationNames.length) return false;
   const rowsByName = new Map(rows.map((row) => [row.relation_name, row]));
-  return postgresStorageCanonicalRelationNames.every((relationName) => {
+  return expectedRelationNames.every((relationName) => {
     const row = rowsByName.get(relationName);
     return Boolean(
       row
@@ -3450,8 +3470,10 @@ function normalizedPostgresDefinition(value: unknown) {
   return typeof value === "string" ? value.replace(/\s+/gu, " ").trim() : null;
 }
 
-async function postgresStorageReadinessInvalidationIsComplete(
-  sql: PostgresReadinessTransaction
+async function postgresStorageTriggerContractsAreComplete(
+  sql: PostgresReadinessTransaction,
+  includeReadinessInvalidation: boolean,
+  compatibilityVersion: "canonical" | "legacy-v1" = "canonical"
 ) {
   const rows = await sql`
     /* postgres_storage_readiness_invalidation_probe */
@@ -3522,7 +3544,7 @@ async function postgresStorageReadinessInvalidationIsComplete(
     WHERE namespace.nspname = 'public'
   ` as PostgresStorageInvalidationCatalogRow[];
 
-  if (rows.length !== 2) return false;
+  if (rows.length !== (includeReadinessInvalidation ? 2 : 1)) return false;
   const rowsByTrigger = new Map<string, PostgresStorageInvalidationCatalogRow>();
   for (const row of rows) {
     if (typeof row.trigger_name !== "string" || rowsByTrigger.has(row.trigger_name)) return false;
@@ -3531,7 +3553,8 @@ async function postgresStorageReadinessInvalidationIsComplete(
   const invalidation = rowsByTrigger.get(postgresStorageInvalidationTriggerName);
   const compatibility = rowsByTrigger.get(postgresStorageCompatibilityTriggerName);
   const commonTriggerContractIsComplete = (
-    row: PostgresStorageInvalidationCatalogRow | undefined
+    row: PostgresStorageInvalidationCatalogRow | undefined,
+    requireCanonicalSearchPath = true
   ) => Boolean(
     row
     && (row.relation_kind === "r" || row.relation_kind === "p")
@@ -3547,12 +3570,43 @@ async function postgresStorageReadinessInvalidationIsComplete(
     && row.function_owner_matches_relation === true
     && row.function_dependency_exact === true
     && row.relation_dependency_exact === true
-    && Array.isArray(row.function_config)
-    && row.function_config.length === 1
-    && row.function_config[0] === "search_path=pg_catalog, public"
+    && (
+      requireCanonicalSearchPath
+        ? Array.isArray(row.function_config)
+          && row.function_config.length === 1
+          && row.function_config[0] === "search_path=pg_catalog, public"
+        : row.function_config === null
+    )
   );
+  if (!commonTriggerContractIsComplete(
+    compatibility,
+    compatibilityVersion === "canonical"
+  )) return false;
+  const compatibilityIsComplete = Boolean(
+    compatibility
+    && compatibility.trigger_name === postgresStorageCompatibilityTriggerName
+    && compatibility.trigger_type === 23
+    && normalizedPostgresDefinition(compatibility.trigger_definition)
+      === postgresStorageCompatibilityTriggerDefinition
+    && Array.isArray(compatibility.trigger_update_columns)
+    && compatibility.trigger_update_columns.length === postgresStorageCompatibilityUpdateColumns.length
+    && compatibility.trigger_update_columns.every((column, index) =>
+      column === postgresStorageCompatibilityUpdateColumns[index]
+    )
+    && compatibility.function_name === postgresStorageCompatibilityFunctionName
+    && typeof compatibility.function_source === "string"
+    && createHash("sha256")
+      .update(normalizedPostgresDefinition(compatibility.function_source) ?? "")
+      .digest("hex") === (
+        compatibilityVersion === "canonical"
+          ? postgresStorageCompatibilityFunctionSourceSha256
+          : postgresStorageLegacyV1CompatibilityFunctionSourceSha256
+      )
+  );
+  if (!compatibilityIsComplete || !includeReadinessInvalidation) {
+    return compatibilityIsComplete && invalidation === undefined;
+  }
   if (!commonTriggerContractIsComplete(invalidation)) return false;
-  if (!commonTriggerContractIsComplete(compatibility)) return false;
   return Boolean(
     invalidation
     && invalidation.trigger_name === postgresStorageInvalidationTriggerName
@@ -3567,22 +3621,102 @@ async function postgresStorageReadinessInvalidationIsComplete(
     && invalidation.function_name === postgresStorageInvalidationFunctionName
     && normalizedPostgresDefinition(invalidation.function_source)
       === normalizedPostgresDefinition(postgresStorageInvalidationFunctionSource)
-    && compatibility
-    && compatibility.trigger_name === postgresStorageCompatibilityTriggerName
-    && compatibility.trigger_type === 23
-    && normalizedPostgresDefinition(compatibility.trigger_definition)
-      === postgresStorageCompatibilityTriggerDefinition
-    && Array.isArray(compatibility.trigger_update_columns)
-    && compatibility.trigger_update_columns.length === postgresStorageCompatibilityUpdateColumns.length
-    && compatibility.trigger_update_columns.every((column, index) =>
-      column === postgresStorageCompatibilityUpdateColumns[index]
-    )
-    && compatibility.function_name === postgresStorageCompatibilityFunctionName
-    && typeof compatibility.function_source === "string"
-    && createHash("sha256")
-      .update(normalizedPostgresDefinition(compatibility.function_source) ?? "")
-      .digest("hex") === postgresStorageCompatibilityFunctionSourceSha256
   );
+}
+
+async function postgresStorageReadinessInvalidationIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageTriggerContractsAreComplete(sql, true);
+}
+
+async function postgresStorageCanonicalCompatibilityTriggerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageTriggerContractsAreComplete(sql, false);
+}
+
+async function postgresStorageLegacyV1CompatibilityTriggerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageTriggerContractsAreComplete(sql, false, "legacy-v1");
+}
+
+function postgresStorageLegacySnapshotIsComplete(
+  rows: Array<{ payload: unknown; revision: unknown }>
+) {
+  if (rows.length !== 1 || safePostgresRevision(rows[0]?.revision) === null) {
+    return false;
+  }
+  try {
+    validateCompletePostgresStorageSnapshot(rows[0]?.payload);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function postgresStorageNoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction,
+  compatibilityVersion: "canonical" | "legacy-v1"
+) {
+  if (!await postgresStoragePhysicalRelationsAreCanonical(
+    sql,
+    postgresStorageLegacyNoReadinessMarkerRelationNames
+  )) return false;
+  if (!await postgresStorageReadinessCatalogIsComplete(
+    sql,
+    postgresStorageLegacyNoReadinessMarkerRequiredColumns
+  )) return false;
+  if (!await (
+    compatibilityVersion === "canonical"
+      ? postgresStorageCanonicalCompatibilityTriggerIsComplete(sql)
+      : postgresStorageLegacyV1CompatibilityTriggerIsComplete(sql)
+  )) return false;
+  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return false;
+
+  const orphanRows = await sql`
+    /* postgres_storage_legacy_readiness_artifact_probe */
+    SELECT NOT EXISTS (
+      SELECT 1
+      FROM pg_catalog.pg_proc AS routine
+      INNER JOIN pg_catalog.pg_namespace AS namespace
+        ON namespace.oid = routine.pronamespace
+      WHERE namespace.nspname = 'public'
+        AND routine.proname::text = ${postgresStorageInvalidationFunctionName}
+    ) AS invalidation_function_absent
+  ` as Array<{ invalidation_function_absent: boolean }>;
+  if (
+    orphanRows.length !== 1
+    || orphanRows[0]?.invalidation_function_absent !== true
+  ) return false;
+
+  const snapshotRows = await sql`
+    /* postgres_storage_legacy_snapshot_probe */
+    SELECT state.payload, state.revision
+    FROM public.app_state AS state
+    WHERE state.id = ${stateRecordId}
+      AND state.tenant_id = ${stateTenantId}
+      AND state.state_kind = ${stateKind}
+      AND state.schema_version = ${schemaVersion}
+      AND (
+        SELECT pg_catalog.count(*)
+        FROM public.app_state AS counted_state
+      ) = 1
+  ` as Array<{ payload: unknown; revision: unknown }>;
+  return postgresStorageLegacySnapshotIsComplete(snapshotRows);
+}
+
+async function postgresStorageLegacyNoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageNoReadinessMarkerIsComplete(sql, "canonical");
+}
+
+async function postgresStorageLegacyV1NoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  return postgresStorageNoReadinessMarkerIsComplete(sql, "legacy-v1");
 }
 
 async function postgresStorageReadinessMarkerIsCurrent(
@@ -4086,14 +4220,369 @@ async function hasCurrentPostgresSchemaMarker() {
   )) === true;
 }
 
+async function installPostgresStorageCompatibilityContract(
+  sql: PostgresReadinessTransaction
+) {
+  await sql`
+    CREATE OR REPLACE FUNCTION public.sync_ai_tutor_compatibility_from_state()
+    RETURNS trigger
+    LANGUAGE plpgsql
+    SECURITY INVOKER
+    SET search_path = pg_catalog, public
+    AS $function$
+    DECLARE
+      class_enrollments_changed BOOLEAN := TRUE;
+      old_state_payload JSONB := '{}'::jsonb;
+      new_state_payload JSONB;
+      teacher_classes_changed BOOLEAN := TRUE;
+      policies_changed BOOLEAN := TRUE;
+      tutor_messages_changed BOOLEAN := TRUE;
+      tutor_usage_changed BOOLEAN := TRUE;
+    BEGIN
+      IF NEW.id <> 'primary' THEN
+        RETURN NEW;
+      END IF;
+
+      new_state_payload := NEW.payload;
+      IF pg_catalog.jsonb_typeof(new_state_payload) IS DISTINCT FROM 'object' THEN
+        RAISE EXCEPTION 'Primary app state payload must be a JSON object.'
+          USING ERRCODE = '22023';
+      END IF;
+      NEW.payload := new_state_payload;
+
+      IF TG_OP = 'UPDATE' THEN
+        old_state_payload := CASE
+          WHEN pg_catalog.jsonb_typeof(OLD.payload) = 'string'
+            THEN (OLD.payload #>> '{}')::pg_catalog.jsonb
+          ELSE OLD.payload
+        END;
+        class_enrollments_changed := old_state_payload->'class_enrollments'
+          IS DISTINCT FROM new_state_payload->'class_enrollments';
+        teacher_classes_changed := old_state_payload->'teacher_classes'
+          IS DISTINCT FROM new_state_payload->'teacher_classes';
+        policies_changed := old_state_payload->'class_ai_tutor_policies'
+          IS DISTINCT FROM new_state_payload->'class_ai_tutor_policies';
+        tutor_messages_changed := old_state_payload->'ai_tutor_messages'
+          IS DISTINCT FROM new_state_payload->'ai_tutor_messages';
+        tutor_usage_changed := old_state_payload->'ai_tutor_usage'
+          IS DISTINCT FROM new_state_payload->'ai_tutor_usage';
+      END IF;
+
+      IF teacher_classes_changed THEN
+        WITH normalized_classes AS (
+          SELECT DISTINCT ON (class_record->>'id')
+            class_record->>'id' AS id,
+            class_record->>'teacher_id' AS teacher_id,
+            NULLIF(class_record->>'school_id', '') AS school_id,
+            class_record->>'grade' AS grade,
+            class_record->>'updated_at' AS updated_at,
+            class_record
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'teacher_classes') = 'array'
+              THEN new_state_payload->'teacher_classes' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS class_items(class_record, ordinality)
+          WHERE COALESCE(class_record->>'id', '') <> ''
+            AND COALESCE(class_record->>'teacher_id', '') <> ''
+            AND COALESCE(class_record->>'grade', '') <> ''
+            AND COALESCE(class_record->>'updated_at', '') <> ''
+          ORDER BY class_record->>'id', ordinality DESC
+        )
+        INSERT INTO projection_teacher_classes (id, teacher_id, school_id, grade, updated_at, record)
+        SELECT id, teacher_id, school_id, grade, updated_at, class_record
+        FROM normalized_classes
+        ON CONFLICT (id) DO UPDATE SET
+          teacher_id = excluded.teacher_id,
+          school_id = excluded.school_id,
+          grade = excluded.grade,
+          updated_at = excluded.updated_at,
+          record = excluded.record;
+
+        DELETE FROM projection_teacher_classes AS teacher_class
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'teacher_classes') = 'array'
+              THEN new_state_payload->'teacher_classes' ELSE '[]'::jsonb END
+          ) AS class_items(class_record)
+          WHERE class_record->>'id' = teacher_class.id
+            AND COALESCE(class_record->>'teacher_id', '') <> ''
+            AND COALESCE(class_record->>'grade', '') <> ''
+            AND COALESCE(class_record->>'updated_at', '') <> ''
+        );
+      END IF;
+
+      IF class_enrollments_changed THEN
+        WITH normalized_enrollments AS (
+          SELECT DISTINCT ON (enrollment_record->>'id')
+            enrollment_record->>'id' AS id,
+            enrollment_record->>'class_id' AS class_id,
+            enrollment_record->>'student_id' AS student_id,
+            enrollment_record
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'class_enrollments') = 'array'
+              THEN new_state_payload->'class_enrollments' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS enrollment_items(enrollment_record, ordinality)
+          WHERE COALESCE(enrollment_record->>'id', '') <> ''
+            AND COALESCE(enrollment_record->>'class_id', '') <> ''
+            AND COALESCE(enrollment_record->>'student_id', '') <> ''
+          ORDER BY enrollment_record->>'id', ordinality DESC
+        )
+        INSERT INTO projection_class_enrollments (id, class_id, student_id, record)
+        SELECT id, class_id, student_id, enrollment_record
+        FROM normalized_enrollments
+        ON CONFLICT (id) DO UPDATE SET
+          class_id = excluded.class_id,
+          student_id = excluded.student_id,
+          record = excluded.record;
+
+        DELETE FROM projection_class_enrollments AS enrollment
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'class_enrollments') = 'array'
+              THEN new_state_payload->'class_enrollments' ELSE '[]'::jsonb END
+          ) AS enrollment_items(enrollment_record)
+          WHERE enrollment_record->>'id' = enrollment.id
+            AND COALESCE(enrollment_record->>'class_id', '') <> ''
+            AND COALESCE(enrollment_record->>'student_id', '') <> ''
+        );
+      END IF;
+
+      IF policies_changed THEN
+        WITH normalized_policies AS (
+          SELECT DISTINCT ON (policy_record->>'class_id')
+            policy_record->>'class_id' AS class_id,
+            policy_record
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'class_ai_tutor_policies') = 'array'
+              THEN new_state_payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS policy_items(policy_record, ordinality)
+          WHERE COALESCE(policy_record->>'class_id', '') <> ''
+          ORDER BY policy_record->>'class_id', ordinality DESC
+        )
+        INSERT INTO projection_class_ai_tutor_policies (class_id, record)
+        SELECT class_id, policy_record
+        FROM normalized_policies
+        ON CONFLICT (class_id) DO UPDATE SET record = excluded.record;
+
+        DELETE FROM projection_class_ai_tutor_policies AS policy
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'class_ai_tutor_policies') = 'array'
+              THEN new_state_payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
+          ) AS policy_items(policy_record)
+          WHERE policy_record->>'class_id' = policy.class_id
+        );
+      END IF;
+
+      IF tutor_messages_changed THEN
+        INSERT INTO projection_ai_tutor_messages (id, user_id, created_at, record)
+        SELECT id, user_id, created_at, message_record
+        FROM (
+          SELECT DISTINCT ON (message_record->>'id')
+            message_record->>'id' AS id,
+            message_record->>'user_id' AS user_id,
+            message_record->>'created_at' AS created_at,
+            message_record,
+            ordinality
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+              THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+          ) WITH ORDINALITY AS message_items(message_record, ordinality)
+          WHERE COALESCE(message_record->>'id', '') <> ''
+            AND COALESCE(message_record->>'user_id', '') <> ''
+            AND COALESCE(message_record->>'created_at', '') <> ''
+          ORDER BY message_record->>'id', ordinality DESC
+        ) AS normalized_messages
+        ON CONFLICT (id) DO UPDATE SET
+          user_id = excluded.user_id,
+          created_at = excluded.created_at,
+          record = excluded.record;
+
+        DELETE FROM projection_ai_tutor_messages AS projected_message
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+              THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+          ) AS message_items(message_record)
+          WHERE message_record->>'id' = projected_message.id
+            AND COALESCE(message_record->>'user_id', '') <> ''
+            AND COALESCE(message_record->>'created_at', '') <> ''
+        );
+
+        INSERT INTO ai_tutor_message_journal (id, user_id, created_at, record)
+        SELECT
+          message_record->>'id',
+          message_record->>'user_id',
+          message_record->>'created_at',
+          message_record
+        FROM jsonb_array_elements(
+          CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+            THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+        ) AS message_items(message_record)
+        WHERE COALESCE(message_record->>'id', '') <> ''
+          AND COALESCE(message_record->>'user_id', '') <> ''
+          AND COALESCE(message_record->>'created_at', '') <> ''
+        ON CONFLICT (id) DO NOTHING;
+
+        IF EXISTS (
+          SELECT 1
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
+              THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+          ) AS message_items(message_record)
+          JOIN ai_tutor_message_journal AS journal
+            ON journal.id = message_record->>'id'
+          WHERE journal.user_id IS DISTINCT FROM message_record->>'user_id'
+            OR journal.created_at IS DISTINCT FROM message_record->>'created_at'
+            OR journal.record IS DISTINCT FROM message_record
+        ) THEN
+          RAISE EXCEPTION 'AI Tutor message journal conflict during legacy compatibility sync.'
+            USING ERRCODE = '23505';
+        END IF;
+      END IF;
+
+      IF tutor_usage_changed THEN
+        INSERT INTO ai_tutor_usage_journal (id, user_id, created_at, accounted_tokens, record)
+        SELECT
+          usage_record->>'id',
+          usage_record->>'user_id',
+          usage_record->>'created_at',
+          CASE WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
+            THEN (usage_record->>'total_tokens')::double precision
+            ELSE
+              CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
+                THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
+              + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
+                THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
+          END,
+          usage_record
+        FROM jsonb_array_elements(
+          CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_usage') = 'array'
+            THEN new_state_payload->'ai_tutor_usage' ELSE '[]'::jsonb END
+        ) AS usage_items(usage_record)
+        WHERE COALESCE(usage_record->>'id', '') <> ''
+          AND COALESCE(usage_record->>'user_id', '') <> ''
+          AND COALESCE(usage_record->>'created_at', '') <> ''
+        ON CONFLICT (id) DO NOTHING;
+
+        IF EXISTS (
+          SELECT 1
+          FROM jsonb_array_elements(
+            CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_usage') = 'array'
+              THEN new_state_payload->'ai_tutor_usage' ELSE '[]'::jsonb END
+          ) AS usage_items(usage_record)
+          JOIN ai_tutor_usage_journal AS journal
+            ON journal.id = usage_record->>'id'
+          WHERE journal.user_id IS DISTINCT FROM usage_record->>'user_id'
+            OR journal.created_at IS DISTINCT FROM usage_record->>'created_at'
+            OR journal.accounted_tokens IS DISTINCT FROM (
+              CASE WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
+                THEN (usage_record->>'total_tokens')::double precision
+                ELSE
+                  CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
+                    THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
+                  + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
+                    THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
+              END
+            )
+            OR journal.record IS DISTINCT FROM usage_record
+        ) THEN
+          RAISE EXCEPTION 'AI Tutor usage journal conflict during legacy compatibility sync.'
+            USING ERRCODE = '23505';
+        END IF;
+      END IF;
+
+      RETURN NEW;
+    END;
+    $function$
+  `;
+  await sql`
+    CREATE OR REPLACE TRIGGER app_state_ai_tutor_compatibility
+    BEFORE INSERT OR UPDATE OF payload ON public.app_state
+    FOR EACH ROW
+    WHEN (NEW.id = 'primary')
+    EXECUTE FUNCTION public.sync_ai_tutor_compatibility_from_state()
+  `;
+}
+
+async function installPostgresStorageReadinessMarkerContract(
+  sql: PostgresReadinessTransaction
+) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers (
+      state_id TEXT NOT NULL,
+      tenant_id TEXT NOT NULL,
+      state_kind TEXT NOT NULL,
+      schema_version INTEGER NOT NULL,
+      state_revision BIGINT NOT NULL,
+      contract_version INTEGER NOT NULL,
+      attested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (state_id, tenant_id, state_kind, schema_version)
+    )
+  `;
+  await sql`
+    CREATE OR REPLACE FUNCTION public.invalidate_app_state_readiness_marker()
+    RETURNS trigger
+    LANGUAGE plpgsql
+    VOLATILE
+    SECURITY INVOKER
+    SET search_path = pg_catalog, public
+    AS $mais_readiness$
+    BEGIN
+      IF TG_OP = 'UPDATE' THEN
+        DELETE FROM public.app_state_readiness_markers
+        WHERE state_id IN (OLD.id, NEW.id);
+      ELSE
+        DELETE FROM public.app_state_readiness_markers
+        WHERE state_id = NEW.id;
+      END IF;
+      RETURN NEW;
+    END
+    $mais_readiness$
+  `;
+  await sql`
+    DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state
+  `;
+  await sql`
+    CREATE TRIGGER app_state_readiness_invalidate
+    AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version
+    ON public.app_state
+    FOR EACH ROW
+    EXECUTE FUNCTION public.invalidate_app_state_readiness_marker()
+  `;
+}
+
+type PostgresStorageBootstrapExpectedState = "any" | "empty";
+
 async function bootstrapPostgresStateTables() {
-  const sql = getPostgresClient();
+  return bootstrapPostgresStateTablesOnClient(getPostgresClient(), {
+    expectedState: "any",
+    lockTimeout: "1000ms",
+    statementTimeout: "5000ms"
+  });
+}
+
+async function bootstrapPostgresStateTablesOnClient(
+  sql: postgres.Sql,
+  {
+    expectedState,
+    lockTimeout,
+    statementTimeout
+  }: {
+    expectedState: PostgresStorageBootstrapExpectedState;
+    lockTimeout: "1000ms" | "5000ms";
+    statementTimeout: "5000ms" | "60000ms";
+  }
+) {
   return sql.begin(async (migrationSql) => {
     await migrationSql`
       SELECT
         pg_catalog.set_config('search_path', 'pg_catalog, public', true),
-        pg_catalog.set_config('lock_timeout', '1000ms', true),
-        pg_catalog.set_config('statement_timeout', '5000ms', true)
+        pg_catalog.set_config('lock_timeout', ${lockTimeout}, true),
+        pg_catalog.set_config('statement_timeout', ${statementTimeout}, true)
     `;
     try {
       await migrationSql`
@@ -4112,6 +4601,20 @@ async function bootstrapPostgresStateTables() {
         throw new PostgresAdvisoryBootstrapContentionError(error);
       }
       throw error;
+    }
+    if (expectedState === "empty") {
+      const relationRows = await migrationSql<Array<{ relation_count: number }>>`
+        /* postgres_storage_production_gate_empty_check */
+        SELECT pg_catalog.count(*)::pg_catalog.int4 AS relation_count
+        FROM pg_catalog.pg_class AS relation
+        INNER JOIN pg_catalog.pg_namespace AS namespace
+          ON namespace.oid = relation.relnamespace
+        WHERE namespace.nspname = 'public'
+          AND relation.relname::text = ANY(${[...postgresStorageCanonicalRelationNames]}::text[])
+      `;
+      if (relationRows.length !== 1 || relationRows[0]?.relation_count !== 0) {
+        throw new Error("Postgres production schema operation plan changed.");
+      }
     }
     const testLockHoldMs = process.env.NODE_ENV === "test"
       ? Number.parseInt(process.env.MAIS_TEST_POSTGRES_BOOTSTRAP_LOCK_HOLD_MS ?? "0", 10)
@@ -4150,48 +4653,9 @@ async function bootstrapPostgresStateTables() {
           applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
-      await migrationSql`
-        CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers (
-          state_id TEXT NOT NULL,
-          tenant_id TEXT NOT NULL,
-          state_kind TEXT NOT NULL,
-          schema_version INTEGER NOT NULL,
-          state_revision BIGINT NOT NULL,
-          contract_version INTEGER NOT NULL,
-          attested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-          PRIMARY KEY (state_id, tenant_id, state_kind, schema_version)
-        )
-      `;
-      await migrationSql`
-        CREATE OR REPLACE FUNCTION public.invalidate_app_state_readiness_marker()
-        RETURNS trigger
-        LANGUAGE plpgsql
-        VOLATILE
-        SECURITY INVOKER
-        SET search_path = pg_catalog, public
-        AS $mais_readiness$
-        BEGIN
-          IF TG_OP = 'UPDATE' THEN
-            DELETE FROM public.app_state_readiness_markers
-            WHERE state_id IN (OLD.id, NEW.id);
-          ELSE
-            DELETE FROM public.app_state_readiness_markers
-            WHERE state_id = NEW.id;
-          END IF;
-          RETURN NEW;
-        END
-        $mais_readiness$
-      `;
-      await migrationSql`
-        DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state
-      `;
-      await migrationSql`
-        CREATE TRIGGER app_state_readiness_invalidate
-        AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version
-        ON public.app_state
-        FOR EACH ROW
-        EXECUTE FUNCTION public.invalidate_app_state_readiness_marker()
-      `;
+      await installPostgresStorageReadinessMarkerContract(
+        migrationSql as unknown as PostgresReadinessTransaction
+      );
       await migrationSql`
         CREATE TABLE IF NOT EXISTS public.auth_users (
           id TEXT PRIMARY KEY,
@@ -4499,289 +4963,9 @@ async function bootstrapPostgresStateTables() {
       )) {
         throw new Error("Postgres storage readiness is unavailable.");
       }
-      await migrationSql`
-        CREATE OR REPLACE FUNCTION public.sync_ai_tutor_compatibility_from_state()
-        RETURNS trigger
-        LANGUAGE plpgsql
-        SECURITY INVOKER
-        SET search_path = pg_catalog, public
-        AS $function$
-        DECLARE
-          class_enrollments_changed BOOLEAN := TRUE;
-          old_state_payload JSONB := '{}'::jsonb;
-          new_state_payload JSONB;
-          teacher_classes_changed BOOLEAN := TRUE;
-          policies_changed BOOLEAN := TRUE;
-          tutor_messages_changed BOOLEAN := TRUE;
-          tutor_usage_changed BOOLEAN := TRUE;
-        BEGIN
-          IF NEW.id <> 'primary' THEN
-            RETURN NEW;
-          END IF;
-
-          new_state_payload := NEW.payload;
-          IF pg_catalog.jsonb_typeof(new_state_payload) IS DISTINCT FROM 'object' THEN
-            RAISE EXCEPTION 'Primary app state payload must be a JSON object.'
-              USING ERRCODE = '22023';
-          END IF;
-          NEW.payload := new_state_payload;
-
-          IF TG_OP = 'UPDATE' THEN
-            old_state_payload := CASE
-              WHEN pg_catalog.jsonb_typeof(OLD.payload) = 'string'
-                THEN (OLD.payload #>> '{}')::pg_catalog.jsonb
-              ELSE OLD.payload
-            END;
-            class_enrollments_changed := old_state_payload->'class_enrollments'
-              IS DISTINCT FROM new_state_payload->'class_enrollments';
-            teacher_classes_changed := old_state_payload->'teacher_classes'
-              IS DISTINCT FROM new_state_payload->'teacher_classes';
-            policies_changed := old_state_payload->'class_ai_tutor_policies'
-              IS DISTINCT FROM new_state_payload->'class_ai_tutor_policies';
-            tutor_messages_changed := old_state_payload->'ai_tutor_messages'
-              IS DISTINCT FROM new_state_payload->'ai_tutor_messages';
-            tutor_usage_changed := old_state_payload->'ai_tutor_usage'
-              IS DISTINCT FROM new_state_payload->'ai_tutor_usage';
-          END IF;
-
-          IF teacher_classes_changed THEN
-            WITH normalized_classes AS (
-              SELECT DISTINCT ON (class_record->>'id')
-                class_record->>'id' AS id,
-                class_record->>'teacher_id' AS teacher_id,
-                NULLIF(class_record->>'school_id', '') AS school_id,
-                class_record->>'grade' AS grade,
-                class_record->>'updated_at' AS updated_at,
-                class_record
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'teacher_classes') = 'array'
-                  THEN new_state_payload->'teacher_classes' ELSE '[]'::jsonb END
-              ) WITH ORDINALITY AS class_items(class_record, ordinality)
-              WHERE COALESCE(class_record->>'id', '') <> ''
-                AND COALESCE(class_record->>'teacher_id', '') <> ''
-                AND COALESCE(class_record->>'grade', '') <> ''
-                AND COALESCE(class_record->>'updated_at', '') <> ''
-              ORDER BY class_record->>'id', ordinality DESC
-            )
-            INSERT INTO projection_teacher_classes (id, teacher_id, school_id, grade, updated_at, record)
-            SELECT id, teacher_id, school_id, grade, updated_at, class_record
-            FROM normalized_classes
-            ON CONFLICT (id) DO UPDATE SET
-              teacher_id = excluded.teacher_id,
-              school_id = excluded.school_id,
-              grade = excluded.grade,
-              updated_at = excluded.updated_at,
-              record = excluded.record;
-
-            DELETE FROM projection_teacher_classes AS teacher_class
-            WHERE NOT EXISTS (
-              SELECT 1
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'teacher_classes') = 'array'
-                  THEN new_state_payload->'teacher_classes' ELSE '[]'::jsonb END
-              ) AS class_items(class_record)
-              WHERE class_record->>'id' = teacher_class.id
-                AND COALESCE(class_record->>'teacher_id', '') <> ''
-                AND COALESCE(class_record->>'grade', '') <> ''
-                AND COALESCE(class_record->>'updated_at', '') <> ''
-            );
-          END IF;
-
-          IF class_enrollments_changed THEN
-            WITH normalized_enrollments AS (
-              SELECT DISTINCT ON (enrollment_record->>'id')
-                enrollment_record->>'id' AS id,
-                enrollment_record->>'class_id' AS class_id,
-                enrollment_record->>'student_id' AS student_id,
-                enrollment_record
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'class_enrollments') = 'array'
-                  THEN new_state_payload->'class_enrollments' ELSE '[]'::jsonb END
-              ) WITH ORDINALITY AS enrollment_items(enrollment_record, ordinality)
-              WHERE COALESCE(enrollment_record->>'id', '') <> ''
-                AND COALESCE(enrollment_record->>'class_id', '') <> ''
-                AND COALESCE(enrollment_record->>'student_id', '') <> ''
-              ORDER BY enrollment_record->>'id', ordinality DESC
-            )
-            INSERT INTO projection_class_enrollments (id, class_id, student_id, record)
-            SELECT id, class_id, student_id, enrollment_record
-            FROM normalized_enrollments
-            ON CONFLICT (id) DO UPDATE SET
-              class_id = excluded.class_id,
-              student_id = excluded.student_id,
-              record = excluded.record;
-
-            DELETE FROM projection_class_enrollments AS enrollment
-            WHERE NOT EXISTS (
-              SELECT 1
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'class_enrollments') = 'array'
-                  THEN new_state_payload->'class_enrollments' ELSE '[]'::jsonb END
-              ) AS enrollment_items(enrollment_record)
-              WHERE enrollment_record->>'id' = enrollment.id
-                AND COALESCE(enrollment_record->>'class_id', '') <> ''
-                AND COALESCE(enrollment_record->>'student_id', '') <> ''
-            );
-          END IF;
-
-          IF policies_changed THEN
-            WITH normalized_policies AS (
-              SELECT DISTINCT ON (policy_record->>'class_id')
-                policy_record->>'class_id' AS class_id,
-                policy_record
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'class_ai_tutor_policies') = 'array'
-                  THEN new_state_payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
-              ) WITH ORDINALITY AS policy_items(policy_record, ordinality)
-              WHERE COALESCE(policy_record->>'class_id', '') <> ''
-              ORDER BY policy_record->>'class_id', ordinality DESC
-            )
-            INSERT INTO projection_class_ai_tutor_policies (class_id, record)
-            SELECT class_id, policy_record
-            FROM normalized_policies
-            ON CONFLICT (class_id) DO UPDATE SET record = excluded.record;
-
-            DELETE FROM projection_class_ai_tutor_policies AS policy
-            WHERE NOT EXISTS (
-              SELECT 1
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'class_ai_tutor_policies') = 'array'
-                  THEN new_state_payload->'class_ai_tutor_policies' ELSE '[]'::jsonb END
-              ) AS policy_items(policy_record)
-              WHERE policy_record->>'class_id' = policy.class_id
-            );
-          END IF;
-
-          IF tutor_messages_changed THEN
-            INSERT INTO projection_ai_tutor_messages (id, user_id, created_at, record)
-            SELECT id, user_id, created_at, message_record
-            FROM (
-              SELECT DISTINCT ON (message_record->>'id')
-                message_record->>'id' AS id,
-                message_record->>'user_id' AS user_id,
-                message_record->>'created_at' AS created_at,
-                message_record,
-                ordinality
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
-                  THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
-              ) WITH ORDINALITY AS message_items(message_record, ordinality)
-              WHERE COALESCE(message_record->>'id', '') <> ''
-                AND COALESCE(message_record->>'user_id', '') <> ''
-                AND COALESCE(message_record->>'created_at', '') <> ''
-              ORDER BY message_record->>'id', ordinality DESC
-            ) AS normalized_messages
-            ON CONFLICT (id) DO UPDATE SET
-              user_id = excluded.user_id,
-              created_at = excluded.created_at,
-              record = excluded.record;
-
-            DELETE FROM projection_ai_tutor_messages AS projected_message
-            WHERE NOT EXISTS (
-              SELECT 1
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
-                  THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
-              ) AS message_items(message_record)
-              WHERE message_record->>'id' = projected_message.id
-                AND COALESCE(message_record->>'user_id', '') <> ''
-                AND COALESCE(message_record->>'created_at', '') <> ''
-            );
-
-            INSERT INTO ai_tutor_message_journal (id, user_id, created_at, record)
-            SELECT
-              message_record->>'id',
-              message_record->>'user_id',
-              message_record->>'created_at',
-              message_record
-            FROM jsonb_array_elements(
-              CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
-                THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
-            ) AS message_items(message_record)
-            WHERE COALESCE(message_record->>'id', '') <> ''
-              AND COALESCE(message_record->>'user_id', '') <> ''
-              AND COALESCE(message_record->>'created_at', '') <> ''
-            ON CONFLICT (id) DO NOTHING;
-
-            IF EXISTS (
-              SELECT 1
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_messages') = 'array'
-                  THEN new_state_payload->'ai_tutor_messages' ELSE '[]'::jsonb END
-              ) AS message_items(message_record)
-              JOIN ai_tutor_message_journal AS journal
-                ON journal.id = message_record->>'id'
-              WHERE journal.user_id IS DISTINCT FROM message_record->>'user_id'
-                OR journal.created_at IS DISTINCT FROM message_record->>'created_at'
-                OR journal.record IS DISTINCT FROM message_record
-            ) THEN
-              RAISE EXCEPTION 'AI Tutor message journal conflict during legacy compatibility sync.'
-                USING ERRCODE = '23505';
-            END IF;
-          END IF;
-
-          IF tutor_usage_changed THEN
-            INSERT INTO ai_tutor_usage_journal (id, user_id, created_at, accounted_tokens, record)
-            SELECT
-              usage_record->>'id',
-              usage_record->>'user_id',
-              usage_record->>'created_at',
-              CASE WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
-                THEN (usage_record->>'total_tokens')::double precision
-                ELSE
-                  CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
-                    THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
-                  + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
-                    THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
-              END,
-              usage_record
-            FROM jsonb_array_elements(
-              CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_usage') = 'array'
-                THEN new_state_payload->'ai_tutor_usage' ELSE '[]'::jsonb END
-            ) AS usage_items(usage_record)
-            WHERE COALESCE(usage_record->>'id', '') <> ''
-              AND COALESCE(usage_record->>'user_id', '') <> ''
-              AND COALESCE(usage_record->>'created_at', '') <> ''
-            ON CONFLICT (id) DO NOTHING;
-
-            IF EXISTS (
-              SELECT 1
-              FROM jsonb_array_elements(
-                CASE WHEN jsonb_typeof(new_state_payload->'ai_tutor_usage') = 'array'
-                  THEN new_state_payload->'ai_tutor_usage' ELSE '[]'::jsonb END
-              ) AS usage_items(usage_record)
-              JOIN ai_tutor_usage_journal AS journal
-                ON journal.id = usage_record->>'id'
-              WHERE journal.user_id IS DISTINCT FROM usage_record->>'user_id'
-                OR journal.created_at IS DISTINCT FROM usage_record->>'created_at'
-                OR journal.accounted_tokens IS DISTINCT FROM (
-                  CASE WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
-                    THEN (usage_record->>'total_tokens')::double precision
-                    ELSE
-                      CASE WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
-                        THEN (usage_record->>'prompt_tokens')::double precision ELSE 0 END
-                      + CASE WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
-                        THEN (usage_record->>'completion_tokens')::double precision ELSE 0 END
-                  END
-                )
-                OR journal.record IS DISTINCT FROM usage_record
-            ) THEN
-              RAISE EXCEPTION 'AI Tutor usage journal conflict during legacy compatibility sync.'
-                USING ERRCODE = '23505';
-            END IF;
-          END IF;
-
-          RETURN NEW;
-        END;
-        $function$
-      `;
-      await migrationSql`
-        CREATE OR REPLACE TRIGGER app_state_ai_tutor_compatibility
-        BEFORE INSERT OR UPDATE OF payload ON public.app_state
-        FOR EACH ROW
-        WHEN (NEW.id = 'primary')
-        EXECUTE FUNCTION public.sync_ai_tutor_compatibility_from_state()
-      `;
+      await installPostgresStorageCompatibilityContract(
+        migrationSql as unknown as PostgresReadinessTransaction
+      );
       await migrationSql`
         CREATE TABLE IF NOT EXISTS public.ai_governance_rate_limit_events (
           id TEXT PRIMARY KEY,
@@ -5327,6 +5511,101 @@ async function bootstrapPostgresStateTables() {
   });
 }
 
+async function completePostgresStorageReadinessMarkerOnClient(
+  sql: postgres.Sql,
+  expectedState:
+    | "legacy-no-readiness-marker"
+    | "legacy-v1-compatibility-no-readiness-marker"
+) {
+  return sql.begin(async (migrationSql) => {
+    const transactionSql = migrationSql as unknown as PostgresReadinessTransaction;
+    await migrationSql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '5000ms', true),
+        pg_catalog.set_config('statement_timeout', '60000ms', true),
+        pg_catalog.set_config('idle_in_transaction_session_timeout', '60000ms', true)
+    `;
+    await migrationSql`
+      /* postgres_storage_contract_exclusive_advisory_lock */
+      SELECT pg_catalog.pg_advisory_xact_lock(
+        pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+      )
+    `;
+    await migrationSql`
+      LOCK TABLE
+        public.app_state,
+        public.auth_schema_migrations,
+        public.ai_tutor_message_journal,
+        public.ai_tutor_usage_journal,
+        public.auth_users,
+        public.auth_student_profiles,
+        public.auth_user_settings,
+        public.auth_password_reset_tokens
+      IN SHARE ROW EXCLUSIVE MODE
+    `;
+
+    /* postgres_storage_production_gate_legacy_readiness_check */
+    const legacyContractIsComplete = expectedState === "legacy-no-readiness-marker"
+      ? await postgresStorageLegacyNoReadinessMarkerIsComplete(transactionSql)
+      : await postgresStorageLegacyV1NoReadinessMarkerIsComplete(transactionSql);
+    if (!legacyContractIsComplete) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    const snapshotRows = await migrationSql<Array<{
+      payload: unknown;
+      revision: unknown;
+    }>>`
+      SELECT state.payload, state.revision
+      FROM public.app_state AS state
+      WHERE state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion}
+        AND (
+          SELECT pg_catalog.count(*)
+          FROM public.app_state AS counted_state
+        ) = 1
+      FOR UPDATE OF state
+    `;
+    if (!postgresStorageLegacySnapshotIsComplete(snapshotRows)) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    const readinessRevision = safePostgresRevision(snapshotRows[0]?.revision);
+    const validatedSnapshot = validateCompletePostgresStorageSnapshot(
+      snapshotRows[0]?.payload
+    );
+    if (readinessRevision === null) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+
+    if (expectedState === "legacy-v1-compatibility-no-readiness-marker") {
+      await installPostgresStorageCompatibilityContract(transactionSql);
+    }
+    await installPostgresStorageReadinessMarkerContract(transactionSql);
+    if (!await postgresStoragePhysicalRelationsAreCanonical(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresStorageReadinessCatalogIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresStorageReadinessInvalidationIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresHotAuthReadinessCatalogIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    await attestValidatedPostgresStorageSnapshot(
+      transactionSql,
+      validatedSnapshot,
+      currentPostgresStorageReadinessState(),
+      readinessRevision
+    );
+  }).catch((error) => {
+    throw normalizePostgresSchemaBootstrapError(error);
+  });
+}
+
 const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
   readCurrentMarker: hasCurrentPostgresSchemaMarker,
   bootstrap: () => runPostgresBootstrapWithContentionRecovery({
@@ -5334,6 +5613,125 @@ const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
     readCurrentMarker: hasCurrentPostgresSchemaMarker
   })
 });
+
+export type PostgresStorageProductionSchemaState =
+  | "empty"
+  | "legacy-no-readiness-marker"
+  | "legacy-v1-compatibility-no-readiness-marker"
+  | "exact"
+  | "partial";
+
+export async function inspectPostgresStorageSchemaForProductionGate(
+  client: postgres.Sql
+): Promise<PostgresStorageProductionSchemaState> {
+  if (!client || typeof client.begin !== "function") {
+    throw new Error("Postgres production schema client was rejected.");
+  }
+  return client.begin(async (transactionSql) => {
+    const sql = transactionSql as unknown as PostgresReadinessTransaction;
+    await sql`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY`;
+    await sql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '2000ms', true),
+        pg_catalog.set_config('statement_timeout', '15000ms', true),
+        pg_catalog.set_config('idle_in_transaction_session_timeout', '15000ms', true)
+    `;
+    await acquirePostgresStorageContractSharedAdvisoryLock(sql);
+    const relationRows = await sql`
+      /* postgres_storage_production_gate_relation_probe */
+      SELECT pg_catalog.count(*)::pg_catalog.int4 AS relation_count
+      FROM pg_catalog.pg_class AS relation
+      INNER JOIN pg_catalog.pg_namespace AS namespace
+        ON namespace.oid = relation.relnamespace
+      WHERE namespace.nspname = 'public'
+        AND relation.relkind IN ('r', 'p')
+        AND relation.relname::text = ANY(${[...postgresStorageCanonicalRelationNames]}::text[])
+    ` as Array<{ relation_count: number }>;
+    if (relationRows.length !== 1) {
+      throw new Error("Postgres production schema inspection was rejected.");
+    }
+    const relationCount = relationRows[0]?.relation_count;
+    if (relationCount === 0) return "empty";
+    if (
+      relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
+      && await postgresStorageLegacyNoReadinessMarkerIsComplete(sql)
+    ) return "legacy-no-readiness-marker";
+    if (
+      relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
+      && await postgresStorageLegacyV1NoReadinessMarkerIsComplete(sql)
+    ) return "legacy-v1-compatibility-no-readiness-marker";
+    if (relationCount !== postgresStorageCanonicalRelationNames.length) return "partial";
+    if (!await postgresStorageReadinessCatalogIsComplete(sql)) return "partial";
+    if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return "partial";
+    if (!await postgresStorageReadinessMarkerIsCurrent(
+      sql,
+      currentPostgresStorageReadinessState()
+    )) return "partial";
+    if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return "partial";
+    return "exact";
+  });
+}
+
+function assertPostgresStorageProductionSchemaGateContext(
+  environment: NodeJS.ProcessEnv = process.env
+) {
+  if (
+    environment.CI !== "true"
+    || environment.GITHUB_ACTIONS !== "true"
+    || environment.GITHUB_EVENT_NAME !== "workflow_dispatch"
+    || environment.GITHUB_REF !== "refs/heads/main"
+    || environment.GITHUB_REF_PROTECTED !== "true"
+    || environment.GITHUB_REPOSITORY !== "HUDongpin/MAIS-MVP"
+    || !/^[a-f0-9]{40}$/u.test(String(environment.GITHUB_SHA ?? ""))
+    || environment.GITHUB_WORKFLOW_REF
+      !== "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+    || environment.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE
+      !== "github-actions-serialized-v1"
+    || environment.NODE_ENV === "test"
+  ) {
+    throw new Error("Postgres production schema execution context was rejected.");
+  }
+}
+
+export async function applyPostgresStorageSchemaForProductionGate(
+  client: postgres.Sql,
+  expectedState:
+    | "empty"
+    | "legacy-no-readiness-marker"
+    | "legacy-v1-compatibility-no-readiness-marker" = "empty"
+) {
+  assertPostgresStorageProductionSchemaGateContext();
+  if (
+    expectedState !== "empty"
+    && expectedState !== "legacy-no-readiness-marker"
+    && expectedState !== "legacy-v1-compatibility-no-readiness-marker"
+  ) {
+    throw new Error("Postgres production schema operation plan changed.");
+  }
+  const preflightState = await inspectPostgresStorageSchemaForProductionGate(client);
+  if (preflightState !== expectedState) {
+    throw new Error("Postgres production schema operation plan changed.");
+  }
+  if (expectedState === "empty") {
+    await bootstrapPostgresStateTablesOnClient(client, {
+      expectedState: "empty",
+      lockTimeout: "5000ms",
+      statementTimeout: "60000ms"
+    });
+  } else {
+    await completePostgresStorageReadinessMarkerOnClient(client, expectedState);
+  }
+  const postflightState = await inspectPostgresStorageSchemaForProductionGate(client);
+  if (postflightState !== "exact") {
+    throw new Error("Postgres production schema postflight was rejected.");
+  }
+  return Object.freeze({
+    appStorageState: postflightState,
+    hotAuthSchemaVersion,
+    schemaVersion
+  });
+}
 
 async function configureTeacherNoticeEmailOutboxPostgresTransaction(
   sql: PostgresExecutor,
@@ -7506,6 +7904,24 @@ export const __userStorePostgresStorageReadinessTestHooks = {
     }
     postgresFullWriterFaultModeForIntegrationTest = mode;
     postgresFullWriterStageObserverForIntegrationTest = observeStage;
+  },
+  completeLegacyReadinessMarker: async (client: postgres.Sql) => {
+    if (process.env.NODE_ENV !== "test") {
+      throw new Error("Postgres legacy readiness completion is available only to integration tests.");
+    }
+    await completePostgresStorageReadinessMarkerOnClient(
+      client,
+      "legacy-no-readiness-marker"
+    );
+  },
+  upgradeLegacyV1CompatibilityAndReadiness: async (client: postgres.Sql) => {
+    if (process.env.NODE_ENV !== "test") {
+      throw new Error("Postgres legacy v1 compatibility upgrade is available only to integration tests.");
+    }
+    await completePostgresStorageReadinessMarkerOnClient(
+      client,
+      "legacy-v1-compatibility-no-readiness-marker"
+    );
   },
   createDeadlineHarness: () => {
     const slot = createAbortableAuthAdmissionSlot();

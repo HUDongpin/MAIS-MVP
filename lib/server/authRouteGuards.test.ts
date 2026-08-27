@@ -1,6 +1,20 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { defaultLoginIdentifierMax, loginIdentifierMaxFromEnv } from "@/lib/server/authRouteGuards";
+import { NextResponse } from "next/server";
+import {
+  authRateLimitResponse,
+  defaultLoginIdentifierMax,
+  loginIdentifierMaxFromEnv,
+  withAuthRouteJsonBoundary
+} from "@/lib/server/authRouteGuards";
+
+const privateNoStore = "private, no-store";
+
+function assertPrivateNoStore(response: Response) {
+  assert.equal(response.headers.get("Cache-Control"), privateNoStore);
+  assert.equal(response.headers.get("CDN-Cache-Control"), privateNoStore);
+  assert.equal(response.headers.get("Vercel-CDN-Cache-Control"), privateNoStore);
+}
 
 /**
  * `loginIdentifier` is the brute-force control on the login route. D-11 loosened it for the e2e
@@ -29,7 +43,7 @@ test("a malformed override falls back to the production ceiling rather than fail
   }
 });
 
-test("the override cannot weaken the ceiling below production", () => {
+test("the override and a custom fallback cannot weaken the ceiling below production", () => {
   // The dangerous direction. A hostile or fat-fingered value must not make brute-forcing easier.
   for (const value of ["0", "-1", "-100", "1", "11"]) {
     assert.equal(
@@ -38,6 +52,8 @@ test("the override cannot weaken the ceiling below production", () => {
       `override ${value} must not lower the ceiling`
     );
   }
+  assert.equal(loginIdentifierMaxFromEnv({}, 50), 50);
+  assert.equal(loginIdentifierMaxFromEnv({ HK_MATH_E2E_LOGIN_IDENTIFIER_MAX: "5" }, 50), 50);
 });
 
 test("the override raises the ceiling only when explicitly set higher", () => {
@@ -45,8 +61,41 @@ test("the override raises the ceiling only when explicitly set higher", () => {
   assert.equal(loginIdentifierMaxFromEnv({ HK_MATH_E2E_LOGIN_IDENTIFIER_MAX: "13" }), 13);
 });
 
-test("the fallback is a parameter, so no caller can be silently defaulted to something weaker", () => {
-  // Guards a future refactor that passes a different fallback in: the floor still applies.
-  assert.equal(loginIdentifierMaxFromEnv({}, 50), 50);
-  assert.equal(loginIdentifierMaxFromEnv({ HK_MATH_E2E_LOGIN_IDENTIFIER_MAX: "5" }, 50), 50);
+test("auth JSON and rate-limit responses are private and non-cacheable", async () => {
+  const response = await withAuthRouteJsonBoundary("test-auth-route", async () => {
+    const publicResponse = NextResponse.json({ ok: true });
+    publicResponse.headers.set("Cache-Control", "public, max-age=600");
+    publicResponse.headers.set("CDN-Cache-Control", "public, max-age=600");
+    publicResponse.headers.set("Vercel-CDN-Cache-Control", "public, max-age=600");
+    return publicResponse;
+  });
+
+  assert.equal(response.status, 200);
+  assertPrivateNoStore(response);
+
+  const originalConsoleError = console.error;
+  console.error = () => undefined;
+  try {
+    const failureResponse = await withAuthRouteJsonBoundary("test-auth-failure", async () => {
+      throw new Error("database unavailable");
+    });
+
+    assert.equal(failureResponse.status, 503);
+    assert.deepEqual(await failureResponse.json(), {
+      code: "auth-service-unavailable",
+      error: "Authentication service is temporarily unavailable. Please try again."
+    });
+    assertPrivateNoStore(failureResponse);
+  } finally {
+    console.error = originalConsoleError;
+  }
+
+  const rateLimitResponse = authRateLimitResponse(
+    30,
+    { max: 5, windowMs: 60_000 },
+    Date.now() + 30_000
+  );
+
+  assert.equal(rateLimitResponse.status, 429);
+  assertPrivateNoStore(rateLimitResponse);
 });
