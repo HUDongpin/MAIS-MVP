@@ -6,12 +6,12 @@
   "producedAt": "2026-08-26T13:06:52+08:00",
   "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
   "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
-  "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+  "targetBaselineCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
   "checkerVersion": "promotion-gate-shadow-v2.6",
   "semanticPayload": {
     "contractVersion": "promotion-a25-release-intake.v2",
     "finalDisposition": "reviewed commit",
-    "reviewedCompositionCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "reviewedCompositionCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
     "reviewedBranch": "codex/a23-promotion-shadow-attempt-002-20260826",
     "targetPullRequest": "https://github.com/HUDongpin/MAIS-MVP/pull/162",
     "reviewSession": {
@@ -21,17 +21,17 @@
       "createdAt": "2026-08-26",
       "expectedCloseoutAt": "2026-08-26",
       "reviewMethod": "clean-worktree-plus-read-only-target-git-object",
-      "reviewedTargetCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "reviewedTargetCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
       "worktreeCleanBeforeReview": true,
       "sharedDirtyRootUsedAsEvidence": false
     },
     "baselineReview": {
       "originMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
       "originMainVerifiedWithLsRemote": true,
-      "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "targetBaselineCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
       "targetBaselineContainsOriginMain": true
     },
-    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "targetBaselineCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
     "packageReview": {
       "promotionUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
       "attemptId": "attempt-007",

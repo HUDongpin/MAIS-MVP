@@ -6,7 +6,7 @@
   "producedAt": "2026-08-26T13:06:52+08:00",
   "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
   "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
-  "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+  "targetBaselineCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
   "checkerVersion": "promotion-gate-shadow-v2.6",
   "semanticPayload": {
     "contractVersion": "promotion-a23-shadow-readiness.v2",
@@ -16,8 +16,8 @@
     "candidatePackageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
     "candidateVersion": "2.0.0-shadow.1",
     "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
-    "reviewedCompositionCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
-    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "reviewedCompositionCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
+    "targetBaselineCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
     "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
     "legacyResolutionRegistryPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/legacy-resolution-registry.v2.5.json",
     "legacyResolutionRegistryRawSha256": "82a4ca01daeea4f2292a57a684391fd86feae42df1a0c7e31ff5d1d6844c0433",
@@ -77,7 +77,7 @@
     "attempt005PostShadowCurrentnessFailure": {
       "manifestCommit": "ea1207067e0eadec3d27872fe7dc57dcc7f97b9e",
       "semanticReceiptDigest": "c5ad3178ed0e265259a7f2d2468c1be0d59cd31b16a2fd3289817c5006394ee2",
-      "liveContractRepairCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "liveContractRepairCommit": "7ce66d4d1132068998cbf46ad4b67fb345d09507",
       "failureCode": "V2_TARGET_BASELINE_DRIFT",
       "githubRunId": 32930272456,
       "disposition": "repair_required"
