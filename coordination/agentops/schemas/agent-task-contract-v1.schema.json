@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/agent-task-contract-v1.schema.json",
+  "title": "AgentTaskContractV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "requestId",
+    "requestDigest",
+    "runId",
+    "repositorySnapshot",
+    "knowledge",
+    "crispe",
+    "inputSchemaRef",
+    "outputSchemaRef",
+    "outputContract",
+    "workflow",
+    "risk",
+    "probeAllowlist",
+    "authorityPolicy",
+    "requestedEffects",
+    "route",
+    "specialistWorkflow",
+    "evidenceRequirements",
+    "claimCeiling",
+    "policyDigests",
+    "runtimePromptProjection",
+    "contractDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mais-agent-task-contract.v1" },
+    "requestId": { "$ref": "#/$defs/safeId" },
+    "requestDigest": { "$ref": "#/$defs/digest" },
+    "runId": { "$ref": "#/$defs/safeId" },
+    "repositorySnapshot": { "$ref": "#/$defs/repositorySnapshot" },
+    "knowledge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["facts", "explicitRequirements", "inferences", "assumptions", "unresolvedItems"],
+      "properties": {
+        "facts": { "$ref": "#/$defs/stringArray" },
+        "explicitRequirements": { "$ref": "#/$defs/stringArray" },
+        "inferences": { "$ref": "#/$defs/stringArray" },
+        "assumptions": { "$ref": "#/$defs/stringArray" },
+        "unresolvedItems": {
+          "type": "array",
+          "maxItems": 50,
+          "items": { "$ref": "#/$defs/unresolvedItem" }
+        }
+      }
+    },
+    "crispe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capacity", "role", "insight", "statement", "personality", "examples"],
+      "properties": {
+        "capacity": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" },
+        "insight": { "$ref": "#/$defs/nonEmptyString" },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "personality": { "$ref": "#/$defs/nonEmptyString" },
+        "examples": { "$ref": "#/$defs/stringArray" }
+      }
+    },
+    "inputSchemaRef": { "$ref": "#/$defs/nonEmptyString" },
+    "outputSchemaRef": { "$ref": "#/$defs/nonEmptyString" },
+    "outputContract": { "$ref": "#/$defs/nonEmptyString" },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trigger", "steps", "errorHandling", "stopConditions"],
+      "properties": {
+        "trigger": { "$ref": "#/$defs/nonEmptyString" },
+        "steps": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "errorHandling": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "stopConditions": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/terminalStatus" }
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["riskClass", "reasons"],
+      "properties": {
+        "riskClass": { "enum": ["low", "medium", "high", "critical"] },
+        "reasons": { "$ref": "#/$defs/nonEmptyStringArray" }
+      }
+    },
+    "probeAllowlist": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/probeId" }
+    },
+    "authorityPolicy": { "$ref": "#/$defs/authorityPolicy" },
+    "requestedEffects": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/requestedEffect" }
+    },
+    "route": { "$ref": "#/$defs/route" },
+    "specialistWorkflow": {
+      "anyOf": [
+        { "$ref": "#/$defs/specialistWorkflow" },
+        { "type": "null" }
+      ]
+    },
+    "evidenceRequirements": { "$ref": "#/$defs/stringArray" },
+    "claimCeiling": { "$ref": "#/$defs/boundedClaim" },
+    "policyDigests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registryDigest", "agentsPolicyDigest", "releaseOwnerPathspecsDigest", "releasePackageManifestDigest"],
+      "properties": {
+        "registryDigest": { "$ref": "#/$defs/digest" },
+        "agentsPolicyDigest": { "$ref": "#/$defs/digest" },
+        "releaseOwnerPathspecsDigest": { "$ref": "#/$defs/digest" },
+        "releasePackageManifestDigest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "runtimePromptProjection": { "$ref": "#/$defs/nonEmptyString" },
+    "contractDigest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "safeId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sha": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" },
+    "nonEmptyString": { "type": "string", "minLength": 1, "maxLength": 16384 },
+    "boundedClaim": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "not": { "pattern": "(?i:implemented|merged|deployed|live|approved-for-production|production-ready)" }
+    },
+    "stringArray": { "type": "array", "maxItems": 100, "items": { "$ref": "#/$defs/nonEmptyString" } },
+    "nonEmptyStringArray": { "type": "array", "minItems": 1, "maxItems": 100, "items": { "$ref": "#/$defs/nonEmptyString" } },
+    "unresolvedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "question", "impact"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "question": { "$ref": "#/$defs/nonEmptyString" },
+        "impact": { "enum": ["low", "high"] }
+      }
+    },
+    "repositorySnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rootDigest", "gitCommonDirDigest", "headSha", "branch", "statusDigest", "dirty"],
+      "properties": {
+        "rootDigest": { "$ref": "#/$defs/digest" },
+        "gitCommonDirDigest": { "$ref": "#/$defs/digest" },
+        "headSha": { "$ref": "#/$defs/sha" },
+        "branch": { "$ref": "#/$defs/nonEmptyString" },
+        "statusDigest": { "$ref": "#/$defs/digest" },
+        "dirty": { "type": "boolean" }
+      }
+    },
+    "laneId": { "type": "string", "pattern": "^A(?:0[1-9]|1[0-9]|2[0-5])$" },
+    "probeId": { "enum": ["git.snapshot", "git.worktrees", "repo.context-boundaries", "repo.policy-digests", "repo.specialist-availability"] },
+    "terminalStatus": { "enum": ["handoff-ready", "clarification-required", "authorization-required", "blocked"] },
+    "requestedEffect": { "enum": ["repository-read", "deterministic-validation", "code-write", "content-write", "credential-access", "provider-execution", "git-mutation", "deployment", "production-data-mutation"] },
+    "specialistWorkflow": { "enum": ["owner-lane-handoff.v1", "question-machine-qa.v1", "curriculum-content-review.v1", "content-candidate-generation.v1", "candidate-promotion.v1", "nova-prompt-audit.v1", "adaptive-prompt-audit.v1", "regression-plan.v1", "release-graphops-handoff.v1", "git-hygiene-intake.v1", "learning-science-eval-plan.v1"] },
+    "authorityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repositoryReadAllowed", "deterministicValidationAllowed", "localCheckpointWriteAllowed", "handoffWriteAllowed", "codeWriteAllowed", "contentWriteAllowed", "credentialAccessAllowed", "providerExecutionAllowed", "gitMutationAllowed", "deploymentAllowed", "productionDataMutationAllowed"],
+      "properties": {
+        "repositoryReadAllowed": { "const": true },
+        "deterministicValidationAllowed": { "const": true },
+        "localCheckpointWriteAllowed": { "const": true },
+        "handoffWriteAllowed": { "const": true },
+        "codeWriteAllowed": { "const": false },
+        "contentWriteAllowed": { "const": false },
+        "credentialAccessAllowed": { "const": false },
+        "providerExecutionAllowed": { "const": false },
+        "gitMutationAllowed": { "const": false },
+        "deploymentAllowed": { "const": false },
+        "productionDataMutationAllowed": { "const": false }
+      }
+    },
+    "orderedSubcontract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["order", "primaryLane", "includedScopes", "specialistWorkflow", "claimCeiling"],
+      "properties": {
+        "order": { "type": "integer", "minimum": 1 },
+        "primaryLane": { "$ref": "#/$defs/laneId" },
+        "includedScopes": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "specialistWorkflow": { "$ref": "#/$defs/specialistWorkflow" },
+        "claimCeiling": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "primaryLane", "collaboratingLanes", "ownedPathScopes", "forbiddenPathScopes", "orderedSubcontracts", "parallelExecutionAllowed"],
+      "properties": {
+        "status": { "enum": ["routed", "clarification-required", "blocked"] },
+        "primaryLane": { "anyOf": [{ "$ref": "#/$defs/laneId" }, { "type": "null" }] },
+        "collaboratingLanes": { "type": "array", "maxItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/laneId" } },
+        "ownedPathScopes": { "$ref": "#/$defs/stringArray" },
+        "forbiddenPathScopes": { "$ref": "#/$defs/stringArray" },
+        "orderedSubcontracts": { "type": "array", "maxItems": 25, "items": { "$ref": "#/$defs/orderedSubcontract" } },
+        "parallelExecutionAllowed": { "const": false }
+      }
+    }
+  }
+}

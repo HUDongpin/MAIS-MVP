@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "mais-agentops-intake-skill-policy.v1",
+  "cliEntrypoint": "coordination/agentops/bin/agentops",
+  "requestAndClarificationStorage": "git-ignored-local-only",
+  "maxQuestionsPerRound": 3,
+  "maxClarificationRounds": 2,
+  "allowedOperations": [
+    "decode",
+    "compile-request",
+    "invoke-agentops-cli",
+    "explain-handoff"
+  ],
+  "forbiddenEffects": [
+    "code-write",
+    "content-write",
+    "credential-access",
+    "provider-execution",
+    "git-mutation",
+    "deployment",
+    "production-data-mutation"
+  ],
+  "completionClaim": "A successful skill run proves only that a bounded AgentOps v1 handoff or interrupt was produced."
+}

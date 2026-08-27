@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/agentops-handoff-v1.schema.json",
+  "title": "AgentOpsHandoffV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "terminalStatus", "requestDigest", "contractDigest", "repositorySnapshot", "route", "specialistWorkflow", "checksPerformed", "checksNotPerformed", "blockers", "requestedEffects", "permittedEffects", "nextOwner", "nextAllowedAction", "resumeGate", "claimCeiling", "redactionDeclaration", "handoffDigest"],
+  "properties": {
+    "schemaVersion": { "const": "mais-agentops-handoff.v1" },
+    "runId": { "$ref": "#/$defs/nonEmptyString" },
+    "terminalStatus": { "$ref": "#/$defs/terminalStatus" },
+    "requestDigest": { "$ref": "#/$defs/digest" },
+    "contractDigest": { "$ref": "#/$defs/digest" },
+    "repositorySnapshot": { "$ref": "#/$defs/repositorySnapshot" },
+    "route": { "$ref": "#/$defs/route" },
+    "specialistWorkflow": { "anyOf": [{ "$ref": "#/$defs/specialistWorkflow" }, { "type": "null" }] },
+    "checksPerformed": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["checkId", "status", "summary", "evidenceDigest"],
+        "properties": {
+          "checkId": { "$ref": "#/$defs/nonEmptyString" },
+          "status": { "enum": ["passed", "failed", "not-run"] },
+          "summary": { "$ref": "#/$defs/nonEmptyString" },
+          "evidenceDigest": { "$ref": "#/$defs/digest" }
+        }
+      }
+    },
+    "checksNotPerformed": { "$ref": "#/$defs/stringArray" },
+    "blockers": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "summary", "resumeRequirement"],
+        "properties": {
+          "code": { "$ref": "#/$defs/nonEmptyString" },
+          "summary": { "$ref": "#/$defs/nonEmptyString" },
+          "resumeRequirement": { "$ref": "#/$defs/boundedClaim" }
+        }
+      }
+    },
+    "requestedEffects": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/requestedEffect" } },
+    "permittedEffects": { "type": "array", "uniqueItems": true, "items": { "enum": ["repository-read", "deterministic-validation"] } },
+    "nextOwner": { "anyOf": [{ "$ref": "#/$defs/laneId" }, { "enum": ["owner", "human"] }] },
+    "nextAllowedAction": { "$ref": "#/$defs/boundedClaim" },
+    "resumeGate": { "$ref": "#/$defs/boundedClaim" },
+    "claimCeiling": { "$ref": "#/$defs/boundedClaim" },
+    "redactionDeclaration": { "$ref": "#/$defs/nonEmptyString" },
+    "handoffDigest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sha": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" },
+    "nonEmptyString": { "type": "string", "minLength": 1, "maxLength": 16384 },
+    "boundedClaim": { "type": "string", "minLength": 1, "maxLength": 2048, "not": { "pattern": "(?i:implemented|merged|deployed|live|approved-for-production|production-ready)" } },
+    "stringArray": { "type": "array", "maxItems": 100, "items": { "$ref": "#/$defs/nonEmptyString" } },
+    "laneId": { "type": "string", "pattern": "^A(?:0[1-9]|1[0-9]|2[0-5])$" },
+    "terminalStatus": { "enum": ["handoff-ready", "clarification-required", "authorization-required", "blocked"] },
+    "requestedEffect": { "enum": ["repository-read", "deterministic-validation", "code-write", "content-write", "credential-access", "provider-execution", "git-mutation", "deployment", "production-data-mutation"] },
+    "specialistWorkflow": { "enum": ["owner-lane-handoff.v1", "question-machine-qa.v1", "curriculum-content-review.v1", "content-candidate-generation.v1", "candidate-promotion.v1", "nova-prompt-audit.v1", "adaptive-prompt-audit.v1", "regression-plan.v1", "release-graphops-handoff.v1", "git-hygiene-intake.v1", "learning-science-eval-plan.v1"] },
+    "repositorySnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rootDigest", "gitCommonDirDigest", "headSha", "branch", "statusDigest", "dirty"],
+      "properties": {
+        "rootDigest": { "$ref": "#/$defs/digest" },
+        "gitCommonDirDigest": { "$ref": "#/$defs/digest" },
+        "headSha": { "$ref": "#/$defs/sha" },
+        "branch": { "$ref": "#/$defs/nonEmptyString" },
+        "statusDigest": { "$ref": "#/$defs/digest" },
+        "dirty": { "type": "boolean" }
+      }
+    },
+    "orderedSubcontract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["order", "primaryLane", "includedScopes", "specialistWorkflow", "claimCeiling"],
+      "properties": {
+        "order": { "type": "integer", "minimum": 1 },
+        "primaryLane": { "$ref": "#/$defs/laneId" },
+        "includedScopes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } },
+        "specialistWorkflow": { "$ref": "#/$defs/specialistWorkflow" },
+        "claimCeiling": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "primaryLane", "collaboratingLanes", "ownedPathScopes", "forbiddenPathScopes", "orderedSubcontracts", "parallelExecutionAllowed"],
+      "properties": {
+        "status": { "enum": ["routed", "clarification-required", "blocked"] },
+        "primaryLane": { "anyOf": [{ "$ref": "#/$defs/laneId" }, { "type": "null" }] },
+        "collaboratingLanes": { "type": "array", "maxItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/laneId" } },
+        "ownedPathScopes": { "$ref": "#/$defs/stringArray" },
+        "forbiddenPathScopes": { "$ref": "#/$defs/stringArray" },
+        "orderedSubcontracts": { "type": "array", "maxItems": 25, "items": { "$ref": "#/$defs/orderedSubcontract" } },
+        "parallelExecutionAllowed": { "const": false }
+      }
+    }
+  }
+}
