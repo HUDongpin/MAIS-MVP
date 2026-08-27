@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827",
+  "role": "A04",
+  "result": "pass",
+  "producedAt": "2026-08-27T03:55:36.000Z",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "de31ec494bea1679d1889cace0ef1ad701e31b82",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a04-practice-semantics.v2",
+    "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+    "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+    "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+    "outputContract": "shadow-practice-dto.v2",
+    "numericOracle": 12,
+    "acceptedAnswers": [
+      "12",
+      "12 cups"
+    ],
+    "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+    "requiredReasoning": [
+      "preserve 3 oats : 5 fruit order",
+      "20 ÷ 5 = 4",
+      "3 × 4 = 12"
+    ],
+    "primaryStandardId": "6.RP.3",
+    "prerequisiteStandardIds": [
+      "6.RP.1"
+    ],
+    "clusterMapping": {
+      "sourceCardKind": "cluster-safe-card-v2",
+      "runtimeCategory": "standards",
+      "mappingMode": "explicit-shadow-only",
+      "defaultCardKindUsed": false
+    },
+    "compatibilityMetadata": {
+      "domainIds": [
+        "6.RP"
+      ],
+      "canonicalStandardIds": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "maisStandardIds": [
+        "CA.CCSS.Math.G6.RP.1",
+        "CA.CCSS.Math.G6.RP.2",
+        "CA.CCSS.Math.G6.RP.3"
+      ],
+      "clusterId": "6.RP.ratios",
+      "runtimeDisposition": "preserved-outside-runtime"
+    },
+    "localization": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false
+    },
+    "defaultsForbidden": [
+      "cardKind",
+      "grade",
+      "standard",
+      "answer",
+      "id"
+    ],
+    "candidateBytesChangedSincePriorReview": false,
+    "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.5",
+      "toCheckerVersion": "promotion-gate-shadow-v2.6",
+      "changeScope": "reviewed-commit-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-006",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "79e804b08c1856d38fdc896968090c12fe490f878b68636d98eaafab7c64d574",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/evidence/a04-practice-semantics.v2.5.json",
+      "priorEvidenceRawSha256": "bb7a774f8b0efb9bab962b7368db451a7169362c390e01bbc73cf4b47b457a2e",
+      "priorEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "k-g5-cot-leak-20260827",
+      "sourceEvidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceEvidenceRawSha256": "15c9712eb1f1fa682b90d6cdf85b79e3c664b8acfd4a36fce2da7c8726627326",
+      "priorTargetBaselineCommit": "9ab6c8cc9c88982eb8e94c293b25ad1f9eac9c4b",
+      "targetBaselineCommit": "de31ec494bea1679d1889cace0ef1ad701e31b82",
+      "justificationPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/baseline-reaffirmation-k-g5-cot-leak-20260827.md",
+      "protectedChangedPaths": [
+        "data/generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json"
+      ],
+      "testOnlyChangedPaths": [],
+      "runtimeChangedPaths": [
+        "data/generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json"
+      ],
+      "candidateBytesChanged": false,
+      "liveAllowed": false
+    }
+  }
+}
