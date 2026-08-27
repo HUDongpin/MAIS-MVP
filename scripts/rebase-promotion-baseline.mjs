@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
- * Re-points a Promotion pilot at a newer, explicitly re-affirmed runtime baseline.
+ * Creates a hash-bound baseline re-affirmation revision without mutating the
+ * finalized Promotion attempt that supplied the source evidence.
  *
- * Evidence and its Manifest binding cannot be rewritten atomically: the Manifest
- * must name a commit that already contains the exact evidence bytes it hashes.
- * This tool therefore enforces two committed phases:
+ * The revision is intentionally committed in two phases:
  *
- *   1. --write-evidence rewrites only the nine role-owned evidence artifacts.
- *   2. After those exact files are committed, --write-bindings updates the
- *      Manifest and evidence index to that evidence commit.
+ *   1. --write-evidence creates a new legacy-registry snapshot and nine new
+ *      role-evidence files under --revision-root.
+ *   2. After those exact bytes are committed, --write-bindings creates the new
+ *      Manifest and evidence index and binds every role to --evidence-commit.
  *
- * The former monolithic --write mode is rejected. It could recompute raw hashes
- * while leaving semantic digests and reviewedCommit bindings stale, producing a
- * change set that looked complete but could never pass the Promotion Gate.
+ * The source Manifest, source evidence, source registry, canonical Receipt,
+ * closure, and lifecycle registry are read-only historical artifacts. The old
+ * monolithic --write mode is rejected.
  */
 
 import crypto from "node:crypto";
@@ -23,15 +23,27 @@ import { fileURLToPath } from "node:url";
 
 import { computeV2EvidenceSemanticDigest } from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 
-const repoRoot = fs.realpathSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."));
+const scriptPath = fileURLToPath(import.meta.url);
+const repoRoot = fs.realpathSync(path.resolve(path.dirname(scriptPath), ".."));
 const commitPattern = /^[a-f0-9]{40}$/u;
+const revisionIdPattern = /^[a-z0-9][a-z0-9-]{2,79}$/u;
+const protectedPaths = [
+  "app",
+  "components",
+  "data",
+  "lib",
+  "public",
+  "middleware.ts",
+  "next.config.ts",
+  "tsconfig.json"
+];
 
 function usage() {
   return [
     "usage:",
-    "  rebase-promotion-baseline.mjs --manifest <path> --target <commit>",
-    "  rebase-promotion-baseline.mjs --manifest <path> --target <commit> --write-evidence --attested-by <roles> --justification <committed-path>",
-    "  rebase-promotion-baseline.mjs --manifest <path> --target <commit> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path>"
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path>",
+    "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path>"
   ].join("\n");
 }
 
@@ -39,6 +51,8 @@ function parseArgs(argv) {
   const options = {
     manifest: null,
     target: null,
+    revisionRoot: null,
+    producedAt: null,
     attestedBy: [],
     justification: null,
     evidenceCommit: null,
@@ -52,6 +66,8 @@ function parseArgs(argv) {
     const next = () => argv[++index];
     if (argument === "--manifest") options.manifest = next();
     else if (argument === "--target") options.target = next();
+    else if (argument === "--revision-root") options.revisionRoot = next();
+    else if (argument === "--produced-at") options.producedAt = next();
     else if (argument === "--attested-by") {
       options.attestedBy = (next() ?? "").split(",").map((role) => role.trim()).filter(Boolean);
     } else if (argument === "--justification") options.justification = next();
@@ -98,17 +114,48 @@ function assertCleanWorktree() {
   }
 }
 
-function resolveRepositoryFile(input, label) {
-  if (!input || path.isAbsolute(input)) throw new Error(`${label} must be repository-relative.`);
+function assertSafeRelative(input, label) {
+  if (
+    typeof input !== "string" ||
+    input.length === 0 ||
+    path.isAbsolute(input) ||
+    input.includes("\0") ||
+    input.includes("\\")
+  ) {
+    throw new Error(`${label} must be one safe repository-relative path.`);
+  }
+  const normalized = path.posix.normalize(input);
+  if (normalized !== input || normalized === "." || normalized.startsWith("../")) {
+    throw new Error(`${label} must be one safe repository-relative path.`);
+  }
   const absolute = path.resolve(repoRoot, input);
   if (absolute === repoRoot || !absolute.startsWith(`${repoRoot}${path.sep}`)) {
     throw new Error(`${label} escapes the repository.`);
   }
-  const real = fs.realpathSync(absolute);
-  if (real !== absolute || !fs.lstatSync(real).isFile()) {
+  return { absolute, relative: input };
+}
+
+function resolveRepositoryFile(input, label) {
+  const file = assertSafeRelative(input, label);
+  const real = fs.realpathSync(file.absolute);
+  if (real !== file.absolute || !fs.lstatSync(real).isFile()) {
     throw new Error(`${label} must be one exact regular repository file.`);
   }
-  return { absolute, relative: path.relative(repoRoot, absolute).split(path.sep).join("/") };
+  return file;
+}
+
+function resolveRevisionRoot(sourceManifestPath, revisionRootInput) {
+  const root = assertSafeRelative(revisionRootInput, "Revision root");
+  const sourceRoot = path.posix.dirname(sourceManifestPath);
+  const expectedPrefix = `${sourceRoot}/reaffirmations/`;
+  if (!root.relative.startsWith(expectedPrefix)) {
+    throw new Error(`Revision root must be a new child of ${expectedPrefix}`);
+  }
+  const revisionId = path.posix.basename(root.relative);
+  if (!revisionIdPattern.test(revisionId)) {
+    throw new Error("Revision root basename must be a lowercase, hyphenated revision id.");
+  }
+  return { ...root, revisionId };
 }
 
 function gitBlob(commit, repositoryPath) {
@@ -123,27 +170,33 @@ function canonicalJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
-function rewriteBaseline(bytes, fromCommit, toCommit, label) {
-  const original = bytes.toString("utf8");
-  if (!original.includes(fromCommit)) {
-    throw new Error(`${label} does not contain the baseline it is supposed to re-affirm.`);
+function loadCanonicalJson(file, label) {
+  const bytes = fs.readFileSync(file.absolute);
+  let value;
+  try {
+    value = JSON.parse(bytes.toString("utf8"));
+  } catch {
+    throw new Error(`${label} is not valid JSON.`);
   }
-  return Buffer.from(original.split(fromCommit).join(toCommit), "utf8");
+  return { ...file, bytes, value, rawSha256: sha256(bytes) };
 }
 
 function loadManifest(manifestInput) {
-  const file = resolveRepositoryFile(manifestInput, "Manifest");
-  const value = JSON.parse(fs.readFileSync(file.absolute, "utf8"));
-  if (!commitPattern.test(value?.targetBaselineCommit ?? "") || !Array.isArray(value?.evidenceBindings)) {
-    throw new Error("Manifest does not expose a valid target baseline and evidence bindings.");
+  const loaded = loadCanonicalJson(resolveRepositoryFile(manifestInput, "Source Manifest"), "Source Manifest");
+  if (
+    !commitPattern.test(loaded.value?.targetBaselineCommit ?? "") ||
+    !Array.isArray(loaded.value?.evidenceBindings) ||
+    typeof loaded.value?.legacyResolution?.registryPath !== "string"
+  ) {
+    throw new Error("Source Manifest does not expose valid baseline, evidence, and legacy bindings.");
   }
-  return { ...file, value };
+  return loaded;
 }
 
 function requiredRoles(manifest) {
   const roles = manifest.evidenceBindings.map((binding) => binding.role);
   if (roles.length === 0 || new Set(roles).size !== roles.length || roles.some((role) => typeof role !== "string")) {
-    throw new Error("Manifest evidence roles are missing or duplicated.");
+    throw new Error("Source Manifest evidence roles are missing or duplicated.");
   }
   return roles;
 }
@@ -160,7 +213,7 @@ function assertAttestations(manifest, attestedBy) {
   }
 }
 
-function assertCommittedJustification(justificationInput, targetCommit, roles) {
+function assertCommittedJustification(justificationInput, targetCommit, roles, revisionRoot) {
   const file = resolveRepositoryFile(justificationInput, "Justification");
   let committed;
   try {
@@ -171,193 +224,325 @@ function assertCommittedJustification(justificationInput, targetCommit, roles) {
   const working = fs.readFileSync(file.absolute);
   if (!working.equals(committed)) throw new Error("Justification bytes differ from committed HEAD.");
   const text = working.toString("utf8");
-  if (!text.includes(targetCommit) || roles.some((role) => !text.includes(role))) {
-    throw new Error("Committed justification must name the exact target commit and every re-affirming role.");
+  if (!text.includes(targetCommit) || !text.includes(revisionRoot) || roles.some((role) => !text.includes(role))) {
+    throw new Error("Committed justification must name the exact target, revision root, and every re-affirming role.");
   }
   return file;
 }
 
-function collectEvidenceRewrites(manifest, fromCommit, toCommit) {
-  return manifest.evidenceBindings.map((binding) => {
-    const file = resolveRepositoryFile(binding.evidencePath, `${binding.role} evidence`);
-    const bytes = fs.readFileSync(file.absolute);
-    if (sha256(bytes) !== binding.rawSha256) {
-      throw new Error(`${binding.role} working evidence does not match its Manifest raw digest.`);
-    }
-    const reviewed = gitBlob(binding.reviewedCommit, file.relative);
-    if (!bytes.equals(reviewed)) {
-      throw new Error(`${binding.role} working evidence does not match its reviewed commit.`);
-    }
-    const updated = rewriteBaseline(bytes, fromCommit, toCommit, `${binding.role} evidence`);
-    const parsed = JSON.parse(updated.toString("utf8"));
-    if (
-      parsed.role !== binding.role ||
-      parsed.evidenceId !== binding.evidenceId ||
-      parsed.targetBaselineCommit !== toCommit
-    ) {
-      throw new Error(`${binding.role} rewritten evidence has an invalid identity or target baseline.`);
-    }
-    return { binding, file, updated };
-  });
+function assertProducedAt(value) {
+  if (typeof value !== "string" || Number.isNaN(Date.parse(value))) {
+    throw new Error("--write-evidence requires one explicit ISO --produced-at value.");
+  }
 }
 
-function collectEvidenceFiles(manifest) {
-  return manifest.evidenceBindings.map((binding) => ({
-    binding,
-    file: resolveRepositoryFile(binding.evidencePath, `${binding.role} evidence`)
-  }));
-}
-
-function loadEvidenceIndex(manifestPath) {
-  const input = path.posix.join(path.posix.dirname(manifestPath), "inputs/evidence-index.v2.json");
-  const file = resolveRepositoryFile(input, "Evidence index");
-  const value = JSON.parse(fs.readFileSync(file.absolute, "utf8"));
-  if (!Array.isArray(value?.entries)) throw new Error("Evidence index entries are unavailable.");
-  return { ...file, value };
-}
-
-function printPlan(manifestFile, manifest, targetCommit, evidenceRewrites, evidenceIndex) {
-  process.stdout.write([
-    "Promotion baseline two-phase re-affirmation plan",
-    `  pilot        : ${path.posix.dirname(manifestFile.relative)}`,
-    `  from         : ${manifest.targetBaselineCommit}`,
-    `  to           : ${targetCommit}`,
-    `  roles        : ${requiredRoles(manifest).join(", ")}`,
-    "",
-    `Evidence phase (${evidenceRewrites.length} files):`,
-    ...evidenceRewrites.map(({ binding, file }) => `  ${binding.role.padEnd(5)} ${file.relative}`),
-    "",
-    "Binding phase (2 files, only after the evidence commit exists):",
-    `  manifest       ${manifestFile.relative}`,
-    `  evidence index ${evidenceIndex.relative}`
-  ].join("\n") + "\n");
-}
-
-function writeEvidencePhase(options, manifestFile, manifest, targetCommit, evidenceRewrites) {
-  assertCleanWorktree();
-  const roles = requiredRoles(manifest);
-  assertAttestations(manifest, options.attestedBy);
-  assertCommittedJustification(options.justification, targetCommit, roles);
-  for (const { file, updated } of evidenceRewrites) fs.writeFileSync(file.absolute, updated);
-  process.stdout.write(
-    `Evidence phase written (${evidenceRewrites.length} files). Commit only those evidence files, then run --write-bindings with that commit.\n`
+function isTestOnlyPath(relativePath) {
+  return (
+    relativePath.startsWith("tests/") ||
+    /(?:^|\/)(?:__tests__)(?:\/|$)/u.test(relativePath) ||
+    /\.(?:test|spec)\.[cm]?[jt]sx?$/u.test(relativePath)
   );
 }
 
-function writeBindingPhase(options, manifestFile, manifest, targetCommit, evidenceIndex) {
+function collectProtectedDiff(fromCommit, toCommit) {
+  const output = git(["diff", "--name-only", `${fromCommit}..${toCommit}`, "--", ...protectedPaths]).trim();
+  const changedPaths = output === "" ? [] : output.split("\n").filter(Boolean).sort();
+  return {
+    changedPaths,
+    testOnlyPaths: changedPaths.filter(isTestOnlyPath),
+    runtimePaths: changedPaths.filter((entry) => !isTestOnlyPath(entry))
+  };
+}
+
+export function buildReaffirmedLegacyRegistry(sourceRegistry, targetCommit) {
+  const next = structuredClone(sourceRegistry);
+  if (!commitPattern.test(next?.targetBaselineCommit ?? "")) {
+    throw new Error("Source legacy registry has no valid target baseline.");
+  }
+  next.targetBaselineCommit = targetCommit;
+  return next;
+}
+
+export function buildReaffirmedEvidence(sourceEvidence, context) {
+  const next = structuredClone(sourceEvidence);
+  const sourceTarget = sourceEvidence.targetBaselineCommit;
+  if (!commitPattern.test(sourceTarget ?? "") || !next?.semanticPayload || typeof next.semanticPayload !== "object") {
+    throw new Error("Source evidence has no valid target baseline or semantic payload.");
+  }
+  next.evidenceId = `${sourceEvidence.evidenceId}-${context.revisionId}`;
+  next.producedAt = context.producedAt;
+  next.targetBaselineCommit = context.targetCommit;
+  if (Object.hasOwn(next.semanticPayload, "targetBaselineCommit")) {
+    next.semanticPayload.targetBaselineCommit = context.targetCommit;
+  }
+  if (Object.hasOwn(next.semanticPayload, "legacyResolutionRegistryPath")) {
+    next.semanticPayload.legacyResolutionRegistryPath = context.legacyRegistryPath;
+  }
+  if (Object.hasOwn(next.semanticPayload, "legacyResolutionRegistryRawSha256")) {
+    next.semanticPayload.legacyResolutionRegistryRawSha256 = context.legacyRegistryRawSha256;
+  }
+  next.semanticPayload.baselineReaffirmation = {
+    schemaVersion: "promotion-baseline-reaffirmation.v1",
+    revisionId: context.revisionId,
+    sourceEvidenceId: sourceEvidence.evidenceId,
+    sourceEvidencePath: context.sourceEvidencePath,
+    sourceEvidenceRawSha256: context.sourceEvidenceRawSha256,
+    priorTargetBaselineCommit: sourceTarget,
+    targetBaselineCommit: context.targetCommit,
+    justificationPath: context.justificationPath,
+    protectedChangedPaths: context.protectedDiff.changedPaths,
+    testOnlyChangedPaths: context.protectedDiff.testOnlyPaths,
+    runtimeChangedPaths: context.protectedDiff.runtimePaths,
+    candidateBytesChanged: false,
+    liveAllowed: false
+  };
+  return next;
+}
+
+function planRevision(manifestFile, targetCommit, revisionRoot, options) {
+  const manifest = manifestFile.value;
+  if (manifest.targetBaselineCommit === targetCommit) {
+    throw new Error("The source Manifest already names the requested target; create no redundant revision.");
+  }
+  const legacySource = loadCanonicalJson(
+    resolveRepositoryFile(manifest.legacyResolution.registryPath, "Source legacy registry"),
+    "Source legacy registry"
+  );
+  if (legacySource.rawSha256 !== manifest.legacyResolution.rawSha256) {
+    throw new Error("Source legacy registry bytes do not match the Source Manifest.");
+  }
+  const legacyValue = buildReaffirmedLegacyRegistry(legacySource.value, targetCommit);
+  const legacyRelative = `${revisionRoot.relative}/inputs/legacy-resolution-registry.v2.6.json`;
+  const legacyBytes = Buffer.from(canonicalJson(legacyValue), "utf8");
+  const legacyRawSha256 = sha256(legacyBytes);
+  const protectedDiff = collectProtectedDiff(manifest.targetBaselineCommit, targetCommit);
+
+  const evidence = manifest.evidenceBindings.map((binding) => {
+    const sourceFile = resolveRepositoryFile(binding.evidencePath, `${binding.role} source evidence`);
+    const sourceLoaded = loadCanonicalJson(sourceFile, `${binding.role} source evidence`);
+    if (sourceLoaded.rawSha256 !== binding.rawSha256) {
+      throw new Error(`${binding.role} source evidence does not match its Manifest raw digest.`);
+    }
+    const reviewed = gitBlob(binding.reviewedCommit, sourceFile.relative);
+    if (!sourceLoaded.bytes.equals(reviewed)) {
+      throw new Error(`${binding.role} source evidence does not match its reviewed commit.`);
+    }
+    const destinationRelative = `${revisionRoot.relative}/inputs/evidence/${path.posix.basename(sourceFile.relative)}`;
+    const value = options.producedAt
+      ? buildReaffirmedEvidence(sourceLoaded.value, {
+          revisionId: revisionRoot.revisionId,
+          producedAt: options.producedAt,
+          targetCommit,
+          legacyRegistryPath: legacyRelative,
+          legacyRegistryRawSha256: legacyRawSha256,
+          justificationPath: options.justification,
+          protectedDiff,
+          sourceEvidencePath: sourceFile.relative,
+          sourceEvidenceRawSha256: sourceLoaded.rawSha256
+        })
+      : null;
+    return {
+      binding,
+      source: sourceLoaded,
+      destination: assertSafeRelative(destinationRelative, `${binding.role} revision evidence`),
+      value,
+      bytes: value ? Buffer.from(canonicalJson(value), "utf8") : null
+    };
+  });
+
+  return {
+    manifestFile,
+    manifest,
+    targetCommit,
+    revisionRoot,
+    protectedDiff,
+    legacy: {
+      source: legacySource,
+      destination: assertSafeRelative(legacyRelative, "Revision legacy registry"),
+      value: legacyValue,
+      bytes: legacyBytes,
+      rawSha256: legacyRawSha256
+    },
+    evidence,
+    evidenceIndex: assertSafeRelative(`${revisionRoot.relative}/inputs/evidence-index.v2.json`, "Revision evidence index"),
+    destinationManifest: assertSafeRelative(`${revisionRoot.relative}/promotion-manifest.v2.json`, "Revision Manifest")
+  };
+}
+
+function printPlan(plan) {
+  process.stdout.write([
+    "Promotion baseline immutable re-affirmation revision",
+    `  source       : ${plan.manifestFile.relative}`,
+    `  revision     : ${plan.revisionRoot.relative}`,
+    `  from         : ${plan.manifest.targetBaselineCommit}`,
+    `  to           : ${plan.targetCommit}`,
+    `  roles        : ${requiredRoles(plan.manifest).join(", ")}`,
+    `  runtime diff : ${plan.protectedDiff.runtimePaths.join(", ") || "none"}`,
+    `  test diff    : ${plan.protectedDiff.testOnlyPaths.join(", ") || "none"}`,
+    "",
+    `Evidence phase (${plan.evidence.length + 1} new files):`,
+    `  legacy ${plan.legacy.destination.relative}`,
+    ...plan.evidence.map(({ binding, destination }) => `  ${binding.role.padEnd(6)} ${destination.relative}`),
+    "",
+    "Binding phase (2 new files, only after the evidence commit exists):",
+    `  manifest       ${plan.destinationManifest.relative}`,
+    `  evidence index ${plan.evidenceIndex.relative}`
+  ].join("\n") + "\n");
+}
+
+function assertDestinationAbsent(destination, label) {
+  if (fs.existsSync(destination.absolute)) {
+    throw new Error(`${label} already exists; revisions are append-only and cannot be overwritten.`);
+  }
+}
+
+function writeNewFile(destination, bytes) {
+  fs.mkdirSync(path.dirname(destination.absolute), { recursive: true });
+  fs.writeFileSync(destination.absolute, bytes, { flag: "wx" });
+}
+
+function writeEvidencePhase(options, plan) {
   assertCleanWorktree();
-  const roles = requiredRoles(manifest);
-  assertAttestations(manifest, options.attestedBy);
-  assertCommittedJustification(options.justification, targetCommit, roles);
+  assertProducedAt(options.producedAt);
+  const roles = requiredRoles(plan.manifest);
+  assertAttestations(plan.manifest, options.attestedBy);
+  assertCommittedJustification(options.justification, plan.targetCommit, roles, plan.revisionRoot.relative);
+  assertDestinationAbsent(plan.legacy.destination, "Revision legacy registry");
+  for (const { destination } of plan.evidence) assertDestinationAbsent(destination, "Revision evidence");
+  writeNewFile(plan.legacy.destination, plan.legacy.bytes);
+  for (const { destination, bytes } of plan.evidence) writeNewFile(destination, bytes);
+  process.stdout.write(
+    `Evidence phase written (${plan.evidence.length + 1} new files). Commit only those files, then run --write-bindings with that commit.\n`
+  );
+}
+
+function writeBindingPhase(options, plan) {
+  assertCleanWorktree();
+  const roles = requiredRoles(plan.manifest);
+  assertAttestations(plan.manifest, options.attestedBy);
+  assertCommittedJustification(options.justification, plan.targetCommit, roles, plan.revisionRoot.relative);
   if (!options.evidenceCommit) throw new Error("--write-bindings requires --evidence-commit.");
   const evidenceCommit = resolveCommit(options.evidenceCommit, "Evidence commit");
-  assertAncestor(targetCommit, evidenceCommit, "Target baseline");
+  assertAncestor(plan.targetCommit, evidenceCommit, "Target baseline");
   assertAncestor(evidenceCommit, resolveCommit("HEAD", "HEAD"), "Evidence commit");
+  assertDestinationAbsent(plan.destinationManifest, "Revision Manifest");
+  assertDestinationAbsent(plan.evidenceIndex, "Revision evidence index");
 
-  const refreshedBindings = new Map();
-  for (const binding of manifest.evidenceBindings) {
-    const file = resolveRepositoryFile(binding.evidencePath, `${binding.role} evidence`);
-    const committed = gitBlob(evidenceCommit, file.relative);
-    const working = fs.readFileSync(file.absolute);
+  const committedLegacy = gitBlob(evidenceCommit, plan.legacy.destination.relative);
+  const workingLegacy = fs.readFileSync(plan.legacy.destination.absolute);
+  if (!workingLegacy.equals(committedLegacy)) {
+    throw new Error("Revision legacy registry must exactly match --evidence-commit.");
+  }
+  const legacyValue = JSON.parse(committedLegacy.toString("utf8"));
+  if (legacyValue.targetBaselineCommit !== plan.targetCommit) {
+    throw new Error("Committed revision legacy registry has the wrong target baseline.");
+  }
+  const legacyRawSha256 = sha256(committedLegacy);
+
+  const refreshedBindings = plan.evidence.map(({ binding, destination }) => {
+    const committed = gitBlob(evidenceCommit, destination.relative);
+    const working = fs.readFileSync(destination.absolute);
     if (!working.equals(committed)) {
-      throw new Error(`${binding.role} evidence must exactly match --evidence-commit.`);
+      throw new Error(`${binding.role} revision evidence must exactly match --evidence-commit.`);
     }
     const evidence = JSON.parse(committed.toString("utf8"));
     if (
       evidence.role !== binding.role ||
-      evidence.evidenceId !== binding.evidenceId ||
       evidence.result !== binding.expectedResult ||
-      evidence.candidateDigest !== manifest.candidateDigest ||
-      evidence.sourceCommit !== manifest.sourceCommit ||
-      evidence.targetBaselineCommit !== targetCommit ||
-      evidence.checkerVersion !== manifest.checkerVersion
+      evidence.candidateDigest !== plan.manifest.candidateDigest ||
+      evidence.sourceCommit !== plan.manifest.sourceCommit ||
+      evidence.targetBaselineCommit !== plan.targetCommit ||
+      evidence.checkerVersion !== plan.manifest.checkerVersion
     ) {
-      throw new Error(`${binding.role} committed evidence is not a valid re-affirmation for this Manifest.`);
+      throw new Error(`${binding.role} committed revision evidence has invalid identity or currentness.`);
     }
-    refreshedBindings.set(binding.role, {
+    if (
+      (binding.role === "A23" || binding.role === "A25") &&
+      (
+        evidence.semanticPayload?.targetBaselineCommit !== plan.targetCommit ||
+        evidence.semanticPayload?.legacyResolutionRegistryPath !== plan.legacy.destination.relative ||
+        evidence.semanticPayload?.legacyResolutionRegistryRawSha256 !== legacyRawSha256
+      )
+    ) {
+      throw new Error(`${binding.role} does not independently bind the revision registry and target baseline.`);
+    }
+    return {
+      role: binding.role,
+      evidenceId: evidence.evidenceId,
+      evidencePath: destination.relative,
       rawSha256: sha256(committed),
       semanticDigest: computeV2EvidenceSemanticDigest(evidence),
       reviewedCommit: evidenceCommit,
+      expectedResult: binding.expectedResult,
       currentness: {
         candidateDigest: evidence.candidateDigest,
         sourceCommit: evidence.sourceCommit,
         targetBaselineCommit: evidence.targetBaselineCommit,
         checkerVersion: evidence.checkerVersion
       }
-    });
+    };
+  });
+
+  const sourceIndex = loadCanonicalJson(
+    resolveRepositoryFile(plan.manifest.evidenceIndex.path, "Source evidence index"),
+    "Source evidence index"
+  );
+  if (sourceIndex.rawSha256 !== plan.manifest.evidenceIndex.rawSha256) {
+    throw new Error("Source evidence index bytes do not match the Source Manifest.");
   }
-
-  const nextManifest = structuredClone(manifest);
-  nextManifest.targetBaselineCommit = targetCommit;
-  for (const binding of nextManifest.evidenceBindings) Object.assign(binding, refreshedBindings.get(binding.role));
-
-  const nextIndex = structuredClone(evidenceIndex.value);
-  nextIndex.targetBaselineCommit = targetCommit;
-  const indexRoles = nextIndex.entries.map((entry) => entry.role).sort();
-  if (JSON.stringify(indexRoles) !== JSON.stringify([...roles].sort())) {
-    throw new Error("Evidence index role set does not match the Manifest.");
-  }
-  for (const entry of nextIndex.entries) Object.assign(entry, refreshedBindings.get(entry.role));
-
+  const nextIndex = structuredClone(sourceIndex.value);
+  nextIndex.targetBaselineCommit = plan.targetCommit;
+  nextIndex.entries = refreshedBindings;
   const nextIndexBytes = Buffer.from(canonicalJson(nextIndex), "utf8");
-  nextManifest.evidenceIndex.rawSha256 = sha256(nextIndexBytes);
 
-  fs.writeFileSync(manifestFile.absolute, canonicalJson(nextManifest));
-  fs.writeFileSync(evidenceIndex.absolute, nextIndexBytes);
+  const nextManifest = structuredClone(plan.manifest);
+  nextManifest.targetBaselineCommit = plan.targetCommit;
+  nextManifest.legacyResolution = {
+    registryPath: plan.legacy.destination.relative,
+    rawSha256: legacyRawSha256
+  };
+  nextManifest.evidenceIndex = {
+    path: plan.evidenceIndex.relative,
+    rawSha256: sha256(nextIndexBytes)
+  };
+  nextManifest.evidenceBindings = refreshedBindings;
+
+  writeNewFile(plan.evidenceIndex, nextIndexBytes);
+  writeNewFile(plan.destinationManifest, Buffer.from(canonicalJson(nextManifest), "utf8"));
   process.stdout.write(
-    `Binding phase written for evidence commit ${evidenceCommit}. Commit only the Manifest and evidence index, then run Promotion validation.\n`
+    `Binding phase written for evidence commit ${evidenceCommit}. Commit only the revision Manifest and evidence index, then run Promotion validation.\n`
   );
 }
 
-function main() {
-  const options = parseArgs(process.argv.slice(2));
+export function main(argv = process.argv.slice(2)) {
+  const options = parseArgs(argv);
   if (options.help) {
     process.stdout.write(`${usage()}\n`);
     return;
   }
   if (options.rejectedMonolithicWrite) {
-    throw new Error("Monolithic --write is disabled; use the committed --write-evidence and --write-bindings phases.");
+    throw new Error("Monolithic --write is disabled; create an append-only revision with the two committed phases.");
   }
-  if (!options.manifest || !options.target || (options.writeEvidence && options.writeBindings)) {
+  if (
+    !options.manifest ||
+    !options.target ||
+    !options.revisionRoot ||
+    (options.writeEvidence && options.writeBindings)
+  ) {
     process.stderr.write(`${usage()}\n`);
     process.exitCode = 2;
     return;
   }
-
   const manifestFile = loadManifest(options.manifest);
-  const manifest = manifestFile.value;
   const targetCommit = resolveCommit(options.target, "Target baseline");
-  const headCommit = resolveCommit("HEAD", "HEAD");
-  assertAncestor(targetCommit, headCommit, "Target baseline");
-  if (manifest.targetBaselineCommit === targetCommit && !options.writeBindings) {
-    process.stdout.write(`Baseline already points at ${targetCommit}. Nothing to do.\n`);
-    return;
-  }
-  const evidenceIndex = loadEvidenceIndex(manifestFile.relative);
-
-  // After phase one is committed, the evidence bytes intentionally no longer
-  // match the old Manifest hashes. Binding mode must therefore read and verify
-  // those bytes against --evidence-commit, not run the phase-one stale-binding
-  // checks again before it has a chance to refresh the Manifest.
-  if (options.writeBindings) {
-    const evidenceFiles = collectEvidenceFiles(manifest);
-    printPlan(manifestFile, manifest, targetCommit, evidenceFiles, evidenceIndex);
-    writeBindingPhase(options, manifestFile, manifest, targetCommit, evidenceIndex);
-    return;
-  }
-
-  const evidenceRewrites = collectEvidenceRewrites(
-    manifest,
-    manifest.targetBaselineCommit,
-    targetCommit
-  );
-  printPlan(manifestFile, manifest, targetCommit, evidenceRewrites, evidenceIndex);
-
-  if (options.writeEvidence) {
-    writeEvidencePhase(options, manifestFile, manifest, targetCommit, evidenceRewrites);
-  } else {
-    process.stdout.write("\nDRY RUN — no files written.\n");
-  }
+  assertAncestor(targetCommit, resolveCommit("HEAD", "HEAD"), "Target baseline");
+  const revisionRoot = resolveRevisionRoot(manifestFile.relative, options.revisionRoot);
+  if (options.writeEvidence) assertProducedAt(options.producedAt);
+  const plan = planRevision(manifestFile, targetCommit, revisionRoot, options);
+  printPlan(plan);
+  if (options.writeEvidence) writeEvidencePhase(options, plan);
+  else if (options.writeBindings) writeBindingPhase(options, plan);
+  else process.stdout.write("\nDRY RUN — no files written.\n");
 }
 
-main();
+if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) main();
