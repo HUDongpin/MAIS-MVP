@@ -1660,6 +1660,46 @@ test("ordinary Postgres validation rejects JSONB scalar strings outside the vers
   );
 });
 
+test("legacy snapshot missing-collection repair is additive and rejects high-risk or malformed state", async () => {
+  const readiness = await import("@/lib/server/userStore");
+  const hooks = readiness.__userStorePostgresStorageReadinessTestHooks as
+    typeof readiness.__userStorePostgresStorageReadinessTestHooks & {
+      repairLegacySnapshotMissingCollections?: (snapshot: unknown) => null | {
+        addedCollectionCount: number;
+        payload: Record<string, unknown>;
+      };
+    };
+  assert.equal(typeof hooks.repairLegacySnapshotMissingCollections, "function");
+  const complete = hooks.createCompleteSnapshot() as Record<string, unknown>;
+  const missingSafeCollection = structuredClone(complete);
+  delete missingSafeCollection.teacher_notice_delivery_attempts;
+  const repaired = hooks.repairLegacySnapshotMissingCollections?.(missingSafeCollection);
+  assert.ok(repaired);
+  assert.equal(repaired.addedCollectionCount, 1);
+  assert.deepEqual(repaired.payload.teacher_notice_delivery_attempts, []);
+  for (const [key, value] of Object.entries(missingSafeCollection)) {
+    assert.deepEqual(repaired.payload[key], value, `existing snapshot key changed: ${key}`);
+  }
+  assert.equal(
+    readiness.postgresStorageSnapshotContractIsComplete(repaired.payload),
+    true
+  );
+
+  const missingHighRiskCollection = structuredClone(complete);
+  delete missingHighRiskCollection.teacher_classes;
+  assert.equal(
+    hooks.repairLegacySnapshotMissingCollections?.(missingHighRiskCollection),
+    null
+  );
+
+  const malformedCollection = structuredClone(complete);
+  malformedCollection.teacher_notice_delivery_attempts = {};
+  assert.equal(
+    hooks.repairLegacySnapshotMissingCollections?.(malformedCollection),
+    null
+  );
+});
+
 test("initializer strict probe propagates non-42P01 without bootstrapping while the external wrapper stays private", async () => {
   const readiness = await import("@/lib/server/userStore");
   const permissionError = Object.assign(new Error("sensitive database permission diagnostics"), {

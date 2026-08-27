@@ -3656,24 +3656,24 @@ function postgresStorageLegacySnapshotIsComplete(
   }
 }
 
-async function postgresStorageNoReadinessMarkerIsComplete(
-  sql: PostgresReadinessTransaction,
-  compatibilityVersion: "canonical" | "legacy-v1"
-) {
+async function postgresStorageNoReadinessMarkerCompatibilityVersion(
+  sql: PostgresReadinessTransaction
+) : Promise<"canonical" | "legacy-v1" | null> {
   if (!await postgresStoragePhysicalRelationsAreCanonical(
     sql,
     postgresStorageLegacyNoReadinessMarkerRelationNames
-  )) return false;
+  )) return null;
   if (!await postgresStorageReadinessCatalogIsComplete(
     sql,
     postgresStorageLegacyNoReadinessMarkerRequiredColumns
-  )) return false;
-  if (!await (
-    compatibilityVersion === "canonical"
-      ? postgresStorageCanonicalCompatibilityTriggerIsComplete(sql)
-      : postgresStorageLegacyV1CompatibilityTriggerIsComplete(sql)
-  )) return false;
-  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return false;
+  )) return null;
+  const compatibilityVersion = await postgresStorageCanonicalCompatibilityTriggerIsComplete(sql)
+    ? "canonical"
+    : await postgresStorageLegacyV1CompatibilityTriggerIsComplete(sql)
+      ? "legacy-v1"
+      : null;
+  if (compatibilityVersion === null) return null;
+  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return null;
 
   const orphanRows = await sql`
     /* postgres_storage_legacy_readiness_artifact_probe */
@@ -3689,6 +3689,17 @@ async function postgresStorageNoReadinessMarkerIsComplete(
   if (
     orphanRows.length !== 1
     || orphanRows[0]?.invalidation_function_absent !== true
+  ) return null;
+  return compatibilityVersion;
+}
+
+async function postgresStorageNoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction,
+  compatibilityVersion: "canonical" | "legacy-v1"
+) {
+  if (
+    await postgresStorageNoReadinessMarkerCompatibilityVersion(sql)
+      !== compatibilityVersion
   ) return false;
 
   const snapshotRows = await sql`
@@ -3705,6 +3716,32 @@ async function postgresStorageNoReadinessMarkerIsComplete(
       ) = 1
   ` as Array<{ payload: unknown; revision: unknown }>;
   return postgresStorageLegacySnapshotIsComplete(snapshotRows);
+}
+
+async function postgresStorageMissingCollectionsNoReadinessMarkerIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  if (await postgresStorageNoReadinessMarkerCompatibilityVersion(sql) === null) {
+    return false;
+  }
+  const snapshotRows = await sql`
+    /* postgres_storage_legacy_missing_collections_snapshot_probe */
+    SELECT state.payload, state.revision
+    FROM public.app_state AS state
+    WHERE state.id = ${stateRecordId}
+      AND state.tenant_id = ${stateTenantId}
+      AND state.state_kind = ${stateKind}
+      AND state.schema_version = ${schemaVersion}
+      AND (
+        SELECT pg_catalog.count(*)
+        FROM public.app_state AS counted_state
+      ) = 1
+  ` as Array<{ payload: unknown; revision: unknown }>;
+  return snapshotRows.length === 1
+    && safePostgresRevision(snapshotRows[0]?.revision) !== null
+    && repairPostgresStorageLegacySnapshotMissingCollections(
+      snapshotRows[0]?.payload
+    ) !== null;
 }
 
 async function postgresStorageLegacyNoReadinessMarkerIsComplete(
@@ -5511,6 +5548,137 @@ async function bootstrapPostgresStateTablesOnClient(
   });
 }
 
+async function repairPostgresStorageMissingCollectionsOnClient(
+  sql: postgres.Sql
+) {
+  return sql.begin(async (migrationSql) => {
+    const transactionSql = migrationSql as unknown as PostgresReadinessTransaction;
+    await migrationSql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '5000ms', true),
+        pg_catalog.set_config('statement_timeout', '60000ms', true),
+        pg_catalog.set_config('idle_in_transaction_session_timeout', '60000ms', true)
+    `;
+    await migrationSql`
+      /* postgres_storage_contract_exclusive_advisory_lock */
+      SELECT pg_catalog.pg_advisory_xact_lock(
+        pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+      )
+    `;
+    await migrationSql`
+      LOCK TABLE
+        public.app_state,
+        public.auth_schema_migrations,
+        public.ai_tutor_message_journal,
+        public.ai_tutor_usage_journal,
+        public.auth_users,
+        public.auth_student_profiles,
+        public.auth_user_settings,
+        public.auth_password_reset_tokens
+      IN SHARE ROW EXCLUSIVE MODE
+    `;
+
+    const compatibilityVersion =
+      await postgresStorageNoReadinessMarkerCompatibilityVersion(transactionSql);
+    if (compatibilityVersion === null) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    const snapshotRows = await migrationSql<Array<{
+      payload: unknown;
+      revision: unknown;
+    }>>`
+      SELECT state.payload, state.revision
+      FROM public.app_state AS state
+      WHERE state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion}
+        AND (
+          SELECT pg_catalog.count(*)
+          FROM public.app_state AS counted_state
+        ) = 1
+      FOR UPDATE OF state
+    `;
+    const previousRevision = safePostgresRevision(snapshotRows[0]?.revision);
+    const repair = repairPostgresStorageLegacySnapshotMissingCollections(
+      snapshotRows[0]?.payload
+    );
+    if (snapshotRows.length !== 1 || previousRevision === null || !repair) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    if (compatibilityVersion === "legacy-v1") {
+      await installPostgresStorageCompatibilityContract(transactionSql);
+    }
+    const repairedPayload = repair.payload as postgres.JSONValue;
+    const repairedRevision = previousRevision + 1;
+    const repairedRows = await migrationSql<Array<{
+      payload: unknown;
+      payload_matches: boolean;
+      revision: unknown;
+      revision_matches: boolean;
+      state_identity_matches: boolean;
+    }>>`
+      /* postgres_storage_legacy_missing_collections_repair */
+      UPDATE public.app_state AS state
+      SET
+        payload = ${migrationSql.json(repairedPayload)}::pg_catalog.jsonb,
+        revision = state.revision + 1,
+        updated_at = NOW()
+      WHERE state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion}
+        AND state.revision = ${previousRevision}
+      RETURNING
+        state.payload,
+        state.revision,
+        state.payload = ${migrationSql.json(repairedPayload)}::pg_catalog.jsonb
+          AS payload_matches,
+        state.revision = ${repairedRevision} AS revision_matches,
+        state.id = ${stateRecordId}
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion}
+          AS state_identity_matches
+    `;
+    const repairedRow = repairedRows[0];
+    if (
+      repairedRows.length !== 1
+      || repairedRow?.payload_matches !== true
+      || repairedRow?.revision_matches !== true
+      || repairedRow?.state_identity_matches !== true
+      || safePostgresRevision(repairedRow?.revision) !== repairedRevision
+    ) {
+      throw new Error("Postgres production schema operation plan changed.");
+    }
+    const validatedSnapshot = validateCompletePostgresStorageSnapshot(
+      repairedRow.payload
+    );
+    await installPostgresStorageReadinessMarkerContract(transactionSql);
+    if (!await postgresStoragePhysicalRelationsAreCanonical(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresStorageReadinessCatalogIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresStorageReadinessInvalidationIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    if (!await postgresHotAuthReadinessCatalogIsComplete(transactionSql)) {
+      throw new Error("Postgres production schema postflight was rejected.");
+    }
+    await attestValidatedPostgresStorageSnapshot(
+      transactionSql,
+      validatedSnapshot,
+      currentPostgresStorageReadinessState(),
+      repairedRevision
+    );
+  }).catch((error) => {
+    throw normalizePostgresSchemaBootstrapError(error);
+  });
+}
+
 async function completePostgresStorageReadinessMarkerOnClient(
   sql: postgres.Sql,
   expectedState:
@@ -5618,6 +5786,7 @@ export type PostgresStorageProductionSchemaState =
   | "empty"
   | "legacy-no-readiness-marker"
   | "legacy-v1-compatibility-no-readiness-marker"
+  | "legacy-missing-collections-no-readiness-marker"
   | "exact"
   | "partial";
 
@@ -5661,6 +5830,10 @@ export async function inspectPostgresStorageSchemaForProductionGate(
       relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
       && await postgresStorageLegacyV1NoReadinessMarkerIsComplete(sql)
     ) return "legacy-v1-compatibility-no-readiness-marker";
+    if (
+      relationCount === postgresStorageLegacyNoReadinessMarkerRelationNames.length
+      && await postgresStorageMissingCollectionsNoReadinessMarkerIsComplete(sql)
+    ) return "legacy-missing-collections-no-readiness-marker";
     if (relationCount !== postgresStorageCanonicalRelationNames.length) return "partial";
     if (!await postgresStorageReadinessCatalogIsComplete(sql)) return "partial";
     if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return "partial";
@@ -5699,13 +5872,15 @@ export async function applyPostgresStorageSchemaForProductionGate(
   expectedState:
     | "empty"
     | "legacy-no-readiness-marker"
-    | "legacy-v1-compatibility-no-readiness-marker" = "empty"
+    | "legacy-v1-compatibility-no-readiness-marker"
+    | "legacy-missing-collections-no-readiness-marker" = "empty"
 ) {
   assertPostgresStorageProductionSchemaGateContext();
   if (
     expectedState !== "empty"
     && expectedState !== "legacy-no-readiness-marker"
     && expectedState !== "legacy-v1-compatibility-no-readiness-marker"
+    && expectedState !== "legacy-missing-collections-no-readiness-marker"
   ) {
     throw new Error("Postgres production schema operation plan changed.");
   }
@@ -5719,6 +5894,8 @@ export async function applyPostgresStorageSchemaForProductionGate(
       lockTimeout: "5000ms",
       statementTimeout: "60000ms"
     });
+  } else if (expectedState === "legacy-missing-collections-no-readiness-marker") {
+    await repairPostgresStorageMissingCollectionsOnClient(client);
   } else {
     await completePostgresStorageReadinessMarkerOnClient(client, expectedState);
   }
@@ -7607,6 +7784,71 @@ export function postgresStorageSnapshotContractIsComplete(value: unknown) {
   }
 }
 
+const postgresStorageMissingCollectionRepairHighRiskKeys = new Set<keyof Database>([
+  "ai_tutor_messages",
+  "ai_tutor_usage",
+  "class_ai_tutor_policies",
+  "class_enrollments",
+  "password_reset_tokens",
+  "student_profiles",
+  "teacher_classes",
+  "user_settings",
+  "users"
+]);
+const postgresStorageMissingCollectionRepairOptionalKeys = new Set<keyof Database>([
+  "adventure_relics",
+  "ai_tutor_transcript_access_events",
+  "class_ai_tutor_policies",
+  "content_safety_flags",
+  "deleted_assignment_ids",
+  "fishing_dex",
+  "learning_path_step_progress",
+  "practice_island_stars",
+  "student_accommodations",
+  "teacher_learning_paths",
+  "teacher_student_groups"
+]);
+
+function repairPostgresStorageLegacySnapshotMissingCollections(snapshot: unknown) {
+  if (typeof snapshot !== "object" || snapshot === null || Array.isArray(snapshot)) {
+    return null;
+  }
+  const parsed = snapshot as Partial<Database>;
+  if (!hasCoreTables(parsed)) return null;
+  let normalized: Database;
+  try {
+    normalized = normalizeDatabase(parsed);
+  } catch {
+    return null;
+  }
+  const repaired: Record<string, unknown> = { ...parsed };
+  let addedCollectionCount = 0;
+  for (const [rawKey, normalizedValue] of Object.entries(normalized)) {
+    if (Object.prototype.hasOwnProperty.call(parsed, rawKey)) continue;
+    const key = rawKey as keyof Database;
+    if (postgresStorageMissingCollectionRepairOptionalKeys.has(key)) continue;
+    if (postgresStorageMissingCollectionRepairHighRiskKeys.has(key)) return null;
+    if (Array.isArray(normalizedValue)) {
+      repaired[key] = [];
+    } else if (
+      key === "nova_lens_policy"
+      && typeof normalizedValue === "object"
+      && normalizedValue !== null
+      && !Array.isArray(normalizedValue)
+    ) {
+      repaired[key] = {};
+    } else {
+      return null;
+    }
+    addedCollectionCount += 1;
+  }
+  if (
+    addedCollectionCount === 0
+    || !postgresStorageSnapshotContractIsComplete(repaired)
+  ) return null;
+  return Object.freeze({ addedCollectionCount, payload: repaired });
+}
+
 const validatedPostgresStorageSnapshotBrand = Symbol("validated-postgres-storage-snapshot");
 const postgresStorageMutationCapabilityBrand = Symbol("postgres-storage-mutation-capability");
 
@@ -7877,6 +8119,8 @@ async function reattestCurrentPostgresStorageSnapshotForIntegrationTest() {
 }
 
 export const __userStorePostgresStorageReadinessTestHooks = {
+  repairLegacySnapshotMissingCollections:
+    repairPostgresStorageLegacySnapshotMissingCollections,
   attestHotAuthPrimaryKeyAllowlist: (
     sql: PostgresReadinessTransaction,
     primaryKeys: Array<{ table: string; columns: string[] }>
@@ -7913,6 +8157,12 @@ export const __userStorePostgresStorageReadinessTestHooks = {
       client,
       "legacy-no-readiness-marker"
     );
+  },
+  repairLegacyMissingCollectionsAndReadiness: async (client: postgres.Sql) => {
+    if (process.env.NODE_ENV !== "test") {
+      throw new Error("Postgres legacy snapshot repair is available only to integration tests.");
+    }
+    await repairPostgresStorageMissingCollectionsOnClient(client);
   },
   upgradeLegacyV1CompatibilityAndReadiness: async (client: postgres.Sql) => {
     if (process.env.NODE_ENV !== "test") {

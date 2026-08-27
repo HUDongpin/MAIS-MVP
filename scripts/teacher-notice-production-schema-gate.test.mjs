@@ -279,6 +279,15 @@ test("builds the exact production migration plan from independently attested sch
     }),
     ["app-storage-upgrade-legacy-compat-readiness-v2"]
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-missing-collections-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-repair-missing-collections-v1"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       appStorageState: "exact",
@@ -420,6 +429,30 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   );
   assert.deepEqual(legacyV1Stages, ["app-storage-legacy-v1-upgrade"]);
 
+  const missingCollectionStages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-repair-missing-collections-v1"],
+    productionEnvironment,
+    {
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(
+          expectedState,
+          "legacy-missing-collections-no-readiness-marker"
+        );
+        missingCollectionStages.push("app-storage-missing-collection-repair");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(
+    missingCollectionStages,
+    ["app-storage-missing-collection-repair"]
+  );
+
   await assert.rejects(
     applyMaisProductionSchemaOperations(
       client,
@@ -515,6 +548,11 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
 test("preflight binds clean local Git, fixed Vercel production env, and read-only database evidence without leaking target identity", async () => {
   let connectedUrl = null;
   let closed = false;
+  const priorStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER;
+  const priorDemoSetting = process.env.HK_MATH_ENABLE_DEMO_USER;
+  const priorHotAuthSetting = process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES;
+  const priorSchemaGate = process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE;
+  const inspectedEnvironment = {};
   const evidence = await preflightTeacherNoticeProductionSchema({
     candidateSha,
     connectPostgres: async (url) => {
@@ -524,23 +562,29 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
     expectedTreeSha,
     env: injectedProductionEnvironment(),
     fetchJsonImpl: providerPullFetchJson(),
-    inspectDatabase: async () => ({
-      appStorageSeedMode: "demo-disabled",
-      appStorageState: "empty",
-      databaseIdentity: {
-        databaseName: "secret-production",
-        databaseOid: "16401",
-        serverVersionNum: "160004"
-      },
-      heartbeatState: "empty",
-      outboxState: "empty",
-      statistics: {
-        indexBytes: "8192",
-        rowEstimate: "42",
-        tableBytes: "16384"
-      },
-      webhookState: "empty"
-    }),
+    inspectDatabase: async () => {
+      inspectedEnvironment.storageProvider = process.env.HK_MATH_STORAGE_PROVIDER;
+      inspectedEnvironment.demoSetting = process.env.HK_MATH_ENABLE_DEMO_USER;
+      inspectedEnvironment.hotAuthSetting = process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES;
+      inspectedEnvironment.schemaGate = process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE;
+      return {
+        appStorageSeedMode: "demo-disabled",
+        appStorageState: "empty",
+        databaseIdentity: {
+          databaseName: "secret-production",
+          databaseOid: "16401",
+          serverVersionNum: "160004"
+        },
+        heartbeatState: "empty",
+        outboxState: "empty",
+        statistics: {
+          indexBytes: "8192",
+          rowEstimate: "42",
+          tableBytes: "16384"
+        },
+        webhookState: "empty"
+      };
+    },
     readTokenImpl: async () => "vct_test_token_value_1234567890",
     repoRoot: process.cwd(),
     runCommand: cleanGitRunner()
@@ -548,6 +592,16 @@ test("preflight binds clean local Git, fixed Vercel production env, and read-onl
 
   assert.equal(connectedUrl, productionUrl);
   assert.equal(closed, true);
+  assert.deepEqual(inspectedEnvironment, {
+    demoSetting: "false",
+    hotAuthSetting: "true",
+    schemaGate: "github-actions-serialized-v1",
+    storageProvider: "postgres"
+  });
+  assert.equal(process.env.HK_MATH_STORAGE_PROVIDER, priorStorageProvider);
+  assert.equal(process.env.HK_MATH_ENABLE_DEMO_USER, priorDemoSetting);
+  assert.equal(process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES, priorHotAuthSetting);
+  assert.equal(process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE, priorSchemaGate);
   assert.equal(evidence.outboxState, "empty");
   assert.equal(evidence.appStorageState, "empty");
   assert.equal(evidence.appStorageSeedMode, "demo-disabled");

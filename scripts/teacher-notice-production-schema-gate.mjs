@@ -48,6 +48,7 @@ const appStorageStates = new Set([
   "empty",
   "legacy-no-readiness-marker",
   "legacy-v1-compatibility-no-readiness-marker",
+  "legacy-missing-collections-no-readiness-marker",
   "exact",
   "partial"
 ]);
@@ -235,6 +236,9 @@ export function buildTeacherNoticeProductionSchemaPlan({
   }
   if (appStorageState === "legacy-v1-compatibility-no-readiness-marker") {
     operations.push("app-storage-upgrade-legacy-compat-readiness-v2");
+  }
+  if (appStorageState === "legacy-missing-collections-no-readiness-marker") {
+    operations.push("app-storage-repair-missing-collections-v1");
   }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
@@ -941,7 +945,10 @@ async function readProductionInspection(dependencies) {
       return await runProductionSchemaStage(
         "postgres-inspect",
         async () => validateBoundProductionInspection(
-          await dependencies.inspectDatabase(client),
+          await withTemporaryProductionAppStorageEnvironment(
+            productionEnvironment,
+            () => dependencies.inspectDatabase(client)
+          ),
           productionUrl,
           productionEnvironment
         )
@@ -1080,6 +1087,10 @@ export async function applyMaisProductionSchemaOperations(
     [
       "app-storage-upgrade-legacy-compat-readiness-v2",
       "legacy-v1-compatibility-no-readiness-marker"
+    ],
+    [
+      "app-storage-repair-missing-collections-v1",
+      "legacy-missing-collections-no-readiness-marker"
     ]
   ]);
   const appOperationIndexes = operations

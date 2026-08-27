@@ -543,7 +543,19 @@ const productionSchemaPlans = new Set([
   '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3","heartbeat-install-v2"]',
   '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3"]',
   '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
-  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]'
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1"]',
+  '["app-storage-repair-missing-collections-v1","webhook-v2-to-v3"]',
+  '["app-storage-repair-missing-collections-v1","webhook-install-v3"]',
+  '["app-storage-repair-missing-collections-v1","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-repair-missing-collections-v1","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]'
 ]);
 
 function expectedProductionSchemaPlan({
@@ -557,6 +569,7 @@ function expectedProductionSchemaPlan({
       "empty",
       "legacy-no-readiness-marker",
       "legacy-v1-compatibility-no-readiness-marker",
+      "legacy-missing-collections-no-readiness-marker",
       "exact"
     ].includes(appStorageState) ||
     !["empty", "exact"].includes(outboxState) ||
@@ -573,6 +586,9 @@ function expectedProductionSchemaPlan({
   }
   if (appStorageState === "legacy-v1-compatibility-no-readiness-marker") {
     operations.push("app-storage-upgrade-legacy-compat-readiness-v2");
+  }
+  if (appStorageState === "legacy-missing-collections-no-readiness-marker") {
+    operations.push("app-storage-repair-missing-collections-v1");
   }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");

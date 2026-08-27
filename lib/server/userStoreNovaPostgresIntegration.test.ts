@@ -1066,6 +1066,64 @@ test(
         await assertIntegrationWorkerClientsClosed(sql);
       });
 
+      await t.test("production missing-collection repair is additive, atomic, and rejects high-risk loss", async () => {
+        const removeReadinessMarkerContract = async () => {
+          await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
+          await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
+          await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+        };
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        const beforeState = await readState(sql);
+        const before = await readStateEvidence(sql);
+        assert.deepEqual(beforeState.payload.teacher_notice_delivery_attempts, []);
+        await removeReadinessMarkerContract();
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = payload - 'teacher_classes'
+          WHERE id = 'primary'
+        `;
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "partial"
+        });
+        const rejected = await runWorker("production-schema-repair-missing-collections");
+        assert.equal(rejected.exitCode, 1);
+        assert.match(String(rejected.result.error), /operation plan changed/u);
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(beforeState.payload))}::pg_catalog.jsonb
+          WHERE id = 'primary'
+        `;
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = payload - 'teacher_notice_delivery_attempts'
+          WHERE id = 'primary'
+        `;
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "legacy-missing-collections-no-readiness-marker"
+        });
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-repair-missing-collections"),
+          { repaired: true }
+        );
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        const after = await readStateEvidence(sql);
+        assert.equal(after.payload_digest, before.payload_digest);
+        assert.equal(Number(after.revision), Number(before.revision) + 1);
+        assert.notEqual(after.updated_at, before.updated_at);
+        assert.equal(await readStorageReadinessMarkerCount(sql), 1);
+
+        const repeated = await runWorker("production-schema-repair-missing-collections");
+        assert.equal(repeated.exitCode, 1);
+        assert.match(String(repeated.result.error), /operation plan changed/u);
+        await assertIntegrationWorkerClientsClosed(sql);
+      });
+
       await t.test("production legacy v1 compatibility upgrade is exact, atomic, and snapshot-preserving", async () => {
         const legacyFunctionBody = await readFile(
           path.join(

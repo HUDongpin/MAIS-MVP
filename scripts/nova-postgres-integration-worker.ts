@@ -161,6 +161,17 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-repair-missing-collections") {
+      const sql = createDirectIntegrationClient();
+      try {
+        await store.__userStorePostgresStorageReadinessTestHooks
+          .repairLegacyMissingCollectionsAndReadiness(sql);
+        return { repaired: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-upgrade-legacy-v1") {
       const sql = createDirectIntegrationClient();
       try {

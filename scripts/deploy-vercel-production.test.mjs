@@ -463,6 +463,27 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
     ["app-storage-upgrade-legacy-compat-readiness-v2"]
   );
 
+  const repairingMissingCollections = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-missing-collections-no-readiness-marker",
+      operations: ["app-storage-repair-missing-collections-v1"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingMissingCollections.appStorageState,
+    "legacy-missing-collections-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingMissingCollections.operations,
+    ["app-storage-repair-missing-collections-v1"]
+  );
+
   assert.throws(
     () => parseTeacherNoticeProductionSchemaGateEvidence(
       JSON.stringify({
