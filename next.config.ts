@@ -94,6 +94,9 @@ const studentFishingMasterPath = "/student/practice/games/fishing-master";
 const nextConfig: NextConfig = {
   devIndicators: false,
   outputFileTracingRoot: process.cwd(),
+  outputFileTracingIncludes: {
+    "/api/teacher/lesson-kits/*/exports": ["./assets/fonts/NotoSansSC-Regular.otf", "./assets/fonts/NotoSansTC-Regular.otf"]
+  },
   reactStrictMode: true,
   skipMiddlewareUrlNormalize: true,
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],

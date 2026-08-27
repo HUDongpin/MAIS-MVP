@@ -542,6 +542,22 @@ export function TeacherPrepDetailView({ initialKit }: { initialKit: TeacherLesso
             <button disabled={Boolean(busy) || kit.reviewStatus !== "approved"} onClick={() => runAction("publish")} className="focus-ring h-11 rounded-2xl bg-slate-950 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950">
               {busy === "publish" ? t({ en: "Publishing...", zh: "正在發佈...", zhHans: "发布中..." }) : t({ en: "Publish and start class", zh: "發佈並開始授課", zhHans: "发布并开始授课" })}
             </button>
+            <div className="grid gap-2 border-t border-slate-200 pt-4 dark:border-white/10">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Canonical courseware exports", zh: "規範課件匯出", zhHans: "规范课件导出" })}</p>
+              <div className="grid grid-cols-2 gap-2">
+                {(["html", "pptx", "pdf", "json"] as const).map((format) => (
+                  <a
+                    key={format}
+                    href={`/api/teacher/lesson-kits/${encodeURIComponent(kit.id)}/exports?format=${format}&language=${encodeURIComponent(language)}`}
+                    download
+                    className="focus-ring rounded-xl border border-slate-200 px-3 py-2 text-center text-xs font-black uppercase text-slate-700 dark:border-white/10 dark:text-slate-200"
+                  >
+                    {format}
+                  </a>
+                ))}
+              </div>
+              <p className="text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">{t({ en: "Every format is rendered from one versioned manifest and retains the same SHA-256 identity.", zh: "所有格式均由同一版本化清單生成，並保留相同 SHA-256 標識。", zhHans: "所有格式均由同一版本化清单生成，并保留相同 SHA-256 标识。" })}</p>
+            </div>
             {message ? <p className="rounded-2xl bg-slate-950/[0.04] px-4 py-3 text-sm font-bold text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">{message}</p> : null}
             {publishResult ? <LessonKitPublishReadyPanel kit={kit} result={publishResult} /> : null}
             {kit.liveSessionId ? (
