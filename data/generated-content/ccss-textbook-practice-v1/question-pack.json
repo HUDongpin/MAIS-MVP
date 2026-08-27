@@ -63,8 +63,8 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "A full ten-frame is completely filled. How many counters is that?",
-        "zh": "一個十格框已完全填滿。一共有多少個計數片？",
-        "zhHans": "一个十格框已完全填满。一共有多少个计数片？"
+        "zh": "十格框全部放滿了，一共有多少個計數片？",
+        "zhHans": "十格框全部放满了，一共有多少个计数片？"
       },
       "options": [
         {
@@ -3637,24 +3637,24 @@
       "type": "multiple-choice",
       "prompt": {
         "en": "When you measure with tiles, the tiles must be…",
-        "zh": "用方塊量長度時，這些方塊必須……",
-        "zhHans": "用方块量长度时，这些方块必须……"
+        "zh": "用方塊量長度時，這些方塊必須是……",
+        "zhHans": "用方块量长度时，这些方块必须是……"
       },
       "options": [
         {
           "en": "the same size",
-          "zh": "相同的大小",
-          "zhHans": "相同的大小"
+          "zh": "大小一樣",
+          "zhHans": "大小一样"
         },
         {
           "en": "different sizes",
-          "zh": "不同的大小",
-          "zhHans": "不同的大小"
+          "zh": "大小不一樣",
+          "zhHans": "大小不一样"
         },
         {
           "en": "any size",
-          "zh": "任何大小",
-          "zhHans": "任何大小"
+          "zh": "什麼大小都可以",
+          "zhHans": "什么大小都可以"
         },
         {
           "en": "mostly round",
@@ -3718,8 +3718,8 @@
         },
         {
           "en": "half past",
-          "zh": "半點",
-          "zhHans": "半点"
+          "zh": "幾點半",
+          "zhHans": "几点半"
         },
         {
           "en": "always noon",
@@ -3808,8 +3808,8 @@
       ],
       "explanation": {
         "en": "Minute hand on 6 means half past.",
-        "zh": "分針指向 6，就是幾點半。",
-        "zhHans": "分针指向 6，就是几点半。"
+        "zh": "幾點半",
+        "zhHans": "几点半"
       },
       "independentAnswer": "half past the hour",
       "independentSolution": "Minute hand on 6 means half past."
@@ -3917,8 +3917,8 @@
       "type": "fill-in",
       "prompt": {
         "en": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?",
-        "zh": "圖表顯示有 6 隻狗、4 隻貓和 8 條魚。一共有多少隻寵物？",
-        "zhHans": "图表显示有 6 只狗、4 只猫和 8 条鱼。一共有多少只宠物？"
+        "zh": "統計圖上有 6 隻狗、4 隻貓和 8 條魚。一共有多少隻寵物？",
+        "zhHans": "统计图上有 6 只狗、4 只猫和 8 条鱼。一共有多少只宠物？"
       },
       "answer": "18",
       "acceptedAnswers": [
@@ -6803,8 +6803,8 @@
       "options": [
         {
           "en": "subtract",
-          "zh": "減",
-          "zhHans": "减"
+          "zh": "相減",
+          "zhHans": "相减"
         },
         {
           "en": "add",
@@ -6818,8 +6818,8 @@
         },
         {
           "en": "divide",
-          "zh": "除",
-          "zhHans": "除"
+          "zh": "相除",
+          "zhHans": "相除"
         }
       ],
       "answer": "subtract",
