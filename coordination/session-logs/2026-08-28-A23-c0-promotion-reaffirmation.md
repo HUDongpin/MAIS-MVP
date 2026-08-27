@@ -3,7 +3,7 @@
 - Session slice: `codex/a23-c0-promotion-reaffirmation-20260828`
 - Baseline: `c0b00c22171b69c5cc84cc79932656f6c76a380c`
 - Owner: A23 integration/promotion, with A18/A11/A22 evidence boundaries
-- Target PR: pending
+- Target PR: `#204` — `https://github.com/HUDongpin/MAIS-MVP/pull/204`
 - Created: 2026-08-28
 - Expected closeout: 2026-08-28 after protected-main Promotion restoration
 
