@@ -254,3 +254,20 @@ later branch HEAD: its exact execution commit is its parent evidence state. The
 workflow therefore materializes and verifies the receipt at that exact clean
 commit before comparing fresh, replay and canonical semantic digests. This
 expected head binding is not relaxed.
+
+## PR workflow pointer correction
+
+The first PR-head Promotion run `33098902637` validated the new Manifest and
+runtime graph successfully, then failed before canonical execution because the
+workflow still paired it with the prior revision's
+`PROMOTION_CANONICAL_RECEIPT`. The detached execution directory and artifact
+files were therefore never created. No product, content, runtime-policy or
+receipt assertion failed.
+
+The workflow now updates all three selectors atomically:
+`PROMOTION_MANIFEST`, `PROMOTION_CANONICAL_RECEIPT`, and
+`PROMOTION_CANONICAL_RECEIPT_ABSOLUTE`. The workflow test additionally requires
+the selected Manifest and canonical Receipt to have the same revision
+directory, preventing the split-pointer regression. The focused workflow tests
+pass `3/3`, and the complete Promotion suite remains `40/40` passing before the
+replacement PR head is pushed.
