@@ -6,10 +6,12 @@ import {
   applyMaisProductionSchemaOperations,
   assertTeacherNoticeProductionSchemaConfirmation,
   applyTeacherNoticeProductionSchema,
+  buildPostgresStorageCollectionGapDiagnostic,
   buildPostgresStorageMissingCollectionRepair,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
+  diagnoseTeacherNoticeProductionSchemaCollections,
   preflightTeacherNoticeProductionSchema,
   postgresStorageProductionRequiredArrayKeys,
   repairPostgresStorageMissingCollectionsForProductionGate,
@@ -134,6 +136,53 @@ test("missing-collection repair adds only safe empty collections and fails close
   malformed.teacher_notice_delivery_attempts = {};
   assert.equal(buildPostgresStorageMissingCollectionRepair(malformed), null);
   assert.equal(buildPostgresStorageMissingCollectionRepair(complete), null);
+});
+
+test("collection-gap diagnostic returns only a complete allowlisted schema classification", () => {
+  const arrayRows = postgresStorageProductionRequiredArrayKeys.map((key) => ({
+    key,
+    status: key === "teacher_notice_delivery_attempts"
+      ? "missing"
+      : key === "users"
+        ? "malformed"
+        : "exact"
+  }));
+  const objectRows = [{ key: "nova_lens_policy", status: "missing" }];
+  assert.deepEqual(
+    buildPostgresStorageCollectionGapDiagnostic({ arrayRows, objectRows }),
+    {
+      malformedArrays: ["users"],
+      malformedObjects: [],
+      missingArrays: ["teacher_notice_delivery_attempts"],
+      missingObjects: ["nova_lens_policy"]
+    }
+  );
+
+  for (const invalidArrayRows of [
+    arrayRows.slice(1),
+    [...arrayRows, arrayRows[0]],
+    arrayRows.map((row, index) => index === 0
+      ? { key: "not_allowlisted", status: "missing" }
+      : row),
+    arrayRows.map((row, index) => index === 0
+      ? { ...row, status: "unknown" }
+      : row)
+  ]) {
+    assert.throws(
+      () => buildPostgresStorageCollectionGapDiagnostic({
+        arrayRows: invalidArrayRows,
+        objectRows
+      }),
+      /diagnostic contract/u
+    );
+  }
+  assert.throws(
+    () => buildPostgresStorageCollectionGapDiagnostic({
+      arrayRows,
+      objectRows: []
+    }),
+    /diagnostic contract/u
+  );
 });
 
 test("missing-collection mutator ignores a caller-forged production environment", { concurrency: false }, async () => {
@@ -330,6 +379,65 @@ function preflightDependencies(overrides = {}) {
     ...overrides
   };
 }
+
+test("collection-gap provider diagnostic is candidate-bound, read-only, and closes the client", async () => {
+  let closed = false;
+  let gitChecks = 0;
+  let inspected = 0;
+  const runner = cleanGitRunner();
+  const evidence = await diagnoseTeacherNoticeProductionSchemaCollections(
+    preflightDependencies({
+      connectPostgres: async (url) => {
+        assert.equal(url, productionUrl);
+        return { end: async () => { closed = true; } };
+      },
+      inspectCollectionGap: async () => {
+        inspected += 1;
+        return {
+          malformedArrays: [],
+          malformedObjects: [],
+          missingArrays: ["teacher_notice_delivery_attempts"],
+          missingObjects: []
+        };
+      },
+      runCommand: async (...arguments_) => {
+        gitChecks += 1;
+        return runner(...arguments_);
+      }
+    })
+  );
+  assert.deepEqual(evidence, {
+    candidateSha,
+    expectedTreeSha,
+    malformedArrays: [],
+    malformedObjects: [],
+    missingArrays: ["teacher_notice_delivery_attempts"],
+    missingObjects: []
+  });
+  assert.equal(inspected, 1);
+  assert.equal(closed, true);
+  assert.equal(gitChecks, 8, "clean SHA/tree binding must run before and after inspection");
+});
+
+test("collection-gap diagnostic closes and redacts a rejected provider inspection", async () => {
+  const sensitiveDiagnostic = "private-row-value-private-host-private-password";
+  let closed = false;
+  let caught;
+  try {
+    await diagnoseTeacherNoticeProductionSchemaCollections(preflightDependencies({
+      connectPostgres: async () => ({ end: async () => { closed = true; } }),
+      inspectCollectionGap: async () => {
+        throw new Error(sensitiveDiagnostic);
+      }
+    }));
+  } catch (error) {
+    caught = error;
+  }
+  assert.ok(caught);
+  assert.equal(teacherNoticeProductionSchemaFailureStage(caught), "postgres-inspect");
+  assert.doesNotMatch(String(caught), new RegExp(sensitiveDiagnostic, "u"));
+  assert.equal(closed, true);
+});
 
 test("builds the exact production migration plan from independently attested schema states", () => {
   assert.deepEqual(

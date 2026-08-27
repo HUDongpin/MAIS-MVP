@@ -1057,10 +1057,21 @@ test(
           WHERE id = 'primary'
         `;
         try {
+          const diagnosticBefore = await readStateEvidence(sql);
           assert.deepEqual(
             await runSuccessfulWorker("production-schema-diagnose-partial"),
             { component: "legacy-snapshot-missing-collections" }
           );
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-collection-gap-diagnostic"),
+            {
+              malformedArrays: [],
+              malformedObjects: [],
+              missingArrays: ["teacher_notice_delivery_attempts"],
+              missingObjects: []
+            }
+          );
+          assert.deepEqual(await readStateEvidence(sql), diagnosticBefore);
         } finally {
           await sql`
             UPDATE public.app_state
@@ -1079,10 +1090,21 @@ test(
           WHERE id = 'primary'
         `;
         try {
+          const diagnosticBefore = await readStateEvidence(sql);
           assert.deepEqual(
             await runSuccessfulWorker("production-schema-diagnose-partial"),
             { component: "legacy-snapshot-malformed-collections" }
           );
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-collection-gap-diagnostic"),
+            {
+              malformedArrays: ["teacher_notice_delivery_attempts"],
+              malformedObjects: [],
+              missingArrays: [],
+              missingObjects: []
+            }
+          );
+          assert.deepEqual(await readStateEvidence(sql), diagnosticBefore);
         } finally {
           await sql`
             UPDATE public.app_state
@@ -1242,6 +1264,15 @@ test(
               await runSuccessfulWorker("production-schema-diagnose-partial"),
               { component: "legacy-snapshot-missing-collections" }
             );
+            assert.deepEqual(
+              await runSuccessfulWorker("production-schema-collection-gap-diagnostic"),
+              {
+                malformedArrays: [],
+                malformedObjects: [],
+                missingArrays: [highRiskKey, "teacher_notice_delivery_attempts"].sort(),
+                missingObjects: []
+              }
+            );
             const rejected =
               await runWorker("production-schema-repair-missing-collections");
             assert.equal(rejected.exitCode, 1, `${highRiskKey} must fail closed`);
@@ -1272,6 +1303,19 @@ test(
             assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
               state: "partial"
             });
+            assert.deepEqual(
+              await runSuccessfulWorker("production-schema-collection-gap-diagnostic"),
+              {
+                malformedArrays: [],
+                malformedObjects: [],
+                missingArrays: nonRepairableKey === "nova_lens_policy"
+                  ? ["teacher_notice_delivery_attempts"]
+                  : [nonRepairableKey, "teacher_notice_delivery_attempts"].sort(),
+                missingObjects: nonRepairableKey === "nova_lens_policy"
+                  ? ["nova_lens_policy"]
+                  : []
+              }
+            );
             const rejected =
               await runWorker("production-schema-repair-missing-collections");
             assert.equal(
@@ -1302,6 +1346,15 @@ test(
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-diagnose-partial"),
           { component: "legacy-snapshot-missing-collections" }
+        );
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-collection-gap-diagnostic"),
+          {
+            malformedArrays: [],
+            malformedObjects: [],
+            missingArrays: ["teacher_notice_delivery_attempts"],
+            missingObjects: []
+          }
         );
         const advisoryBarrierSql = await sql.reserve();
         let advisoryBarrierHeld = false;

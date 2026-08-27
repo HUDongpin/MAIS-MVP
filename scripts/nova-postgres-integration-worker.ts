@@ -164,6 +164,16 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-collection-gap-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate.inspectPostgresStorageCollectionGapForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-complete-legacy") {
       const sql = createDirectIntegrationClient();
       try {
