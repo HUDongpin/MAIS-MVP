@@ -10,6 +10,7 @@ import {
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   preflightTeacherNoticeProductionSchema,
+  teacherNoticeProductionSchemaFailureReason,
   teacherNoticeProductionSchemaFailureStage
 } from "./teacher-notice-production-schema-gate.mjs";
 
@@ -949,6 +950,41 @@ test("preflight preserves only an allowlisted stage code across provider and dat
     teacherNoticeProductionSchemaFailureStage(new Error(sensitiveDiagnostic)),
     "unknown"
   );
+  assert.equal(
+    teacherNoticeProductionSchemaFailureReason(
+      Object.assign(new Error(sensitiveDiagnostic), { reason: "webhook-partial" })
+    ),
+    "unknown"
+  );
+});
+
+test("preflight preserves only an allowlisted partial-schema reason", async () => {
+  const cases = [
+    { appStorageState: "partial", expectedReason: "app-storage-partial" },
+    { heartbeatState: "partial", expectedReason: "heartbeat-partial" },
+    { outboxState: "partial", expectedReason: "outbox-partial" },
+    { webhookState: "partial", expectedReason: "webhook-partial" },
+    {
+      outboxState: "empty",
+      webhookState: "upgradeable",
+      expectedReason: "outbox-webhook-inconsistent"
+    }
+  ];
+
+  for (const { expectedReason, ...overrides } of cases) {
+    await assert.rejects(
+      preflightTeacherNoticeProductionSchema(preflightDependencies({
+        inspectDatabase: async () => databaseInspection(overrides)
+      })),
+      (error) => {
+        assert.equal(teacherNoticeProductionSchemaFailureStage(error), "evidence-build");
+        assert.equal(teacherNoticeProductionSchemaFailureReason(error), expectedReason);
+        assert.match(error.message, /details redacted/u);
+        assert.equal(error.message.includes("secret"), false);
+        return true;
+      }
+    );
+  }
 });
 
 test("CLI preflight failure emits one fixed safe stage without raw diagnostics", () => {
@@ -980,6 +1016,7 @@ test("CLI preflight failure emits one fixed safe stage without raw diagnostics",
     ok: false,
     status: "teacher-notice-production-schema-gate-failed",
     stage: "input-binding",
+    reason: "unknown",
     detail: "redacted"
   });
   assert.equal(`${result.stdout}${result.stderr}`.includes(poison), false);

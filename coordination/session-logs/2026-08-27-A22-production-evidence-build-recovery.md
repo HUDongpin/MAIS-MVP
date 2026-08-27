@@ -34,3 +34,15 @@
 - Production inspection is read-only until the protected workflow emits and binds a valid confirmation.
 - No secret or reversible derivative may enter command output, Git, logs, screenshots, or local environment files.
 - The current production database and deployment remain unchanged until the reviewed exact-main release reaches its serialized apply step.
+
+## Progress
+
+- Confirmed run `33052859351` bound protected `main@889e0f1f23ca46b7f1553c3af07f4a317b1cd4c1`, completed provider access and read-only PostgreSQL inspection, then failed closed at `evidence-build`; `deploy` remained skipped.
+- Confirmed the workstation cannot reach either approved pooled or unpooled production endpoints within the bounded timeout. Only fixed connection-state labels were emitted; no URL, host, credential, database identity, or raw error was printed or persisted.
+- Added a strict allowlist of schema-plan failure reasons. Partial app storage, outbox, webhook, heartbeat, and the outbox/webhook consistency invariant can now be distinguished in protected CI while all untrusted or provider/database diagnostics remain `unknown` and redacted.
+- Validation completed:
+  - `node --test --import tsx scripts/teacher-notice-production-schema-gate.test.mjs` — 24 passed.
+  - `npm run type-check` — passed.
+  - `npm run test:release-governance` — 91 passed, 11 skipped, 0 failed after fetching the one historical Git object required by the fixture.
+  - `npm run build` — passed, including compilation, type validation, and 202 static-page generations.
+- No production mutation or deployment has occurred. Next step is protected PR review/merge followed by an exact-main read-only preflight to obtain the safe structural reason.
