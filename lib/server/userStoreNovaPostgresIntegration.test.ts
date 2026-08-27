@@ -970,6 +970,50 @@ test(
         } finally {
           await sql`ALTER TABLE public.auth_users DISABLE ROW LEVEL SECURITY`;
         }
+
+        await sql`ALTER TABLE public.app_state ALTER COLUMN updated_at DROP NOT NULL`;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-catalog-contract" }
+          );
+        } finally {
+          await sql`ALTER TABLE public.app_state ALTER COLUMN updated_at SET NOT NULL`;
+        }
+
+        await sql`CREATE DOMAIN public.integration_hot_auth_text AS pg_catalog.text`;
+        await sql`
+          ALTER TABLE public.auth_users
+          ALTER COLUMN email TYPE public.integration_hot_auth_text
+          USING email::pg_catalog.text::public.integration_hot_auth_text
+        `;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-hot-auth-contract" }
+          );
+        } finally {
+          await sql`
+            ALTER TABLE public.auth_users
+            ALTER COLUMN email TYPE pg_catalog.text USING email::pg_catalog.text
+          `;
+          await sql`DROP DOMAIN public.integration_hot_auth_text`;
+        }
+
+        await sql`UPDATE public.app_state SET revision = 0 WHERE id = 'primary'`;
+        try {
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-diagnose-partial"),
+            { component: "legacy-snapshot-contract" }
+          );
+        } finally {
+          await sql`
+            UPDATE public.app_state
+            SET revision = ${before.revision}
+            WHERE id = 'primary'
+          `;
+        }
+
         assert.deepEqual(
           await runSuccessfulWorker("production-schema-complete-legacy"),
           { completed: true }

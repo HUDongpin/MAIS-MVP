@@ -999,12 +999,20 @@ test("preflight preserves only an allowlisted stage code across provider and dat
 
 test("preflight preserves only an allowlisted partial-schema reason", async () => {
   const cases = [
-    {
-      appStoragePartialComponent: "legacy-compatibility-contract",
+    ...[
+      "legacy-catalog-contract",
+      "legacy-compatibility-contract",
+      "legacy-hot-auth-contract",
+      "legacy-relation-contract",
+      "legacy-readiness-artifact",
+      "legacy-snapshot-contract",
+      "relation-set"
+    ].map((appStoragePartialComponent) => ({
+      appStoragePartialComponent,
       appStorageState: "partial",
-      expectedComponent: "legacy-compatibility-contract",
+      expectedComponent: appStoragePartialComponent,
       expectedReason: "app-storage-partial"
-    },
+    })),
     { heartbeatState: "partial", expectedReason: "heartbeat-partial" },
     { outboxState: "partial", expectedReason: "outbox-partial" },
     { webhookState: "partial", expectedReason: "webhook-partial" },
