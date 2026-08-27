@@ -10,6 +10,11 @@ import { useStudentAccommodations } from "@/components/accommodations/useStudent
 import { useAITutor, type TutorContext, type TutorSelectionHelpType } from "@/components/ai/AITutorProvider";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { LessonBackToTopButton } from "@/components/lesson/LessonBackToTopButton";
+import { LearnerNotesPanel, type LearnerNoteDraft } from "@/components/lesson/LearnerNotesPanel";
+import {
+  learnerNoteDraftRequestEventName,
+  type LearnerNoteDraftRequest
+} from "@/components/lesson/learnerNotesDraftEvent";
 import {
   buildLessonCompletionChecklistItems,
   lessonCompletionMasteryCardText,
@@ -2129,6 +2134,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const lessonPracticeSectionRef = useRef<HTMLElement | null>(null);
   const summaryCloseButtonRef = useRef<HTMLButtonElement | null>(null);
   const enteredPlanetSlugRef = useRef<string | null>(null);
+  const learnerNoteDraftRequestRef = useRef(0);
   const lessonIntroTargetRef = useRef<"galaxy" | "lesson">("galaxy");
   const lessonGalaxyPlanetEntryDecisionRef = useRef<LessonGalaxyPlanetEntryDecision | null>(null);
   const galaxyDirectoryCloseTimerRef = useRef<number | null>(null);
@@ -2156,6 +2162,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const [showCelebration, setShowCelebration] = useState(false);
   const [hasEnteredGalaxyPlanet, setHasEnteredGalaxyPlanet] = useState(true);
   const [lessonSelection, setLessonSelection] = useState<LessonSelectionPopoverState | null>(null);
+  const [learnerNoteDraft, setLearnerNoteDraft] = useState<LearnerNoteDraft | null>(null);
   // The unit directory is a persistent lesson navigator, even for old links with planet-entry state.
   const shouldRenderGalaxyDirectory = true;
   const lessonMenu = useLessonMenuVisibility({
@@ -2166,6 +2173,39 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const lessonWorldTheme = lessonWorldThemeForCourse(lesson);
   const canSaveProgress = settingsReady && currentUser?.role === "student";
   const canViewTeacherGuide = currentUser?.role === "teacher" || currentUser?.role === "admin";
+
+  useEffect(() => {
+    function handleLearnerNoteDraftRequest(event: Event) {
+      const detail = (event as CustomEvent<LearnerNoteDraftRequest>).detail;
+      if (
+        currentUser?.role !== "student" ||
+        !lesson ||
+        !detail ||
+        typeof detail.body !== "string" ||
+        !detail.body.trim() ||
+        detail.anchor.lessonSlug !== lesson.slug ||
+        detail.anchor.topicId !== lesson.topicId
+      ) {
+        return;
+      }
+
+      learnerNoteDraftRequestRef.current += 1;
+      setLearnerNoteDraft({
+        ...detail,
+        requestId: learnerNoteDraftRequestRef.current
+      });
+      window.requestAnimationFrame(() => {
+        document.getElementById("learner-notes")?.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+          block: "start"
+        });
+      });
+    }
+
+    window.addEventListener(learnerNoteDraftRequestEventName, handleLearnerNoteDraftRequest);
+    return () => window.removeEventListener(learnerNoteDraftRequestEventName, handleLearnerNoteDraftRequest);
+  }, [currentUser?.role, lesson, prefersReducedMotion]);
+
   const conceptBlocks = useMemo(() => [
     ...blocksByType(lesson, "interactive-lesson"),
     ...blocksByType(lesson, "concept"),
@@ -3558,6 +3598,14 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           </div>
         )}
       </section>
+
+      {currentUser?.role === "student" ? (
+        <LearnerNotesPanel
+          draft={learnerNoteDraft}
+          lessonSlug={lesson.slug}
+          topicId={lesson.topicId}
+        />
+      ) : null}
     </>
   );
   const lessonTeacherGuideSections = canViewTeacherGuide && teacherGuideBlocks.length ? (

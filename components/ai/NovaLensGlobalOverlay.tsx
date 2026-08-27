@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useSettings } from "@/components/providers/AppProviders";
+import { dispatchLearnerNoteDraftRequest } from "@/components/lesson/learnerNotesDraftEvent";
 import { cn } from "@/lib/utils";
 import type { AITutorOpenOptions, TutorContext } from "@/components/ai/AITutorProvider";
 import type { NovaLensAction, NovaLensRunRequest, NovaLensRunResponse, NovaLensSurface, StudentSession } from "@/types";
@@ -405,6 +406,35 @@ export function NovaLensGlobalOverlay({ onOpenTutor }: NovaLensGlobalOverlayProp
     if (trimmed) void runNovaLens("custom", trimmed);
   }
 
+  function saveSelectionToPrivateNotes() {
+    if (
+      !selection ||
+      currentUser?.role !== "student" ||
+      selection.surface !== "lesson" ||
+      !selection.context.lessonSlug ||
+      !selection.context.topicId
+    ) {
+      return;
+    }
+
+    dispatchLearnerNoteDraftRequest({
+      title: selection.context.title,
+      body: selection.selectedText,
+      anchor: {
+        type: selection.context.blockId ? "text-quote" : "lesson",
+        lessonSlug: selection.context.lessonSlug,
+        topicId: selection.context.topicId,
+        ...(selection.context.blockId ? { blockId: selection.context.blockId } : {}),
+        ...(selection.context.blockType ? { blockType: selection.context.blockType } : {}),
+        selectedText: selection.selectedText,
+        ...(selection.context.surroundingText ? { surroundingText: selection.context.surroundingText } : {})
+      }
+    });
+    window.getSelection()?.removeAllRanges();
+    setSelection(null);
+    setCustomInput("");
+  }
+
   if (!selection) return null;
 
   return (
@@ -446,6 +476,20 @@ export function NovaLensGlobalOverlay({ onOpenTutor }: NovaLensGlobalOverlayProp
           x
         </button>
       </div>
+
+      {currentUser?.role === "student" &&
+      selection.surface === "lesson" &&
+      selection.context.lessonSlug &&
+      selection.context.topicId ? (
+        <button
+          type="button"
+          data-testid="lesson-save-selection-to-notes"
+          onClick={saveSelectionToPrivateNotes}
+          className="focus-ring mt-3 w-full rounded-full border border-violet-200 bg-violet-50 px-4 py-2.5 text-xs font-black text-violet-800 transition hover:-translate-y-0.5 hover:bg-violet-100 dark:border-violet-300/20 dark:bg-violet-400/10 dark:text-violet-100"
+        >
+          {t({ en: "Save to my private notes", zh: "儲存到我的私人筆記", zhHans: "保存到我的私人笔记" })}
+        </button>
+      ) : null}
 
       <div className={cn("mt-3 grid gap-2", actions.length > 3 ? "grid-cols-2" : "grid-cols-1")}>
         {actions.map((action) => (

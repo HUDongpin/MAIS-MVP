@@ -249,6 +249,12 @@ import {
   type LearnerProfilePersistenceDatabase
 } from "@/lib/server/userStore/learnerProfilePersistence";
 import {
+  createLearnerNotesPersistenceStore,
+  normalizeLearnerNoteRecords,
+  type LearnerNoteRecord,
+  type LearnerNotesPersistenceDatabase
+} from "@/lib/server/userStore/learnerNotesPersistence";
+import {
   canViewNovaLensRun as canViewNovaLensRunFromNovaLensPersistence,
   createNovaLensPersistenceStore,
   defaultNovaLensPolicyRecord as defaultNovaLensPolicyRecordFromNovaLensPersistence,
@@ -1862,6 +1868,7 @@ type Database = {
   student_profiles: StudentProfileRecord[];
   user_settings: UserSettingsRecord[];
   learner_profiles: LearnerProfileRecord[];
+  learner_notes: LearnerNoteRecord[];
   schools: SchoolRecord[];
   school_memberships: SchoolMembershipRecord[];
   provisioning_batches: ProvisioningBatchRecord[];
@@ -2835,6 +2842,7 @@ function createInitialDatabase(): Database {
     student_profiles: demoProfile,
     user_settings: demoSettings,
     learner_profiles: [],
+    learner_notes: [],
     schools: [],
     school_memberships: [],
     provisioning_batches: [],
@@ -7287,6 +7295,7 @@ function normalizeDatabase(database: Partial<Database>) {
     student_profiles: studentProfiles,
     user_settings: userSettings,
     learner_profiles: learnerProfiles,
+    learner_notes: normalizeLearnerNoteRecords(database.learner_notes, now),
     schools: (database.schools ?? []).map((school): SchoolRecord => normalizeSchoolRecordFromAuthProvisioning(school, now)),
     school_memberships: (database.school_memberships ?? []).map((membership): SchoolMembershipRecord =>
       normalizeSchoolMembershipRecordFromAuthProvisioning(membership, now)
@@ -7478,6 +7487,7 @@ function databaseNeedsPersistenceSync(
     !Array.isArray(parsed.questions) ||
     !Array.isArray(parsed.auth_identities) ||
     !Array.isArray(parsed.learner_profiles) ||
+    (parsed.learner_notes !== undefined && !Array.isArray(parsed.learner_notes)) ||
     !Array.isArray(parsed.schools) ||
     !Array.isArray(parsed.school_memberships) ||
     !Array.isArray(parsed.provisioning_batches) ||
@@ -10903,6 +10913,17 @@ const learnerProfilePersistenceStore = createLearnerProfilePersistenceStore({
   },
   mutateDatabase: async <T>(mutator: (database: LearnerProfilePersistenceDatabase) => T | Promise<T>) => {
     const result = await mutateDatabase((database) => mutator(database));
+    return result as T;
+  }
+});
+
+const learnerNotesPersistenceStore = createLearnerNotesPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as LearnerNotesPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: LearnerNotesPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as LearnerNotesPersistenceDatabase));
     return result as T;
   }
 });
@@ -14624,6 +14645,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     student_profiles: [],
     user_settings: [],
     learner_profiles: [],
+    learner_notes: [],
     schools: [],
     school_memberships: [],
     provisioning_batches: [],
@@ -16281,6 +16303,12 @@ export const updateUserProfile = authUserStore.updateUserProfile;
 
 export const getLearnerProfile = authUserStore.getLearnerProfile;
 export const updateLearnerProfile = authUserStore.updateLearnerProfile;
+export const createLearnerNote = learnerNotesPersistenceStore.createLearnerNote;
+export const deleteLearnerNote = learnerNotesPersistenceStore.deleteLearnerNote;
+export const getLearnerNote = learnerNotesPersistenceStore.getLearnerNote;
+export const listLearnerNoteRevisions = learnerNotesPersistenceStore.listLearnerNoteRevisions;
+export const listLearnerNotes = learnerNotesPersistenceStore.listLearnerNotes;
+export const updateLearnerNote = learnerNotesPersistenceStore.updateLearnerNote;
 
 export const getPublicQuestions = studentActivityUserStore.getPublicQuestions;
 
