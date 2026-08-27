@@ -443,25 +443,27 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
   delete process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD;
   const stages = [];
   let requiredCollectionsComplete = true;
-  const lockedClient = Object.assign(
+  let client;
+  client = Object.assign(
     async (strings) => {
       const query = Array.isArray(strings) ? strings.join("") : "";
       if (query.includes("postgres_storage_required_collection_inspection")) {
         return [{ requiredCollectionsComplete }];
       }
-      if (query.includes("pg_advisory_unlock")) return [{ released: true }];
+      if (query.includes("postgres_storage_contract_session_advisory_lock")) {
+        return [{ backendPid: "12345" }];
+      }
+      if (query.includes("pg_advisory_unlock")) {
+        return [{ backendPid: "12345", released: true }];
+      }
       return [];
     },
     {
-      begin: async (...args) => args.at(-1)(lockedClient),
-      release: () => undefined,
+      begin: async (...args) => args.at(-1)(client),
+      options: { max: 1 },
       unsafe: async () => []
     }
   );
-  const client = {
-    begin: async () => undefined,
-    reserve: async () => lockedClient
-  };
   const productionEnvironment = {
     HK_MATH_ENABLE_DEMO_USER: "false",
     HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
@@ -481,7 +483,7 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
       productionEnvironment,
       {
         applyAppStorageSchema: async (receivedClient, expectedState) => {
-          assert.equal(receivedClient, lockedClient);
+          assert.equal(receivedClient, client);
           assert.equal(expectedState, "empty");
           assert.equal(
             process.env.MAIS_BOOTSTRAP_ADMIN_PASSWORD,
@@ -528,7 +530,7 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     productionEnvironment,
     {
       applyAppStorageSchema: async (receivedClient, expectedState) => {
-        assert.equal(receivedClient, lockedClient);
+        assert.equal(receivedClient, client);
         assert.equal(expectedState, "legacy-no-readiness-marker");
         legacyStages.push("app-storage-readiness");
       },
@@ -567,7 +569,7 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     productionEnvironment,
     {
       applyAppStorageSchema: async (receivedClient, expectedState) => {
-        assert.equal(receivedClient, lockedClient);
+        assert.equal(receivedClient, client);
         assert.equal(
           expectedState,
           "legacy-v1-compatibility-no-readiness-marker"
@@ -588,12 +590,12 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     productionEnvironment,
     {
       repairAppStorageMissingCollections: async (receivedClient) => {
-        assert.equal(receivedClient, lockedClient);
+        assert.equal(receivedClient, client);
         missingCollectionStages.push("app-storage-missing-collection-repair");
         return "legacy-no-readiness-marker";
       },
       applyAppStorageSchema: async (receivedClient, expectedState) => {
-        assert.equal(receivedClient, lockedClient);
+        assert.equal(receivedClient, client);
         assert.equal(expectedState, "legacy-no-readiness-marker");
         missingCollectionStages.push("app-storage-readiness-marker");
       },

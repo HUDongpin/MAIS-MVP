@@ -1391,47 +1391,60 @@ async function withTemporaryProductionAppStorageEnvironment(
 async function withPostgresStorageSessionAdvisoryLock(client, operation) {
   if (
     !client
-    || typeof client.reserve !== "function"
+    || typeof client !== "function"
+    || typeof client.begin !== "function"
+    || client.options?.max !== 1
     || typeof operation !== "function"
   ) {
     throw new Error("MAIS production schema client was rejected.");
   }
-  const sql = await client.reserve();
   let lockHeld = false;
+  let backendPid = null;
   try {
-    await sql`
+    await client`
       SELECT
         pg_catalog.set_config('lock_timeout', '5000ms', false),
         pg_catalog.set_config('statement_timeout', '60000ms', false)
     `;
-    await sql`
+    const lockRows = await client`
       /* postgres_storage_contract_session_advisory_lock */
-      SELECT pg_catalog.pg_advisory_lock(
-        pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
-      )
+      SELECT
+        pg_catalog.pg_backend_pid()::pg_catalog.text AS "backendPid",
+        pg_catalog.pg_advisory_lock(
+          pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+        )
     `;
+    if (
+      lockRows.length !== 1
+      || !/^[1-9][0-9]{0,19}$/u.test(String(lockRows[0]?.backendPid ?? ""))
+    ) {
+      throw new Error("MAIS production schema advisory lock acquisition failed.");
+    }
+    backendPid = String(lockRows[0].backendPid);
     lockHeld = true;
-    return await operation(sql);
+    return await operation(client);
   } finally {
-    try {
-      if (lockHeld) {
-        const rows = await sql`
-          SELECT pg_catalog.pg_advisory_unlock(
+    if (lockHeld) {
+      const rows = await client`
+        SELECT
+          pg_catalog.pg_backend_pid()::pg_catalog.text AS "backendPid",
+          pg_catalog.pg_advisory_unlock(
             pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
           ) AS released
-        `;
-        if (rows.length !== 1 || rows[0]?.released !== true) {
-          throw new Error("MAIS production schema advisory lock release failed.");
-        }
-      }
-      await sql`
-        SELECT
-          pg_catalog.set_config('lock_timeout', '0', false),
-          pg_catalog.set_config('statement_timeout', '0', false)
       `;
-    } finally {
-      sql.release();
+      if (
+        rows.length !== 1
+        || rows[0]?.backendPid !== backendPid
+        || rows[0]?.released !== true
+      ) {
+        throw new Error("MAIS production schema advisory lock release failed.");
+      }
     }
+    await client`
+      SELECT
+        pg_catalog.set_config('lock_timeout', '0', false),
+        pg_catalog.set_config('statement_timeout', '0', false)
+    `;
   }
 }
 

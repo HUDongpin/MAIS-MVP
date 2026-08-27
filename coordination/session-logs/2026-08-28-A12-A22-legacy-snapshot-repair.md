@@ -85,6 +85,13 @@ is now owned only by the serialized production schema script.
   subtest with an unrestored fixture. The amendment queries `pg_catalog` for
   relation absence instead. Type-check passes; the exact-head PostgreSQL rerun
   remains the merge gate.
+- A later exact-head PostgreSQL run completed the amended repair scenario but
+  proved that the installed postgres.js runtime does not expose `.begin()` on
+  the value returned by `reserve()`, despite its declaration shape. The formal
+  marker-admission test therefore failed before mutation. The session lock now
+  uses the already enforced `max: 1` production client, records the backend PID
+  at lock acquisition, and requires the same PID plus a successful unlock after
+  both phases. A connection replacement consequently fails closed.
 
 No production row, secret, cookie, database URL, notification payload, or
 guardian identifier is recorded in this handoff.

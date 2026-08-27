@@ -414,13 +414,13 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
     "async function withPostgresStorageSessionAdvisoryLock(",
     "export async function applyMaisProductionSchemaOperations("
   );
-  assert.match(sessionLockSource, /await client\.reserve\(\)/u);
+  assert.match(sessionLockSource, /client\.options\?\.max !== 1/u);
   assert.match(
     sessionLockSource,
     /postgres_storage_contract_session_advisory_lock/u
   );
+  assert.match(sessionLockSource, /pg_backend_pid/u);
   assert.match(sessionLockSource, /pg_advisory_unlock/u);
-  assert.match(sessionLockSource, /sql\.release\(\)/u);
   assert.match(combinedApplySource, /withPostgresStorageSessionAdvisoryLock/u);
 });
 
