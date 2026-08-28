@@ -27,9 +27,11 @@ record value, identifier, count, URL, payload, or credential output.
 ## Design
 
 - Keep the existing record-contract diagnostic unchanged.
-- Add a fixed reason-code allowlist beside the canonical snapshot contract.
-- Reuse current normalization and persistence-sync decisions; if contract
-  drift remains but no known code matches, emit only `unclassified`.
+- Add a fixed reason-code allowlist inside the release-only production schema
+  gate while consuming the existing canonical snapshot-contract export.
+- Reuse exported record validators plus canonical completeness. Known codes are
+  candidate indicators only; whenever completeness remains false,
+  `unclassified` is also emitted to preserve unmapped/parity uncertainty.
 - Require reason-code uniqueness and canonical ordering.
 - Require `virtualRepairComplete` to be exactly equivalent to an empty reason
   list.
@@ -46,9 +48,15 @@ record value, identifier, count, URL, payload, or credential output.
 - Focused schema gate: 36 passed, 0 failed.
 - Workflow contract: 10 passed, 0 failed.
 - `npm run type-check`: pass.
+- `git diff ec89fe62dd528106044f338e731596275bb867bc --
+  lib/server/userStore.ts`: empty; application runtime bytes are unchanged.
 - Fresh isolated PostgreSQL 16.15: 13 passed, 0 failed. The new worker probe
   returned only fixed reason codes and preserved payload digest, revision, and
-  timestamp. The temporary instance was stopped and moved to Trash.
+  timestamp. One earlier rerun was rejected as infrastructure evidence after
+  PostgreSQL `53100` and tsx `ENOSPC` proved the system disk was full. Three
+  exact, stopped, disposable `mais-pg16.*` directories were permanently
+  removed; the final fresh run passed 13/13 and its instance/directory were
+  stopped and removed.
 - Postgres readiness/fast-path contracts: 11 passed, 0 failed.
 - Release governance: 91 passed, 11 explicit skips, 0 failed.
 - Parent/CI distribution gates: 15 passed, 0 failed.
@@ -58,3 +66,17 @@ record value, identifier, count, URL, payload, or credential output.
 - `git diff --check`: pass.
 
 Production mutation and deployment remain closed.
+
+## Promotion runtime-boundary correction
+
+The first PR head correctly failed Promotion with
+`V2_TARGET_BASELINE_DRIFT`: the diagnostic-only classifier had been exported
+from `lib/server/userStore.ts`, creating one unnecessary application-runtime
+path change. All receipt/replay/artifact checks passed, so rerunning would not
+have changed the outcome.
+
+The classifier and its fixed reason-code allowlist were moved into
+`scripts/teacher-notice-production-schema-gate.mjs`. The application runtime
+file now has zero diff from baseline commit
+`ec89fe62dd528106044f338e731596275bb867bc`. No new Promotion reaffirmation is
+needed for release-tooling-only diagnosis.

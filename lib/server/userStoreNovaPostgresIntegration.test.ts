@@ -1531,7 +1531,7 @@ test(
               "guardian_links.invite_code",
               "student_profiles.parent_invite_code"
             ],
-            recordDriftReasons: ["teacher-classes-invite-code"],
+            recordDriftReasons: ["teacher-classes-invite-code", "unclassified"],
             virtualRepairComplete: false
           }
         );

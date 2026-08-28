@@ -9,10 +9,23 @@ import postgres from "postgres";
 import {
   applyPostgresStorageSchemaForProductionGate,
   inspectPostgresStorageSchemaForProductionGate,
-  postgresStorageSnapshotRecordDriftReasonCodes,
-  postgresStorageSnapshotRecordDriftReasons,
   postgresStorageSnapshotContractIsComplete
 } from "../lib/server/userStore.ts";
+import { isValidAuthStudentAvatarId } from "../lib/server/userStore/authSessionPersistence.ts";
+import {
+  isValidGamificationEventSource,
+  isValidGamificationEventStatus,
+  isValidRewardCampaignStatus,
+  isValidRewardCatalogCategory,
+  isValidRewardPointReason,
+  isValidRewardRedemptionStatus,
+  rewardCatalogPointCostsNeedSync
+} from "../lib/server/userStore/gamificationSeedRecords.ts";
+import { novaLensRunNeedsPersistenceSync } from "../lib/server/userStore/novaLensPersistence.ts";
+import { isValidGuardianLinkStatus } from "../lib/server/userStore/parentAccessPersistence.ts";
+import { isValidTeacherReviewLessonStatus } from "../lib/server/userStore/teacherOpsAssessmentPersistence.ts";
+import { isValidTeacherLessonKitStatus } from "../lib/server/userStore/teacherOpsLessonKitPersistence.ts";
+import { isValidTeacherNoticeSourceKind } from "../lib/server/userStore/teacherOpsNoticePersistence.ts";
 import {
   diagnosePostgresStoragePartialSchemaForProductionGate,
   legacySnapshotRequiredArrayKeys,
@@ -106,6 +119,31 @@ const postgresStorageCollectionGapStatuses = new Set([
 const postgresStorageParentAccessLegacyFields = Object.freeze([
   "guardian_links.invite_code",
   "student_profiles.parent_invite_code"
+]);
+const postgresStorageSnapshotRecordDriftReasonCodes = Object.freeze([
+  "users-session-lifecycle",
+  "users-normalized-email",
+  "users-password-policy",
+  "student-profiles-avatar",
+  "teacher-classes-invite-code",
+  "assignments-grade-flag",
+  "teacher-messages-starred",
+  "teacher-notices-source-kind",
+  "guardian-links-status",
+  "student-profiles-legacy-invite-code",
+  "guardian-links-legacy-invite-code",
+  "teaching-resources-file-size",
+  "teacher-lesson-kits-shape",
+  "teacher-review-lessons-shape",
+  "assessments-shape",
+  "reward-catalog-shape",
+  "reward-catalog-point-costs",
+  "reward-ledger-shape",
+  "reward-redemptions-status",
+  "gamification-events-shape",
+  "reward-campaigns-status",
+  "nova-lens-runs-shape",
+  "unclassified"
 ]);
 const sha1Pattern = /^[a-f0-9]{40}$/u;
 const sha256Pattern = /^[a-f0-9]{64}$/u;
@@ -268,6 +306,166 @@ function recordHasOwnField(record, field) {
     && record !== null
     && !Array.isArray(record)
     && Object.hasOwn(record, field);
+}
+
+function postgresStorageSnapshotRecordDriftReasons(
+  snapshot,
+  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
+) {
+  if (
+    typeof snapshot !== "object"
+    || snapshot === null
+    || Array.isArray(snapshot)
+    || typeof isComplete !== "function"
+  ) return Object.freeze(["unclassified"]);
+  if (isComplete(snapshot) === true) return Object.freeze([]);
+
+  const reasons = [];
+  const records = (key) => Array.isArray(snapshot[key]) ? snapshot[key] : [];
+  const record = (reason, drifted) => {
+    if (drifted) reasons.push(reason);
+  };
+  try {
+    record(
+      "users-session-lifecycle",
+      records("users").some((user) =>
+        !recordHasOwnField(user, "session_revision")
+        || !recordHasOwnField(user, "disabled_at")
+      )
+    );
+    record(
+      "users-normalized-email",
+      records("users").some((user) => Boolean(user?.email && !user?.normalized_email))
+    );
+    record(
+      "users-password-policy",
+      records("users").some((user) => typeof user?.password_must_change !== "boolean")
+    );
+    record(
+      "student-profiles-avatar",
+      records("student_profiles").some((profile) =>
+        !isValidAuthStudentAvatarId(profile?.avatar_id)
+      )
+    );
+    record(
+      "teacher-classes-invite-code",
+      records("teacher_classes").some((teacherClass) => !teacherClass?.invite_code)
+    );
+    record(
+      "assignments-grade-flag",
+      records("assignments").some((assignment) =>
+        typeof assignment?.count_towards_grade !== "boolean"
+      )
+    );
+    record(
+      "teacher-messages-starred",
+      records("teacher_messages").some((message) =>
+        typeof message?.starred !== "boolean"
+      )
+    );
+    record(
+      "teacher-notices-source-kind",
+      records("teacher_notices").some((notice) => Boolean(
+        notice?.source_kind
+        && !isValidTeacherNoticeSourceKind(notice.source_kind)
+      ))
+    );
+    record(
+      "guardian-links-status",
+      records("guardian_links").some((link) =>
+        !isValidGuardianLinkStatus(link?.status)
+      )
+    );
+    record(
+      "student-profiles-legacy-invite-code",
+      records("student_profiles").some((profile) =>
+        Boolean(profile?.parent_invite_code)
+      )
+    );
+    record(
+      "guardian-links-legacy-invite-code",
+      records("guardian_links").some((link) => Boolean(link?.invite_code))
+    );
+    record(
+      "teaching-resources-file-size",
+      records("teaching_resources").some((resource) =>
+        typeof resource?.file_size_bytes !== "number"
+      )
+    );
+    record(
+      "teacher-lesson-kits-shape",
+      records("teacher_lesson_kits").some((kit) =>
+        !isValidTeacherLessonKitStatus(kit?.status)
+        || !Array.isArray(kit?.sections)
+      )
+    );
+    record(
+      "teacher-review-lessons-shape",
+      records("teacher_review_lessons").some((reviewLesson) =>
+        !isValidTeacherReviewLessonStatus(reviewLesson?.status)
+        || !Array.isArray(reviewLesson?.items)
+      )
+    );
+    record(
+      "assessments-shape",
+      records("assessments").some((assessment) =>
+        !assessment?.source_type || !Array.isArray(assessment?.question_ids)
+      )
+    );
+    record(
+      "reward-catalog-shape",
+      records("reward_catalog").some((item) =>
+        !isValidRewardCatalogCategory(item?.category)
+        || typeof item?.available !== "boolean"
+      )
+    );
+    record(
+      "reward-catalog-point-costs",
+      rewardCatalogPointCostsNeedSync(snapshot.reward_catalog)
+    );
+    record(
+      "reward-ledger-shape",
+      records("reward_point_ledger").some((entry) =>
+        !isValidRewardPointReason(entry?.reason)
+        || typeof entry?.amount !== "number"
+      )
+    );
+    record(
+      "reward-redemptions-status",
+      records("reward_redemptions").some((redemption) =>
+        !isValidRewardRedemptionStatus(redemption?.status)
+      )
+    );
+    record(
+      "gamification-events-shape",
+      records("gamification_events").some((event) =>
+        !isValidGamificationEventSource(event?.source)
+        || !isValidGamificationEventStatus(event?.status)
+      )
+    );
+    record(
+      "reward-campaigns-status",
+      records("reward_campaigns").some((campaign) =>
+        !isValidRewardCampaignStatus(campaign?.status)
+      )
+    );
+    record(
+      "nova-lens-runs-shape",
+      records("nova_lens_runs").some((run) =>
+        novaLensRunNeedsPersistenceSync(run)
+      )
+    );
+  } catch {
+    reasons.push("unclassified");
+  }
+
+  if (!reasons.includes("unclassified")) reasons.push("unclassified");
+  const reasonSet = new Set(reasons);
+  return Object.freeze(
+    postgresStorageSnapshotRecordDriftReasonCodes.filter((reason) =>
+      reasonSet.has(reason)
+    )
+  );
 }
 
 function buildPostgresStorageParentAccessVirtualRepair(snapshot) {

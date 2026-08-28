@@ -319,7 +319,7 @@ test("parent-access record drift diagnostic emits only fixed reason codes after 
     buildPostgresStorageParentAccessRecordDriftDiagnostic(snapshot);
   assert.deepEqual(diagnostic, {
     legacyFields: ["guardian_links.invite_code"],
-    recordDriftReasons: ["teacher-classes-invite-code"],
+    recordDriftReasons: ["teacher-classes-invite-code", "unclassified"],
     virtualRepairComplete: false
   });
   assert.equal(
@@ -683,7 +683,7 @@ test("parent-access record-drift provider diagnostic is candidate-bound, read-on
           inspected += 1;
           return {
             legacyFields: ["guardian_links.invite_code"],
-            recordDriftReasons: ["teacher-classes-invite-code"],
+            recordDriftReasons: ["teacher-classes-invite-code", "unclassified"],
             virtualRepairComplete: false
           };
         },
@@ -697,7 +697,7 @@ test("parent-access record-drift provider diagnostic is candidate-bound, read-on
     candidateSha,
     expectedTreeSha,
     legacyFields: ["guardian_links.invite_code"],
-    recordDriftReasons: ["teacher-classes-invite-code"],
+    recordDriftReasons: ["teacher-classes-invite-code", "unclassified"],
     virtualRepairComplete: false
   });
   assert.equal(inspected, 1);
