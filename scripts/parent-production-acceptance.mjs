@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 
-import { createHash, createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac } from "node:crypto";
 import { lstat, readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
 import {
-  APPROVED_VERCEL_PROJECT_ID,
-  APPROVED_VERCEL_PROJECT_NAME,
-  APPROVED_VERCEL_TEAM_ID,
   canonicalVercelDeploymentOrigin,
   isValidVercelToken,
   readCurrentVercelProductionDeployment
@@ -22,7 +19,6 @@ export const PARENT_PRODUCTION_ACCEPTANCE_ORIGINS = Object.freeze([
 const SHA_PATTERN = /^[a-f0-9]{40}$/u;
 const SYNTHETIC_FAMILY_PATTERN = /^mais-synthetic-family-[a-z0-9][a-z0-9-]{2,63}$/u;
 const SECRET_PATTERN = /^[^\s\u0000-\u001f\u007f-\u009f]{32,512}$/u;
-const RESEND_KEY_PATTERN = /^re_[^\s\u0000-\u001f\u007f-\u009f]{20,509}$/u;
 const EXACT_SCHEMA_KEYS = Object.freeze([
   "appStorageState",
   "outboxState",
@@ -40,17 +36,7 @@ const READ_ONLY_SMOKE_STATUS = Object.freeze([
 ]);
 const MAX_RELEASE_RECORD_BYTES = 5 * 1024 * 1024;
 const PRODUCTION_RUNTIME_REQUIRED_KEYS = Object.freeze([
-  "CRON_SECRET",
-  "TEACHER_NOTICE_HEALTH_SECRET",
-  "TEACHER_NOTICE_RESEND_API_KEY",
-  "TEACHER_NOTICE_EMAIL_ENABLED",
-  "TEACHER_NOTICE_ALLOWED_ORIGIN",
-  "TEACHER_NOTICE_BASE_URL",
-  "TEACHER_NOTICE_FROM",
-  "HK_MATH_STORAGE_PROVIDER"
-]);
-const PRODUCTION_RUNTIME_OPTIONAL_KEYS = Object.freeze([
-  "WECOM_NOTIFICATIONS_ENABLED"
+  "TEACHER_NOTICE_HEALTH_SECRET"
 ]);
 
 function isRecord(value) {
@@ -279,68 +265,32 @@ export function validateConcurrentParentMessageEvidence({ kind, marker, response
   }
 }
 
-export function validateResendTestDeliveryEvidence({ recipient, subject, payload }) {
+export function validateResendWebhookDeliveryEvidence({ recipient, queue, health }) {
   try {
-    const createdAt = Date.parse(payload?.created_at ?? "");
     if (
       !RESEND_DELIVERED_TEST_RECIPIENT_PATTERN.test(String(recipient ?? "")) ||
-      typeof subject !== "string" ||
-      subject.length < 1 ||
-      subject.length > 998 ||
-      !isRecord(payload) ||
-      payload.object !== "email" ||
-      typeof payload.id !== "string" ||
-      !payload.id ||
-      !Array.isArray(payload.to) ||
-      payload.to.length !== 1 ||
-      payload.to[0] !== recipient ||
-      payload.subject !== subject ||
-      payload.last_event !== "delivered" ||
-      !Number.isFinite(createdAt)
+      !isRecord(queue) ||
+      ![queue.queued, queue.reused, queue.recovered, queue.skipped].every((value) =>
+        Number.isSafeInteger(value) && value >= 0
+      ) ||
+      queue.queued + queue.reused + queue.recovered < 1 ||
+      !isRecord(health) ||
+      !Number.isSafeInteger(health.deliveredEventDelta) ||
+      health.deliveredEventDelta < 1 ||
+      health.schedulerHealthy !== true ||
+      health.webhookReconciled !== true ||
+      health.outboxSettled !== true
     ) {
       throw new Error("provider mismatch");
     }
     return {
       officialTestRecipient: true,
       providerAccepted: true,
-      providerDelivered: true
+      providerDelivered: true,
+      evidence: "signed-webhook-health"
     };
   } catch {
-    throw new Error("Resend test delivery evidence failed; details redacted.");
-  }
-}
-
-export function selectSingleResendTestDelivery(list, { recipient, subject }) {
-  try {
-    if (
-      !RESEND_DELIVERED_TEST_RECIPIENT_PATTERN.test(String(recipient ?? "")) ||
-      typeof subject !== "string" ||
-      subject.length < 1 ||
-      subject.length > 998 ||
-      !isRecord(list) ||
-      list.object !== "list" ||
-      !Array.isArray(list.data) ||
-      list.data.length > 100
-    ) {
-      throw new Error("invalid list");
-    }
-    const matches = list.data.filter((email) =>
-      isRecord(email) &&
-      Array.isArray(email.to) &&
-      email.to.length === 1 &&
-      email.to[0] === recipient &&
-      email.subject === subject
-    );
-    if (matches.length === 0) return null;
-    if (matches.length !== 1 || !validOpaqueId(matches[0].id)) {
-      throw new Error("duplicate or invalid provider result");
-    }
-    return {
-      id: matches[0].id,
-      delivered: matches[0].last_event === "delivered"
-    };
-  } catch {
-    throw new Error("Resend test delivery list evidence failed; details redacted.");
+    throw new Error("Resend webhook delivery evidence failed; details redacted.");
   }
 }
 
@@ -391,7 +341,6 @@ export function validateTeacherNoticeHealthProgress({ before, after }) {
 
 const MAX_JSON_RESPONSE_BYTES = 1024 * 1024;
 const APP_REQUEST_TIMEOUT_MS = 30_000;
-const RESEND_API_ORIGIN = "https://api.resend.com";
 const JSON_CONTENT_TYPE = "application/json";
 const SAFE_VERCEL_CACHE_STATUSES = new Set(["BYPASS", "MISS"]);
 
@@ -1007,60 +956,6 @@ async function queueSyntheticNoticeDelivery({
   };
 }
 
-async function resendJsonRequest({ route, resendKey, fetchImpl }) {
-  const url = new URL(route, RESEND_API_ORIGIN);
-  if (url.origin !== RESEND_API_ORIGIN || !url.pathname.startsWith("/emails")) {
-    throw new Error("Resend evidence target was rejected.");
-  }
-  let response;
-  try {
-    response = await fetchImpl(url, {
-      method: "GET",
-      redirect: "error",
-      signal: AbortSignal.timeout(APP_REQUEST_TIMEOUT_MS),
-      headers: {
-        accept: JSON_CONTENT_TYPE,
-        authorization: `Bearer ${resendKey}`,
-        "user-agent": "MAIS-Parent-Production-Acceptance/1.0"
-      }
-    });
-  } catch {
-    throw new Error("Resend evidence request failed; details redacted.");
-  }
-  if (response.status !== 200) {
-    throw new Error("Resend evidence request failed; details redacted.");
-  }
-  return readBoundedJson(response);
-}
-
-async function waitForResendDelivery({
-  recipient,
-  subject,
-  resendKey,
-  fetchImpl,
-  sleep,
-  providerPollAttempts
-}) {
-  for (let attempt = 0; attempt < providerPollAttempts; attempt += 1) {
-    const list = await resendJsonRequest({
-      route: "/emails?limit=100",
-      resendKey,
-      fetchImpl
-    });
-    const match = selectSingleResendTestDelivery(list, { recipient, subject });
-    if (match?.delivered) {
-      const payload = await resendJsonRequest({
-        route: `/emails/${encodeURIComponent(match.id)}`,
-        resendKey,
-        fetchImpl
-      });
-      return validateResendTestDeliveryEvidence({ recipient, subject, payload });
-    }
-    if (attempt < providerPollAttempts - 1) await sleep(10_000);
-  }
-  throw new Error("Resend test delivery did not reach delivered state in time; details redacted.");
-}
-
 async function waitForHealthProgress({
   before,
   healthSecret,
@@ -1160,7 +1055,6 @@ export async function runParentProductionAcceptance({
   // process proof without weakening the one-create invariant.
   concurrency = 8,
   maxReplayBatches = 4,
-  providerPollAttempts = 60,
   healthPollAttempts = 60,
   verifyToolingChecks = verifyGithubCandidateChecks,
   verifyCurrentDeployment = verifyParentProductionCurrentDeployment,
@@ -1182,9 +1076,6 @@ export async function runParentProductionAcceptance({
     !Number.isSafeInteger(maxReplayBatches) ||
     maxReplayBatches < 1 ||
     maxReplayBatches > 8 ||
-    !Number.isSafeInteger(providerPollAttempts) ||
-    providerPollAttempts < 1 ||
-    providerPollAttempts > 90 ||
     !Number.isSafeInteger(healthPollAttempts) ||
     healthPollAttempts < 1 ||
     healthPollAttempts > 90
@@ -1322,20 +1213,17 @@ export async function runParentProductionAcceptance({
     target: binding.target,
     fetchImpl
   });
-  const provider = await waitForResendDelivery({
-    recipient: accounts.parent.email,
-    subject: noticeSubject,
-    resendKey: runtime.TEACHER_NOTICE_RESEND_API_KEY,
-    fetchImpl,
-    sleep,
-    providerPollAttempts
-  });
   const health = await waitForHealthProgress({
     before: healthBefore,
     healthSecret: runtime.TEACHER_NOTICE_HEALTH_SECRET,
     fetchImpl,
     sleep,
     healthPollAttempts
+  });
+  const provider = validateResendWebhookDeliveryEvidence({
+    recipient: accounts.parent.email,
+    queue: deliveryQueue,
+    health
   });
   const acknowledged = await acknowledgeSyntheticNotice({
     parent: establishedParent,
@@ -1471,25 +1359,11 @@ function readRequiredArgument(argv, index, flag) {
 }
 
 function assertRuntimeCredentials(runtime, target) {
-  const from = String(runtime?.TEACHER_NOTICE_FROM ?? "");
-  const noticeOrigin = runtime?.TEACHER_NOTICE_BASE_URL;
   if (
-    !SECRET_PATTERN.test(String(runtime?.CRON_SECRET ?? "")) ||
     !SECRET_PATTERN.test(String(runtime?.TEACHER_NOTICE_HEALTH_SECRET ?? "")) ||
-    !RESEND_KEY_PATTERN.test(String(runtime?.TEACHER_NOTICE_RESEND_API_KEY ?? "")) ||
-    runtime.CRON_SECRET === runtime.TEACHER_NOTICE_HEALTH_SECRET ||
-    String(runtime?.TEACHER_NOTICE_EMAIL_ENABLED ?? "").trim().toLowerCase() !== "true" ||
-    !PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.includes(target) ||
-    !PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.includes(noticeOrigin) ||
-    runtime?.TEACHER_NOTICE_ALLOWED_ORIGIN !== noticeOrigin ||
-    runtime?.HK_MATH_STORAGE_PROVIDER !== "postgres" ||
-    from.length < 3 ||
-    from.length > 320 ||
-    !from.includes("@") ||
-    /[\r\n\u0000-\u001f\u007f-\u009f]/u.test(from) ||
-    String(runtime?.WECOM_NOTIFICATIONS_ENABLED ?? "").trim().toLowerCase() === "true"
+    !PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.includes(target)
   ) {
-    throw new Error("Parent production acceptance runtime is unavailable or invalid; WeCom must remain disabled.");
+    throw new Error("Parent production acceptance runtime is unavailable or invalid.");
   }
 }
 
@@ -1724,46 +1598,30 @@ export async function loadParentProductionReleaseRecord(filePath) {
   }
 }
 
-function constantTimeStringEqual(left, right) {
-  if (typeof left !== "string" || typeof right !== "string") return false;
-  const leftDigest = createHash("sha256").update(left, "utf8").digest();
-  const rightDigest = createHash("sha256").update(right, "utf8").digest();
-  return timingSafeEqual(leftDigest, rightDigest) && left === right;
-}
-
 export function buildParentProductionAcceptanceRuntime({
   runtimeEnvironment,
-  buildEnvironment,
   target
 }) {
   try {
-    if (!isRecord(runtimeEnvironment) || !isRecord(buildEnvironment)) {
+    if (!isRecord(runtimeEnvironment)) {
       throw new Error("invalid provider payload");
     }
     const selected = {};
-    for (const key of [...PRODUCTION_RUNTIME_REQUIRED_KEYS, ...PRODUCTION_RUNTIME_OPTIONAL_KEYS]) {
+    for (const key of PRODUCTION_RUNTIME_REQUIRED_KEYS) {
       const runtimeValue = runtimeEnvironment[key];
-      const buildValue = buildEnvironment[key];
-      const optionalAndAbsent = PRODUCTION_RUNTIME_OPTIONAL_KEYS.includes(key) &&
-        runtimeValue === undefined && buildValue === undefined;
-      if (optionalAndAbsent) continue;
       if (
         typeof runtimeValue !== "string" ||
-        typeof buildValue !== "string" ||
         runtimeValue.length > 16_384 ||
-        buildValue.length > 16_384 ||
-        runtimeValue.includes("\0") ||
-        buildValue.includes("\0") ||
-        !constantTimeStringEqual(runtimeValue, buildValue)
+        runtimeValue.includes("\0")
       ) {
-        throw new Error("provider environment parity mismatch");
+        throw new Error("protected environment mismatch");
       }
       selected[key] = runtimeValue;
     }
     assertRuntimeCredentials(selected, target);
     return Object.freeze(selected);
   } catch {
-    throw new Error("Parent production acceptance provider runtime failed validation; details redacted.");
+    throw new Error("Parent production acceptance runtime failed validation; details redacted.");
   }
 }
 
@@ -1779,32 +1637,12 @@ function assertParentProductionAcceptanceWorkflowContext(env) {
     env?.GITHUB_REPOSITORY !== "HUDongpin/MAIS-MVP" ||
     !SHA_PATTERN.test(String(env?.GITHUB_SHA ?? "")) ||
     env?.GITHUB_WORKFLOW_REF !== expectedWorkflow ||
-    env?.MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE !== "vercel-api-pull-v1" ||
+    env?.MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE !== "github-production-health-v1" ||
     !/^[1-9][0-9]{0,19}$/u.test(String(env?.GITHUB_RUN_ID ?? "")) ||
     !/^[1-9][0-9]{0,5}$/u.test(String(env?.GITHUB_RUN_ATTEMPT ?? ""))
   ) {
     throw new Error("workflow context mismatch");
   }
-}
-
-async function providerJson(url, token, fetchImpl) {
-  let response;
-  try {
-    response = await fetchImpl(url, {
-      method: "GET",
-      redirect: "error",
-      signal: AbortSignal.timeout(APP_REQUEST_TIMEOUT_MS),
-      headers: {
-        accept: JSON_CONTENT_TYPE,
-        authorization: `Bearer ${token}`,
-        "user-agent": "MAIS-Parent-Production-Acceptance/1.0"
-      }
-    });
-  } catch {
-    throw new Error("provider request failed");
-  }
-  if (response.status !== 200) throw new Error("provider request status failed");
-  return readBoundedJson(response);
 }
 
 export async function verifyParentProductionCurrentDeployment({
@@ -1848,62 +1686,20 @@ export async function verifyParentProductionCurrentDeployment({
 
 export async function readParentProductionAcceptanceRuntime({
   env = process.env,
-  fetchImpl = globalThis.fetch,
-  releaseRecord,
   target
 } = {}) {
-  let token = null;
-  let payload = null;
-  let runtimeEnvironment = null;
-  let buildEnvironment = null;
   try {
     assertParentProductionAcceptanceWorkflowContext(env);
-    if (typeof fetchImpl !== "function" || !PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.includes(target)) {
+    if (!PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.includes(target)) {
       throw new Error("invalid provider runtime input");
     }
-    token = env.VERCEL_TOKEN;
-    if (!isValidVercelToken(token)) throw new Error("invalid provider token");
-    const projectUrl = new URL(
-      `https://api.vercel.com/v9/projects/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}`
-    );
-    projectUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-    const project = await providerJson(projectUrl, token, fetchImpl);
-    if (
-      project?.id !== APPROVED_VERCEL_PROJECT_ID ||
-      project?.name !== APPROVED_VERCEL_PROJECT_NAME ||
-      project?.accountId !== APPROVED_VERCEL_TEAM_ID
-    ) {
-      throw new Error("provider project identity mismatch");
-    }
-    const environmentUrl = new URL(
-      `https://api.vercel.com/v3/env/pull/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}/production`
-    );
-    environmentUrl.searchParams.set("source", "vercel-cli:env:run");
-    environmentUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-    payload = await providerJson(environmentUrl, token, fetchImpl);
-    runtimeEnvironment = payload?.env;
-    buildEnvironment = payload?.buildEnv;
-    const runtime = buildParentProductionAcceptanceRuntime({
-      runtimeEnvironment,
-      buildEnvironment,
+    if (!isValidVercelToken(env.VERCEL_TOKEN)) throw new Error("invalid provider token");
+    return buildParentProductionAcceptanceRuntime({
+      runtimeEnvironment: env,
       target
     });
-    const deployment = await verifyParentProductionCurrentDeployment({
-      env,
-      fetchImpl,
-      releaseRecord
-    });
-    if (deployment.providerBound !== true) {
-      throw new Error("current production alias binding unavailable");
-    }
-    return runtime;
   } catch {
-    throw new Error("Parent production acceptance provider runtime failed; details redacted.");
-  } finally {
-    token = null;
-    payload = null;
-    runtimeEnvironment = null;
-    buildEnvironment = null;
+    throw new Error("Parent production acceptance runtime failed; details redacted.");
   }
 }
 

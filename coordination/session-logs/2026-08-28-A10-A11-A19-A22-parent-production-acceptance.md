@@ -81,11 +81,11 @@ evidence, and VoiceOver/NVDA human acceptance.
   production-write booleans, an exact family/target/SHA/tree confirmation, a
   `mais-synthetic-family-*` identifier, and an official Resend
   `delivered+...@resend.dev` recipient derived in memory.
-- Sensitive Vercel variables cannot be decrypted by local CLI pull; the
-  workflow instead uses the existing protected `production` environment and a
-  same-process Vercel provider pull. Runtime/build values must match exactly,
-  only an allowlisted subset is retained temporarily, and WeCom must remain
-  disabled.
+- The initial implementation attempted to obtain an allowlisted runtime subset
+  from Vercel's protected environment-pull API. The first protected production
+  execution later proved that Vercel intentionally returns empty strings for
+  `sensitive` values, so that design failed closed before account creation or
+  any production write. The follow-up repair is recorded below.
 - Provider and application JSON responses are stream-bounded at 1 MiB even
   when no `Content-Length` is supplied. Personalized responses accept only the
   fail-closed Vercel cache states `MISS` or `BYPASS`, alongside explicit
@@ -112,6 +112,60 @@ evidence, and VoiceOver/NVDA human acceptance.
 - `npm run type-check`: passed.
 - Node syntax, YAML parse, runtime import, and `git diff --check`: passed.
 
-No synthetic-family production write or Resend delivery has been dispatched at
-this point. That remains gated on review, commit/PR, exact-head CI/Promotion,
-protected-main merge, and then one explicit workflow dispatch.
+## Protected execution failure and release-only repair
+
+- PR #217 merged as protected-main commit
+  `f5430dfe81e6aba47d54e3db38de760c5cff1ba9`, tree
+  `bdf28de5d198512cbcee84c3a0717fddf6b252fd`.
+- Post-merge CI run `33172835644` passed 7/7 jobs and Promotion run
+  `33172835609` passed at that exact tooling SHA.
+- The single acceptance dispatch `33174811233` (attempt 1) passed protected-main
+  binding and exact release-artifact download, then failed in the runtime
+  credential loader. Its safe log contained no raw error or credential.
+- A read-only, value-redacted provider diagnostic reproduced the cause:
+  Vercel metadata classified the health, Resend, cron, origin, base URL, and
+  from-address variables as `sensitive`; both `/v3/env/pull` and `vercel env
+  run` supplied empty strings for those entries. This failure occurred before
+  `runParentProductionAcceptance` reached synthetic account creation, message
+  writes, notice creation, or Resend delivery.
+- The existing `production-health` GitHub environment already held
+  `TEACHER_NOTICE_HEALTH_SECRET`. It now also contains `VERCEL_TOKEN` and
+  `MAIS_RELEASE_GITHUB_TOKEN` secrets, copied through in-memory pipes from the
+  authorized local CLI sessions; no value was printed, written to Git, or
+  included in this log.
+- Follow-up branch:
+  `codex/a10-a11-a19-a22-parent-prod-acceptance-env-fix-20260828`, based on
+  exact protected main `f5430dfe81e6aba47d54e3db38de760c5cff1ba9`.
+- The repaired workflow uses the protected `production-health` environment,
+  the environment's health secret, the release GitHub token for exact
+  check/branch-protection evidence, and the Vercel token only for exact
+  deployment binding. It never attempts to pull a Vercel sensitive value or
+  call the Resend list/retrieve API.
+- Real delivery evidence remains fail closed and provider-backed: the parent is
+  an official `delivered+...@resend.dev` test recipient, the exact synthetic
+  notice is queued through the deployed application, signed Resend webhook
+  health must increase its delivered count, webhook reconciliation must be
+  exact, and the durable outbox must be settled before acknowledgement.
+- TDD RED was the missing protected-health loader and signed-webhook evidence
+  export. GREEN was focused `12/12`.
+- Completed follow-up gates: exact-source `177/177`; schema gate `39/39`;
+  release governance `91 pass / 11 explicit skip / 0 fail`; type-check; Node
+  syntax; YAML parse; and `git diff --check`.
+- The first full parent runtime attempt failed one SQLite concurrency test
+  because the macOS data volume had only about 203 MiB free. A second attempt
+  moved temporary files to Starship but used a path too long for macOS Unix
+  sockets. The valid rerun used a short run-owned Starship temp path and passed
+  parent harness `76/76` plus runtime `403/403`, with zero skips. Generated
+  worktree artifacts were removed through the project cleanup script; the
+  external short temp directory was moved to Trash and is recoverable.
+- A later exact-source rerun exposed the same system-temp ENOSPC boundary in
+  unrelated fixture creation. Four inactive, explicitly identified
+  MAIS/Node/tsx/Playwright cache directories were moved off the system volume
+  to Starship without force-deleting two socket entries, raising free system
+  space to about 2.7 GiB. The copied cache bundle was then moved to Starship
+  Trash (recoverable), and the current final diff passed exact-source `177/177`.
+
+No synthetic account, family link, message, notice, acknowledgement, or Resend
+test delivery has yet been created by this acceptance workflow. A new dispatch
+remains gated on review, commit/PR, exact-head CI/Promotion, protected-main
+merge, and exact-main post-merge CI/Promotion.

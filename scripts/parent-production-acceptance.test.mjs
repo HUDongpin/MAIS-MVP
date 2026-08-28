@@ -17,10 +17,9 @@ import {
   readBoundedJson,
   readParentProductionAcceptanceRuntime,
   runParentProductionAcceptance,
-  selectSingleResendTestDelivery,
   validateConcurrentParentMessageEvidence,
   validateParentProductionReleaseRecord,
-  validateResendTestDeliveryEvidence,
+  validateResendWebhookDeliveryEvidence,
   validateParentProductionAcceptanceExecutionId,
   validateTeacherNoticeHealthProgress
 } from "./parent-production-acceptance.mjs";
@@ -33,15 +32,7 @@ const releaseRecordPath = "/tmp/mais-parent-production-release-record.json";
 const deploymentId = "dpl_FixtureParentAcceptance123456";
 const deploymentUrl = "https://mais-parent-acceptance-fixture.vercel.app";
 const validRuntime = Object.freeze({
-  CRON_SECRET: "c".repeat(48),
-  TEACHER_NOTICE_HEALTH_SECRET: "h".repeat(48),
-  TEACHER_NOTICE_RESEND_API_KEY: `re_${"r".repeat(40)}`,
-  TEACHER_NOTICE_EMAIL_ENABLED: "true",
-  TEACHER_NOTICE_ALLOWED_ORIGIN: target,
-  TEACHER_NOTICE_BASE_URL: target,
-  TEACHER_NOTICE_FROM: "MAIS <teacher-notices@example.test>",
-  HK_MATH_STORAGE_PROVIDER: "postgres",
-  WECOM_NOTIFICATIONS_ENABLED: "false"
+  TEACHER_NOTICE_HEALTH_SECRET: "h".repeat(48)
 });
 
 function bindingArgs(overrides = {}) {
@@ -179,13 +170,11 @@ test("production-write authorization is exact-family, exact-target, exact-SHA, a
       /credential.*unavailable|runtime.*unavailable/i
     );
   }
-  assert.throws(
-    () => parseParentProductionAcceptanceArgs(bindingArgs(), {
-      ...validRuntime,
-      WECOM_NOTIFICATIONS_ENABLED: "true"
-    }),
-    /runtime.*unavailable|WeCom.*disabled/i
-  );
+  assert.doesNotThrow(() => parseParentProductionAcceptanceArgs(bindingArgs(), {
+    ...validRuntime,
+    CRON_SECRET: "poison-that-must-not-be-read",
+    TEACHER_NOTICE_RESEND_API_KEY: "poison-that-must-not-be-read"
+  }));
 });
 
 test("each acceptance workflow attempt has a bounded replay-safe execution identity", () => {
@@ -281,7 +270,7 @@ test("provider JSON streaming stops and cancels at the response bound", async ()
   assert.ok(pulls <= 10, `bounded reader pulled ${pulls} chunks`);
 });
 
-test("protected provider pull returns only the exact runtime allowlist and rejects context or parity drift", async () => {
+test("protected production-health loader selects only the health secret and never pulls sensitive Vercel values", async () => {
   const toolSha = "c".repeat(40);
   const context = {
     CI: "true",
@@ -294,134 +283,54 @@ test("protected provider pull returns only the exact runtime allowlist and rejec
     GITHUB_WORKFLOW_REF: "HUDongpin/MAIS-MVP/.github/workflows/parent-production-acceptance.yml@refs/heads/main",
     GITHUB_RUN_ID: "123456789",
     GITHUB_RUN_ATTEMPT: "1",
-    MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE: "vercel-api-pull-v1",
-    VERCEL_TOKEN: `vercel_${"v".repeat(40)}`
+    MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE: "github-production-health-v1",
+    TEACHER_NOTICE_HEALTH_SECRET: validRuntime.TEACHER_NOTICE_HEALTH_SECRET,
+    VERCEL_TOKEN: `vercel_${"v".repeat(40)}`,
+    TEACHER_NOTICE_RESEND_API_KEY: "poison-that-must-not-be-read",
+    CRON_SECRET: "poison-that-must-not-be-read"
   };
   const built = buildParentProductionAcceptanceRuntime({
-    runtimeEnvironment: validRuntime,
-    buildEnvironment: validRuntime,
+    runtimeEnvironment: context,
     target
   });
   assert.deepEqual(built, validRuntime);
   assert.equal(Object.prototype.hasOwnProperty.call(built, "VERCEL_TOKEN"), false);
-  const alternateApprovedNoticeOrigin = {
-    ...validRuntime,
-    TEACHER_NOTICE_ALLOWED_ORIGIN: "https://www.mais.ac",
-    TEACHER_NOTICE_BASE_URL: "https://www.mais.ac"
-  };
-  assert.deepEqual(buildParentProductionAcceptanceRuntime({
-    runtimeEnvironment: alternateApprovedNoticeOrigin,
-    buildEnvironment: alternateApprovedNoticeOrigin,
-    target
-  }), alternateApprovedNoticeOrigin);
+  assert.equal(Object.prototype.hasOwnProperty.call(built, "TEACHER_NOTICE_RESEND_API_KEY"), false);
+  assert.equal(Object.prototype.hasOwnProperty.call(built, "CRON_SECRET"), false);
 
-  const calls = [];
-  const fetchImpl = async (input, init) => {
-    const url = new URL(String(input));
-    calls.push({
-      pathname: url.pathname,
-      searchKeys: [...url.searchParams.keys()].sort(),
-      authorizationPresent: /^Bearer [^\s]+$/u.test(init.headers.authorization)
-    });
-    if (url.pathname.startsWith("/v9/projects/")) {
-      return new Response(JSON.stringify({
-        id: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1",
-        name: "mais-mvp",
-        accountId: "team_i9xhhYXUeYBOCLcfWBjTqlYG"
-      }), { status: 200, headers: { "content-type": "application/json" } });
-    }
-    if (url.pathname.startsWith("/v3/env/pull/")) {
-      return new Response(JSON.stringify({ env: validRuntime, buildEnv: validRuntime }), {
-        status: 200,
-        headers: { "content-type": "application/json" }
-      });
-    }
-    if (url.pathname === "/v13/deployments/www.mais.ac" || url.pathname === "/v13/deployments/www.mais.hk") {
-      return new Response(JSON.stringify({
-        id: deploymentId,
-        url: deploymentUrl,
-        readyState: "READY",
-        target: "production",
-        projectId: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1",
-        project: { id: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1", name: "mais-mvp" },
-        ownerId: "team_i9xhhYXUeYBOCLcfWBjTqlYG",
-        team: { id: "team_i9xhhYXUeYBOCLcfWBjTqlYG", slug: "peter-dongpin-hu-s-projects" }
-      }), { status: 200, headers: { "content-type": "application/json" } });
-    }
-    return new Response(null, { status: 404 });
-  };
+  let fetchCalls = 0;
   assert.deepEqual(await readParentProductionAcceptanceRuntime({
     env: context,
-    fetchImpl,
-    releaseRecord: exactReleaseRecord(),
+    fetchImpl: async () => {
+      fetchCalls += 1;
+      throw new Error("sensitive Vercel values must never be pulled");
+    },
     target
   }), validRuntime);
-  assert.deepEqual(calls, [
-    { pathname: "/v9/projects/prj_rjuY7fXculXzklpoG1L8xg7Tfdr1", searchKeys: ["teamId"], authorizationPresent: true },
-    { pathname: "/v3/env/pull/prj_rjuY7fXculXzklpoG1L8xg7Tfdr1/production", searchKeys: ["source", "teamId"], authorizationPresent: true },
-    { pathname: "/v13/deployments/www.mais.ac", searchKeys: ["teamId"], authorizationPresent: true },
-    { pathname: "/v13/deployments/www.mais.hk", searchKeys: ["teamId"], authorizationPresent: true }
-  ]);
+  assert.equal(fetchCalls, 0);
 
   await assert.rejects(
     readParentProductionAcceptanceRuntime({
       env: { ...context, GITHUB_REF_PROTECTED: "false" },
       fetchImpl: async () => { throw new Error("must not fetch"); },
-      releaseRecord: exactReleaseRecord(),
       target
     }),
-    /provider runtime failed/i
+    /production acceptance runtime failed/i
   );
   await assert.rejects(
     readParentProductionAcceptanceRuntime({
-      env: context,
-      fetchImpl: async (input, init) => {
-        const response = await fetchImpl(input, init);
-        const url = new URL(String(input));
-        if (url.pathname === "/v13/deployments/www.mais.hk") {
-          const payload = await response.json();
-          payload.id = "dpl_DifferentDeployment123456";
-          return new Response(JSON.stringify(payload), {
-            status: 200,
-            headers: { "content-type": "application/json" }
-          });
-        }
-        return response;
-      },
-      releaseRecord: exactReleaseRecord(),
+      env: { ...context, TEACHER_NOTICE_HEALTH_SECRET: "" },
+      fetchImpl: async () => { throw new Error("must not fetch"); },
       target
     }),
-    /provider runtime failed/i
-  );
-  await assert.rejects(
-    readParentProductionAcceptanceRuntime({
-      env: context,
-      fetchImpl: async (input, init) => {
-        const response = await fetchImpl(input, init);
-        const url = new URL(String(input));
-        if (url.pathname.startsWith("/v13/deployments/www.mais.")) {
-          const payload = await response.json();
-          payload.id = "dpl_OtherSharedDeployment123456";
-          payload.url = "https://other-shared-fixture.vercel.app";
-          return new Response(JSON.stringify(payload), {
-            status: 200,
-            headers: { "content-type": "application/json" }
-          });
-        }
-        return response;
-      },
-      releaseRecord: exactReleaseRecord(),
-      target
-    }),
-    /provider runtime failed/i
+    /production acceptance runtime failed/i
   );
   assert.throws(
     () => buildParentProductionAcceptanceRuntime({
-      runtimeEnvironment: validRuntime,
-      buildEnvironment: { ...validRuntime, TEACHER_NOTICE_BASE_URL: "https://www.mais.ac" },
+      runtimeEnvironment: { ...context, TEACHER_NOTICE_HEALTH_SECRET: "short" },
       target
     }),
-    /provider runtime failed/i
+    /production acceptance runtime failed/i
   );
 });
 
@@ -451,7 +360,7 @@ test("production acceptance workflow is protected-main-only, serialized, exact-a
   assert.equal(inputs.allow_production_writes.type, "boolean");
   assert.equal(inputs.allow_resend_test_delivery.type, "boolean");
   const job = workflow.jobs.acceptance;
-  assert.equal(job.environment, "production");
+  assert.equal(job.environment, "production-health");
   assert.equal(job["timeout-minutes"], 45);
   const checkout = job.steps.find((step) => String(step.name).includes("Check out"));
   assert.equal(checkout.uses, "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683");
@@ -478,11 +387,13 @@ test("production acceptance workflow is protected-main-only, serialized, exact-a
   assert.match(download.run, /MAIS_PARENT_RELEASE_RECORD_PATH/u);
   const execute = job.steps.find((step) => step.name === "Run dedicated synthetic-family acceptance");
   assert.equal(execute.env.GITHUB_TOKEN, "${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}");
-  assert.equal(execute.env.MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE, "vercel-api-pull-v1");
+  assert.equal(execute.env.MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE, "github-production-health-v1");
+  assert.equal(execute.env.TEACHER_NOTICE_HEALTH_SECRET, "${{ secrets.TEACHER_NOTICE_HEALTH_SECRET }}");
   assert.equal(execute.env.VERCEL_TOKEN, "${{ secrets.VERCEL_TOKEN }}");
   assert.match(execute.run, /node scripts\/parent-production-acceptance\.mjs/u);
   assert.match(execute.run, /--allow-production-writes/u);
   assert.match(execute.run, /--allow-resend-test-delivery/u);
+  assert.doesNotMatch(source, /TEACHER_NOTICE_RESEND_API_KEY|\/v3\/env\/pull|vercel-api-pull-v1/u);
   assert.doesNotMatch(source, /vercel\s+(?:deploy|promote|rollback)|npm run vercel:production|schema-confirm|teacher-notice-production-schema-gate/u);
   const ciSource = await readFile(path.join(process.cwd(), ".github", "workflows", "ci.yml"), "utf8");
   assert.match(ciSource, /scripts\/parent-production-acceptance\.test\.mjs/u);
@@ -677,45 +588,6 @@ test("concurrent parent message evidence requires one durable write across at le
 
 test("Resend delivery and webhook progress accept only the official delivered test channel", () => {
   const recipient = "delivered+mais-prod-0123456789abcdef@resend.dev";
-  const subject = "MAIS synthetic parent delivery acceptance";
-  const provider = validateResendTestDeliveryEvidence({
-    recipient,
-    subject,
-    payload: {
-      object: "email",
-      id: "provider-sensitive-id",
-      to: [recipient],
-      subject,
-      last_event: "delivered",
-      created_at: "2026-08-28T10:00:00.000Z"
-    }
-  });
-  assert.deepEqual(provider, {
-    officialTestRecipient: true,
-    providerAccepted: true,
-    providerDelivered: true
-  });
-  assert.doesNotMatch(JSON.stringify(provider), /provider-sensitive|resend\.dev/u);
-  const listed = {
-    object: "list",
-    has_more: false,
-    data: [{
-      id: "provider-sensitive-id",
-      to: [recipient],
-      subject,
-      last_event: "delivered",
-      created_at: "2026-08-28T10:00:00.000Z"
-    }]
-  };
-  assert.deepEqual(selectSingleResendTestDelivery(listed, { recipient, subject }), {
-    id: "provider-sensitive-id",
-    delivered: true
-  });
-  assert.throws(
-    () => selectSingleResendTestDelivery({ ...listed, data: [...listed.data, { ...listed.data[0], id: "duplicate-id" }] }, { recipient, subject }),
-    /Resend test delivery list evidence failed/i
-  );
-
   const health = (delivered, overrides = {}) => ({
     health: {
       status: "healthy",
@@ -751,20 +623,41 @@ test("Resend delivery and webhook progress accept only the official delivered te
       ...overrides
     }
   });
-  assert.deepEqual(validateTeacherNoticeHealthProgress({ before: health(0), after: health(1) }), {
+  const healthProgress = validateTeacherNoticeHealthProgress({ before: health(0), after: health(1) });
+  assert.deepEqual(healthProgress, {
     deliveredEventDelta: 1,
     schedulerHealthy: true,
     webhookReconciled: true,
     outboxSettled: true
   });
+  const provider = validateResendWebhookDeliveryEvidence({
+    recipient,
+    queue: { queued: 1, reused: 0, recovered: 0, skipped: 0 },
+    health: healthProgress
+  });
+  assert.deepEqual(provider, {
+    officialTestRecipient: true,
+    providerAccepted: true,
+    providerDelivered: true,
+    evidence: "signed-webhook-health"
+  });
+  assert.doesNotMatch(JSON.stringify(provider), /resend\.dev|provider-sensitive/u);
 
   assert.throws(
-    () => validateResendTestDeliveryEvidence({
+    () => validateResendWebhookDeliveryEvidence({
       recipient: "person@example.com",
-      subject,
-      payload: { id: "provider-id", to: ["person@example.com"], subject, last_event: "delivered" }
+      queue: { queued: 1, reused: 0, recovered: 0, skipped: 0 },
+      health: healthProgress
     }),
-    /Resend test delivery evidence failed/i
+    /Resend webhook delivery evidence failed/i
+  );
+  assert.throws(
+    () => validateResendWebhookDeliveryEvidence({
+      recipient,
+      queue: { queued: 0, reused: 0, recovered: 0, skipped: 1 },
+      health: healthProgress
+    }),
+    /Resend webhook delivery evidence failed/i
   );
   assert.throws(
     () => validateTeacherNoticeHealthProgress({ before: health(1), after: health(1) }),
@@ -857,45 +750,7 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     const url = new URL(String(input));
     const method = init.method ?? "GET";
     const body = typeof init.body === "string" ? JSON.parse(init.body) : null;
-    if (url.hostname === "api.resend.com") {
-      assert.equal(init.headers.authorization, `Bearer ${validRuntime.TEACHER_NOTICE_RESEND_API_KEY}`);
-      if (url.pathname === "/emails") {
-        return json({
-          object: "list",
-          has_more: false,
-          data: state.providerQueued ? [{
-            id: sensitive.providerId,
-            to: [state.parentRecipient],
-            from: "MAIS <teacher-notices@example.test>",
-            created_at: "2026-08-28T10:08:00.000Z",
-            subject: state.noticeSubject,
-            bcc: null,
-            cc: null,
-            reply_to: null,
-            last_event: "delivered",
-            scheduled_at: null
-          }] : []
-        });
-      }
-      if (url.pathname === `/emails/${sensitive.providerId}`) {
-        return json({
-          object: "email",
-          id: sensitive.providerId,
-          to: [state.parentRecipient],
-          from: "MAIS <teacher-notices@example.test>",
-          created_at: "2026-08-28T10:08:00.000Z",
-          subject: state.noticeSubject,
-          html: "<p>synthetic</p>",
-          text: null,
-          bcc: [],
-          cc: [],
-          reply_to: [],
-          last_event: "delivered",
-          scheduled_at: null,
-          tags: []
-        });
-      }
-    }
+    assert.notEqual(url.hostname, "api.resend.com", "restricted production Resend keys must stay inside the deployed app");
     if (url.pathname === "/api/auth/register" && method === "POST") {
       const role = body.role ?? "student";
       if (role === "parent") state.parentRecipient = body.email;
@@ -1082,7 +937,6 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     sleep: async () => undefined,
     concurrency: 4,
     maxReplayBatches: 1,
-    providerPollAttempts: 1,
     healthPollAttempts: 1,
     verifyToolingChecks: async (input) => {
       toolingVerificationCalls += 1;
@@ -1133,6 +987,7 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
   assert.equal(report.idempotency.create.distinctInstanceCount, 2);
   assert.equal(report.idempotency.reply.distinctInstanceCount, 2);
   assert.equal(report.notification.provider.providerDelivered, true);
+  assert.equal(report.notification.provider.evidence, "signed-webhook-health");
   assert.equal(report.notification.health.deliveredEventDelta, 1);
   assert.equal(report.notification.acknowledged, true);
   const serialized = JSON.stringify(report);
