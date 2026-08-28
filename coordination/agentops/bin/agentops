@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+AGENTOPS_BIN_DIRECTORY=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+AGENTOPS_REPO_ROOT=$(CDPATH= cd -- "$AGENTOPS_BIN_DIRECTORY/../../.." && pwd)
+
+exec "$AGENTOPS_REPO_ROOT/node_modules/.bin/tsx" \
+  "$AGENTOPS_REPO_ROOT/coordination/agentops/cli.ts" "$@"

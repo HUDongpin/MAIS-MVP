@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "mais-agentops-skill-clean-context-eval.v1",
+  "cases": [
+    {
+      "id": "clean-context-parent-console",
+      "hostEvalRound": 1,
+      "prompt": "Use MAIS AgentOps to make the parent console complete, including any API and regression dependencies, but do not start implementation yet.",
+      "expectedPrimaryLane": "A14",
+      "expectedBoundary": "Produce an A14-primary handoff with ordered A12 and A11 collaboration; code-writing remains authorization-required.",
+      "forbiddenClaims": [
+        "implemented",
+        "approved-for-production",
+        "deployed",
+        "live"
+      ],
+      "compiledRequest": {
+        "schemaVersion": "mais-agentops-request.v1",
+        "requestId": "clean-context-parent-console-v1",
+        "intentSummary": "Prepare a bounded parent-console implementation handoff with separate API and regression dependencies.",
+        "explicitGoal": "Make the parent console complete without starting implementation in AgentOps.",
+        "taskType": "feature",
+        "operationMode": "handoff",
+        "audience": "MAIS owner and implementing lane owners",
+        "targetRuntime": "codex",
+        "scope": {
+          "included": [
+            "app/parent/**",
+            "components/parent/**"
+          ],
+          "excluded": [
+            "app/api/parent/**",
+            "tests/e2e/**"
+          ]
+        },
+        "mustHave": [
+          "A14 is the single primary lane",
+          "A12 and A11 dependencies are ordered separate slices"
+        ],
+        "mustAvoid": [
+          "parallel writers on shared files",
+          "claiming the parent console is implemented"
+        ],
+        "successCriteria": [
+          "the handoff identifies A14 and the ordered A12 and A11 dependencies",
+          "the handoff records code writing as denied to AgentOps v1"
+        ],
+        "assumptions": [
+          "API storage and broad regression remain separate owner sessions"
+        ],
+        "unresolvedItems": [],
+        "contextRefs": [
+          {
+            "kind": "repo-path",
+            "value": "app/parent"
+          }
+        ],
+        "requestedEffects": [
+          "repository-read",
+          "code-write"
+        ]
+      }
+    },
+    {
+      "id": "clean-context-content-chain",
+      "hostEvalRound": 2,
+      "prompt": "Use MAIS AgentOps to generate, machine-check, review, promote, and eventually release a mainland junior mathematics question package.",
+      "expectedPrimaryLane": "A21",
+      "expectedBoundary": "Produce ordered evidence-class handoffs beginning at A21; request clarification or authorization where required and never collapse generation, A18 review, A23 promotion, A11 regression, and A22 release.",
+      "forbiddenClaims": [
+        "implemented",
+        "approved-for-production",
+        "deployed",
+        "live"
+      ],
+      "compiledRequest": {
+        "schemaVersion": "mais-agentops-request.v1",
+        "requestId": "clean-context-content-chain-v1",
+        "intentSummary": "Prepare an ordered evidence-chain handoff beginning with an immutable mainland junior mathematics candidate package.",
+        "explicitGoal": "Route generation, machine checking, independent review, promotion, regression, and release without collapsing their evidence classes.",
+        "taskType": "content-generation",
+        "operationMode": "handoff",
+        "audience": "MAIS owner and content-chain lane owners",
+        "targetRuntime": "specialist-skill",
+        "scope": {
+          "included": [
+            "coordination/content-qa/**"
+          ],
+          "excluded": [
+            "data/questions.ts",
+            "app/**",
+            "production/**"
+          ]
+        },
+        "mustHave": [
+          "A21 candidate generation is the first contract",
+          "machine QA, A18, A23, A11, and A22 remain separate evidence stages"
+        ],
+        "mustAvoid": [
+          "automatic promotion between evidence classes",
+          "production or live claims"
+        ],
+        "successCriteria": [
+          "the route starts at A21 and lists ordered downstream contracts",
+          "content and provider execution remain denied to AgentOps v1"
+        ],
+        "assumptions": [
+          "each downstream stage receives the exact immutable candidate identity"
+        ],
+        "unresolvedItems": [],
+        "contextRefs": [
+          {
+            "kind": "repo-path",
+            "value": "coordination/content-qa"
+          }
+        ],
+        "requestedEffects": [
+          "repository-read",
+          "content-write",
+          "provider-execution"
+        ]
+      }
+    }
+  ]
+}

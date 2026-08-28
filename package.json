@@ -125,6 +125,8 @@
     "check": "npm run type-check && npm run audit:zh-hans:strict && npm run test:analytics && npm run test:accommodations && npm run test:content-safety && npm run test:rag && npm run test:question-bank && npm run test:mvp && npm run test:components && npm run build"
   },
   "dependencies": {
+    "@langchain/core": "1.2.9",
+    "@langchain/langgraph": "1.4.13",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     "@vercel/analytics": "^2.0.1",

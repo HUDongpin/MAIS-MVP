@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/agentops-event-v1.schema.json",
+  "title": "AgentOpsEventV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "sequence", "nodeId", "status", "sanitizedEvidence", "previousEventDigest", "producedAt", "eventDigest"],
+  "properties": {
+    "schemaVersion": { "const": "mais-agentops-event.v1" },
+    "runId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "nodeId": { "enum": ["agentops.intake", "agentops.contract", "agentops.discovery", "agentops.authority", "agentops.route", "agentops.specialist-preflight", "agentops.eval-plan", "agentops.handoff"] },
+    "status": { "enum": ["started", "completed", "interrupted", "failed"] },
+    "sanitizedEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "evidenceDigests", "repositoryPaths"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "evidenceDigests": { "type": "array", "maxItems": 100, "uniqueItems": true, "items": { "$ref": "#/$defs/digest" } },
+        "repositoryPaths": { "type": "array", "maxItems": 100, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 1024, "not": { "pattern": "(?:^/|(?:^|/)\\.\\.(?:/|$)|\\\\)" } } }
+      }
+    },
+    "previousEventDigest": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+    "producedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?Z$" },
+    "eventDigest": { "$ref": "#/$defs/digest" }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

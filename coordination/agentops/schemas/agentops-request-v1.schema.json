@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/agentops-request-v1.schema.json",
+  "title": "AgentOpsRequestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "requestId",
+    "intentSummary",
+    "explicitGoal",
+    "taskType",
+    "operationMode",
+    "audience",
+    "targetRuntime",
+    "scope",
+    "mustHave",
+    "mustAvoid",
+    "successCriteria",
+    "assumptions",
+    "unresolvedItems",
+    "contextRefs",
+    "requestedEffects"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mais-agentops-request.v1" },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "intentSummary": { "$ref": "#/$defs/nonEmptyString" },
+    "explicitGoal": { "$ref": "#/$defs/nonEmptyString" },
+    "taskType": {
+      "enum": [
+        "feature",
+        "bugfix",
+        "content-generation",
+        "machine-qa",
+        "content-qa",
+        "prompt-audit",
+        "adaptive-audit",
+        "research",
+        "regression",
+        "release",
+        "git-hygiene",
+        "backend",
+        "documentation",
+        "illustration",
+        "routing"
+      ]
+    },
+    "operationMode": { "enum": ["analyze", "audit", "plan", "route", "handoff"] },
+    "audience": { "$ref": "#/$defs/nonEmptyString" },
+    "targetRuntime": { "enum": ["codex", "claude", "specialist-skill", "graphops", "human"] },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["included", "excluded"],
+      "properties": {
+        "included": { "$ref": "#/$defs/nonEmptyScopeArray" },
+        "excluded": { "$ref": "#/$defs/scopeArray" }
+      }
+    },
+    "mustHave": { "$ref": "#/$defs/stringArray" },
+    "mustAvoid": { "$ref": "#/$defs/stringArray" },
+    "successCriteria": { "$ref": "#/$defs/nonEmptyStringArray" },
+    "assumptions": { "$ref": "#/$defs/stringArray" },
+    "unresolvedItems": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "question", "impact"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "question": { "$ref": "#/$defs/nonEmptyString" },
+          "impact": { "enum": ["low", "high"] }
+        }
+      }
+    },
+    "contextRefs": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "value"],
+        "properties": {
+          "kind": { "enum": ["repo-path", "logical-ref", "sha256"] },
+          "value": { "type": "string", "minLength": 1, "maxLength": 1024 }
+        }
+      }
+    },
+    "requestedEffects": {
+      "type": "array",
+      "maxItems": 9,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/requestedEffect" }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "maxLength": 8192 },
+    "scopeString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192,
+      "not": { "pattern": "(?:^/|^[A-Za-z]:|^[A-Za-z][A-Za-z0-9+.-]*://|\\\\|(?:^|/)\\.{1,2}(?:/|$)|//)" }
+    },
+    "stringArray": {
+      "type": "array",
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "scopeArray": {
+      "type": "array",
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/scopeString" }
+    },
+    "nonEmptyScopeArray": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/scopeString" }
+    },
+    "requestedEffect": {
+      "enum": [
+        "repository-read",
+        "deterministic-validation",
+        "code-write",
+        "content-write",
+        "credential-access",
+        "provider-execution",
+        "git-mutation",
+        "deployment",
+        "production-data-mutation"
+      ]
+    }
+  }
+}
