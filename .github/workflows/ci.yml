@@ -107,6 +107,7 @@ jobs:
       - name: Run exact-source deployment evidence and read-only smoke unit gates
         run: |
           node --test --test-concurrency=1 \
+            scripts/parent-production-acceptance.test.mjs \
             scripts/prod-certification.test.mjs \
             scripts/next-clean-build.test.mjs \
             scripts/prepare-vercel-staging.test.mjs \
