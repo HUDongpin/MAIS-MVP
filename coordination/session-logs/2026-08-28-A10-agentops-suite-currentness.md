@@ -6,8 +6,10 @@
 - Branch: `codex/a10-agentops-suite-currentness-20260828`
 - Worktree:
   `/Volumes/Starship/MAIS-MVP/.worktrees/a10-agentops-suite-currentness-20260828`
-- Reviewed live-main baseline:
+- Initial reviewed live-main baseline:
   `9bf9cfb99f75a0dbc5a298e0d6aae74594571890`
+- Final refreshed reviewed-main baseline:
+  `1fe539383656231cafdcaf8abf06ff29c19f1ee8`
 - Exact AgentOps tip:
   `150ded76db7d64c368e5db7e6cb30f3d90d40f78`
 - Exact suite source:
@@ -34,7 +36,10 @@ acceptance, A23 promotion, GitHub merge, deployment, or live claim.
 
 - Live remote `main` advanced from the earlier observed `56b4c1...` to
   `9bf9cfb99f75a0dbc5a298e0d6aae74594571890`; the latter is the baseline used
-  here.
+  for the initial exact integration. Before closeout, remote main advanced once
+  more to `1fe539383656231cafdcaf8abf06ff29c19f1ee8`; its two-path A11 delta had
+  zero overlap with this slice and was merged exactly before refreshing the
+  reviewed-main binding and marker.
 - The AgentOps and suite source worktrees were clean at their exact remote
   tips. Their 43-path and 95-path deltas had no overlap with reviewed-main
   changes after their respective merge bases.

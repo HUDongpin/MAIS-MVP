@@ -361,7 +361,7 @@ export const SPECIALIST_REGISTRY = deepFreeze({
     ],
     availabilityPolicy: "reviewed-currentness-marker-required",
     reviewedRepository: {
-      reviewedMainCommit: "9bf9cfb99f75a0dbc5a298e0d6aae74594571890",
+      reviewedMainCommit: "1fe539383656231cafdcaf8abf06ff29c19f1ee8",
       agentopsCommit: "150ded76db7d64c368e5db7e6cb30f3d90d40f78",
     },
     reviewedSource: {
