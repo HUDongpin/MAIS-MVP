@@ -479,8 +479,13 @@ test("the coherent parent hydration fixture publishes its identity and revalidat
   );
   assert.match(
     hydrationTest,
-    /firstParentHtml\)\.toContain\('data-session-verification-mode="identity"'\)/u,
-    "the server document must expose the React-owned identity gate"
+    /firstParentHtml\)\.toContain\('data-session-verification-mode="initial"'\)/u,
+    "the server document must expose neutral React-owned loading"
+  );
+  assert.match(
+    hydrationTest,
+    /firstParentHtml\)\.not\.toContain\("For your privacy"\)/u,
+    "initial authenticated HTML must not present an alarming privacy warning"
   );
   assert.match(
     hydrationTest,
