@@ -585,6 +585,7 @@ export const traditionalToSimplifiedMap: Record<string, string> = {
   際: "际",
   隻: "只",
   雲: "云",
+  爭: "争",
   靜: "静",
   響: "响",
   顆: "颗",
