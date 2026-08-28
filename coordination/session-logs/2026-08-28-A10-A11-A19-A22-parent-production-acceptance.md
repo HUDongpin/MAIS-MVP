@@ -136,6 +136,7 @@ evidence, and VoiceOver/NVDA human acceptance.
 - Follow-up branch:
   `codex/a10-a11-a19-a22-parent-prod-acceptance-env-fix-20260828`, based on
   exact protected main `f5430dfe81e6aba47d54e3db38de760c5cff1ba9`.
+- Follow-up target PR: `#219` (`https://github.com/HUDongpin/MAIS-MVP/pull/219`).
 - The repaired workflow uses the protected `production-health` environment,
   the environment's health secret, the release GitHub token for exact
   check/branch-protection evidence, and the Vercel token only for exact
