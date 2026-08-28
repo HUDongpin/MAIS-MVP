@@ -7592,6 +7592,218 @@ function databaseNeedsPersistenceSync(
   );
 }
 
+export const postgresStorageSnapshotRecordDriftReasonCodes = [
+  "guardian-invitations",
+  "users-session-lifecycle",
+  "users-normalized-email",
+  "users-password-policy",
+  "student-profiles-avatar",
+  "teacher-classes-invite-code",
+  "assignments-grade-flag",
+  "teacher-messages-starred",
+  "teacher-notices-source-kind",
+  "guardian-links-status",
+  "student-profiles-legacy-invite-code",
+  "guardian-links-legacy-invite-code",
+  "teaching-resources-file-size",
+  "teacher-lesson-kits-shape",
+  "teacher-review-lessons-shape",
+  "assessments-shape",
+  "reward-catalog-shape",
+  "reward-catalog-point-costs",
+  "reward-ledger-shape",
+  "reward-redemptions-status",
+  "gamification-events-shape",
+  "reward-campaigns-status",
+  "nova-lens-runs-shape",
+  "demo-records",
+  "bootstrap-admin",
+  "unclassified"
+] as const;
+
+export function postgresStorageSnapshotRecordDriftReasons(value: unknown) {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return Object.freeze(["unclassified"] as const);
+  }
+  const parsed = value as Partial<Database>;
+  if (!hasCoreTables(parsed)) {
+    return Object.freeze(["unclassified"] as const);
+  }
+
+  let database: Database;
+  try {
+    database = normalizeDatabase(parsed);
+  } catch {
+    return Object.freeze(["unclassified"] as const);
+  }
+
+  const reasons: Array<
+    (typeof postgresStorageSnapshotRecordDriftReasonCodes)[number]
+  > = [];
+  const record = (
+    reason: (typeof postgresStorageSnapshotRecordDriftReasonCodes)[number],
+    drifted: boolean
+  ) => {
+    if (drifted) reasons.push(reason);
+  };
+
+  record(
+    "guardian-invitations",
+    guardianInvitationRecordsNeedPersistenceSyncFromParentAccess(
+      parsed.guardian_invitations,
+      database.guardian_invitations,
+      { allowSafeSanitization: true }
+    )
+  );
+  record(
+    "users-session-lifecycle",
+    (parsed.users ?? []).some((user) => (
+      !Object.prototype.hasOwnProperty.call(user, "session_revision")
+      || !Object.prototype.hasOwnProperty.call(user, "disabled_at")
+    ))
+  );
+  record(
+    "users-normalized-email",
+    database.users.some((user) => Boolean(user.email && !user.normalized_email))
+  );
+  record(
+    "users-password-policy",
+    database.users.some((user) => typeof user.password_must_change !== "boolean")
+  );
+  record(
+    "student-profiles-avatar",
+    database.student_profiles.some((profile) =>
+      !isValidStudentAvatarIdFromAuthSessionPersistence(profile.avatar_id)
+    )
+  );
+  record(
+    "teacher-classes-invite-code",
+    database.teacher_classes.some((teacherClass) => !teacherClass.invite_code)
+  );
+  record(
+    "assignments-grade-flag",
+    database.assignments.some((assignment) =>
+      typeof assignment.count_towards_grade !== "boolean"
+    )
+  );
+  record(
+    "teacher-messages-starred",
+    database.teacher_messages.some((message) => typeof message.starred !== "boolean")
+  );
+  record(
+    "teacher-notices-source-kind",
+    Array.isArray(parsed.teacher_notices)
+      && parsed.teacher_notices.some((notice) => Boolean(
+        notice.source_kind
+        && !isValidTeacherNoticeSourceKindFromTeacherOpsNotice(notice.source_kind)
+      ))
+  );
+  record(
+    "guardian-links-status",
+    database.guardian_links.some((link) =>
+      !isValidGuardianLinkStatusFromParentAccess(link.status)
+    )
+  );
+  record(
+    "student-profiles-legacy-invite-code",
+    (parsed.student_profiles ?? []).some((profile) => Boolean(profile.parent_invite_code))
+  );
+  record(
+    "guardian-links-legacy-invite-code",
+    (parsed.guardian_links ?? []).some((link) => Boolean(link.invite_code))
+  );
+  record(
+    "teaching-resources-file-size",
+    database.teaching_resources.some((resource) =>
+      typeof resource.file_size_bytes !== "number"
+    )
+  );
+  record(
+    "teacher-lesson-kits-shape",
+    database.teacher_lesson_kits.some((kit) =>
+      !isValidTeacherLessonKitStatusFromTeacherOpsLessonKit(kit.status)
+      || !Array.isArray(kit.sections)
+    )
+  );
+  record(
+    "teacher-review-lessons-shape",
+    database.teacher_review_lessons.some((reviewLesson) =>
+      !isValidTeacherReviewLessonStatusFromTeacherOpsAssessment(reviewLesson.status)
+      || !Array.isArray(reviewLesson.items)
+    )
+  );
+  record(
+    "assessments-shape",
+    database.assessments.some((assessment) =>
+      !assessment.source_type || !Array.isArray(assessment.question_ids)
+    )
+  );
+  record(
+    "reward-catalog-shape",
+    database.reward_catalog.some((item) =>
+      !isValidRewardCatalogCategory(item.category)
+      || typeof item.available !== "boolean"
+    )
+  );
+  record(
+    "reward-catalog-point-costs",
+    rewardCatalogPointCostsNeedSync(parsed.reward_catalog)
+  );
+  record(
+    "reward-ledger-shape",
+    database.reward_point_ledger.some((entry) =>
+      !isValidRewardPointReason(entry.reason) || typeof entry.amount !== "number"
+    )
+  );
+  record(
+    "reward-redemptions-status",
+    database.reward_redemptions.some((redemption) =>
+      !isValidRewardRedemptionStatusFromGamificationSeedRecords(redemption.status)
+    )
+  );
+  record(
+    "gamification-events-shape",
+    database.gamification_events.some((event) =>
+      !isValidGamificationEventSource(event.source)
+      || !isValidGamificationEventStatus(event.status)
+    )
+  );
+  record(
+    "reward-campaigns-status",
+    database.reward_campaigns.some((campaign) =>
+      !isValidRewardCampaignStatus(campaign.status)
+    )
+  );
+  record(
+    "nova-lens-runs-shape",
+    database.nova_lens_runs.some((run) =>
+      novaLensRunNeedsPersistenceSyncFromNovaLensPersistence(run)
+    )
+  );
+  record(
+    "demo-records",
+    demoRecordsNeedSyncFromAuthSessionPersistence(parsed, {
+      demoAccountSeeds: storageSeedExampleAccountSeeds(),
+      demoPassword: getDemoPassword(),
+      fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
+      internalExampleAccountSeedForUserId
+    })
+  );
+  record(
+    "bootstrap-admin",
+    bootstrapAdminNeedsSyncFromAuthSessionPersistence(
+      parsed,
+      bootstrapAdminInputFromAuthSessionPersistence()
+    )
+  );
+
+  const needsSync = databaseNeedsPersistenceSync(parsed, database, {
+    allowGuardianInvitationSanitization: true
+  });
+  if (needsSync && reasons.length === 0) reasons.push("unclassified");
+  return Object.freeze(reasons);
+}
+
 export function postgresStorageSnapshotContractIsComplete(value: unknown) {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const parsed = value;

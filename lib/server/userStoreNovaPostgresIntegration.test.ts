@@ -1505,6 +1505,41 @@ test(
           beforeDiagnostic,
           "the record-contract diagnostic must be read-only"
         );
+        const driftDiagnosticPayload = structuredClone(diagnosticPayload);
+        const diagnosticTeacherClasses = driftDiagnosticPayload.teacher_classes as Array<
+          Record<string, unknown>
+        >;
+        assert.ok(diagnosticTeacherClasses.length > 0);
+        diagnosticTeacherClasses[0].invite_code = "";
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(driftDiagnosticPayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const beforeDriftDiagnostic = await readStateEvidence(sql);
+        assert.deepEqual(
+          await runSuccessfulWorker(
+            "production-schema-parent-access-record-drift-diagnostic"
+          ),
+          {
+            legacyFields: [
+              "guardian_links.invite_code",
+              "student_profiles.parent_invite_code"
+            ],
+            recordDriftReasons: ["teacher-classes-invite-code"],
+            virtualRepairComplete: false
+          }
+        );
+        assert.deepEqual(
+          await readStateEvidence(sql),
+          beforeDriftDiagnostic,
+          "the record-drift diagnostic must be read-only"
+        );
         await sql`
           UPDATE public.app_state
           SET payload = ${sql.json(postgresJson(missingPayload))}::pg_catalog.jsonb,

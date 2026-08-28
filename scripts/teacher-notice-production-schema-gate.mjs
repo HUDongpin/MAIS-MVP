@@ -9,6 +9,8 @@ import postgres from "postgres";
 import {
   applyPostgresStorageSchemaForProductionGate,
   inspectPostgresStorageSchemaForProductionGate,
+  postgresStorageSnapshotRecordDriftReasonCodes,
+  postgresStorageSnapshotRecordDriftReasons,
   postgresStorageSnapshotContractIsComplete
 } from "../lib/server/userStore.ts";
 import {
@@ -268,15 +270,11 @@ function recordHasOwnField(record, field) {
     && Object.hasOwn(record, field);
 }
 
-export function buildPostgresStorageParentAccessRecordContractDiagnostic(
-  snapshot,
-  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
-) {
+function buildPostgresStorageParentAccessVirtualRepair(snapshot) {
   if (
     typeof snapshot !== "object"
     || snapshot === null
     || Array.isArray(snapshot)
-    || typeof isComplete !== "function"
   ) {
     throw new Error(
       "Postgres production parent-access record-contract diagnostic was rejected."
@@ -333,7 +331,69 @@ export function buildPostgresStorageParentAccessRecordContractDiagnostic(
   };
   return Object.freeze({
     legacyFields: Object.freeze(legacyFields),
-    virtualRepairComplete: isComplete(virtuallyRepaired) === true
+    payload: Object.freeze(virtuallyRepaired)
+  });
+}
+
+export function buildPostgresStorageParentAccessRecordContractDiagnostic(
+  snapshot,
+  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
+) {
+  if (typeof isComplete !== "function") {
+    throw new Error(
+      "Postgres production parent-access record-contract diagnostic was rejected."
+    );
+  }
+  const repair = buildPostgresStorageParentAccessVirtualRepair(snapshot);
+  return Object.freeze({
+    legacyFields: repair.legacyFields,
+    virtualRepairComplete: isComplete(repair.payload) === true
+  });
+}
+
+export function buildPostgresStorageParentAccessRecordDriftDiagnostic(
+  snapshot,
+  {
+    isComplete = postgresStorageSnapshotContractIsComplete,
+    recordDriftReasons = postgresStorageSnapshotRecordDriftReasons
+  } = {}
+) {
+  if (
+    typeof isComplete !== "function"
+    || typeof recordDriftReasons !== "function"
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-drift diagnostic was rejected."
+    );
+  }
+  const repair = buildPostgresStorageParentAccessVirtualRepair(snapshot);
+  const rawReasons = recordDriftReasons(repair.payload);
+  if (!Array.isArray(rawReasons)) {
+    throw new Error(
+      "Postgres production parent-access record-drift diagnostic was rejected."
+    );
+  }
+  const reasonSet = new Set(rawReasons);
+  const recordDriftReasonsSafe = postgresStorageSnapshotRecordDriftReasonCodes
+    .filter((reason) => reasonSet.has(reason));
+  const virtualRepairComplete = isComplete(repair.payload) === true;
+  if (
+    rawReasons.some((reason) =>
+      typeof reason !== "string"
+      || !postgresStorageSnapshotRecordDriftReasonCodes.includes(reason)
+    )
+    || reasonSet.size !== rawReasons.length
+    || JSON.stringify(rawReasons) !== JSON.stringify(recordDriftReasonsSafe)
+    || virtualRepairComplete !== (recordDriftReasonsSafe.length === 0)
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-drift diagnostic was rejected."
+    );
+  }
+  return Object.freeze({
+    legacyFields: repair.legacyFields,
+    recordDriftReasons: Object.freeze(recordDriftReasonsSafe),
+    virtualRepairComplete
   });
 }
 
@@ -430,6 +490,50 @@ function validatePostgresStorageParentAccessRecordContractDiagnostic(value) {
   return Object.freeze({
     legacyFields: Object.freeze([...value.legacyFields]),
     virtualRepairComplete: value.virtualRepairComplete
+  });
+}
+
+function validatePostgresStorageParentAccessRecordDriftDiagnostic(value) {
+  if (
+    typeof value !== "object"
+    || value === null
+    || Array.isArray(value)
+    || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify([
+      "legacyFields",
+      "recordDriftReasons",
+      "virtualRepairComplete"
+    ])
+    || !Array.isArray(value.recordDriftReasons)
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-drift diagnostic was rejected."
+    );
+  }
+  const base = validatePostgresStorageParentAccessRecordContractDiagnostic({
+    legacyFields: value.legacyFields,
+    virtualRepairComplete: value.virtualRepairComplete
+  });
+  const reasonSet = new Set(value.recordDriftReasons);
+  const ordered = postgresStorageSnapshotRecordDriftReasonCodes.filter(
+    (reason) => reasonSet.has(reason)
+  );
+  if (
+    value.recordDriftReasons.some((reason) =>
+      typeof reason !== "string"
+      || !postgresStorageSnapshotRecordDriftReasonCodes.includes(reason)
+    )
+    || reasonSet.size !== value.recordDriftReasons.length
+    || JSON.stringify(value.recordDriftReasons) !== JSON.stringify(ordered)
+    || base.virtualRepairComplete !== (ordered.length === 0)
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-drift diagnostic was rejected."
+    );
+  }
+  return Object.freeze({
+    legacyFields: base.legacyFields,
+    recordDriftReasons: Object.freeze(ordered),
+    virtualRepairComplete: base.virtualRepairComplete
   });
 }
 
@@ -1273,13 +1377,17 @@ export async function inspectPostgresStorageCollectionGapForProductionGate(
   });
 }
 
-export async function inspectPostgresStorageParentAccessRecordContractForProductionGate(
-  client
+async function inspectPostgresStorageParentAccessRecordForProductionGate(
+  client,
+  { buildDiagnostic, diagnosticName }
 ) {
-  if (!client || typeof client.begin !== "function") {
-    throw new Error(
-      "Postgres production parent-access record-contract diagnostic was rejected."
-    );
+  if (
+    !client
+    || typeof client.begin !== "function"
+    || typeof buildDiagnostic !== "function"
+    || typeof diagnosticName !== "string"
+  ) {
+    throw new Error(`Postgres production ${diagnosticName} was rejected.`);
   }
   return client.begin("isolation level repeatable read read only", async (sql) => {
     await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
@@ -1290,7 +1398,7 @@ export async function inspectPostgresStorageParentAccessRecordContractForProduct
       pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
     )`;
     const rows = await sql`
-      /* postgres_storage_parent_access_record_contract_diagnostic */
+      /* postgres_storage_parent_access_record_diagnostic */
       SELECT
         state.payload,
         state.revision,
@@ -1306,13 +1414,27 @@ export async function inspectPostgresStorageParentAccessRecordContractForProduct
       || safePostgresStorageRevision(rows[0]?.revision) === null
       || rows[0]?.rowCount !== 1
     ) {
-      throw new Error(
-        "Postgres production parent-access record-contract diagnostic was rejected."
-      );
+      throw new Error(`Postgres production ${diagnosticName} was rejected.`);
     }
-    return buildPostgresStorageParentAccessRecordContractDiagnostic(
-      rows[0]?.payload
-    );
+    return buildDiagnostic(rows[0]?.payload);
+  });
+}
+
+export async function inspectPostgresStorageParentAccessRecordContractForProductionGate(
+  client
+) {
+  return inspectPostgresStorageParentAccessRecordForProductionGate(client, {
+    buildDiagnostic: buildPostgresStorageParentAccessRecordContractDiagnostic,
+    diagnosticName: "parent-access record-contract diagnostic"
+  });
+}
+
+export async function inspectPostgresStorageParentAccessRecordDriftForProductionGate(
+  client
+) {
+  return inspectPostgresStorageParentAccessRecordForProductionGate(client, {
+    buildDiagnostic: buildPostgresStorageParentAccessRecordDriftDiagnostic,
+    diagnosticName: "parent-access record-drift diagnostic"
   });
 }
 
@@ -1636,6 +1758,9 @@ function resolveProductionGateDependencies(options) {
     inspectParentAccessRecordContract:
       options.inspectParentAccessRecordContract
       ?? inspectPostgresStorageParentAccessRecordContractForProductionGate,
+    inspectParentAccessRecordDrift:
+      options.inspectParentAccessRecordDrift
+      ?? inspectPostgresStorageParentAccessRecordDriftForProductionGate,
     inspectDatabase: options.inspectDatabase ?? inspectProductionDatabase
   };
   if (
@@ -1646,6 +1771,7 @@ function resolveProductionGateDependencies(options) {
     typeof dependencies.connectPostgres !== "function" ||
     typeof dependencies.inspectCollectionGap !== "function" ||
     typeof dependencies.inspectParentAccessRecordContract !== "function" ||
+    typeof dependencies.inspectParentAccessRecordDrift !== "function" ||
     typeof dependencies.inspectDatabase !== "function"
   ) {
     throw new Error("invalid dependencies");
@@ -1767,6 +1893,42 @@ async function readProductionParentAccessRecordContract(dependencies) {
   });
 }
 
+async function readProductionParentAccessRecordDrift(dependencies) {
+  return withProductionPostgresSecret(dependencies, async (
+    productionUrl,
+    productionEnvironment
+  ) => {
+    const client = await runProductionSchemaStage(
+      "postgres-connect",
+      () => dependencies.connectPostgres(productionUrl)
+    );
+    let primaryError = null;
+    try {
+      return await runProductionSchemaStage(
+        "postgres-inspect",
+        async () => validatePostgresStorageParentAccessRecordDriftDiagnostic(
+          await withTemporaryProductionAppStorageEnvironment(
+            productionEnvironment,
+            () => dependencies.inspectParentAccessRecordDrift(client)
+          )
+        )
+      );
+    } catch (error) {
+      primaryError = error;
+      throw error;
+    } finally {
+      try {
+        await runProductionSchemaStage(
+          "postgres-close",
+          () => closePostgresClient(client)
+        );
+      } catch (closeError) {
+        if (primaryError === null) throw closeError;
+      }
+    }
+  });
+}
+
 function evidenceFromInspection(dependencies, inspection) {
   return buildTeacherNoticeProductionSchemaPreflightEvidence({
     candidateSha: dependencies.candidateSha,
@@ -1843,6 +2005,36 @@ export async function diagnoseTeacherNoticeProductionSchemaParentAccessRecords(
     );
     const diagnostic =
       await readProductionParentAccessRecordContract(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-after",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    return Object.freeze({
+      candidateSha: dependencies.candidateSha,
+      expectedTreeSha: dependencies.expectedTreeSha,
+      ...diagnostic
+    });
+  } catch (error) {
+    throw stageError("unknown", error);
+  }
+}
+
+export async function diagnoseTeacherNoticeProductionSchemaParentAccessRecordDrift(
+  options = {}
+) {
+  try {
+    const dependencies = await runProductionSchemaStage(
+      "input-binding",
+      async () => resolveProductionGateDependencies(options)
+    );
+    const localBinding = localBindingFromDependencies(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-before",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    const diagnostic = await readProductionParentAccessRecordDrift(
+      dependencies
+    );
     await runProductionSchemaStage(
       "candidate-binding-after",
       () => assertLocalCandidateBinding(localBinding)
@@ -2272,6 +2464,7 @@ function parseCliArguments(argv) {
   const parsed = {
     apply: false,
     diagnoseCollections: false,
+    diagnoseParentAccessRecordDrift: false,
     diagnoseParentAccessRecords: false,
     dryRun: false,
     preflight: false,
@@ -2283,6 +2476,9 @@ function parseCliArguments(argv) {
     else if (argument === "--diagnose-collections") parsed.diagnoseCollections = true;
     else if (argument === "--diagnose-parent-access-records") {
       parsed.diagnoseParentAccessRecords = true;
+    }
+    else if (argument === "--diagnose-parent-access-record-drift") {
+      parsed.diagnoseParentAccessRecordDrift = true;
     }
     else if (argument === "--dry-run") parsed.dryRun = true;
     else if (argument === "--preflight") parsed.preflight = true;
@@ -2298,6 +2494,7 @@ function parseCliArguments(argv) {
   }
   const modeCount = Number(parsed.apply)
     + Number(parsed.diagnoseCollections)
+    + Number(parsed.diagnoseParentAccessRecordDrift)
     + Number(parsed.diagnoseParentAccessRecords)
     + Number(parsed.dryRun)
     + Number(parsed.preflight);
@@ -2343,6 +2540,21 @@ async function main() {
     process.stdout.write(`${JSON.stringify({
       ...evidence,
       mode: "parent-access-record-diagnostic",
+      mutation: false,
+      network: true,
+      ok: true
+    })}\n`);
+    return;
+  }
+  if (arguments_.diagnoseParentAccessRecordDrift) {
+    const evidence =
+      await diagnoseTeacherNoticeProductionSchemaParentAccessRecordDrift({
+        candidateSha,
+        expectedTreeSha
+      });
+    process.stdout.write(`${JSON.stringify({
+      ...evidence,
+      mode: "parent-access-record-drift-diagnostic",
       mutation: false,
       network: true,
       ok: true

@@ -9,11 +9,13 @@ import {
   buildPostgresStorageCollectionGapDiagnostic,
   buildPostgresStorageMissingCollectionRepair,
   buildPostgresStorageParentAccessRecordContractDiagnostic,
+  buildPostgresStorageParentAccessRecordDriftDiagnostic,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   diagnoseTeacherNoticeProductionSchemaCollections,
   diagnoseTeacherNoticeProductionSchemaParentAccessRecords,
+  diagnoseTeacherNoticeProductionSchemaParentAccessRecordDrift,
   preflightTeacherNoticeProductionSchema,
   postgresStorageProductionRequiredArrayKeys,
   repairPostgresStorageMissingCollectionsForProductionGate,
@@ -289,6 +291,50 @@ test("parent-access record diagnostic proves the exact virtual legacy-field repa
       structurallyAmbiguous
     ),
     /record-contract diagnostic/u
+  );
+});
+
+test("parent-access record drift diagnostic emits only fixed reason codes after the virtual repair", async () => {
+  const store = await import("../lib/server/userStore.ts");
+  const complete = store.__userStorePostgresStorageReadinessTestHooks
+    .createCompleteSnapshot();
+  const virtuallyComplete = structuredClone(complete);
+  delete virtuallyComplete.guardian_invitations;
+  assert.deepEqual(
+    buildPostgresStorageParentAccessRecordDriftDiagnostic(virtuallyComplete),
+    {
+      legacyFields: ["guardian_links.invite_code"],
+      recordDriftReasons: [],
+      virtualRepairComplete: true
+    }
+  );
+
+  const snapshot = structuredClone(complete);
+  delete snapshot.guardian_invitations;
+  snapshot.guardian_links[0].invite_code = "";
+  snapshot.teacher_classes[0].invite_code = "";
+  const originalSnapshot = structuredClone(snapshot);
+
+  const diagnostic =
+    buildPostgresStorageParentAccessRecordDriftDiagnostic(snapshot);
+  assert.deepEqual(diagnostic, {
+    legacyFields: ["guardian_links.invite_code"],
+    recordDriftReasons: ["teacher-classes-invite-code"],
+    virtualRepairComplete: false
+  });
+  assert.equal(
+    store.postgresStorageSnapshotContractIsComplete(snapshot),
+    false
+  );
+  assert.equal(Object.hasOwn(snapshot, "guardian_invitations"), false);
+  assert.equal(Object.hasOwn(snapshot.guardian_links[0], "invite_code"), true);
+  assert.deepEqual(snapshot, originalSnapshot);
+
+  assert.throws(
+    () => buildPostgresStorageParentAccessRecordDriftDiagnostic(snapshot, {
+      recordDriftReasons: () => ["not-allowlisted"]
+    }),
+    /record-drift diagnostic/u
   );
 });
 
@@ -609,6 +655,70 @@ test("parent-access record diagnostic rejects and redacts a non-allowlisted prov
         inspectParentAccessRecordContract: async () => ({
           legacyFields: [sensitiveDiagnostic],
           virtualRepairComplete: true
+        })
+      })
+    );
+  } catch (error) {
+    caught = error;
+  }
+  assert.ok(caught);
+  assert.equal(teacherNoticeProductionSchemaFailureStage(caught), "postgres-inspect");
+  assert.doesNotMatch(String(caught), new RegExp(sensitiveDiagnostic, "u"));
+  assert.equal(closed, true);
+});
+
+test("parent-access record-drift provider diagnostic is candidate-bound, read-only, and closes the client", async () => {
+  let closed = false;
+  let gitChecks = 0;
+  let inspected = 0;
+  const runner = cleanGitRunner();
+  const evidence =
+    await diagnoseTeacherNoticeProductionSchemaParentAccessRecordDrift(
+      preflightDependencies({
+        connectPostgres: async (url) => {
+          assert.equal(url, productionUrl);
+          return { end: async () => { closed = true; } };
+        },
+        inspectParentAccessRecordDrift: async () => {
+          inspected += 1;
+          return {
+            legacyFields: ["guardian_links.invite_code"],
+            recordDriftReasons: ["teacher-classes-invite-code"],
+            virtualRepairComplete: false
+          };
+        },
+        runCommand: async (...arguments_) => {
+          gitChecks += 1;
+          return runner(...arguments_);
+        }
+      })
+    );
+  assert.deepEqual(evidence, {
+    candidateSha,
+    expectedTreeSha,
+    legacyFields: ["guardian_links.invite_code"],
+    recordDriftReasons: ["teacher-classes-invite-code"],
+    virtualRepairComplete: false
+  });
+  assert.equal(inspected, 1);
+  assert.equal(closed, true);
+  assert.equal(gitChecks, 8);
+});
+
+test("parent-access record-drift diagnostic rejects and redacts unknown reason codes", async () => {
+  const sensitiveDiagnostic = "private-record-drift-private-password";
+  let closed = false;
+  let caught;
+  try {
+    await diagnoseTeacherNoticeProductionSchemaParentAccessRecordDrift(
+      preflightDependencies({
+        connectPostgres: async () => ({
+          end: async () => { closed = true; }
+        }),
+        inspectParentAccessRecordDrift: async () => ({
+          legacyFields: ["guardian_links.invite_code"],
+          recordDriftReasons: [sensitiveDiagnostic],
+          virtualRepairComplete: false
         })
       })
     );
