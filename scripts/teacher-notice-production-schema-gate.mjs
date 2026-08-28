@@ -72,6 +72,7 @@ const appStorageStates = new Set([
   "legacy-v1-compatibility-no-readiness-marker",
   "legacy-missing-collections-no-readiness-marker",
   "legacy-missing-guardian-invitations-no-readiness-marker",
+  "legacy-parent-session-lifecycle-no-readiness-marker",
   "exact",
   "partial"
 ]);
@@ -113,6 +114,10 @@ const postgresStorageMissingCollectionRepairVersions = Object.freeze([
   Object.freeze({
     missingKeys: Object.freeze(["guardian_invitations"]),
     operation: "app-storage-repair-missing-collections-v2"
+  }),
+  Object.freeze({
+    missingKeys: Object.freeze(["guardian_invitations"]),
+    operation: "app-storage-repair-parent-session-lifecycle-v3"
   })
 ]);
 const postgresStorageCollectionGapStatuses = new Set([
@@ -228,20 +233,46 @@ export function buildPostgresStorageMissingCollectionRepair(
     }
     return null;
   }
-  const version = postgresStorageMissingCollectionRepairVersions.find(
+  const versions = postgresStorageMissingCollectionRepairVersions.filter(
     (candidate) =>
       candidate.missingKeys.length === missingKeys.length
       && candidate.missingKeys.every((key) => missingKeys.includes(key))
   );
-  if (!version) return null;
-  const repaired = { ...snapshot };
-  for (const key of version.missingKeys) repaired[key] = [];
-  if (!isComplete(repaired)) return null;
-  return Object.freeze({
-    addedCollectionCount: version.missingKeys.length,
-    operation: version.operation,
-    payload: Object.freeze(repaired)
-  });
+  for (const version of versions) {
+    let repaired;
+    if (
+      version.operation ===
+        "app-storage-repair-parent-session-lifecycle-v3"
+    ) {
+      try {
+        const lifecycleRepair =
+          buildPostgresStorageParentAccessSessionLifecycleVirtualRepair(
+            snapshot
+          );
+        if (
+          JSON.stringify(lifecycleRepair.legacyFields)
+            !== JSON.stringify(["guardian_links.invite_code"])
+          || JSON.stringify(lifecycleRepair.missingFields)
+            !== JSON.stringify(postgresStorageUserSessionLifecycleFields)
+        ) {
+          continue;
+        }
+        repaired = lifecycleRepair.payload;
+      } catch {
+        continue;
+      }
+    } else {
+      repaired = { ...snapshot };
+      for (const key of version.missingKeys) repaired[key] = [];
+    }
+    if (!isComplete(repaired)) continue;
+    return Object.freeze({
+      addedCollectionCount: version.missingKeys.length,
+      operation: version.operation,
+      payload: Object.freeze(repaired)
+    });
+  }
+  return null;
 }
 
 function classifyPostgresStorageCollectionRows(rows, expectedKeys) {
@@ -603,15 +634,9 @@ export function buildPostgresStorageParentAccessRecordDriftDiagnostic(
   });
 }
 
-export function buildPostgresStorageParentAccessSessionLifecycleDiagnostic(
-  snapshot,
-  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
+function buildPostgresStorageParentAccessSessionLifecycleVirtualRepair(
+  snapshot
 ) {
-  if (typeof isComplete !== "function") {
-    throw new Error(
-      "Postgres production parent-access session-lifecycle diagnostic was rejected."
-    );
-  }
   const repair = buildPostgresStorageParentAccessVirtualRepair(snapshot);
   const users = repair.payload.users;
   if (!Array.isArray(users)) {
@@ -673,10 +698,34 @@ export function buildPostgresStorageParentAccessSessionLifecycleDiagnostic(
         : { disabled_at: authDisabledAt(user) })
     }))
   };
-  const virtualRepairComplete = isComplete(virtuallyRepaired) === true;
   return Object.freeze({
     legacyFields: repair.legacyFields,
     missingFields: Object.freeze(missingFields),
+    payload: Object.freeze(virtuallyRepaired)
+  });
+}
+
+export function buildPostgresStorageParentAccessSessionLifecycleDiagnostic(
+  snapshot,
+  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
+) {
+  if (typeof isComplete !== "function") {
+    throw new Error(
+      "Postgres production parent-access session-lifecycle diagnostic was rejected."
+    );
+  }
+  const repair =
+    buildPostgresStorageParentAccessSessionLifecycleVirtualRepair(snapshot);
+  const sessionRevisionMissing = repair.missingFields.includes(
+    "users.session_revision"
+  );
+  const disabledAtMissing = repair.missingFields.includes(
+    "users.disabled_at"
+  );
+  const virtualRepairComplete = isComplete(repair.payload) === true;
+  return Object.freeze({
+    legacyFields: repair.legacyFields,
+    missingFields: repair.missingFields,
     sessionRevisionDefaultApplied: sessionRevisionMissing,
     disabledAtDefaultApplied: disabledAtMissing,
     virtualRepairComplete,
@@ -1018,6 +1067,12 @@ export function buildTeacherNoticeProductionSchemaPlan({
       "legacy-missing-guardian-invitations-no-readiness-marker"
   ) {
     operations.push("app-storage-repair-missing-collections-v2");
+  }
+  if (
+    appStorageState ===
+      "legacy-parent-session-lifecycle-no-readiness-marker"
+  ) {
+    operations.push("app-storage-repair-parent-session-lifecycle-v3");
   }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
@@ -1829,6 +1884,13 @@ export async function inspectProductionDatabase(client) {
           appStorageState =
             "legacy-missing-guardian-invitations-no-readiness-marker";
         }
+        if (
+          repairOperation ===
+            "app-storage-repair-parent-session-lifecycle-v3"
+        ) {
+          appStorageState =
+            "legacy-parent-session-lifecycle-no-readiness-marker";
+        }
       }
     } catch {
       // Supplemental catalog diagnosis must never replace the controlling
@@ -2626,6 +2688,10 @@ export async function applyMaisProductionSchemaOperations(
     [
       "app-storage-repair-missing-collections-v2",
       "legacy-missing-guardian-invitations-no-readiness-marker"
+    ],
+    [
+      "app-storage-repair-parent-session-lifecycle-v3",
+      "legacy-parent-session-lifecycle-no-readiness-marker"
     ]
   ]);
   const appOperationIndexes = operations
@@ -2679,6 +2745,8 @@ export async function applyMaisProductionSchemaOperations(
           if (
             appStorageOperation === "app-storage-repair-missing-collections-v1"
             || appStorageOperation === "app-storage-repair-missing-collections-v2"
+            || appStorageOperation ===
+              "app-storage-repair-parent-session-lifecycle-v3"
           ) {
             const repairedState =
               await repairAppStorageMissingCollections(lockedClient, {

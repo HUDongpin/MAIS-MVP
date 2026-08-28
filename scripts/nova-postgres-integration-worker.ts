@@ -290,6 +290,25 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-repair-parent-session-lifecycle-v3") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation:
+                "app-storage-repair-parent-session-lifecycle-v3"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-upgrade-legacy-v1") {
       const sql = createDirectIntegrationClient();
       try {

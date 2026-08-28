@@ -162,6 +162,90 @@ test("missing-collection repair adds only safe empty collections and fails close
     "v2 must not alter existing guardian authority"
   );
 
+  const sessionLifecycleSnapshot = structuredClone(complete);
+  delete sessionLifecycleSnapshot.guardian_invitations;
+  delete sessionLifecycleSnapshot.users[0].session_revision;
+  delete sessionLifecycleSnapshot.users[0].disabled_at;
+  const originalSessionLifecycleSnapshot = structuredClone(
+    sessionLifecycleSnapshot
+  );
+  const sessionLifecycleRepair = buildPostgresStorageMissingCollectionRepair(
+    sessionLifecycleSnapshot
+  );
+  assert.ok(sessionLifecycleRepair);
+  assert.equal(sessionLifecycleRepair.addedCollectionCount, 1);
+  assert.equal(
+    sessionLifecycleRepair.operation,
+    "app-storage-repair-parent-session-lifecycle-v3"
+  );
+  assert.deepEqual(sessionLifecycleRepair.payload.guardian_invitations, []);
+  assert.equal(
+    Object.hasOwn(sessionLifecycleRepair.payload.guardian_links[0], "invite_code"),
+    false
+  );
+  assert.equal(sessionLifecycleRepair.payload.users[0].session_revision, 1);
+  assert.equal(sessionLifecycleRepair.payload.users[0].disabled_at, null);
+  assert.deepEqual(
+    sessionLifecycleRepair.payload.users.slice(1),
+    complete.users.slice(1),
+    "v3 must preserve every user that already has canonical lifecycle values"
+  );
+  assert.deepEqual(
+    sessionLifecycleSnapshot,
+    originalSessionLifecycleSnapshot,
+    "v3 inspection must not mutate the source snapshot"
+  );
+  assert.equal(
+    store.postgresStorageSnapshotContractIsComplete(
+      sessionLifecycleRepair.payload
+    ),
+    true
+  );
+
+  const sessionLifecycleAdditionalDrift = structuredClone(
+    sessionLifecycleSnapshot
+  );
+  sessionLifecycleAdditionalDrift.teacher_classes[0].invite_code = "";
+  assert.equal(
+    buildPostgresStorageMissingCollectionRepair(
+      sessionLifecycleAdditionalDrift
+    ),
+    null,
+    "v3 must reject every residual record drift"
+  );
+
+  const sessionLifecycleUnexpectedLegacyField = structuredClone(
+    sessionLifecycleSnapshot
+  );
+  sessionLifecycleUnexpectedLegacyField.student_profiles[0]
+    .parent_invite_code = "legacy";
+  assert.equal(
+    buildPostgresStorageMissingCollectionRepair(
+      sessionLifecycleUnexpectedLegacyField
+    ),
+    null,
+    "v3 must stay bound to the exact production legacy-field fingerprint"
+  );
+
+  for (const malformedUser of [
+    { ...sessionLifecycleSnapshot.users[0], session_revision: 0 },
+    {
+      ...sessionLifecycleSnapshot.users[0],
+      session_revision: 1,
+      disabled_at: ""
+    }
+  ]) {
+    const malformedLifecycleSnapshot = structuredClone(
+      sessionLifecycleSnapshot
+    );
+    malformedLifecycleSnapshot.users[0] = malformedUser;
+    assert.equal(
+      buildPostgresStorageMissingCollectionRepair(malformedLifecycleSnapshot),
+      null,
+      "v3 must reject malformed present lifecycle values"
+    );
+  }
+
   const bothVersionedKeysMissing = structuredClone(complete);
   delete bothVersionedKeysMissing.guardian_invitations;
   delete bothVersionedKeysMissing.teacher_notice_delivery_attempts;
@@ -950,6 +1034,15 @@ test("builds the exact production migration plan from independently attested sch
     }),
     ["app-storage-repair-missing-collections-v2"]
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-repair-parent-session-lifecycle-v3"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       appStorageState: "exact",
@@ -1194,6 +1287,35 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     ["guardian-invitation-repair", "readiness-marker"]
   );
 
+  const sessionLifecycleRepairStages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-repair-parent-session-lifecycle-v3"],
+    productionEnvironment,
+    {
+      repairAppStorageMissingCollections: async (receivedClient, options) => {
+        assert.equal(receivedClient, client);
+        assert.deepEqual(options, {
+          expectedOperation: "app-storage-repair-parent-session-lifecycle-v3"
+        });
+        sessionLifecycleRepairStages.push("session-lifecycle-repair");
+        return "legacy-no-readiness-marker";
+      },
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(expectedState, "legacy-no-readiness-marker");
+        sessionLifecycleRepairStages.push("readiness-marker");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(
+    sessionLifecycleRepairStages,
+    ["session-lifecycle-repair", "readiness-marker"]
+  );
+
   await assert.rejects(
     applyMaisProductionSchemaOperations(
       client,
@@ -1245,6 +1367,34 @@ test("binds the production confirmation to SHA, tree, target, plan, and prefligh
     evidence,
     evidence.requiredConfirmation
   ));
+
+  const sessionLifecycleRepairEvidence =
+    buildTeacherNoticeProductionSchemaPreflightEvidence({
+      appStorageSeedMode: "demo-disabled",
+      appStorageState:
+        "legacy-parent-session-lifecycle-no-readiness-marker",
+      candidateSha,
+      expectedTreeSha,
+      heartbeatState: "exact",
+      outboxState: "exact",
+      postgresMajor: 16,
+      statistics: evidence.statistics,
+      targetFingerprint,
+      webhookState: "exact"
+    });
+  assert.deepEqual(sessionLifecycleRepairEvidence.operations, [
+    "app-storage-repair-parent-session-lifecycle-v3"
+  ]);
+  assert.doesNotThrow(() =>
+    assertTeacherNoticeProductionSchemaConfirmation(
+      sessionLifecycleRepairEvidence,
+      sessionLifecycleRepairEvidence.requiredConfirmation
+    )
+  );
+  assert.notEqual(
+    sessionLifecycleRepairEvidence.requiredConfirmation,
+    evidence.requiredConfirmation
+  );
 
   const changed = buildTeacherNoticeProductionSchemaPreflightEvidence({
     appStorageSeedMode: "demo-disabled",
