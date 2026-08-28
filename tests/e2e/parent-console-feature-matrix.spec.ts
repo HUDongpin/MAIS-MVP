@@ -1,4 +1,4 @@
-import { expect, request as apiRequest, test, type APIRequestContext, type Locator, type Page, type TestInfo } from "@playwright/test";
+import { expect, request as apiRequest, test, type APIRequestContext, type Locator, type Page, type Request, type TestInfo } from "@playwright/test";
 import {
   collectPageErrors,
   demoParentUserId,
@@ -331,6 +331,48 @@ async function releaseDeferredParentThreadFetch(page: Page) {
   // Give React and the App Router one bounded turn to surface an illegal stale
   // commit before asserting that the newer context remains authoritative.
   await page.waitForTimeout(250);
+}
+
+function trackParentMessageRouteRequests(page: Page) {
+  const pendingByThreadId = new Map<string, Set<Request>>();
+  const seenThreadIds = new Set<string>();
+  const threadIdFor = (request: Request) => {
+    const requestUrl = new URL(request.url());
+    return request.method() === "GET"
+      && requestUrl.pathname === "/parent/messages"
+      && requestUrl.searchParams.has("_rsc")
+      ? requestUrl.searchParams.get("thread") ?? ""
+      : "";
+  };
+  const onRequest = (request: Request) => {
+    const threadId = threadIdFor(request);
+    if (!threadId) return;
+    seenThreadIds.add(threadId);
+    const pending = pendingByThreadId.get(threadId) ?? new Set<Request>();
+    pending.add(request);
+    pendingByThreadId.set(threadId, pending);
+  };
+  const onSettled = (request: Request) => {
+    const threadId = threadIdFor(request);
+    if (!threadId) return;
+    pendingByThreadId.get(threadId)?.delete(request);
+  };
+  page.on("request", onRequest);
+  page.on("requestfinished", onSettled);
+  page.on("requestfailed", onSettled);
+  return {
+    async waitFor(threadId: string) {
+      await expect.poll(() => ({
+        pending: pendingByThreadId.get(threadId)?.size ?? 0,
+        seen: seenThreadIds.has(threadId)
+      })).toEqual({ pending: 0, seen: true });
+    },
+    dispose() {
+      page.off("request", onRequest);
+      page.off("requestfinished", onSettled);
+      page.off("requestfailed", onSettled);
+    }
+  };
 }
 
 async function pushParentMessageContext(page: Page, href: string) {
@@ -956,6 +998,10 @@ test.describe.serial("parent console feature matrix", () => {
       const selectedClassId = await classSelect.inputValue();
       await compose.locator('[name="subject"]').fill(subject);
       await compose.locator('[name="body"]').fill(`Home context for ${subject}.`);
+      // Next router.push is fire-and-forget. Drain this thread's RSC requests
+      // before the next interaction so an older route commit cannot reset the
+      // deliberately deferred thread-selection state below.
+      const routeRequests = trackParentMessageRouteRequests(page);
       const created = page.waitForResponse((response) =>
         response.url().includes("/api/parent/messages") && response.request().method() === "POST");
       await compose.getByRole("button", { name: /Send message/i }).click();
@@ -969,6 +1015,11 @@ test.describe.serial("parent console feature matrix", () => {
       expect(createRequest.idempotencyKey).toMatch(/^[A-Za-z0-9._:~-]{16,128}$/);
       const createdPayload = await createdResponse.json() as { thread: { id: string } };
       threadBySubject.set(subject, createdPayload.thread.id);
+      try {
+        await routeRequests.waitFor(createdPayload.thread.id);
+      } finally {
+        routeRequests.dispose();
+      }
       await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(subject), "i") })).toBeVisible();
       await expect(page).toHaveURL(/thread=/);
       // The form clears so the next message does not inherit the previous subject.
