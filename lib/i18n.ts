@@ -20,6 +20,12 @@ export const languageValues = ["en", "zh", "zh-Hans"] as const satisfies readonl
  *              musical scale 宫商角徵羽 (zhǐ); add a phrase rule if that ever ships.
  *   於 -> 于   correct for 用於/對於/關於/位於 (the only senses present here). The PRC retains 於
  *              in 於菟 and in the surname 於 (e.g. 於梨华); add a phrase rule if those ever ship.
+ *   畫 -> 画   correct for the draw/picture sense (畫布, 畫線, 畫面 — the only senses present here).
+ *              計畫/規畫/策畫 are 计划/规划/策划 in the PRC; add phrase rules if those ever ship.
+ *
+ * Every entry below was cross-checked against OpenCC's TSCharacters table: all targets match its
+ * preferred value, and the three characters above are the only ones OpenCC marks one-to-many whose
+ * alternate is a real word rather than a rare variant glyph.
  */
 export const traditionalToSimplifiedMap: Record<string, string> = {
   佈: "布",
