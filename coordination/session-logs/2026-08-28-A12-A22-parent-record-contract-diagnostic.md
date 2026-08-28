@@ -65,6 +65,33 @@ URL, credential, or confirmation is emitted.
 
 The temporary PostgreSQL cluster was stopped and removed after verification.
 
+## Post-review own-property hardening
+
+Before merge, coordination review identified that truthiness checks could omit
+legacy field paths when an own-property existed with a falsy value. That would
+make the allowlisted `legacyFields` output disagree with the fields removed by
+the in-memory virtual repair.
+
+- Red phase: the focused schema-gate suite failed when the complete fixture's
+  existing empty `guardian_links.invite_code` own-property was required in the
+  diagnostic output.
+- Replace both truthiness checks with an object-record guard plus
+  `Object.hasOwn(record, field)`.
+- Add regression coverage for the existing empty-string field and an explicit
+  `null` `student_profiles.parent_invite_code` field.
+- Non-object/array records are not reported as field matches; the canonical
+  virtual-repair completeness contract still rejects those malformed records.
+- Focused schema gate: 33 passed, 0 failed.
+- `npm run type-check`: pass.
+- Fresh isolated PostgreSQL 16.15: 13 passed, 0 failed; the temporary instance
+  was stopped and moved to Trash after the run.
+- Production workflow contract: 9 passed, 0 failed.
+- Postgres readiness/fast-path contracts: 11 passed, 0 failed.
+- Release governance: 91 passed, 11 explicit skips, 0 failed.
+- `git diff --check`: pass.
+
+No production diagnostic or mutation was dispatched during this hardening.
+
 ## Remaining gate
 
 Commit and push this exact slice, open a PR, require all exact-SHA CI and

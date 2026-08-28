@@ -261,6 +261,13 @@ function withoutLegacyRecordField(record, field) {
   return sanitized;
 }
 
+function recordHasOwnField(record, field) {
+  return typeof record === "object"
+    && record !== null
+    && !Array.isArray(record)
+    && Object.hasOwn(record, field);
+}
+
 export function buildPostgresStorageParentAccessRecordContractDiagnostic(
   snapshot,
   { isComplete = postgresStorageSnapshotContractIsComplete } = {}
@@ -304,10 +311,10 @@ export function buildPostgresStorageParentAccessRecordContractDiagnostic(
   }
 
   const hasGuardianLinkInviteCode = snapshot.guardian_links.some(
-    (record) => Boolean(record?.invite_code)
+    (record) => recordHasOwnField(record, "invite_code")
   );
   const hasStudentProfileParentInviteCode = snapshot.student_profiles.some(
-    (record) => Boolean(record?.parent_invite_code)
+    (record) => recordHasOwnField(record, "parent_invite_code")
   );
   const legacyFields = postgresStorageParentAccessLegacyFields.filter(
     (field) => field === "guardian_links.invite_code"

@@ -259,7 +259,27 @@ test("parent-access record diagnostic proves the exact virtual legacy-field repa
     buildPostgresStorageParentAccessRecordContractDiagnostic(
       missingGuardianOnly
     ),
-    { legacyFields: [], virtualRepairComplete: true }
+    {
+      legacyFields: ["guardian_links.invite_code"],
+      virtualRepairComplete: true
+    }
+  );
+
+  const falsyLegacyFields = structuredClone(complete);
+  delete falsyLegacyFields.guardian_invitations;
+  falsyLegacyFields.guardian_links[0].invite_code = "";
+  falsyLegacyFields.student_profiles[0].parent_invite_code = null;
+  assert.deepEqual(
+    buildPostgresStorageParentAccessRecordContractDiagnostic(
+      falsyLegacyFields
+    ),
+    {
+      legacyFields: [
+        "guardian_links.invite_code",
+        "student_profiles.parent_invite_code"
+      ],
+      virtualRepairComplete: true
+    }
   );
 
   const structurallyAmbiguous = structuredClone(snapshot);
