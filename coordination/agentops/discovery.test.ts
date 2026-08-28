@@ -12,6 +12,8 @@ import path from "node:path";
 import { promisify } from "node:util";
 import test from "node:test";
 
+import { canonicalJson, sha256Digest } from "./canonical";
+
 const execFile = promisify(execFileCallback);
 
 async function makeRepository(): Promise<string> {
@@ -146,6 +148,74 @@ test("specialist preflight treats a symlinked currentness marker as unavailable"
     probeIds: ["git.snapshot", "repo.specialist-availability"],
     contextRefs: [],
   });
+  assert.equal(discovery.specialistAvailability["question-machine-qa.v1"], false);
+});
+
+test("specialist preflight rejects a tracked marker whose name is its only evidence", async () => {
+  const { discoverRepository } = await import("./discovery");
+  const root = await makeRepository();
+  const markerPath = path.join(
+    root,
+    "coordination/agentops/currentness/question-machine-qa.reviewed-current.json",
+  );
+  await mkdir(path.dirname(markerPath), { recursive: true });
+  await mkdir(path.join(root, "coordination/content-qa"), { recursive: true });
+  await writeFile(markerPath, '{"reviewed":true}\n', "utf8");
+  await execFile("git", [
+    "-C",
+    root,
+    "add",
+    "coordination/agentops/currentness/question-machine-qa.reviewed-current.json",
+    "coordination/content-qa",
+  ]);
+  await execFile("git", ["-C", root, "commit", "-qm", "forged marker"]);
+
+  const discovery = await discoverRepository({
+    repoRoot: root,
+    probeIds: ["git.snapshot", "repo.specialist-availability"],
+    contextRefs: [],
+  });
+
+  assert.equal(discovery.specialistAvailability["question-machine-qa.v1"], false);
+});
+
+test("specialist preflight rejects a canonical self-hash without repository bindings", async () => {
+  const { discoverRepository } = await import("./discovery");
+  const root = await makeRepository();
+  const markerRepositoryPath =
+    "coordination/agentops/currentness/question-machine-qa.reviewed-current.json";
+  const markerPath = path.join(root, markerRepositoryPath);
+  await mkdir(path.dirname(markerPath), { recursive: true });
+  await mkdir(path.join(root, "coordination/content-qa"), { recursive: true });
+  const markerBody = {
+    schemaVersion: "mais-agentops-specialist-currentness.v1",
+    workflowId: "question-machine-qa.v1",
+    status: "repository-current",
+    claimCeiling: "repository-specialist-currentness-only",
+    sourceBinding: {},
+    repositorySnapshot: {},
+    packageBinding: {},
+    policyBinding: {},
+    redaction: {
+      protectedContentIncluded: false,
+      credentialsIncluded: false,
+      rawProviderResponsesIncluded: false,
+    },
+  };
+  await writeFile(
+    markerPath,
+    `${canonicalJson({ ...markerBody, markerDigest: sha256Digest(markerBody) })}\n`,
+    "utf8",
+  );
+  await execFile("git", ["-C", root, "add", markerRepositoryPath]);
+  await execFile("git", ["-C", root, "commit", "-qm", "self-hashed shell"]);
+
+  const discovery = await discoverRepository({
+    repoRoot: root,
+    probeIds: ["git.snapshot", "repo.specialist-availability"],
+    contextRefs: [],
+  });
+
   assert.equal(discovery.specialistAvailability["question-machine-qa.v1"], false);
 });
 

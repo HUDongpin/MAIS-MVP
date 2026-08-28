@@ -107,6 +107,10 @@ test("question machine QA pins reviewed source provenance without promoting curr
     backupRollbackDrillVerified: true,
     finalReceiptCommitVerified: true,
   });
+  assert.deepEqual(workflow.reviewedRepository, {
+    reviewedMainCommit: "9bf9cfb99f75a0dbc5a298e0d6aae74594571890",
+    agentopsCommit: "150ded76db7d64c368e5db7e6cb30f3d90d40f78",
+  });
   assert.equal(workflow.availabilityPolicy, "reviewed-currentness-marker-required");
   assert.ok(
     workflow.requiredPaths.includes(

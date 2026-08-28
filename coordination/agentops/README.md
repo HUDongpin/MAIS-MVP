@@ -200,6 +200,38 @@ repo-local gate. AgentOps does not copy, install, or execute the source branch.
 The suite's separate `WORKFLOW_JSON_PARSE_UNTRUSTED` observation belongs to the
 Promotion workflow and does not become a machine-QA availability claim.
 
+### Question machine-QA currentness marker
+
+The fixed marker path is
+`coordination/agentops/currentness/question-machine-qa.reviewed-current.json`.
+Path existence, a `reviewed: true` field, or a valid self-hash is insufficient.
+`repo.specialist-availability` accepts the marker only when
+[`currentness.ts`](currentness.ts) independently verifies all of the following:
+
+- the reviewed-main, AgentOps, exact source, and receipt commits are the exact
+  registry-bound identities and are ancestors of the current clean `HEAD`;
+- the source commit has the registry-bound base as its sole parent, and the
+  receipt tip has the source commit as its sole parent;
+- the current canonical Skill tree and package view recompute to the committed
+  source/package hashes, while the suite manifest and installation receipt
+  remain byte-identical to the receipt tip;
+- the committed redacted receipt, not `$CODEX_HOME/skills`, supplies the
+  archive and installed-readback provenance;
+- a clean pre-marker integration commit and Git tree are bound, and every
+  protected package, receipt, registry, currentness, workflow, ownership, and
+  package/lockfile path remains unchanged in descendant `HEAD`s;
+- the registry digest, `AGENTS.md` digest, both release-ownership digests, each
+  fixed policy-source byte hash, and their aggregate policy digest recompute;
+- the marker is tracked, regular, non-symlink, canonical JSON with a valid
+  digest and all three redaction declarations fixed to `false`.
+
+The marker's ceiling is `repository-specialist-currentness-only`. It does not
+create a machine packet or disposition, provider authority, A18 acceptance,
+A23 promotion, A11 regression, A22 release readiness, deployment, or live
+proof. A policy/package change requires a new clean integration snapshot and a
+new reviewed marker; editing and rehashing the old marker cannot retain
+currentness.
+
 Nova and Adaptive Learning adapters are audits only. They preserve Nova's
 owner-controlled runtime/fallback contract and Adaptive Learning's deterministic
 BKT floor, candidate-only rerank, validator, deterministic fallback, and no-answer

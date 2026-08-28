@@ -5,7 +5,9 @@ import { promisify } from "node:util";
 
 import { sha256Digest } from "./canonical";
 import type { AgentOpsContextRefV1 } from "./contracts";
+import { verifySpecialistCurrentnessMarker } from "./currentness";
 import {
+  LANE_REGISTRY_DIGEST,
   PROBE_REGISTRY,
   SPECIALIST_REGISTRY,
   type ProbeId,
@@ -299,7 +301,7 @@ async function readSpecialistAvailability(
 ): Promise<Readonly<Record<string, boolean>>> {
   const result: Record<string, boolean> = {};
   for (const [workflowId, workflow] of Object.entries(SPECIALIST_REGISTRY)) {
-    result[workflowId] = (
+    const requiredPathsAvailable = (
       await Promise.all(
         workflow.requiredPaths.map(async (repositoryPath) => {
           const candidate = path.join(repoRoot, repositoryPath);
@@ -316,6 +318,29 @@ async function readSpecialistAvailability(
         }),
       )
     ).every(Boolean);
+    if (!requiredPathsAvailable) {
+      result[workflowId] = false;
+      continue;
+    }
+    result[workflowId] =
+      "availabilityPolicy" in workflow &&
+      workflow.availabilityPolicy === "reviewed-currentness-marker-required" &&
+      "reviewedSource" in workflow
+        ? (
+            await verifySpecialistCurrentnessMarker({
+              repoRoot,
+              expectation: {
+                workflowId,
+                markerPath:
+                  "coordination/agentops/currentness/question-machine-qa.reviewed-current.json",
+                claimCeiling: workflow.claimCeiling,
+                registryDigest: LANE_REGISTRY_DIGEST,
+                reviewedRepository: workflow.reviewedRepository,
+                reviewedSource: workflow.reviewedSource,
+              },
+            })
+          ).available
+        : true;
   }
   return result;
 }

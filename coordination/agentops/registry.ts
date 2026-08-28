@@ -360,6 +360,10 @@ export const SPECIALIST_REGISTRY = deepFreeze({
       "coordination/agentops/currentness/question-machine-qa.reviewed-current.json",
     ],
     availabilityPolicy: "reviewed-currentness-marker-required",
+    reviewedRepository: {
+      reviewedMainCommit: "9bf9cfb99f75a0dbc5a298e0d6aae74594571890",
+      agentopsCommit: "150ded76db7d64c368e5db7e6cb30f3d90d40f78",
+    },
     reviewedSource: {
       status: "source-package-installation-verified",
       evidenceBasis: "committed-redacted-receipt-not-agentops-execution",
