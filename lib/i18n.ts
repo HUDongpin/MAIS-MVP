@@ -1164,7 +1164,29 @@ export const traditionalToSimplifiedMap: Record<string, string> = {
   鸚: "鹦",
   鹵: "卤",
   鼉: "鼍",
-  齲: "龋"
+  齲: "龋",
+  // 2026-08-29: characters found by scanning the FULL corpus — the generated JSON packs as well
+  // as source copy. Every one of these was leaking Traditional text into shipped zhHans pack
+  // fields; earlier rounds only scanned .ts/.tsx and so never saw them.
+  偉: "伟",
+  噴: "喷",
+  樂: "乐",
+  櫻: "樱",
+  殘: "残",
+  澆: "浇",
+  純: "纯",
+  紮: "扎",
+  臉: "脸",
+  舖: "铺",
+  華: "华",
+  訓: "训",
+  誌: "志",
+  販: "贩",
+  賃: "赁",
+  銀: "银",
+  陳: "陈",
+  飯: "饭",
+  麪: "面"
 };
 
 type PrcSimplifiedPhraseRule = {
@@ -1208,6 +1230,7 @@ export const prcSimplifiedPhraseRules: readonly PrcSimplifiedPhraseRule[] = [
   { source: "登入", replacement: "登录", reason: "Mainland account wording" },
   { source: "甚么", replacement: "什么", reason: "Mainland wording" },
   { source: "搜寻", replacement: "搜索", reason: "Mainland UI wording" },
+  { source: "饼乾", replacement: "饼干", reason: "餅乾 -> 饼干; 乾 cannot be a character mapping because 乾坤 keeps 乾" },
   { source: "回覆", replacement: "回复", reason: "覆 is one-to-many: 回覆->回复 but 覆蓋->覆盖, so it cannot be a character mapping" },
   { source: "覆核", replacement: "复核", reason: "same one-to-many split as 回覆" },
   { source: "汇出", replacement: "导出", reason: "Mainland UI wording (汇出 reads as remitting funds in the Mainland)" },
