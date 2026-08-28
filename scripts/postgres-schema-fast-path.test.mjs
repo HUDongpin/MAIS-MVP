@@ -414,6 +414,10 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
     combinedApplySource,
     /app-storage-repair-missing-collections-v2/u
   );
+  assert.match(
+    combinedApplySource,
+    /app-storage-repair-parent-session-lifecycle-v3/u
+  );
 
   const sessionLockSource = sourceSection(
     productionSchemaGateSource,
