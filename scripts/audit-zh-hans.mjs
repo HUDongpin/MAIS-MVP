@@ -71,7 +71,11 @@ function readFlagValue(flag) {
   const inline = argv.find((arg) => arg.startsWith(`${flag}=`));
   if (inline) return inline.slice(flag.length + 1);
   const index = argv.indexOf(flag);
-  return index === -1 ? undefined : argv[index + 1];
+  if (index === -1) return undefined;
+  // Present but with no value (flag last, or followed by another flag) must reach validation as a
+  // bad value, not fall through as "absent" and silently switch the gate off.
+  const value = argv[index + 1];
+  return value === undefined || value.startsWith("-") ? "" : value;
 }
 
 const rawMaxAdvisory = readFlagValue("--max-advisory");
@@ -245,6 +249,20 @@ function walkJsonFiles(directory) {
   });
 }
 
+function collectAllStrings(value, pointer, sink) {
+  if (typeof value === "string") {
+    sink.push({ pointer, text: value });
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => collectAllStrings(item, `${pointer}[${index}]`, sink));
+    return;
+  }
+  if (value && typeof value === "object") {
+    for (const [key, child] of Object.entries(value)) collectAllStrings(child, `${pointer}.${key}`, sink);
+  }
+}
+
 function collectZhHansStrings(value, pointer, sink) {
   if (Array.isArray(value)) {
     value.forEach((item, index) => collectZhHansStrings(item, `${pointer}[${index}]`, sink));
@@ -256,11 +274,10 @@ function collectZhHansStrings(value, pointer, sink) {
       // explanationZhHans). Matching the bare key alone skipped every mainland pack.
       if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && typeof child === "string") {
         sink.push({ pointer: `${pointer}.${key}`, text: child });
-      } else if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && Array.isArray(child)) {
-        child.forEach((item, index) => {
-          if (typeof item === "string") sink.push({ pointer: `${pointer}.${key}[${index}]`, text: item });
-          else collectZhHansStrings(item, `${pointer}.${key}[${index}]`, sink);
-        });
+      } else if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && child && typeof child === "object") {
+        // The whole subtree under a zhHans key is Simplified copy — collect every string in it,
+        // not just descendants that happen to be keyed zhHans again.
+        collectAllStrings(child, `${pointer}.${key}`, sink);
       } else {
         collectZhHansStrings(child, pointer === "" ? key : `${pointer}.${key}`, sink);
       }
@@ -406,8 +423,12 @@ function runConverterSelfTest() {
       failures.push(`map entry ${traditional} has an empty replacement`);
       continue;
     }
-    const forward = Array.from(traditional).map((char) => traditionalMap.get(char) ?? char).join("");
-    if (forward !== simplified) failures.push(`map entry ${traditional} -> ${simplified} did not round-trip (got ${forward})`);
+    // Not `map.get(traditional)` — that is true by construction. Round-trip through the REAL
+    // pipeline (character pass + phrase rules), which is what callers actually get.
+    const forward = toPrcSimplified(traditional);
+    if (forward !== simplified && !phraseRules.some((rule) => rule.source.includes(traditional))) {
+      failures.push(`map entry ${traditional} -> ${simplified} did not survive the full pipeline (got ${forward})`);
+    }
     const residual = Array.from(simplified).filter((char) => keySet.has(char));
     if (residual.length) failures.push(`map value for ${traditional} still contains Traditional: ${residual.join(" ")}`);
     if (toPrcSimplified(simplified) !== simplified) failures.push(`map value for ${traditional} is not stable under a second conversion pass`);
