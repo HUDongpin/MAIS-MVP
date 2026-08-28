@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "promotion-shadow-closure.v2",
+  "binding": {
+    "gateId": "promotion-shadow-gate-v2",
+    "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+    "attemptId": "attempt-007",
+    "parentPackageId": "us-ca-math-rag-v2-candidate",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "executionCommit": "71a859c379903bc0b28c0dbe176fddc07cd723a1",
+    "compositionHeadCommit": "df602f9ffbf981b19f6dcc34efd9822cf8ea490c",
+    "mergeCommit": "b7851a0f8a8f17dd1ef7d55168856be8668a84ef"
+  },
+  "artifacts": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+      "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61"
+    },
+    "evidenceIndex": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence-index.v2.json",
+      "rawSha256": "b6f702e844b8933e002038299aa49bc75a98c0bef050fb9c68432b53be8848c1"
+    },
+    "receipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json",
+      "rawSha256": "336e6de6e8292b2e8278ccf3335f77a77a4b32a73142657a60748ef24477a484"
+    },
+    "a11Replay": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/postrun/a11-independent-replay.v2.json",
+      "rawSha256": "f87176896557f0593b49d460f65b525058428a31fc21b566d9de1aed26112e85"
+    },
+    "a22Isolation": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/postrun/a22-shadow-isolation.v2.json",
+      "rawSha256": "b3d7e7e8d8d819c3d74f143eecc08463ebb4c8e4019653d9430b9e1195b3c652"
+    },
+    "legacyRegistry": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/legacy-resolution-registry.v2.5.json",
+      "rawSha256": "82a4ca01daeea4f2292a57a684391fd86feae42df1a0c7e31ff5d1d6844c0433"
+    },
+    "prCheck": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/postrun/a11-pr-check-proof.v2.json",
+      "rawSha256": "26a00ca989dac1d00eac550b5952229dc97642c481618bce7097e5ef1bdfb376"
+    },
+    "requiredChecks": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/postrun/a22-required-check-proof.v2.json",
+      "rawSha256": "7c966f4a77f787c4ac8d5517d846b1f602d06a997046e574d4e2d59888e99049"
+    },
+    "mainPostMerge": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/postrun/a22-main-postmerge-proof.v2.json",
+      "rawSha256": "f9f8aab51bd85690b25db91b6a6aced57a2420a50e696fef91bf26d2e4ba60ff"
+    },
+    "a25Closeout": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/postrun/a25-review-package-closeout.v2.json",
+      "rawSha256": "473b58ae9a0d3cb1406800a0e75d98fd93eb86672b99dd6a172f1fce53bd743b"
+    }
+  },
+  "receiptDigests": {
+    "rawReceiptDigest": "afbfc67008ea786d2f460deded78f595ebb0bb91c2e11ef64ebd22e47a5b096a",
+    "semanticReceiptDigest": "8fd60bfdcc2c389da3614dcc4fddf99c4b27417f6625be30c453384b430987d2",
+    "independentRawReceiptDigest": "11dddbd6c2ca456ea3009c82e2bfe170de86bb068d31192931fda953c8094c55"
+  },
+  "legacyDisposition": {
+    "packageId": "us-ca-k5-knowledge-point-practice-v1",
+    "deadline": "2026-09-24T00:00:00Z",
+    "terminalDecision": "remove-live",
+    "activeExceptionCount": 0,
+    "unresolvedConflictCount": 0,
+    "runtimeGraphBlindSpotCount": 0
+  },
+  "stateTransition": {
+    "fromState": "shadow_ready",
+    "toState": "shadow_passed",
+    "parentPackageStatus": "candidate-only",
+    "pilotUnitStatus": "shadow_passed",
+    "liveAllowed": false,
+    "liveEvidence": "none",
+    "maturityClaim": "Shadow-mature / live-unproven"
+  },
+  "unmetShadowConditions": [],
+  "liveBlockers": [
+    "missing-zh-localization",
+    "missing-zhHans-localization",
+    "live-integration-and-release-unproven"
+  ],
+  "trustBoundary": "Repository hash-bound readback record; GitHub API authenticity requires independent repository-admin readback.",
+  "closureDigest": "5d6c2f733b55211bc820cf3501ac07b75edcd445a7b6f281d7a3041712c2ed31"
+}

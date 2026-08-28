@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { visualizationLabCatalog, visualizationTrackLabels } from "../../../data/visualizationLabs";
 import type { ThreeDRegionalPriority } from "./threeDSceneTypes";
-import { threeDFamilyIds } from "./threeDSceneMath";
+import { dormantThreeDFamilyIds, threeDFamilyIds } from "./threeDSceneMath";
 
 const mainlandPepPrimaryThreeDCapsuleLabIds = [
   "pep-primary-p1-upper-shapes-position-time",
@@ -39,9 +39,11 @@ test("catalog metadata marks every lab and preserves the premium regional launch
   const standard3DCapsules = threeDEnabled.filter((lab) => !lab.threeD?.premiumLaunch);
 
   assert.ok(visualizationLabCatalog.length >= threeDEnabled.length);
-  assert.equal(threeDEnabled.length, 90);
+  // Candidate-hold packages are excluded from the live catalog and premium
+  // direct-route graph; all remaining premium pages use configured modules.
+  assert.equal(threeDEnabled.length, 52);
   assert.equal(nonThreeDLabs.length, visualizationLabCatalog.length - threeDEnabled.length);
-  assert.equal(premium.length, 80);
+  assert.equal(premium.length, 42);
   assert.deepEqual(
     standard3DCapsules.map((lab) => lab.labId).sort(),
     [...mainlandPepPrimaryThreeDCapsuleLabIds, ...mainlandPepJuniorStandard3DCapsuleLabIds, ...hongKongStandardThreeDCapsuleLabIds].sort(),
@@ -67,11 +69,14 @@ test("catalog metadata marks every lab and preserves the premium regional launch
     premiumCounts[lab.threeD.regionalPriority] += 1;
   }
 
+  // california went 12 -> 0 on 2026-08-25: the CA premium-3D topics were
+  // retired in favour of their Claude signature benches (replacement plan
+  // Phase 2a), so no CA lab may carry premiumLaunch metadata any more.
   assert.deepEqual(premiumCounts, {
-    mainland: 40,
-    california: 12,
+    mainland: 24,
+    california: 0,
     "hong-kong": 9,
-    "cross-region": 19
+    "cross-region": 9
   });
 });
 
@@ -163,14 +168,18 @@ test("Mainland PEP primary keeps one Visualization Lab track with three standard
   );
 });
 
-test("catalog metadata exercises every approved Three.js family", () => {
+test("catalog metadata exercises every live Three.js family and no held-candidate-only family", () => {
   const liveFamilyIds = new Set(
     visualizationLabCatalog
       .map((lab) => lab.threeD?.familyId)
       .filter((familyId): familyId is (typeof threeDFamilyIds)[number] => Boolean(familyId))
   );
 
-  assert.deepEqual([...liveFamilyIds].sort(), [...threeDFamilyIds].sort());
+  assert.deepEqual(
+    [...liveFamilyIds].sort(),
+    threeDFamilyIds.filter((familyId) => !dormantThreeDFamilyIds.has(familyId)).sort()
+  );
+  assert.deepEqual([...dormantThreeDFamilyIds], ["three-cross-section-slicer"]);
   assert.equal(
     visualizationLabCatalog.find((lab) => lab.labId === "pep-high-s4-solid-geometry-intro")?.threeD?.familyId,
     "three-solid-nets-folding"

@@ -91,7 +91,16 @@ test("student assignments route exposes the final heading while assignments load
   assert.match(loadingBranch, /Loading assignments/);
 });
 
-test("routes without slow server data carry no segment-level loading file", () => {
+test("parent navigation provides hydrated loading feedback without a racy segment boundary", async () => {
+  const parentShell = await source("components/parent/ParentShell.tsx");
+
+  assert.match(parentShell, /const \[isNavigating, startNavigation\] = useTransition\(\)/u);
+  assert.match(parentShell, /role="status"/u);
+  assert.match(parentShell, /Loading family view/u);
+  assert.match(parentShell, /aria-busy=\{isNavigating\}/u);
+});
+
+test("known routes affected by the hidden-segment race carry no segment-level loading file", () => {
   // Any segment-level loading.tsx makes Next 15.5 stream the page into a
   // hidden segment (<div hidden id="S:N"> parked at body level) and the
   // vendored React defers the visible swap: $RC only marks the boundary "$~"
@@ -99,9 +108,12 @@ test("routes without slow server data carry no segment-level loading file", () =
   // load). Hydration plus provider updates client-render the boundary first,
   // so the document transiently holds TWO full copies of the page — Playwright
   // strict-mode "resolved to 2 elements" flakes and duplicate-id bugs.
-  // None of these routes awaits server data (they SSR client shells that fetch
+  // Most routes below await no server data (they SSR client shells that fetch
   // after hydration, or are pure redirects), so a route-level skeleton buys
-  // nothing and only carries the race. Verified 2026-07-26 against a prod
+  // nothing and only carries the race. Parent does await its foundation, but a
+  // production trace on 2026-08-24 reproduced React #418 during the same hidden
+  // segment swap, while the fallback was never observably useful. Verified the
+  // original route group 2026-07-26 against a prod
   // build: with these files present every route below served '<template
   // id="B:' + '<div hidden id="S:' markers; without them, none did. Only
   // reintroduce a loading.tsx where the route genuinely awaits slow server
@@ -112,6 +124,10 @@ test("routes without slow server data carry no segment-level loading file", () =
     "app/adaptive-learning/loading.tsx",
     "app/lesson/loading.tsx",
     "app/personalized-learning/loading.tsx",
+    // Production zero-retry loops reproduced React #418 while Next swapped the
+    // parent fallback and its hidden resolved segment. Keep parent loading
+    // feedback inside the hydrated console instead of a route-level boundary.
+    "app/parent/loading.tsx",
     "app/practice/loading.tsx",
     "app/student/assignments/loading.tsx",
     "app/student/lessons/loading.tsx",
@@ -259,4 +275,44 @@ test("AI Tutor voice uses the Node WebSocket client with explicit provider heade
   assert.match(voiceRoute, /socket\.terminate\(\)/);
   assert.match(voiceRoute, /resolveStudentAiTutorPolicy/);
   assert.match(voiceRoute, /consumeAiCapabilityRateLimit/);
+});
+
+test("AI Tutor voice gates client-supplied text before speaking it", async () => {
+  const voiceRoute = await source("app/api/ai-tutor/voice/route.ts");
+
+  // The body text only claims to be a tutor reply that cleared /resolve. Without
+  // this gate an authenticated student can have arbitrary text read aloud in
+  // Professor Nova's voice, bypassing content-safety and tutor moderation.
+  assert.match(voiceRoute, /import \{ resolveTutorVoiceModeration \} from "@\/lib\/server\/tutorVoiceModeration"/);
+  assert.match(voiceRoute, /await resolveTutorVoiceModeration\(\{/);
+  assert.match(voiceRoute, /role: authenticated\.user\.role/);
+  assert.match(voiceRoute, /if \(!voiceModeration\.allowed\)/);
+  assert.match(voiceRoute, /recordContentSafetyFlag/);
+  assert.match(voiceRoute, /capability: "ai-tutor-voice"[\s\S]*?action: event\.action/);
+
+  // The refusal must come before the model is ever asked to speak.
+  const gateIndex = voiceRoute.indexOf("if (!voiceModeration.allowed)");
+  const synthesizeIndex = voiceRoute.indexOf("await synthesizeQwenRealtimeVoice(");
+  assert.ok(gateIndex > 0, "voice moderation gate is missing");
+  assert.ok(synthesizeIndex > gateIndex, "the gate must refuse before synthesis");
+});
+
+test("AI Tutor voice keeps unconfigured-provider text local while preserving duty of care", async () => {
+  const voiceRoute = await source("app/api/ai-tutor/voice/route.ts");
+
+  assert.match(voiceRoute, /voiceProviderConfigured: Boolean\(providerConfig\.apiKey\)/);
+  assert.match(
+    voiceRoute,
+    /code: "AI_TUTOR_VOICE_NOT_CONFIGURED"[\s\S]*?status: 503/
+  );
+
+  const moderationIndex = voiceRoute.indexOf("await resolveTutorVoiceModeration({");
+  const safetyFlagIndex = voiceRoute.indexOf("if (voiceModeration.safetyFlag)");
+  const unavailableIndex = voiceRoute.indexOf("if (!providerConfig.apiKey)");
+  const refusalIndex = voiceRoute.indexOf("if (!voiceModeration.allowed)");
+
+  assert.ok(moderationIndex > 0, "voice duty-of-care preflight is missing");
+  assert.ok(safetyFlagIndex > moderationIndex, "safety alerts must follow the local preflight");
+  assert.ok(unavailableIndex > safetyFlagIndex, "voice 503 must follow safety alert recording");
+  assert.ok(refusalIndex > unavailableIndex, "voice 503 must win after duty of care is preserved");
 });

@@ -4,9 +4,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LessonGalaxyDirectory, type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
 import { californiaCourseTitleForGrade, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
+import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { lessonMenuHideButtonId, lessonMenuPanelId } from "@/components/lesson/worlds/lessonMenuVisibility";
+import { lessonWorldCurrentAvatarDisplay } from "@/components/lesson/worlds/worldCurrentAvatar";
+import { selectLessonWorldStopMarker } from "@/components/lesson/worlds/worldStopMarker";
+import {
+  lessonWorldStopStatusDescription,
+  resolveLessonWorldStopVisualState
+} from "@/components/lesson/worlds/worldStopState";
 import { lessonWorldThemeForCourse, type LessonWorldTheme } from "@/components/lesson/worlds/worldThemes";
 import { MathText } from "@/components/math/MathText";
+import { PagerStarIcon } from "@/components/practice/PracticeQuestPager";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ccssLessonMetasForTopic } from "@/data/ccssLessonAssignments";
 import { formatGradeLabel } from "@/lib/i18n";
@@ -34,12 +42,18 @@ type WorldMenuProps = {
   modules: LessonSummary[];
   /** Collapses the menu to its rail. Lives in the header, so both views get it. */
   onHide?: () => void;
+  onSelectLessonItem: (targetId: string) => void;
 };
 
 const worldViewStorageKey = "mais.lesson-world-view";
 
 function stopEmojiForTopic(topicId: string, theme: LessonWorldTheme) {
-  return ccssLessonMetasForTopic(topicId)[0]?.emoji ?? theme.fallbackStopEmoji;
+  return selectLessonWorldStopMarker({
+    candidate: ccssLessonMetasForTopic(topicId)[0]?.emoji,
+    fallback: theme.fallbackStopEmoji,
+    palette: theme.stopEmojiPalette,
+    stableKey: topicId
+  });
 }
 
 /** A gently winding connector between two stops; solid when already travelled. */
@@ -57,7 +71,7 @@ function StopConnector({ done, flip, theme }: { done: boolean; flip: boolean; th
   );
 }
 
-export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: WorldMenuProps) {
+export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelectLessonItem }: WorldMenuProps) {
   const { currentUser, language, t, text } = useSettings();
   const [viewMode, setViewMode] = useState<"world" | "list">("world");
   const [isMobileMapOpen, setIsMobileMapOpen] = useState(false);
@@ -99,7 +113,13 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
             {hideButton}
           </div>
         ) : null}
-        <LessonGalaxyDirectory currentSlug={currentSlug} items={items} lesson={lesson} modules={modules} />
+        <LessonGalaxyDirectory
+          currentSlug={currentSlug}
+          items={items}
+          lesson={lesson}
+          modules={modules}
+          onSelectLessonItem={onSelectLessonItem}
+        />
       </div>
     );
   }
@@ -118,7 +138,11 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
   const gradeLabel = formatGradeLabel(lesson.grade, language, true);
   const courseTitle = californiaCourseTitleForGrade(lesson.grade);
   const stopNoun = t(theme.stopNoun);
-  const firstName = currentUser?.username?.split(" ").pop() ?? "";
+  const firstName = currentUser?.name?.trim().split(/\s+/u).pop() ?? "";
+  const currentAvatar = lessonWorldCurrentAvatarDisplay({
+    avatarId: currentUser?.avatarId,
+    avatarImageDataUrl: currentUser?.avatarImageDataUrl
+  });
   const greeting = nextModule
     ? t({
         en: `${firstName ? `${firstName}, the` : "The"} ${cleanLessonUnitTitle(text(nextModule.title))} ${stopNoun} is just ahead →`,
@@ -131,13 +155,9 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
         zhHans: `${firstName ? `${firstName}，` : ""}你已走遍整个${t(theme.name)}！🎉`
       });
 
-  function scrollToLessonItem(targetId: string) {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   function stopStateClassName(index: number, module: LessonSummary) {
-    if (module.status === "completed") return theme!.stopCompletedClassName;
     if (index === activeIndex) return theme!.stopCurrentClassName;
+    if (module.status === "completed") return theme!.stopCompletedClassName;
     if (index === nextIndex) return theme!.stopNextClassName;
     return theme!.stopFutureClassName;
   }
@@ -145,28 +165,44 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
   const renderStopCircle = (module: LessonSummary, index: number, size: "ribbon" | "map") => {
     const isCurrent = index === activeIndex;
     const isCompleted = module.status === "completed";
+    const isNext = index === nextIndex;
+    const visualState = resolveLessonWorldStopVisualState({ isCompleted, isCurrent });
+    const statusDescription = lessonWorldStopStatusDescription({ isCompleted, isCurrent, isNext });
     const moduleTitle = cleanLessonUnitTitle(text(module.title));
     const sizeClassName = size === "ribbon" ? "h-12 w-12 border-[3px] text-2xl" : "h-16 w-16 border-4 text-3xl";
+    const adornmentClassName = visualState === "current"
+      ? "left-1/2 top-1 h-4 w-4 -translate-x-1/2 text-amber-400 drop-shadow-[0_1px_1px_rgba(120,53,15,0.65)]"
+      : visualState === "completed"
+        ? "left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 text-amber-400 drop-shadow-[0_2px_2px_rgba(120,53,15,0.55)]"
+        : "left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 text-base drop-shadow-[0_2px_2px_rgba(15,23,42,0.45)]";
     return (
       <Link
         href={lessonHrefForSlug(module.slug)}
         aria-current={isCurrent ? "page" : undefined}
         aria-label={t({
-          en: `Unit ${index + 1} ${stopNoun}: ${moduleTitle}${isCompleted ? " (completed)" : isCurrent ? " (you are here)" : index === nextIndex ? " (next stop)" : ""}`,
-          zh: `第 ${index + 1} 單元${stopNoun}：${moduleTitle}`,
-          zhHans: `第 ${index + 1} 单元${stopNoun}：${moduleTitle}`
+          en: `Unit ${index + 1} ${stopNoun}: ${moduleTitle} (${statusDescription.en})`,
+          zh: `第 ${index + 1} 單元${stopNoun}：${moduleTitle}（${statusDescription.zh}）`,
+          zhHans: `第 ${index + 1} 单元${stopNoun}：${moduleTitle}（${statusDescription.zhHans}）`
         })}
+        data-lesson-unit-stop-state={visualState}
         className={`focus-ring relative grid shrink-0 place-items-center rounded-full shadow-lg transition hover:-translate-y-1 ${sizeClassName} ${stopStateClassName(index, module)}`}
       >
-        <span aria-hidden="true">{stopEmojiForTopic(module.topicId, theme!)}</span>
-        {isCompleted ? (
-          <span
-            aria-hidden="true"
-            className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-amber-300 text-sm shadow"
-          >
-            ⭐
-          </span>
-        ) : null}
+        <span
+          aria-hidden="true"
+          data-lesson-unit-stop-marker="true"
+          className={visualState === "current" ? "relative" : "relative opacity-25"}
+        >
+          {stopEmojiForTopic(module.topicId, theme!)}
+        </span>
+        <span
+          aria-hidden="true"
+          data-lesson-unit-stop-adornment={visualState}
+          className={`pointer-events-none absolute z-10 grid place-items-center ${adornmentClassName}`}
+        >
+          {visualState === "locked"
+            ? <span className="leading-none">🔒</span>
+            : <PagerStarIcon className="h-full w-full" />}
+        </span>
       </Link>
     );
   };
@@ -187,11 +223,34 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
             <div className={`flex min-w-0 items-center gap-4 ${flip ? "flex-row-reverse text-right" : ""}`}>
               {renderStopCircle(module, index, "map")}
               <div className="min-w-0 flex-1">
-                <span className={`block text-xs font-black uppercase tracking-[0.14em] ${theme.accentTextClassName}`}>
+                <span className={`flex items-center text-xs font-black uppercase tracking-[0.14em] ${flip ? "justify-end" : ""} ${theme.accentTextClassName}`}>
                   {t({ en: `Unit ${index + 1}`, zh: `Unit ${index + 1}`, zhHans: `Unit ${index + 1}` })}
                   {isCurrent ? (
-                    <span className={`ml-2 rounded-full px-2 py-0.5 text-[10px] font-black ${theme.hereChipClassName}`}>
-                      {t({ en: "You are here", zh: "你在這裡", zhHans: "你在这里" })}
+                    <span
+                      aria-hidden="true"
+                      data-lesson-current-avatar-cursor="true"
+                      className="pointer-events-none relative ml-2 inline-grid h-8 w-8 shrink-0 place-items-center rounded-full"
+                    >
+                      <span className={`grid h-full w-full place-items-center overflow-hidden rounded-full border-2 border-white text-sm font-black normal-case shadow-md ring-2 ring-amber-400 ${theme.currentAvatarClassName}`}>
+                        <span data-lesson-current-avatar-fallback="true">{currentAvatar.fallbackGlyph}</span>
+                        {currentAvatar.imageSrc ? (
+                          <img
+                            key={currentAvatar.imageSrc}
+                            src={currentAvatar.imageSrc}
+                            alt=""
+                            draggable={false}
+                            onError={(event) => {
+                              event.currentTarget.hidden = true;
+                            }}
+                            data-lesson-current-avatar-image="true"
+                            className="absolute inset-0 h-full w-full rounded-full object-cover"
+                          />
+                        ) : null}
+                      </span>
+                      <span
+                        data-lesson-current-avatar-presence="true"
+                        className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500 shadow-sm dark:border-slate-950"
+                      />
                     </span>
                   ) : index === nextIndex ? (
                     <span className={`ml-2 rounded-full border px-2 py-0.5 text-[10px] font-black ${theme.chipClassName}`}>
@@ -214,10 +273,14 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
                     <button
                       key={item.id}
                       type="button"
-                      onClick={() => scrollToLessonItem(item.targetId)}
+                      onClick={() => onSelectLessonItem(item.targetId)}
                       className={`focus-ring rounded-full border px-3 py-1.5 text-left text-xs font-black transition hover:-translate-y-0.5 ${theme.quickJumpClassName}`}
                     >
-                      {`${index + 1}.${itemIndex + 1} ${item.title}`}
+                      {formatLessonPartDisplay({
+                        itemIndex,
+                        title: item.title,
+                        unitIndex: index
+                      }).menuTitle}
                     </button>
                   ) : null
                 )}

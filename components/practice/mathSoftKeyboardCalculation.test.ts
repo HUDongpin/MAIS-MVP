@@ -1,0 +1,147 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { calculateMathKeyboardAnswer } from "@/components/practice/mathSoftKeyboardCalculation";
+import { questionAnswerMatches } from "@/lib/server/answerMatching";
+
+test("calculator-style equals resolves complete arithmetic into a valid equation", () => {
+  assert.equal(calculateMathKeyboardAnswer("3+2+4"), "3+2+4=9");
+  assert.equal(calculateMathKeyboardAnswer("3+2+4="), "3+2+4=9");
+  assert.equal(calculateMathKeyboardAnswer("2+3*4"), "2+3*4=14");
+  assert.equal(calculateMathKeyboardAnswer("(2+3)*4"), "(2+3)*4=20");
+  assert.equal(calculateMathKeyboardAnswer("0.1+0.2"), "0.1+0.2=0.3");
+});
+
+test("calculator-style equals supports grader-compatible arithmetic tokens", () => {
+  assert.equal(calculateMathKeyboardAnswer("6×7"), "6×7=42");
+  assert.equal(calculateMathKeyboardAnswer("12÷4"), "12÷4=3");
+  assert.equal(calculateMathKeyboardAnswer("-5 + (2 * 4)"), "-5 + (2 * 4)=3");
+});
+
+test("answer formatting preserves safe integers, precision, and non-zero small values", () => {
+  assert.equal(calculateMathKeyboardAnswer("1234567890123"), "1234567890123=1234567890123");
+  assert.equal(calculateMathKeyboardAnswer("1000000000000+3"), "1000000000000+3=1000000000003");
+  assert.equal(calculateMathKeyboardAnswer("1/3"), "1/3=0.3333333333333333");
+  assert.equal(calculateMathKeyboardAnswer("1.2345678901234567"), "1.2345678901234567=1.2345678901234567");
+  assert.equal(calculateMathKeyboardAnswer("0.0000010005"), "0.0000010005=0.0000010005");
+});
+
+test("unsafe integer results fail closed instead of emitting a misleading equation", () => {
+  assert.equal(calculateMathKeyboardAnswer("9007199254740991+1"), null);
+  assert.equal(calculateMathKeyboardAnswer("9007199254740992"), null);
+});
+
+test("a large non-terminating rational cannot collapse to a nearby Number integer", () => {
+  // The exact result is 9007199254740990 + 2/3, while Number rounds it to
+  // 9007199254740991. Grader compatibility alone must not publish that value.
+  assert.equal(calculateMathKeyboardAnswer("(9007199254740991*3-1)/3"), null);
+});
+
+for (const expression of [
+  "9007199254740993-9007199254740992",
+  "9999999999999999-9999999999999998"
+]) {
+  test(`unsafe integer literal expression ${expression} fails closed before Number evaluation`, () => {
+    assert.equal(calculateMathKeyboardAnswer(expression), null);
+  });
+}
+
+for (const expression of [
+  "9007199254740993.0-9007199254740992.0",
+  "9999999999999999.0-9999999999999998.0",
+  "9007199254740993.-9007199254740992."
+]) {
+  test(`unsafe decimal integer literal expression ${expression} fails closed before Number evaluation`, () => {
+    assert.equal(calculateMathKeyboardAnswer(expression), null);
+  });
+}
+
+test("a non-zero fractional literal rounded by Number into an integer fails closed", () => {
+  assert.equal(calculateMathKeyboardAnswer("1.0000000000000001-1"), null);
+});
+
+for (const expression of [
+  "0.10000000000000001-0.1",
+  "1.23456789012345678-1.23456789012345677"
+]) {
+  test(`exact decimal cancellation ${expression} never publishes a binary-float zero`, () => {
+    assert.equal(calculateMathKeyboardAnswer(expression), null);
+  });
+}
+
+test("an exact decimal result fails closed when the existing Number grader rejects its equation", () => {
+  const expression = "123456789012345.67-123456789012345.66";
+  assert.equal(
+    questionAnswerMatches({ answer: "0.01", accepted_answers: null, options: null }, `${expression}=0.01`),
+    false,
+    "the current Number-based grader evaluates the equation left side as 0.015625"
+  );
+  assert.equal(calculateMathKeyboardAnswer(expression), null);
+});
+
+test("calculator-style equals rejects expressions beyond its local resource budget", () => {
+  const oversizedExpression = Array.from({ length: 300 }, () => "1").join("+");
+  const tooManyParserSteps = Array.from({ length: 129 }, () => "1").join("+");
+  const tooDeep = `${"(".repeat(33)}1${")".repeat(33)}`;
+  const oversizedLiteral = `0.${"1".repeat(129)}`;
+  assert.equal(calculateMathKeyboardAnswer(oversizedExpression), null);
+  assert.equal(calculateMathKeyboardAnswer(`${" ".repeat(600)}1+1`), null);
+  assert.equal(calculateMathKeyboardAnswer(tooManyParserSteps), null);
+  assert.equal(calculateMathKeyboardAnswer(tooDeep), null);
+  assert.equal(calculateMathKeyboardAnswer(oversizedLiteral), null);
+});
+
+test("every auto-completed equation is accepted by the existing short-answer grader", () => {
+  for (const [input, expectedAnswer] of [
+    ["3+2+4", "9"],
+    ["6×7", "42"],
+    ["12÷4", "3"],
+    ["(2+3)*4", "20"],
+    ["0.1+0.2", "0.3"],
+    ["1/3", "0.3333333333333333"]
+  ] as const) {
+    const completedEquation = calculateMathKeyboardAnswer(input);
+    assert.notEqual(completedEquation, null, input);
+    assert.equal(
+      questionAnswerMatches({ answer: expectedAnswer, accepted_answers: null, options: null }, completedEquation!),
+      true,
+      input
+    );
+  }
+});
+
+test("implicit multiplication stays on the literal-equals path because the grader rejects it", () => {
+  for (const value of ["2(3)", "(2)(3)", "(2)3", "2(-3)", "(-2)(-3)"]) {
+    assert.equal(calculateMathKeyboardAnswer(value), null, value);
+    assert.equal(
+      questionAnswerMatches({ answer: "6", accepted_answers: null, options: null }, `${value}=6`),
+      false,
+      value
+    );
+  }
+});
+
+test("symbolic, existing-equation, and invalid input stays on the non-calculating path", () => {
+  for (const value of [
+    "",
+    "2+",
+    "5/0",
+    "f(x)",
+    "e",
+    "pi",
+    "π",
+    "e^(i*pi)+1",
+    "2^3",
+    "sqrt(9)",
+    "log10(100)",
+    "2*pi",
+    "sin(30)",
+    "sin(pi/2)",
+    "acos(0)",
+    "0.0000000000002/2",
+    "0.0000000000010005",
+    "x=3",
+    "3+2=5"
+  ]) {
+    assert.equal(calculateMathKeyboardAnswer(value), null, value);
+  }
+});

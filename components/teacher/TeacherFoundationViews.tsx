@@ -148,7 +148,7 @@ export function TeacherOverview({ foundation }: { foundation: TeacherFoundationD
             {foundation.inboxPreview.length ? (
               foundation.inboxPreview.map((message) => <MessageCard key={message.id} message={message} />)
             ) : (
-              <EmptyState title={t({ en: "Inbox clear", zh: "暫無待覆私信", zhHans: "暂无待回复私信" })} body={t({ en: "Student messages will land here.", zh: "學生私信會顯示在這裡。", zhHans: "学生私信会显示在这里。" })} />
+              <EmptyState title={t({ en: "Inbox clear", zh: "暫無待覆私信", zhHans: "暂无待覆私信" })} body={t({ en: "Student messages will land here.", zh: "學生私信會顯示在這裡。", zhHans: "学生私信会显示在这里。" })} />
             )}
           </div>
         </aside>

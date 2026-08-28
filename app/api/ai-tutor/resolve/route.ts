@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guardAiTutorExpectedUser } from "@/app/api/ai-tutor/expectedUser";
 import { isValidGradeId } from "@/data/grades";
 import {
   normalizeAITutorVisualization,
@@ -2074,6 +2075,7 @@ async function handleAITutorPost(
   const interfaceLanguage = cleanText(body.language, 24);
   const language = resolveTutorReplyLanguage(interfaceLanguage, input, history);
   const page = cleanText(body.page, 160);
+  let expectedUserConflict: Response | null = null;
   const admission = await runAiTutorAdmission({
     request,
     signal: requestSignal,
@@ -2101,6 +2103,10 @@ async function handleAITutorPost(
       authenticate: async (_admissionRequest, signal) => {
         const authenticated = await requireAiTutorAuthenticatedUser(_admissionRequest, signal);
         throwIfRequestAborted(signal);
+        expectedUserConflict = guardAiTutorExpectedUser(authenticated, _admissionRequest, body);
+        if (expectedUserConflict) {
+          throw new Error("AI Tutor authenticated user changed.");
+        }
         return authenticated;
       },
       resolveClassroomPolicy: async (authenticated, signal) => {
@@ -2132,6 +2138,8 @@ async function handleAITutorPost(
     }
   });
   markStage("admission");
+
+  if (expectedUserConflict) return expectedUserConflict;
 
   if (admission.status === "unavailable") {
     console.error("AI Tutor admission unavailable", {

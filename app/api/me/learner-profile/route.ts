@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  bodyExpectedUserConstraints,
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { getLearnerProfile, updateLearnerProfile } from "@/lib/server/userStore";
 import type {
   LearnerProfileChallengeStart,
@@ -52,6 +57,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
+
   if (authenticated.user.role !== "student") {
     return NextResponse.json({ learnerProfile: null, shouldShowOnboarding: false });
   }
@@ -73,11 +85,27 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
+  const transportExpectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request)
+  );
+  if (transportExpectedUserConflict) return transportExpectedUserConflict;
+
   if (authenticated.user.role !== "student") {
     return NextResponse.json({ error: "Learner profile is only available for student users." }, { status: 403 });
   }
 
   const payload = await readPayload(request);
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    [
+      ...expectedUserConstraintsFromRequest(request),
+      ...bodyExpectedUserConstraints(payload)
+    ],
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
+
   if (!isRecord(payload)) {
     return NextResponse.json({ error: "Invalid learner profile payload." }, { status: 400 });
   }

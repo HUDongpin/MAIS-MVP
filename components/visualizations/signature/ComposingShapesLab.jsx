@@ -405,6 +405,32 @@ function ledgerOf(list) {
   return { seams: pairs.size, pieceSides };
 }
 
+/* The exact visible seam segments.  Internal unit edges inside one physical
+   block are not seams; an edge appears here only when cells owned by two
+   different pieces share it.  This is the drawing equivalent of ledgerOf's
+   piece-pair rule, while retaining every unit segment of a longer shared side. */
+function seamEdgesOf(list) {
+  const edges = new Map();
+  for (const piece of list) {
+    for (const cell of pieceCells(piece)) {
+      const vertices = cellVerts(...cell);
+      for (let i = 0; i < vertices.length; i++) {
+        const a = vertices[i];
+        const b = vertices[(i + 1) % vertices.length];
+        const aKey = pk(a);
+        const bKey = pk(b);
+        const key = aKey < bKey ? `${aKey}|${bKey}` : `${bKey}|${aKey}`;
+        const entry = edges.get(key) || { edge: [a, b], owners: new Set() };
+        entry.owners.add(piece.id);
+        edges.set(key, entry);
+      }
+    }
+  }
+  return [...edges.values()]
+    .filter((entry) => entry.owners.size > 1)
+    .map((entry) => entry.edge);
+}
+
 /* The whole bench, analysed.  This is the single source of truth for the head,
    the canvas, the a11y label and the challenge meter. */
 function analyze(pieces) {
@@ -413,13 +439,14 @@ function analyze(pieces) {
     const list = ids.map((id) => byId.get(id));
     const cells = list.flatMap(pieceCells);
     const { seams, pieceSides } = ledgerOf(list);
+    const seamEdges = seamEdgesOf(list);
     const o = outline(cells);
     const poly = o.ok ? simplify(o.cycle) : null;
     const counts = {};
     for (const p of list) counts[p.kind] = (counts[p.kind] || 0) + 1;
     const sides = poly ? poly.length : 0;
     return {
-      ids, cells, poly, seams, pieceSides, counts, sides,
+      ids, cells, poly, seams, seamEdges, pieceSides, counts, sides,
       joined: ids.length > 1,
       ok: o.ok,
       why: o.why || null,
@@ -655,7 +682,7 @@ function matchOf(target, covered) {
 const CARMINE = '#C81E4F';
 const INK = '#1C2B3A';
 const INK_SOFT = '#5B6B7B';
-const SEAM = 'rgba(91,107,123,0.42)';
+const SEAM = '#445565';
 const FILL = 'rgba(199,216,228,0.55)';
 const FILL_SEL = 'rgba(200,30,79,0.13)';
 
@@ -837,12 +864,16 @@ export default function ComposingShapesLab() {
     if (!S.hideSeams) {
       ctx.save();
       ctx.globalAlpha = seamAlpha;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 2.4;
       ctx.strokeStyle = SEAM;
-      for (const piece of pieces) {
-        const o = outline(pieceCells(piece));
-        if (!o.ok) continue;
-        path(simplify(o.cycle));
+      ctx.lineCap = 'round';
+      for (const g of S.model.groups) {
+        if (!g.joined || !g.seamEdges.length) continue;
+        ctx.beginPath();
+        for (const [a, b] of g.seamEdges) {
+          ctx.moveTo(sx(wx(a[0], a[1])), sy(wy(a[1])));
+          ctx.lineTo(sx(wx(b[0], b[1])), sy(wy(b[1])));
+        }
         ctx.stroke();
       }
       ctx.restore();
@@ -854,8 +885,8 @@ export default function ComposingShapesLab() {
       const isWhole = g.joined;
       ctx.save();
       ctx.lineJoin = 'round';
-      ctx.lineWidth = isWhole ? 3.2 : 2;
-      ctx.strokeStyle = isWhole ? CARMINE : 'rgba(91,107,123,0.8)';
+      ctx.lineWidth = isWhole ? 3.2 : 2.8;
+      ctx.strokeStyle = isWhole ? CARMINE : INK_SOFT;
       if (isWhole && fuse.on) {
         const t = Math.min(1, (performance.now() - fuse.t0) / 700);
         ctx.lineWidth = 3.2 + 3 * (1 - t);
@@ -1318,8 +1349,9 @@ export default function ComposingShapesLab() {
         .stage canvas { display: block; width: 100%; height: 100%; }
         .hint {
           position: absolute; left: 10px; bottom: 9px; font-size: 11px;
-          color: var(--ink-soft); background: rgba(251, 251, 248, 0.82);
-          padding: 3px 7px; border-radius: 5px; pointer-events: none;
+          color: var(--ink-soft); background: #fbfbf8;
+          padding: 3px 7px; border: 1px solid #c7d0d7;
+          border-radius: 5px; pointer-events: none;
         }
         .kit {
           display: grid; grid-template-columns: repeat(4, 1fr);
@@ -1332,7 +1364,10 @@ export default function ComposingShapesLab() {
           transition: border-color 0.15s, background 0.15s, opacity 0.15s;
         }
         .block:not(:disabled):hover { border-color: var(--curve); background: rgba(200, 30, 79, 0.04); }
-        .block.locked { opacity: 0.45; cursor: not-allowed; }
+        .block.locked {
+          opacity: 1; cursor: not-allowed; border-color: #a8b3bd;
+          background: #eef1f3; color: #445565;
+        }
         .block-label { font-size: 12px; font-weight: 600; }
         .lock { font-size: 9.5px; color: var(--ink-soft); }
         .toolbar { margin: 14px 4px 2px; display: flex; gap: 9px; flex-wrap: wrap; }
@@ -1351,7 +1386,10 @@ export default function ComposingShapesLab() {
         }
         .btn.ghost { background: transparent; color: var(--ink); }
         .btn.ghost.on { background: var(--curve); border-color: var(--curve); color: #fff; }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn:disabled {
+          opacity: 1; cursor: not-allowed; border-color: #a8b3bd;
+          background: #e4e8eb; color: #334250;
+        }
         .btn:not(:disabled):hover { filter: brightness(1.08); }
         .tutor { padding: 18px 20px 20px; }
         .progress { display: flex; gap: 6px; margin-bottom: 14px; }
@@ -1383,7 +1421,10 @@ export default function ComposingShapesLab() {
         .choice.correct .mark { color: var(--ok); }
         .choice.wrong { border-color: var(--ink-soft); background: rgba(91, 107, 123, 0.08); }
         .choice.wrong .mark { color: var(--ink-soft); }
-        .choice.dim { opacity: 0.55; }
+        .choice.dim {
+          opacity: 1; border-color: #a8b3bd;
+          background: #f1f3f4; color: #445565;
+        }
         .choice:disabled { cursor: default; }
         .feedback {
           margin: 12px 0 0; font-size: 13px; line-height: 1.55; color: var(--ink);

@@ -48,6 +48,25 @@ function grab(name) {
   }
   throw new Error(`could not balance ${name}`);
 }
+
+function grabFunction(name) {
+  const start = SRC.indexOf(`function ${name}(`);
+  if (start < 0) throw new Error(`function ${name} not found in the lab source`);
+  const open = SRC.indexOf('{', start);
+  let depth = 0;
+  let inStr = null;
+  for (let i = open; i < SRC.length; i++) {
+    const c = SRC[i];
+    if (inStr) {
+      if (c === inStr && SRC[i - 1] !== '\\') inStr = null;
+      continue;
+    }
+    if (c === "'" || c === '"' || c === '`') { inStr = c; continue; }
+    if (c === '{') depth++;
+    if (c === '}' && --depth === 0) return SRC.slice(start, i + 1);
+  }
+  throw new Error(`could not balance function ${name}`);
+}
 const UP = 0, DOWN = 1;
 const evalConst = (name) => eval(`(${grab(name)})`);
 
@@ -94,6 +113,33 @@ const pieceCells = (p) => KIND[p.kind].cells.map((c) => {
   const [a, b, t] = rotCell(c, p.rot);
   return [a + p.pos[0], b + p.pos[1], t];
 });
+const shippedSeamEdgesOf = eval(`(${grabFunction('seamEdgesOf')})`);
+
+/* Independent oracle: discover neighbouring cells first, then intersect their
+   vertex sets.  The shipped renderer instead builds an undirected edge-owner
+   ledger, so agreement does not come from running the same implementation. */
+function independentSeamEdgeKeys(list) {
+  const owner = new Map();
+  list.forEach((piece, index) => pieceCells(piece).forEach((cell) => owner.set(ck(...cell), index)));
+  const keys = new Set();
+  list.forEach((piece, index) => pieceCells(piece).forEach((cell) => {
+    for (const neighbour of neighbours(cell)) {
+      const other = owner.get(ck(...neighbour));
+      if (other == null || other === index) continue;
+      const neighbourVertices = new Set(cellVerts(...neighbour).map(pk));
+      const shared = cellVerts(...cell).filter((vertex) => neighbourVertices.has(pk(vertex)));
+      if (shared.length !== 2) continue;
+      const ends = shared.map(pk).sort();
+      keys.add(`${ends[0]}|${ends[1]}`);
+    }
+  }));
+  return [...keys].sort();
+}
+
+const seamEdgeKeys = (edges) => edges.map(([a, b]) => {
+  const ends = [pk(a), pk(b)].sort();
+  return `${ends[0]}|${ends[1]}`;
+}).sort();
 
 function outline(cells) {
   const dirEdges = new Map();
@@ -442,6 +488,36 @@ head('5b. The ledger only prints when its own arithmetic balances');
   check('the lab gates the ledger on the equation holding, not on the step',
     /ledgerOk: ids\.length > 1 && o\.ok && pieceSides - 2 \* seams === sides/.test(SRC));
   check('the head asks for ledgerOk, not for a hard-coded step', /named\.ledgerOk/.test(SRC));
+}
+
+/* ---------------------------------------------------------------------------
+   5c. The Canvas draws only real seams between different physical pieces
+   ------------------------------------------------------------------------- */
+head('5c. Visible seams are exactly shared edges between different pieces');
+{
+  const cases = [
+    ...Object.entries(GOALS).map(([name, pieces]) => [`goal:${name}`, pieces]),
+    ...RECIPES.map((recipe) => [`recipe:${recipe.name}`, recipe.pieces]),
+    ...Object.entries(SEEDS).map(([step, seed]) => [`seed-goal:${step}`, seed.goal]),
+    ...TARGETS.map((target) => [`target:${target.name}`, target.recipe]),
+    ['disjoint-triangles', [
+      { kind: 'triangle', pos: [-3, 0], rot: 0 },
+      { kind: 'triangle', pos: [3, 0], rot: 0 },
+    ]],
+  ];
+  for (const [name, rawPieces] of cases) {
+    const pieces = rawPieces.map((piece, index) => ({ ...piece, id: index + 1 }));
+    const expected = independentSeamEdgeKeys(pieces);
+    const actual = seamEdgeKeys(shippedSeamEdgesOf(pieces));
+    check(`${name}: shipped seam segments match independent cell-neighbour oracle`,
+      JSON.stringify(actual) === JSON.stringify(expected),
+      `actual=${JSON.stringify(actual)} expected=${JSON.stringify(expected)}`);
+  }
+  const loneHexagon = [{ ...GOALS.twoHexagons[0], id: 1 }];
+  check('internal triangular cell edges inside one hexagon block are never drawn as seams',
+    shippedSeamEdgesOf(loneHexagon).length === 0);
+  check('the Canvas invokes the seam stroke only for joined groups with visible shared edges',
+    /if \(!g\.joined \|\| !g\.seamEdges\.length\) continue;/.test(SRC));
 }
 
 /* ---------------------------------------------------------------------------

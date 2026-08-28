@@ -1,9 +1,9 @@
 "use client";
 
 import { useSettings } from "@/components/providers/AppProviders";
-import type { GamificationSummary } from "@/types";
+import type { ParentMotivationSummarySafe } from "@/types";
 
-export function ParentMotivationSummary({ summary }: { summary: GamificationSummary | null }) {
+export function ParentMotivationSummary({ summary }: { summary: ParentMotivationSummarySafe | null }) {
   const { t, text } = useSettings();
 
   if (!summary) return null;

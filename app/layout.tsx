@@ -13,6 +13,12 @@ import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
 import { StudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
 import { AppProviders } from "@/components/providers/AppProviders";
+import {
+  toAuthenticatedAppShellBootstrap,
+  type AppShellBootstrap
+} from "@/lib/appShellBootstrap";
+import { localeForLanguage } from "@/lib/i18n";
+import { getRequestSessionContext } from "@/lib/server/requestSession";
 
 export const metadata: Metadata = {
   title: "MAIS",
@@ -21,11 +27,25 @@ export const metadata: Metadata = {
 
 const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  // Authenticated app chrome must be rendered from the same request-bound,
+  // allowlisted state that the client receives. Auth/storage failures propagate
+  // to the route boundary; they must never be disguised as a guest document.
+  const requestSession = await getRequestSessionContext();
+  const initialBootstrap: AppShellBootstrap = requestSession.authenticated
+    ? toAuthenticatedAppShellBootstrap(requestSession.authenticated)
+    : { kind: "guest", hadSessionCookie: requestSession.hadSessionCookie };
+  const initialLanguage = initialBootstrap.kind === "authenticated" ? initialBootstrap.settings.language : "en";
+  const initialTheme = initialBootstrap.kind === "authenticated" ? initialBootstrap.settings.theme : "light";
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang={localeForLanguage(initialLanguage)}
+      className={initialTheme === "dark" ? "dark" : undefined}
+      suppressHydrationWarning
+    >
       <body>
-        <AppProviders>
+        <AppProviders initialBootstrap={initialBootstrap}>
           <AITutorProvider>
             <AnimatedMathBackground />
             <div className="relative z-10 flex min-h-screen flex-col">

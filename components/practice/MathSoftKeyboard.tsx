@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, type RefObject } from "react";
+import { useEffect, useRef, useState, type FocusEvent, type RefObject } from "react";
 import { MathText } from "@/components/math/MathText";
+import { calculateMathKeyboardAnswer } from "@/components/practice/mathSoftKeyboardCalculation";
 import { cn, localize } from "@/lib/utils";
 import type { Language, LocalizedText } from "@/types";
 
 type AnswerControl = HTMLInputElement | HTMLTextAreaElement;
 type KeyboardTabId = "numbers" | "symbols" | "letters" | "greek";
 type MathKeyTone = "default" | "command" | "danger";
-type MathKeyAction = "clear" | "backspace" | "move-left" | "move-right" | "toggle-sign" | "toggle-shift" | "undo" | "redo";
+type MathKeyAction = "clear" | "backspace" | "calculate-or-equals" | "move-left" | "move-right" | "toggle-sign" | "toggle-shift" | "undo" | "redo";
 type Snapshot = {
   value: string;
   start: number;
@@ -45,6 +46,94 @@ type MathSoftKeyboardProps = {
 
 const maxHistoryLength = 24;
 const activePlaceholderLatex = String.raw`\textcolor{#1574d7}{\blacksquare}`;
+const horizontalKeyboardRowClassName = "flex flex-nowrap items-center justify-start overflow-x-auto overscroll-x-contain px-1 scroll-px-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-500/70 [&::-webkit-scrollbar-track]:bg-transparent";
+
+type MathKeyboardFocusScrollGeometry = {
+  currentScrollLeft: number;
+  keyLeft: number;
+  keyRight: number;
+  rowClientWidth: number;
+  rowLeft: number;
+  rowRight: number;
+  rowScrollWidth: number;
+};
+
+export function resolveMathKeyboardFocusScrollLeft({
+  currentScrollLeft,
+  keyLeft,
+  keyRight,
+  rowClientWidth,
+  rowLeft,
+  rowRight,
+  rowScrollWidth
+}: MathKeyboardFocusScrollGeometry) {
+  const measurements = [
+    currentScrollLeft,
+    keyLeft,
+    keyRight,
+    rowClientWidth,
+    rowLeft,
+    rowRight,
+    rowScrollWidth
+  ];
+  if (
+    measurements.some((measurement) => !Number.isFinite(measurement))
+    || rowClientWidth <= 0
+    || rowScrollWidth < rowClientWidth
+    || rowRight <= rowLeft
+    || keyRight < keyLeft
+  ) {
+    return null;
+  }
+
+  const maxScrollLeft = Math.max(0, rowScrollWidth - rowClientWidth);
+  const boundedCurrentScrollLeft = Math.min(maxScrollLeft, Math.max(0, currentScrollLeft));
+  if (maxScrollLeft === 0) return null;
+
+  const focusInset = 1;
+  let nextScrollLeft = boundedCurrentScrollLeft;
+  if (keyLeft < rowLeft + focusInset) {
+    nextScrollLeft += keyLeft - (rowLeft + focusInset);
+  } else if (keyRight > rowRight - focusInset) {
+    nextScrollLeft += keyRight - (rowRight - focusInset);
+  }
+
+  nextScrollLeft = Math.min(maxScrollLeft, Math.max(0, nextScrollLeft));
+  return nextScrollLeft === boundedCurrentScrollLeft ? null : nextScrollLeft;
+}
+
+function alignMathKeyboardRowToFocusedKey(row: HTMLElement, key: HTMLButtonElement) {
+  if (
+    !row.isConnected
+    || !key.isConnected
+    || document.activeElement !== key
+    || key.closest<HTMLElement>("[data-math-keyboard-row]") !== row
+  ) {
+    return;
+  }
+
+  const rowRect = row.getBoundingClientRect();
+  const keyRect = key.getBoundingClientRect();
+  const nextScrollLeft = resolveMathKeyboardFocusScrollLeft({
+    currentScrollLeft: row.scrollLeft,
+    keyLeft: keyRect.left,
+    keyRight: keyRect.right,
+    rowClientWidth: row.clientWidth,
+    rowLeft: rowRect.left,
+    rowRight: rowRect.right,
+    rowScrollWidth: row.scrollWidth
+  });
+  if (nextScrollLeft !== null) row.scrollLeft = nextScrollLeft;
+}
+
+function handleMathKeyboardRowFocus(event: FocusEvent<HTMLDivElement>) {
+  const row = event.currentTarget;
+  const key = event.target;
+  if (!(key instanceof HTMLButtonElement)) return;
+
+  alignMathKeyboardRowToFocusedKey(row, key);
+  window.requestAnimationFrame(() => alignMathKeyboardRowToFocusedKey(row, key));
+}
 
 const tabLabels: Array<{ id: KeyboardTabId; label: LocalizedText }> = [
   { id: "numbers", label: { en: "123", zh: "123" } },
@@ -159,7 +248,10 @@ const keyboardRows: Record<KeyboardTabId, MathKey[][]> = {
       digitKey("9"),
       insertKey("-", "-", "Insert minus sign", "輸入減號"),
       insertKey("/", "/", "Insert division slash", "輸入除號"),
-      insertKey("=", "=", "Insert equals sign", "輸入等號")
+      actionKey("=", "calculate-or-equals", "Calculate or insert equals sign", "計算或輸入等號", {
+        ariaZhHans: "计算或输入等号",
+        tone: "command"
+      })
     ]
   ],
   symbols: [
@@ -466,12 +558,12 @@ function actionKey(
   action: MathKeyAction,
   ariaEn: string,
   ariaZh: string,
-  options: Partial<Pick<MathKey, "tone" | "wide" | "extraWide">> = {}
+  options: Partial<Pick<MathKey, "tone" | "wide" | "extraWide">> & { ariaZhHans?: string } = {}
 ): MathKey {
   return {
     label,
     action,
-    aria: { en: ariaEn, zh: ariaZh },
+    aria: { en: ariaEn, zh: ariaZh, zhHans: options.ariaZhHans },
     tone: options.tone,
     wide: options.wide,
     extraWide: options.extraWide
@@ -529,20 +621,59 @@ function keyForShiftState(mathKey: MathKey, shiftActive: boolean): MathKey {
   return mathKey.action === "toggle-shift" ? { ...shiftedKey, active: shiftActive } : shiftedKey;
 }
 
+export function resolveMathKeyboardEqualsAction(value: string, start: number, end: number) {
+  const isCaretAtEnd = start === end && end === value.length;
+  if (!isCaretAtEnd) return { kind: "insert" } as const;
+
+  const result = calculateMathKeyboardAnswer(value);
+  if (result !== null) return { kind: "replace", value: result } as const;
+
+  return value.includes("=") ? { kind: "noop" } as const : { kind: "insert" } as const;
+}
+
+export function reconcileMathKeyboardControlledValue(
+  lastReceivedValue: string,
+  pendingOwnValue: string | null,
+  nextValue: string
+) {
+  if (lastReceivedValue === nextValue) {
+    return { lastReceivedValue, pendingOwnValue, shouldClearRedo: false };
+  }
+
+  return {
+    lastReceivedValue: nextValue,
+    pendingOwnValue: null,
+    shouldClearRedo: pendingOwnValue !== nextValue
+  };
+}
+
 export function MathSoftKeyboard({
   id,
   value,
   targetRef,
   language,
   onChange,
-  ariaLabel = { en: "Math soft keyboard", zh: "數學軟鍵盤" },
-  clearAriaLabel = { en: "Clear answer", zh: "清空答案" }
+  ariaLabel = { en: "Math soft keyboard", zh: "數學軟鍵盤", zhHans: "数学软键盘" },
+  clearAriaLabel = { en: "Clear answer", zh: "清空答案", zhHans: "清空答案" }
 }: MathSoftKeyboardProps) {
   const [activeTab, setActiveTab] = useState<KeyboardTabId>("numbers");
   const [shiftActive, setShiftActive] = useState(false);
   const [undoStack, setUndoStack] = useState<Snapshot[]>([]);
   const [redoStack, setRedoStack] = useState<Snapshot[]>([]);
+  const lastReceivedValueRef = useRef(value);
+  const pendingOwnValueRef = useRef<string | null>(null);
   const activeRows = keyboardRows[activeTab];
+
+  useEffect(() => {
+    const sync = reconcileMathKeyboardControlledValue(
+      lastReceivedValueRef.current,
+      pendingOwnValueRef.current,
+      value
+    );
+    lastReceivedValueRef.current = sync.lastReceivedValue;
+    pendingOwnValueRef.current = sync.pendingOwnValue;
+    if (sync.shouldClearRedo) setRedoStack([]);
+  }, [value]);
 
   function getSnapshot(): Snapshot {
     const target = targetRef.current;
@@ -567,11 +698,16 @@ export function MathSoftKeyboard({
     });
   }
 
+  function emitOwnChange(nextValue: string) {
+    pendingOwnValueRef.current = nextValue;
+    onChange(nextValue);
+  }
+
   function commit(nextValue: string, nextStart: number, nextEnd = nextStart) {
     const previous = getSnapshot();
     setUndoStack((current) => historyWith(previous, current));
     setRedoStack([]);
-    onChange(nextValue);
+    emitOwnChange(nextValue);
     focusAnswer(nextStart, nextEnd, nextValue);
   }
 
@@ -580,6 +716,21 @@ export function MathSoftKeyboard({
     const nextValue = `${snapshot.value.slice(0, snapshot.start)}${insert}${snapshot.value.slice(snapshot.end)}`;
     const nextCursor = snapshot.start + insert.length + cursorOffset;
     commit(nextValue, nextCursor);
+    setShiftActive(false);
+  }
+
+  function calculateOrInsertEquals() {
+    const snapshot = getSnapshot();
+    const resolution = resolveMathKeyboardEqualsAction(snapshot.value, snapshot.start, snapshot.end);
+
+    if (resolution.kind === "noop") return;
+
+    if (resolution.kind === "insert") {
+      insertText("=");
+      return;
+    }
+
+    commit(resolution.value, resolution.value.length);
     setShiftActive(false);
   }
 
@@ -610,6 +761,11 @@ export function MathSoftKeyboard({
   }
 
   function handleAction(action: MathKeyAction) {
+    if (action === "calculate-or-equals") {
+      calculateOrInsertEquals();
+      return;
+    }
+
     if (action === "clear") {
       clearAnswer();
       return;
@@ -710,7 +866,7 @@ export function MathSoftKeyboard({
     const current = getSnapshot();
     setUndoStack((stack) => stack.slice(0, -1));
     setRedoStack((stack) => historyWith(current, stack));
-    onChange(previous.value);
+    emitOwnChange(previous.value);
     focusAnswer(previous.start, previous.end, previous.value);
   }
 
@@ -721,17 +877,19 @@ export function MathSoftKeyboard({
     const current = getSnapshot();
     setRedoStack((stack) => stack.slice(0, -1));
     setUndoStack((stack) => historyWith(current, stack));
-    onChange(next.value);
+    emitOwnChange(next.value);
     focusAnswer(next.start, next.end, next.value);
   }
 
   const editingControls = [
-    actionKey("↶", "undo", "Undo soft keyboard input", "復原軟鍵盤輸入"),
-    actionKey("↷", "redo", "Redo soft keyboard input", "重做軟鍵盤輸入"),
-    actionKey("←", "move-left", "Move cursor left", "游標向左"),
-    actionKey("→", "move-right", "Move cursor right", "游標向右"),
-    actionKey("⌫", "backspace", "Backspace", "刪除前一字元"),
-    actionKey("AC", "clear", localize(clearAriaLabel, "en"), localize(clearAriaLabel, "zh"))
+    actionKey("↶", "undo", "Undo soft keyboard input", "復原軟鍵盤輸入", { ariaZhHans: "复原软键盘输入" }),
+    actionKey("↷", "redo", "Redo soft keyboard input", "重做軟鍵盤輸入", { ariaZhHans: "重做软键盘输入" }),
+    actionKey("←", "move-left", "Move cursor left", "游標向左", { ariaZhHans: "光标向左" }),
+    actionKey("→", "move-right", "Move cursor right", "游標向右", { ariaZhHans: "光标向右" }),
+    actionKey("⌫", "backspace", "Backspace", "刪除前一字元", { ariaZhHans: "删除前一字符" }),
+    actionKey("AC", "clear", localize(clearAriaLabel, "en"), localize(clearAriaLabel, "zh"), {
+      ariaZhHans: localize(clearAriaLabel, "zh-Hans")
+    })
   ];
 
   return (
@@ -739,10 +897,11 @@ export function MathSoftKeyboard({
       id={id}
       role="group"
       aria-label={localize(ariaLabel, language)}
-      className="mt-3 scroll-mt-28 overflow-hidden rounded-[1.6rem] border border-[#aeb8c5] bg-[#c4ccd7] p-3 shadow-inner shadow-slate-500/20"
+      data-math-keyboard-layout="compact"
+      className="mx-auto mt-3 w-full max-w-[38rem] scroll-mt-28 overflow-hidden rounded-2xl border border-[#aeb8c5] bg-[#c4ccd7] p-2 shadow-inner shadow-slate-500/20"
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div role="tablist" aria-label={localize({ en: "Math keyboard categories", zh: "數學鍵盤分類" }, language)} className="flex flex-wrap gap-5 px-1">
+      <div className="flex flex-wrap items-start justify-between gap-1">
+        <div role="tablist" aria-label={localize({ en: "Math keyboard categories", zh: "數學鍵盤分類" }, language)} className="flex flex-wrap gap-1">
           {tabLabels.map((tab) => {
             const active = activeTab === tab.id;
             return (
@@ -755,7 +914,7 @@ export function MathSoftKeyboard({
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "focus-ring min-h-8 border-b-2 px-1 text-sm font-black italic tracking-normal transition",
+                  "focus-ring min-h-11 min-w-11 border-b-2 px-2 text-sm font-black italic tracking-normal transition",
                   active
                     ? "border-[#1574d7] text-[#1574d7]"
                     : "border-transparent text-slate-700 hover:border-[#1574d7]/50 hover:text-[#1574d7]"
@@ -767,7 +926,15 @@ export function MathSoftKeyboard({
           })}
         </div>
 
-        <div role="group" aria-label={localize({ en: "Soft keyboard editing controls", zh: "軟鍵盤編輯控制" }, language)} className="flex flex-wrap gap-2">
+        <div
+          role="group"
+          aria-label={localize({ en: "Soft keyboard editing controls", zh: "軟鍵盤編輯控制", zhHans: "软键盘编辑控制" }, language)}
+          aria-describedby={`${id}-scroll-hint`}
+          data-math-keyboard-row="editing-controls"
+          tabIndex={-1}
+          onFocusCapture={handleMathKeyboardRowFocus}
+          className={cn(horizontalKeyboardRowClassName, "min-w-0 max-w-full gap-0.5")}
+        >
           {editingControls.map((control) => (
             <KeyButton
               key={`control-${control.action}`}
@@ -781,9 +948,24 @@ export function MathSoftKeyboard({
         </div>
       </div>
 
-      <div role="tabpanel" className="mt-3 space-y-2">
+      <p id={`${id}-scroll-hint`} className="mt-1 text-xs font-bold leading-tight text-slate-700">
+        <span aria-hidden="true">↔ </span>
+        {localize({
+          en: "Swipe or scroll each row for more keys.",
+          zh: "滑動或捲動每一列以查看更多按鍵。",
+          zhHans: "滑动或滚动每一行以查看更多按键。"
+        }, language)}
+      </p>
+
+      <div role="tabpanel" aria-describedby={`${id}-scroll-hint`} className="mt-1 space-y-1">
         {activeRows.map((row, rowIndex) => (
-          <div key={`${activeTab}-${rowIndex}`} className="flex flex-wrap justify-center gap-2">
+          <div
+            key={`${activeTab}-${rowIndex}`}
+            data-math-keyboard-row={`${activeTab}-${rowIndex}`}
+            tabIndex={-1}
+            onFocusCapture={handleMathKeyboardRowFocus}
+            className={cn(horizontalKeyboardRowClassName, "gap-1.5")}
+          >
             {row.map((mathKey, index) => {
               const hydratedKey = keyForShiftState(mathKey, shiftActive);
               return (
@@ -832,15 +1014,16 @@ function KeyButton({
       data-math-key-insert={mathKey.insert}
       data-math-key-wrap-before={mathKey.wrap?.[0]}
       data-math-key-wrap-after={mathKey.wrap?.[1]}
+      data-math-key-size={compact ? "editing" : mathKey.extraWide ? "extra-wide" : mathKey.wide ? "wide" : "regular"}
       onMouseDown={(event) => event.preventDefault()}
       onClick={onClick}
       className={cn(
-        "focus-ring grid min-w-0 place-items-center rounded-md border px-2 text-center font-black leading-none shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-35",
+        "focus-ring grid flex-none scroll-mx-1 place-items-center rounded-md border px-2 text-center font-black leading-none shadow-sm transition focus-visible:ring-inset focus-visible:ring-offset-0 enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-35",
         compact
-          ? "h-9 min-w-9 flex-[0_0_2.35rem] text-sm"
-          : "h-10 min-w-[2.75rem] flex-[0_1_2.75rem] max-w-[4.2rem] text-sm sm:h-16 sm:min-w-[5.7rem] sm:flex-[1_1_5.7rem] sm:max-w-[7.2rem] sm:text-xl",
-        mathKey.wide && "min-w-[5.8rem] flex-[0_1_5.8rem] max-w-[9rem] sm:min-w-[8.8rem] sm:flex-[2_1_8.8rem] sm:max-w-[14rem]",
-        mathKey.extraWide && "min-w-[7rem] flex-[0_1_7rem] max-w-[11rem] sm:min-w-[11rem] sm:flex-[3_1_11rem] sm:max-w-[17rem]",
+          ? "h-11 min-w-11 text-sm"
+          : "h-11 min-w-11 text-sm sm:text-base",
+        mathKey.wide && "min-w-[5.8rem]",
+        mathKey.extraWide && "min-w-[7rem]",
         tone === "command"
           ? "border-[#94a0af] bg-[#98a3b3] text-slate-950 shadow-slate-600/15 enabled:hover:bg-[#a7b1c0]"
           : tone === "danger"
@@ -853,7 +1036,7 @@ function KeyButton({
         <span className="leading-none">
           {mathKey.renderLabelAsMath ? <MathText text={mathKey.label} renderBareMath /> : mathKey.label}
         </span>
-        {mathKey.subLabel ? <span className="text-[0.6rem] font-bold leading-none text-slate-700">{mathKey.subLabel}</span> : null}
+        {mathKey.subLabel ? <span className="text-[0.625rem] font-bold leading-none text-slate-700">{mathKey.subLabel}</span> : null}
       </span>
     </button>
   );

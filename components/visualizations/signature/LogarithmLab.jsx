@@ -1324,6 +1324,12 @@ export default function LogarithmLab() {
         .chip:not(.on):hover {
           border-color: var(--ink);
         }
+        @media (max-width: 560px) {
+          .chips {
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+            margin-left: 0;
+          }
+        }
         .quiz {
           margin-top: 16px;
           padding-top: 14px;

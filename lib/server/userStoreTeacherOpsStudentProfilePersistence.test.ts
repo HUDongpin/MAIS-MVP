@@ -5,8 +5,7 @@ import test from "node:test";
 
 import {
   createTeacherOpsStudentProfilePersistenceStore,
-  type TeacherOpsStudentProfilePersistenceDatabase,
-  type TeacherOpsStudentProfilePersistenceStoreDependencies
+  type TeacherOpsStudentProfilePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsStudentProfilePersistence";
 import type {
   Assignment,
@@ -228,15 +227,10 @@ function createDatabase(): TeacherOpsStudentProfilePersistenceDatabase {
   };
 }
 
-function createTestStore(
-  database: TeacherOpsStudentProfilePersistenceDatabase,
-  ensureParentInviteCodeForStudent: TeacherOpsStudentProfilePersistenceStoreDependencies["ensureParentInviteCodeForStudent"] =
-    async (studentId) => `INVITE-${studentId}`
-) {
+function createTestStore(database: TeacherOpsStudentProfilePersistenceDatabase) {
   return createTeacherOpsStudentProfilePersistenceStore({
     now: () => new Date("2026-06-21T12:00:00.000Z"),
     readDatabase: async () => database,
-    ensureParentInviteCodeForStudent,
     studentSessionProjection: (_database, user) =>
       user.role === "student"
         ? ({
@@ -311,11 +305,14 @@ test("teacher ops student profile persistence builds a profile without legacy us
   assert.doesNotMatch(source, /from ["']\.\.\/userStore["']/);
   assert.doesNotMatch(source, /from ["']@\/lib\/server\/userStore["']/);
 
-  const result = await createTestStore(createDatabase()).getTeacherStudentProfileData("teacher-1", "student-1");
+  const database = createDatabase();
+  const before = structuredClone(database);
+  const result = await createTestStore(database).getTeacherStudentProfileData("teacher-1", "student-1");
 
   assert.equal(result?.student.id, "student-1");
   assert.deepEqual(result?.classes.map((teacherClass) => teacherClass.id), ["class-1"]);
-  assert.equal(result?.parentInviteCode, "INVITE-student-1");
+  assert.equal("parentInviteCode" in (result ?? {}), false);
+  assert.deepEqual(database, before);
   assert.deepEqual(result?.guardianLinks.map((link) => link.id), ["guardian-active"]);
   assert.equal(result?.averageMastery, 60);
   assert.equal(result?.recentActivityAt, "2026-06-20T13:00:00.000Z");
@@ -431,16 +428,15 @@ test("teacher ops student profile persistence preserves teacher, admin, and memb
   assert.equal(await store.getTeacherStudentProfileData("teacher-1", "missing-student"), null);
 });
 
-test("teacher ops student profile persistence does not create parent invite codes for rejected requests", async () => {
-  const ensureCalls: string[] = [];
-  const store = createTestStore(createDatabase(), async (studentId) => {
-    ensureCalls.push(studentId);
-    return `INVITE-${studentId}`;
-  });
+test("teacher ops student profile reads never create or rotate parent invitations", async () => {
+  const database = createDatabase();
+  const before = structuredClone(database);
+  const store = createTestStore(database);
 
   assert.equal(await store.getTeacherStudentProfileData("teacher-other", "student-1"), null);
   assert.equal(await store.getTeacherStudentProfileData("teacher-1", "missing-student"), null);
-  assert.deepEqual(ensureCalls, []);
+  assert.ok(await store.getTeacherStudentProfileData("teacher-1", "student-1"));
+  assert.deepEqual(database, before);
 });
 
 test("teacher ops student profile persistence owns teacher class lookup boundary", async () => {

@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { CurriculumTrack, GradeId, StudentSession, TextbookPublisher } from "@/types";
 
+type VisualizationSessionUser = Pick<StudentSession, "curriculumProfile" | "curriculumTrack">;
+
 type VisualizationCatalogModule = typeof import("@/data/visualizationLabs");
 type FeaturedLabDefinition = VisualizationCatalogModule["visualizationLabCatalog"][number];
 type GradeLabGroupDefinition = VisualizationCatalogModule["gradeLabGroups"][number];
@@ -121,6 +123,54 @@ function createRuntimeReadyLabComponent(LoadedLabComponent: ComponentType<LabCom
 
 const ConfiguredVisualizationLab = dynamic<LabComponentProps>(
   () => import("@/components/visualizations/ConfiguredVisualizationLab").then((module) => createRuntimeReadyLabComponent(module.ConfiguredVisualizationLab as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+/**
+ * Purpose-built lab instruments. A topic routed here by topicModuleOverrides in
+ * data/visualizationLabs.ts renders its dedicated model instead of the shared
+ * template — the template's two-slider surface cannot express place value to
+ * 1000 or a decimal number line. Loaded on their own chunks like every other lab.
+ */
+const CoordinatePlaneDemo = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/CoordinatePlaneDemo").then((module) =>
+    createRuntimeReadyLabComponent(module.CoordinatePlaneDemo as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const GeometryExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/GeometryExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.GeometryExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const FunctionModelComparer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/FunctionModelComparer").then((module) =>
+    createRuntimeReadyLabComponent(module.FunctionModelComparer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const FunctionGraphExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/FunctionGraphExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.FunctionGraphExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const ProbabilitySimulator = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/ProbabilitySimulator").then((module) =>
+    createRuntimeReadyLabComponent(module.ProbabilitySimulator as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const TrigWaveExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/TrigWaveExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.TrigWaveExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const CalculusStatsLab = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/CalculusStatsLab").then((module) =>
+    createRuntimeReadyLabComponent(module.CalculusStatsLab as ComponentType<LabComponentRuntimeProps>)),
   { loading: () => <LabRuntimeLoading /> }
 );
 
@@ -1673,7 +1723,17 @@ const labComponentRegistry: Record<VisualizationLabModuleId, ComponentType<LabCo
   "configured-visualization-lab": ConfiguredVisualizationLab,
   // Resolved per-lab in componentForDirectoryLab; this entry is the safe
   // fallback if a lab is marked signature-lab without a curated assignment.
-  "signature-lab": ConfiguredVisualizationLab
+  "signature-lab": ConfiguredVisualizationLab,
+  // Purpose-built instruments for topics the two-slider template cannot express
+  // (see topicModuleOverrides in data/visualizationLabs.ts). Routed here so the
+  // lab page and the lesson embed show the same model for a topic.
+  "coordinate-plane-demo": CoordinatePlaneDemo,
+  "geometry-explorer": GeometryExplorer,
+  "function-model-comparer": FunctionModelComparer,
+  "function-graph-explorer": FunctionGraphExplorer,
+  "probability-simulator": ProbabilitySimulator,
+  "trig-wave-explorer": TrigWaveExplorer,
+  "calculus-stats-lab": CalculusStatsLab
 };
 
 function componentForDirectoryLab(lab: FeaturedLabDefinition | null) {
@@ -1767,14 +1827,16 @@ function SignatureBenchSwitcher({
                   onBenchSwitch?.(benchId);
                   setActiveBenchId(benchId);
                 }}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
+                className={`min-h-11 rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
                   isActive
-                    ? "border-cyan-500 bg-cyan-500 text-white shadow"
-                    : "border-slate-300 bg-white text-slate-600 hover:border-cyan-300 hover:text-slate-900 dark:border-slate-100/20 dark:bg-transparent dark:text-slate-200"
+                    ? "border-cyan-700 bg-cyan-700 text-white shadow dark:border-cyan-600 dark:bg-cyan-600"
+                    : "border-slate-300 bg-white text-slate-700 hover:border-cyan-500 hover:text-slate-950 dark:border-slate-100/20 dark:bg-transparent dark:text-slate-200"
                 }`}
               >
                 {signatureBenchLabel(benchId)}
-                {benchId === assignment.primary ? <span className="ml-1.5 opacity-70">· primary</span> : null}
+                {benchId === assignment.primary
+                  ? <span className="pointer-events-none ml-1.5">· primary</span>
+                  : null}
               </button>
             );
           })}
@@ -1865,13 +1927,13 @@ function isMainlandPepVisualizationTrack(track: VisualizationCurriculumTrack) {
   return mainlandPepVisualizationTracks.includes(track);
 }
 
-function isUnitedStatesMathUser(currentUser: StudentSession) {
+function isUnitedStatesMathUser(currentUser: VisualizationSessionUser) {
   return currentUser.curriculumProfile.region === "US" ||
     unitedStatesPublishers.has(currentUser.curriculumProfile.publisher) ||
     unitedStatesCurriculumTracks.has(currentUser.curriculumTrack);
 }
 
-function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: StudentSession | null) {
+function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: VisualizationSessionUser | null) {
   if (!currentUser) return true;
 
   const publisher = currentUser.curriculumProfile.publisher;
@@ -1886,7 +1948,7 @@ function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: St
   return false;
 }
 
-function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: StudentSession | null) {
+function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: VisualizationSessionUser | null) {
   return groups
     .map((group) => ({
       ...group,
@@ -1923,7 +1985,7 @@ function buildInitialVisualizationLabRouteState({
   location
 }: {
   activeGroupGrade: GradeId;
-  currentUser: StudentSession | null;
+  currentUser: VisualizationSessionUser | null;
   getVisualizationLabByLabId: VisualizationCatalogState["getVisualizationLabByLabId"];
   gradeLabGroups: GradeLabGroupDefinition[];
   initialGrade: GradeId | null;
@@ -2412,7 +2474,7 @@ function VisualizationLabPageContent({
   initialGrade = null,
   initialLabId = null
 }: VisualizationLabPageProps & { catalog: VisualizationCatalogState }) {
-  const { currentUser, language, recordLearningEvent, selectedGrade, t, text } = useSettings();
+  const { currentUser, language, recordLearningEvent, selectedGrade, settingsReady, t, text } = useSettings();
   const panelRef = useRef<HTMLDivElement>(null);
   const labGridRef = useRef<HTMLDivElement>(null);
   const { getVisualizationLabByLabId, gradeLabGroups, visualizationTrackLabels } = catalog;
@@ -2489,14 +2551,13 @@ function VisualizationLabPageContent({
   const browsingOtherGrade = Boolean(ownGrade && (activeDirectoryGroup?.grade ?? activeGroup.grade) !== ownGrade);
   const youngLearnerMode = Boolean(ownGrade && youngLearnerGrades.has(ownGrade));
   const ActiveDirectoryLabComponent = componentForDirectoryLab(activeDirectoryLab);
-  // When the active lab is a signature bench whose topic fans out to related
-  // benches, render the switcher so every related bench is reachable, not just
-  // the primary. Falls back to the plain component otherwise.
+  // Every signature bench uses the same identity/runtime wrapper. Topics that
+  // fan out also receive related-bench chips; a sole bench keeps the wrapper
+  // without rendering an empty tab list.
   const activeSignatureAssignment =
     activeDirectoryLab?.moduleId === "signature-lab"
       ? getSignatureLabAssignment(activeDirectoryLab.topicId)
       : null;
-  const activeHasRelatedBenches = (activeSignatureAssignment?.related?.length ?? 0) > 0;
   const activeDirectorySessionModuleId = activeDirectoryLab ? buildVisualizationSessionModuleId(activeDirectoryLab) : null;
   const activeDirectoryLabHref = activeDirectoryLab ? buildVisualizationLabHref(activeDirectoryLab, effectiveTrackFilter) : null;
   const activeLabCanDistribute = labAllowsExternalDistribution(activeDirectoryLab);
@@ -2530,6 +2591,8 @@ function VisualizationLabPageContent({
   }, []);
 
   useEffect(() => {
+    if (!settingsReady) return;
+
     function openLabFromLocation() {
       const params = new URLSearchParams(window.location.search);
       const queryLabId = params.get("lab") ?? initialLabId;
@@ -2582,7 +2645,7 @@ function VisualizationLabPageContent({
     return () => {
       window.removeEventListener("popstate", openLabFromLocation);
     };
-  }, [activeGroup.grade, currentUser, curriculumScopedGroups, initialGrade, initialLabId]);
+  }, [activeGroup.grade, currentUser, curriculumScopedGroups, initialGrade, initialLabId, settingsReady]);
 
   useEffect(() => {
     if (!activeDirectoryGroup) return;
@@ -3482,7 +3545,7 @@ function VisualizationLabPageContent({
                     data-viz-back-to-control-panel-link
                     data-viz-back-to-control-panel-grade={activeDirectoryLab.grade}
                     data-viz-back-to-control-panel-track={effectiveTrackFilter}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
                   >
                     ← {backToLabsLabel}
                   </a>
@@ -3497,7 +3560,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-link
                     data-viz-copy-lab-link-state={shareState}
                     data-viz-copy-lab-link-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-700"
                   >
                     {!activeLabCanDistribute || shareState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3513,7 +3576,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-snapshot
                     data-viz-snapshot-state={snapshotState}
                     data-viz-snapshot-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-700"
                   >
                     {!activeLabCanDistribute || snapshotState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3555,6 +3618,7 @@ function VisualizationLabPageContent({
                   }
                   initialExplored={exploredSessionIds.has(activeDirectorySessionModuleId)}
                   moduleId={activeDirectorySessionModuleId}
+                  opaqueSurface={activeDirectoryLab.moduleId === "signature-lab"}
                   onExplored={(exploredModuleId) => {
                     setExploredSessionIds((current) => {
                       if (current.has(exploredModuleId)) return current;
@@ -3565,7 +3629,7 @@ function VisualizationLabPageContent({
                   }}
                   topicId={activeDirectoryLab.topicId}
                 >
-                  {activeSignatureAssignment && activeHasRelatedBenches ? (
+                  {activeSignatureAssignment ? (
                     <SignatureBenchSwitcher
                       assignment={activeSignatureAssignment}
                       lab={activeDirectoryLab}

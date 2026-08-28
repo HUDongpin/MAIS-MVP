@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "promotion-a25-review-package-disposition-addendum.v1",
+  "recordId": "us-ca-math-rag-v2-g6-ratios-v1-attempt-001-a25-ci-closeout",
+  "role": "A25",
+  "session": {
+    "branch": "codex/a25-promotion-shadow-ci-closeout-20260825",
+    "worktree": "/Volumes/Starship/MAIS-MVP/.worktrees/a25-promotion-shadow-ci-closeout-20260825",
+    "targetPr": "https://github.com/HUDongpin/MAIS-MVP/pull/154",
+    "creationDate": "2026-08-25",
+    "expectedCloseoutDate": "2026-08-25",
+    "baselineCommit": "03175a9974c52efe9112d3d91c483002749926e4"
+  },
+  "sourceDisposition": {
+    "path": "coordination/release-intake/2026-08-25-A25-us-ca-math-rag-v2-g6-ratios-v1-attempt-001-review-package-disposition.v1.json",
+    "rawSha256": "8c9b2f828d13af098a276c79555e013a2327af9e57f1e3a88c79da3cead9eb3b",
+    "mutationPolicy": "append-only-addendum-do-not-rewrite"
+  },
+  "binding": {
+    "gateId": "promotion-gate-shadow-v1",
+    "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+    "attemptId": "attempt-001",
+    "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+    "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+    "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+    "terminalAuditPolicyGenesisCommit": "36a4d732e6d0e2b8fdb48fbb7bf25a2924ab5cce",
+    "terminalAuditReleaseCommit": "ca89c923065a1b9dd6aee40fbc78326be13aae07",
+    "terminalAuditReleaseBundleDigest": "f8cbd2f42ce8b0090dcc0cb2d4a79dfcffce79a21c2274de3cbf0c5e7653d052",
+    "frozenCoreBundleDigest": "517f670a46ce82be60b11ee1b179f63e274517ca5f431d95be58805fa96ededf",
+    "reviewedCompositionCommit": "03175a9974c52efe9112d3d91c483002749926e4",
+    "ciMergeRefCommit": "8d1ecc9bb022dddadff06db445fbcdc1d4098656"
+  },
+  "packageDispositions": [
+    {
+      "scope": "terminal-current-head-audit-v2",
+      "ownerIds": [
+        "A23"
+      ],
+      "subjectCommit": "8c24d34aa2e00bf583dd432cdfc2ab29365e0ed6",
+      "releaseCommit": "ca89c923065a1b9dd6aee40fbc78326be13aae07",
+      "finalState": "reviewed commit",
+      "reasonCode": "FROZEN_AUDIT_RELEASE_VERIFIED"
+    },
+    {
+      "scope": "promotion-shadow-ci-runtime",
+      "ownerIds": [
+        "A10",
+        "A11",
+        "A22",
+        "A23"
+      ],
+      "subjectCommit": "03175a9974c52efe9112d3d91c483002749926e4",
+      "finalState": "reviewed commit",
+      "reasonCode": "EXPECTED_FAIL_ARTIFACT_CHAIN_OBSERVED"
+    },
+    {
+      "scope": "candidate-and-current-baseline",
+      "ownerIds": [
+        "A18",
+        "A04",
+        "A05",
+        "A11",
+        "A22",
+        "A23"
+      ],
+      "subjectCommit": "03175a9974c52efe9112d3d91c483002749926e4",
+      "finalState": "blocker report",
+      "reasonCode": "TARGET_BASELINE_PROJECTION_STALE"
+    }
+  ],
+  "ciObservation": {
+    "workflowName": "promotion-shadow-gate",
+    "runId": 32853089474,
+    "runAttempt": 1,
+    "jobId": 97818447859,
+    "event": "pull_request",
+    "url": "https://github.com/HUDongpin/MAIS-MVP/actions/runs/32853089474",
+    "headSha": "03175a9974c52efe9112d3d91c483002749926e4",
+    "mergeRefSha": "8d1ecc9bb022dddadff06db445fbcdc1d4098656",
+    "conclusion": "failure",
+    "allPreEnforcementWorkflowStepsPassed": true,
+    "failedStep": "Enforce Promotion Shadow Gate outcome",
+    "failedStepExitCode": 1,
+    "artifactUploaded": true,
+    "artifact": {
+      "artifactId": 9565677549,
+      "name": "promotion-shadow-gate-artifacts-32853089474-1",
+      "compressedSizeBytes": 1715861,
+      "createdAt": "2026-08-25T13:40:12Z",
+      "expiresAt": "2026-09-08T13:40:10Z",
+      "fileCount": 6,
+      "artifactSetDigest": "a1bbf9181b4acc48b0d122b22deed51a76a18c10feda64df5816a391f6129b81",
+      "files": [
+        {
+          "name": "promotion-canonical-receipt-verification.v1.json",
+          "rawSha256": "e4a6034b6be3718ff280b6878fbf0ddb8d1dedc088eb81ea987eb99fe4abeb79",
+          "sizeBytes": 438
+        },
+        {
+          "name": "promotion-fresh-receipt-verification.v1.json",
+          "rawSha256": "94d32a497460c8837f66c77f1b232f5ec31919178edaf53f4113b00e122bee67",
+          "sizeBytes": 438
+        },
+        {
+          "name": "promotion-replay-receipt-verification.v1.json",
+          "rawSha256": "0c8552f279a03c61b2e31eebf42a074a12624c80bd384bc8369e0b82a04e7aec",
+          "sizeBytes": 438
+        },
+        {
+          "name": "promotion-shadow-receipt.v1.json",
+          "rawSha256": "2df10a76bdd1f9c9674ef5c1faeda5f5991d6bb594e8a74ca30722e7e8b47f1b",
+          "sizeBytes": 3572832
+        },
+        {
+          "name": "promotion-shadow-replay-receipt.v1.json",
+          "rawSha256": "8ec45b7881164e6ebf41c7d894380b8f2963bfc949c39105f9f220e2d72965c2",
+          "sizeBytes": 3572839
+        },
+        {
+          "name": "promotion-terminal-current-head-audit.v2.json",
+          "rawSha256": "0b72333b2dd5731a6ff5a5bda2cd9405a5aa493fe9561e6385ff7b26030d7fb3",
+          "sizeBytes": 27652
+        }
+      ]
+    }
+  },
+  "terminalCurrentHeadAudit": {
+    "schemaVersion": "promotion-terminal-current-head-audit.v2",
+    "result": "blocked",
+    "primaryCode": "TARGET_BASELINE_PROJECTION_STALE",
+    "secondaryCode": "RUNTIME_GRAPH_POLICY_MISMATCH",
+    "semanticAuditDigest": "b7595a27f963c7f4a5f321cb330e7797ba114265e07f147a276351c6a98bed4d",
+    "rawAuditDigest": "067018873e21737ab0e29cb566762e6c3c9fc016548a43545ff87b68df5a5fc7",
+    "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+    "candidateSourceBytesEqualSourceCommit": true,
+    "targetBaselineFileCount": 3670,
+    "currentProjectionFileCount": 3696,
+    "targetBaselinePathsDigest": "6f23515fb000b5c3e0bbaa6f65fc6ff2ca8abe7348d098f6969a24f5cf37ec75",
+    "currentProjectionPathsDigest": "4f50fb69edeab822de232a5de4370a4ed59456158a0eb31aa8f11b281c261e8c",
+    "expectedRuntimeGraphDigest": "1857a0da98f0e90c831e28414ec7ff5e4af585dffda661e4a9bc788aaf699fad",
+    "observedRuntimeGraphDigest": "41a254be252c7a89cabc0115eb3c44a356f344a17ed7eb28643abc4eaa5aa98b",
+    "preClean": true,
+    "postClean": true,
+    "candidateStable": true,
+    "observedPersistentRepositoryMutationCount": 0,
+    "liveAllowed": false,
+    "maturityClaim": "not-shadow-mature",
+    "terminalAttemptState": "repair_required"
+  },
+  "historicalReceiptReplay": {
+    "executionCommit": "443d8a69a168c93c83f6935b5ec48975dcb70894",
+    "result": "fail",
+    "reasonCode": "LEGACY_NEW_CONFLICT",
+    "newConflictCount": 15,
+    "opaqueConflictCount": 1,
+    "secondaryCode": "LEGACY_DISCOVERY_INCOMPLETE",
+    "semanticReceiptDigest": "e7be6e6db1031794b6522bedd7cc87496b2efa8832abf81ed43d58cf6a4f3316",
+    "freshRawReceiptDigest": "6a1b3bb2d25010a971d81f4848d3ecc009f53e111be40e2b362601189b698dad",
+    "replayRawReceiptDigest": "aa4fded5c46eb97a46eaecfe329e47a293cf1f919d44a6a708dd5bf1b04a2a03",
+    "canonicalRawReceiptDigest": "6599be3bb414e1737d631aaaa5a46ddc253ca4c26c605f3b842dceda2ae5aa92",
+    "distinctRawReceiptDigests": true,
+    "semanticMatch": true,
+    "freshPreClean": true,
+    "freshPostClean": true,
+    "replayPreClean": true,
+    "replayPostClean": true,
+    "rollbackVerifiedAbsent": true,
+    "forbiddenDiffResult": "pass",
+    "externalSideEffectResult": "pass",
+    "networkRequestCount": 0,
+    "providerCallCount": 0,
+    "databaseWriteCount": 0,
+    "deploymentCommandCount": 0,
+    "selectedCandidateReachable": false,
+    "unresolvedDynamicImportCount": 0,
+    "verificationResults": {
+      "fresh": "fail",
+      "replay": "fail",
+      "canonical": "fail"
+    }
+  },
+  "resolvedPriorCiBlockers": [
+    "VERIFICATION_ENVELOPE_RESULT_SEMANTICS",
+    "TERMINAL_CURRENT_HEAD_AUDIT_MISSING",
+    "ARTIFACT_SET_COMPLETENESS_UNPROVEN",
+    "CHECKOUT_CREDENTIAL_PERSISTENCE"
+  ],
+  "remainingBlockers": [
+    {
+      "code": "TARGET_BASELINE_PROJECTION_STALE",
+      "owner": "A22",
+      "nextAction": "Establish a newly reviewed target baseline and runtime/data/public projection for a new immutable attempt."
+    },
+    {
+      "code": "RUNTIME_GRAPH_POLICY_MISMATCH",
+      "owner": "A11/A22/A23",
+      "nextAction": "Review the new runtime graph and freeze a current live-registry policy before legacy discovery can run on the new attempt."
+    },
+    {
+      "code": "LEGACY_NEW_CONFLICT",
+      "owner": "A04/A18/A23/A11/A22",
+      "nextAction": "Recertify the 15 discovered conflicts with complete promotion records or remove them from live; do not expand the legacy baseline."
+    },
+    {
+      "code": "LEGACY_DISCOVERY_INCOMPLETE",
+      "owner": "A11/A22/A23",
+      "nextAction": "Resolve the opaque reachable candidate-like package before claiming complete discovery."
+    },
+    {
+      "code": "REQUIRED_CHECK_ENFORCEMENT_NOT_PROVEN",
+      "owner": "repository-admin/A25",
+      "nextAction": "After the Gate can legitimately pass, add promotion-shadow-gate to branch protection and record a fresh readback."
+    },
+    {
+      "code": "DRAFT_PR_NOT_REVIEWED_OR_MERGED",
+      "owner": "A23/A25",
+      "nextAction": "Keep PR 154 draft and blocked until a new immutable repair attempt is independently reviewed."
+    }
+  ],
+  "releaseBoundary": {
+    "parentPackageStatus": "candidate-only",
+    "pilotUnitStatus": "repair_required",
+    "gateResult": "blocked-current-head-and-failed-historical-attempt",
+    "maturityClaim": "not-shadow-mature",
+    "shadowMature": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "liveAllowed": false,
+    "liveEvidence": "none",
+    "ciImplementationStatus": "observed-controlled-red-with-authenticated-artifacts",
+    "requiredCheckEnforcementStatus": "not-proven",
+    "requiredCheckEligible": false,
+    "mergeReady": false,
+    "newCandidateVersionRequired": true,
+    "newManifestRequired": true,
+    "newAttemptRequired": true,
+    "inPlaceRetryAllowed": false
+  },
+  "recordDigest": "b7c6d63f30630c7ab21002b6d2b89e957b0c60610646ac2e203a40a7678d90a9"
+}

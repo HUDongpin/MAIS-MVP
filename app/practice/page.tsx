@@ -5,7 +5,11 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
-import { PracticeAdventureArenaShell } from "@/components/practice/PracticeAdventureArenaShell";
+import {
+  PracticeAdventureArenaShell,
+  type PracticeAdventureArenaMode,
+  type PracticeUnitMissionStatus
+} from "@/components/practice/PracticeAdventureArenaShell";
 import { StudentAccommodationsBanner } from "@/components/practice/StudentAccommodationsBanner";
 import { CalculatorLauncher } from "@/components/accommodations/CalculatorLauncher";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
@@ -103,6 +107,8 @@ type PracticeAnswerResult = {
   correctAnswer?: string;
   durationSeconds: number;
   answeredAt: number;
+  feedback: AttemptFeedback;
+  selectedAnswer: string;
 };
 type PracticeAnswerSummaryItem = PracticeAnswerResult & {
   question: PublicQuestion;
@@ -157,10 +163,13 @@ type PracticePagerAnswerResult = {
   feedback: AttemptFeedback;
   durationSeconds: number;
   questionNumber: number;
+  selectedAnswer: string;
 };
 type LazyPracticeQuestionCardProps = {
   question: PublicQuestion;
-  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
+  initialFeedback?: AttemptFeedback | null;
+  initialSelectedAnswer?: string;
+  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback, selectedAnswer: string) => void;
 };
 
 const PracticeQuestionCard = dynamic<LazyPracticeQuestionCardProps>(
@@ -642,30 +651,225 @@ function clampQuestionIndex(index: number, questionCount: number) {
   return Math.min(questionCount - 1, Math.max(0, index));
 }
 
-type QuestionPagerProps = {
-  questions: PublicQuestion[];
-  onAnswered?: (result: PracticePagerAnswerResult) => void;
-  onQuestionStarted?: (question: PublicQuestion) => void;
+function resumeQuestionIndex(questions: PublicQuestion[], answerResults: Record<string, PracticeAnswerResult>) {
+  const firstUnansweredIndex = questions.findIndex((question) => !answerResults[question.id]);
+  if (firstUnansweredIndex >= 0) return firstUnansweredIndex;
+  return questions.length ? questions.length - 1 : 0;
+}
+
+function ChooseModeArrowIcon({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path
+        d="M19 12H5m5-5-5 5 5 5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2.4"
+      />
+    </svg>
+  );
+}
+
+type PracticeMissionSummaryProps = {
+  t: (localized: LocalizedText) => string;
+  questionCount: number;
+  status: PracticeUnitMissionStatus;
+  showUnitModeContext?: boolean;
+  onChooseMode?: () => void;
+  className?: string;
 };
 
-function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPagerProps) {
+function PracticeMissionSummary({
+  t,
+  questionCount,
+  status,
+  showUnitModeContext = false,
+  onChooseMode,
+  className
+}: PracticeMissionSummaryProps) {
+  const displayedQuestionCount = status === "ready" ? questionCount : 0;
+  const hasFullRound = status === "ready" && displayedQuestionCount >= freeSelectionRoundQuestionCount;
+  const title = status === "loading"
+    ? t({
+        en: "Preparing your Unit Exercise",
+        zh: "正在準備單元練習",
+        zhHans: "正在准备单元练习"
+      })
+    : status === "unavailable"
+      ? t({
+          en: "Unit Exercise is temporarily unavailable",
+          zh: "單元練習暫時未能使用",
+          zhHans: "单元练习暂时无法使用"
+        })
+      : hasFullRound
+        ? t({
+            en: "Mission round: 5 system-assigned questions",
+            zh: "任務回合：系統分配 5 題",
+            zhHans: "任务回合：系统分配 5 题"
+          })
+        : t({
+            en: "Mission practice: available matching questions",
+            zh: "任務練習：可用符合題目",
+            zhHans: "任务练习：可用符合题目"
+          });
+  const statusBadge = (
+    <span className={cn(
+      "shrink-0 rounded-full border bg-white px-4 py-2 text-sm font-black",
+      status === "ready"
+        ? "border-emerald-200 text-emerald-700"
+        : status === "loading"
+          ? "border-blue-200 text-blue-700"
+          : "border-rose-200 text-rose-700",
+      showUnitModeContext && "2xl:px-5 2xl:py-3 2xl:text-base"
+    )} data-unit-exercise-status={status} aria-live="polite">
+      {status === "ready"
+        ? t({ en: "Ready", zh: "已就緒", zhHans: "已就绪" })
+        : status === "loading"
+          ? t({ en: "Preparing", zh: "準備中", zhHans: "准备中" })
+          : t({ en: "Unavailable", zh: "暫不可用", zhHans: "暂不可用" })}
+    </span>
+  );
+
+  return (
+    <section
+      id={showUnitModeContext ? "unit-exercise-mission-summary" : undefined}
+      data-practice-mission-summary
+      data-unit-exercise-mission-summary={showUnitModeContext ? "true" : undefined}
+      aria-labelledby={showUnitModeContext ? "unit-exercise-mission-title" : undefined}
+      className={cn(
+        "rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]",
+        showUnitModeContext && "2xl:bg-[#ebf9fe] 2xl:p-7",
+        className
+      )}
+    >
+      {showUnitModeContext ? (
+        <div
+          data-unit-exercise-mode-context
+          className="flex min-h-11 flex-wrap items-center justify-between gap-3 border-b border-cyan-200/70 pb-3 2xl:min-h-[52px] 2xl:gap-6 2xl:pb-6"
+        >
+          <div className="flex min-w-0 flex-wrap items-center gap-3 2xl:gap-6">
+            <button
+              type="button"
+              data-choose-practice-mode
+              onClick={onChooseMode}
+              className="focus-ring inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-xl border border-blue-500/70 bg-white/80 px-3 py-2 text-sm font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white hover:text-blue-700 active:translate-y-px 2xl:min-h-[52px] 2xl:min-w-[198px] 2xl:justify-center 2xl:gap-3 2xl:px-5 2xl:py-3 2xl:text-base"
+            >
+              <ChooseModeArrowIcon className="size-4 2xl:size-5" />
+              {t({ en: "Choose mode", zh: "選擇模式", zhHans: "选择模式" })}
+            </button>
+            <span aria-hidden="true" className="h-6 w-px bg-cyan-200 2xl:h-12" />
+            <span
+              data-unit-exercise-mode-label
+              className="text-[0.7rem] font-black uppercase tracking-[0.16em] text-blue-700 sm:text-xs 2xl:text-base"
+            >
+              {t({ en: "Unit Exercise", zh: "單元練習", zhHans: "单元练习" })}
+            </span>
+          </div>
+          {statusBadge}
+        </div>
+      ) : null}
+
+      <div
+        className={cn(
+          "grid gap-4",
+          showUnitModeContext
+            ? "mt-4 grid-cols-[auto_minmax(0,1fr)] items-center 2xl:mt-8 2xl:gap-5"
+            : "sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center"
+        )}
+      >
+        <span
+          aria-hidden="true"
+          className={cn(
+            "grid size-14 place-items-center rounded-2xl bg-blue-600 text-xl font-black text-white shadow-[0_8px_0_#1d4ed8]",
+            showUnitModeContext && "2xl:size-[72px] 2xl:rounded-[18px] 2xl:text-2xl 2xl:shadow-[0_10px_0_#1d4ed8]"
+          )}
+        >
+          {status === "ready" ? displayedQuestionCount : "—"}
+        </span>
+        <div>
+          {showUnitModeContext ? (
+            <h2
+              id="unit-exercise-mission-title"
+              tabIndex={-1}
+              className="text-lg font-black text-blue-950 focus:outline-none 2xl:text-2xl 2xl:leading-8"
+            >
+              {title}
+            </h2>
+          ) : (
+            <p className="text-lg font-black text-blue-950">{title}</p>
+          )}
+          <p className={cn(
+            "mt-2 text-base font-semibold leading-7 text-slate-600 sm:text-lg sm:leading-8",
+            showUnitModeContext && "2xl:text-xl 2xl:leading-8"
+          )}>
+            {status === "loading"
+              ? t({
+                  en: "We are matching five questions to your current unit. This screen will update automatically.",
+                  zh: "正在按目前單元配對五道題目；完成後本頁會自動更新。",
+                  zhHans: "正在按当前单元匹配五道题目；完成后本页会自动更新。"
+                })
+              : status === "unavailable"
+                ? t({
+                    en: "No complete five-question unit round is available right now. Choose another mode or try again later.",
+                    zh: "目前沒有完整的五題單元回合。請選擇其他模式或稍後再試。",
+                    zhHans: "目前没有完整的五题单元回合。请选择其他模式或稍后再试。"
+                  })
+                : t({
+                    en: "Complete all 5 questions from one topic to open the summary. The next game step depends on Adventure Island status.",
+                    zh: "完成同一課題全部 5 題後會顯示摘要；下一個遊戲步驟取決於探險島通關狀態。",
+                    zhHans: "完成同一课题全部 5 题后会显示摘要；下一个游戏步骤取决于探险岛通关状态。"
+                  })}
+          </p>
+        </div>
+        {showUnitModeContext ? null : statusBadge}
+      </div>
+    </section>
+  );
+}
+
+type QuestionPagerProps = {
+  questions: PublicQuestion[];
+  answerResults: Record<string, PracticeAnswerResult>;
+  onAnswered?: (result: PracticePagerAnswerResult) => void;
+  onQuestionStarted?: (question: PublicQuestion) => void;
+  interactionEnabled?: boolean;
+};
+
+function QuestionPager({
+  questions,
+  answerResults,
+  onAnswered,
+  onQuestionStarted,
+  interactionEnabled = true
+}: QuestionPagerProps) {
   const { currentUser, language, t: settingsT } = useSettings();
   const prefersReducedMotion = useReducedMotion();
   const t = useCallback(
     (localized: LocalizedText) => normalizePracticeSimplifiedText(settingsT(localized), language),
     [language, settingsT]
   );
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [jumpValue, setJumpValue] = useState("1");
-  const [answerResults, setAnswerResults] = useState<Record<string, boolean>>({});
+  const questionCount = questions.length;
+  const initialQuestionIndex = resumeQuestionIndex(questions, answerResults);
+  const [currentIndex, setCurrentIndex] = useState(initialQuestionIndex);
+  const [jumpValue, setJumpValue] = useState(questionCount ? String(initialQuestionIndex + 1) : "");
   const [soundEnabled, setSoundEnabled] = useState(false);
   const { accommodations } = useStudentAccommodations();
   const readAloud = useReadAloud(language);
   const autoAdvanceTimerRef = useRef<number | null>(null);
+  const pagerActivityRef = useRef(interactionEnabled);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
-  const questionCount = questions.length;
+  const previousQuestionSignatureRef = useRef(questionSignature);
   const currentQuestionNumber = questionCount ? currentIndex + 1 : 0;
+  const answerCorrectness = useMemo(
+    () => questions.reduce<Record<string, boolean>>((current, question) => {
+      const result = answerResults[question.id];
+      if (result) current[question.id] = result.correct;
+      return current;
+    }, {}),
+    [answerResults, questions]
+  );
 
   const clearAutoAdvance = useCallback(() => {
     if (autoAdvanceTimerRef.current === null) return;
@@ -674,10 +878,10 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   }, []);
 
   const goToIndex = useCallback((index: number) => {
-    if (!questionCount) return;
+    if (!pagerActivityRef.current || !questionCount) return;
     clearAutoAdvance();
     setCurrentIndex(clampQuestionIndex(index, questionCount));
-  }, [clearAutoAdvance, questionCount]);
+  }, [clearAutoAdvance, interactionEnabled, questionCount]);
 
   const goToPrevious = useCallback(() => {
     goToIndex(currentIndex - 1);
@@ -688,10 +892,11 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   }, [currentIndex, goToIndex]);
 
   useEffect(() => {
+    if (previousQuestionSignatureRef.current === questionSignature) return;
+    previousQuestionSignatureRef.current = questionSignature;
     clearAutoAdvance();
     questionStartedAtRef.current = {};
     setCurrentIndex(0);
-    setAnswerResults({});
     setJumpValue(questionCount ? "1" : "");
   }, [clearAutoAdvance, questionCount, questionSignature]);
 
@@ -721,10 +926,26 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
     stopReadAloud();
   }, [currentIndex, questionSignature, stopReadAloud]);
 
+  useEffect(() => {
+    pagerActivityRef.current = interactionEnabled;
+    if (!interactionEnabled) {
+      clearAutoAdvance();
+      stopReadAloud();
+      questionStartedAtRef.current = {};
+    }
+
+    return () => {
+      pagerActivityRef.current = false;
+      clearAutoAdvance();
+      stopReadAloud();
+      questionStartedAtRef.current = {};
+    };
+  }, [clearAutoAdvance, interactionEnabled, stopReadAloud]);
+
   useEffect(() => () => clearAutoAdvance(), [clearAutoAdvance]);
 
   useEffect(() => {
-    if (questionCount < 2) return;
+    if (!interactionEnabled || questionCount < 2) return;
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
@@ -743,54 +964,58 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goToNext, goToPrevious, questionCount]);
+  }, [goToNext, goToPrevious, interactionEnabled, questionCount]);
 
   const handleJump = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!pagerActivityRef.current) return;
     const nextQuestionNumber = Number.parseInt(jumpValue, 10);
     if (Number.isNaN(nextQuestionNumber)) {
       setJumpValue(questionCount ? String(currentIndex + 1) : "");
       return;
     }
     goToIndex(nextQuestionNumber - 1);
-  }, [currentIndex, goToIndex, jumpValue, questionCount]);
+  }, [currentIndex, goToIndex, interactionEnabled, jumpValue, questionCount]);
 
   const startQuestionTimer = useCallback((question: PublicQuestion) => {
+    if (!pagerActivityRef.current) return;
     questionStartedAtRef.current[question.id] = questionStartedAtRef.current[question.id] ?? Date.now();
     onQuestionStarted?.(question);
-  }, [onQuestionStarted]);
+  }, [interactionEnabled, onQuestionStarted]);
 
-  const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback) => {
+  const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback, selectedAnswer: string) => {
+    if (!pagerActivityRef.current) return;
     const startedAt = questionStartedAtRef.current[question.id] ?? Date.now();
     const durationSeconds = Math.max(1, Math.round((Date.now() - startedAt) / 1000));
     const answeredIndex = questions.findIndex((item) => item.id === question.id);
 
     delete questionStartedAtRef.current[question.id];
     const isRoundNowComplete = questions.every((item) => item.id === question.id || answerResults[item.id] !== undefined);
-    setAnswerResults((current) => ({ ...current, [question.id]: feedback.correct }));
-    if (soundEnabled) {
+    if (pagerActivityRef.current && soundEnabled) {
       playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
     }
     onAnswered?.({
       question,
       feedback,
       durationSeconds,
-      questionNumber: answeredIndex + 1
+      questionNumber: answeredIndex + 1,
+      selectedAnswer
     });
-    if (answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
+    if (!pagerActivityRef.current || answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
 
     clearAutoAdvance();
     autoAdvanceTimerRef.current = window.setTimeout(() => {
       autoAdvanceTimerRef.current = null;
+      if (!pagerActivityRef.current) return;
       setCurrentIndex((latestIndex) => (
         latestIndex === answeredIndex ? clampQuestionIndex(answeredIndex + 1, questionCount) : latestIndex
       ));
     }, autoAdvanceDelayMs);
-  }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
+  }, [answerResults, clearAutoAdvance, currentIndex, interactionEnabled, onAnswered, questionCount, questions, soundEnabled]);
 
   const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
   // Pager header shows the round's live star haul on the right of the eyebrow.
-  const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id] === true ? 1 : 0), 0);
+  const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id]?.correct === true ? 1 : 0), 0);
   const answeredCount = questions.reduce((sum, question) => sum + (answerResults[question.id] !== undefined ? 1 : 0), 0);
 
   if (!questionCount) return null;
@@ -799,9 +1024,9 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
     <section className="mt-8 grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] sm:p-5" aria-label={t({ en: "Practice questions", zh: "練習題目" })}>
       <StudentAccommodationsBanner />
       <CalculatorLauncher />
-      <div className="flex flex-col gap-4 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 p-4 shadow-sm sm:p-5">
+      <div className="flex flex-col gap-4 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 p-4 shadow-sm sm:p-5 2xl:min-h-[393px] 2xl:justify-between 2xl:gap-5 2xl:rounded-[28px] 2xl:p-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600">
+          <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600 2xl:text-base">
             {t({ en: `Question ${currentQuestionNumber} of ${questionCount}`, zh: `第 ${currentQuestionNumber} 題，共 ${questionCount} 題` })}
           </p>
           <PracticeStarReward
@@ -810,17 +1035,19 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
             total={questionCount}
             t={t}
             prefersReducedMotion={prefersReducedMotion}
+            roomyOnLargeScreens
           />
         </div>
 
         <PracticeMissionTrail
-          answerResults={answerResults}
+          answerResults={answerCorrectness}
           currentIndex={currentIndex}
           onSelect={goToIndex}
           prefersReducedMotion={prefersReducedMotion}
           questionIds={questions.map((question) => question.id)}
           t={t}
           testId="mission-trail"
+          roomyOnLargeScreens
         />
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex flex-wrap gap-2">
@@ -829,7 +1056,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                 aria-label={t({ en: "Previous question", zh: "上一題" })}
                 onClick={goToPrevious}
                 disabled={currentIndex === 0}
-                className="focus-ring min-h-11 rounded-full border border-blue-200 bg-white px-5 py-2 text-sm font-black text-blue-700 shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
+                className="focus-ring min-h-11 rounded-full border border-blue-200 bg-white px-5 py-2 text-sm font-black text-blue-700 shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 2xl:min-h-14 2xl:px-6 2xl:text-base"
               >
                 {t({ en: "< Previous", zh: "< 上一題" })}
               </button>
@@ -838,7 +1065,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                 aria-label={t({ en: "Next question", zh: "下一題" })}
                 onClick={goToNext}
                 disabled={currentIndex >= questionCount - 1}
-                className="focus-ring min-h-11 rounded-full bg-blue-600 px-6 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#1d4ed8] disabled:cursor-not-allowed disabled:opacity-45"
+                className="focus-ring min-h-11 rounded-full bg-blue-600 px-6 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#1d4ed8] disabled:cursor-not-allowed disabled:opacity-45 2xl:min-h-14 2xl:px-7 2xl:text-base"
               >
                 {t({ en: "Next >", zh: "下一題 >" })}
               </button>
@@ -849,7 +1076,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                 aria-label={soundEnabled
                   ? t({ en: "Turn sound off", zh: "關閉音效", zhHans: "关闭音效" })
                   : t({ en: "Turn sound on", zh: "開啟音效", zhHans: "开启音效" })}
-                className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5"
+                className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5 2xl:min-h-14 2xl:min-w-14 2xl:px-4"
               >
                 {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
               </button>
@@ -871,7 +1098,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                     ? t({ en: "Stop reading", zh: "停止朗讀", zhHans: "停止朗读" })
                     : t({ en: "Read question aloud", zh: "朗讀題目", zhHans: "朗读题目" })}
                   className={cn(
-                    "focus-ring flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+                    "focus-ring flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-black shadow-sm transition hover:-translate-y-0.5 2xl:min-h-14 2xl:px-5 2xl:text-base",
                     readAloud.speaking
                       ? "border-violet-500 bg-violet-600 text-white"
                       : "border-violet-200 bg-white text-violet-700"
@@ -886,8 +1113,8 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
             </div>
 
             {isYoungLearnerRound ? null : (
-              <form onSubmit={handleJump} noValidate className="grid gap-2 sm:w-64">
-                <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950">
+              <form onSubmit={handleJump} noValidate className="grid gap-2 sm:w-64 2xl:w-[292px]">
+                <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950 2xl:text-sm">
                   {t({ en: "Jump to", zh: "跳到題號" })}
                 </label>
                 <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
@@ -898,11 +1125,11 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                     max={questionCount}
                     value={jumpValue}
                     onChange={(event) => setJumpValue(event.target.value)}
-                    className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none 2xl:min-h-16 2xl:px-6 2xl:text-xl"
                   />
                   <button
                     type="submit"
-                    className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-[0_6px_0_#1e3a8a] transition hover:-translate-y-0.5"
+                    className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-[0_6px_0_#1e3a8a] transition hover:-translate-y-0.5 2xl:px-7 2xl:text-base"
                   >
                     {t({ en: "Jump", zh: "跳轉" })}
                   </button>
@@ -913,18 +1140,26 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
       </div>
 
       <div className="grid gap-5">
-        {questions.map((question, index) => (
-          <div
-            key={question.id}
-            className="rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm sm:p-5"
-            hidden={index !== currentIndex}
-            aria-hidden={index !== currentIndex}
-            onFocusCapture={() => startQuestionTimer(question)}
-            onPointerDownCapture={() => startQuestionTimer(question)}
-          >
-            <PracticeQuestionCard question={question} onAnswered={handleAnswered} />
-          </div>
-        ))}
+        {questions.map((question, index) => {
+          const result = answerResults[question.id];
+          return (
+            <div
+              key={question.id}
+              className="rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm sm:p-5"
+              hidden={index !== currentIndex}
+              aria-hidden={index !== currentIndex}
+              onFocusCapture={() => startQuestionTimer(question)}
+              onPointerDownCapture={() => startQuestionTimer(question)}
+            >
+              <PracticeQuestionCard
+                question={question}
+                initialFeedback={result?.feedback ?? null}
+                initialSelectedAnswer={result?.selectedAnswer ?? ""}
+                onAnswered={handleAnswered}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -946,10 +1181,16 @@ export default function PracticePage() {
   const adaptiveProgressQuestionIdsRef = useRef<Set<string>>(new Set());
   const adaptiveAnswerRefreshInFlightRef = useRef(false);
   const adaptiveAnswerRefreshQueuedRef = useRef(false);
+  const [practiceArenaMode, setPracticeArenaMode] = useState<PracticeAdventureArenaMode>("chooser");
   const [gradeFilter, setGradeFilter] = useState<GradeFilter>(selectedGrade);
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>("all");
   const [questionTypeFilter, setQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
   const [topicFilter, setTopicFilter] = useState("all");
+  const exploreFiltersRef = useRef<{
+    difficulty: DifficultyFilter;
+    questionType: QuestionTypeFilter;
+    topic: string;
+  }>({ difficulty: "all", questionType: "all", topic: "all" });
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [questionCatalogTopics, setQuestionCatalogTopics] = useState<QuestionCatalogTopic[]>([]);
   const [questionCatalogCount, setQuestionCatalogCount] = useState(0);
@@ -1024,6 +1265,15 @@ export default function PracticePage() {
   useEffect(() => {
     setGradeFilter(studentFixedGrade ?? selectedGrade);
   }, [currentUser?.id, selectedGrade, studentFixedGrade, textbookPublisher]);
+
+  useEffect(() => {
+    if (practiceArenaMode !== "explore") return;
+    exploreFiltersRef.current = {
+      difficulty: difficultyFilter,
+      questionType: questionTypeFilter,
+      topic: topicFilter
+    };
+  }, [difficultyFilter, practiceArenaMode, questionTypeFilter, topicFilter]);
 
   useEffect(() => {
     if (!currentUser) {
@@ -1197,7 +1447,34 @@ export default function PracticePage() {
       { grade: topic.grade, topic: topic.topic }
     ]);
   }, [questionCatalogTopics]);
-  const firstQuestionCatalogTopicId = questionCatalogTopics[0]?.topicId ?? null;
+  const firstQuestionCatalogTopicId = questionCatalogTopics.find(
+    (question) => question.questionCount >= freeSelectionRoundQuestionCount
+  )?.topicId ?? null;
+  const adaptiveExploreTopicId = adaptivePlan?.topic.id && questionCatalogTopics.some(
+    (topic) => topic.topicId === adaptivePlan.topic.id && topic.questionCount >= freeSelectionRoundQuestionCount
+  )
+    ? adaptivePlan.topic.id
+    : firstQuestionCatalogTopicId;
+
+  useEffect(() => {
+    if (practiceArenaMode !== "unit") return;
+
+    if (adaptivePlan) {
+      if (topicFilter !== "all") setTopicFilter("all");
+      return;
+    }
+
+    if (!adaptivePlanSettled || !questionCatalogLoaded || questionCatalogError || !firstQuestionCatalogTopicId) return;
+    if (topicFilter !== firstQuestionCatalogTopicId) setTopicFilter(firstQuestionCatalogTopicId);
+  }, [
+    adaptivePlan,
+    adaptivePlanSettled,
+    firstQuestionCatalogTopicId,
+    practiceArenaMode,
+    questionCatalogError,
+    questionCatalogLoaded,
+    topicFilter
+  ]);
 
   const adaptiveRoundQuestions = useMemo(
     () => dedupePracticeQuestions(adaptivePlan?.questions ?? []),
@@ -1210,7 +1487,10 @@ export default function PracticePage() {
   const isFreeSelectionUnlocked = Boolean(adaptiveRoundKey && freeSelectionUnlockedTopicId === adaptiveRoundKey);
   const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;
   const hasManualTopicSelection = topicFilter !== "all";
-  const shouldShowFreeSelection = isFreeSelectionUnlocked || canFallbackToFreeSelection || hasManualTopicSelection;
+  const canExploreQuestionCatalog =
+    practiceArenaMode === "explore" && questionCatalogLoaded && !questionCatalogError;
+  const shouldShowFreeSelection =
+    canExploreQuestionCatalog || isFreeSelectionUnlocked || canFallbackToFreeSelection || hasManualTopicSelection;
   const missionSetupDecisionSettled = questionCatalogLoaded && adaptivePlanSettled;
   const showMissionSetupSkeleton =
     !adaptivePlan && !shouldShowFreeSelection && !questionCatalogError && !missionSetupDecisionSettled;
@@ -1430,7 +1710,7 @@ export default function PracticePage() {
     runRefresh();
   }, [refreshAdaptiveRecommendation]);
 
-  const handleAdaptiveAnswered = useCallback(({ question, feedback, durationSeconds }: PracticePagerAnswerResult) => {
+  const handleAdaptiveAnswered = useCallback(({ question, feedback, durationSeconds, selectedAnswer }: PracticePagerAnswerResult) => {
     adaptiveProgressQuestionIdsRef.current.add(question.id);
 
     setCompletedAdaptiveQuestionIds((current) => {
@@ -1447,7 +1727,9 @@ export default function PracticePage() {
         correct: feedback.correct,
         correctAnswer: feedback.correctAnswer,
         durationSeconds,
-        answeredAt: Date.now()
+        answeredAt: Date.now(),
+        feedback,
+        selectedAnswer
       }
     }));
 
@@ -1458,14 +1740,16 @@ export default function PracticePage() {
     adaptiveProgressQuestionIdsRef.current.add(question.id);
   }, []);
 
-  const handleFreeSelectionAnswered = useCallback(({ question, feedback, durationSeconds }: PracticePagerAnswerResult) => {
+  const handleFreeSelectionAnswered = useCallback(({ question, feedback, durationSeconds, selectedAnswer }: PracticePagerAnswerResult) => {
     setFreeSelectionQuestionResults((current) => ({
       ...current,
       [question.id]: {
         correct: feedback.correct,
         correctAnswer: feedback.correctAnswer,
         durationSeconds,
-        answeredAt: Date.now()
+        answeredAt: Date.now(),
+        feedback,
+        selectedAnswer
       }
     }));
   }, []);
@@ -1980,14 +2264,53 @@ export default function PracticePage() {
       for (const targetId of targetIds) {
         const element = document.getElementById(targetId);
         if (!element) continue;
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        element.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
         return;
       }
     });
-  }, []);
+  }, [prefersReducedMotion]);
+
+  const handlePracticeArenaModeChange = useCallback((nextMode: PracticeAdventureArenaMode) => {
+    if (nextMode === "unit") {
+      setFiltersOpen(false);
+      setDifficultyFilter("all");
+      setQuestionTypeFilter("all");
+      setTopicFilter(adaptivePlan ? "all" : firstQuestionCatalogTopicId ?? "all");
+    }
+
+    if (nextMode === "explore") {
+      const savedExploreFilters = exploreFiltersRef.current;
+      setDifficultyFilter(savedExploreFilters.difficulty);
+      setQuestionTypeFilter(savedExploreFilters.questionType);
+      setTopicFilter(savedExploreFilters.topic);
+    }
+
+    if (nextMode === "chooser") {
+      setPracticeSummaryOpen(false);
+      setShowPracticeCelebration(false);
+    }
+
+    setPracticeArenaMode(nextMode);
+
+    window.setTimeout(() => {
+      if (nextMode !== "unit") {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      }
+
+      const destinationHeadingId = nextMode === "unit"
+        ? "unit-exercise-mission-title"
+        : "practice-adventure-title";
+      document.getElementById(destinationHeadingId)?.focus({ preventScroll: true });
+    }, 0);
+  }, [adaptivePlan, firstQuestionCatalogTopicId, prefersReducedMotion]);
 
   const handleAdventureStartMission = useCallback(() => {
-    if (shouldShowFreeSelection && topicFilter === "all" && firstQuestionCatalogTopicId) {
+    if (
+      practiceArenaMode === "explore" &&
+      shouldShowFreeSelection &&
+      topicFilter === "all" &&
+      firstQuestionCatalogTopicId
+    ) {
       setTopicFilter(firstQuestionCatalogTopicId);
     }
 
@@ -1996,11 +2319,19 @@ export default function PracticePage() {
     // this button run and scroll nowhere. Every sibling call site already supplies
     // "mission-setup-filters" as a fallback; this one did not.
     scrollToPracticeSection(
+      "unit-exercise-mission-summary",
       shouldShowFreeSelection || !adaptivePlan ? "free-selection" : "adaptive-practice-round",
       "adaptive-practice-round",
       "mission-setup-filters"
     );
-  }, [adaptivePlan, firstQuestionCatalogTopicId, scrollToPracticeSection, shouldShowFreeSelection, topicFilter]);
+  }, [
+    adaptivePlan,
+    firstQuestionCatalogTopicId,
+    practiceArenaMode,
+    scrollToPracticeSection,
+    shouldShowFreeSelection,
+    topicFilter
+  ]);
 
   const islandStarTotal = practiceIslandStarTotal(islandStars);
   const mastersKeepLocked = islandStarTotal < mastersKeepUnlockStarTotal;
@@ -2039,6 +2370,22 @@ export default function PracticePage() {
       return;
     }
 
+    if ((region.kind === "adaptive" || region.kind === "review") && practiceArenaMode === "explore") {
+      if (!adaptiveExploreTopicId) {
+        setIslandRegionNotice({
+          en: "No complete five-question mission is available here yet. Try another region.",
+          zh: "這個區域目前還沒有完整的五題任務，請試試其他區域。",
+          zhHans: "这个区域目前还没有完整的五题任务，请试试其他区域。"
+        });
+        return;
+      }
+
+      setIslandRegionNotice(null);
+      setTopicFilter(adaptiveExploreTopicId);
+      scrollToPracticeSection("free-selection", "mission-setup-filters");
+      return;
+    }
+
     if (region.kind === "adaptive" || region.kind === "review") {
       setIslandRegionNotice(null);
       scrollToPracticeSection(adaptivePlan ? "adaptive-practice-round" : "free-selection", "mission-setup-filters");
@@ -2072,11 +2419,13 @@ export default function PracticePage() {
     scrollToPracticeSection("free-selection", "mission-setup-filters");
   }, [
     activeGradeFilter,
+    adaptiveExploreTopicId,
     adaptivePlan,
     adventureGradeLock.gradeSelectionDisabled,
     islandRegionTopicBuckets,
     islandStarTotal,
     mastersKeepLocked,
+    practiceArenaMode,
     scrollToPracticeSection,
     selectedGrade,
     topicFilter
@@ -2085,14 +2434,58 @@ export default function PracticePage() {
   const adventureProgressTotal = practiceIslandStarTotalMax;
   const adventureProgressValue = Math.min(adventureProgressTotal, islandStarTotal);
   const shouldRenderFreeSelectionRound = shouldShowFreeSelection && hasSelectedPracticeFilter && displayedQuestions.length > 0;
+  const adaptiveUnitRoundTopic = resolveSingleRoundTopic(adaptiveRoundQuestions);
+  const adaptiveUnitRoundReady = Boolean(
+    adaptivePlan &&
+    adaptiveRoundQuestions.length >= requiredAdaptiveQuestionCount &&
+    adaptiveUnitRoundTopic?.topicId === adaptivePlan.topic.id
+  );
+  const fallbackUnitRoundReady = Boolean(
+    !adaptivePlan &&
+    firstQuestionCatalogTopicId &&
+    topicFilter === firstQuestionCatalogTopicId &&
+    !isLoading &&
+    !loadError &&
+    freeSelectionRoundQuestions.length >= freeSelectionRoundQuestionCount &&
+    freeSelectionSingleRoundTopic?.topicId === firstQuestionCatalogTopicId
+  );
+  const unitDoorStatus: PracticeUnitMissionStatus = adaptivePlan
+    ? adaptiveUnitRoundReady
+      ? "ready"
+      : adaptivePlanSettled
+        ? "unavailable"
+        : "loading"
+    : !adaptivePlanSettled || !questionCatalogLoaded
+      ? "loading"
+      : questionCatalogError || !firstQuestionCatalogTopicId
+        ? "unavailable"
+        : "ready";
+  const unitMissionStatus: PracticeUnitMissionStatus = adaptivePlan
+    ? adaptiveUnitRoundReady
+      ? "ready"
+      : adaptivePlanSettled
+        ? "unavailable"
+        : "loading"
+    : !adaptivePlanSettled || !questionCatalogLoaded
+      ? "loading"
+      : questionCatalogError || !firstQuestionCatalogTopicId
+        ? "unavailable"
+        : practiceArenaMode !== "unit" || topicFilter !== firstQuestionCatalogTopicId || isLoading
+          ? "loading"
+          : fallbackUnitRoundReady
+            ? "ready"
+            : "unavailable";
+  const unitMissionQuestionCount = adaptivePlan
+    ? adaptiveRoundQuestions.length
+    : freeSelectionRoundQuestions.length;
 
   return (
-    <div data-practice-adventure-arena className="relative isolate min-h-screen overflow-hidden bg-[#55cfff] px-3 py-2 text-slate-900 sm:px-5 lg:px-8">
+    <div data-practice-adventure-arena className="relative isolate min-h-screen overflow-hidden bg-[#55cfff] px-3 py-2 text-slate-900 sm:px-5 lg:px-8 2xl:py-8">
       <style>{`
         body:has([data-practice-adventure-arena]) footer,
         body:has([data-practice-adventure-arena]) nextjs-portal,
         body:has([data-practice-adventure-arena]) .bg-radial-glow,
-        body:has([data-practice-adventure-arena]) button[aria-label*="AI Tutor"] {
+        body:has([data-practice-adventure-arena]) button[data-tour="student-tutor"] {
           display: none !important;
         }
 
@@ -2104,7 +2497,7 @@ export default function PracticePage() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(255,255,255,0.34),transparent_15%),radial-gradient(circle_at_86%_12%,rgba(255,255,255,0.28),transparent_18%),linear-gradient(180deg,#44c5f2_0%,#58d0f7_52%,#74ddfb_100%)]"
       />
-      <div className="relative mx-auto max-w-[1500px]">
+      <div className="relative mx-auto max-w-[1650px]">
       {islandStarFlight ? (
         <div aria-hidden="true" data-testid="island-star-flight" className="pointer-events-none fixed inset-0 z-[140]">
           {Array.from({ length: islandStarFlight.starCount }, (_, starIndex) => (
@@ -2185,6 +2578,9 @@ export default function PracticePage() {
 
       <PracticeAdventureArenaShell
         t={t}
+        mode={practiceArenaMode}
+        unitStatus={unitDoorStatus}
+        onModeChange={handlePracticeArenaModeChange}
         progressValue={adventureProgressValue}
         progressTotal={adventureProgressTotal}
         regions={islandRegionStatuses}
@@ -2195,15 +2591,32 @@ export default function PracticePage() {
         onRegionSelect={handleIslandRegionSelect}
       />
 
+      {practiceArenaMode === "unit" ? (
+        <PracticeMissionSummary
+          t={t}
+          questionCount={unitMissionQuestionCount}
+          status={unitMissionStatus}
+          showUnitModeContext
+          onChooseMode={() => handlePracticeArenaModeChange("chooser")}
+          className="mt-2 scroll-mt-24 sm:scroll-mt-28"
+        />
+      ) : null}
+
       {adaptiveLoadError ? (
         <div className="glass-panel mt-8 border-amber-300/40 bg-amber-400/10 p-5 text-sm font-semibold text-amber-800 dark:text-amber-100">
           {adaptiveLoadError}
         </div>
       ) : null}
 
-      {adaptivePlan && !isFreeSelectionUnlocked && !hasManualTopicSelection ? (
+      {practiceArenaMode === "unit" && adaptivePlan && unitMissionStatus === "ready" ? (
         <div id="adaptive-practice-round" className="scroll-mt-28">
-          <QuestionPager questions={adaptiveRoundQuestions} onAnswered={handleAdaptiveAnswered} onQuestionStarted={handleAdaptiveQuestionStarted} />
+          <QuestionPager
+            questions={adaptiveRoundQuestions}
+            answerResults={adaptiveQuestionResults}
+            onAnswered={handleAdaptiveAnswered}
+            onQuestionStarted={handleAdaptiveQuestionStarted}
+            interactionEnabled={practiceArenaMode === "unit"}
+          />
         </div>
       ) : null}
 
@@ -2282,7 +2695,7 @@ export default function PracticePage() {
 	        </div>
 	      ) : null}
 
-      {showMissionSetupSkeleton ? (
+      {practiceArenaMode === "explore" && showMissionSetupSkeleton ? (
         <div
           id="mission-setup-loading"
           data-testid="mission-setup-skeleton"
@@ -2301,7 +2714,7 @@ export default function PracticePage() {
         </div>
       ) : null}
 
-      {shouldShowFreeSelection ? (
+      {practiceArenaMode === "explore" && shouldShowFreeSelection ? (
         <section
           id="mission-setup-filters"
           aria-label={t({ en: "Mission setup filters", zh: "任務設定篩選", zhHans: "任务设置筛选" })}
@@ -2407,7 +2820,18 @@ export default function PracticePage() {
         </section>
       ) : null}
 
-      {shouldRenderFreeSelectionRound ? (
+      {practiceArenaMode === "unit" && !adaptivePlan && unitMissionStatus === "ready" ? (
+        <div id="free-selection" className="scroll-mt-28">
+          <QuestionPager
+            questions={freeSelectionRoundQuestions}
+            answerResults={freeSelectionQuestionResults}
+            onAnswered={handleFreeSelectionAnswered}
+            interactionEnabled={practiceArenaMode === "unit"}
+          />
+        </div>
+      ) : null}
+
+      {practiceArenaMode === "explore" && shouldRenderFreeSelectionRound ? (
         <div id="free-selection" className="scroll-mt-28">
           <div className="mt-8 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]">
             <div className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center">
@@ -2435,7 +2859,9 @@ export default function PracticePage() {
           </div>
           <QuestionPager
             questions={freeSelectionRoundQuestions}
+            answerResults={freeSelectionQuestionResults}
             onAnswered={handleFreeSelectionAnswered}
+            interactionEnabled={practiceArenaMode === "explore"}
           />
         </div>
       ) : null}

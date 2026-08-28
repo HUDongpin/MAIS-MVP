@@ -3,6 +3,22 @@ export type PostgresSchemaReadinessDependencies = {
   bootstrap: () => Promise<void>;
 };
 
+const postgresBootstrapContentionAttempts = 6;
+
+export class PostgresAdvisoryBootstrapContentionError extends Error {
+  constructor(cause: unknown) {
+    super("Postgres schema bootstrap advisory lock is contended.", { cause });
+    this.name = "PostgresAdvisoryBootstrapContentionError";
+  }
+}
+
+export class PostgresAdvisoryMarkerContentionError extends Error {
+  constructor(cause: unknown) {
+    super("Postgres schema marker advisory lock is contended.", { cause });
+    this.name = "PostgresAdvisoryMarkerContentionError";
+  }
+}
+
 function isUndefinedTableError(error: unknown): boolean {
   return (
     typeof error === "object" &&
@@ -12,10 +28,58 @@ function isUndefinedTableError(error: unknown): boolean {
   );
 }
 
+export function normalizePostgresSchemaBootstrapError(error: unknown): unknown {
+  if (
+    typeof error !== "object"
+    || error === null
+    || !("code" in error)
+    || (error as { code?: unknown }).code !== "55P03"
+  ) {
+    return error;
+  }
+
+  // Once the contract advisory lock has been acquired, a relation-lock timeout
+  // must not enter advisory-contention recovery: a current marker could belong
+  // to a schema that this transaction failed to validate. Keep that fail-closed
+  // behavior while preventing PostgreSQL relation names or provider diagnostics
+  // from escaping through storage callers. The readiness latch clears rejected
+  // attempts, so a later operation may safely retry the complete bootstrap.
+  return new Error("Postgres storage readiness is unavailable.", { cause: error });
+}
+
+export async function runPostgresBootstrapWithContentionRecovery({
+  bootstrap,
+  readCurrentMarker
+}: PostgresSchemaReadinessDependencies) {
+  let lastContention: PostgresAdvisoryBootstrapContentionError | null = null;
+  for (let attempt = 0; attempt < postgresBootstrapContentionAttempts; attempt += 1) {
+    try {
+      await bootstrap();
+      return;
+    } catch (error) {
+      if (!(error instanceof PostgresAdvisoryBootstrapContentionError)) throw error;
+      lastContention = error;
+    }
+
+    let markerExists = false;
+    try {
+      markerExists = await readCurrentMarker();
+    } catch (error) {
+      if (error instanceof PostgresAdvisoryMarkerContentionError) continue;
+      if (!isUndefinedTableError(error)) throw error;
+    }
+    if (markerExists) return;
+  }
+  throw lastContention ?? new Error("Postgres schema bootstrap is unavailable.");
+}
+
 export function createPostgresSchemaReadinessGate({
   bootstrap,
   readCurrentMarker
 }: PostgresSchemaReadinessDependencies) {
+  // This is deliberately a bootstrap latch, not a continuing authorization or
+  // schema-attestation cache. Strict external probes and partial writers must
+  // re-check their own current capability on every operation.
   let readiness: Promise<void> | null = null;
 
   return function ensureReady(): Promise<void> {
@@ -27,7 +91,12 @@ export function createPostgresSchemaReadinessGate({
       try {
         markerExists = await readCurrentMarker();
       } catch (error) {
-        if (!isUndefinedTableError(error)) throw error;
+        if (
+          !isUndefinedTableError(error)
+          && !(error instanceof PostgresAdvisoryMarkerContentionError)
+        ) {
+          throw error;
+        }
       }
 
       if (!markerExists) {

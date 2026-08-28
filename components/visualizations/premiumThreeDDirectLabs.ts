@@ -171,7 +171,6 @@ const catalogTemplateByPremiumLabId: Record<string, VisualizationTemplateId> = {
   "bnu-junior-s1-upper-spatial-figures": "vector-conic-3d/strategy-map",
   "bnu-junior-s3-lower-right-triangle-trigonometry": "trig-unit-wave",
   "bnu-junior-s3-upper-projection-views": "vector-conic-3d/strategy-map",
-  "bnu-primary-p6-lower-cylinders-cones": "vector-conic-3d/strategy-map",
   "calculus": "calculus-rate-area",
   "capstone-hk-mainland-crosswalk-explorer": "vector-conic-3d/strategy-map",
   "capstone-junior-algebra-geometry-bridge": "coordinate-transform",
@@ -180,25 +179,7 @@ const catalogTemplateByPremiumLabId: Record<string, VisualizationTemplateId> = {
   "capstone-senior-function-calculus-stats-bridge": "calculus-rate-area",
   "differentiation-intro": "calculus-rate-area",
   "functions": "function-graph",
-  "hjb-high-s4-三角": "trig-unit-wave",
-  "hjb-high-s4-三角函数": "trig-unit-wave",
-  "hjb-high-s4-复数": "complex-plane",
-  "hjb-high-s4-平面向量": "vector-conic-3d/strategy-map",
-  "hjb-high-s5-圆锥曲线": "vector-conic-3d/strategy-map",
-  "hjb-high-s5-数列": "function-family",
-  "hjb-high-s5-空间向量及其应用": "vector-conic-3d/strategy-map",
-  "hjb-high-s5-空间直线与平面": "vector-conic-3d/strategy-map",
-  "hjb-high-s5-简单几何体": "vector-conic-3d/strategy-map",
-  "hjb-high-s6-三角-向量与解析几何综合": "vector-conic-3d/strategy-map",
-  "hjb-high-s6-函数-导数与不等式综合": "calculus-rate-area",
-  "hjb-high-s6-圆锥曲线综合复习": "vector-conic-3d/strategy-map",
-  "hjb-high-s6-导数及其运用": "calculus-rate-area",
-  "hjb-high-s6-数列与计数综合": "function-family",
-  "hjb-high-s6-数列综合复习": "function-family",
-  "hjb-high-s6-空间向量综合复习": "vector-conic-3d/strategy-map",
-  "hjb-high-s6-立体几何与空间向量综合": "vector-conic-3d/strategy-map",
   "hjb-junior-s3-upper-acute-trigonometry": "trig-unit-wave",
-  "hjb-primary-p6-lower-cylinder-cone": "vector-conic-3d/strategy-map",
   "mixed-problem-solving": "function-family",
   "pep-high-s4-complex-numbers": "complex-plane",
   "pep-high-s4-plane-vectors": "vector-conic-3d/strategy-map",
@@ -216,44 +197,11 @@ const catalogTemplateByPremiumLabId: Record<string, VisualizationTemplateId> = {
   "quadratic-patterns": "function-graph",
   "trigonometry-basics": "trig-unit-wave",
   "trigonometry-s5": "trig-unit-wave",
-  "us-ar-math-g08-chapter-02-functions-and-rate-of-change": "function-family",
-  "us-ar-math-g10-chapter-04-quadratic-structure-in-geometry-contexts": "function-graph",
-  "us-ar-math-g11-chapter-03-trigonometric-functions-and-graphs": "trig-unit-wave",
-  "us-ar-math-g12-chapter-02-polynomial-structure-and-behavior": "function-family",
-  "us-ar-math-g12-chapter-04-function-analysis-and-rates": "function-family",
-  "us-ar-math-g12-chapter-05-capstone-modeling": "calculus-rate-area",
-  "us-ca-math-s2-chapter-02": "function-family",
-  "us-ca-math-s3-chapter-02": "function-family",
-  "us-ca-math-s3-chapter-03": "function-graph",
-  "us-ca-math-s4-chapter-04": "function-graph",
-  "us-ca-math-s4-chapter-05": "probability-simulation",
-  "us-ca-math-s5-chapter-01": "function-family",
-  "us-ca-math-s5-chapter-02": "function-family",
-  "us-ca-math-s5-chapter-03": "trig-unit-wave",
-  "us-ca-math-s6-chapter-02": "function-family",
-  "us-ca-math-s6-chapter-03": "statistics-distribution",
-  "us-ca-math-s6-chapter-04": "function-family",
-  "us-ca-math-s6-chapter-05": "statistics-distribution",
-  "us-fl-math-s2-chapter-02-functions-and-rate-of-change": "function-family",
 };
 
 const specialTemplateByLabId: Record<string, VisualizationTemplateId> = {
   "functions": "function-graph",
-  "hjb-primary-p6-lower-cylinder-cone": "vector-conic-3d/strategy-map",
-  "bnu-primary-p6-lower-cylinders-cones": "vector-conic-3d/strategy-map",
-  "pep-high-s4-plane-vectors": "vector-conic-3d/strategy-map",
-  "us-ca-math-s2-chapter-02": "function-family",
-  "us-ca-math-s3-chapter-02": "right-triangle-pythagorean",
-  "us-ca-math-s3-chapter-03": "coordinate-transform",
-  "us-ca-math-s4-chapter-04": "trig-unit-wave",
-  "us-ca-math-s4-chapter-05": "probability-simulation",
-  "us-ca-math-s5-chapter-01": "function-family",
-  "us-ca-math-s5-chapter-02": "complex-plane",
-  "us-ca-math-s5-chapter-03": "trig-unit-wave",
-  "us-ca-math-s6-chapter-02": "calculus-rate-area",
-  "us-ca-math-s6-chapter-03": "statistics-distribution",
-  "us-ca-math-s6-chapter-04": "function-family",
-  "us-ca-math-s6-chapter-05": "statistics-distribution"
+  "pep-high-s4-plane-vectors": "vector-conic-3d/strategy-map"
 };
 
 const fastTwoDimensionalDirectLabIds = new Set<string>();
@@ -265,66 +213,15 @@ const gradeLabelPrefixByRegion: Record<NonNullable<FeaturedLabDefinition["threeD
   mainland: { en: "Mainland China curriculum", zh: "中國內地課程", zhHans: "中国内地课程" }
 };
 
-const usCaliforniaS4ConditionalProbabilityLab: FeaturedLabDefinition = {
-  labId: "us-ca-math-s4-chapter-05",
-  grade: "S4",
-  title: {
-    en: "10-E.1 Conditional Probability Visual Lab",
-    zh: "10-E.1 Conditional Probability視覺化實驗",
-    zhHans: "10-E.1 Conditional Probability可视化实验"
-  },
-  description: {
-    en: "Use a focused probability simulation model to explore 10-e.1 conditional probability with sliders, diagrams, and live feedback.",
-    zh: "透過概率模擬模型，用滑桿、圖形和即時回饋探索10-E.1 Conditional Probability。",
-    zhHans: "通过概率模拟模型，用滑杆、图形和即时反馈探索10-E.1 Conditional Probability。"
-  },
-  category: {
-    en: "Probability simulation",
-    zh: "概率模擬",
-    zhHans: "概率模拟"
-  },
-  gradeLabel: {
-    en: "S4 · US math standards",
-    zh: "S4 · 美國數學標準",
-    zhHans: "S4 · 美国数学标准"
-  },
-  topicId: "us-ca-math-s4-chapter-05",
-  curriculumTrack: "US",
-  publisher: "US_CA_MATH",
-  primaryForTopic: true,
-  analyticsSource: "probability",
-  moduleId: "configured-visualization-lab",
-  templateId: "probability-simulation",
-  templateConfig: {
-    variant: "us-ca-math-s4-chapter-05",
-    focus: {
-      en: "California Math Practice Beta Chapter 5 strand for Probability, with MAIS-authored standards-aligned practice questions.",
-      zh: "用概率模擬模型，觀察10-E.1 Conditional Probability中的關鍵關係。",
-      zhHans: "用概率模拟模型，观察10-E.1 Conditional Probability中的关键关系。"
-    },
-    formula: {
-      en: "frequency / trials",
-      zh: "頻數 / 試驗次數",
-      zhHans: "频数 / 试验次数"
-    },
-    xLabel: "trial",
-    yLabel: "frequency",
-    accent: "#facc15"
-  },
-  threeD: {
-    enabled: true,
-    fallbackTemplateId: "probability-simulation",
-    familyId: "three-probability-machine",
-    coverageTier: "premium-3d",
-    premiumLaunch: true,
-    regionalPriority: "california"
-  },
-  qaProfile: "simulation"
-};
-
-const premiumThreeDDirectLabById: Record<string, FeaturedLabDefinition> = {
-  [usCaliforniaS4ConditionalProbabilityLab.labId]: usCaliforniaS4ConditionalProbabilityLab
-};
+/**
+ * Hand-authored direct-lab definitions, keyed by lab id. Empty since the
+ * 2026-08-25 California premium-3D descope removed the sole entry
+ * (`us-ca-math-s4-chapter-05`, whose direct route bypassed the signature
+ * system with a configured template lab). California topics render their
+ * Claude signature bench on the Visualization Lab page instead, and the old
+ * direct URLs redirect there.
+ */
+const premiumThreeDDirectLabById: Record<string, FeaturedLabDefinition> = {};
 
 function titleCaseToken(token: string) {
   if (/^g\d{2}$/i.test(token)) return `Grade ${Number(token.slice(1))}`;

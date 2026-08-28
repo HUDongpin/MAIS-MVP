@@ -3682,11 +3682,11 @@
           "chapterNumber": 1,
           "chapterTitle": "Linear Equations and Systems Readiness",
           "standardIds": [
-            "AR.Math.G8.NS"
+            "AR.Math.G8.EE"
           ],
           "safeCardIds": [
             "us-ar-math-g8-linear-functions-transformations-pythagorean",
-            "us-ar-standards-s2-g8-ns",
+            "us-ar-standards-s2-g8-ee",
             "us-ar-textbook-compat-s2-g8-linear-functions-transformations-pythagorean",
             "us-ar-exam-pattern-s2-g8-linear-functions-transformations-pythagorean"
           ],
@@ -4007,11 +4007,11 @@
           "chapterNumber": 2,
           "chapterTitle": "Functions and Rate of Change",
           "standardIds": [
-            "AR.Math.G8.EE"
+            "AR.Math.G8.F"
           ],
           "safeCardIds": [
             "us-ar-math-g8-linear-functions-transformations-pythagorean",
-            "us-ar-standards-s2-g8-ee",
+            "us-ar-standards-s2-g8-f",
             "us-ar-textbook-compat-s2-g8-linear-functions-transformations-pythagorean",
             "us-ar-exam-pattern-s2-g8-linear-functions-transformations-pythagorean"
           ],
@@ -4332,11 +4332,11 @@
           "chapterNumber": 3,
           "chapterTitle": "Transformations and Similarity",
           "standardIds": [
-            "AR.Math.G8.F"
+            "AR.Math.G8.G"
           ],
           "safeCardIds": [
             "us-ar-math-g8-linear-functions-transformations-pythagorean",
-            "us-ar-standards-s2-g8-f",
+            "us-ar-standards-s2-g8-g",
             "us-ar-textbook-compat-s2-g8-linear-functions-transformations-pythagorean",
             "us-ar-exam-pattern-s2-g8-linear-functions-transformations-pythagorean"
           ],
@@ -5342,7 +5342,9 @@
         "us-ar-standards-s3-hs-a-ced",
         "us-ar-standards-s3-hs-a-rei",
         "us-ar-standards-s3-hs-f-if",
-        "us-ar-standards-s3-hs-g-gpe"
+        "us-ar-standards-s3-hs-g-gpe",
+        "us-ar-standards-s5-hs-f-le",
+        "us-ar-standards-s5-hs-s-id"
       ],
       "evidencePackCardIds": [
         "us-ar-textbook-compat-s3-g9-algebra-functions-coordinate-geometry",
@@ -5352,7 +5354,9 @@
         "us-ar-standards-s3-hs-a-rei",
         "us-ar-standards-s3-hs-f-if",
         "us-ar-standards-s3-hs-g-gpe",
-        "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry"
+        "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry",
+        "us-ar-standards-s5-hs-f-le",
+        "us-ar-standards-s5-hs-s-id"
       ],
       "chapters": [
         {
@@ -5363,11 +5367,11 @@
           "chapterNumber": 1,
           "chapterTitle": "Equations from Context",
           "standardIds": [
-            "AR.Math.HS.N-RN"
+            "AR.Math.HS.A-CED"
           ],
           "safeCardIds": [
             "us-ar-math-g9-algebra-functions-coordinate-geometry",
-            "us-ar-standards-s3-hs-n-rn",
+            "us-ar-standards-s3-hs-a-ced",
             "us-ar-textbook-compat-s3-g9-algebra-functions-coordinate-geometry",
             "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry"
           ],
@@ -5688,11 +5692,11 @@
           "chapterNumber": 2,
           "chapterTitle": "Function Notation and Interpretation",
           "standardIds": [
-            "AR.Math.HS.A-CED"
+            "AR.Math.HS.F-IF"
           ],
           "safeCardIds": [
             "us-ar-math-g9-algebra-functions-coordinate-geometry",
-            "us-ar-standards-s3-hs-a-ced",
+            "us-ar-standards-s3-hs-f-if",
             "us-ar-textbook-compat-s3-g9-algebra-functions-coordinate-geometry",
             "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry"
           ],
@@ -6013,11 +6017,11 @@
           "chapterNumber": 3,
           "chapterTitle": "Linear and Quadratic Models",
           "standardIds": [
-            "AR.Math.HS.A-REI"
+            "AR.Math.HS.F-LE"
           ],
           "safeCardIds": [
             "us-ar-math-g9-algebra-functions-coordinate-geometry",
-            "us-ar-standards-s3-hs-a-rei",
+            "us-ar-standards-s5-hs-f-le",
             "us-ar-textbook-compat-s3-g9-algebra-functions-coordinate-geometry",
             "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry"
           ],
@@ -6040,7 +6044,7 @@
             "modeling"
           ],
           "domainTags": [
-            "coordinate geometry"
+            "modeling"
           ],
           "clusterTags": [
             "linear and quadratic models"
@@ -6338,11 +6342,11 @@
           "chapterNumber": 4,
           "chapterTitle": "Coordinate Geometry Methods",
           "standardIds": [
-            "AR.Math.HS.F-IF"
+            "AR.Math.HS.G-GPE"
           ],
           "safeCardIds": [
             "us-ar-math-g9-algebra-functions-coordinate-geometry",
-            "us-ar-standards-s3-hs-f-if",
+            "us-ar-standards-s3-hs-g-gpe",
             "us-ar-textbook-compat-s3-g9-algebra-functions-coordinate-geometry",
             "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry"
           ],
@@ -6365,7 +6369,7 @@
             "modeling"
           ],
           "domainTags": [
-            "modeling"
+            "coordinate geometry"
           ],
           "clusterTags": [
             "coordinate proof readiness"
@@ -6663,11 +6667,11 @@
           "chapterNumber": 5,
           "chapterTitle": "Modeling with Evidence",
           "standardIds": [
-            "AR.Math.HS.G-GPE"
+            "AR.Math.HS.S-ID"
           ],
           "safeCardIds": [
             "us-ar-math-g9-algebra-functions-coordinate-geometry",
-            "us-ar-standards-s3-hs-g-gpe",
+            "us-ar-standards-s5-hs-s-id",
             "us-ar-textbook-compat-s3-g9-algebra-functions-coordinate-geometry",
             "us-ar-exam-pattern-s3-g9-algebra-functions-coordinate-geometry"
           ],
@@ -7721,7 +7725,7 @@
             "conditional-probability"
           ],
           "domainTags": [
-            "trigonometry"
+            "geometry"
           ],
           "clusterTags": [
             "circle geometry"
@@ -9073,7 +9077,7 @@
             "rate-of-change"
           ],
           "domainTags": [
-            "trigonometry"
+            "exponential models"
           ],
           "clusterTags": [
             "inverse reasoning"
@@ -9397,7 +9401,7 @@
             "rate-of-change"
           ],
           "domainTags": [
-            "exponential models"
+            "trigonometry"
           ],
           "clusterTags": [
             "trigonometric graphs"
@@ -10423,7 +10427,7 @@
             "calculus-readiness"
           ],
           "domainTags": [
-            "modeling"
+            "quantitative reasoning"
           ],
           "clusterTags": [
             "units and precision"
@@ -10747,7 +10751,7 @@
             "calculus-readiness"
           ],
           "domainTags": [
-            "quantitative reasoning"
+            "polynomial structure"
           ],
           "clusterTags": [
             "polynomial behavior"
@@ -11045,11 +11049,11 @@
           "chapterNumber": 3,
           "chapterTitle": "Decision Statistics",
           "standardIds": [
-            "AR.Math.HS.F-IF"
+            "AR.Math.HS.S-MD"
           ],
           "safeCardIds": [
             "us-ar-math-g12-modeling-statistics-calculus-readiness",
-            "us-ar-standards-s6-hs-f-if",
+            "us-ar-standards-s6-hs-s-md",
             "us-ar-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
           ],
           "sourceIds": [
@@ -11071,7 +11075,7 @@
             "calculus-readiness"
           ],
           "domainTags": [
-            "polynomial structure"
+            "statistics"
           ],
           "clusterTags": [
             "decision-making under uncertainty"
@@ -11369,11 +11373,11 @@
           "chapterNumber": 4,
           "chapterTitle": "Function Analysis and Rates",
           "standardIds": [
-            "AR.Math.HS.S-MD"
+            "AR.Math.HS.F-IF"
           ],
           "safeCardIds": [
             "us-ar-math-g12-modeling-statistics-calculus-readiness",
-            "us-ar-standards-s6-hs-s-md",
+            "us-ar-standards-s6-hs-f-if",
             "us-ar-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
           ],
           "sourceIds": [
@@ -11395,7 +11399,7 @@
             "calculus-readiness"
           ],
           "domainTags": [
-            "statistics"
+            "calculus readiness"
           ],
           "clusterTags": [
             "function analysis"
@@ -11719,7 +11723,7 @@
             "calculus-readiness"
           ],
           "domainTags": [
-            "calculus readiness"
+            "modeling"
           ],
           "clusterTags": [
             "rates"

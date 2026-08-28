@@ -1,0 +1,17 @@
+{
+  "//": "Ratchet for the shipped-content gate in scripts/audit-hk-chinese.mjs. Counts may fall freely and must never rise. Regenerate with --write-baseline only when lowering them.",
+  "simplifiedKnownIds": [
+    "hk-ease-10569",
+    "hk-ease-10578",
+    "hk-ease-10599",
+    "hk-ease-10605",
+    "hk-ease-10606"
+  ],
+  "simplifiedKnownNote": "Answer keys and explanations stored in Simplified Chinese, so a learner who writes correct Traditional is graded wrong. Each entry is a defect awaiting repair in the EASE pack, not an accepted exception.",
+  "orthographyMinority": {
+    "裏/裡": 3,
+    "麪/麵": 3,
+    "甚麼/什麼": 24
+  },
+  "orthographyNote": "Both forms of each pair are valid Traditional. The gate ratchets the minority form down toward the corpus majority rather than imposing the EDB 字形表 preference, which this repo has not adopted."
+}

@@ -1,4 +1,4 @@
-import { expect, type Page, type TestInfo } from "@playwright/test";
+import { expect, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
 import path from "node:path";
 import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from "../../lib/session";
 
@@ -80,9 +80,18 @@ export async function closeLearnerStartSetupIfVisible(page: Page) {
   await closeSetup.waitFor({ state: "visible", timeout: 1000 }).catch(() => undefined);
   if (!(await closeSetup.isVisible().catch(() => false))) return;
 
+  const meResponse = await page.request.get("/api/me?includeLessonEntry=false").catch(() => null);
+  const mePayload = meResponse?.ok()
+    ? await meResponse.json().catch(() => null) as { user?: { id?: unknown } } | null
+    : null;
+  const expectedUserId = typeof mePayload?.user?.id === "string" ? mePayload.user.id : null;
+  if (!expectedUserId) return;
+
   await page.request.patch("/api/me/learner-profile", {
+    headers: { "X-MAIS-Expected-User-Id": expectedUserId },
     data: {
       status: "skipped",
+      expectedUserId,
       answers: {
         goal: "repair",
         challenge: "balanced",
@@ -141,6 +150,15 @@ export async function openPracticeFiltersPanel(page: Page) {
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
 }
 
+export async function choosePracticeModeIfVisible(page: Page, mode: "guided" | "explore") {
+  const chooser = page.getByRole("group", { name: /Choose a practice mode/i });
+  if (!(await chooser.isVisible().catch(() => false))) return false;
+
+  const buttonName = mode === "guided" ? /Choose Unit Exercise/i : /Choose Free Exploration/i;
+  await chooser.getByRole("button", { name: buttonName }).click();
+  return true;
+}
+
 export function registrationRoleRadio(page: Page, role: "parent" | "student" | "teacher") {
   return page.getByRole("radio", { name: new RegExp(`^\\s*(?:✓\\s*)?${role}`, "i") }).first();
 }
@@ -152,8 +170,22 @@ export function loginSubmitButton(page: Page) {
 export async function clickLoginSubmit(page: Page) {
   const submit = loginSubmitButton(page);
   await expect(submit).toBeEnabled({ timeout: 15_000 });
+  // The login form deliberately ignores submits until client hydration finishes.
+  // On slower CI runners the button can become actionable at the browser layer
+  // before the React submit handler is ready, leaving the page silently on /login.
+  await expect(submit).not.toHaveText(
+    /Preparing secure login|準備安全登入|准备安全登录/i,
+    { timeout: 15_000 }
+  );
   await submit.click();
 }
+
+// A real form login includes the credential POST, client session application,
+// router replacement, and the destination render. On the two-core CI runner
+// that sequence has crossed the default 15s expect budget while still
+// completing successfully; keep the destination assertion strict but give the
+// full sequence enough room. Local runs retain a smaller feedback budget.
+const LOGIN_NAVIGATION_TIMEOUT_MS = process.env.CI ? 60_000 : 30_000;
 
 async function selectRegistrationCurriculum(page: Page, publisher = "HK_UNITED_PRIME_MIA") {
   const curriculumStep = page.getByRole("button", { name: /Curriculum/i }).first();
@@ -166,11 +198,31 @@ async function selectRegistrationCurriculum(page: Page, publisher = "HK_UNITED_P
 }
 
 export async function loginAs(page: Page, username: string, password: string, expectedPath: RegExp | string) {
-  await page.goto("/login");
-  await page.getByLabel(/email or username|email or user name|user name/i).fill(username);
+  const identifier = page.getByLabel(/email or username|email or user name|user name/i);
+  const currentPathname = new URL(page.url()).pathname;
+  if (currentPathname !== "/login") {
+    await page.goto("/login");
+  }
+  // A logout uses a full-document replacement. Its URL can update before the
+  // replacement document is ready, so wait for the stable login form instead
+  // of starting a competing same-URL navigation that can be aborted.
+  await expect(identifier).toBeVisible();
+  await identifier.fill(username);
   await page.getByLabel(/^password$/i).fill(password);
+  const destinationDocument = page.waitForNavigation({
+    waitUntil: "domcontentloaded",
+    timeout: LOGIN_NAVIGATION_TIMEOUT_MS
+  });
   await clickLoginSubmit(page);
-  await expect(page).toHaveURL(expectedPath, { timeout: 15000 });
+  await destinationDocument;
+  await expect(page).toHaveURL(expectedPath, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
+  // `window.location.replace` updates the visible URL before the replacement
+  // document has necessarily committed. Wait for the destination AppProviders
+  // guard to hydrate so a following `page.goto` cannot race and abort that
+  // security-critical document transition.
+  await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached({
+    timeout: LOGIN_NAVIGATION_TIMEOUT_MS
+  });
 }
 
 export async function loginAsDemoStudent(page: Page) {
@@ -183,13 +235,35 @@ function ensureDefaultE2eSessionSecret() {
 
 export async function sessionCookieHeaderForUserId(userId: string) {
   ensureDefaultE2eSessionSecret();
-  const token = await createSessionToken(userId);
+  const token = await createSessionToken({ userId, sessionRevision: 1 });
   return `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`;
 }
 
-export async function authenticateAsUserId(page: Page, userId: string) {
+export async function authenticateAsUserId(
+  page: Page,
+  userId: string,
+  userRole: "student" | "teacher" | "parent" | "admin" = userId.startsWith("teacher-")
+    ? "teacher"
+    : userId.startsWith("parent-")
+      ? "parent"
+      : userId.startsWith("admin-")
+        ? "admin"
+        : "student"
+) {
   ensureDefaultE2eSessionSecret();
-  const token = await createSessionToken(userId);
+  const token = await createSessionToken({ userId, sessionRevision: 1 });
+  const sessionSignal = JSON.stringify({ userId, userRole, at: Date.now() });
+  const seedMarker = `mais-e2e-session-seed:${Date.now()}:${Math.random().toString(36).slice(2)}`;
+  // Direct-cookie authentication bypasses the product login callback that
+  // publishes the durable identity signal. Seed the same coherent signal
+  // exactly once before the destination document's inline privacy guard runs.
+  // Re-applying an old identity on every later navigation would resurrect it
+  // after logout and correctly trigger the product's fail-closed reload loop.
+  await page.addInitScript(({ marker, storageKey, value }) => {
+    if (window.sessionStorage.getItem(marker) === "done") return;
+    window.sessionStorage.setItem(marker, "done");
+    window.localStorage.setItem(storageKey, value);
+  }, { marker: seedMarker, storageKey: "hk-math-session-sync", value: sessionSignal });
   await page.context().addCookies([
     {
       name: SESSION_COOKIE_NAME,
@@ -217,6 +291,25 @@ export async function authenticateAsDemoParent(page: Page) {
 
 export function isTransientApiTransportError(error: unknown) {
   return error instanceof Error && /ECONNRESET|ECONNREFUSED|ECONNABORTED|socket hang up/i.test(error.message);
+}
+
+type RetrySafeGetOptions = NonNullable<Parameters<APIRequestContext["get"]>[1]>;
+
+/**
+ * Retry one dropped local keep-alive connection for idempotent E2E reads.
+ * Playwright's `maxRetries` only retries `ECONNRESET`; it never retries HTTP
+ * responses, so 4xx/5xx status assertions and fail-on-flaky test policy remain
+ * strict while a single runner transport reset does not restart a whole test.
+ */
+export function getWithResetRetry(
+  request: APIRequestContext,
+  url: string,
+  options: RetrySafeGetOptions = {}
+) {
+  return request.get(url, {
+    ...options,
+    maxRetries: 1
+  });
 }
 
 export async function loginAsDemoStudentApi(page: Page) {

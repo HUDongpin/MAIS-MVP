@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { collectPageErrors, expectDownloadFrom, expectNoPageErrors, loginAs, logoutIfVisible, openPracticeFiltersPanel, registerStudent, registerStudentApi, uniqueSuffix } from "./helpers";
+import { choosePracticeModeIfVisible, collectPageErrors, expectDownloadFrom, expectNoPageErrors, loginAs, logoutIfVisible, openPracticeFiltersPanel, registerStudent, registerStudentApi, uniqueSuffix } from "./helpers";
 
 type PracticeDecisionResponse = {
   decision: {
@@ -11,6 +11,7 @@ type PracticeDecisionResponse = {
 
 async function unlockPracticeFiltersIfNeeded(page: Page) {
   await page.waitForLoadState("networkidle");
+  await choosePracticeModeIfVisible(page, "explore");
   await openPracticeFiltersPanel(page);
   if (await page.getByRole("combobox", { name: /difficulty/i }).isVisible().catch(() => false)) return;
 
@@ -26,6 +27,7 @@ async function unlockPracticeFiltersIfNeeded(page: Page) {
   }, `hk-math-practice-free-selection-unlocked:${userId}:${decision.skill.id}`);
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await choosePracticeModeIfVisible(page, "explore");
   await openPracticeFiltersPanel(page);
   await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
 }
@@ -149,10 +151,9 @@ test.describe("student frontend workflows", () => {
 
     await page.goto("/student/lessons/quadratic-functions");
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
-    // Lessons deliberately render one "Go to next item" CTA per section
-    // (LessonView targets the last one for scrolling), so assert the first.
-    await expect(page.getByRole("button", { name: /Go to next item/i }).first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Go to next item|前往下一項|前往下一项/i })).toHaveCount(0);
+    await expect(page.locator("[data-lesson-next-item-button]")).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: /Practice check/i })).toBeVisible();
     await expect(page.getByText(/Question 1 of/i)).toBeVisible();
 
     await page.goto("/resource/resource-s3-quadratics-slides");
@@ -227,8 +228,16 @@ test.describe("student frontend workflows", () => {
     test.skip(testInfo.project.name !== "desktop-chrome", "Adaptive Practice Arena UI verification runs once.");
 
     await registerStudent(page, testInfo, "S3");
+    const meResponse = await page.request.get("/api/me?includeLessonEntry=false");
+    const meBody = await meResponse.text();
+    expect(meResponse.ok(), meBody).toBeTruthy();
+    const me = JSON.parse(meBody) as { user?: { id?: string } };
+    expect(me.user?.id).toBeTruthy();
+    const expectedUserId = me.user?.id ?? "";
     const lessonAttempt = await page.request.post("/api/attempts", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId: "supp-polynomials-key-fact",
         selectedAnswer: "7x^2",
         durationSeconds: 35
@@ -239,13 +248,14 @@ test.describe("student frontend workflows", () => {
 
     await page.goto("/student/lessons/polynomials");
     await expect(page.getByRole("heading", { level: 1, name: /Polynomials/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Practice check/i })).toBeVisible();
 
     const expectedDecision = await (await page.request.get("/api/adaptive-learning/next?grade=S3&topicId=polynomials")).json() as PracticeDecisionResponse;
     expect(expectedDecision.decision.skill.id).toMatch(/^polynomials:/);
     expect(expectedDecision.decision.skill.difficulty).toMatch(/Low|Medium|High/);
     await page.getByRole("link", { name: /Practice Arena/i }).last().click();
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await choosePracticeModeIfVisible(page, "guided");
 
     const adaptivePanel = page.locator("#adaptive-practice-round");
     await expect(adaptivePanel).toBeVisible();
@@ -294,6 +304,7 @@ test.describe("student frontend workflows", () => {
     await expect(page).toHaveURL(/\/practice\?lesson=polynomials$/);
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
     await topicScopedRecommendation;
+    await choosePracticeModeIfVisible(page, "guided");
 
     const adaptivePanel = page.locator("#adaptive-practice-round");
     await expect(adaptivePanel).toBeVisible();

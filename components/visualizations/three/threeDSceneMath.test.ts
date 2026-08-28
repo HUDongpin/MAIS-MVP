@@ -4,6 +4,7 @@ import type { ThreeDRegionalPriority } from "./threeDSceneTypes";
 import {
   buildThreeDStateSummary,
   familyForVisualizationTemplate,
+  heldCandidatePremiumThreeDLabIds,
   familyForVisualizationLab,
   isPremiumThreeDLaunchLab,
   premiumThreeDLaunchLabIds,
@@ -66,7 +67,7 @@ test("selects the approved regional premium launch bands", () => {
     "cross-region": 0
   };
 
-  assert.equal(premiumThreeDLaunchLabIds.size, 80);
+  assert.equal(premiumThreeDLaunchLabIds.size, 42);
 
   for (const labId of premiumThreeDLaunchLabIds) {
     const region = regionalPriorityForThreeDLaunchLab(labId);
@@ -76,17 +77,18 @@ test("selects the approved regional premium launch bands", () => {
   }
 
   assert.deepEqual(counts, {
-    mainland: 40,
-    california: 12,
+    mainland: 24,
+    california: 0,
     "hong-kong": 9,
-    "cross-region": 19
+    "cross-region": 9
   });
 
   assert.equal(isPremiumThreeDLaunchLab("pep-high-s5-conics"), true);
-  assert.equal(isPremiumThreeDLaunchLab("us-ca-math-s6-chapter-05"), true);
+  assert.equal(isPremiumThreeDLaunchLab("us-ca-math-s6-chapter-05"), false);
   assert.equal(isPremiumThreeDLaunchLab("calculus"), true);
   assert.equal(isPremiumThreeDLaunchLab("capstone-hk-mainland-crosswalk-explorer"), true);
   assert.equal(isPremiumThreeDLaunchLab("p1-counting-number-bonds"), false);
+  assert.ok([...heldCandidatePremiumThreeDLabIds].every((labId) => !isPremiumThreeDLaunchLab(labId)));
 });
 
 test("looks up fallback family for a template", () => {

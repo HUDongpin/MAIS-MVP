@@ -120,3 +120,43 @@ test("authenticateGoogleIdentityForLogin rejects unverified Google emails", asyn
 
   assert.equal(rejected.status, "invalid");
 });
+
+test("disabled accounts reject password and Google login until explicitly re-enabled", async () => {
+  const store = await import("./userStore");
+  const curriculumProfile = curriculumProfileForTrack("HK");
+  const created = await store.createStudentUser({
+    name: "Disabled Student",
+    username: "disabled-login@example.test",
+    email: "disabled-login@example.test",
+    password: "DisabledPassword123!",
+    grade: "S4",
+    curriculumProfile,
+    language: "en",
+    theme: "dark"
+  });
+  assert.equal(created.status, "created");
+  if (created.status !== "created") return;
+
+  assert.equal((await store.setUserDisabledState(created.session.user.id, true)).status, "updated");
+  assert.equal((await store.authenticateUserForLogin(
+    "disabled-login@example.test",
+    "DisabledPassword123!"
+  )).status, "invalid");
+  assert.equal((await store.authenticateGoogleIdentityForLogin({
+    providerSubject: "google-disabled-student-subject",
+    email: "disabled-login@example.test",
+    emailVerified: true,
+    displayName: "Disabled Student",
+    requestedRole: "student",
+    grade: "S4",
+    curriculumProfile,
+    language: "en",
+    theme: "dark"
+  })).status, "invalid");
+
+  assert.equal((await store.setUserDisabledState(created.session.user.id, false)).status, "updated");
+  assert.equal((await store.authenticateUserForLogin(
+    "disabled-login@example.test",
+    "DisabledPassword123!"
+  )).status, "authenticated");
+});

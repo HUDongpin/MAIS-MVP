@@ -29,6 +29,8 @@ export type LessonWorldTheme = {
   progressVerb: LocalizedText;
   /** Default stop emoji when a unit has no CCSS lesson emoji to borrow. */
   fallbackStopEmoji: string;
+  /** Stable age-appropriate cartoons used when a raw unit marker is numeric. */
+  stopEmojiPalette: readonly string[];
   /** Scene wrapper classes (background gradient etc., light + dark). */
   sceneClassName: string;
   /** Aside frame (border + shadow tint). */
@@ -51,8 +53,8 @@ export type LessonWorldTheme = {
   stopFutureClassName: string;
   /** Quick-jump stones for the current unit's lesson parts. */
   quickJumpClassName: string;
-  /** "You are here" chip. */
-  hereChipClassName: string;
+  /** Current-position avatar cursor surface. */
+  currentAvatarClassName: string;
 };
 
 export function lessonWorldBandForGrade(grade: GradeId): LessonWorldBand {
@@ -86,6 +88,7 @@ const sproutMeadow: LessonWorldTheme = {
   stopNoun: { en: "clearing", zh: "空地", zhHans: "空地" },
   progressVerb: { en: "explored", zh: "已探索", zhHans: "已探索" },
   fallbackStopEmoji: "🌼",
+  stopEmojiPalette: ["🌼", "🐝", "🦋", "🐞", "🌱", "🍄", "🐿️", "🌈"],
   sceneClassName:
     "bg-gradient-to-b from-emerald-50 via-lime-50/70 to-amber-50/60 dark:from-emerald-950/40 dark:via-slate-950 dark:to-slate-950",
   frameClassName: "border-emerald-200/80 shadow-emerald-950/10 dark:border-emerald-300/15",
@@ -107,7 +110,7 @@ const sproutMeadow: LessonWorldTheme = {
     "border-emerald-200 bg-white/90 shadow-emerald-900/10 dark:border-emerald-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-emerald-200/90 bg-white/85 text-emerald-900 hover:border-amber-300 hover:bg-amber-50 dark:border-emerald-300/20 dark:bg-white/[0.06] dark:text-emerald-50 dark:hover:bg-amber-300/10",
-  hereChipClassName: "bg-amber-300/90 text-amber-950"
+  currentAvatarClassName: "bg-amber-300/90 text-amber-950"
 };
 
 const voyagerSeas: LessonWorldTheme = {
@@ -122,6 +125,7 @@ const voyagerSeas: LessonWorldTheme = {
   stopNoun: { en: "island", zh: "島嶼", zhHans: "岛屿" },
   progressVerb: { en: "charted", zh: "已探明", zhHans: "已探明" },
   fallbackStopEmoji: "🏝️",
+  stopEmojiPalette: ["🏝️", "🐬", "🐢", "🐚", "⛵", "🦀", "🐠", "🌊"],
   sceneClassName:
     "bg-gradient-to-b from-sky-50 via-cyan-50/70 to-blue-50/60 dark:from-sky-950/45 dark:via-slate-950 dark:to-slate-950",
   frameClassName: "border-cyan-200/80 shadow-cyan-950/10 dark:border-cyan-300/15",
@@ -143,7 +147,7 @@ const voyagerSeas: LessonWorldTheme = {
     "border-cyan-200 bg-white/90 shadow-cyan-900/10 dark:border-cyan-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-cyan-200/90 bg-white/85 text-sky-900 hover:border-orange-300 hover:bg-orange-50 dark:border-cyan-300/20 dark:bg-white/[0.06] dark:text-sky-50 dark:hover:bg-orange-300/10",
-  hereChipClassName: "bg-orange-300/90 text-orange-950"
+  currentAvatarClassName: "bg-orange-300/90 text-orange-950"
 };
 
 const skylineHeights: LessonWorldTheme = {
@@ -158,6 +162,7 @@ const skylineHeights: LessonWorldTheme = {
   stopNoun: { en: "district", zh: "城區", zhHans: "城区" },
   progressVerb: { en: "connected", zh: "已連通", zhHans: "已连通" },
   fallbackStopEmoji: "🎈",
+  stopEmojiPalette: ["🎈", "🚁", "🛸", "🏙️", "☁️", "🌉", "🪁", "🚡"],
   sceneClassName:
     "bg-gradient-to-b from-indigo-50 via-violet-50/70 to-slate-50/60 dark:from-indigo-950/45 dark:via-slate-950 dark:to-slate-950",
   frameClassName: "border-indigo-200/80 shadow-indigo-950/10 dark:border-indigo-300/15",
@@ -179,7 +184,7 @@ const skylineHeights: LessonWorldTheme = {
     "border-indigo-200 bg-white/90 shadow-indigo-900/10 dark:border-indigo-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-indigo-200/90 bg-white/85 text-indigo-900 hover:border-amber-300 hover:bg-amber-50 dark:border-indigo-300/20 dark:bg-white/[0.06] dark:text-indigo-50 dark:hover:bg-amber-300/10",
-  hereChipClassName: "bg-amber-300/90 text-amber-950"
+  currentAvatarClassName: "bg-amber-300/90 text-amber-950"
 };
 
 const deepSpace: LessonWorldTheme = {
@@ -194,6 +199,7 @@ const deepSpace: LessonWorldTheme = {
   stopNoun: { en: "star system", zh: "星系", zhHans: "星系" },
   progressVerb: { en: "ignited", zh: "已點亮", zhHans: "已点亮" },
   fallbackStopEmoji: "🌌",
+  stopEmojiPalette: ["🌌", "🚀", "🪐", "🛰️", "☄️", "🌟", "👾", "🔭"],
   sceneClassName:
     "bg-gradient-to-b from-slate-100 via-indigo-50/60 to-slate-50 dark:from-slate-950 dark:via-indigo-950/50 dark:to-slate-950",
   frameClassName: "border-slate-300/80 shadow-slate-950/10 dark:border-indigo-300/15",
@@ -215,7 +221,7 @@ const deepSpace: LessonWorldTheme = {
     "border-slate-300 bg-white/90 shadow-slate-900/10 dark:border-indigo-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-slate-300/90 bg-white/85 text-slate-900 hover:border-amber-300 hover:bg-amber-50 dark:border-indigo-300/20 dark:bg-white/[0.06] dark:text-indigo-50 dark:hover:bg-amber-300/10",
-  hereChipClassName: "bg-amber-300/90 text-amber-950"
+  currentAvatarClassName: "bg-amber-300/90 text-amber-950"
 };
 
 /** All four worlds shipped (Phase 5). Bands without a theme fall back to the list. */

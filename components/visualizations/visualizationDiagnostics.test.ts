@@ -11,7 +11,9 @@ import {
 } from "../../data/visualizationLabs";
 import { unitedStatesMathGradeOverviewCards } from "../../data/rag/usMath";
 import { getSignatureLabAssignment } from "../../data/signatureLabAssignments";
+import { californiaElementaryMicroLessonTopicIds } from "../../data/usCaliforniaMicroLessons";
 import { toPrcSimplifiedText } from "../../lib/i18n";
+import { heldCandidatePremiumThreeDLabIds } from "./three/threeDSceneMath";
 import {
   auditVisualizationControlSurfaceContract,
   auditVisualizationDirectEntryContract,
@@ -48,7 +50,9 @@ test("builds stable direct-entry Visualization Lab URLs for browser sweeps", () 
 test("premium Three.js launch labs expose canonical topic-specific page URLs", () => {
   const premiumLabs = visualizationLabCatalog.filter((lab) => lab.threeD?.premiumLaunch);
 
-  assert.equal(premiumLabs.length, 80);
+  // Candidate-hold packages are excluded from both the catalog and direct
+  // topic pages; only the exact current live launch set is counted here.
+  assert.equal(premiumLabs.length, 42);
 
   for (const lab of premiumLabs) {
     const href = buildVisualizationLabHref(lab);
@@ -67,7 +71,6 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
 
   assert.deepEqual(variants, [
     "conic-section-deep",
-    "cross-section-slicer",
     "curriculum-crosswalk",
     "distribution-machine",
     "exam-strategy-capstone",
@@ -79,7 +82,8 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
     "projection-views",
     "solid-net-fold",
     "space-vector-plane",
-    "statistical-inference",
+    // "statistical-inference" left with the California descope (2026-08-25):
+    // its only premium lab was us-ca-math-s6-chapter-03, now a signature-bench topic.
     "vector-conic-strategy"
   ]);
 
@@ -425,9 +429,6 @@ test("current high-confidence US display-layer fixes are not flagged as static f
   const fixedLabs = visualizationLabCatalog.filter((lab) =>
     [
       "us-ar-math-g4-gm-3",
-      "us-ar-math-g10-chapter-03-circle-geometry",
-      "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models",
-      "us-ar-math-g12-chapter-03-decision-statistics",
       "us-ca-math-p3-3-oa-mult-div",
       "us-ca-math-p3-3-md-time-data-area-perimeter",
       "us-ca-math-p4-4-nbt-multi-digit",
@@ -442,7 +443,7 @@ test("current high-confidence US display-layer fixes are not flagged as static f
     ].includes(lab.labId)
   );
 
-  assert.equal(fixedLabs.length, 15);
+  assert.equal(fixedLabs.length, 12);
   assert.deepEqual(auditVisualizationCurriculumReview(fixedLabs), []);
   assert.equal(
     visualizationLabCatalog.find((lab) => lab.labId === "us-ar-math-g4-gm-3")?.templateId,
@@ -470,18 +471,6 @@ test("California Visualization Lab catalog keeps priority lab themes grade appro
       ["us-ca-math-p1-1-oa-add-subtract", ["P1", "number-line", /start|part|change/i]],
       ["us-ca-math-p1-1-md-measure-data", ["P1", "measurement-scale", /measure|sort|data/i]],
       ["us-ca-math-p1-1-g-shape-reasoning", ["P1", "angle-geometry", /shape|attribute|compose/i]],
-      ["us-ca-math-p1-1-h1-picture-join-stories-to-10", ["P1", "number-line", /part \+ part|whole/i]],
-      ["us-ca-math-p1-1-h2-picture-story-addition-equations", ["P1", "equation-balance", /part \+ part|whole/i]],
-      ["us-ca-math-p1-1-h3-cube-train-join-models-to-10", ["P1", "number-line", /cube|train|total/i]],
-      ["us-ca-math-p1-1-h4-join-stories-within-10", ["P1", "number-line", /start|more|total/i]],
-      ["us-ca-math-p1-1-h5-model-equation-join-stories-to-10", ["P1", "equation-balance", /model|equation|total/i]],
-      ["us-ca-math-p1-1-h6-equation-match-join-stories-to-10", ["P1", "equation-balance", /story|equation/i]],
-      ["us-ca-math-p1-1-l1-picture-take-away-stories-to-10", ["P1", "number-line", /whole|-|left/i]],
-      ["us-ca-math-p1-1-l2-picture-story-subtraction-equations", ["P1", "equation-balance", /whole|-|left/i]],
-      ["us-ca-math-p1-1-l3-cube-train-take-away-models-to-10", ["P1", "number-line", /cube|train|left/i]],
-      ["us-ca-math-p1-1-l4-take-away-stories-within-10", ["P1", "number-line", /start|-|left/i]],
-      ["us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10", ["P1", "equation-balance", /model|equation|left/i]],
-      ["us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10", ["P1", "equation-balance", /whole|part/i]],
       ["us-ca-math-p3-3-oa-mult-div", ["P3", "array-area", /rows|groups|array|division/i]],
       ["us-ca-math-p4-4-oa-factors-patterns", ["P4", "array-area", /factor|multiple|array/i]],
       ["us-ca-math-p4-4-md-conversion-angles", ["P4", "measurement-scale", /unit|angle|measure/i]],
@@ -503,6 +492,18 @@ test("California Visualization Lab catalog keeps priority lab themes grade appro
     assert.match(lab.templateConfig.formula?.en ?? "", formulaPattern, `${labId} should expose a grade-fit lab formula`);
     assert.doesNotMatch(lab.templateConfig.formula?.en ?? "", forbiddenFormulaPattern, `${labId} should not expose advanced or mismatched notation`);
   });
+});
+
+test("candidate-only visualization topics cannot reach catalog or premium direct entrypoints", () => {
+  const liveLabIds = new Set(visualizationLabCatalog.map((lab) => lab.labId));
+  const liveTopicIds = new Set(visualizationLabCatalog.map((lab) => lab.topicId));
+
+  for (const labId of heldCandidatePremiumThreeDLabIds) {
+    assert.equal(liveLabIds.has(labId), false, `${labId} remains reachable from visualizationLabCatalog`);
+  }
+  for (const topicId of californiaElementaryMicroLessonTopicIds) {
+    assert.equal(liveTopicIds.has(topicId), false, `${topicId} remains reachable from visualizationLabCatalog`);
+  }
 });
 
 test("current Visualization Lab catalog has no focus/topic keyword mismatches", () => {

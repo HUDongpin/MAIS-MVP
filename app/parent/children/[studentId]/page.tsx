@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ParentChildDetail } from "@/components/parent/ParentViews";
 import { getParentChildSummary } from "@/lib/server/userStore";
+import { toParentChildSummarySafe } from "@/lib/server/userStore/parentSafeDto";
 import { getParentFoundationForPage } from "../../getParentFoundation";
 
 export default async function ParentChildPage({ params }: { params: Promise<{ studentId: string }> }) {
@@ -9,6 +10,7 @@ export default async function ParentChildPage({ params }: { params: Promise<{ st
   const child = await getParentChildSummary(foundation.parent.id, studentId);
 
   if (!child) notFound();
+  const safeChild = toParentChildSummarySafe(child);
 
-  return <ParentChildDetail child={child} />;
+  return <ParentChildDetail child={safeChild} />;
 }

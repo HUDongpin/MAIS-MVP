@@ -1270,6 +1270,13 @@ export default function NormalDistributionLab() {
           opacity: 0.4;
           cursor: not-allowed;
         }
+        @media (max-width: 560px) {
+          .toolbar .seg {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+            width: 100%;
+          }
+        }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;
           padding: 9px 14px;

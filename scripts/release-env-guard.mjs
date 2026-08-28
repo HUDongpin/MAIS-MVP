@@ -4,15 +4,24 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  APPROVED_VERCEL_PROJECT_ID,
+  APPROVED_VERCEL_TEAM_ID
+} from "./vercel-provider-evidence.mjs";
+
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
 const VERCEL_STAGING_ROOT = path.join(TMP_ROOT, "vercel-staging");
 const DEFAULT_MIN_FREE_GB = 20;
 const DEFAULT_DIRTY_TREE_MAP_MAX_AGE_MINUTES = 60;
-const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
+const DEFAULT_CANONICAL_ROOT = "/Volumes/Starship/MAIS-MVP";
 const DEFAULT_VERCEL_SCOPE = "peter-dongpin-hu-s-projects";
 const DIRTY_ROOT_DEPLOY_OVERRIDE = "MAIS_ALLOW_DIRTY_ROOT_DEPLOY";
+const PRODUCTION_GITHUB_REPOSITORY = "HUDongpin/MAIS-MVP";
+const PRODUCTION_GITHUB_WORKFLOW_REF =
+  `${PRODUCTION_GITHUB_REPOSITORY}/.github/workflows/production-deploy.yml@refs/heads/main`;
+const PRODUCTION_WORKFLOW_CONTEXT = "github-actions-serialized-v1";
 const RELEASE_SOURCE_CLEAN_GATE = "coordination/release-intake/assert-release-source-clean.mjs";
 const WORKTREE_LIFECYCLE_GATE = "coordination/release-intake/assert-worktree-lifecycle.mjs";
 const CLEAN_SOURCE_KINDS = new Set(["clean-worktree", "clean-clone", "reviewed-clean-slice"]);
@@ -20,10 +29,20 @@ const REQUIRED_PRODUCTION_ENV = [
   "AUTH_SESSION_SECRET",
   "POSTGRES_URL",
   "HK_MATH_STORAGE_PROVIDER",
+  "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
   "RESEND_API_KEY",
   "PASSWORD_RESET_FROM",
   "PASSWORD_RESET_BASE_URL",
   "HK_MATH_EXPOSE_LOCAL_RESET_LINKS",
+  "CRON_SECRET",
+  "TEACHER_NOTICE_HEALTH_SECRET",
+  "TEACHER_NOTICE_EMAIL_ENABLED",
+  "TEACHER_NOTICE_RESEND_API_KEY",
+  "TEACHER_NOTICE_FROM",
+  "TEACHER_NOTICE_BASE_URL",
+  "TEACHER_NOTICE_ALLOWED_ORIGIN",
+  "TEACHER_NOTICE_DELIVERY_TIMEOUT_MS",
+  "RESEND_WEBHOOK_SECRET",
   "QWEN_API_KEY",
   "QWEN_API_URL",
   "QWEN_TEXT_MODEL",
@@ -33,6 +52,27 @@ const REQUIRED_PRODUCTION_ENV = [
   "AI_TUTOR_LATENCY_ALERT_P95_MS",
   "AI_TUTOR_LATENCY_ALERT_TIMEOUT_RATE"
 ];
+const RELEASE_GUARD_CHILD_BASE_ENV_KEYS = Object.freeze([
+  "CI",
+  "COLORTERM",
+  "COMSPEC",
+  "FORCE_COLOR",
+  "LANG",
+  "LC_ALL",
+  "LC_CTYPE",
+  "NODE_OPTIONS",
+  "NO_COLOR",
+  "PATH",
+  "PATHEXT",
+  "SHELL",
+  "SYSTEMROOT",
+  "TEMP",
+  "TERM",
+  "TMP",
+  "TMPDIR",
+  "TZ",
+  "WINDIR"
+]);
 
 function parseArgs(argv) {
   const modes = argv.filter((arg) => !arg.startsWith("-"));
@@ -46,6 +86,47 @@ function fail(message) {
   throw new Error(message);
 }
 
+function buildReleaseGuardChildEnvironment(purpose, env = process.env) {
+  if (!["base", "git", "node", "vercel"].includes(purpose)) {
+    fail("Release guard child environment purpose was rejected.");
+  }
+  const child = {};
+  const extraKeys = purpose === "vercel"
+    ? [
+        "HOME",
+        "USERPROFILE",
+        "VERCEL_TELEMETRY_DISABLED",
+        "VERCEL_TOKEN",
+        "XDG_CONFIG_HOME"
+      ]
+    : [];
+  for (const key of [...RELEASE_GUARD_CHILD_BASE_ENV_KEYS, ...extraKeys]) {
+    if (typeof env?.[key] === "string") child[key] = env[key];
+  }
+  if (purpose === "vercel") {
+    // A clean checkout intentionally has no local `.vercel/project.json`.
+    // Pin the reviewed project/team identity in the restricted Vercel child
+    // process so the CLI cannot drift to a caller-controlled linked project.
+    child.VERCEL_ORG_ID = APPROVED_VERCEL_TEAM_ID;
+    child.VERCEL_PROJECT_ID = APPROVED_VERCEL_PROJECT_ID;
+  }
+  if (purpose === "git" || purpose === "node") {
+    Object.assign(child, {
+      GIT_CONFIG_COUNT: "2",
+      GIT_CONFIG_GLOBAL: "/dev/null",
+      GIT_CONFIG_KEY_0: "core.fsmonitor",
+      GIT_CONFIG_KEY_1: "core.hooksPath",
+      GIT_CONFIG_NOSYSTEM: "1",
+      GIT_CONFIG_VALUE_0: "false",
+      GIT_CONFIG_VALUE_1: "/dev/null",
+      GIT_NO_LAZY_FETCH: "1",
+      GIT_OPTIONAL_LOCKS: "0",
+      GIT_TERMINAL_PROMPT: "0"
+    });
+  }
+  return child;
+}
+
 function parsePositiveNumber(value, fallback) {
   if (value === undefined || value === "") return fallback;
   const parsed = Number(value);
@@ -56,7 +137,10 @@ function parsePositiveNumber(value, fallback) {
 }
 
 function availableBytes() {
-  const output = execFileSync("df", ["-k", REPO_ROOT], { encoding: "utf8" });
+  const output = execFileSync("df", ["-k", REPO_ROOT], {
+    encoding: "utf8",
+    env: buildReleaseGuardChildEnvironment("base")
+  });
   const lines = output.trim().split(/\n/);
   const columns = lines.at(-1)?.trim().split(/\s+/) ?? [];
   const availableKiB = Number(columns[3]);
@@ -197,6 +281,10 @@ function shouldRunStagedPublish(mode) {
   return mode === "staged-publish" || mode === "staging-publish";
 }
 
+function shouldRunProductionWorkflowStagedPublish(mode) {
+  return mode === "production-workflow-staged-publish";
+}
+
 function shouldRunPreviewRelease(mode) {
   return mode === "preview" || mode === "preview-release";
 }
@@ -227,6 +315,7 @@ function gitOutput(args, cwd = REPO_ROOT) {
   return execFileSync("git", args, {
     cwd,
     encoding: "utf8",
+    env: buildReleaseGuardChildEnvironment("git"),
     maxBuffer: 64 * 1024 * 1024
   });
 }
@@ -354,6 +443,90 @@ function isCleanGitStatus(status) {
     status.untrackedFiles === 0;
 }
 
+function assertProductionWorkflowExecutionContext() {
+  const candidateSha = String(process.env.GITHUB_SHA ?? "").trim();
+  const runId = String(process.env.GITHUB_RUN_ID ?? "").trim();
+  const runAttempt = String(process.env.GITHUB_RUN_ATTEMPT ?? "").trim();
+  if (
+    process.env.CI !== "true" ||
+    process.env.GITHUB_ACTIONS !== "true" ||
+    process.env.GITHUB_EVENT_NAME !== "workflow_dispatch" ||
+    process.env.GITHUB_REF !== "refs/heads/main" ||
+    process.env.GITHUB_REF_PROTECTED !== "true" ||
+    process.env.GITHUB_REPOSITORY !== PRODUCTION_GITHUB_REPOSITORY ||
+    !/^[a-f0-9]{40}$/u.test(candidateSha) ||
+    process.env.GITHUB_WORKFLOW_REF !== PRODUCTION_GITHUB_WORKFLOW_REF ||
+    process.env.MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT !== PRODUCTION_WORKFLOW_CONTEXT ||
+    !/^[1-9][0-9]{0,19}$/u.test(runId) ||
+    !/^[1-9][0-9]{0,5}$/u.test(runAttempt)
+  ) {
+    fail("Production publish requires the serialized protected-main GitHub workflow.");
+  }
+
+  return {
+    candidateSha,
+    environment: "production",
+    event: "workflow_dispatch",
+    ref: "refs/heads/main",
+    repository: PRODUCTION_GITHUB_REPOSITORY,
+    runAttempt: Number(runAttempt),
+    runId,
+    serialized: true,
+    workflow: ".github/workflows/production-deploy.yml",
+    workflowRef: PRODUCTION_GITHUB_WORKFLOW_REF
+  };
+}
+
+function productionWorkflowSourceRoot() {
+  const repoRoot = releaseRootRealpath(REPO_ROOT, "production workflow repository root");
+  const requestedRoot = process.env.MAIS_RELEASE_SOURCE_ROOT?.trim();
+  if (!requestedRoot) return repoRoot;
+
+  const sourceRoot = releaseRootRealpath(requestedRoot, "MAIS_RELEASE_SOURCE_ROOT");
+  const testOverrideAllowed =
+    process.env.NODE_ENV === "test" &&
+    process.env.MAIS_RELEASE_GUARD_ALLOW_TEST_STUBS === "1";
+  if (sourceRoot !== repoRoot && !testOverrideAllowed) {
+    fail("Production publish requires the serialized protected-main GitHub workflow checkout.");
+  }
+  return sourceRoot;
+}
+
+function assertProductionWorkflowCandidateSource(candidateSha) {
+  const sourceRoot = productionWorkflowSourceRoot();
+  const status = summarizeGitStatus(sourceRoot);
+  if (!isCleanGitStatus(status)) {
+    fail(
+      [
+        "Production publish requires a clean candidate checkout.",
+        `Status entries: ${status.statusEntries}`,
+        `Tracked modified: ${status.trackedModified}`,
+        `Tracked deleted: ${status.trackedDeleted}`,
+        `Untracked status entries: ${status.untrackedStatusEntries}`,
+        `Untracked files: ${status.untrackedFiles}`
+      ].join("\n")
+    );
+  }
+
+  let head;
+  try {
+    head = gitOutput(["rev-parse", "--verify", "HEAD"], sourceRoot).trim();
+  } catch {
+    fail("Production publish requires the serialized protected-main GitHub workflow checkout.");
+  }
+  if (head !== candidateSha) {
+    fail("Production publish requires the serialized protected-main GitHub workflow checkout.");
+  }
+
+  return {
+    sourceRoot,
+    kind: "github-actions-clean-checkout",
+    clean: true,
+    head,
+    ...status
+  };
+}
+
 function normalizeSourceKind(value) {
   const raw = value?.trim();
   if (!raw) return "clean-worktree";
@@ -363,7 +536,7 @@ function normalizeSourceKind(value) {
 
 function formatRootFreezeBlock({ sourceRoot, canonicalRoot, kind, status }) {
   return [
-    "Root release is frozen: A22 must not publish from /Users/dongpinhu/Desktop/MAIS-MVP root.",
+    `Root release is frozen: A22 must not publish from the ${canonicalRoot} root.`,
     `Source root: ${sourceRoot}`,
     `Canonical root: ${canonicalRoot}`,
     `Requested source kind: ${kind}`,
@@ -443,6 +616,7 @@ function listVercelEnvs() {
   const output = execFileSync("vercel", ["env", "ls", "--scope", scope, "--format", "json"], {
     cwd: REPO_ROOT,
     encoding: "utf8",
+    env: buildReleaseGuardChildEnvironment("vercel"),
     maxBuffer: 64 * 1024 * 1024
   });
   const parsed = parseVercelJsonOutput(output);
@@ -499,7 +673,7 @@ function formatVercelEnvBlock(result) {
     `Vercel ${result.target} environment is missing required release variables:`,
     ...result.missing.map((key) => `- ${key}`),
     "This check only inspects variable names and target environments; it does not read secret values.",
-    "S19 must complete redacted Vercel environment parity before publish."
+    "A19 must complete redacted Vercel environment parity before publish."
   ].join("\n");
 }
 
@@ -527,6 +701,7 @@ function assertDirtyTreeMapCurrent() {
     const output = execFileSync(process.execPath, [scriptPath, ...args], {
       cwd: REPO_ROOT,
       encoding: "utf8",
+      env: buildReleaseGuardChildEnvironment("node"),
       maxBuffer: 64 * 1024 * 1024
     });
     const jsonStart = output.indexOf("{");
@@ -566,6 +741,7 @@ function runNodeGate(label, envName, defaultRelativePath, args = []) {
     const output = execFileSync(process.execPath, [scriptPath, ...args], {
       cwd: REPO_ROOT,
       encoding: "utf8",
+      env: buildReleaseGuardChildEnvironment("node"),
       stdio: ["ignore", "pipe", "pipe"],
       maxBuffer: 64 * 1024 * 1024
     });
@@ -589,11 +765,7 @@ function runNodeGate(label, envName, defaultRelativePath, args = []) {
 }
 
 function assertReleaseSourceGates() {
-  const releaseSourceClean = runNodeGate(
-    "A22 release-source clean gate",
-    "MAIS_RELEASE_SOURCE_CLEAN_GATE",
-    RELEASE_SOURCE_CLEAN_GATE
-  );
+  const releaseSourceClean = assertReleaseSourceCleanGate();
   const strictWorktreeLifecycle = runNodeGate(
     "A25 strict worktree lifecycle gate",
     "MAIS_WORKTREE_LIFECYCLE_GATE",
@@ -605,6 +777,14 @@ function assertReleaseSourceGates() {
     releaseSourceClean,
     strictWorktreeLifecycle
   };
+}
+
+function assertReleaseSourceCleanGate() {
+  return runNodeGate(
+    "A22 release-source clean gate",
+    "MAIS_RELEASE_SOURCE_CLEAN_GATE",
+    RELEASE_SOURCE_CLEAN_GATE
+  );
 }
 
 function assertPublishReadiness() {
@@ -651,6 +831,24 @@ function assertStagedPublishReadiness() {
   };
 }
 
+function assertProductionWorkflowStagedPublishReadiness() {
+  const executionContext = assertProductionWorkflowExecutionContext();
+  const source = assertProductionWorkflowCandidateSource(executionContext.candidateSha);
+  const releaseSourceClean = assertReleaseSourceCleanGate();
+  const e2e = assertE2eIsolation();
+  const stagingRoot = assertVercelStagingRoot();
+  const vercelEnv = assertVercelEnvReadiness();
+
+  return {
+    executionContext,
+    source,
+    releaseSourceClean,
+    e2e,
+    stagingRoot,
+    vercelEnv
+  };
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const result = {
@@ -664,7 +862,10 @@ function main() {
     rootDeploy: shouldRunRootDeploy(args.mode) ? assertCleanRootForDirectDeploy() : undefined,
     vercelEnv: shouldRunVercelEnv(args.mode) ? assertVercelEnvReadiness() : undefined,
     publish: shouldRunPublish(args.mode) ? assertPublishReadiness() : undefined,
-    stagedPublish: shouldRunStagedPublish(args.mode) ? assertStagedPublishReadiness() : undefined
+    stagedPublish: shouldRunStagedPublish(args.mode) ? assertStagedPublishReadiness() : undefined,
+    productionWorkflowStagedPublish: shouldRunProductionWorkflowStagedPublish(args.mode)
+      ? assertProductionWorkflowStagedPublishReadiness()
+      : undefined
   };
 
   if (args.json) {
@@ -718,6 +919,19 @@ function main() {
     console.log(`E2E root: ${path.relative(REPO_ROOT, result.stagedPublish.e2e.e2eRoot)}`);
     console.log(`Vercel staging root: ${path.relative(REPO_ROOT, result.stagedPublish.stagingRoot)}`);
     console.log(`Vercel env target: ${result.stagedPublish.vercelEnv.target}`);
+  }
+  if (result.productionWorkflowStagedPublish) {
+    console.log("Serialized production workflow staged publish preflight passed");
+    console.log(`Candidate SHA: ${result.productionWorkflowStagedPublish.source.head}`);
+    console.log(
+      `E2E root: ${path.relative(REPO_ROOT, result.productionWorkflowStagedPublish.e2e.e2eRoot)}`
+    );
+    console.log(
+      `Vercel staging root: ${path.relative(REPO_ROOT, result.productionWorkflowStagedPublish.stagingRoot)}`
+    );
+    console.log(
+      `Vercel env target: ${result.productionWorkflowStagedPublish.vercelEnv.target}`
+    );
   }
 }
 

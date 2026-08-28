@@ -36,7 +36,13 @@ test("ConfiguredVisualizationLab keeps the Three.js canvas in a lazy runtime chu
   assert.match(source, /import type \{ FeaturedLabDefinition, VisualizationTemplateId \} from "@\/data\/visualizationLabs"/);
   assert.match(source, /import\("@\/data\/visualizationLabs"\)/);
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
-  assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ controlFooterAction, lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+  assert.match(source, /threeDPresentation\?: ThreeDPresentation;/);
+  assert.match(
+    source,
+    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "authoring",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
+  );
+  assert.match(source, /<ConfiguredVisualizationLabSurface \{\.\.\.props\} threeDPresentation="learner" \/>/);
+  assert.match(source, /<ThreeDLabCanvas[\s\S]*presentation=\{threeDPresentation\}/);
   assert.doesNotMatch(source, /import \{ ThreeDLabCanvas \} from "@\/components\/visualizations\/three\/ThreeDLabCanvas"/);
   assert.match(source, /import\("@\/components\/visualizations\/three\/ThreeDLabCanvas"\)/);
   assert.match(source, /dynamic<ThreeDLabCanvasProps>\(/);
@@ -78,7 +84,10 @@ test("premium 3D direct topic route stays off the full catalog path", () => {
     'import type { FeaturedLabDefinition } from "@/data/visualizationLabs";'
   ]);
   assert.match(directMetadataSource, /import type \{ FeaturedLabDefinition \} from "@\/data\/visualizationLabs"/);
-  assert.match(directMetadataSource, /us-ca-math-s4-chapter-05/);
+  // The hand-authored CA direct lab was retired on 2026-08-25 (Phase 2a):
+  // no California definition may reappear in the direct metadata.
+  assert.match(directMetadataSource, /const premiumThreeDDirectLabById: Record<string, FeaturedLabDefinition> = \{\};/);
+  assert.doesNotMatch(directMetadataSource, /usCaliforniaS4ConditionalProbabilityLab/);
   assert.match(directMetadataSource, /buildGenericPremiumThreeDDirectLab/);
   assert.match(directMetadataSource, /isPremiumThreeDLaunchLab\(labId\)/);
 });

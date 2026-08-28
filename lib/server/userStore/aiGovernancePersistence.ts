@@ -45,7 +45,7 @@ import type {
 
 type UserRole = "student" | "teacher" | "parent" | "admin";
 
-type AITutorMessageRecord = {
+export type AITutorMessageRecord = {
   id: string;
   user_id: string;
   role: "student" | "tutor";
@@ -54,7 +54,7 @@ type AITutorMessageRecord = {
   created_at: string;
 };
 
-type AITutorUsageRecord = {
+export type AITutorUsageRecord = {
   id: string;
   user_id: string;
   model: string;
@@ -870,6 +870,12 @@ export type AiGovernancePersistenceStoreDependencies = {
     sinceIso: string,
     signal?: AbortSignal
   ) => number | undefined | Promise<number | undefined>;
+  recordAITutorMessageBeforeSnapshot?: (
+    record: AITutorMessageRecord
+  ) => true | undefined | Promise<true | undefined>;
+  recordAITutorUsageBeforeSnapshot?: (
+    record: AITutorUsageRecord
+  ) => true | undefined | Promise<true | undefined>;
   readAiTutorRateLimitEventsAfterSnapshot?: (input: {
     now: Date;
     windowMs: number;
@@ -1790,6 +1796,8 @@ export function createAiGovernancePersistenceStore({
   resolveStudentAiTutorPolicyBeforeSnapshot,
   consumeAiCapabilityRateLimitBeforeSnapshot,
   getAITutorTokenUsageSinceBeforeSnapshot,
+  recordAITutorMessageBeforeSnapshot,
+  recordAITutorUsageBeforeSnapshot,
   readAiTutorRateLimitEventsAfterSnapshot,
   readDatabase
 }: AiGovernancePersistenceStoreDependencies) {
@@ -1821,15 +1829,18 @@ export function createAiGovernancePersistenceStore({
       content: string;
       context?: Record<string, unknown> | null;
     }) {
+      const record: AITutorMessageRecord = {
+        id: createId(),
+        user_id: userId,
+        role,
+        content,
+        context_json: cleanTutorContextValue(context),
+        created_at: currentTime().toISOString()
+      };
+      const journaled = await recordAITutorMessageBeforeSnapshot?.(record);
+      if (journaled === true) return;
       await mutateDatabase((database) => {
-        database.ai_tutor_messages.push({
-          id: createId(),
-          user_id: userId,
-          role,
-          content,
-          context_json: cleanTutorContextValue(context),
-          created_at: currentTime().toISOString()
-        });
+        database.ai_tutor_messages.push(record);
       });
     },
 
@@ -1848,17 +1859,20 @@ export function createAiGovernancePersistenceStore({
       totalTokens?: number | null;
       error?: string | null;
     }) {
+      const record: AITutorUsageRecord = {
+        id: createId(),
+        user_id: userId,
+        model,
+        prompt_tokens: promptTokens ?? null,
+        completion_tokens: completionTokens ?? null,
+        total_tokens: totalTokens ?? null,
+        error: error ?? null,
+        created_at: currentTime().toISOString()
+      };
+      const journaled = await recordAITutorUsageBeforeSnapshot?.(record);
+      if (journaled === true) return;
       await mutateDatabase((database) => {
-        database.ai_tutor_usage.push({
-          id: createId(),
-          user_id: userId,
-          model,
-          prompt_tokens: promptTokens ?? null,
-          completion_tokens: completionTokens ?? null,
-          total_tokens: totalTokens ?? null,
-          error: error ?? null,
-          created_at: currentTime().toISOString()
-        });
+        database.ai_tutor_usage.push(record);
       });
     },
 

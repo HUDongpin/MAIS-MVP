@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { isTransientApiTransportError, openPracticeFiltersPanel, uniqueSuffix } from "./helpers";
+import { choosePracticeModeIfVisible, isTransientApiTransportError, openPracticeFiltersPanel, uniqueSuffix } from "./helpers";
 
 type AuthenticatedResponse = {
   user: {
@@ -25,7 +25,29 @@ function practiceRegion(page: Page) {
   return page.getByRole("region", { name: /Practice questions/i });
 }
 
-async function registerStudentThroughApi(page: Page, testInfo: TestInfo, label: string, grade = "S3") {
+async function chooseGuidedUnitExercise(page: Page) {
+  const guidedButton = page.getByRole("button", { name: /Choose Unit Exercise/i });
+  await expect(guidedButton).toBeVisible();
+  await expect(guidedButton).toBeEnabled();
+  await guidedButton.click();
+  await expect(page.locator('[data-practice-mode="unit"]')).toHaveCount(1);
+}
+
+async function chooseFreeExploration(page: Page) {
+  const exploreButton = page.getByRole("button", { name: /Choose Free Exploration/i });
+  await expect(exploreButton).toBeVisible();
+  await exploreButton.click();
+  await expect(page.locator('[data-practice-mode="explore"]')).toHaveCount(1);
+}
+
+async function registerStudentThroughApi(
+  page: Page,
+  testInfo: TestInfo,
+  label: string,
+  grade = "S3",
+  language: "en" | "zh" | "zh-Hans" = "en",
+  theme: "light" | "dark" = "dark"
+) {
   const suffix = uniqueSuffix(testInfo);
   let lastError: unknown;
 
@@ -38,12 +60,30 @@ async function registerStudentThroughApi(page: Page, testInfo: TestInfo, label: 
           password: "start12345",
           grade,
           curriculumTrack: "HK",
-          language: "en",
-          theme: "dark"
+          language,
+          theme
         }
       });
       expect(response.ok(), `student API registration failed with ${response.status()}: ${await response.text()}`).toBeTruthy();
       return await response.json() as AuthenticatedResponse;
+    } catch (error) {
+      lastError = error;
+      if (attempt === 3 || !isTransientApiTransportError(error)) throw error;
+      await page.waitForTimeout(350 * attempt);
+    }
+  }
+
+  throw lastError;
+}
+
+async function readPageHtmlWithTransientRetry(page: Page, path: string) {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await page.request.get(path);
+      expect(response.ok(), `HTML evidence request failed with ${response.status()}`).toBeTruthy();
+      return await response.text();
     } catch (error) {
       lastError = error;
       if (attempt === 3 || !isTransientApiTransportError(error)) throw error;
@@ -65,6 +105,7 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
 
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await choosePracticeModeIfVisible(page, "explore");
   await openPracticeFiltersPanel(page);
 
   // Students practise at their own grade: Practice Arena locks the grade to the
@@ -85,6 +126,60 @@ async function currentQuestionCount(page: Page) {
   expect(Number.isFinite(count)).toBeTruthy();
   expect(count).toBeGreaterThan(1);
   return count;
+}
+
+async function missionTrailLabels(page: Page) {
+  return await page.getByTestId("mission-trail").getByRole("button").evaluateAll((buttons) =>
+    buttons.map((button) => button.getAttribute("aria-label") ?? "")
+  );
+}
+
+async function practiceRewardLabel(page: Page) {
+  const reward = practiceRegion(page).locator('[aria-label*="stars earned so far"]').first();
+  await expect(reward).toBeVisible();
+  return await reward.getAttribute("aria-label");
+}
+
+async function visiblePracticeCardState(page: Page) {
+  const card = page.locator("article:visible").first();
+  const feedback = (await card.getByText(/Correct|Not yet/i).first().textContent())?.trim() ?? "";
+  const textbox = card.getByRole("textbox").first();
+  const selectedAnswer = await textbox.isVisible().catch(() => false)
+    ? await textbox.inputValue()
+    : await card.locator("button.border-cyan-400").first().getAttribute("aria-label") ?? "";
+
+  return { feedback, selectedAnswer };
+}
+
+async function answerFirstFourQuestions(page: Page, answerPrefix: string) {
+  const total = await currentQuestionCount(page);
+  expect(total).toBe(5);
+  let firstCardState: Awaited<ReturnType<typeof visiblePracticeCardState>> | null = null;
+
+  for (let questionNumber = 1; questionNumber <= 4; questionNumber += 1) {
+    await expectQuestion(page, questionNumber, total);
+    await makeVisibleQuestionAnswerable(page, `${answerPrefix}-${questionNumber}`);
+    await submitVisibleQuestion(page);
+    if (questionNumber === 1) firstCardState = await visiblePracticeCardState(page);
+
+    if (questionNumber < 4) {
+      await page.getByTestId("mission-trail").getByRole("button").nth(questionNumber).click();
+      await expectQuestion(page, questionNumber + 1, total);
+    }
+  }
+
+  expect(firstCardState).not.toBeNull();
+  return firstCardState!;
+}
+
+async function expectCompletedRoundMatchesReward(page: Page, answerKind: "personalized" | "free-selection") {
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toContainText(new RegExp(`5 ${answerKind} answers checked`, "i"));
+  const scoreText = (await dialog.getByText(/\d+\/5 correct/i).textContent())?.trim() ?? "";
+  const correctCount = Number.parseInt(scoreText.split("/")[0] ?? "", 10);
+  expect(Number.isFinite(correctCount)).toBeTruthy();
+  expect(await practiceRewardLabel(page)).toBe(`${correctCount} of 5 stars earned so far`);
 }
 
 async function makeVisibleQuestionAnswerable(page: Page, typedAnswer = "not the answer") {
@@ -233,6 +328,88 @@ async function expectKeyboardButtonsDoNotOverlap(keyboard: Locator) {
   }
 }
 
+async function expectCompactMathKeyboardGeometry(keyboard: Locator, maxHeight: number) {
+  await expect(keyboard).toHaveAttribute("data-math-keyboard-layout", "compact");
+  await expect(keyboard.getByText(
+    /Swipe or scroll each row for more keys|滑動或捲動每一列以查看更多按鍵|滑动或滚动每一行以查看更多按键/
+  )).toBeVisible();
+
+  const geometry = await keyboard.evaluate((element) => {
+    const keyboardRect = element.getBoundingClientRect();
+    const buttons = Array.from(element.querySelectorAll<HTMLElement>("button:enabled, button:disabled"));
+    const rows = Array.from(element.querySelectorAll<HTMLElement>("[data-math-keyboard-row]"));
+    return {
+      buttons: buttons.map((button) => {
+        const rect = button.getBoundingClientRect();
+        const content = button.querySelector<HTMLElement>(":scope > span");
+        const contentRect = content?.getBoundingClientRect();
+        const mainLabel = content?.firstElementChild as HTMLElement | null;
+        const subLabel = content?.children[1] as HTMLElement | undefined;
+        return {
+          bottom: rect.bottom,
+          contentBottom: contentRect?.bottom ?? Number.NaN,
+          contentLeft: contentRect?.left ?? Number.NaN,
+          contentRight: contentRect?.right ?? Number.NaN,
+          contentTop: contentRect?.top ?? Number.NaN,
+          height: rect.height,
+          label: button.getAttribute("aria-label") ?? "",
+          left: rect.left,
+          mainLabelFontSize: mainLabel ? Number.parseFloat(getComputedStyle(mainLabel).fontSize) : null,
+          right: rect.right,
+          size: button.getAttribute("data-math-key-size"),
+          subLabelFontSize: subLabel ? Number.parseFloat(getComputedStyle(subLabel).fontSize) : null,
+          top: rect.top,
+          width: rect.width
+        };
+      }),
+      clientWidth: element.clientWidth,
+      height: keyboardRect.height,
+      rows: rows.map((row) => {
+        const keyTops = Array.from(row.querySelectorAll<HTMLElement>('button[data-math-key="true"]'))
+          .map((key) => key.getBoundingClientRect().top);
+        return {
+          keyTopDelta: keyTops.length ? Math.max(...keyTops) - Math.min(...keyTops) : Number.POSITIVE_INFINITY,
+          overscrollBehaviorX: getComputedStyle(row).overscrollBehaviorX,
+          overflowX: getComputedStyle(row).overflowX,
+          scrollbarWidth: getComputedStyle(row).scrollbarWidth
+        };
+      }),
+      scrollWidth: element.scrollWidth,
+      width: keyboardRect.width
+    };
+  });
+
+  expect(geometry.width).toBeLessThanOrEqual(609);
+  expect(geometry.height).toBeLessThanOrEqual(maxHeight);
+  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth + 1);
+  for (const row of geometry.rows) {
+    expect(row.keyTopDelta).toBeLessThanOrEqual(1);
+    expect(["auto", "scroll"]).toContain(row.overflowX);
+    expect(row.overscrollBehaviorX).toBe("contain");
+    expect(row.scrollbarWidth).toBe("thin");
+  }
+  for (const button of geometry.buttons) {
+    expect(button.width, `${button.label} must retain a 44px touch width`).toBeGreaterThanOrEqual(44);
+    expect(button.height, `${button.label} must retain a 44px touch height`).toBeGreaterThanOrEqual(44);
+    expect(button.height, `${button.label} must remain compact`).toBeLessThanOrEqual(48);
+    if (button.size === "editing") {
+      expect(button.width, `${button.label} editing control must remain compact`).toBeLessThanOrEqual(48);
+    }
+    if (button.size) {
+      const widthLimit = button.size === "extra-wide" ? 192 : button.size === "wide" ? 128 : 96;
+      expect(button.width, `${button.label} must respect its ${button.size} width budget`).toBeLessThanOrEqual(widthLimit);
+      expect(button.contentLeft, `${button.label} content must stay painted inside its key`).toBeGreaterThanOrEqual(button.left - 1);
+      expect(button.contentRight, `${button.label} content must stay painted inside its key`).toBeLessThanOrEqual(button.right + 1);
+      expect(button.contentTop, `${button.label} content must stay painted inside its key`).toBeGreaterThanOrEqual(button.top - 1);
+      expect(button.contentBottom, `${button.label} content must stay painted inside its key`).toBeLessThanOrEqual(button.bottom + 1);
+      expect(button.mainLabelFontSize, `${button.label} main label must remain readable`).toBeGreaterThanOrEqual(14);
+      if (button.subLabelFontSize !== null) {
+        expect(button.subLabelFontSize, `${button.label} sub-label must remain readable`).toBeGreaterThanOrEqual(10);
+      }
+    }
+  }
+}
+
 async function openMathKeyboardForFillIn(page: Page, testInfo: TestInfo) {
   const session = await registerStudentThroughApi(page, testInfo, "keyboard", "S1");
   await page.goto("/practice");
@@ -270,13 +447,15 @@ async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps 
   // instant isVisible() checks below can page past the target question
   // before its card has rendered. Scoped to main because lesson pages keep a
   // hidden SSR copy of the pager outside it.
-  await expect(page.getByRole("main").getByText(/Question \d+ of \d+/i).first()).toBeVisible();
+  await expect(
+    page.getByRole("main").getByText(/Question \d+ of \d+|第\s*\d+\s*[題题]，共\s*\d+\s*[題题]/i).first()
+  ).toBeVisible();
 
   for (let step = 0; step < maxSteps; step += 1) {
     const card = page.locator("article:visible").filter({ hasText: text }).first();
     if (await card.waitFor({ state: "visible", timeout: 1500 }).then(() => true, () => false)) return card;
 
-    const nextButton = page.getByRole("button", { name: /Next question/i });
+    const nextButton = page.getByRole("button", { name: /Next question|下一[題题]/i });
     if (!await nextButton.isEnabled().catch(() => false)) break;
     await nextButton.click();
   }
@@ -285,6 +464,105 @@ async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps 
 }
 
 test.describe("Practice Arena question pager", () => {
+  test("a new locked student can use Explore's main, Question Cavern, and Challenge Shore entries", async ({ page }, testInfo) => {
+    test.slow();
+
+    const session = await registerStudentThroughApi(page, testInfo, "locked-explore");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    expect(await page.evaluate((userId) => {
+      const prefix = `hk-math-practice-free-selection-unlocked:${userId}:`;
+      return Object.keys(window.localStorage).some((key) => key.startsWith(prefix));
+    }, session.user.id)).toBe(false);
+
+    await chooseFreeExploration(page);
+    await openPracticeFiltersPanel(page);
+    const topicFilter = page.getByRole("combobox", { name: /Topic/i });
+    await expect(topicFilter).toHaveValue("all");
+    await page.getByRole("button", { name: /^Start Mission$/i }).click();
+    await expect(page.locator("#free-selection")).toBeVisible();
+    await expect(topicFilter).not.toHaveValue("all");
+    await expectQuestion(page, 1, 5);
+
+    await topicFilter.selectOption("all");
+    await page.locator('[data-island-region-chip="question-cavern"]').click();
+    await expect(topicFilter).not.toHaveValue("all");
+    await expect(page.locator("#free-selection")).toBeVisible();
+    await expectQuestion(page, 1, 5);
+
+    await page.locator('[data-island-region-chip="challenge-shore"]').click();
+    await expect(topicFilter).toHaveValue("all");
+    await expect(page.locator("#free-selection")).toBeVisible();
+    await expectQuestion(page, 1, 5);
+  });
+
+  test("Guided mode round trips preserve card, trail, reward, and summary state", async ({ page }, testInfo) => {
+    test.slow();
+
+    await registerStudentThroughApi(page, testInfo, "guided-round-trip");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await chooseGuidedUnitExercise(page);
+
+    const firstCardState = await answerFirstFourQuestions(page, "guided-round-trip");
+    const trailBefore = await missionTrailLabels(page);
+    const rewardBefore = await practiceRewardLabel(page);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.locator("[data-choose-practice-mode]").click();
+    await expect(page.locator('[data-practice-mode="chooser"]')).toBeVisible();
+    await chooseGuidedUnitExercise(page);
+
+    await expectQuestion(page, 5, 5);
+    expect(await missionTrailLabels(page)).toEqual(trailBefore);
+    expect(await practiceRewardLabel(page)).toBe(rewardBefore);
+    await page.getByTestId("mission-trail").getByRole("button").first().click();
+    await expectQuestion(page, 1, 5);
+    expect(await visiblePracticeCardState(page)).toEqual(firstCardState);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.getByTestId("mission-trail").getByRole("button").nth(4).click();
+    await expectQuestion(page, 5, 5);
+    await makeVisibleQuestionAnswerable(page, "guided-round-trip-5");
+    await submitVisibleQuestion(page);
+    await expectCompletedRoundMatchesReward(page, "personalized");
+  });
+
+  test("Explore mode round trips preserve card, trail, reward, and summary state", async ({ page }, testInfo) => {
+    test.slow();
+
+    const session = await registerStudentThroughApi(page, testInfo, "explore-round-trip");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await unlockFreeSelection(page, session.user.id);
+
+    const firstCardState = await answerFirstFourQuestions(page, "explore-round-trip");
+    const trailBefore = await missionTrailLabels(page);
+    const rewardBefore = await practiceRewardLabel(page);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.locator("[data-adjust-practice]").click();
+    await expect(page.locator('[data-practice-mode="chooser"]')).toBeVisible();
+    await chooseFreeExploration(page);
+
+    await expectQuestion(page, 5, 5);
+    expect(await missionTrailLabels(page)).toEqual(trailBefore);
+    expect(await practiceRewardLabel(page)).toBe(rewardBefore);
+    await page.getByTestId("mission-trail").getByRole("button").first().click();
+    await expectQuestion(page, 1, 5);
+    expect(await visiblePracticeCardState(page)).toEqual(firstCardState);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.getByTestId("mission-trail").getByRole("button").nth(4).click();
+    await expectQuestion(page, 5, 5);
+    await makeVisibleQuestionAnswerable(page, "explore-round-trip-5");
+    await submitVisibleQuestion(page);
+    await expectCompletedRoundMatchesReward(page, "free-selection");
+  });
+
   test("adaptive locked mode supports navigation, jump bounds, state persistence, and auto-advance guards", async ({ page }, testInfo) => {
     test.slow();
 
@@ -292,6 +570,7 @@ test.describe("Practice Arena question pager", () => {
     await page.goto("/practice");
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
     await page.waitForLoadState("networkidle");
+    await choosePracticeModeIfVisible(page, "guided");
     await expect(page.getByRole("combobox", { name: /difficulty/i })).toHaveCount(0);
     await expectQuestion(page, 1);
 
@@ -380,13 +659,18 @@ test.describe("Practice Arena question pager", () => {
     await page.waitForTimeout(1500);
     await expectQuestion(page, 2, total);
 
+    // Narrowing to the answered question's own topic keeps that question in the
+    // new round. A filter change must still start a fresh round at question 1.
+    await page.getByRole("combobox", { name: /Topic/i }).selectOption("quadratic-patterns");
+    await expectQuestion(page, 1);
+
     await page.getByRole("combobox", { name: /Question type/i }).selectOption("short-answer");
     await expectQuestion(page, 1);
     await expect(page.locator("article:visible")).toHaveCount(1);
 
     await page.goto("/student/lessons/quadratic-functions");
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Practice check/i })).toBeVisible();
     await expect(page.getByRole("spinbutton", { name: /Jump to/i })).toBeVisible();
     // Scoped to main: the pager status paragraph has a hidden SSR duplicate
     // outside it, which intermittently trips strict mode.
@@ -399,7 +683,7 @@ test.describe("Practice Arena question pager", () => {
     // the document briefly holds two full copies of the lesson, which is what
     // made the strict-mode assertions above flake.
     expect(await page.locator("#lesson-practice").count()).toBe(1);
-    const lessonHtml = await (await page.request.get("/student/lessons/quadratic-functions")).text();
+    const lessonHtml = await readPageHtmlWithTransientRetry(page, "/student/lessons/quadratic-functions");
     expect(lessonHtml).not.toContain('<template id="B:');
     expect(lessonHtml).not.toContain('<div hidden id="S:');
   });
@@ -409,10 +693,13 @@ test.describe("Practice Arena question pager", () => {
 
     const { keyboard, answer } = await openMathKeyboardForFillIn(page, testInfo);
     const tabNames = ["123", "∞≠∈", "abc", "αβγ"];
+    const initialCompactHeightLimit = Boolean(testInfo.project.use.isMobile) ? 410 : 390;
 
     for (const tabName of tabNames) {
       await selectKeyboardTab(keyboard, tabName);
       await expect(keyboard.getByRole("tabpanel").locator("button[data-math-key='true']")).not.toHaveCount(0);
+      await expectCompactMathKeyboardGeometry(keyboard, initialCompactHeightLimit);
+      await expectKeyboardButtonsDoNotOverlap(keyboard);
     }
 
     for (const tabName of tabNames) {
@@ -491,6 +778,47 @@ test.describe("Practice Arena question pager", () => {
     }
 
     await setAnswerValue(answer, "");
+    await pressSoftKey(keyboard, "123", "Insert 3");
+    await pressSoftKey(keyboard, "123", "Insert plus sign");
+    await pressSoftKey(keyboard, "123", "Insert 2");
+    await pressSoftKey(keyboard, "123", "Insert plus sign");
+    await pressSoftKey(keyboard, "123", "Insert 4");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+    await keyboard.getByRole("button", { name: /Undo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4");
+    await keyboard.getByRole("button", { name: /Redo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4=9");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    const undoButton = keyboard.getByRole("button", { name: /Undo soft keyboard input/i });
+    const redoButton = keyboard.getByRole("button", { name: /Redo soft keyboard input/i });
+    await undoButton.click();
+    await expect(answer).toHaveValue("3+2+4");
+    await answer.fill("7+1");
+    await expect(redoButton).toBeDisabled();
+    await redoButton.evaluate((button: HTMLButtonElement) => button.click());
+    await expect(answer).toHaveValue("7+1");
+
+    await setAnswerValue(answer, "3+2+4=");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "f(x)=");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("f(x)=");
+
+    await setAnswerValue(answer, "123", 1);
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("1=23");
+
+    await setAnswerValue(answer, "123");
+    await selectAnswerText(answer);
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("=");
+
+    await setAnswerValue(answer, "");
     await pressSoftKey(keyboard, "∞≠∈", "Insert Euler's number");
     await pressSoftKey(keyboard, "123", "Insert exponent marker");
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
@@ -500,7 +828,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
     await pressSoftKey(keyboard, "123", "Insert plus sign");
     await pressSoftKey(keyboard, "123", "Insert 1");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "123", "Insert 0");
     await expect(answer).toHaveValue("e^(i*pi)+1=0");
 
@@ -509,7 +837,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "abc", "Insert a");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "123", "Insert exponent 2");
@@ -526,7 +854,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "123", "Insert 2");
     await pressSoftKey(keyboard, "abc", "Insert a");
     await pressSoftKey(keyboard, "abc", "Insert x");
@@ -548,7 +876,11 @@ test.describe("Practice Arena question pager", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await expect(keyboard).toBeVisible();
     await expectNoHorizontalDocumentOverflow(page);
-    await expectKeyboardButtonsDoNotOverlap(keyboard);
+    for (const tabName of tabNames) {
+      await selectKeyboardTab(keyboard, tabName);
+      await expectCompactMathKeyboardGeometry(keyboard, 410);
+      await expectKeyboardButtonsDoNotOverlap(keyboard);
+    }
   });
 
   test("fill-in questions support handwriting board draft, answer text, and reset", async ({ page }, testInfo) => {
@@ -805,6 +1137,21 @@ test.describe("Practice Arena question pager", () => {
   test("short-answer handwriting board coexists with photo upload controls", async ({ page }, testInfo) => {
     test.slow();
 
+    // The isolated E2E server intentionally has no media encryption key. This
+    // scenario verifies the two controls' layout, so make only the capability
+    // probe deterministic without exercising or weakening the upload route.
+    await page.route("**/api/media-objects", async (route) => {
+      if (route.request().method() !== "GET") {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ uploadsAvailable: true })
+      });
+    });
+
     const session = await registerStudentThroughApi(page, testInfo, "handwriting-short", "S1");
     await page.goto("/practice");
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
@@ -824,6 +1171,60 @@ test.describe("Practice Arena question pager", () => {
     await expect(handwrittenAnswer).toBeVisible();
     await expect(uploadButton).toBeVisible();
     await expectNoOverlap(canvas, uploadButton);
+  });
+
+  test("lesson fill-in math keyboard calculates in Simplified Chinese and preserves symbolic equals", async ({ page }, testInfo) => {
+    test.slow();
+
+    await registerStudentThroughApi(page, testInfo, "lesson-calculator", "S1", "zh-Hans", "light");
+
+    await page.goto("/student/lessons/algebra-basics");
+    await expect(page.getByRole("heading", { level: 1, name: /代数基础：代数式与简单方程/ })).toBeVisible();
+
+    const card = await findVisibleLessonPracticeCard(page, /填空答案/);
+    await card.getByRole("button", { name: /数学键盘/ }).click();
+
+    const keyboard = card.getByRole("group", { name: "数学软键盘", exact: true });
+    const answer = card.getByRole("textbox").first();
+    const calculate = keyboard.getByRole("button", { name: "计算或输入等号", exact: true });
+    const pressInsert = async (insert: string) => {
+      await keyboard.getByRole("tabpanel").locator(`button[data-math-key-insert="${insert}"]`).click();
+    };
+
+    await expect(keyboard).toBeVisible({ timeout: 60_000 });
+    await expect(calculate).toBeVisible();
+    for (const token of ["3", "+", "2", "+", "4"]) await pressInsert(token);
+    await calculate.click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await keyboard.getByRole("button", { name: "复原软键盘输入", exact: true }).click();
+    await expect(answer).toHaveValue("3+2+4");
+    await keyboard.getByRole("button", { name: "重做软键盘输入", exact: true }).click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "f(x)");
+    await calculate.click();
+    await expect(answer).toHaveValue("f(x)=");
+
+    await setAnswerValue(answer, "3+2+4=");
+    await calculate.click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await expectNoHorizontalDocumentOverflow(page);
+    await expectKeyboardButtonsDoNotOverlap(keyboard);
+
+    const [attemptRequest, attemptResponse] = await Promise.all([
+      page.waitForRequest((request) => (
+        request.method() === "POST" && new URL(request.url()).pathname === "/api/attempts"
+      )),
+      page.waitForResponse((response) => (
+        response.request().method() === "POST" && new URL(response.url()).pathname === "/api/attempts"
+      )),
+      card.getByRole("button", { name: /检查答案/ }).click()
+    ]);
+    const submittedPayload = attemptRequest.postDataJSON() as { selectedAnswer?: unknown };
+    expect(submittedPayload.selectedAnswer).toBe("3+2+4=9");
+    expect(attemptResponse.ok()).toBeTruthy();
   });
 
   test("lesson fill-in questions expose and convert with the handwriting input mode", async ({ page }, testInfo) => {

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { StudentAccommodationsEditor } from "@/components/teacher/StudentAccommodationsEditor";
+import { GuardianAccessControls } from "@/components/teacher/GuardianAccessControls";
 import {
   assessmentTypeLabels,
   assignmentContentTypeLabels,
@@ -1824,19 +1825,11 @@ export function TeacherStudentProfileView({
             messageCount7d={profile.aiTutor.messageCount7d}
             lastMessageAt={profile.aiTutor.lastMessageAt}
           />
-          <div className="glass-panel p-5">
-            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Parent access", zh: "家長端存取", zhHans: "家长端存取" })}</h2>
-            <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Invite code", zh: "邀請碼", zhHans: "邀请码" })}</p>
-            <p className="mt-2 rounded-2xl border border-cyan-300/45 bg-cyan-400/10 px-4 py-3 text-lg font-black tracking-[0.12em] text-cyan-800 dark:text-cyan-100">{profile.parentInviteCode}</p>
-            <div className="mt-4 grid gap-2">
-              {profile.guardianLinks.map((link) => (
-                <div key={link.id} className="soft-panel p-3 text-sm font-bold">
-                  {link.parentName} · {link.relationship}
-                </div>
-              ))}
-              {!profile.guardianLinks.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No parent accounts linked yet.", zh: "尚未綁定家長帳戶。", zhHans: "尚未绑定家长账号。" })}</p> : null}
-            </div>
-          </div>
+          <GuardianAccessControls
+            classId={activeTargetClassId}
+            studentId={profile.student.id}
+            guardianLinks={profile.guardianLinks}
+          />
         </aside>
       </section>
     </div>

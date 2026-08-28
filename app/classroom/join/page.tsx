@@ -28,7 +28,7 @@ export default function JoinClassPage() {
     setMessage(
       payload?.status === "duplicate"
         ? t({ en: "You are already in this class.", zh: "你已加入此班級。", zhHans: "你已加入此班级。" })
-        : t({ en: `Joined ${payload?.class?.name ?? "class"}.`, zh: `已加入 ${payload?.class?.name ?? "班級"}。`, zhHans: `已加入 ${payload?.class?.name ?? "班級"}。` })
+        : t({ en: `Joined ${payload?.class?.name ?? "class"}.`, zh: `已加入 ${payload?.class?.name ?? "班級"}。`, zhHans: `已加入 ${payload?.class?.name ?? "班级"}。` })
     );
   }
 

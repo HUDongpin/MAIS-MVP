@@ -56,7 +56,6 @@ import {
   usCaliforniaQuestionGenerationMetadata
 } from "../data/usCaliforniaQuestions";
 import {
-  expectedUnitedStatesFloridaMiddleSchoolQuestionCount,
   independentUnitedStatesFloridaMiddleSchoolAnswer,
   usFloridaMiddleSchoolQuestionGenerationMetadata
 } from "../data/usFloridaMiddleSchoolQuestions";
@@ -86,7 +85,6 @@ export {
   expectedUnitedStatesCaliforniaK5QuestionCount,
   expectedUnitedStatesCaliforniaQuestionCount
 } from "../data/usCaliforniaQuestions";
-export { expectedUnitedStatesFloridaMiddleSchoolQuestionCount } from "../data/usFloridaMiddleSchoolQuestions";
 
 export type QuestionAuditStatus =
   | "pass"
@@ -244,12 +242,15 @@ export const expectedMainlandPepPrimaryQuestionCount = 1200;
 export const expectedMainlandPepJuniorQuestionCount = 1200;
 export const expectedMainlandPepHighQuestionCount = 4800;
 export const expectedMainlandHjbJuniorQuestionCount = 1500;
-export const expectedMainlandHjbPrimaryQuestionCount = 1500;
-export const expectedMainlandHjbHighQuestionCount = 1500;
-export const expectedMainlandBnuPrimaryQuestionCount = 3000;
+// Candidate source inventories stay available for independent QA, but only
+// packages with a current promotion record may contribute to the live audit.
+export const expectedMainlandHjbPrimaryQuestionCount = 0;
+export const expectedMainlandHjbHighQuestionCount = 0;
+export const expectedMainlandBnuPrimaryQuestionCount = 0;
 export const expectedMainlandBnuJuniorQuestionCount = 1500;
 export const expectedMainlandBnuHighQuestionCount = 1500;
 export const expectedUnitedStatesNorthCarolinaQuestionCount = 0;
+export const expectedUnitedStatesFloridaMiddleSchoolQuestionCount = 0;
 export const expectedMainlandPepFullQuestionBankCount =
   expectedMainlandPepPrimaryQuestionCount +
   expectedMainlandPepJuniorQuestionCount +
@@ -1808,12 +1809,12 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     ["Mainland PEP primary questions", report.summary.mainlandPepPrimaryQuestions],
     ["Mainland PEP junior questions", report.summary.mainlandPepJuniorQuestions],
     ["Mainland PEP high questions", report.summary.mainlandPepHighQuestions],
-    ["Mainland BNU primary approved questions", report.summary.mainlandBnuPrimaryQuestions],
+    ["Mainland BNU primary live questions", report.summary.mainlandBnuPrimaryQuestions],
     ["Mainland BNU junior approved questions", report.summary.mainlandBnuJuniorQuestions],
     ["Mainland BNU high approved questions", report.summary.mainlandBnuHighQuestions],
     ["Mainland HJB junior V2 questions", report.summary.mainlandHjbJuniorQuestions],
-    ["Mainland HJB primary V1 questions", report.summary.mainlandHjbPrimaryQuestions],
-    ["Mainland HJB high V2 default questions", report.summary.mainlandHjbHighQuestions],
+    ["Mainland HJB primary live questions", report.summary.mainlandHjbPrimaryQuestions],
+    ["Mainland HJB high live questions", report.summary.mainlandHjbHighQuestions],
     ["US California live questions", report.summary.unitedStatesCaliforniaQuestions],
     ["US North Carolina live questions", report.summary.unitedStatesNorthCarolinaQuestions],
     ["US Arkansas K-G12 live questions", report.summary.unitedStatesArkansasQuestions],
@@ -1837,7 +1838,7 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     "",
     `- Date: ${report.reportDate}`,
     "- Session ID: S18",
-    `- Scope: 285 HK questions plus 1200 Mainland PEP primary questions plus 1200 Mainland PEP junior questions plus 4800 Mainland PEP high-school questions plus 1500 Mainland BNU primary V1 questions plus 1500 Mainland HJB primary V1 questions plus 1500 Mainland HJB high-school V2 default questions plus ${expectedUnitedStatesArkansasK5QuestionCount} US Arkansas K-G5 questions plus ${expectedUnitedStatesArkansasG6G12QuestionCount} US Arkansas G6-G12 questions plus 75 US Florida G6-G8 live questions`,
+    `- Scope: current live aggregate only (${expectedFullQuestionBankCount} questions); candidate source inventories remain outside this report until an exact promotion record exists`,
     "- Output type: Deterministic content QA report; no live LLM or external math service",
     "",
     "## Executive Summary",

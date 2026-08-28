@@ -3,17 +3,13 @@ import { withResolvedMainlandPepQuestionAssets } from "@/lib/mainlandPepQuestion
 import { hongKongEasePracticeQuestions } from "./hongKongEasePracticeQuestions";
 import { mainlandBnuHighQuestions } from "./mainlandBnuHighQuestions";
 import { mainlandBnuJuniorQuestions } from "./mainlandBnuJuniorQuestions";
-import { mainlandBnuPrimaryQuestions } from "./mainlandBnuPrimaryQuestions";
-import { mainlandHjbHighQuestions } from "./mainlandHjbHighQuestions";
 import { mainlandHjbJuniorQuestions } from "./mainlandHjbJuniorQuestions";
-import { mainlandHjbPrimaryQuestions } from "./mainlandHjbPrimaryQuestions";
 import { mainlandPepHighQuestions } from "./mainlandPepHighQuestions";
 import { mainlandPepJuniorQuestions } from "./mainlandPepJuniorQuestions";
 import { mainlandPepPrimaryRagV1Questions } from "./mainlandPepPrimaryQuestions";
 import { topics } from "./topics";
 import { usArkansasQuestions } from "./usArkansasQuestions";
 import { usCaliforniaQuestions } from "./usCaliforniaQuestions";
-import { usFloridaMiddleSchoolQuestions } from "./usFloridaMiddleSchoolQuestions";
 import { usMathLiveQuestions } from "./usMathQuestions";
 
 const math = (expression: string) => `\\(${expression}\\)`;
@@ -2289,19 +2285,22 @@ const curatedQuestions: Question[] = [
   ...coreQuestions.map(withHongKongTrack),
   ...primaryQuestions.map(withHongKongTrack),
   ...graphQuestions.map(withHongKongTrack),
-  ...topics.filter((topic) => topic.curriculumTrack === "HK").flatMap(supplementalQuestionsForTopic).map(withHongKongTrack),
+  // EASE practice units are excluded: they already carry their own imported
+  // questions, so generating supplemental drills for them would add templated
+  // filler on top of real content — and defaultDrillForTopic has no drill for
+  // them, so it would throw.
+  ...topics
+    .filter((topic) => topic.curriculumTrack === "HK" && !topic.id.startsWith("hk-ease-"))
+    .flatMap(supplementalQuestionsForTopic)
+    .map(withHongKongTrack),
   ...hongKongEasePracticeQuestions,
   ...mainlandPepPrimaryRagV1Questions,
   ...mainlandPepJuniorQuestions,
   ...mainlandPepHighQuestions,
   ...mainlandBnuJuniorQuestions,
-  ...mainlandBnuPrimaryQuestions,
   ...mainlandBnuHighQuestions,
   ...mainlandHjbJuniorQuestions,
-  ...mainlandHjbPrimaryQuestions,
-  ...mainlandHjbHighQuestions,
   ...usArkansasQuestions,
-  ...usFloridaMiddleSchoolQuestions,
   ...usMathLiveQuestions.filter((question) => question.curriculumTrack !== "US_CA_MATH"),
   ...usCaliforniaQuestions
 ];

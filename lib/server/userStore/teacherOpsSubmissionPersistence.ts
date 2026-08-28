@@ -227,7 +227,7 @@ export function teacherOpsDeterministicAssignmentGradingRun({
   now: string;
   createId: () => string;
   questionAnswerMatches: (
-    question: { answer: string; accepted_answers?: string[] | null; options?: LocalizedText[] | null },
+    question: { id?: string; answer: string; accepted_answers?: string[] | null; options?: LocalizedText[] | null },
     selectedAnswer: string
   ) => boolean;
 }) {
@@ -236,6 +236,7 @@ export function teacherOpsDeterministicAssignmentGradingRun({
   if (question && answerText) {
     const correct = questionAnswerMatches(
       {
+        id: question.id,
         answer: question.answer,
         accepted_answers: question.accepted_answers ?? null,
         options: question.options ?? null

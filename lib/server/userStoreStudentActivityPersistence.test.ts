@@ -1429,7 +1429,8 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",
@@ -2764,7 +2765,7 @@ test("student activity persistence builds assessment detail data through project
   assert.deepEqual(detail?.assignment?.assignment.title, {
     en: "Unit Check",
     zh: "單元測驗",
-    zhHans: "單元測驗"
+    zhHans: "单元测验"
   });
   assert.equal(detail?.assignment?.assignment.submissionCount, 1);
   assert.equal(detail?.assignment?.assignment.completedCount, 1);

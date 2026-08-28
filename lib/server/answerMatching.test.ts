@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { questionAnswerMatches } from "./answerMatching";
+import { parseScalarAnswer, questionAnswerMatches } from "./answerMatching";
 
 const shortAnswerQuestion = (answer: string) => ({
   answer,
@@ -100,4 +100,94 @@ test("multiple-choice grading accepts rendered TeX unit option values", () => {
     }, "\\(20\\,\\text{cm}^{2}\\)"),
     true
   );
+});
+
+test("scalar grading accepts an explicit leading plus and a bare trailing decimal point", () => {
+  for (const [stored, typed] of [
+    ["9", "+9"],
+    ["9", "9."],
+    ["40", "+40"],
+    ["40", "40."],
+    ["1/2", "+1/2"],
+    ["-3", "-3."]
+  ] as const) {
+    assert.equal(
+      questionAnswerMatches({ answer: stored, accepted_answers: null, options: null }, typed),
+      true,
+      `stored ${stored} must accept typed ${typed}`
+    );
+  }
+
+  // The leniency is scalar-only: algebraic strings keep their signs and dots.
+  assert.equal(parseScalarAnswer("+9"), 9);
+  assert.equal(parseScalarAnswer("9."), 9);
+  assert.equal(parseScalarAnswer("9.5."), null);
+  assert.equal(questionAnswerMatches({ answer: "x+2", accepted_answers: null, options: null }, "+x+2"), false);
+});
+
+test("short answers tolerate terminal punctuation and digit-grouping commas", () => {
+  for (const [stored, typed] of [
+    ["f", "f."],
+    ["marker", "marker."],
+    ["circles", "circles."],
+    ["1.5", "1.5."],
+    ["4/6", "4/6."],
+    ["5523", "5,523"],
+    ["1234567", "1,234,567"]
+  ] as const) {
+    assert.equal(
+      questionAnswerMatches({ answer: stored, accepted_answers: null, options: null }, typed),
+      true,
+      `stored ${stored} must accept typed ${typed}`
+    );
+  }
+
+  // Bare leading decimals read as their zero-prefixed values.
+  assert.equal(parseScalarAnswer(".7"), 0.7);
+  assert.equal(parseScalarAnswer("-.5"), -0.5);
+  assert.equal(questionAnswerMatches({ answer: "0.25", accepted_answers: null, options: null }, ".25"), true);
+
+  // Grouping requires full three-digit groups: a coordinate pair stays distinct.
+  assert.equal(parseScalarAnswer("3,4"), null);
+  assert.equal(questionAnswerMatches({ answer: "34", accepted_answers: null, options: null }, "3,4"), false);
+});
+
+test("LaTeX fraction answer keys accept the plain text a learner types", () => {
+  // Hong Kong packs store keys as display LaTeX; "2/3" is the same answer.
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("\\frac{2}{3}"), "2/3"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("\\(\\frac{7}{10}\\)"), "7/10"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("\\dfrac{1}{4}"), "1/4"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("\\mathbf{\\frac{1}{2}}"), "1/2"), true);
+  // A mixed number keeps its whole part rather than collapsing to 145.
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("1\\frac{4}{5}"), "1 4/5"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("1\\frac{4}{5}"), "9/5"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("1\\frac{4}{5}"), "1.8"), true);
+  // Still wrong when it is wrong.
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("\\frac{2}{3}"), "3/2"), false);
+});
+
+test("Chinese unit answer keys accept the bare number but not a different unit", () => {
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("25厘米"), "25"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("25厘米"), "25厘米"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("40米"), "40"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("30平方厘米"), "30"), true);
+  // The unit the key uses is the only one that may be shed: crediting "25公斤"
+  // for a key of "25厘米" would mark a wrong unit correct.
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("25厘米"), "25公斤"), false);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("25厘米"), "26"), false);
+});
+
+test("metric English unit suffixes are shed like the other known units", () => {
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("2 m"), "2"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("1 4/5 kg"), "1 4/5"), true);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("1 4/5 kg"), "1.8"), true);
+});
+
+test("a distractor written as the key plus a parenthetical label stays wrong", () => {
+  // Multiple-choice banks build near-miss distractors by appending a label to
+  // the correct value. Treating that tail as a bilingual gloss would make the
+  // distractor grade correct and would trip the ambiguous-mc solvability gate.
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("89°"), "89°（少一步）"), false);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("89°"), "89° (one step short)"), false);
+  assert.equal(questionAnswerMatches(shortAnswerQuestion("(2,2)"), "(2,2)（少一步）"), false);
 });

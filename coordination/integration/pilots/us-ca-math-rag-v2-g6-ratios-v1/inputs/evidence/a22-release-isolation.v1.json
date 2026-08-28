@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a22-release-isolation-v1",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-24T20:03:08.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-release-readiness.v1",
+    "evidencePhase": "preflight",
+    "preflightDisposition": "awaiting-committed-clean-sha",
+    "currentObservation": {
+      "headCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+      "clean": false,
+      "statusSha256": "1d992eb2e1f951073d2bfcd1247f767c014a1cac661810fb675e43522bca42a1",
+      "statusEntryCount": 6,
+      "usableAsExecutionSource": false
+    },
+    "executionSourceRequirements": {
+      "namedGitWorktreeRequired": true,
+      "cleanBeforeRun": true,
+      "cleanAfterRun": true,
+      "statusEntryCountBeforeRun": 0,
+      "statusEntryCountAfterRun": 0,
+      "headStableDuringRun": true,
+      "executionCommitRecordedSeparately": true,
+      "headMustEqualManifestSourceCommit": false,
+      "independentReplayMustCheckoutExecutionCommit": true
+    },
+    "executionPolicy": {
+      "temporaryWrites": "os-temp-only",
+      "promotionCommandNetworkAllowed": false,
+      "providerCallsAllowed": false,
+      "databaseCallsAllowed": false,
+      "productionWriteAllowed": false,
+      "previewAllowed": false,
+      "deployAllowed": false
+    },
+    "postRunReportBoundary": {
+      "status": "required-after-execution",
+      "sourceSnapshotsEqualRequired": true,
+      "forbiddenChangedPathsExpected": [],
+      "rollbackMethod": "delete-and-verify-absent",
+      "deletedOutputKindsExpected": [
+        "safe-card",
+        "practice",
+        "lesson"
+      ],
+      "outputsVerifiedAbsentRequired": true,
+      "temporaryRootRemovedRequired": true,
+      "externalSideEffectsExpected": false,
+      "worktreePreCleanRequired": true,
+      "worktreePostCleanRequired": true
+    },
+    "claims": {
+      "shadowExecuted": false,
+      "rollbackRehearsed": false,
+      "replayCompleted": false,
+      "previewAttempted": false,
+      "deployAttempted": false,
+      "liveVerified": false
+    }
+  }
+}

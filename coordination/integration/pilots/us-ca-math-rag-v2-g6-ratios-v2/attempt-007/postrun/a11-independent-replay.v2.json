@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "promotion-a11-independent-replay.v2",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T13:19:51+08:00",
+  "executionCommit": "71a859c379903bc0b28c0dbe176fddc07cd723a1",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+    "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff"
+  },
+  "canonicalReceipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json",
+    "fileRawSha256": "336e6de6e8292b2e8278ccf3335f77a77a4b32a73142657a60748ef24477a484",
+    "runId": "local-attempt007-canonical-71a859c3",
+    "rawReceiptDigest": "afbfc67008ea786d2f460deded78f595ebb0bb91c2e11ef64ebd22e47a5b096a",
+    "semanticReceiptDigest": "8fd60bfdcc2c389da3614dcc4fddf99c4b27417f6625be30c453384b430987d2"
+  },
+  "independentReplay": {
+    "worktree": "os-temp-detached-worktree/replay",
+    "detachedExactExecutionCommit": true,
+    "cleanBeforeAndAfter": true,
+    "dependencyMode": "npm-ci-ignore-scripts-lockfile",
+    "runId": "a11-attempt007-replay-71a859c3",
+    "result": "pass",
+    "rawReceiptDigest": "11dddbd6c2ca456ea3009c82e2bfe170de86bb068d31192931fda953c8094c55",
+    "semanticReceiptDigest": "8fd60bfdcc2c389da3614dcc4fddf99c4b27417f6625be30c453384b430987d2",
+    "semanticDigestMatchesCanonical": true,
+    "rawDigestDiffersFromCanonical": true,
+    "hardGateCount": 13,
+    "allHardGatesPass": true,
+    "candidateSourceByteIdentical": true,
+    "forbiddenChangedPathCount": 0,
+    "rollbackExactPreimage": true,
+    "externalSideEffectCount": 0
+  },
+  "canonicalVerification": {
+    "schemaVersion": "promotion-receipt-verification.v2",
+    "result": "pass",
+    "valid": true,
+    "semanticReplayMatches": true,
+    "executionCommitMatches": true,
+    "liveAllowed": false
+  },
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitStatus": "shadow_passed",
+  "liveAllowed": false,
+  "maturityClaim": "shadow-passed / ci-enforcement-pending"
+}

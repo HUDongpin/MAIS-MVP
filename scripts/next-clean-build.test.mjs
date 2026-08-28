@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -10,12 +11,65 @@ import { withGeneratedCleanupLock } from "./cleanup-generated-artifacts.mjs";
 const {
   assertSharedNextBuildIsIsolated,
   buildCleanBuildConfig,
+  captureBuildArtifactTree,
   cleanNextBuildDirectory,
   findActiveNextProcesses,
-  parseActiveNextProcesses
+  parseActiveNextProcesses,
+  verifyBuildAttestationArtifactDigests,
+  writeBuildAttestation
 } = nextCleanBuildModule;
 
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const requiredBuildArtifactFixtures = Object.freeze({
+  "BUILD_ID": "build_Abcdefghijklmnop\n",
+  "required-server-files.json": "{\"version\":1,\"config\":{}}\n",
+  "server/app-paths-manifest.json": "{\"/parent/page\":\"app/parent/page.js\"}\n"
+});
+const runtimeBuildArtifactFixtures = Object.freeze({
+  "server/chunks/parent-runtime.js": "export const parentRuntime = true;\n",
+  "static/chunks/parent-client.js": "self.__parentClient = true;\n",
+  "static/css/parent.css": ".parent{display:block}\n"
+});
+
+async function writeRequiredBuildArtifactFixtures(nextBuildDir, { omit } = {}) {
+  for (const [relativePath, contents] of Object.entries({
+    ...requiredBuildArtifactFixtures,
+    ...runtimeBuildArtifactFixtures
+  })) {
+    if (relativePath === omit) continue;
+    const targetPath = path.join(nextBuildDir, ...relativePath.split("/"));
+    await fs.mkdir(path.dirname(targetPath), { recursive: true });
+    await fs.writeFile(targetPath, contents);
+  }
+}
+
+function expectedBuildArtifactDigests() {
+  return Object.fromEntries(
+    Object.entries(requiredBuildArtifactFixtures).map(([relativePath, contents]) => [
+      relativePath,
+      createHash("sha256").update(contents, "utf8").digest("hex")
+    ])
+  );
+}
+
+function buildAttestationInput({ isolatedRepoRoot, nextBuildDir }) {
+  const sourceState = {
+    candidateSha: "a".repeat(40),
+    clean: true,
+    statusFingerprint: "f".repeat(64)
+  };
+  return {
+    config: {
+      distDir: ".next",
+      nextBuildDir,
+      repoRoot: isolatedRepoRoot
+    },
+    sourceBefore: sourceState,
+    sourceAfter: sourceState,
+    buildStartedAt: "2026-08-24T08:00:00.000Z",
+    completedAt: "2026-08-24T08:10:00.000Z"
+  };
+}
 
 test("next clean build detects active Next processes in the same repository", () => {
   const output = [
@@ -106,6 +160,122 @@ test("next clean build allows isolated generated dist directories", () => {
 
   assert.equal(config.usesSharedNextDir, false);
   assert.equal(config.nextBuildDir, path.join(repoRoot, ".tmp", "dashboard-runtime-next-test"));
+});
+
+test("next clean build records an exact, privacy-safe source and BUILD_ID attestation", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-build-attestation-"));
+  const nextBuildDir = path.join(isolatedRepoRoot, ".next");
+  t.after(() => fs.rm(isolatedRepoRoot, { recursive: true, force: true }));
+  await writeRequiredBuildArtifactFixtures(nextBuildDir);
+
+  const input = buildAttestationInput({ isolatedRepoRoot, nextBuildDir });
+  const expectedArtifactTree = await captureBuildArtifactTree(input.config);
+  const attestation = await writeBuildAttestation(input);
+
+  assert.deepEqual(attestation, {
+    schemaVersion: 3,
+    candidateSha: input.sourceBefore.candidateSha,
+    buildId: "build_Abcdefghijklmnop",
+    distDir: ".next",
+    sourceTreeClean: true,
+    sourceTreeStable: true,
+    buildStartedAt: "2026-08-24T08:00:00.000Z",
+    completedAt: "2026-08-24T08:10:00.000Z",
+    artifactDigests: expectedBuildArtifactDigests(),
+    artifactTree: expectedArtifactTree
+  });
+  assert.deepEqual(
+    JSON.parse(await fs.readFile(path.join(nextBuildDir, "mais-build-attestation.json"), "utf8")),
+    attestation
+  );
+  assert.doesNotMatch(JSON.stringify(attestation), /email|recipient|secret|statusFingerprint/u);
+  assert.doesNotMatch(JSON.stringify(attestation), new RegExp(isolatedRepoRoot.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+});
+
+test("next clean build fails closed without every required attestation artifact", async () => {
+  for (const missingArtifact of Object.keys(requiredBuildArtifactFixtures)) {
+    const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-build-attestation-missing-"));
+    const nextBuildDir = path.join(isolatedRepoRoot, ".next");
+    try {
+      await writeRequiredBuildArtifactFixtures(nextBuildDir, { omit: missingArtifact });
+      await assert.rejects(
+        writeBuildAttestation(buildAttestationInput({ isolatedRepoRoot, nextBuildDir })),
+        (error) => {
+          assert.equal(
+            error.message,
+            `Next build completed without required release artifact: ${missingArtifact}.`
+          );
+          assert.doesNotMatch(error.message, new RegExp(isolatedRepoRoot.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+          return true;
+        }
+      );
+      await assert.rejects(
+        fs.access(path.join(nextBuildDir, "mais-build-attestation.json")),
+        { code: "ENOENT" }
+      );
+    } finally {
+      await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+    }
+  }
+});
+
+test("next clean build attestation detects a required artifact changed after capture", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-build-attestation-tamper-"));
+  const nextBuildDir = path.join(isolatedRepoRoot, ".next");
+  t.after(() => fs.rm(isolatedRepoRoot, { recursive: true, force: true }));
+  await writeRequiredBuildArtifactFixtures(nextBuildDir);
+
+  const input = buildAttestationInput({ isolatedRepoRoot, nextBuildDir });
+  const attestation = await writeBuildAttestation(input);
+  assert.equal(
+    await verifyBuildAttestationArtifactDigests({ config: input.config, attestation }),
+    true
+  );
+
+  await fs.writeFile(
+    path.join(nextBuildDir, "required-server-files.json"),
+    "{\"version\":1,\"config\":{},\"tampered\":true}\n"
+  );
+  await assert.rejects(
+    verifyBuildAttestationArtifactDigests({ config: input.config, attestation }),
+    (error) => {
+      assert.equal(
+        error.message,
+        "Build attestation artifact digest mismatch: required-server-files.json."
+      );
+      assert.doesNotMatch(error.message, /tampered|mais-build-attestation-tamper-/u);
+      return true;
+    }
+  );
+});
+
+test("next clean build attestation detects executable or static output changed after capture", async () => {
+  for (const relativePath of Object.keys(runtimeBuildArtifactFixtures)) {
+    const isolatedRepoRoot = await fs.mkdtemp(
+      path.join(os.tmpdir(), "mais-build-full-tree-tamper-")
+    );
+    const nextBuildDir = path.join(isolatedRepoRoot, ".next");
+    try {
+      await writeRequiredBuildArtifactFixtures(nextBuildDir);
+      const input = buildAttestationInput({ isolatedRepoRoot, nextBuildDir });
+      const attestation = await writeBuildAttestation(input);
+      await fs.writeFile(path.join(nextBuildDir, ...relativePath.split("/")), "tampered\n");
+      await assert.rejects(
+        verifyBuildAttestationArtifactDigests({ config: input.config, attestation }),
+        (error) => {
+          assert.equal(error.message, "Build attestation artifact tree mismatch.");
+          assert.doesNotMatch(
+            error.message,
+            /parent-runtime|parent-client|parent\.css|mais-build-full-tree/u
+          );
+          return true;
+        },
+        relativePath
+      );
+    } finally {
+      await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+    }
+  }
 });
 
 test("next clean build refuses non-generated clean targets", () => {
@@ -216,6 +386,53 @@ test("next clean build runs guard, cleanup, and build in strict order despite th
 
   assert.equal(exitCode, 0);
   assert.deepEqual(events, ["guard", "cleanup", "build"]);
+});
+
+test("next clean build restores tracked next-env.d.ts bytes after success and failure", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-next-clean-repo-"));
+  const nextEnvPath = path.join(isolatedRepoRoot, "next-env.d.ts");
+  const preimage = "/// tracked preimage\n";
+  t.after(async () => {
+    await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+  });
+  await fs.writeFile(nextEnvPath, preimage);
+
+  const common = {
+    env: { MAIS_SKIP_STRAY_TYPES_CHECK: "1" },
+    repoRoot: isolatedRepoRoot,
+    lockTimeoutMs: 250,
+    operations: {
+      findActiveNextProcesses: async () => [],
+      cleanNextBuildDirectory: async () => false
+    }
+  };
+  const exitCode = await nextCleanBuildModule.runNextCleanBuild({
+    ...common,
+    operations: {
+      ...common.operations,
+      spawnNextBuild: async () => {
+        await fs.writeFile(nextEnvPath, "/// generated by Next\n");
+        return 0;
+      }
+    }
+  });
+  assert.equal(exitCode, 0);
+  assert.equal(await fs.readFile(nextEnvPath, "utf8"), preimage);
+
+  await assert.rejects(
+    nextCleanBuildModule.runNextCleanBuild({
+      ...common,
+      operations: {
+        ...common.operations,
+        spawnNextBuild: async () => {
+          await fs.writeFile(nextEnvPath, "/// generated before failure\n");
+          throw new Error("build failed");
+        }
+      }
+    }),
+    /build failed/
+  );
+  assert.equal(await fs.readFile(nextEnvPath, "utf8"), preimage);
 });
 
 test("next clean build does not spawn when the process guard fails", async (t) => {

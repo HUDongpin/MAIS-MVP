@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type {
   GuardianLinkStatus,
   SchoolMembershipRole,
@@ -106,6 +107,10 @@ type TeacherOpsNoticeDeliveryAttemptRecord = {
   error_code?: string;
   error_message?: string;
   attempted_at: string;
+  request_idempotency_key_hash?: string;
+  request_idempotency_request_hash?: string;
+  queued_by_id?: string;
+  provider_contact_started_at?: string;
 };
 
 type TeacherOpsNoticeChannel = {
@@ -140,6 +145,7 @@ export type TeacherOpsNoticePersistenceStoreDependencies = {
   createId: () => string;
   now: () => Date;
   getNotificationSummary: (classId?: string) => { channels: TeacherOpsNoticeChannel[] };
+  queueNoticeEmail: (input: { teacherId: string; noticeId: string; idempotencyKey: string }) => Promise<QueueTeacherNoticeEmailResult>;
   sendNotification: (input: { channelId: string; markdown: string }) => Promise<TeacherOpsNoticeDeliveryResult>;
   toDeliveryAttempt?: (attempt: TeacherOpsNoticeDeliveryAttemptRecord) => TeacherNoticeDeliveryAttempt;
   toNotice?: (database: TeacherOpsNoticePersistenceDatabase, notice: TeacherOpsNoticeRecord) => TeacherNotice;
@@ -163,15 +169,64 @@ type CreateTeacherNoticeResult =
 type SendTeacherNoticeParams = {
   teacherId: string;
   noticeId: string;
-  origin?: string;
+  idempotencyKey?: string;
 };
 
+type QueueTeacherNoticeEmailResult =
+  | { status: "queued"; queued: number; reused: number; recovered: number; skipped: number }
+  | { status: "no-eligible"; skipped: number }
+  | { status: "invalid" }
+  | { status: "conflict" }
+  | { status: "not-found" };
+
 type SendTeacherNoticeResult =
-  | { status: "sent"; notice: TeacherNotice; attempt: TeacherNoticeDeliveryAttempt }
-  | { status: "forbidden" | "not-found" };
+  | {
+      status: "sent";
+      notice: TeacherNotice;
+      attempt: TeacherNoticeDeliveryAttempt;
+      email: Extract<QueueTeacherNoticeEmailResult, { status: "queued" | "no-eligible" }>;
+    }
+  | { status: "invalid" | "conflict" | "not-found" };
 
 const validTeacherNoticeAudiences = new Set<TeacherNoticeAudience>(["parents", "students", "both"]);
 const validTeacherNoticeSourceKinds = new Set<TeacherNoticeSourceKind>(["manual", "teacher-review-lesson", "assignment-reminder", "system"]);
+const teacherNoticeIdempotencyKeyPattern = /^[A-Za-z0-9][A-Za-z0-9._:/-]{15,127}$/u;
+
+function canonicalTeacherNoticeRequestValue(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(canonicalTeacherNoticeRequestValue);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => [key, canonicalTeacherNoticeRequestValue(entry)])
+  );
+}
+
+function teacherNoticeRequestDigest(value: unknown) {
+  return createHash("sha256")
+    .update(JSON.stringify(canonicalTeacherNoticeRequestValue(value)), "utf8")
+    .digest("hex");
+}
+
+export function normalizeTeacherNoticeRequestIdempotency({
+  actorId,
+  key,
+  operation,
+  payload
+}: {
+  actorId: string;
+  key: string;
+  operation: "notice-send" | "reminder-run";
+  payload: unknown;
+}) {
+  const normalizedActorId = actorId.trim();
+  const normalizedKey = key.trim();
+  if (!normalizedActorId || !teacherNoticeIdempotencyKeyPattern.test(normalizedKey)) return null;
+  return {
+    keyHash: teacherNoticeRequestDigest({ actorId: normalizedActorId, key: normalizedKey, operation }),
+    requestHash: teacherNoticeRequestDigest({ actorId: normalizedActorId, operation, payload })
+  };
+}
 
 export type TeacherOpsNoticePersistenceStore = ReturnType<typeof createTeacherOpsNoticePersistenceStore>;
 
@@ -546,6 +601,7 @@ export function createTeacherOpsNoticePersistenceStore({
   createId,
   now,
   getNotificationSummary,
+  queueNoticeEmail,
   sendNotification,
   toDeliveryAttempt = toTeacherOpsNoticeDeliveryAttempt,
   toNotice = toTeacherOpsNotice
@@ -596,14 +652,38 @@ export function createTeacherOpsNoticePersistenceStore({
     async sendTeacherNotice({
       teacherId,
       noticeId,
-      origin
+      idempotencyKey
     }: SendTeacherNoticeParams): Promise<SendTeacherNoticeResult> {
-      return mutateDatabase(async (database) => {
+      const resolvedIdempotencyKey = idempotencyKey ?? `legacy-notice-send/${noticeId}`;
+      const idempotency = normalizeTeacherNoticeRequestIdempotency({
+        actorId: teacherId,
+        key: resolvedIdempotencyKey,
+        operation: "notice-send",
+        payload: { noticeId }
+      });
+      if (!idempotency) return { status: "invalid" };
+
+      const prepared = await mutateDatabase((database) => {
         const user = database.users.find((candidate) => candidate.id === teacherId);
-        if (!canUseTeacherArea(user)) return { status: "forbidden" as const };
+        if (!canUseTeacherArea(user)) return { status: "not-found" as const };
         const notice = database.teacher_notices.find((candidate) => candidate.id === noticeId);
-        if (!notice) return { status: "not-found" as const };
-        if (!teacherCanMutateOperationsClass(database, user, notice.class_id)) return { status: "forbidden" as const };
+        if (!notice || !teacherCanMutateOperationsClass(database, user, notice.class_id)) {
+          return { status: "not-found" as const };
+        }
+
+        const keyedAttempts = database.teacher_notice_delivery_attempts.filter(
+          (attempt) => attempt.request_idempotency_key_hash === idempotency.keyHash
+        );
+        if (
+          keyedAttempts.length > 1 ||
+          keyedAttempts.some((attempt) =>
+            attempt.request_idempotency_request_hash !== idempotency.requestHash ||
+            attempt.notice_id !== notice.id ||
+            attempt.queued_by_id !== user.id
+          )
+        ) {
+          return { status: "conflict" as const };
+        }
 
         if (!database.teacher_notice_recipients.some((recipient) => recipient.notice_id === notice.id)) {
           database.teacher_notice_recipients.push(
@@ -618,16 +698,109 @@ export function createTeacherOpsNoticePersistenceStore({
           );
         }
 
-        const attempt = await sendTeacherOpsNoticeRecord({
-          database,
-          notice,
-          origin,
-          now,
-          createId,
-          sendNotification
-        });
+        const existingAttempt = keyedAttempts[0];
+        if (existingAttempt) {
+          return { status: "prepared" as const, attemptId: existingAttempt.id };
+        }
 
-        return { status: "sent" as const, notice: toNotice(database, notice), attempt: toDeliveryAttempt(attempt) };
+        const preparedAt = now().toISOString();
+        const attempt: TeacherOpsNoticeDeliveryAttemptRecord = {
+          id: `notice-delivery-${createId()}`,
+          notice_id: notice.id,
+          channel_id: notice.channel_id,
+          channel_name: notice.channel_name,
+          status: "queued",
+          attempted_at: preparedAt,
+          request_idempotency_key_hash: idempotency.keyHash,
+          request_idempotency_request_hash: idempotency.requestHash,
+          queued_by_id: user.id
+        };
+        database.teacher_notice_delivery_attempts.unshift(attempt);
+        notice.status = "queued";
+        notice.updated_at = preparedAt;
+        return { status: "prepared" as const, attemptId: attempt.id };
+      });
+      if (prepared.status !== "prepared") return prepared;
+
+      const email = await queueNoticeEmail({
+        teacherId,
+        noticeId,
+        idempotencyKey: resolvedIdempotencyKey.trim()
+      });
+      if (email.status === "invalid" || email.status === "conflict" || email.status === "not-found") {
+        return email;
+      }
+
+      const claim = await mutateDatabase((database) => {
+        const attempt = database.teacher_notice_delivery_attempts.find(
+          (candidate) => candidate.id === prepared.attemptId
+        );
+        const notice = database.teacher_notices.find((candidate) => candidate.id === noticeId);
+        const queueActor = database.users.find((candidate) => candidate.id === attempt?.queued_by_id);
+        if (
+          !attempt || !notice || !queueActor || !canUseTeacherArea(queueActor) ||
+          attempt.notice_id !== notice.id ||
+          attempt.request_idempotency_key_hash !== idempotency.keyHash ||
+          attempt.request_idempotency_request_hash !== idempotency.requestHash ||
+          !teacherCanMutateOperationsClass(database, queueActor, notice.class_id)
+        ) {
+          return { status: "not-found" as const };
+        }
+        if (attempt.provider_contact_started_at) {
+          return { status: "replay" as const };
+        }
+        const providerContactStartedAt = now().toISOString();
+        attempt.provider_contact_started_at = providerContactStartedAt;
+        attempt.attempted_at = providerContactStartedAt;
+        return {
+          status: "claimed" as const,
+          channelId: attempt.channel_id,
+          markdown: buildTeacherOpsNoticeMarkdown({ database, notice })
+        };
+      });
+      if (claim.status === "not-found") return claim;
+
+      if (claim.status === "claimed") {
+        const delivery = await sendNotification({
+          channelId: claim.channelId,
+          markdown: claim.markdown
+        });
+        await mutateDatabase((database) => {
+          const attempt = database.teacher_notice_delivery_attempts.find(
+            (candidate) => candidate.id === prepared.attemptId
+          );
+          const notice = database.teacher_notices.find((candidate) => candidate.id === noticeId);
+          if (
+            !attempt || !notice || attempt.status !== "queued" ||
+            !attempt.provider_contact_started_at ||
+            attempt.request_idempotency_key_hash !== idempotency.keyHash ||
+            attempt.request_idempotency_request_hash !== idempotency.requestHash
+          ) return false;
+          attempt.status = delivery.status;
+          attempt.provider_message_id = delivery.providerMessageId;
+          attempt.error_code = delivery.errorCode;
+          attempt.error_message = delivery.errorMessage;
+          notice.status = delivery.status === "sent" ? "sent" : delivery.status === "disabled" ? "queued" : "failed";
+          notice.sent_at = delivery.status === "sent"
+            ? attempt.provider_contact_started_at
+            : notice.sent_at;
+          notice.updated_at = attempt.provider_contact_started_at;
+          return true;
+        });
+      }
+
+      return mutateDatabase((database) => {
+        const attempt = database.teacher_notice_delivery_attempts.find(
+          (candidate) => candidate.id === prepared.attemptId
+        );
+        const notice = database.teacher_notices.find((candidate) => candidate.id === noticeId);
+        if (!attempt || !notice) return { status: "not-found" as const };
+        return {
+          status: "sent" as const,
+          notice: toNotice(database, notice),
+          attempt: toDeliveryAttempt(attempt),
+          email
+        };
       });
     }
   };

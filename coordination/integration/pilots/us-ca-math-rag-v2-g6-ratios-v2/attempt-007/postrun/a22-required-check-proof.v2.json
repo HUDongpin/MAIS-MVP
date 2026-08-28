@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "promotion-required-check-proof.v2",
+  "role": "A22",
+  "result": "pass",
+  "repository": "HUDongpin/MAIS-MVP",
+  "branch": "main",
+  "checks": [
+    {
+      "context": "promotion-shadow-gate",
+      "appId": 15368
+    },
+    {
+      "context": "validate",
+      "appId": 15368
+    }
+  ],
+  "strict": false,
+  "enforceAdmins": true,
+  "required": true,
+  "observedAt": "2026-08-26T07:36:58Z",
+  "apiUrl": "https://api.github.com/repos/HUDongpin/MAIS-MVP/branches/main/protection",
+  "trustBoundary": "Repository hash-bound readback record; GitHub API authenticity requires independent repository-admin readback."
+}

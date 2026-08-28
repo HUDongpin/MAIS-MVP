@@ -38,6 +38,10 @@ type NovaLensPolicy = {
   blockedPatterns: string[];
 };
 
+function expectedParentHeaders(parentUserId: string) {
+  return { "X-MAIS-Expected-User-Id": parentUserId };
+}
+
 async function newApiContext(contexts: APIRequestContext[], cookieHeader?: string) {
   const context = await apiRequest.newContext({
     baseURL,
@@ -65,7 +69,15 @@ async function loginApi(contexts: APIRequestContext[], username: string, passwor
   });
   expect(response.ok()).toBeTruthy();
   const session = await response.json() as AuthSession;
-  return { context, session };
+  if (session.user.role !== "parent") return { context, session };
+
+  const parentContext = await apiRequest.newContext({
+    baseURL,
+    storageState: await context.storageState(),
+    extraHTTPHeaders: expectedParentHeaders(session.user.id)
+  });
+  contexts.push(parentContext);
+  return { context: parentContext, session };
 }
 
 async function teacherOperations(context: APIRequestContext, classId?: string) {
@@ -76,10 +88,30 @@ async function teacherOperations(context: APIRequestContext, classId?: string) {
       classes: Array<{ id: string; name: string }>;
       notices: Array<{
         id: string;
+        teacherId: string;
+        classId: string;
+        className: string;
+        audience: "parents" | "students" | "both";
+        channelId: string;
+        channelName: string;
         subject: { en: string; zh: string };
+        body: { en: string; zh: string };
         status: string;
+        dueAt: string | null;
+        createdAt: string;
+        updatedAt: string;
+        sentAt: string | null;
+        recipients: unknown[];
         acknowledgement: { total: number; acknowledged: number; pending: number };
-        deliveryAttempts: Array<{ status: string; errorCode?: string }>;
+        deliveryAttempts: Array<{
+          id: string;
+          noticeId: string;
+          channelId: string;
+          channelName: string;
+          status: string;
+          attemptedAt: string;
+          errorCode?: string;
+        }>;
       }>;
       roster: Array<{ studentName: string; studentNo?: string; seatLabel?: string; guardianStatus: string }>;
     };
@@ -240,6 +272,236 @@ test.describe("teacher operations APIs", () => {
     expect(commitPayload.credentials.some((credential) => credential.role === "student")).toBeTruthy();
     expect(commitPayload.credentials.some((credential) => credential.role === "parent")).toBeTruthy();
     expect(commitPayload.roster.some((row) => row.studentName === studentName && row.seatLabel === "B8" && row.guardianStatus === "linked")).toBeTruthy();
+  });
+});
+
+// Narrow A11 borrow for the A13 queued-client contract only. These route-mocked
+// cases intentionally cover idempotency keys, HTTP 202, and cursor pagination;
+// they do not change the broader teacher-operations API or product matrix.
+test.describe("teacher operations queued client contracts", () => {
+  test("notice retry reuses one key while a later deliberate send uses a fresh key", async ({ page }) => {
+    const observedKeys: string[] = [];
+    let requestCount = 0;
+    await authenticateAsTeacher(page);
+    const initialOperations = await teacherOperations(page.request);
+    const originalNotice = initialOperations.data.notices[0];
+    expect(originalNotice).toBeDefined();
+    if (!originalNotice) return;
+    await page.route("**/api/teacher/notices/*/deliveries", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
+      const body = route.request().postDataJSON() as { idempotencyKey?: string };
+      observedKeys.push(body.idempotencyKey ?? "");
+      requestCount += 1;
+      if (requestCount === 1) return route.abort("failed");
+      const noticeId = decodeURIComponent(new URL(route.request().url()).pathname.split("/").at(-2) ?? "notice-unknown");
+      await route.fulfill({
+        status: 202,
+        contentType: "application/json",
+        body: JSON.stringify({
+          notice: {
+            ...originalNotice,
+            id: noticeId,
+            subject: { en: "Queued notice", zh: "已排隊通知" },
+            body: { en: "Queued body", zh: "已排隊內容" },
+            status: "queued",
+            updatedAt: "2099-08-24T00:00:00.000Z",
+          },
+          attempt: {
+            id: "attempt-route-fixture",
+            noticeId,
+            channelId: originalNotice.channelId,
+            channelName: originalNotice.channelName,
+            status: "disabled",
+            attemptedAt: "2026-08-24T00:00:00.000Z"
+          },
+          email: { status: "queued", queued: 1, reused: 0, recovered: 0, skipped: 0 }
+        })
+      });
+    });
+
+    await page.goto("/teacher/operations/notices");
+    const sendButton = page.getByRole("button", { name: /^(Send|Retry|Send now|Retry send)$/i }).first();
+    await expect(sendButton).toBeVisible({ timeout: 20_000 });
+    const noticeCard = sendButton.locator("xpath=ancestor::article[1]");
+
+    await sendButton.click();
+    await expect(page.getByRole("alert").filter({ hasText: /not confirmed/i })).toBeVisible();
+    await page.reload();
+    await expect(sendButton).toBeVisible({ timeout: 20_000 });
+    await sendButton.click();
+    await expect(page.getByRole("status")).toContainText(/accepted and queued/i);
+    await expect(noticeCard).toContainText("Queued notice");
+    const retryButton = noticeCard.getByRole("button", { name: /Retry/i });
+    await expect(retryButton).toBeVisible();
+    await retryButton.click();
+    await expect.poll(() => observedKeys.length).toBe(3);
+
+    expect(observedKeys[0]).toMatch(/^teacher-operation\/[0-9a-f-]{36}$/u);
+    expect(observedKeys[1]).toBe(observedKeys[0]);
+    expect(observedKeys[2]).not.toBe(observedKeys[1]);
+  });
+
+  test("stable 409 codes distinguish an idempotency conflict from no eligible family recipients", async ({ page }) => {
+    let requestCount = 0;
+    await page.route("**/api/teacher/notices/*/deliveries", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
+      requestCount += 1;
+      await route.fulfill({
+        status: 409,
+        contentType: "application/json",
+        body: JSON.stringify({
+          code: requestCount === 1 ? "IDEMPOTENCY_CONFLICT" : "NO_ELIGIBLE_RECIPIENTS",
+          error: "Safe fixture"
+        })
+      });
+    });
+
+    await authenticateAsTeacher(page);
+    await page.goto("/teacher/operations/notices");
+    const sendButton = page.getByRole("button", { name: /^(Send|Retry|Send now|Retry send)$/i }).first();
+    await expect(sendButton).toBeVisible({ timeout: 20_000 });
+
+    await sendButton.click();
+    await expect(page.getByRole("alert").filter({
+      hasText: /request key conflicts with an earlier action/i
+    })).toBeVisible();
+    await sendButton.click();
+    await expect(page.getByRole("alert").filter({
+      hasText: /no eligible family email recipients/i
+    })).toBeVisible();
+  });
+
+  test("a production 202 with no eligible email is terminal partial success", async ({ page }) => {
+    let requestCount = 0;
+    await authenticateAsTeacher(page);
+    const initialOperations = await teacherOperations(page.request);
+    const originalNotice = initialOperations.data.notices[0];
+    expect(originalNotice).toBeDefined();
+    if (!originalNotice) return;
+    await page.route("**/api/teacher/notices/*/deliveries", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
+      requestCount += 1;
+      const noticeId = decodeURIComponent(new URL(route.request().url()).pathname.split("/").at(-2) ?? "notice-unknown");
+      await route.fulfill({
+        status: 202,
+        contentType: "application/json",
+        body: JSON.stringify({
+          notice: {
+            ...originalNotice,
+            id: noticeId,
+            status: "sent",
+            updatedAt: "2099-08-24T00:00:00.000Z",
+            sentAt: "2099-08-24T00:00:00.000Z"
+          },
+          attempt: {
+            id: "attempt-no-email-fixture",
+            noticeId,
+            channelId: originalNotice.channelId,
+            channelName: originalNotice.channelName,
+            status: "sent",
+            attemptedAt: "2026-08-24T00:00:00.000Z"
+          },
+          email: { status: "no-eligible", skipped: 1 }
+        })
+      });
+    });
+
+    await page.goto("/teacher/operations/notices");
+    const sendButton = page.getByRole("button", { name: /^(Send|Retry|Send now|Retry send)$/i }).first();
+    await expect(sendButton).toBeVisible({ timeout: 20_000 });
+    await sendButton.click();
+    await expect(page.getByRole("status")).toContainText(/accepted, but no eligible family email recipients/i);
+    const sentButton = page.getByRole("button", { name: /^Sent$/i }).first();
+    await expect(sentButton).toBeDisabled();
+    await sentButton.evaluate((button: HTMLButtonElement) => button.click());
+    await expect.poll(() => requestCount).toBe(1);
+  });
+
+  test("reminder reload reuses the base key from page zero without storing the raw student cursor", async ({ page }) => {
+    const observedBodies: Array<{
+      classId: string;
+      assignmentId?: string;
+      cursor?: string;
+      idempotencyKey: string;
+    }> = [];
+    const rawCursor = "assignment-private-route\u0000student-private-route";
+    await page.route("**/api/teacher/reminder-runs", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
+      const body = route.request().postDataJSON() as {
+        classId: string;
+        assignmentId?: string;
+        cursor?: string;
+        idempotencyKey: string;
+      };
+      const callIndex = observedBodies.length;
+      observedBodies.push(body);
+      if (callIndex === 1) return route.abort("failed");
+      const firstPage = callIndex === 0 || callIndex === 2;
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          runs: firstPage ? [{
+            id: "reminder-run-route",
+            teacherId: demoTeacherUserId,
+            classId: body.classId,
+            assignmentId: "assignment-private-route",
+            studentId: "student-private-route",
+            threshold: "overdue-24h",
+            status: "queued",
+            reason: "Fixture",
+            createdAt: "2026-08-24T00:00:00.000Z"
+          }] : [],
+          nextCursor: firstPage ? rawCursor : null
+        })
+      });
+    });
+
+    await authenticateAsTeacher(page);
+    await page.goto("/teacher/operations/reminders");
+    const runButton = page.getByRole("button", { name: /Run due reminders/i });
+    await expect(runButton).toBeVisible({ timeout: 20_000 });
+
+    await runButton.click();
+    await expect.poll(() => observedBodies.length).toBe(2);
+    await expect(page.getByRole("alert").filter({ hasText: /same cursor/i })).toBeVisible();
+    const recoveryEntries = await page.evaluate(() => Object.entries(sessionStorage)
+      .filter(([key]) => key.startsWith("mais.teacher-operations.")));
+    expect(recoveryEntries).toHaveLength(1);
+    expect(recoveryEntries[0]?.[0]).toMatch(/^mais\.teacher-operations\.v2\/[a-f0-9]{64}$/u);
+    const serializedRecovery = JSON.stringify(recoveryEntries);
+    for (const forbidden of [
+      demoTeacherUserId,
+      observedBodies[0]?.classId ?? "class-private-route",
+      "assignment-private-route",
+      "student-private-route",
+      rawCursor
+    ]) {
+      expect(serializedRecovery).not.toContain(forbidden);
+    }
+
+    await page.reload();
+    await expect(runButton).toBeVisible({ timeout: 20_000 });
+    await runButton.click();
+    await expect.poll(() => observedBodies.length).toBe(4);
+    await expect(page.getByRole("status").first()).toContainText(/queued/i);
+
+    expect(observedBodies[0]).not.toHaveProperty("assignmentId");
+    expect(observedBodies[0]).not.toHaveProperty("cursor");
+    expect(observedBodies[1]?.cursor).toBe(rawCursor);
+    expect(observedBodies[2]).not.toHaveProperty("assignmentId");
+    expect(observedBodies[2]).not.toHaveProperty("cursor");
+    expect(observedBodies[3]?.cursor).toBe(rawCursor);
+    expect(observedBodies[2]?.idempotencyKey).toBe(observedBodies[0]?.idempotencyKey);
+    expect(observedBodies[3]?.idempotencyKey).toBe(observedBodies[1]?.idempotencyKey);
+    await expect.poll(async () => page.evaluate(() => Object.keys(sessionStorage)
+      .filter((key) => key.startsWith("mais.teacher-operations.")).length)).toBe(0);
+
+    await runButton.click();
+    await expect.poll(() => observedBodies.length).toBe(5);
+    expect(observedBodies[4]).not.toHaveProperty("assignmentId");
+    expect(observedBodies[4]).not.toHaveProperty("cursor");
+    expect(observedBodies[4]?.idempotencyKey).not.toBe(observedBodies[2]?.idempotencyKey);
   });
 });
 

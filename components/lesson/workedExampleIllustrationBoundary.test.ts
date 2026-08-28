@@ -3,6 +3,7 @@ import test from "node:test";
 import React, { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { usCaliforniaLessonSeeds } from "@/data/usCaliforniaLessons";
+import { californiaElementaryMicroLessonSpecs } from "@/data/usCaliforniaMicroLessons";
 import { WorkedExampleIllustration, focusBadgeTextMetrics } from "./WorkedExampleIllustration";
 
 const focusBadgeTextWidth = 325;
@@ -23,18 +24,7 @@ test("worked-example focus badges constrain long English and Chinese labels", ()
 
 const gradeOneExactSceneTitles = [
   ["us-ca-math-p1-1-md-measure-data", "Compare ribbon and string"],
-  ["us-ca-math-p1-1-g-shape-reasoning", "Two equal rectangle shares"],
-  ["us-ca-math-p1-1-h1-picture-join-stories-to-10", "Join red and blue counters"],
-  ["us-ca-math-p1-1-h2-picture-story-addition-equations", "Birds on fence and tree"],
-  ["us-ca-math-p1-1-h3-cube-train-join-models-to-10", "Cube train join model"],
-  ["us-ca-math-p1-1-h5-model-equation-join-stories-to-10", "Apples in the basket"],
-  ["us-ca-math-p1-1-h6-equation-match-join-stories-to-10", "Match the fish story"],
-  ["us-ca-math-p1-1-l1-picture-take-away-stories-to-10", "Take away balloons"],
-  ["us-ca-math-p1-1-l2-picture-story-subtraction-equations", "Crackers subtraction"],
-  ["us-ca-math-p1-1-l3-cube-train-take-away-models-to-10", "Cover cubes in the train"],
-  ["us-ca-math-p1-1-l4-take-away-stories-within-10", "Sticker take-away story"],
-  ["us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10", "Cross out counters"],
-  ["us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10", "Break apart shells"]
+  ["us-ca-math-p1-1-g-shape-reasoning", "Two equal rectangle shares"]
 ] as const;
 
 test("every California Grade 1 exact scene replaces the overlapping generic header", () => {
@@ -67,6 +57,32 @@ test("every California Grade 1 exact scene replaces the overlapping generic head
       /data-worked-generic-scene-title="true"/,
       `${topicId} must not render the generic kind/age label behind its scene title`
     );
+  }
+
+  if (previousReact === undefined) {
+    Reflect.deleteProperty(testGlobal, "React");
+  } else {
+    testGlobal.React = previousReact;
+  }
+});
+
+test("candidate-only California micro lessons cannot render exact runtime scenes", () => {
+  const testGlobal = globalThis as typeof globalThis & { React?: typeof React };
+  const previousReact = testGlobal.React;
+  testGlobal.React = React;
+
+  for (const lesson of californiaElementaryMicroLessonSpecs) {
+    const markup = renderToStaticMarkup(
+      createElement(WorkedExampleIllustration, {
+        content: lesson.workedExample.reasoning,
+        grade: lesson.grade,
+        title: lesson.maisTitle,
+        topicId: lesson.topicId
+      })
+    );
+
+    assert.doesNotMatch(markup, /data-worked-exact-scene-title="true"/, `${lesson.topicId} remains mapped to a live exact scene`);
+    assert.match(markup, /data-worked-generic-scene-title="true"/);
   }
 
   if (previousReact === undefined) {

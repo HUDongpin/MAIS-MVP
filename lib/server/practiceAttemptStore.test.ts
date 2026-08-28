@@ -25,6 +25,11 @@ test("practice attempt fast path defines dedicated Postgres row tables without s
   assert.equal(typeof store.submitQuestionAttemptFast, "function");
   assert.equal(typeof store.appendLearningEventsFast, "function");
   assert.equal(typeof store.clearLearningEventsFast, "function");
+  assert.equal(
+    typeof store.ensurePostgresStudentActivityTables,
+    "function",
+    "parent and other scoped Postgres readers need one reusable cold-schema readiness gate"
+  );
   assert.match(ddl, /practice_attempts_topic_created_at_idx/);
   assert.match(ddl, /learning_events_user_topic_created_at_idx/);
 });
@@ -33,6 +38,21 @@ test("practice attempt fast path stays decoupled from full snapshot storage", as
   const source = await readFile(join(process.cwd(), "lib/server/practiceAttemptStore.ts"), "utf8");
 
   assert.doesNotMatch(source, /userStore|requireAuthenticatedUser|readDatabase|mutateDatabase|app_state|FOR UPDATE/i);
+});
+
+test("student activity schema readiness is transaction-bounded and retries after failure", async () => {
+  const source = await readFile(join(process.cwd(), "lib/server/practiceAttemptStore.ts"), "utf8");
+  const readinessStart = source.indexOf("export async function ensurePostgresStudentActivityTables()");
+  const readinessEnd = source.indexOf("function normalizedDurationSeconds", readinessStart);
+  const readinessSource = source.slice(readinessStart, readinessEnd);
+
+  assert.notEqual(readinessStart, -1);
+  assert.notEqual(readinessEnd, -1);
+  assert.match(readinessSource, /sql\.begin\(async \(migrationSql\) => \{/);
+  assert.match(readinessSource, /set_config\(\s*'lock_timeout',[\s\S]*true\s*\)/);
+  assert.match(readinessSource, /set_config\(\s*'statement_timeout',[\s\S]*true\s*\)/);
+  assert.match(readinessSource, /migrationSql\.unsafe\(statement\)/);
+  assert.match(readinessSource, /attempt\.catch\(\(\) => \{[\s\S]*postgresActivityReady = null/);
 });
 
 test("practice attempt fast path returns answer feedback when row persistence is unavailable", () => {

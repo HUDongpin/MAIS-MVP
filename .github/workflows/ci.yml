@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  merge_group:
   workflow_dispatch:
     inputs:
       full_validation:
@@ -24,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
 
@@ -35,13 +36,13 @@ jobs:
         run: npm install
 
   validate:
-    # Gates every pull request. Until now this was workflow_dispatch-only, so a
-    # normal PR merged without ever running the type check, any gate suite, or
-    # the production build — only `snapshot` (an npm install) and the two
-    # Playwright jobs were required, which is how a broken change reached main.
+    # Gates every release-relevant event SHA: PR head, merge-queue synthesis,
+    # post-merge main, and an explicit full-validation dispatch. This keeps the
+    # SHA later certified for production from inheriting a green check that ran
+    # against a different commit.
     # Steps are ordered cheapest-first so a bad PR fails in ~90s instead of
     # ~15min: everything before "MVP readiness" finishes in seconds.
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     # A non-incremental `tsc --noEmit` (and the production build) over this repo
     # exceeds Node's default ~2 GB old-space and OOMs the runner; runners have
@@ -50,10 +51,10 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
 
@@ -70,7 +71,11 @@ jobs:
             lib/server/aiTutorResolveAdmissionContract.test.ts \
             lib/server/userStore/authAdmissionPersistence.test.ts \
             lib/server/userStore/authStore.test.ts \
+            lib/server/userStore/aiTutorAdmissionConnectionPrimer.test.ts \
+            lib/server/userStore/aiTutorJournalPersistence.test.ts \
+            lib/server/userStore/aiTutorPolicyAdmissionPersistence.test.ts \
             lib/server/userStoreNovaPostgresAdmission.test.ts \
+            lib/server/userStoreAiGovernancePersistence.test.ts \
             lib/server/userStoreAuthSessionPersistence.test.ts \
             lib/server/userStoreAuth.test.ts
 
@@ -99,6 +104,23 @@ jobs:
       - name: Run release governance gate (frozen package-script baseline + release command contracts)
         run: npm run test:release-governance
 
+      - name: Run exact-source deployment evidence and read-only smoke unit gates
+        run: |
+          node --test --test-concurrency=1 \
+            scripts/parent-production-acceptance.test.mjs \
+            scripts/prod-certification.test.mjs \
+            scripts/next-clean-build.test.mjs \
+            scripts/prepare-vercel-staging.test.mjs \
+            scripts/vercel-staging-build-gate.test.mjs \
+            scripts/vercel-source-provenance.test.mjs \
+            scripts/vercel-provider-evidence.test.mjs \
+            scripts/deployment-read-only-smoke.test.mjs \
+            scripts/deploy-vercel-preview.test.mjs \
+            scripts/deploy-vercel-production.test.mjs \
+            scripts/github-candidate-checks.test.mjs \
+            scripts/production-deploy-workflow.test.mjs
+          node --import tsx --test scripts/teacher-notice-production-schema-gate.test.mjs
+
       - name: Run analytics tests
         run: npm run test:analytics
 
@@ -120,11 +142,53 @@ jobs:
       - name: Run parent console persistence gate (notice acknowledgement receipts)
         run: npm run test:parent-console
 
-      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+      - name: Run durable teacher-notice outbox unit and SQLite gates
+        run: npm run test:teacher-notice-outbox
+
+      - name: Run Resend teacher-notice webhook verifier and durable-state gates
+        run: npm run test:teacher-notice-resend-webhook
+
+      - name: Run teacher-notice durable heartbeat and operational-health gates
+        run: |
+          npx tsx --tsconfig tsconfig.json --test \
+            app/api/health/teacher-notices/route.test.ts \
+            lib/server/teacherNoticeOperationalHealth.test.ts \
+            lib/server/userStore/teacherNoticeEmailCronHeartbeatPersistence.test.ts \
+            lib/server/userStore/teacherNoticeOperationalReadModel.test.ts
+          node --test scripts/monitor-teacher-notice-health.test.mjs
+
+      - name: Postgres readiness contract
+        run: npm run test:postgres-readiness
+
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity + platform solvability provenance)
         run: npm run audit:us-math-items
+
+      - name: Run zh-Hans audit (TS strings + generated packs, ratcheted against scripts/zh-hans-pack-baseline.json)
+        run: npm run audit:zh-hans:strict
 
       - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
         run: npm run audit:lesson-illustrations
+
+      # American curriculum ships English only — the US tracks have no multi-language
+      # support. The zh-Hans and HK Chinese audits parse .ts/.tsx only, so neither has
+      # ever scanned a question pack; this one reads the JSON the packs are built from
+      # and fails if a US pack ships a zh that differs from its en.
+      - name: Run US curriculum English-only gate (American tracks ship English; zh must mirror en)
+        run: node scripts/audit-ca-translations.mjs
+
+      # Uses the :strict variant deliberately — plain `audit:zh-hans` always exits 0
+      # and would be a gate that cannot fail.
+      - name: Run PRC Simplified Chinese gate (critical zh-Hans violations)
+        run: npm run audit:zh-hans:strict
+
+      - name: Run CCSS depth-coverage audit (standards with no bench)
+        run: npm run audit:ccss-depth
+
+      # Invoked through tsx rather than `npm run qa:full-question-bank`: that script
+      # compiles the whole project with tsc first (80s), which the type-check step
+      # already covers, while the audit itself takes ~6s. Same audit, same exit codes.
+      - name: Run full question-bank solvability audit (all tracks, non-pass rows fail)
+        run: npx tsx --tsconfig tsconfig.json scripts/audit-full-question-bank-solvability.ts
 
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions
@@ -155,10 +219,57 @@ jobs:
       - name: Build
         run: npm run build
 
+  postgres-integration:
+    # Runs the actual migration and compatibility SQL against PostgreSQL 16.
+    # Source-regex tests remain useful, but cannot prove transaction, trigger,
+    # rollback, or concurrent-bootstrap behavior.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    # The total job budget includes a multi-minute checkout on the large repository,
+    # followed by the full v4 migration, lock-contention, rollback, and WAL gates.
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: mais_nova_ci
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mais_nova_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify exact event SHA checkout
+        env:
+          EXPECTED_EVENT_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run real PostgreSQL 16 Nova migration and rollback gates
+        env:
+          MAIS_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
+        run: npx tsx --tsconfig tsconfig.json --test lib/server/userStoreNovaPostgresIntegration.test.ts
+
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
-    # Runs on every PR (first green run 2026-07-21) plus manual full_validation.
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    # Runs on the same complete release event matrix as the server-side gates.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     # Playwright's webServer builds the app; that Next build OOMs Node's default
     # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
@@ -166,10 +277,10 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
 
@@ -182,10 +293,100 @@ jobs:
       - name: Run visualization DOM-contract spec
         run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
 
+  teacher-notice-outbox-postgres16:
+    # Preserve PR coverage, verify the exact post-merge main SHA, and provide a
+    # merge-queue check on GitHub's synthesized merge_group SHA.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: mais_outbox_ci
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mais_outbox_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify exact event SHA checkout
+        env:
+          EXPECTED_EVENT_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run durable teacher-notice outbox against PostgreSQL 16
+        env:
+          MAIS_OUTBOX_POSTGRES16_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_outbox_ci
+        run: npm run test:teacher-notice-outbox:postgres16
+
+  resend-webhook-postgres-integration:
+    # Preserve PR coverage, verify the exact post-merge main SHA, and provide a
+    # merge-queue check on GitHub's synthesized merge_group SHA.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: mais_resend_webhook_ci
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mais_resend_webhook_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify exact event SHA checkout
+        env:
+          EXPECTED_EVENT_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run real PostgreSQL 16 Resend webhook migration and concurrency gates
+        env:
+          MAIS_RESEND_WEBHOOK_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_resend_webhook_ci
+          MAIS_RESEND_WEBHOOK_POSTGRES_INTEGRATION_CONFIRM: confirm:destroy-test:4eaef030804137b9a640f9a019a679901849cc84f1469f3368787a8a3a3593eb
+        run: npm run test:teacher-notice-resend-webhook:postgres
+
   teacher-parent-e2e:
-    # Teacher + parent journey E2E in CI (plan P2-3). Runs on every PR (first
-    # green run 2026-07-21) plus manual full_validation dispatch.
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    # Teacher + parent journey E2E in CI (plan P2-3). Runs on every release
+    # event SHA so a merged or merge-queue candidate cannot reuse another SHA's
+    # browser evidence.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     # Playwright's webServer builds the app; that Next build OOMs Node's default
     # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
@@ -193,10 +394,10 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 24
 
@@ -206,11 +407,23 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run teacher + parent journeys
-        run: npx playwright test tests/e2e/teacher-operations.spec.ts tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts --project=desktop-chrome
+      - name: Run teacher journeys
+        run: npx playwright test tests/e2e/teacher-operations.spec.ts tests/e2e/teacher-workspace.spec.ts --project=desktop-chrome
+
+      - name: Run shared-server parent journeys (desktop + mobile de-duplicated by explicit spec skips)
+        run: npx playwright test tests/e2e/parent-console.spec.ts tests/e2e/parent-console-feature-matrix.spec.ts tests/e2e/teacher-parent-hydration.spec.ts --project=desktop-chrome --project=mobile-chrome --reporter=line,./scripts/parent-console-playwright-reporter.mjs
+
+      - name: Build the isolated parent production candidate
+        run: npm run build
+
+      - name: Run isolated-stateful parent journeys (desktop + mobile de-duplicated by explicit spec skips)
+        env:
+          PLAYWRIGHT_ISOLATED_MODE: production
+          PLAYWRIGHT_RUN_ID: parent-isolated-${{ github.run_id }}-${{ github.run_attempt }}
+        run: npx playwright test tests/e2e/parent-console-stress.spec.ts tests/e2e/teacher-parent-p1-regressions.spec.ts --project=desktop-chrome --project=mobile-chrome --reporter=line,./scripts/parent-console-playwright-reporter.mjs
 
       # Playwright retains a trace, screenshot, and video for each failed test
-      # under the per-run root `.tmp/e2e-run-<id>/` (see playwright.config.ts:
+      # under `.tmp/china-lesson-e2e-runtime/runs/<id>/` (see playwright.config.ts:
       # `outputDir`/`trace: retain-on-failure`). Those only ever existed on the
       # runner, so a red e2e job could not be diagnosed after the fact — the
       # log names a trace.zip path that is already gone. Upload them instead.
@@ -218,11 +431,12 @@ jobs:
       # multi-hundred-MB Next build that must not be uploaded.
       - name: Upload Playwright failure artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: teacher-parent-e2e-failure-artifacts
           path: |
-            .tmp/e2e-run-*/test-results
-            .tmp/e2e-run-*/playwright-report
+            .tmp/china-lesson-e2e-runtime/runs/*/test-results
+            .tmp/china-lesson-e2e-runtime/runs/*/playwright-report
           retention-days: 7
           if-no-files-found: warn
+          include-hidden-files: true
