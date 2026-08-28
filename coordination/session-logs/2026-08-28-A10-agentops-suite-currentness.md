@@ -69,5 +69,52 @@ acceptance, A23 promotion, GitHub merge, deployment, or live claim.
   baseline. The regression test reproduced that bypass; reviewed-main and
   AgentOps commits are now fixed in the specialist registry and therefore in
   the registry digest.
-- The policy snapshot commit, canonical marker commit, clean real AgentOps
-  preflight, final regression suite, and remote branch readback remain pending.
+- Policy snapshot commit:
+  `f6cbad7139ad71b6cd986d81a31fdf852f68892c`, with Git tree
+  `66e36dfce1608ca2d49fa5a7c17b2eb0fdba8a61`.
+- Canonical marker commit:
+  `9525121ca0197de9374101d262411d804ebf92a3`.
+- Marker digest:
+  `6855824034d942d065cfa5dc4c36e148725d8d2011b09cc66f31957f47bfaeea`.
+- Aggregate currentness policy digest:
+  `aa26ff56eebee73a76a25f78312c067123cd94efd52567926331101a1d34036f`.
+- Comprehensive AgentOps registry digest:
+  `439ac1608bff14aea74196694b1079c53f130d0eb51536cd4addc91337b51474`.
+
+## Clean specialist preflight
+
+- Direct marker verification at clean `HEAD=9525121...` returned
+  `available=true`, `status=current`, no reason codes, and the exact marker
+  digest above.
+- Registered discovery returned `dirty=false`, the exact HEAD/branch and policy
+  digests, and `question-machine-qa.v1=true`.
+- Real AgentOps run: `agentops-9e4cddf0379461c1a2a1`.
+- Terminal state: `handoff-ready`; blockers: none; primary lane: A18;
+  collaborators: A16/A21/A23; specialist:
+  `question-machine-qa.v1`; claim ceiling: `machine-qa-packet-only`.
+- `specialist-preflight` check status: `passed`, evidence digest
+  `8de4f0e89f0c642c48a3f653b47d605f5da7052f6cfea56fe1fb9aa80f65dfeb`.
+- Contract digest:
+  `1b58cef282aba60f298f935c25469f21167426099e5cc0aea52c75b396a6a5fe`;
+  handoff digest:
+  `c54d729ebedbe8896d27827c4e39854d8846e5894d104a14630b985169629a0d`.
+- Checkpoint status reported 8 events, terminal handoff, and hash-chain
+  `integrity.ok=true`. The first verify invocation correctly rejected an
+  unsupported `--repo` argument; the contract-correct invocation returned
+  `artifactIntegrity=true`, `currentnessChecked=true`, no errors, and `ok=true`.
+- AgentOps wrote only ignored `.local/agentops/<runId>/` state. Tracked and
+  untracked Git status remained clean.
+
+This preflight proves only that the exact repo-local specialist workflow is
+current and a bounded handoff is ready. No machine packet, candidate
+disposition, content approval, provider execution, credential access, question
+bank integration, Promotion, merge to main, deployment, or live proof was
+created.
+
+## Remaining closeout
+
+- Commit this evidence-only log update.
+- Rerun marker verification, specialist preflight, full AgentOps/five-Skill and
+  project regression checks from the resulting clean descendant HEAD.
+- Push and verify the exact remote branch SHA. PR, merge, deployment, and live
+  work remain separate owner decisions.
