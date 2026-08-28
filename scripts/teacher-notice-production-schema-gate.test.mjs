@@ -8,10 +8,12 @@ import {
   applyTeacherNoticeProductionSchema,
   buildPostgresStorageCollectionGapDiagnostic,
   buildPostgresStorageMissingCollectionRepair,
+  buildPostgresStorageParentAccessRecordContractDiagnostic,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   diagnoseTeacherNoticeProductionSchemaCollections,
+  diagnoseTeacherNoticeProductionSchemaParentAccessRecords,
   preflightTeacherNoticeProductionSchema,
   postgresStorageProductionRequiredArrayKeys,
   repairPostgresStorageMissingCollectionsForProductionGate,
@@ -210,6 +212,63 @@ test("collection-gap diagnostic returns only a complete allowlisted schema class
       objectRows: []
     }),
     /diagnostic contract/u
+  );
+});
+
+test("parent-access record diagnostic proves the exact virtual legacy-field repair without leaking values", async () => {
+  const store = await import("../lib/server/userStore.ts");
+  const complete = store.__userStorePostgresStorageReadinessTestHooks
+    .createCompleteSnapshot();
+  const snapshot = structuredClone(complete);
+  const profileSecret = "private-profile-invite-value";
+  const linkSecret = "private-link-invite-value";
+  delete snapshot.guardian_invitations;
+  snapshot.student_profiles[0].parent_invite_code = profileSecret;
+  snapshot.guardian_links[0].invite_code = linkSecret;
+
+  const diagnostic =
+    buildPostgresStorageParentAccessRecordContractDiagnostic(snapshot);
+  assert.deepEqual(diagnostic, {
+    legacyFields: [
+      "guardian_links.invite_code",
+      "student_profiles.parent_invite_code"
+    ],
+    virtualRepairComplete: true
+  });
+  assert.doesNotMatch(JSON.stringify(diagnostic), /private-/u);
+  assert.equal(snapshot.student_profiles[0].parent_invite_code, profileSecret);
+  assert.equal(snapshot.guardian_links[0].invite_code, linkSecret);
+  assert.equal(Object.hasOwn(snapshot, "guardian_invitations"), false);
+
+  const additionalDrift = structuredClone(snapshot);
+  delete additionalDrift.users[0].session_revision;
+  assert.deepEqual(
+    buildPostgresStorageParentAccessRecordContractDiagnostic(additionalDrift),
+    {
+      legacyFields: [
+        "guardian_links.invite_code",
+        "student_profiles.parent_invite_code"
+      ],
+      virtualRepairComplete: false
+    }
+  );
+
+  const missingGuardianOnly = structuredClone(complete);
+  delete missingGuardianOnly.guardian_invitations;
+  assert.deepEqual(
+    buildPostgresStorageParentAccessRecordContractDiagnostic(
+      missingGuardianOnly
+    ),
+    { legacyFields: [], virtualRepairComplete: true }
+  );
+
+  const structurallyAmbiguous = structuredClone(snapshot);
+  delete structurallyAmbiguous.users;
+  assert.throws(
+    () => buildPostgresStorageParentAccessRecordContractDiagnostic(
+      structurallyAmbiguous
+    ),
+    /record-contract diagnostic/u
   );
 });
 
@@ -458,6 +517,81 @@ test("collection-gap diagnostic closes and redacts a rejected provider inspectio
         throw new Error(sensitiveDiagnostic);
       }
     }));
+  } catch (error) {
+    caught = error;
+  }
+  assert.ok(caught);
+  assert.equal(teacherNoticeProductionSchemaFailureStage(caught), "postgres-inspect");
+  assert.doesNotMatch(String(caught), new RegExp(sensitiveDiagnostic, "u"));
+  assert.equal(closed, true);
+});
+
+test("parent-access record diagnostic is candidate-bound, read-only, allowlisted, and closes the client", async () => {
+  let closed = false;
+  let gitChecks = 0;
+  let inspected = 0;
+  const priorStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER;
+  const priorGateMarker = process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE;
+  const runner = cleanGitRunner();
+  const evidence =
+    await diagnoseTeacherNoticeProductionSchemaParentAccessRecords(
+      preflightDependencies({
+        connectPostgres: async (url) => {
+          assert.equal(url, productionUrl);
+          return { end: async () => { closed = true; } };
+        },
+        inspectParentAccessRecordContract: async () => {
+          inspected += 1;
+          assert.equal(process.env.HK_MATH_STORAGE_PROVIDER, "postgres");
+          assert.equal(process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES, "true");
+          assert.equal(process.env.HK_MATH_ENABLE_DEMO_USER, "false");
+          assert.equal(
+            process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE,
+            "github-actions-serialized-v1"
+          );
+          return {
+            legacyFields: ["guardian_links.invite_code"],
+            virtualRepairComplete: true
+          };
+        },
+        runCommand: async (...arguments_) => {
+          gitChecks += 1;
+          return runner(...arguments_);
+        }
+      })
+    );
+  assert.deepEqual(evidence, {
+    candidateSha,
+    expectedTreeSha,
+    legacyFields: ["guardian_links.invite_code"],
+    virtualRepairComplete: true
+  });
+  assert.equal(inspected, 1);
+  assert.equal(closed, true);
+  assert.equal(gitChecks, 8);
+  assert.equal(process.env.HK_MATH_STORAGE_PROVIDER, priorStorageProvider);
+  assert.equal(
+    process.env.MAIS_PRODUCTION_APP_STORAGE_SCHEMA_GATE,
+    priorGateMarker
+  );
+});
+
+test("parent-access record diagnostic rejects and redacts a non-allowlisted provider result", async () => {
+  const sensitiveDiagnostic = "private-record-private-host-private-password";
+  let closed = false;
+  let caught;
+  try {
+    await diagnoseTeacherNoticeProductionSchemaParentAccessRecords(
+      preflightDependencies({
+        connectPostgres: async () => ({
+          end: async () => { closed = true; }
+        }),
+        inspectParentAccessRecordContract: async () => ({
+          legacyFields: [sensitiveDiagnostic],
+          virtualRepairComplete: true
+        })
+      })
+    );
   } catch (error) {
     caught = error;
   }
