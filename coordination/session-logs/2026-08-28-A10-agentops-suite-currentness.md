@@ -64,7 +64,7 @@ acceptance, A23 promotion, GitHub merge, deployment, or live claim.
   denial was rerun under the same command with IPC permitted), five-Skill suite
   383/383, and TypeScript exited 0.
 
-## Currentness policy under implementation
+## Currentness policy and marker history
 
 - Presence-only and self-hash-only marker tests first failed against the old
   discovery seam and then passed after full validation was wired in.
@@ -116,10 +116,48 @@ disposition, content approval, provider execution, credential access, question
 bank integration, Promotion, merge to main, deployment, or live proof was
 created.
 
-## Remaining closeout
+## Final current-main refresh and verification
 
-- Commit this evidence-only log update.
-- Rerun marker verification, specialist preflight, full AgentOps/five-Skill and
-  project regression checks from the resulting clean descendant HEAD.
-- Push and verify the exact remote branch SHA. PR, merge, deployment, and live
-  work remain separate owner decisions.
+- Remote main advanced to
+  `1fe539383656231cafdcaf8abf06ff29c19f1ee8`. Its delta from the initial
+  `9bf9cfb...` baseline changed exactly two A11 parent-test/session-log paths,
+  with no overlap or protected-path changes. Merge commit
+  `70a3c2b26eafcb037a5f3b3501407749a575d1dd` integrated that exact reviewed
+  main.
+- Final reviewed-main policy snapshot:
+  `06496065bdee6317f6b5d00e4a99bf7b7ff5369a`, tree
+  `09a5f10840bf45283fb24d39cbca667b731ca548`.
+- Final marker commit before this docs-only append:
+  `eab61cc0577897bdd4b07b72213ac3b3f37bb17f`.
+- Final marker digest:
+  `4886cbbbf44817c03d5d5a51129a787ab9b97ce0ab9c49bce43df1162a2b1c15`;
+  final registry digest:
+  `a498a1f6315ee1d7e39a699e234bbbe5d46548d63b777e8e70a6943975d0a1e8`;
+  final aggregate policy digest:
+  `0d0cf4d20c430bcb540a2ada9df2bbb8ac8f860ea1bffddb409c219d20aeca07`.
+- The old marker failed closed with `REVIEWED_BASELINE_MISMATCH` before the
+  replacement marker was created.
+- Final clean AgentOps run at `eab61cc...`:
+  `agentops-1952e3c36f1c7598541a`; terminal `handoff-ready`; primary A18;
+  specialist `question-machine-qa.v1`; blockers none; specialist-preflight
+  passed; claim ceiling `machine-qa-packet-only`.
+- Final contract digest:
+  `f61ace94fdf41830790df3e27f8f6fc126207f1248edc6a4c775d22607a92edd`;
+  handoff digest:
+  `85a63f028080cf7ee16270c41a2afc7742a07c77aa89740eba49aadf37b8b5f1`.
+  Checkpoint reported 8 events with integrity true; handoff verification
+  returned artifact integrity/currentness true, no errors, and `ok=true`.
+- Final tests at that clean tip: AgentOps 85/85; five-Skill suite 383/383;
+  release governance 91 passed, 11 explicit skips, 0 failed; TypeScript exited
+  0. The project analytics/import/stray-type checks passed 58/58, 7/7, and 5/5.
+- A local isolated production build passed before the two-path A11 main refresh;
+  the subsequent delta changed only `tests/e2e/` and coordination files, not
+  package/app/build inputs. This remains local build evidence, not release or
+  deployment evidence.
+- Live remote branch readback matched `eab61cc...` before this final docs-only
+  append; live remote main remained `1fe539...`.
+
+After this log is committed, the marker verifier and real AgentOps preflight
+must be rerun once more from the resulting clean descendant HEAD, and the final
+remote branch SHA must be checked. PR creation, merge to main, deployment, and
+live behavior remain separate owner decisions and are not part of this slice.
