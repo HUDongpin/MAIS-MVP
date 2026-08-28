@@ -56,11 +56,44 @@
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
+
+// Regex cannot find the end of a template literal that nests another one — the common shape for a
+// ternary interpolating a count — so zhHans values were being truncated at the inner backtick and
+// their tail never scanned. Parse instead. scripts/audit-hk-chinese.mjs already does this.
+const ts = createRequire(path.join(process.cwd(), "package.json"))("typescript");
+
+// Every zhHans literal in a source file, with template pieces flattened so nesting cannot hide text.
+function collectZhHansLiterals(source, relativePath) {
+  const sourceFile = ts.createSourceFile(
+    relativePath, source, ts.ScriptTarget.Latest, true,
+    relativePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS
+  );
+  const found = [];
+  const literalText = (node) => {
+    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) return node.text;
+    if (ts.isTemplateExpression(node)) {
+      return node.head.text + node.templateSpans.map((span) => literalText(span.expression) + span.literal.text).join("");
+    }
+    if (ts.isConditionalExpression(node)) return `${literalText(node.whenTrue)} ${literalText(node.whenFalse)}`;
+    if (ts.isBinaryExpression(node)) return `${literalText(node.left)}${literalText(node.right)}`;
+    return "";
+  };
+  const visit = (node) => {
+    if (ts.isPropertyAssignment(node) && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) && node.name.text === "zhHans") {
+      const text = literalText(node.initializer);
+      if (text) found.push({ text, line: sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1 });
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
+  return found;
+}
 
 const ADVISORY_BASELINE = 3512;
 // Banned terms found in hand-written zhHans literals, which ship verbatim. All pre-existing;
 // ratcheted so the count can only fall. 账户 x20, 课节 x7, 位值 x3 at the time of writing.
-const SHIPPED_CRITICAL_BASELINE = 30;
+const SHIPPED_CRITICAL_BASELINE = 48;
 
 const projectRoot = process.cwd();
 const argv = process.argv.slice(2);
@@ -395,9 +428,9 @@ for (const file of fileEntries) {
 // therefore lints a string no PRC user sees. Lint the shipped literal too, with the same rules the
 // pack half already applies to pack zhHans.
 for (const file of fileEntries) {
-  for (const match of file.source.matchAll(/\bzhHans\s*:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/g)) {
-    const shipped = decodeStringLiteral(match[2]);
-    const line = file.source.slice(0, match.index).split("\n").length;
+  for (const literal of collectZhHansLiterals(file.source, file.relativePath)) {
+    const shipped = literal.text;
+    const line = literal.line;
     for (const banned of bannedTerms) {
       if (!shipped.includes(banned.term)) continue;
       issues.push({
@@ -463,11 +496,10 @@ function runConverterSelfTest() {
   // of the pack-* Traditional check; a hit means either the copy is wrong or a map entry is (覆).
   const literalHits = [];
   for (const file of fileEntries) {
-    for (const match of file.source.matchAll(/\bzhHans\s*:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/g)) {
-      const hits = Array.from(new Set(Array.from(match[2]).filter((char) => probeSet.has(char))));
+    for (const literal of collectZhHansLiterals(file.source, file.relativePath)) {
+      const hits = Array.from(new Set(Array.from(literal.text).filter((char) => probeSet.has(char))));
       if (!hits.length) continue;
-      const line = file.source.slice(0, match.index).split("\n").length;
-      literalHits.push(`${file.relativePath}:${line} -> ${hits.join(" ")} in "${match[2].replace(/\s+/g, " ").slice(0, 60)}"`);
+      literalHits.push(`${file.relativePath}:${literal.line} -> ${hits.join(" ")} in "${literal.text.replace(/\s+/g, " ").slice(0, 60)}"`);
     }
   }
   if (literalHits.length) {
