@@ -151,7 +151,15 @@ successful for that exact SHA. In GitHub Actions, manually run **MAIS production
 1. `mode=schema-preflight` and the exact 40-character `candidate_sha`. The job performs a
    read-only production Postgres attestation and emits a redacted confirmation bound to the SHA,
    tree, production target fingerprint, schema plan, and preflight digest.
-2. Review that safe JSON and obtain the explicit production-environment approval. Then run the
+2. If preflight fails specifically with `legacy-snapshot-missing-collections`, run
+   `mode=collection-gap-diagnostic` with the same exact `candidate_sha`. This separate read-only
+   job returns only required, allowlisted collection names classified as missing or malformed. It
+   emits no values, identifiers, target details, schema confirmation, artifact, or deploy output;
+   it cannot authorize a repair. Preserve the run ID and route the fixed schema-name result to
+   A12/A22 review. Any allowlist change still requires a new versioned operation and independent
+   evidence.
+3. Review a successful preflight's safe JSON and obtain the explicit production-environment
+   approval. Then run the
    same workflow with `mode=deploy`, the same `candidate_sha`, and the exact confirmation. Any
    repository, ref, SHA/tree, schema, database target, alias target, check run, or source-byte
    drift fails closed.
@@ -188,14 +196,69 @@ promotion, so the final alias reread narrows but cannot eliminate the command-bo
 concurrent dashboard or CLI promotion outside this workflow is therefore outside the workflow
 concurrency lock and is prohibited during a release window.
 
+#### Legacy snapshot missing-collection repair
+
+`collection-gap-diagnostic` uses the same protected-main SHA/tree binding, production environment,
+and non-cancelling workflow lock as preflight and deploy. Its PostgreSQL transaction is
+`REPEATABLE READ, READ ONLY`; it takes only the shared storage-contract advisory lock and computes
+presence/type status server-side. It never selects or serializes a collection value. The job's
+diagnostic command is its final step, has no workflow output or artifact step, and cannot accept or
+emit a schema confirmation.
+
+The read-only schema preflight may classify an otherwise reviewed legacy app-storage contract as
+`legacy-missing-collections-no-readiness-marker` and bind the operation
+`app-storage-repair-missing-collections-v1` into the exact confirmation. This operation is allowed
+only from the serialized, protected-main production workflow after A12 storage review, A19
+value-free runtime/build environment parity attestation, A11 PostgreSQL regression approval, A22
+release approval, and the explicit production confirmation described above.
+
+The operation never reconstructs records. Its version-1 repair contract contains exactly
+`teacher_notice_delivery_attempts`. Version 2 is a separate operation containing exactly
+`guardian_invitations`; it was admitted only after protected-main read-only diagnostic run
+`33127539898` proved that this was the sole missing key and that no required collection was
+malformed. The existing deployed runtime already treats an absent guardian-invitation source as
+the independent empty list, while active authority remains in the separate `guardian_links`
+collection. Version 2 persists only that established empty default and must preserve
+`guardian_links` exactly.
+
+The versions are not interchangeable. Missing both versioned keys, any other missing array/object,
+or any malformed collection is rejected. A v1 confirmation cannot execute v2, and a v2
+confirmation cannot execute v1. Any future expansion requires new owner-approved evidence and a
+new versioned operation.
+
+For either admitted version, the schema runner holds one session-level storage-contract advisory
+lock across both phases. Within it, phase 1 takes the transaction-level exclusive advisory lock,
+the canonical relation locks, and the primary state-row lock; re-runs the fixed diagnostic; checks
+the locked result against the confirmation's exact versioned operation; writes the complete
+payload with a revision compare-and-swap; and verifies the returned payload, revision, identity,
+and full snapshot contract. Before phase 2, the runner rechecks the complete closed set of current
+snapshot arrays plus `nova_lens_policy` under the still-held session lock. Phase 2 passes the
+resulting complete no-marker state to the unchanged canonical readiness-marker operation and
+requires an independent exact-state postflight before deployment may continue.
+
+If phase 1 fails, its transaction rolls back. If phase 1 commits but phase 2 fails, normal runtime
+remains fail closed because no current readiness marker exists. Do not manually edit the row or
+marker. Preserve the failed workflow record and run a new read-only `schema-preflight` against the
+then-current protected-main SHA. A complete canonical snapshot will authorize
+`app-storage-complete-readiness-v1`; a complete legacy-v1 compatibility snapshot will authorize
+`app-storage-upgrade-legacy-compat-readiness-v2`; a snapshot that again lacks only safe containers
+will re-authorize the repair operation. Any other state is a blocker for A12/A22 investigation.
+
+This additive snapshot mutation and its revision increment are database changes and are **not**
+reversed by a Vercel alias rollback. The prior deployment must remain compatible with the added
+empty containers during the release window. Record only the safe preflight state, operation,
+candidate/tree binding, run ID, and exact postflight result; never record the payload, collection
+contents, environment values, database URL, or provider diagnostics.
+
 ### 6. Rollback
 Rollback is a Vercel **promotion swap back to the previous production deployment** (the prior
 alias target) — no code revert needed. For a slice-level undo, drop the slice commit(s) from the
 release branch and re-run the dry run. Keep the pre-deploy staging manifest so rollback is exactly
 "remove these files / re-point the alias." The teacher-notice schema migration is additive and is
-not rolled back by an alias swap; the prior deployment must be proven compatible with the additive
-tables/indexes before production apply, and any future destructive migration requires a separate
-database rollback plan and approval.
+not rolled back by an alias swap. The legacy snapshot repair described above is also not rolled
+back by an alias swap. The prior deployment must be proven compatible with those additive database
+changes before production apply, and any future destructive migration requires a separate database
+rollback plan and approval.
 
 ---
 

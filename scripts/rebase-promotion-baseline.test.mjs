@@ -9,6 +9,8 @@ import { fileURLToPath } from "node:url";
 import {
   buildReaffirmedEvidence,
   buildReaffirmedLegacyRegistry,
+  buildReviewedLegacyCandidateByteRefresh,
+  buildReviewedRuntimePolicyEvolution,
   buildReaffirmedRuntimePolicyRefresh
 } from "./rebase-promotion-baseline.mjs";
 
@@ -47,6 +49,8 @@ test("baseline re-affirmation exposes an append-only revision and two committed 
   assert.match(result.stdout, /--write-bindings/u);
   assert.match(result.stdout, /--evidence-commit/u);
   assert.match(result.stdout, /--refresh-runtime-policy/u);
+  assert.match(result.stdout, /--review-runtime-policy/u);
+  assert.match(result.stdout, /--review-legacy-candidate-bytes/u);
 });
 
 test("the unsafe monolithic write mode is rejected before changing historical artifacts", () => {
@@ -59,6 +63,20 @@ test("the unsafe monolithic write mode is rejected before changing historical ar
   ]);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Monolithic --write is disabled/u);
+  assert.deepEqual(digestFiles(), before);
+});
+
+test("runtime-policy refresh modes are mutually exclusive", () => {
+  const before = digestFiles();
+  const result = run([
+    "--manifest", manifest,
+    "--target", "HEAD",
+    "--revision-root", revisionRoot,
+    "--refresh-runtime-policy",
+    "--review-runtime-policy"
+  ]);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /mutually exclusive/u);
   assert.deepEqual(digestFiles(), before);
 });
 
@@ -86,6 +104,115 @@ test("legacy registry re-affirmation updates only the top-level baseline identit
   assert.equal(next.targetBaselineCommit, "2".repeat(40));
   assert.deepEqual(next.resolutions[0].resolutionCommits, ["1".repeat(40)]);
   assert.equal(source.targetBaselineCommit, "1".repeat(40));
+});
+
+test("reviewed legacy candidate refresh accepts only de-reached byte changes with stable semantic identity", () => {
+  const source = {
+    targetBaselineCommit: "1".repeat(40),
+    resolutions: [
+      {
+        decision: "de-reached",
+        candidate: {
+          path: "data/generated-content/legacy-a/question-pack.json",
+          rawSha256: "a".repeat(64),
+          packageId: "legacy-a",
+          containerKeys: ["questions"],
+          idCount: 2,
+          idSetDigest: "b".repeat(64)
+        }
+      },
+      {
+        decision: "de-reached",
+        candidate: {
+          path: "data/generated-content/legacy-b/question-pack.json",
+          rawSha256: "c".repeat(64),
+          packageId: "legacy-b",
+          containerKeys: ["questions"],
+          idCount: 3,
+          idSetDigest: "d".repeat(64)
+        }
+      }
+    ]
+  };
+  const result = buildReviewedLegacyCandidateByteRefresh({
+    sourceRegistry: source,
+    targetCommit: "2".repeat(40),
+    protectedRuntimePaths: ["data/generated-content/legacy-a/question-pack.json"],
+    targetCandidates: [
+      {
+        path: "data/generated-content/legacy-a/question-pack.json",
+        rawSha256: "e".repeat(64),
+        profile: {
+          packageId: "legacy-a",
+          containerKeys: ["questions"],
+          idCount: 2,
+          idSetDigest: "b".repeat(64)
+        }
+      },
+      {
+        path: "data/generated-content/legacy-b/question-pack.json",
+        rawSha256: "c".repeat(64),
+        profile: {
+          packageId: "legacy-b",
+          containerKeys: ["questions"],
+          idCount: 3,
+          idSetDigest: "d".repeat(64)
+        }
+      }
+    ]
+  });
+
+  assert.equal(result.registry.targetBaselineCommit, "2".repeat(40));
+  assert.equal(result.registry.resolutions[0].candidate.rawSha256, "e".repeat(64));
+  assert.equal(result.registry.resolutions[1].candidate.rawSha256, "c".repeat(64));
+  assert.equal(result.proof.schemaVersion, "promotion-legacy-candidate-byte-reaffirmation.v1");
+  assert.equal(result.proof.changedCandidateCount, 1);
+  assert.equal(result.proof.allChangedCandidatesDeReached, true);
+  assert.equal(result.proof.semanticIdentityUnchanged, true);
+  assert.equal(result.proof.liveAllowed, false);
+  assert.deepEqual(result.proof.changedPaths, ["data/generated-content/legacy-a/question-pack.json"]);
+  assert.equal(source.resolutions[0].candidate.rawSha256, "a".repeat(64));
+});
+
+test("reviewed legacy candidate refresh rejects approved, hidden, or semantic candidate changes", () => {
+  const candidate = {
+    path: "data/generated-content/legacy-a/question-pack.json",
+    rawSha256: "a".repeat(64),
+    packageId: "legacy-a",
+    containerKeys: ["questions"],
+    idCount: 2,
+    idSetDigest: "b".repeat(64)
+  };
+  const target = {
+    path: candidate.path,
+    rawSha256: "c".repeat(64),
+    profile: {
+      packageId: candidate.packageId,
+      containerKeys: candidate.containerKeys,
+      idCount: candidate.idCount,
+      idSetDigest: candidate.idSetDigest
+    }
+  };
+  const build = (decision, protectedRuntimePaths, targetCandidates = [target]) =>
+    buildReviewedLegacyCandidateByteRefresh({
+      sourceRegistry: {
+        targetBaselineCommit: "1".repeat(40),
+        resolutions: [{ decision, candidate }]
+      },
+      targetCommit: "2".repeat(40),
+      protectedRuntimePaths,
+      targetCandidates
+    });
+
+  assert.throws(() => build("approved-projection", [candidate.path]), /de-reached/u);
+  assert.throws(() => build("de-reached", []), /protected runtime delta/u);
+  assert.throws(
+    () => build("de-reached", [candidate.path], [{
+      ...target,
+      profile: { ...target.profile, idSetDigest: "d".repeat(64) }
+    }]),
+    /semantic identity/u
+  );
 });
 
 test("evidence re-affirmation preserves historical commits and records the exact current delta", () => {
@@ -203,5 +330,148 @@ test("runtime-policy refresh rejects a changed target graph or fs-read callsite"
       targetFsReadAllowlist: [{ ...allowlist[0], argumentShape: "identifier(otherPath)" }]
     }),
     /fs-read allowlist differs/u
+  );
+});
+
+test("reviewed runtime-policy evolution accepts only literal-import graph growth with no capability or reachability expansion", () => {
+  const source = {
+    coveredFileCount: 3799,
+    coveredFilesDigest: "1".repeat(64),
+    classificationsDigest: "2".repeat(64),
+    frameworkEntrypointCount: 301,
+    seedCount: 316,
+    reachablePathCount: 1451,
+    reachablePathsDigest: "3".repeat(64),
+    edgeCount: 3582,
+    edgeDigest: "4".repeat(64),
+    topologyEdgeCount: 3582,
+    topologyEdgeDigest: "5".repeat(64),
+    nextDynamicCallCount: 482,
+    nextDynamicLiteralImportCount: 944,
+    nextDynamicNonliteralImportCount: 0,
+    nextDynamicCallsiteDigest: "6".repeat(64),
+    fsReadAllowlistCount: 5,
+    fsReadAllowlistDigest: "7".repeat(64),
+    zeroBaselineCallCount: 0
+  };
+  const target = {
+    ...source,
+    coveredFileCount: 3800,
+    coveredFilesDigest: "8".repeat(64),
+    classificationsDigest: "9".repeat(64),
+    edgeCount: 3589,
+    edgeDigest: "a".repeat(64),
+    topologyEdgeCount: 3589,
+    topologyEdgeDigest: "b".repeat(64),
+    nextDynamicCallCount: 489,
+    nextDynamicLiteralImportCount: 951,
+    nextDynamicCallsiteDigest: "c".repeat(64)
+  };
+  const fsReadAllowlist = Array.from({ length: 5 }, (_, index) => ({
+    sourcePath: `lib/server/userStore${index}.ts`,
+    sourceRawSha256: "d".repeat(64),
+    callee: "node:fs/promises.readFile",
+    position: 123 + index,
+    argumentShape: "identifier(path)",
+    normalizedExpressionDigest: "e".repeat(64),
+    policy: "runtime-storage-read-only-non-module"
+  }));
+  const proof = buildReviewedRuntimePolicyEvolution({
+    sourceExpectedPolicy: source,
+    sourceObservedPolicy: structuredClone(source),
+    targetObservedPolicy: target,
+    sourceFsReadAllowlist: fsReadAllowlist,
+    targetFsReadAllowlist: structuredClone(fsReadAllowlist)
+  });
+  assert.equal(proof.schemaVersion, "promotion-runtime-policy-reviewed-evolution.v1");
+  assert.equal(proof.literalDynamicImportDelta, 7);
+  assert.equal(proof.sourceAndTargetReachablePathsEqual, true);
+  assert.equal(proof.sourceAndTargetFsReadAllowlistEqual, true);
+  assert.deepEqual(proof.changedFields, [
+    "classificationsDigest",
+    "coveredFileCount",
+    "coveredFilesDigest",
+    "edgeCount",
+    "edgeDigest",
+    "nextDynamicCallCount",
+    "nextDynamicCallsiteDigest",
+    "nextDynamicLiteralImportCount",
+    "topologyEdgeCount",
+    "topologyEdgeDigest"
+  ]);
+});
+
+test("reviewed runtime-policy evolution rejects reachability, loader capability, blind-spot, and incoherent edge changes", () => {
+  const source = {
+    coveredFileCount: 10,
+    coveredFilesDigest: "1".repeat(64),
+    classificationsDigest: "2".repeat(64),
+    frameworkEntrypointCount: 2,
+    seedCount: 3,
+    reachablePathCount: 4,
+    reachablePathsDigest: "3".repeat(64),
+    edgeCount: 8,
+    edgeDigest: "4".repeat(64),
+    topologyEdgeCount: 8,
+    topologyEdgeDigest: "5".repeat(64),
+    nextDynamicCallCount: 2,
+    nextDynamicLiteralImportCount: 2,
+    nextDynamicNonliteralImportCount: 0,
+    nextDynamicCallsiteDigest: "6".repeat(64),
+    fsReadAllowlistCount: 1,
+    fsReadAllowlistDigest: "7".repeat(64),
+    zeroBaselineCallCount: 0
+  };
+  const validTarget = {
+    ...source,
+    coveredFileCount: 11,
+    coveredFilesDigest: "8".repeat(64),
+    classificationsDigest: "9".repeat(64),
+    edgeCount: 9,
+    edgeDigest: "a".repeat(64),
+    topologyEdgeCount: 9,
+    topologyEdgeDigest: "b".repeat(64),
+    nextDynamicCallCount: 3,
+    nextDynamicLiteralImportCount: 3,
+    nextDynamicCallsiteDigest: "c".repeat(64)
+  };
+  const allowlist = [{ sourcePath: "lib/server/userStore.ts", policy: "read-only" }];
+  const build = (targetObservedPolicy, targetFsReadAllowlist = allowlist) =>
+    buildReviewedRuntimePolicyEvolution({
+      sourceExpectedPolicy: source,
+      sourceObservedPolicy: structuredClone(source),
+      targetObservedPolicy,
+      sourceFsReadAllowlist: allowlist,
+      targetFsReadAllowlist
+    });
+  assert.throws(
+    () => build({ ...validTarget, reachablePathsDigest: "f".repeat(64) }),
+    /reachable path set/u
+  );
+  assert.throws(
+    () => build(validTarget, [{ sourcePath: "lib/server/other.ts", policy: "read-only" }]),
+    /fs-read allowlist/u
+  );
+  assert.throws(
+    () => build({ ...validTarget, nextDynamicNonliteralImportCount: 1 }),
+    /nonliteral dynamic imports/u
+  );
+  assert.throws(
+    () => build({ ...validTarget, edgeCount: 10, topologyEdgeCount: 10 }),
+    /literal-import and edge deltas/u
+  );
+  assert.throws(
+    () => build({ ...validTarget, zeroBaselineCallCount: 1 }),
+    /zero-baseline loader calls/u
+  );
+  assert.throws(
+    () => buildReviewedRuntimePolicyEvolution({
+      sourceExpectedPolicy: source,
+      sourceObservedPolicy: { ...source, coveredFileCount: 11 },
+      targetObservedPolicy: validTarget,
+      sourceFsReadAllowlist: allowlist,
+      targetFsReadAllowlist: allowlist
+    }),
+    /source expected policy differs/u
   );
 });

@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827",
+  "role": "A04",
+  "result": "pass",
+  "producedAt": "2026-08-27T13:10:52.000Z",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "cca547df300e5a199322d61d9873eb37b0e33040",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a04-practice-semantics.v2",
+    "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+    "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+    "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+    "outputContract": "shadow-practice-dto.v2",
+    "numericOracle": 12,
+    "acceptedAnswers": [
+      "12",
+      "12 cups"
+    ],
+    "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+    "requiredReasoning": [
+      "preserve 3 oats : 5 fruit order",
+      "20 ÷ 5 = 4",
+      "3 × 4 = 12"
+    ],
+    "primaryStandardId": "6.RP.3",
+    "prerequisiteStandardIds": [
+      "6.RP.1"
+    ],
+    "clusterMapping": {
+      "sourceCardKind": "cluster-safe-card-v2",
+      "runtimeCategory": "standards",
+      "mappingMode": "explicit-shadow-only",
+      "defaultCardKindUsed": false
+    },
+    "compatibilityMetadata": {
+      "domainIds": [
+        "6.RP"
+      ],
+      "canonicalStandardIds": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "maisStandardIds": [
+        "CA.CCSS.Math.G6.RP.1",
+        "CA.CCSS.Math.G6.RP.2",
+        "CA.CCSS.Math.G6.RP.3"
+      ],
+      "clusterId": "6.RP.ratios",
+      "runtimeDisposition": "preserved-outside-runtime"
+    },
+    "localization": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false
+    },
+    "defaultsForbidden": [
+      "cardKind",
+      "grade",
+      "standard",
+      "answer",
+      "id"
+    ],
+    "candidateBytesChangedSincePriorReview": false,
+    "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.5",
+      "toCheckerVersion": "promotion-gate-shadow-v2.6",
+      "changeScope": "reviewed-commit-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-006",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "79e804b08c1856d38fdc896968090c12fe490f878b68636d98eaafab7c64d574",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/evidence/a04-practice-semantics.v2.5.json",
+      "priorEvidenceRawSha256": "bb7a774f8b0efb9bab962b7368db451a7169362c390e01bbc73cf4b47b457a2e",
+      "priorEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "reviewed-main-runtime-graph-20260827",
+      "sourceEvidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceEvidenceRawSha256": "772ec157887cb482f490cf37b931e76c470b6635a98dba93d448c9d10f8872fa",
+      "priorTargetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+      "targetBaselineCommit": "cca547df300e5a199322d61d9873eb37b0e33040",
+      "justificationPath": "coordination/session-logs/2026-08-27-A12-A22-production-schema-diagnostic.md",
+      "protectedChangedPaths": [
+        "components/visualizations/VisualizationLabPage.tsx",
+        "components/visualizations/bespokeLabRouting.test.ts",
+        "data/generated-content/hk-ease-practice-bank-v1/question-pack.json",
+        "data/generated-content/topics-metadata/topics-metadata.json",
+        "data/lessons.ts",
+        "data/questions.ts",
+        "data/topics.ts",
+        "data/visualizationLabs.ts",
+        "lib/mvpReadiness.test.ts",
+        "lib/server/answerMatching.test.ts",
+        "lib/server/answerMatching.ts",
+        "lib/server/questionStore.test.ts",
+        "lib/server/questionStore.ts"
+      ],
+      "testOnlyChangedPaths": [
+        "components/visualizations/bespokeLabRouting.test.ts",
+        "lib/mvpReadiness.test.ts",
+        "lib/server/answerMatching.test.ts",
+        "lib/server/questionStore.test.ts"
+      ],
+      "runtimeChangedPaths": [
+        "components/visualizations/VisualizationLabPage.tsx",
+        "data/generated-content/hk-ease-practice-bank-v1/question-pack.json",
+        "data/generated-content/topics-metadata/topics-metadata.json",
+        "data/lessons.ts",
+        "data/questions.ts",
+        "data/topics.ts",
+        "data/visualizationLabs.ts",
+        "lib/server/answerMatching.ts",
+        "lib/server/questionStore.ts"
+      ],
+      "candidateBytesChanged": false,
+      "liveAllowed": false,
+      "runtimePolicyReaffirmation": {
+        "schemaVersion": "promotion-runtime-policy-reviewed-evolution.v1",
+        "changedFields": [
+          "classificationsDigest",
+          "coveredFileCount",
+          "coveredFilesDigest",
+          "edgeCount",
+          "edgeDigest",
+          "nextDynamicCallCount",
+          "nextDynamicCallsiteDigest",
+          "nextDynamicLiteralImportCount",
+          "topologyEdgeCount",
+          "topologyEdgeDigest"
+        ],
+        "sourceExpectedPolicyDigest": "c886f30c5582948a198863fa2439f9b1ec4ad17b0b5b7b223897cef5ae5dc1b5",
+        "sourceObservedPolicyDigest": "c886f30c5582948a198863fa2439f9b1ec4ad17b0b5b7b223897cef5ae5dc1b5",
+        "targetObservedPolicyDigest": "96ea85c77342f948ed2d0125000a8b3f487eace2aa6ba4250129c12250a3f855",
+        "literalDynamicImportDelta": 7,
+        "coveredFileDelta": 1,
+        "fsReadAllowlistCount": 5,
+        "sourceAndTargetReachablePathsEqual": true,
+        "sourceAndTargetFsReadAllowlistEqual": true,
+        "nextDynamicNonliteralImportCount": 0,
+        "zeroBaselineCallCount": 0,
+        "liveAllowed": false
+      }
+    }
+  }
+}

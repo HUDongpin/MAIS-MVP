@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { cn } from "@/lib/utils";
-import type { Language } from "@/types";
+import type { CurriculumTrack, Language } from "@/types";
 
 const languageOptions = [
   { value: "en", triggerLabel: "English", menuLabel: "English", ariaLabel: { en: "Use English", zh: "使用英文", zhHans: "使用英文" } },
@@ -33,6 +33,13 @@ export function nextLanguageMenuIndex(
   if (key === "End") return optionCount - 1;
   const direction = key === "ArrowDown" ? 1 : -1;
   return (currentIndex + direction + optionCount) % optionCount;
+}
+
+export function isUnitedStatesLanguageRestricted(curriculumTrack: CurriculumTrack) {
+  return curriculumTrack === "US_CA_MATH"
+    || curriculumTrack === "US_NC_MATH"
+    || curriculumTrack === "US_AR_MATH"
+    || curriculumTrack === "US_FL_MATH";
 }
 
 function ChevronIcon({ open }: { open: boolean }) {
@@ -70,7 +77,7 @@ function CheckIcon() {
 }
 
 export function LanguageToggle() {
-  const { language, setLanguage, t } = useSettings();
+  const { currentUser, language, setLanguage, t } = useSettings();
   const labels = languageToggleLabels(language);
   const [open, setOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
@@ -78,10 +85,23 @@ export function LanguageToggle() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const menuId = useId();
-  // Every account keeps access to the full language menu. Restricting US-curriculum
-  // users to English made the header selector a silent no-op even though the product
-  // UI is fully bilingual (and Reports already offers all three languages).
-  const visibleLanguageOptions = languageOptions;
+  // American curriculum ships English only (owner policy, 2026-08-27), so US accounts
+  // get an English-only menu. BUG-008 previously removed this lock because it made the
+  // selector a silent no-op — that was an agent's P2 call, and the policy supersedes it.
+  //
+  // Hiding the options is not enough on its own: an account that already holds a Chinese
+  // preference would otherwise sit in a Chinese shell with no visible way back. Snap such
+  // accounts to English instead of stranding them.
+  const isUnitedStatesAccount = currentUser
+    ? isUnitedStatesLanguageRestricted(currentUser.curriculumTrack)
+    : false;
+  const visibleLanguageOptions = isUnitedStatesAccount
+    ? languageOptions.filter((option) => option.value === "en")
+    : languageOptions;
+
+  useEffect(() => {
+    if (isUnitedStatesAccount && language !== "en") setLanguage("en");
+  }, [isUnitedStatesAccount, language, setLanguage]);
   const activeIndex = Math.max(
     0,
     visibleLanguageOptions.findIndex((option) => option.value === language)

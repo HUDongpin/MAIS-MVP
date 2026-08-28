@@ -138,12 +138,172 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-diagnose-partial") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const diagnostic = await import("./teacher-notice-production-schema-diagnostic.mjs");
+        return {
+          component: await diagnostic.diagnosePostgresStoragePartialSchemaForProductionGate(sql)
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-gate-inspect") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const inspection = await gate.inspectProductionDatabase(sql);
+        return {
+          component: inspection.appStoragePartialComponent,
+          state: inspection.appStorageState
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-collection-gap-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate.inspectPostgresStorageCollectionGapForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-parent-access-record-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessRecordContractForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-parent-access-record-drift-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessRecordDriftForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-parent-access-session-lifecycle-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessSessionLifecycleForProductionGate(
+            sql
+          );
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-complete-legacy") {
       const sql = createDirectIntegrationClient();
       try {
         await store.__userStorePostgresStorageReadinessTestHooks
           .completeLegacyReadinessMarker(sql);
         return { completed: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-apply-complete-legacy") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        await gate.applyMaisProductionSchemaOperations(
+          sql,
+          ["app-storage-complete-readiness-v1"],
+          {
+            HK_MATH_ENABLE_DEMO_USER: "false",
+            HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+            HK_MATH_STORAGE_PROVIDER: "postgres"
+          },
+          {
+            applyAppStorageSchema: async (
+              lockedClient: postgres.Sql,
+              expectedState: "legacy-no-readiness-marker"
+            ) => {
+              if (expectedState !== "legacy-no-readiness-marker") {
+                throw new Error("Postgres production schema operation plan changed.");
+              }
+              await store.__userStorePostgresStorageReadinessTestHooks
+                .completeLegacyReadinessMarker(lockedClient);
+            },
+            applyTeacherNoticeSchema: async () => {
+              throw new Error("Postgres production schema operation plan changed.");
+            }
+          }
+        );
+        return { completed: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-missing-collections") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation: "app-storage-repair-missing-collections-v1"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-guardian-invitations-v2") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation: "app-storage-repair-missing-collections-v2"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-parent-session-lifecycle-v3") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation:
+                "app-storage-repair-parent-session-lifecycle-v3"
+            }
+          );
+        return { repaired: true, state };
       } finally {
         await sql.end({ timeout: 5 });
       }

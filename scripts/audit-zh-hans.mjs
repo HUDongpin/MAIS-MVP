@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const projectRoot = process.cwd();
@@ -117,7 +117,81 @@ const fileEntries = files.map((filePath) => ({
   relativePath: path.relative(projectRoot, filePath),
   source: readFileSync(filePath, "utf8")
 }));
+
+// Generated question/lesson packs live as JSON under data/generated-content and
+// were invisible to this audit (it only walked .ts/.tsx), so no pack item was
+// ever scanned. Walk every pack and collect the strings stored under keys named
+// exactly "zhHans" — never "zh", which is Traditional by design on HK tracks.
+function walkJsonFiles(directory) {
+  if (!existsSync(directory)) return [];
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) return walkJsonFiles(entryPath);
+    return path.extname(entry.name) === ".json" ? [entryPath] : [];
+  });
+}
+
+function collectZhHansStrings(value, pointer, sink) {
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => collectZhHansStrings(item, `${pointer}[${index}]`, sink));
+    return;
+  }
+  if (value && typeof value === "object") {
+    for (const [key, child] of Object.entries(value)) {
+      if (key === "zhHans" && typeof child === "string") {
+        sink.push({ pointer: `${pointer}.${key}`, text: child });
+      } else {
+        collectZhHansStrings(child, pointer === "" ? key : `${pointer}.${key}`, sink);
+      }
+    }
+  }
+}
+
+const packFiles = walkJsonFiles(path.join(projectRoot, "data/generated-content"));
+const packEntries = packFiles.map((filePath) => {
+  const relativePath = path.relative(projectRoot, filePath);
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(filePath, "utf8"));
+  } catch {
+    return { relativePath, strings: [] };
+  }
+  const strings = [];
+  collectZhHansStrings(parsed, "", strings);
+  return { relativePath, strings };
+});
+
 const issues = [];
+
+for (const packEntry of packEntries) {
+  for (const entry of packEntry.strings) {
+    const remainingTraditional = traditionalCharacters.filter((char) => entry.text.includes(char));
+    if (remainingTraditional.length) {
+      issues.push({
+        severity: "critical",
+        type: "pack-traditional-character",
+        file: `${packEntry.relativePath} :: ${entry.pointer}`,
+        line: 0,
+        original: entry.text,
+        rendered: toPrcSimplified(entry.text),
+        suggestion: `zhHans pack string contains Traditional characters: ${remainingTraditional.join(" ")}`
+      });
+    }
+    for (const banned of bannedTerms) {
+      if (entry.text.includes(banned.term)) {
+        issues.push({
+          severity: banned.type === "prc-grade" ? "warning" : "critical",
+          type: `pack-${banned.type}`,
+          file: `${packEntry.relativePath} :: ${entry.pointer}`,
+          line: 0,
+          original: entry.text,
+          rendered: entry.text,
+          suggestion: `${banned.term} -> ${banned.suggestion}`
+        });
+      }
+    }
+  }
+}
 
 for (const file of fileEntries) {
   const zhStrings = findZhStrings(file.source);
@@ -208,6 +282,30 @@ for (const type of Array.from(new Set(issues.map((issue) => issue.type))).sort()
   }
 }
 
-if (failOnCritical && (counts.critical ?? 0) > 0) {
+// Pack findings are ratcheted, not absolute: the packs are release-frozen data,
+// so the committed baseline records today's known defects and strict mode fails
+// only when a pack-* type grows past it (or when any non-pack critical exists).
+const packBaselineUrl = new URL("./zh-hans-pack-baseline.json", import.meta.url);
+const packBaseline = existsSync(packBaselineUrl) ? JSON.parse(readFileSync(packBaselineUrl, "utf8")) : {};
+const packTypeCounts = {};
+for (const issue of issues) {
+  if (issue.type.startsWith("pack-")) packTypeCounts[issue.type] = (packTypeCounts[issue.type] ?? 0) + 1;
+}
+const packRegressions = Object.entries(packTypeCounts).filter(([type, count]) => count > (packBaseline[type] ?? 0));
+const nonPackCriticalCount = issues.filter((issue) => issue.severity === "critical" && !issue.type.startsWith("pack-")).length;
+
+console.log("\nGenerated-pack ratchet (scripts/zh-hans-pack-baseline.json):");
+for (const [type, count] of Object.entries(packTypeCounts).sort()) {
+  const allowed = packBaseline[type] ?? 0;
+  const status = count > allowed ? "REGRESSION" : count < allowed ? "below baseline (tighten it)" : "at baseline";
+  console.log(`  ${type}: ${count} (baseline ${allowed}) ${status}`);
+}
+
+if (process.argv.includes("--write-pack-baseline")) {
+  writeFileSync(packBaselineUrl, `${JSON.stringify(packTypeCounts, null, 2)}\n`);
+  console.log("Wrote scripts/zh-hans-pack-baseline.json");
+}
+
+if (failOnCritical && (nonPackCriticalCount > 0 || packRegressions.length > 0)) {
   process.exitCode = 1;
 }

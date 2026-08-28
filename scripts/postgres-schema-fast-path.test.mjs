@@ -8,6 +8,10 @@ const warmHandlerSource = readFileSync("app/api/warm/handler.ts", "utf8");
 const storageHealthRouteSource = readFileSync("app/api/admin/storage/health/route.ts", "utf8");
 const storageHealthHandlerSource = readFileSync("app/api/admin/storage/health/handler.ts", "utf8");
 const storageAdminSource = readFileSync("scripts/storage-admin-snapshot-merge.mjs", "utf8");
+const productionSchemaGateSource = readFileSync(
+  "scripts/teacher-notice-production-schema-gate.mjs",
+  "utf8"
+);
 
 function sourceSection(source, startMarker, endMarker) {
   const start = source.indexOf(startMarker);
@@ -334,6 +338,100 @@ test("production schema gate keeps empty install and both legacy upgrades separa
   assert.match(applySource, /bootstrapPostgresStateTablesOnClient/u);
   assert.match(applySource, /completePostgresStorageReadinessMarkerOnClient/u);
   assert.match(applySource, /postflightState !== "exact"/u);
+});
+
+test("production missing-collection repair is script-owned, CAS-bounded, and recoverable", () => {
+  const repairSource = sourceSection(
+    productionSchemaGateSource,
+    "export async function repairPostgresStorageMissingCollectionsForProductionGate(",
+    "function constantTimeStringEqual("
+  );
+  const exclusiveLock = repairSource.indexOf(
+    "postgres_storage_contract_exclusive_advisory_lock"
+  );
+  const stateLock = repairSource.indexOf("FOR UPDATE OF state");
+  const repairValidation = repairSource.indexOf(
+    "buildPostgresStorageMissingCollectionRepair"
+  );
+  const update = repairSource.indexOf(
+    "postgres_storage_legacy_missing_collections_repair"
+  );
+  const validation = repairSource.indexOf(
+    "postgresStorageSnapshotContractIsComplete"
+  );
+  for (const index of [
+    exclusiveLock,
+    stateLock,
+    repairValidation,
+    update,
+    validation
+  ]) assert.notEqual(index, -1);
+  assert.equal(
+    exclusiveLock < stateLock
+      && stateLock < repairValidation
+      && repairValidation < update
+      && update < validation,
+    true
+  );
+  assert.equal(
+    (repairSource.match(/\bUPDATE public\.app_state AS state\b/gu) ?? []).length,
+    1
+  );
+  assert.match(repairSource, /AND state\.revision = \$\{previousRevision\}/u);
+  assert.match(repairSource, /repair\.operation !== expectedOperation/u);
+  assert.match(repairSource, /payloadMatches/u);
+  assert.match(repairSource, /revisionMatches/u);
+  assert.match(repairSource, /identityMatches/u);
+  assert.doesNotMatch(
+    repairSource,
+    /installPostgresStorageReadinessMarkerContract/u
+  );
+
+  const combinedApplySource = sourceSection(
+    productionSchemaGateSource,
+    "export async function applyMaisProductionSchemaOperations(",
+    "export async function applyTeacherNoticeProductionSchemaOperationsAtomic("
+  );
+  const repairCall = combinedApplySource.indexOf(
+    "await repairAppStorageMissingCollections(lockedClient, {"
+  );
+  const requiredCollectionCheck = combinedApplySource.indexOf(
+    "inspectPostgresStorageRequiredCollectionsForProductionGate"
+  );
+  const markerCall = combinedApplySource.indexOf(
+    "applyAppStorageSchema(lockedClient, repairedState)"
+  );
+  assert.notEqual(repairCall, -1);
+  assert.notEqual(requiredCollectionCheck, -1);
+  assert.notEqual(markerCall, -1);
+  assert.equal(
+    repairCall < requiredCollectionCheck
+      && requiredCollectionCheck < markerCall,
+    true
+  );
+  assert.match(combinedApplySource, /expectedOperation: appStorageOperation/u);
+  assert.match(
+    combinedApplySource,
+    /app-storage-repair-missing-collections-v2/u
+  );
+  assert.match(
+    combinedApplySource,
+    /app-storage-repair-parent-session-lifecycle-v3/u
+  );
+
+  const sessionLockSource = sourceSection(
+    productionSchemaGateSource,
+    "async function withPostgresStorageSessionAdvisoryLock(",
+    "export async function applyMaisProductionSchemaOperations("
+  );
+  assert.match(sessionLockSource, /client\.options\?\.max !== 1/u);
+  assert.match(
+    sessionLockSource,
+    /postgres_storage_contract_session_advisory_lock/u
+  );
+  assert.match(sessionLockSource, /pg_backend_pid/u);
+  assert.match(sessionLockSource, /pg_advisory_unlock/u);
+  assert.match(combinedApplySource, /withPostgresStorageSessionAdvisoryLock/u);
 });
 
 test("shared canonical marker installer creates one transactional invalidation trigger with a locked-down function", () => {

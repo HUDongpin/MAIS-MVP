@@ -56,8 +56,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "tests/e2e/isolated-app-lease-guardian.ts",
     "tests/e2e/isolated-app-process-supervisor.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 54);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 54);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 55);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 55);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
@@ -99,8 +99,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   );
 
   assert.equal(manifest.parentConsoleTestFiles.length, 44);
-  assert.equal(manifest.expectedParentConsoleTestCount, 402);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 399);
+  assert.equal(manifest.expectedParentConsoleTestCount, 403);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 400);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -479,8 +479,13 @@ test("the coherent parent hydration fixture publishes its identity and revalidat
   );
   assert.match(
     hydrationTest,
-    /firstParentHtml\)\.toContain\('data-session-verification-mode="identity"'\)/u,
-    "the server document must expose the React-owned identity gate"
+    /firstParentHtml\)\.toContain\('data-session-verification-mode="initial"'\)/u,
+    "the server document must expose neutral React-owned loading"
+  );
+  assert.match(
+    hydrationTest,
+    /firstParentHtml\)\.not\.toContain\("For your privacy"\)/u,
+    "initial authenticated HTML must not present an alarming privacy warning"
   );
   assert.match(
     hydrationTest,

@@ -107,6 +107,7 @@ jobs:
       - name: Run exact-source deployment evidence and read-only smoke unit gates
         run: |
           node --test --test-concurrency=1 \
+            scripts/parent-production-acceptance.test.mjs \
             scripts/prod-certification.test.mjs \
             scripts/next-clean-build.test.mjs \
             scripts/prepare-vercel-staging.test.mjs \
@@ -159,11 +160,35 @@ jobs:
       - name: Postgres readiness contract
         run: npm run test:postgres-readiness
 
-      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity + platform solvability provenance)
         run: npm run audit:us-math-items
+
+      - name: Run zh-Hans audit (TS strings + generated packs, ratcheted against scripts/zh-hans-pack-baseline.json)
+        run: npm run audit:zh-hans:strict
 
       - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
         run: npm run audit:lesson-illustrations
+
+      # American curriculum ships English only — the US tracks have no multi-language
+      # support. The zh-Hans and HK Chinese audits parse .ts/.tsx only, so neither has
+      # ever scanned a question pack; this one reads the JSON the packs are built from
+      # and fails if a US pack ships a zh that differs from its en.
+      - name: Run US curriculum English-only gate (American tracks ship English; zh must mirror en)
+        run: node scripts/audit-ca-translations.mjs
+
+      # Uses the :strict variant deliberately — plain `audit:zh-hans` always exits 0
+      # and would be a gate that cannot fail.
+      - name: Run PRC Simplified Chinese gate (critical zh-Hans violations)
+        run: npm run audit:zh-hans:strict
+
+      - name: Run CCSS depth-coverage audit (standards with no bench)
+        run: npm run audit:ccss-depth
+
+      # Invoked through tsx rather than `npm run qa:full-question-bank`: that script
+      # compiles the whole project with tsc first (80s), which the type-check step
+      # already covers, while the audit itself takes ~6s. Same audit, same exit codes.
+      - name: Run full question-bank solvability audit (all tracks, non-pass rows fail)
+        run: npx tsx --tsconfig tsconfig.json scripts/audit-full-question-bank-solvability.ts
 
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions

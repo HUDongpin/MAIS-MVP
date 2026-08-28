@@ -45,7 +45,14 @@ test("production release has one manual entrypoint and one workflow-wide writer 
   assert.equal(inputs.mode.type, "choice");
   assert.equal(inputs.mode.required, true);
   assert.equal(inputs.mode.default, "schema-preflight");
-  assert.deepEqual(inputs.mode.options, ["schema-preflight", "deploy"]);
+  assert.deepEqual(inputs.mode.options, [
+    "schema-preflight",
+    "collection-gap-diagnostic",
+    "parent-access-record-diagnostic",
+    "parent-access-record-drift-diagnostic",
+    "parent-access-session-lifecycle-diagnostic",
+    "deploy"
+  ]);
   assert.equal(inputs.candidate_sha.type, "string");
   assert.equal(inputs.candidate_sha.required, true);
   assert.equal(inputs.schema_confirmation.type, "string");
@@ -53,11 +60,21 @@ test("production release has one manual entrypoint and one workflow-wide writer 
   assert.equal(inputs.schema_confirmation.default, "");
 });
 
-test("both modes bind a protected main event to the exact checked-out SHA and tree", async () => {
+test("all modes bind a protected main event to the exact checked-out SHA and tree", async () => {
   const { workflow } = await readWorkflow();
 
   for (const [jobName, mode] of [
     ["schema-preflight", "schema-preflight"],
+    ["collection-gap-diagnostic", "collection-gap-diagnostic"],
+    ["parent-access-record-diagnostic", "parent-access-record-diagnostic"],
+    [
+      "parent-access-record-drift-diagnostic",
+      "parent-access-record-drift-diagnostic"
+    ],
+    [
+      "parent-access-session-lifecycle-diagnostic",
+      "parent-access-session-lifecycle-diagnostic"
+    ],
     ["deploy", "deploy"]
   ]) {
     const job = workflow.jobs[jobName];
@@ -96,6 +113,107 @@ test("both modes bind a protected main event to the exact checked-out SHA and tr
     assert.equal(setup.with["node-version"], 24);
     assert.equal(stepByName(job, "Install locked dependencies").run, "npm ci");
   }
+});
+
+test("parent-access record diagnostic is final, read-only, and cannot emit a confirmation", async () => {
+  const { workflow } = await readWorkflow();
+  const job = workflow.jobs["parent-access-record-diagnostic"];
+  const diagnostic = stepByName(
+    job,
+    "Read-only production parent-access record diagnostic"
+  );
+
+  assert.ok(job["timeout-minutes"] >= 20);
+  assert.deepEqual(diagnostic.env, {
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
+    VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
+  });
+  assert.match(
+    diagnostic.run,
+    /^node --import tsx scripts\/teacher-notice-production-schema-gate\.mjs --diagnose-parent-access-records \\\n+  "--candidate-sha=\$MAIS_RELEASE_SHA" \\\n+  "--expected-tree-sha=\$MAIS_RELEASE_TREE_SHA"$/u
+  );
+  assert.equal(job.outputs, undefined);
+  assert.equal(job.steps.at(-1), diagnostic);
+  assert.equal(
+    job.steps.some((step) => /confirm|deploy|apply/iu.test(step.name)),
+    false
+  );
+});
+
+test("parent-access record-drift diagnostic is final, read-only, and allowlisted", async () => {
+  const { workflow } = await readWorkflow();
+  const job = workflow.jobs["parent-access-record-drift-diagnostic"];
+  const diagnostic = stepByName(
+    job,
+    "Read-only production parent-access record-drift diagnostic"
+  );
+
+  assert.ok(job["timeout-minutes"] >= 20);
+  assert.deepEqual(diagnostic.env, {
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
+    VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
+  });
+  assert.match(
+    diagnostic.run,
+    /^node --import tsx scripts\/teacher-notice-production-schema-gate\.mjs --diagnose-parent-access-record-drift \\\n+  "--candidate-sha=\$MAIS_RELEASE_SHA" \\\n+  "--expected-tree-sha=\$MAIS_RELEASE_TREE_SHA"$/u
+  );
+  assert.equal(job.outputs, undefined);
+  assert.equal(job.steps.at(-1), diagnostic);
+  assert.equal(
+    job.steps.some((step) => /confirm|deploy|apply/iu.test(step.name)),
+    false
+  );
+});
+
+test("parent-access session-lifecycle diagnostic is final, read-only, and exact", async () => {
+  const { workflow } = await readWorkflow();
+  const job = workflow.jobs["parent-access-session-lifecycle-diagnostic"];
+  const diagnostic = stepByName(
+    job,
+    "Read-only production parent-access session-lifecycle diagnostic"
+  );
+
+  assert.ok(job["timeout-minutes"] >= 20);
+  assert.deepEqual(diagnostic.env, {
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
+    VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
+  });
+  assert.match(
+    diagnostic.run,
+    /^node --import tsx scripts\/teacher-notice-production-schema-gate\.mjs --diagnose-parent-access-session-lifecycle \\\n+  "--candidate-sha=\$MAIS_RELEASE_SHA" \\\n+  "--expected-tree-sha=\$MAIS_RELEASE_TREE_SHA"$/u
+  );
+  assert.equal(job.outputs, undefined);
+  assert.equal(job.steps.at(-1), diagnostic);
+  assert.equal(
+    job.steps.some((step) => /confirm|deploy|apply/iu.test(step.name)),
+    false
+  );
+});
+
+test("collection-gap diagnostic is the final read-only step and cannot emit a confirmation", async () => {
+  const { workflow } = await readWorkflow();
+  const job = workflow.jobs["collection-gap-diagnostic"];
+  const diagnostic = stepByName(job, "Read-only production collection-gap diagnostic");
+
+  assert.ok(job["timeout-minutes"] >= 20);
+  assert.deepEqual(diagnostic.env, {
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
+    VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
+  });
+  assert.match(
+    diagnostic.run,
+    /^node --import tsx scripts\/teacher-notice-production-schema-gate\.mjs --diagnose-collections \\\n+  "--candidate-sha=\$MAIS_RELEASE_SHA" \\\n+  "--expected-tree-sha=\$MAIS_RELEASE_TREE_SHA"$/u
+  );
+  assert.equal(job.outputs, undefined);
+  assert.equal(
+    job.steps.at(-1),
+    diagnostic,
+    "No later step may decorate, persist, or leak collection-gap evidence."
+  );
+  assert.equal(
+    job.steps.some((step) => /confirm|deploy|apply/iu.test(step.name)),
+    false
+  );
 });
 
 test("schema preflight emits only the schema gate safe JSON evidence and confirmation", async () => {

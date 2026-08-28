@@ -526,8 +526,8 @@ function broadcastSessionChange(user: Pick<AppShellUserSafe, "id" | "role"> | nu
     channel.postMessage(payload);
     channel.close();
   } catch {
-    // Foreground/pagehide quarantine remains the fail-closed fallback when
-    // both browser messaging transports are unavailable.
+    // Authoritative foreground validation and the pagehide/BFCache gate remain
+    // the fallback when both browser messaging transports are unavailable.
   }
 }
 
@@ -549,7 +549,7 @@ type SessionSyncIdentity =
   | { valid: true; userId: string; userRole: AppShellUserSafe["role"] }
   | { valid: false; userId: null; userRole: null };
 
-type SessionVerificationMode = "none" | "foreground" | "identity";
+type SessionVerificationMode = "none" | "initial" | "identity";
 type SessionVerificationTarget = AppShellIdentity;
 
 function readSessionSyncIdentity(value: string | null): SessionSyncIdentity {
@@ -587,12 +587,12 @@ export function AppProviders({
   const { language, theme, selectedGrade, currentUser, lessonEntryTarget, settingsReady } = coreState;
   const coreStateRef = useRef(coreState);
   const currentUserRef = useRef<AppShellUserSafe | null>(currentUser);
-  // Authenticated HTML and the first client render expose only the neutral
-  // identity gate. The account tree mounts after the cookie is rechecked by
+  // Authenticated HTML and the first client render expose only neutral
+  // loading. The account tree mounts after the cookie is rechecked by
   // the authoritative session endpoint, so no script has to mutate <html> or
   // body children while React is still hydrating the document singleton.
   const initialSessionVerificationMode: SessionVerificationMode =
-    initialBootstrap.kind === "authenticated" ? "identity" : "none";
+    initialBootstrap.kind === "authenticated" ? "initial" : "none";
   const initialSessionVerificationPending = initialSessionVerificationMode !== "none";
   const [sessionVerificationMode, setSessionVerificationMode] = useState<SessionVerificationMode>(
     initialSessionVerificationMode
@@ -617,6 +617,7 @@ export function AppProviders({
   const initialSessionValidationStartedRef = useRef(false);
   const [reactGuardReady, setReactGuardReady] = useState(false);
   const sessionVerificationGateRef = useRef<HTMLElement | null>(null);
+  const [sessionVerificationRetryVisible, setSessionVerificationRetryVisible] = useState(false);
   const [mistakeRecords, setMistakeRecords] = useState<MistakeRecord[]>([]);
   const [learningAnalyticsEvents, setLearningAnalyticsEvents] = useState<LearningAnalyticsEvent[]>([]);
   const [pendingLearningEvents, setPendingLearningEvents] = useState<LearningAnalyticsEvent[]>([]);
@@ -672,7 +673,10 @@ export function AppProviders({
   ) => {
     sessionVerificationPendingRef.current = pending;
     sessionVerificationModeRef.current = pending ? mode : "none";
-    if (!pending) sessionVerificationTargetRef.current = null;
+    if (!pending) {
+      sessionVerificationTargetRef.current = null;
+      setSessionVerificationRetryVisible(false);
+    }
     accountWorkBlockedRef.current = pending;
     setSessionVerificationMode(pending ? mode : "none");
   }, []);
@@ -690,9 +694,7 @@ export function AppProviders({
     lessonEntryReadAbortRef.current = null;
     lessonEntryRequestKeyRef.current = null;
   }, []);
-  const quarantineForSessionCheck = useCallback((
-    requestedMode: Exclude<SessionVerificationMode, "none"> = "identity"
-  ) => {
+  const quarantineForSessionCheck = useCallback(() => {
     const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
     if (previousUser) quarantinedUserRef.current = previousUser;
 
@@ -703,20 +705,15 @@ export function AppProviders({
     accountWorkBlockedRef.current = true;
     sessionVerificationPendingRef.current = true;
     const previousMode = sessionVerificationModeRef.current;
-    const mode = previousMode === "identity" ? "identity" : requestedMode;
-    if (mode === "identity" && previousMode !== "identity") {
+    if (previousMode !== "identity") {
       sessionVerificationTargetRef.current = null;
     }
-    sessionVerificationModeRef.current = mode;
-    setSessionVerificationMode(mode);
+    sessionVerificationModeRef.current = "identity";
+    setSessionVerificationMode("identity");
+    setSessionVerificationRetryVisible(false);
     abortPerUserReads();
-    if (mode === "identity") {
-      setMistakeRecords([]);
-      // Only an identity boundary invalidates an already-issued analytics
-      // request. Foreground checks retain its generation so a network failure
-      // can still restore the batch to the verified same user's queue.
-      analyticsFlushGenerationRef.current += 1;
-    }
+    setMistakeRecords([]);
+    analyticsFlushGenerationRef.current += 1;
     return previousUser;
   }, [abortPerUserReads]);
   const appendLearningEventsToQueues = useCallback((events: LearningAnalyticsEvent[]) => {
@@ -884,7 +881,7 @@ export function AppProviders({
     // it in this commit and replace the whole document before passive effects
     // can adopt it. This also neutralizes an A-scoped RSC response that arrives
     // after a completed A -> B account replacement.
-    quarantineForSessionCheck("identity");
+    quarantineForSessionCheck();
     window.location.reload();
   }, [bootstrapBoundaryMismatch, quarantineForSessionCheck]);
 
@@ -1595,7 +1592,7 @@ export function AppProviders({
     // accepted before the destination document commits. Gate synchronously,
     // invalidate every captured account continuation, publish the new durable
     // identity, and let the calling page perform a full-document replacement.
-    flushSync(() => quarantineForSessionCheck("identity"));
+    flushSync(() => quarantineForSessionCheck());
     authEpochRef.current += 1;
     settingsMutationEpochRef.current += 1;
     sessionRevalidationGenerationRef.current += 1;
@@ -1927,6 +1924,14 @@ export function AppProviders({
     sessionRevalidationAbortRef.current?.abort();
     const controller = new AbortController();
     sessionRevalidationAbortRef.current = controller;
+    if (sessionVerificationPendingRef.current) {
+      setSessionVerificationRetryVisible(false);
+    }
+    let requestTimedOut = false;
+    const timeoutHandle = window.setTimeout(() => {
+      requestTimedOut = true;
+      controller.abort();
+    }, 10_000);
     const requestAuthEpoch = authEpochRef.current;
     const requestSettingsEpoch = settingsMutationEpochRef.current;
     try {
@@ -1939,7 +1944,12 @@ export function AppProviders({
         requestAuthEpoch !== authEpochRef.current
       ) return;
 
-      if (!response.ok && response.status !== 401) return;
+      if (!response.ok && response.status !== 401) {
+        if (sessionVerificationPendingRef.current) {
+          setSessionVerificationRetryVisible(true);
+        }
+        return;
+      }
       const payload: unknown = response.status === 401 ? { user: null } : await response.json();
       if (
         requestGeneration !== sessionRevalidationGenerationRef.current ||
@@ -1952,7 +1962,7 @@ export function AppProviders({
         // A foreground check keeps local drafts mounted only while the server
         // may still confirm the same identity. Once sign-out is authoritative,
         // hard-unmount the account tree before clearing or navigating.
-        quarantineForSessionCheck("identity");
+        quarantineForSessionCheck();
         sessionVerificationTargetRef.current = { userId: null, userRole: null };
         // Replace any stale durable cross-tab identity before a public-route
         // reload; otherwise the next guest document would read the same stale
@@ -1972,7 +1982,12 @@ export function AppProviders({
       }
 
       const session = readAuthSession(payload);
-      if (!session) return;
+      if (!session) {
+        if (sessionVerificationPendingRef.current) {
+          setSessionVerificationRetryVisible(true);
+        }
+        return;
+      }
       const durableIdentity = readSessionSyncIdentity(readLocalStorageItem(sessionSyncStorageKey));
       if (
         !durableIdentity.valid ||
@@ -2003,7 +2018,7 @@ export function AppProviders({
         // the previous account. Keep the hard identity gate until a matching
         // server bootstrap commits; a second same-user validation must not
         // reopen stale server children.
-        quarantineForSessionCheck("identity");
+        quarantineForSessionCheck();
         sessionVerificationTargetRef.current = {
           userId: session.user.id,
           userRole: session.user.role
@@ -2018,12 +2033,14 @@ export function AppProviders({
         preserveSettings,
         broadcast: false,
         resetLearningState: !sameUser,
-        keepVerificationGate: shouldGateDuringCheck && !acceptedBootstrapMatchesSession
+        // Even a normally silent foreground check must stay fail-closed if it
+        // discovers that the cookie belongs to a different document identity.
+        keepVerificationGate: !acceptedBootstrapMatchesSession
       });
       if (sameUser) {
-        // Foreground quarantine aborts account-bound reads before the cookie
-        // is trusted. Resume those exact same-account jobs after verification
-        // without resetting local UI or dropping queued learning events.
+        // A hard identity/BFCache check may abort account-bound reads before
+        // the cookie is trusted. Resume those same-account jobs after
+        // verification without resetting local UI or queued learning events.
         if (!skipGlobalStudentWarmups) void refreshMistakeRecords();
         if (session.user.role === "student" && !skipGlobalStudentWarmups) {
           void refreshLessonEntryTarget(coreStateRef.current.selectedGrade);
@@ -2047,9 +2064,16 @@ export function AppProviders({
         window.location.reload();
       }
     } catch (error) {
-      if (controller.signal.aborted || (error instanceof DOMException && error.name === "AbortError")) return;
-      // Keep the current state when the session check is unavailable.
+      if (
+        !requestTimedOut &&
+        (controller.signal.aborted || (error instanceof DOMException && error.name === "AbortError"))
+      ) return;
+      if (sessionVerificationPendingRef.current) {
+        setSessionVerificationRetryVisible(true);
+      }
+      // Silent foreground checks keep the current same-account UI available.
     } finally {
+      window.clearTimeout(timeoutHandle);
       if (sessionRevalidationAbortRef.current === controller) {
         sessionRevalidationAbortRef.current = null;
       }
@@ -2133,21 +2157,16 @@ export function AppProviders({
     let needsForegroundValidation = document.visibilityState === "hidden";
     const handleBlur = () => {
       needsForegroundValidation = true;
-      const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
-      if (previousUser) quarantineForSessionCheck("foreground");
     };
     const validateAfterForegroundReturn = () => {
       if (!needsForegroundValidation) return;
       needsForegroundValidation = false;
       const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
-      if (previousUser) quarantineForSessionCheck("foreground");
-      void revalidateSession(previousUser, Boolean(previousUser));
+      void revalidateSession(previousUser, false);
     };
     const handleVisibility = () => {
       if (document.visibilityState === "hidden") {
         needsForegroundValidation = true;
-        const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
-        if (previousUser) quarantineForSessionCheck("foreground");
         return;
       }
       validateAfterForegroundReturn();
@@ -2157,18 +2176,21 @@ export function AppProviders({
       needsForegroundValidation = true;
       const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
       if (!previousUser) return;
-      // Commit the privacy cover into a possible BFCache snapshot before the
-      // browser freezes the document. A deferred state update can otherwise
-      // let the old account flash before pageshow validation runs.
-      flushSync(() => quarantineForSessionCheck("foreground"));
+      // Invalidate a silent foreground request before committing the BFCache
+      // identity gate. Otherwise that older same-account response could clear
+      // the gate while the document is being frozen.
+      sessionRevalidationGenerationRef.current += 1;
+      sessionRevalidationAbortRef.current?.abort();
+      sessionRevalidationAbortRef.current = null;
+      flushSync(() => quarantineForSessionCheck());
     };
 
     const handlePageShow = (event: PageTransitionEvent) => {
       if (!event.persisted) return;
       needsForegroundValidation = false;
       const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
-      if (previousUser) quarantineForSessionCheck("foreground");
-      void revalidateSession(previousUser, Boolean(previousUser));
+      if (previousUser) quarantineForSessionCheck();
+      void revalidateSession(previousUser, true);
     };
 
     window.addEventListener("storage", handleStorage);
@@ -2348,84 +2370,48 @@ export function AppProviders({
     ]
   );
 
-  const sessionVerificationCopy = {
-    title: textForLanguage({
-      en: "Verifying your account",
-      zh: "正在核實你的帳戶",
-      zhHans: "正在核实你的账户"
-    }, language),
-    detail: textForLanguage({
-      en: "For your privacy, account information is hidden until this browser tab confirms the active session.",
-      zh: "為保障私隱，此瀏覽器分頁確認目前登入狀態前，帳戶資料將暫時隱藏。",
-      zhHans: "为保护隐私，此浏览器标签页确认当前登录状态前，账户资料将暂时隐藏。"
-    }, language),
-    retry: textForLanguage({
-      en: "Check again",
-      zh: "重新核實",
-      zhHans: "重新核实"
-    }, language)
-  };
+  const sessionVerificationCopy = displayedSessionVerificationMode === "identity"
+    ? {
+        title: textForLanguage({
+          en: "Refreshing your session",
+          zh: "正在更新登入狀態",
+          zhHans: "正在更新登录状态"
+        }, language),
+        detail: textForLanguage({
+          en: "Your sign-in may have changed. MAIS is loading the correct account.",
+          zh: "登入狀態可能已變更，MAIS 正在載入正確的帳戶。",
+          zhHans: "登录状态可能已变更，MAIS 正在加载正确的账户。"
+        }, language),
+        retry: textForLanguage({
+          en: "Try again",
+          zh: "再試一次",
+          zhHans: "重試"
+        }, language)
+      }
+    : {
+        title: textForLanguage({
+          en: "Loading your workspace",
+          zh: "正在載入你的工作空間",
+          zhHans: "正在加载你的工作空间"
+        }, language),
+        detail: textForLanguage({
+          en: "Preparing your account and learning space.",
+          zh: "正在準備你的帳戶和學習空間。",
+          zhHans: "正在准备你的账户和学习空间。"
+        }, language),
+        retry: sessionVerificationRetryVisible
+          ? textForLanguage({
+              en: "Try again",
+              zh: "再試一次",
+              zhHans: "重試"
+            }, language)
+          : null
+      };
 
   useLayoutEffect(() => {
-    if (displayedSessionVerificationMode === "none") return;
-
-    const isolatedBodyChildren = new Map<HTMLElement, {
-      inert: boolean;
-      ariaHidden: string | null;
-      visibility: string;
-      pointerEvents: string;
-    }>();
-    const isolateBodyChild = (element: Element) => {
-      if (!(element instanceof HTMLElement)) return;
-      if (
-        element.matches('[data-session-verification-gate="true"]') ||
-        element.querySelector('[data-session-verification-gate="true"]')
-      ) return;
-      if (!isolatedBodyChildren.has(element)) {
-        isolatedBodyChildren.set(element, {
-          inert: element.inert,
-          ariaHidden: element.getAttribute("aria-hidden"),
-          visibility: element.style.visibility,
-          pointerEvents: element.style.pointerEvents
-        });
-      }
-      element.inert = true;
-      element.setAttribute("aria-hidden", "true");
-      element.style.visibility = "hidden";
-      element.style.pointerEvents = "none";
-    };
-
-    let bodyObserver: MutationObserver | null = null;
-    // Move focus out of foreground-preserved account content (or a body
-    // portal) before applying aria-hidden, avoiding an inaccessible focused
-    // descendant during the gated frame.
+    if (!displayedSessionVerificationPending) return;
     sessionVerificationGateRef.current?.focus();
-    if (displayedSessionVerificationMode === "foreground") {
-      // The normal app nodes and React portals are direct body children. Keep
-      // their React state mounted, but isolate each one (including nodes added
-      // while validation is pending) so stale UI is not visible or focusable.
-      Array.from(document.body.children).forEach(isolateBodyChild);
-      bodyObserver = new MutationObserver((records) => {
-        for (const record of records) {
-          for (const node of Array.from(record.addedNodes)) {
-            if (node instanceof Element && node.parentElement === document.body) isolateBodyChild(node);
-          }
-        }
-      });
-      bodyObserver.observe(document.body, { childList: true });
-    }
-
-    return () => {
-      bodyObserver?.disconnect();
-      for (const [element, snapshot] of isolatedBodyChildren) {
-        element.inert = snapshot.inert;
-        if (snapshot.ariaHidden === null) element.removeAttribute("aria-hidden");
-        else element.setAttribute("aria-hidden", snapshot.ariaHidden);
-        element.style.visibility = snapshot.visibility;
-        element.style.pointerEvents = snapshot.pointerEvents;
-      }
-    };
-  }, [displayedSessionVerificationMode]);
+  }, [displayedSessionVerificationPending]);
 
   const sessionVerificationGate = displayedSessionVerificationPending ? (
     <main
@@ -2444,15 +2430,17 @@ export function AppProviders({
         <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
           {sessionVerificationCopy.detail}
         </p>
-        <button
-          type="button"
-          className="focus-ring rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
-          onClick={() => {
-            void revalidateSession(quarantinedUserRef.current, true);
-          }}
-        >
-          {sessionVerificationCopy.retry}
-        </button>
+        {sessionVerificationCopy.retry ? (
+          <button
+            type="button"
+            className="focus-ring rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+            onClick={() => {
+              void revalidateSession(quarantinedUserRef.current, true);
+            }}
+          >
+            {sessionVerificationCopy.retry}
+          </button>
+        ) : null}
       </section>
     </main>
   ) : null;
@@ -2465,11 +2453,8 @@ export function AppProviders({
       {reactGuardReady ? (
         <span hidden data-mais-session-react-guard-ready="true" />
       ) : null}
-      {displayedSessionVerificationMode === "identity" ? sessionVerificationGate : (
-        <>
-          <Fragment key={accountTreeKey}>{children}</Fragment>
-          {displayedSessionVerificationMode === "foreground" ? sessionVerificationGate : null}
-        </>
+      {displayedSessionVerificationPending ? sessionVerificationGate : (
+        <Fragment key={accountTreeKey}>{children}</Fragment>
       )}
     </SettingsContext.Provider>
   );
