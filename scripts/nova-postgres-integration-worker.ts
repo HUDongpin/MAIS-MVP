@@ -226,7 +226,28 @@ async function main() {
         const state =
           await gate.repairPostgresStorageMissingCollectionsForProductionGate(
             sql,
-            { allowIntegrationTest: true }
+            {
+              allowIntegrationTest: true,
+              expectedOperation: "app-storage-repair-missing-collections-v1"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-guardian-invitations-v2") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation: "app-storage-repair-missing-collections-v2"
+            }
           );
         return { repaired: true, state };
       } finally {

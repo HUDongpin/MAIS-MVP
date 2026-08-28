@@ -52,6 +52,7 @@ const appStorageStates = new Set([
   "legacy-no-readiness-marker",
   "legacy-v1-compatibility-no-readiness-marker",
   "legacy-missing-collections-no-readiness-marker",
+  "legacy-missing-guardian-invitations-no-readiness-marker",
   "exact",
   "partial"
 ]);
@@ -85,8 +86,15 @@ export const postgresStorageProductionRequiredArrayKeys = Object.freeze([
   "teacher_learning_paths",
   "teacher_student_groups"
 ]);
-const postgresStorageMissingCollectionRepairableArrayKeys = new Set([
-  "teacher_notice_delivery_attempts"
+const postgresStorageMissingCollectionRepairVersions = Object.freeze([
+  Object.freeze({
+    missingKeys: Object.freeze(["teacher_notice_delivery_attempts"]),
+    operation: "app-storage-repair-missing-collections-v1"
+  }),
+  Object.freeze({
+    missingKeys: Object.freeze(["guardian_invitations"]),
+    operation: "app-storage-repair-missing-collections-v2"
+  })
 ]);
 const postgresStorageCollectionGapStatuses = new Set([
   "exact",
@@ -149,16 +157,13 @@ export function buildPostgresStorageMissingCollectionRepair(
     || typeof isComplete !== "function"
   ) return null;
 
-  const repaired = { ...snapshot };
-  let addedCollectionCount = 0;
+  const missingKeys = [];
   for (const key of postgresStorageProductionRequiredArrayKeys) {
     if (Object.hasOwn(snapshot, key)) {
       if (!Array.isArray(snapshot[key])) return null;
       continue;
     }
-    if (!postgresStorageMissingCollectionRepairableArrayKeys.has(key)) return null;
-    repaired[key] = [];
-    addedCollectionCount += 1;
+    missingKeys.push(key);
   }
   for (const key of legacySnapshotRequiredObjectKeys) {
     if (Object.hasOwn(snapshot, key)) {
@@ -171,9 +176,18 @@ export function buildPostgresStorageMissingCollectionRepair(
     }
     return null;
   }
-  if (addedCollectionCount === 0 || !isComplete(repaired)) return null;
+  const version = postgresStorageMissingCollectionRepairVersions.find(
+    (candidate) =>
+      candidate.missingKeys.length === missingKeys.length
+      && candidate.missingKeys.every((key) => missingKeys.includes(key))
+  );
+  if (!version) return null;
+  const repaired = { ...snapshot };
+  for (const key of version.missingKeys) repaired[key] = [];
+  if (!isComplete(repaired)) return null;
   return Object.freeze({
-    addedCollectionCount,
+    addedCollectionCount: version.missingKeys.length,
+    operation: version.operation,
     payload: Object.freeze(repaired)
   });
 }
@@ -422,6 +436,12 @@ export function buildTeacherNoticeProductionSchemaPlan({
   }
   if (appStorageState === "legacy-missing-collections-no-readiness-marker") {
     operations.push("app-storage-repair-missing-collections-v1");
+  }
+  if (
+    appStorageState ===
+      "legacy-missing-guardian-invitations-no-readiness-marker"
+  ) {
+    operations.push("app-storage-repair-missing-collections-v2");
   }
   if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
@@ -989,9 +1009,12 @@ export async function inspectPostgresStorageMissingCollectionRepairForProduction
         AND state.schema_version = ${postgresStorageStateIdentity.schemaVersion}
         AND (SELECT pg_catalog.count(*) FROM public.app_state) = 1
     `;
-    return rows.length === 1
-      && safePostgresStorageRevision(rows[0]?.revision) !== null
-      && buildPostgresStorageMissingCollectionRepair(rows[0]?.payload) !== null;
+    if (
+      rows.length !== 1
+      || safePostgresStorageRevision(rows[0]?.revision) === null
+    ) return null;
+    return buildPostgresStorageMissingCollectionRepair(rows[0]?.payload)
+      ?.operation ?? null;
   });
 }
 
@@ -1147,11 +1170,18 @@ export async function inspectProductionDatabase(client) {
     try {
       appStoragePartialComponent =
         await diagnosePostgresStoragePartialSchemaForProductionGate(client);
-      if (
-        appStoragePartialComponent === "legacy-snapshot-missing-collections"
-        && await inspectPostgresStorageMissingCollectionRepairForProductionGate(client)
-      ) {
-        appStorageState = "legacy-missing-collections-no-readiness-marker";
+      if (appStoragePartialComponent === "legacy-snapshot-missing-collections") {
+        const repairOperation =
+          await inspectPostgresStorageMissingCollectionRepairForProductionGate(
+            client
+          );
+        if (repairOperation === "app-storage-repair-missing-collections-v1") {
+          appStorageState = "legacy-missing-collections-no-readiness-marker";
+        }
+        if (repairOperation === "app-storage-repair-missing-collections-v2") {
+          appStorageState =
+            "legacy-missing-guardian-invitations-no-readiness-marker";
+        }
       }
     } catch {
       // Supplemental catalog diagnosis must never replace the controlling
@@ -1282,6 +1312,12 @@ export async function repairPostgresStorageMissingCollectionsForProductionGate(
     throw new Error("Postgres production schema client was rejected.");
   }
   assertPostgresStorageMissingCollectionRepairContext(options);
+  const expectedOperation = options.expectedOperation;
+  if (!postgresStorageMissingCollectionRepairVersions.some(
+    (version) => version.operation === expectedOperation
+  )) {
+    throw new Error("Postgres production schema operation plan changed.");
+  }
   await client.begin(async (sql) => {
     await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
     await sql.unsafe("SET LOCAL lock_timeout = '5000ms'");
@@ -1336,7 +1372,12 @@ export async function repairPostgresStorageMissingCollectionsForProductionGate(
     const repair = buildPostgresStorageMissingCollectionRepair(
       snapshotRows[0]?.payload
     );
-    if (snapshotRows.length !== 1 || previousRevision === null || !repair) {
+    if (
+      snapshotRows.length !== 1
+      || previousRevision === null
+      || !repair
+      || repair.operation !== expectedOperation
+    ) {
       throw new Error("Postgres production schema operation plan changed.");
     }
     const repairedRevision = previousRevision + 1;
@@ -1725,6 +1766,10 @@ export async function applyMaisProductionSchemaOperations(
     [
       "app-storage-repair-missing-collections-v1",
       "legacy-missing-collections-no-readiness-marker"
+    ],
+    [
+      "app-storage-repair-missing-collections-v2",
+      "legacy-missing-guardian-invitations-no-readiness-marker"
     ]
   ]);
   const appOperationIndexes = operations
@@ -1775,9 +1820,14 @@ export async function applyMaisProductionSchemaOperations(
       () => withPostgresStorageSessionAdvisoryLock(
         client,
         async (lockedClient) => {
-          if (appStorageOperation === "app-storage-repair-missing-collections-v1") {
+          if (
+            appStorageOperation === "app-storage-repair-missing-collections-v1"
+            || appStorageOperation === "app-storage-repair-missing-collections-v2"
+          ) {
             const repairedState =
-              await repairAppStorageMissingCollections(lockedClient);
+              await repairAppStorageMissingCollections(lockedClient, {
+                expectedOperation: appStorageOperation
+              });
             if (
               repairedState !== "legacy-no-readiness-marker"
               && repairedState !== "legacy-v1-compatibility-no-readiness-marker"

@@ -378,6 +378,7 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
     1
   );
   assert.match(repairSource, /AND state\.revision = \$\{previousRevision\}/u);
+  assert.match(repairSource, /repair\.operation !== expectedOperation/u);
   assert.match(repairSource, /payloadMatches/u);
   assert.match(repairSource, /revisionMatches/u);
   assert.match(repairSource, /identityMatches/u);
@@ -392,7 +393,7 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
     "export async function applyTeacherNoticeProductionSchemaOperationsAtomic("
   );
   const repairCall = combinedApplySource.indexOf(
-    "await repairAppStorageMissingCollections(lockedClient)"
+    "await repairAppStorageMissingCollections(lockedClient, {"
   );
   const requiredCollectionCheck = combinedApplySource.indexOf(
     "inspectPostgresStorageRequiredCollectionsForProductionGate"
@@ -407,6 +408,11 @@ test("production missing-collection repair is script-owned, CAS-bounded, and rec
     repairCall < requiredCollectionCheck
       && requiredCollectionCheck < markerCall,
     true
+  );
+  assert.match(combinedApplySource, /expectedOperation: appStorageOperation/u);
+  assert.match(
+    combinedApplySource,
+    /app-storage-repair-missing-collections-v2/u
   );
 
   const sessionLockSource = sourceSection(

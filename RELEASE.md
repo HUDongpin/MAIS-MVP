@@ -212,13 +212,24 @@ only from the serialized, protected-main production workflow after A12 storage r
 value-free runtime/build environment parity attestation, A11 PostgreSQL regression approval, A22
 release approval, and the explicit production confirmation described above.
 
-The operation never reconstructs records. Its version-1 repair allowlist contains exactly
-`teacher_notice_delivery_attempts`; every other missing array or object is rejected, including
-`nova_lens_policy` and any user, student-profile, authentication, class/enrollment, or AI Tutor
-collection. Expanding that allowlist requires new owner-approved evidence and a new versioned
-operation. The schema runner holds one session-level storage-contract advisory lock across both
-phases. Within it, phase 1 takes the transaction-level exclusive advisory lock, the canonical
-relation locks, and the primary state-row lock; re-runs the fixed diagnostic; writes the complete
+The operation never reconstructs records. Its version-1 repair contract contains exactly
+`teacher_notice_delivery_attempts`. Version 2 is a separate operation containing exactly
+`guardian_invitations`; it was admitted only after protected-main read-only diagnostic run
+`33127539898` proved that this was the sole missing key and that no required collection was
+malformed. The existing deployed runtime already treats an absent guardian-invitation source as
+the independent empty list, while active authority remains in the separate `guardian_links`
+collection. Version 2 persists only that established empty default and must preserve
+`guardian_links` exactly.
+
+The versions are not interchangeable. Missing both versioned keys, any other missing array/object,
+or any malformed collection is rejected. A v1 confirmation cannot execute v2, and a v2
+confirmation cannot execute v1. Any future expansion requires new owner-approved evidence and a
+new versioned operation.
+
+For either admitted version, the schema runner holds one session-level storage-contract advisory
+lock across both phases. Within it, phase 1 takes the transaction-level exclusive advisory lock,
+the canonical relation locks, and the primary state-row lock; re-runs the fixed diagnostic; checks
+the locked result against the confirmation's exact versioned operation; writes the complete
 payload with a revision compare-and-swap; and verifies the returned payload, revision, identity,
 and full snapshot contract. Before phase 2, the runner rechecks the complete closed set of current
 snapshot arrays plus `nova_lens_policy` under the still-held session lock. Phase 2 passes the
