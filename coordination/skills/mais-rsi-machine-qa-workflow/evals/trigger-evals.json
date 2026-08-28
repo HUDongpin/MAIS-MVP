@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Can you audit coordination/content-qa/candidate-042/machine-evidence.json? Its control-plane assessment declares P1 schema risk but C0 says not required; verify whether all five independent reviewer receipts are mandatory before A18 sees it.",
+    "should_trigger": true
+  },
+  {
+    "query": "Use the MAIS RSI workflow on this frozen question package: check candidate/currentness hashes, B-prime critique plus revision, and give me a redacted machine disposition only.",
+    "should_trigger": true
+  },
+  {
+    "query": "The model review says clean but the candidate was edited afterward. Are those machine-QA receipts still reusable, or do we need a fresh D-prime validation receipt and critique-to-revision predecessor lineage?",
+    "should_trigger": true
+  },
+  {
+    "query": "Before we call DeepSeek for the exact-package review, verify whether the authorization binds the current policy, protocol, candidate sha, code manifest, roles, privacy scope and caps. Do not call it if anything is stale.",
+    "should_trigger": true
+  },
+  {
+    "query": "Please validate this EvidenceEnvelopeV1 packet offline. It has deterministic and B' receipts and a machineDisposition, but I suspect it contains a forbidden production approval claim.",
+    "should_trigger": true
+  },
+  {
+    "query": "I need a safe A18 handoff from an RSI machine-review receipt whose generic status is blocked. Verify cross-state consistency and self hash, exit blocked, and output only safe counts, hashes, fixed states, independentReviewState and the seven proofBoundaries; do not echo input-controlled IDs.",
+    "should_trigger": true
+  },
+  {
+    "query": "RSI-lite rerun question: the repeated critique wasn't passed into the repeated finding revision. Does the packet prove end-to-end B-prime repeatability? Keep the answer bounded to the synthetic calibration.",
+    "should_trigger": true
+  },
+  {
+    "query": "One C0 reviewer returned malformed JSON and skipped two projected surfaces, while the other four roles passed. Can this exact candidate be marked candidate-only?",
+    "should_trigger": true
+  },
+  {
+    "query": "Our deterministic rules and B-prime disagree on an accepted-answer false reject. Work out whether C0-prime is mandatory and what role completeness evidence is required.",
+    "should_trigger": true
+  },
+  {
+    "query": "Machine QA is done for package p17, supposedly. Audit its fresh independent review and tell me which evidence locations are actually proved: localTest, receipt, trackedCommitted, main, ci, deployment and live. Keep A18/A23/A11/A22 decisions separate.",
+    "should_trigger": true
+  },
+  {
+    "query": "Draw a representative random sample from the live MAIS question bank, estimate the natural error prevalence by grade and language, and produce confidence intervals.",
+    "should_trigger": false
+  },
+  {
+    "query": "Act as A18 and decide whether these 40 questions are mathematically correct, age appropriate, aligned to P4 curriculum, and acceptable for final content signoff.",
+    "should_trigger": false
+  },
+  {
+    "query": "A18 has accepted candidate 042. Prepare the A23 integration sequence, owning pathspec handoffs, promotion checklist and rollback plan.",
+    "should_trigger": false
+  },
+  {
+    "query": "Build the clean release candidate, run regression, deploy it to Vercel production and verify the live lesson route in a browser.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review this AI tutor's explanation for clarity, tone and helpfulness. It is a chat transcript, not a frozen content package and there is no machine-QA receipt.",
+    "should_trigger": false
+  },
+  {
+    "query": "Please rewrite these ten natural math questions to improve wording and then approve the corrected answers for use in class.",
+    "should_trigger": false
+  },
+  {
+    "query": "The exact candidate already has A18 acceptance. Merge its adapter into data/questions.ts and update the live practice route.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run Playwright against the student practice arena and investigate why the answer feedback selector fails on mobile.",
+    "should_trigger": false
+  },
+  {
+    "query": "Audit whether our production deployment uses the right environment variables and whether the provider is reachable from Vercel.",
+    "should_trigger": false
+  },
+  {
+    "query": "Compare two generic LLM responses to a calculus prompt and choose the more pedagogically useful answer; there is no MAIS candidate manifest or RSI evidence bundle.",
+    "should_trigger": false
+  }
+]

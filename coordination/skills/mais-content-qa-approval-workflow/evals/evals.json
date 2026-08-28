@@ -1,0 +1,29 @@
+{
+  "skill_name": "mais-content-qa-approval-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Act as A18. Review an exact frozen P5 fractions package for mathematical correctness, accepted answers, ambiguity, bilingual naturalness, curriculum fit, source distance, and answer-critical visuals. The current evidence is content-green, but no A23 Promotion handoff, A25 clean-slice/release-intake evidence, A11 regression, A22 release evidence, owner production authorization, deployment, or same-SHA live readback exists. Give the highest allowed verdict.",
+      "expected_output": "A bounded A18 content decision whose highest self-created favorable state is approved-for-integration-review.",
+      "expectations": [
+        "Reviews the content-quality dimensions and exact stated scope rather than rerunning RSI or Promotion.",
+        "Uses approved-for-integration-review at most.",
+        "Does not create approved-for-production or live approval.",
+        "Lists A23 Promotion, A25 release intake, A11 regression, A22 release readiness, owner authorization, deployment, and same-SHA live evidence as separate downstream gates.",
+        "Routes the immutable accepted candidate digest to A23 as the next owner."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "A machine packet reports candidate-only and a natural aggregate looks strong. Please use those two documents to approve every question in the bank for production without opening the candidate package or checking rights, answer keys, curriculum alignment, or visuals.",
+      "expected_output": "A blocked content decision that preserves the evidence-class boundaries and refuses production approval.",
+      "expectations": [
+        "States that RSI machine evidence and natural-population aggregates do not replace A18 item/package review.",
+        "Does not approve sampled or unsampled questions from the natural result.",
+        "Does not create a production verdict.",
+        "Requires exact package identity and independent content checks before an A18 decision.",
+        "Routes Shadow/production requests to Promotion and Release after content acceptance."
+      ]
+    }
+  ]
+}

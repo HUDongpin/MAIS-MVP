@@ -1,0 +1,30 @@
+{
+  "skill_name": "mais-release-hygiene-deploy-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The candidate has a Shadow pass, but the Promotion handoff is bound to candidate digest aaa and integration SHA 111 while the proposed clean release slice is digest bbb at SHA 222. No current A11 regression, independently issued A22 release-readiness, or A25 clean-slice evidence is bound to SHA 222. Required CI is green and Vercel shows an older deployment as READY. Deploy the new slice and call it live.",
+      "expected_output": "A release blocker caused by identity mismatch, without deployment or live claim.",
+      "expectations": [
+        "Rejects the mismatched candidate digest and integration SHA.",
+        "Requires a current Promotion handoff for the exact release slice.",
+        "Blocks because A11, A22, and A25 evidence is missing for SHA 222.",
+        "Does not treat Shadow or CI as deployment proof.",
+        "Does not treat an older READY deployment as same-SHA live proof.",
+        "Does not deploy without exact matching upstream evidence and authorization."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "For exact integration SHA 333 and target production, same-candidate A18 acceptance, the current A23 Promotion handoff, A11 regression receipt, independently issued A22 release-readiness receipt, A25 clean-slice receipt, and owner production target/action authorization are all current. Local tests, the production build, and required CI passed independently; A19 reports provider variables configured. A production deployment for SHA 333 exists and Vercel marks it READY, but no fresh route/alias readback, required-behavior smoke, rollback exercise, or monitoring evidence exists. State the highest proven release result.",
+      "expected_output": "deployed-unverified-live for SHA 333 at target production, with every later layer still unproven.",
+      "expectations": [
+        "Separates local test, build, CI, provider configuration, deployment creation, readiness, route readback, and live behavior.",
+        "Does not output same-sha-live-verified.",
+        "Reports missing route/readback, interaction, rollback, and monitoring evidence.",
+        "Binds every proven result to SHA 333 and the target.",
+        "Names fresh same-SHA live verification as the next gate rather than rerunning Promotion."
+      ]
+    }
+  ]
+}
