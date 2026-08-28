@@ -1540,6 +1540,48 @@ test(
           beforeDriftDiagnostic,
           "the record-drift diagnostic must be read-only"
         );
+        const sessionLifecyclePayload = structuredClone(diagnosticPayload);
+        const diagnosticUsers = sessionLifecyclePayload.users as Array<
+          Record<string, unknown>
+        >;
+        assert.ok(diagnosticUsers.length > 0);
+        delete diagnosticUsers[0].session_revision;
+        delete diagnosticUsers[0].disabled_at;
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(sessionLifecyclePayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const beforeSessionLifecycleDiagnostic = await readStateEvidence(sql);
+        assert.deepEqual(
+          await runSuccessfulWorker(
+            "production-schema-parent-access-session-lifecycle-diagnostic"
+          ),
+          {
+            legacyFields: [
+              "guardian_links.invite_code",
+              "student_profiles.parent_invite_code"
+            ],
+            missingFields: [
+              "users.session_revision",
+              "users.disabled_at"
+            ],
+            sessionRevisionDefaultApplied: true,
+            disabledAtDefaultApplied: true,
+            virtualRepairComplete: true,
+            residualUncertainty: false
+          }
+        );
+        assert.deepEqual(
+          await readStateEvidence(sql),
+          beforeSessionLifecycleDiagnostic,
+          "the session-lifecycle diagnostic must be read-only"
+        );
         await sql`
           UPDATE public.app_state
           SET payload = ${sql.json(postgresJson(missingPayload))}::pg_catalog.jsonb,

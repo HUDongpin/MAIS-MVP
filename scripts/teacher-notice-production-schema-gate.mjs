@@ -11,7 +11,11 @@ import {
   inspectPostgresStorageSchemaForProductionGate,
   postgresStorageSnapshotContractIsComplete
 } from "../lib/server/userStore.ts";
-import { isValidAuthStudentAvatarId } from "../lib/server/userStore/authSessionPersistence.ts";
+import {
+  authDisabledAt,
+  authSessionRevision,
+  isValidAuthStudentAvatarId
+} from "../lib/server/userStore/authSessionPersistence.ts";
 import {
   isValidGamificationEventSource,
   isValidGamificationEventStatus,
@@ -119,6 +123,10 @@ const postgresStorageCollectionGapStatuses = new Set([
 const postgresStorageParentAccessLegacyFields = Object.freeze([
   "guardian_links.invite_code",
   "student_profiles.parent_invite_code"
+]);
+const postgresStorageUserSessionLifecycleFields = Object.freeze([
+  "users.session_revision",
+  "users.disabled_at"
 ]);
 const postgresStorageSnapshotRecordDriftReasonCodes = Object.freeze([
   "users-session-lifecycle",
@@ -595,6 +603,87 @@ export function buildPostgresStorageParentAccessRecordDriftDiagnostic(
   });
 }
 
+export function buildPostgresStorageParentAccessSessionLifecycleDiagnostic(
+  snapshot,
+  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
+) {
+  if (typeof isComplete !== "function") {
+    throw new Error(
+      "Postgres production parent-access session-lifecycle diagnostic was rejected."
+    );
+  }
+  const repair = buildPostgresStorageParentAccessVirtualRepair(snapshot);
+  const users = repair.payload.users;
+  if (!Array.isArray(users)) {
+    throw new Error(
+      "Postgres production parent-access session-lifecycle diagnostic was rejected."
+    );
+  }
+
+  let sessionRevisionMissing = false;
+  let disabledAtMissing = false;
+  for (const user of users) {
+    if (
+      typeof user !== "object"
+      || user === null
+      || Array.isArray(user)
+    ) {
+      throw new Error(
+        "Postgres production parent-access session-lifecycle diagnostic was rejected."
+      );
+    }
+    try {
+      if (recordHasOwnField(user, "session_revision")) {
+        authSessionRevision(user);
+      } else {
+        sessionRevisionMissing = true;
+      }
+      if (recordHasOwnField(user, "disabled_at")) {
+        authDisabledAt(user);
+      } else {
+        disabledAtMissing = true;
+      }
+    } catch {
+      throw new Error(
+        "Postgres production parent-access session-lifecycle diagnostic was rejected."
+      );
+    }
+  }
+
+  const missingFields = postgresStorageUserSessionLifecycleFields.filter(
+    (field) => field === "users.session_revision"
+      ? sessionRevisionMissing
+      : disabledAtMissing
+  );
+  if (missingFields.length === 0) {
+    throw new Error(
+      "Postgres production parent-access session-lifecycle diagnostic was rejected."
+    );
+  }
+
+  const virtuallyRepaired = {
+    ...repair.payload,
+    users: users.map((user) => ({
+      ...user,
+      ...(recordHasOwnField(user, "session_revision")
+        ? {}
+        : { session_revision: authSessionRevision(user) }),
+      ...(recordHasOwnField(user, "disabled_at")
+        ? {}
+        : { disabled_at: authDisabledAt(user) })
+    }))
+  };
+  const virtualRepairComplete = isComplete(virtuallyRepaired) === true;
+  return Object.freeze({
+    legacyFields: repair.legacyFields,
+    missingFields: Object.freeze(missingFields),
+    sessionRevisionDefaultApplied: sessionRevisionMissing,
+    disabledAtDefaultApplied: disabledAtMissing,
+    virtualRepairComplete,
+    residualUncertainty: !virtualRepairComplete
+  });
+}
+
 function validatePostgresStorageCollectionGapDiagnostic(value) {
   if (
     typeof value !== "object"
@@ -732,6 +821,63 @@ function validatePostgresStorageParentAccessRecordDriftDiagnostic(value) {
     legacyFields: base.legacyFields,
     recordDriftReasons: Object.freeze(ordered),
     virtualRepairComplete: base.virtualRepairComplete
+  });
+}
+
+function validatePostgresStorageParentAccessSessionLifecycleDiagnostic(value) {
+  if (
+    typeof value !== "object"
+    || value === null
+    || Array.isArray(value)
+    || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify([
+      "disabledAtDefaultApplied",
+      "legacyFields",
+      "missingFields",
+      "residualUncertainty",
+      "sessionRevisionDefaultApplied",
+      "virtualRepairComplete"
+    ])
+    || !Array.isArray(value.missingFields)
+    || typeof value.sessionRevisionDefaultApplied !== "boolean"
+    || typeof value.disabledAtDefaultApplied !== "boolean"
+    || typeof value.residualUncertainty !== "boolean"
+  ) {
+    throw new Error(
+      "Postgres production parent-access session-lifecycle diagnostic was rejected."
+    );
+  }
+  const base = validatePostgresStorageParentAccessRecordContractDiagnostic({
+    legacyFields: value.legacyFields,
+    virtualRepairComplete: value.virtualRepairComplete
+  });
+  const fieldSet = new Set(value.missingFields);
+  const ordered = postgresStorageUserSessionLifecycleFields.filter((field) =>
+    fieldSet.has(field)
+  );
+  if (
+    value.missingFields.length === 0
+    || value.missingFields.some((field) =>
+      typeof field !== "string"
+      || !postgresStorageUserSessionLifecycleFields.includes(field)
+    )
+    || fieldSet.size !== value.missingFields.length
+    || JSON.stringify(value.missingFields) !== JSON.stringify(ordered)
+    || value.sessionRevisionDefaultApplied
+      !== fieldSet.has("users.session_revision")
+    || value.disabledAtDefaultApplied !== fieldSet.has("users.disabled_at")
+    || value.residualUncertainty !== !base.virtualRepairComplete
+  ) {
+    throw new Error(
+      "Postgres production parent-access session-lifecycle diagnostic was rejected."
+    );
+  }
+  return Object.freeze({
+    legacyFields: base.legacyFields,
+    missingFields: Object.freeze(ordered),
+    sessionRevisionDefaultApplied: value.sessionRevisionDefaultApplied,
+    disabledAtDefaultApplied: value.disabledAtDefaultApplied,
+    virtualRepairComplete: base.virtualRepairComplete,
+    residualUncertainty: value.residualUncertainty
   });
 }
 
@@ -1636,6 +1782,16 @@ export async function inspectPostgresStorageParentAccessRecordDriftForProduction
   });
 }
 
+export async function inspectPostgresStorageParentAccessSessionLifecycleForProductionGate(
+  client
+) {
+  return inspectPostgresStorageParentAccessRecordForProductionGate(client, {
+    buildDiagnostic:
+      buildPostgresStorageParentAccessSessionLifecycleDiagnostic,
+    diagnosticName: "parent-access session-lifecycle diagnostic"
+  });
+}
+
 export async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
@@ -1959,6 +2115,9 @@ function resolveProductionGateDependencies(options) {
     inspectParentAccessRecordDrift:
       options.inspectParentAccessRecordDrift
       ?? inspectPostgresStorageParentAccessRecordDriftForProductionGate,
+    inspectParentAccessSessionLifecycle:
+      options.inspectParentAccessSessionLifecycle
+      ?? inspectPostgresStorageParentAccessSessionLifecycleForProductionGate,
     inspectDatabase: options.inspectDatabase ?? inspectProductionDatabase
   };
   if (
@@ -1970,6 +2129,7 @@ function resolveProductionGateDependencies(options) {
     typeof dependencies.inspectCollectionGap !== "function" ||
     typeof dependencies.inspectParentAccessRecordContract !== "function" ||
     typeof dependencies.inspectParentAccessRecordDrift !== "function" ||
+    typeof dependencies.inspectParentAccessSessionLifecycle !== "function" ||
     typeof dependencies.inspectDatabase !== "function"
   ) {
     throw new Error("invalid dependencies");
@@ -2127,6 +2287,42 @@ async function readProductionParentAccessRecordDrift(dependencies) {
   });
 }
 
+async function readProductionParentAccessSessionLifecycle(dependencies) {
+  return withProductionPostgresSecret(dependencies, async (
+    productionUrl,
+    productionEnvironment
+  ) => {
+    const client = await runProductionSchemaStage(
+      "postgres-connect",
+      () => dependencies.connectPostgres(productionUrl)
+    );
+    let primaryError = null;
+    try {
+      return await runProductionSchemaStage(
+        "postgres-inspect",
+        async () => validatePostgresStorageParentAccessSessionLifecycleDiagnostic(
+          await withTemporaryProductionAppStorageEnvironment(
+            productionEnvironment,
+            () => dependencies.inspectParentAccessSessionLifecycle(client)
+          )
+        )
+      );
+    } catch (error) {
+      primaryError = error;
+      throw error;
+    } finally {
+      try {
+        await runProductionSchemaStage(
+          "postgres-close",
+          () => closePostgresClient(client)
+        );
+      } catch (closeError) {
+        if (primaryError === null) throw closeError;
+      }
+    }
+  });
+}
+
 function evidenceFromInspection(dependencies, inspection) {
   return buildTeacherNoticeProductionSchemaPreflightEvidence({
     candidateSha: dependencies.candidateSha,
@@ -2231,6 +2427,36 @@ export async function diagnoseTeacherNoticeProductionSchemaParentAccessRecordDri
       () => assertLocalCandidateBinding(localBinding)
     );
     const diagnostic = await readProductionParentAccessRecordDrift(
+      dependencies
+    );
+    await runProductionSchemaStage(
+      "candidate-binding-after",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    return Object.freeze({
+      candidateSha: dependencies.candidateSha,
+      expectedTreeSha: dependencies.expectedTreeSha,
+      ...diagnostic
+    });
+  } catch (error) {
+    throw stageError("unknown", error);
+  }
+}
+
+export async function diagnoseTeacherNoticeProductionSchemaParentAccessSessionLifecycle(
+  options = {}
+) {
+  try {
+    const dependencies = await runProductionSchemaStage(
+      "input-binding",
+      async () => resolveProductionGateDependencies(options)
+    );
+    const localBinding = localBindingFromDependencies(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-before",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    const diagnostic = await readProductionParentAccessSessionLifecycle(
       dependencies
     );
     await runProductionSchemaStage(
@@ -2664,6 +2890,7 @@ function parseCliArguments(argv) {
     diagnoseCollections: false,
     diagnoseParentAccessRecordDrift: false,
     diagnoseParentAccessRecords: false,
+    diagnoseParentAccessSessionLifecycle: false,
     dryRun: false,
     preflight: false,
     candidateSha: undefined,
@@ -2677,6 +2904,9 @@ function parseCliArguments(argv) {
     }
     else if (argument === "--diagnose-parent-access-record-drift") {
       parsed.diagnoseParentAccessRecordDrift = true;
+    }
+    else if (argument === "--diagnose-parent-access-session-lifecycle") {
+      parsed.diagnoseParentAccessSessionLifecycle = true;
     }
     else if (argument === "--dry-run") parsed.dryRun = true;
     else if (argument === "--preflight") parsed.preflight = true;
@@ -2694,6 +2924,7 @@ function parseCliArguments(argv) {
     + Number(parsed.diagnoseCollections)
     + Number(parsed.diagnoseParentAccessRecordDrift)
     + Number(parsed.diagnoseParentAccessRecords)
+    + Number(parsed.diagnoseParentAccessSessionLifecycle)
     + Number(parsed.dryRun)
     + Number(parsed.preflight);
   if (modeCount !== 1) throw new Error("exactly one mode is required");
@@ -2753,6 +2984,21 @@ async function main() {
     process.stdout.write(`${JSON.stringify({
       ...evidence,
       mode: "parent-access-record-drift-diagnostic",
+      mutation: false,
+      network: true,
+      ok: true
+    })}\n`);
+    return;
+  }
+  if (arguments_.diagnoseParentAccessSessionLifecycle) {
+    const evidence =
+      await diagnoseTeacherNoticeProductionSchemaParentAccessSessionLifecycle({
+        candidateSha,
+        expectedTreeSha
+      });
+    process.stdout.write(`${JSON.stringify({
+      ...evidence,
+      mode: "parent-access-session-lifecycle-diagnostic",
       mutation: false,
       network: true,
       ok: true

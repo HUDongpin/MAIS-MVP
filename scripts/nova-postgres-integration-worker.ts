@@ -196,6 +196,19 @@ async function main() {
       }
     }
 
+    if (command === "production-schema-parent-access-session-lifecycle-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessSessionLifecycleForProductionGate(
+            sql
+          );
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
     if (command === "production-schema-complete-legacy") {
       const sql = createDirectIntegrationClient();
       try {

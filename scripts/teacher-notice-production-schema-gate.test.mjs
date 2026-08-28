@@ -10,12 +10,14 @@ import {
   buildPostgresStorageMissingCollectionRepair,
   buildPostgresStorageParentAccessRecordContractDiagnostic,
   buildPostgresStorageParentAccessRecordDriftDiagnostic,
+  buildPostgresStorageParentAccessSessionLifecycleDiagnostic,
   buildTeacherNoticeProductionSchemaGitEnvironment,
   buildTeacherNoticeProductionSchemaPlan,
   buildTeacherNoticeProductionSchemaPreflightEvidence,
   diagnoseTeacherNoticeProductionSchemaCollections,
   diagnoseTeacherNoticeProductionSchemaParentAccessRecords,
   diagnoseTeacherNoticeProductionSchemaParentAccessRecordDrift,
+  diagnoseTeacherNoticeProductionSchemaParentAccessSessionLifecycle,
   preflightTeacherNoticeProductionSchema,
   postgresStorageProductionRequiredArrayKeys,
   repairPostgresStorageMissingCollectionsForProductionGate,
@@ -336,6 +338,72 @@ test("parent-access record drift diagnostic emits only fixed reason codes after 
     }),
     /record-drift diagnostic/u
   );
+});
+
+test("parent-access session-lifecycle diagnostic only fills absent canonical defaults", async () => {
+  const store = await import("../lib/server/userStore.ts");
+  const complete = store.__userStorePostgresStorageReadinessTestHooks
+    .createCompleteSnapshot();
+  const snapshot = structuredClone(complete);
+  delete snapshot.guardian_invitations;
+  delete snapshot.users[0].session_revision;
+  delete snapshot.users[0].disabled_at;
+  const originalSnapshot = structuredClone(snapshot);
+
+  assert.deepEqual(
+    buildPostgresStorageParentAccessSessionLifecycleDiagnostic(snapshot),
+    {
+      legacyFields: ["guardian_links.invite_code"],
+      missingFields: ["users.session_revision", "users.disabled_at"],
+      sessionRevisionDefaultApplied: true,
+      disabledAtDefaultApplied: true,
+      virtualRepairComplete: true,
+      residualUncertainty: false
+    }
+  );
+  assert.deepEqual(snapshot, originalSnapshot);
+
+  const presentNull = structuredClone(snapshot);
+  presentNull.users[0].disabled_at = null;
+  assert.deepEqual(
+    buildPostgresStorageParentAccessSessionLifecycleDiagnostic(presentNull),
+    {
+      legacyFields: ["guardian_links.invite_code"],
+      missingFields: ["users.session_revision"],
+      sessionRevisionDefaultApplied: true,
+      disabledAtDefaultApplied: false,
+      virtualRepairComplete: true,
+      residualUncertainty: false
+    }
+  );
+
+  const additionalDrift = structuredClone(snapshot);
+  additionalDrift.teacher_classes[0].invite_code = "";
+  assert.deepEqual(
+    buildPostgresStorageParentAccessSessionLifecycleDiagnostic(additionalDrift),
+    {
+      legacyFields: ["guardian_links.invite_code"],
+      missingFields: ["users.session_revision", "users.disabled_at"],
+      sessionRevisionDefaultApplied: true,
+      disabledAtDefaultApplied: true,
+      virtualRepairComplete: false,
+      residualUncertainty: true
+    }
+  );
+
+  for (const invalidUser of [
+    { ...snapshot.users[0], session_revision: 0 },
+    { ...snapshot.users[0], session_revision: 1, disabled_at: "" }
+  ]) {
+    const malformedPresent = structuredClone(snapshot);
+    malformedPresent.users[0] = invalidUser;
+    assert.throws(
+      () => buildPostgresStorageParentAccessSessionLifecycleDiagnostic(
+        malformedPresent
+      ),
+      /session-lifecycle diagnostic/u
+    );
+  }
 });
 
 test("missing-collection mutator ignores a caller-forged production environment", { concurrency: false }, async () => {
@@ -719,6 +787,79 @@ test("parent-access record-drift diagnostic rejects and redacts unknown reason c
           legacyFields: ["guardian_links.invite_code"],
           recordDriftReasons: [sensitiveDiagnostic],
           virtualRepairComplete: false
+        })
+      })
+    );
+  } catch (error) {
+    caught = error;
+  }
+  assert.ok(caught);
+  assert.equal(teacherNoticeProductionSchemaFailureStage(caught), "postgres-inspect");
+  assert.doesNotMatch(String(caught), new RegExp(sensitiveDiagnostic, "u"));
+  assert.equal(closed, true);
+});
+
+test("parent-access session-lifecycle provider diagnostic is candidate-bound and read-only", async () => {
+  let closed = false;
+  let gitChecks = 0;
+  let inspected = 0;
+  const runner = cleanGitRunner();
+  const evidence =
+    await diagnoseTeacherNoticeProductionSchemaParentAccessSessionLifecycle(
+      preflightDependencies({
+        connectPostgres: async (url) => {
+          assert.equal(url, productionUrl);
+          return { end: async () => { closed = true; } };
+        },
+        inspectParentAccessSessionLifecycle: async () => {
+          inspected += 1;
+          return {
+            legacyFields: ["guardian_links.invite_code"],
+            missingFields: ["users.session_revision", "users.disabled_at"],
+            sessionRevisionDefaultApplied: true,
+            disabledAtDefaultApplied: true,
+            virtualRepairComplete: true,
+            residualUncertainty: false
+          };
+        },
+        runCommand: async (...arguments_) => {
+          gitChecks += 1;
+          return runner(...arguments_);
+        }
+      })
+    );
+  assert.deepEqual(evidence, {
+    candidateSha,
+    expectedTreeSha,
+    legacyFields: ["guardian_links.invite_code"],
+    missingFields: ["users.session_revision", "users.disabled_at"],
+    sessionRevisionDefaultApplied: true,
+    disabledAtDefaultApplied: true,
+    virtualRepairComplete: true,
+    residualUncertainty: false
+  });
+  assert.equal(inspected, 1);
+  assert.equal(closed, true);
+  assert.equal(gitChecks, 8);
+});
+
+test("parent-access session-lifecycle diagnostic rejects and redacts unknown fields", async () => {
+  const sensitiveDiagnostic = "private-session-field-private-password";
+  let closed = false;
+  let caught;
+  try {
+    await diagnoseTeacherNoticeProductionSchemaParentAccessSessionLifecycle(
+      preflightDependencies({
+        connectPostgres: async () => ({
+          end: async () => { closed = true; }
+        }),
+        inspectParentAccessSessionLifecycle: async () => ({
+          legacyFields: ["guardian_links.invite_code"],
+          missingFields: [sensitiveDiagnostic],
+          sessionRevisionDefaultApplied: false,
+          disabledAtDefaultApplied: false,
+          virtualRepairComplete: false,
+          residualUncertainty: true
         })
       })
     );
