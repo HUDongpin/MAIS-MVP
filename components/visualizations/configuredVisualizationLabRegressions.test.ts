@@ -265,10 +265,15 @@ test("configured visualization lab exposes a footer action slot for lesson embed
   assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
   assert.match(source, /type ConfiguredVisualizationLabProps = \{[\s\S]*controlFooterAction\?: ReactNode;[\s\S]*lab\?: FeaturedLabDefinition \| null;/);
   assert.match(source, /threeDPresentation\?: ThreeDPresentation;/);
+  // The learner surface must default to "learner". Defaulting to "authoring"
+  // shipped the MAIS Manim authoring dock (capture, checkpoint, paste/save,
+  // undo/redo) to every student on all 52 Mainland 3D labs, because
+  // ConfiguredVisualizationLab does not pass threeDPresentation at all.
   assert.match(
     source,
-    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "authoring",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
+    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "learner",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
   );
+  assert.doesNotMatch(source, /threeDPresentation = "authoring"/);
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /<ConfiguredVisualizationLabSurface \{\.\.\.props\} threeDPresentation="learner" \/>/);
   assert.match(source, /<ThreeDLabCanvas[\s\S]*presentation=\{threeDPresentation\}/);

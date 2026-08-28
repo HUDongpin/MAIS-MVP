@@ -2893,7 +2893,10 @@ function ConfiguredVisualizationLabSurface({
   controlFooterAction,
   lab = null,
   labId,
-  threeDPresentation = "authoring",
+  // Safe by default: the learner surface must never render the MAIS Manim
+  // authoring dock (capture, checkpoint, paste/save, undo/redo). An authoring
+  // surface has to opt in explicitly by passing threeDPresentation="authoring".
+  threeDPresentation = "learner",
   topicId
 }: ConfiguredVisualizationLabProps) {
   const { recordLearningEvent, t, text } = useSettings();

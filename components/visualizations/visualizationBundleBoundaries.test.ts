@@ -39,7 +39,7 @@ test("ConfiguredVisualizationLab keeps the Three.js canvas in a lazy runtime chu
   assert.match(source, /threeDPresentation\?: ThreeDPresentation;/);
   assert.match(
     source,
-    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "authoring",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
+    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "learner",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
   );
   assert.match(source, /<ConfiguredVisualizationLabSurface \{\.\.\.props\} threeDPresentation="learner" \/>/);
   assert.match(source, /<ThreeDLabCanvas[\s\S]*presentation=\{threeDPresentation\}/);
