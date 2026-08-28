@@ -48,6 +48,7 @@ test("production release has one manual entrypoint and one workflow-wide writer 
   assert.deepEqual(inputs.mode.options, [
     "schema-preflight",
     "collection-gap-diagnostic",
+    "parent-access-record-diagnostic",
     "deploy"
   ]);
   assert.equal(inputs.candidate_sha.type, "string");
@@ -63,6 +64,7 @@ test("all modes bind a protected main event to the exact checked-out SHA and tre
   for (const [jobName, mode] of [
     ["schema-preflight", "schema-preflight"],
     ["collection-gap-diagnostic", "collection-gap-diagnostic"],
+    ["parent-access-record-diagnostic", "parent-access-record-diagnostic"],
     ["deploy", "deploy"]
   ]) {
     const job = workflow.jobs[jobName];
@@ -101,6 +103,31 @@ test("all modes bind a protected main event to the exact checked-out SHA and tre
     assert.equal(setup.with["node-version"], 24);
     assert.equal(stepByName(job, "Install locked dependencies").run, "npm ci");
   }
+});
+
+test("parent-access record diagnostic is final, read-only, and cannot emit a confirmation", async () => {
+  const { workflow } = await readWorkflow();
+  const job = workflow.jobs["parent-access-record-diagnostic"];
+  const diagnostic = stepByName(
+    job,
+    "Read-only production parent-access record diagnostic"
+  );
+
+  assert.ok(job["timeout-minutes"] >= 20);
+  assert.deepEqual(diagnostic.env, {
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
+    VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
+  });
+  assert.match(
+    diagnostic.run,
+    /^node --import tsx scripts\/teacher-notice-production-schema-gate\.mjs --diagnose-parent-access-records \\\n+  "--candidate-sha=\$MAIS_RELEASE_SHA" \\\n+  "--expected-tree-sha=\$MAIS_RELEASE_TREE_SHA"$/u
+  );
+  assert.equal(job.outputs, undefined);
+  assert.equal(job.steps.at(-1), diagnostic);
+  assert.equal(
+    job.steps.some((step) => /confirm|deploy|apply/iu.test(step.name)),
+    false
+  );
 });
 
 test("collection-gap diagnostic is the final read-only step and cannot emit a confirmation", async () => {

@@ -101,6 +101,10 @@ const postgresStorageCollectionGapStatuses = new Set([
   "malformed",
   "missing"
 ]);
+const postgresStorageParentAccessLegacyFields = Object.freeze([
+  "guardian_links.invite_code",
+  "student_profiles.parent_invite_code"
+]);
 const sha1Pattern = /^[a-f0-9]{40}$/u;
 const sha256Pattern = /^[a-f0-9]{64}$/u;
 const aggregatePattern = /^(?:0|[1-9][0-9]{0,29})$/u;
@@ -246,6 +250,93 @@ export function buildPostgresStorageCollectionGapDiagnostic({
   });
 }
 
+function withoutLegacyRecordField(record, field) {
+  if (
+    typeof record !== "object"
+    || record === null
+    || Array.isArray(record)
+  ) return record;
+  const sanitized = { ...record };
+  delete sanitized[field];
+  return sanitized;
+}
+
+function recordHasOwnField(record, field) {
+  return typeof record === "object"
+    && record !== null
+    && !Array.isArray(record)
+    && Object.hasOwn(record, field);
+}
+
+export function buildPostgresStorageParentAccessRecordContractDiagnostic(
+  snapshot,
+  { isComplete = postgresStorageSnapshotContractIsComplete } = {}
+) {
+  if (
+    typeof snapshot !== "object"
+    || snapshot === null
+    || Array.isArray(snapshot)
+    || typeof isComplete !== "function"
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-contract diagnostic was rejected."
+    );
+  }
+  for (const key of postgresStorageProductionRequiredArrayKeys) {
+    if (key === "guardian_invitations") {
+      if (Object.hasOwn(snapshot, key)) {
+        throw new Error(
+          "Postgres production parent-access record-contract diagnostic was rejected."
+        );
+      }
+      continue;
+    }
+    if (!Object.hasOwn(snapshot, key) || !Array.isArray(snapshot[key])) {
+      throw new Error(
+        "Postgres production parent-access record-contract diagnostic was rejected."
+      );
+    }
+  }
+  for (const key of legacySnapshotRequiredObjectKeys) {
+    if (
+      !Object.hasOwn(snapshot, key)
+      || typeof snapshot[key] !== "object"
+      || snapshot[key] === null
+      || Array.isArray(snapshot[key])
+    ) {
+      throw new Error(
+        "Postgres production parent-access record-contract diagnostic was rejected."
+      );
+    }
+  }
+
+  const hasGuardianLinkInviteCode = snapshot.guardian_links.some(
+    (record) => recordHasOwnField(record, "invite_code")
+  );
+  const hasStudentProfileParentInviteCode = snapshot.student_profiles.some(
+    (record) => recordHasOwnField(record, "parent_invite_code")
+  );
+  const legacyFields = postgresStorageParentAccessLegacyFields.filter(
+    (field) => field === "guardian_links.invite_code"
+      ? hasGuardianLinkInviteCode
+      : hasStudentProfileParentInviteCode
+  );
+  const virtuallyRepaired = {
+    ...snapshot,
+    guardian_invitations: [],
+    guardian_links: snapshot.guardian_links.map((record) =>
+      withoutLegacyRecordField(record, "invite_code")
+    ),
+    student_profiles: snapshot.student_profiles.map((record) =>
+      withoutLegacyRecordField(record, "parent_invite_code")
+    )
+  };
+  return Object.freeze({
+    legacyFields: Object.freeze(legacyFields),
+    virtualRepairComplete: isComplete(virtuallyRepaired) === true
+  });
+}
+
 function validatePostgresStorageCollectionGapDiagnostic(value) {
   if (
     typeof value !== "object"
@@ -302,6 +393,43 @@ function validatePostgresStorageCollectionGapDiagnostic(value) {
     malformedObjects,
     missingArrays,
     missingObjects
+  });
+}
+
+function validatePostgresStorageParentAccessRecordContractDiagnostic(value) {
+  if (
+    typeof value !== "object"
+    || value === null
+    || Array.isArray(value)
+    || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify([
+      "legacyFields",
+      "virtualRepairComplete"
+    ])
+    || !Array.isArray(value.legacyFields)
+    || typeof value.virtualRepairComplete !== "boolean"
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-contract diagnostic was rejected."
+    );
+  }
+  const unique = new Set(value.legacyFields);
+  if (
+    value.legacyFields.some((field) =>
+      typeof field !== "string"
+      || !postgresStorageParentAccessLegacyFields.includes(field)
+    )
+    || unique.size !== value.legacyFields.length
+    || JSON.stringify(value.legacyFields) !== JSON.stringify(
+      postgresStorageParentAccessLegacyFields.filter((field) => unique.has(field))
+    )
+  ) {
+    throw new Error(
+      "Postgres production parent-access record-contract diagnostic was rejected."
+    );
+  }
+  return Object.freeze({
+    legacyFields: Object.freeze([...value.legacyFields]),
+    virtualRepairComplete: value.virtualRepairComplete
   });
 }
 
@@ -1145,6 +1273,49 @@ export async function inspectPostgresStorageCollectionGapForProductionGate(
   });
 }
 
+export async function inspectPostgresStorageParentAccessRecordContractForProductionGate(
+  client
+) {
+  if (!client || typeof client.begin !== "function") {
+    throw new Error(
+      "Postgres production parent-access record-contract diagnostic was rejected."
+    );
+  }
+  return client.begin("isolation level repeatable read read only", async (sql) => {
+    await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
+    await sql.unsafe("SET LOCAL lock_timeout = '2000ms'");
+    await sql.unsafe("SET LOCAL statement_timeout = '15000ms'");
+    await sql.unsafe("SET LOCAL idle_in_transaction_session_timeout = '15000ms'");
+    await sql`SELECT pg_catalog.pg_advisory_xact_lock_shared(
+      pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+    )`;
+    const rows = await sql`
+      /* postgres_storage_parent_access_record_contract_diagnostic */
+      SELECT
+        state.payload,
+        state.revision,
+        (SELECT pg_catalog.count(*) FROM public.app_state)::int4 AS "rowCount"
+      FROM public.app_state AS state
+      WHERE state.id = ${postgresStorageStateIdentity.id}
+        AND state.tenant_id = ${postgresStorageStateIdentity.tenantId}
+        AND state.state_kind = ${postgresStorageStateIdentity.stateKind}
+        AND state.schema_version = ${postgresStorageStateIdentity.schemaVersion}
+    `;
+    if (
+      rows.length !== 1
+      || safePostgresStorageRevision(rows[0]?.revision) === null
+      || rows[0]?.rowCount !== 1
+    ) {
+      throw new Error(
+        "Postgres production parent-access record-contract diagnostic was rejected."
+      );
+    }
+    return buildPostgresStorageParentAccessRecordContractDiagnostic(
+      rows[0]?.payload
+    );
+  });
+}
+
 export async function inspectProductionDatabase(client) {
   if (!client || typeof client.begin !== "function") {
     throw new Error("Teacher notice production database client was rejected.");
@@ -1462,6 +1633,9 @@ function resolveProductionGateDependencies(options) {
     })),
     inspectCollectionGap: options.inspectCollectionGap
       ?? inspectPostgresStorageCollectionGapForProductionGate,
+    inspectParentAccessRecordContract:
+      options.inspectParentAccessRecordContract
+      ?? inspectPostgresStorageParentAccessRecordContractForProductionGate,
     inspectDatabase: options.inspectDatabase ?? inspectProductionDatabase
   };
   if (
@@ -1471,6 +1645,7 @@ function resolveProductionGateDependencies(options) {
     typeof dependencies.fetchImpl !== "function" ||
     typeof dependencies.connectPostgres !== "function" ||
     typeof dependencies.inspectCollectionGap !== "function" ||
+    typeof dependencies.inspectParentAccessRecordContract !== "function" ||
     typeof dependencies.inspectDatabase !== "function"
   ) {
     throw new Error("invalid dependencies");
@@ -1556,6 +1731,42 @@ async function readProductionCollectionGap(dependencies) {
   });
 }
 
+async function readProductionParentAccessRecordContract(dependencies) {
+  return withProductionPostgresSecret(dependencies, async (
+    productionUrl,
+    productionEnvironment
+  ) => {
+    const client = await runProductionSchemaStage(
+      "postgres-connect",
+      () => dependencies.connectPostgres(productionUrl)
+    );
+    let primaryError = null;
+    try {
+      return await runProductionSchemaStage(
+        "postgres-inspect",
+        async () => validatePostgresStorageParentAccessRecordContractDiagnostic(
+          await withTemporaryProductionAppStorageEnvironment(
+            productionEnvironment,
+            () => dependencies.inspectParentAccessRecordContract(client)
+          )
+        )
+      );
+    } catch (error) {
+      primaryError = error;
+      throw error;
+    } finally {
+      try {
+        await runProductionSchemaStage(
+          "postgres-close",
+          () => closePostgresClient(client)
+        );
+      } catch (closeError) {
+        if (primaryError === null) throw closeError;
+      }
+    }
+  });
+}
+
 function evidenceFromInspection(dependencies, inspection) {
   return buildTeacherNoticeProductionSchemaPreflightEvidence({
     candidateSha: dependencies.candidateSha,
@@ -1603,6 +1814,35 @@ export async function diagnoseTeacherNoticeProductionSchemaCollections(
       () => assertLocalCandidateBinding(localBinding)
     );
     const diagnostic = await readProductionCollectionGap(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-after",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    return Object.freeze({
+      candidateSha: dependencies.candidateSha,
+      expectedTreeSha: dependencies.expectedTreeSha,
+      ...diagnostic
+    });
+  } catch (error) {
+    throw stageError("unknown", error);
+  }
+}
+
+export async function diagnoseTeacherNoticeProductionSchemaParentAccessRecords(
+  options = {}
+) {
+  try {
+    const dependencies = await runProductionSchemaStage(
+      "input-binding",
+      async () => resolveProductionGateDependencies(options)
+    );
+    const localBinding = localBindingFromDependencies(dependencies);
+    await runProductionSchemaStage(
+      "candidate-binding-before",
+      () => assertLocalCandidateBinding(localBinding)
+    );
+    const diagnostic =
+      await readProductionParentAccessRecordContract(dependencies);
     await runProductionSchemaStage(
       "candidate-binding-after",
       () => assertLocalCandidateBinding(localBinding)
@@ -2032,6 +2272,7 @@ function parseCliArguments(argv) {
   const parsed = {
     apply: false,
     diagnoseCollections: false,
+    diagnoseParentAccessRecords: false,
     dryRun: false,
     preflight: false,
     candidateSha: undefined,
@@ -2040,6 +2281,9 @@ function parseCliArguments(argv) {
   for (const argument of argv) {
     if (argument === "--apply") parsed.apply = true;
     else if (argument === "--diagnose-collections") parsed.diagnoseCollections = true;
+    else if (argument === "--diagnose-parent-access-records") {
+      parsed.diagnoseParentAccessRecords = true;
+    }
     else if (argument === "--dry-run") parsed.dryRun = true;
     else if (argument === "--preflight") parsed.preflight = true;
     else if (argument.startsWith("--candidate-sha=")) {
@@ -2054,6 +2298,7 @@ function parseCliArguments(argv) {
   }
   const modeCount = Number(parsed.apply)
     + Number(parsed.diagnoseCollections)
+    + Number(parsed.diagnoseParentAccessRecords)
     + Number(parsed.dryRun)
     + Number(parsed.preflight);
   if (modeCount !== 1) throw new Error("exactly one mode is required");
@@ -2083,6 +2328,21 @@ async function main() {
     process.stdout.write(`${JSON.stringify({
       ...evidence,
       mode: "collection-gap-diagnostic",
+      mutation: false,
+      network: true,
+      ok: true
+    })}\n`);
+    return;
+  }
+  if (arguments_.diagnoseParentAccessRecords) {
+    const evidence =
+      await diagnoseTeacherNoticeProductionSchemaParentAccessRecords({
+        candidateSha,
+        expectedTreeSha
+      });
+    process.stdout.write(`${JSON.stringify({
+      ...evidence,
+      mode: "parent-access-record-diagnostic",
       mutation: false,
       network: true,
       ok: true

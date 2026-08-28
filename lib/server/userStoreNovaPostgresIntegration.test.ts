@@ -1460,10 +1460,51 @@ test(
         );
         const missingPayload = structuredClone(before.payload) as Record<string, unknown>;
         delete missingPayload.guardian_invitations;
+        const diagnosticPayload = structuredClone(missingPayload);
+        const diagnosticProfiles = diagnosticPayload.student_profiles as Array<
+          Record<string, unknown>
+        >;
+        const diagnosticGuardianLinks = diagnosticPayload.guardian_links as Array<
+          Record<string, unknown>
+        >;
+        assert.ok(diagnosticProfiles.length > 0);
+        assert.ok(diagnosticGuardianLinks.length > 0);
+        diagnosticProfiles[0].parent_invite_code =
+          "integration-private-parent-invite";
+        diagnosticGuardianLinks[0].invite_code =
+          "integration-private-guardian-invite";
 
         await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
         await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
         await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(diagnosticPayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const beforeDiagnostic = await readStateEvidence(sql);
+        assert.deepEqual(
+          await runSuccessfulWorker(
+            "production-schema-parent-access-record-diagnostic"
+          ),
+          {
+            legacyFields: [
+              "guardian_links.invite_code",
+              "student_profiles.parent_invite_code"
+            ],
+            virtualRepairComplete: true
+          }
+        );
+        assert.deepEqual(
+          await readStateEvidence(sql),
+          beforeDiagnostic,
+          "the record-contract diagnostic must be read-only"
+        );
         await sql`
           UPDATE public.app_state
           SET payload = ${sql.json(postgresJson(missingPayload))}::pg_catalog.jsonb,
