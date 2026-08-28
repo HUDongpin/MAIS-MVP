@@ -58,6 +58,9 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const ADVISORY_BASELINE = 3512;
+// Banned terms found in hand-written zhHans literals, which ship verbatim. All pre-existing;
+// ratcheted so the count can only fall. 账户 x20, 课节 x7, 位值 x3 at the time of writing.
+const SHIPPED_CRITICAL_BASELINE = 30;
 
 const projectRoot = process.cwd();
 const argv = process.argv.slice(2);
@@ -249,8 +252,15 @@ function collectZhHansStrings(value, pointer, sink) {
   }
   if (value && typeof value === "object") {
     for (const [key, child] of Object.entries(value)) {
-      if (key === "zhHans" && typeof child === "string") {
+      // Match "zhHans" and any field that suffixes it (promptZhHans, optionsZhHans,
+      // explanationZhHans). Matching the bare key alone skipped every mainland pack.
+      if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && typeof child === "string") {
         sink.push({ pointer: `${pointer}.${key}`, text: child });
+      } else if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && Array.isArray(child)) {
+        child.forEach((item, index) => {
+          if (typeof item === "string") sink.push({ pointer: `${pointer}.${key}[${index}]`, text: item });
+          else collectZhHansStrings(item, `${pointer}.${key}[${index}]`, sink);
+        });
       } else {
         collectZhHansStrings(child, pointer === "" ? key : `${pointer}.${key}`, sink);
       }
@@ -358,6 +368,29 @@ for (const file of fileEntries) {
         original: entry.text,
         rendered,
         suggestion: "Review CJK punctuation beside Latin letters/numbers for spacing and readability."
+      });
+    }
+  }
+}
+
+// textForLanguage (lib/i18n.ts) returns value.zhHans verbatim whenever it exists, so for any string
+// with an explicit sibling the converter output is NEVER rendered. Grading only the derived text
+// therefore lints a string no PRC user sees. Lint the shipped literal too, with the same rules the
+// pack half already applies to pack zhHans.
+for (const file of fileEntries) {
+  for (const match of file.source.matchAll(/\bzhHans\s*:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/g)) {
+    const shipped = decodeStringLiteral(match[2]);
+    const line = file.source.slice(0, match.index).split("\n").length;
+    for (const banned of bannedTerms) {
+      if (!shipped.includes(banned.term)) continue;
+      issues.push({
+        severity: banned.type === "prc-grade" ? "warning" : "critical",
+        type: `shipped-${banned.type}`,
+        file: file.relativePath,
+        line,
+        original: shipped,
+        rendered: shipped,
+        suggestion: `${banned.term} -> ${banned.suggestion} (this literal ships as-is; the converter never runs on it)`
       });
     }
   }
@@ -496,7 +529,15 @@ if (selfTestRequested && !failOnCritical && rawMaxAdvisory === undefined) {
   process.exitCode = selfTestFailures.length ? 1 : 0;
 } else {
   const gateFailures = [];
-  if (failOnCritical && nonPackCriticalCount > 0) gateFailures.push(`${nonPackCriticalCount} non-pack critical issue(s)`);
+  const shippedCritical = issues.filter((issue) => issue.severity === "critical" && issue.type.startsWith("shipped-")).length;
+  const hardCritical = nonPackCriticalCount - shippedCritical;
+  if (failOnCritical && hardCritical > 0) gateFailures.push(`${hardCritical} non-pack critical issue(s)`);
+  if (shippedCritical > SHIPPED_CRITICAL_BASELINE) {
+    gateFailures.push(
+      `shipped zhHans critical count ${shippedCritical} exceeds baseline ${SHIPPED_CRITICAL_BASELINE} — ` +
+        "hand-written zhHans copy may only improve"
+    );
+  }
   if (failOnCritical && packRegressions.length > 0) {
     gateFailures.push(`generated-pack regression: ${packRegressions.map(([type, count]) => `${type} ${count} > ${packBaseline[type] ?? 0}`).join(", ")}`);
   }
