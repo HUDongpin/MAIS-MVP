@@ -12,19 +12,19 @@ const catalog = {
   // Student labels are sorted independently from the class list. The first student
   // therefore belongs to class-a even though class-b is the default class.
   students: [
-    { id: "target-ada", type: "student", classId: "class-a", studentId: "student-a", label: { en: "Ada", zh: "Ada", zhHans: "Ada" } },
-    { id: "target-ben", type: "student", classId: "class-b", studentId: "student-b", label: { en: "Ben", zh: "Ben", zhHans: "Ben" } },
-    { id: "target-zoe", type: "student", classId: "class-a", studentId: "student-z", label: { en: "Zoe", zh: "Zoe", zhHans: "Zoe" } }
+    { id: "target-ada", type: "student", classId: "class-a", studentId: "student-a", label: { en: "Ada", zh: "Ada" } },
+    { id: "target-ben", type: "student", classId: "class-b", studentId: "student-b", label: { en: "Ben", zh: "Ben" } },
+    { id: "target-zoe", type: "student", classId: "class-a", studentId: "student-z", label: { en: "Zoe", zh: "Zoe" } }
   ],
   // The global option order intentionally starts with class-a while class-b is
   // the default class. A legal initial target therefore cannot use index 0.
   assignments: [
-    { id: "target-assignment-a", type: "assignment", assignmentId: "assignment-a", classId: "class-a", label: { en: "Assignment A", zh: "Assignment A", zhHans: "Assignment A" } },
-    { id: "target-assignment-b", type: "assignment", assignmentId: "assignment-b", classId: "class-b", label: { en: "Assignment B", zh: "Assignment B", zhHans: "Assignment B" } }
+    { id: "target-assignment-a", type: "assignment", assignmentId: "assignment-a", classId: "class-a", label: { en: "Assignment A", zh: "Assignment A" } },
+    { id: "target-assignment-b", type: "assignment", assignmentId: "assignment-b", classId: "class-b", label: { en: "Assignment B", zh: "Assignment B" } }
   ],
   assessments: [
-    { id: "target-assessment-a", type: "assessment", assessmentId: "assessment-a", classId: "class-a", label: { en: "Assessment A", zh: "Assessment A", zhHans: "Assessment A" } },
-    { id: "target-assessment-b", type: "assessment", assessmentId: "assessment-b", classId: "class-b", label: { en: "Assessment B", zh: "Assessment B", zhHans: "Assessment B" } }
+    { id: "target-assessment-a", type: "assessment", assessmentId: "assessment-a", classId: "class-a", label: { en: "Assessment A", zh: "Assessment A" } },
+    { id: "target-assessment-b", type: "assessment", assessmentId: "assessment-b", classId: "class-b", label: { en: "Assessment B", zh: "Assessment B" } }
   ]
 };
 

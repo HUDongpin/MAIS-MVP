@@ -74,7 +74,7 @@ export function teacherOperationFailureMessage(
       const retrySeconds = failure.retryAfterMs === null ? null : Math.max(1, Math.ceil(failure.retryAfterMs / 1_000));
       return t({
         en: `${subjectLabel} was not queued because requests are temporarily limited.${retrySeconds ? ` Try again in ${retrySeconds} seconds; retrying will reuse the same request key.` : " Retrying will reuse the same request key."}`,
-        zh: `${subjectLabel}未加入隊列，系統暫時限制請求。${retrySeconds ? `請在 ${retrySeconds} 秒後重試，並沿用相同請求識別碼。` : "重試時會沿用相同請求識別碼。"}`, zhHans: `${subjectLabel}未加入队列，系统暂时限制请求。${retrySeconds ? `請在 ${retrySeconds} 秒後重試，並沿用相同請求識別碼。` : "重试时会沿用相同请求识别码。"}`
+        zh: `${subjectLabel}未加入隊列，系統暫時限制請求。${retrySeconds ? `請在 ${retrySeconds} 秒後重試，並沿用相同請求識別碼。` : "重試時會沿用相同請求識別碼。"}`, zhHans: `${subjectLabel}未加入队列，系统暂时限制请求。${retrySeconds ? `请在 ${retrySeconds} 秒后重试，并沿用相同请求识别码。` : "重试时会沿用相同请求识别码。"}`
       });
     }
     case "service-unavailable":

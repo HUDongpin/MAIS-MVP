@@ -3,6 +3,24 @@ import type { CurriculumTrack, Difficulty, GradeId, Language, LocalizedText } fr
 
 export const languageValues = ["en", "zh", "zh-Hans"] as const satisfies readonly Language[];
 
+/**
+ * Traditional -> Simplified, applied blindly per character by traditionalToSimplified() below, with
+ * prcSimplifiedPhraseRules running afterwards for vocabulary. An entry is only safe if it holds in
+ * EVERY word, so genuinely one-to-many characters are deliberately absent:
+ *
+ *   乾  乾燥->干燥 but 乾坤 keeps 乾        著  the PRC keeps both 著 (著名) and 着 (走着)
+ *   瞭  瞭解->了解 but 瞭望 keeps 瞭        藉  憑藉->凭借 but 狼藉 keeps 藉
+ *   鍾  錢鍾書 is 钱锺书, not 钱钟书        鞦  鞦韆->秋千 but 後鞦->后鞧
+ *   覆  回覆->回复 but 覆蓋->覆盖 — handled by phrase rules instead
+ *
+ * Two entries below ARE one-to-many but are kept, because the non-default sense does not occur in
+ * this product's copy and dropping them would leave the common sense untranslated:
+ *
+ *   徵 -> 征   correct for 特徵->特征 (the only sense present here). The PRC retains 徵 in the
+ *              musical scale 宫商角徵羽 (zhǐ); add a phrase rule if that ever ships.
+ *   於 -> 于   correct for 用於/對於/關於/位於 (the only senses present here). The PRC retains 於
+ *              in 於菟 and in the surname 於 (e.g. 於梨华); add a phrase rule if those ever ship.
+ */
 export const traditionalToSimplifiedMap: Record<string, string> = {
   佈: "布",
   佔: "占",
@@ -72,7 +90,7 @@ export const traditionalToSimplifiedMap: Record<string, string> = {
   尋: "寻",
   層: "层",
   屬: "属",
-  帳: "账",
+  帳: "帐",
   嶄: "崭",
   幫: "帮",
   幣: "币",
@@ -1170,6 +1188,13 @@ export const prcSimplifiedPhraseRules: readonly PrcSimplifiedPhraseRule[] = [
   { source: "导学课时", replacement: "导学课", reason: "Avoid over-literal class-period wording" },
   { source: "完整实验室", replacement: "完整实验", reason: "Mainland learning-tool wording" },
   { source: "电邮", replacement: "邮箱", reason: "Mainland account wording" },
+  { source: "帐户", replacement: "账户", reason: "帳 is the cloth/tent character (帐篷); the money sense is 賬->账, restored here at phrase level" },
+  { source: "帐号", replacement: "账号", reason: "see 帐户" },
+  { source: "帐单", replacement: "账单", reason: "see 帐户" },
+  { source: "记帐", replacement: "记账", reason: "see 帐户" },
+  { source: "结帐", replacement: "结账", reason: "see 帐户" },
+  { source: "对帐", replacement: "对账", reason: "see 帐户" },
+  { source: "转帐", replacement: "转账", reason: "see 帐户" },
   { source: "账户", replacement: "账号", reason: "Mainland account wording" },
   { source: "用户名称", replacement: "用户名", reason: "Mainland account wording" },
   { source: "连系", replacement: "联系", reason: "Mainland wording" },

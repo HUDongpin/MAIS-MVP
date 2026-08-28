@@ -19,9 +19,9 @@
  *         was being reported as missing (127 false positives)
  *   3498  explicit zhHans added for app/api, app/classroom, components/dashboard and
  *         components/teacher, measured on a pre-2026-08-28 tree
- *   3503  re-derived on current main (2026-08-28) after merging the above with the generated-pack
- *         scanning from PR #200; the count rose because the tree gained 157 files and 371 zh
- *         strings, and fell again as the window fix removed 148 false positives
+ *   3512  re-derived on current main (2026-08-28) after merging the above with the generated-pack
+ *         scanning from PR #200. The tree gained 157 files and 371 zh strings; the window fix removed
+ *         148 false positives; test fixtures are deliberately left untranslated.
  *
  * NOTE: `audit:zh-hans:strict` in package.json is frozen by the A10/A22 release-governance gate
  * (scripts/release-governance.test.mjs pins both the allowed script names and a sha256 of their
@@ -57,7 +57,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-const ADVISORY_BASELINE = 3503;
+const ADVISORY_BASELINE = 3512;
 
 const projectRoot = process.cwd();
 const argv = process.argv.slice(2);

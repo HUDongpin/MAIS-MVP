@@ -21,7 +21,7 @@ const thread: ParentMessageThreadSafe = {
   studentId: "student-a",
   studentName: "Ada",
   teacherName: "Teacher Lee",
-  subject: { en: "Question", zh: "問題", zhHans: "问题" },
+  subject: { en: "Question", zh: "問題" },
   latestMessage: "Please help.",
   status: "unread",
   priority: "normal",
