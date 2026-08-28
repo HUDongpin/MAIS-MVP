@@ -1650,6 +1650,214 @@ test(
         await assertIntegrationWorkerClientsClosed(sql);
       });
 
+      await t.test("parent session-lifecycle v3 repair is exact, serialized, and lossless", async (t) => {
+        const before = await readState(sql);
+        const beforeEvidence = await readStateEvidence(sql);
+        t.after(async () => {
+          await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
+          await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
+          await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+          await sql`
+            UPDATE public.app_state
+            SET payload = ${sql.json(postgresJson(before.payload))}::pg_catalog.jsonb,
+                revision = ${before.revision},
+                updated_at = ${beforeEvidence.updated_at}
+            WHERE id = 'primary'
+              AND tenant_id = 'platform'
+              AND state_kind = 'app-snapshot'
+              AND schema_version = 1
+          `;
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-complete-legacy"),
+            { completed: true }
+          );
+          await assertIntegrationWorkerClientsClosed(sql);
+        });
+
+        const candidatePayload = structuredClone(before.payload) as Record<
+          string,
+          unknown
+        >;
+        delete candidatePayload.guardian_invitations;
+        const candidateGuardianLinks = candidatePayload.guardian_links as Array<
+          Record<string, unknown>
+        >;
+        const candidateProfiles = candidatePayload.student_profiles as Array<
+          Record<string, unknown>
+        >;
+        const candidateUsers = candidatePayload.users as Array<
+          Record<string, unknown>
+        >;
+        assert.ok(candidateGuardianLinks.length > 0);
+        assert.ok(candidateUsers.length > 0);
+        candidateGuardianLinks[0].invite_code =
+          "integration-private-guardian-invite";
+        for (const profile of candidateProfiles) {
+          delete profile.parent_invite_code;
+        }
+        delete candidateUsers[0].session_revision;
+        delete candidateUsers[0].disabled_at;
+
+        const expectedPayload = structuredClone(candidatePayload);
+        expectedPayload.guardian_invitations = [];
+        delete (expectedPayload.guardian_links as Array<Record<string, unknown>>)[0]
+          .invite_code;
+        (expectedPayload.users as Array<Record<string, unknown>>)[0]
+          .session_revision = 1;
+        (expectedPayload.users as Array<Record<string, unknown>>)[0]
+          .disabled_at = null;
+
+        await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
+        await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
+        await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(candidatePayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const beforeRepair = await readStateEvidence(sql);
+        assert.deepEqual(
+          await runSuccessfulWorker(
+            "production-schema-parent-access-session-lifecycle-diagnostic"
+          ),
+          {
+            legacyFields: ["guardian_links.invite_code"],
+            missingFields: [
+              "users.session_revision",
+              "users.disabled_at"
+            ],
+            sessionRevisionDefaultApplied: true,
+            disabledAtDefaultApplied: true,
+            virtualRepairComplete: true,
+            residualUncertainty: false
+          }
+        );
+        assert.deepEqual(await readStateEvidence(sql), beforeRepair);
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-gate-inspect"),
+          {
+            component: "legacy-snapshot-missing-collections",
+            state: "legacy-parent-session-lifecycle-no-readiness-marker"
+          }
+        );
+
+        const wrongVersion = await runWorker(
+          "production-schema-repair-guardian-invitations-v2"
+        );
+        assert.equal(wrongVersion.exitCode, 1);
+        assert.match(String(wrongVersion.result.error), /operation plan changed/u);
+        assert.deepEqual(await readStateEvidence(sql), beforeRepair);
+
+        const additionalDriftPayload = structuredClone(candidatePayload);
+        const additionalDriftClasses = additionalDriftPayload.teacher_classes as Array<
+          Record<string, unknown>
+        >;
+        assert.ok(additionalDriftClasses.length > 0);
+        additionalDriftClasses[0].invite_code = "";
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(additionalDriftPayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const beforeRejectedRepair = await readStateEvidence(sql);
+        const rejectedDriftRepair = await runWorker(
+          "production-schema-repair-parent-session-lifecycle-v3"
+        );
+        assert.equal(rejectedDriftRepair.exitCode, 1);
+        assert.match(
+          String(rejectedDriftRepair.result.error),
+          /operation plan changed/u
+        );
+        assert.deepEqual(await readStateEvidence(sql), beforeRejectedRepair);
+
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(candidatePayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const advisoryBarrierSql = await sql.reserve();
+        let advisoryBarrierHeld = false;
+        const repairWorkers: Array<Promise<WorkerOutcome>> = [];
+        let repairOutcomes: WorkerOutcome[] = [];
+        try {
+          await acquireStorageContractAdvisoryBarrier(advisoryBarrierSql);
+          advisoryBarrierHeld = true;
+          repairWorkers.push(
+            runWorker("production-schema-repair-parent-session-lifecycle-v3"),
+            runWorker("production-schema-repair-parent-session-lifecycle-v3")
+          );
+          for (const worker of repairWorkers) void worker.catch(() => undefined);
+          await waitForStorageContractAdvisoryWaiters(sql, 2);
+          await releaseStorageContractAdvisoryBarrier(advisoryBarrierSql);
+          advisoryBarrierHeld = false;
+          repairOutcomes = await Promise.all(repairWorkers);
+        } finally {
+          if (advisoryBarrierHeld) {
+            await releaseStorageContractAdvisoryBarrier(advisoryBarrierSql);
+          }
+          await Promise.allSettled(repairWorkers);
+          advisoryBarrierSql.release();
+        }
+        const successfulRepairs = repairOutcomes.filter(
+          (outcome) => outcome.exitCode === 0
+        );
+        const rejectedRepairs = repairOutcomes.filter(
+          (outcome) => outcome.exitCode === 1
+        );
+        assert.equal(successfulRepairs.length, 1);
+        assert.deepEqual(successfulRepairs[0]?.result, {
+          repaired: true,
+          state: "legacy-no-readiness-marker"
+        });
+        assert.equal(rejectedRepairs.length, 1);
+        assert.match(
+          String(rejectedRepairs[0]?.result.error),
+          /operation plan changed/u
+        );
+
+        const afterRepair = await readState(sql);
+        const afterRepairEvidence = await readStateEvidence(sql);
+        assert.equal(Number(afterRepair.revision), Number(before.revision) + 1);
+        assert.notEqual(afterRepairEvidence.updated_at, beforeEvidence.updated_at);
+        assert.deepEqual(afterRepair.payload, expectedPayload);
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-inspect"),
+          { state: "legacy-no-readiness-marker" }
+        );
+        const repeated = await runWorker(
+          "production-schema-repair-parent-session-lifecycle-v3"
+        );
+        assert.equal(repeated.exitCode, 1);
+        assert.match(String(repeated.result.error), /operation plan changed/u);
+        assert.deepEqual(await readState(sql), afterRepair);
+
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-apply-complete-legacy"),
+          { completed: true }
+        );
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        assert.deepEqual(await readState(sql), afterRepair);
+        assert.equal(await readStorageReadinessMarkerCount(sql), 1);
+        await assertIntegrationWorkerClientsClosed(sql);
+      });
+
       await t.test("production legacy v1 compatibility upgrade is exact, atomic, and snapshot-preserving", async () => {
         const legacyFunctionBody = await readFile(
           path.join(
