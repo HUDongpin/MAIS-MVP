@@ -5,7 +5,7 @@
 - Worktree: `.worktrees/a10-a11-a19-a22-parent-prod-acceptance-20260828`
 - Baseline: exact live `origin/main` commit `fb7234a8f17563467edad4fa318cc8602d080741`
 - Baseline tree: `f072812bcdb8e7c341cb823454d00800fd61d7f6`
-- Target PR: pending
+- Target PR: `#217` (`https://github.com/HUDongpin/MAIS-MVP/pull/217`)
 - Created: 2026-08-28
 - Expected closeout: 2026-08-30
 
