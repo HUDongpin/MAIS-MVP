@@ -1427,6 +1427,111 @@ test(
         await assertIntegrationWorkerClientsClosed(sql);
       });
 
+      await t.test("guardian invitation v2 repair is exact, version-bound, and preserves guardian links", async (t) => {
+        const before = await readState(sql);
+        const beforeEvidence = await readStateEvidence(sql);
+        t.after(async () => {
+          await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
+          await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
+          await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+          await sql`
+            UPDATE public.app_state
+            SET payload = ${sql.json(postgresJson(before.payload))}::pg_catalog.jsonb,
+                revision = ${before.revision},
+                updated_at = ${beforeEvidence.updated_at}
+            WHERE id = 'primary'
+              AND tenant_id = 'platform'
+              AND state_kind = 'app-snapshot'
+              AND schema_version = 1
+          `;
+          assert.deepEqual(
+            await runSuccessfulWorker("production-schema-complete-legacy"),
+            { completed: true }
+          );
+          await assertIntegrationWorkerClientsClosed(sql);
+        });
+        assert.deepEqual(
+          (before.payload as Record<string, unknown>).guardian_invitations,
+          [],
+          "the reviewed fixture must establish the independent empty default"
+        );
+        const expectedGuardianLinks = structuredClone(
+          (before.payload as Record<string, unknown>).guardian_links
+        );
+        const missingPayload = structuredClone(before.payload) as Record<string, unknown>;
+        delete missingPayload.guardian_invitations;
+
+        await sql`DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state`;
+        await sql`DROP FUNCTION IF EXISTS public.invalidate_app_state_readiness_marker()`;
+        await sql`DROP TABLE IF EXISTS public.app_state_readiness_markers`;
+        await sql`
+          UPDATE public.app_state
+          SET payload = ${sql.json(postgresJson(missingPayload))}::pg_catalog.jsonb,
+              revision = ${before.revision},
+              updated_at = ${beforeEvidence.updated_at}
+          WHERE id = 'primary'
+            AND tenant_id = 'platform'
+            AND state_kind = 'app-snapshot'
+            AND schema_version = 1
+        `;
+        const beforeRepair = await readState(sql);
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-collection-gap-diagnostic"),
+          {
+            malformedArrays: [],
+            malformedObjects: [],
+            missingArrays: ["guardian_invitations"],
+            missingObjects: []
+          }
+        );
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-gate-inspect"),
+          {
+            component: "legacy-snapshot-missing-collections",
+            state: "legacy-missing-guardian-invitations-no-readiness-marker"
+          }
+        );
+
+        const wrongVersion =
+          await runWorker("production-schema-repair-missing-collections");
+        assert.equal(wrongVersion.exitCode, 1);
+        assert.match(String(wrongVersion.result.error), /operation plan changed/u);
+        assert.deepEqual(await readState(sql), beforeRepair);
+
+        assert.deepEqual(
+          await runSuccessfulWorker(
+            "production-schema-repair-guardian-invitations-v2"
+          ),
+          { repaired: true, state: "legacy-no-readiness-marker" }
+        );
+        const afterRepair = await readState(sql);
+        const afterRepairEvidence = await readStateEvidence(sql);
+        assert.equal(Number(afterRepair.revision), Number(before.revision) + 1);
+        assert.notEqual(afterRepairEvidence.updated_at, beforeEvidence.updated_at);
+        assert.deepEqual(afterRepair.payload, before.payload);
+        assert.deepEqual(
+          (afterRepair.payload as Record<string, unknown>).guardian_links,
+          expectedGuardianLinks
+        );
+
+        assert.deepEqual(
+          await runSuccessfulWorker("production-schema-apply-complete-legacy"),
+          { completed: true }
+        );
+        assert.deepEqual(await runSuccessfulWorker("production-schema-inspect"), {
+          state: "exact"
+        });
+        assert.deepEqual(await readState(sql), afterRepair);
+        assert.equal(await readStorageReadinessMarkerCount(sql), 1);
+
+        const repeated = await runWorker(
+          "production-schema-repair-guardian-invitations-v2"
+        );
+        assert.equal(repeated.exitCode, 1);
+        assert.match(String(repeated.result.error), /operation plan changed/u);
+        await assertIntegrationWorkerClientsClosed(sql);
+      });
+
       await t.test("production legacy v1 compatibility upgrade is exact, atomic, and snapshot-preserving", async () => {
         const legacyFunctionBody = await readFile(
           path.join(

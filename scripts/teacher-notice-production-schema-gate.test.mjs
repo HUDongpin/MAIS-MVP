@@ -76,6 +76,7 @@ test("missing-collection repair adds only safe empty collections and fails close
   const repaired = buildPostgresStorageMissingCollectionRepair(safeMissing);
   assert.ok(repaired);
   assert.equal(repaired.addedCollectionCount, 1);
+  assert.equal(repaired.operation, "app-storage-repair-missing-collections-v1");
   assert.deepEqual(repaired.payload.teacher_notice_delivery_attempts, []);
   for (const [key, value] of Object.entries(safeMissing)) {
     assert.deepEqual(repaired.payload[key], value, `${key} must be preserved`);
@@ -136,6 +137,33 @@ test("missing-collection repair adds only safe empty collections and fails close
   malformed.teacher_notice_delivery_attempts = {};
   assert.equal(buildPostgresStorageMissingCollectionRepair(malformed), null);
   assert.equal(buildPostgresStorageMissingCollectionRepair(complete), null);
+
+  const missingGuardianInvitations = structuredClone(complete);
+  delete missingGuardianInvitations.guardian_invitations;
+  const guardianRepair = buildPostgresStorageMissingCollectionRepair(
+    missingGuardianInvitations
+  );
+  assert.ok(guardianRepair);
+  assert.equal(guardianRepair.addedCollectionCount, 1);
+  assert.equal(
+    guardianRepair.operation,
+    "app-storage-repair-missing-collections-v2"
+  );
+  assert.deepEqual(guardianRepair.payload.guardian_invitations, []);
+  assert.deepEqual(
+    guardianRepair.payload.guardian_links,
+    complete.guardian_links,
+    "v2 must not alter existing guardian authority"
+  );
+
+  const bothVersionedKeysMissing = structuredClone(complete);
+  delete bothVersionedKeysMissing.guardian_invitations;
+  delete bothVersionedKeysMissing.teacher_notice_delivery_attempts;
+  assert.equal(
+    buildPostgresStorageMissingCollectionRepair(bothVersionedKeysMissing),
+    null,
+    "no version may synthesize both collections"
+  );
 });
 
 test("collection-gap diagnostic returns only a complete allowlisted schema classification", () => {
@@ -508,6 +536,15 @@ test("builds the exact production migration plan from independently attested sch
     }),
     ["app-storage-repair-missing-collections-v1"]
   );
+  assert.deepEqual(
+    buildTeacherNoticeProductionSchemaPlan({
+      appStorageState: "legacy-missing-guardian-invitations-no-readiness-marker",
+      heartbeatState: "exact",
+      outboxState: "exact",
+      webhookState: "exact"
+    }),
+    ["app-storage-repair-missing-collections-v2"]
+  );
   assert.throws(
     () => buildTeacherNoticeProductionSchemaPlan({
       appStorageState: "exact",
@@ -697,8 +734,11 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
     ["app-storage-repair-missing-collections-v1"],
     productionEnvironment,
     {
-      repairAppStorageMissingCollections: async (receivedClient) => {
+      repairAppStorageMissingCollections: async (receivedClient, options) => {
         assert.equal(receivedClient, client);
+        assert.deepEqual(options, {
+          expectedOperation: "app-storage-repair-missing-collections-v1"
+        });
         missingCollectionStages.push("app-storage-missing-collection-repair");
         return "legacy-no-readiness-marker";
       },
@@ -718,6 +758,35 @@ test("combined apply runs the canonical app bootstrap before notice DDL and rest
       "app-storage-missing-collection-repair",
       "app-storage-readiness-marker"
     ]
+  );
+
+  const guardianInvitationRepairStages = [];
+  await applyMaisProductionSchemaOperations(
+    client,
+    ["app-storage-repair-missing-collections-v2"],
+    productionEnvironment,
+    {
+      repairAppStorageMissingCollections: async (receivedClient, options) => {
+        assert.equal(receivedClient, client);
+        assert.deepEqual(options, {
+          expectedOperation: "app-storage-repair-missing-collections-v2"
+        });
+        guardianInvitationRepairStages.push("guardian-invitation-repair");
+        return "legacy-no-readiness-marker";
+      },
+      applyAppStorageSchema: async (receivedClient, expectedState) => {
+        assert.equal(receivedClient, client);
+        assert.equal(expectedState, "legacy-no-readiness-marker");
+        guardianInvitationRepairStages.push("readiness-marker");
+      },
+      applyTeacherNoticeSchema: async () => {
+        throw new Error("must not run");
+      }
+    }
+  );
+  assert.deepEqual(
+    guardianInvitationRepairStages,
+    ["guardian-invitation-repair", "readiness-marker"]
   );
 
   await assert.rejects(
