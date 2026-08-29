@@ -84,6 +84,15 @@ function infoZipUnicodePathExtra(rawName: string, unicodeName: string) {
   return extra;
 }
 
+function zipExtraField(fieldId: number, payload: Uint8Array) {
+  const extra = new Uint8Array(4 + payload.byteLength);
+  const view = new DataView(extra.buffer);
+  view.setUint16(0, fieldId, true);
+  view.setUint16(2, payload.byteLength, true);
+  extra.set(payload, 4);
+  return extra;
+}
+
 function addSingleEntryExtraFields(
   bytes: Uint8Array,
   expectedName: string,
@@ -631,40 +640,82 @@ test("accepts a clean STORE package after validating referenced and unreferenced
 });
 
 test("rejects corrupted referenced or unreferenced payloads before returning a report", async () => {
-  for (const corruptedName of ["asset.txt", "unreferenced.txt"] as const) {
-    const generated = await createScormPackage(
-      scormManifest({ resourceHref: "asset.txt" }),
-      {
-        "asset.txt": "ASSET-CONTENT-12345",
-        "unreferenced.txt": "UNREFERENCED-CONTENT"
-      },
-      { compression: "STORE" }
-    );
-    const bytes = new Uint8Array(generated);
-    const centralOffset = findCentralEntryOffset(bytes, corruptedName);
-    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-    assert.equal(view.getUint16(centralOffset + 10, true), 0, "fixture must use STORE");
-    const localOffset = view.getUint32(centralOffset + 42, true);
-    const localNameLength = view.getUint16(localOffset + 26, true);
-    const localExtraLength = view.getUint16(localOffset + 28, true);
-    const dataStart = localOffset + 30 + localNameLength + localExtraLength;
-    assert.ok(view.getUint32(centralOffset + 24, true) > 0, "fixture payload must be non-empty");
-    bytes[dataStart] = bytes[dataStart]! ^ 1;
-
-    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
-      assert.equal(Reflect.get(Object(error), "code"), "ZIP_INVALID", corruptedName);
-      assert.equal(Reflect.get(Object(error), "status"), 400, corruptedName);
+  const assetPayload = Uint8Array.from(
+    { length: 1024 },
+    (_, index) => (index * 73 + 19) & 0xff
+  );
+  const unreferencedPayload = Uint8Array.from(
+    { length: 1024 },
+    (_, index) => (index * 91 + 47) & 0xff
+  );
+  for (const compression of ["STORE", "DEFLATE"] as const) {
+    for (const corruptedName of ["asset.txt", "unreferenced.txt"] as const) {
+      const generated = await createScormPackage(
+        scormManifest({ resourceHref: "asset.txt" }),
+        {
+          "asset.txt": assetPayload,
+          "unreferenced.txt": unreferencedPayload
+        },
+        { compression }
+      );
+      const bytes = new Uint8Array(generated);
+      const centralOffset = findCentralEntryOffset(bytes, corruptedName);
+      const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
       assert.equal(
-        Reflect.get(Object(error), "message"),
-        "The uploaded package is not a valid ZIP archive."
+        view.getUint16(centralOffset + 10, true),
+        compression === "STORE" ? 0 : 8,
+        "fixture compression method must match"
       );
-      assert.doesNotMatch(
-        String(Reflect.get(Object(error), "message")),
-        /asset|unreferenced|CONTENT/u
-      );
-      return true;
-    });
+      const localOffset = view.getUint32(centralOffset + 42, true);
+      const localNameLength = view.getUint16(localOffset + 26, true);
+      const localExtraLength = view.getUint16(localOffset + 28, true);
+      const dataStart = localOffset + 30 + localNameLength + localExtraLength;
+      const compressedSize = view.getUint32(centralOffset + 20, true);
+      assert.ok(compressedSize > 2, "fixture compressed payload must be non-trivial");
+      const corruptionOffset = dataStart + Math.floor(compressedSize / 2);
+      bytes[corruptionOffset] = bytes[corruptionOffset]! ^ 1;
+
+      await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+        assert.equal(
+          Reflect.get(Object(error), "code"),
+          "ZIP_INVALID",
+          `${compression}:${corruptedName}`
+        );
+        assert.equal(
+          Reflect.get(Object(error), "status"),
+          400,
+          `${compression}:${corruptedName}`
+        );
+        assert.equal(
+          Reflect.get(Object(error), "message"),
+          "The uploaded package is not a valid ZIP archive."
+        );
+        assert.doesNotMatch(
+          String(Reflect.get(Object(error), "message")),
+          /asset|unreferenced|CONTENT/u
+        );
+        return true;
+      });
+    }
   }
+});
+
+test("accepts valid unknown local and central extra fields without scanning payload bytes", async () => {
+  const rawName = "imsmanifest.xml";
+  const generated = await createScormPackage(scormManifest(), {}, { compression: "STORE" });
+  const unknownExtra = zipExtraField(
+    0xcafe,
+    new Uint8Array([0x01, 0x75, 0x70, 0x02, 0x03])
+  );
+  const bytes = addSingleEntryExtraFields(generated, rawName, {
+    localExtra: unknownExtra,
+    centralExtra: unknownExtra
+  });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-29T02:05:00.000Z" });
+
+  assert.equal(report.archive.fileCount, 1);
+  assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
 });
 
 test("rejects Unicode Path fields and malformed local or central ZIP extras", async () => {

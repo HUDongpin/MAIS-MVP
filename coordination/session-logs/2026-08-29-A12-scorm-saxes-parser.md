@@ -37,11 +37,12 @@
 - Added direct runtime `saxes@^6.0.0`, exact root-lock records, and exact `jszip`/`saxes`/`xmlchars` release-governance assertions. The JSZip guard now freezes version, resolved URL, integrity, license, and dependency map, with a mutation regression proving drift is rejected.
 - Added one shared bounded ZIP-extra TLV policy for local and central headers. Malformed TLVs fail generically, and every `0x7075` Unicode Path field is rejected before JSZip can select or sanitize an alternate filename identity.
 - Added sequential bounded decompression, exact uncompressed-size validation, and CRC-32 verification for every non-directory entry before an import report can return. The implementation uses no concurrent all-entry expansion and retains no non-manifest payload.
+- Closed quality-review test gaps with referenced and unreferenced STORE/DEFLATE corruption fixtures plus a positive unknown local-and-central TLV whose payload contains `75 70` bytes without being a `0x7075` field.
 
 ## Verification
 
-- Focused course integration/API suite: 99/99 passed, including clean STORE acceptance plus corrupted referenced and unreferenced payload rejection.
-- Focused importer suite after quality remediation: 53/53 passed.
+- Focused course integration/API suite: 100/100 passed, including clean STORE acceptance, corrupted referenced and unreferenced STORE/DEFLATE rejection, and valid unknown-TLV acceptance.
+- Focused importer suite after quality remediation: 54/54 passed.
 - `npm run type-check`: passed.
 - `npm run check:imports`: passed.
 - `npm run test:imports`: 7/7 passed.
