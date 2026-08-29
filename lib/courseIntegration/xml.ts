@@ -225,8 +225,8 @@ export function parseStaticXml(xml: string): StaticXmlElement {
       continue;
     }
 
-    const selfClosing = /\/[ \t\r\n]*$/.test(content);
-    if (selfClosing) content = content.replace(/\/[ \t\r\n]*$/, "");
+    const selfClosing = content.endsWith("/");
+    if (selfClosing) content = content.slice(0, -1);
     const parsed = parseStartTag(content);
     const element: MutableXmlElement = {
       name: parsed.name,

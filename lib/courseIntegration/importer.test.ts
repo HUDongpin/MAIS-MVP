@@ -325,6 +325,18 @@ const malformedXmlDeclarationAndTagCases = [
       'identifier="course-minimal" version="1.0"',
       'identifier="course-minimal"\u00a0version="1.0"'
     )
+  },
+  {
+    name: "a space after an empty-element slash",
+    manifest: scormManifest().replace("  <metadata>", "  <ignored/ >\n  <metadata>")
+  },
+  {
+    name: "a tab after an empty-element slash",
+    manifest: scormManifest().replace("  <metadata>", "  <ignored/\t>\n  <metadata>")
+  },
+  {
+    name: "a newline after an empty-element slash",
+    manifest: scormManifest().replace("  <metadata>", "  <ignored/\n>\n  <metadata>")
   }
 ] as const;
 
