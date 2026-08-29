@@ -92,7 +92,8 @@ test("an already-sent notice cannot create a fresh-key provider retry from eithe
   const noticeReadyPanel = sourceSection(source, "function NoticeReadyPanel", "function PrepTeamReadyPanel");
   for (const section of [noticeCard, noticeReadyPanel]) {
     assert.match(section, /disabled=\{busy \|\| retryBlocked \|\| notice\.status === "sent"\}/);
-    assert.match(section, /notice\.status === "sent" \? t\(\{ en: "Sent", zh: "已發送" \}\)/);
+    // Tolerate the optional zhHans sibling: this asserts the sent-state label, not its localisations.
+    assert.match(section, /notice\.status === "sent" \? t\(\{ en: "Sent", zh: "已發送"(?:, zhHans: "[^"]*")? \}\)/);
   }
 });
 

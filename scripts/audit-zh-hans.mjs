@@ -1,10 +1,130 @@
 #!/usr/bin/env node
 
+/**
+ * PRC Simplified Chinese (zh-Hans) audit.
+ *
+ * Two independent ratchets guard two different corpora:
+ *
+ *   GENERATED PACKS (data/generated-content/**.json) — pack-* findings are counted against
+ *   scripts/zh-hans-pack-baseline.json. The packs are release-frozen data, so strict mode fails
+ *   only when a pack-* type grows past its committed count. `--write-pack-baseline` rewrites it.
+ *
+ *   SOURCE COPY (app/, components/, data/, lib/, types/ .ts/.tsx) — advisory findings are counted
+ *   against ADVISORY_BASELINE below. `--max-advisory <n>` overrides it. The number may only ever
+ *   be revised DOWNWARD; anything that pushes the count back up fails the gate.
+ *
+ * Baseline history (source copy):
+ *   5149  pre-ratchet high-water mark, measured before generated packs were scanned at all
+ *   5022  audit fix only: an explicit zhHans sibling hidden behind a template literal's own `}`
+ *         was being reported as missing (127 false positives)
+ *   3498  explicit zhHans added for app/api, app/classroom, components/dashboard and
+ *         components/teacher, measured on a pre-2026-08-28 tree
+ *   3512  re-derived on current main (2026-08-28) after merging the above with the generated-pack
+ *         scanning from PR #200. The tree gained 157 files and 371 zh strings; the window fix removed
+ *         148 false positives; test fixtures are deliberately left untranslated.
+ *
+ * NOTE: `audit:zh-hans:strict` in package.json is frozen by the A10/A22 release-governance gate
+ * (scripts/release-governance.test.mjs pins both the allowed script names and a sha256 of their
+ * bodies), so both ratchets are wired INSIDE this script: `--fail-on-critical` enforces them.
+ * Changing the npm script body would fail `npm run test:release-governance`.
+ *
+ * SELF-TEST (`--self-test`, also implicit whenever a gate is active):
+ *   1. every traditionalToSimplifiedMap entry round-trips, and its target is stable under a
+ *      second conversion pass (no map value is itself a Traditional key);
+ *   2. no phrase-rule replacement reintroduces a Traditional key;
+ *   3. every character in `traditionalRepertoire` has a map entry — the repertoire is the
+ *      detection list, the map is the conversion list, and requiring the former to be a subset of
+ *      the latter is what forces a mapping to exist;
+ *   4. no derived zh-Hans contains a repertoire character. Deleting a map entry fails here:
+ *      removing 閉 -> 闭 reproduces the original defect and renders "P1 试点閉环中…";
+ *   5. no hand-written `zhHans:` literal in .ts/.tsx contains a Traditional character. This is the
+ *      source-copy analogue of the pack-* Traditional check, and it is how 覆 -> 复 was caught:
+ *      覆 is standard Simplified (覆盖), so that map entry was corrupting correct text.
+ *
+ * LIMITATION: a Traditional character in neither the map nor the repertoire cannot be caught by any
+ * static check here — there is no bundled Unihan table, and release-governance pins package.json
+ * dependencies, so OpenCC cannot simply be added. When new Traditional copy introduces one, add it
+ * to `traditionalRepertoire`; check 3 then forces the map entry.
+ *
+ * Usage:
+ *   node scripts/audit-zh-hans.mjs                     report only, never fails
+ *   node scripts/audit-zh-hans.mjs --fail-on-critical  full gate
+ *   node scripts/audit-zh-hans.mjs --max-advisory 3400 gate against an explicit ceiling
+ *   node scripts/audit-zh-hans.mjs --self-test         converter self-test only
+ *   node scripts/audit-zh-hans.mjs --write-pack-baseline
+ */
+
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
+
+// Regex cannot find the end of a template literal that nests another one — the common shape for a
+// ternary interpolating a count — so zhHans values were being truncated at the inner backtick and
+// their tail never scanned. Parse instead. scripts/audit-hk-chinese.mjs already does this.
+const ts = createRequire(path.join(process.cwd(), "package.json"))("typescript");
+
+// Every zhHans literal in a source file, with template pieces flattened so nesting cannot hide text.
+function collectZhHansLiterals(source, relativePath) {
+  const sourceFile = ts.createSourceFile(
+    relativePath, source, ts.ScriptTarget.Latest, true,
+    relativePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS
+  );
+  const found = [];
+  const literalText = (node) => {
+    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) return node.text;
+    if (ts.isTemplateExpression(node)) {
+      return node.head.text + node.templateSpans.map((span) => literalText(span.expression) + span.literal.text).join("");
+    }
+    if (ts.isConditionalExpression(node)) return `${literalText(node.whenTrue)} ${literalText(node.whenFalse)}`;
+    if (ts.isBinaryExpression(node)) return `${literalText(node.left)}${literalText(node.right)}`;
+    return "";
+  };
+  const visit = (node) => {
+    if (ts.isPropertyAssignment(node) && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) && node.name.text === "zhHans") {
+      const text = literalText(node.initializer);
+      if (text) found.push({ text, line: sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1 });
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
+  return found;
+}
+
+const ADVISORY_BASELINE = 3512;
+// Banned terms found in hand-written zhHans literals, which ship verbatim. All pre-existing;
+// ratcheted so the count can only fall. 账户 x20, 课节 x7, 位值 x3 at the time of writing.
+const SHIPPED_CRITICAL_BASELINE = 48;
 
 const projectRoot = process.cwd();
-const failOnCritical = process.argv.includes("--fail-on-critical");
+const argv = process.argv.slice(2);
+const failOnCritical = argv.includes("--fail-on-critical");
+const selfTestRequested = argv.includes("--self-test");
+
+function readFlagValue(flag) {
+  const inline = argv.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1);
+  const index = argv.indexOf(flag);
+  if (index === -1) return undefined;
+  // Present but with no value (flag last, or followed by another flag) must reach validation as a
+  // bad value, not fall through as "absent" and silently switch the gate off.
+  const value = argv[index + 1];
+  return value === undefined || value.startsWith("-") ? "" : value;
+}
+
+const rawMaxAdvisory = readFlagValue("--max-advisory");
+let maxAdvisory;
+if (rawMaxAdvisory !== undefined) {
+  maxAdvisory = Number.parseInt(rawMaxAdvisory, 10);
+  if (!Number.isInteger(maxAdvisory) || maxAdvisory < 0) {
+    console.error(`--max-advisory expects a non-negative integer, received: ${rawMaxAdvisory ?? "(nothing)"}`);
+    process.exit(2);
+  }
+} else if (failOnCritical) {
+  maxAdvisory = ADVISORY_BASELINE;
+}
+
+const gateActive = failOnCritical || rawMaxAdvisory !== undefined;
+const runSelfTest = gateActive || selfTestRequested;
 const scanRoots = ["app", "components", "data", "lib", "types"];
 const sourceExtensions = new Set([".ts", ".tsx"]);
 const maxExamplesPerType = 30;
@@ -39,6 +159,34 @@ function parsePhraseRules(source) {
 const traditionalMap = parseTraditionalMap(i18nSource);
 const phraseRules = parsePhraseRules(i18nSource);
 const traditionalCharacters = Array.from(traditionalMap.keys()).sort((a, b) => a.localeCompare(b, "zh-Hans-CN"));
+
+/**
+ * Traditional characters this codebase knows about: those its own zh copy uses, plus common ones
+ * kept ahead of the copy so new strings convert rather than leak. DETECTION list; the map is the
+ * CONVERSION list. Self-test check 3 requires this to be a subset of the map, so adding a character
+ * here without its mapping fails the gate.
+ */
+const traditionalRepertoire = Array.from(
+  "亂亙亞併侶俠倆們偉偵傑傭傷傾僅僑儘償儼兇冪剛剝劉劍勝勞匱卹卻厭厲叢吳呂唄啞喪嗆嗎" +
+  "嘔嘸噴噸嚇嚨囑園執堅堿塢塵塹墊墮壇壩壺夠奐奪妝娛婦媽嫻孫寢寧寶尷屆屍屜岡島峽崑崗" +
+  "嵐嶇嶼嶽巒巔巖帶幟廁廂廄廈廚廟廢廬張彆彌彎徠徹恥悵悽愴慚憂憊憐憑憤憲憶懇懲懷懺懼" +
+  "戀捨捲掄掙揀揚摑摻撐撓撲擁擄擋擔擠擷擺擾攏攔攤攪敗敘斃斕斬曉曖曠曬桿樂樅樑樓樸樹" +
+  "橋橢檯檸檻櫃櫥櫻欄欖歎歐歲歷殘殤殮殲殺毀毆氈氫汙洶淺湧滬滯漲潑潔潯澀澆澤濁濕濟濤" +
+  "濱瀉瀋瀏瀝灑灣災烏煙煥燁燦燴爍爐爭爺牆牘犧狹猶獄獅獵獷獻瑣瑪璽瓊甌甕畝畢疇瘋癘癡" +
+  "癢皚皺盃盜盞盧眾瞼矚硯碩磚磯礙礦禍禦禱禿稈稜種穎窮竄竈竊競筍篤簫簾籃籌籟籬籲糧糰" +
+  "約紅納紐純紛紮細紹終絡給絨絲綜綠綱綻緒緝緣編縝縣縫縱繚繞繡繩繪繽纏纖罌罰罷羥羨義" +
+  "翹聞聳聶職聾脅脈脣脹腫腸膚膠臉臍臘臟臺舖艙艦艱芻荊莖華萊葉蒼蓋蓮蔔蔣蕩蕪蕭薈薑薔" +
+  "薩藍藥藪藹蘇蘊蘋蘭虛虜虧蛺蛻蝕蝦蝸螞螢蟄蟬蟲蟻蠍蠟蠶蠻衊衛袞裊褲褸襖襤襪襯覈覓覦" +
+  "觀觴訃討訐訓訥訴診詐詔詠詩詬詮誇誌誕誘誠誡誣誰誹諒諜諱諾謅謎謙謠謹譁譏譜譴譽讒讚" +
+  "豈豎豐豬貍貓貝貧貨販貳貴買貼貽賀賃賅賓賢賣賤賦賬賭賴購贅贈贊贍贓贖趕趙蹕蹣蹺躋躥" +
+  "軀車軋軌軒軛軟軸輒輛輟輩輪輯輻輾轄轍轎轟轡辯農遊遜遞遷遺遼邁邇邏鄉鄒鄭鄰鄲鄴酈醜" +
+  "醞醬釀釁釗釘鈍鈔鈴鈺鉉鉤銀銖銘銜銬銳銷鋁鋅鋪鋸鋼錐錘錠錦錳錶鍋鍛鍥鎊鎢鎮鏗鏟鏡鐮" +
+  "鐳鐵鐸鑄鑑鑠鑰鑲鑼鑽閂閃閉閏閒閘閡閣閩闆闊闌闕闖闢闥陝陣陰陳陸陽隕際隴隸隻雋雛雜" +
+  "雞雲霧霽靂靄靈靚靜韁韃韌韓韜響頌頑頒頗頡頹顆顎顏願顧顫顱顳颯颳颼飄飆飢飯飲飾餅養" +
+  "餓餚館餵饅饌馬馭馳駁駐駕駙駛駱騁騎騙騰騷騾驅驕驛驢骯髒髖髮鬍鬢鬥鬧鬱魎魚魯鮑鮭鮮" +
+  "鯉鯊鯨鯽鰭鰲鱉鱔鱷鳥鳳鴉鴕鴦鴨鴻鵝鵬鵲鶴鷥鷹鷺鸚鹵鹹鹼鹽麗麥麪麵黃黴鼉齋齒齬齲龍" +
+  "龜"
+);
 
 const bannedTerms = [
   { term: "视觉化", suggestion: "可视化", type: "prc-term" },
@@ -98,8 +246,12 @@ function findZhStrings(source) {
     const before = source.slice(0, match.index);
     const line = before.split("\n").length;
     const lineStart = before.lastIndexOf("\n") + 1;
-    const closeWindow = source.slice(match.index, match.index + 360);
-    const objectWindow = closeWindow.slice(0, closeWindow.indexOf("}") === -1 ? closeWindow.length : closeWindow.indexOf("}") + 1);
+    // Scan the tail AFTER the matched literal: a template literal such as `${n} 題` carries a
+    // closing brace of its own, and a window starting at `zh:` truncated on the first `}` would
+    // cut the object off before an explicit `zhHans:` sibling could be seen.
+    const literalEnd = match.index + match[0].length;
+    const tail = source.slice(literalEnd, literalEnd + 360);
+    const objectWindow = tail.slice(0, tail.indexOf("}") === -1 ? tail.length : tail.indexOf("}") + 1);
     matches.push({
       line,
       column: match.index - lineStart + 1,
@@ -131,6 +283,20 @@ function walkJsonFiles(directory) {
   });
 }
 
+function collectAllStrings(value, pointer, sink) {
+  if (typeof value === "string") {
+    sink.push({ pointer, text: value });
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => collectAllStrings(item, `${pointer}[${index}]`, sink));
+    return;
+  }
+  if (value && typeof value === "object") {
+    for (const [key, child] of Object.entries(value)) collectAllStrings(child, `${pointer}.${key}`, sink);
+  }
+}
+
 function collectZhHansStrings(value, pointer, sink) {
   if (Array.isArray(value)) {
     value.forEach((item, index) => collectZhHansStrings(item, `${pointer}[${index}]`, sink));
@@ -138,8 +304,14 @@ function collectZhHansStrings(value, pointer, sink) {
   }
   if (value && typeof value === "object") {
     for (const [key, child] of Object.entries(value)) {
-      if (key === "zhHans" && typeof child === "string") {
+      // Match "zhHans" and any field that suffixes it (promptZhHans, optionsZhHans,
+      // explanationZhHans). Matching the bare key alone skipped every mainland pack.
+      if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && typeof child === "string") {
         sink.push({ pointer: `${pointer}.${key}`, text: child });
+      } else if (/(^|[a-z])ZhHans$|^zhHans$/.test(key) && child && typeof child === "object") {
+        // The whole subtree under a zhHans key is Simplified copy — collect every string in it,
+        // not just descendants that happen to be keyed zhHans again.
+        collectAllStrings(child, `${pointer}.${key}`, sink);
       } else {
         collectZhHansStrings(child, pointer === "" ? key : `${pointer}.${key}`, sink);
       }
@@ -252,6 +424,95 @@ for (const file of fileEntries) {
   }
 }
 
+// textForLanguage (lib/i18n.ts) returns value.zhHans verbatim whenever it exists, so for any string
+// with an explicit sibling the converter output is NEVER rendered. Grading only the derived text
+// therefore lints a string no PRC user sees. Lint the shipped literal too, with the same rules the
+// pack half already applies to pack zhHans.
+for (const file of fileEntries) {
+  for (const literal of collectZhHansLiterals(file.source, file.relativePath)) {
+    const shipped = literal.text;
+    const line = literal.line;
+    for (const banned of bannedTerms) {
+      if (!shipped.includes(banned.term)) continue;
+      issues.push({
+        severity: banned.type === "prc-grade" ? "warning" : "critical",
+        type: `shipped-${banned.type}`,
+        file: file.relativePath,
+        line,
+        original: shipped,
+        rendered: shipped,
+        suggestion: `${banned.term} -> ${banned.suggestion} (this literal ships as-is; the converter never runs on it)`
+      });
+    }
+  }
+}
+
+function runConverterSelfTest() {
+  const failures = [];
+  const keySet = new Set(traditionalMap.keys());
+
+  // 1. every map entry round-trips and its target is stable under a second pass.
+  for (const [traditional, simplified] of traditionalMap) {
+    if (!simplified) {
+      failures.push(`map entry ${traditional} has an empty replacement`);
+      continue;
+    }
+    // Not `map.get(traditional)` — that is true by construction. Round-trip through the REAL
+    // pipeline (character pass + phrase rules), which is what callers actually get.
+    const forward = toPrcSimplified(traditional);
+    if (forward !== simplified && !phraseRules.some((rule) => rule.source.includes(traditional))) {
+      failures.push(`map entry ${traditional} -> ${simplified} did not survive the full pipeline (got ${forward})`);
+    }
+    const residual = Array.from(simplified).filter((char) => keySet.has(char));
+    if (residual.length) failures.push(`map value for ${traditional} still contains Traditional: ${residual.join(" ")}`);
+    if (toPrcSimplified(simplified) !== simplified) failures.push(`map value for ${traditional} is not stable under a second conversion pass`);
+  }
+
+  // 2. no phrase-rule replacement reintroduces a Traditional character.
+  for (const rule of phraseRules) {
+    const residual = Array.from(rule.replacement).filter((char) => keySet.has(char));
+    if (residual.length) failures.push(`phrase rule ${rule.source} -> ${rule.replacement} reintroduces: ${residual.join(" ")}`);
+  }
+
+  // 3. the repertoire must be fully covered by the map, otherwise check 4 is vacuous.
+  const uncovered = traditionalRepertoire.filter((char) => !keySet.has(char));
+  if (uncovered.length) failures.push(`traditionalRepertoire characters missing from traditionalToSimplifiedMap: ${uncovered.join(" ")}`);
+
+  // 4. no derived zh-Hans may contain a known Traditional character.
+  const probeSet = new Set([...keySet, ...traditionalRepertoire]);
+  const derivedHits = [];
+  for (const file of fileEntries) {
+    for (const entry of findZhStrings(file.source)) {
+      const rendered = toPrcSimplified(entry.text);
+      const hits = Array.from(new Set(Array.from(rendered).filter((char) => probeSet.has(char))));
+      if (hits.length) derivedHits.push(`${file.relativePath}:${entry.line} -> ${hits.join(" ")} in "${rendered.slice(0, 60)}"`);
+    }
+  }
+  if (derivedHits.length) {
+    failures.push(`derived zh-Hans still contains Traditional characters in ${derivedHits.length} string(s):`);
+    failures.push(...derivedHits.slice(0, 20).map((hit) => `    ${hit}`));
+  }
+
+  // 5. hand-written zhHans literals must already be Simplified. This is the source-copy analogue
+  // of the pack-* Traditional check; a hit means either the copy is wrong or a map entry is (覆).
+  const literalHits = [];
+  for (const file of fileEntries) {
+    for (const literal of collectZhHansLiterals(file.source, file.relativePath)) {
+      const hits = Array.from(new Set(Array.from(literal.text).filter((char) => probeSet.has(char))));
+      if (!hits.length) continue;
+      literalHits.push(`${file.relativePath}:${literal.line} -> ${hits.join(" ")} in "${literal.text.replace(/\s+/g, " ").slice(0, 60)}"`);
+    }
+  }
+  if (literalHits.length) {
+    failures.push(`hand-written zhHans literals contain Traditional characters in ${literalHits.length} string(s):`);
+    failures.push(...literalHits.slice(0, 20).map((hit) => `    ${hit}`));
+  }
+
+  return failures;
+}
+
+const selfTestFailures = runSelfTest ? runConverterSelfTest() : [];
+
 const counts = issues.reduce((summary, issue) => {
   summary[issue.severity] = (summary[issue.severity] ?? 0) + 1;
   summary[issue.type] = (summary[issue.type] ?? 0) + 1;
@@ -260,6 +521,13 @@ const counts = issues.reduce((summary, issue) => {
 const localizedStringCount = fileEntries.reduce((count, file) => count + findZhStrings(file.source).length, 0);
 
 console.log("PRC Simplified Chinese Audit");
+if (runSelfTest) {
+  console.log(
+    `Converter self-test: ${selfTestFailures.length === 0 ? "PASS" : "FAIL"} ` +
+      `(${traditionalMap.size} map entries, ${phraseRules.length} phrase rules, ${traditionalRepertoire.length} repertoire characters)`
+  );
+  for (const failure of selfTestFailures) console.log(`  ${failure}`);
+}
 console.log(`Scanned files: ${files.length}`);
 console.log(`Localized zh strings found: ${localizedStringCount}`);
 console.log(`Issues: ${issues.length}`);
@@ -306,6 +574,40 @@ if (process.argv.includes("--write-pack-baseline")) {
   console.log("Wrote scripts/zh-hans-pack-baseline.json");
 }
 
-if (failOnCritical && (nonPackCriticalCount > 0 || packRegressions.length > 0)) {
-  process.exitCode = 1;
+const advisoryCount = counts.advisory ?? 0;
+if (maxAdvisory !== undefined) {
+  console.log(`\nAdvisory ceiling: ${advisoryCount}/${maxAdvisory}${rawMaxAdvisory === undefined ? " (committed baseline)" : " (--max-advisory)"}`);
+}
+
+if (selfTestRequested && !failOnCritical && rawMaxAdvisory === undefined) {
+  process.exitCode = selfTestFailures.length ? 1 : 0;
+} else {
+  const gateFailures = [];
+  const shippedCritical = issues.filter((issue) => issue.severity === "critical" && issue.type.startsWith("shipped-")).length;
+  const hardCritical = nonPackCriticalCount - shippedCritical;
+  if (failOnCritical && hardCritical > 0) gateFailures.push(`${hardCritical} non-pack critical issue(s)`);
+  if (shippedCritical > SHIPPED_CRITICAL_BASELINE) {
+    gateFailures.push(
+      `shipped zhHans critical count ${shippedCritical} exceeds baseline ${SHIPPED_CRITICAL_BASELINE} — ` +
+        "hand-written zhHans copy may only improve"
+    );
+  }
+  if (failOnCritical && packRegressions.length > 0) {
+    gateFailures.push(`generated-pack regression: ${packRegressions.map(([type, count]) => `${type} ${count} > ${packBaseline[type] ?? 0}`).join(", ")}`);
+  }
+  if (maxAdvisory !== undefined && advisoryCount > maxAdvisory) {
+    gateFailures.push(
+      `advisory count ${advisoryCount} exceeds ceiling ${maxAdvisory} — the zh-Hans backlog may only shrink; ` +
+        "add explicit zhHans copy rather than raising ADVISORY_BASELINE"
+    );
+  }
+  if (runSelfTest && selfTestFailures.length) gateFailures.push(`converter self-test reported ${selfTestFailures.length} failure(s)`);
+
+  if (gateFailures.length) {
+    console.log("\nGate FAILED:");
+    for (const failure of gateFailures) console.log(`  - ${failure}`);
+    process.exitCode = 1;
+  } else if (gateActive) {
+    console.log(`\nGate passed (advisory ${advisoryCount}/${maxAdvisory ?? "n/a"}, non-pack critical 0, no pack regression).`);
+  }
 }
