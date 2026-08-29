@@ -2,11 +2,15 @@
 
 - Date: 2026-08-29
 - Agent ID: A10
+- Owner: A10 — Tooling / CI governance
 - Workstream: Tooling / CI governance
-- Status: In progress
+- Status: Implementation committed and pushed; downstream reviews and lifecycle closeout pending
 - Objective: Replace every non-comparator reachable plain `JSON.parse` in the Promotion Shadow workflow with one tracked, bounded, duplicate-key-rejecting current-checkout JSON guard.
 - Worktree: `/Volumes/Starship/MAIS-MVP/.worktrees/a10-promotion-workflow-strict-json-20260829`
 - Branch: `chore/a10-promotion-workflow-strict-json-20260829`
+- Creation date: 2026-08-29 HKT
+- Target PR: `pending (downstream A23 integration)`
+- Expected closeout date: 2026-08-30 HKT
 - Baseline HEAD: `baca84e77abae1e16cfd53d497c6f7ee734d4679`
 - Live `origin/main` at start: `baca84e77abae1e16cfd53d497c6f7ee734d4679`
 - Baseline worktree state: clean
@@ -63,8 +67,18 @@
 - Exact semantic comparator `run` SHA-256 remains `da19cda092e2f5b6ee2eb3a22c84c18e8a79bf27b95901f7ec419c6d01628d6e`.
 - A pre-commit external discovery correctly stopped at `AUTHORITATIVE_BYTES_DRIFT` because the authorized workflow edit was not yet the current Git `HEAD`; final external discovery must run after the reviewed commit with that exact commit as `--expected-head`.
 
+## Ownership And Collaboration Status
+
+- `coordination/release-intake/owner-pathspecs.json` assigns `.github/workflows/promotion-shadow.yml` exactly to A10 and routes coordination to A11, A22, and A23. Its broad A10 tooling/docs/config entry also covers `scripts/**` and `coordination/**`.
+- There is no dedicated owner-pathspec entry for this complete strict-JSON session slice as a named package. The user's exact task authorization assigned the workflow, guard, tests, and this session log to A10 for this slice; shared-file reviewers remain pending.
+- A11 specification / CI evidence review: pending; no A11 approval is claimed.
+- A22 release / isolation review: pending; no A22 approval or release-readiness decision is claimed.
+- A23 downstream binding / integration: pending; target PR remains `pending (downstream A23 integration)` and no integration approval is claimed.
+- A25 branch/worktree lifecycle closeout: pending; no cleanup or closeout approval is claimed.
+
 ## Handoff
 
-- Final state: Reviewed commit candidate; commit/push and post-commit discovery pending.
-- Resulting branch commit: Pending; the exact post-commit SHA will be reported in the session handoff because a commit cannot contain its own SHA.
-- Worktree lifecycle: Retain until parent integration decision.
+- Final state: Reviewed implementation commit pushed; downstream review and integration remain pending.
+- Implementation commit: `e78f5b6dc9ca288d5aaf2db127b9c2b394528602`.
+- Post-implementation external discovery: original `WORKFLOW_JSON_PARSE_UNTRUSTED` is cleared; the next fail-closed blocker is `WORKFLOW_STRUCTURE_INVALID`.
+- Worktree lifecycle: Retain through pending A11/A22/A23 review and A25 lifecycle closeout; expected closeout date is 2026-08-30 HKT.
