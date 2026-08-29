@@ -69,6 +69,69 @@ function scormManifest({
 </manifest>`;
 }
 
+const contentPackageNamespaces = [
+  "http://www.imsproject.org/xsd/imscp_rootv1p1p2",
+  "http://www.imsglobal.org/xsd/imscp_v1p1"
+] as const;
+
+const scormStructuralNames = [
+  "manifest",
+  "metadata",
+  "schema",
+  "schemaversion",
+  "organizations",
+  "organization",
+  "title",
+  "item",
+  "resources",
+  "resource",
+  "file",
+  "dependency"
+] as const;
+
+function withPrefixedContentPackageNamespace(manifest: string, uri: string) {
+  const structuralPattern = new RegExp(
+    `<(/?)(${scormStructuralNames.join("|")})(?=[\\s/>])`,
+    "g"
+  );
+  return manifest
+    .replace(
+      'xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"',
+      `xmlns:cp="${uri}"`
+    )
+    .replace(structuralPattern, "<$1cp:$2");
+}
+
+function withFakeStructuralNamespace(manifest: string, elementName: string) {
+  return manifest
+    .replace("<manifest identifier=", '<manifest xmlns:fake="urn:not-scorm" identifier=')
+    .replace(new RegExp(`<${elementName}(?=[\\s>])`), `<fake:${elementName}`)
+    .replace(new RegExp(`</${elementName}>`), `</fake:${elementName}>`);
+}
+
+async function assertStableImportError(
+  manifest: string,
+  expected: { readonly code: string; readonly message: string }
+) {
+  const bytes = await createScormPackage(manifest, {
+    "content.txt": "Static lesson"
+  });
+  await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+    assert.deepEqual(
+      error && typeof error === "object"
+        ? {
+            code: Reflect.get(error, "code"),
+            status: Reflect.get(error, "status"),
+            message: Reflect.get(error, "message")
+          }
+        : null,
+      { ...expected, status: 422 }
+    );
+    assert.doesNotMatch(String(Reflect.get(Object(error), "message")), /urn:not-scorm|fake:/);
+    return true;
+  });
+}
+
 test("imports a minimal SCORM 1.2 package into the canonical course model", async () => {
   const importedAt = "2026-08-27T06:00:00.000Z";
   const bytes = await createScormPackage(scormManifest(), { "content.txt": "Static lesson" });
@@ -121,6 +184,240 @@ test("identifies SCORM 2004 packages without treating them as SCORM 1.2", async 
   assert.equal(report.source.version, "2004");
   assert.equal(report.courseVersion.sourceProvenance.source.format, "scorm");
   assert.equal(report.courseVersion.sourceProvenance.source.version, "2004");
+});
+
+test("accepts both supported IMS content-package namespaces in default and prefixed form", async () => {
+  for (const uri of contentPackageNamespaces) {
+    const defaultManifest = scormManifest().replace(
+      "http://www.imsproject.org/xsd/imscp_rootv1p1p2",
+      uri
+    );
+    const prefixedManifest = withPrefixedContentPackageNamespace(scormManifest(), uri);
+
+    for (const manifest of [defaultManifest, prefixedManifest]) {
+      const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+      const report = await importScormPackage(bytes, {
+        importedAt: "2026-08-29T01:00:00.000Z"
+      });
+      assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
+      assert.equal(report.courseVersion.resources[0]?.href, "content.txt");
+    }
+  }
+});
+
+test("accepts a legacy unnamespaced manifest and no-namespace SCORM type attributes", async () => {
+  const manifest = scormManifest()
+    .replace(/\n  xmlns="[^"]+"/u, "")
+    .replace(/\n  xmlns:adlcp="[^"]+"/u, "")
+    .replace("adlcp:scormtype", "scormtype");
+  const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-29T01:05:00.000Z" });
+
+  assert.equal(report.source.version, "1.2");
+  assert.deepEqual(report.courseVersion.resources[0]?.extensions, {
+    "org.adlnet.scorm": { resourceType: "asset" }
+  });
+});
+
+test("accepts namespace declaration prefixes that resemble reserved SCORM attributes", async () => {
+  const manifest = scormManifest().replace(
+    "<manifest identifier=",
+    '<manifest xmlns:type="urn:innocent-type" xmlns:identifier="urn:innocent-identifier" ' +
+      'xmlns:scormtype="urn:innocent-scormtype" identifier='
+  );
+  const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-29T01:07:00.000Z" });
+
+  assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
+  assert.deepEqual(report.warnings, []);
+});
+
+test("accepts inert ENTITY spelling inside legal manifest comments and CDATA", async () => {
+  const manifest = scormManifest()
+    .replace("  <metadata>", "  <!-- inert <!ENTITY comment text -->\n  <metadata>")
+    .replace("Minimal course", "<![CDATA[Minimal <!ENTITY cdata text course]]>");
+  const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-29T01:08:00.000Z" });
+
+  assert.equal(report.courseVersion.course.title, "Minimal <!ENTITY cdata text course");
+});
+
+test("accepts only the supported ADLCP 1.2 and 2004 attribute namespaces and spellings", async () => {
+  const fixtures = [
+    {
+      manifest: scormManifest(),
+      version: "1.2"
+    },
+    {
+      manifest: scormManifest({
+        schemaVersion: "2004 4th Edition",
+        adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
+      }).replace("adlcp:scormtype", "adlcp:scormType"),
+      version: "2004"
+    },
+    {
+      manifest: scormManifest()
+        .replace(/\n  xmlns:adlcp="[^"]+"/u, "")
+        .replace("adlcp:scormtype", "scormtype"),
+      version: "1.2"
+    },
+    {
+      manifest: scormManifest({
+        schemaVersion: "2004 4th Edition",
+        adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
+      })
+        .replace(/\n  xmlns:adlcp="[^"]+"/u, "")
+        .replace("adlcp:scormtype", "scormType"),
+      version: "2004"
+    }
+  ] as const;
+
+  for (const fixture of fixtures) {
+    const bytes = await createScormPackage(fixture.manifest, { "content.txt": "Static lesson" });
+    const report = await importScormPackage(bytes, {
+      importedAt: "2026-08-29T01:10:00.000Z"
+    });
+    assert.equal(report.source.version, fixture.version);
+    assert.deepEqual(report.courseVersion.resources[0]?.extensions, {
+      "org.adlnet.scorm": { resourceType: "asset" }
+    });
+  }
+});
+
+test("rejects a bound arbitrary namespace impersonating the SCORM structure", async () => {
+  const manifest = `<?xml version="1.0" encoding="UTF-8"?>
+<fake:manifest xmlns:fake="urn:not-an-ims-content-package"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  identifier="course-impersonation" version="1.0">
+  <fake:metadata>
+    <fake:schema>ADL SCORM</fake:schema>
+    <fake:schemaversion>1.2</fake:schemaversion>
+  </fake:metadata>
+  <fake:organizations default="org-1">
+    <fake:organization identifier="org-1">
+      <fake:title>Impersonated course</fake:title>
+      <fake:item identifier="item-1" identifierref="resource-1"/>
+    </fake:organization>
+  </fake:organizations>
+  <fake:resources>
+    <fake:resource identifier="resource-1" type="webcontent" href="content.txt">
+      <fake:file href="content.txt"/>
+    </fake:resource>
+  </fake:resources>
+</fake:manifest>`;
+  const bytes = await createScormPackage(manifest, { "content.txt": "Static lesson" });
+
+  await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+    assert.deepEqual(
+      error && typeof error === "object"
+        ? {
+            code: Reflect.get(error, "code"),
+            status: Reflect.get(error, "status"),
+            message: Reflect.get(error, "message")
+          }
+        : null,
+      {
+        code: "SCORM_MANIFEST_INVALID",
+        status: 422,
+        message: "The root XML element is not a SCORM manifest."
+      }
+    );
+    return true;
+  });
+});
+
+for (const elementName of [
+  "metadata",
+  "organizations",
+  "organization",
+  "resources",
+  "resource"
+] as const) {
+  test(`rejects an arbitrary bound namespace impersonating ${elementName}`, async () => {
+    await assertStableImportError(withFakeStructuralNamespace(scormManifest(), elementName), {
+      code: "SCORM_MANIFEST_INVALID",
+      message: "The SCORM manifest uses an unsupported structural namespace."
+    });
+  });
+}
+
+test("rejects namespace-wrapped core and SCORM type attributes", async () => {
+  const namespacedCoreAttribute = scormManifest()
+    .replace("<manifest identifier=", '<manifest xmlns:fake="urn:not-scorm" fake:identifier=');
+  const namespacedScormType = scormManifest()
+    .replace("<manifest identifier=", '<manifest xmlns:fake="urn:not-scorm" identifier=')
+    .replace("adlcp:scormtype", "fake:scormtype");
+
+  for (const manifest of [namespacedCoreAttribute, namespacedScormType]) {
+    await assertStableImportError(manifest, {
+      code: "SCORM_MANIFEST_INVALID",
+      message: "The SCORM manifest uses an unsupported attribute namespace."
+    });
+  }
+});
+
+test("rejects malformed parser surfaces from a full ZIP with one stable redacted error", async () => {
+  const base = scormManifest();
+  const manifests = [
+    base.replace("Minimal course", "Minimal &#X41; course"),
+    base.replace("  <metadata>", "  <!--ends-with-hyphen--->\n  <metadata>"),
+    base.replace("<metadata>", "<unbound:metadata>"),
+    base.replace("identifier=\"course-minimal\"", 'unbound:identifier="course-minimal"'),
+    base.replace("<metadata>", "<:metadata>"),
+    base.replace("<metadata>", '<bound::metadata xmlns:bound="urn:test">'),
+    base.replace("<metadata>", '<bound: xmlns:bound="urn:test">'),
+    base.replace(
+      "<manifest identifier=",
+      '<manifest xmlns:a="urn:duplicate" xmlns:b="urn:duplicate" a:id="one" b:id="two" identifier='
+    ),
+    base.replace('version="1.0" encoding="UTF-8"', 'version="1.1" encoding="UTF-8"'),
+    base.replace('encoding="UTF-8"', 'encoding="ISO-8859-1"')
+  ];
+
+  for (const manifest of manifests) {
+    await assertStableImportError(manifest, {
+      code: "MANIFEST_XML_INVALID",
+      message: "The SCORM manifest is not valid safe XML."
+    });
+  }
+});
+
+test("keeps ordered file and dependency dedupe deterministic near the 20,000-element ceiling", async () => {
+  const repeatedChildCount = 9_994;
+  const files = Array.from(
+    { length: repeatedChildCount },
+    (_, index) => `<file href="${index % 2 === 0 ? "second.txt" : "first.txt"}"/>`
+  ).join("");
+  const dependencies = Array.from(
+    { length: repeatedChildCount },
+    (_, index) => `<dependency identifierref="${index % 2 === 0 ? "target-b" : "target-a"}"/>`
+  ).join("");
+  const manifest = `<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="course-dedupe">
+  <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>
+  <organizations><organization identifier="org-1"><title>Dedupe</title></organization></organizations>
+  <resources>
+    <resource identifier="main" type="webcontent">${files}${dependencies}</resource>
+    <resource identifier="target-a" type="webcontent"/>
+    <resource identifier="target-b" type="webcontent"/>
+  </resources>
+</manifest>`;
+  const bytes = await createScormPackage(manifest, {
+    "first.txt": "first",
+    "second.txt": "second"
+  });
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-29T01:15:00.000Z" });
+
+  assert.deepEqual(report.courseVersion.resources[0]?.filePaths, ["second.txt", "first.txt"]);
+  assert.deepEqual(report.courseVersion.resources[0]?.dependencyResourceIds, [
+    "scorm:resource:target-b",
+    "scorm:resource:target-a"
+  ]);
+  assert.deepEqual(report.warnings, []);
 });
 
 test("repeat imports keep canonical version identity independent of import-event time and bind predecessors", async () => {

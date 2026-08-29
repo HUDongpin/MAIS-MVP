@@ -21,11 +21,15 @@ import {
   type ZipEntryMetadata
 } from "./zip";
 import {
+  SCORM_ADLCP_NAMESPACES,
+  XML_NAMESPACE_DECLARATION_URI,
+  isSupportedScormStructuralElement,
   parseStaticXml,
   xmlAttribute,
   xmlChildren,
   xmlFirstChild,
-  xmlLocalName,
+  xmlNamespaceVersions,
+  xmlScormTypeAttribute,
   xmlText,
   type StaticXmlElement
 } from "./xml";
@@ -86,8 +90,32 @@ export interface ImportScormPackageOptions {
 
 type ResourceBuilder = Omit<CanonicalResource, "referencedByIds" | "dependencyResourceIds"> & {
   referencedByIds: Set<string>;
-  dependencySourceIds: string[];
+  dependencySourceIds: Set<string>;
 };
+
+const scormStructuralElementNames = new Set([
+  "manifest",
+  "metadata",
+  "schema",
+  "schemaversion",
+  "organizations",
+  "organization",
+  "title",
+  "item",
+  "resources",
+  "resource",
+  "file",
+  "dependency"
+]);
+
+const scormCoreAttributeNames = new Set([
+  "identifier",
+  "href",
+  "default",
+  "identifierref",
+  "type",
+  "version"
+]);
 
 const blockedMediaTypes: Readonly<Record<string, string>> = Object.freeze({
   ".html": "text/html",
@@ -199,11 +227,18 @@ function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
   const schemaVersion = xmlText(metadata ? xmlFirstChild(metadata, "schemaversion") : null)?.toLowerCase();
   if (schemaVersion?.startsWith("1.2")) detected.add("1.2");
   if (schemaVersion?.includes("2004")) detected.add("2004");
-  for (const value of Object.values(manifest.attributes)) {
-    const normalized = value.toLowerCase();
-    if (normalized.includes("adlcp_rootv1p2")) detected.add("1.2");
-    if (normalized.includes("adlcp_v1p3")) detected.add("2004");
-  }
+  const visit = (element: StaticXmlElement) => {
+    for (const version of xmlNamespaceVersions(element)) detected.add(version);
+    for (const attribute of Object.values(element.attributeMetadata)) {
+      if (attribute.local !== "scormType" && attribute.local !== "scormtype") continue;
+      const version = SCORM_ADLCP_NAMESPACES[
+        attribute.uri as keyof typeof SCORM_ADLCP_NAMESPACES
+      ];
+      if (version) detected.add(version);
+    }
+    for (const child of element.children) visit(child);
+  };
+  visit(manifest);
   if (detected.size !== 1) {
     throw new CourseImportError(
       "SCORM_VERSION_UNSUPPORTED",
@@ -212,6 +247,56 @@ function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
     );
   }
   return [...detected][0]!;
+}
+
+function assertScormNamespacePolicy(manifest: StaticXmlElement) {
+  const visit = (element: StaticXmlElement) => {
+    if (
+      scormStructuralElementNames.has(element.local) &&
+      !isSupportedScormStructuralElement(element, element.local)
+    ) {
+      throw new CourseImportError(
+        "SCORM_MANIFEST_INVALID",
+        "The SCORM manifest uses an unsupported structural namespace.",
+        422
+      );
+    }
+    for (const attribute of Object.values(element.attributeMetadata)) {
+      if (attribute.uri === XML_NAMESPACE_DECLARATION_URI) continue;
+      if (scormCoreAttributeNames.has(attribute.local)) {
+        if (attribute.prefix === "" && attribute.uri === "" && attribute.name === attribute.local) {
+          continue;
+        }
+        throw new CourseImportError(
+          "SCORM_MANIFEST_INVALID",
+          "The SCORM manifest uses an unsupported attribute namespace.",
+          422
+        );
+      }
+      if (attribute.local !== "scormType" && attribute.local !== "scormtype") continue;
+      if (
+        (attribute.prefix === "" && attribute.uri === "") ||
+        Object.prototype.hasOwnProperty.call(SCORM_ADLCP_NAMESPACES, attribute.uri)
+      ) continue;
+      throw new CourseImportError(
+        "SCORM_MANIFEST_INVALID",
+        "The SCORM manifest uses an unsupported attribute namespace.",
+        422
+      );
+    }
+    for (const child of element.children) visit(child);
+  };
+  visit(manifest);
+}
+
+function assertScormManifestRoot(manifest: StaticXmlElement) {
+  if (!isSupportedScormStructuralElement(manifest, "manifest")) {
+    throw new CourseImportError(
+      "SCORM_MANIFEST_INVALID",
+      "The root XML element is not a SCORM manifest.",
+      422
+    );
+  }
 }
 
 function safeManifestPath(value: string | null) {
@@ -333,13 +418,8 @@ export async function importScormPackage(
   }
   const manifestBytes = await readEntryWithLimit(zipManifest, manifestEntry, limits.maxManifestBytes);
   const manifest = parseStaticXml(decodeManifest(manifestBytes));
-  if (xmlLocalName(manifest.name) !== "manifest") {
-    throw new CourseImportError(
-      "SCORM_MANIFEST_INVALID",
-      "The root XML element is not a SCORM manifest.",
-      422
-    );
-  }
+  assertScormManifestRoot(manifest);
+  assertScormNamespacePolicy(manifest);
   const scormVersion = detectScormVersion(manifest);
   const manifestSourceId = xmlAttribute(manifest, "identifier")?.trim();
   if (!manifestSourceId) {
@@ -378,7 +458,7 @@ export async function importScormPackage(
         sourceId
       });
     }
-    const filePaths: string[] = [];
+    const orderedFilePaths = new Set<string>();
     for (const fileElement of xmlChildren(resourceElement, "file")) {
       const rawFilePath = xmlAttribute(fileElement, "href");
       const filePath = safeManifestPath(rawFilePath);
@@ -390,9 +470,10 @@ export async function importScormPackage(
         });
         continue;
       }
-      if (!filePaths.includes(filePath)) filePaths.push(filePath);
+      orderedFilePaths.add(filePath);
     }
-    if (href && !filePaths.includes(href)) filePaths.unshift(href);
+    const filePaths = [...orderedFilePaths];
+    if (href && !orderedFilePaths.has(href)) filePaths.unshift(href);
     for (const filePath of filePaths) {
       const pathKey = canonicalizeArchivePath(filePath).pathKey;
       if (!archivePaths.has(pathKey)) warnings.push({
@@ -401,7 +482,7 @@ export async function importScormPackage(
         sourceId
       });
     }
-    const scormType = xmlAttribute(resourceElement, "scormtype")?.trim().toLowerCase() || null;
+    const scormType = xmlScormTypeAttribute(resourceElement)?.trim().toLowerCase() || null;
     const builder: ResourceBuilder = {
       kind: "resource",
       id: resourceStableId(sourceId),
@@ -416,9 +497,9 @@ export async function importScormPackage(
           "org.adlnet.scorm": { resourceType: scormType }
         }
       }),
-      dependencySourceIds: xmlChildren(resourceElement, "dependency")
+      dependencySourceIds: new Set(xmlChildren(resourceElement, "dependency")
         .map((dependency) => xmlAttribute(dependency, "identifierref")?.trim())
-        .filter((value): value is string => Boolean(value)),
+        .filter((value): value is string => Boolean(value))),
       referencedByIds: new Set<string>()
     };
     resourceBuilders.push(builder);
@@ -522,11 +603,11 @@ export async function importScormPackage(
   }
 
   const resources: CanonicalResource[] = resourceBuilders.map((builder) => {
-    const dependencyResourceIds: string[] = [];
+    const dependencyResourceIds = new Set<string>();
     for (const dependencySourceId of builder.dependencySourceIds) {
       const dependency = resourceBySourceId.get(dependencySourceId);
       if (dependency) {
-        if (!dependencyResourceIds.includes(dependency.id)) dependencyResourceIds.push(dependency.id);
+        dependencyResourceIds.add(dependency.id);
       } else {
         warnings.push({
           code: "RESOURCE_DEPENDENCY_UNRESOLVED",
@@ -544,7 +625,7 @@ export async function importScormPackage(
       title: builder.title,
       href: builder.href,
       filePaths: builder.filePaths,
-      dependencyResourceIds,
+      dependencyResourceIds: [...dependencyResourceIds],
       referencedByIds: [...builder.referencedByIds],
       ...(builder.extensions === undefined ? {} : { extensions: builder.extensions })
     };

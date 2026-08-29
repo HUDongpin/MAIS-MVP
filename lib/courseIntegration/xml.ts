@@ -1,26 +1,55 @@
-import { CourseImportError } from "./errors";
+import { SaxesParser, type SaxesAttributeNS } from "saxes";
+
+import { CourseImportError, isCourseImportError } from "./errors";
+
+export interface StaticXmlAttribute {
+  readonly name: string;
+  readonly prefix: string;
+  readonly local: string;
+  readonly uri: string;
+  readonly value: string;
+}
 
 export interface StaticXmlElement {
   readonly name: string;
+  readonly prefix: string;
+  readonly local: string;
+  readonly uri: string;
   readonly attributes: Readonly<Record<string, string>>;
+  readonly attributeMetadata: Readonly<Record<string, StaticXmlAttribute>>;
   readonly children: readonly StaticXmlElement[];
   readonly text: string;
 }
 
 interface MutableXmlElement {
-  name: string;
-  attributes: Record<string, string>;
-  children: MutableXmlElement[];
-  textParts: string[];
+  readonly name: string;
+  readonly prefix: string;
+  readonly local: string;
+  readonly uri: string;
+  readonly attributes: Readonly<Record<string, string>>;
+  readonly attributeMetadata: Readonly<Record<string, StaticXmlAttribute>>;
+  readonly children: MutableXmlElement[];
+  readonly textParts: string[];
 }
 
-const XML_NAME = /^[A-Za-z_][A-Za-z0-9_.:-]*/;
-const XML_S = /[ \t\r\n]/;
-const XML_DECLARATION_SURFACE = /<!\s*(?:DOCTYPE|ENTITY)\b/i;
-const XML_DECLARATION = /^xml[\t\n\r ]+version[\t\n\r ]*=[\t\n\r ]*(?:"1\.0"|'1\.0')(?:[\t\n\r ]+encoding[\t\n\r ]*=[\t\n\r ]*(?:"[Uu][Tt][Ff]-8"|'[Uu][Tt][Ff]-8'))?(?:[\t\n\r ]+standalone[\t\n\r ]*=[\t\n\r ]*(?:"(?:yes|no)"|'(?:yes|no)'))?[\t\n\r ]*$/;
+export const SCORM_CONTENT_PACKAGE_NAMESPACES = Object.freeze([
+  "http://www.imsproject.org/xsd/imscp_rootv1p1p2",
+  "http://www.imsglobal.org/xsd/imscp_v1p1"
+] as const);
+
+export const SCORM_ADLCP_NAMESPACES = Object.freeze({
+  "http://www.adlnet.org/xsd/adlcp_rootv1p2": "1.2",
+  "http://www.adlnet.org/xsd/adlcp_v1p3": "2004"
+} as const);
+
+export const XML_NAMESPACE_DECLARATION_URI = "http://www.w3.org/2000/xmlns/";
+const XML_ENTITY_DECLARATION = /<!\s*ENTITY\b/iu;
+const MAX_XML_INPUT_LENGTH = 1024 * 1024;
 const MAX_XML_DEPTH = 128;
 const MAX_XML_ELEMENTS = 20_000;
 const MAX_ATTRIBUTES_PER_ELEMENT = 100;
+const MAX_CUMULATIVE_TEXT_LENGTH = 1024 * 1024;
+const MAX_XML_WORK_UNITS = 4 * 1024 * 1024;
 
 function invalidXml(): never {
   throw new CourseImportError(
@@ -30,223 +59,116 @@ function invalidXml(): never {
   );
 }
 
-function isValidXmlCodePoint(codePoint: number) {
-  return codePoint === 0x9 || codePoint === 0xa || codePoint === 0xd ||
-    (codePoint >= 0x20 && codePoint <= 0xd7ff) ||
-    (codePoint >= 0xe000 && codePoint <= 0xfffd) ||
-    (codePoint >= 0x10000 && codePoint <= 0x10ffff);
+function dtdForbidden(): never {
+  throw new CourseImportError(
+    "MANIFEST_XML_DTD_FORBIDDEN",
+    "DOCTYPE and ENTITY declarations are forbidden in SCORM manifests.",
+    422
+  );
 }
 
-function assertValidXmlCodePoints(xml: string) {
-  for (let index = 0; index < xml.length;) {
-    const codePoint = xml.codePointAt(index);
-    if (codePoint === undefined || !isValidXmlCodePoint(codePoint)) invalidXml();
-    index += codePoint > 0xffff ? 2 : 1;
-  }
-}
-
-function decodeXmlEntities(value: string) {
-  let decoded = "";
-  let cursor = 0;
-  while (cursor < value.length) {
-    const entityStart = value.indexOf("&", cursor);
-    if (entityStart < 0) {
-      decoded += value.slice(cursor);
-      break;
-    }
-    decoded += value.slice(cursor, entityStart);
-    const entityEnd = value.indexOf(";", entityStart + 1);
-    if (entityEnd < 0) invalidXml();
-    const entity = value.slice(entityStart + 1, entityEnd);
-    let replacement: string;
-    switch (entity) {
-      case "amp": replacement = "&"; break;
-      case "lt": replacement = "<"; break;
-      case "gt": replacement = ">"; break;
-      case "quot": replacement = "\""; break;
-      case "apos": replacement = "'"; break;
-      default: {
-        const decimal = /^#([0-9]+)$/.exec(entity);
-        const hexadecimal = /^#x([0-9a-f]+)$/i.exec(entity);
-        const codePoint = decimal
-          ? Number.parseInt(decimal[1]!, 10)
-          : hexadecimal
-            ? Number.parseInt(hexadecimal[1]!, 16)
-            : Number.NaN;
-        if (!Number.isSafeInteger(codePoint) || !isValidXmlCodePoint(codePoint)) invalidXml();
-        replacement = String.fromCodePoint(codePoint);
-      }
-    }
-    decoded += replacement;
-    cursor = entityEnd + 1;
-  }
-  return decoded;
-}
-
-function findTagEnd(xml: string, start: number) {
-  let quote: "\"" | "'" | null = null;
-  for (let index = start; index < xml.length; index += 1) {
-    const character = xml[index];
-    if (quote) {
-      if (character === quote) quote = null;
-    } else if (character === "\"" || character === "'") {
-      quote = character;
-    } else if (character === ">") {
-      return index;
-    }
-  }
-  invalidXml();
-}
-
-function parseStartTag(content: string) {
-  let cursor = 0;
-  const skipXmlS = () => {
-    const start = cursor;
-    while (XML_S.test(content[cursor] ?? "")) cursor += 1;
-    return cursor > start;
-  };
-  const nameMatch = XML_NAME.exec(content.slice(cursor));
-  if (!nameMatch) invalidXml();
-  const name = nameMatch[0];
-  cursor += name.length;
-  const attributes: Record<string, string> = {};
-
-  while (cursor < content.length) {
-    const hasAttributeSeparator = skipXmlS();
-    if (cursor >= content.length) break;
-    if (!hasAttributeSeparator) invalidXml();
-    const attributeMatch = XML_NAME.exec(content.slice(cursor));
-    if (!attributeMatch) invalidXml();
-    const attributeName = attributeMatch[0];
-    cursor += attributeName.length;
-    skipXmlS();
-    if (content[cursor] !== "=") invalidXml();
-    cursor += 1;
-    skipXmlS();
-    const quote = content[cursor];
-    if (quote !== "\"" && quote !== "'") invalidXml();
-    cursor += 1;
-    const valueEnd = content.indexOf(quote, cursor);
-    if (valueEnd < 0) invalidXml();
-    if (Object.prototype.hasOwnProperty.call(attributes, attributeName)) invalidXml();
-    const rawAttributeValue = content.slice(cursor, valueEnd);
-    if (rawAttributeValue.includes("<")) invalidXml();
-    attributes[attributeName] = decodeXmlEntities(rawAttributeValue);
-    if (Object.keys(attributes).length > MAX_ATTRIBUTES_PER_ELEMENT) invalidXml();
-    cursor = valueEnd + 1;
-    if (cursor < content.length && !XML_S.test(content[cursor] ?? "")) invalidXml();
-  }
-  return { name, attributes };
-}
-
-function assertProcessingInstruction(content: string, offset: number) {
-  const targetMatch = XML_NAME.exec(content);
-  if (!targetMatch) invalidXml();
-  const target = targetMatch[0];
-  const remainder = content.slice(target.length);
-
-  if (target === "xml") {
-    if (offset !== 0 || !XML_DECLARATION.test(content)) invalidXml();
-    return;
-  }
-  if (target.toLowerCase() === "xml") invalidXml();
-  if (remainder.length > 0 && !/^[\t\n\r ]/.test(remainder)) invalidXml();
+function freezeAttribute(attribute: SaxesAttributeNS): StaticXmlAttribute {
+  return Object.freeze({
+    name: attribute.name,
+    prefix: attribute.prefix,
+    local: attribute.local,
+    uri: attribute.uri,
+    value: attribute.value
+  });
 }
 
 function freezeElement(element: MutableXmlElement): StaticXmlElement {
   return Object.freeze({
     name: element.name,
-    attributes: Object.freeze({ ...element.attributes }),
+    prefix: element.prefix,
+    local: element.local,
+    uri: element.uri,
+    attributes: element.attributes,
+    attributeMetadata: element.attributeMetadata,
     children: Object.freeze(element.children.map(freezeElement)),
     text: element.textParts.join("")
   });
 }
 
 export function parseStaticXml(xml: string): StaticXmlElement {
-  assertValidXmlCodePoints(xml);
-  if (XML_DECLARATION_SURFACE.test(xml)) {
-    throw new CourseImportError(
-      "MANIFEST_XML_DTD_FORBIDDEN",
-      "DOCTYPE and ENTITY declarations are forbidden in SCORM manifests.",
-      422
-    );
-  }
+  if (xml.length > MAX_XML_INPUT_LENGTH) invalidXml();
 
   const roots: MutableXmlElement[] = [];
   const stack: MutableXmlElement[] = [];
   let elementCount = 0;
-  let cursor = 0;
+  let cumulativeTextLength = 0;
+  let workUnits = xml.length;
 
-  while (cursor < xml.length) {
-    if (xml[cursor] !== "<") {
-      const nextTag = xml.indexOf("<", cursor);
-      const end = nextTag < 0 ? xml.length : nextTag;
-      const rawText = xml.slice(cursor, end);
-      if (rawText.includes("]]>")) invalidXml();
-      if (stack.length > 0) {
-        stack.at(-1)!.textParts.push(decodeXmlEntities(rawText));
-      } else {
-        for (const character of rawText) {
-          if (!XML_S.test(character)) invalidXml();
-        }
-      }
-      cursor = end;
-      continue;
-    }
-    if (xml.startsWith("<!--", cursor)) {
-      const end = xml.indexOf("-->", cursor + 4);
-      if (end < 0) invalidXml();
-      if (xml.slice(cursor + 4, end).includes("--")) invalidXml();
-      cursor = end + 3;
-      continue;
-    }
-    if (xml.startsWith("<?", cursor)) {
-      const end = xml.indexOf("?>", cursor + 2);
-      if (end < 0) invalidXml();
-      assertProcessingInstruction(xml.slice(cursor + 2, end), cursor);
-      cursor = end + 2;
-      continue;
-    }
-    if (xml.startsWith("<![CDATA[", cursor)) {
-      const end = xml.indexOf("]]>", cursor + 9);
-      if (end < 0 || stack.length === 0) invalidXml();
-      stack.at(-1)!.textParts.push(xml.slice(cursor + 9, end));
-      cursor = end + 3;
-      continue;
-    }
-    if (xml.startsWith("<!", cursor)) invalidXml();
+  const addWork = (amount: number) => {
+    workUnits += amount;
+    if (!Number.isSafeInteger(workUnits) || workUnits > MAX_XML_WORK_UNITS) invalidXml();
+  };
+  const appendText = (text: string) => {
+    cumulativeTextLength += text.length;
+    if (
+      !Number.isSafeInteger(cumulativeTextLength) ||
+      cumulativeTextLength > MAX_CUMULATIVE_TEXT_LENGTH
+    ) invalidXml();
+    addWork(text.length);
+    if (stack.length > 0) stack.at(-1)!.textParts.push(text);
+  };
 
-    const tagEnd = findTagEnd(xml, cursor + 1);
-    let content = xml.slice(cursor + 1, tagEnd);
-    if (content.startsWith("/")) {
-      const rawClosingName = content.slice(1);
-      if (XML_S.test(rawClosingName[0] ?? "")) invalidXml();
-      const closingName = rawClosingName.replace(/[ \t\r\n]+$/, "");
-      if (!XML_NAME.test(closingName) || XML_NAME.exec(closingName)?.[0] !== closingName) invalidXml();
-      const open = stack.pop();
-      if (!open || open.name !== closingName) invalidXml();
-      cursor = tagEnd + 1;
-      continue;
-    }
+  try {
+    const parser = new SaxesParser({ xmlns: true, fragment: false });
+    parser.on("xmldecl", (declaration) => {
+      if (
+        declaration.version !== "1.0" ||
+        (declaration.encoding !== undefined && declaration.encoding.toLowerCase() !== "utf-8")
+      ) invalidXml();
+    });
+    parser.on("doctype", () => dtdForbidden());
+    parser.on("opentag", (tag) => {
+      elementCount += 1;
+      if (elementCount > MAX_XML_ELEMENTS) invalidXml();
+      if (stack.length + 1 > MAX_XML_DEPTH) invalidXml();
 
-    const selfClosing = content.endsWith("/");
-    if (selfClosing) content = content.slice(0, -1);
-    const parsed = parseStartTag(content);
-    const element: MutableXmlElement = {
-      name: parsed.name,
-      attributes: parsed.attributes,
-      children: [],
-      textParts: []
-    };
-    elementCount += 1;
-    if (elementCount > MAX_XML_ELEMENTS) invalidXml();
-    if (stack.length > 0) stack.at(-1)!.children.push(element);
-    else roots.push(element);
-    if (!selfClosing) {
+      const sourceAttributes = Object.values(tag.attributes);
+      if (sourceAttributes.length > MAX_ATTRIBUTES_PER_ELEMENT) invalidXml();
+      const frozenAttributes = sourceAttributes.map(freezeAttribute);
+      const attributes = Object.freeze(Object.fromEntries(
+        frozenAttributes.map((attribute) => [attribute.name, attribute.value])
+      ));
+      const attributeMetadata = Object.freeze(Object.fromEntries(
+        frozenAttributes.map((attribute) => [attribute.name, attribute])
+      ));
+      addWork(tag.name.length + sourceAttributes.reduce(
+        (sum, attribute) => sum + attribute.name.length + attribute.value.length,
+        0
+      ));
+
+      const element: MutableXmlElement = {
+        name: tag.name,
+        prefix: tag.prefix,
+        local: tag.local,
+        uri: tag.uri,
+        attributes,
+        attributeMetadata,
+        children: [],
+        textParts: []
+      };
+      if (stack.length > 0) stack.at(-1)!.children.push(element);
+      else roots.push(element);
       stack.push(element);
-      if (stack.length > MAX_XML_DEPTH) invalidXml();
-    }
-    cursor = tagEnd + 1;
+    });
+    parser.on("text", appendText);
+    parser.on("cdata", appendText);
+    parser.on("closetag", (tag) => {
+      addWork(tag.name.length);
+      const open = stack.pop();
+      if (!open || open.name !== tag.name) invalidXml();
+    });
+    parser.write(xml).close();
+  } catch (error) {
+    roots.length = 0;
+    stack.length = 0;
+    if (isCourseImportError(error)) throw error;
+    if (XML_ENTITY_DECLARATION.test(xml)) dtdForbidden();
+    invalidXml();
   }
 
   if (stack.length !== 0 || roots.length !== 1) invalidXml();
@@ -254,12 +176,23 @@ export function parseStaticXml(xml: string): StaticXmlElement {
 }
 
 export function xmlLocalName(name: string) {
-  return (name.includes(":") ? name.slice(name.lastIndexOf(":") + 1) : name).toLowerCase();
+  return name.includes(":") ? name.slice(name.lastIndexOf(":") + 1) : name;
+}
+
+export function isSupportedScormStructuralElement(
+  element: StaticXmlElement,
+  localName: string
+) {
+  return element.local === localName && (
+    element.uri === "" ||
+    SCORM_CONTENT_PACKAGE_NAMESPACES.includes(
+      element.uri as (typeof SCORM_CONTENT_PACKAGE_NAMESPACES)[number]
+    )
+  );
 }
 
 export function xmlChildren(element: StaticXmlElement, localName: string) {
-  const expected = localName.toLowerCase();
-  return element.children.filter((child) => xmlLocalName(child.name) === expected);
+  return element.children.filter((child) => isSupportedScormStructuralElement(child, localName));
 }
 
 export function xmlFirstChild(element: StaticXmlElement, localName: string) {
@@ -267,14 +200,33 @@ export function xmlFirstChild(element: StaticXmlElement, localName: string) {
 }
 
 export function xmlAttribute(element: StaticXmlElement, localName: string) {
-  const expected = localName.toLowerCase();
-  let matched: string | null = null;
-  for (const [name, value] of Object.entries(element.attributes)) {
-    if (xmlLocalName(name) !== expected) continue;
-    if (matched !== null) return null;
-    matched = value;
+  const attribute = element.attributeMetadata[localName];
+  return attribute?.prefix === "" && attribute.local === localName && attribute.uri === ""
+    ? attribute.value
+    : null;
+}
+
+export function xmlScormTypeAttribute(element: StaticXmlElement) {
+  for (const attribute of Object.values(element.attributeMetadata)) {
+    if (attribute.local !== "scormType" && attribute.local !== "scormtype") continue;
+    if (attribute.uri === "" && attribute.prefix === "") return attribute.value;
+    if (Object.prototype.hasOwnProperty.call(SCORM_ADLCP_NAMESPACES, attribute.uri)) {
+      return attribute.value;
+    }
   }
-  return matched;
+  return null;
+}
+
+export function xmlNamespaceVersions(element: StaticXmlElement) {
+  const versions = new Set<"1.2" | "2004">();
+  for (const attribute of Object.values(element.attributeMetadata)) {
+    if (attribute.uri !== XML_NAMESPACE_DECLARATION_URI) continue;
+    const version = SCORM_ADLCP_NAMESPACES[
+      attribute.value as keyof typeof SCORM_ADLCP_NAMESPACES
+    ];
+    if (version) versions.add(version);
+  }
+  return versions;
 }
 
 export function xmlText(element: StaticXmlElement | null) {
