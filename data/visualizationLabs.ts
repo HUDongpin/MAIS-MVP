@@ -2541,7 +2541,7 @@ function templateConfigForTopic(topic: Topic, templateId: VisualizationTemplateI
 
 function formulaForTemplate(templateId: VisualizationTemplateId) {
   if (templateId === "number-line") return { en: "start + step = end", zh: "起點 + 步長 = 終點", zhHans: "起点 + 步长 = 终点" };
-  if (templateId === "base-ten") return { en: "10 x tens + ones", zh: "10 x 十位 + 個位", zhHans: "10 x 十位 + 个位" };
+  if (templateId === "base-ten") return { en: "100 x hundreds + 10 x tens + ones", zh: "100 x 百位 + 10 x 十位 + 個位", zhHans: "100 x 百位 + 10 x 十位 + 个位" };
   if (templateId === "array-area") return { en: "rows x columns = area", zh: "行 x 列 = 面積", zhHans: "行 x 列 = 面积" };
   if (templateId === "clock-money-data") return { en: "time -> angle; data -> bar", zh: "時間 -> 角度；數據 -> 棒形", zhHans: "时间 -> 角度；数据 -> 柱形" };
   if (templateId === "measurement-scale") return { en: "units x scale = measure", zh: "單位數 x 刻度 = 度量", zhHans: "单位数 x 刻度 = 测量值" };

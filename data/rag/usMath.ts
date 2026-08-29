@@ -1544,7 +1544,10 @@ const gradeSeeds: SafeCardSeed[] = [
     standardIds: ["G7.RP", "G7.NS", "G7.EE", "G7.G", "G7.SP"],
     domainTags: ["proportional relationships", "rational number operations", "linear expressions", "geometry", "statistics and probability"],
     clusterTags: ["constant of proportionality", "signed numbers", "equivalent expressions", "scale drawings", "sampling"],
-    topicIds: ["integers", "algebra-basics", "ratios", "statistics-s1"],
+    // `angles` completes the S1 band. It was the single topic id of the 49 that
+    // appeared in no safe card, which made it invisible to the only HK-to-CCSS
+    // grade-band crosswalk the repository has.
+    topicIds: ["integers", "algebra-basics", "angles", "ratios", "statistics-s1"],
     conceptIds: ["proportional-relationships", "integer-operations", "linear-expressions", "scale-factor", "random-sample"],
     competencyTags: ["compare representations", "operate with rational numbers", "write expressions", "reason from samples"],
     itemTypeTags: ["table-graph-equation match", "signed-number context", "scale drawing", "probability simulation"],

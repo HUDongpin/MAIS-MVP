@@ -37,7 +37,7 @@ const directLabTemplateMetadata: Record<VisualizationTemplateId, DirectLabTempla
     accent: "#22d3ee",
     analyticsSource: "coordinate-plane",
     category: { en: "Place value", zh: "位值", zhHans: "位值" },
-    formula: { en: "tens + ones", zh: "十位 + 個位", zhHans: "十位 + 个位" },
+    formula: { en: "hundreds + tens + ones", zh: "百位 + 十位 + 個位", zhHans: "百位 + 十位 + 个位" },
     qaProfile: "standard"
   },
   "calculus-rate-area": {
@@ -238,6 +238,138 @@ function humanizeLabId(labId: string) {
     .join(" ");
 }
 
+/**
+ * Grades that `inferGradeFromLabId` gets wrong.
+ *
+ * Hong Kong topic ids are bare (`calculus`, `quadratic-patterns`) rather than
+ * carrying an `-sN-` segment the way `us-ca-math-s4-chapter-05` does, so these
+ * four fell through every rule to the terminal `return "S4"` and the route badge
+ * told an S6 student they were in S4.
+ *
+ * This is a local table rather than a `data/topics` lookup on purpose: the
+ * direct route exists to stay off the full catalog path, and
+ * `visualizationBundleBoundaries.test.ts` pins that boundary. Drift is caught
+ * instead by `premiumThreeDDirectLabs.test.ts`, which may import the catalogue
+ * because a test is not in the route bundle, and which checks all 63 premium
+ * routes that name a topic — not just these four.
+ */
+const premiumThreeDDirectLabGradeOverrides: Record<string, GradeId> = {
+  "differentiation-intro": "S5",
+  "mixed-problem-solving": "S6",
+  "quadratic-patterns": "S3",
+  "trigonometry-basics": "S3"
+};
+
+/**
+ * Axis names for the direct route, mirroring `xLabelForTemplate` /
+ * `yLabelForTemplate` in `data/visualizationLabs.ts`. Restated locally because
+ * this module must not import the catalog (see the bundle boundary above);
+ * `premiumThreeDDirectLabs.test.ts` asserts every premium route ends up with
+ * something better than a generic input/output pair.
+ *
+ * Every route used to be labelled "input"/"output", which describes neither a
+ * trigonometry lab nor a probability lab.
+ */
+function directLabAxisLabels(templateId: VisualizationTemplateId) {
+  if (templateId === "complex-plane") return { x: "Re", y: "Im" };
+  if (templateId.includes("function") || templateId.includes("trig") || templateId.includes("calculus")) {
+    return { x: "x", y: "y" };
+  }
+  if (templateId === "statistics-distribution" || templateId === "probability-simulation") {
+    return { x: "trial", y: "frequency" };
+  }
+  return { x: "model", y: "value" };
+}
+
+function gradeForLabId(labId: string): GradeId {
+  return premiumThreeDDirectLabGradeOverrides[labId] ?? inferGradeFromLabId(labId);
+}
+
+/**
+ * Per-topic copy for the Hong Kong premium routes, mirroring each topic's own
+ * description in `data/topics.ts`.
+ *
+ * All nine used to ship one identical sentence ("Use a focused 3D visualization
+ * model to explore this topic...") under an English humanization of the lab id,
+ * inside Traditional-Chinese page furniture. Same bundle-boundary reasoning as
+ * the grade table above; `premiumThreeDDirectLabs.test.ts` checks these against
+ * `data/topics.ts` so they cannot drift from the catalogue.
+ */
+const premiumThreeDDirectLabCopy: Record<string, { description: LocalizedText; title: LocalizedText }> = {
+  "advanced-functions": {
+    description: {
+      en: "Compare polynomial, exponential, and logarithmic models.",
+      zh: "比較多項式、指數和對數模型。",
+      zhHans: "比较多项式、指数和对数模型。"
+    },
+    title: { en: "Advanced Functions", zh: "進階函數", zhHans: "进阶函数" }
+  },
+  calculus: {
+    description: {
+      en: "Use derivatives and integrals to solve exam-style problems.",
+      zh: "運用導數與積分解決考試題型。",
+      zhHans: "运用导数与积分解决考试题型。"
+    },
+    title: { en: "Calculus", zh: "微積分", zhHans: "微积分" }
+  },
+  "differentiation-intro": {
+    description: {
+      en: "Link gradients, tangent lines, and rate of change.",
+      zh: "連繫斜率、切線和變化率。",
+      zhHans: "连系斜率、切线和变化率。"
+    },
+    title: { en: "Differentiation Intro", zh: "微分入門", zhHans: "微分入门" }
+  },
+  functions: {
+    description: {
+      en: "Model input-output rules and connect them to graphs.",
+      zh: "建立輸入輸出規則並連繫到圖像。",
+      zhHans: "建立输入输出规则并连系到图象。"
+    },
+    title: { en: "Functions", zh: "函數", zhHans: "函数" }
+  },
+  "mixed-problem-solving": {
+    description: {
+      en: "Select strategies for multi-step unfamiliar questions.",
+      zh: "為多步驟陌生題選擇解題策略。",
+      zhHans: "为多步骤陌生题选择解题策略。"
+    },
+    title: { en: "Mixed Problem Solving", zh: "綜合解題", zhHans: "综合解题" }
+  },
+  "probability-s5": {
+    description: {
+      en: "Build counting strategies and conditional probability intuition.",
+      zh: "建立計數策略和條件概率直覺。",
+      zhHans: "建立计数策略和条件概率直觉。"
+    },
+    title: { en: "Probability", zh: "概率", zhHans: "概率" }
+  },
+  "quadratic-patterns": {
+    description: {
+      en: "Connect tables, graphs, and the shape of a parabola.",
+      zh: "連繫數表、圖像與拋物線形狀。",
+      zhHans: "连系数表、图象与抛物线形状。"
+    },
+    title: { en: "Quadratic Patterns", zh: "二次關係", zhHans: "二次关系" }
+  },
+  "trigonometry-basics": {
+    description: {
+      en: "Build sine, cosine, and tangent from right triangles.",
+      zh: "由直角三角形建立正弦、餘弦和正切。",
+      zhHans: "由直角三角形建立正弦、余弦和正切。"
+    },
+    title: { en: "Trigonometry Basics", zh: "三角學基礎", zhHans: "三角学基础" }
+  },
+  "trigonometry-s5": {
+    description: {
+      en: "Transform identities and graphs for senior secondary questions.",
+      zh: "為高中題目轉化恆等式與三角圖像。",
+      zhHans: "为高中题目转化恒等式与三角图象。"
+    },
+    title: { en: "Trigonometry", zh: "三角學", zhHans: "三角学" }
+  }
+};
+
 function inferGradeFromLabId(labId: string): GradeId {
   const primaryMatch = labId.match(/(?:^|-)p([1-6])(?:-|$)/i);
   if (primaryMatch) return `P${primaryMatch[1]}` as GradeId;
@@ -318,7 +450,8 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
 
   const templateId = inferTemplateIdFromLabId(labId);
   const metadata = directLabTemplateMetadata[templateId];
-  const grade = inferGradeFromLabId(labId);
+  const copy = premiumThreeDDirectLabCopy[labId];
+  const grade = gradeForLabId(labId);
   const regionalPriority = regionalPriorityForThreeDLaunchLab(labId);
   const title = humanizeLabId(labId);
   const trackAndPublisher = inferTrackAndPublisher(labId);
@@ -328,12 +461,21 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
   return {
     labId,
     grade,
-    title: {
-      en: `${title} Visual Lab`,
-      zh: `${title}視覺化實驗`,
-      zhHans: `${title}可视化实验`
-    },
-    description: {
+    // Per-topic copy where we have it. The generic fallback below is what all
+    // nine Hong Kong routes used to share, under an English humanization of the
+    // lab id sitting inside Traditional-Chinese page furniture.
+    title: copy
+      ? {
+          en: `${copy.title.en} Visual Lab`,
+          zh: `${copy.title.zh}視覺化實驗`,
+          zhHans: `${copy.title.zhHans ?? copy.title.zh}可视化实验`
+        }
+      : {
+          en: `${title} Visual Lab`,
+          zh: `${title}視覺化實驗`,
+          zhHans: `${title}可视化实验`
+        },
+    description: copy?.description ?? {
       en: "Use a focused 3D visualization model to explore this topic with sliders, diagrams, and live feedback.",
       zh: "透過聚焦的 3D 視覺化模型，用滑桿、圖形和即時回饋探索這個主題。",
       zhHans: "通过聚焦的 3D 可视化模型，用滑杆、图形和即时反馈探索这个主题。"
@@ -354,8 +496,10 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
         zhHans: "此标准对齐可视化主题的 Premium 3D 启动模型。"
       },
       formula: metadata.formula,
-      xLabel: "input",
-      yLabel: "output",
+      // Axis names follow the template's own mathematics. Labelling a
+      // trigonometry or probability lab "input"/"output" describes neither.
+      xLabel: directLabAxisLabels(templateId).x,
+      yLabel: directLabAxisLabels(templateId).y,
       accent: metadata.accent
     },
     threeD: {

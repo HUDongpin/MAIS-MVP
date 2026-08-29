@@ -13,6 +13,19 @@ export function formatNumber(value: number, decimals = 2) {
   return Number.isInteger(rounded) ? `${rounded}` : rounded.toFixed(decimals).replace(/0+$/, "").replace(/\.$/, "");
 }
 
+/**
+ * The relation symbol that honestly joins an exact quantity to its rounded
+ * display: "=" only when the rendered text is exactly the value, otherwise "≈".
+ *
+ * Writing `P = 1/3 = 0.33` asserts something false to a student. Pair this with
+ * `formatNumber` wherever a rounded figure sits beside the exact quantity it
+ * approximates.
+ */
+export function roundedRelation(value: number, rendered: string) {
+  if (!Number.isFinite(value)) return "=";
+  return Number(rendered) === value ? "=" : "≈";
+}
+
 export function distance(a: { x: number; y: number }, b: { x: number; y: number }) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }

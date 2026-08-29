@@ -14,7 +14,18 @@ import { ThreeDGraphSvg } from "@/components/visualizations/ThreeDGraphSvg";
 import { formatThreeDGraphSummary, threeDGraphScalesFromControls } from "@/components/visualizations/ThreeDGraphSvgGeometry";
 import { useVisualizationTheme, type VisualizationTheme } from "@/components/visualizations/visualizationTheme";
 import type { FeaturedLabDefinition, VisualizationTemplateId } from "@/data/visualizationLabs";
-import { clamp, formatNumber } from "@/lib/math";
+import { clamp, formatNumber, roundedRelation } from "@/lib/math";
+import {
+  angleGeometryState,
+  baseTenState,
+  coordinateTransformGeometry,
+  coordinateTransformState,
+  fractionState,
+  probabilityState,
+  statisticsState,
+  statisticsValueRange,
+  trigState
+} from "@/components/visualizations/configuredVisualizationLabModel";
 import {
   buildMathAngleContract,
   clampPointToDiagramBounds,
@@ -62,6 +73,25 @@ const arrayAreaLayout = {
   summaryY: panel.y + panel.height + 18,
   titleClearanceY: 96
 };
+// Three place columns — hundreds flats, ten rods, one units — laid out left to
+// right inside the panel (x 84..556) and clear of the summary pill at y = 266.
+// Worst case is 9 of each: hundreds reach x 228 / y 256, tens reach x 444 / y
+// 256, ones reach x 532 / y 190 — all clear of the summary pill at y 266 and
+// below the title badge clearance at y 96.
+const baseTenLayout = {
+  columnTop: 124,
+  headingY: 114,
+  hundredSize: 40,
+  hundredsStep: 46,
+  hundredsX: 96,
+  onesStep: 24,
+  onesX: 466,
+  rodHeight: 132,
+  rodWidth: 16,
+  tensStep: 22,
+  tensX: 252,
+  unitSize: 18
+};
 const rightTriangleLayout = {
   // At the maximum 9-by-9 state, the three construction squares stay below
   // the title/legend band while remaining large enough for their area labels.
@@ -86,12 +116,10 @@ const configuredFunctionFrame = {
 const coordinateTransformFrame = {
   bottom: 292,
   left: 78,
-  origin: { x: 320, y: 200 },
   right: 562,
   summaryY: panel.y + panel.height + 18,
   top: 68,
-  xScale: 32,
-  yScale: 21
+  ...coordinateTransformGeometry
 };
 
 const clockMoneyDataLayout = {
@@ -137,9 +165,8 @@ const statisticsFrame = {
   right: 562,
   summaryY: panel.y + panel.height + 18,
   top: 70,
-  xMax: 10,
-  xMin: 0,
-  yMax: 4
+  yMax: 4,
+  ...statisticsValueRange
 };
 const modeButtonActiveClassNames = [
   "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20",
@@ -286,18 +313,6 @@ function graphPath(value: number, comparison: number, mode: number) {
   return polylinePath(points);
 }
 
-function trigState(value: number, comparison: number, mode: number) {
-  const phase = mode * (Math.PI / 4);
-  const theta = ((value - 1) / 8) * Math.PI * 2 + phase;
-  const thetaDegrees = (((value - 1) / 8) * 360 + mode * 45) % 360;
-
-  return {
-    amplitude: clamp(comparison / 9, 0.1, 1),
-    phase,
-    theta,
-    thetaDegrees
-  };
-}
 
 function normalizeDegrees(degrees: number) {
   return ((degrees % 360) + 360) % 360;
@@ -383,21 +398,8 @@ function numberLineState(value: number, comparison: number, mode: number) {
   };
 }
 
-function fractionState(value: number, comparison: number) {
-  const denominator = clamp(Math.round(value + 1), 2, 10);
-  const numerator = clamp(Math.round(comparison), 0, denominator);
 
-  return {
-    denominator,
-    equivalentDenominator: denominator * 2,
-    equivalentNumerator: numerator * 2,
-    numerator,
-    value: numerator / denominator,
-    zeroFraction: numerator === 0
-  };
-}
-
-function arrayAreaState(value: number, comparison: number) {
+export function arrayAreaState(value: number, comparison: number) {
   const columns = clamp(Math.round(value), 0, 9);
   const rows = clamp(Math.round(comparison), 0, 9);
   const outlineWidth = columns > 0
@@ -419,21 +421,8 @@ function arrayAreaState(value: number, comparison: number) {
   };
 }
 
-function baseTenState(value: number, comparison: number) {
-  const tens = clamp(Math.round(value), 0, 9);
-  const ones = clamp(Math.round(comparison), 0, 9);
 
-  return {
-    ones,
-    tens,
-    total: tens * 10 + ones,
-    zeroOnes: ones === 0,
-    zeroTens: tens === 0,
-    zeroTotal: tens === 0 && ones === 0
-  };
-}
-
-function clockMoneyState(value: number, comparison: number) {
+export function clockMoneyState(value: number, comparison: number) {
   const hour = clamp(Math.round(value), 1, 12);
   const minuteStep = clamp(Math.round(comparison), 0, 11);
   const minute = minuteStep * 5;
@@ -503,16 +492,6 @@ function angleArcPath(origin: { x: number; y: number }, angleDegrees: number, ra
   };
 }
 
-function angleGeometryState(value: number, comparison: number) {
-  const angleA = clamp(Math.round(value) * 18, 0, 180);
-  const angleB = clamp(Math.round(comparison) * 18, 0, 180);
-
-  return {
-    angleA,
-    angleB,
-    difference: Math.abs(angleA - angleB)
-  };
-}
 
 function angleGeometryLabelPositions(rayA: { x: number; y: number }, rayB: { x: number; y: number }) {
   const labelA = {
@@ -579,67 +558,8 @@ function rightTriangleState(value: number, comparison: number) {
   };
 }
 
-function probabilityState(value: number, comparison: number) {
-  const success = clamp(Math.round(value), 0, 9);
-  const failure = clamp(Math.round(comparison), 0, 9);
-  const trials = success + failure;
-  const probabilityDefined = trials > 0;
-  const probability = probabilityDefined ? success / trials : 0;
 
-  return {
-    failure,
-    probability,
-    probabilityDefined,
-    success,
-    trials
-  };
-}
 
-function statisticsState(value: number, comparison: number) {
-  const mean = clamp(Math.round(value), statisticsFrame.xMin, statisticsFrame.xMax);
-  const spread = clamp(comparison / 2, 0.5, 4.5);
-
-  return {
-    mean,
-    spread
-  };
-}
-
-function coordinateTransformState(value: number, comparison: number, mode: number) {
-  const origin = coordinateTransformFrame.origin;
-  const scale = { x: coordinateTransformFrame.xScale, y: coordinateTransformFrame.yScale };
-  const dx = value - 5;
-  const dy = clamp(comparison - 5, -3, 3);
-  const reflectionLineX = (value - 5) / 2;
-  const dilationScale = clamp(value / 5, 0.2, 1.8);
-  const source = [
-    { label: "A", x: -2, y: -0.75 },
-    { label: "B", x: -1, y: 0.9 },
-    { label: "C", x: 1, y: -0.75 }
-  ];
-  const transformPoint = (point: { x: number; y: number }) => {
-    if (mode === 0) return { x: point.x + dx, y: point.y + dy };
-    if (mode === 1) return { x: 2 * reflectionLineX - point.x, y: point.y + dy };
-    return { x: point.x * dilationScale, y: point.y * dilationScale + dy };
-  };
-  const toSvg = (point: { x: number; y: number }) => ({
-    x: origin.x + point.x * scale.x,
-    y: origin.y - point.y * scale.y
-  });
-
-  return {
-    dilationScale,
-    dx,
-    dy,
-    origin,
-    reflectionLineX,
-    scale,
-    source,
-    sourceSvg: source.map(toSvg),
-    transformed: source.map(transformPoint),
-    transformedSvg: source.map((point) => toSvg(transformPoint(point)))
-  };
-}
 
 function distanceToSegment(
   point: { x: number; y: number },
@@ -741,7 +661,7 @@ function coordinateTransformLabelPositions(
   });
 }
 
-function equationBalanceState(value: number, comparison: number) {
+export function equationBalanceState(value: number, comparison: number) {
   const leftValue = clamp(Math.round(value), 0, 9);
   const rightValue = clamp(Math.round(comparison), 0, 9);
   const difference = leftValue - rightValue;
@@ -1207,16 +1127,31 @@ function TemplateMarks({
     const state = baseTenState(value, comparison);
     return (
       <g data-viz-active-mode={mode}>
+        {/* Hundreds: flats. Mode 0 emphasises this column. */}
+        {Array.from({ length: state.hundreds }, (_, index) => (
+          <rect key={`hundred-${index}`} data-viz-mark data-viz-name="hundred flat" data-viz-hundred-index={index + 1} data-viz-place="hundreds" data-viz-value="100" data-viz-hundreds={state.hundreds} data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} x={baseTenLayout.hundredsX + (index % 3) * baseTenLayout.hundredsStep} y={baseTenLayout.columnTop + Math.floor(index / 3) * baseTenLayout.hundredsStep} width={baseTenLayout.hundredSize} height={baseTenLayout.hundredSize} rx="6" fill={accent} opacity={mode === 0 ? "0.9" : "0.4"} stroke={mode === 0 ? gold : undefined} strokeWidth={mode === 0 ? 3 : undefined} />
+        ))}
+        {/* Tens: rods, each one ten units tall. Mode 1 emphasises this column. */}
         {Array.from({ length: state.tens }, (_, index) => (
-          <rect key={index} data-viz-mark data-viz-name="ten rod" data-viz-ten-index={index + 1} data-viz-place="tens" data-viz-value="10" data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} x="96" y={74 + index * 22} width="158" height="16" rx="7" fill={index % 2 ? secondary : accent} opacity={mode === 1 ? "0.35" : "0.82"} stroke={mode === 0 ? gold : undefined} strokeWidth={mode === 0 ? 3 : undefined} />
+          <rect key={`ten-${index}`} data-viz-mark data-viz-name="ten rod" data-viz-ten-index={index + 1} data-viz-place="tens" data-viz-value="10" data-viz-hundreds={state.hundreds} data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} x={baseTenLayout.tensX + index * baseTenLayout.tensStep} y={baseTenLayout.columnTop} width={baseTenLayout.rodWidth} height={baseTenLayout.rodHeight} rx="6" fill={index % 2 ? secondary : accent} opacity={mode === 1 ? "0.9" : "0.4"} stroke={mode === 1 ? gold : undefined} strokeWidth={mode === 1 ? 3 : undefined} />
         ))}
+        {/* Ones: single units. Mode 2 emphasises this column. */}
         {Array.from({ length: state.ones }, (_, index) => (
-          <rect key={index} data-viz-mark data-viz-name="one unit" data-viz-one-index={index + 1} data-viz-place="ones" data-viz-value="1" data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} x={356 + (index % 3) * 42} y={92 + Math.floor(index / 3) * 42} width="28" height="28" rx="8" fill={gold} opacity={mode === 0 ? "0.35" : "0.9"} stroke={mode === 1 ? vizTheme.pointStroke : undefined} strokeWidth={mode === 1 ? 3 : undefined} />
+          <rect key={`one-${index}`} data-viz-mark data-viz-name="one unit" data-viz-one-index={index + 1} data-viz-place="ones" data-viz-value="1" data-viz-hundreds={state.hundreds} data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} x={baseTenLayout.onesX + (index % 3) * baseTenLayout.onesStep} y={baseTenLayout.columnTop + Math.floor(index / 3) * baseTenLayout.onesStep} width={baseTenLayout.unitSize} height={baseTenLayout.unitSize} rx="5" fill={gold} opacity={mode === 2 ? "0.95" : "0.45"} stroke={mode === 2 ? vizTheme.pointStroke : undefined} strokeWidth={mode === 2 ? 3 : undefined} />
         ))}
-        <rect data-viz-mark data-viz-name="place value total" data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} data-viz-zero-tens={String(state.zeroTens)} data-viz-zero-ones={String(state.zeroOnes)} data-viz-zero-total={String(state.zeroTotal)} x="84" y="266" width="472" height="34" rx="13" fill={soft} stroke={mode === 2 ? gold : vizTheme.neutralStroke} strokeWidth={mode === 2 ? 5 : 3} />
+        <text data-viz-overlap-ok x={baseTenLayout.hundredsX} y={baseTenLayout.headingY} fill={vizTheme.textMuted} className="text-[10px] font-bold">
+          hundreds
+        </text>
+        <text data-viz-overlap-ok x={baseTenLayout.tensX} y={baseTenLayout.headingY} fill={vizTheme.textMuted} className="text-[10px] font-bold">
+          tens
+        </text>
+        <text data-viz-overlap-ok x={baseTenLayout.onesX} y={baseTenLayout.headingY} fill={vizTheme.textMuted} className="text-[10px] font-bold">
+          ones
+        </text>
+        <rect data-viz-mark data-viz-name="place value total" data-viz-hundreds={state.hundreds} data-viz-tens={state.tens} data-viz-ones={state.ones} data-viz-total={state.total} data-viz-zero-hundreds={String(state.zeroHundreds)} data-viz-zero-tens={String(state.zeroTens)} data-viz-zero-ones={String(state.zeroOnes)} data-viz-zero-total={String(state.zeroTotal)} x="84" y="266" width="472" height="34" rx="13" fill={soft} stroke={vizTheme.neutralStroke} strokeWidth="3" />
         {/* data-viz-overlap-ok: the summary sentence sits inside its own pill. */}
         <text data-viz-overlap-ok x="104" y="288" fill={vizTheme.labelText} className="text-xs font-black">
-          {state.tens} tens + {state.ones} ones = {state.total}
+          {state.hundreds} hundreds + {state.tens} tens + {state.ones} ones = {state.total}
         </text>
       </g>
     );
@@ -1978,11 +1913,13 @@ function TemplateMarks({
           fill={vizTheme.labelText}
           className="text-xs font-black"
         >
+          {/* Reflection and dilation each take one parameter; naming a vertical
+              shift here described a transformation the model no longer applies. */}
           {mode === 0
             ? `T(${state.dx}, ${state.dy})`
             : mode === 1
-              ? `reflect x = ${formatNumber(state.reflectionLineX, 1)}, dy = ${state.dy}`
-              : `scale = ${formatNumber(state.dilationScale, 2)}, dy = ${state.dy}`}
+              ? `reflect in x = ${formatNumber(state.reflectionLineX, 1)}`
+              : `dilate about (0, 0), scale = ${formatNumber(state.dilationScale, 2)}`}
         </text>
       </>
     );
@@ -2397,8 +2334,12 @@ function TemplateMarks({
     const failureRenderedHeight = state.failure > 0 ? failureHeight : zeroMarkerHeight;
     const failureProbability = state.probabilityDefined ? 1 - state.probability : 0;
     const probabilityPercent = formatNumber(state.probability * 100, 0);
+    const probabilityDecimal = formatNumber(state.probability, 2);
+    // 1/3, 1/7 and 1/9 are all reachable here, so "= 0.33" would be a falsehood.
+    const decimalRelation = roundedRelation(state.probability, probabilityDecimal);
+    const percentRelation = roundedRelation(state.probability * 100, probabilityPercent);
     const probabilityLabel = state.probabilityDefined
-      ? `P(success) = ${state.success}/${state.trials} = ${formatNumber(state.probability, 2)} = ${probabilityPercent}%`
+      ? `P(success) = ${state.success}/${state.trials} ${decimalRelation} ${probabilityDecimal} ${percentRelation} ${probabilityPercent}%`
       : "P(success) not defined yet: 0 trials";
 
     return (
@@ -2893,7 +2834,10 @@ function ConfiguredVisualizationLabSurface({
   controlFooterAction,
   lab = null,
   labId,
-  threeDPresentation = "authoring",
+  // Learner-safe by default: the hub (VisualizationLabPage) and the in-lesson
+  // embed (LessonView) both render this surface for students, so the Manim
+  // authoring harness must stay hidden unless a caller explicitly asks for it.
+  threeDPresentation = "learner",
   topicId
 }: ConfiguredVisualizationLabProps) {
   const { recordLearningEvent, t, text } = useSettings();
@@ -2992,16 +2936,16 @@ function ConfiguredVisualizationLabSurface({
       const state = baseTenState(value, comparison);
       return {
         modeLabels: [
+          t({ en: "Hundreds", zh: "百位", zhHans: "百位" }),
           t({ en: "Tens", zh: "十位", zhHans: "十位" }),
-          t({ en: "Ones", zh: "個位", zhHans: "个位" }),
-          t({ en: "Total", zh: "總數", zhHans: "总数" })
+          t({ en: "Ones", zh: "個位", zhHans: "个位" })
         ],
-        valueLabel: t({ en: "Tens", zh: "十位數", zhHans: "十位数" }),
+        valueLabel: t({ en: "Hundreds and tens", zh: "百位與十位", zhHans: "百位与十位" }),
         comparisonLabel: t({ en: "Ones", zh: "個位數", zhHans: "个位数" }),
         comparisonNote: t({
-          en: `${state.tens} tens + ${state.ones} ones = ${state.total}.`,
-          zh: `${state.tens} 個十 + ${state.ones} 個一 = ${state.total}。`,
-          zhHans: `${state.tens} 个十 + ${state.ones} 个一 = ${state.total}。`
+          en: `${state.hundreds} hundreds + ${state.tens} tens + ${state.ones} ones = ${state.total}.`,
+          zh: `${state.hundreds} 個百 + ${state.tens} 個十 + ${state.ones} 個一 = ${state.total}。`,
+          zhHans: `${state.hundreds} 个百 + ${state.tens} 个十 + ${state.ones} 个一 = ${state.total}。`
         })
       };
     }
@@ -3084,19 +3028,19 @@ function ConfiguredVisualizationLabSurface({
         comparisonNote: t({
           en: cappedMode === 0
             ? `Translation: (x, y) -> (x + ${state.dx}, y + ${state.dy}).`
-            : mode === 1
-              ? `Reflection: x' = 2(${formatNumber(state.reflectionLineX, 1)}) - x, then y shifts by ${state.dy}.`
-              : `Dilation: (x, y) -> (${formatNumber(state.dilationScale, 2)}x, ${formatNumber(state.dilationScale, 2)}y + ${state.dy}).`,
-          zh: mode === 0
+            : cappedMode === 1
+              ? `Reflection in x = ${formatNumber(state.reflectionLineX, 1)}: (x, y) -> (${formatNumber(2 * state.reflectionLineX, 1)} - x, y). Points on the mirror line stay put.`
+              : `Dilation about the origin, factor ${formatNumber(state.dilationScale, 2)}: (x, y) -> (${formatNumber(state.dilationScale, 2)}x, ${formatNumber(state.dilationScale, 2)}y). The origin stays put.`,
+          zh: cappedMode === 0
             ? `平移：(x, y) -> (x + ${state.dx}, y + ${state.dy})。`
-            : mode === 1
-              ? `反射：x' = 2(${formatNumber(state.reflectionLineX, 1)}) - x，然後 y 平移 ${state.dy}。`
-              : `放縮：(x, y) -> (${formatNumber(state.dilationScale, 2)}x, ${formatNumber(state.dilationScale, 2)}y + ${state.dy})。`,
-          zhHans: mode === 0
+            : cappedMode === 1
+              ? `以 x = ${formatNumber(state.reflectionLineX, 1)} 為軸反射：(x, y) -> (${formatNumber(2 * state.reflectionLineX, 1)} - x, y)。鏡像線上的點不動。`
+              : `以原點為中心、比例 ${formatNumber(state.dilationScale, 2)} 的放縮：(x, y) -> (${formatNumber(state.dilationScale, 2)}x, ${formatNumber(state.dilationScale, 2)}y)。原點不動。`,
+          zhHans: cappedMode === 0
             ? `平移：(x, y) -> (x + ${state.dx}, y + ${state.dy})。`
-            : mode === 1
-              ? `反射：x' = 2(${formatNumber(state.reflectionLineX, 1)}) - x，然后 y 平移 ${state.dy}。`
-              : `缩放：(x, y) -> (${formatNumber(state.dilationScale, 2)}x, ${formatNumber(state.dilationScale, 2)}y + ${state.dy})。`
+            : cappedMode === 1
+              ? `以 x = ${formatNumber(state.reflectionLineX, 1)} 为轴反射：(x, y) -> (${formatNumber(2 * state.reflectionLineX, 1)} - x, y)。镜像线上的点不动。`
+              : `以原点为中心、比例 ${formatNumber(state.dilationScale, 2)} 的缩放：(x, y) -> (${formatNumber(state.dilationScale, 2)}x, ${formatNumber(state.dilationScale, 2)}y)。原点不动。`
         })
       };
     }
@@ -3288,11 +3232,14 @@ function ConfiguredVisualizationLabSurface({
     if (templateId === "probability-simulation") {
       const state = probabilityState(value, comparison);
       const probabilityPercent = formatNumber(state.probability * 100, 0);
+      const probabilityDecimal = formatNumber(state.probability, 2);
+      const decimalRelation = roundedRelation(state.probability, probabilityDecimal);
+      const percentRelation = roundedRelation(state.probability * 100, probabilityPercent);
       const probabilityNote = state.probabilityDefined
         ? t({
-            en: `P(success) = ${state.success}/${state.trials} = ${formatNumber(state.probability, 2)} = ${probabilityPercent}%.`,
-            zh: `P(成功) = ${state.success}/${state.trials} = ${formatNumber(state.probability, 2)} = ${probabilityPercent}%。`,
-            zhHans: `P(成功) = ${state.success}/${state.trials} = ${formatNumber(state.probability, 2)} = ${probabilityPercent}%。`
+            en: `P(success) = ${state.success}/${state.trials} ${decimalRelation} ${probabilityDecimal} ${percentRelation} ${probabilityPercent}%.`,
+            zh: `P(成功) = ${state.success}/${state.trials} ${decimalRelation} ${probabilityDecimal} ${percentRelation} ${probabilityPercent}%。`,
+            zhHans: `P(成功) = ${state.success}/${state.trials} ${decimalRelation} ${probabilityDecimal} ${percentRelation} ${probabilityPercent}%。`
           })
         : t({
             en: "P(success) is not defined until at least one trial is recorded.",
@@ -3398,9 +3345,9 @@ function ConfiguredVisualizationLabSurface({
         valueLabel: t({ en: "Angle A value", zh: "角 A 數值", zhHans: "角 A 数值" }),
         comparisonLabel: t({ en: "Angle B value", zh: "角 B 數值", zhHans: "角 B 数值" }),
         comparisonNote: t({
-          en: `Angle A = ${formatNumber(state.angleA, 0)} deg, Angle B = ${formatNumber(state.angleB, 0)} deg; difference = ${formatNumber(state.difference, 0)} deg.`,
-          zh: `角 A = ${formatNumber(state.angleA, 0)} 度，角 B = ${formatNumber(state.angleB, 0)} 度；差值 = ${formatNumber(state.difference, 0)} 度。`,
-          zhHans: `角 A = ${formatNumber(state.angleA, 0)} 度，角 B = ${formatNumber(state.angleB, 0)} 度；差值 = ${formatNumber(state.difference, 0)} 度。`
+          en: `Angle A = ${formatNumber(state.angleA, 0)} deg, Angle B = ${formatNumber(state.angleB, 0)} deg; difference = ${formatNumber(state.difference, 0)} deg; sum = ${formatNumber(state.sum, 0)} deg${state.complementary ? " (complementary)" : state.supplementary ? " (supplementary)" : ""}.`,
+          zh: `角 A = ${formatNumber(state.angleA, 0)} 度，角 B = ${formatNumber(state.angleB, 0)} 度；差值 = ${formatNumber(state.difference, 0)} 度；和 = ${formatNumber(state.sum, 0)} 度${state.complementary ? "（互餘角）" : state.supplementary ? "（互補角）" : ""}。`,
+          zhHans: `角 A = ${formatNumber(state.angleA, 0)} 度，角 B = ${formatNumber(state.angleB, 0)} 度；差值 = ${formatNumber(state.difference, 0)} 度；和 = ${formatNumber(state.sum, 0)} 度${state.complementary ? "（互余角）" : state.supplementary ? "（互补角）" : ""}。`
         })
       };
     }
@@ -3434,6 +3381,16 @@ function ConfiguredVisualizationLabSurface({
       return {
         comparison: String(state.minute).padStart(2, "0"),
         value: `${state.hour}`
+      };
+    }
+
+    if (templateId === "base-ten") {
+      // The value dial carries two digits, so show the places it sets rather
+      // than the raw 0..99 reading.
+      const state = baseTenState(value, comparison);
+      return {
+        comparison: `${state.ones}`,
+        value: `${state.hundreds}h ${state.tens}t`
       };
     }
 
@@ -3553,7 +3510,13 @@ function ConfiguredVisualizationLabSurface({
     return {};
   }, [comparison, gradeBand, mode, templateId, value]);
   const sliderBounds = useMemo(() => sliderBoundsForThreeDTemplate(templateId), [templateId]);
-  const comparisonDisabled = templateId === "number-line" && mode === 0 && !usesGradeOneSetControls;
+  // A reflection in a vertical line and a dilation about the origin each take a
+  // single parameter, so the vertical-shift slider has nothing to drive in those
+  // modes. Disabling it is what keeps both transformations honest — the shift it
+  // used to apply is exactly what stopped them being a reflection and a dilation.
+  const comparisonDisabled =
+    (templateId === "number-line" && mode === 0 && !usesGradeOneSetControls) ||
+    (templateId === "coordinate-transform" && cappedMode > 0);
   const showStandardGraphOverlay = !(templateId === "vector-conic-3d/strategy-map" && modelMode === 2 && gradeBand === "secondary");
 
   function record(type: "visualization-slider" | "visualization-probe" | "visualization-reset") {
