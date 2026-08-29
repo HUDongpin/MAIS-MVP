@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { randomUUID } from "node:crypto";
+import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import { isIP } from "node:net";
@@ -796,50 +797,300 @@ export function buildRunReport({
   };
 }
 
-async function lstatOrNull(targetPath) {
+const artifactWorkerSource = String.raw`
+const fs = require("node:fs");
+const { createHash, randomUUID } = require("node:crypto");
+
+const [operation, expectedDev, expectedIno, expectedUid, expectedMode, maxBytesValue, expectedBytesValue, expectedDigest] = process.argv.slice(1);
+const maxBytes = Number(maxBytesValue);
+const expectedBytes = Number(expectedBytesValue);
+
+function finishFailure(code) {
+  process.stdout.write("ERR " + code + "\n");
+  process.exitCode = 1;
+}
+
+function identityMatches(stat) {
+  return String(stat.dev) === expectedDev
+    && String(stat.ino) === expectedIno
+    && String(stat.uid) === expectedUid
+    && Number(stat.mode & 0o777n) === Number(expectedMode);
+}
+
+function ensureChildDirectory(name, { exactMode = null, rejectWritable = false } = {}) {
+  let stat;
   try {
-    return await fs.lstat(targetPath);
+    stat = fs.lstatSync(name, { bigint: true });
   } catch (error) {
-    if (error?.code === "ENOENT") return null;
-    throw smokeFailure("artifact-parent-unsafe");
+    if (error.code !== "ENOENT") throw error;
+    fs.mkdirSync(name, { mode: exactMode ?? 0o700 });
+    stat = fs.lstatSync(name, { bigint: true });
+  }
+  if (!stat.isDirectory() || stat.isSymbolicLink() || String(stat.uid) !== expectedUid) {
+    throw new Error("unsafe-child-directory");
+  }
+  const fd = fs.openSync(name, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | (fs.constants.O_DIRECTORY || 0));
+  try {
+    let boundStat = fs.fstatSync(fd, { bigint: true });
+    if (!boundStat.isDirectory() || String(boundStat.uid) !== expectedUid) throw new Error("unsafe-child-directory");
+    if (rejectWritable && (Number(boundStat.mode & 0o777n) & 0o022) !== 0) throw new Error("unsafe-child-mode");
+    if (exactMode !== null && Number(boundStat.mode & 0o777n) !== exactMode) {
+      fs.fchmodSync(fd, exactMode);
+      boundStat = fs.fstatSync(fd, { bigint: true });
+    }
+    if (exactMode !== null && Number(boundStat.mode & 0o777n) !== exactMode) throw new Error("unsafe-child-mode");
+  } finally {
+    fs.closeSync(fd);
   }
 }
 
-async function requireRealDirectory(targetPath, { create = false, exactMode = null } = {}) {
-  let targetStat = await lstatOrNull(targetPath);
-  if (!targetStat && create) {
-    try {
-      await fs.mkdir(targetPath, { mode: exactMode ?? 0o700 });
-    } catch (error) {
-      if (error?.code !== "EEXIST") throw smokeFailure("artifact-parent-unsafe");
+function verifyFinal() {
+  let fd;
+  try {
+    fd = fs.openSync("last-run.json", fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
+    const stat = fs.fstatSync(fd, { bigint: true });
+    if (!stat.isFile() || stat.nlink !== 1n || String(stat.uid) !== expectedUid || Number(stat.mode & 0o777n) !== 0o600) {
+      throw new Error("unsafe-final");
     }
-    targetStat = await lstatOrNull(targetPath);
+    if (Number(stat.size) !== expectedBytes || expectedBytes > maxBytes) throw new Error("size-mismatch");
+    const payload = Buffer.alloc(expectedBytes);
+    let offset = 0;
+    while (offset < payload.length) {
+      const read = fs.readSync(fd, payload, offset, payload.length - offset, offset);
+      if (read === 0) throw new Error("short-read");
+      offset += read;
+    }
+    const digest = createHash("sha256").update(payload).digest("hex");
+    if (digest !== expectedDigest) throw new Error("digest-mismatch");
+  } finally {
+    if (fd !== undefined) fs.closeSync(fd);
   }
-  if (!targetStat?.isDirectory() || targetStat.isSymbolicLink()) {
-    throw smokeFailure("artifact-parent-unsafe");
+}
+
+async function main() {
+  const cwdStat = fs.lstatSync(".", { bigint: true });
+  if (!cwdStat.isDirectory() || cwdStat.isSymbolicLink() || !identityMatches(cwdStat)) {
+    finishFailure("artifact-child-identity-mismatch");
+    return;
   }
+  if (operation === "ensure-tmp") {
+    try {
+      ensureChildDirectory(".tmp", { rejectWritable: true });
+      process.stdout.write("OK\n");
+    } catch {
+      finishFailure("artifact-parent-unsafe");
+    }
+    return;
+  }
+  if (operation === "ensure-artifact") {
+    try {
+      ensureChildDirectory("classroom-load-smoke", { exactMode: 0o700 });
+      process.stdout.write("OK\n");
+    } catch {
+      finishFailure("artifact-parent-unsafe");
+    }
+    return;
+  }
+  if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || !Number.isSafeInteger(expectedBytes) || expectedBytes < 1 || expectedBytes > maxBytes) {
+    finishFailure("artifact-child-input-invalid");
+    return;
+  }
+
+  if (operation === "verify") {
+    try {
+      verifyFinal();
+      process.stdout.write("OK\n");
+    } catch {
+      finishFailure("artifact-child-verify-failed");
+    }
+    return;
+  }
+  if (operation !== "write") {
+    finishFailure("artifact-child-input-invalid");
+    return;
+  }
+
+  const chunks = [];
+  let totalBytes = 0;
+  for await (const chunk of process.stdin) {
+    totalBytes += chunk.length;
+    if (totalBytes > maxBytes) {
+      finishFailure("artifact-child-input-too-large");
+      return;
+    }
+    chunks.push(chunk);
+  }
+  const payload = Buffer.concat(chunks, totalBytes);
+  if (payload.length !== expectedBytes || createHash("sha256").update(payload).digest("hex") !== expectedDigest) {
+    finishFailure("artifact-child-input-invalid");
+    return;
+  }
+
+  const tempName = ".last-run." + process.pid + "." + randomUUID() + ".tmp";
+  let tempFd;
+  let published = false;
+  try {
+    tempFd = fs.openSync(
+      tempName,
+      fs.constants.O_CREAT | fs.constants.O_EXCL | fs.constants.O_NOFOLLOW | fs.constants.O_WRONLY,
+      0o600
+    );
+    fs.fchmodSync(tempFd, 0o600);
+    const tempStat = fs.fstatSync(tempFd, { bigint: true });
+    if (!tempStat.isFile() || tempStat.nlink !== 1n || String(tempStat.uid) !== expectedUid || Number(tempStat.mode & 0o777n) !== 0o600) {
+      throw new Error("unsafe-temp");
+    }
+    let offset = 0;
+    while (offset < payload.length) {
+      offset += fs.writeSync(tempFd, payload, offset, payload.length - offset, offset);
+    }
+    fs.fsyncSync(tempFd);
+    fs.closeSync(tempFd);
+    tempFd = undefined;
+    fs.renameSync(tempName, "last-run.json");
+    published = true;
+    verifyFinal();
+    process.stdout.write("OK\n");
+  } catch {
+    if (tempFd !== undefined) {
+      try { fs.closeSync(tempFd); } catch {}
+    }
+    if (!published) {
+      try { fs.unlinkSync(tempName); } catch {}
+    }
+    finishFailure("artifact-child-write-failed");
+  }
+}
+
+main().catch(() => finishFailure("artifact-child-failed"));
+`;
+
+function currentUserId() {
+  if (typeof process.getuid !== "function") throw smokeFailure("artifact-parent-unsafe");
+  return process.getuid();
+}
+
+function sameDirectoryIdentity(left, right) {
+  return left.dev === right.dev
+    && left.ino === right.ino
+    && left.uid === right.uid
+    && left.mode === right.mode;
+}
+
+async function bindSafeDirectory(targetPath, { exactMode = null, rejectWritable = true } = {}) {
+  const exactPath = path.resolve(targetPath);
+  let pathStat;
   let realPath;
   try {
-    realPath = await fs.realpath(targetPath);
+    pathStat = await fs.lstat(exactPath);
+    realPath = await fs.realpath(exactPath);
   } catch {
     throw smokeFailure("artifact-parent-unsafe");
   }
-  if (realPath !== path.resolve(targetPath)) throw smokeFailure("artifact-parent-unsafe");
+  if (!pathStat.isDirectory() || pathStat.isSymbolicLink() || realPath !== exactPath) {
+    throw smokeFailure("artifact-parent-unsafe");
+  }
 
-  if (exactMode !== null) {
-    try {
-      await fs.chmod(targetPath, exactMode);
-      targetStat = await fs.lstat(targetPath);
-    } catch {
+  let handle;
+  try {
+    handle = await fs.open(
+      exactPath,
+      fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW | (fsConstants.O_DIRECTORY ?? 0)
+    );
+    const boundStat = await handle.stat({ bigint: true });
+    const mode = Number(boundStat.mode & 0o777n);
+    const uid = Number(boundStat.uid);
+    if (
+      !boundStat.isDirectory()
+      || uid !== currentUserId()
+      || (rejectWritable && (mode & 0o022) !== 0)
+      || (exactMode !== null && mode !== exactMode)
+    ) {
       throw smokeFailure("artifact-parent-unsafe");
     }
-    if (!targetStat.isDirectory() || targetStat.isSymbolicLink() || (targetStat.mode & 0o777) !== exactMode) {
-      throw smokeFailure("artifact-parent-unsafe");
+    return {
+      dev: String(boundStat.dev),
+      ino: String(boundStat.ino),
+      mode,
+      uid
+    };
+  } catch (error) {
+    if (error instanceof ClassroomSmokeError) throw error;
+    throw smokeFailure("artifact-parent-unsafe");
+  } finally {
+    try {
+      await handle?.close();
+    } catch {
+      // A failed close cannot make a pathname safe.
     }
   }
 }
 
-export async function writeSafeReport(report, { maxBytes = maxReportBytes, rootDir = repoRoot } = {}) {
+export function launchArtifactWorker({ artifactDir: workerCwd, directoryIdentity, maxBytes, operation, payload }) {
+  const input = Buffer.isBuffer(payload) ? payload : Buffer.alloc(0);
+  const expectedBytes = input.byteLength;
+  const expectedDigest = createHash("sha256").update(input).digest("hex");
+  const args = [
+    "-e",
+    artifactWorkerSource,
+    operation,
+    directoryIdentity.dev,
+    directoryIdentity.ino,
+    String(directoryIdentity.uid),
+    String(directoryIdentity.mode),
+    String(maxBytes),
+    String(expectedBytes),
+    expectedDigest
+  ];
+
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    let stdout = "";
+    let stderrBytes = 0;
+    const child = spawn(process.execPath, args, {
+      cwd: workerCwd,
+      env: {},
+      stdio: ["pipe", "pipe", "pipe"]
+    });
+    const finish = (callback) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      callback();
+    };
+    const timer = setTimeout(() => {
+      child.kill("SIGKILL");
+      finish(() => reject(smokeFailure("artifact-child-timeout")));
+    }, 5_000);
+
+    child.stdin.on("error", () => {});
+    child.stdout.on("data", (chunk) => {
+      stdout += chunk.toString("utf8");
+      if (Buffer.byteLength(stdout) > 1024) child.kill("SIGKILL");
+    });
+    child.stderr.on("data", (chunk) => {
+      stderrBytes += chunk.length;
+      if (stderrBytes > 1024) child.kill("SIGKILL");
+    });
+    child.once("error", () => finish(() => reject(smokeFailure("artifact-child-launch-failed"))));
+    child.once("close", (code) => {
+      finish(() => {
+        if (code === 0 && stdout === "OK\n") {
+          resolve();
+          return;
+        }
+        const failureCode = /^ERR ([a-z0-9-]+)\n$/u.exec(stdout)?.[1];
+        reject(smokeFailure(failureCode ?? "artifact-child-failed"));
+      });
+    });
+    child.stdin.end(input);
+  });
+}
+
+export async function writeSafeReport(
+  report,
+  { launchChild = launchArtifactWorker, maxBytes = maxReportBytes, rootDir = repoRoot } = {}
+) {
   let serialized;
   try {
     serialized = `${JSON.stringify(report, null, 2)}\n`;
@@ -855,57 +1106,48 @@ export async function writeSafeReport(report, { maxBytes = maxReportBytes, rootD
   const localTmpDir = path.join(exactRoot, ".tmp");
   const exactArtifactDir = path.join(localTmpDir, "classroom-load-smoke");
   const finalPath = path.join(exactArtifactDir, "last-run.json");
-  await requireRealDirectory(exactRoot);
-  await requireRealDirectory(localTmpDir, { create: true });
-  await requireRealDirectory(exactArtifactDir, { create: true, exactMode: 0o700 });
+  const rootIdentity = await bindSafeDirectory(exactRoot);
+  await launchArtifactWorker({
+    artifactDir: exactRoot,
+    directoryIdentity: rootIdentity,
+    maxBytes,
+    operation: "ensure-tmp",
+    payload: Buffer.alloc(0)
+  });
+  const tmpIdentity = await bindSafeDirectory(localTmpDir);
+  await launchArtifactWorker({
+    artifactDir: localTmpDir,
+    directoryIdentity: tmpIdentity,
+    maxBytes,
+    operation: "ensure-artifact",
+    payload: Buffer.alloc(0)
+  });
+  const artifactIdentity = await bindSafeDirectory(exactArtifactDir, { exactMode: 0o700 });
 
-  const tempPath = path.join(exactArtifactDir, `.last-run.${process.pid}.${randomUUID()}.tmp`);
-  let tempHandle = null;
-  let renamed = false;
-  try {
-    tempHandle = await fs.open(
-      tempPath,
-      fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW | fsConstants.O_WRONLY,
-      0o600
-    );
-    await tempHandle.chmod(0o600);
-    const tempStat = await tempHandle.stat();
-    if (!tempStat.isFile() || tempStat.nlink !== 1 || (tempStat.mode & 0o777) !== 0o600) {
-      throw smokeFailure("artifact-temp-unsafe");
-    }
-    await tempHandle.writeFile(payload);
-    await tempHandle.sync();
-    await tempHandle.close();
-    tempHandle = null;
-    await fs.rename(tempPath, finalPath);
-    renamed = true;
+  await launchChild({
+    artifactDir: exactArtifactDir,
+    directoryIdentity: artifactIdentity,
+    maxBytes,
+    operation: "write",
+    payload
+  });
 
-    const finalStat = await fs.lstat(finalPath);
-    if (
-      !finalStat.isFile()
-      || finalStat.isSymbolicLink()
-      || finalStat.nlink !== 1
-      || (finalStat.mode & 0o777) !== 0o600
-    ) {
-      throw smokeFailure("artifact-final-unsafe");
-    }
-    return finalPath;
-  } catch (error) {
-    try {
-      await tempHandle?.close();
-    } catch {
-      // Keep the fixed artifact category below.
-    }
-    if (!renamed) {
-      try {
-        await fs.unlink(tempPath);
-      } catch {
-        // The path may never have been created.
-      }
-    }
-    if (error instanceof ClassroomSmokeError) throw error;
-    throw smokeFailure("artifact-write-failed");
+  const reboundIdentity = await bindSafeDirectory(exactArtifactDir, { exactMode: 0o700 });
+  if (!sameDirectoryIdentity(artifactIdentity, reboundIdentity)) {
+    throw smokeFailure("artifact-parent-mapping-changed");
   }
+  await launchArtifactWorker({
+    artifactDir: exactArtifactDir,
+    directoryIdentity: artifactIdentity,
+    maxBytes,
+    operation: "verify",
+    payload
+  });
+  const finalIdentity = await bindSafeDirectory(exactArtifactDir, { exactMode: 0o700 });
+  if (!sameDirectoryIdentity(artifactIdentity, finalIdentity)) {
+    throw smokeFailure("artifact-parent-mapping-changed");
+  }
+  return finalPath;
 }
 
 function printReport(report, json) {

@@ -11,6 +11,7 @@ import {
   readFile,
   readdir,
   realpath,
+  rename,
   rm,
   symlink,
   writeFile
@@ -103,8 +104,8 @@ test("classroom load smoke is a standalone staging command with no production in
   const smokeSource = source("scripts/classroom-load-smoke.mjs");
   assert.doesNotMatch(smokeSource, /response\.text\(/u);
   assert.match(smokeSource, /O_CREAT[\s\S]*O_EXCL[\s\S]*O_NOFOLLOW/u);
-  assert.match(smokeSource, /\.stat\(\)[\s\S]*nlink/u);
-  assert.match(smokeSource, /\.sync\(\)[\s\S]*\.close\(\)[\s\S]*rename/u);
+  assert.match(smokeSource, /fstatSync\([^)]*\)[\s\S]*nlink/u);
+  assert.match(smokeSource, /fsyncSync\([^)]*\)[\s\S]*closeSync\([^)]*\)[\s\S]*renameSync/u);
   assert.doesNotMatch(smokeSource, /writeFile\(artifactPath/u);
   assert.match(smokeSource, /validateSessionContinuity[\s\S]*for \(let round[\s\S]*validateSessionContinuity[\s\S]*runClassRound/u);
 });
@@ -670,6 +671,84 @@ test("credential continuity mismatch stops before discovery or any measured writ
   assert.equal(reportWrites, 0);
 });
 
+test("identity swap before round two preserves only round-one measurements and writes no report", async () => {
+  const runSmoke = requiredExport("runSmoke");
+  const measuredCalls = [];
+  let reportWrites = 0;
+  let sessionChecks = 0;
+  const jsonResponse = (payload, init = {}) => {
+    const body = JSON.stringify(payload);
+    return new Response(body, {
+      ...init,
+      headers: {
+        "Content-Length": String(Buffer.byteLength(body)),
+        "Content-Type": "application/json",
+        ...(init.headers ?? {})
+      }
+    });
+  };
+  const fetchImpl = async (url, options) => {
+    const pathname = new URL(url).pathname;
+    if (pathname === "/api/auth/login") {
+      return jsonResponse(
+        { user: { id: "stable-user-placeholder", role: "student" } },
+        { headers: { "Set-Cookie": "session-cookie-placeholder; Path=/" } }
+      );
+    }
+    if (pathname === "/api/auth/session-state") {
+      sessionChecks += 1;
+      return jsonResponse({
+        user: {
+          id: sessionChecks < 3 ? "stable-user-placeholder" : "changed-user-placeholder",
+          role: "student"
+        }
+      });
+    }
+    if (pathname === "/api/questions") {
+      return jsonResponse({ questions: [{ id: "question-placeholder", options: ["1"] }] });
+    }
+    if (pathname === "/api/lesson-entry") {
+      return jsonResponse({ lessonEntryTarget: { slug: "lesson-placeholder" } });
+    }
+    if (["/api/attempts", "/api/lesson-progress", "/api/dashboard"].includes(pathname)) {
+      measuredCalls.push(`${options.method ?? "GET"} ${pathname}`);
+      return jsonResponse({ ok: true });
+    }
+    throw new Error("unexpected request");
+  };
+
+  await rejectsWithCode(
+    runSmoke(
+      {
+        baseUrl: "http://127.0.0.1:3417",
+        grade: "P1",
+        json: true,
+        mode: "local",
+        rounds: 2,
+        selfTest: false,
+        seatConcurrency: 1
+      },
+      {
+        CLASSROOM_LOAD_PASSWORD: "password-placeholder",
+        CLASSROOM_LOAD_USERNAME: "username-placeholder"
+      },
+      {
+        fetchImpl,
+        printReport: false,
+        writeReport: async () => { reportWrites += 1; }
+      }
+    ),
+    "session-continuity-mismatch"
+  );
+  assert.equal(sessionChecks, 3);
+  assert.deepEqual(measuredCalls, [
+    "POST /api/attempts",
+    "POST /api/lesson-progress",
+    "GET /api/dashboard"
+  ]);
+  assert.equal(reportWrites, 0);
+});
+
 test("safe report writer enforces 0700 directory, 0600 atomic regular file, and bounded output", async (t) => {
   const writeSafeReport = requiredExport("writeSafeReport");
   const root = await temporaryRoot(t, "safe-report");
@@ -722,6 +801,54 @@ test("safe report writer rejects symlinked parent components before target modif
   await rejectsWithCode(writeSafeReport({ ok: true }, { rootDir: dirSymlinkRoot }), "artifact-parent-unsafe");
   assert.equal(await readFile(path.join(dirSymlinkTarget, "sentinel"), "utf8"), "unchanged\n");
   assert.equal(existsSync(path.join(dirSymlinkTarget, "last-run.json")), false);
+});
+
+test("safe report writer rejects group or world writable .tmp before creating output", async (t) => {
+  const writeSafeReport = requiredExport("writeSafeReport");
+  const root = await temporaryRoot(t, "unsafe-tmp-mode");
+  const localTmp = path.join(root, ".tmp");
+  await mkdir(localTmp, { mode: 0o777 });
+  await chmod(localTmp, 0o777);
+
+  await rejectsWithCode(writeSafeReport({ ok: true }, { rootDir: root }), "artifact-parent-unsafe");
+  assert.equal(existsSync(path.join(localTmp, "classroom-load-smoke")), false);
+  assert.equal((await lstat(localTmp)).mode & 0o777, 0o777);
+});
+
+test("cwd-bound artifact child rejects a parent-validated directory swapped to an outside symlink", async (t) => {
+  const writeSafeReport = requiredExport("writeSafeReport");
+  const launchArtifactWorker = requiredExport("launchArtifactWorker");
+  const root = await temporaryRoot(t, "artifact-swap");
+  const localTmp = path.join(root, ".tmp");
+  const artifactDir = path.join(localTmp, "classroom-load-smoke");
+  const movedArtifactDir = path.join(localTmp, "classroom-load-smoke-original");
+  const outside = path.join(root, "outside");
+  await mkdir(artifactDir, { recursive: true, mode: 0o700 });
+  await chmod(localTmp, 0o700);
+  await chmod(artifactDir, 0o700);
+  await mkdir(outside, { mode: 0o700 });
+  await writeFile(path.join(outside, "sentinel"), "outside-unchanged\n", { mode: 0o600 });
+
+  let launchAttempts = 0;
+  await rejectsWithCode(
+    writeSafeReport(
+      { ok: true },
+      {
+        launchChild: async (options) => {
+          launchAttempts += 1;
+          await rename(artifactDir, movedArtifactDir);
+          await symlink(outside, artifactDir);
+          return launchArtifactWorker(options);
+        },
+        rootDir: root
+      }
+    ),
+    "artifact-child-identity-mismatch"
+  );
+  assert.equal(launchAttempts, 1);
+  assert.equal(await readFile(path.join(outside, "sentinel"), "utf8"), "outside-unchanged\n");
+  assert.equal(existsSync(path.join(outside, "last-run.json")), false);
+  assert.equal(existsSync(path.join(movedArtifactDir, "last-run.json")), false);
 });
 
 test("safe report writer replaces final symlink and hardlink without modifying their targets", async (t) => {

@@ -103,3 +103,38 @@ Forward-port only the valuable classroom-concurrency smoke onto current `main`, 
 - Exact six-file scope remains the runner, runner test, package command, release-governance test, release runbook, and this A22 log.
 - `scripts/dashboard-latency-smoke.mjs`, `scripts/prod-certification.test.mjs`, `package-lock.json`, production certification/deployment code, `main`, and the old branch/worktree remain unchanged.
 - Residual review: A10/A22 runbook/package review and A11 security/test review remain required before merge. A separately authorized exact-staging run on one disposable identity remains required for capacity evidence.
+
+## Remaining Important: artifact parent-directory TOCTOU
+
+- Fresh-review base/local/upstream/live remote SHA: `7bf436ac9c6433e45d71740b7888f6900fb99e6f`.
+- Final TOCTOU follow-up commit SHA: Recorded on the branch and in the owner response after this log is committed; a Git commit cannot contain its own final SHA.
+- Scope: `scripts/classroom-load-smoke.mjs`, `scripts/classroom-load-smoke.test.mjs`, and this A22 log only. Package, governance, runbook, production, dashboard, and lock files are unchanged.
+
+### RED
+
+- `node --test scripts/classroom-load-smoke.test.mjs`: exit 1; 19 tests, 17 pass and 2 expected failures.
+- Expected failures:
+  - Existing writer did not reject a current-user-owned `.tmp` with mode `0777` before artifact creation.
+  - Existing writer had no exported cwd-bound isolated child launcher, so the deterministic parent-directory swap attack was not contained by a kernel-bound working directory.
+- The newly committed two-round continuity regression passed during RED: an identity swap before round 2 leaves exactly round 1's attempt/progress/dashboard measured calls and writes no report.
+
+### Fix
+
+- Repository root and `.tmp` are bound as current-user-owned real directories and rejected when group/other writable.
+- Directory identity uses exact `dev`, `ino`, `uid`, and mode. Artifact directory mode is exactly `0700`.
+- Directory creation and artifact publication use isolated child Node processes with `cwd` bound to the validated parent/artifact vnode. Each child immediately `lstat(".")` and compares the expected identity before any write.
+- The cwd-bound preparation steps create/validate `.tmp` and `classroom-load-smoke` using relative names only; no checked parent pathname is reused for a write.
+- The publication child accepts a bounded stdin payload, uses only relative temp/final names, opens temp with `O_CREAT|O_EXCL|O_NOFOLLOW` at `0600`, verifies regular file plus `nlink === 1`, performs bounded writes, fsyncs/closes, atomically renames, reopens final with `O_NOFOLLOW`, and verifies exact size/digest/stat.
+- Child stdout/stderr are bounded. Success/failure output is fixed and contains no payload or raw error.
+- Parent rebinds the nominal artifact path after publication, compares exact directory identity, launches a separate cwd-bound verifier for exact final bytes/stat, and rebinds once more before returning.
+- Deterministic adversarial test renames the validated artifact directory and installs an outside symlink immediately before publication child launch. The child returns fixed identity mismatch; neither the outside target nor renamed original directory receives a report.
+
+### GREEN
+
+- Focused `node --test scripts/classroom-load-smoke.test.mjs`: exit 0; 19/19 pass.
+- `node scripts/classroom-load-smoke.mjs --self-test`: exit 0; PASS.
+- `npm run test:release-governance`: exit 0; 121 total, 110 pass, 11 skip, 0 fail; all 19 classroom tests ran through the active command.
+- `node --test scripts/prod-certification.test.mjs`: exit 0; 24/24 pass.
+- `npm run type-check`: exit 0.
+- Both Node syntax checks and `git diff --check`: exit 0.
+- No local/staging/live workload, report artifact, deploy, provider action, or API write was produced.
