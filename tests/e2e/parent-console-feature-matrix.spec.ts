@@ -11,6 +11,7 @@ import {
   loginAsDemoStudent,
   loginAsTeacher,
   logoutIfVisible,
+  teacherInviteCode,
   uniqueSuffix
 } from "./helpers";
 
@@ -169,7 +170,8 @@ async function registerTeacherViaApi(contexts: APIRequestContext[], testInfo: Te
       curriculumTrack: "HK",
       curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
       language: "en",
-      theme: "dark"
+      theme: "dark",
+      teacherInviteCode
     }
   });
   expect(response.ok(), `Teacher registration failed: ${response.status()}`).toBeTruthy();

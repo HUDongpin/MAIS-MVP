@@ -2,6 +2,7 @@ import { expect, request as apiRequest, test, type APIRequestContext, type APIRe
 import { pbkdf2Sync } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
+import { teacherInviteCode } from "./helpers";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -490,6 +491,43 @@ test.describe("backend API integration", () => {
     }
   });
 
+  test("teacher self-registration requires the configured invite code", async ({}, testInfo) => {
+    const contexts: APIRequestContext[] = [];
+    test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
+
+    try {
+      const context = await newApiContext(contexts);
+      const suffix = uniqueSlug(testInfo, "teacher-invite-gate");
+      const teacherPayload = {
+        role: "teacher",
+        name: "Invite-gated Teacher",
+        username: `teacher-${suffix}@example.test`,
+        email: `teacher-${suffix}@example.test`,
+        password: "start12345",
+        grade: "S3",
+        curriculumTrack: "HK"
+      };
+
+      const missing = await context.post("/api/auth/register", { data: teacherPayload });
+      expect(missing.status()).toBe(403);
+      expect(await missing.json()).toMatchObject({ code: "teacher-invite-code-required" });
+
+      const invalid = await context.post("/api/auth/register", {
+        data: { ...teacherPayload, teacherInviteCode: "not-the-configured-code" }
+      });
+      expect(invalid.status()).toBe(403);
+      expect(await invalid.json()).toMatchObject({ code: "teacher-invite-code-invalid" });
+
+      const accepted = await context.post("/api/auth/register", {
+        data: { ...teacherPayload, teacherInviteCode }
+      });
+      expect(accepted.status()).toBe(200);
+      expect(await accepted.json()).toMatchObject({ user: { role: "teacher" } });
+    } finally {
+      await disposeAll(contexts);
+    }
+  });
+
   test("auth, student learning APIs, analytics, password reset, and Nova Tutor boundaries", async ({ page }, testInfo) => {
     const contexts: APIRequestContext[] = [];
     test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
@@ -532,7 +570,8 @@ test.describe("backend API integration", () => {
             email: `teacher-${publicTeacherSuffix}@example.test`,
             password: "start12345",
             grade: "S3",
-            curriculumTrack: "HK"
+            curriculumTrack: "HK",
+            teacherInviteCode
           }
         })
       );

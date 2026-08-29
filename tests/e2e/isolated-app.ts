@@ -24,6 +24,9 @@ import type {
   LeaseGuardianMessage
 } from "./isolated-app-lease-guardian";
 
+const teacherInviteCode =
+  process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "e2e-teacher-invite";
+
 export type IsolatedAppOptions = {
   warmPaths?: string[];
   env?: Record<string, string | undefined>;
@@ -50,6 +53,7 @@ export function isolatedAppProcessEnvironment(
     AUTH_SESSION_SECRET: identity.authSessionSecret,
     HK_MATH_DB_PATH: identity.dbPath,
     HK_MATH_ENABLE_DEMO_USER: "true",
+    TEACHER_INVITE_CODES: teacherInviteCode,
     HK_MATH_EXPOSE_LOCAL_RESET_LINKS: "true",
     AI_TUTOR_MAX_REQUESTS_PER_MINUTE: "2",
     NEXT_DIST_DIR: identity.nextDistDir,
