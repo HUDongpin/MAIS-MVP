@@ -42,12 +42,12 @@
 - `npm run test:release-governance`: 91 passed, 0 failed, 11 skipped (102 total).
 - `npm install --package-lock-only --offline --ignore-scripts --dry-run`: passed; lock already up to date.
 - Source invariants: Saxes options exact; obsolete handwritten parser symbols absent; no `additionalNamespaces`, `resolvePrefix`, entity-table setup, or custom error handler; dedupe sites use ordered sets.
-- `git diff --check` and staged diff check: run again at closeout after this log update.
+- `git diff --check` and `git diff --cached --check`: passed before implementation commit `2a9c84f5d14396d6eadf663156d231b8e1fa630a`.
 
 ## Residual boundaries and closeout
 
 - `npm install` reported five repository audit findings (one moderate, four high); this session did not run an audit-fix mutation or attribute those findings to Saxes.
 - No push, PR, merge, deploy, live LMS operation, or package execution was performed.
-- Status: DONE pending final exact commit.
-- Dirty-state final action: reviewed commit.
+- Status: DONE in implementation commit `2a9c84f5d14396d6eadf663156d231b8e1fa630a`.
+- Dirty-state final action: reviewed implementation commit plus this documentation-only closeout correction.
 - Worktree lifecycle action: retained for parent review; no push.
