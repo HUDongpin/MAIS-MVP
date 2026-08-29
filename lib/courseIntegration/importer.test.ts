@@ -3,23 +3,28 @@ import test from "node:test";
 import JSZip from "jszip";
 
 import { importScormPackage } from "./importer";
+import { calculateCrc32 } from "./zip";
 
 const fixedZipDate = new Date("2020-01-01T00:00:00.000Z");
 
 async function createScormPackage(
   manifest: string,
   files: Record<string, string | Uint8Array> = {},
-  options: { readonly streamFiles?: boolean } = {}
+  options: {
+    readonly streamFiles?: boolean;
+    readonly compression?: "DEFLATE" | "STORE";
+  } = {}
 ) {
   const zip = new JSZip();
   zip.file("imsmanifest.xml", manifest, { date: fixedZipDate, createFolders: false });
   for (const [path, content] of Object.entries(files)) {
     zip.file(path, content, { date: fixedZipDate, createFolders: false });
   }
+  const compression = options.compression ?? "DEFLATE";
   return zip.generateAsync({
     type: "uint8array",
-    compression: "DEFLATE",
-    compressionOptions: { level: 6 },
+    compression,
+    ...(compression === "DEFLATE" ? { compressionOptions: { level: 6 } } : {}),
     platform: "UNIX",
     streamFiles: options.streamFiles ?? false
   });
@@ -34,6 +39,89 @@ function findCentralEntryOffset(bytes: Uint8Array, expectedName: string) {
     if (name === expectedName) return offset;
   }
   throw new Error(`Missing central ZIP entry in test fixture: ${expectedName}`);
+}
+
+function findEndOfCentralDirectoryOffset(bytes: Uint8Array) {
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  for (let offset = bytes.byteLength - 22; offset >= 0; offset -= 1) {
+    if (view.getUint32(offset, true) === 0x06054b50) return offset;
+  }
+  throw new Error("Missing end-of-central-directory record in test fixture.");
+}
+
+function insertBytes(bytes: Uint8Array, offset: number, insertion: Uint8Array) {
+  assert.ok(offset >= 0 && offset <= bytes.byteLength, "test insertion offset must be in range");
+  const result = new Uint8Array(bytes.byteLength + insertion.byteLength);
+  result.set(bytes.subarray(0, offset), 0);
+  result.set(insertion, offset);
+  result.set(bytes.subarray(offset), offset + insertion.byteLength);
+  return result;
+}
+
+function concatTestBytes(...parts: readonly Uint8Array[]) {
+  const total = parts.reduce((sum, part) => sum + part.byteLength, 0);
+  const result = new Uint8Array(total);
+  let offset = 0;
+  for (const part of parts) {
+    result.set(part, offset);
+    offset += part.byteLength;
+  }
+  return result;
+}
+
+function infoZipUnicodePathExtra(rawName: string, unicodeName: string) {
+  const encoder = new TextEncoder();
+  const rawNameBytes = encoder.encode(rawName);
+  const unicodeNameBytes = encoder.encode(unicodeName);
+  const payloadLength = 1 + 4 + unicodeNameBytes.byteLength;
+  const extra = new Uint8Array(4 + payloadLength);
+  const view = new DataView(extra.buffer);
+  view.setUint16(0, 0x7075, true);
+  view.setUint16(2, payloadLength, true);
+  extra[4] = 1;
+  view.setUint32(5, calculateCrc32(rawNameBytes), true);
+  extra.set(unicodeNameBytes, 9);
+  return extra;
+}
+
+function addSingleEntryExtraFields(
+  bytes: Uint8Array,
+  expectedName: string,
+  {
+    localExtra = new Uint8Array(),
+    centralExtra = new Uint8Array()
+  }: {
+    readonly localExtra?: Uint8Array;
+    readonly centralExtra?: Uint8Array;
+  }
+) {
+  const originalCentralOffset = findCentralEntryOffset(bytes, expectedName);
+  const originalEocdOffset = findEndOfCentralDirectoryOffset(bytes);
+  const originalView = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  assert.equal(originalView.getUint16(originalEocdOffset + 10, true), 1);
+  assert.equal(originalView.getUint32(originalEocdOffset + 16, true), originalCentralOffset);
+  const originalCentralSize = originalView.getUint32(originalEocdOffset + 12, true);
+  const localHeaderOffset = originalView.getUint32(originalCentralOffset + 42, true);
+  const localNameLength = originalView.getUint16(localHeaderOffset + 26, true);
+  const localExtraLength = originalView.getUint16(localHeaderOffset + 28, true);
+  const localInsertOffset = localHeaderOffset + 30 + localNameLength + localExtraLength;
+
+  let result = insertBytes(bytes, localInsertOffset, localExtra);
+  let view = new DataView(result.buffer, result.byteOffset, result.byteLength);
+  view.setUint16(localHeaderOffset + 28, localExtraLength + localExtra.byteLength, true);
+
+  const centralOffset = originalCentralOffset + localExtra.byteLength;
+  const centralNameLength = view.getUint16(centralOffset + 28, true);
+  const centralExtraLength = view.getUint16(centralOffset + 30, true);
+  const centralInsertOffset = centralOffset + 46 + centralNameLength + centralExtraLength;
+  result = insertBytes(result, centralInsertOffset, centralExtra);
+  view = new DataView(result.buffer, result.byteOffset, result.byteLength);
+  view.setUint16(centralOffset + 30, centralExtraLength + centralExtra.byteLength, true);
+
+  const finalEocdOffset = originalEocdOffset + localExtra.byteLength + centralExtra.byteLength;
+  view.setUint32(finalEocdOffset + 12, originalCentralSize + centralExtra.byteLength, true);
+  view.setUint32(finalEocdOffset + 16, centralOffset, true);
+  return result;
 }
 
 function scormManifest({
@@ -523,6 +611,131 @@ test("rejects absolute ZIP entry paths", async () => {
     assert.doesNotMatch(String(Reflect.get(Object(error), "message")), /absolute/);
     return true;
   });
+});
+
+test("accepts a clean STORE package after validating referenced and unreferenced payloads", async () => {
+  const bytes = await createScormPackage(
+    scormManifest({ resourceHref: "asset.txt" }),
+    {
+      "asset.txt": "ASSET-CONTENT-12345",
+      "unreferenced.txt": "UNREFERENCED-CONTENT"
+    },
+    { compression: "STORE" }
+  );
+
+  const report = await importScormPackage(bytes, { importedAt: "2026-08-29T02:00:00.000Z" });
+
+  assert.equal(report.archive.fileCount, 3);
+  assert.equal(report.courseVersion.resources[0]?.href, "asset.txt");
+  assert.deepEqual(report.warnings, []);
+});
+
+test("rejects corrupted referenced or unreferenced payloads before returning a report", async () => {
+  for (const corruptedName of ["asset.txt", "unreferenced.txt"] as const) {
+    const generated = await createScormPackage(
+      scormManifest({ resourceHref: "asset.txt" }),
+      {
+        "asset.txt": "ASSET-CONTENT-12345",
+        "unreferenced.txt": "UNREFERENCED-CONTENT"
+      },
+      { compression: "STORE" }
+    );
+    const bytes = new Uint8Array(generated);
+    const centralOffset = findCentralEntryOffset(bytes, corruptedName);
+    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    assert.equal(view.getUint16(centralOffset + 10, true), 0, "fixture must use STORE");
+    const localOffset = view.getUint32(centralOffset + 42, true);
+    const localNameLength = view.getUint16(localOffset + 26, true);
+    const localExtraLength = view.getUint16(localOffset + 28, true);
+    const dataStart = localOffset + 30 + localNameLength + localExtraLength;
+    assert.ok(view.getUint32(centralOffset + 24, true) > 0, "fixture payload must be non-empty");
+    bytes[dataStart] = bytes[dataStart]! ^ 1;
+
+    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), "ZIP_INVALID", corruptedName);
+      assert.equal(Reflect.get(Object(error), "status"), 400, corruptedName);
+      assert.equal(
+        Reflect.get(Object(error), "message"),
+        "The uploaded package is not a valid ZIP archive."
+      );
+      assert.doesNotMatch(
+        String(Reflect.get(Object(error), "message")),
+        /asset|unreferenced|CONTENT/u
+      );
+      return true;
+    });
+  }
+});
+
+test("rejects Unicode Path fields and malformed local or central ZIP extras", async () => {
+  const rawName = "imsmanifest.xml";
+  const generated = await createScormPackage(scormManifest(), {}, { compression: "STORE" });
+  const safeUnicodePath = infoZipUnicodePathExtra(rawName, rawName);
+  const unsafeUnicodePath = infoZipUnicodePathExtra(rawName, `../${rawName}`);
+  const emptyUnicodePath = new Uint8Array([0x75, 0x70, 0x00, 0x00]);
+  const malformedExtra = new Uint8Array([0x01, 0x00, 0x04, 0x00, 0xff]);
+  const cases = [
+    {
+      name: "matching local and central traversal Unicode paths",
+      bytes: addSingleEntryExtraFields(generated, rawName, {
+        localExtra: unsafeUnicodePath,
+        centralExtra: unsafeUnicodePath
+      }),
+      code: "ZIP_FILENAME_ENCODING_UNSUPPORTED",
+      status: 422
+    },
+    {
+      name: "a benign local-only Unicode path",
+      bytes: addSingleEntryExtraFields(generated, rawName, { localExtra: safeUnicodePath }),
+      code: "ZIP_FILENAME_ENCODING_UNSUPPORTED",
+      status: 422
+    },
+    {
+      name: "a central-only traversal Unicode path",
+      bytes: addSingleEntryExtraFields(generated, rawName, { centralExtra: unsafeUnicodePath }),
+      code: "ZIP_FILENAME_ENCODING_UNSUPPORTED",
+      status: 422
+    },
+    {
+      name: "duplicate Unicode path fields",
+      bytes: addSingleEntryExtraFields(generated, rawName, {
+        centralExtra: concatTestBytes(safeUnicodePath, unsafeUnicodePath)
+      }),
+      code: "ZIP_FILENAME_ENCODING_UNSUPPORTED",
+      status: 422
+    },
+    {
+      name: "a TLV-valid but empty Unicode path field",
+      bytes: addSingleEntryExtraFields(generated, rawName, { localExtra: emptyUnicodePath }),
+      code: "ZIP_FILENAME_ENCODING_UNSUPPORTED",
+      status: 422
+    },
+    {
+      name: "a truncated local extra field",
+      bytes: addSingleEntryExtraFields(generated, rawName, { localExtra: malformedExtra }),
+      code: "ZIP_INVALID",
+      status: 400
+    },
+    {
+      name: "a truncated central extra field",
+      bytes: addSingleEntryExtraFields(generated, rawName, { centralExtra: malformedExtra }),
+      code: "ZIP_INVALID",
+      status: 400
+    }
+  ] as const;
+
+  for (const fixture of cases) {
+    await assert.rejects(importScormPackage(fixture.bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), fixture.code, fixture.name);
+      assert.equal(Reflect.get(Object(error), "status"), fixture.status, fixture.name);
+      assert.doesNotMatch(
+        String(Reflect.get(Object(error), "message")),
+        /imsmanifest|\.\./u,
+        fixture.name
+      );
+      return true;
+    });
+  }
 });
 
 test("rejects DOCTYPE and ENTITY declaration surfaces before XML entity expansion", async () => {

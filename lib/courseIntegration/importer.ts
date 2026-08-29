@@ -172,16 +172,6 @@ async function readEntryWithLimit(
       if (settled) return;
       const chunk = new Uint8Array(rawChunk);
       total += chunk.byteLength;
-      if (total > maxBytes) {
-        settled = true;
-        stream.pause();
-        reject(new CourseImportError(
-          "MANIFEST_TOO_LARGE",
-          "The SCORM manifest exceeds the size limit.",
-          413
-        ));
-        return;
-      }
       if (total > metadata.uncompressedSize) {
         settled = true;
         stream.pause();
@@ -189,6 +179,16 @@ async function readEntryWithLimit(
           "ZIP_INVALID",
           "The uploaded package is not a valid ZIP archive.",
           400
+        ));
+        return;
+      }
+      if (total > maxBytes) {
+        settled = true;
+        stream.pause();
+        reject(new CourseImportError(
+          "MANIFEST_TOO_LARGE",
+          "The SCORM manifest exceeds the size limit.",
+          413
         ));
         return;
       }
@@ -416,8 +416,9 @@ export async function importScormPackage(
   if (!zipManifest) {
     throw new CourseImportError("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
   }
-  const manifestBytes = await readEntryWithLimit(zipManifest, manifestEntry, limits.maxManifestBytes);
-  const manifest = parseStaticXml(decodeManifest(manifestBytes));
+  const manifest = parseStaticXml(decodeManifest(
+    await readEntryWithLimit(zipManifest, manifestEntry, limits.maxManifestBytes)
+  ));
   assertScormManifestRoot(manifest);
   assertScormNamespacePolicy(manifest);
   const scormVersion = detectScormVersion(manifest);
@@ -428,6 +429,18 @@ export async function importScormPackage(
       "The SCORM manifest does not provide a stable package identifier.",
       422
     );
+  }
+  for (const entryMetadata of archive.entries) {
+    if (entryMetadata.isDirectory || entryMetadata === manifestEntry) continue;
+    const zipEntry = zip.file(entryMetadata.rawName);
+    if (!zipEntry) {
+      throw new CourseImportError(
+        "ZIP_INVALID",
+        "The uploaded package is not a valid ZIP archive.",
+        400
+      );
+    }
+    await readEntryWithLimit(zipEntry, entryMetadata, limits.maxSingleFileBytes);
   }
 
   const importedAt = resolveImportedAt(options.importedAt);

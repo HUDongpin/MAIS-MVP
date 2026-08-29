@@ -24,6 +24,8 @@
 - Expanded pre-implementation RED: exit 1; 80 tests; 62 passed; 18 expected failures, including frozen namespace metadata and independent structural namespace policy cases.
 - Self-review RED: exit 1; 82 tests; 79 passed; 3 expected failures for innocent `xmlns:*` declaration names and inert `<!ENTITY` text inside comments/CDATA.
 - Independent SPEC review found that the exact `saxes`/`xmlchars` lock records were governed but the direct JSZip archive dependency was constrained only by its root `^3.10.1` range. The focused guard test was added first and failed as expected (exit 1, 0 passed, 1 failed) because `assertFrozenJsZipLockRecord` did not yet exist.
+- Independent quality/security review reproduced two archive-integrity gaps: corrupted non-manifest payload bytes were accepted because only the manifest was decompressed and CRC-checked, and Info-ZIP `0x7075` Unicode Path extras bypassed the raw-name path policy through JSZip's effective-name handling.
+- Quality-remediation RED: `node --import tsx --test lib/courseIntegration/importer.test.ts` exited 1 with 52 tests, 50 passed, and 2 expected `Missing expected rejection` failures before any production edit.
 
 ## Changes
 
@@ -33,10 +35,13 @@
 - Preserved Saxes well-formedness plus explicit SCORM namespace policy as the demonstrated boundary; this is not XML-schema, SCORM conformance, runtime, or LMS validation.
 - Replaced file/dependency linear dedupe with insertion-ordered `Set` handling and covered a 19,999-element source-order fixture.
 - Added direct runtime `saxes@^6.0.0`, exact root-lock records, and exact `jszip`/`saxes`/`xmlchars` release-governance assertions. The JSZip guard now freezes version, resolved URL, integrity, license, and dependency map, with a mutation regression proving drift is rejected.
+- Added one shared bounded ZIP-extra TLV policy for local and central headers. Malformed TLVs fail generically, and every `0x7075` Unicode Path field is rejected before JSZip can select or sanitize an alternate filename identity.
+- Added sequential bounded decompression, exact uncompressed-size validation, and CRC-32 verification for every non-directory entry before an import report can return. The implementation uses no concurrent all-entry expansion and retains no non-manifest payload.
 
 ## Verification
 
-- Focused course integration/API suite: 96/96 passed.
+- Focused course integration/API suite: 99/99 passed, including clean STORE acceptance plus corrupted referenced and unreferenced payload rejection.
+- Focused importer suite after quality remediation: 53/53 passed.
 - `npm run type-check`: passed.
 - `npm run check:imports`: passed.
 - `npm run test:imports`: 7/7 passed.
@@ -49,6 +54,6 @@
 
 - `npm install` reported five repository audit findings (one moderate, four high); this session did not run an audit-fix mutation or attribute those findings to Saxes.
 - No push, PR, merge, deploy, live LMS operation, or package execution was performed.
-- Status: implementation and SPEC-finding remediation complete; repeated independent SPEC review and then independent quality/security review remain required before branch closeout.
-- Dirty-state final action: reviewed implementation commits plus this exact governance remediation; no uncommitted product or evidence state is intended at handoff.
+- Status at this log revision: both quality/security findings are locally remediated and GREEN; repeated independent SPEC review and then independent quality/security re-review remain required before branch closeout.
+- Dirty-state final action: exact reviewed implementation, governance, and archive-integrity remediation commits; no uncommitted product or evidence state is intended at handoff.
 - Worktree lifecycle action: retained for parent review; no push.

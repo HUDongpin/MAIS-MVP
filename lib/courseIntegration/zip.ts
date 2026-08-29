@@ -45,6 +45,7 @@ const UTF8_FILENAME_FLAG = 0x0800;
 const ENCRYPTED_FLAG = 0x0001;
 const STRONG_ENCRYPTION_FLAG = 0x0040;
 const DATA_DESCRIPTOR_FLAG = 0x0008;
+const INFO_ZIP_UNICODE_PATH_EXTRA_FIELD = 0x7075;
 
 function fail(
   code: ConstructorParameters<typeof CourseImportError>[0],
@@ -68,6 +69,31 @@ function u16(view: DataView, offset: number) {
 function u32(view: DataView, offset: number) {
   assertRange(offset, 4, view.byteLength);
   return view.getUint32(offset, true);
+}
+
+function assertSafeExtraFields(view: DataView, start: number, length: number) {
+  assertRange(start, length, view.byteLength);
+  const end = start + length;
+  let cursor = start;
+  while (cursor < end) {
+    if (end - cursor < 4) {
+      fail("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
+    }
+    const fieldId = u16(view, cursor);
+    const fieldLength = u16(view, cursor + 2);
+    cursor += 4;
+    if (fieldLength > end - cursor) {
+      fail("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
+    }
+    if (fieldId === INFO_ZIP_UNICODE_PATH_EXTRA_FIELD) {
+      fail(
+        "ZIP_FILENAME_ENCODING_UNSUPPORTED",
+        "The ZIP contains a filename encoding that is not supported safely.",
+        422
+      );
+    }
+    cursor += fieldLength;
+  }
 }
 
 function findEndOfCentralDirectory(view: DataView) {
@@ -208,6 +234,7 @@ export function preflightZip(
     const localHeaderOffset = u32(view, cursor + 42);
     const fullHeaderLength = 46 + filenameLength + extraLength + commentLength;
     assertRange(cursor, fullHeaderLength, bytes.byteLength);
+    assertSafeExtraFields(view, cursor + 46 + filenameLength, extraLength);
 
     if (startingDisk !== 0) {
       fail("ZIP_MULTIDISK_UNSUPPORTED", "Multi-disk ZIP packages are not supported.", 422);
@@ -295,6 +322,11 @@ export function preflightZip(
     const localExtraLength = u16(view, localHeaderOffset + 28);
     const localHeaderLength = 30 + localFilenameLength + localExtraLength;
     assertRange(localHeaderOffset, localHeaderLength, bytes.byteLength);
+    assertSafeExtraFields(
+      view,
+      localHeaderOffset + 30 + localFilenameLength,
+      localExtraLength
+    );
     if (
       localFlags !== flags ||
       localCompressionMethod !== compressionMethod ||
