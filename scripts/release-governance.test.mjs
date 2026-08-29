@@ -239,6 +239,115 @@ function assertOwnerMapping(manifest, pathspec, owner, coordinatesWith) {
   );
 }
 
+test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic comparator and uses the tracked current guard elsewhere", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const guardRelativePath = "scripts/promotion-workflow-json-guard.mjs";
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const job = workflow.jobs?.["promotion-shadow-gate"];
+  assert.ok(job, "Promotion Shadow job must exist");
+  assert.ok(Array.isArray(job.steps), "Promotion Shadow steps must exist");
+
+  const parseSites = job.steps.flatMap((step) => {
+    if (typeof step.run !== "string") return [];
+    const occurrences = step.run.match(/\bJSON\.parse\s*\(/gu) ?? [];
+    return occurrences.map(() => step.name);
+  });
+  assert.deepEqual(
+    parseSites,
+    ["Compare canonical semantic Receipt digests"],
+    "reachable plain JSON.parse must remain only in the exact semantic comparator"
+  );
+
+  const comparator = job.steps.find((step) => step.name === "Compare canonical semantic Receipt digests");
+  assert.ok(comparator, "exact semantic comparator step must exist");
+  assert.equal(
+    createHash("sha256").update(comparator.run).digest("hex"),
+    "da19cda092e2f5b6ee2eb3a22c84c18e8a79bf27b95901f7ec419c6d01628d6e",
+    "exact semantic comparator program must remain byte-for-byte unchanged"
+  );
+
+  assertTrackedInIndex(guardRelativePath);
+
+  const guardedStepNames = [
+    "Validate current Promotion inputs and runtime graph",
+    "Resolve committed canonical Receipt execution commit",
+    "Execute canonical pilot shadow",
+    "Replay canonical pilot with distinct run identity",
+    "Verify fresh replay and canonical Receipts",
+    "Assert exact Promotion Shadow artifact set",
+    "Enforce Promotion Shadow Gate outcome"
+  ];
+  const guardedSteps = new Map();
+  for (const stepName of guardedStepNames) {
+    const step = job.steps.find((entry) => entry.name === stepName);
+    assert.ok(step, `${stepName} must exist`);
+    assert.match(step.run, /parsePromotionWorkflowJsonBytes/u, `${stepName} must use the strict JSON guard`);
+    assert.match(step.run, /process\.env\.GITHUB_WORKSPACE/u, `${stepName} must select the current checkout`);
+    assert.match(step.run, /scripts", "promotion-workflow-json-guard\.mjs/u, `${stepName} must load the tracked guard`);
+    guardedSteps.set(stepName, step);
+  }
+
+  const currentValidation = guardedSteps.get("Validate current Promotion inputs and runtime graph").run;
+  assert.match(currentValidation, /expectedExit = \{ pass: 0, fail: 1, blocked: 2, internal: 3 \}\[report\.result\]/u);
+  assert.match(currentValidation, /expectedExit === undefined \|\| cliExit !== expectedExit/u);
+  assert.match(currentValidation, /report\.schemaVersion !== "promotion-validation-result\.v2"/u);
+  assert.match(currentValidation, /report\.liveAllowed !== false/u);
+  assert.match(currentValidation, /report\.pilotUnitStatus !== "shadow_ready"/u);
+
+  const canonicalResolution = guardedSteps.get("Resolve committed canonical Receipt execution commit").run;
+  assert.match(canonicalResolution, /workingBytes\.equals\(committedBytes\)/u);
+  assert.match(canonicalResolution, /receipt\.schemaVersion !== "promotion-receipt\.v2"/u);
+  assert.match(canonicalResolution, /receipt\.result !== "pass"/u);
+  assert.match(canonicalResolution, /receipt\.manifest\?\.path !== manifestPath/u);
+  assert.match(canonicalResolution, /receipt\.binding\?\.liveAllowed !== false/u);
+  assert.match(canonicalResolution, /receipt\.lifecycle\?\.liveAllowed !== false/u);
+
+  for (const [stepName, runIdVariable] of [
+    ["Execute canonical pilot shadow", "PROMOTION_RUN_ID"],
+    ["Replay canonical pilot with distinct run identity", "PROMOTION_REPLAY_RUN_ID"]
+  ]) {
+    const run = guardedSteps.get(stepName).run;
+    assert.match(run, /expectedExit = \{ pass: 0, fail: 1, blocked: 2, internal: 3 \}\[receipt\.result\]/u);
+    assert.match(run, /Number\(cliExitText\) !== expectedExit/u);
+    assert.match(run, /receipt\.schemaVersion !== "promotion-receipt\.v2"/u);
+    assert.match(run, /receipt\.run\?\.runId !== runId/u);
+    assert.match(run, new RegExp(`"\\$${runIdVariable}"`, "u"));
+    assert.match(run, /cd "\$PROMOTION_EXECUTION_WORKTREE"[\s\S]*process\.env\.GITHUB_WORKSPACE/u);
+  }
+
+  const verification = guardedSteps.get("Verify fresh replay and canonical Receipts").run;
+  assert.match(verification, /cd "\$PROMOTION_EXECUTION_WORKTREE"[\s\S]*process\.env\.GITHUB_WORKSPACE/u);
+  assert.match(verification, /Number\(cliExitText\) !== expectedExit/u);
+  assert.match(verification, /report\.schemaVersion !== "promotion-receipt-verification\.v2"/u);
+  assert.match(verification, /report\.valid !== true/u);
+  assert.match(verification, /report\.liveAllowed !== false/u);
+  for (const target of ["FRESH", "REPLAY", "CANONICAL"]) {
+    assert.match(verification, new RegExp(`verify_one "\\$PROMOTION_${target}(?:_RECEIPT(?:_COPY)?|_VERIFICATION)`, "u"));
+  }
+
+  const artifactPreflight = guardedSteps.get("Assert exact Promotion Shadow artifact set").run;
+  assert.match(artifactPreflight, /JSON\.stringify\(supplied\) !== JSON\.stringify\(expected\)/u);
+  assert.match(artifactPreflight, /JSON\.stringify\(readdirSync\(artifactRoot\)\.sort\(\)\) !== JSON\.stringify\(expected\)/u);
+  assert.match(artifactPreflight, /entry\.isSymbolicLink\(\) \|\| entry\.nlink !== 1 \|\| entry\.size === 0/u);
+  assert.match(artifactPreflight, /realpathSync\(artifactPath\) !== artifactPath/u);
+  const uploadStep = job.steps.find((step) => step.name === "Upload Promotion Shadow gate artifacts");
+  assert.equal(uploadStep?.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
+
+  const finalOutcome = guardedSteps.get("Enforce Promotion Shadow Gate outcome").run;
+  for (const name of [
+    "currentValidation",
+    "freshReceipt",
+    "replayReceipt",
+    "canonicalReceipt",
+    "freshVerification",
+    "replayVerification",
+    "canonicalVerification"
+  ]) {
+    assert.match(finalOutcome, new RegExp(`${name}: parsePromotionWorkflowJsonBytes`, "u"));
+  }
+  assert.match(finalOutcome, /Object\.entries\(outcomes\)\.filter\(\(\[, result\]\) => result !== "pass"\)/u);
+});
+
 test.skip("Promotion Shadow npm commands are exact and expose no live-capable alias", () => {
   const current = readGitObjectJson(":package.json");
   const expectedCommands = {

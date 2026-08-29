@@ -94,8 +94,16 @@ jobs:
           set -e
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [reportPath, cliExitText] = process.argv.slice(1);
-            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const report = parsePromotionWorkflowJsonBytes(readFileSync(reportPath));
             const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
             const cliExit = Number(cliExitText);
             if (expectedExit === undefined || cliExit !== expectedExit) {
@@ -120,6 +128,7 @@ jobs:
             import { execFileSync } from "node:child_process";
             import { closeSync, lstatSync, openSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
             import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [receiptPath, receiptRelativePath, manifestPath, copyPath, runnerTemp, outputPath] = process.argv.slice(1);
             const assertSafeRepoPath = (value, label) => {
               if (!value || path.posix.isAbsolute(value) || path.posix.normalize(value) !== value || value.startsWith("../") || value.includes("\\") || value.includes("\u0000")) {
@@ -139,7 +148,13 @@ jobs:
             const workingBytes = readFileSync(receiptPath);
             const committedBytes = execFileSync("git", ["show", `HEAD:${receiptRelativePath}`], { cwd: repoRoot, encoding: null, maxBuffer: 32 * 1024 * 1024 });
             if (!workingBytes.equals(committedBytes)) throw new Error("Canonical Receipt bytes must equal the current committed Git object.");
-            const receipt = JSON.parse(workingBytes.toString("utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const receipt = parsePromotionWorkflowJsonBytes(workingBytes);
             if (
               receipt.schemaVersion !== "promotion-receipt.v2" ||
               receipt.result !== "pass" ||
@@ -217,8 +232,16 @@ jobs:
           set -e
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [receiptPath, runId, cliExitText] = process.argv.slice(1);
-            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const receipt = parsePromotionWorkflowJsonBytes(readFileSync(receiptPath));
             const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[receipt.result];
             if (Number(cliExitText) !== expectedExit || receipt.schemaVersion !== "promotion-receipt.v2" || receipt.run?.runId !== runId) {
               throw new Error("Fresh v2 Receipt envelope or CLI exit is invalid.");
@@ -237,8 +260,16 @@ jobs:
           set -e
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [receiptPath, runId, cliExitText] = process.argv.slice(1);
-            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const receipt = parsePromotionWorkflowJsonBytes(readFileSync(receiptPath));
             const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[receipt.result];
             if (Number(cliExitText) !== expectedExit || receipt.schemaVersion !== "promotion-receipt.v2" || receipt.run?.runId !== runId) {
               throw new Error("Replay v2 Receipt envelope or CLI exit is invalid.");
@@ -277,8 +308,16 @@ jobs:
             set -e
             node --input-type=module -e '
               import { readFileSync } from "node:fs";
+              import path from "node:path";
+              import { pathToFileURL } from "node:url";
               const [reportPath, cliExitText] = process.argv.slice(1);
-              const report = JSON.parse(readFileSync(reportPath, "utf8"));
+              const currentWorkspace = process.env.GITHUB_WORKSPACE;
+              if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+                throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+              }
+              const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+              const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+              const report = parsePromotionWorkflowJsonBytes(readFileSync(reportPath));
               const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
               if (
                 Number(cliExitText) !== expectedExit ||
@@ -302,7 +341,14 @@ jobs:
           node --input-type=module -e '
             import { lstatSync, readFileSync, readdirSync, realpathSync } from "node:fs";
             import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [artifactRoot, ...artifactPaths] = process.argv.slice(1);
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
             if (!path.isAbsolute(artifactRoot) || realpathSync(artifactRoot) !== artifactRoot) throw new Error("Artifact root is unsafe.");
             const expected = [
               "promotion-current-validation.v2.json",
@@ -324,7 +370,7 @@ jobs:
               if (!entry.isFile() || entry.isSymbolicLink() || entry.nlink !== 1 || entry.size === 0 || realpathSync(artifactPath) !== artifactPath) {
                 throw new Error(`Unsafe Promotion artifact: ${artifactPath}`);
               }
-              JSON.parse(readFileSync(artifactPath, "utf8"));
+              parsePromotionWorkflowJsonBytes(readFileSync(artifactPath));
             }
           ' \
             "$PROMOTION_ARTIFACT_ROOT" \
@@ -350,15 +396,23 @@ jobs:
           set -euo pipefail
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [validationPath, freshPath, replayPath, canonicalPath, freshVerifyPath, replayVerifyPath, canonicalVerifyPath] = process.argv.slice(1);
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
             const outcomes = {
-              currentValidation: JSON.parse(readFileSync(validationPath, "utf8")).result,
-              freshReceipt: JSON.parse(readFileSync(freshPath, "utf8")).result,
-              replayReceipt: JSON.parse(readFileSync(replayPath, "utf8")).result,
-              canonicalReceipt: JSON.parse(readFileSync(canonicalPath, "utf8")).result,
-              freshVerification: JSON.parse(readFileSync(freshVerifyPath, "utf8")).result,
-              replayVerification: JSON.parse(readFileSync(replayVerifyPath, "utf8")).result,
-              canonicalVerification: JSON.parse(readFileSync(canonicalVerifyPath, "utf8")).result
+              currentValidation: parsePromotionWorkflowJsonBytes(readFileSync(validationPath)).result,
+              freshReceipt: parsePromotionWorkflowJsonBytes(readFileSync(freshPath)).result,
+              replayReceipt: parsePromotionWorkflowJsonBytes(readFileSync(replayPath)).result,
+              canonicalReceipt: parsePromotionWorkflowJsonBytes(readFileSync(canonicalPath)).result,
+              freshVerification: parsePromotionWorkflowJsonBytes(readFileSync(freshVerifyPath)).result,
+              replayVerification: parsePromotionWorkflowJsonBytes(readFileSync(replayVerifyPath)).result,
+              canonicalVerification: parsePromotionWorkflowJsonBytes(readFileSync(canonicalVerifyPath)).result
             };
             const nonPassing = Object.entries(outcomes).filter(([, result]) => result !== "pass");
             if (nonPassing.length > 0) {
