@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       reason: "student-only",
       guard: {
         en: "The Math Universe map is available only to the signed-in student in the P1 pilot loop.",
-        zh: "P1 試點閉環中，數學宇宙星圖只對已登入學生本人開放。"
+        zh: "P1 試點閉環中，數學宇宙星圖只對已登入學生本人開放。", zhHans: "P1 试点闭环中，数学宇宙星图只对已登录学生本人开放。"
       }
     }, { status: 403 });
   }

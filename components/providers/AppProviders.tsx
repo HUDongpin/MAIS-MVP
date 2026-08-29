@@ -2378,7 +2378,7 @@ export function AppProviders({
         retry: textForLanguage({
           en: "Try again",
           zh: "再試一次",
-          zhHans: "重試"
+          zhHans: "重试"
         }, language)
       }
     : {
@@ -2396,7 +2396,7 @@ export function AppProviders({
           ? textForLanguage({
               en: "Try again",
               zh: "再試一次",
-              zhHans: "重試"
+              zhHans: "重试"
             }, language)
           : null
       };

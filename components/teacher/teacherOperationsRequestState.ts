@@ -42,72 +42,72 @@ export function teacherOperationFailureMessage(
   failure: TeacherOperationFailure,
   subject: "notice" | "reminder",
   acceptedReminderRunCount: number,
-  t: (value: { en: string; zh: string }) => string
+  t: (value: { en: string; zh: string; zhHans?: string }) => string
 ) {
   if (subject === "reminder") {
     const partialFailure = teacherReminderPartialFailureDisposition(failure, acceptedReminderRunCount);
     if (partialFailure === "retryable-partial") {
       return t({
         en: "Some reminder requests were queued, but the next page could not be loaded. Retrying will continue from the same cursor and reuse the same request key.",
-        zh: "部分提醒已加入隊列，但未能載入下一頁。重試時會從同一位置繼續，並沿用相同請求識別碼。"
+        zh: "部分提醒已加入隊列，但未能載入下一頁。重試時會從同一位置繼續，並沿用相同請求識別碼。", zhHans: "部分提醒已加入队列，但未能载入下一页。重试时会从同一位置继续，并沿用相同请求识别码。"
       });
     }
     if (partialFailure === "terminal-partial") {
       return t({
         en: "Some reminder requests were queued, but the next page was rejected. Refresh and review the results before starting a new request; this action cannot continue with the previous request key.",
-        zh: "部分提醒已加入隊列，但下一頁請求被拒絕。請先重新整理並查看結果，再開始新的請求；此操作不能沿用上一個請求識別碼。"
+        zh: "部分提醒已加入隊列，但下一頁請求被拒絕。請先重新整理並查看結果，再開始新的請求；此操作不能沿用上一個請求識別碼。", zhHans: "部分提醒已加入队列，但下一页请求被拒绝。请先重新整理并查看结果，再开始新的请求；此操作不能沿用上一个请求识别码。"
       });
     }
   }
 
   const subjectLabel = subject === "notice"
-    ? t({ en: "Notice", zh: "通知" })
-    : t({ en: "Reminder request", zh: "提醒請求" });
+    ? t({ en: "Notice", zh: "通知", zhHans: "通知" })
+    : t({ en: "Reminder request", zh: "提醒請求", zhHans: "提醒请求" });
   switch (failure.kind) {
     case "bad-request":
-      return t({ en: `${subjectLabel} was not queued because the request needs correction.`, zh: `${subjectLabel}未加入隊列，請修正請求內容。` });
+      return t({ en: `${subjectLabel} was not queued because the request needs correction.`, zh: `${subjectLabel}未加入隊列，請修正請求內容。`, zhHans: `${subjectLabel}未加入队列，请修正请求内容。` });
     case "not-found":
-      return t({ en: `${subjectLabel} was not queued because it is no longer available.`, zh: `${subjectLabel}未加入隊列，項目可能已不存在。` });
+      return t({ en: `${subjectLabel} was not queued because it is no longer available.`, zh: `${subjectLabel}未加入隊列，項目可能已不存在。`, zhHans: `${subjectLabel}未加入队列，项目可能已不存在。` });
     case "too-large":
-      return t({ en: `${subjectLabel} was not queued because the request is too large.`, zh: `${subjectLabel}未加入隊列，請求內容過大。` });
+      return t({ en: `${subjectLabel} was not queued because the request is too large.`, zh: `${subjectLabel}未加入隊列，請求內容過大。`, zhHans: `${subjectLabel}未加入队列，请求内容过大。` });
     case "rate-limited": {
       const retrySeconds = failure.retryAfterMs === null ? null : Math.max(1, Math.ceil(failure.retryAfterMs / 1_000));
       return t({
         en: `${subjectLabel} was not queued because requests are temporarily limited.${retrySeconds ? ` Try again in ${retrySeconds} seconds; retrying will reuse the same request key.` : " Retrying will reuse the same request key."}`,
-        zh: `${subjectLabel}未加入隊列，系統暫時限制請求。${retrySeconds ? `請在 ${retrySeconds} 秒後重試，並沿用相同請求識別碼。` : "重試時會沿用相同請求識別碼。"}`
+        zh: `${subjectLabel}未加入隊列，系統暫時限制請求。${retrySeconds ? `請在 ${retrySeconds} 秒後重試，並沿用相同請求識別碼。` : "重試時會沿用相同請求識別碼。"}`, zhHans: `${subjectLabel}未加入队列，系统暂时限制请求。${retrySeconds ? `请在 ${retrySeconds} 秒后重试，并沿用相同请求识别码。` : "重试时会沿用相同请求识别码。"}`
       });
     }
     case "service-unavailable":
       return t({
         en: `${subjectLabel} was not queued because the service is temporarily unavailable; retrying will reuse the same request key.`,
-        zh: `${subjectLabel}未加入隊列，服務暫時不可用；重試時會沿用相同請求識別碼。`
+        zh: `${subjectLabel}未加入隊列，服務暫時不可用；重試時會沿用相同請求識別碼。`, zhHans: `${subjectLabel}未加入队列，服务暂时不可用；重试时会沿用相同请求识别码。`
       });
     case "network":
       return t({
         en: "Queueing was not confirmed. You may be offline or the request timed out; retrying will reuse the same request key.",
-        zh: "未能確認請求是否已加入隊列。裝置可能離線或請求逾時；重試時會沿用相同請求識別碼。"
+        zh: "未能確認請求是否已加入隊列。裝置可能離線或請求逾時；重試時會沿用相同請求識別碼。", zhHans: "未能确认请求是否已加入队列。装置可能离线或请求逾时；重试时会沿用相同请求识别码。"
       });
     case "invalid-response":
       if (failure.acceptance === "accepted") {
         return subject === "notice"
           ? t({
               en: "Notice was accepted, but updated details could not be read. Retry will reuse the same request key, including after a page reload.",
-              zh: "通知已獲接受，但未能讀取更新資料。即使重新載入頁面，重試仍會沿用相同請求識別碼。"
+              zh: "通知已獲接受，但未能讀取更新資料。即使重新載入頁面，重試仍會沿用相同請求識別碼。", zhHans: "通知已获接受，但未能读取更新资料。即使重新载入页面，重试仍会沿用相同请求识别码。"
             })
           : t({
               en: "Reminder request was accepted, but updated details could not be read. Retrying will reuse the same request key.",
-              zh: "提醒請求已獲接受，但未能讀取更新資料。重試時會沿用相同請求識別碼。"
+              zh: "提醒請求已獲接受，但未能讀取更新資料。重試時會沿用相同請求識別碼。", zhHans: "提醒请求已获接受，但未能读取更新资料。重试时会沿用相同请求识别码。"
             });
       }
-      return t({ en: `${subjectLabel} was not queued because the response was invalid.`, zh: `${subjectLabel}未加入隊列，伺服器回應無效。` });
+      return t({ en: `${subjectLabel} was not queued because the response was invalid.`, zh: `${subjectLabel}未加入隊列，伺服器回應無效。`, zhHans: `${subjectLabel}未加入队列，伺服器回应无效。` });
     case "conflict":
-      return t({ en: `${subjectLabel} was not queued because the server reported a conflict.`, zh: `${subjectLabel}未加入隊列，伺服器回報操作衝突。` });
+      return t({ en: `${subjectLabel} was not queued because the server reported a conflict.`, zh: `${subjectLabel}未加入隊列，伺服器回報操作衝突。`, zhHans: `${subjectLabel}未加入队列，伺服器回报操作冲突。` });
     case "idempotency-conflict":
-      return t({ en: `${subjectLabel} was not queued because this request key conflicts with an earlier action.`, zh: `${subjectLabel}未加入隊列，這個請求識別碼與較早操作衝突。` });
+      return t({ en: `${subjectLabel} was not queued because this request key conflicts with an earlier action.`, zh: `${subjectLabel}未加入隊列，這個請求識別碼與較早操作衝突。`, zhHans: `${subjectLabel}未加入队列，这个请求识别码与较早操作冲突。` });
     case "no-eligible-recipients":
-      return t({ en: `${subjectLabel} was not queued because no eligible family email recipients are available.`, zh: `${subjectLabel}未加入隊列，暫時沒有符合條件的家庭電郵收件人。` });
+      return t({ en: `${subjectLabel} was not queued because no eligible family email recipients are available.`, zh: `${subjectLabel}未加入隊列，暫時沒有符合條件的家庭電郵收件人。`, zhHans: `${subjectLabel}未加入队列，暂时没有符合条件的家庭邮箱收件人。` });
     case "unexpected":
-      return t({ en: `${subjectLabel} was not queued because the request failed.`, zh: `${subjectLabel}未加入隊列，請求失敗。` });
+      return t({ en: `${subjectLabel} was not queued because the request failed.`, zh: `${subjectLabel}未加入隊列，請求失敗。`, zhHans: `${subjectLabel}未加入队列，请求失败。` });
   }
 }
 
