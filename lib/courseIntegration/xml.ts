@@ -15,6 +15,7 @@ interface MutableXmlElement {
 }
 
 const XML_NAME = /^[A-Za-z_][A-Za-z0-9_.:-]*/;
+const XML_S = /[ \t\r\n]/;
 const XML_DECLARATION_SURFACE = /<!\s*(?:DOCTYPE|ENTITY)\b/i;
 const XML_DECLARATION = /^xml[\t\n\r ]+version[\t\n\r ]*=[\t\n\r ]*(?:"1\.0"|'1\.0')(?:[\t\n\r ]+encoding[\t\n\r ]*=[\t\n\r ]*(?:"[Uu][Tt][Ff]-8"|'[Uu][Tt][Ff]-8'))?(?:[\t\n\r ]+standalone[\t\n\r ]*=[\t\n\r ]*(?:"(?:yes|no)"|'(?:yes|no)'))?[\t\n\r ]*$/;
 const MAX_XML_DEPTH = 128;
@@ -99,8 +100,10 @@ function findTagEnd(xml: string, start: number) {
 
 function parseStartTag(content: string) {
   let cursor = 0;
-  const skipWhitespace = () => {
-    while (/\s/.test(content[cursor] ?? "")) cursor += 1;
+  const skipXmlS = () => {
+    const start = cursor;
+    while (XML_S.test(content[cursor] ?? "")) cursor += 1;
+    return cursor > start;
   };
   const nameMatch = XML_NAME.exec(content.slice(cursor));
   if (!nameMatch) invalidXml();
@@ -109,16 +112,17 @@ function parseStartTag(content: string) {
   const attributes: Record<string, string> = {};
 
   while (cursor < content.length) {
-    skipWhitespace();
+    const hasAttributeSeparator = skipXmlS();
     if (cursor >= content.length) break;
+    if (!hasAttributeSeparator) invalidXml();
     const attributeMatch = XML_NAME.exec(content.slice(cursor));
     if (!attributeMatch) invalidXml();
     const attributeName = attributeMatch[0];
     cursor += attributeName.length;
-    skipWhitespace();
+    skipXmlS();
     if (content[cursor] !== "=") invalidXml();
     cursor += 1;
-    skipWhitespace();
+    skipXmlS();
     const quote = content[cursor];
     if (quote !== "\"" && quote !== "'") invalidXml();
     cursor += 1;
@@ -130,6 +134,7 @@ function parseStartTag(content: string) {
     attributes[attributeName] = decodeXmlEntities(rawAttributeValue);
     if (Object.keys(attributes).length > MAX_ATTRIBUTES_PER_ELEMENT) invalidXml();
     cursor = valueEnd + 1;
+    if (cursor < content.length && !XML_S.test(content[cursor] ?? "")) invalidXml();
   }
   return { name, attributes };
 }
@@ -211,8 +216,8 @@ export function parseStaticXml(xml: string): StaticXmlElement {
     let content = xml.slice(cursor + 1, tagEnd);
     if (content.startsWith("/")) {
       const rawClosingName = content.slice(1);
-      if (/^[\t\n\r ]/.test(rawClosingName)) invalidXml();
-      const closingName = rawClosingName.trimEnd();
+      if (XML_S.test(rawClosingName[0] ?? "")) invalidXml();
+      const closingName = rawClosingName.replace(/[ \t\r\n]+$/, "");
       if (!XML_NAME.test(closingName) || XML_NAME.exec(closingName)?.[0] !== closingName) invalidXml();
       const open = stack.pop();
       if (!open || open.name !== closingName) invalidXml();
@@ -220,8 +225,8 @@ export function parseStaticXml(xml: string): StaticXmlElement {
       continue;
     }
 
-    const selfClosing = /\/\s*$/.test(content);
-    if (selfClosing) content = content.replace(/\/\s*$/, "");
+    const selfClosing = /\/[ \t\r\n]*$/.test(content);
+    if (selfClosing) content = content.replace(/\/[ \t\r\n]*$/, "");
     const parsed = parseStartTag(content);
     const element: MutableXmlElement = {
       name: parsed.name,

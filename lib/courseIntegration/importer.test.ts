@@ -311,6 +311,20 @@ const malformedXmlDeclarationAndTagCases = [
   {
     name: "whitespace immediately after a closing-tag slash",
     manifest: scormManifest().replace("</manifest>", "</ manifest>")
+  },
+  {
+    name: "adjacent attributes without XML S",
+    manifest: scormManifest().replace(
+      'identifier="course-minimal" version="1.0"',
+      'identifier="course-minimal"version="1.0"'
+    )
+  },
+  {
+    name: "attributes separated by a non-breaking space",
+    manifest: scormManifest().replace(
+      'identifier="course-minimal" version="1.0"',
+      'identifier="course-minimal"\u00a0version="1.0"'
+    )
   }
 ] as const;
 
