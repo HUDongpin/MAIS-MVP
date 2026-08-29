@@ -272,6 +272,64 @@ production promotion.
 
 ---
 
+## Classroom-concurrency load smoke (staging only)
+
+`smoke:classroom-load` exercises the student write/read sequence under class-sized concurrency:
+each round sends every configured seat through `POST /api/attempts`,
+`POST /api/lesson-progress`, and `GET /api/dashboard`. It reports per-endpoint p50, p95, maximum,
+status set, and error rate. Any request error fails the run, even when the failed request is fast.
+
+This is a manual **staging-before-promotion** gate for reviewed changes to student writes,
+authentication/session handling, storage, or dashboard aggregation. It is deliberately not part of
+`certify:production`, `vercel:production`, or the production workflow. It performs real writes and
+must use a staging-only test identity whose data may be mutated.
+
+Remote execution is fail closed:
+
+- pass an explicit `--mode staging` and origin-only HTTPS `--base-url`;
+- set `CLASSROOM_LOAD_STAGING_HOST_ALLOWLIST` to the exact comma-separated staging hostname(s);
+- empty, malformed, wildcard, URL, port, path, IP-address, duplicate, and known-production entries
+  are rejected;
+- `mais.ac`, `www.mais.ac`, `mais.hk`, and `www.mais.hk` are permanently denied even if entered in
+  the allowlist; there is no production override;
+- every redirect is followed manually only when its origin remains exactly the requested origin;
+  cross-origin and method-changing write redirects fail before the next request is sent.
+
+Configure exactly one authentication shape in a private execution environment: either
+`CLASSROOM_LOAD_COOKIE`, or the `CLASSROOM_LOAD_USERNAME` and `CLASSROOM_LOAD_PASSWORD` pair.
+Values must never be placed in Git, command arguments, terminal transcripts, reports, or uploaded
+artifacts. A protected staging deployment may additionally use the server-side
+`CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET`; its value is never reported. Output records only
+the redacted authentication kind, distinct-identity count, and login count.
+
+```bash
+CLASSROOM_LOAD_STAGING_HOST_ALLOWLIST="<exact-preview-host>" \
+  npm run smoke:classroom-load -- \
+  --mode staging \
+  --base-url "https://<exact-preview-host>" \
+  --students 15 \
+  --rounds 3 \
+  --json
+```
+
+Local loopback is a separate verification mode and is **not staging evidence**:
+
+```bash
+npm run smoke:classroom-load -- \
+  --mode local \
+  --base-url "http://127.0.0.1:<owned-port>" \
+  --students 15 \
+  --rounds 3
+```
+
+Both modes require bounded students, rounds, timeouts, and p95 budgets. The default write p95
+budget is 2,000 ms; the dashboard read p95 budget is 3,000 ms. Full redacted output is written only
+to ignored local storage at `.tmp/classroom-load-smoke/last-run.json`. A local report always carries
+`evidenceMode: "local-verification"` and `stagingEvidence: false`; it must never be relabeled or
+quoted as a staging pass. No live/staging run is implied by the presence of this command.
+
+---
+
 ## Command reference
 
 | Command | What it does |
@@ -283,6 +341,7 @@ production promotion.
 | `npm run vercel:preview [-- --dry-run]` | Deploy the pruned slice to a preview URL. |
 | `npm run vercel:production -- --dry-run` | Offline clean-HEAD source/staging plan only; no build, provider query, migration, deploy, promotion, or smoke. |
 | `npm run vercel:production` | Workflow-only full production path: preflight → build gates → exact-SHA/provider/schema gates → staging deploy → promotion → smokes; local real runs fail closed. |
+| `npm run smoke:classroom-load -- --mode staging --base-url <exact-staging-origin>` | Manual classroom-concurrency write gate for exact allowlisted staging only; never production-integrated. |
 | `npm run check` | Full local sweep: type-check, zh-hans strict, analytics, rag, question-bank, mvp, build. |
 | `npm run clean:generated` | Dry-run generated-artifact cleanup (never `git clean -fdx`). |
 
@@ -292,6 +351,7 @@ production promotion.
 
 - ❌ `vercel deploy .` from the root, or any deploy from an unpruned tree.
 - ❌ Running the real `npm run vercel:production` path from a workstation or a different workflow.
+- ❌ Pointing the classroom-concurrency write smoke at a production host or treating local output as staging evidence.
 - ❌ `git add .` / `git add -A` when slicing (parallel sessions are writing).
 - ❌ Hand-editing the staging tree to remove forbidden paths — fix the exclusion instead.
 - ❌ Committing `.env*`, `All API Keys.docx`, `coordination/` logs, or `*.test.ts` into a
