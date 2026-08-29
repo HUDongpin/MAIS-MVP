@@ -613,6 +613,33 @@ test("parseSweepArgs rejects --apply unless every independent authorization inpu
   assert.equal(complete.apply, true);
 });
 
+test("parseSweepArgs accepts a complete immutable manifest preview without --apply", () => {
+  const complete = sweep.parseSweepArgs([
+    "--manifest", "/tmp/sweep-manifest.json",
+    "--manifest-sha256", "b".repeat(64),
+    "--expected-live-main-sha", LIVE_MAIN_SHA,
+  ]);
+  assert.equal(complete.ok, true);
+  assert.equal(complete.apply, false);
+  assert.equal(complete.manifestPreview, true);
+
+  for (const argv of [
+    ["--manifest", "/tmp/sweep-manifest.json"],
+    ["--manifest-sha256", "b".repeat(64)],
+    ["--expected-live-main-sha", LIVE_MAIN_SHA],
+  ]) {
+    const partial = sweep.parseSweepArgs(argv);
+    assert.equal(partial.ok, false);
+    assert.match(partial.reason, /manifest preview requires/);
+  }
+});
+
+test("parseSweepArgs reserves receipt paths for --apply only", () => {
+  const result = sweep.parseSweepArgs(["--receipt", "/tmp/sweep-receipt.json"]);
+  assert.equal(result.ok, false);
+  assert.match(result.reason, /--receipt is only valid with --apply/);
+});
+
 test("parseSweepArgs rejects disabling the GitHub PR evidence gate", () => {
   const result = sweep.parseSweepArgs(["--no-pr-check"]);
   assert.equal(result.ok, false);
@@ -879,6 +906,7 @@ function cliProvidersFixture({
   liveEvidenceFails = false,
   prEvidenceIncomplete = false,
   topologyProviderFails = false,
+  dirtyTarget = false,
 } = {}) {
   const topology = {
     path: "/repo/.worktrees/target-0",
@@ -961,7 +989,7 @@ function cliProvidersFixture({
         ...wt,
         exists: true,
         statusEvidence: { available: true },
-        dirty: 0,
+        dirty: dirtyTarget ? 1 : 0,
         protectedHits: [],
         mergedIntoUpstream: true,
         containedIn: [],
@@ -1007,6 +1035,8 @@ function cliProvidersFixture({
     argv,
     providers,
     calls,
+    authorizationInput,
+    manifestPath,
     getReceipt: () => receiptText ? JSON.parse(receiptText) : null,
   };
 }
@@ -1020,6 +1050,91 @@ test("main defaults to dry-run and exercises injected live providers without mut
   assert.equal(calls.prs, 1);
   assert.ok(calls.topology >= 1);
   assert.equal(calls.manifest, 0);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.remove.length, 0);
+});
+
+test("main validates and previews a byte-locked manifest without reserving or removing", () => {
+  const { providers, calls, authorizationInput, manifestPath } = cliProvidersFixture();
+  const code = sweep.main([
+    "--json",
+    "--manifest", manifestPath,
+    "--manifest-sha256", authorizationInput.expectedManifestSha256,
+    "--expected-live-main-sha", LIVE_MAIN_SHA,
+  ], providers);
+  assert.equal(code, 0);
+  assert.equal(calls.manifest, 1);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.write, 0);
+  assert.equal(calls.close, 0);
+  assert.equal(calls.remove.length, 0);
+
+  const output = JSON.parse(calls.logs.at(-1));
+  assert.equal(output.apply, false);
+  assert.equal(output.authorizationMode, "manifest-preview");
+  assert.equal(output.previewReady, true);
+  assert.equal(output.plan[0].manifestTarget, true);
+  assert.equal(output.plan[0].action, "retire");
+});
+
+test("manifest preview exits nonzero when an exact target is not retirable", () => {
+  const {
+    providers, calls, authorizationInput, manifestPath,
+  } = cliProvidersFixture({ dirtyTarget: true });
+  const code = sweep.main([
+    "--json",
+    "--manifest", manifestPath,
+    "--manifest-sha256", authorizationInput.expectedManifestSha256,
+    "--expected-live-main-sha", LIVE_MAIN_SHA,
+  ], providers);
+  assert.equal(code, 1);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.remove.length, 0);
+
+  const output = JSON.parse(calls.logs.at(-1));
+  assert.equal(output.previewReady, false);
+  assert.equal(output.plan[0].manifestTarget, true);
+  assert.equal(output.plan[0].action, "skip");
+  assert.match(output.plan[0].reason, /dirty/);
+});
+
+test("manifest preview fails closed on fleet drift without reserving or removing", () => {
+  const { providers, calls, authorizationInput, manifestPath } = cliProvidersFixture();
+  const originalReadWorktrees = providers.readWorktrees;
+  providers.readWorktrees = () => originalReadWorktrees().map((entry) => ({
+    ...entry,
+    head: "9".repeat(40),
+  }));
+  const code = sweep.main([
+    "--json",
+    "--manifest", manifestPath,
+    "--manifest-sha256", authorizationInput.expectedManifestSha256,
+    "--expected-live-main-sha", LIVE_MAIN_SHA,
+  ], providers);
+  assert.equal(code, 1);
+  assert.match(calls.errors.at(-1), /fleet topology fingerprint drift/);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.remove.length, 0);
+});
+
+test("manifest preview fails closed on an exact target lock mismatch", () => {
+  const { providers, calls, authorizationInput, manifestPath } = cliProvidersFixture();
+  const manifest = JSON.parse(authorizationInput.manifestBytes);
+  manifest.targets[0].topologyFingerprint = "f".repeat(64);
+  const manifestBytes = `${JSON.stringify(manifest, null, 2)}\n`;
+  providers.readImmutableManifest = (path) => {
+    calls.manifest++;
+    assert.equal(path, manifestPath);
+    return manifestBytes;
+  };
+  const code = sweep.main([
+    "--json",
+    "--manifest", manifestPath,
+    "--manifest-sha256", sweep.sha256Text(manifestBytes),
+    "--expected-live-main-sha", LIVE_MAIN_SHA,
+  ], providers);
+  assert.equal(code, 1);
+  assert.match(calls.errors.at(-1), /candidate lock drift/);
   assert.equal(calls.reserve, 0);
   assert.equal(calls.remove.length, 0);
 });

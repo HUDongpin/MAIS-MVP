@@ -24,6 +24,10 @@
 //   node scripts/sweep-merged-worktrees.mjs                 # plan only
 //   node scripts/sweep-merged-worktrees.mjs --json          # machine-readable plan
 //   node scripts/sweep-merged-worktrees.mjs --min-age-days 3
+//   node scripts/sweep-merged-worktrees.mjs --json \
+//     --manifest /absolute/sweep-manifest.json \
+//     --manifest-sha256 <sha256> \
+//     --expected-live-main-sha <git-object-id>
 //   node scripts/sweep-merged-worktrees.mjs --apply \
 //     --manifest /absolute/sweep-manifest.json \
 //     --manifest-sha256 <sha256> \
@@ -89,6 +93,7 @@ export function parseSweepArgs(argv) {
   const parsed = {
     ok: true,
     apply: false,
+    manifestPreview: false,
     asJson: false,
     minAgeDays: 0,
     manifestPath: null,
@@ -126,6 +131,21 @@ export function parseSweepArgs(argv) {
       ["--receipt", parsed.receiptPath],
     ].filter(([, value]) => !value).map(([flag]) => flag);
     if (missing.length) return { ok: false, reason: `--apply requires ${missing.join(", ")}` };
+  } else {
+    if (parsed.receiptPath) {
+      return { ok: false, reason: "--receipt is only valid with --apply" };
+    }
+    const previewInputs = [
+      ["--manifest", parsed.manifestPath],
+      ["--manifest-sha256", parsed.manifestSha256],
+      ["--expected-live-main-sha", parsed.expectedLiveMainSha],
+    ];
+    const supplied = previewInputs.filter(([, value]) => Boolean(value));
+    if (supplied.length > 0 && supplied.length !== previewInputs.length) {
+      const missing = previewInputs.filter(([, value]) => !value).map(([flag]) => flag);
+      return { ok: false, reason: `manifest preview requires ${missing.join(", ")}` };
+    }
+    parsed.manifestPreview = supplied.length === previewInputs.length;
   }
   return parsed;
 }
@@ -582,24 +602,26 @@ export function runAuthorizedApply({
   };
 }
 
-/** Validate the independent, byte-locked authorization required by --apply. */
+/** Validate the independent, byte-locked authorization used by preview/apply. */
 export function validateApplyAuthorization({
   apply,
+  manifestPreview = false,
   manifestBytes,
   expectedManifestSha256,
   expectedLiveMainSha,
   liveMainEvidence,
 }) {
-  if (!apply) return { ok: true, manifest: null, manifestSha256: null };
+  const authorizationMode = apply ? "--apply" : manifestPreview ? "manifest preview" : null;
+  if (!authorizationMode) return { ok: true, manifest: null, manifestSha256: null };
   if (!manifestBytes || !SHA256_PATTERN.test(expectedManifestSha256 ?? "")) {
-    return { ok: false, reason: "--apply requires an immutable manifest and its expected SHA-256 digest" };
+    return { ok: false, reason: `${authorizationMode} requires an immutable manifest and its expected SHA-256 digest` };
   }
   const manifestSha256 = sha256Text(manifestBytes);
   if (manifestSha256 !== expectedManifestSha256.toLowerCase()) {
     return { ok: false, reason: "immutable manifest digest mismatch" };
   }
   if (!OBJECT_ID_PATTERN.test(expectedLiveMainSha ?? "")) {
-    return { ok: false, reason: "--apply requires an independently supplied expected live-main SHA" };
+    return { ok: false, reason: `${authorizationMode} requires an independently supplied expected live-main SHA` };
   }
   if (
     !liveMainEvidence?.available
@@ -621,7 +643,7 @@ export function validateApplyAuthorization({
     return { ok: false, reason: "immutable manifest requires a fleet fingerprint" };
   }
   if (manifest.targets.length < 1 || manifest.targets.length > MAX_APPLY_TARGETS) {
-    return { ok: false, reason: `--apply accepts at most ${MAX_APPLY_TARGETS} exact targets` };
+    return { ok: false, reason: `${authorizationMode} accepts at most ${MAX_APPLY_TARGETS} exact targets` };
   }
 
   const seenPaths = new Set();
@@ -1051,21 +1073,25 @@ export function main(argv, providers) {
   let manifestBytes = null;
   let authorization = { ok: true, manifest: null, manifestSha256: null };
   const readLockedManifest = () => runtime.readImmutableManifest(args.manifestPath);
-  if (args.apply) {
-    if (!isAbsolute(args.manifestPath) || !isAbsolute(args.receiptPath)) {
-      runtime.error("sweep refused: --manifest and --receipt must be absolute paths");
+  if (args.apply || args.manifestPreview) {
+    if (!isAbsolute(args.manifestPath) || (args.apply && !isAbsolute(args.receiptPath))) {
+      runtime.error(args.apply
+        ? "sweep refused: --manifest and --receipt must be absolute paths"
+        : "sweep refused: --manifest must be an absolute path");
       return 1;
     }
-    if (resolve(args.manifestPath) === resolve(args.receiptPath)) {
+    if (args.apply && resolve(args.manifestPath) === resolve(args.receiptPath)) {
       runtime.error("sweep refused: receipt path must differ from the immutable manifest path");
       return 1;
     }
-    let receiptAbsenceEvidence;
-    try { receiptAbsenceEvidence = runtime.readPathAbsenceEvidence(args.receiptPath); }
-    catch { receiptAbsenceEvidence = { available: false, absent: null }; }
-    if (!receiptAbsenceEvidence?.available || receiptAbsenceEvidence.absent !== true) {
-      runtime.error(`sweep refused: receipt path is present or unavailable at ${redactSecretLikePath(args.receiptPath)}`);
-      return 1;
+    if (args.apply) {
+      let receiptAbsenceEvidence;
+      try { receiptAbsenceEvidence = runtime.readPathAbsenceEvidence(args.receiptPath); }
+      catch { receiptAbsenceEvidence = { available: false, absent: null }; }
+      if (!receiptAbsenceEvidence?.available || receiptAbsenceEvidence.absent !== true) {
+        runtime.error(`sweep refused: receipt path is present or unavailable at ${redactSecretLikePath(args.receiptPath)}`);
+        return 1;
+      }
     }
     try { manifestBytes = readLockedManifest(); }
     catch {
@@ -1073,7 +1099,8 @@ export function main(argv, providers) {
       return 1;
     }
     authorization = validateApplyAuthorization({
-      apply: true,
+      apply: args.apply,
+      manifestPreview: args.manifestPreview,
       manifestBytes,
       expectedManifestSha256: args.manifestSha256,
       expectedLiveMainSha: args.expectedLiveMainSha,
@@ -1084,8 +1111,13 @@ export function main(argv, providers) {
       return 1;
     }
     for (const target of authorization.manifest.targets) {
-      if (pathContains(target.path, args.manifestPath) || pathContains(target.path, args.receiptPath)) {
-        runtime.error("sweep refused: manifest and receipt must live outside every target worktree");
+      if (
+        pathContains(target.path, args.manifestPath)
+        || (args.apply && pathContains(target.path, args.receiptPath))
+      ) {
+        runtime.error(args.apply
+          ? "sweep refused: manifest and receipt must live outside every target worktree"
+          : "sweep refused: immutable manifest must live outside every target worktree");
         return 1;
       }
     }
@@ -1096,6 +1128,25 @@ export function main(argv, providers) {
   catch {
     runtime.error("sweep refused: worktree topology is unavailable");
     return 1;
+  }
+  if (args.manifestPreview) {
+    if (fingerprintFleet(worktrees) !== authorization.manifest.fleetFingerprint) {
+      runtime.error("sweep refused: fleet topology fingerprint drift during manifest preview");
+      return 1;
+    }
+    const worktreesByPath = new Map(worktrees.map((worktree) => [worktree.path, worktree]));
+    for (const target of authorization.manifest.targets) {
+      const current = worktreesByPath.get(target.path);
+      if (
+        !current
+        || (current.branch ?? null) !== (target.branch ?? null)
+        || current.head !== target.head
+        || fingerprintTopology(current) !== target.topologyFingerprint
+      ) {
+        runtime.error("sweep refused: candidate lock drift during manifest preview");
+        return 1;
+      }
+    }
   }
   const targetsByPath = new Map(
     (authorization.manifest?.targets ?? []).map((target) => [target.path, target]),
@@ -1125,12 +1176,21 @@ export function main(argv, providers) {
     };
   });
   const retire = plan.filter((entry) => entry.action === "retire");
+  const manifestPlan = plan.filter((entry) => entry.manifestTarget);
+  const previewReady = args.manifestPreview
+    ? (
+      manifestPlan.length === authorization.manifest.targets.length
+      && manifestPlan.every((entry) => entry.action === "retire")
+    )
+    : null;
   if (args.asJson) {
     runtime.log(JSON.stringify({
       upstream,
       liveMainEvidence,
       githubPrEvidenceAvailable: prEvidence.available,
       apply: args.apply,
+      authorizationMode: args.apply ? "apply" : args.manifestPreview ? "manifest-preview" : "none",
+      previewReady,
       maxApplyTargets: MAX_APPLY_TARGETS,
       plan,
     }, null, 2));
@@ -1149,8 +1209,17 @@ export function main(argv, providers) {
   }
 
   if (!args.apply) {
-    if (!args.asJson) runtime.log("\ndry run only — --apply requires a byte-locked manifest and receipt path.");
-    return liveMainEvidence.available && prEvidence.available && prEvidence.complete === true ? 0 : 1;
+    if (!args.asJson) {
+      runtime.log(args.manifestPreview
+        ? `\nmanifest preview ${previewReady ? "ready" : "blocked"} — no receipt was reserved and no worktree was removed.`
+        : "\ndry run only — --apply requires a byte-locked manifest and receipt path.");
+    }
+    return (
+      liveMainEvidence.available
+      && prEvidence.available
+      && prEvidence.complete === true
+      && (!args.manifestPreview || previewReady)
+    ) ? 0 : 1;
   }
 
   let receiptFd;
