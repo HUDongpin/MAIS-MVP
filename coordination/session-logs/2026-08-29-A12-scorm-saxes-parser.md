@@ -23,6 +23,7 @@
 - Differential failures: uppercase hexadecimal character reference, comment ending in a hyphen, undeclared element/attribute prefixes, multiple/trailing-colon QNames, duplicate expanded-name attributes, and full-ZIP arbitrary namespace impersonation.
 - Expanded pre-implementation RED: exit 1; 80 tests; 62 passed; 18 expected failures, including frozen namespace metadata and independent structural namespace policy cases.
 - Self-review RED: exit 1; 82 tests; 79 passed; 3 expected failures for innocent `xmlns:*` declaration names and inert `<!ENTITY` text inside comments/CDATA.
+- Independent SPEC review found that the exact `saxes`/`xmlchars` lock records were governed but the direct JSZip archive dependency was constrained only by its root `^3.10.1` range. The focused guard test was added first and failed as expected (exit 1, 0 passed, 1 failed) because `assertFrozenJsZipLockRecord` did not yet exist.
 
 ## Changes
 
@@ -31,7 +32,7 @@
 - Added case-sensitive SCORM structural and attribute namespace allowlists for the two supported IMS CP and two supported ADLCP URIs while preserving legacy unnamespaced manifests.
 - Preserved Saxes well-formedness plus explicit SCORM namespace policy as the demonstrated boundary; this is not XML-schema, SCORM conformance, runtime, or LMS validation.
 - Replaced file/dependency linear dedupe with insertion-ordered `Set` handling and covered a 19,999-element source-order fixture.
-- Added direct runtime `saxes@^6.0.0`, exact root-lock records, and exact `saxes`/`xmlchars` release-governance assertions.
+- Added direct runtime `saxes@^6.0.0`, exact root-lock records, and exact `jszip`/`saxes`/`xmlchars` release-governance assertions. The JSZip guard now freezes version, resolved URL, integrity, license, and dependency map, with a mutation regression proving drift is rejected.
 
 ## Verification
 
@@ -39,7 +40,7 @@
 - `npm run type-check`: passed.
 - `npm run check:imports`: passed.
 - `npm run test:imports`: 7/7 passed.
-- `npm run test:release-governance`: 91 passed, 0 failed, 11 skipped (102 total).
+- `npm run test:release-governance`: 92 passed, 0 failed, 11 skipped (103 total), including the JSZip lock-record mutation regression.
 - `npm install --package-lock-only --offline --ignore-scripts --dry-run`: passed; lock already up to date.
 - Source invariants: Saxes options exact; obsolete handwritten parser symbols absent; no `additionalNamespaces`, `resolvePrefix`, entity-table setup, or custom error handler; dedupe sites use ordered sets.
 - `git diff --check` and `git diff --cached --check`: passed before implementation commit `2a9c84f5d14396d6eadf663156d231b8e1fa630a`.
@@ -48,6 +49,6 @@
 
 - `npm install` reported five repository audit findings (one moderate, four high); this session did not run an audit-fix mutation or attribute those findings to Saxes.
 - No push, PR, merge, deploy, live LMS operation, or package execution was performed.
-- Status: DONE in implementation commit `2a9c84f5d14396d6eadf663156d231b8e1fa630a`.
-- Dirty-state final action: reviewed implementation commit plus this documentation-only closeout correction.
+- Status: implementation and SPEC-finding remediation complete; repeated independent SPEC review and then independent quality/security review remain required before branch closeout.
+- Dirty-state final action: reviewed implementation commits plus this exact governance remediation; no uncommitted product or evidence state is intended at handoff.
 - Worktree lifecycle action: retained for parent review; no push.

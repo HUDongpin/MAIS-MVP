@@ -11,6 +11,26 @@ import { parse as parseYaml } from "yaml";
 
 const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const p0BaselineCommit = "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411";
+const expectedJsZipLockRecord = Object.freeze({
+  version: "3.10.1",
+  resolved: "https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz",
+  integrity: "sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==",
+  license: "(MIT OR GPL-3.0-or-later)",
+  dependencies: Object.freeze({
+    lie: "~3.3.0",
+    pako: "~1.0.2",
+    "readable-stream": "~2.3.6",
+    setimmediate: "^1.0.5"
+  })
+});
+
+function assertFrozenJsZipLockRecord(packageLock) {
+  assert.deepEqual(
+    packageLock.packages["node_modules/jszip"],
+    expectedJsZipLockRecord,
+    "JSZip lock record drifted from the reviewed SCORM archive dependency"
+  );
+}
 
 function runNode(args, options = {}) {
   return spawnSync(process.execPath, args, {
@@ -3118,6 +3138,19 @@ test("Git-index Next config composes the approved build hooks and nine compatibi
   }
 });
 
+test("SCORM runtime dependency lock guard rejects JSZip record drift", () => {
+  const packageLock = readGitObjectJson(":package-lock.json");
+  packageLock.packages["node_modules/jszip"] = {
+    ...packageLock.packages["node_modules/jszip"],
+    version: "3.10.2"
+  };
+
+  assert.throws(
+    () => assertFrozenJsZipLockRecord(packageLock),
+    /JSZip lock record drifted/u
+  );
+});
+
 test("P0 package delta and default release gates are self-contained in Git objects", () => {
   const baseline = readGitObjectJson(`${p0BaselineCommit}:package.json`);
   const current = readGitObjectJson(":package.json");
@@ -3311,6 +3344,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     postcss: "8.5.26"
   });
   assert.deepEqual(packageLock.packages[""].dependencies, current.dependencies);
+  assertFrozenJsZipLockRecord(packageLock);
   assert.equal(packageLock.packages[""].dependencies.saxes, "^6.0.0");
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
   assert.equal(packageLock.packages[""].devDependencies.ajv, "8.17.1");
@@ -3335,6 +3369,18 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.equal(packageLock.packages["node_modules/fast-uri"].version, "3.1.6");
   assert.equal(packageLock.packages["node_modules/json-schema-traverse"].version, "1.0.0");
   assert.equal(packageLock.packages["node_modules/require-from-string"].version, "2.0.2");
+  assert.deepEqual(packageLock.packages["node_modules/jszip"], {
+    version: "3.10.1",
+    resolved: "https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz",
+    integrity: "sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==",
+    license: "(MIT OR GPL-3.0-or-later)",
+    dependencies: {
+      lie: "~3.3.0",
+      pako: "~1.0.2",
+      "readable-stream": "~2.3.6",
+      setimmediate: "^1.0.5"
+    }
+  });
   assert.deepEqual(packageLock.packages["node_modules/saxes"], {
     version: "6.0.0",
     resolved: "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
