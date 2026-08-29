@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
+import { randomUUID } from "node:crypto";
+import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import { isIP } from "node:net";
 import path from "node:path";
@@ -20,6 +22,29 @@ const productionHosts = new Set([
 ]);
 const redirectStatuses = new Set([301, 302, 303, 307, 308]);
 const hostnamePattern = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/iu;
+const requiredMeasuredEndpoints = ["attempts", "lesson-progress", "dashboard"];
+const maxReportBytes = 1024 * 1024;
+
+export const responseBodyLimits = Object.freeze({
+  dashboard: 2 * 1024 * 1024,
+  lessonEntry: 256 * 1024,
+  login: 64 * 1024,
+  questionBank: 8 * 1024 * 1024,
+  session: 64 * 1024,
+  write: 256 * 1024
+});
+
+class ClassroomSmokeError extends Error {
+  constructor(code, message = code) {
+    super(message);
+    this.name = "ClassroomSmokeError";
+    this.code = code;
+  }
+}
+
+function smokeFailure(code, message = code) {
+  return new ClassroomSmokeError(code, message);
+}
 
 function readArgumentValue(argv, index, label) {
   const value = argv[index + 1];
@@ -48,8 +73,8 @@ export function parseArgs(argv, env = process.env) {
     json: false,
     mode: env.CLASSROOM_LOAD_MODE ?? "",
     rounds: boundedInteger(env.CLASSROOM_LOAD_ROUNDS, 3, 1, 50, "rounds"),
+    seatConcurrency: boundedInteger(env.CLASSROOM_LOAD_SEAT_CONCURRENCY, 15, 1, 200, "seat concurrency"),
     selfTest: false,
-    students: boundedInteger(env.CLASSROOM_LOAD_STUDENTS, 15, 1, 200, "students")
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -70,8 +95,14 @@ export function parseArgs(argv, env = process.env) {
       index += 1;
     } else if (argument === "--self-test") {
       args.selfTest = true;
-    } else if (argument === "--students") {
-      args.students = boundedInteger(readArgumentValue(argv, index, "--students"), args.students, 1, 200, "students");
+    } else if (argument === "--seat-concurrency") {
+      args.seatConcurrency = boundedInteger(
+        readArgumentValue(argv, index, "--seat-concurrency"),
+        args.seatConcurrency,
+        1,
+        200,
+        "seat concurrency"
+      );
       index += 1;
     } else if (
       argument === "--cookie"
@@ -98,7 +129,7 @@ export function buildSmokeConfig(args, env = process.env) {
     grade: args.grade.trim(),
     readThresholdMs: boundedInteger(env.CLASSROOM_LOAD_READ_P95_MS, 3_000, 500, 120_000, "read p95 threshold"),
     rounds: boundedInteger(args.rounds, 3, 1, 50, "rounds"),
-    students: boundedInteger(args.students, 15, 1, 200, "students"),
+    seatConcurrency: boundedInteger(args.seatConcurrency, 15, 1, 200, "seat concurrency"),
     timeoutMs: boundedInteger(env.CLASSROOM_LOAD_TIMEOUT_MS, 30_000, 1_000, 180_000, "timeout"),
     writeThresholdMs: boundedInteger(env.CLASSROOM_LOAD_WRITE_P95_MS, 2_000, 500, 120_000, "write p95 threshold")
   };
@@ -192,6 +223,9 @@ export function resolveExecutionTarget(args, env = process.env) {
   if (parsed.protocol !== "https:") {
     throw new Error("Remote staging mode requires an HTTPS origin.");
   }
+  if (parsed.port) {
+    throw new Error("Remote staging mode rejects noncanonical explicit HTTPS ports.");
+  }
   if (productionHosts.has(hostname)) {
     throw new Error("Known production hosts are permanently forbidden for the classroom load smoke.");
   }
@@ -217,7 +251,7 @@ export async function fetchWithOriginLock(
   const canonicalExpectedOrigin = explicitOrigin(expectedOrigin).origin;
   let currentUrl = new URL(url);
   if (currentUrl.origin !== canonicalExpectedOrigin) {
-    throw new Error("Request origin must exactly match the requested origin.");
+    throw smokeFailure("request-origin-mismatch");
   }
 
   let method = String(requestOptions.method ?? "GET").toUpperCase();
@@ -231,39 +265,103 @@ export async function fetchWithOriginLock(
     });
     const responseUrl = new URL(response.url || currentUrl);
     if (responseUrl.origin !== canonicalExpectedOrigin) {
-      await response.body?.cancel();
-      throw new Error("Response origin must exactly match the requested origin.");
+      await cancelResponseBody(response);
+      throw smokeFailure("response-origin-mismatch");
     }
     if (!redirectStatuses.has(response.status)) return response;
 
     if (redirectCount === maxRedirects) {
-      await response.body?.cancel();
-      throw new Error("Classroom load request exceeded the bounded redirect limit.");
+      await cancelResponseBody(response);
+      throw smokeFailure("redirect-limit-exceeded");
     }
 
     const location = response.headers.get("location");
     if (!location) {
-      await response.body?.cancel();
-      throw new Error("Redirect response omitted its location.");
+      await cancelResponseBody(response);
+      throw smokeFailure("redirect-location-missing");
     }
-    const nextUrl = new URL(location, currentUrl);
+    let nextUrl;
+    try {
+      nextUrl = new URL(location, currentUrl);
+    } catch {
+      await cancelResponseBody(response);
+      throw smokeFailure("redirect-location-invalid");
+    }
     if (nextUrl.origin !== canonicalExpectedOrigin) {
-      await response.body?.cancel();
-      throw new Error("Redirect origin must exactly match the requested origin.");
+      await cancelResponseBody(response);
+      throw smokeFailure("redirect-origin-mismatch");
     }
     if (!["GET", "HEAD"].includes(method) && ![307, 308].includes(response.status)) {
-      await response.body?.cancel();
-      throw new Error("Method-changing redirects are forbidden for classroom write requests.");
+      await cancelResponseBody(response);
+      throw smokeFailure("redirect-method-change");
     }
     if (response.status === 303 && method !== "HEAD") {
       method = "GET";
       body = undefined;
     }
-    await response.body?.cancel();
+    await cancelResponseBody(response);
     currentUrl = nextUrl;
   }
 
-  throw new Error("Classroom load request exceeded the bounded redirect limit.");
+  throw smokeFailure("redirect-limit-exceeded");
+}
+
+async function cancelResponseBody(response) {
+  try {
+    await response.body?.cancel();
+  } catch {
+    // Cancellation is best-effort cleanup; the fixed policy error remains the
+    // only externally visible category.
+  }
+}
+
+export async function readBoundedResponseBody(response, { maxBytes }) {
+  if (!Number.isSafeInteger(maxBytes) || maxBytes < 1) {
+    await cancelResponseBody(response);
+    throw smokeFailure("response-limit-invalid");
+  }
+
+  const declaredLength = response.headers.get("content-length");
+  if (declaredLength !== null) {
+    if (!/^(?:0|[1-9]\d*)$/u.test(declaredLength)) {
+      await cancelResponseBody(response);
+      throw smokeFailure("response-content-length-invalid");
+    }
+    const parsedLength = Number(declaredLength);
+    if (!Number.isSafeInteger(parsedLength)) {
+      await cancelResponseBody(response);
+      throw smokeFailure("response-content-length-invalid");
+    }
+    if (parsedLength > maxBytes) {
+      await cancelResponseBody(response);
+      throw smokeFailure("response-body-too-large");
+    }
+  }
+
+  if (!response.body) return "";
+  const reader = response.body.getReader();
+  const chunks = [];
+  let totalBytes = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = value instanceof Uint8Array ? value : new Uint8Array(value);
+      totalBytes += chunk.byteLength;
+      if (totalBytes > maxBytes) {
+        try {
+          await reader.cancel();
+        } catch {
+          // Preserve only the fixed bounded-body category.
+        }
+        throw smokeFailure("response-body-too-large");
+      }
+      chunks.push(chunk);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  return Buffer.concat(chunks.map((chunk) => Buffer.from(chunk)), totalBytes).toString("utf8");
 }
 
 function percentile(values, percentileValue) {
@@ -354,7 +452,10 @@ function parseJson(text) {
   }
 }
 
-async function timedFetch(url, { expectedOrigin, timeoutMs, ...requestOptions }) {
+export async function timedFetch(
+  url,
+  { expectedOrigin, fetchImpl = fetch, maxResponseBytes, timeoutMs, ...requestOptions }
+) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   const startedAt = Date.now();
@@ -362,25 +463,39 @@ async function timedFetch(url, { expectedOrigin, timeoutMs, ...requestOptions })
     const response = await fetchWithOriginLock(
       url,
       { ...requestOptions, signal: controller.signal },
-      { expectedOrigin }
+      { expectedOrigin, fetchImpl }
     );
-    const text = await response.text();
+    const text = await readBoundedResponseBody(response, { maxBytes: maxResponseBytes });
+    if (!response.ok) {
+      return {
+        elapsedMs: Date.now() - startedAt,
+        errorCode: "http-error",
+        headers: response.headers,
+        ok: false,
+        status: response.status,
+        url: response.url || url
+      };
+    }
     return {
       elapsedMs: Date.now() - startedAt,
       headers: response.headers,
-      ok: response.ok,
+      ok: true,
       status: response.status,
       text,
-      url: response.url
+      url: response.url || url
     };
-  } catch {
+  } catch (error) {
+    const errorCode = controller.signal.aborted
+      ? "request-timeout"
+      : error instanceof ClassroomSmokeError
+        ? error.code
+        : "request-failed";
     return {
       elapsedMs: Date.now() - startedAt,
-      errorCode: "request-error",
+      errorCode,
       headers: new Headers(),
       ok: false,
       status: 0,
-      text: "",
       url
     };
   } finally {
@@ -410,24 +525,42 @@ function readAuthenticationInput(env = process.env) {
 function authenticatedUserId(payload) {
   const user = payload?.user;
   if (typeof user?.id !== "string" || !user.id || user.role !== "student") {
-    throw new Error("Classroom load authentication did not resolve a student session.");
+    throw smokeFailure("session-continuity-invalid");
   }
   return user.id;
 }
 
-async function authenticate(target, config, env = process.env) {
+export async function validateSessionContinuity(session, target, config, env = process.env, runtime = {}) {
+  const response = await timedFetch(`${target.baseUrl}/api/auth/session-state?includeLessonEntry=false`, {
+    expectedOrigin: target.expectedOrigin,
+    fetchImpl: runtime.fetchImpl ?? fetch,
+    headers: { Cookie: session.cookie, ...protectionHeaders(env) },
+    maxResponseBytes: responseBodyLimits.session,
+    timeoutMs: config.timeoutMs
+  });
+  if (!response.ok) throw smokeFailure("session-continuity-unavailable");
+  const actualUserId = authenticatedUserId(parseJson(response.text));
+  if (session.expectedUserId && actualUserId !== session.expectedUserId) {
+    throw smokeFailure("session-continuity-mismatch");
+  }
+  return actualUserId;
+}
+
+async function authenticate(target, config, env = process.env, runtime = {}) {
   const authentication = readAuthenticationInput(env);
   if (authentication.kind === "cookie") {
-    const response = await timedFetch(`${target.baseUrl}/api/auth/session-state?includeLessonEntry=false`, {
-      expectedOrigin: target.expectedOrigin,
-      headers: { Cookie: authentication.cookie, ...protectionHeaders(env) },
-      timeoutMs: config.timeoutMs
-    });
-    if (!response.ok) throw new Error("Cookie session validation failed.");
+    const expectedUserId = await validateSessionContinuity(
+      { cookie: authentication.cookie, expectedUserId: null },
+      target,
+      config,
+      env,
+      runtime
+    );
     return {
       auth: redactedAuthSummary("cookie", 0),
       cookie: authentication.cookie,
-      expectedUserId: authenticatedUserId(parseJson(response.text)),
+      continuityChecks: 1,
+      expectedUserId,
       loginDurations: []
     };
   }
@@ -441,19 +574,30 @@ async function authenticate(target, config, env = process.env) {
       username: authentication.username
     }),
     expectedOrigin: target.expectedOrigin,
+    fetchImpl: runtime.fetchImpl ?? fetch,
     headers: { "Content-Type": "application/json", ...protectionHeaders(env) },
+    maxResponseBytes: responseBodyLimits.login,
     method: "POST",
     timeoutMs: config.timeoutMs
   });
-  if (response.status === 429) throw new Error("Credential login was rate limited; wait for the staging/local login window before retrying.");
-  if (!response.ok) throw new Error("Credential login failed.");
+  if (response.status === 429) throw smokeFailure("login-rate-limited");
+  if (!response.ok) throw smokeFailure("login-failed");
 
   const cookie = cookieHeaderFromSetCookie(response.headers);
-  if (!cookie) throw new Error("Credential login returned no session cookie.");
+  if (!cookie) throw smokeFailure("login-cookie-missing");
+  const loginUserId = authenticatedUserId(parseJson(response.text));
+  await validateSessionContinuity(
+    { cookie, expectedUserId: loginUserId },
+    target,
+    config,
+    env,
+    runtime
+  );
   return {
     auth: redactedAuthSummary("credentials", 1),
     cookie,
-    expectedUserId: authenticatedUserId(parseJson(response.text)),
+    continuityChecks: 1,
+    expectedUserId: loginUserId,
     loginDurations: [response.elapsedMs]
   };
 }
@@ -476,17 +620,25 @@ function questionWorkload(payload, limit = 20) {
     }));
 }
 
-async function discoverWorkload(session, target, config, env = process.env) {
+async function discoverWorkload(session, target, config, env = process.env, runtime = {}) {
   const headers = buildStudentHeaders(session, env);
   const curriculumTrack = env.CLASSROOM_LOAD_CURRICULUM_TRACK ?? "US_CA_MATH";
   const [questionsResponse, lessonResponse] = await Promise.all([
     timedFetch(
       `${target.baseUrl}/api/questions?grade=${encodeURIComponent(config.grade)}&curriculumTrack=${encodeURIComponent(curriculumTrack)}`,
-      { expectedOrigin: target.expectedOrigin, headers, timeoutMs: config.timeoutMs }
+      {
+        expectedOrigin: target.expectedOrigin,
+        fetchImpl: runtime.fetchImpl ?? fetch,
+        headers,
+        maxResponseBytes: responseBodyLimits.questionBank,
+        timeoutMs: config.timeoutMs
+      }
     ),
     timedFetch(`${target.baseUrl}/api/lesson-entry?grade=${encodeURIComponent(config.grade)}`, {
       expectedOrigin: target.expectedOrigin,
+      fetchImpl: runtime.fetchImpl ?? fetch,
       headers,
+      maxResponseBytes: responseBodyLimits.lessonEntry,
       timeoutMs: config.timeoutMs
     })
   ]);
@@ -513,7 +665,7 @@ function summarizeResponse(endpoint, response) {
   };
 }
 
-async function runClassRound(sessions, workload, target, config, round, env = process.env) {
+async function runClassRound(sessions, workload, target, config, round, env = process.env, runtime = {}) {
   const measurements = [];
   const phases = [
     {
@@ -528,7 +680,9 @@ async function runClassRound(sessions, workload, target, config, round, env = pr
             selectedAnswer: question.selectedAnswer
           })),
           expectedOrigin: target.expectedOrigin,
+          fetchImpl: runtime.fetchImpl ?? fetch,
           headers: { "Content-Type": "application/json", ...buildStudentHeaders(session, env) },
+          maxResponseBytes: responseBodyLimits.write,
           method: "POST",
           timeoutMs: config.timeoutMs
         });
@@ -539,7 +693,9 @@ async function runClassRound(sessions, workload, target, config, round, env = pr
       request: (session) => timedFetch(`${target.baseUrl}/api/lesson-progress`, {
         body: JSON.stringify(buildLessonProgressBody({ lessonSlug: workload.lessonSlug, round, rounds: config.rounds })),
         expectedOrigin: target.expectedOrigin,
+        fetchImpl: runtime.fetchImpl ?? fetch,
         headers: { "Content-Type": "application/json", ...buildStudentHeaders(session, env) },
+        maxResponseBytes: responseBodyLimits.write,
         method: "POST",
         timeoutMs: config.timeoutMs
       })
@@ -548,7 +704,9 @@ async function runClassRound(sessions, workload, target, config, round, env = pr
       endpoint: "dashboard",
       request: (session) => timedFetch(`${target.baseUrl}/api/dashboard?grade=${encodeURIComponent(config.grade)}`, {
         expectedOrigin: target.expectedOrigin,
+        fetchImpl: runtime.fetchImpl ?? fetch,
         headers: buildStudentHeaders(session, env),
+        maxResponseBytes: responseBodyLimits.dashboard,
         timeoutMs: config.timeoutMs
       })
     }
@@ -576,11 +734,47 @@ export function redactedAuthSummary(kind, loginCount) {
   return { distinctIdentities: 1, kind, loginCount };
 }
 
-export function buildRunReport({ auth, config, generatedAt, loginDurations, results, target, workload }) {
+function exactMeasuredResults(results, config) {
+  if (!Array.isArray(results) || results.length !== requiredMeasuredEndpoints.length) {
+    throw smokeFailure("report-topology-invalid");
+  }
+  const byName = new Map();
+  for (const result of results) {
+    if (!requiredMeasuredEndpoints.includes(result?.name) || byName.has(result.name)) {
+      throw smokeFailure("report-topology-invalid");
+    }
+    byName.set(result.name, result);
+  }
+  const expectedRequests = config.seatConcurrency * config.rounds;
+  if (!Number.isSafeInteger(expectedRequests) || expectedRequests < 1) {
+    throw smokeFailure("report-topology-invalid");
+  }
+  const ordered = requiredMeasuredEndpoints.map((name) => byName.get(name));
+  if (ordered.some((result) => !result || result.requests !== expectedRequests)) {
+    throw smokeFailure("report-topology-invalid");
+  }
+  return { expectedRequests, ordered };
+}
+
+export function buildRunReport({
+  auth,
+  config,
+  continuity,
+  discovery,
+  generatedAt,
+  loginDurations,
+  results,
+  target
+}) {
+  if (auth?.distinctIdentities !== 1 || continuity?.status !== "pass" || discovery?.status !== "pass") {
+    throw smokeFailure("report-topology-invalid");
+  }
+  const measured = exactMeasuredResults(results, config);
   return {
     auth,
     baseUrl: target.baseUrl,
-    concurrency: config.students,
+    continuity,
+    discovery,
     evidenceMode: target.evidenceMode,
     generatedAt,
     grade: config.grade,
@@ -590,20 +784,128 @@ export function buildRunReport({ auth, config, generatedAt, loginDurations, resu
       p50Ms: percentile(loginDurations, 50),
       p95Ms: percentile(loginDurations, 95)
     },
-    ok: results.length > 0 && results.every((result) => result.ok),
+    loadShape: "single-identity-seat-fanout",
+    ok: measured.ordered.every((result) => result.ok),
     readThresholdMs: config.readThresholdMs,
-    results,
+    results: measured.ordered,
     rounds: config.rounds,
+    seatConcurrency: config.seatConcurrency,
     stagingEvidence: target.stagingEvidence,
-    totalRequests: results.reduce((total, result) => total + result.requests, 0),
-    workload,
+    totalRequests: measured.expectedRequests * requiredMeasuredEndpoints.length,
     writeThresholdMs: config.writeThresholdMs
   };
 }
 
-async function writeReport(report) {
-  await fs.mkdir(artifactDir, { recursive: true });
-  await fs.writeFile(artifactPath, `${JSON.stringify(report, null, 2)}\n`, { mode: 0o600 });
+async function lstatOrNull(targetPath) {
+  try {
+    return await fs.lstat(targetPath);
+  } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    throw smokeFailure("artifact-parent-unsafe");
+  }
+}
+
+async function requireRealDirectory(targetPath, { create = false, exactMode = null } = {}) {
+  let targetStat = await lstatOrNull(targetPath);
+  if (!targetStat && create) {
+    try {
+      await fs.mkdir(targetPath, { mode: exactMode ?? 0o700 });
+    } catch (error) {
+      if (error?.code !== "EEXIST") throw smokeFailure("artifact-parent-unsafe");
+    }
+    targetStat = await lstatOrNull(targetPath);
+  }
+  if (!targetStat?.isDirectory() || targetStat.isSymbolicLink()) {
+    throw smokeFailure("artifact-parent-unsafe");
+  }
+  let realPath;
+  try {
+    realPath = await fs.realpath(targetPath);
+  } catch {
+    throw smokeFailure("artifact-parent-unsafe");
+  }
+  if (realPath !== path.resolve(targetPath)) throw smokeFailure("artifact-parent-unsafe");
+
+  if (exactMode !== null) {
+    try {
+      await fs.chmod(targetPath, exactMode);
+      targetStat = await fs.lstat(targetPath);
+    } catch {
+      throw smokeFailure("artifact-parent-unsafe");
+    }
+    if (!targetStat.isDirectory() || targetStat.isSymbolicLink() || (targetStat.mode & 0o777) !== exactMode) {
+      throw smokeFailure("artifact-parent-unsafe");
+    }
+  }
+}
+
+export async function writeSafeReport(report, { maxBytes = maxReportBytes, rootDir = repoRoot } = {}) {
+  let serialized;
+  try {
+    serialized = `${JSON.stringify(report, null, 2)}\n`;
+  } catch {
+    throw smokeFailure("artifact-report-invalid");
+  }
+  const payload = Buffer.from(serialized, "utf8");
+  if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || payload.byteLength > maxBytes) {
+    throw smokeFailure("artifact-report-too-large");
+  }
+
+  const exactRoot = path.resolve(rootDir);
+  const localTmpDir = path.join(exactRoot, ".tmp");
+  const exactArtifactDir = path.join(localTmpDir, "classroom-load-smoke");
+  const finalPath = path.join(exactArtifactDir, "last-run.json");
+  await requireRealDirectory(exactRoot);
+  await requireRealDirectory(localTmpDir, { create: true });
+  await requireRealDirectory(exactArtifactDir, { create: true, exactMode: 0o700 });
+
+  const tempPath = path.join(exactArtifactDir, `.last-run.${process.pid}.${randomUUID()}.tmp`);
+  let tempHandle = null;
+  let renamed = false;
+  try {
+    tempHandle = await fs.open(
+      tempPath,
+      fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW | fsConstants.O_WRONLY,
+      0o600
+    );
+    await tempHandle.chmod(0o600);
+    const tempStat = await tempHandle.stat();
+    if (!tempStat.isFile() || tempStat.nlink !== 1 || (tempStat.mode & 0o777) !== 0o600) {
+      throw smokeFailure("artifact-temp-unsafe");
+    }
+    await tempHandle.writeFile(payload);
+    await tempHandle.sync();
+    await tempHandle.close();
+    tempHandle = null;
+    await fs.rename(tempPath, finalPath);
+    renamed = true;
+
+    const finalStat = await fs.lstat(finalPath);
+    if (
+      !finalStat.isFile()
+      || finalStat.isSymbolicLink()
+      || finalStat.nlink !== 1
+      || (finalStat.mode & 0o777) !== 0o600
+    ) {
+      throw smokeFailure("artifact-final-unsafe");
+    }
+    return finalPath;
+  } catch (error) {
+    try {
+      await tempHandle?.close();
+    } catch {
+      // Keep the fixed artifact category below.
+    }
+    if (!renamed) {
+      try {
+        await fs.unlink(tempPath);
+      } catch {
+        // The path may never have been created.
+      }
+    }
+    if (error instanceof ClassroomSmokeError) throw error;
+    throw smokeFailure("artifact-write-failed");
+  }
 }
 
 function printReport(report, json) {
@@ -615,7 +917,7 @@ function printReport(report, json) {
     console.log("LOCAL VERIFICATION ONLY — not staging evidence.");
   }
   console.log(
-    `Classroom load smoke: ${report.ok ? "PASS" : "FAIL"} mode=${report.evidenceMode} target=${report.baseUrl} grade=${report.grade} students=${report.concurrency} rounds=${report.rounds} requests=${report.totalRequests}`
+    `Classroom load smoke: ${report.ok ? "PASS" : "FAIL"} mode=${report.evidenceMode} target=${report.baseUrl} grade=${report.grade} seatConcurrency=${report.seatConcurrency} loadShape=${report.loadShape} rounds=${report.rounds} requests=${report.totalRequests}`
   );
   console.log(
     `Authentication shape: ${report.auth.kind}; distinct identities=${report.auth.distinctIdentities}; login count=${report.auth.loginCount}`
@@ -628,34 +930,47 @@ function printReport(report, json) {
   console.log(`Artifact: ${artifactPath}`);
 }
 
-async function runSmoke(args, env = process.env) {
+export async function runSmoke(args, env = process.env, runtime = {}) {
   const target = resolveExecutionTarget(args, env);
   const config = buildSmokeConfig(args, env);
-  const authentication = await authenticate(target, config, env);
+  const authentication = await authenticate(target, config, env, runtime);
   const session = {
     cookie: authentication.cookie,
     expectedUserId: authentication.expectedUserId
   };
-  const sessions = Array.from({ length: config.students }, (_, index) => ({ ...session, seat: index + 1 }));
-  const workload = await discoverWorkload(session, target, config, env);
+  const sessions = Array.from(
+    { length: config.seatConcurrency },
+    (_, index) => ({ ...session, seat: index + 1 })
+  );
+  const workload = await discoverWorkload(session, target, config, env, runtime);
 
   const measurements = [];
+  let continuityChecks = authentication.continuityChecks;
   for (let round = 0; round < config.rounds; round += 1) {
-    measurements.push(...await runClassRound(sessions, workload, target, config, round, env));
+    await validateSessionContinuity(session, target, config, env, runtime);
+    continuityChecks += 1;
+    measurements.push(...await runClassRound(sessions, workload, target, config, round, env, runtime));
   }
   const results = aggregateMeasurements(measurements, endpointBudgets(config));
   const report = buildRunReport({
     auth: authentication.auth,
     config,
+    continuity: { checks: continuityChecks, status: "pass" },
+    discovery: {
+      lessonEntryResolved: true,
+      questionPoolSize: workload.questions.length,
+      status: "pass"
+    },
     generatedAt: new Date().toISOString(),
     loginDurations: authentication.loginDurations,
     results,
-    target,
-    workload: { lessonSlug: workload.lessonSlug, questionPoolSize: workload.questions.length }
+    target
   });
-  await writeReport(report);
-  printReport(report, args.json);
+  const reportWriter = runtime.writeReport ?? ((nextReport) => writeSafeReport(nextReport));
+  await reportWriter(report);
+  if (runtime.printReport !== false) printReport(report, args.json);
   if (!report.ok) process.exitCode = 1;
+  return report;
 }
 
 function runSelfTest() {
@@ -704,8 +1019,8 @@ async function main() {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {
   main().catch((error) => {
-    const message = error instanceof Error ? error.message : "Unknown classroom load smoke failure.";
-    console.error(`Classroom load smoke failed: ${message}`);
+    const errorCode = error instanceof ClassroomSmokeError ? error.code : "configuration-error";
+    console.error(`Classroom load smoke failed: ${errorCode}`);
     process.exitCode = 1;
   });
 }

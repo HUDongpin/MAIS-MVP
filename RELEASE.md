@@ -282,11 +282,15 @@ status set, and error rate. Any request error fails the run, even when the faile
 This is a manual **staging-before-promotion** gate for reviewed changes to student writes,
 authentication/session handling, storage, or dashboard aggregation. It is deliberately not part of
 `certify:production`, `vercel:production`, or the production workflow. It performs real writes and
-must use a staging-only test identity whose data may be mutated.
+must use one disposable staging-only identity whose data may be mutated. Its declared load shape is
+`single-identity-seat-fanout`: multiple concurrent seats reuse one authenticated identity. This
+models classroom-sized request concurrency and same-identity write contention; it is not evidence
+of distinct-student, per-row, or class-wide database fanout.
 
 Remote execution is fail closed:
 
-- pass an explicit `--mode staging` and origin-only HTTPS `--base-url`;
+- pass an explicit `--mode staging` and canonical origin-only HTTPS `--base-url`; non-default
+  explicit ports are rejected;
 - set `CLASSROOM_LOAD_STAGING_HOST_ALLOWLIST` to the exact comma-separated staging hostname(s);
 - empty, malformed, wildcard, URL, port, path, IP-address, duplicate, and known-production entries
   are rejected;
@@ -294,6 +298,9 @@ Remote execution is fail closed:
   the allowlist; there is no production override;
 - every redirect is followed manually only when its origin remains exactly the requested origin;
   cross-origin and method-changing write redirects fail before the next request is sent.
+- response bodies are streamed through endpoint-specific byte limits; oversized declared or
+  chunked bodies and continuity mismatches fail with fixed redacted categories before measured
+  writes continue.
 
 Configure exactly one authentication shape in a private execution environment: either
 `CLASSROOM_LOAD_COOKIE`, or the `CLASSROOM_LOAD_USERNAME` and `CLASSROOM_LOAD_PASSWORD` pair.
@@ -307,7 +314,7 @@ CLASSROOM_LOAD_STAGING_HOST_ALLOWLIST="<exact-preview-host>" \
   npm run smoke:classroom-load -- \
   --mode staging \
   --base-url "https://<exact-preview-host>" \
-  --students 15 \
+  --seat-concurrency 15 \
   --rounds 3 \
   --json
 ```
@@ -318,15 +325,20 @@ Local loopback is a separate verification mode and is **not staging evidence**:
 npm run smoke:classroom-load -- \
   --mode local \
   --base-url "http://127.0.0.1:<owned-port>" \
-  --students 15 \
+  --seat-concurrency 15 \
   --rounds 3
 ```
 
-Both modes require bounded students, rounds, timeouts, and p95 budgets. The default write p95
+Both modes require bounded seat concurrency, rounds, timeouts, response bodies, and p95 budgets.
+Session continuity is checked after login and again outside measured traffic at every round
+boundary. The default write p95
 budget is 2,000 ms; the dashboard read p95 budget is 3,000 ms. Full redacted output is written only
-to ignored local storage at `.tmp/classroom-load-smoke/last-run.json`. A local report always carries
-`evidenceMode: "local-verification"` and `stagingEvidence: false`; it must never be relabeled or
-quoted as a staging pass. No live/staging run is implied by the presence of this command.
+through an atomic, bounded, no-follow writer to ignored local storage at
+`.tmp/classroom-load-smoke/last-run.json`. A report declares
+`loadShape: "single-identity-seat-fanout"`, `seatConcurrency`, and `distinctIdentities: 1`. A local
+report always carries `evidenceMode: "local-verification"` and `stagingEvidence: false`; it must
+never be relabeled or quoted as a staging pass. No live/staging run is implied by the presence of
+this command.
 
 ---
 

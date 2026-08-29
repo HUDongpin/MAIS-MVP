@@ -3134,7 +3134,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
-    "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
+    "test:release-governance": "node --test --test-concurrency=1 scripts/classroom-load-smoke.test.mjs scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
@@ -3256,7 +3256,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "690711dcb31902af408e29dd652adf79685977876eeff28c029472dad842de0c",
+    "0fdc705b8632476be9800fa1792edffd104067fcac6df4a092d6a01cb62e8cb2",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -3524,7 +3524,7 @@ test("package and coordination contracts preserve security versions and closure 
   assert.equal(packageJson.scripts["release:package-gate"], "node scripts/release-package-gate.mjs");
   assert.equal(
     packageJson.scripts["test:release-governance"],
-    "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
+    "node --test --test-concurrency=1 scripts/classroom-load-smoke.test.mjs scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
   );
   assert.match(gitignore, /^Users\/$/m);
   assert.match(agents, /git add \./i);
