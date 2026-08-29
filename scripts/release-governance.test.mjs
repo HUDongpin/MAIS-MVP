@@ -3279,6 +3279,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     ...baseline.dependencies,
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
+    jszip: "^3.10.1",
     next: "15.5.23",
     pptxgenjs: "^4.0.1",
     svix: "^2.0.0",
@@ -3286,6 +3287,11 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "three-stdlib": "2.36.1",
     ws: "^8.21.0"
   });
+  assert.equal(
+    current.dependencies.jszip,
+    "^3.10.1",
+    "The static SCORM importer must keep JSZip as one frozen direct runtime dependency"
+  );
   assert.deepEqual(current.devDependencies, {
     ...baseline.devDependencies,
     "@types/ws": "^8.18.1",

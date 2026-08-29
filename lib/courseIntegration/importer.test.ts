@@ -282,6 +282,52 @@ test("rejects malformed raw XML entity, attribute, text, and comment surfaces", 
   }
 });
 
+const malformedXmlDeclarationAndTagCases = [
+  {
+    name: "a garbage XML declaration",
+    manifest: scormManifest().replace(
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      "<?xml garbage?>"
+    )
+  },
+  {
+    name: "an empty XML declaration",
+    manifest: scormManifest().replace(
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      "<?xml?>"
+    )
+  },
+  {
+    name: "a second XML declaration in the document body",
+    manifest: scormManifest().replace(
+      "  <metadata>",
+      '  <?xml version="1.0"?>\n  <metadata>'
+    )
+  },
+  {
+    name: "whitespace immediately after an opening angle bracket",
+    manifest: scormManifest().replace("<manifest identifier=", "< manifest identifier=")
+  },
+  {
+    name: "whitespace immediately after a closing-tag slash",
+    manifest: scormManifest().replace("</manifest>", "</ manifest>")
+  }
+] as const;
+
+for (const malformedCase of malformedXmlDeclarationAndTagCases) {
+  test(`rejects ${malformedCase.name}`, async () => {
+    const bytes = await createScormPackage(malformedCase.manifest, {
+      "content.txt": "Static lesson"
+    });
+
+    await assert.rejects(importScormPackage(bytes), (error: unknown) => {
+      assert.equal(Reflect.get(Object(error), "code"), "MANIFEST_XML_INVALID");
+      assert.equal(Reflect.get(Object(error), "status"), 422);
+      return true;
+    });
+  });
+}
+
 test("decodes predefined XML entities without enabling declaration expansion", async () => {
   const bytes = await createScormPackage(
     scormManifest().replace("Minimal course", "Minimal &amp; safe course"),

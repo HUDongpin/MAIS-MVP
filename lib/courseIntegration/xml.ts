@@ -16,6 +16,7 @@ interface MutableXmlElement {
 
 const XML_NAME = /^[A-Za-z_][A-Za-z0-9_.:-]*/;
 const XML_DECLARATION_SURFACE = /<!\s*(?:DOCTYPE|ENTITY)\b/i;
+const XML_DECLARATION = /^xml[\t\n\r ]+version[\t\n\r ]*=[\t\n\r ]*(?:"1\.0"|'1\.0')(?:[\t\n\r ]+encoding[\t\n\r ]*=[\t\n\r ]*(?:"[Uu][Tt][Ff]-8"|'[Uu][Tt][Ff]-8'))?(?:[\t\n\r ]+standalone[\t\n\r ]*=[\t\n\r ]*(?:"(?:yes|no)"|'(?:yes|no)'))?[\t\n\r ]*$/;
 const MAX_XML_DEPTH = 128;
 const MAX_XML_ELEMENTS = 20_000;
 const MAX_ATTRIBUTES_PER_ELEMENT = 100;
@@ -101,7 +102,6 @@ function parseStartTag(content: string) {
   const skipWhitespace = () => {
     while (/\s/.test(content[cursor] ?? "")) cursor += 1;
   };
-  skipWhitespace();
   const nameMatch = XML_NAME.exec(content.slice(cursor));
   if (!nameMatch) invalidXml();
   const name = nameMatch[0];
@@ -132,6 +132,20 @@ function parseStartTag(content: string) {
     cursor = valueEnd + 1;
   }
   return { name, attributes };
+}
+
+function assertProcessingInstruction(content: string, offset: number) {
+  const targetMatch = XML_NAME.exec(content);
+  if (!targetMatch) invalidXml();
+  const target = targetMatch[0];
+  const remainder = content.slice(target.length);
+
+  if (target === "xml") {
+    if (offset !== 0 || !XML_DECLARATION.test(content)) invalidXml();
+    return;
+  }
+  if (target.toLowerCase() === "xml") invalidXml();
+  if (remainder.length > 0 && !/^[\t\n\r ]/.test(remainder)) invalidXml();
 }
 
 function freezeElement(element: MutableXmlElement): StaticXmlElement {
@@ -180,6 +194,7 @@ export function parseStaticXml(xml: string): StaticXmlElement {
     if (xml.startsWith("<?", cursor)) {
       const end = xml.indexOf("?>", cursor + 2);
       if (end < 0) invalidXml();
+      assertProcessingInstruction(xml.slice(cursor + 2, end), cursor);
       cursor = end + 2;
       continue;
     }
@@ -195,7 +210,9 @@ export function parseStaticXml(xml: string): StaticXmlElement {
     const tagEnd = findTagEnd(xml, cursor + 1);
     let content = xml.slice(cursor + 1, tagEnd);
     if (content.startsWith("/")) {
-      const closingName = content.slice(1).trim();
+      const rawClosingName = content.slice(1);
+      if (/^[\t\n\r ]/.test(rawClosingName)) invalidXml();
+      const closingName = rawClosingName.trimEnd();
       if (!XML_NAME.test(closingName) || XML_NAME.exec(closingName)?.[0] !== closingName) invalidXml();
       const open = stack.pop();
       if (!open || open.name !== closingName) invalidXml();
