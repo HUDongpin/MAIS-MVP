@@ -183,9 +183,13 @@ export function parseStaticXml(xml: string): StaticXmlElement {
       const end = nextTag < 0 ? xml.length : nextTag;
       const rawText = xml.slice(cursor, end);
       if (rawText.includes("]]>")) invalidXml();
-      const text = decodeXmlEntities(rawText);
-      if (stack.length > 0) stack.at(-1)!.textParts.push(text);
-      else if (text.trim().length > 0) invalidXml();
+      if (stack.length > 0) {
+        stack.at(-1)!.textParts.push(decodeXmlEntities(rawText));
+      } else {
+        for (const character of rawText) {
+          if (!XML_S.test(character)) invalidXml();
+        }
+      }
       cursor = end;
       continue;
     }

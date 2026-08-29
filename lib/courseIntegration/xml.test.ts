@@ -27,6 +27,28 @@ test("accepts empty-element tags with XML S before the slash or no separator", (
   assert.equal(parseStaticXml("<root />").name, "root");
 });
 
+test("accepts literal XML S, comments, and processing instructions around the root", () => {
+  const root = parseStaticXml(
+    " \t\r\n<!--before--><?audit before?><root/><?audit after?><!--after-->\n\r\t "
+  );
+
+  assert.equal(root.name, "root");
+});
+
+for (const [name, xml] of [
+  ["a leading non-breaking space outside the root", "\u00a0<root/>"],
+  ["a trailing non-breaking space outside the root", "<root/>\u00a0"],
+  ["an encoded space outside the root", "&#32;<root/>"]
+] as const) {
+  test(`rejects ${name}`, () => {
+    assert.throws(
+      () => parseStaticXml(xml),
+      (error: unknown) => Reflect.get(Object(error), "code") === "MANIFEST_XML_INVALID" &&
+        Reflect.get(Object(error), "status") === 422
+    );
+  });
+}
+
 for (const [name, xml] of [
   ["a space after an empty-element slash", "<root/ >"],
   ["a tab after an empty-element slash", "<root/\t>"],

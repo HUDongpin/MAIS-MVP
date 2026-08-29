@@ -337,6 +337,18 @@ const malformedXmlDeclarationAndTagCases = [
   {
     name: "a newline after an empty-element slash",
     manifest: scormManifest().replace("  <metadata>", "  <ignored/\n>\n  <metadata>")
+  },
+  {
+    name: "a leading non-breaking space outside the root",
+    manifest: scormManifest().replace("?>\n<manifest", "?>\n\u00a0<manifest")
+  },
+  {
+    name: "a trailing non-breaking space outside the root",
+    manifest: `${scormManifest()}\u00a0`
+  },
+  {
+    name: "an encoded space outside the root",
+    manifest: scormManifest().replace("?>\n<manifest", "?>\n&#32;<manifest")
   }
 ] as const;
 
