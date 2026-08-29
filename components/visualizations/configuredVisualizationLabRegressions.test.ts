@@ -277,9 +277,21 @@ test("configured visualization lab exposes a footer action slot for lesson embed
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /<ConfiguredVisualizationLabSurface \{\.\.\.props\} threeDPresentation="learner" \/>/);
   assert.match(source, /<ThreeDLabCanvas[\s\S]*presentation=\{threeDPresentation\}/);
-  assert.match(source, /export function ConfiguredVisualizationLab\(\{ controlFooterAction, lab: providedLab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+  assert.match(source, /export function ConfiguredVisualizationLab\(/);
   assert.match(source, /<div className="flex min-w-0 flex-col gap-4">[\s\S]*data-viz-reset-model[\s\S]*data-viz-lesson-action-slot/);
   assert.match(source, /data-viz-lesson-action-slot className="mt-auto pt-4"/);
+});
+
+test("public configured visualization wrapper accepts and forwards an explicit 3D presentation", () => {
+  const wrapperStart = source.indexOf("export function ConfiguredVisualizationLab(");
+  assert.notEqual(wrapperStart, -1, "Missing public ConfiguredVisualizationLab wrapper");
+  const wrapper = source.slice(wrapperStart);
+
+  assert.match(wrapper, /threeDPresentation=\{threeDPresentation\}/);
+  assert.match(
+    wrapper,
+    /\{ controlFooterAction, lab: providedLab = null, labId, threeDPresentation, topicId \}: ConfiguredVisualizationLabProps/
+  );
 });
 
 test("configured visualization range sliders respond to input and change events", () => {
