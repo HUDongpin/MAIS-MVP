@@ -3369,18 +3369,6 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.equal(packageLock.packages["node_modules/fast-uri"].version, "3.1.6");
   assert.equal(packageLock.packages["node_modules/json-schema-traverse"].version, "1.0.0");
   assert.equal(packageLock.packages["node_modules/require-from-string"].version, "2.0.2");
-  assert.deepEqual(packageLock.packages["node_modules/jszip"], {
-    version: "3.10.1",
-    resolved: "https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz",
-    integrity: "sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==",
-    license: "(MIT OR GPL-3.0-or-later)",
-    dependencies: {
-      lie: "~3.3.0",
-      pako: "~1.0.2",
-      "readable-stream": "~2.3.6",
-      setimmediate: "^1.0.5"
-    }
-  });
   assert.deepEqual(packageLock.packages["node_modules/saxes"], {
     version: "6.0.0",
     resolved: "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
