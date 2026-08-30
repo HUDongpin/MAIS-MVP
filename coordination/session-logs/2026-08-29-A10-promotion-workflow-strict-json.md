@@ -4,7 +4,7 @@
 - Agent ID: A10
 - Owner: A10 — Tooling / CI governance
 - Workstream: Tooling / CI governance
-- Status: Implementation committed and pushed; downstream reviews and lifecycle closeout pending
+- Status: Core implementation committed and pushed; regression-fixture repair verified and scoped to this exact two-file follow-up commit; downstream reviews and lifecycle closeout pending
 - Objective: Replace every non-comparator reachable plain `JSON.parse` in the Promotion Shadow workflow with one tracked, bounded, duplicate-key-rejecting current-checkout JSON guard.
 - Worktree: `/Volumes/Starship/MAIS-MVP/.worktrees/a10-promotion-workflow-strict-json-20260829`
 - Branch: `chore/a10-promotion-workflow-strict-json-20260829`
@@ -20,6 +20,7 @@
 - `.github/workflows/promotion-shadow.yml`
 - `scripts/promotion-workflow-json-guard.mjs`
 - `scripts/promotion-workflow-json-guard.test.mjs`
+- `scripts/promotion-shadow-workflow-v2.test.mjs` (2026-08-30 continuation: current-checkout workflow fixture only)
 - `scripts/release-governance.test.mjs`
 - `coordination/session-logs/2026-08-29-A10-promotion-workflow-strict-json.md`
 
@@ -67,6 +68,18 @@
 - Exact semantic comparator `run` SHA-256 remains `da19cda092e2f5b6ee2eb3a22c84c18e8a79bf27b95901f7ec419c6d01628d6e`.
 - A pre-commit external discovery correctly stopped at `AUTHORITATIVE_BYTES_DRIFT` because the authorized workflow edit was not yet the current Git `HEAD`; final external discovery must run after the reviewed commit with that exact commit as `--expected-head`.
 
+## 2026-08-30 Continuation Evidence
+
+- Root-cause reproduction: `node --test --test-concurrency=1 scripts/promotion-shadow-workflow-v2.test.mjs` produced 2 passes and 1 failure because the unchanged local fixture executed the hardened workflow step without GitHub Actions' required `GITHUB_WORKSPACE` environment contract.
+- The production workflow and strict guard were not weakened. The minimal test-only repair supplies the current `repoRoot` as `GITHUB_WORKSPACE` to that spawned workflow step.
+- Focused regression after the repair: 3 passed, 0 failed.
+- `npm run test:promotion-gate`: 40 passed, 0 failed.
+- `node --test --test-concurrency=1 scripts/release-governance.test.mjs`: 85 passed, 0 failed, 11 contextual skips.
+- `node --test --test-concurrency=1 scripts/promotion-workflow-json-guard.test.mjs`: 5 passed, 0 failed.
+- `npm run type-check`: passed.
+- `git diff --check`: passed.
+- Evidence boundary: these are local results for the current worktree bytes. This exact follow-up commit contains only the fixture repair and this log update; no GitHub workflow or required check was triggered.
+
 ## Ownership And Collaboration Status
 
 - `coordination/release-intake/owner-pathspecs.json` assigns `.github/workflows/promotion-shadow.yml` exactly to A10 and routes coordination to A11, A22, and A23. Its broad A10 tooling/docs/config entry also covers `scripts/**` and `coordination/**`.
@@ -78,7 +91,8 @@
 
 ## Handoff
 
-- Final state: Reviewed implementation commit pushed; downstream review and integration remain pending.
+- Final state: Reviewed core implementation commit pushed; verified regression-fixture follow-up is scoped to this exact two-file commit; downstream review and integration remain pending.
 - Implementation commit: `e78f5b6dc9ca288d5aaf2db127b9c2b394528602`.
 - Post-implementation external discovery: original `WORKFLOW_JSON_PARSE_UNTRUSTED` is cleared; the next fail-closed blocker is `WORKFLOW_STRUCTURE_INVALID`.
+- Follow-up scope: `scripts/promotion-shadow-workflow-v2.test.mjs` plus this session log only; no Shadow, workflow dispatch, merge, deployment, production action, or PR #220 remote-head update occurred.
 - Worktree lifecycle: Retain through pending A11/A22/A23 review and A25 lifecycle closeout; expected closeout date is 2026-08-30 HKT.

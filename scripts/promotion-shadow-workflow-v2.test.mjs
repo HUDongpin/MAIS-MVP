@@ -158,7 +158,7 @@ test("Promotion Shadow v2 final enforcement fails closed for any authentic non-p
   const runFinal = () => spawnSync("bash", ["-c", final.run], {
     cwd: repoRoot,
     encoding: "utf8",
-    env: { ...process.env, ...paths }
+    env: { ...process.env, GITHUB_WORKSPACE: repoRoot, ...paths }
   });
   try {
     for (const artifactPath of Object.values(paths)) {
