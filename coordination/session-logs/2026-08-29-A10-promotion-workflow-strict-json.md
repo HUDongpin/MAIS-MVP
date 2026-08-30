@@ -91,6 +91,7 @@
 - `npm run type-check`: passed.
 - `git diff --check`: passed.
 - Follow-up scope: `package.json`, `scripts/release-governance.test.mjs`, and this append-only A10 session log. No Shadow, workflow dispatch, PR #220 update, main merge, deployment, production mutation, or remote deletion occurred.
+- Committed-state correction: A23's composed-index preflight exposed that the P0 package-object test still froze the prior command-body digest. Reproducing at committed `539b019853...` failed with actual digest `61bf6300b6e199ed0a1d1a6efc8f327dc80bd50eb04af260a0ed9186681aab01`; this append-only follow-up updates only that reviewed digest and re-runs the suite against a committed index.
 
 ## Ownership And Collaboration Status
 
