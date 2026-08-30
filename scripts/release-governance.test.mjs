@@ -242,6 +242,15 @@ function assertOwnerMapping(manifest, pathspec, owner, coordinatesWith) {
 test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic comparator and uses the tracked current guard elsewhere", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const guardRelativePath = "scripts/promotion-workflow-json-guard.mjs";
+  const guardTestRelativePath = "scripts/promotion-workflow-json-guard.test.mjs";
+  const packageJson = await readJson(path.join(repoRoot, "package.json"));
+  const promotionGateCommand = packageJson.scripts?.["test:promotion-gate"];
+  assert.equal(typeof promotionGateCommand, "string", "Promotion Gate test command must exist");
+  assert.match(
+    promotionGateCommand,
+    new RegExp(`(?:^|\\s)${guardTestRelativePath.replaceAll(".", "\\.")}(?:\\s|$)`, "u"),
+    "the required Promotion Gate test command must execute the strict JSON guard behavioral suite"
+  );
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
   const job = workflow.jobs?.["promotion-shadow-gate"];
   assert.ok(job, "Promotion Shadow job must exist");
