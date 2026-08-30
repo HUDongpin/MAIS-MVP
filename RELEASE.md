@@ -290,10 +290,18 @@ never place credential values in this runbook, Git, an artifact, or a command tr
 
 ```bash
 CLASSROOM_LOAD_BASE_URL="https://<preview-deployment>.vercel.app" \
+CLASSROOM_LOAD_APPROVED_ORIGIN="https://<preview-deployment>.vercel.app" \
 CLASSROOM_LOAD_COOKIE="<preview-student-session-cookie>" \
 CLASSROOM_LOAD_ARTIFACT_DIR="$(mktemp -d -t mais-classroom-load.XXXXXX)" \
 npm run smoke:classroom-load -- --students 15 --rounds 3 --json
 ```
+
+For every non-loopback target, `CLASSROOM_LOAD_APPROVED_ORIGIN` is mandatory and must be the
+same normalized, pathless origin as `CLASSROOM_LOAD_BASE_URL`, copied from task-owned Preview
+evidence. It is an exact string check: wildcards, CSV values, suffix matches, and mismatched
+origins fail before the smoke uses a cookie, password, or Vercel bypass secret. Loopback-local
+targets are explicitly exempt for offline/local testing. This check does not query Vercel and does
+not prove the provider environment of an immutable `*.vercel.app` URL.
 
 `CLASSROOM_LOAD_WRITE_P95_MS` controls the shared attempts/lesson-progress p95 budget (default
 2,000 ms); `CLASSROOM_LOAD_READ_P95_MS` controls the separate dashboard-read budget (default
@@ -301,6 +309,10 @@ npm run smoke:classroom-load -- --students 15 --rounds 3 --json
 actual distinct-identity/login count so a multi-seat demo run is not misread as per-user fan-out.
 `CLASSROOM_LOAD_ARTIFACT_DIR` redirects `last-run.json` into task-owned temporary storage; the
 fallback is ignored local output under `.tmp/classroom-load-smoke/`.
+The writer permits only that repository default or a canonical direct child of the OS temporary
+directory (or a pre-existing exact `CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT`). Traversal, symlinked
+ancestors, unsafe node types, hardlinks, group/other permissions, and concurrent replacement races
+fail closed; accepted results are written through an exclusive 0600 temporary file and atomic rename.
 
 The offline host deny cannot distinguish an immutable Vercel Production deployment URL from an
 immutable Preview URL when both use `*.vercel.app`. The operator must therefore bind the entered
