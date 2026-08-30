@@ -109,3 +109,16 @@
 - Post-implementation external discovery: original `WORKFLOW_JSON_PARSE_UNTRUSTED` is cleared; the next fail-closed blocker is `WORKFLOW_STRUCTURE_INVALID`.
 - Follow-up scope: `scripts/promotion-shadow-workflow-v2.test.mjs` plus this session log only; no Shadow, workflow dispatch, merge, deployment, production action, or PR #220 remote-head update occurred.
 - Worktree lifecycle: Retain through pending A11/A22/A23 review and A25 lifecycle closeout; expected closeout date is 2026-08-30 HKT.
+
+## 2026-08-30 Selector Contract Follow-up
+
+- Delegated defect: the A23 binding workflow added `PROMOTION_REAFFIRMATION` and the exact `pr220-strict-json-composition-20260830` future Receipt, while this A10 workflow test still required the prior `session-privacy-ux-20260828` pair unconditionally.
+- Root cause verified against the live A10 and A23 worktrees: A10 remains on the legacy no-reaffirmation selector pair; A23 has the new reaffirmation selector set. The A23 selector shape has three exact files, one atomic root, and an absolute Receipt path matching the relative Receipt path.
+- Test-only repair: `scripts/promotion-shadow-workflow-v2.test.mjs` now selects exactly one frozen contract based on the presence of `PROMOTION_REAFFIRMATION`. Without it, only the legacy Manifest and `shadow-receipt.v2.json` pair is accepted. With it, only the exact `pr220-strict-json-composition-20260830` Manifest, `promotion-shadow-receipt.v2.json`, `reaffirmation.v2.json`, matching absolute Receipt, and shared atomic root are accepted.
+- Repo-external temporary fixtures exercise both legal transition states and reject suffix, wildcard-like extension, prior-revision, absolute-path mismatch, and Reaffirmation suffix mutations. Existing workflow trigger, permission, checkout, execution, digest, verification, artifact, live-capability, and final fail-closed assertions were retained.
+- Focused selector/workflow test: 4 passed, 0 failed.
+- `npm run test:promotion-gate`: 46 passed, 0 failed.
+- `npm run test:release-governance`: 85 passed, 0 failed, 11 contextual skips.
+- `npm run type-check`: passed.
+- `node --check scripts/promotion-shadow-workflow-v2.test.mjs`: passed; `git diff --check`: passed.
+- Scope remains exactly `scripts/promotion-shadow-workflow-v2.test.mjs` plus this session log. No workflow, candidate, Manifest, Receipt, Reaffirmation, Shadow execution, dispatch, PR #220 update, new PR, main merge, deployment, provider/production action, or remote deletion occurred.
