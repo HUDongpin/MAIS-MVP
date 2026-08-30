@@ -1,0 +1,323 @@
+{
+  "role": "A22",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+  "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "sourceReviewSha256": "310e35005aee984c983a1d6814dc97446eedc26b9d24bd5ae0560e33ddce2a1d",
+  "sourceManifestSha256": "5adb89e549145e75d5019daf5a1db2f431be2f14ce48751ae94e7274bbb8dfe2",
+  "ownerReview": {
+    "schemaVersion": "mais-pr220-a22-owner-review.v1",
+    "role": "A22",
+    "reviewMode": "baseline-only-clean-isolation-build",
+    "result": "pass",
+    "claimCeiling": "Exact-target baseline-only A22 local isolation, native dry-run, type-check, governance-test, and production-build evidence. This does not establish current Shadow, Receipt replay, Closure, Registry, CI, merge, deployment, provider behavior, production behavior, or live behavior.",
+    "liveAllowed": false,
+    "producedAt": "2026-08-30T05:37:53Z",
+    "identities": {
+      "target": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "parents": [
+        "c1680d23dab08361bdb3abe0f4c4fdeb15143f54",
+        "e3556833ccfabbf4fe7e9f227f7f10838904d8da"
+      ],
+      "parentOrderExact": true,
+      "baseline": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+      "baselineIsAncestorOfTarget": true,
+      "registeredNativeWorktreeExact": true,
+      "liveRemote": {
+        "refClass": "composition-branch",
+        "sha": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+        "exact": true,
+        "readOnlyVerification": true,
+        "remoteWriteCount": 0,
+        "pullRequestUpdateCount": 0
+      }
+    },
+    "protectedDelta": {
+      "algorithm": "sha256-json-stringify-sorted-path-array",
+      "all": {
+        "count": 38,
+        "sha256": "2acc678b1f6c35886f40652deab1360780117a9b0620330b652a9d3a593ae5a2"
+      },
+      "runtime": {
+        "count": 34,
+        "sha256": "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8"
+      },
+      "tests": {
+        "count": 4,
+        "sha256": "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+      }
+    },
+    "candidateSourceChecker": {
+      "candidate": {
+        "digest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "boundPathCount": 4,
+        "allExpectedRawHashesMatched": true,
+        "allSourceBaselineTargetBytesEqual": true,
+        "sourceIsAncestorOfBaseline": true,
+        "sourceIsAncestorOfTarget": true
+      },
+      "checker": {
+        "version": "promotion-gate-shadow-v2.6",
+        "releaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+        "ledgerSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+        "ledgerMatchedManifest": true,
+        "bundlePathCount": 8,
+        "bundleSha256": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+        "bundleMatchedManifest": true,
+        "allReleaseBaselineTargetBytesEqual": true,
+        "releaseIsAncestorOfBaseline": true,
+        "releaseIsAncestorOfTarget": true
+      },
+      "candidateCheckerPathIntersectionCount": 0,
+      "changedCandidateCheckerPathIntersectionCount": 0,
+      "candidateUnrelatedBaseline": true,
+      "conclusionBasis": "The protected delta is disjoint from all bound candidate and checker paths; candidate raw bytes are equal across source, baseline, and target; checker bundle bytes are equal across release, baseline, and target; source and checker ancestry are exact."
+    },
+    "cleanIsolation": {
+      "physicalCheckout": {
+        "initialTrackedOrUntrackedEntryCount": 0,
+        "finalTrackedOrUntrackedEntryCount": 0,
+        "finalIgnoredEntryCount": 0,
+        "worktreeDiffExitCode": 0,
+        "indexDiffExitCode": 0,
+        "logicalIndexSha256": "e53043465d103342c33a1684332156f97ea891b7ea3717c0d184dcb1ff934c94",
+        "logicalIndexStableAcrossBuild": true,
+        "cleanStatusSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "nextEnvSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+        "nextEnvRestoredExactly": true
+      },
+      "sharedCoreWorktreeAnomaly": {
+        "detected": true,
+        "absoluteConfiguredTargetRecorded": false,
+        "risk": "Unqualified Git worktree commands resolve another review source through shared common configuration.",
+        "mitigation": "Every authoritative physical-checkout Git probe used an explicit work-tree binding and disabled optional index locks.",
+        "physicalCheckoutReprovedAfterCleanup": true
+      },
+      "processAndHoldEvidence": {
+        "externalWriterProcessCount": 0,
+        "activeNextBuildTestProcessCount": 0,
+        "writeOpenFileDescriptorCount": 0,
+        "openRepositoryFileDescriptorCount": 0,
+        "gitLockFileCount": 0,
+        "cwdOnlyCodexHostProcessCount": 2,
+        "cwdOnlyCodexHostsHadWriteDescriptors": false
+      },
+      "gitMetadataCaveat": {
+        "rawIndexStatCacheRefreshObservedDuringEarlyReadOnlyStatusProbe": true,
+        "stagedEntryMutationObserved": false,
+        "logicalIndexStable": true,
+        "branchRefCommitOrCheckoutMutationCount": 0
+      }
+    },
+    "dependencyIsolation": {
+      "firstSharedTreeAttempt": {
+        "lockfileSha256Matched": true,
+        "dependencyInventoryValid": false,
+        "npmLsExitCode": 1,
+        "linkRemovedExactly": true,
+        "ownedNpmDiagnosticRemovedExactly": true
+      },
+      "verifiedSharedTree": {
+        "lockfileSha256": "b522c15fcf2987054ef959f2a8c432c6d685cb77cedf34dc6e6de3994945a9c4",
+        "lockfileSha256Matched": true,
+        "lockEntriesChecked": 262,
+        "installedEntriesMatched": 207,
+        "nonOptionalMissingCount": 0,
+        "versionMismatchCount": 0,
+        "optionalPlatformMissingCount": 55,
+        "externalCwdHolderCount": 0,
+        "externalWriteDescriptorCount": 0,
+        "linkIdentityCapturedBeforeRemoval": true,
+        "linkRemovedExactly": true,
+        "finalLinkAbsent": true
+      }
+    },
+    "baselineDryRun": {
+      "command": "node scripts/rebase-promotion-baseline.mjs --manifest <workflow-selected> --target <exact-target> --revision-root <task-dry-run>",
+      "attempts": [
+        {
+          "attempt": 1,
+          "exitCode": 1,
+          "result": "dependency-import-blocked",
+          "reason": "The initially dependency-free checkout could not import the TypeScript package.",
+          "repositoryFilesWritten": 0,
+          "treeEntryMetadataUnchanged": true,
+          "revisionDestinationAbsent": true
+        },
+        {
+          "attempt": 2,
+          "exitCode": 0,
+          "result": "pass",
+          "dryRunNoFilesWrittenMarker": true,
+          "repositoryFilesWritten": 0,
+          "headUnchanged": true,
+          "logicalIndexUnchanged": true,
+          "rawIndexUnchangedWithinAttempt": true,
+          "statusUnchanged": true,
+          "treeEntryMetadataUnchanged": true,
+          "revisionDestinationAbsent": true,
+          "runtimePolicy": "retained",
+          "legacyCandidateBytes": "retained",
+          "plannedEvidenceFileCount": 10,
+          "plannedBindingFileCount": 2
+        }
+      ]
+    },
+    "commands": {
+      "typeCheck": {
+        "command": "npm run type-check",
+        "networkPolicy": "os-deny-network",
+        "attempts": [
+          {
+            "attempt": 1,
+            "exitCode": 0,
+            "result": "pass"
+          },
+          {
+            "attempt": 2,
+            "exitCode": 0,
+            "result": "pass-fresh-confirmation"
+          }
+        ]
+      },
+      "promotionGate": {
+        "command": "npm run test:promotion-gate",
+        "networkPolicy": "os-deny-network",
+        "attempts": [
+          {
+            "attempt": 1,
+            "exitCode": 1,
+            "pass": 44,
+            "fail": 1,
+            "result": "verification-harness-environment-failure",
+            "reason": "An inherited explicit work-tree variable prevented a fixture-local git init."
+          },
+          {
+            "attempt": 2,
+            "exitCode": 0,
+            "tests": 45,
+            "pass": 45,
+            "fail": 0,
+            "skipped": 0,
+            "result": "pass"
+          }
+        ]
+      },
+      "releaseGovernance": {
+        "command": "npm run test:release-governance",
+        "networkPolicy": "os-deny-network",
+        "exitCode": 0,
+        "tests": 103,
+        "pass": 92,
+        "fail": 0,
+        "skipped": 11,
+        "result": "pass"
+      },
+      "productionBuild": {
+        "command": "npm run build",
+        "boundedTimeoutSeconds": 600,
+        "uniqueGeneratedOutputRoot": ".next-a22-pr220-d039-owner-review",
+        "attempts": [
+          {
+            "attempt": 1,
+            "exitCode": 1,
+            "result": "sandbox-preflight-blocked",
+            "reason": "macOS sandbox-exec denied direct execution of the native ps preflight.",
+            "generatedOutputCreated": false,
+            "disposableTsconfigCreated": false
+          },
+          {
+            "attempt": 2,
+            "exitCode": 0,
+            "result": "pass",
+            "networkPolicy": "os-deny-network",
+            "externalNativeProcessPreflightActiveCount": 0,
+            "externalNativeProcessPreflightWriteDescriptorCount": 0,
+            "sandboxProcessInspectionShimSha256": "254422738ea03f181b3d29d75c96e310739ae14b5e7f777cb6ea7bcb352b72b5",
+            "sandboxProcessInspectionShimReturnedPrevalidatedEmptySet": true,
+            "compiledSuccessfully": true,
+            "staticPagesGenerated": 202
+          }
+        ],
+        "nativeAttestation": {
+          "sha256": "8e866d47f4909809d697ed17752e361ac08cb284a8ae3d67ebc69333eb501ad4",
+          "schemaVersion": 3,
+          "candidateSha": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+          "distDirExact": true,
+          "sourceTreeClean": false,
+          "sourceTreeStable": false,
+          "limitation": "Next temporarily rewrote next-env.d.ts during the build; the native attestation was written before the clean-build wrapper restored its preimage.",
+          "artifactTreeSha256": "8986fea764258af4e5d1e0ad8205932ba04cf8ea9eea608584dc5e94ade8106a",
+          "artifactTreeFileCount": 2490,
+          "artifactTreeTotalBytes": 92694383,
+          "artifactDigestCount": 3
+        },
+        "externalPrePostEvidence": {
+          "headUnchanged": true,
+          "logicalIndexUnchanged": true,
+          "plainStatusUnchangedAndClean": true,
+          "nextEnvRestoredExactly": true,
+          "physicalSourceFinalClean": true,
+          "physicalSourceFinalStable": true
+        },
+        "outputDisposition": {
+          "generatedOutputTypeVerified": "directory",
+          "generatedOutputIdentityCaptured": true,
+          "generatedOutputFileCount": 2503,
+          "generatedOutputTotalBytes": 1987525381,
+          "generatedOutputRemovedExactly": true,
+          "disposableTsconfigSha256": "6f51f29b02ff5e2df7f6c4b53d70d13712a93128f24b221fb548609cd411b762",
+          "disposableTsconfigIdentityCaptured": true,
+          "disposableTsconfigRemovedExactly": true,
+          "sandboxProcessInspectionShimRemovedExactly": true,
+          "taskGeneratedEmptyTmpParentInitiallyAbsent": true,
+          "taskGeneratedEmptyTmpParentRemovedWithRmdir": true,
+          "finalOwnedResidueCount": 0,
+          "finalIgnoredProtectedEvidenceCount": 0
+        }
+      }
+    },
+    "sideEffects": {
+      "networkSideEffectCount": 0,
+      "readOnlyGitRemoteVerificationPerformed": true,
+      "buildNetworkAccessAllowed": false,
+      "providerAccessCount": 0,
+      "databaseAccessCount": 0,
+      "deployCount": 0,
+      "productionAccessCount": 0,
+      "registryMutationCount": 0,
+      "shadowOrReceiptReplayCount": 0,
+      "workflowDispatchCount": 0,
+      "pullRequestUpdateCount": 0,
+      "mainMergeCount": 0,
+      "remoteDeletionCount": 0,
+      "trackedRepositoryFileWriteCount": 0,
+      "semanticGitMutationCount": 0
+    },
+    "evidenceBoundaries": {
+      "historicalReceiptCurrentness": "historical-only",
+      "currentShadowProven": false,
+      "receiptReplayProven": false,
+      "closureOrRegistryFinalizationProven": false,
+      "ciProven": false,
+      "trackedCommitOrMainProven": false,
+      "deploymentProven": false,
+      "providerConfigurationProven": false,
+      "sameShaRouteReadbackProven": false,
+      "liveRequiredBehaviorProven": false,
+      "rollbackProven": false,
+      "monitoringProven": false
+    }
+  }
+}
