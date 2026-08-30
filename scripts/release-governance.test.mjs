@@ -242,6 +242,15 @@ function assertOwnerMapping(manifest, pathspec, owner, coordinatesWith) {
 test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic comparator and uses the tracked current guard elsewhere", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const guardRelativePath = "scripts/promotion-workflow-json-guard.mjs";
+  const guardTestRelativePath = "scripts/promotion-workflow-json-guard.test.mjs";
+  const packageJson = await readJson(path.join(repoRoot, "package.json"));
+  const promotionGateCommand = packageJson.scripts?.["test:promotion-gate"];
+  assert.equal(typeof promotionGateCommand, "string", "Promotion Gate test command must exist");
+  assert.match(
+    promotionGateCommand,
+    new RegExp(`(?:^|\\s)${guardTestRelativePath.replaceAll(".", "\\.")}(?:\\s|$)`, "u"),
+    "the required Promotion Gate test command must execute the strict JSON guard behavioral suite"
+  );
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
   const job = workflow.jobs?.["promotion-shadow-gate"];
   assert.ok(job, "Promotion Shadow job must exist");
@@ -3364,7 +3373,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "8a59d333637faf9b9507733d8680b0cfc1dd323291193567beacbaafa0c55530",
+    "61bf6300b6e199ed0a1d1a6efc8f327dc80bd50eb04af260a0ed9186681aab01",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {

@@ -80,6 +80,19 @@
 - `git diff --check`: passed.
 - Evidence boundary: these are local results for the current worktree bytes. This exact follow-up commit contains only the fixture repair and this log update; no GitHub workflow or required check was triggered.
 
+## 2026-08-30 Quality Review Follow-up
+
+- Independent composition quality review found one blocking issue: the strict JSON guard's five behavioral tests were not executed by any required Promotion or CI command, so future guard-internal regressions could retain static call-site wiring while weakening parser behavior.
+- TDD RED: the focused release-governance assertion failed only because `test:promotion-gate` omitted `scripts/promotion-workflow-json-guard.test.mjs`.
+- Minimal fix: add that exact behavioral suite to the existing `test:promotion-gate` Node test command and freeze the required wiring in `scripts/release-governance.test.mjs`.
+- Focused governance assertion: 1 passed, 0 failed after the fix.
+- Required Promotion gate: 45 passed, 0 failed, including all five strict JSON guard tests.
+- Release-governance: 85 passed, 0 failed, 11 contextual skips.
+- `npm run type-check`: passed.
+- `git diff --check`: passed.
+- Follow-up scope: `package.json`, `scripts/release-governance.test.mjs`, and this append-only A10 session log. No Shadow, workflow dispatch, PR #220 update, main merge, deployment, production mutation, or remote deletion occurred.
+- Committed-state correction: A23's composed-index preflight exposed that the P0 package-object test still froze the prior command-body digest. Reproducing at committed `539b019853...` failed with actual digest `61bf6300b6e199ed0a1d1a6efc8f327dc80bd50eb04af260a0ed9186681aab01`; this append-only follow-up updates only that reviewed digest and re-runs the suite against a committed index.
+
 ## Ownership And Collaboration Status
 
 - `coordination/release-intake/owner-pathspecs.json` assigns `.github/workflows/promotion-shadow.yml` exactly to A10 and routes coordination to A11, A22, and A23. Its broad A10 tooling/docs/config entry also covers `scripts/**` and `coordination/**`.
