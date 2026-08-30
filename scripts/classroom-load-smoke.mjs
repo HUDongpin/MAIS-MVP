@@ -6,6 +6,8 @@
 // invoked by any deployment or production-certification path.
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
+import { constants as fsConstants } from "node:fs";
+import { randomUUID } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -115,6 +117,45 @@ export function normalizeBaseUrl(value) {
   return parsed.origin;
 }
 
+function isLoopbackOrigin(value) {
+  const hostname = new URL(value).hostname.toLowerCase().replace(/\.+$/u, "");
+  return hostname === "localhost" || hostname === "[::1]" || /^127(?:\.\d{1,3}){3}$/u.test(hostname);
+}
+
+function normalizeExactOrigin(value, label) {
+  if (typeof value !== "string" || /[*,\s]/u.test(value)) {
+    throw new Error(`${label} must be one exact origin, not a wildcard or list.`);
+  }
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error(`${label} must be a valid absolute http(s) origin.`);
+  }
+  if (parsed.pathname !== "/" || parsed.search || parsed.hash || parsed.username || parsed.password) {
+    throw new Error(`${label} must be a normalized origin without a path, query, fragment, or credentials.`);
+  }
+  return normalizeBaseUrl(parsed.origin);
+}
+
+export function assertApprovedOrigin(baseUrl, env = process.env) {
+  const normalizedBaseUrl = normalizeExactOrigin(baseUrl, "Classroom load base URL");
+  if (isLoopbackOrigin(normalizedBaseUrl)) return normalizedBaseUrl;
+  const configured = env.CLASSROOM_LOAD_APPROVED_ORIGIN;
+  if (!configured) {
+    throw new Error(
+      "Classroom load smoke requires an approved origin (CLASSROOM_LOAD_APPROVED_ORIGIN) for every non-loopback target; derive the exact origin from task-owned Preview evidence."
+    );
+  }
+  const normalizedApproved = normalizeExactOrigin(configured, "CLASSROOM_LOAD_APPROVED_ORIGIN");
+  if (normalizedApproved !== normalizedBaseUrl) {
+    throw new Error(
+      `Classroom load smoke base URL ${normalizedBaseUrl} does not match the exact approved origin.`
+    );
+  }
+  return normalizedBaseUrl;
+}
+
 export function assertTargetIsNotProduction(baseUrl, _env = process.env) {
   const hostname = new URL(baseUrl).hostname.toLowerCase().replace(/\.+$/u, "");
   if (!PRODUCTION_HOSTS.has(hostname)) return;
@@ -129,15 +170,15 @@ function requiredBaseUrl(args) {
       "Classroom load smoke requires an explicit --base-url (or CLASSROOM_LOAD_BASE_URL); it writes and has no default target."
     );
   }
-  const baseUrl = normalizeBaseUrl(args.baseUrl);
+  const baseUrl = normalizeExactOrigin(args.baseUrl, "Classroom load base URL");
   assertTargetIsNotProduction(baseUrl);
   return baseUrl;
 }
 
 export function smokeConfig(args, env = process.env) {
   return {
-    artifactDir: path.resolve(args.artifactDir || env.CLASSROOM_LOAD_ARTIFACT_DIR || DEFAULT_ARTIFACT_DIR),
-    baseUrl: requiredBaseUrl(args),
+    artifactDir: args.artifactDir || env.CLASSROOM_LOAD_ARTIFACT_DIR || DEFAULT_ARTIFACT_DIR,
+    baseUrl: assertApprovedOrigin(requiredBaseUrl(args), env),
     grade: args.grade,
     readThresholdMs: boundedInteger(env.CLASSROOM_LOAD_READ_P95_MS, 3_000, 500, 120_000, "CLASSROOM_LOAD_READ_P95_MS"),
     rounds: boundedInteger(args.rounds, 3, 1, 50, "rounds"),
@@ -540,12 +581,183 @@ export function aggregate(measurements, budgets) {
     });
 }
 
-export async function writeReport(report, artifactDir) {
-  const targetDirectory = path.resolve(artifactDir);
+function hasTraversalSegment(value) {
+  return value.split(/[\\/]+/u).some((segment) => segment === "..");
+}
+
+async function safeExistingDirectory(directory, label, { allowPermissive = false } = {}) {
+  let stats;
+  try {
+    stats = await fs.lstat(directory);
+  } catch (error) {
+    throw new Error(`${label} must already exist as a directory.`);
+  }
+  if (!stats.isDirectory() || (stats.mode & 0o170000) !== 0o040000) {
+    throw new Error(`${label} must be a real directory, not a symlink or other node type.`);
+  }
+  if (!allowPermissive && (stats.mode & 0o077) !== 0) {
+    throw new Error(`${label} must not be group/other accessible.`);
+  }
+  const canonical = await fs.realpath(directory);
+  if (canonical !== path.resolve(directory)) {
+    throw new Error(`${label} must be a canonical path without symlink ancestors.`);
+  }
+  return { canonical, stats };
+}
+
+async function ensureDirectoryComponent(directory, label, options = {}) {
+  try {
+    await safeExistingDirectory(directory, label, options);
+  } catch (error) {
+    if (!/must already exist/u.test(error instanceof Error ? error.message : String(error))) throw error;
+    try {
+      await fs.mkdir(directory, { mode: 0o700 });
+    } catch (mkdirError) {
+      if (mkdirError?.code !== "EEXIST") throw mkdirError;
+    }
+    await safeExistingDirectory(directory, label, options);
+  }
+}
+
+async function ensureDirectoryChain(baseDirectory, targetParent, label) {
+  const relative = path.relative(baseDirectory, targetParent);
+  if (!relative || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+    throw new Error(`${label} escapes its approved root.`);
+  }
+  let current = baseDirectory;
+  for (const component of relative.split(path.sep)) {
+    current = path.join(current, component);
+    await ensureDirectoryComponent(current, `${label} ancestor`, { allowPermissive: true });
+  }
+}
+
+async function resolveArtifactDirectory(artifactDir, env = process.env) {
+  if (typeof artifactDir !== "string" || !artifactDir.trim()) {
+    throw new Error("Artifact directory must be a non-empty path.");
+  }
+  if (artifactDir.includes("\0") || hasTraversalSegment(artifactDir)) {
+    throw new Error("Artifact directory traversal is not allowed.");
+  }
+  const rawCandidate = path.resolve(artifactDir);
+  const defaultDirectory = path.resolve(DEFAULT_ARTIFACT_DIR);
+  if (rawCandidate === defaultDirectory) {
+    const repository = await safeExistingDirectory(REPO_ROOT, "Repository root", { allowPermissive: true });
+    await ensureDirectoryChain(repository.canonical, path.dirname(defaultDirectory), "Repository artifact directory");
+    await ensureDirectoryComponent(defaultDirectory, "Default artifact directory");
+    return defaultDirectory;
+  }
+
+  const temporaryRoot = (await safeExistingDirectory(await fs.realpath(tmpdir()), "OS temporary root", { allowPermissive: true })).canonical;
+  const approvedRoots = [{ canonical: temporaryRoot, exact: false }];
+  const explicitRoot = env.CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT;
+  if (explicitRoot) {
+    if (!path.isAbsolute(explicitRoot) || hasTraversalSegment(explicitRoot)) {
+      throw new Error("CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT must be an absolute canonical path.");
+    }
+    approvedRoots.push({
+      canonical: (await safeExistingDirectory(path.resolve(explicitRoot), "Explicit artifact root")).canonical,
+      exact: true
+    });
+  }
+  const rawParent = path.dirname(rawCandidate);
+  let rawParentStats;
+  try {
+    rawParentStats = await fs.lstat(rawParent);
+  } catch {
+    rawParentStats = null;
+  }
+  const rawParentIsSystemTemporaryAlias = path.resolve(rawParent) === path.resolve(tmpdir());
+  if (rawParentStats?.isSymbolicLink() && !rawParentIsSystemTemporaryAlias) {
+    throw new Error("Artifact directory has a symlink ancestor.");
+  }
+  const canonicalParent = rawParentStats
+    ? await fs.realpath(rawParent)
+    : null;
+  for (const root of approvedRoots) {
+    if ((root.exact && rawCandidate === root.canonical) || canonicalParent === root.canonical) {
+      await safeExistingDirectory(root.canonical, "Approved artifact root", { allowPermissive: true });
+      const candidate = root.exact && rawCandidate === root.canonical
+        ? root.canonical
+        : path.join(root.canonical, path.basename(rawCandidate));
+      if (candidate !== root.canonical) {
+        await ensureDirectoryComponent(candidate, "Artifact directory");
+      }
+      return candidate;
+    }
+  }
+  throw new Error(
+    "Artifact directory must be the repository default or a canonical direct descendant of an approved task-owned root."
+  );
+}
+
+function sameNode(left, right) {
+  return left.dev === right.dev && left.ino === right.ino;
+}
+
+async function safeResultTarget(artifactPath) {
+  try {
+    const stats = await fs.lstat(artifactPath);
+    if (!stats.isFile() || (stats.mode & 0o170000) !== 0o100000) {
+      throw new Error("Artifact result must be a regular file, not a symlink or other node type.");
+    }
+    if (stats.nlink !== 1) throw new Error("Artifact result hardlinks are not allowed.");
+    if ((stats.mode & 0o077) !== 0 || (stats.mode & 0o777) !== 0o600) {
+      throw new Error("Artifact result must have mode 0600 and no group/other access.");
+    }
+    return stats;
+  } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    throw error;
+  }
+}
+
+export async function writeReport(report, artifactDir, env = process.env) {
+  const targetDirectory = await resolveArtifactDirectory(artifactDir, env);
   const artifactPath = path.join(targetDirectory, "last-run.json");
-  await fs.mkdir(targetDirectory, { recursive: true });
-  await fs.writeFile(artifactPath, `${JSON.stringify(report, null, 2)}\n`, { mode: 0o600 });
-  return artifactPath;
+  const lockPath = path.join(targetDirectory, ".last-run.json.lock");
+  const directoryStats = await safeExistingDirectory(targetDirectory, "Artifact directory");
+  try {
+    await fs.mkdir(lockPath, { mode: 0o700 });
+  } catch (error) {
+    if (error?.code === "EEXIST") throw new Error("Artifact result writer race detected; refusing concurrent output.");
+    throw error;
+  }
+
+  let temporaryPath;
+  let temporaryStats;
+  try {
+    const existingStats = await safeResultTarget(artifactPath);
+    const serialized = `${JSON.stringify(report, null, 2)}\n`;
+    temporaryPath = path.join(targetDirectory, `.last-run.json.${process.pid}.${randomUUID()}.tmp`);
+    const flags = fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | (fsConstants.O_NOFOLLOW ?? 0);
+    const handle = await fs.open(temporaryPath, flags, 0o600);
+    try {
+      await handle.chmod(0o600);
+      await handle.writeFile(serialized, "utf8");
+      await handle.sync();
+      temporaryStats = await handle.stat();
+    } finally {
+      await handle.close();
+    }
+    const currentDirectoryStats = await safeExistingDirectory(targetDirectory, "Artifact directory");
+    if (!sameNode(directoryStats.stats, currentDirectoryStats.stats)) {
+      throw new Error("Artifact directory changed during report write.");
+    }
+    const currentExistingStats = await safeResultTarget(artifactPath);
+    if (existingStats && (!currentExistingStats || !sameNode(existingStats, currentExistingStats))) {
+      throw new Error("Artifact result changed during report write.");
+    }
+    await fs.rename(temporaryPath, artifactPath);
+    temporaryPath = undefined;
+    const finalStats = await safeResultTarget(artifactPath);
+    if (!finalStats || !sameNode(temporaryStats, finalStats)) {
+      throw new Error("Artifact result changed during atomic replacement.");
+    }
+    return artifactPath;
+  } finally {
+    if (temporaryPath) await fs.rm(temporaryPath, { force: true }).catch(() => {});
+    await fs.rmdir(lockPath).catch(() => {});
+  }
 }
 
 export async function executeClassroomLoad(args, dependencies = {}) {
@@ -648,7 +860,7 @@ export async function executeClassroomLoad(args, dependencies = {}) {
     },
     writeThresholdMs: config.writeThresholdMs
   };
-  const artifactPath = await persistReport(report, config.artifactDir);
+  const artifactPath = await persistReport(report, config.artifactDir, env);
   return { artifactPath, report };
 }
 
@@ -709,6 +921,7 @@ async function runSelfTest() {
     /production host/i
   );
   const budgetEnv = {
+    CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
     CLASSROOM_LOAD_BASE_URL: "https://preview.example",
     CLASSROOM_LOAD_READ_P95_MS: "4500",
     CLASSROOM_LOAD_WRITE_P95_MS: "1500"
@@ -732,6 +945,7 @@ async function runSelfTest() {
 
   let loginCalls = 0;
   const demoEnv = {
+    CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
     CLASSROOM_LOAD_BASE_URL: "https://preview.example",
     CLASSROOM_LOAD_DEMO_PASSWORD: "fixture-only",
     CLASSROOM_LOAD_USE_DEMO_LOGIN: "1"
@@ -772,10 +986,14 @@ async function runSelfTest() {
   await assert.rejects(
     () => executeClassroomLoad(
       parseArgs(["--base-url", "https://preview.example", "--username", "Fixture"], {
+        CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
         CLASSROOM_LOAD_PASSWORD: "fixture-only"
       }),
       {
-        env: { CLASSROOM_LOAD_PASSWORD: "fixture-only" },
+        env: {
+          CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
+          CLASSROOM_LOAD_PASSWORD: "fixture-only"
+        },
         loginIdentity: (identity, redirectConfig, redirectEnv) => loginIdentity(
           identity,
           redirectConfig,
@@ -857,6 +1075,7 @@ async function runSelfTest() {
   assert.equal(attemptResult.ok, false, "a fast HTTP 500 remains a failed endpoint");
 
   const errorEnv = {
+    CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
     CLASSROOM_LOAD_BASE_URL: "https://preview.example",
     CLASSROOM_LOAD_PASSWORD: "fixture-only"
   };
@@ -885,6 +1104,7 @@ async function runSelfTest() {
   const artifactDir = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-self-test-"));
   try {
     const artifactEnv = {
+      CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
       CLASSROOM_LOAD_ARTIFACT_DIR: artifactDir,
       CLASSROOM_LOAD_BASE_URL: "https://preview.example",
       CLASSROOM_LOAD_PASSWORD: "fixture-only"
@@ -911,11 +1131,135 @@ async function runSelfTest() {
         ]
       }
     );
-    assert.equal(artifactPath, path.join(artifactDir, "last-run.json"));
+    assert.equal(path.basename(artifactPath), "last-run.json");
+    assert.equal(await fs.realpath(path.dirname(artifactPath)), await fs.realpath(artifactDir));
     assert.equal(JSON.parse(await fs.readFile(artifactPath, "utf8")).ok, true);
+    const initialArtifactStats = await fs.lstat(artifactPath);
+    assert.equal(initialArtifactStats.mode & 0o777, 0o600);
+    assert.equal(initialArtifactStats.nlink, 1);
+    await writeReport({ replaced: true }, artifactDir, artifactEnv);
+    assert.deepEqual(JSON.parse(await fs.readFile(artifactPath, "utf8")), { replaced: true });
+    const replacementArtifactStats = await fs.lstat(artifactPath);
+    assert.equal(replacementArtifactStats.mode & 0o777, 0o600);
+    assert.equal(replacementArtifactStats.nlink, 1);
+    const writerLockPath = path.join(artifactDir, ".last-run.json.lock");
+    await fs.mkdir(writerLockPath, { mode: 0o700 });
+    try {
+      await assert.rejects(
+        () => writeReport({ race: true }, artifactDir, artifactEnv),
+        /race|concurrent|artifact/i
+      );
+    } finally {
+      await fs.rmdir(writerLockPath);
+    }
+
+    await assert.rejects(
+      () => writeReport({ escape: true }, `${artifactDir}/../mais-classroom-load-escape`),
+      /artifact directory|approved|descendant/i
+    );
+
+    const symlinkTarget = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-symlink-target-"));
+    const symlinkParent = path.join(path.dirname(artifactDir), "mais-classroom-load-symlink-parent");
+    await fs.symlink(symlinkTarget, symlinkParent);
+    try {
+      await assert.rejects(
+        () => writeReport({ symlink: true }, path.join(symlinkParent, "nested")),
+        /symlink|artifact directory|unsafe/i
+      );
+    } finally {
+      await fs.rm(symlinkParent, { force: true });
+      await fs.rm(symlinkTarget, { recursive: true, force: true });
+    }
+
+    const finalSymlinkDir = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-final-symlink-"));
+    const finalSymlinkTarget = path.join(finalSymlinkDir, "outside.json");
+    const finalSymlink = path.join(finalSymlinkDir, "last-run.json");
+    await fs.writeFile(finalSymlinkTarget, "outside\n", { mode: 0o600 });
+    await fs.symlink(finalSymlinkTarget, finalSymlink);
+    try {
+      await assert.rejects(
+        () => writeReport({ symlink: true }, finalSymlinkDir),
+        /symlink|unsafe|artifact/i
+      );
+    } finally {
+      await fs.rm(finalSymlinkDir, { recursive: true, force: true });
+    }
+
+    const hardlinkDir = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-hardlink-"));
+    const hardlinkTarget = path.join(hardlinkDir, "other.json");
+    const hardlinkResult = path.join(hardlinkDir, "last-run.json");
+    await fs.writeFile(hardlinkTarget, "shared\n", { mode: 0o600 });
+    await fs.link(hardlinkTarget, hardlinkResult);
+    try {
+      await assert.rejects(
+        () => writeReport({ hardlink: true }, hardlinkDir),
+        /hardlink|unsafe|artifact/i
+      );
+    } finally {
+      await fs.rm(hardlinkDir, { recursive: true, force: true });
+    }
+
+    const unsafeModeDir = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-unsafe-mode-"));
+    const unsafeModeResult = path.join(unsafeModeDir, "last-run.json");
+    await fs.writeFile(unsafeModeResult, "unsafe\n", { mode: 0o644 });
+    try {
+      await assert.rejects(
+        () => writeReport({ unsafeMode: true }, unsafeModeDir),
+        /permission|unsafe|artifact/i
+      );
+    } finally {
+      await fs.rm(unsafeModeDir, { recursive: true, force: true });
+    }
   } finally {
     await fs.rm(artifactDir, { recursive: true, force: true });
   }
+
+  const approvedOriginBaseArgs = parseArgs(["--base-url", "https://preview.example", "--username", "Fixture"], {
+    CLASSROOM_LOAD_PASSWORD: "fixture-only"
+  });
+  assert.equal(assertApprovedOrigin("http://127.0.0.1:3210", {}), "http://127.0.0.1:3210");
+  assert.throws(
+    () => smokeConfig(approvedOriginBaseArgs, { CLASSROOM_LOAD_PASSWORD: "fixture-only" }),
+    /approved origin/i
+  );
+  const mismatchedOriginEnv = {
+    CLASSROOM_LOAD_APPROVED_ORIGIN: "https://other-preview.example",
+    CLASSROOM_LOAD_PASSWORD: "fixture-only"
+  };
+  assert.throws(
+    () => smokeConfig(approvedOriginBaseArgs, mismatchedOriginEnv),
+    /approved origin/i
+  );
+  assert.throws(
+    () => smokeConfig(approvedOriginBaseArgs, {
+      CLASSROOM_LOAD_APPROVED_ORIGIN: "https://*.preview.example",
+      CLASSROOM_LOAD_PASSWORD: "fixture-only"
+    }),
+    /wildcard|exact origin/i
+  );
+  let unapprovedFetchCalls = 0;
+  await assert.rejects(
+    () => executeClassroomLoad(approvedOriginBaseArgs, {
+      env: { CLASSROOM_LOAD_PASSWORD: "fixture-only" },
+      loginIdentity: async () => {
+        unapprovedFetchCalls += 1;
+        throw new Error("network must not be reached");
+      }
+    }),
+    /approved origin/i
+  );
+  assert.equal(unapprovedFetchCalls, 0, "missing approved origin blocks before login/fetch");
+  await assert.rejects(
+    () => executeClassroomLoad(approvedOriginBaseArgs, {
+      env: mismatchedOriginEnv,
+      loginIdentity: async () => {
+        unapprovedFetchCalls += 1;
+        throw new Error("network must not be reached");
+      }
+    }),
+    /approved origin/i
+  );
+  assert.equal(unapprovedFetchCalls, 0, "mismatched approved origin blocks before login/fetch");
   console.log("classroom-load-smoke self-test: PASS");
 }
 
