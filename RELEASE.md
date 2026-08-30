@@ -270,6 +270,48 @@ npm run vercel:preview -- --run-id "$(date +%Y%m%d)-<scope>"    # or --dry-run
 Same staging discipline, deploys to a preview URL only. Use for stakeholder review before a
 production promotion.
 
+### Manual classroom-concurrency smoke (staging/preview only)
+
+`npm run smoke:classroom-load` is an operator-invoked write/load check for an already-running
+staging or preview deployment. For each configured round it concurrently submits one practice
+attempt and one lesson-progress update per virtual seat, then reads the student dashboard. It
+does **not** start a server, create or deploy a preview, promote an alias, dispatch a workflow, or
+grant release approval.
+
+The command has **no default URL**: provide `--base-url` or `CLASSROOM_LOAD_BASE_URL` explicitly.
+It unconditionally rejects the MAIS production apex and `www` hosts for both domains. There is no
+production override. Remote targets must use HTTPS; plain HTTP is accepted only for explicit
+loopback-local targets. Every redirect `Location` is resolved and checked, then the run fails
+without following it; this happens before workload discovery or any attempt/progress write.
+
+Run it manually only after a task-owned preview exists. Supply a preview student cookie, explicit
+preview credentials, or the owner-approved demo roster password through environment variables;
+never place credential values in this runbook, Git, an artifact, or a command transcript.
+
+```bash
+CLASSROOM_LOAD_BASE_URL="https://<preview-deployment>.vercel.app" \
+CLASSROOM_LOAD_COOKIE="<preview-student-session-cookie>" \
+CLASSROOM_LOAD_ARTIFACT_DIR="$(mktemp -d -t mais-classroom-load.XXXXXX)" \
+npm run smoke:classroom-load -- --students 15 --rounds 3 --json
+```
+
+`CLASSROOM_LOAD_WRITE_P95_MS` controls the shared attempts/lesson-progress p95 budget (default
+2,000 ms); `CLASSROOM_LOAD_READ_P95_MS` controls the separate dashboard-read budget (default
+3,000 ms). Any HTTP/network error fails even when it returns quickly. The JSON report records the
+actual distinct-identity/login count so a multi-seat demo run is not misread as per-user fan-out.
+`CLASSROOM_LOAD_ARTIFACT_DIR` redirects `last-run.json` into task-owned temporary storage; the
+fallback is ignored local output under `.tmp/classroom-load-smoke/`.
+
+The offline host deny cannot distinguish an immutable Vercel Production deployment URL from an
+immutable Preview URL when both use `*.vercel.app`. The operator must therefore bind the entered
+URL to existing task-owned Preview evidence before running; this smoke performs no provider lookup
+and proves no deployment environment. Current `/api/lesson-progress` also binds the write only to
+the supplied student session cookie; unlike `/api/attempts`, it has no server-side expected-user
+guard. The smoke exercises that current contract but does not certify such a guard.
+
+This command is deliberately absent from `certify:production`, `vercel:production`, GitHub
+workflows, and CI. It is never executed automatically and must never target a production URL.
+
 ---
 
 ## Command reference
@@ -283,6 +325,7 @@ production promotion.
 | `npm run vercel:preview [-- --dry-run]` | Deploy the pruned slice to a preview URL. |
 | `npm run vercel:production -- --dry-run` | Offline clean-HEAD source/staging plan only; no build, provider query, migration, deploy, promotion, or smoke. |
 | `npm run vercel:production` | Workflow-only full production path: preflight → build gates → exact-SHA/provider/schema gates → staging deploy → promotion → smokes; local real runs fail closed. |
+| `npm run smoke:classroom-load -- --base-url <preview>` | Manual staging/preview-only classroom write/read smoke; no default URL, deployment, promotion, or production-host override. |
 | `npm run check` | Full local sweep: type-check, zh-hans strict, analytics, rag, question-bank, mvp, build. |
 | `npm run clean:generated` | Dry-run generated-artifact cleanup (never `git clean -fdx`). |
 
