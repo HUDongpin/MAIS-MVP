@@ -14,6 +14,73 @@ async function loadWorkflow() {
   return { source, workflow: parseYaml(source) };
 }
 
+const githubWorkspaceExpression = "${{ github.workspace }}";
+const selectorPrefix =
+  "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations";
+const selectorContracts = Object.freeze({
+  legacy: Object.freeze({
+    manifest: `${selectorPrefix}/session-privacy-ux-20260828/promotion-manifest.v2.json`,
+    receipt: `${selectorPrefix}/session-privacy-ux-20260828/shadow-receipt.v2.json`,
+    receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/shadow-receipt.v2.json`
+  }),
+  reaffirmed: Object.freeze({
+    manifest: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/promotion-manifest.v2.json`,
+    receipt: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/promotion-shadow-receipt.v2.json`,
+    receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/promotion-shadow-receipt.v2.json`,
+    reaffirmation: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmation.v2.json`
+  })
+});
+
+function assertPromotionSelectorContract(job) {
+  const env = job?.env ?? {};
+  const hasReaffirmation = Object.prototype.hasOwnProperty.call(env, "PROMOTION_REAFFIRMATION");
+  const expected = hasReaffirmation ? selectorContracts.reaffirmed : selectorContracts.legacy;
+
+  assert.equal(env.PROMOTION_MANIFEST, expected.manifest);
+  assert.equal(env.PROMOTION_CANONICAL_RECEIPT, expected.receipt);
+  assert.equal(env.PROMOTION_CANONICAL_RECEIPT_ABSOLUTE, expected.receiptAbsolute);
+  assert.equal(env.PROMOTION_REAFFIRMATION, expected.reaffirmation);
+  assert.equal(
+    path.posix.dirname(env.PROMOTION_MANIFEST),
+    path.posix.dirname(env.PROMOTION_CANONICAL_RECEIPT),
+    "the selected Manifest and canonical Receipt must be one atomic revision pair"
+  );
+  if (hasReaffirmation) {
+    assert.equal(
+      path.posix.dirname(env.PROMOTION_MANIFEST),
+      path.posix.dirname(env.PROMOTION_REAFFIRMATION),
+      "the selected Manifest, Receipt, and Reaffirmation must share one atomic root"
+    );
+  }
+}
+
+function rewriteSelectorFixture(source, workflow, contract) {
+  const currentEnv = workflow.jobs["promotion-shadow-gate"].env;
+  let fixtureSource = source;
+  for (const [key, value] of [
+    ["PROMOTION_MANIFEST", contract.manifest],
+    ["PROMOTION_CANONICAL_RECEIPT", contract.receipt],
+    ["PROMOTION_CANONICAL_RECEIPT_ABSOLUTE", contract.receiptAbsolute]
+  ]) {
+    fixtureSource = fixtureSource.replace(`      ${key}: ${currentEnv[key]}\n`, `      ${key}: ${value}\n`);
+  }
+
+  const currentReaffirmationLine = currentEnv.PROMOTION_REAFFIRMATION
+    ? `      PROMOTION_REAFFIRMATION: ${currentEnv.PROMOTION_REAFFIRMATION}\n`
+    : "";
+  const targetReaffirmationLine = contract.reaffirmation
+    ? `      PROMOTION_REAFFIRMATION: ${contract.reaffirmation}\n`
+    : "";
+  if (currentReaffirmationLine) {
+    fixtureSource = fixtureSource.replace(currentReaffirmationLine, targetReaffirmationLine);
+  } else if (targetReaffirmationLine) {
+    const runIdLine = "      PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}\n";
+    assert.ok(fixtureSource.includes(runIdLine), "selector fixture must contain the CI run identity");
+    fixtureSource = fixtureSource.replace(runIdLine, `${runIdLine}${targetReaffirmationLine}`);
+  }
+  return fixtureSource;
+}
+
 test("Promotion Gate public scripts select v2.6 and expose no live-capable command", async () => {
   const pkg = JSON.parse(await readFile(path.join(repoRoot, "package.json"), "utf8"));
   assert.deepEqual(
@@ -56,23 +123,7 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   assert.ok(job);
   assert.equal(job.name, "promotion-shadow-gate");
   assert.equal(job.permissions?.contents, "read");
-  assert.equal(
-    job.env?.PROMOTION_MANIFEST,
-    "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/promotion-manifest.v2.json"
-  );
-  assert.equal(
-    job.env?.PROMOTION_CANONICAL_RECEIPT,
-    "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/shadow-receipt.v2.json"
-  );
-  assert.equal(
-    job.env?.PROMOTION_CANONICAL_RECEIPT_ABSOLUTE,
-    "${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/shadow-receipt.v2.json"
-  );
-  assert.equal(
-    path.posix.dirname(job.env.PROMOTION_MANIFEST),
-    path.posix.dirname(job.env.PROMOTION_CANONICAL_RECEIPT),
-    "the selected Manifest and canonical Receipt must be one atomic revision pair"
-  );
+  assertPromotionSelectorContract(job);
   assert.ok(Array.isArray(job.steps));
   const stepByName = new Map(job.steps.map((step) => [step.name, step]));
   const checkout = stepByName.get("Check out repository");
@@ -136,6 +187,39 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   const gateRuns = [currentValidation.run, fresh.run, replay.run, verify.run].join("\n");
   assert.doesNotMatch(gateRuns, /promotion:(?:preview|deploy|live|promote-live)/u);
   assert.doesNotMatch(gateRuns, /\b(?:curl|wget|vercel|provider|database|promote-live)\b/iu);
+});
+
+test("Promotion Shadow selector contract is transition-aware and exact", async () => {
+  const { source, workflow } = await loadWorkflow();
+  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-shadow-selector-contract-"));
+  try {
+    for (const [name, contract] of Object.entries(selectorContracts)) {
+      const fixturePath = path.join(fixtureRoot, `${name}.yml`);
+      await writeFile(fixturePath, rewriteSelectorFixture(source, workflow, contract));
+      const fixtureWorkflow = parseYaml(await readFile(fixturePath, "utf8"));
+      assertPromotionSelectorContract(fixtureWorkflow.jobs["promotion-shadow-gate"]);
+    }
+
+    const reaffirmedFixture = parseYaml(
+      await readFile(path.join(fixtureRoot, "reaffirmed.yml"), "utf8")
+    );
+    const invalidSelectors = [
+      ["PROMOTION_MANIFEST", `${selectorContracts.reaffirmed.manifest}.suffix`],
+      ["PROMOTION_CANONICAL_RECEIPT", selectorContracts.legacy.receipt],
+      ["PROMOTION_CANONICAL_RECEIPT_ABSOLUTE", selectorContracts.legacy.receiptAbsolute],
+      ["PROMOTION_REAFFIRMATION", `${selectorContracts.reaffirmed.reaffirmation}.suffix`]
+    ];
+    for (const [key, value] of invalidSelectors) {
+      const mutatedWorkflow = structuredClone(reaffirmedFixture);
+      mutatedWorkflow.jobs["promotion-shadow-gate"].env[key] = value;
+      assert.throws(
+        () => assertPromotionSelectorContract(mutatedWorkflow.jobs["promotion-shadow-gate"]),
+        `${key} must reject a non-exact selector`
+      );
+    }
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
 });
 
 test("Promotion Shadow v2 final enforcement fails closed for any authentic non-pass artifact", async () => {
