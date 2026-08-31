@@ -2,7 +2,26 @@ import { createHash } from "node:crypto";
 import { execFile as execFileCallback } from "node:child_process";
 import { promisify } from "node:util";
 
-import { assertSafeRepoRelativePath, stableJson } from "../coordination/integration/promotion-gate-lib.mjs";
+import {
+  assertSafeRepoRelativePath,
+  fingerprint,
+  observeCanonicalRuntimePolicy,
+  readAuthoritativeFile,
+  stableJson
+} from "../coordination/integration/promotion-gate-lib.mjs";
+import {
+  collectV2BaselineProof,
+  collectV2CheckerReleaseProof,
+  collectV2ExternalSideEffectProof,
+  collectV2GitWorktreeProof,
+  collectV2ProvenanceProof,
+  collectV2RuntimeAndLegacyProof,
+  loadV2Candidate,
+  loadV2Evidence,
+  loadV2Manifest,
+  projectV2RuntimePolicy,
+  validateV2ContentSemantics
+} from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 import { parsePromotionWorkflowJsonBytes } from "./promotion-workflow-json-guard.mjs";
 
 export const PROMOTION_REQUIRED_CHECK_SEMANTIC_RESCOPE_SCHEMA =
@@ -158,6 +177,59 @@ async function gitBytes(runner, repoRoot, args) {
   return Buffer.from(value);
 }
 
+function parseTrackedTreeEntry(bytes, filePath) {
+  if (!bytes.equals(Buffer.from(bytes)) || bytes.length === 0 || bytes[bytes.length - 1] !== 0) {
+    throw new Error("PROMOTION_AUTHORITY_UNTRACKED");
+  }
+  const entries = bytes.subarray(0, -1).toString("utf8").split("\0");
+  if (entries.length !== 1) throw new Error("PROMOTION_AUTHORITY_UNTRACKED");
+  const separator = entries[0].indexOf("\t");
+  if (separator < 0) throw new Error("PROMOTION_AUTHORITY_UNTRACKED");
+  const metadata = entries[0].slice(0, separator).split(" ");
+  const trackedPath = entries[0].slice(separator + 1);
+  if (
+    metadata.length !== 3 ||
+    !new Set(["100644", "100755"]).has(metadata[0]) ||
+    metadata[1] !== "blob" ||
+    !/^[a-f0-9]{40}$/u.test(metadata[2]) ||
+    trackedPath !== filePath
+  ) {
+    throw new Error("PROMOTION_AUTHORITY_INVALID");
+  }
+  return { mode: metadata[0], objectId: metadata[2] };
+}
+
+export async function readTrackedStrictJsonAuthority({
+  repoRoot,
+  filePath,
+  expectedRawSha256 = null,
+  _gitRunner = runReadonlyGit
+}) {
+  safePath(filePath);
+  const working = await readAuthoritativeFile(repoRoot, filePath);
+  let treeBytes;
+  let committedBytes;
+  try {
+    treeBytes = await gitBytes(_gitRunner, repoRoot, ["ls-tree", "--full-tree", "-z", "HEAD", "--", filePath]);
+    committedBytes = await gitBytes(_gitRunner, repoRoot, ["show", `HEAD:${filePath}`]);
+  } catch {
+    throw new Error("PROMOTION_AUTHORITY_UNTRACKED");
+  }
+  const tracked = parseTrackedTreeEntry(treeBytes, filePath);
+  if (!working.bytes.equals(committedBytes)) throw new Error("PROMOTION_AUTHORITY_HEAD_DRIFT");
+  if (expectedRawSha256 !== null) {
+    assertDigest(expectedRawSha256, "PROMOTION_AUTHORITY_DIGEST_INVALID");
+    if (working.rawSha256 !== expectedRawSha256) throw new Error("PROMOTION_AUTHORITY_DIGEST_MISMATCH");
+  }
+  return Object.freeze({
+    path: filePath,
+    rawSha256: working.rawSha256,
+    mode: tracked.mode,
+    objectId: tracked.objectId,
+    value: parsePromotionWorkflowJsonBytes(working.bytes)
+  });
+}
+
 function singleGitLine(bytes, code) {
   const value = bytes.toString("utf8");
   if (!value.endsWith("\n") || value.slice(0, -1).includes("\n")) throw new Error(code);
@@ -208,6 +280,193 @@ export async function collectGithubDiffEvidence({ repoRoot, eventName, eventByte
     command: "git diff --name-only --no-renames -z <base> <head> --",
     diffBytes,
     paths
+  });
+}
+
+const DEFAULT_SEMANTIC_NATIVE = Object.freeze({
+  loadV2Manifest,
+  collectV2GitWorktreeProof,
+  loadV2Candidate,
+  collectV2ProvenanceProof,
+  collectV2BaselineProof,
+  collectV2CheckerReleaseProof,
+  loadV2Evidence,
+  validateV2ContentSemantics,
+  collectV2ExternalSideEffectProof,
+  readTrackedStrictJsonAuthority,
+  observeCanonicalRuntimePolicy,
+  projectV2RuntimePolicy,
+  collectV2RuntimeAndLegacyProof,
+  fingerprint
+});
+
+function normalizeBaselineObservation(proof) {
+  return {
+    targetDrift: false,
+    runtimeChangedPathCount: proof.runtimeChangedPathCount,
+    runtimeChangedPathsDigest: proof.runtimeChangedPathsDigest,
+    allowedTestOnlyPathCount: proof.allowedTestOnlyPathCount,
+    allowedTestOnlyPathsDigest: proof.allowedTestOnlyPathsDigest,
+    proofDigest: fingerprint(proof)
+  };
+}
+
+function normalizeBaselineDrift(error) {
+  if (
+    error?.code !== "V2_TARGET_BASELINE_DRIFT" ||
+    error?.outcome !== "blocked" ||
+    !Number.isSafeInteger(error?.details?.changedPathCount) ||
+    !Number.isSafeInteger(error?.details?.allowedTestOnlyPathCount)
+  ) {
+    throw error;
+  }
+  assertDigest(error.details.changedPathsDigest, "SEMANTIC_BASELINE_EVIDENCE_INVALID");
+  assertDigest(error.details.allowedTestOnlyPathsDigest, "SEMANTIC_BASELINE_EVIDENCE_INVALID");
+  return {
+    targetDrift: true,
+    runtimeChangedPathCount: error.details.changedPathCount,
+    runtimeChangedPathsDigest: error.details.changedPathsDigest,
+    allowedTestOnlyPathCount: error.details.allowedTestOnlyPathCount,
+    allowedTestOnlyPathsDigest: error.details.allowedTestOnlyPathsDigest,
+    proofDigest: sha256(stableJson({
+      code: error.code,
+      outcome: error.outcome,
+      details: error.details
+    }))
+  };
+}
+
+function publicRuntimePolicyProjection(policy, policyDigest) {
+  return {
+    policyDigest,
+    coveredFileCount: policy.coveredFileCount ?? null,
+    reachablePathCount: policy.reachablePathCount ?? null,
+    edgeCount: policy.edgeCount ?? null,
+    topologyEdgeCount: policy.topologyEdgeCount ?? null,
+    nextDynamicNonliteralImportCount: policy.nextDynamicNonliteralImportCount ?? null,
+    zeroBaselineCallCount: policy.zeroBaselineCallCount ?? null
+  };
+}
+
+export async function collectCurrentHeadSemanticProof({
+  repoRoot,
+  manifestPath,
+  exactHead,
+  _native = DEFAULT_SEMANTIC_NATIVE
+}) {
+  assertCommit(exactHead, "SEMANTIC_HEAD_BINDING_INVALID");
+  const [{ manifest, loaded: manifestLoaded }, worktreeProof] = await Promise.all([
+    _native.loadV2Manifest(repoRoot, manifestPath),
+    _native.collectV2GitWorktreeProof(repoRoot)
+  ]);
+  if (worktreeProof?.clean !== true) throw new Error("SEMANTIC_WORKTREE_DIRTY");
+  if (worktreeProof?.headCommit !== exactHead) throw new Error("SEMANTIC_WORKTREE_HEAD_MISMATCH");
+
+  const strictManifest = await _native.readTrackedStrictJsonAuthority({
+    repoRoot,
+    filePath: manifestPath,
+    expectedRawSha256: manifestLoaded.rawSha256
+  });
+  if (stableJson(strictManifest.value) !== stableJson(manifest)) {
+    throw new Error("SEMANTIC_MANIFEST_BINDING_INVALID");
+  }
+
+  const candidate = await _native.loadV2Candidate(repoRoot, manifest);
+  const [provenanceProof, checkerReleaseProof] = await Promise.all([
+    _native.collectV2ProvenanceProof(repoRoot, manifest, candidate, exactHead),
+    _native.collectV2CheckerReleaseProof(repoRoot, manifest, exactHead)
+  ]);
+  let baseline;
+  try {
+    baseline = normalizeBaselineObservation(
+      await _native.collectV2BaselineProof(repoRoot, manifest, exactHead)
+    );
+  } catch (error) {
+    baseline = normalizeBaselineDrift(error);
+  }
+  const evidence = await _native.loadV2Evidence(repoRoot, manifest, exactHead);
+  const contentProof = _native.validateV2ContentSemantics(candidate, evidence.evidenceByRole);
+  const externalSideEffectProof = await _native.collectV2ExternalSideEffectProof(repoRoot, manifest);
+  if (
+    externalSideEffectProof?.networkRequestCount !== 0 ||
+    externalSideEffectProof?.providerCallCount !== 0 ||
+    externalSideEffectProof?.databaseWriteCount !== 0 ||
+    externalSideEffectProof?.deploymentCommandCount !== 0 ||
+    externalSideEffectProof?.productionWriteCount !== 0 ||
+    externalSideEffectProof?.liveRegistryWriteCount !== 0
+  ) {
+    throw new Error("SEMANTIC_EXTERNAL_SIDE_EFFECT_PROOF_INVALID");
+  }
+
+  const compatibility = await _native.readTrackedStrictJsonAuthority({
+    repoRoot,
+    filePath: manifest.liveReachability.compatibilityManifestPath,
+    expectedRawSha256: manifest.liveReachability.compatibilityManifestRawSha256
+  });
+  const runtimeObservation = await _native.observeCanonicalRuntimePolicy(repoRoot, compatibility.value);
+  const observedRuntimePolicy = _native.projectV2RuntimePolicy(runtimeObservation);
+  const expectedRuntimePolicy = manifest.liveReachability.expectedRuntimePolicy;
+  const expectedPolicyDigest = _native.fingerprint(expectedRuntimePolicy);
+  const observedPolicyDigest = _native.fingerprint(observedRuntimePolicy);
+  const semanticManifest = structuredClone(manifest);
+  semanticManifest.liveReachability.expectedRuntimePolicy = structuredClone(observedRuntimePolicy);
+  const runtimeAndLegacy = await _native.collectV2RuntimeAndLegacyProof(
+    repoRoot,
+    semanticManifest,
+    exactHead
+  );
+  if (
+    stableJson(runtimeAndLegacy.runtimePolicy) !== stableJson(observedRuntimePolicy) ||
+    runtimeAndLegacy.proof?.liveAllowed !== false ||
+    runtimeAndLegacy.proof?.selectedIdentityHits !== 0 ||
+    runtimeAndLegacy.proof?.resolutionCount !== 18 ||
+    runtimeAndLegacy.proof?.approvedProjectionCount !== 3 ||
+    runtimeAndLegacy.proof?.dereachedCount !== 15
+  ) {
+    throw new Error("SEMANTIC_RUNTIME_PROOF_INVALID");
+  }
+
+  const payload = {
+    schemaVersion: "promotion-current-head-semantic-proof.v1",
+    result: "pass",
+    exactHead,
+    manifest: {
+      pathDigest: sha256(manifestPath),
+      rawSha256: manifestLoaded.rawSha256
+    },
+    immutable: {
+      candidateDigest: candidate.candidateDigest,
+      provenanceDigest: _native.fingerprint(provenanceProof),
+      checkerBundleDigest: checkerReleaseProof.bundleDigest,
+      evidenceBindingsDigest: evidence.proof.bindingsDigest,
+      contentProofDigest: _native.fingerprint(contentProof),
+      externalSideEffectProofDigest: externalSideEffectProof.digest
+    },
+    baseline,
+    semantic: {
+      runtimePolicyDigest: runtimeAndLegacy.proof.runtimePolicyDigest,
+      canonicalAuditDigest: runtimeAndLegacy.canonicalAudit.auditDigest,
+      resolutionProofsDigest: runtimeAndLegacy.proof.resolutionProofsDigest,
+      resolutionCount: runtimeAndLegacy.proof.resolutionCount,
+      approvedProjectionCount: runtimeAndLegacy.proof.approvedProjectionCount,
+      dereachedCount: runtimeAndLegacy.proof.dereachedCount,
+      selectedIdentityHits: 0,
+      nextDynamicNonliteralImportCount: observedRuntimePolicy.nextDynamicNonliteralImportCount ?? 0,
+      zeroBaselineCallCount: observedRuntimePolicy.zeroBaselineCallCount ?? 0
+    },
+    graph: {
+      drift: stableJson(expectedRuntimePolicy) !== stableJson(observedRuntimePolicy),
+      expected: publicRuntimePolicyProjection(expectedRuntimePolicy, expectedPolicyDigest),
+      observed: publicRuntimePolicyProjection(observedRuntimePolicy, observedPolicyDigest)
+    },
+    liveAllowed: false,
+    integrationAllowed: false,
+    previewAllowed: false,
+    deployAllowed: false
+  };
+  return Object.freeze({
+    ...payload,
+    proofDigest: sha256(stableJson(payload))
   });
 }
 

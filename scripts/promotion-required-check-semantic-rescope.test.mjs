@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -412,4 +412,174 @@ test("19. collector assigns stable failures to shallow, missing-commit, non-ance
     }),
     /GITHUB_DIFF_PATHS_INVALID/u
   );
+});
+
+test("20. authoritative JSON must be a strict regular tracked file whose bytes equal HEAD", async () => {
+  const { readTrackedStrictJsonAuthority } = await subject();
+  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-semantic-authority-"));
+  try {
+    git(["init", "--quiet", "--initial-branch=main"], fixtureRoot);
+    const original = '{"schemaVersion":"authority-fixture.v1","binding":{"path":"data/value.json"}}\n';
+    await writeFile(path.join(fixtureRoot, "authority.json"), original);
+    git(["add", "--", "authority.json"], fixtureRoot);
+    git(["-c", "user.name=Promotion Test", "-c", "user.email=promotion@example.invalid", "commit", "--quiet", "-m", "authority"], fixtureRoot);
+
+    const loaded = await readTrackedStrictJsonAuthority({ repoRoot: fixtureRoot, filePath: "authority.json" });
+    assert.equal(loaded.value.schemaVersion, "authority-fixture.v1");
+    assert.equal(loaded.rawSha256, bytesDigest(original));
+    assert.equal(loaded.mode, "100644");
+
+    await writeFile(path.join(fixtureRoot, "authority.json"), '{"schemaVersion":"drifted"}\n');
+    await assert.rejects(
+      readTrackedStrictJsonAuthority({ repoRoot: fixtureRoot, filePath: "authority.json" }),
+      /PROMOTION_AUTHORITY_HEAD_DRIFT/u
+    );
+
+    await writeFile(path.join(fixtureRoot, "authority.json"), '{"schemaVersion":"duplicate","schemaVersion":"duplicate"}\n');
+    git(["add", "--", "authority.json"], fixtureRoot);
+    git(["-c", "user.name=Promotion Test", "-c", "user.email=promotion@example.invalid", "commit", "--quiet", "-m", "duplicate"], fixtureRoot);
+    await assert.rejects(
+      readTrackedStrictJsonAuthority({ repoRoot: fixtureRoot, filePath: "authority.json" }),
+      (error) => error?.code === "PROMOTION_WORKFLOW_JSON_DUPLICATE_KEY"
+    );
+
+    await writeFile(path.join(fixtureRoot, "target.json"), '{"schemaVersion":"target"}\n');
+    await symlink("target.json", path.join(fixtureRoot, "linked.json"));
+    git(["add", "--", "target.json", "linked.json"], fixtureRoot);
+    git(["-c", "user.name=Promotion Test", "-c", "user.email=promotion@example.invalid", "commit", "--quiet", "-m", "symlink"], fixtureRoot);
+    await assert.rejects(
+      readTrackedStrictJsonAuthority({ repoRoot: fixtureRoot, filePath: "linked.json" }),
+      (error) => new Set(["AUTHORITATIVE_PATH_UNSAFE", "PROMOTION_AUTHORITY_INVALID"]).has(error?.code)
+    );
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+function semanticNativeFixture({ head = sha("b"), clean = true, semanticFailure = null } = {}) {
+  const expectedRuntimePolicy = { edgeCount: 10, edgeDigest: digest("1") };
+  const observedRuntimePolicy = { edgeCount: 11, edgeDigest: digest("2") };
+  const manifest = {
+    targetBaselineCommit: sha("a"),
+    liveReachability: {
+      compatibilityManifestPath: "coordination/integration/compatibility.json",
+      compatibilityManifestRawSha256: digest("3"),
+      expectedRuntimePolicy
+    }
+  };
+  const baselineError = Object.assign(new Error("baseline drift"), {
+    code: "V2_TARGET_BASELINE_DRIFT",
+    outcome: "blocked",
+    details: {
+      changedPathCount: 34,
+      changedPathsDigest: "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8",
+      allowedTestOnlyPathCount: 4,
+      allowedTestOnlyPathsDigest: "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+    }
+  });
+  const calls = [];
+  const native = {
+    loadV2Manifest: async () => ({ manifest, loaded: { rawSha256: digest("4") } }),
+    collectV2GitWorktreeProof: async () => ({ clean, headCommit: head, statusDigest: digest("5") }),
+    loadV2Candidate: async () => ({ candidateDigest: digest("6"), records: [] }),
+    collectV2ProvenanceProof: async () => ({ schemaVersion: "provenance" }),
+    collectV2BaselineProof: async () => { throw baselineError; },
+    collectV2CheckerReleaseProof: async () => ({ bundleDigest: digest("7") }),
+    loadV2Evidence: async () => ({ evidenceByRole: new Map(), proof: { bindingsDigest: digest("8") } }),
+    validateV2ContentSemantics: () => ({ schemaVersion: "content" }),
+    collectV2ExternalSideEffectProof: async () => ({
+      digest: digest("9"),
+      networkRequestCount: 0,
+      providerCallCount: 0,
+      databaseWriteCount: 0,
+      deploymentCommandCount: 0,
+      productionWriteCount: 0,
+      liveRegistryWriteCount: 0
+    }),
+    readTrackedStrictJsonAuthority: async ({ filePath }) => filePath.endsWith("promotion-manifest.v2.json")
+      ? { path: filePath, rawSha256: digest("4"), value: manifest }
+      : { path: filePath, rawSha256: digest("3"), value: { schemaVersion: "compatibility" } },
+    observeCanonicalRuntimePolicy: async () => ({ schemaVersion: "observation" }),
+    projectV2RuntimePolicy: () => observedRuntimePolicy,
+    collectV2RuntimeAndLegacyProof: async (_repoRoot, semanticManifest, exactHead) => {
+      calls.push({ semanticManifest, exactHead });
+      if (semanticFailure) throw semanticFailure;
+      return {
+        runtimePolicy: observedRuntimePolicy,
+        canonicalAudit: { auditDigest: digest("a") },
+        proof: {
+          runtimePolicyDigest: digest("b"),
+          resolutionCount: 18,
+          approvedProjectionCount: 3,
+          dereachedCount: 15,
+          resolutionProofsDigest: digest("c"),
+          selectedIdentityHits: 0,
+          liveAllowed: false
+        }
+      };
+    },
+    fingerprint: (value) => bytesDigest(JSON.stringify(value))
+  };
+  return { native, manifest, expectedRuntimePolicy, observedRuntimePolicy, calls };
+}
+
+test("21. current-head semantic proof runs native safety after separating frozen graph equality", async () => {
+  const { collectCurrentHeadSemanticProof } = await subject();
+  const fixture = semanticNativeFixture();
+  const proof = await collectCurrentHeadSemanticProof({
+    repoRoot,
+    manifestPath: "coordination/integration/promotion-manifest.v2.json",
+    exactHead: sha("b"),
+    _native: fixture.native
+  });
+  assert.equal(proof.result, "pass");
+  assert.equal(proof.exactHead, sha("b"));
+  assert.equal(proof.liveAllowed, false);
+  assert.equal(proof.integrationAllowed, false);
+  assert.equal(proof.previewAllowed, false);
+  assert.equal(proof.deployAllowed, false);
+  assert.equal(proof.baseline.targetDrift, true);
+  assert.equal(proof.baseline.runtimeChangedPathCount, 34);
+  assert.equal(proof.graph.drift, true);
+  assert.equal(proof.graph.expected.edgeCount, 10);
+  assert.equal(proof.graph.observed.edgeCount, 11);
+  assert.equal(proof.semantic.selectedIdentityHits, 0);
+  assert.deepEqual(fixture.manifest.liveReachability.expectedRuntimePolicy, fixture.expectedRuntimePolicy);
+  assert.equal(fixture.calls.length, 1);
+  assert.equal(fixture.calls[0].exactHead, sha("b"));
+  assert.deepEqual(fixture.calls[0].semanticManifest.liveReachability.expectedRuntimePolicy, fixture.observedRuntimePolicy);
+});
+
+test("22. graph drift never masks current-head semantic failure", async () => {
+  const { collectCurrentHeadSemanticProof } = await subject();
+  const semanticFailure = Object.assign(new Error("candidate reachable"), {
+    code: "V2_SELECTED_CANDIDATE_LIVE_REACHABLE",
+    outcome: "fail"
+  });
+  const fixture = semanticNativeFixture({ semanticFailure });
+  await assert.rejects(
+    collectCurrentHeadSemanticProof({
+      repoRoot,
+      manifestPath: "coordination/integration/promotion-manifest.v2.json",
+      exactHead: sha("b"),
+      _native: fixture.native
+    }),
+    (error) => error?.code === "V2_SELECTED_CANDIDATE_LIVE_REACHABLE"
+  );
+});
+
+test("23. current-head semantic proof rejects dirty or wrong-head execution", async () => {
+  const { collectCurrentHeadSemanticProof } = await subject();
+  for (const options of [{ clean: false }, { head: sha("c") }]) {
+    const fixture = semanticNativeFixture(options);
+    await assert.rejects(
+      collectCurrentHeadSemanticProof({
+        repoRoot,
+        manifestPath: "coordination/integration/promotion-manifest.v2.json",
+        exactHead: sha("b"),
+        _native: fixture.native
+      }),
+      /SEMANTIC_WORKTREE_(?:DIRTY|HEAD_MISMATCH)/u
+    );
+  }
 });
