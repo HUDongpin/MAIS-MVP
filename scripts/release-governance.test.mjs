@@ -243,6 +243,9 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const guardRelativePath = "scripts/promotion-workflow-json-guard.mjs";
   const guardTestRelativePath = "scripts/promotion-workflow-json-guard.test.mjs";
+  const semanticLibraryRelativePath = "scripts/promotion-required-check-semantic-rescope.mjs";
+  const semanticCliRelativePath = "scripts/promotion-required-check-semantic-rescope-cli.mjs";
+  const semanticTestRelativePath = "scripts/promotion-required-check-semantic-rescope.test.mjs";
   const packageJson = await readJson(path.join(repoRoot, "package.json"));
   const promotionGateCommand = packageJson.scripts?.["test:promotion-gate"];
   assert.equal(typeof promotionGateCommand, "string", "Promotion Gate test command must exist");
@@ -250,6 +253,11 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
     promotionGateCommand,
     new RegExp(`(?:^|\\s)${guardTestRelativePath.replaceAll(".", "\\.")}(?:\\s|$)`, "u"),
     "the required Promotion Gate test command must execute the strict JSON guard behavioral suite"
+  );
+  assert.match(
+    promotionGateCommand,
+    new RegExp(`(?:^|\\s)${semanticTestRelativePath.replaceAll(".", "\\.")}(?:\\s|$)`, "u"),
+    "the required Promotion Gate test command must execute semantic-rescope behavior"
   );
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
   const job = workflow.jobs?.["promotion-shadow-gate"];
@@ -283,8 +291,7 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
     "Execute canonical pilot shadow",
     "Replay canonical pilot with distinct run identity",
     "Verify fresh replay and canonical Receipts",
-    "Assert exact Promotion Shadow artifact set",
-    "Enforce Promotion Shadow Gate outcome"
+    "Assert exact Promotion Shadow artifact set"
   ];
   const guardedSteps = new Map();
   for (const stepName of guardedStepNames) {
@@ -342,19 +349,49 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   const uploadStep = job.steps.find((step) => step.name === "Upload Promotion Shadow gate artifacts");
   assert.equal(uploadStep?.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
 
-  const finalOutcome = guardedSteps.get("Enforce Promotion Shadow Gate outcome").run;
-  for (const name of [
-    "currentValidation",
-    "freshReceipt",
-    "replayReceipt",
-    "canonicalReceipt",
-    "freshVerification",
-    "replayVerification",
-    "canonicalVerification"
-  ]) {
-    assert.match(finalOutcome, new RegExp(`${name}: parsePromotionWorkflowJsonBytes`, "u"));
+  const semanticEvaluation = job.steps.find(
+    (step) => step.name === "Evaluate current-head semantic required-check decision"
+  );
+  const finalOutcome = job.steps.find(
+    (step) => step.name === "Enforce Promotion Shadow Gate outcome"
+  );
+  assert.ok(semanticEvaluation);
+  assert.ok(finalOutcome);
+  assert.equal(semanticEvaluation.if, "${{ always() }}");
+  assert.equal(finalOutcome.if, "${{ always() }}");
+  assert.match(semanticEvaluation.run, /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/u);
+  assert.match(finalOutcome.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
+  for (const run of [semanticEvaluation.run, finalOutcome.run]) {
+    for (const variable of [
+      "GITHUB_WORKSPACE",
+      "GITHUB_EVENT_NAME",
+      "GITHUB_EVENT_PATH",
+      "PROMOTION_MANIFEST",
+      "PROMOTION_CANONICAL_RECEIPT",
+      "PROMOTION_CURRENT_VALIDATION",
+      "PROMOTION_FRESH_RECEIPT",
+      "PROMOTION_REPLAY_RECEIPT",
+      "PROMOTION_CANONICAL_RECEIPT_COPY",
+      "PROMOTION_FRESH_VERIFICATION",
+      "PROMOTION_REPLAY_VERIFICATION",
+      "PROMOTION_CANONICAL_VERIFICATION",
+      "PROMOTION_REQUIRED_CHECK_DECISION",
+      "PROMOTION_ARTIFACT_ROOT"
+    ]) assert.match(run, new RegExp(`"\\$${variable}"`, "u"));
   }
-  assert.match(finalOutcome, /Object\.entries\(outcomes\)\.filter\(\(\[, result\]\) => result !== "pass"\)/u);
+  assert.match(artifactPreflight, /promotion-required-check-decision\.v1\.json/u);
+
+  const semanticLibrarySource = await readFile(path.join(repoRoot, semanticLibraryRelativePath), "utf8");
+  const semanticCliSource = await readFile(path.join(repoRoot, semanticCliRelativePath), "utf8");
+  assert.match(semanticLibrarySource, /const GIT_EXECUTABLE = "\/usr\/bin\/git"/u);
+  assert.match(semanticLibrarySource, /shell: false/u);
+  assert.match(semanticLibrarySource, /parsePromotionWorkflowJsonBytes/u);
+  assert.match(semanticLibrarySource, /collectV2RuntimeAndLegacyProof/u);
+  assert.match(semanticLibrarySource, /observeCanonicalRuntimePolicy/u);
+  assert.match(semanticCliSource, /parsePromotionWorkflowJsonBytes/u);
+  assert.doesNotMatch(semanticCliSource, /\bJSON\.parse\s*\(/u);
+  assert.doesNotMatch(semanticCliSource, /node:(?:http|https|net|tls|dns)|\bfetch\s*\(|\b(?:curl|wget|vercel)\b/iu);
+  assert.doesNotMatch(semanticCliSource, /node:child_process|\b(?:exec|execSync|spawn|spawnSync|fork)\s*\(/u);
 });
 
 test.skip("Promotion Shadow npm commands are exact and expose no live-capable alias", () => {
@@ -394,10 +431,10 @@ test.skip("Promotion Shadow CI is an all-change fail-closed non-live gate", asyn
   const frozenRelease = "ca89c923065a1b9dd6aee40fbc78326be13aae07";
 
   assert.equal(workflow.name, "promotion-shadow-gate");
-  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
+  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push"]);
   assert.equal(workflow.on.pull_request, null);
   assert.deepEqual(workflow.on.push, { branches: ["main"] });
-  assert.equal(workflow.on.workflow_dispatch, null);
+  assert.equal(workflow.on.workflow_dispatch, undefined);
   assert.doesNotMatch(workflowSource, /^\s*paths(?:-ignore)?\s*:/mu);
   assert.doesNotMatch(workflowSource, /continue-on-error\s*:/u);
 

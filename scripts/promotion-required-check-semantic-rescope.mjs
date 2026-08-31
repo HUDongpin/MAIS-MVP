@@ -27,6 +27,8 @@ import { parsePromotionWorkflowJsonBytes } from "./promotion-workflow-json-guard
 
 export const PROMOTION_REQUIRED_CHECK_SEMANTIC_RESCOPE_SCHEMA =
   "promotion-required-check-semantic-rescope.v1";
+export const PROMOTION_REQUIRED_CHECK_DECISION_SCHEMA =
+  "promotion-required-check-enforcement-decision.v1";
 
 const COMMIT = /^[a-f0-9]{40}$/u;
 const SHA256 = /^[a-f0-9]{64}$/u;
@@ -668,7 +670,10 @@ function collectArtifactPaths(value, paths = []) {
   return paths;
 }
 
-export function buildPromotionControlledPathUnion(canonicalIntegrity) {
+// Pure fixture oracles below preserve the original 15-case RED matrix. They are
+// deliberately test-only; the workflow and CLI use the tracked Git/authority
+// collectors and never accept caller-supplied safety booleans.
+export function __testOnlyBuildPromotionControlledPathUnion(canonicalIntegrity) {
   if (canonicalIntegrity === null || typeof canonicalIntegrity !== "object") {
     throw new Error("CANONICAL_BINDING_INVALID");
   }
@@ -686,14 +691,14 @@ export function buildPromotionControlledPathUnion(canonicalIntegrity) {
   return [...union].sort(codePointCompare);
 }
 
-export function isPromotionControlledPath(filePath, canonicalIntegrity) {
+export function __testOnlyIsPromotionControlledPath(filePath, canonicalIntegrity) {
   safePath(filePath);
   if (filePath.startsWith("scripts/promotion-") || filePath.startsWith("coordination/integration/")) return true;
-  return buildPromotionControlledPathUnion(canonicalIntegrity).includes(filePath);
+  return __testOnlyBuildPromotionControlledPathUnion(canonicalIntegrity).includes(filePath);
 }
 
 function validateCanonicalIntegrity(canonicalIntegrity) {
-  const paths = buildPromotionControlledPathUnion(canonicalIntegrity);
+  const paths = __testOnlyBuildPromotionControlledPathUnion(canonicalIntegrity);
   for (const key of ["manifest", "receipt", "checker", "evidence", "registry", "candidate", "approval"]) {
     const artifact = canonicalIntegrity[key];
     if (typeof artifact.bytes !== "string" || typeof artifact.rawSha256 !== "string") {
@@ -773,7 +778,7 @@ function validateCurrentValidation(currentValidation) {
   throw new Error("CURRENT_VALIDATION_UNACCEPTABLE");
 }
 
-export function evaluatePromotionRequiredCheckSemanticRescope(input) {
+export function __testOnlyEvaluatePromotionRequiredCheckSemanticRescope(input) {
   try {
     const github = validateGithub(input?.github);
     validateCurrentValidation(input.currentValidation);
@@ -781,7 +786,7 @@ export function evaluatePromotionRequiredCheckSemanticRescope(input) {
     validateSemantic(input.semantic, github.head);
     const graph = validateGraph(input.graph);
     const promotionControlledPathCount = github.paths.filter((filePath) =>
-      isPromotionControlledPath(filePath, input.canonicalIntegrity)
+      __testOnlyIsPromotionControlledPath(filePath, input.canonicalIntegrity)
     ).length;
     const binding = {
       pullRequestNumber: github.pullRequestNumber,
@@ -806,19 +811,375 @@ export function evaluatePromotionRequiredCheckSemanticRescope(input) {
   }
 }
 
+function assertPassingReceipt(receipt, label) {
+  if (
+    receipt?.schemaVersion !== "promotion-receipt.v2" ||
+    receipt?.result !== "pass" ||
+    receipt?.binding?.liveAllowed !== false ||
+    receipt?.lifecycle?.liveAllowed !== false ||
+    receipt?.binding?.parentPackageStatus !== "candidate-only" ||
+    receipt?.worktreeProof?.cleanBeforeAndAfter !== true ||
+    receipt?.worktreeProof?.unchangedHead !== true ||
+    typeof receipt?.run?.runId !== "string" ||
+    receipt.run.runId.length === 0
+  ) {
+    throw new Error("PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  }
+  safePath(receipt.manifest?.path);
+  assertDigest(receipt.manifest?.rawSha256, "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  assertDigest(receipt.semanticReceiptDigest, "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  assertDigest(receipt.rawReceiptDigest, "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  for (const key of ["candidateDigest", "checkerBundleDigest"]) {
+    assertDigest(receipt.binding?.[key], "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  }
+  for (const key of ["sourceCommit", "targetBaselineCommit"]) {
+    assertCommit(receipt.binding?.[key], "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  }
+  assertCommit(receipt.worktreeProof?.executionCommit, "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  return {
+    label,
+    manifestPath: receipt.manifest.path,
+    manifestRawSha256: receipt.manifest.rawSha256,
+    binding: receipt.binding,
+    semanticReceiptDigest: receipt.semanticReceiptDigest,
+    rawReceiptDigest: receipt.rawReceiptDigest,
+    executionCommit: receipt.worktreeProof.executionCommit,
+    runId: receipt.run.runId
+  };
+}
+
+function assertPassingVerification(verification, receiptProjection, label) {
+  if (
+    verification?.schemaVersion !== "promotion-receipt-verification.v2" ||
+    verification?.result !== "pass" ||
+    verification?.valid !== true ||
+    verification?.liveAllowed !== false ||
+    verification?.manifestPath !== receiptProjection.manifestPath ||
+    verification?.manifestRawSha256 !== receiptProjection.manifestRawSha256 ||
+    verification?.semanticReceiptDigest !== receiptProjection.semanticReceiptDigest ||
+    verification?.rawReceiptDigest !== receiptProjection.rawReceiptDigest
+  ) {
+    throw new Error("PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  }
+  assertCommit(verification.executionCommit, "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  return {
+    label,
+    executionCommit: verification.executionCommit,
+    semanticReceiptDigest: verification.semanticReceiptDigest,
+    rawReceiptDigest: verification.rawReceiptDigest
+  };
+}
+
+export function validateCanonicalReceiptEvidence({ manifestPath, manifestRawSha256, receipts, verifications }) {
+  safePath(manifestPath);
+  assertDigest(manifestRawSha256, "PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  const labels = ["fresh", "replay", "canonical"];
+  const receiptProjections = labels.map((label) => assertPassingReceipt(receipts?.[label], label));
+  if (
+    receiptProjections.some((projection) =>
+      projection.manifestPath !== manifestPath || projection.manifestRawSha256 !== manifestRawSha256
+    ) ||
+    !receiptProjections.every((projection) =>
+      projection.semanticReceiptDigest === receiptProjections[0].semanticReceiptDigest
+    ) ||
+    !receiptProjections.every((projection) =>
+      projection.executionCommit === receiptProjections[0].executionCommit
+    ) ||
+    !receiptProjections.every((projection) => stableJson(projection.binding) === stableJson(receiptProjections[0].binding))
+  ) {
+    throw new Error("PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  }
+  const runIds = receiptProjections.map(({ runId }) => runId);
+  if (new Set(runIds).size !== 3) throw new Error("PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  const verificationProjections = labels.map((label, index) =>
+    assertPassingVerification(verifications?.[label], receiptProjections[index], label)
+  );
+  if (!verificationProjections.every(({ executionCommit }) =>
+    executionCommit === verificationProjections[0].executionCommit &&
+    executionCommit === receiptProjections[0].executionCommit
+  )) {
+    throw new Error("PROMOTION_CANONICAL_EVIDENCE_INVALID");
+  }
+  const safeReceiptProjection = receiptProjections.map(({ label, manifestPath: pathValue, manifestRawSha256: raw, binding, semanticReceiptDigest, rawReceiptDigest, executionCommit, runId }) => ({
+    label,
+    manifestPathDigest: sha256(pathValue),
+    manifestRawSha256: raw,
+    bindingDigest: sha256(stableJson(binding)),
+    semanticReceiptDigest,
+    rawReceiptDigest,
+    executionCommit,
+    runIdentityDigest: sha256(runId)
+  }));
+  return Object.freeze({
+    schemaVersion: "promotion-canonical-receipt-evidence.v1",
+    manifestPath,
+    manifestRawSha256,
+    semanticReceiptDigest: receiptProjections[0].semanticReceiptDigest,
+    executionCommit: verificationProjections[0].executionCommit,
+    distinctRunIdentityCount: 3,
+    bindingDigest: sha256(stableJson(receiptProjections[0].binding)),
+    receiptSetDigest: sha256(stableJson(safeReceiptProjection)),
+    verificationSetDigest: sha256(stableJson(verificationProjections)),
+    liveAllowed: false
+  });
+}
+
+function validateSemanticProofForDecision(semanticProof, exactHead) {
+  if (
+    semanticProof?.schemaVersion !== "promotion-current-head-semantic-proof.v1" ||
+    semanticProof?.result !== "pass" ||
+    semanticProof?.exactHead !== exactHead ||
+    semanticProof?.liveAllowed !== false ||
+    semanticProof?.integrationAllowed !== false ||
+    semanticProof?.previewAllowed !== false ||
+    semanticProof?.deployAllowed !== false ||
+    semanticProof?.semantic?.selectedIdentityHits !== 0 ||
+    semanticProof?.semantic?.nextDynamicNonliteralImportCount !== 0 ||
+    semanticProof?.semantic?.zeroBaselineCallCount !== 0
+  ) {
+    throw new Error("PROMOTION_SEMANTIC_PROOF_INVALID");
+  }
+  for (const value of [
+    semanticProof.proofDigest,
+    semanticProof.semantic.runtimePolicyDigest,
+    semanticProof.semantic.canonicalAuditDigest,
+    semanticProof.semantic.resolutionProofsDigest,
+    semanticProof.graph?.expected?.policyDigest,
+    semanticProof.graph?.observed?.policyDigest
+  ]) assertDigest(value, "PROMOTION_SEMANTIC_PROOF_INVALID");
+}
+
+function validateCurrentValidationForDecision(currentValidation, semanticProof) {
+  if (
+    currentValidation?.result === "pass" &&
+    currentValidation?.schemaVersion === "promotion-validation-result.v2" &&
+    currentValidation?.liveAllowed === false &&
+    currentValidation?.pilotUnitStatus === "shadow_ready"
+  ) {
+    return { result: "pass", code: null };
+  }
+  if (currentValidation?.result !== "blocked" || currentValidation?.schemaVersion !== "promotion-gate-error.v2") {
+    throw new Error("CURRENT_VALIDATION_UNACCEPTABLE");
+  }
+  if (currentValidation.code === "V2_TARGET_BASELINE_DRIFT") {
+    const details = currentValidation.details;
+    const baseline = semanticProof.baseline;
+    if (
+      details?.changedPathCount !== baseline?.runtimeChangedPathCount ||
+      details?.changedPathsDigest !== baseline?.runtimeChangedPathsDigest ||
+      details?.allowedTestOnlyPathCount !== baseline?.allowedTestOnlyPathCount ||
+      details?.allowedTestOnlyPathsDigest !== baseline?.allowedTestOnlyPathsDigest
+    ) {
+      throw new Error("CURRENT_VALIDATION_UNACCEPTABLE");
+    }
+    return { result: "blocked", code: currentValidation.code };
+  }
+  if (
+    currentValidation.code === "V2_RUNTIME_GRAPH_DRIFT" &&
+    currentValidation.details?.observedPolicyDigest === semanticProof.graph?.observed?.policyDigest
+  ) {
+    return { result: "blocked", code: currentValidation.code };
+  }
+  throw new Error("CURRENT_VALIDATION_UNACCEPTABLE");
+}
+
+function promotionControlledPath(filePath, authorities) {
+  safePath(filePath);
+  if (STATIC_PROMOTION_CONTROLLED_PATHS.includes(filePath)) return true;
+  if (filePath.startsWith("scripts/promotion-") || filePath.startsWith("coordination/integration/")) return true;
+  if (filePath === authorities.candidateRoot || filePath.startsWith(`${authorities.candidateRoot}/`)) return true;
+  return authorities.paths.includes(filePath);
+}
+
+function validateAuthoritySetForDecision(authorities) {
+  if (
+    authorities?.schemaVersion !== "promotion-controlled-authority-set.v1" ||
+    !Array.isArray(authorities.paths) ||
+    authorities.pathCount !== authorities.paths.length ||
+    typeof authorities.candidateRoot !== "string"
+  ) {
+    throw new Error("PROMOTION_AUTHORITY_SET_INVALID");
+  }
+  const normalized = authorities.paths.length === 0
+    ? []
+    : normalizePromotionChangedPaths(`${authorities.paths.join("\0")}\0`);
+  if (stableJson(normalized) !== stableJson(authorities.paths)) {
+    throw new Error("PROMOTION_AUTHORITY_SET_INVALID");
+  }
+  assertDigest(authorities.pathsDigest, "PROMOTION_AUTHORITY_SET_INVALID");
+  assertDigest(authorities.bindingsDigest, "PROMOTION_AUTHORITY_SET_INVALID");
+  safePath(`${authorities.candidateRoot}/candidate-root-sentinel`);
+}
+
+function canonicalGithubProjection(githubEvidence) {
+  assertCommit(githubEvidence?.base, "GITHUB_EVENT_INVALID");
+  assertCommit(githubEvidence?.head, "GITHUB_EVENT_INVALID");
+  assertCommit(githubEvidence?.checkoutHead, "GITHUB_EVENT_INVALID");
+  if (
+    githubEvidence.head !== githubEvidence.checkoutHead ||
+    !new Set(["pull_request", "push"]).has(githubEvidence.eventName) ||
+    !Array.isArray(githubEvidence.paths)
+  ) {
+    throw new Error("GITHUB_EVENT_INVALID");
+  }
+  const paths = githubEvidence.paths.length === 0
+    ? []
+    : normalizePromotionChangedPaths(`${githubEvidence.paths.join("\0")}\0`);
+  return {
+    eventName: githubEvidence.eventName,
+    pullRequestNumber: githubEvidence.eventName === "pull_request" ? githubEvidence.pullRequestNumber : null,
+    baseCommit: githubEvidence.base,
+    headCommit: githubEvidence.head,
+    checkoutHead: githubEvidence.checkoutHead,
+    paths
+  };
+}
+
+export function buildPromotionRequiredCheckDecision({
+  githubEvidence,
+  authorities,
+  semanticProof,
+  currentValidation,
+  receiptEvidence
+}) {
+  const event = canonicalGithubProjection(githubEvidence);
+  validateAuthoritySetForDecision(authorities);
+  validateSemanticProofForDecision(semanticProof, event.headCommit);
+  const validation = validateCurrentValidationForDecision(currentValidation, semanticProof);
+  const canonical = validateCanonicalReceiptEvidence(receiptEvidence);
+  const changedPaths = event.paths;
+  const controlledPaths = changedPaths.filter((filePath) => promotionControlledPath(filePath, authorities));
+  let resultValue;
+  let code;
+  if (validation.result === "pass") {
+    resultValue = "pass";
+    code = "full_promotion_validation_passed";
+  } else if (controlledPaths.length === 0) {
+    resultValue = "pass";
+    code = "historical_pilot_intact_semantic_runtime_safe";
+  } else {
+    resultValue = "blocked";
+    code = "PROMOTION_CONTROLLED_FULL_VALIDATION_REQUIRED";
+  }
+  const reviewQueue = semanticProof.graph.drift || semanticProof.baseline.targetDrift ? ["A23", "A25"] : [];
+  const payload = {
+    schemaVersion: PROMOTION_REQUIRED_CHECK_DECISION_SCHEMA,
+    result: resultValue,
+    code,
+    event: {
+      eventName: event.eventName,
+      pullRequestNumber: event.pullRequestNumber,
+      baseCommit: event.baseCommit,
+      headCommit: event.headCommit,
+      checkoutHead: event.checkoutHead
+    },
+    changedPaths: {
+      count: changedPaths.length,
+      digest: sha256(stableJson(changedPaths))
+    },
+    promotionControlledPaths: {
+      count: controlledPaths.length,
+      digest: sha256(stableJson(controlledPaths)),
+      authorityPathsDigest: authorities.pathsDigest,
+      authorityBindingsDigest: authorities.bindingsDigest,
+      candidateRootDigest: sha256(authorities.candidateRoot)
+    },
+    currentValidation: {
+      result: validation.result,
+      code: validation.code,
+      artifactDigest: sha256(stableJson(currentValidation))
+    },
+    baseline: structuredClone(semanticProof.baseline),
+    canonical: {
+      manifestRawSha256: canonical.manifestRawSha256,
+      semanticReceiptDigest: canonical.semanticReceiptDigest,
+      executionCommit: canonical.executionCommit,
+      distinctRunIdentityCount: canonical.distinctRunIdentityCount,
+      bindingDigest: canonical.bindingDigest,
+      receiptSetDigest: canonical.receiptSetDigest,
+      verificationSetDigest: canonical.verificationSetDigest,
+      liveAllowed: false
+    },
+    semantic: {
+      exactHead: semanticProof.exactHead,
+      proofDigest: semanticProof.proofDigest,
+      runtimePolicyDigest: semanticProof.semantic.runtimePolicyDigest,
+      canonicalAuditDigest: semanticProof.semantic.canonicalAuditDigest,
+      resolutionProofsDigest: semanticProof.semantic.resolutionProofsDigest,
+      selectedIdentityHits: semanticProof.semantic.selectedIdentityHits,
+      nextDynamicNonliteralImportCount: semanticProof.semantic.nextDynamicNonliteralImportCount,
+      zeroBaselineCallCount: semanticProof.semantic.zeroBaselineCallCount
+    },
+    graph: structuredClone(semanticProof.graph),
+    reviewQueue,
+    permissions: {
+      liveAllowed: false,
+      integrationAllowed: false,
+      previewAllowed: false,
+      deployAllowed: false
+    }
+  };
+  return Object.freeze({ ...payload, decisionDigest: sha256(stableJson(payload)) });
+}
+
 export function parseStrictDecisionJson(bytes) {
   const decision = parsePromotionWorkflowJsonBytes(bytes);
-  const expectedKeys = [
+  const legacyKeys = [
     "schemaVersion", "result", "code", "liveAllowed", "binding", "promotionControlledPathCount",
     "graph", "reviewQueue", "decisionDigest"
-  ].sort(codePointCompare);
+  ];
+  const enforcementKeys = [
+    "schemaVersion", "result", "code", "event", "changedPaths", "promotionControlledPaths",
+    "currentValidation", "baseline", "canonical", "semantic", "graph", "reviewQueue", "permissions", "decisionDigest"
+  ];
+  const expectedKeys = (decision?.schemaVersion === PROMOTION_REQUIRED_CHECK_DECISION_SCHEMA
+    ? enforcementKeys
+    : legacyKeys).sort(codePointCompare);
   const actualKeys = decision !== null && typeof decision === "object" && !Array.isArray(decision)
     ? Object.keys(decision).sort(codePointCompare)
     : [];
   if (stableJson(actualKeys) !== stableJson(expectedKeys)) throw new Error("PROMOTION_DECISION_INVALID");
-  if (decision?.schemaVersion !== PROMOTION_REQUIRED_CHECK_SEMANTIC_RESCOPE_SCHEMA ||
+  if (![PROMOTION_REQUIRED_CHECK_SEMANTIC_RESCOPE_SCHEMA, PROMOTION_REQUIRED_CHECK_DECISION_SCHEMA].includes(decision?.schemaVersion) ||
     typeof decision.decisionDigest !== "string" || !SHA256.test(decision.decisionDigest)) {
     throw new Error("PROMOTION_DECISION_INVALID");
+  }
+  if (decision.schemaVersion === PROMOTION_REQUIRED_CHECK_DECISION_SCHEMA) {
+    if (
+      !new Set(["pass", "blocked"]).has(decision.result) ||
+      !Array.isArray(decision.reviewQueue) ||
+      decision.permissions?.liveAllowed !== false ||
+      decision.permissions?.integrationAllowed !== false ||
+      decision.permissions?.previewAllowed !== false ||
+      decision.permissions?.deployAllowed !== false ||
+      decision.canonical?.liveAllowed !== false ||
+      typeof decision.baseline?.targetDrift !== "boolean" ||
+      !Number.isSafeInteger(decision.baseline?.runtimeChangedPathCount) ||
+      !Number.isSafeInteger(decision.baseline?.allowedTestOnlyPathCount)
+    ) {
+      throw new Error("PROMOTION_DECISION_INVALID");
+    }
+    for (const value of [
+      decision.changedPaths?.digest,
+      decision.promotionControlledPaths?.digest,
+      decision.promotionControlledPaths?.authorityPathsDigest,
+      decision.promotionControlledPaths?.authorityBindingsDigest,
+      decision.currentValidation?.artifactDigest,
+      decision.baseline?.runtimeChangedPathsDigest,
+      decision.baseline?.allowedTestOnlyPathsDigest,
+      decision.canonical?.manifestRawSha256,
+      decision.canonical?.semanticReceiptDigest,
+      decision.canonical?.bindingDigest,
+      decision.canonical?.receiptSetDigest,
+      decision.canonical?.verificationSetDigest,
+      decision.semantic?.proofDigest,
+      decision.semantic?.runtimePolicyDigest,
+      decision.semantic?.canonicalAuditDigest,
+      decision.semantic?.resolutionProofsDigest
+    ]) assertDigest(value, "PROMOTION_DECISION_INVALID");
+    assertCommit(decision.event?.baseCommit, "PROMOTION_DECISION_INVALID");
+    assertCommit(decision.event?.headCommit, "PROMOTION_DECISION_INVALID");
+    assertCommit(decision.event?.checkoutHead, "PROMOTION_DECISION_INVALID");
+    assertCommit(decision.canonical?.executionCommit, "PROMOTION_DECISION_INVALID");
   }
   const digestPayload = structuredClone(decision);
   delete digestPayload.decisionDigest;
@@ -827,10 +1188,21 @@ export function parseStrictDecisionJson(bytes) {
   return decision;
 }
 
-export function canEnforcePromotionRequiredCheckSuccess(decision, evidence) {
+export function verifyPromotionRequiredCheckDecision(decision, evidence) {
+  try {
+    const parsed = parseStrictDecisionJson(Buffer.from(stableJson(decision), "utf8"));
+    if (parsed.schemaVersion !== PROMOTION_REQUIRED_CHECK_DECISION_SCHEMA) return false;
+    const recomputed = buildPromotionRequiredCheckDecision(evidence);
+    return stableJson(parsed) === stableJson(recomputed);
+  } catch {
+    return false;
+  }
+}
+
+export function __testOnlyCanEnforcePromotionRequiredCheckSuccess(decision, evidence) {
   try {
     if (evidence === undefined) return false;
-    const recomputed = evaluatePromotionRequiredCheckSemanticRescope(evidence);
+    const recomputed = __testOnlyEvaluatePromotionRequiredCheckSemanticRescope(evidence);
     return decision?.result === "pass" &&
       decision?.code === "historical_pilot_intact_semantic_runtime_safe" &&
       decision?.liveAllowed === false &&

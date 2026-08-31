@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -90,7 +90,7 @@ function passingInput(overrides = {}) {
 }
 
 test("1. exact GitHub pull-request event, base SHA, and head SHA bind the decision", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope, parseStrictGithubEventJson } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope, parseStrictGithubEventJson } = await subject();
   assert.deepEqual(
     parseStrictGithubEventJson(Buffer.from(JSON.stringify(passingInput().github.pullRequest))),
     passingInput().github.pullRequest
@@ -106,7 +106,7 @@ test("1. exact GitHub pull-request event, base SHA, and head SHA bind the decisi
 });
 
 test("2. missing, shallow, non-ancestor, truncated, and inconsistent GitHub diff evidence fail closed", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   for (const diff of [
     null,
     { complete: false, shallow: false, base: sha("a"), head: sha("b"), ancestor: true, command: "git diff --name-only -z <base> <head> --", rawNul: "" },
@@ -134,7 +134,7 @@ test("3. NUL-safe changed paths preserve spaces, Unicode, quotes, and newlines w
 });
 
 test("4. static and artifact bindings form a deterministic canonical path union", async () => {
-  const { buildPromotionControlledPathUnion } = await subject();
+  const { __testOnlyBuildPromotionControlledPathUnion: buildPromotionControlledPathUnion } = await subject();
   const first = buildPromotionControlledPathUnion(passingInput().canonicalIntegrity);
   const second = buildPromotionControlledPathUnion(passingInput().canonicalIntegrity);
   assert.deepEqual(first, second);
@@ -144,7 +144,7 @@ test("4. static and artifact bindings form a deterministic canonical path union"
 });
 
 test("5. promotion-controlled changes combined with target or graph drift are blocked for full validation", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const input = passingInput();
   input.github.diff.rawNul = "scripts/promotion-gate-checker.mjs\0";
   const result = evaluatePromotionRequiredCheckSemanticRescope(input);
@@ -153,7 +153,7 @@ test("5. promotion-controlled changes combined with target or graph drift are bl
 });
 
 test("6. no promotion-controlled path change still blocks every semantic failure", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const input = passingInput({ semantic: { ...passingInput().semantic, unknownClassifications: 1 } });
   const result = evaluatePromotionRequiredCheckSemanticRescope(input);
   assert.equal(result.result, "blocked");
@@ -161,7 +161,7 @@ test("6. no promotion-controlled path change still blocks every semantic failure
 });
 
 test("7. an unchanged promotion scope and semantic pass get only the explicit non-live historical-pilot code", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const result = evaluatePromotionRequiredCheckSemanticRescope(passingInput());
   assert.equal(result.result, "pass");
   assert.equal(result.code, "historical_pilot_intact_semantic_runtime_safe");
@@ -169,7 +169,7 @@ test("7. an unchanged promotion scope and semantic pass get only the explicit no
 });
 
 test("8. an unavailable or internally failed semantic scan blocks", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   for (const semantic of [
     { ...passingInput().semantic, scanAvailable: false },
     { ...passingInput().semantic, result: "internal" }
@@ -181,14 +181,14 @@ test("8. an unavailable or internally failed semantic scan blocks", async () => 
 });
 
 test("9. semantic safety is bound to the pull-request head, never a historical execution alone", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const result = evaluatePromotionRequiredCheckSemanticRescope(passingInput({ semantic: { ...passingInput().semantic, exactHead: sha("d") } }));
   assert.equal(result.result, "blocked");
   assert.equal(result.code, "SEMANTIC_HEAD_BINDING_INVALID");
 });
 
 test("10. exact PR #220 fixture preserves the 34-runtime/4-test graph digest evidence", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const input = passingInput({
     graph: {
       digest: digest("c"), targetDrift: true,
@@ -206,7 +206,7 @@ test("10. exact PR #220 fixture preserves the 34-runtime/4-test graph digest evi
 });
 
 test("11. enforcement decisions use strict JSON, deterministic digests, event binding, and replay equivalence", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope, parseStrictDecisionJson } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope, parseStrictDecisionJson } = await subject();
   const first = evaluatePromotionRequiredCheckSemanticRescope(passingInput());
   const second = evaluatePromotionRequiredCheckSemanticRescope(passingInput());
   assert.equal(first.decisionDigest, second.decisionDigest);
@@ -218,7 +218,10 @@ test("11. enforcement decisions use strict JSON, deterministic digests, event bi
 });
 
 test("12. final workflow enforcement accepts only canonical semantic non-live proof", async () => {
-  const { canEnforcePromotionRequiredCheckSuccess, evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const {
+    __testOnlyCanEnforcePromotionRequiredCheckSuccess: canEnforcePromotionRequiredCheckSuccess,
+    __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope
+  } = await subject();
   const input = passingInput();
   assert.equal(canEnforcePromotionRequiredCheckSuccess(evaluatePromotionRequiredCheckSemanticRescope(input), input), true);
   assert.equal(canEnforcePromotionRequiredCheckSuccess(evaluatePromotionRequiredCheckSemanticRescope(input)), false);
@@ -226,7 +229,7 @@ test("12. final workflow enforcement accepts only canonical semantic non-live pr
 });
 
 test("13. graph drift is artifacted and routed to A23/A25 review", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const result = evaluatePromotionRequiredCheckSemanticRescope(passingInput());
   assert.equal(result.graph.digest, digest("c"));
   assert.deepEqual(result.reviewQueue, ["A23", "A25"]);
@@ -243,7 +246,7 @@ test("14. required workflow has neither paths filters nor a workflow_dispatch tr
 });
 
 test("15. package, lockfile, workflow, checker, manifest, receipt, candidate, evidence, registry, and approval changes force full validation", async () => {
-  const { isPromotionControlledPath } = await subject();
+  const { __testOnlyIsPromotionControlledPath: isPromotionControlledPath } = await subject();
   for (const filePath of [
     "package.json", "package-lock.json", ".github/workflows/promotion-shadow.yml", "scripts/promotion-check.mjs",
     "coordination/integration/promotion-manifest.v2.json", "coordination/integration/promotion-receipt.v2.json",
@@ -253,7 +256,7 @@ test("15. package, lockfile, workflow, checker, manifest, receipt, candidate, ev
 });
 
 test("16. push-main before/after uses the same NUL proof and a controlled path forces full validation even without graph drift", async () => {
-  const { evaluatePromotionRequiredCheckSemanticRescope } = await subject();
+  const { __testOnlyEvaluatePromotionRequiredCheckSemanticRescope: evaluatePromotionRequiredCheckSemanticRescope } = await subject();
   const input = passingInput({
     github: {
       eventName: "push", ref: "refs/heads/main", before: sha("a"), after: sha("b"), checkoutHead: sha("b"),
@@ -734,4 +737,242 @@ test("24. tracked authority graph deterministically unions manifest, receipt, ch
   } finally {
     await rm(fixture.root, { recursive: true, force: true });
   }
+});
+
+function receiptEvidenceFixture() {
+  const manifestPath = "coordination/integration/manifest.json";
+  const manifestRawSha256 = digest("1");
+  const semanticReceiptDigest = digest("2");
+  const binding = {
+    gateId: "promotion-shadow-gate-v2",
+    pilotUnitId: "pilot",
+    attemptId: "attempt-007",
+    candidateDigest: digest("3"),
+    sourceCommit: sha("4"),
+    targetBaselineCommit: sha("5"),
+    checkerVersion: "promotion-gate-shadow-v2.6",
+    checkerBundleDigest: digest("6"),
+    parentPackageId: "candidate",
+    parentPackageStatus: "candidate-only",
+    liveAllowed: false
+  };
+  const makeReceipt = (runId, rawDigit) => ({
+    schemaVersion: "promotion-receipt.v2",
+    result: "pass",
+    manifest: { path: manifestPath, rawSha256: manifestRawSha256 },
+    run: { runId },
+    binding,
+    lifecycle: { liveAllowed: false },
+    worktreeProof: {
+      executionCommit: sha("a"),
+      cleanBeforeAndAfter: true,
+      unchangedHead: true
+    },
+    semanticReceiptDigest,
+    rawReceiptDigest: digest(rawDigit)
+  });
+  const receipts = {
+    fresh: makeReceipt("fresh-run", "7"),
+    replay: makeReceipt("replay-run", "8"),
+    canonical: makeReceipt("canonical-run", "9")
+  };
+  const makeVerification = (receipt) => ({
+    schemaVersion: "promotion-receipt-verification.v2",
+    result: "pass",
+    valid: true,
+    manifestPath,
+    manifestRawSha256,
+    executionCommit: sha("a"),
+    semanticReceiptDigest,
+    rawReceiptDigest: receipt.rawReceiptDigest,
+    liveAllowed: false
+  });
+  return {
+    manifestPath,
+    manifestRawSha256,
+    receipts,
+    verifications: {
+      fresh: makeVerification(receipts.fresh),
+      replay: makeVerification(receipts.replay),
+      canonical: makeVerification(receipts.canonical)
+    }
+  };
+}
+
+function decisionEvidenceFixture() {
+  const exactHead = sha("b");
+  const receiptEvidence = receiptEvidenceFixture();
+  const authorityPaths = [
+    ".github/workflows/promotion-shadow.yml",
+    "coordination/integration/manifest.json",
+    "coordination/content-qa/active-candidate/candidate.json"
+  ].sort();
+  return {
+    githubEvidence: {
+      eventName: "pull_request",
+      pullRequestNumber: 220,
+      base: sha("a"),
+      head: exactHead,
+      checkoutHead: exactHead,
+      paths: ["app/student/page.tsx", "tests/e2e/student.spec.ts"]
+    },
+    authorities: {
+      schemaVersion: "promotion-controlled-authority-set.v1",
+      candidateRoot: "coordination/content-qa/active-candidate",
+      paths: authorityPaths,
+      pathCount: 3,
+      pathsDigest: bytesDigest(JSON.stringify(authorityPaths)),
+      bindingsDigest: digest("d"),
+      jsonPathCount: 2
+    },
+    semanticProof: {
+      schemaVersion: "promotion-current-head-semantic-proof.v1",
+      result: "pass",
+      exactHead,
+      baseline: {
+        targetDrift: true,
+        runtimeChangedPathCount: 34,
+        runtimeChangedPathsDigest: "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8",
+        allowedTestOnlyPathCount: 4,
+        allowedTestOnlyPathsDigest: "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+      },
+      semantic: {
+        runtimePolicyDigest: "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5",
+        canonicalAuditDigest: digest("e"),
+        resolutionProofsDigest: digest("f"),
+        selectedIdentityHits: 0,
+        nextDynamicNonliteralImportCount: 0,
+        zeroBaselineCallCount: 0
+      },
+      graph: {
+        drift: true,
+        expected: { policyDigest: digest("1"), edgeCount: 3589 },
+        observed: { policyDigest: "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5", edgeCount: 3590 }
+      },
+      liveAllowed: false,
+      integrationAllowed: false,
+      previewAllowed: false,
+      deployAllowed: false,
+      proofDigest: digest("2")
+    },
+    currentValidation: {
+      schemaVersion: "promotion-gate-error.v2",
+      result: "blocked",
+      code: "V2_TARGET_BASELINE_DRIFT",
+      details: {
+        changedPathCount: 34,
+        changedPathsDigest: "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8",
+        allowedTestOnlyPathCount: 4,
+        allowedTestOnlyPathsDigest: "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+      }
+    },
+    receiptEvidence
+  };
+}
+
+test("25. canonical fresh replay and verification evidence is exact, distinct, equal-semantic, and non-live", async () => {
+  const { validateCanonicalReceiptEvidence } = await subject();
+  const fixture = receiptEvidenceFixture();
+  const result = validateCanonicalReceiptEvidence(fixture);
+  assert.equal(result.manifestPath, fixture.manifestPath);
+  assert.equal(result.semanticReceiptDigest, digest("2"));
+  assert.equal(result.distinctRunIdentityCount, 3);
+  assert.match(result.bindingDigest, /^[a-f0-9]{64}$/u);
+
+  const live = structuredClone(fixture);
+  live.receipts.fresh.binding.liveAllowed = true;
+  assert.throws(() => validateCanonicalReceiptEvidence(live), /PROMOTION_CANONICAL_EVIDENCE_INVALID/u);
+  const mismatch = structuredClone(fixture);
+  mismatch.receipts.replay.semanticReceiptDigest = digest("0");
+  assert.throws(() => validateCanonicalReceiptEvidence(mismatch), /PROMOTION_CANONICAL_EVIDENCE_INVALID/u);
+  const reused = structuredClone(fixture);
+  reused.receipts.replay.run.runId = reused.receipts.fresh.run.runId;
+  assert.throws(() => validateCanonicalReceiptEvidence(reused), /PROMOTION_CANONICAL_EVIDENCE_INVALID/u);
+  const receiptCommitDrift = structuredClone(fixture);
+  receiptCommitDrift.receipts.replay.worktreeProof.executionCommit = sha("b");
+  assert.throws(() => validateCanonicalReceiptEvidence(receiptCommitDrift), /PROMOTION_CANONICAL_EVIDENCE_INVALID/u);
+  const verificationCommitDrift = structuredClone(fixture);
+  verificationCommitDrift.verifications.canonical.executionCommit = sha("b");
+  assert.throws(() => validateCanonicalReceiptEvidence(verificationCommitDrift), /PROMOTION_CANONICAL_EVIDENCE_INVALID/u);
+});
+
+test("26. decision permits only full validation or the explicit unrelated non-live semantic-safe result", async () => {
+  const { buildPromotionRequiredCheckDecision } = await subject();
+  const unrelated = decisionEvidenceFixture();
+  const historical = buildPromotionRequiredCheckDecision(unrelated);
+  assert.equal(historical.result, "pass");
+  assert.equal(historical.code, "historical_pilot_intact_semantic_runtime_safe");
+  assert.equal(historical.promotionControlledPaths.count, 0);
+  assert.equal(historical.baseline.runtimeChangedPathCount, 34);
+  assert.equal(
+    historical.baseline.runtimeChangedPathsDigest,
+    "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8"
+  );
+  assert.equal(historical.baseline.allowedTestOnlyPathCount, 4);
+  assert.equal(
+    historical.baseline.allowedTestOnlyPathsDigest,
+    "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+  );
+  assert.deepEqual(historical.reviewQueue, ["A23", "A25"]);
+  assert.equal(historical.permissions.liveAllowed, false);
+
+  const controlled = decisionEvidenceFixture();
+  controlled.githubEvidence.paths.push("package-lock.json");
+  const blocked = buildPromotionRequiredCheckDecision(controlled);
+  assert.equal(blocked.result, "blocked");
+  assert.equal(blocked.code, "PROMOTION_CONTROLLED_FULL_VALIDATION_REQUIRED");
+
+  const fullyValidated = decisionEvidenceFixture();
+  fullyValidated.githubEvidence.paths.push("package-lock.json");
+  fullyValidated.currentValidation = {
+    schemaVersion: "promotion-validation-result.v2",
+    result: "pass",
+    liveAllowed: false,
+    pilotUnitStatus: "shadow_ready"
+  };
+  const full = buildPromotionRequiredCheckDecision(fullyValidated);
+  assert.equal(full.result, "pass");
+  assert.equal(full.code, "full_promotion_validation_passed");
+});
+
+test("27. strict final decision verification recomputes every evidence binding and rejects escalation or replay drift", async () => {
+  const {
+    buildPromotionRequiredCheckDecision,
+    parseStrictDecisionJson,
+    verifyPromotionRequiredCheckDecision
+  } = await subject();
+  const evidence = decisionEvidenceFixture();
+  const decision = buildPromotionRequiredCheckDecision(evidence);
+  const parsed = parseStrictDecisionJson(Buffer.from(`${JSON.stringify(decision)}\n`));
+  assert.equal(verifyPromotionRequiredCheckDecision(parsed, evidence), true);
+
+  for (const mutate of [
+    (value) => { value.permissions.liveAllowed = true; },
+    (value) => { value.event.headCommit = sha("0"); },
+    (value) => { value.semantic.proofDigest = digest("0"); },
+    (value) => { value.canonical.bindingDigest = digest("0"); },
+    (value) => { value.decisionDigest = digest("0"); }
+  ]) {
+    const invalid = structuredClone(decision);
+    mutate(invalid);
+    assert.equal(verifyPromotionRequiredCheckDecision(invalid, evidence), false);
+  }
+});
+
+test("28. bounded CLI has a closed command surface, strict JSON, exclusive output, and no network or arbitrary process authority", async () => {
+  const source = await readFile(
+    path.join(repoRoot, "scripts", "promotion-required-check-semantic-rescope-cli.mjs"),
+    "utf8"
+  );
+  assert.match(source, /const MODES = new Set\(\["evaluate", "verify"\]\)/u);
+  assert.match(source, /parsePromotionWorkflowJsonBytes/u);
+  assert.match(source, /open\(outputPath, "wx", 0o600\)/u);
+  assert.match(source, /promotion-required-check-decision\.v1\.json/u);
+  assert.match(source, /readRegularBytes\(await resolveDecisionPath\(options\)\)/u);
+  assert.match(source, /artifactRoot !== options\["artifact-root"\]/u);
+  assert.match(source, /verifyPromotionRequiredCheckDecision/u);
+  assert.doesNotMatch(source, /\bJSON\.parse\s*\(/u);
+  assert.doesNotMatch(source, /node:child_process|\b(?:exec|execSync|spawn|spawnSync|fork)\s*\(/u);
+  assert.doesNotMatch(source, /node:(?:http|https|net|tls|dns|dgram)|\bfetch\s*\(|\b(?:curl|wget|vercel)\b/iu);
+  assert.doesNotMatch(source, /promotion:(?:shadow|preview|deploy|live|promote-live)/u);
 });

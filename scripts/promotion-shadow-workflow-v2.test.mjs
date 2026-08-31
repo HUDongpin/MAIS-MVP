@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { parse as parseYaml } from "yaml";
+import { assertRequiredWorkflowShape } from "./promotion-required-check-semantic-rescope.mjs";
 
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
@@ -97,6 +97,7 @@ test("Promotion Gate public scripts select v2.6 and expose no live-capable comma
   );
   assert.match(pkg.scripts["test:promotion-gate"], /coordination\/integration\/v2\/promotion-gate-v2\.test\.mjs/u);
   assert.match(pkg.scripts["test:promotion-gate"], /scripts\/promotion-shadow-workflow-v2\.test\.mjs/u);
+  assert.match(pkg.scripts["test:promotion-gate"], /scripts\/promotion-required-check-semantic-rescope\.test\.mjs/u);
   for (const forbidden of [
     "promotion:preview",
     "promotion:deploy",
@@ -112,10 +113,10 @@ test("Promotion Gate public scripts select v2.6 and expose no live-capable comma
 test("Promotion Shadow v2 CI validates current HEAD and replays the exact canonical execution commit", async () => {
   const { source, workflow } = await loadWorkflow();
   assert.equal(workflow.name, "promotion-shadow-gate");
-  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
+  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push"]);
   assert.equal(workflow.on.pull_request, null);
   assert.deepEqual(workflow.on.push, { branches: ["main"] });
-  assert.equal(workflow.on.workflow_dispatch, null);
+  assertRequiredWorkflowShape(workflow);
   assert.doesNotMatch(source, /^\s*paths(?:-ignore)?\s*:/mu);
   assert.doesNotMatch(source, /continue-on-error\s*:/u);
 
@@ -181,8 +182,9 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   assert.equal(upload.with?.["if-no-files-found"], "error");
   const final = stepByName.get("Enforce Promotion Shadow Gate outcome");
   assert.equal(final.if, "${{ always() }}");
-  assert.match(final.run, /result !== "pass"/u);
-  assert.match(final.run, /Promotion Shadow Gate remains red/u);
+  assert.match(final.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
+  assert.match(final.run, /"\$PROMOTION_REQUIRED_CHECK_DECISION"/u);
+  assert.doesNotMatch(final.run, /Object\.entries\(outcomes\)/u);
 
   const gateRuns = [currentValidation.run, fresh.run, replay.run, verify.run].join("\n");
   assert.doesNotMatch(gateRuns, /promotion:(?:preview|deploy|live|promote-live)/u);
@@ -222,46 +224,60 @@ test("Promotion Shadow selector contract is transition-aware and exact", async (
   }
 });
 
-test("Promotion Shadow v2 final enforcement fails closed for any authentic non-pass artifact", async () => {
+test("Promotion Shadow v2 final enforcement delegates complete evidence replay to the tracked verifier", async () => {
   const { workflow } = await loadWorkflow();
   const final = workflow.jobs["promotion-shadow-gate"].steps.find(
     (step) => step.name === "Enforce Promotion Shadow Gate outcome"
   );
   assert.ok(final);
-  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "promotion-shadow-workflow-v2-"));
-  const names = [
+  assert.match(final.run, /^set -euo pipefail$/mu);
+  assert.match(final.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
+  for (const variable of [
+    "GITHUB_WORKSPACE",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_EVENT_PATH",
+    "PROMOTION_MANIFEST",
+    "PROMOTION_CANONICAL_RECEIPT",
     "PROMOTION_CURRENT_VALIDATION",
     "PROMOTION_FRESH_RECEIPT",
     "PROMOTION_REPLAY_RECEIPT",
     "PROMOTION_CANONICAL_RECEIPT_COPY",
     "PROMOTION_FRESH_VERIFICATION",
     "PROMOTION_REPLAY_VERIFICATION",
-    "PROMOTION_CANONICAL_VERIFICATION"
-  ];
-  const paths = Object.fromEntries(names.map((name) => [name, path.join(fixtureRoot, `${name}.json`)]));
-  const runFinal = () => spawnSync("bash", ["-c", final.run], {
-    cwd: repoRoot,
-    encoding: "utf8",
-    env: { ...process.env, GITHUB_WORKSPACE: repoRoot, ...paths }
-  });
-  try {
-    for (const artifactPath of Object.values(paths)) {
-      await writeFile(artifactPath, `${JSON.stringify({ result: "pass" })}\n`);
-    }
-    const passing = runFinal();
-    assert.equal(passing.status, 0, `${passing.stdout}\n${passing.stderr}`);
-
-    await writeFile(paths.PROMOTION_CURRENT_VALIDATION, `${JSON.stringify({ result: "blocked" })}\n`);
-    const blocked = runFinal();
-    assert.notEqual(blocked.status, 0);
-    assert.match(`${blocked.stdout}\n${blocked.stderr}`, /currentValidation=blocked/u);
-
-    await writeFile(paths.PROMOTION_CURRENT_VALIDATION, `${JSON.stringify({ result: "pass" })}\n`);
-    await writeFile(paths.PROMOTION_CANONICAL_RECEIPT_COPY, `${JSON.stringify({ result: "fail" })}\n`);
-    const failed = runFinal();
-    assert.notEqual(failed.status, 0);
-    assert.match(`${failed.stdout}\n${failed.stderr}`, /canonicalReceipt=fail/u);
-  } finally {
-    await rm(fixtureRoot, { recursive: true, force: true });
+    "PROMOTION_CANONICAL_VERIFICATION",
+    "PROMOTION_REQUIRED_CHECK_DECISION",
+    "PROMOTION_ARTIFACT_ROOT"
+  ]) {
+    assert.match(final.run, new RegExp(`"\\$${variable}"`, "u"), variable);
   }
+});
+
+test("Promotion required-check semantic rescope is wired to exact checkout, artifacts, and final verification", async () => {
+  const { workflow } = await loadWorkflow();
+  const job = workflow.jobs["promotion-shadow-gate"];
+  const stepByName = new Map(job.steps.map((step) => [step.name, step]));
+  const checkout = stepByName.get("Check out repository");
+  assert.equal(checkout.with?.ref, "${{ github.event.pull_request.head.sha || github.sha }}");
+
+  const configure = stepByName.get("Configure isolated Promotion Shadow paths");
+  assert.match(configure.run, /PROMOTION_REQUIRED_CHECK_DECISION/u);
+  assert.match(configure.run, /promotion-required-check-decision\.v1\.json/u);
+
+  const evaluate = stepByName.get("Evaluate current-head semantic required-check decision");
+  assert.ok(evaluate);
+  assert.equal(evaluate.if, "${{ always() }}");
+  assert.match(evaluate.run, /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/u);
+  assert.match(evaluate.run, /"\$GITHUB_EVENT_NAME"/u);
+  assert.match(evaluate.run, /"\$GITHUB_EVENT_PATH"/u);
+  assert.match(evaluate.run, /"\$PROMOTION_REQUIRED_CHECK_DECISION"/u);
+  assert.doesNotMatch(evaluate.run, /cd "\$PROMOTION_EXECUTION_WORKTREE"/u);
+
+  const artifactSet = stepByName.get("Assert exact Promotion Shadow artifact set");
+  assert.match(artifactSet.run, /promotion-required-check-decision\.v1\.json/u);
+  assert.match(artifactSet.run, /"\$PROMOTION_REQUIRED_CHECK_DECISION"/u);
+
+  const final = stepByName.get("Enforce Promotion Shadow Gate outcome");
+  assert.match(final.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
+  assert.match(final.run, /"\$PROMOTION_REQUIRED_CHECK_DECISION"/u);
+  assert.doesNotMatch(final.run, /Object\.entries\(outcomes\)/u);
 });

@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-
 permissions:
   contents: read
 
@@ -36,6 +34,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -82,6 +81,7 @@ jobs:
             printf 'PROMOTION_FRESH_VERIFICATION=%s\n' "$artifact_root/promotion-fresh-verification.v2.json"
             printf 'PROMOTION_REPLAY_VERIFICATION=%s\n' "$artifact_root/promotion-replay-verification.v2.json"
             printf 'PROMOTION_CANONICAL_VERIFICATION=%s\n' "$artifact_root/promotion-canonical-verification.v2.json"
+            printf 'PROMOTION_REQUIRED_CHECK_DECISION=%s\n' "$artifact_root/promotion-required-check-decision.v1.json"
           } >> "$GITHUB_ENV"
 
       - name: Validate current Promotion inputs and runtime graph
@@ -334,6 +334,26 @@ jobs:
           verify_one "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_VERIFICATION"
           verify_one "$PROMOTION_CANONICAL_RECEIPT_COPY" "$PROMOTION_CANONICAL_VERIFICATION"
 
+      - name: Evaluate current-head semantic required-check decision
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          node "scripts/promotion-required-check-semantic-rescope-cli.mjs" evaluate \
+            --repo "$GITHUB_WORKSPACE" \
+            --event-name "$GITHUB_EVENT_NAME" \
+            --event-path "$GITHUB_EVENT_PATH" \
+            --manifest "$PROMOTION_MANIFEST" \
+            --canonical-receipt-path "$PROMOTION_CANONICAL_RECEIPT" \
+            --current-validation "$PROMOTION_CURRENT_VALIDATION" \
+            --fresh-receipt "$PROMOTION_FRESH_RECEIPT" \
+            --replay-receipt "$PROMOTION_REPLAY_RECEIPT" \
+            --canonical-receipt-copy "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            --fresh-verification "$PROMOTION_FRESH_VERIFICATION" \
+            --replay-verification "$PROMOTION_REPLAY_VERIFICATION" \
+            --canonical-verification "$PROMOTION_CANONICAL_VERIFICATION" \
+            --decision "$PROMOTION_REQUIRED_CHECK_DECISION" \
+            --artifact-root "$PROMOTION_ARTIFACT_ROOT"
+
       - name: Assert exact Promotion Shadow artifact set
         id: assert-artifact-set
         if: ${{ always() }}
@@ -357,7 +377,8 @@ jobs:
               "promotion-shadow-replay-receipt.v2.json",
               "promotion-fresh-verification.v2.json",
               "promotion-replay-verification.v2.json",
-              "promotion-canonical-verification.v2.json"
+              "promotion-canonical-verification.v2.json",
+              "promotion-required-check-decision.v1.json"
             ].sort();
             const supplied = artifactPaths.map((entry) => {
               if (!path.isAbsolute(entry) || path.dirname(entry) !== artifactRoot) throw new Error("Artifact path escapes its root.");
@@ -380,7 +401,8 @@ jobs:
             "$PROMOTION_REPLAY_RECEIPT" \
             "$PROMOTION_FRESH_VERIFICATION" \
             "$PROMOTION_REPLAY_VERIFICATION" \
-            "$PROMOTION_CANONICAL_VERIFICATION"
+            "$PROMOTION_CANONICAL_VERIFICATION" \
+            "$PROMOTION_REQUIRED_CHECK_DECISION"
 
       - name: Upload Promotion Shadow gate artifacts
         if: ${{ always() && steps.assert-artifact-set.outcome == 'success' }}
@@ -395,35 +417,18 @@ jobs:
         if: ${{ always() }}
         run: |
           set -euo pipefail
-          node --input-type=module -e '
-            import { readFileSync } from "node:fs";
-            import path from "node:path";
-            import { pathToFileURL } from "node:url";
-            const [validationPath, freshPath, replayPath, canonicalPath, freshVerifyPath, replayVerifyPath, canonicalVerifyPath] = process.argv.slice(1);
-            const currentWorkspace = process.env.GITHUB_WORKSPACE;
-            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
-              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
-            }
-            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
-            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
-            const outcomes = {
-              currentValidation: parsePromotionWorkflowJsonBytes(readFileSync(validationPath)).result,
-              freshReceipt: parsePromotionWorkflowJsonBytes(readFileSync(freshPath)).result,
-              replayReceipt: parsePromotionWorkflowJsonBytes(readFileSync(replayPath)).result,
-              canonicalReceipt: parsePromotionWorkflowJsonBytes(readFileSync(canonicalPath)).result,
-              freshVerification: parsePromotionWorkflowJsonBytes(readFileSync(freshVerifyPath)).result,
-              replayVerification: parsePromotionWorkflowJsonBytes(readFileSync(replayVerifyPath)).result,
-              canonicalVerification: parsePromotionWorkflowJsonBytes(readFileSync(canonicalVerifyPath)).result
-            };
-            const nonPassing = Object.entries(outcomes).filter(([, result]) => result !== "pass");
-            if (nonPassing.length > 0) {
-              throw new Error(`Promotion Shadow Gate remains red: ${nonPassing.map(([name, result]) => `${name}=${String(result)}`).join(", ")}`);
-            }
-          ' \
-            "$PROMOTION_CURRENT_VALIDATION" \
-            "$PROMOTION_FRESH_RECEIPT" \
-            "$PROMOTION_REPLAY_RECEIPT" \
-            "$PROMOTION_CANONICAL_RECEIPT_COPY" \
-            "$PROMOTION_FRESH_VERIFICATION" \
-            "$PROMOTION_REPLAY_VERIFICATION" \
-            "$PROMOTION_CANONICAL_VERIFICATION"
+          node "scripts/promotion-required-check-semantic-rescope-cli.mjs" verify \
+            --repo "$GITHUB_WORKSPACE" \
+            --event-name "$GITHUB_EVENT_NAME" \
+            --event-path "$GITHUB_EVENT_PATH" \
+            --manifest "$PROMOTION_MANIFEST" \
+            --canonical-receipt-path "$PROMOTION_CANONICAL_RECEIPT" \
+            --current-validation "$PROMOTION_CURRENT_VALIDATION" \
+            --fresh-receipt "$PROMOTION_FRESH_RECEIPT" \
+            --replay-receipt "$PROMOTION_REPLAY_RECEIPT" \
+            --canonical-receipt-copy "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            --fresh-verification "$PROMOTION_FRESH_VERIFICATION" \
+            --replay-verification "$PROMOTION_REPLAY_VERIFICATION" \
+            --canonical-verification "$PROMOTION_CANONICAL_VERIFICATION" \
+            --decision "$PROMOTION_REQUIRED_CHECK_DECISION" \
+            --artifact-root "$PROMOTION_ARTIFACT_ROOT"
