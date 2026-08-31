@@ -71,6 +71,8 @@ exit 0
 
 The 11 release-governance skips pre-existed and are explicitly reported; they are not counted as passing evidence.
 
+After the first workflow-wiring commit, A11 independently reran release governance against the new committed Git object and exposed a necessary RED that the pre-commit run could not see: the reviewed `test:promotion-gate` command body had intentionally gained the semantic-rescope test, while the self-contained P0 golden digest still identified the prior command body. The observed mismatch was `84d0f274…` versus `61bf6300…`. The exact golden was updated to the reviewed new command-body digest in a follow-up commit; the final post-commit verification must therefore be evaluated at the final HEAD, not inferred from the earlier pre-commit green run.
+
 ## Exact PR #220 offline semantic probe
 
 The bounded CLI was evaluated and then independently verified against a clean, non-shallow, detached temporary clone at exact PR head `4399e669d007751bb1b716a257004f04c5b10846`. It used the archived GitHub-run current-validation, fresh/replay Receipts, and three verification artifacts plus the canonical Receipt tracked in that exact head. It made no network, provider, deployment, Shadow, or GitHub mutation.
