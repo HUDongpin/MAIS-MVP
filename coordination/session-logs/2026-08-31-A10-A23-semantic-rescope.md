@@ -118,3 +118,16 @@ The implementation postflight archive and its manifest are created only after th
 This proves only a local required-check implementation and an offline exact-head semantic decision. It does not prove that GitHub has executed the changed workflow, that branch protection has changed, that PR #220 is updated or mergeable, that Shadow ran, that a deployment exists, or that live behavior/provider state is valid.
 
 A11/A22/A25 must independently review the final commit range and external evidence before custody can be called complete. Any missing signature remains `PENDING/BLOCKED`; local self-review cannot substitute for an independent lane.
+
+## Composition quality follow-up (reviewer-requested)
+
+The quality-review RED added an executable negative-path contract for the CLI artifact resolver. It initially failed because the resolver export was absent. The GREEN implementation now binds every local artifact option to its exact canonical basename under the canonical absolute `artifact-root`, binds `canonical-receipt-copy` to the sibling canonical Receipt path, rejects a symlink or noncanonical root, and rejects outside/mismatched artifact paths before evidence reads. `event-path` remains the explicitly documented GitHub-owned external exception; tracked Manifest and canonical Receipt authority continues through the tracked reader.
+
+Fresh focused RED/GREEN evidence at the follow-up HEAD:
+
+```text
+node --test --test-concurrency=1 scripts/promotion-required-check-semantic-rescope.test.mjs
+tests 29; pass 29; fail 0
+```
+
+This remains a local required-check implementation and evidence-boundary proof only. It does not authorize or prove GitHub execution, PR update, branch protection, Promotion Shadow, integration, deployment, provider behavior, or live state.

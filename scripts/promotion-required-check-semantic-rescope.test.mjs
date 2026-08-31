@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -975,4 +975,50 @@ test("28. bounded CLI has a closed command surface, strict JSON, exclusive outpu
   assert.doesNotMatch(source, /node:child_process|\b(?:exec|execSync|spawn|spawnSync|fork)\s*\(/u);
   assert.doesNotMatch(source, /node:(?:http|https|net|tls|dns|dgram)|\bfetch\s*\(|\b(?:curl|wget|vercel)\b/iu);
   assert.doesNotMatch(source, /promotion:(?:shadow|preview|deploy|live|promote-live)/u);
+});
+
+test("29. CLI artifact inputs are bound to the canonical artifact root", async () => {
+  const { __testOnlyResolveArtifactInputPaths: resolveArtifactInputPaths } = await import(
+    pathToFileURL(path.join(repoRoot, "scripts", "promotion-required-check-semantic-rescope-cli.mjs")).href
+  );
+  const root = await realpath(await mkdtemp(path.join(os.tmpdir(), "promotion-artifact-root-")));
+  const sibling = await mkdtemp(path.join(os.tmpdir(), "promotion-artifact-sibling-"));
+  const base = {
+    "artifact-root": root,
+    "current-validation": path.join(root, "promotion-current-validation.v2.json"),
+    "fresh-receipt": path.join(root, "promotion-shadow-receipt.v2.json"),
+    "replay-receipt": path.join(root, "promotion-shadow-replay-receipt.v2.json"),
+    "canonical-receipt-copy": path.join(path.dirname(root), "promotion-canonical-receipt.v2.json"),
+    "fresh-verification": path.join(root, "promotion-fresh-verification.v2.json"),
+    "replay-verification": path.join(root, "promotion-replay-verification.v2.json"),
+    "canonical-verification": path.join(root, "promotion-canonical-verification.v2.json"),
+    decision: path.join(root, "promotion-required-check-decision.v1.json")
+  };
+  for (const filePath of Object.values(base)) {
+    if (filePath !== base["artifact-root"]) await writeFile(filePath, "{}\n");
+  }
+  assert.deepEqual(await resolveArtifactInputPaths(base), base);
+  for (const key of ["current-validation", "fresh-receipt", "replay-receipt", "fresh-verification", "replay-verification", "canonical-verification", "decision"]) {
+    const outside = { ...base, [key]: path.join(sibling, path.basename(base[key])) };
+    await writeFile(outside[key], "{}\n");
+    await assert.rejects(() => resolveArtifactInputPaths(outside), /PROMOTION_EXTERNAL_ARTIFACT_UNSAFE/u);
+  }
+  await assert.rejects(
+    () => resolveArtifactInputPaths({ ...base, "artifact-root": path.join(root, "missing") }),
+    /PROMOTION_EXTERNAL_ARTIFACT_UNSAFE/u
+  );
+  const rootAlias = path.join(path.dirname(root), "promotion-artifact-root-alias");
+  await symlink(root, rootAlias, "dir");
+  await assert.rejects(
+    () => resolveArtifactInputPaths({ ...base, "artifact-root": rootAlias }),
+    /PROMOTION_EXTERNAL_ARTIFACT_UNSAFE/u
+  );
+  await assert.rejects(
+    () => resolveArtifactInputPaths({ ...base, "canonical-receipt-copy": path.join(sibling, "wrong.json") }),
+    /PROMOTION_EXTERNAL_ARTIFACT_UNSAFE/u
+  );
+  await rm(root, { recursive: true, force: true });
+  await rm(sibling, { recursive: true, force: true });
+  await rm(base["canonical-receipt-copy"], { force: true });
+  await rm(rootAlias, { force: true });
 });

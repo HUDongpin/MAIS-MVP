@@ -35,6 +35,16 @@ const REQUIRED_OPTIONS = Object.freeze([
   "artifact-root"
 ]);
 
+const ARTIFACT_INPUT_BASENAMES = Object.freeze({
+  "current-validation": "promotion-current-validation.v2.json",
+  "fresh-receipt": "promotion-shadow-receipt.v2.json",
+  "replay-receipt": "promotion-shadow-replay-receipt.v2.json",
+  "fresh-verification": "promotion-fresh-verification.v2.json",
+  "replay-verification": "promotion-replay-verification.v2.json",
+  "canonical-verification": "promotion-canonical-verification.v2.json",
+  decision: "promotion-required-check-decision.v1.json"
+});
+
 function stableJson(value) {
   if (Array.isArray(value)) return `[${value.map((entry) => stableJson(entry)).join(",")}]`;
   if (value !== null && typeof value === "object") {
@@ -108,6 +118,51 @@ async function readStrictJson(filePath) {
   return parsePromotionWorkflowJsonBytes(await readRegularBytes(filePath));
 }
 
+function assertCanonicalAbsolutePath(filePath, expectedPath, errorCode = "PROMOTION_EXTERNAL_ARTIFACT_UNSAFE") {
+  if (
+    typeof filePath !== "string" ||
+    !path.isAbsolute(filePath) ||
+    filePath.includes("\0") ||
+    filePath !== expectedPath
+  ) {
+    throw new Error(errorCode);
+  }
+}
+
+export async function __testOnlyResolveArtifactInputPaths(options) {
+  const root = options?.["artifact-root"];
+  if (typeof root !== "string" || !path.isAbsolute(root) || root.includes("\0")) {
+    throw new Error("PROMOTION_EXTERNAL_ARTIFACT_UNSAFE");
+  }
+  try {
+    if (await realpath(root) !== root) throw new Error("PROMOTION_EXTERNAL_ARTIFACT_UNSAFE");
+  } catch (error) {
+    if (error?.message === "PROMOTION_EXTERNAL_ARTIFACT_UNSAFE") throw error;
+    throw new Error("PROMOTION_EXTERNAL_ARTIFACT_UNSAFE");
+  }
+  for (const [key, basename] of Object.entries(ARTIFACT_INPUT_BASENAMES)) {
+    const expectedPath = path.join(root, basename);
+    assertCanonicalAbsolutePath(options[key], expectedPath);
+    try {
+      if (await realpath(options[key]) !== expectedPath) throw new Error("PROMOTION_EXTERNAL_ARTIFACT_UNSAFE");
+    } catch (error) {
+      if (key !== "decision" || error?.code !== "ENOENT") throw error;
+    }
+  }
+  const canonicalReceiptCopy = options["canonical-receipt-copy"];
+  assertCanonicalAbsolutePath(
+    canonicalReceiptCopy,
+    path.join(path.dirname(root), "promotion-canonical-receipt.v2.json")
+  );
+  try {
+    if (await realpath(canonicalReceiptCopy) !== canonicalReceiptCopy) throw new Error("PROMOTION_EXTERNAL_ARTIFACT_UNSAFE");
+  } catch (error) {
+    if (error?.message === "PROMOTION_EXTERNAL_ARTIFACT_UNSAFE") throw error;
+    throw new Error("PROMOTION_EXTERNAL_ARTIFACT_UNSAFE");
+  }
+  return options;
+}
+
 async function resolveDecisionPath(options) {
   const artifactRoot = await realpath(options["artifact-root"]);
   const outputPath = options.decision;
@@ -123,6 +178,7 @@ async function resolveDecisionPath(options) {
 }
 
 async function collectEvidence(options) {
+  await __testOnlyResolveArtifactInputPaths(options);
   const repoRoot = await realpath(options.repo);
   if (repoRoot !== options.repo) throw new Error("PROMOTION_REPOSITORY_PATH_UNSAFE");
   const eventBytes = await readRegularBytes(options["event-path"]);
