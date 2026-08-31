@@ -35,6 +35,7 @@ import {
   closeSync, existsSync, lstatSync, openSync, readFileSync, readdirSync, statSync, writeFileSync,
 } from "node:fs";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { pathToFileURL } from "node:url";
 
 export const MAX_APPLY_TARGETS = 5;
 const OPEN_PR_QUERY_LIMIT = 1000;
@@ -693,6 +694,64 @@ function gitQuiet(args, opts = {}) {
   try { return git(args, opts); } catch { return null; }
 }
 
+function readBoundWorktreeGitDir(worktreePath, execFile = execFileSync) {
+  const raw = execFile(
+    "git",
+    ["-C", worktreePath, "rev-parse", "--absolute-git-dir"],
+    { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+  );
+  const gitDir = String(raw ?? "").trim();
+  if (!gitDir || !isAbsolute(gitDir) || gitDir.includes("\0")) {
+    throw new Error("worktree gitdir evidence is unavailable");
+  }
+  return gitDir;
+}
+
+function boundWorktreeGitArgs(worktreePath, gitDir, args) {
+  return [
+    `--git-dir=${gitDir}`,
+    `--work-tree=${worktreePath}`,
+    "-c",
+    `core.worktree=${worktreePath}`,
+    ...args,
+  ];
+}
+
+function countPorcelainV1Z(raw) {
+  const records = String(raw ?? "").split("\0");
+  let dirty = 0;
+  for (let index = 0; index < records.length; index++) {
+    const record = records[index];
+    if (!record) continue;
+    dirty++;
+    const status = record.slice(0, 2);
+    if (status.includes("R") || status.includes("C")) index++;
+  }
+  return dirty;
+}
+
+export function readBoundWorktreeStatusEvidence(
+  worktreePath,
+  { execFile = execFileSync } = {},
+) {
+  try {
+    const gitDir = readBoundWorktreeGitDir(worktreePath, execFile);
+    const raw = execFile(
+      "git",
+      boundWorktreeGitArgs(worktreePath, gitDir, [
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all",
+      ]),
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    );
+    return { available: true, dirty: countPorcelainV1Z(raw) };
+  } catch {
+    return { available: false, dirty: null };
+  }
+}
+
 /** Parse `git worktree list --porcelain` into records. */
 export function parseWorktreeList(porcelain) {
   const out = [];
@@ -910,12 +969,15 @@ function readDetachedAnchorEvidence(target, wt, cwd) {
 }
 
 /** Keep only the candidates git actually ignores. */
-export function retainGitIgnored(dir, hits) {
+export function retainGitIgnored(dir, hits, { execFile = execFileSync } = {}) {
   if (!hits.length) return [];
   const rel = hits.map((h) => h.path.slice(dir.length + 1));
+  let gitDir;
+  try { gitDir = readBoundWorktreeGitDir(dir, execFile); }
+  catch { return hits; }
   let out;
   try {
-    out = execFileSync("git", ["-C", dir, "check-ignore", "-z", "--stdin"], {
+    out = execFile("git", boundWorktreeGitArgs(dir, gitDir, ["check-ignore", "-z", "--stdin"]), {
       encoding: "utf8", input: `${rel.join("\0")}\0`, stdio: ["pipe", "pipe", "ignore"],
     });
   } catch (e) {
@@ -931,10 +993,10 @@ function inspectRuntimeWorktree(wt, target, { primaryRoot, liveMainEvidence, prE
   const current = { ...wt };
   current.exists = existsSync(current.path);
   const status = current.exists
-    ? gitQuiet(["-C", current.path, "status", "--porcelain", "--untracked-files=all"])
-    : "";
-  current.statusEvidence = { available: status !== null };
-  current.dirty = status === null ? 0 : status.split("\n").filter(Boolean).length;
+    ? readBoundWorktreeStatusEvidence(current.path)
+    : { available: false, dirty: null };
+  current.statusEvidence = { available: status.available };
+  current.dirty = status.dirty ?? 0;
   current.protectedHits = current.exists && current.statusEvidence.available && current.dirty === 0
     ? retainGitIgnored(current.path, scanProtectedIgnored(current.path))
     : [];
@@ -1222,4 +1284,7 @@ export function main(argv, providers) {
   return execution.ok ? 0 : 1;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) process.exit(main(process.argv.slice(2)));
+if (
+  process.argv[1]
+  && import.meta.url === pathToFileURL(resolve(process.argv[1])).href
+) process.exit(main(process.argv.slice(2)));

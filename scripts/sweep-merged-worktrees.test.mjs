@@ -126,6 +126,99 @@ test("retainGitIgnored preserves ignored evidence paths containing newlines", ()
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test("bound worktree status ignores ambient core.worktree and counts NUL records", () => {
+  const root = mkdtempSync(join(tmpdir(), "sweep-bound-status-"));
+  const worktree = join(root, "actual");
+  const wrongWorktree = join(root, "wrong");
+  try {
+    mkdirSync(worktree);
+    mkdirSync(wrongWorktree);
+    execFileSync("git", ["init", "-q"], { cwd: worktree, stdio: "ignore" });
+    execFileSync("git", ["config", "core.worktree", wrongWorktree], {
+      cwd: worktree,
+      stdio: "ignore",
+    });
+    writeFileSync(join(worktree, "ordinary.txt"), "actual\n");
+    writeFileSync(join(worktree, "line\nbreak.txt"), "actual newline path\n");
+    writeFileSync(join(wrongWorktree, "wrong-only.txt"), "wrong\n");
+
+    assert.deepEqual(sweep.readBoundWorktreeStatusEvidence(worktree), {
+      available: true,
+      dirty: 2,
+    });
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("bound worktree status uses exact Git arguments and counts a rename as one entry", () => {
+  const calls = [];
+  const evidence = sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
+    execFile(file, args, options) {
+      calls.push({ file, args, cwd: options.cwd ?? null });
+      if (calls.length === 1) return "/repo/.git/worktrees/wt\n";
+      return "R  renamed.txt\0original.txt\0?? line\nbreak.txt\0";
+    },
+  });
+
+  assert.deepEqual(evidence, { available: true, dirty: 2 });
+  assert.deepEqual(calls, [
+    {
+      file: "git",
+      args: ["-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
+      cwd: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all",
+      ],
+      cwd: null,
+    },
+  ]);
+});
+
+test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () => {
+  const calls = [];
+  const hits = [{ path: "/repo/wt/provider-credentials\ncopy.json", label: "secret-like file", size: 1 }];
+  const retained = sweep.retainGitIgnored("/repo/wt", hits, {
+    execFile(file, args, options) {
+      calls.push({ file, args, cwd: options.cwd ?? null, input: options.input ?? null });
+      if (calls.length === 1) return "/repo/.git/worktrees/wt\n";
+      return "provider-credentials\ncopy.json\0";
+    },
+  });
+
+  assert.deepEqual(retained, hits);
+  assert.deepEqual(calls, [
+    {
+      file: "git",
+      args: ["-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
+      cwd: null,
+      input: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "check-ignore",
+        "-z",
+        "--stdin",
+      ],
+      cwd: null,
+      input: "provider-credentials\ncopy.json\0",
+    },
+  ]);
+});
+
 test("readPathAbsenceEvidence treats a dangling symlink entry as present", () => {
   const dir = mkdtempSync(join(tmpdir(), "sweep-lstat-"));
   try {
