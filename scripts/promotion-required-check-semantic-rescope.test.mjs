@@ -583,3 +583,155 @@ test("23. current-head semantic proof rejects dirty or wrong-head execution", as
     );
   }
 });
+
+async function createAuthorityGraphFixture() {
+  const root = await mkdtemp(path.join(os.tmpdir(), "promotion-semantic-authority-graph-"));
+  git(["init", "--quiet", "--initial-branch=main"], root);
+  const documents = new Map([
+    ["coordination/content-qa/active-candidate/candidate.json", '{"records":[{"path":"coordination/content-qa/active-candidate/artifact.json"},{"path":"coordination/content-qa/active-candidate/large.json"}]}\n'],
+    ["coordination/content-qa/active-candidate/artifact.json", '{"kind":"candidate-artifact"}\n'],
+    ["coordination/content-qa/active-candidate/large.json", `${JSON.stringify({ padding: "x".repeat(5 * 1024 * 1024) })}\n`],
+    ["coordination/integration/evidence-index.json", '{"entries":[{"evidencePath":"coordination/integration/evidence/a11.json"}]}\n'],
+    ["coordination/integration/evidence/a11.json", '{"result":"pass"}\n'],
+    ["coordination/integration/compatibility.json", '{"schemaVersion":"compatibility"}\n'],
+    ["coordination/integration/legacy-candidate.json", '{"kind":"legacy"}\n'],
+    ["data/live-projection.json", '{"kind":"projection"}\n'],
+    ["coordination/integration/checker-schema.json", '{"type":"object"}\n'],
+    ["coordination/integration/approval.md", "approved non-live only\n"],
+    ["scripts/checker.mjs", "export const checker = true;\n"]
+  ]);
+  const registry = {
+    resolutions: [{
+      candidate: {
+        path: "coordination/integration/legacy-candidate.json",
+        rawSha256: bytesDigest(documents.get("coordination/integration/legacy-candidate.json"))
+      },
+      liveProjection: {
+        path: "data/live-projection.json",
+        rawSha256: bytesDigest(documents.get("data/live-projection.json"))
+      },
+      approvalReferences: [{
+        path: "coordination/integration/approval.md",
+        rawSha256: bytesDigest(documents.get("coordination/integration/approval.md"))
+      }]
+    }]
+  };
+  documents.set("coordination/integration/registry.json", `${JSON.stringify(registry)}\n`);
+  const ledger = {
+    entries: [{
+      version: "checker-v1",
+      bundlePaths: ["scripts/checker.mjs", "coordination/integration/checker-schema.json"]
+    }]
+  };
+  documents.set("coordination/integration/checker-ledger.json", `${JSON.stringify(ledger)}\n`);
+  const manifestPath = "coordination/integration/manifest.json";
+  const receiptPath = "coordination/integration/receipt.json";
+  const manifest = {
+    schemaVersion: "promotion-manifest.v2",
+    checkerVersion: "checker-v1",
+    candidatePackage: {
+      path: "coordination/content-qa/active-candidate/candidate.json",
+      rawSha256: bytesDigest(documents.get("coordination/content-qa/active-candidate/candidate.json"))
+    },
+    candidateArtifacts: [
+      {
+        path: "coordination/content-qa/active-candidate/artifact.json",
+        rawFileSha256: bytesDigest(documents.get("coordination/content-qa/active-candidate/artifact.json"))
+      },
+      {
+        path: "coordination/content-qa/active-candidate/large.json",
+        rawFileSha256: bytesDigest(documents.get("coordination/content-qa/active-candidate/large.json"))
+      }
+    ],
+    checkerRelease: {
+      ledgerPath: "coordination/integration/checker-ledger.json",
+      ledgerRawSha256: bytesDigest(documents.get("coordination/integration/checker-ledger.json")),
+      version: "checker-v1"
+    },
+    evidenceIndex: {
+      path: "coordination/integration/evidence-index.json",
+      rawSha256: bytesDigest(documents.get("coordination/integration/evidence-index.json"))
+    },
+    evidenceBindings: [{
+      evidencePath: "coordination/integration/evidence/a11.json",
+      rawSha256: bytesDigest(documents.get("coordination/integration/evidence/a11.json"))
+    }],
+    legacyResolution: {
+      registryPath: "coordination/integration/registry.json",
+      rawSha256: bytesDigest(documents.get("coordination/integration/registry.json"))
+    },
+    liveReachability: {
+      compatibilityManifestPath: "coordination/integration/compatibility.json",
+      compatibilityManifestRawSha256: bytesDigest(documents.get("coordination/integration/compatibility.json"))
+    }
+  };
+  documents.set(manifestPath, `${JSON.stringify(manifest)}\n`);
+  const receipt = {
+    manifest: { path: manifestPath },
+    candidateSourceProof: { paths: [manifest.candidatePackage.path, manifest.candidateArtifacts[0].path] },
+    evidenceProof: { bindings: [{ evidencePath: manifest.evidenceBindings[0].evidencePath }] },
+    checkerReleaseProof: { sourceBindings: [{ path: "scripts/checker.mjs" }] },
+    runtimeAndLegacyProof: {
+      resolutionProofs: [{
+        candidatePath: registry.resolutions[0].candidate.path,
+        liveProjection: { path: registry.resolutions[0].liveProjection.path }
+      }]
+    }
+  };
+  documents.set(receiptPath, `${JSON.stringify(receipt)}\n`);
+  for (const [filePath, bytes] of documents) {
+    await mkdir(path.dirname(path.join(root, filePath)), { recursive: true });
+    await writeFile(path.join(root, filePath), bytes);
+  }
+  git(["add", "--", ...documents.keys()], root);
+  git(["-c", "user.name=Promotion Test", "-c", "user.email=promotion@example.invalid", "commit", "--quiet", "-m", "authority graph"], root);
+  return { root, manifestPath, receiptPath, manifest, documents };
+}
+
+test("24. tracked authority graph deterministically unions manifest, receipt, checker, evidence, registry, candidate, and approval paths", async () => {
+  const { collectTrackedPromotionAuthorities } = await subject();
+  const fixture = await createAuthorityGraphFixture();
+  try {
+    const first = await collectTrackedPromotionAuthorities({
+      repoRoot: fixture.root,
+      manifestPath: fixture.manifestPath,
+      canonicalReceiptPath: fixture.receiptPath
+    });
+    const second = await collectTrackedPromotionAuthorities({
+      repoRoot: fixture.root,
+      manifestPath: fixture.manifestPath,
+      canonicalReceiptPath: fixture.receiptPath
+    });
+    assert.deepEqual(first, second);
+    assert.equal(first.candidateRoot, "coordination/content-qa/active-candidate");
+    for (const filePath of [
+      fixture.manifestPath,
+      fixture.receiptPath,
+      "coordination/integration/checker-ledger.json",
+      "scripts/checker.mjs",
+      "coordination/integration/checker-schema.json",
+      "coordination/integration/evidence-index.json",
+      "coordination/integration/evidence/a11.json",
+      "coordination/integration/registry.json",
+      "coordination/content-qa/active-candidate/candidate.json",
+      "coordination/content-qa/active-candidate/artifact.json",
+      "coordination/content-qa/active-candidate/large.json",
+      "coordination/integration/legacy-candidate.json",
+      "data/live-projection.json",
+      "coordination/integration/approval.md"
+    ]) assert.ok(first.paths.includes(filePath), filePath);
+    assert.match(first.pathsDigest, /^[a-f0-9]{64}$/u);
+
+    await writeFile(path.join(fixture.root, "coordination/integration/evidence/a11.json"), '{"result":"drift"}\n');
+    await assert.rejects(
+      collectTrackedPromotionAuthorities({
+        repoRoot: fixture.root,
+        manifestPath: fixture.manifestPath,
+        canonicalReceiptPath: fixture.receiptPath
+      }),
+      /PROMOTION_AUTHORITY_HEAD_DRIFT/u
+    );
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});

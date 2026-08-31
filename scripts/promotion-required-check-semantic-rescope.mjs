@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { execFile as execFileCallback } from "node:child_process";
+import path from "node:path";
 import { promisify } from "node:util";
 
 import {
@@ -36,6 +37,7 @@ const STATIC_PROMOTION_CONTROLLED_PATHS = Object.freeze([
 ]);
 const execFile = promisify(execFileCallback);
 const GIT_EXECUTABLE = "/usr/bin/git";
+const GIT_MAX_BUFFER = (32 * 1024 * 1024) + 1024;
 const GIT_ENV = Object.freeze({
   PATH: "/usr/bin:/bin",
   GIT_CONFIG_GLOBAL: "/dev/null",
@@ -161,7 +163,7 @@ async function runReadonlyGit({ repoRoot, args }) {
       cwd: repoRoot,
       shell: false,
       timeout: 10_000,
-      maxBuffer: 4 * 1024 * 1024,
+      maxBuffer: GIT_MAX_BUFFER,
       env: GIT_ENV,
       encoding: "buffer"
     });
@@ -178,7 +180,7 @@ async function gitBytes(runner, repoRoot, args) {
 }
 
 function parseTrackedTreeEntry(bytes, filePath) {
-  if (!bytes.equals(Buffer.from(bytes)) || bytes.length === 0 || bytes[bytes.length - 1] !== 0) {
+  if (bytes.length === 0 || bytes[bytes.length - 1] !== 0) {
     throw new Error("PROMOTION_AUTHORITY_UNTRACKED");
   }
   const entries = bytes.subarray(0, -1).toString("utf8").split("\0");
@@ -199,7 +201,7 @@ function parseTrackedTreeEntry(bytes, filePath) {
   return { mode: metadata[0], objectId: metadata[2] };
 }
 
-export async function readTrackedStrictJsonAuthority({
+export async function readTrackedAuthorityBytes({
   repoRoot,
   filePath,
   expectedRawSha256 = null,
@@ -226,7 +228,18 @@ export async function readTrackedStrictJsonAuthority({
     rawSha256: working.rawSha256,
     mode: tracked.mode,
     objectId: tracked.objectId,
-    value: parsePromotionWorkflowJsonBytes(working.bytes)
+    bytes: Buffer.from(working.bytes)
+  });
+}
+
+export async function readTrackedStrictJsonAuthority(options) {
+  const loaded = await readTrackedAuthorityBytes(options);
+  return Object.freeze({
+    path: loaded.path,
+    rawSha256: loaded.rawSha256,
+    mode: loaded.mode,
+    objectId: loaded.objectId,
+    value: parsePromotionWorkflowJsonBytes(loaded.bytes)
   });
 }
 
@@ -467,6 +480,174 @@ export async function collectCurrentHeadSemanticProof({
   return Object.freeze({
     ...payload,
     proofDigest: sha256(stableJson(payload))
+  });
+}
+
+function addBoundAuthorityPath(expectedByPath, filePath, expectedRawSha256 = null) {
+  safePath(filePath);
+  if (expectedRawSha256 !== null) assertDigest(expectedRawSha256, "PROMOTION_AUTHORITY_DIGEST_INVALID");
+  const current = expectedByPath.get(filePath);
+  if (current !== undefined && current !== null && expectedRawSha256 !== null && current !== expectedRawSha256) {
+    throw new Error("PROMOTION_AUTHORITY_BINDING_CONFLICT");
+  }
+  if (current === undefined || (current === null && expectedRawSha256 !== null)) {
+    expectedByPath.set(filePath, expectedRawSha256);
+  }
+}
+
+function addReceiptAuthorityPaths(expectedByPath, receipt) {
+  if (typeof receipt?.manifest?.path === "string") addBoundAuthorityPath(expectedByPath, receipt.manifest.path);
+  for (const filePath of receipt?.candidateSourceProof?.paths ?? []) {
+    addBoundAuthorityPath(expectedByPath, filePath);
+  }
+  for (const binding of receipt?.evidenceProof?.bindings ?? []) {
+    if (typeof binding?.evidencePath === "string") addBoundAuthorityPath(expectedByPath, binding.evidencePath);
+  }
+  for (const binding of receipt?.checkerReleaseProof?.sourceBindings ?? []) {
+    if (typeof binding?.path === "string") addBoundAuthorityPath(expectedByPath, binding.path, binding.rawSha256 ?? null);
+  }
+  for (const resolution of receipt?.runtimeAndLegacyProof?.resolutionProofs ?? []) {
+    if (typeof resolution?.candidatePath === "string") {
+      addBoundAuthorityPath(expectedByPath, resolution.candidatePath, resolution.candidateRawSha256 ?? null);
+    }
+    if (typeof resolution?.liveProjection?.path === "string") {
+      addBoundAuthorityPath(expectedByPath, resolution.liveProjection.path, resolution.liveProjection.rawSha256 ?? null);
+    }
+  }
+}
+
+export async function collectTrackedPromotionAuthorities({
+  repoRoot,
+  manifestPath,
+  canonicalReceiptPath,
+  _readJson = readTrackedStrictJsonAuthority,
+  _readBytes = readTrackedAuthorityBytes
+}) {
+  const expectedByPath = new Map();
+  const jsonCache = new Map();
+  const bindings = new Map();
+  const loadJson = async (filePath, expectedRawSha256 = null) => {
+    addBoundAuthorityPath(expectedByPath, filePath, expectedRawSha256);
+    if (!jsonCache.has(filePath)) {
+      const loaded = await _readJson({ repoRoot, filePath, expectedRawSha256 });
+      jsonCache.set(filePath, loaded.value);
+      bindings.set(filePath, {
+        path: filePath,
+        rawSha256: loaded.rawSha256,
+        mode: loaded.mode,
+        objectId: loaded.objectId
+      });
+    }
+    return jsonCache.get(filePath);
+  };
+  const loadBytes = async (filePath, expectedRawSha256 = null) => {
+    addBoundAuthorityPath(expectedByPath, filePath, expectedRawSha256);
+    if (!bindings.has(filePath)) {
+      const loaded = await _readBytes({ repoRoot, filePath, expectedRawSha256 });
+      bindings.set(filePath, {
+        path: filePath,
+        rawSha256: loaded.rawSha256,
+        mode: loaded.mode,
+        objectId: loaded.objectId
+      });
+    }
+  };
+
+  const manifest = await loadJson(manifestPath);
+  const receipt = await loadJson(canonicalReceiptPath);
+  addReceiptAuthorityPaths(expectedByPath, receipt);
+
+  addBoundAuthorityPath(
+    expectedByPath,
+    manifest.candidatePackage.path,
+    manifest.candidatePackage.rawSha256
+  );
+  for (const artifact of manifest.candidateArtifacts ?? []) {
+    addBoundAuthorityPath(expectedByPath, artifact.path, artifact.rawFileSha256 ?? artifact.rawSha256 ?? null);
+  }
+  addBoundAuthorityPath(
+    expectedByPath,
+    manifest.checkerRelease.ledgerPath,
+    manifest.checkerRelease.ledgerRawSha256
+  );
+  addBoundAuthorityPath(expectedByPath, manifest.evidenceIndex.path, manifest.evidenceIndex.rawSha256);
+  for (const evidence of manifest.evidenceBindings ?? []) {
+    addBoundAuthorityPath(expectedByPath, evidence.evidencePath, evidence.rawSha256);
+  }
+  addBoundAuthorityPath(
+    expectedByPath,
+    manifest.legacyResolution.registryPath,
+    manifest.legacyResolution.rawSha256
+  );
+  addBoundAuthorityPath(
+    expectedByPath,
+    manifest.liveReachability.compatibilityManifestPath,
+    manifest.liveReachability.compatibilityManifestRawSha256
+  );
+
+  const [candidatePackage, checkerLedger, evidenceIndex, registry] = await Promise.all([
+    loadJson(manifest.candidatePackage.path, manifest.candidatePackage.rawSha256),
+    loadJson(manifest.checkerRelease.ledgerPath, manifest.checkerRelease.ledgerRawSha256),
+    loadJson(manifest.evidenceIndex.path, manifest.evidenceIndex.rawSha256),
+    loadJson(manifest.legacyResolution.registryPath, manifest.legacyResolution.rawSha256)
+  ]);
+  await loadJson(
+    manifest.liveReachability.compatibilityManifestPath,
+    manifest.liveReachability.compatibilityManifestRawSha256
+  );
+
+  for (const record of candidatePackage.records ?? []) {
+    if (typeof record?.path === "string") addBoundAuthorityPath(expectedByPath, record.path);
+  }
+  for (const entry of evidenceIndex.entries ?? []) {
+    if (typeof entry?.evidencePath === "string") {
+      addBoundAuthorityPath(expectedByPath, entry.evidencePath, entry.rawSha256 ?? null);
+    }
+  }
+  const checkerEntry = (checkerLedger.entries ?? []).filter(
+    (entry) => entry?.version === manifest.checkerRelease.version
+  );
+  if (checkerEntry.length !== 1 || !Array.isArray(checkerEntry[0].bundlePaths)) {
+    throw new Error("PROMOTION_CHECKER_AUTHORITY_INVALID");
+  }
+  for (const filePath of checkerEntry[0].bundlePaths) addBoundAuthorityPath(expectedByPath, filePath);
+
+  for (const resolution of registry.resolutions ?? []) {
+    if (typeof resolution?.candidate?.path === "string") {
+      addBoundAuthorityPath(expectedByPath, resolution.candidate.path, resolution.candidate.rawSha256 ?? null);
+    }
+    if (typeof resolution?.liveProjection?.path === "string") {
+      addBoundAuthorityPath(expectedByPath, resolution.liveProjection.path, resolution.liveProjection.rawSha256 ?? null);
+    }
+    for (const approval of resolution?.approvalReferences ?? []) {
+      if (typeof approval?.path === "string") {
+        addBoundAuthorityPath(expectedByPath, approval.path, approval.rawSha256 ?? null);
+      }
+    }
+  }
+
+  for (const [filePath, expectedRawSha256] of [...expectedByPath.entries()].sort(
+    ([left], [right]) => codePointCompare(left, right)
+  )) {
+    if (filePath.endsWith(".json")) await loadJson(filePath, expectedRawSha256);
+    else await loadBytes(filePath, expectedRawSha256);
+  }
+
+  const candidateRoot = path.posix.dirname(manifest.candidatePackage.path);
+  if (candidateRoot === ".") throw new Error("PROMOTION_CANDIDATE_ROOT_INVALID");
+  const paths = [...expectedByPath.keys()].sort(codePointCompare);
+  const bindingProjection = paths.map((filePath) => bindings.get(filePath));
+  if (bindingProjection.some((binding) => binding === undefined)) {
+    throw new Error("PROMOTION_AUTHORITY_INCOMPLETE");
+  }
+  return Object.freeze({
+    schemaVersion: "promotion-controlled-authority-set.v1",
+    candidateRoot,
+    paths,
+    pathCount: paths.length,
+    pathsDigest: sha256(stableJson(paths)),
+    bindingsDigest: sha256(stableJson(bindingProjection)),
+    jsonPathCount: paths.filter((filePath) => filePath.endsWith(".json")).length
   });
 }
 
