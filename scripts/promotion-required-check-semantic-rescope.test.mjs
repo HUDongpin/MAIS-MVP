@@ -335,3 +335,81 @@ test("18. collector fails closed for checkout mismatch, shallow/non-ancestor evi
     await rm(fixture.root, { recursive: true, force: true });
   }
 });
+
+test("19. collector assigns stable failures to shallow, missing-commit, non-ancestor, inconsistent, and invalid-UTF8 evidence", async () => {
+  const { collectGithubDiffEvidence } = await subject();
+  const base = sha("a");
+  const head = sha("b");
+  const eventBytes = Buffer.from(JSON.stringify({
+    number: 220,
+    pull_request: { base: { sha: base }, head: { sha: head } }
+  }));
+  const responseRunner = ({
+    shallow = "false\n",
+    missingCommit = false,
+    nonAncestor = false,
+    diffBytes = Buffer.from("safe/path.ts\0"),
+    treeBytes = diffBytes
+  } = {}) => async ({ args }) => {
+    const command = args.join(" ");
+    if (command === "rev-parse HEAD") return Buffer.from(`${head}\n`);
+    if (command === "rev-parse --is-shallow-repository") return Buffer.from(shallow);
+    if (command.startsWith("cat-file")) {
+      if (missingCommit) throw new Error("simulated missing commit");
+      return Buffer.alloc(0);
+    }
+    if (command.startsWith("merge-base")) {
+      if (nonAncestor) throw new Error("simulated non-ancestor");
+      return Buffer.alloc(0);
+    }
+    if (command.startsWith("diff ")) return diffBytes;
+    if (command.startsWith("diff-tree ")) return treeBytes;
+    throw new Error(`unexpected git command: ${command}`);
+  };
+
+  await assert.rejects(
+    collectGithubDiffEvidence({
+      repoRoot,
+      eventName: "pull_request",
+      eventBytes,
+      _gitRunner: responseRunner({ shallow: "true\n" })
+    }),
+    /GITHUB_DIFF_TRUNCATED/u
+  );
+  await assert.rejects(
+    collectGithubDiffEvidence({
+      repoRoot,
+      eventName: "pull_request",
+      eventBytes,
+      _gitRunner: responseRunner({ missingCommit: true })
+    }),
+    /GITHUB_DIFF_COMMIT_UNAVAILABLE/u
+  );
+  await assert.rejects(
+    collectGithubDiffEvidence({
+      repoRoot,
+      eventName: "pull_request",
+      eventBytes,
+      _gitRunner: responseRunner({ nonAncestor: true })
+    }),
+    /GITHUB_DIFF_ANCESTRY_INVALID/u
+  );
+  await assert.rejects(
+    collectGithubDiffEvidence({
+      repoRoot,
+      eventName: "pull_request",
+      eventBytes,
+      _gitRunner: responseRunner({ treeBytes: Buffer.from("different/path.ts\0") })
+    }),
+    /GITHUB_DIFF_INCONSISTENT/u
+  );
+  await assert.rejects(
+    collectGithubDiffEvidence({
+      repoRoot,
+      eventName: "pull_request",
+      eventBytes,
+      _gitRunner: responseRunner({ diffBytes: Buffer.from([0xff, 0x00]) })
+    }),
+    /GITHUB_DIFF_PATHS_INVALID/u
+  );
+});

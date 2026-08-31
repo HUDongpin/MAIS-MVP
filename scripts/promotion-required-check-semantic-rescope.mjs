@@ -19,10 +19,14 @@ const execFile = promisify(execFileCallback);
 const GIT_EXECUTABLE = "/usr/bin/git";
 const GIT_ENV = Object.freeze({
   PATH: "/usr/bin:/bin",
+  GIT_CONFIG_GLOBAL: "/dev/null",
   GIT_CONFIG_NOSYSTEM: "1",
+  GIT_OPTIONAL_LOCKS: "0",
+  GIT_PAGER: "cat",
   GIT_TERMINAL_PROMPT: "0",
   LC_ALL: "C"
 });
+const fatalUtf8Decoder = new TextDecoder("utf-8", { fatal: true });
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
@@ -170,15 +174,29 @@ export async function collectGithubDiffEvidence({ repoRoot, eventName, eventByte
   if (checkoutHead !== head) throw new Error("GITHUB_HEAD_BINDING_INVALID");
   const shallow = singleGitLine(await gitBytes(_gitRunner, repoRoot, ["rev-parse", "--is-shallow-repository"]), "GITHUB_DIFF_TRUNCATED");
   if (shallow !== "false") throw new Error("GITHUB_DIFF_TRUNCATED");
-  await gitBytes(_gitRunner, repoRoot, ["cat-file", "-e", `${base}^{commit}`]);
-  await gitBytes(_gitRunner, repoRoot, ["cat-file", "-e", `${head}^{commit}`]);
-  await gitBytes(_gitRunner, repoRoot, ["merge-base", "--is-ancestor", base, head]);
+  try {
+    await gitBytes(_gitRunner, repoRoot, ["cat-file", "-e", `${base}^{commit}`]);
+    await gitBytes(_gitRunner, repoRoot, ["cat-file", "-e", `${head}^{commit}`]);
+  } catch {
+    throw new Error("GITHUB_DIFF_COMMIT_UNAVAILABLE");
+  }
+  try {
+    await gitBytes(_gitRunner, repoRoot, ["merge-base", "--is-ancestor", base, head]);
+  } catch {
+    throw new Error("GITHUB_DIFF_ANCESTRY_INVALID");
+  }
   const diffArgs = ["diff", "--name-only", "--no-renames", "-z", base, head, "--"];
   const treeArgs = ["diff-tree", "--no-commit-id", "-r", "--name-only", "--no-renames", "-z", base, head, "--"];
   const diffBytes = await gitBytes(_gitRunner, repoRoot, diffArgs);
   const treeBytes = await gitBytes(_gitRunner, repoRoot, treeArgs);
   if (!diffBytes.equals(treeBytes)) throw new Error("GITHUB_DIFF_INCONSISTENT");
-  const paths = normalizePromotionChangedPaths(diffBytes.toString("utf8"));
+  let rawNul;
+  try {
+    rawNul = fatalUtf8Decoder.decode(diffBytes);
+  } catch {
+    throw new Error("GITHUB_DIFF_PATHS_INVALID");
+  }
+  const paths = normalizePromotionChangedPaths(rawNul);
   return Object.freeze({
     eventName,
     pullRequestNumber: eventName === "pull_request" ? event.number : null,
