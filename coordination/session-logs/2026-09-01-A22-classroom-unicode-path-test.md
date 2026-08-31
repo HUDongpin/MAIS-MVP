@@ -45,3 +45,10 @@ This repairs and verifies Unicode-path portability of the local release-governan
 - Evidence path: this session log
 - Intended terminal state: `reviewed commit`
 - No remote ref deletion, force operation, broad staging, reset, rebase, stash, or cleanup is authorized or performed.
+
+## Append-only closeout
+
+- Reviewed implementation commit: `89356901297d590565c24fd46044b788d65fdf82`.
+- That exact commit was clean after all named checks and was observed on GitHub branch `codex/a22-classroom-unicode-path-test-20260901` before this documentation-only closeout.
+- Target PR remains `pending`; no PR was created or updated.
+- The final branch update is an ordinary fast-forward containing only this closeout note; the tested source bytes are unchanged from the reviewed implementation commit.
