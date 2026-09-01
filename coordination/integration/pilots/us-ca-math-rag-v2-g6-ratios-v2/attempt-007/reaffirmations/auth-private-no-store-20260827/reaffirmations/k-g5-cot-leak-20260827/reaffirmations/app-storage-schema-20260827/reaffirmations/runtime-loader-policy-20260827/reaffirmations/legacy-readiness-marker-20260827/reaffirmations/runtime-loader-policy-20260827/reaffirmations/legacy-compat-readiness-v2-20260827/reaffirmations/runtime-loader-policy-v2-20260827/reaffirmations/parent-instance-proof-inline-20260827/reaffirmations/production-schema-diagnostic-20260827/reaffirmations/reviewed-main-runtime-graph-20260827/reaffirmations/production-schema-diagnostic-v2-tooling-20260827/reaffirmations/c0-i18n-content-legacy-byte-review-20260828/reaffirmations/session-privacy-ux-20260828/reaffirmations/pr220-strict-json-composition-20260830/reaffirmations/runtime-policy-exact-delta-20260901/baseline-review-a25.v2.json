@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "mais-a25-runtime-policy-review.v1",
+  "role": "A25",
+  "result": "pass",
+  "reviewMode": "independent-read-only-evidence-and-custody",
+  "liveAllowed": false,
+  "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+  "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "ownerReview": {
+    "subject": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/review-subject.v1.json",
+      "rawSha256": "f4bad0390acbf7e2f8531187635e77f777d50612aa9793516a8e333f08b40076",
+      "contentManifestDigest": "998c2b633aee559b3d1cbfd82286bd77cafb18cb704cbfe64ec1203183388596",
+      "contentManifestRecordCount": 4,
+      "contentRecordsPathModeHashMatch": true,
+      "baselineDeltaPathCount": 77,
+      "baselineDeltaPathDigestMatch": true,
+      "runtimePolicySixFieldDeltaBound": true
+    },
+    "custody": {
+      "worktree": "/Volumes/Starship/MAIS的衍生文件/mais-a23-semantic-rescope-composition-20260831",
+      "branch": "a23/semantic-rescope-on-pr220-composition-20260831",
+      "preparationHead": "e170e6260f565abf1a2c576de3b3df388490c669",
+      "subjectHeadMatchesPreparationHead": true,
+      "appendOnlyCandidate": true,
+      "reviewSubjectAndFourRecordsAreUntracked": true,
+      "noSymlinkInSubjectRecordPaths": true,
+      "noInPlaceTrackedMutation": true,
+      "trackedDiffObserved": false,
+      "recoveryBundle": {
+        "archiveManifest": "/Volumes/Starship/MAIS的衍生文件/MAIS-worktree-archive/2026-08-29-deep-cleanup/goal-progress-terminal-commits-20260831T062832Z/MANIFEST.sha256",
+        "archiveManifestSha256": "a1139884d42bcc268001fbcb490cbc9f3b73c04f86fa26fcc058e559140b6d46",
+        "archiveManifestChecks": "all entries OK",
+        "bundle": "/Volumes/Starship/MAIS的衍生文件/MAIS-worktree-archive/2026-08-29-deep-cleanup/goal-progress-terminal-commits-20260831T062832Z/a23-semantic-rescope.bundle",
+        "bundleSha256": "2c7454aa2f5a5eab49e3c48722ac7da666166f4865e2e12f22f7cb5f81dd9f55",
+        "bundleRef": "refs/heads/a23/semantic-rescope-on-pr220-composition-20260831",
+        "bundleHead": "e170e6260f565abf1a2c576de3b3df388490c669",
+        "completeHistoryVerified": true,
+        "bundleCustodyVerified": true
+      }
+    },
+    "ownerBoundary": {
+      "reviewOwner": "A25",
+      "subjectOwner": "A23",
+      "coordinationComposition": "A10",
+      "candidateAndCheckerBindingsRemainUnchanged": true,
+      "candidatePathsChanged": false,
+      "checkerPathsChanged": false,
+      "unrelatedToCandidate": true
+    },
+    "futureBinding": {
+      "futureReceiptPresent": false,
+      "futureCommitBindingPresent": false,
+      "futureReceiptOrCommitBindingPrebound": false,
+      "subjectContainsOnlySealedReferenceCommits": true
+    },
+    "claimCeiling": {
+      "scope": "Read-only subject consistency, exact digest, ownership boundary, and recovery custody review only.",
+      "policyRevisionAuthorized": false,
+      "bindingCommitCreated": false,
+      "workflowDispatchAllowed": false,
+      "shadowAllowed": false,
+      "pullRequestUpdateAllowed": false,
+      "mainMergeAllowed": false,
+      "deployAllowed": false,
+      "liveAllowed": false,
+      "doesNotProve": [
+        "native validate execution",
+        "Shadow execution",
+        "future Receipt",
+        "workflow or PR mutation",
+        "main merge",
+        "deployment",
+        "production readback",
+        "live behavior"
+      ]
+    }
+  }
+}

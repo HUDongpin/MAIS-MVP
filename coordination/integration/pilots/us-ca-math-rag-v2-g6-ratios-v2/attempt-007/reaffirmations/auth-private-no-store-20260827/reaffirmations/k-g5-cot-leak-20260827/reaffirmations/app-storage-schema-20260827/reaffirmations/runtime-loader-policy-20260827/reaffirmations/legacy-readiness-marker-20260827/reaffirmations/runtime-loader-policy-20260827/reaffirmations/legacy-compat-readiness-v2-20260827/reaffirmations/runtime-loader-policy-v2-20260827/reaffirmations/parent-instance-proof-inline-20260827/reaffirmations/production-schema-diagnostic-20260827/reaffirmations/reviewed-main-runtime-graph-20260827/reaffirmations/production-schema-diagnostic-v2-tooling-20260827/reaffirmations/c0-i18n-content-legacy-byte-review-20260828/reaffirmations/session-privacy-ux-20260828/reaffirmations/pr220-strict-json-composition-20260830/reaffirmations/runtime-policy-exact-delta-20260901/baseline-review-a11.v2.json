@@ -1,0 +1,130 @@
+{
+  "role": "A11",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+  "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "ownerReview": {
+    "reviewedAtUtc": "2026-09-01T08:22:27Z",
+    "reviewMode": "independent-read-only-final-evidence",
+    "subject": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/review-subject.v1.json",
+      "rawSha256": "f4bad0390acbf7e2f8531187635e77f777d50612aa9793516a8e333f08b40076",
+      "declaredRawSha256": "f4bad0390acbf7e2f8531187635e77f777d50612aa9793516a8e333f08b40076",
+      "contentManifestDigest": "998c2b633aee559b3d1cbfd82286bd77cafb18cb704cbfe64ec1203183388596",
+      "declaredContentManifestDigest": "998c2b633aee559b3d1cbfd82286bd77cafb18cb704cbfe64ec1203183388596",
+      "contentManifestRecordCount": 4,
+      "rawDigestMatch": true,
+      "contentDigestMatch": true,
+      "recordBytesAndModesMatch": true
+    },
+    "sealedArchive": {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-worktree-archive/2026-08-29-deep-cleanup/runtime-policy-exact-delta-20260901T115212HKT/exact-delta.json",
+      "rawSha256": "ddecb0dc10674115ff723b5785f6f5d0f4a934e532049c2d687f174c5aa3423f",
+      "archiveManifestPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-worktree-archive/2026-08-29-deep-cleanup/runtime-policy-exact-delta-20260901T115212HKT/MANIFEST.sha256",
+      "archiveManifestVerified": true
+    },
+    "layering": {
+      "sourceCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+      "targetCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "observerExecutionCommit": "e170e6260f565abf1a2c576de3b3df388490c669",
+      "sourceToTargetAncestor": true,
+      "targetToObserverAncestor": true,
+      "allCommitIdentitiesDistinct": true
+    },
+    "delta": {
+      "changedPathsCount": 77,
+      "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+      "draftManifestOnlySixFieldDelta": true,
+      "changedFields": [
+        "edgeCount",
+        "edgeDigest",
+        "fsReadAllowlistDigest",
+        "nextDynamicCallsiteDigest",
+        "topologyEdgeCount",
+        "topologyEdgeDigest"
+      ],
+      "nonPolicyBindingsEqual": true,
+      "candidateBaselineIntersectionCount": 0,
+      "checkerBaselineIntersectionCount": 0,
+      "candidateCheckerIntersectionCount": 0
+    },
+    "bindings": {
+      "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+      "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+      "checkerVersion": "promotion-gate-shadow-v2.6",
+      "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+      "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+      "candidateBytesEqualAcrossSourceBaselineTargetObserver": true,
+      "checkerBundleEqualAtTargetAndObserver": true
+    },
+    "tests": {
+      "focusedCommand": "node --test --test-concurrency=1 coordination/integration/runtime-policy-revision.test.mjs",
+      "focusedSuiteFreshRun": {
+        "status": "pass",
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "syntaxChecksFreshRun": {
+        "status": "pass",
+        "commands": [
+          "node --check coordination/integration/runtime-policy-revision.mjs",
+          "node --check coordination/integration/runtime-policy-revision.test.mjs"
+        ]
+      },
+      "redGreenEvidence": {
+        "red": {
+          "status": "recorded-not-rerun",
+          "source": "coordination/session-logs/2026-09-01-A23-runtime-policy-revision.md",
+          "recordedExitCode": 1,
+          "freshRerun": false
+        },
+        "green": {
+          "status": "fresh-pass",
+          "command": "node --test --test-concurrency=1 coordination/integration/runtime-policy-revision.test.mjs",
+          "pass": 7,
+          "fail": 0
+        },
+        "ceiling": "The historical RED is recorded but was not re-created by this read-only review; no unrun RED evidence is claimed."
+      },
+      "capabilityCeilingTests": {
+        "status": "pass",
+        "covered": [
+          "reachablePathSetExpansion",
+          "newLoaderCapability",
+          "fsReadCapabilityExpansion",
+          "dynamicImportTargetExpansion",
+          "newNonliteralDynamicImport",
+          "zeroBaselineLoaderExpansion",
+          "newStaticDependencyEdge",
+          "graphTopologyExpansion",
+          "executionAuthorization"
+        ]
+      },
+      "commitIdentityTests": {
+        "status": "pass",
+        "covered": [
+          "source=00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+          "target=d0394f016eb91c3b065d4751601be65a7186e5ac",
+          "observer=e170e6260f565abf1a2c576de3b3df388490c669",
+          "source-target-observer-distinct",
+          "source-to-target-and-target-to-observer-ancestry"
+        ]
+      }
+    },
+    "claimCeiling": "A11 PASS is limited to independent read-only exact-subject raw/content digest verification, sealed archive integrity, source/target/observer layering, exact six-field draft delta, candidate/source/checker unchanged evidence, focused regression/capability/identity checks, and the recorded RED plus fresh GREEN boundary. It does not authorize Manifest mutation, native validate, workflow or PR mutation, Shadow, Receipt, merge, deployment, production, or live use."
+  }
+}

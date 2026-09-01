@@ -1,0 +1,279 @@
+{
+  "role": "A11",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+  "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "sourceReviewSha256": "577e12040f9661e5f97c09c5b8889db27e29363016c3d6f2afe7b01ad953f482",
+  "sourceManifestSha256": "f756c1122b7faf45215fdf2bce6857a25dd273c663b408c928c3783c7ef4dc94",
+  "ownerReview": {
+    "schemaVersion": "mais-a11-baseline-only-owner-review.v1",
+    "role": "A11",
+    "reviewMode": "baseline-only",
+    "result": "pass",
+    "producedAt": "2026-08-30T05:21:08Z",
+    "target": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+    "parents": [
+      "c1680d23dab08361bdb3abe0f4c4fdeb15143f54",
+      "e3556833ccfabbf4fe7e9f227f7f10838904d8da"
+    ],
+    "baseline": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+    "repositoryPreconditions": {
+      "headExact": true,
+      "parentsExactAndOrdered": true,
+      "baselineCommitExists": true,
+      "baselineAncestorOfTarget": true,
+      "detachedExactCommitReview": true,
+      "cleanBeforeReview": true,
+      "cleanAfterChecks": true,
+      "exactTargetPresentOnLiveRemote": true,
+      "remoteTargetRefCount": 1,
+      "cachedRemoteTrackingRefsUsedAsAuthority": false
+    },
+    "protectedDelta": {
+      "algorithm": "sha256(stableJson(sortedPathArray))",
+      "all": {
+        "count": 38,
+        "digest": "2acc678b1f6c35886f40652deab1360780117a9b0620330b652a9d3a593ae5a2"
+      },
+      "runtime": {
+        "count": 34,
+        "digest": "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8"
+      },
+      "test": {
+        "count": 4,
+        "digest": "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+      }
+    },
+    "fullBaselineDelta": {
+      "count": 77,
+      "digest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+      "algorithm": "sha256(stableJson(sortedPathArray))"
+    },
+    "bindingConclusions": {
+      "candidateChanged": false,
+      "sourceChanged": false,
+      "checkerChanged": false,
+      "baselineChanged": true,
+      "candidatePathCountChecked": 4,
+      "checkerPathCountChecked": 8,
+      "candidateGitObjectsEqualAcrossSourceBaselineAndTarget": true,
+      "candidateGitObjectsMatchTargetIndexAndWorkingBytes": true,
+      "checkerGitObjectsEqualAcrossBaselineAndTarget": true,
+      "checkerGitObjectsMatchTargetIndexAndWorkingBytes": true,
+      "sourceCommitObjectExists": true
+    },
+    "pathIntersections": {
+      "candidateWithChecker": 0,
+      "candidateWithFullBaselineDelta": 0,
+      "checkerWithFullBaselineDelta": 0,
+      "candidateWithProtectedDelta": 0,
+      "checkerWithProtectedDelta": 0
+    },
+    "propContract": {
+      "publicWrapperExplicitForwarding": "pass",
+      "surfaceLearnerDefault": "pass",
+      "directLearnerOnly": "pass",
+      "notes": "The public wrapper explicitly forwards the optional presentation prop; the surface defaults to learner; Direct places learner after the props spread so callers cannot opt it into authoring."
+    },
+    "promotionState": {
+      "responseCard": "PRO-3",
+      "historicalReceiptCurrentness": "historical-only",
+      "discoveryCommandResult": "pass",
+      "discoveryEnvelopeStatus": "blocked",
+      "attemptRelation": "unresolved-reaffirmation",
+      "reviewedBaselineOnlyBeforeThisReview": false,
+      "lifecycleState": "shadow_ready",
+      "currentness": "stale",
+      "liveBoundary": "blocked",
+      "historicalClosureOverwritten": false,
+      "nativeValidateDryRunResult": "blocked",
+      "nativeValidateDryRunIssue": "FUTURE_CANONICAL_RECEIPT_ALREADY_BOUND",
+      "nativeValidateExecuted": false,
+      "currentShadowProven": false,
+      "receiptVerificationRun": false,
+      "canonicalFreshReplayComparisonRun": false,
+      "closureFinalizationRun": false
+    },
+    "commands": [
+      {
+        "id": "exact-head",
+        "command": "git rev-parse HEAD",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Observed HEAD exactly matched target."
+      },
+      {
+        "id": "exact-parents",
+        "command": "git rev-list --parents -n 1 HEAD",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Observed exactly two direct parents in the required order."
+      },
+      {
+        "id": "clean-preflight",
+        "command": "git status --porcelain=v1 --untracked-files=all",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "No tracked or untracked repository dirt."
+      },
+      {
+        "id": "baseline-ancestry",
+        "command": "git merge-base --is-ancestor <baseline> <target>",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Historical baseline is an ancestor of the exact target."
+      },
+      {
+        "id": "live-remote-target",
+        "command": "git ls-remote origin",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "One live remote ref pointed exactly to target; cached remote-tracking refs were not used as authority."
+      },
+      {
+        "id": "promotion-skill-discovery",
+        "command": "node <installed-promotion-skill>/scripts/discover-promotion-gate.mjs --repo . --expected-head <target>",
+        "exitCode": 0,
+        "result": "pass-with-blocked-envelope",
+        "summary": "Read-only discovery verified authoritative inputs and unchanged candidate/source/checker facts, while correctly retaining unresolved-reaffirmation, stale currentness, and blocked live boundary."
+      },
+      {
+        "id": "promotion-native-validate-dry-run",
+        "command": "node <installed-promotion-skill>/scripts/run-native-gate.mjs --repo . --operation validate --expected-head <target>",
+        "exitCode": 2,
+        "result": "blocked",
+        "summary": "Operation-aware dry-run stopped before execution with FUTURE_CANONICAL_RECEIPT_ALREADY_BOUND; no native validate or Shadow ran."
+      },
+      {
+        "id": "protected-delta-fingerprint",
+        "command": "git diff --name-only <baseline> <target> -- <protected-roots>; apply installed Promotion Skill fingerprint to each sorted array",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Counts and all three fingerprints matched the required values."
+      },
+      {
+        "id": "git-path-object-audit",
+        "command": "git diff --name-only; git rev-parse <commit>:<path>; git hash-object; git ls-files -s",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Candidate/checker intersections were zero and all audited Git object, index, and working-byte comparisons matched."
+      },
+      {
+        "id": "prop-contract-source-review",
+        "command": "git diff --unified=20 <baseline> <target> -- <configured-visualization-wrapper>",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Explicit public forwarding, learner surface default, and learner-only Direct behavior were all present."
+      },
+      {
+        "id": "promotion-gate-contract-suite",
+        "command": "npm run test:promotion-gate",
+        "exitCode": 0,
+        "result": "pass",
+        "tests": 45,
+        "passed": 45,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "id": "configured-visualization-regressions",
+        "command": "node --import tsx --test --test-concurrency=1 <configured-visualization-regression-test>",
+        "exitCode": 0,
+        "result": "pass",
+        "tests": 24,
+        "passed": 24,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "id": "visualization-bundle-boundaries",
+        "command": "node --import tsx --test --test-concurrency=1 <visualization-bundle-boundary-test>",
+        "exitCode": 0,
+        "result": "pass",
+        "tests": 9,
+        "passed": 9,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "id": "type-check",
+        "command": "npm run type-check",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "TypeScript completed with no diagnostics."
+      },
+      {
+        "id": "temporary-dependency-link-cleanup",
+        "command": "verify exact shared dependency versions; create exact node_modules symlink; run checks; verify target; unlink exact symlink",
+        "exitCode": 0,
+        "result": "pass",
+        "versions": {
+          "tsx": "4.23.1",
+          "typescript": "5.8.3",
+          "next": "15.5.23",
+          "react": "19.2.5"
+        },
+        "residualLink": false
+      },
+      {
+        "id": "clean-postcheck",
+        "command": "git status --porcelain=v1 --untracked-files=all",
+        "exitCode": 0,
+        "result": "pass",
+        "summary": "Repository remained clean after all checks and exact unlink."
+      }
+    ],
+    "candidateUnrelatedBaseline": true,
+    "disposition": {
+      "selected": "independently-reviewed-baseline-only",
+      "candidateOrSemanticMutationRouteApplies": false,
+      "evidenceOnlyCorrectionRouteApplies": false,
+      "appendOnlyReaffirmationAuthorizedByThisArtifact": false,
+      "reason": "Candidate/source/checker facts and objects are unchanged, all candidate/checker intersections with the baseline delta are zero, and the reviewed change is bounded to the exact baseline composition. A later append-only re-affirmation still requires separate owner authorization and the complete evidence-before-binding protocol."
+    },
+    "evidenceBoundaries": {
+      "sourceAndGitObjectReview": "pass",
+      "contractAndRegressionTests": "pass",
+      "staticTypeCheck": "pass",
+      "browserInteraction": "not-run",
+      "learnerTeachingBehavior": "not-run",
+      "nativeManifestValidation": "not-run-blocked-at-dry-run",
+      "shadowExecution": "not-run",
+      "receiptVerification": "not-run",
+      "canonicalFreshReplayComparison": "not-run",
+      "closureAndRegistryFinalization": "not-run",
+      "ciRequiredCheckReadback": "not-run",
+      "releaseReadiness": "not-run",
+      "deployment": "not-run",
+      "productionLiveReadback": "not-run"
+    },
+    "claimCeiling": "A11 baseline-only source, Git-object, contract-test, regression-test, and type-check review for the exact composition SHA. No current Shadow, Receipt, Closure, CI, browser, teaching-effectiveness, release, deployment, or live authority.",
+    "liveAllowed": false,
+    "externalSideEffects": {
+      "count": 0,
+      "gitMutation": false,
+      "shadow": false,
+      "promotionValidateExecution": false,
+      "receiptVerification": false,
+      "workflowDispatch": false,
+      "pullRequestUpdate": false,
+      "mainMerge": false,
+      "deploy": false,
+      "productionMutation": false,
+      "remoteDeletion": false,
+      "providerCall": false,
+      "databaseWrite": false,
+      "readOnlyRemoteQueryPerformed": true
+    }
+  }
+}
