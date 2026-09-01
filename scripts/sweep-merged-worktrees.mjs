@@ -36,9 +36,10 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  closeSync, existsSync, lstatSync, openSync, readFileSync, readdirSync, statSync, writeFileSync,
+  closeSync, existsSync, lstatSync, openSync, readFileSync, readdirSync, realpathSync, statSync,
+  writeFileSync,
 } from "node:fs";
-import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
 export const MAX_APPLY_TARGETS = 5;
@@ -46,9 +47,46 @@ const OPEN_PR_QUERY_LIMIT = 1000;
 const APPLY_MANIFEST_SCHEMA = "sweep-merged-worktrees.apply-manifest.v1";
 const OBJECT_ID_PATTERN = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/i;
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i;
+const CONTAMINATING_GIT_ENV_KEYS = Object.freeze([
+  "GIT_DIR",
+  "GIT_WORK_TREE",
+  "GIT_COMMON_DIR",
+  "GIT_INDEX_FILE",
+  "GIT_OBJECT_DIRECTORY",
+  "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+]);
 
 export function sha256Text(value) {
   return createHash("sha256").update(value).digest("hex");
+}
+
+export function sanitizedGitEnvironment(source = process.env) {
+  const environment = { ...source };
+  for (const key of CONTAMINATING_GIT_ENV_KEYS) delete environment[key];
+  environment.GIT_OPTIONAL_LOCKS = "0";
+  return environment;
+}
+
+function noOptionalLocks(args) {
+  return args[0] === "--no-optional-locks" ? args : ["--no-optional-locks", ...args];
+}
+
+function executeGit(execFile, args, options = {}) {
+  return execFile("git", noOptionalLocks(args), {
+    ...options,
+    env: sanitizedGitEnvironment(options.env ?? process.env),
+  });
+}
+
+function decodeImmutableManifest(manifestBytes) {
+  if (!(manifestBytes instanceof Uint8Array)) {
+    throw new TypeError("immutable manifest must be supplied as raw bytes");
+  }
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(manifestBytes);
+  } catch {
+    throw new TypeError("immutable manifest is not valid UTF-8");
+  }
 }
 
 function isCanonicalIsoDate(value) {
@@ -360,6 +398,8 @@ export function runAuthorizedApply({
     let manifestBytes;
     try { manifestBytes = deps.readManifestBytes(); }
     catch { return { ok: false, reason: "immutable manifest became unreadable" }; }
+    try { decodeImmutableManifest(manifestBytes); }
+    catch { return { ok: false, reason: "immutable manifest is not valid UTF-8" }; }
     if (sha256Text(manifestBytes) !== authorization.manifestSha256) {
       return { ok: false, reason: "immutable manifest digest drift" };
     }
@@ -630,8 +670,11 @@ export function validateApplyAuthorization({
     || !OBJECT_ID_PATTERN.test(liveMainEvidence.sha ?? "")
   ) return { ok: false, reason: "live remote-main evidence unavailable" };
 
+  let manifestText;
+  try { manifestText = decodeImmutableManifest(manifestBytes); }
+  catch { return { ok: false, reason: "immutable manifest is not valid UTF-8" }; }
   let manifest;
-  try { manifest = JSON.parse(manifestBytes); }
+  try { manifest = JSON.parse(manifestText); }
   catch { return { ok: false, reason: "immutable manifest is not valid JSON" }; }
   if (manifest?.schemaVersion !== APPLY_MANIFEST_SCHEMA || !Array.isArray(manifest.targets)) {
     return { ok: false, reason: `immutable manifest must use ${APPLY_MANIFEST_SCHEMA}` };
@@ -710,27 +753,72 @@ const PROTECTED_EVIDENCE_DIRS = new Map([
 ]);
 
 function git(args, opts = {}) {
-  return execFileSync("git", args, { encoding: "utf8", ...opts }).trim();
+  return String(executeGit(execFileSync, args, { encoding: "utf8", ...opts })).trim();
 }
 function gitQuiet(args, opts = {}) {
   try { return git(args, opts); } catch { return null; }
 }
 
-function readBoundWorktreeGitDir(worktreePath, execFile = execFileSync) {
-  const raw = execFile(
-    "git",
-    ["-C", worktreePath, "rev-parse", "--absolute-git-dir"],
+function expectedCommonGitDirFor(registeredGitDir) {
+  const parent = dirname(registeredGitDir);
+  return basename(parent) === "worktrees" ? dirname(parent) : registeredGitDir;
+}
+
+function parseSingleGitPath(raw) {
+  const value = String(raw ?? "");
+  const withoutTerminator = value.endsWith("\r\n")
+    ? value.slice(0, -2)
+    : value.endsWith("\n")
+      ? value.slice(0, -1)
+      : value;
+  if (!withoutTerminator || !isAbsolute(withoutTerminator) || withoutTerminator.includes("\0")) {
+    throw new Error("Git path evidence is unavailable");
+  }
+  return withoutTerminator;
+}
+
+function readBoundWorktreeGitContext(
+  worktreePath,
+  {
+    execFile = execFileSync,
+    realpath = realpathSync,
+    expectedCommonGitDir = null,
+  } = {},
+) {
+  const physicalWorktreePath = realpath(worktreePath);
+  if (!isAbsolute(physicalWorktreePath) || physicalWorktreePath.includes("\0")) {
+    throw new Error("physical worktree evidence is unavailable");
+  }
+  const raw = executeGit(
+    execFile,
+    ["-C", physicalWorktreePath, "rev-parse", "--absolute-git-dir"],
     { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
   );
-  const gitDir = String(raw ?? "").trim();
-  if (!gitDir || !isAbsolute(gitDir) || gitDir.includes("\0")) {
-    throw new Error("worktree gitdir evidence is unavailable");
-  }
-  return gitDir;
+  const gitDir = parseSingleGitPath(raw);
+  const expectedCommon = resolve(expectedCommonGitDir ?? expectedCommonGitDirFor(gitDir));
+  const readBoundPath = (flag) => parseSingleGitPath(executeGit(
+    execFile,
+    boundWorktreeGitArgs(physicalWorktreePath, gitDir, [
+      "rev-parse",
+      "--path-format=absolute",
+      flag,
+    ]),
+    { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+  ));
+  const topLevel = readBoundPath("--show-toplevel");
+  const commonGitDir = readBoundPath("--git-common-dir");
+  const observedGitDir = readBoundPath("--absolute-git-dir");
+  if (
+    resolve(topLevel) !== resolve(physicalWorktreePath)
+    || resolve(commonGitDir) !== expectedCommon
+    || resolve(observedGitDir) !== resolve(gitDir)
+  ) throw new Error("target worktree Git binding mismatch");
+  return { physicalWorktreePath, gitDir, commonGitDir: expectedCommon };
 }
 
 function boundWorktreeGitArgs(worktreePath, gitDir, args) {
   return [
+    "--no-optional-locks",
     `--git-dir=${gitDir}`,
     `--work-tree=${worktreePath}`,
     "-c",
@@ -754,13 +842,21 @@ function countPorcelainV1Z(raw) {
 
 export function readBoundWorktreeStatusEvidence(
   worktreePath,
-  { execFile = execFileSync } = {},
+  {
+    execFile = execFileSync,
+    realpath = realpathSync,
+    expectedCommonGitDir = null,
+  } = {},
 ) {
   try {
-    const gitDir = readBoundWorktreeGitDir(worktreePath, execFile);
-    const raw = execFile(
-      "git",
-      boundWorktreeGitArgs(worktreePath, gitDir, [
+    const binding = readBoundWorktreeGitContext(worktreePath, {
+      execFile,
+      realpath,
+      expectedCommonGitDir,
+    });
+    const raw = executeGit(
+      execFile,
+      boundWorktreeGitArgs(binding.physicalWorktreePath, binding.gitDir, [
         "status",
         "--porcelain=v1",
         "-z",
@@ -923,8 +1019,8 @@ export function readLiveMainEvidence(
   { execFile = execFileSync } = {},
 ) {
   try {
-    const raw = execFile(
-      "git",
+    const raw = executeGit(
+      execFile,
       ["ls-remote", "--heads", "origin", `refs/heads/${branch}`],
       { encoding: "utf8", cwd, stdio: ["ignore", "pipe", "ignore"] },
     );
@@ -943,7 +1039,12 @@ export function readOpenPrEvidence(
     const raw = execFile(
       "gh",
       ["pr", "list", "--state", "open", "--limit", String(queryLimit), "--json", "number,headRefName,headRefOid"],
-      { encoding: "utf8", cwd, stdio: ["ignore", "pipe", "ignore"] },
+      {
+        encoding: "utf8",
+        cwd,
+        stdio: ["ignore", "pipe", "ignore"],
+        env: sanitizedGitEnvironment(),
+      },
     );
     return parseOpenPrEvidence(raw, { queryLimit });
   } catch {
@@ -991,17 +1092,33 @@ function readDetachedAnchorEvidence(target, wt, cwd) {
 }
 
 /** Keep only the candidates git actually ignores. */
-export function retainGitIgnored(dir, hits, { execFile = execFileSync } = {}) {
+export function retainGitIgnored(
+  dir,
+  hits,
+  {
+    execFile = execFileSync,
+    realpath = realpathSync,
+    expectedCommonGitDir = null,
+  } = {},
+) {
   if (!hits.length) return [];
   const rel = hits.map((h) => h.path.slice(dir.length + 1));
-  let gitDir;
-  try { gitDir = readBoundWorktreeGitDir(dir, execFile); }
+  let binding;
+  try {
+    binding = readBoundWorktreeGitContext(dir, { execFile, realpath, expectedCommonGitDir });
+  }
   catch { return hits; }
   let out;
   try {
-    out = execFile("git", boundWorktreeGitArgs(dir, gitDir, ["check-ignore", "-z", "--stdin"]), {
-      encoding: "utf8", input: `${rel.join("\0")}\0`, stdio: ["pipe", "pipe", "ignore"],
-    });
+    out = executeGit(
+      execFile,
+      boundWorktreeGitArgs(binding.physicalWorktreePath, binding.gitDir, [
+        "check-ignore",
+        "-z",
+        "--stdin",
+      ]),
+      { encoding: "utf8", input: `${rel.join("\0")}\0`, stdio: ["pipe", "pipe", "ignore"] },
+    );
   } catch (e) {
     // exit 1 simply means "none of them are ignored"
     out = e.status === 1 ? String(e.stdout ?? "") : null;
@@ -1011,16 +1128,20 @@ export function retainGitIgnored(dir, hits, { execFile = execFileSync } = {}) {
   return hits.filter((h) => ignored.has(h.path.slice(dir.length + 1)));
 }
 
-function inspectRuntimeWorktree(wt, target, { primaryRoot, liveMainEvidence, prEvidence }) {
+function inspectRuntimeWorktree(
+  wt,
+  target,
+  { primaryRoot, expectedCommonGitDir, liveMainEvidence, prEvidence },
+) {
   const current = { ...wt };
   current.exists = existsSync(current.path);
   const status = current.exists
-    ? readBoundWorktreeStatusEvidence(current.path)
+    ? readBoundWorktreeStatusEvidence(current.path, { expectedCommonGitDir })
     : { available: false, dirty: null };
   current.statusEvidence = { available: status.available };
   current.dirty = status.dirty ?? 0;
   current.protectedHits = current.exists && current.statusEvidence.available && current.dirty === 0
-    ? retainGitIgnored(current.path, scanProtectedIgnored(current.path))
+    ? retainGitIgnored(current.path, scanProtectedIgnored(current.path), { expectedCommonGitDir })
     : [];
   current.mergedIntoUpstream = Boolean(
     current.head
@@ -1061,6 +1182,9 @@ export function createRuntimeProviders() {
     resolvePrimaryRoot: () => (
       git(["rev-parse", "--path-format=absolute", "--git-common-dir"]).replace(/\/\.git$/, "")
     ),
+    resolveCommonGitDir: (primaryRoot) => (
+      git(["rev-parse", "--path-format=absolute", "--git-common-dir"], { cwd: primaryRoot })
+    ),
     readLiveMainEvidence: (primaryRoot, branch) => readLiveMainEvidence(primaryRoot, branch),
     readOpenPrEvidence: (primaryRoot) => readOpenPrEvidence(primaryRoot),
     readImmutableManifest(path) {
@@ -1068,7 +1192,7 @@ export function createRuntimeProviders() {
       if (!metadata.isFile() || metadata.isSymbolicLink()) {
         throw new Error("manifest is not a regular file");
       }
-      return readFileSync(path, "utf8");
+      return readFileSync(path);
     },
     readPathAbsenceEvidence: (path) => readPathAbsenceEvidence(path),
     readWorktrees: (primaryRoot) => (
@@ -1076,6 +1200,7 @@ export function createRuntimeProviders() {
     ),
     inspectWorktree: (wt, target, evidence, context) => inspectRuntimeWorktree(wt, target, {
       primaryRoot: context.primaryRoot,
+      expectedCommonGitDir: context.expectedCommonGitDir,
       liveMainEvidence: evidence.liveMainEvidence,
       prEvidence: evidence.prEvidence,
     }),
@@ -1084,7 +1209,7 @@ export function createRuntimeProviders() {
     closeReceipt: (handle) => closeSync(handle),
     removeWorktree(command, primaryRoot) {
       try {
-        execFileSync(command.file, command.args, {
+        executeGit(execFileSync, command.args, {
           cwd: primaryRoot,
           encoding: "utf8",
           stdio: ["ignore", "pipe", "ignore"],
@@ -1113,6 +1238,18 @@ export function main(argv, providers) {
     primaryRoot = runtime.resolvePrimaryRoot();
   } catch {
     runtime.error("sweep refused: cannot resolve the primary checkout");
+    return 1;
+  }
+  let expectedCommonGitDir;
+  try {
+    expectedCommonGitDir = runtime.resolveCommonGitDir
+      ? runtime.resolveCommonGitDir(primaryRoot)
+      : join(primaryRoot, ".git");
+    if (!isAbsolute(expectedCommonGitDir) || expectedCommonGitDir.includes("\0")) {
+      throw new Error("invalid common repository path");
+    }
+  } catch {
+    runtime.error("sweep refused: cannot resolve the expected common repository");
     return 1;
   }
   const defaultBranch = "main";
@@ -1219,7 +1356,7 @@ export function main(argv, providers) {
       wt,
       target,
       { liveMainEvidence, prEvidence },
-      { primaryRoot },
+      { primaryRoot, expectedCommonGitDir },
     );
     const decision = decide(current, {
       primaryRoot,
@@ -1312,7 +1449,7 @@ export function main(argv, providers) {
         wt,
         target,
         evidence,
-        { primaryRoot },
+        { primaryRoot, expectedCommonGitDir },
       ),
       removeWorktree: (command) => runtime.removeWorktree(command, primaryRoot),
       now: () => runtime.now(),

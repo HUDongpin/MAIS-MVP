@@ -1,13 +1,103 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync } from "node:fs";
+import {
+  mkdtempSync, mkdirSync, readFileSync, statSync, writeFileSync, rmSync, symlinkSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
   parseWorktreeList, parseContainingRefs, scanProtectedIgnored, decide, REBUILDABLE,
 } from "./sweep-merged-worktrees.mjs";
 import * as sweep from "./sweep-merged-worktrees.mjs";
+
+const CONTAMINATED_GIT_ENV_KEYS = [
+  "GIT_DIR",
+  "GIT_WORK_TREE",
+  "GIT_COMMON_DIR",
+  "GIT_INDEX_FILE",
+  "GIT_OBJECT_DIRECTORY",
+  "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+];
+
+function withGitEnvironment(values, action) {
+  const before = new Map(Object.keys(values).map((key) => [key, process.env[key]]));
+  try {
+    for (const [key, value] of Object.entries(values)) process.env[key] = value;
+    return action();
+  } finally {
+    for (const [key, value] of before) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+}
+
+function snapshotIndex(path) {
+  return {
+    bytes: readFileSync(path),
+    mtimeNs: statSync(path, { bigint: true }).mtimeNs,
+  };
+}
+
+function assertIndexUnchanged(path, before) {
+  const after = snapshotIndex(path);
+  assert.deepEqual(after.bytes, before.bytes);
+  assert.equal(after.mtimeNs, before.mtimeNs);
+}
+
+function realLinkedWorktreeFixture() {
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "sweep-real-binding-"));
+  const repository = join(fixtureRoot, "expected-common-repo");
+  const target = join(fixtureRoot, "actual target-中文-'quote'-\nline");
+  const wrongRepository = join(fixtureRoot, "contaminating-repo");
+  mkdirSync(repository);
+  mkdirSync(wrongRepository);
+  execFileSync("git", ["init", "-q", "-b", "main"], { cwd: repository, stdio: "ignore" });
+  execFileSync("git", ["config", "user.email", "sweep-test@example.invalid"], { cwd: repository });
+  execFileSync("git", ["config", "user.name", "Sweep Test"], { cwd: repository });
+  writeFileSync(join(repository, ".gitignore"), "ignored-credentials.json\n");
+  writeFileSync(join(repository, "tracked.txt"), "tracked\n");
+  execFileSync("git", ["add", ".gitignore", "tracked.txt"], { cwd: repository });
+  execFileSync("git", ["commit", "-q", "-m", "fixture"], { cwd: repository });
+  execFileSync("git", ["worktree", "add", "-q", "-b", "feature/actual", target], {
+    cwd: repository,
+  });
+
+  execFileSync("git", ["init", "-q", "-b", "wrong"], { cwd: wrongRepository, stdio: "ignore" });
+  execFileSync("git", ["config", "user.email", "sweep-test@example.invalid"], { cwd: wrongRepository });
+  execFileSync("git", ["config", "user.name", "Sweep Test"], { cwd: wrongRepository });
+  writeFileSync(join(wrongRepository, "wrong.txt"), "wrong\n");
+  execFileSync("git", ["add", "wrong.txt"], { cwd: wrongRepository });
+  execFileSync("git", ["commit", "-q", "-m", "wrong fixture"], { cwd: wrongRepository });
+
+  const targetGitDir = execFileSync(
+    "git",
+    ["-C", target, "rev-parse", "--absolute-git-dir"],
+    { encoding: "utf8" },
+  ).trim();
+  const targetIndex = join(targetGitDir, "index");
+  const wrongGitDir = join(wrongRepository, ".git");
+  const wrongIndex = join(wrongGitDir, "index");
+  const contamination = {
+    GIT_DIR: wrongGitDir,
+    GIT_WORK_TREE: wrongRepository,
+    GIT_COMMON_DIR: wrongGitDir,
+    GIT_INDEX_FILE: wrongIndex,
+    GIT_OBJECT_DIRECTORY: join(wrongGitDir, "objects"),
+    GIT_ALTERNATE_OBJECT_DIRECTORIES: join(wrongGitDir, "objects"),
+  };
+  return {
+    fixtureRoot,
+    repository,
+    target,
+    targetGitDir,
+    targetIndex,
+    wrongGitDir,
+    wrongIndex,
+    contamination,
+  };
+}
 
 test("parseWorktreeList reads branches, detached heads and bare repos", () => {
   const wts = parseWorktreeList(
@@ -152,9 +242,14 @@ test("bound worktree status ignores ambient core.worktree and counts NUL records
 test("bound worktree status uses exact Git arguments and counts a rename as one entry", () => {
   const calls = [];
   const evidence = sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
+    realpath: (path) => path,
+    expectedCommonGitDir: "/repo/.git",
     execFile(file, args, options) {
       calls.push({ file, args, cwd: options.cwd ?? null });
-      if (calls.length === 1) return "/repo/.git/worktrees/wt\n";
+      if (args.includes("-C")) return "/repo/.git/worktrees/wt\n";
+      if (args.includes("--show-toplevel")) return "/repo/wt\n";
+      if (args.includes("--git-common-dir")) return "/repo/.git\n";
+      if (args.includes("--absolute-git-dir")) return "/repo/.git/worktrees/wt\n";
       return "R  renamed.txt\0original.txt\0?? line\nbreak.txt\0";
     },
   });
@@ -163,12 +258,55 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
   assert.deepEqual(calls, [
     {
       file: "git",
-      args: ["-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
+      args: ["--no-optional-locks", "-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
       cwd: null,
     },
     {
       file: "git",
       args: [
+        "--no-optional-locks",
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "rev-parse",
+        "--path-format=absolute",
+        "--show-toplevel",
+      ],
+      cwd: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--no-optional-locks",
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "rev-parse",
+        "--path-format=absolute",
+        "--git-common-dir",
+      ],
+      cwd: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--no-optional-locks",
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "rev-parse",
+        "--path-format=absolute",
+        "--absolute-git-dir",
+      ],
+      cwd: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
         "--work-tree=/repo/wt",
         "-c",
@@ -183,13 +321,98 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
   ]);
 });
 
+test("target-bound Git rejects mismatched top-level, common-dir, or registered gitdir evidence", () => {
+  const mismatches = [
+    { topLevel: "/repo/wrong", commonGitDir: "/repo/.git", gitDir: "/repo/.git/worktrees/wt" },
+    { topLevel: "/repo/wt", commonGitDir: "/wrong/.git", gitDir: "/repo/.git/worktrees/wt" },
+    { topLevel: "/repo/wt", commonGitDir: "/repo/.git", gitDir: "/repo/.git/worktrees/other" },
+    {
+      registeredGitDir: "/wrong/.git/worktrees/wt",
+      topLevel: "/repo/wt",
+      commonGitDir: "/wrong/.git",
+      gitDir: "/wrong/.git/worktrees/wt",
+    },
+  ];
+  for (const binding of mismatches) {
+    const calls = [];
+    const result = sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
+      realpath: (path) => path,
+      expectedCommonGitDir: "/repo/.git",
+      execFile(_file, args) {
+        calls.push(args);
+        if (args.includes("-C")) return `${binding.registeredGitDir ?? "/repo/.git/worktrees/wt"}\n`;
+        if (args.includes("--show-toplevel")) return `${binding.topLevel}\n`;
+        if (args.includes("--git-common-dir")) return `${binding.commonGitDir}\n`;
+        if (args.includes("--absolute-git-dir")) return `${binding.gitDir}\n`;
+        return "?? must-not-run.txt\0";
+      },
+    });
+    assert.deepEqual(result, { available: false, dirty: null });
+    assert.equal(calls.some((args) => args.includes("status")), false);
+  }
+});
+
+test("target-bound Git centralizes sanitized no-lock invocation", () => {
+  const calls = [];
+  const contamination = Object.fromEntries(
+    CONTAMINATED_GIT_ENV_KEYS.map((key) => [key, `/contaminated/${key}`]),
+  );
+  const evidence = withGitEnvironment(contamination, () => (
+    sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
+      realpath: (path) => path,
+      expectedCommonGitDir: "/repo/.git",
+      execFile(file, args, options) {
+        calls.push({ file, args, env: options.env });
+        if (args.includes("-C")) return "/repo/.git/worktrees/wt\n";
+        if (args.includes("--show-toplevel")) return "/repo/wt\n";
+        if (args.includes("--git-common-dir")) return "/repo/.git\n";
+        if (args.includes("--absolute-git-dir")) return "/repo/.git/worktrees/wt\n";
+        return "?? dirty.txt\0";
+      },
+    })
+  ));
+
+  assert.deepEqual(evidence, { available: true, dirty: 1 });
+  assert.equal(calls.length, 5);
+  for (const call of calls) {
+    assert.equal(call.file, "git");
+    assert.equal(call.args[0], "--no-optional-locks");
+    assert.equal(call.env.GIT_OPTIONAL_LOCKS, "0");
+    for (const key of CONTAMINATED_GIT_ENV_KEYS) assert.equal(call.env[key], undefined);
+  }
+});
+
+test("real bound status reads the dirty physical target despite a wrong repo and index environment", () => {
+  const fixture = realLinkedWorktreeFixture();
+  try {
+    writeFileSync(join(fixture.target, "dirty actual-\n中文.txt"), "dirty\n");
+    const targetIndexBefore = snapshotIndex(fixture.targetIndex);
+    const wrongIndexBefore = snapshotIndex(fixture.wrongIndex);
+    const evidence = withGitEnvironment(
+      fixture.contamination,
+      () => sweep.readBoundWorktreeStatusEvidence(fixture.target),
+    );
+
+    assert.deepEqual(evidence, { available: true, dirty: 1 });
+    assertIndexUnchanged(fixture.targetIndex, targetIndexBefore);
+    assertIndexUnchanged(fixture.wrongIndex, wrongIndexBefore);
+  } finally {
+    rmSync(fixture.fixtureRoot, { recursive: true, force: true });
+  }
+});
+
 test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () => {
   const calls = [];
   const hits = [{ path: "/repo/wt/provider-credentials\ncopy.json", label: "secret-like file", size: 1 }];
   const retained = sweep.retainGitIgnored("/repo/wt", hits, {
+    realpath: (path) => path,
+    expectedCommonGitDir: "/repo/.git",
     execFile(file, args, options) {
       calls.push({ file, args, cwd: options.cwd ?? null, input: options.input ?? null });
-      if (calls.length === 1) return "/repo/.git/worktrees/wt\n";
+      if (args.includes("-C")) return "/repo/.git/worktrees/wt\n";
+      if (args.includes("--show-toplevel")) return "/repo/wt\n";
+      if (args.includes("--git-common-dir")) return "/repo/.git\n";
+      if (args.includes("--absolute-git-dir")) return "/repo/.git/worktrees/wt\n";
       return "provider-credentials\ncopy.json\0";
     },
   });
@@ -198,13 +421,59 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
   assert.deepEqual(calls, [
     {
       file: "git",
-      args: ["-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
+      args: ["--no-optional-locks", "-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
       cwd: null,
       input: null,
     },
     {
       file: "git",
       args: [
+        "--no-optional-locks",
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "rev-parse",
+        "--path-format=absolute",
+        "--show-toplevel",
+      ],
+      cwd: null,
+      input: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--no-optional-locks",
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "rev-parse",
+        "--path-format=absolute",
+        "--git-common-dir",
+      ],
+      cwd: null,
+      input: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--no-optional-locks",
+        "--git-dir=/repo/.git/worktrees/wt",
+        "--work-tree=/repo/wt",
+        "-c",
+        "core.worktree=/repo/wt",
+        "rev-parse",
+        "--path-format=absolute",
+        "--absolute-git-dir",
+      ],
+      cwd: null,
+      input: null,
+    },
+    {
+      file: "git",
+      args: [
+        "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
         "--work-tree=/repo/wt",
         "-c",
@@ -217,6 +486,32 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
       input: "provider-credentials\ncopy.json\0",
     },
   ]);
+});
+
+test("real bound check-ignore rejects a contaminated wrong repo/index without refreshing either index", () => {
+  const fixture = realLinkedWorktreeFixture();
+  try {
+    const ignored = join(fixture.target, "ignored-credentials.json");
+    const visible = join(fixture.target, "visible-credentials.json");
+    writeFileSync(ignored, "ignored\n");
+    writeFileSync(visible, "visible\n");
+    const hits = [
+      { path: ignored, label: "secret-like file", size: 8 },
+      { path: visible, label: "secret-like file", size: 8 },
+    ];
+    const targetIndexBefore = snapshotIndex(fixture.targetIndex);
+    const wrongIndexBefore = snapshotIndex(fixture.wrongIndex);
+    const retained = withGitEnvironment(
+      fixture.contamination,
+      () => sweep.retainGitIgnored(fixture.target, hits),
+    );
+
+    assert.deepEqual(retained, [hits[0]]);
+    assertIndexUnchanged(fixture.targetIndex, targetIndexBefore);
+    assertIndexUnchanged(fixture.wrongIndex, wrongIndexBefore);
+  } finally {
+    rmSync(fixture.fixtureRoot, { recursive: true, force: true });
+  }
 });
 
 test("readPathAbsenceEvidence treats a dangling symlink entry as present", () => {
@@ -434,7 +729,7 @@ function applyManifest(targetCount = 1) {
 }
 
 function authorizationFor(manifest = applyManifest()) {
-  const manifestBytes = `${JSON.stringify(manifest, null, 2)}\n`;
+  const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   return {
     apply: true,
     manifestBytes,
@@ -458,9 +753,43 @@ test("validateApplyAuthorization requires a byte-locked immutable manifest for -
 
 test("validateApplyAuthorization rejects a manifest whose bytes changed", () => {
   const input = authorizationFor();
-  const result = sweep.validateApplyAuthorization({ ...input, manifestBytes: `${input.manifestBytes} ` });
+  const result = sweep.validateApplyAuthorization({
+    ...input,
+    manifestBytes: Buffer.concat([input.manifestBytes, Buffer.from(" ")]),
+  });
   assert.equal(result.ok, false);
   assert.match(result.reason, /digest mismatch/);
+});
+
+test("manifest authorization hashes raw bytes and rejects malformed UTF-8 aliases", () => {
+  const manifest = applyManifest();
+  manifest.note = "alias-marker";
+  const valid = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  const marker = Buffer.from("alias-marker", "utf8");
+  const markerOffset = valid.indexOf(marker);
+  assert.ok(markerOffset >= 0);
+  const malformedA = Buffer.concat([
+    valid.subarray(0, markerOffset),
+    Buffer.from([0x80]),
+    valid.subarray(markerOffset + marker.byteLength),
+  ]);
+  const malformedB = Buffer.concat([
+    valid.subarray(0, markerOffset),
+    Buffer.from([0x81]),
+    valid.subarray(markerOffset + marker.byteLength),
+  ]);
+  assert.equal(malformedA.toString("utf8"), malformedB.toString("utf8"));
+  assert.notEqual(sweep.sha256Text(malformedA), sweep.sha256Text(malformedB));
+
+  for (const manifestBytes of [malformedA, malformedB]) {
+    const result = sweep.validateApplyAuthorization({
+      ...authorizationFor(manifest),
+      manifestBytes,
+      expectedManifestSha256: sweep.sha256Text(manifestBytes),
+    });
+    assert.equal(result.ok, false);
+    assert.match(result.reason, /UTF-8/);
+  }
 });
 
 test("validateApplyAuthorization requires an independently supplied expected live-main SHA", () => {
@@ -845,7 +1174,7 @@ test("production live-main provider wires an exact ls-remote query and fails clo
   assert.deepEqual(evidence, { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" });
   assert.deepEqual(calls, [{
     file: "git",
-    args: ["ls-remote", "--heads", "origin", "refs/heads/main"],
+    args: ["--no-optional-locks", "ls-remote", "--heads", "origin", "refs/heads/main"],
     cwd: "/repo",
   }]);
   assert.equal(sweep.readLiveMainEvidence("/repo", "main", {
@@ -941,7 +1270,9 @@ function authorizedApplyFixture({
   const deps = {
     readManifestBytes() {
       calls.manifest++;
-      return manifestDrifts && calls.manifest > 1 ? `${input.manifestBytes} ` : input.manifestBytes;
+      return manifestDrifts && calls.manifest > 1
+        ? Buffer.concat([input.manifestBytes, Buffer.from(" ")])
+        : input.manifestBytes;
     },
     readLiveMainEvidence() {
       calls.live++;
@@ -992,6 +1323,27 @@ function authorizedApplyFixture({
   };
   return { authorization, calls, deps };
 }
+
+test("runAuthorizedApply revalidates raw manifest bytes with fatal UTF-8 before mutation", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  const malformed = Buffer.from([0x7b, 0x22, 0x78, 0x22, 0x3a, 0x22, 0x80, 0x22, 0x7d]);
+  authorization.manifestSha256 = sweep.sha256Text(malformed);
+  deps.readManifestBytes = () => malformed;
+
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+
+  assert.equal(result.ok, false);
+  assert.deepEqual(calls.remove, []);
+  assert.match(result.receipt.results[0].reason, /UTF-8/);
+});
 
 function cliProvidersFixture({
   danglingPathAfterRemoval = false,
@@ -1212,9 +1564,9 @@ test("manifest preview fails closed on fleet drift without reserving or removing
 
 test("manifest preview fails closed on an exact target lock mismatch", () => {
   const { providers, calls, authorizationInput, manifestPath } = cliProvidersFixture();
-  const manifest = JSON.parse(authorizationInput.manifestBytes);
+  const manifest = JSON.parse(authorizationInput.manifestBytes.toString("utf8"));
   manifest.targets[0].topologyFingerprint = "f".repeat(64);
-  const manifestBytes = `${JSON.stringify(manifest, null, 2)}\n`;
+  const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   providers.readImmutableManifest = (path) => {
     calls.manifest++;
     assert.equal(path, manifestPath);

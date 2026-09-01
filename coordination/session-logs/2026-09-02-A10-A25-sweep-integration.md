@@ -87,3 +87,57 @@ readback, rollback, and monitoring are not applicable/not run for this slice.
 No `--apply`, receipt reservation, worktree removal, branch/ref deletion,
 force operation, reset, rebase, stash, PR mutation, merge, deploy, provider
 call, or production action was performed.
+
+## Post-review hardening (2026-09-02 HKT)
+
+An independent review identified three related fail-closed gaps: ambient Git
+environment variables could redirect target inspection; manifest hashing was
+performed after UTF-8 string decoding; and read-only Git probes did not
+explicitly disable optional locks. The remediation remains inside the same
+three-path slice recorded above.
+
+- Every production Git child now flows through one sanitized runner. It removes
+  `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_INDEX_FILE`,
+  `GIT_OBJECT_DIRECTORY`, and `GIT_ALTERNATE_OBJECT_DIRECTORIES`, sets
+  `GIT_OPTIONAL_LOCKS=0`, and supplies `--no-optional-locks`.
+- Before target status or `check-ignore`, the runner resolves the physical
+  target and separately verifies that `--show-toplevel` is that target,
+  `--git-common-dir` is the expected common repository, and
+  `--absolute-git-dir` is the target's registered Git directory.
+- Immutable manifests are read as raw `Buffer` bytes. SHA-256 covers those raw
+  bytes, JSON decoding uses a fatal UTF-8 `TextDecoder`, and every apply
+  revalidation rereads and revalidates the raw bytes before its injected
+  mutation boundary.
+- Real temporary repositories exercise a dirty linked target whose path has
+  spaces, Unicode, quotes, and a newline while all six Git routing variables
+  point at a different repository/index. Separate status and `check-ignore`
+  regressions prove the target and contaminating index bytes and nanosecond
+  mtimes remain unchanged.
+
+Hardening TDD:
+
+- RED command: `node --test scripts/sweep-merged-worktrees.test.mjs`.
+- RED result with tests changed and production unchanged at `6508a94bf56c90951d376eda0b1f97a777aa65f7`:
+  90 tests, 85 passed, 5 failed. The failures were exact binding mismatch,
+  missing sanitized/no-lock invocation, wrong-repository dirty count,
+  malformed UTF-8 authorization acceptance, and missing apply-time fatal UTF-8
+  revalidation.
+- GREEN result after the minimal production change: 90 passed, 0 failed.
+
+Fresh hardening verification:
+
+- `node --check scripts/sweep-merged-worktrees.mjs`: passed.
+- `node --check scripts/sweep-merged-worktrees.test.mjs`: passed.
+- `node --test scripts/sweep-merged-worktrees.test.mjs`: 90 passed, 0 failed.
+- `node --test --test-concurrency=1 scripts/release-governance.test.mjs`:
+  96 tests; 85 passed, 0 failed, 11 intentional Promotion Shadow skips.
+- Type-check remains not applicable because the exact slice contains only MJS
+  and Markdown and changes no TypeScript/dependency/shared-type surface.
+- No real sweep apply, receipt reservation, worktree removal, branch/ref
+  mutation, PR, merge, deployment, provider call, rollback, or monitoring
+  action was performed.
+
+The claim ceiling remains a local-test and release-governance verified commit
+on this pending-review branch after exact-path commit/push readback. It is not
+`main`, CI, deployment, provider, route, live-behavior, rollback, or monitoring
+evidence.
