@@ -98,3 +98,27 @@ Fresh round-two verification:
 - Working diff check: PASS. Final exact staging, commit, remote readback, and clean proof remain pending at the time this entry is written.
 
 The evidence remains local and static-only. It does not establish SCORM conformance, SCO runtime/sequencing execution, LMS/provider compatibility, persistence, publication, enrollment, grades, roster behavior, deployment, or live behavior.
+
+## Final quality review round three
+
+The third review identified a concurrency-capacity error in the deadline race plus remaining core-cardinality and nested-encoding gaps. The correction remains limited to the course-import handler/importer, their focused tests, and this log.
+
+- A 408 response no longer releases admission while a losing importer is still running. The importer promise exposes a settlement-only promise that absorbs late rejection. If abort wins, the route returns the private 408 but transfers lease release to that settlement promise; the normal `finally` does not release early. The concurrency regression proves the pre-fix behavior admitted a second importer (`maxActiveImports=2`), while the fixed behavior returns 429 and holds `maxActiveImports=1` until the deferred loser settles. After settlement, a third request succeeds. This is cooperative cancellation plus retained capacity, not hard termination of an arbitrary Promise.
+- Core version metadata is cardinality-strict: exactly one direct core `metadata` container with exactly one direct core `schema` and one direct core `schemaversion` is required. Identical duplicates and schema/version split across separate metadata containers now fail closed, in addition to the earlier conflict checks.
+- Direct core `organizations` and `resources` containers may occur at most once. Duplicate containers, including a second resources tree whose unsupported attributes change, fail closed instead of being ignored by first-child mapping or producing an empty diff.
+- After the first percent decode, any remaining percent-encoded octet is rejected as nested encoding. Final resolved paths are rechecked for NUL, backslash, query/fragment controls, and traversal before canonicalization. The regression proves `%252e%252e/escape.txt` can no longer be normalized outside its declared base and is omitted with the stable unsafe-path warning.
+
+Round-three TDD evidence:
+
+- RED: all four focused regressions failed on `d2977fcb237790939df010df08d88b98017739ca`. The second request returned 200 while the loser still ran, the double-encoded traversal resolved to `safe/escape.txt`, duplicate/split version metadata was accepted, and duplicate organizations/resources containers were accepted.
+- One split-metadata fixture initially failed to replace the indented manifest block; the fixture was corrected to a structural regular expression before its result was treated as authoritative.
+- GREEN: the four focused regressions passed. The full course-integration and teacher-handler suite passed 120/120 with zero fail/skip/cancel/todo.
+
+Fresh round-three verification:
+
+- `./node_modules/.bin/tsc --noEmit --incremental false`: PASS.
+- `npm run build`: PASS on Next.js 15.5.23, including the dynamic course-import route and 202 generated route entries; only the existing extended-tsconfig and edge static-generation warnings appeared.
+- `node --test --test-concurrency=1 scripts/release-governance.test.mjs`: 86 passed, 0 failed, 11 intentional skips.
+- Exact diff/self-review and final commit/remote/clean proof remain pending at the time this entry is written.
+
+The claim ceiling remains committed local static-import and cooperative admission evidence only. Arbitrary asynchronous work cannot be forcibly terminated by JavaScript promises; capacity is retained until settlement. No SCORM conformance, SCO runtime, LMS/provider compatibility, persistence/publication/enrollment/grade/roster action, deployment, or live behavior is established.

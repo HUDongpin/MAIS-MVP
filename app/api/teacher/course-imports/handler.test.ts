@@ -471,7 +471,7 @@ test("course import API deadline interrupts a stalled request body read", async 
   assert.equal(response.status, 408);
 });
 
-test("course import API deadline releases admission when an importer ignores its abort signal", async () => {
+test("course import API retains admission until an importer that ignored abort actually settles", async () => {
   const admissionController = createCourseImportAdmissionController({
     limits: { maxConcurrentPerIp: 1, maxConcurrentPerUser: 1, timeoutMs: 10 },
     consumeRateLimit: () => ({
@@ -482,13 +482,31 @@ test("course import API deadline releases admission when an importer ignores its
     })
   });
   let importCalls = 0;
+  let activeImports = 0;
+  let maxActiveImports = 0;
+  let settleLosingImport!: () => void;
+  const losingImport = new Promise<void>((resolve) => {
+    settleLosingImport = resolve;
+  });
+  let markLosingImportSettled!: () => void;
+  const losingImportSettled = new Promise<void>((resolve) => {
+    markLosingImportSettled = resolve;
+  });
   const handler = createTeacherCourseImportPostHandler({
     authenticateUser: async () => ({ user: { id: "teacher-ignores-abort", role: "teacher" } }),
     admitImport: (request, userId) => admissionController.admit(request, userId),
     importPackage: async () => {
       importCalls += 1;
-      if (importCalls === 1) return new Promise<never>(() => undefined);
-      return { safe: true };
+      const call = importCalls;
+      activeImports += 1;
+      maxActiveImports = Math.max(maxActiveImports, activeImports);
+      try {
+        if (call === 1) await losingImport;
+        return { safe: true };
+      } finally {
+        activeImports -= 1;
+        if (call === 1) markLosingImportSettled();
+      }
     }
   });
   const request = () => {
@@ -513,8 +531,19 @@ test("course import API deadline releases admission when an importer ignores its
     ))
   ]);
   assert.equal(timedOut.status, 408);
+  assert.equal(activeImports, 1, "the timed-out importer is still running cooperatively");
 
-  const retry = await handler(request());
-  assert.equal(retry.status, 200, "the expired lease must not permanently consume concurrency");
+  const whileLosingImportRuns = await handler(request());
+  assert.equal(maxActiveImports, 1, "deadline handling must not permit a second active importer");
+  assert.equal(whileLosingImportRuns.status, 429, "running loser must retain its concurrency lease");
+  assert.equal(importCalls, 1);
+
+  settleLosingImport();
+  await losingImportSettled;
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  const afterSettlement = await handler(request());
+  assert.equal(afterSettlement.status, 200, "settled loser must release retained capacity");
   assert.equal(importCalls, 2);
+  assert.equal(maxActiveImports, 1);
 });

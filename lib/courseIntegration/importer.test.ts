@@ -1032,6 +1032,22 @@ test("rechecks percent-decoded manifest paths and blocks encoded dangerous schem
   ]));
 });
 
+test("rejects double-encoded path controls before RFC 3986 base resolution", async () => {
+  const manifest = scormManifest({
+    resourceHref: "%252e%252e/escape.txt"
+  }).replace(
+    "<manifest identifier=",
+    '<manifest xml:base="safe/root/" identifier='
+  );
+  const report = await importScormPackage(await createScormPackage(manifest, {
+    "safe/escape.txt": "must not be attributed through encoded traversal"
+  }));
+
+  assert.equal(report.courseVersion.resources[0]?.href, null);
+  assert.deepEqual(report.courseVersion.resources[0]?.filePaths, []);
+  assert.ok(report.warnings.some(({ code }) => code === "RESOURCE_PATH_OMITTED"));
+});
+
 test("fails closed on signed ZIP data descriptors, including corrupted descriptor relationships", async () => {
   const generated = await createScormPackage(
     scormManifest(),
@@ -1459,7 +1475,7 @@ test("requires strict and consistent SCORM schema/version evidence", async () =>
   }
 });
 
-test("rejects conflicting duplicate metadata and schemaversion declarations", async () => {
+test("requires exactly one core metadata block with one schema and schemaversion", async () => {
   const conflictingSchemaVersion = scormManifest().replace(
     "</metadata>",
     "<schemaversion>2004</schemaversion></metadata>"
@@ -1475,10 +1491,60 @@ test("rejects conflicting duplicate metadata and schemaversion declarations", as
     "</metadata>",
     "<schemaversion>2004 4th Edition</schemaversion></metadata>"
   );
-  for (const manifest of [conflictingSchemaVersion, conflictingMetadata, conflicting2004Edition]) {
+  const metadataBlock = "<metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>";
+  const duplicateIdenticalMetadata = scormManifest().replace(
+    "</metadata>",
+    `</metadata>${metadataBlock}`
+  );
+  const duplicateIdenticalSchema = scormManifest().replace(
+    "<schema>ADL SCORM</schema>",
+    "<schema>ADL SCORM</schema><schema>ADL SCORM</schema>"
+  );
+  const duplicateIdenticalSchemaVersion = scormManifest().replace(
+    "<schemaversion>1.2</schemaversion>",
+    "<schemaversion>1.2</schemaversion><schemaversion>1.2</schemaversion>"
+  );
+  const splitSchemaAndVersion = scormManifest().replace(
+    /<metadata>\s*<schema>ADL SCORM<\/schema>\s*<schemaversion>1\.2<\/schemaversion>\s*<\/metadata>/u,
+    "<metadata><schema>ADL SCORM</schema></metadata><metadata><schemaversion>1.2</schemaversion></metadata>"
+  );
+  for (const manifest of [
+    conflictingSchemaVersion,
+    conflictingMetadata,
+    conflicting2004Edition,
+    duplicateIdenticalMetadata,
+    duplicateIdenticalSchema,
+    duplicateIdenticalSchemaVersion,
+    splitSchemaAndVersion
+  ]) {
     await assert.rejects(
       importScormPackage(await createScormPackage(manifest, { "content.txt": "Static lesson" })),
       (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_VERSION_UNSUPPORTED"
+    );
+  }
+});
+
+test("rejects duplicate core organizations and resources containers", async () => {
+  const duplicateOrganizations = scormManifest().replace(
+    "</organizations>",
+    "</organizations><organizations><organization identifier=\"ignored-org\"><title>Ignored organization</title></organization></organizations>"
+  );
+  const duplicateResources = (revision: string) => scormManifest().replace(
+    "</resources>",
+    `</resources><resources><resource identifier="ignored-resource" type="webcontent" data-revision="${revision}" href="ignored.txt"><file href="ignored.txt"/></resource></resources>`
+  );
+
+  for (const manifest of [
+    duplicateOrganizations,
+    duplicateResources("before"),
+    duplicateResources("after")
+  ]) {
+    await assert.rejects(
+      importScormPackage(await createScormPackage(manifest, {
+        "content.txt": "Static lesson",
+        "ignored.txt": "Ignored duplicate-container asset"
+      })),
+      (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_MANIFEST_INVALID"
     );
   }
 });

@@ -288,11 +288,11 @@ function declaredScormVersion(normalizedVersion: string): ScormVersion | null {
 
 function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
   const metadataElements = xmlChildren(manifest, "metadata");
-  const schemaElements = metadataElements.flatMap((metadata) => xmlChildren(metadata, "schema"));
-  const schemaVersionElements = metadataElements.flatMap(
-    (metadata) => xmlChildren(metadata, "schemaversion")
-  );
-  if (schemaElements.length === 0 || schemaVersionElements.length === 0) {
+  if (metadataElements.length !== 1) unsupportedScormVersion();
+  const metadata = metadataElements[0]!;
+  const schemaElements = xmlChildren(metadata, "schema");
+  const schemaVersionElements = xmlChildren(metadata, "schemaversion");
+  if (schemaElements.length !== 1 || schemaVersionElements.length !== 1) {
     unsupportedScormVersion();
   }
   const schemas = schemaElements.map((element) => xmlText(element));
@@ -390,6 +390,17 @@ function assertScormManifestRoot(manifest: StaticXmlElement) {
   }
 }
 
+function assertCoreContainerCardinality(manifest: StaticXmlElement) {
+  for (const localName of ["organizations", "resources"] as const) {
+    if (xmlChildren(manifest, localName).length <= 1) continue;
+    throw new CourseImportError(
+      "SCORM_MANIFEST_INVALID",
+      "The SCORM manifest contains duplicate core containers.",
+      422
+    );
+  }
+}
+
 const packageRootUrl = new URL("https://scorm-package.invalid/");
 
 function safeManifestReference(value: string | null, basePath: string) {
@@ -410,6 +421,7 @@ function safeManifestReference(value: string | null, basePath: string) {
   } catch {
     return null;
   }
+  if (/%[0-9A-Fa-f]{2}/u.test(decoded)) return null;
   if (decoded.includes("/") && /%2f/i.test(withoutQuery)) return null;
   if (
     decoded.includes("\\") ||
@@ -426,6 +438,13 @@ function safeManifestReference(value: string | null, basePath: string) {
     const resolved = new URL(decoded, baseUrl);
     if (resolved.origin !== packageRootUrl.origin) return null;
     const resolvedPath = decodeURIComponent(resolved.pathname.slice(1)).normalize("NFC");
+    if (
+      resolvedPath.includes("\u0000") ||
+      resolvedPath.includes("\\") ||
+      resolvedPath.includes("?") ||
+      resolvedPath.includes("#") ||
+      resolvedPath.split("/").some((segment) => segment === "..")
+    ) return null;
     if (resolvedPath === "") return "";
     const canonicalPath = canonicalizeArchivePath(resolvedPath).canonicalPath;
     return resolved.pathname.endsWith("/") ? `${canonicalPath}/` : canonicalPath;
@@ -660,6 +679,7 @@ export async function importScormPackage(
   ));
   assertScormManifestRoot(manifest);
   assertScormNamespacePolicy(manifest);
+  assertCoreContainerCardinality(manifest);
   const scormVersion = detectScormVersion(manifest);
   const manifestSourceId = xmlAttribute(manifest, "identifier")?.trim();
   if (!manifestSourceId) {

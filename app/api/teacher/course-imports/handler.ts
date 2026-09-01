@@ -87,8 +87,18 @@ function courseImportAborted() {
 async function importWithinAdmission(
   importPackage: () => Promise<unknown>,
   signal: AbortSignal
-): Promise<{ readonly status: "aborted" } | { readonly status: "completed"; readonly report: unknown }> {
-  if (signal.aborted) return { status: "aborted" };
+): Promise<
+  | { readonly status: "aborted"; readonly importerSettlement: Promise<void> }
+  | { readonly status: "completed"; readonly report: unknown }
+> {
+  if (signal.aborted) {
+    return { status: "aborted", importerSettlement: Promise.resolve() };
+  }
+  const importerPromise = Promise.resolve().then(importPackage);
+  const importerSettlement = importerPromise.then(
+    () => undefined,
+    () => undefined
+  );
   return new Promise((resolve, reject) => {
     let settled = false;
     const finish = (action: () => void) => {
@@ -97,18 +107,16 @@ async function importWithinAdmission(
       signal.removeEventListener("abort", onAbort);
       action();
     };
-    const onAbort = () => finish(() => resolve({ status: "aborted" }));
+    const onAbort = () => finish(() => resolve({ status: "aborted", importerSettlement }));
     signal.addEventListener("abort", onAbort, { once: true });
     if (signal.aborted) {
       onAbort();
       return;
     }
-    Promise.resolve()
-      .then(importPackage)
-      .then(
-        (report) => finish(() => resolve({ status: "completed", report })),
-        (error) => finish(() => reject(error))
-      );
+    importerPromise.then(
+      (report) => finish(() => resolve({ status: "completed", report })),
+      (error) => finish(() => reject(error))
+    );
   });
 }
 
@@ -173,6 +181,7 @@ export function createTeacherCourseImportPostHandler({
     }
     if (admission instanceof Response) return applyPrivateBoundary(admission);
 
+    let releaseAdmissionInFinally = true;
     try {
       if (admission.signal.aborted) {
         return courseImportAborted();
@@ -214,14 +223,18 @@ export function createTeacherCourseImportPostHandler({
           }),
           admission.signal
         );
-        if (outcome.status === "aborted") return courseImportAborted();
+        if (outcome.status === "aborted") {
+          releaseAdmissionInFinally = false;
+          void outcome.importerSettlement.then(() => admission.release());
+          return courseImportAborted();
+        }
         return privateJson({ import: outcome.report });
       } catch (error) {
         if (admission.signal.aborted) return courseImportAborted();
         return courseImportFailure(error);
       }
     } finally {
-      admission.release();
+      if (releaseAdmissionInFinally) admission.release();
     }
   };
 }
