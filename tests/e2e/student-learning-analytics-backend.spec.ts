@@ -1,4 +1,5 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type TestInfo } from "@playwright/test";
+import { teacherInviteCode } from "./helpers";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -55,7 +56,8 @@ test.describe("student learning analytics backend", () => {
             email: `${teacherSuffix}@example.test`,
             password: "start12345",
             grade: "S3",
-            curriculumTrack: "HK"
+            curriculumTrack: "HK",
+            teacherInviteCode
           }
         })
       );
