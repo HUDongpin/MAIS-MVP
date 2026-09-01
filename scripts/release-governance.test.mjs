@@ -413,7 +413,7 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   assert.ok(job.steps.indexOf(uploadStep) < job.steps.indexOf(finalOutcome), "artifact upload must precede final gate enforcement");
   const semanticLibrarySource = await readFile(path.join(repoRoot, semanticLibraryRelativePath), "utf8");
   const semanticCliSource = await readFile(path.join(repoRoot, semanticCliRelativePath), "utf8");
-  assert.equal(createHash("sha256").update(semanticLibrarySource).digest("hex"), "0b73e3c50b9065f1323e5953626901b00c9c928e0678e1d5eec22b8ce29d8c2c");
+  assert.equal(createHash("sha256").update(semanticLibrarySource).digest("hex"), "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81");
   assert.equal(createHash("sha256").update(semanticCliSource).digest("hex"), "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b");
   assert.match(semanticLibrarySource, /const GIT_EXECUTABLE = "\/usr\/bin\/git"/u);
   assert.match(semanticLibrarySource, /shell: false/u);

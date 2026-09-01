@@ -279,9 +279,26 @@ test("17. authoritative GitHub PR and push evidence is collected from exact chec
   const fixture = await createGitDiffFixture();
   try {
     const prPayload = Buffer.from(JSON.stringify({
+      action: "opened",
       number: 220,
-      pull_request: { base: { sha: fixture.base }, head: { sha: fixture.head } },
-      ignored: { safely: "ignored" }
+      repository: { id: 42, full_name: "promotion/example" },
+      sender: { id: 7, login: "promotion-bot" },
+      pull_request: {
+        base: {
+          label: "promotion:main",
+          ref: "main",
+          sha: fixture.base,
+          user: { login: "promotion" },
+          repo: { full_name: "promotion/example" }
+        },
+        head: {
+          label: "promotion:semantic-rescope",
+          ref: "semantic-rescope",
+          sha: fixture.head,
+          user: { login: "promotion" },
+          repo: { full_name: "promotion/example" }
+        }
+      }
     }));
     const pullRequest = await collectGithubDiffEvidence({ repoRoot: fixture.root, eventName: "pull_request", eventBytes: prPayload });
     assert.equal(pullRequest.eventName, "pull_request");
@@ -299,6 +316,65 @@ test("17. authoritative GitHub PR and push evidence is collected from exact chec
     assert.equal(push.eventName, "push");
     assert.equal(push.head, fixture.head);
     assert.deepEqual(push.paths, pullRequest.paths);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("17a. collector rejects malformed real-shape pull-request base and head bindings before Git reads", async () => {
+  const { collectGithubDiffEvidence } = await subject();
+  const fixture = await createGitDiffFixture();
+  const pullRequestPayload = () => ({
+    action: "opened",
+    number: 220,
+    repository: { id: 42, full_name: "promotion/example" },
+    sender: { id: 7, login: "promotion-bot" },
+    pull_request: {
+      base: {
+        label: "promotion:main",
+        ref: "main",
+        sha: fixture.base,
+        user: { login: "promotion" },
+        repo: { full_name: "promotion/example" }
+      },
+      head: {
+        label: "promotion:semantic-rescope",
+        ref: "semantic-rescope",
+        sha: fixture.head,
+        user: { login: "promotion" },
+        repo: { full_name: "promotion/example" }
+      }
+    }
+  });
+  try {
+    for (const mutate of [
+      (payload) => { delete payload.pull_request.base.sha; },
+      (payload) => { delete payload.pull_request.head.sha; },
+      (payload) => { payload.pull_request.head.sha = "not-a-commit"; }
+    ]) {
+      const payload = pullRequestPayload();
+      mutate(payload);
+      await assert.rejects(
+        collectGithubDiffEvidence({
+          repoRoot: fixture.root,
+          eventName: "pull_request",
+          eventBytes: Buffer.from(JSON.stringify(payload))
+        }),
+        /GITHUB_EVENT_INVALID/u
+      );
+    }
+    const duplicateBaseSha = JSON.stringify(pullRequestPayload()).replace(
+      `\"sha\":\"${fixture.base}\"`,
+      `\"sha\":\"${fixture.base}\",\"sha\":\"${fixture.base}\"`
+    );
+    await assert.rejects(
+      collectGithubDiffEvidence({
+        repoRoot: fixture.root,
+        eventName: "pull_request",
+        eventBytes: Buffer.from(duplicateBaseSha)
+      }),
+      (error) => error?.code === "PROMOTION_WORKFLOW_JSON_DUPLICATE_KEY"
+    );
   } finally {
     await rm(fixture.root, { recursive: true, force: true });
   }

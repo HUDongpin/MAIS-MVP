@@ -147,8 +147,8 @@ function parseGithubEventEnvelope(bytes, eventName) {
     const pullRequest = value.pull_request;
     const normalized = {
       number: value.number,
-      base: pullRequest?.base,
-      head: pullRequest?.head
+      base: { sha: pullRequest?.base?.sha },
+      head: { sha: pullRequest?.head?.sha }
     };
     return parseStrictGithubEventJson(Buffer.from(JSON.stringify(normalized), "utf8"));
   }
