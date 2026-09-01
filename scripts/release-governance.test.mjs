@@ -311,12 +311,36 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   assert.match(currentValidation, /report\.pilotUnitStatus !== "shadow_ready"/u);
 
   const canonicalResolution = guardedSteps.get("Resolve committed canonical Receipt execution commit").run;
+  assert.equal(
+    [...canonicalResolution.matchAll(/\bexecFileSync\s*\(/gu)].length,
+    1,
+    "the resolver may use exactly one bounded Git history read"
+  );
+  assert.match(canonicalResolution, /execFileSync\("git", \["show", "--format=%H%x00%P%x00", "--raw", "-z", "--no-abbrev", "--no-renames", `\$\{evidenceCommit\}\.\.HEAD`\]/u);
+  assert.match(canonicalResolution, /maxBuffer: 32 \* 1024 \* 1024/u);
+  assert.match(canonicalResolution, /new TextDecoder\("utf-8", \{ fatal: true \}\)/u);
+  assert.match(canonicalResolution, /const maxInputBytes = 32 \* 1024 \* 1024;/u);
+  assert.match(canonicalResolution, /entry\.size > maxInputBytes/u);
+  assert.match(canonicalResolution, /manifestBytes\.byteLength > maxInputBytes \|\| descriptorBytes\.byteLength > maxInputBytes/u);
+  assert.match(canonicalResolution, /workingBytes\.byteLength > maxInputBytes/u);
+  assert.match(canonicalResolution, /const exactWorkspace = realpathSync\(currentWorkspace\);/u);
+  assert.match(canonicalResolution, /if \(exactWorkspace !== repoRoot\) throw new Error\("GITHUB_WORKSPACE must be the exact checked-out repository\."\);/u);
+  assert.match(canonicalResolution, /path\.join\(exactWorkspace, "scripts", "promotion-workflow-json-guard\.mjs"\)/u);
+  assert.match(canonicalResolution, /const receiptEntry = lstatOrNull\(expectedReceipt\);/u);
+  assert.match(canonicalResolution, /if \(receiptEntry === null\)/u);
+  assert.match(canonicalResolution, /receiptChanges\.length !== 0/u);
+  assert.match(canonicalResolution, /writeFileSync\(outputPath, `execution_commit=\$\{executionCommit\}\\n`, \{ flag: "a" \}\)/u);
   assert.match(canonicalResolution, /workingBytes\.equals\(committedBytes\)/u);
   assert.match(canonicalResolution, /receipt\.schemaVersion !== "promotion-receipt\.v2"/u);
   assert.match(canonicalResolution, /receipt\.result !== "pass"/u);
   assert.match(canonicalResolution, /receipt\.manifest\?\.path !== manifestPath/u);
   assert.match(canonicalResolution, /receipt\.binding\?\.liveAllowed !== false/u);
   assert.match(canonicalResolution, /receipt\.lifecycle\?\.liveAllowed !== false/u);
+  assert.match(canonicalResolution, /receipt\.worktreeProof\?\.executionCommit !== bindingCommit/u);
+  assert.match(canonicalResolution, /const isStrictAncestor = \(ancestor, descendant\)/u);
+  assert.match(canonicalResolution, /!isStrictAncestor\(bindingCommit, receiptChanges\[0\]\.commit\)/u);
+  assert.equal([...canonicalResolution.matchAll(/\bwriteFileSync\s*\(/gu)].length, 2, "resolver write authority remains fixed");
+  assert.equal([...canonicalResolution.matchAll(/\bopenSync\s*\(/gu)].length, 1, "Receipt copy remains exclusive-create only");
 
   for (const [stepName, runIdVariable] of [
     ["Execute canonical pilot shadow", "PROMOTION_RUN_ID"],
@@ -381,8 +405,16 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   }
   assert.match(artifactPreflight, /promotion-required-check-decision\.v1\.json/u);
 
+  assert.equal(job.steps.filter((step) => /promotion:validate/.test(step.run ?? "")).length, 1, "one current validation invocation is required");
+  assert.equal(job.steps.filter((step) => /promotion:shadow/.test(step.run ?? "")).length, 2, "fresh and replay Shadows must both remain wired");
+  assert.equal(job.steps.filter((step) => /promotion:verify-receipt/.test(step.run ?? "")).length, 1, "one verification helper must verify all three receipts");
+  assert.equal(job.steps.filter((step) => /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/.test(step.run ?? "")).length, 1);
+  assert.equal(job.steps.filter((step) => /promotion-required-check-semantic-rescope-cli\.mjs" verify/.test(step.run ?? "")).length, 1);
+  assert.ok(job.steps.indexOf(uploadStep) < job.steps.indexOf(finalOutcome), "artifact upload must precede final gate enforcement");
   const semanticLibrarySource = await readFile(path.join(repoRoot, semanticLibraryRelativePath), "utf8");
   const semanticCliSource = await readFile(path.join(repoRoot, semanticCliRelativePath), "utf8");
+  assert.equal(createHash("sha256").update(semanticLibrarySource).digest("hex"), "0b73e3c50b9065f1323e5953626901b00c9c928e0678e1d5eec22b8ce29d8c2c");
+  assert.equal(createHash("sha256").update(semanticCliSource).digest("hex"), "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b");
   assert.match(semanticLibrarySource, /const GIT_EXECUTABLE = "\/usr\/bin\/git"/u);
   assert.match(semanticLibrarySource, /shell: false/u);
   assert.match(semanticLibrarySource, /parsePromotionWorkflowJsonBytes/u);
