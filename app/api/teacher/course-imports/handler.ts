@@ -13,6 +13,10 @@ import {
 } from "@/lib/courseIntegration/importer";
 import { DEFAULT_SCORM_IMPORT_LIMITS } from "@/lib/courseIntegration/zip";
 import type { StudentSession } from "@/types";
+import {
+  courseImportAdmissionController,
+  type CourseImportAdmissionLease
+} from "@/lib/courseIntegration/admission";
 
 import {
   isCourseImportMultipartError,
@@ -31,6 +35,10 @@ type CoursePackageImporter = (
   bytes: Uint8Array,
   options: ImportScormPackageOptions
 ) => Promise<unknown>;
+type CourseImportAdmission = (
+  request: Request,
+  userId: string
+) => Promise<Response | CourseImportAdmissionLease>;
 
 function applyPrivateBoundary(response: Response) {
   response.headers.set("Cache-Control", "private, no-store");
@@ -71,6 +79,7 @@ function courseImportFailure(error: unknown) {
 export function createTeacherCourseImportPostHandler({
   authenticateUser = requireAuthenticatedUser,
   canAccessTeacher = canAccessTeacherArea,
+  admitImport = (request, userId) => courseImportAdmissionController.admit(request, userId),
   importPackage = importScormPackage,
   now = () => new Date(),
   maxMultipartBodyBytes = COURSE_IMPORT_MAX_MULTIPART_BODY_BYTES,
@@ -78,6 +87,7 @@ export function createTeacherCourseImportPostHandler({
 }: {
   authenticateUser?: CourseImportAuthentication;
   canAccessTeacher?: (user: CourseImportUser) => boolean;
+  admitImport?: CourseImportAdmission;
   importPackage?: CoursePackageImporter;
   now?: () => Date;
   maxMultipartBodyBytes?: number;
@@ -115,38 +125,80 @@ export function createTeacherCourseImportPostHandler({
       return privateJson({ error: "Teacher access required." }, { status: 403 });
     }
 
-    const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
-    if (!contentType.startsWith("multipart/form-data;")) {
+    let admission: Response | CourseImportAdmissionLease;
+    try {
+      admission = await admitImport(request, authenticated.user.id);
+    } catch {
       return stableError(
-        "MULTIPART_REQUIRED",
-        "The request must use multipart/form-data with a package field.",
-        400
+        "COURSE_IMPORT_ADMISSION_UNAVAILABLE",
+        "Course import admission is temporarily unavailable.",
+        503
       );
     }
-    let multipart: Awaited<ReturnType<typeof parseBoundedCourseImportMultipart>>;
-    try {
-      multipart = await parseBoundedCourseImportMultipart(request, {
-        maxBodyBytes: maxMultipartBodyBytes,
-        maxPackageBytes
-      });
-    } catch (error) {
-      if (isCourseImportMultipartError(error)) {
-        return stableError(error.code, error.message, error.status);
-      }
-      return stableError("MULTIPART_INVALID", "The multipart request could not be parsed.", 400);
-    }
-    const bodyIdentityConflict = expectedUserConflict(
-      authenticated,
-      multipart.expectedUserIds,
-      false
-    );
-    if (bodyIdentityConflict) return bodyIdentityConflict;
+    if (admission instanceof Response) return applyPrivateBoundary(admission);
 
     try {
-      const report = await importPackage(multipart.packageBytes, { importedAt: now().toISOString() });
-      return privateJson({ import: report });
-    } catch (error) {
-      return courseImportFailure(error);
+      if (admission.signal.aborted) {
+        return stableError(
+          "COURSE_IMPORT_ABORTED",
+          "The course import request was cancelled or exceeded its time limit.",
+          408
+        );
+      }
+
+      const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
+      if (!contentType.startsWith("multipart/form-data;")) {
+        return stableError(
+          "MULTIPART_REQUIRED",
+          "The request must use multipart/form-data with a package field.",
+          400
+        );
+      }
+      let multipart: Awaited<ReturnType<typeof parseBoundedCourseImportMultipart>>;
+      try {
+        multipart = await parseBoundedCourseImportMultipart(request, {
+          maxBodyBytes: maxMultipartBodyBytes,
+          maxPackageBytes,
+          signal: admission.signal
+        });
+      } catch (error) {
+        if (isCourseImportMultipartError(error)) {
+          return stableError(error.code, error.message, error.status);
+        }
+        return stableError("MULTIPART_INVALID", "The multipart request could not be parsed.", 400);
+      }
+      const bodyIdentityConflict = expectedUserConflict(
+        authenticated,
+        multipart.expectedUserIds,
+        false
+      );
+      if (bodyIdentityConflict) return bodyIdentityConflict;
+
+      try {
+        const report = await importPackage(multipart.packageBytes, {
+          importedAt: now().toISOString(),
+          signal: admission.signal
+        });
+        if (admission.signal.aborted) {
+          return stableError(
+            "COURSE_IMPORT_ABORTED",
+            "The course import request was cancelled or exceeded its time limit.",
+            408
+          );
+        }
+        return privateJson({ import: report });
+      } catch (error) {
+        if (admission.signal.aborted) {
+          return stableError(
+            "COURSE_IMPORT_ABORTED",
+            "The course import request was cancelled or exceeded its time limit.",
+            408
+          );
+        }
+        return courseImportFailure(error);
+      }
+    } finally {
+      admission.release();
     }
   };
 }

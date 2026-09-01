@@ -6,6 +6,10 @@ export interface ScormImportLimits {
   readonly maxSingleFileBytes: number;
   readonly maxTotalUncompressedBytes: number;
   readonly maxManifestBytes: number;
+  readonly maxIdentifierChars: number;
+  readonly maxTitleChars: number;
+  readonly maxWarnings: number;
+  readonly maxReportBytes: number;
 }
 
 export const DEFAULT_SCORM_IMPORT_LIMITS: ScormImportLimits = Object.freeze({
@@ -13,7 +17,11 @@ export const DEFAULT_SCORM_IMPORT_LIMITS: ScormImportLimits = Object.freeze({
   maxFiles: 2_000,
   maxSingleFileBytes: 16 * 1024 * 1024,
   maxTotalUncompressedBytes: 64 * 1024 * 1024,
-  maxManifestBytes: 1024 * 1024
+  maxManifestBytes: 1024 * 1024,
+  maxIdentifierChars: 256,
+  maxTitleChars: 2_048,
+  maxWarnings: 256,
+  maxReportBytes: 8 * 1024 * 1024
 });
 
 export interface CanonicalArchivePath {
@@ -274,17 +282,30 @@ export function preflightZip(
 
     const hasDirectorySuffix = rawName.replaceAll("\\", "/").endsWith("/");
     const sourcePlatform = versionMadeBy >>> 8;
+    const unixLikePlatform = sourcePlatform === 3 || sourcePlatform === 19;
     const unixFileType = (externalAttributes >>> 16) & 0xf000;
-    if (sourcePlatform === 3 && unixFileType === 0xa000) {
+    if (unixLikePlatform && unixFileType === 0xa000) {
       fail(
         "ZIP_LINK_UNSUPPORTED",
         "ZIP symbolic links are not supported by this static importer.",
         422
       );
     }
+    if (
+      unixLikePlatform &&
+      unixFileType !== 0 &&
+      unixFileType !== 0x4000 &&
+      unixFileType !== 0x8000
+    ) {
+      fail(
+        "ZIP_SPECIAL_FILE_UNSUPPORTED",
+        "ZIP special filesystem nodes are not supported by this static importer.",
+        422
+      );
+    }
     const attributesDeclareDirectory = (externalAttributes & 0x10) !== 0 ||
-      (sourcePlatform === 3 && unixFileType === 0x4000);
-    const attributesDeclareRegularFile = sourcePlatform === 3 && unixFileType === 0x8000;
+      (unixLikePlatform && unixFileType === 0x4000);
+    const attributesDeclareRegularFile = unixLikePlatform && unixFileType === 0x8000;
     if (
       (!hasDirectorySuffix && attributesDeclareDirectory) ||
       (hasDirectorySuffix && attributesDeclareRegularFile) ||

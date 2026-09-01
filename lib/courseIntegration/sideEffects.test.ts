@@ -10,6 +10,7 @@ const productionFiles = [
   "lib/courseIntegration/zip.ts",
   "lib/courseIntegration/xml.ts",
   "lib/courseIntegration/readiness.ts",
+  "lib/courseIntegration/admission.ts",
   "lib/courseIntegration/importer.ts",
   "app/api/teacher/course-imports/multipart.ts",
   "app/api/teacher/course-imports/handler.ts",

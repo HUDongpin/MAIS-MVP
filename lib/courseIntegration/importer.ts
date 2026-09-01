@@ -25,6 +25,7 @@ import {
   XML_NAMESPACE_DECLARATION_URI,
   isSupportedScormStructuralElement,
   parseStaticXml,
+  xmlBaseAttribute,
   xmlAttribute,
   xmlChildren,
   xmlFirstChild,
@@ -45,7 +46,9 @@ export interface StaticImportWarning {
     | "RESOURCE_REFERENCE_UNRESOLVED"
     | "RESOURCE_DEPENDENCY_UNRESOLVED"
     | "RESOURCE_PATH_OMITTED"
-    | "RESOURCE_FILE_NOT_IN_PACKAGE";
+    | "RESOURCE_FILE_NOT_IN_PACKAGE"
+    | "UNSUPPORTED_SEMANTIC_OMITTED"
+    | "WARNING_LIMIT_REACHED";
   readonly message: string;
   readonly sourceId?: string;
 }
@@ -86,6 +89,7 @@ export interface ImportScormPackageOptions {
   readonly importedAt?: string;
   readonly predecessorVersionId?: string | null;
   readonly limits?: Partial<ScormImportLimits>;
+  readonly signal?: AbortSignal;
 }
 
 type ResourceBuilder = Omit<CanonicalResource, "referencedByIds" | "dependencyResourceIds"> & {
@@ -117,6 +121,18 @@ const scormCoreAttributeNames = new Set([
   "version"
 ]);
 
+const expectedCoreChildren = new Map<string, ReadonlySet<string>>([
+  ["manifest", new Set(["metadata", "organizations", "resources"])],
+  ["metadata", new Set(["schema", "schemaversion"])],
+  ["organizations", new Set(["organization"])],
+  ["organization", new Set(["title", "item", "metadata"])],
+  ["item", new Set(["title", "item", "metadata"])],
+  ["resources", new Set(["resource"])],
+  ["resource", new Set(["file", "dependency", "metadata"])],
+  ["file", new Set(["metadata"])],
+  ["dependency", new Set()]
+]);
+
 const blockedMediaTypes: Readonly<Record<string, string>> = Object.freeze({
   ".html": "text/html",
   ".htm": "text/html",
@@ -128,6 +144,11 @@ const blockedMediaTypes: Readonly<Record<string, string>> = Object.freeze({
   ".swf": "application/x-shockwave-flash",
   ".svg": "image/svg+xml"
 });
+
+function isCoreScormElement(element: StaticXmlElement) {
+  return scormStructuralElementNames.has(element.local) &&
+    isSupportedScormStructuralElement(element, element.local);
+}
 
 function compareText(left: string, right: string) {
   return left < right ? -1 : left > right ? 1 : 0;
@@ -155,8 +176,12 @@ function decodeManifest(bytes: Uint8Array) {
 async function readEntryWithLimit(
   entry: JSZipObject,
   metadata: ZipEntryMetadata,
-  maxBytes: number
+  maxBytes: number,
+  signal?: AbortSignal
 ) {
+  if (signal?.aborted) {
+    throw new CourseImportError("SCORM_MANIFEST_INVALID", "The SCORM import was cancelled before completion.", 422);
+  }
   let stream: NodeJS.ReadableStream;
   try {
     stream = entry.nodeStream("nodebuffer");
@@ -170,6 +195,12 @@ async function readEntryWithLimit(
     let settled = false;
     stream.on("data", (rawChunk: Uint8Array) => {
       if (settled) return;
+      if (signal?.aborted) {
+        settled = true;
+        stream.pause();
+        reject(new CourseImportError("SCORM_MANIFEST_INVALID", "The SCORM import was cancelled before completion.", 422));
+        return;
+      }
       const chunk = new Uint8Array(rawChunk);
       total += chunk.byteLength;
       if (total > metadata.uncompressedSize) {
@@ -222,13 +253,32 @@ async function readEntryWithLimit(
 }
 
 function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
-  const detected = new Set<ScormVersion>();
   const metadata = xmlFirstChild(manifest, "metadata");
-  const schemaVersion = xmlText(metadata ? xmlFirstChild(metadata, "schemaversion") : null)?.toLowerCase();
-  if (schemaVersion?.startsWith("1.2")) detected.add("1.2");
-  if (schemaVersion?.includes("2004")) detected.add("2004");
+  const schema = xmlText(metadata ? xmlFirstChild(metadata, "schema") : null);
+  const schemaVersion = xmlText(metadata ? xmlFirstChild(metadata, "schemaversion") : null);
+  if (schema?.toUpperCase() !== "ADL SCORM" || !schemaVersion) {
+    throw new CourseImportError(
+      "SCORM_VERSION_UNSUPPORTED",
+      "The SCORM version could not be identified safely as 1.2 or 2004.",
+      422
+    );
+  }
+  const normalizedVersion = schemaVersion.replace(/\s+/gu, " ").trim().toLowerCase();
+  const declaredVersion: ScormVersion | null = normalizedVersion === "1.2"
+    ? "1.2"
+    : /^2004(?: (?:2nd|3rd|4th) edition)?$/u.test(normalizedVersion)
+      ? "2004"
+      : null;
+  if (!declaredVersion) {
+    throw new CourseImportError(
+      "SCORM_VERSION_UNSUPPORTED",
+      "The SCORM version could not be identified safely as 1.2 or 2004.",
+      422
+    );
+  }
+  const detected = new Set<ScormVersion>([declaredVersion]);
+  for (const version of xmlNamespaceVersions(manifest)) detected.add(version);
   const visit = (element: StaticXmlElement) => {
-    for (const version of xmlNamespaceVersions(element)) detected.add(version);
     for (const attribute of Object.values(element.attributeMetadata)) {
       if (attribute.local !== "scormType" && attribute.local !== "scormtype") continue;
       const version = SCORM_ADLCP_NAMESPACES[
@@ -236,7 +286,9 @@ function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
       ];
       if (version) detected.add(version);
     }
-    for (const child of element.children) visit(child);
+    for (const child of element.children) {
+      if (isCoreScormElement(child)) visit(child);
+    }
   };
   visit(manifest);
   if (detected.size !== 1) {
@@ -251,16 +303,6 @@ function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
 
 function assertScormNamespacePolicy(manifest: StaticXmlElement) {
   const visit = (element: StaticXmlElement) => {
-    if (
-      scormStructuralElementNames.has(element.local) &&
-      !isSupportedScormStructuralElement(element, element.local)
-    ) {
-      throw new CourseImportError(
-        "SCORM_MANIFEST_INVALID",
-        "The SCORM manifest uses an unsupported structural namespace.",
-        422
-      );
-    }
     for (const attribute of Object.values(element.attributeMetadata)) {
       if (attribute.uri === XML_NAMESPACE_DECLARATION_URI) continue;
       if (scormCoreAttributeNames.has(attribute.local)) {
@@ -284,7 +326,23 @@ function assertScormNamespacePolicy(manifest: StaticXmlElement) {
         422
       );
     }
-    for (const child of element.children) visit(child);
+    const expected = expectedCoreChildren.get(element.local) ?? new Set<string>();
+    for (const child of element.children) {
+      if (isCoreScormElement(child)) {
+        visit(child);
+        continue;
+      }
+      if (expected.has(child.local)) {
+        throw new CourseImportError(
+          "SCORM_MANIFEST_INVALID",
+          "The SCORM manifest uses an unsupported structural namespace.",
+          422
+        );
+      }
+      // Vendor, LOM, sequencing, and other extension subtrees are preserved
+      // as bounded semantic-loss digests later; their local names do not
+      // impersonate core elements merely because they overlap.
+    }
   };
   visit(manifest);
 }
@@ -299,7 +357,7 @@ function assertScormManifestRoot(manifest: StaticXmlElement) {
   }
 }
 
-function safeManifestPath(value: string | null) {
+function safeManifestPath(value: string | null, basePath = "") {
   if (!value) return null;
   const trimmed = value.trim();
   if (
@@ -328,10 +386,75 @@ function safeManifestPath(value: string | null) {
     /^[A-Za-z][A-Za-z0-9+.-]*:/.test(decoded)
   ) return null;
   try {
-    return canonicalizeArchivePath(decoded).canonicalPath;
+    const combined = basePath ? `${basePath}/${decoded}` : decoded;
+    return canonicalizeArchivePath(combined).canonicalPath;
   } catch {
     return null;
   }
+}
+
+function resolveElementBase(parentBase: string, element: StaticXmlElement) {
+  const rawBase = xmlBaseAttribute(element);
+  if (rawBase === null) return parentBase;
+  if (/[?#]/u.test(rawBase)) {
+    throw new CourseImportError(
+      "SCORM_XML_BASE_UNSAFE",
+      "The SCORM manifest contains an unsafe xml:base path.",
+      422
+    );
+  }
+  if (rawBase.trim() === ".") return parentBase;
+  const resolved = safeManifestPath(rawBase, parentBase);
+  if (!resolved) {
+    throw new CourseImportError(
+      "SCORM_XML_BASE_UNSAFE",
+      "The SCORM manifest contains an unsafe xml:base path.",
+      422
+    );
+  }
+  return resolved;
+}
+
+function assertBoundedField(value: string | null | undefined, max: number, label: string) {
+  if (value !== null && value !== undefined && value.length > max) {
+    throw new CourseImportError(
+      "SCORM_FIELD_TOO_LARGE",
+      `The SCORM manifest ${label} exceeds the configured size limit.`,
+      413
+    );
+  }
+  return value;
+}
+
+function semanticElementProjection(element: StaticXmlElement): unknown {
+  return {
+    local: element.local,
+    uri: element.uri,
+    attributes: Object.values(element.attributeMetadata)
+      .filter((attribute) => attribute.uri !== XML_NAMESPACE_DECLARATION_URI)
+      .map((attribute) => ({ local: attribute.local, uri: attribute.uri, value: attribute.value }))
+      .sort((left, right) => compareText(`${left.uri}\u0000${left.local}\u0000${left.value}`, `${right.uri}\u0000${right.local}\u0000${right.value}`)),
+    text: element.text,
+    children: element.children.map(semanticElementProjection)
+  };
+}
+
+function unsupportedSemanticEvidence(manifest: StaticXmlElement) {
+  const roots: StaticXmlElement[] = [];
+  const visit = (element: StaticXmlElement) => {
+    for (const child of element.children) {
+      if (isCoreScormElement(child)) visit(child);
+      else roots.push(child);
+    }
+  };
+  visit(manifest);
+  if (roots.length === 0) return null;
+  return {
+    rootCount: roots.length,
+    sha256: createHash("sha256")
+      .update(JSON.stringify(roots.map(semanticElementProjection)), "utf8")
+      .digest("hex")
+  };
 }
 
 function warningSort(left: StaticImportWarning, right: StaticImportWarning) {
@@ -340,8 +463,12 @@ function warningSort(left: StaticImportWarning, right: StaticImportWarning) {
     compareText(left.message, right.message);
 }
 
-function directTitle(element: StaticXmlElement) {
-  return xmlText(xmlFirstChild(element, "title"));
+function directTitle(element: StaticXmlElement, limits: ScormImportLimits) {
+  return assertBoundedField(
+    xmlText(xmlFirstChild(element, "title")),
+    limits.maxTitleChars,
+    "title"
+  ) ?? null;
 }
 
 function resourceStableId(sourceId: string) {
@@ -364,7 +491,11 @@ function buildBlockedExecutables(
       compressedSize: entry.compressedSize,
       uncompressedSize: entry.uncompressedSize,
       referencedByResourceIds: Object.freeze(resources
-        .filter((resource) => resource.href === entry.canonicalPath || resource.filePaths.includes(entry.canonicalPath))
+        .filter((resource) => {
+          const entryKey = entry.pathKey;
+          return (resource.href !== null && canonicalizeArchivePath(resource.href).pathKey === entryKey) ||
+            resource.filePaths.some((filePath) => canonicalizeArchivePath(filePath).pathKey === entryKey);
+        })
         .map((resource) => resource.id)
         .sort(compareText)),
       reason: "execution-disabled"
@@ -393,6 +524,16 @@ export async function importScormPackage(
 ): Promise<ScormStaticImportReport> {
   const bytes = new Uint8Array(input.buffer, input.byteOffset, input.byteLength);
   const limits = resolveScormImportLimits(options.limits);
+  const throwIfAborted = () => {
+    if (options.signal?.aborted) {
+      throw new CourseImportError(
+        "SCORM_MANIFEST_INVALID",
+        "The SCORM import was cancelled before completion.",
+        422
+      );
+    }
+  };
+  throwIfAborted();
   const archive = preflightZip(bytes, limits);
   const manifestEntry = archive.entries.find((entry) => !entry.isDirectory && entry.pathKey === "imsmanifest.xml");
   if (!manifestEntry) {
@@ -417,7 +558,7 @@ export async function importScormPackage(
     throw new CourseImportError("ZIP_INVALID", "The uploaded package is not a valid ZIP archive.", 400);
   }
   const manifest = parseStaticXml(decodeManifest(
-    await readEntryWithLimit(zipManifest, manifestEntry, limits.maxManifestBytes)
+    await readEntryWithLimit(zipManifest, manifestEntry, limits.maxManifestBytes, options.signal)
   ));
   assertScormManifestRoot(manifest);
   assertScormNamespacePolicy(manifest);
@@ -430,6 +571,8 @@ export async function importScormPackage(
       422
     );
   }
+  assertBoundedField(manifestSourceId, limits.maxIdentifierChars, "identifier");
+  const assetDigests: Array<{ path: string; sha256: string }> = [];
   for (const entryMetadata of archive.entries) {
     if (entryMetadata.isDirectory || entryMetadata === manifestEntry) continue;
     const zipEntry = zip.file(entryMetadata.rawName);
@@ -440,32 +583,63 @@ export async function importScormPackage(
         400
       );
     }
-    await readEntryWithLimit(zipEntry, entryMetadata, limits.maxSingleFileBytes);
+    throwIfAborted();
+    const payload = await readEntryWithLimit(
+      zipEntry,
+      entryMetadata,
+      limits.maxSingleFileBytes,
+      options.signal
+    );
+    assetDigests.push({
+      path: entryMetadata.canonicalPath,
+      sha256: createHash("sha256").update(payload).digest("hex")
+    });
   }
 
   const importedAt = resolveImportedAt(options.importedAt);
   const sha256 = createHash("sha256").update(bytes).digest("hex");
   const courseId = `scorm:manifest:${manifestSourceId}`;
   const warnings: StaticImportWarning[] = [];
+  const warningKeys = new Set<string>();
+  let droppedWarnings = 0;
+  const addWarning = (warning: StaticImportWarning) => {
+    const key = `${warning.code}\u0000${warning.sourceId ?? ""}\u0000${warning.message}`;
+    if (warningKeys.has(key)) return;
+    warningKeys.add(key);
+    const ordinaryLimit = Math.max(0, limits.maxWarnings - 1);
+    if (warnings.length < ordinaryLimit) warnings.push(warning);
+    else droppedWarnings += 1;
+  };
+  const semanticEvidence = unsupportedSemanticEvidence(manifest);
+  if (semanticEvidence) {
+    addWarning({
+      code: "UNSUPPORTED_SEMANTIC_OMITTED",
+      message: "Unsupported extension or sequencing semantics were preserved only as a deterministic loss digest."
+    });
+  }
   const archivePaths = new Set(archive.entries.filter((entry) => !entry.isDirectory).map((entry) => entry.pathKey));
+  const manifestBase = resolveElementBase("", manifest);
 
   const resourcesElement = xmlFirstChild(manifest, "resources");
+  const resourcesBase = resourcesElement ? resolveElementBase(manifestBase, resourcesElement) : manifestBase;
   const resourceBuilders: ResourceBuilder[] = [];
   const resourceBySourceId = new Map<string, ResourceBuilder>();
   for (const resourceElement of resourcesElement ? xmlChildren(resourcesElement, "resource") : []) {
     const sourceId = xmlAttribute(resourceElement, "identifier")?.trim();
+    assertBoundedField(sourceId, limits.maxIdentifierChars, "resource identifier");
     if (!sourceId || resourceBySourceId.has(sourceId)) {
-      warnings.push({
+      addWarning({
         code: "RESOURCE_SKIPPED",
         message: "A resource without a unique stable identifier was not mapped.",
         ...(sourceId ? { sourceId } : {})
       });
       continue;
     }
+    const resourceBase = resolveElementBase(resourcesBase, resourceElement);
     const rawHref = xmlAttribute(resourceElement, "href");
-    const href = safeManifestPath(rawHref);
+    const href = safeManifestPath(rawHref, resourceBase);
     if (rawHref && !href) {
-      warnings.push({
+      addWarning({
         code: "RESOURCE_PATH_OMITTED",
         message: "An external or unsafe resource path was omitted from the static model.",
         sourceId
@@ -474,9 +648,10 @@ export async function importScormPackage(
     const orderedFilePaths = new Set<string>();
     for (const fileElement of xmlChildren(resourceElement, "file")) {
       const rawFilePath = xmlAttribute(fileElement, "href");
-      const filePath = safeManifestPath(rawFilePath);
+      const fileBase = resolveElementBase(resourceBase, fileElement);
+      const filePath = safeManifestPath(rawFilePath, fileBase);
       if (!filePath) {
-        if (rawFilePath) warnings.push({
+        if (rawFilePath) addWarning({
           code: "RESOURCE_PATH_OMITTED",
           message: "An external or unsafe resource file path was omitted from the static model.",
           sourceId
@@ -489,7 +664,7 @@ export async function importScormPackage(
     if (href && !orderedFilePaths.has(href)) filePaths.unshift(href);
     for (const filePath of filePaths) {
       const pathKey = canonicalizeArchivePath(filePath).pathKey;
-      if (!archivePaths.has(pathKey)) warnings.push({
+      if (!archivePaths.has(pathKey)) addWarning({
         code: "RESOURCE_FILE_NOT_IN_PACKAGE",
         message: "A manifest resource path does not name a file in the ZIP.",
         sourceId
@@ -512,7 +687,10 @@ export async function importScormPackage(
       }),
       dependencySourceIds: new Set(xmlChildren(resourceElement, "dependency")
         .map((dependency) => xmlAttribute(dependency, "identifierref")?.trim())
-        .filter((value): value is string => Boolean(value))),
+        .filter((value): value is string => {
+          assertBoundedField(value, limits.maxIdentifierChars, "dependency identifier reference");
+          return Boolean(value);
+        })),
       referencedByIds: new Set<string>()
     };
     resourceBuilders.push(builder);
@@ -527,6 +705,7 @@ export async function importScormPackage(
   const defaultOrganizationSourceId = organizationsElement
     ? xmlAttribute(organizationsElement, "default")?.trim() || null
     : null;
+  assertBoundedField(defaultOrganizationSourceId, limits.maxIdentifierChars, "default organization identifier");
 
   const mapItems = (
     parentElement: StaticXmlElement,
@@ -536,8 +715,9 @@ export async function importScormPackage(
     let mappedSiblingOrder = 0;
     for (const itemElement of xmlChildren(parentElement, "item")) {
       const sourceId = xmlAttribute(itemElement, "identifier")?.trim();
+      assertBoundedField(sourceId, limits.maxIdentifierChars, "item identifier");
       if (!sourceId || seenItemSourceIds.has(sourceId)) {
-        warnings.push({
+        addWarning({
           code: "ITEM_SKIPPED",
           message: "An item subtree without a unique stable identifier was not mapped.",
           ...(sourceId ? { sourceId } : {})
@@ -548,13 +728,14 @@ export async function importScormPackage(
       const id = itemStableId(sourceId);
       const resourceIds: string[] = [];
       const resourceSourceId = xmlAttribute(itemElement, "identifierref")?.trim();
+      assertBoundedField(resourceSourceId, limits.maxIdentifierChars, "resource identifier reference");
       if (resourceSourceId) {
         const resource = resourceBySourceId.get(resourceSourceId);
         if (resource) {
           resourceIds.push(resource.id);
           resource.referencedByIds.add(id);
         } else {
-          warnings.push({
+          addWarning({
             code: "RESOURCE_REFERENCE_UNRESOLVED",
             message: "An item resource reference could not be mapped safely.",
             sourceId
@@ -566,7 +747,7 @@ export async function importScormPackage(
         sourceId,
         parentId,
         order: mappedSiblingOrder,
-        title: directTitle(itemElement),
+        title: directTitle(itemElement, limits),
         resourceIds,
         assessmentIds: []
       };
@@ -580,8 +761,9 @@ export async function importScormPackage(
   const seenOrganizationSourceIds = new Set<string>();
   for (const organizationElement of organizationsElement ? xmlChildren(organizationsElement, "organization") : []) {
     const sourceId = xmlAttribute(organizationElement, "identifier")?.trim();
+    assertBoundedField(sourceId, limits.maxIdentifierChars, "organization identifier");
     if (!sourceId || seenOrganizationSourceIds.has(sourceId)) {
-      warnings.push({
+      addWarning({
         code: "ORGANIZATION_SKIPPED",
         message: "An organization without a unique stable identifier was not mapped.",
         ...(sourceId ? { sourceId } : {})
@@ -595,7 +777,7 @@ export async function importScormPackage(
       sourceId,
       parentId: courseId,
       order: modules.length,
-      title: directTitle(organizationElement)
+      title: directTitle(organizationElement, limits)
     };
     modules.push(module);
     mapItems(organizationElement, module.id, 0);
@@ -608,7 +790,7 @@ export async function importScormPackage(
     );
   }
   if (defaultOrganizationSourceId && !seenOrganizationSourceIds.has(defaultOrganizationSourceId)) {
-    warnings.push({
+    addWarning({
       code: "DEFAULT_ORGANIZATION_UNRESOLVED",
       message: "The default organization identifier could not be resolved.",
       sourceId: defaultOrganizationSourceId
@@ -622,7 +804,7 @@ export async function importScormPackage(
       if (dependency) {
         dependencyResourceIds.add(dependency.id);
       } else {
-        warnings.push({
+        addWarning({
           code: "RESOURCE_DEPENDENCY_UNRESOLVED",
           message: "A resource dependency could not be mapped safely.",
           sourceId: builder.sourceId
@@ -647,6 +829,9 @@ export async function importScormPackage(
   const defaultModule = defaultOrganizationSourceId
     ? modules.find((module) => module.sourceId === defaultOrganizationSourceId)
     : null;
+  const assetSetSha256 = createHash("sha256")
+    .update(JSON.stringify(assetDigests.sort((left, right) => compareText(left.path, right.path))), "utf8")
+    .digest("hex");
   const courseVersion = createCanonicalCourseVersion({
     sourceProvenance: {
       packageSha256: sha256,
@@ -673,7 +858,13 @@ export async function importScormPackage(
       sourceId: manifestSourceId,
       parentId: null,
       order: 0,
-      title: defaultModule?.title ?? modules[0]?.title ?? null
+      title: defaultModule?.title ?? modules[0]?.title ?? null,
+      extensions: {
+        "org.mais.static-import": {
+          assetSetSha256,
+          ...(semanticEvidence === null ? {} : { unsupportedSemantics: semanticEvidence })
+        }
+      }
     },
     modules,
     units,
@@ -682,8 +873,14 @@ export async function importScormPackage(
     assessments: []
   });
 
+  if (droppedWarnings > 0 && limits.maxWarnings > 0) {
+    warnings.push({
+      code: "WARNING_LIMIT_REACHED",
+      message: `${droppedWarnings} additional unique warnings were omitted by the configured warning limit.`
+    });
+  }
   warnings.sort(warningSort);
-  return deepFreeze({
+  const report = {
     reportVersion: "mais.scorm-static-import-report.v1" as const,
     source: { format: "SCORM" as const, version: scormVersion },
     sourcePackage: { sha256 },
@@ -697,5 +894,13 @@ export async function importScormPackage(
     warnings,
     blockedExecutables: buildBlockedExecutables(archive.entries, resources),
     externalIntegrationReadiness: EXTERNAL_COURSE_INTEGRATION_READINESS
-  });
+  };
+  if (Buffer.byteLength(JSON.stringify(report), "utf8") > limits.maxReportBytes) {
+    throw new CourseImportError(
+      "REPORT_TOO_LARGE",
+      "The static SCORM import report exceeds the configured size limit.",
+      413
+    );
+  }
+  return deepFreeze(report);
 }

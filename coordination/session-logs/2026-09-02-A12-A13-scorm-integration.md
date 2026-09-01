@@ -42,3 +42,33 @@ This package can prove only static, local behavior for the exact committed sourc
 - Dirty state final action: reviewed commits.
 - Worktree lifecycle action: retained clean for pending PR/review; no PR, merge, deployment, or cleanup was performed.
 - Final handoff commit and ordinary upstream push: pending at the time this log entry was written.
+
+## Teacher quality-review remediation
+
+The independent Teacher review identified missing semantic-diff, amplification, XML Base, extension-namespace, ZIP host-node, and API-admission boundaries. The remediation remains inside `lib/courseIntegration/**` and `app/api/teacher/course-imports/**`; it does not modify shared `lib/server/authRouteGuards.ts`.
+
+- Canonical course extensions now bind a deterministic aggregate digest for every non-manifest asset and a bounded digest/count for unsupported extension or sequencing subtrees. The ordinary canonical diff therefore reports asset-byte and unsupported-semantic changes without treating ZIP timestamps/compression metadata as course semantics.
+- Identifiers, titles, unique warnings, and final serialized reports have explicit fail-closed limits. Warnings are deterministic and deduplicated, with one bounded truncation summary.
+- Hierarchical `xml:base` is resolved only as package-relative canonical paths; external, absolute, encoded-separator, and traversal bases fail closed.
+- Core namespace validation is contextual: expected-position namespace impersonation remains rejected, while LOM/vendor extension subtrees with overlapping local names are retained as unsupported-semantic digests instead of being misclassified as core.
+- ZIP host 19 uses Unix-like type interpretation. Symlinks and FIFO/device/socket special nodes fail closed before decompression.
+- SCORM schema/version text and ADLCP namespace/type signals must be strict and mutually consistent.
+- Blocked executable reverse attribution compares canonical archive paths case-insensitively.
+- A course-import-owned admission controller consumes hashed user and IP rate-limit keys, caps per-user/per-IP concurrency, links request abort to a 20-second deadline signal, and runs after authentication/expected-user/teacher checks but before content-type or body access. Multipart reads race stalled streams against that signal, the importer observes the same signal, and the lease is always released.
+
+Remediation TDD:
+
+- RED 1: 111 focused tests produced 100 pass and 11 expected failures covering every Teacher P1/P2/P3 gap.
+- RED 2: a dedicated stalled-body test failed at 150 ms because the original reader could not be interrupted by the admission deadline.
+- GREEN: final focused suite passed 114/114, including stalled-body cancellation, rate/concurrency/deadline admission, asset/sequencing diff, XML Base, LOM/extensions, amplification caps, Host 19 special nodes, strict versioning, and case-insensitive attribution.
+
+Fresh checks after remediation:
+
+- `node --import tsx --test ...courseIntegration... handler.test.ts`: 114 passed, 0 failed.
+- `tsc --noEmit --incremental false`: passed.
+- `npm run build`: passed on Next.js 15.5.23; `/api/teacher/course-imports` remains a dynamic server route.
+- `node --test --test-concurrency=1 scripts/release-governance.test.mjs`: 86 passed, 0 failed, 11 intentional skips.
+- Final combined `npm run test:release-governance`: 91 passed, 2 failed, 11 skipped. The same two unchanged A22-owned Unicode-path assertions compare decoded physical paths with percent-encoded `import.meta.url` paths; all candidate-specific governance assertions passed. The now-reviewed A22 fix exists on a separate branch and was not copied into this SCORM slice.
+- Working/staged `git diff --check`: passed. Exact remediation commit/remote identity and post-push clean proof remain pending.
+
+The claim ceiling is unchanged: this is local static-import, admission, test, and build evidence only. It is not SCORM conformance, SCO runtime, LMS compatibility, provider acceptance, persistence/publication/enrollment/grade/roster behavior, deployment, or live evidence.

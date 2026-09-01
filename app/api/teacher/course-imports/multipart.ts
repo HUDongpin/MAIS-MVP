@@ -5,16 +5,17 @@ export type CourseImportMultipartErrorCode =
   | "MULTIPART_FIELD_UNSUPPORTED"
   | "PACKAGE_FIELD_REQUIRED"
   | "PACKAGE_EMPTY"
-  | "PACKAGE_TOO_LARGE";
+  | "PACKAGE_TOO_LARGE"
+  | "COURSE_IMPORT_ABORTED";
 
 export class CourseImportMultipartError extends Error {
   readonly code: CourseImportMultipartErrorCode;
-  readonly status: 400 | 413;
+  readonly status: 400 | 408 | 413;
 
   constructor(
     code: CourseImportMultipartErrorCode,
     message: string,
-    status: 400 | 413
+    status: 400 | 408 | 413
   ) {
     super(message);
     this.name = "CourseImportMultipartError";
@@ -35,6 +36,7 @@ export interface CourseImportMultipartLimits {
   readonly maxParts?: number;
   readonly maxPartHeaderBytes?: number;
   readonly maxExpectedUserIdBytes?: number;
+  readonly signal?: AbortSignal;
 }
 
 export interface ParsedCourseImportMultipart {
@@ -67,7 +69,7 @@ const DISPOSITION_PARAMETER_PATTERN = /^([A-Za-z0-9_-]+)\s*=\s*"((?:\\.|[^"\\])*
 function fail(
   code: CourseImportMultipartErrorCode,
   message: string,
-  status: 400 | 413
+  status: 400 | 408 | 413
 ): never {
   throw new CourseImportMultipartError(code, message, status);
 }
@@ -130,7 +132,68 @@ function concatBytes(left: Uint8Array, right: Uint8Array) {
   return joined;
 }
 
-async function readBoundedBody(request: Request, maxBodyBytes: number) {
+async function readChunkWithAbort(
+  reader: ReadableStreamDefaultReader<Uint8Array>,
+  signals: readonly (AbortSignal | undefined)[]
+) {
+  const activeSignals = signals.filter((signal): signal is AbortSignal => signal !== undefined);
+  if (activeSignals.some((signal) => signal.aborted)) {
+    await reader.cancel().catch(() => undefined);
+    throw new CourseImportMultipartError(
+      "COURSE_IMPORT_ABORTED",
+      "The course import request was cancelled or exceeded its time limit.",
+      408
+    );
+  }
+  return new Promise<ReadableStreamReadResult<Uint8Array>>((resolve, reject) => {
+    let settled = false;
+    const cleanup = () => {
+      for (const signal of activeSignals) signal.removeEventListener("abort", onAbort);
+    };
+    const onAbort = () => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      void reader.cancel().catch(() => undefined);
+      reject(new CourseImportMultipartError(
+        "COURSE_IMPORT_ABORTED",
+        "The course import request was cancelled or exceeded its time limit.",
+        408
+      ));
+    };
+    for (const signal of activeSignals) signal.addEventListener("abort", onAbort, { once: true });
+    if (activeSignals.some((signal) => signal.aborted)) {
+      onAbort();
+      return;
+    }
+    reader.read().then(
+      (result) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(result);
+      },
+      (error) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        reject(error);
+      }
+    );
+  });
+}
+
+async function readBoundedBody(request: Request, maxBodyBytes: number, signal?: AbortSignal) {
+  const throwIfAborted = () => {
+    if (signal?.aborted || request.signal.aborted) {
+      fail(
+        "COURSE_IMPORT_ABORTED",
+        "The course import request was cancelled or exceeded its time limit.",
+        408
+      );
+    }
+  };
+  throwIfAborted();
   const contentLength = request.headers.get("content-length");
   if (contentLength !== null) {
     if (!/^[0-9]+$/.test(contentLength)) {
@@ -151,7 +214,9 @@ async function readBoundedBody(request: Request, maxBodyBytes: number) {
   let total = 0;
   try {
     while (true) {
-      const result = await reader.read();
+      throwIfAborted();
+      const result = await readChunkWithAbort(reader, [signal, request.signal]);
+      throwIfAborted();
       if (result.done) break;
       if (!(result.value instanceof Uint8Array)) multipartInvalid();
       total += result.value.byteLength;
@@ -369,6 +434,6 @@ export async function parseBoundedCourseImportMultipart(
 ): Promise<ParsedCourseImportMultipart> {
   const resolvedLimits = resolveLimits(limits);
   const boundary = parseBoundary(request.headers.get("content-type"));
-  const body = await readBoundedBody(request, resolvedLimits.maxBodyBytes);
+  const body = await readBoundedBody(request, resolvedLimits.maxBodyBytes, limits.signal);
   return parseMultipartBody(body, boundary, resolvedLimits);
 }

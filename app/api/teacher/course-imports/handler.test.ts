@@ -333,3 +333,139 @@ test("course import API enforces the package-part limit after bounded body accou
   });
   assert.equal(importCalls, 0);
 });
+
+test("course import API completes user/IP admission before touching the request body", async () => {
+  let importCalls = 0;
+  let bodyReads = 0;
+  const handler = createTeacherCourseImportPostHandler({
+    authenticateUser: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+    admitImport: async () => Response.json(
+      { code: "rate-limited", error: "Course import rate limit reached." },
+      { status: 429, headers: { "Retry-After": "60" } }
+    ),
+    importPackage: async () => {
+      importCalls += 1;
+      return {};
+    }
+  });
+  const request = new Request(
+    "http://localhost/api/teacher/course-imports?expectedUserId=teacher-1",
+    {
+      method: "POST",
+      headers: {
+        "X-MAIS-Expected-User-Id": "teacher-1",
+        "Content-Type": "multipart/form-data; boundary=blocked-before-body"
+      }
+    }
+  );
+  Object.defineProperty(request, "body", {
+    configurable: true,
+    get() {
+      bodyReads += 1;
+      throw new Error("body must not be read before admission");
+    }
+  });
+
+  const response = await handler(request);
+
+  assert.equal(response.status, 429);
+  assert.equal(response.headers.get("Retry-After"), "60");
+  assert.equal(response.headers.get("Cache-Control"), "private, no-store");
+  assert.equal(bodyReads, 0);
+  assert.equal(importCalls, 0);
+});
+
+test("course import API propagates the bounded admission signal and always releases its lease", async () => {
+  const controller = new AbortController();
+  let releases = 0;
+  let observedSignal: AbortSignal | undefined;
+  const handler = createTeacherCourseImportPostHandler({
+    authenticateUser: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+    admitImport: async () => ({
+      signal: controller.signal,
+      release: () => {
+        releases += 1;
+      }
+    }),
+    importPackage: async (_bytes, options) => {
+      observedSignal = options.signal;
+      return { safe: true };
+    }
+  });
+  const formData = new FormData();
+  formData.append("expectedUserId", "teacher-1");
+  formData.append("package", new Blob([new Uint8Array([80, 75, 3, 4])]), "course.zip");
+  const response = await handler(new Request(
+    "http://localhost/api/teacher/course-imports?expectedUserId=teacher-1",
+    {
+      method: "POST",
+      headers: { "X-MAIS-Expected-User-Id": "teacher-1" },
+      body: formData
+    }
+  ));
+
+  assert.equal(response.status, 200);
+  assert.equal(observedSignal, controller.signal);
+  assert.equal(releases, 1);
+});
+
+test("course import API rejects an aborted admission before multipart parsing", async () => {
+  const controller = new AbortController();
+  controller.abort(new Error("deadline"));
+  let importCalls = 0;
+  const handler = createTeacherCourseImportPostHandler({
+    authenticateUser: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+    admitImport: async () => ({ signal: controller.signal, release: () => undefined }),
+    importPackage: async () => {
+      importCalls += 1;
+      return {};
+    }
+  });
+  const request = new Request(
+    "http://localhost/api/teacher/course-imports?expectedUserId=teacher-1",
+    {
+      method: "POST",
+      headers: {
+        "X-MAIS-Expected-User-Id": "teacher-1",
+        "Content-Type": "multipart/form-data; boundary=aborted-before-body"
+      }
+    }
+  );
+
+  const response = await handler(request);
+  assert.equal(response.status, 408);
+  assert.deepEqual(await response.json(), {
+    code: "COURSE_IMPORT_ABORTED",
+    error: "The course import request was cancelled or exceeded its time limit."
+  });
+  assert.equal(importCalls, 0);
+});
+
+test("course import API deadline interrupts a stalled request body read", async () => {
+  const controller = new AbortController();
+  const handler = createTeacherCourseImportPostHandler({
+    authenticateUser: async () => ({ user: { id: "teacher-stalled", role: "teacher" } }),
+    admitImport: async () => ({ signal: controller.signal, release: () => undefined })
+  });
+  const body = new ReadableStream<Uint8Array>({
+    pull: () => new Promise<void>(() => undefined)
+  });
+  const request = new Request(
+    "http://localhost/api/teacher/course-imports?expectedUserId=teacher-stalled",
+    {
+      method: "POST",
+      headers: {
+        "X-MAIS-Expected-User-Id": "teacher-stalled",
+        "Content-Type": "multipart/form-data; boundary=stalled-body"
+      },
+      body,
+      duplex: "half"
+    } as RequestInit & { duplex: "half" }
+  );
+  setTimeout(() => controller.abort(new Error("deadline")), 10);
+  const response = await Promise.race([
+    handler(request),
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error("handler did not abort stalled body")), 150))
+  ]);
+  assert.equal(response.status, 408);
+});

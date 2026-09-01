@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import JSZip from "jszip";
 
+import { diffCanonicalCourseVersions } from "./diff";
 import { importScormPackage } from "./importer";
 import { calculateCrc32 } from "./zip";
 
@@ -47,6 +48,19 @@ function findEndOfCentralDirectoryOffset(bytes: Uint8Array) {
     if (view.getUint32(offset, true) === 0x06054b50) return offset;
   }
   throw new Error("Missing end-of-central-directory record in test fixture.");
+}
+
+function markEntryAsHostSpecialFile(
+  bytes: Uint8Array,
+  expectedName: string,
+  host: number,
+  fileType: number
+) {
+  const centralOffset = findCentralEntryOffset(bytes, expectedName);
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  view.setUint16(centralOffset + 4, ((host & 0xff) << 8) | 20, true);
+  const attributes = view.getUint32(centralOffset + 38, true);
+  view.setUint32(centralOffset + 38, ((attributes & 0x0fffffff) | fileType) >>> 0, true);
 }
 
 function insertBytes(bytes: Uint8Array, offset: number, insertion: Uint8Array) {
@@ -1211,6 +1225,172 @@ test("warns and omits an unidentifiable resource instead of fabricating a canoni
     "RESOURCE_SKIPPED"
   ]);
   assert.doesNotMatch(JSON.stringify(report.courseVersion), /generated|synthetic|resource-1/);
+});
+
+test("canonical diff detects changed asset bytes and unsupported sequencing semantics", async () => {
+  const manifest = scormManifest();
+  const beforeBytes = await createScormPackage(manifest, { "content.txt": "asset-before" });
+  const afterBytes = await createScormPackage(manifest, { "content.txt": "asset-after" });
+  const before = await importScormPackage(beforeBytes);
+  const after = await importScormPackage(afterBytes);
+  assert.ok(
+    diffCanonicalCourseVersions(before.courseVersion, after.courseVersion).changed.some(
+      ({ kind }) => kind === "course" || kind === "resource"
+    ),
+    "asset byte changes must be visible in the semantic diff"
+  );
+
+  const sequencing = (objectiveId: string) => scormManifest({
+    schemaVersion: "2004 4th Edition",
+    adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
+  })
+    .replace("<manifest identifier=", '<manifest xmlns:imsss="http://www.imsglobal.org/xsd/imsss" identifier=')
+    .replace(
+      "</item>",
+      `<imsss:sequencing><imsss:objectives><imsss:objective objectiveID="${objectiveId}"/></imsss:objectives></imsss:sequencing></item>`
+    );
+  const sequencingBefore = await importScormPackage(await createScormPackage(
+    sequencing("objective-before"),
+    { "content.txt": "same asset" }
+  ));
+  const sequencingAfter = await importScormPackage(await createScormPackage(
+    sequencing("objective-after"),
+    { "content.txt": "same asset" }
+  ));
+  assert.ok(sequencingAfter.warnings.some(({ code }) => code === "UNSUPPORTED_SEMANTIC_OMITTED"));
+  assert.ok(
+    diffCanonicalCourseVersions(
+      sequencingBefore.courseVersion,
+      sequencingAfter.courseVersion
+    ).changed.some(({ kind }) => kind === "course"),
+    "unsupported sequencing changes must remain visible in the semantic diff"
+  );
+});
+
+test("resolves hierarchical xml:base paths without allowing traversal", async () => {
+  const manifest = scormManifest({ resourceHref: "index.html" })
+    .replace("<manifest identifier=", '<manifest xml:base="package/" identifier=')
+    .replace("<resources>", '<resources xml:base="content/">')
+    .replace(
+      '<resource identifier="resource-1"',
+      '<resource xml:base="lesson/" identifier="resource-1"'
+    )
+    .replace('<file href="index.html" />', '<file xml:base="assets/" href="script.js" />');
+  const report = await importScormPackage(await createScormPackage(manifest, {
+    "package/content/lesson/index.html": "static",
+    "package/content/lesson/assets/script.js": "blocked"
+  }));
+  assert.equal(report.courseVersion.resources[0]?.href, "package/content/lesson/index.html");
+  assert.deepEqual(report.courseVersion.resources[0]?.filePaths, [
+    "package/content/lesson/index.html",
+    "package/content/lesson/assets/script.js"
+  ]);
+
+  const traversal = manifest.replace('xml:base="lesson/"', 'xml:base="../escape/"');
+  await assert.rejects(
+    importScormPackage(await createScormPackage(traversal, {})),
+    (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_XML_BASE_UNSAFE"
+  );
+});
+
+test("accepts LOM and extension subtrees whose local names overlap core names", async () => {
+  const manifest = scormManifest()
+    .replace(
+      "</metadata>",
+      '<lom:lom xmlns:lom="http://ltsc.ieee.org/xsd/LOM"><lom:general><lom:title><lom:string>LOM title</lom:string></lom:title></lom:general></lom:lom></metadata>'
+    )
+    .replace(
+      "</resource>",
+      '<ext:resource xmlns:ext="urn:vendor"><ext:title>Extension title</ext:title></ext:resource></resource>'
+    );
+  const report = await importScormPackage(await createScormPackage(manifest, {
+    "content.txt": "Static lesson"
+  }));
+  assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
+  assert.ok(report.warnings.some(({ code }) => code === "UNSUPPORTED_SEMANTIC_OMITTED"));
+});
+
+test("bounds identifiers, titles, warning amplification, and serialized reports", async () => {
+  await assert.rejects(
+    importScormPackage(await createScormPackage(scormManifest().replace(
+      'identifier="course-minimal"',
+      'identifier="identifier-too-long"'
+    ), { "content.txt": "Static lesson" }), { limits: { maxIdentifierChars: 8 } }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_FIELD_TOO_LARGE"
+  );
+  await assert.rejects(
+    importScormPackage(await createScormPackage(scormManifest().replace(
+      "Minimal course",
+      "T".repeat(64)
+    ), { "content.txt": "Static lesson" }), { limits: { maxTitleChars: 32 } }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_FIELD_TOO_LARGE"
+  );
+
+  const repeatedMissingFiles = Array.from(
+    { length: 20 },
+    (_, index) => `<file href="missing-${index}.txt"/>`
+  ).join("");
+  const warningsManifest = scormManifest().replace(
+    '<file href="content.txt" />',
+    repeatedMissingFiles
+  );
+  const warningReport = await importScormPackage(
+    await createScormPackage(warningsManifest, { "content.txt": "Static lesson" }),
+    { limits: { maxWarnings: 4 } }
+  );
+  assert.ok(warningReport.warnings.length <= 4);
+  assert.equal(
+    new Set(warningReport.warnings.map((warning) => JSON.stringify(warning))).size,
+    warningReport.warnings.length
+  );
+
+  await assert.rejects(
+    importScormPackage(await createScormPackage(scormManifest(), {
+      "content.txt": "Static lesson"
+    }), { limits: { maxReportBytes: 512 } }),
+    (error: unknown) => Reflect.get(Object(error), "code") === "REPORT_TOO_LARGE"
+  );
+});
+
+test("rejects host 19 links and special filesystem nodes", async () => {
+  for (const fileType of [0xa0000000, 0x10000000, 0x20000000, 0x60000000, 0xc0000000]) {
+    const bytes = new Uint8Array(await createScormPackage(scormManifest(), {
+      "content.txt": "Static lesson"
+    }));
+    markEntryAsHostSpecialFile(bytes, "content.txt", 19, fileType);
+    await assert.rejects(
+      importScormPackage(bytes),
+      (error: unknown) => ["ZIP_LINK_UNSUPPORTED", "ZIP_SPECIAL_FILE_UNSUPPORTED"].includes(
+        String(Reflect.get(Object(error), "code"))
+      )
+    );
+  }
+});
+
+test("requires strict and consistent SCORM schema/version evidence", async () => {
+  for (const manifest of [
+    scormManifest({ schemaVersion: "1.2 draft" }),
+    scormManifest().replace("<schema>ADL SCORM</schema>", "<schema>ADL SCORM experimental</schema>"),
+    scormManifest({
+      schemaVersion: "1.2",
+      adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
+    })
+  ]) {
+    await assert.rejects(
+      importScormPackage(await createScormPackage(manifest, { "content.txt": "Static lesson" })),
+      (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_VERSION_UNSUPPORTED"
+    );
+  }
+});
+
+test("attributes blocked executable references case-insensitively", async () => {
+  const manifest = scormManifest({ resourceHref: "CONTENT.HTML" });
+  const report = await importScormPackage(await createScormPackage(manifest, {
+    "content.html": "<html>blocked</html>"
+  }));
+  assert.deepEqual(report.blockedExecutables[0]?.referencedByResourceIds, [
+    "scorm:resource:resource-1"
+  ]);
 });
 
 export { createScormPackage, scormManifest };

@@ -43,6 +43,7 @@ export const SCORM_ADLCP_NAMESPACES = Object.freeze({
 } as const);
 
 export const XML_NAMESPACE_DECLARATION_URI = "http://www.w3.org/2000/xmlns/";
+export const XML_NAMESPACE_URI = "http://www.w3.org/XML/1998/namespace";
 const XML_ENTITY_DECLARATION = /<!\s*ENTITY\b/iu;
 const MAX_XML_INPUT_LENGTH = 1024 * 1024;
 const MAX_XML_DEPTH = 128;
@@ -215,6 +216,12 @@ export function xmlScormTypeAttribute(element: StaticXmlElement) {
     }
   }
   return null;
+}
+
+export function xmlBaseAttribute(element: StaticXmlElement) {
+  return Object.values(element.attributeMetadata).find(
+    (attribute) => attribute.local === "base" && attribute.uri === XML_NAMESPACE_URI
+  )?.value ?? null;
 }
 
 export function xmlNamespaceVersions(element: StaticXmlElement) {
