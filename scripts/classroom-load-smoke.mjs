@@ -16,6 +16,7 @@ const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const SCRIPT_DIR = path.dirname(SCRIPT_PATH);
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_ARTIFACT_DIR = path.join(REPO_ROOT, ".tmp", "classroom-load-smoke");
+const DEFAULT_MAX_RESPONSE_BODY_BYTES = 1024 * 1024;
 const PRODUCTION_HOSTS = new Set(["mais.ac", "www.mais.ac", "mais.hk", "www.mais.hk"]);
 const DEMO_STUDENT_USERNAMES = ["Student Shirleen", "Student Jon"];
 
@@ -262,7 +263,14 @@ export function classroomSmokeCredentials(args, studentCount, env = process.env)
 
 export async function timedFetch(
   url,
-  { body, headers = {}, method = "GET", redirect = "manual", timeoutMs = 30_000 } = {},
+  {
+    body,
+    headers = {},
+    maxBodyBytes = DEFAULT_MAX_RESPONSE_BODY_BYTES,
+    method = "GET",
+    redirect = "manual",
+    timeoutMs = 30_000
+  } = {},
   fetchImpl = globalThis.fetch
 ) {
   const controller = new AbortController();
@@ -276,7 +284,7 @@ export async function timedFetch(
       redirect,
       signal: controller.signal
     });
-    const text = await response.text();
+    const text = await readResponseTextWithLimit(response, maxBodyBytes, controller);
     return {
       elapsedMs: Date.now() - startedAt,
       finalUrl: response.url || url,
@@ -298,6 +306,53 @@ export async function timedFetch(
   } finally {
     clearTimeout(timeout);
   }
+}
+
+async function readResponseTextWithLimit(response, maxBodyBytes, controller) {
+  const limit = boundedInteger(
+    maxBodyBytes,
+    DEFAULT_MAX_RESPONSE_BODY_BYTES,
+    1,
+    DEFAULT_MAX_RESPONSE_BODY_BYTES,
+    "response body byte limit"
+  );
+  const reader = response.body?.getReader?.();
+  if (!reader) {
+    const text = await response.text();
+    if (Buffer.byteLength(text, "utf8") > limit) {
+      controller.abort();
+      throw new Error(`Classroom load smoke response body exceeded ${limit} bytes.`);
+    }
+    return text;
+  }
+
+  const decoder = new TextDecoder();
+  let bytesRead = 0;
+  let text = "";
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytesRead += value.byteLength;
+      if (bytesRead > limit) {
+        controller.abort();
+        await reader.cancel("response body byte limit exceeded").catch(() => {});
+        throw new Error(`Classroom load smoke response body exceeded ${limit} bytes.`);
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    return text + decoder.decode();
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+export function redactSensitiveText(value, secrets = []) {
+  let redacted = typeof value === "string" ? value : String(value);
+  for (const secret of new Set(secrets.filter((candidate) => typeof candidate === "string" && candidate.length >= 4))) {
+    redacted = redacted.split(secret).join("[REDACTED]");
+  }
+  return redacted;
 }
 
 function parseJson(text) {
@@ -598,6 +653,9 @@ async function safeExistingDirectory(directory, label, { allowPermissive = false
   if (!allowPermissive && (stats.mode & 0o077) !== 0) {
     throw new Error(`${label} must not be group/other accessible.`);
   }
+  if (allowPermissive && (stats.mode & 0o022) !== 0 && (stats.mode & 0o1000) === 0) {
+    throw new Error(`${label} must not be group/other writable unless it is a sticky directory.`);
+  }
   const canonical = await fs.realpath(directory);
   if (canonical !== path.resolve(directory)) {
     throw new Error(`${label} must be a canonical path without symlink ancestors.`);
@@ -644,7 +702,7 @@ async function resolveArtifactDirectory(artifactDir, env = process.env) {
     const repository = await safeExistingDirectory(REPO_ROOT, "Repository root", { allowPermissive: true });
     await ensureDirectoryChain(repository.canonical, path.dirname(defaultDirectory), "Repository artifact directory");
     await ensureDirectoryComponent(defaultDirectory, "Default artifact directory");
-    return defaultDirectory;
+    return safeExistingDirectory(defaultDirectory, "Default artifact directory");
   }
 
   const temporaryRoot = (await safeExistingDirectory(await fs.realpath(tmpdir()), "OS temporary root", { allowPermissive: true })).canonical;
@@ -682,7 +740,7 @@ async function resolveArtifactDirectory(artifactDir, env = process.env) {
       if (candidate !== root.canonical) {
         await ensureDirectoryComponent(candidate, "Artifact directory");
       }
-      return candidate;
+      return safeExistingDirectory(candidate, "Artifact directory");
     }
   }
   throw new Error(
@@ -711,11 +769,16 @@ async function safeResultTarget(artifactPath) {
   }
 }
 
-export async function writeReport(report, artifactDir, env = process.env) {
-  const targetDirectory = await resolveArtifactDirectory(artifactDir, env);
+export async function writeReport(report, artifactDir, env = process.env, hooks = {}) {
+  const admittedDirectory = await resolveArtifactDirectory(artifactDir, env);
+  const targetDirectory = admittedDirectory.canonical;
   const artifactPath = path.join(targetDirectory, "last-run.json");
   const lockPath = path.join(targetDirectory, ".last-run.json.lock");
+  await hooks.beforeLock?.(targetDirectory);
   const directoryStats = await safeExistingDirectory(targetDirectory, "Artifact directory");
+  if (!sameNode(admittedDirectory.stats, directoryStats.stats)) {
+    throw new Error("Artifact directory changed between admission and lock creation.");
+  }
   try {
     await fs.mkdir(lockPath, { mode: 0o700 });
   } catch (error) {
@@ -1158,8 +1221,10 @@ async function runSelfTest() {
       /artifact directory|approved|descendant/i
     );
 
-    const symlinkTarget = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-symlink-target-"));
-    const symlinkParent = path.join(path.dirname(artifactDir), "mais-classroom-load-symlink-parent");
+    const symlinkFixtureRoot = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-symlink-fixture-"));
+    const symlinkTarget = path.join(symlinkFixtureRoot, "target");
+    const symlinkParent = path.join(symlinkFixtureRoot, "link");
+    await fs.mkdir(symlinkTarget, { mode: 0o700 });
     await fs.symlink(symlinkTarget, symlinkParent);
     try {
       await assert.rejects(
@@ -1167,8 +1232,7 @@ async function runSelfTest() {
         /symlink|artifact directory|unsafe/i
       );
     } finally {
-      await fs.rm(symlinkParent, { force: true });
-      await fs.rm(symlinkTarget, { recursive: true, force: true });
+      await fs.rm(symlinkFixtureRoot, { recursive: true, force: true });
     }
 
     const finalSymlinkDir = await fs.mkdtemp(path.join(tmpdir(), "mais-classroom-load-final-symlink-"));
@@ -1265,15 +1329,28 @@ async function runSelfTest() {
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === SCRIPT_PATH;
 if (isMain) {
+  let args;
   try {
-    const args = parseArgs(process.argv.slice(2));
+    args = parseArgs(process.argv.slice(2));
     if (args.selfTest) {
       await runSelfTest();
     } else {
       await runSmoke(args);
     }
   } catch (error) {
-    console.error(`classroom-load-smoke: ${error instanceof Error ? error.message : String(error)}`);
+    const secrets = [
+      args?.cookie,
+      args?.password,
+      args?.username,
+      process.env.CLASSROOM_LOAD_COOKIE,
+      process.env.CLASSROOM_LOAD_DEMO_PASSWORD,
+      process.env.CLASSROOM_LOAD_PASSWORD,
+      process.env.CLASSROOM_LOAD_USERNAME,
+      process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+      process.env.VERCEL_PROTECTION_BYPASS
+    ];
+    const message = redactSensitiveText(error instanceof Error ? error.message : String(error), secrets);
+    console.error(`classroom-load-smoke: ${message}`);
     process.exitCode = 1;
   }
 }

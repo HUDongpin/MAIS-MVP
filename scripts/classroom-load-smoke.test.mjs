@@ -1,15 +1,18 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { createServer } from "node:http";
 import { existsSync, readFileSync } from "node:fs";
-import { link, mkdtemp, readFile, rm, symlink, unlink, writeFile } from "node:fs/promises";
+import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { promisify } from "node:util";
 
 const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptsDir, "..");
 const smokePath = path.join(scriptsDir, "classroom-load-smoke.mjs");
+const execFileAsync = promisify(execFile);
 const smokeModule = existsSync(smokePath)
   ? await import(`${pathToFileURL(smokePath).href}?integration-test=${Date.now()}`)
   : {};
@@ -85,6 +88,24 @@ test("timed fetch keeps its timeout active while reading the response body", asy
   assert.equal(result.text, "");
 });
 
+test("timed fetch fails closed when a response body exceeds its byte ceiling", async (t) => {
+  const timedFetch = requiredExport("timedFetch");
+  const oversized = await listen((_request, response) => {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end("x".repeat(4_096));
+  });
+  t.after(oversized.close);
+
+  const result = await timedFetch(
+    `${oversized.origin}/oversized-body`,
+    { maxBodyBytes: 128, timeoutMs: 1_000 }
+  );
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 0);
+  assert.match(result.error ?? "", /response body|byte|limit|exceed/i);
+  assert.equal(result.text, "");
+});
+
 test("login rejects a redirect before the foreign origin receives credentials", async (t) => {
   const loginIdentity = requiredExport("loginIdentity");
   let foreignRequests = 0;
@@ -129,6 +150,99 @@ test("report writer rejects symlink and hardlink results without modifying their
   await link(outside, result);
   await assert.rejects(() => writeReport({ unsafe: "hardlink" }, root), /hardlink/i);
   assert.equal(await readFile(outside, "utf8"), "outside\n");
+});
+
+test("report writer rejects directory replacement between admission and lock creation", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-admission-race-"));
+  const displaced = `${root}-displaced`;
+  t.after(async () => {
+    await rm(root, { force: true, recursive: true });
+    await rm(displaced, { force: true, recursive: true });
+  });
+
+  await assert.rejects(
+    () => writeReport(
+      { unsafe: "directory-replacement" },
+      root,
+      {},
+      {
+        beforeLock: async () => {
+          await rename(root, displaced);
+          await mkdir(root, { mode: 0o700 });
+        }
+      }
+    ),
+    /changed|replacement|race|artifact directory/i
+  );
+});
+
+test("reports and printable failures exclude credential and identity sentinels", async () => {
+  const executeClassroomLoad = requiredExport("executeClassroomLoad");
+  const parseArgs = requiredExport("parseArgs");
+  const redactSensitiveText = requiredExport("redactSensitiveText");
+  const sentinels = {
+    bypass: "BYPASS-SENTINEL-9c28",
+    cookie: "COOKIE-SENTINEL-b7a1",
+    password: "PASSWORD-SENTINEL-f40e",
+    userId: "USER-ID-SENTINEL-551d"
+  };
+  const env = {
+    CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
+    CLASSROOM_LOAD_BASE_URL: "https://preview.example",
+    CLASSROOM_LOAD_PASSWORD: sentinels.password,
+    VERCEL_AUTOMATION_BYPASS_SECRET: sentinels.bypass
+  };
+  let serializedArtifact = "";
+  const { report } = await executeClassroomLoad(
+    parseArgs(["--username", "Fixture", "--students", "1", "--rounds", "1"], env),
+    {
+      env,
+      loginIdentity: async (identity) => ({
+        baseUrl: "https://preview.example",
+        cookie: sentinels.cookie,
+        loginMs: 1,
+        userId: sentinels.userId,
+        username: identity.username
+      }),
+      discoverWorkload: async () => ({
+        lessonSlug: "fixture-lesson",
+        questions: [{ questionId: "fixture-question", selectedAnswer: "1" }]
+      }),
+      runSeatRound: async (session, _workload, _config, round) => [
+        { elapsedMs: 1, endpoint: "attempts", ok: true, round, seat: session.seat, status: 200 },
+        { elapsedMs: 1, endpoint: "lesson-progress", ok: true, round, seat: session.seat, status: 200 },
+        { elapsedMs: 1, endpoint: "dashboard", ok: true, round, seat: session.seat, status: 200 }
+      ],
+      writeReport: async (candidate) => {
+        serializedArtifact = JSON.stringify(candidate);
+        return "fixture-artifact";
+      }
+    }
+  );
+  const serializedReport = JSON.stringify(report);
+  for (const sentinel of Object.values(sentinels)) {
+    assert.doesNotMatch(serializedReport, new RegExp(sentinel, "u"));
+    assert.doesNotMatch(serializedArtifact, new RegExp(sentinel, "u"));
+  }
+  const unsafeFailure = `request failed cookie=${sentinels.cookie} password=${sentinels.password} bypass=${sentinels.bypass} user=${sentinels.userId}`;
+  const printableFailure = redactSensitiveText(unsafeFailure, Object.values(sentinels));
+  for (const sentinel of Object.values(sentinels)) {
+    assert.doesNotMatch(printableFailure, new RegExp(sentinel, "u"));
+  }
+  assert.match(printableFailure, /\[REDACTED\]/u);
+});
+
+test("required governance executes the security self-test concurrently without shared fixtures", async () => {
+  const options = { cwd: repoRoot, maxBuffer: 1024 * 1024, timeout: 60_000 };
+  const [left, right] = await Promise.all([
+    execFileAsync(process.execPath, [smokePath, "--self-test"], options),
+    execFileAsync(process.execPath, [smokePath, "--self-test"], options)
+  ]);
+  assert.match(left.stdout, /classroom-load-smoke self-test: PASS/u);
+  assert.match(right.stdout, /classroom-load-smoke self-test: PASS/u);
+  assert.equal(left.stderr, "");
+  assert.equal(right.stderr, "");
 });
 
 test("classroom smoke artifacts stay in ignored local-only storage", () => {
