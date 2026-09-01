@@ -5,6 +5,7 @@ import {
   COURSE_IMPORT_MAX_MULTIPART_BODY_BYTES,
   createTeacherCourseImportPostHandler
 } from "./handler";
+import { createCourseImportAdmissionController } from "@/lib/courseIntegration/admission";
 
 const privateHeaders = ["cache-control", "cdn-cache-control", "vercel-cdn-cache-control"];
 const textEncoder = new TextEncoder();
@@ -468,4 +469,52 @@ test("course import API deadline interrupts a stalled request body read", async 
     new Promise<never>((_, reject) => setTimeout(() => reject(new Error("handler did not abort stalled body")), 150))
   ]);
   assert.equal(response.status, 408);
+});
+
+test("course import API deadline releases admission when an importer ignores its abort signal", async () => {
+  const admissionController = createCourseImportAdmissionController({
+    limits: { maxConcurrentPerIp: 1, maxConcurrentPerUser: 1, timeoutMs: 10 },
+    consumeRateLimit: () => ({
+      allowed: true,
+      remaining: 1,
+      resetAt: Date.now() + 60_000,
+      retryAfterSeconds: 0
+    })
+  });
+  let importCalls = 0;
+  const handler = createTeacherCourseImportPostHandler({
+    authenticateUser: async () => ({ user: { id: "teacher-ignores-abort", role: "teacher" } }),
+    admitImport: (request, userId) => admissionController.admit(request, userId),
+    importPackage: async () => {
+      importCalls += 1;
+      if (importCalls === 1) return new Promise<never>(() => undefined);
+      return { safe: true };
+    }
+  });
+  const request = () => {
+    const formData = new FormData();
+    formData.append("expectedUserId", "teacher-ignores-abort");
+    formData.append("package", new Blob([new Uint8Array([80, 75, 3, 4])]), "course.zip");
+    return new Request(
+      "http://localhost/api/teacher/course-imports?expectedUserId=teacher-ignores-abort",
+      {
+        method: "POST",
+        headers: { "X-MAIS-Expected-User-Id": "teacher-ignores-abort" },
+        body: formData
+      }
+    );
+  };
+
+  const timedOut = await Promise.race([
+    handler(request()),
+    new Promise<never>((_, reject) => setTimeout(
+      () => reject(new Error("handler did not race an importer that ignored abort")),
+      150
+    ))
+  ]);
+  assert.equal(timedOut.status, 408);
+
+  const retry = await handler(request());
+  assert.equal(retry.status, 200, "the expired lease must not permanently consume concurrency");
+  assert.equal(importCalls, 2);
 });

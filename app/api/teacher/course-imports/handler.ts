@@ -76,6 +76,42 @@ function courseImportFailure(error: unknown) {
   );
 }
 
+function courseImportAborted() {
+  return stableError(
+    "COURSE_IMPORT_ABORTED",
+    "The course import request was cancelled or exceeded its time limit.",
+    408
+  );
+}
+
+async function importWithinAdmission(
+  importPackage: () => Promise<unknown>,
+  signal: AbortSignal
+): Promise<{ readonly status: "aborted" } | { readonly status: "completed"; readonly report: unknown }> {
+  if (signal.aborted) return { status: "aborted" };
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const finish = (action: () => void) => {
+      if (settled) return;
+      settled = true;
+      signal.removeEventListener("abort", onAbort);
+      action();
+    };
+    const onAbort = () => finish(() => resolve({ status: "aborted" }));
+    signal.addEventListener("abort", onAbort, { once: true });
+    if (signal.aborted) {
+      onAbort();
+      return;
+    }
+    Promise.resolve()
+      .then(importPackage)
+      .then(
+        (report) => finish(() => resolve({ status: "completed", report })),
+        (error) => finish(() => reject(error))
+      );
+  });
+}
+
 export function createTeacherCourseImportPostHandler({
   authenticateUser = requireAuthenticatedUser,
   canAccessTeacher = canAccessTeacherArea,
@@ -139,11 +175,7 @@ export function createTeacherCourseImportPostHandler({
 
     try {
       if (admission.signal.aborted) {
-        return stableError(
-          "COURSE_IMPORT_ABORTED",
-          "The course import request was cancelled or exceeded its time limit.",
-          408
-        );
+        return courseImportAborted();
       }
 
       const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
@@ -175,26 +207,17 @@ export function createTeacherCourseImportPostHandler({
       if (bodyIdentityConflict) return bodyIdentityConflict;
 
       try {
-        const report = await importPackage(multipart.packageBytes, {
-          importedAt: now().toISOString(),
-          signal: admission.signal
-        });
-        if (admission.signal.aborted) {
-          return stableError(
-            "COURSE_IMPORT_ABORTED",
-            "The course import request was cancelled or exceeded its time limit.",
-            408
-          );
-        }
-        return privateJson({ import: report });
+        const outcome = await importWithinAdmission(
+          () => importPackage(multipart.packageBytes, {
+            importedAt: now().toISOString(),
+            signal: admission.signal
+          }),
+          admission.signal
+        );
+        if (outcome.status === "aborted") return courseImportAborted();
+        return privateJson({ import: outcome.report });
       } catch (error) {
-        if (admission.signal.aborted) {
-          return stableError(
-            "COURSE_IMPORT_ABORTED",
-            "The course import request was cancelled or exceeded its time limit.",
-            408
-          );
-        }
+        if (admission.signal.aborted) return courseImportAborted();
         return courseImportFailure(error);
       }
     } finally {

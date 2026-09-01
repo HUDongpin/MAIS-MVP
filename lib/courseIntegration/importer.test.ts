@@ -7,6 +7,10 @@ import { importScormPackage } from "./importer";
 import { calculateCrc32 } from "./zip";
 
 const fixedZipDate = new Date("2020-01-01T00:00:00.000Z");
+const unsupportedSemanticWarning = {
+  code: "UNSUPPORTED_SEMANTIC_OMITTED",
+  message: "Unsupported attributes, extension elements, or sequencing semantics were preserved only as a deterministic loss digest."
+} as const;
 
 async function createScormPackage(
   manifest: string,
@@ -280,7 +284,7 @@ test("imports a minimal SCORM 1.2 package into the canonical course model", asyn
   });
   assert.deepEqual(report.courseVersion.assessments, []);
   assert.equal(report.archive.fileCount, 2);
-  assert.deepEqual(report.warnings, []);
+  assert.deepEqual(report.warnings, [unsupportedSemanticWarning]);
   assert.ok(Object.isFrozen(report.courseVersion));
 });
 
@@ -342,7 +346,7 @@ test("accepts namespace declaration prefixes that resemble reserved SCORM attrib
   const report = await importScormPackage(bytes, { importedAt: "2026-08-29T01:07:00.000Z" });
 
   assert.equal(report.courseVersion.course.id, "scorm:manifest:course-minimal");
-  assert.deepEqual(report.warnings, []);
+  assert.deepEqual(report.warnings, [unsupportedSemanticWarning]);
 });
 
 test("accepts inert ENTITY spelling inside legal manifest comments and CDATA", async () => {
@@ -528,7 +532,7 @@ test("keeps ordered file and dependency dedupe deterministic near the 20,000-ele
     "scorm:resource:target-b",
     "scorm:resource:target-a"
   ]);
-  assert.deepEqual(report.warnings, []);
+  assert.deepEqual(report.warnings, [unsupportedSemanticWarning]);
 });
 
 test("repeat imports keep canonical version identity independent of import-event time and bind predecessors", async () => {
@@ -650,7 +654,7 @@ test("accepts a clean STORE package after validating referenced and unreferenced
 
   assert.equal(report.archive.fileCount, 3);
   assert.equal(report.courseVersion.resources[0]?.href, "asset.txt");
-  assert.deepEqual(report.warnings, []);
+  assert.deepEqual(report.warnings, [unsupportedSemanticWarning]);
 });
 
 test("rejects corrupted referenced or unreferenced payloads before returning a report", async () => {
@@ -1003,7 +1007,10 @@ test("omits external manifest references as warnings without making a network re
     assert.equal(report.courseVersion.resources[0]?.href, null);
     assert.deepEqual(report.courseVersion.resources[0]?.filePaths, []);
     assert.ok(report.warnings.length >= 1);
-    assert.ok(report.warnings.every((warning) => warning.code === "RESOURCE_PATH_OMITTED"));
+    assert.deepEqual(new Set(report.warnings.map(({ code }) => code)), new Set([
+      "RESOURCE_PATH_OMITTED",
+      "UNSUPPORTED_SEMANTIC_OMITTED"
+    ]));
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -1019,7 +1026,10 @@ test("rechecks percent-decoded manifest paths and blocks encoded dangerous schem
   assert.equal(report.courseVersion.resources[0]?.href, null);
   assert.deepEqual(report.courseVersion.resources[0]?.filePaths, []);
   assert.ok(report.warnings.length >= 1);
-  assert.ok(report.warnings.every((warning) => warning.code === "RESOURCE_PATH_OMITTED"));
+  assert.deepEqual(new Set(report.warnings.map(({ code }) => code)), new Set([
+    "RESOURCE_PATH_OMITTED",
+    "UNSUPPORTED_SEMANTIC_OMITTED"
+  ]));
 });
 
 test("fails closed on signed ZIP data descriptors, including corrupted descriptor relationships", async () => {
@@ -1222,7 +1232,8 @@ test("warns and omits an unidentifiable resource instead of fabricating a canoni
   assert.deepEqual(report.courseVersion.units[0]?.resourceIds, []);
   assert.deepEqual(report.warnings.map((warning) => warning.code), [
     "RESOURCE_REFERENCE_UNRESOLVED",
-    "RESOURCE_SKIPPED"
+    "RESOURCE_SKIPPED",
+    "UNSUPPORTED_SEMANTIC_OMITTED"
   ]);
   assert.doesNotMatch(JSON.stringify(report.courseVersion), /generated|synthetic|resource-1/);
 });
@@ -1267,6 +1278,47 @@ test("canonical diff detects changed asset bytes and unsupported sequencing sema
   );
 });
 
+test("canonical diff retains unsupported core and vendor attribute changes as bounded loss evidence", async () => {
+  const coreBefore = await importScormPackage(await createScormPackage(
+    scormManifest().replace(
+      '<manifest identifier="course-minimal" version="1.0"',
+      '<manifest identifier="course-minimal" version="core-before"'
+    ),
+    { "content.txt": "same asset" }
+  ));
+  const coreAfter = await importScormPackage(await createScormPackage(
+    scormManifest().replace(
+      '<manifest identifier="course-minimal" version="1.0"',
+      '<manifest identifier="course-minimal" version="core-after"'
+    ),
+    { "content.txt": "same asset" }
+  ));
+  assert.ok(
+    diffCanonicalCourseVersions(coreBefore.courseVersion, coreAfter.courseVersion).changed.length > 0,
+    "ignored core attribute changes must remain visible in the semantic diff"
+  );
+
+  const withVendorAttribute = (value: string) => scormManifest()
+    .replace(
+      '<resource identifier="resource-1"',
+      `<resource xmlns:vendor="urn:vendor" vendor:tracking="${value}" identifier="resource-1"`
+    );
+  const vendorBefore = await importScormPackage(await createScormPackage(
+    withVendorAttribute("vendor-before"),
+    { "content.txt": "same asset" }
+  ));
+  const vendorAfter = await importScormPackage(await createScormPackage(
+    withVendorAttribute("vendor-after"),
+    { "content.txt": "same asset" }
+  ));
+  assert.ok(
+    diffCanonicalCourseVersions(vendorBefore.courseVersion, vendorAfter.courseVersion).changed.length > 0,
+    "vendor attribute changes must remain visible in the semantic diff"
+  );
+  assert.doesNotMatch(JSON.stringify(vendorAfter.courseVersion), /vendor-after/u);
+  assert.ok(vendorAfter.warnings.some(({ code }) => code === "UNSUPPORTED_SEMANTIC_OMITTED"));
+});
+
 test("resolves hierarchical xml:base paths without allowing traversal", async () => {
   const manifest = scormManifest({ resourceHref: "index.html" })
     .replace("<manifest identifier=", '<manifest xml:base="package/" identifier=')
@@ -1291,6 +1343,21 @@ test("resolves hierarchical xml:base paths without allowing traversal", async ()
     importScormPackage(await createScormPackage(traversal, {})),
     (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_XML_BASE_UNSAFE"
   );
+});
+
+test("resolves a no-slash xml:base as a file base under RFC 3986 semantics", async () => {
+  const manifest = scormManifest({ resourceHref: "index.html" })
+    .replace("<manifest identifier=", '<manifest xml:base="package" identifier=')
+    .replace("<resources>", '<resources xml:base="content/">')
+    .replace(
+      '<resource identifier="resource-1"',
+      '<resource xml:base="lesson/" identifier="resource-1"'
+    );
+  const report = await importScormPackage(await createScormPackage(manifest, {
+    "content/lesson/index.html": "static"
+  }));
+  assert.equal(report.courseVersion.resources[0]?.href, "content/lesson/index.html");
+  assert.deepEqual(report.courseVersion.resources[0]?.filePaths, ["content/lesson/index.html"]);
 });
 
 test("accepts LOM and extension subtrees whose local names overlap core names", async () => {
@@ -1326,19 +1393,28 @@ test("bounds identifiers, titles, warning amplification, and serialized reports"
     (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_FIELD_TOO_LARGE"
   );
 
-  const repeatedMissingFiles = Array.from(
+  const distinctMissingResources = Array.from(
     { length: 20 },
-    (_, index) => `<file href="missing-${index}.txt"/>`
+    (_, index) => `<resource identifier="missing-resource-${index}" type="webcontent" href="missing-${index}.txt"><file href="missing-${index}.txt"/></resource>`
   ).join("");
   const warningsManifest = scormManifest().replace(
-    '<file href="content.txt" />',
-    repeatedMissingFiles
+    /<resource identifier="resource-1"[\s\S]*?<\/resource>/u,
+    distinctMissingResources
   );
   const warningReport = await importScormPackage(
     await createScormPackage(warningsManifest, { "content.txt": "Static lesson" }),
     { limits: { maxWarnings: 4 } }
   );
   assert.ok(warningReport.warnings.length <= 4);
+  assert.ok(
+    warningReport.warnings.some(({ code }) => code === "WARNING_LIMIT_REACHED"),
+    "distinct warning sources must exercise the bounded truncation summary"
+  );
+  assert.ok(new Set(
+    warningReport.warnings
+      .filter(({ code }) => code === "RESOURCE_FILE_NOT_IN_PACKAGE")
+      .map(({ sourceId }) => sourceId)
+  ).size > 1);
   assert.equal(
     new Set(warningReport.warnings.map((warning) => JSON.stringify(warning))).size,
     warningReport.warnings.length
@@ -1376,6 +1452,30 @@ test("requires strict and consistent SCORM schema/version evidence", async () =>
       adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
     })
   ]) {
+    await assert.rejects(
+      importScormPackage(await createScormPackage(manifest, { "content.txt": "Static lesson" })),
+      (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_VERSION_UNSUPPORTED"
+    );
+  }
+});
+
+test("rejects conflicting duplicate metadata and schemaversion declarations", async () => {
+  const conflictingSchemaVersion = scormManifest().replace(
+    "</metadata>",
+    "<schemaversion>2004</schemaversion></metadata>"
+  );
+  const conflictingMetadata = scormManifest().replace(
+    "</metadata>",
+    "</metadata><metadata><schema>ADL SCORM</schema><schemaversion>2004</schemaversion></metadata>"
+  );
+  const conflicting2004Edition = scormManifest({
+    schemaVersion: "2004",
+    adlcpNamespace: "http://www.adlnet.org/xsd/adlcp_v1p3"
+  }).replace(
+    "</metadata>",
+    "<schemaversion>2004 4th Edition</schemaversion></metadata>"
+  );
+  for (const manifest of [conflictingSchemaVersion, conflictingMetadata, conflicting2004Edition]) {
     await assert.rejects(
       importScormPackage(await createScormPackage(manifest, { "content.txt": "Static lesson" })),
       (error: unknown) => Reflect.get(Object(error), "code") === "SCORM_VERSION_UNSUPPORTED"

@@ -72,3 +72,29 @@ Fresh checks after remediation:
 - Working/staged `git diff --check`: passed. Exact remediation commit/remote identity and post-push clean proof remain pending.
 
 The claim ceiling is unchanged: this is local static-import, admission, test, and build evidence only. It is not SCORM conformance, SCO runtime, LMS compatibility, provider acceptance, persistence/publication/enrollment/grade/roster behavior, deployment, or live evidence.
+
+## Post-fix review round two
+
+The second independent review found four remaining implementation gaps and one warning-regression quality gap. The repairs stay within the existing course-import handler/importer and focused tests; `lib/server/authRouteGuards.ts`, A22 Unicode-path files, providers, persistence, and live integrations remain untouched.
+
+- Unsupported attributes on core structural elements and accepted vendor attributes now join extension/sequencing roots in one bounded deterministic semantic-loss projection. Only `rootCount`, `attributeCount`, and SHA-256 enter the canonical extension; raw unsupported values do not. Element paths and sorted expanded attribute names make placement and value changes visible while ignoring XML attribute source order. Because the fixture's manifest `version` and resource `type` are intentionally not modeled, otherwise-valid reports now honestly carry the unsupported-semantic warning.
+- Package-relative references now resolve through RFC 3986 base-URI semantics. A base ending in `/` remains a directory; a base such as `xml:base="package"` is a file base whose final path segment is replaced by the next relative reference. Existing traversal, absolute/scheme, encoded-separator, backslash, query/fragment-on-base, and canonical-path rejection remains fail closed.
+- The route now races the import promise against the admission abort signal even when an injected importer ignores that signal. A deadline produces the stable private 408, the `finally` releases the lease immediately, and a following same-user request can acquire capacity. Late importer rejection remains observed rather than becoming unhandled.
+- Version detection collects every supported core `metadata/schema/schemaversion` declaration. Empty, unsupported, cross-version, cross-metadata, and distinct 2004-edition duplicate declarations fail closed instead of trusting the first occurrence.
+- The warning-cap regression now creates distinct resource source IDs, proves multiple distinct warnings were admitted, and requires `WARNING_LIMIT_REACHED`; it no longer passes merely because deduplication collapsed twenty identical-source warnings.
+
+Round-two TDD evidence:
+
+- Initial RED selection: five tests, four expected production failures and one passing warning-quality correction. Failures were an empty canonical diff for unsupported attributes, directory-style handling of no-slash `xml:base`, a handler that did not return within 150 ms when the importer ignored abort, and acceptance of conflicting duplicate metadata/version declarations.
+- A malformed first attribute fixture was corrected before it was counted as RED; the authoritative attribute RED failed specifically because the canonical diff was empty.
+- Additional RED/GREEN: `2004` plus `2004 4th Edition` duplicate declarations initially passed because both collapsed to the same major version; normalized declaration-text consistency now rejects them.
+- Final focused GREEN: 118/118 course-integration and teacher-handler tests passed with zero fail/skip/cancel/todo.
+
+Fresh round-two verification:
+
+- `./node_modules/.bin/tsc --noEmit --incremental false`: PASS.
+- `npm run build`: PASS on Next.js 15.5.23, including the dynamic `/api/teacher/course-imports` route and all 202 generated route entries; only the existing extended-tsconfig and edge static-generation warnings appeared.
+- `node --test --test-concurrency=1 scripts/release-governance.test.mjs`: 86 passed, 0 failed, 11 intentional skips.
+- Working diff check: PASS. Final exact staging, commit, remote readback, and clean proof remain pending at the time this entry is written.
+
+The evidence remains local and static-only. It does not establish SCORM conformance, SCO runtime/sequencing execution, LMS/provider compatibility, persistence, publication, enrollment, grades, roster behavior, deployment, or live behavior.

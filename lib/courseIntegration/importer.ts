@@ -23,6 +23,7 @@ import {
 import {
   SCORM_ADLCP_NAMESPACES,
   XML_NAMESPACE_DECLARATION_URI,
+  XML_NAMESPACE_URI,
   isSupportedScormStructuralElement,
   parseStaticXml,
   xmlBaseAttribute,
@@ -32,6 +33,7 @@ import {
   xmlNamespaceVersions,
   xmlScormTypeAttribute,
   xmlText,
+  type StaticXmlAttribute,
   type StaticXmlElement
 } from "./xml";
 
@@ -132,6 +134,18 @@ const expectedCoreChildren = new Map<string, ReadonlySet<string>>([
   ["file", new Set(["metadata"])],
   ["dependency", new Set()]
 ]);
+
+const representedUnqualifiedAttributes = new Map<string, ReadonlySet<string>>([
+  ["manifest", new Set(["identifier"])],
+  ["organizations", new Set(["default"])],
+  ["organization", new Set(["identifier"])],
+  ["item", new Set(["identifier", "identifierref"])],
+  ["resource", new Set(["identifier", "href"])],
+  ["file", new Set(["href"])],
+  ["dependency", new Set(["identifierref"])]
+]);
+
+const xmlBaseMappedElements = new Set(["manifest", "resources", "resource", "file"]);
 
 const blockedMediaTypes: Readonly<Record<string, string>> = Object.freeze({
   ".html": "text/html",
@@ -252,31 +266,56 @@ async function readEntryWithLimit(
   });
 }
 
-function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
-  const metadata = xmlFirstChild(manifest, "metadata");
-  const schema = xmlText(metadata ? xmlFirstChild(metadata, "schema") : null);
-  const schemaVersion = xmlText(metadata ? xmlFirstChild(metadata, "schemaversion") : null);
-  if (schema?.toUpperCase() !== "ADL SCORM" || !schemaVersion) {
-    throw new CourseImportError(
-      "SCORM_VERSION_UNSUPPORTED",
-      "The SCORM version could not be identified safely as 1.2 or 2004.",
-      422
-    );
-  }
-  const normalizedVersion = schemaVersion.replace(/\s+/gu, " ").trim().toLowerCase();
-  const declaredVersion: ScormVersion | null = normalizedVersion === "1.2"
+function unsupportedScormVersion(): never {
+  throw new CourseImportError(
+    "SCORM_VERSION_UNSUPPORTED",
+    "The SCORM version could not be identified safely as 1.2 or 2004.",
+    422
+  );
+}
+
+function normalizeDeclaredScormVersion(value: string) {
+  return value.replace(/\s+/gu, " ").trim().toLowerCase();
+}
+
+function declaredScormVersion(normalizedVersion: string): ScormVersion | null {
+  return normalizedVersion === "1.2"
     ? "1.2"
     : /^2004(?: (?:2nd|3rd|4th) edition)?$/u.test(normalizedVersion)
       ? "2004"
       : null;
-  if (!declaredVersion) {
-    throw new CourseImportError(
-      "SCORM_VERSION_UNSUPPORTED",
-      "The SCORM version could not be identified safely as 1.2 or 2004.",
-      422
-    );
+}
+
+function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
+  const metadataElements = xmlChildren(manifest, "metadata");
+  const schemaElements = metadataElements.flatMap((metadata) => xmlChildren(metadata, "schema"));
+  const schemaVersionElements = metadataElements.flatMap(
+    (metadata) => xmlChildren(metadata, "schemaversion")
+  );
+  if (schemaElements.length === 0 || schemaVersionElements.length === 0) {
+    unsupportedScormVersion();
   }
-  const detected = new Set<ScormVersion>([declaredVersion]);
+  const schemas = schemaElements.map((element) => xmlText(element));
+  if (schemas.some((schema) => schema === null)) unsupportedScormVersion();
+  const normalizedSchemas = new Set(schemas.map((schema) => schema!.toUpperCase()));
+  if (normalizedSchemas.size !== 1 || !normalizedSchemas.has("ADL SCORM")) {
+    unsupportedScormVersion();
+  }
+  const declaredVersions = new Set<ScormVersion>();
+  const normalizedVersionDeclarations = new Set<string>();
+  for (const element of schemaVersionElements) {
+    const value = xmlText(element);
+    const normalizedValue = value === null ? null : normalizeDeclaredScormVersion(value);
+    const version = normalizedValue === null ? null : declaredScormVersion(normalizedValue);
+    if (version === null) unsupportedScormVersion();
+    normalizedVersionDeclarations.add(normalizedValue!);
+    declaredVersions.add(version);
+  }
+  if (normalizedVersionDeclarations.size !== 1 || declaredVersions.size !== 1) {
+    unsupportedScormVersion();
+  }
+
+  const detected = new Set<ScormVersion>(declaredVersions);
   for (const version of xmlNamespaceVersions(manifest)) detected.add(version);
   const visit = (element: StaticXmlElement) => {
     for (const attribute of Object.values(element.attributeMetadata)) {
@@ -291,13 +330,7 @@ function detectScormVersion(manifest: StaticXmlElement): ScormVersion {
     }
   };
   visit(manifest);
-  if (detected.size !== 1) {
-    throw new CourseImportError(
-      "SCORM_VERSION_UNSUPPORTED",
-      "The SCORM version could not be identified safely as 1.2 or 2004.",
-      422
-    );
-  }
+  if (detected.size !== 1) unsupportedScormVersion();
   return [...detected][0]!;
 }
 
@@ -357,7 +390,9 @@ function assertScormManifestRoot(manifest: StaticXmlElement) {
   }
 }
 
-function safeManifestPath(value: string | null, basePath = "") {
+const packageRootUrl = new URL("https://scorm-package.invalid/");
+
+function safeManifestReference(value: string | null, basePath: string) {
   if (!value) return null;
   const trimmed = value.trim();
   if (
@@ -385,12 +420,24 @@ function safeManifestPath(value: string | null, basePath = "") {
     decoded.startsWith("//") ||
     /^[A-Za-z][A-Za-z0-9+.-]*:/.test(decoded)
   ) return null;
+  if (decoded.split("/").some((segment) => segment === "..")) return null;
   try {
-    const combined = basePath ? `${basePath}/${decoded}` : decoded;
-    return canonicalizeArchivePath(combined).canonicalPath;
+    const baseUrl = new URL(basePath, packageRootUrl);
+    const resolved = new URL(decoded, baseUrl);
+    if (resolved.origin !== packageRootUrl.origin) return null;
+    const resolvedPath = decodeURIComponent(resolved.pathname.slice(1)).normalize("NFC");
+    if (resolvedPath === "") return "";
+    const canonicalPath = canonicalizeArchivePath(resolvedPath).canonicalPath;
+    return resolved.pathname.endsWith("/") ? `${canonicalPath}/` : canonicalPath;
   } catch {
     return null;
   }
+}
+
+function safeManifestPath(value: string | null, basePath = "") {
+  const resolved = safeManifestReference(value, basePath);
+  if (!resolved) return null;
+  return resolved.endsWith("/") ? resolved.slice(0, -1) : resolved;
 }
 
 function resolveElementBase(parentBase: string, element: StaticXmlElement) {
@@ -403,9 +450,8 @@ function resolveElementBase(parentBase: string, element: StaticXmlElement) {
       422
     );
   }
-  if (rawBase.trim() === ".") return parentBase;
-  const resolved = safeManifestPath(rawBase, parentBase);
-  if (!resolved) {
+  const resolved = safeManifestReference(rawBase, parentBase);
+  if (resolved === null) {
     throw new CourseImportError(
       "SCORM_XML_BASE_UNSAFE",
       "The SCORM manifest contains an unsafe xml:base path.",
@@ -439,20 +485,72 @@ function semanticElementProjection(element: StaticXmlElement): unknown {
   };
 }
 
+function attributeIsRepresented(element: StaticXmlElement, attribute: StaticXmlAttribute) {
+  if (attribute.uri === XML_NAMESPACE_DECLARATION_URI) return true;
+  if (
+    attribute.uri === XML_NAMESPACE_URI &&
+    attribute.local === "base" &&
+    xmlBaseMappedElements.has(element.local)
+  ) return true;
+  if (
+    element.local === "resource" &&
+    (attribute.local === "scormType" || attribute.local === "scormtype") &&
+    (
+      (attribute.prefix === "" && attribute.uri === "") ||
+      Object.prototype.hasOwnProperty.call(SCORM_ADLCP_NAMESPACES, attribute.uri)
+    )
+  ) return true;
+  return attribute.prefix === "" &&
+    attribute.uri === "" &&
+    (representedUnqualifiedAttributes.get(element.local)?.has(attribute.local) ?? false);
+}
+
 function unsupportedSemanticEvidence(manifest: StaticXmlElement) {
-  const roots: StaticXmlElement[] = [];
-  const visit = (element: StaticXmlElement) => {
-    for (const child of element.children) {
-      if (isCoreScormElement(child)) visit(child);
-      else roots.push(child);
+  const roots: Array<{ path: readonly number[]; element: StaticXmlElement }> = [];
+  const attributes: Array<{
+    path: readonly number[];
+    elementLocal: string;
+    elementUri: string;
+    attributeLocal: string;
+    attributeUri: string;
+    value: string;
+  }> = [];
+  const visit = (element: StaticXmlElement, path: readonly number[]) => {
+    for (const attribute of Object.values(element.attributeMetadata)) {
+      if (attributeIsRepresented(element, attribute)) continue;
+      attributes.push({
+        path,
+        elementLocal: element.local,
+        elementUri: element.uri,
+        attributeLocal: attribute.local,
+        attributeUri: attribute.uri,
+        value: attribute.value
+      });
     }
+    element.children.forEach((child, index) => {
+      const childPath = [...path, index];
+      if (isCoreScormElement(child)) visit(child, childPath);
+      else roots.push({ path: childPath, element: child });
+    });
   };
-  visit(manifest);
-  if (roots.length === 0) return null;
+  visit(manifest, []);
+  if (roots.length === 0 && attributes.length === 0) return null;
+  attributes.sort((left, right) => compareText(
+    `${left.path.join(".")}\u0000${left.elementUri}\u0000${left.elementLocal}\u0000${left.attributeUri}\u0000${left.attributeLocal}\u0000${left.value}`,
+    `${right.path.join(".")}\u0000${right.elementUri}\u0000${right.elementLocal}\u0000${right.attributeUri}\u0000${right.attributeLocal}\u0000${right.value}`
+  ));
+  const projection = {
+    attributes,
+    roots: roots.map(({ path, element }) => ({
+      path,
+      element: semanticElementProjection(element)
+    }))
+  };
   return {
     rootCount: roots.length,
+    attributeCount: attributes.length,
     sha256: createHash("sha256")
-      .update(JSON.stringify(roots.map(semanticElementProjection)), "utf8")
+      .update(JSON.stringify(projection), "utf8")
       .digest("hex")
   };
 }
@@ -614,7 +712,7 @@ export async function importScormPackage(
   if (semanticEvidence) {
     addWarning({
       code: "UNSUPPORTED_SEMANTIC_OMITTED",
-      message: "Unsupported extension or sequencing semantics were preserved only as a deterministic loss digest."
+      message: "Unsupported attributes, extension elements, or sequencing semantics were preserved only as a deterministic loss digest."
     });
   }
   const archivePaths = new Set(archive.entries.filter((entry) => !entry.isDirectory).map((entry) => entry.pathKey));
