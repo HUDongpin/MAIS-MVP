@@ -81,3 +81,5 @@ Remediation TDD evidence:
 - isolated `NEXT_DIST_DIR=.tmp/a22-classroom-unicode-quality-build npm run build`: PASS, including all 202 static-generation entries.
 
 These checks remain local code/test evidence. They do not prove CI, a merged PR, staging behavior, a real classroom load, deployment, provider configuration, production behavior, rollback, or monitoring.
+
+The post-fix reviewer found one remaining P2 alias-drift gap: the CLI redaction list did not share the full credential alias set consumed by request headers and demo login. A second RED/GREEN cycle centralized all accepted classroom/dashboard cookie, password, username, demo-password, and Vercel bypass aliases in `classroomSensitiveValues`; the same resolver inputs now drive runtime credential use and CLI failure redaction. An end-to-end local redirect reflector launches the real CLI once for every supported alias and proves the reflected sentinel is replaced with `[REDACTED]`. The focused suite now passes 10/10, and the required governance suite passes 113 tests with 102 pass, 0 fail, and 11 existing skips.

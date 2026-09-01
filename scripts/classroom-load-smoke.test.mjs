@@ -233,6 +233,111 @@ test("reports and printable failures exclude credential and identity sentinels",
   assert.match(printableFailure, /\[REDACTED\]/u);
 });
 
+test("the CLI redacts every supported credential alias and explicit username", async (t) => {
+  const classroomSensitiveValues = requiredExport("classroomSensitiveValues");
+  const reflector = await listen(async (request, response) => {
+    const chunks = [];
+    for await (const chunk of request) chunks.push(chunk);
+    const bodyText = Buffer.concat(chunks).toString("utf8");
+    let body = {};
+    try {
+      body = JSON.parse(bodyText);
+    } catch {}
+    const reflected =
+      request.headers["x-vercel-protection-bypass"] ||
+      request.headers.cookie ||
+      body.password ||
+      body.username ||
+      "missingcredential";
+    response.writeHead(307, { Location: `https://${reflected}.example/receive` });
+    response.end();
+  });
+  t.after(reflector.close);
+
+  const scenarios = [
+    {
+      env: { CLASSROOM_LOAD_COOKIE: "cookiealias19" },
+      key: "CLASSROOM_LOAD_COOKIE",
+      secret: "cookiealias19"
+    },
+    {
+      env: { CLASSROOM_LOAD_PASSWORD: "passwordalias27", CLASSROOM_LOAD_USERNAME: "fixtureuser" },
+      key: "CLASSROOM_LOAD_PASSWORD",
+      secret: "passwordalias27"
+    },
+    {
+      env: { CLASSROOM_LOAD_PASSWORD: "fixedpassword", CLASSROOM_LOAD_USERNAME: "usernamealias31" },
+      key: "CLASSROOM_LOAD_USERNAME",
+      secret: "usernamealias31"
+    },
+    {
+      env: { CLASSROOM_LOAD_DEMO_PASSWORD: "demopassword41", CLASSROOM_LOAD_USE_DEMO_LOGIN: "1" },
+      key: "CLASSROOM_LOAD_DEMO_PASSWORD",
+      secret: "demopassword41"
+    },
+    {
+      env: { DASHBOARD_SMOKE_PASSWORD: "dashboardpassword43", DASHBOARD_SMOKE_USE_DEMO_LOGIN: "1" },
+      key: "DASHBOARD_SMOKE_PASSWORD",
+      secret: "dashboardpassword43"
+    },
+    {
+      env: {
+        CLASSROOM_LOAD_PASSWORD: "fixedpassword",
+        CLASSROOM_LOAD_USERNAME: "fixtureuser",
+        CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET: "classroombypass47"
+      },
+      key: "CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET",
+      secret: "classroombypass47"
+    },
+    {
+      env: {
+        CLASSROOM_LOAD_PASSWORD: "fixedpassword",
+        CLASSROOM_LOAD_USERNAME: "fixtureuser",
+        DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET: "dashboardbypass53"
+      },
+      key: "DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET",
+      secret: "dashboardbypass53"
+    },
+    {
+      env: {
+        CLASSROOM_LOAD_PASSWORD: "fixedpassword",
+        CLASSROOM_LOAD_USERNAME: "fixtureuser",
+        VERCEL_AUTOMATION_BYPASS_SECRET: "automationbypass59"
+      },
+      key: "VERCEL_AUTOMATION_BYPASS_SECRET",
+      secret: "automationbypass59"
+    }
+  ];
+
+  for (const scenario of scenarios) {
+    const env = {
+      CLASSROOM_LOAD_BASE_URL: reflector.origin,
+      CLASSROOM_LOAD_ROUNDS: "1",
+      CLASSROOM_LOAD_STUDENTS: "1",
+      ...scenario.env
+    };
+    assert.ok(
+      classroomSensitiveValues({}, env).includes(scenario.secret),
+      `${scenario.key} must be included in the shared redaction source`
+    );
+    let failure;
+    try {
+      await execFileAsync(process.execPath, [smokePath], {
+        cwd: repoRoot,
+        env,
+        maxBuffer: 1024 * 1024,
+        timeout: 10_000
+      });
+    } catch (error) {
+      failure = error;
+    }
+    assert.ok(failure, `${scenario.key} probe must fail on the refused redirect`);
+    const stderr = String(failure.stderr ?? "");
+    assert.doesNotMatch(stderr, new RegExp(scenario.secret, "u"));
+    assert.match(stderr, /\[REDACTED\]/u);
+  }
+});
+
 test("required governance executes the security self-test concurrently without shared fixtures", async () => {
   const options = { cwd: repoRoot, maxBuffer: 1024 * 1024, timeout: 60_000 };
   const [left, right] = await Promise.all([

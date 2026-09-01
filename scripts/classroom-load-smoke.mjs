@@ -210,14 +210,40 @@ function cookieHeaderFromSetCookie(headers) {
     .join("; ");
 }
 
+function classroomProtectionBypassSecret(env = process.env) {
+  return (
+    env.CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET ||
+    env.DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET ||
+    env.VERCEL_AUTOMATION_BYPASS_SECRET ||
+    ""
+  );
+}
+
+function classroomDemoPassword(env = process.env) {
+  return env.CLASSROOM_LOAD_DEMO_PASSWORD || env.DASHBOARD_SMOKE_PASSWORD || "";
+}
+
+export function classroomSensitiveValues(args = {}, env = process.env) {
+  return [
+    args.cookie,
+    args.password,
+    args.username,
+    env.CLASSROOM_LOAD_COOKIE,
+    env.CLASSROOM_LOAD_DEMO_PASSWORD,
+    env.DASHBOARD_SMOKE_PASSWORD,
+    env.CLASSROOM_LOAD_PASSWORD,
+    env.CLASSROOM_LOAD_USERNAME,
+    env.CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET,
+    env.DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET,
+    env.VERCEL_AUTOMATION_BYPASS_SECRET
+  ].filter((candidate) => typeof candidate === "string" && candidate.length > 0);
+}
+
 function authHeaders(cookie, expectedUserId, env = process.env) {
   const headers = {};
   if (cookie) headers.Cookie = cookie;
   if (expectedUserId) headers["X-MAIS-Expected-User-Id"] = expectedUserId;
-  const bypassSecret =
-    env.CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET ||
-    env.DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET ||
-    env.VERCEL_AUTOMATION_BYPASS_SECRET;
+  const bypassSecret = classroomProtectionBypassSecret(env);
   if (bypassSecret) headers["x-vercel-protection-bypass"] = bypassSecret;
   return headers;
 }
@@ -236,7 +262,7 @@ export function classroomSmokeCredentials(args, studentCount, env = process.env)
     roster = [{ password: args.password, username: args.username }];
     authMode = "username-password";
   } else if (demoLoginEnabled(env)) {
-    const demoPassword = env.CLASSROOM_LOAD_DEMO_PASSWORD || env.DASHBOARD_SMOKE_PASSWORD || "";
+    const demoPassword = classroomDemoPassword(env);
     if (!demoPassword) {
       throw new Error(
         "Demo roster login requires CLASSROOM_LOAD_DEMO_PASSWORD from the owner-approved demo seed contract; no credential is embedded in this script."
@@ -349,7 +375,10 @@ async function readResponseTextWithLimit(response, maxBodyBytes, controller) {
 
 export function redactSensitiveText(value, secrets = []) {
   let redacted = typeof value === "string" ? value : String(value);
-  for (const secret of new Set(secrets.filter((candidate) => typeof candidate === "string" && candidate.length >= 4))) {
+  const uniqueSecrets = [...new Set(
+    secrets.filter((candidate) => typeof candidate === "string" && candidate.length > 0)
+  )].sort((left, right) => right.length - left.length);
+  for (const secret of uniqueSecrets) {
     redacted = redacted.split(secret).join("[REDACTED]");
   }
   return redacted;
@@ -1338,17 +1367,7 @@ if (isMain) {
       await runSmoke(args);
     }
   } catch (error) {
-    const secrets = [
-      args?.cookie,
-      args?.password,
-      args?.username,
-      process.env.CLASSROOM_LOAD_COOKIE,
-      process.env.CLASSROOM_LOAD_DEMO_PASSWORD,
-      process.env.CLASSROOM_LOAD_PASSWORD,
-      process.env.CLASSROOM_LOAD_USERNAME,
-      process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
-      process.env.VERCEL_PROTECTION_BYPASS
-    ];
+    const secrets = classroomSensitiveValues(args, process.env);
     const message = redactSensitiveText(error instanceof Error ? error.message : String(error), secrets);
     console.error(`classroom-load-smoke: ${message}`);
     process.exitCode = 1;
