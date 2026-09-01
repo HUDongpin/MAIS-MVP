@@ -29,6 +29,10 @@ import {
   throttledLearningAnalyticsFlushMs
 } from "@/lib/learningAnalytics";
 import { isVisualizationLabPath } from "@/lib/visualizationRoutes";
+import {
+  buildRegistrationRequestInit,
+  classifyRegistrationFailure
+} from "@/components/providers/teacherInviteRegistrationClient";
 import type {
   CurriculumTrack,
   CurriculumProfile,
@@ -269,12 +273,6 @@ async function readAuthErrorCode(response: Response) {
 
 async function unavailableAuthReason(response: Response): Promise<AuthActionResult["reason"]> {
   return (await readAuthErrorCode(response)) === "session-secret-missing" ? "setup" : "error";
-}
-
-async function forbiddenAuthReason(response: Response): Promise<AuthActionResult["reason"]> {
-  return (await readAuthErrorCode(response)).startsWith("teacher-invite-")
-    ? "teacher-invite"
-    : "error";
 }
 
 const isGrade = isValidGradeId;
@@ -1647,12 +1645,9 @@ export function AppProviders({
   }, [beginAuthenticatedDocumentTransition, language, theme]);
 
   const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile, teacherInviteCode }: RegisterInput): Promise<AuthActionResult> => {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+    const response = await fetch(
+      "/api/auth/register",
+      buildRegistrationRequestInit({
         role,
         name,
         username,
@@ -1665,14 +1660,10 @@ export function AppProviders({
         language,
         theme
       })
-    });
+    );
 
     if (!response.ok) {
-      if (response.status === 409) return { ok: false, reason: "duplicate" };
-      if (response.status === 400) return { ok: false, reason: "invalid" };
-      if (response.status === 403) return { ok: false, reason: await forbiddenAuthReason(response) };
-      if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
-      return { ok: false, reason: "error" };
+      return { ok: false, reason: await classifyRegistrationFailure(response) };
     }
 
     const session = readAuthSession(await response.json());

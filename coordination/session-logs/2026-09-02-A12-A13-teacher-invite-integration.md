@@ -60,3 +60,31 @@ Intended tests/log: `app/api/auth/register/routeTeacherInviteGate.test.ts`, `com
 - `deploymentCreated`, `providerReadyAlias`, `sameShaRouteReadback`, `liveRequiredBehavior`, `rollback`, `monitoring`: not run and not authorized.
 - Intended handoff outcome: `DONE_WITH_CONCERNS` because the package checks pass while the pre-existing non-ASCII path-safety wrapper does not.
 - Claim ceiling: at most a committed, pushed, locally verified current-main integration package. No `main`, CI, provider configuration, deployment, same-SHA route, live behavior, rollback, or monitoring claim is authorized.
+
+## Sweep security and test-quality remediation
+
+- Review follow-up owner/scope: A12/A13, with the same A08/A11/A19 shared-surface coordination. The initial package commit `8b7f794dfa5e5e88780077dd074cf8109121e23c` was already pushed before this follow-up; the remediation remains on the same branch/worktree and retains the 2026-09-02 HKT closeout target.
+- Live remote `main` remained `be92640f4bb8933ed8a99ed7c1ea604428c6a56f` at final review. No merge, deploy, provider change, real environment read/write, or secret logging occurred.
+- Security behavior: teacher invite tokens now require exact `tinv_` plus 32 lowercase hexadecimal characters; any malformed configured entry closes the whole gate. All invite denial states expose the same private `403` code/copy. A separate `teacher-invite-ip` bucket permits 12 attempts per IP per 15 minutes, independently of the general 240-attempt registration bucket.
+- Client/harness behavior: the invite input uses `type="password"` and the shared 37-character maximum; the provider uses executable request construction and exact error-code classification. Playwright passes the test invite through `webServer.env`, not the shell command string. Isolated apps use the safe test default when absent, accept an explicit option override, and preserve an explicit empty string to close teacher self-registration.
+- Compatibility: focused API coverage proves teacher denial/acceptance and rate limiting while student and parent registration still succeed and admin self-registration remains forbidden. No invite value is written to application logs or error bodies.
+
+### Follow-up RED and GREEN
+
+- RED before production edits:
+  - `lib/server/teacherInviteCode.test.ts`: failed because case-normalized legacy verification accepted a token outside the exact lowercase format.
+  - `app/api/auth/register/routeTeacherInviteGate.test.ts`: failed because the API exposed configuration/missing/invalid distinctions instead of one denial.
+  - `components/providers/teacherInviteRegistrationClient.test.ts`: failed because the executable request/classifier module did not exist; the prior test only inspected source regexes.
+  - focused isolated-app preflight: failed because the old default was not a valid token and the helper always overwrote option-level configuration.
+  - focused parent structural assertion: failed because `TEACHER_INVITE_CODES` was still embedded in the Playwright command string.
+- GREEN after implementation: all five focused targets passed. The expanded focused set covering the route, helper, executable client, auth guard, and complete isolated-app preflight passed 42/42.
+- The first post-GREEN type-check correctly caught a test-only `NodeJS.ProcessEnv` fixture missing `NODE_ENV`; the fixture was corrected without changing runtime semantics. Fresh `npm run type-check` then passed.
+
+### Follow-up verification
+
+- `node --test --test-concurrency=1 scripts/parent-console-gates.test.mjs`: PASS, 15/15.
+- Direct parent-console manifest compilation and runtime, bypassing only the previously documented path-safety wrapper: PASS, 47 explicit files and 406/406 runtime tests, zero fail/cancelled/skipped/todo. An initial temporary invocation passed compilation but did not execute tests because zsh kept the newline-separated paths as one argument; the exact temp directory was removed, the invocation was corrected to an array, and the authoritative 406/406 run then passed.
+- Fresh isolated production build: `GIT_DIR=<resolved linked gitdir> GIT_WORK_TREE=<physical worktree> NEXT_DIST_DIR=.tmp/teacher-invite-security-next-build npm run build`: PASS, including `/api/auth/register` and `/register` among 202 generated route entries.
+- Focused production Playwright HTTP test: `teacher self-registration requires the configured invite code` on `desktop-chrome`: PASS, 1/1. This exercised missing, invalid, and accepted teacher requests against the web server configured through the non-argv environment channel.
+- Final package requirements remain `DONE_WITH_CONCERNS`: direct Teacher tests, parent runtime regression, type-check, build, and focused Playwright are green; the known non-ASCII path-safety wrapper itself remains outside this package and therefore is not claimed green.
+- Follow-up claim ceiling: committed and ordinarily pushed branch package, locally verified at the named layers only. No `main`, CI, PR, provider configuration, deployment, live route, rollback, or monitoring claim.

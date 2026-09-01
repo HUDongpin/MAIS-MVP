@@ -510,13 +510,13 @@ test.describe("backend API integration", () => {
 
       const missing = await context.post("/api/auth/register", { data: teacherPayload });
       expect(missing.status()).toBe(403);
-      expect(await missing.json()).toMatchObject({ code: "teacher-invite-code-required" });
+      expect(await missing.json()).toMatchObject({ code: "teacher-invite-denied" });
 
       const invalid = await context.post("/api/auth/register", {
         data: { ...teacherPayload, teacherInviteCode: "not-the-configured-code" }
       });
       expect(invalid.status()).toBe(403);
-      expect(await invalid.json()).toMatchObject({ code: "teacher-invite-code-invalid" });
+      expect(await invalid.json()).toMatchObject({ code: "teacher-invite-denied" });
 
       const accepted = await context.post("/api/auth/register", {
         data: { ...teacherPayload, teacherInviteCode }

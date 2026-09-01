@@ -11,11 +11,21 @@ function restoreEnv(key: string, value: string | undefined) {
 
 type RegisterBody = Record<string, unknown>;
 
-async function registerRequest(body: RegisterBody) {
+const validInvite = "tinv_0123456789abcdef0123456789abcdef";
+const secondValidInvite = "tinv_fedcba9876543210fedcba9876543210";
+const unifiedInviteDenial = {
+  code: "teacher-invite-denied",
+  error: "Teacher registration could not be authorized. Ask your school administrator for a current invite code."
+};
+
+async function registerRequest(body: RegisterBody, forwardedFor?: string) {
   const { POST } = await import("./route");
   return POST(new Request("https://example.test/api/auth/register", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(forwardedFor ? { "x-forwarded-for": forwardedFor } : {})
+    },
     body: JSON.stringify(body)
   }));
 }
@@ -60,20 +70,28 @@ test("teacher registration requires a configured invite while student registrati
     delete process.env.TEACHER_INVITE_CODES;
     const unconfigured = await registerRequest(teacherPayload("unconfigured"));
     assert.equal(unconfigured.status, 403);
-    assert.equal((await unconfigured.json() as { code?: string }).code, "teacher-invite-registration-closed");
+    assert.deepEqual(await unconfigured.json(), unifiedInviteDenial);
 
-    process.env.TEACHER_INVITE_CODES = "first-school-code,second-school-code";
+    process.env.TEACHER_INVITE_CODES = `${validInvite},legacy-school-code`;
+    const invalidConfiguration = await registerRequest({
+      ...teacherPayload("invalid-configuration"),
+      teacherInviteCode: validInvite
+    });
+    assert.equal(invalidConfiguration.status, 403);
+    assert.deepEqual(await invalidConfiguration.json(), unifiedInviteDenial);
+
+    process.env.TEACHER_INVITE_CODES = `${validInvite},${secondValidInvite}`;
     const missing = await registerRequest(teacherPayload("missing"));
     assert.equal(missing.status, 403);
-    assert.equal((await missing.json() as { code?: string }).code, "teacher-invite-code-required");
+    assert.deepEqual(await missing.json(), unifiedInviteDenial);
 
     const wrong = await registerRequest({ ...teacherPayload("wrong"), teacherInviteCode: "not-a-real-code" });
     assert.equal(wrong.status, 403);
-    assert.equal((await wrong.json() as { code?: string }).code, "teacher-invite-code-invalid");
+    assert.deepEqual(await wrong.json(), unifiedInviteDenial);
 
     const accepted = await registerRequest({
       ...teacherPayload("missing"),
-      teacherInviteCode: " First-School-Code "
+      teacherInviteCode: ` ${validInvite} `
     });
     assert.equal(accepted.status, 200);
     assert.equal((await accepted.json() as { user?: { role?: string } }).user?.role, "teacher");
@@ -90,6 +108,41 @@ test("teacher registration requires a configured invite while student registrati
     });
     assert.equal(student.status, 200);
     assert.equal((await student.json() as { user?: { role?: string } }).user?.role, "student");
+
+    const parent = await registerRequest({
+      role: "parent",
+      name: "Invite Gate Parent",
+      username: "invite-gate-parent@example.test",
+      email: "invite-gate-parent@example.test",
+      password: "start12345",
+      language: "en",
+      theme: "dark"
+    });
+    assert.equal(parent.status, 200);
+    assert.equal((await parent.json() as { user?: { role?: string } }).user?.role, "parent");
+
+    const admin = await registerRequest({
+      ...teacherPayload("admin-forbidden"),
+      role: "admin",
+      teacherInviteCode: validInvite
+    });
+    assert.equal(admin.status, 403);
+    assert.match((await admin.json() as { error: string }).error, /administrator/u);
+
+    for (let attempt = 1; attempt <= 12; attempt += 1) {
+      const rejected = await registerRequest({
+        ...teacherPayload(`rate-limit-${attempt}`),
+        teacherInviteCode: `tinv_${String(attempt).padStart(32, "0")}`
+      }, "198.51.100.88");
+      assert.equal(rejected.status, 403, `attempt ${attempt} should reach the uniform invite denial`);
+      assert.deepEqual(await rejected.json(), unifiedInviteDenial);
+    }
+    const rateLimited = await registerRequest({
+      ...teacherPayload("rate-limited"),
+      teacherInviteCode: "tinv_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }, "198.51.100.88");
+    assert.equal(rateLimited.status, 429);
+    assert.equal((await rateLimited.json() as { code?: string }).code, "rate-limited");
   } finally {
     for (const key of envKeys) restoreEnv(key, previous.get(key));
     await rm(dbDir, { recursive: true, force: true });

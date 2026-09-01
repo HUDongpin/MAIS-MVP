@@ -48,16 +48,10 @@ async function durableStorageRegistrationBlockResponse() {
   }, { status: 503 });
 }
 
-const teacherInviteRejectionCopy = {
-  "registration-closed": "Teacher accounts are not self-served on this deployment. Ask your school administrator to create one.",
-  "code-required": "A school invite code is required to create a teacher account.",
-  "code-invalid": "That school invite code is not valid. Check it with your school administrator."
-} as const;
-
-function teacherInviteRejectionResponse(reason: keyof typeof teacherInviteRejectionCopy) {
+function teacherInviteRejectionResponse() {
   return NextResponse.json({
-    code: `teacher-invite-${reason}`,
-    error: teacherInviteRejectionCopy[reason]
+    code: "teacher-invite-denied",
+    error: "Teacher registration could not be authorized. Ask your school administrator for a current invite code."
   }, { status: 403 });
 }
 
@@ -97,9 +91,16 @@ async function handleRegister(request: Request) {
   if (ipRateLimit) return ipRateLimit;
 
   if (requestedRole === "teacher") {
+    const teacherInviteRateLimit = consumeAuthRateLimit({
+      request,
+      scope: "teacher-invite-ip",
+      rule: authRateLimitRules.teacherInviteIp
+    });
+    if (teacherInviteRateLimit) return teacherInviteRateLimit;
+
     const invite = verifyTeacherInviteCode(body.teacherInviteCode);
     if (invite.status === "rejected") {
-      return teacherInviteRejectionResponse(invite.reason);
+      return teacherInviteRejectionResponse();
     }
   }
 

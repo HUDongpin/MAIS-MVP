@@ -1,6 +1,10 @@
 import { createHash, timingSafeEqual } from "node:crypto";
+import {
+  isTeacherInviteCode,
+  TEACHER_INVITE_CODE_MAX_LENGTH
+} from "@/lib/teacherInviteCodeContract";
 
-const maxTeacherInviteCodeLength = 256;
+const maxSubmittedTeacherInviteCodeLength = TEACHER_INVITE_CODE_MAX_LENGTH + 16;
 
 export type TeacherInviteCodeVerdict =
   | { status: "accepted" }
@@ -9,19 +13,21 @@ export type TeacherInviteCodeVerdict =
       reason: "registration-closed" | "code-required" | "code-invalid";
     };
 
-function normalizeInviteCode(value: string) {
-  return value.trim().toLowerCase();
-}
-
 function inviteCodeDigest(value: string) {
-  return createHash("sha256").update(normalizeInviteCode(value)).digest();
+  return createHash("sha256").update(value).digest();
 }
 
 export function configuredTeacherInviteCodes() {
-  return (process.env.TEACHER_INVITE_CODES ?? "")
+  const configured = (process.env.TEACHER_INVITE_CODES ?? "")
     .split(/[,\n]/)
     .map((code) => code.trim())
-    .filter((code) => code.length > 0 && code.length <= maxTeacherInviteCodeLength);
+    .filter(Boolean);
+
+  if (configured.length === 0 || configured.some((code) => !isTeacherInviteCode(code))) {
+    return [];
+  }
+
+  return Array.from(new Set(configured));
 }
 
 export function teacherSelfRegistrationConfigured() {
@@ -34,12 +40,13 @@ export function verifyTeacherInviteCode(submittedCode: unknown): TeacherInviteCo
     return { status: "rejected", reason: "registration-closed" };
   }
 
-  if (typeof submittedCode === "string" && submittedCode.length > maxTeacherInviteCodeLength) {
+  if (typeof submittedCode === "string" && submittedCode.length > maxSubmittedTeacherInviteCodeLength) {
     return { status: "rejected", reason: "code-invalid" };
   }
 
   const code = typeof submittedCode === "string" ? submittedCode.trim() : "";
   if (!code) return { status: "rejected", reason: "code-required" };
+  if (!isTeacherInviteCode(code)) return { status: "rejected", reason: "code-invalid" };
 
   const submittedDigest = inviteCodeDigest(code);
   const matched = configured.reduce(

@@ -316,6 +316,8 @@ test("CI uses a fresh production build for isolated parent tests and rejects fla
 
   const config = readRepoFile("playwright.config.ts");
   assert.match(config, /failOnFlakyTests:\s*Boolean\(process\.env\.CI\)/u);
+  assert.match(config, /env:\s*\{[\s\S]*?TEACHER_INVITE_CODES:\s*e2eTeacherInviteCode[\s\S]*?\}/u);
+  assert.doesNotMatch(config, /TEACHER_INVITE_CODES=\$\{shellQuote\(e2eTeacherInviteCode\)\}/u);
 });
 
 test("shared parent API reads retry one connection reset without relaxing HTTP assertions", () => {

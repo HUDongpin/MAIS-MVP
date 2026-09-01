@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import { teacherInviteInputAttributes } from "@/components/providers/teacherInviteRegistrationClient";
 import { GradeSelector } from "@/components/ui/GradeSelector";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
 import { recordAuthFunnelEvent } from "@/lib/authFunnelClient";
@@ -1039,9 +1040,9 @@ export default function RegisterPage() {
                           <input
                             id="register-teacher-invite-code"
                             name="teacherInviteCode"
+                            {...teacherInviteInputAttributes}
                             value={teacherInviteCode}
                             onChange={(event) => setTeacherInviteCode(event.target.value)}
-                            autoComplete="off"
                             required
                             aria-describedby="register-teacher-invite-code-help"
                             className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"

@@ -11,6 +11,7 @@ type RateLimitScope =
   | "login-ip"
   | "login-identifier"
   | "register-ip"
+  | "teacher-invite-ip"
   | "password-reset-ip"
   | "password-reset-identifier"
   | "password-reset-confirm-ip"
@@ -62,6 +63,7 @@ export const authRateLimitRules = {
   loginIp: { max: 300, windowMs: 15 * 60 * 1000 },
   loginIdentifier: { max: loginIdentifierMaxFromEnv(), windowMs: 15 * 60 * 1000 },
   registerIp: { max: 240, windowMs: 15 * 60 * 1000 },
+  teacherInviteIp: { max: 12, windowMs: 15 * 60 * 1000 },
   passwordResetIp: { max: 60, windowMs: 15 * 60 * 1000 },
   passwordResetIdentifier: { max: 5, windowMs: 15 * 60 * 1000 },
   passwordResetConfirmIp: { max: 40, windowMs: 15 * 60 * 1000 },

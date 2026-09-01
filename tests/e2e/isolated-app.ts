@@ -25,7 +25,7 @@ import type {
 } from "./isolated-app-lease-guardian";
 
 const teacherInviteCode =
-  process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "e2e-teacher-invite";
+  process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "tinv_8f14e45fceea167a5a36dedd4bea2543";
 
 export type IsolatedAppOptions = {
   warmPaths?: string[];
@@ -47,13 +47,17 @@ export function isolatedAppProcessEnvironment(
   optionEnv: Record<string, string | undefined>,
   identity: IsolatedAppEnvironmentIdentity
 ): NodeJS.ProcessEnv {
+  const configuredTeacherInviteCodes = Object.prototype.hasOwnProperty.call(optionEnv, "TEACHER_INVITE_CODES")
+    ? optionEnv.TEACHER_INVITE_CODES
+    : teacherInviteCode;
+
   return {
     ...baseEnv,
     ...optionEnv,
     AUTH_SESSION_SECRET: identity.authSessionSecret,
     HK_MATH_DB_PATH: identity.dbPath,
     HK_MATH_ENABLE_DEMO_USER: "true",
-    TEACHER_INVITE_CODES: teacherInviteCode,
+    TEACHER_INVITE_CODES: configuredTeacherInviteCodes,
     HK_MATH_EXPOSE_LOCAL_RESET_LINKS: "true",
     AI_TUTOR_MAX_REQUESTS_PER_MINUTE: "2",
     NEXT_DIST_DIR: identity.nextDistDir,

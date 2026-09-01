@@ -1,33 +1,58 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import test from "node:test";
+import {
+  buildRegistrationRequestInit,
+  classifyRegistrationFailure,
+  teacherInviteInputAttributes
+} from "./teacherInviteRegistrationClient";
+import { TEACHER_INVITE_CODE_MAX_LENGTH } from "../../lib/teacherInviteCodeContract";
 
-const projectRoot = process.cwd();
+const validInvite = "tinv_0123456789abcdef0123456789abcdef";
 
-test("teacher registration UI, provider, and test harness carry the server-only invite code", async () => {
-  const [provider, page, helper, isolatedApp, playwrightConfig, envExample] = await Promise.all([
-    readFile(path.join(projectRoot, "components/providers/AppProviders.tsx"), "utf8"),
-    readFile(path.join(projectRoot, "app/register/page.tsx"), "utf8"),
-    readFile(path.join(projectRoot, "tests/e2e/helpers.ts"), "utf8"),
-    readFile(path.join(projectRoot, "tests/e2e/isolated-app.ts"), "utf8"),
-    readFile(path.join(projectRoot, "playwright.config.ts"), "utf8"),
-    readFile(path.join(projectRoot, ".env.local.example"), "utf8")
-  ]);
+test("registration request and failure classification execute the teacher invite contract", async () => {
+  const teacherRequest = buildRegistrationRequestInit({
+    role: "teacher",
+    name: "Teacher",
+    password: "start12345",
+    teacherInviteCode: validInvite
+  });
+  assert.equal(teacherRequest.method, "POST");
+  assert.deepEqual(teacherRequest.headers, { "Content-Type": "application/json" });
+  assert.deepEqual(JSON.parse(String(teacherRequest.body)), {
+    role: "teacher",
+    name: "Teacher",
+    password: "start12345",
+    teacherInviteCode: validInvite
+  });
 
-  assert.match(provider, /teacherInviteCode\?: string/);
-  assert.match(provider, /\| "teacher-invite"/);
-  assert.match(provider, /teacherInviteCode\s*}\s*:\s*RegisterInput/);
-  assert.match(provider, /teacherInviteCode,\s*\n\s*language/);
-  assert.match(provider, /response\.status === 403.*forbiddenAuthReason/);
+  const studentRequest = buildRegistrationRequestInit({
+    role: "student",
+    name: "Student",
+    password: "start12345",
+    teacherInviteCode: undefined
+  });
+  assert.equal("teacherInviteCode" in JSON.parse(String(studentRequest.body)), false);
 
-  assert.match(page, /const \[teacherInviteCode, setTeacherInviteCode\] = useState\(""/);
-  assert.match(page, /teacherInviteCode: isTeacherRegistration \? teacherInviteCode : undefined/);
-  assert.match(page, /id="register-teacher-invite-code"/);
-  assert.match(page, /result\.reason === "teacher-invite"/);
+  assert.equal(await classifyRegistrationFailure(new Response(null, { status: 409 })), "duplicate");
+  assert.equal(await classifyRegistrationFailure(new Response(null, { status: 400 })), "invalid");
+  assert.equal(await classifyRegistrationFailure(new Response(JSON.stringify({ code: "teacher-invite-denied" }), {
+    status: 403,
+    headers: { "Content-Type": "application/json" }
+  })), "teacher-invite");
+  assert.equal(await classifyRegistrationFailure(new Response(JSON.stringify({ code: "teacher-invite-not-a-real-server-code" }), {
+    status: 403,
+    headers: { "Content-Type": "application/json" }
+  })), "error");
+  assert.equal(await classifyRegistrationFailure(new Response(JSON.stringify({ code: "session-secret-missing" }), {
+    status: 503,
+    headers: { "Content-Type": "application/json" }
+  })), "setup");
+  assert.equal(await classifyRegistrationFailure(new Response("not-json", { status: 503 })), "error");
 
-  assert.match(helper, /export const teacherInviteCode =/);
-  assert.match(isolatedApp, /TEACHER_INVITE_CODES: teacherInviteCode/);
-  assert.match(playwrightConfig, /TEACHER_INVITE_CODES=\$\{shellQuote\(e2eTeacherInviteCode\)\}/);
-  assert.match(envExample, /^TEACHER_INVITE_CODES=$/m);
+  assert.deepEqual(teacherInviteInputAttributes, {
+    type: "password",
+    autoComplete: "off",
+    maxLength: TEACHER_INVITE_CODE_MAX_LENGTH
+  });
+  assert.equal(TEACHER_INVITE_CODE_MAX_LENGTH, validInvite.length);
 });

@@ -7,7 +7,7 @@ const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
 const e2eTeacherInviteCode =
-  process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "e2e-teacher-invite";
+  process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "tinv_8f14e45fceea167a5a36dedd4bea2543";
 const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
 const e2eRuntimeRoot = path.resolve(".tmp", "china-lesson-e2e-runtime");
 const e2eOwnedRunRoot = path.join(e2eRuntimeRoot, "runs", runId);
@@ -701,8 +701,11 @@ export default defineConfig({
           writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
           `node scripts/with-next-env-restore.mjs -- env NEXT_DIST_DIR=${shellQuote(e2eNextDistEnvPath)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigEnvPath)} ${disabledProviderEnv} NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS=true npm run build`,
           `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistEnvPath)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true TEACHER_INVITE_CODES=${shellQuote(e2eTeacherInviteCode)} AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port}`
+          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistEnvPath)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port}`
         ].join(" && "),
+        env: {
+          TEACHER_INVITE_CODES: e2eTeacherInviteCode
+        },
         url: baseURL,
         gracefulShutdown: { signal: "SIGTERM", timeout: 20_000 },
         reuseExistingServer: false,
