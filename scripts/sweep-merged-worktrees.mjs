@@ -325,6 +325,7 @@ export function createPostflightReceipt({
   preTopologyFingerprint,
   postTopologyFingerprint,
   finalTopologyEvidence,
+  batchOutcome: suppliedBatchOutcome = null,
   results,
 }) {
   const safeResults = results.map((result) => ({
@@ -342,6 +343,12 @@ export function createPostflightReceipt({
       ? { postRemovalEvidence: { ...result.postRemovalEvidence } }
       : {}),
   }));
+  const batchOutcome = suppliedBatchOutcome ?? {
+    status: safeResults.every((result) => result.status === "removed") ? "success" : "blocked",
+    reason: safeResults.every((result) => result.status === "removed")
+      ? null
+      : "one or more batch targets were not removed",
+  };
   return {
     schemaVersion: "sweep-merged-worktrees.postflight-receipt.v1",
     manifestSha256,
@@ -356,6 +363,10 @@ export function createPostflightReceipt({
       fingerprint: postTopologyFingerprint ?? null,
     },
     invariants: { forceUsed: false, remoteDeletionAttempted: false },
+    batchOutcome: {
+      status: batchOutcome.status,
+      reason: redactSecretLikePath(batchOutcome.reason),
+    },
     summary: {
       attempted: safeResults.length,
       removed: safeResults.filter((result) => result.status === "removed").length,
@@ -478,6 +489,7 @@ export function runAuthorizedApply({
       });
     }
   } else {
+    deps.beforeMutation?.();
     for (let index = 0; index < targets.length; index++) {
       const target = targets[index];
       const stopRemaining = (reason) => {
@@ -592,11 +604,16 @@ export function runAuthorizedApply({
   try { observedLiveMain = deps.readLiveMainEvidence(); }
   catch { observedLiveMain = { available: false, sha: null, source: null }; }
   let finalTopologyEvidence;
+  let finalTopologyReason = null;
   try {
+    const finalTopology = deps.readWorktrees();
     finalTopologyEvidence = {
       available: true,
-      fingerprint: fingerprintFleet(deps.readWorktrees()),
+      fingerprint: fingerprintFleet(finalTopology),
     };
+    if (finalTopologyEvidence.fingerprint !== fingerprintFleet(expectedFleet ?? [])) {
+      finalTopologyReason = "final topology fingerprint drift (fleet topology fingerprint drift after removal)";
+    }
   } catch {
     finalTopologyEvidence = { available: false, fingerprint: null };
   }
@@ -615,30 +632,47 @@ export function runAuthorizedApply({
       ...result,
     };
   });
-  const receipt = createPostflightReceipt({
+  const postflightCurrent = observedLiveMain?.available
+    && observedLiveMain.source === "git-ls-remote"
+    && observedLiveMain.sha === expectedLiveMainSha;
+  let postflightReason = !postflightCurrent
+    ? "postflight live-main evidence unavailable or drifted"
+    : !finalTopologyEvidence.available
+      ? "final topology evidence unavailable"
+      : finalTopologyReason ?? batchStopReason
+        ?? (results.every((result) => result.status === "removed")
+          ? null
+          : "one or more batch targets were not removed");
+  const batchOutcome = {
+    status: postflightReason ? "blocked" : "success",
+    reason: postflightReason,
+  };
+  let completedAt;
+  try { completedAt = deps.now(); }
+  catch {
+    batchStopReason ??= "completion timestamp unavailable";
+    completedAt = startedAt ?? null;
+  }
+  if (!postflightReason && batchStopReason) {
+    postflightReason = batchStopReason;
+    batchOutcome.status = "blocked";
+    batchOutcome.reason = batchStopReason;
+  }
+  const durableReceipt = createPostflightReceipt({
     manifestSha256: authorization.manifestSha256,
     expectedLiveMainSha,
     observedLiveMainSha: observedLiveMain?.available ? observedLiveMain.sha : null,
     startedAt,
-    completedAt: deps.now(),
+    completedAt,
     preTopologyFingerprint,
     postTopologyFingerprint: finalTopologyEvidence.fingerprint,
     finalTopologyEvidence,
+    batchOutcome,
     results: receiptResults,
   });
-  const postflightCurrent = observedLiveMain?.available
-    && observedLiveMain.source === "git-ls-remote"
-    && observedLiveMain.sha === expectedLiveMainSha;
-  const postflightReason = !postflightCurrent
-    ? "postflight live-main evidence unavailable or drifted"
-    : !finalTopologyEvidence.available
-      ? "final topology evidence unavailable"
-      : batchStopReason;
   return {
-    ok: postflightCurrent
-      && finalTopologyEvidence.available
-      && results.every((result) => result.status === "removed"),
-    receipt,
+    ok: batchOutcome.status === "success",
+    receipt: durableReceipt,
     postflightReason,
   };
 }
@@ -1453,20 +1487,23 @@ export function main(argv, providers) {
       ),
       removeWorktree: (command) => runtime.removeWorktree(command, primaryRoot),
       now: () => runtime.now(),
+      beforeMutation: () => runtime.beforeMutation?.(),
     });
   } catch {
+    const batchOutcome = { status: "blocked", reason: "apply engine failed closed" };
     execution = {
       ok: false,
-      postflightReason: "apply engine failed closed",
+      postflightReason: batchOutcome.reason,
       receipt: createPostflightReceipt({
         manifestSha256: authorization.manifestSha256,
         expectedLiveMainSha: args.expectedLiveMainSha,
         observedLiveMainSha: null,
         startedAt,
-        completedAt: runtime.now(),
+        completedAt: startedAt,
         preTopologyFingerprint: fingerprintFleet(worktrees),
         postTopologyFingerprint: null,
         finalTopologyEvidence: { available: false, fingerprint: null },
+        batchOutcome,
         results: authorization.manifest.targets.map((target) => ({
           path: target.path,
           branch: target.branch ?? "(detached)",

@@ -1249,6 +1249,8 @@ function authorizedApplyFixture({
   leavePath = false,
   postRemovalInspectionFails = false,
   finalTopologyInspectionFails = false,
+  postRemovalFleetDrift = false,
+  delayedFleetDrift = false,
 } = {}) {
   const topology = {
     path: "/repo/.worktrees/target-0",
@@ -1287,6 +1289,24 @@ function authorizedApplyFixture({
         topologyReadsAfterRemoval++;
         if (postRemovalInspectionFails || (finalTopologyInspectionFails && topologyReadsAfterRemoval > 1)) {
           throw new Error("topology unavailable");
+        }
+        if (postRemovalFleetDrift) {
+          return [...registered, {
+            path: "/repo/.worktrees/unrelated",
+            branch: "feature/unrelated",
+            head: "9".repeat(40),
+            bare: false,
+            detached: false,
+          }];
+        }
+        if (delayedFleetDrift && topologyReadsAfterRemoval > 1) {
+          return [...registered, {
+            path: "/repo/.worktrees/unrelated",
+            branch: "feature/unrelated",
+            head: "9".repeat(40),
+            bare: false,
+            detached: false,
+          }];
         }
       }
       return registered;
@@ -1348,6 +1368,10 @@ test("runAuthorizedApply revalidates raw manifest bytes with fatal UTF-8 before 
 function cliProvidersFixture({
   danglingPathAfterRemoval = false,
   finalTopologyInspectionFails = false,
+  delayedFleetDrift = false,
+  applyEngineThrows = false,
+  completionTimestampThrows = false,
+  initialFleetDrift = false,
   liveEvidenceFails = false,
   prEvidenceIncomplete = false,
   topologyProviderFails = false,
@@ -1389,6 +1413,7 @@ function cliProvidersFixture({
     remove: [],
     logs: [],
     errors: [],
+    now: 0,
   };
   const providers = {
     resolvePrimaryRoot: () => "/repo",
@@ -1421,10 +1446,28 @@ function cliProvidersFixture({
     readWorktrees() {
       calls.topology++;
       if (topologyProviderFails) throw new Error("topology failed");
+      if (initialFleetDrift && !removed) {
+        return [...registered, {
+          path: "/repo/.worktrees/unrelated",
+          branch: "feature/unrelated",
+          head: "9".repeat(40),
+          bare: false,
+          detached: false,
+        }];
+      }
       if (removed) {
         topologyReadsAfterRemoval++;
         if (finalTopologyInspectionFails && topologyReadsAfterRemoval > 1) {
           throw new Error("final topology failed");
+        }
+        if (delayedFleetDrift && topologyReadsAfterRemoval > 1) {
+          return [...registered, {
+            path: "/repo/.worktrees/unrelated",
+            branch: "feature/unrelated",
+            head: "9".repeat(40),
+            bare: false,
+            detached: false,
+          }];
         }
       }
       return registered.map((entry) => ({ ...entry }));
@@ -1472,7 +1515,16 @@ function cliProvidersFixture({
       registered = [];
       return { ok: true };
     },
-    now: () => "2026-08-29T00:00:01.000Z",
+    now: () => {
+      calls.now++;
+      if (completionTimestampThrows && calls.now === 2) {
+        throw new Error("simulated completion timestamp failure");
+      }
+      return "2026-08-29T00:00:01.000Z";
+    },
+    beforeMutation() {
+      if (applyEngineThrows) throw new Error("simulated apply engine failure");
+    },
     log: (...parts) => calls.logs.push(parts.join(" ")),
     error: (...parts) => calls.errors.push(parts.join(" ")),
   };
@@ -1624,6 +1676,67 @@ test("main records final topology provider failure and never reports apply succe
   assert.deepEqual(getReceipt().finalTopologyEvidence, { available: false, fingerprint: null });
 });
 
+test("main writes a blocked batch outcome when final topology drifts after target removal", () => {
+  const { argv, providers, calls, getReceipt } = cliProvidersFixture({ delayedFleetDrift: true });
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(calls.write, 1);
+  const receipt = getReceipt();
+  assert.equal(receipt.results[0].status, "removed");
+  assert.equal(receipt.batchOutcome.status, "blocked");
+  assert.match(receipt.batchOutcome.reason, /final topology fingerprint drift/);
+  assert.match(calls.logs.join("\n"), /BLOCKED: final topology fingerprint drift/);
+});
+
+test("main persists the apply-engine exception as the authoritative blocked batch outcome", () => {
+  const { argv, providers, calls, getReceipt } = cliProvidersFixture({ applyEngineThrows: true });
+  assert.equal(sweep.main(argv, providers), 1);
+  const receipt = getReceipt();
+  assert.deepEqual(receipt.batchOutcome, {
+    status: "blocked",
+    reason: "apply engine failed closed",
+  });
+  assert.match(calls.logs.join("\n"), /BLOCKED: apply engine failed closed/);
+});
+
+test("main preserves removed target facts when completion timestamp capture fails", () => {
+  const { argv, providers, calls, getReceipt } = cliProvidersFixture({ completionTimestampThrows: true });
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(calls.remove.length, 1);
+  const receipt = getReceipt();
+  assert.equal(receipt.results[0].status, "removed");
+  assert.equal(receipt.batchOutcome.status, "blocked");
+  assert.match(receipt.batchOutcome.reason, /completion timestamp unavailable/);
+});
+
+test("main outer catch reports failed target only when no removal evidence exists", () => {
+  const { argv, providers, calls, getReceipt } = cliProvidersFixture({
+    applyEngineThrows: true,
+  });
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(calls.remove.length, 0);
+  const receipt = getReceipt();
+  assert.equal(receipt.results[0].status, "failed");
+  assert.deepEqual(receipt.batchOutcome, {
+    status: "blocked",
+    reason: "apply engine failed closed",
+  });
+});
+
+test("main closes and writes a blocked receipt when apply and completion clocks both fail", () => {
+  const { argv, providers, calls, getReceipt } = cliProvidersFixture({
+    applyEngineThrows: true,
+    completionTimestampThrows: true,
+  });
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(calls.reserve, 1);
+  assert.equal(calls.write, 1);
+  assert.equal(calls.close, 1);
+  assert.deepEqual(getReceipt().batchOutcome, {
+    status: "blocked",
+    reason: "apply engine failed closed",
+  });
+});
+
 test("main fails closed on live, exhaustive-PR, or topology provider errors without mutation", () => {
   assert.equal(sweep.main.length, 2, "main must accept an injected production-provider boundary");
   for (const options of [
@@ -1732,6 +1845,108 @@ test("runAuthorizedApply records unavailable final topology evidence and never r
   assert.deepEqual(result.receipt.finalTopologyEvidence, { available: false, fingerprint: null });
   assert.equal(result.receipt.postTopologyFingerprint, null);
   assert.match(result.postflightReason, /final topology evidence unavailable/);
+});
+
+test("runAuthorizedApply fails closed when a single removal leaves unrelated fleet drift", () => {
+  const { authorization, deps } = authorizedApplyFixture({ postRemovalFleetDrift: true });
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.receipt.results[0].status, "removed");
+  assert.equal(result.ok, false);
+  assert.match(result.postflightReason, /fleet topology fingerprint drift after removal/);
+});
+
+test("runAuthorizedApply fails closed when the last removal leaves unrelated fleet drift", () => {
+  const topologies = [0, 1].map((index) => ({
+    path: `/repo/.worktrees/target-${index}`,
+    branch: `feature/target-${index}`,
+    head: String(index + 2).repeat(40),
+    bare: false,
+    detached: false,
+  }));
+  const manifest = applyManifest(2);
+  manifest.fleetFingerprint = sweep.fingerprintFleet(topologies);
+  for (let index = 0; index < manifest.targets.length; index++) {
+    manifest.targets[index].head = topologies[index].head;
+    manifest.targets[index].topologyFingerprint = sweep.fingerprintTopology(topologies[index]);
+  }
+  const input = authorizationFor(manifest);
+  const authorization = sweep.validateApplyAuthorization(input);
+  let registered = topologies.map((entry) => ({ ...entry }));
+  const presentPaths = new Set(registered.map((entry) => entry.path));
+  const unrelated = {
+    path: "/repo/.worktrees/unrelated",
+    branch: "feature/unrelated",
+    head: "9".repeat(40),
+    bare: false,
+    detached: false,
+  };
+  const removed = [];
+  const deps = {
+    readManifestBytes: () => input.manifestBytes,
+    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" }),
+    readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
+    readWorktrees: () => registered.map((entry) => ({ ...entry })),
+    readPathAbsenceEvidence: (path) => ({ available: true, absent: !presentPaths.has(path) }),
+    inspectWorktree: (wt, target, evidence) => ({
+      ...wt,
+      exists: true,
+      statusEvidence: { available: true },
+      dirty: 0,
+      protectedHits: [],
+      mergedIntoUpstream: true,
+      containedIn: [],
+      ageDays: 10,
+      prEvidence: { available: evidence.prEvidence.available, openPr: null },
+      ownerEvidence: { available: true, owner: target.owner, task: target.task },
+      processEvidence: { available: true, active: false },
+    }),
+    removeWorktree(command) {
+      const path = command.args.at(-1);
+      removed.push(path);
+      registered = registered.filter((entry) => entry.path !== path);
+      presentPaths.delete(path);
+      if (path === topologies[1].path) registered.push(unrelated);
+      return { ok: true };
+    },
+    now: () => "2026-08-29T00:00:01.000Z",
+  };
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.deepEqual(removed, topologies.map((entry) => entry.path));
+  assert.deepEqual(result.receipt.results.map((entry) => entry.status), ["removed", "removed"]);
+  assert.equal(result.ok, false);
+  assert.match(result.postflightReason, /fleet topology fingerprint drift after removal/);
+});
+
+test("runAuthorizedApply fails closed when final topology drifts after immediate removal proof", () => {
+  const { authorization, deps } = authorizedApplyFixture({ delayedFleetDrift: true });
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.receipt.results[0].status, "removed");
+  assert.equal(result.ok, false);
+  assert.match(result.postflightReason, /final topology fingerprint drift/);
 });
 
 test("runAuthorizedApply skips a target that becomes active after preflight", () => {
