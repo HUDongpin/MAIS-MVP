@@ -1,0 +1,44 @@
+{
+  "slug": "ca-g11-ch05-statistical-inference-claims",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s5-chapter-05",
+  "title": "Statistical Inference and Claims",
+  "standardIds": [
+    "S-IC.1",
+    "S-IC.4",
+    "S-IC.2",
+    "S-IC.3",
+    "S-IC.5",
+    "S-IC.6"
+  ],
+  "summary": "Set a survey’s size and result, then see which band each design earns — and whether it rules a marked claim out.",
+  "emoji": "📊",
+  "narration": "A student paper says 60 percent of students would ride a late bus, but nobody asked all twelve thousand of them. Move the sample size and the sample percent, and the bar shows every population value this survey leaves standing. Slide the marker to a claim and see whether the data rule it out. Then switch how the data were gathered: a sign-up sheet earns no band at all, and a randomized experiment is judged against the wider swing in the gap between its two groups.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A random sample of 1600 shoppers is asked whether they would use a new pickup lane, and 320 of them say yes. Using margin of error = 2 x sqrt(p(1 - p)/n), what is the margin of error in percentage points?",
+      "answer": 2,
+      "explanation": "The sample proportion is p = 320/1600 = 0.2. Then p(1 - p) = 0.2 x 0.8 = 0.16, and 0.16/1600 = 0.0001, whose square root is 0.01. The margin of error is 2 x 0.01 = 0.02, which is 2 percentage points."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A random sample of voters gives 46% support for a measure, with a margin of error of 3.5 percentage points. What is the lower endpoint, in percent, of the interval of plausible population percents?",
+      "answer": 42.5,
+      "tolerance": 0.01,
+      "explanation": "The interval runs from the estimate minus the margin to the estimate plus the margin: 46 - 3.5 = 42.5 and 46 + 3.5 = 49.5. The lower endpoint is 42.5 percent."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A random sample of students reports 55% would join a spring club, with a margin of error of 6 percentage points. Which claimed school-wide percent does this survey rule out?",
+      "choices": [
+        "48%",
+        "52%",
+        "58%",
+        "60%"
+      ],
+      "answer": 0,
+      "explanation": "The plausible values run from 55 - 6 = 49% to 55 + 6 = 61%. Since 48 < 49, the value 48% lies outside that interval and is ruled out, while 52%, 58%, and 60% all lie between 49% and 61% and are still plausible."
+    }
+  ]
+}

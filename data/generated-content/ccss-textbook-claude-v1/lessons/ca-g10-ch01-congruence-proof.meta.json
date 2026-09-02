@@ -1,0 +1,31 @@
+{
+  "slug": "ca-g10-ch01-congruence-proof",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s4-chapter-01",
+  "title": "Congruence and Proof",
+  "standardIds": ["G-CO.6", "G-CO.7", "G-CO.8", "G-CO.2", "G-CO.4", "G-CO.5"],
+  "summary": "Pick a slide, turn, or flip and watch one coordinate rule carry all three vertices of a triangle onto a congruent image.",
+  "emoji": "🪞",
+  "narration": "A machinist checking a stamped bracket does not reach for a ruler first. She picks the bracket up, turns it, maybe flips it over, and sets it down on the drawing to see whether it lands exactly on the outline. This chapter turns that test into mathematics: congruent means some slide, turn, or flip carries one figure exactly onto the other. Pick a motion, watch a single coordinate rule move all three vertices at once, and see why the side lengths and the right angle come out unchanged.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A rigid motion maps triangle ABC onto triangle DEF, sending A to D, B to E, and C to F. In triangle ABC, AB = 9 cm, BC = 12 cm, and CA = 15 cm. How long is EF, in centimeters?",
+      "answer": 12,
+      "explanation": "A rigid motion never changes a distance, so each side equals the side it is sent to. E is the image of B and F is the image of C, so EF = BC = 12 cm. (For reference, DE = AB = 9 and FD = CA = 15, and 9^2 + 12^2 = 81 + 144 = 225 = 15^2, so both triangles have a right angle at B and at E.)"
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A translation maps A(-3, 4) onto A'(2, -1). The same translation maps B(6, 5) onto B'. What is the x-coordinate of B'?",
+      "answer": 11,
+      "explanation": "Subtract to find the translation rule: 2 - (-3) = 5 across and -1 - 4 = -5 up, so the rule is (x, y) -> (x + 5, y - 5). Applying it to B(6, 5) gives B'(6 + 5, 5 - 5) = (11, 0), so the x-coordinate is 11."
+    },
+    {
+      "kind": "mc",
+      "prompt": "In triangles ABC and DEF, AB = DE = 7 cm, AC = DF = 9 cm, and angle A = angle D = 40 degrees. Which congruence criterion proves that the two triangles are congruent?",
+      "choices": ["SSS", "SAS", "ASA", "AAS"],
+      "answer": 1,
+      "explanation": "Two pairs of sides are given (7 with 7 and 9 with 9) and one pair of angles (40 degrees with 40 degrees). Angle A lies between sides AB and AC, and angle D lies between DE and DF, so the matched angle is the included angle: that is side-angle-side, SAS. SSS would need a third pair of sides (BC and EF are not given); ASA and AAS both need two pairs of angles, and only one pair is given."
+    }
+  ]
+}

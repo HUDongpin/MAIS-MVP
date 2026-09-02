@@ -1,0 +1,41 @@
+{
+  "slug": "ca-g12-ch01-quantities-units-precision",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s6-chapter-01",
+  "title": "Quantities, Units, and Precision",
+  "standardIds": [
+    "N-Q.1",
+    "N-Q.2",
+    "N-Q.3"
+  ],
+  "summary": "Set a plot's sides and the tool that read them, and see the doubt band decide how many significant figures the answer keeps.",
+  "emoji": "📐",
+  "narration": "A crew writes two numbers on a clipboard, and a plot becomes turf to buy and edging to cut. Those numbers cannot do the job alone: each one carries a unit, and each one came off a tool that can only see so fine. In this chapter a quantity is three things at once, a number, a unit, and a level of precision, and all three travel through the arithmetic with it. Change the plot, switch tools, and watch the width of the doubt band decide how many significant figures your measurement actually paid for.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A rectangular plot is measured with a tape that reads to the nearest 0.1 m: the length reads 4.2 m and the width reads 2.8 m. What is the largest perimeter, in meters, that those two readings allow?",
+      "answer": 14.2,
+      "tolerance": 0.01,
+      "explanation": "A reading to the nearest 0.1 m is only trustworthy to half a division, 0.05 m, so the length is at most 4.2 + 0.05 = 4.25 m and the width at most 2.8 + 0.05 = 2.85 m. The largest perimeter is 2 x (4.25 + 2.85) = 2 x 7.10 = 14.2 m."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A machine stamps 12 parts each minute, and every part uses 250 grams of steel. How many kilograms of steel does the machine use during one 8-hour shift?",
+      "answer": 1440,
+      "explanation": "Chain the unit factors so the unwanted units cancel: 12 parts/min x 60 min/hr x 8 hr = 5760 parts. Then 5760 parts x 250 g/part = 1 440 000 g, and 1 440 000 g divided by 1000 g/kg = 1440 kg."
+    },
+    {
+      "kind": "mc",
+      "prompt": "The two sides of a rectangle are measured to the nearest centimeter as 8 cm and 5 cm, and multiplying gives 40. Which statement about the area is the honest one?",
+      "choices": [
+        "The area is exactly 40 cm².",
+        "The area is 40.00 cm², matching the multiplication.",
+        "The area is between 33.75 cm² and 46.75 cm².",
+        "The area is between 39.5 cm² and 40.5 cm²."
+      ],
+      "answer": 2,
+      "explanation": "To the nearest centimeter, each side is known only within 0.5 cm: the length is between 7.5 and 8.5 cm and the width between 4.5 and 5.5 cm. The smallest possible area is 7.5 x 4.5 = 33.75 cm² and the largest is 8.5 x 5.5 = 46.75 cm², so 40 cm² is only the midpoint of a wide interval, and writing 40.00 cm² claims precision the ruler never had."
+    }
+  ]
+}

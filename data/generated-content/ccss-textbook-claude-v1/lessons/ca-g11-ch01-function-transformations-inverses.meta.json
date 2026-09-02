@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g11-ch01-function-transformations-inverses",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s5-chapter-01",
+  "title": "Function Transformations and Inverses",
+  "standardIds": ["F-BF.3", "F-BF.4", "F-BF.5", "F-IF.7", "F-IF.8", "F-BF.1"],
+  "summary": "Slide, stretch and flip a parent function, then watch its inverse undo every step as a mirror image across y = x.",
+  "emoji": "🔁",
+  "narration": "Almost every function you meet this year is a plain parent function that has been slid sideways, stretched, flipped and lifted. Running one backwards means undoing those moves in the opposite order, which on a graph is a single mirror flip across the line y equals x. Pick a parent, move the stretch and the two shifts, and watch the inverse rebuild itself step by step. Then use a cooling cup of cocoa to read a time back out of a temperature.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "The function g(x) = 4(x - 3)^3 + 7 is built from the parent f(x) = x^3. What is g inverse of 39?",
+      "answer": 5,
+      "explanation": "Undo g's steps in reverse order. g adds 7 last, so subtract it: 39 - 7 = 32. g multiplied by 4, so divide: 32 / 4 = 8. g cubed, so take the cube root: the cube root of 8 is 2. g subtracted 3 first, so add it back: 2 + 3 = 5. Check forwards: g(5) = 4(5 - 3)^3 + 7 = 4 x 8 + 7 = 32 + 7 = 39."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "For the linear function f(x) = 4x - 7, find f inverse of 0 - that is, the input f sends to 0.",
+      "answer": 1.75,
+      "tolerance": 0.01,
+      "explanation": "Swap and solve: y = 4x - 7 gives x = (y + 7) / 4, so f inverse of y is (y + 7) / 4. At y = 0 that is (0 + 7) / 4 = 7 / 4 = 1.75. Check forwards: f(1.75) = 4 x 1.75 - 7 = 7 - 7 = 0."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A function g is built from the parent f(x) = 2^x by shifting right 4, multiplying the output by 3, and then adding 1, so g(x) = 3 * 2^(x - 4) + 1. Which expression is g inverse of x?",
+      "choices": ["log₂((x − 1)/3) − 4", "3·2^(x − 1) + 4", "log₂((x − 1)/3) + 4", "(log₂ x − 1)/3 + 4"],
+      "answer": 2,
+      "explanation": "Reverse the order and reverse each step: subtract 1, divide by 3, take log base 2, then add 4, giving log₂((x - 1)/3) + 4. Test it at x = 4, since g(4) = 3 x 2^0 + 1 = 3 + 1 = 4: log₂((4 - 1)/3) + 4 = log₂(1) + 4 = 0 + 4 = 4, the input it came from. The other choices fail that test: log₂((4-1)/3) - 4 = -4, 3 x 2^(4-1) + 4 = 28, and (log₂ 4 - 1)/3 + 4 = (2 - 1)/3 + 4 = 4.33."
+    }
+  ]
+}

@@ -1,19 +1,52 @@
 import { expect, test } from "@playwright/test";
 
-const cjkPattern = /[\u3400-\u9fff\uf900-\ufaff]/u;
+const cjkPattern = /[㐀-鿿豈-﫿]/u;
 
-test("California middle school replacement textbook student page uses English-only visible copy", async ({ page }) => {
+test("California Grade 6-8 interactive textbook renders every chapter with a hydrated interactive opener, English only", async ({ page }) => {
   await page.goto("/student/lessons/california-middle-school-textbook");
 
-  await expect(page.getByRole("heading", { name: "Replacement Grade 6-8 Lessons", level: 1 })).toBeVisible();
-  const main = page.locator("main").nth(1);
+  await expect(page.getByRole("heading", { name: "Interactive Grade 6-8 Textbook", level: 1 })).toBeVisible();
+  const main = page.getByTestId("california-textbook-page");
 
-  await expect(main).toContainText("Grade 6 Ratios and Proportional Relationships: Ratios");
-  await expect(main).toContainText("Function A has rate 3");
-  await expect(main).not.toContainText("Replacement lessons are in QA");
+  // One chapter per G6-G8 California chapter topic, grouped by course.
+  const chapters = main.getByTestId("california-textbook-chapter");
+  await expect(chapters).toHaveCount(15);
+  await expect(main.getByTestId("california-textbook-book-P6")).toBeVisible();
+  await expect(main.getByTestId("california-textbook-book-S1")).toBeVisible();
+  await expect(main.getByTestId("california-textbook-book-S2")).toBeVisible();
+  await expect(main).toContainText("Ratios, Rates, and Percent Reasoning");
+  await expect(main).toContainText("Bivariate Data and Claims");
+
+  // Every chapter opens with its MAIS-authored interactive lesson, mounted
+  // through the same adapter the lesson page uses (so it hydrates and carries
+  // the finite-state diagram protocol), and lists its ported lessons behind
+  // disclosures.
+  const openers = main.locator('[data-testid="california-textbook-lesson"][data-lesson-role="opener"] [data-ccss-lesson]');
+  await expect(openers).toHaveCount(15);
+  for (let index = 0; index < 15; index += 1) {
+    await expect(openers.nth(index)).toHaveAttribute("data-ccss-diagram-hydrated", "true", { timeout: 30_000 });
+  }
+  const firstOpener = openers.first();
+  await expect(firstOpener.locator("button[type='button']").first()).toBeVisible();
+  await expect(firstOpener.getByText(/Math check/i).first()).toBeVisible();
+
+  // A ported lesson mounts on demand.
+  const firstDisclosure = main.locator('[data-testid="california-textbook-lesson"][data-lesson-role="lesson"] button[aria-expanded]').first();
+  await expect(firstDisclosure).toHaveAttribute("aria-expanded", "false");
+  await firstDisclosure.click();
+  await expect(firstDisclosure).toHaveAttribute("aria-expanded", "true");
+  await expect(main.locator('[data-testid="california-textbook-lesson"][data-lesson-role="lesson"] [data-ccss-lesson]').first())
+    .toHaveAttribute("data-ccss-diagram-hydrated", "true", { timeout: 30_000 });
+
+  // Chapter checks are interactive: a multiple-choice check marks the pressed choice.
+  const firstCheckChoice = main.getByTestId("california-textbook-check").locator("button[aria-pressed]").first();
+  await firstCheckChoice.click();
+  await expect(firstCheckChoice).toHaveAttribute("aria-pressed", "true");
+
+  // The Codex text-only package and its concept bitmaps are gone.
+  await expect(main).not.toContainText("Replacement Grade 6-8 Lessons");
   await expect(main).not.toContainText(/S18|S05 review|before live integration|QA/i);
-  await expect(main.locator('img[src*="/lesson-illustrations/us-ca-middle-school/candidates/"]')).toHaveCount(15);
-  await expect(main.locator('img[src*="/lesson-illustrations/us-ca-middle-school/exact-layer-renders/"]')).toHaveCount(0);
+  await expect(main.locator('img[src*="/lesson-illustrations/us-ca-middle-school/"]')).toHaveCount(0);
 
   await expect.poll(async () => await main.innerText()).not.toMatch(cjkPattern);
 });
