@@ -12,12 +12,16 @@ import {
   guardExpectedAuthenticatedUser,
   requireAuthenticatedUser
 } from "@/lib/server/auth";
-import type { CurriculumProfile } from "@/types";
+import type { AttemptFeedback, CurriculumProfile } from "@/types";
 
 export const runtime = "nodejs";
 
 const maxAnswerLength = 500;
 const maxAnswerWorkPhotoCount = 6;
+
+function withPersistenceAcknowledgement(feedback: AttemptFeedback) {
+  return { ...feedback, persisted: true as const };
+}
 
 /**
  * Work photos arrive as governed media-object REFERENCES, not image bytes. The
@@ -178,7 +182,7 @@ export async function POST(request: Request) {
       });
 
       if (persistedFeedback) {
-        return NextResponse.json(persistedFeedback);
+        return NextResponse.json(withPersistenceAcknowledgement(persistedFeedback));
       }
     }
 
@@ -195,7 +199,7 @@ export async function POST(request: Request) {
       curriculumProfile: authenticated.user.curriculumProfile
     });
 
-    return NextResponse.json(persistedFeedback ?? feedback);
+    return NextResponse.json(persistedFeedback ? withPersistenceAcknowledgement(persistedFeedback) : feedback);
   }
 
   return NextResponse.json(feedback);

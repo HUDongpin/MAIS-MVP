@@ -17,6 +17,12 @@ type SubmitQuestionAttemptFastInput = {
   answerWorkPhotos?: StoredMediaObjectReference[];
 };
 
+export type PersistedAttemptFeedback = AttemptFeedback & {
+  // This additive acknowledgement distinguishes graded feedback from the
+  // durable attempt-row transaction used by the classroom write smoke.
+  persisted: boolean;
+};
+
 const configuredStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER?.trim().toLowerCase();
 const postgresUrl = process.env.POSTGRES_URL?.trim() || null;
 const configuredPostgresMaxConnections = Number(process.env.HK_MATH_POSTGRES_MAX_CONNECTIONS ?? 10);
@@ -584,7 +590,7 @@ export async function submitQuestionAttemptFast({
   durationSeconds,
   curriculumTrack,
   answerWorkPhotos
-}: SubmitQuestionAttemptFastInput): Promise<AttemptFeedback | null> {
+}: SubmitQuestionAttemptFastInput): Promise<PersistedAttemptFeedback | null> {
   const question = await getQuestionForAttemptFromStore(
     questionId,
     curriculumTrack,
@@ -592,7 +598,10 @@ export async function submitQuestionAttemptFast({
   );
   if (!question) return null;
 
-  const feedback = attemptFeedback(question, selectedAnswer);
+  const feedback: PersistedAttemptFeedback = {
+    ...attemptFeedback(question, selectedAnswer),
+    persisted: false
+  };
 
   if (postgresRowsEnabled()) {
     try {
@@ -605,6 +614,7 @@ export async function submitQuestionAttemptFast({
         now: new Date().toISOString(),
         answerWorkPhotos
       });
+      feedback.persisted = true;
     } catch {
       console.warn("Practice attempt row persistence failed; returning answer feedback without a saved attempt row.");
     }

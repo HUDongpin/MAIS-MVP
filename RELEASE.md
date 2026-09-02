@@ -281,8 +281,15 @@ grant release approval.
 The command has **no default URL**: provide `--base-url` or `CLASSROOM_LOAD_BASE_URL` explicitly.
 It unconditionally rejects the MAIS production apex and `www` hosts for both domains. There is no
 production override. Remote targets must use HTTPS; plain HTTP is accepted only for explicit
-loopback-local targets. Every redirect `Location` is resolved and checked, then the run fails
-without following it; this happens before workload discovery or any attempt/progress write.
+loopback-local targets. The smoke never follows redirects: every redirect `Location` is resolved
+and checked, then that request fails without replaying its body to the redirect target. A redirect
+does not roll back a request accepted before it, including concurrent seats or an earlier endpoint
+in the same seat, so the original origin may already have accepted earlier writes. Treat any
+redirected run as failed rather than assuming it was write-free.
+An aborted redirect does not guarantee an artifact: when it stops the workload before aggregation,
+`executeClassroomLoad` rejects before `writeReport`. Preserve the redacted CLI error together with
+task-owned server-side evidence; do not infer that the absence of `last-run.json` means no write
+reached the original origin.
 
 Run it manually only after a task-owned preview exists. Supply a preview student cookie, explicit
 preview credentials, or the owner-approved demo roster password through environment variables;
@@ -296,6 +303,20 @@ CLASSROOM_LOAD_ARTIFACT_DIR="$(mktemp -d -t mais-classroom-load.XXXXXX)" \
 npm run smoke:classroom-load -- --students 15 --rounds 3 --json
 ```
 
+For the owner-approved demo roster, enable the roster explicitly and provide its password only
+through the environment. `CLASSROOM_LOAD_USE_DEMO_LOGIN=1` reuses its small number of authenticated
+student sessions across virtual seats; it does not create accounts or expose the password in the
+report.
+
+```bash
+CLASSROOM_LOAD_BASE_URL="https://<preview-deployment>.vercel.app" \
+CLASSROOM_LOAD_APPROVED_ORIGIN="https://<preview-deployment>.vercel.app" \
+CLASSROOM_LOAD_USE_DEMO_LOGIN=1 \
+CLASSROOM_LOAD_DEMO_PASSWORD="<owner-approved-demo-roster-password>" \
+CLASSROOM_LOAD_ARTIFACT_DIR="$(mktemp -d -t mais-classroom-load.XXXXXX)" \
+npm run smoke:classroom-load -- --students 15 --rounds 3 --json
+```
+
 For every non-loopback target, `CLASSROOM_LOAD_APPROVED_ORIGIN` is mandatory and must be the
 same normalized, pathless origin as `CLASSROOM_LOAD_BASE_URL`, copied from task-owned Preview
 evidence. It is an exact string check: wildcards, CSV values, suffix matches, and mismatched
@@ -305,8 +326,10 @@ not prove the provider environment of an immutable `*.vercel.app` URL.
 
 `CLASSROOM_LOAD_WRITE_P95_MS` controls the shared attempts/lesson-progress p95 budget (default
 2,000 ms); `CLASSROOM_LOAD_READ_P95_MS` controls the separate dashboard-read budget (default
-3,000 ms). Any HTTP/network error fails even when it returns quickly. The JSON report records the
-actual distinct-identity/login count so a multi-seat demo run is not misread as per-user fan-out.
+3,000 ms). Any HTTP/network error fails even when it returns quickly. An attempt HTTP 200 counts
+as a successful write only when its API response explicitly contains `persisted: true`; grading
+feedback with `persisted: false` remains a failed write. The JSON report records the actual
+distinct-identity/login count so a multi-seat demo run is not misread as per-user fan-out.
 `CLASSROOM_LOAD_ARTIFACT_DIR` redirects `last-run.json` into task-owned temporary storage; the
 fallback is ignored local output under `.tmp/classroom-load-smoke/`.
 The writer permits only that repository default or a canonical direct child of the OS temporary
@@ -320,6 +343,12 @@ URL to existing task-owned Preview evidence before running; this smoke performs 
 and proves no deployment environment. Current `/api/lesson-progress` also binds the write only to
 the supplied student session cookie; unlike `/api/attempts`, it has no server-side expected-user
 guard. The smoke exercises that current contract but does not certify such a guard.
+
+The authenticated account remains the default curriculum authority. Unless an operator explicitly
+sets `CLASSROOM_LOAD_CURRICULUM_TRACK`, login and question discovery omit a curriculum override so
+the server scopes the workload to the signed-in student's own profile. An explicit override is only
+appropriate when it matches the selected demonstration account (for example `HK`,
+`MAINLAND_PEP_HIGH`, or `US_NC_MATH`); a conflicting track can correctly return no questions.
 
 This command is deliberately absent from `certify:production`, `vercel:production`, GitHub
 workflows, and CI. It is never executed automatically and must never target a production URL.

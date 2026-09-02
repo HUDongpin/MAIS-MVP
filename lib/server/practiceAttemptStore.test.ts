@@ -55,16 +55,17 @@ test("student activity schema readiness is transaction-bounded and retries after
   assert.match(readinessSource, /attempt\.catch\(\(\) => \{[\s\S]*postgresActivityReady = null/);
 });
 
-test("practice attempt fast path returns answer feedback when row persistence is unavailable", () => {
+test("practice attempt fast path marks feedback unpersisted when row persistence is unavailable", () => {
   const script = `
     import("./lib/server/practiceAttemptStore.ts").then(async ({ submitQuestionAttemptFast }) => {
       const result = await submitQuestionAttemptFast({
         userId: "debug-user",
-        questionId: "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p5-5-oa-expressions-patterns-q01",
-        selectedAnswer: "no",
+        questionId: "us-ca-g6-g12-v2-p6-c01-q01",
+        selectedAnswer: "24",
         durationSeconds: 1
       });
       if (!result?.correct) throw new Error("Expected the exact US-CA lesson answer to grade as correct.");
+      if (result.persisted !== false) throw new Error("Expected failed row persistence to be acknowledged explicitly.");
       process.stdout.write(JSON.stringify(result));
     }).catch((error) => {
       console.error(error instanceof Error ? error.message : error);
@@ -85,4 +86,5 @@ test("practice attempt fast path returns answer feedback when row persistence is
 
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
   assert.match(result.stdout, /"correct":true/);
+  assert.match(result.stdout, /"persisted":false/);
 });

@@ -83,3 +83,31 @@ Remediation TDD evidence:
 These checks remain local code/test evidence. They do not prove CI, a merged PR, staging behavior, a real classroom load, deployment, provider configuration, production behavior, rollback, or monitoring.
 
 The post-fix reviewer found one remaining P2 alias-drift gap: the CLI redaction list did not share the full credential alias set consumed by request headers and demo login. A second RED/GREEN cycle centralized all accepted classroom/dashboard cookie, password, username, demo-password, and Vercel bypass aliases in `classroomSensitiveValues`; the same resolver inputs now drive runtime credential use and CLI failure redaction. An end-to-end local redirect reflector launches the real CLI once for every supported alias and proves the reflected sentinel is replaced with `[REDACTED]`. The focused suite now passes 10/10, and the required governance suite passes 113 tests with 102 pass, 0 fail, and 11 existing skips.
+
+## U224 — durable attempt acknowledgement and curriculum-neutral classroom workload
+
+- Baseline for this scoped follow-up: `1a26245b07fab7e01c27f04b3571068fcccffd91`.
+- RED: `node --import tsx --test lib/server/practiceAttemptStore.test.ts` failed because an unreachable Postgres fixture returned graded feedback without `persisted: false`. GREEN: `submitQuestionAttemptFast` now returns additive `persisted: true` only after its row transaction resolves, and `persisted: false` when the transaction fails.
+- RED: `node --import tsx --test app/api/attempts/routeFastPath.test.ts` failed because successful local persistence did not add `persisted: true`. GREEN: both local fallback success branches add the field while retaining all existing feedback fields.
+- RED: `node --test --test-name-pattern='HTTP 200 attempt' scripts/classroom-load-smoke.test.mjs` failed because `200 { persisted: false }` counted as a successful attempt. GREEN: the smoke requires both HTTP success and JSON `persisted === true` for its attempt-write success.
+- RED: a profile-scoped discovery fixture showed default `US_CA_MATH` was sent even for non-California authenticated students. GREEN: login and discovery omit a curriculum override unless `CLASSROOM_LOAD_CURRICULUM_TRACK` is explicit; fixtures cover `HK`, `MAINLAND_PEP_HIGH`, and `US_NC_MATH`.
+- RED: the runbook did not state redirect partial-write risk or provide the explicit demo-login contract. GREEN: it now says redirects are never followed but the original origin may already have accepted earlier writes, and includes a redacted `CLASSROOM_LOAD_USE_DEMO_LOGIN=1` example.
+- Verification: focused classroom/store/route suites 19 passed, 0 failed; `npm run test:prod-certification` 24 passed, 0 failed; `npm run test:release-governance` 106 passed, 0 failed, 11 expected skips; `npm run type-check` passed. An initially exported route-test helper was rejected by Next's App Route permitted-export type guard; it was retained as module-private, so no route API export was added.
+- No real URL, staging, provider, deployment, workflow, Shadow, PR, commit, push, or cleanup action was performed. The acknowledgement proves the API's declared persistence outcome, not a remote database reread or a deployment/provider claim.
+
+### U224 spec-review follow-up — missing/invalid acknowledgement mutation proof
+
+- Added independent full-report fixtures for `HTTP 200 {"correct":true}` (missing acknowledgement) and `HTTP 200` with invalid JSON. Each proves `attempts.errorCount === 1`, endpoint `ok === false`, and final `report.ok === false`.
+- The strict implementation first passed both new fixtures. A temporary, deliberately unsafe mutation changed the ack predicate from `persisted === true` to `persisted !== false`; both fixtures then failed with `errorCount` incorrectly becoming `0`. The predicate was restored with `apply_patch`, and the three persistence-negative fixtures passed 3/3. The unsafe mutation is absent from the final diff.
+
+### U224 quality-review follow-up — redirect artifact boundary and behavioral route coverage
+
+- RED/GREEN redirect fixture: after an acknowledged attempt response, a `/api/lesson-progress` `307` causes `executeClassroomLoad` to reject; the original attempt request was observed once, progress was observed once, and `writeReport` remained at zero calls. The runbook now states that an aborted redirect does not guarantee an artifact and directs operators to retain the redacted CLI error plus task-owned server-side evidence. The request comment now says a `3xx` fails and throws without following.
+- Added a real isolated SQLite child-process `POST` test: it creates a valid session for the seeded student, verifies local committed fallback returns HTTP 200 JSON with `persisted: true`, and verifies the intended missing-question response remains `404`.
+- Added a no-external-Postgres fast-path response bridge: Node's built-in experimental module mocking supplies `persisted: false` and `persisted: true` fast-store results, while the child imports and calls the real route handler. Both return HTTP 200 with feedback and the exact persisted acknowledgement. This is route serialization proof, not a real Postgres transaction-success integration run.
+- Mutation proof: temporary removal of the local fallback acknowledgement made the isolated real-POST test fail with `persisted` `undefined`; restoring the acknowledgement returned the route suite to green. No mutation remains in the final diff.
+
+### U224 final quality follow-up — inherited child storage-path isolation
+
+- RED: the isolated SQLite route child was given a task-temp inherited `HK_MATH_DB_PATH`; because that variable has precedence over `HK_MATH_DB_DIR`, the sentinel database file was created outside its assigned database directory, and the isolation assertion failed.
+- GREEN: the child environment now explicitly sets `HK_MATH_DB_PATH: ""` and `POSTGRES_URL: ""`, while preserving `HK_MATH_STORAGE_PROVIDER: "sqlite"` and its task-owned `HK_MATH_DB_DIR`. The test proves the inherited sentinel remains absent and the only SQLite file is `databaseDirectory/hk-math-db.sqlite`; cleanup removes the single task-owned temporary root.

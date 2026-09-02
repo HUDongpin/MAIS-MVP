@@ -426,15 +426,16 @@ function assertSafeResolvedResponse(response, requestedUrl) {
 }
 
 export async function loginIdentity(identity, config, env = process.env, fetchImpl = globalThis.fetch) {
+  const curriculumTrack = env.CLASSROOM_LOAD_CURRICULUM_TRACK?.trim();
   const response = await timedFetch(
     `${config.baseUrl}/api/auth/login`,
     {
       body: JSON.stringify({
-        curriculumTrack: env.CLASSROOM_LOAD_CURRICULUM_TRACK || "US_CA_MATH",
         grade: config.grade,
         language: env.CLASSROOM_LOAD_LANGUAGE || "en",
         password: identity.password,
-        username: identity.username
+        username: identity.username,
+        ...(curriculumTrack ? { curriculumTrack } : {})
       }),
       headers: { "Content-Type": "application/json", ...authHeaders("", "", env) },
       method: "POST",
@@ -514,14 +515,17 @@ function questionWorkload(payload, limit = 20) {
 }
 
 export async function discoverWorkload(session, config, env = process.env, fetchImpl = globalThis.fetch) {
-  const curriculumTrack = env.CLASSROOM_LOAD_CURRICULUM_TRACK || "US_CA_MATH";
+  const curriculumTrack = env.CLASSROOM_LOAD_CURRICULUM_TRACK?.trim() || "";
   const headers = authHeaders(session.cookie, session.userId, env);
+  const questionsUrl = new URL(`${session.baseUrl}/api/questions`);
+  questionsUrl.searchParams.set("grade", config.grade);
+  if (curriculumTrack) questionsUrl.searchParams.set("curriculumTrack", curriculumTrack);
   const lessonUrl = new URL(`${session.baseUrl}/api/lesson-entry`);
   lessonUrl.searchParams.set("grade", config.grade);
   lessonUrl.searchParams.set("expectedUserId", session.userId);
   const [questionsResponse, lessonResponse] = await Promise.all([
     timedFetch(
-      `${session.baseUrl}/api/questions?grade=${encodeURIComponent(config.grade)}&curriculumTrack=${encodeURIComponent(curriculumTrack)}`,
+      questionsUrl.toString(),
       { headers, timeoutMs: config.timeoutMs },
       fetchImpl
     ),
@@ -563,6 +567,10 @@ function summarize(response) {
   };
 }
 
+function attemptPersistenceAcknowledged(response) {
+  return parseJson(response.text)?.persisted === true;
+}
+
 export async function runSeatRound(
   session,
   workload,
@@ -578,7 +586,7 @@ export async function runSeatRound(
   };
   const measurements = [];
 
-  // Writes never follow redirects. A 3xx is recorded as a failed request
+  // Writes never follow redirects. A 3xx fails and throws without following
   // rather than replaying a POST body to another origin.
   const attempt = await timedFetch(
     `${session.baseUrl}/api/attempts`,
@@ -597,7 +605,15 @@ export async function runSeatRound(
     fetchImpl
   );
   assertSafeResolvedResponse(attempt, session.baseUrl);
-  measurements.push({ endpoint: "attempts", round, seat: session.seat, ...summarize(attempt) });
+  measurements.push({
+    endpoint: "attempts",
+    round,
+    seat: session.seat,
+    ...summarize(attempt),
+    // HTTP 200 can contain grading feedback after a failed row transaction.
+    // The classroom write gate succeeds only after the API confirms persistence.
+    ok: attempt.ok && attemptPersistenceAcknowledged(attempt)
+  });
 
   // Current main binds lesson-progress to the authenticated cookie but does
   // not consume the expected-user guard used by /api/attempts. Keep that
