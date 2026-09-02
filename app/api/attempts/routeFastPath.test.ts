@@ -85,7 +85,7 @@ test("attempts POST serializes fast-path persistence acknowledgements without an
           practiceAttemptFastPathPersistsRows: () => true,
           submitQuestionAttemptFast: async () => ({
             correct: true,
-            explanation: { en: "fixture", zh: "測試" },
+            explanation: { en: "fixture", zh: "测试", zhHans: "测试" },
             persisted: ${persisted}
           })
         }
@@ -109,7 +109,7 @@ test("attempts POST serializes fast-path persistence acknowledgements without an
     assert.equal(output.status, 200);
     assert.equal(output.body.persisted, persisted);
     assert.equal(output.body.correct, true);
-    assert.deepEqual(output.body.explanation, { en: "fixture", zh: "測試" });
+    assert.deepEqual(output.body.explanation, { en: "fixture", zh: "测试", zhHans: "测试" });
   }
 });
 
