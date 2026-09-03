@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -335,4 +336,21 @@ test("lesson source cites only brief standards and keeps its markup contract", (
   assert.doesNotMatch(source, /every other measurement is that radius times a/u, "similarity claim must be scoped to lengths");
   assert.doesNotMatch(source, /[\u3040-\u30ff\u3400-\u9fff]/u, "no CJK characters");
   assert.doesNotMatch(source, /Math\.random|fetch\(|localStorage|<form|dangerouslySetInnerHTML|next\/image/u);
+});
+
+test("the paper-radius label never lands on the cut-angle label", () => {
+  // At 3 cm the wedge is only 36 px across, and "R = 3 cm" is wider than that,
+  // so on the inside of the wedge it reached the angle label at every cut.
+  let states = 0;
+  for (let slant = R_MIN; slant <= R_MAX; slant += 1) {
+    for (let deg = DEG_MIN; deg <= DEG_MAX; deg += DEG_STEP) {
+      const [radius, angle] = layout(slant, deg).labels;
+      const boxes = [radius, angle].map((lb, i) =>
+        textBox(lb.x, lb.y, lb.text.length * (i === 0 ? 6.6 : 7), { anchor: lb.anchor, fontSize: 11 }));
+      assert.ok(!collides(boxes[0], boxes[1], 2), `"${radius.text}" and "${angle.text}" overlap at ${slant} cm, ${deg} degrees`);
+      for (const box of boxes) assert.ok(box.x0 >= 0 && box.x1 <= W && box.y0 >= 0 && box.y1 <= H, `a wedge label leaves the frame at ${slant} cm, ${deg} degrees`);
+      states += 1;
+    }
+  }
+  assert.equal(states, (R_MAX - R_MIN + 1) * ((DEG_MAX - DEG_MIN) / DEG_STEP + 1));
 });

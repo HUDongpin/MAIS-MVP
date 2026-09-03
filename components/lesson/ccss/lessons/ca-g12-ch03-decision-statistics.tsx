@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { collides, textBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-high)";
 const MID = "var(--band-middle)";
@@ -48,11 +49,42 @@ export function verdict(side: Side, playerCents: number): Verdict {
   return { shownCents, sentence: `${who} ${move} ${money(Math.abs(shownCents))} on an average spin.`, longRun: `Over ${LONG_RUN} spins that is about ${money(Math.abs(shownCents) * LONG_RUN)} ${shownCents > 0 ? "gained" : "lost"}.` };
 }
 
-export const W = 540, H = 216, PAD_X = 30, BASE_Y = 150, LO = -6, HI = 20, BAR_W = 22, PX_PER_SECTOR = 7.5;
-export const TIP_Y = 174, FOOT_Y = 186, EV_TEXT_Y = 200;
+/* The strip under the axis holds two rows of net-result labels, then the balance
+ * point. The second row is reserved whether or not a given spin needs it, so the
+ * figure keeps one height instead of growing and shrinking under the student. */
+export const W = 540, H = 231, PAD_X = 30, BASE_Y = 150, LO = -6, HI = 20, BAR_W = 22, PX_PER_SECTOR = 7.5;
+export const TIP_Y = 189, FOOT_Y = 201, EV_TEXT_Y = 215;
 export function xOf(dollars: number): number { return PAD_X + ((dollars - LO) / (HI - LO)) * (W - 2 * PAD_X); }
 export function barTop(count: number): number { return BASE_Y - count * PX_PER_SECTOR; }
 /** Keeps the balance-point caption inside the viewBox when the mean sits near an edge. */
+/**
+ * Which row each net-result label sits in.
+ *
+ * The bars are placed by value, so when two outcomes are only a couple of
+ * dollars apart their labels are wider than the gap between them and "$0.00"
+ * lands inside "−$2.00". Rather than shrink or drop a label, a label that
+ * cannot fit beside the one before it drops to a second row underneath. Bars
+ * are generated left to right, so comparing each against the rows already
+ * filled is enough.
+ */
+export const MONEY_LABEL_SIZE = 11, MONEY_GLYPH = 6.6, MONEY_ROW_H = 15;
+
+export function moneyLabelRows(nets: readonly number[], texts: readonly string[]): number[] {
+  const placed: { row: number; box: ReturnType<typeof textBox> }[] = [];
+  return nets.map((net, i) => {
+    const width = texts[i].length * MONEY_GLYPH;
+    let row = 0;
+    for (; row < nets.length; row += 1) {
+      const box = textBox(xOf(net), BASE_Y + 14 + row * MONEY_ROW_H, width, { fontSize: MONEY_LABEL_SIZE });
+      if (placed.every((q) => q.row !== row || !collides(q.box, box, 3))) {
+        placed.push({ row, box });
+        break;
+      }
+    }
+    return row;
+  });
+}
+
 export function labelX(text: string, x: number): number { const half = text.length * 3.4; return Math.min(W - 2 - half, Math.max(2 + half, x)); }
 
 export function figureLabel(gold: number, prize: number, price: number): string {
@@ -100,6 +132,7 @@ export default function Lesson() {
   const stepsId = useId();
 
   const rows = outcomes(gold, prize, price);
+  const moneyRows = moneyLabelRows(rows.map((o) => o.net), rows.map((o) => money(o.netCents)));
   const ev = evCents(gold, prize, price);
   const fair = fairPriceCents(gold, prize);
   const read = verdict(side, ev);
@@ -132,11 +165,11 @@ export default function Lesson() {
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto h-auto max-w-full" role="img" aria-label={figureLabel(gold, prize, price)}>
             <line x1={xOf(0)} y1={34} x2={xOf(0)} y2={BASE_Y} stroke="var(--line)" strokeWidth={1.5} strokeDasharray="4 4" />
             <text x={xOf(0) + 5} y={32} fontSize={9} fill="var(--ink-faint)">break even</text>
-            {rows.map((o) => (
+            {rows.map((o, i) => (
               <g key={o.key}>
                 <rect x={xOf(o.net) - BAR_W / 2} y={barTop(o.count)} width={BAR_W} height={o.count * PX_PER_SECTOR} rx={3} fill={TONE[o.key]} fillOpacity={0.85} />
                 <text x={xOf(o.net)} y={barTop(o.count) - 5} textAnchor="middle" fontSize={10} fontWeight={700} fill="var(--ink-soft)">{o.count}/{SECTORS}</text>
-                <text x={xOf(o.net)} y={BASE_Y + 14} textAnchor="middle" fontSize={11} fontWeight={800} fill={TONE[o.key]}>{money(o.netCents)}</text>
+                <text x={xOf(o.net)} y={BASE_Y + 14 + moneyRows[i] * MONEY_ROW_H} textAnchor="middle" fontSize={MONEY_LABEL_SIZE} fontWeight={800} fill={TONE[o.key]}>{money(o.netCents)}</text>
               </g>
             ))}
             <line x1={PAD_X} y1={BASE_Y} x2={W - PAD_X} y2={BASE_Y} stroke="var(--ink-soft)" strokeWidth={2} />

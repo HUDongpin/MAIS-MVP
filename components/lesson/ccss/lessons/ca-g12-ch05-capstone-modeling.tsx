@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-high)", MID = "var(--band-middle)";
 
@@ -54,13 +55,34 @@ export function summaryLine(p: Panel, w: number, h: number): string { return `Be
 export const X_MIN = -5, X_MAX = 11, Y_MIN = -5, Y_MAX = 9, CELL = 22, PAD = 24;
 export const SVG_W = (X_MAX - X_MIN) * CELL + 2 * PAD, SVG_H = (Y_MAX - Y_MIN) * CELL + 2 * PAD;
 export const LABEL_OFFSET = 14, LABEL_MARGIN = 12;
+/** "Av" is the widest an edge name gets at 13px bold; 20 is a generous bound on it. */
+export const EDGE_LABEL_SIZE = 13, EDGE_LABEL_W = 20;
 export function px(x: number): number { return PAD + (x - X_MIN) * CELL; }
 export function py(y: number): number { return SVG_H - PAD - (y - Y_MIN) * CELL; }
 /** An arrow's name sits beside its midpoint, pushed off the shaft and clamped inside the viewBox. */
-export function edgeLabelSpot(tip: Vec): { x: number; y: number } {
+export function edgeLabelSpot(tip: Vec, offset: number = LABEL_OFFSET): { x: number; y: number } {
   const len = magnitude(tip) || 1;
-  const rawX = px(tip.x / 2) + (tip.y / len) * LABEL_OFFSET, rawY = py(tip.y / 2) + (tip.x / len) * LABEL_OFFSET;
+  const rawX = px(tip.x / 2) + (tip.y / len) * offset, rawY = py(tip.y / 2) + (tip.x / len) * offset;
   return { x: Math.min(SVG_W - LABEL_MARGIN, Math.max(LABEL_MARGIN, rawX)), y: Math.min(SVG_H - LABEL_MARGIN, Math.max(LABEL_MARGIN, rawY)) };
+}
+/** The preferred spot, then the same distance on the other side of the shaft, then both again further out. */
+export function edgeLabelChoices(tip: Vec) {
+  return [LABEL_OFFSET, -LABEL_OFFSET, LABEL_OFFSET + 16, -LABEL_OFFSET - 16].map((offset) => {
+    const { x, y } = edgeLabelSpot(tip, offset);
+    return { x, y, box: textBox(x, y, EDGE_LABEL_W, { fontSize: EDGE_LABEL_SIZE }) };
+  });
+}
+/**
+ * Both edge names at once, because where one goes decides where the other can.
+ * The two arrows leave the same corner, so on the smallest panel — a 2 m by 1 m
+ * pad, widened — their midpoints are barely a label apart and the names were
+ * printed on top of each other. u keeps its preferred side; v takes the first
+ * side that clears u.
+ */
+export function edgeLabelSpots(au: Vec, av: Vec) {
+  const u = pickSpot(edgeLabelChoices(au), [], { gap: 3 });
+  const v = pickSpot(edgeLabelChoices(av), [u.box], { gap: 3 });
+  return { u, v };
 }
 export function figureLabel(p: Panel, aria: string): string {
   return `Site plan on a one meter grid, ${aria}. The canopy is the parallelogram with corners at the origin, (${p.au.x}, ${p.au.y}), (${p.corner.x}, ${p.corner.y}), and (${p.av.x}, ${p.av.y}). Its area is ${p.area} square ${plural(p.area, "meter", "meters")}.`;
@@ -112,7 +134,7 @@ export default function Lesson() {
   const mv = MOVES.find((option) => option.key === moveKey) ?? MOVES[0];
   const p = panel(w, h, mv.m);
   const uName = mv.key === "keep" ? "u" : "Au", vName = mv.key === "keep" ? "v" : "Av";
-  const lu = edgeLabelSpot(p.au), lv = edgeLabelSpot(p.av);
+  const { u: lu, v: lv } = edgeLabelSpots(p.au, p.av);
 
   const ex = padExample(), choices = tryChoices(), answer = tryAnswerIndex();
   const steps = [

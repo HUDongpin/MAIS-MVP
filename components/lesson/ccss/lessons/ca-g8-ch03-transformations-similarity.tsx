@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox, type LabelBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-middle)";
 const IMAGE = "var(--band-upper)";
@@ -55,7 +56,42 @@ export function angles(t: Tri): [number, number, number] { return [angleAt(t[0],
 export function signedArea(t: Tri) { return ((t[1][0] - t[0][0]) * (t[2][1] - t[0][1]) - (t[2][0] - t[0][0]) * (t[1][1] - t[0][1])) / 2; }
 export function polyPoints(t: Tri) { return t.map(([x, y]) => `${sx(x)},${sy(y)}`).join(" "); }
 /** Image vertex tags are pushed back toward the middle of the grid so they never leave the viewBox. */
-export function labelSpot([x, y]: Pt) { return { x: sx(x) + (x >= 0 ? -8 : 8), y: sy(y) + (y >= 0 ? 17 : -9), anchor: (x >= 0 ? "end" : "start") as "end" | "start" }; }
+export function labelSpot([x, y]: Pt, reach = 8) { return { x: sx(x) + (x >= 0 ? -reach : reach), y: sy(y) + (y >= 0 ? reach + 9 : -(reach + 1)), anchor: (x >= 0 ? "end" : "start") as "end" | "start" }; }
+
+/** Type sizes for the vertex names: A B C on the pre-image, A′ B′ C′ on the image. */
+export const VERTEX_SIZE = 11, PRE_LABEL_W = 9, IMAGE_LABEL_W = 14;
+type Spot = { x: number; y: number; anchor: "start" | "end" };
+const boxOf = (s: Spot, w: number) => textBox(s.x, s.y, w, { anchor: s.anchor, fontSize: VERTEX_SIZE });
+
+/** Where A, B and C sit — fixed, because the pre-image triangle never moves. */
+export function preLabelSpot(i: number): Spot {
+  const [x, y] = TRI[i];
+  return { x: sx(x) + (i === 1 ? 8 : -8), y: sy(y) + (i === 2 ? -8 : 15), anchor: i === 1 ? "start" : "end" };
+}
+
+/** The corners around an image vertex: its own, then across, then above or below, then two further out. */
+export function imageLabelChoices([x, y]: Pt) {
+  const near = labelSpot([x, y]), far = labelSpot([x, y], 17);
+  const flip = (s: Spot, dx: number, dy: number): Spot => ({ x: s.x + dx, y: s.y + dy, anchor: dx === 0 ? s.anchor : s.anchor === "end" ? "start" : "end" });
+  const spots: Spot[] = [near, flip(near, x >= 0 ? 16 : -16, 0), flip(near, 0, y >= 0 ? -26 : 26), far, flip(far, x >= 0 ? 34 : -34, 0)];
+  return spots.map((spot) => ({ ...spot, box: boxOf(spot, IMAGE_LABEL_W) }));
+}
+
+/**
+ * Where A′, B′ and C′ go. The image may land on the pre-image — that is what the
+ * identity looks like, and it is the first state a student sees — and then six
+ * names compete for three points. Each image name takes the first corner that
+ * clears the three fixed pre-image names and the image names already placed.
+ */
+export function imageLabelSpots(img: Tri) {
+  const bounds: LabelBox = { x0: 0, y0: 0, x1: SVG_W, y1: SVG_H };
+  const taken: LabelBox[] = [0, 1, 2].map((i) => boxOf(preLabelSpot(i), PRE_LABEL_W));
+  return img.map((pt) => {
+    const chosen = pickSpot(imageLabelChoices(pt), taken, { gap: 2, bounds });
+    taken.push(chosen.box);
+    return chosen;
+  });
+}
 export function term(coef: number, variable: "x" | "y") { return `${coef < 0 ? "−" : ""}${Math.abs(coef) === 1 ? "" : fmt(Math.abs(coef))}${variable}`; }
 export function offset(d: number) { return d === 0 ? "" : d > 0 ? ` + ${d}` : ` − ${-d}`; }
 export function ruleText(k: number, motion: number, dx: number, dy: number) {
@@ -129,6 +165,7 @@ export default function Lesson() {
   const stepsId = useId();
 
   const img = imageTri(k, motion, dx, dy);
+  const imgLabels = imageLabelSpots(img);
   const angs = angles(img), v = verdict(k);
   const ex = workedExample(), tryIt = tryItOptions(), angleIt = thirdAngleOptions();
 
@@ -163,8 +200,8 @@ export default function Lesson() {
             <line x1={sx(0)} y1={sy(GRID)} x2={sx(0)} y2={sy(-GRID)} stroke="var(--ink-soft)" strokeWidth={1.6} />
             <polygon points={polyPoints(TRI)} fill={ACCENT} fillOpacity={0.18} stroke={ACCENT} strokeWidth={2} strokeDasharray="5 4" />
             <polygon points={polyPoints(img)} fill={IMAGE} fillOpacity={0.45} stroke={IMAGE} strokeWidth={2.5} />
-            {TRI.map((p, i) => <g key={NAMES[i]}><circle cx={sx(p[0])} cy={sy(p[1])} r={4} fill={ACCENT} /><text x={sx(p[0]) + (i === 1 ? 8 : -8)} y={sy(p[1]) + (i === 2 ? -8 : 15)} textAnchor={i === 1 ? "start" : "end"} fontSize={11} fontWeight={800} fill={ACCENT}>{NAMES[i]}</text></g>)}
-            {img.map((p, i) => <g key={`${NAMES[i]}-image`}><circle cx={sx(p[0])} cy={sy(p[1])} r={4.5} fill={IMAGE} stroke="white" strokeWidth={1.5} /><text x={labelSpot(p).x} y={labelSpot(p).y} textAnchor={labelSpot(p).anchor} fontSize={11} fontWeight={800} fill={IMAGE}>{NAMES[i]}&#8242;</text></g>)}
+            {TRI.map((p, i) => <g key={NAMES[i]}><circle cx={sx(p[0])} cy={sy(p[1])} r={4} fill={ACCENT} /><text x={preLabelSpot(i).x} y={preLabelSpot(i).y} textAnchor={preLabelSpot(i).anchor} fontSize={VERTEX_SIZE} fontWeight={800} fill={ACCENT}>{NAMES[i]}</text></g>)}
+            {img.map((p, i) => <g key={`${NAMES[i]}-image`}><circle cx={sx(p[0])} cy={sy(p[1])} r={4.5} fill={IMAGE} stroke="white" strokeWidth={1.5} /><text x={imgLabels[i].x} y={imgLabels[i].y} textAnchor={imgLabels[i].anchor} fontSize={VERTEX_SIZE} fontWeight={800} fill={IMAGE}>{NAMES[i]}&#8242;</text></g>)}
           </svg>
 
           <div className="w-full max-w-xl rounded-2xl border-2 px-5 py-3 text-center" style={{ borderColor: IMAGE }}>

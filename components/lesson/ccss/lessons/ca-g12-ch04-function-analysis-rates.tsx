@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox, type LabelBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-high)", SECANT = "var(--band-upper)", DATA_INK = "var(--band-middle)";
 
@@ -11,8 +12,41 @@ export type Rational = { num: number; den: number };
 
 /** Weeks across, members up. Every model below stays inside 0..64 members over weeks 0..6. */
 export const WEEK_MIN = 0, WEEK_MAX = 6, MEMBER_MAX = 64;
-export const CELL_X = 46, CELL_Y = 4, PAD_L = 34, PAD_R = 18, PAD_T = 20, PAD_B = 28;
+/** PAD_B carries two stacked rows below the axis — the week numbers, then the axis
+ * name under them. At 28 the name was printed into the digits it names. */
+export const CELL_X = 46, CELL_Y = 4, PAD_L = 34, PAD_R = 18, PAD_T = 20, PAD_B = 38;
+export const WEEK_TICK_DY = 15;
 export const W = PAD_L + WEEK_MAX * CELL_X + PAD_R, H = PAD_T + MEMBER_MAX * CELL_Y + PAD_B;
+/** A generous per-character advance for the 10px bold face the secant labels use. */
+export const SECANT_LABEL_SIZE = 10, SECANT_GLYPH = 6.4;
+/** The row of week numbers under the axis and the column of member numbers beside it. */
+export function axisNumberBands(): LabelBox[] {
+  return [
+    { x0: sx(WEEK_MIN) - 10, x1: sx(WEEK_MAX) + 10, y0: sy(0) + WEEK_TICK_DY - 8, y1: sy(0) + WEEK_TICK_DY + 3 },
+    { x0: 0, x1: PAD_L - 4, y0: sy(MEMBER_MAX) - 8, y1: sy(0) + 3 },
+  ];
+}
+
+/**
+ * Where "run = …" and "rise = …" go. Both were pinned to the secant — the run
+ * under its horizontal leg, the rise left of its vertical one — and those two
+ * legs meet at a right angle, so on a one-week run the labels shared the corner.
+ * A secant starting at 0 members put the run label into the week numbers as
+ * well. Each label now takes the first side of its own leg that is clear.
+ */
+export function secantLabelSpots(a: number, b: number, fa: number, fb: number, runText: string, riseText: string) {
+  const bounds: LabelBox = { x0: 0, y0: 0, x1: W, y1: H }, bands = axisNumberBands();
+  const midX = (sx(a) + sx(b)) / 2, midY = (sy(fa) + sy(fb)) / 2 + 3;
+  const box = (x: number, y: number, text: string, anchor: "start" | "middle" | "end") => textBox(x, y, text.length * SECANT_GLYPH, { anchor, fontSize: SECANT_LABEL_SIZE });
+  const runChoices = [sy(fa) + 13, sy(fa) - 6].map((y) => ({ x: midX, y, anchor: "middle" as const, box: box(midX, y, runText, "middle") }));
+  const run = pickSpot(runChoices, bands, { gap: 2, bounds });
+  const riseChoices = ([["end", -7], ["start", 7]] as const).map(([anchor, dx]) => {
+    const x = sx(b) + dx;
+    return { x, y: midY, anchor, box: box(x, midY, riseText, anchor) };
+  });
+  return { run, rise: pickSpot(riseChoices, [...bands, run.box], { gap: 2, bounds }) };
+}
+
 /** Curve sampling step. 1/16 is exact in binary, so every sample lands on a clean pixel. */
 export const STEP = 1 / 16;
 export const sx = (w: number) => PAD_L + w * CELL_X;
@@ -134,6 +168,8 @@ export default function Lesson() {
 
   const club = clubInfo(clubKey);
   const fa = members(clubKey, a), fb = members(clubKey, b), rise = fb - fa, run = b - a;
+  const runText = `run = ${run}`, riseText = `rise = ${numText(rise)}`;
+  const secant = secantLabelSpots(a, b, fa, fb, runText, riseText);
   const rate = averageRate(clubKey, a, b), changes = stepChanges(clubKey);
   const cards = [
     { title: `Week ${a}`, color: DATA_INK, big: `${club.letter}(${a}) = ${fa}`, small: countedText(fa), faint: "one input, exactly one output" },
@@ -177,7 +213,7 @@ export default function Lesson() {
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto h-auto max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={figureLabel(clubKey, a, b)}>
             <text x={4} y={12} fontSize={9} fill="var(--ink-faint)">members</text>
             {Array.from({ length: MEMBER_MAX / 8 + 1 }, (_, i) => i * 8).map((m) => <g key={m}><line x1={sx(WEEK_MIN)} y1={sy(m)} x2={sx(WEEK_MAX)} y2={sy(m)} stroke="var(--line)" strokeWidth={1} />{m % 16 === 0 ? <text x={PAD_L - 6} y={sy(m) + 3} textAnchor="end" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{m}</text> : null}</g>)}
-            {Array.from({ length: WEEK_MAX + 1 }, (_, w) => <g key={w}><line x1={sx(w)} y1={sy(0)} x2={sx(w)} y2={sy(MEMBER_MAX)} stroke="var(--line)" strokeWidth={1} /><text x={sx(w)} y={sy(0) + 15} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{w}</text></g>)}
+            {Array.from({ length: WEEK_MAX + 1 }, (_, w) => <g key={w}><line x1={sx(w)} y1={sy(0)} x2={sx(w)} y2={sy(MEMBER_MAX)} stroke="var(--line)" strokeWidth={1} /><text x={sx(w)} y={sy(0) + WEEK_TICK_DY} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{w}</text></g>)}
             <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={9} fill="var(--ink-faint)">week</text>
             <line x1={sx(WEEK_MIN)} y1={sy(0)} x2={sx(WEEK_MAX)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(WEEK_MIN)} y1={sy(0)} x2={sx(WEEK_MIN)} y2={sy(MEMBER_MAX)} stroke="var(--ink-soft)" strokeWidth={2} />
@@ -186,8 +222,8 @@ export default function Lesson() {
             <line x1={sx(a)} y1={sy(fa)} x2={sx(b)} y2={sy(fa)} stroke={SECANT} strokeWidth={1.5} strokeDasharray="4 3" />
             <line x1={sx(b)} y1={sy(fa)} x2={sx(b)} y2={sy(fb)} stroke={SECANT} strokeWidth={1.5} strokeDasharray="4 3" />
             <line x1={sx(a)} y1={sy(fa)} x2={sx(b)} y2={sy(fb)} stroke={SECANT} strokeWidth={2.5} />
-            <text x={(sx(a) + sx(b)) / 2} y={sy(fa) + 13} textAnchor="middle" fontSize={10} fontWeight={700} fill={SECANT}>run = {run}</text>
-            <text x={sx(b) - 7} y={(sy(fa) + sy(fb)) / 2 + 3} textAnchor="end" fontSize={10} fontWeight={700} fill={SECANT}>rise = {numText(rise)}</text>
+            <text x={secant.run.x} y={secant.run.y} textAnchor={secant.run.anchor} fontSize={SECANT_LABEL_SIZE} fontWeight={700} fill={SECANT}>{runText}</text>
+            <text x={secant.rise.x} y={secant.rise.y} textAnchor={secant.rise.anchor} fontSize={SECANT_LABEL_SIZE} fontWeight={700} fill={SECANT}>{riseText}</text>
             <circle cx={sx(a)} cy={sy(fa)} r={6} fill={SECANT} stroke="white" strokeWidth={2} />
             <circle cx={sx(b)} cy={sy(fb)} r={6} fill={SECANT} stroke="white" strokeWidth={2} />
           </svg>

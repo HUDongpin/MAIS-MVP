@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -47,6 +48,9 @@ import {
   workedStep,
   workedSteps,
   xOf,
+  axisNumberBoxes,
+  P_LABEL_W,
+  P_LABEL_SIZE,
 } from "./ca-g6-ch02-rational-numbers-number-line";
 
 const MINUS = "−";
@@ -426,4 +430,22 @@ test("the plane claim stays state-derived — it cannot be re-inlined as fixed p
   const source = readFileSync(path.join(process.cwd(), "components/lesson/ccss/lessons", `${SLUG}.tsx`), "utf8");
   assert.match(source, /\{planeNote\(a, b\)\}/u, "the Math check must interpolate the helper");
   assert.equal(source.split("two signs deciding").length - 1, 0, "the hard-coded clause must not come back");
+});
+
+test("the point's name never lands on the plane's axis numbers", () => {
+  // The label used to sit diagonally out from the point at a fixed offset, which
+  // put it in the row of x-axis numbers whenever the point came near that axis.
+  const axes = axisNumberBoxes();
+  let states = 0;
+  for (let a = Q_MIN; a <= Q_MAX; a += 1) {
+    for (let b = Q_MIN; b <= Q_MAX; b += 1) {
+      const spot = pointLabel(a, b);
+      assert.ok(spot.fitted, `no clear spot for P at (${a}/${DEN}, ${b}/${DEN})`);
+      const box = textBox(spot.x, spot.y, P_LABEL_W, { anchor: spot.anchor, fontSize: P_LABEL_SIZE });
+      for (const axis of axes) assert.ok(!collides(box, axis, 2), `P sits on an axis number at (${a}/${DEN}, ${b}/${DEN})`);
+      assert.ok(box.x0 >= 0 && box.x1 <= GRID && box.y0 >= 0 && box.y1 <= GRID, `P leaves the plane at (${a}/${DEN}, ${b}/${DEN})`);
+      states += 1;
+    }
+  }
+  assert.equal(states, (Q_MAX - Q_MIN + 1) ** 2);
 });

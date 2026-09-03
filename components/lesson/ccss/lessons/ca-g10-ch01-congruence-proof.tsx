@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-high)";
 const PRE = "var(--band-middle)";
@@ -50,15 +51,44 @@ export const MOTIONS: Motion[] = [
 /** +1 when a motion keeps the sense of a traversal, −1 when it reverses it — read off a unit triangle. */
 export function orientationSign(m: Motion): number { return Math.sign(signedArea2(mapTri(m, { a: { x: 0, y: 0 }, b: { x: 1, y: 0 }, c: { x: 0, y: 1 } }))); }
 
-/** A vertex label pushed outward from the center of its triangle, then clamped inside the viewBox. */
-export function labelFor(text: string, p: Pt, cx: number, cy: number, image: boolean): Label {
+/** How far out a crowded label may be pushed, in the order it should be tried. */
+export const LABEL_REACH: readonly number[] = [13, 22, 31, 40];
+
+/** A vertex label pushed `reach` px outward from the center of its triangle, then clamped inside the viewBox. */
+export function labelFor(text: string, p: Pt, cx: number, cy: number, image: boolean, reach = LABEL_REACH[0]): Label {
   const px = sx(p.x), py = sy(p.y), len = Math.hypot(px - cx, py - cy) || 1;
   const ux = (px - cx) / len, uy = (py - cy) / len, width = text.length * GLYPH;
   const anchor: "start" | "middle" | "end" = ux > 0.3 ? "start" : ux < -0.3 ? "end" : "middle";
-  let x = px + ux * 13;
+  let x = px + ux * reach;
   const left = anchor === "start" ? x : anchor === "end" ? x - width : x - width / 2;
   if (left < 3) x += 3 - left; else if (left + width > SIZE - 3) x -= left + width - (SIZE - 3);
-  return { text, x, y: clamp(py + uy * 13 + 4, FONT + 2, SIZE - 3), anchor, image };
+  return { text, x, y: clamp(py + uy * reach + 4, FONT + 2, SIZE - 3), anchor, image };
+}
+
+/**
+ * The six vertex names, placed one after another so each clears the ones
+ * already down. A pre-image vertex and an image vertex can land a few pixels
+ * apart — at legs 5 and 5 the reflection puts C beside A′ — and two names in
+ * the same place name neither point. Each label keeps its own outward
+ * direction and only travels further along it, so the label still reads as
+ * belonging to its own triangle.
+ */
+export function placeLabels(pre: Tri, img: Tri, cp: { x: number; y: number }, ci: { x: number; y: number }): Label[] {
+  const wanted: { text: string; p: Pt; c: { x: number; y: number }; image: boolean }[] = [
+    { text: "A", p: pre.a, c: cp, image: false }, { text: "B", p: pre.b, c: cp, image: false }, { text: "C", p: pre.c, c: cp, image: false },
+    { text: "A\u2032", p: img.a, c: ci, image: true }, { text: "B\u2032", p: img.b, c: ci, image: true }, { text: "C\u2032", p: img.c, c: ci, image: true },
+  ];
+  const placed: Label[] = [], taken: ReturnType<typeof textBox>[] = [];
+  for (const w of wanted) {
+    const choices = LABEL_REACH.map((reach) => {
+      const label = labelFor(w.text, w.p, w.c.x, w.c.y, w.image, reach);
+      return { label, box: textBox(label.x, label.y, w.text.length * GLYPH, { anchor: label.anchor, fontSize: FONT }) };
+    });
+    const chosen = pickSpot(choices, taken, { gap: 2 });
+    placed.push(chosen.label);
+    taken.push(chosen.box);
+  }
+  return placed;
 }
 
 /** The square that marks the right angle at V, drawn one step along VU and one along VW. */
@@ -79,8 +109,7 @@ export function layout(motionIdx: number, legX: number, legY: number) {
     preMark: rightAngleMark(pre.b, pre.a, pre.c), imgMark: rightAngleMark(img.b, img.a, img.c),
     connectors: keys.map((k) => ({ x1: sx(pre[k].x), y1: sy(pre[k].y), x2: sx(img[k].x), y2: sy(img[k].y) })),
     dots: [...keys.map((k) => ({ x: sx(pre[k].x), y: sy(pre[k].y), image: false })), ...keys.map((k) => ({ x: sx(img[k].x), y: sy(img[k].y), image: true }))],
-    labels: [labelFor("A", pre.a, cp.x, cp.y, false), labelFor("B", pre.b, cp.x, cp.y, false), labelFor("C", pre.c, cp.x, cp.y, false),
-      labelFor("A′", img.a, ci.x, ci.y, true), labelFor("B′", img.b, ci.x, ci.y, true), labelFor("C′", img.c, ci.x, ci.y, true)],
+    labels: placeLabels(pre, img, cp, ci),
   };
 }
 

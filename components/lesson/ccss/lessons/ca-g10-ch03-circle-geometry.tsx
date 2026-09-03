@@ -66,7 +66,12 @@ export function layout(slant: number, deg: number) {
   const rimRight = { x: r2(BASE_CX + rhoPx), y: BASE_CY }, rimLeft = { x: r2(BASE_CX - rhoPx), y: BASE_CY };
   const marker = Math.min(7, Math.round(rhoPx / 2));
   const labels: { text: string; x: number; y: number; anchor: "start" | "middle" | "end" }[] = [
-    { text: `R = ${slant} cm`, x: SEC_CX + 6, y: r2(SEC_CY - rPx / 2), anchor: "start" },
+    // Outside the wedge, to the LEFT of the upward radius it names. On the
+    // right it shared the small-radius wedge with the angle label: at 3 cm the
+    // radius is only 36px, so "R = 3 cm" reached across the bisector and landed
+    // on "60°". The wedge always opens clockwise from 12 o'clock, so the left
+    // of that edge is clear at every cut angle.
+    { text: `R = ${slant} cm`, x: SEC_CX - 6, y: r2(SEC_CY - rPx / 2), anchor: "end" },
     { text: `${deg}°`, x: r2(SEC_CX + 26 * Math.cos(bisector)), y: r2(SEC_CY - 26 * Math.sin(bisector) + 4), anchor: "middle" },
     { text: `h ${rel(c.height)} ${fmt(c.height)}`, x: BASE_CX - 6, y: r2(BASE_CY - hPx / 2), anchor: "end" },
     { text: `r ${rel(c.baseRadius)} ${fmt(c.baseRadius)}`, x: r2(BASE_CX + rhoPx / 2), y: BASE_CY + 17, anchor: "middle" },

@@ -193,6 +193,7 @@ test("every reachable state of the figure is mathematically and visually honest"
             assert.ok(spot.run.y >= 12 && spot.run.y <= TICK_Y - 8, "the run label must not collide with the axis numbers");
             const runBox = textBox(spot.run.x, spot.run.y, `${a}`.length, 11, "middle");
             assert.ok(runBox.left >= 0 && runBox.right <= W, "the run label must stay in frame");
+            assert.ok(spot.run.fitted, `no clear spot for the horizontal-leg label at P(${x1}, ${y1}) Q(${x2}, ${y2})`);
             for (let i = 0; i <= N; i += 1) {
               assert.ok(!overlaps(runBox, xAxisTickBox(i)), `the horizontal-leg label ${a} lands on the x-axis number ${i} at P(${x1}, ${y1}) Q(${x2}, ${y2})`);
               assert.ok(!overlaps(runBox, yAxisTickBox(i)), `the horizontal-leg label ${a} lands on the y-axis number ${i} at P(${x1}, ${y1}) Q(${x2}, ${y2})`);
@@ -203,12 +204,18 @@ test("every reachable state of the figure is mathematically and visually honest"
           if (spot.rise) {
             assert.ok(spot.rise.x >= 12 && spot.rise.x <= W - 12);
             assert.ok(spot.rise.y >= 12 && spot.rise.y <= GY0 + 8);
-            // the label sits on the side of the vertical leg that faces away from the triangle,
-            // unless that side is the strip the y-axis numbers occupy, where it must turn inward
-            if (x2 > x1) assert.equal(spot.rise.anchor, "start", "the triangle is left of the leg");
-            else if (x2 < x1 && x2 > 0) assert.equal(spot.rise.anchor, "end", "the triangle is right of the leg");
-            else assert.equal(spot.rise.anchor, "start", "against the y-axis the inside is the only clear side");
+            // The label stands off the leg it names, on whichever side is free.
+            // Which side that is depends on the rest of the drawing, so the test
+            // asserts the clearance rather than the choice.
+            assert.ok(Math.abs(spot.rise.x - sx(x2)) >= 9, "the vertical-leg label must stand off its own leg");
+            assert.ok(spot.rise.fitted, `no clear spot for the vertical-leg label at P(${x1}, ${y1}) Q(${x2}, ${y2})`);
             const riseBox = textBox(spot.rise.x, spot.rise.y, `${b}`.length, 11, spot.rise.anchor);
+            if (spot.run) {
+              // The two legs meet at a right angle, so on a 1-by-1 triangle their
+              // labels are a few pixels apart unless something keeps them apart.
+              const runBox = textBox(spot.run.x, spot.run.y, `${a}`.length, 11, "middle");
+              assert.ok(!overlaps(runBox, riseBox), `the two leg labels collide at P(${x1}, ${y1}) Q(${x2}, ${y2})`);
+            }
             assert.ok(riseBox.left >= 0 && riseBox.right <= W, "the leg label must stay in frame");
             for (let i = 0; i <= N; i += 1) {
               assert.ok(!overlaps(riseBox, yAxisTickBox(i)), `the vertical-leg label ${b} lands on the y-axis number ${i} at P(${x1}, ${y1}) Q(${x2}, ${y2})`);

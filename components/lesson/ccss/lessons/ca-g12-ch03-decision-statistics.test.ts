@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -51,6 +52,10 @@ import {
   verdict,
   xOf,
   type Side,
+  moneyLabelRows,
+  MONEY_ROW_H,
+  MONEY_GLYPH,
+  MONEY_LABEL_SIZE,
 } from "./ca-g12-ch03-decision-statistics";
 
 const SLUG = "ca-g12-ch03-decision-statistics";
@@ -306,4 +311,28 @@ test("lesson source cites only brief standards and keeps its markup contract", (
   assert.match(source, /\{gold === 1 \? "sector" : "sectors"\}/u);
   assert.doesNotMatch(source, /[\u3040-\u30ff\u3400-\u9fff]/u, "no CJK characters");
   assert.doesNotMatch(source, /Math\.random|fetch\(|localStorage|<form|dangerouslySetInnerHTML|next\/image/u);
+});
+
+test("two net-result labels never share a row and a place", () => {
+  let states = 0;
+  for (let gold = GOLD_MIN; gold <= GOLD_MAX; gold += GOLD_STEP) {
+    for (let prize = PRIZE_MIN; prize <= PRIZE_MAX; prize += PRIZE_STEP) {
+      for (let price = PRICE_MIN; price <= PRICE_MAX; price += PRICE_STEP) {
+        const rows = outcomes(gold, prize, price);
+        const texts = rows.map((o) => money(o.netCents));
+        const which = moneyLabelRows(rows.map((o) => o.net), texts);
+        const boxes = rows.map((o, i) => textBox(xOf(o.net), BASE_Y + 14 + which[i] * MONEY_ROW_H, texts[i].length * MONEY_GLYPH, { fontSize: MONEY_LABEL_SIZE }));
+        const where = `${gold} gold, $${prize} prize, $${price} ticket`;
+        for (let i = 0; i < boxes.length; i += 1) {
+          for (let j = i + 1; j < boxes.length; j += 1) {
+            assert.ok(which[i] !== which[j] || !collides(boxes[i], boxes[j], 3), `"${texts[i]}" and "${texts[j]}" overlap at ${where}`);
+          }
+          // The reserved second row must stay clear of the balance-point marker.
+          assert.ok(boxes[i].y1 < TIP_Y, `a net-result label reaches the expected-value marker at ${where}`);
+        }
+        states += 1;
+      }
+    }
+  }
+  assert.ok(states > 0);
 });

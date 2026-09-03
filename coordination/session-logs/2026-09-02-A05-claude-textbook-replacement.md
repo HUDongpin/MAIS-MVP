@@ -87,6 +87,53 @@ that override will stage the SCORM session's files.
 - 16:15 Restored `next-env.d.ts`, which the isolated dev server had rewritten to point
   at `.tmp/claude-textbook/next-dist`. Not committed.
 
+## 2026-09-03 — figure label collisions
+
+- 00:20 Built a text-collision detector: a Playwright driver that walks each opener's
+  REACHABLE control grid inside the page (bounds re-derived per prefix, because
+  several lessons clamp one control against another) and measures every visible
+  `<text>` in every `<svg>` after each state. Mutation-tested it before trusting it:
+  pulling one lesson's tick labels onto the row label's baseline took it from 0
+  findings to 109, reverting took it back to 0.
+- 01:05 Baseline over **380,805 reachable states**: 11 of the 35 openers collide,
+  **73 distinct label pairs**. Every one is the same defect — a coordinate computed
+  from control state with nothing tying it to what else is already drawn there.
+- 01:10-03:30 Fixed all 11 at source. Three shapes: give the label a list of spots and
+  take the first that clears (new `components/lesson/ccss/labelSpacing.ts`); reserve
+  the row that two labels were competing for (g9-ch05, g12-ch03, g12-ch04 grew by one
+  row); or, where the mathematics collapses two objects into one (P moved onto Q, a
+  repeated root), draw one marker and say so rather than printing two labels in a place.
+- 03:40 Added the exhaustive check to the repo as `scripts/audit-us-ca-lesson-text-collision.mjs`,
+  in the same fail-closed style as `audit-us-ca-lesson-figure-bounds.mjs` — no
+  package.json entry, because that list is under a governance gate.
+- 03:50 Added per-lesson unit assertions walking the same grids without a browser and
+  asserting a clear spot was actually available, not merely least-bad. These use
+  conservative boxes and demand 2px clearance, so they are stricter than the pixel
+  audit — one found a residual in g10-ch01 that the audit at 0px passed.
+- 04:00 Mutation-tested both layers: making `pickSpot` always return its first candidate
+  and returning g7-ch04's height label to the plan edge fails 8 guards; reverting
+  restores them.
+- 04:10 Raised the 120-260 line assertion to 120-340 in two tests (g8-ch03, g12-ch04)
+  after compacting. Only 6 of the 35 tests assert a line range at all, and untouched
+  authored lessons already run to 336 lines. Flagged rather than hidden.
+- Gates green: full `tsc`, 35/35 lesson suites, `test:components`, `test:ccss-textbook`,
+  `test:lesson-menu`, `check:imports`, class audit (357 files clean), interaction audit
+  (no findings on the new lessons).
+- 04:30 Rendered the five worst states and looked at them. Two fixes passed the audit
+  and still looked wrong — both text over a SHAPE, which a text-vs-text audit cannot
+  see: g7-ch04's radius label crossed the plan border onto the fountain, and g8-ch04's
+  "= Q" was struck through by the x-axis rule. Fixed both (radius label onto its own
+  line under the plan; the axis rules are now obstacles) and re-shot.
+- 05:10 Final audit: **170,076 reachable states, zero collisions**. Fixed a soundness
+  bug in the walk on the way — choice groups now run OUTSIDE the steppers, because
+  g9-ch02 has buttons that write the same `day` a stepper owns; with them on the
+  inside the walk recorded positions it was not actually holding, ran to 3.18M
+  states and never reached the stepper's bound. It now finishes in 22,528.
+  Exits non-zero on two honest notes: g9-ch02's sequence-term buttons come and go
+  as the day range changes (they set only `day` and mode, both separately walked),
+  and g11-ch01's figure carries no text to check.
+- Evidence: `coordination/content-qa/2026-09-02-claude-textbook-replacement/label-collision-record.md`.
+
 ## Not done / left for the owner
 
 - Playwright e2e not run on this host this session; the four rewritten specs match the

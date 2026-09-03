@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox, type LabelBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-high)", PAIR = "var(--band-upper)", REAL_INK = "var(--band-middle)";
 
@@ -108,8 +109,72 @@ export function graphLabel(r: number, p: number, q: number): string {
   const { b, c, d } = expand(r, p, q);
   return `Graph of y = ${cubicText(b, c, d)} for x from ${num(XMIN)} to ${num(XMAX)}. The curve ${crossingText(r, p, q)}.`;
 }
+/** Type sizes on the complex plane: the axis numbers and names, and the zero labels. */
+export const ZERO_LABEL_SIZE = 10, ZERO_GLYPH = 6.2, PLANE_AXIS_SIZE = 8;
+
+/**
+ * One dot per distinct point, carrying how many of the three zeros are there.
+ *
+ * Setting q to 0 sends the conjugate pair onto the real axis and onto each
+ * other, and setting r to p sends all three to one point. Drawing three markers
+ * then stacks two or three identical labels in the same place, which reads as
+ * one blurred label rather than as a repeated root. The repeat is worth showing,
+ * so it is drawn as a ring around the dot and spelled out in the figure's
+ * description instead of being printed twice.
+ */
+export function planeZeros(r: number, p: number, q: number): { re: number; im: number; times: number }[] {
+  const out: { re: number; im: number; times: number }[] = [];
+  for (const z of zeros(r, p, q)) {
+    const seen = out.find((o) => o.re === z.re && o.im === z.im);
+    if (seen) seen.times += 1;
+    else out.push({ re: z.re, im: z.im, times: 1 });
+  }
+  return out;
+}
+
+export function timesWord(times: number): string { return times === 1 ? "once" : times === 2 ? "twice" : "three times"; }
+
+/** The axis numbers and the two axis names, which no zero label may sit on. */
+export function planeAxisBoxes(): LabelBox[] {
+  const ticks = [-3, -2, -1, 1, 2, 3].flatMap((v) => [
+    textBox(cxOf(v), cyOf(0) + 11, 10, { fontSize: PLANE_AXIS_SIZE }),
+    textBox(cxOf(0) - 6, cyOf(v) + 3, 18, { anchor: "end", fontSize: PLANE_AXIS_SIZE }),
+  ]);
+  return [
+    ...ticks,
+    textBox(cxOf(CRANGE), cyOf(0) - 6, 16, { anchor: "end", fontSize: ZERO_LABEL_SIZE }),
+    textBox(cxOf(0) + 6, cyOf(CRANGE) + 10, 16, { anchor: "start", fontSize: ZERO_LABEL_SIZE }),
+  ];
+}
+
+/** The four corners around a zero, near then far, in the order the figure prefers them. */
+export function zeroLabelChoices(re: number, im: number, text: string) {
+  const width = text.length * ZERO_GLYPH;
+  const first = re >= 1 ? -1 : 1;
+  return [10, 22].flatMap((reach) => [
+    { dx: first * reach, dy: -9 }, { dx: -first * reach, dy: -9 },
+    { dx: first * reach, dy: 15 }, { dx: -first * reach, dy: 15 },
+  ].map(({ dx, dy }) => {
+    const x = cxOf(re) + dx, y = cyOf(im) + dy;
+    const anchor: "start" | "end" = dx < 0 ? "end" : "start";
+    return { x, y, anchor, box: textBox(x, y, width, { anchor, fontSize: ZERO_LABEL_SIZE }) };
+  }));
+}
+
+/** Each zero's name, placed so it clears the axis labels and the names already down. */
+export function zeroLabelSpots(r: number, p: number, q: number) {
+  const bounds: LabelBox = { x0: 0, y0: 0, x1: CW, y1: CH };
+  const taken = planeAxisBoxes();
+  return planeZeros(r, p, q).map((z) => {
+    const text = complexText(z.re, z.im);
+    const chosen = pickSpot(zeroLabelChoices(z.re, z.im, text), taken, { gap: 2, bounds });
+    taken.push(chosen.box);
+    return { ...z, text, ...chosen };
+  });
+}
+
 export function planeLabel(r: number, p: number, q: number): string {
-  const listed = zeros(r, p, q).map((z) => complexText(z.re, z.im)).join(", ");
+  const listed = planeZeros(r, p, q).map((z) => `${complexText(z.re, z.im)}${z.times > 1 ? ` (counted ${timesWord(z.times)})` : ""}`).join(", ");
   const where = q > 0 ? "one on the horizontal real axis and two mirrored across it" : "all three on the horizontal real axis";
   return `Complex plane from −3 to 3 on both axes, marking the zeros ${listed} — ${where}.`;
 }
@@ -159,6 +224,7 @@ export default function Lesson() {
 
   const { b, c, d } = expand(r, p, q);
   const unit = yUnit(r, p, q), roots = zeros(r, p, q);
+  const planeMarks = zeroLabelSpots(r, p, q);
   const path = graphSamples(r, p, q).map((s) => `${gx(s.x).toFixed(2)},${gyOf(s.y, unit).toFixed(2)}`).join(" ");
   const sum = r + 2 * p;
   const addends = zeroSumText(r, p, q);
@@ -215,7 +281,13 @@ export default function Lesson() {
               <text x={cxOf(CRANGE)} y={cyOf(0) - 6} textAnchor="end" fontSize={10} fill="var(--ink-faint)">Re</text>
               <text x={cxOf(0) + 6} y={cyOf(CRANGE) + 10} fontSize={10} fill="var(--ink-faint)">Im</text>
               {q > 0 && <line x1={cxOf(p)} y1={cyOf(q)} x2={cxOf(p)} y2={cyOf(-q)} stroke={PAIR} strokeWidth={1.5} strokeDasharray="4 3" />}
-              {roots.map((z, i) => <g key={i}><circle cx={cxOf(z.re)} cy={cyOf(z.im)} r={6} fill={z.im === 0 ? REAL_INK : PAIR} stroke="white" strokeWidth={2} /><text x={z.re >= 1 ? cxOf(z.re) - 10 : cxOf(z.re) + 10} y={cyOf(z.im) - 9} textAnchor={z.re >= 1 ? "end" : "start"} fontSize={10} fontWeight={700} fill={z.im === 0 ? REAL_INK : PAIR}>{complexText(z.re, z.im)}</text></g>)}
+              {planeMarks.map((z, i) => (
+                <g key={i}>
+                  {z.times > 1 && <circle cx={cxOf(z.re)} cy={cyOf(z.im)} r={10} fill="none" stroke={z.im === 0 ? REAL_INK : PAIR} strokeWidth={1.5} />}
+                  <circle cx={cxOf(z.re)} cy={cyOf(z.im)} r={6} fill={z.im === 0 ? REAL_INK : PAIR} stroke="white" strokeWidth={2} />
+                  <text x={z.x} y={z.y} textAnchor={z.anchor} fontSize={ZERO_LABEL_SIZE} fontWeight={700} fill={z.im === 0 ? REAL_INK : PAIR}>{z.text}</text>
+                </g>
+              ))}
             </svg>
           </div>
 

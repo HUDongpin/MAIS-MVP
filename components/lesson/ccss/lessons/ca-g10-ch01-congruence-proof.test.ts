@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -38,6 +39,7 @@ import {
   type Motion,
   type Pt,
   type Tri,
+  FONT,
 } from "./ca-g10-ch01-congruence-proof";
 
 const SLUG = "ca-g10-ch01-congruence-proof";
@@ -347,4 +349,24 @@ test("exported helper types stay usable by name", () => {
   const tri: Tri = triangle(3, 4);
   const p: Pt = motion.apply(tri.a);
   assert.deepEqual(p, { x: 1, y: 1 });
+});
+
+test("the six vertex names stay off each other at every motion and leg pair", () => {
+  let states = 0;
+  for (let idx = 0; idx < MOTIONS.length; idx += 1) {
+    for (let legX = LEG_MIN; legX <= LEG_MAX; legX += 1) {
+      for (let legY = LEG_MIN; legY <= LEG_MAX; legY += 1) {
+        const labels = layout(idx, legX, legY).labels;
+        const where = `motion ${idx}, legs ${legX} by ${legY}`;
+        const boxes = labels.map((l) => textBox(l.x, l.y, l.text.length * GLYPH, { anchor: l.anchor, fontSize: FONT }));
+        for (let i = 0; i < boxes.length; i += 1) {
+          for (let j = i + 1; j < boxes.length; j += 1) {
+            assert.ok(!collides(boxes[i], boxes[j], 2), `"${labels[i].text}" and "${labels[j].text}" overlap at ${where}`);
+          }
+        }
+        states += 1;
+      }
+    }
+  }
+  assert.equal(states, MOTIONS.length * (LEG_MAX - LEG_MIN + 1) ** 2);
 });

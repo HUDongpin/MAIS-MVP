@@ -18,11 +18,25 @@ export const K_MIN = 2, K_MAX = 6;
 export const R_MIN = 0.5, R_STEP = 0.5, D_MIN = 1, D_MAX = 3;
 /** Plan panel, then a side panel holding the pool's cross-section at MPP pixels per meter. */
 export const PW = DW_MAX * CELL + 2 * PAD;
+/**
+ * Two labels that cannot be pinned to the thing they name.
+ *
+ * "r = 0.5 units = 1 m" is about 120px wide and a 2-unit plan is 60px across,
+ * so beside the fountain the radius label overran the plan on both sides: it
+ * struck through the plan's own border and landed on the rotated height label.
+ * Neither shrinking the label nor nudging it helps at that size, so the radius
+ * label gets its own line under the plan and the height label its own gutter
+ * left of the widest plan. Both are drawn in the colour of what they name.
+ */
+export const HEIGHT_LABEL_X = 13;
+/** The plan's three labels are all 11px bold; 6.4 is a generous per-character advance for that face. */
+export const PLAN_LABEL_SIZE = 11, PLAN_GLYPH = 6.4;
 export const SIDE = 120;
 export const MPP = 14;
 export const SURFACE_Y = 100;
 export const W = PW + SIDE;
 export const H = DH_MAX * CELL + 2 * PAD;
+export const RADIUS_LABEL_Y = H - 8;
 
 /** The bottom row is the pool, so the circle must fit the width and the rows above it: 2r <= min(dw, dh - 1). */
 export function maxRadius(dw: number, dh: number): number {
@@ -169,9 +183,9 @@ export default function Lesson() {
             <rect x={ox} y={oy} width={dw * CELL} height={dh * CELL} fill="none" stroke={ACCENT} strokeWidth={2.5} />
             <circle cx={cx} cy={cy} r={r * CELL} fill={WATER} fillOpacity={0.3} stroke={WATER} strokeWidth={2} />
             <line x1={cx} y1={cy} x2={cx + r * CELL} y2={cy} stroke={WATER} strokeWidth={2} />
-            <text x={cx + (r * CELL) / 2} y={cy - 6} textAnchor="middle" fontSize={11} fontWeight={800} fill={WATER}>{s.radiusLabel}</text>
+            <text x={PW / 2} y={RADIUS_LABEL_Y} textAnchor="middle" fontSize={11} fontWeight={800} fill={WATER}>{s.radiusLabel}</text>
             <text x={PW / 2} y={oy - 9} textAnchor="middle" fontSize={11} fontWeight={700} fill={ACCENT}>{s.widthLabel}</text>
-            <text x={ox - 11} y={H / 2} transform={`rotate(-90 ${ox - 11} ${H / 2})`} textAnchor="middle" fontSize={11} fontWeight={700} fill={ACCENT}>{s.heightLabel}</text>
+            <text x={HEIGHT_LABEL_X} y={H / 2} transform={`rotate(-90 ${HEIGHT_LABEL_X} ${H / 2})`} textAnchor="middle" fontSize={11} fontWeight={700} fill={ACCENT}>{s.heightLabel}</text>
             <text x={PW + SIDE / 2} y={SURFACE_Y - 24} textAnchor="middle" fontSize={9} fontWeight={700} fill="var(--ink-faint)">{s.sideTitle}</text>
             <text x={PW + SIDE / 2} y={SURFACE_Y - 10} textAnchor="middle" fontSize={10} fontWeight={700} fill={WATER}>{s.sideWidth}</text>
             <rect x={sideX} y={SURFACE_Y} width={p.poolShort * MPP} height={depth * MPP} fill={WATER} fillOpacity={0.45} stroke={WATER} strokeWidth={2} />

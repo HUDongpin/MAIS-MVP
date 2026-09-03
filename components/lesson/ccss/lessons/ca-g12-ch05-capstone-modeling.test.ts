@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -55,6 +56,7 @@ import {
   tryFactText,
   tryFeedback,
   verdictLine,
+  edgeLabelSpots,
 } from "./ca-g12-ch05-capstone-modeling";
 
 const SLUG = "ca-g12-ch05-capstone-modeling";
@@ -428,4 +430,20 @@ test("lesson source cites only brief standards and keeps its markup contract", (
 
   assert.doesNotMatch(source, /[\u3040-\u30ff\u3400-\u9fff]/u, "no CJK characters");
   assert.doesNotMatch(source, /Math\.random|fetch\(|localStorage|<form|dangerouslySetInnerHTML|next\/image/u);
+});
+
+test("the two edge names never share a spot", () => {
+  let states = 0;
+  for (let w = W_MIN; w <= W_MAX; w += 1) {
+    for (let h = H_MIN; h <= H_MAX; h += 1) {
+      for (const move of MOVES) {
+        const p = panel(w, h, move.m), spots = edgeLabelSpots(p.au, p.av);
+        const where = `${w} by ${h}, ${move.key}`;
+        assert.ok(spots.v.fitted, `no clear spot for the second edge name at ${where}`);
+        assert.ok(!collides(spots.u.box, spots.v.box, 3), `the two edge names overlap at ${where}`);
+        states += 1;
+      }
+    }
+  }
+  assert.equal(states, (W_MAX - W_MIN + 1) * (H_MAX - H_MIN + 1) * MOVES.length);
 });

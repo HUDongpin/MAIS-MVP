@@ -8,3 +8,6 @@ with A18-style independent verification evidence). Files:
 - `verification-record.md` — per-lesson verification outcomes for the 35
   MAIS-authored chapter openers (adversarial math / CCSS / UI reviews, repair
   rounds, per-lesson test harness) and the gate results for the branch.
+- `label-collision-record.md` — the 2026-09-03 pass over figure label
+  collisions: 380,805 reachable states measured, 73 colliding label pairs in
+  11 of the 35 openers, what each one was, and the two gates that now guard it.

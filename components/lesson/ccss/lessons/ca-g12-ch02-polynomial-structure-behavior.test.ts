@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -68,6 +69,8 @@ import {
   zeroCountText,
   zeros,
   type Zero,
+  zeroLabelSpots,
+  planeAxisBoxes,
 } from "./ca-g12-ch02-polynomial-structure-behavior";
 
 const SLUG = "ca-g12-ch02-polynomial-structure-behavior";
@@ -523,4 +526,26 @@ test("lesson source cites only brief standards and keeps its markup contract", (
     assert.ok(mathCheck.includes(fragment), `the Math check must render ${fragment}`);
   }
   assert.doesNotMatch(mathCheck, /[a-z]{3} [a-z]{3}/u, "the Math check body must be helper calls plus citations, with no untested inline prose");
+});
+
+test("every zero on the complex plane gets a label of its own", () => {
+  // q = 0 sends the conjugate pair onto the real axis and onto each other, and
+  // r = p sends all three zeros to one point.
+  let states = 0;
+  for (let r = R_MIN; r <= R_MAX; r += 1) {
+    for (let p = P_MIN; p <= P_MAX; p += 1) {
+      for (let q = Q_MIN; q <= Q_MAX; q += 1) {
+        const marks = zeroLabelSpots(r, p, q), where = `r=${r} p=${p} q=${q}`;
+        assert.equal(marks.reduce((sum, m) => sum + m.times, 0), 3, `every zero must be accounted for at ${where}`);
+        const boxes = planeAxisBoxes();
+        for (const mark of marks) {
+          assert.ok(mark.fitted, `no clear spot for the label "${mark.text}" at ${where}`);
+          for (const box of boxes) assert.ok(!collides(mark.box, box, 2), `"${mark.text}" overlaps another label at ${where}`);
+          boxes.push(mark.box);
+        }
+        states += 1;
+      }
+    }
+  }
+  assert.equal(states, (R_MAX - R_MIN + 1) * (P_MAX - P_MIN + 1) * (Q_MAX - Q_MIN + 1));
 });

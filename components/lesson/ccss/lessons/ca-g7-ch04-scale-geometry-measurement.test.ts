@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { collides, textBox } from "../labelSpacing";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
@@ -37,6 +38,10 @@ import {
   tryFeedback,
   units,
   workedExample,
+  HEIGHT_LABEL_X,
+  PLAN_LABEL_SIZE,
+  PLAN_GLYPH,
+  RADIUS_LABEL_Y,
 } from "./ca-g7-ch04-scale-geometry-measurement";
 
 const SLUG = "ca-g7-ch04-scale-geometry-measurement";
@@ -400,4 +405,37 @@ test("lesson source cites only brief standards and keeps its markup contract", (
   assert.match(source, /aria-pressed=\{picked === i\}/u);
   assert.doesNotMatch(source, /[\u3040-\u30ff\u3400-\u9fff]/u, "no CJK characters");
   assert.doesNotMatch(source, /Math\.random|fetch\(|localStorage|<form|dangerouslySetInnerHTML|next\/image/u);
+});
+
+test("the plan's three labels never overlap, at any plan size or scale", () => {
+  // The height label used to sit beside the plan's own left edge, so a narrow
+  // plan carried it inward — into the fountain's radius label, which is wider
+  // than a two-unit plan is across.
+  let states = 0;
+  for (let dw = DW_MIN; dw <= DW_MAX; dw += 1) {
+    for (let dh = DH_MIN; dh <= DH_MAX; dh += 1) {
+      for (let r = R_MIN; r <= maxRadius(dw, dh) + 1e-9; r += R_STEP) {
+        for (let k = K_MIN; k <= K_MAX; k += 1) {
+          const { ox, oy } = origin(dw, dh);
+          const s = figureStrings(dw, dh, r, k, D_MIN);
+          const where = `${dw} by ${dh}, r ${r}, ${k} m per unit`;
+          const radius = textBox(PW / 2, RADIUS_LABEL_Y, s.radiusLabel.length * PLAN_GLYPH, { fontSize: PLAN_LABEL_SIZE });
+          // It is wider than a narrow plan, so it must clear the plan rectangle
+          // outright rather than sit beside the fountain and strike through it.
+          assert.ok(radius.y0 > oy + dh * CELL + 2, `the radius label overlaps the plan at ${where}`);
+          const width = textBox(PW / 2, oy - 9, s.widthLabel.length * PLAN_GLYPH, { fontSize: PLAN_LABEL_SIZE });
+          // The height label is drawn rotated a quarter turn, so its box is the
+          // transpose: as tall as the text is long, as wide as the type is high.
+          const half = (s.heightLabel.length * PLAN_GLYPH) / 2;
+          const height = { x0: HEIGHT_LABEL_X - 0.82 * PLAN_LABEL_SIZE, x1: HEIGHT_LABEL_X + 0.26 * PLAN_LABEL_SIZE, y0: H / 2 - half, y1: H / 2 + half };
+          assert.ok(!collides(radius, height, 2), `the radius and height labels overlap at ${where}`);
+          assert.ok(!collides(radius, width, 2), `the radius and width labels overlap at ${where}`);
+          assert.ok(!collides(width, height, 2), `the width and height labels overlap at ${where}`);
+          assert.ok(height.x0 >= 0 && radius.x1 <= PW, `a plan label leaves the plan panel at ${where}`);
+          states += 1;
+        }
+      }
+    }
+  }
+  assert.ok(states > 200, `expected the whole plan grid, walked ${states} states`);
 });

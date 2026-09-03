@@ -18,10 +18,13 @@ export const MEAN_HOURS = 4, MEAN_SCORE = 30, MAX_HOURS = 8, MAX_SCORE = 50;
 /** Sum of (hours − 4)², and sum of NOISE². */
 export const SXX = 60, NOISE_SS = 18;
 export const SLOPE_MIN = -3, SLOPE_MAX = 3, SPREAD_MIN = 1, SPREAD_MAX = 4, STUDENT_MIN = 1, STUDENT_MAX = 9;
-/** Pixel geometry: a dot-plot strip above a scatter panel, both inside one 420 × 512 box. The lowest reachable score is 17, so both
+/** Pixel geometry: a dot-plot strip above a scatter panel, both inside one 420 × 522 box. The lowest reachable score is 17, so both
  * score axes start at SCORE_LO = 15 rather than 0 and spend all 350 px on the data. One score point is then exactly 10 px, so even the
- * smallest residual (1 point) leaves 10 − MARK_R − MODEL_HALF = 6 px of bare gap between the marker it starts at and the line it ends on. */
-export const W = 420, H = 512, PLOT_L = 48, PLOT_R = 404, SCORE_LO = 15;
+ * smallest residual (1 point) leaves 10 − MARK_R − MODEL_HALF = 6 px of bare gap between the marker it starts at and the line it ends on.
+ * The space below SCAT_BASE holds two stacked rows, not one: the hour numbers, then the axis name under them. At H = 512 the name sat
+ * 2 px inside the digits it was naming, so both rows are placed from named constants rather than from whatever height the drawing needed. */
+export const W = 420, H = 522, PLOT_L = 48, PLOT_R = 404, SCORE_LO = 15;
+export const HOUR_TICK_DY = 16, AXIS_NAME_Y = 512;
 export const DOT_BASE = 72, DOT_LIFT = 10, DOT_STEP = 9, DOT_R = 4;
 export const SCAT_TOP = 132, SCAT_BASE = 482, SCORE_TICKS = [15, 20, 25, 30, 35, 40, 45, 50];
 /** The hours axis is inset from the drawn frame: at 0 hours a residual would otherwise be painted straight down the y-axis, in the axis colour, and vanish. */
@@ -162,7 +165,7 @@ export default function Lesson() {
             {SCORE_TICKS.map((v) => (
               <g key={v}><line x1={PLOT_L} y1={scoreY(v)} x2={PLOT_R} y2={scoreY(v)} stroke="var(--line)" strokeWidth={1} /><text x={PLOT_L - 7} y={scoreY(v) + 4} textAnchor="end" fontSize={10} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{v}</text></g>
             ))}
-            {HOURS.map((h) => <text key={h} x={hourX(h)} y={SCAT_BASE + 16} textAnchor="middle" fontSize={10} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{h}</text>)}
+            {HOURS.map((h) => <text key={h} x={hourX(h)} y={SCAT_BASE + HOUR_TICK_DY} textAnchor="middle" fontSize={10} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{h}</text>)}
             <line x1={PLOT_L} y1={SCAT_BASE} x2={PLOT_R} y2={SCAT_BASE} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={PLOT_L} y1={SCAT_BASE} x2={PLOT_L} y2={SCAT_TOP} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={hourX(0)} y1={scoreY(predicted(slope, 0))} x2={hourX(MAX_HOURS)} y2={scoreY(predicted(slope, MAX_HOURS))} stroke={LINE_C} strokeWidth={MODEL_HALF * 2} />
@@ -170,7 +173,7 @@ export default function Lesson() {
             {L.points.map((p, i) => <line key={i} x1={p.x} y1={p.gapY1} x2={p.x} y2={p.gapY2} stroke={i === student - 1 ? RESID_C : "var(--ink-soft)"} strokeWidth={i === student - 1 ? 3 : 2} />)}
             {L.points.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r={MARK_R} fill={i === student - 1 ? RESID_C : DOT_C} />)}
             <text x={PLOT_R} y={SCAT_BASE - 5} textAnchor="end" fontSize={10} fill={ACCENT}>ring = point of averages ({MEAN_HOURS}, {MEAN_SCORE})</text>
-            <text x={hourX(MEAN_HOURS)} y={H - 4} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">hours of practice</text>
+            <text x={hourX(MEAN_HOURS)} y={AXIS_NAME_Y} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">hours of practice</text>
             <text transform={`translate(14 ${(SCAT_TOP + SCAT_BASE) / 2}) rotate(-90)`} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">unit-test score</text>
           </svg>
 

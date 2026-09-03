@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox, type LabelBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-middle)";
 const B_COLOR = "var(--band-early)";
@@ -74,9 +75,45 @@ export const clampQ = (q: number) => Math.min(Q_MAX, Math.max(Q_MIN, q));
 export function xOf(q: number): number { return PAD + (clampQ(q) - Q_MIN) * PX_PER_Q; }
 export function planeX(q: number): number { return GRID_C + (clampQ(q) / DEN) * UNIT; }
 export function planeY(q: number): number { return GRID_C - (clampQ(q) / DEN) * UNIT; }
-/** Where the letter P goes: offset away from the point, and inside the grid at every state. */
-export function pointLabel(a: number, b: number): { x: number; y: number; anchor: "start" | "end" } {
-  return { x: planeX(a) + (a >= 0 ? 9 : -9), y: planeY(b) + (b >= 0 ? -9 : 16), anchor: a >= 0 ? "start" : "end" };
+/** Type sizes on the plane: the axis numbers, and the letter naming the point. */
+export const AXIS_NUM_SIZE = 9, AXIS_NUM_W = 14, P_LABEL_SIZE = 12, P_LABEL_W = 10;
+
+/** Every axis number drawn on the plane — what the point's name has to stay off. */
+export function axisNumberBoxes(): LabelBox[] {
+  return UNITS.filter((k) => k !== 0).flatMap((k) => [
+    textBox(planeX(4 * k), planeY(0) + 14, AXIS_NUM_W, { fontSize: AXIS_NUM_SIZE }),
+    textBox(planeX(0) - 6, planeY(4 * k) + 3, AXIS_NUM_W, { anchor: "end", fontSize: AXIS_NUM_SIZE }),
+  ]);
+}
+
+/**
+ * Where the letter P goes.
+ *
+ * It used to sit diagonally away from the origin at a fixed 9 px, which is the
+ * right idea until the point is near an axis: at b = −0.25 the label dropped
+ * onto the row of x-axis numbers and read as part of them. The four diagonals
+ * are still tried in that order, so on an open stretch of grid the label lands
+ * exactly where it always did; only a crowded point travels further out.
+ */
+export function pointLabelChoices(a: number, b: number) {
+  const px = planeX(a), py = planeY(b);
+  const first = a >= 0 ? 1 : -1, firstY = b >= 0 ? -1 : 1;
+  const sides: { sx: number; sy: number }[] = [
+    { sx: first, sy: firstY }, { sx: -first, sy: firstY }, { sx: first, sy: -firstY }, { sx: -first, sy: -firstY },
+  ];
+  return [0, 9].flatMap((extra) => sides.map(({ sx: hx, sy: vy }) => {
+    const x = px + hx * (9 + extra), y = py + (vy < 0 ? -(9 + extra) : 16 + extra);
+    const anchor: "start" | "end" = hx > 0 ? "start" : "end";
+    return { x, y, anchor, box: textBox(x, y, P_LABEL_W, { anchor, fontSize: P_LABEL_SIZE }) };
+  }));
+}
+
+export function pointLabel(a: number, b: number): { x: number; y: number; anchor: "start" | "end"; fitted: boolean } {
+  const { x, y, anchor, fitted } = pickSpot(pointLabelChoices(a, b), axisNumberBoxes(), {
+    gap: 2,
+    bounds: { x0: 0, y0: 0, x1: GRID, y1: GRID },
+  });
+  return { x, y, anchor, fitted };
 }
 
 export function orderSymbol(a: number, b: number): "<" | ">" | "=" { return a < b ? "<" : a > b ? ">" : "="; }

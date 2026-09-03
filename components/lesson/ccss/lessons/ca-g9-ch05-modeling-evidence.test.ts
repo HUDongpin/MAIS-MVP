@@ -67,6 +67,8 @@ import {
   summarize,
   tryAnswerIndex,
   tryChoices,
+  AXIS_NAME_Y,
+  HOUR_TICK_DY,
 } from "./ca-g9-ch05-modeling-evidence";
 
 const SLUG = "ca-g9-ch05-modeling-evidence";
@@ -456,7 +458,11 @@ test("lesson source cites only what it develops and keeps its markup contract", 
   assert.match(source, /aria-label=\{`Decrease \$\{label\}`\}/u);
   assert.match(source, /aria-label=\{`Increase \$\{label\}`\}/u);
   assert.equal(W, 420);
-  assert.equal(H, 512);
+  assert.equal(H, 522);
+  // Two stacked rows under the scatter panel, not one. At H = 512 the axis name
+  // was printed 2 px inside the hour numbers it names.
+  assert.ok(AXIS_NAME_Y - (SCAT_BASE + HOUR_TICK_DY) >= 12, "the axis name must clear the hour numbers");
+  assert.ok(AXIS_NAME_Y + 3 <= H, "the axis name must stay inside the frame");
   assert.match(source, /viewBox=\{`0 0 \$\{W\} \$\{H\}`\}/u);
 
   // The residual gaps are the figure's whole S-ID.6 payload, so the markup that decides whether they are

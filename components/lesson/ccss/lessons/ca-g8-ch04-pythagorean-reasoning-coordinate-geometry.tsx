@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { pickSpot, textBox, type LabelBox } from "@/components/lesson/ccss/labelSpacing";
 
 const ACCENT = "var(--band-middle)";
 const RUN_C = "var(--band-middle)";
@@ -76,16 +77,95 @@ export function figureLabel(p: Point, q: Point): string {
 }
 
 /** Leg labels and the right-angle tick, each pushed to the side that faces away from the triangle. */
+/** Type sizes on the grid: the axis numbers, and the two leg lengths. */
+export const LEG_SIZE = 11, LEG_GLYPH = 6.6, AXIS_NUM_SIZE = 9, AXIS_NUM_W = 10;
+
+/** The row of x-axis numbers and the column of y-axis numbers, which no leg label may enter. */
+export function axisNumberBands(): LabelBox[] {
+  return [
+    { x0: GX - AXIS_NUM_W, x1: sx(N) + AXIS_NUM_W, y0: TICK_Y - 8, y1: TICK_Y + 3 },
+    { x0: GX - 10 - AXIS_NUM_W, x1: GX - 8, y0: sy(N) - 8, y1: sy(0) + 7 },
+  ];
+}
+
+/**
+ * Where the two leg lengths go.
+ *
+ * Each names its own leg, so the run sits along the horizontal one and the rise
+ * along the vertical one — but both are drawn from the same right-angled
+ * corner, and on a one-by-one triangle their preferred spots are the same
+ * few pixels. The run label picks its side of the horizontal leg first, then
+ * the rise label picks a side of the vertical leg that clears it, and neither
+ * may sit in the axis numbers.
+ */
 export function labelSpots(p: Point, q: Point) {
   const { a, b } = legs(p, q);
   const qRight = q.x >= p.x, qAbove = q.y >= p.y;
-  const runY = qAbove ? (p.y > 0 ? sy(p.y) + 15 : sy(p.y) - 8) : (p.y < N ? sy(p.y) - 8 : sy(p.y) + 15);
-  const riseRight = qRight || sx(q.x) - 9 < GX;   // left of the axis is where the y-axis numbers are drawn
+  const bounds: LabelBox = { x0: 0, y0: 0, x1: W, y1: H };
+  const bands = axisNumberBands();
+  const runX = (sx(p.x) + sx(q.x)) / 2, riseY = (sy(p.y) + sy(q.y)) / 2 + 4;
+  const runW = String(a).length * LEG_GLYPH, riseW = String(b).length * LEG_GLYPH;
+
+  // Below the horizontal leg when the image is above it, above when below —
+  // the far side from the triangle either way, then the near side as a fallback.
+  const runOrder = qAbove ? [15, -8] : [-8, 15];
+  const runChoices = runOrder.map((dy) => {
+    const y = sy(p.y) + dy;
+    return { x: runX, y, box: textBox(runX, y, runW, { fontSize: LEG_SIZE }) };
+  });
+  const run = a === 0 ? null : pickSpot(runChoices, bands, { gap: 2, bounds });
+
+  const riseOrder: ("start" | "end")[] = qRight ? ["start", "end"] : ["end", "start"];
+  const riseChoices = riseOrder.flatMap((anchor) => [9, 22].map((gap) => {
+    const x = sx(q.x) + (anchor === "start" ? gap : -gap);
+    return { x, y: riseY, anchor, box: textBox(x, riseY, riseW, { anchor, fontSize: LEG_SIZE }) };
+  }));
+  const rise = b === 0 ? null : pickSpot(riseChoices, run ? [...bands, run.box] : bands, { gap: 2, bounds });
+
   return {
-    run: a === 0 ? null : { x: (sx(p.x) + sx(q.x)) / 2, y: runY },
-    rise: b === 0 ? null : { x: sx(q.x) + (riseRight ? 9 : -9), y: (sy(p.y) + sy(q.y)) / 2 + 4, anchor: (riseRight ? "start" : "end") as "start" | "end" },
+    run: run && { x: run.x, y: run.y, fitted: run.fitted },
+    rise: rise && { x: rise.x, y: rise.y, anchor: rise.anchor, fitted: rise.fitted },
     corner: a === 0 || b === 0 ? null : { x: sx(q.x) + (qRight ? -9 : 0), y: sy(p.y) + (qAbove ? -9 : 0) },
   };
+}
+
+export const SAME_POINT = "= Q", SAME_POINT_W = 20;
+
+/**
+ * P and Q may be set to the same grid point — the one place the distance is 0.
+ * Two letters printed in one dot read as neither, and widening the dot to hold
+ * both covers the axis numbers behind it. So the dot keeps its size and its P,
+ * and "= Q" is placed beside it, clear of the numbers, the way any other label
+ * on this grid is placed.
+ */
+export function samePoint(p: Point, q: Point): boolean { return p.x === q.x && p.y === q.y; }
+
+export function markers(p: Point, q: Point) {
+  if (samePoint(p, q)) return [{ pt: p, name: "P" }];
+  return [{ pt: p, name: "P" }, { pt: q, name: "Q" }];
+}
+
+/** The two axis rules themselves. A label laid across one is struck through by it. */
+export function axisRuleBands(): LabelBox[] {
+  return [
+    { x0: GX - 12, x1: sx(N), y0: sy(0) - 2, y1: sy(0) + 2 },
+    { x0: sx(0) - 2, x1: sx(0) + 2, y0: sy(N), y1: sy(0) + 12 },
+  ];
+}
+
+/**
+ * Where "= Q" sits when Q has been moved onto P. The interesting case is P at
+ * the origin, where the aside has the axis numbers on one side and both axis
+ * rules through the middle, so the vertical offsets are offered too.
+ */
+export function samePointAside(p: Point) {
+  const bounds: LabelBox = { x0: 0, y0: 0, x1: W, y1: H };
+  const choices = ([["start", 12, 4], ["end", -12, 4], ["start", 12, -14], ["start", 12, 20], ["end", -12, -14], ["end", -12, 20]] as const)
+    .map(([anchor, dx, dy]) => {
+      const x = sx(p.x) + dx, y = sy(p.y) + dy;
+      return { x, y, anchor, box: textBox(x, y, SAME_POINT_W, { anchor, fontSize: LEG_SIZE }) };
+    });
+  return pickSpot(choices, [...axisNumberBands(), ...axisRuleBands()], { gap: 2, bounds });
 }
 
 /** The one string the number-line readout draws, so its text and its measured width cannot drift apart. */
@@ -140,6 +220,7 @@ export default function Lesson() {
   const p = { x: x1, y: y1 }, q = { x: x2, y: y2 };
   const { a, b } = legs(p, q), s = a * a + b * b, r = root(s);
   const spot = labelSpots(p, q);
+  const aside = samePointAside(p);
   const walk = walkSentence(a, b);
   const steps = ladderSteps(), e = ladderExample(), tryIt = tryOptions();
 
@@ -163,11 +244,12 @@ export default function Lesson() {
             <line x1={sx(x2)} y1={sy(y1)} x2={sx(x2)} y2={sy(y2)} stroke={RISE_C} strokeWidth={2.5} strokeDasharray="5 4" />
             {spot.corner && <rect x={spot.corner.x} y={spot.corner.y} width={9} height={9} fill="none" stroke="var(--ink-faint)" strokeWidth={1} />}
             <line x1={sx(x1)} y1={sy(y1)} x2={sx(x2)} y2={sy(y2)} stroke={HYP_C} strokeWidth={3} />
-            {spot.run && <text x={spot.run.x} y={spot.run.y} textAnchor="middle" fontSize={11} fontWeight={800} fill={RUN_C} fontFamily="var(--font-mono)">{a}</text>}
-            {spot.rise && <text x={spot.rise.x} y={spot.rise.y} textAnchor={spot.rise.anchor} fontSize={11} fontWeight={800} fill={RISE_C} fontFamily="var(--font-mono)">{b}</text>}
-            {[{ pt: p, name: "P" }, { pt: q, name: "Q" }].map(({ pt, name }) => (
+            {spot.run && <text x={spot.run.x} y={spot.run.y} textAnchor="middle" fontSize={LEG_SIZE} fontWeight={800} fill={RUN_C} fontFamily="var(--font-mono)">{a}</text>}
+            {spot.rise && <text x={spot.rise.x} y={spot.rise.y} textAnchor={spot.rise.anchor} fontSize={LEG_SIZE} fontWeight={800} fill={RISE_C} fontFamily="var(--font-mono)">{b}</text>}
+            {markers(p, q).map(({ pt, name }) => (
               <g key={name}><circle cx={sx(pt.x)} cy={sy(pt.y)} r={7} fill={HYP_C} stroke="white" strokeWidth={2} /><text x={sx(pt.x)} y={sy(pt.y) + 3.5} textAnchor="middle" fontSize={9} fontWeight={800} fill="white">{name}</text></g>
             ))}
+            {samePoint(p, q) && <text x={aside.x} y={aside.y} textAnchor={aside.anchor} fontSize={LEG_SIZE} fontWeight={800} fill={HYP_C}>{SAME_POINT}</text>}
             {!r.perfect && <rect x={nx(r.floor)} y={NL_Y - 6} width={nx(r.ceil) - nx(r.floor)} height={12} fill={ACCENT} fillOpacity={0.18} />}
             <line x1={nx(0)} y1={NL_Y} x2={nx(NL_MAX)} y2={NL_Y} stroke="var(--ink-soft)" strokeWidth={1.5} />
             {Array.from({ length: NL_MAX + 1 }, (_, i) => (
