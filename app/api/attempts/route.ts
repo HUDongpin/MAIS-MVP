@@ -167,6 +167,7 @@ export async function POST(request: Request) {
     questionId,
     selectedAnswer,
     durationSeconds,
+    curriculumTrack: authenticated.user.curriculumProfile,
     answerWorkPhotos
   });
 
