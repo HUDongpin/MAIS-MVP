@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   buildPreviewChildEnvironment,
@@ -12,7 +13,7 @@ import {
   runCommand
 } from "./deploy-vercel-preview.mjs";
 
-const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const sourcePath = path.join(repoRoot, "scripts", "deploy-vercel-preview.mjs");
 
 test("preview child environments grant only purpose-specific configuration", () => {

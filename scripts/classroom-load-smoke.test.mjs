@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { createServer } from "node:http";
-import { existsSync, readFileSync } from "node:fs";
-import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, unlink, writeFile } from "node:fs/promises";
+import { constants as fsConstants, existsSync, readFileSync } from "node:fs";
+import fsPromises from "node:fs/promises";
+import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, unlink, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -404,6 +405,273 @@ test("report writer rejects directory replacement between admission and lock cre
       }
     ),
     /changed|replacement|race|artifact directory/i
+  );
+});
+
+test("report writer fails closed when an absent destination appears before commit", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-absent-present-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "absent-present" },
+      root,
+      {},
+      {
+        beforeCommit: async () => {
+          await writeFile(result, "external-writer\n", { mode: 0o600 });
+        }
+      }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(await readFile(result, "utf8"), "external-writer\n");
+});
+
+test("report writer fails closed when an existing destination changes before commit", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-changed-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "original\n", { mode: 0o600 });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "changed" },
+      root,
+      {},
+      {
+        beforeCommit: async () => {
+          await rm(result);
+          await writeFile(result, "external-replacement\n", { mode: 0o600 });
+        }
+      }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(await readFile(result, "utf8"), "external-replacement\n");
+});
+
+test("report writer fingerprints an in-place destination mutation before commit", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-in-place-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "original\n", { mode: 0o600 });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "in-place" },
+      root,
+      {},
+      {
+        beforeCommit: async () => {
+          await writeFile(result, "external-in-place\n", { mode: 0o600 });
+        }
+      }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(await readFile(result, "utf8"), "external-in-place\n");
+});
+
+test("report writer fails closed without following an artifact symlink in the fingerprint read window", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-fingerprint-symlink-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  const sentinel = path.join(root, "foreign-sentinel.txt");
+  await writeFile(result, "original\n", { mode: 0o600 });
+  await writeFile(sentinel, "FOREIGN-SENTINEL-MUST-NOT-BE-READ\n", { mode: 0o600 });
+  const canonicalResult = await fsPromises.realpath(result);
+
+  let openedPath;
+  let openedFlags;
+  const originalOpen = fsPromises.open;
+  t.mock.method(fsPromises, "open", (...args) => {
+    openedPath ??= args[0];
+    openedFlags ??= args[1];
+    return originalOpen(...args);
+  });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "fingerprint-symlink" },
+      root,
+      {},
+      {
+        beforeFingerprintRead: async () => {
+          await rm(result);
+          await symlink(sentinel, result);
+        }
+      }
+    ),
+    /symlink|changed|replacement|race|artifact result|no-follow|unsafe/i
+  );
+  assert.equal(openedPath, canonicalResult);
+  assert.equal(typeof openedFlags, "number");
+  assert.equal(
+    openedFlags & fsConstants.O_NOFOLLOW,
+    fsConstants.O_NOFOLLOW,
+    "fingerprinting must open the artifact with O_NOFOLLOW"
+  );
+  assert.equal(await readFile(sentinel, "utf8"), "FOREIGN-SENTINEL-MUST-NOT-BE-READ\n");
+});
+
+test("report writer refuses an attacker replacement of its temporary artifact before rename", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-temp-replacement-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "original-artifact\n", { mode: 0o600 });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "temporary-replacement" },
+      root,
+      {},
+      {
+        beforeRename: async ({ temporaryPath }) => {
+          await rm(temporaryPath);
+          await writeFile(temporaryPath, "ATTACKER-TEMP-CONTENT\n", { mode: 0o600 });
+        }
+      }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(await readFile(result, "utf8"), "original-artifact\n");
+  assert.notEqual(await readFile(result, "utf8"), "ATTACKER-TEMP-CONTENT\n");
+});
+
+test("report writer fails closed when an existing destination changes only its mtime", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-mtime-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "same-size-content\n", { mode: 0o600 });
+  await utimes(result, new Date(1_000), new Date(2_000));
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "mtime-only" },
+      root,
+      {},
+      {
+        beforeCommit: async () => {
+          await utimes(result, new Date(1_000), new Date(4_000));
+        }
+      }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(await readFile(result, "utf8"), "same-size-content\n");
+});
+
+test("report writer fails closed when an existing destination is removed before commit", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-removed-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "original\n", { mode: 0o600 });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "removed" },
+      root,
+      {},
+      { beforeCommit: async () => rm(result) }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(existsSync(result), false);
+});
+
+test("report writer refuses a replacement in the final pre-rename race", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-pre-rename-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "original\n", { mode: 0o600 });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "pre-rename" },
+      root,
+      {},
+      {
+        beforeRename: async () => {
+          await rm(result);
+          await writeFile(result, "external-pre-rename\n", { mode: 0o600 });
+        }
+      }
+    ),
+    /changed|replacement|race|concurrent|artifact result/i
+  );
+  assert.equal(await readFile(result, "utf8"), "external-pre-rename\n");
+});
+
+test("report writer refuses a final directory replacement and cleans only its own transaction", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-final-directory-race-"));
+  const displaced = `${root}-displaced`;
+  t.after(async () => {
+    await rm(root, { force: true, recursive: true });
+    await rm(displaced, { force: true, recursive: true });
+  });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "final-directory-replacement" },
+      root,
+      {},
+      {
+        beforeCommit: async () => {
+          await rename(root, displaced);
+          await mkdir(root, { mode: 0o700 });
+        }
+      }
+    ),
+    /changed|replacement|race|artifact directory/i
+  );
+  assert.equal(existsSync(path.join(root, "last-run.json")), false);
+  assert.equal(existsSync(path.join(root, ".last-run.json.lock")), false);
+  assert.equal(
+    existsSync(path.join(displaced, ".last-run.json.lock")),
+    true,
+    "a replaced directory keeps the owned lock quarantined; cleanup must not follow the replacement path"
+  );
+});
+
+test("report writer does not clean a replacement directory's lock after lock admission", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-lock-directory-race-"));
+  const displaced = `${root}-displaced`;
+  t.after(async () => {
+    await rm(root, { force: true, recursive: true });
+    await rm(displaced, { force: true, recursive: true });
+  });
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "after-lock-directory-replacement" },
+      root,
+      {},
+      {
+        afterLock: async () => {
+          await rename(root, displaced);
+          await mkdir(root, { mode: 0o700 });
+        }
+      }
+    ),
+    /changed|replacement|race|artifact directory/i
+  );
+  assert.equal(existsSync(path.join(root, ".last-run.json.lock")), false);
+  assert.equal(
+    existsSync(path.join(displaced, ".last-run.json.lock")),
+    true,
+    "cleanup must not follow a replacement directory path"
   );
 });
 

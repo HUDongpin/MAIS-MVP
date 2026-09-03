@@ -5,9 +5,9 @@
 // no default URL, unconditionally rejects known production hosts, and is not
 // invoked by any deployment or production-certification path.
 import assert from "node:assert/strict";
+import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import { constants as fsConstants } from "node:fs";
-import { randomUUID } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,6 +17,7 @@ const SCRIPT_DIR = path.dirname(SCRIPT_PATH);
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_ARTIFACT_DIR = path.join(REPO_ROOT, ".tmp", "classroom-load-smoke");
 const DEFAULT_MAX_RESPONSE_BODY_BYTES = 1024 * 1024;
+const MAX_ARTIFACT_FINGERPRINT_BYTES = 8 * 1024 * 1024;
 const PRODUCTION_HOSTS = new Set(["mais.ac", "www.mais.ac", "mais.hk", "www.mais.hk"]);
 const DEMO_STUDENT_USERNAMES = ["Student Shirleen", "Student Jon"];
 
@@ -814,6 +815,81 @@ async function safeResultTarget(artifactPath) {
   }
 }
 
+async function safeResultFingerprint(artifactPath, hooks = {}) {
+  const stats = await safeResultTarget(artifactPath);
+  if (!stats) return null;
+  await hooks.beforeFingerprintRead?.(artifactPath);
+  if (fsConstants.O_NOFOLLOW === undefined) {
+    throw new Error("Artifact result fingerprint requires no-follow filesystem support.");
+  }
+  if (!Number.isSafeInteger(stats.size) || stats.size > MAX_ARTIFACT_FINGERPRINT_BYTES) {
+    throw new Error("Artifact result is too large to fingerprint safely.");
+  }
+
+  let handle;
+  try {
+    handle = await fs.open(artifactPath, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
+    const openedStats = await handle.stat();
+    if (
+      !sameNode(stats, openedStats) ||
+      openedStats.nlink !== 1 ||
+      (openedStats.mode & 0o170000) !== 0o100000 ||
+      (openedStats.mode & 0o077) !== 0 ||
+      (openedStats.mode & 0o777) !== 0o600 ||
+      openedStats.size !== stats.size ||
+      openedStats.mtimeMs !== stats.mtimeMs ||
+      openedStats.ctimeMs !== stats.ctimeMs
+    ) {
+      throw new Error("Artifact result changed while opening its fingerprint.");
+    }
+
+    const bytes = Buffer.alloc(openedStats.size);
+    let offset = 0;
+    while (offset < bytes.length) {
+      const { bytesRead } = await handle.read(bytes, offset, bytes.length - offset, null);
+      if (!bytesRead) throw new Error("Artifact result changed while reading its fingerprint.");
+      offset += bytesRead;
+    }
+    const afterRead = await handle.stat();
+    if (
+      !sameNode(openedStats, afterRead) ||
+      afterRead.nlink !== 1 ||
+      afterRead.size !== openedStats.size ||
+      afterRead.mtimeMs !== openedStats.mtimeMs ||
+      afterRead.ctimeMs !== openedStats.ctimeMs
+    ) {
+      throw new Error("Artifact result changed while fingerprinting.");
+    }
+    return {
+      ctimeMs: afterRead.ctimeMs,
+      dev: afterRead.dev,
+      digest: createHash("sha256").update(bytes).digest("hex"),
+      ino: afterRead.ino,
+      mode: afterRead.mode,
+      mtimeMs: afterRead.mtimeMs,
+      size: afterRead.size
+    };
+  } catch (error) {
+    if (error?.message?.startsWith("Artifact result ")) throw error;
+    throw new Error("Artifact result could not be safely fingerprinted.");
+  } finally {
+    if (handle) await handle.close().catch(() => {});
+  }
+}
+
+function sameFingerprint(left, right) {
+  if (!left || !right) return left === right;
+  return (
+    left.dev === right.dev &&
+    left.ino === right.ino &&
+    left.size === right.size &&
+    left.mode === right.mode &&
+    left.mtimeMs === right.mtimeMs &&
+    left.ctimeMs === right.ctimeMs &&
+    left.digest === right.digest
+  );
+}
+
 export async function writeReport(report, artifactDir, env = process.env, hooks = {}) {
   const admittedDirectory = await resolveArtifactDirectory(artifactDir, env);
   const targetDirectory = admittedDirectory.canonical;
@@ -824,17 +900,32 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
   if (!sameNode(admittedDirectory.stats, directoryStats.stats)) {
     throw new Error("Artifact directory changed between admission and lock creation.");
   }
-  try {
-    await fs.mkdir(lockPath, { mode: 0o700 });
-  } catch (error) {
-    if (error?.code === "EEXIST") throw new Error("Artifact result writer race detected; refusing concurrent output.");
-    throw error;
-  }
-
+  let lockOwned = false;
+  let lockStats;
   let temporaryPath;
   let temporaryStats;
+  let temporaryFingerprint;
+
+  const assertDirectoryStable = async (phase) => {
+    const current = await safeExistingDirectory(targetDirectory, "Artifact directory");
+    if (!sameNode(directoryStats.stats, current.stats)) {
+      throw new Error(`Artifact directory changed during ${phase}.`);
+    }
+    return current.stats;
+  };
+
   try {
-    const existingStats = await safeResultTarget(artifactPath);
+    try {
+      await fs.mkdir(lockPath, { mode: 0o700 });
+    } catch (error) {
+      if (error?.code === "EEXIST") throw new Error("Artifact result writer race detected; refusing concurrent output.");
+      throw error;
+    }
+    lockOwned = true;
+    lockStats = await fs.lstat(lockPath);
+    await hooks.afterLock?.({ artifactPath, lockPath, targetDirectory });
+    await assertDirectoryStable("lock creation");
+    const existingFingerprint = await safeResultFingerprint(artifactPath, hooks);
     const serialized = `${JSON.stringify(report, null, 2)}\n`;
     temporaryPath = path.join(targetDirectory, `.last-run.json.${process.pid}.${randomUUID()}.tmp`);
     const flags = fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | (fsConstants.O_NOFOLLOW ?? 0);
@@ -847,24 +938,66 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     } finally {
       await handle.close();
     }
-    const currentDirectoryStats = await safeExistingDirectory(targetDirectory, "Artifact directory");
-    if (!sameNode(directoryStats.stats, currentDirectoryStats.stats)) {
-      throw new Error("Artifact directory changed during report write.");
-    }
-    const currentExistingStats = await safeResultTarget(artifactPath);
-    if (existingStats && (!currentExistingStats || !sameNode(existingStats, currentExistingStats))) {
+    temporaryFingerprint = await safeResultFingerprint(temporaryPath);
+    await assertDirectoryStable("report write");
+    await hooks.beforeCommit?.({ artifactPath, targetDirectory, temporaryPath });
+    await assertDirectoryStable("commit admission");
+    const currentExistingFingerprint = await safeResultFingerprint(artifactPath, hooks);
+    if (
+      !sameFingerprint(existingFingerprint, currentExistingFingerprint)
+    ) {
       throw new Error("Artifact result changed during report write.");
     }
+
+    await hooks.beforeRename?.({ artifactPath, targetDirectory, temporaryPath });
+    await assertDirectoryStable("final commit");
+    const finalExistingFingerprint = await safeResultFingerprint(artifactPath, hooks);
+    if (!sameFingerprint(existingFingerprint, finalExistingFingerprint)) {
+      throw new Error("Artifact result changed during final commit admission.");
+    }
+
+    await assertDirectoryStable("temporary commit verification");
+    const currentTemporaryFingerprint = await safeResultFingerprint(temporaryPath);
+    if (!sameFingerprint(temporaryFingerprint, currentTemporaryFingerprint)) {
+      throw new Error("Temporary artifact changed before final commit.");
+    }
+
+    // Node's pathname API has no portable rename-no-replace primitive. The
+    // lock plus fingerprints fail closed at every defined checkpoint and the
+    // final rename publishes a complete file atomically, but a non-cooperative
+    // writer can still win the uncloseable validation-to-rename window.
     await fs.rename(temporaryPath, artifactPath);
     temporaryPath = undefined;
+    await assertDirectoryStable("post-commit verification");
     const finalStats = await safeResultTarget(artifactPath);
     if (!finalStats || !sameNode(temporaryStats, finalStats)) {
       throw new Error("Artifact result changed during atomic replacement.");
     }
     return artifactPath;
   } finally {
-    if (temporaryPath) await fs.rm(temporaryPath, { force: true }).catch(() => {});
-    await fs.rmdir(lockPath).catch(() => {});
+    // Cleanup is identity-checked best effort only: pathname lstat followed by
+    // unlink/rmdir has an unavoidable entry-level TOCTOU window. On an
+    // identity mismatch, retain the path and make no absolute ownership claim.
+    let directoryStillOwned = false;
+    try {
+      await assertDirectoryStable("transaction cleanup");
+      directoryStillOwned = true;
+    } catch {}
+
+    if (temporaryPath && directoryStillOwned) {
+      try {
+        const currentTemporaryStats = await fs.lstat(temporaryPath);
+        if (temporaryStats && sameNode(temporaryStats, currentTemporaryStats)) {
+          await fs.unlink(temporaryPath);
+        }
+      } catch {}
+    }
+    if (lockOwned && directoryStillOwned) {
+      try {
+        const currentLockStats = await fs.lstat(lockPath);
+        if (lockStats && sameNode(lockStats, currentLockStats)) await fs.rmdir(lockPath);
+      } catch {}
+    }
   }
 }
 
