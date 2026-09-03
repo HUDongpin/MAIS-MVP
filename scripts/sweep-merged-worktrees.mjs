@@ -36,7 +36,8 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  closeSync, existsSync, lstatSync, openSync, readFileSync, readdirSync, realpathSync, statSync,
+  accessSync, closeSync, constants as fsConstants, existsSync, fstatSync, lstatSync, openSync,
+  readFileSync, realpathSync,
   writeFileSync,
 } from "node:fs";
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
@@ -270,6 +271,155 @@ export function readPathAbsenceEvidence(path, { lstat = lstatSync } = {}) {
       return { available: true, absent: true };
     }
     return { available: false, absent: null };
+  }
+}
+
+/**
+ * Verify an external manifest/receipt path without following any parent
+ * symlink. Every parent must be a readable directory; leaf semantics are
+ * intentionally different for the immutable manifest and new receipt.
+ */
+export function readExternalPathEvidence(
+  path,
+  { kind = "manifest", lstat = lstatSync, access = accessSync } = {},
+) {
+  if (
+    (kind !== "manifest" && kind !== "receipt")
+    || typeof path !== "string"
+    || !isAbsolute(path)
+    || path.includes("\0")
+  ) return { available: false, absent: null, reason: "external path boundary is invalid" };
+
+  const absolutePath = resolve(path);
+  const segments = absolutePath.slice(absolutePath.startsWith(sep) ? 1 : 0).split(sep).filter(Boolean);
+  const parents = [sep];
+  let current = sep;
+  for (const segment of segments.slice(0, -1)) {
+    current = join(current, segment);
+    parents.push(current);
+  }
+
+  let parentIdentity;
+  for (const parent of parents) {
+    let metadata;
+    try { metadata = lstat(parent); }
+    catch { return { available: false, absent: null, reason: "external path boundary unavailable" }; }
+    if (typeof metadata?.isSymbolicLink !== "function" || metadata.isSymbolicLink()) {
+      return { available: false, absent: null, reason: "external path boundary contains a symlink" };
+    }
+    if (typeof metadata.isDirectory !== "function" || !metadata.isDirectory()) {
+      return { available: false, absent: null, reason: "external path boundary is not a directory" };
+    }
+    try { access(parent, fsConstants.R_OK | fsConstants.X_OK); }
+    catch { return { available: false, absent: null, reason: "external path boundary unavailable" }; }
+    if (parent === parents.at(-1)) {
+      parentIdentity = nodeIdentity(metadata);
+    }
+  }
+
+  let leaf;
+  try { leaf = lstat(absolutePath); }
+  catch (error) {
+    if (kind === "receipt" && error?.code === "ENOENT") {
+      return { available: true, absent: true, reason: null, parentIdentity };
+    }
+    return { available: false, absent: null, reason: "external path leaf unavailable" };
+  }
+  if (kind === "receipt") return { available: true, absent: false, reason: null, parentIdentity };
+  if (
+    typeof leaf?.isSymbolicLink !== "function"
+    || leaf.isSymbolicLink()
+    || typeof leaf.isFile !== "function"
+    || !leaf.isFile()
+  ) return { available: false, absent: null, reason: "manifest is not a regular file" };
+  return { available: true, absent: false, reason: null, identity: nodeIdentity(leaf) };
+}
+
+function nodeIdentity(metadata) {
+  return { dev: String(metadata.dev), ino: String(metadata.ino) };
+}
+
+function sameNodeIdentity(left, right) {
+  return left?.dev === right?.dev && left?.ino === right?.ino;
+}
+
+function readManifestByBoundDescriptor(path, { afterBoundary } = {}) {
+  const admission = readExternalPathEvidence(path, { kind: "manifest" });
+  if (!admission.available || admission.absent !== false) throw new Error(admission.reason);
+  afterBoundary?.();
+  let fd;
+  try {
+    fd = openSync(path, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
+    const beforeRead = nodeIdentity(fstatSync(fd));
+    if (!sameNodeIdentity(beforeRead, admission.identity)) {
+      throw new Error("manifest identity changed after boundary admission");
+    }
+    const bytes = readFileSync(fd);
+    const afterRead = nodeIdentity(fstatSync(fd));
+    if (!sameNodeIdentity(afterRead, admission.identity)) {
+      throw new Error("manifest identity changed during read");
+    }
+    return bytes;
+  } finally {
+    if (fd !== undefined) closeSync(fd);
+  }
+}
+
+const RECEIPT_RESERVATION_CHILD_SOURCE = `
+import { constants, fstatSync, openSync, statSync, closeSync } from "node:fs";
+try {
+  const expectedDev = process.argv[1];
+  const expectedIno = process.argv[2];
+  const leaf = process.argv[3];
+  const parent = statSync(".");
+  if (String(parent.dev) !== expectedDev || String(parent.ino) !== expectedIno) throw new Error();
+  const fd = openSync(leaf, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW, 0o600);
+  const created = fstatSync(fd);
+  closeSync(fd);
+  if (String(created.dev) === "undefined" || String(created.ino) === "undefined") throw new Error();
+  process.stdout.write(JSON.stringify({ dev: String(created.dev), ino: String(created.ino) }));
+} catch {
+  process.exitCode = 1;
+}
+`;
+
+function reserveReceiptByBoundParent(path, { afterBoundary, spawn = spawnSync } = {}) {
+  const admission = readExternalPathEvidence(path, { kind: "receipt" });
+  if (!admission.available || admission.absent !== true) throw new Error(admission.reason);
+  afterBoundary?.();
+  const child = spawn(
+    process.execPath,
+    ["--input-type=module", "-e", RECEIPT_RESERVATION_CHILD_SOURCE, admission.parentIdentity.dev, admission.parentIdentity.ino, basename(path)],
+    {
+      cwd: dirname(path),
+      env: { PATH: process.env.PATH ?? "" },
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
+  if (child.error || child.status !== 0 || String(child.stderr ?? "") !== "") {
+    throw new Error("receipt reservation child failed closed");
+  }
+  let created;
+  try { created = JSON.parse(String(child.stdout ?? "")); }
+  catch { throw new Error("receipt reservation child output was malformed"); }
+  if (
+    !created
+    || typeof created.dev !== "string"
+    || typeof created.ino !== "string"
+    || !/^\d+$/.test(created.dev)
+    || !/^\d+$/.test(created.ino)
+  ) throw new Error("receipt reservation child output was invalid");
+
+  let fd;
+  try {
+    fd = openSync(path, fsConstants.O_WRONLY | fsConstants.O_NOFOLLOW);
+    const opened = nodeIdentity(fstatSync(fd));
+    if (!sameNodeIdentity(opened, created)) throw new Error("receipt identity changed after reservation");
+    return fd;
+  } catch (error) {
+    if (fd !== undefined) closeSync(fd);
+    throw error;
   }
 }
 
@@ -782,10 +932,6 @@ export const REBUILDABLE = new Set([
   "coverage", "test-results", "playwright-report", "dist", "build",
 ]);
 
-const PROTECTED_EVIDENCE_DIRS = new Map([
-  [".tmp", "local evidence directory"],
-]);
-
 function git(args, opts = {}) {
   return String(executeGit(execFileSync, args, { encoding: "utf8", ...opts })).trim();
 }
@@ -954,39 +1100,192 @@ export function parseContainingRefs(stdout, selfBranch) {
     .filter((r) => !r.startsWith("(HEAD detached"));
 }
 
-/** Ignored-but-precious content that `git status` cannot see. */
-export function scanProtectedIgnored(dir, { readdir = readdirSync, stat = statSync } = {}) {
-  const hits = [];
-  const pending = [dir];
-  while (pending.length) {
-    const d = pending.pop();
-    let entries;
-    try { entries = readdir(d, { withFileTypes: true }); } catch { continue; }
-    for (const e of entries) {
-      if (e.name === ".git" || e.isSymbolicLink?.()) continue;
-      const full = join(d, e.name);
-      const isDir = e.isDirectory?.() ?? false;
-      if (isDir) {
-        const evidenceLabel = PROTECTED_EVIDENCE_DIRS.get(e.name);
-        if (evidenceLabel) {
-          hits.push({ path: full, label: evidenceLabel, size: 0 });
-          continue;
-        }
-        if (REBUILDABLE.has(e.name)) continue;
-        pending.push(full);
-        continue;
-      }
-      for (const p of PROTECTED_IGNORED) {
-        if (p.match(e.name)) {
-          let size = 0;
-          try { size = stat(full).size; } catch {}
-          hits.push({ path: full, label: p.label, size });
-          break;
-        }
-      }
-    }
+const PROTECTED_WALK_DESCRIPTOR_CHILD_SOURCE = String.raw`
+import json, os, re, stat, sys
+
+try:
+    expected_dev, expected_ino = sys.argv[1], sys.argv[2]
+    rebuildable = set(json.loads(sys.argv[3]))
+    secret_pattern = re.compile(sys.argv[4], re.IGNORECASE)
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    hits = []
+
+    def safe_name(name):
+        if not isinstance(name, str) or not name or name in (".", "..") or "/" in name or "\\x00" in name:
+            raise ValueError()
+        if any(0xD800 <= ord(char) <= 0xDFFF for char in name):
+            raise ValueError()
+        return name
+
+    def add(parts, label, size=0):
+        hits.append({"parts": parts, "label": label, "size": size if isinstance(size, int) and size >= 0 else 0})
+
+    def walk(directory_fd, parts):
+        for entry in os.scandir(directory_fd):
+            name = safe_name(entry.name)
+            if name == ".git":
+                continue
+            child_parts = parts + [name]
+            try:
+                metadata = entry.stat(follow_symlinks=False)
+            except OSError:
+                add(child_parts, "unknown node type")
+                continue
+            mode = metadata.st_mode
+            if stat.S_ISLNK(mode):
+                add(child_parts, "symlink")
+                continue
+            if stat.S_ISDIR(mode):
+                if name == ".tmp":
+                    add(child_parts, "local evidence directory")
+                    continue
+                if name in rebuildable:
+                    continue
+                try:
+                    child_fd = os.open(name, flags, dir_fd=directory_fd)
+                except OSError:
+                    add(child_parts, "directory boundary unavailable")
+                    continue
+                try:
+                    opened = os.fstat(child_fd)
+                    if opened.st_dev != metadata.st_dev or opened.st_ino != metadata.st_ino:
+                        add(child_parts, "directory boundary changed")
+                        continue
+                    walk(child_fd, child_parts)
+                finally:
+                    os.close(child_fd)
+                continue
+            if not stat.S_ISREG(mode):
+                add(child_parts, "unknown node type")
+                continue
+            env_file = re.search(r"^\.env(?:\..+)?$", name) and not re.search(r"\.(?:example|sample|template)$", name)
+            local_database = re.search(r"\.sqlite(?:3)?$", name)
+            env_template = re.search(r"^\.env(?:\.|$)", name) and re.search(r"\.(?:example|sample|template)$", name)
+            secret_like = not env_template and secret_pattern.search(name)
+            if env_file:
+                add(child_parts, "env file", metadata.st_size)
+            elif local_database:
+                add(child_parts, "local database", metadata.st_size)
+            elif secret_like:
+                add(child_parts, "secret-like file", metadata.st_size)
+
+    root_fd = os.open(".", flags)
+    try:
+        root = os.fstat(root_fd)
+        if str(root.st_dev) != expected_dev or str(root.st_ino) != expected_ino:
+            raise ValueError()
+        walk(root_fd, [])
+    finally:
+        os.close(root_fd)
+    sys.stdout.write(json.dumps({"hits": hits}, ensure_ascii=True, separators=(",", ":")))
+except BaseException:
+    sys.exit(1)
+`;
+
+export function readProtectedTreeByDescriptor(path, expectedIdentity, { spawn = spawnSync } = {}) {
+  if (
+    !expectedIdentity
+    || typeof expectedIdentity.dev !== "string"
+    || typeof expectedIdentity.ino !== "string"
+    || !/^\d+$/.test(expectedIdentity.dev)
+    || !/^\d+$/.test(expectedIdentity.ino)
+  ) throw new Error("directory identity unavailable");
+  const child = spawn(
+    "/usr/bin/python3",
+    [
+      "-I",
+      "-c",
+      PROTECTED_WALK_DESCRIPTOR_CHILD_SOURCE,
+      expectedIdentity.dev,
+      expectedIdentity.ino,
+      JSON.stringify([...REBUILDABLE]),
+      SECRET_PATH_SEGMENT.source,
+    ],
+    {
+      cwd: path,
+      env: {},
+      encoding: "utf8",
+      maxBuffer: 16 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
+  if (child.error || child.status !== 0 || String(child.stderr ?? "") !== "") {
+    throw new Error("directory binding child failed closed");
   }
-  return hits;
+  let result;
+  try { result = JSON.parse(String(child.stdout ?? "")); }
+  catch { throw new Error("directory binding child output was malformed"); }
+  if (
+    !result
+    || typeof result !== "object"
+    || !Array.isArray(result.hits)
+    || result.hits.length > 100_000
+    || Object.keys(result).some((key) => key !== "hits")
+  ) {
+    throw new Error("directory binding child output was invalid");
+  }
+  for (const hit of result.hits) {
+    if (
+      !hit
+      || typeof hit !== "object"
+      || !Array.isArray(hit.parts)
+      || hit.parts.length === 0
+      || hit.parts.some((part) => (
+        typeof part !== "string"
+        || part.length === 0
+        || part === "."
+        || part === ".."
+        || part.includes("/")
+        || part.includes("\0")
+      ))
+      || ![
+        "env file",
+        "local database",
+        "secret-like file",
+        "local evidence directory",
+        "symlink",
+        "unknown node type",
+        "directory boundary changed",
+        "directory boundary unavailable",
+      ].includes(hit.label)
+      || !Number.isSafeInteger(hit.size)
+      || hit.size < 0
+      || Object.keys(hit).some((key) => !["parts", "label", "size"].includes(key))
+    ) throw new Error("directory binding child output was invalid");
+  }
+  return result.hits
+    .map((hit) => ({
+      path: join(path, ...hit.parts),
+      label: hit.label,
+      size: hit.size,
+    }))
+    .sort((left, right) => (
+      left.path.localeCompare(right.path)
+      || left.label.localeCompare(right.label)
+    ));
+}
+
+/** Ignored-but-precious content that `git status` cannot see. */
+export function scanProtectedIgnored(
+  dir,
+  { lstat = lstatSync, scanTree = readProtectedTreeByDescriptor } = {},
+) {
+  let rootMetadata;
+  try { rootMetadata = lstat(dir); }
+  catch { return [{ path: dir, label: "directory boundary unavailable", size: 0 }]; }
+  if (
+    typeof rootMetadata?.isSymbolicLink !== "function"
+    || rootMetadata.isSymbolicLink()
+    || typeof rootMetadata.isDirectory !== "function"
+    || !rootMetadata.isDirectory()
+  ) return [{
+    path: dir,
+    label: rootMetadata?.isSymbolicLink?.() ? "symlink" : "unknown node type",
+    size: 0,
+  }];
+
+  try { return scanTree(dir, nodeIdentity(rootMetadata)); }
+  catch { return [{ path: dir, label: "directory boundary unavailable", size: 0 }]; }
 }
 
 /** Pure policy decision. All filesystem and git state is resolved by the caller. */
@@ -1159,7 +1458,13 @@ export function retainGitIgnored(
     if (out === null) return hits; // check-ignore unusable: fail safe, keep them
   }
   const ignored = new Set(out.split("\0").filter(Boolean));
-  return hits.filter((h) => ignored.has(h.path.slice(dir.length + 1)));
+  return hits.filter((h) => (
+    h.label === "symlink"
+    || h.label === "unknown node type"
+    || h.label === "directory boundary changed"
+    || h.label === "directory boundary unavailable"
+    || ignored.has(h.path.slice(dir.length + 1))
+  ));
 }
 
 function inspectRuntimeWorktree(
@@ -1221,13 +1526,8 @@ export function createRuntimeProviders() {
     ),
     readLiveMainEvidence: (primaryRoot, branch) => readLiveMainEvidence(primaryRoot, branch),
     readOpenPrEvidence: (primaryRoot) => readOpenPrEvidence(primaryRoot),
-    readImmutableManifest(path) {
-      const metadata = lstatSync(path);
-      if (!metadata.isFile() || metadata.isSymbolicLink()) {
-        throw new Error("manifest is not a regular file");
-      }
-      return readFileSync(path);
-    },
+    readExternalPathEvidence: (path, kind) => readExternalPathEvidence(path, { kind }),
+    readImmutableManifest: (path, options) => readManifestByBoundDescriptor(path, options),
     readPathAbsenceEvidence: (path) => readPathAbsenceEvidence(path),
     readWorktrees: (primaryRoot) => (
       parseWorktreeList(git(["worktree", "list", "--porcelain"], { cwd: primaryRoot }))
@@ -1238,7 +1538,7 @@ export function createRuntimeProviders() {
       liveMainEvidence: evidence.liveMainEvidence,
       prEvidence: evidence.prEvidence,
     }),
-    reserveReceipt: (path) => openSync(path, "wx", 0o600),
+    reserveReceipt: (path, options) => reserveReceiptByBoundParent(path, options),
     writeReceipt: (handle, text) => writeFileSync(handle, text, { encoding: "utf8" }),
     closeReceipt: (handle) => closeSync(handle),
     removeWorktree(command, primaryRoot) {
@@ -1301,7 +1601,12 @@ export function main(argv, providers) {
       openByHead: new Map(),
     };
   }
-  const startedAt = runtime.now();
+  let startedAt;
+  try { startedAt = runtime.now(); }
+  catch {
+    runtime.error("sweep refused: initial timestamp unavailable");
+    return 1;
+  }
 
   let manifestBytes = null;
   let authorization = { ok: true, manifest: null, manifestSha256: null };
@@ -1317,12 +1622,22 @@ export function main(argv, providers) {
       runtime.error("sweep refused: receipt path must differ from the immutable manifest path");
       return 1;
     }
+    let manifestBoundaryEvidence;
+    try {
+      manifestBoundaryEvidence = runtime.readExternalPathEvidence?.(args.manifestPath, "manifest");
+    } catch { manifestBoundaryEvidence = { available: false, absent: null }; }
+    if (!manifestBoundaryEvidence?.available || manifestBoundaryEvidence.absent !== false) {
+      runtime.error("sweep refused: external manifest path boundary unavailable");
+      return 1;
+    }
     if (args.apply) {
       let receiptAbsenceEvidence;
-      try { receiptAbsenceEvidence = runtime.readPathAbsenceEvidence(args.receiptPath); }
+      try {
+        receiptAbsenceEvidence = runtime.readExternalPathEvidence?.(args.receiptPath, "receipt");
+      }
       catch { receiptAbsenceEvidence = { available: false, absent: null }; }
       if (!receiptAbsenceEvidence?.available || receiptAbsenceEvidence.absent !== true) {
-        runtime.error(`sweep refused: receipt path is present or unavailable at ${redactSecretLikePath(args.receiptPath)}`);
+        runtime.error("sweep refused: external receipt path boundary unavailable");
         return 1;
       }
     }

@@ -2,7 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
 import {
-  mkdtempSync, mkdirSync, readFileSync, statSync, writeFileSync, rmSync, symlinkSync,
+  closeSync, mkdtempSync, mkdirSync, openSync, readFileSync, realpathSync, renameSync, statSync,
+  writeFileSync, rmSync, symlinkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -182,6 +183,125 @@ test("scanProtectedIgnored treats ignored .tmp content as local evidence, not re
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test("scanProtectedIgnored protects symlink files and directories without following them", () => {
+  const dir = mkdtempSync(join(tmpdir(), "sweep-symlink-protected-"));
+  try {
+    const targetDir = join(dir, "target-dir");
+    mkdirSync(targetDir);
+    writeFileSync(join(targetDir, "nested.txt"), "fixture");
+    writeFileSync(join(dir, "target-file.txt"), "fixture");
+    const symlinkFile = join(dir, "linked-file");
+    const symlinkDir = join(dir, "linked-dir");
+    symlinkSync(join(dir, "target-file.txt"), symlinkFile);
+    symlinkSync(targetDir, symlinkDir, "dir");
+
+    const hits = scanProtectedIgnored(dir);
+    assert.deepEqual(
+      hits.map((hit) => ({ path: hit.path, label: hit.label })).sort((a, b) => a.path.localeCompare(b.path)),
+      [
+        { path: symlinkDir, label: "symlink" },
+        { path: symlinkFile, label: "symlink" },
+      ],
+    );
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("scanProtectedIgnored protects unknown directory entry types without stat or follow", () => {
+  const dir = mkdtempSync(join(tmpdir(), "sweep-unknown-node-"));
+  try {
+    const unknownPath = join(dir, "unknown-node");
+    const hits = scanProtectedIgnored(dir, {
+      scanTree(path) {
+        assert.equal(path, dir);
+        return [{ path: unknownPath, label: "unknown node type", size: 0 }];
+      },
+    });
+    assert.deepEqual(hits, [{ path: unknownPath, label: "unknown node type", size: 0 }]);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test("scanProtectedIgnored rejects a replacement before descriptor-bound traversal", () => {
+  const root = mkdtempSync(join(tmpdir(), "sweep-stale-dirent-"));
+  const worktree = join(root, "worktree");
+  const originalWorktree = join(root, "original-worktree");
+  const outside = join(root, "outside");
+  mkdirSync(worktree, { recursive: true });
+  writeFileSync(join(worktree, ".env.local"), "DO_NOT_READ=1");
+  mkdirSync(join(outside, ".tmp"), { recursive: true });
+  writeFileSync(join(outside, ".tmp", "outside-evidence.json"), "{}");
+  let swapped = false;
+  try {
+    const hits = scanProtectedIgnored(worktree, {
+      scanTree(path, identity) {
+        if (!swapped) {
+          renameSync(worktree, originalWorktree);
+          symlinkSync(outside, worktree, "dir");
+          swapped = true;
+        }
+        return sweep.readProtectedTreeByDescriptor(path, identity);
+      },
+    });
+
+    assert.equal(swapped, true);
+    assert.deepEqual(hits, [{ path: worktree, label: "directory boundary unavailable", size: 0 }]);
+    assert.equal(hits.some((hit) => hit.path.includes("outside-evidence.json")), false);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("protected walker enumerates only the cwd-bound directory instance", () => {
+  const source = readFileSync(join(process.cwd(), "scripts/sweep-merged-worktrees.mjs"), "utf8");
+  const walkerStart = source.indexOf("const PROTECTED_WALK_DESCRIPTOR_CHILD_SOURCE");
+  const walkerEnd = source.indexOf("/** Ignored-but-precious content", walkerStart);
+  const walkerSource = source.slice(walkerStart, walkerEnd);
+  const scanStart = source.indexOf("export function scanProtectedIgnored");
+  const scanEnd = source.indexOf("/** Pure policy decision", scanStart);
+  const scanSource = source.slice(scanStart, scanEnd);
+
+  assert.match(walkerSource, /root_fd = os\.open\("\."[,] flags\)/);
+  assert.match(walkerSource, /os\.scandir\(directory_fd\)/);
+  assert.match(walkerSource, /entry\.stat\(follow_symlinks=False\)/);
+  assert.match(walkerSource, /os\.open\(name[,] flags[,] dir_fd=directory_fd\)/);
+  assert.match(walkerSource, /opened = os\.fstat\(child_fd\)/);
+  assert.match(scanSource, /scanTree\(dir[,] nodeIdentity\(rootMetadata\)\)/);
+  assert.doesNotMatch(scanSource, /readdir(?:Sync)?\(/);
+});
+
+test("descriptor-relative enumeration survives an ABA pathname replacement", () => {
+  const root = mkdtempSync(join(tmpdir(), "sweep-descriptor-aba-"));
+  const worktree = join(root, "worktree");
+  mkdirSync(join(worktree, "child"), { recursive: true });
+  mkdirSync(join(worktree, "replacement"), { recursive: true });
+  writeFileSync(join(worktree, "child", ".env.local"), "DO_NOT_READ=1");
+  try {
+    const script = String.raw`
+import json, os
+flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+root_fd = os.open(".", flags)
+child_fd = os.open("child", flags, dir_fd=root_fd)
+try:
+    before = os.fstat(child_fd)
+    os.rename("child", "original-child", src_dir_fd=root_fd, dst_dir_fd=root_fd)
+    os.rename("replacement", "child", src_dir_fd=root_fd, dst_dir_fd=root_fd)
+    entries = sorted(entry.name for entry in os.scandir(child_fd))
+    after = os.fstat(child_fd)
+    os.rename("child", "replacement", src_dir_fd=root_fd, dst_dir_fd=root_fd)
+    os.rename("original-child", "child", src_dir_fd=root_fd, dst_dir_fd=root_fd)
+    print(json.dumps({"same": (before.st_dev, before.st_ino) == (after.st_dev, after.st_ino), "entries": entries}))
+finally:
+    os.close(child_fd)
+    os.close(root_fd)
+`;
+    const result = spawnSync("/usr/bin/python3", ["-I", "-c", script], {
+      cwd: worktree,
+      encoding: "utf8",
+      env: {},
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    assert.deepEqual(JSON.parse(result.stdout), { same: true, entries: [".env.local"] });
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
 test("production ignored-content scan finds deeply nested .tmp evidence without following symlink cycles", () => {
   const dir = mkdtempSync(join(tmpdir(), "sweep-deep-"));
   try {
@@ -193,11 +313,14 @@ test("production ignored-content scan finds deeply nested .tmp evidence without 
     symlinkSync(dir, join(deep, "cycle"), "dir");
 
     const scanned = scanProtectedIgnored(dir);
-    assert.equal(scanned.length, 1);
+    assert.equal(scanned.length, 2);
+    assert.ok(scanned.some((hit) => hit.label === "symlink" && hit.path === join(deep, "cycle")));
+    assert.ok(scanned.some((hit) => hit.label === "local evidence directory"));
     assert.equal(scanned[0].label, "local evidence directory");
     const retained = sweep.retainGitIgnored(dir, scanned);
-    assert.equal(retained.length, 1);
-    assert.equal(retained[0].path, join(deep, ".tmp"));
+    assert.equal(retained.length, 2);
+    assert.ok(retained.some((hit) => hit.path === join(deep, ".tmp")));
+    assert.ok(retained.some((hit) => hit.path === join(deep, "cycle")));
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
@@ -536,6 +659,213 @@ test("readPathAbsenceEvidence distinguishes absence from unavailable lstat evide
     sweep.readPathAbsenceEvidence("/fixture/unknown", { lstat: () => { throw denied; } }),
     { available: false, absent: null },
   );
+});
+
+test("external path evidence rejects symlink and non-directory manifest parents", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-external-boundary-")));
+  try {
+    const realParent = join(root, "real-parent");
+    const symlinkParent = join(root, "symlink-parent");
+    mkdirSync(realParent);
+    symlinkSync(realParent, symlinkParent, "dir");
+    const symlinkManifest = join(symlinkParent, "manifest.json");
+    assert.equal(sweep.readExternalPathEvidence(symlinkManifest, { kind: "manifest" }).available, false);
+    assert.match(
+      sweep.readExternalPathEvidence(symlinkManifest, { kind: "manifest" }).reason,
+      /symlink/u,
+    );
+
+    const nonDirectory = join(root, "not-a-directory");
+    writeFileSync(nonDirectory, "fixture");
+    const nonDirectoryManifest = join(nonDirectory, "manifest.json");
+    const evidence = sweep.readExternalPathEvidence(nonDirectoryManifest, { kind: "manifest" });
+    assert.equal(evidence.available, false);
+    assert.match(evidence.reason, /directory/u);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("external path evidence rejects an unavailable manifest boundary", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-external-unavailable-")));
+  try {
+    const parent = join(root, "parent");
+    mkdirSync(parent);
+    const manifest = join(parent, "manifest.json");
+    const denied = Object.assign(new Error("fixture boundary unavailable"), { code: "EACCES" });
+    const evidence = sweep.readExternalPathEvidence(manifest, {
+      kind: "manifest",
+      lstat(path) {
+        if (path === parent) throw denied;
+        return statSync(path, { bigint: false });
+      },
+    });
+    assert.equal(evidence.available, false);
+    assert.match(evidence.reason, /unavailable/u);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("external receipt evidence accepts only an absent leaf behind a verified boundary", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-boundary-")));
+  try {
+    const receipt = join(root, "receipt.json");
+    const absent = sweep.readExternalPathEvidence(receipt, { kind: "receipt" });
+    assert.equal(absent.available, true);
+    assert.equal(absent.absent, true);
+    assert.deepEqual(Object.keys(absent), ["available", "absent", "reason", "parentIdentity"]);
+    assert.equal(typeof absent.parentIdentity.dev, "string");
+    assert.equal(typeof absent.parentIdentity.ino, "string");
+    symlinkSync(join(root, "missing-receipt"), receipt);
+    const present = sweep.readExternalPathEvidence(receipt, { kind: "receipt" });
+    assert.equal(present.available, true);
+    assert.equal(present.absent, false);
+    assert.equal(present.reason, null);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("external receipt evidence rejects a symlink parent specifically", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-symlink-parent-")));
+  try {
+    const realParent = join(root, "real-parent");
+    const symlinkParent = join(root, "symlink-parent");
+    mkdirSync(realParent);
+    symlinkSync(realParent, symlinkParent, "dir");
+    const evidence = sweep.readExternalPathEvidence(join(symlinkParent, "receipt.json"), { kind: "receipt" });
+    assert.equal(evidence.available, false);
+    assert.match(evidence.reason, /symlink/u);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("production provider exposes fail-closed external boundary evidence", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-provider-boundary-")));
+  try {
+    const parent = join(root, "real-parent");
+    mkdirSync(parent);
+    const link = join(root, "linked-parent");
+    symlinkSync(parent, link, "dir");
+    const providers = sweep.createRuntimeProviders();
+    const evidence = providers.readExternalPathEvidence(join(link, "manifest.json"), "manifest");
+    assert.equal(evidence.available, false);
+    assert.match(evidence.reason, /symlink/u);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("manifest provider rejects a leaf replacement after boundary admission", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-manifest-leaf-race-")));
+  try {
+    const parent = join(root, "parent");
+    const manifest = join(parent, "manifest.json");
+    mkdirSync(parent);
+    writeFileSync(manifest, "original-manifest");
+    const providers = sweep.createRuntimeProviders();
+    let oldAbsoluteRead = null;
+    assert.throws(
+      () => providers.readImmutableManifest(manifest, {
+        afterBoundary() {
+          renameSync(manifest, join(parent, "original-manifest.json"));
+          writeFileSync(manifest, "replacement-manifest");
+          oldAbsoluteRead = readFileSync(manifest, "utf8");
+        },
+      }),
+      /identity|binding/u,
+    );
+    assert.equal(oldAbsoluteRead, "replacement-manifest");
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("manifest provider rejects a parent symlink replacement after boundary admission", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-manifest-parent-race-")));
+  try {
+    const parent = join(root, "parent");
+    const replacementParent = join(root, "replacement-parent");
+    const manifest = join(parent, "manifest.json");
+    const replacementManifest = join(replacementParent, "manifest.json");
+    mkdirSync(parent);
+    mkdirSync(replacementParent);
+    writeFileSync(manifest, "original-manifest");
+    writeFileSync(replacementManifest, "replacement-manifest");
+    const providers = sweep.createRuntimeProviders();
+    let oldAbsoluteRead = null;
+    assert.throws(
+      () => providers.readImmutableManifest(manifest, {
+        afterBoundary() {
+          rmSync(parent, { recursive: true, force: true });
+          symlinkSync(replacementParent, parent, "dir");
+          oldAbsoluteRead = readFileSync(manifest, "utf8");
+        },
+      }),
+      /identity|binding|regular/u,
+    );
+    assert.equal(oldAbsoluteRead, "replacement-manifest");
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("receipt reservation fails closed when its admitted parent is replaced by a symlink", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-parent-race-")));
+  try {
+    const parent = join(root, "parent");
+    const replacementParent = join(root, "replacement-parent");
+    const receipt = join(parent, "receipt.json");
+    const replacementReceipt = join(replacementParent, "receipt.json");
+    mkdirSync(parent);
+    mkdirSync(replacementParent);
+    const providers = sweep.createRuntimeProviders();
+    let oldAbsoluteCreate = null;
+    assert.throws(
+      () => providers.reserveReceipt(receipt, {
+        afterBoundary() {
+          rmSync(parent, { recursive: true, force: true });
+          symlinkSync(replacementParent, parent, "dir");
+          const fd = openSync(receipt, 1 | 512 | 2048 | 256, 0o600);
+          closeSync(fd);
+          oldAbsoluteCreate = statSync(replacementReceipt).ino;
+        },
+      }),
+      /identity|binding|boundary|receipt/u,
+    );
+    assert.notEqual(oldAbsoluteCreate, null);
+    assert.equal(statSync(replacementReceipt).isFile(), true);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("receipt reservation creates a 0600 file through the verified parent child", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-child-")));
+  try {
+    const receipt = join(root, "receipt.json");
+    const providers = sweep.createRuntimeProviders();
+    const fd = providers.reserveReceipt(receipt);
+    assert.equal(typeof fd, "number");
+    providers.writeReceipt(fd, "receipt-fixture");
+    providers.closeReceipt(fd);
+    assert.equal(readFileSync(receipt, "utf8"), "receipt-fixture");
+    assert.equal(statSync(receipt).mode & 0o777, 0o600);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("receipt reservation rejects child stderr, nonzero, and malformed output without credentials", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-child-output-")));
+  try {
+    for (const [index, childResult] of [
+      { status: 1, stdout: "", stderr: "controlled failure" },
+      { status: 0, stdout: "not-json", stderr: "" },
+      { status: 0, stdout: JSON.stringify({ dev: "not-numeric", ino: "1" }), stderr: "" },
+    ].entries()) {
+      const receipt = join(root, `child-output-${index}.json`);
+      const providers = sweep.createRuntimeProviders();
+      assert.throws(
+        () => providers.reserveReceipt(receipt, {
+          spawn(file, args, options) {
+            assert.equal(file, process.execPath);
+            assert.equal(options.cwd, root);
+            assert.equal(options.env.NODE_OPTIONS, undefined);
+            assert.deepEqual(Object.keys(options.env), ["PATH"]);
+            assert.equal(args[0], "--input-type=module");
+            return childResult;
+          },
+        }),
+        /child|output/u,
+      );
+      assert.equal(sweep.readExternalPathEvidence(receipt, { kind: "receipt" }).absent, true);
+    }
+  } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
 const base = {
@@ -1371,6 +1701,7 @@ function cliProvidersFixture({
   delayedFleetDrift = false,
   applyEngineThrows = false,
   completionTimestampThrows = false,
+  initialTimestampThrows = false,
   initialFleetDrift = false,
   liveEvidenceFails = false,
   prEvidenceIncomplete = false,
@@ -1433,6 +1764,15 @@ function cliProvidersFixture({
       calls.manifest++;
       assert.equal(path, manifestPath);
       return authorizationInput.manifestBytes;
+    },
+    readExternalPathEvidence(path, kind) {
+      if (kind === "receipt") {
+        assert.equal(path, receiptPath);
+        return { available: true, absent: true, reason: null };
+      }
+      assert.equal(kind, "manifest");
+      assert.equal(path, manifestPath);
+      return { available: true, absent: false, reason: null };
     },
     readPathAbsenceEvidence(path) {
       calls.pathEvidence.push(path);
@@ -1517,6 +1857,9 @@ function cliProvidersFixture({
     },
     now: () => {
       calls.now++;
+      if (initialTimestampThrows && calls.now === 1) {
+        throw new Error("simulated initial timestamp failure at /secret/provider-credentials.json");
+      }
       if (completionTimestampThrows && calls.now === 2) {
         throw new Error("simulated completion timestamp failure");
       }
@@ -1551,6 +1894,26 @@ test("main defaults to dry-run and exercises injected live providers without mut
   assert.equal(calls.remove.length, 0);
 });
 
+test("main fails closed on an initial clock failure before manifest or mutation paths", () => {
+  const { providers, calls } = cliProvidersFixture({ initialTimestampThrows: true });
+  assert.doesNotThrow(() => {
+    assert.equal(sweep.main([
+      "--apply",
+      "--manifest", "/secret/provider-credentials.json",
+      "--manifest-sha256", "a".repeat(64),
+      "--expected-live-main-sha", LIVE_MAIN_SHA,
+      "--receipt", "/secret/receipt.json",
+    ], providers), 1);
+  });
+  assert.equal(calls.now, 1);
+  assert.equal(calls.manifest, 0);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.remove.length, 0);
+  assert.equal(calls.errors.length, 1);
+  assert.match(calls.errors[0], /initial timestamp unavailable/);
+  assert.doesNotMatch(calls.errors[0], /provider-credentials|simulated/);
+});
+
 test("main validates and previews a byte-locked manifest without reserving or removing", () => {
   const { providers, calls, authorizationInput, manifestPath } = cliProvidersFixture();
   const code = sweep.main([
@@ -1572,6 +1935,43 @@ test("main validates and previews a byte-locked manifest without reserving or re
   assert.equal(output.previewReady, true);
   assert.equal(output.plan[0].manifestTarget, true);
   assert.equal(output.plan[0].action, "retire");
+});
+
+test("main fails closed when external manifest boundary evidence is unavailable", () => {
+  const { providers, calls, authorizationInput, manifestPath } = cliProvidersFixture();
+  providers.readExternalPathEvidence = (path, kind) => {
+    assert.equal(path, manifestPath);
+    assert.equal(kind, "manifest");
+    throw new Error("fixture manifest boundary unavailable at /secret/provider-credentials.json");
+  };
+  const code = sweep.main([
+    "--json",
+    "--manifest", manifestPath,
+    "--manifest-sha256", authorizationInput.expectedManifestSha256,
+    "--expected-live-main-sha", LIVE_MAIN_SHA,
+  ], providers);
+  assert.equal(code, 1);
+  assert.equal(calls.manifest, 0);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.remove.length, 0);
+  assert.match(calls.errors.at(-1), /external manifest path boundary unavailable/u);
+  assert.doesNotMatch(calls.errors.at(-1), /provider-credentials|fixture/u);
+});
+
+test("main fails closed when external receipt boundary evidence is unavailable", () => {
+  const { argv, providers, calls, manifestPath, getReceipt } = cliProvidersFixture();
+  providers.readExternalPathEvidence = (path, kind) => {
+    if (kind === "receipt") throw new Error("fixture receipt boundary unavailable at /secret/receipt.json");
+    return { available: true, absent: false, reason: null };
+  };
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(calls.manifest, 0);
+  assert.equal(calls.reserve, 0);
+  assert.equal(calls.remove.length, 0);
+  assert.equal(getReceipt(), null);
+  assert.match(calls.errors.at(-1), /external receipt path boundary unavailable/u);
+  assert.doesNotMatch(calls.errors.at(-1), /receipt\.json|fixture/u);
+  assert.equal(manifestPath, "/authorization/sweep-manifest.json");
 });
 
 test("manifest preview exits nonzero when an exact target is not retirable", () => {
@@ -1648,10 +2048,7 @@ test("main wires manifest authorization, receipt IO, lstat evidence, and injecte
   assert.equal(calls.write, 1);
   assert.equal(calls.close, 1);
   assert.equal(calls.remove.length, 1);
-  assert.deepEqual(calls.pathEvidence, [
-    "/authorization/sweep-receipt.json",
-    "/repo/.worktrees/target-0",
-  ]);
+  assert.deepEqual(calls.pathEvidence, ["/repo/.worktrees/target-0"]);
   const receipt = getReceipt();
   assert.equal(receipt.summary.removed, 1);
   assert.deepEqual(receipt.finalTopologyEvidence, {

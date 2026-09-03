@@ -141,3 +141,91 @@ The claim ceiling remains a local-test and release-governance verified commit
 on this pending-review branch after exact-path commit/push readback. It is not
 `main`, CI, deployment, provider, route, live-behavior, rollback, or monitoring
 evidence.
+
+## U223-R2 implementation (2026-09-03 HKT) — Status DONE
+
+- Implementer lane: borrowed A10/A25; exact worktree
+  `/Volumes/Starship/MAIS的衍生文件/MAIS-a10-a25-sweep-integration-20260902`;
+  branch `codex/a10-a25-sweep-integration-20260902`; expected-old HEAD
+  `043ba215eaaa18d9bfb61520610d46192d82bc80`.
+- Scope was limited to `scripts/sweep-merged-worktrees.mjs`,
+  `scripts/sweep-merged-worktrees.test.mjs`,
+  `scripts/release-build-gate.test.mjs`, and this append-only session log.
+- A initial-clock TDD RED: the new test observed an uncaught injected
+  `runtime.now()` exception. GREEN: `main()` now returns 1 with a controlled
+  redacted initial-timestamp error before manifest read, receipt reservation,
+  or mutation (the final test passes).
+- B external-path TDD RED/GREEN: temporary fixtures covered a symlink parent,
+  non-directory parent, unavailable boundary, receipt absence, production
+  provider, and injected-main provider boundary failure. GREEN now walks every
+  parent with no-follow `lstat` plus read/execute evidence, requires a regular
+  manifest leaf, and accepts only an absent receipt leaf; unavailable or
+  uncertain boundaries fail closed.
+- C protected-ignored TDD RED/GREEN: symlink and fake unknown-node fixtures
+  first demonstrated silent skip/filter behavior. GREEN now records each as a
+  protected hit without following it, preserves those hits through
+  `retainGitIgnored`, and therefore blocks retirement; `.git` remains the only
+  dedicated traversal boundary.
+- D RED evidence was the two existing release-build assertions failing under
+  the Chinese worktree path because `.pathname` retained percent escapes.
+  GREEN uses the exact `fileURLToPath(new URL("..", import.meta.url))` intent;
+  release-build tests pass.
+- RED/GREEN command evidence:
+  - `node --test scripts/sweep-merged-worktrees.test.mjs --test-name-pattern='initial clock failure'`:
+    98 pass, 1 fail RED; then 99 pass, 0 fail GREEN.
+  - External-boundary and protected-node focused runs observed the specified
+    RED failures before each minimal production change, then passed.
+  - `node --test scripts/release-build-gate.test.mjs`: 7 pass, 0 fail GREEN.
+  - `node --test scripts/sweep-merged-worktrees.test.mjs scripts/release-build-gate.test.mjs`:
+    114 tests, 114 pass, 0 fail.
+  - `npm run test:release-governance`: 103 tests, 92 pass, 0 fail, 11
+    intentional Promotion Shadow skips.
+  - `node --check` for all three MJS files: pass; `git diff --check`: pass.
+- Self-review: no allowlist violation; no commit, push, remote/ref/PR/workflow
+  change, real worktree removal, cleanup, receipt reservation, Shadow,
+  deploy, provider call, or production action was performed.
+
+## U223-R2 spec-review TOCTOU remediation (2026-09-03 HKT) — Status DONE
+
+- Reviewer finding addressed: the prior external-path admission followed by
+  path-based manifest read/receipt create left a TOCTOU gap. The remediation
+  remains restricted to the same four allowlisted files and does not alter
+  historical log content.
+- RED fixtures first demonstrated that an admission hook replacing the
+  manifest leaf or parent caused old absolute `readFileSync(path)` behavior to
+  read replacement content, and old absolute `openSync(path, O_CREAT, ...)`
+  behavior created a receipt below a replacement parent. A dedicated receipt
+  symlink-parent fixture also fails closed.
+- GREEN manifest path: external admission now records leaf dev/ino; the
+  actual read opens the absolute path with `O_RDONLY|O_NOFOLLOW`, binds the fd
+  with `fstatSync`, compares identity before reading, reads from the fd, and
+  compares identity again after reading. Replacement leaf/parent tests now
+  fail closed while the old absolute operation is proven to hit replacement
+  content.
+- GREEN receipt path: the provider revalidates the parent boundary and records
+  parent dev/ino, then launches a minimal Node child with an explicit
+  credential-stripped environment containing only PATH (no NODE_OPTIONS).
+  Child cwd `statSync(".")` must match the admitted parent; relative leaf
+  creation uses `O_WRONLY|O_CREAT|O_EXCL|O_NOFOLLOW`, mode 0600. Child emits
+  only controlled dev/ino JSON. The parent rejects stderr, nonzero status,
+  malformed/invalid output, opens absolute path only with
+  `O_WRONLY|O_NOFOLLOW`, compares fstat dev/ino before returning the fd, and
+  leaves any uncertain empty reservation in place.
+- TDD evidence:
+  - TOCTOU RED focused run: 3 new race tests failed with missing expected
+    exceptions under the old absolute path implementations; receipt static
+    symlink-parent RED was also observed before GREEN.
+  - TOCTOU GREEN focused run: 113 tests, 113 passed, 0 failed after fd/child
+    binding implementation and test corrections.
+  - `node --test scripts/sweep-merged-worktrees.test.mjs scripts/release-build-gate.test.mjs`:
+    120 tests, 120 passed, 0 failed.
+  - `npm run test:release-governance`: 103 tests, 92 passed, 0 failed, 11
+    intentional Promotion Shadow skips.
+  - `node --check` for all three MJS files and `git diff --check`: passed.
+- Exact scope remains the four files named above. No commit, push, remote/ref/PR
+  or workflow mutation, real removal/cleanup, receipt reservation outside
+  OS-temp test fixtures, Shadow, deploy, provider, or production action was
+  performed.
+- A11 stale-Dirent remediation: a deterministic RED probe showed that the earlier Dirent-only traversal could enqueue a directory path and later follow it after replacement by a symlink. The walker now binds every queued directory to no-follow `lstat` device/inode identity, revalidates type and identity immediately before recursion, revalidates again after `readdir`, discards all entries observed through a drifting boundary, and permanently retains boundary-changed/unavailable holds. A task-owned fixture swaps the child after its first identity capture and proves the replacement path is never passed to `readdir`; external `.tmp` contents cannot influence the candidate decision.
+- A11/A22 ABA closure: pre/post pathname identity comparison was insufficient because a temporary replacement could be restored before the second check. Directory enumeration now runs in a minimal credential-stripped child whose process CWD is the opened directory instance: it verifies that pinned CWD's device/inode before reading, then performs `readdirSync(".")` and `lstatSync(entry.name)` relative to that same kernel-held directory. A replacement selected before child startup fails the CWD identity check; replacement after startup cannot redirect `.`. Malformed/oversized/stderr/nonzero child evidence becomes a permanent boundary-unavailable hold. Tests lock the cwd-relative protocol and prove a pre-enumeration symlink replacement cannot expose external `.tmp` entries.
+- Performance-safe descriptor implementation: the per-directory Node-child prototype was replaced before release because a real worktree scan exceeded 67 seconds. The final walker starts one isolated `/usr/bin/python3 -I` helper per worktree with an empty environment, opens its pinned CWD using `O_DIRECTORY | O_NOFOLLOW`, enumerates with `os.scandir(directory_fd)`, resolves metadata without following links, and recurses only through `os.open(name, ..., dir_fd=directory_fd)` children whose `fstat` identity matches the observed entry. A real scan completes in about 0.20 seconds. A deterministic ABA primitive fixture renames the original child aside, moves an empty replacement onto its pathname, and proves the held child descriptor still enumerates the original `.env.local` inode contents.
