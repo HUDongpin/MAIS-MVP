@@ -229,3 +229,260 @@ evidence.
 - A11 stale-Dirent remediation: a deterministic RED probe showed that the earlier Dirent-only traversal could enqueue a directory path and later follow it after replacement by a symlink. The walker now binds every queued directory to no-follow `lstat` device/inode identity, revalidates type and identity immediately before recursion, revalidates again after `readdir`, discards all entries observed through a drifting boundary, and permanently retains boundary-changed/unavailable holds. A task-owned fixture swaps the child after its first identity capture and proves the replacement path is never passed to `readdir`; external `.tmp` contents cannot influence the candidate decision.
 - A11/A22 ABA closure: pre/post pathname identity comparison was insufficient because a temporary replacement could be restored before the second check. Directory enumeration now runs in a minimal credential-stripped child whose process CWD is the opened directory instance: it verifies that pinned CWD's device/inode before reading, then performs `readdirSync(".")` and `lstatSync(entry.name)` relative to that same kernel-held directory. A replacement selected before child startup fails the CWD identity check; replacement after startup cannot redirect `.`. Malformed/oversized/stderr/nonzero child evidence becomes a permanent boundary-unavailable hold. Tests lock the cwd-relative protocol and prove a pre-enumeration symlink replacement cannot expose external `.tmp` entries.
 - Performance-safe descriptor implementation: the per-directory Node-child prototype was replaced before release because a real worktree scan exceeded 67 seconds. The final walker starts one isolated `/usr/bin/python3 -I` helper per worktree with an empty environment, opens its pinned CWD using `O_DIRECTORY | O_NOFOLLOW`, enumerates with `os.scandir(directory_fd)`, resolves metadata without following links, and recurses only through `os.open(name, ..., dir_fd=directory_fd)` children whose `fstat` identity matches the observed entry. A real scan completes in about 0.20 seconds. A deterministic ABA primitive fixture renames the original child aside, moves an empty replacement onto its pathname, and proves the held child descriptor still enumerates the original `.env.local` inode contents.
+
+## U223-R3 implementation (2026-09-03 HKT) — DONE, uncommitted
+
+- Implementer lane: borrowed A10/A25; exact worktree
+  `/Volumes/Starship/MAIS的衍生文件/MAIS-a10-a25-sweep-integration-20260902`; branch
+  `codex/a10-a25-sweep-integration-20260902`; expected-old HEAD
+  `716ae1b1d07a6aa8ff027ce192d75065c40feccf`. Baseline status was clean and no
+  HEAD drift was observed.
+- Exact write scope remained the three authorized paths: the sweep runtime,
+  its focused test file, and this append-only lifecycle log. The read-only
+  generic strict JSON guard was imported but not modified. No commit, push,
+  PR, workflow, merge, cleanup, or real `--apply` sweep was performed.
+
+### U223-R3 TDD evidence
+
+- RED after test-only additions: `node --test scripts/sweep-merged-worktrees.test.mjs`
+  returned exit 1 with 122 tests, 116 passed and 6 failed. The expected
+  failures covered duplicate-key rejection, required `creationDate`, fixed
+  trusted Git/config isolation, final target identity barrier, frozen-clock
+  integration, and receipt durability helper.
+- GREEN after the minimal runtime implementation and test fixture updates:
+  `node --test scripts/sweep-merged-worktrees.test.mjs` returned exit 0 with
+  124 passed and 0 failed.
+- The revalidation-specific RED/GREEN coverage also proves duplicate keys are
+  rejected on every manifest revalidation with the stable non-leaking reason
+  `immutable manifest revalidation failed`; the raw manifest descriptor checks
+  the frozen 32 MiB size ceiling before reading bytes.
+
+### U223-R3 behavior and verification
+
+- Manifest validation now uses the existing strict byte parser (fatal UTF-8,
+  duplicate-key rejection, parser safety limits), and each apply revalidation
+  strictly parses fresh bytes before digest comparison and mutation.
+- Production Git invokes fixed `/usr/bin/git`; routing/config env overrides are
+  removed, system/global config is pinned to `/dev/null`, optional locks are
+  disabled, the frozen repository tuple is checked, and production worktree,
+  ancestry, log, anchor, live-main, and removal calls use the bound tuple.
+- Each authorized target carries a canonical `creationDate`; age is computed
+  against the single frozen runtime clock captured for the invocation. The
+  final target path is checked as a no-follow directory with matching
+  device/inode identity immediately before removal, and writer/process evidence
+  is rechecked at that bounded barrier.
+- Receipt reservation, file write, and parent-directory durability now use
+  fsync. Receipts explicitly record a claim ceiling: `absoluteRaceFree=false`,
+  `writerFree=false`, with postflight described as bounded observations only.
+- Verification: `node --check scripts/sweep-merged-worktrees.mjs` passed;
+  `node --check scripts/sweep-merged-worktrees.test.mjs` passed;
+  focused suite passed 124/124; `git diff --check` passed. No TypeScript or
+  package surface was changed, so type-check was not applicable to this slice.
+- Final post-change readback retained HEAD at
+  `716ae1b1d07a6aa8ff027ce192d75065c40feccf`; exact status showed only the
+  three authorized files modified. A fresh `npm run test:release-governance`
+  also passed 92/92 runnable tests with 11 intentional Promotion Shadow skips
+  (103 total), with no sweep apply or cleanup action.
+- After the final canonical target-boundary and durable-receipt error-path
+  hardening, focused verification was rerun: both `node --check` commands,
+  `node --test scripts/sweep-merged-worktrees.test.mjs` (124/124), and
+  `git diff --check` passed again.
+
+## U223-R3 A11/A22/A25 P1 correction (2026-09-03 HKT) — DONE, uncommitted
+
+- Review returned FAIL for optional final target/process barriers, unbound Git
+  discovery and fallback paths, inherited `gh`/`lsof` routing, manifest FIFO/
+  size handling, receipt parent durability, duplicate-key mutation coverage,
+  and invalid frozen-clock/min-age handling. The correction stayed inside the
+  original three authorized paths; `scripts/promotion-workflow-json-guard.mjs`
+  remained read-only.
+- RED evidence: focused `node --test scripts/sweep-merged-worktrees.test.mjs
+  --test-name-pattern='final (target boundary|process) evidence'` first showed
+  missing provider evidence could still remove; the GH/lsof routing tests then
+  showed unresolved executable constants and absent exact `--repo`; the
+  filesystem-binding RED showed the unbound discovery contract and the
+  receipt/manifest RED showed parent identity, sparse-size, and FIFO gaps.
+  These tests were corrected before production changes; the FIFO RED was not
+  allowed to block because the old path-based open could block, and was run
+  after the `O_NONBLOCK` change.
+- GREEN now passes `node --test scripts/sweep-merged-worktrees.test.mjs` with
+  136/136 tests and 0 failures. Coverage includes missing/malformed/throwing
+  target/process providers, valid-first/duplicate-second revalidation,
+  sparse oversized and FIFO manifest leaves, no-unbound-discovery Git calls,
+  dynamic Git routing env keys, fixed GH/lsof executables, exact frozen remote
+  repository identity, descriptor-bound receipt parent durability, invalid
+  frozen clock, and minimum-age fail-closed behavior.
+- Final implementation details: final target/process providers are mandatory
+  and fail closed; `.git` is read using no-follow bounded filesystem metadata
+  (directory or bounded `gitdir:` file), then all Git operations use a literal
+  frozen tuple; direct production calls without the tuple fail closed. All
+  ambient `GIT_*` variables are removed before safe values are installed.
+  `gh` is fixed to `/opt/homebrew/bin/gh` and receives exact `--repo owner/name`
+  from the frozen GitHub remote identity with `GH_REPO`/`GH_HOST` removed;
+  `lsof` is fixed to `/usr/sbin/lsof` with an empty environment.
+- Manifest opens use `O_NONBLOCK|O_NOFOLLOW`, fstat regular-file and size checks
+  precede reads, and strict parsing remains applied on every revalidation.
+  Receipt reservation holds the admitted parent fd, verifies its identity,
+  and fsyncs that same descriptor after receipt-file fsync before closing it;
+  no second parent pathname open is used for production receipt closeout.
+- Final verification: `node --check scripts/sweep-merged-worktrees.mjs`
+  passed; `node --check scripts/sweep-merged-worktrees.test.mjs` passed;
+  focused suite passed 136/136; prior `npm run test:release-governance` passed
+  92 runnable tests with 11 intentional skips; `git diff --check` passed.
+  Exact HEAD remains `716ae1b1d07a6aa8ff027ce192d75065c40feccf`, and status is
+  limited to the three allowlisted files. No commit, push, apply, cleanup,
+  branch/ref/PR/workflow mutation, or production action was performed.
+- Final post-correction governance rerun: `npm run test:release-governance`
+  completed with 103 total tests, 92 passed, 0 failed, and 11 intentional
+  Promotion Shadow skips. Exact status, HEAD, and diff boundaries were then
+  re-read; no files outside the three-path allowlist were modified.
+
+## U223-R3 final re-review correction (2026-09-03 HKT) — DONE, uncommitted
+
+- Final re-review identified five P1 issues; all corrections remained in the
+  same three allowlisted files. RED additions covered omitted `remoteIdentity`
+  tuple comparison, linked-CWD primary-root derivation, concurrent manifest
+  growth after initial fstat, receipt close failure/double-close cleanup, and
+  inherited interactive/SSH Git routing variables.
+- GREEN implementation now compares the complete tuple including remote
+  identity; derives the canonical nonbare primary root from the frozen common
+  Git directory; reads manifests and `.git` gitdir files through bounded
+  descriptor reads with `O_NONBLOCK|O_NOFOLLOW`, pre-read regular/size checks,
+  post-read identity/size checks, and a max+1 cap; and guarantees admitted
+  receipt parent fsync/close even when receipt close throws.
+- All ambient `GIT_*` variables are removed before reinstalling only safe
+  config, optional-lock, noninteractive prompt, askpass, SSH batch, and
+  variant values. The tuple bootstrap no longer uses unbound Git discovery;
+  production providers without a tuple fail closed. The `gh` query remains
+  fixed-executable and exact-`--repo` bound, while `lsof` remains fixed and
+  empty-environment.
+- A real linked-worktree smoke from the exact linked CWD confirmed the frozen
+  tuple was available and canonical primary root resolved to
+  `/Volumes/Starship/MAIS-MVP`; live-main evidence was unavailable in that
+  environment, so no positive live-main claim was made and no mutation was
+  attempted. A full primary-root sweep smoke was intentionally interrupted
+  after it exceeded the bounded interactive wait because it was still scanning
+  the fleet; it produced no output or mutation.
+- Final verification: `node --test scripts/sweep-merged-worktrees.test.mjs`
+  passed 141/141; `npm run test:release-governance` passed 92 runnable tests,
+  0 failed, with 11 intentional skips; both MJS `node --check` commands and
+  exact `git diff --check` passed. HEAD remains
+  `716ae1b1d07a6aa8ff027ce192d75065c40feccf`; status still contains only the
+  three authorized modified files. No commit, push, apply, cleanup, branch,
+  ref, PR, workflow, or production action was performed.
+
+## U223-R3 SSH command correction (2026-09-03 HKT) — DONE, uncommitted
+
+- Final review found the fixed `GIT_SSH_COMMAND` was syntactically invalid:
+  `/usr/bin/ssh -G ... github.com` returned exit 255 with `no argument after
+  keyword "sendenv"`. A RED test first reproduced that exact parser failure.
+- GREEN replaced the empty-value options with an executable fixed command:
+  `/usr/bin/ssh -F /dev/null -oBatchMode=yes -oStrictHostKeyChecking=yes
+  -oUpdateHostKeys=no -oControlMaster=no -oControlPath=none
+  -oPermitLocalCommand=no -oProxyCommand=none -oClearAllForwardings=yes`.
+  The non-network `/usr/bin/ssh -G` parser test now passes.
+- Post-correction focused sweep suite passed 142/142; both MJS syntax checks
+  passed; exact `git diff --check` passed. A real linked-CWD tuple/live-main
+  smoke again confirmed tuple availability and canonical primary root
+  `/Volumes/Starship/MAIS-MVP`; live-main evidence remained unavailable in the
+  environment, so no live-positive claim or mutation was made. No commit,
+  push, apply, cleanup, branch/ref/PR/workflow mutation, or production action
+  occurred.
+
+## U223-R3 remote URL credential-helper correction (2026-09-03 HKT) — DONE, uncommitted
+
+- Final re-review identified that HTTPS origin live-main evidence was being
+  rejected because global credential-helper configuration was intentionally
+  removed. A RED test first required strict canonical GitHub HTTPS remote URL
+  parsing, exact remoteUrl tuple comparison, and an explicit credential-helper
+  `ls-remote` command.
+- GREEN now freezes a canonical GitHub `remoteUrl` (HTTPS only, no userinfo,
+  non-GitHub host, query/hash, controls, or unsupported SSH form) plus the
+  derived remote identity. Tuple comparison includes both remoteUrl and
+  remoteIdentity. live-main uses the exact frozen URL rather than the mutable
+  remote name `origin`, with `-c credential.helper=!/opt/homebrew/bin/gh
+  auth git-credential` and the already-isolated noninteractive Git environment.
+  Remote URLs and credentials are never printed or placed in receipts.
+- The exact fixed helper was validated by real smoke from the linked CWD:
+  tuple available, canonical primary root `/Volumes/Starship/MAIS-MVP`,
+  live-main evidence available, source `git-ls-remote`, and valid SHA shape.
+  Output contained only booleans/source/shape metadata; no URL or token.
+- Final verification: focused sweep suite `node --test
+  scripts/sweep-merged-worktrees.test.mjs` passed 144/144; both MJS
+  `node --check` commands passed; `npm run test:release-governance` passed 92
+  runnable tests, 0 failed, with 11 intentional skips; exact `git diff --check`
+  passed. HEAD remains `716ae1b1d07a6aa8ff027ce192d75065c40feccf`; exact status
+  remains limited to the three authorized files. No commit, push, apply,
+  cleanup, branch/ref/PR/workflow mutation, or production action occurred.
+
+## U223-R3 main tuple barrier correction (2026-09-03 HKT) — DONE, uncommitted
+
+- Final gate found `main()` constructed its temporary left tuple without the
+  frozen `remoteUrl`, causing the real provider tuple barrier to reject. A RED
+  regression inspected the main barrier tuple and failed while that field was
+  absent; GREEN added `remoteUrl: repositoryTuple.remoteUrl`.
+- Focused sweep suite passed 145/145 after the correction. Real default
+  `--json` dry-run from primary root was launched with the exact linked script
+  for a 12-second bounded read-only smoke; it produced no stderr or output and
+  was interrupted at the timeout while scanning the fleet. The absence of an
+  immediate tuple-barrier error proves it passed tuple setup into subsequent
+  scan work, but it is not completion evidence. The linked-CWD default
+  `--json` smoke likewise ran 12 seconds with no stderr/output before safe
+  timeout; neither command used `--apply` or mutated anything.
+- Final checks: both MJS `node --check` commands passed; `git diff --check`
+  passed; the latest release-governance run passed 92 runnable tests, 0 failed,
+  with 11 intentional Promotion Shadow skips. HEAD remains
+  `716ae1b1d07a6aa8ff027ce192d75065c40feccf`; exact status remains the three
+  allowlisted files only. No commit, push, apply, cleanup, branch/ref/PR,
+  workflow, or production action occurred.
+
+## U223-R3 final security closure pass (2026-09-03 HKT) — DONE, uncommitted
+
+- Added fixed bounded execution controls to every production `git`, `gh`, and
+  `lsof` probe: 60-second timeout, 8 MiB output ceiling, and SIGKILL. The
+  trusted GitHub helper environment also sets `GH_PROMPT_DISABLED=1`, clears
+  ambient `GIT_*` routing/configuration, and uses the fixed noninteractive SSH
+  command validated by `ssh -G` without network access.
+- Added canonical-path primary-checkout protection so a symlink alias of the
+  primary checkout is skipped. The live-main probe remains bound to the
+  owner-approved `HUDongpin/MAIS-MVP` identity and exact canonical HTTPS URL,
+  runs from `/` with no local repository/config discovery, and fails closed on
+  origin URL tampering. No URL, credential, or helper output is logged.
+- RED coverage includes the final target evidence missing/malformed/throw
+  barrier, duplicate-key mutation-boundary revalidation, sparse and growing
+  manifest bounds, FIFO rejection, same-parent receipt durability and
+  unowned/double-close failure, invalid completion clock, `.git` binding and
+  replacement protections, exact remote tuple/URL, tampered temporary origin,
+  SSH parser validity, command bounds, and primary symlink alias behavior.
+- GREEN verification: `node --test scripts/sweep-merged-worktrees.test.mjs`
+  passed 152/152; `npm run test:release-governance` passed 92 runnable tests,
+  0 failed, with 11 intentional skips; both MJS `node --check` commands and
+  exact `git diff --check` passed. The real linked-CWD
+  live-main smoke returned available evidence with a valid SHA shape using only
+  boolean/source metadata; primary and linked default `--json` dry-run smokes
+  were bounded read-only scans and did not use `--apply`.
+- HEAD remains `716ae1b1d07a6aa8ff027ce192d75065c40feccf`; status remains only
+  the three allowlisted files. No commit, push, apply, cleanup, branch/ref/PR,
+  workflow, or production action occurred.
+
+## U223-R3 final child-process timeout closure (2026-09-03 HKT) — DONE, uncommitted
+
+- Final security review found the receipt reservation child and descriptor-bound
+  protected walker were the remaining production `spawnSync` calls without the
+  fixed execution bound. RED injection tests showed receipt timeout left the
+  admitted parent close unobserved and the walker received no timeout option.
+- GREEN now applies `COMMAND_TIMEOUT_MS` (60 seconds),
+  `COMMAND_MAX_BUFFER_BYTES` (8 MiB), and `COMMAND_KILL_SIGNAL` (`SIGKILL`) to
+  both children. Receipt reservation uses a one-shot admitted-parent close on
+  every child/error path, so timeout cannot claim a usable receipt; the walker
+  converts timeout/error evidence into its existing boundary-unavailable
+  fail-closed result, which preserves the candidate hold.
+- Targeted RED/GREEN command:
+  `node --test --test-name-pattern='bounds its child'
+  scripts/sweep-merged-worktrees.test.mjs`; RED was 0/2 with the missing
+  timeout/close observations, GREEN is 2/2.
+### U223-R3 final receipt-child timeout evidence correction
+
+- A final static review found that the receipt-reservation timeout test asserted inside the injected child callback. The production wrapper caught that assertion and converted it into the same fail-closed child error, so the test passed even though the production child options omitted the timeout fields.
+- RED correction: the test now captures the child options and asserts them after the expected fail-closed call returns; on the unchanged production code it failed with `actual undefined` versus the fixed `60000` millisecond ceiling.
+- GREEN: the receipt-reservation Node child now receives `COMMAND_TIMEOUT_MS`, `COMMAND_MAX_BUFFER_BYTES`, and `COMMAND_KILL_SIGNAL`, matching the protected-tree child and the other Git/GitHub/process providers. Timeout/error still closes the admitted parent descriptor and never yields a usable receipt.

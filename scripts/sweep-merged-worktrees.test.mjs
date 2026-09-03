@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
 import {
   closeSync, mkdtempSync, mkdirSync, openSync, readFileSync, realpathSync, renameSync, statSync,
+  truncateSync,
   writeFileSync, rmSync, symlinkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -366,6 +367,7 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
   const calls = [];
   const evidence = sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
     realpath: (path) => path,
+    gitDir: "/repo/.git/worktrees/wt",
     expectedCommonGitDir: "/repo/.git",
     execFile(file, args, options) {
       calls.push({ file, args, cwd: options.cwd ?? null });
@@ -380,12 +382,7 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
   assert.deepEqual(evidence, { available: true, dirty: 2 });
   assert.deepEqual(calls, [
     {
-      file: "git",
-      args: ["--no-optional-locks", "-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
-      cwd: null,
-    },
-    {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -399,7 +396,7 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
       cwd: null,
     },
     {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -413,7 +410,7 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
       cwd: null,
     },
     {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -427,7 +424,7 @@ test("bound worktree status uses exact Git arguments and counts a rename as one 
       cwd: null,
     },
     {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -460,6 +457,7 @@ test("target-bound Git rejects mismatched top-level, common-dir, or registered g
     const calls = [];
     const result = sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
       realpath: (path) => path,
+      gitDir: "/repo/.git/worktrees/wt",
       expectedCommonGitDir: "/repo/.git",
       execFile(_file, args) {
         calls.push(args);
@@ -483,6 +481,7 @@ test("target-bound Git centralizes sanitized no-lock invocation", () => {
   const evidence = withGitEnvironment(contamination, () => (
     sweep.readBoundWorktreeStatusEvidence("/repo/wt", {
       realpath: (path) => path,
+      gitDir: "/repo/.git/worktrees/wt",
       expectedCommonGitDir: "/repo/.git",
       execFile(file, args, options) {
         calls.push({ file, args, env: options.env });
@@ -496,9 +495,9 @@ test("target-bound Git centralizes sanitized no-lock invocation", () => {
   ));
 
   assert.deepEqual(evidence, { available: true, dirty: 1 });
-  assert.equal(calls.length, 5);
+  assert.equal(calls.length, 4);
   for (const call of calls) {
-    assert.equal(call.file, "git");
+    assert.equal(call.file, sweep.TRUSTED_GIT_EXECUTABLE);
     assert.equal(call.args[0], "--no-optional-locks");
     assert.equal(call.env.GIT_OPTIONAL_LOCKS, "0");
     for (const key of CONTAMINATED_GIT_ENV_KEYS) assert.equal(call.env[key], undefined);
@@ -529,6 +528,7 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
   const hits = [{ path: "/repo/wt/provider-credentials\ncopy.json", label: "secret-like file", size: 1 }];
   const retained = sweep.retainGitIgnored("/repo/wt", hits, {
     realpath: (path) => path,
+    gitDir: "/repo/.git/worktrees/wt",
     expectedCommonGitDir: "/repo/.git",
     execFile(file, args, options) {
       calls.push({ file, args, cwd: options.cwd ?? null, input: options.input ?? null });
@@ -543,13 +543,7 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
   assert.deepEqual(retained, hits);
   assert.deepEqual(calls, [
     {
-      file: "git",
-      args: ["--no-optional-locks", "-C", "/repo/wt", "rev-parse", "--absolute-git-dir"],
-      cwd: null,
-      input: null,
-    },
-    {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -564,7 +558,7 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
       input: null,
     },
     {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -579,7 +573,7 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
       input: null,
     },
     {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -594,7 +588,7 @@ test("retainGitIgnored binds check-ignore to the exact gitdir and worktree", () 
       input: null,
     },
     {
-      file: "git",
+      file: sweep.TRUSTED_GIT_EXECUTABLE,
       args: [
         "--no-optional-locks",
         "--git-dir=/repo/.git/worktrees/wt",
@@ -868,6 +862,50 @@ test("receipt reservation rejects child stderr, nonzero, and malformed output wi
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
+test("receipt reservation bounds its child and closes the admitted parent on timeout", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-timeout-")));
+  const receipt = join(root, "receipt.json");
+  const closed = [];
+  let capturedOptions = null;
+  try {
+    assert.throws(
+      () => sweep.createRuntimeProviders().reserveReceipt(receipt, {
+        close(fd) { closed.push(fd); },
+        spawn(file, args, options) {
+          assert.equal(file, process.execPath);
+          capturedOptions = options;
+          return { status: null, stdout: "", stderr: "", error: new Error("timed out") };
+        },
+      }),
+      /child failed closed/u,
+    );
+    assert.equal(capturedOptions?.timeout, sweep.COMMAND_TIMEOUT_MS);
+    assert.equal(capturedOptions?.maxBuffer, sweep.COMMAND_MAX_BUFFER_BYTES);
+    assert.equal(capturedOptions?.killSignal, sweep.COMMAND_KILL_SIGNAL);
+    assert.equal(closed.length, 1);
+    assert.equal(sweep.readExternalPathEvidence(receipt, { kind: "receipt" }).absent, true);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("protected descriptor walker bounds its child and fails closed on timeout", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-protected-timeout-")));
+  try {
+    const identity = { dev: String(statSync(root, { bigint: false }).dev), ino: String(statSync(root, { bigint: false }).ino) };
+    assert.throws(
+      () => sweep.readProtectedTreeByDescriptor(root, identity, {
+        spawn(file, args, options) {
+          assert.equal(file, "/usr/bin/python3");
+          assert.equal(options.timeout, sweep.COMMAND_TIMEOUT_MS);
+          assert.equal(options.maxBuffer, sweep.COMMAND_MAX_BUFFER_BYTES);
+          assert.equal(options.killSignal, sweep.COMMAND_KILL_SIGNAL);
+          return { status: null, stdout: "", stderr: "", error: new Error("timed out") };
+        },
+      }),
+      /child failed closed/u,
+    );
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
 const base = {
   path: "/repo/.worktrees/x", branch: "feature/x", bare: false, exists: true, dirty: 0,
   protectedHits: [], mergedIntoUpstream: false, containedIn: [], ageDays: 5,
@@ -894,6 +932,19 @@ test("decide does not treat containment in another local or cached ref as live-m
 
 test("decide never touches the primary checkout", () => {
   assert.equal(decide({ ...base, path: "/repo", mergedIntoUpstream: true }, ctx).action, "skip");
+});
+
+test("decide treats a symlink alias of the primary checkout as primary", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-primary-alias-")));
+  const primary = join(root, "primary");
+  const alias = join(root, "alias");
+  try {
+    mkdirSync(primary);
+    symlinkSync(primary, alias, "dir");
+    const d = decide({ ...base, path: alias, mergedIntoUpstream: true }, { ...ctx, primaryRoot: primary });
+    assert.equal(d.action, "skip");
+    assert.equal(d.reason, "primary checkout");
+  } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
 // Regression: a checkout of the integration branch is merged-by-definition, so
@@ -1039,6 +1090,13 @@ test("decide skips a worktree whose directory has vanished", () => {
 const LIVE_MAIN_SHA = "1".repeat(40);
 const TARGET_HEAD_SHA = "2".repeat(40);
 const TOPOLOGY_SHA = "3".repeat(64);
+const TEST_REPOSITORY_TUPLE = Object.freeze({
+  primaryRoot: "/repo",
+  commonGitDir: "/repo/.git",
+  gitDir: "/repo/.git",
+  remoteIdentity: "HUDongpin/MAIS-MVP",
+  remoteUrl: "https://github.com/HUDongpin/MAIS-MVP.git",
+});
 
 function applyManifest(targetCount = 1) {
   return {
@@ -1052,6 +1110,7 @@ function applyManifest(targetCount = 1) {
       topologyFingerprint: TOPOLOGY_SHA,
       owner: "A25",
       task: `cleanup-${index}`,
+      creationDate: "2026-08-28",
       expectedCloseoutDate: "2026-08-29",
       allowedAction: "remove-worktree",
     })),
@@ -1118,8 +1177,41 @@ test("manifest authorization hashes raw bytes and rejects malformed UTF-8 aliase
       expectedManifestSha256: sweep.sha256Text(manifestBytes),
     });
     assert.equal(result.ok, false);
-    assert.match(result.reason, /UTF-8/);
+    assert.match(result.reason, /valid JSON/u);
   }
+});
+
+test("manifest reader refuses sparse oversized files before reading", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-manifest-size-")));
+  const manifest = join(root, "manifest.json");
+  try {
+    writeFileSync(manifest, "");
+    truncateSync(manifest, sweep.MAX_MANIFEST_BYTES + 1);
+    assert.throws(() => sweep.createRuntimeProviders().readImmutableManifest(manifest), /size limit|too large/u);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("manifest reader rejects growth after fstat without allocating the grown file", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-manifest-growth-")));
+  const manifest = join(root, "manifest.json");
+  try {
+    writeFileSync(manifest, "{}");
+    assert.throws(
+      () => sweep.createRuntimeProviders().readImmutableManifest(manifest, {
+        afterOpen(path) { truncateSync(path, sweep.MAX_MANIFEST_BYTES + 1); },
+      }),
+      /size limit|too large/u,
+    );
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("manifest reader refuses non-regular FIFO leaves without reading", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-manifest-fifo-")));
+  const manifest = join(root, "manifest.fifo");
+  try {
+    execFileSync("mkfifo", [manifest]);
+    assert.throws(() => sweep.createRuntimeProviders().readImmutableManifest(manifest), /regular|unavailable/u);
+  } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
 test("validateApplyAuthorization requires an independently supplied expected live-main SHA", () => {
@@ -1205,6 +1297,44 @@ test("validateApplyAuthorization requires an exact immutable anchor for detached
   assert.equal(sweep.validateApplyAuthorization(authorizationFor(manifest)).ok, true);
 });
 
+test("validateApplyAuthorization rejects duplicate JSON object keys", () => {
+  const manifest = applyManifest();
+  const duplicate = Buffer.from(JSON.stringify(manifest).replace('"owner":"A25"', '"owner":"A25","owner":"A25"'), "utf8");
+  const result = sweep.validateApplyAuthorization({
+    ...authorizationFor(),
+    manifestBytes: duplicate,
+    expectedManifestSha256: sweep.sha256Text(duplicate),
+  });
+  assert.equal(result.ok, false);
+  assert.match(result.reason, /JSON/u);
+});
+
+test("runAuthorizedApply rejects a valid first manifest followed by duplicate-key revalidation", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  const duplicate = Buffer.from(JSON.stringify(applyManifest()).replace('"owner":"A25"', '"owner":"A25","owner":"A25"'), "utf8");
+  let reads = 0;
+  deps.readManifestBytes = () => (++reads === 1 ? authorization.manifestBytes : duplicate);
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.ok, false);
+  assert.equal(calls.remove.length, 0);
+  assert.equal(result.receipt.results[0].reason, "immutable manifest revalidation failed");
+});
+
+test("validateApplyAuthorization requires manifest creationDate", () => {
+  const manifest = applyManifest();
+  delete manifest.targets[0].creationDate;
+  assert.equal(sweep.validateApplyAuthorization(authorizationFor(manifest)).ok, false);
+  assert.match(sweep.validateApplyAuthorization(authorizationFor(manifest)).reason, /creation date/u);
+});
+
 test("fingerprintTopology locks exact path, branch, HEAD, and topology state", () => {
   const original = {
     path: "/repo/.worktrees/x",
@@ -1288,7 +1418,7 @@ test("revalidateCandidate reruns every fail-closed policy immediately before act
 test("sweep mutation policy permits only a non-force local worktree removal", () => {
   const command = sweep.buildWorktreeRemoveCommand("/repo/.worktrees/x");
   assert.deepEqual(command, {
-    file: "git",
+    file: sweep.TRUSTED_GIT_EXECUTABLE,
     args: ["worktree", "remove", "--", "/repo/.worktrees/x"],
   });
   assert.equal(command.args.includes("--force"), false);
@@ -1326,6 +1456,7 @@ test("createPostflightReceipt is manifest-bound, redacted, and records action ou
         topologyFingerprint: TOPOLOGY_SHA,
         owner: "A25",
         task: "cleanup-ok",
+        creationDate: "2026-08-28",
         expectedCloseoutDate: "2026-08-29",
         allowedAction: "remove-worktree",
         status: "removed",
@@ -1339,7 +1470,13 @@ test("createPostflightReceipt is manifest-bound, redacted, and records action ou
   assert.deepEqual(receipt.summary, { attempted: 3, removed: 1, skipped: 1, failed: 1 });
   assert.equal(receipt.invariants.forceUsed, false);
   assert.equal(receipt.invariants.remoteDeletionAttempted, false);
+  assert.deepEqual(receipt.claimCeiling, {
+    absoluteRaceFree: false,
+    writerFree: false,
+    postflight: "bounded path, process, live-main, and topology observations only",
+  });
   assert.equal(receipt.results[0].head, TARGET_HEAD_SHA);
+  assert.equal(receipt.results[0].creationDate, "2026-08-28");
   assert.equal(receipt.results[0].expectedCloseoutDate, "2026-08-29");
   assert.equal(receipt.results[0].allowedAction, "remove-worktree");
   assert.doesNotMatch(JSON.stringify(receipt), /\.env\.local/);
@@ -1496,20 +1633,247 @@ test("parseActiveProcessEvidence distinguishes no users, active users, and probe
 test("production live-main provider wires an exact ls-remote query and fails closed on errors", () => {
   const calls = [];
   const evidence = sweep.readLiveMainEvidence("/repo", "main", {
+    repositoryTuple: TEST_REPOSITORY_TUPLE,
     execFile(file, args, options) {
-      calls.push({ file, args, cwd: options.cwd });
+      calls.push({ file, args, cwd: options.cwd, timeout: options.timeout, maxBuffer: options.maxBuffer, killSignal: options.killSignal });
       return `${LIVE_MAIN_SHA}\trefs/heads/main\n`;
     },
   });
   assert.deepEqual(evidence, { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" });
   assert.deepEqual(calls, [{
-    file: "git",
-    args: ["--no-optional-locks", "ls-remote", "--heads", "origin", "refs/heads/main"],
-    cwd: "/repo",
+    file: sweep.TRUSTED_GIT_EXECUTABLE,
+    args: ["--no-optional-locks", "-c", "credential.helper=", "-c", "credential.helper=!/opt/homebrew/bin/gh auth git-credential", "ls-remote", "--heads", "https://github.com/HUDongpin/MAIS-MVP.git", "refs/heads/main"],
+    cwd: "/",
+    timeout: sweep.COMMAND_TIMEOUT_MS,
+    maxBuffer: sweep.COMMAND_MAX_BUFFER_BYTES,
+    killSignal: sweep.COMMAND_KILL_SIGNAL,
   }]);
   assert.equal(sweep.readLiveMainEvidence("/repo", "main", {
     execFile() { throw new Error("offline"); },
   }).available, false);
+});
+
+test("production Git providers use the fixed trusted executable and isolated config environment", () => {
+  const calls = [];
+  const evidence = sweep.readLiveMainEvidence("/repo", "main", {
+    repositoryTuple: TEST_REPOSITORY_TUPLE,
+    execFile(file, args, options) {
+      calls.push({ file, args, env: options.env });
+      return `${LIVE_MAIN_SHA}\trefs/heads/main\n`;
+    },
+  });
+  assert.equal(evidence.available, true);
+  assert.equal(calls[0].file, sweep.TRUSTED_GIT_EXECUTABLE);
+  assert.equal(calls[0].env.GIT_CONFIG_NOSYSTEM, "1");
+  assert.equal(calls[0].env.GIT_CONFIG_GLOBAL, "/dev/null");
+  assert.equal(calls[0].env.GIT_CONFIG_SYSTEM, "/dev/null");
+  assert.equal(calls[0].env.GIT_CONFIG, undefined);
+  assert.equal(calls[0].env.GIT_CONFIG_COUNT, undefined);
+});
+
+test("sanitized Git environment disables all interactive and SSH routing", () => {
+  const environment = sweep.sanitizedGitEnvironment({
+    GIT_TERMINAL_PROMPT: "1",
+    GIT_ASKPASS: "/tmp/askpass",
+    SSH_ASKPASS: "/tmp/ssh-askpass",
+    GCM_INTERACTIVE: "always",
+    GIT_SSH_COMMAND: "ssh -o ProxyCommand=evil",
+    GIT_SSH_VARIANT: "simple",
+  });
+  assert.equal(environment.GIT_TERMINAL_PROMPT, "0");
+  assert.equal(environment.GIT_ASKPASS, "/usr/bin/false");
+  assert.equal(environment.SSH_ASKPASS, "/usr/bin/false");
+  assert.equal(environment.GCM_INTERACTIVE, "never");
+  assert.equal(environment.GIT_SSH_COMMAND, "/usr/bin/ssh -F /dev/null -oBatchMode=yes -oStrictHostKeyChecking=yes -oUpdateHostKeys=no -oControlMaster=no -oControlPath=none -oPermitLocalCommand=no -oProxyCommand=none -oClearAllForwardings=yes");
+  assert.equal(environment.GIT_SSH_VARIANT, "ssh");
+});
+
+test("sanitized SSH command is executable by ssh config parsing", () => {
+  const command = sweep.sanitizedGitEnvironment({}).GIT_SSH_COMMAND;
+  const result = spawnSync("/usr/bin/ssh", [
+    ...command.split(" ").slice(1),
+    "-G",
+    "github.com",
+  ], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+});
+
+test("sanitized Git environment removes dynamic index and routing overrides", () => {
+  const environment = sweep.sanitizedGitEnvironment({
+    GIT_INDEX_FILE: "/tmp/wrong-index",
+    GIT_SSH_COMMAND: "malicious-ssh",
+    GIT_SSH: "/tmp/wrong-ssh",
+    GIT_ASKPASS: "/tmp/wrong-askpass",
+    GIT_PROXY_COMMAND: "wrong-proxy",
+    GIT_EXEC_PATH: "/tmp/wrong-exec",
+    GIT_CONFIG_KEY_1: "core.worktree",
+    GIT_CONFIG_VALUE_1: "/tmp/wrong-worktree",
+  });
+  for (const [key, value] of Object.entries(environment)) {
+    if (/^GIT_/u.test(key)) {
+      assert.deepEqual([key, value], [
+        ["GIT_CONFIG_NOSYSTEM", "1"],
+        ["GIT_CONFIG_GLOBAL", "/dev/null"],
+        ["GIT_CONFIG_SYSTEM", "/dev/null"],
+        ["GIT_OPTIONAL_LOCKS", "0"],
+        ["GIT_TERMINAL_PROMPT", "0"],
+        ["GIT_ASKPASS", "/usr/bin/false"],
+        ["GIT_SSH_COMMAND", "/usr/bin/ssh -F /dev/null -oBatchMode=yes -oStrictHostKeyChecking=yes -oUpdateHostKeys=no -oControlMaster=no -oControlPath=none -oPermitLocalCommand=no -oProxyCommand=none -oClearAllForwardings=yes"],
+        ["GIT_SSH_VARIANT", "ssh"],
+      ].find(([safeKey]) => safeKey === key));
+    }
+  }
+});
+
+test("repository tuple is frozen and rejects a changed binding", () => {
+  const fixture = realLinkedWorktreeFixture();
+  try {
+    const tuple = sweep.readRepositoryTuple(fixture.repository);
+    assert.equal(Object.isFrozen(tuple), true);
+    assert.equal(tuple.primaryRoot, realpathSync(fixture.repository));
+    assert.equal(tuple.commonGitDir, realpathSync(join(fixture.repository, ".git")));
+    assert.equal(sweep.repositoryTupleMatches(tuple, { ...tuple }), true);
+    assert.equal(sweep.repositoryTupleMatches(tuple, { ...tuple, gitDir: fixture.wrongGitDir }), false);
+  } finally { rmSync(fixture.fixtureRoot, { recursive: true, force: true }); }
+});
+
+test("repository tuple identity is part of the exact comparison", () => {
+  assert.equal(
+    sweep.repositoryTupleMatches(
+      { ...TEST_REPOSITORY_TUPLE, remoteIdentity: null },
+      TEST_REPOSITORY_TUPLE,
+    ),
+    false,
+  );
+});
+
+test("GitHub remote URL parser rejects credentials, non-GitHub hosts, and controls", () => {
+  assert.equal(sweep.parseStrictGitHubRemoteUrl("https://github.com/owner/repo.git"), "https://github.com/owner/repo.git");
+  for (const value of [
+    "https://user:token@github.com/owner/repo.git",
+    "https://evil.invalid/owner/repo.git",
+    "https://github.com/owner/repo.git\n",
+    "git@github.com:owner/repo.git",
+  ]) assert.equal(sweep.parseStrictGitHubRemoteUrl(value), null);
+});
+
+test("repository tuple comparison includes exact remote URL", () => {
+  assert.equal(
+    sweep.repositoryTupleMatches(TEST_REPOSITORY_TUPLE, {
+      ...TEST_REPOSITORY_TUPLE,
+      remoteUrl: "https://github.com/owner/other.git",
+    }),
+    false,
+  );
+});
+
+test("main tuple barrier carries the frozen remote URL", () => {
+  const source = readFileSync(join(process.cwd(), "scripts/sweep-merged-worktrees.mjs"), "utf8");
+  const barrierEnd = source.indexOf("repository tuple does not match");
+  const barrierStart = source.lastIndexOf("repositoryTupleMatches(", barrierEnd);
+  assert.match(source.slice(barrierStart, barrierEnd), /remoteUrl:\s*repositoryTuple\.remoteUrl/u);
+});
+
+test("live-main security uses the owner-approved canonical repository URL", () => {
+  assert.equal(sweep.APPROVED_REPOSITORY_IDENTITY, "HUDongpin/MAIS-MVP");
+  assert.equal(sweep.APPROVED_REPOSITORY_URL, "https://github.com/HUDongpin/MAIS-MVP.git");
+  const calls = [];
+  const result = sweep.readLiveMainEvidence("/untrusted/cwd", "main", {
+    repositoryTuple: {
+      primaryRoot: "/repo",
+      commonGitDir: "/repo/.git",
+      gitDir: "/repo/.git",
+      remoteIdentity: "HUDongpin/MAIS-MVP",
+      remoteUrl: sweep.APPROVED_REPOSITORY_URL,
+    },
+    execFile(file, args, options) {
+      calls.push({ file, args, options });
+      return `${LIVE_MAIN_SHA}\trefs/heads/main\n`;
+    },
+  });
+  assert.equal(result.available, true);
+  assert.equal(calls[0].options.cwd, "/");
+  assert.equal(calls[0].args.includes("--git-dir=/repo/.git"), false);
+  assert.equal(calls[0].args.includes("--work-tree=/repo"), false);
+  assert.equal(calls[0].args.includes("-c"), true);
+  assert.equal(calls[0].args.includes("credential.helper="), true);
+  assert.equal(calls[0].args.includes("credential.helper=!/opt/homebrew/bin/gh auth git-credential"), true);
+  assert.equal(calls[0].args.includes(sweep.APPROVED_REPOSITORY_URL), true);
+});
+
+test("live-main rejects a local origin URL that differs from the approved constant", () => {
+  const result = sweep.readLiveMainEvidence("/repo", "main", {
+    repositoryTuple: {
+      primaryRoot: "/repo", commonGitDir: "/repo/.git", gitDir: "/repo/.git",
+      remoteIdentity: "attacker/repo", remoteUrl: "https://github.com/attacker/repo.git",
+    },
+    execFile() { throw new Error("must not execute"); },
+  });
+  assert.equal(result.available, false);
+});
+
+test("temporary repository with tampered origin is rejected before live-main", () => {
+  const fixture = realLinkedWorktreeFixture();
+  try {
+    execFileSync("git", ["remote", "add", "origin", "https://github.com/attacker/tampered.git"], { cwd: fixture.repository });
+    assert.throws(() => sweep.readRepositoryTuple(fixture.repository), /approved repository/u);
+  } finally { rmSync(fixture.fixtureRoot, { recursive: true, force: true }); }
+});
+
+test("sanitized Git environment disables GitHub prompts", () => {
+  assert.equal(sweep.sanitizedGitEnvironment({}).GH_PROMPT_DISABLED, "1");
+});
+
+test("completion timestamp must be canonical before apply can succeed", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  deps.now = () => "not-canonical";
+  const result = sweep.runAuthorizedApply({
+    authorization, expectedLiveMainSha: LIVE_MAIN_SHA, primaryRoot: "/repo",
+    upstream: "origin/main", defaultBranch: "main", minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.ok, false);
+  assert.equal(calls.remove.length, 1);
+  assert.equal(result.receipt.batchOutcome.status, "blocked");
+});
+
+test("closeReceiptDurably rejects an unowned parent without closing a numeric fd", () => {
+  const calls = [];
+  assert.throws(() => sweep.closeReceiptDurably(7, {
+    parentFds: new Map(),
+    close(handle) { calls.push(["close", handle]); },
+    fsync(handle) { calls.push(["fsync", handle]); },
+    closeParent(handle) { calls.push(["close-parent", handle]); },
+  }), /not owned/u);
+  assert.deepEqual(calls, []);
+});
+
+test("linked CWD primary-root resolution returns the canonical repository root", () => {
+  const fixture = realLinkedWorktreeFixture();
+  try {
+    const providers = sweep.createRuntimeProviders();
+    const linkedRoot = execFileSync("git", ["-C", fixture.target, "rev-parse", "--show-toplevel"], { encoding: "utf8" }).trim();
+    assert.equal(linkedRoot, realpathSync(fixture.target));
+    assert.equal(providers.resolvePrimaryRoot(fixture.target), realpathSync(fixture.repository));
+  } finally { rmSync(fixture.fixtureRoot, { recursive: true, force: true }); }
+});
+
+test("production target Git binding never bootstraps through unbound discovery", () => {
+  const fixture = realLinkedWorktreeFixture();
+  const calls = [];
+  try {
+    const evidence = sweep.readBoundWorktreeStatusEvidence(fixture.target, {
+      execFile(file, args, options) {
+        calls.push({ file, args, options });
+        return execFileSync(file, args, { ...options, cwd: fixture.target });
+      },
+      expectedCommonGitDir: realpathSync(join(fixture.repository, ".git")),
+    });
+    assert.equal(evidence.available, true);
+    assert.ok(calls.length > 0);
+    assert.equal(calls.every(({ args }) => args.some((arg) => arg.startsWith("--git-dir="))), true);
+    assert.equal(calls.some(({ args }) => args.includes("-C")), false);
+  } finally { rmSync(fixture.fixtureRoot, { recursive: true, force: true }); }
 });
 
 test("production GitHub provider wires the cap and returns incomplete evidence at the cap", () => {
@@ -1521,8 +1885,9 @@ test("production GitHub provider wires the cap and returns incomplete evidence a
   }));
   const evidence = sweep.readOpenPrEvidence("/repo", {
     queryLimit: 2,
+    repositoryIdentity: "owner/repo",
     execFile(file, args, options) {
-      calls.push({ file, args, cwd: options.cwd });
+      calls.push({ file, args, cwd: options.cwd, timeout: options.timeout, maxBuffer: options.maxBuffer, killSignal: options.killSignal });
       return JSON.stringify(records);
     },
   });
@@ -1530,9 +1895,12 @@ test("production GitHub provider wires the cap and returns incomplete evidence a
   assert.equal(evidence.complete, false);
   assert.match(evidence.reason, /query cap/);
   assert.deepEqual(calls, [{
-    file: "gh",
-    args: ["pr", "list", "--state", "open", "--limit", "2", "--json", "number,headRefName,headRefOid"],
+    file: sweep.TRUSTED_GH_EXECUTABLE,
+    args: ["pr", "list", "--repo", "owner/repo", "--state", "open", "--limit", "2", "--json", "number,headRefName,headRefOid"],
     cwd: "/repo",
+    timeout: sweep.COMMAND_TIMEOUT_MS,
+    maxBuffer: sweep.COMMAND_MAX_BUFFER_BYTES,
+    killSignal: sweep.COMMAND_KILL_SIGNAL,
   }]);
   assert.equal(sweep.readOpenPrEvidence("/repo", {
     queryLimit: 2,
@@ -1540,19 +1908,47 @@ test("production GitHub provider wires the cap and returns incomplete evidence a
   }).available, false);
 });
 
+test("production GitHub PR lookup strips GH routing overrides and requires exact repo binding", () => {
+  const result = withGitEnvironment({ GH_REPO: "attacker/other", GH_HOST: "evil.invalid" }, () => (
+    sweep.readOpenPrEvidence("/repo", {
+      execFile(file, args, options) {
+        assert.equal(file, sweep.TRUSTED_GH_EXECUTABLE);
+        assert.equal(options.env.GH_REPO, undefined);
+        assert.equal(options.env.GH_HOST, undefined);
+        assert.ok(args.includes("--repo"));
+        return "[]";
+      },
+      repositoryIdentity: "owner/repo",
+    })
+  ));
+  assert.equal(result.available, true);
+});
+
+test("production GitHub PR lookup fails closed without frozen repository identity", () => {
+  let invoked = false;
+  const result = sweep.readOpenPrEvidence("/repo", {
+    execFile() { invoked = true; return "[]"; },
+  });
+  assert.equal(result.available, false);
+  assert.equal(invoked, false);
+});
+
 test("production active-process provider preserves lsof status, stdout, stderr, and errors", () => {
   const calls = [];
   const inactive = sweep.readActiveProcessEvidence("/repo/wt", {
     spawn(file, args, options) {
-      calls.push({ file, args, stdio: options.stdio });
+      calls.push({ file, args, stdio: options.stdio, timeout: options.timeout, maxBuffer: options.maxBuffer, killSignal: options.killSignal });
       return { status: 1, stdout: "", stderr: "", error: undefined };
     },
   });
   assert.deepEqual(inactive, { available: true, active: false });
   assert.deepEqual(calls, [{
-    file: "lsof",
+    file: sweep.TRUSTED_LSOF_EXECUTABLE,
     args: ["-n", "-P", "+D", "/repo/wt", "-Fp"],
     stdio: ["ignore", "pipe", "pipe"],
+    timeout: sweep.COMMAND_TIMEOUT_MS,
+    maxBuffer: sweep.COMMAND_MAX_BUFFER_BYTES,
+    killSignal: sweep.COMMAND_KILL_SIGNAL,
   }]);
   assert.deepEqual(sweep.readActiveProcessEvidence("/repo/wt", {
     spawn: () => ({ status: 1, stdout: "", stderr: "denied", error: undefined }),
@@ -1560,6 +1956,19 @@ test("production active-process provider preserves lsof status, stdout, stderr, 
   assert.deepEqual(sweep.readActiveProcessEvidence("/repo/wt", {
     spawn() { throw new Error("spawn failed"); },
   }), { available: false, active: null });
+});
+
+test("production active-process probe uses a fixed executable and clean environment", () => {
+  let captured;
+  sweep.readActiveProcessEvidence("/repo/wt", {
+    spawn(file, args, options) {
+      captured = { file, args, env: options.env };
+      return { status: 1, stdout: "", stderr: "", error: undefined };
+    },
+  });
+  assert.equal(captured.file, sweep.TRUSTED_LSOF_EXECUTABLE);
+  assert.equal(captured.env.PATH, undefined);
+  assert.equal(captured.env.GIT_SSH_COMMAND, undefined);
 });
 
 test("fingerprintFleet is order-independent and changes after topology changes", () => {
@@ -1646,6 +2055,12 @@ function authorizedApplyFixture({
       assert.equal(path, topology.path);
       return { available: true, absent: !pathPresent };
     },
+    readTargetBoundaryEvidence() {
+      return { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } };
+    },
+    readActiveProcessEvidence() {
+      return { available: true, active: false };
+    },
     inspectWorktree(_registered, target, evidence) {
       calls.inspect++;
       return {
@@ -1660,6 +2075,7 @@ function authorizedApplyFixture({
         prEvidence: { available: evidence.prEvidence.available, openPr: null },
         ownerEvidence: { available: true, owner: target.owner, task: target.task },
         processEvidence: { available: true, active: becomeActive && calls.inspect > 1 },
+        targetBoundaryEvidence: { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } },
       };
     },
     removeWorktree(command) {
@@ -1673,6 +2089,48 @@ function authorizedApplyFixture({
   };
   return { authorization, calls, deps };
 }
+
+test("runAuthorizedApply fails closed when final target boundary evidence is missing, malformed, or throws", () => {
+  for (const mode of ["missing", "malformed", "throws"]) {
+    const { authorization, calls, deps } = authorizedApplyFixture();
+    if (mode === "missing") delete deps.readTargetBoundaryEvidence;
+    if (mode === "malformed") deps.readTargetBoundaryEvidence = () => ({ available: true });
+    if (mode === "throws") deps.readTargetBoundaryEvidence = () => { throw new Error("boundary leak"); };
+    const result = sweep.runAuthorizedApply({
+      authorization,
+      expectedLiveMainSha: LIVE_MAIN_SHA,
+      primaryRoot: "/repo",
+      upstream: "origin/main",
+      defaultBranch: "main",
+      minAgeDays: 0,
+      startedAt: "2026-08-29T00:00:00.000Z",
+    }, deps);
+    assert.equal(result.ok, false, mode);
+    assert.deepEqual(calls.remove, [], mode);
+    assert.match(result.receipt.results[0].reason, /target path identity barrier/u, mode);
+  }
+});
+
+test("runAuthorizedApply fails closed when final process evidence is missing, malformed, or throws", () => {
+  for (const mode of ["missing", "malformed", "throws"]) {
+    const { authorization, calls, deps } = authorizedApplyFixture();
+    if (mode === "missing") delete deps.readActiveProcessEvidence;
+    if (mode === "malformed") deps.readActiveProcessEvidence = () => ({ available: true });
+    if (mode === "throws") deps.readActiveProcessEvidence = () => { throw new Error("process leak"); };
+    const result = sweep.runAuthorizedApply({
+      authorization,
+      expectedLiveMainSha: LIVE_MAIN_SHA,
+      primaryRoot: "/repo",
+      upstream: "origin/main",
+      defaultBranch: "main",
+      minAgeDays: 0,
+      startedAt: "2026-08-29T00:00:00.000Z",
+    }, deps);
+    assert.equal(result.ok, false, mode);
+    assert.deepEqual(calls.remove, [], mode);
+    assert.match(result.receipt.results[0].reason, /writer-free|active process/u, mode);
+  }
+});
 
 test("runAuthorizedApply revalidates raw manifest bytes with fatal UTF-8 before mutation", () => {
   const { authorization, calls, deps } = authorizedApplyFixture();
@@ -1692,7 +2150,129 @@ test("runAuthorizedApply revalidates raw manifest bytes with fatal UTF-8 before 
 
   assert.equal(result.ok, false);
   assert.deepEqual(calls.remove, []);
-  assert.match(result.receipt.results[0].reason, /UTF-8/);
+  assert.match(result.receipt.results[0].reason, /revalidation failed/u);
+});
+
+test("runAuthorizedApply revalidation rejects duplicate keys with a stable non-leaking reason", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  const duplicate = Buffer.from(`{"schemaVersion":"sweep-merged-worktrees.apply-manifest.v1","schemaVersion":"${"x".repeat(1000)}","expectedLiveMainSha":"${LIVE_MAIN_SHA}","fleetFingerprint":"${TOPOLOGY_SHA}","targets":[]}`, "utf8");
+  authorization.manifestSha256 = sweep.sha256Text(duplicate);
+  deps.readManifestBytes = () => duplicate;
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.ok, false);
+  assert.deepEqual(calls.remove, []);
+  assert.equal(result.receipt.results[0].reason, "immutable manifest revalidation failed");
+  assert.doesNotMatch(result.receipt.results[0].reason, /x{100}/u);
+});
+
+test("runAuthorizedApply requires a final target path identity barrier", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  deps.readTargetBoundaryEvidence = () => ({
+    available: true,
+    isDirectory: true,
+    identity: { dev: "999", ino: "999" },
+  });
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.ok, false);
+  assert.deepEqual(calls.remove, []);
+  assert.match(result.receipt.results[0].reason, /target path identity|boundary/u);
+});
+
+test("runAuthorizedApply calculates age from one frozen runtime clock", () => {
+  const { authorization, deps } = authorizedApplyFixture();
+  let frozenSeen = null;
+  const originalInspect = deps.inspectWorktree;
+  deps.inspectWorktree = (registered, target, evidence, context) => {
+    frozenSeen = context?.frozenNow ?? null;
+    return originalInspect(registered, target, evidence, context);
+  };
+  let nowCalls = 0;
+  deps.now = () => {
+    nowCalls += 1;
+    return nowCalls === 1 ? "2026-08-29T00:00:01.000Z" : "2030-01-01T00:00:01.000Z";
+  };
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+    frozenNow: "2026-08-29T00:00:01.000Z",
+  }, deps);
+  assert.equal(result.ok, true);
+  assert.equal(nowCalls, 1);
+  assert.equal(frozenSeen, "2026-08-29T00:00:01.000Z");
+});
+
+test("runAuthorizedApply fails closed on an invalid frozen runtime clock", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 3,
+    startedAt: "not-a-timestamp",
+    frozenNow: "not-a-timestamp",
+  }, deps);
+  assert.equal(result.ok, false);
+  assert.deepEqual(calls.remove, []);
+  assert.match(result.receipt.results[0].reason, /frozen runtime clock|age evidence/u);
+});
+
+test("decide does not let missing age evidence bypass a minimum age", () => {
+  const decision = decide({ ...base, mergedIntoUpstream: true, ageDays: null }, { ...ctx, minAgeDays: 3 });
+  assert.equal(decision.action, "skip");
+  assert.match(decision.reason, /age/u);
+});
+
+test("receipt durability keeps the admitted parent descriptor through close", () => {
+  const source = readFileSync(join(process.cwd(), "scripts/sweep-merged-worktrees.mjs"), "utf8");
+  assert.match(source, /RECEIPT_PARENT_FDS/u);
+  const closeStart = source.indexOf("closeReceipt:");
+  const closeEnd = source.indexOf("removeWorktree", closeStart);
+  const closeSource = source.slice(closeStart, closeEnd);
+  assert.match(source.slice(source.indexOf("export function closeReceiptDurably"), closeStart), /parentFds\.get/u);
+  assert.doesNotMatch(closeSource, /openSync\(dirname\(path\)/u);
+});
+
+test("receipt close failure still fsyncs and closes the admitted parent exactly once", () => {
+  const parentFds = new Map([[7, 8]]);
+  const calls = [];
+  assert.throws(() => sweep.closeReceiptDurably(7, {
+    parentFds,
+    close(handle) { calls.push(["close-file", handle]); throw new Error("close failed"); },
+    fsync(handle) { calls.push(["fsync-parent", handle]); },
+    closeParent(handle) { calls.push(["close-parent", handle]); },
+  }), /receipt close failed/u);
+  assert.deepEqual(calls, [["close-file", 7], ["fsync-parent", 8], ["close-parent", 8]]);
+  assert.equal(parentFds.has(7), false);
+  assert.throws(() => sweep.closeReceiptDurably(7, {
+    parentFds,
+    close() { calls.push(["double-close"]); },
+    fsync() { calls.push(["double-fsync"]); },
+    closeParent() { calls.push(["double-parent-close"]); },
+  }), /not owned/u);
+  assert.equal(calls.some(([name]) => name.startsWith("double-")), false);
 });
 
 function cliProvidersFixture({
@@ -1783,6 +2363,12 @@ function cliProvidersFixture({
         absent: removed && !danglingPathAfterRemoval,
       };
     },
+    readTargetBoundaryEvidence() {
+      return { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } };
+    },
+    readActiveProcessEvidence() {
+      return { available: true, active: false };
+    },
     readWorktrees() {
       calls.topology++;
       if (topologyProviderFails) throw new Error("topology failed");
@@ -1833,6 +2419,9 @@ function cliProvidersFixture({
         processEvidence: target
           ? { available: true, active: false }
           : { available: false, active: null },
+        targetBoundaryEvidence: target
+          ? { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }
+          : { available: false, isDirectory: false, identity: null },
       };
     },
     reserveReceipt(path) {
@@ -2292,6 +2881,8 @@ test("runAuthorizedApply fails closed when the last removal leaves unrelated fle
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => registered.map((entry) => ({ ...entry })),
     readPathAbsenceEvidence: (path) => ({ available: true, absent: !presentPaths.has(path) }),
+    readTargetBoundaryEvidence: () => ({ available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }),
+    readActiveProcessEvidence: () => ({ available: true, active: false }),
     inspectWorktree: (wt, target, evidence) => ({
       ...wt,
       exists: true,
@@ -2304,6 +2895,7 @@ test("runAuthorizedApply fails closed when the last removal leaves unrelated fle
       prEvidence: { available: evidence.prEvidence.available, openPr: null },
       ownerEvidence: { available: true, owner: target.owner, task: target.task },
       processEvidence: { available: true, active: false },
+      targetBoundaryEvidence: { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } },
     }),
     removeWorktree(command) {
       const path = command.args.at(-1);
@@ -2448,6 +3040,8 @@ test("runAuthorizedApply stops the remaining batch after the first removal failu
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => topologies.map((entry) => ({ ...entry })),
     readPathAbsenceEvidence: () => ({ available: true, absent: false }),
+    readTargetBoundaryEvidence: () => ({ available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }),
+    readActiveProcessEvidence: () => ({ available: true, active: false }),
     inspectWorktree: (wt, target, evidence) => ({
       ...wt,
       exists: true,
@@ -2460,6 +3054,7 @@ test("runAuthorizedApply stops the remaining batch after the first removal failu
       prEvidence: { available: evidence.prEvidence.available, complete: true, openPr: null },
       ownerEvidence: { available: true, owner: target.owner, task: target.task },
       processEvidence: { available: true, active: false },
+      targetBoundaryEvidence: { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } },
     }),
     removeWorktree(command) { removed.push(command.args.at(-1)); return { ok: false, reason: "simulated removal failure" }; },
     now: () => "2026-08-29T00:00:01.000Z",
@@ -2505,6 +3100,8 @@ test("runAuthorizedApply proves the first removal absent and blocks a later targ
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => registered.map((entry) => ({ ...entry })),
     readPathAbsenceEvidence: (path) => ({ available: true, absent: !presentPaths.has(path) }),
+    readTargetBoundaryEvidence: () => ({ available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }),
+    readActiveProcessEvidence: () => ({ available: true, active: false }),
     inspectWorktree: (wt, target, evidence) => ({
       ...wt,
       exists: true,
@@ -2517,6 +3114,7 @@ test("runAuthorizedApply proves the first removal absent and blocks a later targ
       prEvidence: { available: evidence.prEvidence.available, openPr: null },
       ownerEvidence: { available: true, owner: target.owner, task: target.task },
       processEvidence: { available: true, active: false },
+      targetBoundaryEvidence: { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } },
     }),
     removeWorktree(command) {
       const path = command.args.at(-1);

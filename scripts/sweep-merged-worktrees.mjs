@@ -36,35 +36,52 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  accessSync, closeSync, constants as fsConstants, existsSync, fstatSync, lstatSync, openSync,
-  readFileSync, realpathSync,
+  accessSync, closeSync, constants as fsConstants, existsSync, fstatSync, fsyncSync, lstatSync, openSync,
+  readSync, realpathSync,
   writeFileSync,
 } from "node:fs";
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
+import {
+  PROMOTION_WORKFLOW_JSON_LIMITS,
+  parsePromotionWorkflowJsonBytes,
+} from "./promotion-workflow-json-guard.mjs";
 
 export const MAX_APPLY_TARGETS = 5;
 const OPEN_PR_QUERY_LIMIT = 1000;
 const APPLY_MANIFEST_SCHEMA = "sweep-merged-worktrees.apply-manifest.v1";
 const OBJECT_ID_PATTERN = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/i;
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i;
-const CONTAMINATING_GIT_ENV_KEYS = Object.freeze([
-  "GIT_DIR",
-  "GIT_WORK_TREE",
-  "GIT_COMMON_DIR",
-  "GIT_INDEX_FILE",
-  "GIT_OBJECT_DIRECTORY",
-  "GIT_ALTERNATE_OBJECT_DIRECTORIES",
-]);
-
+export const TRUSTED_GIT_EXECUTABLE = "/usr/bin/git";
+export const TRUSTED_GH_EXECUTABLE = "/opt/homebrew/bin/gh";
+export const TRUSTED_LSOF_EXECUTABLE = "/usr/sbin/lsof";
+export const APPROVED_REPOSITORY_IDENTITY = "HUDongpin/MAIS-MVP";
+export const APPROVED_REPOSITORY_URL = "https://github.com/HUDongpin/MAIS-MVP.git";
+export const MAX_MANIFEST_BYTES = PROMOTION_WORKFLOW_JSON_LIMITS.maxBytes;
+export const COMMAND_TIMEOUT_MS = 60_000;
+export const COMMAND_MAX_BUFFER_BYTES = 8 * 1024 * 1024;
+export const COMMAND_KILL_SIGNAL = "SIGKILL";
+const MAX_GITDIR_FILE_BYTES = 4096;
 export function sha256Text(value) {
   return createHash("sha256").update(value).digest("hex");
 }
 
 export function sanitizedGitEnvironment(source = process.env) {
   const environment = { ...source };
-  for (const key of CONTAMINATING_GIT_ENV_KEYS) delete environment[key];
+  for (const key of Object.keys(environment)) {
+    if (/^GIT_/u.test(key)) delete environment[key];
+  }
+  environment.GIT_CONFIG_NOSYSTEM = "1";
+  environment.GIT_CONFIG_GLOBAL = "/dev/null";
+  environment.GIT_CONFIG_SYSTEM = "/dev/null";
   environment.GIT_OPTIONAL_LOCKS = "0";
+  environment.GIT_TERMINAL_PROMPT = "0";
+  environment.GIT_ASKPASS = "/usr/bin/false";
+  environment.SSH_ASKPASS = "/usr/bin/false";
+  environment.GCM_INTERACTIVE = "never";
+  environment.GIT_SSH_COMMAND = "/usr/bin/ssh -F /dev/null -oBatchMode=yes -oStrictHostKeyChecking=yes -oUpdateHostKeys=no -oControlMaster=no -oControlPath=none -oPermitLocalCommand=no -oProxyCommand=none -oClearAllForwardings=yes";
+  environment.GIT_SSH_VARIANT = "ssh";
+  environment.GH_PROMPT_DISABLED = "1";
   return environment;
 }
 
@@ -73,27 +90,34 @@ function noOptionalLocks(args) {
 }
 
 function executeGit(execFile, args, options = {}) {
-  return execFile("git", noOptionalLocks(args), {
+  return execFile(TRUSTED_GIT_EXECUTABLE, noOptionalLocks(args), {
     ...options,
     env: sanitizedGitEnvironment(options.env ?? process.env),
+    timeout: COMMAND_TIMEOUT_MS,
+    maxBuffer: COMMAND_MAX_BUFFER_BYTES,
+    killSignal: COMMAND_KILL_SIGNAL,
   });
-}
-
-function decodeImmutableManifest(manifestBytes) {
-  if (!(manifestBytes instanceof Uint8Array)) {
-    throw new TypeError("immutable manifest must be supplied as raw bytes");
-  }
-  try {
-    return new TextDecoder("utf-8", { fatal: true }).decode(manifestBytes);
-  } catch {
-    throw new TypeError("immutable manifest is not valid UTF-8");
-  }
 }
 
 function isCanonicalIsoDate(value) {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   const timestamp = Date.parse(`${value}T00:00:00Z`);
   return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === value;
+}
+
+function isCanonicalCreationDate(value) {
+  if (isCanonicalIsoDate(value)) return true;
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value)) {
+    return false;
+  }
+  const timestamp = Date.parse(value);
+  return Number.isFinite(timestamp) && new Date(timestamp).toISOString() === value;
+}
+
+function parseFrozenRuntimeTimestamp(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/u.test(value)) return null;
+  const timestamp = Date.parse(value);
+  return Number.isFinite(timestamp) && new Date(timestamp).toISOString() === value ? timestamp : null;
 }
 
 /** Stable fingerprint of the registration facts that identify one worktree. */
@@ -274,6 +298,25 @@ export function readPathAbsenceEvidence(path, { lstat = lstatSync } = {}) {
   }
 }
 
+/** Capture a bounded, no-follow identity for the exact target directory. */
+export function readTargetBoundaryEvidence(path, { lstat = lstatSync, realpath = realpathSync } = {}) {
+  try {
+    if (realpath(path) !== resolve(path)) {
+      return { available: false, isDirectory: false, identity: null };
+    }
+    const metadata = lstat(path);
+    if (
+      typeof metadata?.isSymbolicLink !== "function"
+      || metadata.isSymbolicLink()
+      || typeof metadata.isDirectory !== "function"
+      || !metadata.isDirectory()
+    ) return { available: false, isDirectory: false, identity: null };
+    return { available: true, isDirectory: true, identity: nodeIdentity(metadata) };
+  } catch {
+    return { available: false, isDirectory: false, identity: null };
+  }
+}
+
 /**
  * Verify an external manifest/receipt path without following any parent
  * symlink. Every parent must be a readable directory; leaf semantics are
@@ -343,25 +386,76 @@ function sameNodeIdentity(left, right) {
   return left?.dev === right?.dev && left?.ino === right?.ino;
 }
 
-function readManifestByBoundDescriptor(path, { afterBoundary } = {}) {
+function sameFileSnapshot(left, right) {
+  return sameNodeIdentity(nodeIdentity(left), nodeIdentity(right))
+    && left?.size === right?.size
+    && left?.mtimeMs === right?.mtimeMs
+    && left?.ctimeMs === right?.ctimeMs;
+}
+
+function readBoundedDescriptor(fd, maxBytes) {
+  const chunks = [];
+  const chunkSize = 64 * 1024;
+  let total = 0;
+  while (total <= maxBytes) {
+    const remaining = maxBytes + 1 - total;
+    const chunk = Buffer.allocUnsafe(Math.min(chunkSize, remaining));
+    const bytesRead = readSync(fd, chunk, 0, chunk.byteLength, null);
+    if (bytesRead === 0) break;
+    chunks.push(bytesRead === chunk.byteLength ? chunk : chunk.subarray(0, bytesRead));
+    total += bytesRead;
+    if (total > maxBytes) throw new Error("descriptor exceeds frozen safety size limit");
+  }
+  return Buffer.concat(chunks, total);
+}
+
+function readManifestByBoundDescriptor(path, { afterBoundary, afterOpen } = {}) {
   const admission = readExternalPathEvidence(path, { kind: "manifest" });
   if (!admission.available || admission.absent !== false) throw new Error(admission.reason);
   afterBoundary?.();
   let fd;
   try {
-    fd = openSync(path, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
-    const beforeRead = nodeIdentity(fstatSync(fd));
+    fd = openSync(path, fsConstants.O_RDONLY | fsConstants.O_NONBLOCK | fsConstants.O_NOFOLLOW);
+    const metadata = fstatSync(fd);
+    if (typeof metadata.isFile !== "function" || !metadata.isFile()) {
+      throw new Error("manifest is not a regular file");
+    }
+    const beforeRead = nodeIdentity(metadata);
     if (!sameNodeIdentity(beforeRead, admission.identity)) {
       throw new Error("manifest identity changed after boundary admission");
     }
-    const bytes = readFileSync(fd);
-    const afterRead = nodeIdentity(fstatSync(fd));
-    if (!sameNodeIdentity(afterRead, admission.identity)) {
+    if (metadata.size > MAX_MANIFEST_BYTES) {
+      throw new Error("manifest exceeds frozen safety size limit");
+    }
+    afterOpen?.(path);
+    const bytes = readBoundedDescriptor(fd, MAX_MANIFEST_BYTES);
+    if (bytes.byteLength > MAX_MANIFEST_BYTES) {
+      throw new Error("manifest exceeds frozen safety size limit");
+    }
+    const afterMetadata = fstatSync(fd);
+    const afterRead = nodeIdentity(afterMetadata);
+    if (
+      typeof afterMetadata.isFile !== "function"
+      || !afterMetadata.isFile()
+      || afterMetadata.size > MAX_MANIFEST_BYTES
+      || !sameNodeIdentity(afterRead, admission.identity)
+      || !sameFileSnapshot(metadata, afterMetadata)
+    ) {
       throw new Error("manifest identity changed during read");
     }
     return bytes;
   } finally {
     if (fd !== undefined) closeSync(fd);
+  }
+}
+
+function parseStrictManifestBytes(bytes, { revalidation = false } = {}) {
+  try {
+    return parsePromotionWorkflowJsonBytes(bytes);
+  } catch {
+    throw new Error(revalidation
+      ? "immutable manifest revalidation failed"
+      : "immutable manifest is not valid JSON");
   }
 }
 
@@ -382,45 +476,96 @@ try {
   process.exitCode = 1;
 }
 `;
+const RECEIPT_PARENT_FDS = new Map();
 
-function reserveReceiptByBoundParent(path, { afterBoundary, spawn = spawnSync } = {}) {
+export function closeReceiptDurably(
+  handle,
+  {
+    parentFds = RECEIPT_PARENT_FDS,
+    close = closeSync,
+    fsync = fsyncSync,
+    closeParent = closeSync,
+  } = {},
+) {
+  const parentFd = parentFds.get(handle);
+  parentFds.delete(handle);
+  if (parentFd === undefined) throw new Error("receipt parent is not owned");
+  let firstError = null;
+  try { close(handle); }
+  catch (error) { firstError = error; }
+  try { fsync(parentFd); }
+  catch (error) { firstError ??= error; }
+  try { closeParent(parentFd); }
+  catch (error) { firstError ??= error; }
+  if (firstError) throw new Error("receipt close failed");
+}
+
+function reserveReceiptByBoundParent(path, { afterBoundary, spawn = spawnSync, close = closeSync } = {}) {
   const admission = readExternalPathEvidence(path, { kind: "receipt" });
   if (!admission.available || admission.absent !== true) throw new Error(admission.reason);
   afterBoundary?.();
-  const child = spawn(
-    process.execPath,
-    ["--input-type=module", "-e", RECEIPT_RESERVATION_CHILD_SOURCE, admission.parentIdentity.dev, admission.parentIdentity.ino, basename(path)],
-    {
-      cwd: dirname(path),
-      env: { PATH: process.env.PATH ?? "" },
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "pipe"],
-    },
-  );
+  let parentFd;
+  const closeAdmittedParent = () => {
+    if (parentFd === undefined) return;
+    const admittedParentFd = parentFd;
+    parentFd = undefined;
+    try { close(admittedParentFd); } catch { /* fail closed; descriptor cleanup was attempted */ }
+  };
+  try {
+    parentFd = openSync(dirname(path), fsConstants.O_RDONLY | fsConstants.O_DIRECTORY | fsConstants.O_NOFOLLOW);
+    if (!sameNodeIdentity(nodeIdentity(fstatSync(parentFd)), admission.parentIdentity)) {
+      throw new Error("receipt parent identity changed after admission");
+    }
+  } catch (error) {
+    closeAdmittedParent();
+    throw error;
+  }
+  let child;
+  try {
+    child = spawn(
+      process.execPath,
+      ["--input-type=module", "-e", RECEIPT_RESERVATION_CHILD_SOURCE, admission.parentIdentity.dev, admission.parentIdentity.ino, basename(path)],
+      {
+        cwd: dirname(path),
+        env: { PATH: process.env.PATH ?? "" },
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        timeout: COMMAND_TIMEOUT_MS,
+        maxBuffer: COMMAND_MAX_BUFFER_BYTES,
+        killSignal: COMMAND_KILL_SIGNAL,
+      },
+    );
+  } catch {
+    closeAdmittedParent();
+    throw new Error("receipt reservation child failed closed");
+  }
   if (child.error || child.status !== 0 || String(child.stderr ?? "") !== "") {
+    closeAdmittedParent();
     throw new Error("receipt reservation child failed closed");
   }
   let created;
   try { created = JSON.parse(String(child.stdout ?? "")); }
-  catch { throw new Error("receipt reservation child output was malformed"); }
+  catch { closeAdmittedParent(); throw new Error("receipt reservation child output was malformed"); }
   if (
     !created
     || typeof created.dev !== "string"
     || typeof created.ino !== "string"
     || !/^\d+$/.test(created.dev)
     || !/^\d+$/.test(created.ino)
-  ) throw new Error("receipt reservation child output was invalid");
+  ) { closeAdmittedParent(); throw new Error("receipt reservation child output was invalid"); }
 
   let fd;
   try {
     fd = openSync(path, fsConstants.O_WRONLY | fsConstants.O_NOFOLLOW);
     const opened = nodeIdentity(fstatSync(fd));
     if (!sameNodeIdentity(opened, created)) throw new Error("receipt identity changed after reservation");
-    return fd;
   } catch (error) {
     if (fd !== undefined) closeSync(fd);
+    closeAdmittedParent();
     throw error;
   }
+  RECEIPT_PARENT_FDS.set(fd, parentFd);
+  return fd;
 }
 
 /** Compare a fresh candidate snapshot against its immutable manifest lock. */
@@ -436,16 +581,20 @@ export function revalidateCandidate(lock, current, ctx) {
   }
   const decision = decide(current, ctx);
   if (decision.action !== "retire") return { ok: false, reason: decision.reason };
-  return { ok: true, reason: decision.reason };
+  return {
+    ok: true,
+    reason: decision.reason,
+    targetIdentity: current.targetBoundaryEvidence?.identity ?? null,
+  };
 }
 
 export function buildWorktreeRemoveCommand(path) {
-  return { file: "git", args: ["worktree", "remove", "--", path] };
+  return { file: TRUSTED_GIT_EXECUTABLE, args: ["worktree", "remove", "--", path] };
 }
 
 /** The sweep has exactly one permitted mutation: local, non-force removal. */
 export function isAllowedSweepMutation(file, args) {
-  return file === "git"
+  return file === TRUSTED_GIT_EXECUTABLE
     && Array.isArray(args)
     && args.length === 4
     && args[0] === "worktree"
@@ -485,6 +634,7 @@ export function createPostflightReceipt({
     ...(result.topologyFingerprint ? { topologyFingerprint: result.topologyFingerprint } : {}),
     ...(result.owner ? { owner: redactSecretLikePath(result.owner) } : {}),
     ...(result.task ? { task: redactSecretLikePath(result.task) } : {}),
+    ...(result.creationDate ? { creationDate: result.creationDate } : {}),
     ...(result.expectedCloseoutDate ? { expectedCloseoutDate: result.expectedCloseoutDate } : {}),
     ...(result.allowedAction ? { allowedAction: result.allowedAction } : {}),
     status: result.status,
@@ -511,6 +661,11 @@ export function createPostflightReceipt({
     finalTopologyEvidence: finalTopologyEvidence ?? {
       available: typeof postTopologyFingerprint === "string",
       fingerprint: postTopologyFingerprint ?? null,
+    },
+    claimCeiling: {
+      absoluteRaceFree: false,
+      writerFree: false,
+      postflight: "bounded path, process, live-main, and topology observations only",
     },
     invariants: { forceUsed: false, remoteDeletionAttempted: false },
     batchOutcome: {
@@ -540,11 +695,16 @@ export function runAuthorizedApply({
   defaultBranch,
   minAgeDays,
   startedAt,
+  frozenNow = startedAt,
+  expectedCommonGitDir = null,
 }, deps) {
   const targets = authorization.manifest.targets;
   let expectedFleet = null;
   let preTopologyFingerprint = null;
   let batchStopReason = null;
+  if (parseFrozenRuntimeTimestamp(frozenNow) === null) {
+    batchStopReason = "frozen runtime clock unavailable";
+  }
   try {
     expectedFleet = deps.readWorktrees();
     preTopologyFingerprint = fingerprintFleet(expectedFleet);
@@ -559,8 +719,8 @@ export function runAuthorizedApply({
     let manifestBytes;
     try { manifestBytes = deps.readManifestBytes(); }
     catch { return { ok: false, reason: "immutable manifest became unreadable" }; }
-    try { decodeImmutableManifest(manifestBytes); }
-    catch { return { ok: false, reason: "immutable manifest is not valid UTF-8" }; }
+    try { parseStrictManifestBytes(manifestBytes, { revalidation: true }); }
+    catch { return { ok: false, reason: "immutable manifest revalidation failed" }; }
     if (sha256Text(manifestBytes) !== authorization.manifestSha256) {
       return { ok: false, reason: "immutable manifest digest drift" };
     }
@@ -593,7 +753,12 @@ export function runAuthorizedApply({
 
     let current;
     try {
-      current = deps.inspectWorktree(registered, target, { liveMainEvidence, prEvidence });
+      current = deps.inspectWorktree(
+        registered,
+        target,
+        { liveMainEvidence, prEvidence },
+        { primaryRoot, expectedCommonGitDir, frozenNow },
+      );
     } catch {
       return { ok: false, reason: "candidate evidence inspection failed" };
     }
@@ -618,6 +783,7 @@ export function runAuthorizedApply({
       minAgeDays,
       liveMainEvidence,
       expectedLiveMainSha,
+      frozenNow,
     });
   };
 
@@ -662,6 +828,44 @@ export function runAuthorizedApply({
           reason: validation.reason,
         });
         stopRemaining(validation.reason);
+        break;
+      }
+      let barrier;
+      try {
+        if (typeof deps.readTargetBoundaryEvidence !== "function") throw new Error("missing target barrier");
+        barrier = deps.readTargetBoundaryEvidence(target.path);
+      } catch { barrier = { available: false, identity: null }; }
+      if (
+        barrier?.available !== true
+        || barrier.isDirectory !== true
+        || !sameNodeIdentity(barrier.identity, validation.targetIdentity)
+      ) {
+        const reason = "target path identity barrier unavailable or changed";
+        results.push({
+          path: target.path,
+          branch: target.branch ?? "(detached)",
+          status: "skipped",
+          reason,
+        });
+        stopRemaining(reason);
+        break;
+      }
+      let writerEvidence;
+      try {
+        if (typeof deps.readActiveProcessEvidence !== "function") throw new Error("missing process barrier");
+        writerEvidence = deps.readActiveProcessEvidence(target.path);
+      } catch { writerEvidence = { available: false, active: null }; }
+      if (writerEvidence?.available !== true || writerEvidence.active !== false) {
+        const reason = writerEvidence?.active === true
+          ? "active process is using the worktree"
+          : "writer-free evidence unavailable";
+        results.push({
+          path: target.path,
+          branch: target.branch ?? "(detached)",
+          status: "skipped",
+          reason,
+        });
+        stopRemaining(reason);
         break;
       }
       const command = buildWorktreeRemoveCommand(target.path);
@@ -776,6 +980,7 @@ export function runAuthorizedApply({
         topologyFingerprint: target.topologyFingerprint,
         owner: target.owner,
         task: target.task,
+        creationDate: target.creationDate,
         expectedCloseoutDate: target.expectedCloseoutDate,
         allowedAction: target.allowedAction,
       } : {}),
@@ -798,7 +1003,12 @@ export function runAuthorizedApply({
     reason: postflightReason,
   };
   let completedAt;
-  try { completedAt = deps.now(); }
+  try {
+    completedAt = deps.now();
+    if (parseFrozenRuntimeTimestamp(completedAt) === null) {
+      throw new Error("completion timestamp unavailable");
+    }
+  }
   catch {
     batchStopReason ??= "completion timestamp unavailable";
     completedAt = startedAt ?? null;
@@ -854,11 +1064,8 @@ export function validateApplyAuthorization({
     || !OBJECT_ID_PATTERN.test(liveMainEvidence.sha ?? "")
   ) return { ok: false, reason: "live remote-main evidence unavailable" };
 
-  let manifestText;
-  try { manifestText = decodeImmutableManifest(manifestBytes); }
-  catch { return { ok: false, reason: "immutable manifest is not valid UTF-8" }; }
   let manifest;
-  try { manifest = JSON.parse(manifestText); }
+  try { manifest = parseStrictManifestBytes(manifestBytes); }
   catch { return { ok: false, reason: "immutable manifest is not valid JSON" }; }
   if (manifest?.schemaVersion !== APPLY_MANIFEST_SCHEMA || !Array.isArray(manifest.targets)) {
     return { ok: false, reason: `immutable manifest must use ${APPLY_MANIFEST_SCHEMA}` };
@@ -887,6 +1094,9 @@ export function validateApplyAuthorization({
     if (
       !isCanonicalIsoDate(target.expectedCloseoutDate)
     ) return { ok: false, reason: "every manifest target requires a valid expected closeout date" };
+    if (!isCanonicalCreationDate(target.creationDate)) {
+      return { ok: false, reason: "every manifest target requires a valid creation date" };
+    }
     if (target.allowedAction !== "remove-worktree") {
       return { ok: false, reason: "every manifest target must lock the allowed action to remove-worktree" };
     }
@@ -932,11 +1142,14 @@ export const REBUILDABLE = new Set([
   "coverage", "test-results", "playwright-report", "dist", "build",
 ]);
 
-function git(args, opts = {}) {
-  return String(executeGit(execFileSync, args, { encoding: "utf8", ...opts })).trim();
-}
-function gitQuiet(args, opts = {}) {
-  try { return git(args, opts); } catch { return null; }
+function gitBoundQuiet(tuple, args, opts = {}) {
+  try {
+    return String(executeGit(
+      execFileSync,
+      repositoryGitArgs(tuple.primaryRoot, tuple.gitDir, args),
+      { encoding: "utf8", cwd: tuple.primaryRoot, ...opts },
+    )).trim();
+  } catch { return null; }
 }
 
 function expectedCommonGitDirFor(registeredGitDir) {
@@ -957,11 +1170,183 @@ function parseSingleGitPath(raw) {
   return withoutTerminator;
 }
 
+function readGitDirFromFilesystem(worktreePath, { lstat = lstatSync, realpath = realpathSync } = {}) {
+  const gitEntry = join(worktreePath, ".git");
+  let metadata;
+  try { metadata = lstat(gitEntry); }
+  catch { throw new Error("worktree .git metadata unavailable"); }
+  if (typeof metadata.isSymbolicLink !== "function" || metadata.isSymbolicLink()) {
+    throw new Error("worktree .git metadata is a symlink");
+  }
+  if (typeof metadata.isDirectory === "function" && metadata.isDirectory()) {
+    let fd;
+    try {
+      fd = openSync(gitEntry, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY | fsConstants.O_NOFOLLOW);
+      const opened = fstatSync(fd);
+      if (!sameNodeIdentity(nodeIdentity(opened), nodeIdentity(metadata))) {
+        throw new Error("worktree .git directory changed after admission");
+      }
+      const canonical = realpath(gitEntry);
+      const canonicalMetadata = lstat(canonical);
+      if (
+        typeof canonicalMetadata.isSymbolicLink !== "function"
+        || canonicalMetadata.isSymbolicLink()
+        || typeof canonicalMetadata.isDirectory !== "function"
+        || !canonicalMetadata.isDirectory()
+        || !sameNodeIdentity(nodeIdentity(canonicalMetadata), nodeIdentity(opened))
+      ) throw new Error("worktree .git directory changed during admission");
+      return canonical;
+    } finally {
+      if (fd !== undefined) closeSync(fd);
+    }
+  }
+  if (typeof metadata.isFile !== "function" || !metadata.isFile()) {
+    throw new Error("worktree .git metadata is not a directory or gitdir file");
+  }
+  if (!Number.isSafeInteger(metadata.size) || metadata.size < 1 || metadata.size > MAX_GITDIR_FILE_BYTES) {
+    throw new Error("worktree gitdir file exceeds frozen size limit");
+  }
+  let fd;
+  try {
+    fd = openSync(gitEntry, fsConstants.O_RDONLY | fsConstants.O_NONBLOCK | fsConstants.O_NOFOLLOW);
+    const opened = fstatSync(fd);
+    if (
+      !sameNodeIdentity(nodeIdentity(opened), nodeIdentity(metadata))
+      || typeof opened.isFile !== "function"
+      || !opened.isFile()
+      || opened.size > MAX_GITDIR_FILE_BYTES
+    ) {
+      throw new Error("worktree gitdir file is not a bounded regular file");
+    }
+    const snapshot = {
+      ...opened,
+      dev: opened.dev,
+      ino: opened.ino,
+    };
+    const bytes = readBoundedDescriptor(fd, MAX_GITDIR_FILE_BYTES);
+    const afterRead = fstatSync(fd);
+    if (
+      !sameFileSnapshot(snapshot, afterRead)
+      || afterRead.size > MAX_GITDIR_FILE_BYTES
+    ) throw new Error("worktree gitdir file changed during read");
+    const text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    const match = /^gitdir:\s*(\S.*?)\s*$/u.exec(text.replace(/\r?\n$/u, ""));
+    if (!match || match[1].includes("\0")) throw new Error("worktree gitdir file is malformed");
+    const candidate = isAbsolute(match[1]) ? match[1] : resolve(worktreePath, match[1]);
+    return realpath(candidate);
+  } catch (error) {
+    if (error?.message?.includes("worktree gitdir")) throw error;
+    throw new Error("worktree gitdir file is unavailable");
+  } finally {
+    if (fd !== undefined) closeSync(fd);
+  }
+}
+
+function repositoryGitArgs(repositoryRoot, gitDir, args) {
+  return [
+    "--no-optional-locks",
+    `--git-dir=${gitDir}`,
+    `--work-tree=${repositoryRoot}`,
+    "-c",
+    `core.worktree=${repositoryRoot}`,
+    ...args,
+  ];
+}
+
+export function parseRemoteIdentity(raw) {
+  const value = String(raw ?? "").trim();
+  const match = /^(?:https:\/\/(?:www\.)?github\.com\/|git@github\.com:|ssh:\/\/git@github\.com\/)([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+?)(?:\.git)?$/u.exec(value);
+  return match ? `${match[1]}/${match[2]}` : null;
+}
+
+export function parseStrictGitHubRemoteUrl(raw) {
+  if (typeof raw !== "string" || raw.length === 0 || raw.length > 512 || raw !== raw.trim()) return null;
+  if (/[\u0000-\u001f\u007f]/u.test(raw)) return null;
+  let url;
+  try { url = new URL(raw); } catch { return null; }
+  if (
+    url.protocol !== "https:"
+    || url.hostname !== "github.com"
+    || url.port
+    || url.username
+    || url.password
+    || url.search
+    || url.hash
+  ) return null;
+  const pathname = url.pathname.endsWith(".git") ? url.pathname.slice(0, -4) : url.pathname;
+  const match = /^\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)$/u.exec(pathname);
+  return match ? `https://github.com/${match[1]}/${match[2]}.git` : null;
+}
+
+/** Resolve and freeze the primary checkout/common Git directory tuple. */
+export function readRepositoryTuple(
+  repositoryRoot,
+  { execFile = execFileSync, realpath = realpathSync, expectedCommonGitDir = null } = {},
+) {
+  const physicalRoot = realpath(repositoryRoot);
+  if (!isAbsolute(physicalRoot) || physicalRoot.includes("\0")) {
+    throw new Error("repository root evidence is unavailable");
+  }
+  const gitDir = readGitDirFromFilesystem(physicalRoot);
+  const expectedCommon = resolve(expectedCommonGitDir ?? expectedCommonGitDirFor(gitDir));
+  const readBound = (flag) => parseSingleGitPath(executeGit(
+    execFile,
+    repositoryGitArgs(physicalRoot, gitDir, ["rev-parse", "--path-format=absolute", flag]),
+    { cwd: physicalRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+  ));
+  const topLevel = readBound("--show-toplevel");
+  const commonGitDir = readBound("--git-common-dir");
+  const observedGitDir = readBound("--absolute-git-dir");
+  if (
+    resolve(topLevel) !== resolve(physicalRoot)
+    || resolve(commonGitDir) !== expectedCommon
+    || resolve(observedGitDir) !== resolve(gitDir)
+  ) throw new Error("repository Git binding mismatch");
+  let remoteUrl = null;
+  try {
+      remoteUrl = parseStrictGitHubRemoteUrl(String(executeGit(
+        execFile,
+        repositoryGitArgs(physicalRoot, gitDir, ["remote", "get-url", "origin"]),
+        { cwd: physicalRoot, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    )).trim());
+  } catch { /* a caller that needs PR evidence must fail closed below */ }
+  if (remoteUrl && remoteUrl !== APPROVED_REPOSITORY_URL) {
+    throw new Error("origin remote is not the approved repository");
+  }
+  const remoteIdentity = remoteUrl ? parseRemoteIdentity(remoteUrl) : null;
+  return Object.freeze({
+    primaryRoot: physicalRoot,
+    commonGitDir: expectedCommon,
+    gitDir: resolve(gitDir),
+    remoteIdentity,
+    remoteUrl,
+  });
+}
+
+export function repositoryTupleMatches(left, right) {
+  return Boolean(
+    left && right
+    && typeof left.primaryRoot === "string"
+    && typeof left.commonGitDir === "string"
+    && typeof left.gitDir === "string"
+    && typeof right.primaryRoot === "string"
+    && typeof right.commonGitDir === "string"
+    && typeof right.gitDir === "string",
+  )
+    && resolve(left.primaryRoot) === resolve(right.primaryRoot)
+    && resolve(left.commonGitDir) === resolve(right.commonGitDir)
+    && resolve(left.gitDir) === resolve(right.gitDir)
+    && (left.remoteIdentity ?? null) === (right.remoteIdentity ?? null)
+    && (left.remoteUrl ?? null) === (right.remoteUrl ?? null);
+}
+
 function readBoundWorktreeGitContext(
   worktreePath,
   {
     execFile = execFileSync,
     realpath = realpathSync,
+    lstat = lstatSync,
+    gitDir: gitDirOverride = null,
     expectedCommonGitDir = null,
   } = {},
 ) {
@@ -969,12 +1354,7 @@ function readBoundWorktreeGitContext(
   if (!isAbsolute(physicalWorktreePath) || physicalWorktreePath.includes("\0")) {
     throw new Error("physical worktree evidence is unavailable");
   }
-  const raw = executeGit(
-    execFile,
-    ["-C", physicalWorktreePath, "rev-parse", "--absolute-git-dir"],
-    { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
-  );
-  const gitDir = parseSingleGitPath(raw);
+  const gitDir = gitDirOverride ?? readGitDirFromFilesystem(physicalWorktreePath, { lstat, realpath });
   const expectedCommon = resolve(expectedCommonGitDir ?? expectedCommonGitDirFor(gitDir));
   const readBoundPath = (flag) => parseSingleGitPath(executeGit(
     execFile,
@@ -1025,6 +1405,7 @@ export function readBoundWorktreeStatusEvidence(
   {
     execFile = execFileSync,
     realpath = realpathSync,
+    gitDir = null,
     expectedCommonGitDir = null,
   } = {},
 ) {
@@ -1032,6 +1413,7 @@ export function readBoundWorktreeStatusEvidence(
     const binding = readBoundWorktreeGitContext(worktreePath, {
       execFile,
       realpath,
+      gitDir,
       expectedCommonGitDir,
     });
     const raw = executeGit(
@@ -1205,7 +1587,9 @@ export function readProtectedTreeByDescriptor(path, expectedIdentity, { spawn = 
       cwd: path,
       env: {},
       encoding: "utf8",
-      maxBuffer: 16 * 1024 * 1024,
+      timeout: COMMAND_TIMEOUT_MS,
+      maxBuffer: COMMAND_MAX_BUFFER_BYTES,
+      killSignal: COMMAND_KILL_SIGNAL,
       stdio: ["ignore", "pipe", "pipe"],
     },
   );
@@ -1289,11 +1673,19 @@ export function scanProtectedIgnored(
 }
 
 /** Pure policy decision. All filesystem and git state is resolved by the caller. */
+function sameCanonicalPath(left, right) {
+  try {
+    return realpathSync(left) === realpathSync(right);
+  } catch {
+    return resolve(left) === resolve(right);
+  }
+}
+
 export function decide(wt, ctx) {
   if (wt.bare) return { action: "skip", reason: "bare repository" };
   if (wt.locked) return { action: "skip", reason: "worktree registration is locked" };
   if (wt.prunable) return { action: "skip", reason: "worktree registration is prunable" };
-  if (wt.path === ctx.primaryRoot) return { action: "skip", reason: "primary checkout" };
+  if (sameCanonicalPath(wt.path, ctx.primaryRoot)) return { action: "skip", reason: "primary checkout" };
   // A checkout of the integration branch is a standing reference, and it is
   // merged-by-definition, so every other rule would happily delete it.
   if (wt.branch && wt.branch === ctx.defaultBranch)
@@ -1338,7 +1730,10 @@ export function decide(wt, ctx) {
     const l = wt.protectedHits.map((h) => h.label);
     return { action: "skip", reason: `holds ${[...new Set(l)].join(", ")} that git ignores` };
   }
-  if (wt.ageDays !== null && ctx.minAgeDays > 0 && wt.ageDays < ctx.minAgeDays)
+  if (ctx.minAgeDays > 0 && (wt.ageDays === null || !Number.isFinite(wt.ageDays))) {
+    return { action: "skip", reason: "age evidence unavailable for --min-age-days" };
+  }
+  if (ctx.minAgeDays > 0 && wt.ageDays < ctx.minAgeDays)
     return { action: "skip", reason: `younger than --min-age-days ${ctx.minAgeDays}` };
   if (wt.prEvidence.openPr) return { action: "skip", reason: `open PR #${wt.prEvidence.openPr}` };
   if (wt.mergedIntoUpstream) return { action: "retire", reason: `commits already on ${ctx.upstream}` };
@@ -1349,13 +1744,27 @@ export function decide(wt, ctx) {
 export function readLiveMainEvidence(
   cwd,
   branch = "main",
-  { execFile = execFileSync } = {},
+  { execFile = execFileSync, repositoryTuple = null } = {},
 ) {
   try {
+    if (
+      !repositoryTuple
+      || repositoryTuple.remoteIdentity !== APPROVED_REPOSITORY_IDENTITY
+      || repositoryTuple.remoteUrl !== APPROVED_REPOSITORY_URL
+    ) throw new Error("repository tuple unavailable");
     const raw = executeGit(
       execFile,
-      ["ls-remote", "--heads", "origin", `refs/heads/${branch}`],
-      { encoding: "utf8", cwd, stdio: ["ignore", "pipe", "ignore"] },
+      [
+        "-c",
+        "credential.helper=",
+        "-c",
+        "credential.helper=!/opt/homebrew/bin/gh auth git-credential",
+        "ls-remote",
+        "--heads",
+        APPROVED_REPOSITORY_URL,
+        `refs/heads/${branch}`,
+      ],
+      { encoding: "utf8", cwd: "/", stdio: ["ignore", "pipe", "ignore"] },
     );
     return parseLiveRemoteHead(raw, branch);
   } catch {
@@ -1366,17 +1775,28 @@ export function readLiveMainEvidence(
 /** Live map of branch -> open PR number, fail-closed when GitHub cannot answer. */
 export function readOpenPrEvidence(
   cwd,
-  { execFile = execFileSync, queryLimit = OPEN_PR_QUERY_LIMIT } = {},
+  { execFile = execFileSync, queryLimit = OPEN_PR_QUERY_LIMIT, repositoryIdentity = null } = {},
 ) {
   try {
+    if (!repositoryIdentity || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/u.test(repositoryIdentity)) {
+      throw new Error("repository identity unavailable");
+    }
     const raw = execFile(
-      "gh",
-      ["pr", "list", "--state", "open", "--limit", String(queryLimit), "--json", "number,headRefName,headRefOid"],
+      TRUSTED_GH_EXECUTABLE,
+      ["pr", "list", "--repo", repositoryIdentity, "--state", "open", "--limit", String(queryLimit), "--json", "number,headRefName,headRefOid"],
       {
         encoding: "utf8",
         cwd,
         stdio: ["ignore", "pipe", "ignore"],
-        env: sanitizedGitEnvironment(),
+        timeout: COMMAND_TIMEOUT_MS,
+        maxBuffer: COMMAND_MAX_BUFFER_BYTES,
+        killSignal: COMMAND_KILL_SIGNAL,
+        env: (() => {
+          const environment = sanitizedGitEnvironment();
+          delete environment.GH_REPO;
+          delete environment.GH_HOST;
+          return environment;
+        })(),
       },
     );
     return parseOpenPrEvidence(raw, { queryLimit });
@@ -1395,9 +1815,16 @@ export function readActiveProcessEvidence(path, { spawn = spawnSync } = {}) {
   let probe;
   try {
     probe = spawn(
-      "lsof",
-      ["-n", "-P", "+D", path, "-Fp"],
-      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+    TRUSTED_LSOF_EXECUTABLE,
+    ["-n", "-P", "+D", path, "-Fp"],
+      {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        env: {},
+        timeout: COMMAND_TIMEOUT_MS,
+        maxBuffer: COMMAND_MAX_BUFFER_BYTES,
+        killSignal: COMMAND_KILL_SIGNAL,
+      },
     );
   } catch {
     return { available: false, active: null };
@@ -1410,12 +1837,13 @@ export function readActiveProcessEvidence(path, { spawn = spawnSync } = {}) {
   });
 }
 
-function readDetachedAnchorEvidence(target, wt, cwd) {
+function readDetachedAnchorEvidence(target, wt, repositoryTuple) {
   if (!wt.detached) return null;
+  if (!repositoryTuple) return { available: false, ref: null, sha: null, immutable: false };
   const anchor = target?.detachedAnchor;
   if (!anchor) return { available: false, ref: null, sha: null, immutable: false };
-  const objectType = gitQuiet(["cat-file", "-t", anchor.ref], { cwd });
-  const resolvedSha = gitQuiet(["rev-parse", `${anchor.ref}^{commit}`], { cwd });
+  const objectType = gitBoundQuiet(repositoryTuple, ["cat-file", "-t", anchor.ref]);
+  const resolvedSha = gitBoundQuiet(repositoryTuple, ["rev-parse", `${anchor.ref}^{commit}`]);
   return {
     available: objectType === "tag" && resolvedSha === wt.head && anchor.sha === wt.head,
     ref: anchor.ref,
@@ -1431,6 +1859,7 @@ export function retainGitIgnored(
   {
     execFile = execFileSync,
     realpath = realpathSync,
+    gitDir = null,
     expectedCommonGitDir = null,
   } = {},
 ) {
@@ -1438,7 +1867,7 @@ export function retainGitIgnored(
   const rel = hits.map((h) => h.path.slice(dir.length + 1));
   let binding;
   try {
-    binding = readBoundWorktreeGitContext(dir, { execFile, realpath, expectedCommonGitDir });
+    binding = readBoundWorktreeGitContext(dir, { execFile, realpath, gitDir, expectedCommonGitDir });
   }
   catch { return hits; }
   let out;
@@ -1470,10 +1899,20 @@ export function retainGitIgnored(
 function inspectRuntimeWorktree(
   wt,
   target,
-  { primaryRoot, expectedCommonGitDir, liveMainEvidence, prEvidence },
+  { primaryRoot, expectedCommonGitDir, liveMainEvidence, prEvidence, frozenNow, repositoryTuple },
 ) {
+  if (!repositoryTuple) throw new Error("repository tuple unavailable during worktree inspection");
+  const currentTuple = readRepositoryTuple(primaryRoot, {
+    expectedCommonGitDir,
+  });
+  if (!repositoryTupleMatches(repositoryTuple, currentTuple)) {
+    throw new Error("repository tuple drift during worktree inspection");
+  }
   const current = { ...wt };
   current.exists = existsSync(current.path);
+  current.targetBoundaryEvidence = current.exists
+    ? readTargetBoundaryEvidence(current.path)
+    : { available: false, isDirectory: false, identity: null };
   const status = current.exists
     ? readBoundWorktreeStatusEvidence(current.path, { expectedCommonGitDir })
     : { available: false, dirty: null };
@@ -1485,11 +1924,18 @@ function inspectRuntimeWorktree(
   current.mergedIntoUpstream = Boolean(
     current.head
     && liveMainEvidence.available
-    && gitQuiet(["merge-base", "--is-ancestor", current.head, liveMainEvidence.sha], { cwd: primaryRoot }) !== null
+    && repositoryTuple
+    && gitBoundQuiet(repositoryTuple, ["merge-base", "--is-ancestor", current.head, liveMainEvidence.sha]) !== null
   );
   current.containedIn = [];
-  const iso = current.head ? gitQuiet(["log", "-1", "--format=%cI", current.head], { cwd: primaryRoot }) : null;
-  current.ageDays = iso ? Math.floor((Date.now() - Date.parse(iso)) / 86400000) : null;
+  const iso = current.head && repositoryTuple
+    ? gitBoundQuiet(repositoryTuple, ["log", "-1", "--format=%cI", current.head])
+    : null;
+  const creation = target?.creationDate ?? iso;
+  const frozenTimestamp = typeof frozenNow === "number" ? frozenNow : Date.parse(frozenNow ?? "");
+  current.ageDays = creation && Number.isFinite(frozenTimestamp)
+    ? Math.floor((frozenTimestamp - Date.parse(creation)) / 86400000)
+    : null;
   current.prEvidence = {
     available: prEvidence.available,
     complete: prEvidence.complete,
@@ -1507,7 +1953,7 @@ function inspectRuntimeWorktree(
   current.processEvidence = target && current.exists
     ? readActiveProcessEvidence(current.path)
     : { available: false, active: null };
-  current.detachedAnchorEvidence = readDetachedAnchorEvidence(target, current, primaryRoot);
+  current.detachedAnchorEvidence = readDetachedAnchorEvidence(target, current, repositoryTuple);
   return current;
 }
 
@@ -1518,33 +1964,87 @@ function pathContains(parent, child) {
 
 export function createRuntimeProviders() {
   return {
-    resolvePrimaryRoot: () => (
-      git(["rev-parse", "--path-format=absolute", "--git-common-dir"]).replace(/\/\.git$/, "")
-    ),
+    resolveRepositoryTuple: (repositoryRoot = process.cwd()) => readRepositoryTuple(repositoryRoot),
+    resolvePrimaryRoot: (repositoryRoot = process.cwd()) => {
+      const tuple = readRepositoryTuple(repositoryRoot);
+      return dirname(tuple.commonGitDir);
+    },
     resolveCommonGitDir: (primaryRoot) => (
-      git(["rev-parse", "--path-format=absolute", "--git-common-dir"], { cwd: primaryRoot })
+      readRepositoryTuple(primaryRoot).commonGitDir
     ),
-    readLiveMainEvidence: (primaryRoot, branch) => readLiveMainEvidence(primaryRoot, branch),
-    readOpenPrEvidence: (primaryRoot) => readOpenPrEvidence(primaryRoot),
+    readLiveMainEvidence: (primaryRoot, branch, { repositoryTuple = null } = {}) => {
+      try {
+        if (!repositoryTuple) throw new Error("repository tuple unavailable");
+        const current = readRepositoryTuple(primaryRoot, {
+          expectedCommonGitDir: repositoryTuple.commonGitDir,
+        });
+        if (!repositoryTupleMatches(repositoryTuple, current)) throw new Error("repository tuple drift");
+        return readLiveMainEvidence(primaryRoot, branch, { repositoryTuple });
+      } catch {
+        return { available: false, sha: null, source: null };
+      }
+    },
+    readOpenPrEvidence: (primaryRoot, {
+      repositoryIdentity = null,
+      repositoryTuple = null,
+    } = {}) => {
+      try {
+        if (!repositoryTuple) throw new Error("repository tuple unavailable");
+        const current = readRepositoryTuple(primaryRoot, {
+          expectedCommonGitDir: repositoryTuple.commonGitDir,
+        });
+        if (!repositoryTupleMatches(repositoryTuple, current)) throw new Error("repository tuple drift");
+        return readOpenPrEvidence(primaryRoot, { repositoryIdentity });
+      } catch {
+        return {
+          available: false,
+          complete: false,
+          reason: "GitHub PR evidence query failed",
+          openByBranch: new Map(),
+          openByHead: new Map(),
+        };
+      }
+    },
     readExternalPathEvidence: (path, kind) => readExternalPathEvidence(path, { kind }),
     readImmutableManifest: (path, options) => readManifestByBoundDescriptor(path, options),
     readPathAbsenceEvidence: (path) => readPathAbsenceEvidence(path),
-    readWorktrees: (primaryRoot) => (
-      parseWorktreeList(git(["worktree", "list", "--porcelain"], { cwd: primaryRoot }))
-    ),
+    readTargetBoundaryEvidence: (path) => readTargetBoundaryEvidence(path),
+    readActiveProcessEvidence: (path) => readActiveProcessEvidence(path),
+    readWorktrees: (primaryRoot, { repositoryTuple = null } = {}) => {
+      if (!repositoryTuple) throw new Error("repository tuple unavailable");
+      const tuple = repositoryTuple;
+      const current = readRepositoryTuple(primaryRoot, { expectedCommonGitDir: tuple.commonGitDir });
+      if (!repositoryTupleMatches(tuple, current)) throw new Error("repository tuple drift");
+      return parseWorktreeList(String(executeGit(
+        execFileSync,
+        repositoryGitArgs(tuple.primaryRoot, tuple.gitDir, ["worktree", "list", "--porcelain"]),
+        { encoding: "utf8", cwd: tuple.primaryRoot },
+      )));
+    },
     inspectWorktree: (wt, target, evidence, context) => inspectRuntimeWorktree(wt, target, {
       primaryRoot: context.primaryRoot,
       expectedCommonGitDir: context.expectedCommonGitDir,
       liveMainEvidence: evidence.liveMainEvidence,
       prEvidence: evidence.prEvidence,
+      frozenNow: context.frozenNow,
+      repositoryTuple: context.repositoryTuple,
     }),
     reserveReceipt: (path, options) => reserveReceiptByBoundParent(path, options),
-    writeReceipt: (handle, text) => writeFileSync(handle, text, { encoding: "utf8" }),
-    closeReceipt: (handle) => closeSync(handle),
-    removeWorktree(command, primaryRoot) {
+    writeReceipt: (handle, text) => {
+      writeFileSync(handle, text, { encoding: "utf8" });
+      fsyncSync(handle);
+    },
+    closeReceipt: (handle, path) => {
+      closeReceiptDurably(handle);
+    },
+    removeWorktree(command, primaryRoot, repositoryTuple = null) {
       try {
-        executeGit(execFileSync, command.args, {
-          cwd: primaryRoot,
+        if (!repositoryTuple) throw new Error("repository tuple unavailable");
+        const tuple = repositoryTuple;
+        const current = readRepositoryTuple(primaryRoot, { expectedCommonGitDir: tuple.commonGitDir });
+        if (!repositoryTupleMatches(tuple, current)) throw new Error("repository tuple drift");
+        executeGit(execFileSync, repositoryGitArgs(tuple.primaryRoot, tuple.gitDir, command.args), {
+          cwd: tuple.primaryRoot,
           encoding: "utf8",
           stdio: ["ignore", "pipe", "ignore"],
         });
@@ -1575,6 +2075,7 @@ export function main(argv, providers) {
     return 1;
   }
   let expectedCommonGitDir;
+  let repositoryTuple;
   try {
     expectedCommonGitDir = runtime.resolveCommonGitDir
       ? runtime.resolveCommonGitDir(primaryRoot)
@@ -1582,6 +2083,21 @@ export function main(argv, providers) {
     if (!isAbsolute(expectedCommonGitDir) || expectedCommonGitDir.includes("\0")) {
       throw new Error("invalid common repository path");
     }
+    repositoryTuple = runtime.resolveRepositoryTuple
+      ? runtime.resolveRepositoryTuple(primaryRoot)
+      : { primaryRoot, commonGitDir: expectedCommonGitDir, gitDir: join(expectedCommonGitDir) };
+    if (
+      !repositoryTupleMatches(
+        {
+          primaryRoot,
+          commonGitDir: expectedCommonGitDir,
+          gitDir: repositoryTuple.gitDir,
+          remoteIdentity: repositoryTuple.remoteIdentity,
+          remoteUrl: repositoryTuple.remoteUrl,
+        },
+        repositoryTuple,
+      )
+    ) throw new Error("repository tuple does not match primary checkout");
   } catch {
     runtime.error("sweep refused: cannot resolve the expected common repository");
     return 1;
@@ -1589,10 +2105,17 @@ export function main(argv, providers) {
   const defaultBranch = "main";
   const upstream = "origin/main";
   let liveMainEvidence;
-  try { liveMainEvidence = runtime.readLiveMainEvidence(primaryRoot, defaultBranch); }
+  try {
+    liveMainEvidence = runtime.readLiveMainEvidence(primaryRoot, defaultBranch, { repositoryTuple });
+  }
   catch { liveMainEvidence = { available: false, sha: null, source: null }; }
   let prEvidence;
-  try { prEvidence = runtime.readOpenPrEvidence(primaryRoot); }
+  try {
+    prEvidence = runtime.readOpenPrEvidence(primaryRoot, {
+      repositoryIdentity: repositoryTuple.remoteIdentity,
+      repositoryTuple,
+    });
+  }
   catch {
     prEvidence = {
       available: false,
@@ -1604,6 +2127,10 @@ export function main(argv, providers) {
   let startedAt;
   try { startedAt = runtime.now(); }
   catch {
+    runtime.error("sweep refused: initial timestamp unavailable");
+    return 1;
+  }
+  if (parseFrozenRuntimeTimestamp(startedAt) === null) {
     runtime.error("sweep refused: initial timestamp unavailable");
     return 1;
   }
@@ -1672,7 +2199,7 @@ export function main(argv, providers) {
   }
 
   let worktrees;
-  try { worktrees = runtime.readWorktrees(primaryRoot); }
+  try { worktrees = runtime.readWorktrees(primaryRoot, { repositoryTuple }); }
   catch {
     runtime.error("sweep refused: worktree topology is unavailable");
     return 1;
@@ -1705,7 +2232,7 @@ export function main(argv, providers) {
       wt,
       target,
       { liveMainEvidence, prEvidence },
-      { primaryRoot, expectedCommonGitDir },
+      { primaryRoot, expectedCommonGitDir, frozenNow: startedAt, repositoryTuple },
     );
     const decision = decide(current, {
       primaryRoot,
@@ -1784,23 +2311,30 @@ export function main(argv, providers) {
       authorization,
       expectedLiveMainSha: args.expectedLiveMainSha,
       primaryRoot,
+      expectedCommonGitDir,
       upstream,
       defaultBranch,
       minAgeDays: args.minAgeDays,
       startedAt,
+      frozenNow: startedAt,
     }, {
       readManifestBytes: readLockedManifest,
-      readLiveMainEvidence: () => runtime.readLiveMainEvidence(primaryRoot, defaultBranch),
-      readOpenPrEvidence: () => runtime.readOpenPrEvidence(primaryRoot),
-      readWorktrees: () => runtime.readWorktrees(primaryRoot),
+      readLiveMainEvidence: () => runtime.readLiveMainEvidence(primaryRoot, defaultBranch, { repositoryTuple }),
+      readOpenPrEvidence: () => runtime.readOpenPrEvidence(primaryRoot, {
+        repositoryIdentity: repositoryTuple.remoteIdentity,
+        repositoryTuple,
+      }),
+      readWorktrees: () => runtime.readWorktrees(primaryRoot, { repositoryTuple }),
       readPathAbsenceEvidence: (path) => runtime.readPathAbsenceEvidence(path),
+      readTargetBoundaryEvidence: (path) => runtime.readTargetBoundaryEvidence(path),
+      readActiveProcessEvidence: (path) => runtime.readActiveProcessEvidence(path),
       inspectWorktree: (wt, target, evidence) => runtime.inspectWorktree(
         wt,
         target,
         evidence,
-        { primaryRoot, expectedCommonGitDir },
+        { primaryRoot, expectedCommonGitDir, frozenNow: startedAt, repositoryTuple },
       ),
-      removeWorktree: (command) => runtime.removeWorktree(command, primaryRoot),
+      removeWorktree: (command) => runtime.removeWorktree(command, primaryRoot, repositoryTuple),
       now: () => runtime.now(),
       beforeMutation: () => runtime.beforeMutation?.(),
     });
@@ -1828,10 +2362,18 @@ export function main(argv, providers) {
       }),
     };
   }
+  let receiptDurabilityFailed = false;
   try {
     runtime.writeReceipt(receiptFd, `${JSON.stringify(execution.receipt, null, 2)}\n`);
+  } catch {
+    receiptDurabilityFailed = true;
   } finally {
-    runtime.closeReceipt(receiptFd);
+    try { runtime.closeReceipt(receiptFd, args.receiptPath); }
+    catch { receiptDurabilityFailed = true; }
+  }
+  if (receiptDurabilityFailed) {
+    runtime.error("sweep refused: durable receipt write failed");
+    return 1;
   }
 
   for (const result of execution.receipt.results) {
