@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Owner | Claude Fable 5.1 session for Peter (hudongpin123@gmail.com), A05 lane |
+| Owner | Claude Fable 5.1 session for Peter, A05 lane |
 | Branch | `replacing-Codex-textbook-by-Claude` (from `origin/main` be92640f4b) |
 | Worktree | `/Volumes/Starship/MAIS的衍生文件/MAIS-claude-textbook-wt` (node_modules symlinked from the primary root) |
 | Target PR | pending |
