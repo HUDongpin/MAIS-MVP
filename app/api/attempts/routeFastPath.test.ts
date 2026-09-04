@@ -1,10 +1,21 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
+import postgres from "postgres";
+
+const practiceAttemptPostgresIntegrationUrl =
+  process.env.MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL?.trim() || "";
+
+function postgresUrlForSchema(baseUrl: string, schema: string) {
+  const scoped = new URL(baseUrl);
+  scoped.searchParams.set("options", `-csearch_path=${schema}`);
+  return scoped.href;
+}
 
 function hermeticChildEnv({
   temporaryRoot,
@@ -135,7 +146,7 @@ test("attempts POST serializes fast-path persistence acknowledgements without an
       });
       mock.module("@/lib/server/practiceAttemptStore", {
         namedExports: {
-          practiceAttemptFastPathPersistsRows: () => true,
+          practiceAttemptPersistenceMode: () => "postgres",
           submitQuestionAttemptFast: async () => ({
             correct: true,
             explanation: { en: "fixture", zh: "测试", zhHans: "测试" },
@@ -171,11 +182,162 @@ test("attempts POST serializes fast-path persistence acknowledgements without an
   }
 });
 
+test("attempts POST refuses local fallback on Vercel without durable Postgres", async (t) => {
+  const temporaryRoot = await mkdtemp(join(tmpdir(), "mais-attempt-route-vercel-unavailable-"));
+  const databaseDirectory = await mkdtemp(join(temporaryRoot, "database-"));
+  t.after(() => rm(temporaryRoot, { force: true, recursive: true }));
+  const script = `
+    import { mock } from "node:test";
+    mock.module("@/lib/server/auth", {
+      namedExports: {
+        bodyExpectedUserConstraints: () => [],
+        expectedUserConstraintsFromRequest: () => [],
+        guardExpectedAuthenticatedUser: () => null,
+        requireAuthenticatedUser: async () => ({
+          user: {
+            curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
+            id: "fixture-vercel-user",
+            role: "student"
+          }
+        })
+      }
+    });
+    const { POST } = await import("./app/api/attempts/route.ts");
+    const response = await POST(new Request("https://fixture.vercel.app/api/attempts", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ questionId: "q1", selectedAnswer: "5" })
+    }));
+    process.stdout.write(JSON.stringify({ body: await response.json(), status: response.status }));
+  `;
+  const result = spawnSync(
+    process.execPath,
+    ["--no-warnings", "--experimental-test-module-mocks", "--import", "tsx", "--input-type=module", "-e", script],
+    {
+      cwd: process.cwd(),
+      encoding: "utf8",
+      env: {
+        ...hermeticChildEnv({ temporaryRoot, databaseDirectory }),
+        HK_MATH_ENABLE_DEMO_USER: "true",
+        HK_MATH_STORAGE_PROVIDER: "sqlite",
+        POSTGRES_URL: "",
+        VERCEL: "1",
+        VERCEL_ENV: "preview",
+      },
+      timeout: 15_000,
+    },
+  );
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const output = JSON.parse(result.stdout);
+  assert.equal(output.status, 200);
+  assert.equal(output.body.correct, true);
+  assert.equal(output.body.persisted, false);
+  assert.equal(existsSync(join(databaseDirectory, "hk-math-db.sqlite")), false);
+});
+
+test(
+  "real PostgreSQL attempts route acknowledges only a committed readable row",
+  { skip: !practiceAttemptPostgresIntegrationUrl },
+  async (t) => {
+    const schema = `u224_r5_route_${randomUUID().replaceAll("-", "")}`;
+    const admin = postgres(practiceAttemptPostgresIntegrationUrl, {
+      connect_timeout: 10,
+      max: 1,
+      prepare: false,
+    });
+    try {
+      await admin.unsafe(`CREATE SCHEMA "${schema}"`);
+    } catch {
+      await admin.end({ timeout: 1 }).catch(() => {});
+      assert.fail("Could not create the isolated attempts-route PostgreSQL schema; details redacted.");
+    }
+    t.after(async () => {
+      await admin.unsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`).catch(() => {});
+      await admin.end({ timeout: 1 }).catch(() => {});
+    });
+
+    const temporaryRoot = await mkdtemp(join(tmpdir(), "mais-attempt-route-postgres-"));
+    const databaseDirectory = await mkdtemp(join(temporaryRoot, "database-"));
+    t.after(() => rm(temporaryRoot, { force: true, recursive: true }));
+    const scopedUrl = postgresUrlForSchema(practiceAttemptPostgresIntegrationUrl, schema);
+    const script = `
+      import { mock } from "node:test";
+      mock.module("@/lib/server/auth", {
+        namedExports: {
+          bodyExpectedUserConstraints: () => [],
+          expectedUserConstraintsFromRequest: () => [],
+          guardExpectedAuthenticatedUser: () => null,
+          requireAuthenticatedUser: async () => ({
+            user: {
+              curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
+              id: "u224-real-route",
+              role: "student"
+            }
+          })
+        }
+      });
+      const { __practiceAttemptStoreTestHooks } = await import("./lib/server/practiceAttemptStore.ts");
+      try {
+        const { POST } = await import("./app/api/attempts/route.ts");
+        const response = await POST(new Request("http://localhost/api/attempts", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ questionId: "q1", selectedAnswer: "5", durationSeconds: 11 })
+        }));
+        const body = await response.json();
+        process.stdout.write(JSON.stringify({ body, status: response.status }));
+      } catch {
+        process.stderr.write("isolated attempts-route PostgreSQL child failed; details redacted\n");
+        process.exitCode = 1;
+      } finally {
+        await __practiceAttemptStoreTestHooks.closePostgresClient().catch(() => {});
+      }
+    `;
+    const result = spawnSync(
+      process.execPath,
+      ["--no-warnings", "--experimental-test-module-mocks", "--import", "tsx", "--input-type=module", "-e", script],
+      {
+        cwd: process.cwd(),
+        encoding: "utf8",
+        env: {
+          ...hermeticChildEnv({ temporaryRoot, databaseDirectory }),
+          HK_MATH_STORAGE_PROVIDER: "postgres",
+          POSTGRES_URL: scopedUrl,
+        },
+        timeout: 30_000,
+      },
+    );
+    assert.equal(result.status, 0, "Isolated attempts-route PostgreSQL child failed; details redacted.");
+    const output = JSON.parse(result.stdout);
+    assert.equal(output.status, 200);
+    assert.equal(output.body.correct, true);
+    assert.equal(output.body.persisted, true);
+
+    const verifier = postgres(scopedUrl, { max: 1, prepare: false });
+    try {
+      const rows = await verifier`
+        SELECT question_id, selected_answer, is_correct, duration_seconds
+        FROM practice_attempts
+        WHERE user_id = 'u224-real-route'
+      `;
+      assert.deepEqual(rows, [{
+        question_id: "q1",
+        selected_answer: "5",
+        is_correct: true,
+        duration_seconds: 11,
+      }]);
+    } finally {
+      await verifier.end({ timeout: 1 }).catch(() => {});
+    }
+  },
+);
+
 test("attempts route returns a durable persistence acknowledgement with compatible feedback", async () => {
   const source = await readFile(join(process.cwd(), "app/api/attempts/route.ts"), "utf8");
 
   assert.match(source, /submitQuestionAttemptFast/);
-  assert.match(source, /practiceAttemptFastPathPersistsRows/);
+  assert.match(source, /practiceAttemptPersistenceMode/);
   assert.match(source, /requireAuthenticatedUser/);
   assert.match(source, /import\("@\/lib\/server\/userStore\/studentActivity"\)/);
   assert.doesNotMatch(source, /^import .*@\/lib\/server\/userStore/m);
@@ -217,7 +379,7 @@ test("attempts POST enforces the authenticated curriculum profile at the fast-pa
     });
     mock.module("@/lib/server/practiceAttemptStore", {
       namedExports: {
-        practiceAttemptFastPathPersistsRows: () => true,
+        practiceAttemptPersistenceMode: () => "postgres",
         submitQuestionAttemptFast: async (input) => {
           fastPathCalls.push({ questionId: input.questionId, curriculumTrack: input.curriculumTrack });
           const questionProfile = questions[input.questionId];

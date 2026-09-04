@@ -160,3 +160,179 @@ Evidence precision correction (append-only): earlier references to a “read int
 - Verification: `npm run type-check` passed; `git diff --check` passed. No real Postgres service, staging, production, deploy, Shadow, PR/ref, commit, push, or cleanup action was performed. All temporary SQLite roots were task-owned and removed by test teardown.
 - Final closure: the real-store matrix also covers non-California US-authenticated access to a Mainland question (404), and both mocked child-process fixtures now use their own temporary HOME, TMPDIR, and SQLite directory under the same explicit credential-stripped environment contract.
 - Evidence-precision correction after independent quality review: the real store has no currently live North Carolina questions, so its two NC-authenticated 404 rows are retained as explicit empty-source availability behavior, not claimed as independent cross-profile filtering proof. The mocked route-boundary fixture remains the proof that the authenticated NC profile—not a body override—is forwarded. Real-store cross-profile enforcement is proven by the non-vacuous HK-to-Mainland and Mainland-to-HK rows using existing question IDs. Unused never-configured sentinel-path assertions were removed; isolation is proven by the child environment's strict non-inherited allowlist plus the observed task-owned SQLite file.
+
+## U224-R4 Promotion-controlled package split (2026-09-04 HKT) — uncommitted
+
+- The exact remote head `9af6fbc8e42d15147a85eb439d84c84d1bab7e7b`
+  failed `promotion-shadow-gate` with
+  `PROMOTION_CONTROLLED_FULL_VALIDATION_REQUIRED`; the bound decision reported
+  one Promotion-controlled path, `package.json`, while current Promotion
+  discovery on both the PR head and live `main` failed closed with
+  `BASELINE_NOT_ANCESTRAL`.
+- This follow-up removes the convenience package script and the package-owned
+  test-list change instead of manufacturing or rewriting Promotion evidence.
+  `RELEASE.md` now invokes the same tracked smoke implementation directly with
+  Node. The ordinary CI read-only smoke test group runs
+  `scripts/classroom-load-smoke.test.mjs` directly; the operator write/load
+  command remains absent from automation.
+- The authoritative Promotion-controlled-path collector at the frozen PR head
+  reported 52 bound paths, classified `package.json` as controlled, and
+  classified `.github/workflows/ci.yml` as not controlled. Candidate bytes,
+  source, checker, Manifest, Receipt, Closure, Registry, and the selected
+  Promotion workflow are unchanged.
+- Required GREEN evidence is the focused classroom suite, release governance,
+  CI workflow contract tests, type-check, `git diff --check`, and a final exact
+  diff proving that `package.json` is no longer changed from live `main`.
+  No Shadow, re-affirmation, deployment, real classroom write, commit, push,
+  PR mutation, merge, cleanup, or ref deletion is authorized or performed.
+- GREEN: the focused classroom suite passed 27/27, the Promotion semantic
+  rescope suite passed 30/30, and the GitHub candidate-check suite passed
+  18/18. Because release governance intentionally reads committed Git objects,
+  the exact six-file correction was projected into a task-owned temporary
+  clone without staging this worktree. That candidate passed release governance
+  84/84, `npm run type-check`, and exact 13-path `git diff --check`.
+- The candidate comparison against live `main` contained 13 paths, no
+  `package.json`, and zero Promotion-controlled paths against the unchanged
+  52-path authority set. The temporary candidate tree was
+  `a195eb173488505828041f8c073f9451e815c5da`; it was verification-only and
+  was removed with its generated patch after testing. This source worktree
+  remains uncommitted and unstaged.
+
+## U224-R5 durable classroom acceptance correction (2026-09-04 HKT) — uncommitted
+
+- Fresh read-only custody freeze used the literal linked gitdir. Local branch,
+  remote feature ref, and PR #224 head all remained
+  `9af6fbc8e42d15147a85eb439d84c84d1bab7e7b`; local and remote `main` both
+  remained `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`; PR #224 remained
+  `OPEN/BLOCKED`. The inherited six-file R4 working diff had SHA-256
+  `5d1157af5855069b2ca9a32e26417834a264ad46e51b874c57283500f937ae44`.
+- R4's package-script split was superseded rather than accepted as a gate
+  bypass. The `smoke:classroom-load` alias and default
+  `test:release-governance` classroom coverage were restored exactly to HEAD;
+  `package.json` and `scripts/release-governance.test.mjs` are absent from the
+  final R5 working diff. The direct duplicate classroom-test listing was
+  removed from the ordinary CI smoke group.
+- Artifact TDD first failed on a replaced writer-lock entry, missing target
+  directory fsync, and missing post-rename fsync-failure handling. The writer
+  now keeps its existing fd-bound `O_NOFOLLOW` length/SHA-256 fingerprints,
+  revalidates the owned lock identity at every commit phase, opens and verifies
+  the admitted target directory, fsyncs that directory after atomic rename,
+  and retains identity-checked best-effort cleanup with the pathname TOCTOU
+  ceiling explicit. Fixtures cover absent/present/changed/removed results,
+  same-inode same-length byte changes, owned temp/lock cleanup, foreign lock
+  preservation, successful directory sync, and a sync failure after complete
+  publication.
+- Preview TDD first failed because no binding consumer existed and because a
+  login could resolve away from the immutable deployment. The smoke now reads
+  a canonical safe regular-file receipt produced by the existing
+  `vercel:preview` path, requires its completed inspect and management-API
+  provider/source verification, binds approved project/team, Preview target,
+  deployment ID, immutable `*.vercel.app` URL, and an independently supplied
+  40-character candidate SHA before credentials or network work, and
+  revalidates every resolved session origin before discovery or writes. A
+  shallow operator-shaped JSON object is rejected; this local test did not run
+  a provider query or create a Preview deployment.
+- Persistence TDD reproduced the prior false acknowledgement: with
+  `VERCEL=1`, `VERCEL_ENV=preview`, and no `POSTGRES_URL`, the real route fell
+  back to SQLite and returned `persisted: true`. The new explicit
+  `postgres`/`local`/`unavailable` policy permits SQLite fallback only outside
+  managed Vercel and outside an explicitly misconfigured PostgreSQL mode.
+  `AttemptSubmissionResponse` makes `persisted` a required public DTO field.
+  The practice UI rejects `persisted: false` before mistake refresh, learning
+  event, feedback state, or `onAnswered`; its answer remains retryable.
+- The UI Playwright fixture failed RED because the old card displayed success
+  instead of an unsaved alert, then passed GREEN after the minimal parser/UI
+  change. The final focused browser run passed 1/1. The complete classroom
+  suite passed 37/37. The route/store suite passed 11 with 0 failures and 2
+  explicit real-PostgreSQL skips because
+  `MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL` was absent locally.
+- Real PostgreSQL tests are implemented behind only that task-specific URL.
+  They create random schemas, exercise concurrent schema readiness, verify
+  catalog visibility, commit and independently read back store and route rows,
+  induce a mid-transaction `learning_events` trigger failure, prove all prior
+  writes roll back, close task-owned clients, and drop only their random
+  schemas. CI wires them to the existing isolated PostgreSQL 16 service and
+  asserts the task-specific URL is present so an all-skip run cannot pass the
+  integration step. No local or remote PostgreSQL service was contacted here.
+- Fresh verification: `npm run type-check` passed; `npm run
+  test:release-governance` passed 129 with 0 failures and 11 existing skips
+  (140 total); `npm run build` compiled, type-checked, generated 202/202 static
+  pages, and completed successfully. No real classroom write, task-owned
+  Preview use, provider mutation, production action, workflow dispatch,
+  Promotion evidence edit, stage, commit, push, merge, or ref/worktree cleanup
+  was performed.
+
+### U224-R5 A11/A22 provider-authority correction (2026-09-04 HKT) — uncommitted
+
+- The prior local receipt binding was insufficient authority because a caller
+  could clone or author a full-shaped JSON record. Focused RED evidence first
+  showed the apparently valid receipt reaching login when the provider was
+  unavailable, showed no independent provider request for a valid record, and
+  accepted newly added staging-candidate and nested-manifest-root mismatch
+  fixtures.
+- Before any login/session credential resolution, classroom discovery, or
+  write, every non-loopback run now performs one bounded, redirect-refusing GET
+  to the fixed Vercel v13 deployment endpoint, scoped by the approved team ID
+  and authenticated only by task input `CLASSROOM_LOAD_VERCEL_TOKEN`. The
+  response must identify the exact READY Preview deployment, approved project
+  and team, deployment ID, immutable URL, CLI producer, and candidate SHA
+  metadata. Error text is stable and redacted; the token is included in the
+  CLI redaction source.
+- Local admission separately cross-binds the outer and inspected candidate,
+  the provider source-package and staging candidate, the provider and nested
+  source-manifest roots, tree/manifest hashes and counts, required verification
+  booleans, staging schema/algorithm, approved project/team identity, Preview
+  target, and immutable deployment URL. A shallow record, a full cloned record
+  whose live provider lookup fails, outer tampering, nested root tampering, and
+  ten authoritative response identity/metadata mismatches all fail closed.
+  All provider tests inject local stubs; no real Vercel API or deployment was
+  contacted.
+- The exact Playwright fixture `unpersisted attempt feedback stays retryable
+  without success side effects` is now an explicit step in the existing
+  `visualization-browser` CI job. It executes only the browser fixture and does
+  not invoke the write-capable classroom smoke. The fixture continues to prove
+  the alert/retry path, unchanged question and reward, and absence of success
+  feedback; no claim is made that browser-observed effects replace a durable
+  backend acknowledgement.
+- Final local verification for this correction: classroom suite 39/39;
+  route/store suites 11 passed, 0 failed, and 2 real-PostgreSQL tests explicitly
+  skipped because `MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL` was absent;
+  exact Playwright fixture 1/1; `npm run type-check` exit 0; default `npm run
+  test:release-governance` 131 passed, 0 failed, 11 skipped (142 total); and
+  `npm run build` compiled, checked types, generated 202/202 pages, and exited
+  0. The real PostgreSQL CI gate remains wired to the isolated PostgreSQL 16
+  service, but was not reproduced locally without the task-specific URL.
+- `RELEASE.md` now states that the receipt alone is not provider proof and
+  distinguishes live deployment-identity revalidation from source-byte
+  redownload. The `smoke:classroom-load` alias and its default governance
+  coverage remain unchanged from HEAD. No real classroom/provider/production
+  write, Promotion history/evidence edit, workflow dispatch, stage, commit,
+  push, merge, cleanup, or `.tmp/evidence` mutation was performed.
+
+#### Entrypoint credential-order correction (append-only)
+
+- Independent review found that the real CLI called `parseArgs` before provider
+  revalidation and therefore read `CLASSROOM_LOAD_COOKIE`,
+  `CLASSROOM_LOAD_PASSWORD`, and `CLASSROOM_LOAD_USERNAME` too early. A new
+  entrypoint-level RED fixture exercised `parseArgs` through `runSmoke` and
+  `executeClassroomLoad`; environment getters and the explicit `--username`
+  value were observed before the correction.
+- `parseArgs` now reads only non-credential configuration and retains a
+  non-enumerable deferred location for the supported username option. The
+  classroom cookie, password, username, demo credential, bypass secret, and
+  username option value are resolved only after non-loopback receipt admission
+  and the fixed Vercel provider revalidation succeed. On an earlier provider
+  failure, the CLI error path reads only the permitted task-scoped provider
+  token for redaction and does not touch classroom/session/write credentials.
+- The entrypoint fixture now passes with zero credential-environment reads,
+  zero explicit username-value reads, one provider request, a redacted error,
+  and exit code 1. Existing loopback credential aliases and explicit username
+  remain redacted after their deferred resolution. Both non-loopback runbook
+  examples now include `CLASSROOM_LOAD_VERCEL_TOKEN`, and the text states that
+  it is required before resolving or using login/session credentials.
+- Final focused entrypoint/runbook/redaction verification passed 4/4; the full
+  classroom suite passed 40/40; default `npm run test:release-governance`
+  passed 132, failed 0, and skipped 11 (143 total). TypeScript, route/store, UI,
+  and build sources were unchanged by this final correction, so their earlier
+  successful gates remain the latest evidence. No real provider, classroom,
+  PostgreSQL, or production action and no stage/commit/push occurred.

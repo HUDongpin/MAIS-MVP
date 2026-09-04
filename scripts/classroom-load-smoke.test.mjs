@@ -3,12 +3,18 @@ import { execFile } from "node:child_process";
 import { createServer } from "node:http";
 import { constants as fsConstants, existsSync, readFileSync } from "node:fs";
 import fsPromises from "node:fs/promises";
-import { link, mkdir, mkdtemp, readFile, rename, rm, symlink, unlink, utimes, writeFile } from "node:fs/promises";
+import { link, lstat, mkdir, mkdtemp, readFile, readdir, rename, rm, symlink, unlink, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
+import {
+  APPROVED_VERCEL_PROJECT_ID,
+  APPROVED_VERCEL_PROJECT_NAME,
+  APPROVED_VERCEL_TEAM_ID,
+  APPROVED_VERCEL_TEAM_SLUG,
+} from "./vercel-provider-evidence.mjs";
 
 const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptsDir, "..");
@@ -43,19 +49,126 @@ async function listen(handler) {
   };
 }
 
-test("classroom load smoke remains a standalone staging command", () => {
+function providerPreviewRecord({
+  candidateSha = "a".repeat(40),
+  deploymentId = "dpl_ClassroomPreviewFixture123",
+  deploymentUrl = "https://mais-classroom-preview-fixture.vercel.app",
+} = {}) {
+  const sourceManifestRoot = "b".repeat(64);
+  const sourceTreeObject = "c".repeat(40);
+  const manifestRawSha1 = "d".repeat(40);
+  const manifestSha256 = "e".repeat(64);
+  const sourcePackageEvidence = {
+    candidateSha,
+    contentSha256Verified: true,
+    fileCount: 1,
+    fileModesVerified: true,
+    manifestRawSha1,
+    manifestSha256,
+    sourceManifestRoot,
+    sourceTreeObject,
+    totalBytes: 1,
+    verified: true,
+  };
+  return {
+    candidateSha,
+    deployedAt: "2026-09-04T00:00:00.000Z",
+    deploymentEvidence: {
+      candidateSha,
+      deploymentId,
+      deploymentUrl,
+      metadataVerified: false,
+      providerGitShaVerified: false,
+      readyState: "READY",
+      target: "preview",
+    },
+    deploymentId,
+    deploymentUrl,
+    dryRun: false,
+    inspectVerified: true,
+    project: APPROVED_VERCEL_PROJECT_NAME,
+    providerEvidence: {
+      deploymentId,
+      deploymentUrl,
+      fileModesVerified: true,
+      projectId: APPROVED_VERCEL_PROJECT_ID,
+      projectName: APPROVED_VERCEL_PROJECT_NAME,
+      source: "cli",
+      sourceManifestRoot,
+      sourcePackageEvidence,
+      sourceSha256Verified: true,
+      target: "preview",
+      teamId: APPROVED_VERCEL_TEAM_ID,
+      teamSlug: APPROVED_VERCEL_TEAM_SLUG,
+    },
+    providerSourceVerified: true,
+    scope: APPROVED_VERCEL_TEAM_SLUG,
+    stagingPackage: {
+      candidateSha,
+      excludedPolicy: {
+        dataEase: true,
+        localSecretsAndGeneratedOutputs: true,
+        publicQuestionIllustrations: true,
+      },
+      fileCount: 1,
+      gitSourceVerified: true,
+      manifest: {
+        path: "vercel-staging-manifest.json",
+        rawSha1: manifestRawSha1,
+        schemaVersion: 2,
+        sha256: manifestSha256,
+      },
+      objectFormat: "sha1",
+      sourceKind: "clean-head-tracked-regular-blobs",
+      sourceManifestAlgorithm: "sha256-canonical-json-lines-v2",
+      sourceManifestRoot,
+      sourceTreeObject,
+      totalBytes: 1,
+      trackedEntryCount: 1,
+    },
+    target: "preview",
+  };
+}
+
+function providerDeploymentPayload(record) {
+  return {
+    id: record.deploymentId,
+    meta: { maisCandidateSha: record.candidateSha },
+    ownerId: APPROVED_VERCEL_TEAM_ID,
+    project: { id: APPROVED_VERCEL_PROJECT_ID, name: APPROVED_VERCEL_PROJECT_NAME },
+    projectId: APPROVED_VERCEL_PROJECT_ID,
+    readyState: "READY",
+    source: "cli",
+    target: "preview",
+    team: { id: APPROVED_VERCEL_TEAM_ID, slug: APPROVED_VERCEL_TEAM_SLUG },
+    url: new URL(record.deploymentUrl).hostname,
+  };
+}
+
+test("classroom load smoke remains an aliased manual command in default release governance", () => {
   assert.equal(existsSync(smokePath), true, "classroom load smoke script must exist");
 
   const packageJson = JSON.parse(source("package.json"));
-  assert.equal(packageJson.scripts?.["smoke:classroom-load"], "node scripts/classroom-load-smoke.mjs");
-  assert.match(packageJson.scripts?.["test:release-governance"] ?? "", /classroom-load-smoke\.test\.mjs/u);
+  assert.equal(
+    packageJson.scripts?.["smoke:classroom-load"],
+    "node scripts/classroom-load-smoke.mjs",
+  );
+  assert.match(
+    packageJson.scripts?.["test:release-governance"] ?? "",
+    /classroom-load-smoke\.test\.mjs/u,
+  );
 
   const releaseNotes = source("RELEASE.md");
   assert.match(releaseNotes, /Manual classroom-concurrency smoke \(staging\/preview only\)/u);
+  assert.match(releaseNotes, /npm run smoke:classroom-load -- --students 15 --rounds 3 --json/u);
   assert.match(releaseNotes, /never follows redirects/i);
   assert.match(releaseNotes, /original origin may already have accepted earlier writes/i);
   assert.match(releaseNotes, /CLASSROOM_LOAD_USE_DEMO_LOGIN=1/u);
   assert.match(releaseNotes, /CLASSROOM_LOAD_DEMO_PASSWORD=/u);
+
+  const ciWorkflow = source(".github/workflows/ci.yml");
+  assert.doesNotMatch(ciWorkflow, /^\s+scripts\/classroom-load-smoke\.test\.mjs \\/mu);
+  assert.doesNotMatch(ciWorkflow, /node scripts\/classroom-load-smoke\.mjs(?!\.test)/u);
   for (const relativePath of [
     "scripts/prod-certification.mjs",
     "scripts/prod-certification.test.mjs",
@@ -76,6 +189,46 @@ test("classroom load smoke remains a standalone staging command", () => {
     ),
     /production host/u
   );
+});
+
+test("CI separates offline attempt gates from task-scoped real PostgreSQL integration", () => {
+  const ciWorkflow = source(".github/workflows/ci.yml");
+  assert.match(ciWorkflow, /Run practice attempt persistence unit gates/u);
+  assert.match(
+    ciWorkflow,
+    /node --import tsx --test \\\n\s+lib\/server\/practiceAttemptStore\.test\.ts \\\n\s+app\/api\/attempts\/routeFastPath\.test\.ts/u,
+  );
+  assert.match(ciWorkflow, /Run durable practice-attempt PostgreSQL 16 integration gates/u);
+  assert.match(
+    ciWorkflow,
+    /MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL: postgres:\/\/postgres:postgres@127\.0\.0\.1:5432\/mais_nova_ci/u,
+  );
+  assert.match(ciWorkflow, /--test-name-pattern='real PostgreSQL'/u);
+  assert.match(ciWorkflow, /Run unpersisted attempt feedback browser gate/u);
+  assert.match(
+    ciWorkflow,
+    /npx playwright test tests\/e2e\/practice-pager\.spec\.ts --project=desktop-chrome --grep 'unpersisted attempt feedback stays retryable without success side effects'/u,
+  );
+  assert.doesNotMatch(ciWorkflow, /(?:run:\s*|\n\s+)(?:npm run )?smoke:classroom-load(?:\s|$)/u);
+});
+
+test("classroom runbook records Preview identity, durable persistence, and artifact fsync limits", () => {
+  const releaseNotes = source("RELEASE.md");
+  assert.match(releaseNotes, /CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE=/u);
+  assert.match(releaseNotes, /CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA=/u);
+  assert.equal(
+    releaseNotes.match(/CLASSROOM_LOAD_VERCEL_TOKEN=/gu)?.length,
+    2,
+    "both non-loopback command examples require the task-scoped provider token",
+  );
+  assert.match(releaseNotes, /provider-verified.*project.*team.*immutable.*candidate SHA/is);
+  assert.match(releaseNotes, /receipt.*(?:alone|itself).*not.*provider proof/is);
+  assert.match(releaseNotes, /Management API.*before.*login.*session/is);
+  assert.match(releaseNotes, /Vercel.*never falls back.*SQLite/is);
+  assert.match(releaseNotes, /persisted: false.*retryable.*success side effects/is);
+  assert.match(releaseNotes, /directory.*fsync/is);
+  assert.match(releaseNotes, /fsync.*fail.*complete.*artifact/is);
+  assert.match(releaseNotes, /identity-checked best\s+effort.*TOCTOU/is);
 });
 
 test("timed fetch keeps its timeout active while reading the response body", async (t) => {
@@ -365,6 +518,347 @@ test("login rejects a redirect before the foreign origin receives credentials", 
   assert.equal(foreignRequests, 0);
 });
 
+test("classroom Preview binding consumes provider-verified deployment evidence", async (t) => {
+  const loadPreviewBinding = requiredExport("loadPreviewBinding");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-preview-binding-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const rawEvidencePath = path.join(root, "preview-deployment.json");
+  const record = providerPreviewRecord();
+  await writeFile(rawEvidencePath, `${JSON.stringify(record)}\n`, { mode: 0o600 });
+  const evidencePath = await fsPromises.realpath(rawEvidencePath);
+
+  const token = "fixture-vercel-token-1234567890";
+  const requests = [];
+  const binding = await loadPreviewBinding(record.deploymentUrl, {
+    CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: record.candidateSha,
+    CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE: evidencePath,
+    CLASSROOM_LOAD_VERCEL_TOKEN: token,
+  }, {
+    fetchImpl: async (url, options) => {
+      requests.push({ options, url: String(url) });
+      return new Response(JSON.stringify(providerDeploymentPayload(record)), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+  });
+
+  assert.deepEqual(binding, {
+    candidateSha: record.candidateSha,
+    deploymentId: record.deploymentId,
+    environment: "preview",
+    immutableUrl: record.deploymentUrl,
+    projectId: APPROVED_VERCEL_PROJECT_ID,
+    projectName: APPROVED_VERCEL_PROJECT_NAME,
+    teamId: APPROVED_VERCEL_TEAM_ID,
+    teamSlug: APPROVED_VERCEL_TEAM_SLUG,
+  });
+  assert.equal(requests.length, 1);
+  const request = requests[0];
+  const requestUrl = new URL(request.url);
+  assert.equal(requestUrl.origin, "https://api.vercel.com");
+  assert.equal(requestUrl.pathname, `/v13/deployments/${record.deploymentId}`);
+  assert.equal(requestUrl.searchParams.get("teamId"), APPROVED_VERCEL_TEAM_ID);
+  assert.equal(request.options.method, "GET");
+  assert.equal(request.options.redirect, "error");
+  assert.equal(request.options.headers.authorization, `Bearer ${token}`);
+  assert.doesNotMatch(JSON.stringify(binding), new RegExp(token, "u"));
+});
+
+test("classroom Preview binding rejects operator-shaped JSON and every identity mismatch", async (t) => {
+  const loadPreviewBinding = requiredExport("loadPreviewBinding");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-preview-binding-invalid-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const rawEvidencePath = path.join(root, "preview-deployment.json");
+  const record = providerPreviewRecord();
+  await writeFile(rawEvidencePath, `${JSON.stringify(record)}\n`, { mode: 0o600 });
+  const evidencePath = await fsPromises.realpath(rawEvidencePath);
+  const env = {
+    CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: record.candidateSha,
+    CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE: evidencePath,
+    CLASSROOM_LOAD_VERCEL_TOKEN: "fixture-vercel-token-1234567890",
+  };
+
+  const invalidRecords = [
+    {
+      candidateSha: record.candidateSha,
+      deploymentId: record.deploymentId,
+      deploymentUrl: record.deploymentUrl,
+      project: APPROVED_VERCEL_PROJECT_NAME,
+      scope: APPROVED_VERCEL_TEAM_SLUG,
+      target: "preview",
+    },
+    { ...record, target: "production" },
+    { ...record, project: "wrong-project" },
+    { ...record, scope: "wrong-team" },
+    { ...record, candidateSha: "c".repeat(40) },
+    { ...record, deploymentUrl: "https://preview-alias.example" },
+    { ...record, providerEvidence: { ...record.providerEvidence, teamId: "team_wrong" } },
+    { ...record, providerEvidence: { ...record.providerEvidence, sourceSha256Verified: false } },
+    { ...record, stagingPackage: { ...record.stagingPackage, candidateSha: "f".repeat(40) } },
+    {
+      ...record,
+      providerEvidence: {
+        ...record.providerEvidence,
+        sourcePackageEvidence: {
+          ...record.providerEvidence.sourcePackageEvidence,
+          sourceManifestRoot: "f".repeat(64),
+        },
+      },
+    },
+  ];
+
+  for (const invalid of invalidRecords) {
+    await writeFile(evidencePath, `${JSON.stringify(invalid)}\n`, { mode: 0o600 });
+    await assert.rejects(
+      () => loadPreviewBinding(record.deploymentUrl, env, {
+        fetchImpl: async () => new Response(JSON.stringify(providerDeploymentPayload(record)), { status: 200 }),
+      }),
+      /Preview evidence|provider-verified|identity|candidate|immutable/i,
+    );
+  }
+
+  await writeFile(evidencePath, `${JSON.stringify(record)}\n`, { mode: 0o600 });
+  await assert.rejects(
+    () => loadPreviewBinding(record.deploymentUrl, {
+      ...env,
+      CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: "d".repeat(40),
+    }, { fetchImpl: async () => { throw new Error("provider must not be reached"); } }),
+    /candidate/i,
+  );
+  await assert.rejects(
+    () => loadPreviewBinding("https://different-preview.vercel.app", env, {
+      fetchImpl: async () => { throw new Error("provider must not be reached"); },
+    }),
+    /immutable|identity/i,
+  );
+});
+
+test("cloned Preview receipt is rejected when authoritative provider revalidation fails before credentials", async (t) => {
+  const executeClassroomLoad = requiredExport("executeClassroomLoad");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-preview-provider-failure-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const rawEvidencePath = path.join(root, "preview-deployment.json");
+  const record = providerPreviewRecord();
+  await writeFile(rawEvidencePath, `${JSON.stringify(record)}\n`, { mode: 0o600 });
+  const evidencePath = await fsPromises.realpath(rawEvidencePath);
+  const providerToken = "PROVIDER-TOKEN-MUST-NOT-LEAK-12345";
+  const credentialKeys = new Set([
+    "CLASSROOM_LOAD_COOKIE",
+    "CLASSROOM_LOAD_DEMO_PASSWORD",
+    "CLASSROOM_LOAD_PASSWORD",
+    "DASHBOARD_SMOKE_PASSWORD",
+  ]);
+  let credentialReads = 0;
+  const env = new Proxy({
+    CLASSROOM_LOAD_APPROVED_ORIGIN: record.deploymentUrl,
+    CLASSROOM_LOAD_BASE_URL: record.deploymentUrl,
+    CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: record.candidateSha,
+    CLASSROOM_LOAD_PASSWORD: "LOGIN-CREDENTIAL-MUST-NOT-BE-READ",
+    CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE: evidencePath,
+    CLASSROOM_LOAD_USERNAME: "Fixture",
+    CLASSROOM_LOAD_VERCEL_TOKEN: providerToken,
+  }, {
+    get(target, property, receiver) {
+      if (credentialKeys.has(property)) credentialReads += 1;
+      return Reflect.get(target, property, receiver);
+    },
+  });
+  let argumentCredentialReads = 0;
+  const args = {
+    artifactDir: "",
+    baseUrl: record.deploymentUrl,
+    get cookie() {
+      argumentCredentialReads += 1;
+      return "";
+    },
+    grade: "P1",
+    get password() {
+      argumentCredentialReads += 1;
+      return "LOGIN-CREDENTIAL-MUST-NOT-BE-READ";
+    },
+    rounds: 1,
+    students: 1,
+    username: "Fixture",
+  };
+  let providerFetchCalls = 0;
+  let loginCalls = 0;
+  let discoveryCalls = 0;
+  let writeCalls = 0;
+
+  await assert.rejects(
+    () => executeClassroomLoad(args, {
+      env,
+      previewProviderFetch: async () => {
+        providerFetchCalls += 1;
+        return new Response(JSON.stringify({ error: "provider unavailable" }), { status: 503 });
+      },
+      loginIdentity: async () => {
+        loginCalls += 1;
+        throw new Error("login must not be reached");
+      },
+      discoverWorkload: async () => {
+        discoveryCalls += 1;
+        throw new Error("discovery must not be reached");
+      },
+      writeReport: async () => {
+        writeCalls += 1;
+        throw new Error("write must not be reached");
+      },
+    }),
+    (error) => {
+      assert.match(error.message, /provider.*revalidation|management API|provider evidence/i);
+      assert.doesNotMatch(error.message, new RegExp(providerToken, "u"));
+      return true;
+    },
+  );
+  assert.equal(providerFetchCalls, 1);
+  assert.equal(credentialReads, 0);
+  assert.equal(argumentCredentialReads, 0);
+  assert.equal(loginCalls, 0);
+  assert.equal(discoveryCalls, 0);
+  assert.equal(writeCalls, 0);
+});
+
+test("the real CLI entrypoint defers every classroom credential until provider revalidation", async (t) => {
+  const runClassroomLoadCli = requiredExport("runClassroomLoadCli");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-cli-provider-first-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const rawEvidencePath = path.join(root, "preview-deployment.json");
+  const record = providerPreviewRecord();
+  await writeFile(rawEvidencePath, `${JSON.stringify(record)}\n`, { mode: 0o600 });
+  const evidencePath = await fsPromises.realpath(rawEvidencePath);
+  const secretValues = {
+    CLASSROOM_LOAD_COOKIE: "COOKIE-MUST-NOT-BE-READ",
+    CLASSROOM_LOAD_DEMO_PASSWORD: "DEMO-PASSWORD-MUST-NOT-BE-READ",
+    CLASSROOM_LOAD_PASSWORD: "PASSWORD-MUST-NOT-BE-READ",
+    CLASSROOM_LOAD_USERNAME: "ENV-USERNAME-MUST-NOT-BE-READ",
+    CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET: "BYPASS-MUST-NOT-BE-READ",
+    DASHBOARD_SMOKE_PASSWORD: "DASHBOARD-PASSWORD-MUST-NOT-BE-READ",
+    DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET: "DASHBOARD-BYPASS-MUST-NOT-BE-READ",
+    VERCEL_AUTOMATION_BYPASS_SECRET: "AUTOMATION-BYPASS-MUST-NOT-BE-READ",
+  };
+  let classroomCredentialReads = 0;
+  let providerTokenReads = 0;
+  const env = new Proxy({
+    ...secretValues,
+    CLASSROOM_LOAD_APPROVED_ORIGIN: record.deploymentUrl,
+    CLASSROOM_LOAD_BASE_URL: record.deploymentUrl,
+    CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: record.candidateSha,
+    CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE: evidencePath,
+    CLASSROOM_LOAD_VERCEL_TOKEN: "fixture-vercel-token-1234567890",
+  }, {
+    get(target, property, receiver) {
+      if (Object.hasOwn(secretValues, property)) classroomCredentialReads += 1;
+      if (property === "CLASSROOM_LOAD_VERCEL_TOKEN") providerTokenReads += 1;
+      return Reflect.get(target, property, receiver);
+    },
+  });
+  let argvUsernameReads = 0;
+  const argv = new Proxy(["--username", "ARGV-USERNAME-MUST-NOT-BE-READ", "--students", "1"], {
+    get(target, property, receiver) {
+      if (property === "1") argvUsernameReads += 1;
+      return Reflect.get(target, property, receiver);
+    },
+  });
+  const printed = [];
+  let assignedExitCode = null;
+  let providerFetchCalls = 0;
+
+  const succeeded = await runClassroomLoadCli(argv, env, {
+    previewProviderFetch: async () => {
+      providerFetchCalls += 1;
+      return new Response(JSON.stringify({ error: "provider unavailable" }), { status: 503 });
+    },
+    printError: (message) => printed.push(message),
+    setExitCode: (code) => { assignedExitCode = code; },
+  });
+
+  assert.equal(succeeded, false);
+  assert.equal(assignedExitCode, 1);
+  assert.equal(providerFetchCalls, 1);
+  assert.ok(providerTokenReads >= 1, "the task-scoped provider token is allowed before revalidation");
+  assert.equal(classroomCredentialReads, 0);
+  assert.equal(argvUsernameReads, 0);
+  assert.equal(printed.length, 1);
+  for (const secret of [...Object.values(secretValues), "ARGV-USERNAME-MUST-NOT-BE-READ"]) {
+    assert.doesNotMatch(printed[0], new RegExp(secret, "u"));
+  }
+  assert.match(printed[0], /provider revalidation|management API/i);
+});
+
+test("classroom Preview binding rejects every authoritative provider identity mismatch", async (t) => {
+  const loadPreviewBinding = requiredExport("loadPreviewBinding");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-preview-provider-invalid-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const rawEvidencePath = path.join(root, "preview-deployment.json");
+  const record = providerPreviewRecord();
+  await writeFile(rawEvidencePath, `${JSON.stringify(record)}\n`, { mode: 0o600 });
+  const evidencePath = await fsPromises.realpath(rawEvidencePath);
+  const env = {
+    CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: record.candidateSha,
+    CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE: evidencePath,
+    CLASSROOM_LOAD_VERCEL_TOKEN: "fixture-vercel-token-1234567890",
+  };
+  const payload = providerDeploymentPayload(record);
+  const invalidPayloads = [
+    { ...payload, id: "dpl_WrongDeployment" },
+    { ...payload, url: "wrong-preview.vercel.app" },
+    { ...payload, readyState: "BUILDING" },
+    { ...payload, target: "production" },
+    { ...payload, projectId: "prj_wrong" },
+    { ...payload, project: { ...payload.project, name: "wrong-project" } },
+    { ...payload, ownerId: "team_wrong" },
+    { ...payload, team: { ...payload.team, slug: "wrong-team" } },
+    { ...payload, source: "github" },
+    { ...payload, meta: { maisCandidateSha: "f".repeat(40) } },
+  ];
+
+  for (const invalidPayload of invalidPayloads) {
+    await assert.rejects(
+      () => loadPreviewBinding(record.deploymentUrl, env, {
+        fetchImpl: async () => new Response(JSON.stringify(invalidPayload), { status: 200 }),
+      }),
+      /provider.*revalidation|provider evidence|identity/i,
+    );
+  }
+});
+
+test("classroom Preview binding rejects a login resolved away from the immutable deployment", async () => {
+  const executeClassroomLoad = requiredExport("executeClassroomLoad");
+  let discoveryCalls = 0;
+  await assert.rejects(
+    () => executeClassroomLoad(
+      {
+        baseUrl: "https://preview.example",
+        cookie: "",
+        grade: "P1",
+        password: "fixture-only",
+        rounds: 1,
+        students: 1,
+        username: "Fixture",
+      },
+      {
+        env: { CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example" },
+        loadPreviewBinding: async () => ({ immutableUrl: "https://preview.example" }),
+        loginIdentity: async () => ({
+          baseUrl: "https://other-preview.example",
+          cookie: "fixture-cookie",
+          loginMs: 1,
+          userId: "fixture-user",
+          username: "Fixture",
+        }),
+        discoverWorkload: async () => {
+          discoveryCalls += 1;
+          return { lessonSlug: "fixture-lesson", questions: [] };
+        },
+      },
+    ),
+    /immutable|Preview binding/i,
+  );
+  assert.equal(discoveryCalls, 0);
+});
+
 test("report writer rejects symlink and hardlink results without modifying their targets", async (t) => {
   const writeReport = requiredExport("writeReport");
   const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-linked-result-"));
@@ -491,8 +985,10 @@ test("report writer fails closed without following an artifact symlink in the fi
   let openedFlags;
   const originalOpen = fsPromises.open;
   t.mock.method(fsPromises, "open", (...args) => {
-    openedPath ??= args[0];
-    openedFlags ??= args[1];
+    if (String(args[0]) === canonicalResult) {
+      openedPath ??= args[0];
+      openedFlags ??= args[1];
+    }
     return originalOpen(...args);
   });
 
@@ -675,6 +1171,148 @@ test("report writer does not clean a replacement directory's lock after lock adm
   );
 });
 
+test("report writer preserves fd-bound SHA detection for same-inode same-length changes", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-same-inode-digest-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  await writeFile(result, "original\n", { mode: 0o600 });
+  const before = await lstat(result);
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "same-inode-same-length" },
+      root,
+      {},
+      {
+        beforeCommit: async () => {
+          await writeFile(result, "mutated!\n", { mode: 0o600 });
+          const after = await lstat(result);
+          assert.equal(after.dev, before.dev);
+          assert.equal(after.ino, before.ino);
+          assert.equal(after.size, before.size);
+        },
+      },
+    ),
+    /changed|fingerprint|race|artifact result/i,
+  );
+  assert.equal(await readFile(result, "utf8"), "mutated!\n");
+});
+
+test("report writer cleans only its owned temporary file and lock after rejection", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-owned-cleanup-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  const lock = path.join(root, ".last-run.json.lock");
+  let temporaryPath = "";
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "owned-cleanup" },
+      root,
+      {},
+      {
+        beforeCommit: async (paths) => {
+          temporaryPath = paths.temporaryPath;
+          await writeFile(result, "external-writer\n", { mode: 0o600 });
+        },
+      },
+    ),
+    /changed|race|artifact result/i,
+  );
+
+  assert.equal(await readFile(result, "utf8"), "external-writer\n");
+  assert.equal(existsSync(temporaryPath), false);
+  assert.equal(existsSync(lock), false);
+  assert.deepEqual(await readdir(root), ["last-run.json"]);
+});
+
+test("report writer fails closed when its owned lock entry is replaced", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-lock-entry-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  const lock = path.join(root, ".last-run.json.lock");
+
+  await assert.rejects(
+    () => writeReport(
+      { race: "lock-entry-replacement" },
+      root,
+      {},
+      {
+        afterLock: async () => {
+          await rm(lock, { recursive: true });
+          await mkdir(lock, { mode: 0o700 });
+        },
+      },
+    ),
+    /lock|changed|replacement|race/i,
+  );
+
+  assert.equal(existsSync(result), false);
+  assert.equal(existsSync(lock), true, "foreign replacement lock must not be cleaned");
+});
+
+test("report writer fsyncs the admitted target directory after atomic rename", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-directory-fsync-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  const canonicalRoot = await fsPromises.realpath(root);
+  const originalOpen = fsPromises.open;
+  let directorySyncCalls = 0;
+  let resultPresentWhenSynced = false;
+
+  t.mock.method(fsPromises, "open", async (...args) => {
+    const handle = await originalOpen(...args);
+    if (path.resolve(String(args[0])) !== canonicalRoot) return handle;
+    return new Proxy(handle, {
+      get(target, property) {
+        if (property === "sync") {
+          return async () => {
+            directorySyncCalls += 1;
+            resultPresentWhenSynced = existsSync(result);
+            return target.sync();
+          };
+        }
+        const value = Reflect.get(target, property, target);
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+    });
+  });
+
+  await writeReport({ durable: true }, root);
+  assert.equal(directorySyncCalls, 1);
+  assert.equal(resultPresentWhenSynced, true, "directory fsync must follow rename publication");
+  assert.deepEqual(JSON.parse(await readFile(result, "utf8")), { durable: true });
+});
+
+test("directory fsync failure rejects after complete publication and cleans owned entries", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-directory-fsync-failure-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  const canonicalRoot = await fsPromises.realpath(root);
+  const originalOpen = fsPromises.open;
+
+  t.mock.method(fsPromises, "open", async (...args) => {
+    const handle = await originalOpen(...args);
+    if (path.resolve(String(args[0])) !== canonicalRoot) return handle;
+    return new Proxy(handle, {
+      get(target, property) {
+        if (property === "sync") return async () => { throw new Error("fixture directory fsync failure"); };
+        const value = Reflect.get(target, property, target);
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+    });
+  });
+
+  await assert.rejects(() => writeReport({ durable: false }, root), /fsync failure/u);
+  assert.deepEqual(JSON.parse(await readFile(result, "utf8")), { durable: false });
+  assert.deepEqual(await readdir(root), ["last-run.json"]);
+});
+
 test("reports and printable failures exclude credential and identity sentinels", async () => {
   const executeClassroomLoad = requiredExport("executeClassroomLoad");
   const parseArgs = requiredExport("parseArgs");
@@ -696,6 +1334,7 @@ test("reports and printable failures exclude credential and identity sentinels",
     parseArgs(["--username", "Fixture", "--students", "1", "--rounds", "1"], env),
     {
       env,
+      loadPreviewBinding: async (baseUrl) => ({ immutableUrl: baseUrl }),
       loginIdentity: async (identity) => ({
         baseUrl: "https://preview.example",
         cookie: sentinels.cookie,

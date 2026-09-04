@@ -11,6 +11,14 @@ import { constants as fsConstants } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  APPROVED_VERCEL_PROJECT_ID,
+  APPROVED_VERCEL_PROJECT_NAME,
+  APPROVED_VERCEL_TEAM_ID,
+  APPROVED_VERCEL_TEAM_SLUG,
+  isValidVercelToken,
+  validateVercelDeploymentIdentity,
+} from "./vercel-provider-evidence.mjs";
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const SCRIPT_DIR = path.dirname(SCRIPT_PATH);
@@ -18,8 +26,16 @@ const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_ARTIFACT_DIR = path.join(REPO_ROOT, ".tmp", "classroom-load-smoke");
 const DEFAULT_MAX_RESPONSE_BODY_BYTES = 1024 * 1024;
 const MAX_ARTIFACT_FINGERPRINT_BYTES = 8 * 1024 * 1024;
+const MAX_PREVIEW_EVIDENCE_BYTES = 1024 * 1024;
+const MAX_PREVIEW_PROVIDER_BODY_BYTES = 1024 * 1024;
+const PREVIEW_PROVIDER_TIMEOUT_MS = 10_000;
+const CANDIDATE_SHA_PATTERN = /^[0-9a-f]{40}$/u;
+const DEPLOYMENT_ID_PATTERN = /^dpl_[A-Za-z0-9]+$/u;
+const IMMUTABLE_VERCEL_HOST_PATTERN = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.vercel\.app$/u;
 const PRODUCTION_HOSTS = new Set(["mais.ac", "www.mais.ac", "mais.hk", "www.mais.hk"]);
 const DEMO_STUDENT_USERNAMES = ["Student Shirleen", "Student Jon"];
+const DEFERRED_USERNAME_OPTION = Symbol("classroom-load-deferred-username-option");
+const RESOLVED_CLASSROOM_CREDENTIALS = Symbol("classroom-load-resolved-credentials");
 
 function requiredOptionValue(argv, index, option) {
   const value = argv[index + 1];
@@ -42,17 +58,18 @@ export function boundedInteger(value, fallback, min, max, label = "value") {
 }
 
 export function parseArgs(argv, env = process.env) {
+  let deferredUsernameOptionIndex = null;
   const args = {
     artifactDir: env.CLASSROOM_LOAD_ARTIFACT_DIR || "",
     baseUrl: env.CLASSROOM_LOAD_BASE_URL || "",
-    cookie: env.CLASSROOM_LOAD_COOKIE || "",
+    cookie: "",
     grade: env.CLASSROOM_LOAD_GRADE || "P1",
     json: false,
-    password: env.CLASSROOM_LOAD_PASSWORD || "",
+    password: "",
     rounds: boundedInteger(env.CLASSROOM_LOAD_ROUNDS, 3, 1, 50, "CLASSROOM_LOAD_ROUNDS"),
     selfTest: false,
     students: boundedInteger(env.CLASSROOM_LOAD_STUDENTS, 15, 1, 200, "CLASSROOM_LOAD_STUDENTS"),
-    username: env.CLASSROOM_LOAD_USERNAME || ""
+    username: ""
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -74,14 +91,46 @@ export function parseArgs(argv, env = process.env) {
       args.students = boundedInteger(requiredOptionValue(argv, index, option), args.students, 1, 200, "--students");
       index += 1;
     } else if (option === "--username") {
-      args.username = requiredOptionValue(argv, index, option);
+      // Retain only the option location here. Its potentially identifying value
+      // is neither copied nor read until Preview authority is established.
+      deferredUsernameOptionIndex = index;
       index += 1;
     } else {
       throw new Error(`Unknown argument: ${option}`);
     }
   }
 
+  Object.defineProperty(args, DEFERRED_USERNAME_OPTION, {
+    enumerable: false,
+    value: deferredUsernameOptionIndex === null
+      ? null
+      : { argv, optionIndex: deferredUsernameOptionIndex },
+  });
+
   return args;
+}
+
+function resolveClassroomCredentials(args, env = process.env) {
+  const alreadyResolved = args?.[RESOLVED_CLASSROOM_CREDENTIALS];
+  if (alreadyResolved) return alreadyResolved;
+  const deferredUsername = args?.[DEFERRED_USERNAME_OPTION];
+  const resolved = {
+    ...args,
+    cookie: args?.cookie || env.CLASSROOM_LOAD_COOKIE || "",
+    password: args?.password || env.CLASSROOM_LOAD_PASSWORD || "",
+    username: deferredUsername
+      ? requiredOptionValue(deferredUsername.argv, deferredUsername.optionIndex, "--username")
+      : args?.username || env.CLASSROOM_LOAD_USERNAME || "",
+  };
+  Object.defineProperty(args, RESOLVED_CLASSROOM_CREDENTIALS, {
+    enumerable: false,
+    value: resolved,
+  });
+  Object.defineProperty(resolved, RESOLVED_CLASSROOM_CREDENTIALS, {
+    enumerable: false,
+    value: resolved,
+  });
+  return resolved;
 }
 
 export function percentile(values, percentileValue) {
@@ -166,6 +215,241 @@ export function assertTargetIsNotProduction(baseUrl, _env = process.env) {
   );
 }
 
+async function readPreviewEvidenceFile(evidencePath) {
+  if (
+    typeof evidencePath !== "string" ||
+    !evidencePath ||
+    !path.isAbsolute(evidencePath) ||
+    evidencePath.includes("\0") ||
+    hasTraversalSegment(evidencePath)
+  ) {
+    throw new Error("Classroom Preview evidence file must be one absolute canonical path.");
+  }
+  const resolved = path.resolve(evidencePath);
+  let pathnameStats;
+  try {
+    pathnameStats = await fs.lstat(resolved);
+  } catch {
+    throw new Error("Classroom Preview evidence file is unavailable.");
+  }
+  if (
+    !pathnameStats.isFile() ||
+    pathnameStats.nlink !== 1 ||
+    (pathnameStats.mode & 0o022) !== 0 ||
+    !Number.isSafeInteger(pathnameStats.size) ||
+    pathnameStats.size < 1 ||
+    pathnameStats.size > MAX_PREVIEW_EVIDENCE_BYTES
+  ) {
+    throw new Error("Classroom Preview evidence file is not a safe regular file.");
+  }
+  const canonical = await fs.realpath(resolved);
+  if (canonical !== resolved || fsConstants.O_NOFOLLOW === undefined) {
+    throw new Error("Classroom Preview evidence file must not use symlinks.");
+  }
+
+  let handle;
+  try {
+    handle = await fs.open(resolved, fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW);
+    const openedStats = await handle.stat();
+    if (
+      !sameNode(pathnameStats, openedStats) ||
+      !openedStats.isFile() ||
+      openedStats.nlink !== 1 ||
+      (openedStats.mode & 0o022) !== 0 ||
+      openedStats.size !== pathnameStats.size ||
+      openedStats.mtimeMs !== pathnameStats.mtimeMs ||
+      openedStats.ctimeMs !== pathnameStats.ctimeMs
+    ) {
+      throw new Error("Classroom Preview evidence file changed while opening.");
+    }
+    const bytes = Buffer.alloc(openedStats.size);
+    let offset = 0;
+    while (offset < bytes.length) {
+      const { bytesRead } = await handle.read(bytes, offset, bytes.length - offset, null);
+      if (!bytesRead) throw new Error("Classroom Preview evidence file changed while reading.");
+      offset += bytesRead;
+    }
+    const afterRead = await handle.stat();
+    if (
+      !sameNode(openedStats, afterRead) ||
+      afterRead.size !== offset ||
+      afterRead.mtimeMs !== openedStats.mtimeMs ||
+      afterRead.ctimeMs !== openedStats.ctimeMs
+    ) {
+      throw new Error("Classroom Preview evidence file changed while reading.");
+    }
+    return bytes.toString("utf8");
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Classroom Preview evidence")) throw error;
+    throw new Error("Classroom Preview evidence file could not be read safely.");
+  } finally {
+    if (handle) await handle.close().catch(() => {});
+  }
+}
+
+export async function loadPreviewBinding(baseUrl, env = process.env, dependencies = {}) {
+  const fail = (detail = "identity") => {
+    throw new Error(`Classroom Preview evidence failed provider-verified ${detail} binding.`);
+  };
+  const immutableUrl = normalizeExactOrigin(baseUrl, "Classroom load base URL");
+  const hostname = new URL(immutableUrl).hostname;
+  if (!IMMUTABLE_VERCEL_HOST_PATTERN.test(hostname)) fail("immutable URL");
+
+  const expectedCandidateSha = String(env.CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA ?? "").trim();
+  if (!CANDIDATE_SHA_PATTERN.test(expectedCandidateSha)) fail("candidate SHA");
+  const serialized = await readPreviewEvidenceFile(env.CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE);
+  let record;
+  try {
+    record = JSON.parse(serialized);
+  } catch {
+    fail("identity");
+  }
+  const deploymentEvidence = record?.deploymentEvidence;
+  const providerEvidence = record?.providerEvidence;
+  const sourcePackageEvidence = providerEvidence?.sourcePackageEvidence;
+  const stagingPackage = record?.stagingPackage;
+  const deploymentId = String(record?.deploymentId ?? "");
+  let recordUrl;
+  let inspectedUrl;
+  let providerUrl;
+  try {
+    recordUrl = normalizeExactOrigin(record?.deploymentUrl, "Classroom Preview deployment URL");
+    inspectedUrl = normalizeExactOrigin(deploymentEvidence?.deploymentUrl, "Classroom Preview inspected URL");
+    providerUrl = normalizeExactOrigin(providerEvidence?.deploymentUrl, "Classroom Preview provider URL");
+  } catch {
+    fail("immutable URL");
+  }
+  if (
+    record?.candidateSha !== expectedCandidateSha ||
+    deploymentEvidence?.candidateSha !== expectedCandidateSha
+  ) {
+    fail("candidate SHA");
+  }
+
+  if (
+    record?.dryRun !== false ||
+    record?.inspectVerified !== true ||
+    record?.providerSourceVerified !== true ||
+    record?.target !== "preview" ||
+    record?.project !== APPROVED_VERCEL_PROJECT_NAME ||
+    ![APPROVED_VERCEL_TEAM_ID, APPROVED_VERCEL_TEAM_SLUG].includes(record?.scope) ||
+    !DEPLOYMENT_ID_PATTERN.test(deploymentId) ||
+    recordUrl !== immutableUrl ||
+    inspectedUrl !== immutableUrl ||
+    providerUrl !== immutableUrl ||
+    deploymentEvidence?.deploymentId !== deploymentId ||
+    deploymentEvidence?.readyState !== "READY" ||
+    deploymentEvidence?.target !== "preview" ||
+    providerEvidence?.deploymentId !== deploymentId ||
+    providerEvidence?.projectId !== APPROVED_VERCEL_PROJECT_ID ||
+    providerEvidence?.projectName !== APPROVED_VERCEL_PROJECT_NAME ||
+    providerEvidence?.teamId !== APPROVED_VERCEL_TEAM_ID ||
+    providerEvidence?.teamSlug !== APPROVED_VERCEL_TEAM_SLUG ||
+    providerEvidence?.target !== "preview" ||
+    providerEvidence?.source !== "cli" ||
+    providerEvidence?.sourceSha256Verified !== true ||
+    providerEvidence?.fileModesVerified !== true ||
+    !/^[0-9a-f]{64}$/u.test(String(providerEvidence?.sourceManifestRoot ?? "")) ||
+    stagingPackage?.sourceKind !== "clean-head-tracked-regular-blobs" ||
+    stagingPackage?.gitSourceVerified !== true ||
+    stagingPackage?.candidateSha !== expectedCandidateSha ||
+    stagingPackage?.objectFormat !== "sha1" ||
+    stagingPackage?.sourceManifestAlgorithm !== "sha256-canonical-json-lines-v2" ||
+    !/^[0-9a-f]{40}$/u.test(String(stagingPackage?.sourceTreeObject ?? "")) ||
+    !/^[0-9a-f]{64}$/u.test(String(stagingPackage?.sourceManifestRoot ?? "")) ||
+    stagingPackage?.manifest?.schemaVersion !== 2 ||
+    stagingPackage?.manifest?.path !== "vercel-staging-manifest.json" ||
+    !/^[0-9a-f]{40}$/u.test(String(stagingPackage?.manifest?.rawSha1 ?? "")) ||
+    !/^[0-9a-f]{64}$/u.test(String(stagingPackage?.manifest?.sha256 ?? "")) ||
+    stagingPackage?.excludedPolicy?.dataEase !== true ||
+    stagingPackage?.excludedPolicy?.publicQuestionIllustrations !== true ||
+    stagingPackage?.excludedPolicy?.localSecretsAndGeneratedOutputs !== true ||
+    sourcePackageEvidence?.verified !== true ||
+    sourcePackageEvidence?.candidateSha !== expectedCandidateSha ||
+    sourcePackageEvidence?.contentSha256Verified !== true ||
+    sourcePackageEvidence?.fileModesVerified !== true ||
+    sourcePackageEvidence?.sourceTreeObject !== stagingPackage?.sourceTreeObject ||
+    sourcePackageEvidence?.sourceManifestRoot !== stagingPackage?.sourceManifestRoot ||
+    sourcePackageEvidence?.manifestRawSha1 !== stagingPackage?.manifest?.rawSha1 ||
+    sourcePackageEvidence?.manifestSha256 !== stagingPackage?.manifest?.sha256 ||
+    sourcePackageEvidence?.fileCount !== stagingPackage?.fileCount ||
+    sourcePackageEvidence?.totalBytes !== stagingPackage?.totalBytes ||
+    providerEvidence?.sourceManifestRoot !== stagingPackage?.sourceManifestRoot
+  ) {
+    fail("identity");
+  }
+
+  const token = env.CLASSROOM_LOAD_VERCEL_TOKEN;
+  if (!isValidVercelToken(token)) {
+    throw new Error("Classroom Preview provider revalidation credential is unavailable; details redacted.");
+  }
+  const providerFetch = dependencies.fetchImpl ?? globalThis.fetch;
+  const managementUrl = new URL(
+    `https://api.vercel.com/v13/deployments/${encodeURIComponent(deploymentId)}`,
+  );
+  managementUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
+  const providerResponse = await timedFetch(
+    managementUrl.href,
+    {
+      headers: {
+        accept: "application/json",
+        authorization: `Bearer ${token}`,
+        "user-agent": "MAIS-Classroom-Preview-Revalidation/1.0",
+      },
+      maxBodyBytes: MAX_PREVIEW_PROVIDER_BODY_BYTES,
+      method: "GET",
+      redirect: "error",
+      timeoutMs: PREVIEW_PROVIDER_TIMEOUT_MS,
+    },
+    providerFetch,
+  );
+  if (
+    !providerResponse.ok ||
+    providerResponse.status !== 200 ||
+    providerResponse.finalUrl !== managementUrl.href
+  ) {
+    throw new Error("Classroom Preview provider revalidation failed; management API details redacted.");
+  }
+  const providerPayload = parseJson(providerResponse.text);
+  let authoritativeIdentity;
+  try {
+    authoritativeIdentity = validateVercelDeploymentIdentity({
+      candidateSha: expectedCandidateSha,
+      deploymentId,
+      deploymentUrl: immutableUrl,
+      payload: providerPayload,
+      sourcePackageEvidence,
+      target: "preview",
+    });
+  } catch {
+    throw new Error("Classroom Preview provider revalidation failed; provider evidence details redacted.");
+  }
+  if (
+    authoritativeIdentity.deploymentId !== deploymentId ||
+    authoritativeIdentity.deploymentUrl !== immutableUrl ||
+    authoritativeIdentity.projectId !== APPROVED_VERCEL_PROJECT_ID ||
+    authoritativeIdentity.teamId !== APPROVED_VERCEL_TEAM_ID ||
+    authoritativeIdentity.target !== "preview" ||
+    authoritativeIdentity.source !== "cli" ||
+    authoritativeIdentity.sourceManifestRoot !== stagingPackage.sourceManifestRoot ||
+    authoritativeIdentity.sourceSha256Verified !== true ||
+    authoritativeIdentity.fileModesVerified !== true
+  ) {
+    throw new Error("Classroom Preview provider revalidation failed; identity details redacted.");
+  }
+
+  return {
+    candidateSha: expectedCandidateSha,
+    deploymentId,
+    environment: "preview",
+    immutableUrl,
+    projectId: APPROVED_VERCEL_PROJECT_ID,
+    projectName: APPROVED_VERCEL_PROJECT_NAME,
+    teamId: APPROVED_VERCEL_TEAM_ID,
+    teamSlug: APPROVED_VERCEL_TEAM_SLUG,
+  };
+}
+
 function requiredBaseUrl(args) {
   if (!args.baseUrl) {
     throw new Error(
@@ -224,20 +508,30 @@ function classroomDemoPassword(env = process.env) {
   return env.CLASSROOM_LOAD_DEMO_PASSWORD || env.DASHBOARD_SMOKE_PASSWORD || "";
 }
 
-export function classroomSensitiveValues(args = {}, env = process.env) {
-  return [
-    args.cookie,
-    args.password,
-    args.username,
-    env.CLASSROOM_LOAD_COOKIE,
-    env.CLASSROOM_LOAD_DEMO_PASSWORD,
-    env.DASHBOARD_SMOKE_PASSWORD,
-    env.CLASSROOM_LOAD_PASSWORD,
-    env.CLASSROOM_LOAD_USERNAME,
-    env.CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET,
-    env.DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET,
-    env.VERCEL_AUTOMATION_BYPASS_SECRET
-  ].filter((candidate) => typeof candidate === "string" && candidate.length > 0);
+export function classroomSensitiveValues(
+  args = {},
+  env = process.env,
+  { includeClassroomCredentials = true } = {},
+) {
+  const resolved = args?.[RESOLVED_CLASSROOM_CREDENTIALS];
+  const values = [env.CLASSROOM_LOAD_VERCEL_TOKEN];
+  if (resolved) values.push(resolved.cookie, resolved.password, resolved.username);
+  if (includeClassroomCredentials) {
+    values.push(
+      args?.cookie,
+      args?.password,
+      args?.username,
+      env.CLASSROOM_LOAD_COOKIE,
+      env.CLASSROOM_LOAD_DEMO_PASSWORD,
+      env.DASHBOARD_SMOKE_PASSWORD,
+      env.CLASSROOM_LOAD_PASSWORD,
+      env.CLASSROOM_LOAD_USERNAME,
+      env.CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET,
+      env.DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET,
+      env.VERCEL_AUTOMATION_BYPASS_SECRET,
+    );
+  }
+  return values.filter((candidate) => typeof candidate === "string" && candidate.length > 0);
 }
 
 function authHeaders(cookie, expectedUserId, env = process.env) {
@@ -905,6 +1199,7 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
   let temporaryPath;
   let temporaryStats;
   let temporaryFingerprint;
+  let directoryHandle;
 
   const assertDirectoryStable = async (phase) => {
     const current = await safeExistingDirectory(targetDirectory, "Artifact directory");
@@ -914,7 +1209,28 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     return current.stats;
   };
 
+  const assertLockStable = async (phase) => {
+    const current = await fs.lstat(lockPath).catch(() => null);
+    if (
+      !current ||
+      !current.isDirectory() ||
+      !lockStats ||
+      !sameNode(lockStats, current)
+    ) {
+      throw new Error(`Artifact writer lock changed during ${phase}.`);
+    }
+    return current;
+  };
+
   try {
+    const directoryFlags = fsConstants.O_RDONLY |
+      (fsConstants.O_DIRECTORY ?? 0) |
+      (fsConstants.O_NOFOLLOW ?? 0);
+    directoryHandle = await fs.open(targetDirectory, directoryFlags);
+    const openedDirectoryStats = await directoryHandle.stat();
+    if (!openedDirectoryStats.isDirectory() || !sameNode(directoryStats.stats, openedDirectoryStats)) {
+      throw new Error("Artifact directory changed while opening its durability handle.");
+    }
     try {
       await fs.mkdir(lockPath, { mode: 0o700 });
     } catch (error) {
@@ -925,6 +1241,7 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     lockStats = await fs.lstat(lockPath);
     await hooks.afterLock?.({ artifactPath, lockPath, targetDirectory });
     await assertDirectoryStable("lock creation");
+    await assertLockStable("lock creation");
     const existingFingerprint = await safeResultFingerprint(artifactPath, hooks);
     const serialized = `${JSON.stringify(report, null, 2)}\n`;
     temporaryPath = path.join(targetDirectory, `.last-run.json.${process.pid}.${randomUUID()}.tmp`);
@@ -940,8 +1257,10 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     }
     temporaryFingerprint = await safeResultFingerprint(temporaryPath);
     await assertDirectoryStable("report write");
+    await assertLockStable("report write");
     await hooks.beforeCommit?.({ artifactPath, targetDirectory, temporaryPath });
     await assertDirectoryStable("commit admission");
+    await assertLockStable("commit admission");
     const currentExistingFingerprint = await safeResultFingerprint(artifactPath, hooks);
     if (
       !sameFingerprint(existingFingerprint, currentExistingFingerprint)
@@ -951,6 +1270,7 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
 
     await hooks.beforeRename?.({ artifactPath, targetDirectory, temporaryPath });
     await assertDirectoryStable("final commit");
+    await assertLockStable("final commit");
     const finalExistingFingerprint = await safeResultFingerprint(artifactPath, hooks);
     if (!sameFingerprint(existingFingerprint, finalExistingFingerprint)) {
       throw new Error("Artifact result changed during final commit admission.");
@@ -968,7 +1288,13 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     // writer can still win the uncloseable validation-to-rename window.
     await fs.rename(temporaryPath, artifactPath);
     temporaryPath = undefined;
+    try {
+      await directoryHandle.sync();
+    } catch {
+      throw new Error("Artifact directory fsync failure after atomic replacement.");
+    }
     await assertDirectoryStable("post-commit verification");
+    await assertLockStable("post-commit verification");
     const finalStats = await safeResultTarget(artifactPath);
     if (!finalStats || !sameNode(temporaryStats, finalStats)) {
       throw new Error("Artifact result changed during atomic replacement.");
@@ -998,6 +1324,7 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
         if (lockStats && sameNode(lockStats, currentLockStats)) await fs.rmdir(lockPath);
       } catch {}
     }
+    if (directoryHandle) await directoryHandle.close().catch(() => {});
   }
 }
 
@@ -1009,12 +1336,19 @@ export async function executeClassroomLoad(args, dependencies = {}) {
   const discover = dependencies.discoverWorkload ?? discoverWorkload;
   const runRound = dependencies.runSeatRound ?? runSeatRound;
   const persistReport = dependencies.writeReport ?? writeReport;
+  const resolvePreviewBinding = dependencies.loadPreviewBinding ?? loadPreviewBinding;
+  const previewBinding = isLoopbackOrigin(config.baseUrl)
+    ? null
+    : await resolvePreviewBinding(config.baseUrl, env, {
+      fetchImpl: dependencies.previewProviderFetch ?? globalThis.fetch,
+    });
+  const credentialArgs = resolveClassroomCredentials(args, env);
   let authMode;
   let distinctIdentities;
   let sessions;
 
-  if (args.cookie) {
-    const resolved = await resolveCookie(args.cookie, config, env);
+  if (credentialArgs.cookie) {
+    const resolved = await resolveCookie(credentialArgs.cookie, config, env);
     assertTargetIsNotProduction(resolved.baseUrl);
     authMode = "cookie";
     distinctIdentities = 1;
@@ -1023,7 +1357,7 @@ export async function executeClassroomLoad(args, dependencies = {}) {
       seat: index + 1
     }));
   } else {
-    const roster = classroomSmokeCredentials(args, config.students, env);
+    const roster = classroomSmokeCredentials(credentialArgs, config.students, env);
     if (!roster) {
       throw new Error(
         "Classroom load smoke requires CLASSROOM_LOAD_COOKIE, explicit username/password, or an enabled demo roster with CLASSROOM_LOAD_DEMO_PASSWORD."
@@ -1053,6 +1387,9 @@ export async function executeClassroomLoad(args, dependencies = {}) {
   // This is the final redirect-origin gate before any attempt/progress write.
   for (const origin of new Set(sessions.map((session) => normalizeBaseUrl(session.baseUrl)))) {
     assertTargetIsNotProduction(origin);
+    if (previewBinding && origin !== previewBinding.immutableUrl) {
+      throw new Error("Classroom Preview binding resolved away from the provider-verified immutable deployment.");
+    }
   }
   const workload = await discover(sessions[0], config, env);
   const measurements = [];
@@ -1090,6 +1427,7 @@ export async function executeClassroomLoad(args, dependencies = {}) {
       p95Ms: percentile(loginDurations, 95)
     },
     ok: endpointTopologyComplete && results.every((result) => result.ok),
+    previewBinding,
     readThresholdMs: config.readThresholdMs,
     requestedBaseUrl: config.baseUrl,
     results,
@@ -1105,8 +1443,8 @@ export async function executeClassroomLoad(args, dependencies = {}) {
   return { artifactPath, report };
 }
 
-async function runSmoke(args) {
-  const { artifactPath, report } = await executeClassroomLoad(args);
+export async function runSmoke(args, dependencies = {}) {
+  const { artifactPath, report } = await executeClassroomLoad(args, dependencies);
   if (args.json) {
     console.log(JSON.stringify(report, null, 2));
   } else {
@@ -1123,10 +1461,23 @@ async function runSmoke(args) {
     }
     console.log(`Artifact: ${artifactPath}`);
   }
-  if (!report.ok) process.exitCode = 1;
+  if (!report.ok) {
+    const setExitCode = dependencies.setExitCode ?? ((code) => { process.exitCode = code; });
+    setExitCode(1);
+  }
 }
 
 async function runSelfTest() {
+  const selfTestPreviewBinding = async (immutableUrl) => ({
+    candidateSha: "a".repeat(40),
+    deploymentId: "dpl_ClassroomSelfTest123",
+    environment: "preview",
+    immutableUrl,
+    projectId: APPROVED_VERCEL_PROJECT_ID,
+    projectName: APPROVED_VERCEL_PROJECT_NAME,
+    teamId: APPROVED_VERCEL_TEAM_ID,
+    teamSlug: APPROVED_VERCEL_TEAM_SLUG,
+  });
   assert.equal(normalizeBaseUrl("http://localhost:3210/"), "http://127.0.0.1:3210");
   assert.equal(normalizeBaseUrl("http://127.0.0.1:3210/"), "http://127.0.0.1:3210");
   assert.throws(() => normalizeBaseUrl("http://preview.example"), /requires HTTPS/i);
@@ -1195,6 +1546,7 @@ async function runSelfTest() {
     parseArgs(["--students", "5", "--rounds", "1"], demoEnv),
     {
       env: demoEnv,
+      loadPreviewBinding: selfTestPreviewBinding,
       loginIdentity: async (identity) => {
         loginCalls += 1;
         return {
@@ -1235,6 +1587,7 @@ async function runSelfTest() {
           CLASSROOM_LOAD_APPROVED_ORIGIN: "https://preview.example",
           CLASSROOM_LOAD_PASSWORD: "fixture-only"
         },
+        loadPreviewBinding: selfTestPreviewBinding,
         loginIdentity: (identity, redirectConfig, redirectEnv) => loginIdentity(
           identity,
           redirectConfig,
@@ -1324,6 +1677,7 @@ async function runSelfTest() {
     parseArgs(["--username", "Fixture", "--students", "1", "--rounds", "1"], errorEnv),
     {
       env: errorEnv,
+      loadPreviewBinding: selfTestPreviewBinding,
       loginIdentity: async (identity) => ({
         baseUrl: "https://preview.example",
         cookie: "fixture-cookie",
@@ -1354,6 +1708,7 @@ async function runSelfTest() {
       parseArgs(["--username", "Fixture", "--students", "1", "--rounds", "1"], artifactEnv),
       {
         env: artifactEnv,
+        loadPreviewBinding: selfTestPreviewBinding,
         loginIdentity: async (identity) => ({
           baseUrl: "https://preview.example",
           cookie: "fixture-cookie",
@@ -1505,20 +1860,32 @@ async function runSelfTest() {
   console.log("classroom-load-smoke self-test: PASS");
 }
 
-const isMain = process.argv[1] && path.resolve(process.argv[1]) === SCRIPT_PATH;
-if (isMain) {
+export async function runClassroomLoadCli(
+  argv = process.argv.slice(2),
+  env = process.env,
+  dependencies = {},
+) {
   let args;
   try {
-    args = parseArgs(process.argv.slice(2));
+    args = parseArgs(argv, env);
     if (args.selfTest) {
       await runSelfTest();
     } else {
-      await runSmoke(args);
+      await runSmoke(args, { ...dependencies, env });
     }
+    return true;
   } catch (error) {
-    const secrets = classroomSensitiveValues(args, process.env);
+    const secrets = classroomSensitiveValues(args, env, {
+      includeClassroomCredentials: Boolean(args?.[RESOLVED_CLASSROOM_CREDENTIALS]),
+    });
     const message = redactSensitiveText(error instanceof Error ? error.message : String(error), secrets);
-    console.error(`classroom-load-smoke: ${message}`);
-    process.exitCode = 1;
+    const printError = dependencies.printError ?? ((printable) => console.error(printable));
+    const setExitCode = dependencies.setExitCode ?? ((code) => { process.exitCode = code; });
+    printError(`classroom-load-smoke: ${message}`);
+    setExitCode(1);
+    return false;
   }
 }
+
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === SCRIPT_PATH;
+if (isMain) await runClassroomLoadCli();

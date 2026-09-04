@@ -5,22 +5,22 @@ import {
   readStoredMediaObject,
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
-import { practiceAttemptFastPathPersistsRows, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
+import { practiceAttemptPersistenceMode, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
 import {
   bodyExpectedUserConstraints,
   expectedUserConstraintsFromRequest,
   guardExpectedAuthenticatedUser,
   requireAuthenticatedUser
 } from "@/lib/server/auth";
-import type { AttemptFeedback, CurriculumProfile } from "@/types";
+import type { AttemptFeedback, AttemptSubmissionResponse, CurriculumProfile } from "@/types";
 
 export const runtime = "nodejs";
 
 const maxAnswerLength = 500;
 const maxAnswerWorkPhotoCount = 6;
 
-function withPersistenceAcknowledgement(feedback: AttemptFeedback) {
-  return { ...feedback, persisted: true as const };
+function withPersistenceAcknowledgement(feedback: AttemptFeedback): AttemptSubmissionResponse {
+  return { ...feedback, persisted: true };
 }
 
 /**
@@ -161,6 +161,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: workPhotos.error }, { status: workPhotos.status ?? 400 });
   }
   const answerWorkPhotos = workPhotos.photos ?? [];
+  const persistenceMode = practiceAttemptPersistenceMode();
 
   const feedback = await submitQuestionAttemptFast({
     userId,
@@ -172,7 +173,7 @@ export async function POST(request: Request) {
   });
 
   if (!feedback) {
-    if (!practiceAttemptFastPathPersistsRows()) {
+    if (persistenceMode === "local") {
       const persistedFeedback = await persistLocalAttempt({
         userId,
         questionId,
@@ -190,7 +191,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Question not found." }, { status: 404 });
   }
 
-  if (!practiceAttemptFastPathPersistsRows()) {
+  if (persistenceMode === "local") {
     const persistedFeedback = await persistLocalAttempt({
       userId,
       questionId,

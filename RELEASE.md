@@ -294,10 +294,20 @@ reached the original origin.
 Run it manually only after a task-owned preview exists. Supply a preview student cookie, explicit
 preview credentials, or the owner-approved demo roster password through environment variables;
 never place credential values in this runbook, Git, an artifact, or a command transcript.
+The command also requires the canonical file path of the provider-verified deployment record
+written by `npm run vercel:preview` and the independently selected candidate SHA. Do not handcraft,
+copy-edit, or reinterpret an operator JSON object as provider proof. Every non-loopback run also
+requires a task-scoped read-only `CLASSROOM_LOAD_VERCEL_TOKEN`. Before resolving or using login or
+session credentials, the smoke binds the record's Preview environment, approved Vercel
+project and team, provider-verified immutable deployment URL, deployment ID, source-byte result,
+and candidate SHA to the exact requested origin and `CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA`.
 
 ```bash
 CLASSROOM_LOAD_BASE_URL="https://<preview-deployment>.vercel.app" \
 CLASSROOM_LOAD_APPROVED_ORIGIN="https://<preview-deployment>.vercel.app" \
+CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE="/absolute/task-owned/<run>-vercel-preview-deployment.json" \
+CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA="<same-40-character-clean-candidate-sha>" \
+CLASSROOM_LOAD_VERCEL_TOKEN="<task-scoped-read-only-vercel-token>" \
 CLASSROOM_LOAD_COOKIE="<preview-student-session-cookie>" \
 CLASSROOM_LOAD_ARTIFACT_DIR="$(mktemp -d -t mais-classroom-load.XXXXXX)" \
 npm run smoke:classroom-load -- --students 15 --rounds 3 --json
@@ -311,6 +321,9 @@ report.
 ```bash
 CLASSROOM_LOAD_BASE_URL="https://<preview-deployment>.vercel.app" \
 CLASSROOM_LOAD_APPROVED_ORIGIN="https://<preview-deployment>.vercel.app" \
+CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE="/absolute/task-owned/<run>-vercel-preview-deployment.json" \
+CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA="<same-40-character-clean-candidate-sha>" \
+CLASSROOM_LOAD_VERCEL_TOKEN="<task-scoped-read-only-vercel-token>" \
 CLASSROOM_LOAD_USE_DEMO_LOGIN=1 \
 CLASSROOM_LOAD_DEMO_PASSWORD="<owner-approved-demo-roster-password>" \
 CLASSROOM_LOAD_ARTIFACT_DIR="$(mktemp -d -t mais-classroom-load.XXXXXX)" \
@@ -321,8 +334,9 @@ For every non-loopback target, `CLASSROOM_LOAD_APPROVED_ORIGIN` is mandatory and
 same normalized, pathless origin as `CLASSROOM_LOAD_BASE_URL`, copied from task-owned Preview
 evidence. It is an exact string check: wildcards, CSV values, suffix matches, and mismatched
 origins fail before the smoke uses a cookie, password, or Vercel bypass secret. Loopback-local
-targets are explicitly exempt for offline/local testing. This check does not query Vercel and does
-not prove the provider environment of an immutable `*.vercel.app` URL.
+targets are explicitly exempt for offline/local testing. This origin equality check by itself does
+not prove the provider environment of an immutable `*.vercel.app` URL; the separate provider
+revalidation below supplies that live identity check.
 
 `CLASSROOM_LOAD_WRITE_P95_MS` controls the shared attempts/lesson-progress p95 budget (default
 2,000 ms); `CLASSROOM_LOAD_READ_P95_MS` controls the separate dashboard-read budget (default
@@ -330,17 +344,35 @@ not prove the provider environment of an immutable `*.vercel.app` URL.
 as a successful write only when its API response explicitly contains `persisted: true`; grading
 feedback with `persisted: false` remains a failed write. The JSON report records the actual
 distinct-identity/login count so a multi-seat demo run is not misread as per-user fan-out.
+On Vercel, practice-attempt persistence never falls back to local SQLite: missing durable
+PostgreSQL configuration or a failed row transaction returns `persisted: false`. The student UI
+keeps that answer retryable and performs no success side effects, including progress, reward,
+mistake-refresh, or pager advancement.
 `CLASSROOM_LOAD_ARTIFACT_DIR` redirects `last-run.json` into task-owned temporary storage; the
 fallback is ignored local output under `.tmp/classroom-load-smoke/`.
 The writer permits only that repository default or a canonical direct child of the OS temporary
 directory (or a pre-existing exact `CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT`). Traversal, symlinked
 ancestors, unsafe node types, hardlinks, group/other permissions, and concurrent replacement races
-fail closed; accepted results are written through an exclusive 0600 temporary file and atomic rename.
+fail closed; accepted results are written through an exclusive 0600 temporary file, file fsync,
+atomic rename, and target-directory fsync. A target-directory fsync failure is reported as a
+failure after the complete renamed artifact may already be visible; the writer does not risk
+replacing it again to simulate rollback. Temporary-file and lock cleanup is identity-checked best
+effort only: an identity mismatch retains the path, and the pathname lstat-to-unlink/rmdir TOCTOU
+window is not claimed closed.
 
-The offline host deny cannot distinguish an immutable Vercel Production deployment URL from an
-immutable Preview URL when both use `*.vercel.app`. The operator must therefore bind the entered
-URL to existing task-owned Preview evidence before running; this smoke performs no provider lookup
-and proves no deployment environment. Current `/api/lesson-progress` also binds the write only to
+The offline host deny alone cannot distinguish an immutable Vercel Production deployment URL from
+an immutable Preview URL when both use `*.vercel.app`. The smoke consumes the unchanged task-owned
+record produced after Vercel inspect and management-API verification, but the receipt alone is not
+provider proof. The smoke uses the task-scoped `CLASSROOM_LOAD_VERCEL_TOKEN` to query the fixed,
+team-scoped Vercel Management API deployment endpoint with a bounded timeout and response body
+before login or session credential resolution, discovery, or any classroom write. It requires the live
+provider response to match the approved Preview target, project, team, deployment ID, immutable URL,
+and candidate SHA metadata, while cross-binding the receipt's outer, deployment, provider, and
+staging candidate/source-manifest claims. Provider failures are redacted and fail closed. The token
+is sensitive runtime input and must never be printed or placed in the receipt. This revalidation
+confirms live deployment identity and provider metadata; it does not independently redownload and
+rehash every deployed source byte. Current
+`/api/lesson-progress` also binds the write only to
 the supplied student session cookie; unlike `/api/attempts`, it has no server-side expected-user
 guard. The smoke exercises that current contract but does not certify such a guard.
 
@@ -350,8 +382,9 @@ the server scopes the workload to the signed-in student's own profile. An explic
 appropriate when it matches the selected demonstration account (for example `HK`,
 `MAINLAND_PEP_HIGH`, or `US_NC_MATH`); a conflicting track can correctly return no questions.
 
-This command is deliberately absent from `certify:production`, `vercel:production`, GitHub
-workflows, and CI. It is never executed automatically and must never target a production URL.
+This operator command is deliberately absent from `certify:production`, `vercel:production`,
+GitHub workflows, and CI. Its offline unit tests run in ordinary CI, but the write/load command is
+never executed automatically and must never target a production URL.
 
 ---
 
