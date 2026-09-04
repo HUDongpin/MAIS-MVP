@@ -3162,6 +3162,50 @@ test("main lifecycle keeps terminal lease and close outcomes consistent", () => 
   }
 });
 
+test("started receipt failure terminal uses the complete postflight receipt schema", () => {
+  const fixture = cliProvidersFixture();
+  const originalWriteReceipt = fixture.providers.writeReceipt;
+  fixture.providers.writeReceipt = (handle, text) => {
+    const record = JSON.parse(text);
+    if (record.phase === "started") throw new Error("started write failed");
+    return originalWriteReceipt(handle, text);
+  };
+
+  assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+  assert.equal(fixture.calls.topology, 2);
+  assert.equal(fixture.calls.remove.length, 0);
+  const terminal = fixture.receiptWrites.at(-1);
+  assert.equal(terminal.phase, "terminal");
+  assert.equal(terminal.schemaVersion, "sweep-merged-worktrees.postflight-receipt.v1");
+  assert.equal(terminal.expectedLiveMainSha, LIVE_MAIN_SHA);
+  assert.equal(terminal.observedLiveMainSha, LIVE_MAIN_SHA);
+  assert.match(terminal.preTopologyFingerprint, /^[0-9a-f]{64}$/u);
+  assert.equal(terminal.postTopologyFingerprint, terminal.preTopologyFingerprint);
+  assert.deepEqual(terminal.finalTopologyEvidence, {
+    available: true,
+    fingerprint: terminal.postTopologyFingerprint,
+  });
+  assert.deepEqual(terminal.claimCeiling, {
+    absoluteRaceFree: false,
+    writerFree: false,
+    postflight: "bounded path, process, live-main, and topology observations only",
+  });
+  assert.deepEqual(terminal.invariants, {
+    forceUsed: false,
+    remoteDeletionAttempted: false,
+  });
+  assert.deepEqual(terminal.summary, {
+    attempted: 1,
+    removed: 0,
+    skipped: 1,
+    failed: 0,
+  });
+  assert.equal(terminal.results.length, 1);
+  assert.equal(terminal.results[0].status, "skipped");
+  assert.match(terminal.results[0].reason, /durable started receipt write failed/u);
+  assert.equal(terminal.batchOutcome.status, "blocked");
+});
+
 test("main normalizes started-failure lease outcomes and reports terminal availability stably", () => {
   const cases = [
     ["false", false, "invalid-provider-result", true, false],
@@ -3225,6 +3269,43 @@ test("main leaves a durable terminal audit record when the fleet lease is unavai
   assert.equal(receiptWrites[0].phase, "terminal");
   assert.equal(receiptWrites[0].batchOutcome.status, "blocked");
   assert.match(receiptWrites[0].batchOutcome.reason, /fleet mutation lease unavailable/u);
+});
+
+test("lease-acquire terminal reads fresh postfailure topology or records it unavailable", () => {
+  for (const mode of ["changed", "unavailable"]) {
+    const fixture = cliProvidersFixture({ leaseAcquireFails: true });
+    const originalReadWorktrees = fixture.providers.readWorktrees;
+    const unrelated = {
+      path: "/repo/.worktrees/postfailure-change",
+      branch: "feature/postfailure-change",
+      head: "8".repeat(40),
+      bare: false,
+      detached: false,
+    };
+    let reads = 0;
+    fixture.providers.readWorktrees = (...args) => {
+      reads++;
+      if (reads > 1 && mode === "unavailable") throw new Error("postfailure topology unavailable");
+      const current = originalReadWorktrees(...args);
+      return reads > 1 ? [...current, unrelated] : current;
+    };
+
+    assert.equal(sweep.main(fixture.argv, fixture.providers), 1, mode);
+    assert.equal(reads, 2, mode);
+    assert.equal(fixture.calls.remove.length, 0, mode);
+    const terminal = fixture.receiptWrites.at(-1);
+    assert.equal(terminal.phase, "terminal", mode);
+    assert.equal(terminal.batchOutcome.status, "blocked", mode);
+    if (mode === "changed") {
+      assert.equal(terminal.finalTopologyEvidence.available, true);
+      assert.equal(terminal.finalTopologyEvidence.fingerprint, terminal.postTopologyFingerprint);
+      assert.notEqual(terminal.preTopologyFingerprint, terminal.postTopologyFingerprint);
+    } else {
+      assert.deepEqual(terminal.finalTopologyEvidence, { available: false, fingerprint: null });
+      assert.equal(terminal.postTopologyFingerprint, null);
+      assert.match(terminal.batchOutcome.reason, /postfailure topology evidence unavailable/u);
+    }
+  }
 });
 
 test("lease acquisition exception conservatively reports and preserves a possible residual", () => {

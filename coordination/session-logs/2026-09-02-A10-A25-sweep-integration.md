@@ -729,3 +729,43 @@ evidence.
 - No uncertain lease is unlinked. This is bounded fail-closed audit semantics,
   not an absolute race-freedom or readiness claim. No real apply or Git/release
   mutation was performed.
+
+## U223-R6 owner-rebased postfailure receipt closure (2026-09-05 HKT) — prospective
+
+- Owner replaced the prior baseline with prospective expected-old
+  `f253aee91c9cfadfb872dfa5fa8b9bc359533d17`, retaining the exact worktree,
+  branch, three-file allowlist, one-new-commit ceiling, ordinary non-force
+  fast-forward push, and every prohibition from U223-R6. Initial refreeze bound
+  local HEAD, local/cached/live feature refs, and PR #223 head to that SHA;
+  `origin/main` and the PR base were
+  `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`. Status was clean, target
+  topology was singular and unlocked, no holder or relevant lock was observed,
+  and the NUL-safe fleet snapshot digest was
+  `92357e853c8bbdc3dd9dc671dbe1ad394e25277fe26561ef257e755955515537`.
+- A22 finding 1 was reproduced: the lease-acquisition failure path reused the
+  pre-acquisition fleet snapshot as `finalTopologyEvidence`. RED command
+  `node --test --test-name-pattern='lease-acquire terminal reads fresh postfailure topology' scripts/sweep-merged-worktrees.test.mjs`
+  exited 1 with 0 pass / 1 fail because only one topology read occurred. GREEN
+  exited 0 with 1/1 after the terminal path performed a real postfailure read,
+  recorded its distinct fingerprint when available, and otherwise recorded
+  `finalTopologyEvidence.available:false`, a null post fingerprint, and an
+  explicit blocked reason. The shared catch covers typed pre-create failure,
+  O_EXCL/EEXIST `acquire-uncertain`, and untyped uncertain acquisition failure.
+- A22 finding 2 was reproduced: when the durable `started` write failed, the
+  fallback terminal was manually assembled without the unified postflight
+  fields. RED command
+  `node --test --test-name-pattern='started receipt failure terminal uses the complete postflight receipt schema' scripts/sweep-merged-worktrees.test.mjs`
+  exited 1 with 0 pass / 1 fail before the missing postfailure topology/schema
+  behavior could be satisfied. GREEN exited 0 with 1/1 after the fallback was
+  rebuilt through `createPostflightReceipt`, preserving expected/observed
+  live-main, pre/post/final topology, `claimCeiling`, `invariants`, summary,
+  target results, lease identity, and normalized lease release evidence.
+- Related lease/started lifecycle regression passed 9/9. A pre-append complete
+  check passed both MJS syntax checks, sweep plus release-build 192/192,
+  default release-governance 92 pass / 11 intentional skips / 0 fail, and
+  `git diff --check`. These are local implementation checks only; a fresh
+  all-edit verification and refreeze remain mandatory immediately before the
+  single authorized commit.
+- No real sweep `--apply`, worktree/branch/ref/process/`.tmp`/evidence removal
+  or move, workflow dispatch, manual rerun, manual Shadow, amend, rebase,
+  force-push, merge, deploy, or production action occurred in this correction.

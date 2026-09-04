@@ -2769,6 +2769,14 @@ export function main(argv, providers) {
     runtime.error("sweep refused: worktree topology is unavailable");
     return 1;
   }
+  const readPostfailureTopologyEvidence = () => {
+    try {
+      const topology = runtime.readWorktrees(primaryRoot, { repositoryTuple });
+      return { available: true, fingerprint: fingerprintFleet(topology) };
+    } catch {
+      return { available: false, fingerprint: null };
+    }
+  };
   if (args.manifestPreview) {
     if (fingerprintFleet(worktrees) !== authorization.manifest.fleetFingerprint) {
       runtime.error("sweep refused: fleet topology fingerprint drift during manifest preview");
@@ -2894,9 +2902,18 @@ export function main(argv, providers) {
     });
   } catch (error) {
     const acquisitionOutcome = normalizeFleetLeaseAcquisitionFailure(error);
+    const preTopologyFingerprint = fingerprintFleet(worktrees);
+    const finalTopologyEvidence = readPostfailureTopologyEvidence();
+    const leaseUnavailableReason = [
+      acquisitionOutcome.leaseMayRemain
+        ? "fleet mutation lease unavailable; possible residual lease"
+        : "fleet mutation lease unavailable",
+      ...(!finalTopologyEvidence.available
+        ? ["postfailure topology evidence unavailable"]
+        : []),
+    ].join("; ");
     let terminalAvailable = true;
     try {
-      const fingerprint = fingerprintFleet(worktrees);
       writeReceiptEntry({
         ...createPostflightReceipt({
           manifestSha256: authorization.manifestSha256,
@@ -2904,22 +2921,19 @@ export function main(argv, providers) {
           observedLiveMainSha: isAcceptedLiveMainEvidence(liveMainEvidence) ? liveMainEvidence.sha : null,
           startedAt,
           completedAt: startedAt,
-          preTopologyFingerprint: fingerprint,
-          postTopologyFingerprint: fingerprint,
-          finalTopologyEvidence: { available: true, fingerprint },
+          preTopologyFingerprint,
+          postTopologyFingerprint: finalTopologyEvidence.fingerprint,
+          finalTopologyEvidence,
           batchOutcome: {
             status: "blocked",
-            reason: acquisitionOutcome.leaseMayRemain
-              ? "fleet mutation lease unavailable; possible residual lease"
-              : "fleet mutation lease unavailable",
+            reason: leaseUnavailableReason,
           },
           results: authorization.manifest.targets.map((target) => ({
+            ...target,
             path: target.path,
             branch: target.branch ?? "(detached)",
             status: "skipped",
-            reason: acquisitionOutcome.leaseMayRemain
-              ? "fleet mutation lease unavailable; possible residual lease"
-              : "fleet mutation lease unavailable",
+            reason: leaseUnavailableReason,
           })),
         }),
         phase: "terminal",
@@ -2955,17 +2969,38 @@ export function main(argv, providers) {
     let release;
     try { release = normalizeLeaseReleaseResult(runtime.releaseFleetMutationLease(fleetLease, leaseIdentity)); }
     catch { release = { released: false, phase: "exception" }; }
+    const preTopologyFingerprint = fingerprintFleet(worktrees);
+    const finalTopologyEvidence = readPostfailureTopologyEvidence();
+    const startedFailureReason = [
+      "durable started receipt write failed",
+      ...(!finalTopologyEvidence.available
+        ? ["postfailure topology evidence unavailable"]
+        : []),
+    ].join("; ");
     let terminalAvailable = true;
     try {
       writeReceiptEntry({
-        schemaVersion: "sweep-merged-worktrees.postflight-receipt.v1",
+        ...createPostflightReceipt({
+          manifestSha256: authorization.manifestSha256,
+          expectedLiveMainSha: args.expectedLiveMainSha,
+          observedLiveMainSha: isAcceptedLiveMainEvidence(liveMainEvidence) ? liveMainEvidence.sha : null,
+          startedAt,
+          completedAt: startedAt,
+          preTopologyFingerprint,
+          postTopologyFingerprint: finalTopologyEvidence.fingerprint,
+          finalTopologyEvidence,
+          batchOutcome: { status: "blocked", reason: startedFailureReason },
+          results: authorization.manifest.targets.map((target) => ({
+            ...target,
+            path: target.path,
+            branch: target.branch ?? "(detached)",
+            status: "skipped",
+            reason: startedFailureReason,
+          })),
+        }),
         phase: "terminal",
-        manifestSha256: authorization.manifestSha256,
-        startedAt,
-        completedAt: startedAt,
-        batchOutcome: { status: "blocked", reason: "durable started receipt write failed" },
+        leaseIdentity,
         leaseRelease: release,
-        results: [],
       });
     } catch { terminalAvailable = false; }
     try { runtime.closeReceipt(receiptFd, args.receiptPath); }
