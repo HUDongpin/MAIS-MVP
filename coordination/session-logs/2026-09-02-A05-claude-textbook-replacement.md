@@ -132,6 +132,13 @@ that override will stage the SCORM session's files.
   Exits non-zero on two honest notes: g9-ch02's sequence-term buttons come and go
   as the day range changes (they set only `day` and mode, both separately walked),
   and g11-ch01's figure carries no text to check.
+- 2026-09-04 CORRECTION, from a pre-PR review pass: the browser audit walks buttons only.
+  Eight openers have an `<input type="range">` it never moves, and g6-ch02's lone
+  "Show opposites" toggle is dropped by the two-member rule without being reported. The
+  "170,076 states across all 35 openers" claim overstated that layer. The per-lesson tests
+  do cover those axes, so nothing is unverified — but for those nine lessons the
+  guarantee is modelled, not measured. Teaching the walker to drive range inputs and to
+  keep single-member groups is open work.
 - Evidence: `coordination/content-qa/2026-09-02-claude-textbook-replacement/label-collision-record.md`.
 
 ## Not done / left for the owner

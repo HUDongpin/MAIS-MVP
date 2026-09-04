@@ -84,7 +84,7 @@ export type Readout = { headline: string; meaning: string; arithmetic: string };
 export function readout(key: DesignKey, pct: number, n: number, claim: number): Readout {
   const s = shownBand(key, pct, n, claim);
   if (key === "volunteer") return { headline: `${pct}% of the ${n} who answered, and no band`, meaning: "a percent measured on the students who chose to answer, and an estimate for nobody at all", arithmetic: `${yesCount(pct, n)} of ${n} answers · a margin of error measures the luck of the draw, and this design never drew, so there is no band to put around the number` };
-  if (key === "experiment") return { headline: `${s.loText}% to ${s.hiText}%`, meaning: `no-reminder rates that random assignment alone can produce when the reminded group lands on ${pct}%`, arithmetic: `standard error of the gap sqrt((${pct} × ${100 - pct} + ${claim} × ${100 - claim}) / ${n}) = ${s.seText} · chance swing 2 × ${s.seText} = ${s.halfText} points` };
+  if (key === "experiment") return { headline: `${s.loText}% to ${s.hiText}%`, meaning: `no-reminder rates that random assignment alone can produce when the reminded group lands on ${pct}%`, arithmetic: `standard error of the gap when both groups sit at ${pct}% sqrt(2 × ${pct} × ${100 - pct} / ${n}) = ${s.seText} · chance swing 2 × ${s.seText} = ${s.halfText} points` };
   return { headline: `${s.loText}% to ${s.hiText}%`, meaning: `plausible values for the percent of all ${DISTRICT_LABEL} district students who would ride`, arithmetic: `${pct}% of ${n} students · standard error sqrt(${pct} × ${100 - pct} / ${n}) = ${s.seText} · margin of error 2 × ${s.seText} = ${s.halfText} points` };
 }
 

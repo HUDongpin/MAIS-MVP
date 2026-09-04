@@ -137,6 +137,34 @@ The run still exits non-zero, on three coverage notes it refuses to hide:
 - **g11-ch01's figure has no `<text>` at all.** Nothing to check is not the same
   as nothing wrong, so it is reported rather than counted as a pass.
 
+## What the browser audit does NOT reach — corrected 2026-09-04
+
+The "170,076 reachable states" figure above is the browser walk, and it is not the whole
+reachable grid. The walker builds its axes only from `button[type="button"]`; it has no
+handling for any other control. Two consequences, both found by review after the fact:
+
+- **Eight of the 35 openers drive their figure with an `<input type="range">`** —
+  g6-ch01, g6-ch03, g7-ch01, g7-ch03, g8-ch02, g9-ch01, g9-ch03, g11-ch02. The walk never
+  moves those sliders, so each was audited at its `useState` seed and nowhere else.
+  g9-ch01 is the sharp case: `shirts` runs 0..20, is seeded at 12, and positions the
+  moving `$cost` label.
+- **A lone `aria-pressed` toggle is dropped silently.** Choice axes require two or more
+  aria-pressed buttons under one parent; g6-ch02's "Show opposites" sits beside two
+  `<Stepper>`s whose own buttons render deeper, so its group has one member and is
+  discarded — with no entry in `lost` or `stuck`. `showOpp` stayed false for the whole
+  run, so the `−A` and `−B` labels were never rendered while the audit was watching.
+
+This does not leave those lessons unverified. The per-lesson tests DO walk those axes:
+g9-ch01's test loops `shirts` across its full range and exercises `pointLabel` directly,
+and g6-ch02's test loops `for (const showOpp of [false, true])`. What is true is narrower
+and worth stating exactly: for those nine lessons the guarantee rests on the modelled
+layer — conservative boxes, 2px demanded clearance — and not on the layer that measures
+real rendered text. Two different instruments, and only one of them ran.
+
+The fix is to teach the walker to drive `input[type=range]` and to keep single-member
+choice groups. Until then the audit's silence about those axes should not be read as
+coverage, and it should be reporting the gap rather than passing over it quietly.
+
 ## The HTML side
 
 Checked separately and separately clean. All 35 openers were measured at 390,

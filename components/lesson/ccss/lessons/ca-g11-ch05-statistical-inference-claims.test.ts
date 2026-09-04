@@ -230,10 +230,22 @@ test("every reachable state keeps the drawing, the verdict, and every printed nu
             assert.ok(product, `the readout must show the doubling (${at})`);
             assert.equal(tenths(product[1]), seT, at);
             assert.equal(tenths(product[2]), 2 * tenths(product[1]), `the printed product is not the product of the printed operands (${at})`);
-            const radicand = key === "experiment"
-              ? `sqrt((${pct} × ${100 - pct} + ${claim} × ${100 - claim}) / ${n}) = ${s.seText}`
-              : `sqrt(${pct} × ${100 - pct} / ${n}) = ${s.seText}`;
-            assert.ok(box.arithmetic.includes(radicand), `${at} must show the standard error it used: ${radicand}`);
+            // The rendered square root, EVALUATED — not pasted. Interpolating s.seText into
+            // the expected string only proves the component agrees with itself about the
+            // characters; it let the experiment readout spell one formula while the band
+            // was drawn from another, false at the printed tenth in 144 of 225 states.
+            const root = key === "experiment"
+              ? /sqrt\(2 × (\d+) × (\d+) \/ (\d+)\) = (\d+\.\d)/u.exec(box.arithmetic)
+              : /sqrt\((\d+) × (\d+) \/ (\d+)\) = (\d+\.\d)/u.exec(box.arithmetic);
+            assert.ok(root, `the readout must show the standard error it used (${at})`);
+            const [, ra, rb, rn, rv] = root;
+            const factor = key === "experiment" ? 2 : 1;
+            assert.equal(
+              tenths(rv),
+              tenths(round1(Math.sqrt((factor * Number(ra) * Number(rb)) / Number(rn))).toFixed(1)),
+              `the printed square root does not equal the printed value (${at}): sqrt of the shown operands is ${Math.sqrt((factor * Number(ra) * Number(rb)) / Number(rn))}`
+            );
+            assert.equal(tenths(rv), seT, `${at} must print the standard error the band was drawn from`);
           }
           if (key === "random") assert.ok(box.meaning.includes(DISTRICT_LABEL), at);
 
