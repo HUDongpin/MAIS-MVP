@@ -2,9 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
 import {
-  closeSync, mkdtempSync, mkdirSync, openSync, readFileSync, realpathSync, renameSync, statSync,
+  chmodSync, closeSync, constants as fsConstants, existsSync, fsyncSync, linkSync, lstatSync, mkdtempSync, mkdirSync, openSync, readFileSync, realpathSync, renameSync, statSync,
   truncateSync,
-  writeFileSync, rmSync, symlinkSync,
+  writeFileSync, writeSync, rmSync, symlinkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -120,6 +120,20 @@ test("parseWorktreeList reads branches, detached heads and bare repos", () => {
   assert.equal(wts[2].prunable, true);
   assert.equal(wts[2].prunableReason, "stale gitdir");
   assert.equal(wts[3].bare, true);
+});
+
+test("parseWorktreeList consumes porcelain -z without splitting special-character paths", () => {
+  const specialPath = "/repo/worktrees/space 中文 'quote'\nsecond-line";
+  const records = [
+    `worktree /repo`, `HEAD ${LIVE_MAIN_SHA}`, "branch refs/heads/main", "",
+    `worktree ${specialPath}`, `HEAD ${TARGET_HEAD_SHA}`, "branch refs/heads/feature/special", "locked owner\nreason", "",
+  ].join("\0");
+  const worktrees = parseWorktreeList(records);
+  assert.equal(worktrees.length, 2);
+  assert.equal(worktrees[1].path, specialPath);
+  assert.equal(worktrees[1].branch, "feature/special");
+  assert.equal(worktrees[1].locked, true);
+  assert.equal(worktrees[1].lockReason, "owner\nreason");
 });
 
 // Regression: `git branch --contains` marks a branch checked out in ANOTHER
@@ -887,6 +901,29 @@ test("receipt reservation bounds its child and closes the admitted parent on tim
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
+test("receipt ownership transfer failure closes leaf and parent once and preserves uncertain path", () => {
+  for (const mode of ["chmod", "parent-replace"]) {
+    const container = realpathSync(mkdtempSync(join(tmpdir(), "receipt-transfer-")));
+    const parent = join(container, "parent");
+    const moved = join(container, "moved");
+    const path = join(parent, "receipt.ndjson");
+    mkdirSync(parent);
+    const closed = [];
+    try {
+      assert.throws(() => sweep.createRuntimeProviders().reserveReceipt(path, {
+        afterLeafOpen() {
+          if (mode === "chmod") chmodSync(path, 0o644);
+          else { renameSync(parent, moved); mkdirSync(parent); }
+        },
+        close(fd) { closed.push(fd); closeSync(fd); },
+      }), /receipt|binding/u);
+      assert.equal(closed.length, 2, mode);
+      assert.equal(new Set(closed).size, 2, mode);
+      assert.equal(existsSync(mode === "chmod" ? path : join(moved, "receipt.ndjson")), true, mode);
+    } finally { rmSync(container, { recursive: true, force: true }); }
+  }
+});
+
 test("protected descriptor walker bounds its child and fails closed on timeout", () => {
   const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-protected-timeout-")));
   try {
@@ -916,7 +953,7 @@ const base = {
 };
 const ctx = {
   primaryRoot: "/repo", upstream: "origin/main", defaultBranch: "main", minAgeDays: 0,
-  liveMainEvidence: { available: true, sha: "a".repeat(40), source: "git-ls-remote" },
+  liveMainEvidence: { available: true, sha: "a".repeat(40), source: "gh-api-git-ref" },
 };
 const reasons = (o) => decide({ ...base, ...o }, ctx);
 
@@ -1124,7 +1161,7 @@ function authorizationFor(manifest = applyManifest()) {
     manifestBytes,
     expectedManifestSha256: sweep.sha256Text(manifestBytes),
     expectedLiveMainSha: LIVE_MAIN_SHA,
-    liveMainEvidence: { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" },
+    liveMainEvidence: { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" },
   };
 }
 
@@ -1134,7 +1171,7 @@ test("validateApplyAuthorization requires a byte-locked immutable manifest for -
     manifestBytes: null,
     expectedManifestSha256: null,
     expectedLiveMainSha: LIVE_MAIN_SHA,
-    liveMainEvidence: { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" },
+    liveMainEvidence: { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" },
   });
   assert.equal(result.ok, false);
   assert.match(result.reason, /immutable manifest/);
@@ -1239,7 +1276,7 @@ test("validateApplyAuthorization rejects expected, manifest, or observed live-ma
 
   const observedResult = sweep.validateApplyAuthorization({
     ...input,
-    liveMainEvidence: { available: true, sha: "5".repeat(40), source: "git-ls-remote" },
+    liveMainEvidence: { available: true, sha: "5".repeat(40), source: "gh-api-git-ref" },
   });
   assert.equal(observedResult.ok, false);
   assert.match(observedResult.reason, /live-main SHA mismatch/);
@@ -1425,6 +1462,16 @@ test("sweep mutation policy permits only a non-force local worktree removal", ()
   assert.equal(sweep.isAllowedSweepMutation(command.file, command.args), true);
   assert.equal(sweep.isAllowedSweepMutation("git", ["worktree", "remove", "--force", "/repo/.worktrees/x"]), false);
   assert.equal(sweep.isAllowedSweepMutation("git", ["push", "origin", "--delete", "feature/x"]), false);
+  assert.equal(sweep.isAllowedSweepMutation(
+    sweep.TRUSTED_GIT_EXECUTABLE,
+    ["worktree", "remove", "--", "/repo/workforce-analysis"],
+  ), true);
+});
+
+test("platform boundary is explicitly macOS-only", () => {
+  assert.equal(sweep.isSupportedSweepPlatform("darwin"), true);
+  assert.equal(sweep.isSupportedSweepPlatform("linux"), false);
+  assert.equal(sweep.isSupportedSweepPlatform("win32"), false);
 });
 
 test("redactSecretLikePath removes secret-bearing path segments from logs and receipts", () => {
@@ -1599,6 +1646,41 @@ test("parseOpenPrEvidence fails closed when the live query reaches its cap", () 
   assert.equal(complete.complete, true);
 });
 
+test("GitHub ref and pulls evidence share fatal UTF-8 duplicate-key and frozen resource bounds", () => {
+  assert.deepEqual(sweep.GITHUB_JSON_LIMITS, {
+    maxBytes: 32 * 1024 * 1024,
+    maxDepth: 128,
+    maxWork: 64 * 1024 * 1024,
+    maxNodes: 250_000,
+  });
+  const invalidUtf8 = Buffer.from([0x7b, 0x22, 0x78, 0x22, 0x3a, 0x22, 0xc3, 0x28, 0x22, 0x7d]);
+  const duplicateRef = Buffer.from(`{"ref":"refs/heads/main","ref":"refs/heads/main","object":{"sha":"${LIVE_MAIN_SHA}","type":"commit"}}`);
+  const duplicatePull = Buffer.from(`[[{"number":223,"head":{"ref":"feature/x","ref":"feature/y","sha":"${TARGET_HEAD_SHA}"}}]]`);
+  const tooDeep = Buffer.from(`${"[".repeat(130)}0${"]".repeat(130)}`);
+  const tooManyNodes = Buffer.from(`[${new Array(250_001).fill("0").join(",")}]`);
+  const oversized = Buffer.alloc((32 * 1024 * 1024) + 1, 0x20);
+
+  for (const payload of [invalidUtf8, duplicateRef, tooDeep, tooManyNodes, oversized]) {
+    assert.equal(sweep.parseGitHubExactRef(payload, "main").available, false);
+  }
+  for (const payload of [invalidUtf8, duplicatePull, tooDeep, tooManyNodes, oversized]) {
+    const evidence = sweep.parseOpenPrEvidence(payload);
+    assert.equal(evidence.available, false);
+    assert.equal(evidence.complete, false);
+  }
+});
+
+test("GitHub ref and pulls parsers enforce a reachable independent work budget", () => {
+  assert.ok(sweep.GITHUB_JSON_WORK_LIMIT < sweep.GITHUB_JSON_LIMITS.maxBytes);
+  const escapedPadding = "\\u0061".repeat(110_000);
+  const exactRef = Buffer.from(`{"ref":"refs/heads/main","object":{"sha":"${LIVE_MAIN_SHA}","type":"commit"},"padding":"${escapedPadding}"}`);
+  const pulls = Buffer.from(`[[{"number":223,"head":{"ref":"feature/x","sha":"${TARGET_HEAD_SHA}"},"padding":"${escapedPadding}"}]]`);
+  assert.ok(exactRef.byteLength < sweep.GITHUB_JSON_LIMITS.maxBytes);
+  assert.ok(pulls.byteLength < sweep.GITHUB_JSON_LIMITS.maxBytes);
+  assert.equal(sweep.parseGitHubExactRef(exactRef, "main").available, false);
+  assert.equal(sweep.parseOpenPrEvidence(pulls).available, false);
+});
+
 test("parseActiveProcessEvidence distinguishes no users, active users, and probe failure", () => {
   assert.deepEqual(
     sweep.parseActiveProcessEvidence({ status: 1, stdout: "", stderr: "", error: null }),
@@ -1630,20 +1712,24 @@ test("parseActiveProcessEvidence distinguishes no users, active users, and probe
   );
 });
 
-test("production live-main provider wires an exact ls-remote query and fails closed on errors", () => {
+test("production live-main provider wires an exact GitHub ref query and fails closed on errors", () => {
   const calls = [];
   const evidence = sweep.readLiveMainEvidence("/repo", "main", {
     repositoryTuple: TEST_REPOSITORY_TUPLE,
     execFile(file, args, options) {
-      calls.push({ file, args, cwd: options.cwd, timeout: options.timeout, maxBuffer: options.maxBuffer, killSignal: options.killSignal });
-      return `${LIVE_MAIN_SHA}\trefs/heads/main\n`;
+      calls.push({ file, args, cwd: options.cwd, encoding: options.encoding, timeout: options.timeout, maxBuffer: options.maxBuffer, killSignal: options.killSignal });
+      return JSON.stringify({
+        ref: "refs/heads/main",
+        object: { sha: LIVE_MAIN_SHA, type: "commit" },
+      });
     },
   });
-  assert.deepEqual(evidence, { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" });
+  assert.deepEqual(evidence, { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" });
   assert.deepEqual(calls, [{
-    file: sweep.TRUSTED_GIT_EXECUTABLE,
-    args: ["--no-optional-locks", "-c", "credential.helper=", "-c", "credential.helper=!/opt/homebrew/bin/gh auth git-credential", "ls-remote", "--heads", "https://github.com/HUDongpin/MAIS-MVP.git", "refs/heads/main"],
+    file: sweep.TRUSTED_GH_EXECUTABLE,
+    args: ["api", "--hostname", "github.com", "repos/HUDongpin/MAIS-MVP/git/ref/heads/main"],
     cwd: "/",
+    encoding: null,
     timeout: sweep.COMMAND_TIMEOUT_MS,
     maxBuffer: sweep.COMMAND_MAX_BUFFER_BYTES,
     killSignal: sweep.COMMAND_KILL_SIGNAL,
@@ -1653,22 +1739,27 @@ test("production live-main provider wires an exact ls-remote query and fails clo
   }).available, false);
 });
 
-test("production Git providers use the fixed trusted executable and isolated config environment", () => {
+test("production live-main provider uses the fixed trusted executable and isolated config environment", () => {
   const calls = [];
   const evidence = sweep.readLiveMainEvidence("/repo", "main", {
     repositoryTuple: TEST_REPOSITORY_TUPLE,
     execFile(file, args, options) {
       calls.push({ file, args, env: options.env });
-      return `${LIVE_MAIN_SHA}\trefs/heads/main\n`;
+      return JSON.stringify({
+        ref: "refs/heads/main",
+        object: { sha: LIVE_MAIN_SHA, type: "commit" },
+      });
     },
   });
   assert.equal(evidence.available, true);
-  assert.equal(calls[0].file, sweep.TRUSTED_GIT_EXECUTABLE);
+  assert.equal(calls[0].file, sweep.TRUSTED_GH_EXECUTABLE);
   assert.equal(calls[0].env.GIT_CONFIG_NOSYSTEM, "1");
   assert.equal(calls[0].env.GIT_CONFIG_GLOBAL, "/dev/null");
   assert.equal(calls[0].env.GIT_CONFIG_SYSTEM, "/dev/null");
   assert.equal(calls[0].env.GIT_CONFIG, undefined);
   assert.equal(calls[0].env.GIT_CONFIG_COUNT, undefined);
+  assert.equal(calls[0].env.GH_REPO, undefined);
+  assert.equal(calls[0].env.GH_HOST, undefined);
 });
 
 test("sanitized Git environment disables all interactive and SSH routing", () => {
@@ -1788,17 +1879,73 @@ test("live-main security uses the owner-approved canonical repository URL", () =
     },
     execFile(file, args, options) {
       calls.push({ file, args, options });
-      return `${LIVE_MAIN_SHA}\trefs/heads/main\n`;
+      return JSON.stringify({
+        ref: "refs/heads/main",
+        object: { sha: LIVE_MAIN_SHA, type: "commit" },
+      });
     },
   });
   assert.equal(result.available, true);
   assert.equal(calls[0].options.cwd, "/");
   assert.equal(calls[0].args.includes("--git-dir=/repo/.git"), false);
   assert.equal(calls[0].args.includes("--work-tree=/repo"), false);
-  assert.equal(calls[0].args.includes("-c"), true);
-  assert.equal(calls[0].args.includes("credential.helper="), true);
-  assert.equal(calls[0].args.includes("credential.helper=!/opt/homebrew/bin/gh auth git-credential"), true);
-  assert.equal(calls[0].args.includes(sweep.APPROVED_REPOSITORY_URL), true);
+  assert.equal(calls[0].file, sweep.TRUSTED_GH_EXECUTABLE);
+  assert.deepEqual(calls[0].args, ["api", "--hostname", "github.com", "repos/HUDongpin/MAIS-MVP/git/ref/heads/main"]);
+});
+
+test("parse GitHub exact-ref evidence accepts one commit object and rejects malformed payloads", () => {
+  assert.deepEqual(
+    sweep.parseGitHubExactRef(JSON.stringify({
+      ref: "refs/heads/main",
+      object: { sha: LIVE_MAIN_SHA, type: "commit" },
+    }), "main"),
+    { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" },
+  );
+  for (const value of [
+    "not json",
+    JSON.stringify([]),
+    JSON.stringify([{ ref: "refs/heads/main", object: { sha: LIVE_MAIN_SHA, type: "commit" } }]),
+    JSON.stringify({ ref: "refs/heads/other", object: { sha: LIVE_MAIN_SHA, type: "commit" } }),
+    JSON.stringify({ ref: "refs/heads/main", object: { sha: "x", type: "commit" } }),
+    JSON.stringify({ ref: "refs/heads/main", object: { sha: LIVE_MAIN_SHA, type: "tag" } }),
+  ]) {
+    assert.deepEqual(
+      sweep.parseGitHubExactRef(value, "main"),
+      { available: false, sha: null, source: null },
+    );
+  }
+});
+
+test("accepted live-main evidence includes the helper-free GitHub API source", () => {
+  assert.equal(
+    sweep.isAcceptedLiveMainEvidence({ available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" }),
+    true,
+  );
+  assert.equal(
+    sweep.isAcceptedLiveMainEvidence({ available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" }),
+    false,
+  );
+  assert.equal(
+    sweep.isAcceptedLiveMainEvidence({ available: true, sha: "broken", source: "gh-api-git-ref" }),
+    false,
+  );
+});
+
+test("historical ls-remote receipts remain parseable but cannot authorize current decisions", () => {
+  const historical = sweep.parseLiveRemoteHead(`${LIVE_MAIN_SHA}\trefs/heads/main\n`, "main");
+  assert.deepEqual(historical, { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" });
+  assert.equal(sweep.isAcceptedLiveMainEvidence(historical), false);
+  const decision = sweep.decide({ ...base, mergedIntoUpstream: true }, {
+    ...ctx,
+    liveMainEvidence: historical,
+  });
+  assert.equal(decision.action, "skip");
+  assert.match(decision.reason, /live remote-main evidence unavailable/u);
+  const authorization = sweep.validateApplyAuthorization({
+    ...authorizationFor(),
+    liveMainEvidence: historical,
+  });
+  assert.equal(authorization.ok, false);
 });
 
 test("live-main rejects a local origin URL that differs from the approved constant", () => {
@@ -1880,15 +2027,14 @@ test("production GitHub provider wires the cap and returns incomplete evidence a
   const calls = [];
   const records = [1, 2].map((number) => ({
     number,
-    headRefName: `feature/${number}`,
-    headRefOid: String(number).repeat(40),
+    head: { ref: `feature/${number}`, sha: String(number).repeat(40) },
   }));
   const evidence = sweep.readOpenPrEvidence("/repo", {
     queryLimit: 2,
-    repositoryIdentity: "owner/repo",
+    repositoryIdentity: sweep.APPROVED_REPOSITORY_IDENTITY,
     execFile(file, args, options) {
       calls.push({ file, args, cwd: options.cwd, timeout: options.timeout, maxBuffer: options.maxBuffer, killSignal: options.killSignal });
-      return JSON.stringify(records);
+      return Buffer.from(JSON.stringify([records]));
     },
   });
   assert.equal(evidence.available, false);
@@ -1896,8 +2042,8 @@ test("production GitHub provider wires the cap and returns incomplete evidence a
   assert.match(evidence.reason, /query cap/);
   assert.deepEqual(calls, [{
     file: sweep.TRUSTED_GH_EXECUTABLE,
-    args: ["pr", "list", "--repo", "owner/repo", "--state", "open", "--limit", "2", "--json", "number,headRefName,headRefOid"],
-    cwd: "/repo",
+    args: ["api", "--hostname", "github.com", "--paginate", "--slurp", "repos/HUDongpin/MAIS-MVP/pulls?state=open&per_page=100"],
+    cwd: "/",
     timeout: sweep.COMMAND_TIMEOUT_MS,
     maxBuffer: sweep.COMMAND_MAX_BUFFER_BYTES,
     killSignal: sweep.COMMAND_KILL_SIGNAL,
@@ -1908,6 +2054,29 @@ test("production GitHub provider wires the cap and returns incomplete evidence a
   }).available, false);
 });
 
+test("production open-PR provider uses the fixed host repository and paginated pulls endpoint", () => {
+  const calls = [];
+  const evidence = sweep.readOpenPrEvidence("/attacker/repository", {
+    repositoryIdentity: sweep.APPROVED_REPOSITORY_IDENTITY,
+    execFile(file, args, options) {
+      calls.push({ file, args, cwd: options.cwd, encoding: options.encoding });
+      return Buffer.from(`[[{"number":223,"head":{"ref":"feature/x","sha":"${TARGET_HEAD_SHA}"}}]]`);
+    },
+  });
+  assert.equal(evidence.available, true);
+  assert.equal(evidence.complete, true);
+  assert.equal(evidence.openByBranch.get("feature/x"), 223);
+  assert.deepEqual(calls, [{
+    file: sweep.TRUSTED_GH_EXECUTABLE,
+    args: [
+      "api", "--hostname", "github.com", "--paginate", "--slurp",
+      "repos/HUDongpin/MAIS-MVP/pulls?state=open&per_page=100",
+    ],
+    cwd: "/",
+    encoding: null,
+  }]);
+});
+
 test("production GitHub PR lookup strips GH routing overrides and requires exact repo binding", () => {
   const result = withGitEnvironment({ GH_REPO: "attacker/other", GH_HOST: "evil.invalid" }, () => (
     sweep.readOpenPrEvidence("/repo", {
@@ -1915,10 +2084,10 @@ test("production GitHub PR lookup strips GH routing overrides and requires exact
         assert.equal(file, sweep.TRUSTED_GH_EXECUTABLE);
         assert.equal(options.env.GH_REPO, undefined);
         assert.equal(options.env.GH_HOST, undefined);
-        assert.ok(args.includes("--repo"));
-        return "[]";
+        assert.deepEqual(args, ["api", "--hostname", "github.com", "--paginate", "--slurp", "repos/HUDongpin/MAIS-MVP/pulls?state=open&per_page=100"]);
+        return Buffer.from("[[]]");
       },
-      repositoryIdentity: "owner/repo",
+      repositoryIdentity: sweep.APPROVED_REPOSITORY_IDENTITY,
     })
   ));
   assert.equal(result.available, true);
@@ -2017,7 +2186,7 @@ function authorizedApplyFixture({
     },
     readLiveMainEvidence() {
       calls.live++;
-      return { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" };
+      return { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" };
     },
     readOpenPrEvidence() {
       calls.prs++;
@@ -2061,6 +2230,13 @@ function authorizedApplyFixture({
     readActiveProcessEvidence() {
       return { available: true, active: false };
     },
+    revalidateFleetLease() {
+      return true;
+    },
+    validateReceiptBinding() {
+      return true;
+    },
+    writeCheckpoint() {},
     inspectWorktree(_registered, target, evidence) {
       calls.inspect++;
       return {
@@ -2089,6 +2265,100 @@ function authorizedApplyFixture({
   };
   return { authorization, calls, deps };
 }
+
+test("runAuthorizedApply revalidates its fleet lease and durably checkpoints around each mutation", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  const events = [];
+  const originalRemove = deps.removeWorktree;
+  deps.revalidateFleetLease = () => { events.push("lease-revalidated"); return true; };
+  deps.validateReceiptBinding = () => { events.push("receipt-revalidated"); return true; };
+  deps.writeCheckpoint = (checkpoint) => { events.push(checkpoint.phase); };
+  deps.removeWorktree = (command) => { events.push("remove"); return originalRemove(command); };
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.ok, true);
+  assert.deepEqual(events, [
+    "lease-revalidated",
+    "target-started",
+    "lease-revalidated",
+    "receipt-revalidated",
+    "remove",
+    "target-completed",
+  ]);
+  assert.equal(calls.remove.length, 1);
+
+  const blocked = authorizedApplyFixture();
+  blocked.deps.revalidateFleetLease = () => false;
+  blocked.deps.writeCheckpoint = () => assert.fail("no checkpoint may be written for an invalid lease");
+  const blockedResult = sweep.runAuthorizedApply({
+    authorization: blocked.authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, blocked.deps);
+  assert.equal(blockedResult.ok, false);
+  assert.equal(blocked.calls.remove.length, 0);
+  assert.match(blockedResult.receipt.results[0].reason, /fleet mutation lease/u);
+});
+
+test("target-started hook drift triggers a second complete revalidation with zero mutation", () => {
+  for (const mode of ["manifest", "live", "pr", "fleet", "dirty", "protected", "process", "boundary", "lease", "receipt"]) {
+    const { authorization, calls, deps } = authorizedApplyFixture();
+    let afterStarted = false;
+    const originalManifest = deps.readManifestBytes;
+    const originalLive = deps.readLiveMainEvidence;
+    const originalPr = deps.readOpenPrEvidence;
+    const originalFleet = deps.readWorktrees;
+    const originalInspect = deps.inspectWorktree;
+    deps.writeCheckpoint = (checkpoint) => { if (checkpoint.phase === "target-started") afterStarted = true; };
+    deps.readManifestBytes = () => mode === "manifest" && afterStarted
+      ? Buffer.concat([originalManifest(), Buffer.from(" ")]) : originalManifest();
+    deps.readLiveMainEvidence = () => mode === "live" && afterStarted
+      ? { available: true, sha: "f".repeat(40), source: "gh-api-git-ref" } : originalLive();
+    deps.readOpenPrEvidence = () => mode === "pr" && afterStarted
+      ? { available: true, complete: true, openByBranch: new Map([["feature/target-0", 223]]), openByHead: new Map() }
+      : originalPr();
+    deps.readWorktrees = () => mode === "fleet" && afterStarted
+      ? [...originalFleet(), { path: "/repo/.worktrees/intruder", branch: "feature/intruder", head: "e".repeat(40) }]
+      : originalFleet();
+    deps.inspectWorktree = (...args) => {
+      const current = originalInspect(...args);
+      if (mode === "dirty" && afterStarted) current.dirty = 1;
+      if (mode === "protected" && afterStarted) current.protectedHits = [{ label: "local evidence", path: ".tmp/evidence" }];
+      return current;
+    };
+    deps.readActiveProcessEvidence = () => ({ available: true, active: mode === "process" && afterStarted });
+    deps.readTargetBoundaryEvidence = () => ({
+      available: true,
+      isDirectory: true,
+      identity: { dev: "1", ino: mode === "boundary" && afterStarted ? "2" : "1" },
+    });
+    let leaseChecks = 0;
+    deps.revalidateFleetLease = () => !(mode === "lease" && ++leaseChecks > 1);
+    deps.validateReceiptBinding = () => mode !== "receipt" || !afterStarted;
+    const result = sweep.runAuthorizedApply({
+      authorization,
+      expectedLiveMainSha: LIVE_MAIN_SHA,
+      primaryRoot: "/repo",
+      upstream: "origin/main",
+      defaultBranch: "main",
+      minAgeDays: 0,
+      startedAt: "2026-08-29T00:00:00.000Z",
+    }, deps);
+    assert.equal(result.ok, false, mode);
+    assert.equal(calls.remove.length, 0, mode);
+  }
+});
 
 test("runAuthorizedApply fails closed when final target boundary evidence is missing, malformed, or throws", () => {
   for (const mode of ["missing", "malformed", "throws"]) {
@@ -2245,16 +2515,6 @@ test("decide does not let missing age evidence bypass a minimum age", () => {
   assert.match(decision.reason, /age/u);
 });
 
-test("receipt durability keeps the admitted parent descriptor through close", () => {
-  const source = readFileSync(join(process.cwd(), "scripts/sweep-merged-worktrees.mjs"), "utf8");
-  assert.match(source, /RECEIPT_PARENT_FDS/u);
-  const closeStart = source.indexOf("closeReceipt:");
-  const closeEnd = source.indexOf("removeWorktree", closeStart);
-  const closeSource = source.slice(closeStart, closeEnd);
-  assert.match(source.slice(source.indexOf("export function closeReceiptDurably"), closeStart), /parentFds\.get/u);
-  assert.doesNotMatch(closeSource, /openSync\(dirname\(path\)/u);
-});
-
 test("receipt close failure still fsyncs and closes the admitted parent exactly once", () => {
   const parentFds = new Map([[7, 8]]);
   const calls = [];
@@ -2273,6 +2533,323 @@ test("receipt close failure still fsyncs and closes the admitted parent exactly 
     closeParent() { calls.push(["double-parent-close"]); },
   }), /not owned/u);
   assert.equal(calls.some(([name]) => name.startsWith("double-")), false);
+
+  const parentCloseCalls = [];
+  const secondMap = new Map([[9, 10]]);
+  assert.throws(() => sweep.closeReceiptDurably(9, {
+    parentFds: secondMap,
+    close(handle) { parentCloseCalls.push(["close-file", handle]); },
+    fsync(handle) { parentCloseCalls.push(["fsync-parent", handle]); },
+    closeParent(handle) { parentCloseCalls.push(["close-parent", handle]); throw new Error("parent close"); },
+  }), /receipt close failed/u);
+  assert.deepEqual(parentCloseCalls, [["close-file", 9], ["fsync-parent", 10], ["close-parent", 10]]);
+  assert.equal(secondMap.has(9), false);
+});
+
+test("every receipt journal entry is written then fsynced with its admitted parent", () => {
+  const calls = [];
+  const parentFds = new Map([[7, 8]]);
+  sweep.writeReceiptDurably(7, "{\"phase\":\"started\"}\n", {
+    parentFds,
+    write(handle, text) { calls.push(["write", handle, text]); },
+    fsync(handle) { calls.push(["fsync", handle]); },
+  });
+  assert.deepEqual(calls, [
+    ["write", 7, "{\"phase\":\"started\"}\n"],
+    ["fsync", 7],
+    ["fsync", 8],
+  ]);
+  assert.equal(parentFds.get(7), 8, "durable writes retain parent ownership until terminal close");
+});
+
+test("receipt durability state rejects exact-path replacement chmod and post-write drift", () => {
+  for (const mode of ["replace-before", "chmod-before", "replace-after"]) {
+    const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-binding-")));
+    const path = join(root, "receipt.ndjson");
+    const moved = join(root, "moved.ndjson");
+    const parentFd = openSync(root, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY);
+    const fd = openSync(path, fsConstants.O_RDWR | fsConstants.O_CREAT | fsConstants.O_EXCL, 0o600);
+    const states = new Map([[fd, sweep.createReceiptDurabilityState(path, fd, parentFd)]]);
+    try {
+      if (mode === "replace-before") {
+        renameSync(path, moved);
+        writeFileSync(path, "foreign\n", { mode: 0o600 });
+      }
+      if (mode === "chmod-before") chmodSync(path, 0o644);
+      assert.throws(() => sweep.writeReceiptDurably(fd, "{\"phase\":\"started\"}\n", {
+        receiptStates: states,
+        ...(mode === "replace-after" ? {
+          afterWrite() {
+            renameSync(path, moved);
+            writeFileSync(path, "foreign\n", { mode: 0o600 });
+          },
+        } : {}),
+      }), /receipt binding|durability/u, mode);
+    } finally {
+      closeSync(fd);
+      closeSync(parentFd);
+      rmSync(root, { recursive: true, force: true });
+    }
+  }
+});
+
+test("receipt journal recovers to the last durable newline after partial and fsync failures", () => {
+  for (const failure of ["partial-write", "file-fsync", "parent-fsync"]) {
+    for (const phase of ["started", "target-started", "target-completed", "terminal"]) {
+      const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-recovery-")));
+      const path = join(root, "receipt.ndjson");
+      const parentFd = openSync(root, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY);
+      const fd = openSync(path, fsConstants.O_RDWR | fsConstants.O_CREAT | fsConstants.O_EXCL, 0o600);
+      const states = new Map([[fd, sweep.createReceiptDurabilityState(path, fd, parentFd)]]);
+      try {
+        sweep.writeReceiptDurably(fd, "{\"phase\":\"prefix\"}\n", { receiptStates: states });
+        let writes = 0;
+        assert.throws(() => sweep.writeReceiptDurably(fd, `${JSON.stringify({ phase })}\n`, {
+          receiptStates: states,
+          ...(failure === "partial-write" ? {
+            write(handle, bytes, offset, length, position) {
+              writes++;
+              if (writes === 1) {
+                writeSync(handle, bytes, offset, Math.min(5, length), position);
+                throw new Error("partial");
+              }
+              return writeSync(handle, bytes, offset, length, position);
+            },
+          } : {}),
+          ...(failure !== "partial-write" ? {
+            fsync(handle) {
+              if ((failure === "file-fsync" && handle === fd) || (failure === "parent-fsync" && handle === parentFd)) {
+                throw new Error("fsync");
+              }
+              fsyncSync(handle);
+            },
+          } : {}),
+        }), /receipt durability/u, `${failure}:${phase}`);
+        sweep.writeReceiptDurably(fd, "{\"phase\":\"recovered\"}\n", { receiptStates: states });
+        const lines = readFileSync(path, "utf8").trimEnd().split("\n").map((line) => JSON.parse(line));
+        assert.deepEqual(lines.map((entry) => entry.phase), ["prefix", "recovered"], `${failure}:${phase}`);
+      } finally {
+        closeSync(fd);
+        closeSync(parentFd);
+        rmSync(root, { recursive: true, force: true });
+      }
+    }
+  }
+});
+
+test("receipt journal permanently stops appending when truncation recovery fails", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-recovery-stop-")));
+  const path = join(root, "receipt.ndjson");
+  const parentFd = openSync(root, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY);
+  const fd = openSync(path, fsConstants.O_RDWR | fsConstants.O_CREAT | fsConstants.O_EXCL, 0o600);
+  const states = new Map([[fd, sweep.createReceiptDurabilityState(path, fd, parentFd)]]);
+  try {
+    sweep.writeReceiptDurably(fd, "{\"phase\":\"prefix\"}\n", { receiptStates: states });
+    assert.throws(() => sweep.writeReceiptDurably(fd, "{\"phase\":\"partial\"}\n", {
+      receiptStates: states,
+      write(handle, bytes, offset, length, position) {
+        writeSync(handle, bytes, offset, Math.min(4, length), position);
+        throw new Error("partial");
+      },
+    }), /receipt durability/u);
+    assert.throws(() => sweep.writeReceiptDurably(fd, "{\"phase\":\"terminal\"}\n", {
+      receiptStates: states,
+      truncate() { throw new Error("recovery failed"); },
+    }), /receipt durability/u);
+    const before = readFileSync(path);
+    assert.throws(() => sweep.writeReceiptDurably(fd, "{\"phase\":\"forbidden\"}\n", {
+      receiptStates: states,
+    }), /receipt durability/u);
+    assert.deepEqual(readFileSync(path), before);
+  } finally {
+    closeSync(fd);
+    closeSync(parentFd);
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("durable prefix digest and current parent pathname block same-inode tampering before removal", () => {
+  for (const mode of ["truncate", "append", "overwrite", "parent-replace-hardlink"]) {
+    const container = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-prefix-")));
+    const parent = join(container, "parent");
+    const movedParent = join(container, "moved-parent");
+    mkdirSync(parent);
+    const path = join(parent, "receipt.ndjson");
+    const parentFd = openSync(parent, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY);
+    const fd = openSync(path, fsConstants.O_RDWR | fsConstants.O_CREAT | fsConstants.O_EXCL, 0o600);
+    const states = new Map([[fd, sweep.createReceiptDurabilityState(path, fd, parentFd)]]);
+    const { authorization, calls, deps } = authorizedApplyFixture();
+    sweep.writeReceiptDurably(fd, "{\"phase\":\"started\"}\n", { receiptStates: states });
+    deps.writeCheckpoint = (checkpoint) => {
+      if (checkpoint.phase !== "target-started") return;
+      if (mode === "truncate") truncateSync(path, 0);
+      if (mode === "append") writeFileSync(path, "x", { flag: "a" });
+      if (mode === "overwrite") writeSync(fd, Buffer.from("X"), 0, 1, 0);
+      if (mode === "parent-replace-hardlink") {
+        renameSync(parent, movedParent);
+        mkdirSync(parent);
+        linkSync(join(movedParent, "receipt.ndjson"), path);
+      }
+    };
+    deps.validateReceiptBinding = () => {
+      try { return sweep.validateReceiptDurability(fd, { receiptStates: states }); }
+      catch { return false; }
+    };
+    try {
+      const result = sweep.runAuthorizedApply({
+        authorization,
+        expectedLiveMainSha: LIVE_MAIN_SHA,
+        primaryRoot: "/repo",
+        upstream: "origin/main",
+        defaultBranch: "main",
+        minAgeDays: 0,
+        startedAt: "2026-08-29T00:00:00.000Z",
+      }, deps);
+      assert.equal(result.ok, false, mode);
+      assert.equal(calls.remove.length, 0, mode);
+    } finally {
+      closeSync(fd);
+      closeSync(parentFd);
+      rmSync(container, { recursive: true, force: true });
+    }
+  }
+
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-receipt-nonempty-")));
+  const path = join(root, "receipt.ndjson");
+  writeFileSync(path, "x", { mode: 0o600 });
+  const parentFd = openSync(root, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY);
+  const fd = openSync(path, fsConstants.O_RDWR);
+  try {
+    assert.throws(() => sweep.createReceiptDurabilityState(path, fd, parentFd), /receipt binding/u);
+  } finally {
+    closeSync(fd);
+    closeSync(parentFd);
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("fleet mutation lease identity binds the exact repository manifest and ordered targets", () => {
+  const manifest = applyManifest(2);
+  const baseIdentity = sweep.createFleetLeaseIdentity({
+    repositoryTuple: TEST_REPOSITORY_TUPLE,
+    manifestSha256: "8".repeat(64),
+    targets: manifest.targets,
+  });
+  assert.match(baseIdentity, /^[0-9a-f]{64}$/u);
+  assert.notEqual(baseIdentity, sweep.createFleetLeaseIdentity({
+    repositoryTuple: { ...TEST_REPOSITORY_TUPLE, remoteIdentity: "attacker/repo" },
+    manifestSha256: "8".repeat(64),
+    targets: manifest.targets,
+  }));
+  assert.notEqual(baseIdentity, sweep.createFleetLeaseIdentity({
+    repositoryTuple: TEST_REPOSITORY_TUPLE,
+    manifestSha256: "9".repeat(64),
+    targets: manifest.targets,
+  }));
+  assert.notEqual(baseIdentity, sweep.createFleetLeaseIdentity({
+    repositoryTuple: TEST_REPOSITORY_TUPLE,
+    manifestSha256: "8".repeat(64),
+    targets: [...manifest.targets].reverse(),
+  }));
+});
+
+test("fleet mutation lease uses O_EXCL and only removes the still-owned exact lease", () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-fleet-lease-")));
+  const path = join(root, "sweep-merged-worktrees.mutation-lease.json");
+  const identity = "a".repeat(64);
+  try {
+    const lease = sweep.acquireFleetMutationLease(path, identity, { holderToken: "holder-one" });
+    assert.equal(sweep.revalidateFleetMutationLease(lease, identity), true);
+    assert.throws(
+      () => sweep.acquireFleetMutationLease(path, identity, { holderToken: "holder-two" }),
+      /lease unavailable/u,
+    );
+    assert.deepEqual(sweep.releaseFleetMutationLease(lease, identity), { released: true, phase: "released" });
+    assert.equal(existsSync(path), false);
+
+    const changed = sweep.acquireFleetMutationLease(path, identity, { holderToken: "holder-three" });
+    writeFileSync(path, "{}\n");
+    assert.equal(sweep.revalidateFleetMutationLease(changed, identity), false);
+    assert.deepEqual(sweep.releaseFleetMutationLease(changed, identity), { released: false, phase: "identity-revalidation" });
+    assert.equal(existsSync(path), true, "identity drift must leave the foreign or damaged lease in place");
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("fleet mutation lease reports the exact unlink fsync and descriptor-close failure phase", () => {
+  for (const expectedPhase of ["unlink", "parent-fsync", "lease-fd-close", "parent-fd-close"]) {
+    const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-fleet-release-phase-")));
+    const path = join(root, "sweep-merged-worktrees.mutation-lease.json");
+    const lease = sweep.acquireFleetMutationLease(path, "b".repeat(64), { holderToken: expectedPhase });
+    let closeCalls = 0;
+    try {
+      const result = sweep.releaseFleetMutationLease(lease, "b".repeat(64), {
+        unlink(target) {
+          if (expectedPhase === "unlink") throw new Error("unlink");
+          rmSync(target);
+        },
+        fsync(handle) {
+          if (expectedPhase === "parent-fsync" && handle === lease.parentFd) throw new Error("fsync");
+          fsyncSync(handle);
+        },
+        close(handle) {
+          closeCalls++;
+          if (expectedPhase === "lease-fd-close" && closeCalls === 1) throw new Error("close");
+          if (expectedPhase === "parent-fd-close" && closeCalls === 2) throw new Error("close");
+          closeSync(handle);
+        },
+      });
+      assert.deepEqual(result, { released: false, phase: expectedPhase });
+    } finally {
+      try { closeSync(lease.fd); } catch { /* already closed */ }
+      try { closeSync(lease.parentFd); } catch { /* already closed */ }
+      rmSync(root, { recursive: true, force: true });
+    }
+  }
+});
+
+test("fleet lease rejects parent path hardlink chmod and final pre-unlink replacement", () => {
+  for (const mode of ["parent-replace", "hardlink", "chmod"]) {
+    const container = realpathSync(mkdtempSync(join(tmpdir(), "lease-binding-")));
+    const parent = join(container, "parent");
+    const moved = join(container, "moved");
+    mkdirSync(parent);
+    const path = join(parent, "lease.json");
+    const lease = sweep.acquireFleetMutationLease(path, "c".repeat(64), { holderToken: mode });
+    try {
+      if (mode === "parent-replace") { renameSync(parent, moved); mkdirSync(parent); linkSync(join(moved, "lease.json"), path); }
+      if (mode === "hardlink") linkSync(path, join(parent, "extra-link"));
+      if (mode === "chmod") chmodSync(path, 0o644);
+      assert.equal(sweep.revalidateFleetMutationLease(lease, "c".repeat(64)), false, mode);
+    } finally {
+      sweep.releaseFleetMutationLease(lease, "c".repeat(64));
+      rmSync(container, { recursive: true, force: true });
+    }
+  }
+
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "lease-pre-unlink-")));
+  const path = join(root, "lease.json");
+  const foreign = "foreign\n";
+  const lease = sweep.acquireFleetMutationLease(path, "d".repeat(64), { holderToken: "replace" });
+  try {
+    const outcome = sweep.releaseFleetMutationLease(lease, "d".repeat(64), {
+      beforeFinalUnlink() { renameSync(path, `${path}.owned`); writeFileSync(path, foreign, { mode: 0o600 }); },
+    });
+    assert.deepEqual(outcome, { released: false, phase: "bounded-pre-unlink-validation" });
+    assert.equal(readFileSync(path, "utf8"), foreign);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test("fleet lease acquisition rejects parent replacement after descriptor open", () => {
+  const container = realpathSync(mkdtempSync(join(tmpdir(), "lease-acquire-parent-")));
+  const parent = join(container, "parent");
+  const moved = join(container, "moved");
+  mkdirSync(parent);
+  try {
+    assert.throws(() => sweep.acquireFleetMutationLease(join(parent, "lease.json"), "e".repeat(64), {
+      holderToken: "parent-race",
+      afterParentOpen() { renameSync(parent, moved); mkdirSync(parent); },
+    }), /lease unavailable/u);
+  } finally { rmSync(container, { recursive: true, force: true }); }
 });
 
 function cliProvidersFixture({
@@ -2287,6 +2864,8 @@ function cliProvidersFixture({
   prEvidenceIncomplete = false,
   topologyProviderFails = false,
   dirtyTarget = false,
+  leaseAcquireFails = false,
+  leaseReleaseFails = false,
 } = {}) {
   const topology = {
     path: "/repo/.worktrees/target-0",
@@ -2312,6 +2891,9 @@ function cliProvidersFixture({
   let removed = false;
   let topologyReadsAfterRemoval = 0;
   let receiptText = null;
+  const receiptWrites = [];
+  const receiptRawWrites = [];
+  const mutationEvents = [];
   const calls = {
     live: 0,
     prs: 0,
@@ -2325,6 +2907,9 @@ function cliProvidersFixture({
     logs: [],
     errors: [],
     now: 0,
+    leaseAcquire: 0,
+    leaseRevalidate: 0,
+    leaseRelease: 0,
   };
   const providers = {
     resolvePrimaryRoot: () => "/repo",
@@ -2332,7 +2917,7 @@ function cliProvidersFixture({
       calls.live++;
       return liveEvidenceFails
         ? { available: false, sha: null, source: null }
-        : { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" };
+        : { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" };
     },
     readOpenPrEvidence() {
       calls.prs++;
@@ -2429,10 +3014,38 @@ function cliProvidersFixture({
       assert.equal(path, receiptPath);
       return { receipt: true };
     },
+    acquireFleetMutationLease(definition) {
+      calls.leaseAcquire++;
+      mutationEvents.push("lease-acquired");
+      if (leaseAcquireFails) throw new Error("simulated competing holder");
+      return { lease: true, identity: definition.identity };
+    },
+    revalidateFleetMutationLease(lease, identity) {
+      calls.leaseRevalidate++;
+      assert.deepEqual(lease, { lease: true, identity });
+      mutationEvents.push("lease-revalidated");
+      return true;
+    },
+    validateReceiptDurability() {
+      mutationEvents.push("receipt-revalidated");
+      return true;
+    },
+    releaseFleetMutationLease(lease, identity) {
+      calls.leaseRelease++;
+      assert.deepEqual(lease, { lease: true, identity });
+      mutationEvents.push("lease-released");
+      return leaseReleaseFails
+        ? { released: false, phase: "parent-fsync" }
+        : { released: true, phase: "released" };
+    },
     writeReceipt(handle, text) {
       calls.write++;
       assert.deepEqual(handle, { receipt: true });
       receiptText = text;
+      receiptRawWrites.push(text);
+      const parsed = JSON.parse(text);
+      receiptWrites.push(parsed);
+      mutationEvents.push(`receipt-${parsed.phase ?? "terminal"}`);
     },
     closeReceipt(handle) {
       calls.close++;
@@ -2440,6 +3053,7 @@ function cliProvidersFixture({
     },
     removeWorktree(command) {
       calls.remove.push(command);
+      mutationEvents.push("remove");
       removed = true;
       registered = [];
       return { ok: true };
@@ -2466,6 +3080,9 @@ function cliProvidersFixture({
     calls,
     authorizationInput,
     manifestPath,
+    receiptWrites,
+    receiptRawWrites,
+    mutationEvents,
     getReceipt: () => receiptText ? JSON.parse(receiptText) : null,
   };
 }
@@ -2481,6 +3098,223 @@ test("main defaults to dry-run and exercises injected live providers without mut
   assert.equal(calls.manifest, 0);
   assert.equal(calls.reserve, 0);
   assert.equal(calls.remove.length, 0);
+});
+
+test("main durably writes started and per-target receipts before terminal and releases its exact lease", () => {
+  const { argv, providers, calls, receiptWrites, receiptRawWrites, mutationEvents } = cliProvidersFixture();
+  assert.equal(sweep.main(argv, providers), 0);
+  assert.equal(calls.leaseAcquire, 1);
+  assert.equal(calls.leaseRevalidate, 2);
+  assert.equal(calls.leaseRelease, 1);
+  assert.deepEqual(receiptWrites.map((entry) => entry.phase ?? "terminal"), [
+    "started",
+    "target-started",
+    "target-completed",
+    "terminal",
+  ]);
+  assert.equal(receiptRawWrites.every((entry) => (
+    entry.endsWith("\n") && !entry.slice(0, -1).includes("\n")
+  )), true, "each durable journal event must be one recoverable NDJSON record");
+  assert.ok(mutationEvents.indexOf("receipt-started") < mutationEvents.indexOf("remove"));
+  assert.ok(mutationEvents.indexOf("lease-revalidated") < mutationEvents.indexOf("remove"));
+  assert.ok(mutationEvents.indexOf("receipt-target-started") < mutationEvents.indexOf("remove"));
+  assert.ok(mutationEvents.indexOf("remove") < mutationEvents.indexOf("receipt-target-completed"));
+  assert.ok(mutationEvents.indexOf("lease-released") < mutationEvents.indexOf("receipt-terminal"));
+  assert.deepEqual(receiptWrites.at(-1).leaseRelease, { released: true, phase: "released" });
+});
+
+test("the sole authoritative terminal records a failed lease release as blocked", () => {
+  const { argv, providers, calls, receiptWrites, mutationEvents } = cliProvidersFixture({ leaseReleaseFails: true });
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(receiptWrites.filter((entry) => entry.phase === "terminal").length, 1);
+  const terminal = receiptWrites.at(-1);
+  assert.equal(terminal.phase, "terminal");
+  assert.deepEqual(terminal.leaseRelease, { released: false, phase: "parent-fsync" });
+  assert.equal(terminal.batchOutcome.status, "blocked");
+  assert.match(terminal.batchOutcome.reason, /lease release failed at parent-fsync/u);
+  assert.ok(mutationEvents.indexOf("lease-released") < mutationEvents.indexOf("receipt-terminal"));
+  assert.equal(calls.close, 1);
+});
+
+test("main lifecycle keeps terminal lease and close outcomes consistent", () => {
+  for (const mode of ["started-write", "release-throws", "terminal-write", "receipt-close", "parent-close"]) {
+    const fixture = cliProvidersFixture();
+    const records = [];
+    const originalWrite = fixture.providers.writeReceipt;
+    fixture.providers.writeReceipt = (handle, text) => {
+      const record = JSON.parse(text);
+      if (mode === "started-write" && record.phase === "started") throw new Error("started write");
+      if (mode === "terminal-write" && record.phase === "terminal") throw new Error("terminal write");
+      records.push(record);
+      return originalWrite(handle, text);
+    };
+    if (mode === "release-throws") fixture.providers.releaseFleetMutationLease = () => { throw new Error("release"); };
+    if (mode === "receipt-close" || mode === "parent-close") fixture.providers.closeReceipt = () => { throw new Error(mode); };
+    const code = sweep.main(fixture.argv, fixture.providers);
+    if (mode === "receipt-close" || mode === "parent-close") assert.equal(code, 0, mode);
+    else assert.equal(code, 1, mode);
+    if (mode === "started-write") assert.equal(fixture.calls.remove.length, 0);
+    if (mode !== "terminal-write") assert.equal(records.filter((record) => record.phase === "terminal").length, 1, mode);
+    if (mode === "release-throws") {
+      assert.deepEqual(records.at(-1).leaseRelease, { released: false, phase: "exception" });
+      assert.equal(records.at(-1).batchOutcome.status, "blocked");
+    }
+  }
+});
+
+test("main normalizes started-failure lease outcomes and reports terminal availability stably", () => {
+  const cases = [
+    ["false", false, "invalid-provider-result", true, false],
+    ["primitive", "released", "invalid-provider-result", true, false],
+    ["missing", undefined, "invalid-provider-result", true, false],
+    ["wrong-phase", { released: true, phase: "unlink" }, "invalid-provider-result", true, false],
+    ["throws", null, "exception", true, false],
+    ["false-close", { released: false, phase: "parent-fsync" }, "parent-fsync", true, true],
+    ["terminal-unavailable", { released: false, phase: "parent-fsync" }, null, false, false],
+    ["terminal-unavailable-close", { released: false, phase: "parent-fsync" }, null, false, true],
+  ];
+  for (const [label, releaseResult, expectedPhase, terminalExpected, closeFails] of cases) {
+    const fixture = cliProvidersFixture();
+    const records = [];
+    fixture.providers.writeReceipt = (_handle, text) => {
+      const record = JSON.parse(text);
+      if (record.phase === "started" || (label.startsWith("terminal-unavailable") && record.phase === "terminal")) {
+        throw new Error("write failure");
+      }
+      records.push(record);
+    };
+    fixture.providers.releaseFleetMutationLease = () => {
+      if (label === "throws") throw new Error("release");
+      return releaseResult;
+    };
+    if (closeFails) fixture.providers.closeReceipt = () => { throw new Error("close"); };
+    assert.equal(sweep.main(fixture.argv, fixture.providers), 1, label);
+    assert.equal(fixture.calls.remove.length, 0, label);
+    const terminals = records.filter((record) => record.phase === "terminal");
+    assert.equal(terminals.length, terminalExpected ? 1 : 0, label);
+    if (terminalExpected) {
+      assert.equal(terminals[0].leaseRelease.phase, expectedPhase, label);
+      assert.equal(terminals[0].batchOutcome.status, "blocked", label);
+    } else {
+      assert.match(fixture.calls.errors.join("\n"), /terminal unavailable; lease may remain=true/u, label);
+    }
+    if (closeFails) assert.match(fixture.calls.errors.join("\n"), /cleanup warning|descriptor close/u, label);
+  }
+});
+
+test("lease-acquire terminal remains authoritative across distinct receipt close failures", () => {
+  for (const phase of ["receipt-file-close", "receipt-parent-close"]) {
+    const fixture = cliProvidersFixture({ leaseAcquireFails: true });
+    fixture.providers.closeReceipt = () => { throw new Error(phase); };
+    assert.equal(sweep.main(fixture.argv, fixture.providers), 1, phase);
+    assert.equal(fixture.receiptWrites.filter((record) => record.phase === "terminal").length, 1, phase);
+    assert.doesNotMatch(fixture.calls.errors.join("\n"), /durable receipt write failed/u, phase);
+    assert.match(fixture.calls.errors.join("\n"), /cleanup warning|descriptor close/u, phase);
+  }
+});
+
+test("main leaves a durable terminal audit record when the fleet lease is unavailable", () => {
+  const { argv, providers, calls, receiptWrites } = cliProvidersFixture({ leaseAcquireFails: true });
+  assert.equal(sweep.main(argv, providers), 1);
+  assert.equal(calls.leaseAcquire, 1);
+  assert.equal(calls.leaseRevalidate, 0);
+  assert.equal(calls.leaseRelease, 0);
+  assert.equal(calls.remove.length, 0);
+  assert.equal(calls.close, 1);
+  assert.equal(receiptWrites.length, 1);
+  assert.equal(receiptWrites[0].phase, "terminal");
+  assert.equal(receiptWrites[0].batchOutcome.status, "blocked");
+  assert.match(receiptWrites[0].batchOutcome.reason, /fleet mutation lease unavailable/u);
+});
+
+test("lease acquisition exception conservatively reports and preserves a possible residual", () => {
+  for (const terminalFails of [false, true]) {
+    const root = realpathSync(mkdtempSync(join(tmpdir(), "lease-acquire-uncertain-")));
+    const uncertainLease = join(root, "lease.json");
+    const fixture = cliProvidersFixture();
+    const records = [];
+    fixture.providers.acquireFleetMutationLease = () => {
+      writeFileSync(uncertainLease, "uncertain\n", { mode: 0o600 });
+      throw new Error("untyped post-create failure");
+    };
+    fixture.providers.writeReceipt = (_handle, text) => {
+      const record = JSON.parse(text);
+      if (terminalFails && record.phase === "terminal") throw new Error("terminal failed");
+      records.push(record);
+    };
+    try {
+      assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+      assert.equal(fixture.calls.remove.length, 0);
+      assert.equal(existsSync(uncertainLease), true);
+      if (terminalFails) {
+        assert.equal(records.filter((record) => record.phase === "terminal").length, 0);
+        assert.match(fixture.calls.errors.join("\n"), /terminal unavailable; lease may remain=true/u);
+      } else {
+        const terminal = records.find((record) => record.phase === "terminal");
+        assert.deepEqual(terminal.leaseRelease, {
+          released: false,
+          phase: "acquire-uncertain",
+          leaseMayRemain: true,
+        });
+        assert.equal(terminal.batchOutcome.status, "blocked");
+      }
+    } finally { rmSync(root, { recursive: true, force: true }); }
+  }
+});
+
+test("typed pre-create acquisition failure retains not-acquired semantics", () => {
+  const fixture = cliProvidersFixture();
+  fixture.providers.acquireFleetMutationLease = () => {
+    throw sweep.createFleetLeaseAcquisitionError("not-acquired", false);
+  };
+  assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+  assert.deepEqual(fixture.receiptWrites.at(-1).leaseRelease, {
+    released: false,
+    phase: "not-acquired",
+    leaseMayRemain: false,
+  });
+});
+
+test("top-level dry-run message and exit require the complete trusted evidence predicates", () => {
+  const liveCases = [
+    { available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" },
+    { available: true, sha: "broken", source: "gh-api-git-ref" },
+  ];
+  for (const liveEvidence of liveCases) {
+    const { providers, calls } = cliProvidersFixture();
+    providers.readLiveMainEvidence = () => liveEvidence;
+    assert.equal(sweep.main([], providers), 1);
+    assert.match(calls.logs.join("\n"), /BLOCKED: live remote-main evidence unavailable/u);
+    assert.equal(calls.remove.length, 0);
+  }
+
+  const { providers, calls } = cliProvidersFixture();
+  providers.readOpenPrEvidence = () => ({
+    available: true,
+    complete: true,
+    openByBranch: {},
+    openByHead: {},
+  });
+  assert.equal(sweep.main([], providers), 1);
+  assert.match(calls.logs.join("\n"), /BLOCKED: live GitHub PR evidence unavailable or incomplete/u);
+  assert.equal(calls.remove.length, 0);
+
+  const jsonFixture = cliProvidersFixture();
+  jsonFixture.providers.readLiveMainEvidence = () => ({
+    available: true,
+    sha: LIVE_MAIN_SHA,
+    source: "git-ls-remote",
+  });
+  jsonFixture.providers.readOpenPrEvidence = () => ({
+    available: true,
+    complete: true,
+    openByBranch: {},
+    openByHead: {},
+  });
+  assert.equal(sweep.main(["--json"], jsonFixture.providers), 1);
+  const jsonOutput = JSON.parse(jsonFixture.calls.logs.at(-1));
+  assert.equal(jsonOutput.liveMainEvidenceTrusted, false);
+  assert.equal(jsonOutput.githubPrEvidenceAvailable, false);
 });
 
 test("main fails closed on an initial clock failure before manifest or mutation paths", () => {
@@ -2634,7 +3468,7 @@ test("main wires manifest authorization, receipt IO, lstat evidence, and injecte
   assert.ok(calls.prs >= 3);
   assert.ok(calls.manifest >= 3);
   assert.equal(calls.reserve, 1);
-  assert.equal(calls.write, 1);
+  assert.equal(calls.write, 4);
   assert.equal(calls.close, 1);
   assert.equal(calls.remove.length, 1);
   assert.deepEqual(calls.pathEvidence, ["/repo/.worktrees/target-0"]);
@@ -2665,7 +3499,7 @@ test("main records final topology provider failure and never reports apply succe
 test("main writes a blocked batch outcome when final topology drifts after target removal", () => {
   const { argv, providers, calls, getReceipt } = cliProvidersFixture({ delayedFleetDrift: true });
   assert.equal(sweep.main(argv, providers), 1);
-  assert.equal(calls.write, 1);
+  assert.equal(calls.write, 4);
   const receipt = getReceipt();
   assert.equal(receipt.results[0].status, "removed");
   assert.equal(receipt.batchOutcome.status, "blocked");
@@ -2715,7 +3549,7 @@ test("main closes and writes a blocked receipt when apply and completion clocks 
   });
   assert.equal(sweep.main(argv, providers), 1);
   assert.equal(calls.reserve, 1);
-  assert.equal(calls.write, 1);
+  assert.equal(calls.write, 2);
   assert.equal(calls.close, 1);
   assert.deepEqual(getReceipt().batchOutcome, {
     status: "blocked",
@@ -2749,10 +3583,10 @@ test("runAuthorizedApply revalidates all evidence immediately before its sole al
     startedAt: "2026-08-29T00:00:00.000Z",
   }, deps);
   assert.equal(result.ok, true);
-  assert.equal(calls.inspect, 2);
-  assert.equal(calls.manifest, 2);
-  assert.equal(calls.live, 3);
-  assert.equal(calls.prs, 2);
+  assert.equal(calls.inspect, 3);
+  assert.equal(calls.manifest, 3);
+  assert.equal(calls.live, 4);
+  assert.equal(calls.prs, 3);
   assert.equal(calls.remove.length, 1);
   assert.equal(calls.pathEvidence, 1);
   assert.equal(sweep.isAllowedSweepMutation(calls.remove[0].file, calls.remove[0].args), true);
@@ -2877,12 +3711,15 @@ test("runAuthorizedApply fails closed when the last removal leaves unrelated fle
   const removed = [];
   const deps = {
     readManifestBytes: () => input.manifestBytes,
-    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" }),
+    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" }),
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => registered.map((entry) => ({ ...entry })),
     readPathAbsenceEvidence: (path) => ({ available: true, absent: !presentPaths.has(path) }),
     readTargetBoundaryEvidence: () => ({ available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }),
     readActiveProcessEvidence: () => ({ available: true, active: false }),
+    revalidateFleetLease: () => true,
+    validateReceiptBinding: () => true,
+    writeCheckpoint: () => {},
     inspectWorktree: (wt, target, evidence) => ({
       ...wt,
       exists: true,
@@ -2994,7 +3831,7 @@ test("runAuthorizedApply refuses an initial fleet fingerprint drift without muta
   };
   const deps = {
     readManifestBytes: () => input.manifestBytes,
-    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" }),
+    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" }),
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => [topology, unexpected],
     readPathAbsenceEvidence: () => ({ available: true, absent: false }),
@@ -3036,12 +3873,15 @@ test("runAuthorizedApply stops the remaining batch after the first removal failu
   const removed = [];
   const deps = {
     readManifestBytes: () => input.manifestBytes,
-    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" }),
+    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" }),
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => topologies.map((entry) => ({ ...entry })),
     readPathAbsenceEvidence: () => ({ available: true, absent: false }),
     readTargetBoundaryEvidence: () => ({ available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }),
     readActiveProcessEvidence: () => ({ available: true, active: false }),
+    revalidateFleetLease: () => true,
+    validateReceiptBinding: () => true,
+    writeCheckpoint: () => {},
     inspectWorktree: (wt, target, evidence) => ({
       ...wt,
       exists: true,
@@ -3096,12 +3936,15 @@ test("runAuthorizedApply proves the first removal absent and blocks a later targ
   const removed = [];
   const deps = {
     readManifestBytes: () => input.manifestBytes,
-    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "git-ls-remote" }),
+    readLiveMainEvidence: () => ({ available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" }),
     readOpenPrEvidence: () => ({ available: true, complete: true, openByBranch: new Map(), openByHead: new Map() }),
     readWorktrees: () => registered.map((entry) => ({ ...entry })),
     readPathAbsenceEvidence: (path) => ({ available: true, absent: !presentPaths.has(path) }),
     readTargetBoundaryEvidence: () => ({ available: true, isDirectory: true, identity: { dev: "1", ino: "1" } }),
     readActiveProcessEvidence: () => ({ available: true, active: false }),
+    revalidateFleetLease: () => true,
+    validateReceiptBinding: () => true,
+    writeCheckpoint: () => {},
     inspectWorktree: (wt, target, evidence) => ({
       ...wt,
       exists: true,

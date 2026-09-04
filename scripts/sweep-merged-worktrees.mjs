@@ -34,11 +34,11 @@
 //     --expected-live-main-sha <git-object-id> \
 //     --receipt /absolute/new-postflight-receipt.json
 import { execFileSync, spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import {
-  accessSync, closeSync, constants as fsConstants, existsSync, fstatSync, fsyncSync, lstatSync, openSync,
+  accessSync, closeSync, constants as fsConstants, existsSync, fstatSync, fsyncSync, ftruncateSync, lstatSync, openSync,
   readSync, realpathSync,
-  writeFileSync,
+  unlinkSync, writeFileSync, writeSync,
 } from "node:fs";
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -57,11 +57,16 @@ export const TRUSTED_GH_EXECUTABLE = "/opt/homebrew/bin/gh";
 export const TRUSTED_LSOF_EXECUTABLE = "/usr/sbin/lsof";
 export const APPROVED_REPOSITORY_IDENTITY = "HUDongpin/MAIS-MVP";
 export const APPROVED_REPOSITORY_URL = "https://github.com/HUDongpin/MAIS-MVP.git";
+export const LIVE_REMOTE_HEAD_SOURCES = Object.freeze(["gh-api-git-ref"]);
+export const GITHUB_JSON_LIMITS = PROMOTION_WORKFLOW_JSON_LIMITS;
+export const GITHUB_JSON_WORK_LIMIT = 1024 * 1024;
 export const MAX_MANIFEST_BYTES = PROMOTION_WORKFLOW_JSON_LIMITS.maxBytes;
 export const COMMAND_TIMEOUT_MS = 60_000;
 export const COMMAND_MAX_BUFFER_BYTES = 8 * 1024 * 1024;
 export const COMMAND_KILL_SIGNAL = "SIGKILL";
+export function isSupportedSweepPlatform(platform = process.platform) { return platform === "darwin"; }
 const MAX_GITDIR_FILE_BYTES = 4096;
+const MAX_FLEET_LEASE_BYTES = 64 * 1024;
 export function sha256Text(value) {
   return createHash("sha256").update(value).digest("hex");
 }
@@ -93,6 +98,23 @@ function executeGit(execFile, args, options = {}) {
   return execFile(TRUSTED_GIT_EXECUTABLE, noOptionalLocks(args), {
     ...options,
     env: sanitizedGitEnvironment(options.env ?? process.env),
+    timeout: COMMAND_TIMEOUT_MS,
+    maxBuffer: COMMAND_MAX_BUFFER_BYTES,
+    killSignal: COMMAND_KILL_SIGNAL,
+  });
+}
+
+function sanitizedGitHubEnvironment(source = process.env) {
+  const environment = sanitizedGitEnvironment(source);
+  delete environment.GH_REPO;
+  delete environment.GH_HOST;
+  return environment;
+}
+
+function executeGitHub(execFile, args, options = {}) {
+  return execFile(TRUSTED_GH_EXECUTABLE, args, {
+    ...options,
+    env: sanitizedGitHubEnvironment(options.env ?? process.env),
     timeout: COMMAND_TIMEOUT_MS,
     maxBuffer: COMMAND_MAX_BUFFER_BYTES,
     killSignal: COMMAND_KILL_SIGNAL,
@@ -230,9 +252,59 @@ export function parseLiveRemoteHead(stdout, branch) {
   return { available: true, sha: records[0][0], source: "git-ls-remote" };
 }
 
+function parseStrictGitHubJson(raw) {
+  const bytes = raw instanceof Uint8Array
+    ? raw
+    : Buffer.from(String(raw ?? ""), "utf8");
+  let work = bytes.byteLength;
+  for (const byte of bytes) {
+    if (byte === 0x5c || byte === 0x7b || byte === 0x7d || byte === 0x5b || byte === 0x5d) work += 4;
+    if (work > GITHUB_JSON_WORK_LIMIT) throw new Error("GitHub JSON work budget exceeded");
+  }
+  return parsePromotionWorkflowJsonBytes(bytes);
+}
+
+export function parseGitHubExactRef(stdout, branch) {
+  const expectedRef = `refs/heads/${branch}`;
+  let record;
+  try { record = parseStrictGitHubJson(stdout); }
+  catch {
+    return { available: false, sha: null, source: null };
+  }
+  if (
+    record === null
+    || typeof record !== "object"
+    || Array.isArray(record)
+    || record.ref !== expectedRef
+    || record.object?.type !== "commit"
+    || !OBJECT_ID_PATTERN.test(record.object?.sha ?? "")
+  ) {
+    return { available: false, sha: null, source: null };
+  }
+  return { available: true, sha: record.object.sha, source: "gh-api-git-ref" };
+}
+
+export function isAcceptedLiveMainEvidence(evidence) {
+  return Boolean(
+    evidence?.available
+    && typeof evidence?.sha === "string"
+    && OBJECT_ID_PATTERN.test(evidence.sha)
+    && LIVE_REMOTE_HEAD_SOURCES.includes(evidence.source),
+  );
+}
+
+export function isTrustedOpenPrEvidence(evidence) {
+  return Boolean(
+    evidence?.available === true
+    && evidence.complete === true
+    && evidence.openByBranch instanceof Map
+    && evidence.openByHead instanceof Map,
+  );
+}
+
 export function parseOpenPrEvidence(raw, { queryLimit = null } = {}) {
-  let records;
-  try { records = JSON.parse(raw); }
+  let payload;
+  try { payload = parseStrictGitHubJson(raw); }
   catch {
     return {
       available: false,
@@ -242,16 +314,33 @@ export function parseOpenPrEvidence(raw, { queryLimit = null } = {}) {
       openByHead: new Map(),
     };
   }
-  if (
-    !Array.isArray(records)
-    || records.some((record) => (
-      !Number.isInteger(record?.number)
-      || record.number < 1
-      || typeof record.headRefName !== "string"
-      || !record.headRefName
-      || !OBJECT_ID_PATTERN.test(record.headRefOid ?? "")
-    ))
-  ) return {
+  if (!Array.isArray(payload)) return {
+    available: false,
+    complete: false,
+    reason: "GitHub PR evidence is malformed",
+    openByBranch: new Map(),
+    openByHead: new Map(),
+  };
+  const paginated = payload.length > 0 && payload.every((page) => Array.isArray(page));
+  if (payload.some((page) => Array.isArray(page)) && !paginated) return {
+    available: false,
+    complete: false,
+    reason: "GitHub PR evidence is malformed",
+    openByBranch: new Map(),
+    openByHead: new Map(),
+  };
+  const records = (paginated ? payload.flat() : payload).map((record) => ({
+    number: record?.number,
+    headRefName: record?.headRefName ?? record?.head?.ref,
+    headRefOid: record?.headRefOid ?? record?.head?.sha,
+  }));
+  if (records.some((record) => (
+    !Number.isInteger(record.number)
+    || record.number < 1
+    || typeof record.headRefName !== "string"
+    || !record.headRefName
+    || !OBJECT_ID_PATTERN.test(record.headRefOid ?? "")
+  ))) return {
     available: false,
     complete: false,
     reason: "GitHub PR evidence is malformed",
@@ -476,20 +565,165 @@ try {
   process.exitCode = 1;
 }
 `;
-const RECEIPT_PARENT_FDS = new Map();
+const RECEIPT_STATES = new Map();
+export const MAX_RECEIPT_BYTES = 16 * 1024 * 1024;
+
+function readReceiptPrefix(handle, size) {
+  if (!Number.isInteger(size) || size < 0 || size > MAX_RECEIPT_BYTES) throw new Error("receipt size limit exceeded");
+  const bytes = Buffer.alloc(size);
+  let offset = 0;
+  while (offset < size) {
+    const count = readSync(handle, bytes, offset, size - offset, offset);
+    if (!Number.isInteger(count) || count < 1) throw new Error("receipt prefix unavailable");
+    offset += count;
+  }
+  return bytes;
+}
+
+export function createReceiptDurabilityState(path, handle, parentFd) {
+  const file = fstatSync(handle);
+  const parent = fstatSync(parentFd);
+  const visible = lstatSync(path);
+  const parentPath = dirname(path);
+  const visibleParent = lstatSync(parentPath);
+  if (
+    !file.isFile() || !visible.isFile() || visible.isSymbolicLink()
+    || !parent.isDirectory() || !visibleParent.isDirectory() || visibleParent.isSymbolicLink()
+    || file.size !== 0 || visible.size !== 0
+    || (file.mode & 0o7777) !== 0o600 || (visible.mode & 0o7777) !== 0o600
+    || !sameNodeIdentity(nodeIdentity(file), nodeIdentity(visible))
+    || !sameNodeIdentity(nodeIdentity(parent), nodeIdentity(visibleParent))
+  ) throw new Error("receipt binding unavailable");
+  return {
+    path,
+    parentPath,
+    parentFd,
+    parentIdentity: nodeIdentity(parent),
+    fileIdentity: nodeIdentity(file),
+    mode: file.mode & 0o7777,
+    lastDurableOffset: 0,
+    durableDigest: sha256Text(Buffer.alloc(0)),
+    recoveryRequired: false,
+    appendAllowed: true,
+  };
+}
+
+function validateReceiptState(handle, state, {
+  fstat = fstatSync,
+  lstat = lstatSync,
+  expectedOffset = state?.lastDurableOffset,
+  expectedDigest = state?.durableDigest,
+  checkPrefix = true,
+} = {}) {
+  if (!state?.appendAllowed) throw new Error("receipt durability unavailable");
+  const parent = fstat(state.parentFd);
+  const file = fstat(handle);
+  const path = lstat(state.path);
+  const visibleParent = lstat(state.parentPath);
+  if (
+    !parent.isDirectory()
+    || !visibleParent.isDirectory()
+    || visibleParent.isSymbolicLink()
+    || !file.isFile()
+    || !path.isFile()
+    || path.isSymbolicLink()
+    || !sameNodeIdentity(nodeIdentity(parent), state.parentIdentity)
+    || !sameNodeIdentity(nodeIdentity(visibleParent), state.parentIdentity)
+    || !sameNodeIdentity(nodeIdentity(file), state.fileIdentity)
+    || !sameNodeIdentity(nodeIdentity(path), state.fileIdentity)
+    || (file.mode & 0o7777) !== state.mode
+    || (path.mode & 0o7777) !== state.mode
+    || (checkPrefix && file.size !== expectedOffset)
+    || (checkPrefix && path.size !== expectedOffset)
+    || (checkPrefix && expectedOffset > MAX_RECEIPT_BYTES)
+  ) throw new Error("receipt binding changed");
+  if (!checkPrefix) return Buffer.alloc(0);
+  const prefix = readReceiptPrefix(handle, expectedOffset);
+  if (sha256Text(prefix) !== expectedDigest) throw new Error("receipt durable prefix changed");
+  return prefix;
+}
+
+export function validateReceiptDurability(handle, { receiptStates = RECEIPT_STATES } = {}) {
+  const state = receiptStates.get(handle);
+  if (!state || typeof state !== "object") throw new Error("receipt binding unavailable");
+  return validateReceiptState(handle, state);
+}
+
+export function writeReceiptDurably(
+  handle,
+  text,
+  {
+    parentFds = RECEIPT_STATES,
+    receiptStates = parentFds,
+    write = writeSync,
+    fsync = fsyncSync,
+    truncate = ftruncateSync,
+    afterWrite,
+  } = {},
+) {
+  const state = receiptStates.get(handle);
+  if (typeof state === "number") {
+    write(handle, text, { encoding: "utf8" });
+    fsync(handle);
+    fsync(state);
+    return;
+  }
+  if (!state) throw new Error("receipt parent is not owned");
+  try {
+    let durablePrefix;
+    if (state.recoveryRequired) {
+      try {
+        validateReceiptState(handle, state, { checkPrefix: false });
+        truncate(handle, state.lastDurableOffset);
+        fsync(handle);
+        fsync(state.parentFd);
+        durablePrefix = validateReceiptState(handle, state);
+        state.recoveryRequired = false;
+      } catch {
+        state.appendAllowed = false;
+        throw new Error("receipt recovery failed");
+      }
+    } else durablePrefix = validateReceiptState(handle, state);
+    const bytes = Buffer.from(text, "utf8");
+    const nextOffset = state.lastDurableOffset + bytes.byteLength;
+    if (nextOffset > MAX_RECEIPT_BYTES) throw new Error("receipt size limit exceeded");
+    const nextDigest = sha256Text(Buffer.concat([durablePrefix, bytes]));
+    let written = 0;
+    while (written < bytes.byteLength) {
+      const count = write(handle, bytes, written, bytes.byteLength - written, state.lastDurableOffset + written);
+      if (!Number.isInteger(count) || count < 1) throw new Error("short write");
+      written += count;
+    }
+    afterWrite?.();
+    fsync(handle);
+    fsync(state.parentFd);
+    validateReceiptState(handle, state, { expectedOffset: nextOffset, expectedDigest: nextDigest });
+    state.lastDurableOffset = nextOffset;
+    state.durableDigest = nextDigest;
+  } catch {
+    state.recoveryRequired = true;
+    try {
+      validateReceiptState(handle, state, { checkPrefix: false });
+    } catch {
+      state.appendAllowed = false;
+    }
+    throw new Error("receipt durability failed");
+  }
+}
 
 export function closeReceiptDurably(
   handle,
   {
-    parentFds = RECEIPT_PARENT_FDS,
+    parentFds = RECEIPT_STATES,
     close = closeSync,
     fsync = fsyncSync,
     closeParent = closeSync,
   } = {},
 ) {
-  const parentFd = parentFds.get(handle);
+  const owned = parentFds.get(handle);
   parentFds.delete(handle);
-  if (parentFd === undefined) throw new Error("receipt parent is not owned");
+  if (owned === undefined) throw new Error("receipt parent is not owned");
+  const parentFd = typeof owned === "number" ? owned : owned.parentFd;
   let firstError = null;
   try { close(handle); }
   catch (error) { firstError = error; }
@@ -500,7 +734,7 @@ export function closeReceiptDurably(
   if (firstError) throw new Error("receipt close failed");
 }
 
-function reserveReceiptByBoundParent(path, { afterBoundary, spawn = spawnSync, close = closeSync } = {}) {
+function reserveReceiptByBoundParent(path, { afterBoundary, afterLeafOpen, spawn = spawnSync, close = closeSync } = {}) {
   const admission = readExternalPathEvidence(path, { kind: "receipt" });
   if (!admission.available || admission.absent !== true) throw new Error(admission.reason);
   afterBoundary?.();
@@ -556,16 +790,235 @@ function reserveReceiptByBoundParent(path, { afterBoundary, spawn = spawnSync, c
 
   let fd;
   try {
-    fd = openSync(path, fsConstants.O_WRONLY | fsConstants.O_NOFOLLOW);
+    fd = openSync(path, fsConstants.O_RDWR | fsConstants.O_NOFOLLOW);
     const opened = nodeIdentity(fstatSync(fd));
     if (!sameNodeIdentity(opened, created)) throw new Error("receipt identity changed after reservation");
+    afterLeafOpen?.();
+    const state = createReceiptDurabilityState(path, fd, parentFd);
+    RECEIPT_STATES.set(fd, state);
+    parentFd = undefined;
+    return fd;
   } catch (error) {
-    if (fd !== undefined) closeSync(fd);
+    if (fd !== undefined) {
+      try { close(fd); } catch { /* exact leaf descriptor close attempted once */ }
+      fd = undefined;
+    }
     closeAdmittedParent();
     throw error;
   }
-  RECEIPT_PARENT_FDS.set(fd, parentFd);
-  return fd;
+}
+
+const ACTIVE_FLEET_LEASES = new WeakSet();
+
+export function createFleetLeaseIdentity({ repositoryTuple, manifestSha256, targets }) {
+  return sha256Text(JSON.stringify({
+    repository: {
+      primaryRoot: repositoryTuple?.primaryRoot ?? null,
+      commonGitDir: repositoryTuple?.commonGitDir ?? null,
+      gitDir: repositoryTuple?.gitDir ?? null,
+      remoteIdentity: repositoryTuple?.remoteIdentity ?? null,
+      remoteUrl: repositoryTuple?.remoteUrl ?? null,
+    },
+    manifestSha256,
+    targets,
+  }));
+}
+
+function fleetMutationLeasePath(repositoryTuple) {
+  if (!isAbsolute(repositoryTuple?.commonGitDir ?? "") || repositoryTuple.commonGitDir.includes("\0")) {
+    throw new Error("fleet mutation lease unavailable");
+  }
+  return join(repositoryTuple.commonGitDir, "sweep-merged-worktrees.mutation-lease.json");
+}
+
+function readBoundedDescriptorFromStart(fd, maxBytes) {
+  const chunks = [];
+  let total = 0;
+  while (total <= maxBytes) {
+    const chunk = Buffer.allocUnsafe(Math.min(4096, maxBytes + 1 - total));
+    const bytesRead = readSync(fd, chunk, 0, chunk.byteLength, total);
+    if (bytesRead === 0) break;
+    chunks.push(chunk.subarray(0, bytesRead));
+    total += bytesRead;
+    if (total > maxBytes) throw new Error("fleet lease exceeds safety limit");
+  }
+  return Buffer.concat(chunks, total);
+}
+
+export function createFleetLeaseAcquisitionError(phase, leaseMayRemain) {
+  const error = new Error("fleet mutation lease unavailable");
+  error.code = "SWEEP_FLEET_LEASE_ACQUISITION";
+  error.phase = phase;
+  error.leaseMayRemain = leaseMayRemain;
+  return error;
+}
+
+function normalizeFleetLeaseAcquisitionFailure(error) {
+  if (
+    error?.code === "SWEEP_FLEET_LEASE_ACQUISITION"
+    && ((error.phase === "not-acquired" && error.leaseMayRemain === false)
+      || (error.phase === "acquire-uncertain" && error.leaseMayRemain === true))
+  ) {
+    return { released: false, phase: error.phase, leaseMayRemain: error.leaseMayRemain };
+  }
+  return { released: false, phase: "acquire-uncertain", leaseMayRemain: true };
+}
+
+export function acquireFleetMutationLease(path, identity, { holderToken = randomUUID(), afterParentOpen } = {}) {
+  if (
+    !isAbsolute(path)
+    || !SHA256_PATTERN.test(identity ?? "")
+    || typeof holderToken !== "string"
+    || !holderToken
+    || holderToken.includes("\0")
+  ) throw createFleetLeaseAcquisitionError("not-acquired", false);
+  let parentFd;
+  let fd;
+  try {
+    const parentPath = dirname(path);
+    if (realpathSync(parentPath) !== resolve(parentPath)) throw new Error();
+    const parentMetadata = lstatSync(parentPath);
+    if (parentMetadata.isSymbolicLink() || !parentMetadata.isDirectory()) throw new Error();
+    parentFd = openSync(parentPath, fsConstants.O_RDONLY | fsConstants.O_DIRECTORY | fsConstants.O_NOFOLLOW);
+    const parentIdentity = nodeIdentity(fstatSync(parentFd));
+    if (!sameNodeIdentity(parentIdentity, nodeIdentity(parentMetadata))) throw new Error();
+    afterParentOpen?.();
+    const parentAfterOpen = lstatSync(parentPath);
+    if (parentAfterOpen.isSymbolicLink() || !parentAfterOpen.isDirectory() || !sameNodeIdentity(parentIdentity, nodeIdentity(parentAfterOpen))) throw new Error();
+    fd = openSync(
+      path,
+      fsConstants.O_RDWR | fsConstants.O_CREAT | fsConstants.O_EXCL | fsConstants.O_NOFOLLOW,
+      0o600,
+    );
+    const body = Buffer.from(`${JSON.stringify({
+      schemaVersion: "sweep-merged-worktrees.fleet-mutation-lease.v1",
+      identity,
+      holderToken,
+    })}\n`, "utf8");
+    if (body.byteLength > MAX_FLEET_LEASE_BYTES) throw new Error();
+    writeFileSync(fd, body);
+    fsyncSync(fd);
+    fsyncSync(parentFd);
+    const metadata = fstatSync(fd);
+    const visible = lstatSync(path);
+    const currentParent = lstatSync(parentPath);
+    if (
+      !metadata.isFile() || !visible.isFile() || visible.isSymbolicLink()
+      || !currentParent.isDirectory() || currentParent.isSymbolicLink()
+      || !sameNodeIdentity(nodeIdentity(metadata), nodeIdentity(visible))
+      || !sameNodeIdentity(parentIdentity, nodeIdentity(currentParent))
+      || (metadata.mode & 0o7777) !== 0o600 || (visible.mode & 0o7777) !== 0o600
+      || metadata.size !== body.byteLength || visible.size !== body.byteLength
+      || metadata.nlink !== 1 || visible.nlink !== 1
+      || !readBoundedDescriptorFromStart(fd, MAX_FLEET_LEASE_BYTES).equals(body)
+    ) throw new Error();
+    const lease = {
+      path,
+      parentPath,
+      identity,
+      holderToken,
+      bytes: body,
+      fd,
+      parentFd,
+      fileIdentity: nodeIdentity(metadata),
+      parentIdentity,
+      mode: 0o600,
+      size: body.byteLength,
+      digest: sha256Text(body),
+    };
+    ACTIVE_FLEET_LEASES.add(lease);
+    return lease;
+  } catch (error) {
+    const leaseMayRemain = fd !== undefined || error?.code === "EEXIST";
+    if (fd !== undefined) try { closeSync(fd); } catch { /* best-effort descriptor close */ }
+    if (parentFd !== undefined) try { closeSync(parentFd); } catch { /* best-effort descriptor close */ }
+    throw createFleetLeaseAcquisitionError(
+      leaseMayRemain ? "acquire-uncertain" : "not-acquired",
+      leaseMayRemain,
+    );
+  }
+}
+
+export function revalidateFleetMutationLease(lease, identity) {
+  try {
+    if (!ACTIVE_FLEET_LEASES.has(lease) || lease.identity !== identity) return false;
+    const parentMetadata = fstatSync(lease.parentFd);
+    const descriptorMetadata = fstatSync(lease.fd);
+    const pathMetadata = lstatSync(lease.path);
+    const visibleParent = lstatSync(lease.parentPath);
+    if (
+      !parentMetadata.isDirectory()
+      || !visibleParent.isDirectory()
+      || visibleParent.isSymbolicLink()
+      || !descriptorMetadata.isFile()
+      || pathMetadata.isSymbolicLink()
+      || !pathMetadata.isFile()
+      || !sameNodeIdentity(nodeIdentity(parentMetadata), lease.parentIdentity)
+      || !sameNodeIdentity(nodeIdentity(visibleParent), lease.parentIdentity)
+      || !sameNodeIdentity(nodeIdentity(descriptorMetadata), lease.fileIdentity)
+      || !sameNodeIdentity(nodeIdentity(pathMetadata), lease.fileIdentity)
+      || (descriptorMetadata.mode & 0o7777) !== 0o600
+      || (pathMetadata.mode & 0o7777) !== 0o600
+      || descriptorMetadata.size !== lease.size
+      || pathMetadata.size !== lease.size
+      || descriptorMetadata.nlink !== 1
+      || pathMetadata.nlink !== 1
+    ) return false;
+    const bytes = readBoundedDescriptorFromStart(lease.fd, MAX_FLEET_LEASE_BYTES);
+    return bytes.equals(lease.bytes) && sha256Text(bytes) === lease.digest;
+  } catch {
+    return false;
+  }
+}
+
+export function releaseFleetMutationLease(
+  lease,
+  identity,
+  { unlink = unlinkSync, fsync = fsyncSync, close = closeSync, beforeFinalUnlink } = {},
+) {
+  const owned = revalidateFleetMutationLease(lease, identity);
+  let phase = owned ? "released" : "identity-revalidation";
+  if (owned) {
+    try {
+      beforeFinalUnlink?.();
+      if (!revalidateFleetMutationLease(lease, identity)) throw new Error("final validation");
+    } catch {
+      phase = "bounded-pre-unlink-validation";
+    }
+    if (phase === "released") {
+      try { unlink(lease.path); }
+      catch { phase = "unlink"; }
+    }
+    if (phase === "released") {
+      try { fsync(lease.parentFd); }
+      catch { phase = "parent-fsync"; }
+    }
+  }
+  ACTIVE_FLEET_LEASES.delete(lease);
+  try { close(lease.fd); }
+  catch { if (phase === "released") phase = "lease-fd-close"; }
+  try { close(lease.parentFd); }
+  catch { if (phase === "released") phase = "parent-fd-close"; }
+  return { released: phase === "released", phase };
+}
+
+const LEASE_RELEASE_FAILURE_PHASES = new Set([
+  "identity-revalidation", "bounded-pre-unlink-validation", "unlink", "parent-fsync",
+  "lease-fd-close", "parent-fd-close", "not-acquired",
+]);
+
+function normalizeLeaseReleaseResult(value) {
+  if (
+    value?.released === true
+    && value.phase === "released"
+    && Object.keys(value).length === 2
+  ) return { released: true, phase: "released" };
+  if (
+    value?.released === false
+    && LEASE_RELEASE_FAILURE_PHASES.has(value.phase)
+    && Object.keys(value).length === 2
+  ) return { released: false, phase: value.phase };
+  return { released: false, phase: "invalid-provider-result" };
 }
 
 /** Compare a fresh candidate snapshot against its immutable manifest lock. */
@@ -602,7 +1055,7 @@ export function isAllowedSweepMutation(file, args) {
     && args[2] === "--"
     && typeof args[3] === "string"
     && args[3].startsWith("/")
-    && !args.some((arg) => /force/i.test(arg));
+    && !args.slice(0, 3).some((arg) => /^--?force(?:=|$)/iu.test(arg));
 }
 
 const SECRET_PATH_SEGMENT = /(?:^\.env(?:\.|$)|(?:^|[\s._-])(?:all[\s._-]+api[\s._-]+keys?|api[\s._-]*keys?|secrets?|credentials?|passwords?|tokens?)(?:[\s._-]|$))/i;
@@ -729,8 +1182,7 @@ export function runAuthorizedApply({
     try { liveMainEvidence = deps.readLiveMainEvidence(); }
     catch { liveMainEvidence = { available: false, sha: null, source: null }; }
     if (
-      !liveMainEvidence?.available
-      || liveMainEvidence.source !== "git-ls-remote"
+      !isAcceptedLiveMainEvidence(liveMainEvidence)
       || liveMainEvidence.sha !== expectedLiveMainSha
     ) return { ok: false, reason: "live-main SHA drift or evidence unavailable" };
 
@@ -868,6 +1320,109 @@ export function runAuthorizedApply({
         stopRemaining(reason);
         break;
       }
+      let leaseCurrent = false;
+      try {
+        if (typeof deps.revalidateFleetLease !== "function") throw new Error("missing fleet lease");
+        leaseCurrent = deps.revalidateFleetLease() === true;
+      } catch { leaseCurrent = false; }
+      if (!leaseCurrent) {
+        const reason = "fleet mutation lease unavailable or changed";
+        results.push({
+          path: target.path,
+          branch: target.branch ?? "(detached)",
+          status: "skipped",
+          reason,
+        });
+        stopRemaining(reason);
+        break;
+      }
+      try {
+        if (typeof deps.writeCheckpoint !== "function") throw new Error("missing checkpoint writer");
+        deps.writeCheckpoint({
+          schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+          phase: "target-started",
+          targetIndex: index,
+          target: {
+            path: redactSecretLikePath(target.path),
+            branch: redactSecretLikePath(target.branch ?? "(detached)"),
+            head: target.head,
+            topologyFingerprint: target.topologyFingerprint,
+          },
+        });
+      } catch {
+        const reason = "durable target-started receipt failed";
+        results.push({
+          path: target.path,
+          branch: target.branch ?? "(detached)",
+          status: "failed",
+          reason,
+        });
+        stopRemaining(reason);
+        break;
+      }
+      const blockAfterStarted = (reason) => {
+        const blocked = {
+          path: target.path,
+          branch: target.branch ?? "(detached)",
+          status: "skipped",
+          reason,
+        };
+        results.push(blocked);
+        try {
+          deps.writeCheckpoint({
+            schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+            phase: "target-completed",
+            targetIndex: index,
+            result: {
+              ...blocked,
+              path: redactSecretLikePath(blocked.path),
+              branch: redactSecretLikePath(blocked.branch),
+            },
+          });
+        } catch {
+          batchStopReason = "durable target-completed receipt failed";
+        }
+        stopRemaining(batchStopReason ?? reason);
+      };
+      const finalValidation = inspectFresh(target);
+      if (!finalValidation.ok) {
+        blockAfterStarted(finalValidation.reason);
+        break;
+      }
+      let finalBarrier;
+      try { finalBarrier = deps.readTargetBoundaryEvidence(target.path); }
+      catch { finalBarrier = { available: false, identity: null }; }
+      if (
+        finalBarrier?.available !== true
+        || finalBarrier.isDirectory !== true
+        || !sameNodeIdentity(finalBarrier.identity, finalValidation.targetIdentity)
+      ) {
+        blockAfterStarted("target path identity barrier unavailable or changed after target-started");
+        break;
+      }
+      let finalWriterEvidence;
+      try { finalWriterEvidence = deps.readActiveProcessEvidence(target.path); }
+      catch { finalWriterEvidence = { available: false, active: null }; }
+      if (finalWriterEvidence?.available !== true || finalWriterEvidence.active !== false) {
+        blockAfterStarted(finalWriterEvidence?.active === true
+          ? "active process is using the worktree after target-started"
+          : "writer-free evidence unavailable after target-started");
+        break;
+      }
+      let finalLeaseCurrent = false;
+      try { finalLeaseCurrent = deps.revalidateFleetLease() === true; }
+      catch { finalLeaseCurrent = false; }
+      if (!finalLeaseCurrent) {
+        blockAfterStarted("fleet mutation lease unavailable or changed after target-started");
+        break;
+      }
+      let receiptCurrent = false;
+      try { receiptCurrent = deps.validateReceiptBinding() === true; }
+      catch { receiptCurrent = false; }
+      if (!receiptCurrent) {
+        blockAfterStarted("receipt binding unavailable or changed after target-started");
+        break;
+      }
       const command = buildWorktreeRemoveCommand(target.path);
       if (!isAllowedSweepMutation(command.file, command.args)) {
         results.push({
@@ -933,7 +1488,7 @@ export function runAuthorizedApply({
         }
       }
       const removedAndProved = Boolean(removal?.ok && !postRemovalReason);
-      results.push({
+      const targetResult = {
         path: target.path,
         branch: target.branch ?? "(detached)",
         status: removedAndProved ? "removed" : "failed",
@@ -941,10 +1496,29 @@ export function runAuthorizedApply({
           ? null
           : postRemovalReason ?? removal?.reason ?? "git worktree remove failed",
         ...(postRemovalEvidence ? { postRemovalEvidence } : {}),
-      });
-      if (!removedAndProved || postRemovalFleetDrift) {
+      };
+      results.push(targetResult);
+      let checkpointFailed = false;
+      try {
+        deps.writeCheckpoint({
+          schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+          phase: "target-completed",
+          targetIndex: index,
+          result: {
+            ...targetResult,
+            path: redactSecretLikePath(targetResult.path),
+            branch: redactSecretLikePath(targetResult.branch),
+            reason: redactSecretLikePath(targetResult.reason),
+          },
+        });
+      } catch {
+        checkpointFailed = true;
+      }
+      if (checkpointFailed || !removedAndProved || postRemovalFleetDrift) {
         stopRemaining(
-          postRemovalFleetDrift
+          checkpointFailed
+          ? "durable target-completed receipt failed"
+          : postRemovalFleetDrift
           ?? postRemovalReason
           ?? removal?.reason
           ?? "git worktree remove failed",
@@ -987,8 +1561,7 @@ export function runAuthorizedApply({
       ...result,
     };
   });
-  const postflightCurrent = observedLiveMain?.available
-    && observedLiveMain.source === "git-ls-remote"
+  const postflightCurrent = isAcceptedLiveMainEvidence(observedLiveMain)
     && observedLiveMain.sha === expectedLiveMainSha;
   let postflightReason = !postflightCurrent
     ? "postflight live-main evidence unavailable or drifted"
@@ -1059,8 +1632,7 @@ export function validateApplyAuthorization({
     return { ok: false, reason: `${authorizationMode} requires an independently supplied expected live-main SHA` };
   }
   if (
-    !liveMainEvidence?.available
-    || liveMainEvidence.source !== "git-ls-remote"
+    !isAcceptedLiveMainEvidence(liveMainEvidence)
     || !OBJECT_ID_PATTERN.test(liveMainEvidence.sha ?? "")
   ) return { ok: false, reason: "live remote-main evidence unavailable" };
 
@@ -1432,11 +2004,12 @@ export function readBoundWorktreeStatusEvidence(
   }
 }
 
-/** Parse `git worktree list --porcelain` into records. */
+/** Parse `git worktree list --porcelain -z` into records without path quoting. */
 export function parseWorktreeList(porcelain) {
   const out = [];
   let cur = null;
-  for (const line of porcelain.split("\n")) {
+  const separator = porcelain.includes("\0") ? "\0" : "\n";
+  for (const line of porcelain.split(separator)) {
     if (line.startsWith("worktree ")) {
       if (cur) out.push(cur);
       cur = {
@@ -1691,8 +2264,7 @@ export function decide(wt, ctx) {
   if (wt.branch && wt.branch === ctx.defaultBranch)
     return { action: "skip", reason: `checkout of the default branch (${ctx.defaultBranch})` };
   if (
-    !ctx.liveMainEvidence?.available
-    || ctx.liveMainEvidence.source !== "git-ls-remote"
+    !isAcceptedLiveMainEvidence(ctx.liveMainEvidence)
     || !ctx.liveMainEvidence.sha
   ) return { action: "skip", reason: "live remote-main evidence unavailable" };
   if (!wt.prEvidence?.available)
@@ -1752,21 +2324,17 @@ export function readLiveMainEvidence(
       || repositoryTuple.remoteIdentity !== APPROVED_REPOSITORY_IDENTITY
       || repositoryTuple.remoteUrl !== APPROVED_REPOSITORY_URL
     ) throw new Error("repository tuple unavailable");
-    const raw = executeGit(
+    const raw = executeGitHub(
       execFile,
       [
-        "-c",
-        "credential.helper=",
-        "-c",
-        "credential.helper=!/opt/homebrew/bin/gh auth git-credential",
-        "ls-remote",
-        "--heads",
-        APPROVED_REPOSITORY_URL,
-        `refs/heads/${branch}`,
+        "api",
+        "--hostname",
+        "github.com",
+        `repos/${APPROVED_REPOSITORY_IDENTITY}/git/ref/heads/${branch}`,
       ],
-      { encoding: "utf8", cwd: "/", stdio: ["ignore", "pipe", "ignore"] },
+      { encoding: null, cwd: "/", stdio: ["ignore", "pipe", "ignore"] },
     );
-    return parseLiveRemoteHead(raw, branch);
+    return parseGitHubExactRef(raw, branch);
   } catch {
     return { available: false, sha: null, source: null };
   }
@@ -1778,26 +2346,16 @@ export function readOpenPrEvidence(
   { execFile = execFileSync, queryLimit = OPEN_PR_QUERY_LIMIT, repositoryIdentity = null } = {},
 ) {
   try {
-    if (!repositoryIdentity || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/u.test(repositoryIdentity)) {
+    if (repositoryIdentity !== APPROVED_REPOSITORY_IDENTITY) {
       throw new Error("repository identity unavailable");
     }
-    const raw = execFile(
-      TRUSTED_GH_EXECUTABLE,
-      ["pr", "list", "--repo", repositoryIdentity, "--state", "open", "--limit", String(queryLimit), "--json", "number,headRefName,headRefOid"],
-      {
-        encoding: "utf8",
-        cwd,
-        stdio: ["ignore", "pipe", "ignore"],
-        timeout: COMMAND_TIMEOUT_MS,
-        maxBuffer: COMMAND_MAX_BUFFER_BYTES,
-        killSignal: COMMAND_KILL_SIGNAL,
-        env: (() => {
-          const environment = sanitizedGitEnvironment();
-          delete environment.GH_REPO;
-          delete environment.GH_HOST;
-          return environment;
-        })(),
-      },
+    const raw = executeGitHub(
+      execFile,
+      [
+        "api", "--hostname", "github.com", "--paginate", "--slurp",
+        `repos/${APPROVED_REPOSITORY_IDENTITY}/pulls?state=open&per_page=100`,
+      ],
+      { encoding: null, cwd: "/", stdio: ["ignore", "pipe", "ignore"] },
     );
     return parseOpenPrEvidence(raw, { queryLimit });
   } catch {
@@ -2017,7 +2575,7 @@ export function createRuntimeProviders() {
       if (!repositoryTupleMatches(tuple, current)) throw new Error("repository tuple drift");
       return parseWorktreeList(String(executeGit(
         execFileSync,
-        repositoryGitArgs(tuple.primaryRoot, tuple.gitDir, ["worktree", "list", "--porcelain"]),
+        repositoryGitArgs(tuple.primaryRoot, tuple.gitDir, ["worktree", "list", "--porcelain", "-z"]),
         { encoding: "utf8", cwd: tuple.primaryRoot },
       )));
     },
@@ -2030,13 +2588,16 @@ export function createRuntimeProviders() {
       repositoryTuple: context.repositoryTuple,
     }),
     reserveReceipt: (path, options) => reserveReceiptByBoundParent(path, options),
-    writeReceipt: (handle, text) => {
-      writeFileSync(handle, text, { encoding: "utf8" });
-      fsyncSync(handle);
-    },
+    writeReceipt: (handle, text) => writeReceiptDurably(handle, text),
+    validateReceiptDurability: (handle) => validateReceiptDurability(handle),
     closeReceipt: (handle, path) => {
       closeReceiptDurably(handle);
     },
+    acquireFleetMutationLease: ({ repositoryTuple, identity }) => (
+      acquireFleetMutationLease(fleetMutationLeasePath(repositoryTuple), identity)
+    ),
+    revalidateFleetMutationLease: (lease, identity) => revalidateFleetMutationLease(lease, identity),
+    releaseFleetMutationLease: (lease, identity) => releaseFleetMutationLease(lease, identity),
     removeWorktree(command, primaryRoot, repositoryTuple = null) {
       try {
         if (!repositoryTuple) throw new Error("repository tuple unavailable");
@@ -2061,6 +2622,10 @@ export function createRuntimeProviders() {
 
 export function main(argv, providers) {
   const runtime = providers ?? createRuntimeProviders();
+  if (!isSupportedSweepPlatform()) {
+    runtime.error("sweep refused: this bounded local-tool implementation requires macOS");
+    return 1;
+  }
   const args = parseSweepArgs(argv);
   if (!args.ok) {
     runtime.error(`sweep refused: ${redactSecretLikePath(args.reason)}`);
@@ -2262,7 +2827,8 @@ export function main(argv, providers) {
     runtime.log(JSON.stringify({
       upstream,
       liveMainEvidence,
-      githubPrEvidenceAvailable: prEvidence.available,
+      liveMainEvidenceTrusted: isAcceptedLiveMainEvidence(liveMainEvidence),
+      githubPrEvidenceAvailable: isTrustedOpenPrEvidence(prEvidence),
       apply: args.apply,
       authorizationMode: args.apply ? "apply" : args.manifestPreview ? "manifest-preview" : "none",
       previewReady,
@@ -2277,8 +2843,10 @@ export function main(argv, providers) {
       runtime.log(`  RETIRE  ${entry.branch}  — ${redactSecretLikePath(entry.reason)}`);
     }
     runtime.log(`\n${worktrees.length} worktrees; ${retire.length} authorized and retirable.`);
-    if (!liveMainEvidence.available) runtime.log("BLOCKED: live remote-main evidence unavailable.");
-    if (!prEvidence.available || prEvidence.complete !== true) {
+    if (!isAcceptedLiveMainEvidence(liveMainEvidence)) {
+      runtime.log("BLOCKED: live remote-main evidence unavailable.");
+    }
+    if (!isTrustedOpenPrEvidence(prEvidence)) {
       runtime.log("BLOCKED: live GitHub PR evidence unavailable or incomplete.");
     }
   }
@@ -2290,9 +2858,8 @@ export function main(argv, providers) {
         : "\ndry run only — --apply requires a byte-locked manifest and receipt path.");
     }
     return (
-      liveMainEvidence.available
-      && prEvidence.available
-      && prEvidence.complete === true
+      isAcceptedLiveMainEvidence(liveMainEvidence)
+      && isTrustedOpenPrEvidence(prEvidence)
       && (!args.manifestPreview || previewReady)
     ) ? 0 : 1;
   }
@@ -2302,6 +2869,110 @@ export function main(argv, providers) {
     receiptFd = runtime.reserveReceipt(args.receiptPath);
   } catch {
     runtime.error(`sweep refused: cannot reserve new receipt at ${redactSecretLikePath(args.receiptPath)}`);
+    return 1;
+  }
+  const writeReceiptEntry = (entry) => {
+    runtime.writeReceipt(receiptFd, `${JSON.stringify(entry)}\n`);
+  };
+
+  const leaseIdentity = createFleetLeaseIdentity({
+    repositoryTuple,
+    manifestSha256: authorization.manifestSha256,
+    targets: authorization.manifest.targets,
+  });
+  let fleetLease;
+  try {
+    if (typeof runtime.acquireFleetMutationLease !== "function") {
+      throw new Error("fleet lease provider unavailable");
+    }
+    fleetLease = runtime.acquireFleetMutationLease({
+      repositoryTuple,
+      identity: leaseIdentity,
+      manifestSha256: authorization.manifestSha256,
+      targets: authorization.manifest.targets,
+      startedAt,
+    });
+  } catch (error) {
+    const acquisitionOutcome = normalizeFleetLeaseAcquisitionFailure(error);
+    let terminalAvailable = true;
+    try {
+      const fingerprint = fingerprintFleet(worktrees);
+      writeReceiptEntry({
+        ...createPostflightReceipt({
+          manifestSha256: authorization.manifestSha256,
+          expectedLiveMainSha: args.expectedLiveMainSha,
+          observedLiveMainSha: isAcceptedLiveMainEvidence(liveMainEvidence) ? liveMainEvidence.sha : null,
+          startedAt,
+          completedAt: startedAt,
+          preTopologyFingerprint: fingerprint,
+          postTopologyFingerprint: fingerprint,
+          finalTopologyEvidence: { available: true, fingerprint },
+          batchOutcome: {
+            status: "blocked",
+            reason: acquisitionOutcome.leaseMayRemain
+              ? "fleet mutation lease unavailable; possible residual lease"
+              : "fleet mutation lease unavailable",
+          },
+          results: authorization.manifest.targets.map((target) => ({
+            path: target.path,
+            branch: target.branch ?? "(detached)",
+            status: "skipped",
+            reason: acquisitionOutcome.leaseMayRemain
+              ? "fleet mutation lease unavailable; possible residual lease"
+              : "fleet mutation lease unavailable",
+          })),
+        }),
+        phase: "terminal",
+        leaseIdentity,
+        leaseRelease: acquisitionOutcome,
+      });
+    } catch { terminalAvailable = false; }
+    try { runtime.closeReceipt(receiptFd, args.receiptPath); }
+    catch { runtime.error("sweep cleanup warning: receipt descriptor close failed after authoritative terminal"); }
+    if (!terminalAvailable) {
+      runtime.error(`sweep refused: terminal unavailable; lease may remain=${acquisitionOutcome.leaseMayRemain}`);
+    }
+    runtime.error("sweep refused: cooperative fleet mutation lease unavailable");
+    return 1;
+  }
+  try {
+    writeReceiptEntry({
+      schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+      phase: "started",
+      manifestSha256: authorization.manifestSha256,
+      expectedLiveMainSha: args.expectedLiveMainSha,
+      startedAt,
+      leaseIdentity,
+      repositoryIdentity: repositoryTuple.remoteIdentity ?? null,
+      targets: authorization.manifest.targets.map((target) => ({
+        path: redactSecretLikePath(target.path),
+        branch: redactSecretLikePath(target.branch ?? "(detached)"),
+        head: target.head,
+        topologyFingerprint: target.topologyFingerprint,
+      })),
+    });
+  } catch {
+    let release;
+    try { release = normalizeLeaseReleaseResult(runtime.releaseFleetMutationLease(fleetLease, leaseIdentity)); }
+    catch { release = { released: false, phase: "exception" }; }
+    let terminalAvailable = true;
+    try {
+      writeReceiptEntry({
+        schemaVersion: "sweep-merged-worktrees.postflight-receipt.v1",
+        phase: "terminal",
+        manifestSha256: authorization.manifestSha256,
+        startedAt,
+        completedAt: startedAt,
+        batchOutcome: { status: "blocked", reason: "durable started receipt write failed" },
+        leaseRelease: release,
+        results: [],
+      });
+    } catch { terminalAvailable = false; }
+    try { runtime.closeReceipt(receiptFd, args.receiptPath); }
+    catch { runtime.error("sweep warning: receipt descriptor close failed after durability decision"); }
+    runtime.error(terminalAvailable
+      ? "sweep refused: durable started receipt write failed"
+      : `sweep refused: terminal unavailable; lease may remain=${release.released !== true}`);
     return 1;
   }
 
@@ -2337,6 +3008,14 @@ export function main(argv, providers) {
       removeWorktree: (command) => runtime.removeWorktree(command, primaryRoot, repositoryTuple),
       now: () => runtime.now(),
       beforeMutation: () => runtime.beforeMutation?.(),
+      revalidateFleetLease: () => runtime.revalidateFleetMutationLease?.(fleetLease, leaseIdentity) === true,
+      validateReceiptBinding: () => runtime.validateReceiptDurability?.(receiptFd) === true,
+      writeCheckpoint: (checkpoint) => writeReceiptEntry({
+        ...checkpoint,
+        manifestSha256: authorization.manifestSha256,
+        expectedLiveMainSha: args.expectedLiveMainSha,
+        leaseIdentity,
+      }),
     });
   } catch {
     const batchOutcome = { status: "blocked", reason: "apply engine failed closed" };
@@ -2362,14 +3041,26 @@ export function main(argv, providers) {
       }),
     };
   }
+  let leaseRelease;
+  try {
+    leaseRelease = normalizeLeaseReleaseResult(runtime.releaseFleetMutationLease?.(fleetLease, leaseIdentity));
+  } catch {
+    leaseRelease = { released: false, phase: "exception" };
+  }
+  if (!leaseRelease.released) {
+    const reason = `lease release failed at ${leaseRelease.phase}`;
+    execution.ok = false;
+    execution.postflightReason = reason;
+    execution.receipt.batchOutcome = { status: "blocked", reason };
+  }
   let receiptDurabilityFailed = false;
   try {
-    runtime.writeReceipt(receiptFd, `${JSON.stringify(execution.receipt, null, 2)}\n`);
+    writeReceiptEntry({ ...execution.receipt, phase: "terminal", leaseIdentity, leaseRelease });
   } catch {
     receiptDurabilityFailed = true;
   } finally {
     try { runtime.closeReceipt(receiptFd, args.receiptPath); }
-    catch { receiptDurabilityFailed = true; }
+    catch { runtime.error("sweep warning: receipt descriptor close failed after authoritative terminal"); }
   }
   if (receiptDurabilityFailed) {
     runtime.error("sweep refused: durable receipt write failed");

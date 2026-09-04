@@ -486,3 +486,246 @@ evidence.
 - A final static review found that the receipt-reservation timeout test asserted inside the injected child callback. The production wrapper caught that assertion and converted it into the same fail-closed child error, so the test passed even though the production child options omitted the timeout fields.
 - RED correction: the test now captures the child options and asserts them after the expected fail-closed call returns; on the unchanged production code it failed with `actual undefined` versus the fixed `60000` millisecond ceiling.
 - GREEN: the receipt-reservation Node child now receives `COMMAND_TIMEOUT_MS`, `COMMAND_MAX_BUFFER_BYTES`, and `COMMAND_KILL_SIGNAL`, matching the protected-tree child and the other Git/GitHub/process providers. Timeout/error still closes the admitted parent descriptor and never yields a usable receipt.
+
+## U223-R4 no-helper remote-read correction (2026-09-04 HKT) — DONE, uncommitted
+
+- Resumed review on 2026-09-04 found that the prior live-main proof path
+  still depended on `git ls-remote` plus an injected
+  `gh auth git-credential` helper. That did not satisfy the current no-prompt,
+  no-helper remote-read audit requirement.
+- GREEN implementation preserves the frozen repository tuple and approved
+  `HUDongpin/MAIS-MVP` binding, but switches live-main reads to the fixed
+  command `/opt/homebrew/bin/gh api repos/HUDongpin/MAIS-MVP/git/matching-refs/heads/main`
+  from `/` under the same bounded noninteractive environment. The parser
+  accepts exactly one `refs/heads/<branch>` commit record and ignores returned
+  URL fields. No helper, credential echo, repo-config write, or prompt is
+  used.
+- Runtime acceptance now treats the historical `git-ls-remote` source tag and
+  the new `gh-api-git-matching-refs` source tag as valid live-head evidence so
+  older fixtures remain readable while new real runs prove the helper-free
+  path.
+- Verification required before commit on this resumed slice:
+  `node --test scripts/sweep-merged-worktrees.test.mjs scripts/release-build-gate.test.mjs`
+  plus an exact status readback. No commit, push, PR mutation, cleanup, ref
+  deletion, or remote write was performed during this correction.
+
+## U223-R5 exact GitHub ref and host binding (2026-09-04 HKT) — DONE, uncommitted
+
+- R4's `matching-refs/heads/main` endpoint was fail-closed but prefix-based.
+  R5 narrows the fixed provider to
+  `/opt/homebrew/bin/gh api --hostname github.com repos/HUDongpin/MAIS-MVP/git/ref/heads/main`
+  and accepts one exact GitHub ref object rather than an array of prefix
+  matches. The evidence source is now `gh-api-git-ref`.
+- RED changed only the focused test file. Five tests failed because production
+  still emitted the old endpoint/source and exposed no `parseGitHubExactRef`.
+  GREEN changed only the sweep runtime; the same five tests passed 5/5 and
+  reject arrays, wrong refs, malformed object IDs, and non-commit objects.
+- A real provider call with hostile `GH_REPO`, `GH_HOST`, `GIT_DIR`, and
+  `GIT_WORK_TREE` values returned exact live `main`
+  `be92640f4bb8933ed8a99ed7c1ea604428c6a56f` with source
+  `gh-api-git-ref`. Prompts remained disabled, stderr was suppressed, no Git
+  credential helper ran, and no token value was printed or persisted.
+- Full verification passed: sweep plus release-build tests 163/163;
+  release governance 92 runnable tests with 11 intentional skips and zero
+  failures; `git diff --check` passed. Exact status remains the same three
+  unstaged R4/R5 paths with no staged content.
+- No commit, push, PR update, workflow dispatch, merge, cleanup, worktree
+  removal, local/remote ref mutation, provider deployment, or production
+  action was performed.
+
+## U223-R6 strict live evidence, durable receipts, and cooperative lease (2026-09-04 HKT) — uncommitted
+
+- Lane: U223-R6 implementer borrowing A10/A23 tooling ownership. Work remained
+  limited to this session log plus `scripts/sweep-merged-worktrees.mjs` and its
+  focused test. Frozen branch/HEAD readback was
+  `codex/a10-a25-sweep-integration-20260902` at
+  `df21e7c971ac7d7d35f3b2f1e5699b453da8cf16` before edits.
+- Baseline: `node --test scripts/sweep-merged-worktrees.test.mjs` exited 0 with
+  156/156 passing.
+- RED 1: `node --test --test-name-pattern='porcelain -z|share fatal UTF-8|historical ls-remote|fixed host repository|complete trusted evidence predicates' scripts/sweep-merged-worktrees.test.mjs`
+  exited 1 with 0 pass / 5 fail. Each failure corresponded to the named gap:
+  newline-safe `porcelain -z`, strict bounded GitHub JSON, historical
+  ls-remote rejection for current decisions, fixed pulls API routing, and the
+  complete top-level trust predicate.
+- GREEN 1: the same focused command exited 0 with 5/5 passing. Exact-ref and
+  paginated pulls bytes now use the existing fatal-UTF-8, duplicate-key,
+  max-bytes/depth/work/nodes parser. Both providers use fixed
+  `/opt/homebrew/bin/gh api --hostname github.com` calls, `/` cwd, the frozen
+  `HUDongpin/MAIS-MVP` identity, and fixed REST endpoints. Current trust accepts
+  only `gh-api-git-ref`; historical `git-ls-remote` text remains parseable but
+  cannot authorize preview, decide, apply, mutation, or postflight currentness.
+- Compatibility audit after GREEN 1: the full focused suite exited 1 with
+  99 pass / 62 fail because historical positive fixtures still identified
+  current evidence as `git-ls-remote`. Those fixtures were migrated to
+  `gh-api-git-ref`; the explicit historical-readability fixtures were retained.
+- RED 2: `node --test --test-name-pattern='fleet mutation lease identity|fleet mutation lease uses|revalidates its fleet lease|durably writes started' scripts/sweep-merged-worktrees.test.mjs`
+  exited 1 with 0 pass / 4 fail. A separate receipt durability RED,
+  `node --test --test-name-pattern='every receipt journal entry' scripts/sweep-merged-worktrees.test.mjs`,
+  exited 1 with 0 pass / 1 fail.
+- GREEN 2: `node --test --test-name-pattern='every receipt journal entry|fleet mutation lease identity|fleet mutation lease uses|revalidates its fleet lease|durably writes started' scripts/sweep-merged-worktrees.test.mjs`
+  exited 0 with 5/5 passing. Apply now acquires one exact repo/manifest/ordered-
+  targets O_EXCL lease, revalidates its inode/content/holder identity before
+  every destructive target, and only unlinks the exact still-owned lease.
+  Identity drift leaves the lease in place. Every journal write fsyncs the
+  receipt file and its admitted parent. Ordering is durably
+  `started`, `target-started`, mutation, `target-completed`, `terminal`;
+  a crash can therefore leave an auditable pending-target state.
+- RED/GREEN raw bytes: `node --test --test-name-pattern='production live-main provider wires' scripts/sweep-merged-worktrees.test.mjs`
+  first exited 1 with 0 pass / 1 fail because exact-ref requested decoded UTF-8,
+  then exited 0 with 1/1 passing after switching the provider boundary to raw
+  bytes for fatal decoding.
+- RED/GREEN unavailable lease audit: `node --test --test-name-pattern='fleet lease is unavailable' scripts/sweep-merged-worktrees.test.mjs`
+  first exited 1 with 0 pass / 1 fail because the reserved receipt remained
+  empty, then exited 0 with 1/1 passing after a terminal blocked receipt was
+  made durable with zero mutation.
+- Regression evidence after all implementation/test changes:
+  `node --test scripts/sweep-merged-worktrees.test.mjs` exited 0 with 166/166
+  before the final lease-unavailable case was added;
+  `node --test scripts/sweep-merged-worktrees.test.mjs scripts/release-build-gate.test.mjs`
+  then exited 0 with 174/174 passing (167 sweep plus 7 release-build).
+  `npm run test:release-governance` exited 0 with 103 total: 92 pass, 11
+  intentional skips, and 0 failures.
+- This is implementation and regression evidence only. It does not establish
+  Promotion currentness, merge readiness, cleanup readiness, deployment
+  readiness, or production readiness. No real `--apply`, stage, commit, push,
+  fetch, PR/workflow action, merge, deploy, branch/ref/worktree/process removal,
+  evidence deletion/move, or shared Git configuration mutation was performed.
+- Final machine-readable predicate RED/GREEN:
+  `node --test --test-name-pattern='top-level dry-run message' scripts/sweep-merged-worktrees.test.mjs`
+  first exited 1 with 0 pass / 1 fail because JSON exposed raw PR availability
+  and no trusted live-main boolean, then exited 0 with 1/1 passing after both
+  fields were derived from the complete trusted predicates.
+- Final journal-recovery RED/GREEN:
+  `node --test --test-name-pattern='main durably writes started' scripts/sweep-merged-worktrees.test.mjs`
+  first exited 1 with 0 pass / 1 fail because each durable event was formatted
+  across multiple lines, then exited 0 with 1/1 passing after events became
+  single-line NDJSON records. A crash can leave one incomplete trailing line
+  without making prior fsynced events ambiguous.
+
+## U223-R6 independent SPEC_FAIL correction (2026-09-04 HKT) — uncommitted
+
+- This append-only correction supersedes the earlier R6 ordering claim. The
+  authoritative order is now `started`, `target-started`, a second complete
+  validation, mutation, `target-completed`, safe lease release, then exactly
+  one authoritative `terminal`. The earlier text that placed terminal before
+  lease release is historical implementation evidence, not current behavior.
+- RED: the focused SPEC matrix command matching `reachable independent work
+  budget|target-started hook drift|receipt durability state rejects|receipt
+  journal recovers|revalidates its fleet lease|sole authoritative terminal|fleet
+  mutation lease uses|main durably writes started` exited 1 with 0 pass / 8
+  fail. GREEN: the same command exited 0 with 8/8 passing.
+- After durable `target-started`, apply now reruns manifest bytes/digest/strict
+  JSON, exact GitHub live-main, exhaustive open PRs, whole-fleet fingerprint,
+  target topology/HEAD/status/dirty/protected/custody/process evidence, target
+  pathname identity, lease identity, and receipt pathname identity. Injected
+  manifest, live SHA, open PR, fleet, dirty, protected content, process,
+  target-boundary, lease, and receipt drift all produce a durable skipped
+  target completion with zero removal.
+- Receipt state now binds exact path, admitted parent descriptor dev/ino,
+  regular receipt descriptor dev/ino/type/mode, and last-known-durable byte
+  offset. Every write validates before and after. Partial write, file fsync, and
+  parent fsync failures were tested across `started`, `target-started`,
+  `target-completed`, and `terminal`; recovery truncates to the last durable
+  newline and fsyncs file plus parent before another append.
+- RED/GREEN recovery-stop command matching `permanently stops appending` first
+  exited 1 with 0 pass / 1 fail, then exited 0 with 1/1 passing. If truncation
+  recovery fails, append permission is permanently revoked for that receipt
+  state; no later terminal is blindly appended.
+- RED/GREEN lease-phase command matching `reports the exact unlink` first
+  exited 1 with 0 pass / 1 fail, then exited 0 with 1/1 passing. Lease release
+  now reports `unlink`, `parent-fsync`, `lease-fd-close`, or `parent-fd-close`.
+  Any such outcome makes the sole terminal blocked and records the exact phase.
+  A crash after successful release but before terminal leaves only checkpoints,
+  never a false-success terminal.
+- The previous inherited strict parser `maxWork=64 MiB` was not independently
+  reachable below its other ceilings. GitHub responses now also pass a 1 MiB
+  provider-specific weighted scan whose work charge exceeds raw bytes for JSON
+  containers and escapes. Exact-ref and pulls fixtures stay below byte/depth/node
+  bounds while independently exhausting this work budget.
+- Full sweep plus release-build regression after these corrections exited 0
+  with 181/181 passing (174 sweep and 7 release-build). This remains
+  implementation evidence only: no Promotion, merge, cleanup, deploy, or
+  production readiness is claimed, and no real apply or Git mutation ran.
+
+## U223-R6 second receipt SPEC_FAIL correction (2026-09-04 HKT) — uncommitted
+
+- RED command matching `durable prefix digest` exited 1 with 0 pass / 1 fail;
+  GREEN exited 0 with 1/1 passing. Same-inode truncate, append, equal-length
+  overwrite, and parent rename/replacement with a hardlink to the same receipt
+  inode now all block the post-`target-started` mutation; removal count is zero.
+  Nonempty same-inode state admission is rejected.
+- Receipt admission now requires exact visible fd/path inode, regular file,
+  mode 0600, size zero, and the retained parent descriptor matching the current
+  non-symlink directory pathname. State binds parentPath, last durable offset,
+  SHA-256 of the exact durable prefix, and a 16 MiB maximum receipt size.
+- Before append, after file+parent fsync but before advancing state, during
+  recovery, and pre-mutation, size and bounded prefix digest must match. A
+  failed append is recovered only by truncate+file fsync+parent fsync followed
+  by size/digest/path/parent validation; failed recovery permanently disables
+  append and mutation. Focused recovery/prefix tests pass 3/3.
+- This appendix changes no readiness claim. No real apply, stage, commit, push,
+  fetch, merge, deploy, worktree/ref/process/evidence removal, or Git config
+  mutation was performed.
+
+## U223-R6 independent QUALITY_FAIL correction (2026-09-04 HKT) — uncommitted
+
+- Receipt ownership transfer now admits and registers state inside one guarded
+  transfer. Admission failure closes the leaf and retained parent descriptors
+  once each and preserves an uncertain visible pathname; no absolute cleanup
+  claim is made. Chmod and parent-replacement fixtures passed RED then GREEN.
+- Fleet leases now bind current parent pathname/fd identity, leaf pathname/fd
+  identity, regular type, mode 0600, exact size/content digest, and `nlink=1`.
+  Acquisition rechecks the parent after opening it. Release performs another
+  bounded cooperative validation immediately before unlink; injected
+  replacement preserves the foreign entry. This mitigates but does not remove
+  the remaining syscall race; `absoluteRaceFree:false` remains authoritative.
+- Started-write failure attempts safe receipt recovery, safe lease release, and
+  one blocked terminal when possible. If unavailable, stable stderr reports
+  terminal unavailability and whether the lease may remain. A previously
+  durable terminal remains authoritative; later receipt/parent descriptor-close
+  errors are cleanup warnings and do not rewrite the outcome or create a second
+  terminal. Table-driven lifecycle fixtures cover started/terminal writes,
+  release throw/failure, and receipt/parent close warnings.
+- No-force policy now checks actual flag positions, so an absolute pathname such
+  as `/repo/workforce-analysis` remains valid. CLI support is explicitly
+  macOS-only and fails closed elsewhere. No readiness or absolute race-freedom
+  is claimed; no real apply or Git/release mutation was performed.
+
+## U223-R6 stable-b1702d60 lifecycle correction (2026-09-04 HKT) — uncommitted
+
+- RED focused lifecycle review: tests matching `normalizes started-failure` and
+  `lease-acquire terminal remains` exited 1 with 0 pass / 2 fail. GREEN: the
+  same command exited 0 with 2/2 passing.
+- A lease-acquire failure now distinguishes terminal append/fsync durability
+  from later receipt cleanup. Once its terminal is durable, leaf/parent close
+  failures emit only `sweep cleanup warning`; they do not report a durable
+  receipt write failure or alter the authoritative blocked terminal.
+- Started-write failure now uses the same exact release-result normalizer as the
+  normal path. Only `{released:true,phase:"released"}` or an exact recognized
+  `{released:false,phase:<failure>}` is accepted. False, primitive, missing,
+  extra-key, and mismatched results become `invalid-provider-result`; throws
+  become `exception`. Terminal-unavailable stderr records whether the lease may
+  remain. Table cases also combine started/terminal failure with close failure.
+- Source-regex descriptor self-proof was removed. Behavior tests now exercise
+  distinct receipt leaf-close and parent-close failures, lease-acquire
+  terminal+close, normalized release outcomes, terminal failure, and close
+  warning/exit consistency. This remains bounded cooperative evidence and does
+  not establish absolute race freedom or any release readiness.
+
+## U223-R6 acquire-uncertain audit correction (2026-09-04 HKT) — uncommitted
+
+- RED: tests matching `acquisition exception conservatively|typed pre-create
+  acquisition` exited 1 with 0 pass / 2 fail. An untyped post-create exception
+  was incorrectly reported as `not-acquired` with no possible residual.
+- GREEN: the same focused command exited 0 with 2/2 passing. Production lease
+  acquisition now throws a typed result: failures provably before leaf creation
+  are `not-acquired` with `leaseMayRemain:false`; failures after the leaf fd is
+  created, O_EXCL conflict, and every untyped provider exception are conservatively
+  `acquire-uncertain` with `leaseMayRemain:true`.
+- Durable-terminal and terminal-unavailable behavior fixtures create an exact
+  lease pathname and then throw. Both preserve the uncertain/foreign file and
+  perform zero worktree mutations. The durable terminal records the possible
+  residual; terminal-unavailable stderr reports `lease may remain=true`.
+- No uncertain lease is unlinked. This is bounded fail-closed audit semantics,
+  not an absolute race-freedom or readiness claim. No real apply or Git/release
+  mutation was performed.
