@@ -1195,7 +1195,9 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     throw new Error("Artifact directory changed between admission and lock creation.");
   }
   let lockOwned = false;
+  let lockHandle;
   let lockStats;
+  let lockFdStats;
   let temporaryPath;
   let temporaryStats;
   let temporaryFingerprint;
@@ -1210,16 +1212,34 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
   };
 
   const assertLockStable = async (phase) => {
-    const current = await fs.lstat(lockPath).catch(() => null);
+    const currentPathStats = await fs.lstat(lockPath).catch(() => null);
+    const currentFdStats = lockHandle
+      ? await lockHandle.stat().catch(() => null)
+      : null;
+    const isSafeLockDirectory = (stats) => (
+      stats?.isDirectory() === true &&
+      (stats.mode & 0o170000) === 0o040000 &&
+      (stats.mode & 0o777) === 0o700
+    );
+    const sameLockSnapshot = (left, right) => (
+      sameNode(left, right) &&
+      left.mode === right.mode &&
+      left.nlink === right.nlink &&
+      left.mtimeMs === right.mtimeMs &&
+      left.ctimeMs === right.ctimeMs
+    );
     if (
-      !current ||
-      !current.isDirectory() ||
       !lockStats ||
-      !sameNode(lockStats, current)
+      !lockFdStats ||
+      !isSafeLockDirectory(currentPathStats) ||
+      !isSafeLockDirectory(currentFdStats) ||
+      !sameLockSnapshot(lockStats, currentPathStats) ||
+      !sameLockSnapshot(lockFdStats, currentFdStats) ||
+      !sameLockSnapshot(currentFdStats, currentPathStats)
     ) {
       throw new Error(`Artifact writer lock changed during ${phase}.`);
     }
-    return current;
+    return currentPathStats;
   };
 
   try {
@@ -1239,7 +1259,32 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     }
     lockOwned = true;
     lockStats = await fs.lstat(lockPath);
-    await hooks.afterLock?.({ artifactPath, lockPath, targetDirectory });
+    if (
+      typeof fsConstants.O_DIRECTORY !== "number" ||
+      typeof fsConstants.O_NOFOLLOW !== "number"
+    ) {
+      throw new Error("Artifact writer lock requires no-follow directory handles.");
+    }
+    const lockFlags = fsConstants.O_RDONLY | fsConstants.O_DIRECTORY | fsConstants.O_NOFOLLOW;
+    lockHandle = await fs.open(lockPath, lockFlags);
+    lockFdStats = await lockHandle.stat();
+    const openedLockPathStats = await fs.lstat(lockPath).catch(() => null);
+    if (
+      !openedLockPathStats ||
+      !lockStats.isDirectory() ||
+      !lockFdStats.isDirectory() ||
+      !openedLockPathStats.isDirectory() ||
+      (lockStats.mode & 0o777) !== 0o700 ||
+      (lockFdStats.mode & 0o777) !== 0o700 ||
+      (openedLockPathStats.mode & 0o777) !== 0o700 ||
+      !sameNode(lockStats, lockFdStats) ||
+      !sameNode(lockFdStats, openedLockPathStats)
+    ) {
+      throw new Error("Artifact writer lock changed while opening its no-follow directory handle.");
+    }
+    lockStats = openedLockPathStats;
+    lockFdStats = await lockHandle.stat();
+    await hooks.afterLock?.({ artifactPath, lockHandle, lockPath, targetDirectory });
     await assertDirectoryStable("lock creation");
     await assertLockStable("lock creation");
     const existingFingerprint = await safeResultFingerprint(artifactPath, hooks);
@@ -1318,11 +1363,29 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
         }
       } catch {}
     }
-    if (lockOwned && directoryStillOwned) {
+    if (lockOwned && directoryStillOwned && lockHandle) {
       try {
-        const currentLockStats = await fs.lstat(lockPath);
-        if (lockStats && sameNode(lockStats, currentLockStats)) await fs.rmdir(lockPath);
+        const currentPathStats = await fs.lstat(lockPath);
+        const currentFdStats = await lockHandle.stat();
+        if (
+          lockStats &&
+          lockFdStats &&
+          currentPathStats.isDirectory() &&
+          currentFdStats.isDirectory() &&
+          (currentPathStats.mode & 0o777) === 0o700 &&
+          (currentFdStats.mode & 0o777) === 0o700 &&
+          sameNode(lockStats, currentPathStats) &&
+          sameNode(lockFdStats, currentFdStats) &&
+          sameNode(currentFdStats, currentPathStats)
+        ) {
+          await fs.rmdir(lockPath);
+        }
       } catch {}
+    }
+    if (lockHandle) {
+      const ownedLockHandle = lockHandle;
+      lockHandle = undefined;
+      await ownedLockHandle.close().catch(() => {});
     }
     if (directoryHandle) await directoryHandle.close().catch(() => {});
   }

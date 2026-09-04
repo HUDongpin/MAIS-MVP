@@ -1234,6 +1234,7 @@ test("report writer fails closed when its owned lock entry is replaced", async (
   t.after(() => rm(root, { force: true, recursive: true }));
   const result = path.join(root, "last-run.json");
   const lock = path.join(root, ".last-run.json.lock");
+  let retainedLockHandle;
 
   await assert.rejects(
     () => writeReport(
@@ -1241,9 +1242,21 @@ test("report writer fails closed when its owned lock entry is replaced", async (
       root,
       {},
       {
-        afterLock: async () => {
+        afterLock: async ({ lockHandle }) => {
+          assert.ok(lockHandle, "writer retains a no-follow lock-directory handle");
+          retainedLockHandle = lockHandle;
+          const fdBeforeReplacement = await lockHandle.stat();
           await rm(lock, { recursive: true });
           await mkdir(lock, { mode: 0o700 });
+          const fdAfterReplacement = await lockHandle.stat();
+          const pathnameAfterReplacement = await lstat(lock);
+          assert.equal(fdAfterReplacement.dev, fdBeforeReplacement.dev);
+          assert.equal(fdAfterReplacement.ino, fdBeforeReplacement.ino);
+          assert.notDeepEqual(
+            [pathnameAfterReplacement.dev, pathnameAfterReplacement.ino],
+            [fdAfterReplacement.dev, fdAfterReplacement.ino],
+            "the retained old directory fd makes a pathname replacement deterministic",
+          );
         },
       },
     ),
@@ -1252,6 +1265,7 @@ test("report writer fails closed when its owned lock entry is replaced", async (
 
   assert.equal(existsSync(result), false);
   assert.equal(existsSync(lock), true, "foreign replacement lock must not be cleaned");
+  await assert.rejects(() => retainedLockHandle.stat(), /closed|EBADF/i);
 });
 
 test("report writer fsyncs the admitted target directory after atomic rename", async (t) => {

@@ -336,3 +336,31 @@ Evidence precision correction (append-only): earlier references to a “read int
   and build sources were unchanged by this final correction, so their earlier
   successful gates remain the latest evidence. No real provider, classroom,
   PostgreSQL, or production action and no stage/commit/push occurred.
+
+#### Linux lock-inode reuse correction (append-only)
+
+- The committed U224-R5 candidate at
+  `f6d6dd891b7e6df2b84a6f8a7bb796de1f8b061c` failed the Linux CI fixture
+  `report writer fails closed when its owned lock entry is replaced`. The old
+  guard retained only pathname `lstat` identity; after delete/recreate, Linux
+  could immediately reuse the directory inode and make the foreign replacement
+  look owned.
+- After exclusive 0700 lock-directory creation, the writer now opens and
+  retains an `O_RDONLY | O_DIRECTORY | O_NOFOLLOW` directory handle. Initial
+  pathname and FD type, mode, device, and inode must agree. Every existing lock
+  checkpoint now compares the original pathname snapshot, retained FD snapshot,
+  current pathname, and current FD, including mode, link count, mtime, and
+  ctime. Keeping the old directory FD open prevents its inode from being reused
+  for the replacement path.
+- Cleanup removes the lock pathname only when both the retained FD and pathname
+  still prove the original owned directory. A foreign replacement is retained.
+  The lock FD is closed exactly once in `finally`, after that cleanup decision;
+  uncertain/open-failure cases do not use pathname-only cleanup.
+- The deterministic fixture now inspects the retained FD across pathname
+  replacement: FD dev/ino remain stable, the new path differs, the write fails
+  closed before publishing `last-run.json`, the foreign lock remains, and the
+  FD is closed after completion. It passed 25/25 repeated focused runs. The
+  complete classroom suite passed 40/40 and default `npm run
+  test:release-governance` passed 132, failed 0, and skipped 11 (143 total).
+  No real provider, classroom, database, or production action and no
+  stage/commit/push occurred.
