@@ -1091,7 +1091,7 @@ export function createPostflightReceipt({
     ...(result.expectedCloseoutDate ? { expectedCloseoutDate: result.expectedCloseoutDate } : {}),
     ...(result.allowedAction ? { allowedAction: result.allowedAction } : {}),
     status: result.status,
-    reason: redactSecretLikePath(result.reason),
+    reason: receiptReasonForJournal(result.reason),
     ...(result.postRemovalEvidence
       ? { postRemovalEvidence: { ...result.postRemovalEvidence } }
       : {}),
@@ -1123,7 +1123,7 @@ export function createPostflightReceipt({
     invariants: { forceUsed: false, remoteDeletionAttempted: false },
     batchOutcome: {
       status: batchOutcome.status,
-      reason: redactSecretLikePath(batchOutcome.reason),
+      reason: receiptReasonForJournal(batchOutcome.reason),
     },
     summary: {
       attempted: safeResults.length,
@@ -1133,6 +1133,209 @@ export function createPostflightReceipt({
     },
     results: safeResults,
   };
+}
+
+const RECEIPT_BUDGET_TIMESTAMP = "2000-01-01T00:00:00.000Z";
+const RECEIPT_BUDGET_FINGERPRINT = "f".repeat(64);
+export const MAX_RECEIPT_REASON_JSON_BYTES = 512;
+export const MAX_RECEIPT_BUDGET_ENTRY_BYTES = MAX_MANIFEST_BYTES + (1024 * 1024);
+const RECEIPT_BUDGET_REASON = "R".repeat(MAX_RECEIPT_REASON_JSON_BYTES);
+
+function canonicalJsonStringPayloadBytes(value) {
+  const encoded = JSON.stringify(value);
+  if (typeof encoded !== "string" || encoded.length < 2) {
+    throw new Error("receipt reason is not a canonical JSON string");
+  }
+  return Buffer.byteLength(encoded, "utf8") - 2;
+}
+
+function assertReceiptReasonContract(reason) {
+  if (reason === null || reason === undefined) return;
+  if (
+    typeof reason !== "string"
+    || canonicalJsonStringPayloadBytes(reason) > MAX_RECEIPT_REASON_JSON_BYTES
+  ) throw new Error("receipt reason exceeds canonical JSON budget");
+}
+
+function receiptReasonForJournal(reason) {
+  const redacted = redactSecretLikePath(reason);
+  assertReceiptReasonContract(redacted);
+  return redacted;
+}
+
+export function assertReceiptJournalEntryContract(entry) {
+  const ancestors = new Set();
+  const visit = (value) => {
+    if (value === null || typeof value !== "object") return;
+    if (ancestors.has(value)) throw new Error("receipt journal entry is cyclic");
+    ancestors.add(value);
+    for (const [key, child] of Object.entries(value)) {
+      if (key === "reason") assertReceiptReasonContract(child);
+      visit(child);
+    }
+    ancestors.delete(value);
+  };
+  visit(entry);
+  return true;
+}
+
+function canonicalReceiptEntryBytes(entry) {
+  assertReceiptJournalEntryContract(entry);
+  const encoded = `${JSON.stringify(entry)}\n`;
+  const bytes = Buffer.byteLength(encoded, "utf8");
+  if (bytes > MAX_RECEIPT_BUDGET_ENTRY_BYTES) {
+    throw new Error("receipt budget entry exceeds bounded planning allocation");
+  }
+  return bytes;
+}
+
+/**
+ * Compute a conservative whole-journal bound before any apply mutation.
+ *
+ * The bound serializes the same canonical one-line JSON records as the runtime.
+ * Its maximum lifecycle deliberately combines every target checkpoint with a
+ * superset terminal: all optional result metadata, bounded internal reasons,
+ * postflight fingerprints, and the largest lease-release shape. Failure paths
+ * emit fewer checkpoints, so each is also enumerated below as an audit aid.
+ */
+export function calculateReceiptJournalBudget({
+  manifest,
+  manifestSha256,
+  expectedLiveMainSha,
+}) {
+  if (!manifest || !Array.isArray(manifest.targets)) {
+    throw new Error("receipt journal budget requires manifest targets");
+  }
+  const leaseIdentity = RECEIPT_BUDGET_FINGERPRINT;
+  const commonCheckpoint = {
+    manifestSha256,
+    expectedLiveMainSha,
+    leaseIdentity,
+  };
+  const started = {
+    schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+    phase: "started",
+    manifestSha256,
+    expectedLiveMainSha,
+    startedAt: RECEIPT_BUDGET_TIMESTAMP,
+    leaseIdentity,
+    repositoryIdentity: APPROVED_REPOSITORY_IDENTITY,
+    targets: manifest.targets.map((target) => ({
+      path: redactSecretLikePath(target.path),
+      branch: redactSecretLikePath(target.branch ?? "(detached)"),
+      head: target.head,
+      topologyFingerprint: target.topologyFingerprint,
+    })),
+  };
+  const worstPostRemovalEvidence = {
+    topologyAvailable: false,
+    registrationAbsent: false,
+    pathEvidenceAvailable: false,
+    pathAbsent: false,
+  };
+  const worstResults = manifest.targets.map((target) => ({
+    ...target,
+    path: target.path,
+    branch: target.branch ?? "(detached)",
+    status: "skipped",
+    reason: RECEIPT_BUDGET_REASON,
+    postRemovalEvidence: worstPostRemovalEvidence,
+  }));
+  const successResults = manifest.targets.map((target) => ({
+    ...target,
+    path: target.path,
+    branch: target.branch ?? "(detached)",
+    status: "removed",
+    reason: null,
+    postRemovalEvidence: {
+      topologyAvailable: true,
+      registrationAbsent: true,
+      pathEvidenceAvailable: true,
+      pathAbsent: true,
+    },
+  }));
+  const terminal = (results, batchOutcome, leaseRelease) => ({
+    ...createPostflightReceipt({
+      manifestSha256,
+      expectedLiveMainSha,
+      observedLiveMainSha: expectedLiveMainSha,
+      startedAt: RECEIPT_BUDGET_TIMESTAMP,
+      completedAt: RECEIPT_BUDGET_TIMESTAMP,
+      preTopologyFingerprint: manifest.fleetFingerprint,
+      postTopologyFingerprint: RECEIPT_BUDGET_FINGERPRINT,
+      finalTopologyEvidence: {
+        available: true,
+        fingerprint: RECEIPT_BUDGET_FINGERPRINT,
+      },
+      batchOutcome,
+      results,
+    }),
+    phase: "terminal",
+    leaseIdentity,
+    leaseRelease,
+  });
+  const targetCheckpoints = manifest.targets.map((target, targetIndex) => ({
+    started: canonicalReceiptEntryBytes({
+      schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+      phase: "target-started",
+      targetIndex,
+      target: {
+        path: redactSecretLikePath(target.path),
+        branch: redactSecretLikePath(target.branch ?? "(detached)"),
+        head: target.head,
+        topologyFingerprint: target.topologyFingerprint,
+      },
+      ...commonCheckpoint,
+    }),
+    completed: canonicalReceiptEntryBytes({
+      schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
+      phase: "target-completed",
+      targetIndex,
+      result: {
+        path: redactSecretLikePath(target.path),
+        branch: redactSecretLikePath(target.branch ?? "(detached)"),
+        status: "skipped",
+        reason: RECEIPT_BUDGET_REASON,
+        postRemovalEvidence: worstPostRemovalEvidence,
+      },
+      ...commonCheckpoint,
+    }),
+  }));
+  const startedBytes = canonicalReceiptEntryBytes(started);
+  const allCheckpointBytes = targetCheckpoints.reduce(
+    (total, checkpoint) => total + checkpoint.started + checkpoint.completed,
+    0,
+  );
+  const successTerminalBytes = canonicalReceiptEntryBytes(terminal(
+    successResults,
+    { status: "success", reason: null },
+    { released: true, phase: "released" },
+  ));
+  const worstTerminalBytes = canonicalReceiptEntryBytes(terminal(
+    worstResults,
+    { status: "blocked", reason: RECEIPT_BUDGET_REASON },
+    {
+      released: false,
+      phase: "bounded-pre-unlink-validation",
+      leaseMayRemain: true,
+    },
+  ));
+  const scenarioBytes = Object.freeze({
+    leaseAcquisitionFailure: worstTerminalBytes,
+    startedFailure: worstTerminalBytes,
+    preflightBlocked: startedBytes + worstTerminalBytes,
+    targetFailureAfterStarted: startedBytes + allCheckpointBytes + worstTerminalBytes,
+    allTargetsSuccess: startedBytes + allCheckpointBytes + successTerminalBytes,
+    allTargetsLeaseReleaseFailure: startedBytes + allCheckpointBytes + worstTerminalBytes,
+  });
+  const requiredBytes = Math.max(...Object.values(scenarioBytes));
+  return Object.freeze({
+    ok: requiredBytes <= MAX_RECEIPT_BYTES,
+    targetCount: manifest.targets.length,
+    requiredBytes,
+    limitBytes: MAX_RECEIPT_BYTES,
+    scenarioBytes,
+  });
 }
 
 /**
@@ -1152,9 +1355,14 @@ export function runAuthorizedApply({
   expectedCommonGitDir = null,
 }, deps) {
   const targets = authorization.manifest.targets;
+  const receiptBudget = calculateReceiptJournalBudget({
+    manifest: authorization.manifest,
+    manifestSha256: authorization.manifestSha256,
+    expectedLiveMainSha,
+  });
   let expectedFleet = null;
   let preTopologyFingerprint = null;
-  let batchStopReason = null;
+  let batchStopReason = receiptBudget.ok ? null : "receipt journal budget exceeds maximum capacity";
   if (parseFrozenRuntimeTimestamp(frozenNow) === null) {
     batchStopReason = "frozen runtime clock unavailable";
   }
@@ -1494,7 +1702,7 @@ export function runAuthorizedApply({
         status: removedAndProved ? "removed" : "failed",
         reason: removedAndProved
           ? null
-          : postRemovalReason ?? removal?.reason ?? "git worktree remove failed",
+          : postRemovalReason ?? "git worktree remove failed",
         ...(postRemovalEvidence ? { postRemovalEvidence } : {}),
       };
       results.push(targetResult);
@@ -1520,7 +1728,6 @@ export function runAuthorizedApply({
           ? "durable target-completed receipt failed"
           : postRemovalFleetDrift
           ?? postRemovalReason
-          ?? removal?.reason
           ?? "git worktree remove failed",
         );
         break;
@@ -1691,7 +1898,15 @@ export function validateApplyAuthorization({
     if (seenPaths.has(target.path)) return { ok: false, reason: "manifest target paths must be unique" };
     seenPaths.add(target.path);
   }
-  return { ok: true, manifest, manifestSha256 };
+  const receiptBudget = calculateReceiptJournalBudget({
+    manifest,
+    manifestSha256,
+    expectedLiveMainSha,
+  });
+  if (apply && !receiptBudget.ok) {
+    return { ok: false, reason: "receipt journal budget exceeds maximum capacity" };
+  }
+  return { ok: true, manifest, manifestSha256, receiptBudget };
 }
 
 // Candidate names for content that is expensive or impossible to rebuild.
@@ -2880,6 +3095,7 @@ export function main(argv, providers) {
     return 1;
   }
   const writeReceiptEntry = (entry) => {
+    assertReceiptJournalEntryContract(entry);
     runtime.writeReceipt(receiptFd, `${JSON.stringify(entry)}\n`);
   };
 

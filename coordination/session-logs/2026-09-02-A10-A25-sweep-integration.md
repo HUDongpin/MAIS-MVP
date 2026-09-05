@@ -769,3 +769,54 @@ evidence.
 - No real sweep `--apply`, worktree/branch/ref/process/`.tmp`/evidence removal
   or move, workflow dispatch, manual rerun, manual Shadow, amend, rebase,
   force-push, merge, deploy, or production action occurred in this correction.
+
+## U223-R7 receipt-capacity pre-mutation correction (2026-09-05 HKT)
+
+- U223-R7 borrowed the explicitly authorized A10/A25 implementation slice and
+  wrote only the sweep implementation, its test, and this append-only session
+  result. Literal linked-worktree preflight bound branch/HEAD/local/live remote/
+  PR head to `codex/a10-a25-sweep-integration-20260902` at
+  `33e9b877a514f0a8e801c9f2ff8ef120a1c7ef4d`, live/PR-base main to
+  `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`, a clean unlocked worktree with
+  zero lsof holders, and the frozen three-file hashes. The 68-entry NUL-safe
+  topology digest was
+  `57566f5a94599ba4ca2b5831bf9b4aa51d372d93f219a2ad4642ba1055d58c7f`.
+- Initial RED:
+  `node --test --test-name-pattern='receipt journal budget|over-capacity manifest' scripts/sweep-merged-worktrees.test.mjs`
+  exited 1 with 0 pass / 3 fail because the cumulative receipt-budget helper
+  did not exist. The independent provider-reason RED exited 1 with 0 pass / 1
+  fail because an injected multi-megabyte reason entered the receipt. The
+  canonical-reason-contract RED exited 1 with 0 pass / 1 fail because no
+  mechanical 512-byte JSON-payload contract existed.
+- Apply authorization now serializes conservative canonical JSONL templates
+  before receipt reservation, fleet-lease acquisition, or worktree removal.
+  It counts UTF-8 bytes for `started`, every target's `target-started` and
+  worst `target-completed`, and conservative terminal/postflight shapes for
+  lease-acquire failure, started failure, preflight block, target failure,
+  all-target success, and lease-release failure. The largest scenario must fit
+  the unchanged 16 MiB receipt cap. `runAuthorizedApply` independently repeats
+  the same proof before its injected removal boundary.
+- The maximum terminal template includes every emitted target metadata field,
+  worst post-removal evidence, postflight fingerprints, bounded reasons, and
+  the largest lease-release object. Receipt creation and every production
+  journal write mechanically reject any `reason` whose escaped canonical JSON
+  payload exceeds 512 bytes; exact quote-escaping boundaries are tested.
+  Untrusted injected removal detail is not admitted as receipt metadata and is
+  normalized to the production failure reason. Canonical planning retains only
+  one serialized entry at a time, reduces it immediately to a byte integer,
+  and enforces a per-entry allocation ceiling of the 32 MiB manifest cap plus
+  1 MiB fixed envelope.
+- GREEN focused matrix matching `receipt journal budget|over-capacity manifest|
+  unbounded provider reason|write contract mechanically caps` passed 5/5. It
+  covers five targets, success/failure and lease-release terminal forms, quote/
+  control/emoji JSON expansion, exact 16 MiB capacity, capacity plus one, and a
+  valid greater-than-16,000,000-byte manifest rejected before receipt reserve,
+  lease acquire, or injected removal. No real sweep apply was used.
+- Final sweep plus release-build regression passed 197/197. Final default
+  release-governance passed 92 with 11 intentional skips and 0 failures. Both
+  MJS syntax checks and `git diff --check` passed. This remains local
+  implementation evidence only and does not claim merge, cleanup, Promotion,
+  Shadow, deployment, or production readiness.
+- No real sweep `--apply`, worktree/branch/ref/process/`.tmp`/evidence removal
+  or move, workflow dispatch, manual rerun, Shadow, amend, rebase, force-push,
+  merge, deploy, or production action occurred in U223-R7.

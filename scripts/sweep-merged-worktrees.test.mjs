@@ -1165,6 +1165,82 @@ function authorizationFor(manifest = applyManifest()) {
   };
 }
 
+function receiptJournalBudgetFor(manifest) {
+  const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  return sweep.calculateReceiptJournalBudget({
+    manifest,
+    manifestSha256: sweep.sha256Text(manifestBytes),
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+  });
+}
+
+test("receipt journal budget accounts for JSON escaping and every five-target terminal outcome", () => {
+  const plain = applyManifest(5);
+  plain.targets[0].owner = "a";
+  const quote = structuredClone(plain);
+  quote.targets[0].owner = '"';
+  const nul = structuredClone(plain);
+  nul.targets[0].owner = "\0";
+  const emoji = structuredClone(plain);
+  emoji.targets[0].owner = "😀";
+
+  const plainBudget = receiptJournalBudgetFor(plain);
+  const quoteBudget = receiptJournalBudgetFor(quote);
+  const nulBudget = receiptJournalBudgetFor(nul);
+  const emojiBudget = receiptJournalBudgetFor(emoji);
+
+  assert.equal(plainBudget.targetCount, 5);
+  assert.equal(plainBudget.requiredBytes, Math.max(...Object.values(plainBudget.scenarioBytes)));
+  assert.ok(plainBudget.scenarioBytes.allTargetsSuccess > plainBudget.scenarioBytes.preflightBlocked);
+  assert.ok(
+    plainBudget.scenarioBytes.allTargetsLeaseReleaseFailure
+      > plainBudget.scenarioBytes.allTargetsSuccess,
+  );
+  assert.ok(plainBudget.scenarioBytes.targetFailureAfterStarted > plainBudget.scenarioBytes.preflightBlocked);
+  assert.equal(quoteBudget.requiredBytes, plainBudget.requiredBytes + 1);
+  assert.equal(nulBudget.requiredBytes, plainBudget.requiredBytes + 5);
+  assert.equal(emojiBudget.requiredBytes, plainBudget.requiredBytes + 3);
+});
+
+test("receipt journal write contract mechanically caps canonical JSON reason bytes", () => {
+  assert.equal(sweep.MAX_RECEIPT_REASON_JSON_BYTES, 512);
+  assert.equal(sweep.assertReceiptJournalEntryContract({
+    phase: "terminal",
+    reason: "R".repeat(sweep.MAX_RECEIPT_REASON_JSON_BYTES),
+    results: [{ reason: '"'.repeat(sweep.MAX_RECEIPT_REASON_JSON_BYTES / 2) }],
+  }), true);
+  assert.throws(() => sweep.assertReceiptJournalEntryContract({
+    phase: "terminal",
+    reason: "R".repeat(sweep.MAX_RECEIPT_REASON_JSON_BYTES + 1),
+  }), /receipt reason exceeds canonical JSON budget/u);
+  assert.throws(() => sweep.assertReceiptJournalEntryContract({
+    phase: "target-completed",
+    result: { reason: '"'.repeat((sweep.MAX_RECEIPT_REASON_JSON_BYTES / 2) + 1) },
+  }), /receipt reason exceeds canonical JSON budget/u);
+});
+
+test("receipt journal budget admits exact capacity and rejects capacity plus one", () => {
+  const exact = applyManifest(2);
+  exact.targets[0].owner = "A";
+  const baseline = receiptJournalBudgetFor(exact);
+  assert.ok(baseline.requiredBytes < sweep.MAX_RECEIPT_BYTES);
+  exact.targets[0].owner += "x".repeat(sweep.MAX_RECEIPT_BYTES - baseline.requiredBytes);
+
+  const exactBudget = receiptJournalBudgetFor(exact);
+  assert.equal(exactBudget.requiredBytes, sweep.MAX_RECEIPT_BYTES);
+  assert.equal(exactBudget.ok, true);
+  assert.equal(sweep.validateApplyAuthorization(authorizationFor(exact)).ok, true);
+
+  const over = structuredClone(exact);
+  over.targets[0].owner += "x";
+  const overBudget = receiptJournalBudgetFor(over);
+  assert.equal(overBudget.requiredBytes, sweep.MAX_RECEIPT_BYTES + 1);
+  assert.equal(overBudget.ok, false);
+  const rejected = sweep.validateApplyAuthorization(authorizationFor(over));
+  assert.equal(rejected.ok, false);
+  assert.match(rejected.reason, /receipt journal budget/u);
+});
+
 test("validateApplyAuthorization requires a byte-locked immutable manifest for --apply", () => {
   const result = sweep.validateApplyAuthorization({
     apply: true,
@@ -2311,6 +2387,30 @@ test("runAuthorizedApply revalidates its fleet lease and durably checkpoints aro
   assert.match(blockedResult.receipt.results[0].reason, /fleet mutation lease/u);
 });
 
+test("runAuthorizedApply does not admit an unbounded provider reason into its receipt", () => {
+  const { authorization, calls, deps } = authorizedApplyFixture();
+  deps.removeWorktree = (command) => {
+    calls.remove.push(command);
+    return { ok: false, reason: "provider-detail".repeat(1024 * 1024) };
+  };
+  const result = sweep.runAuthorizedApply({
+    authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, deps);
+  assert.equal(result.ok, false);
+  assert.equal(calls.remove.length, 1);
+  assert.equal(result.receipt.results[0].reason, "git worktree remove failed");
+  assert.ok(
+    Buffer.byteLength(`${JSON.stringify(result.receipt)}\n`, "utf8")
+      < authorization.receiptBudget.requiredBytes,
+  );
+});
+
 test("target-started hook drift triggers a second complete revalidation with zero mutation", () => {
   for (const mode of ["manifest", "live", "pr", "fleet", "dirty", "protected", "process", "boundary", "lease", "receipt"]) {
     const { authorization, calls, deps } = authorizedApplyFixture();
@@ -2866,6 +2966,8 @@ function cliProvidersFixture({
   dirtyTarget = false,
   leaseAcquireFails = false,
   leaseReleaseFails = false,
+  manifestOverride = null,
+  receiptByteLimit = null,
 } = {}) {
   const topology = {
     path: "/repo/.worktrees/target-0",
@@ -2874,7 +2976,7 @@ function cliProvidersFixture({
     bare: false,
     detached: false,
   };
-  const manifest = applyManifest();
+  const manifest = manifestOverride ?? applyManifest();
   manifest.targets[0].topologyFingerprint = sweep.fingerprintTopology(topology);
   manifest.fleetFingerprint = sweep.fingerprintFleet([topology]);
   const authorizationInput = authorizationFor(manifest);
@@ -2891,6 +2993,7 @@ function cliProvidersFixture({
   let removed = false;
   let topologyReadsAfterRemoval = 0;
   let receiptText = null;
+  let receiptBytes = 0;
   const receiptWrites = [];
   const receiptRawWrites = [];
   const mutationEvents = [];
@@ -3041,6 +3144,11 @@ function cliProvidersFixture({
     writeReceipt(handle, text) {
       calls.write++;
       assert.deepEqual(handle, { receipt: true });
+      const entryBytes = Buffer.byteLength(text, "utf8");
+      if (receiptByteLimit !== null && receiptBytes + entryBytes > receiptByteLimit) {
+        throw new Error("simulated production receipt size limit exceeded");
+      }
+      receiptBytes += entryBytes;
       receiptText = text;
       receiptRawWrites.push(text);
       const parsed = JSON.parse(text);
@@ -3084,8 +3192,32 @@ function cliProvidersFixture({
     receiptRawWrites,
     mutationEvents,
     getReceipt: () => receiptText ? JSON.parse(receiptText) : null,
+    getReceiptBytes: () => receiptBytes,
   };
 }
+
+test("main rejects an over-capacity manifest before reserving a receipt or calling removeWorktree", () => {
+  const manifest = applyManifest();
+  manifest.targets[0].task = "T";
+  const baseline = receiptJournalBudgetFor(manifest);
+  manifest.targets[0].task += "x".repeat(
+    sweep.MAX_RECEIPT_BYTES - baseline.requiredBytes + 1,
+  );
+  assert.equal(receiptJournalBudgetFor(manifest).requiredBytes, sweep.MAX_RECEIPT_BYTES + 1);
+  const largeManifestBytes = authorizationFor(manifest).manifestBytes.byteLength;
+  assert.ok(largeManifestBytes > 16_000_000);
+  assert.ok(largeManifestBytes <= sweep.MAX_MANIFEST_BYTES);
+
+  const fixture = cliProvidersFixture({
+    manifestOverride: manifest,
+    receiptByteLimit: sweep.MAX_RECEIPT_BYTES,
+  });
+  assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+  assert.equal(fixture.calls.reserve, 0);
+  assert.equal(fixture.calls.leaseAcquire, 0);
+  assert.equal(fixture.calls.remove.length, 0);
+  assert.match(fixture.calls.errors.join("\n"), /receipt journal budget/u);
+});
 
 test("main defaults to dry-run and exercises injected live providers without mutation", () => {
   assert.equal(sweep.main.length, 2, "main must accept an injected production-provider boundary");
