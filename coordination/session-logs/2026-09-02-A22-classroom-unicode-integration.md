@@ -737,3 +737,48 @@ SHA. Only automatic pull_request checks may follow the ordinary push.
 Full collector/evidence-chain execution remains outside this corrective
 commit and has not been claimed. Preserve all historical Promotion bytes,
 branch/worktree state and evidence; no merge, deploy or cleanup is included.
+
+### U224-R6 retained temporary inode cleanup — 2026-09-05
+
+Evidence correction (append-only): the previous independent follow-up said
+that the capacity test had exact-boundary coverage. That statement was
+inaccurate. The test admitted the actual committed tree and rejected
+plus-one, non-finite, negative and unsafe-integer records, but it did not
+directly assert that equality at 50,000 files, 2 GiB total and 32 MiB per
+file passes. The corrected test now asserts each exact boundary with a
+coherent record and all three exact boundaries in combination. The already
+correct implementation limits in `scripts/rebase-promotion-baseline.mjs`
+were not changed.
+
+Fresh literal preflight matched expected-old
+`ec4eb0f69c71c63147b1407ecb260c395e51dd62` at worktree HEAD, local branch,
+tracking ref, live feature ref and PR #224 head; live main was
+`be92640f4bb8933ed8a99ed7c1ea604428c6a56f`. Status and holder inventory
+were empty. The 68-entry NUL-delimited topology SHA-256 was
+`57566f5a94599ba4ca2b5831bf9b4aa51d372d93f219a2ad4642ba1055d58c7f`,
+and all four authorized input hashes matched the controller freeze.
+
+TDD evidence:
+
+- Baseline focused suites passed classroom 40/40 and rebase-promotion 22/22.
+- Effective RED, after correcting only the fixture's macOS `/var` to
+  `/private/var` canonical-root alias, was 0/6 pass and 6/6 fail. Five
+  fixtures observed mutation beginning with `chmod` rather than the required
+  fd `stat`; the unconfirmable-stat fixture also observed no retained-fd
+  cleanup retry. No production source had been changed for that RED.
+- The minimum implementation retains the O_CREAT|O_EXCL file handle for the
+  transaction, captures its inode before chmod/write/file fsync, rechecks the
+  written inode, and deletes a failed temporary pathname only when retained
+  directory-fd/path and temporary-fd/path identities still agree. A replaced
+  or unconfirmable pathname is preserved, while the separately confirmed
+  owned lock is cleaned.
+- Focused GREEN passed 6/6. The full classroom suite then passed 46/46; the
+  rebase-promotion suite passed 22/22; `npm run test:release-governance`
+  passed 138, failed 0 and retained 11 existing skips (149 total). Syntax
+  checks for all three authorized scripts and `git diff --check` passed.
+
+All fixtures use direct descendants of the owner-owned OS temporary root and
+self-clean with test teardown. No repository `.tmp`, existing evidence,
+Promotion history, workflow selector, real Classroom/Preview/PostgreSQL,
+Shadow, merge, deploy or production surface was read as write authority or
+mutated by this correction.

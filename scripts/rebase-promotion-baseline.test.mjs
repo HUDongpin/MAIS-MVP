@@ -670,6 +670,15 @@ test("callsite projection budget admits the actual committed repository while re
   }));
   const valid = { fileCount: 10_961, totalBytes: 1_014_322_851, maxFileBytes: 31_065_464 };
   assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget(valid));
+  const exactFileCount = 50_000;
+  const exactTotalBytes = 2 * 1024 ** 3;
+  const exactMaxFileBytes = 32 * 1024 ** 2;
+  for (const exactBoundary of [
+    { fileCount: exactFileCount, totalBytes: exactFileCount, maxFileBytes: 1 },
+    { fileCount: 64, totalBytes: exactTotalBytes, maxFileBytes: exactMaxFileBytes },
+    { fileCount: 1, totalBytes: exactMaxFileBytes, maxFileBytes: exactMaxFileBytes },
+    { fileCount: exactFileCount, totalBytes: exactTotalBytes, maxFileBytes: exactMaxFileBytes },
+  ]) assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget(exactBoundary));
   for (const invalid of [
     { ...valid, fileCount: 50_001 }, { ...valid, totalBytes: 2 * 1024 ** 3 + 1 },
     { ...valid, maxFileBytes: 32 * 1024 ** 2 + 1 }, { ...valid, totalBytes: NaN },

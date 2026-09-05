@@ -1199,13 +1199,25 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
   let lockStats;
   let lockFdStats;
   let temporaryPath;
+  let temporaryHandle;
+  let temporaryOpenedExclusively = false;
   let temporaryStats;
   let temporaryFingerprint;
   let directoryHandle;
+  let directoryFdStats;
 
   const assertDirectoryStable = async (phase) => {
     const current = await safeExistingDirectory(targetDirectory, "Artifact directory");
-    if (!sameNode(directoryStats.stats, current.stats)) {
+    const currentFdStats = directoryHandle
+      ? await directoryHandle.stat().catch(() => null)
+      : null;
+    if (
+      !directoryFdStats ||
+      !currentFdStats?.isDirectory() ||
+      !sameNode(directoryStats.stats, current.stats) ||
+      !sameNode(directoryFdStats, currentFdStats) ||
+      !sameNode(currentFdStats, current.stats)
+    ) {
       throw new Error(`Artifact directory changed during ${phase}.`);
     }
     return current.stats;
@@ -1247,8 +1259,8 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
       (fsConstants.O_DIRECTORY ?? 0) |
       (fsConstants.O_NOFOLLOW ?? 0);
     directoryHandle = await fs.open(targetDirectory, directoryFlags);
-    const openedDirectoryStats = await directoryHandle.stat();
-    if (!openedDirectoryStats.isDirectory() || !sameNode(directoryStats.stats, openedDirectoryStats)) {
+    directoryFdStats = await directoryHandle.stat();
+    if (!directoryFdStats.isDirectory() || !sameNode(directoryStats.stats, directoryFdStats)) {
       throw new Error("Artifact directory changed while opening its durability handle.");
     }
     try {
@@ -1291,15 +1303,17 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     const serialized = `${JSON.stringify(report, null, 2)}\n`;
     temporaryPath = path.join(targetDirectory, `.last-run.json.${process.pid}.${randomUUID()}.tmp`);
     const flags = fsConstants.O_WRONLY | fsConstants.O_CREAT | fsConstants.O_EXCL | (fsConstants.O_NOFOLLOW ?? 0);
-    const handle = await fs.open(temporaryPath, flags, 0o600);
-    try {
-      await handle.chmod(0o600);
-      await handle.writeFile(serialized, "utf8");
-      await handle.sync();
-      temporaryStats = await handle.stat();
-    } finally {
-      await handle.close();
+    temporaryHandle = await fs.open(temporaryPath, flags, 0o600);
+    temporaryOpenedExclusively = true;
+    temporaryStats = await temporaryHandle.stat();
+    await temporaryHandle.chmod(0o600);
+    await temporaryHandle.writeFile(serialized, "utf8");
+    await temporaryHandle.sync();
+    const writtenTemporaryStats = await temporaryHandle.stat();
+    if (!sameNode(temporaryStats, writtenTemporaryStats)) {
+      throw new Error("Temporary artifact changed while writing through its retained handle.");
     }
+    temporaryStats = writtenTemporaryStats;
     temporaryFingerprint = await safeResultFingerprint(temporaryPath);
     await assertDirectoryStable("report write");
     await assertLockStable("report write");
@@ -1355,13 +1369,26 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
       directoryStillOwned = true;
     } catch {}
 
-    if (temporaryPath && directoryStillOwned) {
+    if (temporaryPath && temporaryOpenedExclusively && directoryStillOwned && temporaryHandle) {
       try {
+        await assertDirectoryStable("temporary cleanup");
+        const currentTemporaryFdStats = await temporaryHandle.stat();
         const currentTemporaryStats = await fs.lstat(temporaryPath);
-        if (temporaryStats && sameNode(temporaryStats, currentTemporaryStats)) {
+        await assertDirectoryStable("temporary cleanup");
+        if (
+          currentTemporaryFdStats.isFile() &&
+          currentTemporaryStats.isFile() &&
+          sameNode(currentTemporaryFdStats, currentTemporaryStats) &&
+          (!temporaryStats || sameNode(temporaryStats, currentTemporaryFdStats))
+        ) {
           await fs.unlink(temporaryPath);
         }
       } catch {}
+    }
+    if (temporaryHandle) {
+      const ownedTemporaryHandle = temporaryHandle;
+      temporaryHandle = undefined;
+      await ownedTemporaryHandle.close().catch(() => {});
     }
     if (lockOwned && directoryStillOwned && lockHandle) {
       try {

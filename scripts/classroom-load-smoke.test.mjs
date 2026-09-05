@@ -33,6 +33,40 @@ function source(relativePath) {
   return readFileSync(path.join(repoRoot, relativePath), "utf8");
 }
 
+function mockTemporaryReportHandle(t, root, { failPhase, failEveryStat = false, onFailure } = {}) {
+  const originalOpen = fsPromises.open;
+  const state = { events: [], rawHandle: null, temporaryPath: "" };
+  t.mock.method(fsPromises, "open", async (...args) => {
+    const handle = await originalOpen(...args);
+    const candidate = path.resolve(String(args[0]));
+    const temporaryPrefix = `${path.resolve(root)}${path.sep}.last-run.json.`;
+    if (!candidate.startsWith(temporaryPrefix) || !candidate.endsWith(".tmp")) return handle;
+
+    state.rawHandle = handle;
+    state.temporaryPath = candidate;
+    let statCalls = 0;
+    return new Proxy(handle, {
+      get(target, property) {
+        if (!["chmod", "stat", "sync", "writeFile"].includes(property)) {
+          const value = Reflect.get(target, property, target);
+          return typeof value === "function" ? value.bind(target) : value;
+        }
+        return async (...methodArgs) => {
+          state.events.push(property);
+          if (property === "stat") statCalls += 1;
+          const fails = property === failPhase && (property !== "stat" || failEveryStat || statCalls === 1);
+          if (fails) {
+            await onFailure?.(state);
+            throw new Error(`fixture temporary ${property} failure`);
+          }
+          return target[property](...methodArgs);
+        };
+      },
+    });
+  });
+  return state;
+}
+
 async function listen(handler) {
   const server = createServer(handler);
   await new Promise((resolve, reject) => {
@@ -1039,6 +1073,78 @@ test("report writer refuses an attacker replacement of its temporary artifact be
   );
   assert.equal(await readFile(result, "utf8"), "original-artifact\n");
   assert.notEqual(await readFile(result, "utf8"), "ATTACKER-TEMP-CONTENT\n");
+});
+
+for (const [phase, label] of [
+  ["chmod", "chmod"],
+  ["writeFile", "write"],
+  ["sync", "file fsync"],
+  ["stat", "first stat"],
+]) {
+  test(`report writer removes its fd-confirmed temporary artifact after ${label} failure`, async (t) => {
+    const writeReport = requiredExport("writeReport");
+    const root = await mkdtemp(path.join(tmpdir(), `mais-classroom-temp-${phase}-failure-`));
+    t.after(() => rm(root, { force: true, recursive: true }));
+    const lock = path.join(root, ".last-run.json.lock");
+    const canonicalRoot = await fsPromises.realpath(root);
+    const state = mockTemporaryReportHandle(t, canonicalRoot, { failPhase: phase });
+
+    await assert.rejects(
+      () => writeReport({ failure: phase }, root),
+      new RegExp(`fixture temporary ${phase} failure`, "u"),
+    );
+
+    assert.equal(state.events[0], "stat", "the O_EXCL-created inode must be fd-bound before mutation");
+    assert.ok(state.temporaryPath);
+    assert.equal(existsSync(state.temporaryPath), false, "only the fd-confirmed owned temporary may be removed");
+    assert.equal(existsSync(lock), false, "the independently owned lock must also be cleaned");
+    assert.deepEqual(await readdir(root), []);
+    await assert.rejects(() => state.rawHandle.stat(), /closed|EBADF/i);
+  });
+}
+
+test("report writer preserves a foreign replacement after temporary chmod failure", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-temp-chmod-replacement-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const lock = path.join(root, ".last-run.json.lock");
+  const foreign = "FOREIGN-TEMP-REPLACEMENT\n";
+  const canonicalRoot = await fsPromises.realpath(root);
+  const state = mockTemporaryReportHandle(t, canonicalRoot, {
+    failPhase: "chmod",
+    onFailure: async ({ temporaryPath }) => {
+      await unlink(temporaryPath);
+      await writeFile(temporaryPath, foreign, { mode: 0o600 });
+    },
+  });
+
+  await assert.rejects(() => writeReport({ failure: "foreign" }, root), /fixture temporary chmod failure/u);
+
+  assert.equal(state.events[0], "stat", "ownership identity must be retained before chmod");
+  assert.equal(await readFile(state.temporaryPath, "utf8"), foreign);
+  assert.equal(existsSync(lock), false, "lock cleanup must not require deleting a foreign temporary");
+  assert.deepEqual(await readdir(root), [path.basename(state.temporaryPath)]);
+  await assert.rejects(() => state.rawHandle.stat(), /closed|EBADF/i);
+});
+
+test("report writer fails closed when temporary fd identity cannot be reconfirmed", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-temp-stat-unconfirmed-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const lock = path.join(root, ".last-run.json.lock");
+  const canonicalRoot = await fsPromises.realpath(root);
+  const state = mockTemporaryReportHandle(t, canonicalRoot, { failEveryStat: true, failPhase: "stat" });
+
+  await assert.rejects(() => writeReport({ failure: "unconfirmed" }, root), /fixture temporary stat failure/u);
+
+  assert.ok(
+    state.events.filter((event) => event === "stat").length >= 2,
+    "cleanup must retry the retained fd identity before deciding whether deletion is safe",
+  );
+  assert.equal(existsSync(state.temporaryPath), true, "unconfirmed ownership must preserve the pathname");
+  assert.equal(existsSync(lock), false, "the separately confirmed lock remains cleanup-safe");
+  assert.deepEqual(await readdir(root), [path.basename(state.temporaryPath)]);
+  await assert.rejects(() => state.rawHandle.stat(), /closed|EBADF/i);
 });
 
 test("report writer fails closed when an existing destination changes only its mtime", async (t) => {
