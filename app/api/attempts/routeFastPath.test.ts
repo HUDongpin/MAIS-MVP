@@ -288,7 +288,7 @@ test(
         const body = await response.json();
         process.stdout.write(JSON.stringify({ body, status: response.status }));
       } catch {
-        process.stderr.write("isolated attempts-route PostgreSQL child failed; details redacted\n");
+        process.stderr.write("isolated attempts-route PostgreSQL child failed; details redacted\\n");
         process.exitCode = 1;
       } finally {
         await __practiceAttemptStoreTestHooks.closePostgresClient().catch(() => {});
@@ -321,7 +321,7 @@ test(
         FROM practice_attempts
         WHERE user_id = 'u224-real-route'
       `;
-      assert.deepEqual(rows, [{
+      assert.deepEqual([...rows], [{
         question_id: "q1",
         selected_answer: "5",
         is_correct: true,

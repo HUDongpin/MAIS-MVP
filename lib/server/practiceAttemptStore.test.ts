@@ -249,7 +249,7 @@ test(
           tables: tables.map((row) => row.table_name)
         }));
       } catch {
-        process.stderr.write("isolated practice-attempt PostgreSQL child failed; details redacted\n");
+        process.stderr.write("isolated practice-attempt PostgreSQL child failed; details redacted\\n");
         process.exitCode = 1;
       } finally {
         await verifier.end({ timeout: 1 }).catch(() => {});

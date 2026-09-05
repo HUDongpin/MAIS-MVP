@@ -364,3 +364,193 @@ Evidence precision correction (append-only): earlier references to a “read int
   test:release-governance` passed 132, failed 0, and skipped 11 (143 total).
   No real provider, classroom, database, or production action and no
   stage/commit/push occurred.
+
+## U224-R5 PostgreSQL harness correction and read-only Promotion intake — 2026-09-05
+
+- Owners: A12/A11 test harness; A22 verification and session evidence; A23/A25
+  read-only Promotion intake. The owner renewed U224 expected-old as
+  `2b8c4cdc14c1cd7c45df88756d6bb77d3f111122` and explicitly requested the
+  two escape fixes, PostgreSQL GREEN, and a read-only Promotion handling list.
+  U223 is closed at `33e9b877a514f0a8e801c9f2ff8ef120a1c7ef4d` and is
+  outside this correction. Earlier "uncommitted/no push" entries describe their
+  original recording times; the renewed U224 baseline was already committed
+  and equal to local, cached, live feature, and PR #224 heads.
+- Initial and immediate pre-edit freezes at 2026-09-05T00:49:59Z and
+  2026-09-05T00:51:19Z agreed: U224 HEAD/ref/PR = the renewed baseline;
+  live main/PR base = `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`;
+  status and staged/unstaged patches empty; ownership manifests unchanged;
+  exact worktree and linked gitdir had no observed holders or active locks.
+  NUL topology SHA-256:
+  `fb686263af0d43bb765302e83cbfc954c6fad53f38a39a25debcdfd4966bc561`.
+  The previously reported Docker PID no longer existed; no signal was sent to it.
+- Created a new task-owned, loopback-only PostgreSQL 16.15 cluster for the
+  regression, without loading application/provider credentials. Preserved
+  evidence root: `/tmp/mais-u224-escape-green.rMVC7q`. The earlier diagnostic
+  roots were left untouched. Node version: 24.15.0.
+- RED: the exact CI real-PostgreSQL command, using the task-specific
+  `MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL`, exited 1:
+  2 tests / 0 pass / 2 fail / 0 skipped. Both embedded scripts failed before
+  executing their database assertions because the outer template expanded
+  a single escaped newline into an actual newline inside a quoted child string.
+- Both child error-message newlines are now escaped for the outer template.
+  The next run reached SQL: store passed, route failed solely because
+  `node:assert/strict` compared the driver's `Result extends Array`
+  against a plain array. The route assertion now compares `[...rows]`;
+  row count, order, fields and values remain strictly checked. No SQL,
+  persistence assertion, rollback assertion, skip condition or runtime changed.
+- GREEN: rerunning the exact CI real-PostgreSQL command on the same cluster
+  exited 0: 2/2 pass, 0 fail, 0 skipped. The complete route/store suites with
+  the same integration URL then passed 13/13, 0 fail, 0 skipped. This executes
+  six-table/schema/index/JSONB readiness, committed-row and event read-back,
+  route HTTP 200 plus persisted:true, and trigger-induced rollback with
+  persisted:false and zero rows in all four affected tables.
+- Default `npm run test:release-governance` passed 132 with 0 failures and
+  11 pre-existing skips (143 total), including all 40 classroom harness tests.
+  `npm run type-check -- --incremental false` and `git diff --check`
+  exited 0. No additional build/browser rerun was needed for these three
+  test-only line changes; automatic PR CI will bind its results to the new SHA.
+- Independent A11/A12 source review returned READY: escaping is correct;
+  array normalization retains full row assertions; auth, persistence,
+  transaction rollback and schema checks are unchanged. Reviewed SHA-256:
+  store test `1cddb5baf62e78a9d9e5953f84fddb97d2c860b03c434ca485c1a39194b3f634`;
+  route test `2138c4c1ce751974d9a28e95defba5109b2f9b0771ff011c6815565bc574d123`.
+- The test hooks removed only their UUID-named schemas in the task-owned
+  cluster; a subsequent query found zero remaining U224 schemas. The cluster
+  was shut down normally with pg_ctl; its data and PostgreSQL log remain.
+  No existing evidence directory, branch, worktree, remote ref, shared process,
+  classroom record, provider setting or production database was changed.
+- This appendix records verification before the forthcoming authorized
+  exact-path commit/push. Final commit identity and automatic PR results must
+  be read back from Git/GitHub and the independent post-commit handoff;
+  local GREEN is not a claim that the separate Promotion gate has passed.
+
+### A23/A25 read-only Promotion handling checklist
+
+Snapshot: `2b8c4cdc14c1cd7c45df88756d6bb77d3f111122`. Rebind to the
+final test/log commit before any future Promotion operation. During this
+audit only the parent-owned test files differed from that HEAD. No Manifest,
+Receipt, descriptor, selector, checker or candidate bytes were written.
+
+Disposition: `status=blocked`, `lifecycleState=shadow_ready`,
+`currentness=stale`, `liveBoundary=blocked`, `liveAllowed=false`.
+The canonical Receipt is historical-only for the changed runtime baseline.
+Specialist discovery returned `BASELINE_NOT_ANCESTRAL`; existing native CI
+validation returned `V2_TARGET_BASELINE_DRIFT`; required-check decision was
+`PROMOTION_CONTROLLED_FULL_VALIDATION_REQUIRED`. Local PostgreSQL GREEN
+does not satisfy these separate gates.
+
+Verified existing bindings (SHA-256 unless identified as Git commit):
+
+| Binding | Value |
+| --- | --- |
+| Active Manifest reference | ref-023cb5067043fe7f910173eb8a533c555ed5869bc0108a90aab604194192246b |
+| Active Manifest | a2dba5ce9e44c19d05852163a2b9fd1833aa3a97494c3b8680d0e048e6ceb5f5 |
+| Canonical Receipt reference | ref-2ac2e1f2b9033bf2107dc03b403f6a829829ba82c5c40f9307d83267692245ab |
+| Canonical Receipt file | 751fa4695a5ca7fcf998945e9b05539807bb8c014e6c1d2b15d4c62284708359 |
+| Descriptor | ff4433168211a76ed45b4484883107c233c0c8220887a00e4c0a643c8c91379d |
+| Candidate digest | c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6 |
+| Source commit | faf57280778c4b6543d15ce675638ac480b42864 |
+| Selected baseline commit | d0394f016eb91c3b065d4751601be65a7186e5ac |
+| Checker version | c157fbdba02b103619b55dcc2d7877ef9f58183615315f1a7c1d56f6c799d4bb |
+| Checker bundle | 1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff |
+| Checker release commit | f2f01782c93548f0ad5287570cf0cdaa432101b5 |
+| Checker ledger | 1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f |
+
+Source and checker release are ancestors of the audited HEAD; the selected
+baseline is not. Candidate package plus three artifacts match declared hashes
+and HEAD blobs, with no byte change against the selected baseline. All eight
+checker bundle files match release and HEAD; the bundle digest recomputes.
+
+The existing revision relation, not approval of a future U224 revision:
+
+- relation: append-only-reaffirmation; baseAttemptRef: attempt-007:base;
+  revisionRef: ref-9e77768a00f9b5aefd0ef42e5935ef018efb36a86b0ad11a3981b194f5f42e05;
+  baseCount: 1.
+- candidateChanged=false; sourceChanged=false; checkerChanged=false;
+  baselineChanged=true; reviewedBaselineOnly=true in the existing descriptor,
+  but the proposed U224 delta remains unproven.
+- directParentManifestSha256:
+  a6f9a3aaf291dc53dd033e5335313c146a304406d96ef6811b1265a0f1df4a7b.
+- directParentReceiptSha256:
+  9cce8a7ea46db43f89239c1c0bacf541092581287cb8d9e71d8b03b71299706f.
+- evidenceCommit: 6a9a5000c40ada2c159f6569d4342f38d7174398;
+  bindingCommit=executionCommit: 3ccdb882d705516bfdf18cd8925c3b75a6550b8e;
+  storageCommit=unknown; finalizationCommit=unknown;
+  historicalClosureOverwritten=false.
+- Historical direct-base Closure:
+  576739195d22ba0133a31da292c1e08d602202a9725e04107e50779c47d3c4af;
+  historical Registry:
+  7be73b854a9eb408dfdad671c262e4640fb93136df188b1fd3ecd9e369b77159.
+  Their declared hashes/HEAD blobs match; native finalization was not rerun.
+  Nine role records plus three baseline-review records do not prove twelve
+  independent reviewers.
+
+The existing CI artifact ZIP digest recomputes as
+`cc14ada0f1032f349eb1c82dcb3ae408248e74dd96360b7f1f667a90ee2675b0`;
+decision file digest is
+`31acfedd72738085ce2bb134bdcff0ecf6147d6422bbab1ee583a492997719fd`.
+It records three runtime changes: `app/api/attempts/route.ts`,
+`components/practice/PracticeQuestionCard.tsx`, and
+`lib/server/practiceAttemptStore.ts`; the two test files are allowed
+test-only changes. `package.json` is the one controlled PR path.
+The alias and default classroom coverage remain required and unchanged.
+The old two-runtime-path/no-graph-drift observation is superseded:
+`graph.drift=true`, expected policy digest
+`43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5`,
+observed `9a15b12647fbe6172332a6bde48f860249c893711ce79d0f1350799625dc4bd5`.
+
+Evidence layers remain distinct:
+
+1. Offline canonical/fresh/replay schema, non-live grammar and self-digest
+   checks pass using the verified checker release; no native verify-receipt
+   or Shadow was invoked.
+2. Current native validation is blocked in the existing CI artifact.
+3. Bounded comparison: bindingsEqual=true; semanticDigestsEqual=true;
+   rawDigestsEqual=false; runIdsDistinct=true; semanticDigestsVerified=true.
+   Full specialist comparisonStatus=not-run and comparisonDigest=unknown,
+   because discovery stops at ancestry. Fresh file SHA-256:
+   abf6595b4cf0fe68d840217aa2bf0e2d0f5fad0928ba09e663e8224d7282e2a5;
+   replay file SHA-256:
+   579e142f23925f1141276006f7284b029737e1560ca553056cbf5e032c533873.
+4. No current U224 Closure/Registry finalization was established.
+
+Proposed later handling, not executed:
+
+- [ ] Freeze final U224 SHA, full changed-path digest and runtime-policy delta.
+  Obtain independent A11/A22/A25 baseline review, including PracticeQuestionCard.
+  Byte identity alone does not establish candidate-unrelated runtime semantics.
+- [ ] Classify the route: evidence-only correction is insufficient because
+  baseline/policy differ; baseline-only reaffirmation requires the independent
+  semantic proof above. A new immutable attempt is required if candidate or
+  checker semantics are affected. Current route eligibility remains unresolved.
+- [ ] If reaffirmation is approved, assign a new isolated branch/worktree,
+  exact baseline, justification path and complete file allowlist. Let R be
+  `reaffirmations/u224-classroom-baseline-20260905` under the active Manifest
+  directory; this proposed directory was absent before and after pure dry-run.
+- [ ] Commit justification and approved A11/A22/A25 baseline-review evidence
+  first. Native generator pure dry-run projects these ten new evidence files:
+  `R/inputs/legacy-resolution-registry.v2.6.json` and
+  `R/inputs/evidence/{a21-candidate-generation,a18-independent-qa,
+  a23-shadow-readiness,a04-practice-semantics,a05-lesson-semantics,
+  a11-independent-preflight,a22-build-isolation,a24-exact-layer,
+  a25-release-intake}.v2.6.json`.
+- [ ] In a distinct binding/execution commit, add generator outputs
+  `R/promotion-manifest.v2.json` and `R/inputs/evidence-index.v2.json`,
+  plus separately approved native v2 descriptor and workflow selector paths.
+  Bind nearest complete parent separately from historical direct-base evidence;
+  never pre-bind the new descriptor's own commit or a future Receipt.
+- [ ] Resolve exact execution/storage/finalizer commands and file paths before
+  requesting execution authority. The generator does not supply baseline-review
+  files, descriptor, selector, Receipt, Closure or lifecycle Registry. Its
+  default dry-run retains old runtime policy and is not an eligibility proof.
+- [ ] With separate execution authority only: native validate, fresh Shadow,
+  distinct replay, three Receipt verifications and semantic comparison at the
+  clean registered execution SHA; then Receipt storage/finalization in a later
+  descendant commit. Future canonical Receipt must be absent at execution.
+- [ ] Accept only resolved ancestry/currentness, supported runtime-policy
+  handling, exact ordered evidence commits, closed three-Receipt comparison
+  and applicable current finalization evidence. Maintain liveAllowed=false.
+
+This checklist grants no Promotion file/selector/branch creation, Shadow,
+replay, integration, merge, deploy or cleanup authority. The new PostgreSQL
+test commit will not be described as clearing the historical Promotion gate.
