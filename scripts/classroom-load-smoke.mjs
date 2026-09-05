@@ -1313,8 +1313,17 @@ export async function writeReport(report, artifactDir, env = process.env, hooks 
     if (!sameNode(temporaryStats, writtenTemporaryStats)) {
       throw new Error("Temporary artifact changed while writing through its retained handle.");
     }
-    temporaryStats = writtenTemporaryStats;
     temporaryFingerprint = await safeResultFingerprint(temporaryPath);
+    const fingerprintedTemporaryFdStats = await temporaryHandle.stat();
+    if (
+      !temporaryFingerprint ||
+      !fingerprintedTemporaryFdStats.isFile() ||
+      !sameNode(temporaryStats, temporaryFingerprint) ||
+      !sameNode(temporaryStats, fingerprintedTemporaryFdStats) ||
+      !sameNode(temporaryFingerprint, fingerprintedTemporaryFdStats)
+    ) {
+      throw new Error("Temporary artifact changed while binding its pathname fingerprint to the retained handle.");
+    }
     await assertDirectoryStable("report write");
     await assertLockStable("report write");
     await hooks.beforeCommit?.({ artifactPath, targetDirectory, temporaryPath });

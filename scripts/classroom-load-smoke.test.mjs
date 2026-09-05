@@ -1075,6 +1075,111 @@ test("report writer refuses an attacker replacement of its temporary artifact be
   assert.notEqual(await readFile(result, "utf8"), "ATTACKER-TEMP-CONTENT\n");
 });
 
+test("report writer binds the retained temporary fd after pathname fingerprinting before rename", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-temp-fd-fingerprint-race-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const result = path.join(root, "last-run.json");
+  const lock = path.join(root, ".last-run.json.lock");
+  const originalResult = "ORIGINAL-LAST-RUN\n";
+  const foreignReplacement = "FOREIGN-TEMP-REPLACEMENT\n";
+  await writeFile(result, originalResult, { mode: 0o600 });
+  const originalResultStats = await lstat(result);
+  const canonicalRoot = await fsPromises.realpath(root);
+  const temporaryPrefix = `${canonicalRoot}${path.sep}.last-run.json.`;
+  const originalOpen = fsPromises.open;
+  const originalRename = fsPromises.rename;
+  const openedHandles = [];
+  let retainedTemporaryHandle;
+  let retainedTemporaryStats;
+  let replacementStats;
+  let temporaryPath = "";
+  let renameCalls = 0;
+
+  t.mock.method(fsPromises, "open", async (...args) => {
+    const handle = await originalOpen(...args);
+    const candidate = path.resolve(String(args[0]));
+    if (candidate === canonicalRoot || candidate.startsWith(`${canonicalRoot}${path.sep}`)) {
+      openedHandles.push(handle);
+    }
+    const flags = args[1];
+    if (
+      !candidate.startsWith(temporaryPrefix) ||
+      !candidate.endsWith(".tmp") ||
+      typeof flags !== "number" ||
+      (flags & fsConstants.O_EXCL) !== fsConstants.O_EXCL
+    ) {
+      return handle;
+    }
+
+    temporaryPath = candidate;
+    retainedTemporaryHandle = handle;
+    let statCalls = 0;
+    return new Proxy(handle, {
+      get(target, property) {
+        if (property === "stat") {
+          return async (...methodArgs) => {
+            statCalls += 1;
+            const stats = await target.stat(...methodArgs);
+            if (statCalls === 1) retainedTemporaryStats = stats;
+            if (statCalls === 2) {
+              assert.equal(stats.dev, retainedTemporaryStats.dev);
+              assert.equal(stats.ino, retainedTemporaryStats.ino);
+              await unlink(temporaryPath);
+              await writeFile(temporaryPath, foreignReplacement, { mode: 0o600 });
+              replacementStats = await lstat(temporaryPath);
+              assert.notDeepEqual(
+                [replacementStats.dev, replacementStats.ino],
+                [stats.dev, stats.ino],
+                "the second retained-fd stat returns the original inode after the pathname is replaced",
+              );
+            }
+            return stats;
+          };
+        }
+        const value = Reflect.get(target, property, target);
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+    });
+  });
+  t.mock.method(fsPromises, "rename", async (...args) => {
+    renameCalls += 1;
+    return originalRename(...args);
+  });
+
+  await assert.rejects(
+    () => writeReport({ race: "temporary-fd-fingerprint" }, root),
+    /temporary artifact|changed|replacement|race/i,
+  );
+
+  assert.ok(retainedTemporaryHandle, "the test must retain the O_EXCL-created file handle");
+  assert.ok(replacementStats, "the replacement must occur after the second retained-fd stat succeeds");
+  const finalResultStats = await lstat(result);
+  assert.deepEqual(
+    {
+      renameCalls,
+      resultBytes: await readFile(result, "utf8"),
+      resultIdentity: [finalResultStats.dev, finalResultStats.ino],
+    },
+    {
+      renameCalls: 0,
+      resultBytes: originalResult,
+      resultIdentity: [originalResultStats.dev, originalResultStats.ino],
+    },
+    "identity mismatch must fail before rename and leave the existing last-run bytes and inode unchanged",
+  );
+  assert.equal(await readFile(temporaryPath, "utf8"), foreignReplacement);
+  assert.deepEqual(
+    (await readdir(root)).sort(),
+    [path.basename(temporaryPath), "last-run.json"].sort(),
+    "the foreign replacement remains unpublished and is not deleted as an owned temporary",
+  );
+  assert.equal(existsSync(lock), false, "the independently owned lock must still be cleaned");
+  for (const handle of openedHandles) {
+    await assert.rejects(() => handle.stat(), /closed|EBADF/i);
+  }
+});
+
 for (const [phase, label] of [
   ["chmod", "chmod"],
   ["writeFile", "write"],

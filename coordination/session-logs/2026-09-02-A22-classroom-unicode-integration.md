@@ -782,3 +782,37 @@ self-clean with test teardown. No repository `.tmp`, existing evidence,
 Promotion history, workflow selector, real Classroom/Preview/PostgreSQL,
 Shadow, merge, deploy or production surface was read as write authority or
 mutated by this correction.
+
+### U224-R7 retained-fd fingerprint binding — 2026-09-05
+
+- Finding: fresh literal preflight at `2026-09-05T13:32:30Z` matched
+  expected-old `3c26636c9e09d78a745272a31085b5d25f94b984` at the A22 worktree,
+  local branch, tracking ref, live feature ref and PR #224 head; live main was
+  `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`. The ordinary Git view was
+  redirected by shared `core.worktree`, so every authoritative Git read used
+  the literal A22 git-dir/work-tree override. Status, lock and other-process
+  holder inventories were empty; all three authorized file hashes matched.
+  The 68-entry NUL-delimited topology SHA-256 was
+  `fbccf4c34abcbc767ba85cdcdf411d285c07c1bb17263f4e375d53b8a742fa42`.
+- RED: the deterministic retained-handle fixture let the second temporary
+  `FileHandle.stat()` obtain the original inode statistics, then replaced the
+  temporary pathname with another mode-0600 regular inode before returning.
+  The old implementation failed 0/1 at the intended assertion after calling
+  rename once, replacing the existing `last-run.json` bytes with the foreign
+  bytes and changing its inode.
+- GREEN: immediately after the first temporary pathname fingerprint, the
+  minimum implementation obtains a fresh retained-handle stat and requires
+  three-way dev/inode agreement among the O_EXCL-opened original identity,
+  pathname fingerprint and fresh retained-FD identity. The focused regression
+  passed 1/1 and proved rename was not called, existing last-run bytes and
+  inode stayed unchanged, the foreign replacement stayed unpublished and was
+  not deleted as owned, all observed handles closed, and the independently
+  owned lock was removed.
+- Gates: the full classroom suite passed 47/47 with all R6 tests retained;
+  `npm run test:release-governance` passed 139, failed 0 and retained 11
+  existing skips (150 total). `node --check` passed for both authorized
+  scripts and literal `git diff --check` passed. Fixtures wrote only direct
+  descendants of the owner-owned OS temporary root and self-cleaned; no
+  repository `.tmp`, evidence, Promotion workflow/history/selector, real
+  Classroom/Preview/PostgreSQL, Shadow, merge, deploy or production write was
+  performed.
