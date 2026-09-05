@@ -554,3 +554,123 @@ Proposed later handling, not executed:
 This checklist grants no Promotion file/selector/branch creation, Shadow,
 replay, integration, merge, deploy or cleanup authority. The new PostgreSQL
 test commit will not be described as clearing the historical Promotion gate.
+
+## U224 runtime-callsite rebinding tooling — 2026-09-05
+
+Scope and approved design: A10/A22 tooling, with independent A11/A22 review.
+The owner approved the proposed three-file package at expected-old
+`2c02e924a9f174112cd9d51c1f7d54c0c71618d4`: this append-only log,
+`scripts/rebase-promotion-baseline.mjs`, and its existing test file. One
+append-only commit and ordinary fast-forward feature push are permitted.
+No Manifest, Receipt, selector, frozen checker, candidate, package alias or
+default coverage change belongs to this package. U223 is not reopened.
+
+The implementation plan follows the approved bounded design: add failing
+tests first; implement a separate `--rebind-runtime-callsites` mode; verify
+source/target policy, complete callsite inventories, exact Git blobs and
+unchanged call expressions; preserve both historical refresh modes; then
+independent review, regressions, exact-path staging and one commit. The
+design/plan is recorded here because the owner did not authorize new spec
+or plan files, or separate design commits.
+
+Fresh custody observations at 2026-09-05T03:18:55Z and 03:27:13Z agreed on
+U224 HEAD/local/tracking/live ref/PR, U223 PR `33e9b877a514f0a8e801c9f2ff8ef120a1c7ef4d`,
+and live main `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`. Status was empty;
+the literal worktree/common-dir identity and 68-entry NUL topology matched.
+Topology SHA-256 was
+`2e618c69997e1305be8e77f139efba16b18ecec351eca7628bd5fc3a47176649`.
+Owner-manifest and Promotion evidence-tree fingerprints were unchanged.
+The all-refs aggregate changed while Codex produced internal turn-diff
+snapshot refs; that aggregate alone is not target-ref or ownership drift.
+No non-task cwd holder or lock holder was observed. The existing zero-byte
+common evidence-writer lock was left untouched.
+
+History correction: the shared repository is shallow. Earlier statements
+that a negative local ancestry result proved a historical Receipt provenance
+contradiction are withdrawn. Read-only GitHub comparisons established that
+`d0394f016eb91c3b065d4751601be65a7186e5ac` is the merge base and ancestor
+of both `3ccdb882d705516bfdf18cd8925c3b75a6550b8e` (ahead 15, behind 0)
+and the approved U224 HEAD (ahead 33, behind 0). This does not revalidate the
+whole Receipt. No fetch/unshallow or Git graph mutation was performed.
+The new mode fails with `REBINDING_FULL_HISTORY_REQUIRED` before loading
+inputs or materializing trees when local history is shallow.
+
+Implemented contract:
+
+- The source expected/observed and target observed policies must have the
+  complete 18-field schema. Only `nextDynamicCallsiteDigest` may change;
+  all reachability/edge/loader quantities and other digests remain fixed.
+- All source and target callsites are re-parsed from bounded fatal-UTF8
+  source bytes, bound to regular Git blob IDs and modes. Inventory counts
+  and native callsite digests must match, including every unchanged call.
+- Calls are paired by path and numeric source order, not decimal-string
+  position order. Literal targets, normalized expressions and the hash of
+  the full call expression must match. The only accepted differences are
+  source hashes and positions. Proofs contain hashes/metadata, not source.
+- The mode is exclusive with both historical refresh modes and with legacy
+  candidate-byte revision. It never grants candidate/domain approval.
+- Two exact commit projections are checked before native observation.
+  Complete tree inventory, regular-file type, mode and Git blob byte
+  identity must match; archive export-ignore/export-subst differences,
+  missing/extra files, symlinks and submodules fail closed. Projection
+  limits are 50,000 files, 32 MiB/file and 512 MiB total. Callsite-source
+  limits are 10,000 files, 100,000 calls, 16 MiB/file and 64 MiB total.
+- Git commands use literal git-dir/work-tree, ignore replacement objects,
+  and strip inherited Git routing overrides. Authoritative JSON loads use
+  the existing bounded duplicate-key strict parser. Frozen checker files
+  and historical policy-revision assertions are unchanged.
+- Evidence receives the complete proof including source/target tree
+  digests. The later binding phase recomputes and compares that full proof
+  with every committed role record before using the new policy.
+
+RED/GREEN evidence:
+
+- Baseline: the existing tool suite passed 12/12 before edits.
+- Initial new-mode RED: 4 failures out of 5 tests (missing proof/CLI mode;
+  the generic rejection test was not counted as independent RED evidence).
+- Follow-up RED covered the missing shallow-history guard, inherited Git
+  routing overrides, candidate-mode exclusivity and absent complete-tree
+  verification. Each was observed failing before its implementation.
+- Final focused/full tool suite: 21/21 pass, 0 fail, 0 skip.
+- Independent A11/A22 reviewer found an archive-attribute P2. The full-tree
+  pre-observation binding and negative tests fixed it; the reviewer then
+  independently reran 21/21 and reported no remaining submission blocker.
+  Reviewed tool SHA-256:
+  `8e94b8390d0e23335cf23b308ce248d92ae8b8c4f46ff255a96f61f6d4c56f0c`;
+  reviewed test SHA-256:
+  `8a44a39e133586be5de93ecabd2844b9477952829e47c00636bfc096f679c874`.
+- Read-only real-callsite regression: 10 exact Git source files, 489 calls,
+  exactly 2 changed calls in PracticeQuestionCard at 3270→3297 and
+  3604→3631, unchanged full expressions. Policy digests reconstructed as
+  `43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5`
+  and `9a15b12647fbe6172332a6bde48f860249c893711ce79d0f1350799625dc4bd5`.
+  The source non-callsite policy in this regression was the sealed fixture,
+  not a fresh full source-tree native validation; no broader claim is made.
+- `npm run test:release-governance`: 143 total, 132 pass, 11 existing skips,
+  0 failures. Alias/default classroom coverage remains present.
+- `npm run type-check -- --incremental false`: exit 0. Both syntax checks
+  and `git diff --check` passed. No package/build/runtime sources changed.
+
+Execution ceiling: the full archive collector success path and actual
+two-phase evidence/binding writes were NOT run in the shallow shared
+worktree. Native validate/Shadow/replay/Receipt verification were NOT run.
+Planning with the new mode will materialize and dispose owned temporary
+commit trees in a separately authorized full-history environment; it is
+not a zero-filesystem-write audit. Unit proof is not Promotion currentness.
+
+Next phase requires a separate exact-file and controlled-full-history
+environment authorization. It must enumerate justification and independent
+baseline review, new role evidence/legacy registry, Manifest/index/descriptor
+and selector, then later Receipt/storage/finalization evidence. Existing
+historical bytes stay frozen. Only PR-triggered automatic checks are
+authorized; manual Shadow, dispatch/rerun, merge, deploy and branch/worktree
+or evidence cleanup remain excluded. Full goal remains both PR review
+closures, not merely this tooling commit; `liveAllowed=false`.
+
+Finalization routing clarification: the existing standalone v2 Closure
+validator requires `mainPostMerge` evidence. It must not be used to expand
+this owner's pre-merge review-closure goal. The next authorization should
+distinguish new canonical Receipt storage and current PR check/reviewer
+closure from a future `shadow_passed` Closure/Registry lifecycle transition.
+No post-merge evidence will be invented or borrowed; historical
+Closure/Registry retain only their historical scope.

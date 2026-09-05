@@ -21,8 +21,11 @@ import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
 import {
+  analyzeRuntimeLoaderCalls,
+  fingerprint,
   inspectLegacyCandidateDocument,
   observeCanonicalRuntimePolicy
 } from "../coordination/integration/promotion-gate-lib.mjs";
@@ -30,6 +33,7 @@ import {
   computeV2EvidenceSemanticDigest,
   projectV2RuntimePolicy
 } from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
+import { parsePromotionWorkflowJsonBytes } from "./promotion-workflow-json-guard.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = fs.realpathSync(path.resolve(path.dirname(scriptPath), ".."));
@@ -50,6 +54,7 @@ function usage() {
   return [
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
+    "  Add --rebind-runtime-callsites for independently reviewed source-hash/position-only changes (requires full Git history; planning materializes owned temporary commit trees).",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]"
   ].join("\n");
@@ -68,6 +73,7 @@ function parseArgs(argv) {
     writeBindings: false,
     refreshRuntimePolicy: false,
     reviewRuntimePolicy: false,
+    rebindRuntimeCallsites: false,
     reviewLegacyCandidateBytes: false,
     rejectedMonolithicWrite: false,
     help: false
@@ -87,6 +93,7 @@ function parseArgs(argv) {
     else if (argument === "--write-bindings") options.writeBindings = true;
     else if (argument === "--refresh-runtime-policy") options.refreshRuntimePolicy = true;
     else if (argument === "--review-runtime-policy") options.reviewRuntimePolicy = true;
+    else if (argument === "--rebind-runtime-callsites") options.rebindRuntimeCallsites = true;
     else if (argument === "--review-legacy-candidate-bytes") options.reviewLegacyCandidateBytes = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
     else if (argument === "--help" || argument === "-h") options.help = true;
@@ -96,8 +103,16 @@ function parseArgs(argv) {
 }
 
 function git(args, encoding = "utf8") {
-  return execFileSync("git", args, {
+  const dotGit = path.join(repoRoot, ".git");
+  const entry = fs.lstatSync(dotGit);
+  if (entry.isSymbolicLink()) throw new Error("Repository Git identity cannot be a symlink.");
+  const pointer = entry.isDirectory() ? null : fs.readFileSync(dotGit, "utf8").trim().match(/^gitdir: (.+)$/u);
+  if (!entry.isDirectory() && !pointer) throw new Error("Repository Git identity is invalid.");
+  const gitDir = entry.isDirectory() ? dotGit : path.resolve(repoRoot, pointer[1]);
+  return execFileSync("git", ["--no-optional-locks", "--no-replace-objects", `--git-dir=${gitDir}`,
+    `--work-tree=${repoRoot}`, "-c", `core.worktree=${repoRoot}`, "-c", "core.fsmonitor=false", ...args], {
     cwd: repoRoot,
+    env: Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith("GIT_") && key !== "NODE_OPTIONS")),
     encoding,
     maxBuffer: 32 * 1024 * 1024,
     stdio: ["ignore", "pipe", "pipe"]
@@ -378,11 +393,149 @@ export function buildReviewedRuntimePolicyEvolution({
   };
 }
 
+const callsitePolicyKeys = [
+  "coveredFileCount", "coveredFilesDigest", "classificationsDigest", "frameworkEntrypointCount", "seedCount",
+  "reachablePathCount", "reachablePathsDigest", "edgeCount", "edgeDigest", "topologyEdgeCount", "topologyEdgeDigest",
+  "nextDynamicCallCount", "nextDynamicLiteralImportCount", "nextDynamicNonliteralImportCount",
+  "nextDynamicCallsiteDigest", "fsReadAllowlistCount", "fsReadAllowlistDigest", "zeroBaselineCallCount"
+].sort();
+const callsiteKeys = ["sourcePath", "sourceRawSha256", "position", "literalImports", "nonliteralImportCount", "normalizedExpressionDigest"];
+const rebindingLimits = Object.freeze({ maxFiles: 10_000, maxCalls: 100_000, maxFileBytes: 16 * 1024 * 1024, maxTotalBytes: 64 * 1024 * 1024 });
+
+function rebindingFail(reason) {
+  throw new Error(`callsite rebinding: ${reason}`);
+}
+
+function exactRebindingKeys(value, keys, label) {
+  if (!value || typeof value !== "object" || Array.isArray(value)
+    || ![Object.prototype, null].includes(Object.getPrototypeOf(value))
+    || !jsonEqual(Object.keys(value).sort(), [...keys].sort())) rebindingFail(`${label} schema is invalid`);
+}
+
+function compareCallsiteKeys(left, right) {
+  const a = `${left.sourcePath}\0${left.position}`, b = `${right.sourcePath}\0${right.position}`;
+  return a < b ? -1 : a > b ? 1 : 0;
+}
+
+function validateRebindingPolicy(policy) {
+  exactRebindingKeys(policy, callsitePolicyKeys, "policy");
+  for (const key of callsitePolicyKeys) {
+    if (key.endsWith("Digest") ? !/^[a-f0-9]{64}$/u.test(policy[key] ?? "")
+      : !Number.isSafeInteger(policy[key]) || policy[key] < 0) rebindingFail("policy value is invalid");
+  }
+  if (policy.nextDynamicNonliteralImportCount !== 0 || policy.zeroBaselineCallCount !== 0
+    || policy.edgeCount !== policy.topologyEdgeCount) rebindingFail("policy capability ceiling is invalid");
+}
+
+function verifyCallsiteFiles(files, callsites, policy) {
+  if (!Array.isArray(files) || files.length === 0 || files.length > rebindingLimits.maxFiles
+    || !Array.isArray(callsites) || callsites.length === 0 || callsites.length > rebindingLimits.maxCalls) {
+    rebindingFail("file or callsite inventory is missing or exceeds limits");
+  }
+  const parsedCalls = [], expressions = new Map(), records = [], seen = new Set();
+  let totalBytes = 0;
+  for (const file of files) {
+    exactRebindingKeys(file, ["path", "mode", "gitBlobId", "bytes"], "source file");
+    try { assertSafeRelative(file.path, "source file"); } catch { rebindingFail("source file path is unsafe"); }
+    if (seen.has(file.path) || !["100644", "100755"].includes(file.mode)
+      || !/^[a-f0-9]{40}$/u.test(file.gitBlobId ?? "") || !(file.bytes instanceof Uint8Array)
+      || file.bytes.byteLength > rebindingLimits.maxFileBytes) rebindingFail("source file binding is invalid");
+    totalBytes += file.bytes.byteLength;
+    if (totalBytes > rebindingLimits.maxTotalBytes) rebindingFail("source byte inventory exceeds limits");
+    seen.add(file.path);
+    const bytes = Buffer.from(file.bytes);
+    const blobId = crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex");
+    if (blobId !== file.gitBlobId) rebindingFail("source Git blob identity differs");
+    let source;
+    try { source = new TextDecoder("utf-8", { fatal: true }).decode(bytes); } catch { rebindingFail("source UTF-8 is invalid"); }
+    const sourceHash = sha256(bytes);
+    let parsed;
+    try { parsed = analyzeRuntimeLoaderCalls(file.path, source); } catch { rebindingFail("source parser rejected the Git blob"); }
+    if (parsed.sourceRawSha256 !== sourceHash || parsed.zeroBaselineCalls.length !== 0
+      || parsed.nextDynamicCalls.length === 0) rebindingFail("source loader inventory is invalid");
+    const syntax = ts.createSourceFile(file.path, source, ts.ScriptTarget.Latest, true);
+    const callText = new Map();
+    const visit = (node) => {
+      if (ts.isCallExpression(node)) callText.set(node.getStart(syntax), node.getText(syntax));
+      ts.forEachChild(node, visit);
+    };
+    visit(syntax);
+    for (const { position, literalImports, nonliteralImportCount, normalizedExpressionDigest } of parsed.nextDynamicCalls) {
+      if (!callText.has(position) || nonliteralImportCount !== 0) rebindingFail("callsite expression is unresolved");
+      const call = { sourcePath: file.path, sourceRawSha256: sourceHash, position, literalImports, nonliteralImportCount, normalizedExpressionDigest };
+      parsedCalls.push(call);
+      expressions.set(`${file.path}\0${position}`, sha256(Buffer.from(callText.get(position))));
+    }
+    records.push({ path: file.path, mode: file.mode, gitBlobId: blobId, rawSha256: sourceHash });
+  }
+  for (const call of callsites) exactRebindingKeys(call, callsiteKeys, "callsite");
+  parsedCalls.sort(compareCallsiteKeys);
+  if (parsedCalls.length > rebindingLimits.maxCalls || fingerprint(parsedCalls) !== fingerprint(callsites)
+    || fingerprint(parsedCalls) !== policy.nextDynamicCallsiteDigest
+    || parsedCalls.length !== policy.nextDynamicCallCount
+    || parsedCalls.reduce((n, call) => n + call.literalImports.length, 0) !== policy.nextDynamicLiteralImportCount) {
+    rebindingFail("callsite inventory or policy digest is incomplete or differs from exact source blobs");
+  }
+  records.sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  // Native digests sort positions lexically. Pair calls in source order instead,
+  // so a byte offset crossing a decimal-width boundary cannot mispair them.
+  const ordered = [...parsedCalls].sort((a, b) => a.sourcePath === b.sourcePath
+    ? a.position - b.position : a.sourcePath < b.sourcePath ? -1 : 1);
+  return { calls: ordered, expressions, records };
+}
+
+/** Bounded policy evidence only; never supplies candidate/domain approval. */
+export function buildReviewedRuntimeCallsiteRebinding(input) {
+  const { sourceCommit, targetCommit, sourceExpectedPolicy, sourceObservedPolicy, targetObservedPolicy,
+    sourceFsReadAllowlist, targetFsReadAllowlist, sourceCallsites, targetCallsites, sourceFiles, targetFiles } = input;
+  if (!commitPattern.test(sourceCommit ?? "") || !commitPattern.test(targetCommit ?? "") || sourceCommit === targetCommit) {
+    rebindingFail("distinct exact source/target commits are required");
+  }
+  for (const policy of [sourceExpectedPolicy, sourceObservedPolicy, targetObservedPolicy]) validateRebindingPolicy(policy);
+  if (fingerprint(sourceExpectedPolicy) !== fingerprint(sourceObservedPolicy)) rebindingFail("source expected policy differs from observation");
+  const changedFields = callsitePolicyKeys.filter((key) => sourceObservedPolicy[key] !== targetObservedPolicy[key]);
+  if (!jsonEqual(changedFields, ["nextDynamicCallsiteDigest"])) rebindingFail("policy may change only its callsite digest");
+  if (!Array.isArray(sourceFsReadAllowlist) || !Array.isArray(targetFsReadAllowlist)
+    || sourceFsReadAllowlist.length !== sourceObservedPolicy.fsReadAllowlistCount
+    || fingerprint(sourceFsReadAllowlist) !== sourceObservedPolicy.fsReadAllowlistDigest
+    || fingerprint(sourceFsReadAllowlist) !== fingerprint(targetFsReadAllowlist)) rebindingFail("fs-read policy or allowlist differs");
+  const source = verifyCallsiteFiles(sourceFiles, sourceCallsites, sourceObservedPolicy);
+  const target = verifyCallsiteFiles(targetFiles, targetCallsites, targetObservedPolicy);
+  if (!jsonEqual(source.records.map(({ path, mode }) => ({ path, mode })), target.records.map(({ path, mode }) => ({ path, mode })))) {
+    rebindingFail("callsite file set or modes differ");
+  }
+  const changes = [];
+  for (let index = 0; index < source.calls.length; index += 1) {
+    const oldCall = source.calls[index], newCall = target.calls[index];
+    const { sourceRawSha256: oldHash, position: oldPosition, ...oldSemantic } = oldCall;
+    const { sourceRawSha256: newHash, position: newPosition, ...newSemantic } = newCall;
+    const oldExpression = source.expressions.get(`${oldCall.sourcePath}\0${oldPosition}`);
+    const newExpression = target.expressions.get(`${newCall.sourcePath}\0${newPosition}`);
+    if (fingerprint(oldSemantic) !== fingerprint(newSemantic) || oldExpression !== newExpression) {
+      rebindingFail("callsite semantics or expression changed");
+    }
+    if (oldHash !== newHash || oldPosition !== newPosition) changes.push({
+      sourcePath: oldCall.sourcePath, sourceRawSha256: oldHash, targetRawSha256: newHash,
+      sourcePosition: oldPosition, targetPosition: newPosition, expressionDigest: oldExpression
+    });
+  }
+  if (changes.length === 0) rebindingFail("no source-hash/position changes were proven");
+  return {
+    schemaVersion: "promotion-runtime-callsite-rebinding.v1", sourceCommit, targetCommit, changedFields,
+    sourcePolicyDigest: fingerprint(sourceObservedPolicy), targetPolicyDigest: fingerprint(targetObservedPolicy),
+    sourceCallsiteDigest: sourceObservedPolicy.nextDynamicCallsiteDigest,
+    targetCallsiteDigest: targetObservedPolicy.nextDynamicCallsiteDigest,
+    sourceFiles: source.records, targetFiles: target.records, changedCallsites: changes,
+    changedCallsiteCount: changes.length, callsiteSemanticsUnchanged: true,
+    otherPolicyFieldsUnchanged: true, liveAllowed: false
+  };
+}
+
 function loadCanonicalJson(file, label) {
   const bytes = fs.readFileSync(file.absolute);
   let value;
   try {
-    value = JSON.parse(bytes.toString("utf8"));
+    value = parsePromotionWorkflowJsonBytes(bytes);
   } catch {
     throw new Error(`${label} is not valid JSON.`);
   }
@@ -469,13 +622,13 @@ function loadCanonicalJsonAtRoot(root, relativePath, label) {
     throw new Error(`${label} escapes its projected repository root.`);
   }
   const entry = fs.lstatSync(absolute);
-  if (!entry.isFile() || entry.isSymbolicLink()) {
+  if (!entry.isFile() || entry.isSymbolicLink() || fs.realpathSync(absolute) !== absolute) {
     throw new Error(`${label} must be one regular projected repository file.`);
   }
   const bytes = fs.readFileSync(absolute);
   let value;
   try {
-    value = JSON.parse(bytes.toString("utf8"));
+    value = parsePromotionWorkflowJsonBytes(bytes);
   } catch {
     throw new Error(`${label} is not valid JSON.`);
   }
@@ -488,12 +641,7 @@ function materializeCommitTree(commit) {
   const archivePath = path.join(ownerRoot, "source.tar");
   fs.mkdirSync(treeRoot, { mode: 0o700 });
   try {
-    execFileSync("git", ["archive", "--format=tar", `--output=${archivePath}`, commit], {
-      cwd: repoRoot,
-      encoding: "utf8",
-      maxBuffer: 16 * 1024 * 1024,
-      stdio: ["ignore", "pipe", "pipe"]
-    });
+    git(["archive", "--format=tar", `--output=${archivePath}`, commit]);
     execFileSync("tar", ["-xf", archivePath, "-C", treeRoot], {
       encoding: "utf8",
       maxBuffer: 16 * 1024 * 1024,
@@ -597,6 +745,125 @@ async function collectReviewedRuntimePolicyEvolution(manifest, targetCommit) {
   } finally {
     targetProjection?.dispose();
     sourceProjection.dispose();
+  }
+}
+
+function nativeCallsiteProjection(observation) {
+  return observation.graph.loaderInventory.nextDynamicCalls.map((call) =>
+    Object.fromEntries(callsiteKeys.map((key) => [key, call[key]])));
+}
+
+function validateProjectionRecords(records) {
+  if (!Array.isArray(records) || records.length === 0 || records.length > 50_000) rebindingFail("projection inventory is invalid");
+  const seen = new Set();
+  for (const record of records) {
+    exactRebindingKeys(record, ["path", "mode", "objectId"], "projection record");
+    try { assertSafeRelative(record.path, "projection path"); } catch { rebindingFail("projection path is unsafe"); }
+    if (record.path.split("/").includes(".git") || seen.has(record.path)
+      || !["100644", "100755"].includes(record.mode) || !/^[a-f0-9]{40}$/u.test(record.objectId ?? "")) {
+      rebindingFail("projection must contain unique regular Git blobs");
+    }
+    seen.add(record.path);
+  }
+  return [...records].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+}
+
+export function verifyCallsiteProjectionRecords(expected, actual) {
+  const trusted = validateProjectionRecords(expected), observed = validateProjectionRecords(actual);
+  if (fingerprint(trusted) !== fingerprint(observed)) rebindingFail("archive projection differs from the complete Git tree");
+  return fingerprint(trusted);
+}
+
+function callsiteCommitTreeRecords(commit) {
+  const raw = git(["ls-tree", "-r", "--full-tree", "-z", commit]);
+  if (!raw.endsWith("\0")) rebindingFail("Git tree projection is incomplete");
+  return validateProjectionRecords(raw.slice(0, -1).split("\0").map((entry) => {
+    const match = entry.match(/^(100644|100755) blob ([a-f0-9]{40})\t([^\0]+)$/u);
+    if (!match) rebindingFail("Git tree projection contains non-regular entries");
+    return { path: match[3], mode: match[1], objectId: match[2] };
+  }));
+}
+
+function verifyCallsiteArchive(root, expected) {
+  const actual = [];
+  let total = 0;
+  const walk = (directory) => {
+    for (const name of fs.readdirSync(directory)) {
+      const absolute = path.join(directory, name), stat = fs.lstatSync(absolute);
+      if (stat.isSymbolicLink()) rebindingFail("archive projection contains a symlink");
+      if (stat.isDirectory()) { walk(absolute); continue; }
+      total += stat.size;
+      if (!stat.isFile() || stat.size > 32 * 1024 * 1024 || total > 512 * 1024 * 1024 || actual.length >= 50_000) {
+        rebindingFail("archive projection is non-regular or exceeds limits");
+      }
+      const bytes = fs.readFileSync(absolute);
+      actual.push({ path: path.relative(root, absolute).split(path.sep).join("/"),
+        mode: stat.mode & 0o111 ? "100755" : "100644",
+        objectId: crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex") });
+    }
+  };
+  walk(root);
+  return verifyCallsiteProjectionRecords(expected, actual);
+}
+
+function readCallsiteGitFiles(commit, root, callsites) {
+  const paths = [...new Set(callsites.map(({ sourcePath }) => sourcePath))].sort();
+  if (paths.length > rebindingLimits.maxFiles) rebindingFail("source file count exceeds limits");
+  let total = 0;
+  return paths.map((relativePath) => {
+    const safe = assertSafeRelative(relativePath, "callsite source");
+    const absolute = path.resolve(root, safe.relative);
+    const stat = fs.lstatSync(absolute);
+    total += stat.size;
+    if (!stat.isFile() || stat.isSymbolicLink() || fs.realpathSync(absolute) !== absolute
+      || stat.size > rebindingLimits.maxFileBytes || total > rebindingLimits.maxTotalBytes) rebindingFail("source file is unsafe or too large");
+    const record = git(["ls-tree", "-z", commit, "--", relativePath]);
+    const match = record.match(/^(100644|100755) blob ([a-f0-9]{40})\t([^\0]+)\0$/u);
+    if (!match || match[3] !== relativePath) rebindingFail("exact regular Git blob is missing");
+    return { path: relativePath, mode: match[1], gitBlobId: match[2], bytes: fs.readFileSync(absolute) };
+  });
+}
+
+async function collectReviewedRuntimeCallsiteRebinding(manifest, targetCommit) {
+  assertAncestor(manifest.targetBaselineCommit, targetCommit, "Callsite source baseline");
+  const compatibilityPath = manifest.liveReachability?.compatibilityManifestPath;
+  const compatibilityHash = manifest.liveReachability?.compatibilityManifestRawSha256;
+  if (typeof compatibilityPath !== "string" || !/^[a-f0-9]{64}$/u.test(compatibilityHash ?? "")) rebindingFail("compatibility binding is invalid");
+  const head = resolveCommit("HEAD", "HEAD");
+  // Reject unsafe tree entries before extraction. Then bind every extracted
+  // file, including non-callsite runtime files affected by export attributes.
+  const sourceRecords = callsiteCommitTreeRecords(manifest.targetBaselineCommit);
+  const targetRecords = callsiteCommitTreeRecords(targetCommit);
+  const source = materializeCommitTree(manifest.targetBaselineCommit);
+  let target;
+  try {
+    target = materializeCommitTree(targetCommit);
+    const sourceTreeDigest = verifyCallsiteArchive(source.root, sourceRecords);
+    const targetTreeDigest = verifyCallsiteArchive(target.root, targetRecords);
+    const sourceCompatibility = loadCanonicalJsonAtRoot(source.root, compatibilityPath, "Source compatibility Manifest");
+    const targetCompatibility = loadCanonicalJsonAtRoot(target.root, compatibilityPath, "Target compatibility Manifest");
+    if (sourceCompatibility.rawSha256 !== compatibilityHash || targetCompatibility.rawSha256 !== compatibilityHash) rebindingFail("compatibility bytes drifted");
+    const sourceObservation = await observeCanonicalRuntimePolicy(source.root, sourceCompatibility.value);
+    const targetObservation = await observeCanonicalRuntimePolicy(target.root, targetCompatibility.value);
+    const sourceCallsites = nativeCallsiteProjection(sourceObservation);
+    const targetCallsites = nativeCallsiteProjection(targetObservation);
+    const targetObservedPolicy = projectV2RuntimePolicy(targetObservation);
+    const proof = buildReviewedRuntimeCallsiteRebinding({
+      sourceCommit: manifest.targetBaselineCommit, targetCommit,
+      sourceExpectedPolicy: manifest.liveReachability.expectedRuntimePolicy,
+      sourceObservedPolicy: projectV2RuntimePolicy(sourceObservation), targetObservedPolicy,
+      sourceFsReadAllowlist: sourceObservation.loaderPolicy.fsReadAllowlist,
+      targetFsReadAllowlist: targetObservation.loaderPolicy.fsReadAllowlist,
+      sourceCallsites, targetCallsites,
+      sourceFiles: readCallsiteGitFiles(manifest.targetBaselineCommit, source.root, sourceCallsites),
+      targetFiles: readCallsiteGitFiles(targetCommit, target.root, targetCallsites)
+    });
+    if (resolveCommit("HEAD", "HEAD") !== head) rebindingFail("execution HEAD drifted during observation");
+    assertCleanWorktree();
+    return { proof: { ...proof, sourceTreeDigest, targetTreeDigest }, targetObservedPolicy };
+  } finally {
+    target?.dispose();
+    source.dispose();
   }
 }
 
@@ -792,7 +1059,9 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
     ? await collectRuntimePolicyRefresh(manifest)
     : options.reviewRuntimePolicy
       ? await collectReviewedRuntimePolicyEvolution(manifest, targetCommit)
-      : null;
+      : options.rebindRuntimeCallsites
+        ? await collectReviewedRuntimeCallsiteRebinding(manifest, targetCommit)
+        : null;
 
   const evidence = manifest.evidenceBindings.map((binding) => {
     const sourceFile = resolveRepositoryFile(binding.evidencePath, `${binding.role} source evidence`);
@@ -865,7 +1134,9 @@ function printPlan(plan) {
         ? "strict stale-fs-digest refresh"
         : plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reviewed-evolution.v1"
           ? "reviewed literal-import graph evolution"
-          : "retained"
+          : plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-callsite-rebinding.v1"
+            ? "exact source-hash/position-only callsite rebinding"
+            : "retained"
     }`,
     `  legacy candidate bytes: ${
       plan.legacyCandidateRevision
@@ -938,7 +1209,9 @@ function writeBindingPhase(options, plan) {
     if (!working.equals(committed)) {
       throw new Error(`${binding.role} revision evidence must exactly match --evidence-commit.`);
     }
-    const evidence = JSON.parse(committed.toString("utf8"));
+    const evidence = parsePromotionWorkflowJsonBytes(committed);
+    if (options.rebindRuntimeCallsites && fingerprint(evidence.semanticPayload?.baselineReaffirmation?.runtimePolicyReaffirmation ?? null)
+      !== fingerprint(plan.runtimePolicyRevision.proof)) rebindingFail("committed evidence does not bind the recomputed callsite proof");
     if (
       evidence.role !== binding.role ||
       evidence.result !== binding.expectedResult ||
@@ -1019,8 +1292,11 @@ export async function main(argv = process.argv.slice(2)) {
   if (options.rejectedMonolithicWrite) {
     throw new Error("Monolithic --write is disabled; create an append-only revision with the two committed phases.");
   }
-  if (options.refreshRuntimePolicy && options.reviewRuntimePolicy) {
-    throw new Error("--refresh-runtime-policy and --review-runtime-policy are mutually exclusive.");
+  if ([options.refreshRuntimePolicy, options.reviewRuntimePolicy, options.rebindRuntimeCallsites].filter(Boolean).length > 1) {
+    throw new Error("Runtime-policy refresh, review and callsite rebinding modes are mutually exclusive.");
+  }
+  if (options.rebindRuntimeCallsites && options.reviewLegacyCandidateBytes) {
+    throw new Error("Callsite rebinding cannot combine with candidate-byte revision.");
   }
   if (
     !options.manifest ||
@@ -1032,12 +1308,15 @@ export async function main(argv = process.argv.slice(2)) {
     process.exitCode = 2;
     return;
   }
+  if (options.rebindRuntimeCallsites && git(["rev-parse", "--is-shallow-repository"]).trim() !== "false") {
+    throw new Error("REBINDING_FULL_HISTORY_REQUIRED: shallow history cannot prove baseline ancestry.");
+  }
   const manifestFile = loadManifest(options.manifest);
   const targetCommit = resolveCommit(options.target, "Target baseline");
   assertAncestor(targetCommit, resolveCommit("HEAD", "HEAD"), "Target baseline");
   const revisionRoot = resolveRevisionRoot(manifestFile.relative, options.revisionRoot);
   if (options.writeEvidence) assertProducedAt(options.producedAt);
-  if (options.refreshRuntimePolicy || options.reviewRuntimePolicy) assertCleanWorktree();
+  if (options.refreshRuntimePolicy || options.reviewRuntimePolicy || options.rebindRuntimeCallsites) assertCleanWorktree();
   const plan = await planRevision(manifestFile, targetCommit, revisionRoot, options);
   printPlan(plan);
   if (options.writeEvidence) writeEvidencePhase(options, plan);
