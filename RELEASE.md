@@ -314,9 +314,9 @@ npm run smoke:classroom-load -- --students 15 --rounds 3 --json
 ```
 
 For the owner-approved demo roster, enable the roster explicitly and provide its password only
-through the environment. `CLASSROOM_LOAD_USE_DEMO_LOGIN=1` reuses its small number of authenticated
-student sessions across virtual seats; it does not create accounts or expose the password in the
-report.
+through the environment. `CLASSROOM_LOAD_USE_DEMO_LOGIN=1` (or the dashboard alias
+`DASHBOARD_SMOKE_USE_DEMO_LOGIN=1`) reuses its small number of authenticated student sessions
+across virtual seats; it does not create accounts or expose the password in the report.
 
 ```bash
 CLASSROOM_LOAD_BASE_URL="https://<preview-deployment>.vercel.app" \

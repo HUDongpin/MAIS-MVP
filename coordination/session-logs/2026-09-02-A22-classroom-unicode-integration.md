@@ -816,3 +816,15 @@ mutated by this correction.
   repository `.tmp`, evidence, Promotion workflow/history/selector, real
   Classroom/Preview/PostgreSQL, Shadow, merge, deploy or production write was
   performed.
+
+### U224-R8 documentation-review closure — 2026-09-05
+
+- Finding/RED: the focused demo-roster/password contract check found the
+  runbook named `CLASSROOM_LOAD_USE_DEMO_LOGIN=1` but omitted the dashboard
+  alias accepted by `classroom-load-smoke.mjs`.
+- Fix: appended no credential values and updated only the adjacent `RELEASE.md`
+  demo-roster instructions to document the exact alias
+  `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1` alongside the existing classroom-load flag.
+- Validation: pending focused documentation/config/release-governance gates,
+  fresh refreeze, exact-path commit, ordinary fast-forward push, and the
+  current inline review-thread reply/resolve.
