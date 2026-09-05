@@ -674,3 +674,66 @@ distinguish new canonical Receipt storage and current PR check/reviewer
 closure from a future `shadow_passed` Closure/Registry lifecycle transition.
 No post-merge evidence will be invented or borrowed; historical
 Closure/Registry retain only their historical scope.
+
+### Post-commit projection-size correction — local preparation
+
+The tooling commit `e9a2f2a4a680991010898f21884a268d2aaff959` was pushed
+normally as the one authorized commit. Subsequent read-only Git tree-size
+verification found an implementation defect: the 512 MiB archive-projection
+budget is below this repository's actual size. Source `d0394f...` has
+10,922 blobs / 1,013,497,577 bytes; tooling HEAD has 10,961 blobs /
+1,014,322,851 bytes. Both have a largest blob of 31,065,464 bytes and no
+non-regular tree entries. The prior in-memory record tests did not prove
+real repository-size compatibility; the committed collector is not ready
+for real use with that budget.
+
+The local correction retains the fixed 50,000-file and 32 MiB/file ceilings,
+sets an explicit 2 GiB total ceiling, validates finite safe nonnegative
+counts, and checks Git's NUL-safe size inventory before creating archives
+as well as checking actual bytes during projection verification. It does
+not relax any policy, expression, blob, mode, candidate or checker predicate.
+
+RED: the new regression using the actual committed tree failed with the
+old 512 MiB limit, reporting `archive projection exceeds fixed limits`.
+GREEN: the same regression plus explicit over-limit/nonfinite/negative
+cases and all previous tests pass, 22/22, 0 skips. No archive collector,
+native validate or Shadow was executed to obtain this result.
+
+An additional append-only corrective commit/push has been requested; the
+first-commit allowance is already consumed. Until the owner grants that
+extra Git operation, the correction remains local and unstaged. No amend,
+force push or historical evidence rewrite is permitted. Automatic checks
+on the already pushed tooling commit do not validate these later local bytes.
+
+Independent follow-up review passed the capacity correction with 22/22
+tests and exact-boundary / boundary-plus-one checks. Reviewed script SHA-256
+is `0b8d7f17cd0af96401570b9d5fc2b8bb148cb45ec8b2fcbe1f1dac82f83e28bb`;
+test SHA-256 is `25587da48b7c5f4394e41a54f93367a7ed93dca42d240c05e229a993f354f4e0`.
+Technical readiness does not supply the outstanding extra commit authority.
+
+### Owner-authorized capacity corrective commit — 2026-09-05
+
+The owner subsequently authorized exactly one additional append-only
+capacity-correction commit and ordinary feature fast-forward push at
+expected-old `e9a2f2a4a680991010898f21884a268d2aaff959`, in the existing
+U224 worktree/branch and the same three files. The earlier pending-authority
+statements remain historical; this explicit authorization now permits this
+one corrective Git operation. No amend, Promotion evidence or selector
+mutation is authorized by it.
+
+Fresh refreeze at 2026-09-05T04:22:22Z matched that exact local/tracking/live
+feature/PR head, live main `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`,
+U223 head `33e9b877a514f0a8e801c9f2ff8ef120a1c7ef4d`, the 68-entry NUL
+topology, owner manifests and Promotion evidence tree. Only the three
+reviewed unstaged files differed; the index was empty and no foreign target
+cwd holder was observed. Code/test hashes match the independently reviewed
+capacity correction above. No implementation changes were added in this
+authorization turn. A fresh tool-suite run passed 22/22, 0 fail/skip, and
+both script syntax checks passed. The original RED evidence remains above.
+
+The published parent had PR CI 7/7 success but a failing required Promotion
+check; those results do not substitute for checks on the new corrective
+SHA. Only automatic pull_request checks may follow the ordinary push.
+Full collector/evidence-chain execution remains outside this corrective
+commit and has not been claimed. Preserve all historical Promotion bytes,
+branch/worktree state and evidence; no merge, deploy or cleanup is included.

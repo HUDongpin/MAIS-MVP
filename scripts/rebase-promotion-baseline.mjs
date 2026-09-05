@@ -775,13 +775,24 @@ export function verifyCallsiteProjectionRecords(expected, actual) {
 }
 
 function callsiteCommitTreeRecords(commit) {
-  const raw = git(["ls-tree", "-r", "--full-tree", "-z", commit]);
+  const raw = git(["ls-tree", "-r", "--full-tree", "-l", "-z", commit]);
   if (!raw.endsWith("\0")) rebindingFail("Git tree projection is incomplete");
-  return validateProjectionRecords(raw.slice(0, -1).split("\0").map((entry) => {
-    const match = entry.match(/^(100644|100755) blob ([a-f0-9]{40})\t([^\0]+)$/u);
+  let totalBytes = 0;
+  return validateProjectionRecords(raw.slice(0, -1).split("\0").map((entry, index) => {
+    const match = entry.match(/^(100644|100755) blob ([a-f0-9]{40})\s+(\d+)\t([^\0]+)$/u);
     if (!match) rebindingFail("Git tree projection contains non-regular entries");
-    return { path: match[3], mode: match[1], objectId: match[2] };
+    const size = Number(match[3]);
+    totalBytes += size;
+    assertCallsiteProjectionBudget({ fileCount: index + 1, totalBytes, maxFileBytes: size });
+    return { path: match[4], mode: match[1], objectId: match[2] };
   }));
+}
+
+export function assertCallsiteProjectionBudget({ fileCount, totalBytes, maxFileBytes }) {
+  if ([fileCount, totalBytes, maxFileBytes].some((value) => !Number.isSafeInteger(value) || value < 0)
+    || fileCount > 50_000 || maxFileBytes > 32 * 1024 * 1024 || totalBytes > 2 * 1024 ** 3) {
+    rebindingFail("archive projection exceeds fixed limits");
+  }
 }
 
 function verifyCallsiteArchive(root, expected) {
@@ -793,9 +804,8 @@ function verifyCallsiteArchive(root, expected) {
       if (stat.isSymbolicLink()) rebindingFail("archive projection contains a symlink");
       if (stat.isDirectory()) { walk(absolute); continue; }
       total += stat.size;
-      if (!stat.isFile() || stat.size > 32 * 1024 * 1024 || total > 512 * 1024 * 1024 || actual.length >= 50_000) {
-        rebindingFail("archive projection is non-regular or exceeds limits");
-      }
+      if (!stat.isFile()) rebindingFail("archive projection is non-regular");
+      assertCallsiteProjectionBudget({ fileCount: actual.length + 1, totalBytes: total, maxFileBytes: stat.size });
       const bytes = fs.readFileSync(absolute);
       actual.push({ path: path.relative(root, absolute).split(path.sep).join("/"),
         mode: stat.mode & 0o111 ? "100755" : "100644",

@@ -650,3 +650,29 @@ test("callsite projection requires the entire Git tree including non-callsite fi
     [records[0], { ...records[1], mode: "120000" }]
   ]) assert.throws(() => baselineTools.verifyCallsiteProjectionRecords(records, actual), /projection/u);
 });
+
+test("callsite projection budget admits the actual committed repository while remaining bounded", () => {
+  assert.equal(typeof baselineTools.assertCallsiteProjectionBudget, "function", "projection budget must be testable against the real Git tree");
+  const dotGit = path.join(repoRoot, ".git");
+  const gitDir = fs.lstatSync(dotGit).isDirectory() ? dotGit
+    : path.resolve(repoRoot, fs.readFileSync(dotGit, "utf8").trim().slice("gitdir: ".length));
+  const result = spawnSync("git", ["--no-optional-locks", `--git-dir=${gitDir}`, `--work-tree=${repoRoot}`,
+    "-c", `core.worktree=${repoRoot}`, "ls-tree", "-r", "-l", "-z", "HEAD"], { encoding: "utf8", maxBuffer: 16 * 1024 * 1024 });
+  assert.equal(result.status, 0, result.stderr);
+  const entries = result.stdout.split("\0").filter(Boolean);
+  const sizes = entries.map((entry) => {
+    const match = entry.match(/^\d+ blob [a-f0-9]{40}\s+(\d+)\t/u);
+    assert.ok(match, "repository fixture must contain regular blobs");
+    return Number(match[1]);
+  });
+  assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget({
+    fileCount: sizes.length, totalBytes: sizes.reduce((n, size) => n + size, 0), maxFileBytes: Math.max(...sizes)
+  }));
+  const valid = { fileCount: 10_961, totalBytes: 1_014_322_851, maxFileBytes: 31_065_464 };
+  assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget(valid));
+  for (const invalid of [
+    { ...valid, fileCount: 50_001 }, { ...valid, totalBytes: 2 * 1024 ** 3 + 1 },
+    { ...valid, maxFileBytes: 32 * 1024 ** 2 + 1 }, { ...valid, totalBytes: NaN },
+    { ...valid, fileCount: -1 }, { ...valid, totalBytes: Number.MAX_SAFE_INTEGER + 1 }
+  ]) assert.throws(() => baselineTools.assertCallsiteProjectionBudget(invalid), /projection.*limits/u);
+});
