@@ -1143,11 +1143,18 @@ const RECEIPT_BUDGET_FINGERPRINT = "f".repeat(64);
 export const MAX_RECEIPT_REASON_JSON_BYTES = 512;
 export const MAX_RECEIPT_BUDGET_ENTRY_BYTES = MAX_MANIFEST_BYTES + (1024 * 1024);
 export const REMOVAL_PROVIDER_RESULT_FAILURE_CODE = "REMOVAL_PROVIDER_RESULT_REJECTED";
+export const REMOVAL_PROVIDER_CONTRACT_VIOLATION = "REMOVAL_PROVIDER_CONTRACT_VIOLATION";
+export const MAX_REMOVAL_CANONICAL_BYTES = 4096;
 const RECEIPT_BUDGET_REASON = "R".repeat(MAX_RECEIPT_REASON_JSON_BYTES);
-const NON_CANONICAL_REMOVAL_PROVIDER_RESULT = Buffer.from(
-  JSON.stringify({ canonicalJsonUnavailable: true }),
-  "utf8",
-);
+const issuedRemovalEvidence = new WeakMap();
+const removalContractViolation = Object.freeze({
+  ok: false,
+  reason: "git worktree remove failed",
+  providerFailure: Object.freeze({
+    code: REMOVAL_PROVIDER_CONTRACT_VIOLATION,
+    canonicalAvailable: false,
+  }),
+});
 
 function canonicalJsonStringPayloadBytes(value) {
   const encoded = JSON.stringify(value);
@@ -1171,65 +1178,53 @@ function receiptReasonForJournal(reason) {
   return redacted;
 }
 
-function rejectedRemovalProviderResult(value) {
-  let canonicalBytes;
+/**
+ * Trusted providers issue an opaque envelope before returning to mutation core.
+ * Only primitive inputs are admitted; bounds precede redaction, JSON parsing,
+ * serialization and hashing. No caller object is inspected or canonicalized.
+ * Diagnostic input is already-canonical UTF-8 JSON text, capped at 4096 bytes.
+ * The token contains no caller-owned data; its frozen record lives only here.
+ */
+export function issueRemovalProviderResult(kind, payload) {
+  let record = removalContractViolation;
   try {
-    const encoded = JSON.stringify(value);
-    canonicalBytes = typeof encoded === "string"
-      ? Buffer.from(encoded, "utf8")
-      : NON_CANONICAL_REMOVAL_PROVIDER_RESULT;
+    if (kind === "success" && payload === undefined) {
+      record = Object.freeze({ ok: true });
+    } else if (
+      kind === "failure"
+      && typeof payload === "string"
+      && payload.length <= MAX_RECEIPT_REASON_JSON_BYTES
+    ) {
+      record = Object.freeze({ ok: false, reason: receiptReasonForJournal(payload) });
+    } else if (
+      kind === "diagnostic"
+      && typeof payload === "string"
+      && payload.length <= MAX_REMOVAL_CANONICAL_BYTES
+      && Buffer.byteLength(payload, "utf8") <= MAX_REMOVAL_CANONICAL_BYTES
+      && JSON.stringify(JSON.parse(payload)) === payload
+    ) {
+      record = Object.freeze({
+        ok: false,
+        reason: "git worktree remove failed",
+        providerFailure: Object.freeze({
+          code: REMOVAL_PROVIDER_RESULT_FAILURE_CODE,
+          canonicalAvailable: true,
+          canonicalByteLength: Buffer.byteLength(payload, "utf8"),
+          canonicalSha256: sha256Text(payload),
+        }),
+      });
+    }
   } catch {
-    canonicalBytes = NON_CANONICAL_REMOVAL_PROVIDER_RESULT;
+    record = removalContractViolation;
   }
-  return {
-    ok: false,
-    reason: "git worktree remove failed",
-    providerFailure: {
-      code: REMOVAL_PROVIDER_RESULT_FAILURE_CODE,
-      canonicalByteLength: canonicalBytes.byteLength,
-      canonicalSha256: sha256Text(canonicalBytes),
-    },
-  };
+  const envelope = Object.freeze(Object.create(null));
+  issuedRemovalEvidence.set(envelope, record);
+  return envelope;
 }
 
-/** Admit only the two closed JSON-like results understood by the mutation boundary. */
+/** Identity lookup never runs getters, toJSON, Proxy traps, or caller recursion. */
 export function normalizeRemovalProviderResult(value) {
-  let keys;
-  let prototype;
-  let descriptors;
-  try {
-    keys = Reflect.ownKeys(value);
-    prototype = Object.getPrototypeOf(value);
-    descriptors = Object.getOwnPropertyDescriptors(value);
-  } catch {
-    return rejectedRemovalProviderResult(value);
-  }
-  const plainObject = value !== null
-    && typeof value === "object"
-    && (prototype === Object.prototype || prototype === null)
-    && keys.every((key) => (
-      typeof key === "string"
-      && descriptors[key]
-      && Object.hasOwn(descriptors[key], "value")
-    ));
-  if (!plainObject) return rejectedRemovalProviderResult(value);
-  if (keys.length === 1 && keys[0] === "ok" && descriptors.ok.value === true) {
-    return { ok: true };
-  }
-  if (
-    keys.length === 2
-    && keys.includes("ok")
-    && keys.includes("reason")
-    && descriptors.ok.value === false
-    && typeof descriptors.reason.value === "string"
-  ) {
-    try {
-      return { ok: false, reason: receiptReasonForJournal(descriptors.reason.value) };
-    } catch {
-      return rejectedRemovalProviderResult(value);
-    }
-  }
-  return rejectedRemovalProviderResult(value);
+  return issuedRemovalEvidence.get(value) ?? removalContractViolation;
 }
 
 function assertRemovalProviderFailureContract(value) {
@@ -1237,11 +1232,18 @@ function assertRemovalProviderFailureContract(value) {
     !value
     || typeof value !== "object"
     || Object.getPrototypeOf(value) !== Object.prototype
-    || Reflect.ownKeys(value).length !== 3
-    || value.code !== REMOVAL_PROVIDER_RESULT_FAILURE_CODE
-    || !Number.isSafeInteger(value.canonicalByteLength)
-    || value.canonicalByteLength < 0
-    || !SHA256_PATTERN.test(value.canonicalSha256 ?? "")
+    || !(
+      (Reflect.ownKeys(value).length === 2
+        && value.code === REMOVAL_PROVIDER_CONTRACT_VIOLATION
+        && value.canonicalAvailable === false)
+      || (Reflect.ownKeys(value).length === 4
+        && value.code === REMOVAL_PROVIDER_RESULT_FAILURE_CODE
+        && value.canonicalAvailable === true
+        && Number.isSafeInteger(value.canonicalByteLength)
+        && value.canonicalByteLength > 0
+        && value.canonicalByteLength <= MAX_REMOVAL_CANONICAL_BYTES
+        && SHA256_PATTERN.test(value.canonicalSha256 ?? ""))
+    )
   ) throw new Error("removal provider failure evidence is invalid");
 }
 
@@ -1323,7 +1325,8 @@ export function calculateReceiptJournalBudget({
   };
   const worstProviderFailure = {
     code: REMOVAL_PROVIDER_RESULT_FAILURE_CODE,
-    canonicalByteLength: Number.MAX_SAFE_INTEGER,
+    canonicalAvailable: true,
+    canonicalByteLength: MAX_REMOVAL_CANONICAL_BYTES,
     canonicalSha256: RECEIPT_BUDGET_FINGERPRINT,
   };
   const worstResults = manifest.targets.map((target) => ({
@@ -2934,9 +2937,9 @@ export function createRuntimeProviders() {
           encoding: "utf8",
           stdio: ["ignore", "pipe", "ignore"],
         });
-        return { ok: true };
+        return issueRemovalProviderResult("success");
       } catch {
-        return { ok: false, reason: "git worktree remove failed" };
+        return issueRemovalProviderResult("failure", "git worktree remove failed");
       }
     },
     now: () => new Date().toISOString(),

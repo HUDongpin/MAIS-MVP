@@ -2340,7 +2340,7 @@ function authorizedApplyFixture({
       removalReported = true;
       if (!leaveRegistered) registered = [];
       if (!leavePath) pathPresent = false;
-      return { ok: true };
+      return sweep.issueRemovalProviderResult("success");
     },
     now() { return "2026-08-29T00:00:01.000Z"; },
   };
@@ -3178,12 +3178,12 @@ function cliProvidersFixture({
       const targetPath = command.args.at(-1);
       const targetIndex = topologies.findIndex((entry) => entry.path === targetPath);
       if (targetIndex === removalFailureAt) {
-        return { ok: false, reason: "bounded provider failure" };
+        return sweep.issueRemovalProviderResult("failure", "bounded provider failure");
       }
       removed = true;
       removedPaths.add(targetPath);
       registered = registered.filter((entry) => entry.path !== targetPath);
-      return { ok: true };
+      return sweep.issueRemovalProviderResult("success");
     },
     now: () => {
       calls.now++;
@@ -3972,7 +3972,7 @@ test("runAuthorizedApply fails closed when the last removal leaves unrelated fle
       registered = registered.filter((entry) => entry.path !== path);
       presentPaths.delete(path);
       if (path === topologies[1].path) registered.push(unrelated);
-      return { ok: true };
+      return sweep.issueRemovalProviderResult("success");
     },
     now: () => "2026-08-29T00:00:01.000Z",
   };
@@ -4068,7 +4068,7 @@ test("runAuthorizedApply refuses an initial fleet fingerprint drift without muta
     readWorktrees: () => [topology, unexpected],
     readPathAbsenceEvidence: () => ({ available: true, absent: false }),
     inspectWorktree() { throw new Error("must not inspect after fleet drift"); },
-    removeWorktree(command) { removed.push(command); return { ok: true }; },
+    removeWorktree(command) { removed.push(command); return sweep.issueRemovalProviderResult("success"); },
     now: () => "2026-08-29T00:00:01.000Z",
   };
   const result = sweep.runAuthorizedApply({
@@ -4128,7 +4128,7 @@ test("runAuthorizedApply stops the remaining batch after the first removal failu
       processEvidence: { available: true, active: false },
       targetBoundaryEvidence: { available: true, isDirectory: true, identity: { dev: "1", ino: "1" } },
     }),
-    removeWorktree(command) { removed.push(command.args.at(-1)); return { ok: false, reason: "simulated removal failure" }; },
+    removeWorktree(command) { removed.push(command.args.at(-1)); return sweep.issueRemovalProviderResult("failure", "simulated removal failure"); },
     now: () => "2026-08-29T00:00:01.000Z",
   };
   const result = sweep.runAuthorizedApply({
@@ -4197,7 +4197,7 @@ test("runAuthorizedApply proves the first removal absent and blocks a later targ
       registered = registered.filter((entry) => entry.path !== path);
       presentPaths.delete(path);
       if (path === topologies[0].path) registered[0].head = "e".repeat(40);
-      return { ok: true };
+      return sweep.issueRemovalProviderResult("success");
     },
     now: () => "2026-08-29T00:00:01.000Z",
   };
@@ -4252,24 +4252,61 @@ test("repository identity is one validated value across budget, journal writer, 
   }
 });
 
+for (const mode of ["getter", "toJSON", "Proxy"]) {
+  test(`R9 post-remove ${mode} is never observed and both receipts remain bounded`, () => {
+    const fixture = cliProvidersFixture();
+    let observed = 0;
+    const raw = mode === "getter"
+      ? Object.defineProperty({}, "ok", {
+        enumerable: true, get() { observed++; throw new Error("untrusted getter"); },
+      })
+      : mode === "toJSON"
+        ? { toJSON() { observed++; throw new Error("untrusted toJSON"); } }
+        : new Proxy({}, {
+          ownKeys() { observed++; throw new Error("untrusted Proxy"); },
+          get() { observed++; throw new Error("untrusted Proxy get"); },
+        });
+    fixture.providers.removeWorktree = (command) => {
+      fixture.calls.remove.push(command);
+      fixture.mutationEvents.push("remove");
+      return raw;
+    };
+    assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+    assert.equal(fixture.calls.remove.length, 1);
+    const completed = fixture.receiptWrites.find((entry) => entry.phase === "target-completed");
+    const terminal = fixture.receiptWrites.at(-1);
+    assert.equal(terminal.phase, "terminal");
+    assert.ok(completed, "a completed checkpoint survives the provider violation");
+    assert.ok(fixture.getReceiptBytes() <= receiptJournalBudgetFor(applyManifest()).requiredBytes);
+    assert.deepEqual({
+      observed,
+      completedFailure: completed.result.providerFailure,
+      terminalFailure: terminal.results[0].providerFailure,
+    }, {
+      observed: 0,
+      completedFailure: { code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false },
+      terminalFailure: { code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false },
+    });
+  });
+}
+
 test("closed removal-provider result contract preserves bounded failures and fingerprints rejected detail", () => {
   const bounded = { ok: false, reason: "bounded provider failure" };
-  assert.deepEqual(sweep.normalizeRemovalProviderResult(bounded), bounded);
+  const boundedEnvelope = sweep.issueRemovalProviderResult("failure", bounded.reason);
+  assert.deepEqual(sweep.normalizeRemovalProviderResult(boundedEnvelope), bounded);
 
   for (const raw of [
     { ok: false, reason: "x".repeat(sweep.MAX_RECEIPT_REASON_JSON_BYTES + 1) },
     { ok: false, reason: "bounded", detail: { diagnostic: "not admitted" } },
     { ok: "false", reason: "malformed" },
   ]) {
-    const canonical = JSON.stringify(raw);
     const normalized = sweep.normalizeRemovalProviderResult(raw);
     assert.deepEqual(normalized, {
       ok: false,
       reason: "git worktree remove failed",
       providerFailure: {
-        code: "REMOVAL_PROVIDER_RESULT_REJECTED",
-        canonicalByteLength: Buffer.byteLength(canonical, "utf8"),
-        canonicalSha256: sweep.sha256Text(canonical),
+        code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION",
+        canonicalAvailable: false,
       },
     });
     assert.equal(JSON.stringify(normalized).includes(raw.reason), false);
@@ -4284,13 +4321,14 @@ test("closed removal-provider result contract preserves bounded failures and fin
   assert.doesNotThrow(() => {
     accessorFailure = sweep.normalizeRemovalProviderResult(accessorResult);
   });
-  assert.equal(accessorFailure.providerFailure.code, "REMOVAL_PROVIDER_RESULT_REJECTED");
-  assert.match(accessorFailure.providerFailure.canonicalSha256, /^[0-9a-f]{64}$/u);
+  assert.deepEqual(accessorFailure.providerFailure, {
+    code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false,
+  });
 
   const validFixture = authorizedApplyFixture();
   validFixture.deps.removeWorktree = (command) => {
     validFixture.calls.remove.push(command);
-    return bounded;
+    return boundedEnvelope;
   };
   const validResult = sweep.runAuthorizedApply({
     authorization: validFixture.authorization,
@@ -4306,7 +4344,6 @@ test("closed removal-provider result contract preserves bounded failures and fin
 
   const rejectedFixture = authorizedApplyFixture();
   const rejectedRaw = { ok: false, reason: "provider-detail".repeat(1024 * 1024) };
-  const rejectedCanonical = JSON.stringify(rejectedRaw);
   rejectedFixture.deps.removeWorktree = (command) => {
     rejectedFixture.calls.remove.push(command);
     return rejectedRaw;
@@ -4322,11 +4359,158 @@ test("closed removal-provider result contract preserves bounded failures and fin
   }, rejectedFixture.deps);
   assert.equal(rejectedResult.receipt.results[0].reason, "git worktree remove failed");
   assert.deepEqual(rejectedResult.receipt.results[0].providerFailure, {
-    code: "REMOVAL_PROVIDER_RESULT_REJECTED",
-    canonicalByteLength: Buffer.byteLength(rejectedCanonical, "utf8"),
-    canonicalSha256: sweep.sha256Text(rejectedCanonical),
+    code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION",
+    canonicalAvailable: false,
   });
   assert.equal(JSON.stringify(rejectedResult.receipt).includes("provider-detail"), false);
+});
+
+test("R9 issued envelopes are opaque immutable identities with mutually exclusive bounded records", () => {
+  const success = sweep.issueRemovalProviderResult("success");
+  const failure = sweep.issueRemovalProviderResult("failure", "bounded failure");
+  assert.equal(Object.isFrozen(success), true);
+  assert.deepEqual(Reflect.ownKeys(success), []);
+  assert.equal(Object.getPrototypeOf(success), null);
+  assert.deepEqual(sweep.normalizeRemovalProviderResult(success), { ok: true });
+  assert.deepEqual(sweep.normalizeRemovalProviderResult(failure), { ok: false, reason: "bounded failure" });
+  assert.equal(Object.isFrozen(sweep.normalizeRemovalProviderResult(failure)), true);
+  const violation = { code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false };
+  let observed = 0;
+  const proxy = new Proxy(success, {
+    get() { observed++; throw new Error("get"); },
+    ownKeys() { observed++; throw new Error("ownKeys"); },
+    getPrototypeOf() { observed++; throw new Error("prototype"); },
+  });
+  const revoked = Proxy.revocable(success, {});
+  revoked.revoke();
+  const cyclic = {}; cyclic.self = cyclic;
+  for (const raw of [
+    { ...success }, Object.create(success), structuredClone(success), proxy, revoked.proxy,
+    cyclic, null, undefined, 1, "success", { ok: true },
+    { providerFailure: { code: "REMOVAL_PROVIDER_RESULT_REJECTED", canonicalAvailable: true,
+      canonicalByteLength: 2, canonicalSha256: "f".repeat(64) } },
+  ]) {
+    assert.deepEqual(sweep.normalizeRemovalProviderResult(raw).providerFailure, violation);
+  }
+  for (const [kind, payload] of [
+    ["success", "extra"], ["unknown", undefined], [proxy, proxy], ["diagnostic", proxy],
+    ["failure", proxy], ["failure", '"'.repeat(257)], ["failure", "x".repeat(513)],
+  ]) {
+    assert.deepEqual(sweep.normalizeRemovalProviderResult(
+      sweep.issueRemovalProviderResult(kind, payload),
+    ).providerFailure, violation);
+  }
+  assert.equal(observed, 0);
+});
+
+test("R9 canonical diagnostic bytes are bounded before parsing hashing or allocation", () => {
+  assert.equal(sweep.MAX_REMOVAL_CANONICAL_BYTES, 4096);
+  const exact = `"${"x".repeat(4094)}"`;
+  for (const canonical of ['{"diagnostic":"中\\n文"}', exact]) {
+    const normalized = sweep.normalizeRemovalProviderResult(
+      sweep.issueRemovalProviderResult("diagnostic", canonical),
+    );
+    assert.deepEqual(normalized, {
+      ok: false,
+      reason: "git worktree remove failed",
+      providerFailure: {
+        code: "REMOVAL_PROVIDER_RESULT_REJECTED",
+        canonicalAvailable: true,
+        canonicalByteLength: Buffer.byteLength(canonical, "utf8"),
+        canonicalSha256: sweep.sha256Text(canonical),
+      },
+    });
+    assert.equal(Object.isFrozen(normalized.providerFailure), true);
+  }
+  for (const invalid of [
+    `"${"x".repeat(4095)}"`, `"${"中".repeat(1365)}"`, "x".repeat(14 * 1024 * 1024),
+    "{invalid}", ' {"a":1}', '{"a":1,"a":2}', "1e999", new String('"valid"'),
+  ]) {
+    assert.deepEqual(sweep.normalizeRemovalProviderResult(
+      sweep.issueRemovalProviderResult("diagnostic", invalid),
+    ).providerFailure, { code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false });
+  }
+});
+
+test("R9 five-target middle violations and diagnostics retain bounded completed and terminal evidence", () => {
+  const cyclic = {}; cyclic.self = cyclic;
+  const canonical = `"${"x".repeat(4094)}"`;
+  for (const raw of [
+    cyclic,
+    { ok: false, reason: "x".repeat(14 * 1024 * 1024) },
+    { ok: true },
+    sweep.issueRemovalProviderResult("diagnostic", canonical),
+  ]) {
+    const manifest = applyManifest(5);
+    const budget = receiptJournalBudgetFor(manifest);
+    const fixture = cliProvidersFixture({ manifestOverride: manifest, receiptByteLimit: budget.requiredBytes });
+    const originalRemove = fixture.providers.removeWorktree;
+    fixture.providers.removeWorktree = (command) => {
+      if (fixture.calls.remove.length !== 2) return originalRemove(command);
+      fixture.calls.remove.push(command);
+      fixture.mutationEvents.push("remove");
+      return raw;
+    };
+    assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+    assert.equal(fixture.calls.remove.length, 3);
+    const terminal = fixture.receiptWrites.at(-1);
+    const completed = fixture.receiptWrites.filter((entry) => entry.phase === "target-completed");
+    assert.equal(completed.length, 3);
+    assert.equal(terminal.phase, "terminal");
+    assert.deepEqual(terminal.results.map((result) => result.status), ["removed", "removed", "failed", "skipped", "skipped"]);
+    assert.deepEqual(completed[2].result.providerFailure, sweep.normalizeRemovalProviderResult(raw).providerFailure);
+    assert.deepEqual(terminal.results[2].providerFailure, completed[2].result.providerFailure);
+    assert.ok(fixture.getReceiptBytes() <= budget.scenarioBytes.targetFailureAfterStarted);
+    assert.equal(fixture.calls.close, 1);
+    assert.equal(fixture.calls.leaseRelease, 1);
+    fixture.receiptWrites.forEach((entry) => sweep.assertReceiptJournalEntryContract(entry));
+  }
+});
+
+test("R9 post-remove contract violation preserves failure evidence across receipt durability faults", () => {
+  for (const phase of ["target-completed", "terminal"]) {
+    const fixture = cliProvidersFixture();
+    fixture.providers.removeWorktree = (command) => {
+      fixture.calls.remove.push(command);
+      fixture.mutationEvents.push("remove");
+      return { ok: true };
+    };
+    const originalWrite = fixture.providers.writeReceipt;
+    const attempts = [];
+    fixture.providers.writeReceipt = (handle, text) => {
+      const entry = JSON.parse(text);
+      attempts.push(entry);
+      if (entry.phase === phase) throw new Error("simulated durable write failure");
+      return originalWrite(handle, text);
+    };
+    assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+    assert.equal(fixture.calls.remove.length, 1);
+    for (const recordPhase of ["target-completed", "terminal"]) {
+      const entry = attempts.find((record) => record.phase === recordPhase);
+      assert.ok(entry, `${recordPhase} was attempted after removal`);
+      assert.deepEqual((entry.result ?? entry.results[0]).providerFailure, {
+        code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false,
+      });
+    }
+    if (phase === "target-completed") {
+      assert.equal(fixture.receiptWrites.at(-1).phase, "terminal");
+      assert.match(fixture.receiptWrites.at(-1).batchOutcome.reason, /durable target-completed receipt failed/u);
+    } else {
+      assert.match(fixture.calls.errors.join("\n"), /terminal unavailable|durable receipt/u);
+    }
+    assert.equal(fixture.calls.close, 1);
+  }
+});
+
+test("R9 receipt contract rejects mixed fabricated or over-cap diagnostic evidence", () => {
+  for (const providerFailure of [
+    { code: "REMOVAL_PROVIDER_CONTRACT_VIOLATION", canonicalAvailable: false, canonicalSha256: "f".repeat(64) },
+    { code: "REMOVAL_PROVIDER_RESULT_REJECTED", canonicalAvailable: false, canonicalByteLength: 2, canonicalSha256: "f".repeat(64) },
+    { code: "REMOVAL_PROVIDER_RESULT_REJECTED", canonicalAvailable: true, canonicalByteLength: 4097, canonicalSha256: "f".repeat(64) },
+    { code: "REMOVAL_PROVIDER_RESULT_REJECTED", canonicalByteLength: 33, canonicalSha256: "f".repeat(64) },
+  ]) {
+    assert.throws(() => sweep.assertReceiptJournalEntryContract({ providerFailure }), /provider failure evidence is invalid/u);
+  }
 });
 
 test("redaction expansion and receipt planning ceilings fail closed without escaping validation", () => {

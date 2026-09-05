@@ -881,3 +881,58 @@ evidence.
   local implementation and injected-stub results only; they do not authorize
   real sweep apply, manual workflow dispatch/rerun, Shadow, merge, deploy,
   cleanup, or any ref/worktree/`.tmp`/evidence change.
+
+## U223-R9 bounded removal evidence envelope (2026-09-05 HKT)
+
+- U223-R9 uses the authorized A10/A23 isolated tooling slice, modifying only
+  the sweep implementation, its regression test, and this append-only log.
+  Literal linked-gitdir/worktree preflight confirmed clean status, no locks or
+  external CWD holders, PR/local/tracking/live/worktree HEAD all equal to
+  `892ba32b112a6fda36bd18b06a596ae1b6c6dcd9`, and live main equal to
+  `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`. All three authorized input SHA-256
+  values matched. The initial 68-entry raw NUL topology SHA-256 was
+  `6766d8da11eaa4b4dc08fd2183aca3d96f4ebe0b4d6728da9d584dea6231a076`.
+- Effective test-first RED command:
+  `node --test --test-name-pattern='R9 post-remove' scripts/sweep-merged-worktrees.test.mjs`
+  exited 1: 3 tests, 0 pass, 3 fail before production edits. Real injected
+  `main` orchestration called the removal stub, then the old boundary invoked
+  getter once, toJSON once, and observable Proxy traps twice. Completed and
+  terminal records both held a 33-byte sentinel digest and the old rejection
+  code, failing the no-observation and canonical-unavailable assertions.
+- Controller resolved the R8/R9 semantic conflict explicitly: retain historical
+  scenarios and their coverage, but replace the old arbitrary-object digest
+  expectations with R9 contract-violation expectations. Normal injected
+  providers now obtain module-issued evidence; no historical test was removed.
+- The provider adapter signs its outcome by returning an opaque frozen token
+  whose fixed record is stored in a module-private WeakMap. Mutation core only
+  performs identity lookup after the removal call. It never serializes,
+  reflects on, copies, traverses, or hashes the provider-return object. Tokens
+  and records are immutable; cloned, fabricated, inherited, proxied, and revoked
+  tokens fail closed without invoking traps. Four exclusive outcomes remain:
+  success, a bounded failure reason, canonical diagnostic evidence, and fixed
+  `REMOVAL_PROVIDER_CONTRACT_VIOLATION` with `canonicalAvailable:false`.
+- The trusted provider factory accepts only primitive kind/payload inputs.
+  It checks string length before any traversal and enforces a fixed 4096 UTF-8
+  byte diagnostic cap before JSON parsing, canonical validation, or SHA-256.
+  Only those admitted canonical bytes produce an exact byte length and digest;
+  there is no substitute digest for unavailable source evidence. Failure reasons
+  retain the existing escaped-JSON 512-byte cap. Arbitrary cyclic, accessor,
+  Proxy, oversized, malformed, or non-protocol objects are never canonicalized.
+- Focused GREEN passed 12/12. Sweep regression passed 203/203. Combined sweep,
+  release-build, and bounded JSON guard tests passed 215/215. Default release
+  governance passed 92 with 11 intentional skips and zero failures. Both MJS
+  syntax checks and implementation diff whitespace checks passed. Coverage
+  includes exact diagnostic cap / plus one / multibyte overflow, invalid tokens,
+  five-target third-call violation and canonical failure, cumulative journal
+  capacity, bounded completed/terminal metadata, and simulated completed-write
+  and terminal-write failures. All worktree removals used injected stubs.
+- During this slice the separately authorized U224-R8 commit advanced its one
+  worktree from `a2df0526...` to `86b5361b...`. Controller verified that replacing
+  that sole HEAD in memory exactly restored the initial topology digest and
+  authorized the new 68-entry raw digest
+  `272dab67129be1e9c3a5a9b60eaaa4f4ff1ac3351cb9f7cb545b8de8cc6cef02`.
+  A fresh exact ref/pathset/topology refreeze remains required before the one
+  append-only commit and ordinary exact-ref fast-forward push.
+- This is local implementation and injected-mutation evidence only. No real
+  sweep apply, manual workflow dispatch/rerun, Shadow, PR metadata change,
+  merge, deploy, cleanup, or other branch/worktree/evidence mutation was run.
