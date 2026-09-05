@@ -820,3 +820,64 @@ evidence.
 - No real sweep `--apply`, worktree/branch/ref/process/`.tmp`/evidence removal
   or move, workflow dispatch, manual rerun, Shadow, amend, rebase, force-push,
   merge, deploy, or production action occurred in U223-R7.
+
+## U223-R8 repository/receipt/provider contract correction (2026-09-05 HKT)
+
+- U223-R8 borrowed the explicitly authorized A10/A25 implementation slice.
+  Literal linked-worktree preflight bound branch/HEAD/local/live remote/PR head
+  to `codex/a10-a25-sweep-integration-20260902` at
+  `567e1611551d0f45e88090009028206e990d3567`, local/live/PR-base main to
+  `be92640f4bb8933ed8a99ed7c1ea604428c6a56f`, a clean worktree with no
+  pre-existing path holder, and the three authorized input hashes. The exact
+  68-entry common-git-dir `worktree list --porcelain -z` raw digest was
+  `fbccf4c34abcbc767ba85cdcdf411d285c07c1bb17263f4e375d53b8a742fa42`.
+- Baseline focused sweep tests passed 190/190. Test-first R8 RED then ran the
+  same focused suite and exited 1 with 191 pass / 4 fail / 195 total. The four
+  expected failures proved that the budget did not expose its repository
+  identity, no closed removal-provider normalizer existed, redaction-expanded
+  planning-ceiling failure escaped the validator, and the actual journal
+  writer did not bind every record to one validated repository identity. The
+  new actual 16 MiB writer capacity test already passed and no unrelated
+  baseline regression appeared.
+- GREEN locks the runtime tuple to `HUDongpin/MAIS-MVP` and its canonical URL
+  before receipt reservation, lease acquisition, or removal. The validated
+  identity is now shared by budget planning and every actual JSONL record, and
+  the writer independently enforces the unchanged cumulative 16 MiB cap.
+  Mismatched and oversized injected identities return 1 with zero reserve,
+  lease, or removal calls.
+- Removal-provider results now have a closed contract: exact `{ok:true}` or an
+  exact bounded `{ok:false,reason}`. A compliant bounded reason is preserved
+  after secret-path redaction. Invalid, oversized, extra-field, malformed, and
+  accessor-bearing results are rejected without admitting their content; the
+  target receipt records fixed code `REMOVAL_PROVIDER_RESULT_REJECTED`, the
+  original canonical JSON byte length when available, and its SHA-256 digest.
+  Those fixed evidence fields are included in the conservative budget. An
+  additional accessor-result RED passed 0/1 before the data-descriptor-only
+  contract; its GREEN passed 1/1.
+- Validator planning now catches redaction-expansion and planning-ceiling
+  exceptions. The tested manifest is below the 32 MiB manifest cap while its
+  redacted receipt projection exceeds the bounded planning allocation;
+  validation returns a stable failure and `main` returns 1 with zero receipt
+  reserve, lease acquire, or removal calls.
+- The five-target injected differential exercises real JSONL from success,
+  preflight block, target failure, lease-acquisition failure, started-write
+  failure, and lease-release failure. Each actual cumulative byte count is no
+  greater than its independently calculated scenario budget. Exact planned
+  capacity is accepted through an actual writer enforcing 16 MiB, while plus
+  one is rejected before reserve, lease, or removal. All removals were stubs;
+  no real `--apply` ran.
+- During pre-commit refreeze, the 68-entry topology digest changed only because
+  the separately authorized U224-R7 worktree advanced from `3c26636...` to
+  `a2df052...`. Replacing that sole current SHA in memory exactly reconstructed
+  the controller freeze `fbccf4c...`; controller then authorized continuing
+  from the new 68-entry digest
+  `b6870e77ef9c760a9e1a18380a3d539e709ef4f98694d931ea4c2971548013bd`.
+  U223 local/live/PR head remained `567e161...`, main remained `be92640f...`,
+  and the U223 worktree had only the three authorized unstaged paths with no
+  staged/untracked path, lock, or external holder.
+- Fresh GREEN gates passed: focused sweep 195/195; sweep plus release-build
+  202/202; default release-governance 92 pass / 11 intentional skips / 0 fail;
+  both MJS syntax checks and pre-append `git diff --check` exited 0. These are
+  local implementation and injected-stub results only; they do not authorize
+  real sweep apply, manual workflow dispatch/rerun, Shadow, merge, deploy,
+  cleanup, or any ref/worktree/`.tmp`/evidence change.

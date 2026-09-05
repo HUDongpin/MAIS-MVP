@@ -1092,6 +1092,9 @@ export function createPostflightReceipt({
     ...(result.allowedAction ? { allowedAction: result.allowedAction } : {}),
     status: result.status,
     reason: receiptReasonForJournal(result.reason),
+    ...(result.providerFailure
+      ? { providerFailure: { ...result.providerFailure } }
+      : {}),
     ...(result.postRemovalEvidence
       ? { postRemovalEvidence: { ...result.postRemovalEvidence } }
       : {}),
@@ -1139,7 +1142,12 @@ const RECEIPT_BUDGET_TIMESTAMP = "2000-01-01T00:00:00.000Z";
 const RECEIPT_BUDGET_FINGERPRINT = "f".repeat(64);
 export const MAX_RECEIPT_REASON_JSON_BYTES = 512;
 export const MAX_RECEIPT_BUDGET_ENTRY_BYTES = MAX_MANIFEST_BYTES + (1024 * 1024);
+export const REMOVAL_PROVIDER_RESULT_FAILURE_CODE = "REMOVAL_PROVIDER_RESULT_REJECTED";
 const RECEIPT_BUDGET_REASON = "R".repeat(MAX_RECEIPT_REASON_JSON_BYTES);
+const NON_CANONICAL_REMOVAL_PROVIDER_RESULT = Buffer.from(
+  JSON.stringify({ canonicalJsonUnavailable: true }),
+  "utf8",
+);
 
 function canonicalJsonStringPayloadBytes(value) {
   const encoded = JSON.stringify(value);
@@ -1163,6 +1171,80 @@ function receiptReasonForJournal(reason) {
   return redacted;
 }
 
+function rejectedRemovalProviderResult(value) {
+  let canonicalBytes;
+  try {
+    const encoded = JSON.stringify(value);
+    canonicalBytes = typeof encoded === "string"
+      ? Buffer.from(encoded, "utf8")
+      : NON_CANONICAL_REMOVAL_PROVIDER_RESULT;
+  } catch {
+    canonicalBytes = NON_CANONICAL_REMOVAL_PROVIDER_RESULT;
+  }
+  return {
+    ok: false,
+    reason: "git worktree remove failed",
+    providerFailure: {
+      code: REMOVAL_PROVIDER_RESULT_FAILURE_CODE,
+      canonicalByteLength: canonicalBytes.byteLength,
+      canonicalSha256: sha256Text(canonicalBytes),
+    },
+  };
+}
+
+/** Admit only the two closed JSON-like results understood by the mutation boundary. */
+export function normalizeRemovalProviderResult(value) {
+  let keys;
+  let prototype;
+  let descriptors;
+  try {
+    keys = Reflect.ownKeys(value);
+    prototype = Object.getPrototypeOf(value);
+    descriptors = Object.getOwnPropertyDescriptors(value);
+  } catch {
+    return rejectedRemovalProviderResult(value);
+  }
+  const plainObject = value !== null
+    && typeof value === "object"
+    && (prototype === Object.prototype || prototype === null)
+    && keys.every((key) => (
+      typeof key === "string"
+      && descriptors[key]
+      && Object.hasOwn(descriptors[key], "value")
+    ));
+  if (!plainObject) return rejectedRemovalProviderResult(value);
+  if (keys.length === 1 && keys[0] === "ok" && descriptors.ok.value === true) {
+    return { ok: true };
+  }
+  if (
+    keys.length === 2
+    && keys.includes("ok")
+    && keys.includes("reason")
+    && descriptors.ok.value === false
+    && typeof descriptors.reason.value === "string"
+  ) {
+    try {
+      return { ok: false, reason: receiptReasonForJournal(descriptors.reason.value) };
+    } catch {
+      return rejectedRemovalProviderResult(value);
+    }
+  }
+  return rejectedRemovalProviderResult(value);
+}
+
+function assertRemovalProviderFailureContract(value) {
+  if (
+    !value
+    || typeof value !== "object"
+    || Object.getPrototypeOf(value) !== Object.prototype
+    || Reflect.ownKeys(value).length !== 3
+    || value.code !== REMOVAL_PROVIDER_RESULT_FAILURE_CODE
+    || !Number.isSafeInteger(value.canonicalByteLength)
+    || value.canonicalByteLength < 0
+    || !SHA256_PATTERN.test(value.canonicalSha256 ?? "")
+  ) throw new Error("removal provider failure evidence is invalid");
+}
+
 export function assertReceiptJournalEntryContract(entry) {
   const ancestors = new Set();
   const visit = (value) => {
@@ -1171,6 +1253,7 @@ export function assertReceiptJournalEntryContract(entry) {
     ancestors.add(value);
     for (const [key, child] of Object.entries(value)) {
       if (key === "reason") assertReceiptReasonContract(child);
+      if (key === "providerFailure") assertRemovalProviderFailureContract(child);
       visit(child);
     }
     ancestors.delete(value);
@@ -1202,15 +1285,20 @@ export function calculateReceiptJournalBudget({
   manifest,
   manifestSha256,
   expectedLiveMainSha,
+  repositoryIdentity,
 }) {
   if (!manifest || !Array.isArray(manifest.targets)) {
     throw new Error("receipt journal budget requires manifest targets");
+  }
+  if (repositoryIdentity !== APPROVED_REPOSITORY_IDENTITY) {
+    throw new Error("receipt journal budget requires the approved repository identity");
   }
   const leaseIdentity = RECEIPT_BUDGET_FINGERPRINT;
   const commonCheckpoint = {
     manifestSha256,
     expectedLiveMainSha,
     leaseIdentity,
+    repositoryIdentity,
   };
   const started = {
     schemaVersion: "sweep-merged-worktrees.mutation-progress.v1",
@@ -1219,7 +1307,7 @@ export function calculateReceiptJournalBudget({
     expectedLiveMainSha,
     startedAt: RECEIPT_BUDGET_TIMESTAMP,
     leaseIdentity,
-    repositoryIdentity: APPROVED_REPOSITORY_IDENTITY,
+    repositoryIdentity,
     targets: manifest.targets.map((target) => ({
       path: redactSecretLikePath(target.path),
       branch: redactSecretLikePath(target.branch ?? "(detached)"),
@@ -1233,12 +1321,18 @@ export function calculateReceiptJournalBudget({
     pathEvidenceAvailable: false,
     pathAbsent: false,
   };
+  const worstProviderFailure = {
+    code: REMOVAL_PROVIDER_RESULT_FAILURE_CODE,
+    canonicalByteLength: Number.MAX_SAFE_INTEGER,
+    canonicalSha256: RECEIPT_BUDGET_FINGERPRINT,
+  };
   const worstResults = manifest.targets.map((target) => ({
     ...target,
     path: target.path,
     branch: target.branch ?? "(detached)",
     status: "skipped",
     reason: RECEIPT_BUDGET_REASON,
+    providerFailure: worstProviderFailure,
     postRemovalEvidence: worstPostRemovalEvidence,
   }));
   const successResults = manifest.targets.map((target) => ({
@@ -1273,6 +1367,7 @@ export function calculateReceiptJournalBudget({
     phase: "terminal",
     leaseIdentity,
     leaseRelease,
+    repositoryIdentity,
   });
   const targetCheckpoints = manifest.targets.map((target, targetIndex) => ({
     started: canonicalReceiptEntryBytes({
@@ -1296,6 +1391,7 @@ export function calculateReceiptJournalBudget({
         branch: redactSecretLikePath(target.branch ?? "(detached)"),
         status: "skipped",
         reason: RECEIPT_BUDGET_REASON,
+        providerFailure: worstProviderFailure,
         postRemovalEvidence: worstPostRemovalEvidence,
       },
       ...commonCheckpoint,
@@ -1331,6 +1427,7 @@ export function calculateReceiptJournalBudget({
   const requiredBytes = Math.max(...Object.values(scenarioBytes));
   return Object.freeze({
     ok: requiredBytes <= MAX_RECEIPT_BYTES,
+    repositoryIdentity,
     targetCount: manifest.targets.length,
     requiredBytes,
     limitBytes: MAX_RECEIPT_BYTES,
@@ -1346,6 +1443,7 @@ export function calculateReceiptJournalBudget({
 export function runAuthorizedApply({
   authorization,
   expectedLiveMainSha,
+  repositoryIdentity = authorization?.receiptBudget?.repositoryIdentity,
   primaryRoot,
   upstream,
   defaultBranch,
@@ -1359,6 +1457,7 @@ export function runAuthorizedApply({
     manifest: authorization.manifest,
     manifestSha256: authorization.manifestSha256,
     expectedLiveMainSha,
+    repositoryIdentity,
   });
   let expectedFleet = null;
   let preTopologyFingerprint = null;
@@ -1643,7 +1742,7 @@ export function runAuthorizedApply({
         break;
       }
       let removal;
-      try { removal = deps.removeWorktree(command); }
+      try { removal = normalizeRemovalProviderResult(deps.removeWorktree(command)); }
       catch { removal = { ok: false, reason: "git worktree remove failed" }; }
       let postRemovalEvidence = null;
       let postRemovalReason = null;
@@ -1702,7 +1801,8 @@ export function runAuthorizedApply({
         status: removedAndProved ? "removed" : "failed",
         reason: removedAndProved
           ? null
-          : postRemovalReason ?? "git worktree remove failed",
+          : postRemovalReason ?? removal.reason ?? "git worktree remove failed",
+        ...(removal.providerFailure ? { providerFailure: removal.providerFailure } : {}),
         ...(postRemovalEvidence ? { postRemovalEvidence } : {}),
       };
       results.push(targetResult);
@@ -1825,6 +1925,7 @@ export function validateApplyAuthorization({
   expectedManifestSha256,
   expectedLiveMainSha,
   liveMainEvidence,
+  repositoryIdentity,
 }) {
   const authorizationMode = apply ? "--apply" : manifestPreview ? "manifest preview" : null;
   if (!authorizationMode) return { ok: true, manifest: null, manifestSha256: null };
@@ -1842,6 +1943,9 @@ export function validateApplyAuthorization({
     !isAcceptedLiveMainEvidence(liveMainEvidence)
     || !OBJECT_ID_PATTERN.test(liveMainEvidence.sha ?? "")
   ) return { ok: false, reason: "live remote-main evidence unavailable" };
+  if (repositoryIdentity !== APPROVED_REPOSITORY_IDENTITY) {
+    return { ok: false, reason: "apply authorization requires the approved repository identity" };
+  }
 
   let manifest;
   try { manifest = parseStrictManifestBytes(manifestBytes); }
@@ -1898,11 +2002,17 @@ export function validateApplyAuthorization({
     if (seenPaths.has(target.path)) return { ok: false, reason: "manifest target paths must be unique" };
     seenPaths.add(target.path);
   }
-  const receiptBudget = calculateReceiptJournalBudget({
-    manifest,
-    manifestSha256,
-    expectedLiveMainSha,
-  });
+  let receiptBudget;
+  try {
+    receiptBudget = calculateReceiptJournalBudget({
+      manifest,
+      manifestSha256,
+      expectedLiveMainSha,
+      repositoryIdentity,
+    });
+  } catch {
+    return { ok: false, reason: "receipt journal planning failed" };
+  }
   if (apply && !receiptBudget.ok) {
     return { ok: false, reason: "receipt journal budget exceeds maximum capacity" };
   }
@@ -2882,6 +2992,14 @@ export function main(argv, providers) {
     runtime.error("sweep refused: cannot resolve the expected common repository");
     return 1;
   }
+  if (
+    repositoryTuple.remoteIdentity !== APPROVED_REPOSITORY_IDENTITY
+    || repositoryTuple.remoteUrl !== APPROVED_REPOSITORY_URL
+  ) {
+    runtime.error("sweep refused: approved repository identity is unavailable");
+    return 1;
+  }
+  const repositoryIdentity = repositoryTuple.remoteIdentity;
   const defaultBranch = "main";
   const upstream = "origin/main";
   let liveMainEvidence;
@@ -2960,6 +3078,7 @@ export function main(argv, providers) {
       expectedManifestSha256: args.manifestSha256,
       expectedLiveMainSha: args.expectedLiveMainSha,
       liveMainEvidence,
+      repositoryIdentity,
     });
     if (!authorization.ok) {
       runtime.error(`sweep refused: ${authorization.reason}`);
@@ -3094,9 +3213,21 @@ export function main(argv, providers) {
     runtime.error(`sweep refused: cannot reserve new receipt at ${redactSecretLikePath(args.receiptPath)}`);
     return 1;
   }
+  let receiptBytesWritten = 0;
   const writeReceiptEntry = (entry) => {
-    assertReceiptJournalEntryContract(entry);
-    runtime.writeReceipt(receiptFd, `${JSON.stringify(entry)}\n`);
+    if (
+      entry?.repositoryIdentity !== undefined
+      && entry.repositoryIdentity !== repositoryIdentity
+    ) throw new Error("receipt repository identity mismatch");
+    const boundEntry = { ...entry, repositoryIdentity };
+    assertReceiptJournalEntryContract(boundEntry);
+    const encoded = `${JSON.stringify(boundEntry)}\n`;
+    const nextReceiptBytes = receiptBytesWritten + Buffer.byteLength(encoded, "utf8");
+    if (nextReceiptBytes > MAX_RECEIPT_BYTES) {
+      throw new Error("receipt size limit exceeded");
+    }
+    runtime.writeReceipt(receiptFd, encoded);
+    receiptBytesWritten = nextReceiptBytes;
   };
 
   const leaseIdentity = createFleetLeaseIdentity({
@@ -3232,6 +3363,7 @@ export function main(argv, providers) {
     execution = runAuthorizedApply({
       authorization,
       expectedLiveMainSha: args.expectedLiveMainSha,
+      repositoryIdentity,
       primaryRoot,
       expectedCommonGitDir,
       upstream,

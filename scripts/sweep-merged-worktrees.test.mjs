@@ -1162,15 +1162,20 @@ function authorizationFor(manifest = applyManifest()) {
     expectedManifestSha256: sweep.sha256Text(manifestBytes),
     expectedLiveMainSha: LIVE_MAIN_SHA,
     liveMainEvidence: { available: true, sha: LIVE_MAIN_SHA, source: "gh-api-git-ref" },
+    repositoryIdentity: sweep.APPROVED_REPOSITORY_IDENTITY,
   };
 }
 
-function receiptJournalBudgetFor(manifest) {
+function receiptJournalBudgetFor(
+  manifest,
+  repositoryIdentity = sweep.APPROVED_REPOSITORY_IDENTITY,
+) {
   const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   return sweep.calculateReceiptJournalBudget({
     manifest,
     manifestSha256: sweep.sha256Text(manifestBytes),
     expectedLiveMainSha: LIVE_MAIN_SHA,
+    repositoryIdentity,
   });
 }
 
@@ -2966,19 +2971,24 @@ function cliProvidersFixture({
   dirtyTarget = false,
   leaseAcquireFails = false,
   leaseReleaseFails = false,
+  removalFailureAt = null,
   manifestOverride = null,
   receiptByteLimit = null,
+  repositoryTupleOverride = TEST_REPOSITORY_TUPLE,
 } = {}) {
-  const topology = {
-    path: "/repo/.worktrees/target-0",
-    branch: "feature/target-0",
-    head: TARGET_HEAD_SHA,
-    bare: false,
-    detached: false,
-  };
   const manifest = manifestOverride ?? applyManifest();
-  manifest.targets[0].topologyFingerprint = sweep.fingerprintTopology(topology);
-  manifest.fleetFingerprint = sweep.fingerprintFleet([topology]);
+  const topologies = manifest.targets.map((target) => ({
+    path: target.path,
+    branch: target.branch,
+    head: target.head,
+    bare: false,
+    detached: target.branch === null,
+  }));
+  for (let index = 0; index < manifest.targets.length; index++) {
+    manifest.targets[index].topologyFingerprint = sweep.fingerprintTopology(topologies[index]);
+  }
+  manifest.fleetFingerprint = sweep.fingerprintFleet(topologies);
+  const topology = topologies[0];
   const authorizationInput = authorizationFor(manifest);
   const manifestPath = "/authorization/sweep-manifest.json";
   const receiptPath = "/authorization/sweep-receipt.json";
@@ -2989,7 +2999,8 @@ function cliProvidersFixture({
     "--expected-live-main-sha", LIVE_MAIN_SHA,
     "--receipt", receiptPath,
   ];
-  let registered = [{ ...topology }];
+  let registered = topologies.map((entry) => ({ ...entry }));
+  const removedPaths = new Set();
   let removed = false;
   let topologyReadsAfterRemoval = 0;
   let receiptText = null;
@@ -3016,6 +3027,8 @@ function cliProvidersFixture({
   };
   const providers = {
     resolvePrimaryRoot: () => "/repo",
+    resolveCommonGitDir: () => "/repo/.git",
+    resolveRepositoryTuple: () => repositoryTupleOverride,
     readLiveMainEvidence() {
       calls.live++;
       return liveEvidenceFails
@@ -3045,10 +3058,10 @@ function cliProvidersFixture({
     readPathAbsenceEvidence(path) {
       calls.pathEvidence.push(path);
       if (path === receiptPath) return { available: true, absent: true };
-      assert.equal(path, topology.path);
+      assert.equal(topologies.some((entry) => entry.path === path), true);
       return {
         available: true,
-        absent: removed && !danglingPathAfterRemoval,
+        absent: removedPaths.has(path) && !danglingPathAfterRemoval,
       };
     },
     readTargetBoundaryEvidence() {
@@ -3162,8 +3175,14 @@ function cliProvidersFixture({
     removeWorktree(command) {
       calls.remove.push(command);
       mutationEvents.push("remove");
+      const targetPath = command.args.at(-1);
+      const targetIndex = topologies.findIndex((entry) => entry.path === targetPath);
+      if (targetIndex === removalFailureAt) {
+        return { ok: false, reason: "bounded provider failure" };
+      }
       removed = true;
-      registered = [];
+      removedPaths.add(targetPath);
+      registered = registered.filter((entry) => entry.path !== targetPath);
       return { ok: true };
     },
     now: () => {
@@ -4199,4 +4218,203 @@ test("runAuthorizedApply proves the first removal absent and blocks a later targ
   assert.equal(result.receipt.results[0].postRemovalEvidence.pathAbsent, true);
   assert.equal(result.receipt.results[1].status, "skipped");
   assert.match(result.receipt.results[1].reason, /fleet topology fingerprint drift/);
+});
+
+test("repository identity is one validated value across budget, journal writer, and every mutation gate", () => {
+  const manifest = applyManifest(5);
+  const budget = receiptJournalBudgetFor(manifest);
+  assert.equal(budget.repositoryIdentity, sweep.APPROVED_REPOSITORY_IDENTITY);
+
+  const accepted = cliProvidersFixture({ manifestOverride: manifest });
+  assert.equal(sweep.main(accepted.argv, accepted.providers), 0);
+  assert.equal(accepted.calls.remove.length, 5);
+  assert.equal(accepted.receiptWrites.length > 0, true);
+  assert.equal(accepted.receiptWrites.every(
+    (entry) => entry.repositoryIdentity === sweep.APPROVED_REPOSITORY_IDENTITY,
+  ), true);
+
+  for (const [label, remoteIdentity] of [
+    ["mismatch", "OtherOwner/OtherRepo"],
+    ["oversize", "x".repeat(sweep.MAX_RECEIPT_BYTES + 1)],
+  ]) {
+    const rejected = cliProvidersFixture({
+      repositoryTupleOverride: {
+        ...TEST_REPOSITORY_TUPLE,
+        remoteIdentity,
+      },
+      receiptByteLimit: sweep.MAX_RECEIPT_BYTES,
+    });
+    assert.equal(sweep.main(rejected.argv, rejected.providers), 1, label);
+    assert.equal(rejected.calls.reserve, 0, label);
+    assert.equal(rejected.calls.leaseAcquire, 0, label);
+    assert.equal(rejected.calls.remove.length, 0, label);
+    assert.match(rejected.calls.errors.join("\n"), /approved repository identity/u, label);
+  }
+});
+
+test("closed removal-provider result contract preserves bounded failures and fingerprints rejected detail", () => {
+  const bounded = { ok: false, reason: "bounded provider failure" };
+  assert.deepEqual(sweep.normalizeRemovalProviderResult(bounded), bounded);
+
+  for (const raw of [
+    { ok: false, reason: "x".repeat(sweep.MAX_RECEIPT_REASON_JSON_BYTES + 1) },
+    { ok: false, reason: "bounded", detail: { diagnostic: "not admitted" } },
+    { ok: "false", reason: "malformed" },
+  ]) {
+    const canonical = JSON.stringify(raw);
+    const normalized = sweep.normalizeRemovalProviderResult(raw);
+    assert.deepEqual(normalized, {
+      ok: false,
+      reason: "git worktree remove failed",
+      providerFailure: {
+        code: "REMOVAL_PROVIDER_RESULT_REJECTED",
+        canonicalByteLength: Buffer.byteLength(canonical, "utf8"),
+        canonicalSha256: sweep.sha256Text(canonical),
+      },
+    });
+    assert.equal(JSON.stringify(normalized).includes(raw.reason), false);
+  }
+
+  const accessorResult = {};
+  Object.defineProperties(accessorResult, {
+    ok: { enumerable: true, get() { throw new Error("untrusted accessor"); } },
+    reason: { enumerable: true, value: "not admitted" },
+  });
+  let accessorFailure;
+  assert.doesNotThrow(() => {
+    accessorFailure = sweep.normalizeRemovalProviderResult(accessorResult);
+  });
+  assert.equal(accessorFailure.providerFailure.code, "REMOVAL_PROVIDER_RESULT_REJECTED");
+  assert.match(accessorFailure.providerFailure.canonicalSha256, /^[0-9a-f]{64}$/u);
+
+  const validFixture = authorizedApplyFixture();
+  validFixture.deps.removeWorktree = (command) => {
+    validFixture.calls.remove.push(command);
+    return bounded;
+  };
+  const validResult = sweep.runAuthorizedApply({
+    authorization: validFixture.authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, validFixture.deps);
+  assert.equal(validResult.receipt.results[0].reason, bounded.reason);
+  assert.equal("providerFailure" in validResult.receipt.results[0], false);
+
+  const rejectedFixture = authorizedApplyFixture();
+  const rejectedRaw = { ok: false, reason: "provider-detail".repeat(1024 * 1024) };
+  const rejectedCanonical = JSON.stringify(rejectedRaw);
+  rejectedFixture.deps.removeWorktree = (command) => {
+    rejectedFixture.calls.remove.push(command);
+    return rejectedRaw;
+  };
+  const rejectedResult = sweep.runAuthorizedApply({
+    authorization: rejectedFixture.authorization,
+    expectedLiveMainSha: LIVE_MAIN_SHA,
+    primaryRoot: "/repo",
+    upstream: "origin/main",
+    defaultBranch: "main",
+    minAgeDays: 0,
+    startedAt: "2026-08-29T00:00:00.000Z",
+  }, rejectedFixture.deps);
+  assert.equal(rejectedResult.receipt.results[0].reason, "git worktree remove failed");
+  assert.deepEqual(rejectedResult.receipt.results[0].providerFailure, {
+    code: "REMOVAL_PROVIDER_RESULT_REJECTED",
+    canonicalByteLength: Buffer.byteLength(rejectedCanonical, "utf8"),
+    canonicalSha256: sweep.sha256Text(rejectedCanonical),
+  });
+  assert.equal(JSON.stringify(rejectedResult.receipt).includes("provider-detail"), false);
+});
+
+test("redaction expansion and receipt planning ceilings fail closed without escaping validation", () => {
+  const manifest = applyManifest();
+  manifest.targets[0].path = `/${"token/".repeat(1_520_000)}leaf`;
+  const input = authorizationFor(manifest);
+  assert.ok(input.manifestBytes.byteLength < sweep.MAX_MANIFEST_BYTES);
+  assert.ok(
+    Buffer.byteLength(sweep.redactSecretLikePath(manifest.targets[0].path), "utf8")
+      > sweep.MAX_RECEIPT_BUDGET_ENTRY_BYTES,
+  );
+
+  let validation;
+  assert.doesNotThrow(() => {
+    validation = sweep.validateApplyAuthorization(input);
+  });
+  assert.equal(validation.ok, false);
+  assert.match(validation.reason, /receipt journal planning failed/u);
+
+  const fixture = cliProvidersFixture({ manifestOverride: manifest });
+  assert.equal(sweep.main(fixture.argv, fixture.providers), 1);
+  assert.equal(fixture.calls.reserve, 0);
+  assert.equal(fixture.calls.leaseAcquire, 0);
+  assert.equal(fixture.calls.remove.length, 0);
+  assert.match(fixture.calls.errors.join("\n"), /receipt journal planning failed/u);
+});
+
+test("five-target injected journals stay within their independently planned scenario budgets", () => {
+  const cases = [
+    ["allTargetsSuccess", {}, 0],
+    ["preflightBlocked", { dirtyTarget: true }, 1],
+    ["targetFailureAfterStarted", { removalFailureAt: 2 }, 1],
+    ["leaseAcquisitionFailure", { leaseAcquireFails: true }, 1],
+    ["startedFailure", { startedWriteFails: true }, 1],
+    ["allTargetsLeaseReleaseFailure", { leaseReleaseFails: true }, 1],
+  ];
+  for (const [scenario, options, expectedCode] of cases) {
+    const manifest = applyManifest(5);
+    const fixture = cliProvidersFixture({
+      manifestOverride: manifest,
+      receiptByteLimit: sweep.MAX_RECEIPT_BYTES,
+      ...options,
+    });
+    if (options.startedWriteFails) {
+      const originalWrite = fixture.providers.writeReceipt;
+      fixture.providers.writeReceipt = (handle, text) => {
+        if (JSON.parse(text).phase === "started") throw new Error("started write failed");
+        return originalWrite(handle, text);
+      };
+    }
+    const budget = receiptJournalBudgetFor(manifest);
+    assert.equal(sweep.main(fixture.argv, fixture.providers), expectedCode, scenario);
+    assert.ok(
+      fixture.getReceiptBytes() <= budget.scenarioBytes[scenario],
+      `${scenario}: ${fixture.getReceiptBytes()} > ${budget.scenarioBytes[scenario]}`,
+    );
+    assert.equal(fixture.receiptWrites.every(
+      (entry) => entry.repositoryIdentity === sweep.APPROVED_REPOSITORY_IDENTITY,
+    ), true, scenario);
+  }
+});
+
+test("the actual 16 MiB journal writer admits exact planned capacity and rejects plus one pre-mutation", () => {
+  const exact = applyManifest();
+  exact.targets[0].owner = "A";
+  const baseline = receiptJournalBudgetFor(exact);
+  exact.targets[0].owner += "x".repeat(sweep.MAX_RECEIPT_BYTES - baseline.requiredBytes);
+  assert.equal(receiptJournalBudgetFor(exact).requiredBytes, sweep.MAX_RECEIPT_BYTES);
+
+  const accepted = cliProvidersFixture({
+    manifestOverride: exact,
+    receiptByteLimit: sweep.MAX_RECEIPT_BYTES,
+  });
+  assert.equal(sweep.main(accepted.argv, accepted.providers), 0);
+  assert.equal(accepted.calls.reserve, 1);
+  assert.equal(accepted.calls.leaseAcquire, 1);
+  assert.equal(accepted.calls.remove.length, 1);
+  assert.ok(accepted.getReceiptBytes() <= sweep.MAX_RECEIPT_BYTES);
+
+  const over = structuredClone(exact);
+  over.targets[0].owner += "x";
+  assert.equal(receiptJournalBudgetFor(over).requiredBytes, sweep.MAX_RECEIPT_BYTES + 1);
+  const rejected = cliProvidersFixture({
+    manifestOverride: over,
+    receiptByteLimit: sweep.MAX_RECEIPT_BYTES,
+  });
+  assert.equal(sweep.main(rejected.argv, rejected.providers), 1);
+  assert.equal(rejected.calls.reserve, 0);
+  assert.equal(rejected.calls.leaseAcquire, 0);
+  assert.equal(rejected.calls.remove.length, 0);
 });
