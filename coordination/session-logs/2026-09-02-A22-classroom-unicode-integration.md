@@ -828,3 +828,38 @@ mutated by this correction.
 - Validation: pending focused documentation/config/release-governance gates,
   fresh refreeze, exact-path commit, ordinary fast-forward push, and the
   current inline review-thread reply/resolve.
+
+### U224-R9 log-only validation receipt for U224-R8 — 2026-09-05
+
+- Receipt subject: this append-only receipt closes the historical U224-R8
+  documentation slice at exact commit
+  `86b5361b2f7b8901d364569735d6bd65116dc356`; it does not claim terminal
+  evidence for the later U224-R9 evidence-only head.
+- Exact R8 graph and scope: parent
+  `a2df0526bfffa3efed2780a34a4c4265d7437c9e`, tree
+  `c2acd6f24ee26375c1dad18d580340f532351397`, and exactly two modified paths:
+  `RELEASE.md` plus this session log. R8 was published as one ordinary,
+  non-force fast-forward commit, and the local branch, cached tracking ref,
+  live GitHub feature ref, PR #224 head and literal worktree HEAD all resolved
+  to the exact R8 commit during the R8 post-push freeze.
+- Fresh validation bound to the R8 content passed: the focused aliased
+  classroom-load contract passed 1/1; `npm run test:release-governance`
+  completed 150 total with 139 pass, 0 fail and 11 intentional skips;
+  `node --check` passed for `scripts/classroom-load-smoke.mjs` and
+  `scripts/release-governance.test.mjs`; and literal `git diff --check` passed
+  for `a2df0526...86b5361`.
+- Exact review-thread closure: thread `PRRT_kwDOTMUjjc6eYWb9` received only the
+  R8 repair reply with database ID `3940936290` and then reported
+  `isResolved=true`, `isOutdated=false`. The other three historical threads
+  retained one original comment each and remained
+  `isResolved=false`, `isOutdated=true`; U224-R8 did not reply to or resolve
+  them.
+- GitHub checks bound to exact R8 head `86b5361...`: required `validate`
+  completed `SUCCESS` in automatic CI run `33972264809`; required
+  `promotion-shadow-gate` completed `FAILURE` in automatic run `33972264867`
+  with fixed decision code `PROMOTION_REQUIRED_CHECK_DECISION_REJECTED`.
+- Boundary: this receipt closes only the missing U224-R8 validation record.
+  It does not establish CI or Promotion terminality for the new U224-R9
+  evidence-only head, does not cure the R8 Promotion rejection, and does not
+  authorize or imply merge, Shadow, deploy, production write, cleanup, ref or
+  worktree removal, or evidence deletion. No credential value is recorded.
