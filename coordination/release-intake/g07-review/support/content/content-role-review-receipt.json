@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "mais-s7-five-role-review-receipt.v1",
+  "producedAt": "2026-09-06T13:48:22.745Z",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "factsRawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69",
+  "baselineObservationsRawSha256": "d09d5a3e6e5cab4ed1b96c53cc084b123024953873da686eddb2e9d3cd0a6f1e",
+  "roles": [
+    {
+      "role": "A04",
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A04.json",
+      "rawSha256": "df0152d76d3fad53100f34a28c7506407793d002737c9c721161c1b88edb6768",
+      "result": "pass",
+      "carriedFields": 18,
+      "freshFields": 1
+    },
+    {
+      "role": "A05",
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A05.json",
+      "rawSha256": "9068424c4de59a98f3821fdcbbbb3f1c5c6ff3cc5f28e05065f383f6022792dd",
+      "result": "pass",
+      "carriedFields": 16,
+      "freshFields": 1
+    },
+    {
+      "role": "A18",
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A18.json",
+      "rawSha256": "137475748437f67e7d128684744578708efffbfe7dcdb647fd8be86172ec30e6",
+      "result": "pass",
+      "carriedFields": 11,
+      "freshFields": 1
+    },
+    {
+      "role": "A21",
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A21.json",
+      "rawSha256": "cda7be0f9430a8ff55c211b0ebf0de4b7ca05552da17acb82b6f7a145bb99698",
+      "result": "pass",
+      "carriedFields": 7,
+      "freshFields": 1
+    },
+    {
+      "role": "A24",
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A24.json",
+      "rawSha256": "ecb8e1b8461abeb998758e415bf09b83171d257fd0b36d0b21eb300e53861502",
+      "result": "not_applicable",
+      "carriedFields": 9,
+      "freshFields": 1
+    }
+  ],
+  "distinctReviewerCount": 1,
+  "gitMutations": false,
+  "sourceRepositoryWrites": false
+}

@@ -1,0 +1,42 @@
+✔ linear canonical origins are returned exactly once, including an absent Receipt (444.556459ms)
+✔ real AA/MM/MA merge retains authority from either parent (reverse=false) (455.535875ms)
+✔ real AA/MM/MA merge retains authority from either parent (reverse=true) (436.774417ms)
+✔ unrelated type changes and special filenames do not enter authority history (355.528291ms)
+✔ merge-authored authority edit is rejected (403.671334ms)
+✔ merge-authored authority delete is rejected (400.432041ms)
+✔ merge-authored authority chmod is rejected (395.86675ms)
+✔ merge-authored authority type is rejected (396.146833ms)
+✔ merge-authored authority new-receipt is rejected (367.03825ms)
+✔ merge cannot create a binding from two parents without authority (393.515834ms)
+✔ resolving a changed authority back to one canonical parent still rejects history (395.767ms)
+✔ ordinary authority edits and delete/readd stay visible to atomic add-only validation (379.970417ms)
+✔ non-ancestor evidence, unavailable objects and unsafe paths fail closed (219.089542ms)
+✔ strict parsers reject incomplete graph, unsafe UTF8, malformed raw records and path substitution (0.370791ms)
+✔ a three-parent merge inherits sealed authority without recounting origins (532.026083ms)
+✔ real invalid UTF8 Git paths outside authority still fail the full-history text audit (231.893542ms)
+✔ real shallow history and a missing parent object cannot prove authority (244.176083ms)
+✔ graph record limits and empty or duplicate authority tree tokens are explicit failures (5.410083ms)
+✔ default graft cannot hide the real third parent authority change (505.687208ms)
+✔ env graft cannot hide the real third parent authority change (517.315375ms)
+✔ linked-common graft cannot hide the real third parent authority change (513.100833ms)
+✔ default evidence-boundary graft cannot exclude real side-branch mutations (624.102958ms)
+✔ default harmless graft is ignored without changing real parents or origins (252.665459ms)
+✔ env evidence-boundary graft cannot exclude real side-branch mutations (622.753334ms)
+✔ env harmless graft is ignored without changing real parents or origins (252.914917ms)
+✔ Promotion Gate public scripts select v2.6 and expose no live-capable command (4.533042ms)
+✔ Promotion Shadow v2 CI validates current HEAD and replays the exact canonical execution commit (5.9405ms)
+✔ Promotion Shadow resolver bootstraps from the committed Manifest binding when the canonical Receipt is absent (284.032708ms)
+✔ Promotion Shadow resolver rejects a Receipt sibling merged beside its declared execution binding (359.724791ms)
+✔ Promotion Shadow resolver rejects every non-canonical Manifest, descriptor, and Receipt history (3593.265791ms)
+✔ Promotion Shadow resolver bounds inputs and fails closed on Receipt drift, unsafe copies, workspace mismatch, and invalid raw paths (3025.211833ms)
+✔ Promotion Shadow selector contract is transition-aware and exact (5.442458ms)
+✔ Promotion Shadow v2 final enforcement delegates complete evidence replay to the tracked verifier (0.88725ms)
+✔ Promotion required-check semantic rescope is wired to exact checkout, artifacts, and final verification (0.913583ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16785.495417

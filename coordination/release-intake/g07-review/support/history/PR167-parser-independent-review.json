@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "mais-pr167-parser-independent-review.v1",
+  "reviewedAt": "2026-09-06T16:14:33.486916+00:00",
+  "reviewer": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "scope": "A11 independent history boundary review",
+    "implementationAuthor": "/root/s5_quality_review",
+    "authoredReviewedPaths": false,
+    "identityMachineAuthenticated": false,
+    "humanSignature": false
+  },
+  "verdict": "REQUEST_CHANGES",
+  "subject": {
+    "worktree": "/Volumes/Starship/MAIS-g07-wt",
+    "baseline": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+    "branchAsSourceFinal": "codex/a10-machine-qa-governance-closeout-20260906",
+    "digest": "8e70075e452a7d08a7565e5349a34a367321a7da278008a66abd70a81f6c20d5",
+    "algorithm": "SHA256 sorted path + NUL + sha256 + LF UTF8 records",
+    "paths": [
+      {
+        "path": ".github/workflows/promotion-shadow.yml",
+        "beforeSha256": "4624a05236bb34eb9ba009c91bc16c646e689abcb172b254457280bd3d9841ca",
+        "sha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+        "bytes": 36438
+      },
+      {
+        "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+        "beforeSha256": "ceb13f856aaf65d670794f92c0c52d2acb47aaed610d701d58d0838ed4416655",
+        "sha256": "662a17a9afe48a2d4e758f2b5b9e8eda5594a9ea3bb5cb438a044f2256ee17a6",
+        "bytes": 17159
+      },
+      {
+        "path": "scripts/promotion-reaffirmation-history.mjs",
+        "beforeSha256": null,
+        "sha256": "fea4184db2ba22d894fbb82256ba5595d76806b93c5cd5541593840a41bc1e66",
+        "bytes": 8851
+      },
+      {
+        "path": "scripts/promotion-reaffirmation-history.test.mjs",
+        "beforeSha256": null,
+        "sha256": "c0ceadbe9d7703f4a0a2994f7ad1569ad6d1b5f31ba6b90b66cc03a2d7f9e6d9",
+        "bytes": 11401
+      },
+      {
+        "path": "scripts/promotion-shadow-workflow-v2.test.mjs",
+        "beforeSha256": "b12af9ad8132ebd9bd854aa0b821e4f4b660db74f08a9a0b0d1962e9963f40e0",
+        "sha256": "fa370696fabc2726863875014e0c38acdfb1dadfaab0244bdeb2f97951c1a157",
+        "bytes": 32982
+      }
+    ],
+    "sourceFinal": {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/PR167-parser-validation/source-final.json",
+      "sha256": "6e4c718b545100f2d1017c6a853665c4c6b9efad819423937d3b2d2f768e119b"
+    }
+  },
+  "findings": [
+    {
+      "id": "HISTORY-GRAFT-01",
+      "priority": "P1",
+      "blocking": true,
+      "title": "Git graft metadata can remove an authority-changing real merge parent from the collected graph",
+      "path": "scripts/promotion-reaffirmation-history.mjs",
+      "line": 122,
+      "relatedLines": [
+        97,
+        117,
+        136,
+        154
+      ],
+      "condition": "The repository has an effective info/grafts record that presents a three-parent merge as a two-parent merge. This was created only in an independent temporary fixture, not in the MAIS repository.",
+      "observed": "Without the graft, the real third parent changes authority and AUTHORITY_MERGE_CHANGE is raised. With a graft listing only the two safe parents, collectPromotionReaffirmationHistory succeeds and returns only the original binding two A events plus the Receipt A. cat-file -p still confirms the raw commit has all three parents.",
+      "rootCause": "--no-replace-objects excludes replace refs but does not disable info/grafts. rev-list --parents and merge-base use the graft-rewritten graph. The parent-to-result loop therefore never checks the omitted real third parent.",
+      "impact": "The helper cannot currently prove the claimed complete real parent graph or that all reachable authority changes are rejected. A canonical final tree and apparently valid atomic/Receipt events are insufficient when a real parent is hidden.",
+      "minimumRemediation": "Make graph and ancestry collection independent of effective graft metadata, or fail closed before collection when such metadata is active; bind the graph parent arrays to actual commit object parents as appropriate. Add the true temporary Git negative case and retain all current ordinary-merge positives.",
+      "reproduction": {
+        "script": "/private/tmp/mais-history-review/probes.mjs",
+        "case": "graft metadata cannot hide a real third parent authority mutation",
+        "observation": "/private/tmp/mais-history-review/graft-observation.json",
+        "fixture": "/private/tmp/mais-history-review/fixture-rrPdH3",
+        "head": "0ed3210569639a545082e4d4bbcd731fd8c0b52a",
+        "physicalParents": [
+          "a133aa5d2a70bf677b4f8774394a99531b4d5d12",
+          "b262e7194b7b376ee828f34f696d5c112d416085",
+          "834d202f34014e3b050997db97fceb565dd62190"
+        ],
+        "accepted": {
+          "observedParents": [
+            "a133aa5d2a70bf677b4f8774394a99531b4d5d12",
+            "b262e7194b7b376ee828f34f696d5c112d416085"
+          ],
+          "changes": [
+            {
+              "commit": "a133aa5d2a70bf677b4f8774394a99531b4d5d12",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "4b37b3fb2aed3af38e63552443f29d9785d65e07",
+              "path": "authority/receipt.json"
+            },
+            {
+              "commit": "88c6750fc0483d6f7b94a6839f765318986de15b",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "51170e057fb8055edef2b3ab0b46c7b965d1bafd",
+              "path": "authority/descriptor.json"
+            },
+            {
+              "commit": "88c6750fc0483d6f7b94a6839f765318986de15b",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "6b2eb75254c9dd682f28357307c2540c3131c832",
+              "path": "authority/manifest.json"
+            }
+          ],
+          "mergeCount": 1
+        },
+        "error": null
+      }
+    }
+  ],
+  "verifiedScope": {
+    "fiveChangedPlus17ProtectedHashesMatchBeforeAndAfter": true,
+    "workflowOutsideHistoryBlockByteIdentical": true,
+    "oldWorkflowTestsOnlyOneImportAndOneHelperCopy": true,
+    "contractAppendOnly": true,
+    "atomicDirectEvidenceBlobChecksUnchanged": true,
+    "strictDescendantReceiptChecksUnchanged": true,
+    "checkerV26And17ProtectedFilesUnchanged": true
+  },
+  "positiveReview": [
+    "The raw all-history fatal UTF-8 audit and 32 MiB cap remain in the workflow. The helper separately uses a 32 MiB aggregate stdout budget, 10,000 commits and bounded subprocess times; it does not truncate or omit ordinary merges.",
+    "Single-parent exact literal-path raw diffs preserve A/D/M/T events. Existing add-only validation can still reject edits, deletions, mode changes and re-addition. Independent chmod and rename/deletion fixtures confirm visibility.",
+    "For the graph currently supplied by Git, every nonempty merge parent tuple must match result mode/type/blob; merge-created authority, deletion, mode/type changes and conflicting parent authority are rejected. Independent third-parent mutation fixture rejects when not grafted.",
+    "Ordinary AA/MM/MA real merges, both parent orders, unchanged authority inherited from one or multiple parents, and three-parent merges pass existing real Git fixtures.",
+    "Independent fixed-SHA execution at main7f and PR167 b583 returns exactly the same two binding A events at 286ac82609861e9cf460f69cd0b93ad03724716b and one Receipt A at ae63be23a29a7d4ba8b84c28ff6846cc7318238c; graph sizes 31/34 and merge counts 11/13."
+  ],
+  "independentTests": {
+    "oldEntry": {
+      "command": "node --test scripts/promotion-shadow-workflow-v2.test.mjs",
+      "cwd": "/Volumes/Starship/MAIS-g07-wt",
+      "pass": 27,
+      "fail": 0,
+      "skip": 0,
+      "exitCode": 0
+    },
+    "additionalProbes": {
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "at": "2026-09-06T16:11:21.568Z",
+      "helperSha256": "fea4184db2ba22d894fbb82256ba5595d76806b93c5cd5541593840a41bc1e66",
+      "results": [
+        {
+          "name": "third merge parent authority change cannot be hidden by canonical result",
+          "result": "PASS",
+          "evidence": {
+            "fixture": "/private/tmp/mais-history-review/fixture-EOi6EF",
+            "head": "319fa5e13f044f6b1e1c07b07930a27108bcf000",
+            "parents": [
+              "54577873fd6722b3c360086d01b96d8d7f44f6d9",
+              "e167075d44a0c19f7fc37aba460995ab87f7ad2e",
+              "8367638250743a43a966714162e277340f1d8efd"
+            ]
+          }
+        },
+        {
+          "name": "single-parent chmod stays an M authority event for unchanged workflow rejection",
+          "result": "PASS",
+          "evidence": {
+            "fixture": "/private/tmp/mais-history-review/fixture-TMW5pu",
+            "event": {
+              "commit": "cd8b889f82328e24de7f67dd435788efda17eef5",
+              "status": "M",
+              "oldMode": "100644",
+              "newMode": "100755",
+              "oldBlob": "6b2eb75254c9dd682f28357307c2540c3131c832",
+              "newBlob": "6b2eb75254c9dd682f28357307c2540c3131c832",
+              "path": "authority/manifest.json"
+            }
+          }
+        },
+        {
+          "name": "authority move is not concealed as rename; removal remains visible",
+          "result": "PASS",
+          "evidence": {
+            "fixture": "/private/tmp/mais-history-review/fixture-TSVDoc"
+          }
+        },
+        {
+          "name": "ordinary merge containing identical authority in all parents emits original A events only",
+          "result": "PASS",
+          "evidence": {
+            "fixture": "/private/tmp/mais-history-review/fixture-eaSUdV",
+            "head": "258c56fd63db9eb1d55d8de99ad7cc0cda2a3a78",
+            "mergeCount": 1
+          }
+        },
+        {
+          "name": "graft metadata cannot hide a real third parent authority mutation",
+          "result": "FAIL",
+          "error": "AssertionError [ERR_ASSERTION]: Collector accepted graft-rewritten graph while the real commit has a tampered third parent"
+        },
+        {
+          "name": "fixed main7f and PR167 b583 produce identical original two-A binding and one-A Receipt",
+          "result": "PASS",
+          "evidence": {
+            "heads": [
+              "7f692278989b4bf45496d239bccb9263326b5453",
+              "b583fd91543627f86a9b4b7ed8288506fad38102"
+            ],
+            "commitCounts": [
+              31,
+              34
+            ],
+            "mergeCounts": [
+              11,
+              13
+            ]
+          }
+        }
+      ],
+      "pass": 5,
+      "fail": 1
+    },
+    "fixedHistory": {
+      "evidenceCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+      "rows": [
+        {
+          "headCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "commits": 31,
+          "merges": 11,
+          "bytesRead": 96783,
+          "changes": [
+            {
+              "commit": "ae63be23a29a7d4ba8b84c28ff6846cc7318238c",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "20eef6dfa6c18dec8118f272157cb3cd42b5de4c",
+              "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json"
+            },
+            {
+              "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "bb87253b5dd21e9da004268aa1e0960b9fed9ca3",
+              "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json"
+            },
+            {
+              "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "4e6f58c4f33a42d6569e4c591ce547eb81a6a844",
+              "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json"
+            }
+          ]
+        },
+        {
+          "headCommit": "b583fd91543627f86a9b4b7ed8288506fad38102",
+          "commits": 34,
+          "merges": 13,
+          "bytesRead": 102164,
+          "changes": [
+            {
+              "commit": "ae63be23a29a7d4ba8b84c28ff6846cc7318238c",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "20eef6dfa6c18dec8118f272157cb3cd42b5de4c",
+              "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json"
+            },
+            {
+              "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "bb87253b5dd21e9da004268aa1e0960b9fed9ca3",
+              "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json"
+            },
+            {
+              "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+              "status": "A",
+              "oldMode": "000000",
+              "newMode": "100644",
+              "oldBlob": "0000000000000000000000000000000000000000",
+              "newBlob": "4e6f58c4f33a42d6569e4c591ce547eb81a6a844",
+              "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json"
+            }
+          ]
+        }
+      ],
+      "combinedRawSha256": "14cf3f9cac05feabe71ea05e2882144457d6a19cb8ca2a342e7cb1d1cfec1e55"
+    },
+    "envKeys": [
+      "PATH",
+      "TMPDIR",
+      "NODE_ENV",
+      "GIT_CONFIG_NOSYSTEM",
+      "GIT_CONFIG_GLOBAL",
+      "LC_ALL"
+    ],
+    "temporaryRoot": "/private/tmp/mais-history-review",
+    "receipts": [
+      {
+        "path": "/private/tmp/mais-history-review/initial-hashes.json",
+        "sha256": "2bccd9b41c3d1d11d570ac36ab2f8f8b4d65690f3f6657a78f1c2f3b402351ff"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/final-hashes.json",
+        "sha256": "fd2f9d001e6ac29192e9af0224c60ec6aecff22c6ec4616e3646e67049f3651c"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/old-entry.log",
+        "sha256": "d01b6046cca7fb4a00e6286d7c831f4ce91c8d6f979fd2dc71d85917c65b8d0b"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/probes.mjs",
+        "sha256": "44e41474248bd692cca0cdbf87fdac4ed475641a5ce5ffd5075649a92e4ebe33"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/probes.json",
+        "sha256": "bd472a578a8fb47537ba9683e91b0ed9794e942a3a8a4cbec866e68f8615ac3d"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/probes.log",
+        "sha256": "bd472a578a8fb47537ba9683e91b0ed9794e942a3a8a4cbec866e68f8615ac3d"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/graft-observation.json",
+        "sha256": "2d608fa48af9e05111cefc19e15b4ab3d7fbf21aa17a292af7fab075a940a7a5"
+      },
+      {
+        "path": "/private/tmp/mais-history-review/fixed-history.json",
+        "sha256": "181b9c0f2a79f906d585a1c2375c487c88c83beb2cb045bbcb3403ca8b1ad54d"
+      }
+    ]
+  },
+  "authorValidation": {
+    "claim": "npm test:promotion-gate 99/99; not independently rerun in this review",
+    "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/PR167-parser-validation/public-command.log",
+    "sha256": "f9eeb4ec1e92aaeebbf5759023db03689131890079c304e78a0190a7b5aad6fc",
+    "hashMatchesSourceFinal": true
+  },
+  "limits": [
+    "The graft failure is demonstrated in a temporary repository; no claim that the current MAIS repository contains such metadata.",
+    "No current-repository Git mutation, source edit, build, network/provider access, real env read, Shadow, attestation, future commit binding, deploy or cleanup performed.",
+    "Temporary fixture repositories contain only synthetic text and local test commits; they are not additional project worktrees.",
+    "The unchanged v2.6 native, execution/replay, Receipt/Closure and publication/index gates remain separate."
+  ],
+  "disposition": "Do not accept frozen digest8e70075e as complete-parent-graph proof. Fix HISTORY-GRAFT-01, freeze a new digest, and recheck the negative plus existing focused positives."
+}
