@@ -30,7 +30,7 @@
     },
     {
       "kind": "mc",
-      "prompt": "A random sample of students reports 55% would join a spring club, with a margin of error of 6 percentage points. Which claimed school-wide percent does this survey rule out?",
+      "prompt": "A random sample of students reports that 55% would join a spring club, with a margin of error of 6 percentage points. Which claimed school-wide percentage lies outside the interval formed by the estimate plus or minus that margin of error?",
       "choices": [
         "48%",
         "52%",
@@ -38,7 +38,7 @@
         "60%"
       ],
       "answer": 0,
-      "explanation": "The plausible values run from 55 - 6 = 49% to 55 + 6 = 61%. Since 48 < 49, the value 48% lies outside that interval and is ruled out, while 52%, 58%, and 60% all lie between 49% and 61% and are still plausible."
+      "explanation": "The stated interval is 55 - 6 = 49% to 55 + 6 = 61%. The value 48% lies outside this interval, while 52%, 58%, and 60% lie inside it. Being outside a sample-based interval is not an absolute exclusion of a true school-wide percentage: sampling uncertainty remains, and a confidence interval is not a guarantee about one particular sample."
     }
   ]
 }

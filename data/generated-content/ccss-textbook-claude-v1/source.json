@@ -831,15 +831,15 @@
       },
       {
         "kind": "mc",
-        "prompt": "A straight-line model is fitted to 12 data points. Its sum of squared residuals is 40, and its residual plot rises at both ends and dips in the middle. What does that residual plot tell you?",
+        "prompt": "An ordinary least-squares line with a fitted intercept is fitted to 12 data points. Its sum of squared residuals is 40, and its residual plot rises at both ends and dips in the middle. What is the best next step suggested by that residual pattern?",
         "choices": [
           "Some other straight line would give a smaller squared total.",
-          "The relationship is not linear, so a curved model would fit better.",
+          "The pattern suggests that the straight-line model misses curvature; investigate a suitable curved model.",
           "The data contain exactly one outlier.",
           "Nothing; only the size of the squared total matters."
         ],
         "answer": 1,
-        "explanation": "A U-shaped residual plot is left-over structure: after a straight line is subtracted, the ends still sit above it and the middle below, which is exactly what a curve looks like. It does not mean the line is not least-squares, since the least-squares line of curved data shows the same U — the squared total is already as small as any straight line can make it, and the U is still there. One outlier would be a single stray residual, not a smooth U across all 12. And the total alone is not the whole story: 40 could come from a good fit or a wrong model, so the shape of the residuals matters too."
+        "explanation": "The fitted ordinary least-squares line already minimizes the sum of squared residuals among straight lines with an intercept, so choosing another straight line cannot reduce that in-sample total. A U-shaped residual pattern suggests structure that the straight line may miss and gives a reason to investigate a suitable curved model. It does not prove the population relationship is nonlinear or guarantee better prediction on new data. A smooth pattern across the residuals is also different from evidence of exactly one outlier; the squared total alone does not describe the pattern."
       }
     ],
     "ca-g11-ch05-statistical-inference-claims": [
@@ -858,7 +858,7 @@
       },
       {
         "kind": "mc",
-        "prompt": "A random sample of students reports 55% would join a spring club, with a margin of error of 6 percentage points. Which claimed school-wide percent does this survey rule out?",
+        "prompt": "A random sample of students reports that 55% would join a spring club, with a margin of error of 6 percentage points. Which claimed school-wide percentage lies outside the interval formed by the estimate plus or minus that margin of error?",
         "choices": [
           "48%",
           "52%",
@@ -866,7 +866,7 @@
           "60%"
         ],
         "answer": 0,
-        "explanation": "The plausible values run from 55 - 6 = 49% to 55 + 6 = 61%. Since 48 < 49, the value 48% lies outside that interval and is ruled out, while 52%, 58%, and 60% all lie between 49% and 61% and are still plausible."
+        "explanation": "The stated interval is 55 - 6 = 49% to 55 + 6 = 61%. The value 48% lies outside this interval, while 52%, 58%, and 60% lie inside it. Being outside a sample-based interval is not an absolute exclusion of a true school-wide percentage: sampling uncertainty remains, and a confidence interval is not a guarantee about one particular sample."
       }
     ],
     "ca-g12-ch01-quantities-units-precision": [
