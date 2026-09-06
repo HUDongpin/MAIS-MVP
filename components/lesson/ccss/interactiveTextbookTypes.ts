@@ -6,8 +6,8 @@ import type { CcssTextbookLessonSource } from "@/data/ccssTextbookRegistry";
  * server by `californiaInteractiveTextbookData.ts` (which reads the topic and
  * assignment registries) and rendered on the client by
  * `CcssInteractiveTextbook.tsx`, which mounts the interactive lesson bodies
- * through the code-split CCSS routes. Kept type-only so the client component
- * never imports the server-side registries.
+ * through the code-split CCSS routes and their lesson metadata registry.
+ * These types describe the chapter data passed from the builder to the client.
  */
 
 export type InteractiveTextbookCheck = {

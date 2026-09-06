@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import chapterMeta from "@/data/generated-content/ccss-textbook-claude-v1/lessons/ca-g12-ch01-quantities-units-precision.meta.json";
+import chapterSnapshot from "@/data/generated-content/ccss-textbook-claude-v1/source.json";
 import {
   FUEL_HALF_ML,
   FUEL_ML,
@@ -56,6 +58,34 @@ const TOOL_KEYS: ToolKey[] = ["tape", "laser"];
 const GLYPH_12 = 7.5;
 /** One step at decimal place d, written out, so the lesson's step labels are checked by hand. */
 const STEP_TEXT = ["1", "0.1", "0.01", "0.001", "0.0001"];
+
+test("chapter-check metadata distinguishes a nominal area from the midpoint of its uncertainty interval", () => {
+  assert.deepEqual(chapterSnapshot.practiceBySlug[SLUG], chapterMeta.practice);
+  const check = chapterMeta.practice[2];
+  const dimensions = check.prompt.match(/as (\d+) cm and (\d+) cm/);
+  assert.ok(dimensions, "The chapter check must state both nominal lengths in centimeters.");
+  const length = Number(dimensions[1]), width = Number(dimensions[2]);
+  const nominal = length * width;
+  const lower = (length - 0.5) * (width - 0.5), upper = (length + 0.5) * (width + 0.5);
+  const model = quantity("area", length * 10, width * 10, 5);
+  assert.deepEqual([model.value, model.lo, model.hi].map((mm2) => mm2 / 100), [nominal, lower, upper]);
+  assert.equal(check.choices?.[check.answer], `The area is between ${lower} cm² and ${upper} cm².`);
+  assert.equal((lower + upper) / 2 - nominal, 0.25);
+  assert.doesNotMatch(check.explanation, new RegExp(`${nominal} cm² is (?:only )?the midpoint`));
+  assert.match(check.explanation, /nominal (?:area|estimate)/);
+});
+
+test("the rounded-length chapter check asks for a perimeter upper bound", () => {
+  const check = chapterMeta.practice[0];
+  const readings = check.prompt.match(/length reads ([\d.]+) m and the width reads ([\d.]+) m/);
+  assert.ok(readings);
+  const lengthMm = Number(readings[1]) * 1000, widthMm = Number(readings[2]) * 1000;
+  const upperMeters = (2 * (lengthMm + 50) + 2 * (widthMm + 50)) / 1000;
+  assert.equal(check.answer, upperMeters);
+  assert.equal(quantity("perimeter", lengthMm, widthMm, 50).hi / 1000, upperMeters);
+  assert.match(check.prompt, /upper bound/);
+  assert.doesNotMatch(check.explanation, /largest perimeter/);
+});
 
 /** Half-up rounding written independently of the lesson's integer version. */
 function roundHalfUp(n: number, d: number): number {

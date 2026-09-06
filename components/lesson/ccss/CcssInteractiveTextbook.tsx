@@ -201,7 +201,7 @@ function ChapterArticle({ chapter, testIdPrefix }: { chapter: InteractiveTextboo
           data-lesson-slug={opener.slug}
           className="mt-6"
         >
-          <p className={sectionLabelClassName}>Chapter opener · authored by Claude, verified in every control state</p>
+          <p className={sectionLabelClassName}>Chapter opener · explore the key ideas</p>
           <h4 className="mt-2 text-xl font-black text-slate-950 dark:text-white">
             <span aria-hidden="true">{opener.emoji}</span> {opener.title}
           </h4>

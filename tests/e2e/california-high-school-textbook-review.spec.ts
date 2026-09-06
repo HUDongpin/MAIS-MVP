@@ -1,12 +1,20 @@
 import { expect, test } from "@playwright/test";
-import { collectPageErrors, expectNoPageErrors } from "./helpers";
+import { authenticateAsDemoStudent, collectPageErrors, expectNoPageErrors } from "./helpers";
 
 function isExpectedAnonymous401Console(text: string) {
   return /Failed to load resource: the server responded with a status of 401(?:\s+\((?:Unauthorized)?\))?/i.test(text);
 }
 
 test.describe("California high school textbook review route", () => {
+  test("keeps anonymous review readers behind the lesson login gate", async ({ page }) => {
+    const route = "/lesson/california-high-school-textbook/review";
+    await page.goto(route);
+    await expect(page).toHaveURL((url) => url.pathname === "/login" && url.searchParams.get("next") === route);
+    await expect(page.getByTestId("california-high-school-textbook-review-page")).toHaveCount(0);
+  });
+
   test("renders the noindex review page with 20 interactive chapters and a hydrated opener per chapter", async ({ page }) => {
+    await authenticateAsDemoStudent(page);
     const pageErrors = collectPageErrors(page);
     const consoleErrors: string[] = [];
     const httpErrors: string[] = [];

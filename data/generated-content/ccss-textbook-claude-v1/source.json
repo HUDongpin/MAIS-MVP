@@ -872,10 +872,10 @@
     "ca-g12-ch01-quantities-units-precision": [
       {
         "kind": "numeric",
-        "prompt": "A rectangular plot is measured with a tape that reads to the nearest 0.1 m: the length reads 4.2 m and the width reads 2.8 m. What is the largest perimeter, in meters, that those two readings allow?",
+        "prompt": "A rectangular plot is measured with a tape that reads to the nearest 0.1 m: the length reads 4.2 m and the width reads 2.8 m. What is the upper bound for the perimeter, in meters, using half a division of uncertainty for each reading?",
         "answer": 14.2,
         "tolerance": 0.01,
-        "explanation": "A reading to the nearest 0.1 m is only trustworthy to half a division, 0.05 m, so the length is at most 4.2 + 0.05 = 4.25 m and the width at most 2.8 + 0.05 = 2.85 m. The largest perimeter is 2 x (4.25 + 2.85) = 2 x 7.10 = 14.2 m."
+        "explanation": "Half a division is 0.05 m, so the length has upper bound 4.2 + 0.05 = 4.25 m and the width has upper bound 2.8 + 0.05 = 2.85 m. The perimeter upper bound is 2 x (4.25 + 2.85) = 2 x 7.10 = 14.2 m. An upper bound need not be attained by a length that rounds to the recorded reading."
       },
       {
         "kind": "numeric",
@@ -893,7 +893,7 @@
           "The area is between 39.5 cm² and 40.5 cm²."
         ],
         "answer": 2,
-        "explanation": "To the nearest centimeter, each side is known only within 0.5 cm: the length is between 7.5 and 8.5 cm and the width between 4.5 and 5.5 cm. The smallest possible area is 7.5 x 4.5 = 33.75 cm² and the largest is 8.5 x 5.5 = 46.75 cm², so 40 cm² is only the midpoint of a wide interval, and writing 40.00 cm² claims precision the ruler never had."
+        "explanation": "To the nearest centimeter, each side is known only within 0.5 cm: the length is between 7.5 and 8.5 cm and the width between 4.5 and 5.5 cm. The area bounds are 7.5 x 4.5 = 33.75 cm² and 8.5 x 5.5 = 46.75 cm². The nominal area estimate is 8 x 5 = 40 cm², inside that interval. Its midpoint is (33.75 + 46.75) / 2 = 40.25 cm²: multiplying uncertain lengths makes an interval that is not symmetric about their nominal product. Writing 40.00 cm² claims precision the ruler never had."
       }
     ],
     "ca-g12-ch02-polynomial-structure-behavior": [
