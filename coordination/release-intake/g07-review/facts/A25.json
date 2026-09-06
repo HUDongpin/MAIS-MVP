@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "mais-s7-publication-facts.v1",
+  "producedAt": "2026-09-06T16:44:43.861Z",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "actor": {
+    "identity": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "codeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+  "role": "A25",
+  "semanticPayload": {
+    "contractVersion": "promotion-a25-release-intake.v2",
+    "finalDisposition": "reviewed commit",
+    "reviewedCompositionCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+    "reviewedBranch": "codex/a10-machine-qa-governance-closeout-20260906",
+    "targetPullRequest": "https://github.com/HUDongpin/MAIS-MVP/pull/233",
+    "reviewSession": {
+      "identity": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+      "owner": "A25",
+      "sourceWorktree": "/Volumes/Starship/MAIS-g07-wt",
+      "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+      "sourceCleanAtReview": true,
+      "targetMainCleanAtReview": true,
+      "rootDirtyFilesUsedAsValidationSource": false,
+      "reviewedScope": "committed governance slice, reviewed runtime-topology preparer and actual-history parser; final evidence and execution commits remain later"
+    },
+    "baselineReview": {
+      "observedAt": "2026-09-06T16:43:15.786529+00:00",
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "liveRemoteMainCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "liveRemoteVerifiedByLsRemote": true,
+      "remotePRHeadCommit": "13729998338c61c41f18bfa767d40d7aee4a3c08",
+      "remotePRState": "OPEN",
+      "localCodeNotYetPushed": true
+    },
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "legacyResolutionRegistryPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/inputs/legacy-resolution-registry.v2.6.json",
+    "legacyResolutionRegistryRawSha256": "d4cff93eff108b507d9efa74af9847b82cd55611e957d03c98ad5c6eada11852",
+    "registryIntake": {
+      "all18DispositionObjectsEqualSource": true,
+      "approvedProjectionCount": 3,
+      "dereachedCount": 15,
+      "candidateBytesChanged": false,
+      "registryChange": "target header only",
+      "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+      "selectedIdentityHits": 0,
+      "enforcement": "frozen v2.6 checker is final authority; extra preparation records confer no human authentication"
+    },
+    "recoveryProof": {
+      "bundle": "batch09-history-observability.bundle",
+      "rawSha256": "1359d7a7acb78fb4ac3ca38d3dd08f1a5433899cfaf05365a3d28a0393b0a6cb",
+      "independentRestoreEqual": true,
+      "coveredCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949"
+    },
+    "topologySnapshot": {
+      "timestamp": "2026-09-06T16:43:15.786529+00:00",
+      "localBranches": 65,
+      "registeredWorktrees": 48,
+      "dirtyWorktrees": 2,
+      "detachedWorktrees": 0,
+      "prunableWorktrees": 0,
+      "dirtyEntries": 28,
+      "stashCount": 0,
+      "main": "7f692278989b4bf45496d239bccb9263326b5453",
+      "liveRemoteMain": "7f692278989b4bf45496d239bccb9263326b5453",
+      "mainClean": true
+    },
+    "remainingConditions": [
+      "Commit actual review materials, role records and review index with existing SHA references.",
+      "Run native evidence then atomic binding phases, fresh canonical Shadow and independent replay.",
+      "Obtain exact-head PR checks and merge, then verify main and evaluate source retirement separately."
+    ],
+    "liveAllowed": false
+  },
+  "reviewMethod": "Root rechecked clean exact code checkout, current independent reviews, live Git/PR baselines, recovery object receipt, and exact deterministic registry header-only change.",
+  "sourceDeletionAuthorizedByThisFact": false
+}

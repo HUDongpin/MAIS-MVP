@@ -116,7 +116,7 @@ type SettingsContextValue = {
   t: (value: LocalizedText) => string;
 };
 
-const SettingsContext = createContext<SettingsContextValue | null>(null);
+export const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 function isFirstPaintSensitiveStudentPath(pathname: string) {
   return (
@@ -1868,6 +1868,7 @@ export function AppProviders({
     clearHighFrequencyFlushHandle();
     setMistakeRecords([]);
     currentUserRef.current = null;
+    quarantinedUserRef.current = null;
     dispatchCore({ type: "clear-session" });
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);

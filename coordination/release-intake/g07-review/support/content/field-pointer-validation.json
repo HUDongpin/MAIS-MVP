@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "mais-s7-content-role-pointer-validation.v1",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "totalFieldPointers": 66,
+  "records": [
+    {
+      "role": "A04",
+      "fieldCount": 19,
+      "allPointersHashAndValuesMatch": true,
+      "reviewedCommitForExternalFreshEvidenceIsNull": true
+    },
+    {
+      "role": "A05",
+      "fieldCount": 17,
+      "allPointersHashAndValuesMatch": true,
+      "reviewedCommitForExternalFreshEvidenceIsNull": true
+    },
+    {
+      "role": "A18",
+      "fieldCount": 12,
+      "allPointersHashAndValuesMatch": true,
+      "reviewedCommitForExternalFreshEvidenceIsNull": true
+    },
+    {
+      "role": "A21",
+      "fieldCount": 8,
+      "allPointersHashAndValuesMatch": true,
+      "reviewedCommitForExternalFreshEvidenceIsNull": true
+    },
+    {
+      "role": "A24",
+      "fieldCount": 10,
+      "allPointersHashAndValuesMatch": true,
+      "reviewedCommitForExternalFreshEvidenceIsNull": true
+    }
+  ],
+  "finalMainHead": "7f692278989b4bf45496d239bccb9263326b5453",
+  "finalMainStatus": "",
+  "result": "pass"
+}

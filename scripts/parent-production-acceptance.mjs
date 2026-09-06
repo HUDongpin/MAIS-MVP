@@ -740,7 +740,7 @@ function acceptanceMessageKey(kind, candidateSha, syntheticFamilyId, executionId
     .update(`${candidateSha}\0${syntheticFamilyId}\0${executionId}\0${kind}`, "utf8")
     .digest("hex")
     .slice(0, 32);
-  return `parent-production-${kind}/${digest}`;
+  return `parent-production-${kind}:${digest}`;
 }
 
 async function certifiedParentWrite({

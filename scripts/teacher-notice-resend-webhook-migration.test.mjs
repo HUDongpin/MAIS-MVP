@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   assertTeacherNoticeResendWebhookTargetConfirmation,
@@ -17,7 +18,7 @@ const migrationScript = new URL("./teacher-notice-resend-webhook-migration.mjs",
 const maintenanceScript = new URL("./teacher-notice-resend-webhook-maintenance.mjs", import.meta.url);
 
 function runMigration(args, environment = {}) {
-  return spawnSync(process.execPath, ["--import", "tsx", migrationScript.pathname, ...args], {
+  return spawnSync(process.execPath, ["--import", "tsx", fileURLToPath(migrationScript), ...args], {
     cwd: process.cwd(),
     encoding: "utf8",
     env: {
@@ -32,7 +33,7 @@ function runMigration(args, environment = {}) {
 }
 
 function runMaintenance(args, environment = {}) {
-  return spawnSync(process.execPath, ["--import", "tsx", maintenanceScript.pathname, ...args], {
+  return spawnSync(process.execPath, ["--import", "tsx", fileURLToPath(maintenanceScript), ...args], {
     cwd: process.cwd(),
     encoding: "utf8",
     env: {

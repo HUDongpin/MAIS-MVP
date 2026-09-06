@@ -1,0 +1,108 @@
+{
+  "actor": "/root/s5_quality_review/s7_binding_contract",
+  "at": "2026-09-06T16:26:16.646Z",
+  "helperSha256": "dd06d88142e63f3f968fa5893c2deb7152ba03a19f715d312f3c7e9d9b3cc368",
+  "originalFixture": "/private/tmp/mais-history-review/fixture-rrPdH3",
+  "rawParents": [
+    "a133aa5d2a70bf677b4f8774394a99531b4d5d12",
+    "b262e7194b7b376ee828f34f696d5c112d416085",
+    "834d202f34014e3b050997db97fceb565dd62190"
+  ],
+  "evidenceCommit": "2b78059079b29816851b4ba114e01a6867c957b3",
+  "graftBeforeSha256": "6e2bc7a041deaaeb64028a610cb592fd6af2573283f73db66eb577e7ef7f6aa9",
+  "graftAfterSha256": "6e2bc7a041deaaeb64028a610cb592fd6af2573283f73db66eb577e7ef7f6aa9",
+  "originalFixtureGraftUnmodified": true,
+  "results": [
+    {
+      "name": "default-existing-original-graft",
+      "result": "PASS",
+      "error": "AUTHORITY_MERGE_CHANGE"
+    },
+    {
+      "name": "explicit-graft-override",
+      "result": "PASS",
+      "error": "AUTHORITY_MERGE_CHANGE"
+    },
+    {
+      "name": "unavailable-graft-override",
+      "result": "PASS",
+      "error": "AUTHORITY_MERGE_CHANGE"
+    },
+    {
+      "name": "main7f-and-b583-original-authority-events-unchanged",
+      "result": "PASS"
+    }
+  ],
+  "fixed": [
+    {
+      "headCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "commits": 31,
+      "merges": 11,
+      "changes": [
+        {
+          "commit": "ae63be23a29a7d4ba8b84c28ff6846cc7318238c",
+          "status": "A",
+          "oldMode": "000000",
+          "newMode": "100644",
+          "oldBlob": "0000000000000000000000000000000000000000",
+          "newBlob": "20eef6dfa6c18dec8118f272157cb3cd42b5de4c",
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json"
+        },
+        {
+          "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+          "status": "A",
+          "oldMode": "000000",
+          "newMode": "100644",
+          "oldBlob": "0000000000000000000000000000000000000000",
+          "newBlob": "bb87253b5dd21e9da004268aa1e0960b9fed9ca3",
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json"
+        },
+        {
+          "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+          "status": "A",
+          "oldMode": "000000",
+          "newMode": "100644",
+          "oldBlob": "0000000000000000000000000000000000000000",
+          "newBlob": "4e6f58c4f33a42d6569e4c591ce547eb81a6a844",
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json"
+        }
+      ]
+    },
+    {
+      "headCommit": "b583fd91543627f86a9b4b7ed8288506fad38102",
+      "commits": 34,
+      "merges": 13,
+      "changes": [
+        {
+          "commit": "ae63be23a29a7d4ba8b84c28ff6846cc7318238c",
+          "status": "A",
+          "oldMode": "000000",
+          "newMode": "100644",
+          "oldBlob": "0000000000000000000000000000000000000000",
+          "newBlob": "20eef6dfa6c18dec8118f272157cb3cd42b5de4c",
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json"
+        },
+        {
+          "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+          "status": "A",
+          "oldMode": "000000",
+          "newMode": "100644",
+          "oldBlob": "0000000000000000000000000000000000000000",
+          "newBlob": "bb87253b5dd21e9da004268aa1e0960b9fed9ca3",
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json"
+        },
+        {
+          "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+          "status": "A",
+          "oldMode": "000000",
+          "newMode": "100644",
+          "oldBlob": "0000000000000000000000000000000000000000",
+          "newBlob": "4e6f58c4f33a42d6569e4c591ce547eb81a6a844",
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json"
+        }
+      ]
+    }
+  ],
+  "pass": 4,
+  "fail": 0
+}

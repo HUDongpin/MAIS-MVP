@@ -1,0 +1,24 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "status": "committed-candidate-snapshot",
+  "formalExecutionAuthorized": false,
+  "candidateSetSha256": "e18cbaa42d3da75386a37d2af679ff0284d65232f141f90609d5958c4087cd6c",
+  "seedCommitment": "f233aee2cb1413a481a5c95865cb79a5caa210f4758a6bf3835867241cf605af",
+  "files": [
+    {
+      "path": "f1-generation-receipt.json",
+      "sha256": "bb7e6e9e8489b367b4e81d06267360e32a7af65d57ec4cb5a3af10b15f7ad58f"
+    },
+    {
+      "path": "public-manifest.json",
+      "sha256": "2f5e382024e8741b635d66be66a7830f942f5b91f85da08d0e4876c361e4b40c"
+    },
+    {
+      "path": "seed-commitment.txt",
+      "sha256": "c811ca28748f9a371c3f3364f79e079117c8951bcccfff1c5bac1e1276e7bcba"
+    }
+  ],
+  "sealedCommitManifestSha256": "558181ef4c97e4d9d64e02af66d76799563216fd7ea92a7c62b5d5ba453c32fa"
+}

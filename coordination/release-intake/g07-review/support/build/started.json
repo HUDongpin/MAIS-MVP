@@ -1,0 +1,28 @@
+{
+  "role": "A22",
+  "reviewerTask": "01a075a1-07c9-7620-ac2c-2f1e9d330b78/root",
+  "head": "7f692278989b4bf45496d239bccb9263326b5453",
+  "command": [
+    "/usr/local/bin/npm",
+    "run",
+    "test:e2e",
+    "--",
+    "tests/e2e/home-functional.spec.ts",
+    "--project=desktop-chrome",
+    "--project=mobile-chrome"
+  ],
+  "runId": "s7-baseline-home-20260906",
+  "environmentKeys": [
+    "PATH",
+    "LANG",
+    "LC_ALL",
+    "TMPDIR",
+    "CI",
+    "PLAYWRIGHT_PORT",
+    "PLAYWRIGHT_RUN_ID",
+    "PLAYWRIGHT_WORKERS",
+    "NEXT_TELEMETRY_DISABLED"
+  ],
+  "startedAt": "2026-09-06T13:54:28.336384+00:00",
+  "providerPolicy": "minimal env + existing disabledProviderEnv; no .env; test-owned SQLite"
+}

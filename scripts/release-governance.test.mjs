@@ -3321,7 +3321,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
-    "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
+    "test:release-governance": "node --test --test-concurrency=1 scripts/classroom-load-smoke.test.mjs scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
@@ -3385,6 +3385,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:staged-publish-preflight",
     "report:bench-usage",
     "smoke:ai-tutor-live-latency",
+    "smoke:classroom-load",
     "smoke:dashboard-auth-ready",
     "smoke:dashboard-latency",
     "smoke:dashboard-ui-loading",
@@ -3442,7 +3443,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "84d0f2748543b70060c6eb77ca8922a5cdcfa574823d6c03a1c8b2e90f664491",
+    "9f523b4a759f50fc702960a47640ae8098eac2224af982471901db4fd9f6dd66",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -3710,7 +3711,7 @@ test("package and coordination contracts preserve security versions and closure 
   assert.equal(packageJson.scripts["release:package-gate"], "node scripts/release-package-gate.mjs");
   assert.equal(
     packageJson.scripts["test:release-governance"],
-    "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
+    "node --test --test-concurrency=1 scripts/classroom-load-smoke.test.mjs scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
   );
   assert.match(gitignore, /^Users\/$/m);
   assert.match(agents, /git add \./i);

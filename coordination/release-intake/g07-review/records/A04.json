@@ -1,0 +1,381 @@
+{
+  "schemaVersion": "promotion-baseline-role-review.v1",
+  "role": "A04",
+  "reviewedAt": "2026-09-06T15:54:00.666Z",
+  "reviewer": {
+    "identity": "/root/s5_quality_review/s7_binding_contract",
+    "reference": {
+      "path": "coordination/release-intake/g07-review/facts/A04.json",
+      "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "rawSha256": "58c3c3b66320bf6d020bebec4961350573e341bfb23cf6b940064175aa366774"
+    }
+  },
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a04-practice-semantics.v2.6.json",
+    "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+    "rawSha256": "15499ec143e97759335199c158fb2825b64344a8bc07c001225da73fc6b9afe1",
+    "producedAt": "2026-09-06T02:02:24.430Z",
+    "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f"
+  },
+  "evidence": {
+    "schemaVersion": "promotion-evidence.v2",
+    "evidenceId": "a04-g07-reviewed-main-7f692278",
+    "role": "A04",
+    "result": "pass",
+    "producedAt": "2026-09-06T15:54:00.666Z",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "semanticPayload": {
+      "contractVersion": "promotion-a04-practice-semantics.v2",
+      "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+      "outputContract": "shadow-practice-dto.v2",
+      "numericOracle": 12,
+      "acceptedAnswers": [
+        "12",
+        "12 cups"
+      ],
+      "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+      "requiredReasoning": [
+        "preserve 3 oats : 5 fruit order",
+        "20 ÷ 5 = 4",
+        "3 × 4 = 12"
+      ],
+      "primaryStandardId": "6.RP.3",
+      "prerequisiteStandardIds": [
+        "6.RP.1"
+      ],
+      "clusterMapping": {
+        "sourceCardKind": "cluster-safe-card-v2",
+        "runtimeCategory": "standards",
+        "mappingMode": "explicit-shadow-only",
+        "defaultCardKindUsed": false
+      },
+      "compatibilityMetadata": {
+        "domainIds": [
+          "6.RP"
+        ],
+        "canonicalStandardIds": [
+          "6.RP.1",
+          "6.RP.2",
+          "6.RP.3"
+        ],
+        "maisStandardIds": [
+          "CA.CCSS.Math.G6.RP.1",
+          "CA.CCSS.Math.G6.RP.2",
+          "CA.CCSS.Math.G6.RP.3"
+        ],
+        "clusterId": "6.RP.ratios",
+        "runtimeDisposition": "preserved-outside-runtime"
+      },
+      "localization": {
+        "presentLocales": [
+          "en"
+        ],
+        "missingLiveLocales": [
+          "zh",
+          "zhHans"
+        ],
+        "adapterMayInventMissingLocales": false
+      },
+      "defaultsForbidden": [
+        "cardKind",
+        "grade",
+        "standard",
+        "answer",
+        "id"
+      ],
+      "candidateBytesChangedSincePriorReview": false,
+      "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+      "liveAllowed": false,
+      "baselineContentReview": {
+        "reviewedAt": "2026-09-06T13:48:22.745Z",
+        "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+        "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "facts": {
+          "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+          "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69",
+          "producedAt": "2026-09-06T13:48:22.745Z",
+          "storage": "external-uncommitted"
+        },
+        "candidateBytesUnchanged": true,
+        "parentSourceRecordDigestsVerified": true,
+        "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+        "runtimeChangedPathCount": 12,
+        "selectedCandidateIdentityHitCount": 0,
+        "candidateReachablePathCount": 0,
+        "shadowAdapterReachable": false,
+        "liveAllowed": false,
+        "shadowExecuted": false,
+        "newContentGenerated": false,
+        "sourceRepositoryUnchanged": true,
+        "scope": "Practice 候选与原生 Shadow adapter 的数值、答案合同及依赖隔离。",
+        "freshObservations": [
+          "三项候选及 package 原始字节在 source、929、7f 相同。",
+          "原生 exact-trimmed-forms-v2 7 个确定性断言全部符合预期。",
+          "Practice DTO 的 8 个指定字段逐字段相等，adapter 未引入 defaults。",
+          "O1 新模块及 S3 logout 变更没有选定候选的路径或身份引用。"
+        ],
+        "notPerformed": [
+          "Practice 浏览器或学生真实会话测试",
+          "独立的新课程标准审阅"
+        ]
+      }
+    }
+  },
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/contractVersion",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "practiceId",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/practiceId",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "recordPath",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/recordPath",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "recordSha256",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/recordSha256",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "outputContract",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/outputContract",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "numericOracle",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/numericOracle",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "acceptedAnswers",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/acceptedAnswers",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "acceptedAnswerPolicy",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/acceptedAnswerPolicy",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "requiredReasoning",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/requiredReasoning",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "primaryStandardId",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/primaryStandardId",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "prerequisiteStandardIds",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/prerequisiteStandardIds",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "clusterMapping",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/clusterMapping",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "compatibilityMetadata",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/compatibilityMetadata",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "localization",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/localization",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "defaultsForbidden",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/defaultsForbidden",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "futureBoundary",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/futureBoundary",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/liveAllowed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A04.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "58c3c3b66320bf6d020bebec4961350573e341bfb23cf6b940064175aa366774",
+        "producedAt": "2026-09-06T15:54:00.666Z",
+        "valuePointer": "/semanticPayload/baselineContentReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    }
+  ]
+}

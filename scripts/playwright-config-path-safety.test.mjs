@@ -3,10 +3,11 @@ import { chmodSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, sy
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import { buildCleanBuildConfig } from "./next-clean-build.mjs";
 
-const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const requiredWriteRoot = path.dirname(repoRoot);
 const e2eRuntimeRoot = path.join(repoRoot, ".tmp", "china-lesson-e2e-runtime");
 const fixtureRoot = path.join(e2eRuntimeRoot, "path-safety-test");

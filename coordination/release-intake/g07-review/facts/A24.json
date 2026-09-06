@@ -1,0 +1,341 @@
+{
+  "schemaVersion": "mais-s7-content-publication-facts.v1",
+  "producedAt": "2026-09-06T15:54:00.666Z",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "role": "A24",
+  "actor": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "scopeRoles": [
+      "A04",
+      "A05",
+      "A18",
+      "A21",
+      "A24"
+    ],
+    "distinctReviewerCount": 1,
+    "originalCandidateGenerator": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false,
+    "scopeRole": "A24"
+  },
+  "reviewKind": "same-baseline-publication-consistency-review",
+  "reviewResult": "not_applicable",
+  "publicationResult": "consistent-and-accepted-for-material-publication",
+  "originalReport": {
+    "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A24.json",
+    "rawSha256": "ecb8e1b8461abeb998758e415bf09b83171d257fd0b36d0b21eb300e53861502",
+    "originalExecutionAt": "2026-09-06T13:48:22.745Z"
+  },
+  "originalExecutionAt": "2026-09-06T13:48:22.745Z",
+  "sourceManifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+    "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+  },
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a24-exact-layer.v2.6.json",
+    "rawSha256": "f1038a14e8e7b966772316ce8e2fc4d0e1d1a0c0c60616a29d3428d0b8e49ecf",
+    "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+    "producedAt": "2026-09-06T02:02:24.430Z",
+    "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+    "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+    "semanticDigest": "c3530a8ccadaa7d82727af47811316a7966f6d3f5065634cbf1d582283c3de0b"
+  },
+  "originalContentEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+    "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+    "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+    "producedAt": "2026-08-26T13:06:52+08:00",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v26-attempt007"
+  },
+  "historicalEvidenceBytesReadAt": "/Volumes/Starship/MAIS的衍生文件/MAIS-main-wt/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+  "semanticPayload": {
+    "contractVersion": "promotion-a24-exact-layer.v2",
+    "exactLayerDisposition": "not-applicable",
+    "scannedRecordIds": [
+      "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2"
+    ],
+    "prohibitedFieldFamilies": [
+      "bitmap",
+      "image",
+      "illustration",
+      "asset",
+      "svg",
+      "plotly",
+      "coordinate",
+      "formula-overlay",
+      "exact-layer"
+    ],
+    "matchingFieldPaths": [],
+    "rationale": "The unchanged candidate records remain text-and-metadata contracts with no bitmap, image, illustration, asset, SVG, Plotly, coordinate, formula-overlay, or deterministic exact-layer field; creating one would invent scope.",
+    "candidateBytesChangedSincePriorReview": false,
+    "futureChangeInvalidatesEvidence": true,
+    "liveAllowed": false,
+    "baselineContentReview": {
+      "reviewedAt": "2026-09-06T13:48:22.745Z",
+      "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+      "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+      "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+      "facts": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+        "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69",
+        "producedAt": "2026-09-06T13:48:22.745Z",
+        "storage": "external-uncommitted"
+      },
+      "candidateBytesUnchanged": true,
+      "parentSourceRecordDigestsVerified": true,
+      "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+      "runtimeChangedPathCount": 12,
+      "selectedCandidateIdentityHitCount": 0,
+      "candidateReachablePathCount": 0,
+      "shadowAdapterReachable": false,
+      "liveAllowed": false,
+      "shadowExecuted": false,
+      "newContentGenerated": false,
+      "sourceRepositoryUnchanged": true,
+      "scope": "同一三项候选是否新增图像、坐标、资产或 deterministic exact-layer 字段。",
+      "freshObservations": [
+        "递归检查三项记录的所有字段路径，原生 exact-layer 模式命中为零。",
+        "候选的数学表示法只包含文字性教学描述，没有新增可执行图像或坐标字段。",
+        "三项 raw/record hash 与原 source/929 相同，原 not_applicable 理由仍适用于本次内容。"
+      ],
+      "notPerformed": [
+        "图像生成或编辑",
+        "新 exact-layer 图形 QA",
+        "浏览器视觉验收"
+      ]
+    }
+  },
+  "semanticPayloadEqualsOriginalReviewedSemanticPayload": true,
+  "semanticPayloadCanonicalSha256": "ef35c9f7e0d84fda02be6f689d7730ce60b171154a8baa818a87234a8b5eaf23",
+  "canonicalHashAlgorithm": "SHA256 UTF-8 JSON with recursively sorted object keys, compact separators, and literal Unicode",
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueSha256": "92f3e2edd4b3df11dc8587bba392a41a75f252a5c9531c9f24ca28e117f640f1",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/contractVersion",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "exactLayerDisposition",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/exactLayerDisposition",
+      "valueSha256": "b8d1e657c2cccabe25a73888dc5e410c69b441ed0ba26a2b2766f7b4f0d2b197",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/exactLayerDisposition",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "scannedRecordIds",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/scannedRecordIds",
+      "valueSha256": "b584eaffac313ce1f33064b9ad88454ff967655e2b437b221e18cba440ef8a1c",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/scannedRecordIds",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "prohibitedFieldFamilies",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/prohibitedFieldFamilies",
+      "valueSha256": "7592b1adb56a58f1d4f5bf7f95dab9edc9b27206d54a4950ef81019f37b68a58",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/prohibitedFieldFamilies",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "matchingFieldPaths",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/matchingFieldPaths",
+      "valueSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/matchingFieldPaths",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "rationale",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/rationale",
+      "valueSha256": "2744284f251a14395a7a9d41bd71b89b08aa11c17d7c24aea21ab0cc45518e57",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/rationale",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "valueSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "futureChangeInvalidatesEvidence",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/futureChangeInvalidatesEvidence",
+      "valueSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/futureChangeInvalidatesEvidence",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "originalEvidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalValuePointer": "/semanticPayload/liveAllowed",
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "publicationVerification": "Re-read exact historical evidence bytes; raw hash, original date, and pointer value all match. Historical content judgment is not relabeled as new execution.",
+      "originalExecutionRepeated": false
+    },
+    {
+      "field": "baselineContentReview",
+      "mode": "fresh-reaffirmed",
+      "valuePointer": "/semanticPayload/baselineContentReview",
+      "valueSha256": "6d87feb46f21f575676c2a34f3de7d4fe644aafa7a7a3aa14c2852f94f938535",
+      "reviewKind": "same-baseline-publication-consistency-review",
+      "originalObservation": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/baseline-content-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "d09d5a3e6e5cab4ed1b96c53cc084b123024953873da686eddb2e9d3cd0a6f1e",
+        "producedAt": "2026-09-06T13:48:22.745Z"
+      },
+      "originalValuePointer": "/reviews/A24",
+      "originalExecutionAt": "2026-09-06T13:48:22.745Z",
+      "originalExecutionRepeated": false,
+      "publicationVerification": "Accepted again for publication after reading the original role report, hash-bound content facts and pointer validation; same target/source/candidate/checker and exact field value. The 13:48 execution time remains unchanged."
+    }
+  ],
+  "publicationConsistencyChecks": {
+    "performedAt": "2026-09-06T15:54:00.666Z",
+    "originalRoleHashMatchesReceipt": true,
+    "targetSourceCandidateCheckerBindingsUnchanged": true,
+    "allSemanticFieldsCoveredExactlyOnce": true,
+    "historicalFieldHashesDatesAndValuesReverified": true,
+    "baselineContentReviewEqualsOriginalObservation": true,
+    "originalExecutionTimePreserved": true,
+    "prior66PointerValidationReviewed": true,
+    "currentHistoricalFieldCount": 9,
+    "currentFreshReaffirmedFieldCount": 1,
+    "contentCalculationsRepeated": false,
+    "runtimeGraphRecollected": false,
+    "newContentGenerated": false,
+    "newMathematicalLanguageOrCurriculumReview": false,
+    "baselineReaffirmationAdded": false
+  },
+  "supportingMaterials": [
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+      "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/baseline-content-observations.json",
+      "rawSha256": "d09d5a3e6e5cab4ed1b96c53cc084b123024953873da686eddb2e9d3cd0a6f1e"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/field-pointer-validation.json",
+      "rawSha256": "de06c59e2140849765642ebb8a6b1d8a2b9548138a1038d9b2b64a7efba560e4"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-role-review-receipt.json",
+      "rawSha256": "96ce4b3321719d6a4bfbdd6cd5580ddf5fdf876693f637fe1702f06e920cef8d"
+    }
+  ],
+  "limits": [
+    "A18 mathematical, curriculum and language judgments are historical carry-forward only; no new standards/rights/language review.",
+    "Candidate-only and English-only blockers remain; no live integration, rendering, deployment or learner browser proof.",
+    "Runtime/legacy gate and actual nine-role/index/commit acceptance remain separate A23/A25 work.",
+    "This is one identified AI reviewer across five routing scopes; no five-person or human-signature claim.",
+    "Top-level producedAt is this publication consistency review completion time. It is not a new content generation, graph collection, deterministic assertion run, or mathematical/language QA date.",
+    "Only baselineContentReview is fresh-reaffirmed for this same-baseline publication. Every original attempt-007 content contract/judgment remains carry-forward with original SHA, commit and date.",
+    "This file is factual publication material, not a final promotion evidence envelope, review index, machine-authenticated identity, human signature, or future commit attestation.",
+    "Existing external-uncommitted storage/commit-null metadata inside semanticPayload describes the original 13:48 observation. It is preserved historical metadata and not a statement about later Git publication."
+  ],
+  "authority": {
+    "finalPromotionEvidence": false,
+    "roleReviewIndex": false,
+    "futureCommitClaim": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false,
+    "liveAllowed": false,
+    "shadowExecuted": false,
+    "sourceRepositoryWrites": false,
+    "gitMutations": false
+  }
+}

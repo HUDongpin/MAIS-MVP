@@ -1,0 +1,972 @@
+{
+  "packageId": "sacrificial-tri-locale-f2-r-v1",
+  "fixtureVersion": "1.1.1-f2-r",
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "sacrificial": true,
+  "formalSample": false,
+  "status": "candidate-only",
+  "integrationStatus": "candidate-only-not-live",
+  "estimandScope": "content-surfaces-only",
+  "source": "synthetic-owner-authored-public-fixture",
+  "questions": [
+    {
+      "id": "sac-q-01",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 11 + 3.",
+        "zh": "計算 11 + 3。",
+        "zhHans": "计算 11 + 3。"
+      },
+      "answer": "15",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "14",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "11 + 3 = 14.",
+        "zh": "11 + 3 = 14。",
+        "zhHans": "11 + 3 = 14。"
+      },
+      "options": [
+        {
+          "en": "14",
+          "zh": "14",
+          "zhHans": "14"
+        },
+        {
+          "en": "15",
+          "zh": "15",
+          "zhHans": "15"
+        },
+        {
+          "en": "13",
+          "zh": "13",
+          "zhHans": "13"
+        },
+        {
+          "en": "16",
+          "zh": "16",
+          "zhHans": "16"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "14",
+        "visibleLabel": "14"
+      },
+      "validation": {
+        "independentAnswer": "14",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-02",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 12 + 4.",
+        "zh": "計算 12 + 4。",
+        "zhHans": "计算 12 + 4。"
+      },
+      "answer": "16",
+      "acceptedAnswers": [
+        "17"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "16",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "12 + 4 = 16.",
+        "zh": "12 + 4 = 16。",
+        "zhHans": "12 + 4 = 16。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "16",
+        "visibleLabel": "16"
+      },
+      "validation": {
+        "independentAnswer": "16",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-03",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 13 + 5.",
+        "zh": "計算 13 + 5。",
+        "zhHans": "计算 13 + 5。"
+      },
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "18",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "13 + 5 = 19, so the recorded answer is 18.",
+        "zh": "13 + 5 = 19，所以記錄答案是 18。",
+        "zhHans": "13 + 5 = 19，所以记录答案是 18。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "18",
+        "visibleLabel": "18"
+      },
+      "validation": {
+        "independentAnswer": "18",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-04",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 14 + 6.",
+        "zh": "計算 14 + 6。",
+        "zhHans": "计算 14 + 6。"
+      },
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "20",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "14 + 6 = 20.",
+        "zh": "14 + 6 = 20。",
+        "zhHans": "14 + 6 = 20。"
+      },
+      "options": [
+        {
+          "en": "20",
+          "zh": "20",
+          "zhHans": "20"
+        },
+        {
+          "en": "20.0",
+          "zh": "20.0",
+          "zhHans": "20.0"
+        },
+        {
+          "en": "19",
+          "zh": "19",
+          "zhHans": "19"
+        },
+        {
+          "en": "22",
+          "zh": "22",
+          "zhHans": "22"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "20",
+        "visibleLabel": "20"
+      },
+      "validation": {
+        "independentAnswer": "20",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-05",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 15 + 7.",
+        "zh": "計算 15 + 7。",
+        "zhHans": "计算 15 + 7。"
+      },
+      "answer": "22",
+      "acceptedAnswers": [
+        "22"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "22",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "15 + 7 = 22.",
+        "zh": "15 + 7 = 22。",
+        "zhHans": "15 + 7 = 22。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "22",
+        "visibleLabel": "24"
+      },
+      "validation": {
+        "independentAnswer": "22",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-06",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 16 + 8.",
+        "zh": "計算 16 + 8。",
+        "zhHans": "计算 99 + 1。"
+      },
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "24",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "16 + 8 = 24.",
+        "zh": "16 + 8 = 24。",
+        "zhHans": "16 + 8 = 24。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "24",
+        "visibleLabel": "24"
+      },
+      "validation": {
+        "independentAnswer": "24",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-07",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 17 + 9.",
+        "zh": "計算 17 + 9。",
+        "zhHans": "计算 17 + 9。"
+      },
+      "answer": "26",
+      "acceptedAnswers": [
+        "26"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "26",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "17 + 9 = 26.",
+        "zh": "17 + 9 = 26。",
+        "zhHans": "17 + 9 = 26。"
+      },
+      "options": [
+        {
+          "en": "26",
+          "zh": "26",
+          "zhHans": "26"
+        },
+        {
+          "en": "27",
+          "zh": "27",
+          "zhHans": "27"
+        },
+        {
+          "en": "25",
+          "zh": "25",
+          "zhHans": "25"
+        },
+        {
+          "en": "28",
+          "zh": "28",
+          "zhHans": "28"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "26",
+        "visibleLabel": "26"
+      },
+      "validation": {
+        "independentAnswer": "26",
+        "independentAnswerProvenance": "metadata-copy-from-candidate-answer"
+      }
+    },
+    {
+      "id": "sac-q-08",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 18 + 3.",
+        "zh": "計算 18 + 3。",
+        "zhHans": "计算 18 + 3。"
+      },
+      "answer": "21",
+      "acceptedAnswers": [
+        "21"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "21",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "18 + 3 = 21.",
+        "zh": "18 + 3 = 21。",
+        "zhHans": "18 + 3 = 21。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "21",
+        "visibleLabel": "21"
+      },
+      "validation": {
+        "independentAnswer": "21",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-09",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 19 + 4.",
+        "zh": "計算 19 + 4。",
+        "zhHans": "计算 19 + 4。"
+      },
+      "answer": "23",
+      "acceptedAnswers": [
+        "23"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "23",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "19 + 4 = 23.",
+        "zh": "19 + 4 = 23。",
+        "zhHans": "19 + 4 = 23。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "23",
+        "visibleLabel": "23"
+      },
+      "validation": {
+        "independentAnswer": "23",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-10",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 20 + 5.",
+        "zh": "計算 20 + 5。",
+        "zhHans": "计算 20 + 5。"
+      },
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "25",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "20 + 5 = 25.",
+        "zh": "20 + 5 = 25。",
+        "zhHans": "20 + 5 = 25。"
+      },
+      "options": [
+        {
+          "en": "25",
+          "zh": "25",
+          "zhHans": "25"
+        },
+        {
+          "en": "26",
+          "zh": "26",
+          "zhHans": "26"
+        },
+        {
+          "en": "24",
+          "zh": "24",
+          "zhHans": "24"
+        },
+        {
+          "en": "27",
+          "zh": "27",
+          "zhHans": "27"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "25",
+        "visibleLabel": "25"
+      },
+      "validation": {
+        "independentAnswer": "25",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-11",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 21 + 6.",
+        "zh": "計算 21 + 6。",
+        "zhHans": "计算 21 + 6。"
+      },
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "27",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "21 + 6 = 27.",
+        "zh": "21 + 6 = 27。",
+        "zhHans": "21 + 6 = 27。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "27",
+        "visibleLabel": "27"
+      },
+      "validation": {
+        "independentAnswer": "27",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-12",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 22 + 7.",
+        "zh": "計算 22 + 7。",
+        "zhHans": "计算 22 + 7。"
+      },
+      "answer": "29",
+      "acceptedAnswers": [
+        "29"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "29",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "22 + 7 = 29.",
+        "zh": "22 + 7 = 29。",
+        "zhHans": "22 + 7 = 29。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "29",
+        "visibleLabel": "29"
+      },
+      "validation": {
+        "independentAnswer": "29",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-13",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 23 + 8.",
+        "zh": "計算 23 + 8。",
+        "zhHans": "计算 23 + 8。"
+      },
+      "answer": "31",
+      "acceptedAnswers": [
+        "31"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "31",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "23 + 8 = 31.",
+        "zh": "23 + 8 = 31。",
+        "zhHans": "23 + 8 = 31。"
+      },
+      "options": [
+        {
+          "en": "31",
+          "zh": "31",
+          "zhHans": "31"
+        },
+        {
+          "en": "32",
+          "zh": "32",
+          "zhHans": "32"
+        },
+        {
+          "en": "30",
+          "zh": "30",
+          "zhHans": "30"
+        },
+        {
+          "en": "33",
+          "zh": "33",
+          "zhHans": "33"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "31",
+        "visibleLabel": "31"
+      },
+      "validation": {
+        "independentAnswer": "31",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-14",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 24 + 9.",
+        "zh": "計算 24 + 9。",
+        "zhHans": "计算 24 + 9。"
+      },
+      "answer": "33",
+      "acceptedAnswers": [
+        "33"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "33",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "24 + 9 = 33.",
+        "zh": "24 + 9 = 33。",
+        "zhHans": "24 + 9 = 33。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "33",
+        "visibleLabel": "33"
+      },
+      "validation": {
+        "independentAnswer": "33",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-15",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 25 + 3.",
+        "zh": "計算 25 + 3。",
+        "zhHans": "计算 25 + 3。"
+      },
+      "answer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "28",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "25 + 3 = 28.",
+        "zh": "25 + 3 = 28。",
+        "zhHans": "25 + 3 = 28。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "28",
+        "visibleLabel": "28"
+      },
+      "validation": {
+        "independentAnswer": "28",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-16",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 26 + 4.",
+        "zh": "計算 26 + 4。",
+        "zhHans": "计算 26 + 4。"
+      },
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "30",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "26 + 4 = 30.",
+        "zh": "26 + 4 = 30。",
+        "zhHans": "26 + 4 = 30。"
+      },
+      "options": [
+        {
+          "en": "30",
+          "zh": "30",
+          "zhHans": "30"
+        },
+        {
+          "en": "31",
+          "zh": "31",
+          "zhHans": "31"
+        },
+        {
+          "en": "29",
+          "zh": "29",
+          "zhHans": "29"
+        },
+        {
+          "en": "32",
+          "zh": "32",
+          "zhHans": "32"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "30",
+        "visibleLabel": "30"
+      },
+      "validation": {
+        "independentAnswer": "30",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-17",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 27 + 5.",
+        "zh": "計算 27 + 5。",
+        "zhHans": "计算 27 + 5。"
+      },
+      "answer": "32",
+      "acceptedAnswers": [
+        "32"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "32",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "27 + 5 = 32.",
+        "zh": "27 + 5 = 32。",
+        "zhHans": "27 + 5 = 32。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "32",
+        "visibleLabel": "32"
+      },
+      "validation": {
+        "independentAnswer": "32",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-18",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 28 + 6.",
+        "zh": "計算 28 + 6。",
+        "zhHans": "计算 28 + 6。"
+      },
+      "answer": "34",
+      "acceptedAnswers": [
+        "34"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "34",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "28 + 6 = 34.",
+        "zh": "28 + 6 = 34。",
+        "zhHans": "28 + 6 = 34。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "34",
+        "visibleLabel": "34"
+      },
+      "validation": {
+        "independentAnswer": "34",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-19",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 29 + 7.",
+        "zh": "計算 29 + 7。",
+        "zhHans": "计算 29 + 7。"
+      },
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "36",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "29 + 7 = 36.",
+        "zh": "29 + 7 = 36。",
+        "zhHans": "29 + 7 = 36。"
+      },
+      "options": [
+        {
+          "en": "36",
+          "zh": "36",
+          "zhHans": "36"
+        },
+        {
+          "en": "37",
+          "zh": "37",
+          "zhHans": "37"
+        },
+        {
+          "en": "35",
+          "zh": "35",
+          "zhHans": "35"
+        },
+        {
+          "en": "38",
+          "zh": "38",
+          "zhHans": "38"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "36",
+        "visibleLabel": "36"
+      },
+      "validation": {
+        "independentAnswer": "36",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-20",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 30 + 8.",
+        "zh": "計算 30 + 8。",
+        "zhHans": "计算 30 + 8。"
+      },
+      "answer": "38",
+      "acceptedAnswers": [
+        "38"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "38",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "30 + 8 = 38.",
+        "zh": "30 + 8 = 38。",
+        "zhHans": "30 + 8 = 38。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "38",
+        "visibleLabel": "38"
+      },
+      "validation": {
+        "independentAnswer": "38",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-21",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 31 + 9.",
+        "zh": "計算 31 + 9。",
+        "zhHans": "计算 31 + 9。"
+      },
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "40",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "31 + 9 = 40.",
+        "zh": "31 + 9 = 40。",
+        "zhHans": "31 + 9 = 40。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "40",
+        "visibleLabel": "40"
+      },
+      "validation": {
+        "independentAnswer": "40",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-22",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Calculate 32 + 3.",
+        "zh": "計算 32 + 3。",
+        "zhHans": "计算 32 + 3。"
+      },
+      "answer": "35",
+      "acceptedAnswers": [
+        "35"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "35",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "32 + 3 = 35.",
+        "zh": "32 + 3 = 35。",
+        "zhHans": "32 + 3 = 35。"
+      },
+      "options": [
+        {
+          "en": "35",
+          "zh": "35",
+          "zhHans": "35"
+        },
+        {
+          "en": "36",
+          "zh": "36",
+          "zhHans": "36"
+        },
+        {
+          "en": "34",
+          "zh": "34",
+          "zhHans": "34"
+        },
+        {
+          "en": "37",
+          "zh": "37",
+          "zhHans": "37"
+        }
+      ],
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "35",
+        "visibleLabel": "35"
+      },
+      "validation": {
+        "independentAnswer": "35",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-23",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Calculate 33 + 4.",
+        "zh": "計算 33 + 4。",
+        "zhHans": "计算 33 + 4。"
+      },
+      "answer": "37",
+      "acceptedAnswers": [
+        "37"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "37",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "33 + 4 = 37.",
+        "zh": "33 + 4 = 37。",
+        "zhHans": "33 + 4 = 37。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "37",
+        "visibleLabel": "37"
+      },
+      "validation": {
+        "independentAnswer": "37",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    },
+    {
+      "id": "sac-q-24",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Calculate 34 + 5.",
+        "zh": "計算 34 + 5。",
+        "zhHans": "计算 34 + 5。"
+      },
+      "answer": "39",
+      "acceptedAnswers": [
+        "39"
+      ],
+      "answerContract": {
+        "canonicalAnswer": "39",
+        "normalizationRule": "trim and parse an exact base-10 integer"
+      },
+      "explanation": {
+        "en": "34 + 5 = 39.",
+        "zh": "34 + 5 = 39。",
+        "zhHans": "34 + 5 = 39。"
+      },
+      "evidenceSurface": {
+        "kind": "equation-result-label",
+        "expectedLabel": "39",
+        "visibleLabel": "39"
+      },
+      "validation": {
+        "independentAnswer": "39",
+        "independentAnswerProvenance": "tool-derived-from-structured-model"
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "sac-lesson-1",
+      "title": {
+        "en": "Checking addition",
+        "zh": "檢查加法",
+        "zhHans": "检查加法"
+      },
+      "workedExample": {
+        "questionId": "sac-q-21",
+        "answer": "40",
+        "explanation": {
+          "en": "31 + 9 = 40.",
+          "zh": "31 + 9 = 40。",
+          "zhHans": "31 + 9 = 40。"
+        }
+      }
+    },
+    {
+      "id": "sac-lesson-2",
+      "title": {
+        "en": "Explaining an addition result",
+        "zh": "解釋加法結果",
+        "zhHans": "解释加法结果"
+      },
+      "workedExample": {
+        "questionId": "sac-q-22",
+        "answer": "35",
+        "explanation": {
+          "en": "32 + 3 = 35.",
+          "zh": "32 + 3 = 35。",
+          "zhHans": "32 + 3 = 35。"
+        }
+      }
+    }
+  ],
+  "browserRoutes": []
+}

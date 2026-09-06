@@ -1,0 +1,770 @@
+{
+  "schemaVersion": "mais-a11-baseline-only-review.v1",
+  "producedAt": "2026-09-06T17:21:54.129Z",
+  "reviewedAt": "2026-09-06T17:21:54.129Z",
+  "role": "A11",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "toCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "changedPathsDigest": "e7b9ddeb12d73bc48e7ff34c9e2bb0e9919e939841fdf997ada65db47c31c075",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "actor": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "reviewScope": "A11 independent selected-candidate baseline-delta review",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "reviewBasisExecutionCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+  "assessment": {
+    "decision": "The fixed baseline delta is unrelated to the selected candidate Shadow semantics.",
+    "basis": [
+      "All four selected package/artifact raw bytes, Git modes and object IDs are identical across candidate source, source baseline, target baseline and observed B.",
+      "All eight frozen checker files are identical across release, source baseline, target baseline and observed B; ledger binding is unchanged.",
+      "The fixed 178-path delta has zero selected candidate/checker path changes. Its twelve runtime files match earlier independently read baseline content facts and contain zero selected identities.",
+      "This actor actually executed the B native replay: target runtime/legacy proof has eight selected identity needles and zero hits, all 18 legacy resolutions enforce their recorded outcomes, selected candidate-only/liveAllowed:false remains.",
+      "The four full Shadow output file proofs are exactly equal to the direct-parent receipt, including raw/semantic output hashes and byte counts."
+    ],
+    "doesNotClaim": "This is not whole-platform behavior equivalence or a new independent mathematical/language/content-generation review."
+  },
+  "delta": {
+    "changedPathCount": 178,
+    "changedPaths": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/promotion-shadow.yml",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "README.md",
+      "RELEASE.md",
+      "app/api/observability/client-error/handler.ts",
+      "app/api/observability/client-error/route.test.ts",
+      "app/api/observability/client-error/route.ts",
+      "app/api/observability/test-error/handler.ts",
+      "app/api/observability/test-error/route.test.ts",
+      "app/api/observability/test-error/route.ts",
+      "app/global-error.tsx",
+      "app/layout.tsx",
+      "components/observability/ClientErrorReporter.tsx",
+      "components/providers/AppProviders.tsx",
+      "coordination/content-qa/rsi-lite-calibration-v1/README.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/a18-blind-review-materials.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/a18-blind-review-materials.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/a18-owner-waiver.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/a18-owner-waiver.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/arm-contracts.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/artifact-contract.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/calibration-design.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/calibration-design.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f0-f2-verification-receipt.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/f1-artifact-commit.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/f1-generation-receipt.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/f2-r-isolation-receipt-candidate.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/f2-sacrificial-summary.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/f2-snapshot-commit-manifest.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-authorization.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-campaign.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-campaign.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-execution-contract.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-execution-contract.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-formal-runner.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-formal-runner.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-persistent-budget-ledger.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-persistent-budget-ledger.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-provider-adapter.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-provider-adapter.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-provider-smoke.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-provider-smoke.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-resource-carryover.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-resource-carryover.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-role-projection-worker.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-score-results.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-score-results.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-start-preflight.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-start-preflight.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-v2-retry-bootstrap.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/f3-v2-retry-bootstrap.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/formal-preflight-cli.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/formal-preflight.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/formal-preflight.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/generate-a18-blind-review-materials.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/generate-a18-blind-review-materials.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/generate-calibration-artifacts.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/generate-calibration-artifacts.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/generate-f3-entrypoint-receipt.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/generate-f3-final-authorization-pack.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/isolation-harness.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/isolation-harness.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/isolation-probe-worker.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/package-artifacts.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/package-artifacts.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/process-lifecycle.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/process-lifecycle.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/public-manifest.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/refresh-sacrificial-snapshot.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/refresh-sacrificial-snapshot.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/A11-runner-receipt-candidate.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/A18-bundle-readiness-candidate.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/A18-human-evidence-owner-waiver.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/A22-isolation-evidence-candidate.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/a18-blind-review-registration-v2.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/a18-blind-review-registration.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/review-gates/owner-budget-signature-template.md",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-f3-formal-campaign.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-f3-formal-campaign.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-f3-provider-smoke.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-f3-rehearsal.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-isolation-proof.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-isolation-proof.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-sacrificial-dry-run.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/run-sacrificial-dry-run.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-bundle.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/A.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/B.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/C.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-receipts/C0.json",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-role-worker.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-runner.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/sacrificial-runner.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/score-f3-formal-results.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/seed-commitment.txt",
+      "coordination/content-qa/rsi-lite-calibration-v1/verify-f0-f2-local.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/verify-f0-f2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v1/verify-f0-f2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/FORMAL-CONCLUSION.md",
+      "coordination/content-qa/rsi-lite-calibration-v2/NEXT-RUN-PROTOCOL.md",
+      "coordination/content-qa/rsi-lite-calibration-v2/README.md",
+      "coordination/content-qa/rsi-lite-calibration-v2/V2-CANDIDATE-READINESS-RECEIPT.json",
+      "coordination/content-qa/rsi-lite-calibration-v2/call-record-contract.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/call-record-contract.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/candidate-set-builder.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/candidate-set-builder.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/credential-loader-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/credential-loader-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/deterministic-baseline.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/deterministic-baseline.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-authorization-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-authorization-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-campaign-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-campaign-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-dry-rehearsal-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-execution-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-execution-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-runner-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/formal-runner-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/offline-boundaries.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/protocol-design.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/protocol-design.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/provider-adapter-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/provider-adapter-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/role-contract.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/role-contract.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/run-formal-v2.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/run-formal-v2.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/scoring.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/scoring.test.mjs",
+      "coordination/content-qa/rsi-lite-calibration-v2/test-fixtures.mjs",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/baseline-review-a11.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/baseline-review-a22.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/baseline-review-a25.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence-index.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a11-independent-preflight.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a18-independent-qa.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a22-build-isolation.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a23-shadow-readiness.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a24-exact-layer.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a25-release-intake.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/legacy-resolution-registry.v2.6.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json",
+      "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/review-subject.v1.json",
+      "coordination/release-intake/2026-08-23-A25-rsi-lite-f0-f2-worktree-preflight-candidate.md",
+      "coordination/research/2026-08-23-A16-rsi-lite-f0-f2-status-and-handoff.md",
+      "coordination/research/2026-08-23-A16-rsi-lite-matched-quadruplets-f0-f2-protocol.md",
+      "coordination/session-logs/2026-08-23-A16-rsi-lite-calibration-f0-f2.md",
+      "coordination/session-logs/2026-08-24-A16-rsi-lite-calibration-v2.md",
+      "coordination/session-logs/2026-08-28-A12-A22-guardian-invitation-snapshot-repair-v2.md",
+      "coordination/session-logs/2026-08-28-A12-A22-legacy-snapshot-repair.md",
+      "coordination/session-logs/2026-09-02-A10-A25-sweep-integration.md",
+      "coordination/session-logs/2026-09-06-A10-continuous-closeout-policy.md",
+      "coordination/session-logs/2026-09-06-A16-rsi-v2-offline-closeout.md",
+      "coordination/session-logs/2026-09-06-A23-U224-R10-baseline-reaffirmation.md",
+      "docs/observability.md",
+      "lib/observability/browserReporter.test.ts",
+      "lib/observability/browserReporter.ts",
+      "lib/observability/errorPolicy.ts",
+      "lib/observability/privacy.test.ts",
+      "lib/server/clientErrorReport.test.ts",
+      "lib/server/clientErrorReport.ts",
+      "lib/server/errorMonitor.test.ts",
+      "lib/server/errorMonitor.ts",
+      "scripts/promotion-shadow-workflow-v2.test.mjs",
+      "scripts/run-observability-tests.mjs",
+      "scripts/sweep-merged-worktrees.mjs",
+      "scripts/sweep-merged-worktrees.test.mjs",
+      "tests/e2e/home-functional.spec.ts",
+      "tests/e2e/observability.spec.ts",
+      "tsconfig.observability.json"
+    ],
+    "pathGroups": {
+      ".github": 2,
+      "AGENTS.md": 1,
+      "CLAUDE.md": 1,
+      "README.md": 1,
+      "RELEASE.md": 1,
+      "app": 8,
+      "components": 2,
+      "coordination": 146,
+      "docs": 1,
+      "lib": 8,
+      "scripts": 4,
+      "tests": 2,
+      "tsconfig.observability.json": 1
+    },
+    "runtimePathCount": 12,
+    "runtimeChecks": [
+      {
+        "path": "app/api/observability/client-error/handler.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "8c7886b18591d15ebc8302fd28371df18c0590a0d4f9cdda67ff42691e09d2c3",
+        "currentGitDiffRawSha256": "ce398a56e6528316f87a38ea9b1eb45bf6582e4128a80e3e38892213064bb548",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "New error-report/test-probe handlers and route plumbing; no selected candidate package/record/path reference."
+      },
+      {
+        "path": "app/api/observability/client-error/route.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "29031cb24c26c115181cd36873d5861c027aa412d086674e4e01a0fd0609067d",
+        "currentGitDiffRawSha256": "a1c9a977541caa43598357f61278c60897a368cf7d337eef4d4f2e509051f5d6",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "New error-report/test-probe handlers and route plumbing; no selected candidate package/record/path reference."
+      },
+      {
+        "path": "app/api/observability/test-error/handler.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "8fec7251a5ba7e26069e37b7935c5bd954963e39e412adc920f60dbffd1f9aca",
+        "currentGitDiffRawSha256": "6c540cc138caeece326d8c3fef3f349ecdaa6623939cc9edf12cb2bf881bedd8",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "New error-report/test-probe handlers and route plumbing; no selected candidate package/record/path reference."
+      },
+      {
+        "path": "app/api/observability/test-error/route.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "375b4d1b727a176ba8c99a2e22a7bc760358f208d4a2b63adb465c1d88e2ce1c",
+        "currentGitDiffRawSha256": "1d5b06b39802595e55ca10617e87be472c713974750dce53973ff5ac5ee5d57d",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "New error-report/test-probe handlers and route plumbing; no selected candidate package/record/path reference."
+      },
+      {
+        "path": "app/global-error.tsx",
+        "fromRawSha256": "0a585088ac37df9d5939d6586074175e8e86dbcdf45ec2054ca998650444be63",
+        "toRawSha256": "afa0a3252f200a1578724fbd3f78193c417745107e385a054ece02d1d8b69e03",
+        "currentGitDiffRawSha256": "f1cb0644ee8c992c3d908f3cb012e5e9b53bd7b98c83215f1eb8b753c9db04e9",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Error boundary reporting; selected Shadow adapter remains outside reachable live graph."
+      },
+      {
+        "path": "app/layout.tsx",
+        "fromRawSha256": "6092c008337d350c523051e1c2ca005512a14c863518b55b0652f5a5f075da9f",
+        "toRawSha256": "1abf6521e5e2810f4f6dc33b5ed6cfe052f6c10467c2a428fe3bdd39cde1f4b9",
+        "currentGitDiffRawSha256": "b42e3ef36837c7378749bd93b581c41d528c3c71aa698f99c7b3d5ed46b599eb",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Installs observability reporter in application shell; does not modify selected candidate or frozen adapter."
+      },
+      {
+        "path": "components/observability/ClientErrorReporter.tsx",
+        "fromRawSha256": null,
+        "toRawSha256": "52bdd09eac4a4e37d788f62bafd28a7ed299c73503050317ad2a0256963eaf9f",
+        "currentGitDiffRawSha256": "2086a991f1271cd9f9e2fed80dbf98324ffea3456dedf4565ab7b9f7f548906d",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Browser error reporting hookup; fixed categories and no selected content binding."
+      },
+      {
+        "path": "components/providers/AppProviders.tsx",
+        "fromRawSha256": "eec0ec4e942a62e5e15eef96600ab6b6dbf08e5464ab3ec51b1016ceeb12268b",
+        "toRawSha256": "0952932b5ed16795afd7516e56e9309c5d158f34c4676a10703b9ca34157e8c1",
+        "currentGitDiffRawSha256": "76695743d537228dea4e44dc2b9691517d6a0d1263d75b7a1fb78419ac8812eb",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Client provider wiring for observation; selected candidate-only Shadow data not integrated."
+      },
+      {
+        "path": "lib/observability/browserReporter.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "fa2a9efa3c4501c8435adb81416682d94a7931d9b35848e27fd922280e09386c",
+        "currentGitDiffRawSha256": "75c61d023e4a4d4aa100c052608fbe9668d0e8a7aa75f77d9e36eeb7c8d538a4",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Client event policy/reporter implementation, isolated from frozen content checker/adapter."
+      },
+      {
+        "path": "lib/observability/errorPolicy.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "d28d4bf31a8d8bcd6579af01aa6b4ec134cc774ebf80aaf7bad7f1857e1ef314",
+        "currentGitDiffRawSha256": "f796a9d2d22a618528299b9f7982007b949ccce643f37fb905d7cfbea0cda7b4",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Client event policy/reporter implementation, isolated from frozen content checker/adapter."
+      },
+      {
+        "path": "lib/server/clientErrorReport.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "01ff58b85ea054815d352567c2afe3a7a3a73068aec61c0ede54859312b863d5",
+        "currentGitDiffRawSha256": "62bd984646c62cde2cd26f1a2817e2c5af69f5788995bd94f92a4493300ca302",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Error monitor/client-report backend plumbing, with unchanged selected candidate/checker bytes."
+      },
+      {
+        "path": "lib/server/errorMonitor.ts",
+        "fromRawSha256": null,
+        "toRawSha256": "faeb6312eb80c9c768cd8afce004461c64d46acb2fdb7ba2ccc3c8fad47dd770",
+        "currentGitDiffRawSha256": "285514cd62e703ed6b446e517ffafa77e355eef2df168b21ccd2de8e8672f373",
+        "matchesEarlierReviewedTargetBytes": true,
+        "selectedIdentityHits": 0,
+        "semanticAssessment": "Error monitor/client-report backend plumbing, with unchanged selected candidate/checker bytes."
+      }
+    ]
+  },
+  "candidateBindings": [
+    {
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "mode": "100644",
+          "objectId": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "mode": "100644",
+          "objectId": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "mode": "100644",
+          "objectId": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "mode": "100644",
+          "objectId": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        }
+      ]
+    },
+    {
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "mode": "100644",
+          "objectId": "c8782c61d63aebb80c323603c5276960078d90fd"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "mode": "100644",
+          "objectId": "c8782c61d63aebb80c323603c5276960078d90fd"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "mode": "100644",
+          "objectId": "c8782c61d63aebb80c323603c5276960078d90fd"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "mode": "100644",
+          "objectId": "c8782c61d63aebb80c323603c5276960078d90fd"
+        }
+      ]
+    },
+    {
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "mode": "100644",
+          "objectId": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "mode": "100644",
+          "objectId": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "mode": "100644",
+          "objectId": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "mode": "100644",
+          "objectId": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        }
+      ]
+    },
+    {
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "mode": "100644",
+          "objectId": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "mode": "100644",
+          "objectId": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "mode": "100644",
+          "objectId": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "mode": "100644",
+          "objectId": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        }
+      ]
+    }
+  ],
+  "checkerBindings": [
+    {
+      "path": "coordination/integration/promotion-gate-lib.mjs",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+          "mode": "100644",
+          "objectId": "e51d5ade8f9dd41283c992489f0bcb23858f4d7c"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+          "mode": "100644",
+          "objectId": "e51d5ade8f9dd41283c992489f0bcb23858f4d7c"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+          "mode": "100644",
+          "objectId": "e51d5ade8f9dd41283c992489f0bcb23858f4d7c"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+          "mode": "100644",
+          "objectId": "e51d5ade8f9dd41283c992489f0bcb23858f4d7c"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+          "mode": "100644",
+          "objectId": "f83d86378e913629c2403fbf960a8f3a66f874a9"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+          "mode": "100644",
+          "objectId": "f83d86378e913629c2403fbf960a8f3a66f874a9"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+          "mode": "100644",
+          "objectId": "f83d86378e913629c2403fbf960a8f3a66f874a9"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+          "mode": "100644",
+          "objectId": "f83d86378e913629c2403fbf960a8f3a66f874a9"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+          "mode": "100644",
+          "objectId": "5b92ac37de92f040484d144f99d33669dc35d4ab"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+          "mode": "100644",
+          "objectId": "5b92ac37de92f040484d144f99d33669dc35d4ab"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+          "mode": "100644",
+          "objectId": "5b92ac37de92f040484d144f99d33669dc35d4ab"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+          "mode": "100644",
+          "objectId": "5b92ac37de92f040484d144f99d33669dc35d4ab"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+          "mode": "100644",
+          "objectId": "90fab8764966b01c50d89e079963fd154658372a"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+          "mode": "100644",
+          "objectId": "90fab8764966b01c50d89e079963fd154658372a"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+          "mode": "100644",
+          "objectId": "90fab8764966b01c50d89e079963fd154658372a"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+          "mode": "100644",
+          "objectId": "90fab8764966b01c50d89e079963fd154658372a"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+          "mode": "100644",
+          "objectId": "55d3e805ff9f2a33f6c027cca1954ce3b7dbec83"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+          "mode": "100644",
+          "objectId": "55d3e805ff9f2a33f6c027cca1954ce3b7dbec83"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+          "mode": "100644",
+          "objectId": "55d3e805ff9f2a33f6c027cca1954ce3b7dbec83"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+          "mode": "100644",
+          "objectId": "55d3e805ff9f2a33f6c027cca1954ce3b7dbec83"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+          "mode": "100644",
+          "objectId": "e28444807627fa4576327eba9e5f31a3312ebfe0"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+          "mode": "100644",
+          "objectId": "e28444807627fa4576327eba9e5f31a3312ebfe0"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+          "mode": "100644",
+          "objectId": "e28444807627fa4576327eba9e5f31a3312ebfe0"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+          "mode": "100644",
+          "objectId": "e28444807627fa4576327eba9e5f31a3312ebfe0"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+          "mode": "100644",
+          "objectId": "69a08928c39478bb55ddadb761f49966e212bb5f"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+          "mode": "100644",
+          "objectId": "69a08928c39478bb55ddadb761f49966e212bb5f"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+          "mode": "100644",
+          "objectId": "69a08928c39478bb55ddadb761f49966e212bb5f"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+          "mode": "100644",
+          "objectId": "69a08928c39478bb55ddadb761f49966e212bb5f"
+        }
+      ]
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+      "bytesAndModesUnchanged": true,
+      "observations": [
+        {
+          "commit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+          "mode": "100644",
+          "objectId": "0ef8527ec5d77cf4cfed284d1f94b643593640a8"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+          "mode": "100644",
+          "objectId": "0ef8527ec5d77cf4cfed284d1f94b643593640a8"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+          "mode": "100644",
+          "objectId": "0ef8527ec5d77cf4cfed284d1f94b643593640a8"
+        },
+        {
+          "commit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+          "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+          "mode": "100644",
+          "objectId": "0ef8527ec5d77cf4cfed284d1f94b643593640a8"
+        }
+      ]
+    }
+  ],
+  "nativeRuntimeLegacyEvidence": {
+    "receiptPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-replay-receipt.json",
+    "receiptRawSha256": "ac127157e5f3a54c00bc521987ec6655e4c85f93c5df064b838e24015bda1456",
+    "originalRunProducedAt": "2026-09-06T17:10:51.520Z",
+    "originalExecutionStartedAt": "2026-09-06T17:10:51.386Z",
+    "originalExecutionCompletedAt": "2026-09-06T17:11:13.270Z",
+    "nativeSemanticReceiptDigest": "290ca236224532015f1f9a9a31e83667c47fac330c349652c736f24e100284ca",
+    "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+    "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+    "legacyRegistryRawSha256": "d4cff93eff108b507d9efa74af9847b82cd55611e957d03c98ad5c6eada11852",
+    "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+    "resolutionCount": 18,
+    "approvedProjectionCount": 3,
+    "dereachedCount": 15,
+    "selectedIdentityNeedleCount": 8,
+    "selectedIdentityHits": 0,
+    "liveAllowed": false,
+    "wholeLegacyAuditDeclaredConflictClassesNotErased": true
+  },
+  "directParentOutputComparison": {
+    "parentManifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+      "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+    },
+    "parentReceipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json",
+      "rawSha256": "3e22db02c9bddd9cf685b1085400905a03b56d56821945f3d34069ac51b9f7ab"
+    },
+    "fullShadowOutputProofEqual": true,
+    "fileCount": 4,
+    "outputSemanticAggregateDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192",
+    "outputRawAggregateDigest": "3b73e25c5add052dd2e3549438780dd81e2bf94b479f005bbd6fb93e1a277081"
+  },
+  "freshChecksPerformedNow": [
+    "Fixed Git commit existence/ancestry and full changed-path digest recomputation",
+    "4 candidate byte/mode/object comparisons",
+    "8 checker byte/mode/object comparisons plus ledger",
+    "12 runtime target hashes and exact selected-identity text checks",
+    "Actual earlier native replay proof and direct-parent output-proof cross-check"
+  ],
+  "preservedEvidence": {
+    "priorContentFacts": {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+      "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69",
+      "originalReviewedAt": "2026-09-06T13:48:22.745Z"
+    },
+    "g07BindingReceipt": {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-binding-commit-receipt.json",
+      "rawSha256": "0c34408f660c966a240e2888bdbf2e041d33dba6d50c69a1210dcc5bb5500465"
+    }
+  },
+  "limits": [
+    "Fresh review date applies to this baseline-delta judgment and its fixed-object checks; original Shadow execution and historical math/language review times remain unchanged.",
+    "No additional g07 verify/Shadow, g08 generation or native execution was performed by this review.",
+    "No source/Git mutation, worktree creation, provider/network or real environment/credential read.",
+    "This fact document supplies the explicit top-level baseline-review fields consumed by the descriptor reader; it is not by itself committed evidence, final role index, active PRO3 currentness, storage transport, Closure/Registry or live authorization.",
+    "Root must append and correctly bind subsequent sibling revision evidence; g07 artifacts are not rewritten."
+  ]
+}

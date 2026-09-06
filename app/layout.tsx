@@ -12,6 +12,7 @@ import { LearnerStartSetupGate } from "@/components/layout/LearnerStartSetupGate
 import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
 import { StudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
+import { ClientErrorReporter } from "@/components/observability/ClientErrorReporter";
 import { AppProviders } from "@/components/providers/AppProviders";
 import {
   toAuthenticatedAppShellBootstrap,
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const shouldReportClientErrors = Boolean(process.env.SENTRY_DSN || process.env.ERROR_MONITOR_WEBHOOK_URL);
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   // Authenticated app chrome must be rendered from the same request-bound,
@@ -60,6 +62,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <StudentGuidedTour />
           </AITutorProvider>
         </AppProviders>
+        {shouldReportClientErrors ? <ClientErrorReporter /> : null}
         {shouldRenderVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>
