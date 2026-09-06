@@ -4602,3 +4602,89 @@ test("the actual 16 MiB journal writer admits exact planned capacity and rejects
   assert.equal(rejected.calls.leaseAcquire, 0);
   assert.equal(rejected.calls.remove.length, 0);
 });
+
+
+function withRuntimeReceiptCliFixture(action, { afterTargetStarted } = {}) {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), "sweep-real-runtime-receipt-")));
+  const receiptPath = join(root, "receipt.ndjson");
+  const runtime = sweep.createRuntimeProviders();
+  const fixture = cliProvidersFixture();
+  const readExternal = fixture.providers.readExternalPathEvidence;
+  const readAbsence = fixture.providers.readPathAbsenceEvidence;
+  fixture.argv[fixture.argv.indexOf("--receipt") + 1] = receiptPath;
+  fixture.providers.readExternalPathEvidence = (path, kind) => path === receiptPath
+    ? runtime.readExternalPathEvidence(path, kind)
+    : readExternal(path, kind);
+  fixture.providers.readPathAbsenceEvidence = (path) => path === receiptPath
+    ? runtime.readPathAbsenceEvidence(path)
+    : readAbsence(path);
+  let receiptFd;
+  fixture.providers.reserveReceipt = (path) => {
+    receiptFd = runtime.reserveReceipt(path);
+    return receiptFd;
+  };
+  fixture.providers.writeReceipt = (handle, text) => {
+    runtime.writeReceipt(handle, text);
+    if (JSON.parse(text).phase === "target-started") afterTargetStarted?.(receiptPath, handle);
+  };
+  fixture.providers.validateReceiptDurability = runtime.validateReceiptDurability;
+  fixture.providers.closeReceipt = (handle) => {
+    try { runtime.closeReceipt(handle); }
+    finally { receiptFd = undefined; }
+  };
+  try { action({ ...fixture, receiptPath }); }
+  finally {
+    if (receiptFd !== undefined) runtime.closeReceipt(receiptFd);
+    rmSync(root, { recursive: true, force: true });
+  }
+}
+
+test("main real runtime receipt lifecycle admits a durable checkpoint before removal", () => {
+  withRuntimeReceiptCliFixture(({ argv, providers, calls, receiptPath }) => {
+    const remove = providers.removeWorktree;
+    providers.removeWorktree = (command) => {
+      const records = readFileSync(receiptPath, "utf8").trimEnd().split("\n").map(JSON.parse);
+      assert.deepEqual(records.map((entry) => entry.phase), ["started", "target-started"]);
+      return remove(command);
+    };
+    assert.equal(sweep.main(argv, providers), 0);
+    assert.equal(calls.remove.length, 1);
+    assert.equal(calls.leaseRelease, 1);
+    const bytes = readFileSync(receiptPath, "utf8");
+    assert.equal(bytes.endsWith("\n"), true);
+    const records = bytes.trimEnd().split("\n").map(JSON.parse);
+    assert.deepEqual(records.map((entry) => entry.phase), [
+      "started", "target-started", "target-completed", "terminal",
+    ]);
+    const terminal = records.at(-1);
+    assert.equal(terminal.summary.removed, 1);
+    assert.equal(terminal.batchOutcome.status, "success");
+    assert.deepEqual(terminal.leaseRelease, { released: true, phase: "released" });
+    assert.equal(records.filter((entry) => entry.phase === "terminal").length, 1);
+    assert.equal(statSync(receiptPath).mode & 0o777, 0o600);
+  });
+});
+
+test("main real runtime receipt lifecycle rejects checkpoint tampering before removal", () => {
+  for (const mode of ["chmod", "replacement", "same-size-prefix"]) {
+    let tampered = false;
+    withRuntimeReceiptCliFixture(({ argv, providers, calls }) => {
+      assert.equal(sweep.main(argv, providers), 1, mode);
+      assert.equal(tampered, true, mode);
+      assert.equal(calls.remove.length, 0, mode);
+      assert.equal(calls.leaseRelease, 1, mode);
+      assert.match(calls.errors.join("\n"), /receipt/u, mode);
+    }, {
+      afterTargetStarted(path, handle) {
+        if (mode === "chmod") chmodSync(path, 0o640);
+        if (mode === "replacement") {
+          const prefix = readFileSync(path);
+          renameSync(path, `${path}.preserved`);
+          writeFileSync(path, prefix, { mode: 0o600 });
+        }
+        if (mode === "same-size-prefix") writeSync(handle, Buffer.from("X"), 0, 1, 0);
+        tampered = true;
+      },
+    });
+  }
+});
