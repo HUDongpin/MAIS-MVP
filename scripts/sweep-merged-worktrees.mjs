@@ -2917,7 +2917,10 @@ export function createRuntimeProviders() {
     }),
     reserveReceipt: (path, options) => reserveReceiptByBoundParent(path, options),
     writeReceipt: (handle, text) => writeReceiptDurably(handle, text),
-    validateReceiptDurability: (handle) => validateReceiptDurability(handle),
+    validateReceiptDurability: (handle) => {
+      validateReceiptDurability(handle);
+      return true;
+    },
     closeReceipt: (handle, path) => {
       closeReceiptDurably(handle);
     },
