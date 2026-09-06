@@ -96,6 +96,9 @@ jobs:
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
 
+      - name: Run observability privacy and intake gate
+        run: node scripts/run-observability-tests.mjs
+
       - name: Run stray generated-types guard and its unit test
         run: npm run check:stray-types && npm run test:stray-types
 
@@ -305,6 +308,13 @@ jobs:
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
+
+      - name: Run observability browser privacy fixture
+        env:
+          PLAYWRIGHT_SKIP_WEBSERVER: "1"
+          PLAYWRIGHT_BROWSER_CHANNEL: chromium
+          PLAYWRIGHT_RUN_ID: ci-observability-fixture
+        run: npx playwright test tests/e2e/observability.spec.ts --project=desktop-chrome --project=mobile-chrome
 
       - name: Run visualization DOM-contract spec
         run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
