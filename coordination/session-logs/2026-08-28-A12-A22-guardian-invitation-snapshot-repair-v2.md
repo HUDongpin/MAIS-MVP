@@ -65,3 +65,17 @@ fixture without mutation, then requires v2 to add exactly one empty
 payload and `guardian_links`, complete the canonical readiness marker, reject
 a repeated v2 run, and close all clients. Local Docker is unavailable; PR CI
 remains the authoritative real-engine result.
+
+## Post-merge release continuation
+
+- PR #209 merged as `9bf9cfb99f75a0dbc5a298e0d6aae74594571890`.
+- Exact-merge post-push CI run `33130123757` completed all seven jobs with
+  success; Promotion Shadow run `33130123771` also succeeded on the same SHA.
+- A clean detached release worktree was created at
+  `/Volumes/Starship/MAIS-MVP/.worktrees/a22-parent-production-release-9bf9cfb`.
+  Owner/lane: A22 with A12/A19/A23 coordination; target PR: none (read-only
+  release source); creation date: 2026-08-28 HKT; expected closeout: same day
+  after production evidence capture, only if clean.
+- The detached worktree must remain byte-identical to the merge SHA; this log
+  remains outside that release source so recording evidence cannot change the
+  candidate.
