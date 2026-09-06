@@ -35,3 +35,12 @@ Fresh validation:
 The original branches remain until their PR/main outcome and recoverable source
 custody are accepted. External source bindings and original red/green logs are
 held under the convergence run's `B2-validation/` directory.
+
+
+## 2026-09-07 HKT — Current-main path fixture validation
+
+The ordinary merge of main `e3df2bde40114ec34b7414acf68e33e2e8803905` retains the original acceptance-key and migration-script fixes. On that main, the Playwright path-safety test derived its checkout root from an encoded URL pathname, so a real Chinese directory caused 30 tooling failures before the intended config assertions. This revision uses `fileURLToPath` at that one fixture root; the 30 test calls and 92 assertions remain unchanged.
+
+In the same isolated checkout named `中 文`, the original tooling entry produced 46 passes and 30 failures. The corrected entry passed all 76 tooling checks and then all 404 runtime tests with zero skips. An independent review reproduced four normal/escape boundary cases and verified exact assertion AST identity and unchanged frozen checker bytes. Root evidence is held in the authorized external recovery run under `B2-playwright-path-validation` and `B2-playwright-path-independent-review.json`.
+
+The older frozen v2.6 promotion test also has a Unicode-path limitation; its eight-file immutable checker bundle was not edited. The actual merged main `fda1be8e0d0b9946f4dc175ab6185fa4dbdb1ac9` passed its original public Promotion entry 106/106 in a clean ASCII checkout and its GitHub main gates. That independent path result does not change the recorded failure on the Unicode physical main directory.
