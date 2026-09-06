@@ -223,3 +223,40 @@ follows merely from a green preparer test suite.
 
 Review dates must name real Gregorian calendar dates. Invalid February days and
 24:00 overflow are rejected instead of accepting JavaScript date normalization.
+
+## Merge history and atomic authority origins
+
+The canonical workflow history collector supports ordinary merge commits without treating
+their combined raw records (`::` with per-parent `MM`, `AA` or `MA` status) as malformed
+single-parent changes. The full raw history still receives the existing bounded fatal UTF-8
+audit, including unrelated changed paths. That audit is not used as authority-delta proof.
+
+`scripts/promotion-reaffirmation-history.mjs` independently reads the complete parent graph.
+Single-parent commits use explicit parent-to-child, NUL-safe raw diffs for the three exact
+Manifest, Reaffirmation descriptor and canonical Receipt paths. Every merge and every parent
+is checked through Git tree `(mode, type, blob)` tuples. A merge may inherit a sealed regular
+file when at least one parent supplies it and every nonempty parent supplies the identical
+tuple; other parents may lack that revision. Such inheritance is not a second `A` record.
+A merge cannot originate authority from entirely absent parents, remove it, select between
+conflicting nonempty tuples, or change its bytes, type or execution mode.
+
+Ordinary modification/deletion/type-change records remain visible to the existing add-only
+checks. The Manifest and descriptor must still originate together in one single-parent
+binding commit whose sole parent is the declared evidence commit. The canonical Receipt
+must still be one exact strict-descendant addition. A side-branch mutation cannot be hidden
+by restoring canonical bytes in a later merge. No merge is omitted, and neither first-parent
+history nor final-tree equality substitutes for the complete origin proof.
+
+The helper fails closed on unavailable objects, shallow/incomplete history, duplicate or
+malformed graph records, invalid UTF-8, path substitution and exhausted collection bounds.
+It uses literal pathspecs, no replacement objects, a 32 MiB aggregate Git-output budget,
+10,000-commit limit, 30-second per-command cap and 120-second total collection window.
+The workflow also retains its original separate 32 MiB raw-history audit. These are refusal
+bounds, not truncation or merge-skipping modes. Fixed-commit diagnostics may inspect a named
+HEAD; the workflow collects and rechecks its actual checkout HEAD.
+
+True temporary Git fixtures exercise both parent orders, combined records, unrelated type
+changes, conflicting authority, missing objects and invalid path encoding. The implementation
+author is not its independent approver. Green helper/workflow tests prove this history boundary
+only; the complete native v2.6 validation, canonical execution/replay, Receipt, Closure and
+release-authority chain remain separately required.

@@ -212,29 +212,15 @@ jobs:
             rejectSelfAuthority(reaffirmation);
             if (lstatOrNull(path.join(repoRoot, ".git", "shallow"))) throw new Error("Shallow repositories cannot prove canonical Promotion history.");
             const evidenceCommit = reaffirmation.ordering.evidenceCommit;
+            // Preserve the bounded UTF-8 audit of all changed paths, including unrelated files.
+            // Combined merge records are valid text; the helper checks authority on every parent.
             const rawHistory = execFileSync("git", ["show", "--format=%H%x00%P%x00", "--raw", "-z", "--no-abbrev", "--no-renames", `${evidenceCommit}..HEAD`], { cwd: repoRoot, encoding: null, maxBuffer: 32 * 1024 * 1024 });
-            const historyText = new TextDecoder("utf-8", { fatal: true }).decode(rawHistory);
-            const tokens = historyText.split("\u0000");
-            const commits = new Map();
-            const changes = [];
-            let currentCommit = null;
-            for (let index = 0; index < tokens.length; index += 1) {
-              const token = tokens[index].startsWith("\n") ? tokens[index].slice(1) : tokens[index];
-              if (token === "") continue;
-              if (isHex(token, 40)) {
-                const parentText = tokens[++index] ?? "";
-                const parents = parentText === "" ? [] : parentText.split(" ");
-                if (parents.some((parent) => !isHex(parent, 40)) || commits.has(token)) throw new Error("Promotion history commit graph is malformed.");
-                commits.set(token, parents);
-                currentCommit = token;
-                continue;
-              }
-              const raw = token.match(/^:([0-7]{6}) ([0-7]{6}) ([a-f0-9]{40}) ([a-f0-9]{40}) ([ADM])$/u);
-              if (!raw || currentCommit === null) throw new Error("Promotion history must be NUL-safe raw Git diffs without rename records.");
-              const changedPath = tokens[++index];
-              if (typeof changedPath !== "string" || changedPath.includes("\u0000")) throw new Error("Promotion history path record is malformed.");
-              if ([manifestPath, descriptorPath, receiptRelativePath].includes(changedPath)) changes.push({ commit: currentCommit, status: raw[5], oldBlob: raw[3], newBlob: raw[4], path: changedPath });
-            }
+            new TextDecoder("utf-8", { fatal: true }).decode(rawHistory);
+            const historyHelperPath = path.join(exactWorkspace, "scripts", "promotion-reaffirmation-history.mjs");
+            const { collectPromotionReaffirmationHistory } = await import(pathToFileURL(historyHelperPath).href);
+            const { commits, changes } = collectPromotionReaffirmationHistory({
+              repoRoot, evidenceCommit, manifestPath, descriptorPath, receiptPath: receiptRelativePath
+            });
             const manifestBlob = await gitBlobId(manifestBytes);
             const descriptorBlob = await gitBlobId(descriptorBytes);
             const bindingChanges = changes.filter((change) => change.path === manifestPath || change.path === descriptorPath);

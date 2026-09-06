@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
+import "./promotion-reaffirmation-history.test.mjs";
 import { parse as parseYaml } from "yaml";
 import { assertRequiredWorkflowShape } from "./promotion-required-check-semantic-rescope.mjs";
 
@@ -46,6 +47,7 @@ async function createBootstrapResolverFixture({ includeDescendant = true, interm
   await mkdir(runnerTemp);
   await mkdir(path.join(root, "scripts"));
   await copyFile(path.join(repoRoot, "scripts", "promotion-workflow-json-guard.mjs"), path.join(root, "scripts", "promotion-workflow-json-guard.mjs"));
+  await copyFile(path.join(repoRoot, "scripts", "promotion-reaffirmation-history.mjs"), path.join(root, "scripts", "promotion-reaffirmation-history.mjs"));
   gitAt(root, ["init", "--quiet", "--initial-branch=main"]);
   gitAt(root, ["config", "user.name", "Promotion bootstrap test"]);
   gitAt(root, ["config", "user.email", "promotion-bootstrap@example.invalid"]);
