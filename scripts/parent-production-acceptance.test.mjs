@@ -670,8 +670,11 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     classCreated: false,
     className: "",
     createCount: 0,
+    createIdempotencyKeys: new Set(),
     replyCount: 0,
+    replyIdempotencyKeys: new Set(),
     noticeCreated: false,
+    noticeIdempotencyKeys: new Set(),
     noticeSubject: "",
     parentRecipient: "",
     providerQueued: false,
@@ -821,6 +824,8 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
       });
     }
     if (url.pathname === "/api/parent/messages" && method === "POST") {
+      assert.match(body.idempotencyKey, /^parent-production-create:[a-f0-9]{32}$/u);
+      state.createIdempotencyKeys.add(body.idempotencyKey);
       state.createCount += 1;
       instanceCounter += 1;
       const created = state.createCount === 1;
@@ -835,6 +840,8 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
       });
     }
     if (url.pathname === `/api/parent/messages/${sensitive.threadId}/reply` && method === "POST") {
+      assert.match(body.idempotencyKey, /^parent-production-reply:[a-f0-9]{32}$/u);
+      state.replyIdempotencyKeys.add(body.idempotencyKey);
       state.replyCount += 1;
       instanceCounter += 1;
       const created = state.replyCount === 1;
@@ -889,6 +896,8 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
       }, 201);
     }
     if (url.pathname === `/api/teacher/notices/${sensitive.noticeId}/deliveries` && method === "POST") {
+      assert.match(body.idempotencyKey, /^parent-production-notice:[a-f0-9]{32}$/u);
+      state.noticeIdempotencyKeys.add(body.idempotencyKey);
       state.providerQueued = true;
       return json({
         notice: { id: sensitive.noticeId },
@@ -986,6 +995,14 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
   assert.equal(report.family.guardianLinkReady, true);
   assert.equal(report.idempotency.create.distinctInstanceCount, 2);
   assert.equal(report.idempotency.reply.distinctInstanceCount, 2);
+  assert.equal(state.createIdempotencyKeys.size, 1);
+  assert.equal(state.replyIdempotencyKeys.size, 1);
+  assert.equal(state.noticeIdempotencyKeys.size, 1);
+  assert.equal(new Set([
+    ...state.createIdempotencyKeys,
+    ...state.replyIdempotencyKeys,
+    ...state.noticeIdempotencyKeys
+  ]).size, 3);
   assert.equal(report.notification.provider.providerDelivered, true);
   assert.equal(report.notification.provider.evidence, "signed-webhook-health");
   assert.equal(report.notification.health.deliveredEventDelta, 1);
