@@ -1818,6 +1818,10 @@ export type AttemptFeedback = {
   correctAnswer?: string;
 };
 
+export type AttemptSubmissionResponse = AttemptFeedback & {
+  persisted: boolean;
+};
+
 export type ProgressMetric = {
   label: LocalizedText;
   value: string;
