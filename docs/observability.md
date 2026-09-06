@@ -15,8 +15,66 @@ delivery scheduling while replacing text-based redaction with fixed classificati
 - `/api/observability/test-error` is an explicitly enabled, authenticated delivery probe.
 - `/api/health` consumes the existing strict storage-readiness entrypoint and reports a
   bounded public status; explicitly authenticated cron requests may also drive health alerts.
-- `captureServerError` is available for later integration with existing auth, AI Tutor and
-  datastore boundaries. Those product hooks remain a separate integration package.
+- Six server capture hooks observe unexpected failures at the shared auth JSON boundary,
+  the Edge tutor and resolver boundaries, and the strict full PostgreSQL writer. They use
+  the existing monitor without changing request, cancellation or storage contracts.
+
+## Server capture boundaries
+
+The six hooks cover the following boundaries. A hook observes a caught, unexpected failure;
+it does not turn an ordinary returned error result into a new exception or monitoring event.
+
+| Hook | Current boundary | Existing outcome retained |
+| --- | --- | --- |
+| Auth | The catch in `withAuthRouteJsonBoundary` in `lib/server/authRouteGuards.ts` | HTTP 503 with the original body and private no-store browser/CDN headers. |
+| Edge tutor, buffered | The active resolver-transport catch in `app/api/ai-tutor/route.ts` | HTTP 503; completed resolver HTTP error responses keep their original forwarding behavior. |
+| Edge tutor, streamed | The active resolver-transport catch in the same route | Outer SSE HTTP 200, followed by `final.status=503` and `ok=false`. |
+| Resolver, buffered | The outer unexpected-handler catch in `app/api/ai-tutor/resolve/route.ts` | HTTP 503 with the existing fallback body. |
+| Resolver, streamed | The outer unexpected-handler catch in the same resolver | Outer SSE HTTP 200, followed by `final.status=500` and `ok=false`. |
+| PostgreSQL full writer | The observation catch around the current `writePostgresDatabaseWith` body in `lib/server/userStore.ts` | The identical error object is rethrown; transaction failure and rollback behavior remain with the caller. |
+
+Tutor event `status` describes the logical final result. For a stream, it is not the outer
+HTTP 200 that establishes the SSE transport. The phase distinguishes buffered and streamed
+failures; monitoring does not change either response to match an old telemetry status.
+
+One auth hook serves nine current route callers through a fixed mapping:
+
+| Caller label | Canonical route |
+| --- | --- |
+| `auth-me` | `/api/me` |
+| `auth-password-change` | `/api/auth/password-change` |
+| `auth-login` | `/api/auth/login` |
+| `auth-logout-all` | `/api/auth/logout-all` |
+| `auth-password-reset-request` | `/api/auth/password-reset/request` |
+| `auth-password-reset-confirm` | `/api/auth/password-reset/confirm` |
+| `auth-register` | `/api/auth/register` |
+| `auth-session-state` | `/api/auth/session-state` |
+| `auth-logout` | `/api/auth/logout` |
+
+Unknown labels remain `unknown`. This mapping does not accept caller-selected paths, user IDs,
+query strings or arbitrary auth subpaths. Existing returned 400/401/403/409/429 outcomes do
+not trigger the auth catch. The private cache boundary applies to success and failure alike.
+
+Tutor capture is suppressed once the stream is closed, the incoming request is aborted, or
+the local work/transport signal is aborted. Consumer cancellation and deadline aborts retain
+their existing cleanup and result handling. Expected-user conflicts remain ahead of policy,
+rate limits and writes. Guest handling, invalid input, policy denial, rate rejection, bounded
+admission-unavailable responses and normal provider fallback do not acquire new capture
+paths. The resolver's inner provider-fallback catch is outside these six hooks.
+
+The datastore hook wraps only the strict full writer body. It retains the existing storage
+mutation capability, state identity and previous-revision predicates, `UPDATE`/`RETURNING`
+validation, hot-auth/projection synchronization, final locked reread and readiness-marker
+advance. It does not bootstrap storage, add a readiness probe, capture the earlier capability
+acquisition, or cover every partial writer. Its operation label is `app_state-update`;
+PostgreSQL failures use the shared fixed classifier rather than an arbitrary code-derived tag.
+
+Hooks do not await transport. A synchronous capture failure or an asynchronous delivery
+failure must leave the product response or original SQL exception unchanged. Next `after()`
+scheduling and its caught fallback remain best effort: there is no durable queue or guaranteed
+delivery. A datastore failure may also reach a downstream catch and be observed there. The
+existing per-instance send budgets are not deduplication across hooks or across a fleet.
+Adding these capture sites does not certify a configured monitoring service or deployment.
 
 ## Wire privacy contract
 

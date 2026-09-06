@@ -88,7 +88,7 @@ are documented in [docs/observability.md](docs/observability.md). Run the focuse
 `node scripts/run-observability-tests.mjs`. `/api/health` consumes strict storage readiness
 and reports degraded durable storage with bounded probes. Only requests authenticated with
 an explicitly configured `CRON_SECRET` can send configured health alerts; anonymous checks
-cannot send alerts. Auth, tutor and datastore instrumentation remain a separate integration package.
+cannot send alerts. Auth, tutor and strict full PostgreSQL writer failures have six best-effort capture hooks; expected results and cancellation keep their existing behavior.
 
 ## AI Tutor LLM API
 
