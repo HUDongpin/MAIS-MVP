@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-
 permissions:
   contents: read
 
@@ -26,15 +24,17 @@ jobs:
       GIT_CONFIG_VALUE_2: "false"
       GIT_CONFIG_KEY_3: maintenance.autoDetach
       GIT_CONFIG_VALUE_3: "false"
-      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json
-      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json
-      PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: ${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json
+      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json
+      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json
+      PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: ${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json
       PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      PROMOTION_REAFFIRMATION: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json
       PROMOTION_REPLAY_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-replay
     steps:
       - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -81,6 +81,7 @@ jobs:
             printf 'PROMOTION_FRESH_VERIFICATION=%s\n' "$artifact_root/promotion-fresh-verification.v2.json"
             printf 'PROMOTION_REPLAY_VERIFICATION=%s\n' "$artifact_root/promotion-replay-verification.v2.json"
             printf 'PROMOTION_CANONICAL_VERIFICATION=%s\n' "$artifact_root/promotion-canonical-verification.v2.json"
+            printf 'PROMOTION_REQUIRED_CHECK_DECISION=%s\n' "$artifact_root/promotion-required-check-decision.v1.json"
           } >> "$GITHUB_ENV"
 
       - name: Validate current Promotion inputs and runtime graph
@@ -94,8 +95,16 @@ jobs:
           set -e
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [reportPath, cliExitText] = process.argv.slice(1);
-            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const report = parsePromotionWorkflowJsonBytes(readFileSync(reportPath));
             const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
             const cliExit = Number(cliExitText);
             if (expectedExit === undefined || cliExit !== expectedExit) {
@@ -120,51 +129,165 @@ jobs:
             import { execFileSync } from "node:child_process";
             import { closeSync, lstatSync, openSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
             import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [receiptPath, receiptRelativePath, manifestPath, copyPath, runnerTemp, outputPath] = process.argv.slice(1);
             const assertSafeRepoPath = (value, label) => {
               if (!value || path.posix.isAbsolute(value) || path.posix.normalize(value) !== value || value.startsWith("../") || value.includes("\\") || value.includes("\u0000")) {
                 throw new Error(`${label} must be a canonical POSIX repository-relative path.`);
               }
             };
+            const lstatOrNull = (target) => {
+              try { return lstatSync(target); } catch (error) { if (error?.code === "ENOENT") return null; throw error; }
+            };
+            const maxInputBytes = 32 * 1024 * 1024;
+            const assertBoundedRegularFile = (entry, expectedPath, label) => {
+              if (!entry?.isFile() || entry.isSymbolicLink() || entry.size > maxInputBytes || realpathSync(expectedPath) !== expectedPath) throw new Error(`${label} must be one bounded canonical regular file.`);
+            };
+            const exactKeys = (value, keys, label) => {
+              if (value === null || typeof value !== "object" || Array.isArray(value) || Object.keys(value).sort().join("\u0000") !== [...keys].sort().join("\u0000")) {
+                throw new Error(`${label} has an invalid closed key set.`);
+              }
+            };
+            const isHex = (value, length) => typeof value === "string" && new RegExp(`^[a-f0-9]{${length}}$`).test(value);
+            const rejectSelfAuthority = (value) => {
+              if (value === null || typeof value !== "object") return;
+              for (const [key, child] of Object.entries(value)) {
+                const normalized = key.replace(/[^a-z0-9]/giu, "").toLowerCase();
+                if (["executioncommit", "storagecommit", "finalizationcommit", "canonicalreceipthash", "canonicalreceiptdigest", "canonicalreceiptrawsha256", "canonicalreceiptsha256"].includes(normalized)) {
+                  throw new Error("Reaffirmation descriptor must not self-authorize canonical Receipt execution or storage.");
+                }
+                rejectSelfAuthority(child);
+              }
+            };
+            const gitBlobId = async (bytes) => {
+              if (!globalThis.crypto?.subtle) throw new Error("Web Crypto is required to bind Git blob identities.");
+              const header = new TextEncoder().encode(`blob ${bytes.length}\u0000`);
+              const payload = new Uint8Array(header.length + bytes.length);
+              payload.set(header);
+              payload.set(bytes, header.length);
+              return [...new Uint8Array(await globalThis.crypto.subtle.digest("SHA-1", payload))].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+            };
+            const sha256Bytes = async (bytes) => {
+              if (!globalThis.crypto?.subtle) throw new Error("Web Crypto is required to bind Manifest bytes.");
+              return [...new Uint8Array(await globalThis.crypto.subtle.digest("SHA-256", bytes))].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+            };
             assertSafeRepoPath(receiptRelativePath, "Canonical Receipt path");
             assertSafeRepoPath(manifestPath, "Manifest path");
+            const descriptorPath = path.posix.join(path.posix.dirname(manifestPath), "reaffirmation.v2.json");
+            assertSafeRepoPath(descriptorPath, "Reaffirmation descriptor path");
             for (const [value, label] of [[receiptPath, "Receipt"], [copyPath, "Receipt copy"], [runnerTemp, "Runner temp"], [outputPath, "GitHub output"]]) {
               if (!path.isAbsolute(value)) throw new Error(`${label} path must be absolute.`);
             }
             const repoRoot = realpathSync(process.cwd());
             const expectedReceipt = path.resolve(repoRoot, receiptRelativePath);
-            if (receiptPath !== expectedReceipt || realpathSync(receiptPath) !== expectedReceipt || !lstatSync(receiptPath).isFile()) {
-              throw new Error("Canonical Receipt must be one regular file at its exact repository path.");
+            if (receiptPath !== expectedReceipt) throw new Error("Canonical Receipt path must be its exact repository location.");
+            const expectedManifest = path.resolve(repoRoot, manifestPath);
+            const expectedDescriptor = path.resolve(repoRoot, descriptorPath);
+            const manifestEntry = lstatOrNull(expectedManifest);
+            const descriptorEntry = lstatOrNull(expectedDescriptor);
+            assertBoundedRegularFile(manifestEntry, expectedManifest, "Manifest");
+            assertBoundedRegularFile(descriptorEntry, expectedDescriptor, "Reaffirmation descriptor");
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
             }
-            const workingBytes = readFileSync(receiptPath);
-            const committedBytes = execFileSync("git", ["show", `HEAD:${receiptRelativePath}`], { cwd: repoRoot, encoding: null, maxBuffer: 32 * 1024 * 1024 });
-            if (!workingBytes.equals(committedBytes)) throw new Error("Canonical Receipt bytes must equal the current committed Git object.");
-            const receipt = JSON.parse(workingBytes.toString("utf8"));
-            if (
-              receipt.schemaVersion !== "promotion-receipt.v2" ||
-              receipt.result !== "pass" ||
-              receipt.manifest?.path !== manifestPath ||
-              receipt.binding?.liveAllowed !== false ||
-              receipt.lifecycle?.liveAllowed !== false
-            ) {
-              throw new Error("Canonical Receipt must be a passing, non-live v2 Receipt for the fixed Manifest.");
+            const exactWorkspace = realpathSync(currentWorkspace);
+            if (exactWorkspace !== repoRoot) throw new Error("GITHUB_WORKSPACE must be the exact checked-out repository.");
+            const guardPath = path.join(exactWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const manifestBytes = readFileSync(expectedManifest);
+            const descriptorBytes = readFileSync(expectedDescriptor);
+            if (manifestBytes.byteLength > maxInputBytes || descriptorBytes.byteLength > maxInputBytes) throw new Error("Manifest and Reaffirmation descriptor exceed the fixed input limit.");
+            const reaffirmation = parsePromotionWorkflowJsonBytes(descriptorBytes);
+            const manifestRawSha256 = await sha256Bytes(manifestBytes);
+            exactKeys(reaffirmation, ["schemaVersion", "relation", "directParent", "historicalBase", "revision", "unchangedBindings", "baselineDelta", "ordering"], "Reaffirmation descriptor");
+            if (reaffirmation.schemaVersion !== "promotion-reaffirmation.v2" || reaffirmation.relation !== "append-only-reaffirmation") throw new Error("Reaffirmation descriptor is not v2 append-only authority.");
+            exactKeys(reaffirmation.revision, ["manifest"], "Reaffirmation revision");
+            exactKeys(reaffirmation.revision.manifest, ["path", "rawSha256"], "Reaffirmation revision Manifest");
+            if (reaffirmation.revision.manifest.path !== manifestPath || reaffirmation.revision.manifest.rawSha256 !== manifestRawSha256) {
+              throw new Error("Reaffirmation descriptor Manifest revision does not bind the current Manifest bytes.");
             }
-            const executionCommit = receipt.worktreeProof?.executionCommit;
-            if (typeof executionCommit !== "string" || !/^[a-f0-9]{40}$/.test(executionCommit)) {
-              throw new Error("Canonical Receipt execution commit is invalid.");
+            exactKeys(reaffirmation.ordering, ["evidenceCommit"], "Reaffirmation ordering");
+            if (!isHex(reaffirmation.ordering.evidenceCommit, 40)) throw new Error("Reaffirmation descriptor evidence commit is invalid.");
+            rejectSelfAuthority(reaffirmation);
+            if (lstatOrNull(path.join(repoRoot, ".git", "shallow"))) throw new Error("Shallow repositories cannot prove canonical Promotion history.");
+            const evidenceCommit = reaffirmation.ordering.evidenceCommit;
+            const rawHistory = execFileSync("git", ["show", "--format=%H%x00%P%x00", "--raw", "-z", "--no-abbrev", "--no-renames", `${evidenceCommit}..HEAD`], { cwd: repoRoot, encoding: null, maxBuffer: 32 * 1024 * 1024 });
+            const historyText = new TextDecoder("utf-8", { fatal: true }).decode(rawHistory);
+            const tokens = historyText.split("\u0000");
+            const commits = new Map();
+            const changes = [];
+            let currentCommit = null;
+            for (let index = 0; index < tokens.length; index += 1) {
+              const token = tokens[index].startsWith("\n") ? tokens[index].slice(1) : tokens[index];
+              if (token === "") continue;
+              if (isHex(token, 40)) {
+                const parentText = tokens[++index] ?? "";
+                const parents = parentText === "" ? [] : parentText.split(" ");
+                if (parents.some((parent) => !isHex(parent, 40)) || commits.has(token)) throw new Error("Promotion history commit graph is malformed.");
+                commits.set(token, parents);
+                currentCommit = token;
+                continue;
+              }
+              const raw = token.match(/^:([0-7]{6}) ([0-7]{6}) ([a-f0-9]{40}) ([a-f0-9]{40}) ([ADM])$/u);
+              if (!raw || currentCommit === null) throw new Error("Promotion history must be NUL-safe raw Git diffs without rename records.");
+              const changedPath = tokens[++index];
+              if (typeof changedPath !== "string" || changedPath.includes("\u0000")) throw new Error("Promotion history path record is malformed.");
+              if ([manifestPath, descriptorPath, receiptRelativePath].includes(changedPath)) changes.push({ commit: currentCommit, status: raw[5], oldBlob: raw[3], newBlob: raw[4], path: changedPath });
             }
+            const manifestBlob = await gitBlobId(manifestBytes);
+            const descriptorBlob = await gitBlobId(descriptorBytes);
+            const bindingChanges = changes.filter((change) => change.path === manifestPath || change.path === descriptorPath);
+            if (bindingChanges.length !== 2 || bindingChanges.some((change) => change.status !== "A")) throw new Error("Manifest and Reaffirmation descriptor must have one atomic add-only binding.");
+            const bindingCommit = bindingChanges[0].commit;
+            if (bindingChanges.some((change) => change.commit !== bindingCommit) || !commits.has(bindingCommit) || commits.get(bindingCommit).length !== 1 || commits.get(bindingCommit)[0] !== evidenceCommit || bindingChanges.find((change) => change.path === manifestPath).newBlob !== manifestBlob || bindingChanges.find((change) => change.path === descriptorPath).newBlob !== descriptorBlob) {
+              throw new Error("Canonical Manifest binding must be exactly one direct evidence descendant with exact Git blobs.");
+            }
+            const heads = [...commits.keys()].filter((commit) => ![...commits.values()].some((parents) => parents.includes(commit)));
+            if (heads.length !== 1) throw new Error("Promotion history must have one reachable current HEAD in the evidence range.");
+            const reachable = new Set();
+            const visit = (commit) => { if (reachable.has(commit)) return; reachable.add(commit); for (const parent of commits.get(commit) ?? []) if (commits.has(parent)) visit(parent); };
+            visit(heads[0]);
+            if (!reachable.has(bindingCommit)) throw new Error("Canonical execution binding is not reachable from current HEAD.");
+            const isStrictAncestor = (ancestor, descendant) => {
+              const seen = new Set();
+              const walk = (commit) => {
+                if (seen.has(commit)) return false;
+                seen.add(commit);
+                for (const parent of commits.get(commit) ?? []) {
+                  if (parent === ancestor || walk(parent)) return true;
+                }
+                return false;
+              };
+              return ancestor !== descendant && walk(descendant);
+            };
+            const receiptChanges = changes.filter((change) => change.path === receiptRelativePath);
             const expectedCopy = path.join(realpathSync(runnerTemp), "promotion-canonical-receipt.v2.json");
             if (copyPath !== expectedCopy) throw new Error("Canonical copy path is not the fixed runner-temp path.");
-            let descriptor;
-            try {
-              descriptor = openSync(copyPath, "wx", 0o600);
-              writeFileSync(descriptor, workingBytes);
-            } finally {
-              if (descriptor !== undefined) closeSync(descriptor);
-            }
-            const copyEntry = lstatSync(copyPath);
-            if (!copyEntry.isFile() || copyEntry.isSymbolicLink() || copyEntry.nlink !== 1 || (copyEntry.mode & 0o777) !== 0o600 || realpathSync(copyPath) !== copyPath) {
-              throw new Error("Canonical Receipt copy must be one exact 0600 regular file.");
+            const receiptEntry = lstatOrNull(expectedReceipt);
+            let executionCommit = bindingCommit;
+            if (receiptEntry === null) {
+              if (receiptChanges.length !== 0) throw new Error("Absent canonical Receipt cannot have historical add, mutation, deletion, or re-add records.");
+            } else {
+              assertBoundedRegularFile(receiptEntry, expectedReceipt, "Canonical Receipt");
+              if (receiptPath !== expectedReceipt || receiptChanges.length !== 1 || receiptChanges[0].status !== "A" || !reachable.has(receiptChanges[0].commit) || !isStrictAncestor(bindingCommit, receiptChanges[0].commit)) throw new Error("Canonical Receipt must be one exact strict-descendant add-only record.");
+              const workingBytes = readFileSync(receiptPath);
+              if (workingBytes.byteLength > maxInputBytes) throw new Error("Canonical Receipt exceeds the fixed input limit.");
+              if (await gitBlobId(workingBytes) !== receiptChanges[0].newBlob) throw new Error("Canonical Receipt bytes must equal the committed Git blob.");
+              const committedBytes = workingBytes;
+              if (!workingBytes.equals(committedBytes)) throw new Error("Canonical Receipt bytes must equal the current committed Git object.");
+              const receipt = parsePromotionWorkflowJsonBytes(workingBytes);
+              if (receipt.schemaVersion !== "promotion-receipt.v2" || receipt.result !== "pass" || receipt.manifest?.path !== manifestPath || receipt.manifest?.rawSha256 !== manifestRawSha256 || receipt.binding?.liveAllowed !== false || receipt.lifecycle?.liveAllowed !== false || receipt.worktreeProof?.executionCommit !== bindingCommit) throw new Error("Canonical Receipt must be a passing, non-live v2 Receipt for the exact bound Manifest execution.");
+              executionCommit = bindingCommit;
+              let descriptor;
+              try {
+                descriptor = openSync(copyPath, "wx", 0o600);
+                writeFileSync(descriptor, workingBytes);
+              } finally {
+                if (descriptor !== undefined) closeSync(descriptor);
+              }
+              const copyEntry = lstatSync(copyPath);
+              if (!copyEntry.isFile() || copyEntry.isSymbolicLink() || copyEntry.nlink !== 1 || (copyEntry.mode & 0o777) !== 0o600 || realpathSync(copyPath) !== copyPath) throw new Error("Canonical Receipt copy must be one exact 0600 regular file.");
             }
             writeFileSync(outputPath, `execution_commit=${executionCommit}\n`, { flag: "a" });
           ' \
@@ -217,8 +340,16 @@ jobs:
           set -e
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [receiptPath, runId, cliExitText] = process.argv.slice(1);
-            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const receipt = parsePromotionWorkflowJsonBytes(readFileSync(receiptPath));
             const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[receipt.result];
             if (Number(cliExitText) !== expectedExit || receipt.schemaVersion !== "promotion-receipt.v2" || receipt.run?.runId !== runId) {
               throw new Error("Fresh v2 Receipt envelope or CLI exit is invalid.");
@@ -237,8 +368,16 @@ jobs:
           set -e
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [receiptPath, runId, cliExitText] = process.argv.slice(1);
-            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+            const receipt = parsePromotionWorkflowJsonBytes(readFileSync(receiptPath));
             const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[receipt.result];
             if (Number(cliExitText) !== expectedExit || receipt.schemaVersion !== "promotion-receipt.v2" || receipt.run?.runId !== runId) {
               throw new Error("Replay v2 Receipt envelope or CLI exit is invalid.");
@@ -277,8 +416,16 @@ jobs:
             set -e
             node --input-type=module -e '
               import { readFileSync } from "node:fs";
+              import path from "node:path";
+              import { pathToFileURL } from "node:url";
               const [reportPath, cliExitText] = process.argv.slice(1);
-              const report = JSON.parse(readFileSync(reportPath, "utf8"));
+              const currentWorkspace = process.env.GITHUB_WORKSPACE;
+              if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+                throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+              }
+              const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+              const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
+              const report = parsePromotionWorkflowJsonBytes(readFileSync(reportPath));
               const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
               if (
                 Number(cliExitText) !== expectedExit ||
@@ -294,6 +441,26 @@ jobs:
           verify_one "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_VERIFICATION"
           verify_one "$PROMOTION_CANONICAL_RECEIPT_COPY" "$PROMOTION_CANONICAL_VERIFICATION"
 
+      - name: Evaluate current-head semantic required-check decision
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          node "scripts/promotion-required-check-semantic-rescope-cli.mjs" evaluate \
+            --repo "$GITHUB_WORKSPACE" \
+            --event-name "$GITHUB_EVENT_NAME" \
+            --event-path "$GITHUB_EVENT_PATH" \
+            --manifest "$PROMOTION_MANIFEST" \
+            --canonical-receipt-path "$PROMOTION_CANONICAL_RECEIPT" \
+            --current-validation "$PROMOTION_CURRENT_VALIDATION" \
+            --fresh-receipt "$PROMOTION_FRESH_RECEIPT" \
+            --replay-receipt "$PROMOTION_REPLAY_RECEIPT" \
+            --canonical-receipt-copy "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            --fresh-verification "$PROMOTION_FRESH_VERIFICATION" \
+            --replay-verification "$PROMOTION_REPLAY_VERIFICATION" \
+            --canonical-verification "$PROMOTION_CANONICAL_VERIFICATION" \
+            --decision "$PROMOTION_REQUIRED_CHECK_DECISION" \
+            --artifact-root "$PROMOTION_ARTIFACT_ROOT"
+
       - name: Assert exact Promotion Shadow artifact set
         id: assert-artifact-set
         if: ${{ always() }}
@@ -302,7 +469,14 @@ jobs:
           node --input-type=module -e '
             import { lstatSync, readFileSync, readdirSync, realpathSync } from "node:fs";
             import path from "node:path";
+            import { pathToFileURL } from "node:url";
             const [artifactRoot, ...artifactPaths] = process.argv.slice(1);
+            const currentWorkspace = process.env.GITHUB_WORKSPACE;
+            if (typeof currentWorkspace !== "string" || !path.isAbsolute(currentWorkspace)) {
+              throw new Error("GITHUB_WORKSPACE must identify the current checkout.");
+            }
+            const guardPath = path.join(currentWorkspace, "scripts", "promotion-workflow-json-guard.mjs");
+            const { parsePromotionWorkflowJsonBytes } = await import(pathToFileURL(guardPath).href);
             if (!path.isAbsolute(artifactRoot) || realpathSync(artifactRoot) !== artifactRoot) throw new Error("Artifact root is unsafe.");
             const expected = [
               "promotion-current-validation.v2.json",
@@ -310,7 +484,8 @@ jobs:
               "promotion-shadow-replay-receipt.v2.json",
               "promotion-fresh-verification.v2.json",
               "promotion-replay-verification.v2.json",
-              "promotion-canonical-verification.v2.json"
+              "promotion-canonical-verification.v2.json",
+              "promotion-required-check-decision.v1.json"
             ].sort();
             const supplied = artifactPaths.map((entry) => {
               if (!path.isAbsolute(entry) || path.dirname(entry) !== artifactRoot) throw new Error("Artifact path escapes its root.");
@@ -324,7 +499,7 @@ jobs:
               if (!entry.isFile() || entry.isSymbolicLink() || entry.nlink !== 1 || entry.size === 0 || realpathSync(artifactPath) !== artifactPath) {
                 throw new Error(`Unsafe Promotion artifact: ${artifactPath}`);
               }
-              JSON.parse(readFileSync(artifactPath, "utf8"));
+              parsePromotionWorkflowJsonBytes(readFileSync(artifactPath));
             }
           ' \
             "$PROMOTION_ARTIFACT_ROOT" \
@@ -333,7 +508,8 @@ jobs:
             "$PROMOTION_REPLAY_RECEIPT" \
             "$PROMOTION_FRESH_VERIFICATION" \
             "$PROMOTION_REPLAY_VERIFICATION" \
-            "$PROMOTION_CANONICAL_VERIFICATION"
+            "$PROMOTION_CANONICAL_VERIFICATION" \
+            "$PROMOTION_REQUIRED_CHECK_DECISION"
 
       - name: Upload Promotion Shadow gate artifacts
         if: ${{ always() && steps.assert-artifact-set.outcome == 'success' }}
@@ -348,27 +524,18 @@ jobs:
         if: ${{ always() }}
         run: |
           set -euo pipefail
-          node --input-type=module -e '
-            import { readFileSync } from "node:fs";
-            const [validationPath, freshPath, replayPath, canonicalPath, freshVerifyPath, replayVerifyPath, canonicalVerifyPath] = process.argv.slice(1);
-            const outcomes = {
-              currentValidation: JSON.parse(readFileSync(validationPath, "utf8")).result,
-              freshReceipt: JSON.parse(readFileSync(freshPath, "utf8")).result,
-              replayReceipt: JSON.parse(readFileSync(replayPath, "utf8")).result,
-              canonicalReceipt: JSON.parse(readFileSync(canonicalPath, "utf8")).result,
-              freshVerification: JSON.parse(readFileSync(freshVerifyPath, "utf8")).result,
-              replayVerification: JSON.parse(readFileSync(replayVerifyPath, "utf8")).result,
-              canonicalVerification: JSON.parse(readFileSync(canonicalVerifyPath, "utf8")).result
-            };
-            const nonPassing = Object.entries(outcomes).filter(([, result]) => result !== "pass");
-            if (nonPassing.length > 0) {
-              throw new Error(`Promotion Shadow Gate remains red: ${nonPassing.map(([name, result]) => `${name}=${String(result)}`).join(", ")}`);
-            }
-          ' \
-            "$PROMOTION_CURRENT_VALIDATION" \
-            "$PROMOTION_FRESH_RECEIPT" \
-            "$PROMOTION_REPLAY_RECEIPT" \
-            "$PROMOTION_CANONICAL_RECEIPT_COPY" \
-            "$PROMOTION_FRESH_VERIFICATION" \
-            "$PROMOTION_REPLAY_VERIFICATION" \
-            "$PROMOTION_CANONICAL_VERIFICATION"
+          node "scripts/promotion-required-check-semantic-rescope-cli.mjs" verify \
+            --repo "$GITHUB_WORKSPACE" \
+            --event-name "$GITHUB_EVENT_NAME" \
+            --event-path "$GITHUB_EVENT_PATH" \
+            --manifest "$PROMOTION_MANIFEST" \
+            --canonical-receipt-path "$PROMOTION_CANONICAL_RECEIPT" \
+            --current-validation "$PROMOTION_CURRENT_VALIDATION" \
+            --fresh-receipt "$PROMOTION_FRESH_RECEIPT" \
+            --replay-receipt "$PROMOTION_REPLAY_RECEIPT" \
+            --canonical-receipt-copy "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            --fresh-verification "$PROMOTION_FRESH_VERIFICATION" \
+            --replay-verification "$PROMOTION_REPLAY_VERIFICATION" \
+            --canonical-verification "$PROMOTION_CANONICAL_VERIFICATION" \
+            --decision "$PROMOTION_REQUIRED_CHECK_DECISION" \
+            --artifact-root "$PROMOTION_ARTIFACT_ROOT"

@@ -120,7 +120,7 @@ export type FeaturedLabDefinition = {
   californiaAlignment?: VisualizationCaliforniaAlignment;
   primaryForTopic: boolean;
   analyticsSource: LearningAnalyticsEventSource;
-  moduleId: VisualizationLabModuleId;
+  moduleId: VisualizationModuleId;
   templateId: VisualizationTemplateId;
   templateConfig: VisualizationTemplateConfig;
   threeD?: ThreeDVisualizationMetadata;
@@ -238,6 +238,35 @@ const templateMetadata: Record<
 };
 
 const configuredModuleId: VisualizationLabModuleId = "configured-visualization-lab";
+
+/**
+ * Topics whose dedicated lab is a better instrument than the shared template.
+ *
+ * The two-slider template surface cannot express some models: `base-ten` reduces
+ * place value to tens+ones (a ceiling of 99, in a lesson that teaches 1000) and
+ * `number-line` is integer-only (in a lesson that teaches tenths and hundredths).
+ * Purpose-built components for exactly these topics already exist and are tested,
+ * but nothing referenced them, so every learner got the weaker template. Routing
+ * the lab record at the component makes both surfaces — the lesson embed and the
+ * Visualization Lab page — resolve to the same, better instrument.
+ */
+const topicModuleOverrides: Partial<Record<string, VisualizationModuleId>> = {
+  "p1-counting-number-bonds": "coordinate-plane-demo",
+  "p1-addition-subtraction": "coordinate-plane-demo",
+  "p2-place-value": "coordinate-plane-demo",
+  "p4-decimals": "coordinate-plane-demo",
+  "p6-speed": "coordinate-plane-demo",
+  "p1-shapes-patterns": "geometry-explorer",
+  "p2-multiplication-foundations": "geometry-explorer",
+  "p2-length-data": "geometry-explorer",
+  "p3-fractions-intro": "geometry-explorer",
+  "p3-geometry-patterns": "geometry-explorer",
+  "p4-angles": "geometry-explorer",
+  "p4-perimeter-area": "geometry-explorer",
+  "p5-fractions-operations": "geometry-explorer",
+  "p5-volume": "geometry-explorer",
+  "p6-percentages": "function-model-comparer"
+};
 const signatureModuleId: VisualizationLabModuleId = "signature-lab";
 
 const hiddenVisualizationLabIds = new Set<string>();
@@ -2167,7 +2196,7 @@ function californiaSafeguardForTopic(
   topic: Topic,
   templateId: VisualizationTemplateId,
   qaProfile: VisualizationQaProfile,
-  moduleId: VisualizationLabModuleId
+  moduleId: VisualizationModuleId
 ): VisualizationSafeguardReview | undefined {
   if (!isCaliforniaTopic(topic)) return undefined;
 
@@ -2302,7 +2331,7 @@ function californiaStudentNoteForTopic(
   topic: Topic,
   alignment: VisualizationCaliforniaAlignment,
   templateId: VisualizationTemplateId,
-  moduleId: VisualizationLabModuleId
+  moduleId: VisualizationModuleId
 ): VisualizationStudentNote {
   const standards = alignment.standardIds.slice(0, 4).join(", ");
   const moreStandards = alignment.standardIds.length > 4 ? "..." : "";
@@ -2560,7 +2589,9 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   const standardThreeDLab = isStandardThreeDLab(topic.id);
   // Topics with a curated signature lab render that bench; every other topic
   // keeps the shared template renderer untouched.
-  const moduleId = hasSignatureLab(topic.id) ? signatureModuleId : configuredModuleId;
+  const moduleId: VisualizationModuleId = hasSignatureLab(topic.id)
+    ? signatureModuleId
+    : topicModuleOverrides[topic.id] ?? configuredModuleId;
   const californiaAlignment = californiaAlignmentForTopic(topic, templateId);
   const safeguard = californiaSafeguardForTopic(topic, templateId, template.qaProfile, moduleId);
   const threeDFamilyId = familyForVisualizationLab(topic.id, templateId);

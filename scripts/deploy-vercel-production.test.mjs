@@ -45,6 +45,7 @@ test("production child environments grant only purpose-specific credentials", ()
     GITHUB_WORKFLOW_REF:
       "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main",
     MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: "github-actions-serialized-v1",
+    MAIS_RELEASE_MIN_FREE_GB: "8",
     MAIS_ALLOW_EXTERNAL_ARTIFACTS: "1",
     MAIS_ALLOW_EXTERNAL_VERCEL_STAGING: "1",
     MAIS_OWNER_APPROVED_PRUNED_STAGING: "1",
@@ -125,6 +126,10 @@ test("production child environments grant only purpose-specific credentials", ()
   assert.equal(preflightEnv.GIT_CONFIG_VALUE_1, "/dev/null");
   assert.equal(preflightEnv.GITHUB_TOKEN, undefined);
   assert.equal(preflightEnv.MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM, undefined);
+  assert.equal(
+    preflightEnv.MAIS_RELEASE_MIN_FREE_GB,
+    fixture.MAIS_RELEASE_MIN_FREE_GB
+  );
   assert.equal(preflightEnv.MAIS_ALLOW_EXTERNAL_ARTIFACTS, undefined);
   assert.equal(preflightEnv.MAIS_ALLOW_EXTERNAL_VERCEL_STAGING, undefined);
   assert.equal(preflightEnv.MAIS_OWNER_APPROVED_PRUNED_STAGING, undefined);
@@ -135,6 +140,9 @@ test("production child environments grant only purpose-specific credentials", ()
     assert.equal(scoped.RESEND_API_KEY, undefined);
     assert.equal(scoped.AWS_SECRET_ACCESS_KEY, undefined);
     assert.equal(scoped.GH_TOKEN, undefined);
+  }
+  for (const scoped of [gitEnv, githubEnv, vercelEnv, schemaEnv, smokeEnv]) {
+    assert.equal(scoped.MAIS_RELEASE_MIN_FREE_GB, undefined);
   }
 });
 
@@ -289,7 +297,7 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   const expectedTreeSha = "b".repeat(40);
   const targetFingerprint = "c".repeat(64);
   const exactPostflight = {
-    schemaVersion: 2,
+    schemaVersion: 4,
     candidateSha,
     expectedTreeSha,
     projectId: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1",
@@ -298,18 +306,26 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
     teamSlug: "peter-dongpin-hu-s-projects",
     targetFingerprint,
     postgresMajor: 16,
+    appStorageSeedMode: "demo-enabled",
+    appStorageState: "exact",
+    outboxState: "exact",
     webhookState: "exact",
     heartbeatState: "exact",
     operations: [],
     statistics: { tableBytes: "4096", indexBytes: "2048", rowEstimate: "8" },
     preflightDigest: "d".repeat(64),
     requiredConfirmation:
-      `confirm:teacher-notice-production-schema:v2:${candidateSha}:must-not-be-recorded`
+      `confirm:mais-production-schema:v4:${candidateSha}:must-not-be-recorded`
   };
   const applyPayload = {
     candidateSha,
     expectedTreeSha,
-    operations: ["webhook-v2-to-v3", "heartbeat-install-v2"],
+    operations: [
+      "app-storage-install-v1",
+      "outbox-install-v2",
+      "webhook-install-v3",
+      "heartbeat-install-v2"
+    ],
     preflightDigest: "e".repeat(64),
     projectId: "prj_rjuY7fXculXzklpoG1L8xg7Tfdr1",
     teamId: "team_i9xhhYXUeYBOCLcfWBjTqlYG",
@@ -331,10 +347,25 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   );
   assert.deepEqual(applied.operations, applyPayload.operations);
   assert.equal(applied.targetFingerprint, targetFingerprint);
+  assert.equal(applied.postflight.outboxState, "exact");
+  assert.equal(applied.postflight.appStorageState, "exact");
+  assert.equal(applied.postflight.appStorageSeedMode, "demo-enabled");
   assert.equal(applied.postflight.webhookState, "exact");
   assert.equal(applied.sameConnectionPostflight.statistics.rowEstimate, "7");
   assert.equal(applied.postflight.statistics.rowEstimate, "8");
   assert.doesNotMatch(JSON.stringify(applied), /requiredConfirmation|must-not-be-recorded/u);
+
+  const repairedSessionLifecycle = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...applyPayload,
+      operations: ["app-storage-repair-parent-session-lifecycle-v3"]
+    }),
+    { candidateSha, expectedTreeSha, mode: "apply" }
+  );
+  assert.deepEqual(
+    repairedSessionLifecycle.operations,
+    ["app-storage-repair-parent-session-lifecycle-v3"]
+  );
 
   assert.throws(
     () => parseTeacherNoticeProductionSchemaGateEvidence(
@@ -360,6 +391,8 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
     { candidateSha, expectedTreeSha, mode: "preflight", targetFingerprint }
   );
   assert.equal(preflight.webhookState, "exact");
+  assert.equal(preflight.appStorageState, "exact");
+  assert.equal(preflight.outboxState, "exact");
   assert.deepEqual(preflight.operations, []);
   assert.doesNotMatch(JSON.stringify(preflight), /requiredConfirmation/u);
   assert.throws(
@@ -385,6 +418,189 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   assert.equal(migratingHeartbeat.heartbeatState, "v1");
   assert.deepEqual(migratingHeartbeat.operations, ["heartbeat-v1-to-v2"]);
 
+  const installingAppStorage = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "empty",
+      operations: ["app-storage-install-v1"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(installingAppStorage.appStorageState, "empty");
+  assert.deepEqual(installingAppStorage.operations, ["app-storage-install-v1"]);
+
+  const completingAppStorageReadiness = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-no-readiness-marker",
+      operations: ["app-storage-complete-readiness-v1"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    completingAppStorageReadiness.appStorageState,
+    "legacy-no-readiness-marker"
+  );
+  assert.deepEqual(
+    completingAppStorageReadiness.operations,
+    ["app-storage-complete-readiness-v1"]
+  );
+
+  const upgradingLegacyV1Compatibility = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-v1-compatibility-no-readiness-marker",
+      operations: ["app-storage-upgrade-legacy-compat-readiness-v2"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    upgradingLegacyV1Compatibility.appStorageState,
+    "legacy-v1-compatibility-no-readiness-marker"
+  );
+  assert.deepEqual(
+    upgradingLegacyV1Compatibility.operations,
+    ["app-storage-upgrade-legacy-compat-readiness-v2"]
+  );
+
+  const repairingMissingCollections = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-missing-collections-no-readiness-marker",
+      operations: ["app-storage-repair-missing-collections-v1"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingMissingCollections.appStorageState,
+    "legacy-missing-collections-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingMissingCollections.operations,
+    ["app-storage-repair-missing-collections-v1"]
+  );
+
+  const repairingGuardianInvitations = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-missing-guardian-invitations-no-readiness-marker",
+      operations: ["app-storage-repair-missing-collections-v2"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingGuardianInvitations.appStorageState,
+    "legacy-missing-guardian-invitations-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingGuardianInvitations.operations,
+    ["app-storage-repair-missing-collections-v2"]
+  );
+
+  const repairingParentSessionLifecycle = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+      operations: ["app-storage-repair-parent-session-lifecycle-v3"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingParentSessionLifecycle.appStorageState,
+    "legacy-parent-session-lifecycle-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingParentSessionLifecycle.operations,
+    ["app-storage-repair-parent-session-lifecycle-v3"]
+  );
+
+  const repairingParentSessionLifecycleWithOtherOperations =
+    parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...exactPostflight,
+        appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+        outboxState: "empty",
+        webhookState: "empty",
+        heartbeatState: "empty",
+        operations: [
+          "app-storage-repair-parent-session-lifecycle-v3",
+          "outbox-install-v2",
+          "webhook-install-v3",
+          "heartbeat-install-v2"
+        ],
+        mode: "preflight",
+        mutation: false,
+        network: true,
+        ok: true
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    );
+  assert.deepEqual(
+    repairingParentSessionLifecycleWithOtherOperations.operations,
+    [
+      "app-storage-repair-parent-session-lifecycle-v3",
+      "outbox-install-v2",
+      "webhook-install-v3",
+      "heartbeat-install-v2"
+    ]
+  );
+
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...exactPostflight,
+        appStorageState: "legacy-missing-guardian-invitations-no-readiness-marker",
+        operations: ["app-storage-repair-missing-collections-v1"],
+        mode: "preflight",
+        mutation: false,
+        network: true,
+        ok: true
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...exactPostflight,
+        appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+        operations: ["app-storage-repair-missing-collections-v2"],
+        mode: "preflight",
+        mutation: false,
+        network: true,
+        ok: true
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+
   assert.throws(
     () => parseTeacherNoticeProductionSchemaGateEvidence(
       JSON.stringify({
@@ -403,6 +619,25 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
         heartbeatState: "v1",
         operations: []
       }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...preflightPayload,
+        schemaVersion: 3,
+        requiredConfirmation:
+          `confirm:teacher-notice-production-schema:v3:${candidateSha}:legacy`
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({ ...preflightPayload, outboxState: undefined }),
       { candidateSha, expectedTreeSha, mode: "preflight" }
     ),
     /schema gate evidence/u
@@ -709,6 +944,25 @@ test("production inspect JSON binds immutable provider fields while marking Git 
       /inspect evidence failed/u
     );
   }
+});
+
+test("production inspect accepts current CLI metadata omission without claiming metadata proof", () => {
+  const candidateSha = "c".repeat(40);
+  const deploymentUrl = "https://candidate-production.vercel.app";
+  const evidence = parseVercelInspectEvidence(JSON.stringify({
+    id: "dpl_ProductionFixture123",
+    url: "candidate-production.vercel.app",
+    readyState: "READY",
+    target: "production"
+  }), {
+    candidateSha,
+    deploymentUrl,
+    target: "production"
+  });
+
+  assert.equal(evidence.metadataVerified, false);
+  assert.equal(evidence.deploymentId, "dpl_ProductionFixture123");
+  assert.equal(evidence.providerGitShaVerified, false);
 });
 
 test("production rollback restores only this candidate and never overwrites unrelated alias drift", () => {

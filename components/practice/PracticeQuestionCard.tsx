@@ -26,7 +26,7 @@ import { isYoungLearnerPracticeGrade } from "@/lib/youngLearnerPractice";
 import { cn } from "@/lib/utils";
 import { CountingDotCards } from "@/components/practice/CountingDotCards";
 import { QuestionFigure, type QuestionFigureVariant } from "@/components/practice/QuestionFigure";
-import type { AttemptFeedback, Language, LocalizedText, PublicQuestion, QuestionType } from "@/types";
+import type { AttemptFeedback, AttemptSubmissionResponse, Language, LocalizedText, PublicQuestion, QuestionType } from "@/types";
 
 type AnswerInputMode = "keyboard" | "handwriting";
 type AnswerControl = HTMLInputElement | HTMLTextAreaElement;
@@ -244,12 +244,13 @@ function revokePhotoAttachments(attachments: PhotoAttachment[]) {
   attachments.forEach((attachment) => URL.revokeObjectURL(attachment.url));
 }
 
-function readAttemptFeedback(value: unknown): AttemptFeedback | null {
-  const feedback = value as Partial<AttemptFeedback> | null;
+function readAttemptFeedback(value: unknown): AttemptSubmissionResponse | null {
+  const feedback = value as Partial<AttemptSubmissionResponse> | null;
   const explanation = feedback?.explanation as Partial<AttemptFeedback["explanation"]> | undefined;
 
   if (
     typeof feedback?.correct !== "boolean" ||
+    typeof feedback.persisted !== "boolean" ||
     typeof explanation?.en !== "string" ||
     typeof explanation?.zh !== "string" ||
     (typeof feedback.correctAnswer !== "undefined" && typeof feedback.correctAnswer !== "string")
@@ -263,7 +264,8 @@ function readAttemptFeedback(value: unknown): AttemptFeedback | null {
       en: explanation.en,
       zh: explanation.zh
     },
-    correctAnswer: feedback.correctAnswer
+    correctAnswer: feedback.correctAnswer,
+    persisted: feedback.persisted
   };
 }
 
@@ -556,6 +558,13 @@ export function PracticeQuestionCard({
 
       if (!response.ok || !result) {
         throw new Error("Could not check this answer yet.");
+      }
+      if (!result.persisted) {
+        throw new Error(t({
+          en: "Your answer was checked but could not be saved. Please try again.",
+          zh: "答案已核對，但未能儲存。請再試一次。",
+          zhHans: "答案已核对，但未能保存。请重试。"
+        }));
       }
 
       refreshMistakeRecordsAfterAttempt();

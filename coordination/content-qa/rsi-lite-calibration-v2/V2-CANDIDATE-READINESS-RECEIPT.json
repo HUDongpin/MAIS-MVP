@@ -1,0 +1,86 @@
+{
+  "receiptType": "MAIS_RSI_LITE_V2_CANDIDATE_READINESS",
+  "issuedAt": "2026-08-24T07:22:16Z",
+  "issuerLane": "A16",
+  "protocolId": "MAIS-RSI-LITE-CAL-V2",
+  "protocolVersion": "2.0.0-candidate",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "status": "candidate-only-offline-ready-not-executed",
+  "reviewerProviderContract": {
+    "provider": "DeepSeek",
+    "model": "deepseek-v4-pro",
+    "role": "machine-quality-reviewer",
+    "questionGenerationAuthorized": false,
+    "questionMutationAuthorized": false
+  },
+  "design": {
+    "regions": [
+      "CA",
+      "HK",
+      "MAINLAND"
+    ],
+    "latentBundlesPerRegion": 8,
+    "latentBundleCount": 24,
+    "arms": [
+      "A_PRIME",
+      "B_PRIME",
+      "C0_PRIME"
+    ],
+    "packageRunCount": 72,
+    "successfulCoreProviderCalls": 168,
+    "successfulRepeatProviderCalls": 21,
+    "successfulCorePlusRepeatProviderCalls": 189,
+    "cIsolationArmOmitted": true
+  },
+  "ownerEnvelopeProposal": {
+    "authorizationStatus": "proposal-only-not-authorized",
+    "estimatedCoreCostUsd": 13.94492,
+    "estimatedRepeatCostUsd": 1.743115,
+    "estimatedCorePlusRepeatCostUsd": 15.688035,
+    "currencyCapUsd": 25,
+    "providerCallCap": 220,
+    "tokenCap": 40000000,
+    "retryCallReserve": 31,
+    "requiresFreshOwnerSignature": true
+  },
+  "verification": {
+    "v2TestsPassed": 23,
+    "v2TestsFailed": 0,
+    "productionModulesSyntaxChecked": 5,
+    "offlineDesignAuditIssues": 0,
+    "liveExecutionPatternsFound": 0,
+    "v1FocusedRegressionPassedInManagedSandbox": 31,
+    "v1FocusedRegressionEnvironmentBlockedInManagedSandbox": 1,
+    "v1EnvironmentBlockedTestPassedOnEscalatedReplay": 1
+  },
+  "artifactSha256": {
+    "protocol-design.mjs": "add975e5d8ca12644c2eeab795c9d39652a0d277185a6fef76c0129d8e180cb3",
+    "role-contract.mjs": "ff6ceac7b3badd91155ba98eec8028133532ccf6b64ffeb503b70c42e3b1e164",
+    "deterministic-baseline.mjs": "47a4f98546caafe3b822e3bfe7709839bcb0ff650f3cfd2e8860884e59d9969b",
+    "scoring.mjs": "3f1413d225be6d41fda12d81699200e678c8e051b099a2c9bfb66571ddd01ca4",
+    "call-record-contract.mjs": "7e192489b3ce4406c79477324a032d59c54831d1190da0068f11a121017e4221",
+    "NEXT-RUN-PROTOCOL.md": "7e9627f77fb994f6e742e33ed088abacab315b8a3e30d6cf557a9ecc3f9bf8f0"
+  },
+  "frozenF3Bindings": {
+    "reportSha256": "8477c1412adcb9ca162abc5b8e9875a4a8080fa5fcfd7234eb8e39f0f4918f7b",
+    "scoreResultSha256": "d38b7a749f957f553ec629ad5da0c3dd3820fa745482832a99b7b2f03751da9d",
+    "campaignReceiptSha256": "b93ac1f8e42e197b70aea93bea401d5e05d5a3abf697e8fac31fc4c797831bfa",
+    "mutableByV2": false
+  },
+  "humanEvidencePolicy": {
+    "namedHumanReceiptRequired": false,
+    "perQuestionHumanReleaseGate": false,
+    "independentNaturalSampleLabelsRequiredForGeneralizationClaim": true,
+    "naturalSampleTargetQuestionCount": 180
+  },
+  "authorizationBoundary": {
+    "liveProviderAuthorized": false,
+    "formal168CallCoreAuthorized": false,
+    "repeat21CallSupplementAuthorized": false,
+    "deploymentAuthorized": false,
+    "candidateToLivePromotionAuthorized": false,
+    "gitCommitAuthorized": false,
+    "gitPushAuthorized": false,
+    "separateOwnerExecutionAuthorizationRequired": true
+  }
+}

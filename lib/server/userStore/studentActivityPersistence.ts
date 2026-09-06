@@ -8,6 +8,7 @@ import {
   normalizeStoredCurriculumProfile
 } from "@/lib/curriculumProfile";
 import { difficultyMatchesActiveFilter, mapDifficultyToActive } from "@/lib/difficulty";
+import { toPrcSimplifiedText } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { analyticsWindowDays, exportLearningAnalyticsSummary, summarizeLearningAnalytics } from "@/lib/learningAnalytics";
 import { isSafeMediaObjectKey, mediaObjectAccessUrl } from "@/lib/server/mediaObjectStore";
@@ -1347,12 +1348,14 @@ function assignmentForDatabase(
     title: {
       en: titleEn,
       zh: titleZh,
-      zhHans: record.title_zh_hans ?? titleZh
+      // Falling back to the raw Traditional value would ship Traditional to zh-Hans users AND
+      // defeat textForLanguage's converter fallback, which only runs when zhHans is absent.
+      zhHans: record.title_zh_hans ?? toPrcSimplifiedText(titleZh)
     },
     description: {
       en: descriptionEn,
       zh: descriptionZh,
-      zhHans: record.description_zh_hans ?? descriptionZh
+      zhHans: record.description_zh_hans ?? toPrcSimplifiedText(descriptionZh)
     },
     contentType: record.content_type,
     targetId: record.target_id,

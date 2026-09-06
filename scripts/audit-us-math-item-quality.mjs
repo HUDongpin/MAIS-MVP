@@ -22,12 +22,17 @@
 //                       mathFact.expected, mathFact.actual, and the answer key.
 //   PASS C (all packs)  arithmetic claims inside explanations ("a op b = c")
 //                       re-verified exactly.
+//   PASS P (platform)   solvability provenance for every live question pack
+//                       (US, HK EASE, Mainland): counts how many rows are
+//                       independently verified vs package-claimed vs
+//                       self-referential, ratcheted against the committed
+//                       scripts/solvability-provenance-baseline.json.
 //
-// Usage: node scripts/audit-us-math-item-quality.mjs [--json out.json]
+// Usage: node scripts/audit-us-math-item-quality.mjs [--json out.json] [--write-provenance-baseline]
 // Exits non-zero when any P0/P1 finding exists so it can run as a gate.
 
 import { createRequire } from "node:module";
-import { writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
 const require = createRequire(import.meta.url);
 
@@ -89,6 +94,51 @@ const packs = [
     pack: flPack,
     questions: floridaQuestions(flPack)
   }
+];
+
+// ---------- PASS P: solvability provenance (platform-wide, all live packs) ----------
+// The runtime solvability gate (lib/questionBankSolvability.ts) compares each
+// question's answer against an "independentAnswer" that most per-track wrappers
+// copy from the answer key itself (data/mainlandBnuHighQuestions.ts:117 sets
+// `independentAnswer: question.answer`; the US wrappers force the same copy for
+// every multiple-choice item and fall back to the key when the pack field is
+// missing). Measured 2026-08-26: 24,502 of 24,566 rows platform-wide were
+// self-verified, so a green solvability report proves nothing for those rows.
+// This pass makes provenance explicit for every live question pack and ratchets
+// it against a committed baseline: an item only counts as independently
+// verified when a prompt-reading solver in THIS script re-derived its answer
+// without touching the key; an in-pack second source that differs textually
+// from the key counts as package-claimed (a weaker signal, still not a proof);
+// everything else is self-referential and certifies nothing.
+const independentlyVerifiedIds = new Set();
+const provenancePacks = [
+  ...packs.map(({ name, pack, questions }) => ({
+    name,
+    questions: questions ?? pack.questions,
+    secondSource: "independent-answer-field"
+  })),
+  {
+    name: "hk-ease-practice-bank-v1",
+    questions: require("../data/generated-content/hk-ease-practice-bank-v1/question-pack.json").questions,
+    // The pack builder shipped qa.independentAnswer as the canonical answer, so
+    // only the publisher's qa.standardAnswer is a genuine second source.
+    secondSource: "hk-qa-standard-answer"
+  },
+  ...[
+    ["mainland-bnu-high-generated-bank-v1-1500", "question-pack.approved.json"],
+    ["mainland-bnu-junior-generated-bank-v1-1500", "approved-question-pack.json"],
+    ["mainland-bnu-primary-generated-bank-v1-1500", "question-pack.json"],
+    ["mainland-bnu-primary-generated-bank-v2-1500", "question-pack.json"],
+    ["mainland-hjb-high-generated-bank-v2", "question-pack.json"],
+    ["mainland-hjb-junior-generated-bank-v2-1500", "question-pack.json"],
+    ["mainland-hjb-primary-generated-bank-v1-1500", "question-pack.json"],
+    ["mainland-pep-junior-generated-bank-v2-1200", "question-pack.json"]
+  ].map(([dir, file]) => ({
+    name: dir,
+    questions: require(`../data/generated-content/${dir}/${file}`).questions,
+    // Mainland packs carry no second answer source; the wrappers copy the key.
+    secondSource: "none"
+  }))
 ];
 
 const findings = [];
@@ -824,8 +874,10 @@ function auditArithmeticClaims(question, { includeIndependentSolution = true } =
 
 // ---------- reasoning-leakage check ----------
 // Generated items occasionally retain the generator's chain-of-thought
-// ("...= 26? Wait recalc: ..."). Student-visible fields must never carry it.
-const LEAK_RE = /\bwait,|\bwait recalc|\brecalc\b|\brecompute\b|\bhmm\b|\boops\b|let me re|let's re-?c/i;
+// ("...= 26? Wait recalc: ..." or "...= 26? Actually -128+240=112...").
+// Student-visible fields must never carry it.
+const LEAK_RE =
+  /\bwait,|\bwait no\b|\bwait recalc|\brecalc\b|\brecompute\b|\bhmm\b|\boops\b|let me re|let's re-?c|\?\s*actually\b|\bactually,? that(?:'s| is) (?:not )?(?:correct|right|wrong)\b|\bscratch that\b|\bon second thought\b/i;
 
 function auditReasoningLeakage(question) {
   const visible = [question.prompt?.en, question.explanation?.en].filter(Boolean).join(" || ");
@@ -870,6 +922,7 @@ function auditTemplated(question) {
       flag(question, "B", "P0", "wrong-answer", `expected "${expectedText}", stored "${answer}"`);
     } else {
       templateStats.solved += 1;
+      independentlyVerifiedIds.add(question.id);
     }
     return;
   }
@@ -890,6 +943,7 @@ function auditTemplated(question) {
     );
   } else {
     templateStats.solved += 1;
+    independentlyVerifiedIds.add(question.id);
     if (/simplest form|Give a fraction/i.test(question.prompt.en) && !isSimplestFraction(answer)) {
       flag(question, "B", "P1", "not-simplest-form", `answer "${answer}" is not in simplest form but prompt requires it`);
     }
@@ -923,6 +977,8 @@ function auditInferred(question, stats) {
       "inferred-answer-mismatch",
       `solver ${inferred.solvers.join("+")} gives ${inferred.value}, stored answer "${question.answer}"`
     );
+  } else {
+    independentlyVerifiedIds.add(question.id);
   }
 }
 
@@ -978,6 +1034,7 @@ function auditMathFact(question) {
     flag(question, "B", "P0", "mathfact-mismatch", problems.join("; "));
   } else {
     mathFactStats.verified += 1;
+    independentlyVerifiedIds.add(question.id);
   }
 }
 
@@ -998,6 +1055,92 @@ for (const { name, mode, pack, questions } of packs) {
   }
 }
 
+// ---------- PASS P execution: classify, then ratchet against the baseline ----------
+
+function classifyProvenance(question, secondSource) {
+  if (independentlyVerifiedIds.has(question.id)) return "independent";
+  const answer = String(question.answer ?? "").trim();
+  if (secondSource === "independent-answer-field") {
+    // The wrappers force independentAnswer = answer for every multiple-choice
+    // item, so a distinct pack field would be discarded at runtime anyway.
+    if (question.type === "multiple-choice") return "selfReferential";
+    const claimed = String(question.independentAnswer ?? "").trim();
+    if (!claimed || claimed === answer) return "selfReferential";
+    return "packageClaimed";
+  }
+  if (secondSource === "hk-qa-standard-answer") {
+    const standard = String(question.qa?.standardAnswer ?? "").trim();
+    if (standard && standard !== answer) return "packageClaimed";
+    return "selfReferential";
+  }
+  return "selfReferential";
+}
+
+const provenance = {};
+for (const { name, questions, secondSource } of provenancePacks) {
+  const counts = { independent: 0, packageClaimed: 0, selfReferential: 0 };
+  for (const question of questions) counts[classifyProvenance(question, secondSource)] += 1;
+  provenance[name] = counts;
+}
+
+const provenanceBaselineUrl = new URL("./solvability-provenance-baseline.json", import.meta.url);
+const writeProvenanceBaseline = process.argv.includes("--write-provenance-baseline");
+const provenanceBaseline = existsSync(provenanceBaselineUrl)
+  ? JSON.parse(readFileSync(provenanceBaselineUrl, "utf8"))
+  : {};
+for (const [name, counts] of Object.entries(provenance)) {
+  const base = provenanceBaseline[name];
+  if (!base) {
+    if (!writeProvenanceBaseline) {
+      findings.push({
+        pack: name,
+        id: name,
+        pass: "P",
+        severity: "P1",
+        issue: "unbaselined-pack",
+        detail: "no provenance baseline entry; run --write-provenance-baseline and commit the baseline change deliberately"
+      });
+    }
+    continue;
+  }
+  if (counts.selfReferential > base.selfReferential) {
+    findings.push({
+      pack: name,
+      id: name,
+      pass: "P",
+      severity: "P1",
+      issue: "provenance-regression",
+      detail: `self-referential rows grew ${base.selfReferential} -> ${counts.selfReferential}; new items need an independent solver or a distinct in-pack answer source`
+    });
+  }
+  if (counts.independent < base.independent) {
+    findings.push({
+      pack: name,
+      id: name,
+      pass: "P",
+      severity: "P1",
+      issue: "provenance-regression",
+      detail: `independently verified rows shrank ${base.independent} -> ${counts.independent}`
+    });
+  }
+}
+for (const name of Object.keys(provenanceBaseline)) {
+  if (!provenance[name]) {
+    findings.push({
+      pack: name,
+      id: name,
+      pass: "P",
+      severity: "P1",
+      issue: "missing-baselined-pack",
+      detail: "pack has a provenance baseline entry but is no longer audited; remove the entry deliberately"
+    });
+  }
+}
+if (writeProvenanceBaseline) {
+  writeFileSync(provenanceBaselineUrl, `${JSON.stringify(provenance, null, 2)}\n`);
+  console.log("Wrote scripts/solvability-provenance-baseline.json");
+}
+
 // ---------- report ----------
 
 const bySeverity = { P0: 0, P1: 0, P2: 0 };
@@ -1013,6 +1156,20 @@ for (const [name, stats] of Object.entries(inferStats)) {
   );
 }
 console.log(`FL mathFact pass: ${mathFactStats.verified} verified, ${mathFactStats.unparsed} unparsed, ${mathFactStats.mismatched} mismatched`);
+const provenanceTotals = { independent: 0, packageClaimed: 0, selfReferential: 0 };
+for (const counts of Object.values(provenance)) {
+  provenanceTotals.independent += counts.independent;
+  provenanceTotals.packageClaimed += counts.packageClaimed;
+  provenanceTotals.selfReferential += counts.selfReferential;
+}
+console.log(
+  `Provenance pass (${provenancePacks.length} live packs): ${provenanceTotals.independent} independently verified, ` +
+    `${provenanceTotals.packageClaimed} package-claimed, ${provenanceTotals.selfReferential} self-referential ` +
+    `(self-referential rows certify nothing; see scripts/solvability-provenance-baseline.json)`
+);
+for (const [name, counts] of Object.entries(provenance)) {
+  console.log(`  ${name}: ${counts.independent} independent, ${counts.packageClaimed} package-claimed, ${counts.selfReferential} self-referential`);
+}
 console.log(`Findings: ${findings.length} (P0: ${bySeverity.P0}, P1: ${bySeverity.P1}, P2: ${bySeverity.P2})`);
 for (const finding of findings) {
   console.log(`  [${finding.severity}][pass ${finding.pass}] ${finding.id}: ${finding.issue} — ${finding.detail}`);
@@ -1020,7 +1177,7 @@ for (const finding of findings) {
 
 const jsonIndex = process.argv.indexOf("--json");
 if (jsonIndex !== -1 && process.argv[jsonIndex + 1]) {
-  writeFileSync(process.argv[jsonIndex + 1], JSON.stringify({ summary: bySeverity, templateStats, inferStats, mathFactStats, findings }, null, 2));
+  writeFileSync(process.argv[jsonIndex + 1], JSON.stringify({ summary: bySeverity, templateStats, inferStats, mathFactStats, provenance, findings }, null, 2));
   console.log(`Wrote ${process.argv[jsonIndex + 1]}`);
 }
 

@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+import { reportClientErrorPayload } from "@/lib/observability/browserReporter";
+import { readErrorString } from "@/lib/observability/errorPolicy";
+
 type GlobalErrorProps = {
   error: Error & { digest?: string };
   reset: () => void;
@@ -39,7 +43,11 @@ const buttonStyle = {
   padding: "12px 20px"
 } as const;
 
-export default function GlobalError({ reset }: GlobalErrorProps) {
+export default function GlobalError({ error, reset }: GlobalErrorProps) {
+  useEffect(() => {
+    reportClientErrorPayload({ name: readErrorString(error, "name"), message: readErrorString(error, "message"),
+      route: window.location.pathname, source: "global-error-boundary" });
+  }, [error]);
   return (
     <html lang="en">
       <body style={pageStyle}>

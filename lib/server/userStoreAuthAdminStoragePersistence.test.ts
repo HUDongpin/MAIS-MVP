@@ -405,8 +405,10 @@ test("canonical postgres bootstrap is the only metadata DDL path and writes the 
     "async function bootstrapPostgresStateTables()",
     "const ensurePostgresStateTable"
   );
-  const timeoutIndex = canonicalBootstrapSource.indexOf("set_config('lock_timeout', '1000ms', true)");
-  const statementTimeoutIndex = canonicalBootstrapSource.indexOf("set_config('statement_timeout', '5000ms', true)");
+  const defaultTimeoutIndex = canonicalBootstrapSource.indexOf('lockTimeout: "1000ms"');
+  const defaultStatementTimeoutIndex = canonicalBootstrapSource.indexOf('statementTimeout: "5000ms"');
+  const timeoutIndex = canonicalBootstrapSource.indexOf("set_config('lock_timeout', ${lockTimeout}, true)");
+  const statementTimeoutIndex = canonicalBootstrapSource.indexOf("set_config('statement_timeout', ${statementTimeout}, true)");
   const advisoryLockIndex = canonicalBootstrapSource.indexOf("pg_advisory_xact_lock");
   const appStateDdlIndex = canonicalBootstrapSource.indexOf("CREATE TABLE IF NOT EXISTS public.app_state");
   const earlyPhysicalAttestationIndex = canonicalBootstrapSource.indexOf(
@@ -427,6 +429,8 @@ test("canonical postgres bootstrap is the only metadata DDL path and writes the 
 
   assert.ok(timeoutIndex >= 0);
   assert.ok(statementTimeoutIndex >= 0);
+  assert.ok(defaultTimeoutIndex >= 0);
+  assert.ok(defaultStatementTimeoutIndex >= 0);
   assert.ok(advisoryLockIndex > statementTimeoutIndex);
   assert.ok(appStateDdlIndex > advisoryLockIndex);
   assert.ok(earlyPhysicalAttestationIndex > appStateDdlIndex);

@@ -47,8 +47,16 @@ const knownAnswerUnitWords = new Set([
   "degrees",
   "degree",
   "dollars",
+  "g",
+  "grams",
   "items",
+  "kg",
+  "km",
+  "l",
+  "m",
   "minutes",
+  "ml",
+  "mm",
   "pencils",
   "shells",
   "side",
@@ -58,18 +66,75 @@ const knownAnswerUnitWords = new Set([
   "units"
 ]);
 
+// Hong Kong packs write the unit into the answer key in Chinese ("25厘米"), and
+// a learner reasonably types the bare number. stripKnownUnitSuffix only knows
+// English unit words, so the Chinese tail is handled separately. Longest units
+// first so "平方厘米" is not partially consumed as "厘米".
+const CHINESE_ANSWER_UNIT_PATTERN =
+  /(平方厘米|立方厘米|平方毫米|立方毫米|平方公尺|平方公分|平方米|立方米|平方公里|厘米|毫米|公里|千米|公斤|公升|毫升|分鐘|小時|港幣|人民幣|元|毫|仙|角|度|升|米|克|噸|秒|隻|個|本|人|歲|次|份|條|塊|張|枝|支|盒|袋|杯|瓶|組|件|面|棵|朵|輛|架|臺|台)$/;
+
+function chineseUnitOf(value: string) {
+  return value.trim().match(CHINESE_ANSWER_UNIT_PATTERN)?.[0] ?? null;
+}
+
+/**
+ * Drops a Chinese unit tail, but only when it is the unit the answer key itself
+ * uses. Stripping any unit from both sides would make "25公斤" match a key of
+ * "25厘米" — the learner would be credited for the wrong unit. Anchoring on the
+ * key's unit keeps the bare number correct while a mismatched unit stays wrong.
+ */
+function stripChineseUnitSuffix(value: string, unit: string | null) {
+  if (!unit) return null;
+  const trimmed = value.trim();
+  if (!trimmed.endsWith(unit) || trimmed === unit) return null;
+  const stripped = trimmed.slice(0, trimmed.length - unit.length).trim();
+  return stripped || null;
+}
+
+// NOTE: publisher keys also carry bilingual glosses — "東北 (Northeast)",
+// "120 (元/dollars)". Splitting those in the matcher is deliberately NOT done
+// here: distractors are routinely written as the key plus a parenthetical label
+// ("89°（少一步）", "(2,2) (one step short)"), and no syntactic rule separates a
+// gloss from such a label. Treating them alike makes a distractor grade correct
+// and trips the ambiguous-mc gate. Glossed keys are normalised in the data pack
+// instead, where the intent is known.
+
+// Answer keys imported from publisher packs are stored as display LaTeX rather
+// than as values, so "\frac{2}{3}" has to read as the "2/3" a learner types.
+// Expanded before whitespace collapsing so a mixed number keeps the single
+// space ("2\frac{1}{4}" -> "2 1/4") that parseMixedNumber depends on.
+function expandLatexFractions(value: string) {
+  let expanded = value;
+  for (let pass = 0; pass < 6; pass += 1) {
+    const next = expanded
+      .replace(/(\d)\s*\\d?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, "$1 $2/$3")
+      .replace(/\\d?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, "$1/$2");
+    if (next === expanded) break;
+    expanded = next;
+  }
+  return expanded;
+}
+
 export function normalizeAnswer(value: string) {
-  return value
-    .normalize("NFKC")
-    .trim()
-    .toLowerCase()
-    .replace(/[−–—]/g, "-")
-    .replace(/×/g, "*")
-    .replace(/÷/g, "/")
-    .replace(/\\[()]/g, "")
-    .replace(/\\,/g, " ")
-    .replace(/\\text\{([^{}]+)\}/g, "$1")
-    .replace(/\^\{([^{}]+)\}/g, "^$1")
+  const latexExpanded = expandLatexFractions(
+    value
+      .normalize("NFKC")
+      .trim()
+      .toLowerCase()
+      .replace(/[−–—]/g, "-")
+      .replace(/×/g, "*")
+      .replace(/÷/g, "/")
+      .replace(/\\left|\\right/g, "")
+      .replace(/\\[()[\]]/g, "")
+      .replace(/\\,|\\!|\\;/g, " ")
+      .replace(/\\text\{([^{}]+)\}/g, "$1")
+      .replace(/\\(?:mathbf|mathrm|boxed|bf|rm)\{([^{}]+)\}/g, "$1")
+      .replace(/\\times/g, "*")
+      .replace(/\\div/g, "/")
+      .replace(/\^\{([^{}]+)\}/g, "^$1")
+  );
+
+  return latexExpanded
     .replace(/\s+/g, " ")
     .replace(/\s*([=,+\-*/:^()])\s*/g, "$1")
     .replace(/\s*,\s*/g, ",")
@@ -298,11 +363,15 @@ function answerCandidateStrings(value: string) {
   return candidates;
 }
 
-function normalizedAnswerVariants(value: string) {
+function normalizedAnswerVariants(value: string, chineseUnit: string | null = null) {
   const variants = new Set<string>();
 
   for (const normalized of answerCandidateStrings(value)) {
     variants.add(normalized);
+
+    // "25厘米" — the bare number is the same answer.
+    const withoutChineseUnit = stripChineseUnitSuffix(normalized, chineseUnit);
+    if (withoutChineseUnit) variants.add(withoutChineseUnit);
 
     // A single terminal period is sentence punctuation, not answer content
     // ("marker.", "f.", "1.5.") — offer the stripped form as a variant.
@@ -344,8 +413,9 @@ function normalizedAnswerVariants(value: string) {
   return variants;
 }
 
-export function parseScalarAnswer(value: string) {
-  const normalizedText = unwrapFinalAnswerNotation(normalizeAnswer(value));
+export function parseScalarAnswer(value: string, chineseUnit: string | null = null) {
+  const unwrapped = unwrapFinalAnswerNotation(normalizeAnswer(value));
+  const normalizedText = stripChineseUnitSuffix(unwrapped, chineseUnit) ?? unwrapped;
   const englishNumber = parseEnglishNumberWords(normalizedText);
   if (englishNumber !== null) return englishNumber;
   const phraseFraction = parsePhraseFraction(normalizedText);
@@ -388,19 +458,22 @@ export function parseScalarAnswer(value: string) {
 }
 
 export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
-  const selectedVariants = normalizedAnswerVariants(selectedAnswer);
-  const acceptedVariants = normalizedAnswerVariants(acceptedAnswer);
+  // The key's own Chinese unit is the only one either side may shed, so the
+  // bare number grades correct while a mismatched unit still grades wrong.
+  const chineseUnit = chineseUnitOf(normalizeAnswer(acceptedAnswer));
+  const selectedVariants = normalizedAnswerVariants(selectedAnswer, chineseUnit);
+  const acceptedVariants = normalizedAnswerVariants(acceptedAnswer, chineseUnit);
 
   for (const variant of selectedVariants) {
     if (acceptedVariants.has(variant)) return true;
   }
 
   for (const selectedCandidate of answerCandidateStrings(selectedAnswer)) {
-    const selectedNumber = parseScalarAnswer(selectedCandidate);
+    const selectedNumber = parseScalarAnswer(selectedCandidate, chineseUnit);
     if (selectedNumber === null) continue;
 
     for (const acceptedCandidate of answerCandidateStrings(acceptedAnswer)) {
-      const acceptedNumber = parseScalarAnswer(acceptedCandidate);
+      const acceptedNumber = parseScalarAnswer(acceptedCandidate, chineseUnit);
       if (acceptedNumber !== null && Math.abs(selectedNumber - acceptedNumber) < 0.000001) return true;
     }
   }

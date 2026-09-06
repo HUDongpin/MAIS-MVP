@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "promotion-baseline-review-subject.v1",
+  "revisionRoot": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10",
+  "targetCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "fromCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "toCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "changedPathsDigest": "1efcc8580632949b601a0b6157c29ecc42426e7a48051f5f6affc327726a6b0b",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "liveAllowed": false,
+  "owner": "A23",
+  "targetPr": 224,
+  "creationDate": "2026-09-06",
+  "expectedCloseoutDate": "2026-09-07",
+  "closeoutBoundary": "E0/E1/B only; retained pending separately authorized Receipt storage and cleanup",
+  "requiredEvidenceRoles": [
+    "A04",
+    "A05",
+    "A11",
+    "A18",
+    "A21",
+    "A22",
+    "A23",
+    "A24",
+    "A25"
+  ],
+  "sourceManifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/promotion-manifest.v2.json",
+    "rawSha256": "a2dba5ce9e44c19d05852163a2b9fd1833aa3a97494c3b8680d0e048e6ceb5f5"
+  },
+  "runtimeChangedPathCount": 3,
+  "runtimeChangedPathsDigest": "56e1ff930485ef99ae9beed15995fbb0d8dbce52f1682c398ed5ca2efada06e8",
+  "testOnlyChangedPathCount": 2,
+  "testOnlyChangedPathsDigest": "7d354e6126741c519b30c04ada2b5d7817ab84ac2e783cbe20841cc9b6f6083e",
+  "allChangedPathCount": 58,
+  "runtimePolicyMode": "exact source-hash/position-only callsite rebinding",
+  "permittedPolicyChangedFields": [
+    "nextDynamicCallsiteDigest"
+  ],
+  "fullHistoryVerified": true,
+  "maxPlannedAbsolutePathBytes": 982,
+  "scope": {
+    "e0FileCount": 5,
+    "e1FileCount": 10,
+    "bFileCount": 5,
+    "receiptStorageAllowed": false,
+    "mergeAllowed": false,
+    "deployAllowed": false,
+    "cleanupAllowed": false
+  }
+}

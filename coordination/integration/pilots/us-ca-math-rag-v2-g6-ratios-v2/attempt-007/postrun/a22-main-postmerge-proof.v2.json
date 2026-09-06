@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "promotion-main-postmerge-proof.v2",
+  "role": "A22",
+  "result": "pass",
+  "repository": "HUDongpin/MAIS-MVP",
+  "branch": "main",
+  "event": "push",
+  "mergeCommit": "b7851a0f8a8f17dd1ef7d55168856be8668a84ef",
+  "workflowName": "promotion-shadow-gate",
+  "checkName": "promotion-shadow-gate",
+  "runId": "32943668444",
+  "runAttempt": 1,
+  "jobId": "98099727729",
+  "conclusion": "success",
+  "manifestRawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "semanticReceiptDigest": "8fd60bfdcc2c389da3614dcc4fddf99c4b27417f6625be30c453384b430987d2",
+  "requiredCheckObserved": true,
+  "liveAllowed": false,
+  "observedAt": "2026-08-26T07:45:58Z",
+  "url": "https://github.com/HUDongpin/MAIS-MVP/actions/runs/32943668444",
+  "trustBoundary": "Repository hash-bound readback record; GitHub API authenticity requires independent repository-admin readback."
+}

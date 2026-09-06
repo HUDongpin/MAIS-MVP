@@ -227,6 +227,44 @@ function topicLabelForQuestion(question: Question): LocalizedText {
   };
 }
 
+/**
+ * Deterministic option order for a multiple-choice question.
+ *
+ * Authored option order is not neutral: across the Hong Kong bank the correct
+ * option sat in slot A for 117 of 194 items — all 98 generated `supp-*` items
+ * put it there — so always tapping the first option scored 60%. Nothing in the
+ * serving path shuffled, so the bank was answerable without doing the maths.
+ *
+ * The order is derived from the question id, which keeps it stable across
+ * re-fetches, pagination and re-renders (a per-request shuffle would move the
+ * options under a learner mid-question) while removing the systematic bias.
+ * Grading is unaffected: `answerMatches` compares option TEXT, never index.
+ */
+function seededOptionOrder<T>(options: readonly T[], seedSource: string): T[] {
+  // FNV-1a over the question id, then mulberry32 for the draw.
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < seedSource.length; index += 1) {
+    hash ^= seedSource.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+
+  const shuffled = [...options];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    hash = (hash + 0x6d2b79f5) >>> 0;
+    let draw = hash;
+    draw = Math.imul(draw ^ (draw >>> 15), draw | 1) >>> 0;
+    draw ^= (draw + Math.imul(draw ^ (draw >>> 7), draw | 61)) >>> 0;
+    const swapWith = ((draw ^ (draw >>> 14)) >>> 0) % (index + 1);
+    [shuffled[index], shuffled[swapWith]] = [shuffled[swapWith], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function publicOptionsFor(question: Question) {
+  if (question.type !== "multiple-choice" || !question.options?.length) return question.options;
+  return seededOptionOrder(question.options, question.id);
+}
+
 function toPublicQuestion(question: Question): PublicQuestion {
   const profile = questionProfile(question);
   return {
@@ -242,7 +280,7 @@ function toPublicQuestion(question: Question): PublicQuestion {
     difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
     prompt: question.prompt,
-    options: question.options,
+    options: publicOptionsFor(question),
     diagram: question.diagram,
     questionAssets: question.questionAssets
   };

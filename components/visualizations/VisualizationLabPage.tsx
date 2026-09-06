@@ -127,6 +127,54 @@ const ConfiguredVisualizationLab = dynamic<LabComponentProps>(
 );
 
 /**
+ * Purpose-built lab instruments. A topic routed here by topicModuleOverrides in
+ * data/visualizationLabs.ts renders its dedicated model instead of the shared
+ * template — the template's two-slider surface cannot express place value to
+ * 1000 or a decimal number line. Loaded on their own chunks like every other lab.
+ */
+const CoordinatePlaneDemo = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/CoordinatePlaneDemo").then((module) =>
+    createRuntimeReadyLabComponent(module.CoordinatePlaneDemo as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const GeometryExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/GeometryExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.GeometryExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const FunctionModelComparer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/FunctionModelComparer").then((module) =>
+    createRuntimeReadyLabComponent(module.FunctionModelComparer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const FunctionGraphExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/FunctionGraphExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.FunctionGraphExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const ProbabilitySimulator = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/ProbabilitySimulator").then((module) =>
+    createRuntimeReadyLabComponent(module.ProbabilitySimulator as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const TrigWaveExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/TrigWaveExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.TrigWaveExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const CalculusStatsLab = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/CalculusStatsLab").then((module) =>
+    createRuntimeReadyLabComponent(module.CalculusStatsLab as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+/**
  * Signature labs (canvas benches ported from the Claude Math Visual library).
  * Each bench is ~50KB and is loaded on its own chunk, so a student downloads
  * only the lab they open. `createSignatureLab` supplies the host contracts the
@@ -1675,7 +1723,17 @@ const labComponentRegistry: Record<VisualizationLabModuleId, ComponentType<LabCo
   "configured-visualization-lab": ConfiguredVisualizationLab,
   // Resolved per-lab in componentForDirectoryLab; this entry is the safe
   // fallback if a lab is marked signature-lab without a curated assignment.
-  "signature-lab": ConfiguredVisualizationLab
+  "signature-lab": ConfiguredVisualizationLab,
+  // Purpose-built instruments for topics the two-slider template cannot express
+  // (see topicModuleOverrides in data/visualizationLabs.ts). Routed here so the
+  // lab page and the lesson embed show the same model for a topic.
+  "coordinate-plane-demo": CoordinatePlaneDemo,
+  "geometry-explorer": GeometryExplorer,
+  "function-model-comparer": FunctionModelComparer,
+  "function-graph-explorer": FunctionGraphExplorer,
+  "probability-simulator": ProbabilitySimulator,
+  "trig-wave-explorer": TrigWaveExplorer,
+  "calculus-stats-lab": CalculusStatsLab
 };
 
 function componentForDirectoryLab(lab: FeaturedLabDefinition | null) {

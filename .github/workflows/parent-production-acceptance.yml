@@ -1,0 +1,179 @@
+name: MAIS parent production acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Exact deployed production candidate SHA
+        required: true
+        type: string
+      candidate_tree_sha:
+        description: Exact deployed production candidate tree SHA
+        required: true
+        type: string
+      release_run_id:
+        description: Successful production release workflow run ID
+        required: true
+        type: string
+      release_run_attempt:
+        description: Successful production release workflow attempt
+        required: true
+        type: string
+      synthetic_test_family_id:
+        description: Dedicated mais-synthetic-family identifier
+        required: true
+        type: string
+      allow_production_writes:
+        description: Authorize writes only to the dedicated synthetic family
+        required: true
+        default: false
+        type: boolean
+      allow_resend_test_delivery:
+        description: Authorize one Resend delivered test-address flow
+        required: true
+        default: false
+        type: boolean
+      confirmation:
+        description: Exact target, family, candidate, and tree confirmation
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+# Serialize synthetic writes with schema/deploy/promotion. The acceptance job
+# never deploys, migrates, invokes cron, or rolls aliases.
+concurrency:
+  group: mais-production-schema-deploy-promote-v1
+  cancel-in-progress: false
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    environment: production-health
+    timeout-minutes: 45
+    steps:
+      - name: Check out protected-main acceptance tooling
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main tooling and exact deployed candidate
+        env:
+          ACCEPTANCE_CONFIRMATION: ${{ inputs.confirmation }}
+          ALLOW_PRODUCTION_WRITES: ${{ inputs.allow_production_writes }}
+          ALLOW_RESEND_TEST_DELIVERY: ${{ inputs.allow_resend_test_delivery }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          CANDIDATE_TREE_SHA: ${{ inputs.candidate_tree_sha }}
+          RELEASE_RUN_ATTEMPT: ${{ inputs.release_run_attempt }}
+          RELEASE_RUN_ID: ${{ inputs.release_run_id }}
+          SYNTHETIC_TEST_FAMILY_ID: ${{ inputs.synthetic_test_family_id }}
+        shell: bash
+        run: |-
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/parent-production-acceptance.yml@refs/heads/main"
+          test "$(git rev-parse --verify HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          tooling_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#tooling_tree_sha}" -eq 40
+          case "$tooling_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          test "${#CANDIDATE_SHA}" -eq 40
+          test "${#CANDIDATE_TREE_SHA}" -eq 40
+          case "$CANDIDATE_SHA$CANDIDATE_TREE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          case "$RELEASE_RUN_ID" in ''|*[!0-9]*) exit 1 ;; esac
+          case "$RELEASE_RUN_ATTEMPT" in ''|*[!0-9]*) exit 1 ;; esac
+          case "$SYNTHETIC_TEST_FAMILY_ID" in mais-synthetic-family-[a-z0-9][a-z0-9-][a-z0-9-]*) ;; *) exit 1 ;; esac
+          test "$ALLOW_PRODUCTION_WRITES" = "true"
+          test "$ALLOW_RESEND_TEST_DELIVERY" = "true"
+          expected_confirmation="ALLOW_MAIS_PARENT_PRODUCTION_ACCEPTANCE:$SYNTHETIC_TEST_FAMILY_ID:https://www.mais.hk:$CANDIDATE_SHA:$CANDIDATE_TREE_SHA"
+          test "$ACCEPTANCE_CONFIRMATION" = "$expected_confirmation"
+          printf '%s\n' "::add-mask::$ACCEPTANCE_CONFIRMATION"
+          {
+            printf '%s=%s\n' MAIS_PARENT_CANDIDATE_SHA "$CANDIDATE_SHA"
+            printf '%s=%s\n' MAIS_PARENT_CANDIDATE_TREE_SHA "$CANDIDATE_TREE_SHA"
+            printf '%s=%s\n' MAIS_PARENT_RELEASE_RUN_ID "$RELEASE_RUN_ID"
+            printf '%s=%s\n' MAIS_PARENT_RELEASE_RUN_ATTEMPT "$RELEASE_RUN_ATTEMPT"
+            printf '%s=%s\n' MAIS_PARENT_SYNTHETIC_FAMILY_ID "$SYNTHETIC_TEST_FAMILY_ID"
+            printf '%s=%s\n' MAIS_PARENT_ACCEPTANCE_CONFIRMATION "$ACCEPTANCE_CONFIRMATION"
+            printf '%s=%s\n' MAIS_PARENT_ACCEPTANCE_TARGET "https://www.mais.hk"
+            printf '%s=%s\n' MAIS_PARENT_TOOLING_TREE_SHA "$tooling_tree_sha"
+          } >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Download exact production release record
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_RUN_ATTEMPT: ${{ inputs.release_run_attempt }}
+          RELEASE_RUN_ID: ${{ inputs.release_run_id }}
+        shell: bash
+        run: |-
+          release_dir="$RUNNER_TEMP/mais-parent-production-release"
+          mkdir -p "$release_dir"
+          release_run_evidence="$RUNNER_TEMP/mais-parent-production-release-run.json"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RELEASE_RUN_ID" > "$release_run_evidence"
+          RELEASE_RUN_EVIDENCE="$release_run_evidence" node --input-type=module <<'NODE'
+          import fs from "node:fs";
+
+          const run = JSON.parse(fs.readFileSync(process.env.RELEASE_RUN_EVIDENCE, "utf8"));
+          if (
+            String(run?.id ?? "") !== process.env.RELEASE_RUN_ID ||
+            String(run?.run_attempt ?? "") !== process.env.RELEASE_RUN_ATTEMPT ||
+            run?.event !== "workflow_dispatch" ||
+            run?.status !== "completed" ||
+            run?.conclusion !== "success" ||
+            run?.head_sha !== process.env.MAIS_PARENT_CANDIDATE_SHA ||
+            run?.head_branch !== "main" ||
+            run?.path !== ".github/workflows/production-deploy.yml" ||
+            run?.name !== "MAIS production release" ||
+            run?.repository?.full_name !== process.env.GITHUB_REPOSITORY
+          ) {
+            throw new Error("Production release run binding failed.");
+          }
+          NODE
+          gh run download "$RELEASE_RUN_ID" \
+            --repo "$GITHUB_REPOSITORY" \
+            --name "mais-production-release-$RELEASE_RUN_ID-$RELEASE_RUN_ATTEMPT" \
+            --dir "$release_dir"
+          mapfile -d '' release_files < <(find "$release_dir" -maxdepth 1 -type f -name '*.json' -print0)
+          test "${#release_files[@]}" -eq 1
+          case "$(basename "${release_files[0]}")" in *-"$MAIS_PARENT_CANDIDATE_SHA".json) ;; *) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_PARENT_RELEASE_RECORD_PATH "${release_files[0]}" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_PARENT_ACCEPTANCE_REPORT_PATH "$RUNNER_TEMP/parent-production-acceptance-report.json" >> "$GITHUB_ENV"
+
+      - name: Run dedicated synthetic-family acceptance
+        env:
+          GITHUB_TOKEN: ${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}
+          MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE: github-production-health-v1
+          TEACHER_NOTICE_HEALTH_SECRET: ${{ secrets.TEACHER_NOTICE_HEALTH_SECRET }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        shell: bash
+        run: |-
+          node scripts/parent-production-acceptance.mjs \
+            --candidate-sha "$MAIS_PARENT_CANDIDATE_SHA" \
+            --tree-sha "$MAIS_PARENT_CANDIDATE_TREE_SHA" \
+            --release-record "$MAIS_PARENT_RELEASE_RECORD_PATH" \
+            --target "$MAIS_PARENT_ACCEPTANCE_TARGET" \
+            --synthetic-test-family-id "$MAIS_PARENT_SYNTHETIC_FAMILY_ID" \
+            --allow-production-writes \
+            --allow-resend-test-delivery \
+            --confirmation "$MAIS_PARENT_ACCEPTANCE_CONFIRMATION" \
+            > "$MAIS_PARENT_ACCEPTANCE_REPORT_PATH"
+
+      - name: Retain safe parent production acceptance report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: mais-parent-production-acceptance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.MAIS_PARENT_ACCEPTANCE_REPORT_PATH }}
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0

@@ -20,7 +20,7 @@ import type { StudentSession, TeacherClass, TeacherNavSignals } from "@/types";
 
 type TeacherNavItem = {
   href: string;
-  label: { en: string; zh: string };
+  label: { en: string; zh: string; zhHans?: string };
   activePaths: string[];
   icon: TeacherNavIconName;
   badge?: keyof TeacherNavSignals;
@@ -40,27 +40,27 @@ const teacherNavGroups: TeacherNavGroup[] = [
     items: [
       {
         href: "/teacher/dashboard",
-        label: { en: "Overview", zh: "總覽" },
+        label: { en: "Overview", zh: "總覽", zhHans: "总览" },
         activePaths: ["/teacher/dashboard"],
         icon: "overview"
       },
       {
         href: "/teacher/assignments",
-        label: { en: "Assignments", zh: "作業" },
+        label: { en: "Assignments", zh: "作業", zhHans: "作业" },
         activePaths: ["/teacher/assignments"],
         icon: "assignments",
         badge: "pendingGrading"
       },
       {
         href: "/teacher/communications/inbox",
-        label: { en: "Inbox", zh: "收件匣" },
+        label: { en: "Inbox", zh: "收件匣", zhHans: "收件匣" },
         activePaths: ["/teacher/communications"],
         icon: "inbox",
         badge: "unrepliedMessages"
       },
       {
         href: "/teacher/classroom-sessions",
-        label: { en: "Live", zh: "課堂模式" },
+        label: { en: "Live", zh: "課堂模式", zhHans: "课堂模式" },
         activePaths: ["/teacher/classroom-sessions"],
         icon: "live"
       }
@@ -71,19 +71,19 @@ const teacherNavGroups: TeacherNavGroup[] = [
     items: [
       {
         href: "/teacher/lesson-kits",
-        label: { en: "Lesson kits", zh: "備課包" },
+        label: { en: "Lesson kits", zh: "備課包", zhHans: "备课包" },
         activePaths: ["/teacher/lesson-kits"],
         icon: "lessonKits"
       },
       {
         href: "/teacher/assessments",
-        label: { en: "Assessments", zh: "測驗" },
+        label: { en: "Assessments", zh: "測驗", zhHans: "测验" },
         activePaths: ["/teacher/assessments"],
         icon: "assessments"
       },
       {
         href: "/teacher/resources",
-        label: { en: "Resources", zh: "資料庫" },
+        label: { en: "Resources", zh: "資料庫", zhHans: "资料库" },
         activePaths: ["/teacher/resources"],
         icon: "resources"
       }
@@ -94,32 +94,32 @@ const teacherNavGroups: TeacherNavGroup[] = [
     items: [
       {
         href: "/teacher/classes",
-        label: { en: "Classes", zh: "班級" },
+        label: { en: "Classes", zh: "班級", zhHans: "班级" },
         activePaths: ["/teacher/classes", "/teacher/students"],
         icon: "classes"
       },
       {
         href: "/teacher/analytics",
-        label: { en: "Analytics", zh: "學習分析" },
+        label: { en: "Analytics", zh: "學習分析", zhHans: "学习分析" },
         activePaths: ["/teacher/analytics"],
         icon: "analytics"
       },
       {
         href: "/teacher/gradebook",
-        label: { en: "Gradebook", zh: "成績冊" },
+        label: { en: "Gradebook", zh: "成績冊", zhHans: "成绩册" },
         activePaths: ["/teacher/gradebook"],
         icon: "gradebook"
       },
       {
         href: "/teacher/safety",
-        label: { en: "Safety alerts", zh: "安全警示" },
+        label: { en: "Safety alerts", zh: "安全警示", zhHans: "安全警示" },
         activePaths: ["/teacher/safety"],
         icon: "safety",
         badge: "openSafetyAlerts"
       },
       {
         href: "/teacher/rewards",
-        label: { en: "Rewards", zh: "積分獎勵" },
+        label: { en: "Rewards", zh: "積分獎勵", zhHans: "积分奖励" },
         activePaths: ["/teacher/rewards"],
         icon: "rewards"
       }
@@ -130,13 +130,13 @@ const teacherNavGroups: TeacherNavGroup[] = [
     items: [
       {
         href: "/teacher/reports",
-        label: { en: "Reports", zh: "報告" },
+        label: { en: "Reports", zh: "報告", zhHans: "报告" },
         activePaths: ["/teacher/reports"],
         icon: "reports"
       },
       {
         href: "/teacher/operations/notices",
-        label: { en: "School admin", zh: "校務行政" },
+        label: { en: "School admin", zh: "校務行政", zhHans: "校务行政" },
         activePaths: ["/teacher/operations"],
         icon: "operations"
       }
@@ -281,11 +281,11 @@ export function TeacherShell({
           <span className="flex min-w-0 items-center gap-3">
             <span className={cn("h-2 w-2 shrink-0 rounded-full", zoneBarClass[activeZone])} aria-hidden="true" />
             <span className="truncate text-sm font-black text-slate-950 dark:text-white">
-              {activeNavItem ? text(activeNavItem.label) : t({ en: "Teacher Console", zh: "教師工作台" })}
+              {activeNavItem ? text(activeNavItem.label) : t({ en: "Teacher Console", zh: "教師工作台", zhHans: "教师工作台" })}
             </span>
           </span>
           <span className="shrink-0 text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-            {mobileNavOpen ? t({ en: "Close", zh: "收起" }) : t({ en: "Menu", zh: "選單" })}
+            {mobileNavOpen ? t({ en: "Close", zh: "收起", zhHans: "收起" }) : t({ en: "Menu", zh: "選單", zhHans: "选单" })}
           </span>
         </button>
       </div>
@@ -298,14 +298,14 @@ export function TeacherShell({
         >
           <Link href="/teacher/dashboard" prefetch={isEmptyWorkspace ? false : undefined} className="focus-ring block rounded-2xl px-3 py-3 transition hover:bg-slate-950/[0.04] dark:hover:bg-white/[0.06]">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
-              {t({ en: "Teacher Console", zh: "教師工作台" })}
+              {t({ en: "Teacher Console", zh: "教師工作台", zhHans: "教师工作台" })}
             </p>
             <h2 className="mt-2 text-xl font-black text-slate-950 dark:text-white">
               {formatLearnerName(user.name, language)}
             </h2>
           </Link>
 
-          <nav className="mt-2 grid gap-1" aria-label={t({ en: "Teacher navigation", zh: "教師導覽" })}>
+          <nav className="mt-2 grid gap-1" aria-label={t({ en: "Teacher navigation", zh: "教師導覽", zhHans: "教师导览" })}>
             {teacherNavGroups.map((group) => (
               <div key={group.zone} className="mt-2 first:mt-0">
                 <p className={cn("flex items-center gap-2 px-4 pb-1.5 pt-2 text-[11px] font-black uppercase tracking-[0.18em]", zoneEyebrowClass[group.zone])}>
@@ -373,14 +373,14 @@ export function TeacherShell({
             <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(220px,300px)_minmax(0,1fr)_auto] xl:items-center">
               <label className="grid min-w-0 gap-2">
                 <span className="text-xs font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
-                  {t({ en: "Class focus", zh: "班級焦點" })}
+                  {t({ en: "Class focus", zh: "班級焦點", zhHans: "班级焦点" })}
                 </span>
                 <select
                   value={classFocusValue}
                   onChange={(event) => navigateWithParam("classId", event.target.value)}
                   className="focus-ring h-11 min-w-0 w-full rounded-2xl border border-slate-200/80 bg-white/80 px-3 text-sm font-bold text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
                 >
-                  <option value="all">{t({ en: "All classes", zh: "全部班級" })}</option>
+                  <option value="all">{t({ en: "All classes", zh: "全部班級", zhHans: "全部班级" })}</option>
                   {classes.length ? (
                     classes.map((teacherClass) => (
                       <option key={teacherClass.id} value={teacherClass.id}>
@@ -388,7 +388,7 @@ export function TeacherShell({
                       </option>
                     ))
                   ) : (
-                    <option value="all">{t({ en: "No classes yet", zh: "尚未建立班級" })}</option>
+                    <option value="all">{t({ en: "No classes yet", zh: "尚未建立班級", zhHans: "尚未建立班级" })}</option>
                   )}
                 </select>
               </label>
@@ -402,14 +402,14 @@ export function TeacherShell({
                 }}
               >
                 <span className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                  {t({ en: "Search workspace", zh: "搜尋工作台" })}
+                  {t({ en: "Search workspace", zh: "搜尋工作台", zhHans: "搜索工作台" })}
                 </span>
                 <input
                   name="q"
                   type="search"
                   value={workspaceQuery}
                   onChange={(event) => setWorkspaceQuery(event.target.value)}
-                  placeholder={t({ en: "Search students, assignments, resources", zh: "搜尋學生、作業、資源" })}
+                  placeholder={t({ en: "Search students, assignments, resources", zh: "搜尋學生、作業、資源", zhHans: "搜索学生、作业、资源" })}
                   className="focus-ring h-11 min-w-0 w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-sm font-semibold text-slate-900 shadow-sm outline-none placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
                 />
               </form>
@@ -427,7 +427,7 @@ export function TeacherShell({
                   >
                     ?
                   </span>
-                  {t({ en: "Tour", zh: "導覽" })}
+                  {t({ en: "Tour", zh: "導覽", zhHans: "导览" })}
                 </button>
                 <Link
                   href="/teacher/analytics"

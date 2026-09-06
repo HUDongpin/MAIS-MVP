@@ -81,6 +81,7 @@ const PRODUCTION_CHILD_PURPOSE_ENV_KEYS = Object.freeze({
     "GITHUB_SHA",
     "GITHUB_WORKFLOW_REF",
     "MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT",
+    "MAIS_RELEASE_MIN_FREE_GB",
     "VERCEL_TOKEN"
   ]),
   schema: Object.freeze([
@@ -496,6 +497,7 @@ export async function persistRequiredProductionDeploymentRecord({
 
 const productionSchemaPlans = new Set([
   "[]",
+  '["app-storage-install-v1"]',
   '["webhook-v2-to-v3"]',
   '["webhook-install-v3"]',
   '["heartbeat-v1-to-v2"]',
@@ -503,17 +505,127 @@ const productionSchemaPlans = new Set([
   '["webhook-v2-to-v3","heartbeat-v1-to-v2"]',
   '["webhook-v2-to-v3","heartbeat-install-v2"]',
   '["webhook-install-v3","heartbeat-v1-to-v2"]',
-  '["webhook-install-v3","heartbeat-install-v2"]'
+  '["webhook-install-v3","heartbeat-install-v2"]',
+  '["outbox-install-v2","webhook-install-v3"]',
+  '["outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-install-v1","webhook-v2-to-v3"]',
+  '["app-storage-install-v1","webhook-install-v3"]',
+  '["app-storage-install-v1","heartbeat-v1-to-v2"]',
+  '["app-storage-install-v1","heartbeat-install-v2"]',
+  '["app-storage-install-v1","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-install-v1","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-install-v1","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-install-v1","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-install-v1","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-install-v1","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-install-v1","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-complete-readiness-v1"]',
+  '["app-storage-complete-readiness-v1","webhook-v2-to-v3"]',
+  '["app-storage-complete-readiness-v1","webhook-install-v3"]',
+  '["app-storage-complete-readiness-v1","heartbeat-v1-to-v2"]',
+  '["app-storage-complete-readiness-v1","heartbeat-install-v2"]',
+  '["app-storage-complete-readiness-v1","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-complete-readiness-v1","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-complete-readiness-v1","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-complete-readiness-v1","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-complete-readiness-v1","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-v2-to-v3"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-upgrade-legacy-compat-readiness-v2","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1"]',
+  '["app-storage-repair-missing-collections-v1","webhook-v2-to-v3"]',
+  '["app-storage-repair-missing-collections-v1","webhook-install-v3"]',
+  '["app-storage-repair-missing-collections-v1","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v1","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-repair-missing-collections-v1","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v1","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v2"]',
+  '["app-storage-repair-missing-collections-v2","webhook-v2-to-v3"]',
+  '["app-storage-repair-missing-collections-v2","webhook-install-v3"]',
+  '["app-storage-repair-missing-collections-v2","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v2","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v2","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v2","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-missing-collections-v2","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-repair-missing-collections-v2","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-missing-collections-v2","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","webhook-v2-to-v3"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","webhook-install-v3"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","webhook-v2-to-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","webhook-v2-to-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","webhook-install-v3","heartbeat-install-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","outbox-install-v2","webhook-install-v3"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","outbox-install-v2","webhook-install-v3","heartbeat-v1-to-v2"]',
+  '["app-storage-repair-parent-session-lifecycle-v3","outbox-install-v2","webhook-install-v3","heartbeat-install-v2"]'
 ]);
 
-function expectedProductionSchemaPlan({ heartbeatState, webhookState }) {
+function expectedProductionSchemaPlan({
+  appStorageState,
+  heartbeatState,
+  outboxState,
+  webhookState
+}) {
   if (
+    ![
+      "empty",
+      "legacy-no-readiness-marker",
+      "legacy-v1-compatibility-no-readiness-marker",
+      "legacy-missing-collections-no-readiness-marker",
+      "legacy-missing-guardian-invitations-no-readiness-marker",
+      "legacy-parent-session-lifecycle-no-readiness-marker",
+      "exact"
+    ].includes(appStorageState) ||
+    !["empty", "exact"].includes(outboxState) ||
     !["empty", "upgradeable", "exact"].includes(webhookState) ||
-    !["empty", "v1", "exact"].includes(heartbeatState)
+    !["empty", "v1", "exact"].includes(heartbeatState) ||
+    (outboxState === "empty" && webhookState !== "empty")
   ) {
     return null;
   }
   const operations = [];
+  if (appStorageState === "empty") operations.push("app-storage-install-v1");
+  if (appStorageState === "legacy-no-readiness-marker") {
+    operations.push("app-storage-complete-readiness-v1");
+  }
+  if (appStorageState === "legacy-v1-compatibility-no-readiness-marker") {
+    operations.push("app-storage-upgrade-legacy-compat-readiness-v2");
+  }
+  if (appStorageState === "legacy-missing-collections-no-readiness-marker") {
+    operations.push("app-storage-repair-missing-collections-v1");
+  }
+  if (
+    appStorageState ===
+      "legacy-missing-guardian-invitations-no-readiness-marker"
+  ) {
+    operations.push("app-storage-repair-missing-collections-v2");
+  }
+  if (appStorageState === "legacy-parent-session-lifecycle-no-readiness-marker") {
+    operations.push("app-storage-repair-parent-session-lifecycle-v3");
+  }
+  if (outboxState === "empty") operations.push("outbox-install-v2");
   if (webhookState === "upgradeable") operations.push("webhook-v2-to-v3");
   if (webhookState === "empty") operations.push("webhook-install-v3");
   if (heartbeatState === "v1") operations.push("heartbeat-v1-to-v2");
@@ -525,17 +637,25 @@ function safeProductionSchemaSnapshot(payload, { candidateSha, expectedTreeSha }
   const operations = Array.isArray(payload?.operations) ? payload.operations : null;
   const statistics = payload?.statistics;
   const expectedOperations = expectedProductionSchemaPlan({
+    appStorageState: payload?.appStorageState,
     heartbeatState: payload?.heartbeatState,
+    outboxState: payload?.outboxState,
     webhookState: payload?.webhookState
   });
   if (
-    payload?.schemaVersion !== 2 ||
+    payload?.schemaVersion !== 4 ||
     payload?.candidateSha !== candidateSha ||
     payload?.expectedTreeSha !== expectedTreeSha ||
     payload?.projectId !== APPROVED_VERCEL_PROJECT_ID ||
     payload?.projectName !== APPROVED_VERCEL_PROJECT_NAME ||
     payload?.teamId !== APPROVED_VERCEL_TEAM_ID ||
     payload?.teamSlug !== APPROVED_VERCEL_TEAM_SLUG ||
+    ![
+      "demo-disabled",
+      "demo-enabled",
+      "demo-enabled-empty",
+      "demo-enabled-default"
+    ].includes(payload?.appStorageSeedMode) ||
     !/^[a-f0-9]{64}$/u.test(String(payload?.targetFingerprint ?? "")) ||
     !Number.isSafeInteger(payload?.postgresMajor) ||
     payload.postgresMajor < 16 ||
@@ -550,7 +670,7 @@ function safeProductionSchemaSnapshot(payload, { candidateSha, expectedTreeSha }
     !/^[a-f0-9]{64}$/u.test(String(payload?.preflightDigest ?? "")) ||
     typeof payload?.requiredConfirmation !== "string" ||
     !payload.requiredConfirmation.startsWith(
-      "confirm:teacher-notice-production-schema:v2:"
+      "confirm:mais-production-schema:v4:"
     ) ||
     payload.requiredConfirmation.length > 1_024
   ) {
@@ -559,7 +679,10 @@ function safeProductionSchemaSnapshot(payload, { candidateSha, expectedTreeSha }
   return {
     candidateSha,
     expectedTreeSha,
+    appStorageSeedMode: payload.appStorageSeedMode,
+    appStorageState: payload.appStorageState,
     heartbeatState: payload.heartbeatState,
+    outboxState: payload.outboxState,
     operations: [...operations],
     postgresMajor: payload.postgresMajor,
     preflightDigest: payload.preflightDigest,
@@ -602,6 +725,8 @@ export function parseTeacherNoticeProductionSchemaGateEvidence(output, expected)
       if (
         expected?.targetFingerprint !== undefined &&
         (safe.targetFingerprint !== expected.targetFingerprint ||
+          safe.appStorageState !== "exact" ||
+          safe.outboxState !== "exact" ||
           safe.webhookState !== "exact" ||
           safe.heartbeatState !== "exact" ||
           safe.operations.length !== 0)
@@ -634,6 +759,11 @@ export function parseTeacherNoticeProductionSchemaGateEvidence(output, expected)
     if (
       postflight.targetFingerprint !== payload.targetFingerprint ||
       sameConnectionPostflight.targetFingerprint !== payload.targetFingerprint ||
+      postflight.appStorageSeedMode !== sameConnectionPostflight.appStorageSeedMode ||
+      postflight.appStorageState !== "exact" ||
+      sameConnectionPostflight.appStorageState !== "exact" ||
+      postflight.outboxState !== "exact" ||
+      sameConnectionPostflight.outboxState !== "exact" ||
       postflight.webhookState !== "exact" ||
       sameConnectionPostflight.webhookState !== "exact" ||
       postflight.heartbeatState !== "exact" ||

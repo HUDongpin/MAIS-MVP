@@ -464,6 +464,38 @@ async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps 
 }
 
 test.describe("Practice Arena question pager", () => {
+  test("unpersisted attempt feedback stays retryable without success side effects", async ({ page }, testInfo) => {
+    await registerStudentThroughApi(page, testInfo, "unpersisted-attempt");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await chooseGuidedUnitExercise(page);
+    await expectQuestion(page, 1, 5);
+
+    const rewardBefore = await practiceRewardLabel(page);
+    await page.route("**/api/attempts", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          correct: true,
+          explanation: { en: "Fixture explanation", zh: "測試解釋", zhHans: "测试解释" },
+          persisted: false,
+        }),
+      });
+    });
+
+    const card = await makeVisibleQuestionAnswerable(page, "unpersisted-answer");
+    await card.getByRole("button", { name: /check answer/i }).click();
+
+    await expect(card.getByRole("alert")).toContainText(/could not be saved/i);
+    await expect(card.getByText(/Correct|Not yet/i)).toHaveCount(0);
+    await expect(card.getByRole("button", { name: /check answer/i })).toBeEnabled();
+    await page.waitForTimeout(1_500);
+    await expectQuestion(page, 1, 5);
+    expect(await practiceRewardLabel(page)).toBe(rewardBefore);
+  });
+
   test("a new locked student can use Explore's main, Question Cavern, and Challenge Shore entries", async ({ page }, testInfo) => {
     test.slow();
 

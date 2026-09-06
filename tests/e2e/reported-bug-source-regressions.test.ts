@@ -4,7 +4,25 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
 
+// These assertions pin source text, so a purely cosmetic reflow — Prettier
+// wrapping a long declaration across two lines — used to fail them even though
+// behaviour was identical (see PR #172, where wrapping `const comparisonDisabled`
+// broke a passing assertion). Joining wrapped lines makes every regex in this
+// file tolerant of line breaks while leaving intra-line spacing untouched, so
+// class strings like "bg-white text-slate-950" still match exactly.
+//
+// This is a mitigation, not a fix: source-text assertions cannot check
+// behaviour at all. PR #199 introduces a real render harness; assertions here
+// should migrate to mounting as that lands.
+function joinWrappedLines(text: string) {
+  return text.replace(/[ \t]*\r?\n[ \t]*/g, " ");
+}
+
 async function source(path: string) {
+  return joinWrappedLines(await readFile(join(process.cwd(), path), "utf8"));
+}
+
+async function rawSource(path: string) {
   return readFile(join(process.cwd(), path), "utf8");
 }
 
@@ -184,7 +202,7 @@ test("completed lesson progress stores full completion mastery", async () => {
   const persistenceTest = await source("lib/server/userStoreStudentActivityPersistence.test.ts");
 
   assert.match(persistence, /status === "completed"[\s\S]{0,120}Math\.max\(existing\?\.mastery \?\? 0, 100\)/);
-  assert.match(persistenceTest, /status: "completed",\n\s+mastery: 100/);
+  assert.match(persistenceTest, /status: "completed",\s+mastery: 100/);
   assert.doesNotMatch(persistence, /Math\.max\(existing\?\.mastery \?\? 0, 85\)/);
 });
 

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   buildPreviewChildEnvironment,
@@ -12,7 +13,7 @@ import {
   runCommand
 } from "./deploy-vercel-preview.mjs";
 
-const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const sourcePath = path.join(repoRoot, "scripts", "deploy-vercel-preview.mjs");
 
 test("preview child environments grant only purpose-specific configuration", () => {
@@ -317,4 +318,22 @@ test("preview inspect JSON returns only exact immutable candidate evidence and r
     }),
     /inspect evidence failed/u
   );
+});
+
+test("preview inspect accepts current CLI metadata omission without claiming metadata proof", () => {
+  const candidateSha = "a".repeat(40);
+  const deploymentUrl = "https://candidate-preview.vercel.app";
+  const evidence = parseVercelInspectEvidence(JSON.stringify({
+    id: "dpl_PreviewFixture123",
+    url: "candidate-preview.vercel.app",
+    readyState: "READY",
+    target: "preview"
+  }), {
+    candidateSha,
+    deploymentUrl,
+    target: "preview"
+  });
+
+  assert.equal(evidence.metadataVerified, false);
+  assert.equal(evidence.providerGitShaVerified, false);
 });

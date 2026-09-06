@@ -246,9 +246,12 @@ test.describe("teacher and parent P1 regressions", () => {
       };
       expect(
         { server: serverSignature, firstClient: firstClientSignature },
-        "authenticated HTML must expose only the same-settings identity gate until the cookie is authoritatively revalidated"
+        "authenticated HTML must expose only neutral loading until the cookie is authoritatively revalidated"
       ).toEqual({ server: expectedServerSignature, firstClient: expectedClientSignature });
-      expect(firstParentHtml).toContain('data-session-verification-mode="identity"');
+      expect(firstParentHtml).toContain('data-session-verification-mode="initial"');
+      expect(firstParentHtml).toContain("正在載入你的工作空間");
+      expect(firstParentHtml).not.toContain("For your privacy");
+      expect(firstParentHtml).not.toContain("Check again");
       expect(firstParentHtml).not.toContain('data-parent-shell="true"');
       expect(initialSessionStateRequests, "an authenticated document must perform exactly one mount-time cookie validation").toBe(1);
       expect(parentErrors, "parent hydration errors after the first interactive document").toEqual([]);
@@ -267,6 +270,35 @@ test.describe("teacher and parent P1 regressions", () => {
         await expect(parentPage.locator("html"), `server-seeded theme after ${route}`).toHaveClass(/\bdark\b/u);
         expect(parentErrors, `parent hydration errors after ${route}`).toEqual([]);
       }
+
+      // A failed mount-time check stays neutral and offers an explicit retry
+      // only after the failure. Retrying must complete the authoritative check
+      // and mount the same parent account without any privacy-warning copy.
+      const retryPage = await context.newPage();
+      let retryPageSessionChecks = 0;
+      await retryPage.route("**/api/auth/session-state**", async (route) => {
+        retryPageSessionChecks += 1;
+        if (retryPageSessionChecks === 1) {
+          await route.abort("failed");
+          return;
+        }
+        await route.continue();
+      });
+      await retryPage.goto("/parent", { waitUntil: "domcontentloaded" });
+      const retryPageInitialGate = retryPage.locator(
+        '[data-session-verification-gate="true"][data-session-verification-mode="initial"]'
+      );
+      await expect(retryPageInitialGate).toBeVisible();
+      await expect(retryPage.getByRole("heading", { name: "正在載入你的工作空間" })).toBeVisible();
+      await expect(retryPage.getByText(/私隱|隐私|privacy/iu)).toHaveCount(0);
+      await expect(retryPage.locator("[data-parent-shell]")).toHaveCount(0);
+      const retrySessionButton = retryPage.getByRole("button", { name: "再試一次" });
+      await expect(retrySessionButton).toBeVisible({ timeout: 3_000 });
+      await retrySessionButton.click();
+      await expect.poll(() => retryPageSessionChecks, { timeout: 3_000 }).toBe(2);
+      await expect(retryPageInitialGate).toHaveCount(0, { timeout: 15_000 });
+      await expect(retryPage.locator("[data-parent-shell]")).toHaveCount(1);
+      await retryPage.close();
 
       const parentHtml = await (await parentPage.request.get("/parent")).text();
       expect(parentHtml).not.toContain('<template id="B:');
@@ -338,10 +370,10 @@ test.describe("teacher and parent P1 regressions", () => {
       });
 
       await preHydrationPage.goto("/parent/messages?studentId=student-peter", { waitUntil: "commit" });
-      const preHydrationGate = preHydrationPage.locator(
-        '[data-session-verification-gate="true"][data-session-verification-mode="identity"]'
+      const preHydrationInitialGate = preHydrationPage.locator(
+        '[data-session-verification-gate="true"][data-session-verification-mode="initial"]'
       );
-      await expect(preHydrationGate).toBeAttached();
+      await expect(preHydrationInitialGate).toBeAttached();
       await expect(preHydrationPage.locator("[data-parent-shell]")).toHaveCount(0);
       await expect(preHydrationPage.getByText("Peter's Parent", { exact: true })).toHaveCount(0);
 
@@ -361,13 +393,16 @@ test.describe("teacher and parent P1 regressions", () => {
       expect(preHydrationTeacherLogin.status()).toBe(200);
       await writeSessionSyncSignal(preHydrationSignalWriter, demoTeacherUserId, "teacher");
 
-      await expect(preHydrationGate).toBeVisible({ timeout: 3_000 });
+      await expect(preHydrationInitialGate).toBeVisible({ timeout: 3_000 });
       await expect(preHydrationPage.locator("[data-parent-shell]")).toHaveCount(0);
       await expect(preHydrationPage.getByText("Peter's Parent", { exact: true })).toHaveCount(0);
 
       releasePreHydrationChunks();
       await preHydrationPage.waitForLoadState("domcontentloaded");
-      await expect(preHydrationGate).toBeVisible({ timeout: 8_000 });
+      const preHydrationIdentityGate = preHydrationPage.locator(
+        '[data-session-verification-gate="true"][data-session-verification-mode="identity"]'
+      );
+      await expect(preHydrationIdentityGate).toBeVisible({ timeout: 8_000 });
       await expect.poll(() => preHydrationSessionStateRequests, { timeout: 3_000 }).toBe(1);
       await expect(preHydrationPage.locator("[data-parent-shell]")).toHaveCount(0);
       await expect(preHydrationPage.getByText("Peter's Parent", { exact: true })).toHaveCount(0);
@@ -458,6 +493,7 @@ test.describe("teacher and parent P1 regressions", () => {
       await expect(draftBodyInput).toHaveValue(foregroundDraftBody);
 
       let sessionStateRequests = 0;
+      let failNextSessionState = false;
       let activeSessionStateHold = Promise.resolve();
       const armSessionStateHold = () => {
         let phaseReleased = false;
@@ -478,6 +514,11 @@ test.describe("teacher and parent P1 regressions", () => {
       };
       await parentPage.route("**/api/auth/session-state**", async (route) => {
         sessionStateRequests += 1;
+        if (failNextSessionState) {
+          failNextSessionState = false;
+          await route.abort("failed");
+          return;
+        }
         const holdForThisRequest = activeSessionStateHold;
         await holdForThisRequest;
         await route.continue();
@@ -524,63 +565,40 @@ test.describe("teacher and parent P1 regressions", () => {
       const detachedPortal = parentPage.locator('[data-test-foreground-portal="true"]');
       await expect(detachedPortal).toBeVisible();
 
-      // A normal foreground return must hide and inert the account UI while
-      // retaining the same mounted React tree. This preserves an unfinished
-      // message (and native file-input state) if the server confirms the same
-      // parent cookie.
+      // A normal blur (including macOS screenshot UI, app switching, and tab
+      // switching) must not replace, hide, or inert the account UI. Returning
+      // focus silently checks the cookie while preserving the mounted tree.
       const foregroundHold = armSessionStateHold();
-      await parentPage.evaluate(() => {
-        window.dispatchEvent(new Event("blur"));
-        window.dispatchEvent(new Event("focus"));
-      });
+      const sessionGate = parentPage.locator('[data-session-verification-gate="true"]');
+      await parentPage.evaluate(() => window.dispatchEvent(new Event("blur")));
+      await expect(sessionGate).toHaveCount(0);
+      await expect(parentMessagesLayout).toBeVisible();
+      await expect(detachedPortal).toBeVisible();
+      expect(sessionStateRequests).toBe(foregroundHold.requestBaseline);
 
-      const foregroundGate = parentPage.locator(
-        '[data-session-verification-gate="true"][data-session-verification-mode="foreground"]'
-      );
-      await expect(foregroundGate).toBeVisible({ timeout: 3_000 });
-      const foregroundGateBox = await foregroundGate.boundingBox();
-      const viewport = parentPage.viewportSize();
-      expect(foregroundGateBox).not.toBeNull();
-      expect(viewport).not.toBeNull();
-      expect(foregroundGateBox?.x).toBeCloseTo(0, 4);
-      expect(foregroundGateBox?.width).toBeCloseTo(viewport?.width ?? 0, 4);
+      await parentPage.evaluate(() => window.dispatchEvent(new Event("focus")));
       await expect.poll(
         () => sessionStateRequests,
         { timeout: 3_000 }
       ).toBe(foregroundHold.requestBaseline + 1);
       expect(
         foregroundHold.isReleased(),
-        "the foreground privacy gate must appear before the same-user response is released"
+        "silent foreground validation must remain held until the test releases it"
       ).toBe(false);
+      await expect(sessionGate).toHaveCount(0);
       await expect(parentMessagesLayout).toHaveCount(1);
-      await expect(parentMessagesLayout).toBeHidden();
+      await expect(parentMessagesLayout).toBeVisible();
       await expect(draftSubjectInput).toHaveCount(1);
       await expect(draftBodyInput).toHaveCount(1);
       await expect(draftSubjectInput).toHaveValue(foregroundDraftSubject);
       await expect(draftBodyInput).toHaveValue(foregroundDraftBody);
-
-      const foregroundIsolation = await parentMessagesLayout.evaluate((node) => {
-        let current: HTMLElement | null = node as HTMLElement;
-        while (current && current !== document.body) {
-          if (current.inert || current.getAttribute("aria-hidden") === "true") {
-            return {
-              inert: current.inert,
-              ariaHidden: current.getAttribute("aria-hidden")
-            };
-          }
-          current = current.parentElement;
-        }
-        return { inert: false, ariaHidden: null };
-      });
-      expect(foregroundIsolation).toEqual({ inert: true, ariaHidden: "true" });
-      await expect(detachedPortal).toBeHidden();
       expect(await detachedPortal.evaluate((node) => ({
         inert: (node as HTMLElement).inert,
         ariaHidden: node.getAttribute("aria-hidden")
-      }))).toEqual({ inert: true, ariaHidden: "true" });
+      }))).toEqual({ inert: false, ariaHidden: null });
 
       foregroundHold.release();
-      await expect(foregroundGate).toHaveCount(0, { timeout: 15_000 });
+      await expect(sessionGate).toHaveCount(0, { timeout: 15_000 });
       await expect(parentMessagesLayout).toBeVisible();
       await expect(draftSubjectInput).toHaveValue(foregroundDraftSubject);
       await expect(draftBodyInput).toHaveValue(foregroundDraftBody);
@@ -590,6 +608,24 @@ test.describe("teacher and parent P1 regressions", () => {
         inert: (node as HTMLElement).inert,
         ariaHidden: node.getAttribute("aria-hidden")
       }))).toEqual({ inert: false, ariaHidden: null });
+
+      // A transient foreground-check transport failure must likewise leave
+      // the same-account UI mounted and usable instead of trapping the user in
+      // a full-screen retry state.
+      const failedForegroundBaseline = sessionStateRequests;
+      failNextSessionState = true;
+      await parentPage.evaluate(() => {
+        window.dispatchEvent(new Event("blur"));
+        window.dispatchEvent(new Event("focus"));
+      });
+      await expect.poll(() => sessionStateRequests, { timeout: 3_000 })
+        .toBe(failedForegroundBaseline + 1);
+      await parentPage.waitForTimeout(250);
+      await expect(sessionGate).toHaveCount(0);
+      await expect(parentMessagesLayout).toBeVisible();
+      await expect(draftSubjectInput).toHaveValue(foregroundDraftSubject);
+      await expect(draftBodyInput).toHaveValue(foregroundDraftBody);
+      await expect(detachedPortal).toBeVisible();
       await detachedPortal.evaluate((node) => node.remove());
 
       // Start an A-scoped RSC navigation and keep its complete response held.
