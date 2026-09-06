@@ -1,0 +1,33 @@
+
+> hk-math-lab-template@0.1.0 test:e2e
+> node scripts/release-env-guard.mjs e2e && playwright test tests/e2e/home-functional.spec.ts --project=desktop-chrome --project=mobile-chrome
+
+Release environment guard passed (e2e)
+Free disk: 2788.1 GB (minimum 20 GB)
+E2E root: .tmp/e2e-run-s7-baseline-home-20260906
+Next dist: .tmp/e2e-run-s7-baseline-home-20260906/next-dist
+[WebServer]  [33m[1m⚠[22m[39m Using edge runtime on a page currently disables static generation for that page
+
+Running 18 tests using 1 worker
+
+  ✓   1 [desktop-chrome] › tests/e2e/home-functional.spec.ts:88:7 › homepage functional QA › guest homepage hero, footer, and Nova Tutor shell work (1.1s)
+  ✓   2 [desktop-chrome] › tests/e2e/home-functional.spec.ts:118:7 › homepage functional QA › guest language and theme controls persist (838ms)
+  ✓   3 [desktop-chrome] › tests/e2e/home-functional.spec.ts:150:7 › homepage functional QA › desktop navigation links route correctly and expose active state (1.4s)
+  ✓   4 [desktop-chrome] › tests/e2e/home-functional.spec.ts:189:7 › homepage functional QA › desktop Lesson nav keeps its guest auth redirect during delayed foreground session revalidation (476ms)
+  -   5 [desktop-chrome] › tests/e2e/home-functional.spec.ts:262:7 › homepage functional QA › mobile menu opens, closes, routes, and avoids homepage overflow
+  -   6 [desktop-chrome] › tests/e2e/home-functional.spec.ts:286:7 › homepage functional QA › mobile hero remains usable at narrow widths
+  ✓   7 [desktop-chrome] › tests/e2e/home-functional.spec.ts:296:7 › homepage functional QA › student homepage account controls work (2.3s)
+  ✓   8 [desktop-chrome] › tests/e2e/home-functional.spec.ts:322:7 › homepage functional QA › student logout keeps its login destination while document navigation is delayed (773ms)
+  ✓   9 [desktop-chrome] › tests/e2e/home-functional.spec.ts:396:7 › homepage functional QA › stale homepage logout preserves a replacement account after a 409 conflict (1.1s)
+  ✓  10 [mobile-chrome] › tests/e2e/home-functional.spec.ts:88:7 › homepage functional QA › guest homepage hero, footer, and Nova Tutor shell work (958ms)
+  ✓  11 [mobile-chrome] › tests/e2e/home-functional.spec.ts:118:7 › homepage functional QA › guest language and theme controls persist (909ms)
+  -  12 [mobile-chrome] › tests/e2e/home-functional.spec.ts:150:7 › homepage functional QA › desktop navigation links route correctly and expose active state
+  -  13 [mobile-chrome] › tests/e2e/home-functional.spec.ts:189:7 › homepage functional QA › desktop Lesson nav keeps its guest auth redirect during delayed foreground session revalidation
+  ✓  14 [mobile-chrome] › tests/e2e/home-functional.spec.ts:262:7 › homepage functional QA › mobile menu opens, closes, routes, and avoids homepage overflow (690ms)
+  ✓  15 [mobile-chrome] › tests/e2e/home-functional.spec.ts:286:7 › homepage functional QA › mobile hero remains usable at narrow widths (642ms)
+  ✓  16 [mobile-chrome] › tests/e2e/home-functional.spec.ts:296:7 › homepage functional QA › student homepage account controls work (1.7s)
+  ✓  17 [mobile-chrome] › tests/e2e/home-functional.spec.ts:322:7 › homepage functional QA › student logout keeps its login destination while document navigation is delayed (820ms)
+  ✓  18 [mobile-chrome] › tests/e2e/home-functional.spec.ts:396:7 › homepage functional QA › stale homepage logout preserves a replacement account after a 409 conflict (856ms)
+
+  4 skipped
+  14 passed (1.4m)

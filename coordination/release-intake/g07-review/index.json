@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "promotion-baseline-review-index.v1",
+  "sourceManifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+    "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+  },
+  "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "revisionRoot": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "runtimeTopologyProofDigest": "e5049d9b6df8701a99161321ae1ee1e3d59611e55de777215c72a15d6e3f2933",
+  "targetRuntimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+  "legacyRegistryRawSha256": "d4cff93eff108b507d9efa74af9847b82cd55611e957d03c98ad5c6eada11852",
+  "justification": {
+    "path": "coordination/release-intake/g07-review/justification.json",
+    "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+    "rawSha256": "35d698f8bd0f7e312c959a458c74ddaa67f0a3006d00db4d77dcdf7c0ec28e34"
+  },
+  "reviews": [
+    {
+      "role": "A21",
+      "recordPath": "coordination/release-intake/g07-review/records/A21.json",
+      "rawSha256": "f99f648c56cf87564a20091472adab04fbfeeb4f0687f2b6be99648aac050b73",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A18",
+      "recordPath": "coordination/release-intake/g07-review/records/A18.json",
+      "rawSha256": "2db33f90f7db24e8b36b2f468b33eac00556eb7f4db5a3f5c0f1937419ee9dbc",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A23",
+      "recordPath": "coordination/release-intake/g07-review/records/A23.json",
+      "rawSha256": "cd0c5077a9d1ab1d21f003053a653cae2d55336e4b7ba06431d09f443ee65f21",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A04",
+      "recordPath": "coordination/release-intake/g07-review/records/A04.json",
+      "rawSha256": "eb6c1b82186045fa6c9ee8b6142746d2869ea04dfe08535e0a49bdbdbcf4f20c",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A05",
+      "recordPath": "coordination/release-intake/g07-review/records/A05.json",
+      "rawSha256": "557fae361687cc68bb56028301789abe57b68f437162e2da7e7483bd47f0c7b0",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A11",
+      "recordPath": "coordination/release-intake/g07-review/records/A11.json",
+      "rawSha256": "a4b687be95a67598d1936bb39ab67adc45c9b2643c931fc1011227861026812b",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A22",
+      "recordPath": "coordination/release-intake/g07-review/records/A22.json",
+      "rawSha256": "083b648e6021eaeb23c1accec99cca63095e6fe62eafe68b1870e6c61b813a0b",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A24",
+      "recordPath": "coordination/release-intake/g07-review/records/A24.json",
+      "rawSha256": "e0b5e8bba3689ae1c3f80cbff86b94a0065623e885c38475934332481c4383d1",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    },
+    {
+      "role": "A25",
+      "recordPath": "coordination/release-intake/g07-review/records/A25.json",
+      "rawSha256": "99c69393dcf543a9b108ecc27972eb432e2d242c332504e77c0a4f9c4f40831a",
+      "reviewedCommit": "f275839ce6d8bc11cb613f07ab2c028202a01a1f"
+    }
+  ]
+}

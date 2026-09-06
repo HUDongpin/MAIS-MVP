@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "mais-s7-a11-independent-postrun-proof.v1",
+  "producedAt": "2026-09-06T17:16:03.729Z",
+  "role": "A11",
+  "actor": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "distinctActorCountForThisProof": 1,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "result": "pass-for-independent-shadow-replay-external-comparison-and-bounded-canonical-verification",
+  "executionCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/promotion-manifest.v2.json",
+    "rawSha256": "c784f946e73f09d9a283eba84b549241e7832bc41a82b5374f4991b49f4ee858"
+  },
+  "binding": {
+    "gateId": "promotion-shadow-gate-v2",
+    "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+    "attemptId": "attempt-007",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "parentPackageId": "us-ca-math-rag-v2-candidate",
+    "parentPackageStatus": "candidate-only",
+    "liveAllowed": false
+  },
+  "executionHistory": {
+    "priorIndependentRun": {
+      "startedAt": "2026-09-06T17:07:01.772Z",
+      "completedAt": "2026-09-06T17:07:21.919Z",
+      "durationSeconds": 20.147,
+      "runIdDigest": "8caf56df198ec5273020954bb8eec4facc055f0f70ad57d1034c313829df53d0",
+      "receiptFileSha256": "d1a4864c2e6865a546f9138f513534130f5a0f368680fb2f45e376b1edd0a012",
+      "preservedAsPriorActualRun": true,
+      "notUsedAsOrderedFinalReplay": true
+    },
+    "rootValidate": {
+      "startedAt": "2026-09-06T17:03:04.305+00:00",
+      "completedAtFromStartPlusDuration": "2026-09-06T17:03:22.130541+00:00",
+      "actor": "Root",
+      "exitCode": 0
+    },
+    "rootFresh": {
+      "startedAt": "2026-09-06T17:08:47.300+00:00",
+      "completedAtFromStartPlusDuration": "2026-09-06T17:09:12.305245+00:00",
+      "actor": "Root",
+      "receiptFileSha256": "9af355b0550b2a240735a558e4dea83d6790c16bb88c00d04e6322402c292488",
+      "exitCode": 0
+    },
+    "finalIndependentReplay": {
+      "startedAt": "2026-09-06T17:10:51.386Z",
+      "completedAt": "2026-09-06T17:11:13.270Z",
+      "durationSeconds": 21.888,
+      "runIdDigest": "148324109a1a9073a806b086ed1f142c86aa679c8b48f30475eadc65bb9c37a8",
+      "receiptFileSha256": "ac127157e5f3a54c00bc521987ec6655e4c85f93c5df064b838e24015bda1456",
+      "exitCode": 0
+    },
+    "validateThenFreshThenFinalReplayVerified": true
+  },
+  "nativeCanonicalVerification": {
+    "startedAt": "2026-09-06T17:08:56.386Z",
+    "completedAt": "2026-09-06T17:09:20.675Z",
+    "durationSeconds": 24.29,
+    "inputFileSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886",
+    "resultFileSha256": "458020fffec981b5ff7ab7b286a47a4895efa9e5092101389fbaee707f4e7fe5",
+    "actualNativeResult": {
+      "schemaVersion": "promotion-receipt-verification.v2",
+      "result": "pass",
+      "valid": true,
+      "manifestPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/promotion-manifest.v2.json",
+      "manifestRawSha256": "c784f946e73f09d9a283eba84b549241e7832bc41a82b5374f4991b49f4ee858",
+      "executionCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+      "semanticReceiptDigest": "290ca236224532015f1f9a9a31e83667c47fac330c349652c736f24e100284ca",
+      "rawReceiptDigest": "8fb8097aa0f02c99d2b1c9071b3f4ea1a6f35e84970d8b10a0324fa268592279",
+      "liveAllowed": false
+    },
+    "sourceUnchanged": true,
+    "actuallyReplayedByFrozenNativeVerifier": true,
+    "externalCanonicalTransportBeforeStorage": true,
+    "occurredAfterFinalReplay": false,
+    "standaloneInternalReplayReceiptEmitted": false,
+    "doesNotCompleteLaterStorageTransportOrWorkflowVerification": true
+  },
+  "receiptComparison": {
+    "schemaVersion": "mais-s7-native-three-receipt-comparison.v1",
+    "producedAt": "2026-09-06T17:13:30.450Z",
+    "actorTaskId": "/root/s5_quality_review/s7_binding_contract",
+    "result": "pass-for-external-native-receipt-comparison",
+    "receipts": [
+      {
+        "role": "canonical",
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-canonical-receipt.json",
+        "fileSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886",
+        "nativeRawReceiptDigest": "8fb8097aa0f02c99d2b1c9071b3f4ea1a6f35e84970d8b10a0324fa268592279",
+        "nativeSemanticReceiptDigest": "290ca236224532015f1f9a9a31e83667c47fac330c349652c736f24e100284ca",
+        "bindingDigest": "cc51a8fd9ca668d94763f5e708c5a11dc10ab27f9d9fc84d44a4890daca28ecb",
+        "runIdDigest": "79006c3e295a4482611e2f17ffee52d1686db84ab5b061bf5e812fd4c0d47404",
+        "producedAt": "2026-09-06T17:02:56.543Z",
+        "checks": 13,
+        "checksAllPass": true,
+        "nativeStructureValidated": true,
+        "nativeDigestsRecomputed": true,
+        "liveAllowed": false
+      },
+      {
+        "role": "fresh",
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-fresh-receipt.json",
+        "fileSha256": "9af355b0550b2a240735a558e4dea83d6790c16bb88c00d04e6322402c292488",
+        "nativeRawReceiptDigest": "6061a17d8e8d20994082b00d2fef9d62bc0492821fe7cc83773f36cb2cfa5912",
+        "nativeSemanticReceiptDigest": "290ca236224532015f1f9a9a31e83667c47fac330c349652c736f24e100284ca",
+        "bindingDigest": "cc51a8fd9ca668d94763f5e708c5a11dc10ab27f9d9fc84d44a4890daca28ecb",
+        "runIdDigest": "e948d678309f3da679d4ea455ea38d35c70582d5254f291f3d1e8890de4ab8b2",
+        "producedAt": "2026-09-06T17:08:47.442Z",
+        "checks": 13,
+        "checksAllPass": true,
+        "nativeStructureValidated": true,
+        "nativeDigestsRecomputed": true,
+        "liveAllowed": false
+      },
+      {
+        "role": "replay",
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-replay-receipt.json",
+        "fileSha256": "ac127157e5f3a54c00bc521987ec6655e4c85f93c5df064b838e24015bda1456",
+        "nativeRawReceiptDigest": "d6159553baaca8ea31df83d2531fae7fbf8ec669dfc7992ceee3719d6a3884b9",
+        "nativeSemanticReceiptDigest": "290ca236224532015f1f9a9a31e83667c47fac330c349652c736f24e100284ca",
+        "bindingDigest": "cc51a8fd9ca668d94763f5e708c5a11dc10ab27f9d9fc84d44a4890daca28ecb",
+        "runIdDigest": "148324109a1a9073a806b086ed1f142c86aa679c8b48f30475eadc65bb9c37a8",
+        "producedAt": "2026-09-06T17:10:51.520Z",
+        "checks": 13,
+        "checksAllPass": true,
+        "nativeStructureValidated": true,
+        "nativeDigestsRecomputed": true,
+        "liveAllowed": false
+      }
+    ],
+    "bindingsEqual": true,
+    "semanticDigestsEqual": true,
+    "semanticDigestsVerified": true,
+    "rawDigestsEqual": false,
+    "runIdsDistinct": true,
+    "freshCompletedBeforeFinalIndependentReplayStarted": true,
+    "freshCompletionAtFromRoot": "2026-09-06T17:09:12.305Z",
+    "replayStartedAt": "2026-09-06T17:10:51.386Z",
+    "executionCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+    "nativeValidatorSourceSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+    "lifecycle": {
+      "priorState": "candidate_hold",
+      "currentState": "shadow_ready",
+      "recommendedState": "shadow_passed",
+      "parentPackageStatus": "candidate-only",
+      "maturityClaim": "shadow-passed / maturity-pending-independent-replay-and-enforcement",
+      "liveAllowed": false
+    },
+    "unmetConditionsAsNativeReceipt": [
+      {
+        "scope": "maturity",
+        "code": "independent-replay-pending",
+        "owner": "A11"
+      },
+      {
+        "scope": "maturity",
+        "code": "ci-required-check-enforcement-pending",
+        "owner": "A10"
+      },
+      {
+        "scope": "maturity",
+        "code": "main-postmerge-proof-pending",
+        "owner": "A22"
+      },
+      {
+        "scope": "live",
+        "code": "missing-zh-localization",
+        "owner": "A09"
+      },
+      {
+        "scope": "live",
+        "code": "missing-zhHans-localization",
+        "owner": "A09"
+      },
+      {
+        "scope": "live",
+        "code": "live-integration-and-release-unproven",
+        "owner": "A23"
+      }
+    ],
+    "scope": "Three external native receipts validated by frozen native structure/digest functions. This is not workflow-selected canonical Git transport, a finalized Registry/Closure, or live approval.",
+    "storageCommit": null,
+    "finalizationCommit": null,
+    "liveAllowed": false,
+    "comparisonDigest": "34326db25d72fdc2ed02071c805f0d1835d466cc911fd9e39a73ff94e45371dc"
+  },
+  "sourceProof": {
+    "headBeforeAndAfter": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+    "cleanBeforeAndAfter": true,
+    "authoritativeInputsHashBound": 40,
+    "inputsSnapshotDigest": "5ec4f2d28e45947f6cfc464039d6742611eade2c0fde8c327a2fe64f532ce469",
+    "driverSourceSnapshotsEqual": true,
+    "nativeWorktreeProof": {
+      "executionCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+      "pre": {
+        "schemaVersion": "promotion-git-worktree-proof.v2",
+        "headCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+        "clean": true,
+        "statusDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "post": {
+        "schemaVersion": "promotion-git-worktree-proof.v2",
+        "headCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+        "clean": true,
+        "statusDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "cleanBeforeAndAfter": true,
+      "unchangedHead": true
+    },
+    "nativeCandidateSourceProof": {
+      "paths": [
+        "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+        "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+        "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+        "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json"
+      ],
+      "preAggregateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+      "postAggregateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+      "preSnapshotDigest": "767ade83fc65f877559a7192f4ff056ee30f372b2f2e2d40cff04be2701a1d9e",
+      "postSnapshotDigest": "767ade83fc65f877559a7192f4ff056ee30f372b2f2e2d40cff04be2701a1d9e",
+      "byteIdentical": true
+    },
+    "nativeForbiddenPathDiff": {
+      "paths": [
+        "app",
+        "components",
+        "data",
+        "lib",
+        "public",
+        "middleware.ts",
+        "next.config.ts",
+        "tsconfig.json"
+      ],
+      "preSnapshotDigest": "bd3e372c917eb2585fe4f54557b4e902633237088bcf5e7a098eaec35690eb4d",
+      "postSnapshotDigest": "bd3e372c917eb2585fe4f54557b4e902633237088bcf5e7a098eaec35690eb4d",
+      "changedPathCount": 0,
+      "changedPathsDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "allInputsRehashedAgainAtProofCompletion": true
+  },
+  "nonLiveAndRollback": {
+    "liveAllowed": false,
+    "nativeExternalSideEffectProof": {
+      "schemaVersion": "promotion-external-side-effect-proof.v2",
+      "policy": "read-only-git-local-temp-only.v2",
+      "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+      "registeredOperations": [
+        "read-authoritative-repository-file",
+        "read-only-git-probe",
+        "create-new-os-temp-root",
+        "write-shadow-json-exclusively",
+        "remove-owned-os-temp-root"
+      ],
+      "sourceBindings": [
+        {
+          "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+          "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce"
+        },
+        {
+          "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+          "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d"
+        }
+      ],
+      "sourceBindingsDigest": "cf486507a25dcd39840034af16cd7ece6f4f174ed848d9053b4d44978691d14f",
+      "tempEnvironment": [
+        {
+          "name": "node-os-tmpdir",
+          "canonicalPathDigest": "2abd14236f48488e3abfcecc4e72fc993429f4313291aced172b7bd915ac270a",
+          "outsideRepository": true
+        },
+        {
+          "name": "TMPDIR",
+          "canonicalPathDigest": "2abd14236f48488e3abfcecc4e72fc993429f4313291aced172b7bd915ac270a",
+          "outsideRepository": true
+        }
+      ],
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0,
+      "liveRegistryWriteCount": 0,
+      "digest": "1f5dc0f01d4d17a8189437cc75567a9bbf233566c6a606e75254277122afd97e"
+    },
+    "nativeRollbackProof": {
+      "schemaVersion": "promotion-rollback-proof.v2",
+      "strategy": "remove-new-isolated-temp-root",
+      "preimage": "absent",
+      "postimage": "absent",
+      "exactPreimageRestored": true
+    },
+    "nativeOutputFileCount": 4,
+    "countsAttribution": "Counts copied and checked from actual frozen native receipts. No independent packet capture, global machine-I/O counter or live rollback is claimed.",
+    "temporaryRootScope": "Rollback covers the native owned temporary output root only; not live content/database/deployment rollback."
+  },
+  "environment": {
+    "keys": [
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_NOSYSTEM",
+      "GIT_GRAFT_FILE",
+      "PATH",
+      "TMPDIR"
+    ],
+    "TMPDIR": "/private/tmp",
+    "NODE_OPTIONSInherited": false,
+    "credentialLikeVariablesInherited": false,
+    "liveProviderOrRealEnvAccessRequested": false,
+    "timeoutSeconds": 60
+  },
+  "nativeChecks": {
+    "count": 13,
+    "allPass": true,
+    "ids": [
+      "candidate-binding-v2",
+      "git-baseline-v2",
+      "owner-evidence-v2",
+      "content-qa-v2",
+      "shadow-adapter-v2",
+      "live-unreachable-v2",
+      "legacy-drift-ratchet-v2",
+      "source-immutability-v2",
+      "output-isolation-v2",
+      "rollback-rehearsal-v2",
+      "external-side-effects-v2",
+      "state-transition-v2",
+      "semantic-stability-v2"
+    ]
+  },
+  "lifecycleAsNativeReceipt": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "shadow_passed",
+    "parentPackageStatus": "candidate-only",
+    "maturityClaim": "shadow-passed / maturity-pending-independent-replay-and-enforcement",
+    "liveAllowed": false
+  },
+  "unmetConditionsAsNativeReceipt": [
+    {
+      "scope": "maturity",
+      "code": "independent-replay-pending",
+      "owner": "A11"
+    },
+    {
+      "scope": "maturity",
+      "code": "ci-required-check-enforcement-pending",
+      "owner": "A10"
+    },
+    {
+      "scope": "maturity",
+      "code": "main-postmerge-proof-pending",
+      "owner": "A22"
+    },
+    {
+      "scope": "live",
+      "code": "missing-zh-localization",
+      "owner": "A09"
+    },
+    {
+      "scope": "live",
+      "code": "missing-zhHans-localization",
+      "owner": "A09"
+    },
+    {
+      "scope": "live",
+      "code": "live-integration-and-release-unproven",
+      "owner": "A23"
+    }
+  ],
+  "currentnessBoundary": {
+    "explicitlyAuthorizedManualRevisionRun": true,
+    "workflowSelectorStillDirectParentRevisionAtB": true,
+    "workflowSelectedG07CiChainProven": false,
+    "storageCommit": null,
+    "finalizationCommit": null,
+    "closureRegistryFinalizationProven": false
+  },
+  "evidence": [
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-independent-receipt.json",
+      "rawSha256": "d1a4864c2e6865a546f9138f513534130f5a0f368680fb2f45e376b1edd0a012"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-independent-shadow-execution.json",
+      "rawSha256": "9d9a8f76daa41f3484b16d8c785ce33fb2b8465d354f046031361b950c74a544"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-replay-receipt.json",
+      "rawSha256": "ac127157e5f3a54c00bc521987ec6655e4c85f93c5df064b838e24015bda1456"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-replay-shadow-execution.json",
+      "rawSha256": "46a933282134c4ab85151d294d618991110cb8b8b77a3c598d550a2879db1c52"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-independent-verify-canonical.json",
+      "rawSha256": "458020fffec981b5ff7ab7b286a47a4895efa9e5092101389fbaee707f4e7fe5"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-independent-verify-canonical-execution.json",
+      "rawSha256": "2277bfe8c7525df00ef97851537ae15648fc87f852486c9f550bf30a5ab3585b"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-independent-three-receipt-comparison.json",
+      "rawSha256": "9151a0a9a095d5d37ddff6c14669c9835d425dfecaa5aa2eb61322ab0d46e1fe"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-canonical-receipt.json",
+      "rawSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-canonical-receipt-execution.json",
+      "rawSha256": "05d37bce7f82be3796180d0c480896dfd4998d11bf74c89c4c8f8e240d504a59"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-fresh-receipt.json",
+      "rawSha256": "9af355b0550b2a240735a558e4dea83d6790c16bb88c00d04e6322402c292488"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-fresh-receipt-execution.json",
+      "rawSha256": "6aae1e779c3cd649f906e78e7b7ba05aa3581b754c33dce84744681e31b42a48"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-native-validate.json",
+      "rawSha256": "226f39fd28ebc537a714acc6d4f5078f6dabf868495cf09a6c0636351498609b"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-native-validate-execution.json",
+      "rawSha256": "6b067e45cb4e25611fea4f770d50e5d9437921c83364da8225275ea9a1dcd60c"
+    }
+  ],
+  "limits": [
+    "This is actual independent execution and native verification evidence; it does not update pre-run role records or itself finalize a Promotion lifecycle.",
+    "Three external receipts passed frozen native closed-structure and digest recomputation; final workflow/skill transport comparison still requires later real stored canonical blob and selector context.",
+    "The earlier external canonical verification is preserved with its true ordering and does not replace the later post-storage verification sequence.",
+    "Nine owner evidence records do not imply nine independently authenticated people.",
+    "No project source/Git mutation, manual worktree creation, provider/real secret read, network operation, live deployment or live Registry write performed by the driver. Native capability counts are receipt evidence, not separate network measurement."
+  ]
+}

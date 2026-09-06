@@ -1,0 +1,282 @@
+{
+  "recordedAt": "2026-09-06T16:22:57.420432+00:00",
+  "author": "/root/s5_quality_review; not independent approver",
+  "sourceDigest": "d55925927dba880cc34030893c1a5973cc2cf0dc5618de71b18b87fb9211d0f7",
+  "digestAlgorithm": "SHA256 sorted path + NUL + sha256 + LF UTF8 records",
+  "previousSourceDigest": "8e70075e452a7d08a7565e5349a34a367321a7da278008a66abd70a81f6c20d5",
+  "worktree": "/Volumes/Starship/MAIS-g07-wt",
+  "baseline": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+  "head": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+  "branch": "codex/a10-machine-qa-governance-closeout-20260906",
+  "paths": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "sha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+      "bytes": 36438,
+      "previousSha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+      "unchangedFromPreviousFreeze": true
+    },
+    {
+      "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+      "sha256": "662a17a9afe48a2d4e758f2b5b9e8eda5594a9ea3bb5cb438a044f2256ee17a6",
+      "bytes": 17159,
+      "previousSha256": "662a17a9afe48a2d4e758f2b5b9e8eda5594a9ea3bb5cb438a044f2256ee17a6",
+      "unchangedFromPreviousFreeze": true
+    },
+    {
+      "path": "scripts/promotion-reaffirmation-history.mjs",
+      "sha256": "dd06d88142e63f3f968fa5893c2deb7152ba03a19f715d312f3c7e9d9b3cc368",
+      "bytes": 9208,
+      "previousSha256": "fea4184db2ba22d894fbb82256ba5595d76806b93c5cd5541593840a41bc1e66",
+      "unchangedFromPreviousFreeze": false
+    },
+    {
+      "path": "scripts/promotion-reaffirmation-history.test.mjs",
+      "sha256": "19cf9ca628cbb240bd0013513339593b67d8129d664efb943d3f79d2318b7a13",
+      "bytes": 15658,
+      "previousSha256": "c0ceadbe9d7703f4a0a2994f7ad1569ad6d1b5f31ba6b90b66cc03a2d7f9e6d9",
+      "unchangedFromPreviousFreeze": false
+    },
+    {
+      "path": "scripts/promotion-shadow-workflow-v2.test.mjs",
+      "sha256": "fa370696fabc2726863875014e0c38acdfb1dadfaab0244bdeb2f97951c1a157",
+      "bytes": 32982,
+      "previousSha256": "fa370696fabc2726863875014e0c38acdfb1dadfaab0244bdeb2f97951c1a157",
+      "unchangedFromPreviousFreeze": true
+    }
+  ],
+  "protected": [
+    {
+      "path": "coordination/integration/promotion-gate-lib.mjs",
+      "sha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+      "sha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+      "sha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+      "sha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+      "sha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+      "sha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+      "sha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+      "sha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "scripts/rebase-promotion-baseline.mjs",
+      "sha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "scripts/rebase-promotion-baseline.test.mjs",
+      "sha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "scripts/promotion-runtime-topology-review.mjs",
+      "sha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "scripts/promotion-runtime-topology-review.test.mjs",
+      "sha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "coordination/integration/checker-releases.v2.json",
+      "sha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "scripts/promotion-required-check-semantic-rescope.mjs",
+      "sha256": "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "scripts/promotion-required-check-semantic-rescope-cli.mjs",
+      "sha256": "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "90d22201a74877a31491661e0281d68fcc59d1aa6a27f77ab1b731bef271f990",
+      "matchesPreviousAndBaseline": true
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "edeee337bc152f39d4772fc1157b6be471104237f4b91483feea6a45df0c13f7",
+      "matchesPreviousAndBaseline": true
+    }
+  ],
+  "onlyChangedSincePriorFreeze": [
+    "scripts/promotion-reaffirmation-history.mjs",
+    "scripts/promotion-reaffirmation-history.test.mjs"
+  ],
+  "otherThreeFrozen": true,
+  "gitStatus": " M .github/workflows/promotion-shadow.yml\n M coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md\n M scripts/promotion-shadow-workflow-v2.test.mjs\n?? scripts/promotion-reaffirmation-history.mjs\n?? scripts/promotion-reaffirmation-history.test.mjs\n",
+  "staged": "",
+  "diffCheckExitCode": 0,
+  "logs": {
+    "graft-red.log": {
+      "sha256": "5edcb520e9864d0e46129245d72f450d303a28c08413f47e825c7188b2083663",
+      "counts": {
+        "tests": 7,
+        "pass": 2,
+        "fail": 5,
+        "skipped": 0
+      }
+    },
+    "graft-green.log": {
+      "sha256": "ddfa30cab6a153dc0671c0184cb18f2f21a9aed03c77360233f9371c635d6eec",
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "skipped": 0
+      }
+    },
+    "public-graft-final.log": {
+      "sha256": "cb010377238207889070484f64f0bfdebafff4c18b3c53d93ea9f6e7a5a93e71",
+      "counts": {
+        "tests": 106,
+        "pass": 106,
+        "fail": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "commands": [
+    {
+      "name": "graft-green",
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=graft",
+        "scripts/promotion-reaffirmation-history.test.mjs"
+      ],
+      "exitCode": 0,
+      "sha256": "ddfa30cab6a153dc0671c0184cb18f2f21a9aed03c77360233f9371c635d6eec",
+      "tail": "\u2714 default graft cannot hide the real third parent authority change (631.452709ms)\n\u2714 env graft cannot hide the real third parent authority change (618.589666ms)\n\u2714 linked-common graft cannot hide the real third parent authority change (582.026792ms)\n\u2714 default evidence-boundary graft cannot exclude real side-branch mutations (671.599542ms)\n\u2714 default harmless graft is ignored without changing real parents or origins (280.421042ms)\n\u2714 env evidence-boundary graft cannot exclude real side-branch mutations (653.632167ms)\n\u2714 env harmless graft is ignored without changing real parents or origins (270.900417ms)\n\u2139 tests 7\n\u2139 suites 0\n\u2139 pass 7\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 3746.473542\n"
+    },
+    {
+      "name": "public-graft-final",
+      "command": [
+        "npm",
+        "run",
+        "test:promotion-gate"
+      ],
+      "exitCode": 0,
+      "sha256": "cb010377238207889070484f64f0bfdebafff4c18b3c53d93ea9f6e7a5a93e71",
+      "tail": "nch mutations (691.793458ms)\n\u2714 env harmless graft is ignored without changing real parents or origins (276.069208ms)\n\u2714 Promotion Gate public scripts select v2.6 and expose no live-capable command (4.138542ms)\n\u2714 Promotion Shadow v2 CI validates current HEAD and replays the exact canonical execution commit (6.141709ms)\n\u2714 Promotion Shadow resolver bootstraps from the committed Manifest binding when the canonical Receipt is absent (319.666083ms)\n\u2714 Promotion Shadow resolver rejects a Receipt sibling merged beside its declared execution binding (407.767958ms)\n\u2714 Promotion Shadow resolver rejects every non-canonical Manifest, descriptor, and Receipt history (3911.873834ms)\n\u2714 Promotion Shadow resolver bounds inputs and fails closed on Receipt drift, unsafe copies, workspace mismatch, and invalid raw paths (3386.371ms)\n\u2714 Promotion Shadow selector contract is transition-aware and exact (5.283708ms)\n\u2714 Promotion Shadow v2 final enforcement delegates complete evidence replay to the tracked verifier (1.040417ms)\n\u2714 Promotion required-check semantic rescope is wired to exact checkout, artifacts, and final verification (0.98025ms)\n\u2714 Promotion workflow JSON guard accepts the complete JSON value grammar (1.200958ms)\n\u2714 Promotion workflow JSON guard rejects invalid UTF-8 before parsing (0.242208ms)\n\u2714 Promotion workflow JSON guard rejects duplicate object keys at every depth without disclosure (0.671958ms)\n\u2714 Promotion workflow JSON guard enforces JSON grammar and rejects non-finite numbers (0.194417ms)\n\u2714 Promotion workflow JSON guard exposes and enforces frozen resource limits (21.392167ms)\n\u2139 tests 106\n\u2139 suites 0\n\u2139 pass 106\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 21311.699541\n"
+    }
+  ],
+  "fixedHistory": {
+    "helperSha256": "dd06d88142e63f3f968fa5893c2deb7152ba03a19f715d312f3c7e9d9b3cc368",
+    "rows": [
+      {
+        "headCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "commits": 31,
+        "merges": 11,
+        "bytesRead": 96783,
+        "changes": [
+          {
+            "commit": "ae63be23a29a7d4ba8b84c28ff6846cc7318238c",
+            "status": "A",
+            "oldMode": "000000",
+            "newMode": "100644",
+            "oldBlob": "0000000000000000000000000000000000000000",
+            "newBlob": "20eef6dfa6c18dec8118f272157cb3cd42b5de4c",
+            "path": "promotion-shadow-receipt.v2.json"
+          },
+          {
+            "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+            "status": "A",
+            "oldMode": "000000",
+            "newMode": "100644",
+            "oldBlob": "0000000000000000000000000000000000000000",
+            "newBlob": "bb87253b5dd21e9da004268aa1e0960b9fed9ca3",
+            "path": "promotion-manifest.v2.json"
+          },
+          {
+            "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+            "status": "A",
+            "oldMode": "000000",
+            "newMode": "100644",
+            "oldBlob": "0000000000000000000000000000000000000000",
+            "newBlob": "4e6f58c4f33a42d6569e4c591ce547eb81a6a844",
+            "path": "reaffirmation.v2.json"
+          }
+        ]
+      },
+      {
+        "headCommit": "b583fd91543627f86a9b4b7ed8288506fad38102",
+        "commits": 34,
+        "merges": 13,
+        "bytesRead": 102164,
+        "changes": [
+          {
+            "commit": "ae63be23a29a7d4ba8b84c28ff6846cc7318238c",
+            "status": "A",
+            "oldMode": "000000",
+            "newMode": "100644",
+            "oldBlob": "0000000000000000000000000000000000000000",
+            "newBlob": "20eef6dfa6c18dec8118f272157cb3cd42b5de4c",
+            "path": "promotion-shadow-receipt.v2.json"
+          },
+          {
+            "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+            "status": "A",
+            "oldMode": "000000",
+            "newMode": "100644",
+            "oldBlob": "0000000000000000000000000000000000000000",
+            "newBlob": "bb87253b5dd21e9da004268aa1e0960b9fed9ca3",
+            "path": "promotion-manifest.v2.json"
+          },
+          {
+            "commit": "286ac82609861e9cf460f69cd0b93ad03724716b",
+            "status": "A",
+            "oldMode": "000000",
+            "newMode": "100644",
+            "oldBlob": "0000000000000000000000000000000000000000",
+            "newBlob": "4e6f58c4f33a42d6569e4c591ce547eb81a6a844",
+            "path": "reaffirmation.v2.json"
+          }
+        ]
+      }
+    ],
+    "originalFixture": {
+      "path": "/private/tmp/mais-history-review/fixture-rrPdH3",
+      "result": "rejected",
+      "error": "AUTHORITY_MERGE_CHANGE",
+      "fixtureNotModified": true
+    },
+    "projectWrites": false,
+    "fullNativeExecution": false
+  },
+  "patchSha256": "65d1c3ad33a1d75f0f9e7ab16ab21529544c797fd523a8fc0de78c69d969ffe6",
+  "sourceFrozen": true
+}

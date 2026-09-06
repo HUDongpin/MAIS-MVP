@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
+import "./promotion-reaffirmation-history.test.mjs";
 import { parse as parseYaml } from "yaml";
 import { assertRequiredWorkflowShape } from "./promotion-required-check-semantic-rescope.mjs";
 
@@ -46,6 +47,7 @@ async function createBootstrapResolverFixture({ includeDescendant = true, interm
   await mkdir(runnerTemp);
   await mkdir(path.join(root, "scripts"));
   await copyFile(path.join(repoRoot, "scripts", "promotion-workflow-json-guard.mjs"), path.join(root, "scripts", "promotion-workflow-json-guard.mjs"));
+  await copyFile(path.join(repoRoot, "scripts", "promotion-reaffirmation-history.mjs"), path.join(root, "scripts", "promotion-reaffirmation-history.mjs"));
   gitAt(root, ["init", "--quiet", "--initial-branch=main"]);
   gitAt(root, ["config", "user.name", "Promotion bootstrap test"]);
   gitAt(root, ["config", "user.email", "promotion-bootstrap@example.invalid"]);
@@ -147,10 +149,10 @@ const selectorContracts = Object.freeze({
     receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/shadow-receipt.v2.json`
   }),
   reaffirmed: Object.freeze({
-    manifest: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json`,
-    receipt: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json`,
-    receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json`,
-    reaffirmation: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmation.v2.json`
+    manifest: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json`,
+    receipt: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-shadow-receipt.v2.json`,
+    receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-shadow-receipt.v2.json`,
+    reaffirmation: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmation.v2.json`
   })
 });
 
