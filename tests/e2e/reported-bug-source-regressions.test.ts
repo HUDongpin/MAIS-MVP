@@ -49,6 +49,23 @@ test("teacher class creation form keeps compact labels on one line", async () =>
   assert.match(view, /whitespace-nowrap/);
 });
 
+test("teacher workspace parameters bypass the redirecting route root", async () => {
+  const shell = await source("components/teacher/TeacherShell.tsx");
+  const navigationStart = shell.indexOf("function navigateWithParam");
+  const navigationEnd = shell.indexOf("function warmTeacherRoute", navigationStart);
+
+  assert.ok(navigationStart >= 0 && navigationEnd > navigationStart, "workspace parameter navigation must remain in TeacherShell");
+  const navigation = shell.slice(navigationStart, navigationEnd);
+
+  assert.match(
+    navigation,
+    /const targetPathname = pathname === "\/teacher" \? "\/teacher\/dashboard" : pathname;/,
+    "parameter changes made while /teacher redirects must target the canonical dashboard"
+  );
+  assert.match(navigation, /`\$\{targetPathname\}\?\$\{params\.toString\(\)\}` : targetPathname/);
+  assert.doesNotMatch(navigation, /`\$\{pathname\}\?\$\{params\.toString\(\)\}` : pathname/);
+});
+
 test("teacher mastery-target controls stack before cramped desktop widths", async () => {
   const view = await source("components/teacher/TeacherManagementViews.tsx");
 
