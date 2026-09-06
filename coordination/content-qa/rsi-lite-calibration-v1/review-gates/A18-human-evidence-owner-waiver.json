@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "1",
+  "waiverId": "MAIS-RSI-LITE-CAL-V1-A18-HW-1",
+  "issuedAt": "2026-08-23T22:36:11+08:00",
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "candidateSetSha256": "e18cbaa42d3da75386a37d2af679ff0284d65232f141f90609d5958c4087cd6c",
+  "ownerAuthorization": {
+    "authorized": true,
+    "exactInstruction": "Codex请移除这个“真人所有的证据”的要求。",
+    "allThreeParticipantsReviewedAndApprovedReported": true,
+    "participantIdentitiesRecordedInProtectedOwnerAttestation": true,
+    "protectedOwnerAttestationPath": ".local/rsi-lite-calibration-v1/a18-independent-human-review-v2/A18-H-owner-prefill-PENDING-HUMAN-SIGNATURES.md",
+    "protectedOwnerAttestationExactByteSha256": "3970aa27c3b603b0fa73209e546fc2d8fb604c26c8f810b61b29a307d2d342fd"
+  },
+  "supersedesForGatePurposes": {
+    "path": ".local/rsi-lite-calibration-v1/a18-independent-human-review-v2/A18-H-owner-prefill-verification-BLOCKED.json",
+    "exactByteSha256": "6ec42e05f0f59c578b84de87bb7d44a3ca9678c3e7de7b954c0a4cec0531b970",
+    "historicalArtifactMustBePreserved": true
+  },
+  "scope": {
+    "appliesTo": "F3-feasibility-calibration-intake-only",
+    "waivedHardGateRequirements": [
+      "reviewer-owned-human-signatures-or-verifiable-personal-approval-records",
+      "reviewer-and-adjudicator-qualification-attachments",
+      "reviewer-and-adjudicator-conflict-and-independence-attestations",
+      "reviewer-owned-phase-1-and-phase-2-decisions-and-release-chronology",
+      "adjudicator-owned-signed-disagreement-or-zero-case-record",
+      "inter-reviewer-agreement-statistic-and-uncertainty-interval",
+      "protected-human-decision-target-clean-comparison",
+      "human-curriculum-publisher-age-fit-language-and-source-distance-ratification"
+    ],
+    "requirementsNotWaived": [
+      "independent-A18-machine-content-review",
+      "zero-open-machine-detected-construction-P0-P1",
+      "frozen-source-baseline-and-candidate-set-binding",
+      "A11-independent-runner-receipt",
+      "A22-independent-isolation-receipt",
+      "A25-independent-git-worktree-preflight",
+      "owner-signed-resource-caps",
+      "separate-explicit-F3-start-authorization",
+      "no-live-provider-production-deployment-or-git-side-effects-without-separate-authorization"
+    ],
+    "productionOrPublicQualityApprovalGranted": false
+  },
+  "acceptedEvidenceBasis": {
+    "classification": "owner-attested-human-review-without-human-owned-artifacts",
+    "humanSignaturesCollected": false,
+    "humanQualificationsIndependentlyVerified": false,
+    "humanIndependenceIndependentlyVerified": false,
+    "reviewerOwnedPhaseRecordsCollected": false,
+    "adjudicatorOwnedDecisionRecordCollected": false,
+    "interReviewerAgreementComputed": false,
+    "protectedHumanDecisionComparisonCompleted": false,
+    "doesNotClaimIndependentHumanEvidence": true,
+    "doesNotClaimHumanSignatures": true
+  },
+  "baseA18MachineReceipt": {
+    "owner": "A18",
+    "verdict": "blocked",
+    "independent": true,
+    "machineReadyForHumanReview": true,
+    "approvedForF3Intake": false,
+    "receiptSha256": "4e342d0e834ff03972b5004cb139b34bb8cc598c4f143892f57d19d5dc036284",
+    "exactByteSha256": "6de97774141a68966de0e127cdfd69ca20dfcef8df528f72226145e9d9cc8948",
+    "evidenceExactByteSha256": "99d1ca0c4d3c038531fd09985bcedc7c374b5a1d19948ce5ab8923d8d8352976"
+  },
+  "gateEffect": {
+    "a18HumanOwnedEvidenceIsHardGate": false,
+    "a18IntakeMayUseMachineReadyReceiptPlusThisWaiver": true,
+    "baseA18ReceiptIsNotRewritten": true,
+    "approvalLabel": "approved-for-F3-intake-by-owner-waiver",
+    "noAutomaticF3Transition": true
+  },
+  "scientificClaimCeiling": [
+    "No claim of independently evidenced human review or human signatures.",
+    "No inter-reviewer agreement or adjudicator-reliability claim.",
+    "No validated bilingual naturalness, publisher authenticity, age-fit, or protected-corpus source-distance claim from this waiver.",
+    "No arm-effect, production-readiness, deployment-readiness, or public curriculum-quality claim."
+  ],
+  "authorizationBoundaries": {
+    "f3ExecutionAuthorized": false,
+    "liveProviderAuthorized": false,
+    "productionAuthorized": false,
+    "deploymentAuthorized": false,
+    "gitCommitAuthorized": false,
+    "gitPushAuthorized": false
+  },
+  "hashAlgorithm": "SHA-256 over UTF-8 stable-key JSON of this object with waiverSha256 omitted",
+  "waiverSha256": "92ccb18705249284dd51f93e0056be773d073edaa415ca363fdb08cd51495144"
+}

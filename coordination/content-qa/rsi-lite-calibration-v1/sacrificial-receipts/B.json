@@ -1,0 +1,634 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "runId": "sacrificial-B",
+  "arm": "B",
+  "sacrificial": true,
+  "formalSample": false,
+  "fixtureIdentity": {
+    "packageId": "sacrificial-tri-locale-f2-r-v1",
+    "fixtureVersion": "1.1.1-f2-r",
+    "fixtureSha256": "8b69115670dadf5424aee704f6b0c3e38f10e1b3e074661b56553a272aee058d"
+  },
+  "status": "candidate-only",
+  "executionMode": "offline-deterministic",
+  "formalExecutionAuthorized": false,
+  "productionAuthorized": false,
+  "liveProviderCalibrated": false,
+  "inputSha256": "8b69115670dadf5424aee704f6b0c3e38f10e1b3e074661b56553a272aee058d",
+  "materialResultSha256": "5f9e78386adcf99ff18d65b6950eafb7291623c4311f74ac74c1f14b34370ee5",
+  "roleContract": {
+    "topology": "same-reviewer-critique-revise",
+    "roles": [
+      "deterministic-baseline",
+      "same-reviewer-critique",
+      "same-reviewer-revision"
+    ],
+    "roleTasks": [
+      "baseline-content-contracts",
+      "reflective-explanation-language-checks",
+      "finding-normalization-and-accounting"
+    ],
+    "toolCaps": {
+      "deterministicChecks": 1,
+      "expressionChecks": 1,
+      "languageChecks": 1,
+      "staticEvidenceChecks": 1,
+      "providerCalls": 0
+    },
+    "writerCount": 1
+  },
+  "roleExecutions": [
+    {
+      "role": "deterministic-baseline",
+      "taskId": "baseline-content-contracts",
+      "executionBoundary": "same-reviewer-shared-state",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "accepted-answer-false-reject:sac-q-02",
+        "non-independent-oracle-provenance:sac-q-07",
+        "numerically-equivalent-options:sac-q-04",
+        "static-evidence-label-mismatch:sac-q-05",
+        "stored-independent-answer-mismatch:sac-q-01"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-lesson-1",
+        "sac-lesson-2",
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [
+        "sac-lesson-1",
+        "sac-lesson-2"
+      ],
+      "resultSha256": "82e48d1191719dc00d5bcdecdb7dce4a9a2db5e4601f98a38da64f6827b720d0"
+    },
+    {
+      "role": "same-reviewer-critique",
+      "taskId": "reflective-explanation-language-checks",
+      "executionBoundary": "same-reviewer-shared-state",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "cross-language-numeric-semantic-mismatch:sac-q-06",
+        "invalid-explanation-arithmetic:sac-q-03"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [],
+      "resultSha256": "9b58423258e1aefc761c239b87c263aee9f42c101682739cdfa6d6c83f822ce5"
+    },
+    {
+      "role": "same-reviewer-revision",
+      "taskId": "finding-normalization-and-accounting",
+      "executionBoundary": "same-reviewer-shared-state",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [],
+      "inspectedSurfaceIds": [
+        "sac-lesson-1",
+        "sac-lesson-2",
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [],
+      "resultSha256": "ae69f10f0a1c3aa8bdf626d2deb659a6e5947682e185f8dd0dc21a870d3c187c"
+    }
+  ],
+  "coverage": {
+    "requiredSurfaces": 26,
+    "inspectedSurfaces": 26,
+    "questions": 24,
+    "lessons": 2,
+    "browserRoutes": 0,
+    "unjudgeable": 0,
+    "notInspected": 0
+  },
+  "surfaceResults": [
+    {
+      "surfaceId": "sac-q-01",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "stored-independent-answer-mismatch:sac-q-01"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "71b11c51b896ee326f2e28277b58bc42c708b861454c02141f1d26d1e04c9835",
+      "evidenceSha256": "5d68ded7a89d3b531b16863c9a0d56547f6bcc3834eef921708842790f366d11"
+    },
+    {
+      "surfaceId": "sac-q-02",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "accepted-answer-false-reject:sac-q-02"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "67e46b007a8d65d17a0c0712f37ed5a619eacf31ad7b276c775097fd4ba220b0",
+      "evidenceSha256": "8be83e41db552f1f9700d633af48d35db4265387cbaad3fcdacc200a7907ba73"
+    },
+    {
+      "surfaceId": "sac-q-03",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "invalid-explanation-arithmetic:sac-q-03"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "5808ef41498dc28c01b7d3beab7079316aac2313ee79353103d6bcbf46a5cf91",
+      "evidenceSha256": "eb0f79e5ff779a4669a8257b3c9b3a6e8bce4a72b115f327708c861fbafb34a8"
+    },
+    {
+      "surfaceId": "sac-q-04",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "numerically-equivalent-options:sac-q-04"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "f95bfca90036db4058c92a13de748c582b5cb0256744faacd07623312de11212",
+      "evidenceSha256": "658c432dac52b4a253cd514c2338f7d4b045f179510034c03df86517846a53f3"
+    },
+    {
+      "surfaceId": "sac-q-05",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "static-evidence-label-mismatch:sac-q-05"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "8a6c21217217a6e2bcad6869f28498587f1ce7f1247e91a522738c95d9169733",
+      "evidenceSha256": "7c25c22da68581083f2ba6a9fb97d35b607644a558d53cfd4e7f98aa716b2b66"
+    },
+    {
+      "surfaceId": "sac-q-06",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "cross-language-numeric-semantic-mismatch:sac-q-06"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "ce2173b2f535aac1cbeca45ee98ad9898b72de79f2b0e78231c09f3f737a4544",
+      "evidenceSha256": "9d02016d2028f09fdb9ca2d7e1f1045044aaed5299a540691f5385b6abca0894"
+    },
+    {
+      "surfaceId": "sac-q-07",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "non-independent-oracle-provenance:sac-q-07"
+      ],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "215ed4ee3dcbf88879b8bf2c3c41127a95f83c4e9988bda56ea6c8318ea2c01f",
+      "evidenceSha256": "f847444f503b42fa9abfd401a2ce481ed375616e3dda7e86b9a4e94a9e27269b"
+    },
+    {
+      "surfaceId": "sac-q-08",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "6fc44929f6c81dcfddffd0d1942753287ec54f3b2a48382efc02b931f9c63e64",
+      "evidenceSha256": "bdc555ff83ad13c4b479dbf27c66aeddf92bde6bbafff498c46c34e0acb3513a"
+    },
+    {
+      "surfaceId": "sac-q-09",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "a23a284e43684e45156374ed67845f0dee112c25b039b9aee5f76eb9252720a7",
+      "evidenceSha256": "7d4ea8d82e67a4c9ffc87cbe69d832b9b26f7cb555f6d7e92448e25a6d81c75c"
+    },
+    {
+      "surfaceId": "sac-q-10",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "82d3cb6ddcc50a5421de1110e07ba74400d8ead9d9a4c0bd3ad75ac32eaa3833",
+      "evidenceSha256": "e87f8df1ec43efe404b26df5ae584c9cc8aadfae3dae0c5c2ef6abb16f5fe2c6"
+    },
+    {
+      "surfaceId": "sac-q-11",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "478beb6f0b6f1de32c2f3ddf1de845e237eae522b8c7f16817f9fc7a9a3df18a",
+      "evidenceSha256": "3b71a2d3fd348718e470aec10dbd1ad72333aa56a62c269f8ae6932fd82b56a1"
+    },
+    {
+      "surfaceId": "sac-q-12",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "82c4c6bf86b504631054888083f202a9527041ae15cbea3bf530a4b8ad511604",
+      "evidenceSha256": "efbab3d83ead55f4d23ff4f3918be8a78bec7445ba8005685e9ace2be52e6968"
+    },
+    {
+      "surfaceId": "sac-q-13",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "354a9c7cf930fed8be6622f4b967fa143eea0a411e3233d62f3eeabb27e10a40",
+      "evidenceSha256": "27d6309bdb92509a4a84b00f53e6d89c48536915ebcb9ae9da07945b98cd83fd"
+    },
+    {
+      "surfaceId": "sac-q-14",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "aa65e26e06877ea31da5b90341b1ef375dddadd132c97cf244c9ebe55a47703d",
+      "evidenceSha256": "da6e34b75ecff9a5fe5ebf9612b3427c9dfaefad552033091306645b067051b1"
+    },
+    {
+      "surfaceId": "sac-q-15",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "408b241e2fa726cb8b339cd68ee0ac57fce9878d4b6dc827838538486a4ebc5d",
+      "evidenceSha256": "e8d7bafb358bd04a5838504a6cfe4c33ab0721334de0a4200e7a0f10b35c779b"
+    },
+    {
+      "surfaceId": "sac-q-16",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "9768ce1bae227a7e5791953de5d0bb4c879087358f202c035c8b6ab1e8fd9969",
+      "evidenceSha256": "306db1f5429e36fc03b861c9735ffdcfa2fbfa791147d3ee73177befa522733b"
+    },
+    {
+      "surfaceId": "sac-q-17",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "f428e8bba52d44d7bd4919c75386c1e5c1442600516dc4690bb9b09f749ab54d",
+      "evidenceSha256": "2db9d88990dbad88e285837bef10e19d523f1a63dd527c52afa0468a815aeb1c"
+    },
+    {
+      "surfaceId": "sac-q-18",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "2bb2aa858b4252b9678c2bc526ae4d404b07ed86963f3a8db2a6d84e59984a6d",
+      "evidenceSha256": "b7fec367d12acc4c46981a2cbc53441f292746cc68b7a7039c1897d82ad70689"
+    },
+    {
+      "surfaceId": "sac-q-19",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "1e24dc17ca47157663c285db07472d601e7cec322c9ec0313e710400e7ae0d22",
+      "evidenceSha256": "6a43a1ce144cf6bf00cc416dd16795f5ac916df5f0ea636325b7baaaf53ba4d4"
+    },
+    {
+      "surfaceId": "sac-q-20",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "9df18b3eaeba03deed9912739e79d77b31a5974bd5a38d3bd1f2ee0aad336321",
+      "evidenceSha256": "4592b49641ed8106f60d67ab233b4117bc9d6ca4e7bdf485b767002ec530968b"
+    },
+    {
+      "surfaceId": "sac-q-21",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "55b61e41c341b8e24f553f9a6ebf88aa6e8474d8a449384c3dcb0ba9cdd30918",
+      "evidenceSha256": "d6037cb236a83ad93e4c4d9a8fc0187eff86a03230231c16fb4c5f8dcc25ac5b"
+    },
+    {
+      "surfaceId": "sac-q-22",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "00a459d7cb84ffa52524bd210333300ebc097feddfaa5898e5f7afa16e1f6a6d",
+      "evidenceSha256": "9007113c0a88e077b6d4945870643272c656235cc625414a925c18c6436590fc"
+    },
+    {
+      "surfaceId": "sac-q-23",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "1c0fc6d17705238e6d1938a9b5ecca64e0a51b5be0a0a00c8d6ff452d001d438",
+      "evidenceSha256": "9582c29b8825a55e98bccb3772a8062316e3f9952c17793a159ce20da5261b46"
+    },
+    {
+      "surfaceId": "sac-q-24",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting",
+        "reflective-explanation-language-checks"
+      ],
+      "surfaceInputSha256": "d87fe34222093978d23061d1013df5dd3d13604d708f0e1442463f23b72c0904",
+      "evidenceSha256": "50be33d36901e39700e9717c1e4a507c101307fd1f8bd04460e667a5b6990b43"
+    },
+    {
+      "surfaceId": "sac-lesson-1",
+      "surfaceKind": "lesson",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting"
+      ],
+      "surfaceInputSha256": "01050b3488e230a6779be37b15e4092c1a5de81d478a3660324153d36c94f14e",
+      "evidenceSha256": "40d07991edfc462bd70eb6c20637bf323bc232ab5ac9833d52a40b828bb148b3"
+    },
+    {
+      "surfaceId": "sac-lesson-2",
+      "surfaceKind": "lesson",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "baseline-content-contracts",
+        "finding-normalization-and-accounting"
+      ],
+      "surfaceInputSha256": "bbb37c299e8676290dc1171ef514c9253adcd2265f03295922e5ccd841fd2d1e",
+      "evidenceSha256": "5bef4dbab31a9a9892fd163fbd39b5bc0284fcac89755df0e32ea8b25f9af554"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "stored-independent-answer-mismatch:sac-q-01",
+      "surfaceId": "sac-q-01",
+      "family": "F1",
+      "severity": "P0",
+      "code": "stored-independent-answer-mismatch",
+      "evidence": "The stored answer differs from an answer independently solved from the prompt.",
+      "role": "deterministic-baseline",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "accepted-answer-false-reject:sac-q-02",
+      "surfaceId": "sac-q-02",
+      "family": "F4",
+      "severity": "P0",
+      "code": "accepted-answer-false-reject",
+      "evidence": "acceptedAnswers does not include the independently verified answer.",
+      "role": "deterministic-baseline",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "invalid-explanation-arithmetic:sac-q-03",
+      "surfaceId": "sac-q-03",
+      "family": "F3",
+      "severity": "P1",
+      "code": "invalid-explanation-arithmetic",
+      "evidence": "The worked explanation contains a false arithmetic equality.",
+      "role": "same-reviewer-critique",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "numerically-equivalent-options:sac-q-04",
+      "surfaceId": "sac-q-04",
+      "family": "F2",
+      "severity": "P1",
+      "code": "numerically-equivalent-options",
+      "evidence": "Two option values normalize to the same numeric value.",
+      "role": "deterministic-baseline",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "static-evidence-label-mismatch:sac-q-05",
+      "surfaceId": "sac-q-05",
+      "family": "F5",
+      "severity": "P1",
+      "code": "static-evidence-label-mismatch",
+      "evidence": "The static evidence label differs from its content contract.",
+      "role": "deterministic-baseline",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "cross-language-numeric-semantic-mismatch:sac-q-06",
+      "surfaceId": "sac-q-06",
+      "family": "F6",
+      "severity": "P1",
+      "code": "cross-language-numeric-semantic-mismatch",
+      "evidence": "Numeric entities differ across the three language prompts.",
+      "role": "same-reviewer-critique",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "non-independent-oracle-provenance:sac-q-07",
+      "surfaceId": "sac-q-07",
+      "family": "F9",
+      "severity": "P0",
+      "code": "non-independent-oracle-provenance",
+      "evidence": "The purported independent answer is identified as a metadata copy.",
+      "role": "deterministic-baseline",
+      "disposition": "candidate-finding-needs-independent-review"
+    }
+  ],
+  "completionClaim": {
+    "state": "incomplete-findings-open",
+    "formalCompletionClaim": false,
+    "candidateComplete": false,
+    "openP0": 3,
+    "openP1": 4
+  },
+  "resourceUsage": {
+    "providerCalls": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "apiCost": 0,
+    "browserLaunches": 0,
+    "roleCalls": 3,
+    "childProcesses": 0,
+    "deterministicToolPasses": 3,
+    "operationalHumanMinutes": 0,
+    "liveLatencyMilliseconds": null
+  },
+  "excludedChecks": [
+    "browser-render-content-only-estimand"
+  ],
+  "checksNotRun": [
+    "live-provider-model-quality",
+    "live-provider-latency",
+    "live-provider-token-cost",
+    "independent-A18-adjudication",
+    "formal-48-run"
+  ],
+  "receiptSha256": "d9b83ae3cd598fbed019bcafe5ef07858c7d13132b794a587738eb302c38790c"
+}
