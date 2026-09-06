@@ -5,6 +5,8 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import * as baselineTools from "./rebase-promotion-baseline.mjs";
+import { analyzeRuntimeLoaderCalls, fingerprint } from "../coordination/integration/promotion-gate-lib.mjs";
 
 import {
   buildReaffirmedEvidence,
@@ -33,9 +35,10 @@ function digestFiles() {
   }));
 }
 
-function run(args) {
+function run(args, env = process.env) {
   return spawnSync(process.execPath, [script, ...args], {
     cwd: repoRoot,
+    env,
     encoding: "utf8",
     maxBuffer: 16 * 1024 * 1024
   });
@@ -474,4 +477,270 @@ test("reviewed runtime-policy evolution rejects reachability, loader capability,
     }),
     /source expected policy differs/u
   );
+});
+
+function callsiteFile(filePath, source) {
+  const bytes = Buffer.from(source);
+  const gitBlobId = crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex");
+  return { path: filePath, mode: "100644", gitBlobId, bytes };
+}
+
+function projectedCallsites(files) {
+  return files.flatMap(({ path: sourcePath, bytes }) => {
+    const parsed = analyzeRuntimeLoaderCalls(sourcePath, bytes.toString("utf8"));
+    return parsed.nextDynamicCalls.map(({ position, literalImports, nonliteralImportCount, normalizedExpressionDigest }) => ({
+      sourcePath, sourceRawSha256: parsed.sourceRawSha256, position,
+      literalImports, nonliteralImportCount, normalizedExpressionDigest
+    }));
+  }).sort((a, b) => {
+    const left = `${a.sourcePath}\0${a.position}`, right = `${b.sourcePath}\0${b.position}`;
+    return left < right ? -1 : left > right ? 1 : 0;
+  });
+}
+
+function callsiteRebindingFixture(targetSource) {
+  const source = 'import dynamic from "next/dynamic";\nconst A = dynamic(() => import("./A"), { ssr: false });\nconst B = dynamic(() => import("./B"));\n';
+  const sourceFiles = [callsiteFile("components/Card.tsx", source)];
+  const targetFiles = [callsiteFile("components/Card.tsx", targetSource ?? `// offset-only import/copy change\n${source}`)];
+  const sourceCallsites = projectedCallsites(sourceFiles), targetCallsites = projectedCallsites(targetFiles);
+  const sourceObservedPolicy = {
+    coveredFileCount: 3, coveredFilesDigest: "1".repeat(64), classificationsDigest: "2".repeat(64),
+    frameworkEntrypointCount: 1, seedCount: 1, reachablePathCount: 3, reachablePathsDigest: "3".repeat(64),
+    edgeCount: 2, edgeDigest: "4".repeat(64), topologyEdgeCount: 2, topologyEdgeDigest: "5".repeat(64),
+    nextDynamicCallCount: 2, nextDynamicLiteralImportCount: 2, nextDynamicNonliteralImportCount: 0,
+    nextDynamicCallsiteDigest: fingerprint(sourceCallsites), fsReadAllowlistCount: 0,
+    fsReadAllowlistDigest: fingerprint([]), zeroBaselineCallCount: 0
+  };
+  return {
+    sourceCommit: "1".repeat(40), targetCommit: "2".repeat(40),
+    sourceExpectedPolicy: structuredClone(sourceObservedPolicy), sourceObservedPolicy,
+    targetObservedPolicy: { ...sourceObservedPolicy, nextDynamicCallsiteDigest: fingerprint(targetCallsites) },
+    sourceFsReadAllowlist: [], targetFsReadAllowlist: [], sourceCallsites, targetCallsites, sourceFiles, targetFiles
+  };
+}
+
+function rebind(input) {
+  assert.equal(typeof baselineTools.buildReviewedRuntimeCallsiteRebinding, "function", "bounded callsite rebinding is missing");
+  return baselineTools.buildReviewedRuntimeCallsiteRebinding(input);
+}
+
+test("callsite rebinding binds exact Git blobs and allows only source bytes/positions to change", () => {
+  const input = callsiteRebindingFixture();
+  const before = structuredClone(input);
+  const proof = rebind(input);
+  assert.equal(proof.schemaVersion, "promotion-runtime-callsite-rebinding.v1");
+  assert.deepEqual(proof.changedFields, ["nextDynamicCallsiteDigest"]);
+  assert.equal(proof.changedCallsiteCount, 2);
+  assert.equal(proof.sourceCommit, input.sourceCommit);
+  assert.equal(proof.targetCommit, input.targetCommit);
+  assert.equal(proof.sourcePolicyDigest, fingerprint(input.sourceObservedPolicy));
+  assert.equal(proof.targetPolicyDigest, fingerprint(input.targetObservedPolicy));
+  assert.equal(proof.callsiteSemanticsUnchanged, true);
+  assert.equal(proof.liveAllowed, false);
+  assert.equal(proof.sourceFiles[0].gitBlobId, input.sourceFiles[0].gitBlobId);
+  assert.equal(proof.targetFiles[0].gitBlobId, input.targetFiles[0].gitBlobId);
+  assert.equal(JSON.stringify(proof).includes("ssr"), false, "proof must not contain source text");
+  assert.deepEqual(structuredClone(input), before);
+});
+
+test("callsite rebinding rejects changed targets and expressions even with recomputed digests", () => {
+  const source = callsiteRebindingFixture().sourceFiles[0].bytes.toString("utf8");
+  for (const changed of [source.replace('"./A"', '"./C"'), source.replace("ssr: false", "ssr: true")]) {
+    assert.throws(() => rebind(callsiteRebindingFixture(changed)), /callsite.*(semantics|expression)/u);
+  }
+});
+
+test("callsite rebinding rejects every other policy field and incomplete policy schemas", () => {
+  const original = callsiteRebindingFixture();
+  for (const field of Object.keys(original.targetObservedPolicy).filter((key) => key !== "nextDynamicCallsiteDigest")) {
+    const input = callsiteRebindingFixture();
+    input.targetObservedPolicy[field] = typeof input.targetObservedPolicy[field] === "number"
+      ? input.targetObservedPolicy[field] + 1 : "f".repeat(64);
+    assert.throws(() => rebind(input), /policy/u, field);
+  }
+  for (const mutation of [
+    (p) => { delete p.edgeDigest; }, (p) => { p.extra = true; },
+    (p) => { p.edgeCount = NaN; }, (p) => { p.edgeCount = -1; }
+  ]) {
+    const input = callsiteRebindingFixture(); mutation(input.sourceExpectedPolicy);
+    assert.throws(() => rebind(input), /policy/u);
+  }
+});
+
+test("callsite rebinding rejects absent duplicate forged and unbound callsites or source blobs", () => {
+  for (const mutate of [
+    (i) => { i.targetCallsites.pop(); },
+    (i) => { i.targetCallsites.push(i.targetCallsites[0]); },
+    (i) => { i.targetCallsites[0].position += 1; },
+    (i) => { i.targetCallsites[0].sourceRawSha256 = "0".repeat(64); },
+    (i) => { i.targetCallsites[0].normalizedExpressionDigest = "0".repeat(64); },
+    (i) => { i.targetCallsites[0].extra = true; },
+    (i) => { i.targetFiles[0].gitBlobId = "0".repeat(40); },
+    (i) => { i.targetFiles[0].mode = "120000"; },
+    (i) => { i.targetFiles[0].path = "../escape.tsx"; },
+    (i) => { i.targetFiles.push(i.targetFiles[0]); },
+    (i) => { i.targetFiles = []; },
+    (i) => { i.targetFiles[0].bytes = Buffer.from([0xff]); },
+    (i) => { i.targetFsReadAllowlist = [{ policy: "new-capability" }]; },
+    (i) => { i.targetCommit = i.sourceCommit; }
+  ]) {
+    const input = callsiteRebindingFixture(); mutate(input);
+    assert.throws(() => rebind(input), /rebinding/u);
+  }
+});
+
+test("callsite rebinding CLI is explicit and mutually exclusive with historical refresh modes", () => {
+  const help = run(["--help"]);
+  assert.equal(help.status, 0);
+  assert.match(help.stdout, /--rebind-runtime-callsites/u);
+  for (const flag of ["--refresh-runtime-policy", "--review-runtime-policy"]) {
+    const before = digestFiles();
+    const result = run(["--rebind-runtime-callsites", flag]);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /mutually exclusive/u);
+    assert.deepEqual(digestFiles(), before);
+  }
+});
+
+test("callsite rebinding rejects no-op and a decimal-width offset does not reorder paired calls", () => {
+  const source = callsiteRebindingFixture().sourceFiles[0].bytes.toString("utf8");
+  assert.throws(() => rebind(callsiteRebindingFixture(source)), /policy may change only/u);
+  const input = callsiteRebindingFixture(`${" ".repeat(70)}${source}`);
+  assert.equal(rebind(input).changedCallsiteCount, 2);
+});
+
+test("callsite rebinding rejects shallow history before loading inputs or materializing any tree", (t) => {
+  const dotGitPath = path.join(repoRoot, ".git");
+  const gitDir = fs.lstatSync(dotGitPath).isDirectory() ? dotGitPath
+    : path.resolve(repoRoot, fs.readFileSync(dotGitPath, "utf8").trim().slice("gitdir: ".length));
+  const shallow = spawnSync("git", ["--no-optional-locks", `--git-dir=${gitDir}`, `--work-tree=${repoRoot}`,
+    "-c", `core.worktree=${repoRoot}`, "rev-parse", "--is-shallow-repository"], { encoding: "utf8" });
+  assert.equal(shallow.status, 0);
+  if (shallow.stdout.trim() !== "true") { t.skip("host has full history; shallow-host check is not applicable"); return; }
+  const before = digestFiles();
+  const result = run(["--manifest", "not-loaded.json", "--target", "HEAD", "--revision-root", revisionRoot, "--rebind-runtime-callsites"]);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /REBINDING_FULL_HISTORY_REQUIRED/u);
+  assert.deepEqual(digestFiles(), before);
+});
+
+test("callsite rebinding does not mix candidate-byte revision or inherited Git routing overrides", () => {
+  const combined = run(["--rebind-runtime-callsites", "--review-legacy-candidate-bytes"]);
+  assert.notEqual(combined.status, 0);
+  assert.match(combined.stderr, /cannot combine with candidate-byte revision/u);
+  const result = run(["--manifest", manifest, "--target", "HEAD", "--revision-root", revisionRoot], {
+    ...process.env, GIT_INDEX_FILE: "/nonexistent/foreign-index", GIT_OBJECT_DIRECTORY: "/nonexistent/foreign-objects",
+    GIT_WORK_TREE: "/nonexistent/foreign-tree", GIT_SHALLOW_FILE: "/dev/null"
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /DRY RUN/u);
+});
+
+test("callsite projection requires the entire Git tree including non-callsite files and modes", () => {
+  assert.equal(typeof baselineTools.verifyCallsiteProjectionRecords, "function", "exact archive projection verification missing");
+  const records = [
+    { path: "app/page.tsx", mode: "100644", objectId: "1".repeat(40) },
+    { path: "lib/non-callsite.ts", mode: "100644", objectId: "2".repeat(40) }
+  ];
+  assert.equal(baselineTools.verifyCallsiteProjectionRecords(records, structuredClone(records)), fingerprint(records));
+  for (const actual of [
+    records.slice(0, 1), [...records, { path: "extra.ts", mode: "100644", objectId: "3".repeat(40) }],
+    [records[0], { ...records[1], objectId: "4".repeat(40) }],
+    [records[0], { ...records[1], mode: "100755" }], [records[0], records[0]],
+    [records[0], { ...records[1], mode: "120000" }]
+  ]) assert.throws(() => baselineTools.verifyCallsiteProjectionRecords(records, actual), /projection/u);
+});
+
+test("callsite projection budget admits the actual committed repository while remaining bounded", () => {
+  assert.equal(typeof baselineTools.assertCallsiteProjectionBudget, "function", "projection budget must be testable against the real Git tree");
+  const dotGit = path.join(repoRoot, ".git");
+  const gitDir = fs.lstatSync(dotGit).isDirectory() ? dotGit
+    : path.resolve(repoRoot, fs.readFileSync(dotGit, "utf8").trim().slice("gitdir: ".length));
+  const result = spawnSync("git", ["--no-optional-locks", `--git-dir=${gitDir}`, `--work-tree=${repoRoot}`,
+    "-c", `core.worktree=${repoRoot}`, "ls-tree", "-r", "-l", "-z", "HEAD"], { encoding: "utf8", maxBuffer: 16 * 1024 * 1024 });
+  assert.equal(result.status, 0, result.stderr);
+  const entries = result.stdout.split("\0").filter(Boolean);
+  const sizes = entries.map((entry) => {
+    const match = entry.match(/^\d+ blob [a-f0-9]{40}\s+(\d+)\t/u);
+    assert.ok(match, "repository fixture must contain regular blobs");
+    return Number(match[1]);
+  });
+  assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget({
+    fileCount: sizes.length, totalBytes: sizes.reduce((n, size) => n + size, 0), maxFileBytes: Math.max(...sizes)
+  }));
+  const valid = { fileCount: 10_961, totalBytes: 1_014_322_851, maxFileBytes: 31_065_464 };
+  assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget(valid));
+  const exactFileCount = 50_000;
+  const exactTotalBytes = 2 * 1024 ** 3;
+  const exactMaxFileBytes = 32 * 1024 ** 2;
+  for (const exactBoundary of [
+    { fileCount: exactFileCount, totalBytes: exactFileCount, maxFileBytes: 1 },
+    { fileCount: 64, totalBytes: exactTotalBytes, maxFileBytes: exactMaxFileBytes },
+    { fileCount: 1, totalBytes: exactMaxFileBytes, maxFileBytes: exactMaxFileBytes },
+    { fileCount: exactFileCount, totalBytes: exactTotalBytes, maxFileBytes: exactMaxFileBytes },
+  ]) assert.doesNotThrow(() => baselineTools.assertCallsiteProjectionBudget(exactBoundary));
+  for (const invalid of [
+    { ...valid, fileCount: 50_001 }, { ...valid, totalBytes: 2 * 1024 ** 3 + 1 },
+    { ...valid, maxFileBytes: 32 * 1024 ** 2 + 1 }, { ...valid, totalBytes: NaN },
+    { ...valid, fileCount: -1 }, { ...valid, totalBytes: Number.MAX_SAFE_INTEGER + 1 }
+  ]) assert.throws(() => baselineTools.assertCallsiteProjectionBudget(invalid), /projection.*limits/u);
+});
+
+
+test("topology mode is explicit, requires a committed review index, and never broadens historical modes", () => {
+  const help = run(["--help"]); assert.equal(help.status, 0); assert.match(help.stdout, /--review-runtime-topology/u); assert.match(help.stdout, /--baseline-review-index/u);
+  const missing = run(["--review-runtime-topology", "--manifest", manifest, "--target", "HEAD", "--revision-root", revisionRoot]);
+  assert.notEqual(missing.status, 0); assert.match(missing.stderr, /requires --baseline-review-index/u);
+  for (const flag of ["--refresh-runtime-policy", "--review-runtime-policy", "--rebind-runtime-callsites"]) {
+    const result = run(["--review-runtime-topology", flag]); assert.notEqual(result.status, 0); assert.match(result.stderr, /mutually exclusive/u);
+  }
+  const orphan = run(["--baseline-review-index", "not-loaded.json"]); assert.notEqual(orphan.status, 0); assert.match(orphan.stderr, /requires --review-runtime-topology/u);
+  const candidate = run(["--review-runtime-topology", "--review-legacy-candidate-bytes"]); assert.notEqual(candidate.status, 0); assert.match(candidate.stderr, /cannot combine/u);
+});
+
+test("native runtime byte binding rejects graph-preserving content, mode, and snapshot drift", () => {
+  assert.equal(typeof baselineTools.verifyRuntimeObservationBytes, "function", "physical native scan binding is missing");
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(process.env.TMPDIR || "/private/tmp", "s7-native-bytes-")));
+  const inputs = { "app/page.tsx": "export default function Page() { return 1; }\n", "public/pixel.bin": "\u0000\u0001", "middleware.ts": "export const middleware = 1;\n", "tsconfig.json": "{}\n", "tsconfig.next.json": "{\"extends\":\"./tsconfig.json\"}\n", "next.config.ts": "export default {};\n" };
+  try {
+    for (const [relative, bytes] of Object.entries(inputs)) { const file = path.join(root, relative); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes, { mode: 0o644 }); }
+    const sha = value => crypto.createHash("sha256").update(value).digest("hex");
+    const rows = Object.entries(inputs).map(([relative, bytes]) => ({ path: relative, mode: "100644", objectId: crypto.createHash("sha1").update(`blob ${Buffer.byteLength(bytes)}\0`).update(bytes).digest("hex") })).sort((a, b) => a.path < b.path ? -1 : 1);
+    const hashRow = relative => ({ path: relative, rawSha256: sha(inputs[relative]) });
+    const expectedObservation = { snapshot: { files: [hashRow("app/page.tsx"), hashRow("public/pixel.bin")] }, specialFiles: [hashRow("middleware.ts")], sensitiveAnchors: [hashRow("app/page.tsx"), hashRow("next.config.ts"), hashRow("tsconfig.json"), hashRow("tsconfig.next.json")] };
+    const check = actualObservation => baselineTools.verifyRuntimeObservationBytes({ root, targetRecords: rows, expectedObservation, actualObservation: actualObservation || expectedObservation });
+    const original = check();
+    fs.writeFileSync(path.join(root, "app/page.tsx"), inputs["app/page.tsx"].replace("return 1", "return 2"));
+    assert.throws(() => check(), /byte|object|snapshot/u);
+    fs.writeFileSync(path.join(root, "app/page.tsx"), inputs["app/page.tsx"]);
+    fs.chmodSync(path.join(root, "app/page.tsx"), 0o755);
+    assert.throws(() => check(), /mode/u);
+    fs.chmodSync(path.join(root, "app/page.tsx"), 0o644);
+    for (const section of ["snapshot", "specialFiles", "sensitiveAnchors"]) {
+      const actual = structuredClone(expectedObservation);
+      (section === "snapshot" ? actual.snapshot.files : actual[section])[0].rawSha256 = "0".repeat(64);
+      assert.throws(() => check(actual), /byte|snapshot|anchor/u);
+    }
+    fs.writeFileSync(path.join(root, "public/pixel.bin"), Buffer.from([0, 2]));
+    assert.throws(() => check(), /byte|object/u);
+    fs.writeFileSync(path.join(root, "public/pixel.bin"), inputs["public/pixel.bin"]);
+    assert.equal(check(), original);
+    fs.writeFileSync(path.join(root, "tsconfig.next.json"), "{}\n");
+    assert.throws(() => check(), /byte|object/u);
+    fs.writeFileSync(path.join(root, "tsconfig.next.json"), inputs["tsconfig.next.json"]);
+    fs.chmodSync(path.join(root, "tsconfig.next.json"), 0o755);
+    assert.throws(() => check(), /mode/u);
+    fs.chmodSync(path.join(root, "tsconfig.next.json"), 0o644);
+    const missing = structuredClone(expectedObservation); missing.snapshot.files.pop();
+    assert.throws(() => check(missing), /byte|snapshot|inventory/u);
+    fs.unlinkSync(path.join(root, "public/pixel.bin"));
+    const fifo = spawnSync("mkfifo", [path.join(root, "public/pixel.bin")], { encoding: "utf8" });
+    assert.equal(fifo.status, 0, fifo.stderr);
+    assert.throws(() => check(), /non-regular/u);
+    fs.unlinkSync(path.join(root, "public/pixel.bin"));
+    fs.writeFileSync(path.join(root, "public/pixel.bin"), inputs["public/pixel.bin"]);
+    fs.renameSync(path.join(root, "app"), path.join(root, "real-app"));
+    fs.symlinkSync("real-app", path.join(root, "app"));
+    assert.throws(() => check(), /symlink|canonical|path/u);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });

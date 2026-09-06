@@ -239,6 +239,193 @@ function assertOwnerMapping(manifest, pathspec, owner, coordinatesWith) {
   );
 }
 
+test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic comparator and uses the tracked current guard elsewhere", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const guardRelativePath = "scripts/promotion-workflow-json-guard.mjs";
+  const guardTestRelativePath = "scripts/promotion-workflow-json-guard.test.mjs";
+  const semanticLibraryRelativePath = "scripts/promotion-required-check-semantic-rescope.mjs";
+  const semanticCliRelativePath = "scripts/promotion-required-check-semantic-rescope-cli.mjs";
+  const semanticTestRelativePath = "scripts/promotion-required-check-semantic-rescope.test.mjs";
+  const packageJson = await readJson(path.join(repoRoot, "package.json"));
+  const promotionGateCommand = packageJson.scripts?.["test:promotion-gate"];
+  assert.equal(typeof promotionGateCommand, "string", "Promotion Gate test command must exist");
+  assert.match(
+    promotionGateCommand,
+    new RegExp(`(?:^|\\s)${guardTestRelativePath.replaceAll(".", "\\.")}(?:\\s|$)`, "u"),
+    "the required Promotion Gate test command must execute the strict JSON guard behavioral suite"
+  );
+  assert.match(
+    promotionGateCommand,
+    new RegExp(`(?:^|\\s)${semanticTestRelativePath.replaceAll(".", "\\.")}(?:\\s|$)`, "u"),
+    "the required Promotion Gate test command must execute semantic-rescope behavior"
+  );
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const job = workflow.jobs?.["promotion-shadow-gate"];
+  assert.ok(job, "Promotion Shadow job must exist");
+  assert.ok(Array.isArray(job.steps), "Promotion Shadow steps must exist");
+
+  const parseSites = job.steps.flatMap((step) => {
+    if (typeof step.run !== "string") return [];
+    const occurrences = step.run.match(/\bJSON\.parse\s*\(/gu) ?? [];
+    return occurrences.map(() => step.name);
+  });
+  assert.deepEqual(
+    parseSites,
+    ["Compare canonical semantic Receipt digests"],
+    "reachable plain JSON.parse must remain only in the exact semantic comparator"
+  );
+
+  const comparator = job.steps.find((step) => step.name === "Compare canonical semantic Receipt digests");
+  assert.ok(comparator, "exact semantic comparator step must exist");
+  assert.equal(
+    createHash("sha256").update(comparator.run).digest("hex"),
+    "da19cda092e2f5b6ee2eb3a22c84c18e8a79bf27b95901f7ec419c6d01628d6e",
+    "exact semantic comparator program must remain byte-for-byte unchanged"
+  );
+
+  assertTrackedInIndex(guardRelativePath);
+
+  const guardedStepNames = [
+    "Validate current Promotion inputs and runtime graph",
+    "Resolve committed canonical Receipt execution commit",
+    "Execute canonical pilot shadow",
+    "Replay canonical pilot with distinct run identity",
+    "Verify fresh replay and canonical Receipts",
+    "Assert exact Promotion Shadow artifact set"
+  ];
+  const guardedSteps = new Map();
+  for (const stepName of guardedStepNames) {
+    const step = job.steps.find((entry) => entry.name === stepName);
+    assert.ok(step, `${stepName} must exist`);
+    assert.match(step.run, /parsePromotionWorkflowJsonBytes/u, `${stepName} must use the strict JSON guard`);
+    assert.match(step.run, /process\.env\.GITHUB_WORKSPACE/u, `${stepName} must select the current checkout`);
+    assert.match(step.run, /scripts", "promotion-workflow-json-guard\.mjs/u, `${stepName} must load the tracked guard`);
+    guardedSteps.set(stepName, step);
+  }
+
+  const currentValidation = guardedSteps.get("Validate current Promotion inputs and runtime graph").run;
+  assert.match(currentValidation, /expectedExit = \{ pass: 0, fail: 1, blocked: 2, internal: 3 \}\[report\.result\]/u);
+  assert.match(currentValidation, /expectedExit === undefined \|\| cliExit !== expectedExit/u);
+  assert.match(currentValidation, /report\.schemaVersion !== "promotion-validation-result\.v2"/u);
+  assert.match(currentValidation, /report\.liveAllowed !== false/u);
+  assert.match(currentValidation, /report\.pilotUnitStatus !== "shadow_ready"/u);
+
+  const canonicalResolution = guardedSteps.get("Resolve committed canonical Receipt execution commit").run;
+  assert.equal(
+    [...canonicalResolution.matchAll(/\bexecFileSync\s*\(/gu)].length,
+    1,
+    "the resolver may use exactly one bounded Git history read"
+  );
+  assert.match(canonicalResolution, /execFileSync\("git", \["show", "--format=%H%x00%P%x00", "--raw", "-z", "--no-abbrev", "--no-renames", `\$\{evidenceCommit\}\.\.HEAD`\]/u);
+  assert.match(canonicalResolution, /maxBuffer: 32 \* 1024 \* 1024/u);
+  assert.match(canonicalResolution, /new TextDecoder\("utf-8", \{ fatal: true \}\)/u);
+  assert.match(canonicalResolution, /const maxInputBytes = 32 \* 1024 \* 1024;/u);
+  assert.match(canonicalResolution, /entry\.size > maxInputBytes/u);
+  assert.match(canonicalResolution, /manifestBytes\.byteLength > maxInputBytes \|\| descriptorBytes\.byteLength > maxInputBytes/u);
+  assert.match(canonicalResolution, /workingBytes\.byteLength > maxInputBytes/u);
+  assert.match(canonicalResolution, /const exactWorkspace = realpathSync\(currentWorkspace\);/u);
+  assert.match(canonicalResolution, /if \(exactWorkspace !== repoRoot\) throw new Error\("GITHUB_WORKSPACE must be the exact checked-out repository\."\);/u);
+  assert.match(canonicalResolution, /path\.join\(exactWorkspace, "scripts", "promotion-workflow-json-guard\.mjs"\)/u);
+  assert.match(canonicalResolution, /const receiptEntry = lstatOrNull\(expectedReceipt\);/u);
+  assert.match(canonicalResolution, /if \(receiptEntry === null\)/u);
+  assert.match(canonicalResolution, /receiptChanges\.length !== 0/u);
+  assert.match(canonicalResolution, /writeFileSync\(outputPath, `execution_commit=\$\{executionCommit\}\\n`, \{ flag: "a" \}\)/u);
+  assert.match(canonicalResolution, /workingBytes\.equals\(committedBytes\)/u);
+  assert.match(canonicalResolution, /receipt\.schemaVersion !== "promotion-receipt\.v2"/u);
+  assert.match(canonicalResolution, /receipt\.result !== "pass"/u);
+  assert.match(canonicalResolution, /receipt\.manifest\?\.path !== manifestPath/u);
+  assert.match(canonicalResolution, /receipt\.binding\?\.liveAllowed !== false/u);
+  assert.match(canonicalResolution, /receipt\.lifecycle\?\.liveAllowed !== false/u);
+  assert.match(canonicalResolution, /receipt\.worktreeProof\?\.executionCommit !== bindingCommit/u);
+  assert.match(canonicalResolution, /const isStrictAncestor = \(ancestor, descendant\)/u);
+  assert.match(canonicalResolution, /!isStrictAncestor\(bindingCommit, receiptChanges\[0\]\.commit\)/u);
+  assert.equal([...canonicalResolution.matchAll(/\bwriteFileSync\s*\(/gu)].length, 2, "resolver write authority remains fixed");
+  assert.equal([...canonicalResolution.matchAll(/\bopenSync\s*\(/gu)].length, 1, "Receipt copy remains exclusive-create only");
+
+  for (const [stepName, runIdVariable] of [
+    ["Execute canonical pilot shadow", "PROMOTION_RUN_ID"],
+    ["Replay canonical pilot with distinct run identity", "PROMOTION_REPLAY_RUN_ID"]
+  ]) {
+    const run = guardedSteps.get(stepName).run;
+    assert.match(run, /expectedExit = \{ pass: 0, fail: 1, blocked: 2, internal: 3 \}\[receipt\.result\]/u);
+    assert.match(run, /Number\(cliExitText\) !== expectedExit/u);
+    assert.match(run, /receipt\.schemaVersion !== "promotion-receipt\.v2"/u);
+    assert.match(run, /receipt\.run\?\.runId !== runId/u);
+    assert.match(run, new RegExp(`"\\$${runIdVariable}"`, "u"));
+    assert.match(run, /cd "\$PROMOTION_EXECUTION_WORKTREE"[\s\S]*process\.env\.GITHUB_WORKSPACE/u);
+  }
+
+  const verification = guardedSteps.get("Verify fresh replay and canonical Receipts").run;
+  assert.match(verification, /cd "\$PROMOTION_EXECUTION_WORKTREE"[\s\S]*process\.env\.GITHUB_WORKSPACE/u);
+  assert.match(verification, /Number\(cliExitText\) !== expectedExit/u);
+  assert.match(verification, /report\.schemaVersion !== "promotion-receipt-verification\.v2"/u);
+  assert.match(verification, /report\.valid !== true/u);
+  assert.match(verification, /report\.liveAllowed !== false/u);
+  for (const target of ["FRESH", "REPLAY", "CANONICAL"]) {
+    assert.match(verification, new RegExp(`verify_one "\\$PROMOTION_${target}(?:_RECEIPT(?:_COPY)?|_VERIFICATION)`, "u"));
+  }
+
+  const artifactPreflight = guardedSteps.get("Assert exact Promotion Shadow artifact set").run;
+  assert.match(artifactPreflight, /JSON\.stringify\(supplied\) !== JSON\.stringify\(expected\)/u);
+  assert.match(artifactPreflight, /JSON\.stringify\(readdirSync\(artifactRoot\)\.sort\(\)\) !== JSON\.stringify\(expected\)/u);
+  assert.match(artifactPreflight, /entry\.isSymbolicLink\(\) \|\| entry\.nlink !== 1 \|\| entry\.size === 0/u);
+  assert.match(artifactPreflight, /realpathSync\(artifactPath\) !== artifactPath/u);
+  const uploadStep = job.steps.find((step) => step.name === "Upload Promotion Shadow gate artifacts");
+  assert.equal(uploadStep?.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
+
+  const semanticEvaluation = job.steps.find(
+    (step) => step.name === "Evaluate current-head semantic required-check decision"
+  );
+  const finalOutcome = job.steps.find(
+    (step) => step.name === "Enforce Promotion Shadow Gate outcome"
+  );
+  assert.ok(semanticEvaluation);
+  assert.ok(finalOutcome);
+  assert.equal(semanticEvaluation.if, "${{ always() }}");
+  assert.equal(finalOutcome.if, "${{ always() }}");
+  assert.match(semanticEvaluation.run, /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/u);
+  assert.match(finalOutcome.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
+  for (const run of [semanticEvaluation.run, finalOutcome.run]) {
+    for (const variable of [
+      "GITHUB_WORKSPACE",
+      "GITHUB_EVENT_NAME",
+      "GITHUB_EVENT_PATH",
+      "PROMOTION_MANIFEST",
+      "PROMOTION_CANONICAL_RECEIPT",
+      "PROMOTION_CURRENT_VALIDATION",
+      "PROMOTION_FRESH_RECEIPT",
+      "PROMOTION_REPLAY_RECEIPT",
+      "PROMOTION_CANONICAL_RECEIPT_COPY",
+      "PROMOTION_FRESH_VERIFICATION",
+      "PROMOTION_REPLAY_VERIFICATION",
+      "PROMOTION_CANONICAL_VERIFICATION",
+      "PROMOTION_REQUIRED_CHECK_DECISION",
+      "PROMOTION_ARTIFACT_ROOT"
+    ]) assert.match(run, new RegExp(`"\\$${variable}"`, "u"));
+  }
+  assert.match(artifactPreflight, /promotion-required-check-decision\.v1\.json/u);
+
+  assert.equal(job.steps.filter((step) => /promotion:validate/.test(step.run ?? "")).length, 1, "one current validation invocation is required");
+  assert.equal(job.steps.filter((step) => /promotion:shadow/.test(step.run ?? "")).length, 2, "fresh and replay Shadows must both remain wired");
+  assert.equal(job.steps.filter((step) => /promotion:verify-receipt/.test(step.run ?? "")).length, 1, "one verification helper must verify all three receipts");
+  assert.equal(job.steps.filter((step) => /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/.test(step.run ?? "")).length, 1);
+  assert.equal(job.steps.filter((step) => /promotion-required-check-semantic-rescope-cli\.mjs" verify/.test(step.run ?? "")).length, 1);
+  assert.ok(job.steps.indexOf(uploadStep) < job.steps.indexOf(finalOutcome), "artifact upload must precede final gate enforcement");
+  const semanticLibrarySource = await readFile(path.join(repoRoot, semanticLibraryRelativePath), "utf8");
+  const semanticCliSource = await readFile(path.join(repoRoot, semanticCliRelativePath), "utf8");
+  assert.equal(createHash("sha256").update(semanticLibrarySource).digest("hex"), "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81");
+  assert.equal(createHash("sha256").update(semanticCliSource).digest("hex"), "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b");
+  assert.match(semanticLibrarySource, /const GIT_EXECUTABLE = "\/usr\/bin\/git"/u);
+  assert.match(semanticLibrarySource, /shell: false/u);
+  assert.match(semanticLibrarySource, /parsePromotionWorkflowJsonBytes/u);
+  assert.match(semanticLibrarySource, /collectV2RuntimeAndLegacyProof/u);
+  assert.match(semanticLibrarySource, /observeCanonicalRuntimePolicy/u);
+  assert.match(semanticCliSource, /parsePromotionWorkflowJsonBytes/u);
+  assert.doesNotMatch(semanticCliSource, /\bJSON\.parse\s*\(/u);
+  assert.doesNotMatch(semanticCliSource, /node:(?:http|https|net|tls|dns)|\bfetch\s*\(|\b(?:curl|wget|vercel)\b/iu);
+  assert.doesNotMatch(semanticCliSource, /node:child_process|\b(?:exec|execSync|spawn|spawnSync|fork)\s*\(/u);
+});
+
 test.skip("Promotion Shadow npm commands are exact and expose no live-capable alias", () => {
   const current = readGitObjectJson(":package.json");
   const expectedCommands = {
@@ -276,10 +463,10 @@ test.skip("Promotion Shadow CI is an all-change fail-closed non-live gate", asyn
   const frozenRelease = "ca89c923065a1b9dd6aee40fbc78326be13aae07";
 
   assert.equal(workflow.name, "promotion-shadow-gate");
-  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
+  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push"]);
   assert.equal(workflow.on.pull_request, null);
   assert.deepEqual(workflow.on.push, { branches: ["main"] });
-  assert.equal(workflow.on.workflow_dispatch, null);
+  assert.equal(workflow.on.workflow_dispatch, undefined);
   assert.doesNotMatch(workflowSource, /^\s*paths(?:-ignore)?\s*:/mu);
   assert.doesNotMatch(workflowSource, /continue-on-error\s*:/u);
 
@@ -3134,7 +3321,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
-    "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
+    "test:release-governance": "node --test --test-concurrency=1 scripts/classroom-load-smoke.test.mjs scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
@@ -3198,6 +3385,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:staged-publish-preflight",
     "report:bench-usage",
     "smoke:ai-tutor-live-latency",
+    "smoke:classroom-load",
     "smoke:dashboard-auth-ready",
     "smoke:dashboard-latency",
     "smoke:dashboard-ui-loading",
@@ -3255,7 +3443,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "8a59d333637faf9b9507733d8680b0cfc1dd323291193567beacbaafa0c55530",
+    "9f523b4a759f50fc702960a47640ae8098eac2224af982471901db4fd9f6dd66",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -3523,7 +3711,7 @@ test("package and coordination contracts preserve security versions and closure 
   assert.equal(packageJson.scripts["release:package-gate"], "node scripts/release-package-gate.mjs");
   assert.equal(
     packageJson.scripts["test:release-governance"],
-    "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
+    "node --test --test-concurrency=1 scripts/classroom-load-smoke.test.mjs scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
   );
   assert.match(gitignore, /^Users\/$/m);
   assert.match(agents, /git add \./i);

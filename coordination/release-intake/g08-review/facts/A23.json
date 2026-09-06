@@ -1,0 +1,466 @@
+{
+  "schemaVersion": "mais-g08-publication-facts.v1",
+  "producedAt": "2026-09-06T17:23:13.630Z",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "actor": {
+    "identity": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "codeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+  "role": "A23",
+  "semanticPayload": {
+    "contractVersion": "promotion-a23-shadow-readiness.v2",
+    "currentState": "candidate_hold",
+    "authorizedState": "shadow_ready",
+    "liveAllowed": false,
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "legacyResolutionRegistryPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/legacy-resolution-registry.v2.6.json",
+    "legacyResolutionRegistryRawSha256": "d4cff93eff108b507d9efa74af9847b82cd55611e957d03c98ad5c6eada11852",
+    "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+    "canonicalLegacyAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+    "baselineReview": {
+      "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "sourceManifest": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+        "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+      },
+      "runtimeTopologyProofDigest": "e5049d9b6df8701a99161321ae1ee1e3d59611e55de777215c72a15d6e3f2933",
+      "actualCollectorCodeCommit": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+      "actualCollectorProducedAt": "2026-09-06T15:42:52.762Z",
+      "collectorDurationSeconds": 48.161119209,
+      "sourceAndTargetArchivesVerified": true,
+      "currentScannerBytesEqualCollector": true,
+      "registryChange": "targetBaselineCommit only; all 18 dispositions preserved",
+      "registryPublicationState": "exact prepared bytes; committed native evidence phase still required",
+      "candidateOrCheckerBytesChanged": false,
+      "nativeSemanticProof": {
+        "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+        "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+        "selectedIdentityHits": 0,
+        "resolutionCount": 18,
+        "approvedProjectionCount": 3,
+        "dereachedCount": 15,
+        "liveAllowed": false
+      }
+    },
+    "runtimeBaselineDiff": {
+      "changedFiles": [
+        {
+          "path": "app/api/observability/client-error/handler.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "4a5ea00c9119c065fef75e2fa7c88e8fa366d755",
+            "rawSha256": "8c7886b18591d15ebc8302fd28371df18c0590a0d4f9cdda67ff42691e09d2c3"
+          }
+        },
+        {
+          "path": "app/api/observability/client-error/route.test.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "39bf47e537b496a2cd5e9b01f048c4c97ff55e9b",
+            "rawSha256": "e73b68a815874a0f6b1503775d50d7ce27cacf37e825d48f9450353bc0a8f283"
+          }
+        },
+        {
+          "path": "app/api/observability/client-error/route.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "1469253fbceca7a0d6fd946d6b0dbc588b00449f",
+            "rawSha256": "29031cb24c26c115181cd36873d5861c027aa412d086674e4e01a0fd0609067d"
+          }
+        },
+        {
+          "path": "app/api/observability/test-error/handler.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "d393af9a1de3a5cee3da090ccf0e7b310bf6b5a1",
+            "rawSha256": "8fec7251a5ba7e26069e37b7935c5bd954963e39e412adc920f60dbffd1f9aca"
+          }
+        },
+        {
+          "path": "app/api/observability/test-error/route.test.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "05591bfd273adc7adc35167fc8b1aab3b906ccf6",
+            "rawSha256": "fa7445fd6b074f2dbcde3d2c7ed0ad620b1e5f942a80f9674190492d8dfe16f0"
+          }
+        },
+        {
+          "path": "app/api/observability/test-error/route.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "bbd0a13a7d43a61cc3b743c149bc6a293e239c9b",
+            "rawSha256": "375b4d1b727a176ba8c99a2e22a7bc760358f208d4a2b63adb465c1d88e2ce1c"
+          }
+        },
+        {
+          "path": "app/global-error.tsx",
+          "before": {
+            "mode": "100644",
+            "objectId": "fa11945178036f6deaa13973f38b2bd758bead67",
+            "rawSha256": "0a585088ac37df9d5939d6586074175e8e86dbcdf45ec2054ca998650444be63"
+          },
+          "after": {
+            "mode": "100644",
+            "objectId": "16c67d916b38520f558ffe793361806a9c985681",
+            "rawSha256": "afa0a3252f200a1578724fbd3f78193c417745107e385a054ece02d1d8b69e03"
+          }
+        },
+        {
+          "path": "app/layout.tsx",
+          "before": {
+            "mode": "100644",
+            "objectId": "e664bf8fabb4a8596ddd313af255ee139161ff29",
+            "rawSha256": "6092c008337d350c523051e1c2ca005512a14c863518b55b0652f5a5f075da9f"
+          },
+          "after": {
+            "mode": "100644",
+            "objectId": "f4557558c2ef29ab3ff1fa4a53b4891790cf42a6",
+            "rawSha256": "1abf6521e5e2810f4f6dc33b5ed6cfe052f6c10467c2a428fe3bdd39cde1f4b9"
+          }
+        },
+        {
+          "path": "components/observability/ClientErrorReporter.tsx",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "564d198193930c952eb6ea5527fcea287980fc69",
+            "rawSha256": "52bdd09eac4a4e37d788f62bafd28a7ed299c73503050317ad2a0256963eaf9f"
+          }
+        },
+        {
+          "path": "components/providers/AppProviders.tsx",
+          "before": {
+            "mode": "100644",
+            "objectId": "8ea2fb63baccc0bb34dac5bcdba425b7f975b857",
+            "rawSha256": "eec0ec4e942a62e5e15eef96600ab6b6dbf08e5464ab3ec51b1016ceeb12268b"
+          },
+          "after": {
+            "mode": "100644",
+            "objectId": "a78a81e2d19072bbe6bf1a4a0f26dfc0bc7733ea",
+            "rawSha256": "0952932b5ed16795afd7516e56e9309c5d158f34c4676a10703b9ca34157e8c1"
+          }
+        },
+        {
+          "path": "lib/observability/browserReporter.test.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "9bcee943e85ad989a8aca865f998819f7f9c8472",
+            "rawSha256": "7cd3b02feba40886c96849e12a390c2598bbb4fb087965d23d5dd30ee655850e"
+          }
+        },
+        {
+          "path": "lib/observability/browserReporter.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "6f8a967499a8e750794b5770b2157aaf91ec6d16",
+            "rawSha256": "fa2a9efa3c4501c8435adb81416682d94a7931d9b35848e27fd922280e09386c"
+          }
+        },
+        {
+          "path": "lib/observability/errorPolicy.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "1267c006063ec60a6655b9fc807113daea4dd2b9",
+            "rawSha256": "d28d4bf31a8d8bcd6579af01aa6b4ec134cc774ebf80aaf7bad7f1857e1ef314"
+          }
+        },
+        {
+          "path": "lib/observability/privacy.test.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "64375e700af08fb80756f178eaa6bf5c25cb9b1b",
+            "rawSha256": "04a525c4c9e2578215aa33b1815bd09f56c39e193519c50e70d4dbdcc64704d0"
+          }
+        },
+        {
+          "path": "lib/server/clientErrorReport.test.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "db69b8347b39795fdbf164421b506984be93bc1a",
+            "rawSha256": "280165987a1bafa219ba1cfcb14099cd761567c50cfa624caa0825b2cfb28ac0"
+          }
+        },
+        {
+          "path": "lib/server/clientErrorReport.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "2cba6de2c6a991f0ac4550ecb21281ed049890d1",
+            "rawSha256": "01ff58b85ea054815d352567c2afe3a7a3a73068aec61c0ede54859312b863d5"
+          }
+        },
+        {
+          "path": "lib/server/errorMonitor.test.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "0b9e39f2e53dcc9d9f7c0ef22c84e11a4c112602",
+            "rawSha256": "f966849c9a0ce12961e47b2b220f608ced82f53572519bc18031d9db485d7437"
+          }
+        },
+        {
+          "path": "lib/server/errorMonitor.ts",
+          "before": null,
+          "after": {
+            "mode": "100644",
+            "objectId": "27b09af9de18c51963f4aeb208abc11b7302584c",
+            "rawSha256": "faeb6312eb80c9c768cd8afce004461c64d46acb2fdb7ba2ccc3c8fad47dd770"
+          }
+        }
+      ],
+      "protectedChangedPathsDigest": "832bd247c2d0bd3818e82ed897866b4b99cf3a16ebe6f2a621e05b0eceb9aad9",
+      "addedCoveredPaths": [
+        "app/api/observability/client-error/handler.ts",
+        "app/api/observability/client-error/route.test.ts",
+        "app/api/observability/client-error/route.ts",
+        "app/api/observability/test-error/handler.ts",
+        "app/api/observability/test-error/route.test.ts",
+        "app/api/observability/test-error/route.ts",
+        "components/observability/ClientErrorReporter.tsx",
+        "lib/observability/browserReporter.test.ts",
+        "lib/observability/browserReporter.ts",
+        "lib/observability/errorPolicy.ts",
+        "lib/observability/privacy.test.ts",
+        "lib/server/clientErrorReport.test.ts",
+        "lib/server/clientErrorReport.ts",
+        "lib/server/errorMonitor.test.ts",
+        "lib/server/errorMonitor.ts"
+      ],
+      "addedReachablePaths": [
+        "app/api/observability/client-error/handler.ts",
+        "app/api/observability/client-error/route.ts",
+        "app/api/observability/test-error/handler.ts",
+        "app/api/observability/test-error/route.ts",
+        "components/observability/ClientErrorReporter.tsx",
+        "lib/observability/browserReporter.ts",
+        "lib/observability/errorPolicy.ts",
+        "lib/server/clientErrorReport.ts",
+        "lib/server/errorMonitor.ts"
+      ],
+      "addedFrameworkEntrypoints": [
+        "app/api/observability/client-error/route.ts",
+        "app/api/observability/test-error/route.ts"
+      ],
+      "addedSeeds": [
+        "app/api/observability/client-error/route.ts",
+        "app/api/observability/test-error/route.ts"
+      ],
+      "addedEdges": [
+        {
+          "from": "app/api/observability/client-error/handler.ts",
+          "specifier": "@/lib/server/clientErrorReport",
+          "to": "lib/server/clientErrorReport.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/api/observability/client-error/handler.ts",
+          "specifier": "@/lib/server/errorMonitor",
+          "to": "lib/server/errorMonitor.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/api/observability/client-error/handler.ts",
+          "specifier": "@/lib/server/rateLimit",
+          "to": "lib/server/rateLimit.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/api/observability/client-error/route.ts",
+          "specifier": "./handler",
+          "to": "app/api/observability/client-error/handler.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/api/observability/test-error/handler.ts",
+          "specifier": "@/lib/server/errorMonitor",
+          "to": "lib/server/errorMonitor.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/api/observability/test-error/route.ts",
+          "specifier": "./handler",
+          "to": "app/api/observability/test-error/handler.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/global-error.tsx",
+          "specifier": "@/lib/observability/browserReporter",
+          "to": "lib/observability/browserReporter.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/global-error.tsx",
+          "specifier": "@/lib/observability/errorPolicy",
+          "to": "lib/observability/errorPolicy.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "app/layout.tsx",
+          "specifier": "@/components/observability/ClientErrorReporter",
+          "to": "components/observability/ClientErrorReporter.tsx",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "components/observability/ClientErrorReporter.tsx",
+          "specifier": "@/lib/observability/browserReporter",
+          "to": "lib/observability/browserReporter.ts",
+          "kind": "export",
+          "typeOnly": false
+        },
+        {
+          "from": "components/observability/ClientErrorReporter.tsx",
+          "specifier": "@/lib/observability/browserReporter",
+          "to": "lib/observability/browserReporter.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "lib/observability/browserReporter.ts",
+          "specifier": "./errorPolicy",
+          "to": "lib/observability/errorPolicy.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "lib/server/clientErrorReport.ts",
+          "specifier": "../observability/errorPolicy",
+          "to": "lib/observability/errorPolicy.ts",
+          "kind": "export",
+          "typeOnly": false
+        },
+        {
+          "from": "lib/server/clientErrorReport.ts",
+          "specifier": "../observability/errorPolicy",
+          "to": "lib/observability/errorPolicy.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "lib/server/errorMonitor.ts",
+          "specifier": "../observability/errorPolicy",
+          "to": "lib/observability/errorPolicy.ts",
+          "kind": "import",
+          "typeOnly": false
+        },
+        {
+          "from": "lib/server/errorMonitor.ts",
+          "specifier": "./rateLimit",
+          "to": "lib/server/rateLimit.ts",
+          "kind": "import",
+          "typeOnly": false
+        }
+      ],
+      "addedTopologyEdges": [
+        {
+          "from": "app/api/observability/client-error/handler.ts",
+          "to": "lib/server/clientErrorReport.ts"
+        },
+        {
+          "from": "app/api/observability/client-error/handler.ts",
+          "to": "lib/server/errorMonitor.ts"
+        },
+        {
+          "from": "app/api/observability/client-error/handler.ts",
+          "to": "lib/server/rateLimit.ts"
+        },
+        {
+          "from": "app/api/observability/client-error/route.ts",
+          "to": "app/api/observability/client-error/handler.ts"
+        },
+        {
+          "from": "app/api/observability/test-error/handler.ts",
+          "to": "lib/server/errorMonitor.ts"
+        },
+        {
+          "from": "app/api/observability/test-error/route.ts",
+          "to": "app/api/observability/test-error/handler.ts"
+        },
+        {
+          "from": "app/global-error.tsx",
+          "to": "lib/observability/browserReporter.ts"
+        },
+        {
+          "from": "app/global-error.tsx",
+          "to": "lib/observability/errorPolicy.ts"
+        },
+        {
+          "from": "app/layout.tsx",
+          "to": "components/observability/ClientErrorReporter.tsx"
+        },
+        {
+          "from": "components/observability/ClientErrorReporter.tsx",
+          "to": "lib/observability/browserReporter.ts"
+        },
+        {
+          "from": "lib/observability/browserReporter.ts",
+          "to": "lib/observability/errorPolicy.ts"
+        },
+        {
+          "from": "lib/server/clientErrorReport.ts",
+          "to": "lib/observability/errorPolicy.ts"
+        },
+        {
+          "from": "lib/server/errorMonitor.ts",
+          "to": "lib/observability/errorPolicy.ts"
+        },
+        {
+          "from": "lib/server/errorMonitor.ts",
+          "to": "lib/server/rateLimit.ts"
+        }
+      ],
+      "removedReachablePaths": [],
+      "removedEdges": []
+    },
+    "readinessLimitations": [
+      "This review accepts preparation for a non-live Shadow run at the exact baseline. It is not a completed Shadow, replay, Receipt, Closure or release proof.",
+      "Native frozen v2.6 validation and both real executions must pass before final acceptance.",
+      "Existing candidate-only and English-only live blockers are retained; this revision adds no live content."
+    ],
+    "revisionCorrectionReview": {
+      "reviewedAt": "2026-09-06T17:23:13.630Z",
+      "originalFactsProducedAt": "2026-09-06T16:44:43.861Z",
+      "originalFactRawSha256": "75a1a29102389651e6e3b476023b7a3910aba226bb08efaa628a161bc8c9a780",
+      "priorUnselectedRevision": "g07",
+      "newRevision": "g08",
+      "change": "compatibility wrapper requires baseline-only top-level review fields; add real A11/A22/A25 artifacts before new evidence; preserve G07 frozen artifacts",
+      "targetCandidateSourceCheckerUnchanged": true,
+      "nativeResultsRemainActualHistoricalRuns": true,
+      "newShadowExecuted": false
+    }
+  },
+  "reviewMethod": "Root re-read original fact bytes and exact source/target/candidate/checker objects; accepted only a sibling revision path and compatibility record correction. Prior execution evidence is not retimed.",
+  "executionReferences": [
+    {
+      "path": "mais-s7-full-collector.json",
+      "rawSha256": "d9db7216f5e1bdd57961d443b94179d10beb15476bebf7be0e5740ded5c7cffb"
+    },
+    {
+      "path": "S7-role-reviews/A23-native-facts.json",
+      "rawSha256": "d09176b4d5eddfee19743df27bfbe2eff9087a58869eb14aa499899f16f9df6a"
+    }
+  ],
+  "publicationReviewIsNewCollectorExecution": false
+}

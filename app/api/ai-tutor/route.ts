@@ -1,3 +1,5 @@
+import { captureServerError } from "@/lib/server/errorMonitor";
+
 export const runtime = "edge";
 
 const defaultTotalDeadlineMs = 8_000;
@@ -279,7 +281,15 @@ function streamAITutorPost(request: Request) {
           body: resolved.body,
           elapsedMs: Date.now() - startedAt
         });
-      } catch {
+      } catch (error) {
+        if (!closed && !abortController.signal.aborted && !request.signal.aborted) {
+          try {
+            captureServerError(error, {
+              scope: "ai-tutor", route: "/api/ai-tutor", kind: "edge-resolver-unreachable",
+              status: 503, tags: { runtime: "edge", phase: "stream" }
+            });
+          } catch { /* Preserve the original SSE outcome if observation fails. */ }
+        }
         if (!closed) {
           const body = buildUnexpectedTutorFallbackBody();
           send("chunk", {
@@ -339,7 +349,15 @@ export async function POST(request: Request) {
       headers: resolved.headers,
       status: resolved.status
     });
-  } catch {
+  } catch (error) {
+    if (!abortController.signal.aborted && !request.signal.aborted) {
+      try {
+        captureServerError(error, {
+          scope: "ai-tutor", route: "/api/ai-tutor", kind: "edge-resolver-unreachable",
+          status: 503, tags: { runtime: "edge", phase: "buffered" }
+        });
+      } catch { /* Preserve the original HTTP outcome if observation fails. */ }
+    }
     return jsonResponse(
       abortController.signal.aborted
         ? buildDeadlineTutorFallbackBody()

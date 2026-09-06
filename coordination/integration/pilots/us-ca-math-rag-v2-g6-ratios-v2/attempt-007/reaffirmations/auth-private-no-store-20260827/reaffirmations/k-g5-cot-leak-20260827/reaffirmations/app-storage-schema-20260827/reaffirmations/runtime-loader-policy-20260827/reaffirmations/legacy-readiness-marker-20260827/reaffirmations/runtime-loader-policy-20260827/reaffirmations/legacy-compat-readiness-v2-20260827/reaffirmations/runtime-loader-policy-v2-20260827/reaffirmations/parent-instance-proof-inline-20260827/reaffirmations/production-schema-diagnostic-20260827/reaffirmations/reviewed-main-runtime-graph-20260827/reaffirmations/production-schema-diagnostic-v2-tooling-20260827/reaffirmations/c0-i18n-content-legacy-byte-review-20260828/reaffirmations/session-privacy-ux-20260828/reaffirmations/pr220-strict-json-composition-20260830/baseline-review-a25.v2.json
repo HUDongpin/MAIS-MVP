@@ -1,0 +1,656 @@
+{
+  "role": "A25",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+  "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "sourceReviewSha256": "b645935d41d03af1987acdb6b25e43339187cd572d09ad05778232b5f8c760d5",
+  "sourceManifestSha256": "34ba4f554e49390f96186d94328f70cb08aafe77beff53e6222a1841bd64f080",
+  "ownerReview": {
+    "schemaVersion": "mais-a25-baseline-custody-review.v1",
+    "producedAt": "2026-08-30T05:28:20Z",
+    "agent": {
+      "id": "A25",
+      "role": "Git Hygiene and Release Intake",
+      "independentReview": true
+    },
+    "result": "pass",
+    "candidateUnrelatedBaseline": true,
+    "lifecycleCustody": "retain",
+    "claimCeiling": "exact-baseline-to-target-read-only-custody-review-only",
+    "liveAllowed": false,
+    "reviewScope": {
+      "mode": "baseline-only-custody-review",
+      "repositoryMutationAllowed": false,
+      "gitOrGithubMutationAllowed": false,
+      "shadowExecutionAllowed": false,
+      "workflowDispatchAllowed": false,
+      "releaseOrLiveMutationAllowed": false
+    },
+    "exactIdentities": {
+      "target": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "parents": [
+        "c1680d23dab08361bdb3abe0f4c4fdeb15143f54",
+        "e3556833ccfabbf4fe7e9f227f7f10838904d8da"
+      ],
+      "baseline": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+      "liveOriginMain": "baca84e77abae1e16cfd53d497c6f7ee734d4679",
+      "compositionBranch": {
+        "name": "chore/a23-pr220-promotion-composition-20260830",
+        "liveSha": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+        "exactTargetMatch": true,
+        "allStatePrCount": 0
+      },
+      "a10Branch": {
+        "name": "chore/a10-promotion-workflow-strict-json-20260829",
+        "liveSha": "e3556833ccfabbf4fe7e9f227f7f10838904d8da",
+        "exactParentMatch": true
+      },
+      "pr220": {
+        "number": 220,
+        "baseBranch": "main",
+        "headBranch": "fix/gate-manim-authoring-console",
+        "headSha": "4399e669d007751bb1b716a257004f04c5b10846",
+        "state": "OPEN",
+        "isDraft": false,
+        "mergeStateStatus": "BLOCKED",
+        "mergeable": "MERGEABLE",
+        "blockedGateRemainsAuthoritative": true
+      }
+    },
+    "liveEvidence": {
+      "observedAt": "2026-08-30T05:26:16Z",
+      "liveRemoteQueryPassed": true,
+      "githubPrReadbackPassed": true,
+      "compositionNoPrReadbackPassed": true,
+      "identityDriftDetected": false,
+      "prStateDriftDetected": false,
+      "mainIsAncestorOfTarget": true,
+      "targetIsAncestorOfMain": false,
+      "mainOnlyCommitCount": 0,
+      "targetOnlyCommitCount": 10,
+      "mergeBaseEqualsBaseline": true,
+      "directParentOrderExact": true
+    },
+    "branchAndWorktreeTopology": {
+      "registeredWorktreeCount": 64,
+      "physicalDirectoryCount": 64,
+      "missingWorktreeCount": 0,
+      "worktreePathSymlinkCount": 0,
+      "lockedCount": 0,
+      "prunableCount": 0,
+      "detachedCount": 3,
+      "targetWorktrees": {
+        "count": 4,
+        "attachedCompositionCount": 1,
+        "detachedReviewCount": 3,
+        "physicalDirectoryCount": 4,
+        "allExactTarget": true,
+        "allNulSafeClean": true,
+        "stagedCount": 0,
+        "unstagedCount": 0,
+        "untrackedCount": 0,
+        "unmergedCount": 0
+      },
+      "composition": {
+        "registered": true,
+        "detached": false,
+        "locked": false,
+        "prunable": false,
+        "physicalDirectory": true,
+        "upstreamConfigured": true,
+        "upstreamMatchesLiveRemote": true,
+        "localRemoteDivergence": {
+          "ahead": 0,
+          "behind": 0
+        },
+        "nulSafeClean": true
+      },
+      "a10": {
+        "registered": true,
+        "detached": false,
+        "locked": false,
+        "prunable": false,
+        "physicalDirectory": true,
+        "upstreamConfigured": true,
+        "upstreamMatchesLiveRemote": true,
+        "nulSafeClean": true
+      },
+      "pr220Head": {
+        "registered": true,
+        "detached": false,
+        "locked": false,
+        "prunable": false,
+        "physicalDirectory": true,
+        "upstreamConfigured": true,
+        "upstreamMatchesLiveRemote": true,
+        "nulSafeClean": true
+      },
+      "statusMethod": "dedicated-gitdir-plus-explicit-physical-work-tree-with-no-optional-locks-and-nul-records"
+    },
+    "sharedCoreWorktreeOverride": {
+      "present": true,
+      "pointsToExistingDirectory": true,
+      "pointsToRegisteredWorktree": false,
+      "pointsToRepoExternalTempReviewCheckout": true,
+      "ordinaryGitCStatusWouldResolveOverrideCheckout": true,
+      "earlierOrdinaryStatusResultsDiscarded": true,
+      "correctedExplicitPhysicalChecksPassed": true,
+      "overrideCheckoutCleanAgainstTargetReviewIndex": true,
+      "activeProcessHoldCount": 0,
+      "nonCwdOpenDescriptorCount": 0,
+      "configurationMutationByThisReview": false,
+      "custodyEffect": "retain-until-authorized-owner-resolution"
+    },
+    "processAndOpenFileHolds": {
+      "snapshotTimeBound": true,
+      "composition": {
+        "processCount": 4,
+        "cwdHoldCount": 4,
+        "nonCwdOpenDescriptorCount": 0,
+        "processClass": "node_repl"
+      },
+      "detachedReviews": [
+        {
+          "processCount": 2,
+          "cwdHoldCount": 2,
+          "nonCwdOpenDescriptorCount": 0,
+          "processClass": "node_repl"
+        },
+        {
+          "processCount": 2,
+          "cwdHoldCount": 2,
+          "nonCwdOpenDescriptorCount": 0,
+          "processClass": "node_repl"
+        },
+        {
+          "processCount": 2,
+          "cwdHoldCount": 2,
+          "nonCwdOpenDescriptorCount": 0,
+          "processClass": "node_repl"
+        }
+      ],
+      "a10": {
+        "processCount": 0,
+        "cwdHoldCount": 0,
+        "nonCwdOpenDescriptorCount": 0
+      },
+      "pr220Head": {
+        "processCount": 0,
+        "cwdHoldCount": 0,
+        "nonCwdOpenDescriptorCount": 0
+      },
+      "repoExternalTempReviewCheckout": {
+        "processCount": 0,
+        "cwdHoldCount": 0,
+        "nonCwdOpenDescriptorCount": 0
+      },
+      "removalBlockedByActiveCwdHolds": true
+    },
+    "persistentEvidenceWriterLock": {
+      "exists": true,
+      "directRegularFile": true,
+      "symbolicLink": false,
+      "mode": "0600",
+      "sizeBytes": 0,
+      "nonblockingExclusiveProbe": "acquired-and-released",
+      "activeFlockAtProbe": false,
+      "fileExistenceTreatedAsActiveLock": false
+    },
+    "ignoredAndProtectedMaterialMetadata": {
+      "contentsRead": false,
+      "composition": {
+        "ignoredFileEntryCount": 0,
+        "emptyTmpDirectory": true,
+        "tmpDirectoryMetadataSizeBytes": 64,
+        "sqliteCount": 0,
+        "envFileCount": 0,
+        "secretLikeCount": 0,
+        "protectedEvidenceLikeCount": 0,
+        "nonRebuildableRiskMatchCount": 0
+      },
+      "detachedReviewWorktrees": {
+        "count": 3,
+        "ignoredFileEntryCount": 0,
+        "tmpCount": 0,
+        "sqliteCount": 0,
+        "envFileCount": 0,
+        "secretLikeCount": 0,
+        "protectedEvidenceLikeCount": 0,
+        "nonRebuildableRiskMatchCount": 0
+      },
+      "repoExternalTempReviewCheckout": {
+        "ignoredFileEntryCount": 0,
+        "emptyTmpDirectory": true,
+        "tmpDirectoryMetadataSizeBytes": 64,
+        "sqliteCount": 0,
+        "envFileCount": 0,
+        "secretLikeCount": 0,
+        "protectedEvidenceLikeCount": 0,
+        "nonRebuildableRiskMatchCount": 0
+      },
+      "a10": {
+        "ignoredFileEntryCount": 0,
+        "sqliteCount": 0,
+        "envFileCount": 0,
+        "secretLikeCount": 0,
+        "protectedEvidenceLikeCount": 0
+      },
+      "pr220Head": {
+        "ignoredFileEntryCount": 361,
+        "ignoredBytes": 477914310,
+        "tmpCount": 0,
+        "sqliteCount": 0,
+        "envFileCount": 0,
+        "secretLikeCount": 0,
+        "protectedEvidenceLikeCount": 21,
+        "protectedEvidenceLikeBytes": 454267,
+        "rebuildabilityDeterminedFromMetadata": false,
+        "custodyEffect": "retain"
+      },
+      "reviewWorktreesContainUnrebuildableRiskMatches": false
+    },
+    "ownershipAndLifecycle": {
+      "owner": "A23 Integration and Promotion",
+      "task": "PR #220 Promotion Composition",
+      "targetPrState": "pending-review-only",
+      "creation": "2026-08-30 HKT",
+      "expectedCloseout": "2026-08-30 HKT",
+      "claimCeiling": "composition/source-test only",
+      "compositionHasPr": false,
+      "openPrHold": {
+        "prNumber": 220,
+        "state": "OPEN",
+        "mergeStateStatus": "BLOCKED"
+      },
+      "decision": "retain",
+      "closeoutAllowed": false,
+      "removalAllowed": false,
+      "closeoutHolds": [
+        "pending-review-only",
+        "active-composition-cwd-holds",
+        "active-detached-review-cwd-holds",
+        "open-blocked-pr220",
+        "pr220-ignored-protected-evidence-metadata",
+        "shared-core-worktree-override"
+      ],
+      "cleanupAuthorized": false
+    },
+    "protectedDelta": {
+      "algorithm": "sha256-of-utf8-stable-json-code-point-sorted-repo-relative-path-array",
+      "inputFraming": "nul-safe-git-diff-name-only-records",
+      "digestIncludesPathOnly": true,
+      "partitionComplete": true,
+      "partitionUnique": true,
+      "unknownClassificationCount": 0,
+      "all": {
+        "count": 38,
+        "sha256": "2acc678b1f6c35886f40652deab1360780117a9b0620330b652a9d3a593ae5a2"
+      },
+      "runtime": {
+        "count": 34,
+        "classification": "runtime-code",
+        "sha256": "5fc6fcc9d6c13c4ebee4858ae91877e9a1e31f27322df56f6954d0f4bb2cc5d8"
+      },
+      "tests": {
+        "count": 4,
+        "classification": "test-code",
+        "sha256": "fbca4125ea52c447a1961319d6b3207da9d4a4f4e2d713a96aa9326bf700a604"
+      },
+      "authority": {
+        "classifierBlobSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+        "baselineProofConsumerBlobSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce"
+      }
+    },
+    "candidateAndCheckerObjectProof": {
+      "candidate": {
+        "digest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "pathCount": 4,
+        "pathSetSha256": "ac0585eca4e520f3d3ae4c64e51e6f665451d462df524e4e551570e503eb5081",
+        "intersectionWithProtectedDeltaCount": 0,
+        "sourceToTargetChangedPathCount": 0,
+        "baselineToTargetChangedPathCount": 0,
+        "sourceAncestorOfTarget": true,
+        "changed": false
+      },
+      "checker": {
+        "versionSha256": "c157fbdba02b103619b55dcc2d7877ef9f58183615315f1a7c1d56f6c799d4bb",
+        "bundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+        "releaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+        "pathCount": 8,
+        "pathSetSha256": "09fd0a0e0d8650283cc11a158199a20f790626d076727e24b21a12bd67158a11",
+        "intersectionWithProtectedDeltaCount": 0,
+        "releaseToTargetChangedPathCount": 0,
+        "baselineToTargetChangedPathCount": 0,
+        "releaseAncestorOfTarget": true,
+        "changed": false
+      },
+      "sourceChanged": false,
+      "baselineChanged": true,
+      "candidateUnrelatedBaseline": true,
+      "scope": "exact-git-object-path-binding-review-only"
+    },
+    "promotionDiscovery": {
+      "toolMode": "installed-skill-offline-read-only-discovery",
+      "processExit": 0,
+      "outerResult": "pass",
+      "status": "blocked",
+      "resolvedState": "blocked",
+      "authoritative": false,
+      "authoritativeReceipt": false,
+      "currentness": "stale",
+      "lifecycleState": "shadow_ready",
+      "liveBoundary": "blocked",
+      "liveAllowed": false,
+      "claimCeiling": "audit-only",
+      "selectedActiveLayer": {
+        "manifest": {
+          "ref": "ref-4db1596cc58942b941a6fca794f976d563bc48e226bf3c682ed4f2eda08a813d",
+          "sha256": "a6f9a3aaf291dc53dd033e5335313c146a304406d96ef6811b1265a0f1df4a7b"
+        },
+        "canonicalReceipt": {
+          "ref": "ref-8e240dda749791bc5cf35891e04e386f0a33541fb0eaea74d37a3496959dbf0b",
+          "sha256": "9cce8a7ea46db43f89239c1c0bacf541092581287cb8d9e71d8b03b71299706f"
+        }
+      },
+      "bindings": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+        "checkerVersionSha256": "c157fbdba02b103619b55dcc2d7877ef9f58183615315f1a7c1d56f6c799d4bb",
+        "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+        "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5"
+      },
+      "attemptRelation": {
+        "relation": "unresolved-reaffirmation",
+        "baseAttemptRef": "ref-7ddba67bd20d8e0563be3686c1eafc381df06e3d943f1fee9e97fea51f94440e",
+        "revisionRef": "ref-8d885c9099b4e01263a991754ada7a9c263a63330ad81cd3c046f0491911400a",
+        "baseCount": 1,
+        "candidateChanged": false,
+        "sourceChanged": false,
+        "checkerChanged": false,
+        "baselineChanged": true,
+        "reviewedBaselineOnly": false,
+        "directParentManifestSha256": "1d6c95240a9bba6159eda53b3a747d82d63307218e6c99cffc54b5f85ba6eca9",
+        "directParentReceiptSha256": "14ea77bc2509271caed1752c605cbb1e8ebe05c9425a29d89b21fdf22cf322ef",
+        "evidenceCommit": null,
+        "bindingCommit": null,
+        "executionCommit": null,
+        "storageCommit": null,
+        "finalizationCommit": null,
+        "historicalClosureOverwritten": false
+      },
+      "evidenceLayers": {
+        "canonicalReceiptDigestVerification": {
+          "status": "pass",
+          "receiptSha256": "9cce8a7ea46db43f89239c1c0bacf541092581287cb8d9e71d8b03b71299706f",
+          "semanticDigest": "e037f2a5104699449ce5138cd8a2857570210c9f6340cc9adead2a16e659667b",
+          "rawDigest": "fef1bc909e9b0202ced1cd416480784823a37d8ab929da1090a6fd6f4af569fc",
+          "bindingDigest": "fba511022f7cb6d493dac036eb80daa9f79286074b20de806312561428643e6e",
+          "semanticDigestVerified": true,
+          "currentAuthority": false
+        },
+        "repositoryNativeValidation": {
+          "status": "not-run"
+        },
+        "receiptComparison": {
+          "canonicalPresent": true,
+          "freshPresent": false,
+          "replayPresent": false,
+          "bindingsEqual": false,
+          "semanticDigestsEqual": false,
+          "rawDigestsEqual": false,
+          "runIdsDistinct": false,
+          "semanticDigestsVerified": false,
+          "comparisonStatus": "not-run"
+        },
+        "historicalClosureAndRegistry": {
+          "scope": "historical-direct-base",
+          "verified": true,
+          "closureRef": "ref-472faac356dcaa49fd8e180807c0503ea34615c7f78ed04eb0780458fdfab920",
+          "closureSha256": "576739195d22ba0133a31da292c1e08d602202a9725e04107e50779c47d3c4af",
+          "registryRef": "ref-8f7dd34d60108e5651e07ef77e9b1e944081388c42014e01ae12f96839dc685d",
+          "registrySha256": "7be73b854a9eb408dfdad671c262e4640fb93136df188b1fd3ecd9e369b77159",
+          "signatureDigestCount": 2,
+          "roleEvidenceRecordCount": 9,
+          "reviewerIndependenceProvenByCount": false,
+          "a11EvidenceVerified": true,
+          "a22EvidenceVerified": true,
+          "githubEvidenceVerified": true,
+          "a25EvidenceVerified": true,
+          "transfersShadowPassedToActiveRevision": false,
+          "liveAllowed": false
+        }
+      },
+      "fixedBlockers": [
+        "EXPLICIT_REAFFIRMATION_DESCRIPTOR_REQUIRED"
+      ],
+      "repositoryAttemptRelationReviewedBaselineOnly": false
+    },
+    "disposition": {
+      "selected": "baseline-only-reaffirmation-evidence-first-input",
+      "candidateMutationRoute": {
+        "selected": false,
+        "reason": "candidate-source-and-checker-bindings-are-unchanged"
+      },
+      "evidenceOnlyCorrectionRoute": {
+        "selected": false,
+        "reason": "observed-change-is-reviewed-baseline-delta-not-an-evidence-typo"
+      },
+      "nativeReaffirmationEstablished": false,
+      "futurePreparationOrBindingCommitAuthorized": false,
+      "futureReceiptOrFinalizationAuthorized": false
+    },
+    "externalSideEffects": {
+      "externalMutationCount": 0,
+      "repositoryWriteCount": 0,
+      "gitStateMutationCount": 0,
+      "githubMutationCount": 0,
+      "workflowDispatchCount": 0,
+      "shadowExecutionCount": 0,
+      "providerCallCount": 0,
+      "deploymentCount": 0,
+      "productionMutationCount": 0,
+      "remoteDeletionCount": 0,
+      "artifactFilesWrittenOutsideRepository": 3
+    },
+    "unprovedBoundaries": [
+      "current-native-validation",
+      "current-shadow-authority",
+      "canonical-fresh-replay-comparison",
+      "active-revision-closure-or-registry-finalization",
+      "verified-append-only-reaffirmation",
+      "integration-approval",
+      "required-ci-enforcement",
+      "release-readiness",
+      "main-merge-authorization",
+      "deployment",
+      "production-state",
+      "same-sha-live-behavior",
+      "production-rollback-or-monitoring"
+    ]
+  },
+  "recoveryCustodyReviewSha256": "3a1c454fb723070ef28692dddbfd1be32589f36d3ebc3a6c88a827467d1992a0",
+  "recoveryCustodyManifestSha256": "e2cfb5ec88d7c5f712a692294eb6e7890a3a676c1e1da2c03b530c579cf5face",
+  "recoveryCustodyReview": {
+    "schemaVersion": "a25-recovery-custody-review.v1",
+    "role": "A25",
+    "reviewScope": "A23 .tmp corrective reconstruction post-recovery custody re-audit",
+    "producedAt": "2026-08-30T15:03:56+08:00",
+    "result": "pass",
+    "resumeAllowed": true,
+    "resumeScope": "append-only justification/evidence/binding only",
+    "lifecycleCustody": "retain",
+    "liveAllowed": false,
+    "target": {
+      "branch": "chore/a23-pr220-promotion-composition-20260830",
+      "commit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "liveMainCommit": "baca84e77abae1e16cfd53d497c6f7ee734d4679",
+      "remoteCompositionCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "pr220": {
+        "number": 220,
+        "state": "OPEN",
+        "headCommit": "4399e669d007751bb1b716a257004f04c5b10846",
+        "mergeStateStatus": "BLOCKED"
+      },
+      "compositionPrCount": 0
+    },
+    "physicalGitCustody": {
+      "binding": "dedicated-gitdir-with-explicit-physical-worktree",
+      "sharedCoreWorktreeOverrideObserved": true,
+      "trackedClean": true,
+      "untrackedClean": true,
+      "ignoredEntries": [
+        ".tmp/"
+      ],
+      "operationMarkersAbsent": true,
+      "dedicatedGitLocksAbsent": true,
+      "persistentWriterLock": "FREE",
+      "openWriteDescriptors": false,
+      "cwdHoldsObserved": true,
+      "cwdHoldsAreNotRegularWriteDescriptors": true,
+      "tmpSymlink": false
+    },
+    "tmpCustody": {
+      "originalRecorded": {
+        "kind": "empty directory",
+        "mode": "0755",
+        "uid": 501,
+        "gid": 20,
+        "sizeBytes": 64,
+        "links": 2,
+        "files": 0,
+        "entries": 0,
+        "logicalBytes": 0,
+        "inode": 225186808,
+        "mtime": "2026-08-30T12:55:00+08:00",
+        "openFileDescriptor": false,
+        "extendedAttributePresence": "present-marker-observed",
+        "extendedAttributeNames": "unknown",
+        "bsdFlags": "unknown",
+        "acl": "unknown",
+        "ctime": "unknown"
+      },
+      "reconstructedObserved": {
+        "kind": "empty directory",
+        "mode": "0755",
+        "uid": 501,
+        "gid": 20,
+        "sizeBytes": 64,
+        "links": 2,
+        "files": 0,
+        "entries": 0,
+        "logicalBytes": 0,
+        "inode": 225751051,
+        "mtime": "2026-08-30T12:55:00+08:00",
+        "ctime": "2026-08-30T14:50:38+08:00",
+        "bsdFlags": "0",
+        "acl": "none-observed",
+        "extendedAttributeNames": [
+          "com.apple.provenance"
+        ]
+      },
+      "metadataUnchanged": false,
+      "contentLoss": false,
+      "rmdirScope": "only the original empty container; no file bytes deleted",
+      "currentObjectIsReconstructed": true
+    },
+    "externalEvidence": {
+      "evidenceRecordCount": 3,
+      "independenceClaim": false,
+      "records": [
+        {
+          "role": "A11",
+          "manifestFileSha256": "f756c1122b7faf45215fdf2bce6857a25dd273c663b408c928c3783c7ef4dc94",
+          "reviewJsonSha256": "577e12040f9661e5f97c09c5b8889db27e29363016c3d6f2afe7b01ad953f482",
+          "manifestVerification": "pass",
+          "targetCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+          "candidateUnrelatedBaseline": true
+        },
+        {
+          "role": "A22",
+          "manifestFileSha256": "5adb89e549145e75d5019daf5a1db2f431be2f14ce48751ae94e7274bbb8dfe2",
+          "reviewJsonSha256": "310e35005aee984c983a1d6814dc97446eedc26b9d24bd5ae0560e33ddce2a1d",
+          "manifestVerification": "pass",
+          "targetCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+          "candidateUnrelatedBaseline": true
+        },
+        {
+          "role": "A25",
+          "manifestFileSha256": "34ba4f554e49390f96186d94328f70cb08aafe77beff53e6222a1841bd64f080",
+          "reviewJsonSha256": "b645935d41d03af1987acdb6b25e43339187cd572d09ad05778232b5f8c760d5",
+          "manifestVerification": "pass",
+          "targetCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+          "candidateUnrelatedBaseline": true
+        }
+      ]
+    },
+    "promotionAuditBoundary": {
+      "authoritative": false,
+      "status": "blocked",
+      "activeManifestSha256": "a6f9a3aaf291dc53dd033e5335313c146a304406d96ef6811b1265a0f1df4a7b",
+      "canonicalReceiptSha256": "9cce8a7ea46db43f89239c1c0bacf541092581287cb8d9e71d8b03b71299706f",
+      "canonicalReceiptDigestVerification": "pass",
+      "repositoryNativeValidation": "not-run",
+      "receiptComparison": {
+        "canonicalSemanticDigestVerified": true,
+        "fresh": "not-run",
+        "replay": "not-run",
+        "comparisonStatus": "not-run"
+      },
+      "externalClosure": "verified-historical-direct-base",
+      "lifecycleState": "shadow_ready",
+      "currentness": "stale",
+      "liveBoundary": "blocked",
+      "liveAllowed": false,
+      "attemptRelation": {
+        "relation": "unresolved-reaffirmation",
+        "baseCount": 1,
+        "candidateChanged": false,
+        "sourceChanged": false,
+        "checkerChanged": false,
+        "baselineChanged": true,
+        "reviewedBaselineOnly": false,
+        "directParentManifestSha256": "1d6c95240a9bba6159eda53b3a747d82d63307218e6c99cffc54b5f85ba6eca9",
+        "directParentReceiptSha256": "14ea77bc2509271caed1752c605cbb1e8ebe05c9425a29d89b21fdf22cf322ef",
+        "evidenceCommit": null,
+        "bindingCommit": null,
+        "executionCommit": null,
+        "storageCommit": null,
+        "finalizationCommit": null,
+        "historicalClosureOverwritten": false
+      },
+      "blocker": "EXPLICIT_REAFFIRMATION_DESCRIPTOR_REQUIRED"
+    },
+    "disposition": {
+      "selectedRoute": "baseline-only-reaffirmation-eligible",
+      "candidateBytesOrSemanticsChanged": false,
+      "evidenceOnlyCorrection": false,
+      "baselineDeltaIndependentlyReviewedAsCandidateUnrelated": true,
+      "resumeCondition": "A23 may resume only append-only justification/evidence/binding after recording this reconstruction and binding this review",
+      "notCleanupAuthority": true,
+      "notCurrentnessAuthority": true,
+      "notShadowAuthority": true,
+      "notLiveAuthority": true,
+      "noRepairPerformedByThisReview": true
+    },
+    "caveats": [
+      "The original inode and current inode are distinct.",
+      "Original xattr names and values are unknown; no xattr payload is recorded.",
+      "Original BSD flags, ACL, and ctime were not captured and remain unknown.",
+      "Current xattr and flags describe the reconstructed object only and do not prove original metadata.",
+      "No file bytes were present in the recorded original container, and no file bytes were deleted by the mistaken rmdir.",
+      "This review does not authorize cleanup, currentness, native Shadow, Receipt comparison completion, deployment, or live behavior."
+    ]
+  }
+}

@@ -84,11 +84,20 @@ jobs:
           npx tsx --tsconfig tsconfig.json --test lib/server/userStore/postgresSchemaReadiness.test.ts
           node --test scripts/postgres-schema-fast-path.test.mjs scripts/vercel-region-config.test.mjs scripts/verify-vercel-postgres-region.test.mjs
 
+      - name: Run practice attempt persistence unit gates
+        run: |
+          node --import tsx --test \
+            lib/server/practiceAttemptStore.test.ts \
+            app/api/attempts/routeFastPath.test.ts
+
       - name: Test AI Tutor Vercel bypass-cookie smoke harness
         run: node --test scripts/ai-tutor-live-latency-smoke.test.mjs
 
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
+
+      - name: Run observability privacy and intake gate
+        run: node scripts/run-observability-tests.mjs
 
       - name: Run stray generated-types guard and its unit test
         run: npm run check:stray-types && npm run test:stray-types
@@ -208,13 +217,10 @@ jobs:
       - name: Run visualization gate
         run: npm run test:visualizations
 
-      # The repo tsconfig sets jsx: "preserve" for Next, under which tsc emits
-      # .jsx and no test can mount a component — which is why every other
-      # visualization test asserts against source text and a lab rendering blank
-      # was undetectable. This runs the render harness with the automatic JSX
-      # runtime instead. Invoked directly because package.json scripts are frozen
-      # by the release governance gate.
-      - name: Run lesson visualization render gate (mounts the real components)
+      # Complement the browser gate with static markup checks of real lesson
+      # components. Use automatic JSX without changing Next's JSX configuration
+      # or the release-governed package commands.
+      - name: Run lesson visualization SSR gate
         run: >-
           npx tsx --test
           --tsconfig tsconfig.lesson-visualization-render.json
@@ -278,6 +284,16 @@ jobs:
           MAIS_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
         run: npx tsx --tsconfig tsconfig.json --test lib/server/userStoreNovaPostgresIntegration.test.ts
 
+      - name: Run durable practice-attempt PostgreSQL 16 integration gates
+        env:
+          MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
+        run: |
+          test -n "$MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL"
+          node --import tsx --test \
+            --test-name-pattern='real PostgreSQL' \
+            lib/server/practiceAttemptStore.test.ts \
+            app/api/attempts/routeFastPath.test.ts
+
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
     # Runs on the same complete release event matrix as the server-side gates.
@@ -302,8 +318,18 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Run observability browser privacy fixture
+        env:
+          PLAYWRIGHT_SKIP_WEBSERVER: "1"
+          PLAYWRIGHT_BROWSER_CHANNEL: chromium
+          PLAYWRIGHT_RUN_ID: ci-observability-fixture
+        run: npx playwright test tests/e2e/observability.spec.ts --project=desktop-chrome --project=mobile-chrome
+
       - name: Run visualization DOM-contract spec
         run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
+
+      - name: Run unpersisted attempt feedback browser gate
+        run: npx playwright test tests/e2e/practice-pager.spec.ts --project=desktop-chrome --grep 'unpersisted attempt feedback stays retryable without success side effects'
 
   teacher-notice-outbox-postgres16:
     # Preserve PR coverage, verify the exact post-merge main SHA, and provide a

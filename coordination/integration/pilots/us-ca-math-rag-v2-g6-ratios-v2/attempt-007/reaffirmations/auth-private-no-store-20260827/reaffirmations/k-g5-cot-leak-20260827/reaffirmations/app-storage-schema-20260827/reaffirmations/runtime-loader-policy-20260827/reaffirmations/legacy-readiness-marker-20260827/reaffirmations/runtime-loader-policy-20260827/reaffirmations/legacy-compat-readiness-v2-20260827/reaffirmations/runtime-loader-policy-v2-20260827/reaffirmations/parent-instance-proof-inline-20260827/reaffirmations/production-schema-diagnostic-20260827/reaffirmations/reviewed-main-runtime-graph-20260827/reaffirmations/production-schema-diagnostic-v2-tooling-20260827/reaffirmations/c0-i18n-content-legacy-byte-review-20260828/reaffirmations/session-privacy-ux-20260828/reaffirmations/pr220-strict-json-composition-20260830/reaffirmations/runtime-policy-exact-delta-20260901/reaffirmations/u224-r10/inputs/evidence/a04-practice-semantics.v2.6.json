@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+  "role": "A04",
+  "result": "pass",
+  "producedAt": "2026-09-06T02:02:24.430Z",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a04-practice-semantics.v2",
+    "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+    "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+    "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+    "outputContract": "shadow-practice-dto.v2",
+    "numericOracle": 12,
+    "acceptedAnswers": [
+      "12",
+      "12 cups"
+    ],
+    "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+    "requiredReasoning": [
+      "preserve 3 oats : 5 fruit order",
+      "20 ÷ 5 = 4",
+      "3 × 4 = 12"
+    ],
+    "primaryStandardId": "6.RP.3",
+    "prerequisiteStandardIds": [
+      "6.RP.1"
+    ],
+    "clusterMapping": {
+      "sourceCardKind": "cluster-safe-card-v2",
+      "runtimeCategory": "standards",
+      "mappingMode": "explicit-shadow-only",
+      "defaultCardKindUsed": false
+    },
+    "compatibilityMetadata": {
+      "domainIds": [
+        "6.RP"
+      ],
+      "canonicalStandardIds": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "maisStandardIds": [
+        "CA.CCSS.Math.G6.RP.1",
+        "CA.CCSS.Math.G6.RP.2",
+        "CA.CCSS.Math.G6.RP.3"
+      ],
+      "clusterId": "6.RP.ratios",
+      "runtimeDisposition": "preserved-outside-runtime"
+    },
+    "localization": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false
+    },
+    "defaultsForbidden": [
+      "cardKind",
+      "grade",
+      "standard",
+      "answer",
+      "id"
+    ],
+    "candidateBytesChangedSincePriorReview": false,
+    "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.5",
+      "toCheckerVersion": "promotion-gate-shadow-v2.6",
+      "changeScope": "reviewed-commit-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-006",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "79e804b08c1856d38fdc896968090c12fe490f878b68636d98eaafab7c64d574",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/evidence/a04-practice-semantics.v2.5.json",
+      "priorEvidenceRawSha256": "bb7a774f8b0efb9bab962b7368db451a7169362c390e01bbc73cf4b47b457a2e",
+      "priorEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "u224-r10",
+      "sourceEvidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceEvidenceRawSha256": "01470e9445a9db2ed3b87b770f9b586ad943e782f08ec28777a71f833df42db1",
+      "priorTargetBaselineCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+      "justificationPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/review-subject.v1.json",
+      "protectedChangedPaths": [
+        "app/api/attempts/route.ts",
+        "app/api/attempts/routeFastPath.test.ts",
+        "components/practice/PracticeQuestionCard.tsx",
+        "lib/server/practiceAttemptStore.test.ts",
+        "lib/server/practiceAttemptStore.ts"
+      ],
+      "testOnlyChangedPaths": [
+        "app/api/attempts/routeFastPath.test.ts",
+        "lib/server/practiceAttemptStore.test.ts"
+      ],
+      "runtimeChangedPaths": [
+        "app/api/attempts/route.ts",
+        "components/practice/PracticeQuestionCard.tsx",
+        "lib/server/practiceAttemptStore.ts"
+      ],
+      "candidateBytesChanged": false,
+      "legacyCandidateBytesChanged": false,
+      "liveAllowed": false,
+      "runtimePolicyReaffirmation": {
+        "schemaVersion": "promotion-runtime-callsite-rebinding.v1",
+        "sourceCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+        "targetCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "changedFields": [
+          "nextDynamicCallsiteDigest"
+        ],
+        "sourcePolicyDigest": "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5",
+        "targetPolicyDigest": "9a15b12647fbe6172332a6bde48f860249c893711ce79d0f1350799625dc4bd5",
+        "sourceCallsiteDigest": "39181db66a0ab49a9a0b90c133f260094f277de1a4d5afbc276882892959b6e7",
+        "targetCallsiteDigest": "4039da4109350f52039b4eb7a13d508bb591f135c0129c50e265cc63cb2a779d",
+        "sourceFiles": [
+          {
+            "path": "app/practice/page.tsx",
+            "mode": "100644",
+            "gitBlobId": "026aa73503387c8af8845c651d3803ad240b7d37",
+            "rawSha256": "47882a96df531c1afed485cd8fd09ba3c7580190eb2645ac61c852a9c77b99ea"
+          },
+          {
+            "path": "components/gamification/StudentPracticeGameRoute.tsx",
+            "mode": "100644",
+            "gitBlobId": "41d94fd1a31bd6389aa99fe273bb0ed88ff33ecc",
+            "rawSha256": "83837e9f3ce2e915b56ba2373b1d6e21403228dea52b7fca399e925e25c79ba6"
+          },
+          {
+            "path": "components/lesson/LessonView.tsx",
+            "mode": "100644",
+            "gitBlobId": "a9475f280a6ed2a172785ed15fcc4188402f2a10",
+            "rawSha256": "9696e91748fc92d53aa0af01dd3f7458ba7db690aacd0ddebf4bddf7a4f7fbf4"
+          },
+          {
+            "path": "components/lesson/ccss/registry.ts",
+            "mode": "100644",
+            "gitBlobId": "d131869d56cf5651d94f1d460fe6d14375240c9d",
+            "rawSha256": "eee8af4f2895f279b46d400b1be39005a8704221c7cfcd1e1feffd011f3c5f5e"
+          },
+          {
+            "path": "components/practice/PracticeQuestionCard.tsx",
+            "mode": "100644",
+            "gitBlobId": "2a11e223b9420bfecc900a32737d7f9f7e9147e7",
+            "rawSha256": "da187d951b7154f19c973db4077c68a69ebbe08559905101318e4a7542a1d4f9"
+          },
+          {
+            "path": "components/visualizations/ConfiguredVisualizationLab.tsx",
+            "mode": "100644",
+            "gitBlobId": "c5c58c56d17345f82ef6ee66ec905725ceec5c89",
+            "rawSha256": "2f01433fbdb74c1fb9534f7c1eacda6b571ed432a02fb12bcdb9b207ea79a365"
+          },
+          {
+            "path": "components/visualizations/LessonSignatureLab.tsx",
+            "mode": "100644",
+            "gitBlobId": "902e6b7aad88dee7386827bda2d59cbff327425b",
+            "rawSha256": "dab04fa1512ce130a707934f2f694708aa7e9b8a554eeb2722b0889ba0c8b71d"
+          },
+          {
+            "path": "components/visualizations/PremiumThreeDDirectRouteShell.tsx",
+            "mode": "100644",
+            "gitBlobId": "a3c2e8d1180304eebf9f366d6fb14006ad607d51",
+            "rawSha256": "8c3d83e08b478b2fcd7d1d4256d429bbc6b295e32b10c35d01d5a959c814a763"
+          },
+          {
+            "path": "components/visualizations/VisualizationLabPage.tsx",
+            "mode": "100644",
+            "gitBlobId": "2dfaeedc84f29519e9c902ce3e36457ccbdf0419",
+            "rawSha256": "dfc11338686b9574f9f41846f05121b2d449924322b665554179d39e91152bf5"
+          },
+          {
+            "path": "components/visualizations/VisualizationLabRouteShell.tsx",
+            "mode": "100644",
+            "gitBlobId": "807d82ca329fa5dbe8937046749be5b736388517",
+            "rawSha256": "02491ac4366b64e82601199b7d7ab74c20d95ce3c3ae943a498ae06e86431636"
+          }
+        ],
+        "targetFiles": [
+          {
+            "path": "app/practice/page.tsx",
+            "mode": "100644",
+            "gitBlobId": "026aa73503387c8af8845c651d3803ad240b7d37",
+            "rawSha256": "47882a96df531c1afed485cd8fd09ba3c7580190eb2645ac61c852a9c77b99ea"
+          },
+          {
+            "path": "components/gamification/StudentPracticeGameRoute.tsx",
+            "mode": "100644",
+            "gitBlobId": "41d94fd1a31bd6389aa99fe273bb0ed88ff33ecc",
+            "rawSha256": "83837e9f3ce2e915b56ba2373b1d6e21403228dea52b7fca399e925e25c79ba6"
+          },
+          {
+            "path": "components/lesson/LessonView.tsx",
+            "mode": "100644",
+            "gitBlobId": "a9475f280a6ed2a172785ed15fcc4188402f2a10",
+            "rawSha256": "9696e91748fc92d53aa0af01dd3f7458ba7db690aacd0ddebf4bddf7a4f7fbf4"
+          },
+          {
+            "path": "components/lesson/ccss/registry.ts",
+            "mode": "100644",
+            "gitBlobId": "d131869d56cf5651d94f1d460fe6d14375240c9d",
+            "rawSha256": "eee8af4f2895f279b46d400b1be39005a8704221c7cfcd1e1feffd011f3c5f5e"
+          },
+          {
+            "path": "components/practice/PracticeQuestionCard.tsx",
+            "mode": "100644",
+            "gitBlobId": "096f8a08a0cf2b8c10a3c90bf911b7d3f695d472",
+            "rawSha256": "ccd0964c56d9d19a03c0a832eaa36dff115337686aec1b49b149cf122e124b0b"
+          },
+          {
+            "path": "components/visualizations/ConfiguredVisualizationLab.tsx",
+            "mode": "100644",
+            "gitBlobId": "c5c58c56d17345f82ef6ee66ec905725ceec5c89",
+            "rawSha256": "2f01433fbdb74c1fb9534f7c1eacda6b571ed432a02fb12bcdb9b207ea79a365"
+          },
+          {
+            "path": "components/visualizations/LessonSignatureLab.tsx",
+            "mode": "100644",
+            "gitBlobId": "902e6b7aad88dee7386827bda2d59cbff327425b",
+            "rawSha256": "dab04fa1512ce130a707934f2f694708aa7e9b8a554eeb2722b0889ba0c8b71d"
+          },
+          {
+            "path": "components/visualizations/PremiumThreeDDirectRouteShell.tsx",
+            "mode": "100644",
+            "gitBlobId": "a3c2e8d1180304eebf9f366d6fb14006ad607d51",
+            "rawSha256": "8c3d83e08b478b2fcd7d1d4256d429bbc6b295e32b10c35d01d5a959c814a763"
+          },
+          {
+            "path": "components/visualizations/VisualizationLabPage.tsx",
+            "mode": "100644",
+            "gitBlobId": "2dfaeedc84f29519e9c902ce3e36457ccbdf0419",
+            "rawSha256": "dfc11338686b9574f9f41846f05121b2d449924322b665554179d39e91152bf5"
+          },
+          {
+            "path": "components/visualizations/VisualizationLabRouteShell.tsx",
+            "mode": "100644",
+            "gitBlobId": "807d82ca329fa5dbe8937046749be5b736388517",
+            "rawSha256": "02491ac4366b64e82601199b7d7ab74c20d95ce3c3ae943a498ae06e86431636"
+          }
+        ],
+        "changedCallsites": [
+          {
+            "sourcePath": "components/practice/PracticeQuestionCard.tsx",
+            "sourceRawSha256": "da187d951b7154f19c973db4077c68a69ebbe08559905101318e4a7542a1d4f9",
+            "targetRawSha256": "ccd0964c56d9d19a03c0a832eaa36dff115337686aec1b49b149cf122e124b0b",
+            "sourcePosition": 3270,
+            "targetPosition": 3297,
+            "expressionDigest": "e85eea407fad4fe68a54464fb8266d4eea85ce88399f68c9380b443fdaa6daa5"
+          },
+          {
+            "sourcePath": "components/practice/PracticeQuestionCard.tsx",
+            "sourceRawSha256": "da187d951b7154f19c973db4077c68a69ebbe08559905101318e4a7542a1d4f9",
+            "targetRawSha256": "ccd0964c56d9d19a03c0a832eaa36dff115337686aec1b49b149cf122e124b0b",
+            "sourcePosition": 3604,
+            "targetPosition": 3631,
+            "expressionDigest": "822d316276ad9e548e69c6f9573be715fe31a99565b4387f39184e66f8006646"
+          }
+        ],
+        "changedCallsiteCount": 2,
+        "callsiteSemanticsUnchanged": true,
+        "otherPolicyFieldsUnchanged": true,
+        "liveAllowed": false,
+        "sourceTreeDigest": "7949d5654ae4aeed083e5be1907b65d643c2349e6abcbeedea5ac2529b80e1b8",
+        "targetTreeDigest": "bbf7938eaca7d5579e4eaf69d72b0a5e9760c3a81c61491c5e71863c95b9fea6"
+      }
+    }
+  }
+}

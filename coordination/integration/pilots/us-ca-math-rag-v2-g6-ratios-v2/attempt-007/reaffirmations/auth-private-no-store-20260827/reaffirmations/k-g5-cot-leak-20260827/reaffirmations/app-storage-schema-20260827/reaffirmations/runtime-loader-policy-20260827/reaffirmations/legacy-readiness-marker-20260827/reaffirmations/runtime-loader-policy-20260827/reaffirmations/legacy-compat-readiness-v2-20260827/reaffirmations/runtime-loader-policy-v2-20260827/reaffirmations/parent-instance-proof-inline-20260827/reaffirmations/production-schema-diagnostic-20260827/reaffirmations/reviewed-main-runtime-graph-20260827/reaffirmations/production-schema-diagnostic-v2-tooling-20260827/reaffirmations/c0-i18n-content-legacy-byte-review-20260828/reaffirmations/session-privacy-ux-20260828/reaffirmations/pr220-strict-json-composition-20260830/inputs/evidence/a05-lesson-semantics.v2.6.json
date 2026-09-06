@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830",
+  "role": "A05",
+  "result": "pass",
+  "producedAt": "2026-08-30T07:00:00.000Z",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a05-lesson-semantics.v2",
+    "lessonId": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+    "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+    "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49",
+    "outputContract": "shadow-lesson-dto.v2",
+    "instructionalSpine": [
+      "objective",
+      "workedExample",
+      "guidedPractice",
+      "independentPractice",
+      "remediation"
+    ],
+    "compatibilityPreservation": [
+      {
+        "field": "prerequisiteCheck",
+        "disposition": "preserved-outside-runtime"
+      },
+      {
+        "field": "conceptExplanation",
+        "disposition": "preserved-outside-runtime"
+      }
+    ],
+    "workedExampleBinding": {
+      "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "promptMatchesPractice": true,
+      "answer": "12 cups",
+      "numericOracle": 12,
+      "ratioOrderPreserved": true
+    },
+    "practiceChecks": {
+      "guidedExpectedAnswer": "8 cups",
+      "guidedHasCheck": true,
+      "independentExpectedAnswer": "12 centimeters",
+      "independentRubricItemCount": 3
+    },
+    "remediationTargets": [
+      "ratio order reversed",
+      "unit rate not normalized"
+    ],
+    "standards": {
+      "clusterScope": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "directlyAssessed": [
+        "6.RP.3"
+      ],
+      "prerequisite": [
+        "6.RP.1"
+      ],
+      "notDirectlyAssessed": [
+        "6.RP.2"
+      ]
+    },
+    "localization": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false,
+      "runtimeDisposition": "preserved-outside-runtime"
+    },
+    "defaultsForbidden": [
+      "grade",
+      "standard",
+      "answer",
+      "lessonId",
+      "localizedText"
+    ],
+    "candidateBytesChangedSincePriorReview": false,
+    "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.5",
+      "toCheckerVersion": "promotion-gate-shadow-v2.6",
+      "changeScope": "reviewed-commit-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-006",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "79e804b08c1856d38fdc896968090c12fe490f878b68636d98eaafab7c64d574",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-006/inputs/evidence/a05-lesson-semantics.v2.5.json",
+      "priorEvidenceRawSha256": "3a0a07ecc587bfabe731ab42f49d003514a58b6aeb5b8b30dc6014b988cc5f80",
+      "priorEvidenceReviewedCommit": "d980bc23d9cfc8ad9fa8c3145efef9cfae275e91"
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "pr220-strict-json-composition-20260830",
+      "sourceEvidenceId": "a05-us-ca-g6-ratios-v2-lesson-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceEvidenceRawSha256": "e8275112b8a75289073ce8ee6c66737beb4b1d5196dbf4b32b6fce2e8edc879a",
+      "priorTargetBaselineCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+      "targetBaselineCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+      "justificationPath": "coordination/reports/2026-08-30-A23-pr220-baseline-reaffirmation-justification.md",
+      "protectedChangedPaths": [
+        "app/api/adaptive-learning/next/route.ts",
+        "app/api/adaptive-learning/refresh/route.ts",
+        "app/api/adaptive-learning/universe/route.ts",
+        "app/classroom/join/page.tsx",
+        "components/dashboard/AdaptiveLearningContent.tsx",
+        "components/dashboard/DashboardBackToTopButton.tsx",
+        "components/dashboard/DashboardProgressDetails.tsx",
+        "components/dashboard/StudentLearningPathsView.tsx",
+        "components/dashboard/StudentProfilePanel.tsx",
+        "components/dashboard/StudentRewardsPanel.tsx",
+        "components/providers/AppProviders.tsx",
+        "components/teacher/GuardianAccessControls.tsx",
+        "components/teacher/TeacherAnalyticsView.tsx",
+        "components/teacher/TeacherDashboardClient.tsx",
+        "components/teacher/TeacherDashboardView.tsx",
+        "components/teacher/TeacherFoundationViews.tsx",
+        "components/teacher/TeacherGradebookView.tsx",
+        "components/teacher/TeacherGuidedTour.tsx",
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherReportsBackToTopButton.tsx",
+        "components/teacher/TeacherReportsView.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherRewardsView.tsx",
+        "components/teacher/TeacherSafetyAlertsView.tsx",
+        "components/teacher/TeacherShell.tsx",
+        "components/teacher/teacherLabels.ts",
+        "components/teacher/teacherOperationsRequestState.ts",
+        "components/teacher/teacherOperationsViewActions.test.ts",
+        "components/teacher/teacherZones.ts",
+        "components/visualizations/ConfiguredVisualizationLab.tsx",
+        "components/visualizations/configuredVisualizationLabRegressions.test.ts",
+        "components/visualizations/generated/premiumThreeDDirectCatalog.generated.ts",
+        "components/visualizations/visualizationBundleBoundaries.test.ts",
+        "lib/i18n.ts",
+        "lib/server/userStore/studentActivityPersistence.ts",
+        "lib/server/userStoreStudentActivityPersistence.test.ts"
+      ],
+      "testOnlyChangedPaths": [
+        "components/teacher/teacherOperationsViewActions.test.ts",
+        "components/visualizations/configuredVisualizationLabRegressions.test.ts",
+        "components/visualizations/visualizationBundleBoundaries.test.ts",
+        "lib/server/userStoreStudentActivityPersistence.test.ts"
+      ],
+      "runtimeChangedPaths": [
+        "app/api/adaptive-learning/next/route.ts",
+        "app/api/adaptive-learning/refresh/route.ts",
+        "app/api/adaptive-learning/universe/route.ts",
+        "app/classroom/join/page.tsx",
+        "components/dashboard/AdaptiveLearningContent.tsx",
+        "components/dashboard/DashboardBackToTopButton.tsx",
+        "components/dashboard/DashboardProgressDetails.tsx",
+        "components/dashboard/StudentLearningPathsView.tsx",
+        "components/dashboard/StudentProfilePanel.tsx",
+        "components/dashboard/StudentRewardsPanel.tsx",
+        "components/providers/AppProviders.tsx",
+        "components/teacher/GuardianAccessControls.tsx",
+        "components/teacher/TeacherAnalyticsView.tsx",
+        "components/teacher/TeacherDashboardClient.tsx",
+        "components/teacher/TeacherDashboardView.tsx",
+        "components/teacher/TeacherFoundationViews.tsx",
+        "components/teacher/TeacherGradebookView.tsx",
+        "components/teacher/TeacherGuidedTour.tsx",
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherReportsBackToTopButton.tsx",
+        "components/teacher/TeacherReportsView.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherRewardsView.tsx",
+        "components/teacher/TeacherSafetyAlertsView.tsx",
+        "components/teacher/TeacherShell.tsx",
+        "components/teacher/teacherLabels.ts",
+        "components/teacher/teacherOperationsRequestState.ts",
+        "components/teacher/teacherZones.ts",
+        "components/visualizations/ConfiguredVisualizationLab.tsx",
+        "components/visualizations/generated/premiumThreeDDirectCatalog.generated.ts",
+        "lib/i18n.ts",
+        "lib/server/userStore/studentActivityPersistence.ts"
+      ],
+      "candidateBytesChanged": false,
+      "legacyCandidateBytesChanged": false,
+      "liveAllowed": false
+    }
+  }
+}

@@ -7,15 +7,15 @@ import { getPrimaryVisualizationLabForTopic } from "@/data/visualizationLabs";
 import { renderLessonVisualization, visibleText } from "./testing/renderLessonVisualization";
 
 /**
- * Run with the automatic JSX runtime — the repo tsconfig uses `jsx: "preserve"`
- * for Next, under which tsc emits .jsx and nothing can mount a component:
+ * Check real components' initial SSR markup with the automatic JSX runtime.
+ * Next keeps jsx: "preserve" in the main config; this test-only config lets tsx
+ * render JSX without changing that application build contract.
  *
  *   npx tsx --test --tsconfig tsconfig.lesson-visualization-render.json \
  *     components/visualizations/lessonVisualizationRender.test.tsx
  *
- * Every other visualization test in this repo asserts against source text, so a
- * component that throws or renders nothing under real props was invisible. These
- * tests mount the real component and read what a learner would actually see.
+ * These checks complement the browser visualization gate. Static markup does
+ * not establish visibility, hydration, effect completion or interactive behavior.
  */
 
 const MODULES = {
@@ -25,10 +25,9 @@ const MODULES = {
 } as const;
 
 /**
- * The capability each topic was re-routed to obtain, expressed as text the
- * learner sees. These are not cosmetic assertions: each names the thing the
- * shared template could not do, so if a lab regresses to the template the test
- * fails for the right reason.
+ * Initial markup labels for the capabilities each topic was re-routed to obtain.
+ * Registry and label assertions catch routing or initial-content regressions;
+ * the browser tests remain responsible for visibility and interaction.
  */
 const CAPABILITY_MARKERS: Record<string, { module: keyof typeof MODULES; mustShow: string[]; because: string }> = {
   "p2-place-value": {
@@ -87,7 +86,7 @@ const ROUTED_TOPICS: Array<[string, keyof typeof MODULES]> = [
   ["p6-percentages", "function-model-comparer"]
 ];
 
-test("every routed lesson visualization mounts and renders visible content", () => {
+test("every routed lesson visualization renders non-empty static markup", () => {
   const empty: string[] = [];
   for (const [topicId, moduleId] of ROUTED_TOPICS) {
     // Throwing here is the point: a render failure must fail the test, not be
@@ -123,7 +122,7 @@ test("each re-routed topic shows the capability its template could not express",
   assert.deepEqual(missing, []);
 });
 
-test("place value reaches the hundreds column and decimals reach the hundredths place", () => {
+test("place value and decimals render hundreds and hundredths text", () => {
   // The two sharpest cases, asserted on rendered values rather than labels.
   const placeValue = visibleText(renderLessonVisualization(CoordinatePlaneDemo, "p2-place-value").html);
   assert.match(

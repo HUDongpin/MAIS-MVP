@@ -4,18 +4,14 @@ import { SettingsContext } from "@/components/providers/AppProviders";
 import type { LocalizedText, ThemeMode } from "@/types";
 
 /**
- * Renders a lesson visualization to static markup.
+ * Renders real lesson components to static markup with a small settings double.
+ * AppProviders needs Next's app router; supplying its context directly lets this
+ * focused SSR check exercise the components without mounting the application.
  *
- * Why this exists: every visualization test in this repo asserts against source
- * text rather than rendered output, because mounting one needs `useSettings`,
- * which needs `AppProviders`, which needs Next's app router. The consequence was
- * that a component rendering blank — throwing under real props, or silently
- * emitting nothing — was undetectable by any check.
- *
- * The lab components use exactly three things from settings (`recordLearningEvent`,
- * `t`, and `theme` via `useVisualizationTheme`), so a small double is enough. It is
- * deliberately not a mock framework: no module interception, no experimental
- * flags, nothing that behaves differently in CI.
+ * This checks initial markup and render errors. It complements browser tests;
+ * it does not exercise hydration, effects, interactions or CSS visibility.
+ * The double supplies language, translation, theme and learning-event recording
+ * used by these components. There is no module interception.
  */
 
 export type RenderLessonVisualizationOptions = {
@@ -74,7 +70,7 @@ export function renderLessonVisualization(
   return { html: renderToStaticMarkup(tree), events };
 }
 
-/** Visible text content, with tags and SVG attribute noise stripped. */
+/** Text extracted from static markup; does not establish CSS visibility. */
 export function visibleText(html: string) {
   return html
     .replace(/<[^>]*>/g, " ")

@@ -1,14 +1,23 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import {
   collectPageErrors,
+  demoTeacher,
+  demoTeacherUserId,
   expectNoPageErrors,
-  loginAsDemoStudent,
-  logoutIfVisible,
-  openMobileMenuIfNeeded
+  loginAsDemoStudent
 } from "./helpers";
 
 function header(page: Page) {
   return page.locator("header");
+}
+
+async function openHomeAccountMenu(page: Page) {
+  await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
+  await expect(page.locator('[data-session-verification-gate="true"]')).toHaveCount(0);
+  const menu = page.getByRole("button", { name: /open mobile menu|開啟手機選單/i });
+  if (await menu.isVisible() && await menu.getAttribute("aria-expanded") === "false") {
+    await menu.click();
+  }
 }
 
 async function expectCurrentHomeHeading(page: Page) {
@@ -177,7 +186,7 @@ test.describe("homepage functional QA", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("desktop Lesson nav keeps its guest auth redirect while session lookup is delayed", async ({ page }, testInfo) => {
+  test("desktop Lesson nav keeps its guest auth redirect during delayed foreground session revalidation", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop-chrome", "Desktop navbar links are hidden behind the mobile menu on small screens.");
     const pageErrors = collectPageErrors(page);
     let releaseSessionLookup!: () => void;
@@ -192,9 +201,9 @@ test.describe("homepage functional QA", () => {
         sessionLookupRequested = true;
         await sessionLookupGate;
         await route.fulfill({
-          body: JSON.stringify({ error: "Not authenticated." }),
+          body: JSON.stringify({ user: null }),
           contentType: "application/json",
-          status: 401
+          status: 200
         });
       }
     );
@@ -203,6 +212,11 @@ test.describe("homepage functional QA", () => {
       await page.setViewportSize({ width: 1440, height: 900 });
       await page.goto("/");
       await expectCurrentHomeHeading(page);
+      await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
+      await page.evaluate(() => {
+        window.dispatchEvent(new Event("blur"));
+        window.dispatchEvent(new Event("focus"));
+      });
       await expect.poll(() => sessionLookupRequested).toBe(true);
 
       const mainNav = header(page).getByRole("navigation", { name: /main navigation/i });
@@ -232,6 +246,12 @@ test.describe("homepage functional QA", () => {
         opacity: navStyles.adaptive?.opacity,
         tag: "a"
       });
+
+      const guestDocument = page.waitForNavigation({ waitUntil: "domcontentloaded" });
+      releaseSessionLookup();
+      await guestDocument;
+      await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
+      await expectCurrentHomeHeading(page);
     } finally {
       releaseSessionLookup();
     }
@@ -285,15 +305,129 @@ test.describe("homepage functional QA", () => {
     await chooseLanguage(page, /Use English|使用英文/i);
     await expectCurrentHomeHeading(page);
 
-    await openMobileMenuIfNeeded(page);
+    await openHomeAccountMenu(page);
     await page.getByRole("link", { name: /HK Student Peter/i }).first().click();
     await expect(page).toHaveURL(/\/dashboard$/);
 
     await page.goto("/");
-    await openMobileMenuIfNeeded(page);
+    await openHomeAccountMenu(page);
     await expect(page.getByRole("link", { name: /HK Student Peter/i }).first()).toBeVisible();
 
-    await logoutIfVisible(page);
+    await page.getByRole("button", { name: /log out|登出/i }).filter({ visible: true }).click();
+    await expect(page).toHaveURL(/\/login$/, { timeout: 30_000 });
+    await expect(page.getByLabel(/email or username|email or user name|user name/i)).toBeVisible();
+    expectNoPageErrors(pageErrors);
+  });
+
+  test("student logout keeps its login destination while document navigation is delayed", async ({ page }) => {
+    const pageErrors = collectPageErrors(page);
+    await loginAsDemoStudent(page);
+    await page.goto("/");
+    await openHomeAccountMenu(page);
+    const logoutButton = page.getByRole("button", { name: /log out|登出/i }).filter({ visible: true });
+    await expect(logoutButton).toBeVisible();
+
+    let releaseNavigation!: () => void;
+    const navigationGate = new Promise<void>((resolve) => {
+      releaseNavigation = resolve;
+    });
+    const documentDestinations: string[] = [];
+    let sessionLookups = 0;
+    page.on("request", (request) => {
+      if (new URL(request.url()).pathname === "/api/auth/session-state") sessionLookups += 1;
+    });
+    await page.route((url) => url.pathname === "/login" || url.pathname === "/", async (route) => {
+      const request = route.request();
+      if (request.isNavigationRequest() && request.frame() === page.mainFrame()) {
+        documentDestinations.push(new URL(request.url()).pathname);
+        await navigationGate;
+      }
+      await route.continue();
+    });
+
+    try {
+      // Start the probe before navigation. Playwright locators wait for a
+      // pending document navigation to finish, so they cannot inspect the
+      // outgoing account gate while the route is deliberately held.
+      const clearedDocument = page.evaluate(() => new Promise<{ gateVisible: boolean; accountLinks: number }>((resolve) => {
+        const waitForClearedIdentity = () => {
+          const signal = JSON.parse(window.localStorage.getItem("hk-math-session-sync") ?? "null");
+          if (!signal || signal.userId !== null) {
+            requestAnimationFrame(waitForClearedIdentity);
+            return;
+          }
+          // Let React commit clear-session and run its layout effects before
+          // observing the outgoing document and competing network requests.
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            const gate = document.querySelector<HTMLElement>('[data-session-verification-gate="true"]');
+            resolve({
+              gateVisible: Boolean(gate && gate.getClientRects().length > 0),
+              accountLinks: Array.from(document.querySelectorAll("a"))
+                .filter((link) => /HK Student Peter/i.test(link.textContent ?? "")).length
+            });
+          }));
+        };
+        requestAnimationFrame(waitForClearedIdentity);
+      }));
+      const logoutResponse = page.waitForResponse((response) =>
+        new URL(response.url()).pathname === "/api/auth/logout" && response.request().method() === "POST"
+      );
+      await logoutButton.click();
+      expect((await logoutResponse).status()).toBe(200);
+      await expect.poll(() => documentDestinations.length).toBeGreaterThan(0);
+      expect(await clearedDocument).toEqual({ gateVisible: true, accountLinks: 0 });
+      expect(sessionLookups, "successful logout must not restart session revalidation").toBe(0);
+      expect(documentDestinations, "logout must not be superseded by a homepage reload").toEqual(["/login"]);
+
+      const loginDocument = page.waitForNavigation({ waitUntil: "domcontentloaded" });
+      releaseNavigation();
+      await loginDocument;
+      await expect(page).toHaveURL(/\/login$/);
+      await expect(page.getByLabel(/email or username|email or user name|user name/i)).toBeVisible();
+      await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
+      await expect(page.locator('[data-session-verification-gate="true"]')).toHaveCount(0);
+    } finally {
+      releaseNavigation();
+    }
+
+    expectNoPageErrors(pageErrors);
+  });
+
+  test("stale homepage logout preserves a replacement account after a 409 conflict", async ({ page }) => {
+    const pageErrors = collectPageErrors(page);
+    await loginAsDemoStudent(page);
+    await page.goto("/");
+    await openHomeAccountMenu(page);
+    const logoutButton = page.getByRole("button", { name: /log out|登出/i }).filter({ visible: true });
+    await expect(logoutButton).toBeVisible();
+
+    // A different tab can replace the shared cookie before this document
+    // receives its identity signal. Keep the student document mounted while
+    // the real login endpoint establishes the replacement teacher session.
+    const replacementLogin = await page.request.post("/api/auth/login", {
+      data: { ...demoTeacher, language: "en", theme: "light" }
+    });
+    expect(replacementLogin.status()).toBe(200);
+    await expect(page.getByRole("link", { name: /HK Student Peter/i }).first()).toBeVisible();
+
+    const logoutResponse = page.waitForResponse((response) =>
+      new URL(response.url()).pathname === "/api/auth/logout" && response.request().method() === "POST"
+    );
+    const replacementDocument = page.waitForNavigation({ waitUntil: "domcontentloaded" });
+    await logoutButton.click();
+    const conflict = await logoutResponse;
+    expect(conflict.status()).toBe(409);
+    expect(conflict.headers()).not.toHaveProperty("set-cookie");
+    await replacementDocument;
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
+    await expect(page.locator('[data-session-verification-gate="true"]')).toHaveCount(0);
+    await openHomeAccountMenu(page);
+    await expect(page.getByRole("link", { name: /HK Teacher Chan/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /HK Student Peter/i })).toHaveCount(0);
+    const sessionResponse = await page.request.get("/api/auth/session-state?includeLessonEntry=false");
+    expect(sessionResponse.status()).toBe(200);
+    expect((await sessionResponse.json()).user).toMatchObject({ id: demoTeacherUserId, role: "teacher" });
     expectNoPageErrors(pageErrors);
   });
 });

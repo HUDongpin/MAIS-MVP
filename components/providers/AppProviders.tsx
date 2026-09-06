@@ -112,13 +112,6 @@ type SettingsContextValue = {
   t: (value: LocalizedText) => string;
 };
 
-/**
- * Exported as a test seam. Mounting AppProviders requires Next's app router, so a
- * render harness cannot use it — which is why no test could mount a lesson
- * visualization, and why "renders blank under real props" was undetectable.
- * Supplying this context directly lets a harness render those components without
- * a router. Production code should use useSettings, never this.
- */
 export const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 function isFirstPaintSensitiveStudentPath(pathname: string) {
@@ -1874,6 +1867,7 @@ export function AppProviders({
     clearHighFrequencyFlushHandle();
     setMistakeRecords([]);
     currentUserRef.current = null;
+    quarantinedUserRef.current = null;
     dispatchCore({ type: "clear-session" });
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
@@ -2385,7 +2379,7 @@ export function AppProviders({
         retry: textForLanguage({
           en: "Try again",
           zh: "再試一次",
-          zhHans: "重試"
+          zhHans: "重试"
         }, language)
       }
     : {
@@ -2403,7 +2397,7 @@ export function AppProviders({
           ? textForLanguage({
               en: "Try again",
               zh: "再試一次",
-              zhHans: "重試"
+              zhHans: "重试"
             }, language)
           : null
       };
