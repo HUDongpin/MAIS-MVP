@@ -34,6 +34,7 @@ function childSummary(studentId: string, name: string): ParentChildSummary {
     strengths: [],
     supportTopics: [],
     assignments: [],
+    pendingAssignmentCount: 0,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -66,6 +67,7 @@ function createDatabase(): ParentMessagePersistenceDatabase {
   return {
     class_enrollments: [
       { class_id: "class-a", student_id: "student-1" },
+      { class_id: "class-c", student_id: "student-1" },
       { class_id: "class-a", student_id: "student-2" },
       { class_id: "class-b", student_id: "student-3" }
     ],
@@ -81,10 +83,12 @@ function createDatabase(): ParentMessagePersistenceDatabase {
       { user_id: "student-1", name: "Ada Student", grade: "S3" },
       { user_id: "student-2", name: "Ben Student", grade: "S3" },
       { user_id: "student-3", name: "Cara Student", grade: "S3" },
-      { user_id: "teacher-1", name: "Teacher One", grade: "S3" }
+      { user_id: "teacher-1", name: "Teacher One", grade: "S3" },
+      { user_id: "teacher-2", name: "Teacher Two", grade: "S3" }
     ],
     teacher_classes: [
       { id: "class-a", teacher_id: "teacher-1", name: "S3 Algebra", grade: "S3" },
+      { id: "class-c", teacher_id: "teacher-2", name: "S3 Statistics", grade: "S3" },
       { id: "class-b", teacher_id: "teacher-2", name: "S3 Geometry", grade: "S3" }
     ],
     teacher_message_entries: [
@@ -117,6 +121,16 @@ function createDatabase(): ParentMessagePersistenceDatabase {
         body: "Older question",
         attachments: [],
         created_at: "2026-06-18T10:00:00.000Z"
+      },
+      {
+        id: "entry-other-family",
+        thread_id: "thread-other-parent",
+        sender_id: "parent-2",
+        sender_role: "parent",
+        recipient_id: "teacher-2",
+        body: "Other family's private message",
+        attachments: [],
+        created_at: "2026-06-19T08:10:00.000Z"
       }
     ],
     teacher_messages: [
@@ -171,8 +185,27 @@ function createDatabase(): ParentMessagePersistenceDatabase {
       }
     ],
     teacher_reports: [
-      { id: "report-student-1", type: "parent-summary", student_id: "student-1" },
-      { id: "report-student-2", type: "parent-summary", student_id: "student-2" },
+      {
+        id: "report-student-1",
+        type: "parent-summary",
+        student_id: "student-1",
+        class_id: "class-a",
+        generated_by: "teacher-1"
+      },
+      {
+        id: "report-student-1-class-c",
+        type: "parent-summary",
+        student_id: "student-1",
+        class_id: "class-c",
+        generated_by: "teacher-2"
+      },
+      {
+        id: "report-student-2",
+        type: "parent-summary",
+        student_id: "student-2",
+        class_id: "class-a",
+        generated_by: "teacher-1"
+      },
       { id: "report-class", type: "class", student_id: "student-1" }
     ],
     users: [
@@ -187,7 +220,13 @@ function createDatabase(): ParentMessagePersistenceDatabase {
   };
 }
 
-function createTestStore(database = createDatabase()) {
+function createTestStore(
+  database = createDatabase(),
+  readers: {
+    readDatabase?: () => Promise<ParentMessagePersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentMessagePersistenceDatabase>;
+  } = {}
+) {
   return createParentMessagePersistenceStore({
     createEntryId: () => "message-entry-created",
     createThreadId: () => "message-thread-created",
@@ -201,9 +240,33 @@ function createTestStore(database = createDatabase()) {
     },
     getParentReportsForStudent: (_database, studentId) => [teacherReport(`report-for-${studentId}`, studentId)],
     mutateDatabase: async (mutator) => mutator(database),
-    readDatabase: async () => database
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {})
   });
 }
+
+test("parent message GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.deepEqual((await store.getParentMessagesData("parent-1"))?.threads.map((thread) => thread.id), [
+    "thread-newer",
+    "thread-older"
+  ]);
+  assert.deepEqual(scopedParentIds, ["parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
 
 test("parent message persistence returns visible threads without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentMessagePersistence.ts"), "utf8");
@@ -216,12 +279,16 @@ test("parent message persistence returns visible threads without legacy userStor
   assert.equal(data?.selectedChild, null);
   assert.deepEqual(data?.children.map((child) => child.student.id), ["student-1", "student-2"]);
   assert.deepEqual(data?.threads.map((thread) => thread.id), ["thread-newer", "thread-older"]);
-  assert.equal(data?.selectedThread?.id, "thread-newer");
+  assert.equal(data?.selectedThread, null);
   assert.equal(data?.threads[0].teacherName, "Teacher One");
   assert.deepEqual(data?.threads[0].messages.map((message) => message.id), [
     "entry-newer-teacher",
     "entry-newer-parent"
   ]);
+  assert.equal(
+    data?.threads.flatMap((thread) => thread.messages).some((message) => message.id === "entry-other-family"),
+    false
+  );
   assert.deepEqual(data?.reports.map((report) => report.id), ["report-for-student-1", "report-for-student-2"]);
   assert.deepEqual(data?.categories.map((category) => category.id), [
     "learning-support",
@@ -232,7 +299,7 @@ test("parent message persistence returns visible threads without legacy userStor
   ]);
 });
 
-test("parent message persistence narrows by selected child or selected thread", async () => {
+test("parent message persistence preserves All while selecting a thread and narrows only for an explicit child", async () => {
   const store = createTestStore();
 
   const selectedChild = await store.getParentMessagesData("parent-1", "student-2");
@@ -241,9 +308,18 @@ test("parent message persistence narrows by selected child or selected thread", 
   assert.deepEqual(selectedChild?.reports.map((report) => report.id), ["report-for-student-2"]);
 
   const selectedThread = await store.getParentMessagesData("parent-1", null, "thread-older");
-  assert.equal(selectedThread?.selectedChild?.student.id, "student-1");
+  assert.equal(selectedThread?.selectedChild, null);
   assert.equal(selectedThread?.selectedThread?.id, "thread-older");
-  assert.deepEqual(selectedThread?.threads.map((thread) => thread.id), ["thread-older"]);
+  assert.deepEqual(selectedThread?.threads.map((thread) => thread.id), ["thread-newer", "thread-older"]);
+});
+
+test("parent message persistence fails closed for explicit invalid or mismatched filters", async () => {
+  const store = createTestStore();
+
+  assert.equal(await store.getParentMessagesData("parent-1", "student-missing", null), null);
+  assert.equal(await store.getParentMessagesData("parent-1", null, "thread-missing"), null);
+  assert.equal(await store.getParentMessagesData("parent-1", "student-2", "thread-older"), null);
+  assert.equal(await store.getParentMessagesData("parent-1", "student-3", "thread-other-parent"), null);
 });
 
 test("parent message persistence creates threads through fake storage", async () => {
@@ -251,6 +327,8 @@ test("parent message persistence creates threads through fake storage", async ()
   const result = await createTestStore(database).createParentMessageThread({
     parentId: "parent-1",
     studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "create-parent-thread-0001",
     category: "report-question",
     subject: "  New report question  ",
     body: "  Please explain this report.  ",
@@ -267,30 +345,387 @@ test("parent message persistence creates threads through fake storage", async ()
   assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-1");
 });
 
+test("parent message creation routes by exact class and report ownership instead of first class", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const direct = await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-c",
+    idempotencyKey: "create-parent-thread-0002",
+    subject: "Statistics question",
+    body: "Please help."
+  });
+  assert.equal(direct.status, "created");
+  assert.equal(direct.thread?.classId, "class-c");
+  assert.equal(direct.thread?.teacherName, "Teacher Two");
+  assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-2");
+
+  const report = await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-c",
+    idempotencyKey: "create-parent-thread-0003",
+    category: "report-question",
+    subject: "Report question",
+    body: "Which class generated this?",
+    reportId: "report-student-1-class-c"
+  });
+  assert.equal(report.status, "created");
+  assert.equal(report.thread?.classId, "class-c");
+  assert.equal(report.thread?.teacherName, "Teacher Two");
+
+  assert.equal((await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "create-parent-thread-0004",
+    subject: "Wrong report route",
+    body: "Do not reroute this.",
+    reportId: "report-student-1-class-c"
+  })).status, "not-found");
+
+  assert.equal((await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "",
+    idempotencyKey: "create-parent-thread-0005",
+    subject: "Missing class",
+    body: "Do not pick the first class."
+  })).status, "invalid");
+});
+
+test("parent report messages target the authorized co-teacher who generated the report", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  database.teacher_reports?.push({
+    id: "report-student-1-co-teacher",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "teacher-2"
+  });
+
+  const result = await createTestStore(database).createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "co-teacher-report-create-0001",
+    category: "report-question",
+    subject: "Question for the report author",
+    body: "Please ask the teacher who generated this report.",
+    reportId: "report-student-1-co-teacher"
+  });
+
+  assert.equal(result.status, "created");
+  assert.equal(result.thread?.teacherName, "Teacher Two");
+  assert.equal(database.teacher_messages[0]?.teacher_id, "teacher-2");
+  assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-2");
+});
+
+test("message data exposes an exact report-author target even when the class owner is disabled", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  const classOwner = database.users.find((candidate) => candidate.id === "teacher-1");
+  assert.ok(classOwner);
+  Object.assign(classOwner, { disabled_at: "2026-06-20T11:00:00.000Z" });
+  database.teacher_reports?.push({
+    id: "report-active-co-teacher",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "teacher-2"
+  });
+
+  const store = createParentMessagePersistenceStore({
+    createEntryId: () => "unused-entry",
+    createThreadId: () => "unused-thread",
+    now: () => new Date(generatedAt),
+    getParentChildSummaries: (_database, user) => user.id === "parent-1"
+      ? [childSummary("student-1", "Ada Student"), childSummary("student-2", "Ben Student")]
+      : [],
+    getParentReportsForStudent: (_database, studentId) => studentId === "student-1"
+      ? [{
+          id: "report-active-co-teacher",
+          type: "parent-summary",
+          title: { en: "Co-teacher report", zh: "協作教師報告" },
+          classId: "class-a",
+          studentId: "student-1",
+          generatedBy: "teacher-2",
+          generatedAt,
+          summary: { en: "Progress", zh: "進展" }
+        }]
+      : [],
+    mutateDatabase: async (mutator) => mutator(database),
+    readDatabase: async () => database
+  });
+
+  const active = await store.getParentMessagesData("parent-1", "student-1");
+  assert.deepEqual(active?.reports.map((report) => ({
+    id: report.id,
+    teacherId: report.teacherId,
+    teacherName: report.teacherName
+  })), [{ id: "report-active-co-teacher", teacherId: "teacher-2", teacherName: "Teacher Two" }]);
+  assert.deepEqual(active?.composeTargets.filter((target) => target.classId === "class-a"), [{
+    studentId: "student-1",
+    classId: "class-a",
+    className: "S3 Algebra",
+    teacherId: "teacher-2",
+    teacherName: "Teacher Two",
+    reportId: "report-active-co-teacher"
+  }]);
+  const created = await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "active-co-teacher-report-0001",
+    category: "report-question",
+    reportId: "report-active-co-teacher",
+    subject: "Question for the named author",
+    body: "Route this to the active co-teacher who wrote the report."
+  });
+  assert.equal(created.status, "created");
+  assert.equal(database.teacher_messages[0]?.teacher_id, "teacher-2");
+
+  const reportAuthor = database.users.find((candidate) => candidate.id === "teacher-2");
+  assert.ok(reportAuthor);
+  Object.assign(reportAuthor, { disabled_at: "2026-06-20T11:30:00.000Z" });
+  const stale = await store.getParentMessagesData("parent-1", "student-1");
+  assert.equal(stale?.reports[0]?.teacherName, "Teacher Two", "the safe report keeps its stable author label");
+  assert.deepEqual(
+    stale?.composeTargets.filter((target) => target.classId === "class-a"),
+    [],
+    "an inactive report author must not remain a selectable target and the disabled owner must not be a fallback"
+  );
+  assert.equal((await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "inactive-co-teacher-report-0001",
+    category: "report-question",
+    reportId: "report-active-co-teacher",
+    subject: "Do not send",
+    body: "The author is no longer active."
+  })).status, "not-found");
+});
+
+test("parent replies to a report author only while co-teacher class access remains active", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  database.teacher_messages.unshift({
+    id: "thread-co-teacher-report",
+    class_id: "class-a",
+    student_id: "student-1",
+    teacher_id: "teacher-2",
+    guardian_id: "parent-1",
+    report_id: "report-student-1-co-teacher",
+    parent_category: "report-question",
+    subject_en: "Question for the report author",
+    subject_zh: "Question for the report author",
+    latest_message: "Original question",
+    status: "open",
+    priority: "normal",
+    starred: false,
+    last_message_at: "2026-06-19T11:00:00.000Z",
+    created_at: "2026-06-19T11:00:00.000Z"
+  });
+  const store = createTestStore(database);
+
+  const activeReply = await store.replyToParentMessageThread({
+    parentId: "parent-1",
+    threadId: "thread-co-teacher-report",
+    idempotencyKey: "co-teacher-report-reply-0001",
+    body: "A follow-up for the report author."
+  });
+  assert.equal(activeReply.status, "sent");
+  assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-2");
+
+  database.school_memberships = [];
+  const entryCountAfterActiveReply = database.teacher_message_entries.length;
+  const revokedReply = await store.replyToParentMessageThread({
+    parentId: "parent-1",
+    threadId: "thread-co-teacher-report",
+    idempotencyKey: "co-teacher-report-reply-0002",
+    body: "This must fail after access is revoked."
+  });
+
+  assert.equal(revokedReply.status, "not-found");
+  assert.equal(database.teacher_message_entries.length, entryCountAfterActiveReply);
+});
+
+test("parent report messages reject admin authors instead of falling back to the class owner", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "admin-1", class_id: "class-a", role: "admin" as const }
+    ]
+  });
+  database.users.push({ id: "admin-1", username: "admin-one", role: "admin" });
+  database.teacher_reports?.push({
+    id: "report-student-1-admin",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "admin-1"
+  });
+  const originalThreadCount = database.teacher_messages.length;
+
+  const result = await createTestStore(database).createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "admin-report-create-000001",
+    category: "report-question",
+    subject: "Do not route to an admin",
+    body: "This request must fail closed.",
+    reportId: "report-student-1-admin"
+  });
+
+  assert.equal(result.status, "not-found");
+  assert.equal(database.teacher_messages.length, originalThreadCount);
+});
+
+test("disabled report authors cannot receive a new parent thread", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  const reportAuthor = database.users.find((candidate) => candidate.id === "teacher-2");
+  assert.ok(reportAuthor);
+  Object.assign(reportAuthor, { disabled_at: "2026-06-20T11:00:00.000Z" });
+  database.teacher_reports?.push({
+    id: "report-student-1-disabled-author",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "teacher-2"
+  });
+  const originalThreadCount = database.teacher_messages.length;
+
+  const result = await createTestStore(database).createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "disabled-report-create-0001",
+    category: "report-question",
+    subject: "Disabled author must not receive this",
+    body: "This request must fail closed.",
+    reportId: "report-student-1-disabled-author"
+  });
+
+  assert.equal(result.status, "not-found");
+  assert.equal(database.teacher_messages.length, originalThreadCount);
+});
+
+test("parent replies fail closed when the thread teacher becomes disabled", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+  const created = await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "disable-after-create-0001",
+    subject: "Question before teacher deactivation",
+    body: "This thread is created while the teacher is active."
+  });
+  assert.equal(created.status, "created");
+
+  const threadTeacher = database.users.find((candidate) => candidate.id === "teacher-1");
+  assert.ok(threadTeacher);
+  Object.assign(threadTeacher, { disabled_at: "2026-06-20T11:30:00.000Z" });
+  const entryCountBeforeReply = database.teacher_message_entries.length;
+
+  const result = await store.replyToParentMessageThread({
+    parentId: "parent-1",
+    threadId: created.thread.id,
+    idempotencyKey: "disabled-teacher-reply-0001",
+    body: "This reply must not be written."
+  });
+
+  assert.equal(result.status, "not-found");
+  assert.equal(database.teacher_message_entries.length, entryCountBeforeReply);
+});
+
+test("parent message creation is idempotent and rejects key reuse with a different request", async () => {
+  const database = createDatabase();
+  let nextThread = 0;
+  let nextEntry = 0;
+  const store = createParentMessagePersistenceStore({
+    createEntryId: () => `entry-idempotent-${++nextEntry}`,
+    createThreadId: () => `thread-idempotent-${++nextThread}`,
+    now: () => new Date(generatedAt),
+    getParentChildSummaries: (_database, user) => user.id === "parent-1"
+      ? [childSummary("student-1", "Ada Student"), childSummary("student-2", "Ben Student")]
+      : [],
+    getParentReportsForStudent: (_database, studentId) => [teacherReport(`report-for-${studentId}`, studentId)],
+    mutateDatabase: async (mutator) => mutator(database),
+    readDatabase: async () => database
+  });
+  const request = {
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "stable-create-key-000001",
+    category: "homework" as const,
+    subject: "Homework question",
+    body: "Can you clarify question 2?"
+  };
+
+  const first = await store.createParentMessageThread(request);
+  const replay = await store.createParentMessageThread(request);
+  const conflict = await store.createParentMessageThread({ ...request, body: "A different payload." });
+
+  assert.equal(first.status, "created");
+  assert.equal(replay.status, "replayed");
+  assert.equal(replay.thread?.id, first.thread?.id);
+  assert.equal(conflict.status, "conflict");
+  assert.equal(database.teacher_messages.filter((thread) => thread.id.startsWith("thread-idempotent-")).length, 1);
+  assert.equal(database.teacher_message_entries.filter((entry) => entry.id.startsWith("entry-idempotent-")).length, 1);
+  assert.doesNotMatch(JSON.stringify(database), /stable-create-key-000001/);
+});
+
 test("parent message persistence rejects unavailable thread creation", async () => {
   const store = createTestStore();
 
   assert.equal((await store.createParentMessageThread({
     parentId: "parent-1",
     studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "create-parent-thread-0010",
     subject: " ",
     body: "Body"
   })).status, "invalid");
   assert.equal((await store.createParentMessageThread({
     parentId: "parent-1",
     studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "create-parent-thread-0011",
     subject: "Subject",
     body: "x".repeat(parentMessageBodyMaxLength + 1)
   })).status, "too-long");
   assert.equal((await store.createParentMessageThread({
     parentId: "parent-2",
     studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "create-parent-thread-0012",
     subject: "Subject",
     body: "Body"
   })).status, "forbidden");
   assert.equal((await store.createParentMessageThread({
     parentId: "parent-1",
     studentId: "student-2",
+    classId: "class-a",
+    idempotencyKey: "create-parent-thread-0013",
     subject: "Subject",
     body: "Body",
     reportId: "report-student-1"
@@ -302,6 +737,7 @@ test("parent message persistence replies to allowed threads", async () => {
   const result = await createTestStore(database).replyToParentMessageThread({
     parentId: "parent-1",
     threadId: "thread-older",
+    idempotencyKey: "reply-parent-thread-0001",
     body: "  Follow-up from home.  "
   });
 
@@ -312,6 +748,78 @@ test("parent message persistence replies to allowed threads", async () => {
   assert.equal(thread?.last_message_at, generatedAt);
   assert.equal(database.teacher_message_entries.at(-1)?.sender_role, "parent");
   assert.equal(database.teacher_message_entries.at(-1)?.body, "Follow-up from home.");
+});
+
+test("parent message replies revalidate current teacher-class access and are idempotent", async () => {
+  const database = createDatabase();
+  let nextEntry = 0;
+  const store = createParentMessagePersistenceStore({
+    createEntryId: () => `reply-idempotent-${++nextEntry}`,
+    createThreadId: () => "unused",
+    now: () => new Date(generatedAt),
+    getParentChildSummaries: (_database, user) => user.id === "parent-1"
+      ? [childSummary("student-1", "Ada Student"), childSummary("student-2", "Ben Student")]
+      : [],
+    getParentReportsForStudent: () => [],
+    mutateDatabase: async (mutator) => mutator(database),
+    readDatabase: async () => database
+  });
+  const request = {
+    parentId: "parent-1",
+    threadId: "thread-older",
+    idempotencyKey: "stable-reply-key-000001",
+    body: "A durable reply."
+  };
+
+  const first = await store.replyToParentMessageThread(request);
+  const replay = await store.replyToParentMessageThread(request);
+  const conflict = await store.replyToParentMessageThread({ ...request, body: "Different reply." });
+  assert.equal(first.status, "sent");
+  assert.equal(replay.status, "replayed");
+  assert.equal(replay.entryId, first.entryId);
+  assert.deepEqual(replay.entry, first.entry);
+  assert.deepEqual(first.entry, {
+    id: "reply-idempotent-1",
+    senderRole: "parent",
+    senderName: "Parent One",
+    body: "A durable reply.",
+    createdAt: generatedAt
+  });
+  assert.deepEqual(Object.keys(first.entry).sort(), [
+    "body",
+    "createdAt",
+    "id",
+    "senderName",
+    "senderRole"
+  ]);
+  assert.equal(conflict.status, "conflict");
+  assert.equal(database.teacher_message_entries.filter((entry) => entry.id.startsWith("reply-idempotent-")).length, 1);
+  assert.doesNotMatch(JSON.stringify(database), /stable-reply-key-000001/);
+
+  database.class_enrollments = database.class_enrollments.filter((entry) => (
+    entry.class_id !== "class-a" || entry.student_id !== "student-1"
+  ));
+  assert.equal((await store.replyToParentMessageThread({
+    ...request,
+    idempotencyKey: "stable-reply-key-000002",
+    body: "Should fail after class access changed."
+  })).status, "not-found");
+});
+
+test("parent message data is a minimal allowlist and omits attachment and internal identity fields", async () => {
+  const database = createDatabase();
+  database.teacher_message_entries[0].attachments = [{
+    id: "attachment-secret",
+    fileName: "private.png",
+    fileType: "image/png",
+    url: "s3://private-bucket/object-key"
+  }];
+
+  const data = await createTestStore(database).getParentMessagesData("parent-1");
+  const serialized = JSON.stringify(data);
+  assert.doesNotMatch(serialized, /student-one|parent-one|teacher-one/);
+  assert.doesNotMatch(serialized, /attachment-secret|private\.png|private-bucket|object-key/);
+  assert.doesNotMatch(serialized, /senderId|recipientId|guardianId|attachments/);
 });
 
 test("parent message persistence owns parent message category normalization for legacy userStore", async () => {
@@ -334,22 +842,53 @@ test("parent message persistence owns parent message category normalization for 
   assert.equal(helpers.normalizeParentMessageCategory("unexpected"), "learning-support");
 });
 
+test("database normalization preserves only hashed parent idempotency metadata", async () => {
+  const { normalizeTeacherOpsInboxCollections } = await import("@/lib/server/userStore/teacherOpsInboxPersistence");
+  const database = createDatabase();
+  database.teacher_messages[0].parent_idempotency_key_hash = "a".repeat(64);
+  database.teacher_messages[0].parent_idempotency_request_hash = "b".repeat(64);
+  database.teacher_message_entries[0].parent_idempotency_key_hash = "c".repeat(64);
+  database.teacher_message_entries[0].parent_idempotency_request_hash = "d".repeat(64);
+
+  const normalized = normalizeTeacherOpsInboxCollections({
+    teacher_messages: database.teacher_messages,
+    teacher_message_entries: database.teacher_message_entries
+  }, generatedAt, {
+    deletedAssignmentIds: new Set(),
+    demoTeacherId: "teacher-demo",
+    demoUserId: "student-demo",
+    isValidParentMessageCategory: (value): value is "learning-support" | "homework" | "wellbeing" | "report-question" | "logistics" => (
+      ["learning-support", "homework", "wellbeing", "report-question", "logistics"].includes(String(value))
+    ),
+    shouldSeedDemoUser: () => false
+  });
+
+  assert.equal(normalized.teacher_messages[0].parent_idempotency_key_hash, "a".repeat(64));
+  assert.equal(normalized.teacher_messages[0].parent_idempotency_request_hash, "b".repeat(64));
+  assert.equal(normalized.teacher_message_entries[0].parent_idempotency_key_hash, "c".repeat(64));
+  assert.equal(normalized.teacher_message_entries[0].parent_idempotency_request_hash, "d".repeat(64));
+  assert.doesNotMatch(JSON.stringify(normalized), /stable-create-key|stable-reply-key/);
+});
+
 test("parent message persistence rejects unavailable replies", async () => {
   const store = createTestStore();
 
   assert.equal((await store.replyToParentMessageThread({
     parentId: "parent-1",
     threadId: "thread-older",
+    idempotencyKey: "reply-parent-thread-0010",
     body: " "
   })).status, "invalid");
   assert.equal((await store.replyToParentMessageThread({
     parentId: "parent-1",
     threadId: "thread-older",
+    idempotencyKey: "reply-parent-thread-0011",
     body: "x".repeat(parentMessageBodyMaxLength + 1)
   })).status, "too-long");
   assert.equal((await store.replyToParentMessageThread({
     parentId: "parent-1",
     threadId: "thread-other-parent",
+    idempotencyKey: "reply-parent-thread-0012",
     body: "Can I see this?"
   })).status, "not-found");
 });

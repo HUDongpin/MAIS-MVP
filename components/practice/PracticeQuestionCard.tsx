@@ -26,7 +26,7 @@ import { isYoungLearnerPracticeGrade } from "@/lib/youngLearnerPractice";
 import { cn } from "@/lib/utils";
 import { CountingDotCards } from "@/components/practice/CountingDotCards";
 import { QuestionFigure, type QuestionFigureVariant } from "@/components/practice/QuestionFigure";
-import type { AttemptFeedback, Language, LocalizedText, PublicQuestion, QuestionType } from "@/types";
+import type { AttemptFeedback, AttemptSubmissionResponse, Language, LocalizedText, PublicQuestion, QuestionType } from "@/types";
 
 type AnswerInputMode = "keyboard" | "handwriting";
 type AnswerControl = HTMLInputElement | HTMLTextAreaElement;
@@ -166,11 +166,34 @@ function isPhotoFile(file: File) {
   return file.type.startsWith("image/") || /\.(heic|heif|jpe?g|png|webp)$/i.test(file.name);
 }
 
-function readPhotoDataUrl(file: File) {
+function readPhotoDataUrl(file: File, signal: AbortSignal) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
-    reader.addEventListener("load", () => resolve(typeof reader.result === "string" ? reader.result : ""));
-    reader.addEventListener("error", () => reject(reader.error ?? new Error("Could not read photo.")));
+    function cleanup() {
+      signal.removeEventListener("abort", handleAbort);
+    }
+    function handleAbort() {
+      cleanup();
+      if (reader.readyState === FileReader.LOADING) reader.abort();
+      reject(new DOMException("Photo read was aborted.", "AbortError"));
+    }
+    reader.addEventListener("load", () => {
+      cleanup();
+      resolve(typeof reader.result === "string" ? reader.result : "");
+    }, { once: true });
+    reader.addEventListener("error", () => {
+      cleanup();
+      reject(reader.error ?? new Error("Could not read photo."));
+    }, { once: true });
+    reader.addEventListener("abort", () => {
+      cleanup();
+      reject(new DOMException("Photo read was aborted.", "AbortError"));
+    }, { once: true });
+    if (signal.aborted) {
+      handleAbort();
+      return;
+    }
+    signal.addEventListener("abort", handleAbort, { once: true });
     reader.readAsDataURL(file);
   });
 }
@@ -186,14 +209,26 @@ function serializeAnswerWorkPhotos(attachments: PhotoAttachment[]) {
     .filter((media): media is NonNullable<PhotoAttachment["mediaObject"]> => Boolean(media));
 }
 
-async function uploadAnswerWorkPhoto(dataUrl: string) {
+async function uploadAnswerWorkPhoto(
+  dataUrl: string,
+  expectedUserId: string,
+  signal: AbortSignal
+) {
   if (!dataUrl.startsWith("data:image/")) return null;
 
   try {
     const response = await fetch("/api/media-objects", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ capability: "practice-work-photo", dataUrl })
+      headers: {
+        "Content-Type": "application/json",
+        "X-MAIS-Expected-User-Id": expectedUserId
+      },
+      body: JSON.stringify({
+        capability: "practice-work-photo",
+        dataUrl,
+        expectedUserId
+      }),
+      signal
     });
     if (!response.ok) return null;
 
@@ -209,12 +244,13 @@ function revokePhotoAttachments(attachments: PhotoAttachment[]) {
   attachments.forEach((attachment) => URL.revokeObjectURL(attachment.url));
 }
 
-function readAttemptFeedback(value: unknown): AttemptFeedback | null {
-  const feedback = value as Partial<AttemptFeedback> | null;
+function readAttemptFeedback(value: unknown): AttemptSubmissionResponse | null {
+  const feedback = value as Partial<AttemptSubmissionResponse> | null;
   const explanation = feedback?.explanation as Partial<AttemptFeedback["explanation"]> | undefined;
 
   if (
     typeof feedback?.correct !== "boolean" ||
+    typeof feedback.persisted !== "boolean" ||
     typeof explanation?.en !== "string" ||
     typeof explanation?.zh !== "string" ||
     (typeof feedback.correctAnswer !== "undefined" && typeof feedback.correctAnswer !== "string")
@@ -228,7 +264,8 @@ function readAttemptFeedback(value: unknown): AttemptFeedback | null {
       en: explanation.en,
       zh: explanation.zh
     },
-    correctAnswer: feedback.correctAnswer
+    correctAnswer: feedback.correctAnswer,
+    persisted: feedback.persisted
   };
 }
 
@@ -299,10 +336,17 @@ function formatUnitExponentsForMathText(value: string) {
 
 type PracticeQuestionCardProps = {
   question: PublicQuestion;
-  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
+  initialFeedback?: AttemptFeedback | null;
+  initialSelectedAnswer?: string;
+  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback, selectedAnswer: string) => void;
 };
 
-export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionCardProps) {
+export function PracticeQuestionCard({
+  question,
+  initialFeedback = null,
+  initialSelectedAnswer = "",
+  onAnswered
+}: PracticeQuestionCardProps) {
   const { currentUser, language, recordLearningEvent, refreshMistakeRecordsAfterAttempt, text: settingsText, t: settingsT } = useSettings();
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
@@ -314,14 +358,17 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const answerControlRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const photoInputRef = useRef<HTMLInputElement | null>(null);
   const photoAttachmentsRef = useRef<PhotoAttachment[]>([]);
-  const [selected, setSelected] = useState("");
+  const activeUserIdRef = useRef<string | null>(currentUser?.id ?? null);
+  const photoUploadAbortRef = useRef<AbortController | null>(null);
+  const attemptAbortRef = useRef<AbortController | null>(null);
+  const [selected, setSelected] = useState(initialSelectedAnswer);
   const [answerInputMode, setAnswerInputMode] = useState<AnswerInputMode>("keyboard");
   const [photoAttachments, setPhotoAttachments] = useState<PhotoAttachment[]>([]);
   // Null until probed. The attachment control stays hidden unless the governed
   // media store is actually usable — a control that is guaranteed to error is
   // worse than no control.
   const [photoUploadsAvailable, setPhotoUploadsAvailable] = useState<boolean | null>(null);
-  const [feedback, setFeedback] = useState<AttemptFeedback | null>(null);
+  const [feedback, setFeedback] = useState<AttemptFeedback | null>(initialFeedback);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -363,7 +410,23 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     photoAttachmentsRef.current = photoAttachments;
   }, [photoAttachments]);
 
+  useEffect(() => {
+    activeUserIdRef.current = currentUser?.id ?? null;
+    photoUploadAbortRef.current?.abort();
+    photoUploadAbortRef.current = null;
+    attemptAbortRef.current?.abort();
+    attemptAbortRef.current = null;
+    setIsChecking(false);
+    setPhotoUploadsAvailable(currentUser?.id ? null : false);
+    setPhotoAttachments((attachments) => {
+      revokePhotoAttachments(attachments);
+      return [];
+    });
+  }, [currentUser?.id]);
+
   useEffect(() => () => {
+    photoUploadAbortRef.current?.abort();
+    attemptAbortRef.current?.abort();
     revokePhotoAttachments(photoAttachmentsRef.current);
   }, []);
 
@@ -373,30 +436,44 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
       return;
     }
 
+    const expectedUserId = currentUser.id;
+    const controller = new AbortController();
     let cancelled = false;
-    fetch("/api/media-objects")
+    fetch("/api/media-objects", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
+      signal: controller.signal
+    })
       .then((response) => (response.ok ? response.json() : null))
       .then((payload: { uploadsAvailable?: unknown } | null) => {
-        if (!cancelled) setPhotoUploadsAvailable(payload?.uploadsAvailable === true);
+        if (!cancelled && activeUserIdRef.current === expectedUserId) {
+          setPhotoUploadsAvailable(payload?.uploadsAvailable === true);
+        }
       })
       .catch(() => {
-        if (!cancelled) setPhotoUploadsAvailable(false);
+        if (!cancelled && !controller.signal.aborted && activeUserIdRef.current === expectedUserId) {
+          setPhotoUploadsAvailable(false);
+        }
       });
 
     return () => {
       cancelled = true;
+      controller.abort();
     };
-  }, [currentUser]);
+  }, [currentUser?.id]);
 
   useEffect(() => () => stopPracticeReadAloud(), []);
 
   useEffect(() => {
-    setSelected("");
+    photoUploadAbortRef.current?.abort();
+    photoUploadAbortRef.current = null;
+    attemptAbortRef.current?.abort();
+    attemptAbortRef.current = null;
+    setSelected(initialSelectedAnswer);
     setPhotoAttachments((current) => {
       revokePhotoAttachments(current);
       return [];
     });
-    setFeedback(null);
+    setFeedback(initialFeedback);
     setError("");
     setNeedsLogin(false);
     setIsChecking(false);
@@ -407,7 +484,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     stopPracticeReadAloud();
     setIsReadingAloud(false);
     if (photoInputRef.current) photoInputRef.current.value = "";
-  }, [question.id]);
+  }, [initialFeedback, initialSelectedAnswer, question.id]);
 
   function handleReadAloudToggle() {
     if (isReadingAloud) {
@@ -439,7 +516,11 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
       return;
     }
 
+    const expectedUserId = currentUser.id;
     const durationSeconds = startedAt === null ? 1 : Math.max(1, Math.round((Date.now() - startedAt) / 1000));
+    attemptAbortRef.current?.abort();
+    const controller = new AbortController();
+    attemptAbortRef.current = controller;
 
     setError("");
     setNeedsLogin(false);
@@ -449,28 +530,41 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
       const response = await fetch("/api/attempts", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedUserId
         },
         body: JSON.stringify({
           questionId: question.id,
           selectedAnswer: selected,
           durationSeconds,
-          answerWorkPhotos: serializeAnswerWorkPhotos(photoAttachments)
-        })
+          answerWorkPhotos: serializeAnswerWorkPhotos(photoAttachments),
+          expectedUserId
+        }),
+        signal: controller.signal
       });
       const responseBody = await response.json().catch(() => null);
       const result = readAttemptFeedback(responseBody);
 
-      if (response.status === 401) {
+      if (controller.signal.aborted || activeUserIdRef.current !== expectedUserId) return;
+
+      if (response.status === 401 || response.status === 403 || response.status === 409) {
         setNeedsLogin(true);
         throw new Error(t({
-          en: "Your sign-in session could not be verified. Log in again before checking answers.",
-          zh: "未能驗證你的登入狀態。請重新登入後再檢查答案。"
+          en: "Your sign-in account changed or could not be verified. Reload before checking answers.",
+          zh: "登入帳戶已變更或未能驗證。請重新載入後再檢查答案。",
+          zhHans: "登录账户已变更或未能验证。请重新加载后再检查答案。"
         }));
       }
 
       if (!response.ok || !result) {
         throw new Error("Could not check this answer yet.");
+      }
+      if (!result.persisted) {
+        throw new Error(t({
+          en: "Your answer was checked but could not be saved. Please try again.",
+          zh: "答案已核對，但未能儲存。請再試一次。",
+          zhHans: "答案已核对，但未能保存。请重试。"
+        }));
       }
 
       refreshMistakeRecordsAfterAttempt();
@@ -482,11 +576,17 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
         durationSeconds
       });
       setFeedback(result);
-      onAnswered?.(question, result);
+      onAnswered?.(question, result, selected);
     } catch (caughtError) {
+      if (
+        controller.signal.aborted ||
+        activeUserIdRef.current !== expectedUserId ||
+        (caughtError instanceof DOMException && caughtError.name === "AbortError")
+      ) return;
       setError(caughtError instanceof Error ? caughtError.message : "Could not check this answer yet.");
     } finally {
-      setIsChecking(false);
+      if (attemptAbortRef.current === controller) attemptAbortRef.current = null;
+      if (activeUserIdRef.current === expectedUserId) setIsChecking(false);
     }
   }
 
@@ -535,6 +635,16 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     const files = Array.from(event.target.files ?? []).filter(isPhotoFile);
     event.target.value = "";
     if (!files.length) return;
+    const expectedUserId = currentUser?.id;
+    if (!expectedUserId) {
+      setNeedsLogin(true);
+      setError(t(dictionary.practice.loginRequired));
+      return;
+    }
+
+    photoUploadAbortRef.current?.abort();
+    const controller = new AbortController();
+    photoUploadAbortRef.current = controller;
 
     beginAttempt();
     recordLearningEvent({
@@ -547,8 +657,16 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     setError("");
 
     const createdAt = Date.now();
-    const newAttachments = await Promise.all(files.map(async (file, index) => {
-      const dataUrl = await readPhotoDataUrl(file).catch(() => "");
+    const newAttachments = (await Promise.all(files.map(async (file, index): Promise<PhotoAttachment | null> => {
+      const dataUrl = await readPhotoDataUrl(file, controller.signal).catch(() => "");
+      if (
+        !dataUrl ||
+        controller.signal.aborted ||
+        activeUserIdRef.current !== expectedUserId
+      ) return null;
+
+      const mediaObject = await uploadAnswerWorkPhoto(dataUrl, expectedUserId, controller.signal);
+      if (controller.signal.aborted || activeUserIdRef.current !== expectedUserId) return null;
 
       return {
         dataUrl,
@@ -559,9 +677,15 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
         url: URL.createObjectURL(file),
         // Uploaded at attach time, while the student is still working, so the
         // answer submission carries references instead of megabytes of base64.
-        mediaObject: await uploadAnswerWorkPhoto(dataUrl)
+        mediaObject
       };
-    }));
+    }))).filter((attachment): attachment is PhotoAttachment => attachment !== null);
+
+    if (photoUploadAbortRef.current === controller) photoUploadAbortRef.current = null;
+    if (controller.signal.aborted || activeUserIdRef.current !== expectedUserId) {
+      revokePhotoAttachments(newAttachments);
+      return;
+    }
 
     setPhotoAttachments((current) => {
       const remainingSlots = Math.max(0, maxAnswerPhotoAttachments - current.length);
@@ -775,7 +899,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
                   requestAnimationFrame(() => answerControlRef.current?.focus({ preventScroll: true }));
                 }}
                 className={cn(
-                  "focus-ring inline-flex items-center gap-3 rounded-full border px-4 py-2.5 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+                  "focus-ring inline-flex min-h-11 items-center gap-3 rounded-full border px-4 py-2.5 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
                   softKeyboardOpen
                     ? "border-cyan-300 bg-cyan-400/18 text-cyan-800 dark:border-cyan-200/35 dark:bg-cyan-300/15 dark:text-cyan-100"
                     : "border-slate-200/80 bg-white/75 text-slate-700 hover:border-cyan-300 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.1]"

@@ -359,8 +359,8 @@ const STEPS = [
     body:
       'The RANGE measures spread: range = max − min, the width of the bracket under the line. Now ' +
       'test the centers: move one dot far to the right with the editor or by dragging it to make an ' +
-      'OUTLIER. Watch the carmine fulcrum follow while the blue median barely moves and the gold mode ' +
-      'does not move at all.',
+      'OUTLIER. Watch the carmine fulcrum (mean) chase it while the blue median barely moves — and ' +
+      'the gold mode holds still too, as long as the dot you moved was not one of its copies.',
     q: 'You add one huge outlier to a data set. Which center is pulled the most?',
     choices: ['The mean — it is the balance point, so distance drags it', 'The median — the middle jumps to the outlier', 'The mode — the tallest stack moves'],
     answer: 0,

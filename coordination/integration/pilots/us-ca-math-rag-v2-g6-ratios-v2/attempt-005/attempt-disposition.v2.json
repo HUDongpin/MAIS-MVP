@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "promotion-attempt-disposition.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-005",
+  "producedAt": "2026-08-26T12:43:36+08:00",
+  "phase": "post-shadow-current-baseline-revalidation",
+  "result": "repair_required",
+  "reasonCode": "V2_TARGET_BASELINE_DRIFT",
+  "reason": "Attempt-005 completed a passing immutable Shadow and independent clean replay against target baseline c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77. A later reviewed live-contract repair commit changed protected runtime bytes and therefore made the attempt-005 baseline binding stale. Current-head validation and GitHub Actions both failed closed. The passing Receipt remains immutable historical evidence for its exact execution commit, but it cannot authorize the repaired baseline and must not be overwritten or reused as the current attempt.",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/promotion-manifest.v2.json",
+    "rawSha256": "f178737874a7cc02244f9ec2ecda70fa512cd50190a3879ba30fc2fd18d9c948",
+    "executionCommit": "ea1207067e0eadec3d27872fe7dc57dcc7f97b9e"
+  },
+  "receipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/shadow-receipt.v2.json",
+    "fileSha256": "22f7a52a7f84dd6d983288163652859066301cb9d0b10dc6a5c76e7662516a78",
+    "rawReceiptDigest": "7bcdf2f289114633e5c05e88d6dbcc87f210635fd243523fe7ba97199af6378f",
+    "semanticReceiptDigest": "c5ad3178ed0e265259a7f2d2468c1be0d59cd31b16a2fd3289817c5006394ee2",
+    "result": "pass",
+    "liveAllowed": false,
+    "historicalEvidenceOnly": true
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "staleTargetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "replacementTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "checkerVersion": "promotion-gate-shadow-v2.4",
+    "checkerBundleDigest": "b78526bc7c34a2f7c1471ab71c79a38f0435ebd2e6a89f8b502eab99cf74dd20"
+  },
+  "currentHeadValidationProof": {
+    "result": "blocked",
+    "exitCode": 2,
+    "reasonCode": "V2_TARGET_BASELINE_DRIFT",
+    "changedPathCount": 8,
+    "changedPathsDigest": "0fa95f346de403e2a4c3e79e34eb02d3f3114589af24ca286cfeb21d9aa31ee1",
+    "allowedTestOnlyPathCount": 16,
+    "allowedTestOnlyPathsDigest": "9c4d4d7bb3d5a716ded87684d69cc08ccd8636089ca3b45d58e0d41c508ae398",
+    "liveContractRepairCommit": "14a041f372fb27fa4282104c247886ff1eea623b"
+  },
+  "githubActionsProof": {
+    "repository": "HUDongpin/MAIS-MVP",
+    "workflow": "promotion-shadow-gate",
+    "runId": 32930272456,
+    "jobId": 98061042392,
+    "headCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "conclusion": "failure",
+    "canonicalExecutionShadow": "pass",
+    "canonicalReplay": "pass",
+    "semanticReceiptComparison": "pass",
+    "currentHeadValidation": "blocked",
+    "finalEnforcement": "failure"
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "repair_required",
+    "shadowExecuted": true,
+    "receiptProduced": true,
+    "receiptReuseAllowed": false,
+    "manifestOverwriteAllowed": false,
+    "replacementAttemptId": "attempt-006"
+  },
+  "parentPackageStatus": "candidate-only",
+  "liveAllowed": false,
+  "maturityClaim": "not-mature"
+}

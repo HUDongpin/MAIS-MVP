@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "promotion-manifest.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-007",
+  "mode": "shadow",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerRelease": {
+    "ledgerPath": "coordination/integration/checker-releases.v2.json",
+    "ledgerRawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+    "version": "promotion-gate-shadow-v2.6",
+    "bundleAlgorithm": "sha256-stable-json-path-raw-v2",
+    "bundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "releaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5"
+  },
+  "parentPackage": {
+    "id": "us-ca-math-rag-v2-candidate",
+    "status": "candidate-only"
+  },
+  "candidatePackage": {
+    "id": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+    "version": "2.0.0-shadow.1",
+    "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+    "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+    "status": "candidate-only"
+  },
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+  "candidateArtifacts": [
+    {
+      "kind": "safe-card",
+      "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+      "rawFileSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+      "recordSha256": "896121e5fb79814fc0f2d8048c21df80eba45026e6139cfa98254849bd9f7053"
+    },
+    {
+      "kind": "practice",
+      "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "rawFileSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+      "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864"
+    },
+    {
+      "kind": "lesson",
+      "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+      "rawFileSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+      "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49"
+    }
+  ],
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "accessPolicy": {
+    "readPaths": [
+      "app",
+      "components",
+      "coordination/content-qa",
+      "coordination/integration",
+      "coordination/release-intake",
+      "coordination/reports",
+      "data",
+      "lib",
+      "middleware.ts",
+      "next.config.ts",
+      "public",
+      "tsconfig.json"
+    ],
+    "forbiddenModifyPaths": [
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+      "app",
+      "components",
+      "data",
+      "lib",
+      "public",
+      "middleware.ts",
+      "next.config.ts",
+      "tsconfig.json"
+    ],
+    "tempWritePolicy": "new-os-temp-root-outside-repository-only",
+    "forbiddenCapabilities": [
+      "database-write",
+      "deployment",
+      "live-registry-write",
+      "network",
+      "production-write",
+      "provider",
+      "vercel"
+    ]
+  },
+  "requiredOwners": [
+    "A21",
+    "A18",
+    "A23",
+    "A04",
+    "A05",
+    "A11",
+    "A22",
+    "A24",
+    "A25"
+  ],
+  "evidenceIndex": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence-index.v2.json",
+    "rawSha256": "d6e1b1c4736ae95e51471d7e1b89ff516f954e7e6246e16f0e8ca90d00af5322"
+  },
+  "evidenceBindings": [
+    {
+      "role": "A21",
+      "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "rawSha256": "f6073b13336934e5873847af74ce212cb4351ba148726a20f81f0af8e7ce0b46",
+      "semanticDigest": "332143068555d5fe9d139df51cbe6318863c8b3267220c9f973d4c02ed397ef7",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A18",
+      "evidenceId": "a18-us-ca-g6-ratios-v2-qa-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a18-independent-qa.v2.6.json",
+      "rawSha256": "f78cdf2c22beb78a03ab9f2304b390f54b82387f386a578e8ac0bd69e04ff8dc",
+      "semanticDigest": "9623becbd687f88b96adc5680716acca44cb271bd409082cf570dc9e12008930",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A23",
+      "evidenceId": "a23-us-ca-g6-ratios-v2-readiness-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a23-shadow-readiness.v2.6.json",
+      "rawSha256": "24f3845e29dbea838f34086801ed6853a3740a4658b1e7588495b30a4dcfa20c",
+      "semanticDigest": "079933d07f5e3aa674e449b1b4f9141a09ec17c6da5ae1c9589bd7d4cb792f57",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A04",
+      "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "rawSha256": "772ec157887cb482f490cf37b931e76c470b6635a98dba93d448c9d10f8872fa",
+      "semanticDigest": "c75f2c6a9ff57a10a2e244204e42dfc8317f3d9828207cf7843c5d8a4500deba",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A05",
+      "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "rawSha256": "b505adb971e489e60a16ac0b0e230c2da9c63076bd7832472f4be500485b4baf",
+      "semanticDigest": "3458cca1280e96efc4fe9222a4ede099f918557c450b30bdcff8cf3e045dc515",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A11",
+      "evidenceId": "a11-us-ca-g6-ratios-v2-preflight-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a11-independent-preflight.v2.6.json",
+      "rawSha256": "d1f22c954e9341e02aabd42e14efc0311b3728d3c59263d54ff5100b7e351d66",
+      "semanticDigest": "3354957f70f1174300544cd30b7f3c5855c1c2bb217e468b1bd214cdf5a6df88",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A22",
+      "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a22-build-isolation.v2.6.json",
+      "rawSha256": "b21b718fc13032e9f1a5a68bba79b7fc8313de88c425a9ecdd91594d2718a76c",
+      "semanticDigest": "571351caf17ed48b239a24f05144dc1f876fa2e0a1638244ddb5a6978cd37c51",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A24",
+      "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a24-exact-layer.v2.6.json",
+      "rawSha256": "464c57b6a3ab40ca35a82462bd0bd04f8366c16d55ed1a91194b5385e286e2ae",
+      "semanticDigest": "320e706ea42c27db04fc698810f014782582e8794999af3b0f583d1952387bba",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "not_applicable",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A25",
+      "evidenceId": "a25-us-ca-g6-ratios-v2-intake-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/evidence/a25-release-intake.v2.6.json",
+      "rawSha256": "fce93b649b497543873b584bb11143154a58c38fe77eba7185a14a10a4713dae",
+      "semanticDigest": "b6d8b9f169c2c445c75c8782ba26d8471a022a1a79598768039cec64e7fae145",
+      "reviewedCommit": "6af78172a8d4a0eda99103c9445114eaad2e941d",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "d96cb3c38c0b76cea24f46c3be1ac7470c772eda",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    }
+  ],
+  "allowlistedCheckIds": [
+    "candidate-binding-v2",
+    "git-baseline-v2",
+    "owner-evidence-v2",
+    "content-qa-v2",
+    "shadow-adapter-v2",
+    "live-unreachable-v2",
+    "legacy-drift-ratchet-v2",
+    "source-immutability-v2",
+    "output-isolation-v2",
+    "rollback-rehearsal-v2",
+    "external-side-effects-v2",
+    "state-transition-v2",
+    "semantic-stability-v2"
+  ],
+  "legacyResolution": {
+    "registryPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/inputs/legacy-resolution-registry.v2.6.json",
+    "rawSha256": "0de1d92ffdc30c1220929c76ee215e2a5d25dbf3b096a1adb28232b2721a5950"
+  },
+  "liveReachability": {
+    "compatibilityManifestPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json",
+    "compatibilityManifestRawSha256": "7bcb27d6b9604a1dd4c41f75fba18718b03a7d97046f44923790aa7f207943bc",
+    "expectedRuntimePolicy": {
+      "coveredFileCount": 3799,
+      "coveredFilesDigest": "8585a68202d8850a3b229e10fd802187364bff15cec55d8530291d283f948001",
+      "classificationsDigest": "51fd2d89f61947155b857556350041403c4cd4c8dc4a6d22614ede68e6382fab",
+      "frameworkEntrypointCount": 301,
+      "seedCount": 316,
+      "reachablePathCount": 1451,
+      "reachablePathsDigest": "a496097308627e0d965b32b840058dfb9a831a1fc261448386dfcdeb10c23de2",
+      "edgeCount": 3582,
+      "edgeDigest": "bba8587bdff44d2a2318e6125f21272c73196785e17009f1bde65b8fcfa89274",
+      "topologyEdgeCount": 3582,
+      "topologyEdgeDigest": "9fc703ff5a59317e9394aef86e7145cb66f2b6d22ca4f626b33a03d98efd6edb",
+      "nextDynamicCallCount": 482,
+      "nextDynamicLiteralImportCount": 944,
+      "nextDynamicNonliteralImportCount": 0,
+      "nextDynamicCallsiteDigest": "978ae59f38e810ebae19627930893f7761f372a42c662cfa9846aaaba982f7d6",
+      "fsReadAllowlistCount": 5,
+      "fsReadAllowlistDigest": "4086cb7cf516c752440fd29eb6ff71e65a1b1b239171660be225c79a58d5727e",
+      "zeroBaselineCallCount": 0
+    }
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "requestedState": "shadow_passed",
+    "failureStates": [
+      "repair_required",
+      "rejected"
+    ]
+  },
+  "operationPlan": {
+    "adapterId": "promotion-ratios-shadow-adapter.v2",
+    "operationIds": [
+      "map-safe-card",
+      "map-practice-item",
+      "map-lesson",
+      "emit-compatibility-report"
+    ],
+    "expectedOperationCount": 4,
+    "outputContracts": [
+      "shadow-standards-dto.v2",
+      "shadow-practice-dto.v2",
+      "shadow-lesson-dto.v2",
+      "shadow-compatibility-report.v2"
+    ],
+    "rollbackPlan": {
+      "strategy": "remove-new-isolated-temp-root",
+      "expectedPreimage": "absent"
+    }
+  },
+  "authorizations": {
+    "shadowAllowed": true,
+    "integrationAllowed": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false
+  },
+  "knownBlockers": [
+    {
+      "scope": "live",
+      "code": "LIVE_LOCALIZATION_MISSING",
+      "owner": "A09/A18/A21",
+      "description": "The frozen records contain English only; Chinese and Simplified Chinese fields may not be invented by the adapter."
+    },
+    {
+      "scope": "live",
+      "code": "LIVE_INTEGRATION_UNPROVEN",
+      "owner": "A04/A05/A23",
+      "description": "No reviewed live Practice, Lesson, topic, card, or route integration exists for this promotion unit."
+    },
+    {
+      "scope": "live",
+      "code": "LIVE_RELEASE_UNPROVEN",
+      "owner": "A11/A22",
+      "description": "No same-SHA deployment, production readback, live rollback, or monitoring evidence exists."
+    }
+  ]
+}

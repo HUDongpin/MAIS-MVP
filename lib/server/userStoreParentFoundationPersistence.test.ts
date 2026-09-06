@@ -13,6 +13,7 @@ import type {
   ParentChildSummary,
   StudentAssignmentItem,
   Submission,
+  SubmissionStatus,
   StudentSession
 } from "@/types";
 
@@ -91,6 +92,7 @@ function childSummary(studentId: string, pendingAssignments = 0): ParentChildSum
       className: "3A",
       classGrade: "S3"
     })),
+    pendingAssignmentCount: pendingAssignments,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -130,6 +132,13 @@ function createDatabase(): ParentFoundationPersistenceDatabase {
         student_id: "student-3",
         status: "revoked",
         created_at: "2026-06-03T00:00:00.000Z"
+      },
+      {
+        id: "link-other-family",
+        parent_id: "parent-2",
+        student_id: "student-3",
+        status: "active",
+        created_at: "2026-06-04T00:00:00.000Z"
       }
     ],
     teacher_messages: [
@@ -169,12 +178,23 @@ function createDatabase(): ParentFoundationPersistenceDatabase {
   };
 }
 
-function createTestStore(database: ParentFoundationPersistenceDatabase) {
+function createTestStore(
+  database: ParentFoundationPersistenceDatabase,
+  readers: {
+    readDatabase?: () => Promise<ParentFoundationPersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentFoundationPersistenceDatabase>;
+  } = {}
+) {
   return createParentFoundationPersistenceStore({
-    readDatabase: async () => database,
-    buildParentChildSummary: (_database, studentId) => studentId === "student-1"
-      ? childSummary(studentId, 2)
-      : childSummary(studentId, 0),
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {}),
+    buildParentChildSummary: (_database, studentId) => {
+      const summary = studentId === "student-1"
+        ? childSummary(studentId, 2)
+        : childSummary(studentId, 0);
+      if (studentId === "student-1") summary.assignments = [];
+      return summary;
+    },
     toGuardianLink: (_database, link) => ({
       id: link.id ?? "",
       parentId: link.parent_id,
@@ -193,6 +213,44 @@ function createTestStore(database: ParentFoundationPersistenceDatabase) {
   });
 }
 
+test("parent foundation GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.equal((await store.getParentFoundationData("parent-1"))?.parent.id, "parent-1");
+  assert.equal((await store.getParentChildSummary("parent-1", "student-2"))?.student.id, "student-2");
+  assert.deepEqual(scopedParentIds, ["parent-1", "parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
+
+test("scoped parent results fail closed when the parent projection or active link is absent", async () => {
+  const missingParent = createDatabase();
+  missingParent.users = missingParent.users.filter((user) => user.id !== "parent-1");
+  assert.equal(await createTestStore(missingParent).getParentFoundationData("parent-1"), null);
+
+  const unlinkedParent = createDatabase();
+  unlinkedParent.guardian_links = unlinkedParent.guardian_links.filter((link) => link.parent_id !== "parent-1");
+  const emptyFoundation = await createTestStore(unlinkedParent).getParentFoundationData("parent-1");
+  assert.deepEqual(emptyFoundation?.children, []);
+  assert.deepEqual(emptyFoundation?.links, []);
+  assert.equal(
+    await createTestStore(unlinkedParent).getParentChildSummary("parent-1", "student-1"),
+    null,
+    "an explicit child lookup must not inherit data when no active guardian link exists"
+  );
+});
+
 test("parent foundation persistence builds foundation data without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentFoundationPersistence.ts"), "utf8");
   assert.doesNotMatch(source, /from ["']\.\.\/userStore["']/);
@@ -202,6 +260,7 @@ test("parent foundation persistence builds foundation data without legacy userSt
 
   assert.equal(foundation?.parent.id, "parent-1");
   assert.deepEqual(foundation?.links.map((link) => link.id), ["link-1", "link-2"]);
+  assert.equal(foundation?.links.some((link) => link.id === "link-other-family"), false);
   assert.deepEqual(foundation?.children.map((child) => child.student.id), ["student-1", "student-2"]);
   assert.equal(foundation?.selectedChild?.student.id, "student-2");
   assert.deepEqual(foundation?.totals, {
@@ -212,13 +271,50 @@ test("parent foundation persistence builds foundation data without legacy userSt
   });
 });
 
+test("parent pending assignment semantics use the exact attention allowlist", async () => {
+  const { parentSubmissionNeedsAttention } = await import("@/lib/server/userStore/parentFoundationPersistence");
+  const expectations: Record<SubmissionStatus, boolean> = {
+    "not-started": true,
+    "in-progress": true,
+    late: true,
+    "correction-required": true,
+    submitted: false,
+    graded: false,
+    "correction-submitted": false,
+    resolved: false
+  };
+
+  for (const [status, expected] of Object.entries(expectations) as Array<[SubmissionStatus, boolean]>) {
+    assert.equal(parentSubmissionNeedsAttention(status), expected, status);
+  }
+});
+
+test("parent foundation persistence rejects admin reads", async () => {
+  const foundation = await createTestStore(createDatabase()).getParentFoundationData("admin-1");
+
+  assert.equal(foundation, null);
+});
+
+test("parent foundation persistence fails closed for every explicitly invalid student filter", async () => {
+  const store = createTestStore(createDatabase());
+
+  for (const studentId of ["", "student-does-not-exist", "student-3"]) {
+    assert.equal(
+      await store.getParentFoundationData("parent-1", studentId),
+      null,
+      `explicit filter ${JSON.stringify(studentId)} must not expand to a linked child`
+    );
+  }
+  assert.equal((await store.getParentFoundationData("parent-1"))?.selectedChild?.student.id, "student-1");
+});
+
 test("parent foundation persistence checks child summary access", async () => {
   const store = createTestStore(createDatabase());
 
   assert.equal((await store.getParentChildSummary("parent-1", "student-1"))?.student.id, "student-1");
   assert.equal(await store.getParentChildSummary("parent-1", "student-3"), null);
   assert.equal(await store.getParentChildSummary("teacher-1", "student-1"), null);
-  assert.equal((await store.getParentChildSummary("admin-1", "student-2"))?.student.id, "student-2");
+  assert.equal(await store.getParentChildSummary("admin-1", "student-2"), null);
 });
 
 test("parent foundation persistence owns parent weekly activity helper for legacy userStore", async () => {
@@ -318,7 +414,7 @@ test("parent foundation persistence owns parent child-summary helper for legacy 
   );
   assert.deepEqual(
     helpers.parentGuardianLinkRecordsFor(database, { id: "admin-1", role: "admin" }).map((link) => link.id),
-    ["link-1", "link-2"]
+    []
   );
   assert.equal(helpers.selectedParentChild(children, "student-2")?.student.id, "student-2");
   assert.equal(helpers.selectedParentChild(children, "missing-student"), null);
@@ -414,6 +510,7 @@ test("parent foundation persistence owns parent assignment item lookup for legac
       ["assignment-old", "submission-old", "3A", "S3", "in-progress"]
     ]
   );
+  assert.equal(items.some((item) => item.submission.id === "submission-other-student"), false);
 });
 
 test("parent foundation persistence owns parent child-summary builder for legacy userStore", async () => {
@@ -428,11 +525,23 @@ test("parent foundation persistence owns parent child-summary builder for legacy
   assert.doesNotMatch(rootSource, /function buildParentChildSummary\b/);
   assert.match(rootSource, /createParentChildSummaryBuilderFromParentFoundation/);
 
+  const allSubmissionStatuses: SubmissionStatus[] = [
+    "submitted",
+    "graded",
+    "correction-submitted",
+    "resolved",
+    "not-started",
+    "in-progress",
+    "late",
+    "correction-required"
+  ];
   const database = {
     ...createDatabase(),
-    assignments: [
-      { id: "assignment-1", class_id: "class-1", updated_at: "2026-06-20T00:00:00.000Z" }
-    ],
+    assignments: allSubmissionStatuses.map((_status, index) => ({
+      id: `assignment-${index + 1}`,
+      class_id: "class-1",
+      updated_at: `2026-06-${String(20 - index).padStart(2, "0")}T00:00:00.000Z`
+    })),
     class_enrollments: [
       { class_id: "class-1", student_id: "student-1" }
     ],
@@ -443,15 +552,13 @@ test("parent foundation persistence owns parent child-summary builder for legacy
     student_profiles: [
       { user_id: "student-1", grade: "S3" as const }
     ],
-    submissions: [
-      {
-        id: "submission-1",
-        assignment_id: "assignment-1",
-        student_id: "student-1",
-        status: "in-progress" as const,
-        updated_at: "2026-06-20T09:00:00.000Z"
-      }
-    ],
+    submissions: allSubmissionStatuses.map((status, index) => ({
+      id: `submission-${index + 1}`,
+      assignment_id: `assignment-${index + 1}`,
+      student_id: "student-1",
+      status,
+      updated_at: `2026-06-${String(20 - index).padStart(2, "0")}T09:00:00.000Z`
+    })),
     teacher_classes: [
       { id: "class-1", name: "3A", grade: "S3" as const }
     ],
@@ -543,12 +650,25 @@ test("parent foundation persistence owns parent child-summary builder for legacy
   assert.equal(summary?.latestActivityAt, "2026-06-20T10:00:00.000Z");
   assert.deepEqual(summary?.strengths.map((topic) => topic.id), ["topic-strength"]);
   assert.deepEqual(summary?.supportTopics.map((topic) => topic.id), ["topic-support"]);
-  assert.deepEqual(summary?.assignments.map((item) => item.assignment.id), ["assignment-1"]);
+  assert.deepEqual(
+    summary?.assignments.map((item) => item.assignment.id),
+    ["assignment-1", "assignment-2", "assignment-3", "assignment-4", "assignment-5", "assignment-6"],
+    "the card list remains capped at the latest six assignments"
+  );
+  assert.equal(
+    summary?.pendingAssignmentCount,
+    4,
+    "the count must include late and correction-required items outside the six-item display window"
+  );
   assert.equal(summary?.rewardSummary.available, 4);
   assert.equal(summary?.latestParentReport?.id, "report-1");
   assert.match(summary?.celebrate[0]?.en ?? "", /topic-strength/);
   assert.match(summary?.support[0]?.en ?? "", /topic-support/);
-  assert.match(summary?.support[1]?.en ?? "", /1 recent assignment item/);
+  assert.deepEqual(summary?.support[1], {
+    en: "4 assignment items need attention.",
+    zh: "有 4 項作業需要留意。",
+    zhHans: "有 4 项作业需要留意。"
+  });
   assert.equal(helpers.buildParentChildSummary(database, "missing-student", {
     latestStudentActivityAt: () => null,
     motivationSummaryForStudent: () => null,

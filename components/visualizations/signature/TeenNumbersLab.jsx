@@ -342,6 +342,14 @@ export default function TeenNumbersLab() {
      shows whatever the child has written — that echo is the whole challenge. */
   const displayValue = calib ? wl * 10 + wr : teenValue(n);
 
+  /* The spoken-word card may outlive a click only while it still matches the
+     canvas: a card reading "fourteen" beside a stage showing seventeen is the
+     mismatch this file refuses elsewhere. Any change to the displayed number
+     retires the card. */
+  useEffect(() => {
+    setLastSpoken(null);
+  }, [displayValue]);
+
   /* The picture is declared by the step, never assembled by the child.  The
      trap row also needs a trap to show — slide to 11 or 12 and there is nothing
      to mis-hear, so the row simply is not drawn. */

@@ -27,7 +27,9 @@ export function createParentUserStore({
     getParentChildSummary: parentFoundationPersistenceStore.getParentChildSummary,
     getParentReportData: parentReportPersistenceStore.getParentReportData,
     getParentMessagesData: parentMessagePersistenceStore.getParentMessagesData,
+    findParentMessageCreateReplay: parentMessagePersistenceStore.findParentMessageCreateReplay,
     createParentMessageThread: parentMessagePersistenceStore.createParentMessageThread,
+    findParentMessageReplyReplay: parentMessagePersistenceStore.findParentMessageReplyReplay,
     replyToParentMessageThread: parentMessagePersistenceStore.replyToParentMessageThread,
     linkParentToStudentByInviteCode: parentAccessPersistenceStore.linkParentToStudentByInviteCode
   };

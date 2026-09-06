@@ -154,20 +154,24 @@ test.describe("reported bug regressions", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("authenticated dashboard waits for session hydration before rendering the learner shell", async ({ page }) => {
+  test("authenticated dashboard is server-seeded before the first interactive learner shell", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
 
     await authenticateAsDemoStudent(page);
-    await page.route("**/api/auth/session-state**", async (route) => {
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      await route.continue();
-    }, { times: 1 });
+    let sessionStateRequests = 0;
+    page.on("request", (request) => {
+      if (new URL(request.url()).pathname === "/api/auth/session-state") sessionStateRequests += 1;
+    });
 
     await page.goto("/dashboard");
 
-    await expect(page.getByText(/Loading secure workspace|正在載入安全學習空間|正在载入安全学习空间/i)).toBeVisible({ timeout: 500 });
-    await expect(page.getByRole("heading", { name: /Welcome back, Explorer/i })).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /Welcome back, HK Student Peter|Welcome back,\s*Peter/i })).toBeVisible({ timeout: 15_000 });
+    const languageTrigger = page.locator('header button[aria-haspopup="menu"]').first();
+    await languageTrigger.click();
+    await expect(page.getByRole("menu")).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("menu")).toBeHidden();
+    expect(sessionStateRequests, "server-seeded auth must not be replaced by a duplicate mount-time session request").toBe(0);
 
     expectNoPageErrors(pageErrors);
   });

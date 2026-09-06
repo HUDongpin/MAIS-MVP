@@ -91,6 +91,10 @@ async function newContext(app: IsolatedApp) {
   return await apiRequest.newContext({ baseURL: app.baseURL });
 }
 
+function expectedUserHeaders(userId: string) {
+  return { "X-MAIS-Expected-User-Id": userId };
+}
+
 async function loginContext(app: IsolatedApp, username: string, password: string) {
   const context = await newContext(app);
   const response = await context.post("/api/auth/login", {
@@ -102,16 +106,22 @@ async function loginContext(app: IsolatedApp, username: string, password: string
       theme: "light"
     }
   });
-  const payload = await readJsonNoSecrets<{ user?: { role?: string } }>(response, `login ${username}`);
+  const payload = await readJsonNoSecrets<{ user?: { id?: string; role?: string } }>(response, `login ${username}`);
   expect(response.ok(), `login ${username} failed with ${response.status()}`).toBeTruthy();
   expect(payload.user?.role).toBeTruthy();
-  return context;
+  expect(payload.user?.id, `login ${username} must return the authenticated user ID`).toBeTruthy();
+  if (!payload.user?.id) throw new Error(`login ${username} did not return a user ID`);
+  return { context, userId: payload.user.id };
 }
 
-async function sendProbe(context: APIRequestContext, probe: ApiProbe) {
+async function sendProbe(context: APIRequestContext, probe: ApiProbe, expectedUserId?: string) {
+  const headers = expectedUserId && probe.path.startsWith("/api/teacher/reports/")
+    ? expectedUserHeaders(expectedUserId)
+    : undefined;
   return await context.fetch(probe.path, {
     method: probe.method,
-    data: probe.data
+    data: probe.data,
+    headers
   });
 }
 
@@ -167,9 +177,9 @@ test.describe("teacher console API stress", () => {
 
     try {
       const unauthenticated = await newContext(app);
-      const teacher = await loginContext(app, demoTeacher.username, demoTeacher.password);
-      const student = await loginContext(app, demoStudent.username, demoStudent.password);
-      const parent = await loginContext(app, demoParent.username, demoParent.password);
+      const { context: teacher, userId: teacherUserId } = await loginContext(app, demoTeacher.username, demoTeacher.password);
+      const { context: student, userId: studentUserId } = await loginContext(app, demoStudent.username, demoStudent.password);
+      const { context: parent, userId: parentUserId } = await loginContext(app, demoParent.username, demoParent.password);
       contexts.push(unauthenticated, teacher, student, parent);
 
       for (const probe of teacherApiProbes) {
@@ -177,11 +187,11 @@ test.describe("teacher console API stress", () => {
         await readTextNoSecrets(anonymousResponse, `anonymous ${probe.label}`);
         expect(anonymousResponse.status(), `anonymous ${probe.label}`).toBe(401);
 
-        const studentResponse = await sendProbe(student, probe);
+        const studentResponse = await sendProbe(student, probe, studentUserId);
         await readTextNoSecrets(studentResponse, `student ${probe.label}`);
         expect(studentResponse.status(), `student ${probe.label}`).toBe(403);
 
-        const parentResponse = await sendProbe(parent, probe);
+        const parentResponse = await sendProbe(parent, probe, parentUserId);
         await readTextNoSecrets(parentResponse, `parent ${probe.label}`);
         expect(parentResponse.status(), `parent ${probe.label}`).toBe(403);
       }
@@ -233,8 +243,12 @@ test.describe("teacher console API stress", () => {
       await expectNoUnexpectedServerError(resourceUpload, "wrong MIME unicode upload");
 
       const exports = await Promise.all([
-        teacher.get("/api/teacher/reports/export?type=class&language=en&classId=class-s3a-2026&remarks=stress"),
-        teacher.get("/api/teacher/reports/pdf?type=student&language=zh&studentId=student-peter&remarks=stress"),
+        teacher.get("/api/teacher/reports/export?type=class&language=en&classId=class-s3a-2026&remarks=stress", {
+          headers: expectedUserHeaders(teacherUserId)
+        }),
+        teacher.get("/api/teacher/reports/pdf?type=student&language=zh&studentId=student-peter&remarks=stress", {
+          headers: expectedUserHeaders(teacherUserId)
+        }),
         teacher.get("/api/teacher/assessments/assessment-s3-algebra-quiz/export"),
         teacher.get("/api/teacher/resources/resource-s3-quadratics-slides/download")
       ]);
@@ -376,7 +390,7 @@ test.describe("teacher console API stress", () => {
     const providerStatusLines: string[] = [];
 
     try {
-      const teacher = await loginContext(app, demoTeacher.username, demoTeacher.password);
+      const { context: teacher } = await loginContext(app, demoTeacher.username, demoTeacher.password);
       contexts.push(teacher);
 
       const prompts = [

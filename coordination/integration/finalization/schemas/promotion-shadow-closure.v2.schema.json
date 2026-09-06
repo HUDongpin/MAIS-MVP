@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.example/schemas/promotion-shadow-closure.v2.schema.json",
+  "title": "Promotion Shadow final closure v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "binding",
+    "artifacts",
+    "receiptDigests",
+    "legacyDisposition",
+    "stateTransition",
+    "unmetShadowConditions",
+    "liveBlockers",
+    "trustBoundary",
+    "closureDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "promotion-shadow-closure.v2" },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gateId",
+        "pilotUnitId",
+        "attemptId",
+        "parentPackageId",
+        "candidateDigest",
+        "sourceCommit",
+        "targetBaselineCommit",
+        "checkerVersion",
+        "checkerBundleDigest",
+        "executionCommit",
+        "compositionHeadCommit",
+        "mergeCommit"
+      ],
+      "properties": {
+        "gateId": { "const": "promotion-shadow-gate-v2" },
+        "pilotUnitId": { "const": "us-ca-math-rag-v2-g6-ratios-v2" },
+        "attemptId": { "const": "attempt-007" },
+        "parentPackageId": { "const": "us-ca-math-rag-v2-candidate" },
+        "candidateDigest": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/commit" },
+        "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+        "checkerVersion": { "const": "promotion-gate-shadow-v2.6" },
+        "checkerBundleDigest": { "$ref": "#/$defs/sha256" },
+        "executionCommit": { "$ref": "#/$defs/commit" },
+        "compositionHeadCommit": { "$ref": "#/$defs/commit" },
+        "mergeCommit": { "$ref": "#/$defs/commit" }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "evidenceIndex",
+        "receipt",
+        "a11Replay",
+        "a22Isolation",
+        "legacyRegistry",
+        "prCheck",
+        "requiredChecks",
+        "mainPostMerge",
+        "a25Closeout"
+      ],
+      "properties": {
+        "manifest": { "$ref": "#/$defs/fileReference" },
+        "evidenceIndex": { "$ref": "#/$defs/fileReference" },
+        "receipt": { "$ref": "#/$defs/fileReference" },
+        "a11Replay": { "$ref": "#/$defs/fileReference" },
+        "a22Isolation": { "$ref": "#/$defs/fileReference" },
+        "legacyRegistry": { "$ref": "#/$defs/fileReference" },
+        "prCheck": { "$ref": "#/$defs/fileReference" },
+        "requiredChecks": { "$ref": "#/$defs/fileReference" },
+        "mainPostMerge": { "$ref": "#/$defs/fileReference" },
+        "a25Closeout": { "$ref": "#/$defs/fileReference" }
+      }
+    },
+    "receiptDigests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rawReceiptDigest",
+        "semanticReceiptDigest",
+        "independentRawReceiptDigest"
+      ],
+      "properties": {
+        "rawReceiptDigest": { "$ref": "#/$defs/sha256" },
+        "semanticReceiptDigest": { "$ref": "#/$defs/sha256" },
+        "independentRawReceiptDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "legacyDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packageId",
+        "deadline",
+        "terminalDecision",
+        "activeExceptionCount",
+        "unresolvedConflictCount",
+        "runtimeGraphBlindSpotCount"
+      ],
+      "properties": {
+        "packageId": { "const": "us-ca-k5-knowledge-point-practice-v1" },
+        "deadline": { "const": "2026-09-24T00:00:00Z" },
+        "terminalDecision": { "const": "remove-live" },
+        "activeExceptionCount": { "const": 0 },
+        "unresolvedConflictCount": { "const": 0 },
+        "runtimeGraphBlindSpotCount": { "const": 0 }
+      }
+    },
+    "stateTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fromState",
+        "toState",
+        "parentPackageStatus",
+        "pilotUnitStatus",
+        "liveAllowed",
+        "liveEvidence",
+        "maturityClaim"
+      ],
+      "properties": {
+        "fromState": { "const": "shadow_ready" },
+        "toState": { "const": "shadow_passed" },
+        "parentPackageStatus": { "const": "candidate-only" },
+        "pilotUnitStatus": { "const": "shadow_passed" },
+        "liveAllowed": { "const": false },
+        "liveEvidence": { "const": "none" },
+        "maturityClaim": { "const": "Shadow-mature / live-unproven" }
+      }
+    },
+    "unmetShadowConditions": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "liveBlockers": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "missing-zh-localization" },
+        { "const": "missing-zhHans-localization" },
+        { "const": "live-integration-and-release-unproven" }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "trustBoundary": {
+      "const": "Repository hash-bound readback record; GitHub API authenticity requires independent repository-admin readback."
+    },
+    "closureDigest": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*\\u0000).+$"
+    },
+    "fileReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "rawSha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

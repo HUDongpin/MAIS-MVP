@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import WebSocket from "ws";
 import type { RawData } from "ws";
+import { guardAiTutorExpectedUser } from "@/app/api/ai-tutor/expectedUser";
 import { readQwenRealtimeProviderConfig } from "@/lib/server/llmProvider";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import {
@@ -259,11 +260,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Authentication required." }, { status: 401 });
   }
 
-  const classroomPolicy = await resolveStudentAiTutorPolicy(authenticated.user.id);
-  if (classroomPolicy.mode === "fallback-only") {
-    return NextResponse.json({ error: "Class AI Tutor voice is paused." }, { status: 409 });
-  }
-
   let body: unknown;
   try {
     body = await request.json();
@@ -273,6 +269,14 @@ export async function POST(request: Request) {
 
   if (!isRecord(body)) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
+  }
+
+  const expectedUserConflict = guardAiTutorExpectedUser(authenticated, request, body);
+  if (expectedUserConflict) return expectedUserConflict;
+
+  const classroomPolicy = await resolveStudentAiTutorPolicy(authenticated.user.id);
+  if (classroomPolicy.mode === "fallback-only") {
+    return NextResponse.json({ error: "Class AI Tutor voice is paused." }, { status: 409 });
   }
 
   const text = cleanVoiceText(body.text);

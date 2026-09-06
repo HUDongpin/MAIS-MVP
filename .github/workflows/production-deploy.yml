@@ -1,0 +1,395 @@
+name: MAIS production release
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Inspect schema, generate a confirmation, or execute the confirmed release
+        required: true
+        default: schema-preflight
+        type: choice
+        options:
+          - schema-preflight
+          - collection-gap-diagnostic
+          - parent-access-record-diagnostic
+          - parent-access-record-drift-diagnostic
+          - parent-access-session-lifecycle-diagnostic
+          - deploy
+      candidate_sha:
+        description: Exact 40-character SHA of the current protected main commit
+        required: true
+        type: string
+      schema_confirmation:
+        description: Exact safe confirmation emitted by schema-preflight; required for deploy
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+
+# Schema inspection, schema mutation, deployment, promotion, verification, and
+# rollback share this one non-cancelling writer lock across all manual runs.
+concurrency:
+  group: mais-production-schema-deploy-promote-v1
+  cancel-in-progress: false
+
+jobs:
+  schema-preflight:
+    if: ${{ inputs.mode == 'schema-preflight' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact protected-main candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main SHA and tree
+        env:
+          EXPECTED_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+          test "${#EXPECTED_CANDIDATE_SHA}" -eq 40
+          case "$EXPECTED_CANDIDATE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          test "$GITHUB_SHA" = "$EXPECTED_CANDIDATE_SHA"
+          test "$(git rev-parse --verify HEAD)" = "$EXPECTED_CANDIDATE_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          release_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#release_tree_sha}" -eq 40
+          case "$release_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_RELEASE_SHA "$EXPECTED_CANDIDATE_SHA" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_RELEASE_TREE_SHA "$release_tree_sha" >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Read-only production schema preflight
+        env:
+          MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: vercel-api-pull-v1
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |-
+          node --import tsx scripts/teacher-notice-production-schema-gate.mjs --preflight \
+            "--candidate-sha=$MAIS_RELEASE_SHA" \
+            "--expected-tree-sha=$MAIS_RELEASE_TREE_SHA"
+
+  collection-gap-diagnostic:
+    if: ${{ inputs.mode == 'collection-gap-diagnostic' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact protected-main candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main SHA and tree
+        env:
+          EXPECTED_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+          test "${#EXPECTED_CANDIDATE_SHA}" -eq 40
+          case "$EXPECTED_CANDIDATE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          test "$GITHUB_SHA" = "$EXPECTED_CANDIDATE_SHA"
+          test "$(git rev-parse --verify HEAD)" = "$EXPECTED_CANDIDATE_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          release_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#release_tree_sha}" -eq 40
+          case "$release_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_RELEASE_SHA "$EXPECTED_CANDIDATE_SHA" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_RELEASE_TREE_SHA "$release_tree_sha" >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Read-only production collection-gap diagnostic
+        env:
+          MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: vercel-api-pull-v1
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |-
+          node --import tsx scripts/teacher-notice-production-schema-gate.mjs --diagnose-collections \
+            "--candidate-sha=$MAIS_RELEASE_SHA" \
+            "--expected-tree-sha=$MAIS_RELEASE_TREE_SHA"
+
+  parent-access-record-diagnostic:
+    if: ${{ inputs.mode == 'parent-access-record-diagnostic' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact protected-main candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main SHA and tree
+        env:
+          EXPECTED_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+          test "${#EXPECTED_CANDIDATE_SHA}" -eq 40
+          case "$EXPECTED_CANDIDATE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          test "$GITHUB_SHA" = "$EXPECTED_CANDIDATE_SHA"
+          test "$(git rev-parse --verify HEAD)" = "$EXPECTED_CANDIDATE_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          release_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#release_tree_sha}" -eq 40
+          case "$release_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_RELEASE_SHA "$EXPECTED_CANDIDATE_SHA" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_RELEASE_TREE_SHA "$release_tree_sha" >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Read-only production parent-access record diagnostic
+        env:
+          MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: vercel-api-pull-v1
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |-
+          node --import tsx scripts/teacher-notice-production-schema-gate.mjs --diagnose-parent-access-records \
+            "--candidate-sha=$MAIS_RELEASE_SHA" \
+            "--expected-tree-sha=$MAIS_RELEASE_TREE_SHA"
+
+  parent-access-record-drift-diagnostic:
+    if: ${{ inputs.mode == 'parent-access-record-drift-diagnostic' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact protected-main candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main SHA and tree
+        env:
+          EXPECTED_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+          test "${#EXPECTED_CANDIDATE_SHA}" -eq 40
+          case "$EXPECTED_CANDIDATE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          test "$GITHUB_SHA" = "$EXPECTED_CANDIDATE_SHA"
+          test "$(git rev-parse --verify HEAD)" = "$EXPECTED_CANDIDATE_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          release_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#release_tree_sha}" -eq 40
+          case "$release_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_RELEASE_SHA "$EXPECTED_CANDIDATE_SHA" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_RELEASE_TREE_SHA "$release_tree_sha" >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Read-only production parent-access record-drift diagnostic
+        env:
+          MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: vercel-api-pull-v1
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |-
+          node --import tsx scripts/teacher-notice-production-schema-gate.mjs --diagnose-parent-access-record-drift \
+            "--candidate-sha=$MAIS_RELEASE_SHA" \
+            "--expected-tree-sha=$MAIS_RELEASE_TREE_SHA"
+
+  parent-access-session-lifecycle-diagnostic:
+    if: ${{ inputs.mode == 'parent-access-session-lifecycle-diagnostic' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact protected-main candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main SHA and tree
+        env:
+          EXPECTED_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+          test "${#EXPECTED_CANDIDATE_SHA}" -eq 40
+          case "$EXPECTED_CANDIDATE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          test "$GITHUB_SHA" = "$EXPECTED_CANDIDATE_SHA"
+          test "$(git rev-parse --verify HEAD)" = "$EXPECTED_CANDIDATE_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          release_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#release_tree_sha}" -eq 40
+          case "$release_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_RELEASE_SHA "$EXPECTED_CANDIDATE_SHA" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_RELEASE_TREE_SHA "$release_tree_sha" >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Read-only production parent-access session-lifecycle diagnostic
+        env:
+          MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: vercel-api-pull-v1
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |-
+          node --import tsx scripts/teacher-notice-production-schema-gate.mjs --diagnose-parent-access-session-lifecycle \
+            "--candidate-sha=$MAIS_RELEASE_SHA" \
+            "--expected-tree-sha=$MAIS_RELEASE_TREE_SHA"
+
+  deploy:
+    if: ${{ inputs.mode == 'deploy' }}
+    runs-on: ubuntu-latest
+    environment: production
+    # Provider source-byte readback is intentionally exhaustive and may span
+    # several bounded Vercel rate-limit windows after the production build.
+    timeout-minutes: 90
+    steps:
+      - name: Check out exact protected-main candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Bind protected main SHA and tree
+        env:
+          EXPECTED_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+        run: |
+          test "$GITHUB_REPOSITORY" = "HUDongpin/MAIS-MVP"
+          test "$GITHUB_EVENT_NAME" = "workflow_dispatch"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_PROTECTED" = "true"
+          test "$GITHUB_WORKFLOW_REF" = "HUDongpin/MAIS-MVP/.github/workflows/production-deploy.yml@refs/heads/main"
+          test "${#EXPECTED_CANDIDATE_SHA}" -eq 40
+          case "$EXPECTED_CANDIDATE_SHA" in *[!0-9a-f]*) exit 1 ;; esac
+          test "$GITHUB_SHA" = "$EXPECTED_CANDIDATE_SHA"
+          test "$(git rev-parse --verify HEAD)" = "$EXPECTED_CANDIDATE_SHA"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          release_tree_sha="$(git rev-parse --verify 'HEAD^{tree}')"
+          test "${#release_tree_sha}" -eq 40
+          case "$release_tree_sha" in *[!0-9a-f]*) exit 1 ;; esac
+          printf '%s=%s\n' MAIS_RELEASE_SHA "$EXPECTED_CANDIDATE_SHA" >> "$GITHUB_ENV"
+          printf '%s=%s\n' MAIS_RELEASE_TREE_SHA "$release_tree_sha" >> "$GITHUB_ENV"
+
+      - name: Set up Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install pinned Vercel CLI
+        env:
+          MAIS_VERCEL_CLI_ROOT: ${{ runner.temp }}/mais-vercel-cli-54.9.0
+        run: |-
+          npm install --prefix "$MAIS_VERCEL_CLI_ROOT" --ignore-scripts --no-audit --no-fund --no-save vercel@54.9.0
+          vercel_version="$("$MAIS_VERCEL_CLI_ROOT/node_modules/.bin/vercel" --version | tail -n 1)"
+          test "$vercel_version" = "54.9.0"
+          printf '%s\n' "$MAIS_VERCEL_CLI_ROOT/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Load and mask schema confirmation
+        shell: bash
+        run: |-
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+
+          const eventPath = process.env.GITHUB_EVENT_PATH;
+          const environmentPath = process.env.GITHUB_ENV;
+          if (!eventPath || !environmentPath) {
+            throw new Error("Production schema confirmation context is unavailable.");
+          }
+
+          const event = JSON.parse(fs.readFileSync(eventPath, "utf8"));
+          const confirmation = String(event?.inputs?.schema_confirmation ?? "");
+          if (
+            confirmation.length > 1_024 ||
+            !/^confirm:mais-production-schema:v4:[A-Za-z0-9_:+.-]{1,900}$/u.test(
+              confirmation
+            )
+          ) {
+            throw new Error("Production schema confirmation input was rejected.");
+          }
+
+          process.stdout.write(`::add-mask::${confirmation}\n`);
+          fs.appendFileSync(
+            environmentPath,
+            `MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM=${confirmation}\n`,
+            "utf8"
+          );
+          NODE
+
+      - name: Apply schema and deploy the exact candidate
+        env:
+          GITHUB_TOKEN: ${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}
+          MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT: github-actions-serialized-v1
+          # Standard ubuntu-latest runners expose 14 GB total storage. Keep the
+          # 20 GB local default, but require 8 GB free in this serialized CI path.
+          MAIS_RELEASE_MIN_FREE_GB: "8"
+          # The isolated release build exceeds Node's default ~2 GB old-space on
+          # hosted runners. Match the already-green CI build jobs.
+          NODE_OPTIONS: --max-old-space-size=6144
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |-
+          test -n "$MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM"
+          npm run vercel:production -- --run-id "$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+
+      - name: Retain the safe production release record
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: mais-production-release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .tmp/vercel-production-evidence/run-${{ github.run_id }}-attempt-${{ github.run_attempt }}-${{ github.sha }}.json
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 90
+          compression-level: 0

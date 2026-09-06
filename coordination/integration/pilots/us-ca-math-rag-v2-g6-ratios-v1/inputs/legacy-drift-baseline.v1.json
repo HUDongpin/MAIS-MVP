@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "promotion-legacy-drift.v1",
+  "introducedAt": "2026-08-25T00:00:00Z",
+  "expiresAt": "2026-09-24T00:00:00Z",
+  "entries": [
+    {
+      "packageId": "us-ca-k5-knowledge-point-practice-v1",
+      "observation": {
+        "observerVersion": "promotion-legacy-question-pack.v1",
+        "packagePath": "data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json",
+        "reachabilityAnchors": [
+          {
+            "path": "data/usCaliforniaTopics.ts",
+            "anchors": [
+              {
+                "id": "live-package-import",
+                "startMarker": "import kG5KnowledgePointQuestionPackJson from \"./generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json\";",
+                "endMarker": "import kG5KnowledgePointQuestionPackJson from \"./generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json\";",
+                "sha256": "dcbda3cc9c257e0eb6e6672d5f891f86dd1f45ef5f2b9b0530eb5a6105fccc6f"
+              },
+              {
+                "id": "live-status",
+                "startMarker": "export const californiaK5LiveContentStatus = {",
+                "endMarker": "} as const;",
+                "sha256": "7d125928fa8908c979ac34d49da963ef9d851408c3c5838f2f7eb8640e058241"
+              },
+              {
+                "id": "live-pack-selection",
+                "startMarker": "const questionPacks = [",
+                "endMarker": "export const generatedCaliforniaQuestions: GeneratedCaliforniaQuestion[] = questionPacks.flatMap((pack) => pack.questions);",
+                "sha256": "f11768b14e7ccf2faf109542bcc2cd1c6a69c7524f4a4a21a60459eac0fec56c"
+              }
+            ]
+          },
+          {
+            "path": "data/usCaliforniaQuestions.ts",
+            "anchors": [
+              {
+                "id": "generated-import",
+                "startMarker": "import {\n  type CaliforniaGradeId,",
+                "endMarker": "} from \"./usCaliforniaTopics\";",
+                "sha256": "ac763e70014c3ec0feda7bf10fe8136c59e71987cf53614fa5708f9cd2c851f5"
+              },
+              {
+                "id": "expected-k5-count",
+                "startMarker": "export const expectedUnitedStatesCaliforniaK5QuestionCount = californiaK5LiveContentStatus.practiceLive",
+                "endMarker": ": 0;",
+                "sha256": "faea6c64471af9a28f21b7ac066fc372b318c9b2e4e73b29cca742de02e7aca7"
+              },
+              {
+                "id": "question-export",
+                "startMarker": "export const usCaliforniaQuestions: Question[] = generatedCaliforniaQuestions.map(toQuestion);",
+                "endMarker": "export const usCaliforniaQuestions: Question[] = generatedCaliforniaQuestions.map(toQuestion);",
+                "sha256": "3524fcb50075e72676429548c8e952f83b6bc96b7e2f6abab0df49f52a173251"
+              }
+            ]
+          },
+          {
+            "path": "data/questions.ts",
+            "anchors": [
+              {
+                "id": "california-import",
+                "startMarker": "import { usCaliforniaQuestions } from \"./usCaliforniaQuestions\";",
+                "endMarker": "import { usCaliforniaQuestions } from \"./usCaliforniaQuestions\";",
+                "sha256": "433027066d266efd62bd36d8da204a874929437845d67690b172fcf0573d2285"
+              },
+              {
+                "id": "curated-spread",
+                "startMarker": "  ...usMathLiveQuestions.filter((question) => question.curriculumTrack !== \"US_CA_MATH\"),",
+                "endMarker": "  ...usCaliforniaQuestions\n];",
+                "sha256": "9d3012bc8ae7aa328200f57bf82bfab0c33645dea0ba7d35b3de482a3e7574d7"
+              },
+              {
+                "id": "public-export",
+                "startMarker": "export const questions: Question[] = curatedQuestions",
+                "endMarker": "  .map(withGeneratedAnswerAliases);",
+                "sha256": "9e04930e59cae7e4cbf520c98c8b075e91860dfae76482eab1067d54d53e43f3"
+              }
+            ]
+          },
+          {
+            "path": "lib/server/questionStore.ts",
+            "anchors": [
+              {
+                "id": "us-registry",
+                "startMarker": "async function unitedStatesQuestions(profile: CurriculumProfile) {",
+                "endMarker": "  return optionalQuestionModule(async () => (await import(\"@/data/usCaliforniaQuestions\")).usCaliforniaQuestions);\n}",
+                "sha256": "69661576874c584e4b284d7ae4ec789d314a909e9d73c15a15d0b60e7bef8143"
+              },
+              {
+                "id": "profile-dispatch",
+                "startMarker": "async function loadSourceQuestionsForProfile(profile: CurriculumProfile, grade?: GradeId) {",
+                "endMarker": "  return unitedStatesQuestions(profile);\n}",
+                "sha256": "45fe10a46c63293aade0018db36bda6197b3a63e1859433ff7943cadc66b22e5"
+              },
+              {
+                "id": "attempt-profile",
+                "startMarker": "    { region: \"US\", publisher: \"US_CA_MATH\" },",
+                "endMarker": "    { region: \"US\", publisher: \"US_CA_MATH\" },",
+                "sha256": "62c38788e5e6bbfee47e422f7f0940f489db9e66b40f965b1efccf1837677040"
+              }
+            ]
+          }
+        ]
+      },
+      "packageDigest": "c8b2ee5c2f35782dc4ca8209eca71e98edf47663dd1bdefd20963d06c163c0ab",
+      "contentDigest": "c1cfda42ea57f54b7273f871532f653f64fad1e97ad710898194c7c8decfaae4",
+      "semanticDigest": "9e0b871a675cd025b026a481901a0faf2bdbc9d23a5a51c5717b4d8940ee5037",
+      "idSetDigest": "a3cec371c5faade53872c83d60de835500de66c10dd218ee718354dddce66262",
+      "gradeDistributionDigest": "de63a7843c99884c94eec47f90e9dcaef916d412ac855492326af9ffbe1265a3",
+      "rootStatusDigest": "3df5d313acfdaff67551216069f3b15b6c567c2c5071f170a5fed18e8673a059",
+      "rowStatusDigest": "427036a1b92ea8f51e9d0bf74fbfbacef04c37a8f238347dc5723961d527acc8",
+      "reachabilityDigest": "f5b1337ac176a961a37c4b11b1360402a30337d5265368173995a4ac0891f9c9",
+      "authorization": {
+        "reference": "user-request-2026-08-25-promotion-shadow-v1",
+        "accountableOwner": "A23",
+        "conflictOwners": [
+          "A04",
+          "A18",
+          "A23"
+        ],
+        "reviewOwners": [
+          "A23",
+          "A25"
+        ],
+        "downstreamEvidenceOwners": [
+          "A11",
+          "A22"
+        ],
+        "reviewReferences": {
+          "a23PromotionReview": {
+            "path": "coordination/integration/evidence/legacy-us-ca-k5-a23-ratchet-review.v1.json",
+            "rawSha256": "414a3672b3770a4bbd993d756f2fb183390041bb8f620b8b5e7c715ece588b4f"
+          },
+          "a25ReleaseIntakeReview": {
+            "path": "coordination/integration/evidence/legacy-us-ca-k5-a25-ratchet-review.v1.json",
+            "rawSha256": "e08590e2100c5a8136eeb942860db0bb130da9357e16de4b59b07ab17b7b076b"
+          }
+        }
+      },
+      "terminalChoices": [
+        "recertify",
+        "remove-live"
+      ],
+      "remediation": "Remove the legacy live selection before ratchet expiry."
+    }
+  ]
+}

@@ -3,8 +3,13 @@ import { stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { usCaliforniaLessonSeeds } from "@/data/usCaliforniaLessons";
+import { californiaElementaryMicroLessonSpecs } from "@/data/usCaliforniaMicroLessons";
 import { lessonSlugForTopicId } from "@/lib/lessonLinks";
-import { lessonUsesStaticAudioOnly, staticLessonAudioUrlForBlock } from "./staticLessonAudio";
+import {
+  heldCandidateStaticLessonAudioSlugs,
+  lessonUsesStaticAudioOnly,
+  staticLessonAudioUrlForBlock
+} from "./staticLessonAudio";
 
 test("staticLessonAudioUrlForBlock serves US California concept audio from stable public assets", () => {
   const lesson = {
@@ -49,7 +54,7 @@ test("staticLessonAudioUrlForBlock leaves non-US and non-audio lesson blocks on 
   );
 });
 
-test("current US California lesson concept audio is fully pre-generated as static assets", async () => {
+test("current live US California lesson seeds reference no held-candidate concept audio", async () => {
   const expectedAssets = usCaliforniaLessonSeeds.flatMap((lesson) => {
     const slug = lessonSlugForTopicId(lesson.topicId);
 
@@ -78,11 +83,39 @@ test("current US California lesson concept audio is fully pre-generated as stati
     }
   }
 
-  // 12, not the original 76: the CCSS textbook port moved most California
-  // lessons' teaching text out of `usCaliforniaLessonSeeds` and into the CCSS
-  // registry, so only the Grade 1 micro-lessons still carry an inline English
-  // concept block here. The count stays pinned rather than derived so that
-  // losing pre-generated audio is a deliberate review moment, not a silent pass.
-  assert.equal(expectedAssets.length, 12);
+  assert.equal(expectedAssets.length, 0);
+  assert.deepEqual(missingOrEmpty, []);
+});
+
+test("candidate California audio assets stay preserved while the runtime adapter blocks every former slug", async () => {
+  const candidateSlugs = californiaElementaryMicroLessonSpecs.map((lesson) => lessonSlugForTopicId(lesson.topicId));
+  const missingOrEmpty: string[] = [];
+
+  assert.deepEqual(new Set(candidateSlugs), heldCandidateStaticLessonAudioSlugs);
+  for (const slug of candidateSlugs) {
+    const blockId = `${slug}-concept`;
+    const assetPath = path.join(process.cwd(), "public/audio/lessons/us-ca-math", slug, `${blockId}.mp3`);
+
+    try {
+      const stats = await stat(assetPath);
+      if (!stats.isFile() || stats.size <= 0) missingOrEmpty.push(path.relative(process.cwd(), assetPath));
+    } catch {
+      missingOrEmpty.push(path.relative(process.cwd(), assetPath));
+    }
+
+    assert.equal(
+      staticLessonAudioUrlForBlock(
+        {
+          curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
+          publisher: "US_CA_MATH",
+          slug
+        },
+        { id: blockId, type: "concept" }
+      ),
+      null,
+      `${slug} remains reachable through staticLessonAudioUrlForBlock`
+    );
+  }
+
   assert.deepEqual(missingOrEmpty, []);
 });

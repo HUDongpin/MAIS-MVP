@@ -38,6 +38,15 @@ test("learning-events API ignores non-student sessions before LRS and storage wo
       roleGuardIndex < appendIndex,
     "Non-student sessions should return before JSON parsing, LRS delivery, and storage append."
   );
+
+  const { POST } = await import("@/app/api/learning-events/route");
+  const guestResponse = await POST(new Request("https://mais.example.test/api/learning-events", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ events: [{ deliberately: "ignored" }] })
+  }));
+  assert.equal(guestResponse.status, 202);
+  assert.deepEqual(await guestResponse.json(), { accepted: 0, ignored: true });
 });
 
 test("student analytics summary and export APIs are student-only", async () => {

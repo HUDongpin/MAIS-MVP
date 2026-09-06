@@ -43,8 +43,9 @@ export function LessonEntryClient({ initialLessonHref = null }: LessonEntryClien
 
       try {
         const canUseAuthenticatedLessonEntry = currentUser?.role === "student" || currentUser?.role === "teacher" || currentUser?.role === "admin";
+        const expectedUserId = currentUser?.id;
 
-        if (!canUseAuthenticatedLessonEntry) {
+        if (!canUseAuthenticatedLessonEntry || !expectedUserId) {
           if (!cancelled) {
             router.replace(`/login?next=${encodeURIComponent(readCurrentPath())}`);
           }
@@ -67,6 +68,7 @@ export function LessonEntryClient({ initialLessonHref = null }: LessonEntryClien
 
         const response = await fetch(`/api/lesson-entry?grade=${encodeURIComponent(entryGrade)}`, {
           cache: "no-store",
+          headers: { "X-MAIS-Expected-User-Id": expectedUserId },
           signal: controller.signal
         });
         const body = (await response.json()) as LessonEntryResponse;
@@ -92,7 +94,7 @@ export function LessonEntryClient({ initialLessonHref = null }: LessonEntryClien
       cancelled = true;
       controller.abort();
     };
-  }, [currentUser?.role, entryGrade, initialLessonHref, router, settingsReady, studentLessonHref]);
+  }, [currentUser?.id, currentUser?.role, entryGrade, initialLessonHref, router, settingsReady, studentLessonHref]);
 
   const isError = entryState === "error";
 

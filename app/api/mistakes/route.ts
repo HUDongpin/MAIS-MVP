@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { clearMistakesForUser, getMistakes } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
@@ -15,6 +19,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
+
   const url = new URL(request.url);
   const status = readStatus(url.searchParams.get("status"));
   const mistakes = await getMistakes(authenticated.user.id, status);
@@ -27,6 +38,13 @@ export async function DELETE(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
 
   await clearMistakesForUser(authenticated.user.id);
   return NextResponse.json({ ok: true });

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a25-us-ca-g6-ratios-v2-intake-v23-attempt004",
+  "role": "A25",
+  "result": "pass",
+  "producedAt": "2026-08-26T09:50:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.3",
+  "semanticPayload": {
+    "contractVersion": "promotion-a25-release-intake.v2",
+    "finalDisposition": "reviewed commit",
+    "reviewedCompositionCommit": "08c209e3a68184a1e590c1ea874875f14a357da9",
+    "reviewedBranch": "codex/a23-promotion-shadow-attempt-002-20260826",
+    "targetPullRequest": "https://github.com/HUDongpin/MAIS-MVP/pull/162",
+    "reviewSession": {
+      "owner": "A25",
+      "branch": "codex/a25-promotion-shadow-review-v2-20260826",
+      "worktree": ".worktrees/a25-promotion-shadow-review-v2-20260826",
+      "createdAt": "2026-08-26",
+      "expectedCloseoutAt": "2026-08-26",
+      "worktreeCleanBeforeReview": true,
+      "sharedDirtyRootUsedAsEvidence": false
+    },
+    "baselineReview": {
+      "originMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+      "originMainVerifiedWithLsRemote": true,
+      "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+      "targetBaselineContainsOriginMain": true
+    },
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "packageReview": {
+      "promotionUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+      "attemptId": "attempt-004",
+      "candidatePackageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+      "candidateVersion": "2.0.0-shadow.1",
+      "parentPackageStatus": "candidate-only",
+      "candidateSourceMutationAllowed": false,
+      "attempt001MutationAllowed": false,
+      "attempt002MutationAllowed": false,
+      "attempt002ReceiptReuseAllowed": false,
+      "exactPathspecStagingRequired": true,
+      "ownerEvidenceRoleCount": 9,
+      "ownerEvidenceRoles": [
+        "A21",
+        "A18",
+        "A23",
+        "A04",
+        "A05",
+        "A11",
+        "A22",
+        "A24",
+        "A25"
+      ],
+      "unresolvedPathConflictCount": 0,
+      "attempt003MutationAllowed": false,
+      "attempt003ReceiptReuseAllowed": false
+    },
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.3",
+      "releaseCommit": "9213143023d0f743516895392e2a50dd8271b8ef",
+      "bundleDigest": "cae1fef6d02ef01f647d2ec4fe6298f77750260618a232510ff906d6078686b1",
+      "ledgerRawSha256": "df44d35e2b77237f02ff3fc52ffc3bb600a3f91332b4c13e771f0d7d50cb796f"
+    },
+    "legacyResolutionRegistryPath": "coordination/integration/v2/legacy-resolution-registry.v2.json",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "legacyResolutionCount": 18,
+    "activeLegacyExceptionCount": 0,
+    "selectedCandidateLiveHitCount": 0,
+    "unresolvedDynamicImportCount": 0,
+    "unknownLiveRegistryCount": 0,
+    "enforcementBoundary": {
+      "requiredCheckName": "promotion-shadow-gate",
+      "branchProtectionEnforced": false,
+      "mainPostMergeProofPresent": false,
+      "shadowExecutionAuthorized": true,
+      "integrationAuthorized": false,
+      "liveAuthorized": false,
+      "ciImplementedForAttempt004": true
+    },
+    "remainingCloseoutConditions": [
+      "freeze and validate the immutable attempt-004 Manifest and evidence index",
+      "produce a passing canonical Shadow Receipt from its exact execution commit",
+      "independently replay the exact execution commit with the same semantic Receipt digest",
+      "record A22 post-run non-live isolation proof",
+      "merge the reviewed package and obtain a green main post-merge promotion-shadow-gate run",
+      "configure promotion-shadow-gate as a branch-protection required check"
+    ],
+    "maturityClaim": "not-mature-before-real-shadow-replay-and-enforcement",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.2",
+      "toCheckerVersion": "promotion-gate-shadow-v2.3",
+      "changeScope": "semantic-receipt-host-temp-environment-projection-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-003",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "948a305bd2fcebdd39dd293df397c045168a95931c395a799f18219f80e4cda3"
+    }
+  }
+}

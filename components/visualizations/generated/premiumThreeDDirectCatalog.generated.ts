@@ -710,7 +710,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
       },
       "formula": {
         "en": "sequence term + derivative -> synthesis",
-        "zh": "數列項 + 導數 -> 綜合",
+        "zh": "數列項 + 導數 -> 综合",
         "zhHans": "数列项 + 导数 -> 综合"
       },
       "xLabel": "x",
@@ -1062,7 +1062,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     "grade": "S3",
     "title": {
       "en": "Junior Algebra Geometry Bridge",
-      "zh": "初中代數幾何綜合橋",
+      "zh": "初中代數幾何综合橋",
       "zhHans": "初中代数几何综合桥"
     },
     "description": {
@@ -1072,12 +1072,12 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     },
     "category": {
       "en": "Capstone bridge",
-      "zh": "綜合銜接",
+      "zh": "综合銜接",
       "zhHans": "综合衔接"
     },
     "gradeLabel": {
       "en": "S3 · Capstone",
-      "zh": "中三 · 綜合",
+      "zh": "中三 · 综合",
       "zhHans": "初三 · 综合"
     },
     "topicId": "mixed-problem-solving",
@@ -1117,7 +1117,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     "grade": "P6",
     "title": {
       "en": "Measurement and Proportion Bridge",
-      "zh": "度量與比例綜合橋",
+      "zh": "度量與比例综合橋",
       "zhHans": "测量与比例综合桥"
     },
     "description": {
@@ -1127,12 +1127,12 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     },
     "category": {
       "en": "Capstone bridge",
-      "zh": "綜合銜接",
+      "zh": "综合銜接",
       "zhHans": "综合衔接"
     },
     "gradeLabel": {
       "en": "P6 · Capstone",
-      "zh": "小六 · 綜合",
+      "zh": "小六 · 综合",
       "zhHans": "小学六年级 · 综合"
     },
     "topicId": "p6-ratio-proportion",
@@ -1170,7 +1170,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     "grade": "P6",
     "title": {
       "en": "Primary Number Sense Bridge",
-      "zh": "小學數感綜合橋",
+      "zh": "小學數感综合橋",
       "zhHans": "小学数感综合桥"
     },
     "description": {
@@ -1180,12 +1180,12 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     },
     "category": {
       "en": "Capstone bridge",
-      "zh": "綜合銜接",
+      "zh": "综合銜接",
       "zhHans": "综合衔接"
     },
     "gradeLabel": {
       "en": "P6 · Capstone",
-      "zh": "小六 · 綜合",
+      "zh": "小六 · 综合",
       "zhHans": "小学六年级 · 综合"
     },
     "topicId": "p6-pre-secondary-problem-solving",
@@ -1223,7 +1223,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     "grade": "S6",
     "title": {
       "en": "Senior Function Calculus Statistics Bridge",
-      "zh": "高中函數微積分統計綜合橋",
+      "zh": "高中函數微積分統計综合橋",
       "zhHans": "高中函数微积分统计综合桥"
     },
     "description": {
@@ -1233,12 +1233,12 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     },
     "category": {
       "en": "Capstone bridge",
-      "zh": "綜合銜接",
+      "zh": "综合銜接",
       "zhHans": "综合衔接"
     },
     "gradeLabel": {
       "en": "S6 · Capstone",
-      "zh": "中六 · 綜合",
+      "zh": "中六 · 综合",
       "zhHans": "高三 · 综合"
     },
     "topicId": "statistics-s6",
@@ -1922,7 +1922,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
       },
       "formula": {
         "en": "vector + analytic geometry -> synthesis",
-        "zh": "向量 + 解析幾何 -> 綜合",
+        "zh": "向量 + 解析幾何 -> 综合",
         "zhHans": "向量 + 解析几何 -> 综合"
       },
       "xLabel": "model",
@@ -2144,7 +2144,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
       },
       "formula": {
         "en": "sequence + counting -> synthesis",
-        "zh": "數列 + 計數 -> 綜合",
+        "zh": "數列 + 計數 -> 综合",
         "zhHans": "数列 + 计数 -> 综合"
       },
       "xLabel": "x",
@@ -2312,7 +2312,7 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
       },
       "formula": {
         "en": "solid geometry + vector -> synthesis",
-        "zh": "立體幾何 + 向量 -> 綜合",
+        "zh": "立體幾何 + 向量 -> 综合",
         "zhHans": "立体几何 + 向量 -> 综合"
       },
       "xLabel": "model",
@@ -2445,13 +2445,13 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
     "grade": "S6",
     "title": {
       "en": "Mixed Problem Solving Visual Lab",
-      "zh": "綜合解難視覺化實驗",
-      "zhHans": "綜合解难可视化实验"
+      "zh": "综合解難視覺化實驗",
+      "zhHans": "综合解难可视化实验"
     },
     "description": {
       "en": "Use a focused function families model to explore mixed problem solving with sliders, diagrams, and live feedback.",
-      "zh": "透過函數族模型，用滑桿、圖形和即時回饋探索綜合解難。",
-      "zhHans": "通过函数族模型，用滑块、图形和即时反馈探索綜合解难。"
+      "zh": "透過函數族模型，用滑桿、圖形和即時回饋探索综合解難。",
+      "zhHans": "通过函数族模型，用滑块、图形和即时反馈探索综合解难。"
     },
     "category": {
       "en": "Function families",
@@ -2473,8 +2473,8 @@ export const premiumThreeDDirectCatalogSnapshot: Readonly<Record<string, Feature
       "variant": "mixed-problem-solving",
       "focus": {
         "en": "Select strategies for multi-step unfamiliar questions.",
-        "zh": "用函數族模型，觀察綜合解難中的關鍵關係。",
-        "zhHans": "用函数族模型，观察綜合解难中的关键关系。"
+        "zh": "用函數族模型，觀察综合解難中的關鍵關係。",
+        "zhHans": "用函数族模型，观察综合解难中的关键关系。"
       },
       "formula": {
         "en": "strategy -> model -> check",

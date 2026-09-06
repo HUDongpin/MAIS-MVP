@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { CurriculumTrack, GradeId, StudentSession, TextbookPublisher } from "@/types";
 
+type VisualizationSessionUser = Pick<StudentSession, "curriculumProfile" | "curriculumTrack">;
+
 type VisualizationCatalogModule = typeof import("@/data/visualizationLabs");
 type FeaturedLabDefinition = VisualizationCatalogModule["visualizationLabCatalog"][number];
 type GradeLabGroupDefinition = VisualizationCatalogModule["gradeLabGroups"][number];
@@ -121,6 +123,54 @@ function createRuntimeReadyLabComponent(LoadedLabComponent: ComponentType<LabCom
 
 const ConfiguredVisualizationLab = dynamic<LabComponentProps>(
   () => import("@/components/visualizations/ConfiguredVisualizationLab").then((module) => createRuntimeReadyLabComponent(module.ConfiguredVisualizationLab as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+/**
+ * Purpose-built lab instruments. A topic routed here by topicModuleOverrides in
+ * data/visualizationLabs.ts renders its dedicated model instead of the shared
+ * template — the template's two-slider surface cannot express place value to
+ * 1000 or a decimal number line. Loaded on their own chunks like every other lab.
+ */
+const CoordinatePlaneDemo = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/CoordinatePlaneDemo").then((module) =>
+    createRuntimeReadyLabComponent(module.CoordinatePlaneDemo as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const GeometryExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/GeometryExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.GeometryExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const FunctionModelComparer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/FunctionModelComparer").then((module) =>
+    createRuntimeReadyLabComponent(module.FunctionModelComparer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const FunctionGraphExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/FunctionGraphExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.FunctionGraphExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const ProbabilitySimulator = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/ProbabilitySimulator").then((module) =>
+    createRuntimeReadyLabComponent(module.ProbabilitySimulator as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const TrigWaveExplorer = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/TrigWaveExplorer").then((module) =>
+    createRuntimeReadyLabComponent(module.TrigWaveExplorer as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
+const CalculusStatsLab = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/CalculusStatsLab").then((module) =>
+    createRuntimeReadyLabComponent(module.CalculusStatsLab as ComponentType<LabComponentRuntimeProps>)),
   { loading: () => <LabRuntimeLoading /> }
 );
 
@@ -1673,7 +1723,17 @@ const labComponentRegistry: Record<VisualizationLabModuleId, ComponentType<LabCo
   "configured-visualization-lab": ConfiguredVisualizationLab,
   // Resolved per-lab in componentForDirectoryLab; this entry is the safe
   // fallback if a lab is marked signature-lab without a curated assignment.
-  "signature-lab": ConfiguredVisualizationLab
+  "signature-lab": ConfiguredVisualizationLab,
+  // Purpose-built instruments for topics the two-slider template cannot express
+  // (see topicModuleOverrides in data/visualizationLabs.ts). Routed here so the
+  // lab page and the lesson embed show the same model for a topic.
+  "coordinate-plane-demo": CoordinatePlaneDemo,
+  "geometry-explorer": GeometryExplorer,
+  "function-model-comparer": FunctionModelComparer,
+  "function-graph-explorer": FunctionGraphExplorer,
+  "probability-simulator": ProbabilitySimulator,
+  "trig-wave-explorer": TrigWaveExplorer,
+  "calculus-stats-lab": CalculusStatsLab
 };
 
 function componentForDirectoryLab(lab: FeaturedLabDefinition | null) {
@@ -1867,13 +1927,13 @@ function isMainlandPepVisualizationTrack(track: VisualizationCurriculumTrack) {
   return mainlandPepVisualizationTracks.includes(track);
 }
 
-function isUnitedStatesMathUser(currentUser: StudentSession) {
+function isUnitedStatesMathUser(currentUser: VisualizationSessionUser) {
   return currentUser.curriculumProfile.region === "US" ||
     unitedStatesPublishers.has(currentUser.curriculumProfile.publisher) ||
     unitedStatesCurriculumTracks.has(currentUser.curriculumTrack);
 }
 
-function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: StudentSession | null) {
+function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: VisualizationSessionUser | null) {
   if (!currentUser) return true;
 
   const publisher = currentUser.curriculumProfile.publisher;
@@ -1888,7 +1948,7 @@ function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: St
   return false;
 }
 
-function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: StudentSession | null) {
+function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: VisualizationSessionUser | null) {
   return groups
     .map((group) => ({
       ...group,
@@ -1925,7 +1985,7 @@ function buildInitialVisualizationLabRouteState({
   location
 }: {
   activeGroupGrade: GradeId;
-  currentUser: StudentSession | null;
+  currentUser: VisualizationSessionUser | null;
   getVisualizationLabByLabId: VisualizationCatalogState["getVisualizationLabByLabId"];
   gradeLabGroups: GradeLabGroupDefinition[];
   initialGrade: GradeId | null;

@@ -119,6 +119,9 @@ function patternDistractors(question, needed) {
 
 /** Extra accepted spellings for decimal / fraction-valued fill-ins. */
 const curatedAcceptedAnswers = {
+  // The prompt rounds to a whole number, but the exact value is worth accepting too:
+  // a student who computes 2 × 3.14 × 5 and types 31.4 has done the mathematics right.
+  "circle-pi#1": ["31.4"],
   "powers-of-ten#1": ["0.45", ".45"],
   "round-decimals#0": ["3.5", "3.50"],
   "round-decimals#2": ["3.47"],
@@ -166,9 +169,20 @@ function synthesizeNumericDistractors(question, needed) {
   return picked.map((value) => formatLikeChoices(value, question.choices));
 }
 
+/**
+ * US curriculum ships English only — American tracks have no multi-language support
+ * (standing owner decision, reaffirmed 2026-08-27; the pack header records the
+ * 2026-07-19 original). `zh` and `zhHans` deliberately mirror `en`: they are
+ * structural placeholders so the shared LocalizedText shape holds, NOT a translation
+ * gap to be filled.
+ *
+ * scripts/audit-ca-translations.mjs enforces this and fails if any US pack ships a
+ * `zh` that differs from its `en`.
+ */
 function L(en) {
   return { en, zh: en, zhHans: en };
 }
+
 
 const questions = [];
 const problems = [];
@@ -218,7 +232,9 @@ for (const lesson of snapshot.lessons) {
       let distractors = [];
       if (needed > 0) {
         if (question.choices.every(isNumericChoice)) {
-          distractors = synthesizeNumericDistractors(question, needed);
+          // A curated entry wins even for a numeric set: the deterministic synthesizer
+          // cannot know that a value it invents also SATISFIES the prompt (inequalities#0).
+          distractors = curatedDistractors[key] ?? synthesizeNumericDistractors(question, needed);
         } else {
           distractors = curatedDistractors[key] ?? patternDistractors(question, needed) ?? [];
           if (distractors.length !== needed) {
@@ -263,8 +279,11 @@ for (const lesson of snapshot.lessons) {
 }
 
 if (problems.length) {
-  console.error(problems.join("\n"));
+  const shown = problems.slice(0, 20);
+  console.error(shown.join("\n"));
+  if (problems.length > shown.length) console.error(`… and ${problems.length - shown.length} more`);
   console.error(`\nbuild-ccss-practice-pack: ${problems.length} problem(s).`);
+
   process.exit(1);
 }
 

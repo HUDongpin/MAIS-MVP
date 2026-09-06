@@ -269,6 +269,65 @@ async function writeJson(filePath, value) {
   await writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+export async function applyMergedSnapshotInTransaction(
+  transactionSql,
+  snapshot,
+  expectedCurrentDatabase
+) {
+  const schemaVersion = Number(snapshot.schemaVersion);
+  if (!Number.isSafeInteger(schemaVersion) || schemaVersion < 1) {
+    throw new Error("Merged snapshot schema version is invalid.");
+  }
+  await transactionSql`
+    SELECT
+      pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+      pg_catalog.set_config('lock_timeout', '5000ms', true),
+      pg_catalog.set_config('statement_timeout', '60000ms', true)
+  `;
+  const rows = await transactionSql`
+    SELECT revision, payload
+    FROM public.app_state
+    WHERE id = 'primary'
+      AND tenant_id = 'platform'
+      AND state_kind = 'app-snapshot'
+      AND schema_version = ${schemaVersion}
+    FOR UPDATE OF app_state
+  `;
+  const currentRevision = Number(rows[0]?.revision);
+  if (
+    rows.length !== 1
+    || !Number.isSafeInteger(currentRevision)
+    || currentRevision < 1
+    || !rows[0]?.payload
+  ) {
+    throw new Error("Target POSTGRES_URL does not contain the expected app_state row.");
+  }
+  if (stableStringify(rows[0].payload) !== stableStringify(expectedCurrentDatabase)) {
+    throw new Error("Target app_state differs from --current snapshot; re-export current fresh state before applying.");
+  }
+  const updatedRows = await transactionSql`
+    UPDATE public.app_state
+    SET payload = ${JSON.stringify(snapshot.database)}::pg_catalog.jsonb,
+        revision = public.app_state.revision + 1,
+        updated_at = ${new Date().toISOString()}
+    WHERE id = 'primary'
+      AND tenant_id = 'platform'
+      AND state_kind = 'app-snapshot'
+      AND schema_version = ${schemaVersion}
+      AND revision = ${currentRevision}
+      AND payload = ${JSON.stringify(expectedCurrentDatabase)}::pg_catalog.jsonb
+    RETURNING public.app_state.revision
+  `;
+  if (updatedRows.length !== 1 || Number(updatedRows[0]?.revision) !== currentRevision + 1) {
+    throw new Error("Target app_state changed while the merged snapshot was being applied.");
+  }
+  await transactionSql`
+    DELETE FROM public.app_state_readiness_markers
+    WHERE state_id = 'primary'
+  `;
+  return { revision: currentRevision + 1, storageReady: false };
+}
+
 async function applyMergedSnapshotToPostgres(snapshot, expectedCurrentDatabase) {
   const postgresUrl = process.env.POSTGRES_URL?.trim();
   if (!postgresUrl) {
@@ -282,38 +341,9 @@ async function applyMergedSnapshotToPostgres(snapshot, expectedCurrentDatabase) 
     prepare: false
   });
   try {
-    const schemaVersion = Number.isFinite(Number(snapshot.schemaVersion)) ? Number(snapshot.schemaVersion) : 1;
-    await sql`
-      CREATE TABLE IF NOT EXISTS app_state (
-        id TEXT PRIMARY KEY,
-        schema_version INTEGER NOT NULL,
-        payload JSONB NOT NULL,
-        updated_at TIMESTAMPTZ NOT NULL
-      )
-    `;
-    await sql`
-      CREATE INDEX IF NOT EXISTS app_state_updated_at_idx
-        ON app_state(updated_at)
-    `;
-    const rows = await sql`
-      SELECT payload
-      FROM app_state
-      WHERE id = 'primary'
-    `;
-    if (!rows[0]?.payload) {
-      throw new Error("Target POSTGRES_URL does not contain app_state primary row.");
-    }
-    if (stableStringify(rows[0].payload) !== stableStringify(expectedCurrentDatabase)) {
-      throw new Error("Target app_state differs from --current snapshot; re-export current fresh state before applying.");
-    }
-    await sql`
-      INSERT INTO app_state (id, schema_version, payload, updated_at)
-      VALUES ('primary', ${schemaVersion}, ${JSON.stringify(snapshot.database)}::jsonb, ${new Date().toISOString()})
-      ON CONFLICT (id) DO UPDATE SET
-        schema_version = excluded.schema_version,
-        payload = excluded.payload,
-        updated_at = excluded.updated_at
-    `;
+    return await sql.begin(async (transactionSql) => {
+      return applyMergedSnapshotInTransaction(transactionSql, snapshot, expectedCurrentDatabase);
+    });
   } finally {
     await sql.end({ timeout: 3 }).catch(() => {});
   }
@@ -448,7 +478,8 @@ async function main() {
     await applyMergedSnapshotToPostgres(merged, currentSnapshot.database);
     summary.applied = {
       target: "POSTGRES_URL",
-      status: "written"
+      status: "written-readiness-invalidated",
+      storageReady: false
     };
   }
 
@@ -459,7 +490,9 @@ async function main() {
   console.log(JSON.stringify(summary, null, 2));
 }
 
-main().catch((error) => {
-  console.error(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : "unknown error" }));
-  process.exit(1);
-});
+if (path.resolve(process.argv[1] ?? "") === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : "unknown error" }));
+    process.exit(1);
+  });
+}

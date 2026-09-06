@@ -23,11 +23,11 @@ function formatPointValue(value: number, language: Language) {
 }
 
 function statusLabel(status: RewardRedemptionStatus) {
-  const labels: Record<RewardRedemptionStatus, { en: string; zh: string }> = {
-    pending: { en: "Pending approval", zh: "等待批核" },
-    approved: { en: "Approved", zh: "已批核" },
-    rejected: { en: "Rejected", zh: "已拒絕" },
-    fulfilled: { en: "Fulfilled", zh: "已派發" }
+  const labels: Record<RewardRedemptionStatus, { en: string; zh: string; zhHans?: string }> = {
+    pending: { en: "Pending approval", zh: "等待批核", zhHans: "等待批核" },
+    approved: { en: "Approved", zh: "已批核", zhHans: "已批核" },
+    rejected: { en: "Rejected", zh: "已拒絕", zhHans: "已拒绝" },
+    fulfilled: { en: "Fulfilled", zh: "已派發", zhHans: "已派发" }
   };
   return labels[status];
 }
@@ -40,10 +40,10 @@ function statusTone(status: RewardRedemptionStatus) {
 }
 
 function categoryLabel(category: RewardCatalogItem["category"]) {
-  const labels: Record<RewardCatalogItem["category"], { en: string; zh: string }> = {
-    toy: { en: "Toy", zh: "玩具" },
-    stationery: { en: "Stationery", zh: "文具" },
-    "learning-tool": { en: "Learning kit", zh: "學習套裝" }
+  const labels: Record<RewardCatalogItem["category"], { en: string; zh: string; zhHans?: string }> = {
+    toy: { en: "Toy", zh: "玩具", zhHans: "玩具" },
+    stationery: { en: "Stationery", zh: "文具", zhHans: "文具" },
+    "learning-tool": { en: "Learning kit", zh: "學習套裝", zhHans: "学习套装" }
   };
   return labels[category];
 }
@@ -62,18 +62,18 @@ function RewardCatalogButton({
   onRedeem: (itemId: string) => void;
 }) {
   const { language, t, text } = useSettings();
-  let buttonLabel = t({ en: "Need more points", zh: "積分不足" });
+  let buttonLabel = t({ en: "Need more points", zh: "積分不足", zhHans: "积分不足" });
 
   if (isSubmitting) {
-    buttonLabel = t({ en: "Requesting", zh: "申請中" });
+    buttonLabel = t({ en: "Requesting", zh: "申請中", zhHans: "申请中" });
   } else if (requestStatus === "pending") {
-    buttonLabel = t({ en: "Request submitted", zh: "已提交申請" });
+    buttonLabel = t({ en: "Request submitted", zh: "已提交申請", zhHans: "已提交申请" });
   } else if (requestStatus === "approved") {
-    buttonLabel = t({ en: "Request approved", zh: "申請已批核" });
+    buttonLabel = t({ en: "Request approved", zh: "申請已批核", zhHans: "申请已批核" });
   } else if (!item.available) {
-    buttonLabel = t({ en: "Unavailable", zh: "暫不可兌換" });
+    buttonLabel = t({ en: "Unavailable", zh: "暫不可兌換", zhHans: "暂不可兑换" });
   } else if (canRedeem) {
-    buttonLabel = t({ en: "Request gift", zh: "申請兌換" });
+    buttonLabel = t({ en: "Request gift", zh: "申請兌換", zhHans: "申请兑换" });
   }
 
   return (
@@ -88,7 +88,7 @@ function RewardCatalogButton({
               <p className="min-w-0 text-lg font-black leading-6 text-slate-950 dark:text-white">{text(item.name)}</p>
               <div className="shrink-0 text-right">
                 <p className="text-xl font-black text-cyan-700 dark:text-cyan-200">{formatPointValue(item.pointsCost, language)}</p>
-                <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400">{t({ en: "points", zh: "積分" })}</p>
+                <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400">{t({ en: "points", zh: "積分", zhHans: "积分" })}</p>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ function RewardCatalogButton({
               ? "bg-emerald-400/12 text-emerald-800 dark:text-emerald-100"
               : "bg-slate-400/12 text-slate-600 dark:text-slate-300"
           )}>
-            {item.available ? t({ en: "Available", zh: "可兌換" }) : t({ en: "Unavailable", zh: "暫不可兌換" })}
+            {item.available ? t({ en: "Available", zh: "可兌換", zhHans: "可兑换" }) : t({ en: "Unavailable", zh: "暫不可兌換", zhHans: "暂不可兑换" })}
           </span>
         </div>
         <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-500 dark:text-slate-400">{text(item.description)}</p>
@@ -207,7 +207,7 @@ function EmptyRequestsFallback() {
 
   return (
     <div className="rounded-2xl border border-dashed border-slate-200/80 px-4 py-5 text-sm font-bold text-slate-500 dark:border-white/10 dark:text-slate-400">
-      {t({ en: "No gift requests yet.", zh: "尚未有兌換申請。" })}
+      {t({ en: "No gift requests yet.", zh: "尚未有兌換申請。", zhHans: "尚未有兑换申请。" })}
     </div>
   );
 }
@@ -233,7 +233,7 @@ export function StudentRewardsPanel() {
 
     return activeRequests;
   }, [rewards?.redemptions]);
-  const loadErrorCopy = t({ en: "Could not load points.", zh: "暫時無法載入積分。" });
+  const loadErrorCopy = t({ en: "Could not load points.", zh: "暫時無法載入積分。", zhHans: "暂时无法载入积分。" });
 
   useEffect(() => {
     if (!currentUser || currentUser.role !== "student") {
@@ -285,12 +285,12 @@ export function StudentRewardsPanel() {
       const nextRewards = readRewards(payload);
       if (nextRewards) setRewards(nextRewards);
       if (!response.ok) {
-        setStatusMessage(t({ en: "Could not submit this request yet.", zh: "暫時未能提交兌換申請。" }));
+        setStatusMessage(t({ en: "Could not submit this request yet.", zh: "暫時未能提交兌換申請。", zhHans: "暂时未能提交兑换申请。" }));
         return;
       }
-      setStatusMessage(t({ en: "Gift request sent to HK Teacher Chan.", zh: "兌換申請已送交 HK Teacher Chan。" }));
+      setStatusMessage(t({ en: "Gift request sent to HK Teacher Chan.", zh: "兌換申請已送交 HK Teacher Chan。", zhHans: "兑换申请已送交 HK Teacher Chan。" }));
     } catch {
-      setStatusMessage(t({ en: "Could not submit this request yet.", zh: "暫時未能提交兌換申請。" }));
+      setStatusMessage(t({ en: "Could not submit this request yet.", zh: "暫時未能提交兌換申請。", zhHans: "暂时未能提交兑换申请。" }));
     } finally {
       setPendingItemId("");
     }
@@ -298,21 +298,21 @@ export function StudentRewardsPanel() {
 
   const summaryStats = rewards
     ? [
-        { label: t({ en: "earned", zh: "已賺取" }), value: rewards.summary.lifetimeEarned },
-        { label: t({ en: "reserved", zh: "已預留" }), value: rewards.summary.reserved },
-        { label: t({ en: "redeemed", zh: "已兌換" }), value: rewards.summary.spent }
+        { label: t({ en: "earned", zh: "已賺取", zhHans: "已赚取" }), value: rewards.summary.lifetimeEarned },
+        { label: t({ en: "reserved", zh: "已預留", zhHans: "已预留" }), value: rewards.summary.reserved },
+        { label: t({ en: "redeemed", zh: "已兌換", zhHans: "已兑换" }), value: rewards.summary.spent }
       ]
     : [];
   const collapsedDetail = loadError
     ? loadError
     : isLoading
-      ? t({ en: "Loading points and reward shop.", zh: "正在載入積分與獎品兌換。" })
+      ? t({ en: "Loading points and reward shop.", zh: "正在載入積分與獎品兌換。", zhHans: "正在载入积分与奖品兑换。" })
       : rewards
         ? t({
             en: `${formatPointValue(rewards.summary.available, language)} points ready for teacher-approved gifts.`,
-            zh: `${formatPointValue(rewards.summary.available, language)} 積分可用於申請教師批核獎品。`
+            zh: `${formatPointValue(rewards.summary.available, language)} 積分可用於申請教師批核獎品。`, zhHans: `${formatPointValue(rewards.summary.available, language)} 积分可用于申请教师批核奖品。`
           })
-        : t({ en: "Open reward shop to review points, earning rules, and requests.", zh: "開啟獎品兌換以查看積分、賺分方法與申請。" });
+        : t({ en: "Open reward shop to review points, earning rules, and requests.", zh: "開啟獎品兌換以查看積分、賺分方法與申請。", zhHans: "开启奖品兑换以查看积分、赚分方法与申请。" });
 
   return (
     <section aria-labelledby="student-rewards-title" className="mt-6">
@@ -332,7 +332,7 @@ export function StudentRewardsPanel() {
             </span>
             <div className="min-w-0">
               <h2 id="student-rewards-title" className="text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">
-                {t({ en: "Points balance", zh: "積分結餘" })}
+                {t({ en: "Points balance", zh: "積分結餘", zhHans: "积分结余" })}
               </h2>
               <p className={cn(
                 "mt-2 max-w-3xl text-sm font-bold leading-6 sm:text-base",
@@ -343,7 +343,7 @@ export function StudentRewardsPanel() {
             </div>
             <span className="inline-flex h-20 w-full max-w-full items-center justify-between gap-4 rounded-[1.6rem] border border-emerald-200/80 bg-emerald-100/75 px-4 py-2 text-base font-black leading-tight text-emerald-800 shadow-[0_14px_30px_rgba(15,23,42,0.10)] backdrop-blur-md transition dark:border-emerald-200/30 dark:bg-emerald-300/[0.12] dark:text-emerald-100 dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04),0_14px_30px_rgba(15,23,42,0.24)] sm:w-80 sm:text-lg">
               <span className="min-w-0 flex-1 break-words text-left leading-tight">
-                {isExpanded ? t({ en: "Hide reward shop", zh: "收起獎品兌換" }) : t({ en: "Open reward shop", zh: "開啟獎品兌換" })}
+                {isExpanded ? t({ en: "Hide reward shop", zh: "收起獎品兌換", zhHans: "收起奖品兑换" }) : t({ en: "Open reward shop", zh: "開啟獎品兌換", zhHans: "开启奖品兑换" })}
               </span>
               <ExpandIcon expanded={isExpanded} />
             </span>
@@ -356,19 +356,19 @@ export function StudentRewardsPanel() {
               <div className="flex min-w-0 flex-col justify-between rounded-2xl border border-slate-200/70 bg-white/60 p-5 dark:border-white/10 dark:bg-white/[0.045]">
                 <div>
                   <h3 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">
-                    {t({ en: "Points balance", zh: "積分結餘" })}
+                    {t({ en: "Points balance", zh: "積分結餘", zhHans: "积分结余" })}
                   </h3>
                 </div>
 
-                {isLoading ? <p className="mt-4 text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Loading points...", zh: "正在載入積分..." })}</p> : null}
+                {isLoading ? <p className="mt-4 text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Loading points...", zh: "正在載入積分...", zhHans: "正在载入积分..." })}</p> : null}
                 {loadError ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{loadError}</p> : null}
               </div>
 
               <div className="rounded-2xl border border-cyan-300/50 bg-cyan-400/10 p-5 text-left shadow-inner shadow-cyan-100/40 dark:shadow-none">
-                <p className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "available points", zh: "可用積分" })}</p>
+                <p className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "available points", zh: "可用積分", zhHans: "可用积分" })}</p>
                 <p className="mt-3 break-words text-6xl font-black leading-none gradient-text sm:text-7xl">{formatPointValue(rewards?.summary.available ?? 0, language)}</p>
                 <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">
-                  {t({ en: "ready for teacher-approved gifts", zh: "可用於申請教師批核獎品" })}
+                  {t({ en: "ready for teacher-approved gifts", zh: "可用於申請教師批核獎品", zhHans: "可用于申请教师批核奖品" })}
                 </p>
               </div>
             </div>
@@ -384,8 +384,8 @@ export function StudentRewardsPanel() {
                 <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(18rem,0.38fr)_minmax(0,1fr)] xl:items-start">
                   <section aria-labelledby="earn-more-title" className="soft-panel p-4 sm:p-5">
                     <div className="flex flex-wrap items-end justify-between gap-2">
-                      <h3 id="earn-more-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Earn more", zh: "賺取更多積分" })}</h3>
-                      <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Ways to earn", zh: "賺分方法" })}</p>
+                      <h3 id="earn-more-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Earn more", zh: "賺取更多積分", zhHans: "赚取更多积分" })}</h3>
+                      <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Ways to earn", zh: "賺分方法", zhHans: "赚分方法" })}</p>
                     </div>
 
                     <div className="mt-3 divide-y divide-slate-200/70 dark:divide-white/10">
@@ -403,9 +403,9 @@ export function StudentRewardsPanel() {
 
                   <section aria-labelledby="reward-shop-title">
                     <div className="flex flex-wrap items-end justify-between gap-3">
-                      <h3 id="reward-shop-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Reward shop", zh: "獎品兌換" })}</h3>
+                      <h3 id="reward-shop-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Reward shop", zh: "獎品兌換", zhHans: "奖品兑换" })}</h3>
                       <p className="rounded-full bg-slate-950/[0.05] px-3 py-1.5 text-xs font-bold text-slate-500 dark:bg-white/[0.08] dark:text-slate-400">
-                        {t({ en: "Teacher approval required", zh: "需教師批核" })}
+                        {t({ en: "Teacher approval required", zh: "需教師批核", zhHans: "需教师批核" })}
                       </p>
                     </div>
                     <div className="mt-3 grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
@@ -431,7 +431,7 @@ export function StudentRewardsPanel() {
 
                 <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
                   <section aria-labelledby="point-history-title" className="soft-panel min-w-0 overflow-hidden p-4 sm:p-5">
-                    <h3 id="point-history-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Recent point history", zh: "最近積分紀錄" })}</h3>
+                    <h3 id="point-history-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Recent point history", zh: "最近積分紀錄", zhHans: "最近积分纪录" })}</h3>
                     <div className="mt-3 grid gap-2">
                       {rewards.ledger.slice(0, 3).map((entry) => (
                         <div key={entry.id} className="grid min-w-0 gap-2 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/45 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.035] sm:flex sm:items-center sm:justify-between sm:gap-3">
@@ -445,7 +445,7 @@ export function StudentRewardsPanel() {
                   </section>
 
                   <section aria-labelledby="gift-requests-title" className="soft-panel min-w-0 overflow-hidden p-4 sm:p-5">
-                    <h3 id="gift-requests-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Gift requests", zh: "兌換申請" })}</h3>
+                    <h3 id="gift-requests-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Gift requests", zh: "兌換申請", zhHans: "兑换申请" })}</h3>
                     <div className="mt-3 grid gap-2">
                       {rewards.redemptions.length ? rewards.redemptions.slice(0, 3).map((request) => (
                         <div key={request.id} className="min-w-0 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/45 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.035]">
@@ -453,7 +453,7 @@ export function StudentRewardsPanel() {
                             <span className="block min-w-0 flex-1 truncate font-black text-slate-700 dark:text-slate-200">{text(request.item.name)}</span>
                             <span className={cn("w-fit max-w-full shrink-0 rounded-full border px-2.5 py-1 text-xs font-black", statusTone(request.status))}>{text(statusLabel(request.status))}</span>
                           </div>
-                          <p className="mt-2 truncate font-bold text-slate-500 dark:text-slate-400">{formatDate(request.requestedAt, language)} · {formatPointValue(request.pointsCost, language)} {t({ en: "points", zh: "積分" })}</p>
+                          <p className="mt-2 truncate font-bold text-slate-500 dark:text-slate-400">{formatDate(request.requestedAt, language)} · {formatPointValue(request.pointsCost, language)} {t({ en: "points", zh: "積分", zhHans: "积分" })}</p>
                         </div>
                       )) : <EmptyRequestsFallback />}
                     </div>

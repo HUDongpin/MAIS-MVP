@@ -4,7 +4,25 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
 
+// These assertions pin source text, so a purely cosmetic reflow — Prettier
+// wrapping a long declaration across two lines — used to fail them even though
+// behaviour was identical (see PR #172, where wrapping `const comparisonDisabled`
+// broke a passing assertion). Joining wrapped lines makes every regex in this
+// file tolerant of line breaks while leaving intra-line spacing untouched, so
+// class strings like "bg-white text-slate-950" still match exactly.
+//
+// This is a mitigation, not a fix: source-text assertions cannot check
+// behaviour at all. PR #199 introduces a real render harness; assertions here
+// should migrate to mounting as that lands.
+function joinWrappedLines(text: string) {
+  return text.replace(/[ \t]*\r?\n[ \t]*/g, " ");
+}
+
 async function source(path: string) {
+  return joinWrappedLines(await readFile(join(process.cwd(), path), "utf8"));
+}
+
+async function rawSource(path: string) {
   return readFile(join(process.cwd(), path), "utf8");
 }
 
@@ -91,7 +109,16 @@ test("student assignments route exposes the final heading while assignments load
   assert.match(loadingBranch, /Loading assignments/);
 });
 
-test("routes without slow server data carry no segment-level loading file", () => {
+test("parent navigation provides hydrated loading feedback without a racy segment boundary", async () => {
+  const parentShell = await source("components/parent/ParentShell.tsx");
+
+  assert.match(parentShell, /const \[isNavigating, startNavigation\] = useTransition\(\)/u);
+  assert.match(parentShell, /role="status"/u);
+  assert.match(parentShell, /Loading family view/u);
+  assert.match(parentShell, /aria-busy=\{isNavigating\}/u);
+});
+
+test("known routes affected by the hidden-segment race carry no segment-level loading file", () => {
   // Any segment-level loading.tsx makes Next 15.5 stream the page into a
   // hidden segment (<div hidden id="S:N"> parked at body level) and the
   // vendored React defers the visible swap: $RC only marks the boundary "$~"
@@ -99,9 +126,12 @@ test("routes without slow server data carry no segment-level loading file", () =
   // load). Hydration plus provider updates client-render the boundary first,
   // so the document transiently holds TWO full copies of the page — Playwright
   // strict-mode "resolved to 2 elements" flakes and duplicate-id bugs.
-  // None of these routes awaits server data (they SSR client shells that fetch
+  // Most routes below await no server data (they SSR client shells that fetch
   // after hydration, or are pure redirects), so a route-level skeleton buys
-  // nothing and only carries the race. Verified 2026-07-26 against a prod
+  // nothing and only carries the race. Parent does await its foundation, but a
+  // production trace on 2026-08-24 reproduced React #418 during the same hidden
+  // segment swap, while the fallback was never observably useful. Verified the
+  // original route group 2026-07-26 against a prod
   // build: with these files present every route below served '<template
   // id="B:' + '<div hidden id="S:' markers; without them, none did. Only
   // reintroduce a loading.tsx where the route genuinely awaits slow server
@@ -112,6 +142,10 @@ test("routes without slow server data carry no segment-level loading file", () =
     "app/adaptive-learning/loading.tsx",
     "app/lesson/loading.tsx",
     "app/personalized-learning/loading.tsx",
+    // Production zero-retry loops reproduced React #418 while Next swapped the
+    // parent fallback and its hidden resolved segment. Keep parent loading
+    // feedback inside the hydrated console instead of a route-level boundary.
+    "app/parent/loading.tsx",
     "app/practice/loading.tsx",
     "app/student/assignments/loading.tsx",
     "app/student/lessons/loading.tsx",
@@ -151,7 +185,7 @@ test("completed lesson progress stores full completion mastery", async () => {
   const persistenceTest = await source("lib/server/userStoreStudentActivityPersistence.test.ts");
 
   assert.match(persistence, /status === "completed"[\s\S]{0,120}Math\.max\(existing\?\.mastery \?\? 0, 100\)/);
-  assert.match(persistenceTest, /status: "completed",\n\s+mastery: 100/);
+  assert.match(persistenceTest, /status: "completed",\s+mastery: 100/);
   assert.doesNotMatch(persistence, /Math\.max\(existing\?\.mastery \?\? 0, 85\)/);
 });
 

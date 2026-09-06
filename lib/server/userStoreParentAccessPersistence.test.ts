@@ -5,7 +5,8 @@ import test from "node:test";
 
 import {
   createParentAccessPersistenceStore,
-  type ParentAccessPersistenceDatabase
+  type ParentAccessPersistenceDatabase,
+  toGuardianLink
 } from "@/lib/server/userStore/parentAccessPersistence";
 
 function createTestStore(database: ParentAccessPersistenceDatabase) {
@@ -49,7 +50,7 @@ test("parent access persistence checks active guardian links without legacy user
   assert.equal(await store.parentCanAccessStudent("parent-unknown", "student-1"), false);
 });
 
-test("parent access persistence lets admins access existing student records only", async () => {
+test("parent access persistence never treats admins as guardians", async () => {
   const store = createTestStore({
     guardian_links: [],
     users: [
@@ -59,12 +60,12 @@ test("parent access persistence lets admins access existing student records only
     ]
   });
 
-  assert.equal(await store.parentCanAccessStudent("admin-1", "student-1"), true);
+  assert.equal(await store.parentCanAccessStudent("admin-1", "student-1"), false);
   assert.equal(await store.parentCanAccessStudent("admin-1", "teacher-1"), false);
   assert.equal(await store.parentCanAccessStudent("admin-1", "missing-student"), false);
 });
 
-test("parent access persistence links a parent to a student by invite code", async () => {
+test("parent access persistence never treats legacy profile or link plaintext as an invitation", async () => {
   const database: ParentAccessPersistenceDatabase = {
     guardian_links: [
       {
@@ -108,127 +109,41 @@ test("parent access persistence links a parent to a student by invite code", asy
   const store = createTestStore(database);
 
   assert.deepEqual(await store.linkParentToStudentByInviteCode({
-    inviteCode: " mais abc ",
+    inviteCode: "MAIS-ABC",
     parentId: "parent-1",
     relationship: "father"
-  }), {
-    status: "linked",
-    link: {
-      id: "guardian-link-new",
-      parentId: "parent-1",
-      parentName: "Pat Parent",
-      studentId: "student-1",
-      studentName: "Ada Student",
-      studentGrade: "S3",
-      relationship: "father",
-      status: "active",
-      inviteCode: "MAIS-ABC",
-      createdBy: "parent-1",
-      createdAt: "2026-06-20T10:00:00.000Z",
-      updatedAt: "2026-06-20T10:00:00.000Z"
-    }
-  });
-  assert.equal(database.guardian_links.length, 2);
-
+  }), { status: "invalid" });
   assert.deepEqual(await store.linkParentToStudentByInviteCode({
-    inviteCode: "mais-old",
+    inviteCode: `MAIS-${"A".repeat(24)}`,
     parentId: "parent-1",
     relationship: "guardian"
-  }), {
-    status: "linked",
-    link: {
-      id: "guardian-link-existing",
-      parentId: "parent-1",
-      parentName: "Pat Parent",
-      studentId: "student-2",
-      studentName: "Ben Student",
-      studentGrade: "S3",
-      relationship: "guardian",
-      status: "active",
-      inviteCode: "MAIS-OLD",
-      createdBy: "teacher-1",
-      createdAt: "2026-06-01T00:00:00.000Z",
-      updatedAt: "2026-06-20T10:00:00.000Z"
-    }
-  });
+  }), { status: "not-found" });
+  assert.equal(database.guardian_links.length, 1);
+  assert.equal(database.guardian_links[0]?.status, "revoked");
+  assert.equal(database.guardian_links[0]?.invite_code, "");
+  assert.equal(database.student_profiles?.find((profile) => profile.user_id === "student-1")?.parent_invite_code, "");
 });
 
-test("parent access persistence owns parent invite code helpers for legacy userStore", async () => {
+test("parent access persistence owns only normalized one-time guardian invitation helpers", async () => {
   const persistenceSource = await readFile(path.join(process.cwd(), "lib/server/userStore/parentAccessPersistence.ts"), "utf8");
   const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   const helpers = await import("@/lib/server/userStore/parentAccessPersistence") as Record<string, unknown>;
 
   const normalizeParentInviteCode = helpers.normalizeParentInviteCode;
-  const createParentInviteCode = helpers.createParentInviteCode;
-  const uniqueParentInviteCode = helpers.uniqueParentInviteCode;
-  const ensureParentInviteCodeInDatabase = helpers.ensureParentInviteCodeInDatabase;
+  const createGuardianInviteToken = helpers.createGuardianInviteToken;
 
   assert.equal(typeof normalizeParentInviteCode, "function");
-  assert.equal(typeof createParentInviteCode, "function");
-  assert.equal(typeof uniqueParentInviteCode, "function");
-  assert.equal(typeof ensureParentInviteCodeInDatabase, "function");
+  assert.equal(typeof createGuardianInviteToken, "function");
   assert.match(persistenceSource, /export function normalizeParentInviteCode\b/);
-  assert.match(persistenceSource, /export function createParentInviteCode\b/);
-  assert.match(persistenceSource, /export function uniqueParentInviteCode\b/);
-  assert.match(persistenceSource, /export function ensureParentInviteCodeInDatabase\b/);
+  assert.match(persistenceSource, /export function createGuardianInviteToken\b/);
   assert.doesNotMatch(rootSource, /function normalizeInviteCode\b/);
-  assert.doesNotMatch(rootSource, /function createParentInviteCode\b/);
-  assert.doesNotMatch(rootSource, /function uniqueParentInviteCode\b/);
-  assert.doesNotMatch(rootSource, /function ensureParentInviteCodeInDatabase\b/);
-  assert.doesNotMatch(rootSource, /async function ensureParentInviteCodeForStudent\b/);
-  assert.match(rootSource, /normalizeParentInviteCodeFromParentAccess/);
-  assert.match(rootSource, /createParentInviteCodeFromParentAccess/);
-  assert.match(rootSource, /uniqueParentInviteCodeFromParentAccess/);
-  assert.match(rootSource, /ensureParentInviteCodeInDatabaseFromParentAccess/);
+  assert.equal("createParentInviteCode" in helpers, false);
+  assert.equal("uniqueParentInviteCode" in helpers, false);
+  assert.equal("ensureParentInviteCodeInDatabase" in helpers, false);
+  assert.doesNotMatch(rootSource, /ParentInviteCodeFromParentAccess/);
 
-  assert.equal((normalizeParentInviteCode as (value: string) => string)(" mais abc "), "MAIS-ABC");
-  assert.equal((createParentInviteCode as (createId?: () => string) => string)(() => "abcdef0123456789"), "MAIS-ABCDEF0123");
-
-  const database: ParentAccessPersistenceDatabase = {
-    guardian_links: [
-      {
-        parent_id: "parent-1",
-        student_id: "student-2",
-        status: "active",
-        invite_code: "MAIS-ABCDEF0123"
-      }
-    ],
-    student_profiles: [
-      {
-        user_id: "student-1",
-        parent_invite_code: " mais existing "
-      },
-      {
-        user_id: "student-2"
-      }
-    ],
-    users: []
-  };
-  const studentProfiles = database.student_profiles ?? [];
-  const idSequence = ["abcdef0123456789", "fedcba9876543210"];
-
-  assert.equal((uniqueParentInviteCode as (
-    database: ParentAccessPersistenceDatabase,
-    createId?: () => string
-  ) => string)(database, () => idSequence.shift() ?? "fallback"), "MAIS-FEDCBA9876");
-
-  assert.equal((ensureParentInviteCodeInDatabase as (
-    database: ParentAccessPersistenceDatabase,
-    studentId: string,
-    createId?: () => string
-  ) => string | null)(database, "student-1", () => "ignored"), "MAIS-EXISTING");
-  assert.equal(studentProfiles[0]?.parent_invite_code, "MAIS-EXISTING");
-  assert.equal((ensureParentInviteCodeInDatabase as (
-    database: ParentAccessPersistenceDatabase,
-    studentId: string,
-    createId?: () => string
-  ) => string | null)(database, "student-2", () => "1234567890abcdef"), "MAIS-1234567890");
-  assert.equal(studentProfiles[1]?.parent_invite_code, "MAIS-1234567890");
-  assert.equal((ensureParentInviteCodeInDatabase as (
-    database: ParentAccessPersistenceDatabase,
-    studentId: string,
-    createId?: () => string
-  ) => string | null)(database, "missing-student", () => "unused"), null);
+  assert.equal((normalizeParentInviteCode as (value: string) => string)(" mais abc "), "MAIS ABC");
+  assert.match((createGuardianInviteToken as () => string)(), /^MAIS-[A-F0-9]{24}$/);
 });
 
 test("parent access persistence owns guardian link seed builder for legacy userStore", async () => {
@@ -242,7 +157,6 @@ test("parent access persistence owns guardian link seed builder for legacy userS
       demoParentId: string;
       demoUserId: string;
       demoTeacherId: string;
-      createParentInviteCode?: () => string;
     }
   ) => ParentAccessPersistenceDatabase["guardian_links"];
 
@@ -255,16 +169,14 @@ test("parent access persistence owns guardian link seed builder for legacy userS
     shouldSeedDemoUser: () => false,
     demoParentId: "parent-1",
     demoUserId: "student-1",
-    demoTeacherId: "teacher-1",
-    createParentInviteCode: () => "MAIS-SHOULD-NOT-BE-USED"
+    demoTeacherId: "teacher-1"
   }), []);
 
   assert.deepEqual(parentAccessSeedGuardianLinks("2026-06-20T10:00:00.000Z", {
     shouldSeedDemoUser: () => true,
     demoParentId: "parent-1",
     demoUserId: "student-1",
-    demoTeacherId: "teacher-1",
-    createParentInviteCode: () => "MAIS-FAMILY"
+    demoTeacherId: "teacher-1"
   }), [
     {
       id: "guardian-link-peter-family",
@@ -272,7 +184,7 @@ test("parent access persistence owns guardian link seed builder for legacy userS
       student_id: "student-1",
       relationship: "guardian",
       status: "active",
-      invite_code: "MAIS-FAMILY",
+      invite_code: "",
       created_by: "teacher-1",
       created_at: "2026-06-20T10:00:00.000Z",
       updated_at: "2026-06-20T10:00:00.000Z"
@@ -346,15 +258,43 @@ test("parent access persistence owns guardian link projection helpers for legacy
     studentGrade: "S3",
     relationship: "mother",
     status: "active",
-    inviteCode: "MAIS-ABC",
+    inviteCode: "",
     createdBy: "teacher-1",
     createdAt: "2026-06-01T00:00:00.000Z",
     updatedAt: "2026-06-02T00:00:00.000Z"
   });
   assert.equal(parentCanAccessStudentInDatabase(database, "parent-1", "student-1"), true);
   assert.equal(parentCanAccessStudentInDatabase(database, "parent-1", "student-2"), false);
-  assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-2"), true);
+  assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-1"), false);
+  assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-2"), false);
   assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "teacher-1"), false);
+});
+
+test("guardian-link display names never fall back to email usernames when profiles are missing", () => {
+  const guardianEmail = "guardian.private@example.test";
+  const studentEmail = "student.private@example.test";
+  const database: ParentAccessPersistenceDatabase = {
+    guardian_links: [{
+      id: "guardian-link-private-name",
+      parent_id: "parent-private-name",
+      student_id: "student-private-name",
+      relationship: "guardian",
+      status: "active",
+      created_at: "2026-06-20T10:00:00.000Z",
+      updated_at: "2026-06-20T10:00:00.000Z"
+    }],
+    student_profiles: [],
+    users: [
+      { id: "parent-private-name", username: guardianEmail, role: "parent" },
+      { id: "student-private-name", username: studentEmail, role: "student" }
+    ]
+  };
+
+  const link = toGuardianLink(database, database.guardian_links[0]);
+
+  assert.equal(link.parentName, "Parent");
+  assert.equal(link.studentName, "Student");
+  assert.doesNotMatch(JSON.stringify(link), new RegExp(`${guardianEmail}|${studentEmail}`, "i"));
 });
 
 test("parent access persistence owns parent-area role guard for legacy userStore", async () => {
@@ -372,7 +312,7 @@ test("parent access persistence owns parent-area role guard for legacy userStore
   ) => boolean;
 
   assert.equal(canUseParentArea({ id: "parent-1", role: "parent" }), true);
-  assert.equal(canUseParentArea({ id: "admin-1", role: "admin" }), true);
+  assert.equal(canUseParentArea({ id: "admin-1", role: "admin" }), false);
   assert.equal(canUseParentArea({ id: "teacher-1", role: "teacher" }), false);
   assert.equal(canUseParentArea(null), false);
 });
@@ -416,7 +356,7 @@ test("parent access persistence owns guardian-link record normalization for lega
   const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   const helpers = await import("@/lib/server/userStore/parentAccessPersistence") as Record<string, unknown>;
   const normalizeRecord = helpers.normalizeParentAccessGuardianLinkRecord as
-    | (<T extends Record<string, unknown>>(link: T, now: string, createInviteCode?: () => string) => T & {
+    | (<T extends Record<string, unknown>>(link: T, now: string) => T & {
         relationship: string;
         status: string;
         invite_code: string;
@@ -442,8 +382,7 @@ test("parent access persistence owns guardian-link record normalization for lega
         invite_code: " mais abc ",
         created_by: "teacher-1"
       },
-      "2026-06-23T10:00:00.000Z",
-      () => "MAIS-FALLBACK"
+      "2026-06-23T10:00:00.000Z"
     ),
     {
       id: "link-1",
@@ -451,10 +390,12 @@ test("parent access persistence owns guardian-link record normalization for lega
       student_id: "student-1",
       relationship: "guardian",
       status: "pending",
-      invite_code: "MAIS-ABC",
+      invite_code: "",
       created_by: "teacher-1",
       created_at: "2026-06-23T10:00:00.000Z",
-      updated_at: "2026-06-23T10:00:00.000Z"
+      updated_at: "2026-06-23T10:00:00.000Z",
+      revoked_at: null,
+      revoked_by: null
     }
   );
   assert.equal(
@@ -466,10 +407,9 @@ test("parent access persistence owns guardian-link record normalization for lega
         status: "active",
         invite_code: ""
       },
-      "2026-06-23T10:00:00.000Z",
-      () => "MAIS-FALLBACK"
+      "2026-06-23T10:00:00.000Z"
     ).invite_code,
-    "MAIS-FALLBACK"
+    ""
   );
 });
 
@@ -483,7 +423,6 @@ test("parent access persistence owns guardian-link collection normalization for 
         demoParentId: string;
         demoUserId: string;
         demoTeacherId: string;
-        createParentInviteCode?: () => string;
       }) => ParentAccessPersistenceDatabase["guardian_links"])
     | undefined;
 
@@ -516,8 +455,7 @@ test("parent access persistence owns guardian-link collection normalization for 
     shouldSeedDemoUser: () => true,
     demoParentId: "parent-seed",
     demoUserId: "student-seed",
-    demoTeacherId: "teacher-seed",
-    createParentInviteCode: () => "MAIS-SEED"
+    demoTeacherId: "teacher-seed"
   });
 
   assert.deepEqual(records?.map((link) => link.id), [
@@ -530,10 +468,12 @@ test("parent access persistence owns guardian-link collection normalization for 
     student_id: "student-existing",
     relationship: "guardian",
     status: "pending",
-    invite_code: "MAIS-EXISTING",
+    invite_code: "",
     created_by: "teacher-existing",
     created_at: "2026-06-20T10:00:00.000Z",
-    updated_at: "2026-06-20T10:00:00.000Z"
+    updated_at: "2026-06-20T10:00:00.000Z",
+    revoked_at: null,
+    revoked_by: null
   });
   assert.deepEqual(records?.[1], {
     id: "guardian-link-custom",
@@ -541,14 +481,17 @@ test("parent access persistence owns guardian-link collection normalization for 
     student_id: "student-custom",
     relationship: "father",
     status: "active",
-    invite_code: "MAIS-SEED",
+    invite_code: "",
     created_by: "teacher-custom",
     created_at: "2026-06-19T10:00:00.000Z",
-    updated_at: "2026-06-19T10:00:00.000Z"
+    updated_at: "2026-06-19T10:00:00.000Z",
+    revoked_at: null,
+    revoked_by: null
   });
 });
 
 test("parent access persistence rejects invalid or unauthorized invite linking", async () => {
+  const validButUnknownToken = `MAIS-${"A".repeat(24)}`;
   const store = createTestStore({
     guardian_links: [],
     student_profiles: [
@@ -576,11 +519,11 @@ test("parent access persistence rejects invalid or unauthorized invite linking",
     relationship: "cousin" as never
   }), { status: "invalid" });
   assert.deepEqual(await store.linkParentToStudentByInviteCode({
-    inviteCode: "MAIS-ABC",
+    inviteCode: validButUnknownToken,
     parentId: "teacher-1"
   }), { status: "forbidden" });
   assert.deepEqual(await store.linkParentToStudentByInviteCode({
-    inviteCode: "MAIS-MISSING",
+    inviteCode: validButUnknownToken,
     parentId: "parent-1"
   }), { status: "not-found" });
 });

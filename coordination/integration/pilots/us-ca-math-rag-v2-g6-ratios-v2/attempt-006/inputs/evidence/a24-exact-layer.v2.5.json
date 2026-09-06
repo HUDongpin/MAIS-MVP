@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v25-attempt006",
+  "role": "A24",
+  "result": "not_applicable",
+  "producedAt": "2026-08-26T12:55:39+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+  "checkerVersion": "promotion-gate-shadow-v2.5",
+  "semanticPayload": {
+    "contractVersion": "promotion-a24-exact-layer.v2",
+    "exactLayerDisposition": "not-applicable",
+    "scannedRecordIds": [
+      "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2"
+    ],
+    "prohibitedFieldFamilies": [
+      "bitmap",
+      "image",
+      "illustration",
+      "asset",
+      "svg",
+      "plotly",
+      "coordinate",
+      "formula-overlay",
+      "exact-layer"
+    ],
+    "matchingFieldPaths": [],
+    "rationale": "The unchanged candidate records remain text-and-metadata contracts with no bitmap, image, illustration, asset, SVG, Plotly, coordinate, formula-overlay, or deterministic exact-layer field; creating one would invent scope.",
+    "candidateBytesChangedSincePriorReview": false,
+    "futureChangeInvalidatesEvidence": true,
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.4",
+      "toCheckerVersion": "promotion-gate-shadow-v2.5",
+      "changeScope": "target-baseline-rebind-after-reviewed-live-contract-repair",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": true,
+      "liveRuntimeChanged": true,
+      "priorAttemptId": "attempt-005",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "5c64fddf5d3fe38a75b3916e7b08b80e875a51ad8d3acb43f1b610e68584b7e3",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/inputs/evidence/a24-exact-layer.v2.4.json",
+      "priorEvidenceRawSha256": "e81ee77f37c09c3da47480c5bf34a5bc78619001768f8759725c64a218904620",
+      "priorEvidenceReviewedCommit": "c0c18010a2a5b2750087be58ec9e3b462e998de3"
+    }
+  }
+}

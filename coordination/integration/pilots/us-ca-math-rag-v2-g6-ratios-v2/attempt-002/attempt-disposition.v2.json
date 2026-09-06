@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "promotion-attempt-disposition.v2",
+  "gateId": "promotion-shadow-gate-v2",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+  "attemptId": "attempt-002",
+  "producedAt": "2026-08-26T04:45:00.000+08:00",
+  "phase": "checker-self-test-before-shadow",
+  "result": "repair_required",
+  "reasonCode": "V2_CHECKER_MANIFEST_CURRENTNESS_VALIDATION_GAP",
+  "reason": "The first committed real Manifest activated a previously skipped checker test. The v2.1 checker loaded evidence currentness fail-closed during full validation, but its pure Manifest validator did not immediately reject a currentness baseline that differed from the Manifest.",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/promotion-manifest.v2.json",
+    "rawSha256": "d104908b00fc58c12d79c7c30b84d258538140079ac6d1569e1305f878f75a06",
+    "executionCommit": "8316fb30a0481b048282679c0df44ae0cdef976b"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "checkerVersion": "promotion-gate-shadow-v2.1",
+    "checkerReleaseCommit": "2840acc2f8141187995a702f5e708b097fa9d73b",
+    "checkerBundleDigest": "bb05687eb4edd5abb25828664089a80a44ab99a4382593e2d816247d039ae641"
+  },
+  "testProof": {
+    "suite": "npm run test:promotion-gate",
+    "total": 23,
+    "passed": 22,
+    "failed": 1,
+    "skipped": 0,
+    "failingTest": "real manifest is exact and fail-closed when present",
+    "failingAssertion": "evidence currentness targetBaselineCommit mismatch must be rejected by validateV2Manifest"
+  },
+  "lifecycle": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "repair_required",
+    "shadowExecuted": false,
+    "receiptProduced": false,
+    "receiptReuseAllowed": false,
+    "manifestOverwriteAllowed": false,
+    "replacementAttemptId": "attempt-003"
+  },
+  "parentPackageStatus": "candidate-only",
+  "liveAllowed": false,
+  "maturityClaim": "not-mature"
+}

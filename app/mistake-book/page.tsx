@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { FormEvent } from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AITutorButton } from "@/components/ai/AITutorButton";
 import { MathText, toPlainMathText } from "@/components/math/MathText";
 import { QuestionFigure } from "@/components/practice/QuestionFigure";
@@ -76,7 +76,7 @@ function isEditableElement(target: EventTarget | null) {
 }
 
 export default function MistakeBookPage() {
-  const { language, t, text } = useSettings();
+  const { currentUser, language, t, text } = useSettings();
   const [filter, setFilter] = useState<ReviewFilter>("active");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -86,6 +86,9 @@ export default function MistakeBookPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
+  const currentUserId = currentUser?.id ?? null;
+  const activeUserIdRef = useRef<string | null>(currentUserId);
+  const mistakeMutationAbortRef = useRef<AbortController | null>(null);
 
   const refresh = useCallback(() => setRefreshKey((value) => value + 1), []);
   const activeCount = allMistakes.filter((record) => !record.mastered).length;
@@ -130,16 +133,39 @@ export default function MistakeBookPage() {
   }, [currentRecordNumber, goToIndex, jumpValue, recordCount]);
 
   useEffect(() => {
+    activeUserIdRef.current = currentUserId;
+    mistakeMutationAbortRef.current?.abort();
+    mistakeMutationAbortRef.current = null;
+  }, [currentUserId]);
+
+  useEffect(() => () => {
+    mistakeMutationAbortRef.current?.abort();
+  }, []);
+
+  useEffect(() => {
+    if (!currentUserId) {
+      setAllMistakes([]);
+      return;
+    }
+
+    const expectedUserId = currentUserId;
+    const controller = new AbortController();
     let cancelled = false;
 
     async function loadAllMistakes() {
       try {
-        const response = await fetch("/api/mistakes", { cache: "no-store" });
+        const response = await fetch("/api/mistakes", {
+          cache: "no-store",
+          headers: { "X-MAIS-Expected-User-Id": expectedUserId },
+          signal: controller.signal
+        });
         const mistakes = readMistakes(await response.json());
         if (!response.ok) throw new Error(t({ en: "Could not load mistake counts.", zh: "暫時無法載入錯題數量。" }));
-        if (!cancelled) setAllMistakes(mistakes);
+        if (!cancelled && activeUserIdRef.current === expectedUserId) setAllMistakes(mistakes);
       } catch {
-        if (!cancelled) setAllMistakes([]);
+        if (!cancelled && !controller.signal.aborted && activeUserIdRef.current === expectedUserId) {
+          setAllMistakes([]);
+        }
       }
     }
 
@@ -147,10 +173,18 @@ export default function MistakeBookPage() {
 
     return () => {
       cancelled = true;
+      controller.abort();
     };
-  }, [refreshKey, t]);
+  }, [currentUserId, refreshKey, t]);
 
   useEffect(() => {
+    if (!currentUserId) {
+      setVisibleRecords([]);
+      setIsLoading(false);
+      return;
+    }
+
+    const expectedUserId = currentUserId;
     const controller = new AbortController();
 
     async function loadVisibleMistakes() {
@@ -161,25 +195,26 @@ export default function MistakeBookPage() {
       try {
         const response = await fetch(`/api/mistakes${query}`, {
           cache: "no-store",
+          headers: { "X-MAIS-Expected-User-Id": expectedUserId },
           signal: controller.signal
         });
         const mistakes = readMistakes(await response.json());
         if (!response.ok) throw new Error(t({ en: "Could not load mistakes.", zh: "暫時無法載入錯題。" }));
-        setVisibleRecords(mistakes);
+        if (activeUserIdRef.current === expectedUserId) setVisibleRecords(mistakes);
       } catch (caughtError) {
-        if (!controller.signal.aborted) {
+        if (!controller.signal.aborted && activeUserIdRef.current === expectedUserId) {
           setVisibleRecords([]);
           setError(caughtError instanceof Error ? caughtError.message : t({ en: "Could not load mistakes.", zh: "暫時無法載入錯題。" }));
         }
       } finally {
-        if (!controller.signal.aborted) setIsLoading(false);
+        if (!controller.signal.aborted && activeUserIdRef.current === expectedUserId) setIsLoading(false);
       }
     }
 
     loadVisibleMistakes();
 
     return () => controller.abort();
-  }, [filter, refreshKey, t]);
+  }, [currentUserId, filter, refreshKey, t]);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -212,19 +247,50 @@ export default function MistakeBookPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goToNext, goToPrevious, recordCount]);
 
+  async function mutateMistakes(url: string, method: "DELETE" | "PATCH") {
+    const expectedUserId = currentUserId;
+    if (!expectedUserId) return;
+
+    mistakeMutationAbortRef.current?.abort();
+    const controller = new AbortController();
+    mistakeMutationAbortRef.current = controller;
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: { "X-MAIS-Expected-User-Id": expectedUserId },
+        signal: controller.signal
+      });
+      if (!response.ok) {
+        throw new Error(t({
+          en: "Could not update the mistake book.",
+          zh: "暫時無法更新錯題簿。",
+          zhHans: "暂时无法更新错题本。"
+        }));
+      }
+      if (activeUserIdRef.current === expectedUserId) refresh();
+    } catch (caughtError) {
+      if (!controller.signal.aborted && activeUserIdRef.current === expectedUserId) {
+        setError(caughtError instanceof Error ? caughtError.message : t({
+          en: "Could not update the mistake book.",
+          zh: "暫時無法更新錯題簿。",
+          zhHans: "暂时无法更新错题本。"
+        }));
+      }
+    } finally {
+      if (mistakeMutationAbortRef.current === controller) mistakeMutationAbortRef.current = null;
+    }
+  }
+
   async function clearMistakes() {
-    await fetch("/api/mistakes", { method: "DELETE" });
-    refresh();
+    await mutateMistakes("/api/mistakes", "DELETE");
   }
 
   async function markMistakeMastered(questionId: string) {
-    await fetch(`/api/mistakes/${encodeURIComponent(questionId)}`, { method: "PATCH" });
-    refresh();
+    await mutateMistakes(`/api/mistakes/${encodeURIComponent(questionId)}`, "PATCH");
   }
 
   async function removeMistake(questionId: string) {
-    await fetch(`/api/mistakes/${encodeURIComponent(questionId)}`, { method: "DELETE" });
-    refresh();
+    await mutateMistakes(`/api/mistakes/${encodeURIComponent(questionId)}`, "DELETE");
   }
 
   return (

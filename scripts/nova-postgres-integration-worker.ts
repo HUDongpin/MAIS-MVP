@@ -1,15 +1,19 @@
 import process from "node:process";
+import { randomUUID } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
+import postgres from "postgres";
 
 import type {
   AITutorMessageRecord,
   AITutorUsageRecord
 } from "@/lib/server/userStore/aiGovernancePersistence";
+import { hashAuthPasswordResetToken } from "@/lib/server/userStore/authSessionPersistence";
 
 const resultPrefix = "NOVA_POSTGRES_INTEGRATION_RESULT=";
 type UserStoreModule = typeof import("@/lib/server/userStore");
 let loadedStore: UserStoreModule | null = null;
 
-function assertTestDatabaseBoundary() {
+function assertTestDatabaseBoundary(command: string | undefined) {
   if (process.env.NODE_ENV !== "test") {
     throw new Error("Nova PostgreSQL integration worker requires NODE_ENV=test.");
   }
@@ -22,12 +26,25 @@ function assertTestDatabaseBoundary() {
   if (parsedUrl.pathname !== "/mais_nova_ci") {
     throw new Error("Nova PostgreSQL integration worker refuses an unexpected database name.");
   }
-  if (
-    process.env.HK_MATH_STORAGE_PROVIDER !== "postgres"
-    || process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES !== "true"
-  ) {
+  if (process.env.HK_MATH_STORAGE_PROVIDER !== "postgres") {
     throw new Error("Nova PostgreSQL integration worker requires the Postgres hot-path configuration.");
   }
+  const expectedHotAuthFlag = command === "session-flag-off" ? "false" : "true";
+  if (process.env.HK_MATH_POSTGRES_HOT_AUTH_TABLES !== expectedHotAuthFlag) {
+    throw new Error(`Nova PostgreSQL integration worker requires hot auth ${expectedHotAuthFlag}.`);
+  }
+}
+
+function createDirectIntegrationClient() {
+  const configuredUrl = process.env.POSTGRES_URL;
+  if (!configuredUrl) throw new Error("Nova PostgreSQL integration worker requires POSTGRES_URL.");
+  return postgres(configuredUrl, {
+    connect_timeout: 5,
+    idle_timeout: 5,
+    max: 1,
+    onnotice: () => undefined,
+    prepare: false
+  });
 }
 
 async function readStdin() {
@@ -73,8 +90,8 @@ async function runTimedAdmissionStep<T>(
 }
 
 async function main() {
-  assertTestDatabaseBoundary();
   const command = process.argv[2];
+  assertTestDatabaseBoundary(command);
   const inputText = await readStdin();
   const input = inputText.trim() ? JSON.parse(inputText) as Record<string, unknown> : {};
   const store = await import("@/lib/server/userStore");
@@ -89,6 +106,283 @@ async function main() {
       };
     }
 
+    if (command === "force-bootstrap") {
+      await store.__userStoreAiTutorPostgresTestHooks.forceBootstrap();
+      return { bootstrapped: true };
+    }
+
+    if (command === "strict-readiness") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return {
+          ready: await store.probePostgresDurableReadinessStrict(sql as never, {
+            id: "primary",
+            tenantId: "platform",
+            stateKind: "app-snapshot",
+            schemaVersion: 1
+          }) === true
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-inspect") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return {
+          state: await store.inspectPostgresStorageSchemaForProductionGate(sql)
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-diagnose-partial") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const diagnostic = await import("./teacher-notice-production-schema-diagnostic.mjs");
+        return {
+          component: await diagnostic.diagnosePostgresStoragePartialSchemaForProductionGate(sql)
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-gate-inspect") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const inspection = await gate.inspectProductionDatabase(sql);
+        return {
+          component: inspection.appStoragePartialComponent,
+          state: inspection.appStorageState
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-collection-gap-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate.inspectPostgresStorageCollectionGapForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-parent-access-record-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessRecordContractForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-parent-access-record-drift-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessRecordDriftForProductionGate(sql);
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-parent-access-session-lifecycle-diagnostic") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        return await gate
+          .inspectPostgresStorageParentAccessSessionLifecycleForProductionGate(
+            sql
+          );
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-complete-legacy") {
+      const sql = createDirectIntegrationClient();
+      try {
+        await store.__userStorePostgresStorageReadinessTestHooks
+          .completeLegacyReadinessMarker(sql);
+        return { completed: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-apply-complete-legacy") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        await gate.applyMaisProductionSchemaOperations(
+          sql,
+          ["app-storage-complete-readiness-v1"],
+          {
+            HK_MATH_ENABLE_DEMO_USER: "false",
+            HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+            HK_MATH_STORAGE_PROVIDER: "postgres"
+          },
+          {
+            applyAppStorageSchema: async (
+              lockedClient: postgres.Sql,
+              expectedState: "legacy-no-readiness-marker"
+            ) => {
+              if (expectedState !== "legacy-no-readiness-marker") {
+                throw new Error("Postgres production schema operation plan changed.");
+              }
+              await store.__userStorePostgresStorageReadinessTestHooks
+                .completeLegacyReadinessMarker(lockedClient);
+            },
+            applyTeacherNoticeSchema: async () => {
+              throw new Error("Postgres production schema operation plan changed.");
+            }
+          }
+        );
+        return { completed: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-missing-collections") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation: "app-storage-repair-missing-collections-v1"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-guardian-invitations-v2") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation: "app-storage-repair-missing-collections-v2"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-repair-parent-session-lifecycle-v3") {
+      const sql = createDirectIntegrationClient();
+      try {
+        const gate = await import("./teacher-notice-production-schema-gate.mjs");
+        const state =
+          await gate.repairPostgresStorageMissingCollectionsForProductionGate(
+            sql,
+            {
+              allowIntegrationTest: true,
+              expectedOperation:
+                "app-storage-repair-parent-session-lifecycle-v3"
+            }
+          );
+        return { repaired: true, state };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "production-schema-upgrade-legacy-v1") {
+      const sql = createDirectIntegrationClient();
+      try {
+        await store.__userStorePostgresStorageReadinessTestHooks
+          .upgradeLegacyV1CompatibilityAndReadiness(sql);
+        return { upgraded: true };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "hot-auth-readiness") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return {
+          ready: await store.countPostgresHotAuthRowsForAdminDiagnostics(sql as never) !== null
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "reattest-readiness") {
+      await store.__userStorePostgresStorageReadinessTestHooks.reattestCurrentSnapshot();
+      return { reattested: true };
+    }
+
+    if (command === "read-full-snapshot") {
+      await store.__userStorePostgresStorageReadinessTestHooks.readCurrentSnapshot();
+      return { read: true };
+    }
+
+    if (command === "guardian-invitation-read") {
+      return {
+        invitations: await store.__userStorePostgresStorageReadinessTestHooks
+          .readGuardianInvitationProjection()
+      };
+    }
+
+    if (command === "full-snapshot-rewrite") {
+      await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
+      return { rewritten: true };
+    }
+
+    if (command === "full-snapshot-fault") {
+      const mode = input.mode;
+      if (
+        mode !== "suppress-returning"
+        && mode !== "rewrite-returning"
+        && mode !== "post-returning-drift"
+      ) {
+        throw new Error("Full snapshot fault mode is invalid.");
+      }
+      const stages: string[] = [];
+      store.__userStorePostgresStorageReadinessTestHooks.configureFullWriterFault({
+        mode,
+        observeStage: (stage) => {
+          stages.push(stage);
+        }
+      });
+      try {
+        await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
+        return { rejected: false, stages };
+      } catch {
+        return {
+          rejected: true,
+          rejectedAt: stages.at(-1) ?? "before-capability",
+          stages
+        };
+      } finally {
+        store.__userStorePostgresStorageReadinessTestHooks.clearFullWriterFault();
+      }
+    }
+
     if (command === "policy") {
       const userId = typeof input.userId === "string" ? input.userId : "";
       const signal = AbortSignal.timeout(1_500);
@@ -97,6 +391,7 @@ async function main() {
 
     if (command === "admission") {
       const userId = typeof input.userId === "string" ? input.userId : "";
+      const sessionRevision = typeof input.sessionRevision === "number" ? input.sessionRevision : 0;
       const authDeadlineMs = requiredAdmissionDeadline("AI_TUTOR_AUTH_ADMISSION_DEADLINE_MS");
       const policyDeadlineMs = requiredAdmissionDeadline(
         "AI_TUTOR_CLASSROOM_POLICY_ADMISSION_DEADLINE_MS"
@@ -105,8 +400,9 @@ async function main() {
         "AI_TUTOR_RATE_LIMIT_ADMISSION_DEADLINE_MS"
       );
       const authenticatedStep = await runTimedAdmissionStep("auth", () => (
-        store.getAuthenticatedUserByIdForAiTutorAdmission(
+        store.getAuthenticatedUserForSession(
           userId,
+          sessionRevision,
           AbortSignal.timeout(authDeadlineMs)
         )
       ));
@@ -145,6 +441,380 @@ async function main() {
       const userId = typeof input.userId === "string" ? input.userId : "";
       const sinceIso = typeof input.sinceIso === "string" ? input.sinceIso : "";
       return { tokens: await store.getAITutorTokenUsageSince(userId, sinceIso) };
+    }
+
+    if (command === "session-flag-off") {
+      const userId = typeof input.userId === "string" ? input.userId : "";
+      const sessionRevision = typeof input.sessionRevision === "number" ? input.sessionRevision : 0;
+      const [authenticated, activeRevision] = await Promise.all([
+        store.getAuthenticatedUserForSession(userId, sessionRevision),
+        store.getActiveUserSessionRevision(userId)
+      ]);
+      return {
+        activeRevision,
+        authenticated: authenticated?.user.id === userId
+      };
+    }
+
+    if (command === "session-reset") {
+      const userId = typeof input.userId === "string" ? input.userId : "";
+      const identifier = typeof input.identifier === "string" ? input.identifier : "";
+      const beforeRevision = await store.getActiveUserSessionRevision(userId);
+      if (!beforeRevision) throw new Error("Session reset fixture user is unavailable.");
+      const request = await store.createPasswordResetRequest(identifier);
+      if (!request) throw new Error("Session reset request was not created.");
+      const reset = await store.resetUserPassword(request.token, "integration-reset-password-12345");
+      if (reset.status !== "reset") throw new Error("Session reset did not commit.");
+      const [oldSession, replacementSession, replay] = await Promise.all([
+        store.getAuthenticatedUserForSession(userId, beforeRevision),
+        store.getAuthenticatedUserForSession(userId, reset.sessionRevision),
+        store.resetUserPassword(request.token, "integration-reset-password-replay-12345")
+      ]);
+      return {
+        beforeRevision,
+        oldSessionRejected: oldSession === null,
+        replacementSessionAccepted: replacementSession?.user.id === userId,
+        replayRejected: replay.status === "invalid",
+        resetRevision: reset.sessionRevision
+      };
+    }
+
+    if (command === "session-reset-malformed-expiry") {
+      const userId = typeof input.userId === "string" ? input.userId : "";
+      const beforeRevision = await store.getActiveUserSessionRevision(userId);
+      if (!beforeRevision) throw new Error("Malformed-expiry fixture user is unavailable.");
+
+      const sql = createDirectIntegrationClient();
+      const token = `integration-malformed-expiry-${randomUUID()}`;
+      const tokenId = randomUUID();
+      try {
+        await sql`
+          INSERT INTO auth_password_reset_tokens (
+            id,
+            user_id,
+            token_hash,
+            expires_at,
+            used_at,
+            created_at
+          ) VALUES (
+            ${tokenId},
+            ${userId},
+            ${hashAuthPasswordResetToken(token)},
+            ${"not-a-timestamp"},
+            ${null},
+            ${new Date().toISOString()}
+          )
+        `;
+
+        const reset = await store.resetUserPassword(token, "integration-malformed-password-12345");
+        const [afterRevision, tokenRows] = await Promise.all([
+          store.getActiveUserSessionRevision(userId),
+          sql<Array<{ used_at: string | null }>>`
+            SELECT used_at FROM auth_password_reset_tokens WHERE id = ${tokenId}
+          `
+        ]);
+        return {
+          resetRejected: reset.status === "invalid",
+          revisionUnchanged: afterRevision === beforeRevision,
+          tokenStillUnused: tokenRows[0]?.used_at === null
+        };
+      } finally {
+        await sql`DELETE FROM auth_password_reset_tokens WHERE id = ${tokenId}`;
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "session-reset-rollback") {
+      const userId = typeof input.userId === "string" ? input.userId : "";
+      const identifier = typeof input.identifier === "string" ? input.identifier : "";
+      const sql = createDirectIntegrationClient();
+
+      const captureRollbackEvidence = async () => {
+        const [stateRows, markerRows, authUserRows, tokenRows] = await Promise.all([
+          sql<Array<Record<string, unknown>>>`
+            SELECT
+              id,
+              tenant_id,
+              state_kind,
+              schema_version,
+              revision::text AS revision,
+              payload,
+              updated_at::text AS updated_at
+            FROM public.app_state
+            WHERE id = 'primary'
+            ORDER BY id
+          `,
+          sql<Array<Record<string, unknown>>>`
+            SELECT
+              state_id,
+              tenant_id,
+              state_kind,
+              schema_version,
+              state_revision::text AS state_revision,
+              contract_version,
+              attested_at::text AS attested_at
+            FROM public.app_state_readiness_markers
+            WHERE state_id = 'primary'
+            ORDER BY state_id, tenant_id, state_kind, schema_version
+          `,
+          sql<Array<Record<string, unknown>>>`
+            SELECT
+              id,
+              username,
+              normalized_username,
+              email,
+              normalized_email,
+              password_hash,
+              password_salt,
+              school_id,
+              password_must_change,
+              session_revision,
+              disabled_at,
+              role,
+              created_at
+            FROM public.auth_users
+            WHERE id = ${userId}
+            ORDER BY id
+          `,
+          sql<Array<Record<string, unknown>>>`
+            SELECT id, user_id, token_hash, expires_at, used_at, created_at
+            FROM public.auth_password_reset_tokens
+            WHERE user_id = ${userId}
+            ORDER BY created_at, id
+          `
+        ]);
+        if (stateRows.length !== 1 || authUserRows.length !== 1) {
+          throw new Error("Session rollback evidence is unavailable.");
+        }
+        return { stateRows, markerRows, authUserRows, tokenRows };
+      };
+
+      const originalEvidence = await captureRollbackEvidence();
+      try {
+        const fixtureCreatedAt = new Date().toISOString();
+        const cleanupTokenRecords = [
+          {
+            id: `integration-reset-cleanup-used-${randomUUID()}`,
+            user_id: userId,
+            token_hash: `integration-reset-cleanup-used-${randomUUID()}`,
+            expires_at: new Date(Date.now() + 60_000).toISOString(),
+            used_at: fixtureCreatedAt,
+            created_at: fixtureCreatedAt
+          },
+          {
+            id: `integration-reset-cleanup-expired-${randomUUID()}`,
+            user_id: userId,
+            token_hash: `integration-reset-cleanup-expired-${randomUUID()}`,
+            expires_at: new Date(Date.now() - 60_000).toISOString(),
+            used_at: null,
+            created_at: fixtureCreatedAt
+          },
+          {
+            id: `integration-reset-cleanup-malformed-${randomUUID()}`,
+            user_id: userId,
+            token_hash: `integration-reset-cleanup-malformed-${randomUUID()}`,
+            expires_at: "not-a-timestamp",
+            used_at: null,
+            created_at: fixtureCreatedAt
+          }
+        ];
+        const cleanupTokenIds = cleanupTokenRecords.map((record) => record.id);
+        await sql.begin(async (fixtureSql) => {
+          const fixtureStateRows = await fixtureSql<Array<{ revision: unknown }>>`
+            UPDATE public.app_state AS state
+            SET payload = state.payload || pg_catalog.jsonb_build_object(
+                  'password_reset_tokens',
+                  CASE
+                    WHEN pg_catalog.jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                      THEN state.payload->'password_reset_tokens'
+                    ELSE '[]'::pg_catalog.jsonb
+                  END || ${fixtureSql.json(cleanupTokenRecords)}::pg_catalog.jsonb
+                ),
+                revision = revision + 1,
+                updated_at = pg_catalog.now()
+            WHERE state.id = 'primary'
+              AND state.tenant_id = 'platform'
+              AND state.state_kind = 'app-snapshot'
+              AND state.schema_version = 1
+            RETURNING revision
+          `;
+          if (fixtureStateRows.length !== 1) {
+            throw new Error("Session rollback cleanup fixture could not be installed.");
+          }
+          await fixtureSql`
+            INSERT INTO public.auth_password_reset_tokens ${fixtureSql(
+              cleanupTokenRecords,
+              "id",
+              "user_id",
+              "token_hash",
+              "expires_at",
+              "used_at",
+              "created_at"
+            )}
+          `;
+          const fixtureHotRows = await fixtureSql<Array<{ count: number }>>`
+            SELECT COUNT(*)::int AS count
+            FROM public.auth_password_reset_tokens
+            WHERE id = ANY(${cleanupTokenIds}::text[])
+          `;
+          if (fixtureHotRows[0]?.count !== cleanupTokenIds.length) {
+            throw new Error("Session rollback cleanup fixture did not reach the hot table.");
+          }
+        });
+        await store.__userStorePostgresStorageReadinessTestHooks.reattestCurrentSnapshot();
+
+        const request = await store.createPasswordResetRequest(identifier);
+        if (!request) throw new Error("Session rollback reset request was not created.");
+        const requestTokenHash = hashAuthPasswordResetToken(request.token);
+        const rollbackBaseline = await captureRollbackEvidence();
+        const baselinePayload = rollbackBaseline.stateRows[0]?.payload;
+        const baselineTokens = baselinePayload
+          && typeof baselinePayload === "object"
+          && !Array.isArray(baselinePayload)
+          && Array.isArray((baselinePayload as Record<string, unknown>).password_reset_tokens)
+          ? (baselinePayload as { password_reset_tokens: Array<Record<string, unknown>> }).password_reset_tokens
+          : [];
+        const baselineHotRequestRows = rollbackBaseline.tokenRows.filter(
+          (record) => record.token_hash === requestTokenHash
+        );
+        const baselineSnapshotRequestRows = baselineTokens.filter(
+          (record) => record.token_hash === requestTokenHash
+        );
+        const cleanupSymmetric = cleanupTokenIds.every((id) => (
+          !rollbackBaseline.tokenRows.some((record) => record.id === id)
+          && !baselineTokens.some((record) => record.id === id)
+        ))
+          && baselineHotRequestRows.length === 1
+          && baselineSnapshotRequestRows.length === 1
+          && baselineHotRequestRows[0]?.id === baselineSnapshotRequestRows[0]?.id;
+
+        await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
+        const afterFullRewrite = await captureRollbackEvidence();
+        const rewrittenPayload = afterFullRewrite.stateRows[0]?.payload;
+        const rewrittenTokens = rewrittenPayload
+          && typeof rewrittenPayload === "object"
+          && !Array.isArray(rewrittenPayload)
+          && Array.isArray((rewrittenPayload as Record<string, unknown>).password_reset_tokens)
+          ? (rewrittenPayload as { password_reset_tokens: Array<Record<string, unknown>> }).password_reset_tokens
+          : [];
+        const fullRewriteDidNotResurrect = cleanupTokenIds.every((id) => (
+          !afterFullRewrite.tokenRows.some((record) => record.id === id)
+          && !rewrittenTokens.some((record) => record.id === id)
+        ));
+        const resetRollbackBaseline = afterFullRewrite;
+
+        let resetRolledBack = false;
+        store.__userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite = () => {
+          throw new Error("Integration password reset rollback failpoint.");
+        };
+        try {
+          await store.resetUserPassword(request.token, "integration-rollback-password-12345");
+        } catch (error) {
+          resetRolledBack = error instanceof Error
+            && error.message === "Integration password reset rollback failpoint.";
+        } finally {
+          store.__userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite = null;
+        }
+        const afterRollback = await captureRollbackEvidence();
+        return {
+          resetRolledBack,
+          stateExact: isDeepStrictEqual(afterRollback.stateRows, resetRollbackBaseline.stateRows),
+          markerExact: isDeepStrictEqual(afterRollback.markerRows, resetRollbackBaseline.markerRows),
+          authExact: isDeepStrictEqual(afterRollback.authUserRows, resetRollbackBaseline.authUserRows),
+          tokensExact: isDeepStrictEqual(afterRollback.tokenRows, resetRollbackBaseline.tokenRows),
+          cleanupSymmetric,
+          fullRewriteDidNotResurrect
+        };
+      } finally {
+        store.__userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite = null;
+        const originalState = originalEvidence.stateRows[0];
+        const originalAuthUser = originalEvidence.authUserRows[0];
+        if (!originalState || !originalAuthUser) {
+          throw new Error("Session rollback restoration evidence is unavailable.");
+        }
+        await sql.begin(async (restoreSql) => {
+          const restoredStateRows = await restoreSql<Array<{ id: string }>>`
+            UPDATE public.app_state
+            SET tenant_id = ${originalState.tenant_id as string},
+                state_kind = ${originalState.state_kind as string},
+                schema_version = ${originalState.schema_version as number},
+                revision = ${originalState.revision as string}::bigint,
+                payload = ${restoreSql.json(
+                  originalState.payload as Parameters<postgres.Sql["json"]>[0]
+                )}::pg_catalog.jsonb,
+                updated_at = ${originalState.updated_at as string}::pg_catalog.timestamptz
+            WHERE id = ${originalState.id as string}
+            RETURNING id
+          `;
+          if (restoredStateRows.length !== 1) {
+            throw new Error("Session rollback state restoration failed.");
+          }
+          await restoreSql`DELETE FROM public.auth_password_reset_tokens WHERE user_id = ${userId}`;
+          if (originalEvidence.tokenRows.length > 0) {
+            await restoreSql`
+              INSERT INTO public.auth_password_reset_tokens ${restoreSql(
+                originalEvidence.tokenRows,
+                "id",
+                "user_id",
+                "token_hash",
+                "expires_at",
+                "used_at",
+                "created_at"
+              )}
+            `;
+          }
+          await restoreSql`
+            INSERT INTO public.auth_users ${restoreSql(
+              [originalAuthUser],
+              "id",
+              "username",
+              "normalized_username",
+              "email",
+              "normalized_email",
+              "password_hash",
+              "password_salt",
+              "school_id",
+              "password_must_change",
+              "session_revision",
+              "disabled_at",
+              "role",
+              "created_at"
+            )}
+            ON CONFLICT (id) DO UPDATE SET
+              username = excluded.username,
+              normalized_username = excluded.normalized_username,
+              email = excluded.email,
+              normalized_email = excluded.normalized_email,
+              password_hash = excluded.password_hash,
+              password_salt = excluded.password_salt,
+              school_id = excluded.school_id,
+              password_must_change = excluded.password_must_change,
+              session_revision = excluded.session_revision,
+              disabled_at = excluded.disabled_at,
+              role = excluded.role,
+              created_at = excluded.created_at
+          `;
+          await restoreSql`
+            DELETE FROM public.app_state_readiness_markers
+            WHERE state_id = 'primary'
+          `;
+          if (originalEvidence.markerRows.length > 0) {
+            await restoreSql`
+              INSERT INTO public.app_state_readiness_markers ${restoreSql(
+                originalEvidence.markerRows,
+                "state_id",
+                "tenant_id",
+                "state_kind",
+                "schema_version",
+                "state_revision",
+                "contract_version",
+                "attested_at"
+              )}
+            `;
+          }
+        });
+        await sql.end({ timeout: 5 });
+      }
     }
 
     if (command === "write-message") {

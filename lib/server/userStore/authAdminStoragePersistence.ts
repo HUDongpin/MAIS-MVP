@@ -14,6 +14,7 @@ import type {
   TextbookPublisher,
   ThemeMode
 } from "@/types";
+import { authDisabledAt, authSessionRevision } from "./authSessionPersistence";
 
 type AuthAdminStorageUserRole = "student" | "teacher" | "parent" | "admin";
 type AuthAdminStorageProvider = "sqlite" | "postgres";
@@ -28,6 +29,8 @@ type AuthAdminStorageUserRecord = {
   password_salt?: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
   role: AuthAdminStorageUserRole;
   created_at: string;
 };
@@ -209,6 +212,10 @@ export type AuthAdminStorageHotAuthReadinessSnapshot = AuthAdminStorageHotAuthSu
   counts: AuthAdminStorageHotAuthCounts | null;
 };
 
+export type AuthAdminStorageReadinessOptions = {
+  includeDiagnosticsCounts?: boolean;
+};
+
 type AuthAdminStorageHotAuthBackfillResult =
   | { status: "not-postgres"; provider: "sqlite" }
   | { status: "missing-postgres-url"; provider: "postgres" }
@@ -227,7 +234,9 @@ export type AuthAdminStoragePersistenceStoreDependencies = {
   configuredDbPath: string | null;
   databaseDirectory: string;
   databasePath: string;
-  getHotAuthReadinessSnapshot: () => Promise<AuthAdminStorageHotAuthReadinessSnapshot>;
+  getHotAuthReadinessSnapshot: (
+    options: Required<AuthAdminStorageReadinessOptions>
+  ) => Promise<AuthAdminStorageHotAuthReadinessSnapshot>;
   hotAuthDataLayerSummary: () => AuthAdminStorageHotAuthSummary;
   isVercelRuntime?: () => boolean;
   mutateDatabase: <T>(
@@ -242,7 +251,6 @@ export type AuthAdminStoragePersistenceStoreDependencies = {
   stateRecordId: string;
   stateTenantId: string;
   storageProvider: AuthAdminStorageProvider;
-  verifyPostgresDatabase: () => Promise<void>;
 };
 
 export type AuthAdminStoragePersistenceStore = ReturnType<typeof createAuthAdminStoragePersistenceStore>;
@@ -296,6 +304,8 @@ export function authAdminStorageHotAuthUserRows(users: AuthAdminStorageUserRecor
     password_salt: user.password_salt,
     school_id: user.school_id ?? null,
     password_must_change: user.password_must_change ?? false,
+    session_revision: authSessionRevision(user),
+    disabled_at: authDisabledAt(user),
     role: user.role,
     created_at: user.created_at
   }));
@@ -309,7 +319,7 @@ export function authAdminStorageHotAuthStudentProfileRows(profiles: AuthAdminSto
     curriculum_track: profile.curriculum_track ?? null,
     curriculum_region: profile.curriculum_region ?? null,
     textbook_publisher: profile.textbook_publisher ?? null,
-    parent_invite_code: profile.parent_invite_code ?? null,
+    parent_invite_code: "",
     avatar_id: profile.avatar_id ?? null,
     avatar_image_data_url: profile.avatar_image_data_url ?? null,
     avatar_media_object_key: profile.avatar_media_object_key ?? null
@@ -439,8 +449,7 @@ export function createAuthAdminStoragePersistenceStore({
   stateKind,
   stateRecordId,
   stateTenantId,
-  storageProvider,
-  verifyPostgresDatabase
+  storageProvider
 }: AuthAdminStoragePersistenceStoreDependencies) {
   const tenantIdForSchool = (schoolId?: string | null) => schoolId ? `school:${schoolId}` : stateTenantId;
 
@@ -731,7 +740,10 @@ export function createAuthAdminStoragePersistenceStore({
       });
     },
 
-    getStorageReadinessSnapshot: async () => {
+    getStorageReadinessSnapshot: async (
+      options: AuthAdminStorageReadinessOptions = {}
+    ) => {
+      const includeDiagnosticsCounts = options.includeDiagnosticsCounts === true;
       const runtime = isVercelRuntime() ? "vercel" : "local";
       if (storageProvider === "postgres") {
         if (!postgresUrlConfigured) {
@@ -753,10 +765,13 @@ export function createAuthAdminStoragePersistenceStore({
           };
         }
 
+        let hotAuthTables = unavailablePostgresHotAuthReadinessSnapshot();
         try {
-          await verifyPostgresDatabase();
+          hotAuthTables = await getHotAuthReadinessSnapshot({ includeDiagnosticsCounts });
+          if (hotAuthTables.tablesReady !== true) {
+            throw new Error("Postgres hot-auth tables are unavailable.");
+          }
         } catch {
-          const hotAuthTables = unavailablePostgresHotAuthReadinessSnapshot();
           return {
             generatedAt: now().toISOString(),
             provider: "postgres" as const,
@@ -770,11 +785,10 @@ export function createAuthAdminStoragePersistenceStore({
             databasePath: "postgres://[redacted]",
             databaseDirectory: "postgres://[redacted]",
             usingTmpFallback: false,
-            message: "POSTGRES_URL is configured, but the app could not verify the Postgres app_state table."
+            message: "POSTGRES_URL is configured, but the app could not verify the required Postgres storage metadata."
           };
         }
 
-        const hotAuthTables = await getHotAuthReadinessSnapshot();
         return {
           generatedAt: now().toISOString(),
           provider: "postgres" as const,

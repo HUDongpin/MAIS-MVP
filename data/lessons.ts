@@ -2,16 +2,11 @@ import type { LearningAnalyticsEventSource, LessonBlockType, LocalizedText } fro
 import type { VisualizationModuleId } from "@/data/visualizationLabs";
 import { mainlandBnuHighLessonSeeds } from "./mainlandBnuHighLessons";
 import { mainlandBnuJuniorLessonSeeds } from "./mainlandBnuJuniorLessons";
-import { mainlandBnuPrimaryLessonSeeds } from "./mainlandBnuPrimaryLessons";
-import { mainlandHjbHighLessonSeeds } from "./mainlandHjbHighLessons";
 import { mainlandHjbJuniorLessonSeeds } from "./mainlandHjbJuniorLessons";
-import { mainlandHjbPrimaryLessonSeeds } from "./mainlandHjbPrimaryLessons";
 import { mainlandPepHighLessonSeeds } from "./mainlandPepHighLessons";
 import { mainlandPepJuniorLessonSeeds } from "./mainlandPepJuniorLessons";
 import { mainlandPepPrimaryLessonSeeds } from "./mainlandPepPrimaryLessons";
-import { usArkansasMiddleSchoolLessonSeeds } from "./usArkansasMiddleSchoolLessons";
 import { usCaliforniaLessonSeeds } from "./usCaliforniaLessons";
-import { usFloridaMiddleSchoolLessonSeeds } from "./usFloridaMiddleSchoolLessons";
 
 const math = (expression: string) => `\\(${expression}\\)`;
 
@@ -168,7 +163,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the counter grid to split a whole into two visible parts, then read the number sentence that changes with the model.",
         zh: "使用粒子格把整體分成兩個可見部分，然後讀出隨模型改變的算式。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "coordinate-plane-demo",
       source: "coordinate-plane",
       topicId: "p1-counting-number-bonds"
     },
@@ -214,7 +209,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate grid as a number line and describe each forward or backward step.",
         zh: "把坐標網格作為數線，描述每一步向前或向後移動。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "coordinate-plane-demo",
       source: "coordinate-plane"
     },
     extension: {
@@ -259,7 +254,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Drag the points to see how sides and corners help name a shape.",
         zh: "拖曳點，觀察邊和角如何幫助命名圖形。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -340,7 +335,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the grid to arrange hundreds, tens, and ones before comparing three-digit numbers.",
         zh: "用方格整理百、十、個，再比較三位數。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "coordinate-plane-demo",
       source: "coordinate-plane"
     },
     extension: {
@@ -385,7 +380,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry panel as an array board and connect rows, columns, and repeated addition.",
         zh: "把幾何面板作為陣列板，連繫行、列和重複加法。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -466,7 +461,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Move points and compare side lengths to support measurement language.",
         zh: "移動點並比較邊長，支援度量語言。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -547,7 +542,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use partitions as fraction bars to compare halves, thirds, quarters, and equivalent fractions.",
         zh: "把分割圖形作分數條，比較二分之一、三分之一、四分之一和等值分數。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -628,7 +623,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry model to compare angle sizes and describe the pattern.",
         zh: "使用幾何模型比較角度大小，並描述規律。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -709,7 +704,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane to locate tenths and hundredths, then compare decimals by position.",
         zh: "利用坐標平面定位十分位和百分位，再按位置比較小數。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "coordinate-plane-demo",
       source: "coordinate-plane"
     },
     extension: {
@@ -754,7 +749,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Drag the geometry model and compare angle types visually.",
         zh: "拖曳幾何模型，以視覺方式比較角的種類。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -799,7 +794,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Drag shapes and reason about perimeter, area, arrays, and composite shape splitting.",
         zh: "拖曳圖形，思考周界、面積、陣列和組合圖形分割。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -844,7 +839,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use partitioned bars to reason about equivalent fractions, addition, subtraction, and simplification.",
         zh: "用分割條推理等值分數、加減和約簡。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -889,7 +884,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry canvas to discuss unit cubes, layers, cuboids, and cubic units.",
         zh: "用幾何畫布討論小立方體、分層、長方體和立方單位。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -1015,7 +1010,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use model comparisons as scalable bars for fractions, decimals, percentages, and ratio relationships.",
         zh: "用模型比較作可縮放條形，連繫分數、小數、百分數和比例關係。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "function-model-comparer",
       source: "geometry"
     },
     extension: {
@@ -1096,7 +1091,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane to prepare for reading distance-time graphs and movement patterns.",
         zh: "使用坐標平面，準備閱讀距離時間圖和移動規律。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "coordinate-plane-demo",
       source: "geometry"
     },
     extension: {
@@ -2168,13 +2163,8 @@ export const productionLessonSeeds: ProductionLessonSeed[] = [
   ...mainlandPepHighLessonSeeds,
   ...mainlandBnuHighLessonSeeds,
   ...mainlandBnuJuniorLessonSeeds,
-  ...mainlandBnuPrimaryLessonSeeds,
-  ...mainlandHjbPrimaryLessonSeeds,
   ...mainlandHjbJuniorLessonSeeds,
-  ...mainlandHjbHighLessonSeeds,
-  ...usArkansasMiddleSchoolLessonSeeds,
-  ...usCaliforniaLessonSeeds,
-  ...usFloridaMiddleSchoolLessonSeeds
+  ...usCaliforniaLessonSeeds
 ];
 
 export const liveProductionLessonSeeds = productionLessonSeeds.filter((lessonSeed) => lessonSeed.productionReady);

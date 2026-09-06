@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a22-us-ca-g6-ratios-v2-isolation-v24-attempt005",
+  "role": "A22",
+  "result": "pass",
+  "producedAt": "2026-08-26T10:15:19+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.4",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "reviewedCompositionCommit": "b256fc8249d1f880584dc30617b6b25f0b45fcb1",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "mergedOriginMainCommit": "c8009edf7015f9eab5072f70948245091b4201e4",
+    "legacyResolutionRegistryRawSha256": "b98ee152c624e917ad38eb784a0c6d130cdb49776206b00bbb91f3caf9bffcd9",
+    "checkerRelease": {
+      "version": "promotion-gate-shadow-v2.4",
+      "releaseCommit": "0b46b9740ff87eb0a947c58cf63653d4dfa02cf9",
+      "bundleDigest": "b78526bc7c34a2f7c1471ab71c79a38f0435ebd2e6a89f8b502eab99cf74dd20",
+      "ledgerRawSha256": "6329bb002ff8efdcf32341567a286e58cf7d98dc32fba34eb7fa5b78642fb73b"
+    },
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyInstall": {
+      "mode": "npm-ci-ignore-scripts",
+      "result": "pass"
+    },
+    "typeCheck": {
+      "mode": "npm-run-type-check",
+      "result": "pass"
+    },
+    "productionBuild": {
+      "mode": "npm-run-build",
+      "result": "pass",
+      "compiled": true,
+      "staticPageGenerationCount": 228,
+      "deploymentPerformed": false
+    },
+    "buildIsolationProof": {
+      "unitAndPathSafetyTestsPassed": 24,
+      "unitAndPathSafetyTestsFailed": 0,
+      "nextEnvTrackedPreimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "nextEnvPostimageMatchesPreimage": true,
+      "worktreeTrackedDiffCountAfterBuild": 0,
+      "expectedSkippedUntilManifestFreeze": 2
+    },
+    "runtimeBaselineDiff": {
+      "protectedRuntimeChangeCount": 0,
+      "candidateSourceChangeCount": 0,
+      "liveFileChangeCount": 0
+    },
+    "externalSideEffects": {
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0
+    },
+    "dependencyInstallAdvisory": {
+      "moderate": 1,
+      "high": 4,
+      "automaticRemediationPerformed": false,
+      "usedAsPromotionPassProof": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A22",
+    "liveAllowed": false,
+    "checkerCurrentnessRevalidation": {
+      "fromCheckerVersion": "promotion-gate-shadow-v2.3",
+      "toCheckerVersion": "promotion-gate-shadow-v2.4",
+      "changeScope": "checker-release-identity-ancestry-hardening-only",
+      "candidateBytesChanged": false,
+      "candidateSemanticPayloadChanged": false,
+      "sourceCommitChanged": false,
+      "targetBaselineCommitChanged": false,
+      "liveRuntimeChanged": false,
+      "priorAttemptId": "attempt-004",
+      "priorAttemptDisposition": "repair_required",
+      "priorAttemptDispositionRawSha256": "5c6d0c6c513769fce699c3640b710d6f37ec189f5188c57b3bf36c011ed10a01",
+      "priorEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-004/inputs/evidence/a22-build-isolation.v2.3.json",
+      "priorEvidenceRawSha256": "66b87bf2f55adc0186e7b4329f203ebc02afb32003fc53e3fd1ae7387addf84b",
+      "priorEvidenceReviewedCommit": "aedf45ab76827721c816c0aabd6598069f7b2453"
+    }
+  }
+}

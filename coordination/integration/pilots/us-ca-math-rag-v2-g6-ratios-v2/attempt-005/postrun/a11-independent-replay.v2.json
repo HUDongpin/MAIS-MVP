@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "promotion-a11-independent-replay.v2",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T10:39:48+08:00",
+  "executionCommit": "ea1207067e0eadec3d27872fe7dc57dcc7f97b9e",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/promotion-manifest.v2.json",
+    "rawSha256": "f178737874a7cc02244f9ec2ecda70fa512cd50190a3879ba30fc2fd18d9c948"
+  },
+  "binding": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+    "checkerVersion": "promotion-gate-shadow-v2.4",
+    "checkerBundleDigest": "b78526bc7c34a2f7c1471ab71c79a38f0435ebd2e6a89f8b502eab99cf74dd20"
+  },
+  "canonicalReceipt": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-005/shadow-receipt.v2.json",
+    "fileRawSha256": "22f7a52a7f84dd6d983288163652859066301cb9d0b10dc6a5c76e7662516a78",
+    "runId": "local-attempt005-canonical-ea120706",
+    "rawReceiptDigest": "7bcdf2f289114633e5c05e88d6dbcc87f210635fd243523fe7ba97199af6378f",
+    "semanticReceiptDigest": "c5ad3178ed0e265259a7f2d2468c1be0d59cd31b16a2fd3289817c5006394ee2"
+  },
+  "independentReplay": {
+    "worktree": "os-temp-detached-worktree/replay",
+    "detachedExactExecutionCommit": true,
+    "cleanBeforeAndAfter": true,
+    "runId": "local-attempt005-replay-ea120706",
+    "result": "pass",
+    "rawReceiptDigest": "421b5b4ac0bdd1b417622ed8a85e14fbdf05b4fe42afc73ea2a54f9a9000ba8f",
+    "semanticReceiptDigest": "c5ad3178ed0e265259a7f2d2468c1be0d59cd31b16a2fd3289817c5006394ee2",
+    "semanticDigestMatchesCanonical": true,
+    "rawDigestDiffersFromCanonical": true,
+    "hardGateCount": 13,
+    "allHardGatesPass": true,
+    "candidateSourceByteIdentical": true,
+    "forbiddenChangedPathCount": 0,
+    "rollbackExactPreimage": true,
+    "externalSideEffectCount": 0
+  },
+  "canonicalVerification": {
+    "schemaVersion": "promotion-receipt-verification.v2",
+    "result": "pass",
+    "valid": true,
+    "semanticReplayMatches": true,
+    "executionCommitMatches": true
+  },
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitStatus": "shadow_passed",
+  "liveAllowed": false,
+  "maturityClaim": "shadow-passed / ci-enforcement-pending"
+}

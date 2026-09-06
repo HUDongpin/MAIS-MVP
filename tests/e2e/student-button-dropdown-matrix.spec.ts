@@ -151,7 +151,7 @@ async function assignDemoResourceThroughApi(page: Page, testInfo: TestInfo) {
 }
 
 async function currentUserId(page: Page) {
-  const response = await page.request.get("/api/me");
+  const response = await page.request.get("/api/me?includeLessonEntry=false");
   expect(response.ok()).toBeTruthy();
   const payload = await response.json() as { user?: { id?: string } };
   expect(payload.user?.id).toBeTruthy();
@@ -262,10 +262,13 @@ async function setFishingEligibility(page: Page) {
   const fishingQuestions = questions.filter((question) => question.topicId === "functions").slice(0, 5);
   expect(fishingQuestions.length, "Fishing setup needs five functions questions").toBe(5);
   const questionIds = fishingQuestions.map((question) => question.id);
+  const expectedUserId = await currentUserId(page);
 
   for (const question of fishingQuestions) {
     const response = await page.request.post("/api/attempts", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId: question.id,
         selectedAnswer: question.answer,
         durationSeconds: 20
@@ -307,10 +310,13 @@ async function unlockAdventureIsland(page: Page) {
     .filter((question) => question.grade === "S4" && typeof question.answer === "string")
     .slice(0, 5);
   expect(s4Questions.length, "Adventure Island setup needs five S4 questions").toBe(5);
+  const expectedUserId = await currentUserId(page);
 
   for (const question of s4Questions) {
     const response = await page.request.post("/api/attempts", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId: question.id,
         selectedAnswer: question.answer,
         durationSeconds: 20
