@@ -7,6 +7,8 @@ export const observabilityTests = [
   "lib/observability/browserReporter.test.ts",
   "lib/server/errorMonitor.test.ts",
   "lib/server/clientErrorReport.test.ts",
+  "lib/server/authRouteGuards.test.ts",
+  "lib/server/observabilityHooks.test.ts",
   "app/api/observability/client-error/route.test.ts",
   "app/api/observability/test-error/route.test.ts",
   "lib/server/healthCheck.test.ts",

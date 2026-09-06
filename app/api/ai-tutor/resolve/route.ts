@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { captureServerError } from "@/lib/server/errorMonitor";
 import { guardAiTutorExpectedUser } from "@/app/api/ai-tutor/expectedUser";
 import { isValidGradeId } from "@/data/grades";
 import {
@@ -3374,6 +3375,14 @@ function streamAITutorPost(request: Request) {
       } catch (error) {
         if (closed) return;
         console.error("AI Tutor unexpected streamed route error", redactedErrorKind(error));
+        if (!workController.signal.aborted && !request.signal.aborted) {
+          try {
+            captureServerError(error, {
+              scope: "ai-tutor", route: "/api/ai-tutor/resolve", kind: "stream-unhandled",
+              status: 500, tags: { phase: "stream" }, extra: { durationMs: Date.now() - startedAt }
+            });
+          } catch { /* Observation must not replace or delay the final SSE event. */ }
+        }
         send("final", {
           status: 500,
           ok: false,
@@ -3425,6 +3434,14 @@ export async function POST(request: Request) {
     ]);
   } catch (error) {
     console.error("AI Tutor unexpected route error", redactedErrorKind(error));
+    if (!workController.signal.aborted && !request.signal.aborted) {
+      try {
+        captureServerError(error, {
+          scope: "ai-tutor", route: "/api/ai-tutor/resolve", kind: "unhandled",
+          status: 503, tags: { phase: "buffered" }, extra: { durationMs: Date.now() - startedAt }
+        });
+      } catch { /* Observation must not replace or delay the original fallback. */ }
+    }
     return NextResponse.json(buildUnexpectedTutorFallbackBody(), { status: 503 });
   } finally {
     if (hardDeadline) clearTimeout(hardDeadline);

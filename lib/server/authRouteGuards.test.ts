@@ -99,3 +99,17 @@ test("auth JSON and rate-limit responses are private and non-cacheable", async (
   assert.equal(rateLimitResponse.status, 429);
   assertPrivateNoStore(rateLimitResponse);
 });
+
+test("observing the boundary preserves expected conflicts and session response headers", async () => {
+  const original = NextResponse.json({ code: "authenticated-user-changed" }, { status: 409 });
+  original.headers.set("Vary", "Cookie");
+  original.headers.set("Retry-After", "3");
+  original.cookies.set("synthetic-session", "fixture", { httpOnly: true });
+  const response = await withAuthRouteJsonBoundary("auth-session-state", async () => original);
+  assert.equal(response, original);
+  assert.equal(response.status, 409);
+  assert.equal(response.headers.get("Vary"), "Cookie");
+  assert.equal(response.headers.get("Retry-After"), "3");
+  assert.match(response.headers.get("Set-Cookie") ?? "", /synthetic-session=fixture/);
+  assertPrivateNoStore(response);
+});
