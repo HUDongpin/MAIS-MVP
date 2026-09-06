@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "promotion-baseline-review.v2",
+  "role": "A22",
+  "result": "pass",
+  "fromCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "toCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "changedPathsDigest": "1efcc8580632949b601a0b6157c29ecc42426e7a48051f5f6affc327726a6b0b",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "liveAllowed": false,
+  "reviewerSession": "/root/u223_r8_spec_review",
+  "recordBasis": "Materialized by A23 from the distinct completed read-only reviewer response in this task; not a new domain QA or Shadow run.",
+  "evidence": {
+    "scope": "Approved preparation plan; source semantics separately reviewed by /root/pr223_promotion_refreeze",
+    "candidateComparisonDigest": "f53ad769d5b5825d74c0d6e3c379a984f50bda269edf0b1492df22d9bcf3bbdb",
+    "checkerComparisonDigest": "e6e60ce7ef188033dd813d3adf87acaec0ec7c489072b6de323ea9061349002a",
+    "findings": [
+      "Short full-history clone admission and E0/E1/B ordering accepted.",
+      "Callsite expressions and literal targets unchanged; only source hashes and positions rebound.",
+      "Twenty-file preparation allowlist; storage remains separate."
+    ],
+    "bootstrapBoundary": "Automatic pull_request artifacts required; canonical absence can yield blocked bootstrap, never assumed pass."
+  }
+}
