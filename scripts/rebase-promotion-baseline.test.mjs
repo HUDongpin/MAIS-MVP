@@ -685,3 +685,62 @@ test("callsite projection budget admits the actual committed repository while re
     { ...valid, fileCount: -1 }, { ...valid, totalBytes: Number.MAX_SAFE_INTEGER + 1 }
   ]) assert.throws(() => baselineTools.assertCallsiteProjectionBudget(invalid), /projection.*limits/u);
 });
+
+
+test("topology mode is explicit, requires a committed review index, and never broadens historical modes", () => {
+  const help = run(["--help"]); assert.equal(help.status, 0); assert.match(help.stdout, /--review-runtime-topology/u); assert.match(help.stdout, /--baseline-review-index/u);
+  const missing = run(["--review-runtime-topology", "--manifest", manifest, "--target", "HEAD", "--revision-root", revisionRoot]);
+  assert.notEqual(missing.status, 0); assert.match(missing.stderr, /requires --baseline-review-index/u);
+  for (const flag of ["--refresh-runtime-policy", "--review-runtime-policy", "--rebind-runtime-callsites"]) {
+    const result = run(["--review-runtime-topology", flag]); assert.notEqual(result.status, 0); assert.match(result.stderr, /mutually exclusive/u);
+  }
+  const orphan = run(["--baseline-review-index", "not-loaded.json"]); assert.notEqual(orphan.status, 0); assert.match(orphan.stderr, /requires --review-runtime-topology/u);
+  const candidate = run(["--review-runtime-topology", "--review-legacy-candidate-bytes"]); assert.notEqual(candidate.status, 0); assert.match(candidate.stderr, /cannot combine/u);
+});
+
+test("native runtime byte binding rejects graph-preserving content, mode, and snapshot drift", () => {
+  assert.equal(typeof baselineTools.verifyRuntimeObservationBytes, "function", "physical native scan binding is missing");
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(process.env.TMPDIR || "/private/tmp", "s7-native-bytes-")));
+  const inputs = { "app/page.tsx": "export default function Page() { return 1; }\n", "public/pixel.bin": "\u0000\u0001", "middleware.ts": "export const middleware = 1;\n", "tsconfig.json": "{}\n", "tsconfig.next.json": "{\"extends\":\"./tsconfig.json\"}\n", "next.config.ts": "export default {};\n" };
+  try {
+    for (const [relative, bytes] of Object.entries(inputs)) { const file = path.join(root, relative); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes, { mode: 0o644 }); }
+    const sha = value => crypto.createHash("sha256").update(value).digest("hex");
+    const rows = Object.entries(inputs).map(([relative, bytes]) => ({ path: relative, mode: "100644", objectId: crypto.createHash("sha1").update(`blob ${Buffer.byteLength(bytes)}\0`).update(bytes).digest("hex") })).sort((a, b) => a.path < b.path ? -1 : 1);
+    const hashRow = relative => ({ path: relative, rawSha256: sha(inputs[relative]) });
+    const expectedObservation = { snapshot: { files: [hashRow("app/page.tsx"), hashRow("public/pixel.bin")] }, specialFiles: [hashRow("middleware.ts")], sensitiveAnchors: [hashRow("app/page.tsx"), hashRow("next.config.ts"), hashRow("tsconfig.json"), hashRow("tsconfig.next.json")] };
+    const check = actualObservation => baselineTools.verifyRuntimeObservationBytes({ root, targetRecords: rows, expectedObservation, actualObservation: actualObservation || expectedObservation });
+    const original = check();
+    fs.writeFileSync(path.join(root, "app/page.tsx"), inputs["app/page.tsx"].replace("return 1", "return 2"));
+    assert.throws(() => check(), /byte|object|snapshot/u);
+    fs.writeFileSync(path.join(root, "app/page.tsx"), inputs["app/page.tsx"]);
+    fs.chmodSync(path.join(root, "app/page.tsx"), 0o755);
+    assert.throws(() => check(), /mode/u);
+    fs.chmodSync(path.join(root, "app/page.tsx"), 0o644);
+    for (const section of ["snapshot", "specialFiles", "sensitiveAnchors"]) {
+      const actual = structuredClone(expectedObservation);
+      (section === "snapshot" ? actual.snapshot.files : actual[section])[0].rawSha256 = "0".repeat(64);
+      assert.throws(() => check(actual), /byte|snapshot|anchor/u);
+    }
+    fs.writeFileSync(path.join(root, "public/pixel.bin"), Buffer.from([0, 2]));
+    assert.throws(() => check(), /byte|object/u);
+    fs.writeFileSync(path.join(root, "public/pixel.bin"), inputs["public/pixel.bin"]);
+    assert.equal(check(), original);
+    fs.writeFileSync(path.join(root, "tsconfig.next.json"), "{}\n");
+    assert.throws(() => check(), /byte|object/u);
+    fs.writeFileSync(path.join(root, "tsconfig.next.json"), inputs["tsconfig.next.json"]);
+    fs.chmodSync(path.join(root, "tsconfig.next.json"), 0o755);
+    assert.throws(() => check(), /mode/u);
+    fs.chmodSync(path.join(root, "tsconfig.next.json"), 0o644);
+    const missing = structuredClone(expectedObservation); missing.snapshot.files.pop();
+    assert.throws(() => check(missing), /byte|snapshot|inventory/u);
+    fs.unlinkSync(path.join(root, "public/pixel.bin"));
+    const fifo = spawnSync("mkfifo", [path.join(root, "public/pixel.bin")], { encoding: "utf8" });
+    assert.equal(fifo.status, 0, fifo.stderr);
+    assert.throws(() => check(), /non-regular/u);
+    fs.unlinkSync(path.join(root, "public/pixel.bin"));
+    fs.writeFileSync(path.join(root, "public/pixel.bin"), inputs["public/pixel.bin"]);
+    fs.renameSync(path.join(root, "app"), path.join(root, "real-app"));
+    fs.symlinkSync("real-app", path.join(root, "app"));
+    assert.throws(() => check(), /symlink|canonical|path/u);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
