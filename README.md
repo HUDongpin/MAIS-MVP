@@ -75,6 +75,19 @@ Set `AUTH_SESSION_SECRET` in the Vercel project environment variables before usi
 
 When no `HK_MATH_DB_PATH` is configured on Vercel, the app stores its SQLite file under Vercel's writable `/tmp` directory. That is enough for demo login and smoke testing, but it is ephemeral and should not be used as the long-term student record store for a real class.
 
+## Error observability
+
+The browser error reporter and root error boundary send fixed error classifications through
+`/api/observability/client-error`. Raw messages, stack traces, dynamic route segments and
+account identifiers are excluded before the browser sends a report. Server transport repeats
+the same policy and supports Sentry envelopes or a configured webhook. No external event is
+sent when neither destination is configured.
+
+The intake contract, explicit diagnostic-probe switch, transport limits and offline verification
+are documented in [docs/observability.md](docs/observability.md). Run the focused CI gate with
+`node scripts/run-observability-tests.mjs`. Storage health/alerts and auth/tutor/datastore
+instrumentation are separate integration packages; this slice does not add them.
+
 ## AI Tutor LLM API
 
 The AI Tutor UI is wired to `app/api/ai-tutor/route.ts`, which calls an OpenAI-compatible Chat Completions endpoint from the server. API keys stay in `.env.local` and are never sent to the browser. The default live example targets DeepSeek V4 Pro.
