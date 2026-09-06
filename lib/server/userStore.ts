@@ -1,3 +1,5 @@
+import { captureServerError } from "@/lib/server/errorMonitor";
+import { classifyObservedError } from "@/lib/observability/errorPolicy";
 import { createHash, randomBytes, randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { DatabaseSync } from "node:sqlite";
@@ -8275,86 +8277,98 @@ async function writePostgresDatabaseWith(
   database: Database,
   storageCapability: PostgresStorageMutationCapability
 ) {
-  recordPostgresFullWriterTestStage("capability-acquired");
-  await installPostgresFullWriterFaultForIntegrationTest(sql);
-  databaseIndexCache.delete(database);
-  const payload = postgresDatabasePayload(database);
-  recordPostgresFullWriterTestStage("update-executing");
-  const stateRows = await sql<Array<{
-    payload: unknown;
-    payload_matches: boolean;
-    revision: unknown;
-    revision_matches: boolean;
-    state_identity_matches: boolean;
-  }>>`
-    UPDATE public.app_state AS state
-    SET
-      revision = state.revision + 1,
-      payload = ${sql.json(payload)}::pg_catalog.jsonb,
-      updated_at = ${new Date().toISOString()}
-    WHERE state.id = ${stateRecordId}
-      AND state.tenant_id = ${stateTenantId}
-      AND state.state_kind = ${stateKind}
-      AND state.schema_version = ${schemaVersion}
-      AND state.revision = ${storageCapability.previousRevision}
-    RETURNING
-      state.payload,
-      state.revision,
-      state.id = ${stateRecordId}
+  const startedAt = Date.now();
+  try {
+    recordPostgresFullWriterTestStage("capability-acquired");
+    await installPostgresFullWriterFaultForIntegrationTest(sql);
+    databaseIndexCache.delete(database);
+    const payload = postgresDatabasePayload(database);
+    recordPostgresFullWriterTestStage("update-executing");
+    const stateRows = await sql<Array<{
+      payload: unknown;
+      payload_matches: boolean;
+      revision: unknown;
+      revision_matches: boolean;
+      state_identity_matches: boolean;
+    }>>`
+      UPDATE public.app_state AS state
+      SET
+        revision = state.revision + 1,
+        payload = ${sql.json(payload)}::pg_catalog.jsonb,
+        updated_at = ${new Date().toISOString()}
+      WHERE state.id = ${stateRecordId}
         AND state.tenant_id = ${stateTenantId}
         AND state.state_kind = ${stateKind}
-        AND state.schema_version = ${schemaVersion} AS state_identity_matches,
-      state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches,
-      state.revision = ${storageCapability.previousRevision + 1} AS revision_matches
-  `;
-  recordPostgresFullWriterTestStage("returning-received");
-  const writtenState = stateRows[0];
-  const revision = safePostgresRevision(writtenState?.revision);
-  if (
-    !writtenState
-    || stateRows.length !== 1
-    || revision === null
-    || writtenState.state_identity_matches !== true
-    || writtenState.payload_matches !== true
-    || writtenState.revision_matches !== true
-  ) {
-    throw new Error("Postgres storage readiness is unavailable.");
+        AND state.schema_version = ${schemaVersion}
+        AND state.revision = ${storageCapability.previousRevision}
+      RETURNING
+        state.payload,
+        state.revision,
+        state.id = ${stateRecordId}
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion} AS state_identity_matches,
+        state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches,
+        state.revision = ${storageCapability.previousRevision + 1} AS revision_matches
+    `;
+    recordPostgresFullWriterTestStage("returning-received");
+    const writtenState = stateRows[0];
+    const revision = safePostgresRevision(writtenState?.revision);
+    if (
+      !writtenState
+      || stateRows.length !== 1
+      || revision === null
+      || writtenState.state_identity_matches !== true
+      || writtenState.payload_matches !== true
+      || writtenState.revision_matches !== true
+    ) {
+      throw new Error("Postgres storage readiness is unavailable.");
+    }
+    validateCompletePostgresStorageSnapshot(writtenState.payload);
+    recordPostgresFullWriterTestStage("returning-validated");
+    await applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql);
+    await syncPostgresHotAuthTablesWith(sql, database);
+    await syncPostgresProjectionTablesWith(sql, database);
+    recordPostgresFullWriterTestStage("final-reread-executing");
+    const finalStateRows = await sql<Array<{
+      payload_matches: boolean;
+      revision: unknown;
+    }>>`
+      /* postgres_storage_full_writer_final_state */
+      SELECT
+        current_state.revision,
+        current_state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches
+      FROM public.app_state AS current_state
+      WHERE current_state.id = ${stateRecordId}
+        AND current_state.tenant_id = ${stateTenantId}
+        AND current_state.state_kind = ${stateKind}
+        AND current_state.schema_version = ${schemaVersion}
+        AND current_state.revision = ${revision}
+      FOR UPDATE OF current_state
+    `;
+    recordPostgresFullWriterTestStage("final-reread-received");
+    if (
+      finalStateRows.length !== 1
+      || safePostgresRevision(finalStateRows[0]?.revision) !== revision
+      || finalStateRows[0]?.payload_matches !== true
+    ) {
+      throw new Error("Postgres storage readiness is unavailable.");
+    }
+    await advancePostgresStorageReadinessAfterMutation(
+      sql as unknown as PostgresReadinessTransaction,
+      storageCapability,
+      revision
+    );
+  } catch (error) {
+    try {
+      captureServerError(error, {
+        scope: "datastore", route: "userStore.writePostgresDatabase",
+        kind: classifyObservedError(error), tags: { storage: "postgres" },
+        extra: { operation: "app_state-update", durationMs: Date.now() - startedAt }
+      });
+    } catch { /* Keep the original failure and transaction rollback semantics. */ }
+    throw error;
   }
-  validateCompletePostgresStorageSnapshot(writtenState.payload);
-  recordPostgresFullWriterTestStage("returning-validated");
-  await applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql);
-  await syncPostgresHotAuthTablesWith(sql, database);
-  await syncPostgresProjectionTablesWith(sql, database);
-  recordPostgresFullWriterTestStage("final-reread-executing");
-  const finalStateRows = await sql<Array<{
-    payload_matches: boolean;
-    revision: unknown;
-  }>>`
-    /* postgres_storage_full_writer_final_state */
-    SELECT
-      current_state.revision,
-      current_state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches
-    FROM public.app_state AS current_state
-    WHERE current_state.id = ${stateRecordId}
-      AND current_state.tenant_id = ${stateTenantId}
-      AND current_state.state_kind = ${stateKind}
-      AND current_state.schema_version = ${schemaVersion}
-      AND current_state.revision = ${revision}
-    FOR UPDATE OF current_state
-  `;
-  recordPostgresFullWriterTestStage("final-reread-received");
-  if (
-    finalStateRows.length !== 1
-    || safePostgresRevision(finalStateRows[0]?.revision) !== revision
-    || finalStateRows[0]?.payload_matches !== true
-  ) {
-    throw new Error("Postgres storage readiness is unavailable.");
-  }
-  await advancePostgresStorageReadinessAfterMutation(
-    sql as unknown as PostgresReadinessTransaction,
-    storageCapability,
-    revision
-  );
 }
 
 async function rewriteCurrentPostgresStorageSnapshotForIntegrationTest() {

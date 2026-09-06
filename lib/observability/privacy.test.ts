@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { normalizeClientErrorReport, clientErrorFromReport } from "../server/clientErrorReport";
-import { buildErrorMonitorEvent } from "../server/errorMonitor";
+import { buildErrorMonitorEvent, sendErrorMonitorEvent } from "../server/errorMonitor";
+import { classifyObservedError } from "./errorPolicy";
 
 test("browser runtime prefixes never preserve arbitrary error text or identity paths", () => {
   for (const prefix of ["", "Error: ", "failed to fetch ", "cannot read properties ", "timeout "]) {
@@ -31,4 +32,42 @@ test("server capture emits classification and bounded numeric facts, never arbit
   assert.doesNotMatch(JSON.stringify(event), /private|shared a|pupil/i);
   assert.equal(event.tags.route, "/api/auth/login");
   assert.equal(event.extra.durationMs, 12);
+});
+
+test("observation accepts only the four additional static auth endpoints", () => {
+  for (const route of ["/api/me", "/api/auth/password-change", "/api/auth/password-reset/request", "/api/auth/password-reset/confirm"]) {
+    const event = buildErrorMonitorEvent(new Error("synthetic"), { scope: "auth-route", route });
+    assert.equal(event.tags.route, route);
+    for (const untrusted of [`${route}/private-learner`, `${route}?user=private-learner`, `https://private-learner.test${route}`]) {
+      const scrubbed = buildErrorMonitorEvent(new Error("synthetic"), { scope: "auth-route", route: untrusted });
+      assert.doesNotMatch(JSON.stringify(scrubbed), /private-learner/);
+    }
+  }
+});
+
+test("datastore hook classifications remain fixed through actual mocked transport bytes", async () => {
+  for (const [code, kind] of [["CONNECT_TIMEOUT", "postgres-connect-timeout"], ["57014", "postgres-statement-timeout"], ["ECONNRESET", "postgres-connection"], ["private-sql-code", "unhandled-error"]]) {
+    const error = Object.assign(new Error("private pupil draft postgres://private-user:private-password@private-host/db"), { code });
+    error.name = "private-person";
+    error.stack = "/private/person/session";
+    const event = buildErrorMonitorEvent(error, {
+      scope: "datastore", route: "userStore.writePostgresDatabase", kind: classifyObservedError(error),
+      tags: { storage: "postgres" }, extra: { operation: "app_state-update", durationMs: 4 }
+    });
+    assert.equal(event.tags.kind, kind);
+    let sends = 0;
+    const result = await sendErrorMonitorEvent({
+      event, env: { ERROR_MONITOR_WEBHOOK_URL: "https://sink.example.test" },
+      rateLimitKey: "o3-private-wire-fixture",
+      fetchImpl: async (_url, init) => {
+        sends += 1;
+        const bytes = String(init?.body);
+        assert.doesNotMatch(bytes, /private|pupil|draft/);
+        assert.match(bytes, /app_state-update/);
+        assert.match(bytes, new RegExp(kind));
+        return new Response(null, { status: 204 });
+      }
+    });
+    assert.equal(result.status, "sent"); assert.equal(sends, 1);
+  }
 });
