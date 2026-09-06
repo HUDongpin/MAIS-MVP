@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "promotion-baseline-review.v2",
+  "role": "A11",
+  "result": "pass",
+  "fromCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "toCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "changedPathsDigest": "1efcc8580632949b601a0b6157c29ecc42426e7a48051f5f6affc327726a6b0b",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "liveAllowed": false,
+  "reviewerSession": "/root/a11_postpush_review",
+  "recordBasis": "Materialized by A23 from the distinct completed read-only reviewer response in this task; not a new domain QA or Shadow run.",
+  "evidence": {
+    "fiveFileDiffSha256": "edc4f1ccf286589959282e5e06d39f424fa8378257831344d0bccf07ef352c1f",
+    "tests": {
+      "total": 13,
+      "pass": 11,
+      "fail": 0,
+      "skip": 2
+    },
+    "limitations": [
+      "Two real PostgreSQL cases intentionally skipped in offline review; no production/database approval."
+    ],
+    "findings": [
+      "Store acknowledgement becomes true only after committed persistence.",
+      "UI rejects unpersisted feedback before success side effects.",
+      "Candidate bytes, grading and lookup dependencies unchanged."
+    ]
+  }
+}
