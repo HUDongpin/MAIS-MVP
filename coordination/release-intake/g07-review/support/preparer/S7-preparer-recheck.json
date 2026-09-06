@@ -1,0 +1,206 @@
+{
+  "schemaVersion": "mais-s7-preparer-independent-recheck.v1",
+  "reviewedAt": "2026-09-06T15:34:21.002888+00:00",
+  "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+  "decision": "PASS",
+  "claimCeiling": "Independent code/focused-test and boundary-repair acceptance for this exact preparer candidate only. Not a full collector, actual role evidence, Promotion, Shadow, merge, deploy or cleanup PASS.",
+  "subject": {
+    "path": "/private/tmp/mais-s7-fix-final-subject.json",
+    "fileRawSha256": "c18252b8c47a84d99c669ce7213a22043d313d487324c8e695fc0565604aae14",
+    "fivePathDigest": "bcdf71daaf99e13cf62f68df0b8d39705994c2798326409ce166422bca61099b",
+    "digestAlgorithm": "SHA256 of compact JSON ordered array of {path,sha256} records",
+    "root": "/Volumes/Starship/MAIS的衍生文件/MAIS-dirty-convergence-wt",
+    "paths": [
+      {
+        "path": "scripts/rebase-promotion-baseline.mjs",
+        "rawSha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3",
+        "bytes": 80680,
+        "matchesSubjectAndIndependentExecution": true
+      },
+      {
+        "path": "scripts/rebase-promotion-baseline.test.mjs",
+        "rawSha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649",
+        "bytes": 34647,
+        "matchesSubjectAndIndependentExecution": true
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.mjs",
+        "rawSha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347",
+        "bytes": 27214,
+        "matchesSubjectAndIndependentExecution": true
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.test.mjs",
+        "rawSha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a",
+        "bytes": 22848,
+        "matchesSubjectAndIndependentExecution": true
+      },
+      {
+        "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+        "rawSha256": "ceb13f856aaf65d670794f92c0c52d2acb47aaed610d701d58d0838ed4416655",
+        "bytes": 14470,
+        "matchesSubjectAndIndependentExecution": true
+      }
+    ]
+  },
+  "supersedesReview": {
+    "path": "/private/tmp/mais-s7-review/S7-preparer-independent-review.json",
+    "decision": "REQUEST_CHANGES",
+    "oldFivePathDigest": "eb0e412da88fef3b9787a431f58a64666239c5a6b5f984848ee56e11540d4f1d"
+  },
+  "closures": [
+    {
+      "id": "S7-IR-01",
+      "priorPriority": "P1",
+      "status": "closed-in-reviewed-candidate",
+      "codeEvidence": "verifyRuntimeObservationBytes binds complete native snapshot/specialFiles/sensitiveAnchors to target Git raw bytes, mode and object ID; physical descriptor checks run before native semantic scan, immediately after, and before final acceptance.",
+      "behaviorEvidence": "15 independent physical cases passed, including changed text/binary/resolver bytes, executable modes, changed native snapshot/anchors, missing Git resolver record, final/ancestor symlinks, stable FIFO, controlled FIFO swap before open and controlled growth during bounded read.",
+      "limits": "This is bounded verification during a frozen-writer window, not a filesystem transaction against an arbitrary concurrent writer."
+    },
+    {
+      "id": "S7-IR-02",
+      "priorPriority": "P2",
+      "status": "closed-in-reviewed-candidate",
+      "codeEvidence": "date() validates Gregorian leap-year/month/day and hour/minute/second ranges before returning parsed time.",
+      "behaviorEvidence": "15 independent date cases passed: nonexistent dates/non-leap 29/century rules/24:00/invalid month/day/minute/offset rejected, valid 2028 and 2400 leap days and positive/negative timezone offsets accepted, calendar-invalid fresh fact also rejected."
+    },
+    {
+      "id": "S7-RECHECK-ANCHOR",
+      "status": "closed-in-reviewed-candidate",
+      "codeEvidence": "Physical inventory, new-mode source/target protected diff and helper changed-file classification now use the native TARGET_BASELINE_PROJECTION_PATHS, including tsconfig.next.json; historical modes retain their default previous path scope.",
+      "behaviorEvidence": "Independent native resolver anchor positive and tsconfig.next.json content/mode negatives passed. Root actual-target physical positive covers3819 files including the native resolver anchor."
+    },
+    {
+      "id": "S7-RECHECK-FIFO",
+      "status": "closed-in-reviewed-candidate",
+      "codeEvidence": "Final lstat rejects nonregular entries before open; descriptor open combines O_NOFOLLOW and O_NONBLOCK; subsequent fstat requires a regular file, reads at most the attested size+1 and rejects byte-count/identity/time/mode changes.",
+      "behaviorEvidence": "The prior stable-FIFO probe timed out after2s. Both stable FIFO and controlled regular-to-FIFO swap before open now reject synchronously without blocking; only external fixture files were changed."
+    }
+  ],
+  "newBlockingFindings": [],
+  "independentBehavior": {
+    "scriptPath": "/private/tmp/mais-s7-review/recheck-behavior.mjs",
+    "scriptRawSha256": "f4bec386e2f05e7e6b4da0986b78a134b3954da7fa67e303fca916a90e7957fe",
+    "resultPath": "/private/tmp/mais-s7-review/recheck-behavior.json",
+    "resultRawSha256": "26519be676997cfd3d35f4674fc972c436a559035a598e8a898c44f838612cf6",
+    "total": 30,
+    "dateCases": 15,
+    "physicalCases": 15,
+    "allExpectedOutcomesMatched": true,
+    "sourceUnchanged": true,
+    "fixtureMethod": "Independent boundary mutations on exact exported functions; only original in-memory review fixture declarations are reused. All filesystem mutations are in one new /private/tmp fixture, no Git/index flag or source mutation.",
+    "physicalFixtureRoot": "/private/tmp/mais-s7-independent-files-nDRgAK"
+  },
+  "independentFocused": {
+    "command": [
+      "node",
+      "--test",
+      "scripts/promotion-runtime-topology-review.test.mjs",
+      "scripts/rebase-promotion-baseline.test.mjs"
+    ],
+    "exitCode": 0,
+    "tests": 51,
+    "pass": 50,
+    "fail": 0,
+    "skip": 1,
+    "skipReason": "Historical shallow-host check is not applicable to this full-history repository.",
+    "logPath": "/private/tmp/mais-s7-review/recheck-focused.log",
+    "logRawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f"
+  },
+  "coordinatorActualTargetPhysicalPositive": {
+    "path": "/private/tmp/mais-s7-physical-real-check.json",
+    "rawSha256": "c85f87e53c5f9434c2afe23a06f41b346df7c8e78b19666a2f7b6ca597743680",
+    "candidateCodeHashMatches": true,
+    "target": "7f692278989b4bf45496d239bccb9263326b5453",
+    "coveredFiles": 3815,
+    "protectedPhysicalFiles": 3819,
+    "physicalBindingDigest": "3dd93ea266d34bc1dd0a6ac01f358ecc772ed3e84752f339b97d3dc911f4784d",
+    "scope": "physical validator positive on actual clean target Git bytes; no historical archive collection, role/index, Shadow, or write phase",
+    "reviewerDidNotReexecuteThisLargeRead": true
+  },
+  "protectedUnchanged": [
+    {
+      "path": "coordination/integration/promotion-gate-lib.mjs",
+      "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+      "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+      "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+      "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+      "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+      "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+      "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+      "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/checker-releases.v2.json",
+      "rawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-required-check-semantic-rescope.mjs",
+      "rawSha256": "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-required-check-semantic-rescope-cli.mjs",
+      "rawSha256": "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b",
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "rawSha256": "90d22201a74877a31491661e0281d68fcc59d1aa6a27f77ab1b731bef271f990",
+      "unchanged": true
+    },
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "rawSha256": "4624a05236bb34eb9ba009c91bc16c646e689abcb172b254457280bd3d9841ca",
+      "unchanged": true
+    }
+  ],
+  "notPerformed": [
+    "Complete clean committed source/target native archive collector.",
+    "Actual committed review index and its full real-role currentness acceptance.",
+    "Actual --write-evidence or --write-bindings execution.",
+    "Shadow/canonical/fresh/replay/Receipt/Closure/Registry finalization.",
+    "Build, provider, deployment, Git mutation or source cleanup."
+  ],
+  "nonActions": {
+    "preparerSourceEdits": false,
+    "gitCommandsDuringThisRecheck": false,
+    "gitMutations": false,
+    "actualWriteFlags": false,
+    "shadow": false,
+    "network": false,
+    "bigBuild": false
+  },
+  "concurrencyBoundary": "All five reviewed files matched the frozen subject before/after independent behavior tests and at final readback. Root will separately preserve identity when moving the integration worktree; this review is content-bound and does not attest the future move.",
+  "next": "Commit and preserve the reviewed code under Root authority; then execute the full clean collector and actual committed review-index phases, fail closed on any source/target/proof/role or path drift, and retain the separate downstream native gates."
+}

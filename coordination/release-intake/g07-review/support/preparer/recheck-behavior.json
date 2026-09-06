@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "mais-s7-independent-recheck-behavior.v1",
+  "at": "2026-09-06T15:29:53.585Z",
+  "reviewer": "/root/s5_quality_review/s7_binding_contract",
+  "sourcePaths": [
+    {
+      "path": "scripts/rebase-promotion-baseline.mjs",
+      "rawSha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3"
+    },
+    {
+      "path": "scripts/rebase-promotion-baseline.test.mjs",
+      "rawSha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649"
+    },
+    {
+      "path": "scripts/promotion-runtime-topology-review.mjs",
+      "rawSha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347"
+    },
+    {
+      "path": "scripts/promotion-runtime-topology-review.test.mjs",
+      "rawSha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a"
+    },
+    {
+      "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+      "rawSha256": "ceb13f856aaf65d670794f92c0c52d2acb47aaed610d701d58d0838ed4416655"
+    }
+  ],
+  "results": [
+    {
+      "kind": "date",
+      "case": "2027-02-31T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2027-02-29T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2100-02-29T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-04-31T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-29T24:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-00-15T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-13-15T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-00T01:00:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-29T01:60:00.000Z",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-29T01:00:00.000+24:00",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-29T12:00:00.000Z",
+      "result": "accepted-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2400-02-29T12:00:00.000Z",
+      "result": "accepted-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-29T12:34:56.789+08:00",
+      "result": "accepted-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "2028-02-29T12:34:56.789-04:30",
+      "result": "accepted-as-required"
+    },
+    {
+      "kind": "date",
+      "case": "calendar-invalid fresh fact with valid later review",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "complete native resolver anchor positive including tsconfig.next.json",
+      "result": "accepted-as-required",
+      "digest": "5bf84afcddcac2925deb601b599921acfc47f7887bd9cdb23c0829608c006eb6"
+    },
+    {
+      "kind": "physical",
+      "case": "changed content lib/quiet.ts",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "changed content public/pixel.bin",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "changed content tsconfig.next.json",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "changed executable mode app/page.tsx",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "changed executable mode tsconfig.next.json",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "mismatched native snapshot",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "mismatched native specialFiles",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "mismatched native sensitiveAnchors",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "omit target Git resolver record",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "final-component symlink",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "ancestor symlink",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "stable final FIFO",
+      "result": "rejected-without-blocking"
+    },
+    {
+      "kind": "physical",
+      "case": "controlled growth during bounded descriptor read",
+      "result": "rejected-as-required"
+    },
+    {
+      "kind": "physical",
+      "case": "controlled final FIFO replacement immediately before open",
+      "result": "rejected-without-blocking"
+    }
+  ],
+  "total": 30,
+  "physicalFixtureRoot": "/private/tmp/mais-s7-independent-files-nDRgAK",
+  "sourceUnchanged": true,
+  "method": "Independent boundary mutations on exact exported functions; only original in-memory review fixture declarations are reused. All filesystem mutations are in one new /private/tmp fixture, no Git/index flag or source mutation.",
+  "fullCollector": false,
+  "actualRoleIndex": false,
+  "writeEvidence": false,
+  "writeBindings": false,
+  "shadow": false
+}

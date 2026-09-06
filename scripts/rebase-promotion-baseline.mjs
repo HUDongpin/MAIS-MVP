@@ -27,13 +27,20 @@ import {
   analyzeRuntimeLoaderCalls,
   fingerprint,
   inspectLegacyCandidateDocument,
-  observeCanonicalRuntimePolicy
+  observeCanonicalRuntimePolicy,
+  TARGET_BASELINE_PROJECTION_PATHS
 } from "../coordination/integration/promotion-gate-lib.mjs";
 import {
   computeV2EvidenceSemanticDigest,
+  collectV2RuntimeAndLegacyProof,
+  collectV2CheckerReleaseProof,
+  collectV2ProvenanceProof,
+  loadV2Candidate,
   projectV2RuntimePolicy
 } from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 import { parsePromotionWorkflowJsonBytes } from "./promotion-workflow-json-guard.mjs";
+import { buildRuntimeTopologyReview, projectRuntimeTopologyObservation,
+  prepareReviewedTopologyEvidence, verifyPreparedTopologyEvidence, recoverCommittedTopologyReviewIndex } from "./promotion-runtime-topology-review.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = fs.realpathSync(path.resolve(path.dirname(scriptPath), ".."));
@@ -54,6 +61,7 @@ function usage() {
   return [
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
+    "  Add --review-runtime-topology --baseline-review-index <committed-path> for reviewed addition-only topology; role records supply their own dates and decisions.",
     "  Add --rebind-runtime-callsites for independently reviewed source-hash/position-only changes (requires full Git history; planning materializes owned temporary commit trees).",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]"
@@ -74,6 +82,8 @@ function parseArgs(argv) {
     refreshRuntimePolicy: false,
     reviewRuntimePolicy: false,
     rebindRuntimeCallsites: false,
+    reviewRuntimeTopology: false,
+    baselineReviewIndex: null,
     reviewLegacyCandidateBytes: false,
     rejectedMonolithicWrite: false,
     help: false
@@ -94,6 +104,8 @@ function parseArgs(argv) {
     else if (argument === "--refresh-runtime-policy") options.refreshRuntimePolicy = true;
     else if (argument === "--review-runtime-policy") options.reviewRuntimePolicy = true;
     else if (argument === "--rebind-runtime-callsites") options.rebindRuntimeCallsites = true;
+    else if (argument === "--review-runtime-topology") options.reviewRuntimeTopology = true;
+    else if (argument === "--baseline-review-index") options.baselineReviewIndex = next();
     else if (argument === "--review-legacy-candidate-bytes") options.reviewLegacyCandidateBytes = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
     else if (argument === "--help" || argument === "-h") options.help = true;
@@ -605,8 +617,8 @@ function isTestOnlyPath(relativePath) {
   );
 }
 
-function collectProtectedDiff(fromCommit, toCommit) {
-  const output = git(["diff", "--name-only", `${fromCommit}..${toCommit}`, "--", ...protectedPaths]).trim();
+function collectProtectedDiff(fromCommit, toCommit, projectionPaths = protectedPaths) {
+  const output = git(["diff", "--name-only", `${fromCommit}..${toCommit}`, "--", ...projectionPaths]).trim();
   const changedPaths = output === "" ? [] : output.split("\n").filter(Boolean).sort();
   return {
     changedPaths,
@@ -1044,6 +1056,169 @@ export function buildReaffirmedEvidence(sourceEvidence, context) {
   return next;
 }
 
+
+function topologyFail(reason) { throw new Error(`topology review: ${reason}`); }
+function readTopologyGitFile(commit, relativePath) {
+  const safe = assertSafeRelative(relativePath, "Topology authority");
+  const raw = git(["ls-tree", "-z", commit, "--", safe.relative]);
+  const match = raw.match(/^(100644|100755) blob ([a-f0-9]{40})\t([^\0]+)\0$/u);
+  if (!match || match[3] !== safe.relative) topologyFail("committed authority must be a regular Git blob");
+  return { bytes: gitBlob(commit, safe.relative), mode: match[1], objectId: match[2] };
+}
+function topologyIndexPin(options, manifest, revisionRoot) {
+  const requested = assertSafeRelative(options.baselineReviewIndex, "Baseline review index").relative;
+  if (!options.evidenceCommit) {
+    if (options.writeBindings) topologyFail("--write-bindings requires --evidence-commit");
+    const reviewCommit = resolveCommit("HEAD", "Review commit");
+    const file = readTopologyGitFile(reviewCommit, requested);
+    return { path: requested, reviewCommit, rawSha256: sha256(file.bytes) };
+  }
+  if (!options.evidenceCommit) topologyFail("--write-bindings requires --evidence-commit");
+  const evidenceCommit = resolveCommit(options.evidenceCommit, "Evidence commit");
+  const evidenceByRole = new Map(manifest.evidenceBindings.map(binding => {
+    const destination = `${revisionRoot.relative}/inputs/evidence/${path.posix.basename(binding.evidencePath)}`;
+    return [binding.role,readTopologyGitFile(evidenceCommit,destination).bytes];
+  }));
+  const common=recoverCommittedTopologyReviewIndex(evidenceByRole,requested);
+  assertAncestor(common.reviewCommit, evidenceCommit, "Pinned review commit");
+  return common;
+}
+function makeTopologyArtifactReader(indexPin, evidenceCommit = null) {
+  const head = resolveCommit("HEAD", "HEAD");
+  assertAncestor(indexPin.reviewCommit, head, "Pinned review commit");
+  if (evidenceCommit) {
+    assertAncestor(indexPin.reviewCommit, evidenceCommit, "Pinned review commit");
+    assertAncestor(evidenceCommit, head, "Evidence commit");
+  }
+  return async (reference) => {
+    const committed = readTopologyGitFile(reference.reviewedCommit, reference.path);
+    for (const checkCommit of [indexPin.reviewCommit, ...(evidenceCommit ? [evidenceCommit] : []), head]) {
+      const current = readTopologyGitFile(checkCommit, reference.path);
+      if (current.mode !== committed.mode || current.objectId !== committed.objectId || !current.bytes.equals(committed.bytes)) topologyFail("review authority changed after its pinned commit");
+    }
+    const file = resolveRepositoryFile(reference.path, "Pinned review authority");
+    const mode=fs.lstatSync(file.absolute).mode & 0o111 ? "100755" : "100644";
+    if (mode!==committed.mode || !fs.readFileSync(file.absolute).equals(committed.bytes)) topologyFail("review authority differs from working bytes or mode");
+    return committed;
+  };
+}
+/** Bind the native scan and the physical files to the verified target archive,
+ * including changes hidden by index flags or core.filemode. This reads only the
+ * complete protected runtime/anchor inventory, never Git status as byte proof. */
+export function verifyRuntimeObservationBytes({ root, targetRecords, expectedObservation, actualObservation }) {
+  const records = validateProjectionRecords(targetRecords);
+  const byPath = new Map(records.map(record => [record.path, record]));
+  const physicalPaths = records.filter(record => TARGET_BASELINE_PROJECTION_PATHS.some(prefix => record.path === prefix || record.path.startsWith(prefix + "/"))).map(record => record.path);
+  const expected = new Map();
+  if (!expectedObservation?.snapshot || !actualObservation?.snapshot) topologyFail("native byte snapshot is missing");
+  for (const field of ["snapshot", "specialFiles", "sensitiveAnchors"]) {
+    if (fingerprint(expectedObservation[field]) !== fingerprint(actualObservation[field])) topologyFail("native byte snapshot or anchor differs from target archive");
+    const rows = field === "snapshot" ? expectedObservation.snapshot.files : expectedObservation[field];
+    if (!Array.isArray(rows)) topologyFail("native byte inventory is missing");
+    for (const row of rows) {
+      if (!row || typeof row.path !== "string" || !/^[a-f0-9]{64}$/u.test(row.rawSha256 ?? "")) topologyFail("native byte inventory is invalid");
+      assertSafeRelative(row.path, "Native byte path");
+      if (expected.has(row.path) && expected.get(row.path) !== row.rawSha256) topologyFail("native byte snapshots disagree");
+      expected.set(row.path, row.rawSha256);
+    }
+  }
+  if (fingerprint([...expected.keys()].sort()) !== fingerprint(physicalPaths)) topologyFail("native byte inventory differs from the complete protected Git tree");
+  const canonicalRoot = path.resolve(root);
+  if (fs.realpathSync(canonicalRoot) !== canonicalRoot || fs.lstatSync(canonicalRoot).isSymbolicLink()) topologyFail("native byte root is not canonical");
+  const actual = [];
+  let totalBytes = 0;
+  for (const relative of physicalPaths) {
+    let absolute = canonicalRoot;
+    const parts = relative.split("/");
+    for (let index = 0; index < parts.length; index += 1) {
+      absolute = path.join(absolute, parts[index]);
+      const component = fs.lstatSync(absolute);
+      if (component.isSymbolicLink() || (index < parts.length - 1 && !component.isDirectory())) topologyFail("native byte path contains a symlink or invalid component");
+      if (index === parts.length - 1 && !component.isFile()) topologyFail("native byte input is non-regular");
+    }
+    const fd = fs.openSync(absolute, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK);
+    try {
+      const before = fs.fstatSync(fd);
+      if (!before.isFile()) topologyFail("native byte input is not regular");
+      totalBytes += before.size;
+      assertCallsiteProjectionBudget({ fileCount: actual.length + 1, totalBytes, maxFileBytes: before.size });
+      const mode = before.mode & 0o111 ? "100755" : "100644";
+      if (mode !== byPath.get(relative).mode) topologyFail("native executable mode differs from target Git blob");
+      const bounded = Buffer.alloc(before.size + 1);
+      let length = 0;
+      while (length < bounded.length) {
+        const read = fs.readSync(fd, bounded, length, bounded.length - length, length);
+        if (read === 0) break;
+        length += read;
+      }
+      if (length !== before.size) topologyFail("native byte input size changed during bounded read");
+      const bytes = bounded.subarray(0, length);
+      const after = fs.fstatSync(fd), current = fs.lstatSync(absolute);
+      const identity = stat => [stat.dev, stat.ino, stat.size, stat.mode, stat.mtimeMs, stat.ctimeMs];
+      if (current.isSymbolicLink() || fingerprint(identity(before)) !== fingerprint(identity(after))
+        || fingerprint(identity(after)) !== fingerprint(identity(current)) || fs.realpathSync(absolute) !== absolute) topologyFail("native byte file changed during verification");
+      const rawSha256 = sha256(bytes);
+      const objectId = crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex");
+      if (rawSha256 !== expected.get(relative) || objectId !== byPath.get(relative).objectId) topologyFail("native byte content differs from target Git object");
+      actual.push({ path: relative, mode, objectId, rawSha256 });
+    } finally { fs.closeSync(fd); }
+  }
+  return fingerprint(actual);
+}
+
+/** Read-only collection. Outputs never constitute role attestation or native PASS. */
+export async function collectReviewedRuntimeTopology(manifest, targetCommit) {
+  assertCleanWorktree();
+  const head = resolveCommit("HEAD", "HEAD");
+  assertAncestor(manifest.targetBaselineCommit, targetCommit, "Topology source baseline");
+  if (collectProtectedDiff(targetCommit, head, TARGET_BASELINE_PROJECTION_PATHS).changedPaths.length) topologyFail("working runtime differs from the exact requested target");
+  const compatibilityPath = manifest.liveReachability.compatibilityManifestPath;
+  const compatibilityHash = manifest.liveReachability.compatibilityManifestRawSha256;
+  const candidate = await loadV2Candidate(repoRoot, manifest);
+  const checker = await collectV2CheckerReleaseProof(repoRoot, manifest, targetCommit);
+  await collectV2ProvenanceProof(repoRoot, manifest, candidate, targetCommit);
+  const ledger = loadCanonicalJson(resolveRepositoryFile(manifest.checkerRelease.ledgerPath,"Checker ledger"),"Checker ledger").value;
+  const entry = ledger.entries.find(x => x.version === manifest.checkerVersion);
+  if (!entry) topologyFail("checker release is absent");
+  for (const p of [manifest.candidatePackage.path, ...manifest.candidateArtifacts.map(x=>x.path), compatibilityPath, manifest.checkerRelease.ledgerPath, ...entry.bundlePaths]) {
+    const a=readTopologyGitFile(manifest.targetBaselineCommit,p), b=readTopologyGitFile(targetCommit,p);
+    if(a.mode!==b.mode || a.objectId!==b.objectId || !a.bytes.equals(b.bytes)) topologyFail("candidate/source/checker or compatibility binding changed");
+  }
+  const sourceRecords=callsiteCommitTreeRecords(manifest.targetBaselineCommit), targetRecords=callsiteCommitTreeRecords(targetCommit);
+  const source=materializeCommitTree(manifest.targetBaselineCommit); let target;
+  try {
+    target=materializeCommitTree(targetCommit);
+    const sourceTreeDigest=verifyCallsiteArchive(source.root,sourceRecords),targetTreeDigest=verifyCallsiteArchive(target.root,targetRecords);
+    const sourceCompatibility=loadCanonicalJsonAtRoot(source.root,compatibilityPath,"Source compatibility");
+    const targetCompatibility=loadCanonicalJsonAtRoot(target.root,compatibilityPath,"Target compatibility");
+    if(sourceCompatibility.rawSha256!==compatibilityHash||targetCompatibility.rawSha256!==compatibilityHash)topologyFail("compatibility bytes drifted");
+    const sourceRaw=await observeCanonicalRuntimePolicy(source.root,sourceCompatibility.value),targetRaw=await observeCanonicalRuntimePolicy(target.root,targetCompatibility.value);
+    const sourceObservation=projectRuntimeTopologyObservation(sourceRaw),targetObservation=projectRuntimeTopologyObservation(targetRaw);
+    // The current clean checkout has exactly the target's protected bytes. Reuse the
+    // complete native legacy/candidate scan, with the original immutable registry.
+    const semanticManifest=structuredClone(manifest);semanticManifest.liveReachability.expectedRuntimePolicy=targetObservation.policy;
+    const byteBinding = verifyRuntimeObservationBytes({ root: repoRoot, targetRecords, expectedObservation: targetRaw, actualObservation: targetRaw });
+    const native=await collectV2RuntimeAndLegacyProof(repoRoot,semanticManifest,targetCommit);
+    if (verifyRuntimeObservationBytes({ root: repoRoot, targetRecords, expectedObservation: targetRaw, actualObservation: native.runtimeObservation }) !== byteBinding) topologyFail("native byte binding drifted during semantic scan");
+    if(fingerprint(native.runtimePolicy)!==fingerprint(targetObservation.policy))topologyFail("native semantic scan differs from target projection");
+    const before=new Map(sourceRecords.map(x=>[x.path,x])),after=new Map(targetRecords.map(x=>[x.path,x]));
+    const changedFiles=collectProtectedDiff(manifest.targetBaselineCommit,targetCommit,TARGET_BASELINE_PROJECTION_PATHS).changedPaths.map(p=>({path:p,
+      before:before.has(p)?{mode:before.get(p).mode,objectId:before.get(p).objectId,rawSha256:sha256(gitBlob(manifest.targetBaselineCommit,p))}:null,
+      after:after.has(p)?{mode:after.get(p).mode,objectId:after.get(p).objectId,rawSha256:sha256(gitBlob(targetCommit,p))}:null}));
+    const scannerPaths=["coordination/integration/promotion-gate-lib.mjs","coordination/integration/v2/promotion-gate-v2-lib.mjs","scripts/promotion-runtime-topology-review.mjs","scripts/rebase-promotion-baseline.mjs"];
+    const scannerBindings=scannerPaths.sort().map(p=>({path:p,rawSha256:sha256(fs.readFileSync(resolveRepositoryFile(p,"Scanner source").absolute))}));
+    const proof=buildRuntimeTopologyReview({sourceCommit:manifest.targetBaselineCommit,targetCommit,sourceFiles:sourceRecords,targetFiles:targetRecords,
+      sourceExpectedPolicy:manifest.liveReachability.expectedRuntimePolicy,sourceObservation,targetObservation,sourceTreeDigest,targetTreeDigest,changedFiles,
+      immutableBindings:{candidateDigest:manifest.candidateDigest,sourceCommit:manifest.sourceCommit,checkerVersion:manifest.checkerVersion,checkerBundleDigest:checker.bundleDigest,
+        checkerReleaseCommit:manifest.checkerRelease.releaseCommit,compatibilityManifestRawSha256:compatibilityHash,legacyRegistryRawSha256:manifest.legacyResolution.rawSha256},
+      nativeSemanticProof:Object.fromEntries(["canonicalAuditDigest","resolutionProofsDigest","selectedIdentityHits","resolutionCount","approvedProjectionCount","dereachedCount","liveAllowed"].map(k=>[k,native.proof[k]])),scannerBindings});
+    verifyCallsiteArchive(source.root,sourceRecords);verifyCallsiteArchive(target.root,targetRecords);
+    if (verifyRuntimeObservationBytes({ root: repoRoot, targetRecords, expectedObservation: targetRaw, actualObservation: native.runtimeObservation }) !== byteBinding) topologyFail("native byte binding drifted before acceptance");
+    if(resolveCommit("HEAD","HEAD")!==head)topologyFail("HEAD changed during observation");assertCleanWorktree();
+    return {proof,targetObservedPolicy:targetObservation.policy};
+  } finally {target?.dispose();source.dispose();}
+}
+
 async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const manifest = manifestFile.value;
   if (manifest.targetBaselineCommit === targetCommit) {
@@ -1056,7 +1231,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   if (legacySource.rawSha256 !== manifest.legacyResolution.rawSha256) {
     throw new Error("Source legacy registry bytes do not match the Source Manifest.");
   }
-  const protectedDiff = collectProtectedDiff(manifest.targetBaselineCommit, targetCommit);
+  const protectedDiff = collectProtectedDiff(manifest.targetBaselineCommit, targetCommit, options.reviewRuntimeTopology ? TARGET_BASELINE_PROJECTION_PATHS : protectedPaths);
   const legacyCandidateRevision = options.reviewLegacyCandidateBytes
     ? collectReviewedLegacyCandidateByteRefresh(legacySource.value, targetCommit, protectedDiff)
     : null;
@@ -1065,7 +1240,10 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const legacyRelative = `${revisionRoot.relative}/inputs/legacy-resolution-registry.v2.6.json`;
   const legacyBytes = Buffer.from(canonicalJson(legacyValue), "utf8");
   const legacyRawSha256 = sha256(legacyBytes);
-  const runtimePolicyRevision = options.refreshRuntimePolicy
+  const reviewIndexPin = options.reviewRuntimeTopology ? topologyIndexPin(options, manifest, revisionRoot) : null;
+  const runtimePolicyRevision = options.reviewRuntimeTopology
+    ? await collectReviewedRuntimeTopology(manifest,targetCommit)
+    : options.refreshRuntimePolicy
     ? await collectRuntimePolicyRefresh(manifest)
     : options.reviewRuntimePolicy
       ? await collectReviewedRuntimePolicyEvolution(manifest, targetCommit)
@@ -1073,6 +1251,14 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
         ? await collectReviewedRuntimeCallsiteRebinding(manifest, targetCommit)
         : null;
 
+  const reviewedTopology = options.reviewRuntimeTopology ? await prepareReviewedTopologyEvidence({indexPin:reviewIndexPin,
+    context:{sourceManifest:{path:manifestFile.relative,rawSha256:manifestFile.rawSha256},sourceBaselineCommit:manifest.targetBaselineCommit,targetBaselineCommit:targetCommit,
+      revisionRoot:revisionRoot.relative,candidateDigest:manifest.candidateDigest,sourceCommit:manifest.sourceCommit,checkerVersion:manifest.checkerVersion,
+      checkerBundleDigest:manifest.checkerRelease.bundleDigest,runtimeTopologyProof:runtimePolicyRevision.proof,legacyRegistryPath:legacyRelative,
+      legacyRegistryRawSha256:legacyRawSha256,sourceEvidenceBindings:manifest.evidenceBindings},
+    readCommitted:makeTopologyArtifactReader(reviewIndexPin,options.evidenceCommit?resolveCommit(options.evidenceCommit,"Evidence commit"):null),
+    assertAncestor:async(a,b)=>assertAncestor(a,b,"Review authority ancestry")}) : null;
+  if (reviewedTopology && options.justification && options.justification !== reviewedTopology.justification.path) topologyFail("justification must match the pinned review index");
   const evidence = manifest.evidenceBindings.map((binding) => {
     const sourceFile = resolveRepositoryFile(binding.evidencePath, `${binding.role} source evidence`);
     const sourceLoaded = loadCanonicalJson(sourceFile, `${binding.role} source evidence`);
@@ -1084,7 +1270,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
       throw new Error(`${binding.role} source evidence does not match its reviewed commit.`);
     }
     const destinationRelative = `${revisionRoot.relative}/inputs/evidence/${path.posix.basename(sourceFile.relative)}`;
-    const value = options.producedAt
+    const value = reviewedTopology ? reviewedTopology.evidence.find(x=>x.role===binding.role).value : options.producedAt
       ? buildReaffirmedEvidence(sourceLoaded.value, {
           revisionId: revisionRoot.revisionId,
           producedAt: options.producedAt,
@@ -1115,6 +1301,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
     revisionRoot,
     protectedDiff,
     runtimePolicyRevision,
+    reviewedTopology,
     legacyCandidateRevision,
     legacy: {
       source: legacySource,
@@ -1140,7 +1327,9 @@ function printPlan(plan) {
     `  runtime diff : ${plan.protectedDiff.runtimePaths.join(", ") || "none"}`,
     `  test diff    : ${plan.protectedDiff.testOnlyPaths.join(", ") || "none"}`,
     `  runtime policy: ${
-      plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reaffirmation.v1"
+      plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-topology-review.v1"
+        ? "reviewed addition-only topology; preparation evidence only"
+        : plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reaffirmation.v1"
         ? "strict stale-fs-digest refresh"
         : plan.runtimePolicyRevision?.proof.schemaVersion === "promotion-runtime-policy-reviewed-evolution.v1"
           ? "reviewed literal-import graph evolution"
@@ -1177,10 +1366,12 @@ function writeNewFile(destination, bytes) {
 
 function writeEvidencePhase(options, plan) {
   assertCleanWorktree();
-  assertProducedAt(options.producedAt);
   const roles = requiredRoles(plan.manifest);
-  assertAttestations(plan.manifest, options.attestedBy);
-  assertCommittedJustification(options.justification, plan.targetCommit, roles, plan.revisionRoot.relative);
+  if (!options.reviewRuntimeTopology) {
+    assertProducedAt(options.producedAt);
+    assertAttestations(plan.manifest, options.attestedBy);
+    assertCommittedJustification(options.justification, plan.targetCommit, roles, plan.revisionRoot.relative);
+  }
   assertDestinationAbsent(plan.legacy.destination, "Revision legacy registry");
   for (const { destination } of plan.evidence) assertDestinationAbsent(destination, "Revision evidence");
   writeNewFile(plan.legacy.destination, plan.legacy.bytes);
@@ -1193,8 +1384,10 @@ function writeEvidencePhase(options, plan) {
 function writeBindingPhase(options, plan) {
   assertCleanWorktree();
   const roles = requiredRoles(plan.manifest);
-  assertAttestations(plan.manifest, options.attestedBy);
-  assertCommittedJustification(options.justification, plan.targetCommit, roles, plan.revisionRoot.relative);
+  if (!options.reviewRuntimeTopology) {
+    assertAttestations(plan.manifest, options.attestedBy);
+    assertCommittedJustification(options.justification, plan.targetCommit, roles, plan.revisionRoot.relative);
+  }
   if (!options.evidenceCommit) throw new Error("--write-bindings requires --evidence-commit.");
   const evidenceCommit = resolveCommit(options.evidenceCommit, "Evidence commit");
   assertAncestor(plan.targetCommit, evidenceCommit, "Target baseline");
@@ -1207,7 +1400,9 @@ function writeBindingPhase(options, plan) {
   if (!workingLegacy.equals(committedLegacy)) {
     throw new Error("Revision legacy registry must exactly match --evidence-commit.");
   }
-  const legacyValue = JSON.parse(committedLegacy.toString("utf8"));
+  if (options.reviewRuntimeTopology && !committedLegacy.equals(plan.legacy.bytes)) topologyFail("committed registry differs from recomputed exact bytes");
+  if (options.reviewRuntimeTopology) verifyPreparedTopologyEvidence(plan.reviewedTopology,new Map(plan.evidence.map(({binding,destination})=>[binding.role,gitBlob(evidenceCommit,destination.relative)])));
+  const legacyValue = options.reviewRuntimeTopology ? parsePromotionWorkflowJsonBytes(committedLegacy) : JSON.parse(committedLegacy.toString("utf8"));
   if (legacyValue.targetBaselineCommit !== plan.targetCommit) {
     throw new Error("Committed revision legacy registry has the wrong target baseline.");
   }
@@ -1302,12 +1497,16 @@ export async function main(argv = process.argv.slice(2)) {
   if (options.rejectedMonolithicWrite) {
     throw new Error("Monolithic --write is disabled; create an append-only revision with the two committed phases.");
   }
-  if ([options.refreshRuntimePolicy, options.reviewRuntimePolicy, options.rebindRuntimeCallsites].filter(Boolean).length > 1) {
+  if ([options.refreshRuntimePolicy, options.reviewRuntimePolicy, options.rebindRuntimeCallsites, options.reviewRuntimeTopology].filter(Boolean).length > 1) {
     throw new Error("Runtime-policy refresh, review and callsite rebinding modes are mutually exclusive.");
   }
-  if (options.rebindRuntimeCallsites && options.reviewLegacyCandidateBytes) {
+  if ((options.rebindRuntimeCallsites || options.reviewRuntimeTopology) && options.reviewLegacyCandidateBytes) {
     throw new Error("Callsite rebinding cannot combine with candidate-byte revision.");
   }
+  if (options.reviewRuntimeTopology && !options.baselineReviewIndex) throw new Error("Topology review requires --baseline-review-index.");
+  if (options.baselineReviewIndex && !options.reviewRuntimeTopology) throw new Error("--baseline-review-index requires --review-runtime-topology.");
+  if (options.reviewRuntimeTopology && options.writeEvidence && options.evidenceCommit) throw new Error("Topology evidence creation cannot consume an existing --evidence-commit.");
+  if (options.reviewRuntimeTopology && (options.attestedBy.length || options.producedAt)) throw new Error("Topology review uses committed role decisions and dates, not --attested-by or --produced-at.");
   if (
     !options.manifest ||
     !options.target ||
@@ -1318,15 +1517,15 @@ export async function main(argv = process.argv.slice(2)) {
     process.exitCode = 2;
     return;
   }
-  if (options.rebindRuntimeCallsites && git(["rev-parse", "--is-shallow-repository"]).trim() !== "false") {
+  if ((options.rebindRuntimeCallsites || options.reviewRuntimeTopology) && git(["rev-parse", "--is-shallow-repository"]).trim() !== "false") {
     throw new Error("REBINDING_FULL_HISTORY_REQUIRED: shallow history cannot prove baseline ancestry.");
   }
   const manifestFile = loadManifest(options.manifest);
   const targetCommit = resolveCommit(options.target, "Target baseline");
   assertAncestor(targetCommit, resolveCommit("HEAD", "HEAD"), "Target baseline");
   const revisionRoot = resolveRevisionRoot(manifestFile.relative, options.revisionRoot);
-  if (options.writeEvidence) assertProducedAt(options.producedAt);
-  if (options.refreshRuntimePolicy || options.reviewRuntimePolicy || options.rebindRuntimeCallsites) assertCleanWorktree();
+  if (options.writeEvidence && !options.reviewRuntimeTopology) assertProducedAt(options.producedAt);
+  if (options.refreshRuntimePolicy || options.reviewRuntimePolicy || options.rebindRuntimeCallsites || options.reviewRuntimeTopology) assertCleanWorktree();
   const plan = await planRevision(manifestFile, targetCommit, revisionRoot, options);
   printPlan(plan);
   if (options.writeEvidence) writeEvidencePhase(options, plan);
