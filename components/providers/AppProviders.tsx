@@ -1867,6 +1867,7 @@ export function AppProviders({
     clearHighFrequencyFlushHandle();
     setMistakeRecords([]);
     currentUserRef.current = null;
+    quarantinedUserRef.current = null;
     dispatchCore({ type: "clear-session" });
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
