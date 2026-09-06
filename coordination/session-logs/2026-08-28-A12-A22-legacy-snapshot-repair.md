@@ -177,3 +177,20 @@ diff and remain outside the final files-changed set.
   the rejected runtime attempt; no discard, cleanup, or history rewrite.
 - Worktree lifecycle: retain clean with PR #207 open; remove only after merge
   and after proving no uncommitted or untracked work needs preservation.
+
+## Post-merge release continuation
+
+- PR #207 merged at `2026-08-27T22:06:17Z`; merge commit and live
+  `origin/main` are `71d7b74688b74121246459c6f4215760f66b6528`.
+- Exact-merge post-push CI run `33121111787` completed `7/7` jobs with success,
+  including PostgreSQL 16 integration, notification outbox/webhook integration,
+  parent/teacher E2E, validation, and build. Promotion Shadow run `33121111850`
+  also completed successfully on the same SHA.
+- A clean detached release-build worktree was created at
+  `/Volumes/Starship/MAIS-MVP/.worktrees/a22-parent-production-release-71d7b74`
+  from that exact merge commit. Owner/lane: A22 with A12/A19/A23 coordination;
+  target PR: none (read-only release source); creation date: 2026-08-28 HKT;
+  expected closeout: same day after production evidence capture, only if clean.
+- The detached release worktree must remain byte-identical to the merge commit.
+  This session log stays in the already merged audit branch so lifecycle notes
+  cannot change the candidate SHA.
