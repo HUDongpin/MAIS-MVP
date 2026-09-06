@@ -352,8 +352,10 @@ mistake-refresh, or pager advancement.
 fallback is ignored local output under `.tmp/classroom-load-smoke/`.
 The writer permits only that repository default or a canonical direct child of the OS temporary
 directory (or a pre-existing exact `CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT`). Traversal, symlinked
-ancestors, unsafe node types, hardlinks, group/other permissions, and concurrent replacement races
-fail closed; accepted results are written through an exclusive 0600 temporary file, file fsync,
+ancestors, unsafe node types, hardlinks, and group/other permissions fail closed. The cooperative
+writer lock and fingerprint checks reject replacement races observed at their defined checkpoints;
+they do not close the non-cooperative validation-to-rename window, in which another writer's
+replacement may be overwritten. Accepted results are written through an exclusive 0600 temporary file, file fsync,
 atomic rename, and target-directory fsync. A target-directory fsync failure is reported as a
 failure after the complete renamed artifact may already be visible; the writer does not risk
 replacing it again to simulate rollback. Temporary-file and lock cleanup is identity-checked best
