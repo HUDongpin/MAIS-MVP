@@ -217,6 +217,15 @@ jobs:
       - name: Run visualization gate
         run: npm run test:visualizations
 
+      # Complement the browser gate with static markup checks of real lesson
+      # components. Use automatic JSX without changing Next's JSX configuration
+      # or the release-governed package commands.
+      - name: Run lesson visualization SSR gate
+        run: >-
+          npx tsx --test
+          --tsconfig tsconfig.lesson-visualization-render.json
+          components/visualizations/lessonVisualizationRender.test.tsx
+
       - name: Run component gate (discovers every components/**/*.test.ts)
         run: npm run test:components
 

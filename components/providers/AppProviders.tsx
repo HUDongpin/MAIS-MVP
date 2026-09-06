@@ -112,7 +112,7 @@ type SettingsContextValue = {
   t: (value: LocalizedText) => string;
 };
 
-const SettingsContext = createContext<SettingsContextValue | null>(null);
+export const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 function isFirstPaintSensitiveStudentPath(pathname: string) {
   return (
