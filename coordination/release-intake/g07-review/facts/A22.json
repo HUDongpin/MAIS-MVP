@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "mais-s7-a22-baseline-facts.v1",
+  "producedAt": "2026-09-06T14:06:50.609Z",
+  "role": "A22",
+  "actor": {
+    "identity": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+    "humanSignature": false
+  },
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "semanticPayload": {
+    "contractVersion": "promotion-a22-shadow-isolation-preflight.v2",
+    "reviewedCompositionCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "mergedOriginMainCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "cleanWorktreeRequired": true,
+    "externalSideEffectsAllowed": false,
+    "dependencyState": {
+      "mode": "existing isolated installation reused",
+      "freshNpmCiPerformed": false,
+      "versions": {
+        "node": "v24.15.0",
+        "npm": "11.16.0"
+      },
+      "packageLockRawSha256": "b522c15fcf2987054ef959f2a8c432c6d685cb77cedf34dc6e6de3994945a9c4"
+    },
+    "productionBuild": {
+      "mode": "npm run test:e2e with existing build-before-webserver harness",
+      "result": "pass",
+      "compiled": true,
+      "deploymentPerformed": false,
+      "runId": "s7-baseline-home-20260906",
+      "passedBrowserChecks": 14,
+      "deviceSpecificSkippedChecks": 4,
+      "logRawSha256": "0fea10744b05ceec1ac8699ec5293f9cf8df2a37a6bdc3efb54906fa046b5ba2",
+      "durationSeconds": 86.93
+    },
+    "buildIsolationProof": {
+      "sourceWorktree": "/Volumes/Starship/MAIS的衍生文件/MAIS-main-wt",
+      "sourceCleanAfterChecks": true,
+      "headUnchanged": true,
+      "port": 3096,
+      "listenerCountAfterRun": 0,
+      "environmentKeys": [
+        "PATH",
+        "LANG",
+        "LC_ALL",
+        "TMPDIR",
+        "CI",
+        "PLAYWRIGHT_PORT",
+        "PLAYWRIGHT_RUN_ID",
+        "PLAYWRIGHT_WORKERS",
+        "NEXT_TELEMETRY_DISABLED"
+      ],
+      "providerPolicy": "minimal env + existing disabledProviderEnv; no .env; test-owned SQLite",
+      "databaseScope": "test-owned SQLite; browser login/logout fixtures perform local writes",
+      "networkScope": "loopback browser traffic; no real receiver or provider requested; no packet-level external network count asserted",
+      "bindings": [
+        {
+          "path": "package.json",
+          "rawSha256": "90d22201a74877a31491661e0281d68fcc59d1aa6a27f77ab1b731bef271f990",
+          "gitBlobId": "8a53e39dc1960db46cce791ff13ac97698e476da"
+        },
+        {
+          "path": "package-lock.json",
+          "rawSha256": "b522c15fcf2987054ef959f2a8c432c6d685cb77cedf34dc6e6de3994945a9c4",
+          "gitBlobId": "4adccabd5f496cad6b76899ce636803427bb0021"
+        },
+        {
+          "path": "playwright.config.ts",
+          "rawSha256": "55c92a8335439dd2810d94f587d166e7fb3d4c872550559a2eae56da3f4f25ba",
+          "gitBlobId": "f32b9ab8b48c9f2d8c6ff7e9ef29a1f31721b42a"
+        },
+        {
+          "path": "next-env.d.ts",
+          "rawSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+          "gitBlobId": "830fb594ca2970a827555c28a253b097367e08d8"
+        },
+        {
+          "path": "scripts/release-env-guard.mjs",
+          "rawSha256": "5d1ef0cd0d058de6701d5bf7a1d48d502fd47155afc88b1752f14072a138a08b",
+          "gitBlobId": "4fe4093100f0a66d93ae23ec3d1a99f834e39ddc"
+        },
+        {
+          "path": "tests/e2e/home-functional.spec.ts",
+          "rawSha256": "d3be91ab7c82d21be5fb061bec3b7d0e5c7b0a2f8fdbbdf441a01c318de8d101",
+          "gitBlobId": "f4993a2a1112aeffd28e00ec694663fc1578c971"
+        }
+      ]
+    },
+    "externalSideEffects": {
+      "permittedForPromotionShadow": false,
+      "providerCallsConfigured": false,
+      "deploymentPerformed": false,
+      "realCredentialFilesOpened": false,
+      "networkRequestCount": "not instrumented; local browser requests occurred",
+      "productionWritesRequested": false
+    },
+    "worktreeCleanAfterChecks": true,
+    "postRunOwner": "A22",
+    "liveAllowed": false,
+    "scopeLimitations": [
+      "This is fresh target-baseline build and homepage regression evidence, not a current registered Shadow execution or independent replay.",
+      "No claim of freshly reinstalling dependencies, rerunning all regression suites, or zero network/database writes from local browser tests.",
+      "Future Shadow must independently prove its own exact execution commit, clean workspace and non-live boundary."
+    ]
+  },
+  "actualExecution": {
+    "role": "A22",
+    "reviewerTask": "01a075a1-07c9-7620-ac2c-2f1e9d330b78/root",
+    "head": "7f692278989b4bf45496d239bccb9263326b5453",
+    "command": [
+      "/usr/local/bin/npm",
+      "run",
+      "test:e2e",
+      "--",
+      "tests/e2e/home-functional.spec.ts",
+      "--project=desktop-chrome",
+      "--project=mobile-chrome"
+    ],
+    "runId": "s7-baseline-home-20260906",
+    "environmentKeys": [
+      "PATH",
+      "LANG",
+      "LC_ALL",
+      "TMPDIR",
+      "CI",
+      "PLAYWRIGHT_PORT",
+      "PLAYWRIGHT_RUN_ID",
+      "PLAYWRIGHT_WORKERS",
+      "NEXT_TELEMETRY_DISABLED"
+    ],
+    "startedAt": "2026-09-06T13:54:28.336384+00:00",
+    "providerPolicy": "minimal env + existing disabledProviderEnv; no .env; test-owned SQLite"
+  },
+  "originalResult": {
+    "role": "A22",
+    "head": "7f692278989b4bf45496d239bccb9263326b5453",
+    "exitCode": 0,
+    "durationSeconds": 86.93,
+    "sourceClean": true,
+    "headUnchanged": true,
+    "runId": "s7-baseline-home-20260906",
+    "log": "S7-A22-target-baseline-validation/home-and-build.log"
+  },
+  "evidenceFiles": [
+    {
+      "path": "S7-A22-target-baseline-validation/started.json",
+      "rawSha256": "f4df99f87dba2a0bf2a957dbdb5d2339c8dc2d630ec8b2b443fdd84da709738d"
+    },
+    {
+      "path": "S7-A22-target-baseline-validation/result.json",
+      "rawSha256": "8c4a7451c621fad406c25fa3993e76fac6ea929856da8d60bacaebb42e590a74"
+    },
+    {
+      "path": "S7-A22-target-baseline-validation/home-and-build.log",
+      "rawSha256": "0fea10744b05ceec1ac8699ec5293f9cf8df2a37a6bdc3efb54906fa046b5ba2"
+    }
+  ]
+}

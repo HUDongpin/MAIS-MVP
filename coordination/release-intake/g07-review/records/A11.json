@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "promotion-baseline-role-review.v1",
+  "role": "A11",
+  "reviewedAt": "2026-09-06T16:48:18.067Z",
+  "reviewer": {
+    "identity": "/root/s5_quality_review/s7_binding_contract",
+    "reference": {
+      "path": "coordination/release-intake/g07-review/facts/A11.json",
+      "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a"
+    }
+  },
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a11-independent-preflight.v2.6.json",
+    "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+    "rawSha256": "436488d7b9ad8dde9ca2308819e0159e2b7d650d6c56ceccb011e2e5787dbe40",
+    "producedAt": "2026-09-06T02:02:24.430Z",
+    "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f"
+  },
+  "evidence": {
+    "schemaVersion": "promotion-evidence.v2",
+    "evidenceId": "a11-g07-reviewed-main-7f692278",
+    "role": "A11",
+    "result": "pass",
+    "producedAt": "2026-09-06T16:48:18.067Z",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "semanticPayload": {
+      "contractVersion": "promotion-a11-shadow-preflight.v2",
+      "independentReplayRequired": true,
+      "liveAllowed": false,
+      "reviewScope": "Independent preparer-core and reaffirmation-history tooling review only; a fresh post-run replay remains required.",
+      "independentChecks": {
+        "preparerCore": {
+          "result": "pass-with-one-explicit-historical-skip",
+          "originalReviewCompletedAt": "2026-09-06T15:34:21.002888+00:00",
+          "originalBoundaryExecutionRecordedAt": "2026-09-06T15:29:53.585Z",
+          "sourceSnapshotDigest": "bcdf71daaf99e13cf62f68df0b8d39705994c2798326409ce166422bca61099b",
+          "sourceSnapshotAlgorithm": "SHA256 of compact JSON ordered array of {path,sha256} records",
+          "focusedTests": {
+            "tests": 51,
+            "pass": 50,
+            "fail": 0,
+            "skip": 1,
+            "skipReason": "Historical shallow-host check is not applicable to this full-history repository.",
+            "logRawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f"
+          },
+          "boundaryTests": {
+            "total": 30,
+            "dateCases": 15,
+            "physicalCases": 15,
+            "allExpectedOutcomesMatched": true,
+            "resultRawSha256": "26519be676997cfd3d35f4674fc972c436a559035a598e8a898c44f838612cf6"
+          },
+          "exactFocusedExecutionTimeRecorded": false,
+          "focusedExecutionTimeLimit": "The raw log has no execution wall-clock timestamp; the run completed before its retained original review completion time. No new timestamp is assigned to that run."
+        },
+        "historyParser": {
+          "result": "pass",
+          "originalReviewCompletedAt": "2026-09-06T16:28:22.409182+00:00",
+          "originalBoundaryExecutionRecordedAt": "2026-09-06T16:26:16.646Z",
+          "sourceSnapshotDigest": "d55925927dba880cc34030893c1a5973cc2cf0dc5618de71b18b87fb9211d0f7",
+          "sourceSnapshotAlgorithm": "SHA256 sorted path + NUL + sha256 + LF UTF8 records",
+          "focusedTests": {
+            "tests": 34,
+            "pass": 34,
+            "fail": 0,
+            "skip": 0,
+            "logRawSha256": "3cbaa73ae5fa1b0e7b46a8bc98354fe2a268f3361bdad8aecb33c53dfd42cc89"
+          },
+          "independentFixedAndAdversarialChecks": {
+            "pass": 4,
+            "fail": 0,
+            "resultRawSha256": "9492e26f6622199cda4ec76b1b7c4f7ed764b5c639906da698cc31f483de5903",
+            "scope": "Original graft fixture rejects under default/explicit/unavailable override; fixed main7f and b583 retain exact original authority events."
+          },
+          "exactFocusedExecutionTimeRecorded": false,
+          "focusedExecutionTimeLimit": "The raw log has no execution wall-clock timestamp; the run completed before its retained original review completion time. No new timestamp is assigned to that run."
+        }
+      },
+      "baselineReview": {
+        "kind": "committed-tooling-publication-consistency-review",
+        "reviewedAt": "2026-09-06T16:48:18.067Z",
+        "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+        "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "reviewedCodeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "parentCodeCommit": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+        "reviewedSourceFiles": 9,
+        "protectedBindings": 17,
+        "committedBytesMatchPriorIndependentReviews": true,
+        "coreFourCodeFilesUnchanged": true,
+        "sharedContractHistoryAppendSeparatelyReviewed": true,
+        "sourceBindingReceiptRawSha256": "df01ee738bdd99a5f7437df6af7a5d607f25ac92a0d519afa508da9cb9db3673",
+        "checksRerunDuringPublication": false,
+        "result": "pass-for-the-declared-tooling-scope"
+      },
+      "notPerformed": [
+        "Complete source/target native archive collector",
+        "Actual committed role-index/evidence currentness acceptance",
+        "Actual write-evidence or write-bindings phases",
+        "Shadow/canonical execution/fresh replay/Receipt/Closure finalization",
+        "Build or browser regressions",
+        "CI/provider/production/deployment",
+        "Final promotion attestation/index or future commit binding"
+      ]
+    }
+  },
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/contractVersion",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "independentReplayRequired",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/independentReplayRequired",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/liveAllowed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "reviewScope",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/reviewScope",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "independentChecks",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/independentChecks",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "baselineReview",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/baselineReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "notPerformed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A11.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/notPerformed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "mais-g08-code-validation.v1",
+  "recordedAt": "2026-09-06T18:09:58.184+00:00",
+  "executionCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+  "checks": [
+    {
+      "command": "npm run type-check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check:imports",
+      "exitCode": 0,
+      "result": "All local import targets resolved."
+    },
+    {
+      "command": "npm run test:imports",
+      "exitCode": 0,
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "skip": 0
+    }
+  ],
+  "newProductionBuildAtBinding": false,
+  "baselineBuildEvidence": "G07 facts/A22 records actual clean main7f build plus14homepage checks/4device skips; no retiming",
+  "scope": "Actual Root tool executions at unchanged B. Frozen native subset passes do not override the separate skill workflow authority blocker."
+}

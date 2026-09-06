@@ -3,6 +3,7 @@ const errorNames = new Set(["Error", "TypeError", "ReferenceError", "RangeError"
 export const clientErrorSources = ["window.onerror", "unhandledrejection", "global-error-boundary", "client"] as const;
 const sources = new Set<string>(clientErrorSources);
 const exactRoutes = new Set([
+  "/api/me", "/api/auth/password-change", "/api/auth/password-reset/request", "/api/auth/password-reset/confirm",
   "/", "/login", "/register", "/dashboard", "/practice", "/lesson", "/learning-path", "/progress", "/mistake-book", "/teacher", "/parent", "/messages", "/assessment", "/resource", "/visualization-lab", "/games", "/secondary-roadmap", "/student",
   "/api/auth/login", "/api/auth/register", "/api/auth/logout", "/api/auth/logout-all", "/api/auth/session", "/api/auth/session-state", "/api/auth/reset-password", "/api/auth/forgot-password", "/api/ai-tutor", "/api/ai-tutor/resolve", "/api/health", "/api/observability/client-error", "/api/observability/test-error"
 ]);

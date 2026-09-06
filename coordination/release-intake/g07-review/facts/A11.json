@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "mais-s7-a11-publication-facts.v1",
+  "producedAt": "2026-09-06T16:48:18.067Z",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "role": "A11",
+  "actor": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "distinctReviewerCount": 1,
+    "implementationAuthorOfReviewedTools": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "reviewedCodeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+  "reviewKind": "committed-tooling-publication-consistency-review",
+  "reviewResult": "pass-for-preparer-and-history-scope-only",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "independentReplayRequired": true,
+    "liveAllowed": false,
+    "reviewScope": "Independent preparer-core and reaffirmation-history tooling review only; a fresh post-run replay remains required.",
+    "independentChecks": {
+      "preparerCore": {
+        "result": "pass-with-one-explicit-historical-skip",
+        "originalReviewCompletedAt": "2026-09-06T15:34:21.002888+00:00",
+        "originalBoundaryExecutionRecordedAt": "2026-09-06T15:29:53.585Z",
+        "sourceSnapshotDigest": "bcdf71daaf99e13cf62f68df0b8d39705994c2798326409ce166422bca61099b",
+        "sourceSnapshotAlgorithm": "SHA256 of compact JSON ordered array of {path,sha256} records",
+        "focusedTests": {
+          "tests": 51,
+          "pass": 50,
+          "fail": 0,
+          "skip": 1,
+          "skipReason": "Historical shallow-host check is not applicable to this full-history repository.",
+          "logRawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f"
+        },
+        "boundaryTests": {
+          "total": 30,
+          "dateCases": 15,
+          "physicalCases": 15,
+          "allExpectedOutcomesMatched": true,
+          "resultRawSha256": "26519be676997cfd3d35f4674fc972c436a559035a598e8a898c44f838612cf6"
+        },
+        "exactFocusedExecutionTimeRecorded": false,
+        "focusedExecutionTimeLimit": "The raw log has no execution wall-clock timestamp; the run completed before its retained original review completion time. No new timestamp is assigned to that run."
+      },
+      "historyParser": {
+        "result": "pass",
+        "originalReviewCompletedAt": "2026-09-06T16:28:22.409182+00:00",
+        "originalBoundaryExecutionRecordedAt": "2026-09-06T16:26:16.646Z",
+        "sourceSnapshotDigest": "d55925927dba880cc34030893c1a5973cc2cf0dc5618de71b18b87fb9211d0f7",
+        "sourceSnapshotAlgorithm": "SHA256 sorted path + NUL + sha256 + LF UTF8 records",
+        "focusedTests": {
+          "tests": 34,
+          "pass": 34,
+          "fail": 0,
+          "skip": 0,
+          "logRawSha256": "3cbaa73ae5fa1b0e7b46a8bc98354fe2a268f3361bdad8aecb33c53dfd42cc89"
+        },
+        "independentFixedAndAdversarialChecks": {
+          "pass": 4,
+          "fail": 0,
+          "resultRawSha256": "9492e26f6622199cda4ec76b1b7c4f7ed764b5c639906da698cc31f483de5903",
+          "scope": "Original graft fixture rejects under default/explicit/unavailable override; fixed main7f and b583 retain exact original authority events."
+        },
+        "exactFocusedExecutionTimeRecorded": false,
+        "focusedExecutionTimeLimit": "The raw log has no execution wall-clock timestamp; the run completed before its retained original review completion time. No new timestamp is assigned to that run."
+      }
+    },
+    "baselineReview": {
+      "kind": "committed-tooling-publication-consistency-review",
+      "reviewedAt": "2026-09-06T16:48:18.067Z",
+      "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "reviewedCodeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+      "parentCodeCommit": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+      "reviewedSourceFiles": 9,
+      "protectedBindings": 17,
+      "committedBytesMatchPriorIndependentReviews": true,
+      "coreFourCodeFilesUnchanged": true,
+      "sharedContractHistoryAppendSeparatelyReviewed": true,
+      "sourceBindingReceiptRawSha256": "df01ee738bdd99a5f7437df6af7a5d607f25ac92a0d519afa508da9cb9db3673",
+      "checksRerunDuringPublication": false,
+      "result": "pass-for-the-declared-tooling-scope"
+    },
+    "notPerformed": [
+      "Complete source/target native archive collector",
+      "Actual committed role-index/evidence currentness acceptance",
+      "Actual write-evidence or write-bindings phases",
+      "Shadow/canonical execution/fresh replay/Receipt/Closure finalization",
+      "Build or browser regressions",
+      "CI/provider/production/deployment",
+      "Final promotion attestation/index or future commit binding"
+    ]
+  },
+  "originalReports": [
+    {
+      "path": "/private/tmp/mais-s7-review/S7-preparer-recheck.json",
+      "rawSha256": "f50fe480e3398ba7ea305fb3aab479224793e2d51f8ae945afc4f0dad2b49b50",
+      "producedAt": "2026-09-06T15:34:21.002888+00:00",
+      "originalReviewCompletedAt": "2026-09-06T15:34:21.002888+00:00",
+      "originalExecutionRecordedAt": "2026-09-06T15:29:53.585Z",
+      "scope": "preparer-core"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/PR167-parser-independent-recheck.json",
+      "rawSha256": "0c2caef7c7406f03689fc26d5e4cb2c494b0dc6653ce8abe7ead049f7e6987bb",
+      "producedAt": "2026-09-06T16:28:22.409182+00:00",
+      "originalReviewCompletedAt": "2026-09-06T16:28:22.409182+00:00",
+      "originalExecutionRecordedAt": "2026-09-06T16:26:16.646Z",
+      "scope": "history-parser"
+    }
+  ],
+  "originalChecksReexecutedDuringPublication": false,
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/contractVersion",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    },
+    {
+      "field": "independentReplayRequired",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/independentReplayRequired",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/liveAllowed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    },
+    {
+      "field": "reviewScope",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/reviewScope",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    },
+    {
+      "field": "independentChecks",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/independentChecks",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    },
+    {
+      "field": "baselineReview",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/baselineReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    },
+    {
+      "field": "notPerformed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/A11-publication-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "0098a462b87d5655d0ed4a7d9b4c8333145fbb690677d211d7fbd88005bd5603",
+        "producedAt": "2026-09-06T16:48:18.067Z",
+        "valuePointer": "/semanticPayload/notPerformed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Fresh publication consistency review at target7f and actual code commit3a0a8ac9; exact field value is in the hash-bound observation material. Original independent test dates/results stay historical observations, not new executions."
+    }
+  ],
+  "fieldReferenceState": "External uncommitted factual materials. reviewedCommit is intentionally null; absolute paths and actual raw hashes/producedAt/valuePointer/targetBaselinePointer are known. Root must publish materials then create final relative-path pins with the real publication commit. This is not a final helper role record or index.",
+  "authorValidationExcludedFromIndependentResults": {
+    "actor": "/root/s5_quality_review",
+    "command": "npm run test:promotion-gate",
+    "reportedPass": 106,
+    "reportedFail": 0,
+    "independentlyRerunByThisActor": false,
+    "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/PR167-parser-validation/public-graft-final.log",
+    "rawSha256": "cb010377238207889070484f64f0bfdebafff4c18b3c53d93ea9f6e7a5a93e71"
+  },
+  "otherActorValidationExcluded": {
+    "actualTarget3819PhysicalPositiveByRoot": true,
+    "reviewerDidNotRerunIt": true,
+    "noBuildOrNativePassInferred": true
+  },
+  "evidenceInputs": [
+    {
+      "path": "/private/tmp/mais-s7-review/recheck-focused.log",
+      "rawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f"
+    },
+    {
+      "path": "/private/tmp/mais-s7-review/recheck-behavior.json",
+      "rawSha256": "26519be676997cfd3d35f4674fc972c436a559035a598e8a898c44f838612cf6",
+      "producedAt": "2026-09-06T15:29:53.585Z"
+    },
+    {
+      "path": "/private/tmp/mais-s7-review/recheck-behavior.mjs",
+      "rawSha256": "f4bec386e2f05e7e6b4da0986b78a134b3954da7fa67e303fca916a90e7957fe"
+    },
+    {
+      "path": "/private/tmp/mais-history-review/recheck/old-entry.log",
+      "rawSha256": "3cbaa73ae5fa1b0e7b46a8bc98354fe2a268f3361bdad8aecb33c53dfd42cc89"
+    },
+    {
+      "path": "/private/tmp/mais-history-review/recheck/independent-graft-recheck.json",
+      "rawSha256": "9492e26f6622199cda4ec76b1b7c4f7ed764b5c639906da698cc31f483de5903",
+      "producedAt": "2026-09-06T16:26:16.646Z"
+    },
+    {
+      "path": "/private/tmp/mais-history-review/recheck/independent-graft-recheck.mjs",
+      "rawSha256": "4ac37a39a931057dc0b9c8dce70e96c9094e6a3ae48c00a2ba43b20a6a1062e7"
+    },
+    {
+      "path": "/private/tmp/mais-s7-a11-publication/committed-source-binding.json",
+      "rawSha256": "df01ee738bdd99a5f7437df6af7a5d607f25ac92a0d519afa508da9cb9db3673",
+      "producedAt": "2026-09-06T16:42:49.619859+00:00"
+    }
+  ],
+  "sourceCommitBindingReceipt": {
+    "path": "/private/tmp/mais-s7-a11-publication/committed-source-binding.json",
+    "rawSha256": "df01ee738bdd99a5f7437df6af7a5d607f25ac92a0d519afa508da9cb9db3673",
+    "producedAt": "2026-09-06T16:42:49.619859+00:00"
+  },
+  "authority": {
+    "finalPromotionEvidence": false,
+    "roleReviewIndex": false,
+    "futureCommitClaim": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false,
+    "liveAllowed": false,
+    "shadowExecuted": false,
+    "sourceRepositoryWrites": false,
+    "gitMutations": false
+  },
+  "limits": [
+    "Scope is preparation-tool and history-parser review, not full native or Shadow execution.",
+    "The A11 schema contract name describes the required evidence interface; it does not assert full shadow-preflight completion. independentReplayRequired remains true.",
+    "Core source document later gained the independently reviewed history appendix; the original core five-path digest remains a historical review snapshot, while current committed union binds all nine files.",
+    "Exact focused-run wall-clock timestamps were not recorded in raw logs; retained review-completion timestamps are bounds, and explicit boundary-probe timestamps remain unchanged.",
+    "No original A11 preflight/build claim is cloned from historical role evidence. All seven payload fields point to this actual A11 observation material."
+  ]
+}
