@@ -20,16 +20,35 @@ others' in-progress work.
 - Never `git add -A` / `git add .` anywhere. Inspect `git status`, stage only
   files/hunks you authored this session (shared hotspots where foreign edits
   land: `lib/server/userStore.ts`, `types/index.ts`, `data/ccssStandards.ts`).
-- First commit on a new branch: push with `-u` immediately.
-- After a branch lands: remove its worktree the same day
-  (`git worktree remove <dir> && git worktree prune`) — stale or dirty
-  worktrees fail the A25 release lifecycle gate and block production deploys.
+- At branch/worktree creation, record `owner`, `target PR` (number/URL or
+  `pending`), `creation date`, and `expected closeout date` in the session log
+  or A25 lifecycle record.
+- Once branch creation and commits are authorized, push the first valid,
+  reviewable commit with `-u` promptly so the only recoverable copy never
+  remains local.
+  This does not authorize pushing `main`, unrelated refs, local-only work, or
+  a push forbidden by a stricter role-specific rule such as A25's mutation ban.
+- Keep an open-PR branch until the PR completes or is explicitly closed.
+- After a branch lands: prove its linked worktree is clean, then remove that
+  worktree the same day (`git worktree remove <dir> && git worktree prune`).
+  Never remove a worktree with staged, unstaged, or untracked content.
+- A branch with no PR, no recorded owner, and age greater than 7 calendar days
+  from its recorded creation date enters the A25 review queue; it is never
+  automatically deleted.
+- Never use `git stash` for multi-worktree isolation. Never use
+  `git branch -D $(...)`, wildcard/bulk branch deletion,
+  `git worktree remove --force`, `git clean -fdx`, or `git reset --hard`.
+- After every authorized cleanup batch, freshly record local branch, registered
+  worktree, dirty worktree, and detached worktree counts plus `origin/main`
+  alignment; use a live remote query before claiming remote-main state.
 - Dev servers: run from THIS checkout's directory with a unique port and an
   isolated `NEXT_DIST_DIR` (the managed preview server roots at the main repo
   and will silently serve the wrong code for worktree branches).
 
-Hard guardrails back the two most dangerous rules: `.claude/settings.json`
-denies `git add -A`/`git add .`, and `scripts/claude-root-git-guard.mjs`
-blocks switch/checkout/stash/rebase/hard-reset when run from the primary root.
+Hard guardrails mechanically enforce part of this policy:
+`.claude/settings.json` denies `git add -A`/`git add .`, and
+`scripts/claude-root-git-guard.mjs` blocks switch/checkout/stash/rebase/
+hard-reset when run from the primary root. The remaining lifecycle rules are
+mandatory process controls even where a script does not yet enforce them.
 
 Full agent role/ownership system: `AGENTS.md`. Production deploys: `RELEASE.md`.
