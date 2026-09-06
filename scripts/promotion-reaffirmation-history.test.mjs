@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, symlinkSync, chmodSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, symlinkSync, chmodSync, realpathSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -17,7 +17,7 @@ const git = (root, ...args) => execFileSync("git", ["-c", "core.hooksPath=/dev/n
 function put(root, file, text = "fixture\n") { mkdirSync(path.dirname(path.join(root, file)), { recursive: true }); writeFileSync(path.join(root, file), text); }
 function commit(root, files, message) { git(root, "add", "--", ...files); git(root, "commit", "--quiet", "-m", message); return git(root, "rev-parse", "HEAD"); }
 function fixture(t, { receipt = true } = {}) {
-  const root = mkdtempSync(path.join(tmpdir(), "promotion-history-"));
+  const root = realpathSync(mkdtempSync(path.join(tmpdir(), "promotion-history-")));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   git(root, "init", "--quiet", "--initial-branch=main"); git(root, "config", "user.name", "History fixture"); git(root, "config", "user.email", "fixture@example.invalid");
   put(root, "regular.txt", "base\n"); put(root, "ma.txt", "base\n");
@@ -158,7 +158,7 @@ test("real invalid UTF8 Git paths outside authority still fail the full-history 
 
 test("real shallow history and a missing parent object cannot prove authority", (t) => {
   const f = fixture(t);
-  const shallow = mkdtempSync(path.join(tmpdir(), "promotion-shallow-"));
+  const shallow = realpathSync(mkdtempSync(path.join(tmpdir(), "promotion-shallow-")));
   t.after(() => rmSync(shallow, { recursive: true, force: true }));
   git(f.root, "clone", "--quiet", "--depth=1", `file://${f.root}`, shallow);
   assert.throws(() => collect({ ...f, root: shallow }), /HISTORY_SHALLOW/);
