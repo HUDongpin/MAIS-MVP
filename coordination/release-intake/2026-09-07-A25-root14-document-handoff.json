@@ -1,0 +1,662 @@
+{
+  "schemaVersion": "mais-root14-document-handoff.v1",
+  "producedAt": "2026-09-06T20:26:52.497577+00:00",
+  "author": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "borrowedLane": "A25",
+    "scope": "author of two documentation files; not their independent reviewer or cleanup controller"
+  },
+  "recordState": "proposed-current-handoff; publication does not itself perform source cleanup",
+  "baselineCommit": "e3df2bde40114ec34b7414acf68e33e2e8803905",
+  "sourceRoot": {
+    "branch": "codex/llm-whisper",
+    "head": "9fd2aabb1e1f0bddeebfbb597261ccae4373982e",
+    "untrackedDocumentCount": 14,
+    "sourceObservationAt": "2026-09-06T20:10:15.114259+00:00",
+    "sourceObservationNotRepeatedByThisAuthoringRun": true
+  },
+  "r1History": {
+    "record": {
+      "commit": "e3df2bde40114ec34b7414acf68e33e2e8803905",
+      "path": "coordination/release-intake/2026-09-06-A25-root-history-disposition.json",
+      "gitMode": "100644",
+      "gitBlob": "c7b24ca0fe5cfe0baa41532b1b01639d946a2a83",
+      "sha256": "f7030add1e2513b97345674ae7c6196b9b413ef1dc3dfc326d2ec8746a59c829"
+    },
+    "mergeCommit": "61bf1d4be3286a08bef7da95a94460f21f71e0c8",
+    "historyUnmodified": true,
+    "all14SourceCleanupAcceptedAtR1": false,
+    "interpretation": "R1 false/null are historical intake facts. This new record leaves R1 unchanged and does not fill an actual cleanup result."
+  },
+  "reviewBasis": {
+    "runId": "RUN-20260906T163352HKT",
+    "relativePath": "root14-final-disposition-review.json",
+    "sha256": "e10903a0ce2ad0db3faf584e294a312cb97e204d8791f96fec5e8028eb068a80"
+  },
+  "sourcePreservation": {
+    "existingMaterializationReceipt": {
+      "runId": "RUN-20260906T163352HKT",
+      "relativePath": "root-history-materialization-receipt.json",
+      "sha256": "8e2cf206a97b8da1996437496fb8272c553f8aff5539b46910991ad6b0cfc46c"
+    },
+    "preservationRootRelative": "custody/root-history-materialized/",
+    "newArchivePerformed": false,
+    "knownStorageModeBoundary": "Frozen payload physical modes are0600; source modes remain in frozen manifest. Existing materialized copies were verified against original mode/mtime by the root14 review.",
+    "custodyDoesNotProveFunctionalAcceptance": true
+  },
+  "documentDispositions": [
+    {
+      "id": "RH-187",
+      "path": "A23 Baseline Reaffirmation Request 2026-08-28.md",
+      "sha256": "c41ce3a3709b3c797648a2a3a8ae89c94f895deff626beeec0818354b37f1827",
+      "bytes": 7924,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "explicit-superseded + evidence-archive",
+      "reason": "旧未签署baseline请求保留历史；S7/G08替代旧baseline流程，PR172/199未完事项转RH14-H01。",
+      "unfinishedWorkHandoffIds": [
+        "RH14-H01"
+      ],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-188",
+      "path": "coordination/release-intake/2026-08-30-A25-dirty-tree-map-20260830T121525Z.json",
+      "sha256": "5320d8c5ee366b2658f5dee2831ee057a6b60099e02a2a57827fdbbe4e3fe8a6",
+      "bytes": 1176948,
+      "sourceMode": "0o600",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "2026-08-30第一轮盘点JSON，保留原时间/理由/计数，不重放历史删除。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-189",
+      "path": "coordination/release-intake/2026-08-30-A25-dirty-tree-map-20260830T121525Z.md",
+      "sha256": "3bf6d88f92dc26aae8068caf95e67638dded45c0149f5631cd1e331452637f43",
+      "bytes": 13780,
+      "sourceMode": "0o600",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "第一轮盘点摘要，与配对JSON一同保管。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-190",
+      "path": "coordination/release-intake/2026-08-30-A25-dirty-tree-map-20260830T151752Z.json",
+      "sha256": "d9aa679e6c7c97be097efa60e1f30a95ae808c8cf8364b8e51eb6c8fdff970ca",
+      "bytes": 1176953,
+      "sourceMode": "0o600",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "第二轮盘点JSON；entries相同不等于文件或执行相同，原日期保留。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-191",
+      "path": "coordination/release-intake/2026-08-30-A25-dirty-tree-map-20260830T151752Z.md",
+      "sha256": "82b82cce3f1ac4eb81c38284a88bc063ad92e4248ebe4ee1ca0796f544d3ccf3",
+      "bytes": 13785,
+      "sourceMode": "0o600",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "第二轮盘点摘要，与其配对JSON保管。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-192",
+      "path": "coordination/release-intake/2026-09-02-A25-dirty-tree-map-20260901T181253Z.json",
+      "sha256": "7b909faf1551be3a415451b34b021ff23af4343863ef21eebd721110df3ea4a7",
+      "bytes": 7846,
+      "sourceMode": "0o600",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "2026-09-01历史7项快照，不是当前14项清洁证明。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-193",
+      "path": "coordination/release-intake/2026-09-02-A25-dirty-tree-map-20260901T181253Z.md",
+      "sha256": "7f6d22688c0dd9194035f4cc6c033f14b0d01a0ab647ba4414a56d8f4ac2d40c",
+      "bytes": 1847,
+      "sourceMode": "0o600",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "上述7项快照的人读摘要，保留历史签名。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-194",
+      "path": "coordination/release-intake/2026-09-04-A25-branch-review-queue.json",
+      "sha256": "49221382b77163c25035b100f0c6c9ed2e670704635f891d1f11eac16e04d940",
+      "bytes": 174336,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive; queue carried forward",
+      "reason": "54条旧来源队列和分类保留非授权附件；现行逐源验收转RH14-H02。",
+      "unfinishedWorkHandoffIds": [
+        "RH14-H02"
+      ],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-195",
+      "path": "coordination/release-intake/2026-09-04-A25-next-write-authorization.draft.json",
+      "sha256": "435a5fd93f95e3b2a21c43a67ab49a20faf4b12080c285df117963a28f7288ba",
+      "bytes": 11865,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "explicit-superseded + evidence-archive",
+      "reason": "旧5动作草案的结果/后续由RH14-H03及fiveHistoricalActions明确接续。",
+      "unfinishedWorkHandoffIds": [
+        "RH14-H03"
+      ],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-196",
+      "path": "coordination/release-intake/2026-09-04-A25-remote-delete-manifest.draft.json",
+      "sha256": "4f2de3eeea21ce62df7a1dfd8d86c975c08933d11cc1500f2aca2e0532b10b88",
+      "bytes": 348307,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive; non-executable",
+      "reason": "40条远端删除草案全部withheld、0eligible；远端删除不在本轮计划。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-197",
+      "path": "coordination/release-intake/2026-09-04-A25-remote-delete-manifest.draft.refs",
+      "sha256": "b105625187365ddf4c03f53693c7e9f683701e8032ac5c23b938b382b28172ca",
+      "bytes": 2095,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive; non-executable",
+      "reason": "与RH-196 SHA/40refs配对；不作为命令输入。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-198",
+      "path": "coordination/reports/2026-08-30-A23-ancestry-evidence-repair.md",
+      "sha256": "f6857ca9f80365909f76fd2e3ecf3a265cc0ed2aa6c4cc16ed74d897b3d01c72",
+      "bytes": 3723,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "explicit-superseded + evidence-archive",
+      "reason": "旧浅历史事故保留诊断；现行完整原始parent图合同接续，不重建旧组合或认证旧回执。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-199",
+      "path": "coordination/reports/2026-09-04-A25-pr-custody-review-queue.md",
+      "sha256": "26de80435c53f3896f2aa289a2d1a487c70297564068f973414fba8624c58bc1",
+      "bytes": 26698,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive; queue carried forward",
+      "reason": "逐族功能与保管限制随RH14-H02/RH14-H03继续保留，历史叙述不作当前验收。",
+      "unfinishedWorkHandoffIds": [
+        "RH14-H02",
+        "RH14-H03"
+      ],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    },
+    {
+      "id": "RH-200",
+      "path": "coordination/session-logs/2026-08-28-claude-viz-worktree-lifecycle.md",
+      "sha256": "6341a08cc123148e43e7e8f3e368830a8e31d55b5132de4a28cdc27ea78125aa",
+      "bytes": 2217,
+      "sourceMode": "0o644",
+      "r1HistoricalSourceCleanupAccepted": false,
+      "r1HistoricalResultCommit": null,
+      "proposedDocumentDestination": "evidence-archive",
+      "reason": "生命周期历史日志；通用规则已入S4，四个所述工作区是否可清理须另验收。",
+      "unfinishedWorkHandoffIds": [],
+      "documentCloseoutCondition": "independent acceptance and actual main publication of this handoff or equivalent exact record; then separate current source-closeout acceptance",
+      "additionalDocumentFactBlockerIdentifiedByAuthor": false,
+      "sourceCleanupAccepted": false,
+      "cleanupDone": false
+    }
+  ],
+  "currentGovernanceHandoffs": [
+    {
+      "id": "RH14-H01",
+      "sourceIds": [
+        "RH-187"
+      ],
+      "route": "current convergence controller with A23/A06/A11",
+      "currentTask": "旧 baseline 请求由现行 S7/G08 准备与验证合同接续；PR172逐项数学/交互评审和PR199现行来源整合继续按各PR验收。",
+      "facts": [
+        "PR220 learner默认与PR221来源回归已在固定main；旧00929/62cf baseline请求及220→199→172顺序仅保留历史。",
+        "当前comparisonDisabled已是number-line-only；本记录不据此验收PR172全部11项。",
+        "PR199本次API head为67ce1ff256d37517c758430a592f62ff6ecb6159，仍开放；初始SSR证明不覆盖浏览器/hydration/交互。"
+      ],
+      "pendingProductAcceptance": true,
+      "sourceCleanupAuthority": false,
+      "references": [
+        "RH-F05",
+        172,
+        199
+      ]
+    },
+    {
+      "id": "RH14-H02",
+      "sourceIds": [
+        "RH-194",
+        "RH-199"
+      ],
+      "route": "current convergence controller/A25; route each source to its functional owner",
+      "currentTask": "将完整54条旧branch/SHA/categorization作为非授权历史附件接续到现行逐来源治理队列；对照较新来源、实际PR/main和功能证据逐项决定，保留所有未证明事项。",
+      "facts": [
+        "本次不把54项历史分类改写为当前功能通过，不据此删除分支/worktree；旧51成员说法仍没有可核实的删减依据。",
+        "CA60负证据、历史post-copy attestation缺口、archive≠product限制保留；没有读取protected raw材料。",
+        "SCORM/TI1等候选和其他历史测试结果不是当前main验收。"
+      ],
+      "pendingProductAcceptance": true,
+      "sourceCleanupAuthority": false,
+      "historicalAttachment": {
+        "runId": "RUN-20260906T163352HKT",
+        "relativePath": "root14-final-disposition-review.json",
+        "sha256": "e10903a0ce2ad0db3faf584e294a312cb97e204d8791f96fec5e8028eb068a80",
+        "jsonPointer": "/proposedMainSupplement/historical54SourceQueueCarryforward"
+      },
+      "historicalSourceCount": 54
+    },
+    {
+      "id": "RH14-H03",
+      "sourceIds": [
+        "RH-195"
+      ],
+      "route": "current convergence controller/A25 and PR source owners",
+      "currentTask": "5项旧draft逐项接续：U223/U224写请求已由实际合并结果取代；PR190/193/161 close-only请求未执行，按当前已授权整合计划评审/复用。",
+      "facts": [
+        "没有从历史draft推导新的写权限、取消任务、关闭PR或强制删除权限。",
+        "三项仍开放PR的当前来源SHA见publicPrObservation；优先按当前来源/现有PR评审，具体PR操作仍由controller执行。"
+      ],
+      "pendingProductAcceptance": true,
+      "sourceCleanupAuthority": false
+    }
+  ],
+  "fiveHistoricalActions": [
+    {
+      "id": "U223-COMMIT-PUSH",
+      "historicalExpectedHead": "df21e7c971ac7d7d35f3b2f1e5699b453da8cf16",
+      "historicalState": "pending-owner-authorization",
+      "currentPr": 223,
+      "currentObservedState": "MERGED",
+      "currentObservedHead": "1c0d8d1caeeec6b671bd0eebfdc2cacc35940a8f",
+      "currentMergeCommit": "c8ecb79630a23b64afbb309e68362b223491bba9",
+      "currentDisposition": "旧写请求已由实际合并结果取代，保留历史。",
+      "authorityDerivedFromOldDraft": false
+    },
+    {
+      "id": "U224-COMMIT-PUSH",
+      "historicalExpectedHead": "9af6fbc8e42d15147a85eb439d84c84d1bab7e7b",
+      "historicalState": "pending-owner-authorization",
+      "currentPr": 224,
+      "currentObservedState": "MERGED",
+      "currentObservedHead": "8afa73f8b3c6b3830d8e6c2f7c8fab358ab05ee3",
+      "currentMergeCommit": "78a48ecdeb4ed7308ff43a4d701075a0773540c7",
+      "currentDisposition": "旧写请求已由实际合并结果取代，保留历史。",
+      "authorityDerivedFromOldDraft": false
+    },
+    {
+      "id": "PR190-CLOSE-ONLY",
+      "historicalExpectedHead": "ac7298452930488a90c960bc8232d444dc2ca9b6",
+      "historicalState": "pending-owner-authorization",
+      "currentPr": 190,
+      "currentObservedState": "OPEN",
+      "currentObservedHead": "ac7298452930488a90c960bc8232d444dc2ca9b6",
+      "currentMergeCommit": null,
+      "currentDisposition": "旧close请求未执行，按当前已授权整合计划评审/复用。",
+      "authorityDerivedFromOldDraft": false
+    },
+    {
+      "id": "PR193-CLOSE-ONLY",
+      "historicalExpectedHead": "29dbdd6f718bdee42d3d873d4603955f223890d0",
+      "historicalState": "pending-owner-authorization",
+      "currentPr": 193,
+      "currentObservedState": "OPEN",
+      "currentObservedHead": "29dbdd6f718bdee42d3d873d4603955f223890d0",
+      "currentMergeCommit": null,
+      "currentDisposition": "旧close请求未执行，按当前已授权整合计划评审/复用。",
+      "authorityDerivedFromOldDraft": false
+    },
+    {
+      "id": "PR161-CLOSE-ONLY",
+      "historicalExpectedHead": "a0a325f18d36a7ae8a0e84706813e7feaf86ccd9",
+      "historicalState": "pending-owner-authorization",
+      "currentPr": 161,
+      "currentObservedState": "OPEN",
+      "currentObservedHead": "a0a325f18d36a7ae8a0e84706813e7feaf86ccd9",
+      "currentMergeCommit": null,
+      "currentDisposition": "旧close请求未执行，按当前已授权整合计划评审/复用。",
+      "authorityDerivedFromOldDraft": false
+    }
+  ],
+  "publicPrObservation": {
+    "observedAt": "2026-09-06T20:22:49.388439+00:00",
+    "source": "GitHub GraphQL API read-only query",
+    "snapshot": {
+      "runId": "RUN-20260906T163352HKT",
+      "relativePath": "root14-handoff-candidate/public-pr-snapshot.json",
+      "sha256": "c06936830700c42e6d8244aa03afc5633b6ff36545cc2366c6ccb31a9118aceb"
+    },
+    "notCiOrCurrentMainEqualityProof": true,
+    "pullRequests": [
+      {
+        "number": 161,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/161",
+        "state": "OPEN",
+        "isDraft": false,
+        "mergedAt": null,
+        "closedAt": null,
+        "headRefName": "codex/edulab-mais",
+        "headRefOid": "a0a325f18d36a7ae8a0e84706813e7feaf86ccd9",
+        "baseRefName": "main",
+        "mergeCommit": null
+      },
+      {
+        "number": 172,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/172",
+        "state": "OPEN",
+        "isDraft": false,
+        "mergedAt": null,
+        "closedAt": null,
+        "headRefName": "claude/hk-viz-defect-fixes",
+        "headRefOid": "bd27d98c3b34761c2520c084f3ffbdfc98f9ed47",
+        "baseRefName": "main",
+        "mergeCommit": null
+      },
+      {
+        "number": 190,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/190",
+        "state": "OPEN",
+        "isDraft": false,
+        "mergedAt": null,
+        "closedAt": null,
+        "headRefName": "chore/ca-pilot-role-reaffirmation-briefs",
+        "headRefOid": "ac7298452930488a90c960bc8232d444dc2ca9b6",
+        "baseRefName": "main",
+        "mergeCommit": null
+      },
+      {
+        "number": 193,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/193",
+        "state": "OPEN",
+        "isDraft": false,
+        "mergedAt": null,
+        "closedAt": null,
+        "headRefName": "docs/china-math-audit-2026-08",
+        "headRefOid": "29dbdd6f718bdee42d3d873d4603955f223890d0",
+        "baseRefName": "main",
+        "mergeCommit": null
+      },
+      {
+        "number": 199,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/199",
+        "state": "OPEN",
+        "isDraft": false,
+        "mergedAt": null,
+        "closedAt": null,
+        "headRefName": "test/lesson-visualization-render-harness",
+        "headRefOid": "67ce1ff256d37517c758430a592f62ff6ecb6159",
+        "baseRefName": "main",
+        "mergeCommit": null
+      },
+      {
+        "number": 220,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/220",
+        "state": "MERGED",
+        "isDraft": false,
+        "mergedAt": "2026-09-01T14:44:37Z",
+        "closedAt": "2026-09-01T14:44:37Z",
+        "headRefName": "fix/gate-manim-authoring-console",
+        "headRefOid": "7b0169dc52cb4a9fd2b4e0b6a797205397e17954",
+        "baseRefName": "main",
+        "mergeCommit": {
+          "oid": "be92640f4bb8933ed8a99ed7c1ea604428c6a56f"
+        }
+      },
+      {
+        "number": 221,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/221",
+        "state": "MERGED",
+        "isDraft": false,
+        "mergedAt": "2026-08-28T18:18:55Z",
+        "closedAt": "2026-08-28T18:18:55Z",
+        "headRefName": "test/source-regressions-whitespace-tolerant",
+        "headRefOid": "b1efb78052013e4b113a08bb6c40af573abf97a3",
+        "baseRefName": "main",
+        "mergeCommit": {
+          "oid": "61bdb12130df3baf5c82aac477088c43e8227c70"
+        }
+      },
+      {
+        "number": 223,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/223",
+        "state": "MERGED",
+        "isDraft": false,
+        "mergedAt": "2026-09-06T06:23:16Z",
+        "closedAt": "2026-09-06T06:23:16Z",
+        "headRefName": "codex/a10-a25-sweep-integration-20260902",
+        "headRefOid": "1c0d8d1caeeec6b671bd0eebfdc2cacc35940a8f",
+        "baseRefName": "main",
+        "mergeCommit": {
+          "oid": "c8ecb79630a23b64afbb309e68362b223491bba9"
+        }
+      },
+      {
+        "number": 224,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/224",
+        "state": "MERGED",
+        "isDraft": false,
+        "mergedAt": "2026-09-06T06:17:26Z",
+        "closedAt": "2026-09-06T06:17:26Z",
+        "headRefName": "codex/a22-classroom-unicode-integration-20260901",
+        "headRefOid": "8afa73f8b3c6b3830d8e6c2f7c8fab358ab05ee3",
+        "baseRefName": "main",
+        "mergeCommit": {
+          "oid": "78a48ecdeb4ed7308ff43a4d701075a0773540c7"
+        }
+      },
+      {
+        "number": 233,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/233",
+        "state": "MERGED",
+        "isDraft": false,
+        "mergedAt": "2026-09-06T18:52:19Z",
+        "closedAt": "2026-09-06T18:52:19Z",
+        "headRefName": "codex/a10-machine-qa-governance-closeout-20260906",
+        "headRefOid": "c7d817dbfec3ecf683c02a37e2eea445c021d8e4",
+        "baseRefName": "main",
+        "mergeCommit": {
+          "oid": "fda1be8e0d0b9946f4dc175ab6185fa4dbdb1ac9"
+        }
+      },
+      {
+        "number": 235,
+        "url": "https://github.com/HUDongpin/MAIS-MVP/pull/235",
+        "state": "MERGED",
+        "isDraft": false,
+        "mergedAt": "2026-09-06T19:14:59Z",
+        "closedAt": "2026-09-06T19:14:59Z",
+        "headRefName": "codex/a25-root-history-intake-20260906",
+        "headRefOid": "1b2b2bd77720ebcd7e3f9058191ec592a92423b9",
+        "baseRefName": "main",
+        "mergeCommit": {
+          "oid": "61bf1d4be3286a08bef7da95a94460f21f71e0c8"
+        }
+      }
+    ]
+  },
+  "completedMergeEvidence": [
+    {
+      "pr": 220,
+      "url": "https://github.com/HUDongpin/MAIS-MVP/pull/220",
+      "mergeCommit": "be92640f4bb8933ed8a99ed7c1ea604428c6a56f",
+      "mergedAt": "2026-09-01T14:44:37Z",
+      "ancestorOfFixedMain": true
+    },
+    {
+      "pr": 221,
+      "url": "https://github.com/HUDongpin/MAIS-MVP/pull/221",
+      "mergeCommit": "61bdb12130df3baf5c82aac477088c43e8227c70",
+      "mergedAt": "2026-08-28T18:18:55Z",
+      "ancestorOfFixedMain": true
+    },
+    {
+      "pr": 223,
+      "url": "https://github.com/HUDongpin/MAIS-MVP/pull/223",
+      "mergeCommit": "c8ecb79630a23b64afbb309e68362b223491bba9",
+      "mergedAt": "2026-09-06T06:23:16Z",
+      "ancestorOfFixedMain": true
+    },
+    {
+      "pr": 224,
+      "url": "https://github.com/HUDongpin/MAIS-MVP/pull/224",
+      "mergeCommit": "78a48ecdeb4ed7308ff43a4d701075a0773540c7",
+      "mergedAt": "2026-09-06T06:17:26Z",
+      "ancestorOfFixedMain": true
+    },
+    {
+      "pr": 233,
+      "url": "https://github.com/HUDongpin/MAIS-MVP/pull/233",
+      "mergeCommit": "fda1be8e0d0b9946f4dc175ab6185fa4dbdb1ac9",
+      "mergedAt": "2026-09-06T18:52:19Z",
+      "ancestorOfFixedMain": true
+    },
+    {
+      "pr": 235,
+      "url": "https://github.com/HUDongpin/MAIS-MVP/pull/235",
+      "mergeCommit": "61bf1d4be3286a08bef7da95a94460f21f71e0c8",
+      "mergedAt": "2026-09-06T19:14:59Z",
+      "ancestorOfFixedMain": true
+    }
+  ],
+  "s7G08Successor": {
+    "s7MainMerge": "fda1be8e0d0b9946f4dc175ab6185fa4dbdb1ac9",
+    "s7LandingReceipt": {
+      "runId": "RUN-20260906T163352HKT",
+      "relativePath": "S7-landed-main-receipt.json",
+      "sha256": "4f168fc46e1be23336574f4866685f2242519b5378d433270ee21b6d3bcf6d7f"
+    },
+    "workflow": {
+      "commit": "e3df2bde40114ec34b7414acf68e33e2e8803905",
+      "path": ".github/workflows/promotion-shadow.yml",
+      "gitMode": "100644",
+      "gitBlob": "49220f2298395f7779d6c02a7a66765878cb5f9d",
+      "sha256": "cb226916e8867cb9cdac2b26858e90182a4948ba66e4c8e1f05e788024673bb7"
+    },
+    "nativeProof": {
+      "commit": "e3df2bde40114ec34b7414acf68e33e2e8803905",
+      "path": "coordination/release-intake/g08-review/postrun/A11-native-subset-proof.json",
+      "gitMode": "100644",
+      "gitBlob": "a169f38bff4c4fd0e715919fc6a9e8ef3380186c",
+      "sha256": "0dcc23319b3e677c27dfc7cf7aa7018e2d8f8e67639b4c244cde1af4dcab8c6b"
+    },
+    "nativeExecutionCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+    "nativeProofProducedAt": "2026-09-06T18:05:29.671Z",
+    "nativeResult": "pass-for-authorized-frozen-native-subset-only",
+    "canonicalReceipt": {
+      "commit": "e3df2bde40114ec34b7414acf68e33e2e8803905",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-shadow-receipt.v2.json",
+      "gitMode": "100644",
+      "gitBlob": "06a06bbf844770d91778952dbcb29a120a87ab3e",
+      "sha256": "1484c3d5012afdbd5ae0bc1fc94327a699766893708c2d39d031cc0605ee580b"
+    },
+    "canonicalSemanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb",
+    "skillCompatibilityBoundary": {
+      "commit": "e3df2bde40114ec34b7414acf68e33e2e8803905",
+      "path": "coordination/release-intake/g08-review/postrun/skill-compatibility-boundary.json",
+      "gitMode": "100644",
+      "gitBlob": "1d83ea949d51920988f5ab049b4c820b33d65925",
+      "sha256": "f668c3ec18ac4ab70568648307e6c5a0e497f9d057f34b0eae8a6b6c4d967d3a"
+    },
+    "skillWorkflowAuthority": "blocked-compatibility",
+    "lifecycleFinalization": false,
+    "liveAllowed": false,
+    "noNativeReplayPerformedForThisDocument": true,
+    "scope": "Historical native subset success and merged source replace the old unsigned request workflow; they do not claim installed-skill admission, current deployment, or live approval."
+  },
+  "acceptanceBoundary": {
+    "authorFoundRemainingDocumentFactBlockers": [],
+    "fourPriorDocumentHandoffGapsAddressedInThisCandidate": [
+      "RH-187",
+      "RH-194",
+      "RH-195",
+      "RH-199"
+    ],
+    "pendingIndependentReview": true,
+    "pendingActualMainPublication": true,
+    "all14StillNeedSeparateCurrentSourceCloseoutAcceptance": true,
+    "dependentProductWorkRemainsOpenAsRouted": true,
+    "dependentProductCompletionNotRequiredToArchiveCorrectlyHandedOffHistoricalDocument": true,
+    "cleanupDone": false,
+    "rootSwitchAuthorizedByThisRecord": false,
+    "other181FilesOr20MissingToolsDisposed": false,
+    "remoteDeletionAuthorized": false,
+    "ownerOrTaskStateChanged": false
+  }
+}
