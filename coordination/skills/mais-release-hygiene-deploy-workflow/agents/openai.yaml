@@ -1,0 +1,4 @@
+interface:
+  display_name: "MAIS Release Hygiene Deploy"
+  short_description: "A22/A25 clean release, deployment, and same-SHA live proof."
+  default_prompt: "Use $mais-release-hygiene-deploy-workflow to audit or execute an explicitly authorized MAIS release while keeping build, CI, READY deployment, and same-SHA live behavior separate."

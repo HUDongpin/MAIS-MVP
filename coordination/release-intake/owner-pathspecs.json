@@ -481,7 +481,8 @@
         "coordination/decisions/**",
         "coordination/**",
         "scripts/bug-triage.js",
-        "scripts/**"
+        "scripts/**",
+        "CLAUDE.md"
       ]
     },
     {
@@ -547,7 +548,8 @@
     { "path": "components/ui/GradeSelector.tsx", "expectedOwner": "A03" },
     { "path": "components/ui/ThemeToggle.tsx", "expectedOwner": "A01" },
     { "path": ".env.local.example", "expectedOwner": "A19" },
-    { "path": ".env.local", "expectedOwner": "A25" }
+    { "path": ".env.local", "expectedOwner": "A25" },
+    {"path": "CLAUDE.md", "expectedOwner": "A10"}
   ],
   "unmappedBlockers": []
 }

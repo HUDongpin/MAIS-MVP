@@ -7,16 +7,9 @@ others' in-progress work.
 
 ## Working-tree discipline
 
-- One session = one worktree = one branch.
-- The primary root (`/Volumes/Starship/MAIS-MVP`) is INTEGRATION-ONLY:
-  review, merge, run gates, answer questions. Before editing any file for
-  feature work here, create/enter a git worktree and do the work there.
-  Convention: sibling dirs `../MAIS-<scope>-wt` with `node_modules` symlinked
-  from the root.
-- Never run `git switch`, `git checkout`, `git stash`, `git rebase`, or
-  `git reset --hard` in the primary root — it moves HEAD/stash/file state
-  under every other live session. Use `git restore` for files; use a
-  worktree for branches.
+- One independent editing session = one assigned worktree/branch = one reviewable slice. Read-only work and owner-assigned bounded in-place document/inventory edits follow the task conditions in AGENTS.md; isolation rules do not authorize creating branches.
+- The shared primary root is integration-only; verify its physical checkout and branch rather than treating a historical path as current. Feature implementation uses an assigned isolated worktree or authorized clean clone.
+- Never run `git switch`, `git checkout`, `git stash`, `git rebase`, or `git reset --hard` in the primary root. `git restore` also requires scoped recovery authority; never use it to clear unrelated edits.
 - Never `git add -A` / `git add .` anywhere. Inspect `git status`, stage only
   files/hunks you authored this session (shared hotspots where foreign edits
   land: `lib/server/userStore.ts`, `types/index.ts`, `data/ccssStandards.ts`).
@@ -29,8 +22,7 @@ others' in-progress work.
   This does not authorize pushing `main`, unrelated refs, local-only work, or
   a push forbidden by a stricter role-specific rule such as A25's mutation ban.
 - Keep an open-PR branch until the PR completes or is explicitly closed.
-- After a branch lands: prove its linked worktree is clean, then remove that
-  worktree the same day (`git worktree remove <dir> && git worktree prune`).
+- After a branch lands, target same-day closeout only when removal of that exact worktree is authorized. Prove it is clean, has no active writer, and has no work or evidence needing preservation; otherwise retain it and report pending closeout. Landing is not cleanup authorization.
   Never remove a worktree with staged, unstaged, or untracked content.
 - A branch with no PR, no recorded owner, and age greater than 7 calendar days
   from its recorded creation date enters the A25 review queue; it is never
@@ -51,4 +43,4 @@ Hard guardrails mechanically enforce part of this policy:
 hard-reset when run from the primary root. The remaining lifecycle rules are
 mandatory process controls even where a script does not yet enforce them.
 
-Full agent role/ownership system: `AGENTS.md`. Production deploys: `RELEASE.md`.
+Task authorization, scoped workflows and completion: `AGENTS.md`. Load its linked ownership, verification and coordination references only for applicable work. This summary adds no authority or unrelated workflow. Production deploys: `RELEASE.md`.

@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "suiteVersion": "1.0.0",
+  "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
+  "installedAt": "2026-08-27T20:21:16.657Z",
+  "backup": {
+    "backupId": "20260827T202116.615Z",
+    "logicalRoot": "$CODEX_HOME/skill-backups/20260827T202116.615Z",
+    "backupManifestSha256": "3a363191f3e8d879b3b30a84b4528110cc8e497b01969fa477254fcc09db2adc",
+    "layoutAddendumSha256": "2144359a764bd06305389ccf820ba610e4070c3ae529a1ef947acc7a1ba7a4b3",
+    "directCompatibilityBackups": [
+      {
+        "skill": "mais-content-qa-approval-workflow",
+        "treeSha256": "65375bacb1b9261b5a868c562420b232caad2db13a813595cd68627c34424a54"
+      },
+      {
+        "skill": "mais-release-hygiene-deploy-workflow",
+        "treeSha256": "59e6d3ba2c29c4a321a8828e58c8e189ae318157e51f09542bdded3a804d7771"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "mais-rsi-machine-qa-workflow",
+      "version": "1.0.0",
+      "sourceTreeSha256": "6fe8303c91b5ba276632e4ad7a74c0e9c30a15cd8e71e33cc4cebaa790137e24",
+      "sourceFileCount": 19,
+      "packageViewTreeSha256": "fd4953c1cde7b0564d7706e1353ef5a80d7d1b976589ee53ad735ae1dc607b01",
+      "packageFileCount": 17,
+      "packageArchive": "mais-rsi-machine-qa-workflow.skill",
+      "packageArchiveSha256": "7d42cf2837a274b678f5e7b00e0aa7464ad4d0498e4c9e3dc89f4d3aa84be1e1",
+      "installedReadbackTreeSha256": "fd4953c1cde7b0564d7706e1353ef5a80d7d1b976589ee53ad735ae1dc607b01",
+      "installedSkillMdSha256": "609aea12cc877f5bdfa7d309c41ae6c04965e1f9ed133ad92d28f4a20ff6ec42"
+    },
+    {
+      "name": "mais-natural-sample-evaluation",
+      "version": "1.0.0",
+      "sourceTreeSha256": "3eb2c1a3036dd556ce865bb0395cb2be06d6cfe3e526ecb1866bf0659dcfd012",
+      "sourceFileCount": 23,
+      "packageViewTreeSha256": "df44491fd09c12e531b031ac1a9e713f28fe0efa2e57f1d5915f80c5b7eed510",
+      "packageFileCount": 21,
+      "packageArchive": "mais-natural-sample-evaluation.skill",
+      "packageArchiveSha256": "bee5088bea6e7464337f67d176dafbdfb3ae6abdb0c2c0a125ba570bcbb83997",
+      "installedReadbackTreeSha256": "df44491fd09c12e531b031ac1a9e713f28fe0efa2e57f1d5915f80c5b7eed510",
+      "installedSkillMdSha256": "76ef9e74dc3260a64afb130e07e03d66a636058b0386510012f2f9f107cebc05"
+    },
+    {
+      "name": "mais-content-promotion-gate",
+      "version": "1.0.0",
+      "sourceTreeSha256": "123d2b7e7bcfce1438b54923d1d57d42f36925df8cbc8106d5434f6edcfa779d",
+      "sourceFileCount": 26,
+      "packageViewTreeSha256": "9ff8f5ffede7e64e25069660e8c885e1a4864c4709cca4ed0ff3aea992c527e0",
+      "packageFileCount": 24,
+      "packageArchive": "mais-content-promotion-gate.skill",
+      "packageArchiveSha256": "2f972cdbeeb14cf0b8cf810a0a37152344882f7edc45c12afb88ebc85c3a4bde",
+      "installedReadbackTreeSha256": "9ff8f5ffede7e64e25069660e8c885e1a4864c4709cca4ed0ff3aea992c527e0",
+      "installedSkillMdSha256": "888c5c388700bc6eec20815ae1ab2f542cb7c93320354b886ac2ef1b4a1ed961"
+    },
+    {
+      "name": "mais-content-qa-approval-workflow",
+      "version": "1.0.0-compat.1",
+      "sourceTreeSha256": "ed28587d7de06abb051a301eacdd268e5fbb6086def0ea0b6e97a924ea2cc386",
+      "sourceFileCount": 7,
+      "packageViewTreeSha256": "b5612f75eab03a8ddfb2d029b692ed59692cf920b310abb399e3a8588c4f1882",
+      "packageFileCount": 5,
+      "packageArchive": "mais-content-qa-approval-workflow.skill",
+      "packageArchiveSha256": "a4b6f3abdd7b424ebfceb70862c1836e3beb292d96104639b59e36782a023814",
+      "installedReadbackTreeSha256": "b5612f75eab03a8ddfb2d029b692ed59692cf920b310abb399e3a8588c4f1882",
+      "installedSkillMdSha256": "6914d2094bd8c622a80db93d81c736a24757d07b358d74ec7a8e8a9929799c91"
+    },
+    {
+      "name": "mais-release-hygiene-deploy-workflow",
+      "version": "1.0.0-compat.1",
+      "sourceTreeSha256": "00ceadf649cedd39b4e9c8643d5c8f117b90a21fa36834b90cdfa403af4bdf37",
+      "sourceFileCount": 7,
+      "packageViewTreeSha256": "babf9397c32f2e24e46b448c1994520873ab0164c3430c9e72482b9a4e26f9a5",
+      "packageFileCount": 5,
+      "packageArchive": "mais-release-hygiene-deploy-workflow.skill",
+      "packageArchiveSha256": "2107fad4d57f89b450520cf2d2aa832aa76e4187913b3776ea4f4973be88237b",
+      "installedReadbackTreeSha256": "babf9397c32f2e24e46b448c1994520873ab0164c3430c9e72482b9a4e26f9a5",
+      "installedSkillMdSha256": "11d90664a56902129da46f961d8dab3801bd9d23e895a33cc0425c4d6f1d65d2"
+    }
+  ],
+  "verification": {
+    "archiveIntegrity": { "passed": 5, "total": 5 },
+    "archiveTreeReadback": { "passed": 5, "total": 5 },
+    "installedTreeReadback": { "passed": 5, "total": 5 },
+    "installedQuickValidate": { "passed": 5, "total": 5 },
+    "installedCliHelp": { "passed": 9, "total": 9 },
+    "installedCliFailClosedNoArgs": { "passed": 9, "total": 9 },
+    "rollbackRestoreAndReinstall": { "passed": 2, "total": 2 }
+  },
+  "sideEffects": {
+    "packageArchivesCommitted": false,
+    "providerCallsPerformed": false,
+    "credentialsRead": false,
+    "protectedContentRead": false,
+    "deploymentPerformed": false,
+    "liveMutationPerformed": false
+  }
+}
