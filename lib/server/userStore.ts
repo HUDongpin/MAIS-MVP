@@ -73,6 +73,7 @@ import {
   composeAdaptiveDecisionFromCandidate,
   createInitialAdaptiveSkillState,
   generateAdaptiveCandidates,
+  isMasteryConfirmed,
   selectNextAdaptiveAction,
   updateAdaptiveState,
   validateLLMAdaptiveRecommendation
@@ -13303,8 +13304,6 @@ function updateLessonProgressFromAdaptiveState(database: Database, userId: strin
   const existing = database.lesson_progress.find(
     (progress) => progress.user_id === userId && progress.topic_id === topicId
   );
-  const firstCompletion = status === "completed" && existing?.status !== "completed";
-
   if (existing) {
     existing.lesson_slug = existing.lesson_slug ?? lessonSlugForTopic(topicId);
     existing.mastery = mastery;
@@ -13329,24 +13328,31 @@ function updateLessonProgressFromAdaptiveState(database: Database, userId: strin
     });
   }
 
-  if (firstCompletion) {
-    awardPracticeDrivenLessonCompletion(database, userId, topicId, now);
-  }
+  awardPracticeDrivenLessonCompletion(database, userId, topicId, now);
 }
 
-// Practice-driven mastery is the only route to a "completed" lesson now that the
-// lesson page has no manual mark-complete action, so the completion reward must
-// fire from these progress updates. The award's ledger source key keeps it
-// idempotent per student and lesson even if a legacy mark-complete call races it.
+// Progress can say "completed" before every skill is confirmed. Both automatic
+// reward paths require confirmed topic mastery; retrying the award after later
+// evidence is safe because the ledger key is shared with legacy completion.
 function awardPracticeDrivenLessonCompletion(database: Database, userId: string, topicId: string, completedAt: string) {
   const progress = database.lesson_progress.find(
     (candidate) => candidate.user_id === userId && candidate.topic_id === topicId
   );
   if (progress?.status !== "completed") return;
 
+  const topic = topicRecordForId(database, topicId);
+  if (!topic) return;
+  const topicSkills = knowledgeComponentsForDatabase(database, topic.grade, topic.curriculum_track)
+    .filter((skill) => skill.topicId === topicId);
+  if (!topicSkills.length || !topicSkills.every((skill) => {
+    const state = database.adaptive_skill_state.find(
+      (record) => record.user_id === userId && record.skill_id === skill.id
+    );
+    return state && isMasteryConfirmed({ pMastery: state.p_mastery, correctStreak: state.correct_streak });
+  })) return;
+
   const slug = progress.lesson_slug ?? lessonSlugForTopic(topicId);
   const lesson = database.lessons.find((candidate) => candidate.slug === slug);
-  const topic = topicRecordForId(database, topicId);
   awardLessonCompletionReward(database, {
     userId,
     lesson: lesson ?? {
@@ -13563,9 +13569,6 @@ const updateLessonProgressFromAttempts = (
   question: QuestionRecord,
   now: string
 ) => {
-  const previousStatus = database.lesson_progress.find(
-    (progress) => progress.user_id === userId && progress.topic_id === question.topic_id
-  )?.status;
   updateLessonProgressFromAttemptsFromStudentActivity({
     database,
     userId,
@@ -13574,9 +13577,7 @@ const updateLessonProgressFromAttempts = (
     lessonSlugForTopic,
     questionForId: (questionId) => questionForId(database, questionId)
   });
-  if (previousStatus !== "completed") {
-    awardPracticeDrivenLessonCompletion(database, userId, question.topic_id, now);
-  }
+  awardPracticeDrivenLessonCompletion(database, userId, question.topic_id, now);
 };
 
 function updatePracticeAssignmentSubmissionsFromAttempt(
@@ -13622,6 +13623,7 @@ export const __userStoreAuthHotTableTestHooks = {
 
 // Expose the existing progress paths for isolated behavioral regressions.
 export const __userStoreLessonCompletionRewardTestHooks = {
+  updateAdaptiveStateFromAttempt,
   updateLessonProgressFromAdaptiveState,
   updateLessonProgressFromAttempts
 };

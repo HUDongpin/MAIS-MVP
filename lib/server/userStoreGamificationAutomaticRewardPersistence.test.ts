@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
+import { createInitialAdaptiveSkillState, updateAdaptiveState } from "@/lib/adaptiveLearning";
 import {
   awardLessonCompletionReward,
   awardMistakeReviewReward,
@@ -10,6 +11,7 @@ import {
   awardVisualizationCompletionReward,
   maybeAwardLearningStreakReward,
   maybeAwardPracticeAccuracyReward,
+  createGamificationRewardRedemptionPersistenceStore,
   type GamificationRewardRedemptionPersistenceDatabase
 } from "@/lib/server/userStore/gamificationRewardRedemptionPersistence";
 import { __userStoreLessonCompletionRewardTestHooks } from "@/lib/server/userStore";
@@ -310,6 +312,7 @@ function createPracticeCompletionDatabase({
       : [],
     lesson_progress: [],
     adaptive_skill_state: [],
+    adaptive_recommendation_cache: [],
     questions,
     attempts
   };
@@ -364,6 +367,82 @@ test("adaptive mastery completion awards the lesson completion reward once", () 
   assert.equal(database.reward_point_ledger.length, 1);
 });
 
+test("two correct answers on one stage do not award a whole lesson", () => {
+  const database = createPracticeCompletionDatabase();
+  const { updateLessonProgressFromAdaptiveState } = __userStoreLessonCompletionRewardTestHooks;
+  setAdaptiveMastery(database, 0.9);
+  const stages = database.adaptive_skill_state;
+  database.adaptive_skill_state = [];
+
+  for (const current of stages) {
+    let state = createInitialAdaptiveSkillState(current.skill_id, awardedAt);
+    database.adaptive_skill_state.push(current);
+    for (let answer = 1; answer <= 3; answer += 1) {
+      state = updateAdaptiveState({ state, correct: true, now: awardedAt });
+      current.p_mastery = state.pMastery;
+      current.correct_streak = state.correctStreak;
+      current.attempt_count = state.attemptCount;
+      updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+      if (current.skill_id.endsWith(":foundation") && answer === 2) assert.ok(state.pMastery >= 0.85);
+      assert.equal(database.reward_point_ledger.length, current.skill_id.endsWith(":transfer") && answer === 3 ? 1 : 0);
+    }
+  }
+  assert.equal(database.reward_point_ledger[0].amount, 40);
+  updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+  assert.equal(database.reward_point_ledger.length, 1);
+});
+
+test("every topic skill must meet the probability and confirmation-streak gate", () => {
+  for (const missingQualification of ["streak", "probability", "other-user"]) {
+    const database = createPracticeCompletionDatabase();
+    setAdaptiveMastery(database, 0.99);
+    const transfer = database.adaptive_skill_state.find((state) => state.skill_id.endsWith(":transfer"))!;
+    if (missingQualification === "streak") transfer.correct_streak = 2;
+    if (missingQualification === "probability") transfer.p_mastery = 0.84;
+    if (missingQualification === "other-user") transfer.user_id = "other-student";
+    __userStoreLessonCompletionRewardTestHooks.updateLessonProgressFromAdaptiveState(
+      database, "student-1", "topic-linear", awardedAt
+    );
+    assert.equal(database.reward_point_ledger.length, 0, missingQualification);
+    assert.equal(database.gamification_events?.length ?? 0, 0, missingQualification);
+
+    // An earlier completed progress label must not prevent a later qualified award.
+    setAdaptiveMastery(database, 0.9);
+    __userStoreLessonCompletionRewardTestHooks.updateLessonProgressFromAdaptiveState(
+      database, "student-1", "topic-linear", awardedAt
+    );
+    assert.equal(database.reward_point_ledger.length, 1, missingQualification);
+  }
+});
+
+test("practice answers reach a single reward through all three difficulty stages", () => {
+  const database = createPracticeCompletionDatabase({
+    questions: ["Low", "Medium", "High"].map((difficulty, index) => ({
+      id: `question-${index}`,
+      topic_id: "topic-linear",
+      curriculum_track: "HK",
+      grade: "S3",
+      difficulty,
+      type: "MCQ",
+      prompt_en: "Solve the equation.",
+      prompt_zh: "解方程。"
+    }))
+  });
+  const { updateAdaptiveStateFromAttempt } = __userStoreLessonCompletionRewardTestHooks;
+  for (const [index, question] of database.questions.entries()) {
+    for (let answer = 1; answer <= 3; answer += 1) {
+      updateAdaptiveStateFromAttempt(database, "student-1", question, true, awardedAt);
+      assert.equal(database.adaptive_skill_state.length, index + 1);
+      assert.equal(database.adaptive_skill_state[index].skill_id, `topic-linear:${["foundation", "fluency", "transfer"][index]}`);
+      assert.equal(database.reward_point_ledger.length, index === 2 && answer === 3 ? 1 : 0);
+    }
+  }
+  assert.equal(database.reward_point_ledger[0].amount, 40);
+  updateAdaptiveStateFromAttempt(database, "student-1", database.questions[2], true, awardedAt);
+  assert.equal(database.reward_point_ledger.length, 1);
+  assert.equal(database.gamification_events?.length, 1);
+});
+
 test("attempt-accuracy completion awards the reward with topic-title fallback", () => {
   const { updateLessonProgressFromAttempts } = __userStoreLessonCompletionRewardTestHooks;
   const database = createPracticeCompletionDatabase({
@@ -388,6 +467,16 @@ test("attempt-accuracy completion awards the reward with topic-title fallback", 
   );
 
   assert.equal(database.lesson_progress[0]?.status, "completed");
+  assert.equal(database.reward_point_ledger.length, 0, "accuracy alone cannot bypass topic mastery confirmation");
+  setAdaptiveMastery(database, 0.9);
+  updateLessonProgressFromAttempts(
+    database,
+    "student-1",
+    { id: "question-1", topic_id: "topic-linear" } as Parameters<
+      typeof __userStoreLessonCompletionRewardTestHooks.updateLessonProgressFromAttempts
+    >[2],
+    awardedAt
+  );
   assert.equal(database.reward_point_ledger.length, 1);
   assert.equal(database.reward_point_ledger[0].reason, "lesson-complete");
   assert.equal(database.reward_point_ledger[0].source_key, "lesson-complete:student-1:topic-linear");
@@ -402,6 +491,22 @@ test("attempt-accuracy completion awards the reward with topic-title fallback", 
     awardedAt
   );
   assert.equal(database.reward_point_ledger.length, 1);
+});
+
+test("student reward instructions do not promise automatic completion in every storage mode", async () => {
+  const database = createDatabase();
+  const store = createGamificationRewardRedemptionPersistenceStore({
+    readDatabase: async () => database,
+    mutateDatabase: async (mutator) => mutator(database)
+  });
+  const rewards = await store.getStudentRewardsData("student-1");
+  const rule = rewards?.earnRules.find((entry) => entry.id === "lesson-complete");
+  assert.ok(rule);
+  assert.equal(rule.points, 40);
+  for (const copy of [rule.detail.en, rule.detail.zh, rule.detail.zhHans]) {
+    assert.ok(copy);
+    assert.doesNotMatch(copy, /automatically|自動|自动/i);
+  }
 });
 
 test("legacy and practice completion share one ledger identity in either order", () => {
