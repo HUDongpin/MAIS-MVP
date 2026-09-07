@@ -36,6 +36,15 @@ test("teacher invite verification requires exact 128-bit tokens and fails closed
       reason: "code-invalid"
     });
     assert.deepEqual(verifyTeacherInviteCode(`  ${validInviteA}  `), { status: "accepted" });
+    assert.deepEqual(verifyTeacherInviteCode(`${" ".repeat(8)}${validInviteA}${" ".repeat(8)}`), { status: "accepted" });
+    assert.deepEqual(verifyTeacherInviteCode(`${" ".repeat(9)}${validInviteA}${" ".repeat(8)}`), {
+      status: "rejected",
+      reason: "code-invalid"
+    });
+    assert.deepEqual(verifyTeacherInviteCode(validInviteA.replace("0123", "01 23")), {
+      status: "rejected",
+      reason: "code-invalid"
+    });
     assert.deepEqual(verifyTeacherInviteCode(validInviteB), { status: "accepted" });
     assert.deepEqual(verifyTeacherInviteCode(validInviteA.toUpperCase()), {
       status: "rejected",

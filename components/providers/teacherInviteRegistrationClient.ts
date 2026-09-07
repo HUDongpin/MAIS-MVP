@@ -1,4 +1,4 @@
-import { TEACHER_INVITE_CODE_MAX_LENGTH } from "@/lib/teacherInviteCodeContract";
+import { TEACHER_INVITE_CODE_MAX_SUBMITTED_LENGTH } from "@/lib/teacherInviteCodeContract";
 
 export type RegistrationFailureReason =
   | "duplicate"
@@ -10,7 +10,7 @@ export type RegistrationFailureReason =
 export const teacherInviteInputAttributes = Object.freeze({
   type: "password" as const,
   autoComplete: "off",
-  maxLength: TEACHER_INVITE_CODE_MAX_LENGTH
+  maxLength: TEACHER_INVITE_CODE_MAX_SUBMITTED_LENGTH
 });
 
 export function buildRegistrationRequestInit(payload: Record<string, unknown>): RequestInit {

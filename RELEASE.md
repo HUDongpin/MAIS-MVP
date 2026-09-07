@@ -89,6 +89,16 @@ Do not create a repository-level duplicate. The scheduled monitor deliberately h
 approval wait, so branch/ref protection, exact workflow/SHA binding, a pinned action supply chain,
 and the environment's branch policy are the credential-provenance boundary.
 
+The manually dispatched parent production acceptance workflow first logs in the deterministic
+synthetic teacher. Only a 401 permits new-account registration; other login failures stop the
+run. A new synthetic teacher requires `MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE`, supplied as
+one protected `production-health` Environment secret with the exact `tinv_` plus 32 lowercase
+hexadecimal format. A19 must provision it separately, matching one active code in the deployed
+server's `TEACHER_INVITE_CODES`; there is no default or registration bypass. An existing synthetic
+teacher can be reused without this secret. Do not put the code in dispatch inputs, reports,
+repository secrets, or command-line arguments. This wiring alone does not establish live secret
+configuration or authorize a production acceptance run.
+
 `MAIS_RELEASE_SHA` is not a long-lived project secret. The reviewed deployment wrappers derive it
 from one clean Git `HEAD` and inject that exact lowercase SHA into the immutable deployment. The
 teacher-notice scheduler heartbeat must match it; a missing or mismatched value keeps operational

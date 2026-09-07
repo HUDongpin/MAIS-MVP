@@ -16,6 +16,7 @@ export const PARENT_PRODUCTION_ACCEPTANCE_ORIGINS = Object.freeze([
   "https://www.mais.hk"
 ]);
 
+const SYNTHETIC_TEACHER_INVITE_PATTERN = /^tinv_[0-9a-f]{32}$/u;
 const SHA_PATTERN = /^[a-f0-9]{40}$/u;
 const SYNTHETIC_FAMILY_PATTERN = /^mais-synthetic-family-[a-z0-9][a-z0-9-]{2,63}$/u;
 const SECRET_PATTERN = /^[^\s\u0000-\u001f\u007f-\u009f]{32,512}$/u;
@@ -473,7 +474,7 @@ function accountSession(account, origin) {
   return session;
 }
 
-async function loginSyntheticAccount({ account, origin, expectedUserId, fetchImpl }) {
+async function loginSyntheticAccount({ account, origin, expectedUserId, allowInvalidCredentials = false, fetchImpl }) {
   const response = await appJsonRequest({
     origin,
     route: "/api/auth/login",
@@ -487,6 +488,7 @@ async function loginSyntheticAccount({ account, origin, expectedUserId, fetchImp
     },
     fetchImpl
   });
+  if (allowInvalidCredentials && response.status === 401) return null;
   if (
     response.status !== 200 ||
     !isRecord(response.body?.user) ||
@@ -504,7 +506,18 @@ async function loginSyntheticAccount({ account, origin, expectedUserId, fetchImp
   };
 }
 
-async function ensureSyntheticAccount({ account, origin, fetchImpl }) {
+async function ensureSyntheticAccount({ account, origin, teacherInviteCode, fetchImpl }) {
+  let response;
+  let created = false;
+  if (account.role === "teacher") {
+    // Existing teachers remain usable when self-registration is closed or an invite rotates.
+    const login = await loginSyntheticAccount({ account, origin, allowInvalidCredentials: true, fetchImpl });
+    if (login) {
+      response = { status: 200, body: { user: { id: login.userId, role: account.role } }, session: login };
+    } else if (!teacherInviteCode) {
+      throw new Error("MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE is required to register a new synthetic teacher; details redacted.");
+    }
+  }
   const registrationBody = account.role === "parent"
     ? {
         role: account.role,
@@ -522,6 +535,7 @@ async function ensureSyntheticAccount({ account, origin, fetchImpl }) {
         email: account.email,
         password: account.password,
         grade: "S3",
+        ...(account.role === "teacher" ? { teacherInviteCode } : {}),
         curriculumTrack: "HK",
         curriculumProfile: {
           region: "HK",
@@ -530,14 +544,16 @@ async function ensureSyntheticAccount({ account, origin, fetchImpl }) {
         language: "en",
         theme: "light"
       };
-  let response = await appJsonRequest({
-    origin,
-    route: "/api/auth/register",
-    method: "POST",
-    body: registrationBody,
-    fetchImpl
-  });
-  const created = response.status === 200;
+  if (!response) {
+    response = await appJsonRequest({
+      origin,
+      route: "/api/auth/register",
+      method: "POST",
+      body: registrationBody,
+      fetchImpl
+    });
+    created = response.status === 200;
+  }
   if (response.status === 409) {
     const login = await loginSyntheticAccount({ account, origin, fetchImpl });
     response = {
@@ -1115,6 +1131,7 @@ export async function runParentProductionAcceptance({
   const establishedTeacher = await ensureSyntheticAccount({
     account: accounts.teacher,
     origin: binding.target,
+    teacherInviteCode: runtime.MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE,
     fetchImpl
   });
   const establishedStudent = await ensureSyntheticAccount({
@@ -1359,8 +1376,11 @@ function readRequiredArgument(argv, index, flag) {
 }
 
 function assertRuntimeCredentials(runtime, target) {
+  const invite = runtime?.MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE;
   if (
     !SECRET_PATTERN.test(String(runtime?.TEACHER_NOTICE_HEALTH_SECRET ?? "")) ||
+    (invite !== undefined && invite !== "" &&
+      (typeof invite !== "string" || !SYNTHETIC_TEACHER_INVITE_PATTERN.test(invite))) ||
     !PARENT_PRODUCTION_ACCEPTANCE_ORIGINS.includes(target)
   ) {
     throw new Error("Parent production acceptance runtime is unavailable or invalid.");
@@ -1617,6 +1637,10 @@ export function buildParentProductionAcceptanceRuntime({
         throw new Error("protected environment mismatch");
       }
       selected[key] = runtimeValue;
+    }
+    const teacherInviteCode = runtimeEnvironment.MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE;
+    if (teacherInviteCode !== undefined && teacherInviteCode !== "") {
+      selected.MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE = teacherInviteCode;
     }
     assertRuntimeCredentials(selected, target);
     return Object.freeze(selected);

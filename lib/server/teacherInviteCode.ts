@@ -1,10 +1,8 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import {
   isTeacherInviteCode,
-  TEACHER_INVITE_CODE_MAX_LENGTH
+  TEACHER_INVITE_CODE_MAX_SUBMITTED_LENGTH
 } from "@/lib/teacherInviteCodeContract";
-
-const maxSubmittedTeacherInviteCodeLength = TEACHER_INVITE_CODE_MAX_LENGTH + 16;
 
 export type TeacherInviteCodeVerdict =
   | { status: "accepted" }
@@ -40,7 +38,7 @@ export function verifyTeacherInviteCode(submittedCode: unknown): TeacherInviteCo
     return { status: "rejected", reason: "registration-closed" };
   }
 
-  if (typeof submittedCode === "string" && submittedCode.length > maxSubmittedTeacherInviteCodeLength) {
+  if (typeof submittedCode === "string" && submittedCode.length > TEACHER_INVITE_CODE_MAX_SUBMITTED_LENGTH) {
     return { status: "rejected", reason: "code-invalid" };
   }
 

@@ -53,7 +53,7 @@ const registerCopy = {
   teacherInviteCodeHelp: {
     en: "Teacher accounts are issued by your school. Ask your school administrator for the code.",
     zh: "教師帳戶由學校發出，請向學校管理員索取邀請碼。",
-    zhHans: "教师账户由学校发放，请向学校管理员索取邀请码。"
+    zhHans: "教师账号由学校发放，请向学校管理员索取邀请码。"
   },
   teacherInviteCodeRejected: {
     en: "The school invite is missing, invalid, or unavailable. Check with your school administrator.",

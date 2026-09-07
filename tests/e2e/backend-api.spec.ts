@@ -851,18 +851,52 @@ test.describe("backend API integration", () => {
         language: "en",
         page: "/practice"
       };
-      expect((await student.context.post("/api/ai-tutor", { data: tutorPayload })).status()).toBe(503);
-      expect((await student.context.post("/api/ai-tutor", { data: { ...tutorPayload, input: "One more hint." } })).status()).toBe(503);
+      expect((await student.context.post("/api/ai-tutor", {
+        headers: expectedUserHeaders(student.userId),
+        data: tutorPayload
+      })).status()).toBe(503);
+      expect((await student.context.post("/api/ai-tutor", {
+        headers: expectedUserHeaders(student.userId),
+        data: { ...tutorPayload, input: "One more hint." }
+      })).status()).toBe(503);
+      // Wait for the two disabled-provider rejections before observing this admission rejection.
+      await expect.poll(() => (readAppStatePayload().ai_tutor_usage ?? [])
+        .filter((record) => record.user_id === student.userId)).toHaveLength(2);
+      const priorUsageIds = new Set((readAppStatePayload().ai_tutor_usage ?? [])
+        .filter((record) => record.user_id === student.userId)
+        .map((record) => record.id));
       const rateLimited = await student.context.post("/api/ai-tutor", {
+        headers: expectedUserHeaders(student.userId),
         data: { ...tutorPayload, input: "Third hint should be limited." }
       });
-      expect(rateLimited.status()).toBe(429);
-      expect(rateLimited.headers()["retry-after"]).toBeTruthy();
+      expect(rateLimited.status()).toBe(200);
+      expect(await rateLimited.json()).toMatchObject({ mode: "rate-limit-fallback" });
+      expect(rateLimited.headers()["retry-after"]).toMatch(/^[1-9]\d*$/);
+      expect(rateLimited.headers()["ratelimit-remaining"]).toBe("0");
+      expect(rateLimited.headers()["ratelimit-reset"]).toMatch(/^[1-9]\d*$/);
+      expect(rateLimited.headers()["x-mais-ai-provider"]).toBeUndefined();
+      // Admission rejects before provider execution: only a token-free rejection is journaled.
+      await expect.poll(() => (readAppStatePayload().ai_tutor_usage ?? [])
+        .filter((record) => record.user_id === student.userId && !priorUsageIds.has(record.id))
+        .map((record) => ({
+          error: record.error,
+          promptTokens: record.prompt_tokens,
+          completionTokens: record.completion_tokens,
+          totalTokens: record.total_tokens
+        }))).toEqual([{
+        error: "AI Tutor rate limit exceeded",
+        promptTokens: null,
+        completionTokens: null,
+        totalTokens: null
+      }]);
 
       const quotaStudent = await registerStudent(contexts, testInfo, "ai-quota-student");
       seedAITutorUsage(quotaStudent.userId, 200_000_000);
       const quotaExceeded = await readJson<{ reply: string; mode: string; quota: { limitTokens: number; usedTokens: number } }>(
-        await quotaStudent.context.post("/api/ai-tutor", { data: tutorPayload })
+        await quotaStudent.context.post("/api/ai-tutor", {
+          headers: expectedUserHeaders(quotaStudent.userId),
+          data: tutorPayload
+        })
       );
       expect(quotaExceeded.mode).toBe("quota-exceeded");
       expect(quotaExceeded.reply).toContain("quota");
@@ -1554,6 +1588,7 @@ test.describe("backend API integration", () => {
       const nextProvisionedPassword = `Next-${schoolCode}-12345`;
       const changedPassword = await readJson<AuthSession>(
         await provisionedStudentContext.post("/api/auth/password-change", {
+          headers: expectedUserHeaders(temporaryLogin.user.id),
           data: {
             currentPassword: provisionedStudent.temporaryPassword,
             password: nextProvisionedPassword

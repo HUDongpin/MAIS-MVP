@@ -90,7 +90,8 @@
       "slice": "release hygiene tooling/config",
       "pathspecs": [
         ".github/workflows/production-deploy.yml",
-        ".github/workflows/teacher-notice-health-monitor.yml"
+        ".github/workflows/teacher-notice-health-monitor.yml",
+        ".github/workflows/parent-production-acceptance.yml"
       ]
     },
     {
@@ -263,7 +264,8 @@
         "components/forum/**",
         "data/forum.ts",
         "lib/forum.ts",
-        "public/forum-assets/**"
+        "public/forum-assets/**",
+        "lib/teacherInviteCodeContract.ts"
       ]
     },
     {
@@ -547,7 +549,9 @@
     { "path": "components/ui/GradeSelector.tsx", "expectedOwner": "A03" },
     { "path": "components/ui/ThemeToggle.tsx", "expectedOwner": "A01" },
     { "path": ".env.local.example", "expectedOwner": "A19" },
-    { "path": ".env.local", "expectedOwner": "A25" }
+    { "path": ".env.local", "expectedOwner": "A25" },
+    {"path": ".github/workflows/parent-production-acceptance.yml", "expectedOwner": "A22"},
+    {"path": "lib/teacherInviteCodeContract.ts", "expectedOwner": "A12"}
   ],
   "unmappedBlockers": []
 }

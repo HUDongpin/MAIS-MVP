@@ -31,6 +31,7 @@ const target = "https://www.mais.hk";
 const releaseRecordPath = "/tmp/mais-parent-production-release-record.json";
 const deploymentId = "dpl_FixtureParentAcceptance123456";
 const deploymentUrl = "https://mais-parent-acceptance-fixture.vercel.app";
+const validTeacherInvite = "tinv_0123456789abcdef0123456789abcdef";
 const validRuntime = Object.freeze({
   TEACHER_NOTICE_HEALTH_SECRET: "h".repeat(48)
 });
@@ -270,7 +271,7 @@ test("provider JSON streaming stops and cancels at the response bound", async ()
   assert.ok(pulls <= 10, `bounded reader pulled ${pulls} chunks`);
 });
 
-test("protected production-health loader selects only the health secret and never pulls sensitive Vercel values", async () => {
+test("protected production-health loader selects only acceptance secrets and never pulls sensitive Vercel values", async () => {
   const toolSha = "c".repeat(40);
   const context = {
     CI: "true",
@@ -294,6 +295,24 @@ test("protected production-health loader selects only the health secret and neve
     target
   });
   assert.deepEqual(built, validRuntime);
+  assert.deepEqual(buildParentProductionAcceptanceRuntime({
+    runtimeEnvironment: { ...context, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: validTeacherInvite },
+    target
+  }), { ...validRuntime, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: validTeacherInvite });
+  assert.deepEqual(buildParentProductionAcceptanceRuntime({
+    runtimeEnvironment: { ...context, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: "" },
+    target
+  }), validRuntime);
+  for (const invalidInvite of ["not-an-invite", `${validTeacherInvite},${validTeacherInvite}`, validTeacherInvite.toUpperCase()]) {
+    assert.throws(() => buildParentProductionAcceptanceRuntime({
+      runtimeEnvironment: { ...context, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: invalidInvite },
+      target
+    }), (error) => {
+      assert.match(error.message, /runtime failed validation.*redacted/i);
+      assert.equal(error.message.includes(invalidInvite), false);
+      return true;
+    });
+  }
   assert.equal(Object.prototype.hasOwnProperty.call(built, "VERCEL_TOKEN"), false);
   assert.equal(Object.prototype.hasOwnProperty.call(built, "TEACHER_NOTICE_RESEND_API_KEY"), false);
   assert.equal(Object.prototype.hasOwnProperty.call(built, "CRON_SECRET"), false);
@@ -388,6 +407,7 @@ test("production acceptance workflow is protected-main-only, serialized, exact-a
   const execute = job.steps.find((step) => step.name === "Run dedicated synthetic-family acceptance");
   assert.equal(execute.env.GITHUB_TOKEN, "${{ secrets.MAIS_RELEASE_GITHUB_TOKEN }}");
   assert.equal(execute.env.MAIS_PARENT_PRODUCTION_ACCEPTANCE_ENV_SOURCE, "github-production-health-v1");
+  assert.equal(execute.env.MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE, "${{ secrets.MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE }}");
   assert.equal(execute.env.TEACHER_NOTICE_HEALTH_SECRET, "${{ secrets.TEACHER_NOTICE_HEALTH_SECRET }}");
   assert.equal(execute.env.VERCEL_TOKEN, "${{ secrets.VERCEL_TOKEN }}");
   assert.match(execute.run, /node scripts\/parent-production-acceptance\.mjs/u);
@@ -665,8 +685,12 @@ test("Resend delivery and webhook progress accept only the official delivered te
   );
 });
 
-test("full acceptance orchestration keeps credentials and durable identifiers out of its report", async () => {
+for (const teacherCase of ["new", "existing", "registration-race"]) {
+test(`full acceptance orchestration handles ${teacherCase} teachers without exposing credentials or durable identifiers`, async () => {
   const state = {
+    teacherExists: teacherCase !== "new",
+    teacherLoginCalls: 0,
+    teacherRegistrationCalls: 0,
     classCreated: false,
     className: "",
     createCount: 0,
@@ -681,6 +705,7 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     acknowledgedAt: "2026-08-28T10:09:00.000Z"
   };
   const sensitive = {
+    teacherInvite: validTeacherInvite,
     teacherId: "teacher-sensitive-id",
     studentId: "student-sensitive-id",
     parentId: "parent-sensitive-id",
@@ -756,6 +781,15 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     assert.notEqual(url.hostname, "api.resend.com", "restricted production Resend keys must stay inside the deployed app");
     if (url.pathname === "/api/auth/register" && method === "POST") {
       const role = body.role ?? "student";
+      if (role === "teacher") {
+        state.teacherRegistrationCalls += 1;
+        // Match the real route: the invite gate runs before duplicate-account lookup.
+        if (body.teacherInviteCode !== validTeacherInvite) return json({ code: "teacher-invite-denied" }, 403);
+        if (state.teacherExists) return json({ error: "duplicate" }, 409);
+        state.teacherExists = true;
+      } else {
+        assert.equal("teacherInviteCode" in body, false);
+      }
       if (role === "parent") state.parentRecipient = body.email;
       return json(
         { user: { id: roleIds[role], role, name: body.name, username: body.username } },
@@ -771,6 +805,13 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
         : body.username.includes("-student@")
           ? "student"
           : "parent";
+      assert.equal("teacherInviteCode" in body, false);
+      if (role === "teacher") {
+        state.teacherLoginCalls += 1;
+        if (!state.teacherExists || (teacherCase === "registration-race" && state.teacherLoginCalls === 1)) {
+          return json({ error: "Invalid email/username or password." }, 401);
+        }
+      }
       return json(
         { user: { id: roleIds[role], role, name: `Synthetic ${role}`, username: body.username } },
         200,
@@ -941,7 +982,9 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     syntheticFamilyId: familyId,
     target,
     releaseRecord: exactReleaseRecord(),
-    runtime: validRuntime,
+    runtime: teacherCase === "existing" ? validRuntime : {
+      ...validRuntime, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: validTeacherInvite
+    },
     fetchImpl,
     sleep: async () => undefined,
     concurrency: 4,
@@ -985,10 +1028,11 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
   assert.equal(report.treeSha, treeSha);
   assert.equal(report.syntheticFamilyId, familyId);
   assert.deepEqual(report.accounts, {
-    teacher: { role: "teacher", created: true, cookieContract: true },
+    teacher: { role: "teacher", created: teacherCase === "new", cookieContract: true },
     student: { role: "student", created: true, cookieContract: true },
     parent: { role: "parent", created: true, cookieContract: true }
   });
+  assert.equal(state.teacherRegistrationCalls, teacherCase === "existing" ? 0 : 1);
   assert.equal(report.family.classReady, true);
   assert.equal(report.cookie.authenticatedAcrossAliases, true);
   assert.equal(report.family.enrollmentReady, true);
@@ -1012,4 +1056,29 @@ test("full acceptance orchestration keeps credentials and durable identifiers ou
     assert.doesNotMatch(serialized, new RegExp(String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
   }
   assert.doesNotMatch(serialized, /TEACHER_NOTICE|CRON_SECRET|re_[A-Za-z0-9]|@resend\.dev|@example\.test/u);
+});
+}
+
+test("teacher establishment stops on missing invite or non-401 login failure without registration", async () => {
+  for (const status of [401, 403, 429, 503]) {
+    const requests = [];
+    await assert.rejects(runParentProductionAcceptance({
+      toolingSha: "c".repeat(40), toolingTreeSha: "d".repeat(40), executionId: "123456789:1",
+      candidateSha, treeSha, syntheticFamilyId: familyId, target, releaseRecord: exactReleaseRecord(),
+      runtime: status === 401 ? validRuntime : { ...validRuntime, MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE: validTeacherInvite },
+      verifyToolingChecks: async () => ({ verified: true }),
+      verifyCurrentDeployment: async () => ({ providerBound: true }),
+      fetchImpl: async (input) => {
+        requests.push(new URL(String(input)).pathname);
+        return new Response(JSON.stringify({ error: validTeacherInvite }), {
+          status, headers: { "content-type": "application/json" }
+        });
+      }
+    }), (error) => {
+      assert.equal(error.message.includes(validTeacherInvite), false);
+      assert.match(error.message, status === 401 ? /MAIS_PARENT_SYNTHETIC_TEACHER_INVITE_CODE.*required/ : /account login failed.*redacted/);
+      return true;
+    });
+    assert.deepEqual(requests, ["/api/auth/login"]);
+  }
 });

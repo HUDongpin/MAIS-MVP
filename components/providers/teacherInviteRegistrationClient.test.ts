@@ -5,7 +5,7 @@ import {
   classifyRegistrationFailure,
   teacherInviteInputAttributes
 } from "./teacherInviteRegistrationClient";
-import { TEACHER_INVITE_CODE_MAX_LENGTH } from "../../lib/teacherInviteCodeContract";
+import { isTeacherInviteCode, TEACHER_INVITE_CODE_MAX_LENGTH } from "../../lib/teacherInviteCodeContract";
 
 const validInvite = "tinv_0123456789abcdef0123456789abcdef";
 
@@ -49,10 +49,19 @@ test("registration request and failure classification execute the teacher invite
   })), "setup");
   assert.equal(await classifyRegistrationFailure(new Response("not-json", { status: 503 })), "error");
 
+  // Model the browser's raw input limit before the server trims surrounding whitespace.
+  for (const rawInvite of [`  ${validInvite}  `, `${" ".repeat(8)}${validInvite}${" ".repeat(8)}`]) {
+    const enteredInvite = rawInvite.slice(0, teacherInviteInputAttributes.maxLength);
+    const request = buildRegistrationRequestInit({ role: "teacher", teacherInviteCode: enteredInvite });
+    const submittedInvite = JSON.parse(String(request.body)).teacherInviteCode as string;
+    assert.equal(submittedInvite, rawInvite, "surrounding whitespace must not truncate the token");
+    assert.equal(isTeacherInviteCode(submittedInvite.trim()), true);
+  }
+
   assert.deepEqual(teacherInviteInputAttributes, {
     type: "password",
     autoComplete: "off",
-    maxLength: TEACHER_INVITE_CODE_MAX_LENGTH
+    maxLength: TEACHER_INVITE_CODE_MAX_LENGTH + 16
   });
   assert.equal(TEACHER_INVITE_CODE_MAX_LENGTH, validInvite.length);
 });
