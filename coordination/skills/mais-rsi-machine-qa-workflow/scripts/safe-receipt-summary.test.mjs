@@ -86,6 +86,22 @@ function safeGenericReceipt() {
   };
 }
 
+test("summary rejects duplicate disposition and nested evidence keys without echo", async () => {
+  const source = JSON.stringify(safeGenericReceipt());
+  for (const duplicate of [
+    '{"status":"DUPLICATE-PRIVATE-CANARY",' + source.slice(1),
+    '{"\\u0073tatus":"blocked",' + source.slice(1),
+    source.replace('"credentialsIncluded":false', '"credentialsIncluded":true,"credentialsIncluded":false'),
+  ]) {
+    await withTempFile(duplicate, async (file) => {
+      const result = run(file);
+      assert.equal(result.status, 2);
+      assert.ok(parse(result).issueCodes.includes("JSON_DUPLICATE_KEY"));
+      assert.doesNotMatch(result.stdout + result.stderr, /DUPLICATE-PRIVATE-CANARY/);
+    });
+  }
+});
+
 test("--help exits 0 and states semantic boundary", () => {
   const result = spawnSync(process.execPath, [SCRIPT, "--help"], { encoding: "utf8" });
   assert.equal(result.status, 0);

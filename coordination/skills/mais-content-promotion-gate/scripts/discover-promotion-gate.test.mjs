@@ -17,12 +17,14 @@ import { createPromotionTestSiblingSymlink, createPromotionTestTempDir } from ".
 import * as promotionDiscovery from "./discover-promotion-gate.mjs";
 import {
   buildRepositoryValidatedReleaseHandoff,
+  redactedRef,
   discoverNativePromotionContext,
   discoverPromotionGate,
   fingerprint,
   parsePromotionWorkflow,
   readJsonArtifactAtCommit,
   sha256,
+  stableJson,
   summarizeVerifiedReceipt,
   snapshotAuthoritativeState,
   strictJsonParse,
@@ -1527,6 +1529,12 @@ test("bundled date-time format is applied rather than treated as annotation", ()
   const schema = { type: "string", format: "date-time" };
   assert.doesNotThrow(() => validateJsonSchema("2026-08-27T01:02:03.004Z", schema, "timestamp"));
   assert.throws(() => validateJsonSchema("not-a-timestamp", schema, "timestamp"), (error) => error.code === "SCHEMA_VALIDATION_FAILED");
+  for (const value of ["2026-02-30T00:00:00.000Z", "2025-02-29T00:00:00+08:00", "2026-04-31T01:02:03-05:30", "2026-01-01T24:00:00Z"]) {
+    assert.throws(() => validateJsonSchema(value, schema, "timestamp"), (error) => error.code === "SCHEMA_VALIDATION_FAILED", value);
+  }
+  for (const value of ["2024-02-29T00:00:00.123Z", "2026-12-31T23:59:59+08:00", "2026-01-01T00:00:00.123456-05:30"]) {
+    assert.doesNotThrow(() => validateJsonSchema(value, schema, "timestamp"), value);
+  }
 });
 
 test("bundled JSON Schema validator implements not and rejects unsupported assertion keywords", async () => {
@@ -1709,21 +1717,36 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
     a25EvidenceVerified: true,
     liveAllowed: false,
   };
-  const releaseEvidence = (role, digit) => ({ role, ref: `ref-${digit.repeat(64)}`, sha256: digit.repeat(64), result: "pass", liveAllowed: false });
-  const exactReleaseEvidence = (role, digit) => ({ ...releaseEvidence(role, digit), releaseSha: intendedRelease });
-  const targetPathspecRef = `ref-${"c".repeat(64)}`;
+  // Synthetic authenticated I/O fixtures: this is not a production identity root.
+  const authoritySources = new Map();
+  const issuerId = "fixture-authority-service";
+  const ownerId = "fixture-live-owner";
+  const targetPathspecId = "fixture-production-pathspec";
+  function sourceFor(role) {
+    const sourceIdentity = {
+      recordId: `fixture-authority-${role}`, issuerId, role,
+      ...(["LIVE_SURFACE_OWNER", "OWNER_AUTHORIZATION"].includes(role) ? { ownerId } : {}),
+      ...(role === "OWNER_AUTHORIZATION" ? { targetPathspecId } : {}),
+    };
+    const record = { schemaVersion: "release-authority-evidence.v1", ...sourceIdentity, releaseSha: intendedRelease, result: "pass", liveAllowed: false,
+      ...(role === "OWNER_AUTHORIZATION" ? { target: "production", action: "deploy" } : {}),
+    };
+    const bytes = Buffer.from(JSON.stringify(record));
+    const ref = redactedRef(stableJson({ issuerId, recordId: sourceIdentity.recordId }));
+    authoritySources.set(ref, { sourceIdentity, bytes });
+    return { ref, sha256: sha256(bytes) };
+  }
+  const exactReleaseEvidence = (role) => ({ role, ...sourceFor(role), releaseSha: intendedRelease, result: "pass", liveAllowed: false });
+  const targetPathspecRef = redactedRef(targetPathspecId);
   const liveSurfaceOwnerEvidence = {
-    ownerRef: `ref-${"d".repeat(64)}`,
-    ref: `ref-${"e".repeat(64)}`,
-    sha256: "e".repeat(64),
-    releaseSha: intendedRelease,
-    result: "pass",
-    liveAllowed: false,
+    ownerRef: redactedRef(ownerId), ...sourceFor("LIVE_SURFACE_OWNER"),
+    releaseSha: intendedRelease, result: "pass", liveAllowed: false,
   };
+  const authorizationSource = sourceFor("OWNER_AUTHORIZATION");
   const ownerAuthorization = {
     ownerRef: liveSurfaceOwnerEvidence.ownerRef,
-    authorizationRef: `ref-${"f".repeat(64)}`,
-    sha256: "f".repeat(64),
+    authorizationRef: authorizationSource.ref,
+    sha256: authorizationSource.sha256,
     releaseSha: intendedRelease,
     target: "production",
     action: "deploy",
@@ -1733,12 +1756,17 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
   const releaseAuthorityEvidence = {
     liveSurfaceOwnerEvidence,
     ownerAuthorization,
-    a11Evidence: exactReleaseEvidence("A11", "8"),
-    a22Evidence: exactReleaseEvidence("A22", "9"),
-    a25Evidence: exactReleaseEvidence("A25", "a"),
+    a11Evidence: exactReleaseEvidence("A11"),
+    a22Evidence: exactReleaseEvidence("A22"),
+    a25Evidence: exactReleaseEvidence("A25"),
   };
   release.receiptComparison.canonical.receiptSha256 = canonicalTransportSha256;
   const releaseAdapter = {
+    async readReleaseAuthorityEvidence({ ref, releaseSha, maxBytes }) {
+      assert.equal(releaseSha, intendedRelease);
+      assert.equal(maxBytes, 64 * 1024);
+      return authoritySources.get(ref) ?? null;
+    },
     async head() { return intendedRelease; },
     async commitExists(commit) { return [releaseExecution, releaseStorage, releaseFinalization, intendedRelease, SOURCE, BASELINE, RELEASE].includes(commit); },
     async isAncestor(ancestor, descendant) {
@@ -1777,6 +1805,79 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
   });
   assert.deepEqual(release.releaseHandoff.liveSurfaceOwnerEvidence, liveSurfaceOwnerEvidence);
   assert.deepEqual(release.releaseHandoff.ownerAuthorization, ownerAuthorization);
+  const noAuthorityAdapter = { ...releaseAdapter };
+  delete noAuthorityAdapter.readReleaseAuthorityEvidence;
+  await assert.rejects(
+    buildRepositoryValidatedReleaseHandoff(release, { repositoryAdapter: noAuthorityAdapter, releaseSha: intendedRelease, canonicalReceiptEvidence, ...releaseAuthorityEvidence }),
+    (error) => error.code === "RELEASE_AUTHORITY_UNAVAILABLE",
+  );
+  await assert.rejects(
+    validateRepositoryBackedReleaseHandoff(release, noAuthorityAdapter, canonicalReceiptEvidence),
+    (error) => error.code === "RELEASE_AUTHORITY_UNAVAILABLE",
+  );
+  await t.test("ordinary Git records and trusted flags cannot supply release authority", async () => {
+    const candidateOnlyAdapter = { ...noAuthorityAdapter, trusted: true, evidenceRecords: releaseAuthorityEvidence };
+    await assert.rejects(validateRepositoryBackedReleaseHandoff(release, candidateOnlyAdapter, canonicalReceiptEvidence),
+      (error) => error.code === "RELEASE_AUTHORITY_UNAVAILABLE");
+    const gitOnlyAdapter = { ...releaseAdapter, readReleaseAuthorityEvidence: promotionDiscovery.createGitRepositoryAdapter(fixture.root).readReleaseAuthorityEvidence };
+    await assert.rejects(validateRepositoryBackedReleaseHandoff(release, gitOnlyAdapter, canonicalReceiptEvidence),
+      (error) => error.code === "RELEASE_AUTHORITY_UNAVAILABLE");
+  });
+  await t.test("unavailable authority errors cannot echo private adapter details", async () => {
+    const unavailable = { ...releaseAdapter, async readReleaseAuthorityEvidence() {
+      throw Object.assign(new Error("PRIVATE-AUTHORITY-CANARY-921"), { code: "RELEASE_AUTHORITY_UNAVAILABLE" });
+    } };
+    const safeFailure = (error) => error.code === "RELEASE_AUTHORITY_UNAVAILABLE" && !String(error.stack).includes("PRIVATE-AUTHORITY-CANARY-921");
+    await assert.rejects(validateRepositoryBackedReleaseHandoff(release, unavailable, canonicalReceiptEvidence), safeFailure);
+    await assert.rejects(buildRepositoryValidatedReleaseHandoff(release, { repositoryAdapter: unavailable, releaseSha: intendedRelease, canonicalReceiptEvidence, ...releaseAuthorityEvidence }), safeFailure);
+  });
+  for (const slot of Object.keys(releaseAuthorityEvidence)) {
+    await t.test(`missing independently resolved ${slot} blocks builder and validator`, async () => {
+      const target = releaseAuthorityEvidence[slot];
+      const targetRef = target.ref ?? target.authorizationRef;
+      const absent = { ...releaseAdapter, async readReleaseAuthorityEvidence(request) {
+        return request.ref === targetRef ? null : releaseAdapter.readReleaseAuthorityEvidence(request);
+      } };
+      await assert.rejects(validateRepositoryBackedReleaseHandoff(release, absent, canonicalReceiptEvidence),
+        (error) => error.code === "RELEASE_AUTHORITY_SOURCE_INVALID");
+      await assert.rejects(buildRepositoryValidatedReleaseHandoff(release, { repositoryAdapter: absent, releaseSha: intendedRelease, canonicalReceiptEvidence, ...releaseAuthorityEvidence }),
+        (error) => error.code === "RELEASE_AUTHORITY_SOURCE_INVALID");
+    });
+  }
+  const sourceMutations = [
+    ["caller pass summary", "a11Evidence", (source) => ({ trusted: true, ...releaseAuthorityEvidence.a11Evidence }), false, "RELEASE_AUTHORITY_SOURCE_INVALID"],
+    ["changed raw bytes", "a11Evidence", (source) => ({ ...source, bytes: Buffer.concat([source.bytes, Buffer.from(" ")]) }), false, "RELEASE_AUTHORITY_DIGEST_MISMATCH"],
+    ["different role", "a11Evidence", (source, record) => { record.role = "A22"; }, true, "RELEASE_AUTHORITY_RECORD_INVALID"],
+    ["failing evidence", "a11Evidence", (source, record) => { record.result = "fail"; }, true, "RELEASE_AUTHORITY_RECORD_INVALID"],
+    ["different release", "a11Evidence", (source, record) => { record.releaseSha = SOURCE; }, true, "RELEASE_AUTHORITY_RECORD_INVALID"],
+    ["duplicate JSON key", "a11Evidence", (source) => ({ ...source, bytes: Buffer.from('{"result":"blocked",' + source.bytes.toString().slice(1)) }), true, "JSON_DUPLICATE_KEY"],
+    ["non UTF-8 bytes", "a11Evidence", (source) => ({ ...source, bytes: Buffer.from([0xff, 0xfe]) }), true, "RELEASE_AUTHORITY_RECORD_INVALID"],
+    ["oversized source", "a11Evidence", (source) => ({ ...source, bytes: Buffer.alloc(64 * 1024 + 1, 32) }), true, "RELEASE_AUTHORITY_SOURCE_INVALID"],
+    ["source identity differs from declared reference", "a11Evidence", (source, record) => { source.sourceIdentity.recordId = record.recordId = "unregistered-source"; }, true, "RELEASE_AUTHORITY_DIGEST_MISMATCH"],
+    ["same source under another wrapper", "a11Evidence", (source, record) => { source.sourceIdentity.recordId = record.recordId = "fixture-authority-LIVE_SURFACE_OWNER"; }, true, "RELEASE_AUTHORITY_SOURCE_NOT_DISTINCT"],
+    ["wrong authorizing owner", "ownerAuthorization", (source, record) => { source.sourceIdentity.ownerId = record.ownerId = "other-owner"; }, true, "RELEASE_AUTHORITY_OWNER_MISMATCH"],
+    ["wrong deployment target", "ownerAuthorization", (source, record) => { record.target = "preview"; }, true, "RELEASE_AUTHORITY_SCOPE_MISMATCH"],
+    ["wrong deployment action", "ownerAuthorization", (source, record) => { record.action = "merge"; }, true, "RELEASE_AUTHORITY_SCOPE_MISMATCH"],
+    ["wrong authorized pathspec", "ownerAuthorization", (source, record) => { source.sourceIdentity.targetPathspecId = record.targetPathspecId = "other-pathspec"; }, true, "RELEASE_AUTHORITY_SCOPE_MISMATCH"],
+  ];
+  for (const [label, slot, mutate, rehash, code] of sourceMutations) {
+    await t.test(`independent authority rejects ${label}`, async () => {
+      const packet = structuredClone(release);
+      const declaration = packet.releaseHandoff[slot];
+      const targetRef = declaration.ref ?? declaration.authorizationRef;
+      const original = authoritySources.get(targetRef);
+      let source = { sourceIdentity: { ...original.sourceIdentity }, bytes: Buffer.from(original.bytes) };
+      const record = JSON.parse(source.bytes.toString());
+      const replacement = mutate(source, record);
+      source = replacement ?? { ...source, bytes: Buffer.from(JSON.stringify(record)) };
+      if (rehash) declaration.sha256 = sha256(source.bytes);
+      const adapter = { ...releaseAdapter, async readReleaseAuthorityEvidence(request) {
+        return request.ref === targetRef ? source : releaseAdapter.readReleaseAuthorityEvidence(request);
+      } };
+      await assert.rejects(validateRepositoryBackedReleaseHandoff(packet, adapter, canonicalReceiptEvidence),
+        (error) => error.code === code && !/other-owner|unregistered-source/.test(error.message));
+    });
+  }
   assert.equal(release.releaseHandoff.ownerAuthorization.targetPathspecDigest, fingerprint({
     releaseSha: intendedRelease,
     target: "production",
@@ -1789,9 +1890,9 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
       releaseSha: intendedRelease,
       canonicalReceiptEvidence,
       ownerAuthorization,
-      a11Evidence: exactReleaseEvidence("A11", "8"),
-      a22Evidence: exactReleaseEvidence("A22", "9"),
-      a25Evidence: exactReleaseEvidence("A25", "a"),
+      a11Evidence: exactReleaseEvidence("A11"),
+      a22Evidence: exactReleaseEvidence("A22"),
+      a25Evidence: exactReleaseEvidence("A25"),
     }),
     (error) => error.code === "RELEASE_LIVE_OWNER_EVIDENCE_REQUIRED",
   );
@@ -1801,9 +1902,9 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
       releaseSha: intendedRelease,
       canonicalReceiptEvidence,
       liveSurfaceOwnerEvidence,
-      a11Evidence: exactReleaseEvidence("A11", "8"),
-      a22Evidence: exactReleaseEvidence("A22", "9"),
-      a25Evidence: exactReleaseEvidence("A25", "a"),
+      a11Evidence: exactReleaseEvidence("A11"),
+      a22Evidence: exactReleaseEvidence("A22"),
+      a25Evidence: exactReleaseEvidence("A25"),
     }),
     (error) => error.code === "RELEASE_OWNER_AUTHORIZATION_REQUIRED",
   );
@@ -1814,9 +1915,9 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
       canonicalReceiptEvidence,
       liveSurfaceOwnerEvidence: { ...liveSurfaceOwnerEvidence, releaseSha: "c".repeat(40) },
       ownerAuthorization,
-      a11Evidence: exactReleaseEvidence("A11", "8"),
-      a22Evidence: exactReleaseEvidence("A22", "9"),
-      a25Evidence: exactReleaseEvidence("A25", "a"),
+      a11Evidence: exactReleaseEvidence("A11"),
+      a22Evidence: exactReleaseEvidence("A22"),
+      a25Evidence: exactReleaseEvidence("A25"),
     }),
     (error) => error.code === "RELEASE_EXACT_SHA_EVIDENCE_MISMATCH",
   );
@@ -1827,9 +1928,9 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
       canonicalReceiptEvidence,
       liveSurfaceOwnerEvidence,
       ownerAuthorization: { ...ownerAuthorization, releaseSha: "c".repeat(40) },
-      a11Evidence: exactReleaseEvidence("A11", "8"),
-      a22Evidence: exactReleaseEvidence("A22", "9"),
-      a25Evidence: exactReleaseEvidence("A25", "a"),
+      a11Evidence: exactReleaseEvidence("A11"),
+      a22Evidence: exactReleaseEvidence("A22"),
+      a25Evidence: exactReleaseEvidence("A25"),
     }),
     (error) => error.code === "RELEASE_EXACT_SHA_EVIDENCE_MISMATCH",
   );
@@ -1840,9 +1941,9 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
       canonicalReceiptEvidence,
       liveSurfaceOwnerEvidence,
       ownerAuthorization: { ...ownerAuthorization, targetPathspecDigest: "0".repeat(64) },
-      a11Evidence: exactReleaseEvidence("A11", "8"),
-      a22Evidence: exactReleaseEvidence("A22", "9"),
-      a25Evidence: exactReleaseEvidence("A25", "a"),
+      a11Evidence: exactReleaseEvidence("A11"),
+      a22Evidence: exactReleaseEvidence("A22"),
+      a25Evidence: exactReleaseEvidence("A25"),
     }),
     (error) => error.code === "RELEASE_TARGET_PATHSPEC_DIGEST_MISMATCH",
   );
@@ -1851,11 +1952,11 @@ test("standalone handoff schema rejects false Shadow, reaffirmation, and release
       repositoryAdapter: releaseAdapter,
       releaseSha: intendedRelease,
       canonicalReceiptEvidence,
-      liveSurfaceOwnerEvidence: { ...liveSurfaceOwnerEvidence, sha256: "8".repeat(64) },
+      liveSurfaceOwnerEvidence: { ...liveSurfaceOwnerEvidence, sha256: releaseAuthorityEvidence.a11Evidence.sha256 },
       ownerAuthorization,
-      a11Evidence: exactReleaseEvidence("A11", "8"),
-      a22Evidence: exactReleaseEvidence("A22", "9"),
-      a25Evidence: exactReleaseEvidence("A25", "a"),
+      a11Evidence: exactReleaseEvidence("A11"),
+      a22Evidence: exactReleaseEvidence("A22"),
+      a25Evidence: exactReleaseEvidence("A25"),
     }),
     (error) => error.code === "RELEASE_LIVE_OWNER_EVIDENCE_NOT_DISTINCT",
   );

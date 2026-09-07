@@ -729,10 +729,10 @@ test("formal response contracts are section-scoped and schema-backed", () => {
   assert.match(releaseOutcomes, /same-SHA route\/alias readback and separate required-behavior verification/u);
 });
 
-test("suite manifest declares version 1.1.0 and does not commit package archives", () => {
+test("suite manifest declares version 1.1.1 and does not commit package archives", () => {
   const manifest = json("suite-manifest.json");
   assert.equal(manifest.schemaVersion, "1.0");
-  assert.equal(manifest.suiteVersion, "1.1.0");
+  assert.equal(manifest.suiteVersion, "1.1.1");
   assert.equal(manifest.components.length, 5);
   assert.deepEqual(manifest.components.map((entry) => entry.name), Object.keys(COMPONENTS));
   assert.equal(manifest.packageBuild.binaryArchivesCommitted, false);

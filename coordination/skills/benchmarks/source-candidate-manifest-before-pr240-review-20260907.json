@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "suiteName": "mais-question-qa-skill-suite",
-  "suiteVersion": "1.1.1",
+  "suiteVersion": "1.1.0",
   "status": "source-candidate-uncommitted",
   "baseline": {
     "repository": "MAIS-MVP",
     "originMainCommit": "34c10c202972dd901fa72f2aad7b21a3432d387b",
-    "sourceObservedAt": "2026-09-07T15:24:13.162Z",
+    "sourceObservedAt": "2026-09-07T12:24:41.230Z",
     "worktree": "isolated-a10-rules-skills-integration"
   },
   "historicalEvidence": {
@@ -17,13 +17,13 @@
   "components": [
     {
       "name": "mais-rsi-machine-qa-workflow",
-      "version": "1.1.1",
+      "version": "1.1.0",
       "kind": "new-specialist",
       "compatibilityPatch": false,
-      "sourceHash": "a502c5e7e93a368faa277cae5cafa4e5f8ec4af2cad011bb5c2c452c8e1b109b",
-      "sourceFileCount": 20,
-      "packageViewHash": "5a16a2c67124d81030472d3ca472cecd557819f89bcbdf9908d80f57cb3a8797",
-      "packageFileCount": 18,
+      "sourceHash": "30268ac23c1ab09e2005a095ea7c52b5133e0c29a091ab83f1617c20477998ed",
+      "sourceFileCount": 19,
+      "packageViewHash": "8caa084facc390222938e3f6f9a791cebdc3f8b54d1bca8afd4a1b6bb949ad44",
+      "packageFileCount": 17,
       "sourceCommit": null,
       "packageHash": null,
       "installation": {
@@ -34,13 +34,13 @@
     },
     {
       "name": "mais-natural-sample-evaluation",
-      "version": "1.1.1",
+      "version": "1.1.0",
       "kind": "new-specialist",
       "compatibilityPatch": false,
-      "sourceHash": "f3dc58df978c8e619ff93b82b6b31cb15dc7c715871f65e90dc26a8b4dc72a8f",
-      "sourceFileCount": 24,
-      "packageViewHash": "9bb39850dff6e0a3145efbc6c8cc8773a15d0143ed7d487f75160ce1663cf2df",
-      "packageFileCount": 22,
+      "sourceHash": "36450d5c657089755f173b8c2b8e34ec287d3b989ce20c09e19d44510494fe46",
+      "sourceFileCount": 23,
+      "packageViewHash": "1ed361a4125c2af75fbe085a279a1a315756c856fece84b2a42d4c0ba492ea8e",
+      "packageFileCount": 21,
       "sourceCommit": null,
       "packageHash": null,
       "installation": {
@@ -51,12 +51,12 @@
     },
     {
       "name": "mais-content-promotion-gate",
-      "version": "1.1.1",
+      "version": "1.1.0",
       "kind": "new-specialist",
       "compatibilityPatch": false,
-      "sourceHash": "ce01e07a5d6a036f689f71e4bcec284bf0be8ef50c6b210a9f5678db9a596be9",
+      "sourceHash": "06de2b8349281d5fd7369ef6f15cc8f7790b3b7531f4e5aa0738319196b0a750",
       "sourceFileCount": 26,
-      "packageViewHash": "426e662b0b2569ff497ad25b08d40f6da184368c7f0fac24afec44f09e03da86",
+      "packageViewHash": "9682e3594be9bd424e565d5239cd1cfd6539ca70bbac1ae4c1be97db23f54b83",
       "packageFileCount": 24,
       "sourceCommit": null,
       "packageHash": null,
@@ -123,11 +123,5 @@
     "pushed": false,
     "pullRequest": null,
     "merged": false
-  },
-  "reviewBaseline": {
-    "commit": "60dfe6a446580711943a37ccb287c7a313ef5876",
-    "manifestPath": "benchmarks/source-candidate-manifest-before-pr240-review-20260907.json",
-    "sha256": "bca061b419c14003bddeebcf8df998870039779175800842855fdf135d8b11da",
-    "scope": "Frozen source-candidate manifest before PR240 review repairs; not current verification."
   }
 }

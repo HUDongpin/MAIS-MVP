@@ -67,6 +67,16 @@ The self-contained schema is `assets/promotion-gate-handoff.schema.json`. Its ro
 
 Promotion adds exact candidate/source/baseline/checker-release bindings, official lifecycle state, orthogonal currentness/live boundary, attempt/revision direct-parent relation, canonical/fresh/distinct-replay semantic comparison, historical-versus-active Closure scope, and an exact-SHA release handoff with A11/A22/A25 evidence.
 
+### Independent release authority I/O
+
+The five release-authority projections are declarations, not authority. Both the repository-backed validator and its builder require `repositoryAdapter.readReleaseAuthorityEvidence({ role, ref, releaseSha, maxBytes })`. This is a trusted-host I/O boundary, like the adapter's Git reads; the presence of a JavaScript method does not authenticate an issuer. Never construct its implementation from an envelope, candidate Git records, a caller's pass summary, a `trusted: true` flag, or caller-selected keys. The host must independently authenticate the source and its authority for the requested role before returning any record. No such production identity protocol is wired here: the default Git adapter deterministically throws `RELEASE_AUTHORITY_UNAVAILABLE`. Do not replace that hold with synthetic fixture data.
+
+The I/O result is exactly `{ sourceIdentity, bytes }`. `bytes` is a nonempty Buffer of at most 65536 bytes. The separately authenticated identity contains globally namespaced `recordId`, `issuerId`, and `role`; `LIVE_SURFACE_OWNER` and `OWNER_AUTHORIZATION` also carry `ownerId`, and authorization additionally carries `targetPathspecId`. IDs are bounded opaque identifiers, never evidence content. The public record reference recomputes as `redactedRef(stableJson({ issuerId, recordId }))`; owner and pathspec references recompute from their respective independent IDs. The five records must have distinct source record identities, not merely distinct hashes or wrapper bytes.
+
+The validator parses the raw bytes with duplicate-key/UTF-8/depth/size checks and recomputes raw SHA-256. Each closed record contains `schemaVersion: "release-authority-evidence.v1"`, all of its source identity fields, exact `releaseSha`, `result: "pass"`, and `liveAllowed: false`. Authorization also contains `target: "production"` and `action: "deploy"`. The record must agree with its independent identity, the requested role/release, and every public projection. The same independently identified owner must supply live-surface evidence and authorization; the target pathspec reference and digest must recompute from the authenticated authorization scope. Unknown sources, byte/digest drift, role/result/SHA/owner/scope drift, and reused source identities block the handoff without echoing raw data.
+
+Offline positive adapters are synthetic I/O substitutes that exercise these calculations. They do not establish real owner identity, certify native release authority, deploy anything, or change `liveAllowed=false`. Connecting an actual independently authenticated host adapter is a separate integration; until then real release handoff remains unavailable.
+
 The envelope is non-authoritative by construction. Set `authoritativeReceipt=false` and bind native evidence only by SHA-256, commit, and redacted `ref-<hash>` values.
 
 

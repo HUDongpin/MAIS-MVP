@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { strictJsonParse } from "./strict-json.mjs";
+
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -1691,8 +1693,9 @@ export async function readPacketFile(file) {
     throw error;
   }
   try {
-    return JSON.parse(bytes.toString("utf8"));
-  } catch {
+    return strictJsonParse(bytes);
+  } catch (cause) {
+    if (cause?.code === "JSON_DUPLICATE_KEY") throw cause;
     const error = new Error("JSON_MALFORMED");
     error.code = "JSON_MALFORMED";
     throw error;
@@ -1736,7 +1739,7 @@ async function main(argv) {
     process.stdout.write(`${JSON.stringify(safeValidationOutput(result))}\n`);
     return result.result === "valid" ? 0 : 2;
   } catch (error) {
-    const code = error?.code === "JSON_MALFORMED" || error?.code === "INPUT_TOO_LARGE" ? error.code : "INPUT_READ_FAILED";
+    const code = ["JSON_MALFORMED", "JSON_DUPLICATE_KEY", "INPUT_TOO_LARGE"].includes(error?.code) ? error.code : "INPUT_READ_FAILED";
     const status = code === "INPUT_READ_FAILED" ? 3 : 2;
     process.stdout.write(`${JSON.stringify({ tool: "verify-evidence-envelope", result: status === 3 ? "error" : "invalid", offline: true, readOnly: true, redacted: true, issues: [{ code, path: "#", severity: "invalid" }] })}\n`);
     return status;

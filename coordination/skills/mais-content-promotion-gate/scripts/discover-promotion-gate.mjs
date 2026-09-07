@@ -207,6 +207,20 @@ function isCanonicalTimestamp(value) {
   return !Number.isNaN(parsed.valueOf()) && parsed.toISOString() === value;
 }
 
+function isCalendarTimestamp(value) {
+  const parts = value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/u);
+  if (!parts || Number.isNaN(Date.parse(value))) return false;
+  const [year, month, day, hour, minute, second] = parts.slice(1).map(Number);
+  // Round-trip the stated calendar components separately from the valid offset.
+  // setUTCFullYear also preserves years 0000-0099 instead of mapping them to 1900.
+  const calendar = new Date(0);
+  calendar.setUTCFullYear(year, month - 1, day);
+  calendar.setUTCHours(hour, minute, second, 0);
+  return calendar.getUTCFullYear() === year && calendar.getUTCMonth() === month - 1
+    && calendar.getUTCDate() === day && calendar.getUTCHours() === hour
+    && calendar.getUTCMinutes() === minute && calendar.getUTCSeconds() === second;
+}
+
 function proofGrammarFail(label) {
   fail("RECEIPT_PROOF_GRAMMAR_INVALID", `${label} is outside the closed Receipt proof grammar`);
 }
@@ -453,6 +467,11 @@ function runGit(repoRoot, args, { encoding = "utf8", allowFailure = false, maxBu
 
 export function createGitRepositoryAdapter(repoRoot) {
   return {
+    async readReleaseAuthorityEvidence() {
+      // Git records do not authenticate deployment authorizers or external QA.
+      // A trusted host must supply independently authenticated source I/O.
+      fail("RELEASE_AUTHORITY_UNAVAILABLE", "independent release authority source is not configured");
+    },
     async head() {
       return String(runGit(repoRoot, ["rev-parse", "HEAD"]).stdout).trim();
     },
@@ -620,7 +639,7 @@ function validateSchemaValue(value, schema, root, pathValue, errors) {
     if (Number.isInteger(schema.minLength) && value.length < schema.minLength) errors.push(`${pathValue}:minLength`);
     if (Number.isInteger(schema.maxLength) && value.length > schema.maxLength) errors.push(`${pathValue}:maxLength`);
     if (typeof schema.pattern === "string" && !new RegExp(schema.pattern, "u").test(value)) errors.push(`${pathValue}:pattern`);
-    if (schema.format === "date-time" && (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/u.test(value) || Number.isNaN(Date.parse(value)))) errors.push(`${pathValue}:format`);
+    if (schema.format === "date-time" && !isCalendarTimestamp(value)) errors.push(`${pathValue}:format`);
   }
   if (typeof value === "number") {
     if (typeof schema.minimum === "number" && value < schema.minimum) errors.push(`${pathValue}:minimum`);
@@ -909,7 +928,84 @@ export async function validateRepositoryBackedReleaseHandoff(value, repositoryAd
   if (!await repositoryAdapter.isAncestor(executionCommit, storageCommit) || (storageCommit !== finalizationCommit && !await repositoryAdapter.isAncestor(storageCommit, finalizationCommit)) || !await repositoryAdapter.isAncestor(finalizationCommit, actualHead)) {
     fail("RELEASE_ANCESTRY_INVALID", "release ancestry is not execution -> storage -> finalization -> intended release");
   }
+  await verifyReleaseAuthorityEvidence(handoff, repositoryAdapter);
   return value;
+}
+
+const RELEASE_AUTHORITY_MAX_BYTES = 64 * 1024;
+const RELEASE_AUTHORITY_SLOTS = Object.freeze([
+  ["liveSurfaceOwnerEvidence", "LIVE_SURFACE_OWNER"],
+  ["ownerAuthorization", "OWNER_AUTHORIZATION"],
+  ["a11Evidence", "A11"], ["a22Evidence", "A22"], ["a25Evidence", "A25"],
+]);
+
+async function verifyReleaseAuthorityEvidence(handoff, repositoryAdapter) {
+  if (typeof repositoryAdapter?.readReleaseAuthorityEvidence !== "function") {
+    fail("RELEASE_AUTHORITY_UNAVAILABLE", "independent release authority source is not configured");
+  }
+  const sourceIds = new Set();
+  let verifiedOwnerId;
+  for (const [slot, role] of RELEASE_AUTHORITY_SLOTS) {
+    const declaration = handoff[slot];
+    const ref = role === "OWNER_AUTHORIZATION" ? declaration.authorizationRef : declaration.ref;
+    let source;
+    try {
+      source = await repositoryAdapter.readReleaseAuthorityEvidence({
+        role, ref, releaseSha: handoff.releaseSha, maxBytes: RELEASE_AUTHORITY_MAX_BYTES,
+      });
+    } catch (error) {
+      if (error?.code === "RELEASE_AUTHORITY_UNAVAILABLE") {
+        fail("RELEASE_AUTHORITY_UNAVAILABLE", "independent release authority source is not configured");
+      }
+      fail("RELEASE_AUTHORITY_SOURCE_UNAVAILABLE", "independent release authority source could not be resolved");
+    }
+    const owned = role === "LIVE_SURFACE_OWNER" || role === "OWNER_AUTHORIZATION";
+    const identityKeys = ["recordId", "issuerId", "role", ...(owned ? ["ownerId"] : []), ...(role === "OWNER_AUTHORIZATION" ? ["targetPathspecId"] : [])];
+    if (!hasExactKeys(source, ["sourceIdentity", "bytes"]) || !hasExactKeys(source.sourceIdentity, identityKeys)
+      || !Buffer.isBuffer(source.bytes) || source.bytes.length === 0 || source.bytes.length > RELEASE_AUTHORITY_MAX_BYTES) {
+      fail("RELEASE_AUTHORITY_SOURCE_INVALID", "release authority source requires bounded raw bytes and independent source identity");
+    }
+    const identity = source.sourceIdentity;
+    if (identityKeys.some((key) => typeof identity[key] !== "string" || !SAFE_ID_RE.test(identity[key])) || identity.role !== role) {
+      fail("RELEASE_AUTHORITY_IDENTITY_INVALID", "release authority source identity does not match the required role");
+    }
+    if (sourceIds.has(identity.recordId)) {
+      fail("RELEASE_AUTHORITY_SOURCE_NOT_DISTINCT", "release authority records must have distinct authenticated source identities");
+    }
+    sourceIds.add(identity.recordId);
+    const resolvedRef = redactedRef(stableJson({ issuerId: identity.issuerId, recordId: identity.recordId }));
+    if (resolvedRef !== ref || sha256(source.bytes) !== declaration.sha256) {
+      fail("RELEASE_AUTHORITY_DIGEST_MISMATCH", "release authority reference or raw digest does not recompute");
+    }
+    let record;
+    try { record = strictJsonParse(source.bytes, "release authority evidence"); } catch (error) {
+      if (error?.code === "JSON_DUPLICATE_KEY") throw error;
+      fail("RELEASE_AUTHORITY_RECORD_INVALID", "release authority evidence is not strict JSON");
+    }
+    const recordKeys = ["schemaVersion", ...identityKeys, "releaseSha", "result", "liveAllowed", ...(role === "OWNER_AUTHORIZATION" ? ["target", "action"] : [])];
+    if (!hasExactKeys(record, recordKeys) || record.schemaVersion !== "release-authority-evidence.v1"
+      || identityKeys.some((key) => record[key] !== identity[key])
+      || record.releaseSha !== handoff.releaseSha || record.result !== "pass" || record.liveAllowed !== false) {
+      fail("RELEASE_AUTHORITY_RECORD_INVALID", "release authority record does not bind its source, role, result, or release SHA");
+    }
+    if (owned) {
+      if (declaration.ownerRef !== redactedRef(identity.ownerId) || (verifiedOwnerId !== undefined && verifiedOwnerId !== identity.ownerId)) {
+        fail("RELEASE_AUTHORITY_OWNER_MISMATCH", "release authority records do not bind the same independently identified owner");
+      }
+      verifiedOwnerId = identity.ownerId;
+    }
+    if (role === "OWNER_AUTHORIZATION") {
+      const targetPathspecRef = redactedRef(identity.targetPathspecId);
+      if (record.target !== "production" || record.action !== "deploy"
+        || declaration.target !== record.target || declaration.action !== record.action
+        || declaration.targetPathspecRef !== targetPathspecRef
+        || declaration.targetPathspecDigest !== fingerprint({ releaseSha: record.releaseSha, target: record.target, action: record.action, targetPathspecRef })) {
+        fail("RELEASE_AUTHORITY_SCOPE_MISMATCH", "release authorization does not bind the independently identified target, action, and pathspec");
+      }
+    } else if (declaration.result !== record.result || declaration.liveAllowed !== record.liveAllowed || (role !== "LIVE_SURFACE_OWNER" && declaration.role !== record.role)) {
+      fail("RELEASE_AUTHORITY_RECORD_INVALID", "release authority projection differs from the independently read record");
+    }
+  }
 }
 
 function validateReleaseAuthorityInputs({ releaseSha, liveSurfaceOwnerEvidence, ownerAuthorization, a11Evidence, a22Evidence, a25Evidence }) {

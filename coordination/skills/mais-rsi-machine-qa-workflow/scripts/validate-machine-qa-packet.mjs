@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile } from "node:fs/promises";
+import { strictJsonParse } from "./strict-json.mjs";
 import {
   collectLiveRuntimeEvidence,
   validateMachineQaPacket,
@@ -60,7 +61,7 @@ async function main() {
 
   let source;
   try {
-    source = await readFile(args[0], "utf8");
+    source = await readFile(args[0]);
   } catch {
     emit("internal-error", [{ code: "INPUT_READ_FAILED", path: "$" }]);
     return EXIT_INTERNAL;
@@ -72,9 +73,9 @@ async function main() {
 
   let packet;
   try {
-    packet = JSON.parse(source);
-  } catch {
-    emit("blocked", [{ code: "JSON_MALFORMED", path: "$" }]);
+    packet = strictJsonParse(source);
+  } catch (error) {
+    emit("blocked", [{ code: error?.code === "JSON_DUPLICATE_KEY" ? error.code : "JSON_MALFORMED", path: "$" }]);
     return EXIT_BLOCKED;
   }
 

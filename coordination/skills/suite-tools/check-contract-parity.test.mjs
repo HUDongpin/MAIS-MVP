@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -132,4 +133,11 @@ test("specialists may not silently tighten or widen a shared common definition",
     { label: "second", schema: second },
   ]);
   assert(result.issues.some((entry) => entry.code === "COMMON_DEFINITION_PARITY_MISMATCH"));
+});
+
+
+test("independently packaged machine and natural strict parsers stay in parity", async () => {
+  const machine = await readFile(new URL("../mais-rsi-machine-qa-workflow/scripts/strict-json.mjs", import.meta.url), "utf8");
+  const natural = await readFile(new URL("../mais-natural-sample-evaluation/scripts/strict-json.mjs", import.meta.url), "utf8");
+  assert.equal(machine, natural);
 });

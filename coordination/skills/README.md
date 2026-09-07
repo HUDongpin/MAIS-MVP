@@ -4,9 +4,11 @@ This directory is the canonical, reviewable source for five narrowly routed MAIS
 
 ## Current source and historical verification
 
-The 1.1.0 candidate contains the September 7 rules and Skill adaptations. Its source hashes describe these files, while package builds, model evaluations, installation, commit, push and merge are pending for this version. The unchanged August 27 manifest and benchmark/installation receipts are historical evidence linked from `suite-manifest.json`; they do not certify the current files. Repository integration does not install these Skills into a global runtime.
+The 1.1.1 candidate adds the PR #240 evidence-reader, release-authority, calendar-date and cross-platform test repairs to the September 7 rules and Skill adaptations. Its source hashes describe these files, while package builds, model evaluations, installation, commit, push and merge are pending for this version. The unchanged August 27 manifest and benchmark/installation receipts are historical evidence linked from `suite-manifest.json`; they do not certify the current files. Repository integration does not install these Skills into a global runtime.
 
 The current native Promotion workflow remains outside this suite's closed recognizer (`WORKFLOW_STRUCTURE_INVALID` at native main `34c10c20`). See [native compatibility](native-compatibility.json). Offline tests validate their frozen fixtures; they do not authorize current native execution or remove this compatibility hold.
+
+The release-handoff builder now requires independently authenticated raw evidence from a trusted host I/O adapter. The ordinary Git adapter has no such production identity protocol and fails closed. Synthetic offline adapters test verification logic only; they do not establish real release authorization. The prior source manifest is preserved under `reviewBaseline` in the current manifest.
 
 ## Routing Topology
 

@@ -2,6 +2,7 @@
 
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
+import { strictJsonParse } from "./strict-json.mjs";
 import {
   CANDIDATE_ID_RE,
   CODE_RE,
@@ -358,7 +359,7 @@ async function main() {
 
   let source;
   try {
-    source = await readFile(args[0], "utf8");
+    source = await readFile(args[0]);
   } catch {
     emit("internal-error", { summaryVersion: 2 }, ["INPUT_READ_FAILED"], { supplied: false, valid: null });
     return EXIT_INTERNAL;
@@ -370,9 +371,9 @@ async function main() {
 
   let receipt;
   try {
-    receipt = JSON.parse(source);
-  } catch {
-    emit("blocked", { summaryVersion: 2 }, ["JSON_MALFORMED"], { supplied: false, valid: null });
+    receipt = strictJsonParse(source);
+  } catch (error) {
+    emit("blocked", { summaryVersion: 2 }, [error?.code === "JSON_DUPLICATE_KEY" ? error.code : "JSON_MALFORMED"], { supplied: false, valid: null });
     return EXIT_BLOCKED;
   }
   if (!isObject(receipt)) {

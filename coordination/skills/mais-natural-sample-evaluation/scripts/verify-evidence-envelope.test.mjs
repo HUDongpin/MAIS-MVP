@@ -1,3 +1,4 @@
+import { strictJsonParse } from "./strict-json.mjs";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
@@ -9,6 +10,7 @@ import {
   bindingForReceiptNode,
   canonicalDigest,
   loadNaturalEvidenceSchema,
+  readPacketFile,
   validateNaturalEvidence,
 } from "./verify-evidence-envelope.mjs";
 import {
@@ -30,6 +32,26 @@ import {
 function hasIssue(result, code) {
   return result.issues.some((entry) => entry.code === code);
 }
+
+test("natural evidence readers reject duplicate keys before resolving claims", async () => {
+  const source = JSON.stringify(makeM3Packet());
+  for (const duplicate of [
+    '{"schemaVersion":"DUPLICATE-PRIVATE-CANARY",' + source.slice(1),
+    '{"\\u0073chemaVersion":"DUPLICATE-PRIVATE-CANARY",' + source.slice(1),
+    source.replace('"credentialsIncluded":false', '"credentialsIncluded":true,"credentialsIncluded":false'),
+  ]) {
+    assert.notEqual(duplicate, source);
+    await withTempText(duplicate, async (file) => {
+      await assert.rejects(readPacketFile(file), (error) => error.code === "JSON_DUPLICATE_KEY");
+      for (const script of ["verify-evidence-envelope.mjs", "resolve-evaluation-state.mjs", "audit-protected-custody.mjs", "validate-redacted-export.mjs"]) {
+        const result = runScript(script, [file]);
+        assert.equal(result.status, 2);
+        assert.ok(JSON.parse(result.stdout).issues.some((entry) => entry.code === "JSON_DUPLICATE_KEY"));
+        assert.doesNotMatch(result.stdout + result.stderr, /DUPLICATE-PRIVATE-CANARY/);
+      }
+    });
+  }
+});
 
 const STANDALONE_SCHEMA_PATH = fileURLToPath(new URL("../assets/natural-evaluation-state.schema.json", import.meta.url));
 
@@ -2023,4 +2045,14 @@ test("CLI help promises offline read-only zero-provider behavior", () => {
   assert.match(result.stdout, /Offline, read-only/);
   assert.match(result.stdout, /never contacts a provider/);
   assert.match(result.stdout, /grants provider authority.*authenticates an issuer/i);
+});
+
+
+test("standalone strict parser preserves UTF-8, nesting and escaped-key boundaries", () => {
+  assert.deepEqual(strictJsonParse(Buffer.from('{"\\u0061":"\\ud83d\\ude00"}')), { a: "😀" });
+  assert.doesNotThrow(() => strictJsonParse("[".repeat(128) + "0" + "]".repeat(128)));
+  assert.throws(() => strictJsonParse("[".repeat(129) + "0" + "]".repeat(129)), (error) => error.code === "STRICT_JSON_INVALID");
+  assert.throws(() => strictJsonParse(Buffer.from([0xc3, 0x28])), (error) => error.code === "STRICT_JSON_INVALID");
+  assert.throws(() => strictJsonParse('{"a":1,"\\u0061":2}'), (error) => error.code === "JSON_DUPLICATE_KEY");
+  assert.throws(() => strictJsonParse('{"nested":{"x":1,"x":2}}'), (error) => error.code === "JSON_DUPLICATE_KEY");
 });

@@ -126,7 +126,7 @@ async function main(argv) {
     process.stdout.write(`${JSON.stringify(output)}\n`);
     return output.result === "valid" ? 0 : 2;
   } catch (error) {
-    const code = error?.code === "JSON_MALFORMED" || error?.code === "INPUT_TOO_LARGE" ? error.code : "INPUT_READ_FAILED";
+    const code = ["JSON_MALFORMED", "JSON_DUPLICATE_KEY", "INPUT_TOO_LARGE"].includes(error?.code) ? error.code : "INPUT_READ_FAILED";
     process.stdout.write(`${JSON.stringify({ tool: "validate-redacted-export", result: code === "INPUT_READ_FAILED" ? "error" : "invalid", offline: true, readOnly: true, redacted: true, issues: [{ code, path: "#", severity: "invalid" }] })}\n`);
     return code === "INPUT_READ_FAILED" ? 3 : 2;
   }

@@ -1,3 +1,4 @@
+import { strictJsonParse } from "./strict-json.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { chmod, mkdtemp, mkdir, readFile, rm, symlink, writeFile } from "node:fs/promises";
@@ -62,6 +63,23 @@ function parseOutput(result) {
   assert.equal(result.stderr, "");
   return JSON.parse(result.stdout);
 }
+
+test("CLI rejects duplicate evidence keys before semantic validation without echo", async () => {
+  const source = JSON.stringify(validPacket());
+  for (const duplicate of [
+    '{"schemaVersion":"DUPLICATE-PRIVATE-CANARY",' + source.slice(1),
+    '{"\\u0073chemaVersion":"DUPLICATE-PRIVATE-CANARY",' + source.slice(1),
+    source.replace('"credentialsIncluded":false', '"credentialsIncluded":"DUPLICATE-PRIVATE-CANARY","credentialsIncluded":false'),
+  ]) {
+    assert.notEqual(duplicate, source);
+    await withTempFile(duplicate, async (file) => {
+      const result = run(file);
+      assert.equal(result.status, 2);
+      assert.ok(parseOutput(result).issues.some((entry) => entry.code === "JSON_DUPLICATE_KEY"));
+      assert.doesNotMatch(result.stdout + result.stderr, /DUPLICATE-PRIVATE-CANARY/);
+    });
+  }
+});
 
 function issueCodes(packet, options) {
   return validateMachineQaPacket(packet, options).map((item) => item.code);
@@ -160,8 +178,8 @@ function rebindLiveRoles(live, allowedRoles, performedRoles) {
 }
 
 async function withExecutableClosureRepository(options, callback) {
-  const directory = await mkdtemp("/private/tmp/mais-rsi-code-closure-");
-  const outsideDirectory = await mkdtemp("/private/tmp/mais-rsi-code-outside-");
+  const directory = await mkdtemp(path.join(tmpdir(), "mais-rsi-code-closure-"));
+  const outsideDirectory = await mkdtemp(path.join(tmpdir(), "mais-rsi-code-outside-"));
   const runnerPath = "scripts/fixture-runner.mjs";
   const runnerBytes = options.runnerBytes ?? "export const fixtureOnly = true;\n";
   const packageBytes = '{"name":"fixture","private":true,"type":"module"}\n';
@@ -1515,7 +1533,7 @@ test("a clean exact recursive static ESM and literal-require closure is current"
 });
 
 test("a packet outside the repository is accepted only against the matching clean repository cwd", async () => {
-  const packetDirectory = await mkdtemp("/private/tmp/mais-rsi-outside-packet-");
+  const packetDirectory = await mkdtemp(path.join(tmpdir(), "mais-rsi-outside-packet-"));
   try {
     await withExecutableClosureRepository({
       resolutionPolicy: "standalone-bundle-v1",
@@ -1985,4 +2003,14 @@ test("D-prime rejects a covered check reference to an invalidated prior receipt"
   const codes = issueCodes(packet);
   assert.ok(codes.includes("REMEDIATION_INVALIDATED_HASH_STILL_ACTIVE"));
   assert.ok(!codes.includes("CHECK_EVIDENCE_HASH_UNCOVERED"));
+});
+
+
+test("standalone strict parser preserves UTF-8, nesting and escaped-key boundaries", () => {
+  assert.deepEqual(strictJsonParse(Buffer.from('{"\\u0061":"\\ud83d\\ude00"}')), { a: "😀" });
+  assert.doesNotThrow(() => strictJsonParse("[".repeat(128) + "0" + "]".repeat(128)));
+  assert.throws(() => strictJsonParse("[".repeat(129) + "0" + "]".repeat(129)), (error) => error.code === "STRICT_JSON_INVALID");
+  assert.throws(() => strictJsonParse(Buffer.from([0xc3, 0x28])), (error) => error.code === "STRICT_JSON_INVALID");
+  assert.throws(() => strictJsonParse('{"a":1,"\\u0061":2}'), (error) => error.code === "JSON_DUPLICATE_KEY");
+  assert.throws(() => strictJsonParse('{"nested":{"x":1,"x":2}}'), (error) => error.code === "JSON_DUPLICATE_KEY");
 });
