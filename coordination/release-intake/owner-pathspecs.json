@@ -483,7 +483,8 @@
         "coordination/decisions/**",
         "coordination/**",
         "scripts/bug-triage.js",
-        "scripts/**"
+        "scripts/**",
+        "CLAUDE.md"
       ]
     },
     {
@@ -531,6 +532,7 @@
     { "path": "scripts/next-clean-build.test.mjs", "expectedOwner": "A22" },
     { "path": ".github/workflows/production-deploy.yml", "expectedOwner": "A22" },
     { "path": ".github/workflows/teacher-notice-health-monitor.yml", "expectedOwner": "A22" },
+    {"path": ".github/workflows/parent-production-acceptance.yml", "expectedOwner": "A22"},
     { "path": ".github/workflows/ci.yml", "expectedOwner": "A11" },
     { "path": "RELEASE.md", "expectedOwner": "A10" },
     { "path": "node_modules", "expectedOwner": "A25" },
@@ -544,14 +546,14 @@
     { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },
     { "path": "app/api/adaptive-learning/route.ts", "expectedOwner": "A15" },
     { "path": "app/api/users/route.ts", "expectedOwner": "A12" },
+    {"path": "lib/teacherInviteCodeContract.ts", "expectedOwner": "A12"},
     { "path": "components/gamification/FishingGame.tsx", "expectedOwner": "A20" },
     { "path": "components/gamification/BadgeShelf.tsx", "expectedOwner": "A17" },
     { "path": "components/ui/GradeSelector.tsx", "expectedOwner": "A03" },
     { "path": "components/ui/ThemeToggle.tsx", "expectedOwner": "A01" },
     { "path": ".env.local.example", "expectedOwner": "A19" },
     { "path": ".env.local", "expectedOwner": "A25" },
-    {"path": ".github/workflows/parent-production-acceptance.yml", "expectedOwner": "A22"},
-    {"path": "lib/teacherInviteCodeContract.ts", "expectedOwner": "A12"}
+    {"path": "CLAUDE.md", "expectedOwner": "A10"}
   ],
   "unmappedBlockers": []
 }
