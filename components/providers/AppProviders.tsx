@@ -29,6 +29,10 @@ import {
   throttledLearningAnalyticsFlushMs
 } from "@/lib/learningAnalytics";
 import { isVisualizationLabPath } from "@/lib/visualizationRoutes";
+import {
+  buildRegistrationRequestInit,
+  classifyRegistrationFailure
+} from "@/components/providers/teacherInviteRegistrationClient";
 import type {
   CurriculumTrack,
   CurriculumProfile,
@@ -219,6 +223,7 @@ type RegisterInput = {
   password: string;
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
+  teacherInviteCode?: string;
 };
 
 type ProfileUpdateInput = {
@@ -252,6 +257,7 @@ type AuthActionResult = {
     | "invalid"
     | "setup"
     | "error"
+    | "teacher-invite"
     | "requires-curriculum-track"
     | "password-updated-sign-in-required";
 };
@@ -1638,13 +1644,10 @@ export function AppProviders({
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
   }, [beginAuthenticatedDocumentTransition, language, theme]);
 
-  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile }: RegisterInput): Promise<AuthActionResult> => {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile, teacherInviteCode }: RegisterInput): Promise<AuthActionResult> => {
+    const response = await fetch(
+      "/api/auth/register",
+      buildRegistrationRequestInit({
         role,
         name,
         username,
@@ -1653,16 +1656,14 @@ export function AppProviders({
         grade,
         curriculumProfile,
         curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
+        teacherInviteCode,
         language,
         theme
       })
-    });
+    );
 
     if (!response.ok) {
-      if (response.status === 409) return { ok: false, reason: "duplicate" };
-      if (response.status === 400) return { ok: false, reason: "invalid" };
-      if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
-      return { ok: false, reason: "error" };
+      return { ok: false, reason: await classifyRegistrationFailure(response) };
     }
 
     const session = readAuthSession(await response.json());

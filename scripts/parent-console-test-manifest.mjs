@@ -52,14 +52,17 @@ export const parentSecurityLifecycleTestFiles = Object.freeze([
   "app/api/auth/logout-all/route.test.ts",
   "app/api/auth/password-change/routeSessionRevision.test.ts",
   "app/api/auth/password-reset/confirm/routeSessionRevision.test.ts",
+  "app/api/auth/register/routeTeacherInviteGate.test.ts",
   "app/api/auth/sessionIssuanceRoutes.test.ts",
   "app/api/guardianInvitationRoutes.test.ts",
   "app/api/teacher/teacherReportPreviewRoute.test.ts",
   "components/teacher/GuardianAccessControls.test.ts",
   "components/teacher/teacherReportFormState.test.ts",
   "components/ai/aiTutorSessionIsolation.test.ts",
+  "components/providers/teacherInviteRegistrationClient.test.ts",
   "lib/server/expectedUserGuard.test.ts",
   "lib/server/sessionCookie.test.ts",
+  "lib/server/teacherInviteCode.test.ts",
   "lib/server/userStoreAuthSessionPersistence.test.ts",
   "lib/server/userStoreGuardianInvitationPersistence.test.ts",
   "lib/server/userStoreSessionRevisionPostgres.test.ts",
@@ -77,8 +80,8 @@ export const parentConsoleTestFiles = Object.freeze([
 
 export const expectedParentDomainTestCount = 154;
 export const expectedParentConsoleSupportTestCount = 56;
-export const expectedParentSecurityLifecycleTestCount = 194;
-export const expectedParentConsoleTestCount = 404;
+export const expectedParentSecurityLifecycleTestCount = 197;
+export const expectedParentConsoleTestCount = 407;
 
 // Runtime has three more tests than the source declaration count because the
 // teacher-report and expected-user transport cases include loop-declared test
@@ -86,8 +89,8 @@ export const expectedParentConsoleTestCount = 404;
 // counts rather than treating a source regex as execution evidence.
 export const expectedParentDomainStaticDeclarationCount = 154;
 export const expectedParentConsoleSupportStaticDeclarationCount = 56;
-export const expectedParentSecurityLifecycleStaticDeclarationCount = 191;
-export const expectedParentConsoleStaticDeclarationCount = 401;
+export const expectedParentSecurityLifecycleStaticDeclarationCount = 194;
+export const expectedParentConsoleStaticDeclarationCount = 404;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);

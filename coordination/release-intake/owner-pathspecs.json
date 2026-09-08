@@ -90,7 +90,8 @@
       "slice": "release hygiene tooling/config",
       "pathspecs": [
         ".github/workflows/production-deploy.yml",
-        ".github/workflows/teacher-notice-health-monitor.yml"
+        ".github/workflows/teacher-notice-health-monitor.yml",
+        ".github/workflows/parent-production-acceptance.yml"
       ]
     },
     {
@@ -263,7 +264,8 @@
         "components/forum/**",
         "data/forum.ts",
         "lib/forum.ts",
-        "public/forum-assets/**"
+        "public/forum-assets/**",
+        "lib/teacherInviteCodeContract.ts"
       ]
     },
     {
@@ -530,6 +532,7 @@
     { "path": "scripts/next-clean-build.test.mjs", "expectedOwner": "A22" },
     { "path": ".github/workflows/production-deploy.yml", "expectedOwner": "A22" },
     { "path": ".github/workflows/teacher-notice-health-monitor.yml", "expectedOwner": "A22" },
+    {"path": ".github/workflows/parent-production-acceptance.yml", "expectedOwner": "A22"},
     { "path": ".github/workflows/ci.yml", "expectedOwner": "A11" },
     { "path": "RELEASE.md", "expectedOwner": "A10" },
     { "path": "node_modules", "expectedOwner": "A25" },
@@ -543,6 +546,7 @@
     { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },
     { "path": "app/api/adaptive-learning/route.ts", "expectedOwner": "A15" },
     { "path": "app/api/users/route.ts", "expectedOwner": "A12" },
+    {"path": "lib/teacherInviteCodeContract.ts", "expectedOwner": "A12"},
     { "path": "components/gamification/FishingGame.tsx", "expectedOwner": "A20" },
     { "path": "components/gamification/BadgeShelf.tsx", "expectedOwner": "A17" },
     { "path": "components/ui/GradeSelector.tsx", "expectedOwner": "A03" },

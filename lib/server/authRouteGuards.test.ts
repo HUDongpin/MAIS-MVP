@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { NextResponse } from "next/server";
 import {
+  authRateLimitRules,
   authRateLimitResponse,
   defaultLoginIdentifierMax,
   loginIdentifierMaxFromEnv,
@@ -27,6 +28,8 @@ function assertPrivateNoStore(response: Response) {
 
 test("the production ceiling is 12 attempts per identifier", () => {
   assert.equal(defaultLoginIdentifierMax, 12);
+  assert.deepEqual(authRateLimitRules.teacherInviteIp, { max: 12, windowMs: 15 * 60 * 1000 });
+  assert.ok(authRateLimitRules.teacherInviteIp.max < authRateLimitRules.registerIp.max);
 });
 
 test("an unset override leaves the production ceiling untouched", () => {

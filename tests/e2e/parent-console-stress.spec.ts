@@ -8,7 +8,8 @@ import {
   demoParentUserId,
   demoStudent,
   demoTeacher,
-  logoutIfVisible
+  logoutIfVisible,
+  teacherInviteCode
 } from "./helpers";
 import { startIsolatedApp, type IsolatedApp } from "./isolated-app";
 
@@ -410,7 +411,8 @@ async function registerTeacherViaApi(
         curriculumTrack: "HK",
         curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
         language: "en",
-        theme: "dark"
+        theme: "dark",
+        teacherInviteCode
       }
     })
   );

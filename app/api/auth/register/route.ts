@@ -13,6 +13,7 @@ import {
   getStorageReadinessSnapshot
 } from "@/lib/server/userStore/auth";
 import { getLessonEntryTarget } from "@/lib/server/userStore/studentActivity";
+import { verifyTeacherInviteCode } from "@/lib/server/teacherInviteCode";
 import { isValidLanguage } from "@/lib/i18n";
 import { curriculumProfileForTrack, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import type { CurriculumTrack, ThemeMode } from "@/types";
@@ -45,6 +46,13 @@ async function durableStorageRegistrationBlockResponse() {
       usingTmpFallback: storage.usingTmpFallback
     }
   }, { status: 503 });
+}
+
+function teacherInviteRejectionResponse() {
+  return NextResponse.json({
+    code: "teacher-invite-denied",
+    error: "Teacher registration could not be authorized. Ask your school administrator for a current invite code."
+  }, { status: 403 });
 }
 
 export async function POST(request: Request) {
@@ -81,6 +89,20 @@ async function handleRegister(request: Request) {
     rule: authRateLimitRules.registerIp
   });
   if (ipRateLimit) return ipRateLimit;
+
+  if (requestedRole === "teacher") {
+    const teacherInviteRateLimit = consumeAuthRateLimit({
+      request,
+      scope: "teacher-invite-ip",
+      rule: authRateLimitRules.teacherInviteIp
+    });
+    if (teacherInviteRateLimit) return teacherInviteRateLimit;
+
+    const invite = verifyTeacherInviteCode(body.teacherInviteCode);
+    if (invite.status === "rejected") {
+      return teacherInviteRejectionResponse();
+    }
+  }
 
   if (requestedRole === "parent") {
     if (!name || !(username || email) || password.length < 5) {
