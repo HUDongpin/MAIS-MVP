@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0",
+  "suiteName": "mais-question-qa-skill-suite",
+  "suiteVersion": "1.1.1",
+  "status": "source-candidate-uncommitted",
+  "baseline": {
+    "repository": "MAIS-MVP",
+    "originMainCommit": "34c10c202972dd901fa72f2aad7b21a3432d387b",
+    "sourceObservedAt": "2026-09-07T15:24:13.162Z",
+    "worktree": "isolated-a10-rules-skills-integration"
+  },
+  "historicalEvidence": {
+    "manifestPath": "benchmarks/historical-suite-manifest-20260827.json",
+    "sha256": "46754e1b7927fbac774c6efe8818885bb1595fc87ca6df95ecff62d8b179968b",
+    "scope": "Historical source, package, benchmark and installation evidence only; it does not attest the current candidate."
+  },
+  "components": [
+    {
+      "name": "mais-rsi-machine-qa-workflow",
+      "version": "1.1.1",
+      "kind": "new-specialist",
+      "compatibilityPatch": false,
+      "sourceHash": "a502c5e7e93a368faa277cae5cafa4e5f8ec4af2cad011bb5c2c452c8e1b109b",
+      "sourceFileCount": 20,
+      "packageViewHash": "5a16a2c67124d81030472d3ca472cecd557819f89bcbdf9908d80f57cb3a8797",
+      "packageFileCount": 18,
+      "sourceCommit": null,
+      "packageHash": null,
+      "installation": {
+        "state": "not-installed",
+        "readbackHash": null,
+        "readbackFileCount": null
+      }
+    },
+    {
+      "name": "mais-natural-sample-evaluation",
+      "version": "1.1.1",
+      "kind": "new-specialist",
+      "compatibilityPatch": false,
+      "sourceHash": "f3dc58df978c8e619ff93b82b6b31cb15dc7c715871f65e90dc26a8b4dc72a8f",
+      "sourceFileCount": 24,
+      "packageViewHash": "9bb39850dff6e0a3145efbc6c8cc8773a15d0143ed7d487f75160ce1663cf2df",
+      "packageFileCount": 22,
+      "sourceCommit": null,
+      "packageHash": null,
+      "installation": {
+        "state": "not-installed",
+        "readbackHash": null,
+        "readbackFileCount": null
+      }
+    },
+    {
+      "name": "mais-content-promotion-gate",
+      "version": "1.1.1",
+      "kind": "new-specialist",
+      "compatibilityPatch": false,
+      "sourceHash": "ce01e07a5d6a036f689f71e4bcec284bf0be8ef50c6b210a9f5678db9a596be9",
+      "sourceFileCount": 26,
+      "packageViewHash": "426e662b0b2569ff497ad25b08d40f6da184368c7f0fac24afec44f09e03da86",
+      "packageFileCount": 24,
+      "sourceCommit": null,
+      "packageHash": null,
+      "installation": {
+        "state": "not-installed",
+        "readbackHash": null,
+        "readbackFileCount": null
+      }
+    },
+    {
+      "name": "mais-content-qa-approval-workflow",
+      "version": "1.1.0",
+      "kind": "compatibility-update",
+      "compatibilityPatch": true,
+      "sourceHash": "e18d4f61b00c419d01d21db8609e4763fe2629614c33b7ffb0cf21d1bd6361d7",
+      "sourceFileCount": 7,
+      "packageViewHash": "6cd954c4af801bd35510b3f1eb0a077bf5fec8db2e687b4effc579fbf76b148a",
+      "packageFileCount": 5,
+      "sourceCommit": null,
+      "packageHash": null,
+      "installation": {
+        "state": "not-installed",
+        "readbackHash": null,
+        "readbackFileCount": null
+      }
+    },
+    {
+      "name": "mais-release-hygiene-deploy-workflow",
+      "version": "1.1.0",
+      "kind": "compatibility-update",
+      "compatibilityPatch": true,
+      "sourceHash": "77a64cedaa1fe5d47cce1748fbb0e67c781a99e986c822ac615fa5e7220d6e26",
+      "sourceFileCount": 8,
+      "packageViewHash": "7276b823646659cd311ee1c8055aea00e27efd1a56e68270aa1016cccd2fcd51",
+      "packageFileCount": 6,
+      "sourceCommit": null,
+      "packageHash": null,
+      "installation": {
+        "state": "not-installed",
+        "readbackHash": null,
+        "readbackFileCount": null
+      }
+    }
+  ],
+  "evaluation": {
+    "behaviorScenarios": 29,
+    "triggerQueries": 100,
+    "status": "not-run-for-current-source",
+    "historicalResults": "benchmarks/historical-suite-manifest-20260827.json"
+  },
+  "packageBuild": {
+    "binaryArchivesCommitted": false,
+    "sourceCommit": null,
+    "archiveCount": 0,
+    "status": "not-built-for-current-source"
+  },
+  "installationReceipt": {
+    "status": "not-installed-for-current-source",
+    "historicalReceipt": "benchmarks/installation-receipt.json"
+  },
+  "gitDelivery": {
+    "branch": "codex/a10-rules-skills-integration-20260907",
+    "sourceCommit": null,
+    "pushed": false,
+    "pullRequest": null,
+    "merged": false
+  },
+  "reviewBaseline": {
+    "commit": "60dfe6a446580711943a37ccb287c7a313ef5876",
+    "manifestPath": "benchmarks/source-candidate-manifest-before-pr240-review-20260907.json",
+    "sha256": "bca061b419c14003bddeebcf8df998870039779175800842855fdf135d8b11da",
+    "scope": "Frozen source-candidate manifest before PR240 review repairs; not current verification."
+  }
+}

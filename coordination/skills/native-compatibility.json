@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mais-skill-native-compatibility.v1",
+  "status": "blocked",
+  "nativeCommit": "34c10c202972dd901fa72f2aad7b21a3432d387b",
+  "skillSourceCommit": null,
+  "sourceOriginCommit": "2e95fcc9dbcae2b73227c7fb16553bf17e991265",
+  "observedAt": "2026-09-07T12:32:28.686529+00:00",
+  "operation": "read-only discoverNativePromotionContext on isolated clean native checkout",
+  "errorCode": "WORKFLOW_STRUCTURE_INVALID",
+  "boundary": "Current native workflow is outside the existing closed workflow recognizer. Historical fixture success and offline tests do not establish current native compatibility.",
+  "nativeExecutionPerformed": false,
+  "liveAllowed": false,
+  "nextAction": "Review a separate exact current-workflow compatibility adaptation before enabling native execution."
+}
