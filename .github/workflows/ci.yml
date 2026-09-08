@@ -99,6 +99,13 @@ jobs:
       - name: Run observability privacy and intake gate
         run: node scripts/run-observability-tests.mjs
 
+      - name: Run SCORM import safety gates
+        env:
+          NODE_ENV: test
+          TSX_DISABLE_CACHE: "1"
+          TSX_TSCONFIG_PATH: tsconfig.json
+        run: npm run test:scorm
+
       - name: Run stray generated-types guard and its unit test
         run: npm run check:stray-types && npm run test:stray-types
 
