@@ -453,28 +453,36 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
   {
     id: "differentiation-intro",
     grade: "S5",
-    title: { en: "Differentiation Intro", zh: "微分入門" },
-    description: { en: "Link gradients, tangent lines, and rate of change.", zh: "連繫斜率、切線和變化率。" },
+    title: { en: "Differentiation Intro (Extended Part)", zh: "微分入門（延伸部分）" },
+    description: {
+      en: "Extended Part (Module 1 or 2), not Compulsory Part: link gradients, tangent lines, and rate of change.",
+      zh: "延伸部分（單元一或二），並非必修部分：連繫斜率、切線和變化率。"
+    },
     status: "not-started",
     difficulty: "High",
     minutes: 60,
-    mastery: 0
+    mastery: 0,
+    nssPart: "extended"
   },
   {
     id: "calculus",
     grade: "S6",
-    title: { en: "Calculus", zh: "微積分" },
-    description: { en: "Use derivatives and integrals to solve exam-style problems.", zh: "運用導數與積分解決考試題型。" },
+    title: { en: "Calculus (Extended Part)", zh: "微積分（延伸部分）" },
+    description: {
+      en: "Extended Part (Module 1 or 2), not Compulsory Part: use derivatives and integrals to solve exam-style problems.",
+      zh: "延伸部分（單元一或二），並非必修部分：運用導數與積分解決考試題型。"
+    },
     status: "in-progress",
     difficulty: "High",
     minutes: 65,
-    mastery: 51
+    mastery: 51,
+    nssPart: "extended"
   },
   {
     id: "statistics-s6",
     grade: "S6",
     title: { en: "Statistics", zh: "統計" },
-    description: { en: "Reason with normal distribution, sampling, and data summaries.", zh: "運用常態分佈、抽樣與數據摘要推理。" },
+    description: { en: "Reason with standard scores, measures of dispersion, and data summaries.", zh: "運用標準分、離差量數與數據摘要推理。" },
     status: "not-started",
     difficulty: "High",
     minutes: 55,
