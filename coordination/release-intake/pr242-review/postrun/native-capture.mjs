@@ -1,0 +1,24 @@
+import fs from "node:fs";
+import crypto from "node:crypto";
+import {spawnSync,execFileSync} from "node:child_process";
+import {parsePromotionWorkflowJsonBytes as parse} from "../scripts/promotion-workflow-json-guard.mjs";
+const [operation,label,expectedHead,receipt]=process.argv.slice(2);
+if(!["validate","shadow","verify-receipt"].includes(operation)||!/^p242-[a-z0-9-]+$/u.test(label)||! /^[a-f0-9]{40}$/u.test(expectedHead??"")) throw Error("invalid bounded native request");
+const root=process.cwd(),env={PATH:"/usr/local/bin:/usr/bin:/bin",HOME:"/root",TMPDIR:"/tmp",LANG:"C",LC_ALL:"C"};
+const git=a=>execFileSync("git",["--no-optional-locks","--no-replace-objects",`--git-dir=${root}/.git`,`--work-tree=${root}`,"-c",`core.worktree=${root}`,"-c","core.fsmonitor=false",...a],{env,encoding:"utf8"});
+const check=()=>{if(git(["rev-parse","HEAD"]).trim()!==expectedHead||git(["status","--porcelain=v1","--untracked-files=all"]))throw Error("native execution checkout drift");};check();
+const pkg=parse(fs.readFileSync("package.json")),entry=pkg.scripts["promotion:"+operation].match(/^node ([A-Za-z0-9_./-]+\.mjs) (validate|shadow|verify-receipt)$/u);
+if(!entry||entry[2]!==operation)throw Error("public native operation drift");
+const workflow=fs.readFileSync(".github/workflows/promotion-shadow.yml","utf8"),selected=key=>workflow.match(new RegExp(`^\\s+${key}: (.+)$`,"m"))[1].trim();
+if(fs.existsSync(selected("PROMOTION_CANONICAL_RECEIPT")))throw Error("future canonical receipt already bound");
+const args=[entry[1],operation,...(operation==="verify-receipt"?["--receipt",receipt]:["--manifest",selected("PROMOTION_MANIFEST")]),...(operation==="shadow"?["--run-id",label]:[]),"--json"];
+const startedAt=new Date().toISOString(),start=performance.now();
+const timeoutMs=300000;
+const result=spawnSync(process.execPath,args,{cwd:root,env,encoding:"utf8",maxBuffer:32*1024*1024,timeout:timeoutMs,killSignal:"SIGTERM"});
+const bytes=Buffer.from(result.stdout??"");fs.mkdirSync(".tmp",{recursive:true});
+fs.writeFileSync(`.tmp/${label}.json`,bytes,{flag:"wx"});fs.writeFileSync(`.tmp/${label}.stderr.txt`,result.stderr??"",{flag:"wx"});
+fs.writeFileSync(`.tmp/${label}.process.json`,JSON.stringify({operation,label,executionRoute:"owner-authorized direct repository-native CLI; not installed skill wrapper admission",timeoutMs,startedAt,completedAt:new Date().toISOString(),durationSeconds:(performance.now()-start)/1000,executionCommit:expectedHead,exitCode:result.status,signal:result.signal,processError:result.error?.code??null,stdoutBytes:bytes.length,stderrBytes:Buffer.byteLength(result.stderr??"")},null,2)+"\n",{flag:"wx"});
+check();let value;try{value=parse(bytes);}catch{throw Error("native output is invalid JSON; retained for diagnosis");}
+const meta={operation,label,startedAt,completedAt:new Date().toISOString(),durationSeconds:(performance.now()-start)/1000,executionCommit:expectedHead,exitCode:result.status,signal:result.signal,rawFileSha256:crypto.createHash("sha256").update(bytes).digest("hex"),result:value.result,semanticDigest:value.semanticDigest??value.receiptSemanticDigest??value.digests?.semanticDigest??null,liveAllowed:value.liveAllowed??null};
+fs.writeFileSync(`.tmp/${label}.meta.json`,JSON.stringify(meta,null,2)+"\n",{flag:"wx"});console.log(JSON.stringify(meta));
+if(result.status!==0||value.result!=="pass")throw Error("native operation did not pass; inspect retained output");
