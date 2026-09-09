@@ -1,6 +1,7 @@
 /** Preparation evidence only. The frozen native checker remains the final authority. */
 import crypto from "node:crypto";
 import { parsePromotionWorkflowJsonBytes } from "./promotion-workflow-json-guard.mjs";
+import { buildFsReadMetadataReview } from "./promotion-fs-read-metadata-review.mjs";
 import { fingerprint, RUNTIME_CLASSIFICATION_KINDS, TARGET_BASELINE_PROJECTION_PATHS } from "../coordination/integration/promotion-gate-lib.mjs";
 import { projectV2RuntimePolicy, validateV2Evidence, PROMOTION_V2_REQUIRED_OWNER_ROLES } from "../coordination/integration/v2/promotion-gate-v2-lib.mjs";
 
@@ -93,7 +94,11 @@ export function projectRuntimeTopologyObservation(o) {
     zeroBaselineCalls:o.graph.loaderInventory.zeroBaselineCalls,unresolvedCalls:o.graph.unresolvedCalls,
     resolverPolicyDigest:fingerprint(o.resolverPolicy),frameworkBoundaryDigest:fingerprint(o.frameworkBoundary)};
 }
-export function buildRuntimeTopologyReview(input) {
+export function buildRuntimeTopologyReview(input, options = {}) {
+  if(Object.keys(options).length) {
+    exact(options,["rebindFsReadMetadata","readBlob"],"options");
+    if(options.rebindFsReadMetadata!==true || typeof options.readBlob!=="function") fail("explicit metadata options require a real Git blob reader");
+  }
   exact(input,["sourceCommit","targetCommit","sourceFiles","targetFiles","sourceExpectedPolicy","sourceObservation","targetObservation","sourceTreeDigest","targetTreeDigest","changedFiles","immutableBindings","nativeSemanticProof","scannerBindings"],"input");
   commit(input.sourceCommit,"source");commit(input.targetCommit,"target");if(input.sourceCommit===input.targetCommit)fail("source and target commits must differ");
   policy(input.sourceExpectedPolicy);validateObservation(input.sourceObservation);validateObservation(input.targetObservation);
@@ -116,7 +121,10 @@ export function buildRuntimeTopologyReview(input) {
     }
   }
   for(const key of ["resolverPolicyDigest","frameworkBoundaryDigest"])if(s[key]!==t[key])fail("resolver or framework boundary changed");
-  if(!same(s.fsReadAllowlist,t.fsReadAllowlist) || !same(s.nextDynamicCalls,t.nextDynamicCalls))fail("loader inventory changed outside this mode");
+  if(!same(s.nextDynamicCalls,t.nextDynamicCalls))fail("loader inventory changed outside this mode");
+  const fsReadMetadataReview=options.rebindFsReadMetadata ? buildFsReadMetadataReview({sourceReads:s.fsReadAllowlist,targetReads:t.fsReadAllowlist,
+    sourceFiles:input.sourceFiles,targetFiles:input.targetFiles,readBlob:options.readBlob}) : null;
+  if(!fsReadMetadataReview && !same(s.fsReadAllowlist,t.fsReadAllowlist))fail("loader inventory changed outside this mode");
   if(subtract(s.coveredPaths,t.coveredPaths).length || subtract(s.reachablePaths,t.reachablePaths).length || subtract(s.frameworkEntrypoints,t.frameworkEntrypoints).length
     || subtract(s.runtimeSeeds,t.runtimeSeeds).length || subtract(s.edges,t.edges,edgeKey).length)fail("only addition-only runtime topology is supported");
   const addedPaths=subtract(t.reachablePaths,s.reachablePaths),addedEdges=subtract(t.edges,s.edges,edgeKey);
@@ -135,11 +143,11 @@ export function buildRuntimeTopologyReview(input) {
     addedCoveredPaths:subtract(t.coveredPaths,s.coveredPaths),addedReachablePaths:addedPaths,
     addedFrameworkEntrypoints:subtract(t.frameworkEntrypoints,s.frameworkEntrypoints),addedSeeds:subtract(t.runtimeSeeds,s.runtimeSeeds),
     addedEdges,addedTopologyEdges:subtract(t.topologyEdges,s.topologyEdges,e=>e.from+"\0"+e.to),removedReachablePaths:[],removedEdges:[]};
-  const proof={schemaVersion:"promotion-runtime-topology-review.v1",sourceCommit:input.sourceCommit,targetCommit:input.targetCommit,
+  const proof={schemaVersion:fsReadMetadataReview?"promotion-runtime-topology-review.v2":"promotion-runtime-topology-review.v1",sourceCommit:input.sourceCommit,targetCommit:input.targetCommit,
     sourceTreeDigest:input.sourceTreeDigest,targetTreeDigest:input.targetTreeDigest,sourcePolicy:s.policy,targetPolicy:t.policy,
     sourcePolicyDigest:fingerprint(s.policy),targetPolicyDigest:fingerprint(t.policy),immutableBindings:input.immutableBindings,
     nativeSemanticProof:semantic,scannerBindings:input.scannerBindings,delta,deltaDigest:fingerprint(delta),
-    preparationEvidenceOnly:true,liveAllowed:false};
+    ...(fsReadMetadataReview?{fsReadMetadataReview}:{}),preparationEvidenceOnly:true,liveAllowed:false};
   return {...structuredClone(proof),proofDigest:fingerprint(proof)};
 }
 
@@ -170,12 +178,37 @@ function pointer(value,selector){
   return item;
 }
 /** Reads only exact committed records. A role label is not authenticated reviewer identity. */
-export async function prepareReviewedTopologyEvidence({indexPin,context,readCommitted,assertAncestor}){
+export async function prepareReviewedTopologyEvidence({indexPin,context,readCommitted,assertAncestor,readRuntimeBlob}){
   exact(indexPin,["path","reviewCommit","rawSha256"],"review index pin");safePath(indexPin.path);commit(indexPin.reviewCommit,"review index");digest(indexPin.rawSha256,"review index");
   if(typeof readCommitted!=="function"||typeof assertAncestor!=="function")fail("committed artifact/ancestry readers are required");
   const proof=context.runtimeTopologyProof;
-  if(!proof||proof.schemaVersion!=="promotion-runtime-topology-review.v1"||proof.preparationEvidenceOnly!==true||proof.liveAllowed!==false
+  if(!proof||!["promotion-runtime-topology-review.v1","promotion-runtime-topology-review.v2"].includes(proof.schemaVersion)||proof.preparationEvidenceOnly!==true||proof.liveAllowed!==false
     ||proof.proofDigest!==fingerprint(Object.fromEntries(Object.entries(proof).filter(([key])=>key!=="proofDigest"))))fail("proof digest does not match recomputed content");
+  if(proof.sourceCommit!==context.sourceBaselineCommit||proof.targetCommit!==context.targetBaselineCommit) fail("proof endpoints differ from independent review context");
+  for(const key of ["candidateDigest","sourceCommit","checkerVersion","checkerBundleDigest"]) {
+    if(proof.immutableBindings?.[key]!==context[key]) fail("proof immutable binding differs from independent review context");
+  }
+  if(proof.schemaVersion==="promotion-runtime-topology-review.v2") {
+    if(typeof readRuntimeBlob!=="function"||!Array.isArray(proof.fsReadMetadataReview?.files)||proof.fsReadMetadataReview.files.length>10_000) fail("metadata proof requires bounded real runtime blob readers");
+    const metadata=proof.fsReadMetadataReview,inputs={sourceReads:[],targetReads:[],sourceFiles:[],targetFiles:[]},blobs=new Map();let metadataBytes=0;
+    for(const side of ["source","target"]) {
+      const at=proof[side+"Commit"];commit(at,side);await assertAncestor(at,indexPin.reviewCommit);
+      for(const file of metadata.files) {
+        safePath(file.path);list(file.reads,"metadata read");
+        const actual=await readRuntimeBlob(at,file.path);
+        if(!actual||!(actual.bytes instanceof Uint8Array)) fail("runtime blob bytes are missing");
+        metadataBytes+=actual.bytes.byteLength;
+        if(actual.bytes.byteLength>16*1024*1024||metadataBytes>64*1024*1024||inputs[side+"Reads"].length+file.reads.length>100_000) fail("metadata runtime blob/read inventory budget exceeded");
+        const declared=file[side];
+        if(!declared||declared.mode!==actual.mode||declared.objectId!==actual.objectId||declared.rawSha256!==sha(actual.bytes)) fail("metadata runtime blob binding differs");
+        inputs[side+"Files"].push({path:file.path,mode:actual.mode,objectId:actual.objectId});
+        inputs[side+"Reads"].push(...file.reads.map(r=>r[side]));blobs.set(side+":"+file.path,actual.bytes);
+      }
+      if(inputs[side+"Reads"].length!==proof[side+"Policy"].fsReadAllowlistCount||fingerprint(inputs[side+"Reads"])!==proof[side+"Policy"].fsReadAllowlistDigest) fail("metadata read inventory differs from native policy");
+    }
+    const recomputed=buildFsReadMetadataReview({...inputs,readBlob:(side,p)=>blobs.get(side+":"+p)});
+    if(!same(recomputed,metadata)) fail("metadata proof differs from recomputed Git byte evidence");
+  }
   const loaded=new Map();let totalBytes=0;
   const load=async reference=>{
     pin(reference);const key=reference.reviewedCommit+":"+reference.path+":"+reference.rawSha256;

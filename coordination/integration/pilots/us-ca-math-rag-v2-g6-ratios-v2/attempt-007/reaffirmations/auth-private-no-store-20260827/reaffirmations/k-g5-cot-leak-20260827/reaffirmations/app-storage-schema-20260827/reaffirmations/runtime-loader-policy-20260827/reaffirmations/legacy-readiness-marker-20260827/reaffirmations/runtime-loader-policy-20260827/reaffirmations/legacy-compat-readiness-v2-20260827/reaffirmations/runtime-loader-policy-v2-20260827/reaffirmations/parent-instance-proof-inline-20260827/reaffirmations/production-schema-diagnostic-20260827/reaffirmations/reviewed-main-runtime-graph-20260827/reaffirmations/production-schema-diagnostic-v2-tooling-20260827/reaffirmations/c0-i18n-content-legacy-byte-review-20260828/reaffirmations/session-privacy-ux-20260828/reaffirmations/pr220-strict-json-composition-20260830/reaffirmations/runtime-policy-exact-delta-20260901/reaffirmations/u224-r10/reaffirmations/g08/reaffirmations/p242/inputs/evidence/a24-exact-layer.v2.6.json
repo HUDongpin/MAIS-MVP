@@ -1,0 +1,1269 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a24-pr242-baseline-5227a9a",
+  "role": "A24",
+  "result": "not_applicable",
+  "producedAt": "2026-09-09T05:10:02.389Z",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "semanticPayload": {
+    "contractVersion": "promotion-a24-exact-layer.v2",
+    "exactLayerDisposition": "not-applicable",
+    "scannedRecordIds": [
+      "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2"
+    ],
+    "prohibitedFieldFamilies": [
+      "bitmap",
+      "image",
+      "illustration",
+      "asset",
+      "svg",
+      "plotly",
+      "coordinate",
+      "formula-overlay",
+      "exact-layer"
+    ],
+    "matchingFieldPaths": [],
+    "rationale": "The unchanged candidate records remain text-and-metadata contracts with no bitmap, image, illustration, asset, SVG, Plotly, coordinate, formula-overlay, or deterministic exact-layer field; creating one would invent scope.",
+    "candidateBytesChangedSincePriorReview": false,
+    "futureChangeInvalidatesEvidence": true,
+    "liveAllowed": false,
+    "baselineReview": {
+      "sourceBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+      "sourceManifest": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+        "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+      },
+      "runtimeTopologyProofDigest": "9849e6277b8e6f5ec7a4facaebb37f9e2b10acfcebb6f885a8c7e2128de7e334",
+      "metadataProofDigest": "8a59f6c68cac9d9813286e390ff7be68cfa73ef0ce7f43385d2ce2d6f2a12b4c",
+      "codeCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+      "nativeCollectionProducedAt": "2026-09-09T04:58:07.715Z",
+      "sourceAndTargetArchivesVerified": true,
+      "candidateOrCheckerBytesChanged": false,
+      "nativeSemanticProof": {
+        "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+        "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+        "selectedIdentityHits": 0,
+        "resolutionCount": 18,
+        "approvedProjectionCount": 3,
+        "dereachedCount": 15,
+        "liveAllowed": false
+      },
+      "scope": "Independent baseline-only review plus real native collection; not whole-program equivalence or new candidate-content QA.",
+      "nativeValidation": "not-run",
+      "shadow": "not-run",
+      "liveAllowed": false,
+      "contentJudgment": "Retain the original independently produced content fields through explicit historical pointers; no new generation or pedagogy approval.",
+      "selectedCandidateBytesUnchanged": true
+    },
+    "baselineReaffirmation": {
+      "schemaVersion": "promotion-baseline-reaffirmation.v1",
+      "revisionId": "p242",
+      "sourceEvidenceId": "a24-g08-reviewed-main-7f692278",
+      "sourceEvidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceEvidenceRawSha256": "22cf743554ed5cd5241f50054d19e0c524d74034fc02a27a2e950ef6ded1a21b",
+      "priorTargetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+      "justificationPath": "coordination/release-intake/pr242-review/justification.json",
+      "protectedChangedPaths": [
+        "app/api/ai-tutor/resolve/route.ts",
+        "app/api/ai-tutor/route.ts",
+        "app/api/auth/register/route.ts",
+        "app/api/auth/register/routeTeacherInviteGate.test.ts",
+        "app/api/health/handler.ts",
+        "app/api/health/route.test.ts",
+        "app/api/health/route.ts",
+        "app/api/teacher/course-imports/handler.test.ts",
+        "app/api/teacher/course-imports/handler.ts",
+        "app/api/teacher/course-imports/multipart.ts",
+        "app/api/teacher/course-imports/route.ts",
+        "app/register/page.tsx",
+        "components/providers/AppProviders.tsx",
+        "components/providers/teacherInviteRegistrationClient.test.ts",
+        "components/providers/teacherInviteRegistrationClient.ts",
+        "components/teacher/TeacherShell.tsx",
+        "components/visualizations/lessonVisualizationRender.test.tsx",
+        "components/visualizations/testing/renderLessonVisualization.tsx",
+        "lib/courseIntegration/admission.test.ts",
+        "lib/courseIntegration/admission.ts",
+        "lib/courseIntegration/diff.test.ts",
+        "lib/courseIntegration/diff.ts",
+        "lib/courseIntegration/errors.ts",
+        "lib/courseIntegration/importer.test.ts",
+        "lib/courseIntegration/importer.ts",
+        "lib/courseIntegration/index.ts",
+        "lib/courseIntegration/model.test.ts",
+        "lib/courseIntegration/model.ts",
+        "lib/courseIntegration/readiness.test.ts",
+        "lib/courseIntegration/readiness.ts",
+        "lib/courseIntegration/sideEffects.test.ts",
+        "lib/courseIntegration/xml.test.ts",
+        "lib/courseIntegration/xml.ts",
+        "lib/courseIntegration/zip.ts",
+        "lib/observability/errorPolicy.ts",
+        "lib/observability/privacy.test.ts",
+        "lib/server/authRouteGuards.test.ts",
+        "lib/server/authRouteGuards.ts",
+        "lib/server/healthCheck.test.ts",
+        "lib/server/healthCheck.ts",
+        "lib/server/observabilityHooks.test.ts",
+        "lib/server/teacherInviteCode.test.ts",
+        "lib/server/teacherInviteCode.ts",
+        "lib/server/userStore.ts",
+        "lib/server/userStore/gamificationRewardRedemptionPersistence.ts",
+        "lib/server/userStoreGamificationAutomaticRewardPersistence.test.ts",
+        "lib/teacherInviteCodeContract.ts"
+      ],
+      "candidateBytesChanged": false,
+      "legacyCandidateBytesChanged": false,
+      "runtimePolicyReaffirmation": {
+        "schemaVersion": "promotion-runtime-topology-review.v2",
+        "sourceCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "targetCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "sourceTreeDigest": "cb0982d206776adedcaea99638c6f9b57a2a9a4cd13c1f19bbdb2ecc90b30e8d",
+        "targetTreeDigest": "c9363242a75f3830174ce6c012094cd05204b091bbf6c9d2975273728ee4c805",
+        "sourcePolicy": {
+          "coveredFileCount": 3815,
+          "coveredFilesDigest": "e6b6dd080bf59d9d42c64e88c8c7ea9b752226291e56c587a5bef826bd17d9db",
+          "classificationsDigest": "d299a07f22361833e6b06ee5a0afa2caa7476fe2805cdeb74926bfb357080678",
+          "frameworkEntrypointCount": 303,
+          "seedCount": 318,
+          "reachablePathCount": 1460,
+          "reachablePathsDigest": "eeed3ad0510d5aefd82e27f25be598ec23c4c92817295ff55742717a845c3edb",
+          "edgeCount": 3606,
+          "edgeDigest": "03be987ea68aacd1b845bc00f0896e95b40ba078e5d087180454392d68db5c7f",
+          "topologyEdgeCount": 3604,
+          "topologyEdgeDigest": "ee81f98b1e297b89b24f537ecfbe1e666660d922ecde1c330c5af65b2cdf8142",
+          "nextDynamicCallCount": 489,
+          "nextDynamicLiteralImportCount": 951,
+          "nextDynamicNonliteralImportCount": 0,
+          "nextDynamicCallsiteDigest": "4039da4109350f52039b4eb7a13d508bb591f135c0129c50e265cc63cb2a779d",
+          "fsReadAllowlistCount": 5,
+          "fsReadAllowlistDigest": "4c3c8843388b25a798555da08e8cd826bbab48cc7742295f3954d1ff54b142f8",
+          "zeroBaselineCallCount": 0
+        },
+        "targetPolicy": {
+          "coveredFileCount": 3849,
+          "coveredFilesDigest": "71eeca4ec86b00f9eaa11cb11854dce703ec177f31baf67d8601bb05f8a438d4",
+          "classificationsDigest": "be78c60b9d49a00fe92d475973179cd1aff2fa6dce1d2fc0666bf61e1040d97d",
+          "frameworkEntrypointCount": 305,
+          "seedCount": 320,
+          "reachablePathCount": 1476,
+          "reachablePathsDigest": "afedae0985897a0c8e8d903022324793af680b51c1bcac339847b4022b05b42a",
+          "edgeCount": 3634,
+          "edgeDigest": "07c5d1ac9ad782391e61d0d34ee5c52390efc3af0d210c8a8ec66a93b203ec09",
+          "topologyEdgeCount": 3632,
+          "topologyEdgeDigest": "7f3604c4bb914499ec4db0124a4da17561288852a33292a04bd36957315c02e5",
+          "nextDynamicCallCount": 489,
+          "nextDynamicLiteralImportCount": 951,
+          "nextDynamicNonliteralImportCount": 0,
+          "nextDynamicCallsiteDigest": "4039da4109350f52039b4eb7a13d508bb591f135c0129c50e265cc63cb2a779d",
+          "fsReadAllowlistCount": 5,
+          "fsReadAllowlistDigest": "bf4729fa738f9b39b0beb24246442082be0260ea69b5350213d14a58b81da530",
+          "zeroBaselineCallCount": 0
+        },
+        "sourcePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+        "targetPolicyDigest": "87bf561661f8d86f5d60cc614a9af2c9b5ae8b30b3879b5d63cfeac90eec604f",
+        "immutableBindings": {
+          "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+          "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "checkerVersion": "promotion-gate-shadow-v2.6",
+          "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+          "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+          "compatibilityManifestRawSha256": "7bcb27d6b9604a1dd4c41f75fba18718b03a7d97046f44923790aa7f207943bc",
+          "legacyRegistryRawSha256": "d4cff93eff108b507d9efa74af9847b82cd55611e957d03c98ad5c6eada11852"
+        },
+        "nativeSemanticProof": {
+          "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+          "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+          "selectedIdentityHits": 0,
+          "resolutionCount": 18,
+          "approvedProjectionCount": 3,
+          "dereachedCount": 15,
+          "liveAllowed": false
+        },
+        "scannerBindings": [
+          {
+            "path": "coordination/integration/promotion-gate-lib.mjs",
+            "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+          },
+          {
+            "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+            "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce"
+          },
+          {
+            "path": "scripts/promotion-fs-read-metadata-review.mjs",
+            "rawSha256": "4a60d77c3829c5ee58243e3440db0b8699934f4c194c109db7b41e28b8c644aa"
+          },
+          {
+            "path": "scripts/promotion-runtime-topology-review.mjs",
+            "rawSha256": "e2ec417df33c17dd21b1bb89d8e0a5edebefb833ab74bcd3eaefee2070e1f120"
+          },
+          {
+            "path": "scripts/rebase-promotion-baseline.mjs",
+            "rawSha256": "22e81cb01e7e5dee498de2a1e62159de8f2328b8e08825111dbb539c9a5e4b41"
+          }
+        ],
+        "delta": {
+          "changedFiles": [
+            {
+              "path": "app/api/ai-tutor/resolve/route.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "38c000a28fd97224cbf824dec376f29f15acb832",
+                "rawSha256": "2a66fea602fd6e73cb3d23774e2e9a51d5506b2998c9bd11f1b523ebe2b7ea8d"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "942a4b2f724267c03eccb7f79a625bffecfee4fe",
+                "rawSha256": "df7eff8d3c7a3bcb7ed9a97d363729779d30a8e2d9b5b78ed525f9485c416bec"
+              }
+            },
+            {
+              "path": "app/api/ai-tutor/route.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "c130cdf677d463b3c50855c7c9332d90d81fa32b",
+                "rawSha256": "35a52f1e2d89fd6bff56ca343550ed9a3d245a44d7f24ec65b3b499c17a90390"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "60ef976491c3fa42d911501895687fdcd71fbb85",
+                "rawSha256": "055e869041542c1d1831b326c7d7e92defc61e7a2bc83e6aba75d00dd0f8e1de"
+              }
+            },
+            {
+              "path": "app/api/auth/register/route.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "98910ea1ea38c72e10b5c822a13379dd7d5c7387",
+                "rawSha256": "779c2a8ed5889910c18adc1c11db81a934db52a95849c8b7422a9ff789388762"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "87230d948bfe90ec914952d967ef500bc28d3ffd",
+                "rawSha256": "7201e567467220a7c2226327afaa648f0a34f25a50fed594c6c402afe2ff08d7"
+              }
+            },
+            {
+              "path": "app/api/auth/register/routeTeacherInviteGate.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "00583831302a9a7f8ccd046c302cc58041914cd2",
+                "rawSha256": "a601186d531b321ef45f2a08c6d0c3baa6efc7c9c0d1de9497c883843164601c"
+              }
+            },
+            {
+              "path": "app/api/health/handler.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "71cb9dbad1c2f7ddd7ab9a9caa644fcc2c98d950",
+                "rawSha256": "d85c49231a04d383ee311c212a252c185c4a6721f67ea97be365bac92b9bcf53"
+              }
+            },
+            {
+              "path": "app/api/health/route.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "651568145f5d88c435062f43908277e0c264180b",
+                "rawSha256": "5a3417e63bc45c12cfe744834b06f6add3ded3a1aa4de3741ab4a9b524696231"
+              }
+            },
+            {
+              "path": "app/api/health/route.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "a1ca934eb0f92cd9e7cfc20b47ece28ec52d3538",
+                "rawSha256": "82c1a6962dd3775b31c1d21ec0e34b600677806175ee0dc787abb38064b1f0bc"
+              }
+            },
+            {
+              "path": "app/api/teacher/course-imports/handler.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "b31e0402848ad278dbdab3edb9102dfcc250f50a",
+                "rawSha256": "bedfa701567fe83d4099c475667c21b41287762ab2387048949c7e5b2d13c7f1"
+              }
+            },
+            {
+              "path": "app/api/teacher/course-imports/handler.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "5717c0d9f8cafc12696ce4fcac96c0fa0bed7d33",
+                "rawSha256": "91d624a770bb3c63ce9b900a4ae22af42ed4d8d22b2894598a15abaf17201aa2"
+              }
+            },
+            {
+              "path": "app/api/teacher/course-imports/multipart.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "b6cb03e2232cfb90fd43cf0717e8d913a6cbf5c4",
+                "rawSha256": "22ccba2c374922d215b23c40c2aed4a4226060e5a08b4b98f6a0945692c16e69"
+              }
+            },
+            {
+              "path": "app/api/teacher/course-imports/route.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "0f04022acc4c713e2750af49d3be834ea95a9f7e",
+                "rawSha256": "c602080a1f265ee960e8580995ab49943a2018ed32d5d4f5e5fdfe25d53b6c42"
+              }
+            },
+            {
+              "path": "app/register/page.tsx",
+              "before": {
+                "mode": "100644",
+                "objectId": "9b8f8a4f0c62077f531dd4b323378d0cc295a92b",
+                "rawSha256": "bc9ca59858958481f19ef2c04048207edf09cb98b9406037c5597a6716961073"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "40e1236f368da5b219e5502ad0dfd9581c026c69",
+                "rawSha256": "a00cc9568c2bd29a4bbb0711079a8897d51e630152012eefc78e10f93523e69c"
+              }
+            },
+            {
+              "path": "components/providers/AppProviders.tsx",
+              "before": {
+                "mode": "100644",
+                "objectId": "a78a81e2d19072bbe6bf1a4a0f26dfc0bc7733ea",
+                "rawSha256": "0952932b5ed16795afd7516e56e9309c5d158f34c4676a10703b9ca34157e8c1"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "f0591950259996d9b32104f48063b2694eb7f062",
+                "rawSha256": "bd23709d4233dc8d4f779de82347e3d036edca2b4181218db53f5e52c4d4e131"
+              }
+            },
+            {
+              "path": "components/providers/teacherInviteRegistrationClient.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "2546ee6c2f8247f50f20e0f78d3d028b3616bf68",
+                "rawSha256": "d1e662e120e0a2a651dd967789e96171a12c86ca61cf0806a50a64cb2025b386"
+              }
+            },
+            {
+              "path": "components/providers/teacherInviteRegistrationClient.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "b73a41baf089bb68c7b8935d71c5681e88691060",
+                "rawSha256": "66ec073f0b2ea8621ee2c1a02cdb892d2c8014cf9f2e0a09c530c2f41a5d8c81"
+              }
+            },
+            {
+              "path": "components/teacher/TeacherShell.tsx",
+              "before": {
+                "mode": "100644",
+                "objectId": "7487d70bfc240927a4f6582c2dfd7cdaa1a13d45",
+                "rawSha256": "3fbc6e632282b9d5fd18ce22ee2233bb330ae5c85c0a327c20a48910f15ad617"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "14ef3f779b23892dce067b1edac4d8283be271fc",
+                "rawSha256": "eb780b1c242e6ff5774a18aa5eac1bd2085cc06046048b307dc20d7eba3b2984"
+              }
+            },
+            {
+              "path": "components/visualizations/lessonVisualizationRender.test.tsx",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "81b6057bdd329347ce89b0b72babe094aa2a9d92",
+                "rawSha256": "0a1b3f63d3fe9d57d001ab810a7020c9132cfa631d066befe4f39387db327c45"
+              }
+            },
+            {
+              "path": "components/visualizations/testing/renderLessonVisualization.tsx",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "0587674549a5da8e1f33787c9c214c7e7990419c",
+                "rawSha256": "77f47371e0c9ded75c3ce6d535f54f67609e2fb59dd0a9119c971e645e8fe331"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/admission.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "56a8fedef676aaaa13a96e584e58dc2849a8bcb8",
+                "rawSha256": "d82980cf6adfa520bc4e8a9ed8d919facd93e9c7eeff56b0123d83e187be76f1"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/admission.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "e05404db93bd042e1d89e082be31c4e591113bf3",
+                "rawSha256": "31806340fe3ddce5d464cdb6c1f21438f9c3118e7c66e7cccbc1da11bc53764e"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/diff.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "fdd43fc1d6bd22cdbe915e0262262ca16d6cfc48",
+                "rawSha256": "945fe49d02a633504df172ca4cd1299eba181e910b67dcaa56b97bfc7b1ffa9b"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/diff.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "9862852640aa002228b41ad1a49af9d17cf6be55",
+                "rawSha256": "e195ffbab03fef45c518e7b66e924378b4a76f500602c30a7e49e280f62a0abf"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/errors.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "7dc5197efe3fc2fe8ba5fde63a7b22e0bde59c83",
+                "rawSha256": "c79c2fcd9a9e58dcfa1607e01ad7a25ab1a1ac52b86251352fcfd9f6e712731d"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/importer.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "573fed1b87e9acbaabccd1e0333b92baf54367e6",
+                "rawSha256": "2ffe14a01a77d582039ae9775b744a210a6fe382effa3a34759c0d326b1cbf01"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/importer.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "92cdf910c9ce030fcfc2cdb013fdc4537e9af6b3",
+                "rawSha256": "3f8824d43becc31766196d42152dc96fdd7e047e19bdaf4883b17b9b3153ec27"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/index.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "924fd70f1ac8a68dd4e231bdd41a786c76d4207e",
+                "rawSha256": "f5212d7b7ff782bae3ba6e9dbb9773b80b7a3cfc7a7efa3d0c08f52e8ea63e90"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/model.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "e6717cec019694d7611ba48c39dfe43a812714f5",
+                "rawSha256": "806db66dd88d7ba3e0950d9a7634be7fc36d0f1af36e44943484c05a9c9bf466"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/model.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "83f186acaaa15dd8db1bedc442200103a8ea3480",
+                "rawSha256": "5cbc0aeaaf22ee47f08c9d926ee7126fd72a993cff5a065565b7ec49f3f272af"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/readiness.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "05f6f61b5edc154d3fae2deafb18348aa04fbe32",
+                "rawSha256": "768f0f7f424b8d52a54c0c7ea06309724b6cbb20553b95c69240fae7f0fca40f"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/readiness.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "d33d5746db78382f78fc9ff6c693cece23fa90ea",
+                "rawSha256": "de617d2900f11eb49723445d08a341448199d3306dbcb01f23557683283106a0"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/sideEffects.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "1428ff719bfe03937538d1dabd9debf33e9d2daf",
+                "rawSha256": "96ccbb4cced0e49362b187aca65be18d857b8f595f6078a14f3cc4f7b20373f7"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/xml.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "845a915f87f7f1100232ebce7e06bd2e8e56452d",
+                "rawSha256": "0b8523e2c0e1ebe8897ebed3e4d4a251b3343e102d65d91d64ef0b31d7306869"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/xml.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "8789d75894897e1be104f101f72352daea3443df",
+                "rawSha256": "97df09b35a3e2603f15aa04190ff4927ff3f9b8f32db006331c2b84334c96621"
+              }
+            },
+            {
+              "path": "lib/courseIntegration/zip.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "bde1bfb2d1bb0cb5005be1cb89f3ba6b9e6c5b12",
+                "rawSha256": "a06c558c5e5e26603d7d53aff4e23a78bd28b8124f49460c52492c1ec475ab02"
+              }
+            },
+            {
+              "path": "lib/observability/errorPolicy.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "1267c006063ec60a6655b9fc807113daea4dd2b9",
+                "rawSha256": "d28d4bf31a8d8bcd6579af01aa6b4ec134cc774ebf80aaf7bad7f1857e1ef314"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "f31c9b57c9d824fca133b1ad1b876de6410ed457",
+                "rawSha256": "d1aab2de75982458b402e339e5e1891956ffd8a102283b369c1db72518c9938f"
+              }
+            },
+            {
+              "path": "lib/observability/privacy.test.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "64375e700af08fb80756f178eaa6bf5c25cb9b1b",
+                "rawSha256": "04a525c4c9e2578215aa33b1815bd09f56c39e193519c50e70d4dbdcc64704d0"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "0d9e9640603660d2c42be91d848a772f6a076b5a",
+                "rawSha256": "96c6afb2124a8ec3d09bccc1015220b57d4f139d8485a95e2eff259faf0ce7ba"
+              }
+            },
+            {
+              "path": "lib/server/authRouteGuards.test.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "80138769a59c68e11e52aced095d3750a68f80d5",
+                "rawSha256": "f7590452997f1de42fd57231d278854173316cdca6716ccd4eeb98c37fb69cfd"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "107dbfffa7bff7811fb12d4d8fd6e636811b3241",
+                "rawSha256": "00f9e1df17c7dd83c1e5a9e500887b55ded421867efe61045746946d77b25909"
+              }
+            },
+            {
+              "path": "lib/server/authRouteGuards.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "d0f54b56e591adab56f4812918a05886331d0278",
+                "rawSha256": "682b50295895bb269a70e817fd2b4e60fba7ac90a416cd5782575fd4030fb714"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "3a3da5f0d1eef2ce89478bef6310f8ca37a60afa",
+                "rawSha256": "0aa47b6429cc99a22f5cbd370f06a3bb1e1ef951e6ad57a17d493ad29653bc60"
+              }
+            },
+            {
+              "path": "lib/server/healthCheck.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "ff2045a9456e2ffcab3e1f41eada84494eda2a42",
+                "rawSha256": "376088f808fd23e0c1678f21ea63a1344606df962f4ff470b861257e5d2610f7"
+              }
+            },
+            {
+              "path": "lib/server/healthCheck.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "27262b7ac958e7dd7beb0afa718e227754997d2e",
+                "rawSha256": "85bf3457425e905aade0d51987e7d11a205bdc4c51be6a303ba8bc871446f46f"
+              }
+            },
+            {
+              "path": "lib/server/observabilityHooks.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "3fd11946ea7b86c019e02ba81949b10ec50196eb",
+                "rawSha256": "c779a3e96366ca3ffbb57246cf53d6aa18992243aa516e1493b1d6d27f40f2ff"
+              }
+            },
+            {
+              "path": "lib/server/teacherInviteCode.test.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "0599f0ec0f870e91d88c12529c12cb7d753b0a04",
+                "rawSha256": "44af0b43d6182e3736eced7e46cacd5ea89c04a2dfd558de66b9aad6f268700e"
+              }
+            },
+            {
+              "path": "lib/server/teacherInviteCode.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "b215a3d2d1b309aa60381fa720cb7c9ed5cff442",
+                "rawSha256": "2cd8575e917af2283e0cd59a428a38be38f1b2cf8773f2f45c7db3fec533d5f0"
+              }
+            },
+            {
+              "path": "lib/server/userStore.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "0caddfde97473be347f5fd5cdbac59f64bc13124",
+                "rawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "72444b650b8aaa76f2792fbcb92b9d6b79aa7de4",
+                "rawSha256": "31b470fb48aaff18bb5431463844bffcedcbf57849d9e47e4db0f520fd5be84e"
+              }
+            },
+            {
+              "path": "lib/server/userStore/gamificationRewardRedemptionPersistence.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "4c3998a7c3ceab0626855eb09f3eac0ad277f02a",
+                "rawSha256": "ff0bfaef32a3de9b58a9be0cfd04b866d32c6578ca1bd976cc4ac27f49bddd93"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "7063d32a4f18f36bdc314446fbe924e0c10097e9",
+                "rawSha256": "22d7172edded36b97098e075bb7376bb215d6369dff8eba886883a804f1cee25"
+              }
+            },
+            {
+              "path": "lib/server/userStoreGamificationAutomaticRewardPersistence.test.ts",
+              "before": {
+                "mode": "100644",
+                "objectId": "dd511cf795c1de742fa61ce517fb91976d808b5b",
+                "rawSha256": "c6dd59f89027633a20d6fcd68f5236a66a071ccc2345120ceb40044c4e2ad749"
+              },
+              "after": {
+                "mode": "100644",
+                "objectId": "c6dc2461ca1bced013c7b9e2f9e15d86b670840c",
+                "rawSha256": "ccdbd5b892912bb71c69bde089f3905da8e1d2e26b044b6dc2261ae0e0ae4cd9"
+              }
+            },
+            {
+              "path": "lib/teacherInviteCodeContract.ts",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "objectId": "b9129640ce10a98ef9da0f58b0b5cb30aaa2ff19",
+                "rawSha256": "4d097a582cbb328b7d95f47adb4535b96da38f3aff3f6f4c50875d6b259023bd"
+              }
+            }
+          ],
+          "protectedChangedPathsDigest": "87cbf271cfbc048ab5e43d34a0f295d4be4b894d11a7d9f34310904badaa3c3d",
+          "addedCoveredPaths": [
+            "app/api/auth/register/routeTeacherInviteGate.test.ts",
+            "app/api/health/handler.ts",
+            "app/api/health/route.test.ts",
+            "app/api/health/route.ts",
+            "app/api/teacher/course-imports/handler.test.ts",
+            "app/api/teacher/course-imports/handler.ts",
+            "app/api/teacher/course-imports/multipart.ts",
+            "app/api/teacher/course-imports/route.ts",
+            "components/providers/teacherInviteRegistrationClient.test.ts",
+            "components/providers/teacherInviteRegistrationClient.ts",
+            "components/visualizations/lessonVisualizationRender.test.tsx",
+            "components/visualizations/testing/renderLessonVisualization.tsx",
+            "lib/courseIntegration/admission.test.ts",
+            "lib/courseIntegration/admission.ts",
+            "lib/courseIntegration/diff.test.ts",
+            "lib/courseIntegration/diff.ts",
+            "lib/courseIntegration/errors.ts",
+            "lib/courseIntegration/importer.test.ts",
+            "lib/courseIntegration/importer.ts",
+            "lib/courseIntegration/index.ts",
+            "lib/courseIntegration/model.test.ts",
+            "lib/courseIntegration/model.ts",
+            "lib/courseIntegration/readiness.test.ts",
+            "lib/courseIntegration/readiness.ts",
+            "lib/courseIntegration/sideEffects.test.ts",
+            "lib/courseIntegration/xml.test.ts",
+            "lib/courseIntegration/xml.ts",
+            "lib/courseIntegration/zip.ts",
+            "lib/server/healthCheck.test.ts",
+            "lib/server/healthCheck.ts",
+            "lib/server/observabilityHooks.test.ts",
+            "lib/server/teacherInviteCode.test.ts",
+            "lib/server/teacherInviteCode.ts",
+            "lib/teacherInviteCodeContract.ts"
+          ],
+          "addedReachablePaths": [
+            "app/api/health/handler.ts",
+            "app/api/health/route.ts",
+            "app/api/teacher/course-imports/handler.ts",
+            "app/api/teacher/course-imports/multipart.ts",
+            "app/api/teacher/course-imports/route.ts",
+            "components/providers/teacherInviteRegistrationClient.ts",
+            "lib/courseIntegration/admission.ts",
+            "lib/courseIntegration/errors.ts",
+            "lib/courseIntegration/importer.ts",
+            "lib/courseIntegration/model.ts",
+            "lib/courseIntegration/readiness.ts",
+            "lib/courseIntegration/xml.ts",
+            "lib/courseIntegration/zip.ts",
+            "lib/server/healthCheck.ts",
+            "lib/server/teacherInviteCode.ts",
+            "lib/teacherInviteCodeContract.ts"
+          ],
+          "addedFrameworkEntrypoints": [
+            "app/api/health/route.ts",
+            "app/api/teacher/course-imports/route.ts"
+          ],
+          "addedSeeds": [
+            "app/api/health/route.ts",
+            "app/api/teacher/course-imports/route.ts"
+          ],
+          "addedEdges": [
+            {
+              "from": "app/api/ai-tutor/resolve/route.ts",
+              "specifier": "@/lib/server/errorMonitor",
+              "to": "lib/server/errorMonitor.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/ai-tutor/route.ts",
+              "specifier": "@/lib/server/errorMonitor",
+              "to": "lib/server/errorMonitor.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/auth/register/route.ts",
+              "specifier": "@/lib/server/teacherInviteCode",
+              "to": "lib/server/teacherInviteCode.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/health/handler.ts",
+              "specifier": "@/lib/server/healthCheck",
+              "to": "lib/server/healthCheck.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/health/route.ts",
+              "specifier": "./handler",
+              "to": "app/api/health/handler.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/health/route.ts",
+              "specifier": "@/lib/server/userStore",
+              "to": "lib/server/userStore.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "specifier": "./multipart",
+              "to": "app/api/teacher/course-imports/multipart.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "specifier": "@/lib/courseIntegration/admission",
+              "to": "lib/courseIntegration/admission.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "specifier": "@/lib/courseIntegration/errors",
+              "to": "lib/courseIntegration/errors.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "specifier": "@/lib/courseIntegration/importer",
+              "to": "lib/courseIntegration/importer.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "specifier": "@/lib/courseIntegration/zip",
+              "to": "lib/courseIntegration/zip.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "specifier": "@/lib/server/auth",
+              "to": "lib/server/auth.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/api/teacher/course-imports/route.ts",
+              "specifier": "./handler",
+              "to": "app/api/teacher/course-imports/handler.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "app/register/page.tsx",
+              "specifier": "@/components/providers/teacherInviteRegistrationClient",
+              "to": "components/providers/teacherInviteRegistrationClient.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "components/providers/AppProviders.tsx",
+              "specifier": "@/components/providers/teacherInviteRegistrationClient",
+              "to": "components/providers/teacherInviteRegistrationClient.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "components/providers/teacherInviteRegistrationClient.ts",
+              "specifier": "@/lib/teacherInviteCodeContract",
+              "to": "lib/teacherInviteCodeContract.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/admission.ts",
+              "specifier": "@/lib/server/rateLimit",
+              "to": "lib/server/rateLimit.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "specifier": "./errors",
+              "to": "lib/courseIntegration/errors.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "specifier": "./model",
+              "to": "lib/courseIntegration/model.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "specifier": "./readiness",
+              "to": "lib/courseIntegration/readiness.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "specifier": "./xml",
+              "to": "lib/courseIntegration/xml.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "specifier": "./zip",
+              "to": "lib/courseIntegration/zip.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/xml.ts",
+              "specifier": "./errors",
+              "to": "lib/courseIntegration/errors.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/courseIntegration/zip.ts",
+              "specifier": "./errors",
+              "to": "lib/courseIntegration/errors.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/server/authRouteGuards.ts",
+              "specifier": "@/lib/server/errorMonitor",
+              "to": "lib/server/errorMonitor.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/server/teacherInviteCode.ts",
+              "specifier": "@/lib/teacherInviteCodeContract",
+              "to": "lib/teacherInviteCodeContract.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/server/userStore.ts",
+              "specifier": "@/lib/observability/errorPolicy",
+              "to": "lib/observability/errorPolicy.ts",
+              "kind": "import",
+              "typeOnly": false
+            },
+            {
+              "from": "lib/server/userStore.ts",
+              "specifier": "@/lib/server/errorMonitor",
+              "to": "lib/server/errorMonitor.ts",
+              "kind": "import",
+              "typeOnly": false
+            }
+          ],
+          "addedTopologyEdges": [
+            {
+              "from": "app/api/ai-tutor/resolve/route.ts",
+              "to": "lib/server/errorMonitor.ts"
+            },
+            {
+              "from": "app/api/ai-tutor/route.ts",
+              "to": "lib/server/errorMonitor.ts"
+            },
+            {
+              "from": "app/api/auth/register/route.ts",
+              "to": "lib/server/teacherInviteCode.ts"
+            },
+            {
+              "from": "app/api/health/handler.ts",
+              "to": "lib/server/healthCheck.ts"
+            },
+            {
+              "from": "app/api/health/route.ts",
+              "to": "app/api/health/handler.ts"
+            },
+            {
+              "from": "app/api/health/route.ts",
+              "to": "lib/server/userStore.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "to": "app/api/teacher/course-imports/multipart.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "to": "lib/courseIntegration/admission.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "to": "lib/courseIntegration/errors.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "to": "lib/courseIntegration/importer.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "to": "lib/courseIntegration/zip.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/handler.ts",
+              "to": "lib/server/auth.ts"
+            },
+            {
+              "from": "app/api/teacher/course-imports/route.ts",
+              "to": "app/api/teacher/course-imports/handler.ts"
+            },
+            {
+              "from": "app/register/page.tsx",
+              "to": "components/providers/teacherInviteRegistrationClient.ts"
+            },
+            {
+              "from": "components/providers/AppProviders.tsx",
+              "to": "components/providers/teacherInviteRegistrationClient.ts"
+            },
+            {
+              "from": "components/providers/teacherInviteRegistrationClient.ts",
+              "to": "lib/teacherInviteCodeContract.ts"
+            },
+            {
+              "from": "lib/courseIntegration/admission.ts",
+              "to": "lib/server/rateLimit.ts"
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "to": "lib/courseIntegration/errors.ts"
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "to": "lib/courseIntegration/model.ts"
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "to": "lib/courseIntegration/readiness.ts"
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "to": "lib/courseIntegration/xml.ts"
+            },
+            {
+              "from": "lib/courseIntegration/importer.ts",
+              "to": "lib/courseIntegration/zip.ts"
+            },
+            {
+              "from": "lib/courseIntegration/xml.ts",
+              "to": "lib/courseIntegration/errors.ts"
+            },
+            {
+              "from": "lib/courseIntegration/zip.ts",
+              "to": "lib/courseIntegration/errors.ts"
+            },
+            {
+              "from": "lib/server/authRouteGuards.ts",
+              "to": "lib/server/errorMonitor.ts"
+            },
+            {
+              "from": "lib/server/teacherInviteCode.ts",
+              "to": "lib/teacherInviteCodeContract.ts"
+            },
+            {
+              "from": "lib/server/userStore.ts",
+              "to": "lib/observability/errorPolicy.ts"
+            },
+            {
+              "from": "lib/server/userStore.ts",
+              "to": "lib/server/errorMonitor.ts"
+            }
+          ],
+          "removedReachablePaths": [],
+          "removedEdges": []
+        },
+        "deltaDigest": "0d5790747814b4ef635a19dbd17c9ebba235733a12bdb0cfbc8108878d28b635",
+        "fsReadMetadataReview": {
+          "schemaVersion": "promotion-fs-read-metadata-review.v1",
+          "fileCount": 4,
+          "readCount": 5,
+          "changedFileCount": 1,
+          "sourceInventoryDigest": "4c3c8843388b25a798555da08e8cd826bbab48cc7742295f3954d1ff54b142f8",
+          "targetInventoryDigest": "bf4729fa738f9b39b0beb24246442082be0260ea69b5350213d14a58b81da530",
+          "files": [
+            {
+              "path": "lib/server/mediaObjectStore.ts",
+              "source": {
+                "mode": "100644",
+                "objectId": "fd910cef7a0b456e2327dff022f4bd8358e2a58a",
+                "rawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f"
+              },
+              "target": {
+                "mode": "100644",
+                "objectId": "fd910cef7a0b456e2327dff022f4bd8358e2a58a",
+                "rawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f"
+              },
+              "reads": [
+                {
+                  "source": {
+                    "sourcePath": "lib/server/mediaObjectStore.ts",
+                    "sourceRawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 15591,
+                    "argumentShape": "identifier(metadataPath),literal(string)",
+                    "normalizedExpressionDigest": "00926cf237a67346ca2b85b90ad73d9a046d4c79f2a004f31d1e8a6830f4b3eb",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "target": {
+                    "sourcePath": "lib/server/mediaObjectStore.ts",
+                    "sourceRawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 15591,
+                    "argumentShape": "identifier(metadataPath),literal(string)",
+                    "normalizedExpressionDigest": "00926cf237a67346ca2b85b90ad73d9a046d4c79f2a004f31d1e8a6830f4b3eb",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "structuralBindingDigest": null
+                },
+                {
+                  "source": {
+                    "sourcePath": "lib/server/mediaObjectStore.ts",
+                    "sourceRawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 16555,
+                    "argumentShape": "identifier(objectPath)",
+                    "normalizedExpressionDigest": "7f7038325696d107a9a824fba5c63cbdb03890c453f2f39f936a8d957039234c",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "target": {
+                    "sourcePath": "lib/server/mediaObjectStore.ts",
+                    "sourceRawSha256": "a2e668c39bcc62a63bb280f2877af52934109538d1da145c9ff29509f102070f",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 16555,
+                    "argumentShape": "identifier(objectPath)",
+                    "normalizedExpressionDigest": "7f7038325696d107a9a824fba5c63cbdb03890c453f2f39f936a8d957039234c",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "structuralBindingDigest": null
+                }
+              ],
+              "unchangedFileBytes": true
+            },
+            {
+              "path": "lib/server/userStore.ts",
+              "source": {
+                "mode": "100644",
+                "objectId": "0caddfde97473be347f5fd5cdbac59f64bc13124",
+                "rawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6"
+              },
+              "target": {
+                "mode": "100644",
+                "objectId": "72444b650b8aaa76f2792fbcb92b9d6b79aa7de4",
+                "rawSha256": "31b470fb48aaff18bb5431463844bffcedcbf57849d9e47e4db0f520fd5be84e"
+              },
+              "reads": [
+                {
+                  "source": {
+                    "sourcePath": "lib/server/userStore.ts",
+                    "sourceRawSha256": "a548c834405f176768c10ab9560e73d0107d3c3fc9bbdde8873d01f377d919c6",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 308204,
+                    "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+                    "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "target": {
+                    "sourcePath": "lib/server/userStore.ts",
+                    "sourceRawSha256": "31b470fb48aaff18bb5431463844bffcedcbf57849d9e47e4db0f520fd5be84e",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 308363,
+                    "argumentShape": "identifier(legacyJsonDbPath),literal(string)",
+                    "normalizedExpressionDigest": "806b230b308bd45b91dd25981a1610df18473615a84d7bc1484b27de79a5198b",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "structuralBindingDigest": "239f2568ca8dafe3789fbcbb0ba75ddd9dc5411b4e94450f5bca8cf510b70dde"
+                }
+              ],
+              "unchangedFileBytes": false
+            },
+            {
+              "path": "lib/server/userStore/studentActivityPersistence.ts",
+              "source": {
+                "mode": "100644",
+                "objectId": "f675f70d8dad907573e35bf9a621b62b0432eb90",
+                "rawSha256": "f83393dc4e335fa23395974d80d56b31defe5646ff890d618ee5cebae8cdd482"
+              },
+              "target": {
+                "mode": "100644",
+                "objectId": "f675f70d8dad907573e35bf9a621b62b0432eb90",
+                "rawSha256": "f83393dc4e335fa23395974d80d56b31defe5646ff890d618ee5cebae8cdd482"
+              },
+              "reads": [
+                {
+                  "source": {
+                    "sourcePath": "lib/server/userStore/studentActivityPersistence.ts",
+                    "sourceRawSha256": "f83393dc4e335fa23395974d80d56b31defe5646ff890d618ee5cebae8cdd482",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 107733,
+                    "argumentShape": "property(storage_path)",
+                    "normalizedExpressionDigest": "8301f5f8c64c1ff646e26047434382ae5a86e2ed600587bad5c5cb4610446bef",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "target": {
+                    "sourcePath": "lib/server/userStore/studentActivityPersistence.ts",
+                    "sourceRawSha256": "f83393dc4e335fa23395974d80d56b31defe5646ff890d618ee5cebae8cdd482",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 107733,
+                    "argumentShape": "property(storage_path)",
+                    "normalizedExpressionDigest": "8301f5f8c64c1ff646e26047434382ae5a86e2ed600587bad5c5cb4610446bef",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "structuralBindingDigest": null
+                }
+              ],
+              "unchangedFileBytes": true
+            },
+            {
+              "path": "lib/server/userStore/teacherOpsResourcePersistence.ts",
+              "source": {
+                "mode": "100644",
+                "objectId": "ab3f1ddc29ea2f17518af8f044a0149b74b93248",
+                "rawSha256": "a74f69510012187fc813943b795cf1f3bd500da331853a0389f415b272325fe7"
+              },
+              "target": {
+                "mode": "100644",
+                "objectId": "ab3f1ddc29ea2f17518af8f044a0149b74b93248",
+                "rawSha256": "a74f69510012187fc813943b795cf1f3bd500da331853a0389f415b272325fe7"
+              },
+              "reads": [
+                {
+                  "source": {
+                    "sourcePath": "lib/server/userStore/teacherOpsResourcePersistence.ts",
+                    "sourceRawSha256": "a74f69510012187fc813943b795cf1f3bd500da331853a0389f415b272325fe7",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 10370,
+                    "argumentShape": "property(storage_path)",
+                    "normalizedExpressionDigest": "8301f5f8c64c1ff646e26047434382ae5a86e2ed600587bad5c5cb4610446bef",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "target": {
+                    "sourcePath": "lib/server/userStore/teacherOpsResourcePersistence.ts",
+                    "sourceRawSha256": "a74f69510012187fc813943b795cf1f3bd500da331853a0389f415b272325fe7",
+                    "callee": "node:fs/promises.readFile",
+                    "position": 10370,
+                    "argumentShape": "property(storage_path)",
+                    "normalizedExpressionDigest": "8301f5f8c64c1ff646e26047434382ae5a86e2ed600587bad5c5cb4610446bef",
+                    "policy": "runtime-storage-read-only-non-module"
+                  },
+                  "structuralBindingDigest": null
+                }
+              ],
+              "unchangedFileBytes": true
+            }
+          ],
+          "preparationEvidenceOnly": true,
+          "liveAllowed": false,
+          "proofDigest": "8a59f6c68cac9d9813286e390ff7be68cfa73ef0ce7f43385d2ce2d6f2a12b4c"
+        },
+        "preparationEvidenceOnly": true,
+        "liveAllowed": false,
+        "proofDigest": "9849e6277b8e6f5ec7a4facaebb37f9e2b10acfcebb6f885a8c7e2128de7e334"
+      },
+      "baselineReviewIndex": {
+        "path": "coordination/release-intake/pr242-review/index.json",
+        "reviewCommit": "831256eaabe4442ad9ea6d0d78e7e042d0cb14ee",
+        "rawSha256": "c4c146634b879be9cf95f47821124ed0434437fa3459ac7dfd54db51ba8f4854"
+      },
+      "roleReview": {
+        "path": "coordination/release-intake/pr242-review/records/A24.json",
+        "reviewedCommit": "b51c3f03a6ecf32ae90661106c5e90d21e7bc034",
+        "rawSha256": "7a7e535dfcd239d61e7fc98ef2675c88b8e63b9955f9580b2351dd014a337499"
+      },
+      "fieldDispositionDigest": "3ed065c14f847c0b67f30e87c8e9e7d371d8029d64fcbe14c2bf204b527c068d",
+      "liveAllowed": false
+    }
+  }
+}

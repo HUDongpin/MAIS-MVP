@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "mais-pr242-baseline-facts.v1",
+  "producedAt": "2026-09-09T05:03:02.581Z",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "role": "A21",
+  "actor": {
+    "identity": "Codex integrating task",
+    "taskId": "01a06ac6-1d5e-7b82-908f-014583232f09",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "sourceReviewScope": "Integrator capture of actual tool outputs and independently reported review facts; reviewer readback is required before role record creation.",
+  "semanticPayload": {
+    "baselineReview": {
+      "sourceBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+      "sourceManifest": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+        "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+      },
+      "runtimeTopologyProofDigest": "9849e6277b8e6f5ec7a4facaebb37f9e2b10acfcebb6f885a8c7e2128de7e334",
+      "metadataProofDigest": "8a59f6c68cac9d9813286e390ff7be68cfa73ef0ce7f43385d2ce2d6f2a12b4c",
+      "codeCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+      "nativeCollectionProducedAt": "2026-09-09T04:58:07.715Z",
+      "sourceAndTargetArchivesVerified": true,
+      "candidateOrCheckerBytesChanged": false,
+      "nativeSemanticProof": {
+        "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+        "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+        "selectedIdentityHits": 0,
+        "resolutionCount": 18,
+        "approvedProjectionCount": 3,
+        "dereachedCount": 15,
+        "liveAllowed": false
+      },
+      "scope": "Independent baseline-only review plus real native collection; not whole-program equivalence or new candidate-content QA.",
+      "nativeValidation": "not-run",
+      "shadow": "not-run",
+      "liveAllowed": false,
+      "contentJudgment": "Retain the original independently produced content fields through explicit historical pointers; no new generation or pedagogy approval.",
+      "selectedCandidateBytesUnchanged": true
+    }
+  }
+}

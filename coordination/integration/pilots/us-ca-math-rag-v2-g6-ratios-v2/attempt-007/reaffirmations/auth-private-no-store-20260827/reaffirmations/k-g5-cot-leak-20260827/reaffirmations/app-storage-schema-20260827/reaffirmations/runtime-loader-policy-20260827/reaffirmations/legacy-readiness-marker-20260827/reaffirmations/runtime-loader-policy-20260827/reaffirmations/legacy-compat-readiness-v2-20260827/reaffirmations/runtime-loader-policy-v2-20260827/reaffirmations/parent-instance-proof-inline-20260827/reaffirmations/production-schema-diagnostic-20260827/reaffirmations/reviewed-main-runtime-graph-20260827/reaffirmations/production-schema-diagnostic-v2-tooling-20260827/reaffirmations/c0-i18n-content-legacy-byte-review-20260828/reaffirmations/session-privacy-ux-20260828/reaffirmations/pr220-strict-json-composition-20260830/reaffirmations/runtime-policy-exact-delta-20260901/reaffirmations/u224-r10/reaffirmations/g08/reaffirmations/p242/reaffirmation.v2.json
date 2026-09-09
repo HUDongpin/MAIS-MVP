@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "promotion-reaffirmation.v2",
+  "relation": "append-only-reaffirmation",
+  "directParent": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+      "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+    },
+    "receipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-shadow-receipt.v2.json",
+      "rawSha256": "1484c3d5012afdbd5ae0bc1fc94327a699766893708c2d39d031cc0605ee580b"
+    }
+  },
+  "historicalBase": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+      "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61"
+    },
+    "receipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json",
+      "rawSha256": "336e6de6e8292b2e8278ccf3335f77a77a4b32a73142657a60748ef24477a484"
+    },
+    "closure": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-closure.v2.json",
+      "rawSha256": "576739195d22ba0133a31da292c1e08d602202a9725e04107e50779c47d3c4af"
+    },
+    "registry": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/lifecycle-registry.v2.json",
+      "rawSha256": "7be73b854a9eb408dfdad671c262e4640fb93136df188b1fd3ecd9e369b77159"
+    }
+  },
+  "revision": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-manifest.v2.json",
+      "rawSha256": "13a3533e74894603788dfa865f7f06047914efd8e26f35a00ede4c67321c17a0"
+    }
+  },
+  "unchangedBindings": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5"
+  },
+  "baselineDelta": {
+    "fromCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "toCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+    "unrelatedToCandidate": true,
+    "candidatePathsChanged": false,
+    "checkerPathsChanged": false,
+    "changedPathsDigest": "4bbbe100c908b3f26b7f7cb46930b723ffcfcc14eaaed2742f1de2afe666b195",
+    "reviewEvidence": [
+      {
+        "role": "A11",
+        "path": "coordination/release-intake/pr242-review/baseline-review-a11.v2.json",
+        "rawSha256": "9b72995ca14875f1706b62aad8572344bf9343861e8c1cb2f1ea986ec39f320e"
+      },
+      {
+        "role": "A22",
+        "path": "coordination/release-intake/pr242-review/baseline-review-a22.v2.json",
+        "rawSha256": "72d4e52ac54af254f8a45ede8012cb5ebe0cd6b64499921cc08b6dcb5a1d3cbf"
+      },
+      {
+        "role": "A25",
+        "path": "coordination/release-intake/pr242-review/baseline-review-a25.v2.json",
+        "rawSha256": "605e57cf0ae6628bf69aafd8c82a511367a06ead66dc679e210cd9d79f726cb1"
+      }
+    ]
+  },
+  "ordering": {
+    "evidenceCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc"
+  }
+}

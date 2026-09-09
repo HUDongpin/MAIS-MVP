@@ -62,6 +62,7 @@ function usage() {
     "usage:",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path>",
     "  Add --review-runtime-topology --baseline-review-index <committed-path> for reviewed addition-only topology; role records supply their own dates and decisions.",
+    "  Add --rebind-fs-read-metadata only with --review-runtime-topology for byte-verified unchanged read expressions, readers and path declarations.",
     "  Add --rebind-runtime-callsites for independently reviewed source-hash/position-only changes (requires full Git history; planning materializes owned temporary commit trees).",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-evidence --produced-at <ISO> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]",
     "  rebase-promotion-baseline.mjs --manifest <source> --target <commit> --revision-root <new-path> --write-bindings --evidence-commit <commit> --attested-by <roles> --justification <committed-path> [--refresh-runtime-policy|--review-runtime-policy] [--review-legacy-candidate-bytes]"
@@ -83,6 +84,7 @@ function parseArgs(argv) {
     reviewRuntimePolicy: false,
     rebindRuntimeCallsites: false,
     reviewRuntimeTopology: false,
+    rebindFsReadMetadata: false,
     baselineReviewIndex: null,
     reviewLegacyCandidateBytes: false,
     rejectedMonolithicWrite: false,
@@ -105,6 +107,7 @@ function parseArgs(argv) {
     else if (argument === "--review-runtime-policy") options.reviewRuntimePolicy = true;
     else if (argument === "--rebind-runtime-callsites") options.rebindRuntimeCallsites = true;
     else if (argument === "--review-runtime-topology") options.reviewRuntimeTopology = true;
+    else if (argument === "--rebind-fs-read-metadata") options.rebindFsReadMetadata = true;
     else if (argument === "--baseline-review-index") options.baselineReviewIndex = next();
     else if (argument === "--review-legacy-candidate-bytes") options.reviewLegacyCandidateBytes = true;
     else if (argument === "--write") options.rejectedMonolithicWrite = true;
@@ -1167,7 +1170,7 @@ export function verifyRuntimeObservationBytes({ root, targetRecords, expectedObs
 }
 
 /** Read-only collection. Outputs never constitute role attestation or native PASS. */
-export async function collectReviewedRuntimeTopology(manifest, targetCommit) {
+export async function collectReviewedRuntimeTopology(manifest, targetCommit, {rebindFsReadMetadata = false} = {}) {
   assertCleanWorktree();
   const head = resolveCommit("HEAD", "HEAD");
   assertAncestor(manifest.targetBaselineCommit, targetCommit, "Topology source baseline");
@@ -1206,12 +1209,14 @@ export async function collectReviewedRuntimeTopology(manifest, targetCommit) {
       before:before.has(p)?{mode:before.get(p).mode,objectId:before.get(p).objectId,rawSha256:sha256(gitBlob(manifest.targetBaselineCommit,p))}:null,
       after:after.has(p)?{mode:after.get(p).mode,objectId:after.get(p).objectId,rawSha256:sha256(gitBlob(targetCommit,p))}:null}));
     const scannerPaths=["coordination/integration/promotion-gate-lib.mjs","coordination/integration/v2/promotion-gate-v2-lib.mjs","scripts/promotion-runtime-topology-review.mjs","scripts/rebase-promotion-baseline.mjs"];
+    if(rebindFsReadMetadata) scannerPaths.push("scripts/promotion-fs-read-metadata-review.mjs");
     const scannerBindings=scannerPaths.sort().map(p=>({path:p,rawSha256:sha256(fs.readFileSync(resolveRepositoryFile(p,"Scanner source").absolute))}));
     const proof=buildRuntimeTopologyReview({sourceCommit:manifest.targetBaselineCommit,targetCommit,sourceFiles:sourceRecords,targetFiles:targetRecords,
       sourceExpectedPolicy:manifest.liveReachability.expectedRuntimePolicy,sourceObservation,targetObservation,sourceTreeDigest,targetTreeDigest,changedFiles,
       immutableBindings:{candidateDigest:manifest.candidateDigest,sourceCommit:manifest.sourceCommit,checkerVersion:manifest.checkerVersion,checkerBundleDigest:checker.bundleDigest,
         checkerReleaseCommit:manifest.checkerRelease.releaseCommit,compatibilityManifestRawSha256:compatibilityHash,legacyRegistryRawSha256:manifest.legacyResolution.rawSha256},
-      nativeSemanticProof:Object.fromEntries(["canonicalAuditDigest","resolutionProofsDigest","selectedIdentityHits","resolutionCount","approvedProjectionCount","dereachedCount","liveAllowed"].map(k=>[k,native.proof[k]])),scannerBindings});
+      nativeSemanticProof:Object.fromEntries(["canonicalAuditDigest","resolutionProofsDigest","selectedIdentityHits","resolutionCount","approvedProjectionCount","dereachedCount","liveAllowed"].map(k=>[k,native.proof[k]])),scannerBindings},
+      rebindFsReadMetadata ? {rebindFsReadMetadata:true,readBlob:(side,p)=>gitBlob(side==="source"?manifest.targetBaselineCommit:targetCommit,p)} : {});
     verifyCallsiteArchive(source.root,sourceRecords);verifyCallsiteArchive(target.root,targetRecords);
     if (verifyRuntimeObservationBytes({ root: repoRoot, targetRecords, expectedObservation: targetRaw, actualObservation: native.runtimeObservation }) !== byteBinding) topologyFail("native byte binding drifted before acceptance");
     if(resolveCommit("HEAD","HEAD")!==head)topologyFail("HEAD changed during observation");assertCleanWorktree();
@@ -1242,7 +1247,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
   const legacyRawSha256 = sha256(legacyBytes);
   const reviewIndexPin = options.reviewRuntimeTopology ? topologyIndexPin(options, manifest, revisionRoot) : null;
   const runtimePolicyRevision = options.reviewRuntimeTopology
-    ? await collectReviewedRuntimeTopology(manifest,targetCommit)
+    ? await collectReviewedRuntimeTopology(manifest,targetCommit,{rebindFsReadMetadata:options.rebindFsReadMetadata})
     : options.refreshRuntimePolicy
     ? await collectRuntimePolicyRefresh(manifest)
     : options.reviewRuntimePolicy
@@ -1257,6 +1262,7 @@ async function planRevision(manifestFile, targetCommit, revisionRoot, options) {
       checkerBundleDigest:manifest.checkerRelease.bundleDigest,runtimeTopologyProof:runtimePolicyRevision.proof,legacyRegistryPath:legacyRelative,
       legacyRegistryRawSha256:legacyRawSha256,sourceEvidenceBindings:manifest.evidenceBindings},
     readCommitted:makeTopologyArtifactReader(reviewIndexPin,options.evidenceCommit?resolveCommit(options.evidenceCommit,"Evidence commit"):null),
+    readRuntimeBlob:async(at,p)=>readTopologyGitFile(at,p),
     assertAncestor:async(a,b)=>assertAncestor(a,b,"Review authority ancestry")}) : null;
   if (reviewedTopology && options.justification && options.justification !== reviewedTopology.justification.path) topologyFail("justification must match the pinned review index");
   const evidence = manifest.evidenceBindings.map((binding) => {
@@ -1497,6 +1503,7 @@ export async function main(argv = process.argv.slice(2)) {
   if (options.rejectedMonolithicWrite) {
     throw new Error("Monolithic --write is disabled; create an append-only revision with the two committed phases.");
   }
+  if (options.rebindFsReadMetadata && !options.reviewRuntimeTopology) throw new Error("--rebind-fs-read-metadata requires --review-runtime-topology.");
   if ([options.refreshRuntimePolicy, options.reviewRuntimePolicy, options.rebindRuntimeCallsites, options.reviewRuntimeTopology].filter(Boolean).length > 1) {
     throw new Error("Runtime-policy refresh, review and callsite rebinding modes are mutually exclusive.");
   }

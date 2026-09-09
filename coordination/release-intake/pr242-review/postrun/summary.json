@@ -1,0 +1,357 @@
+{
+  "schemaVersion": "pr242-native-postrun.v1",
+  "recordedAt": "2026-09-09T07:32:47.787Z",
+  "scope": "PR #242 baseline reaffirmation and ready-to-merge preparation; no merge or deployment",
+  "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+  "evidenceCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-manifest.v2.json",
+    "rawSha256": "13a3533e74894603788dfa865f7f06047914efd8e26f35a00ede4c67321c17a0"
+  },
+  "semanticReceiptDigest": "d17f98745e4d5a9a973544150f13546d059d732cccaac56d0b4090638a227411",
+  "liveAllowed": false,
+  "runs": [
+    {
+      "label": "p242-validate-direct",
+      "operation": "validate",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:16:15.036Z",
+      "completedAt": "2026-09-09T07:17:20.257Z",
+      "durationSeconds": 65.221338447,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 4379,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    },
+    {
+      "label": "p242-canonical",
+      "operation": "shadow",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:18:18.119Z",
+      "completedAt": "2026-09-09T07:19:40.344Z",
+      "durationSeconds": 82.22593987,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 38085,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    },
+    {
+      "label": "p242-fresh",
+      "operation": "shadow",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:21:28.303Z",
+      "completedAt": "2026-09-09T07:22:50.073Z",
+      "durationSeconds": 81.770702537,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 38081,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    },
+    {
+      "label": "p242-a11-replay",
+      "operation": "shadow",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:24:02.451Z",
+      "completedAt": "2026-09-09T07:25:49.556Z",
+      "durationSeconds": 107.108379216,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 38086,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    },
+    {
+      "label": "p242-verify-canonical",
+      "operation": "verify-receipt",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:26:43.749Z",
+      "completedAt": "2026-09-09T07:28:19.930Z",
+      "durationSeconds": 96.18348575200001,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 1406,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    },
+    {
+      "label": "p242-verify-fresh",
+      "operation": "verify-receipt",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:29:05.028Z",
+      "completedAt": "2026-09-09T07:30:40.108Z",
+      "durationSeconds": 95.08225500100001,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 1406,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    },
+    {
+      "label": "p242-verify-a11-replay",
+      "operation": "verify-receipt",
+      "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+      "timeoutMs": 300000,
+      "startedAt": "2026-09-09T07:30:59.299Z",
+      "completedAt": "2026-09-09T07:32:41.544Z",
+      "durationSeconds": 102.24672117,
+      "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+      "exitCode": 0,
+      "signal": null,
+      "processError": null,
+      "stdoutBytes": 1406,
+      "stderrBytes": 0,
+      "nativeResult": "pass"
+    }
+  ],
+  "independentReplay": {
+    "reviewPath": "coordination/release-intake/pr242-review/postrun/a11-independent-replay.json",
+    "rawSha256": "452c8fd6147ee7c481292d3f9947bba64721404c03742a8fad58d406a9241775",
+    "reviewerTaskId": "01a08462-c411-7c71-adf8-5a99cefa4959",
+    "reviewedAt": "2026-09-09T07:27:45.815Z",
+    "identityBoundary": "AI reviewer task identity, not a human signature"
+  },
+  "compatibilityBoundary": {
+    "installedSkillOperationPlan": "BLOCKED",
+    "code": "WORKFLOW_OPERATION_FORBIDDEN",
+    "reason": "Historical workflow dynamically imports historyHelperPath; installed strict guard trust profile admits guardPath only",
+    "executionRoute": "Separately owner-authorized direct repository-native CLI, not installed-skill wrapper admission",
+    "frozenCheckerModified": false,
+    "installedSkillModified": false,
+    "manualTimeoutMs": 300000,
+    "nativeGitProbeTimeoutModified": false
+  },
+  "captureMetadataCaveat": "Generic meta.json semanticDigest/liveAllowed optional lookups can be null. Authoritative native receipt fields are semanticReceiptDigest, binding.liveAllowed and lifecycle.liveAllowed; raw native JSON was not rewritten.",
+  "priorAttempts": [
+    {
+      "label": "p242-validate",
+      "outcome": "capture/internal error; no JSON verdict; first runner did not persist process status"
+    },
+    {
+      "label": "p242-validate-2",
+      "outcome": "ETIMEDOUT at 60000 ms, SIGTERM, no native JSON verdict; process record retained"
+    }
+  ],
+  "environment": {
+    "platform": "linux",
+    "nodeVersion": "v24.17.0",
+    "gitVersion": "git version 2.54.0",
+    "checkout": "Linux /work in task-owned m242-native container",
+    "networkAtExecution": "disconnected; Networks={}",
+    "sourceMount": "/private/tmp/m242/.git to /source-git read-only",
+    "hostLockedDependencyInstall": "npm ci --ignore-scripts --no-audit --no-fund passed, 209 packages",
+    "linuxFullInstall": "incomplete, stopped; retained logs and partial installation; not a successful full npm ci",
+    "nativeDependency": "TypeScript 5.8.3 copied from successful locked host install; 130 files byte-verified, aggregate SHA-256 2f6ae3f7efff8961905dc0ab259e97a4a838b35398ee0809284bff281009a143",
+    "fullApplicationCI": "pending GitHub checks for submitted storage commit"
+  },
+  "limits": [
+    "No new human content approval or live-content authorization",
+    "No active Closure/Registry finalization; historical records unchanged",
+    "Shadow maturity and main-postmerge proof not claimed",
+    "No changes to other worktrees; original source worktree retained at I",
+    "No merge, deploy, force push, or cleanup authorized by this record"
+  ],
+  "artifacts": [
+    {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-shadow-receipt.v2.json",
+      "rawSha256": "32399bf241f6e85a41fbc786555ae70fda000a3806c63aad563a71b4eb6b7a21",
+      "byteLength": 38085
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-direct.json",
+      "rawSha256": "eae1442680b6c0a04081c153c412b4820b3ca8997d30fbc5c7c1cebb9e01788a",
+      "byteLength": 4379
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-direct.process.json",
+      "rawSha256": "80139f1760f9d0dfb6c36de1f6ab24af58be1326aaa8bf6f2351fd083bedad27",
+      "byteLength": 486
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-direct.meta.json",
+      "rawSha256": "d966fdd0d0c83e0ff68d65c4ea9e7000533133cf4c490a7a64bf36834eeaefbc",
+      "byteLength": 450
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-direct.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-canonical.json",
+      "rawSha256": "32399bf241f6e85a41fbc786555ae70fda000a3806c63aad563a71b4eb6b7a21",
+      "byteLength": 38085
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-canonical.process.json",
+      "rawSha256": "481a8b7a51a32984203d5a3b7a5ac143a171aefcf95cf47f80949b12d5e9c851",
+      "byteLength": 478
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-canonical.meta.json",
+      "rawSha256": "a04fbe66bf23ecfb212d2cf2fdcce3b6cf6fb9259210dd0b82eaa7cee682c914",
+      "byteLength": 435
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-canonical.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-fresh.json",
+      "rawSha256": "58724e8a0d167d68230a3b6343f0ddfaf9c8c3bb15cf82441d2cdf653dbe82a6",
+      "byteLength": 38081
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-fresh.process.json",
+      "rawSha256": "416cc533ff285e7292a68fb5e08bea42bf2f6172bdd1b8557bece0c7c525687f",
+      "byteLength": 475
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-fresh.meta.json",
+      "rawSha256": "0b886c16afe383aa1c1d598a0a2d52bd02a578a90e1eea4a4c7947ebcb4dfb83",
+      "byteLength": 432
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-fresh.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-a11-replay.json",
+      "rawSha256": "046aa737fc9670f946c8911b62430b0396f9eea5a309fe5755ed04d95aabd162",
+      "byteLength": 38086
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-a11-replay.process.json",
+      "rawSha256": "89a7ce9345d7d574314069bbd67d2c7901a833cbd8ec54a4f4f7a27874beeea8",
+      "byteLength": 481
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-a11-replay.meta.json",
+      "rawSha256": "5d60474a7bec6e614be81019e12dd333b6c0ea1e0d5049b0382ba82ccf5e9433",
+      "byteLength": 438
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-a11-replay.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-canonical.json",
+      "rawSha256": "95b59d8a39fe76c4d7f568017b7b8e10a694337a918376204bc7478e1fd3d70f",
+      "byteLength": 1406
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-canonical.process.json",
+      "rawSha256": "3bba2538d49b6a651fd0fce324cb3966f034732ecd374b2a25921fa31b755482",
+      "byteLength": 498
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-canonical.meta.json",
+      "rawSha256": "7de1b4870245abaf2595862d51dc74c004517041044d22fde938f101ef83fcd9",
+      "byteLength": 457
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-canonical.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-fresh.json",
+      "rawSha256": "f2aa221b900b4be9c290029f97ea200f939c32ca75959dae0faad76cc567985c",
+      "byteLength": 1406
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-fresh.process.json",
+      "rawSha256": "c3505d36a2e9c49accd194a61926edadc72f08345e3c8c4e1dd61097be91fb9b",
+      "byteLength": 494
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-fresh.meta.json",
+      "rawSha256": "0d9b0b2d07accfff9a16402d6d79bdd4e9542527fbd86e6e001f8ae8169c84a6",
+      "byteLength": 453
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-fresh.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-a11-replay.json",
+      "rawSha256": "920fcc9aa68e75a036774cc181e73b4dc5a3023ea7f6c9eba60145db115e3bf1",
+      "byteLength": 1406
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-a11-replay.process.json",
+      "rawSha256": "e4283e1e4ec76d6162b0432e9b75cce77bc78c9f966692bfa226e817d32412b0",
+      "byteLength": 494
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-a11-replay.meta.json",
+      "rawSha256": "ba997a24979b60c609d9d2d21fdea426336325b9c46f8f18961ea8c55c535915",
+      "byteLength": 454
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-verify-a11-replay.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate.json",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-2.json",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-2.stderr.txt",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/p242-validate-2.process.json",
+      "rawSha256": "cc39bc21d882b4e184341ecb7b67fbb0497a04a77e56c71677a663011782065d",
+      "byteLength": 362
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/a11-independent-replay.json",
+      "rawSha256": "452c8fd6147ee7c481292d3f9947bba64721404c03742a8fad58d406a9241775",
+      "byteLength": 13290
+    },
+    {
+      "path": "coordination/release-intake/pr242-review/postrun/native-capture.mjs",
+      "rawSha256": "364a35ce06cd4b572a93bb2d022338dcb88e7f09af770b656c3fd1037c68771b",
+      "byteLength": 3423
+    }
+  ]
+}

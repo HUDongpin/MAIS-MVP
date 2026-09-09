@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "mais-a11-baseline-only-review.v1",
+  "producedAt": "2026-09-09T05:04:30.449Z",
+  "reviewedAt": "2026-09-09T05:04:30.449Z",
+  "role": "A11",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "toCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "changedPathsDigest": "4bbbe100c908b3f26b7f7cb46930b723ffcfcc14eaaed2742f1de2afe666b195",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "actor": {
+    "taskId": "01a08462-c411-7c71-adf8-5a99cefa4959",
+    "kind": "Codex AI subagent",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "reviewBasisExecutionCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+  "reviewReadback": {
+    "path": "coordination/release-intake/pr242-review/original-reviews/A11.json",
+    "rawSha256": "db92d9e028503041121d79e79054d9e7bc4e7659588091e1a49e5ccb5c01bad8"
+  },
+  "factsReadback": {
+    "path": "coordination/release-intake/pr242-review/facts/A11.json",
+    "rawSha256": "a9963449e27e195360189ee970da2c2077f4c03e50a5c3345d33050f99e7418c"
+  },
+  "assessment": {
+    "decision": "The independently reviewed fixed baseline delta is unrelated to the selected candidate Shadow semantics.",
+    "scope": "Actual independent reviewer readback transcribed by the integrator; approves only the exact A11 baseline facts and their role-record publication.",
+    "doesNotClaim": "No whole-platform equivalence, new content approval, native validation, Shadow/replay or CI success."
+  }
+}

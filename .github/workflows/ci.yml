@@ -99,6 +99,13 @@ jobs:
       - name: Run observability privacy and intake gate
         run: node scripts/run-observability-tests.mjs
 
+      - name: Run SCORM import safety gates
+        env:
+          NODE_ENV: test
+          TSX_DISABLE_CACHE: "1"
+          TSX_TSCONFIG_PATH: tsconfig.json
+        run: npm run test:scorm
+
       - name: Run stray generated-types guard and its unit test
         run: npm run check:stray-types && npm run test:stray-types
 
@@ -112,6 +119,14 @@ jobs:
 
       - name: Run release governance gate (frozen package-script baseline + release command contracts)
         run: npm run test:release-governance
+
+      - name: Fetch exact historical preparation fixture commits
+        run: |
+          git fetch --no-tags --depth=1 --filter=blob:none origin 14a041f372fb27fa4282104c247886ff1eea623b
+          git fetch --no-tags --depth=1 --filter=blob:none origin cdece5c22491febf78543704a3e4e4d94d8e5fc4
+
+      - name: Run Promotion baseline preparation contracts
+        run: node --test --test-concurrency=1 scripts/promotion-fs-read-metadata-review.test.mjs scripts/promotion-runtime-topology-review.test.mjs scripts/rebase-promotion-baseline.test.mjs
 
       - name: Run exact-source deployment evidence and read-only smoke unit gates
         run: |
