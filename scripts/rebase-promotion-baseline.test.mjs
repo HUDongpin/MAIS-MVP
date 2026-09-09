@@ -687,6 +687,19 @@ test("callsite projection budget admits the actual committed repository while re
 });
 
 
+test("fs metadata rebinding is an explicit topology-only modifier", () => {
+  const help=run(["--help"]);assert.match(help.stdout,/--rebind-fs-read-metadata/u);
+  for(const args of [["--rebind-fs-read-metadata"],["--rebind-fs-read-metadata","--refresh-runtime-policy"],["--rebind-fs-read-metadata","--rebind-runtime-callsites"]]) {
+    const result=run(args);assert.notEqual(result.status,0);assert.match(result.stderr,/requires --review-runtime-topology/u);
+  }
+});
+test("CI runs preparation contracts directly without changing frozen promotion commands", () => {
+  const ci=fs.readFileSync(path.join(repoRoot,".github/workflows/ci.yml"),"utf8");
+  for(const at of [manifestValue.targetBaselineCommit,...new Set(manifestValue.evidenceBindings.map(b=>b.reviewedCommit))]) {
+    assert.ok(ci.includes(`git fetch --no-tags --depth=1 --filter=blob:none origin ${at}`),"historical preparation fixture commit must be fetched explicitly");
+  }
+  assert.match(ci,/      - name: Run Promotion baseline preparation contracts\n        run: node --test --test-concurrency=1 scripts\/promotion-fs-read-metadata-review.test.mjs scripts\/promotion-runtime-topology-review.test.mjs scripts\/rebase-promotion-baseline.test.mjs\n/u);
+});
 test("topology mode is explicit, requires a committed review index, and never broadens historical modes", () => {
   const help = run(["--help"]); assert.equal(help.status, 0); assert.match(help.stdout, /--review-runtime-topology/u); assert.match(help.stdout, /--baseline-review-index/u);
   const missing = run(["--review-runtime-topology", "--manifest", manifest, "--target", "HEAD", "--revision-root", revisionRoot]);

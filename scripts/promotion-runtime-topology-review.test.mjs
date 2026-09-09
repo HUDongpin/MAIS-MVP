@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import crypto from "node:crypto";
 import test from "node:test";
-import { fingerprint, RUNTIME_CLASSIFICATION_KINDS } from "../coordination/integration/promotion-gate-lib.mjs";
+import { analyzeRuntimeLoaderCalls, fingerprint, RUNTIME_CLASSIFICATION_KINDS } from "../coordination/integration/promotion-gate-lib.mjs";
 const tools = await import("./promotion-runtime-topology-review.mjs").catch((error) => {
   if (error.code === "ERR_MODULE_NOT_FOUND") return {};
   throw error;
@@ -87,6 +87,32 @@ test("S7-N09 fs-read capability and source-bound next dynamic inventory must rem
   const i=fixture();i.targetObservation.fsReadAllowlist=[{callee:"fs.readFile"}];assert.throws(()=>build(i),/loader|policy|inventory/u);
   const j=fixture();j.targetObservation.policy.nextDynamicCallsiteDigest=h("1");assert.throws(()=>build(j),/policy|inventory/u);
 });
+function metadataTopologyFixture() {
+  const i=fixture(), blobs={source:Buffer.from('import { readFile } from "node:fs/promises";\nconst file = "store.json";\nasync function readStore() { return readFile(file,"utf8"); }\n')};
+  blobs.target=Buffer.concat([Buffer.from("// unrelated insertion\n"),blobs.source]);
+  for(const side of ["source","target"]) {
+    const bytes=blobs[side], rawSha256=crypto.createHash("sha256").update(bytes).digest("hex");
+    const file=i[side+"Files"].find(x=>x.path==="lib/a.ts");
+    file.objectId=crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex");
+    i[side+"TreeDigest"]=fingerprint(i[side+"Files"]);
+    const o=i[side+"Observation"];
+    o.fsReadAllowlist=analyzeRuntimeLoaderCalls(file.path,bytes.toString()).fsReads.map(r=>({sourcePath:file.path,sourceRawSha256:rawSha256,...r}));
+    o.policy.fsReadAllowlistCount=1;o.policy.fsReadAllowlistDigest=fingerprint(o.fsReadAllowlist);
+  }
+  i.changedFiles.push({path:"lib/a.ts",before:{...i.sourceFiles.find(x=>x.path==="lib/a.ts"),rawSha256:i.sourceObservation.fsReadAllowlist[0].sourceRawSha256},after:{...i.targetFiles.find(x=>x.path==="lib/a.ts"),rawSha256:i.targetObservation.fsReadAllowlist[0].sourceRawSha256}});
+  for(const key of ["before","after"]) delete i.changedFiles.at(-1)[key].path;
+  i.changedFiles.sort((a,b)=>a.path<b.path?-1:1);i.sourceExpectedPolicy=structuredClone(i.sourceObservation.policy);
+  return {input:i,blobs};
+}
+test("explicit metadata modifier keeps true native policies while the original topology mode refuses", () => {
+  const {input:i,blobs}=metadataTopologyFixture();
+  assert.throws(()=>build(i),/loader inventory/u);
+  const p=tools.buildRuntimeTopologyReview(i,{rebindFsReadMetadata:true,readBlob:side=>blobs[side]});
+  assert.equal(p.schemaVersion,"promotion-runtime-topology-review.v2");
+  assert.deepEqual(p.sourcePolicy,i.sourceObservation.policy);assert.deepEqual(p.targetPolicy,i.targetObservation.policy);
+  assert.equal(p.fsReadMetadataReview.readCount,1);
+  assert.throws(()=>tools.buildRuntimeTopologyReview(i,{rebindFsReadMetadata:true}),/blob|options/u);
+});
 test("S7-N10 resolver or frozen framework boundary changes cannot be called graph-only additions", () => {
   for(const key of ["resolverPolicyDigest","frameworkBoundaryDigest"]){const i=fixture();i.targetObservation[key]=h("0");assert.throws(()=>build(i),/boundary|resolver/u)}
 });
@@ -104,8 +130,8 @@ test("S7-N22 observations are bounded and unknown contract fields are rejected",
 });
 
 
-function reviewFixture() {
-  const proof=build(fixture()), reviewCommit=h("3",40), producedAt="2026-09-06T01:00:00.000Z", oldDate="2026-08-27T01:00:00.000Z";
+function reviewFixture(proof=build(fixture())) {
+  const reviewCommit=h("3",40), producedAt="2026-09-06T01:00:00.000Z", oldDate="2026-08-27T01:00:00.000Z";
   const material=new Map();
   const put=(path,value,at=reviewCommit)=>{const bytes=Buffer.from(JSON.stringify(value)+"\n"),rawSha256=crypto.createHash("sha256").update(bytes).digest("hex");
     material.set(at+":"+path,{bytes,mode:"100644",objectId:crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex")});return {path,reviewedCommit:at,rawSha256};};
@@ -139,7 +165,22 @@ function reviewFixture() {
   const refresh=()=>{for(let n=0;n<records.length;n++){const row=index.reviews[n];if(!row)continue;const pin=put(row.recordPath,records[n],row.reviewedCommit);row.rawSha256=pin.rawSha256;}const pin=put(indexPin.path,index,indexPin.reviewCommit);indexPin.rawSha256=pin.rawSha256;};
   return {context,index,indexPin,material,records,put,readCommitted,refresh};
 }
-async function prepare(f){assert.equal(typeof tools.prepareReviewedTopologyEvidence,"function","FEATURE_NOT_IMPLEMENTED");return tools.prepareReviewedTopologyEvidence({indexPin:f.indexPin,context:f.context,readCommitted:f.readCommitted,assertAncestor:async()=>{}});}
+async function prepare(f){assert.equal(typeof tools.prepareReviewedTopologyEvidence,"function","FEATURE_NOT_IMPLEMENTED");return tools.prepareReviewedTopologyEvidence({indexPin:f.indexPin,context:f.context,readCommitted:f.readCommitted,assertAncestor:async()=>{},readRuntimeBlob:f.readRuntimeBlob});}
+
+test("v2 role preparation recomputes real runtime blobs and rejects modified or oversized readback",async()=>{
+  const {input,blobs}=metadataTopologyFixture();
+  const p=tools.buildRuntimeTopologyReview(input,{rebindFsReadMetadata:true,readBlob:side=>blobs[side]}), f=reviewFixture(p);
+  f.readRuntimeBlob=async(at,path)=>{
+    assert.equal(path,"lib/a.ts");const side=at===sourceCommit?"source":"target",bytes=blobs[side];
+    return {bytes,mode:"100644",objectId:input[side+"Files"].find(x=>x.path===path).objectId};
+  };
+  assert.equal((await prepare(f)).evidence.length,9);
+  const reader=f.readRuntimeBlob;
+  f.readRuntimeBlob=async(...args)=>({...await reader(...args),bytes:Buffer.from("forged")});
+  await assert.rejects(()=>prepare(f),/blob binding/u);
+  f.readRuntimeBlob=async(...args)=>({...await reader(...args),bytes:Buffer.alloc(16*1024*1024+1)});
+  await assert.rejects(()=>prepare(f),/budget/u);
+});
 
 test("role evidence is built from reviewed new values and all nine bind one fixed index/proof pin",async()=>{
   const f=reviewFixture(),out=await prepare(f);assert.equal(out.evidence.length,9);
@@ -194,6 +235,19 @@ test("unknown runtime classifications are rejected even with consistently recomp
 });
 test("review preparation refuses a forged context proof even if index repeats its claimed digest",async()=>{
   const f=reviewFixture();f.context.runtimeTopologyProof.delta.addedEdges=[];await assert.rejects(()=>prepare(f),/proof.*digest/u);
+});
+test("topology v2 cannot be admitted using only a version string and recomputed self digest",async()=>{
+  const f=reviewFixture();f.context.runtimeTopologyProof.schemaVersion="promotion-runtime-topology-review.v2";
+  const p=f.context.runtimeTopologyProof;p.proofDigest=fingerprint(Object.fromEntries(Object.entries(p).filter(([k])=>k!=="proofDigest")));
+  f.index.runtimeTopologyProofDigest=p.proofDigest;f.refresh();
+  await assert.rejects(()=>prepare(f),/metadata|runtime.*reader|blob/u);
+});
+test("review proof endpoints and immutable identities must equal the independent context",async()=>{
+  for(const change of [p=>p.sourceCommit=h("7",40),p=>p.targetCommit=h("8",40),p=>p.immutableBindings.candidateDigest=h("8"),p=>p.immutableBindings.sourceCommit=h("8",40),p=>p.immutableBindings.checkerVersion="other",p=>p.immutableBindings.checkerBundleDigest=h("8")]) {
+    const f=reviewFixture(),p=f.context.runtimeTopologyProof;change(p);
+    p.proofDigest=fingerprint(Object.fromEntries(Object.entries(p).filter(([k])=>k!=="proofDigest")));f.index.runtimeTopologyProofDigest=p.proofDigest;f.refresh();
+    await assert.rejects(()=>prepare(f),/context|endpoint|immutable/u);
+  }
 });
 
 
