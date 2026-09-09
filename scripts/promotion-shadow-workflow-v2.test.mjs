@@ -149,10 +149,10 @@ const selectorContracts = Object.freeze({
     receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/shadow-receipt.v2.json`
   }),
   reaffirmed: Object.freeze({
-    manifest: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json`,
-    receipt: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-shadow-receipt.v2.json`,
-    receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-shadow-receipt.v2.json`,
-    reaffirmation: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmation.v2.json`
+    manifest: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-manifest.v2.json`,
+    receipt: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-shadow-receipt.v2.json`,
+    receiptAbsolute: `${githubWorkspaceExpression}/${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-shadow-receipt.v2.json`,
+    reaffirmation: `${selectorPrefix}/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/reaffirmation.v2.json`
   })
 });
 
@@ -514,6 +514,21 @@ test("Promotion Shadow selector contract is transition-aware and exact", async (
   } finally {
     await rm(fixtureRoot, { recursive: true, force: true });
   }
+});
+
+test("Promotion Shadow selector contract rejects the prior g08 revision", async () => {
+  const { workflow } = await loadWorkflow();
+  const staleJob = structuredClone(workflow.jobs["promotion-shadow-gate"]);
+  for (const key of [
+    "PROMOTION_MANIFEST",
+    "PROMOTION_CANONICAL_RECEIPT",
+    "PROMOTION_CANONICAL_RECEIPT_ABSOLUTE",
+    "PROMOTION_REAFFIRMATION"
+  ]) {
+    assert.ok(staleJob.env[key].includes("/g08/reaffirmations/p242/"));
+    staleJob.env[key] = staleJob.env[key].replace("/g08/reaffirmations/p242/", "/g08/");
+  }
+  assert.throws(() => assertPromotionSelectorContract(staleJob));
 });
 
 test("Promotion Shadow v2 final enforcement delegates complete evidence replay to the tracked verifier", async () => {

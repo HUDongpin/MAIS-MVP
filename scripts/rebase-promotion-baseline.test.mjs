@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import crypto from "node:crypto";
 import fs from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
@@ -713,7 +714,7 @@ test("topology mode is explicit, requires a committed review index, and never br
 
 test("native runtime byte binding rejects graph-preserving content, mode, and snapshot drift", () => {
   assert.equal(typeof baselineTools.verifyRuntimeObservationBytes, "function", "physical native scan binding is missing");
-  const root = fs.realpathSync(fs.mkdtempSync(path.join(process.env.TMPDIR || "/private/tmp", "s7-native-bytes-")));
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(tmpdir(), "s7-native-bytes-")));
   const inputs = { "app/page.tsx": "export default function Page() { return 1; }\n", "public/pixel.bin": "\u0000\u0001", "middleware.ts": "export const middleware = 1;\n", "tsconfig.json": "{}\n", "tsconfig.next.json": "{\"extends\":\"./tsconfig.json\"}\n", "next.config.ts": "export default {};\n" };
   try {
     for (const [relative, bytes] of Object.entries(inputs)) { const file = path.join(root, relative); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes, { mode: 0o644 }); }
