@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g6-ch04-geometry-area-surface-area",
+  "gradeId": "6",
+  "topicId": "us-ca-math-p6-chapter-04",
+  "title": "Geometry: Area, Surface Area, and Volume",
+  "standardIds": ["6.G.A.1", "6.G.A.4", "6.G.A.2", "6.G.A.3"],
+  "summary": "Resize a box in half-units and watch its unfolded net, its six face areas and the half-unit cubes that pack it move together.",
+  "emoji": "📦",
+  "narration": "Picture a cereal box on the kitchen counter. The counter space it takes, the cardboard it is made from and the cereal inside are three different measurements, and this chapter finds all three the same way: break the shape into pieces you can count. Unfold the box and its six faces become six rectangles to add up. Pack it with cubes half a unit on each side, count them, and remember that eight of those cubes make one cubic unit.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A closed box is 6 cm long, 4 cm wide and 3 cm tall. How many square centimeters of cardboard does its outside surface take?",
+      "answer": 108,
+      "explanation": "Six faces in three pairs: 2 x (6 x 4) + 2 x (6 x 3) + 2 x (4 x 3) = 48 + 36 + 24 = 108 square centimeters."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A right rectangular prism is 3 1/2 units long, 2 units wide and 1 1/2 units tall. What is its volume in cubic units?",
+      "answer": 10.5,
+      "tolerance": 0.01,
+      "explanation": "3.5 x 2 = 7, and 7 x 1.5 = 10.5 cubic units. Packing it with half-unit cubes agrees: 7 x 4 x 3 = 84 cubes, and 84 / 8 = 10.5 because eight half-unit cubes fill one cubic unit."
+    },
+    {
+      "kind": "mc",
+      "prompt": "An L-shaped patch on a coordinate grid has corners at (1, 2), (9, 2), (9, 5), (4, 5), (4, 8) and (1, 8). What is its area in square units?",
+      "choices": ["24", "33", "39", "48"],
+      "answer": 1,
+      "explanation": "Cut across at y = 5. The lower rectangle is (9 - 1) by (5 - 2) = 8 x 3 = 24 and the upper one is (4 - 1) by (8 - 5) = 3 x 3 = 9, so the area is 24 + 9 = 33. Checking the other way, the full rectangle is 8 x 6 = 48 and the missing corner is 5 x 3 = 15, and 48 - 15 = 33."
+    }
+  ]
+}

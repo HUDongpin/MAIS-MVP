@@ -1,0 +1,47 @@
+{
+  "slug": "ca-g12-ch04-function-analysis-rates",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s6-chapter-04",
+  "title": "Function Analysis and Rates",
+  "standardIds": [
+    "F-IF.6",
+    "F-IF.4",
+    "F-IF.9",
+    "F-IF.1",
+    "F-IF.2",
+    "F-IF.3",
+    "F-IF.5",
+    "F-IF.7",
+    "F-IF.8"
+  ],
+  "summary": "Pick a club, move the two week markers, and read the rise, run and exact average rate of change off one graph.",
+  "emoji": "⏱️",
+  "narration": "Three school clubs grow in three different ways: one adds the same number of members every week, one fills up and then shrinks back to where it started, and one doubles. Move the two week markers and the figure draws the line between those two counts, then tells you its slope, which is the average rate of change. Watch the strip of weekly changes underneath, because that strip is the fingerprint that says linear, quadratic or exponential, and it works even for the club that comes with no rule at all, only a table. Then work through the ball example, where the average over four seconds is zero even though the ball never stops moving.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A ski club's membership in week w is S(w) = 64 - 4(w - 3)^2. What is the average rate of change of S, in members per week, from week 1 to week 4?",
+      "answer": 4,
+      "explanation": "S(1) = 64 - 4(1 - 3)^2 = 64 - 4 x 4 = 48 and S(4) = 64 - 4(4 - 3)^2 = 64 - 4 x 1 = 60. The average rate of change is (60 - 48) / (4 - 1) = 12 / 3 = 4 members per week."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A video's reposts double every day, so after d days there are G(d) = 2^d thousand of them. What is the average rate of change, in thousands of reposts per day, from day 0 to day 4?",
+      "answer": 3.75,
+      "tolerance": 0.01,
+      "explanation": "G(0) = 2^0 = 1 and G(4) = 2^4 = 16, so the average rate of change is (16 - 1) / (4 - 0) = 15 / 4 = 3.75 thousand reposts per day. Note this is far below the day-3-to-day-4 change of 16 - 8 = 8, because an exponential's rate keeps growing."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Function f is given by the formula f(x) = 6x + 10. Function g is given by a table, which records g(2) = 12 and g(6) = 44. Which function has the greater average rate of change on the interval from x = 2 to x = 6?",
+      "choices": [
+        "f, at 6 per unit",
+        "g, at 8 per unit",
+        "They tie, both at 7 per unit",
+        "g, at 32 per unit"
+      ],
+      "answer": 1,
+      "explanation": "For f: f(2) = 6 x 2 + 10 = 22 and f(6) = 6 x 6 + 10 = 46, so (46 - 22) / (6 - 2) = 24 / 4 = 6. For g: (44 - 12) / (6 - 2) = 32 / 4 = 8. Since 8 > 6, g changes faster on average. The 32 is the rise, not the rate, and 7 is just the middle of 6 and 8."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "ca-g9-ch05-modeling-evidence",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s3-chapter-05",
+  "title": "Modeling with Evidence",
+  "standardIds": [
+    "S-ID.6",
+    "S-ID.7",
+    "S-ID.8",
+    "S-ID.1",
+    "S-ID.3",
+    "S-ID.9"
+  ],
+  "summary": "Steer nine students' scores and watch one data set answer two questions: summarize it alone, then explain it with practice hours.",
+  "emoji": "🔬",
+  "narration": "Someone claims the new practice sessions are working. A claim is not evidence, so nine students each bring two numbers: hours of practice and a unit-test score. In this chapter you organize those numbers twice, first describing the scores on their own with a dot plot, a mean, a median and a range, then explaining them with a fitted line whose slope, residuals and correlation you can read. Move the controls and watch both stories change together.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A school models its fundraiser with donations = 12p + 45 dollars, where p is the number of posters put up. One week the school put up 8 posters and collected 156 dollars. What is that week's residual, in dollars?",
+      "answer": 15,
+      "explanation": "Predicted = 12 x 8 + 45 = 96 + 45 = 141 dollars. Residual = actual - predicted = 156 - 141 = 15 dollars, so the model under-predicted that week by 15 dollars."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A trainer records x = weeks of training and y = push-ups completed for several athletes. For that data, the sum of (x - xbar)(y - ybar) is 84 and the sum of (x - xbar)^2 is 24. What is the slope of the least-squares line, in push-ups per week?",
+      "answer": 3.5,
+      "tolerance": 0.01,
+      "explanation": "The least-squares slope is the sum of (x - xbar)(y - ybar) divided by the sum of (x - xbar)^2: 84 / 24 = 3.5 push-ups per week."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A least-squares line is fitted to five data points. Four of its residuals are 2, -3, 1, and -1, and the fifth residual is missing. What is the missing residual?",
+      "choices": [
+        "1",
+        "0",
+        "-1",
+        "3"
+      ],
+      "answer": 0,
+      "explanation": "The residuals of a least-squares line always add to 0. The four known residuals give 2 + (-3) + 1 + (-1) = -1, so the missing residual r satisfies -1 + r = 0, which means r = 1."
+    }
+  ]
+}

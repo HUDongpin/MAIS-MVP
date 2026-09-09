@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g6-ch02-rational-numbers-number-line",
+  "gradeId": "6",
+  "topicId": "us-ca-math-p6-chapter-02",
+  "title": "Rational Numbers and the Number Line",
+  "standardIds": ["6.NS.C.6", "6.NS.C.7", "6.NS.C.5", "6.NS.C.8", "6.NS.B.4", "6.NS.A.1"],
+  "summary": "Step two rational numbers along one number line to see their names, opposites, distances from 0, order, and grid point.",
+  "emoji": "📍",
+  "narration": "Picture an elevator panel: two floors up is positive two, and the loading bay below the lobby is negative one point five. Every rational number works that way, sitting at exactly one spot on the number line. Move points A and B a quarter at a time and watch their names, their opposites, and their distances from zero change together. Then see the pair land on a single point where a second number line crosses the first.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A submarine starts at the surface, which its gauge calls 0, and descends to -6 m in equal stages of 3/4 m. How many stages is that?",
+      "answer": 8,
+      "explanation": "The trip covers |-6| = 6 m. Ask how many 3/4 fit in 6: divide by multiplying by the reciprocal, 6 / (3/4) = 6 x 4/3 = 24/3 = 8 stages. Check: 8 stages of 0.75 m is 8 x 0.75 = 6 m, landing on -6."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "What is the absolute value of -13/4, written as a decimal?",
+      "answer": 3.25,
+      "tolerance": 0.01,
+      "explanation": "Absolute value is distance from 0, which is never negative, so |-13/4| = 13/4. Divide to rename it as a decimal: 13 / 4 = 3.25."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Which list is in order from least to greatest?",
+      "choices": ["-9/4, -1.5, -1/2, 0.75", "-1/2, -1.5, -9/4, 0.75", "0.75, -1/2, -1.5, -9/4", "-1.5, -9/4, -1/2, 0.75"],
+      "answer": 0,
+      "explanation": "Rename the fractions first: -9/4 = -2.25 and -1/2 = -0.5. On the number line, farther left means less, so -2.25 < -1.5 < -0.5 < 0.75. That is the first list."
+    }
+  ]
+}

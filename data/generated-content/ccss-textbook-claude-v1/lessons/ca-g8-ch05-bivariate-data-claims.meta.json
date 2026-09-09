@@ -1,0 +1,42 @@
+{
+  "slug": "ca-g8-ch05-bivariate-data-claims",
+  "gradeId": "8",
+  "topicId": "us-ca-math-s2-chapter-05",
+  "title": "Bivariate Data and Claims",
+  "standardIds": [
+    "8.SP.A.1",
+    "8.SP.A.2",
+    "8.SP.A.3",
+    "8.SP.A.4"
+  ],
+  "summary": "Set the hidden slope and scatter behind eight players' seasons; the scatter plot, best-fit line, prediction, and two-way table all follow.",
+  "emoji": "🏀",
+  "narration": "A coach claims that players who practice more make more free throws. One player cannot prove it, but a whole team's pairs of numbers can. In this chapter you plot those pairs, fit a line, read its slope as a rate, and use it to predict. Then you sort the same players into a two-way table and compare percentages, because with categories it is the percentages, not the raw counts, that reveal an association.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A team's line of best fit is y = 3x + 11, where x is hours of practice per week and y is free throws made out of 50. How many free throws does the line predict for a player who practices 6 hours a week?",
+      "answer": 29,
+      "explanation": "Substitute x = 6: y = 3 × 6 + 11 = 18 + 11 = 29 free throws."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A line of best fit passes through the points (2, 20) and (6, 30), where x is hours of practice and y is free throws made. What is the slope of the line, in free throws per hour?",
+      "answer": 2.5,
+      "tolerance": 0.01,
+      "explanation": "Slope = change in y ÷ change in x = (30 − 20) ÷ (6 − 2) = 10 ÷ 4 = 2.5 free throws per hour of practice."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A school surveyed students about sleep. Of the 40 students who play a school sport, 22 slept at least 8 hours last night; of the 25 students who do not play a sport, 15 did. Which comparison correctly tests the claim that playing a sport goes with getting at least 8 hours of sleep?",
+      "choices": [
+        "22 is greater than 15, so players slept at least 8 hours more often",
+        "55% of players versus 60% of non-players, so players slept at least 8 hours less often",
+        "40 is greater than 25, so players slept at least 8 hours more often",
+        "22 + 15 = 37, so about a third of the students slept at least 8 hours"
+      ],
+      "answer": 1,
+      "explanation": "Compare the relative frequency within each row, not the raw counts. Players: 22 / 40 = 0.55 = 55%. Non-players: 15 / 25 = 0.60 = 60%. Since 55% < 60%, players slept at least 8 hours LESS often, even though 22 is the larger count; the rows have different sizes (40 and 25), so 22 vs 15 and 40 vs 25 compare nothing useful. Adding 22 + 15 = 37 out of 40 + 25 = 65 students is 37 / 65 = 56.9%, not a third, and it ignores the two groups entirely."
+    }
+  ]
+}

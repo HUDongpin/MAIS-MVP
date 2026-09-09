@@ -1,0 +1,43 @@
+{
+  "slug": "ca-g11-ch04-data-modeling-residuals",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s5-chapter-04",
+  "title": "Data Modeling and Residuals",
+  "standardIds": [
+    "S-ID.6",
+    "S-ID.1",
+    "S-ID.2",
+    "S-ID.3",
+    "S-ID.7"
+  ],
+  "summary": "Tilt and shift a line over eight delivery routes and watch the residual plot decide whether a straight line is the right model.",
+  "emoji": "📈",
+  "narration": "Every model misses. In this chapter you fit straight lines to real data, then look hard at what each line got wrong. Slide the line over a courier's eight delivery routes, watch the leftover gaps shrink, and read the pattern they make. A small total is not enough, because the shape of the residuals is what tells you whether a straight line was ever the right idea.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "The line y = 3x + 7 is used to model three delivery routes, given as (packages, minutes): (2, 14), (4, 20), and (6, 24). What is the sum of the squared residuals?",
+      "answer": 3,
+      "explanation": "Predictions: 3(2) + 7 = 13, 3(4) + 7 = 19, 3(6) + 7 = 25. Residuals are observed minus predicted: 14 - 13 = 1, 20 - 19 = 1, 24 - 25 = -1. Squaring and adding gives 1 + 1 + 1 = 3."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A least-squares model for a seedling's height in centimeters after x weeks is y = 2.4x + 6. At week 7 the seedling measures 21.6 cm. What is the residual, in centimeters?",
+      "answer": -1.2,
+      "tolerance": 0.01,
+      "explanation": "The model predicts 2.4(7) + 6 = 16.8 + 6 = 22.8 cm. Residual = observed - predicted = 21.6 - 22.8 = -1.2 cm, so the seedling is 1.2 cm shorter than predicted."
+    },
+    {
+      "kind": "mc",
+      "prompt": "An ordinary least-squares line with a fitted intercept is fitted to 12 data points. Its sum of squared residuals is 40, and its residual plot rises at both ends and dips in the middle. What is the best next step suggested by that residual pattern?",
+      "choices": [
+        "Some other straight line would give a smaller squared total.",
+        "The pattern suggests that the straight-line model misses curvature; investigate a suitable curved model.",
+        "The data contain exactly one outlier.",
+        "Nothing; only the size of the squared total matters."
+      ],
+      "answer": 1,
+      "explanation": "The fitted ordinary least-squares line already minimizes the sum of squared residuals among straight lines with an intercept, so choosing another straight line cannot reduce that in-sample total. A U-shaped residual pattern suggests structure that the straight line may miss and gives a reason to investigate a suitable curved model. It does not prove the population relationship is nonlinear or guarantee better prediction on new data. A smooth pattern across the residuals is also different from evidence of exactly one outlier; the squared total alone does not describe the pattern."
+    }
+  ]
+}

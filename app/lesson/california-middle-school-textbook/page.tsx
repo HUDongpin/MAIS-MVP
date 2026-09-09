@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 export const metadata: Metadata = {
   title: "California Middle School Mathematics",
-  description: "California standards-aligned Grade 6-8 replacement math lessons with worked examples and checkpoints."
+  description: "California standards-aligned Grade 6-8 interactive textbook: chapter openers, interactive CCSS lessons, and hand-checked chapter checks."
 };
 
 export default async function CaliforniaMiddleSchoolTextbookStudentRoute() {
