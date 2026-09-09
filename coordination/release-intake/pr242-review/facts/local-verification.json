@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "mais-pr242-local-verification.v1",
+  "producedAt": "2026-09-09T05:00:09.828Z",
+  "codeCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "sourceCleanBeforeAndAfter": true,
+  "checks": [
+    {
+      "name": "preparation",
+      "command": [
+        "/usr/local/bin/node",
+        "--test",
+        "--test-reporter=spec",
+        "--test-concurrency=1",
+        "scripts/promotion-fs-read-metadata-review.test.mjs",
+        "scripts/promotion-runtime-topology-review.test.mjs",
+        "scripts/rebase-promotion-baseline.test.mjs"
+      ],
+      "startedAt": "2026-09-09T04:59:40.132Z",
+      "completedAt": "2026-09-09T04:59:44.240Z",
+      "durationSeconds": 4.106863917000001,
+      "exitCode": 0,
+      "signal": null,
+      "logPath": ".tmp/pr242-verified-preparation.log",
+      "logRawSha256": "9064083858256c8ced13a0bcaec29419f80220fb1e234265d3752c2933a0e10f",
+      "summaryLines": [
+        "ℹ tests 72",
+        "ℹ pass 71",
+        "ℹ fail 0",
+        "ℹ skipped 1",
+        "ℹ duration_ms 4077.138"
+      ]
+    },
+    {
+      "name": "scorm",
+      "command": [
+        "npm",
+        "run",
+        "test:scorm"
+      ],
+      "startedAt": "2026-09-09T04:59:44.241Z",
+      "completedAt": "2026-09-09T04:59:47.462Z",
+      "durationSeconds": 3.2214506250000006,
+      "exitCode": 0,
+      "signal": null,
+      "logPath": ".tmp/pr242-verified-scorm.log",
+      "logRawSha256": "a715ab2cfd4a4e5bf7a402a8e982bb0ccce2f5e6e73933b3a6803eed8ec30f58",
+      "summaryLines": [
+        "ℹ tests 2",
+        "ℹ pass 2",
+        "ℹ fail 0",
+        "ℹ skipped 0",
+        "ℹ duration_ms 37.854917",
+        "ℹ tests 127",
+        "ℹ pass 127",
+        "ℹ fail 0",
+        "ℹ skipped 0",
+        "ℹ duration_ms 2960.126"
+      ]
+    },
+    {
+      "name": "release-governance",
+      "command": [
+        "npm",
+        "run",
+        "test:release-governance"
+      ],
+      "startedAt": "2026-09-09T04:59:47.462Z",
+      "completedAt": "2026-09-09T05:00:09.709Z",
+      "durationSeconds": 22.246173583,
+      "exitCode": 0,
+      "signal": null,
+      "logPath": ".tmp/pr242-verified-release-governance.log",
+      "logRawSha256": "4618ca86e03180b4411f277cc7c71debc73b482faaa0c6d9ca88a533ee1e8208",
+      "summaryLines": [
+        "ℹ tests 151",
+        "ℹ pass 140",
+        "ℹ fail 0",
+        "ℹ skipped 11",
+        "ℹ duration_ms 22113.829667"
+      ]
+    }
+  ],
+  "sideEffects": {
+    "localTestFixtures": true,
+    "providerCalls": false,
+    "deployment": false,
+    "production": false
+  },
+  "liveAllowed": false
+}

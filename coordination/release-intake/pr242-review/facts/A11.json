@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "mais-pr242-baseline-facts.v1",
+  "producedAt": "2026-09-09T05:03:02.581Z",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "role": "A11",
+  "actor": {
+    "identity": "Codex integrating task",
+    "taskId": "01a06ac6-1d5e-7b82-908f-014583232f09",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "sourceReviewScope": "Integrator capture of actual tool outputs and independently reported review facts; reviewer readback is required before role record creation.",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "independentReplayRequired": true,
+    "liveAllowed": false,
+    "reviewScope": "Independent preparation-code and exact baseline-delta review; native replay remains required.",
+    "independentChecks": {
+      "reviewerTaskId": "01a08462-c411-7c71-adf8-5a99cefa4959",
+      "admission": "pass-for-native-collection",
+      "focusedTests": {
+        "tests": 46,
+        "pass": 46,
+        "fail": 0,
+        "skip": 0
+      },
+      "metadataProofDigest": "8a59f6c68cac9d9813286e390ff7be68cfa73ef0ce7f43385d2ce2d6f2a12b4c"
+    },
+    "preflightResults": [
+      {
+        "name": "preparation",
+        "exitCode": 0,
+        "startedAt": "2026-09-09T04:59:40.132Z",
+        "completedAt": "2026-09-09T04:59:44.240Z",
+        "logRawSha256": "9064083858256c8ced13a0bcaec29419f80220fb1e234265d3752c2933a0e10f",
+        "summaryLines": [
+          "ℹ tests 72",
+          "ℹ pass 71",
+          "ℹ fail 0",
+          "ℹ skipped 1",
+          "ℹ duration_ms 4077.138"
+        ]
+      },
+      {
+        "name": "scorm",
+        "exitCode": 0,
+        "startedAt": "2026-09-09T04:59:44.241Z",
+        "completedAt": "2026-09-09T04:59:47.462Z",
+        "logRawSha256": "a715ab2cfd4a4e5bf7a402a8e982bb0ccce2f5e6e73933b3a6803eed8ec30f58",
+        "summaryLines": [
+          "ℹ tests 2",
+          "ℹ pass 2",
+          "ℹ fail 0",
+          "ℹ skipped 0",
+          "ℹ duration_ms 37.854917",
+          "ℹ tests 127",
+          "ℹ pass 127",
+          "ℹ fail 0",
+          "ℹ skipped 0",
+          "ℹ duration_ms 2960.126"
+        ]
+      },
+      {
+        "name": "release-governance",
+        "exitCode": 0,
+        "startedAt": "2026-09-09T04:59:47.462Z",
+        "completedAt": "2026-09-09T05:00:09.709Z",
+        "logRawSha256": "4618ca86e03180b4411f277cc7c71debc73b482faaa0c6d9ca88a533ee1e8208",
+        "summaryLines": [
+          "ℹ tests 151",
+          "ℹ pass 140",
+          "ℹ fail 0",
+          "ℹ skipped 11",
+          "ℹ duration_ms 22113.829667"
+        ]
+      }
+    ],
+    "baselineReview": {
+      "sourceBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+      "sourceManifest": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+        "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+      },
+      "runtimeTopologyProofDigest": "9849e6277b8e6f5ec7a4facaebb37f9e2b10acfcebb6f885a8c7e2128de7e334",
+      "metadataProofDigest": "8a59f6c68cac9d9813286e390ff7be68cfa73ef0ce7f43385d2ce2d6f2a12b4c",
+      "codeCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+      "nativeCollectionProducedAt": "2026-09-09T04:58:07.715Z",
+      "sourceAndTargetArchivesVerified": true,
+      "candidateOrCheckerBytesChanged": false,
+      "nativeSemanticProof": {
+        "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+        "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+        "selectedIdentityHits": 0,
+        "resolutionCount": 18,
+        "approvedProjectionCount": 3,
+        "dereachedCount": 15,
+        "liveAllowed": false
+      },
+      "scope": "Independent baseline-only review plus real native collection; not whole-program equivalence or new candidate-content QA.",
+      "nativeValidation": "not-run",
+      "shadow": "not-run",
+      "liveAllowed": false
+    },
+    "notPerformed": [
+      "Independent fresh Shadow/replay and final CI readback are not yet performed.",
+      "No new candidate mathematical/content or production approval."
+    ]
+  }
+}
