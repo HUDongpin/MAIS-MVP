@@ -29,6 +29,15 @@ import { appShellSessionSyncStorageKey } from "@/lib/appShellBootstrap";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isChineseLanguage, simplifyChineseText, textForLanguage, traditionalToSimplifiedMap } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import {
+  AI_TUTOR_CHAT_HTTP_429_RETRY_ATTEMPTS,
+  AI_TUTOR_CLASSROOM_POLICY_POLL_MS,
+  AI_TUTOR_STATUS_RETRY_ATTEMPTS,
+  isAiTutorHttpRateLimited,
+  nextAiTutorBackoffMs,
+  shouldReuseClassroomPolicy,
+  waitForAiTutorRetry
+} from "@/lib/aiTutorClientBackoff";
 import type {
   ClassAiTutorPolicy,
   CurriculumTrack,
@@ -111,6 +120,7 @@ type TutorTransportResult = {
   response: {
     ok: boolean;
     status: number;
+    retryAfter?: string | null;
   };
   data: TutorApiResponse;
 };
@@ -1880,7 +1890,13 @@ async function requestTutorReply({
         onSessionConflict();
       }
       assertSessionCurrent();
-      return result;
+      return {
+        ...result,
+        response: {
+          ...result.response,
+          retryAfter: response.headers.get("retry-after")
+        }
+      };
     }
 
     let data: TutorApiResponse = {};
@@ -1900,13 +1916,28 @@ async function requestTutorReply({
     return {
       response: {
         ok: response.ok,
-        status: response.status
+        status: response.status,
+        retryAfter: response.headers.get("retry-after")
       },
       data
     };
   }
 
   let { response, data } = await postTutorRequest();
+  for (
+    let attempt = 0;
+    isAiTutorHttpRateLimited(response.status) && attempt < AI_TUTOR_CHAT_HTTP_429_RETRY_ATTEMPTS;
+    attempt += 1
+  ) {
+    await waitForAiTutorRetry(
+      nextAiTutorBackoffMs({
+        attempt,
+        retryAfterHeader: response.retryAfter
+      }),
+      signal
+    );
+    ({ response, data } = await postTutorRequest());
+  }
   if (response.ok && data.mode === "registration-required" && expectedUserId) {
     assertSessionCurrent();
     const sessionResponse = await fetch("/api/me", {
@@ -1976,6 +2007,10 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   const [isTutorPanelResizing, setIsTutorPanelResizing] = useState(false);
   const [classroomPolicy, setClassroomPolicy] = useState<ClassAiTutorPolicy | null>(null);
   const classroomFallbackOnly = classroomPolicy?.mode === "fallback-only";
+  const classroomPolicyFetchedAtRef = useRef<number | null>(null);
+  const classroomPolicyBackoffUntilRef = useRef<number | null>(null);
+  const classroomPolicyRef = useRef(classroomPolicy);
+  classroomPolicyRef.current = classroomPolicy;
   const attachmentInputRef = useRef<HTMLInputElement | null>(null);
   const tutorPanelRef = useRef<HTMLElement | null>(null);
   const tutorPanelResizeRef = useRef<TutorPanelResizeSnapshot | null>(null);
@@ -2018,6 +2053,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [messages]);
   const invalidateTutorAuthEpoch = useCallback(() => {
     tutorAuthEpochRef.current += 1;
+    classroomPolicyFetchedAtRef.current = null;
+    classroomPolicyBackoffUntilRef.current = null;
     for (const controller of tutorAccountRequestControllersRef.current) {
       controller.abort(tutorSessionAbortError());
     }
@@ -2176,15 +2213,31 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
     const ownsSnapshot = existingSnapshot === undefined;
     const expectedUserId = snapshot.identity?.userId;
     if (!expectedUserId) {
+      classroomPolicyFetchedAtRef.current = null;
+      classroomPolicyBackoffUntilRef.current = null;
       if (tutorSessionSnapshotIsCurrent(snapshot)) setClassroomPolicy(null);
       if (ownsSnapshot) releaseTutorSessionRequest(snapshot);
       return null;
     }
 
+    const nowMs = Date.now();
+    const cachedPolicy = classroomPolicyRef.current;
+    if (
+      cachedPolicy
+      && shouldReuseClassroomPolicy({
+        fetchedAtMs: classroomPolicyFetchedAtRef.current,
+        nowMs,
+        backoffUntilMs: classroomPolicyBackoffUntilRef.current
+      })
+    ) {
+      if (ownsSnapshot) releaseTutorSessionRequest(snapshot);
+      return cachedPolicy;
+    }
+
     try {
       assertTutorSessionSnapshotCurrent(snapshot);
       const response = await fetch("/api/ai-tutor/classroom-policy", {
-        cache: "no-store",
+        cache: "default",
         credentials: "same-origin",
         headers: {
           "X-MAIS-Expected-User-Id": expectedUserId
@@ -2196,10 +2249,22 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         return null;
       }
       assertTutorSessionSnapshotCurrent(snapshot);
-      if (!response.ok) return null;
+      if (isAiTutorHttpRateLimited(response.status)) {
+        classroomPolicyBackoffUntilRef.current = nowMs + nextAiTutorBackoffMs({
+          attempt: 0,
+          retryAfterHeader: response.headers.get("retry-after"),
+          fallbackMs: AI_TUTOR_CLASSROOM_POLICY_POLL_MS
+        });
+        return cachedPolicy;
+      }
+      if (!response.ok) return cachedPolicy;
       const policy = readClassAiTutorPolicy(await response.json().catch(() => null));
       assertTutorSessionSnapshotCurrent(snapshot);
-      if (policy) setClassroomPolicy(policy);
+      if (policy) {
+        classroomPolicyFetchedAtRef.current = Date.now();
+        classroomPolicyBackoffUntilRef.current = null;
+        setClassroomPolicy(policy);
+      }
       return policy;
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return null;
@@ -2988,16 +3053,33 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
 
     async function loadSetupStatus() {
-      try {
-        const response = await fetch("/api/ai-tutor/status", {
-          cache: "no-store",
-          credentials: "same-origin"
-        });
-        if (!response.ok) throw new Error("AI Tutor status unavailable.");
-        const status = readSetupStatus(await response.json());
-        if (!cancelled) setSetupStatus(status);
-      } catch {
-        if (!cancelled) setSetupStatus({ state: "local-helper" });
+      for (let attempt = 0; ; attempt += 1) {
+        try {
+          const response = await fetch("/api/ai-tutor/status", {
+            cache: "default",
+            credentials: "same-origin"
+          });
+          if (cancelled) return;
+          if (isAiTutorHttpRateLimited(response.status)) {
+            if (attempt >= AI_TUTOR_STATUS_RETRY_ATTEMPTS) return;
+            await waitForAiTutorRetry(nextAiTutorBackoffMs({
+              attempt,
+              retryAfterHeader: response.headers.get("retry-after")
+            }));
+            continue;
+          }
+          if (!response.ok) throw new Error("AI Tutor status unavailable.");
+          const status = readSetupStatus(await response.json());
+          if (!cancelled) setSetupStatus(status);
+          return;
+        } catch {
+          if (cancelled) return;
+          if (attempt >= AI_TUTOR_STATUS_RETRY_ATTEMPTS) {
+            setSetupStatus((current) => current.state === "checking" ? { state: "local-helper" } : current);
+            return;
+          }
+          await waitForAiTutorRetry(nextAiTutorBackoffMs({ attempt, fallbackMs: 1_000 }));
+        }
       }
     }
 
@@ -3108,7 +3190,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [abortVoiceInputCapture, classroomFallbackOnly, stopTutorVoicePlayback]);
 
   useEffect(() => {
-    if (!tutorPanelOpen || setupStatus.state !== "configured") return;
+    if (!tutorPanelOpen) return;
     const controller = new AbortController();
     void fetch("/api/ai-tutor", {
       cache: "no-store",
@@ -3122,7 +3204,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
     return () => {
       controller.abort();
     };
-  }, [setupStatus.state, tutorPanelOpen]);
+  }, [tutorPanelOpen]);
 
   useEffect(() => {
     if (tutorPanelOpen) return;

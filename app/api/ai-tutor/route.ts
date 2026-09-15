@@ -1,4 +1,5 @@
 import { captureServerError } from "@/lib/server/errorMonitor";
+import { aiTutorPublicReadCacheHeaders } from "@/lib/aiTutorReadCache";
 
 export const runtime = "edge";
 
@@ -375,5 +376,7 @@ export async function GET() {
     ok: true,
     mode: "prewarm",
     provider: "qwen"
+  }, {
+    headers: aiTutorPublicReadCacheHeaders()
   });
 }
