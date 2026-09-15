@@ -156,6 +156,11 @@ test.describe("student frontend workflows", () => {
     await expect(page.getByRole("heading", { name: /Practice check/i })).toBeVisible();
     await expect(page.getByText(/Question 1 of/i)).toBeVisible();
 
+    await page.goto("/resource");
+    await expect(page.getByRole("heading", { name: /My resources/i })).toBeVisible();
+    await expect(page).toHaveURL(/\/resource$/);
+    await expect(page.getByText(/No assigned resources yet|Open resource/i)).toBeVisible();
+
     await page.goto("/resource/resource-s3-quadratics-slides");
     await expect(page.getByRole("heading", { name: /S3 Quadratics lesson slides/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /^Nova Tutor$/i }).first()).toBeVisible();

@@ -13,6 +13,7 @@ import { curriculumProfileLabel } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum, formatLearnerName, formatUnitedStatesGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { studentLessonsPath } from "@/lib/lessonLinks";
 import { studentAssignmentHref, studentAssignmentsPath } from "@/lib/studentAssignmentRoutes";
+import { studentResourcesPath } from "@/lib/studentResourceRoutes";
 import type { DashboardData, LocalizedText, StudentAssignmentItem, SubmissionStatus } from "@/types";
 
 function readDashboard(value: unknown) {
@@ -263,7 +264,8 @@ function DashboardShortcutsMenu({
     { href: "/student/roadmap", label: t({ en: "Learning Roadmap", zh: "學習路線圖", zhHans: "学习路线图" }) },
     { href: "/student/tools/visualizations", label: t({ en: "Visualization Lab", zh: "可視化實驗室", zhHans: "可视化实验室" }) },
     { href: "/mistake-book", label: t({ en: "Mistake Book", zh: "錯題簿", zhHans: "错题簿" }) },
-    { href: studentAssignmentsPath, label: t({ en: "Assignments", zh: "作業", zhHans: "作业" }) }
+    { href: studentAssignmentsPath, label: t({ en: "Assignments", zh: "作業", zhHans: "作业" }) },
+    { href: studentResourcesPath, label: t({ en: "Resources", zh: "資源", zhHans: "资源" }) }
   ];
 
   return (

@@ -7,6 +7,7 @@ import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { lessonHrefForSlug, studentLessonsPath } from "@/lib/lessonLinks";
 import { studentAssessmentHref } from "@/lib/studentAssessmentRoutes";
 import { studentAssignmentHref, studentAssignmentsPath } from "@/lib/studentAssignmentRoutes";
+import { studentResourceHref } from "@/lib/studentResourceRoutes";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { StudentAssignmentItem, Submission } from "@/types";
 
@@ -37,7 +38,7 @@ function assignmentTargetHref(item: StudentAssignmentItem) {
   if (item.assignment.contentType === "lesson") return targetId ? lessonHrefForSlug(targetId) : studentLessonsPath;
   if (item.assignment.contentType === "practice") return "/practice";
   if (item.assignment.contentType === "visualization") return studentVisualizationToolsPath;
-  if (item.assignment.contentType === "resource" && targetId) return `/resource/${encodeURIComponent(targetId)}`;
+  if (item.assignment.contentType === "resource" && targetId) return studentResourceHref(targetId);
   if (item.assignment.contentType === "assessment" && targetId) return studentAssessmentHref(targetId);
   return "/practice";
 }
