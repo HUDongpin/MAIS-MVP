@@ -143,7 +143,7 @@ test.describe("visualization lab, Nova Tutor, and live classroom", () => {
     await tutorPanel.getByRole("button", { name: /^送出$/ }).click();
 
     await expect(tutorPanel.getByText("本機輔助模式", { exact: true })).toBeVisible({ timeout: 10000 });
-    await expect(tutorPanel.getByText(/這裡先提供本機提示/)).toBeVisible();
+    await expect(tutorPanel.getByText(/再試一次/)).toBeVisible();
     await expect(tutorPanel.getByText(/Local helper mode|Here is a local fallback hint/i)).toHaveCount(0);
 
     expectNoPageErrors(pageErrors);
