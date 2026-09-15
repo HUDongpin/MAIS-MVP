@@ -45,7 +45,7 @@ export type VerifiedGoogleProfile = {
 };
 
 function envValue(env: GoogleOAuthEnv | undefined, key: string) {
-  return env?.[key] ?? process.env[key];
+  return env ? env[key] : process.env[key];
 }
 
 function readGoogleOAuthConfig(env?: GoogleOAuthEnv): GoogleOAuthConfig | null {
@@ -326,4 +326,8 @@ export async function fetchGoogleJwks({ fetcher = fetch }: { fetcher?: typeof fe
 
 export function getGoogleOAuthConfig(env?: GoogleOAuthEnv) {
   return readGoogleOAuthConfig(env);
+}
+
+export function isGoogleOAuthConfigured(env?: GoogleOAuthEnv) {
+  return Boolean(readGoogleOAuthConfig(env) && readStateSecret(env));
 }

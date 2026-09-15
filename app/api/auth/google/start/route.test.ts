@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
+import { describe, test } from "node:test";
 import { GOOGLE_OAUTH_STATE_COOKIE } from "@/lib/server/googleOAuth";
 
 process.env.AUTH_SESSION_SECRET = crypto.randomUUID().replaceAll("-", "");
@@ -8,17 +8,55 @@ process.env.GOOGLE_OAUTH_CLIENT_ID = "route-client-id";
 process.env.GOOGLE_OAUTH_CLIENT_SECRET = "route-client-secret";
 process.env.GOOGLE_OAUTH_REDIRECT_URI = "https://mais.test/api/auth/google/callback";
 
-test("Google OAuth start route redirects to Google and sets the pending state cookie", async () => {
-  const { GET } = await import("./route");
-  const response = await GET(new Request("https://mais.test/api/auth/google/start?next=%2Fdashboard&role=student&grade=S4&curriculumTrack=HK&language=en&theme=dark"));
+function restoreProcessEnv(key: string, value: string | undefined) {
+  if (value === undefined) delete process.env[key];
+  else process.env[key] = value;
+}
 
-  assert.equal(response.status, 307);
-  const location = response.headers.get("location");
-  assert.ok(location);
-  const redirectUrl = new URL(location);
-  assert.equal(redirectUrl.origin, "https://accounts.google.com");
-  assert.equal(redirectUrl.searchParams.get("client_id"), "route-client-id");
-  assert.equal(redirectUrl.searchParams.get("redirect_uri"), "https://mais.test/api/auth/google/callback");
-  assert.equal(redirectUrl.searchParams.get("scope"), "openid email profile");
-  assert.match(response.headers.get("set-cookie") ?? "", new RegExp(`${GOOGLE_OAUTH_STATE_COOKIE}=`));
+describe("Google OAuth start route", { concurrency: false }, () => {
+  test("redirects to Google and sets the pending state cookie", async () => {
+    const { GET } = await import("./route");
+    const response = await GET(new Request("https://mais.test/api/auth/google/start?next=%2Fdashboard&role=student&grade=S4&curriculumTrack=HK&language=en&theme=dark"));
+
+    assert.equal(response.status, 307);
+    const location = response.headers.get("location");
+    assert.ok(location);
+    const redirectUrl = new URL(location);
+    assert.equal(redirectUrl.origin, "https://accounts.google.com");
+    assert.equal(redirectUrl.searchParams.get("client_id"), "route-client-id");
+    assert.equal(redirectUrl.searchParams.get("redirect_uri"), "https://mais.test/api/auth/google/callback");
+    assert.equal(redirectUrl.searchParams.get("scope"), "openid email profile");
+    assert.match(response.headers.get("set-cookie") ?? "", new RegExp(`${GOOGLE_OAUTH_STATE_COOKIE}=`));
+  });
+
+  test("redirects to login setup when Google OAuth is unset", async () => {
+    const previous = {
+      GOOGLE_OAUTH_ENABLED: process.env.GOOGLE_OAUTH_ENABLED,
+      GOOGLE_OAUTH_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
+      GOOGLE_OAUTH_CLIENT_SECRET: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      GOOGLE_OAUTH_REDIRECT_URI: process.env.GOOGLE_OAUTH_REDIRECT_URI
+    };
+
+    delete process.env.GOOGLE_OAUTH_ENABLED;
+    delete process.env.GOOGLE_OAUTH_CLIENT_ID;
+    delete process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+    delete process.env.GOOGLE_OAUTH_REDIRECT_URI;
+
+    try {
+      const { GET } = await import("./route");
+      const response = await GET(new Request("https://mais.test/api/auth/google/start?role=student"));
+      assert.equal(response.status, 307);
+      const location = response.headers.get("location");
+      assert.ok(location);
+      const redirectUrl = new URL(location);
+      assert.equal(redirectUrl.pathname, "/login");
+      assert.equal(redirectUrl.searchParams.get("googleError"), "setup");
+      assert.equal(response.headers.get("set-cookie"), null);
+    } finally {
+      restoreProcessEnv("GOOGLE_OAUTH_ENABLED", previous.GOOGLE_OAUTH_ENABLED);
+      restoreProcessEnv("GOOGLE_OAUTH_CLIENT_ID", previous.GOOGLE_OAUTH_CLIENT_ID);
+      restoreProcessEnv("GOOGLE_OAUTH_CLIENT_SECRET", previous.GOOGLE_OAUTH_CLIENT_SECRET);
+      restoreProcessEnv("GOOGLE_OAUTH_REDIRECT_URI", previous.GOOGLE_OAUTH_REDIRECT_URI);
+    }
+  });
 });
