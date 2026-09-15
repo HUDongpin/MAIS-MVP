@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { googleOAuthStatusResponse } from "./route";
+import { googleOAuthStatusResponse } from "./handler";
 
 test("Google OAuth status reports unavailable when env is unset", async () => {
   const response = googleOAuthStatusResponse({
