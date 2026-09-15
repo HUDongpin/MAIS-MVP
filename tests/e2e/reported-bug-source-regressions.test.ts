@@ -164,8 +164,10 @@ test("known routes affected by the hidden-segment race carry no segment-level lo
     // feedback inside the hydrated console instead of a route-level boundary.
     "app/parent/loading.tsx",
     "app/practice/loading.tsx",
+    "app/resource/loading.tsx",
     "app/student/assignments/loading.tsx",
     "app/student/lessons/loading.tsx",
+    "app/student/resources/loading.tsx",
     "app/student/tools/visualizations/loading.tsx",
     "app/visualization-lab/loading.tsx"
   ];
@@ -350,4 +352,23 @@ test("AI Tutor voice keeps unconfigured-provider text local while preserving dut
   assert.ok(safetyFlagIndex > moderationIndex, "safety alerts must follow the local preflight");
   assert.ok(unavailableIndex > safetyFlagIndex, "voice 503 must follow safety alert recording");
   assert.ok(refusalIndex > unavailableIndex, "voice 503 must win after duty of care is preserved");
+});
+
+test("student /resource index exists so Resources nav does not 404", async () => {
+  assert.ok(existsSync(join(process.cwd(), "app/resource/page.tsx")), "app/resource/page.tsx must exist");
+  assert.ok(existsSync(join(process.cwd(), "app/resource/[resourceId]/page.tsx")), "detail route must remain");
+
+  const listPage = await source("app/resource/page.tsx");
+  const dashboard = await source("app/dashboard/page.tsx");
+  const learningPath = await source("lib/server/userStore/teacherOpsLearningPathPersistence.ts");
+  const legacyIndex = await source("app/student/resources/page.tsx");
+  const legacyDetail = await source("app/student/resources/[resourceId]/page.tsx");
+
+  assert.match(listPage, /My resources/);
+  assert.match(listPage, /No assigned resources yet/);
+  assert.match(dashboard, /href: studentResourcesPath, label: t\(\{ en: "Resources"/);
+  assert.match(learningPath, /return trimmed \? studentResourceHref\(trimmed\) : studentResourcesPath;/);
+  assert.doesNotMatch(learningPath, /\/student\/resources\//);
+  assert.match(legacyIndex, /redirect\(studentResourcesPath\)/);
+  assert.match(legacyDetail, /redirect\(studentResourceHref\(resourceId\)\)/);
 });
