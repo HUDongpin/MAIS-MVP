@@ -122,6 +122,9 @@ test("AI tutor status reports redacted readiness without exposing secrets", asyn
   assert.equal(typeof body.model, "string");
   assert.equal(JSON.stringify(body).includes("API_KEY"), false);
   assert.equal(JSON.stringify(body).includes("Bearer"), false);
+  assert.match(response.headers.get("cache-control") ?? "", /s-maxage=30/);
+  assert.match(response.headers.get("cdn-cache-control") ?? "", /max-age=30/);
+  assert.match(response.headers.get("vercel-cdn-cache-control") ?? "", /max-age=30/);
 
   for (const key of ["text", "image", "voice", "speech"]) {
     const capability = body[key] as Record<string, unknown> | undefined;
