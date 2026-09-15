@@ -6,6 +6,7 @@ import {
   createLLMProviderCircuitBreaker,
   extractLLMProviderReply,
   extractLLMProviderUsage,
+  isTransientLLMProviderHttpStatus,
   readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
   readLLMProviderConfig,
@@ -19,6 +20,10 @@ import {
   resolveProviderApiPinnedIp,
   selectAvailableLLMProviderConfig
 } from "./llmProvider";
+import {
+  resolveAITutorEdgeDeadlineMs,
+  resolveAITutorTotalDeadlineMs
+} from "../aiTutorDeadlines";
 
 const messages = [
   { role: "system" as const, content: "Tutor rules" },
@@ -270,10 +275,11 @@ test("Qwen request body can disable thinking for latency-bound Nova Tutor calls"
   assert.equal("reasoning_effort" in body, false);
 });
 
-test("Nova disables Qwen thinking only for the selected hybrid Qwen3.8 Max model", () => {
+test("Nova disables Qwen thinking for every Nova Qwen text model", () => {
   assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3.8-max"), "disabled");
   assert.equal(resolveNovaQwenThinkingMode("qwen", " QWEN3.8-MAX "), "disabled");
-  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3-max-thinking"), undefined);
+  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3-max-thinking"), "disabled");
+  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen-plus"), "disabled");
   assert.equal(resolveNovaQwenThinkingMode("deepinfra", "qwen3.8-max"), undefined);
   assert.equal(resolveNovaQwenThinkingMode("openai-compatible", "qwen3.8-max"), undefined);
 });
@@ -321,10 +327,22 @@ test("DeepSeek resolved-IP transport preserves HTTPS server name and host metada
 });
 
 test("provider completion budget stays aligned with concise tutor replies", () => {
-  assert.equal(resolveLLMMaxCompletionTokens(undefined), 450);
-  assert.equal(resolveLLMMaxCompletionTokens("900"), 600);
+  assert.equal(resolveLLMMaxCompletionTokens(undefined), 900);
+  assert.equal(resolveLLMMaxCompletionTokens("900"), 900);
+  assert.equal(resolveLLMMaxCompletionTokens("1500"), 1_200);
   assert.equal(resolveLLMMaxCompletionTokens("50"), 100);
-  assert.equal(resolveLLMMaxCompletionTokens("not-a-number"), 450);
+  assert.equal(resolveLLMMaxCompletionTokens("not-a-number"), 900);
+});
+
+test("Nova edge deadline keeps most of the live budget instead of starving the provider", () => {
+  assert.equal(resolveAITutorTotalDeadlineMs(undefined), 12_000);
+  assert.equal(resolveAITutorTotalDeadlineMs("7500"), 7_500);
+  assert.equal(resolveAITutorEdgeDeadlineMs(12_000, undefined), 11_500);
+  assert.equal(resolveAITutorEdgeDeadlineMs(7_500, "3500"), 6_500);
+  assert.equal(resolveAITutorEdgeDeadlineMs(2_000, "5000"), 1_600);
+  assert.equal(isTransientLLMProviderHttpStatus(429), true);
+  assert.equal(isTransientLLMProviderHttpStatus(503), true);
+  assert.equal(isTransientLLMProviderHttpStatus(400), false);
 });
 
 test("provider reply extraction accepts string and array content", () => {
