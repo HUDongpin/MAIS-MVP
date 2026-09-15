@@ -2,7 +2,6 @@ import * as http from "node:http";
 import * as https from "node:https";
 import { isIP } from "node:net";
 import {
-  defaultQwenTextModel,
   isDeepSeekApiUrl,
   type LLMProviderConfig,
   type LLMProviderName
@@ -81,8 +80,19 @@ export function resolveAITutorProviderTimeoutMs(value: string | undefined) {
   return resolveLLMProviderTimeoutMs(value, 8_000, 12_000);
 }
 
-export function resolveLLMMaxCompletionTokens(value: string | undefined, fallback = 450, max = 600) {
+export const AI_TUTOR_DEFAULT_MAX_COMPLETION_TOKENS = 900;
+export const AI_TUTOR_MAX_COMPLETION_TOKENS_CAP = 1_200;
+
+export function resolveLLMMaxCompletionTokens(
+  value: string | undefined,
+  fallback = AI_TUTOR_DEFAULT_MAX_COMPLETION_TOKENS,
+  max = AI_TUTOR_MAX_COMPLETION_TOKENS_CAP
+) {
   return boundedLLMNumber(value, fallback, 100, max);
+}
+
+export function isTransientLLMProviderHttpStatus(status: number) {
+  return status === 429 || status === 502 || status === 503 || status === 504;
 }
 
 export function resolveProviderApiPinnedIp(value: string | undefined) {
@@ -121,10 +131,10 @@ export function buildLLMProviderTransportPlan(
 
 export function resolveNovaQwenThinkingMode(
   provider: LLMProviderName,
-  model: string
+  _model: string
 ): LLMProviderThinkingMode | undefined {
   if (provider !== "qwen") return undefined;
-  return model.trim().toLowerCase() === defaultQwenTextModel ? "disabled" : undefined;
+  return "disabled";
 }
 
 export type LLMProviderCircuitBreaker = {

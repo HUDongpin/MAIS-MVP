@@ -8,6 +8,10 @@ import ts from "typescript";
 import { NextResponse } from "next/server";
 import { buildErrorMonitorEvent, type ErrorMonitorContext } from "./errorMonitor";
 import { classifyObservedError } from "../observability/errorPolicy";
+import {
+  resolveAITutorEdgeDeadlineMs,
+  resolveAITutorTotalDeadlineMs
+} from "../aiTutorDeadlines";
 
 type Capture = { error: unknown; context: ErrorMonitorContext };
 type Callable = (...args: any[]) => any;
@@ -44,7 +48,8 @@ async function loadBoundary(relativePath: string, options: {
         "CDN-Cache-Control": "public, max-age=30, stale-while-revalidate=60",
         "Vercel-CDN-Cache-Control": "public, max-age=30, stale-while-revalidate=60"
       })
-    }
+    },
+    "@/lib/aiTutorDeadlines": { resolveAITutorTotalDeadlineMs, resolveAITutorEdgeDeadlineMs }
   };
   const exports = {};
   const context = createContext({

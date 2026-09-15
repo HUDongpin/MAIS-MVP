@@ -1659,7 +1659,7 @@ test("Qwen provider failures retry once and return friendly Nova Tutor fallbacks
 
   function expectFriendlyFallback(body: { reply: string; mode?: string }) {
     expect(body.mode).toBe("provider-fallback");
-    expect(body.reply).toMatch(/Nova|live response|即時 AI|本機提示/);
+    expect(body.reply).toMatch(/Nova|Try again|即時 AI|再試一次/);
     expect(body.reply).not.toMatch(/LLM provider|structured tutor reply|HTTP \d+|timed out|request failed/i);
   }
 
@@ -1676,10 +1676,24 @@ test("Qwen provider failures retry once and return friendly Nova Tutor fallbacks
 
     const httpFailure = await postTutor(
       "provider-http",
-      [{ status: 503, body: { error: "provider unavailable" } }],
-      1
+      [
+        { status: 503, body: { error: "provider unavailable" } },
+        { status: 503, body: { error: "provider unavailable" } }
+      ],
+      2
     );
     expectFriendlyFallback(httpFailure.body);
+
+    const recoveredHttp = await postTutor(
+      "provider-http-recovered",
+      [
+        { status: 429, body: { error: "too many requests" } },
+        finalTextResponse("Recovered after a transient provider limit.")
+      ],
+      2
+    );
+    expect(recoveredHttp.body.reply).toBe("Recovered after a transient provider limit.");
+    expect(recoveredHttp.body.mode).toBeUndefined();
 
     const repairedJson = await postTutor(
       "broken-json-repaired",
@@ -2152,8 +2166,8 @@ test("frontend hides technical API errors and uses Chinese fallback for Chinese 
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
   await expect(tutorPanel.getByText(/Nova 暫時提示/)).toBeVisible({ timeout: 10000 });
-  await expect(tutorPanel.getByText(/這裡先提供本機提示/)).toBeVisible();
-  await expect(tutorPanel.getByText(/我們一起處理/)).toBeVisible();
+  await expect(tutorPanel.getByText(/請稍後按「再試一次」/)).toBeVisible();
+  await expect(tutorPanel.getByRole("button", { name: "再試一次" })).toBeVisible({ timeout: 10000 });
   await expect(tutorPanel.getByText(/LLM provider|structured tutor reply|Live AI fallback/i)).toHaveCount(0);
   await expect(tutorPanel.getByText(/^Local helper mode$/i)).toHaveCount(0);
 });
@@ -2251,6 +2265,57 @@ test("frontend consumes streaming tutor final events without fallback copy", asy
   await expect(tutorPanel.getByText("Mocked streaming frontend tutor reply.", { exact: true })).toBeVisible({ timeout: 10000 });
   await expect(tutorPanel.getByText(/Live AI fallback|Nova fallback hint|Here is a local fallback hint|Local helper mode/i)).toHaveCount(0);
   expect(acceptHeader).toContain("text/event-stream");
+});
+
+test("frontend keeps a recoverable streamed fallback and offers retry", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+  const activeHarness = await ensureHarness();
+  const student = uniqueStudent(testInfo, "frontend-sse-retry");
+  const fallbackReply = "Nova could not finish a live answer just now. Please tap Try again in a few seconds.";
+
+  await page.request.post(`${activeHarness.appBaseURL}/api/auth/register`, {
+    data: {
+      name: student.name,
+      username: student.username,
+      email: student.username,
+      password: student.password,
+      grade: "S3",
+      curriculumTrack: "HK",
+      language: "en",
+      theme: "dark"
+    }
+  });
+  await page.route("**/api/ai-tutor/status", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        configured: true,
+        mode: "live",
+        model: "qwen3.8-max",
+        provider: "qwen"
+      })
+    });
+  });
+  await page.route("**/api/ai-tutor", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/event-stream; charset=utf-8",
+      body: tutorSseFinalResponse({
+        reply: fallbackReply,
+        mode: "provider-fallback"
+      }, 503)
+    });
+  });
+
+  const tutorPanel = await openTutor(page);
+  await expect(tutorPanel.getByText(/Live AI configured/)).toBeVisible();
+  await tutorPanel.locator("#ai-tutor-input").fill("Why is 7 + 5 equal to 12?");
+  await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
+
+  await expect(tutorPanel.getByText(fallbackReply, { exact: true })).toBeVisible({ timeout: 10000 });
+  await expect(tutorPanel.getByRole("button", { name: "Try again" })).toBeVisible({ timeout: 10000 });
+  await expect(tutorPanel.getByText(/Nova fallback hint|Here is a local fallback hint|Local helper mode/i)).toHaveCount(0);
 });
 
 test("frontend image attachment requests show API replies without live fallback copy", async ({ page }, testInfo) => {

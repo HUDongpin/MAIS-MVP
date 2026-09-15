@@ -161,6 +161,7 @@ type SendTutorMessageOptions = {
   contextOverride?: TutorContext;
   attachmentsOverride?: TutorAttachment[];
   clearComposer?: boolean;
+  retryLastQuestion?: boolean;
 };
 
 type TutorVoiceStatus = "idle" | "listening" | "processing" | "error";
@@ -592,6 +593,18 @@ const tutorVoiceCopy = {
 } as const;
 
 const tutorQuickChoiceCopy = {
+  retry: {
+    label: {
+      en: "Try again",
+      zh: "再試一次",
+      zhHans: "再试一次"
+    },
+    prompt: {
+      en: "Try again",
+      zh: "再試一次",
+      zhHans: "再试一次"
+    }
+  },
   concept: {
     label: {
       en: "Concept explanation",
@@ -1014,7 +1027,21 @@ function buildTutorReply(input: string, context: TutorContext | undefined, langu
   return `Let us work on this together. I can explain the concept, ask guiding questions, check your reasoning, or help you plan revision. Which one do you want: concept explanation, step-by-step hint, answer check, or encouragement?`;
 }
 
+function isRecoverableLiveTutorFallback(mode?: string, content = "") {
+  if (mode === "classroom-fallback-only" || mode === "classroom-policy-unavailable") return false;
+  if (mode && /(?:deadline|provider|rate-limit)-fallback/i.test(mode)) return true;
+  return /Please tap Try again|請稍後按「再試一次」|请稍后按「再试一次」|could not finish a live answer|this live reply stopped|receiving too many requests right now/i.test(content);
+}
+
 function tutorMessageQuickChoices(content: string, language: Language): TutorQuickChoice[] {
+  if (isRecoverableLiveTutorFallback(undefined, content)) {
+    return [{
+      id: "retry",
+      label: textForLanguage(tutorQuickChoiceCopy.retry.label, language),
+      prompt: textForLanguage(tutorQuickChoiceCopy.retry.prompt, language)
+    }];
+  }
+
   const hasEnglishChoices = /concept explanation,\s*step-by-step hint,\s*answer check,\s*or\s+(?:revision planning|encouragement)/i.test(content);
   const hasChineseChoices = /概念(?:解釋|解释)[、，,]\s*逐步提示[、，,]\s*(?:答案(?:檢查|检查)|檢查思路|检查思路)[、，,]?\s*(?:還是|还是|或)\s*(?:複習計劃|复习计划|鼓勵支持|鼓励支持)/u.test(content);
 
@@ -1961,14 +1988,15 @@ async function requestTutorReply({
     throw new Error("AI Tutor API request failed.");
   }
 
-  if (!response.ok || !data.reply) {
-    throw new Error(data.error ?? "AI Tutor API request failed.");
+  if (data.reply) {
+    return {
+      reply: data.reply,
+      visualization: data.visualization,
+      mode: data.mode
+    };
   }
 
-  return {
-    reply: data.reply,
-    visualization: data.visualization
-  };
+  throw new Error(data.error ?? "AI Tutor API request failed.");
 }
 
 function TutorVisualizationPanel({ visualization }: { visualization: AITutorVisualization }) {
@@ -2757,7 +2785,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       rawInput,
       contextOverride,
       attachmentsOverride,
-      clearComposer = true
+      clearComposer = true,
+      retryLastQuestion = false
     }: SendTutorMessageOptions) => {
       const trimmed = rawInput.trim();
       if (!trimmed || isSending) return;
@@ -2776,11 +2805,16 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       });
       const fallbackReply = buildTutorReply(trimmed, requestContext, fallbackLanguage);
       const pendingMessageId = createMessageId("thinking");
-      setMessages((current) => [
-        ...current,
-        tutorMessage("student", trimmed),
-        { id: pendingMessageId, role: "tutor", content: "", status: "thinking" }
-      ]);
+      setMessages((current) => retryLastQuestion
+        ? [
+            ...current,
+            { id: pendingMessageId, role: "tutor", content: "", status: "thinking" }
+          ]
+        : [
+            ...current,
+            tutorMessage("student", trimmed),
+            { id: pendingMessageId, role: "tutor", content: "", status: "thinking" }
+          ]);
       setContext(requestContext);
       if (clearComposer) {
         setInput("");
@@ -2814,7 +2848,9 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
         const reply = await requestTutorReply({
           input: trimmed,
-          messages,
+          messages: retryLastQuestion
+            ? messages.filter((message, index) => !(message.role === "tutor" && index === messages.length - 1))
+            : messages,
           context: requestContext,
           grade: selectedGrade,
           language: fallbackLanguage,
@@ -2855,13 +2891,15 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
           !tutorSessionSnapshotIsCurrent(sessionSnapshot)
         ) return;
         const safeReason = visibleFallbackReason(error instanceof Error ? error.message : "");
+        const retryLead = isChineseLanguage(fallbackLanguage)
+          ? "即時 AI 暫時未能完成完整回覆。請稍後按「再試一次」。"
+          : "Nova could not finish a live answer just now. Please tap Try again in a few seconds.";
         const fallbackModeLabel = setupStatus.state === "configured"
           ? textForLanguage({ en: "Nova fallback hint", zh: "Nova 暫時提示" }, fallbackLanguage)
           : textForLanguage(dictionary.aiTutor.localHelperMode, fallbackLanguage);
-        const fallbackHint = textForLanguage(dictionary.aiTutor.fallbackHint, fallbackLanguage);
         const reply = isChineseLanguage(fallbackLanguage)
-          ? `${fallbackModeLabel}。${fallbackHint} ${fallbackReply}`
-          : `${fallbackModeLabel}${safeReason ? ` (${safeReason})` : ""}. ${fallbackHint} ${fallbackReply}`;
+          ? `${fallbackModeLabel}。${retryLead}`
+          : `${fallbackModeLabel}${safeReason ? ` (${safeReason})` : ""}. ${retryLead}`;
 
         setMessages((current) =>
           current.map((message) =>
@@ -3486,7 +3524,24 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
                         <button
                           key={choice.id}
                           type="button"
-                          onClick={() => void sendTutorMessage({ rawInput: choice.prompt })}
+                          onClick={() => {
+                            if (choice.id === "retry") {
+                              const lastStudent = [...messages]
+                                .reverse()
+                                .find((candidate) => candidate.role === "student")
+                                ?.content
+                                .trim();
+                              if (lastStudent) {
+                                void sendTutorMessage({
+                                  rawInput: lastStudent,
+                                  retryLastQuestion: true,
+                                  clearComposer: false
+                                });
+                              }
+                              return;
+                            }
+                            void sendTutorMessage({ rawInput: choice.prompt });
+                          }}
                           disabled={isSending}
                           className="focus-ring flex min-h-11 w-full items-center rounded-xl border border-slate-200/90 bg-white px-4 py-2.5 text-left text-sm font-black leading-5 text-slate-700 shadow-sm transition hover:border-cyan-300 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-55 dark:border-cyan-100/20 dark:bg-slate-950/55 dark:text-cyan-50 dark:hover:border-cyan-200/45 dark:hover:bg-cyan-300/10 sm:text-base"
                         >
