@@ -20,7 +20,7 @@ test("California curriculum labels use English U.S. grade names instead of P/S g
 test("California practice and onboarding surfaces do not render Primary/Secondary grade labels", () => {
   const missionSetup = readFileSync("components/practice/PracticeMissionSetupControls.tsx", "utf8");
   const radarSelect = readFileSync("components/practice/PracticeGradeRadarSelect.tsx", "utf8");
-  const loginPage = readFileSync("app/login/page.tsx", "utf8");
+  const loginPage = readFileSync("app/login/LoginPageClient.tsx", "utf8");
   const registerPage = readFileSync("app/register/page.tsx", "utf8");
 
   assert.match(missionSetup, /currentUser/);
@@ -29,7 +29,7 @@ test("California practice and onboarding surfaces do not render Primary/Secondar
   assert.doesNotMatch(missionSetup, /text\(grade\.name\)/);
   assert.doesNotMatch(radarSelect, /return grade\.id;/);
   assert.match(radarSelect, /formatGradeLabelForCurriculum\(grade\.id,\s*language,\s*curriculumTrack/);
-  assert.match(loginPage, /const defaultUnitedStatesLoginGrade: GradeId = "K"/);
+  assert.match(loginPage, /const defaultLoginGrade: GradeId = "K"/);
   assert.match(registerPage, /useState<GradeId>\("K"\)/);
 });
 

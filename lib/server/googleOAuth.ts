@@ -48,24 +48,31 @@ function envValue(env: GoogleOAuthEnv | undefined, key: string) {
   return env ? env[key] : process.env[key];
 }
 
+function nonEmptyEnvValue(env: GoogleOAuthEnv | undefined, key: string) {
+  return envValue(env, key)?.trim() || "";
+}
+
 function readGoogleOAuthConfig(env?: GoogleOAuthEnv): GoogleOAuthConfig | null {
   const enabled = envValue(env, "GOOGLE_OAUTH_ENABLED");
   if (!enabled || !["1", "true", "yes", "on"].includes(enabled.trim().toLowerCase())) return null;
 
-  const clientId = envValue(env, "GOOGLE_OAUTH_CLIENT_ID")?.trim() ?? "";
-  const clientSecret = envValue(env, "GOOGLE_OAUTH_CLIENT_SECRET")?.trim() ?? "";
-  const redirectUri = envValue(env, "GOOGLE_OAUTH_REDIRECT_URI")?.trim() ?? "";
+  const clientId = nonEmptyEnvValue(env, "GOOGLE_OAUTH_CLIENT_ID");
+  const clientSecret = nonEmptyEnvValue(env, "GOOGLE_OAUTH_CLIENT_SECRET");
+  const redirectUri = nonEmptyEnvValue(env, "GOOGLE_OAUTH_REDIRECT_URI");
   if (!clientId || !clientSecret || !redirectUri) return null;
   return { clientId, clientSecret, redirectUri };
 }
 
 function readStateSecret(env?: GoogleOAuthEnv) {
   return (
-    envValue(env, "GOOGLE_OAUTH_STATE_SECRET") ??
-    envValue(env, "AUTH_SESSION_SECRET") ??
-    envValue(env, "NEXTAUTH_SECRET") ??
-    ""
+    nonEmptyEnvValue(env, "GOOGLE_OAUTH_STATE_SECRET") ||
+    nonEmptyEnvValue(env, "AUTH_SESSION_SECRET") ||
+    nonEmptyEnvValue(env, "NEXTAUTH_SECRET")
   );
+}
+
+function readSessionSecret(env?: GoogleOAuthEnv) {
+  return nonEmptyEnvValue(env, "AUTH_SESSION_SECRET") || nonEmptyEnvValue(env, "NEXTAUTH_SECRET");
 }
 
 function base64UrlEncode(value: Uint8Array | string) {
@@ -150,7 +157,8 @@ export async function buildGoogleOAuthAuthorization({
 }) {
   const config = readGoogleOAuthConfig(env);
   const stateSecret = readStateSecret(env);
-  if (!config || !stateSecret) return { status: "setup-missing" as const };
+  const sessionSecret = readSessionSecret(env);
+  if (!config || !stateSecret || !sessionSecret) return { status: "setup-missing" as const };
 
   const state = randomBase64Url(32, randomBytes);
   const nonce = randomBase64Url(32, randomBytes);
@@ -329,5 +337,5 @@ export function getGoogleOAuthConfig(env?: GoogleOAuthEnv) {
 }
 
 export function isGoogleOAuthConfigured(env?: GoogleOAuthEnv) {
-  return Boolean(readGoogleOAuthConfig(env) && readStateSecret(env));
+  return Boolean(readGoogleOAuthConfig(env) && readStateSecret(env) && readSessionSecret(env));
 }

@@ -158,6 +158,18 @@ test("isGoogleOAuthConfigured requires explicit enablement and complete server-o
   assert.equal(isGoogleOAuthConfigured({ ...completeEnv, GOOGLE_OAUTH_ENABLED: "false" }), false);
   assert.equal(isGoogleOAuthConfigured({ ...completeEnv, GOOGLE_OAUTH_CLIENT_SECRET: "" }), false);
   assert.equal(isGoogleOAuthConfigured({
+    ...completeEnv,
+    GOOGLE_OAUTH_STATE_SECRET: "",
+    AUTH_SESSION_SECRET: "state-cookie-secret"
+  }), true);
+  assert.equal(isGoogleOAuthConfigured({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_STATE_SECRET: "oauth-state-secret-only",
+    GOOGLE_OAUTH_CLIENT_ID: "mais-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: "client-secret",
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback"
+  }), false);
+  assert.equal(isGoogleOAuthConfigured({
     GOOGLE_OAUTH_ENABLED: "true",
     GOOGLE_OAUTH_CLIENT_ID: "mais-client-id",
     GOOGLE_OAUTH_CLIENT_SECRET: "client-secret",
