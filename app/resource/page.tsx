@@ -78,7 +78,7 @@ export default function StudentResourcesPage() {
     return (
       <div className="page-container py-10 sm:py-12">
         <section className="glass-panel p-6 sm:p-8">
-          <h1 className="text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Resources are for student accounts", zh: "資源頁面只供學生帳戶使用", zhHans: "资源页面只供学生账户使用" })}</h1>
+          <h1 className="text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Resources are for student accounts", zh: "資源頁面只供學生帳戶使用", zhHans: "资源页面只供学生账号使用" })}</h1>
           <Link href="/login" className="focus-ring mt-5 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
             {t(dictionary.nav.login)}
           </Link>
