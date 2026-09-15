@@ -29,8 +29,9 @@ test.describe("Google OAuth login entry", () => {
 
     await page.goto("/login?googleError=setup");
     await expect(page.getByRole("link", { name: /Continue with Google/i })).toHaveCount(0);
-    await expect(page.getByRole("alert")).toHaveCount(0);
+    await expect(page.getByText(/not configured for this environment/i)).toHaveCount(0);
     await expect(page.getByRole("status").filter({ hasText: /Google sign-in is not available/i })).toBeVisible();
+    await expect(page.getByText(/Use your email and password to log in/i)).toBeVisible();
     await expect(page.locator("#login-identifier")).toBeVisible();
     await expect(page.locator("#login-password")).toBeVisible();
   });
