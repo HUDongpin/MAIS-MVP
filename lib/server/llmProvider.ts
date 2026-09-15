@@ -6,7 +6,7 @@ import {
   isDeepSeekApiUrl,
   type LLMProviderConfig,
   type LLMProviderName
-} from "@/lib/llmProviderConfig";
+} from "../llmProviderConfig";
 
 export type {
   AITutorCapabilityStatus,
@@ -16,7 +16,7 @@ export type {
   AITutorProviderStatus,
   LLMProviderConfig,
   LLMProviderName
-} from "@/lib/llmProviderConfig";
+} from "../llmProviderConfig";
 export {
   buildAITutorCapabilityStatus,
   readAITutorImageProviderConfig,
@@ -32,7 +32,7 @@ export {
   readQwenRealtimeProviderConfig,
   readQwenTextProviderConfig,
   resolveLLMProviderName
-} from "@/lib/llmProviderConfig";
+} from "../llmProviderConfig";
 
 export type LLMProviderContentPart =
   | { type: "text"; text: string }
