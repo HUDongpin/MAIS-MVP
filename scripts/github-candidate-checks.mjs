@@ -137,7 +137,7 @@ async function verifyGithubCandidateChecksInternal(options) {
   const promotionRunPayload = await fetchGithubJson(promotionActionsRunUrl, requestOptions);
   const finalMainRefPayload = await fetchGithubJson(urls.mainRef, requestOptions);
 
-  validatePrivateRepository(repositoryPayload);
+  validateApprovedRepository(repositoryPayload);
   validateProviderCommit(commitPayload, candidateSha, expectedTreeSha);
   validateMainRef(mainRefPayload, candidateSha);
   validateMainRef(finalMainRefPayload, candidateSha);
@@ -405,13 +405,17 @@ function assertFixedGithubApiUrl(url) {
   }
 }
 
-function validatePrivateRepository(payload) {
+function isApprovedRepositoryVisibility(payload) {
+  return (payload?.private === true && payload?.visibility === "private") ||
+    (payload?.private === false && payload?.visibility === "public");
+}
+
+function validateApprovedRepository(payload) {
   if (
     payload?.id !== MAIS_GITHUB_REPOSITORY_ID ||
     payload?.name !== "MAIS-MVP" ||
     payload?.full_name !== MAIS_GITHUB_REPOSITORY ||
-    payload?.private !== true ||
-    payload?.visibility !== "private" ||
+    !isApprovedRepositoryVisibility(payload) ||
     payload?.default_branch !== "main" ||
     payload?.archived !== false ||
     payload?.disabled !== false ||
@@ -419,7 +423,7 @@ function validatePrivateRepository(payload) {
     payload?.url !== `${GITHUB_API_ORIGIN}/repos/${MAIS_GITHUB_REPOSITORY}` ||
     payload?.html_url !== `https://github.com/${MAIS_GITHUB_REPOSITORY}`
   ) {
-    throw new Error("private repository identity mismatch");
+    throw new Error("approved repository identity mismatch");
   }
 }
 
