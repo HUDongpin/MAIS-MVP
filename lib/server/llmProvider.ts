@@ -2,7 +2,10 @@ import * as http from "node:http";
 import * as https from "node:https";
 import { isIP } from "node:net";
 import {
+  dashScopeRegionalApiUrls,
+  isDashScopeRegionalHost,
   isDeepSeekApiUrl,
+  rewriteDashScopeApiUrlHost,
   type LLMProviderConfig,
   type LLMProviderName
 } from "../llmProviderConfig";
@@ -18,6 +21,9 @@ export type {
 } from "../llmProviderConfig";
 export {
   buildAITutorCapabilityStatus,
+  dashScopeRegionalApiUrls,
+  dashScopeRegionalHosts,
+  isDashScopeRegionalHost,
   readAITutorImageProviderConfig,
   readAITutorPreferredTextProvider,
   readAITutorProviderProfile,
@@ -26,11 +32,14 @@ export {
   readDeepInfraTextProviderConfig,
   readDeepInfraVisionProviderConfig,
   readLLMProviderConfig,
+  readOptionalEnv,
+  readProviderApiKey,
   readQwenAsrRealtimeProviderConfig,
   readQwenImageProviderConfig,
   readQwenRealtimeProviderConfig,
   readQwenTextProviderConfig,
-  resolveLLMProviderName
+  resolveLLMProviderName,
+  rewriteDashScopeApiUrlHost
 } from "../llmProviderConfig";
 
 export type LLMProviderContentPart =
@@ -93,6 +102,10 @@ export function resolveLLMMaxCompletionTokens(
 
 export function isTransientLLMProviderHttpStatus(status: number) {
   return status === 429 || status === 502 || status === 503 || status === 504;
+}
+
+export function isDashScopeRegionalAuthFailureStatus(status: number) {
+  return status === 401;
 }
 
 export function resolveProviderApiPinnedIp(value: string | undefined) {
@@ -319,9 +332,89 @@ export function fetchLLMProviderResponse(
   init: RequestInit,
   pinnedIp = process.env.DEEPSEEK_API_RESOLVE_IP
 ): Promise<LLMProviderHttpResponse> {
-  const plan = buildLLMProviderTransportPlan(config, pinnedIp);
-  if (plan.mode === "fetch") return fetch(config.apiUrl, init);
-  return fetchWithPinnedIp(config.apiUrl, init, plan);
+  if (config.provider !== "qwen") {
+    return fetchLLMProviderOnce(config.apiUrl, init, config, pinnedIp);
+  }
+  return fetchQwenWithDashScopeRegionalFailover(config, init, pinnedIp);
+}
+
+async function fetchLLMProviderOnce(
+  apiUrl: string,
+  init: RequestInit,
+  config: LLMProviderConfig,
+  pinnedIp?: string
+): Promise<LLMProviderHttpResponse> {
+  const plan = buildLLMProviderTransportPlan({ ...config, apiUrl }, pinnedIp);
+  if (plan.mode === "fetch") return fetch(apiUrl, init);
+  return fetchWithPinnedIp(apiUrl, init, plan);
+}
+
+let rememberedDashScopeHost: string | undefined;
+
+export function resetDashScopeRegionalPreferenceForTests() {
+  rememberedDashScopeHost = undefined;
+}
+
+function hostnameOf(apiUrl: string) {
+  try {
+    return new URL(apiUrl).hostname;
+  } catch {
+    return "";
+  }
+}
+
+function rememberDashScopeHostFromUrl(apiUrl: string) {
+  const hostname = hostnameOf(apiUrl);
+  if (isDashScopeRegionalHost(hostname)) {
+    rememberedDashScopeHost = hostname;
+  }
+}
+
+function orderedDashScopeRequestUrls(apiUrl: string) {
+  const preferred = rememberedDashScopeHost
+    ? rewriteDashScopeApiUrlHost(apiUrl, rememberedDashScopeHost) ?? apiUrl
+    : apiUrl;
+  const urls = [preferred];
+  for (const candidate of dashScopeRegionalApiUrls(apiUrl)) {
+    if (!urls.includes(candidate)) urls.push(candidate);
+  }
+  return urls;
+}
+
+async function fetchQwenWithDashScopeRegionalFailover(
+  config: LLMProviderConfig,
+  init: RequestInit,
+  pinnedIp?: string
+): Promise<LLMProviderHttpResponse> {
+  const urls = orderedDashScopeRequestUrls(config.apiUrl);
+  const firstUrl = urls[0] ?? config.apiUrl;
+  let lastResponse = await fetchLLMProviderOnce(firstUrl, init, config, pinnedIp);
+  if (lastResponse.ok) {
+    rememberDashScopeHostFromUrl(firstUrl);
+    return lastResponse;
+  }
+  if (!isDashScopeRegionalAuthFailureStatus(lastResponse.status) || urls.length <= 1) {
+    return lastResponse;
+  }
+
+  const fromHost = hostnameOf(firstUrl);
+  for (const apiUrl of urls.slice(1)) {
+    console.info("LLM provider DashScope regional failover", {
+      fromHost,
+      toHost: hostnameOf(apiUrl),
+      status: lastResponse.status
+    });
+    lastResponse = await fetchLLMProviderOnce(apiUrl, init, config, pinnedIp);
+    if (lastResponse.ok) {
+      rememberDashScopeHostFromUrl(apiUrl);
+      return lastResponse;
+    }
+    if (!isDashScopeRegionalAuthFailureStatus(lastResponse.status)) {
+      return lastResponse;
+    }
+  }
+
+  return lastResponse;
 }
 
 export function buildLLMProviderRequestBody({
