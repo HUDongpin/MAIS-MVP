@@ -33,6 +33,11 @@ export type AITutorProviderStatus = AITutorCapabilityStatus & {
 export const defaultDeepSeekApiUrl = "https://api.deepseek.com/chat/completions";
 export const defaultDeepSeekModel = "deepseek-v4-pro";
 export const defaultQwenApiUrl = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+export const dashScopeRegionalHosts = [
+  "dashscope-intl.aliyuncs.com",
+  "dashscope-us.aliyuncs.com",
+  "dashscope.aliyuncs.com"
+] as const;
 export const defaultQwenTextModel = "qwen3.8-max";
 export const defaultQwenImageModel = "qwen3.7-plus";
 export const defaultQwenRealtimeApiUrl = "wss://dashscope.aliyuncs.com/api-ws/v1/realtime";
@@ -55,7 +60,19 @@ const aiTutorProviderProfiles = new Set<AITutorProviderProfile>([
 
 export function readOptionalEnv(value: string | undefined) {
   const trimmed = value?.trim();
-  return trimmed ? trimmed : undefined;
+  if (!trimmed) return undefined;
+  const quote = trimmed[0];
+  if ((quote === "\"" || quote === "'") && trimmed.length >= 2 && trimmed.endsWith(quote)) {
+    const unquoted = trimmed.slice(1, -1).trim();
+    return unquoted || undefined;
+  }
+  return trimmed;
+}
+
+export function readProviderApiKey(value: string | undefined) {
+  const normalized = readOptionalEnv(value);
+  if (!normalized) return undefined;
+  return normalized.replace(/^bearer\s+/i, "").trim() || undefined;
 }
 
 export function readAITutorProviderProfile(value = process.env.AI_TUTOR_PROVIDER_PROFILE): AITutorProviderProfile {
@@ -74,14 +91,41 @@ export function isDeepSeekApiUrl(apiUrl: string) {
   }
 }
 
+export function isDashScopeRegionalHost(hostname: string) {
+  return (dashScopeRegionalHosts as readonly string[]).includes(hostname);
+}
+
 function isQwenApiUrl(apiUrl: string) {
   try {
-    const hostname = new URL(apiUrl).hostname;
-    return hostname === "dashscope.aliyuncs.com" ||
-      hostname === "dashscope-intl.aliyuncs.com" ||
-      hostname === "dashscope-us.aliyuncs.com";
+    return isDashScopeRegionalHost(new URL(apiUrl).hostname);
   } catch {
     return apiUrl.includes("dashscope");
+  }
+}
+
+export function rewriteDashScopeApiUrlHost(apiUrl: string, hostname: string) {
+  if (!isDashScopeRegionalHost(hostname)) return undefined;
+  try {
+    const url = new URL(apiUrl);
+    if (!isDashScopeRegionalHost(url.hostname)) return undefined;
+    url.hostname = hostname;
+    return url.toString();
+  } catch {
+    return undefined;
+  }
+}
+
+export function dashScopeRegionalApiUrls(apiUrl: string) {
+  try {
+    const url = new URL(apiUrl);
+    if (!isDashScopeRegionalHost(url.hostname)) return [apiUrl];
+    return dashScopeRegionalHosts.map((hostname) => {
+      const next = new URL(url);
+      next.hostname = hostname;
+      return next.toString();
+    });
+  } catch {
+    return [apiUrl];
   }
 }
 
@@ -106,7 +150,7 @@ export function readLLMProviderConfig(): LLMProviderConfig {
     ?? defaultDeepSeekApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.DEEPSEEK_API_KEY) ?? readOptionalEnv(process.env.LLM_API_KEY),
+    apiKey: readProviderApiKey(process.env.DEEPSEEK_API_KEY) ?? readProviderApiKey(process.env.LLM_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.DEEPSEEK_MODEL) ?? readOptionalEnv(process.env.LLM_MODEL) ?? defaultDeepSeekModel,
     provider: resolveLLMProviderName(apiUrl)
@@ -119,7 +163,7 @@ export function readQwenTextProviderConfig(): LLMProviderConfig {
     ?? defaultQwenApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.QWEN_API_KEY),
+    apiKey: readProviderApiKey(process.env.QWEN_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.QWEN_TEXT_MODEL)
       ?? readOptionalEnv(process.env.QWEN_MODEL)
@@ -135,7 +179,7 @@ export function readDeepInfraTextProviderConfig(): LLMProviderConfig {
   const apiUrl = readOptionalEnv(process.env.DEEPINFRA_API_URL) ?? defaultDeepInfraApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.DEEPINFRA_API_KEY),
+    apiKey: readProviderApiKey(process.env.DEEPINFRA_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.DEEPINFRA_TEXT_MODEL)
       ?? readOptionalEnv(process.env.DEEPINFRA_MODEL)
@@ -148,7 +192,7 @@ export function readDeepInfraVisionProviderConfig(): LLMProviderConfig {
   const apiUrl = readOptionalEnv(process.env.DEEPINFRA_API_URL) ?? defaultDeepInfraApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.DEEPINFRA_API_KEY),
+    apiKey: readProviderApiKey(process.env.DEEPINFRA_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.DEEPINFRA_VISION_MODEL)
       ?? readOptionalEnv(process.env.DEEPINFRA_MODEL)
@@ -193,7 +237,7 @@ export function readQwenImageProviderConfig(): LLMProviderConfig {
     ?? defaultQwenApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.QWEN_API_KEY),
+    apiKey: readProviderApiKey(process.env.QWEN_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.QWEN_IMAGE_MODEL) ?? defaultQwenImageModel,
     provider: "qwen"
@@ -211,7 +255,7 @@ export function readQwenRealtimeProviderConfig(): LLMProviderConfig {
   const apiUrl = readOptionalEnv(process.env.QWEN_REALTIME_API_URL) ?? defaultQwenRealtimeApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.QWEN_API_KEY),
+    apiKey: readProviderApiKey(process.env.QWEN_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.QWEN_REALTIME_MODEL) ?? defaultQwenRealtimeModel,
     provider: "qwen"
@@ -224,7 +268,7 @@ export function readQwenAsrRealtimeProviderConfig(): LLMProviderConfig {
     ?? defaultQwenRealtimeApiUrl;
 
   return {
-    apiKey: readOptionalEnv(process.env.QWEN_API_KEY),
+    apiKey: readProviderApiKey(process.env.QWEN_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.QWEN_ASR_REALTIME_MODEL) ?? defaultQwenAsrRealtimeModel,
     provider: "qwen"

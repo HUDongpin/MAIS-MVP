@@ -1695,6 +1695,28 @@ test("Qwen provider failures retry once and return friendly Nova Tutor fallbacks
     expect(recoveredHttp.body.reply).toBe("Recovered after a transient provider limit.");
     expect(recoveredHttp.body.mode).toBeUndefined();
 
+    const recoveredDashScope401 = await postTutor(
+      "dashscope-401-regional",
+      [
+        { status: 401, body: { error: { message: "Invalid API-key provided." } } },
+        finalTextResponse("Recovered after DashScope regional failover.")
+      ],
+      2
+    );
+    expect(recoveredDashScope401.body.reply).toBe("Recovered after DashScope regional failover.");
+    expect(recoveredDashScope401.body.mode).toBeUndefined();
+
+    const persistentDashScope401 = await postTutor(
+      "dashscope-401-persistent",
+      [
+        { status: 401, body: { error: { message: "Invalid API-key provided." } } },
+        { status: 401, body: { error: { message: "Invalid API-key provided." } } },
+        { status: 401, body: { error: { message: "Invalid API-key provided." } } }
+      ],
+      3
+    );
+    expectFriendlyFallback(persistentDashScope401.body);
+
     const repairedJson = await postTutor(
       "broken-json-repaired",
       [
