@@ -8,6 +8,10 @@ import ts from "typescript";
 import { NextResponse } from "next/server";
 import { buildErrorMonitorEvent, type ErrorMonitorContext } from "./errorMonitor";
 import { classifyObservedError } from "../observability/errorPolicy";
+import {
+  resolveAITutorEdgeDeadlineMs,
+  resolveAITutorTotalDeadlineMs
+} from "../aiTutorDeadlines";
 
 type Capture = { error: unknown; context: ErrorMonitorContext };
 type Callable = (...args: any[]) => any;
@@ -37,7 +41,15 @@ async function loadBoundary(relativePath: string, options: {
     "next/server": { NextResponse }, "crypto": { createHash },
     "@/lib/server/rateLimit": { consumeInMemoryRateLimit: () => { throw new Error("unexpected rate-limit call"); } },
     "@/lib/server/errorMonitor": { captureServerError: capture },
-    "@/lib/observability/errorPolicy": { classifyObservedError }
+    "@/lib/observability/errorPolicy": { classifyObservedError },
+    "@/lib/aiTutorReadCache": {
+      aiTutorPublicReadCacheHeaders: () => ({
+        "Cache-Control": "public, max-age=15, s-maxage=30, stale-while-revalidate=60",
+        "CDN-Cache-Control": "public, max-age=30, stale-while-revalidate=60",
+        "Vercel-CDN-Cache-Control": "public, max-age=30, stale-while-revalidate=60"
+      })
+    },
+    "@/lib/aiTutorDeadlines": { resolveAITutorTotalDeadlineMs, resolveAITutorEdgeDeadlineMs }
   };
   const exports = {};
   const context = createContext({

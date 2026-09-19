@@ -328,6 +328,9 @@ export function aiCapabilityRateLimitRulesFromEnv(capability: AiCapability, env:
     ] satisfies AiCapabilityRateLimitRule[];
   }
 
+  // Status, prewarm, and classroom-policy reads are not chat admissions.
+  // Those cheap GETs must not share this durable per-user chat quota.
+
   if (capability === "ai-tutor-ocr") {
     return [
       {

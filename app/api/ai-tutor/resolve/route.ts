@@ -3,6 +3,9 @@ import { captureServerError } from "@/lib/server/errorMonitor";
 import { guardAiTutorExpectedUser } from "@/app/api/ai-tutor/expectedUser";
 import { isValidGradeId } from "@/data/grades";
 import {
+  resolveAITutorTotalDeadlineMs
+} from "@/lib/aiTutorDeadlines";
+import {
   normalizeAITutorVisualization,
   type AITutorVisualization
 } from "@/lib/aiTutorVisualization";
@@ -60,6 +63,7 @@ import {
   extractLLMProviderReply,
   extractLLMProviderUsage,
   fetchLLMProviderResponse,
+  isTransientLLMProviderHttpStatus,
   readAITutorProviderProfile,
   readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
@@ -67,6 +71,8 @@ import {
   resolveLLMMaxCompletionTokens,
   resolveNovaQwenThinkingMode,
   selectAvailableLLMProviderConfig,
+  AI_TUTOR_DEFAULT_MAX_COMPLETION_TOKENS,
+  AI_TUTOR_MAX_COMPLETION_TOKENS_CAP,
   type LLMProviderConfig,
   type LLMProviderContentPart,
   type LLMProviderMessage,
@@ -198,15 +204,13 @@ const maxHistoryMessages = 10;
 const maxInputLength = 1800;
 const maxContextLength = 1200;
 const maxMalformedJsonScanLength = 12000;
-const defaultMaxCompletionTokens = 450;
-const maxCompletionTokens = 600;
+const defaultMaxCompletionTokens = AI_TUTOR_DEFAULT_MAX_COMPLETION_TOKENS;
+const maxCompletionTokens = AI_TUTOR_MAX_COMPLETION_TOKENS_CAP;
 const defaultDatabaseContextTimeoutMs = 1_500;
 const defaultQuotaLookupTimeoutMs = 1_000;
 const defaultAuthAdmissionDeadlineMs = 1_800;
 const defaultClassroomPolicyAdmissionDeadlineMs = 1_500;
 const defaultRateLimitAdmissionDeadlineMs = 2_000;
-const defaultTotalDeadlineMs = 10_000;
-const maxTotalDeadlineMs = 12_000;
 const providerAttemptReserveMs = 350;
 const retryMinimumRemainingMs = 900;
 const tutorTokenQuotaWindowMs = 5 * 60 * 60 * 1000;
@@ -278,7 +282,7 @@ const simplifiedChineseSignalCharacters = new Set(
 export const runtime = "nodejs";
 
 const aiTutorProviderCircuitBreaker = createLLMProviderCircuitBreaker({
-  failureThreshold: 1,
+  failureThreshold: 3,
   cooldownMs: 60_000
 });
 
@@ -487,7 +491,7 @@ function buildUnexpectedTutorFallbackBody() {
   return {
     reply: [
       "Professor Nova could not complete the live response just now.",
-      "Please try again in a moment, or send the math question again with your first step so I can still guide you safely."
+      "Please tap Try again in a moment, or send the math question again with your first step so I can still guide you safely."
     ].join("\n\n"),
     mode: "provider-fallback"
   };
@@ -496,8 +500,8 @@ function buildUnexpectedTutorFallbackBody() {
 function buildDeadlineTutorFallbackBody() {
   return {
     reply: [
-      "Professor Nova is taking longer than usual, so I will not keep you waiting.",
-      "Try one safe next step: write down the known values, name the unknown, and send me that first step so I can continue from there."
+      "Professor Nova is taking longer than usual, so this live reply stopped instead of hanging.",
+      "Please tap Try again in a few seconds. If you want to keep working, send your first equation or the known values."
     ].join("\n\n"),
     mode: "deadline-fallback"
   };
@@ -519,10 +523,6 @@ type AITutorLatencySample = {
 
 const aiTutorLatencyWindowMs = 5 * 60 * 1000;
 const aiTutorLatencySamples: AITutorLatencySample[] = [];
-
-function resolveAITutorTotalDeadlineMs(value: string | undefined) {
-  return boundedNumber(value, defaultTotalDeadlineMs, 2_000, maxTotalDeadlineMs);
-}
 
 function resolveAITutorLatencyAlertP95Ms(value: string | undefined) {
   return boundedNumber(value, 12_000, 1_000, 60_000);
@@ -822,63 +822,63 @@ function buildLocalProviderFallbackReply({
   if (isChineseTutorLanguage(language, input)) {
     if (context?.mode === "mistake") {
       return localizeChineseTutorReply([
-        "即時 AI 暫時未能完成完整回覆，我先用 Nova 的本機提示陪你做第一步。",
+        "即時 AI 暫時未能完成完整回覆。請稍後按「再試一次」。",
         `先看「${contextTitle}」：比較你上次的做法和正確方向，找出問題是在符號、公式、代入，還是題意理解。`,
-        "你可以先回覆：我卡在公式、代入、化簡，還是看不懂題意？我再帶你逐步修正。"
+        "若要繼續，也可先回覆你卡在哪一步，我再帶你修正。"
       ].join("\n\n"), language);
     }
 
     if (asksConcept || context?.mode === "concept") {
       return localizeChineseTutorReply([
-        "即時 AI 暫時未能完成完整回覆，我先用 Nova 的本機提示幫你開始。",
+        "即時 AI 暫時未能完成完整回覆。請稍後按「再試一次」。",
         `學「${contextTitle}」時，先抓三件事：它描述甚麼量、這些量有甚麼規則、改變一個量時圖像或算式怎樣變。`,
-        "你可以先用一句話說出你對這個概念的理解，我會下一步幫你修正。"
+        "若要繼續，也可以先用一句話說出你現在的理解。"
       ].join("\n\n"), language);
     }
 
     if (asksForAnswer || context?.mode === "question") {
       return localizeChineseTutorReply([
-        "即時 AI 暫時未能完成完整回覆，我先用 Nova 的本機提示給你一個安全起點。",
+        "即時 AI 暫時未能完成完整回覆。請稍後按「再試一次」。",
         `針對「${contextTitle}」，先寫下已知條件、未知量，以及最相關的公式或性質。`,
-        "先不要急着要答案；你回覆第一步列出的資料，我再幫你檢查下一步。"
+        "若要繼續，也可先送出這一步，我再幫你檢查。"
       ].join("\n\n"), language);
     }
 
     return localizeChineseTutorReply([
-      "即時 AI 暫時未能完成完整回覆，我先用 Nova 的本機提示陪你開始。",
-      `我們可以從「${contextTitle}」做一小步：說清楚你想要概念解釋、逐步提示、答案檢查，還是複習計劃。`,
-      "你回覆其中一種，我會按你的選擇繼續引導。"
+      "即時 AI 暫時未能完成完整回覆。請稍後按「再試一次」。",
+      `我們可以從「${contextTitle}」做一小步：先送出你的算式或已知條件。`,
+      "按再試一次後，Nova 會重新連線即時回覆。"
     ].join("\n\n"), language);
   }
 
   if (context?.mode === "mistake") {
     return [
-      "Nova's live response did not finish cleanly, so here is a safe local tutor hint to keep you moving.",
+      "Nova could not finish a live answer just now. Please tap Try again in a few seconds.",
       `For ${contextTitle}, compare your last attempt with the correct direction and decide whether the issue is the sign, formula, substitution, or interpretation.`,
-      "Reply with the part that feels uncertain, and I will help you rebuild the method step by step."
+      "If you want to keep working while you wait, send the part that feels uncertain."
     ].join("\n\n");
   }
 
   if (asksConcept || context?.mode === "concept") {
     return [
-      "Nova's live response did not finish cleanly, so here is a safe local tutor hint to get started.",
+      "Nova could not finish a live answer just now. Please tap Try again in a few seconds.",
       `For ${contextTitle}, first identify what quantities are involved, what rule connects them, and what changes when one value changes.`,
-      "Give me one sentence of your current understanding, and I will help refine it."
+      "If you want to keep working while you wait, send one sentence of your current understanding."
     ].join("\n\n");
   }
 
   if (asksForAnswer || context?.mode === "question") {
     return [
-      "Nova's live response did not finish cleanly, so here is a safe local tutor hint.",
+      "Nova could not finish a live answer just now. Please tap Try again in a few seconds.",
       `For ${contextTitle}, write the given facts, the unknown, and the most relevant formula or property before trying to solve.`,
-      "Send me that first setup, and I will check the next step with you."
+      "If you want to keep working while you wait, send that first setup."
     ].join("\n\n");
   }
 
   return [
-    "Nova's live response did not finish cleanly, so here is a safe local tutor hint.",
-    `For ${contextTitle}, choose what you need first: concept explanation, step-by-step hint, answer check, or revision planning.`,
-    "Reply with one of those choices, and I will guide the next step."
+    "Nova could not finish a live answer just now. Please tap Try again in a few seconds.",
+    `For ${contextTitle}, send your first equation or the known values if you want to keep working.`,
+    "Try again will reconnect Nova's live tutor instead of using a local hint."
   ].join("\n\n");
 }
 
@@ -2828,18 +2828,23 @@ async function handleAITutorPost(
     timeoutMs = providerTimeoutMs
   ) {
     const completion = await fetchProviderCompletion(providerConfig, attemptMessages, responseFormat, timeoutMs);
-    if (!completion.ok && completion.diagnostic === "provider-request-failed") {
-      const retryTimeoutMs = remainingAttemptTimeoutMs(timeoutMs);
-      if (retryTimeoutMs <= 0) return completion;
-      console.error("AI Tutor provider request failed; retrying transport once", {
-        provider: providerConfig.provider,
-        model: providerConfig.model,
-        fallbackDiagnostic: completion.diagnostic,
-        errorKind: completion.errorKind
-      });
-      return fetchProviderCompletion(providerConfig, attemptMessages, responseFormat, retryTimeoutMs);
-    }
-    return completion;
+    const transientHttp = !completion.ok
+      && !completion.diagnostic
+      && isTransientLLMProviderHttpStatus(completion.status);
+    const shouldRetry = !completion.ok && (
+      completion.diagnostic === "provider-request-failed" || transientHttp
+    );
+    if (!shouldRetry) return completion;
+    const retryTimeoutMs = remainingAttemptTimeoutMs(timeoutMs);
+    if (retryTimeoutMs <= 0) return completion;
+    console.error("AI Tutor provider request failed; retrying transport once", {
+      provider: providerConfig.provider,
+      model: providerConfig.model,
+      fallbackDiagnostic: completion.diagnostic ?? "provider-http-error",
+      status: completion.status,
+      errorKind: completion.errorKind
+    });
+    return fetchProviderCompletion(providerConfig, attemptMessages, responseFormat, retryTimeoutMs);
   }
 
   function markProviderFailure(providerConfig: ProviderConfig) {
@@ -2913,7 +2918,9 @@ async function handleAITutorPost(
         break;
       }
 
-      markProviderFailure(providerConfig);
+      if (completion.status !== 429) {
+        markProviderFailure(providerConfig);
+      }
 
       const hasMoreAvailableProvider = providerCandidates.some((candidate) =>
         !isSameProviderConfig(candidate, providerConfig) &&

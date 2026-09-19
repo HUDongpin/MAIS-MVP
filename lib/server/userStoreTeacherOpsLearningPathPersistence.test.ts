@@ -135,6 +135,32 @@ test("student sees sequential unlock and completes steps in order", async () => 
   assert.equal(second.path.completedStepCount, 2);
 });
 
+test("resource learning-path steps open the student resource route", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+  const created = await store.createTeacherLearningPath({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    title: "Resource track",
+    steps: [{ kind: "resource", targetId: "resource-s3-quadratics-slides", title: "Slides" }]
+  });
+  expectStatus(created, "created");
+
+  const paths = await store.getStudentLearningPaths("student-1");
+  assert.equal(paths?.[0]?.steps[0]?.href, "/resource/resource-s3-quadratics-slides");
+
+  const emptyTarget = await store.createTeacherLearningPath({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    title: "Resource library",
+    steps: [{ kind: "resource", targetId: "  ", title: "Library" }]
+  });
+  expectStatus(emptyTarget, "created");
+  const libraryPaths = await store.getStudentLearningPaths("student-1");
+  const libraryPath = libraryPaths?.find((path) => path.title === "Resource library");
+  assert.equal(libraryPath?.steps[0]?.href, "/resource");
+});
+
 test("teacher projection reflects per-student completion", async () => {
   const database = createDatabase();
   const store = createTestStore(database);

@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { studentResourceHref, studentResourcesPath } from "@/lib/studentResourceRoutes";
 import type {
   GradeId,
   LearningPathStep,
@@ -137,9 +138,12 @@ function defaultStepHref(kind: LearningPathStepKind, targetId: string): string |
     case "visualization":
       return "/student/tools/visualizations";
     case "resource":
-      return trimmed ? `/student/resources/${encodeURIComponent(trimmed)}` : null;
-    default:
+      return trimmed ? studentResourceHref(trimmed) : studentResourcesPath;
+    default: {
+      const exhaustive: never = kind;
+      void exhaustive;
       return null;
+    }
   }
 }
 
