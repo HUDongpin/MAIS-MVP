@@ -1,0 +1,44 @@
+{
+  "slug": "ca-g8-ch02-functions-rate-change",
+  "gradeId": "8",
+  "topicId": "us-ca-math-s2-chapter-02",
+  "title": "Functions and Rate of Change",
+  "standardIds": [
+    "8.F.B.4",
+    "8.F.A.3",
+    "8.EE.B.5",
+    "8.EE.B.6",
+    "8.F.A.1",
+    "8.F.A.2"
+  ],
+  "summary": "Set a barrel's rate, start and step width, then watch one function appear as a rule, a table and a straight-line graph.",
+  "emoji": "🪣",
+  "narration": "A rain barrel already holds some water when the rain starts, and the downpipe adds the same amount every minute. That is a rule: name a minute, and it gives back exactly one reading. Set the rate and the starting amount here, and watch the same function show up three ways at once, as a rule, as a table, and as a straight line. Widen the step drawn on the graph and compare it with the small one beside it: both give the same rise divided by run, and that steady climb is the rate of change the whole chapter is built on.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A rain barrel already holds 8 liters when a steady rain begins adding 5 liters each minute. How many liters are in the barrel 6 minutes later?",
+      "answer": 38,
+      "explanation": "The rule is liters = 5 x minutes + 8. In 6 minutes the rain adds 5 x 6 = 30 liters, and 30 + 8 = 38 liters."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A straight line passes through the points (1, 4) and (5, 13). What is its rate of change (its slope)?",
+      "answer": 2.25,
+      "tolerance": 0.01,
+      "explanation": "Rise = 13 - 4 = 9 and run = 5 - 1 = 4, so the slope is rise divided by run: 9 / 4 = 2.25."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Function A is given by the equation y = 6x + 2. Function B is given by this table: x = 0, 3, 6 with y = 5, 17, 29. Which statement is true?",
+      "choices": [
+        "A changes faster: 6 per unit of x against B's 4 per unit of x",
+        "B changes faster, because its outputs jump by 12 at a time",
+        "A and B change at the same rate",
+        "B is not a function, because its x-values skip numbers"
+      ],
+      "answer": 0,
+      "explanation": "B's table rises 17 - 5 = 12 while x rises 3 - 0 = 3, so B's rate is 12 / 3 = 4 per unit of x (the next pair agrees: 29 - 17 = 12 over 3 gives 4 again). A's rate is the coefficient of x, which is 6. Since 6 > 4, A changes faster; the jump of 12 is spread over 3 steps, and skipping x-values does not stop B from being a function."
+    }
+  ]
+}

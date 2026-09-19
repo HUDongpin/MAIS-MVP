@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g8-ch03-transformations-similarity",
+  "gradeId": "8",
+  "topicId": "us-ca-math-s2-chapter-03",
+  "title": "Transformations and Similarity",
+  "standardIds": ["8.G.A.1", "8.G.A.4", "8.G.A.3", "8.G.A.2", "8.G.A.5"],
+  "summary": "Compose a dilation, a flip or turn, and a slide on one triangle and see which measurements change and which never do.",
+  "emoji": "🪞",
+  "narration": "Slide a sticker across a locker, flip it, spin it a quarter turn, and it is still the same sticker. Pinch a photo bigger and it keeps its shape while changing its size. Here you build a sequence of those moves on one triangle and watch the numbers: the three angles never budge, and every side length changes by the same factor. When that factor is one the triangles are congruent; when it is not, they are similar.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "Two angles of triangle ABC measure 52 degrees and 61 degrees. Triangle A'B'C' is the image of ABC after a dilation and some rigid motions. What is the measure, in degrees, of the third angle of A'B'C'?",
+      "answer": 67,
+      "explanation": "The three angles of a triangle sum to 180 degrees, so the third angle of ABC is 180 - 52 - 61 = 67 degrees. Dilations and rigid motions leave every angle measure alone, so the matching angle of A'B'C' is also 67 degrees."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A triangle is dilated about the origin. A side that measured 9 cm measures 6 cm in the image. What is the scale factor? Round to two decimal places.",
+      "answer": 0.67,
+      "tolerance": 0.01,
+      "explanation": "The scale factor is image length divided by original length: 6 / 9 = 2/3 = 0.6666..., which rounds to 0.67. Because it is less than 1 the image is smaller, and every other length is 2/3 of its original, so a 12 cm side would become 12 x 2/3 = 8 cm."
+    },
+    {
+      "kind": "mc",
+      "prompt": "The point (-4, 6) is rotated 90 degrees counterclockwise about the origin. Where does it land?",
+      "choices": ["(-6, -4)", "(6, -4)", "(4, -6)", "(-6, 4)"],
+      "answer": 0,
+      "explanation": "A 90 degree counterclockwise turn about the origin follows the rule (x, y) goes to (-y, x). With x = -4 and y = 6 that gives (-6, -4). Check: the point started in the second quadrant, and a quarter turn counterclockwise carries the second quadrant into the third, where both coordinates are negative. The distance from the origin is unchanged, since (-4)^2 + 6^2 = 52 and (-6)^2 + (-4)^2 = 52."
+    }
+  ]
+}

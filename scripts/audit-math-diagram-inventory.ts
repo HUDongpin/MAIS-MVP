@@ -106,25 +106,6 @@ async function liveAssetReferences(): Promise<AssetReference[]> {
     }
   }
 
-  const replacementPackPath = path.join(
-    dataDir,
-    "generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json"
-  );
-  const replacementPack = JSON.parse(readFileSync(replacementPackPath, "utf8")) as {
-    lessons: Array<{ metadata: { grade: "P6" | "S1" | "S2"; sequenceNumber: number } }>;
-  };
-  const gradePrefix = { P6: "p6", S1: "s1", S2: "s2" } as const;
-  for (const lesson of replacementPack.lessons) {
-    const chapter = String(lesson.metadata.sequenceNumber).padStart(2, "0");
-    const assetPath = `/lesson-illustrations/us-ca-middle-school/candidates/${gradePrefix[lesson.metadata.grade]}-chapter-${chapter}-concept.png`;
-    references.push({
-      manifest: "components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx",
-      exportName: "conceptImageSrc",
-      assetPath,
-      mediaType: "raster"
-    });
-  }
-
   return references.sort((first, second) =>
     `${first.manifest}\0${first.exportName}\0${first.assetPath}`.localeCompare(`${second.manifest}\0${second.exportName}\0${second.assetPath}`)
   );
@@ -285,7 +266,9 @@ function standaloneDiagramRoutes() {
       route: "/student/lessons/california-middle-school-textbook",
       surfaceType: "lesson" as const,
       publisher: "US_CA_MATH" as TextbookPublisher,
-      interaction: "replacement-textbook-images" as const
+      // Since 2026-09-02 the route renders the interactive CCSS lesson bodies
+      // (MAIS-authored chapter openers + ported lessons), not concept bitmaps.
+      interaction: "interactive-ccss-lessons" as const
     },
     {
       id: "practice-adventure-ui-preview",

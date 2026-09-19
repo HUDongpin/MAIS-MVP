@@ -1,0 +1,42 @@
+{
+  "slug": "ca-g7-ch02-operations-rational-numbers",
+  "gradeId": "7",
+  "topicId": "us-ca-math-s1-chapter-02",
+  "title": "Operations with Rational Numbers",
+  "standardIds": [
+    "7.NS.A.1",
+    "7.NS.A.2",
+    "7.NS.A.3"
+  ],
+  "summary": "Pick add, subtract, multiply or divide and watch two rational numbers become one move on the number line, sign and all.",
+  "emoji": "🧮",
+  "narration": "This chapter opens with one number line and four buttons. Choose add, subtract, multiply or divide, then change either number and watch what the arrows do: adding slides you along the line, subtracting slides you the other way, and multiplying rescales the arrow, shrinking it when the factor is between 0 and 1 and flipping it across zero when the factor is negative. Dividing asks the opposite question, which is why it follows the same sign rule and why dividing by zero has no answer at all. Every result stays a rational number, and the sign always has a reason behind it.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "At 7 a.m. the temperature is −4.5 degrees. It rises 1.25 degrees every hour. What is the temperature, in degrees, at 11 a.m.?",
+      "answer": 0.5,
+      "tolerance": 0.01,
+      "explanation": "From 7 a.m. to 11 a.m. is 4 hours, so the total change is 4 × 1.25 = 5 degrees. Adding that to the start: −4.5 + 5 = 0.5 degrees."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A club account is overdrawn, with a balance of −37.50 dollars. The 5 members share the shortfall equally. Written as a signed number of dollars, what is each member's share?",
+      "answer": -7.5,
+      "tolerance": 0.01,
+      "explanation": "Sharing equally means dividing: −37.50 ÷ 5 = −7.50. A negative divided by a positive is negative, and the check works: 5 × (−7.50) = −37.50."
+    },
+    {
+      "kind": "mc",
+      "prompt": "The day's low was −6.5 degrees and the day's high was 2.5 degrees. Which expression gives how many degrees apart the low and the high are?",
+      "choices": [
+        "2.5 + (−6.5)",
+        "2.5 − (−6.5)",
+        "(−6.5) − 2.5",
+        "(−6.5) × 2.5"
+      ],
+      "answer": 1,
+      "explanation": "The distance between two numbers is the size of their difference, and subtracting a negative is adding its opposite: 2.5 − (−6.5) = 2.5 + 6.5 = 9 degrees. The others give 2.5 + (−6.5) = −4, (−6.5) − 2.5 = −9, and (−6.5) × 2.5 = −16.25, none of which is the 9-degree gap."
+    }
+  ]
+}

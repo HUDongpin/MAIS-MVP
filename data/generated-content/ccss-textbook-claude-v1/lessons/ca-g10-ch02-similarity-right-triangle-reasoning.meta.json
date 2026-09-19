@@ -1,0 +1,37 @@
+{
+  "slug": "ca-g10-ch02-similarity-right-triangle-reasoning",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s4-chapter-02",
+  "title": "Similarity and Right-Triangle Reasoning",
+  "standardIds": ["G-SRT.1", "G-SRT.6", "G-SRT.3", "G-SRT.5", "G-SRT.8", "G-SRT.7", "G-SRT.2", "G-SRT.9"],
+  "summary": "Dilate a right triangle and watch its lengths grow while the angle, its sine, cosine, and tangent refuse to change.",
+  "emoji": "🔺",
+  "narration": "Blow a photograph up to poster size and every length multiplies by the same number, while not one angle changes. That is the whole idea behind this chapter. Because two right triangles that share an acute angle are just the same shape at different sizes, the ratio of any two matching sides depends on the angle and nothing else, and those ratios are what we call sine, cosine, and tangent. Pick a triangle, slide the scale factor, and see the side lengths move while the angle and its ratios stay exactly where they were.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "Right triangle ABC has its right angle at C, with AC = 24, BC = 7, and AB = 25. Triangle DEF is similar to triangle ABC under the correspondence A to D, B to E, C to F, and DF = 72. How long is EF?",
+      "answer": 21,
+      "explanation": "ABC really is a right triangle: 7^2 + 24^2 = 49 + 576 = 625 = 25^2. DF corresponds to AC, so the scale factor is k = 72 / 24 = 3. Similarity multiplies every length by k, and EF corresponds to BC, so EF = 7 * 3 = 21."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "In right triangle JKL the right angle is at L, JL = 8, and KL = 6. What is the value of cos J, written as a decimal?",
+      "answer": 0.8,
+      "tolerance": 0.01,
+      "explanation": "The hypotenuse is JK = sqrt(8^2 + 6^2) = sqrt(64 + 36) = sqrt(100) = 10. The leg adjacent to angle J is JL = 8, so cos J = adjacent / hypotenuse = 8 / 10 = 0.8. Any triangle similar to JKL gives the same 0.8, because scaling multiplies 8 and 10 by the same factor."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A photograph 4 in by 6 in is enlarged by a dilation with scale factor 3. Which statement about the enlargement is true?",
+      "choices": [
+        "Its diagonal is 3 times as long and its area is 9 times as large.",
+        "Its diagonal is 9 times as long and its area is 3 times as large.",
+        "Both its diagonal and its area are 3 times as large.",
+        "Its diagonal is 3 times as long and its angles are 3 times as large."
+      ],
+      "answer": 0,
+      "explanation": "A dilation multiplies every length by 3, so the 4 by 6 photo becomes 12 by 18 and the diagonal goes from sqrt(4^2 + 6^2) = sqrt(52) to sqrt(12^2 + 18^2) = sqrt(144 + 324) = sqrt(468) = 3 * sqrt(52), which is 3 times as long. Area is a product of two lengths, so it multiplies by 3 * 3 = 9: 4 * 6 = 24 square inches becomes 12 * 18 = 216 square inches, and 216 / 24 = 9. Angles are never changed by a dilation, so they stay exactly as they were."
+    }
+  ]
+}

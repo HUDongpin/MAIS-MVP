@@ -7,7 +7,8 @@ import type { CcssLessonHostProps } from "@/components/lesson/ccss/CcssLessonAda
  * GENERATED FILE — do not hand-edit. Regenerate with:
  *   node scripts/generate-ccss-registry.mjs
  *
- * Code-split routes for the 270 ported CCSS textbook lesson bodies. Each
+ * Code-split routes for the 305 interactive CCSS textbook lesson bodies
+ * (270 ported + 35 MAIS-authored chapter openers). Each
  * lesson loads on its own chunk (with the shared adapter), so the lesson-page
  * shell bundle never carries lesson bodies the student didn't open — the same
  * pattern as `SignatureLabRoutes` in VisualizationLabPage.
@@ -1634,6 +1635,216 @@ export const ccssLessonRoutes = {
     Promise.all([
       import("@/components/lesson/ccss/CcssLessonAdapter"),
       import("@/components/lesson/ccss/lessons/unit-circle")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g10-ch01-congruence-proof": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g10-ch01-congruence-proof")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g10-ch02-similarity-right-triangle-reasoning": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g10-ch02-similarity-right-triangle-reasoning")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g10-ch03-circle-geometry": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g10-ch03-circle-geometry")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g10-ch04-quadratic-structure": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g10-ch04-quadratic-structure")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g10-ch05-conditional-probability": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g10-ch05-conditional-probability")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g11-ch01-function-transformations-inverses": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g11-ch01-function-transformations-inverses")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g11-ch02-exponential-logarithmic-models": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g11-ch02-exponential-logarithmic-models")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g11-ch03-trigonometric-functions-graphs": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g11-ch03-trigonometric-functions-graphs")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g11-ch04-data-modeling-residuals": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g11-ch04-data-modeling-residuals")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g11-ch05-statistical-inference-claims": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g11-ch05-statistical-inference-claims")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g12-ch01-quantities-units-precision": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g12-ch01-quantities-units-precision")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g12-ch02-polynomial-structure-behavior": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g12-ch02-polynomial-structure-behavior")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g12-ch03-decision-statistics": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g12-ch03-decision-statistics")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g12-ch04-function-analysis-rates": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g12-ch04-function-analysis-rates")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g12-ch05-capstone-modeling": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g12-ch05-capstone-modeling")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g6-ch01-ratios-rates-percent-reasoning": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g6-ch01-ratios-rates-percent-reasoning")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g6-ch02-rational-numbers-number-line": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g6-ch02-rational-numbers-number-line")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g6-ch03-expressions-equations-variables": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g6-ch03-expressions-equations-variables")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g6-ch04-geometry-area-surface-area": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g6-ch04-geometry-area-surface-area")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g6-ch05-statistics-data-distributions": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g6-ch05-statistics-data-distributions")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g7-ch01-proportional-relationships": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g7-ch01-proportional-relationships")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g7-ch02-operations-rational-numbers": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g7-ch02-operations-rational-numbers")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g7-ch03-linear-expressions-equations": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g7-ch03-linear-expressions-equations")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g7-ch04-scale-geometry-measurement": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g7-ch04-scale-geometry-measurement")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g7-ch05-sampling-probability-inference": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g7-ch05-sampling-probability-inference")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g8-ch01-linear-equations-systems-readiness": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g8-ch01-linear-equations-systems-readiness")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g8-ch02-functions-rate-change": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g8-ch02-functions-rate-change")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g8-ch03-transformations-similarity": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g8-ch03-transformations-similarity")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g8-ch04-pythagorean-reasoning-coordinate-geometry")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g8-ch05-bivariate-data-claims": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g8-ch05-bivariate-data-claims")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g9-ch01-equations-context": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g9-ch01-equations-context")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g9-ch02-function-notation-interpretation": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g9-ch02-function-notation-interpretation")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g9-ch03-linear-quadratic-models": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g9-ch03-linear-quadratic-models")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g9-ch04-coordinate-geometry-methods": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g9-ch04-coordinate-geometry-methods")
+    ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
+  ),
+  "ca-g9-ch05-modeling-evidence": dynamic<CcssLessonHostProps>(() =>
+    Promise.all([
+      import("@/components/lesson/ccss/CcssLessonAdapter"),
+      import("@/components/lesson/ccss/lessons/ca-g9-ch05-modeling-evidence")
     ]).then(([adapter, lesson]) => adapter.createCcssLesson(lesson.default))
   )
 } satisfies Record<CcssTextbookLessonId, ComponentType<CcssLessonHostProps>>;
