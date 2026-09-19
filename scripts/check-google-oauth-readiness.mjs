@@ -107,7 +107,7 @@ function evaluateReadiness(env, { mode, allowLocalhost }) {
     if (env[key] && looksPlaceholder(env[key])) blockers.push(`${key} looks like a placeholder.`);
   }
 
-  const stateSecretSource = STATE_SECRET_VARS.find((key) => Boolean(env[key]));
+  const stateSecretSource = STATE_SECRET_VARS.find((key) => hasNonEmptyValue(env[key]));
   checks.GOOGLE_OAUTH_STATE_SECRET_SOURCE = stateSecretSource ? `present:${stateSecretSource}` : "missing";
   if (!stateSecretSource) {
     blockers.push("A state/session secret is required: GOOGLE_OAUTH_STATE_SECRET, AUTH_SESSION_SECRET, or NEXTAUTH_SECRET.");
@@ -116,6 +116,12 @@ function evaluateReadiness(env, { mode, allowLocalhost }) {
   } else if (env[stateSecretSource].length < 32) {
     blockers.push(`${stateSecretSource} should be at least 32 characters for OAuth state signing.`);
     checks.GOOGLE_OAUTH_STATE_SECRET_SOURCE = `weak:${stateSecretSource}`;
+  }
+
+  const sessionSecretSource = ["AUTH_SESSION_SECRET", "NEXTAUTH_SECRET"].find((key) => hasNonEmptyValue(env[key]));
+  checks.AUTH_SESSION_SECRET_SOURCE = sessionSecretSource ? `present:${sessionSecretSource}` : "missing";
+  if (!sessionSecretSource) {
+    blockers.push("AUTH_SESSION_SECRET or NEXTAUTH_SECRET is required so Google login can issue a MAIS session.");
   }
 
   const redirect = analyzeRedirectUri(env.GOOGLE_OAUTH_REDIRECT_URI, { mode, allowLocalhost });
@@ -147,6 +153,10 @@ function normalizeBoolean(value) {
   if (["1", "true", "yes", "on"].includes(normalized)) return true;
   if (["0", "false", "no", "off"].includes(normalized)) return false;
   return null;
+}
+
+function hasNonEmptyValue(value) {
+  return typeof value === "string" && Boolean(value.trim());
 }
 
 function redactedStatus(value) {
@@ -259,4 +269,25 @@ function runSelfTest() {
   }, { mode: "production", allowLocalhost: false });
   assert.equal(publicSecret.ready, false);
   assert.ok(publicSecret.blockers.some((blocker) => blocker.includes("NEXT_PUBLIC_")));
+
+  const emptyStateSecretFallsBack = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "http://localhost:3000/api/auth/google/callback",
+    GOOGLE_OAUTH_STATE_SECRET: "",
+    AUTH_SESSION_SECRET: authSessionSecretFixture
+  }, { mode: "local", allowLocalhost: true });
+  assert.equal(emptyStateSecretFallsBack.ready, true);
+  assert.equal(emptyStateSecretFallsBack.checks.GOOGLE_OAUTH_STATE_SECRET_SOURCE, "present:AUTH_SESSION_SECRET");
+
+  const oauthStateSecretWithoutSession = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback",
+    GOOGLE_OAUTH_STATE_SECRET: authSessionSecretFixture
+  }, { mode: "production", allowLocalhost: false });
+  assert.equal(oauthStateSecretWithoutSession.ready, false);
+  assert.ok(oauthStateSecretWithoutSession.blockers.some((blocker) => blocker.includes("AUTH_SESSION_SECRET or NEXTAUTH_SECRET")));
 }

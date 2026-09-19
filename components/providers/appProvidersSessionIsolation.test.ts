@@ -168,7 +168,7 @@ test("same-account settings remain ordered, dirty-aware, and retryable", async (
 test("identity-changing auth responses remain gated until a full document replacement", async () => {
   const [provider, loginPage, registerPage, resetPage, navbar] = await Promise.all([
     providerSource(),
-    readFile(path.join(process.cwd(), "app/login/page.tsx"), "utf8"),
+    readFile(path.join(process.cwd(), "app/login/LoginPageClient.tsx"), "utf8"),
     readFile(path.join(process.cwd(), "app/register/page.tsx"), "utf8"),
     readFile(path.join(process.cwd(), "app/reset-password/page.tsx"), "utf8"),
     readFile(path.join(process.cwd(), "components/layout/Navbar.tsx"), "utf8")

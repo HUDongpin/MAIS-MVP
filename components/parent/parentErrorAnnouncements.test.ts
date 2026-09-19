@@ -151,7 +151,7 @@ test("session revalidation never treats an admin account as a parent account", (
 });
 
 test("the parent console matches the login form's error convention", () => {
-  const loginSource = readFileSync(join(process.cwd(), "app", "login", "page.tsx"), "utf8");
+  const loginSource = readFileSync(join(process.cwd(), "app", "login", "LoginPageClient.tsx"), "utf8");
   assert.match(
     loginSource,
     /<p role="alert"/,

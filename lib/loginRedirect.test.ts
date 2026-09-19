@@ -4,7 +4,7 @@ import path from "node:path";
 import test from "node:test";
 
 function loginPageSource() {
-  return readFileSync(path.join(process.cwd(), "app/login/page.tsx"), "utf8");
+  return readFileSync(path.join(process.cwd(), "app/login/LoginPageClient.tsx"), "utf8");
 }
 
 function functionBody(source: string, functionName: string) {
@@ -34,11 +34,11 @@ test("student login defaults to the dashboard workspace, not the lesson entry ro
   assert.doesNotMatch(body, /return\s+studentLessonsPath/);
 });
 
-test("successful login uses client-side dashboard routing instead of a full document reload", () => {
+test("successful login completes through a full document replacement", () => {
   const source = loginPageSource();
 
-  assert.match(source, /useRouter\(/);
-  assert.match(source, /router\.replace\(/);
+  assert.match(source, /window\.location\.replace\(routeTarget\)/);
+  assert.doesNotMatch(source, /router\.(?:replace|push)\(routeTarget\)/);
   assert.doesNotMatch(source, /window\.location\.assign\(/);
 });
 

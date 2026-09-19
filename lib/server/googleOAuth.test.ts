@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   GOOGLE_OAUTH_STATE_COOKIE,
   buildGoogleOAuthAuthorization,
+  isGoogleOAuthConfigured,
   verifyGoogleIdToken,
   verifyGoogleOAuthState
 } from "./googleOAuth";
@@ -142,6 +143,38 @@ test("buildGoogleOAuthAuthorization fails closed when Google OAuth env is incomp
     })).status,
     "setup-missing"
   );
+});
+
+test("isGoogleOAuthConfigured requires explicit enablement and complete server-only env", () => {
+  const completeEnv = {
+    GOOGLE_OAUTH_ENABLED: "true",
+    AUTH_SESSION_SECRET: "state-cookie-secret",
+    GOOGLE_OAUTH_CLIENT_ID: "mais-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: "client-secret",
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback"
+  };
+
+  assert.equal(isGoogleOAuthConfigured(completeEnv), true);
+  assert.equal(isGoogleOAuthConfigured({ ...completeEnv, GOOGLE_OAUTH_ENABLED: "false" }), false);
+  assert.equal(isGoogleOAuthConfigured({ ...completeEnv, GOOGLE_OAUTH_CLIENT_SECRET: "" }), false);
+  assert.equal(isGoogleOAuthConfigured({
+    ...completeEnv,
+    GOOGLE_OAUTH_STATE_SECRET: "",
+    AUTH_SESSION_SECRET: "state-cookie-secret"
+  }), true);
+  assert.equal(isGoogleOAuthConfigured({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_STATE_SECRET: "oauth-state-secret-only",
+    GOOGLE_OAUTH_CLIENT_ID: "mais-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: "client-secret",
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback"
+  }), false);
+  assert.equal(isGoogleOAuthConfigured({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "mais-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: "client-secret",
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback"
+  }), false);
 });
 
 test("buildGoogleOAuthAuthorization requires explicit enablement", async () => {

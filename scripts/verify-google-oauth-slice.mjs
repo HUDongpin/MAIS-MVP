@@ -47,6 +47,8 @@ try {
       "--test",
       ".tmp/google-auth-tests/app/api/auth/google/start/route.test.js",
       ".tmp/google-auth-tests/app/api/auth/google/callback/route.test.js",
+      ".tmp/google-auth-tests/app/api/auth/google/status/route.test.js",
+      ".tmp/google-auth-tests/lib/googleSignInUi.test.js",
       ".tmp/google-auth-tests/lib/server/googleOAuth.test.js",
       ".tmp/google-auth-tests/lib/server/userStoreGoogleAuth.test.js"
     ]

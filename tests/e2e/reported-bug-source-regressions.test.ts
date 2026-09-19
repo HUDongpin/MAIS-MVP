@@ -27,7 +27,7 @@ async function rawSource(path: string) {
 }
 
 test("login native select options keep explicit contrast in dark mode dropdowns", async () => {
-  const page = await source("app/login/page.tsx");
+  const page = await source("app/login/LoginPageClient.tsx");
 
   assert.match(page, /loginSelectOptionClassName/);
   assert.match(page, /<option key=\{publisher\} value=\{publisher\} className=\{loginSelectOptionClassName\}>/);

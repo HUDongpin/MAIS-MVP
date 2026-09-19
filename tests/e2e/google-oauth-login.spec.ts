@@ -5,8 +5,56 @@ function googleStartUrl(href: string | null, pageUrl: string) {
   return new URL(href ?? "", pageUrl);
 }
 
+async function googleOAuthAvailability(request: { get: (url: string) => Promise<{ json: () => Promise<unknown> }> }) {
+  const response = await request.get("/api/auth/google/status");
+  const body = await response.json() as { available?: unknown };
+  return body.available === true;
+}
+
 test.describe("Google OAuth login entry", () => {
-  test("login page prepares role-specific Google start URLs", async ({ page }) => {
+  test("hides Google sign-in and keeps password login when OAuth is unset", async ({ page, request }) => {
+    test.skip(await googleOAuthAvailability(request), "Google OAuth is configured in this environment");
+
+    const status = await request.get("/api/auth/google/status");
+    expect(status.ok()).toBeTruthy();
+    expect(status.headers()["cache-control"]).toContain("no-store");
+    await expect(status.json()).resolves.toEqual({ available: false });
+
+    await page.goto("/login");
+    await expect(page.locator("#login-identifier")).toBeVisible();
+    await expect(page.locator("#login-password")).toBeVisible();
+    await expect(page.getByRole("link", { name: /Continue with Google/i })).toHaveCount(0);
+    await expect(page.getByRole("status").filter({ hasText: /Google sign-in is not available/i })).toBeVisible();
+    await expect(page.getByText(/Use your email and password to log in/i)).toBeVisible();
+
+    await page.goto("/login?googleError=setup");
+    await expect(page.getByRole("link", { name: /Continue with Google/i })).toHaveCount(0);
+    await expect(page.getByText(/not configured for this environment/i)).toHaveCount(0);
+    await expect(page.getByRole("status").filter({ hasText: /Google sign-in is not available/i })).toBeVisible();
+    await expect(page.getByText(/Use your email and password to log in/i)).toBeVisible();
+    await expect(page.locator("#login-identifier")).toBeVisible();
+    await expect(page.locator("#login-password")).toBeVisible();
+  });
+
+  test("start route redirects to login setup when Google OAuth is unset", async ({ request }) => {
+    test.skip(await googleOAuthAvailability(request), "Google OAuth is configured in this environment");
+
+    const response = await request.get(
+      "/api/auth/google/start?next=%2Fdashboard&role=student&grade=S4&curriculumTrack=HK&language=en&theme=dark",
+      { maxRedirects: 0 }
+    );
+
+    expect(response.status()).toBe(307);
+    const location = response.headers()["location"];
+    expect(location).toBeTruthy();
+    const redirectUrl = new URL(location ?? "", "http://127.0.0.1");
+    expect(redirectUrl.pathname).toBe("/login");
+    expect(redirectUrl.searchParams.get("googleError")).toBe("setup");
+  });
+
+  test("login page prepares role-specific Google start URLs", async ({ page, request }) => {
+    test.skip(!(await googleOAuthAvailability(request)), "Google OAuth is not configured");
+
     await page.goto("/login?next=%2Fdashboard");
 
     const action = page.getByRole("link", { name: /Continue with Google/i });
@@ -43,6 +91,8 @@ test.describe("Google OAuth login entry", () => {
   });
 
   test("Google start route redirects to Google and sets pending state cookie", async ({ request }) => {
+    test.skip(!(await googleOAuthAvailability(request)), "Google OAuth is not configured");
+
     const response = await request.get(
       "/api/auth/google/start?next=%2Fdashboard&role=student&grade=S4&curriculumTrack=HK&language=en&theme=dark",
       { maxRedirects: 0 }

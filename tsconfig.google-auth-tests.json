@@ -11,8 +11,13 @@
   },
   "include": [
     "app/login/page.tsx",
+    "app/login/LoginPageClient.tsx",
     "app/api/auth/google/start/route.test.ts",
     "app/api/auth/google/callback/route.test.ts",
+    "app/api/auth/google/status/route.test.ts",
+    "app/api/auth/google/status/handler.ts",
+    "lib/googleSignInUi.ts",
+    "lib/googleSignInUi.test.ts",
     "lib/server/googleOAuth.test.ts",
     "lib/server/userStoreGoogleAuth.test.ts"
   ]
