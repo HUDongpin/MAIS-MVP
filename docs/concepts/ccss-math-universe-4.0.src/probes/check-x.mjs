@@ -6,7 +6,7 @@ const r2 = createRequire("/Volumes/Starship/From WestWorld/AAIS/node_modules/pla
 const VPS = [[1512, 860, 2, false], [1024, 700, 1, false], [768, 960, 1, false], [390, 664, 2, true], [844, 390, 2, true]];
 let bad = 0;
 for (const name of ["webkit", "firefox"]) {
-  let browser; try { browser = await pw[name].launch(); } catch (e) { console.log(name + ": cannot launch — " + e.message.split("\n")[0]); continue; }
+  let browser; try { browser = await pw[name].launch(); } catch (e) { bad++; console.log(name + ": cannot launch — " + e.message.split("\n")[0] + " (counted as a failure: an engine that did not run verified nothing)"); continue; }
   for (const q of ["check", "check&home=galaxy&panels=00"]) for (const [w, h, dpr, mobile] of VPS) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: dpr, hasTouch: mobile, ...(name === "webkit" ? { isMobile: mobile } : {}) });
     const page = await ctx.newPage(), errs = [];

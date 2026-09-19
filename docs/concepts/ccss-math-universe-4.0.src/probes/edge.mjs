@@ -94,6 +94,7 @@ const stageXY = page => page.evaluate(() => { const r = document.getElementById(
   // journey off: button hidden, H falls back to the galaxy
   await page.keyboard.press("j"); await page.waitForTimeout(300);
   ok("journey off hides My grade region", await page.evaluate(() => document.getElementById("regionBtn").hidden));
+  await page.keyboard.press("h"); await settle(page); const g2 = await S(page); ok("journey off: H falls back to the whole galaxy", g2.rest === "galaxy" && Math.abs(g2.k - 1) < 1e-3, { rest: g2.rest, k: g2.k });
   await ctx.close(); }
 
 // R10 figure mode: HUD hidden, rests on the region, no intro
@@ -102,4 +103,5 @@ const stageXY = page => page.evaluate(() => { const r = document.getElementById(
   await page.screenshot({ path: outDir + "/e3-figure.png" });
   await ctx.close(); }
 for (const e of errs) console.log("! " + e);
-console.log(fails ? "FAILS: " + fails : "ALL OK"); await browser.close();
+console.log(fails || errs.length ? "FAILS: " + fails + ", page errors: " + errs.length : "ALL OK"); await browser.close();
+process.exit(fails || errs.length ? 1 : 0); // a failed assertion or a captured console/page error fails the run

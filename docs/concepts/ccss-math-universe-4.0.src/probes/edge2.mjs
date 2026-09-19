@@ -40,4 +40,5 @@ const flips = await page.evaluate(async () => { const g = window.__galaxy, stage
   return { changes, k: +g.camera().k.toFixed(3) }; });
 ok("±4 % zoom jitter never flips a cell between bodies and stars", flips.changes === 0, flips);
 for (const e of errs) console.log("! " + e);
-console.log(fails ? "FAILS: " + fails : "ALL OK"); await browser.close();
+console.log(fails || errs.length ? "FAILS: " + fails + ", page errors: " + errs.length : "ALL OK"); await browser.close();
+process.exit(fails || errs.length ? 1 : 0); // a failed assertion or a captured console/page error fails the run

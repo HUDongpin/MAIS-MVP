@@ -3,7 +3,7 @@
 Headless Playwright scripts used to verify the groups-first revision (spec §16, 2026-09-19). They open the generated page from `file://`;
 nothing is served and no window opens. Chromium and Chrome come from the main repo's Playwright
 (`createRequire("/Volumes/Starship/MAIS-MVP/package.json")`), WebKit and Firefox from the matched `playwright-core` in
-`/Volumes/Starship/From WestWorld/AAIS`. Run them from this folder after `node ../build.mjs`:
+`/Volumes/Starship/From WestWorld/AAIS`. Run them from this folder after `node ../build.mjs`. `check.mjs`, `check-x.mjs` and the three `edge*.mjs` probes exit non-zero on a failed assertion, a captured console or page error, or (for `check-x.mjs`) an engine that cannot launch:
 
 | Script | What it does |
 |---|---|
@@ -11,6 +11,7 @@ nothing is served and no window opens. Chromium and Chrome come from the main re
 | `node check-x.mjs ../../ccss-math-universe-4.0.html` | The same in WebKit and Firefox, default view and whole galaxy with collapsed panels |
 | `node regress.mjs PAGE > out.json` then `diff regress.baseline-2026-09-19.json out.json` | Behaviour that must not change: deep-link trace, course, path, search, learner, Launch and Reset, keyboard walks (385 of 385 stars), facts, a hash of all positions. The baseline was recorded on the page before the revision |
 | `node edge.mjs PAGE OUTDIR` / `node edge2.mjs PAGE OUTDIR` | Filters with bodies, reduced motion, phone taps, body tooltip (WCAG 1.4.13), panel persistence, resize and home views, figure mode, forced opening, Launch at the constellation level, split hysteresis |
+| `node edge3.mjs PAGE` | The PR #256 review findings as regression checks: `H` with the journey off, a roving star hidden by a Hide filter, the selection a group card leaves behind (twin option, address, Back), the phone peek after filters remove a road card |
 | `node interact.mjs PAGE OUTDIR` | A walk through hover, tap-to-open, H, selection, keyboard and the panel toggles, with screenshots |
 | `node measure.mjs OLDPAGE NEWPAGE` | Nearest-neighbour spacing of what is drawn at the default views (the §16.5 table) |
 | `node perf.mjs OLDPAGE NEWPAGE` | `?selftest` flights and a wheel sweep through the split threshold, Chromium and Chrome |

@@ -1137,6 +1137,15 @@ Individual stars are drawn only from 44 px of pitch. World draw time fell (wheel
 90. Panels: both collapse to a 1488 px stage at 1512×860, their content is `hidden`, the choice survives a reload, `?panels=11` overrides it; the header has no overflow, overlap or target under 44 px from 320 to 1512 px wide.
 91. Resize while untouched keeps resting on the region; after a user zoom it keeps k; `0` rests on the galaxy and `H` returns to the same region view as at load.
 
+**16.7 Review fixes (PR #256, 2026-09-19)**
+- **`H` with the journey off** shows the whole galaxy: the region is a learner view and its button is hidden then. An untouched camera that already rests on the region keeps it on resize, so toggling the journey never moves the map by itself.
+- **A Hide filter that removes the keyboard star** (§5.4, §7.4) moves roving focus to the nearest star the map still draws, silently, with `aria-activedescendant`; no focus ring is drawn on a hidden star, its cell is not forced open, and Enter or Space on one announces `roving.none` instead of selecting it. The same runs when the learner layer or a course changes what "Ready & course only" hides.
+- **A card that replaces a pinned star** (a constellation body, road, constellation road, cluster, constellation or practice) clears that star everywhere it is recorded: the twin's `aria-selected` option, the Trace tab, and the address (`s`, `t`, `p`). It is one pushed history entry, as clearing a selection is, so a reload or a shared link restores what is shown and Back returns to the star. A card that replaces nothing pushes nothing.
+- **Filters that remove an open road or constellation-road card** refresh the phone peek row as well as the Star tab.
+- The probes fail closed: `edge.mjs`, `edge2.mjs` and `edge3.mjs` exit non-zero on a failed assertion or a captured console or page error, and `check-x.mjs` counts an engine that cannot launch as a failure.
+
+Tests (`probes/edge3.mjs`): 92. `H` with the journey off rests on the galaxy (k = 1) and returns to the region once it is on again. 93. After Hide + a stream off, roving has left the hidden star, the active descendant is an option, the ring shows and Enter selects a star of a drawn stream. 94. A body opened over `#s=4.NF.B.3&t=roots&d=2` leaves no selection, no selected twin option and no `s`, `t` or `p` in the address, and Back restores 4.NF.B.3; a constellation-road card opened from the List tab (no camera move) clears them at once. 95. On a phone, a road card removed by a filter no longer names the road in the peek row.
+
 ## Appendix A. Draft reference numbers (for cross-checking only; never embed)
 
 - q = 40.89 wu. Stream widths N 69.766°, A 72.416°, G 98.909°, F 49.455°, D 49.455°.

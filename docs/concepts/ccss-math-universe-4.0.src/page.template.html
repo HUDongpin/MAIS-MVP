@@ -1458,7 +1458,7 @@ function updateForced() {
   const S = M.stars, was = openForce; openForce = new Uint8Array(was.length);
   const add = i => { if (i >= 0 && S[i] && S[i].cell >= 0) openForce[S[i].cell] = 1; };
   const f = focusStar(); if (f >= 0) for (const i of focusSet(f)) add(i);
-  if (kbdFocus) add(roving);
+  if (kbdFocus && roving >= 0 && !hiddenStar(roving)) add(roving);
   if (trace && trace.res) { add(trace.f); for (const i of trace.res.members) add(i); }
   if (course) { add(course.d); course.stops.forEach(add); }
   if (pathSt) { add(pathSt.a); add(pathSt.b); if (pathSt.ok) pathSt.members.forEach(add); }
@@ -1548,7 +1548,8 @@ function regionPose() { const rg = regionRings(); return rg && W && rhoRegion > 
 // the view the page rests on at load, after Back to the first entry and on a resize while untouched: the learner's region on stages that
 // are not compact and with the journey on; phones keep their whole-galaxy glimpse and the flight to My mission (?home=galaxy keeps the 4.0 default)
 const homeIsRegion = () => !compact && !HOME_GALAXY && journeyOn && !!regionPose();
-function flyRegion(instant) { const p = regionPose(); if (!p) { wholeGalaxy(instant); return; } userMoved = false; restKind = "region"; flyTo(p.cx, p.cy, p.s, instant); }
+// the region is a learner view: with the journey off (its button is hidden then) the H key shows the whole galaxy instead
+function flyRegion(instant) { const p = journeyOn ? regionPose() : null; if (!p) { wholeGalaxy(instant); return; } userMoved = false; restKind = "region"; flyTo(p.cx, p.cy, p.s, instant); }
 function fitWorldBox(box, instant) {
   // box = {x0,y0,x1,y1} in world units; fits into the safe rect (stage minus reserved corners, 32 px pad)
   const pad = 32, base = { x0: pad, y0: pad, x1: W - pad, y1: H - pad - bottomInset };
@@ -2280,7 +2281,7 @@ function drawWorld(moving) {
   if (pathSt) drawPathRings(c);
   for (const [x, y, col] of staticComets) { c.beginPath(); c.arc(x, y, 2.8, 0, 2 * Math.PI); c.fillStyle = col; c.fill(); c.lineWidth = 1.5; c.strokeStyle = "#070b1e"; c.stroke(); }
   // keyboard focus ring (same double ring) and the moon cursor
-  const kbdRing = kbdFocus && roving >= 0 && document.activeElement === mapEl;
+  const kbdRing = kbdFocus && roving >= 0 && document.activeElement === mapEl && !hiddenStar(roving); // never a ring on a star a Hide filter removed
   if (kbdRing) { const st = S[roving], [x, y] = worldToScreen(st.x, st.y); ring2(x, y, starScreenR(st) + (roving === selection ? 10 : 5)); }
   if (moonCursor >= 0) { const b = selection >= 0 ? selection : roving; if (b >= 0 && moonCursor < S[b].rec.subs.length) { const st = S[b], a = moonAngle(moonCursor, st.rec.subs.length), [x, y] = worldToScreen(st.x, st.y); ring2(x + 16 * Math.cos(a), y + 16 * Math.sin(a), 6); } }
   // 10. screen-space labels (translate with the camera between placements), numbered badges
@@ -2521,13 +2522,18 @@ function renderCard() {
   }
 }
 // opts.quiet (a body opened from the map, §16): the card is filled without opening the phone sheet or a collapsed panel
+// A card that replaces a pinned star takes the star out of everything that records it: the twin's selected option, the Trace tab and the
+// address (s, t, p). That is one pushed entry, like clearing a selection, so a reload or a shared link restores what is shown and Back
+// returns to the star
 function showCard(t, opts) {
+  const replaced = selection >= 0 || !!trace || !!pathSt || pathPick >= 0;
   if (trace) clearTrace(true);
   if (pathSt || pathPick >= 0) { pathSt = null; pathPick = -1; renderTracePanel(); }
-  if (selection >= 0) { selection = -1; moonCursor = -1; placeDirty = true; }
+  if (selection >= 0) { selection = -1; moonCursor = -1; placeDirty = true; const old = $("#twin [aria-selected='true']"); if (old) old.setAttribute("aria-selected", "false"); renderTracePanel(); }
   cardTarget = t; renderCard(); updatePeek(); updateCaptions(); scheduleCrumb();
   if (TABS[mode].includes("star")) selectTab("star");
   if (!(opts && opts.quiet)) { showPanel("right"); if (mode === "s" && sheetState === "peek") setSheet("half"); }
+  if (replaced) histPush();
   invalidate();
 }
 function closeCard() { cardTarget = null; if (selection >= 0) clearSelection(); else { renderCard(); updatePeek(); } }
@@ -3518,7 +3524,7 @@ mapEl.addEventListener("keydown", e => {
   else if (k === "h" || k === "H") flyRegion();
   else if (k === "+" || k === "=") zoomStep(1.6);
   else if (k === "-" || k === "_" || k === "−") zoomStep(1 / 1.6);
-  else if (k === "Enter" || k === " ") { if (roving >= 0) select(roving, { open: true, kbd: true }); }
+  else if (k === "Enter" || k === " ") { if (roving >= 0) { if (hiddenStar(roving)) announceNone(); else select(roving, { open: true, kbd: true }); } }
   else if (k === "Escape") {
     if (moonCursor >= 0) { moonCursor = -1; mapEl.setAttribute("aria-activedescendant", optId(roving)); invalidate(); }
     else if (cancelPathPick()) { /* destination pick cancelled */ }
@@ -3987,7 +3993,7 @@ function applyFilters() {
   pieceOK = new Uint8Array(M.pieces.length); for (const pc of M.pieces) pieceOK[pc.idx] = pc.members.some(i => starOK[i]) ? 1 : 0;
   // roads and backbone recompute on the filtered graph (identical to the full graph when nothing is filtered out)
   RV = x === M.pos.length && a === M.links.length ? RD : computeRoads(M, l => !!linkOK[l.idx]);
-  if (RV !== prevRV) { buildRoadPaths(); hoverLink = null; if (cardTarget && (cardTarget.kind === "road" || cardTarget.kind === "bb")) { cardTarget = null; if (panels.star) renderCard(); } renderMapLists(); }
+  if (RV !== prevRV) { buildRoadPaths(); hoverLink = null; if (cardTarget && (cardTarget.kind === "road" || cardTarget.kind === "bb")) { cardTarget = null; if (panels.star) renderCard(); updatePeek(); } renderMapLists(); }
   filterVer++; localCache.key = "";
   fsum = { x, total: M.pos.length, a, b: M.links.length };
   if (trace) recomputeTrace(true);
@@ -3996,8 +4002,16 @@ function applyFilters() {
   refreshTwinLabels(); // a star the filters hide says so in its option name (INT-13)
   placeDirty = true; invalidate();
 }
+// Hide mode (§5.4, INT-13): when a filter removes the keyboard star, focus moves to the nearest star the map still draws, so the focus ring,
+// the active option and Enter never rest on a star that is not there
+function reconcileRoving() {
+  if (roving < 0 || !hiddenStar(roving)) return;
+  const s0 = M.stars[roving]; let best = -1, bd = Infinity;
+  for (const st of M.pos) { if (hiddenStar(st.i)) continue; const d = Math.hypot(st.x - s0.x, st.y - s0.y); if (d < bd) { bd = d; best = st.i; } }
+  if (best >= 0) setRoving(best, { silent: true });
+}
 function filtersChanged(rebuild) {
-  applyFilters();
+  applyFilters(); reconcileRoving();
   if (rebuild) buildFiltersPanel(); else updateFilterSum();
   // the Trace tab's course and path sections recompute with the filters too (§5.4); a trace already re-renders it in recomputeTrace
   if (course || pathSt) renderTracePanel();
@@ -4726,7 +4740,7 @@ function unlocksFor(i) {
 }
 function setLearner(st) { LS = deriveLearner(st); missionIdx = LS.mission; }
 function learnerChanged() {
-  applyFilters(); updateFilterSum(); syncReadyOnly(); refreshTwinLabels(); updateGalaxyAria(); buildMissionPanel(); refreshLegends(); renderCard(); updatePeek(); renderTracePanel(); updateCaptions(); renderMapLists();
+  applyFilters(); reconcileRoving(); updateFilterSum(); syncReadyOnly(); refreshTwinLabels(); updateGalaxyAria(); buildMissionPanel(); refreshLegends(); renderCard(); updatePeek(); renderTracePanel(); updateCaptions(); renderMapLists();
   printDirty(); storeLit(); placeDirty = true; invalidate();
 }
 function launchMission() {
@@ -5105,7 +5119,7 @@ function setCourse(d, opts) {
   if (d < 0) { announce(fmt("course.pick")); return; }
   if (pathSt || pathPick >= 0) clearPath(true);
   course = computeCourse(d);
-  if (filters.readyOnly) applyFilters();
+  if (filters.readyOnly) { applyFilters(); reconcileRoving(); }
   renderTracePanel(); updateCaptions(); placeDirty = true; invalidate();
   const shipIds = journeyOn && LS && LS.mission >= 0 ? [LS.mission] : [];
   refitIds = null;
@@ -5116,7 +5130,7 @@ function setCourse(d, opts) {
 }
 function clearCourse(silent) {
   if (!course) return;
-  course = null; refitIds = null; if (filters.readyOnly) applyFilters();
+  course = null; refitIds = null; if (filters.readyOnly) { applyFilters(); reconcileRoving(); }
   renderTracePanel(); updateCaptions(); placeDirty = true; invalidate();
   if (!silent) { announce(fmt("live.courseOff")); histReplace(); }
 }
