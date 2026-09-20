@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Knowledge Galaxy — mastery star ladder</title>
+<!--
+  Knowledge Galaxy mastery star ladder (mastery calibration, "Confirming" rung), standalone copy.
+  Source: private artifact https://claude.ai/code/artifact/fa16890d-0248-4d0a-bf7a-bc51d331610c (2026-07-24).
+  The script's comment says palettes, sizes and rings came from components/dashboard/AdaptiveKnowledgeGalaxy.tsx;
+  several details (highlight, glow, keyframe amplitudes, the Undiscovered style) do not all match the app today.
+  Page code is verbatim from the artifact except these standalone adaptations, which recreate the artifact
+  host page: a dark, margin-free html/body, and body font-size 14px (the notes block is sized in ch units).
+-->
+<style>
+  body { font-size: 14px; }
+  :root {
+    --space: #070912;
+    --space-2: #0b1020;
+    --panel: #0e1424;
+    --hairline: #1d2740;
+    --ink: #dce5f4;
+    --muted: #8a97b0;
+    --faint: #5c6883;
+    --accent: #38bdf8;
+    --good: #34d399;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--space); }
+  .wrap {
+    min-height: 100%;
+    margin: 0;
+    padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 3rem;
+    background:
+      radial-gradient(1100px 520px at 50% -8%, #12203c 0%, transparent 60%),
+      radial-gradient(700px 500px at 82% 12%, #171033 0%, transparent 55%),
+      linear-gradient(180deg, var(--space-2), var(--space));
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .inner { max-width: 1120px; margin: 0 auto; }
+  .eyebrow {
+    font: 700 0.72rem/1 ui-monospace, "SF Mono", Menlo, monospace;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--accent); opacity: 0.7; }
+  h1 {
+    font-size: clamp(1.6rem, 3.4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em;
+    text-wrap: balance; margin: 0.7rem 0 0.5rem;
+  }
+  .lede { max-width: 60ch; color: var(--muted); font-size: 1rem; line-height: 1.6; margin: 0; }
+  .lede b { color: var(--ink); font-weight: 650; }
+
+  .sky {
+    margin-top: clamp(1.6rem, 4vw, 2.6rem);
+    border: 1px solid var(--hairline); border-radius: 20px;
+    background:
+      radial-gradient(600px 300px at 30% -20%, rgba(56,189,248,0.10), transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    padding: clamp(1.6rem, 3.5vw, 2.8rem) clamp(1rem, 3vw, 2rem) clamp(1.4rem, 3vw, 2.2rem);
+    overflow-x: auto;
+  }
+  .ladder {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr);
+    gap: clamp(0.5rem, 2vw, 1.5rem); align-items: end; min-width: 780px;
+  }
+  .tier { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.55rem; }
+  .stagewell { height: 118px; display: flex; align-items: center; justify-content: center; }
+  .star { position: relative; border-radius: 999px; border: 1px solid rgba(255,255,255,0.28); }
+  .ring {
+    position: absolute; inset: -6px; border-radius: 999px; pointer-events: none;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  }
+  .innerglow { position: absolute; inset: 0; border-radius: 999px; box-shadow: inset 0 0 7px rgba(255,255,255,0.7); }
+  .name { font-weight: 750; font-size: 0.95rem; letter-spacing: -0.01em; }
+  .mean { color: var(--muted); font-size: 0.8rem; line-height: 1.4; max-width: 20ch; }
+  .pct { font: 600 0.72rem ui-monospace, Menlo, monospace; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .chip {
+    margin-top: 0.15rem; font: 700 0.66rem/1 ui-monospace, Menlo, monospace; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.32rem 0.55rem; border-radius: 999px; border: 1px solid;
+  }
+  .chip.counted { color: var(--good); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.10); }
+  .chip.no { color: var(--faint); border-color: var(--hairline); background: rgba(255,255,255,0.02); }
+
+  .divider { height: 1px; background: var(--hairline); margin: clamp(1.6rem,4vw,2.4rem) 0; }
+  .note { display: grid; gap: 0.9rem; max-width: 74ch; }
+  .rule {
+    font: 600 0.9rem/1.5 ui-monospace, Menlo, monospace; color: var(--ink);
+    background: var(--panel); border: 1px solid var(--hairline); border-radius: 12px;
+    padding: 0.85rem 1rem;
+  }
+  .rule .k { color: var(--accent); }
+  .rule .c { color: var(--good); }
+  .points { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+  .points li { padding-left: 1.4rem; position: relative; }
+  .points li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .points b { color: var(--ink); font-weight: 650; }
+  @keyframes confirm-pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.38); } }
+  @keyframes fade-pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+  @keyframes flicker { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .anim-confirming { animation: confirm-pulse 1.5s ease-in-out infinite; }
+  .anim-fading { animation: fade-pulse 1.9s ease-in-out infinite; }
+  .anim-unstable { animation: flicker 1.6s steps(2, jump-none) infinite; }
+  @media (prefers-reduced-motion: reduce) { .anim-confirming, .anim-fading, .anim-unstable { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="inner">
+    <div class="eyebrow">Knowledge Galaxy · mastery calibration</div>
+    <h1>The star ladder, now honest about &ldquo;mastered&rdquo;</h1>
+    <p class="lede">A star only lights as <b>mastered</b> — and counts toward the &ldquo;illuminated&rdquo; total teachers read — when the engine confirms mastery: <b>pMastery&nbsp;&ge;&nbsp;0.85 <em>and</em> a 3-correct streak</b>. The new <b>Confirming</b> rung holds the &ldquo;very likely, one more to lock it in&rdquo; stars so they stay bright without being counted early.</p>
+
+    <div class="sky">
+      <div class="ladder" id="ladder"></div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="note">
+      <div class="rule">lit / counted&nbsp;=&nbsp;<span class="k">pMastery&nbsp;&ge;&nbsp;0.85</span>&nbsp;&amp;&amp;&nbsp;<span class="k">correctStreak&nbsp;&ge;&nbsp;3</span>&nbsp;&nbsp;·&nbsp;&nbsp;<span class="c">confirming</span>&nbsp;=&nbsp;over the bar, streak&nbsp;&lt;&nbsp;3</div>
+      <ul class="points">
+        <li><b>One definition of mastered.</b> The illumination count now matches what the practice engine believes — no more &ldquo;3/3 illuminated&rdquo; while the loop still assigns those skills.</li>
+        <li><b>The gradient stays rich.</b> A near-mastered star doesn&rsquo;t collapse back into the generic igniting tier — it charges through Confirming (a near-full cyan ring, gently pulsing) first.</li>
+        <li><b>Confirming is not counted.</b> Only Lit and Fading (a mastered star due for review) count toward illumination.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Exact palettes / sizes / rings from AdaptiveKnowledgeGalaxy.tsx
+  const HL = "rgba(255,255,255,0.9)";
+  const constellation = { glow: "rgba(52, 211, 153, 0.72)", stops: ["#d1fae5", "#34d399", "#0d9488"] }; // geometry-garden
+  const confirming    = { glow: "rgba(56, 189, 248, 0.85)", stops: ["#ecfeff", "#38bdf8", "#0369a1"] };
+  const fading        = { glow: "rgba(251, 191, 36, 0.78)", stops: ["#fef3c7", "#fbbf24", "#d97706"] };
+  const unstable      = { glow: "rgba(251, 113, 133, 0.78)", stops: ["#ffe4e6", "#fb7185", "#e11d48"] };
+  const slate         = { glow: "rgba(100,116,139,0.35)",    stops: ["#94a3b8", "#64748b", "#334155"] };
+
+  const REM = 34; // px per rem-unit, scaled up for legibility (relative sizes preserved)
+  const tiers = [
+    { name: "Undiscovered", size: 0.8,  pal: slate,         mean: "Not attempted yet", pct: "", counted: false, dim: 0.55 },
+    { name: "Igniting",     size: 1.25, pal: constellation, mean: "In progress",       pct: "60%", ring: 60, counted: false },
+    { name: "Confirming",   size: 1.40, pal: confirming,    mean: "Almost mastered — one more to lock in", pct: "90%", ring: 90, counted: false, anim: "confirming", isNew: true },
+    { name: "Lit",          size: 1.50, pal: constellation, mean: "Mastered", pct: "", glow: true, counted: true },
+    { name: "Fading",       size: 1.50, pal: fading,        mean: "Mastered · review due", pct: "", counted: true, anim: "fading" },
+    { name: "Unstable",     size: 1.30, pal: unstable,      mean: "Needs repair", pct: "", counted: false, anim: "unstable" }
+  ];
+
+  const ladder = document.getElementById("ladder");
+  for (const t of tiers) {
+    const cell = document.createElement("div"); cell.className = "tier";
+
+    const well = document.createElement("div"); well.className = "stagewell";
+    const star = document.createElement("div");
+    star.className = "star" + (t.anim ? " anim-" + t.anim : "");
+    const px = t.size * REM;
+    star.style.width = px + "px"; star.style.height = px + "px";
+    star.style.background = `radial-gradient(circle at 32% 26%, ${HL}, transparent 0 34%), linear-gradient(135deg, ${t.pal.stops[0]}, ${t.pal.stops[1]} 52%, ${t.pal.stops[2]})`;
+    star.style.boxShadow = `0 0 16px ${t.pal.glow}`;
+    if (t.dim) star.style.opacity = t.dim;
+    if (t.ring != null) { const r = document.createElement("div"); r.className = "ring"; r.style.background = `conic-gradient(${t.pal.stops[1]} ${t.ring}%, transparent 0)`; star.appendChild(r); }
+    if (t.glow) { const g = document.createElement("div"); g.className = "innerglow"; star.appendChild(g); }
+    well.appendChild(star); cell.appendChild(well);
+
+    const name = document.createElement("div"); name.className = "name";
+    name.textContent = t.name; name.style.color = t.pal.stops[1];
+    cell.appendChild(name);
+
+    const mean = document.createElement("div"); mean.className = "mean"; mean.textContent = t.mean; cell.appendChild(mean);
+    if (t.pct) { const p = document.createElement("div"); p.className = "pct"; p.textContent = "pMastery " + t.pct; cell.appendChild(p); }
+
+    const chip = document.createElement("div");
+    chip.className = "chip " + (t.counted ? "counted" : "no");
+    chip.textContent = t.counted ? "✓ counted" : "not counted";
+    cell.appendChild(chip);
+
+    ladder.appendChild(cell);
+  }
+</script>
+
+</body>
+</html>

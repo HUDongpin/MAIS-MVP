@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Learner's Knowledge Galaxy · Grade 4 CCSS</title>
+<!--
+  Knowledge Galaxy 2.0 concept (Grade 4 CCSS), standalone copy.
+  Source: private artifact https://claude.ai/code/artifact/69380790-ef43-4c6d-bc0b-e51ef81733b0
+  (built 2026-07-18/19, see coordination/session-logs/20260719_Knowledge Galaxy with Claude_Amazing Effect.md).
+  Header genericized on 2026-07-22 for Figure 2 of "AERA_MAIS_TRUST & Knowledge Galaxy".
+  Open with ?figure to hide the demo bar and reproduce that figure exactly.
+  Standalone adaptations: color-scheme: dark, a solid body background-color, the ?figure switch, and
+  html, body min-height instead of height, so the background gradient doesn't repeat with a seam
+  when the page is taller than the window.
+-->
+<style>
+  :root {
+    --space-0: #070b1e;
+    --space-1: #0a1028;
+    --space-2: #101736;
+    --ink: #f5f8ff;
+    --ink-dim: #9aa6c8;
+    --ink-faint: #5a6690;
+    --nbt: #67e8f9;
+    --oa: #a78bfa;
+    --nf: #f472b6;
+    --md-c: #fcd34d;
+    --geo: #6ee7b7;
+    --review: #fbbf24;
+    --repair: #fb7185;
+    --route: #e0f2fe;
+    --card: rgba(13, 19, 44, 0.92);
+    --card-border: rgba(154, 166, 200, 0.22);
+    --display: "Avenir Next", "Avenir", "Futura", "Trebuchet MS", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+    color-scheme: dark;
+  }
+
+  html, body { min-height: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1100px 700px at 18% 8%, rgba(103, 232, 249, 0.07), transparent 60%),
+      radial-gradient(900px 700px at 82% 20%, rgba(244, 114, 182, 0.06), transparent 60%),
+      radial-gradient(1000px 800px at 55% 95%, rgba(167, 139, 250, 0.08), transparent 60%),
+      linear-gradient(160deg, var(--space-1) 0%, var(--space-0) 55%, #060916 100%);
+    background-color: var(--space-0);
+    color: var(--ink);
+    font-family: var(--display);
+    overflow-x: hidden;
+  }
+
+  .frame { max-width: 1280px; margin: 0 auto; padding: 20px 20px 40px; display: flex; flex-direction: column; gap: 14px; }
+
+  header.hud {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;
+  }
+  .hud-title .eyebrow {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--nbt);
+    font-weight: 700;
+  }
+  .hud-title h1 {
+    margin: 4px 0 0; font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -0.01em;
+    line-height: 1.02; text-wrap: balance;
+  }
+  .hud-title p { margin: 8px 0 0; color: var(--ink-dim); font-size: 14.5px; font-weight: 500; max-width: 46ch; line-height: 1.5; }
+
+  .illumination {
+    min-width: 250px; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 12px 16px 14px; backdrop-filter: blur(8px);
+  }
+  .illumination .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .illumination .label { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-dim); font-weight: 700; }
+  .illumination .value { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .illumination .bar { margin-top: 8px; height: 8px; border-radius: 999px; background: rgba(154,166,200,0.16); overflow: hidden; }
+  .illumination .bar i {
+    display: block; height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--nbt), var(--oa), var(--nf));
+    transition: width 900ms cubic-bezier(.2,.8,.2,1);
+  }
+  .illumination .sub { margin-top: 7px; font-size: 12px; color: var(--ink-dim); font-weight: 500; }
+
+  .stage-wrap { position: relative; }
+  .stage {
+    position: relative; border-radius: 22px; border: 1px solid rgba(154,166,200,0.14);
+    background:
+      radial-gradient(700px 420px at 24% 26%, rgba(103,232,249,0.05), transparent 65%),
+      radial-gradient(600px 420px at 76% 38%, rgba(244,114,182,0.05), transparent 65%),
+      linear-gradient(180deg, rgba(16,23,54,0.6), rgba(7,11,30,0.9));
+    overflow: hidden;
+  }
+  svg#galaxy { display: block; width: 100%; height: auto; }
+
+  .dust { animation: twinkle 4.2s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: .25 } 50% { opacity: .8 } }
+
+  .route-lane { stroke-dasharray: 10 9; animation: lane 2.4s linear infinite; }
+  .route-branch { stroke-dasharray: 4 8; animation: lane 3.2s linear infinite; }
+  @keyframes lane { to { stroke-dashoffset: -38; } }
+
+  .constellation-line { stroke-dasharray: 400; stroke-dashoffset: 400; animation: drawline 2.6s ease forwards 0.6s; }
+  @keyframes drawline { to { stroke-dashoffset: 0; } }
+
+  .halo-pulse { animation: halo 1.9s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes halo { 0%,100% { opacity: .35 } 50% { opacity: .85 } }
+
+  .current-ring { animation: spin 6s linear infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .repair-flicker { animation: flicker 1.4s steps(2, jump-none) infinite; }
+  @keyframes flicker { 0%,100% { opacity: 1 } 50% { opacity: .45 } }
+
+  .ship { animation: bob 2.8s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes bob { 0%,100% { translate: 0 0 } 50% { translate: 0 -5px } }
+
+  .burst { animation: burst 900ms ease-out forwards; transform-origin: center; transform-box: fill-box; pointer-events: none; }
+  @keyframes burst { from { opacity: .95; transform: scale(.2); } to { opacity: 0; transform: scale(2.6); } }
+
+  g.star { cursor: pointer; }
+  g.star:focus { outline: none; }
+  g.star:focus > .focus-ring-svg { opacity: 1; }
+  .focus-ring-svg { opacity: 0; }
+  svg.has-selection g.star.dim, svg.has-selection text.const-label.dim, svg.has-selection .dimmable.dim { opacity: 0.16; transition: opacity 300ms ease; }
+  g.star, text.const-label, .dimmable { transition: opacity 300ms ease; }
+
+  .const-label { font-family: var(--display); font-weight: 800; letter-spacing: 0.06em; fill: var(--ink-dim); }
+  .const-count { font-family: var(--mono); font-weight: 600; fill: var(--ink-faint); }
+
+  .tooltip {
+    position: absolute; z-index: 30; width: 250px; pointer-events: none;
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 14px;
+    padding: 12px 14px; backdrop-filter: blur(10px);
+    box-shadow: 0 14px 44px rgba(0,0,0,0.5);
+    opacity: 0; transform: translateY(6px); transition: opacity 160ms ease, transform 160ms ease;
+  }
+  .tooltip.show { opacity: 1; transform: translateY(0); }
+  .tooltip .code { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; font-weight: 700; }
+  .tooltip .name { margin-top: 3px; font-size: 14px; font-weight: 700; line-height: 1.35; }
+  .tooltip .meta { margin-top: 8px; display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--ink-dim); font-weight: 600; }
+  .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tooltip .mbar { margin-top: 8px; height: 5px; border-radius: 999px; background: rgba(154,166,200,0.18); overflow: hidden; }
+  .tooltip .mbar i { display: block; height: 100%; border-radius: 999px; }
+
+  .panel {
+    position: absolute; top: 16px; right: 16px; z-index: 20; width: min(300px, calc(100% - 32px));
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 18px;
+    padding: 16px 18px; backdrop-filter: blur(12px); box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+  }
+  .panel .kicker { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 800; color: var(--nbt); }
+  .panel .code { margin-top: 8px; font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--ink-dim); }
+  .panel h2 { margin: 3px 0 0; font-size: 18px; font-weight: 800; line-height: 1.3; text-wrap: balance; }
+  .panel .stats { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .panel .stat { border: 1px solid var(--card-border); border-radius: 12px; padding: 8px 10px; }
+  .panel .stat .l { font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-dim); font-weight: 700; }
+  .panel .stat .v { margin-top: 2px; font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .panel .why { margin-top: 12px; font-size: 12.5px; line-height: 1.55; color: var(--ink-dim); font-weight: 500; }
+  .panel .cta {
+    margin-top: 14px; width: 100%; border: 0; border-radius: 12px; padding: 12px 14px;
+    font-family: var(--display); font-size: 14px; font-weight: 800; color: #0b1020; cursor: pointer;
+    background: linear-gradient(90deg, var(--nbt), var(--oa) 55%, var(--nf));
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .panel .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(103,232,249,0.25); }
+  .panel .cta:focus-visible, .demo-btn:focus-visible, .reset-btn:focus-visible {
+    outline: 2px solid var(--nbt); outline-offset: 2px;
+  }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .legend span {
+    display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px;
+    background: rgba(13,19,44,0.85); border: 1px solid var(--card-border);
+    font-size: 11px; font-weight: 700; color: var(--ink-dim); backdrop-filter: blur(6px);
+  }
+  .legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+  .demo-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .demo-bar.is-hidden { display: none; }
+  .demo-btn {
+    border: 0; border-radius: 14px; padding: 13px 20px; cursor: pointer;
+    font-family: var(--display); font-size: 14.5px; font-weight: 800; color: #0b1020;
+    background: linear-gradient(90deg, var(--nbt), var(--oa) 60%, var(--nf));
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .demo-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(167,139,250,0.3); }
+  .demo-btn:disabled { opacity: .45; cursor: default; transform: none; box-shadow: none; }
+  .reset-btn {
+    border: 1px solid var(--card-border); background: transparent; color: var(--ink-dim);
+    border-radius: 14px; padding: 12px 18px; font-family: var(--display); font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .reset-btn:hover { color: var(--ink); border-color: var(--ink-dim); }
+  .demo-note { font-size: 12.5px; color: var(--ink-faint); font-weight: 600; max-width: 52ch; line-height: 1.5; }
+
+  .toast {
+    position: absolute; left: 50%; top: 18px; translate: -50% 0; z-index: 40;
+    background: var(--card); border: 1px solid rgba(103,232,249,0.4); color: var(--ink);
+    border-radius: 999px; padding: 10px 20px; font-size: 13.5px; font-weight: 800;
+    box-shadow: 0 10px 34px rgba(0,0,0,0.5); opacity: 0; transition: opacity 300ms ease;
+    pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dust, .route-lane, .route-branch, .halo-pulse, .current-ring, .repair-flicker, .ship { animation: none; }
+    .constellation-line { animation: none; stroke-dashoffset: 0; }
+    .illumination .bar i { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <header class="hud">
+    <div class="hud-title">
+      <div class="eyebrow">MAIS · Personalized Route · Grade 4 CCSS</div>
+      <h1>A Learner's Knowledge Galaxy</h1>
+      <p>Every CCSS standard is a star. Mastering one lights it up — and reviews keep it burning. Hover a star to inspect it, or click to focus its prerequisites.</p>
+    </div>
+    <div class="illumination" aria-live="polite">
+      <div class="row">
+        <span class="label">Galaxy illuminated</span>
+        <span class="value" id="illumValue">25%</span>
+      </div>
+      <div class="bar"><i id="illumBar" style="width:25%"></i></div>
+      <div class="sub" id="illumSub">7 of 28 Grade 4 stars lit · Place-Value Bear complete</div>
+    </div>
+  </header>
+
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+      <svg id="galaxy" viewBox="0 0 1200 720" role="img" aria-label="Star map of Grade 4 CCSS standards grouped into five constellations"></svg>
+      <div class="tooltip" id="tooltip" role="status"></div>
+      <aside class="panel" id="panel"></aside>
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+
+  <div class="legend" aria-hidden="true">
+    <span><i style="background:var(--nbt); box-shadow:0 0 8px var(--nbt)"></i> Mastered star</span>
+    <span><i style="background:var(--review); box-shadow:0 0 8px var(--review)"></i> Fading — review due</span>
+    <span><i style="background:var(--repair)"></i> Unstable — repair</span>
+    <span><i style="background:#8b93b8"></i> In progress</span>
+    <span><i style="background:#39415f"></i> Undiscovered</span>
+  </div>
+
+  <div class="demo-bar" id="demoBar">
+    <button class="demo-btn" id="missionBtn" type="button">Complete current mission ▸</button>
+    <button class="reset-btn" id="resetBtn" type="button">Reset demo</button>
+    <p class="demo-note">The demo plays the core loop: finishing a mission ignites the star, advances the ship along the adaptive route, and raises galaxy illumination.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var SVG = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("galaxy");
+  var stage = document.getElementById("stage");
+  var tooltip = document.getElementById("tooltip");
+  var panel = document.getElementById("panel");
+  var toast = document.getElementById("toast");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ?figure reproduces the AERA Figure 2 framing (no demo bar under the legend).
+  if (/[?&]figure\b/.test(window.location.search)) document.getElementById("demoBar").classList.add("is-hidden");
+
+  var DOMAINS = {
+    nbt: { name: "The Place-Value Bear", ccss: "4.NBT", color: "var(--nbt)", raw: "#67e8f9", cx: 265, cy: 205, rot: 0.4 },
+    oa:  { name: "The Pattern Fox",      ccss: "4.OA",  color: "var(--oa)",  raw: "#a78bfa", cx: 575, cy: 370, rot: 2.1 },
+    nf:  { name: "The Fraction Phoenix", ccss: "4.NF",  color: "var(--nf)",  raw: "#f472b6", cx: 835, cy: 545, rot: 4.2 },
+    md:  { name: "The Measure Whale",    ccss: "4.MD",  color: "var(--md-c)",raw: "#fcd34d", cx: 295, cy: 555, rot: 1.2 },
+    g:   { name: "The Geometry Dragon",  ccss: "4.G",   color: "var(--geo)", raw: "#6ee7b7", cx: 1055, cy: 555, rot: 5.0 }
+  };
+
+  function initialStars() {
+    return [
+      { id: "nbt1", d: "nbt", code: "4.NBT.1", title: "A digit is ten times the place to its right", status: "mastered", p: 96, last: "Jun 30" },
+      { id: "nbt2", d: "nbt", code: "4.NBT.2", title: "Read, write and compare multi-digit numbers", status: "mastered", p: 94, last: "Jul 2" },
+      { id: "nbt3", d: "nbt", code: "4.NBT.3", title: "Round multi-digit whole numbers", status: "review", p: 87, last: "Jun 12", due: "today" },
+      { id: "nbt4", d: "nbt", code: "4.NBT.4", title: "Fluently add and subtract multi-digit numbers", status: "mastered", p: 92, last: "Jul 6" },
+      { id: "nbt5", d: "nbt", code: "4.NBT.5", title: "Multiply up to four digits by one digit", status: "mastered", p: 90, last: "Jul 10" },
+      { id: "nbt6", d: "nbt", code: "4.NBT.6", title: "Divide with up to four-digit dividends", status: "mastered", p: 88, last: "Jul 12" },
+      { id: "oa1", d: "oa", code: "4.OA.1", title: "Interpret multiplication as comparison", status: "mastered", p: 91, last: "Jul 8" },
+      { id: "oa2", d: "oa", code: "4.OA.2", title: "Word problems with multiplicative comparison", status: "repair", p: 32, last: "Jul 15" },
+      { id: "oa3", d: "oa", code: "4.OA.3", title: "Multi-step word problems with remainders", status: "progress", p: 46, last: "Jul 14" },
+      { id: "oa4", d: "oa", code: "4.OA.4", title: "Factors, multiples, prime and composite", status: "current", p: 62, last: "Jul 18" },
+      { id: "oa5", d: "oa", code: "4.OA.5", title: "Generate and analyze number patterns", status: "progress", p: 12, last: "—" },
+      { id: "nf1", d: "nf", code: "4.NF.1", title: "Explain equivalent fractions with models", status: "progress", p: 28, last: "Jul 11" },
+      { id: "nf2", d: "nf", code: "4.NF.2", title: "Compare fractions with unlike denominators", status: "charted", p: 0 },
+      { id: "nf3", d: "nf", code: "4.NF.3", title: "Add and subtract fractions and mixed numbers", status: "locked", p: 0 },
+      { id: "nf4", d: "nf", code: "4.NF.4", title: "Multiply a fraction by a whole number", status: "locked", p: 0 },
+      { id: "nf5", d: "nf", code: "4.NF.5", title: "Express tenths as hundredths and add", status: "locked", p: 0 },
+      { id: "nf6", d: "nf", code: "4.NF.6", title: "Use decimal notation for fractions", status: "locked", p: 0 },
+      { id: "nf7", d: "nf", code: "4.NF.7", title: "Compare decimals to hundredths", status: "locked", p: 0 },
+      { id: "md1", d: "md", code: "4.MD.1", title: "Know relative sizes of measurement units", status: "locked", p: 0 },
+      { id: "md2", d: "md", code: "4.MD.2", title: "Word problems with measures and money", status: "locked", p: 0 },
+      { id: "md3", d: "md", code: "4.MD.3", title: "Area and perimeter formulas for rectangles", status: "charted", p: 0 },
+      { id: "md4", d: "md", code: "4.MD.4", title: "Line plots with fraction measurements", status: "locked", p: 0 },
+      { id: "md5", d: "md", code: "4.MD.5", title: "Understand angles as turning", status: "locked", p: 0 },
+      { id: "md6", d: "md", code: "4.MD.6", title: "Measure angles with a protractor", status: "locked", p: 0 },
+      { id: "md7", d: "md", code: "4.MD.7", title: "Angle measure is additive", status: "locked", p: 0 },
+      { id: "g1", d: "g", code: "4.G.1", title: "Draw and identify lines and angles", status: "locked", p: 0 },
+      { id: "g2", d: "g", code: "4.G.2", title: "Classify shapes by lines and angles", status: "locked", p: 0 },
+      { id: "g3", d: "g", code: "4.G.3", title: "Recognize and draw lines of symmetry", status: "locked", p: 0 }
+    ];
+  }
+
+  var PREREQS = {
+    nbt2: ["nbt1"], nbt3: ["nbt2"], nbt4: ["nbt2"], nbt5: ["nbt4"], nbt6: ["nbt5"],
+    oa2: ["oa1"], oa3: ["oa2", "nbt4"], oa4: ["nbt5"], oa5: ["oa4"],
+    nf1: ["nbt6"], nf2: ["nf1"], nf3: ["nf2"], nf4: ["nf3", "oa4"], nf5: ["nf3"], nf6: ["nf5"], nf7: ["nf6"],
+    md1: ["nbt5"], md2: ["md1"], md3: ["nbt5"], md4: ["nf2"], md5: ["g1"], md6: ["md5"], md7: ["md6"],
+    g2: ["g1"], g3: ["g2"]
+  };
+
+  var state = { stars: initialStars(), routeIds: ["oa4", "oa5", "nf1", "nf2"], reviewBranch: ["oa4", "nbt3"], selected: null, missionStep: 0 };
+
+  function layout() {
+    var byDomain = {};
+    state.stars.forEach(function (s) { (byDomain[s.d] = byDomain[s.d] || []).push(s); });
+    Object.keys(byDomain).forEach(function (d) {
+      var dom = DOMAINS[d];
+      byDomain[d].forEach(function (s, i) {
+        var r = 34 + 30 * Math.sqrt(i);
+        var th = dom.rot + i * 2.39996;
+        s.x = Math.max(60, Math.min(1140, dom.cx + r * Math.cos(th)));
+        s.y = Math.max(56, Math.min(664, dom.cy + r * Math.sin(th) * 0.82));
+      });
+    });
+  }
+
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(SVG, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  function starById(id) { return state.stars.find(function (s) { return s.id === id; }); }
+
+  function statusLabel(s) {
+    return { mastered: "Lit", review: "Fading · review due", repair: "Unstable · repair", progress: "Igniting", current: "Current mission", charted: "Charted next", locked: "Undiscovered" }[s.status];
+  }
+  function statusColor(s) {
+    if (s.status === "mastered") return DOMAINS[s.d].raw;
+    if (s.status === "review") return "#fbbf24";
+    if (s.status === "repair") return "#fb7185";
+    if (s.status === "current") return "#ffffff";
+    if (s.status === "progress" || s.status === "charted") return "#8b93b8";
+    return "#39415f";
+  }
+
+  function render() {
+    layout();
+    svg.innerHTML = "";
+    svg.classList.toggle("has-selection", Boolean(state.selected));
+
+    var i, s;
+    for (i = 0; i < 130; i++) {
+      var dx = (Math.sin(i * 127.1) * 0.5 + 0.5) * 1200;
+      var dy = (Math.sin(i * 311.7) * 0.5 + 0.5) * 720;
+      var dot = el("circle", { cx: dx.toFixed(1), cy: dy.toFixed(1), r: (i % 7 === 0 ? 1.4 : 0.8), fill: "#c7d4ff", opacity: 0.3, "class": "dimmable" }, svg);
+      if (i % 9 === 0 && !reduced) { dot.classList.add("dust"); dot.style.animationDelay = (i % 5) + "s"; }
+    }
+
+    Object.keys(DOMAINS).forEach(function (d) {
+      var dom = DOMAINS[d];
+      el("ellipse", { cx: dom.cx, cy: dom.cy, rx: 175, ry: 130, fill: dom.raw, opacity: 0.05, "class": "dimmable", style: "filter: blur(6px)" }, svg);
+    });
+
+    var nbtStars = state.stars.filter(function (st) { return st.d === "nbt"; });
+    var nbtDone = nbtStars.every(function (st) { return st.status === "mastered" || st.status === "review"; });
+    if (nbtDone) {
+      for (i = 0; i < nbtStars.length - 1; i++) {
+        el("line", {
+          x1: nbtStars[i].x, y1: nbtStars[i].y, x2: nbtStars[i + 1].x, y2: nbtStars[i + 1].y,
+          stroke: DOMAINS.nbt.raw, "stroke-width": 1.1, opacity: 0.45, "class": "constellation-line dimmable"
+        }, svg);
+      }
+    }
+
+    var prereqLayer = el("g", {}, svg);
+
+    function routePath(ids) {
+      var pts = ids.map(starById);
+      var dstr = "M " + pts[0].x + " " + pts[0].y;
+      for (var j = 1; j < pts.length; j++) {
+        var a = pts[j - 1], b = pts[j];
+        dstr += " C " + ((a.x + b.x) / 2) + " " + (a.y - 24) + ", " + ((a.x + b.x) / 2) + " " + (b.y + 24) + ", " + b.x + " " + b.y;
+      }
+      return dstr;
+    }
+    el("path", { d: routePath(state.routeIds), fill: "none", stroke: "#e0f2fe", "stroke-width": 7, opacity: 0.08, "stroke-linecap": "round", "class": "dimmable" }, svg);
+    el("path", { d: routePath(state.routeIds), fill: "none", stroke: "#e0f2fe", "stroke-width": 1.7, opacity: 0.85, "stroke-linecap": "round", "class": "route-lane dimmable", style: "filter: drop-shadow(0 0 6px rgba(224,242,254,0.8))" }, svg);
+    el("path", { d: routePath(state.reviewBranch), fill: "none", stroke: "#fbbf24", "stroke-width": 1.3, opacity: 0.7, "stroke-linecap": "round", "class": "route-branch dimmable", style: "filter: drop-shadow(0 0 5px rgba(251,191,36,0.7))" }, svg);
+
+    Object.keys(DOMAINS).forEach(function (d) {
+      var dom = DOMAINS[d];
+      var all = state.stars.filter(function (st) { return st.d === d; });
+      var lit = all.filter(function (st) { return st.status === "mastered" || st.status === "review"; }).length;
+      var below = d === "nf" || d === "g";
+      var lx = dom.cx - 80, ly = below ? dom.cy + 122 : dom.cy - 128;
+      var t1 = el("text", { x: lx, y: ly, "font-size": 15, "class": "const-label" }, svg);
+      t1.textContent = dom.name;
+      var t2 = el("text", { x: lx, y: ly + 18, "font-size": 11, "class": "const-count" }, svg);
+      t2.textContent = dom.ccss + " · " + lit + "/" + all.length + " lit" + (lit === all.length ? " ★ complete" : "");
+    });
+
+    state.stars.forEach(function (star) {
+      var isSel = state.selected === star.id;
+      var related = state.selected ? (state.selected === star.id || (PREREQS[state.selected] || []).indexOf(star.id) >= 0) : true;
+      var g = el("g", { "class": "star" + (related ? "" : " dim"), tabindex: 0, role: "button", "aria-label": star.code + " " + star.title + ", " + statusLabel(star) + (star.p ? ", mastery " + star.p + "%" : "") }, svg);
+      var c = statusColor(star);
+      var dom = DOMAINS[star.d];
+
+      if (star.status === "current") {
+        el("circle", { cx: star.x, cy: star.y, r: 26, fill: "#ffffff", opacity: 0.12, "class": reduced ? "" : "halo-pulse" }, g);
+        el("circle", { cx: star.x, cy: star.y, r: 17, fill: "none", stroke: "#ffffff", "stroke-width": 1.4, "stroke-dasharray": "5 6", opacity: 0.85, "class": reduced ? "" : "current-ring" }, g);
+        el("circle", { cx: star.x, cy: star.y, r: 9.5, fill: "#ffffff", style: "filter: drop-shadow(0 0 12px " + dom.raw + ")" }, g);
+        el("circle", { cx: star.x, cy: star.y, r: 4.5, fill: dom.raw }, g);
+        var ship = el("g", { "class": reduced ? "" : "ship" }, g);
+        el("path", { d: "M " + (star.x + 22) + " " + (star.y - 26) + " l 5 13 l -5 -2.6 l -5 2.6 z", fill: "#f5f8ff", stroke: dom.raw, "stroke-width": 1, style: "filter: drop-shadow(0 0 5px rgba(255,255,255,0.7))" }, ship);
+      } else if (star.status === "mastered" || star.status === "review") {
+        var fading = star.status === "review";
+        if (fading) el("circle", { cx: star.x, cy: star.y, r: 16, fill: "#fbbf24", opacity: 0.2, "class": reduced ? "" : "halo-pulse" }, g);
+        el("circle", { cx: star.x, cy: star.y, r: fading ? 6.4 : 7.2, fill: fading ? "#fcd9a0" : c, opacity: fading ? 0.85 : 1, style: "filter: drop-shadow(0 0 " + (fading ? 5 : 9) + "px " + (fading ? "#fbbf24" : c) + ")" }, g);
+        el("path", { d: "M " + star.x + " " + (star.y - 12) + " v 24 M " + (star.x - 12) + " " + star.y + " h 24", stroke: fading ? "#fbbf24" : c, "stroke-width": 0.8, opacity: 0.5 }, g);
+      } else if (star.status === "repair") {
+        var rg = el("g", { "class": reduced ? "" : "repair-flicker" }, g);
+        el("circle", { cx: star.x, cy: star.y, r: 6.2, fill: "#fb7185", style: "filter: drop-shadow(0 0 7px #fb7185)" }, rg);
+        el("path", { d: "M " + (star.x - 2.4) + " " + (star.y - 3.4) + " l 3 2.6 l -2.2 1 l 3.4 3.2", stroke: "#0b1020", "stroke-width": 1.2, fill: "none", "stroke-linecap": "round" }, rg);
+      } else if (star.status === "progress" || star.status === "charted") {
+        el("circle", { cx: star.x, cy: star.y, r: 5.6, fill: "#131a3a", stroke: "#8b93b8", "stroke-width": 1, opacity: 0.95 }, g);
+        if (star.p > 0) {
+          var C = 2 * Math.PI * 8.6;
+          el("circle", {
+            cx: star.x, cy: star.y, r: 8.6, fill: "none", stroke: dom.raw, "stroke-width": 1.6,
+            "stroke-dasharray": (C * star.p / 100).toFixed(1) + " " + C.toFixed(1),
+            transform: "rotate(-90 " + star.x + " " + star.y + ")", "stroke-linecap": "round", opacity: 0.9
+          }, g);
+        } else {
+          el("circle", { cx: star.x, cy: star.y, r: 8.6, fill: "none", stroke: "#e0f2fe", "stroke-width": 1, "stroke-dasharray": "2 4", opacity: 0.55 }, g);
+        }
+      } else {
+        el("circle", { cx: star.x, cy: star.y, r: 3, fill: "#39415f", opacity: 0.85 }, g);
+      }
+
+      el("circle", { cx: star.x, cy: star.y, r: 15, fill: "transparent" }, g);
+      el("circle", { cx: star.x, cy: star.y, r: 19, fill: "none", stroke: "#67e8f9", "stroke-width": 1.4, "stroke-dasharray": "3 4", "class": "focus-ring-svg" }, g);
+      if (isSel) el("circle", { cx: star.x, cy: star.y, r: 21, fill: "none", stroke: "#f5f8ff", "stroke-width": 1.2, opacity: 0.8, "stroke-dasharray": "1 5", "stroke-linecap": "round" }, g);
+
+      g.addEventListener("pointerenter", function () { showTip(star); });
+      g.addEventListener("pointerleave", hideTip);
+      g.addEventListener("click", function (e) { e.stopPropagation(); select(star.id); });
+      g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(star.id); } });
+      svg.appendChild(g);
+    });
+
+    if (state.selected) {
+      (PREREQS[state.selected] || []).forEach(function (pid) {
+        var a = starById(pid), b = starById(state.selected);
+        if (!a || !b) return;
+        el("line", { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: "#6ee7b7", "stroke-width": 1.2, opacity: 0.8, "stroke-dasharray": "6 5", style: "filter: drop-shadow(0 0 4px rgba(110,231,183,0.8))" }, prereqLayer);
+      });
+    }
+    renderPanel();
+    renderIllumination();
+  }
+
+  function showTip(star) {
+    var c = statusColor(star);
+    var chipBg = star.status === "locked" ? "rgba(154,166,200,0.16)" : c + "26";
+    tooltip.innerHTML =
+      '<div class="code" style="color:' + (star.status === "locked" ? "var(--ink-dim)" : c) + '">' + star.code + "</div>" +
+      '<div class="name">' + star.title + "</div>" +
+      '<div class="meta"><span class="chip" style="background:' + chipBg + ';color:' + (star.status === "locked" ? "var(--ink-dim)" : c) + '">' + statusLabel(star) + "</span>" +
+      (star.last && star.last !== "—" ? "<span>practiced " + star.last + "</span>" : "") + "</div>" +
+      (star.p > 0 ? '<div class="mbar"><i style="width:' + star.p + "%;background:" + c + '"></i></div><div class="meta"><span>' + star.p + "% mastery</span>" + (star.due ? "<span>· review " + star.due + "</span>" : "") + "</div>" : "");
+    var box = stage.getBoundingClientRect();
+    var px = star.x / 1200, py = star.y / 720;
+    var left = px * box.width + 18;
+    if (left + 260 > box.width) left = px * box.width - 268;
+    var top = py * (svg.getBoundingClientRect().height) - 20;
+    tooltip.style.left = left + "px";
+    tooltip.style.top = Math.max(10, top) + "px";
+    tooltip.classList.add("show");
+  }
+  function hideTip() { tooltip.classList.remove("show"); }
+
+  function select(id) { state.selected = state.selected === id ? null : id; render(); }
+
+  function renderPanel() {
+    var current = state.stars.filter(function (x) { return x.status === "current"; })[0];
+    var s = (state.selected ? starById(state.selected) : current) || current || state.stars[0];
+    var dom = DOMAINS[s.d];
+    var isCurrent = s.status === "current";
+    var prereqs = (PREREQS[s.id] || []).map(starById).filter(Boolean);
+    var why = isCurrent
+      ? "The adaptive engine picked this star: multiplication facts are solid (4.NBT.5 lit), and factors unlock both patterns and fraction multiplication ahead."
+      : s.status === "review"
+        ? "This star is fading — spaced review today keeps rounding from slipping before it powers estimation ahead."
+        : s.status === "repair"
+          ? "Two wrong streaks flagged this star unstable. A short repair mission with scaffolds will steady it."
+          : s.status === "locked"
+            ? "Still undiscovered. It reveals itself as the route approaches — the full map is always visible, never overwhelming."
+            : "On the charted route. " + (prereqs.length ? "Feeds from " + prereqs.map(function (p) { return p.code; }).join(", ") + "." : "");
+    panel.innerHTML =
+      '<div class="kicker" style="color:' + dom.raw + '">' + (state.selected ? "Star focus" : "Mission HUD") + "</div>" +
+      '<div class="code">' + s.code + " · " + dom.name + "</div>" +
+      "<h2>" + s.title + "</h2>" +
+      '<div class="stats">' +
+      '<div class="stat"><div class="l">Mastery</div><div class="v">' + (s.p || 0) + "%</div></div>" +
+      '<div class="stat"><div class="l">Status</div><div class="v" style="font-size:12.5px;line-height:1.9">' + statusLabel(s) + "</div></div>" +
+      "</div>" +
+      '<div class="why">' + why + "</div>" +
+      (isCurrent || s.status === "review" || s.status === "repair"
+        ? '<button class="cta" type="button" id="panelCta">' + (isCurrent ? "Launch mission" : s.status === "review" ? "Relight this star" : "Start repair") + "</button>"
+        : "");
+    var cta = document.getElementById("panelCta");
+    if (cta) cta.addEventListener("click", function () { if (isCurrent) completeMission(); else showToast("In the product this opens the practice flow for " + s.code); });
+  }
+
+  function renderIllumination() {
+    var total = state.stars.length;
+    var lit = state.stars.filter(function (s) { return s.status === "mastered" || s.status === "review"; }).length;
+    var pct = Math.round(lit / total * 100);
+    document.getElementById("illumValue").textContent = pct + "%";
+    document.getElementById("illumBar").style.width = pct + "%";
+    var nbtAll = state.stars.filter(function (s) { return s.d === "nbt"; });
+    var nbtDone = nbtAll.every(function (s) { return s.status === "mastered" || s.status === "review"; });
+    document.getElementById("illumSub").textContent = lit + " of " + total + " Grade 4 stars lit" + (nbtDone ? " · Place-Value Bear complete" : "");
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(showToast.t);
+    showToast.t = setTimeout(function () { toast.classList.remove("show"); }, 2600);
+  }
+
+  function completeMission() {
+    var cur = state.stars.filter(function (s) { return s.status === "current"; })[0];
+    if (!cur) return;
+    cur.status = "mastered"; cur.p = 88; cur.last = "just now";
+    var nextId = state.routeIds[state.routeIds.indexOf(cur.id) + 1];
+    if (nextId) {
+      var nxt = starById(nextId);
+      nxt.status = "current"; nxt.p = Math.max(nxt.p, 15);
+      state.routeIds = state.routeIds.slice(state.routeIds.indexOf(nextId));
+      if (state.routeIds.length < 2) state.routeIds = [nextId, "nf2"];
+      state.reviewBranch = [nextId, "nbt3"];
+    } else {
+      document.getElementById("missionBtn").disabled = true;
+    }
+    state.selected = null;
+    render();
+    if (!reduced) {
+      el("circle", { cx: cur.x, cy: cur.y, r: 16, fill: "none", stroke: DOMAINS[cur.d].raw, "stroke-width": 2.5, "class": "burst" }, svg);
+      el("circle", { cx: cur.x, cy: cur.y, r: 10, fill: DOMAINS[cur.d].raw, opacity: 0.5, "class": "burst" }, svg);
+    }
+    showToast("★ " + cur.code + " ignited — " + cur.title);
+  }
+
+  document.getElementById("missionBtn").addEventListener("click", completeMission);
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    state.stars = initialStars();
+    state.routeIds = ["oa4", "oa5", "nf1", "nf2"];
+    state.reviewBranch = ["oa4", "nbt3"];
+    state.selected = null;
+    document.getElementById("missionBtn").disabled = false;
+    render();
+  });
+  svg.addEventListener("click", function () { if (state.selected) { state.selected = null; render(); } });
+  window.addEventListener("resize", hideTip);
+
+  render();
+})();
+</script>
+
+</body>
+</html>

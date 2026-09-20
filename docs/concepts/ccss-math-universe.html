@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CCSS Math Universe — Concept 3.0</title>
+<!--
+  CCSS Math Universe concept 3.0 (complete K–12 Knowledge Galaxy), standalone copy.
+  Source: private artifact https://claude.ai/code/artifact/cdee77eb-eef6-4d4b-b200-83121b40b7b5
+  (built 2026-07-19, see coordination/session-logs/20260719_Knowledge Galaxy with Claude_Amazing Effect.md, Act 7).
+  Grade 4 zoom level of the same sky: knowledge-galaxy-grade4.html.
+  Page code is verbatim from the artifact except these standalone adaptations:
+  - color-scheme: dark and a solid body background-color (the artifact host painted a light page);
+  - html, body use min-height instead of height, so the background gradient no longer repeats
+    (showing a seam) once the page is taller than the window;
+  - svg#universe is user-select: none, so dragging in Safari/WebKit doesn't select SVG text and tint the stage.
+-->
+<style>
+  svg#universe { -webkit-user-select: none; user-select: none; }
+  :root {
+    --space-0: #070b1e;
+    --space-1: #0a1028;
+    --ink: #f5f8ff;
+    --ink-dim: #9aa6c8;
+    --ink-faint: #5a6690;
+    --number: #67e8f9;
+    --ratio: #f472b6;
+    --algebra: #a78bfa;
+    --geom: #6ee7b7;
+    --data: #fcd34d;
+    --review: #fbbf24;
+    --repair: #fb7185;
+    --card: rgba(13, 19, 44, 0.92);
+    --card-border: rgba(154, 166, 200, 0.22);
+    --display: "Avenir Next", "Avenir", "Futura", "Trebuchet MS", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+    color-scheme: dark;
+  }
+
+  html, body { min-height: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 800px at 20% 6%, rgba(103, 232, 249, 0.06), transparent 60%),
+      radial-gradient(1000px 760px at 84% 16%, rgba(244, 114, 182, 0.05), transparent 60%),
+      radial-gradient(1100px 900px at 50% 100%, rgba(167, 139, 250, 0.07), transparent 60%),
+      linear-gradient(165deg, var(--space-1) 0%, var(--space-0) 55%, #060916 100%);
+    background-color: var(--space-0);
+    color: var(--ink);
+    font-family: var(--display);
+    overflow-x: hidden;
+  }
+
+  .frame { max-width: 1340px; margin: 0 auto; padding: 20px 20px 40px; display: flex; flex-direction: column; gap: 14px; }
+
+  header.hud { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--number); font-weight: 700; }
+  h1 { margin: 4px 0 0; font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -0.01em; line-height: 1.02; text-wrap: balance; }
+  .lede { margin: 8px 0 0; color: var(--ink-dim); font-size: 14.5px; font-weight: 500; max-width: 56ch; line-height: 1.55; }
+  .lede b { color: var(--ink); }
+
+  .meter {
+    min-width: 265px; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 12px 16px 14px; backdrop-filter: blur(8px);
+  }
+  .meter .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .meter .label { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-dim); font-weight: 700; }
+  .meter .value { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .meter .bar { margin-top: 8px; height: 8px; border-radius: 999px; background: rgba(154,166,200,0.16); overflow: hidden; }
+  .meter .bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--number), var(--algebra), var(--ratio)); }
+  .meter .sub { margin-top: 7px; font-size: 12px; color: var(--ink-dim); font-weight: 500; }
+
+  .stage-wrap { position: relative; }
+  .stage {
+    position: relative; border-radius: 22px; border: 1px solid rgba(154,166,200,0.14);
+    background:
+      radial-gradient(900px 620px at 50% 55%, rgba(103,232,249,0.04), transparent 70%),
+      linear-gradient(180deg, rgba(16,23,54,0.6), rgba(7,11,30,0.92));
+    overflow: hidden; touch-action: none;
+  }
+  svg#universe { display: block; width: 100%; height: auto; cursor: grab; }
+  svg#universe.dragging { cursor: grabbing; }
+
+  .arm-label { font-family: var(--display); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+  .cluster-label { font-family: var(--mono); font-weight: 600; }
+  .cluster-name { font-family: var(--display); font-weight: 800; }
+
+  .pulse { animation: pulse 2s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes pulse { 0%,100% { opacity: .3 } 50% { opacity: .9 } }
+  .spin-ring { animation: spin 7s linear infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .road-dash { stroke-dasharray: 14 10; animation: roaddash 2.6s linear infinite; }
+  @keyframes roaddash { to { stroke-dashoffset: -48; } }
+  .fading-star { animation: pulse 2.2s ease-in-out infinite; }
+
+  .hudbar {
+    position: absolute; left: 16px; top: 14px; z-index: 20; display: flex; flex-direction: column; gap: 8px; max-width: 300px;
+  }
+  .youare {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 10px 14px;
+    backdrop-filter: blur(8px); font-size: 12.5px; font-weight: 700; color: var(--ink-dim); line-height: 1.5;
+  }
+  .youare b { color: var(--ink); }
+  .youare .code { font-family: var(--mono); color: var(--algebra); }
+
+  .controls { position: absolute; right: 16px; top: 14px; z-index: 20; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; max-width: 430px; }
+  .controls button {
+    border: 1px solid var(--card-border); background: var(--card); color: var(--ink);
+    border-radius: 999px; padding: 9px 15px; font-family: var(--display); font-size: 12.5px; font-weight: 800; cursor: pointer;
+    backdrop-filter: blur(8px); transition: transform 140ms ease, border-color 140ms ease;
+  }
+  .controls button:hover { transform: translateY(-2px); border-color: var(--ink-dim); }
+  .controls button[aria-pressed="true"] { border-color: var(--number); color: var(--number); box-shadow: 0 0 14px rgba(103,232,249,0.25); }
+  .controls button:focus-visible { outline: 2px solid var(--number); outline-offset: 2px; }
+
+  .legend { position: absolute; left: 16px; bottom: 14px; z-index: 20; display: flex; flex-wrap: wrap; gap: 7px; max-width: 620px; }
+  .legend span {
+    display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px;
+    background: rgba(13,19,44,0.85); border: 1px solid var(--card-border);
+    font-size: 11px; font-weight: 700; color: var(--ink-dim); backdrop-filter: blur(6px);
+  }
+  .legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+  .atlas {
+    position: absolute; right: 16px; bottom: 14px; z-index: 20; display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 999px; padding: 8px 14px; backdrop-filter: blur(8px);
+  }
+  .atlas .t { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-dim); }
+  .atlas .medal {
+    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px;
+    border: 1px solid var(--card-border); background: rgba(255,255,255,0.05);
+  }
+  .atlas .more { font-size: 12px; font-weight: 800; color: var(--ink-dim); }
+
+  .tooltip {
+    position: absolute; z-index: 30; width: 250px; pointer-events: none;
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 14px;
+    padding: 12px 14px; backdrop-filter: blur(10px); box-shadow: 0 14px 44px rgba(0,0,0,0.5);
+    opacity: 0; transform: translateY(6px); transition: opacity 140ms ease, transform 140ms ease;
+  }
+  .tooltip.show { opacity: 1; transform: translateY(0); }
+  .tooltip .code { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; font-weight: 700; }
+  .tooltip .name { margin-top: 3px; font-size: 13.5px; font-weight: 700; line-height: 1.35; }
+  .tooltip .meta { margin-top: 7px; font-size: 11.5px; color: var(--ink-dim); font-weight: 600; }
+
+  .roadcard {
+    position: absolute; left: 50%; bottom: 64px; translate: -50% 0; z-index: 25; width: min(560px, calc(100% - 32px));
+    background: var(--card); border: 1px solid rgba(244,114,182,0.4); border-radius: 16px; padding: 14px 18px;
+    backdrop-filter: blur(10px); box-shadow: 0 16px 50px rgba(0,0,0,0.5);
+    font-size: 13px; line-height: 1.6; color: var(--ink-dim); font-weight: 500; display: none;
+  }
+  .roadcard.show { display: block; }
+  .roadcard b { color: var(--ratio); }
+  .roadcard .t { color: var(--ink); font-weight: 800; font-size: 14px; }
+
+  .demo-note { font-size: 12.5px; color: var(--ink-faint); font-weight: 600; max-width: 72ch; line-height: 1.55; }
+  .demo-note b { color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse, .spin-ring, .road-dash, .fading-star { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <header class="hud">
+    <div>
+      <div class="eyebrow">MAIS · Personalized Route · Concept 3.0</div>
+      <h1>The Math Universe</h1>
+      <p class="lede">The complete K–12 CCSS galaxy. <b>Domains are spiral arms, grades are rings</b> — Kindergarten burns at the core, high school waits at the rim, and every learning progression is a road you can trace. Drag to pan, scroll to zoom, or use the camera buttons.</p>
+    </div>
+    <div class="meter">
+      <div class="row"><span class="label">Universe illuminated</span><span class="value" id="illum">—</span></div>
+      <div class="bar"><i id="illumBar" style="width:0%"></i></div>
+      <div class="sub" id="illumSub">—</div>
+    </div>
+  </header>
+
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+      <svg id="universe" viewBox="0 0 1520 1180" role="img" aria-label="Spiral galaxy of all K to 12 CCSS math standards: five domain arms radiating from a Kindergarten core"></svg>
+      <div class="hudbar">
+        <div class="youare">You are here: <span class="code">4.OA.4</span> — <b>Factors, multiples, prime &amp; composite</b> in The Pattern Fox. Grades K–3 shine behind you; beyond Grade 5 is uncharted space.</div>
+      </div>
+      <div class="controls" role="group" aria-label="Camera presets">
+        <button type="button" id="btnUniverse" aria-pressed="true">Whole universe</button>
+        <button type="button" id="btnFrontier" aria-pressed="false">My frontier · Grade 4</button>
+        <button type="button" id="btnNF" aria-pressed="false">4.NF up close</button>
+        <button type="button" id="btnRoad" aria-pressed="false">Trace the Fraction Road</button>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--number); box-shadow:0 0 8px var(--number)"></i> Lit star</span>
+        <span><i style="background:var(--review); box-shadow:0 0 8px var(--review)"></i> Fading — review</span>
+        <span><i style="background:var(--repair)"></i> Unstable</span>
+        <span><i style="background:#8b93b8"></i> In progress</span>
+        <span><i style="background:#39415f"></i> Charted</span>
+        <span><i style="background:#232a45"></i> Uncharted space</span>
+      </div>
+      <div class="atlas" aria-label="Star atlas: constellations collected">
+        <span class="t">Star atlas</span>
+        <span class="medal" title="The Counting Cub · K.CC">🐻</span>
+        <span class="medal" title="The Ten-Frame Turtle · 1.NBT">🐢</span>
+        <span class="medal" title="The Array Owl · 3.OA">🦉</span>
+        <span class="medal" title="The Place-Value Bear · 4.NBT">⭐</span>
+        <span class="more">+13</span>
+      </div>
+      <div class="tooltip" id="tooltip"></div>
+      <div class="roadcard" id="roadcard">
+        <div class="t">The Fraction Road · 3.NF → 4.NF → 5.NF → 6.RP → 7.RP</div>
+        A learning progression is a <b>trade route across the galaxy</b>. Fractions are born in Grade 3, grow arithmetic in Grades 4–5, then transform into ratios and proportional reasoning in middle school. When Jon struggles on 4.NF, the ship travels <b>inward along this road</b> — repairing 3.NF at the source is navigation, not going backward.
+      </div>
+    </div>
+  </div>
+
+  <p class="demo-note"><b>What this demonstrates:</b> the full CCSS field (~350 charted stars shown across five arms; high-school rim included) stays legible because detail is earned by zoom — nebula glow from afar, named stars up close. Only 4.NF carries full standard text in this concept; in the product every star hydrates from the CCSS registry. Fog past the student's frontier doubles as content gating: today's K–5 question seed is simply "the charted sky."</p>
+</div>
+
+<script>
+(function () {
+  var SVG = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("universe");
+  var stage = document.getElementById("stage");
+  var tooltip = document.getElementById("tooltip");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var CX = 760, CY = 600;
+  var GRADES = ["K", "1", "2", "3", "4", "5", "6", "7", "8", "HS"];
+  var STUDENT_GRADE = 4;
+
+  var ARMS = {
+    number:  { name: "Number & Base Ten", color: "#67e8f9", base: -2.55 },
+    ratio:   { name: "Fractions → Ratios", color: "#f472b6", base: -1.55 },
+    algebra: { name: "Operations → Algebra & Functions", color: "#a78bfa", base: -0.55 },
+    geom:    { name: "Geometry & Measurement", color: "#6ee7b7", base: 0.55 },
+    data:    { name: "Data → Statistics", color: "#fcd34d", base: 1.6 }
+  };
+
+  // arm, grade index, CCSS domain code, star count. Counts follow the real standard counts.
+  var CLUSTERS = [
+    ["number", 0, "K.CC", 7], ["number", 0, "K.NBT", 1], ["number", 1, "1.NBT", 6], ["number", 2, "2.NBT", 9],
+    ["number", 3, "3.NBT", 3], ["number", 4, "4.NBT", 6, "The Place-Value Bear"], ["number", 5, "5.NBT", 7],
+    ["number", 6, "6.NS", 8], ["number", 7, "7.NS", 3], ["number", 8, "8.NS", 2], ["number", 9, "HS.N", 27],
+    ["ratio", 3, "3.NF", 3], ["ratio", 4, "4.NF", 7, "The Fraction Phoenix"], ["ratio", 5, "5.NF", 7],
+    ["ratio", 6, "6.RP", 3], ["ratio", 7, "7.RP", 3],
+    ["algebra", 0, "K.OA", 5], ["algebra", 1, "1.OA", 8], ["algebra", 2, "2.OA", 4], ["algebra", 3, "3.OA", 9],
+    ["algebra", 4, "4.OA", 5, "The Pattern Fox"], ["algebra", 5, "5.OA", 3], ["algebra", 6, "6.EE", 9],
+    ["algebra", 7, "7.EE", 4], ["algebra", 8, "8.EE", 8], ["algebra", 8, "8.F", 5], ["algebra", 9, "HS.A·F", 55],
+    ["geom", 0, "K.G", 6], ["geom", 0, "K.MD", 3], ["geom", 1, "1.G", 3], ["geom", 1, "1.MD", 4],
+    ["geom", 2, "2.G", 3], ["geom", 2, "2.MD", 10], ["geom", 3, "3.G", 2], ["geom", 3, "3.MD", 8],
+    ["geom", 4, "4.G", 3], ["geom", 4, "4.MD", 7], ["geom", 5, "5.G", 4], ["geom", 5, "5.MD", 5],
+    ["geom", 6, "6.G", 4], ["geom", 7, "7.G", 6], ["geom", 8, "8.G", 9], ["geom", 9, "HS.G", 43],
+    ["data", 6, "6.SP", 5], ["data", 7, "7.SP", 8], ["data", 8, "8.SP", 4], ["data", 9, "HS.S", 31]
+  ];
+
+  var NF_TITLES = [
+    "Explain equivalent fractions with visual models",
+    "Compare two fractions with unlike denominators",
+    "Add and subtract fractions and mixed numbers",
+    "Multiply a fraction by a whole number",
+    "Express tenths as hundredths and add",
+    "Use decimal notation for fractions",
+    "Compare decimals to hundredths"
+  ];
+  var OA_TITLES = [
+    "Interpret multiplication as comparison",
+    "Word problems with multiplicative comparison",
+    "Multi-step word problems with remainders",
+    "Factors, multiples, prime and composite",
+    "Generate and analyze number patterns"
+  ];
+
+  var FRACTION_ROAD = ["3.NF", "4.NF", "5.NF", "6.RP", "7.RP"];
+
+  function hash(n) { return Math.abs(Math.sin(n * 127.13) * 43758.5453) % 1; }
+
+  function clusterPos(cluster) {
+    var arm = ARMS[cluster[0]];
+    var g = cluster[1];
+    var r = 118 + g * 84;
+    var angle = arm.base + g * 0.24;
+    var siblings = CLUSTERS.filter(function (c) { return c[0] === cluster[0] && c[1] === g; });
+    var offset = 0;
+    if (siblings.length > 1) offset = (siblings.indexOf(cluster) === 0 ? -0.16 : 0.16) * (1 - g * 0.05);
+    return { x: CX + r * Math.cos(angle + offset), y: CY + r * Math.sin(angle + offset) * 0.94, r: r };
+  }
+
+  // Star status per cluster: K-3 mostly lit, G4 = live frontier, G5 charted, G6+ uncharted fog.
+  function starStatuses(cluster, seed) {
+    var g = cluster[1], code = cluster[2], n = cluster[3];
+    var out = [];
+    for (var i = 0; i < n; i++) {
+      var h = hash(seed * 31 + i);
+      if (g <= 3) out.push(h > 0.94 ? "fading" : h > 0.9 ? "progress" : "lit");
+      else if (g === 4) {
+        if (code === "4.NBT") out.push(i === 2 ? "fading" : "lit");
+        else if (code === "4.OA") out.push(["lit", "unstable", "progress", "current", "progress"][i]);
+        else if (code === "4.NF") out.push(i === 0 ? "progress" : "charted");
+        else out.push(h > 0.75 ? "charted" : "undiscovered");
+      } else if (g === 5) out.push("charted");
+      else out.push("uncharted");
+    }
+    return out;
+  }
+
+  var STATUS_STYLE = {
+    lit: { r: 4.6, fill: null, glow: 8, o: 1 },
+    fading: { r: 4.2, fill: "#fbbf24", glow: 6, o: 0.95 },
+    unstable: { r: 4.2, fill: "#fb7185", glow: 6, o: 0.95 },
+    current: { r: 6.4, fill: "#ffffff", glow: 12, o: 1 },
+    progress: { r: 3.6, fill: "#8b93b8", glow: 0, o: 0.9 },
+    charted: { r: 2.8, fill: "#39415f", glow: 0, o: 0.85 },
+    undiscovered: { r: 2.2, fill: "#2c3352", glow: 0, o: 0.6 },
+    uncharted: { r: 2.0, fill: "#232a45", glow: 0, o: 0.42 }
+  };
+  var STATUS_LABEL = {
+    lit: "Lit — mastered", fading: "Fading — review due", unstable: "Unstable — repair",
+    current: "Current mission", progress: "Igniting — in progress", charted: "Charted — on your route",
+    undiscovered: "Undiscovered", uncharted: "Uncharted space"
+  };
+
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(SVG, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  var camera = { x: CX, y: CY, k: 1 };
+  var gCam = el("g", {}, svg);
+
+  function applyCamera() {
+    gCam.setAttribute("transform",
+      "translate(" + CX + " " + CY + ") scale(" + camera.k + ") translate(" + (-camera.x) + " " + (-camera.y) + ")");
+    var labelScale = 1 / Math.pow(camera.k, 0.78);
+    var labels = gCam.querySelectorAll("[data-cluster-label]");
+    labels.forEach(function (l) {
+      l.setAttribute("opacity", camera.k >= 1.7 ? "1" : (camera.k >= 1.1 ? "0.45" : "0"));
+      var lx = l.getAttribute("data-lx"), ly = l.getAttribute("data-ly");
+      if (lx) l.setAttribute("transform", "translate(" + lx + " " + ly + ") scale(" + labelScale.toFixed(3) + ") translate(" + (-lx) + " " + (-ly) + ")");
+    });
+  }
+
+  // ---- render static universe ----
+  var i, dot;
+  for (i = 0; i < 220; i++) {
+    dot = el("circle", {
+      cx: (hash(i) * 1520).toFixed(1), cy: (hash(i + 500) * 1180).toFixed(1),
+      r: i % 11 === 0 ? 1.3 : 0.7, fill: "#c7d4ff", opacity: 0.28
+    }, gCam);
+    if (i % 13 === 0 && !reduced) dot.classList.add("pulse");
+  }
+
+  el("circle", { cx: CX, cy: CY, r: 46, fill: "#fff7d6", opacity: 0.9, style: "filter: blur(2px) drop-shadow(0 0 34px #ffe9a8)" }, gCam);
+  var core = el("text", { x: CX, y: CY + 74, "text-anchor": "middle", "font-size": 12, fill: "#9aa6c8", "class": "cluster-label" }, gCam);
+  core.textContent = "K · the core";
+
+  Object.keys(ARMS).forEach(function (armId) {
+    var arm = ARMS[armId];
+    var pts = [];
+    for (var g = 0; g <= 9; g += 0.5) {
+      var r = 118 + g * 84, a = arm.base + g * 0.24;
+      pts.push((CX + r * Math.cos(a)).toFixed(1) + "," + (CY + r * Math.sin(a) * 0.94).toFixed(1));
+    }
+    el("polyline", { points: pts.join(" "), fill: "none", stroke: arm.color, "stroke-width": 26, opacity: 0.05, "stroke-linecap": "round", style: "filter: blur(10px)" }, gCam);
+    el("polyline", { points: pts.join(" "), fill: "none", stroke: arm.color, "stroke-width": 1, opacity: 0.16, "stroke-dasharray": "2 7" }, gCam);
+    var end = pts[pts.length - 1].split(",");
+    var lbl = el("text", { x: end[0], y: Number(end[1]) - 16, "text-anchor": "middle", "font-size": 15, fill: arm.color, opacity: 0.8, "class": "arm-label" }, gCam);
+    lbl.textContent = arm.name;
+  });
+
+  for (i = 1; i <= 9; i++) {
+    el("ellipse", { cx: CX, cy: CY, rx: 118 + i * 84, ry: (118 + i * 84) * 0.94, fill: "none", stroke: "#9aa6c8", "stroke-width": 0.5, opacity: 0.07 }, gCam);
+  }
+  var rim = el("text", { x: CX, y: CY - (118 + 9 * 84) * 0.94 - 14, "text-anchor": "middle", "font-size": 13, fill: "#5a6690", "class": "cluster-label" }, gCam);
+  rim.textContent = "HS · the rim — uncharted space";
+
+  var roadLayer = el("g", { opacity: 0 }, gCam);
+  var roadPts = FRACTION_ROAD.map(function (code) {
+    var c = CLUSTERS.filter(function (cl) { return cl[2] === code; })[0];
+    var p = clusterPos(c);
+    return p.x.toFixed(1) + "," + p.y.toFixed(1);
+  });
+  el("polyline", { points: roadPts.join(" "), fill: "none", stroke: "#f472b6", "stroke-width": 7, opacity: 0.12, "stroke-linecap": "round", style: "filter: blur(4px)" }, roadLayer);
+  var roadLine = el("polyline", { points: roadPts.join(" "), fill: "none", stroke: "#f9a8d4", "stroke-width": 2, "stroke-linecap": "round", style: "filter: drop-shadow(0 0 6px rgba(244,114,182,0.8))" }, roadLayer);
+  if (!reduced) roadLine.classList.add("road-dash");
+
+  var litTotal = 0, allTotal = 0, currentStarPos = null;
+
+  CLUSTERS.forEach(function (cluster, ci) {
+    var armColor = ARMS[cluster[0]].color;
+    var pos = clusterPos(cluster);
+    var statuses = starStatuses(cluster, ci + 7);
+    var isFog = cluster[1] > 5;
+    var group = el("g", isFog ? { opacity: 0.4, "data-fog": "1" } : {}, gCam);
+
+    var litHere = statuses.filter(function (s) { return s === "lit" || s === "fading"; }).length;
+    litTotal += litHere; allTotal += cluster[3];
+
+    el("ellipse", { cx: pos.x, cy: pos.y, rx: 30 + cluster[3] * 1.1, ry: 24 + cluster[3] * 0.8, fill: armColor, opacity: litHere ? 0.09 : 0.04, style: "filter: blur(6px)" }, group);
+
+    statuses.forEach(function (status, si) {
+      var spread = 10 + Math.sqrt(cluster[3]) * 7;
+      var sr = spread * Math.sqrt((si + 0.6) / cluster[3]);
+      var sa = si * 2.39996 + ci;
+      var sx = pos.x + sr * Math.cos(sa), sy = pos.y + sr * Math.sin(sa);
+      var st = STATUS_STYLE[status];
+      var fill = st.fill || armColor;
+      var star = el("circle", {
+        cx: sx.toFixed(1), cy: sy.toFixed(1), r: st.r, fill: fill, opacity: st.o,
+        style: st.glow ? "filter: drop-shadow(0 0 " + st.glow + "px " + fill + ")" : ""
+      }, group);
+      if (status === "fading" && !reduced) star.classList.add("fading-star");
+      if (status === "current") {
+        currentStarPos = { x: sx, y: sy };
+        var ring = el("circle", { cx: sx, cy: sy, r: 12, fill: "none", stroke: "#fff", "stroke-width": 1.2, "stroke-dasharray": "4 5", opacity: 0.9 }, group);
+        if (!reduced) ring.classList.add("spin-ring");
+        el("circle", { cx: sx, cy: sy, r: 20, fill: "#fff", opacity: 0.1, "class": reduced ? "" : "pulse" }, group);
+        el("path", { d: "M " + (sx + 16) + " " + (sy - 18) + " l 4 10 l -4 -2 l -4 2 z", fill: "#f5f8ff", stroke: armColor, "stroke-width": 0.8 }, group);
+      }
+
+      var hover = el("circle", { cx: sx.toFixed(1), cy: sy.toFixed(1), r: 10, fill: "transparent" }, group);
+      hover.style.cursor = "pointer";
+      hover.addEventListener("pointerenter", function (evt) {
+        var code = cluster[2] + "." + (si + 1);
+        var title = cluster[2] === "4.NF" ? NF_TITLES[si] : cluster[2] === "4.OA" ? OA_TITLES[si] : null;
+        tooltip.innerHTML =
+          '<div class="code" style="color:' + armColor + '">' + code + "</div>" +
+          '<div class="name">' + (title || (STATUS_LABEL[status] === "Uncharted space" ? "Sealed star chart — revealed as your route approaches" : "Standard detail hydrates from the CCSS registry")) + "</div>" +
+          '<div class="meta">' + STATUS_LABEL[status] + " · " + cluster[2] + (cluster[4] ? " · " + cluster[4] : "") + "</div>";
+        var rect = stage.getBoundingClientRect();
+        var lx = evt.clientX - rect.left + 16, ly = evt.clientY - rect.top - 12;
+        if (lx + 260 > rect.width) lx -= 290;
+        tooltip.style.left = lx + "px"; tooltip.style.top = Math.max(8, ly) + "px";
+        tooltip.classList.add("show");
+      });
+      hover.addEventListener("pointerleave", function () { tooltip.classList.remove("show"); });
+    });
+
+    var labelY = pos.y - (30 + cluster[3] * 0.9);
+    var label = el("text", { x: pos.x, y: labelY, "text-anchor": "middle", "font-size": 11, fill: "#9aa6c8", "data-cluster-label": "1", "data-lx": pos.x.toFixed(1), "data-ly": labelY.toFixed(1), opacity: 0, "class": "cluster-label" }, group);
+    label.textContent = cluster[2] + " · " + litHere + "/" + cluster[3];
+    if (cluster[4]) {
+      var nm = el("text", { x: pos.x, y: labelY - 14, "text-anchor": "middle", "font-size": 12.5, fill: armColor, "data-cluster-label": "1", "data-lx": pos.x.toFixed(1), "data-ly": (labelY - 14).toFixed(1), opacity: 0, "class": "cluster-name" }, group);
+      nm.textContent = cluster[4];
+    }
+  });
+
+  document.getElementById("illum").textContent = Math.round(litTotal / allTotal * 100) + "%";
+  document.getElementById("illumBar").style.width = Math.round(litTotal / allTotal * 100) + "%";
+  document.getElementById("illumSub").textContent = litTotal + " of " + allTotal + " charted stars lit · 17 constellations collected";
+
+  applyCamera();
+
+  // ---- camera controls ----
+  var tweenId = null;
+  function flyTo(target, ms) {
+    if (tweenId) cancelAnimationFrame(tweenId);
+    if (reduced) { camera = { x: target.x, y: target.y, k: target.k }; applyCamera(); return; }
+    var from = { x: camera.x, y: camera.y, k: camera.k };
+    var t0 = performance.now();
+    function step(now) {
+      var t = Math.min(1, (now - t0) / ms);
+      var e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      camera.x = from.x + (target.x - from.x) * e;
+      camera.y = from.y + (target.y - from.y) * e;
+      camera.k = from.k + (target.k - from.k) * e;
+      applyCamera();
+      if (t < 1) tweenId = requestAnimationFrame(step);
+    }
+    tweenId = requestAnimationFrame(step);
+  }
+
+  var nfPos = clusterPos(CLUSTERS.filter(function (c) { return c[2] === "4.NF"; })[0]);
+  var g4 = CLUSTERS.filter(function (c) { return c[1] === 4; }).map(clusterPos);
+  var frontier = {
+    x: g4.reduce(function (s, p) { return s + p.x; }, 0) / g4.length,
+    y: g4.reduce(function (s, p) { return s + p.y; }, 0) / g4.length,
+    k: 2.4
+  };
+
+  var buttons = {
+    btnUniverse: function () { flyTo({ x: CX, y: CY, k: 1 }, 750); },
+    btnFrontier: function () { flyTo(frontier, 800); },
+    btnNF: function () { flyTo({ x: nfPos.x, y: nfPos.y, k: 5.2 }, 900); }
+  };
+  Object.keys(buttons).forEach(function (id) {
+    document.getElementById(id).addEventListener("click", function () {
+      ["btnUniverse", "btnFrontier", "btnNF", "btnRoad"].forEach(function (b) {
+        document.getElementById(b).setAttribute("aria-pressed", b === id ? "true" : "false");
+      });
+      if (id !== "btnRoad") { roadLayer.setAttribute("opacity", "0"); document.getElementById("roadcard").classList.remove("show"); }
+      buttons[id]();
+    });
+  });
+
+  document.getElementById("btnRoad").addEventListener("click", function () {
+    var on = this.getAttribute("aria-pressed") === "true";
+    ["btnUniverse", "btnFrontier", "btnNF"].forEach(function (b) { document.getElementById(b).setAttribute("aria-pressed", "false"); });
+    this.setAttribute("aria-pressed", on ? "false" : "true");
+    roadLayer.setAttribute("opacity", on ? "0" : "1");
+    document.getElementById("roadcard").classList.toggle("show", !on);
+    if (!on) {
+      gCam.querySelectorAll("[data-fog]").forEach(function (f) { f.setAttribute("opacity", "0.6"); });
+      flyTo({ x: (nfPos.x + CX) / 2 + 60, y: (nfPos.y + CY) / 2 + 40, k: 1.55 }, 850);
+    } else {
+      gCam.querySelectorAll("[data-fog]").forEach(function (f) { f.setAttribute("opacity", "0.4"); });
+    }
+  });
+
+  // drag pan + wheel zoom
+  var drag = null;
+  svg.addEventListener("pointerdown", function (e) {
+    drag = { x: e.clientX, y: e.clientY, cx: camera.x, cy: camera.y };
+    svg.classList.add("dragging"); svg.setPointerCapture(e.pointerId);
+  });
+  svg.addEventListener("pointermove", function (e) {
+    if (!drag) return;
+    var scaleFactor = 1520 / svg.getBoundingClientRect().width;
+    camera.x = drag.cx - (e.clientX - drag.x) * scaleFactor / camera.k;
+    camera.y = drag.cy - (e.clientY - drag.y) * scaleFactor / camera.k;
+    applyCamera();
+  });
+  svg.addEventListener("pointerup", function () { drag = null; svg.classList.remove("dragging"); });
+  svg.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    var next = Math.min(7, Math.max(0.55, camera.k * Math.exp(-e.deltaY * 0.0012)));
+    camera.k = next; applyCamera();
+  }, { passive: false });
+})();
+</script>
+
+</body>
+</html>

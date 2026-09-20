@@ -1,0 +1,83 @@
+{
+ "source": "data/ccssStandards.ts",
+ "export": "ccssProgressionRoads",
+ "roads": [
+  {
+   "id": "number-road",
+   "arm": "number",
+   "name": "The Number Road",
+   "clusterIds": [
+    "K.CC",
+    "K.NBT",
+    "1.NBT",
+    "2.NBT",
+    "3.NBT",
+    "4.NBT",
+    "5.NBT",
+    "6.NS",
+    "7.NS",
+    "8.NS",
+    "HS.N"
+   ]
+  },
+  {
+   "id": "fraction-road",
+   "arm": "ratio",
+   "name": "The Fraction Road",
+   "clusterIds": [
+    "3.NF",
+    "4.NF",
+    "5.NF",
+    "6.RP",
+    "7.RP"
+   ]
+  },
+  {
+   "id": "algebra-road",
+   "arm": "algebra",
+   "name": "The Algebra Road",
+   "clusterIds": [
+    "K.OA",
+    "1.OA",
+    "2.OA",
+    "3.OA",
+    "4.OA",
+    "5.OA",
+    "6.EE",
+    "7.EE",
+    "8.EE",
+    "8.F",
+    "HS.A",
+    "HS.F"
+   ]
+  },
+  {
+   "id": "geometry-road",
+   "arm": "geometry",
+   "name": "The Geometry Road",
+   "clusterIds": [
+    "K.G",
+    "1.G",
+    "2.G",
+    "3.G",
+    "4.G",
+    "5.G",
+    "6.G",
+    "7.G",
+    "8.G",
+    "HS.G"
+   ]
+  },
+  {
+   "id": "data-road",
+   "arm": "data",
+   "name": "The Data Road",
+   "clusterIds": [
+    "6.SP",
+    "7.SP",
+    "8.SP",
+    "HS.S"
+   ]
+  }
+ ]
+}
