@@ -96,6 +96,9 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
   reactStrictMode: true,
   skipMiddlewareUrlNormalize: true,
+  // Bundling ws turns its optional bufferutil require into an empty module;
+  // external loading preserves the pure-JS masking fallback for voice frames.
+  serverExternalPackages: ["ws"],
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],
   async redirects() {
     return [
