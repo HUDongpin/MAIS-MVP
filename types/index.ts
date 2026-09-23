@@ -1604,12 +1604,6 @@ export type SchoolProvisioningAuthorizationRecord = Omit<SchoolProvisioningAutho
   policyVersion: string;
 };
 
-export const parentalConsentRelationships: readonly ParentalConsentRelationship[] = [
-  "parent",
-  "legal-guardian",
-  "school"
-];
-
 export type LearnerProfileOnboardingVersion = "learner-start-v1";
 export type LearnerProfileOnboardingStatus = "not-started" | "completed" | "skipped";
 export type LearnerProfileGoal = "repair" | "homework" | "preview" | "exam";

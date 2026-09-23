@@ -1,5 +1,5 @@
 import { currentConsentPolicyVersion } from "@/lib/legal/policyVersion";
-import { parentalConsentRelationships, type ParentalConsentRecord, type ParentalConsentRelationship } from "@/types";
+import type { ParentalConsentRecord, ParentalConsentRelationship } from "@/types";
 
 export const guardianNameMaxLength = 120;
 export const guardianEmailMaxLength = 254;
@@ -25,8 +25,9 @@ export type ParentalConsentInvalidReason =
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-const isRelationship = (value: unknown): value is ParentalConsentRelationship =>
-  typeof value === "string" && (parentalConsentRelationships as readonly string[]).includes(value);
+const publicGuardianRelationships: readonly Exclude<ParentalConsentRelationship, "school">[] = ["parent", "legal-guardian"];
+const isPublicGuardianRelationship = (value: unknown): value is Exclude<ParentalConsentRelationship, "school"> =>
+  typeof value === "string" && (publicGuardianRelationships as readonly string[]).includes(value);
 
 // Deliberately permissive: this only rejects obviously malformed addresses. The
 // address is a contact record for the consent, not an authentication factor.
@@ -49,7 +50,7 @@ export function parseParentalConsent(input: unknown, grantedAt: string): Parenta
 
   // School permission is recorded by an administrator's batch workflow, not
   // by a public registrant claiming to speak for a school.
-  if (!isRelationship(input.relationship) || input.relationship === "school") {
+  if (!isPublicGuardianRelationship(input.relationship)) {
     return { status: "invalid", reason: "relationship-invalid" };
   }
 
