@@ -1,0 +1,3136 @@
+{
+  "packageId": "us-ca-k5-verified-templates-v2",
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-24T00:00:00Z",
+  "generator": "deterministic:k5ItemTemplates-v1",
+  "sessionId": "codex/a21-k5-template-candidate-20260924",
+  "curriculumTrack": "US_CA_MATH",
+  "gradeSpan": [
+    "K",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5"
+  ],
+  "languageVariant": "en",
+  "sourceEvidencePolicy": "generated-original-public-ccss-ids-only",
+  "intendedReleaseSurface": "candidate-practice-only",
+  "packageStatus": "candidate-only",
+  "reviewStatus": "pending-independent-a18",
+  "integrationStatus": "not-integrated",
+  "topicMappingStatus": "unmapped",
+  "questions": [
+    {
+      "id": "us-ca-k5-verified-templates-v2-01-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.2",
+      "standardIds": [
+        "K.CC.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_count_next",
+      "generationSeed": 0,
+      "prompt": {
+        "en": "What number comes right after 19?"
+      },
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanation": {
+        "en": "Count one more than 19: 19 + 1 = 20."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-01-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.2",
+      "standardIds": [
+        "K.CC.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_count_next",
+      "generationSeed": 1,
+      "prompt": {
+        "en": "What number comes right after 26?"
+      },
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanation": {
+        "en": "Count one more than 26: 26 + 1 = 27."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-01-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.2",
+      "standardIds": [
+        "K.CC.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_count_next",
+      "generationSeed": 2,
+      "prompt": {
+        "en": "What number comes right after 33?"
+      },
+      "answer": "34",
+      "acceptedAnswers": [
+        "34"
+      ],
+      "explanation": {
+        "en": "Count one more than 33: 33 + 1 = 34."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-02-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.2",
+      "standardIds": [
+        "K.CC.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_count_before",
+      "generationSeed": 1000,
+      "prompt": {
+        "en": "What number comes right before 80?"
+      },
+      "answer": "79",
+      "acceptedAnswers": [
+        "79"
+      ],
+      "explanation": {
+        "en": "Count one less than 80: 80 - 1 = 79."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-02-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.2",
+      "standardIds": [
+        "K.CC.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_count_before",
+      "generationSeed": 1001,
+      "prompt": {
+        "en": "What number comes right before 97?"
+      },
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanation": {
+        "en": "Count one less than 97: 97 - 1 = 96."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-02-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.2",
+      "standardIds": [
+        "K.CC.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_count_before",
+      "generationSeed": 1002,
+      "prompt": {
+        "en": "What number comes right before 6?"
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "Count one less than 6: 6 - 1 = 5."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-03-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.A.2",
+      "standardIds": [
+        "2.NBT.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_skip_count",
+      "generationSeed": 2000,
+      "prompt": {
+        "en": "Skip count by 2s. What number comes after 20?"
+      },
+      "answer": "22",
+      "acceptedAnswers": [
+        "22"
+      ],
+      "explanation": {
+        "en": "The count increases by 2; 20 + 2 = 22."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-03-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.A.2",
+      "standardIds": [
+        "2.NBT.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_skip_count",
+      "generationSeed": 2001,
+      "prompt": {
+        "en": "Skip count by 5s. What number comes after 15?"
+      },
+      "answer": "20",
+      "acceptedAnswers": [
+        "20"
+      ],
+      "explanation": {
+        "en": "The count increases by 5; 15 + 5 = 20."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-03-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.A.2",
+      "standardIds": [
+        "2.NBT.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_skip_count",
+      "generationSeed": 2002,
+      "prompt": {
+        "en": "Skip count by 10s. What number comes after 40?"
+      },
+      "answer": "50",
+      "acceptedAnswers": [
+        "50"
+      ],
+      "explanation": {
+        "en": "The count increases by 10; 40 + 10 = 50."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-04-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.NBT.B.3",
+      "standardIds": [
+        "1.NBT.B.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_compare_numbers",
+      "generationSeed": 3000,
+      "prompt": {
+        "en": "Which number is greater, 49 or 63?"
+      },
+      "answer": "63",
+      "acceptedAnswers": [
+        "63"
+      ],
+      "explanation": {
+        "en": "63 is greater because it is farther along the number line than 49."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-04-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.NBT.B.3",
+      "standardIds": [
+        "1.NBT.B.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_compare_numbers",
+      "generationSeed": 3001,
+      "prompt": {
+        "en": "Which number is greater, 2 or 43?"
+      },
+      "answer": "43",
+      "acceptedAnswers": [
+        "43"
+      ],
+      "explanation": {
+        "en": "43 is greater because it is farther along the number line than 2."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-04-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.NBT.B.3",
+      "standardIds": [
+        "1.NBT.B.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_compare_numbers",
+      "generationSeed": 3002,
+      "prompt": {
+        "en": "Which number is greater, 54 or 23?"
+      },
+      "answer": "54",
+      "acceptedAnswers": [
+        "54"
+      ],
+      "explanation": {
+        "en": "54 is greater because it is farther along the number line than 23."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-05-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.NBT.A.1",
+      "standardIds": [
+        "K.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_teen_ones",
+      "generationSeed": 4000,
+      "prompt": {
+        "en": "17 is made of one ten and how many ones?"
+      },
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanation": {
+        "en": "Take away one ten from 17: 17 - 10 = 7 ones."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-05-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.NBT.A.1",
+      "standardIds": [
+        "K.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_teen_ones",
+      "generationSeed": 4001,
+      "prompt": {
+        "en": "15 is made of one ten and how many ones?"
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "Take away one ten from 15: 15 - 10 = 5 ones."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-05-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.NBT.A.1",
+      "standardIds": [
+        "K.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_teen_ones",
+      "generationSeed": 4002,
+      "prompt": {
+        "en": "13 is made of one ten and how many ones?"
+      },
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanation": {
+        "en": "Take away one ten from 13: 13 - 10 = 3 ones."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-06-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.2",
+      "standardIds": [
+        "K.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_10",
+      "generationSeed": 5000,
+      "prompt": {
+        "en": "What is 5 + 4?"
+      },
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 5 + 4 = 9."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-06-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.2",
+      "standardIds": [
+        "K.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_10",
+      "generationSeed": 5001,
+      "prompt": {
+        "en": "What is 5 + 5?"
+      },
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 5 + 5 = 10."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-06-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.2",
+      "standardIds": [
+        "K.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_10",
+      "generationSeed": 5002,
+      "prompt": {
+        "en": "What is 5 + 2?"
+      },
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 5 + 2 = 7."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-07-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.2",
+      "standardIds": [
+        "K.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_10",
+      "generationSeed": 6000,
+      "prompt": {
+        "en": "What is 9 - 2?"
+      },
+      "answer": "7",
+      "acceptedAnswers": [
+        "7"
+      ],
+      "explanation": {
+        "en": "Take 2 away from 9: 9 - 2 = 7."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-07-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.2",
+      "standardIds": [
+        "K.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_10",
+      "generationSeed": 6001,
+      "prompt": {
+        "en": "What is 7 - 5?"
+      },
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanation": {
+        "en": "Take 5 away from 7: 7 - 5 = 2."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-07-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.2",
+      "standardIds": [
+        "K.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_10",
+      "generationSeed": 6002,
+      "prompt": {
+        "en": "What is 5 - 4?"
+      },
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanation": {
+        "en": "Take 4 away from 5: 5 - 4 = 1."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-08-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.4",
+      "standardIds": [
+        "K.OA.A.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_make_ten",
+      "generationSeed": 7000,
+      "prompt": {
+        "en": "What number added to 2 makes 10?"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "The two parts must total 10: 10 - 2 = 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-08-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.4",
+      "standardIds": [
+        "K.OA.A.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_make_ten",
+      "generationSeed": 7001,
+      "prompt": {
+        "en": "What number added to 9 makes 10?"
+      },
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanation": {
+        "en": "The two parts must total 10: 10 - 9 = 1."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-08-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.4",
+      "standardIds": [
+        "K.OA.A.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_make_ten",
+      "generationSeed": 7002,
+      "prompt": {
+        "en": "What number added to 7 makes 10?"
+      },
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanation": {
+        "en": "The two parts must total 10: 10 - 7 = 3."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-09-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.3",
+      "standardIds": [
+        "K.OA.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_decompose_within_ten",
+      "generationSeed": 8000,
+      "prompt": {
+        "en": "5 = 2 + what number?"
+      },
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanation": {
+        "en": "Subtract the known part from the whole: 5 - 2 = 3."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-09-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.3",
+      "standardIds": [
+        "K.OA.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_decompose_within_ten",
+      "generationSeed": 8001,
+      "prompt": {
+        "en": "6 = 1 + what number?"
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "Subtract the known part from the whole: 6 - 1 = 5."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-09-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.OA.A.3",
+      "standardIds": [
+        "K.OA.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_decompose_within_ten",
+      "generationSeed": 8002,
+      "prompt": {
+        "en": "7 = 6 + what number?"
+      },
+      "answer": "1",
+      "acceptedAnswers": [
+        "1"
+      ],
+      "explanation": {
+        "en": "Subtract the known part from the whole: 7 - 6 = 1."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-10-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.OA.C.6",
+      "standardIds": [
+        "1.OA.C.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_20",
+      "generationSeed": 9000,
+      "prompt": {
+        "en": "Add: 8 + 4 = ?"
+      },
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 8 + 4 = 12."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-10-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.OA.C.6",
+      "standardIds": [
+        "1.OA.C.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_20",
+      "generationSeed": 9001,
+      "prompt": {
+        "en": "Add: 6 + 4 = ?"
+      },
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 6 + 4 = 10."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-10-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.OA.C.6",
+      "standardIds": [
+        "1.OA.C.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_20",
+      "generationSeed": 9002,
+      "prompt": {
+        "en": "Add: 13 + 5 = ?"
+      },
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 13 + 5 = 18."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-11-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.OA.C.6",
+      "standardIds": [
+        "1.OA.C.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_20",
+      "generationSeed": 10000,
+      "prompt": {
+        "en": "Subtract: 11 - 3 = ?"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "Take 3 away from 11: 11 - 3 = 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-11-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.OA.C.6",
+      "standardIds": [
+        "1.OA.C.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_20",
+      "generationSeed": 10001,
+      "prompt": {
+        "en": "Subtract: 16 - 8 = ?"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "Take 8 away from 16: 16 - 8 = 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-11-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.OA.C.6",
+      "standardIds": [
+        "1.OA.C.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_20",
+      "generationSeed": 10002,
+      "prompt": {
+        "en": "Subtract: 11 - 5 = ?"
+      },
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanation": {
+        "en": "Take 5 away from 11: 11 - 5 = 6."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-12-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.NBT.C.4",
+      "standardIds": [
+        "1.NBT.C.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_100",
+      "generationSeed": 11000,
+      "prompt": {
+        "en": "Find the sum of 15 and 28."
+      },
+      "answer": "43",
+      "acceptedAnswers": [
+        "43"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 15 + 28 = 43."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-12-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.NBT.C.4",
+      "standardIds": [
+        "1.NBT.C.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_100",
+      "generationSeed": 11001,
+      "prompt": {
+        "en": "Find the sum of 20 and 48."
+      },
+      "answer": "68",
+      "acceptedAnswers": [
+        "68"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 20 + 48 = 68."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-12-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P1",
+      "topicId": null,
+      "knowledgePointId": "1.NBT.C.4",
+      "standardIds": [
+        "1.NBT.C.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_100",
+      "generationSeed": 11002,
+      "prompt": {
+        "en": "Find the sum of 25 and 54."
+      },
+      "answer": "79",
+      "acceptedAnswers": [
+        "79"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 25 + 54 = 79."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-13-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.5",
+      "standardIds": [
+        "2.NBT.B.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_100",
+      "generationSeed": 12000,
+      "prompt": {
+        "en": "Find the difference of 94 and 16."
+      },
+      "answer": "78",
+      "acceptedAnswers": [
+        "78"
+      ],
+      "explanation": {
+        "en": "Take 16 away from 94: 94 - 16 = 78."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-13-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.5",
+      "standardIds": [
+        "2.NBT.B.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_100",
+      "generationSeed": 12001,
+      "prompt": {
+        "en": "Find the difference of 59 and 16."
+      },
+      "answer": "43",
+      "acceptedAnswers": [
+        "43"
+      ],
+      "explanation": {
+        "en": "Take 16 away from 59: 59 - 16 = 43."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-13-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.5",
+      "standardIds": [
+        "2.NBT.B.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_100",
+      "generationSeed": 12002,
+      "prompt": {
+        "en": "Find the difference of 84 and 62."
+      },
+      "answer": "22",
+      "acceptedAnswers": [
+        "22"
+      ],
+      "explanation": {
+        "en": "Take 62 away from 84: 84 - 62 = 22."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-14-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.7",
+      "standardIds": [
+        "2.NBT.B.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_1000",
+      "generationSeed": 13000,
+      "prompt": {
+        "en": "Add: 561 + 307"
+      },
+      "answer": "868",
+      "acceptedAnswers": [
+        "868"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 561 + 307 = 868."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-14-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.7",
+      "standardIds": [
+        "2.NBT.B.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_1000",
+      "generationSeed": 13001,
+      "prompt": {
+        "en": "Add: 189 + 340"
+      },
+      "answer": "529",
+      "acceptedAnswers": [
+        "529"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 189 + 340 = 529."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-14-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.7",
+      "standardIds": [
+        "2.NBT.B.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_within_1000",
+      "generationSeed": 13002,
+      "prompt": {
+        "en": "Add: 298 + 263"
+      },
+      "answer": "561",
+      "acceptedAnswers": [
+        "561"
+      ],
+      "explanation": {
+        "en": "Combine the two amounts: 298 + 263 = 561."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-15-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.7",
+      "standardIds": [
+        "2.NBT.B.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_1000",
+      "generationSeed": 14000,
+      "prompt": {
+        "en": "Subtract: 442 - 214"
+      },
+      "answer": "228",
+      "acceptedAnswers": [
+        "228"
+      ],
+      "explanation": {
+        "en": "Take 214 away from 442: 442 - 214 = 228."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-15-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.7",
+      "standardIds": [
+        "2.NBT.B.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_1000",
+      "generationSeed": 14001,
+      "prompt": {
+        "en": "Subtract: 947 - 250"
+      },
+      "answer": "697",
+      "acceptedAnswers": [
+        "697"
+      ],
+      "explanation": {
+        "en": "Take 250 away from 947: 947 - 250 = 697."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-15-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.B.7",
+      "standardIds": [
+        "2.NBT.B.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_sub_within_1000",
+      "generationSeed": 14002,
+      "prompt": {
+        "en": "Subtract: 852 - 637"
+      },
+      "answer": "215",
+      "acceptedAnswers": [
+        "215"
+      ],
+      "explanation": {
+        "en": "Take 637 away from 852: 852 - 637 = 215."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-16-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.D.9",
+      "standardIds": [
+        "3.OA.D.9"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_arithmetic_pattern",
+      "generationSeed": 15000,
+      "prompt": {
+        "en": "A pattern starts at 2 and adds 3 each time: 2, 5, 8, 11. What is the next number?"
+      },
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanation": {
+        "en": "Each term increases by 3; after 11, add 3 to get 14."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-16-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.D.9",
+      "standardIds": [
+        "3.OA.D.9"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_arithmetic_pattern",
+      "generationSeed": 15001,
+      "prompt": {
+        "en": "A pattern starts at 10 and adds 8 each time: 10, 18, 26, 34. What is the next number?"
+      },
+      "answer": "42",
+      "acceptedAnswers": [
+        "42"
+      ],
+      "explanation": {
+        "en": "Each term increases by 8; after 34, add 8 to get 42."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-16-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.D.9",
+      "standardIds": [
+        "3.OA.D.9"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_arithmetic_pattern",
+      "generationSeed": 15002,
+      "prompt": {
+        "en": "A pattern starts at 3 and adds 5 each time: 3, 8, 13, 18. What is the next number?"
+      },
+      "answer": "23",
+      "acceptedAnswers": [
+        "23"
+      ],
+      "explanation": {
+        "en": "Each term increases by 5; after 18, add 5 to get 23."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-17-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.C.7",
+      "standardIds": [
+        "3.OA.C.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_mult_fact",
+      "generationSeed": 16000,
+      "prompt": {
+        "en": "What is 4 x 7?"
+      },
+      "answer": "28",
+      "acceptedAnswers": [
+        "28"
+      ],
+      "explanation": {
+        "en": "4 equal groups of 7 give 4 × 7 = 28."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-17-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.C.7",
+      "standardIds": [
+        "3.OA.C.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_mult_fact",
+      "generationSeed": 16001,
+      "prompt": {
+        "en": "What is 12 x 2?"
+      },
+      "answer": "24",
+      "acceptedAnswers": [
+        "24"
+      ],
+      "explanation": {
+        "en": "12 equal groups of 2 give 12 × 2 = 24."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-17-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.C.7",
+      "standardIds": [
+        "3.OA.C.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_mult_fact",
+      "generationSeed": 16002,
+      "prompt": {
+        "en": "What is 9 x 4?"
+      },
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanation": {
+        "en": "9 equal groups of 4 give 9 × 4 = 36."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-18-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.C.7",
+      "standardIds": [
+        "3.OA.C.7",
+        "3.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_div_fact",
+      "generationSeed": 17000,
+      "prompt": {
+        "en": "What is 24 divided by 6?"
+      },
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanation": {
+        "en": "Use the related multiplication fact: 6 × 4 = 24, so the quotient is 4."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-18-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.C.7",
+      "standardIds": [
+        "3.OA.C.7",
+        "3.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_div_fact",
+      "generationSeed": 17001,
+      "prompt": {
+        "en": "What is 18 divided by 3?"
+      },
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanation": {
+        "en": "Use the related multiplication fact: 3 × 6 = 18, so the quotient is 6."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-18-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.C.7",
+      "standardIds": [
+        "3.OA.C.7",
+        "3.OA.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_div_fact",
+      "generationSeed": 17002,
+      "prompt": {
+        "en": "What is 88 divided by 11?"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "Use the related multiplication fact: 11 × 8 = 88, so the quotient is 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-19-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.A.4",
+      "standardIds": [
+        "3.OA.A.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_missing_factor",
+      "generationSeed": 18000,
+      "prompt": {
+        "en": "12 x ? = 96. What is the missing factor?"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "Divide the product by the known factor: 96 ÷ 12 = 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-19-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.A.4",
+      "standardIds": [
+        "3.OA.A.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_missing_factor",
+      "generationSeed": 18001,
+      "prompt": {
+        "en": "5 x ? = 50. What is the missing factor?"
+      },
+      "answer": "10",
+      "acceptedAnswers": [
+        "10"
+      ],
+      "explanation": {
+        "en": "Divide the product by the known factor: 50 ÷ 5 = 10."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-19-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.OA.A.4",
+      "standardIds": [
+        "3.OA.A.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_missing_factor",
+      "generationSeed": 18002,
+      "prompt": {
+        "en": "2 x ? = 10. What is the missing factor?"
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "Divide the product by the known factor: 10 ÷ 2 = 5."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-20-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NBT.B.5",
+      "standardIds": [
+        "4.NBT.B.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_multi_digit_multiply",
+      "generationSeed": 19000,
+      "prompt": {
+        "en": "Multiply: 46 x 36"
+      },
+      "answer": "1656",
+      "acceptedAnswers": [
+        "1656"
+      ],
+      "explanation": {
+        "en": "Split 36 into 30 + 6: 46 × 30 + 46 × 6 = 1656."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-20-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NBT.B.5",
+      "standardIds": [
+        "4.NBT.B.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_multi_digit_multiply",
+      "generationSeed": 19001,
+      "prompt": {
+        "en": "Multiply: 87 x 37"
+      },
+      "answer": "3219",
+      "acceptedAnswers": [
+        "3219"
+      ],
+      "explanation": {
+        "en": "Split 37 into 30 + 7: 87 × 30 + 87 × 7 = 3219."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-20-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NBT.B.5",
+      "standardIds": [
+        "4.NBT.B.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_multi_digit_multiply",
+      "generationSeed": 19002,
+      "prompt": {
+        "en": "Multiply: 40 x 22"
+      },
+      "answer": "880",
+      "acceptedAnswers": [
+        "880"
+      ],
+      "explanation": {
+        "en": "Split 22 into 20 + 2: 40 × 20 + 40 × 2 = 880."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-21-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.NBT.B.6",
+      "standardIds": [
+        "5.NBT.B.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_divide_multi_digit",
+      "generationSeed": 20000,
+      "prompt": {
+        "en": "Divide: 48 / 6"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "Check the quotient by multiplication: 6 × 8 = 48, so 48 ÷ 6 = 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-21-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.NBT.B.6",
+      "standardIds": [
+        "5.NBT.B.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_divide_multi_digit",
+      "generationSeed": 20001,
+      "prompt": {
+        "en": "Divide: 132 / 12"
+      },
+      "answer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "explanation": {
+        "en": "Check the quotient by multiplication: 12 × 11 = 132, so 132 ÷ 12 = 11."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-21-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.NBT.B.6",
+      "standardIds": [
+        "5.NBT.B.6"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_divide_multi_digit",
+      "generationSeed": 20002,
+      "prompt": {
+        "en": "Divide: 252 / 18"
+      },
+      "answer": "14",
+      "acceptedAnswers": [
+        "14"
+      ],
+      "explanation": {
+        "en": "Check the quotient by multiplication: 18 × 14 = 252, so 252 ÷ 18 = 14."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-22-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.NBT.A.2",
+      "standardIds": [
+        "5.NBT.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_multiply_power_of_ten",
+      "generationSeed": 21000,
+      "prompt": {
+        "en": "What is 58 x 100?"
+      },
+      "answer": "5800",
+      "acceptedAnswers": [
+        "5800"
+      ],
+      "explanation": {
+        "en": "Multiplying by 100 shifts each digit left by 2 places: 58 × 100 = 5800."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-22-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.NBT.A.2",
+      "standardIds": [
+        "5.NBT.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_multiply_power_of_ten",
+      "generationSeed": 21001,
+      "prompt": {
+        "en": "What is 65 x 1000?"
+      },
+      "answer": "65000",
+      "acceptedAnswers": [
+        "65000"
+      ],
+      "explanation": {
+        "en": "Multiplying by 1000 shifts each digit left by 3 places: 65 × 1000 = 65000."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-22-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.NBT.A.2",
+      "standardIds": [
+        "5.NBT.A.2"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_multiply_power_of_ten",
+      "generationSeed": 21002,
+      "prompt": {
+        "en": "What is 72 x 10?"
+      },
+      "answer": "720",
+      "acceptedAnswers": [
+        "720"
+      ],
+      "explanation": {
+        "en": "Multiplying by 10 shifts each digit left by 1 places: 72 × 10 = 720."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-23-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.A.1",
+      "standardIds": [
+        "2.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_place_value_digit",
+      "generationSeed": 22000,
+      "prompt": {
+        "en": "In the number 496, what is the value of the digit in the tens place?"
+      },
+      "answer": "90",
+      "acceptedAnswers": [
+        "90"
+      ],
+      "explanation": {
+        "en": "The 9 in the tens place is worth 9 × 10 = 90."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-23-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.A.1",
+      "standardIds": [
+        "2.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_place_value_digit",
+      "generationSeed": 22001,
+      "prompt": {
+        "en": "In the number 275, what is the value of the digit in the tens place?"
+      },
+      "answer": "70",
+      "acceptedAnswers": [
+        "70"
+      ],
+      "explanation": {
+        "en": "The 7 in the tens place is worth 7 × 10 = 70."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-23-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.NBT.A.1",
+      "standardIds": [
+        "2.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_place_value_digit",
+      "generationSeed": 22002,
+      "prompt": {
+        "en": "In the number 994, what is the value of the digit in the hundreds place?"
+      },
+      "answer": "900",
+      "acceptedAnswers": [
+        "900"
+      ],
+      "explanation": {
+        "en": "The 9 in the hundreds place is worth 9 × 100 = 900."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-24-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NBT.A.1",
+      "standardIds": [
+        "3.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_round_to_ten",
+      "generationSeed": 23000,
+      "prompt": {
+        "en": "Round 563 to the nearest ten."
+      },
+      "answer": "560",
+      "acceptedAnswers": [
+        "560"
+      ],
+      "explanation": {
+        "en": "The ones digit of 563 is 3, which is below 5; round down to 560."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-24-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NBT.A.1",
+      "standardIds": [
+        "3.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_round_to_ten",
+      "generationSeed": 23001,
+      "prompt": {
+        "en": "Round 714 to the nearest ten."
+      },
+      "answer": "710",
+      "acceptedAnswers": [
+        "710"
+      ],
+      "explanation": {
+        "en": "The ones digit of 714 is 4, which is below 5; round down to 710."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-24-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NBT.A.1",
+      "standardIds": [
+        "3.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_round_to_ten",
+      "generationSeed": 23002,
+      "prompt": {
+        "en": "Round 865 to the nearest ten."
+      },
+      "answer": "870",
+      "acceptedAnswers": [
+        "870"
+      ],
+      "explanation": {
+        "en": "The ones digit of 865 is 5, which is at least 5; round up to 870."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-25-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NBT.A.1",
+      "standardIds": [
+        "3.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_round_to_hundred",
+      "generationSeed": 24000,
+      "prompt": {
+        "en": "Round 264 to the nearest hundred."
+      },
+      "answer": "300",
+      "acceptedAnswers": [
+        "300"
+      ],
+      "explanation": {
+        "en": "The last two digits of 264 are 64, which is at least 50; round up to 300."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-25-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NBT.A.1",
+      "standardIds": [
+        "3.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_round_to_hundred",
+      "generationSeed": 24001,
+      "prompt": {
+        "en": "Round 6529 to the nearest hundred."
+      },
+      "answer": "6500",
+      "acceptedAnswers": [
+        "6500"
+      ],
+      "explanation": {
+        "en": "The last two digits of 6529 are 29, which is below 50; round down to 6500."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-25-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NBT.A.1",
+      "standardIds": [
+        "3.NBT.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_round_to_hundred",
+      "generationSeed": 24002,
+      "prompt": {
+        "en": "Round 3113 to the nearest hundred."
+      },
+      "answer": "3100",
+      "acceptedAnswers": [
+        "3100"
+      ],
+      "explanation": {
+        "en": "The last two digits of 3113 are 13, which is below 50; round down to 3100."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-26-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NF.A.3",
+      "standardIds": [
+        "3.NF.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_equivalent_fraction_numerator",
+      "generationSeed": 25000,
+      "prompt": {
+        "en": "Complete the equivalent fraction: 1/4 = ?/20. What is the missing numerator?"
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "Multiply the denominator by 5; multiply the numerator by the same number: 1 × 5 = 5."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-26-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NF.A.3",
+      "standardIds": [
+        "3.NF.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_equivalent_fraction_numerator",
+      "generationSeed": 25001,
+      "prompt": {
+        "en": "Complete the equivalent fraction: 3/5 = ?/30. What is the missing numerator?"
+      },
+      "answer": "18",
+      "acceptedAnswers": [
+        "18"
+      ],
+      "explanation": {
+        "en": "Multiply the denominator by 6; multiply the numerator by the same number: 3 × 6 = 18."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-26-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NF.A.3",
+      "standardIds": [
+        "3.NF.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_equivalent_fraction_numerator",
+      "generationSeed": 25002,
+      "prompt": {
+        "en": "Complete the equivalent fraction: 3/6 = ?/12. What is the missing numerator?"
+      },
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanation": {
+        "en": "Multiply the denominator by 2; multiply the numerator by the same number: 3 × 2 = 6."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-27-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NF.B.3",
+      "standardIds": [
+        "4.NF.B.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_fractions_like",
+      "generationSeed": 26000,
+      "prompt": {
+        "en": "What is 5/7 + 1/7? Write only the numerator, in sevenths."
+      },
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanation": {
+        "en": "The denominators are both 7, so add only the numerators: 5 + 1 = 6; the sum is 6/7."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-27-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NF.B.3",
+      "standardIds": [
+        "4.NF.B.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_fractions_like",
+      "generationSeed": 26001,
+      "prompt": {
+        "en": "What is 7/12 + 2/12? Write only the numerator, in twelfths."
+      },
+      "answer": "9",
+      "acceptedAnswers": [
+        "9"
+      ],
+      "explanation": {
+        "en": "The denominators are both 12, so add only the numerators: 7 + 2 = 9; the sum is 9/12."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-27-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NF.B.3",
+      "standardIds": [
+        "4.NF.B.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_add_fractions_like",
+      "generationSeed": 26002,
+      "prompt": {
+        "en": "What is 3/7 + 2/7? Write only the numerator, in sevenths."
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "The denominators are both 7, so add only the numerators: 3 + 2 = 5; the sum is 5/7."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-28-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NF.B.4",
+      "standardIds": [
+        "4.NF.B.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_fraction_of_number",
+      "generationSeed": 27000,
+      "prompt": {
+        "en": "What is 2/5 of 30?"
+      },
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanation": {
+        "en": "One of 5 equal parts of 30 is 30 ÷ 5 = 6; take 2 such parts to get 12."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-28-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NF.B.4",
+      "standardIds": [
+        "4.NF.B.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_fraction_of_number",
+      "generationSeed": 27001,
+      "prompt": {
+        "en": "What is 3/5 of 45?"
+      },
+      "answer": "27",
+      "acceptedAnswers": [
+        "27"
+      ],
+      "explanation": {
+        "en": "One of 5 equal parts of 45 is 45 ÷ 5 = 9; take 3 such parts to get 27."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-28-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.NF.B.4",
+      "standardIds": [
+        "4.NF.B.4"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_fraction_of_number",
+      "generationSeed": 27002,
+      "prompt": {
+        "en": "What is 4/5 of 60?"
+      },
+      "answer": "48",
+      "acceptedAnswers": [
+        "48"
+      ],
+      "explanation": {
+        "en": "One of 5 equal parts of 60 is 60 ÷ 5 = 12; take 4 such parts to get 48."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-29-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NF.A.1",
+      "standardIds": [
+        "3.NF.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_unit_fraction_parts",
+      "generationSeed": 28000,
+      "prompt": {
+        "en": "A whole is cut into equal parts and each part is 1/11 of the whole. How many parts make the whole?"
+      },
+      "answer": "11",
+      "acceptedAnswers": [
+        "11"
+      ],
+      "explanation": {
+        "en": "11 equal parts of size 1/11 make 11/11, which is one whole."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-29-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NF.A.1",
+      "standardIds": [
+        "3.NF.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_unit_fraction_parts",
+      "generationSeed": 28001,
+      "prompt": {
+        "en": "A whole is cut into equal parts and each part is 1/4 of the whole. How many parts make the whole?"
+      },
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanation": {
+        "en": "4 equal parts of size 1/4 make 4/4, which is one whole."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-29-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.NF.A.1",
+      "standardIds": [
+        "3.NF.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_unit_fraction_parts",
+      "generationSeed": 28002,
+      "prompt": {
+        "en": "A whole is cut into equal parts and each part is 1/12 of the whole. How many parts make the whole?"
+      },
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanation": {
+        "en": "12 equal parts of size 1/12 make 12/12, which is one whole."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-30-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.MD.A.1",
+      "standardIds": [
+        "4.MD.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_length_conversion",
+      "generationSeed": 29000,
+      "prompt": {
+        "en": "How many centimeters are in 31 meters?"
+      },
+      "answer": "3100",
+      "acceptedAnswers": [
+        "3100"
+      ],
+      "explanation": {
+        "en": "Each meter has 100 centimeters, so 31 × 100 = 3100 centimeters."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-30-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.MD.A.1",
+      "standardIds": [
+        "4.MD.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_length_conversion",
+      "generationSeed": 29001,
+      "prompt": {
+        "en": "How many centimeters are in 23 meters?"
+      },
+      "answer": "2300",
+      "acceptedAnswers": [
+        "2300"
+      ],
+      "explanation": {
+        "en": "Each meter has 100 centimeters, so 23 × 100 = 2300 centimeters."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-30-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P4",
+      "topicId": null,
+      "knowledgePointId": "4.MD.A.1",
+      "standardIds": [
+        "4.MD.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_length_conversion",
+      "generationSeed": 29002,
+      "prompt": {
+        "en": "How many centimeters are in 15 meters?"
+      },
+      "answer": "1500",
+      "acceptedAnswers": [
+        "1500"
+      ],
+      "explanation": {
+        "en": "Each meter has 100 centimeters, so 15 × 100 = 1500 centimeters."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-31-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.A.1",
+      "standardIds": [
+        "3.MD.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_elapsed_minutes",
+      "generationSeed": 30000,
+      "prompt": {
+        "en": "A lesson starts at 03:03 and ends at 03:15. How many minutes long is it?"
+      },
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanation": {
+        "en": "Convert both times to minutes and subtract: (3 × 60 + 15) - (3 × 60 + 3) = 12 minutes."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-31-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.A.1",
+      "standardIds": [
+        "3.MD.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_elapsed_minutes",
+      "generationSeed": 30001,
+      "prompt": {
+        "en": "A lesson starts at 11:16 and ends at 11:24. How many minutes long is it?"
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "Convert both times to minutes and subtract: (11 × 60 + 24) - (11 × 60 + 16) = 8 minutes."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-31-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.A.1",
+      "standardIds": [
+        "3.MD.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_elapsed_minutes",
+      "generationSeed": 30002,
+      "prompt": {
+        "en": "A lesson starts at 08:25 and ends at 09:20. How many minutes long is it?"
+      },
+      "answer": "55",
+      "acceptedAnswers": [
+        "55"
+      ],
+      "explanation": {
+        "en": "Convert both times to minutes and subtract: (9 × 60 + 20) - (8 × 60 + 25) = 55 minutes."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-32-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.MD.C.8",
+      "standardIds": [
+        "2.MD.C.8"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_money_cents",
+      "generationSeed": 31000,
+      "prompt": {
+        "en": "You have 2 quarters, 5 dimes and 1 nickels. How many cents is that?"
+      },
+      "answer": "105",
+      "acceptedAnswers": [
+        "105"
+      ],
+      "explanation": {
+        "en": "Quarters, dimes, and nickels are worth 25, 10, and 5 cents: 2 × 25 + 5 × 10 + 1 × 5 = 105 cents."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-32-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.MD.C.8",
+      "standardIds": [
+        "2.MD.C.8"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_money_cents",
+      "generationSeed": 31001,
+      "prompt": {
+        "en": "You have 3 quarters, 0 dimes and 2 nickels. How many cents is that?"
+      },
+      "answer": "85",
+      "acceptedAnswers": [
+        "85"
+      ],
+      "explanation": {
+        "en": "Quarters, dimes, and nickels are worth 25, 10, and 5 cents: 3 × 25 + 0 × 10 + 2 × 5 = 85 cents."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-32-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.MD.C.8",
+      "standardIds": [
+        "2.MD.C.8"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_money_cents",
+      "generationSeed": 31002,
+      "prompt": {
+        "en": "You have 0 quarters, 1 dimes and 3 nickels. How many cents is that?"
+      },
+      "answer": "25",
+      "acceptedAnswers": [
+        "25"
+      ],
+      "explanation": {
+        "en": "Quarters, dimes, and nickels are worth 25, 10, and 5 cents: 0 × 25 + 1 × 10 + 3 × 5 = 25 cents."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-33-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.D.8",
+      "standardIds": [
+        "3.MD.D.8"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_rectangle_perimeter",
+      "generationSeed": 32000,
+      "prompt": {
+        "en": "A rectangle is 13 cm by 7 cm. What is its perimeter in cm?"
+      },
+      "answer": "40",
+      "acceptedAnswers": [
+        "40"
+      ],
+      "explanation": {
+        "en": "A rectangle has two sides of each length: 2 × (13 + 7) = 40 cm."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-33-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.D.8",
+      "standardIds": [
+        "3.MD.D.8"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_rectangle_perimeter",
+      "generationSeed": 32001,
+      "prompt": {
+        "en": "A rectangle is 7 cm by 6 cm. What is its perimeter in cm?"
+      },
+      "answer": "26",
+      "acceptedAnswers": [
+        "26"
+      ],
+      "explanation": {
+        "en": "A rectangle has two sides of each length: 2 × (7 + 6) = 26 cm."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-33-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.D.8",
+      "standardIds": [
+        "3.MD.D.8"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_rectangle_perimeter",
+      "generationSeed": 32002,
+      "prompt": {
+        "en": "A rectangle is 20 cm by 11 cm. What is its perimeter in cm?"
+      },
+      "answer": "62",
+      "acceptedAnswers": [
+        "62"
+      ],
+      "explanation": {
+        "en": "A rectangle has two sides of each length: 2 × (20 + 11) = 62 cm."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-34-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.C.7",
+      "standardIds": [
+        "3.MD.C.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_rectangle_area",
+      "generationSeed": 33000,
+      "prompt": {
+        "en": "A rectangle is 3 cm by 4 cm. What is its area in square cm?"
+      },
+      "answer": "12",
+      "acceptedAnswers": [
+        "12"
+      ],
+      "explanation": {
+        "en": "Multiply the side lengths to count square units: 3 × 4 = 12 square cm."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-34-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.C.7",
+      "standardIds": [
+        "3.MD.C.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_rectangle_area",
+      "generationSeed": 33001,
+      "prompt": {
+        "en": "A rectangle is 16 cm by 9 cm. What is its area in square cm?"
+      },
+      "answer": "144",
+      "acceptedAnswers": [
+        "144"
+      ],
+      "explanation": {
+        "en": "Multiply the side lengths to count square units: 16 × 9 = 144 square cm."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-34-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P3",
+      "topicId": null,
+      "knowledgePointId": "3.MD.C.7",
+      "standardIds": [
+        "3.MD.C.7"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_rectangle_area",
+      "generationSeed": 33002,
+      "prompt": {
+        "en": "A rectangle is 10 cm by 8 cm. What is its area in square cm?"
+      },
+      "answer": "80",
+      "acceptedAnswers": [
+        "80"
+      ],
+      "explanation": {
+        "en": "Multiply the side lengths to count square units: 10 × 8 = 80 square cm."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-35-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.MD.C.5",
+      "standardIds": [
+        "5.MD.C.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_prism_volume",
+      "generationSeed": 34000,
+      "prompt": {
+        "en": "A box measures 5 by 4 by 5 units. What is its volume in cubic units?"
+      },
+      "answer": "100",
+      "acceptedAnswers": [
+        "100"
+      ],
+      "explanation": {
+        "en": "Multiply the three edge lengths: 5 × 4 × 5 = 100 cubic units."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-35-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.MD.C.5",
+      "standardIds": [
+        "5.MD.C.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_prism_volume",
+      "generationSeed": 34001,
+      "prompt": {
+        "en": "A box measures 2 by 6 by 8 units. What is its volume in cubic units?"
+      },
+      "answer": "96",
+      "acceptedAnswers": [
+        "96"
+      ],
+      "explanation": {
+        "en": "Multiply the three edge lengths: 2 × 6 × 8 = 96 cubic units."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-35-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P5",
+      "topicId": null,
+      "knowledgePointId": "5.MD.C.5",
+      "standardIds": [
+        "5.MD.C.5"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_prism_volume",
+      "generationSeed": 34002,
+      "prompt": {
+        "en": "A box measures 10 by 8 by 11 units. What is its volume in cubic units?"
+      },
+      "answer": "880",
+      "acceptedAnswers": [
+        "880"
+      ],
+      "explanation": {
+        "en": "Multiply the three edge lengths: 10 × 8 × 11 = 880 cubic units."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-36-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.G.A.1",
+      "standardIds": [
+        "2.G.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_polygon_sides",
+      "generationSeed": 35000,
+      "prompt": {
+        "en": "How many sides does a hexagon have?"
+      },
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanation": {
+        "en": "Count the straight edges of the named polygon; it has 6 sides."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-36-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.G.A.1",
+      "standardIds": [
+        "2.G.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_polygon_sides",
+      "generationSeed": 35001,
+      "prompt": {
+        "en": "How many sides does a pentagon have?"
+      },
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanation": {
+        "en": "Count the straight edges of the named polygon; it has 5 sides."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-36-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "P2",
+      "topicId": null,
+      "knowledgePointId": "2.G.A.1",
+      "standardIds": [
+        "2.G.A.1"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_polygon_sides",
+      "generationSeed": 35013,
+      "prompt": {
+        "en": "How many sides does a quadrilateral have?"
+      },
+      "answer": "4",
+      "acceptedAnswers": [
+        "4"
+      ],
+      "explanation": {
+        "en": "Count the straight edges of the named polygon; it has 4 sides."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-37-1",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.3",
+      "standardIds": [
+        "K.CC.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_word_number",
+      "generationSeed": 36000,
+      "prompt": {
+        "en": "Write the number for \"three\"."
+      },
+      "answer": "3",
+      "acceptedAnswers": [
+        "3"
+      ],
+      "explanation": {
+        "en": "The number word in the question names the numeral 3."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-37-2",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.3",
+      "standardIds": [
+        "K.CC.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_word_number",
+      "generationSeed": 36001,
+      "prompt": {
+        "en": "Write the number for \"eight\"."
+      },
+      "answer": "8",
+      "acceptedAnswers": [
+        "8"
+      ],
+      "explanation": {
+        "en": "The number word in the question names the numeral 8."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-37-3",
+      "batch": "us-ca-k5-verified-templates-v2",
+      "curriculumTrack": "US_CA_MATH",
+      "grade": "K",
+      "topicId": null,
+      "knowledgePointId": "K.CC.A.3",
+      "standardIds": [
+        "K.CC.A.3"
+      ],
+      "type": "fill-in",
+      "difficulty": "Core",
+      "generationTemplate": "k5_word_number",
+      "generationSeed": 36005,
+      "prompt": {
+        "en": "Write the number for \"two\"."
+      },
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanation": {
+        "en": "The number word in the question names the numeral 2."
+      },
+      "sourceDistanceStatus": "generated-original",
+      "mathQaStatus": "pending-a18",
+      "reviewStatus": "candidate-only"
+    }
+  ]
+}

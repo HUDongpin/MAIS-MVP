@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "packSha256": "b46d81151939860075cd6065d03bbe9788e52bd2e646963775a803f14c337e26",
+  "total": 111,
+  "verified": 111,
+  "mismatched": 0,
+  "coveredFamilies": 37,
+  "coverage": 1,
+  "minCoverage": 1,
+  "minFamilies": 37,
+  "ok": true,
+  "issues": [],
+  "rows": [
+    {
+      "id": "us-ca-k5-verified-templates-v2-01-1",
+      "family": "k5_count_next",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-01-2",
+      "family": "k5_count_next",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-01-3",
+      "family": "k5_count_next",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-02-1",
+      "family": "k5_count_before",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-02-2",
+      "family": "k5_count_before",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-02-3",
+      "family": "k5_count_before",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-03-1",
+      "family": "k5_skip_count",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-03-2",
+      "family": "k5_skip_count",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-03-3",
+      "family": "k5_skip_count",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-04-1",
+      "family": "k5_compare_numbers",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-04-2",
+      "family": "k5_compare_numbers",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-04-3",
+      "family": "k5_compare_numbers",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-05-1",
+      "family": "k5_teen_ones",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-05-2",
+      "family": "k5_teen_ones",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-05-3",
+      "family": "k5_teen_ones",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-06-1",
+      "family": "k5_add_within_10",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-06-2",
+      "family": "k5_add_within_10",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-06-3",
+      "family": "k5_add_within_10",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-07-1",
+      "family": "k5_sub_within_10",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-07-2",
+      "family": "k5_sub_within_10",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-07-3",
+      "family": "k5_sub_within_10",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-08-1",
+      "family": "k5_make_ten",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-08-2",
+      "family": "k5_make_ten",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-08-3",
+      "family": "k5_make_ten",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-09-1",
+      "family": "k5_decompose_within_ten",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-09-2",
+      "family": "k5_decompose_within_ten",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-09-3",
+      "family": "k5_decompose_within_ten",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-10-1",
+      "family": "k5_add_within_20",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-10-2",
+      "family": "k5_add_within_20",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-10-3",
+      "family": "k5_add_within_20",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-11-1",
+      "family": "k5_sub_within_20",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-11-2",
+      "family": "k5_sub_within_20",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-11-3",
+      "family": "k5_sub_within_20",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-12-1",
+      "family": "k5_add_within_100",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-12-2",
+      "family": "k5_add_within_100",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-12-3",
+      "family": "k5_add_within_100",
+      "grade": "P1",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-13-1",
+      "family": "k5_sub_within_100",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-13-2",
+      "family": "k5_sub_within_100",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-13-3",
+      "family": "k5_sub_within_100",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-14-1",
+      "family": "k5_add_within_1000",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-14-2",
+      "family": "k5_add_within_1000",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-14-3",
+      "family": "k5_add_within_1000",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-15-1",
+      "family": "k5_sub_within_1000",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-15-2",
+      "family": "k5_sub_within_1000",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-15-3",
+      "family": "k5_sub_within_1000",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-16-1",
+      "family": "k5_arithmetic_pattern",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-16-2",
+      "family": "k5_arithmetic_pattern",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-16-3",
+      "family": "k5_arithmetic_pattern",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-17-1",
+      "family": "k5_mult_fact",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-17-2",
+      "family": "k5_mult_fact",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-17-3",
+      "family": "k5_mult_fact",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-18-1",
+      "family": "k5_div_fact",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-18-2",
+      "family": "k5_div_fact",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-18-3",
+      "family": "k5_div_fact",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-19-1",
+      "family": "k5_missing_factor",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-19-2",
+      "family": "k5_missing_factor",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-19-3",
+      "family": "k5_missing_factor",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-20-1",
+      "family": "k5_multi_digit_multiply",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-20-2",
+      "family": "k5_multi_digit_multiply",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-20-3",
+      "family": "k5_multi_digit_multiply",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-21-1",
+      "family": "k5_divide_multi_digit",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-21-2",
+      "family": "k5_divide_multi_digit",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-21-3",
+      "family": "k5_divide_multi_digit",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-22-1",
+      "family": "k5_multiply_power_of_ten",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-22-2",
+      "family": "k5_multiply_power_of_ten",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-22-3",
+      "family": "k5_multiply_power_of_ten",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-23-1",
+      "family": "k5_place_value_digit",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-23-2",
+      "family": "k5_place_value_digit",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-23-3",
+      "family": "k5_place_value_digit",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-24-1",
+      "family": "k5_round_to_ten",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-24-2",
+      "family": "k5_round_to_ten",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-24-3",
+      "family": "k5_round_to_ten",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-25-1",
+      "family": "k5_round_to_hundred",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-25-2",
+      "family": "k5_round_to_hundred",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-25-3",
+      "family": "k5_round_to_hundred",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-26-1",
+      "family": "k5_equivalent_fraction_numerator",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-26-2",
+      "family": "k5_equivalent_fraction_numerator",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-26-3",
+      "family": "k5_equivalent_fraction_numerator",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-27-1",
+      "family": "k5_add_fractions_like",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-27-2",
+      "family": "k5_add_fractions_like",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-27-3",
+      "family": "k5_add_fractions_like",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-28-1",
+      "family": "k5_fraction_of_number",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-28-2",
+      "family": "k5_fraction_of_number",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-28-3",
+      "family": "k5_fraction_of_number",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-29-1",
+      "family": "k5_unit_fraction_parts",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-29-2",
+      "family": "k5_unit_fraction_parts",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-29-3",
+      "family": "k5_unit_fraction_parts",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-30-1",
+      "family": "k5_length_conversion",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-30-2",
+      "family": "k5_length_conversion",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-30-3",
+      "family": "k5_length_conversion",
+      "grade": "P4",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-31-1",
+      "family": "k5_elapsed_minutes",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-31-2",
+      "family": "k5_elapsed_minutes",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-31-3",
+      "family": "k5_elapsed_minutes",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-32-1",
+      "family": "k5_money_cents",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-32-2",
+      "family": "k5_money_cents",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-32-3",
+      "family": "k5_money_cents",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-33-1",
+      "family": "k5_rectangle_perimeter",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-33-2",
+      "family": "k5_rectangle_perimeter",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-33-3",
+      "family": "k5_rectangle_perimeter",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-34-1",
+      "family": "k5_rectangle_area",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-34-2",
+      "family": "k5_rectangle_area",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-34-3",
+      "family": "k5_rectangle_area",
+      "grade": "P3",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-35-1",
+      "family": "k5_prism_volume",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-35-2",
+      "family": "k5_prism_volume",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-35-3",
+      "family": "k5_prism_volume",
+      "grade": "P5",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-36-1",
+      "family": "k5_polygon_sides",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-36-2",
+      "family": "k5_polygon_sides",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-36-3",
+      "family": "k5_polygon_sides",
+      "grade": "P2",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-37-1",
+      "family": "k5_word_number",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-37-2",
+      "family": "k5_word_number",
+      "grade": "K",
+      "status": "verified"
+    },
+    {
+      "id": "us-ca-k5-verified-templates-v2-37-3",
+      "family": "k5_word_number",
+      "grade": "K",
+      "status": "verified"
+    }
+  ]
+}
