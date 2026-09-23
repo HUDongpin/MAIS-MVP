@@ -13,6 +13,8 @@ import type {
   CurriculumTrack,
   GradeId,
   Language,
+  ParentalConsentRecord,
+  SchoolProvisioningAuthorizationRecord,
   StudentAvatarId,
   StudentSession,
   TextbookPublisher,
@@ -36,6 +38,8 @@ type AuthSessionUserRecord = {
   password_must_change?: boolean;
   session_revision?: number;
   disabled_at?: string | null;
+  parental_consent?: ParentalConsentRecord;
+  school_authorization?: SchoolProvisioningAuthorizationRecord;
 };
 
 type AuthSessionStudentProfileRecord = {
@@ -267,6 +271,8 @@ export type AuthCurriculumAccountCreationInput = {
   curriculumProfile?: CurriculumProfile;
   language?: Language;
   theme?: ThemeMode;
+  /** Required for student accounts; see app/api/auth/register/route.ts. */
+  parentalConsent?: ParentalConsentRecord;
 };
 
 export type AuthCurriculumAccountCreationResult =
@@ -1455,10 +1461,19 @@ export function authenticatedLoginResultFromAuthDatabase<TDatabase extends Pick<
     : { status: "invalid" as const };
 }
 
-function mergeAuthRecordsByKey<T>(snapshotRecords: T[] | undefined, hotRecords: T[] | undefined, keyFor: (record: T) => string) {
+function mergeAuthRecordsByKey<T>(
+  snapshotRecords: T[] | undefined,
+  hotRecords: T[] | undefined,
+  keyFor: (record: T) => string,
+  combine?: (snapshot: T, hot: T) => T
+) {
   const merged = new Map<string, T>();
   (snapshotRecords ?? []).forEach((record) => merged.set(keyFor(record), record));
-  (hotRecords ?? []).forEach((record) => merged.set(keyFor(record), record));
+  (hotRecords ?? []).forEach((record) => {
+    const key = keyFor(record);
+    const snapshot = merged.get(key);
+    merged.set(key, snapshot && combine ? combine(snapshot, record) : record);
+  });
   return Array.from(merged.values());
 }
 
@@ -1468,7 +1483,9 @@ export function overlayAuthSessionDatabaseWithHotAuthRows<TDatabase extends Part
 ) {
   return {
     ...database,
-    users: mergeAuthRecordsByKey(database.users, hotRows.users, (user) => user.id),
+    // Hot auth fields win, while the snapshot retains consent/authorization
+    // metadata that is intentionally absent from the auth projection.
+    users: mergeAuthRecordsByKey(database.users, hotRows.users, (user) => user.id, (snapshot, hot) => ({ ...snapshot, ...hot })),
     student_profiles: mergeAuthRecordsByKey(database.student_profiles, hotRows.studentProfiles, (profile) => profile.user_id),
     user_settings: mergeAuthRecordsByKey(database.user_settings, hotRows.userSettings, (settings) => settings.user_id),
     password_reset_tokens: mergeAuthRecordsByKey(
@@ -1754,6 +1771,7 @@ export function createAuthSessionPersistenceStore({
     curriculumTrack,
     curriculumProfile,
     language,
+    parentalConsent,
     theme
   }: AuthCurriculumAccountCreationInput & { role: "student" | "teacher" }): Promise<AuthCurriculumAccountCreationResult> => {
     const trimmedName = name.trim();
@@ -1805,7 +1823,8 @@ export function createAuthSessionPersistenceStore({
         session_revision: 1,
         disabled_at: null,
         role,
-        created_at: nowIso
+        created_at: nowIso,
+        ...(role === "student" && parentalConsent ? { parental_consent: parentalConsent } : {})
       };
 
       database.users.push(user);

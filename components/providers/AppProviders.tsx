@@ -45,6 +45,7 @@ import type {
   LocalizedText,
   MistakeBookItem,
   MistakeRecord,
+  ParentalConsentRelationship,
   StudentAvatarId,
   StudentSession,
   ThemeMode
@@ -215,6 +216,13 @@ function bootstrapFingerprint(bootstrap: AppShellBootstrap) {
   return JSON.stringify(bootstrap);
 }
 
+type RegisterParentalConsentInput = {
+  acknowledged: boolean;
+  guardianName: string;
+  guardianEmail?: string;
+  relationship: ParentalConsentRelationship;
+};
+
 type RegisterInput = {
   role?: "student" | "teacher" | "parent";
   name: string;
@@ -224,6 +232,8 @@ type RegisterInput = {
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
   teacherInviteCode?: string;
+  /** Required by the API for student accounts. */
+  parentalConsent?: RegisterParentalConsentInput;
 };
 
 type ProfileUpdateInput = {
@@ -1644,7 +1654,7 @@ export function AppProviders({
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
   }, [beginAuthenticatedDocumentTransition, language, theme]);
 
-  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile, teacherInviteCode }: RegisterInput): Promise<AuthActionResult> => {
+  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile, teacherInviteCode, parentalConsent }: RegisterInput): Promise<AuthActionResult> => {
     const response = await fetch(
       "/api/auth/register",
       buildRegistrationRequestInit({
@@ -1657,6 +1667,7 @@ export function AppProviders({
         curriculumProfile,
         curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
         teacherInviteCode,
+        parentalConsent,
         language,
         theme
       })

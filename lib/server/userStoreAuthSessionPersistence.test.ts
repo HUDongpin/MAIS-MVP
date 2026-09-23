@@ -451,12 +451,33 @@ test("auth session persistence owns hot auth row helpers", async () => {
   assert.equal(typeof authenticateHotRows, "function");
   assert.equal(typeof overlayHotRows, "function");
 
-  const staleUser = authTestUser({
+  const staleUser = {
+    ...authTestUser({
     id: "student-1",
     username: "Student One",
     email: "student-old@example.test",
     password: "old-password"
-  });
+    }),
+    parental_consent: {
+      grantedAt: "2026-06-13T00:00:00.000Z",
+      guardianName: "Test Guardian",
+      relationship: "parent" as const,
+      policyVersion: "2026-09-23",
+      method: "registration-form" as const
+    },
+    school_authorization: {
+      schoolCode: "TEST",
+      schoolName: "Test School",
+      academicYear: "2026-2027",
+      approvedByName: "School Principal",
+      approvedAt: "2026-06-12T00:00:00.000Z",
+      evidenceReference: "test-letter",
+      batchId: "test-batch",
+      recordedByAdminId: "admin-1",
+      recordedAt: "2026-06-13T00:00:00.000Z",
+      policyVersion: "2026-09-23"
+    }
+  };
   const freshUser = authTestUser({
     id: "student-1",
     username: "Student One",
@@ -541,6 +562,8 @@ test("auth session persistence owns hot auth row helpers", async () => {
   );
 
   assert.equal(overlaid.users?.[0].email, "student-new@example.test");
+  assert.deepEqual(overlaid.users?.[0].parental_consent, staleUser.parental_consent);
+  assert.deepEqual(overlaid.users?.[0].school_authorization, staleUser.school_authorization);
   assert.equal(overlaid.student_profiles?.[0].name, "Fresh Name");
   assert.equal(overlaid.user_settings?.[0].selected_grade, "P1");
   assert.deepEqual(overlaid.password_reset_tokens?.map((token) => token.id).sort(), ["new-token", "old-token"]);
