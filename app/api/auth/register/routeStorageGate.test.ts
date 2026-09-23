@@ -41,6 +41,7 @@ test("Vercel registration is blocked before real-user writes when durable storag
         password: "12345",
         grade: "P1",
         curriculumProfile: { region: "US", publisher: "US_CA" },
+        parentalConsent: { acknowledged: true, guardianName: "Test Guardian", relationship: "parent" },
         language: "en",
         theme: "dark"
       })
