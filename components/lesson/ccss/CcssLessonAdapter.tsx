@@ -3,6 +3,8 @@
 import { useEffect, useState, type ComponentType } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ccssReadingBandForGrade, type CcssTextbookLessonMeta } from "@/data/ccssTextbookRegistry";
+import type { CurriculumTrack } from "@/types";
+import { CcssLessonStandardsFooter } from "./CcssLessonStandardsFooter";
 
 /**
  * Adapter for interactive CCSS textbook lessons ported from the
@@ -28,14 +30,17 @@ export type CcssLessonComponent = ComponentType<Record<never, never>>;
 export type CcssLessonHostProps = {
   meta: CcssTextbookLessonMeta;
   topicId: string;
+  track: CurriculumTrack;
+  /** The lesson block's requested claim, checked against the ported asset metadata. */
+  claimedStandardIds: readonly string[];
 };
 
 type CcssLessonAdapterProps = CcssLessonHostProps & {
   LessonComponent: CcssLessonComponent;
 };
 
-export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLessonAdapterProps) {
-  const { recordLearningEvent } = useSettings();
+export function CcssLessonAdapter({ LessonComponent, meta, topicId, track, claimedStandardIds }: CcssLessonAdapterProps) {
+  const { recordLearningEvent, t } = useSettings();
   const readingBand = ccssReadingBandForGrade(meta.grade);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -44,8 +49,23 @@ export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLesson
   }, []);
 
   useEffect(() => {
+    if (track !== "US_CA_MATH") return;
     recordLearningEvent({ type: "visualization-probe", source: "lesson", topicId });
-  }, [recordLearningEvent, topicId]);
+  }, [recordLearningEvent, topicId, track]);
+
+  // The ported bodies contain inline CCSS codes. They are only reviewed for
+  // California; another track needs a separate prose and standards review.
+  if (track !== "US_CA_MATH") {
+    return (
+      <p role="status" data-ccss-lesson-unavailable="true" className="mt-4 text-sm text-slate-600 dark:text-slate-300">
+        {t({
+          en: "This interactive lesson is available for California Math only.",
+          zh: "此互動課文目前僅供加州數學課程使用。",
+          zhHans: "此互动课文目前仅供加州数学课程使用。"
+        })}
+      </p>
+    );
+  }
 
   return (
     <div
@@ -55,13 +75,11 @@ export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLesson
       data-ccss-lesson={meta.slug}
     >
       <LessonComponent />
-      <footer className="mt-5 flex flex-wrap items-center gap-2" aria-label="Standards developed in this lesson">
-        {meta.standardIds.map((id) => (
-          <span key={id} className="chip font-mono">
-            {id}
-          </span>
-        ))}
-      </footer>
+      <CcssLessonStandardsFooter
+        track={track}
+        claimedStandardIds={claimedStandardIds}
+        assetStandardIds={meta.standardIds}
+      />
     </div>
   );
 }
@@ -71,7 +89,7 @@ export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLesson
  * Use with `next/dynamic` so each lesson body stays in its own chunk.
  */
 export function createCcssLesson(LessonComponent: CcssLessonComponent) {
-  return function CcssLesson({ meta, topicId }: CcssLessonHostProps) {
-    return <CcssLessonAdapter LessonComponent={LessonComponent} meta={meta} topicId={topicId} />;
+  return function CcssLesson({ meta, topicId, track, claimedStandardIds }: CcssLessonHostProps) {
+    return <CcssLessonAdapter LessonComponent={LessonComponent} meta={meta} topicId={topicId} track={track} claimedStandardIds={claimedStandardIds} />;
   };
 }
