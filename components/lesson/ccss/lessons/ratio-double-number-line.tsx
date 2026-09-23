@@ -145,7 +145,7 @@ export default function Lesson() {
           A ratio <strong>a : b</strong>{" "}generates equivalent ratios{" "}
           <strong>(a·n) : (b·n)</strong>{" "}for every whole number of batches{" "}
           <strong>n</strong>{" "}(6.RP.A.3). Each pair has the same{" "}
-          <strong>unit rate</strong>{" "}b ÷ a (6.RP.A.2): here every cup of flour is
+          <strong>unit rate</strong>{" "}b ÷ a: here every cup of flour is
           paired with {(b / a).toFixed(2)} spoons of sugar, no matter the batch
           size. On the double number line the tick marks stay aligned precisely
           because both scales are multiplied by the same amount.
