@@ -373,6 +373,7 @@ async function registerStudentViaApi(
         password: student.password,
         grade,
         curriculumTrack: "HK",
+        parentalConsent: { acknowledged: true, guardianName: "E2E Guardian", relationship: "parent" },
         curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
         language: "en",
         theme: "dark"

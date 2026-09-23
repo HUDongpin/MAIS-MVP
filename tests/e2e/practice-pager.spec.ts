@@ -60,6 +60,7 @@ async function registerStudentThroughApi(
           password: "start12345",
           grade,
           curriculumTrack: "HK",
+          parentalConsent: { acknowledged: true, guardianName: "E2E Guardian", relationship: "parent" },
           language,
           theme
         }

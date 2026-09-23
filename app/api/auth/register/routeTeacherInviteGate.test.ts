@@ -103,6 +103,7 @@ test("teacher registration requires a configured invite while student registrati
       password: "start12345",
       grade: "S3",
       curriculumTrack: "HK",
+      parentalConsent: { acknowledged: true, guardianName: "Test Guardian", relationship: "parent" },
       language: "en",
       theme: "dark"
     });

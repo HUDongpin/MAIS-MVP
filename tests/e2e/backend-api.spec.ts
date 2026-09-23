@@ -13,6 +13,11 @@ const hkUpCurriculumProfile = {
   region: "HK",
   publisher: "HK_UNITED_PRIME_MIA"
 };
+const e2eParentalConsent = {
+  acknowledged: true,
+  guardianName: "Backend Test Guardian",
+  relationship: "parent"
+} as const;
 
 type AuthSession = {
   user: {
@@ -89,6 +94,7 @@ type ProvisioningCredential = {
 
 type ProvisioningBatchResponse = {
   id: string;
+  schoolAuthorization?: { schoolCode: string; evidenceReference: string; batchId: string };
   school: {
     id: string;
     code: string;
@@ -190,6 +196,7 @@ async function registerStudent(contexts: APIRequestContext[], testInfo: TestInfo
         grade,
         curriculumTrack: "HK",
         curriculumProfile: hkUpCurriculumProfile,
+        parentalConsent: e2eParentalConsent,
         language: "en",
         theme: "dark"
       }
@@ -556,7 +563,8 @@ test.describe("backend API integration", () => {
             email: student.username,
             password: student.password,
             grade: "S3",
-            curriculumTrack: "HK"
+            curriculumTrack: "HK",
+            parentalConsent: e2eParentalConsent
           }
         })).status()
       ).toBe(409);
@@ -1438,6 +1446,25 @@ test.describe("backend API integration", () => {
       expect(snapshot.storage.provider).toBe("sqlite");
       expect(snapshot.database.users.length).toBeGreaterThan(0);
 
+      const childForAdminRequest = await registerStudent(contexts, testInfo, "guardian-erasure-request");
+      const childAdminPath = `/api/admin/learner-data/${encodeURIComponent(childForAdminRequest.userId)}`;
+      expect((await teacher.get(childAdminPath)).status()).toBe(403);
+      expect((await teacher.delete(childAdminPath, {
+        data: { confirm: "DELETE", userId: childForAdminRequest.userId }
+      })).status()).toBe(403);
+      const childExport = await readJson<{ tables: { users: Array<Record<string, unknown>> } }>(
+        await admin.context.get(childAdminPath)
+      );
+      expect(childExport.tables.users[0].id).toBe(childForAdminRequest.userId);
+      expect(childExport.tables.users[0]).not.toHaveProperty("password_hash");
+      expect((await admin.context.delete(childAdminPath, {
+        data: { confirm: "DELETE", userId: "wrong-student" }
+      })).status()).toBe(400);
+      expect((await admin.context.delete(childAdminPath, {
+        data: { confirm: "DELETE", userId: childForAdminRequest.userId }
+      })).status()).toBe(200);
+      expect((await childForAdminRequest.context.get("/api/me")).status()).toBe(401);
+
       expect((await teacher.post("/api/admin/provisioning/validate", { data: {} })).status()).toBe(403);
 
       const schoolCode = uniqueSlug(testInfo, "bulk-school").replace(/-/g, "").slice(0, 10).toUpperCase();
@@ -1448,6 +1475,14 @@ test.describe("backend API integration", () => {
           academicYear: "2026-2027",
           contactName: "Operations Lead",
           contactEmail: `ops-${schoolCode.toLowerCase()}@example.edu.hk`
+        },
+        schoolAuthorization: {
+          confirmed: true,
+          schoolCode,
+          academicYear: "2026-2027",
+          approvedByName: "School Principal",
+          approvedAt: new Date(Date.now() - 60_000).toISOString(),
+          evidenceReference: `school-permission-${schoolCode}`
         },
         classes: [
           {
@@ -1496,6 +1531,17 @@ test.describe("backend API integration", () => {
       expect(invalidProvisioning.validation.totals.errors).toBeGreaterThan(0);
       expect(invalidProvisioning.validation.errors.join(" ")).toContain("Student grade is invalid");
 
+      const missingSchoolPermission = await readJson<{ validation: { valid: boolean; errors: string[] } }>(
+        await admin.context.post("/api/admin/provisioning/validate", {
+          data: { ...provisioningPayload, schoolAuthorization: undefined }
+        })
+      );
+      expect(missingSchoolPermission.validation.valid).toBe(false);
+      expect(missingSchoolPermission.validation.errors.join(" ")).toContain("School permission");
+      expect((await admin.context.post("/api/admin/provisioning/batches", {
+        data: { ...provisioningPayload, schoolAuthorization: undefined }
+      })).status()).toBe(400);
+
       const provisioningValidation = await readJson<{ validation: { valid: boolean; totals: { teachers: number; students: number; errors: number } } }>(
         await admin.context.post("/api/admin/provisioning/validate", { data: provisioningPayload })
       );
@@ -1511,6 +1557,8 @@ test.describe("backend API integration", () => {
       expect(provisioning.batch.totals.classes).toBe(1);
       expect(provisioning.batch.totals.teachers).toBe(1);
       expect(provisioning.batch.totals.students).toBe(2);
+      expect(provisioning.batch.schoolAuthorization?.evidenceReference).toBe(`school-permission-${schoolCode}`);
+      expect(provisioning.batch.schoolAuthorization?.batchId).toBe(provisioning.batch.id);
       const importedClassId = provisioning.batch.rows.find((row) => row.type === "class" && row.classCode === "S1A")?.classId;
       expect(importedClassId).toBeTruthy();
       expect(provisioning.batch.credentials.teachers).toHaveLength(1);
@@ -1584,6 +1632,11 @@ test.describe("backend API integration", () => {
       expect(temporaryLogin.user.role).toBe("student");
       expect(temporaryLogin.user.schoolId).toBe(provisioning.batch.school.id);
       expect(temporaryLogin.user.passwordMustChange).toBe(true);
+      const provisionedData = await readJson<{
+        tables: { users: Array<{ school_authorization?: { evidenceReference: string; batchId: string } }> }
+      }>(await provisionedStudentContext.get("/api/me/export"));
+      expect(provisionedData.tables.users[0].school_authorization?.evidenceReference).toBe(`school-permission-${schoolCode}`);
+      expect(provisionedData.tables.users[0].school_authorization?.batchId).toBe(provisioning.batch.id);
 
       const nextProvisionedPassword = `Next-${schoolCode}-12345`;
       const changedPassword = await readJson<AuthSession>(

@@ -1571,6 +1571,39 @@ export type StudentSession = {
   role: "student" | "teacher" | "parent" | "admin";
 };
 
+/** Who gave permission for a child to use the platform, and under which policy. */
+export type ParentalConsentRelationship = "parent" | "legal-guardian" | "school";
+
+export type ParentalConsentMethod = "registration-form" | "school-authorized";
+
+export type ParentalConsentRecord = {
+  grantedAt: string;
+  guardianName: string;
+  guardianEmail?: string;
+  relationship: ParentalConsentRelationship;
+  /** Value of currentConsentPolicyVersion when consent was captured. */
+  policyVersion: string;
+  method: ParentalConsentMethod;
+};
+
+/** School permission obtained before a specific administrator provisioning batch. */
+export type SchoolProvisioningAuthorizationInput = {
+  confirmed: true;
+  schoolCode: string;
+  academicYear: string;
+  approvedByName: string;
+  approvedAt: string;
+  evidenceReference: string;
+};
+
+export type SchoolProvisioningAuthorizationRecord = Omit<SchoolProvisioningAuthorizationInput, "confirmed"> & {
+  schoolName: string;
+  batchId: string;
+  recordedByAdminId: string;
+  recordedAt: string;
+  policyVersion: string;
+};
+
 export type LearnerProfileOnboardingVersion = "learner-start-v1";
 export type LearnerProfileOnboardingStatus = "not-started" | "completed" | "skipped";
 export type LearnerProfileGoal = "repair" | "homework" | "preview" | "exam";
@@ -2579,6 +2612,7 @@ export type ProvisioningImportStudent = {
 
 export type ProvisioningRequest = {
   school: ProvisioningImportSchool;
+  schoolAuthorization?: SchoolProvisioningAuthorizationInput;
   classes?: ProvisioningImportClass[];
   teachers?: ProvisioningImportTeacher[];
   students?: ProvisioningImportStudent[];
@@ -2642,6 +2676,7 @@ export type ProvisioningBatchStatus = "created" | "failed";
 export type ProvisioningBatch = {
   id: string;
   school: School;
+  schoolAuthorization?: SchoolProvisioningAuthorizationRecord;
   status: ProvisioningBatchStatus;
   requestedBy: string;
   createdAt: string;

@@ -56,6 +56,17 @@ export async function readProvisioningRequest(request: Request): Promise<Provisi
 
     if (!isRecord(school)) return null;
 
+    const schoolAuthorizationRaw = form.get("schoolAuthorization");
+    let schoolAuthorization: ProvisioningRequest["schoolAuthorization"];
+    if (schoolAuthorizationRaw !== null) {
+      if (typeof schoolAuthorizationRaw !== "string") return null;
+      try {
+        schoolAuthorization = JSON.parse(schoolAuthorizationRaw) as ProvisioningRequest["schoolAuthorization"];
+      } catch {
+        return null;
+      }
+    }
+
     return {
       school: {
         name: typeof school.name === "string" ? school.name : "",
@@ -64,6 +75,7 @@ export async function readProvisioningRequest(request: Request): Promise<Provisi
         contactName: typeof school.contactName === "string" ? school.contactName : undefined,
         contactEmail: typeof school.contactEmail === "string" ? school.contactEmail : undefined
       },
+      schoolAuthorization,
       classesCsv: await fileText(form.get("classes") ?? form.get("classesCsv")),
       teachersCsv: await fileText(form.get("teachers") ?? form.get("teachersCsv")),
       studentsCsv: await fileText(form.get("students") ?? form.get("studentsCsv"))

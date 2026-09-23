@@ -57,6 +57,7 @@ test("real register and login handlers fail closed and clear cookies when sessio
         password: "start12345",
         grade: "P1",
         curriculumProfile: { region: "US", publisher: "US_CA" },
+        parentalConsent: { acknowledged: true, guardianName: "Test Guardian", relationship: "parent" },
         language: "en",
         theme: "dark"
       })
