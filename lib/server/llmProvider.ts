@@ -502,6 +502,12 @@ export function extractLLMProviderReply(value: unknown) {
   return extractLLMTextContent(firstChoice.message.content);
 }
 
+export function normalizeEscapedProviderNewlines(reply: string) {
+  // Provider text can contain literal newline escapes. Lowercase LaTeX
+  // commands such as \neq, \nabla, \nu, and \newline must stay intact.
+  return reply.replace(/\\n(?![a-z])/g, "\n");
+}
+
 export function extractLLMProviderFinishReason(value: unknown) {
   if (!isRecord(value) || !Array.isArray(value.choices)) return null;
 

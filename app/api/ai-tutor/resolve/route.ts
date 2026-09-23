@@ -62,6 +62,7 @@ import {
   extractLLMProviderFinishReason,
   extractLLMProviderReply,
   extractLLMProviderUsage,
+  normalizeEscapedProviderNewlines,
   fetchLLMProviderResponse,
   isTransientLLMProviderHttpStatus,
   readAITutorProviderProfile,
@@ -3148,7 +3149,7 @@ async function handleAITutorPost(
       normalizeTutorIdentityForSession({
         input,
         language,
-        reply: completion.structuredReply.reply,
+        reply: normalizeEscapedProviderNewlines(completion.structuredReply.reply),
         user: {
           name: authenticated.user.name,
           role: authenticated.user.role

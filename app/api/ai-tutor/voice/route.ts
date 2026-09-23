@@ -186,7 +186,11 @@ async function synthesizeQwenRealtimeVoice({
         return;
       }
 
-      socket.send(JSON.stringify(value));
+      try {
+        socket.send(JSON.stringify(value));
+      } catch (error) {
+        settleWithError(error instanceof Error ? error : new Error("qwen-realtime-send-failed"));
+      }
     }
 
     socket.on("open", () => {
