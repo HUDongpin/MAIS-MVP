@@ -49,7 +49,10 @@ test("grade 1 add-subtract number-line lab uses Set, Start, and Step controls", 
   assert.match(source, /const gradeOneAddSubtractLabId = "us-ca-math-p1-1-oa-add-subtract"/);
   // Accept either the plain `mode` or the grade-band `cappedMode` fallback.
   assert.match(source, /const modelMode = usesGradeOneSetControls \? 1 : (?:mode|cappedMode)/);
-  assert.match(source, /const comparisonDisabled = templateId === "number-line" && mode === 0 && !usesGradeOneSetControls/);
+  assert.match(
+    source,
+    /const comparisonDisabled = templateId === "number-line" && mode === 0\s*\? !usesGradeOneSetControls\s*: templateId === "coordinate-transform" && cappedMode > 0/
+  );
   // Single-mode labs keep grid-cols-1; four-mode labs (function-graph
   // exponential model) use grid-cols-2; the default stays grid-cols-3.
   assert.match(
@@ -65,7 +68,7 @@ test("probability lab reports both decimal and percent notation", () => {
   const branch = templateBranch("probability-simulation");
 
   assert.match(branch, /const probabilityPercent = formatNumber\(state\.probability \* 100, 0\)/);
-  assert.match(branch, /formatNumber\(state\.probability, 2\)} = \$\{probabilityPercent\}%/);
+  assert.match(branch, /\$\{probabilityDecimal\} \$\{percentRelation\} \$\{probabilityPercent\}%/);
 });
 
 test("array-area layout keeps cells below the title badge clearance zone", () => {

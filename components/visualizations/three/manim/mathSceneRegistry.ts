@@ -3,6 +3,7 @@ import { assignFormulaBindingAnchors } from "./mathFormulaBindingAnchors";
 import { deriveMathSceneRandomSeed } from "./mathSceneRandom";
 import type { MathSceneAlwaysRedrawScalarExpressionSpec, MathSceneParameterSpec, MathSceneSpec, Vec3 } from "./mathSceneTypes";
 import { threeDFamilyIds, type ThreeDFamilyId, type ThreeDStateSummary } from "../threeDSceneTypes";
+import { calculusAreaLowerLimit, calculusProbeX } from "../../configuredVisualizationLabModel";
 
 export const maisManimFamilyIds = threeDFamilyIds;
 
@@ -588,8 +589,11 @@ function clampValue(value: number, min: number, max: number) {
 }
 
 function trigAmplitude(state: ThreeDStateSummary) {
-  // Matches the 2D panel: the "Amplitude A" slider (comparison) sets amplitude.
-  return clampValue(state.comparison / 9, 0.1, 1);
+  // Matches the 2D panel: the "Amplitude A" slider (comparison) sets amplitude,
+  // in exact tenths over a 1..10 slider (see trigState in
+  // configuredVisualizationLabModel.ts). Ninths here would put the scene and the
+  // panel on different amplitudes for the same dial position.
+  return clampValue(state.comparison / 10, 0.1, 1);
 }
 
 function trigPhase(state: ThreeDStateSummary) {
@@ -607,7 +611,7 @@ function trigThetaDegrees(state: ThreeDStateSummary) {
 }
 
 function formulaForTrigUnitWave(state: ThreeDStateSummary) {
-  return `$y=${formatCoefficient(trigAmplitude(state))}\\sin(x+\\theta);\\ (\\cos\\theta,\\sin\\theta);\\ \\theta=${formatCoefficient(trigThetaDegrees(state))}^\\circ$`;
+  return `$C=(-1.35,0),\\ \\overrightarrow{CP}=(\\cos\\theta,\\sin\\theta)\\mapsto (${formatCoefficient(trigAmplitude(state))}\\cos\\theta,${formatCoefficient(trigAmplitude(state))}\\sin\\theta);\\ y=${formatCoefficient(trigAmplitude(state))}\\sin(x+\\theta);\\ \\theta=${formatCoefficient(trigThetaDegrees(state))}^\\circ$`;
 }
 
 export function buildTrigUnitWaveMathSceneSpec({
@@ -629,8 +633,10 @@ export function buildTrigUnitWaveMathSceneSpec({
     }
   };
   const centerX = -1.35;
-  const circleRadius = 0.72;
   const amplitude = trigAmplitude(state);
+  // Keep the actual unit circle at radius 1. The formula explicitly scales
+  // its coordinates by A to obtain the sine wave's height at x = 0.
+  const circleRadius = 1;
   const activeTheta = trigTheta(state);
   const coordinateSystem = createCoordinateSystem3D(coordinateSpace);
   const center: Vec3 = [centerX, 0, -0.32];
@@ -660,7 +666,9 @@ export function buildTrigUnitWaveMathSceneSpec({
     id: "sine-wave",
     sampleCount: 112,
     valueAt: (x): Vec3 => [x, amplitude * Math.sin(x + activeTheta), 0.24],
-    xRange: [0.12, 0.12 + Math.PI * 2]
+    // At x = 0 the wave height is A sin(theta), the scaled y-coordinate of
+    // the unit-circle tip. The old range began at 0.12 and skipped this point.
+    xRange: [0, Math.PI * 2]
   });
   const circleSamples = unitCircleCurve.curve.samples;
   const waveSamples = sineWaveCurve.curve.samples;
@@ -729,11 +737,6 @@ function calculusCoefficient(state: ThreeDStateSummary) {
   return state.value / 10;
 }
 
-function calculusProbeX(state: ThreeDStateSummary) {
-  // Matches the 2D panel: "Probe x" slider (comparison) moves the probe.
-  return clampValue((state.comparison - 5) / 1.25, -2.4, 2.4);
-}
-
 function calculusCurveValue(state: ThreeDStateSummary, x: number) {
   // Same curve as the 2D surface: f(x) = (a/2)x^2 + 0.35.
   return (calculusCoefficient(state) / 2) * x * x + 0.35;
@@ -743,10 +746,28 @@ function calculusDerivativeValue(state: ThreeDStateSummary, x: number) {
   return calculusCoefficient(state) * x;
 }
 
-function formulaForCalculusRateArea(state: ThreeDStateSummary) {
-  const probe = calculusProbeX(state);
+/**
+ * The exact accumulated area A(t) = the integral of f from -3.6 to t.
+ *
+ * With f(x) = (a/2)x^2 + 0.35 the antiderivative is (a/6)x^3 + 0.35x, so
+ * A(t) = (a/6)(t^3 + 3.6^3) + 0.35(t + 3.6).
+ *
+ * This used to be `max(0, f(x)) * 0.72` — a scaled copy of f drawn under a
+ * formula strip that claimed it was the integral. The shape was wrong (a
+ * parabola where the accumulation is cubic), the value was wrong, and no
+ * antiderivative was computed anywhere in the tree.
+ */
+function calculusAreaValue(state: ThreeDStateSummary, t: number) {
+  const a = calculusCoefficient(state);
+  const lower = calculusAreaLowerLimit;
 
-  return `$f'(a)\\approx ${formatCoefficient(calculusDerivativeValue(state, probe))};\\ A(a)=\\int_{-3}^{a} f(x)\\,dx$`;
+  return (a / 6) * (t ** 3 - lower ** 3) + 0.35 * (t - lower);
+}
+
+function formulaForCalculusRateArea(state: ThreeDStateSummary) {
+  const probe = calculusProbeX(state.comparison);
+
+  return `$x_0=${formatCoefficient(probe)};\\ f'(x_0)\\approx ${formatCoefficient(calculusDerivativeValue(state, probe))};\\ A(x_0)=\\int_{-3.6}^{x_0} f(t)\\,dt\\approx ${formatCoefficient(calculusAreaValue(state, probe))}$`;
 }
 
 export function buildCalculusRateAreaMathSceneSpec({
@@ -757,8 +778,8 @@ export function buildCalculusRateAreaMathSceneSpec({
 }): MathSceneSpec {
   const coordinateSpace = {
     mathRange: {
-      x: [-3, 3] as [number, number],
-      y: [-2, 5] as [number, number],
+      x: [-4, 4] as [number, number],
+      y: [-2, 16] as [number, number],
       z: [-1, 1] as [number, number]
     },
     worldRange: {
@@ -767,7 +788,7 @@ export function buildCalculusRateAreaMathSceneSpec({
       z: [-0.55, 0.55] as [number, number]
     }
   };
-  const probeX = calculusProbeX(state);
+  const probeX = calculusProbeX(state.comparison);
   const probeY = calculusCurveValue(state, probeX);
   const tangentSlope = calculusDerivativeValue(state, probeX);
   const tangentHalfWidth = 0.64;
@@ -782,7 +803,7 @@ export function buildCalculusRateAreaMathSceneSpec({
     id: "rate-curve",
     sampleCount: 108,
     valueAt: (x): Vec3 => [x, calculusCurveValue(state, x), 0.06],
-    xRange: [-3, 3]
+    xRange: [-4, 4]
   });
   const areaCurve = buildGraphCurveObject({
     colorRole: "trace",
@@ -791,8 +812,8 @@ export function buildCalculusRateAreaMathSceneSpec({
     displaySampleCount: 54,
     id: "area-accumulation",
     sampleCount: 72,
-    valueAt: (x): Vec3 => [x, Math.max(0, calculusCurveValue(state, x)) * 0.72, -0.28],
-    xRange: [-3, probeX]
+    valueAt: (x): Vec3 => [x, calculusAreaValue(state, x), -0.28],
+    xRange: [calculusAreaLowerLimit, probeX]
   });
   const curveSamples = rateCurve.curve.samples;
   const areaSamples = areaCurve.curve.samples;
@@ -821,9 +842,9 @@ export function buildCalculusRateAreaMathSceneSpec({
         id: "calculus-formula",
         latex: formulaForCalculusRateArea(state),
         tokens: [
-          { conceptId: "rate-rule", id: "rate-token", text: "f'(a)" },
-          { conceptId: "area-rule", id: "area-token", text: "A(a)" },
-          { conceptId: "probe-point", id: "probe-token", text: "a" },
+          { conceptId: "rate-rule", id: "rate-token", text: "f'(x₀)" },
+          { conceptId: "area-rule", id: "area-token", text: "A(x₀)" },
+          { conceptId: "probe-point", id: "probe-token", text: "x₀" },
           { conceptId: "tangent-line", id: "tangent-token", text: "tangent" }
         ]
       }
@@ -1527,11 +1548,30 @@ function probabilityMeanX(state: ThreeDStateSummary) {
   return (probabilitySuccessRate(state) - 0.5) * 3.2;
 }
 
+/** Sample size the formula strip quotes and the sampling error is derived from. */
+function probabilitySampleSize(state: ThreeDStateSummary) {
+  return Math.round(18 + probabilitySampleScale(state) * 28);
+}
+
+/**
+ * Standard error of a sample proportion, sqrt(p(1 - p) / n).
+ *
+ * The deviation of the experimental curve from the theoretical one used to be
+ * `sin(...) * 0.08 * sampleScale`, whose amplitude GREW with n — the exact
+ * inverse of the law this topic exists to teach. Tying it to the standard error
+ * makes a bigger sample visibly settle onto the model, which is the point.
+ */
+function probabilityStandardError(state: ThreeDStateSummary) {
+  const p = probabilitySuccessRate(state);
+
+  return Math.sqrt((p * (1 - p)) / probabilitySampleSize(state));
+}
+
 function formulaForProbabilityMachine(state: ThreeDStateSummary) {
   const p = probabilitySuccessRate(state);
-  const sampleSize = Math.round(18 + probabilitySampleScale(state) * 28);
+  const sampleSize = probabilitySampleSize(state);
 
-  return `$P(A)=${formatCoefficient(p)};\\ \\hat p_n\\to p;\\ n\\approx ${sampleSize}$`;
+  return `$P(A)=${formatCoefficient(p)};\\ \\mathrm{illustrative\\ gap}\\propto SE;\\ n\\approx ${sampleSize};\\ SE=${probabilityStandardError(state).toFixed(3)}$`;
 }
 
 export function buildProbabilityMachineMathSceneSpec({
@@ -1556,7 +1596,6 @@ export function buildProbabilityMachineMathSceneSpec({
   const meanX = probabilityMeanX(state);
   const p = probabilitySuccessRate(state);
   const spread = clampValue(1.25 - Math.abs(p - 0.5) * 1.1, 0.72, 1.18);
-  const sampleScale = probabilitySampleScale(state);
   const theoreticalDistribution = buildParametricCurveObject({
     colorRole: "function",
     conceptId: "probability-model",
@@ -1581,9 +1620,11 @@ export function buildProbabilityMachineMathSceneSpec({
     tRange: [0, 1],
     valueAt: (t): Vec3 => {
       const x = -2.55 + t * 5.1;
-      const density = Math.exp(-((x - meanX) * (x - meanX)) / (2 * (spread * 1.08) * (spread * 1.08)));
-      const samplingNoise = Math.sin(t * Math.PI * 8 + state.mode * 0.5) * 0.08 * sampleScale;
-      return [x, 0.28 + density * 1.25 + samplingNoise, 0.28];
+      const density = Math.exp(-((x - meanX) * (x - meanX)) / (2 * spread * spread));
+      // Amplitude follows sqrt(p(1 - p)/n), so raising n settles the
+      // experimental curve onto the model instead of shaking it harder.
+      const samplingNoise = Math.sin(t * Math.PI * 8 + state.mode * 0.5) * probabilityStandardError(state) * 1.6;
+      return [x, 0.36 + density * 1.62 + samplingNoise, 0.28];
     }
   });
   const trialStream = buildParametricCurveObject({
@@ -1626,8 +1667,8 @@ export function buildProbabilityMachineMathSceneSpec({
         latex: formulaForProbabilityMachine(state),
         tokens: [
           { conceptId: "probability-model", id: "model-token", text: "P(A)" },
-          { conceptId: "experimental-frequency", id: "frequency-token", text: "p-hat" },
-          { conceptId: "trial-process", id: "trial-token", text: "trials" },
+          { conceptId: "experimental-frequency", id: "frequency-token", text: "illustrative gap" },
+          { conceptId: "trial-process", id: "trial-token", text: "trial flow illustration" },
           { conceptId: "expected-value", id: "expectation-token", text: "E[X]" }
         ]
       }

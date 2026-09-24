@@ -242,9 +242,9 @@ const configuredModuleId: VisualizationLabModuleId = "configured-visualization-l
 /**
  * Topics whose dedicated lab is a better instrument than the shared template.
  *
- * The two-slider template surface cannot express some models: `base-ten` reduces
- * place value to tens+ones (a ceiling of 99, in a lesson that teaches 1000) and
- * `number-line` is integer-only (in a lesson that teaches tenths and hundredths).
+ * Some topics have a dedicated instrument that fits their lesson more closely:
+ * the place-value lab groups blocks for 1000 and the number-line lab includes
+ * decimal positions, while the shared template uses grade-bounded sliders.
  * Purpose-built components for exactly these topics already exist and are tested,
  * but nothing referenced them, so every learner got the weaker template. Routing
  * the lab record at the component makes both surfaces — the lesson embed and the
@@ -2532,16 +2532,20 @@ function templateConfigForTopic(topic: Topic, templateId: VisualizationTemplateI
   return {
     variant: topic.id,
     focus: labFocusForTopic(topic, templateId, track),
-    formula: topicFormulaOverrides[topic.id] ?? formulaForTemplate(templateId),
+    formula: topicFormulaOverrides[topic.id] ?? formulaForTemplate(templateId, topic.grade),
     xLabel: xLabelForTemplate(templateId),
     yLabel: yLabelForTemplate(templateId),
     accent: accentForTopic(topic)
   };
 }
 
-function formulaForTemplate(templateId: VisualizationTemplateId) {
+function formulaForTemplate(templateId: VisualizationTemplateId, grade?: GradeId) {
   if (templateId === "number-line") return { en: "start + step = end", zh: "起點 + 步長 = 終點", zhHans: "起点 + 步长 = 终点" };
-  if (templateId === "base-ten") return { en: "10 x tens + ones", zh: "10 x 十位 + 個位", zhHans: "10 x 十位 + 个位" };
+  if (templateId === "base-ten") {
+    return grade === "K" || grade === "P1"
+      ? { en: "10 x tens + ones", zh: "10 x 十位 + 個位", zhHans: "10 x 十位 + 个位" }
+      : { en: "100 x hundreds + 10 x tens + ones", zh: "100 x 百位 + 10 x 十位 + 個位", zhHans: "100 x 百位 + 10 x 十位 + 个位" };
+  }
   if (templateId === "array-area") return { en: "rows x columns = area", zh: "行 x 列 = 面積", zhHans: "行 x 列 = 面积" };
   if (templateId === "clock-money-data") return { en: "time -> angle; data -> bar", zh: "時間 -> 角度；數據 -> 棒形", zhHans: "时间 -> 角度；数据 -> 柱形" };
   if (templateId === "measurement-scale") return { en: "units x scale = measure", zh: "單位數 x 刻度 = 度量", zhHans: "单位数 x 刻度 = 测量值" };
