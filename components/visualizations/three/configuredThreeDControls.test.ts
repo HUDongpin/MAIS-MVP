@@ -30,5 +30,11 @@ test("configured visualization renderer consumes the shared Three.js slider boun
   const source = fs.readFileSync("components/visualizations/ConfiguredVisualizationLab.tsx", "utf8");
 
   assert.match(source, /import \{ sliderBoundsForThreeDTemplate \} from "@\/components\/visualizations\/three\/configuredThreeDControls"/);
-  assert.match(source, /sliderBoundsForThreeDTemplate\(templateId\)/);
+  assert.match(source, /sliderBoundsForThreeDTemplate\(templateId, lab\?\.grade\)/);
+});
+
+test("base-ten controls stop at the place values taught by each grade", () => {
+  assert.equal(sliderBoundsForThreeDTemplate("base-ten", "K").valueMax, 1);
+  assert.equal(sliderBoundsForThreeDTemplate("base-ten", "P1").valueMax, 9);
+  assert.equal(sliderBoundsForThreeDTemplate("base-ten", "P2").valueMax, 99);
 });

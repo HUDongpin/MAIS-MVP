@@ -37,7 +37,7 @@ const directLabTemplateMetadata: Record<VisualizationTemplateId, DirectLabTempla
     accent: "#22d3ee",
     analyticsSource: "coordinate-plane",
     category: { en: "Place value", zh: "位值", zhHans: "位值" },
-    formula: { en: "tens + ones", zh: "十位 + 個位", zhHans: "十位 + 个位" },
+    formula: { en: "hundreds + tens + ones", zh: "百位 + 十位 + 個位", zhHans: "百位 + 十位 + 个位" },
     qaProfile: "standard"
   },
   "calculus-rate-area": {
@@ -238,6 +238,26 @@ function humanizeLabId(labId: string) {
     .join(" ");
 }
 
+// Hong Kong topic ids omit grade tokens. Bind the student badge to the actual
+// topic rather than allowing the generic S4 fallback to relabel S3/S5/S6 labs.
+const directLabGradeOverrides: Record<string, GradeId> = {
+  "differentiation-intro": "S5",
+  "mixed-problem-solving": "S6",
+  "quadratic-patterns": "S3",
+  "trigonometry-basics": "S3"
+};
+
+function directLabAxisLabels(templateId: VisualizationTemplateId) {
+  if (templateId === "complex-plane") return { x: "Re", y: "Im" };
+  if (templateId.includes("function") || templateId.includes("trig") || templateId.includes("calculus")) {
+    return { x: "x", y: "y" };
+  }
+  if (templateId === "statistics-distribution" || templateId === "probability-simulation") {
+    return { x: "trial", y: "frequency" };
+  }
+  return { x: "model", y: "value" };
+}
+
 function inferGradeFromLabId(labId: string): GradeId {
   const primaryMatch = labId.match(/(?:^|-)p([1-6])(?:-|$)/i);
   if (primaryMatch) return `P${primaryMatch[1]}` as GradeId;
@@ -318,12 +338,14 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
 
   const templateId = inferTemplateIdFromLabId(labId);
   const metadata = directLabTemplateMetadata[templateId];
-  const grade = inferGradeFromLabId(labId);
+  const grade = directLabGradeOverrides[labId] ?? inferGradeFromLabId(labId);
+  const axisLabels = directLabAxisLabels(templateId);
   const regionalPriority = regionalPriorityForThreeDLaunchLab(labId);
   const title = humanizeLabId(labId);
   const trackAndPublisher = inferTrackAndPublisher(labId);
   const familyId = familyForVisualizationLab(labId, templateId);
   const useFastTwoDimensionalSurface = fastTwoDimensionalDirectLabIds.has(labId);
+  const isAdvancedTrigPreview = labId === "trigonometry-basics";
 
   return {
     labId,
@@ -333,11 +355,17 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
       zh: `${title}視覺化實驗`,
       zhHans: `${title}可视化实验`
     },
-    description: {
-      en: "Use a focused 3D visualization model to explore this topic with sliders, diagrams, and live feedback.",
-      zh: "透過聚焦的 3D 視覺化模型，用滑桿、圖形和即時回饋探索這個主題。",
-      zhHans: "通过聚焦的 3D 可视化模型，用滑杆、图形和即时反馈探索这个主题。"
-    },
+    description: isAdvancedTrigPreview
+      ? {
+          en: "Optional advanced preview: explore how trigonometric ratios lead to the unit circle and sine wave.",
+          zh: "選修延伸預覽：探索三角比如何連繫單位圓與正弦波。",
+          zhHans: "选修拓展预览：探索三角比如何联系单位圆与正弦波。"
+        }
+      : {
+          en: "Use a focused 3D visualization model to explore this topic with sliders, diagrams, and live feedback.",
+          zh: "透過聚焦的 3D 視覺化模型，用滑桿、圖形和即時回饋探索這個主題。",
+          zhHans: "通过聚焦的 3D 可视化模型，用滑杆、图形和即时反馈探索这个主题。"
+        },
     category: metadata.category,
     gradeLabel: gradeLabelForDirectLab(grade, regionalPriority),
     topicId: labId,
@@ -348,14 +376,20 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
     templateId,
     templateConfig: {
       variant: labId,
-      focus: {
-        en: "Premium 3D launch model for this standards-aligned visualization topic.",
-        zh: "此標準對齊視覺化主題的 Premium 3D 啟動模型。",
-        zhHans: "此标准对齐可视化主题的 Premium 3D 启动模型。"
-      },
+      focus: isAdvancedTrigPreview
+        ? {
+            en: "Advanced preview beyond the S3 trigonometric-ratio target.",
+            zh: "超出 S3 三角比學習目標的延伸預覽。",
+            zhHans: "超出 S3 三角比学习目标的拓展预览。"
+          }
+        : {
+            en: "Premium 3D launch model for this standards-aligned visualization topic.",
+            zh: "此標準對齊視覺化主題的 Premium 3D 啟動模型。",
+            zhHans: "此标准对齐可视化主题的 Premium 3D 启动模型。"
+          },
       formula: metadata.formula,
-      xLabel: "input",
-      yLabel: "output",
+      xLabel: axisLabels.x,
+      yLabel: axisLabels.y,
       accent: metadata.accent
     },
     threeD: {
