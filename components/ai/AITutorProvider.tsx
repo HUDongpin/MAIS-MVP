@@ -27,6 +27,7 @@ import {
 } from "@/lib/aiTutorVisualization";
 import { appShellSessionSyncStorageKey } from "@/lib/appShellBootstrap";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
+import { hongKongNssEvidenceStage, isHongKongNssExtendedTopicId } from "@/lib/hkNssCurriculumPart";
 import { isChineseLanguage, simplifyChineseText, textForLanguage, traditionalToSimplifiedMap } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type {
@@ -1304,11 +1305,22 @@ function buildTutorEvidenceQuery({
   curriculumTrack?: CurriculumTrack;
 }): TutorEvidenceQuery | undefined {
   if (context?.evidenceQuery) {
-    return {
+    const topicId = context.evidenceQuery.topicId ?? context.topicId;
+    const query = {
       ...context.evidenceQuery,
       grade: context.evidenceQuery.grade ?? grade,
-      topicId: context.evidenceQuery.topicId ?? context.topicId
+      topicId
     };
+    if (curriculumTrack === "HK" && isHongKongNssExtendedTopicId(topicId)) {
+      const stage = hongKongNssEvidenceStage(topicId, query.stage);
+      if (stage) query.stage = stage;
+      else delete query.stage;
+      if (query.documentPurpose === "curriculum-guide") {
+        if (stage) query.documentPurpose = "curriculum-interpretation";
+        else delete query.documentPurpose;
+      }
+    }
+    return query;
   }
 
   const isUnitedStatesMathTrack = curriculumTrack ? unitedStatesMathTutorTracks.has(curriculumTrack) : false;
@@ -1334,11 +1346,13 @@ function buildTutorEvidenceQuery({
 
   if (curriculumTrack === "HK") {
     const paperComponent = inferHongKongPaperComponent(input, context, page);
+    const extendedTopic = isHongKongNssExtendedTopicId(context?.topicId);
+    const stage = hongKongNssEvidenceStage(context?.topicId, hongKongStageForGrade(grade));
     return {
       grade,
       ...(context?.topicId ? { topicId: context.topicId } : {}),
-      stage: hongKongStageForGrade(grade),
-      documentPurpose: "curriculum-guide",
+      ...(stage ? { stage } : {}),
+      ...(!extendedTopic ? { documentPurpose: "curriculum-guide" as const } : {}),
       ...(paperComponent ? { paperComponent } : {}),
       language: hongKongEvidenceLanguage(language),
       intent,

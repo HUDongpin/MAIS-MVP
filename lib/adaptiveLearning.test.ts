@@ -72,6 +72,25 @@ const questions: PublicQuestion[] = [
 ];
 const components = buildKnowledgeComponents({ topics, questions });
 
+test("an Extended Part adaptive skill keeps its label after the stage name", () => {
+  const calculus: Topic = {
+    id: "calculus",
+    curriculumTrack: "HK",
+    grade: "S6",
+    title: { en: "Calculus (Extended Part)", zh: "微積分（延伸部分）" },
+    description: { en: "Calculus", zh: "微積分" },
+    status: "not-started",
+    difficulty: "High",
+    minutes: 65,
+    mastery: 0,
+    nssPart: "extended"
+  };
+  const skill = buildKnowledgeComponents({ topics: [calculus], questions: [] }).find((component) => component.id === "calculus:foundation");
+  assert.ok(skill);
+  assert.equal(skill.title.en, "Calculus foundation (Extended Part)");
+  assert.equal(skill.title.zh, "微積分基礎（延伸部分）");
+});
+
 function state(overrides: Partial<AdaptiveSkillState> & { skillId: string }): AdaptiveSkillState {
   return {
     ...createInitialAdaptiveSkillState(overrides.skillId, now),

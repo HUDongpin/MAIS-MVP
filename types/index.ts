@@ -1638,15 +1638,11 @@ export type Topic = {
   minutes: number;
   mastery: number;
   /**
-   * Where a Hong Kong senior-secondary topic sits in the NSS Mathematics
-   * structure. The curriculum is a Compulsory Part taken by every candidate plus
-   * an Extended Part that is Module 1 or Module 2, elected by a minority.
+   * Explicit Hong Kong senior-secondary NSS Mathematics classification.
    *
-   * Absent means Compulsory, which is correct for every primary and junior topic
-   * and for most senior ones. "extended" marks content no S4-S6 learner should
-   * meet as core — differentiation and integration appear in both M1 and M2 and
-   * in neither Compulsory Part, so the label deliberately does not claim a single
-   * module it cannot evidence.
+   * An absent value means unclassified, not automatically Compulsory. The
+   * "extended" value is used for differentiation and integration, which occur
+   * in both M1 and M2 but not in the Compulsory Part.
    */
   nssPart?: NssCurriculumPart;
 };

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { hongKongMathEdBRagCards } from "../../data/rag/hongKongMathEdB";
+import { hongKongNssEvidenceStage } from "../hkNssCurriculumPart";
 import { buildHongKongMathEdBEvidencePack, getHongKongMathEdBRagCards } from "./hongKongMathEdB";
 
 test("primary HK queries prioritize primary curriculum cards and avoid senior modules", () => {
@@ -55,6 +56,51 @@ test("senior M2 queries retrieve algebra and calculus extension card first", () 
 
   assert.ok(cards.length > 0);
   assert.equal(cards[0].id, "hk-edb-senior-m2-algebra-calculus");
+});
+
+test("Extended Part topics cannot retrieve Compulsory Part cards from a grade-only stage", () => {
+  for (const topicId of ["differentiation-intro", "calculus"]) {
+    const query = {
+      grade: "S6" as const,
+      topicId,
+      stage: "senior-secondary-compulsory" as const,
+      documentPurpose: "curriculum-guide" as const,
+      intent: "tutor-explain" as const,
+      difficultyBand: "core" as const,
+      limit: 4
+    };
+    const cards = getHongKongMathEdBRagCards(query);
+    assert.ok(cards.length > 0, `missing cards for ${topicId}`);
+    assert.ok(cards.every((card) => card.stage !== "senior-secondary-compulsory"), `${topicId} received Compulsory Part guidance`);
+    assert.ok(cards.some((card) => card.stage === "senior-secondary-m1"));
+    assert.ok(cards.some((card) => card.stage === "senior-secondary-m2"));
+    assert.match(buildHongKongMathEdBEvidencePack(query).evidenceText, /M1 or M2/);
+  }
+});
+
+test("a specified Extended Part module excludes the other module", () => {
+  const cards = getHongKongMathEdBRagCards({
+    grade: "S6",
+    topicId: "calculus",
+    stage: "senior-secondary-m1",
+    intent: "tutor-explain",
+    limit: 4
+  });
+  assert.equal(cards[0]?.stage, "senior-secondary-m1");
+  assert.ok(cards.every((card) => card.stage !== "senior-secondary-m2" && card.stage !== "senior-secondary-compulsory"));
+});
+
+test("the Compulsory Part card indexes the assessed S6 statistics topic", () => {
+  const compulsory = hongKongMathEdBRagCards.find((card) => card.id === "hk-edb-senior-compulsory-content");
+  assert.ok(compulsory);
+  assert.ok(compulsory.topicIds.includes("statistics-s6"));
+});
+
+test("tutor stage routing keeps an Extended Part module only when specified", () => {
+  assert.equal(hongKongNssEvidenceStage("calculus", "senior-secondary-compulsory"), undefined);
+  assert.equal(hongKongNssEvidenceStage("calculus", "senior-secondary-m1"), "senior-secondary-m1");
+  assert.equal(hongKongNssEvidenceStage("differentiation-intro", "senior-secondary-m2"), "senior-secondary-m2");
+  assert.equal(hongKongNssEvidenceStage("statistics-s6", "senior-secondary-compulsory"), "senior-secondary-compulsory");
 });
 
 test("learning diversity queries retrieve student support guidance", () => {

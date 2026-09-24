@@ -54,11 +54,9 @@ const juniorTopicIds = [
   "circles"
 ];
 
-// NSS Mathematics is a Compulsory Part taken by every candidate plus an Extended
-// Part (Module 1 or Module 2) elected by a minority. Differentiation and
-// integration belong to the Extended Part only, so `differentiation-intro` was
-// wrong here: listing it as Compulsory told the retrieval layer that every S5
-// candidate is examined on calculus.
+// NSS Mathematics has a Compulsory Part and an optional Extended Part (M1 or M2).
+// Differentiation and integration belong to the Extended Part. Keep the
+// differentiation topic out of compulsory retrieval guidance.
 const seniorCompulsoryTopicIds = [
   "functions",
   "coordinate-geometry",
@@ -67,10 +65,10 @@ const seniorCompulsoryTopicIds = [
   "advanced-functions",
   "trigonometry-s5",
   "probability-s5",
+  "statistics-s6",
   "exam-revision",
   "mixed-problem-solving"
 ];
-
 
 export const hongKongMathEdBRagCards: HongKongMathEdBRagCard[] = [
   {
@@ -253,14 +251,12 @@ export const hongKongMathEdBRagCards: HongKongMathEdBRagCard[] = [
       "高中数学（必修部分）修订课程内容与高中数学（必修部分）现行课程内容的比较CT_CP_tc.pdf"
     ],
     topicIds: seniorCompulsoryTopicIds,
-    // "differentiation" removed: calculus is Extended Part (M1/M2) only, and the
-    // M1/M2 cards below already own it. Leaving it here told the generator that
-    // Compulsory Part content may include calculus.
+    // The M1/M2 cards below own differentiation and integration.
     conceptIds: ["functions", "coordinate-geometry", "algebra", "trigonometry", "data-handling", "probability", "modeling", "exam-revision"],
     competencyTags: ["abstract reasoning", "symbolic manipulation", "modeling", "data interpretation", "structured problem solving"],
     itemTypeTags: ["function investigation", "coordinate geometry task", "modeling application", "data and probability task", "structured assessment item"],
     difficultyBand: "exam",
-    safeSummary: "Senior compulsory mathematics should connect functions, algebra, coordinate geometry, trigonometry, data, and probability to modeling and structured reasoning. Calculus belongs to the Extended Part and must not appear in Compulsory Part material.",
+    safeSummary: "Senior compulsory mathematics should connect functions, algebra, coordinate geometry, trigonometry, data, and probability to modeling and structured reasoning. Do not generate differentiation or integration as Compulsory Part content; those belong to the Extended Part.",
     generationGuidance: [
       "Generate original senior tasks with clear subgoals: interpret, calculate, justify, and check reasonableness.",
       "Combine symbolic and graphical reasoning without reusing any source layout.",
@@ -308,7 +304,7 @@ export const hongKongMathEdBRagCards: HongKongMathEdBRagCard[] = [
     competencyTags: ["calculus reasoning", "data analysis", "model interpretation", "symbolic manipulation"],
     itemTypeTags: ["rate-of-change task", "area-accumulation task", "statistical interpretation", "modeling investigation"],
     difficultyBand: "challenge",
-    safeSummary: "M1 should give students a coherent extension through calculus and statistics, linking change, accumulation, data variation, and model interpretation.",
+    safeSummary: "M1 extends beyond the Compulsory Part's simple standard-score and normal-distribution applications through calculus and more advanced statistics, linking change, accumulation, data variation, and model interpretation.",
     generationGuidance: [
       "Generate new rate, accumulation, and data contexts that require interpretation before computation.",
       "Pair symbolic calculus steps with graphical or contextual meaning.",

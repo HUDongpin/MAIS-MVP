@@ -1949,10 +1949,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
   }),
   lesson({
     topicId: "differentiation-intro",
-    title: { en: "Differentiation Intro: Tangents and Rates", zh: "微分入門：切線與變化率" },
+    title: { en: "Introduction to Differentiation (Extended Part): Tangents and Rates", zh: "微分入門（延伸部分）：切線與變化率" },
     description: {
-      en: "Read the derivative as the gradient of a tangent and as an instantaneous rate of change.",
-      zh: "把導數理解為切線斜率和瞬時變化率。"
+      en: "Extended Part (Module 1 or 2), not Compulsory Part: interpret the derivative as the gradient of a tangent and an instantaneous rate of change.",
+      zh: "延伸部分（單元一或二），並非必修部分：把導數理解為切線斜率和瞬時變化率。"
     },
     estimatedMinutes: 60,
     concept: {
@@ -1994,10 +1994,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
   }),
   lesson({
     topicId: "calculus",
-    title: { en: "Calculus: Turning Points and Local Behaviour", zh: "微積分：轉折點與局部行為" },
+    title: { en: "Calculus (Extended Part): Turning Points and Local Behaviour", zh: "微積分（延伸部分）：轉折點與局部行為" },
     description: {
-      en: "Use derivative signs and tangent gradients to reason about senior exam graphs.",
-      zh: "運用導數符號和切線斜率推理高中考試圖像。"
+      en: "Extended Part (Module 1 or 2), not Compulsory Part: use derivative signs and tangent gradients to reason about exam graphs.",
+      zh: "延伸部分（單元一或二），並非必修部分：運用導數符號和切線斜率推理考試圖像。"
     },
     estimatedMinutes: 65,
     concept: {
