@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "mais-pr242-a11-independent-replay-review.v1",
+  "reviewerUuid": "01a08462-c411-7c71-adf8-5a99cefa4959",
+  "reviewedAt": "2026-09-09T07:27:45.815Z",
+  "humanSignature": false,
+  "identityMachineAuthenticated": false,
+  "reviewerIdentitySource": "runtime CODEX_THREAD_ID of this independent Codex task",
+  "decision": "pass-independent-bounded-native-shadow-replay",
+  "scope": "One independently executed offline Shadow replay plus readback and comparison of parent validation, canonical and fresh artifacts; native verify-receipt remains parent-next.",
+  "executionEnvironment": {
+    "container": "m242-native",
+    "root": "/work",
+    "node": "v24.17.0",
+    "git": "git version 2.54.0",
+    "networkBefore": {},
+    "networkAfter": {},
+    "mounts": [
+      {
+        "source": "/private/tmp/m242/.git",
+        "destination": "/source-git",
+        "readOnly": true
+      }
+    ],
+    "nativeChildEnvironment": {
+      "PATH": "/usr/local/bin:/usr/bin:/bin",
+      "HOME": "/root",
+      "TMPDIR": "/tmp",
+      "LANG": "C",
+      "LC_ALL": "C"
+    },
+    "timeoutMs": 300000,
+    "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission"
+  },
+  "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+  "sourceBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-manifest.v2.json",
+    "rawSha256": "13a3533e74894603788dfa865f7f06047914efd8e26f35a00ede4c67321c17a0"
+  },
+  "binding": {
+    "gateId": "promotion-shadow-gate-v2",
+    "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v2",
+    "attemptId": "attempt-007",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "parentPackageId": "us-ca-math-rag-v2-candidate",
+    "parentPackageStatus": "candidate-only",
+    "liveAllowed": false
+  },
+  "runner": {
+    "path": ".tmp/p242-native-run.mjs",
+    "rawSha256": "364a35ce06cd4b572a93bb2d022338dcb88e7f09af770b656c3fd1037c68771b",
+    "command": "docker exec -w /work m242-native node .tmp/p242-native-run.mjs shadow p242-a11-replay d694203ce97264ba3425f8f076c9e80eb618b6d4"
+  },
+  "artifacts": [
+    {
+      "path": ".tmp/p242-validate-direct.json",
+      "rawFileSha256": "eae1442680b6c0a04081c153c412b4820b3ca8997d30fbc5c7c1cebb9e01788a",
+      "rawBytes": 4379,
+      "processPath": ".tmp/p242-validate-direct.process.json",
+      "processFileSha256": "80139f1760f9d0dfb6c36de1f6ab24af58be1326aaa8bf6f2351fd083bedad27",
+      "stderrPath": ".tmp/p242-validate-direct.stderr.txt",
+      "stderrFileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "operation": "validate",
+        "label": "p242-validate-direct",
+        "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+        "timeoutMs": 300000,
+        "startedAt": "2026-09-09T07:16:15.036Z",
+        "completedAt": "2026-09-09T07:17:20.257Z",
+        "durationSeconds": 65.221338447,
+        "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "stdoutBytes": 4379,
+        "stderrBytes": 0
+      },
+      "nativeResult": "pass",
+      "checkCount": 10,
+      "checkDigest": "bcfb45c80e06d8320f9e52f0f0c38d6396de58a6156901536ef26af7532fe17c",
+      "liveAllowed": false
+    },
+    {
+      "path": ".tmp/p242-canonical.json",
+      "rawFileSha256": "32399bf241f6e85a41fbc786555ae70fda000a3806c63aad563a71b4eb6b7a21",
+      "rawBytes": 38085,
+      "processPath": ".tmp/p242-canonical.process.json",
+      "processFileSha256": "481a8b7a51a32984203d5a3b7a5ac143a171aefcf95cf47f80949b12d5e9c851",
+      "stderrPath": ".tmp/p242-canonical.stderr.txt",
+      "stderrFileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "operation": "shadow",
+        "label": "p242-canonical",
+        "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+        "timeoutMs": 300000,
+        "startedAt": "2026-09-09T07:18:18.119Z",
+        "completedAt": "2026-09-09T07:19:40.344Z",
+        "durationSeconds": 82.22593987,
+        "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "stdoutBytes": 38085,
+        "stderrBytes": 0
+      },
+      "nativeResult": "pass",
+      "checkCount": 13,
+      "runId": "p242-canonical",
+      "semanticReceiptDigest": "d17f98745e4d5a9a973544150f13546d059d732cccaac56d0b4090638a227411",
+      "rawReceiptDigest": "59e663329dd2fb30650beb1b877e81cc92c32a076934530e7c0eb84834bfa9b6",
+      "bindingLiveAllowed": false,
+      "lifecycleLiveAllowed": false
+    },
+    {
+      "path": ".tmp/p242-fresh.json",
+      "rawFileSha256": "58724e8a0d167d68230a3b6343f0ddfaf9c8c3bb15cf82441d2cdf653dbe82a6",
+      "rawBytes": 38081,
+      "processPath": ".tmp/p242-fresh.process.json",
+      "processFileSha256": "416cc533ff285e7292a68fb5e08bea42bf2f6172bdd1b8557bece0c7c525687f",
+      "stderrPath": ".tmp/p242-fresh.stderr.txt",
+      "stderrFileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "operation": "shadow",
+        "label": "p242-fresh",
+        "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+        "timeoutMs": 300000,
+        "startedAt": "2026-09-09T07:21:28.303Z",
+        "completedAt": "2026-09-09T07:22:50.073Z",
+        "durationSeconds": 81.770702537,
+        "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "stdoutBytes": 38081,
+        "stderrBytes": 0
+      },
+      "nativeResult": "pass",
+      "checkCount": 13,
+      "runId": "p242-fresh",
+      "semanticReceiptDigest": "d17f98745e4d5a9a973544150f13546d059d732cccaac56d0b4090638a227411",
+      "rawReceiptDigest": "bb42f061e793d79a4caf43db18d4ef1597532fff1f679e3412e4eb803b98d32d",
+      "bindingLiveAllowed": false,
+      "lifecycleLiveAllowed": false
+    },
+    {
+      "path": ".tmp/p242-a11-replay.json",
+      "rawFileSha256": "046aa737fc9670f946c8911b62430b0396f9eea5a309fe5755ed04d95aabd162",
+      "rawBytes": 38086,
+      "processPath": ".tmp/p242-a11-replay.process.json",
+      "processFileSha256": "89a7ce9345d7d574314069bbd67d2c7901a833cbd8ec54a4f4f7a27874beeea8",
+      "stderrPath": ".tmp/p242-a11-replay.stderr.txt",
+      "stderrFileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "execution": {
+        "operation": "shadow",
+        "label": "p242-a11-replay",
+        "executionRoute": "owner-authorized direct repository-native CLI; not installed skill wrapper admission",
+        "timeoutMs": 300000,
+        "startedAt": "2026-09-09T07:24:02.451Z",
+        "completedAt": "2026-09-09T07:25:49.556Z",
+        "durationSeconds": 107.108379216,
+        "executionCommit": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "stdoutBytes": 38086,
+        "stderrBytes": 0
+      },
+      "nativeResult": "pass",
+      "checkCount": 13,
+      "runId": "p242-a11-replay",
+      "semanticReceiptDigest": "d17f98745e4d5a9a973544150f13546d059d732cccaac56d0b4090638a227411",
+      "rawReceiptDigest": "3eb40cb2eeff7685ed127a96d79c0252e8ff91e3c767c9aa25441c5fff9e9ca5",
+      "bindingLiveAllowed": false,
+      "lifecycleLiveAllowed": false
+    }
+  ],
+  "comparison": {
+    "nativeClosedReceiptStructureValidated": true,
+    "declaredRawReceiptDigestsRecomputed": true,
+    "semanticReceiptDigestsRecomputed": true,
+    "semanticReceiptDigest": "d17f98745e4d5a9a973544150f13546d059d732cccaac56d0b4090638a227411",
+    "bindingsEqual": true,
+    "manifestBindingsEqual": true,
+    "executionCommitsEqual": true,
+    "runIdsDistinct": true,
+    "rawFileHashesDistinct": true,
+    "semanticReceiptDigestsEqual": true,
+    "validateCanonicalFreshReplayOrdered": true,
+    "utilityMetaNullFieldsIgnored": "Utility optional accessors do not read semanticReceiptDigest, binding.liveAllowed or lifecycle.liveAllowed; raw native JSON is authoritative."
+  },
+  "postflight": {
+    "head": "d694203ce97264ba3425f8f076c9e80eb618b6d4",
+    "gitClean": true,
+    "nativeReceiptPreAndPostClean": true,
+    "sourceBindingsEqualCommittedB": true,
+    "futureCanonicalAbsent": true,
+    "forbiddenPathChanges": 0,
+    "zeroExternalSideEffects": true,
+    "ownedNativeTemporaryRootRollbackVerified": true,
+    "newReviewOutputIgnored": true
+  },
+  "sourceBindings": [
+    {
+      "path": "package.json",
+      "rawSha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f"
+    },
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "rawSha256": "744c08c2e650ee80951efdd4602422e40b95fac761db91a6d4311dadab6556fd"
+    },
+    {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/promotion-manifest.v2.json",
+      "rawSha256": "13a3533e74894603788dfa865f7f06047914efd8e26f35a00ede4c67321c17a0"
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+      "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d"
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+      "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce"
+    },
+    {
+      "path": "coordination/integration/promotion-gate-lib.mjs",
+      "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+      "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34"
+    }
+  ],
+  "retainedBoundaries": {
+    "installedWrapperResult": "blocked",
+    "installedWrapperCode": "WORKFLOW_OPERATION_FORBIDDEN",
+    "manualExecutionDoesNotChangeWrapperAdmission": true,
+    "prior60SecondAttempts": "retained internal execution errors; not native PASS",
+    "nativeVerifyReceipt": "pending-parent-three-invocations",
+    "canonicalStorage": "pending",
+    "closureRegistryFinalization": "pending",
+    "githubRequiredCheckEnforcement": "pending",
+    "merge": false,
+    "deployment": false,
+    "liveAllowed": false
+  },
+  "receiptUnmetConditionsRetained": [
+    {
+      "scope": "maturity",
+      "code": "independent-replay-pending",
+      "owner": "A11"
+    },
+    {
+      "scope": "maturity",
+      "code": "ci-required-check-enforcement-pending",
+      "owner": "A10"
+    },
+    {
+      "scope": "maturity",
+      "code": "main-postmerge-proof-pending",
+      "owner": "A22"
+    },
+    {
+      "scope": "live",
+      "code": "missing-zh-localization",
+      "owner": "A09"
+    },
+    {
+      "scope": "live",
+      "code": "missing-zhHans-localization",
+      "owner": "A09"
+    },
+    {
+      "scope": "live",
+      "code": "live-integration-and-release-unproven",
+      "owner": "A23"
+    }
+  ],
+  "findings": []
+}

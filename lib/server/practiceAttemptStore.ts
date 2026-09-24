@@ -3,7 +3,7 @@ import postgres from "postgres";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
-import type { AttemptFeedback, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
+import type { AttemptFeedback, AttemptSubmissionResponse, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
 
 type CurriculumScope = CurriculumTrack | CurriculumProfile | undefined | null;
 type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
@@ -17,7 +17,8 @@ type SubmitQuestionAttemptFastInput = {
   answerWorkPhotos?: StoredMediaObjectReference[];
 };
 
-const configuredStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER?.trim().toLowerCase();
+export type PersistedAttemptFeedback = AttemptSubmissionResponse;
+
 const postgresUrl = process.env.POSTGRES_URL?.trim() || null;
 const configuredPostgresMaxConnections = Number(process.env.HK_MATH_POSTGRES_MAX_CONNECTIONS ?? 10);
 const postgresMaxConnections = Number.isFinite(configuredPostgresMaxConnections)
@@ -127,7 +128,23 @@ const postgresStudentActivitySchemaStatements = [
 ];
 
 function postgresRowsEnabled() {
-  return configuredStorageProvider === "postgres" && Boolean(postgresUrl);
+  return practiceAttemptPersistenceMode() === "postgres";
+}
+
+export function practiceAttemptPersistenceMode(
+  env: Readonly<Partial<NodeJS.ProcessEnv>> = process.env,
+): "postgres" | "local" | "unavailable" {
+  const provider = env.HK_MATH_STORAGE_PROVIDER?.trim().toLowerCase();
+  const configuredUrl = env.POSTGRES_URL?.trim();
+  if (provider === "postgres") return configuredUrl ? "postgres" : "unavailable";
+
+  const vercelEnvironment = env.VERCEL_ENV?.trim().toLowerCase();
+  const managedVercelRuntime =
+    env.VERCEL === "1" ||
+    vercelEnvironment === "preview" ||
+    vercelEnvironment === "production" ||
+    vercelEnvironment === "development";
+  return managedVercelRuntime ? "unavailable" : "local";
 }
 
 export function practiceAttemptFastPathPersistsRows() {
@@ -584,7 +601,7 @@ export async function submitQuestionAttemptFast({
   durationSeconds,
   curriculumTrack,
   answerWorkPhotos
-}: SubmitQuestionAttemptFastInput): Promise<AttemptFeedback | null> {
+}: SubmitQuestionAttemptFastInput): Promise<PersistedAttemptFeedback | null> {
   const question = await getQuestionForAttemptFromStore(
     questionId,
     curriculumTrack,
@@ -592,7 +609,10 @@ export async function submitQuestionAttemptFast({
   );
   if (!question) return null;
 
-  const feedback = attemptFeedback(question, selectedAnswer);
+  const feedback: PersistedAttemptFeedback = {
+    ...attemptFeedback(question, selectedAnswer),
+    persisted: false
+  };
 
   if (postgresRowsEnabled()) {
     try {
@@ -605,6 +625,7 @@ export async function submitQuestionAttemptFast({
         now: new Date().toISOString(),
         answerWorkPhotos
       });
+      feedback.persisted = true;
     } catch {
       console.warn("Practice attempt row persistence failed; returning answer feedback without a saved attempt row.");
     }
@@ -614,6 +635,12 @@ export async function submitQuestionAttemptFast({
 }
 
 export const __practiceAttemptStoreTestHooks = {
+  async closePostgresClient() {
+    const client = postgresClient;
+    postgresClient = null;
+    postgresActivityReady = null;
+    if (client) await client.end({ timeout: 1 });
+  },
   postgresStudentActivitySchemaSql() {
     return [...postgresStudentActivitySchemaStatements];
   }

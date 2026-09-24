@@ -32,14 +32,14 @@ function GradebookCell({ cell }: { cell: TeacherGradebookCell }) {
     );
   }
   if (cell.state === "pending") {
-    return <span className="text-xs font-bold uppercase tracking-wide text-amber-600 dark:text-amber-300">{t({ en: "Pending", zh: "待批" })}</span>;
+    return <span className="text-xs font-bold uppercase tracking-wide text-amber-600 dark:text-amber-300">{t({ en: "Pending", zh: "待批", zhHans: "待批" })}</span>;
   }
-  return <span className="text-slate-300 dark:text-slate-600" aria-label={t({ en: "No submission", zh: "未提交" })}>—</span>;
+  return <span className="text-slate-300 dark:text-slate-600" aria-label={t({ en: "No submission", zh: "未提交", zhHans: "未提交" })}>—</span>;
 }
 
 function ColumnHeader({ column }: { column: TeacherGradebookColumn }) {
   const { text, t, language } = useSettings();
-  const kindLabel = column.kind === "assignment" ? t({ en: "Assignment", zh: "作業" }) : t({ en: "Assessment", zh: "測驗" });
+  const kindLabel = column.kind === "assignment" ? t({ en: "Assignment", zh: "作業", zhHans: "作业" }) : t({ en: "Assessment", zh: "測驗", zhHans: "测验" });
   return (
     <th className="min-w-[7.5rem] px-2 py-3 align-bottom text-center font-semibold">
       <div className="flex flex-col items-center gap-1">
@@ -51,8 +51,8 @@ function ColumnHeader({ column }: { column: TeacherGradebookColumn }) {
         )}>{kindLabel}</span>
         <span className="line-clamp-2 text-xs font-black text-slate-800 dark:text-slate-100" title={text(column.title)}>{text(column.title)}</span>
         <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">
-          {t({ en: "max", zh: "滿分" })} {column.maxScore}
-          {!column.countsTowardsGrade ? ` · ${t({ en: "not graded", zh: "不計分" })}` : ""}
+          {t({ en: "max", zh: "滿分", zhHans: "满分" })} {column.maxScore}
+          {!column.countsTowardsGrade ? ` · ${t({ en: "not graded", zh: "不計分", zhHans: "不计分" })}` : ""}
         </span>
         {column.dueAt ? <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500">{formatDateInHongKong(column.dueAt, language, { month: "short", day: "numeric" })}</span> : null}
       </div>
@@ -82,16 +82,16 @@ export function TeacherGradebookView({
       <section className="glass-panel min-w-0 overflow-hidden p-5 sm:p-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className={cn("text-sm font-black uppercase tracking-[0.24em]", zoneEyebrowClass.students)}>{t({ en: "Students & data", zh: "學生與數據" })}</p>
-            <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Gradebook", zh: "成績冊" })}</h1>
+            <p className={cn("text-sm font-black uppercase tracking-[0.24em]", zoneEyebrowClass.students)}>{t({ en: "Students & data", zh: "學生與數據", zhHans: "学生与数据" })}</p>
+            <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Gradebook", zh: "成績冊", zhHans: "成绩册" })}</h1>
             <p className="mt-2 max-w-2xl text-sm font-semibold text-slate-600 dark:text-slate-300">
-              {t({ en: "Every student's scores across all graded work in one grid.", zh: "在同一個表格檢視每位學生所有計分項目的成績。" })}
+              {t({ en: "Every student's scores across all graded work in one grid.", zh: "在同一個表格檢視每位學生所有計分項目的成績。", zhHans: "在同一个表格检视每位学生所有计分项目的成绩。" })}
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             {hasClasses ? (
               <label className="grid gap-1">
-                <span className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級" })}</span>
+                <span className="text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級", zhHans: "班级" })}</span>
                 <select
                   value={activeClassId}
                   onChange={(event) => router.push(`/teacher/gradebook?classId=${encodeURIComponent(event.target.value)}`)}
@@ -113,15 +113,15 @@ export function TeacherGradebookView({
               )}
               aria-disabled={!hasGrid}
             >
-              {t({ en: "Export CSV", zh: "匯出 CSV" })}
+              {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "导出 CSV" })}
             </a>
           </div>
         </div>
         {data ? (
           <div className="mt-5 grid gap-4 md:grid-cols-3">
-            <StatCard label={t({ en: "Class average", zh: "全班平均" })} value={formatPercent(data.classAverage)} detail={t({ en: "Grade-counting work", zh: "計分項目" })} />
-            <StatCard label={t({ en: "Students", zh: "學生" })} value={String(students.length)} detail={t({ en: "Enrolled", zh: "已入班" })} />
-            <StatCard label={t({ en: "Graded items", zh: "計分項目" })} value={String(columns.length)} detail={t({ en: "Assignments and assessments", zh: "作業與測驗" })} />
+            <StatCard label={t({ en: "Class average", zh: "全班平均", zhHans: "全班平均" })} value={formatPercent(data.classAverage)} detail={t({ en: "Grade-counting work", zh: "計分項目", zhHans: "计分项目" })} />
+            <StatCard label={t({ en: "Students", zh: "學生", zhHans: "学生" })} value={String(students.length)} detail={t({ en: "Enrolled", zh: "已入班", zhHans: "已入班" })} />
+            <StatCard label={t({ en: "Graded items", zh: "計分項目", zhHans: "计分项目" })} value={String(columns.length)} detail={t({ en: "Assignments and assessments", zh: "作業與測驗", zhHans: "作业与测验" })} />
           </div>
         ) : null}
       </section>
@@ -129,15 +129,15 @@ export function TeacherGradebookView({
       <section className="glass-panel min-w-0 overflow-hidden p-5 sm:p-6">
         {!hasClasses ? (
           <p className="py-10 text-center text-sm font-semibold text-slate-500 dark:text-slate-400">
-            {t({ en: "Create a class and add students to start building a gradebook.", zh: "先建立班級並加入學生，即可開始使用成績冊。" })}
+            {t({ en: "Create a class and add students to start building a gradebook.", zh: "先建立班級並加入學生，即可開始使用成績冊。", zhHans: "先建立班级并加入学生，即可开始使用成绩册。" })}
           </p>
         ) : students.length === 0 ? (
           <p className="py-10 text-center text-sm font-semibold text-slate-500 dark:text-slate-400">
-            {t({ en: "No students are enrolled in this class yet.", zh: "此班級尚未有學生。" })}
+            {t({ en: "No students are enrolled in this class yet.", zh: "此班級尚未有學生。", zhHans: "此班级尚未有学生。" })}
           </p>
         ) : columns.length === 0 ? (
           <p className="py-10 text-center text-sm font-semibold text-slate-500 dark:text-slate-400">
-            {t({ en: "No graded work yet. Assign homework or an assessment to this class to populate the grid.", zh: "尚未有計分項目。為此班級派發作業或測驗後即會顯示。" })}
+            {t({ en: "No graded work yet. Assign homework or an assessment to this class to populate the grid.", zh: "尚未有計分項目。為此班級派發作業或測驗後即會顯示。", zhHans: "尚未有计分项目。为此班级派发作业或测验后即会显示。" })}
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -145,11 +145,11 @@ export function TeacherGradebookView({
               <thead>
                 <tr className="border-b border-slate-200 dark:border-white/10">
                   <th className="sticky left-0 z-10 min-w-[10rem] bg-white px-3 py-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:bg-slate-950 dark:text-slate-400">
-                    {t({ en: "Student", zh: "學生" })}
+                    {t({ en: "Student", zh: "學生", zhHans: "学生" })}
                   </th>
                   {columns.map((column) => <ColumnHeader key={column.id} column={column} />)}
                   <th className="min-w-[5.5rem] px-2 py-3 text-center text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                    {t({ en: "Average", zh: "平均" })}
+                    {t({ en: "Average", zh: "平均", zhHans: "平均" })}
                   </th>
                 </tr>
               </thead>
@@ -173,7 +173,7 @@ export function TeacherGradebookView({
               <tfoot>
                 <tr className="border-t-2 border-slate-200 dark:border-white/10">
                   <td className="sticky left-0 z-10 bg-white px-3 py-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:bg-slate-950 dark:text-slate-400">
-                    {t({ en: "Class avg", zh: "全班平均" })}
+                    {t({ en: "Class avg", zh: "全班平均", zhHans: "全班平均" })}
                   </td>
                   {columns.map((column) => (
                     <td key={column.id} className="px-2 py-3 text-center text-sm font-black text-slate-700 dark:text-slate-200">

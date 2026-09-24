@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "mais-runtime-policy-revision-proposal.v1",
+  "proposalId": "runtime-policy-exact-delta-20260901",
+  "relation": "append-only-reaffirmation",
+  "status": "candidate-only",
+  "sealedEvidenceRawSha256": "ddecb0dc10674115ff723b5785f6f5d0f4a934e532049c2d687f174c5aa3423f",
+  "observerExecutionCommit": "e170e6260f565abf1a2c576de3b3df388490c669",
+  "targetBaselineCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "staleExpectedPolicyDigest": "3cb75bdc2457f3d875351e89869fc0c28bb8edd94d1afe6a0d6090a0fd23349f",
+  "observedPolicyDigest": "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5",
+  "sealedDelta": {
+    "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+    "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+    "changedFields": [
+      "edgeCount",
+      "edgeDigest",
+      "fsReadAllowlistDigest",
+      "nextDynamicCallsiteDigest",
+      "topologyEdgeCount",
+      "topologyEdgeDigest"
+    ],
+    "source": {
+      "edgeCount": 3589,
+      "edgeDigest": "d8391d4a583e85069df1eefb11d173abc6e861385c33fa2b0e3a11781ce724b1",
+      "fsReadAllowlistDigest": "4086cb7cf516c752440fd29eb6ff71e65a1b1b239171660be225c79a58d5727e",
+      "nextDynamicCallsiteDigest": "4b439b4c150905bdf53347dbb3d87927c504f6841ef4a84b40220fd17022baaa",
+      "topologyEdgeCount": 3589,
+      "topologyEdgeDigest": "0660f9987830ac6e73bc101f5364be084d61ffc3daa8dac56e92e8284c1c64c4"
+    },
+    "observed": {
+      "edgeCount": 3590,
+      "edgeDigest": "cf5c6ff473ae2a2c6f2dc1ee63744db092d1f49680324fe3dcc3757e24d2dff8",
+      "fsReadAllowlistDigest": "4c3c8843388b25a798555da08e8cd826bbab48cc7742295f3954d1ff54b142f8",
+      "nextDynamicCallsiteDigest": "39181db66a0ab49a9a0b90c133f260094f277de1a4d5afbc276882892959b6e7",
+      "topologyEdgeCount": 3590,
+      "topologyEdgeDigest": "c14b18046e860c27e8bbda2b5df7d7ca14a4c4b89bd1153645f36b5044604637"
+    }
+  },
+  "unchangedBindings": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5"
+  },
+  "classification": {
+    "newStaticDependencyEdge": true,
+    "graphTopologyExpansion": true,
+    "reachablePathSetExpansion": false,
+    "newLoaderCapability": false,
+    "fsReadCapabilityExpansion": false,
+    "dynamicImportTargetExpansion": false,
+    "newNonliteralDynamicImport": false,
+    "zeroBaselineLoaderExpansion": false
+  },
+  "authorization": {
+    "proposalAllowed": false,
+    "workflowSelectorMutationAllowed": false,
+    "manifestMutationAllowed": false,
+    "shadowAllowed": false,
+    "liveAllowed": false
+  }
+}

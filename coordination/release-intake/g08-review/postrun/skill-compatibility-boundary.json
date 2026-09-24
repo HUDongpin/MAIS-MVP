@@ -1,0 +1,340 @@
+{
+  "schemaVersion": "mais-g08-b2-independent-discovery-diagnosis.v1",
+  "producedAt": "2026-09-06T17:47:48.193075+00:00",
+  "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+  "result": "blocked-at-skill-workflow-authority-layer",
+  "bindingAudit": {
+    "result": "pass",
+    "bindingCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+    "directEvidenceParent": "ff5f745e4de2590c31c49d3e562e97f2dece65c6",
+    "evidenceDirectParent": "16bd42e8ba1be843394189ff60e22895688d220a",
+    "bindingChanges": [
+      [
+        "M",
+        ".github/workflows/promotion-shadow.yml"
+      ],
+      [
+        "A",
+        "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence-index.v2.json"
+      ],
+      [
+        "A",
+        "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json"
+      ],
+      [
+        "A",
+        "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmation.v2.json"
+      ],
+      [
+        "M",
+        "scripts/promotion-shadow-workflow-v2.test.mjs"
+      ]
+    ],
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+      "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+    },
+    "descriptor": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmation.v2.json",
+      "rawSha256": "ee786b9c66a4a7300845f9c720d6db929c71b11ce9bfb2aebaa01e9dd1ab97ef"
+    },
+    "baselineReferences": [
+      {
+        "role": "A11",
+        "path": "coordination/release-intake/g08-review/baseline-review-a11.v2.json",
+        "rawSha256": "6a87cc2087bab87a2f68fa77befd14ace5fc75b1506c94a923a2f3e4ac3b18f0",
+        "producedAt": "2026-09-06T17:21:54.129Z",
+        "exactAtEvidenceAndBinding": true,
+        "topLevelReaderPredicateMatches": true
+      },
+      {
+        "role": "A22",
+        "path": "coordination/release-intake/g08-review/baseline-review-a22.v2.json",
+        "rawSha256": "f71abb9461711d920f3bd9ebddc51f3ed661d9011fc8b9c20e8c7fbec3114557",
+        "producedAt": "2026-09-06T17:23:13.630Z",
+        "exactAtEvidenceAndBinding": true,
+        "topLevelReaderPredicateMatches": true
+      },
+      {
+        "role": "A25",
+        "path": "coordination/release-intake/g08-review/baseline-review-a25.v2.json",
+        "rawSha256": "d749df5af22aa36f68b3a7f446daca6e47e1c74329839605464b70a9f2b8a547",
+        "producedAt": "2026-09-06T17:23:13.630Z",
+        "exactAtEvidenceAndBinding": true,
+        "topLevelReaderPredicateMatches": true
+      }
+    ],
+    "baselineDigest": "e7b9ddeb12d73bc48e7ff34c9e2bb0e9919e939841fdf997ada65db47c31c075",
+    "baselinePathCount": 178,
+    "selectors": [
+      {
+        "path": ".github/workflows/promotion-shadow.yml",
+        "beforeSha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+        "afterSha256": "cb226916e8867cb9cdac2b26858e90182a4948ba66e4c8e1f05e788024673bb7",
+        "exactStringReplacementCount": 4,
+        "otherBytesUnchanged": true
+      },
+      {
+        "path": "scripts/promotion-shadow-workflow-v2.test.mjs",
+        "beforeSha256": "fa370696fabc2726863875014e0c38acdfb1dadfaab0244bdeb2f97951c1a157",
+        "afterSha256": "8bd8bda81a7d9dc00d7723ff73212e4a7050bf509778d5ab8693c7ebd77de75e",
+        "exactStringReplacementCount": 4,
+        "otherBytesUnchanged": true
+      }
+    ],
+    "literalWorkflowSelectsG08": true,
+    "futureCanonicalAbsentAtB": true,
+    "sourceCleanAndHeadUnchanged": true,
+    "otherFrozenCodeAndProtected": [
+      {
+        "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+        "rawSha256": "662a17a9afe48a2d4e758f2b5b9e8eda5594a9ea3bb5cb438a044f2256ee17a6",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/promotion-reaffirmation-history.mjs",
+        "rawSha256": "dd06d88142e63f3f968fa5893c2deb7152ba03a19f715d312f3c7e9d9b3cc368",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/promotion-reaffirmation-history.test.mjs",
+        "rawSha256": "19cf9ca628cbb240bd0013513339593b67d8129d664efb943d3f79d2318b7a13",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/promotion-gate-lib.mjs",
+        "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+        "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+        "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/rebase-promotion-baseline.mjs",
+        "rawSha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/rebase-promotion-baseline.test.mjs",
+        "rawSha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.mjs",
+        "rawSha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.test.mjs",
+        "rawSha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a",
+        "unchanged": true
+      },
+      {
+        "path": "coordination/integration/checker-releases.v2.json",
+        "rawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/promotion-required-check-semantic-rescope.mjs",
+        "rawSha256": "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81",
+        "unchanged": true
+      },
+      {
+        "path": "scripts/promotion-required-check-semantic-rescope-cli.mjs",
+        "rawSha256": "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b",
+        "unchanged": true
+      },
+      {
+        "path": "package.json",
+        "rawSha256": "90d22201a74877a31491661e0281d68fcc59d1aa6a27f77ab1b731bef271f990",
+        "unchanged": true
+      },
+      {
+        "path": ".github/workflows/ci.yml",
+        "rawSha256": "edeee337bc152f39d4772fc1157b6be471104237f4b91483feea6a45df0c13f7",
+        "unchanged": true
+      }
+    ]
+  },
+  "nativeOperationScope": {
+    "advertisedOperations": {
+      "promotion:validate": "node coordination/integration/v2/promotion-gate-v2.mjs validate",
+      "promotion:shadow": "node coordination/integration/v2/promotion-gate-v2.mjs shadow",
+      "promotion:verify-receipt": "node coordination/integration/v2/promotion-gate-v2.mjs verify-receipt"
+    },
+    "frozenV26CliSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+    "frozenV26LibSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+    "review": "Native Shadow/verification retain their existing non-live read-only-Git/owned-temp-only implementation. No new provider/live/runtime capability was added by the eight selector string changes. This code/scope audit does not authorize bypassing the blocked wrapper.",
+    "nativeValidateExecutedByThisReviewer": false,
+    "nativeShadowExecutedByThisReviewer": false,
+    "nativeVerifyExecutedByThisReviewer": false
+  },
+  "operationAwareShadowDiscovery": {
+    "executeRequested": false,
+    "allowShadow": true,
+    "expectedHead": "36e489e87473163115be53b75a87a51e1cbad79c",
+    "exitCode": 2,
+    "rawResult": {
+      "tool": "run-native-promotion-gate",
+      "result": "blocked",
+      "issues": [
+        {
+          "code": "WORKFLOW_OPERATION_FORBIDDEN"
+        }
+      ]
+    },
+    "file": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-shadow-discovery.json",
+    "fileSha256": "6ccdba286c72c6b309806fc7a2510310514e56ec20b13991d8395cb18ed76871",
+    "nativeInvocationNotReached": true
+  },
+  "exactCause": {
+    "code": "WORKFLOW_OPERATION_FORBIDDEN",
+    "message": "selected Promotion job contains an executable outside the exact native gate policy",
+    "outerGuardLine": 2158,
+    "innerGuard": "trustedStrictGuardProgram dynamicImports allowlist",
+    "innerGuardLine": 1908,
+    "rejectedSource": "await import(pathToFileURL(historyHelperPath).href)",
+    "allowedDynamicSource": "pathToFileURL(guardPath).href only",
+    "affectedProgramSha256": "51711902d202b68a85e6a030294f47f48c8055e58448f746317ae4be660b3ff9",
+    "affectedStep": "Resolve canonical Promotion execution commit",
+    "policyActionEnvironmentShellGuardsPassedBeforeThisFailure": true,
+    "staticImportAllowlistNotTheImmediateRejectingBranch": true
+  },
+  "comparison": {
+    "fixedWorkflowParses": [
+      {
+        "label": "B2",
+        "result": "blocked",
+        "code": "WORKFLOW_OPERATION_FORBIDDEN",
+        "message": "selected Promotion job contains an executable outside the exact native gate policy",
+        "stack": [
+          "Error: selected Promotion job contains an executable outside the exact native gate policy",
+          "    at fail (file:///Users/dongpinhu/.codex/skills/mais-content-promotion-gate/scripts/discover-promotion-gate.mjs:80:23)",
+          "    at parsePromotionWorkflow (file:///Users/dongpinhu/.codex/skills/mais-content-promotion-gate/scripts/discover-promotion-gate.mjs:2158:47)",
+          "    at file:///Volumes/Starship/MAIS-MVP/[eval1]:5:14",
+          "    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)"
+        ]
+      },
+      {
+        "label": "main7f",
+        "result": "pass",
+        "keys": [
+          "manifestSelector",
+          "receiptSelector",
+          "reaffirmationSelector",
+          "comparator",
+          "semanticRequiredCheck"
+        ]
+      },
+      {
+        "label": "E2",
+        "result": "blocked",
+        "code": "WORKFLOW_OPERATION_FORBIDDEN",
+        "message": "selected Promotion job contains an executable outside the exact native gate policy",
+        "stack": [
+          "Error: selected Promotion job contains an executable outside the exact native gate policy",
+          "    at fail (file:///Users/dongpinhu/.codex/skills/mais-content-promotion-gate/scripts/discover-promotion-gate.mjs:80:23)",
+          "    at parsePromotionWorkflow (file:///Users/dongpinhu/.codex/skills/mais-content-promotion-gate/scripts/discover-promotion-gate.mjs:2158:47)",
+          "    at file:///Volumes/Starship/MAIS-MVP/[eval1]:5:14",
+          "    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)"
+        ]
+      }
+    ],
+    "guardDetail": [
+      {
+        "label": "B2",
+        "workflowSha256": "cb226916e8867cb9cdac2b26858e90182a4948ba66e4c8e1f05e788024673bb7",
+        "rejectedStrictPrograms": [
+          {
+            "blockIndex": 4,
+            "marker": "__PROMOTION_NODE_PROGRAM_0__",
+            "programSha256": "51711902d202b68a85e6a030294f47f48c8055e58448f746317ae4be660b3ff9",
+            "trustedStrictGuardProgram": false,
+            "dynamicImports": [
+              "pathToFileURL(guardPath",
+              "pathToFileURL(historyHelperPath"
+            ],
+            "unrecognizedDynamicImports": [
+              "pathToFileURL(historyHelperPath"
+            ],
+            "containsHistoryHelper": true
+          }
+        ]
+      },
+      {
+        "label": "main7f",
+        "workflowSha256": "4624a05236bb34eb9ba009c91bc16c646e689abcb172b254457280bd3d9841ca",
+        "rejectedStrictPrograms": []
+      },
+      {
+        "label": "E2",
+        "workflowSha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+        "rejectedStrictPrograms": [
+          {
+            "blockIndex": 4,
+            "marker": "__PROMOTION_NODE_PROGRAM_0__",
+            "programSha256": "51711902d202b68a85e6a030294f47f48c8055e58448f746317ae4be660b3ff9",
+            "trustedStrictGuardProgram": false,
+            "dynamicImports": [
+              "pathToFileURL(guardPath",
+              "pathToFileURL(historyHelperPath"
+            ],
+            "unrecognizedDynamicImports": [
+              "pathToFileURL(historyHelperPath"
+            ],
+            "containsHistoryHelper": true
+          }
+        ]
+      }
+    ],
+    "main7fAlreadyAccepted": true,
+    "E2BeforeSelectorsRejectedIdentically": true,
+    "selectorChangeCausedThisFailure": false,
+    "introducedBoundary": "Previously reviewed external history-helper import, introduced before B2, is outside the installed skill reader trust profile. This is not a baseline-review top-level field rejection or a pre-existing main7f rejection."
+  },
+  "safetyInterpretation": "Repository history helper was independently reviewed including its graft repair, but the installed skill has not admitted/bound that transitive helper authority. Therefore this is a workflow-to-skill trust-profile compatibility gap; it must not be erased as a generic harmless false positive or bypassed with direct native execution while Root has paused execution.",
+  "diagnosticMethod": {
+    "originalInstalledModuleInvokedForParse": true,
+    "privateHelperExposure": "Only a separate /private/tmp diagnostic copy appended exports of existing private pure parser helpers; no guard body was altered and no native execution used that copy.",
+    "installedSkillFile": "/Users/dongpinhu/.codex/skills/mais-content-promotion-gate/scripts/discover-promotion-gate.mjs",
+    "installedSkillSha256": "4b93a231747a1ea75c264c07892bf124c447c5617d19d7ffb92748c02b3eb1d6",
+    "skillUnmodified": true
+  },
+  "nextBoundary": "Root must choose and review a supported representation/admission of the history helper authority. No skill/global policy edit, import hiding, source mutation, wrapper bypass or native execution was performed in this audit.",
+  "limits": [
+    "The repository selector contract test 34/34 is Root execution, separately hash-bound; it does not replace operation-aware skill discovery.",
+    "B2 native/CI operation implementation and descriptor preconditions pass this scoped review, but actual wrapper admission is blocked. No active PRO3 currentness, finalization or live approval claimed."
+  ]
+}

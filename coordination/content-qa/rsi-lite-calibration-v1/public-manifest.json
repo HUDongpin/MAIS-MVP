@@ -1,0 +1,403 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "status": "candidate-only",
+  "executionStatus": "not-authorized",
+  "estimandScope": "content-surfaces-only",
+  "seedCommitment": "f233aee2cb1413a481a5c95865cb79a5caa210f4758a6bf3835867241cf605af",
+  "candidateSetSha256": "e18cbaa42d3da75386a37d2af679ff0284d65232f141f90609d5958c4087cd6c",
+  "counts": {
+    "independentClusters": 12,
+    "packages": 48,
+    "questions": 4800,
+    "lessons": 96,
+    "browserRoutes": 0
+  },
+  "packages": [
+    {
+      "packageId": "pkg-007b89da9bfd3d04abde",
+      "contentSha256": "e73367278af41790428d8117e4da234554e1d9d382701392149018f0455b62fc",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-0a7cc46b92780c836198",
+      "contentSha256": "085268f936dfb7264a29568d12db380705f882383a093d7e84101737416f3595",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-0d539adb53ce8eb927c6",
+      "contentSha256": "3f726c3cf12cca6684a874db86052f7b2b50d93055605c7c925df454ee861dba",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-17e9d296670dcc8c6945",
+      "contentSha256": "095fdf22fc1b703e185225e517a5674b2356f4cdc835bfd21f914a5b758d3811",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-2c056b16390024d4d983",
+      "contentSha256": "165d9d6a99c3f421295cbdddd6e9862e464e3e790a408ef13706c0bcf54a9a32",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-2d39cc57be16958b6ec8",
+      "contentSha256": "198f58862052d006352b808caf690793bcf0a34a87d76f961add655836537a9a",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-332ce505b4f2ac44fed0",
+      "contentSha256": "08c29c9f4460d5e79c4c7e0149510389855b4da83f245c391e6895ed7f7452e1",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-36cf669a6a4ba4324127",
+      "contentSha256": "a12058ec40abd2dd894e909176ea8357e766665fca9ddcd596fec939461e9a74",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-3c9a7f5c1356ababc1ea",
+      "contentSha256": "a04fba7db18e0299d367d345fe6914f8944b527d01e71b8607eff45432ab37e2",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-4720883ccc155254e56a",
+      "contentSha256": "60fb9e340e517c81f3d3758e107001fad25010faaf62b722d4c64552b1d48ec3",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-47d58ba10da12445d6fa",
+      "contentSha256": "67e684cdc44979e346a69fb41b02f90c8a4a007ec768460e73c7913262859467",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-489b3d1d0768e818509d",
+      "contentSha256": "1dcffb5efe6e4a2a7b249e45694e9bf23be7568523c153d22c73fd59da7382b3",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-53ad82867733f1789c3e",
+      "contentSha256": "198cbf45dcdb2f305f49740c8191dc5d146af29084f83cece9a6e6b76593e335",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-5a5bae46e85535701f5c",
+      "contentSha256": "581b8d965e1d97f6c4fae70e12db617de29fdf362dd1a4ef9458176fd85f9d61",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-5c89d5474ee05cacadec",
+      "contentSha256": "b56a9dbf34c449f1fc6ed550f47aa99f43fb0e607e19ead66e6f82c332c10714",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-63c99ec9ca484f75092c",
+      "contentSha256": "dc5bc56f2679fb6bd99cc08c938bbe06518453de753d560dbc491e6e975c3943",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-67b35215e8573b40619f",
+      "contentSha256": "bef977f87b96a14119fcb0359b9f5d050196e39cafb139f4cf49979376d272b4",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-6ee3bd037b3591a38ae3",
+      "contentSha256": "e3b857c799652daa985a89291f2749b057ed48c1c5fc648868863acfca52dc25",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-749bce99197ad06d88b5",
+      "contentSha256": "60d71fcb4dc03c5260341a4deda0e1f1ee52c50ae409153bc00a617d395a7ba8",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-77a25f351f1c573463a4",
+      "contentSha256": "6cf004a1eb0664b048aed36e993a2373d4d6cb6f68380ba6572da268b4eec42f",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-7813b432c814210de174",
+      "contentSha256": "bdcfd69fd4b9388167098786a977c4fa80ed3886740237533bfcdadae50c0516",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-7dad5ad172988f006d35",
+      "contentSha256": "b664ceba886c083316a20b5c26929037b5c543982c76da800f6d83c2f98c50ed",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-84e80c0ec642cd1afad9",
+      "contentSha256": "becda55043bc162cf03b0079f5bb25bdc71a3ed5fa4db96ae24905bfb2fbc87d",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-852506bdf01392b3037d",
+      "contentSha256": "750dffadc751c2bace96fe5253afc46e7694cae392332afaeaf6d19164228f10",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-87c745b0b4ecd74ef078",
+      "contentSha256": "8b6353dde5a824e51c09605c676c1c8d82740d239d527bd79a01487c1efeea39",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-8d2a8c4ff2ffc2243693",
+      "contentSha256": "a7f765ce3ecfedc13dbe068a4faa40edd9f567a9adfa8f167d399f011634a95b",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-924987b7b23958731b16",
+      "contentSha256": "8f9244d25051e154cfc0d7c03c1c66fc11c2cac8f2c16ac8beff350baf12c5e8",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-99808cdf261c94e3eb8b",
+      "contentSha256": "92d9a71fb68f7051fa393a49f78b87ffd3e4edd4ec0582e4e844be2eb1332169",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-9e8e22040c0e8a988e5d",
+      "contentSha256": "343c6452c9e8dd034d22bf1220ef8d09c83f1da8ceb1162813b9ea91041e708a",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-abfe981a714afb9f3427",
+      "contentSha256": "8f49ebd10bc342150ebc7b69f44b956f7ca3efe788a0c07457b4f599b9df7083",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-b998b7fc6a844617d90d",
+      "contentSha256": "70ec3c04e848a9a2c2eefdb2293ffac53d3bfded514e37669af88bd9f898b2df",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-bd62ba16e7614a39469b",
+      "contentSha256": "8f625a2f3c49924b29838188e51f86c1dbf38e0876015e9ac5ad5a8469fa2a0d",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-bd6eb14b3530d1476e84",
+      "contentSha256": "dcf1dd8ceaea1c02d61780dbbf3842534d463fca446fd6f117064f489dd1d07f",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-be6bc77fa508062346ce",
+      "contentSha256": "bdfdc476965292d9fd16c23dfc57a6e6e4be5e926c63587c7c9c3fe6e09299cb",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-c433050041d7dd05e7cb",
+      "contentSha256": "4a90a8ca290027396fbf00123c4ad5f83abe3bcaea582274b6f8898d24456cab",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-cb12f1f93c275f2cc8bd",
+      "contentSha256": "2a2f33df51389d761b4693d50634c7020ef6a1caa269e8c0fb435a46071c79ee",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-cbd9507b3de8387ba708",
+      "contentSha256": "03e3d145ca3a807843a9d4927ee3ab30993fe108cb813b61b68776e4d06bf902",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-d0f347a9320e0c54495a",
+      "contentSha256": "9b63dd8e1528073dc7927d36f04d7037bf50492ed372a8f26a98ed298e63a4a6",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-d16a23e22cb90fcb55c1",
+      "contentSha256": "118d72b28c4217e140b66b8333b50e6870158e532ee3d3fb842e225175c8d8bf",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-d2657bbc84c0a55da001",
+      "contentSha256": "48c553ddc99d022ff4697ffd597f809cb8a5b1c651d6c5eb6f4bc3add776147b",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-d688be36c88dd4f8a2fa",
+      "contentSha256": "510ee60b02593612f2b2af6b34652dd10848707a6de5785dba32bc4f47a5b5dc",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-d8dfa69d768960ddd8eb",
+      "contentSha256": "56e30f9f84e035efa900927fad7fa3b20b541b3e8369928d62f515ac707c0ede",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-dd7692b2db8d3de6ad9a",
+      "contentSha256": "0a85dc249c588ef6b4befedbe3022fffce9bfc32f5a1280ac4e38e1c759f66cd",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-e83bdbbc1deae4f89615",
+      "contentSha256": "92182c8a59c1978f69a84c50a81eaf457f8d7d9f3558c3c0985853c54033a415",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-e95547d7e91504db4cc0",
+      "contentSha256": "ae2839767c971dd8efb6cd75da12f985b8cf01bf294cb0289409722e87ff3d03",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-ecfa8e98dbc98599b7e4",
+      "contentSha256": "09d502e603a86cbb70ce3fbf640a59dbb9f705e5aafc1283f0498d65c3b5df82",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-f9e4e7b2426926a96c8b",
+      "contentSha256": "937d43e754e7ebf83a006a35a786cc84b0b0d0be33afe27f07ed51a7aec359e8",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    },
+    {
+      "packageId": "pkg-fa1d53b3551b9f2d4d4e",
+      "contentSha256": "bd884f30a71e3dd38ce5c88c98475dbeb47ee6606fef05207062eb72b9dac972",
+      "status": "candidate-only",
+      "questionCount": 100,
+      "lessonCount": 2,
+      "browserRouteCount": 0
+    }
+  ]
+}

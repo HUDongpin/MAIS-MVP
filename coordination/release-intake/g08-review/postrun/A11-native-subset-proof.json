@@ -1,0 +1,460 @@
+{
+  "schemaVersion": "mais-g08-a11-native-subset-postrun-proof.v1",
+  "producedAt": "2026-09-06T18:05:29.671Z",
+  "actorTaskId": "/root/s5_quality_review/s7_binding_contract",
+  "role": "A11",
+  "result": "pass-for-authorized-frozen-native-subset-only",
+  "executionCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+  "evidenceParentCommit": "ff5f745e4de2590c31c49d3e562e97f2dece65c6",
+  "manifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+    "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+  },
+  "scope": "Independent native v2.6 replay, actual native canonical verification and external native receipt structure/digest comparison. This document is not a promotion attestation, finalized index, skill wrapper admission, or live approval.",
+  "operationTimeline": [
+    {
+      "operation": "validate",
+      "actorTaskId": "/root",
+      "startedAt": "2026-09-06T17:51:07.677+00:00",
+      "completedAt": "2026-09-06T17:51:24.903Z",
+      "completionSource": "derived from recorded start plus monotonic duration",
+      "durationSeconds": 17.226717249955982,
+      "executionMetadataPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-native-validate-execution.json",
+      "executionMetadataSha256": "51033ed24f4327b638df8277496d9a9d4da26eccc8cc839cb8269e46f3e6ed17"
+    },
+    {
+      "operation": "canonical",
+      "actorTaskId": "/root",
+      "startedAt": "2026-09-06T17:54:00.733+00:00",
+      "completedAt": "2026-09-06T17:54:20.989Z",
+      "completionSource": "derived from recorded start plus monotonic duration",
+      "durationSeconds": 20.25699429109227,
+      "executionMetadataPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-canonical-receipt-execution.json",
+      "executionMetadataSha256": "3cab058e625d6c668323d6b4c32ca274eae0d6ee488f8e567760705ab81d8ffe"
+    },
+    {
+      "operation": "fresh",
+      "actorTaskId": "/root",
+      "startedAt": "2026-09-06T17:54:21.229+00:00",
+      "completedAt": "2026-09-06T17:54:41.569Z",
+      "completionSource": "derived from recorded start plus monotonic duration",
+      "durationSeconds": 20.340653999941424,
+      "executionMetadataPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-fresh-receipt-execution.json",
+      "executionMetadataSha256": "f3bd6b9ccca5913f1111e86fc5c204945d5a2eebe868bd39b458849d8a97ed49"
+    },
+    {
+      "operation": "independent-replay",
+      "actorTaskId": "/root/s5_quality_review/s7_binding_contract",
+      "startedAt": "2026-09-06T17:57:45.208Z",
+      "completedAt": "2026-09-06T17:58:05.499Z",
+      "completionSource": "recorded",
+      "durationSeconds": 20.291,
+      "executionMetadataPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-replay-shadow-execution.json",
+      "executionMetadataSha256": "fd42c47974885c890ace7fe073237cda4b6f5a82cab19c9ee124c4bc37e1893d"
+    },
+    {
+      "operation": "independent-canonical-verification",
+      "actorTaskId": "/root/s5_quality_review/s7_binding_contract",
+      "startedAt": "2026-09-06T18:02:56.892Z",
+      "completedAt": "2026-09-06T18:03:19.133Z",
+      "completionSource": "recorded",
+      "durationSeconds": 22.242,
+      "executionMetadataPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-verify-canonical-execution.json",
+      "executionMetadataSha256": "c2004981da957875c158f9cfee95063c9042cb90bae44c352be2031cdf1763ad"
+    }
+  ],
+  "receiptComparison": {
+    "nativeStructureValidated": true,
+    "nativeRawAndSemanticDigestsRecomputed": true,
+    "bindingsEqual": true,
+    "semanticDigestsEqual": true,
+    "runIdsDistinct": true,
+    "rawDigestsEqual": false,
+    "semanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb",
+    "comparisonDigest": "a52af1b0679c682d0e6fea4374eb029d35ef1a06f4bd7bcdf3a446634a8ef108",
+    "receipts": [
+      {
+        "role": "canonical",
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-canonical-receipt.json",
+        "fileSha256": "1484c3d5012afdbd5ae0bc1fc94327a699766893708c2d39d031cc0605ee580b",
+        "nativeRawReceiptDigest": "6d231a7ead0bc6ac9c7333a8d56ae1a23a7fa832fbb61715e9ccf0a967fc9409",
+        "nativeSemanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb",
+        "bindingDigest": "a8d3e30b5e7290f67960fd52f9efb3a9348ad93479cc98d6a7d2365cc01eebf1",
+        "runIdDigest": "6969c0adbf8b2e082a4679c3b5e57a528d40110063a5227f0a21115ca2a74cce",
+        "producedAt": "2026-09-06T17:54:00.857Z",
+        "checks": 13,
+        "checksAllPass": true,
+        "nativeStructureValidated": true,
+        "nativeDigestsRecomputed": true,
+        "liveAllowed": false
+      },
+      {
+        "role": "fresh",
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-fresh-receipt.json",
+        "fileSha256": "480baf50fa55a728a59b3c78de89f75d5ab33d649df4175975e5e138b4c2aaf7",
+        "nativeRawReceiptDigest": "9997e5c08f0aa72c764ce79a3451628e041588262e9a9df113d5a041fe728a22",
+        "nativeSemanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb",
+        "bindingDigest": "a8d3e30b5e7290f67960fd52f9efb3a9348ad93479cc98d6a7d2365cc01eebf1",
+        "runIdDigest": "b9c511ccca848205c8c0b73024dc07deb3e7ab109f4ceefeef8ed909621bae10",
+        "producedAt": "2026-09-06T17:54:21.357Z",
+        "checks": 13,
+        "checksAllPass": true,
+        "nativeStructureValidated": true,
+        "nativeDigestsRecomputed": true,
+        "liveAllowed": false
+      },
+      {
+        "role": "replay",
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-replay-receipt.json",
+        "fileSha256": "6b8232500b679e1131559ab05acf9366a5505f7b620b26c42e0bb74b0377ae5e",
+        "nativeRawReceiptDigest": "fac3237e719a03d41efa535dfd6ead6e8e81934294e722994298027fe64cf03f",
+        "nativeSemanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb",
+        "bindingDigest": "a8d3e30b5e7290f67960fd52f9efb3a9348ad93479cc98d6a7d2365cc01eebf1",
+        "runIdDigest": "c460934039ed60af3fd8848a9dbc1d588fc5ae591eeb4418d832b7a98a2e1c26",
+        "producedAt": "2026-09-06T17:57:45.334Z",
+        "checks": 13,
+        "checksAllPass": true,
+        "nativeStructureValidated": true,
+        "nativeDigestsRecomputed": true,
+        "liveAllowed": false
+      }
+    ]
+  },
+  "canonicalVerification": {
+    "actuallyExecuted": true,
+    "valid": true,
+    "result": "pass",
+    "nativeVerificationReplaysShadowByFrozenContract": true,
+    "standaloneInternalReplayReceiptEmitted": false,
+    "inputFileSha256": "1484c3d5012afdbd5ae0bc1fc94327a699766893708c2d39d031cc0605ee580b",
+    "inputBytesUnchanged": true,
+    "outputFileSha256": "113f0e94380fd1fec5a732c468e1b14c38611fc1ba9059b941993777bfeafa83"
+  },
+  "sourceObservations": {
+    "snapshotPathCount": 49,
+    "snapshotDigest": "26a5fa008f853a996c480f2557b39a70a588e512eed7c1880664f326c3df603e",
+    "executionPrePostEqual": true,
+    "verificationPrePostEqual": true,
+    "finalPhysicalBytesAndExecutableModesMatchFrozenGitObjects": true,
+    "headAndStatusClean": true,
+    "sourceReadCompletedAt": "2026-09-06T18:05:29.669Z",
+    "gitMutationsByDriver": false,
+    "repositoryWritesByDriver": false,
+    "noFurtherSourceReadsRequiredForThisTask": true
+  },
+  "nativeEvidence": {
+    "checks": [
+      {
+        "id": "candidate-binding-v2",
+        "result": "pass",
+        "details": {
+          "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+          "artifactCount": 3
+        },
+        "digest": "acbefb355940177795a20dac4757cff0f32b3a297043f01e5c7cdd2da8c16601"
+      },
+      {
+        "id": "git-baseline-v2",
+        "result": "pass",
+        "details": {
+          "provenanceDigest": "38394698eb0a57f96a15396bdac0d07e01ad6cd19a71e06bafef395ae2cad1c0",
+          "baselineDigest": "f6efa7a9ddc43c151443d7c3eaed0a1948262c2287d03ed0af2e54635668ae99"
+        },
+        "digest": "892033829e08a045214d7f8b4d15cb02a336461ef8556c341c51d06c07dec2ac"
+      },
+      {
+        "id": "owner-evidence-v2",
+        "result": "pass",
+        "details": {
+          "bindingsDigest": "c490b1eec0d8a21c11eb49dfc67159da54f497b25d6f71b5caa1d32df0e6e0cd",
+          "independentFileCount": 9
+        },
+        "digest": "40664608e73f18b5dbc9d9b9ed4b81f9bd00d04a0ca18811e9fb4f1114fcb6bc"
+      },
+      {
+        "id": "content-qa-v2",
+        "result": "pass",
+        "details": {
+          "contentProofDigest": "215437b09127ce44196c2c624c9bc1d327c66fe5807b9f64762a819dec6d936a",
+          "numericOracle": 12
+        },
+        "digest": "256692b90acf9eeeb65166f2eb94d28ab3fad265226ed5ad8e44876efb0267d1"
+      },
+      {
+        "id": "shadow-adapter-v2",
+        "result": "pass",
+        "details": {
+          "outputContractCount": 4,
+          "semanticOutputDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192"
+        },
+        "digest": "7e026b1c439f052cb2662164616fdac0955774ebfff93ad9fec66ceda84e90db"
+      },
+      {
+        "id": "live-unreachable-v2",
+        "result": "pass",
+        "details": {
+          "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+          "selectedIdentityHits": 0
+        },
+        "digest": "0423201acae08d2a5acdaa91d10277b243e52bec933e7439131110c3f24f0b0f"
+      },
+      {
+        "id": "legacy-drift-ratchet-v2",
+        "result": "pass",
+        "details": {
+          "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+          "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+          "activeExceptionCount": 0
+        },
+        "digest": "bebfb99b2d5dbd0df213f6c26f9394fc4ce1e7efeaddc642e94ca78c746242b8"
+      },
+      {
+        "id": "source-immutability-v2",
+        "result": "pass",
+        "details": {
+          "candidatePreSnapshotDigest": "767ade83fc65f877559a7192f4ff056ee30f372b2f2e2d40cff04be2701a1d9e",
+          "candidatePostSnapshotDigest": "767ade83fc65f877559a7192f4ff056ee30f372b2f2e2d40cff04be2701a1d9e",
+          "forbiddenPreSnapshotDigest": "bd3e372c917eb2585fe4f54557b4e902633237088bcf5e7a098eaec35690eb4d",
+          "forbiddenPostSnapshotDigest": "bd3e372c917eb2585fe4f54557b4e902633237088bcf5e7a098eaec35690eb4d",
+          "changedPathCount": 0
+        },
+        "digest": "c6cd53766ed393a6a2649b5a30a1dc01cf3194541c52cbd0caa90d566d9a4467"
+      },
+      {
+        "id": "output-isolation-v2",
+        "result": "pass",
+        "details": {
+          "isolationProofDigest": "e975b14b3d6d7cb3ccd5c4cfed015a6197ef62a4b81543f38d0b04bbdf1dcaca",
+          "outputAggregateDigest": "3b73e25c5add052dd2e3549438780dd81e2bf94b479f005bbd6fb93e1a277081"
+        },
+        "digest": "538f5ef961c7f9f522b9a28449b448ccad33f1ef92d1dcef325ef82b289f4d26"
+      },
+      {
+        "id": "rollback-rehearsal-v2",
+        "result": "pass",
+        "details": {
+          "schemaVersion": "promotion-rollback-proof.v2",
+          "strategy": "remove-new-isolated-temp-root",
+          "preimage": "absent",
+          "postimage": "absent",
+          "exactPreimageRestored": true
+        },
+        "digest": "85de6f1b105bdafb4ffa8a68197f1566b28619a46e4b798ac7499aa43c836082"
+      },
+      {
+        "id": "external-side-effects-v2",
+        "result": "pass",
+        "details": {
+          "proofDigest": "1f5dc0f01d4d17a8189437cc75567a9bbf233566c6a606e75254277122afd97e",
+          "externalSideEffectCount": 0
+        },
+        "digest": "4cfc5b4364f0b40e26bc36f4629901d08c9090075a468fb87d1c3f008296172b"
+      },
+      {
+        "id": "state-transition-v2",
+        "result": "pass",
+        "details": {
+          "priorState": "candidate_hold",
+          "currentState": "shadow_ready",
+          "requestedState": "shadow_passed"
+        },
+        "digest": "31eb5be6096acc1a9b5805936896373392b263366ac988653d23b22a27b52f77"
+      },
+      {
+        "id": "semantic-stability-v2",
+        "result": "pass",
+        "details": {
+          "schemaVersion": "promotion-shadow-semantic-stability-proof.v2",
+          "independentBuildCount": 2,
+          "firstSemanticOutputDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192",
+          "secondSemanticOutputDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192",
+          "equal": true,
+          "writtenSemanticOutputDigest": "d78384627df01ff6918c2a6a08177ac438ef825b9dce800f1783480a995ea192"
+        },
+        "digest": "d10a4bb324e973a91549805fd80ccfadc9af7001ba5c93c6578ea31a6aa70cc1"
+      }
+    ],
+    "candidateBytesIdentical": true,
+    "worktreeProof": {
+      "executionCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+      "pre": {
+        "schemaVersion": "promotion-git-worktree-proof.v2",
+        "headCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+        "clean": true,
+        "statusDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "post": {
+        "schemaVersion": "promotion-git-worktree-proof.v2",
+        "headCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+        "clean": true,
+        "statusDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "cleanBeforeAndAfter": true,
+      "unchangedHead": true
+    },
+    "rollbackProof": {
+      "schemaVersion": "promotion-rollback-proof.v2",
+      "strategy": "remove-new-isolated-temp-root",
+      "preimage": "absent",
+      "postimage": "absent",
+      "exactPreimageRestored": true
+    },
+    "externalSideEffectProof": {
+      "schemaVersion": "promotion-external-side-effect-proof.v2",
+      "policy": "read-only-git-local-temp-only.v2",
+      "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+      "registeredOperations": [
+        "read-authoritative-repository-file",
+        "read-only-git-probe",
+        "create-new-os-temp-root",
+        "write-shadow-json-exclusively",
+        "remove-owned-os-temp-root"
+      ],
+      "sourceBindings": [
+        {
+          "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+          "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce"
+        },
+        {
+          "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+          "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d"
+        }
+      ],
+      "sourceBindingsDigest": "cf486507a25dcd39840034af16cd7ece6f4f174ed848d9053b4d44978691d14f",
+      "tempEnvironment": [
+        {
+          "name": "node-os-tmpdir",
+          "canonicalPathDigest": "2abd14236f48488e3abfcecc4e72fc993429f4313291aced172b7bd915ac270a",
+          "outsideRepository": true
+        },
+        {
+          "name": "TMPDIR",
+          "canonicalPathDigest": "2abd14236f48488e3abfcecc4e72fc993429f4313291aced172b7bd915ac270a",
+          "outsideRepository": true
+        }
+      ],
+      "networkRequestCount": 0,
+      "providerCallCount": 0,
+      "databaseWriteCount": 0,
+      "deploymentCommandCount": 0,
+      "productionWriteCount": 0,
+      "liveRegistryWriteCount": 0,
+      "digest": "1f5dc0f01d4d17a8189437cc75567a9bbf233566c6a606e75254277122afd97e"
+    },
+    "observationLimit": "The six zero counters and owned temporary-root rollback are claims checked by the frozen native operation contract and receipt. This task did not perform independent kernel/network-wide tracing or observe production rollback."
+  },
+  "isolation": {
+    "environmentKeys": [
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_NOSYSTEM",
+      "GIT_GRAFT_FILE",
+      "PATH",
+      "TMPDIR"
+    ],
+    "inheritedNodeOptions": false,
+    "providerCredentialEnvironmentInherited": false,
+    "temporaryRootBase": "/private/tmp",
+    "skillWrapperExecutedForNativeOperations": false,
+    "workflowResolverOrHistoryHelperExecuted": false,
+    "globalSkillModified": false
+  },
+  "retainedBlockers": {
+    "skillWorkflowDiscoveryStatus": "WORKFLOW_OPERATION_FORBIDDEN",
+    "reason": "Installed strict workflow parser rejects the historyHelperPath dynamic import, which is outside its accepted dynamic-import pattern. The separate native CLI subset does not execute that workflow/history helper.",
+    "skillCompatibility": "blocked",
+    "skillHandoffFinalization": "not passed",
+    "storedCanonicalGitTransport": "not performed at frozen B2",
+    "registryClosureFinalization": "not performed",
+    "requiredCIAndMainPostmerge": "not proved by this review"
+  },
+  "nativeLifecycleUnmodified": {
+    "priorState": "candidate_hold",
+    "currentState": "shadow_ready",
+    "recommendedState": "shadow_passed",
+    "parentPackageStatus": "candidate-only",
+    "maturityClaim": "shadow-passed / maturity-pending-independent-replay-and-enforcement",
+    "liveAllowed": false
+  },
+  "nativeUnmetConditionsUnmodified": [
+    {
+      "scope": "maturity",
+      "code": "independent-replay-pending",
+      "owner": "A11"
+    },
+    {
+      "scope": "maturity",
+      "code": "ci-required-check-enforcement-pending",
+      "owner": "A10"
+    },
+    {
+      "scope": "maturity",
+      "code": "main-postmerge-proof-pending",
+      "owner": "A22"
+    },
+    {
+      "scope": "live",
+      "code": "missing-zh-localization",
+      "owner": "A09"
+    },
+    {
+      "scope": "live",
+      "code": "missing-zhHans-localization",
+      "owner": "A09"
+    },
+    {
+      "scope": "live",
+      "code": "live-integration-and-release-unproven",
+      "owner": "A23"
+    }
+  ],
+  "interpretation": "The independent replay requested by Root was executed and separately evidenced here. Original native receipt unmetConditions remain byte-preserved; no lifecycle or maturity field is rewritten based on this document.",
+  "evidenceFiles": [
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-replay-receipt.json",
+      "rawSha256": "6b8232500b679e1131559ab05acf9366a5505f7b620b26c42e0bb74b0377ae5e"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-replay-shadow-execution.json",
+      "rawSha256": "fd42c47974885c890ace7fe073237cda4b6f5a82cab19c9ee124c4bc37e1893d"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-replay-shadow.stderr.log",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-verify-canonical.json",
+      "rawSha256": "113f0e94380fd1fec5a732c468e1b14c38611fc1ba9059b941993777bfeafa83"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-verify-canonical-execution.json",
+      "rawSha256": "c2004981da957875c158f9cfee95063c9042cb90bae44c352be2031cdf1763ad"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-verify-canonical.stderr.log",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-three-receipt-comparison.json",
+      "rawSha256": "9de9854b9a1ad53d5460fe198ebbc1c7bf88505b439dcfabdef2511a499023cb"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-canonical-receipt.json",
+      "rawSha256": "1484c3d5012afdbd5ae0bc1fc94327a699766893708c2d39d031cc0605ee580b"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-fresh-receipt.json",
+      "rawSha256": "480baf50fa55a728a59b3c78de89f75d5ab33d649df4175975e5e138b4c2aaf7"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-B2-independent-discovery-review.json",
+      "rawSha256": "f668c3ec18ac4ab70568648307e6c5a0e497f9d057f34b0eae8a6b6c4d967d3a"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/G08-independent-shadow-discovery.json",
+      "rawSha256": "6ccdba286c72c6b309806fc7a2510310514e56ec20b13991d8395cb18ed76871"
+    }
+  ],
+  "storageCommit": null,
+  "finalizationCommit": null,
+  "liveAllowed": false
+}

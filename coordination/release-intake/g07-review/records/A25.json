@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "promotion-baseline-role-review.v1",
+  "role": "A25",
+  "reviewedAt": "2026-09-06T16:44:43.861Z",
+  "reviewer": {
+    "identity": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+    "reference": {
+      "path": "coordination/release-intake/g07-review/facts/A25.json",
+      "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc"
+    }
+  },
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a25-release-intake.v2.6.json",
+    "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+    "rawSha256": "04b5381867caa8728bd11986d067d317d20554b32d92218733cc7406ea576fb0",
+    "producedAt": "2026-09-06T02:02:24.430Z",
+    "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f"
+  },
+  "evidence": {
+    "schemaVersion": "promotion-evidence.v2",
+    "evidenceId": "a25-g07-reviewed-main-7f692278",
+    "role": "A25",
+    "result": "pass",
+    "producedAt": "2026-09-06T16:44:43.861Z",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "semanticPayload": {
+      "contractVersion": "promotion-a25-release-intake.v2",
+      "finalDisposition": "reviewed commit",
+      "reviewedCompositionCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+      "reviewedBranch": "codex/a10-machine-qa-governance-closeout-20260906",
+      "targetPullRequest": "https://github.com/HUDongpin/MAIS-MVP/pull/233",
+      "reviewSession": {
+        "identity": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+        "owner": "A25",
+        "sourceWorktree": "/Volumes/Starship/MAIS-g07-wt",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "sourceCleanAtReview": true,
+        "targetMainCleanAtReview": true,
+        "rootDirtyFilesUsedAsValidationSource": false,
+        "reviewedScope": "committed governance slice, reviewed runtime-topology preparer and actual-history parser; final evidence and execution commits remain later"
+      },
+      "baselineReview": {
+        "observedAt": "2026-09-06T16:43:15.786529+00:00",
+        "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "liveRemoteMainCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "liveRemoteVerifiedByLsRemote": true,
+        "remotePRHeadCommit": "13729998338c61c41f18bfa767d40d7aee4a3c08",
+        "remotePRState": "OPEN",
+        "localCodeNotYetPushed": true
+      },
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "legacyResolutionRegistryPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/inputs/legacy-resolution-registry.v2.6.json",
+      "legacyResolutionRegistryRawSha256": "d4cff93eff108b507d9efa74af9847b82cd55611e957d03c98ad5c6eada11852",
+      "registryIntake": {
+        "all18DispositionObjectsEqualSource": true,
+        "approvedProjectionCount": 3,
+        "dereachedCount": 15,
+        "candidateBytesChanged": false,
+        "registryChange": "target header only",
+        "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+        "selectedIdentityHits": 0,
+        "enforcement": "frozen v2.6 checker is final authority; extra preparation records confer no human authentication"
+      },
+      "recoveryProof": {
+        "bundle": "batch09-history-observability.bundle",
+        "rawSha256": "1359d7a7acb78fb4ac3ca38d3dd08f1a5433899cfaf05365a3d28a0393b0a6cb",
+        "independentRestoreEqual": true,
+        "coveredCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949"
+      },
+      "topologySnapshot": {
+        "timestamp": "2026-09-06T16:43:15.786529+00:00",
+        "localBranches": 65,
+        "registeredWorktrees": 48,
+        "dirtyWorktrees": 2,
+        "detachedWorktrees": 0,
+        "prunableWorktrees": 0,
+        "dirtyEntries": 28,
+        "stashCount": 0,
+        "main": "7f692278989b4bf45496d239bccb9263326b5453",
+        "liveRemoteMain": "7f692278989b4bf45496d239bccb9263326b5453",
+        "mainClean": true
+      },
+      "remainingConditions": [
+        "Commit actual review materials, role records and review index with existing SHA references.",
+        "Run native evidence then atomic binding phases, fresh canonical Shadow and independent replay.",
+        "Obtain exact-head PR checks and merge, then verify main and evaluate source retirement separately."
+      ],
+      "liveAllowed": false
+    }
+  },
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/contractVersion",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "finalDisposition",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/finalDisposition",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "reviewedCompositionCommit",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/reviewedCompositionCommit",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "reviewedBranch",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/reviewedBranch",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "targetPullRequest",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/targetPullRequest",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "reviewSession",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/reviewSession",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "baselineReview",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/baselineReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "targetBaselineCommit",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/targetBaselineCommit",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "legacyResolutionRegistryPath",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/legacyResolutionRegistryPath",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "legacyResolutionRegistryRawSha256",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/legacyResolutionRegistryRawSha256",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "registryIntake",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/registryIntake",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "recoveryProof",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/recoveryProof",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "topologySnapshot",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/topologySnapshot",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "remainingConditions",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/remainingConditions",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A25.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "a627592a9e9c214efe690e5d3f3dfa7cf3042567d7498e5fed802e1c383070bc",
+        "producedAt": "2026-09-06T16:44:43.861Z",
+        "valuePointer": "/semanticPayload/liveAllowed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    }
+  ]
+}

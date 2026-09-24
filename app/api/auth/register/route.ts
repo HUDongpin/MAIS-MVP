@@ -13,7 +13,9 @@ import {
   getStorageReadinessSnapshot
 } from "@/lib/server/userStore/auth";
 import { getLessonEntryTarget } from "@/lib/server/userStore/studentActivity";
+import { verifyTeacherInviteCode } from "@/lib/server/teacherInviteCode";
 import { isValidLanguage } from "@/lib/i18n";
+import { parentalConsentErrorMessages, parseParentalConsent } from "@/lib/legal/parentalConsent";
 import { curriculumProfileForTrack, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import type { CurriculumTrack, ThemeMode } from "@/types";
 
@@ -45,6 +47,13 @@ async function durableStorageRegistrationBlockResponse() {
       usingTmpFallback: storage.usingTmpFallback
     }
   }, { status: 503 });
+}
+
+function teacherInviteRejectionResponse() {
+  return NextResponse.json({
+    code: "teacher-invite-denied",
+    error: "Teacher registration could not be authorized. Ask your school administrator for a current invite code."
+  }, { status: 403 });
 }
 
 export async function POST(request: Request) {
@@ -81,6 +90,20 @@ async function handleRegister(request: Request) {
     rule: authRateLimitRules.registerIp
   });
   if (ipRateLimit) return ipRateLimit;
+
+  if (requestedRole === "teacher") {
+    const teacherInviteRateLimit = consumeAuthRateLimit({
+      request,
+      scope: "teacher-invite-ip",
+      rule: authRateLimitRules.teacherInviteIp
+    });
+    if (teacherInviteRateLimit) return teacherInviteRateLimit;
+
+    const invite = verifyTeacherInviteCode(body.teacherInviteCode);
+    if (invite.status === "rejected") {
+      return teacherInviteRejectionResponse();
+    }
+  }
 
   if (requestedRole === "parent") {
     if (!name || !(username || email) || password.length < 5) {
@@ -129,6 +152,20 @@ async function handleRegister(request: Request) {
     return NextResponse.json({ error: "Name, user name, grade, curriculum track, and a password of at least 5 characters are required." }, { status: 400 });
   }
 
+  // A student account is an account for a child: no consent, no account.
+  // Teacher accounts take the same branch below but are adults, so they are exempt.
+  let parentalConsent;
+  if (requestedRole === "student") {
+    const consent = parseParentalConsent(body.parentalConsent, new Date().toISOString());
+    if (consent.status !== "ok") {
+      return NextResponse.json(
+        { code: "parental-consent-required", reason: consent.reason, error: parentalConsentErrorMessages[consent.reason] },
+        { status: 400 }
+      );
+    }
+    parentalConsent = consent.consent;
+  }
+
   const storageBlock = await durableStorageRegistrationBlockResponse();
   if (storageBlock) return storageBlock;
 
@@ -141,6 +178,7 @@ async function handleRegister(request: Request) {
     grade,
     curriculumProfile,
     curriculumTrack,
+    parentalConsent,
     language: isValidLanguage(body.language) ? body.language : undefined,
     theme: validThemes.has(body.theme as ThemeMode) ? (body.theme as ThemeMode) : undefined
   });

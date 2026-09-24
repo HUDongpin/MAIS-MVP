@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "promotion-reaffirmation.v2",
+  "relation": "append-only-reaffirmation",
+  "directParent": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+      "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+    },
+    "receipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-shadow-receipt.v2.json",
+      "rawSha256": "3e22db02c9bddd9cf685b1085400905a03b56d56821945f3d34069ac51b9f7ab"
+    }
+  },
+  "historicalBase": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/promotion-manifest.v2.json",
+      "rawSha256": "a5a4fe98732bcefee8c62f301022e684a1127dafaa8e312ff5856327ae3d0a61"
+    },
+    "receipt": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-receipt.v2.json",
+      "rawSha256": "336e6de6e8292b2e8278ccf3335f77a77a4b32a73142657a60748ef24477a484"
+    },
+    "closure": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/shadow-closure.v2.json",
+      "rawSha256": "576739195d22ba0133a31da292c1e08d602202a9725e04107e50779c47d3c4af"
+    },
+    "registry": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/lifecycle-registry.v2.json",
+      "rawSha256": "7be73b854a9eb408dfdad671c262e4640fb93136df188b1fd3ecd9e369b77159"
+    }
+  },
+  "revision": {
+    "manifest": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/promotion-manifest.v2.json",
+      "rawSha256": "c784f946e73f09d9a283eba84b549241e7832bc41a82b5374f4991b49f4ee858"
+    }
+  },
+  "unchangedBindings": {
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5"
+  },
+  "baselineDelta": {
+    "fromCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+    "toCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "unrelatedToCandidate": true,
+    "candidatePathsChanged": false,
+    "checkerPathsChanged": false,
+    "changedPathsDigest": "e7b9ddeb12d73bc48e7ff34c9e2bb0e9919e939841fdf997ada65db47c31c075",
+    "reviewEvidence": [
+      {
+        "role": "A11",
+        "path": "coordination/release-intake/g07-review/records/A11.json",
+        "rawSha256": "a4b687be95a67598d1936bb39ab67adc45c9b2643c931fc1011227861026812b"
+      },
+      {
+        "role": "A22",
+        "path": "coordination/release-intake/g07-review/records/A22.json",
+        "rawSha256": "083b648e6021eaeb23c1accec99cca63095e6fe62eafe68b1870e6c61b813a0b"
+      },
+      {
+        "role": "A25",
+        "path": "coordination/release-intake/g07-review/records/A25.json",
+        "rawSha256": "99c69393dcf543a9b108ecc27972eb432e2d242c332504e77c0a4f9c4f40831a"
+      }
+    ]
+  },
+  "ordering": {
+    "evidenceCommit": "48ee8241e4b2d2304dfd14aa158cd64817a0be96"
+  }
+}

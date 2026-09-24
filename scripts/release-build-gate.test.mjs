@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import * as releaseBuildGate from "./release-build-gate.mjs";
 
@@ -15,7 +16,7 @@ const {
   verifyBuildOutputs
 } = releaseBuildGate;
 
-const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 
 test("release build gate validates the App Router dashboard server output", async (t) => {
   assert.ok(REQUIRED_BUILD_OUTPUTS.includes("server/app/dashboard/page.js"));

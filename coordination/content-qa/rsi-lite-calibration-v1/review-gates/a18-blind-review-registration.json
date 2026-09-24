@@ -1,0 +1,56 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.0-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "candidateSetSha256": "878c596ed2eb04e46f3709d37f734a72bbe2c248137b6b8248b716cc1a46b2bd",
+  "status": "frozen-human-review-input-candidate",
+  "formalExecutionAuthorized": false,
+  "liveProviderAuthorized": false,
+  "productionAuthorized": false,
+  "counts": {
+    "blueprintGroups": 12,
+    "packageBlueprints": 48,
+    "targetQuestionGroups": 54,
+    "targetQuestionInstances": 216,
+    "cleanQuestionGroups": 30,
+    "cleanQuestionInstances": 120,
+    "questionGroups": 84,
+    "questionInstances": 336,
+    "lessons": 96,
+    "totalReviewSurfaces": 432,
+    "reviewerSlots": 2
+  },
+  "cleanQuestionSampling": {
+    "method": "candidate-commitment-hash-ranked-without-replacement",
+    "populationPerCleanBundle": 100,
+    "samplePerCleanBundle": 10,
+    "perCleanBundleProbability": 0.1,
+    "cleanBundleCount": 3,
+    "selectionLabel": "a18-clean-sample-v1"
+  },
+  "reviewerBoundary": {
+    "requiredReviewerSlots": [
+      "reviewer-1",
+      "reviewer-2"
+    ],
+    "twoQualifiedBilingualMathematicsEducationReviewersRequired": true,
+    "thirdIndependentAdjudicatorRequired": true,
+    "phase1MustBeCommittedBeforePhase2Release": true,
+    "reviewersMustNotReceiveAdjudicationKey": true,
+    "modelOnlyApprovalForbidden": true
+  },
+  "packetCommitments": [
+    {
+      "reviewerSlot": "reviewer-1",
+      "phase1Sha256": "690fce54b6dd6aee1a18f80824b0a8f19a3d5b7699119dd89c18a7d1b6d04acf",
+      "phase2Sha256": "5a90015cc222971f0c1972f679ffe3dbdc648b13c66dbbe9ac8cde5bba78301b"
+    },
+    {
+      "reviewerSlot": "reviewer-2",
+      "phase1Sha256": "5f1d0f862f6192a6ccc3726ef14eb7c4e2c808ee9c4dc9129a828f132c8d8c2f",
+      "phase2Sha256": "aa82918c1e19a13aafecc343d6f03adcc85b56b5f895d2427ddebf4748af72bc"
+    }
+  ],
+  "adjudicationKeySha256": "0b1f55b6e219a04c1149251dc7cda39a0a14c9fbde949a0228cf9aa5a3145fe3",
+  "registrationSha256": "0b71bd334266295dedb8054c480e85b79f2fab1f48a19d5a41be72709667b36b"
+}

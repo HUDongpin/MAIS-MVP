@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "1.0",
+  "suiteVersion": "1.0.0",
+  "formalIteration": 7,
+  "sourceCommit": "e33bf615846b708edf8339a4a82c6b760574c349",
+  "baseCommit": "f001a9570f2a0ef066b1a83a33619f72215ff354",
+  "frozenRun": {
+    "manifestIdentitySha256": "b08b88f6675acd69a0997c09329a3d0670b8387247b7caf9f6fd6ee35e92d174",
+    "manifestFileSha256": "f61cdc6351a758f642690c311f1b6d6f692893c048b14b4aadff5d959bdede22",
+    "generatedInputSnapshotSha256": "f87f6dbc2b4bb1cb68cd73b29f163507da4dfac62f6b2febf1549b19e924b5cd",
+    "failedIterationsPreservedLocally": [1, 2, 3, 4, 5, 6]
+  },
+  "behaviorBenchmark": {
+    "evidenceClass": "fresh-agent-behavior-benchmark-prompt-declared-shared-filesystem",
+    "model": "gpt-5.6-sol",
+    "scenarios": 19,
+    "assertionsPerRound": 141,
+    "rounds": [
+      {
+        "round": 1,
+        "withSkill": { "passed": 141, "total": 141 },
+        "withoutSkill": { "passed": 55, "total": 141 }
+      },
+      {
+        "round": 2,
+        "withSkill": { "passed": 141, "total": 141 },
+        "withoutSkill": { "passed": 57, "total": 141 }
+      }
+    ],
+    "allAssertionsPassBothRounds": true,
+    "allNamedDimensionsStrictlyImproveBothRounds": true,
+    "sharedFilesystemBlindnessTechnicallyEnforced": false,
+    "isolationEnforcement": "prompt-declared-shared-filesystem"
+  },
+  "routingBenchmark": {
+    "evidenceClass": "manual-independent-binary-routing-proxy",
+    "model": "gpt-5.6-sol",
+    "queries": 100,
+    "rounds": [
+      {
+        "round": 1,
+        "correct": 100,
+        "total": 100,
+        "canonicalNegativeFalseTriggers": 0,
+        "primarySelectionMismatches": 0,
+        "forbiddenSkillActivations": 0
+      },
+      {
+        "round": 2,
+        "correct": 100,
+        "total": 100,
+        "canonicalNegativeFalseTriggers": 0,
+        "primarySelectionMismatches": 0,
+        "forbiddenSkillActivations": 0
+      }
+    ],
+    "runtimeTriggerDiscoveryProven": false,
+    "sharedFilesystemBlindnessTechnicallyEnforced": false
+  },
+  "skillCreatorTooling": {
+    "quickValidate": "passed-five-of-five",
+    "generateReview": "static-review-generated-and-browser-inspected",
+    "aggregateBenchmark": "ran-on-a-compatibility-copy-because-the-upstream-tool-does-not-accept-null-telemetry",
+    "generateReport": "ran-on-an-explicit-manual-routing-proxy-view",
+    "runLoop": "not-run-claude-cli-unavailable",
+    "improveDescription": "not-run-claude-cli-unavailable",
+    "officialAggregateCompatibilityOutputAuthoritative": false
+  },
+  "telemetry": {
+    "durationSeconds": { "state": "unavailable", "value": null },
+    "totalTokens": { "state": "unavailable", "value": null },
+    "totalToolCalls": { "state": "unavailable", "value": null },
+    "errorsEncountered": { "state": "unavailable", "value": null },
+    "characterCountUsedAsTokenMetric": false
+  },
+  "ignoredArtifactHashes": {
+    "behaviorBenchmarkSha256": "87593ec57abb857cf2aefea1b416f7b31b53f26aeefb9058fe3746502d7f3d36",
+    "dimensionBenchmarkSha256": "901a4ce76ac1839d142531fe5db53232a192578a43c0f97bbc09fab9e5b4c3cf",
+    "staticReviewHtmlSha256": "5c9b7778f4b82a84b98faa7b11fd1d836bfd1c446b87c1dc277627a2d8c153d8",
+    "routingBenchmarkSha256": "770e9fc9cab2647025bc629414eb964a2dc73777ba74c33518bbf336d47977f2",
+    "routingReportHtmlSha256": "ce733738350dae7309213e6e925502bcd9a446dbfd1ff8c4fbf0a6401efedff9"
+  },
+  "redaction": {
+    "rawResponsesCommitted": false,
+    "protectedContentIncluded": false,
+    "credentialsIncluded": false,
+    "rawProviderResponsesIncluded": false
+  }
+}

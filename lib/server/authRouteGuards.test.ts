@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { NextResponse } from "next/server";
 import {
+  authRateLimitRules,
   authRateLimitResponse,
   defaultLoginIdentifierMax,
   loginIdentifierMaxFromEnv,
@@ -27,6 +28,8 @@ function assertPrivateNoStore(response: Response) {
 
 test("the production ceiling is 12 attempts per identifier", () => {
   assert.equal(defaultLoginIdentifierMax, 12);
+  assert.deepEqual(authRateLimitRules.teacherInviteIp, { max: 12, windowMs: 15 * 60 * 1000 });
+  assert.ok(authRateLimitRules.teacherInviteIp.max < authRateLimitRules.registerIp.max);
 });
 
 test("an unset override leaves the production ceiling untouched", () => {
@@ -98,4 +101,18 @@ test("auth JSON and rate-limit responses are private and non-cacheable", async (
 
   assert.equal(rateLimitResponse.status, 429);
   assertPrivateNoStore(rateLimitResponse);
+});
+
+test("observing the boundary preserves expected conflicts and session response headers", async () => {
+  const original = NextResponse.json({ code: "authenticated-user-changed" }, { status: 409 });
+  original.headers.set("Vary", "Cookie");
+  original.headers.set("Retry-After", "3");
+  original.cookies.set("synthetic-session", "fixture", { httpOnly: true });
+  const response = await withAuthRouteJsonBoundary("auth-session-state", async () => original);
+  assert.equal(response, original);
+  assert.equal(response.status, 409);
+  assert.equal(response.headers.get("Vary"), "Cookie");
+  assert.equal(response.headers.get("Retry-After"), "3");
+  assert.match(response.headers.get("Set-Cookie") ?? "", /synthetic-session=fixture/);
+  assertPrivateNoStore(response);
 });

@@ -1,0 +1,759 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "runId": "sacrificial-C",
+  "arm": "C",
+  "sacrificial": true,
+  "formalSample": false,
+  "fixtureIdentity": {
+    "packageId": "sacrificial-tri-locale-f2-r-v1",
+    "fixtureVersion": "1.1.1-f2-r",
+    "fixtureSha256": "8b69115670dadf5424aee704f6b0c3e38f10e1b3e074661b56553a272aee058d"
+  },
+  "status": "candidate-only",
+  "executionMode": "offline-deterministic",
+  "formalExecutionAuthorized": false,
+  "productionAuthorized": false,
+  "liveProviderCalibrated": false,
+  "inputSha256": "8b69115670dadf5424aee704f6b0c3e38f10e1b3e074661b56553a272aee058d",
+  "materialResultSha256": "73323f62a5d2b663dafe088e1b32e29b8f5d70496b39583f5936192700970f25",
+  "roleContract": {
+    "topology": "isolated-child-process-roles",
+    "roles": [
+      "answer-blind-solver",
+      "tool-verifier",
+      "adversarial-grader",
+      "bilingual-curriculum-critic",
+      "evidence-verifier"
+    ],
+    "roleTasks": [
+      "independent-answer-check",
+      "option-and-accepted-form-checks",
+      "explanation-claim-check",
+      "tri-locale-semantic-check",
+      "evidence-provenance-and-lesson-checks"
+    ],
+    "toolCaps": {
+      "deterministicChecks": 1,
+      "expressionChecks": 1,
+      "languageChecks": 1,
+      "staticEvidenceChecks": 1,
+      "providerCalls": 0
+    },
+    "writerCount": 1
+  },
+  "roleExecutions": [
+    {
+      "role": "answer-blind-solver",
+      "taskId": "independent-answer-check",
+      "executionBoundary": "child-process",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "stored-independent-answer-mismatch:sac-q-01"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [],
+      "resultSha256": "bca14f6a208ae4ddc936de153dca8582224d6c0bb37b8cc286633a182cde6a06"
+    },
+    {
+      "role": "tool-verifier",
+      "taskId": "option-and-accepted-form-checks",
+      "executionBoundary": "child-process",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "accepted-answer-false-reject:sac-q-02",
+        "numerically-equivalent-options:sac-q-04"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [],
+      "resultSha256": "95dfa6f37c6b3303a1f5806cac29e47ac3821354cb87cad9440343234dbbc272"
+    },
+    {
+      "role": "adversarial-grader",
+      "taskId": "explanation-claim-check",
+      "executionBoundary": "child-process",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "invalid-explanation-arithmetic:sac-q-03"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [],
+      "resultSha256": "657b1925be7cbda42aa8c25155f3a98e68b0e02169edea49d8500658b28b6cb8"
+    },
+    {
+      "role": "bilingual-curriculum-critic",
+      "taskId": "tri-locale-semantic-check",
+      "executionBoundary": "child-process",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "cross-language-numeric-semantic-mismatch:sac-q-06"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [],
+      "resultSha256": "1c0fba50f1a75e73d725512dfbbfef0f9883ac21c45c93abb449f7a7ad56db88"
+    },
+    {
+      "role": "evidence-verifier",
+      "taskId": "evidence-provenance-and-lesson-checks",
+      "executionBoundary": "child-process",
+      "exitCode": 0,
+      "providerCalls": 0,
+      "toolPasses": 1,
+      "findingIds": [
+        "non-independent-oracle-provenance:sac-q-07",
+        "static-evidence-label-mismatch:sac-q-05"
+      ],
+      "inspectedSurfaceIds": [
+        "sac-lesson-1",
+        "sac-lesson-2",
+        "sac-q-01",
+        "sac-q-02",
+        "sac-q-03",
+        "sac-q-04",
+        "sac-q-05",
+        "sac-q-06",
+        "sac-q-07",
+        "sac-q-08",
+        "sac-q-09",
+        "sac-q-10",
+        "sac-q-11",
+        "sac-q-12",
+        "sac-q-13",
+        "sac-q-14",
+        "sac-q-15",
+        "sac-q-16",
+        "sac-q-17",
+        "sac-q-18",
+        "sac-q-19",
+        "sac-q-20",
+        "sac-q-21",
+        "sac-q-22",
+        "sac-q-23",
+        "sac-q-24"
+      ],
+      "lessonEvidenceIds": [
+        "sac-lesson-1",
+        "sac-lesson-2"
+      ],
+      "resultSha256": "b7e1d0db4e89151e7774d48503359b0a70cbb303ac19056592a36854a8fa5d38"
+    }
+  ],
+  "coverage": {
+    "requiredSurfaces": 26,
+    "inspectedSurfaces": 26,
+    "questions": 24,
+    "lessons": 2,
+    "browserRoutes": 0,
+    "unjudgeable": 0,
+    "notInspected": 0
+  },
+  "surfaceResults": [
+    {
+      "surfaceId": "sac-q-01",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "stored-independent-answer-mismatch:sac-q-01"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "71b11c51b896ee326f2e28277b58bc42c708b861454c02141f1d26d1e04c9835",
+      "evidenceSha256": "0b667473cdda90e3ad462e4442a3db3f38dc1feafbd61d809fef82dd05dd00da"
+    },
+    {
+      "surfaceId": "sac-q-02",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "accepted-answer-false-reject:sac-q-02"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "67e46b007a8d65d17a0c0712f37ed5a619eacf31ad7b276c775097fd4ba220b0",
+      "evidenceSha256": "459b22f7447c481d16db6a4d1da556ebc6eef91183c9824aae6be5da0e05a9b4"
+    },
+    {
+      "surfaceId": "sac-q-03",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "invalid-explanation-arithmetic:sac-q-03"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "5808ef41498dc28c01b7d3beab7079316aac2313ee79353103d6bcbf46a5cf91",
+      "evidenceSha256": "103e72bf204dbf54c7bf55eea24e31ea941ef3fd33299aeb7b40f81ea24c1dc0"
+    },
+    {
+      "surfaceId": "sac-q-04",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "numerically-equivalent-options:sac-q-04"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "f95bfca90036db4058c92a13de748c582b5cb0256744faacd07623312de11212",
+      "evidenceSha256": "bc8cd35f527c6f1ead6bc1faa05ea129eeb3373ca738bc36ac37b239e65bc3cf"
+    },
+    {
+      "surfaceId": "sac-q-05",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "static-evidence-label-mismatch:sac-q-05"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "8a6c21217217a6e2bcad6869f28498587f1ce7f1247e91a522738c95d9169733",
+      "evidenceSha256": "9b90bf57b7c7b162364ba3eb7901ce5cd935f5a0a8ab60124ee3e4bd1b32eac5"
+    },
+    {
+      "surfaceId": "sac-q-06",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "cross-language-numeric-semantic-mismatch:sac-q-06"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "ce2173b2f535aac1cbeca45ee98ad9898b72de79f2b0e78231c09f3f737a4544",
+      "evidenceSha256": "6ad01a2806a5f907e0559e6d6b3c49376b4017d8aa1cfebc72335094fe86282f"
+    },
+    {
+      "surfaceId": "sac-q-07",
+      "surfaceKind": "question",
+      "disposition": "finding",
+      "findingIds": [
+        "non-independent-oracle-provenance:sac-q-07"
+      ],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "215ed4ee3dcbf88879b8bf2c3c41127a95f83c4e9988bda56ea6c8318ea2c01f",
+      "evidenceSha256": "78e403332366148e44c425d4508bd2f5eb9d91f29bb7b96fbfe7c84e6476930c"
+    },
+    {
+      "surfaceId": "sac-q-08",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "6fc44929f6c81dcfddffd0d1942753287ec54f3b2a48382efc02b931f9c63e64",
+      "evidenceSha256": "9d646a79907f59783586d1f6fc324a400bb4c2aa7696dfc5cb84a9f2669a44a9"
+    },
+    {
+      "surfaceId": "sac-q-09",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "a23a284e43684e45156374ed67845f0dee112c25b039b9aee5f76eb9252720a7",
+      "evidenceSha256": "d1d9d23da80e0010340eb2b6f1dc2b35fbfef363beb17adbb1c9602833fa8aaa"
+    },
+    {
+      "surfaceId": "sac-q-10",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "82d3cb6ddcc50a5421de1110e07ba74400d8ead9d9a4c0bd3ad75ac32eaa3833",
+      "evidenceSha256": "6a426ed5ff5a6498c288b5eadfcd8af427cbd966ba08422cf2c09bb7504b5318"
+    },
+    {
+      "surfaceId": "sac-q-11",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "478beb6f0b6f1de32c2f3ddf1de845e237eae522b8c7f16817f9fc7a9a3df18a",
+      "evidenceSha256": "2ae65a0171c5a98d5a21445c9c42bb21218e5383acb38951f77c382c9ef7ec14"
+    },
+    {
+      "surfaceId": "sac-q-12",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "82c4c6bf86b504631054888083f202a9527041ae15cbea3bf530a4b8ad511604",
+      "evidenceSha256": "642a563b3c20c45cd822ff4b5d44402a1de7bc45b0339a7dd393aae9efc767dc"
+    },
+    {
+      "surfaceId": "sac-q-13",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "354a9c7cf930fed8be6622f4b967fa143eea0a411e3233d62f3eeabb27e10a40",
+      "evidenceSha256": "4ed0a4cf4a9efe008625738bae3590b5e31cde86724cfe76d6f87fdc00011a8a"
+    },
+    {
+      "surfaceId": "sac-q-14",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "aa65e26e06877ea31da5b90341b1ef375dddadd132c97cf244c9ebe55a47703d",
+      "evidenceSha256": "c08afa6d56256c37ef6e515bfc36704831ddff1f83a6ef8fff5d5ee35530ad27"
+    },
+    {
+      "surfaceId": "sac-q-15",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "408b241e2fa726cb8b339cd68ee0ac57fce9878d4b6dc827838538486a4ebc5d",
+      "evidenceSha256": "487bdf1d5caf5d4ae5944eea91f02fa3479fb6cc8137db6c6efa75df58a5a9c9"
+    },
+    {
+      "surfaceId": "sac-q-16",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "9768ce1bae227a7e5791953de5d0bb4c879087358f202c035c8b6ab1e8fd9969",
+      "evidenceSha256": "2258b99aa32b2da54bbc9ed9e24529836b52f17f9392a2f2a190ba3bbda48185"
+    },
+    {
+      "surfaceId": "sac-q-17",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "f428e8bba52d44d7bd4919c75386c1e5c1442600516dc4690bb9b09f749ab54d",
+      "evidenceSha256": "17ee864480ec472aa00429c3936139d1a9f6747051e6d2724e91fbc6ef6b668d"
+    },
+    {
+      "surfaceId": "sac-q-18",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "2bb2aa858b4252b9678c2bc526ae4d404b07ed86963f3a8db2a6d84e59984a6d",
+      "evidenceSha256": "32999c0cf84c41d83dd4bbbab551b75b5d090736ee4afcad9c14f594aecb5fee"
+    },
+    {
+      "surfaceId": "sac-q-19",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "1e24dc17ca47157663c285db07472d601e7cec322c9ec0313e710400e7ae0d22",
+      "evidenceSha256": "8065914d3c5d9fef3c71c7b2586421d0e9dddd34dc5520613642868be0699daf"
+    },
+    {
+      "surfaceId": "sac-q-20",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "9df18b3eaeba03deed9912739e79d77b31a5974bd5a38d3bd1f2ee0aad336321",
+      "evidenceSha256": "eeea2bf36bd77c27bfdb4cb9c40a772cd961ea41cc075e11e2291198e99e7d12"
+    },
+    {
+      "surfaceId": "sac-q-21",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "55b61e41c341b8e24f553f9a6ebf88aa6e8474d8a449384c3dcb0ba9cdd30918",
+      "evidenceSha256": "c35f16c839837ae3e8b6f6b426538bf573e411c4b403e2347f41a0f6c5a8ddd3"
+    },
+    {
+      "surfaceId": "sac-q-22",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "00a459d7cb84ffa52524bd210333300ebc097feddfaa5898e5f7afa16e1f6a6d",
+      "evidenceSha256": "39bc71f5a6ead450a6785c2e00a3056735c421dc738990b11f74cdac424461ca"
+    },
+    {
+      "surfaceId": "sac-q-23",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "1c0fc6d17705238e6d1938a9b5ecca64e0a51b5be0a0a00c8d6ff452d001d438",
+      "evidenceSha256": "ff0df4970775c37bc3fe8e220f5ec3fdbfa3a8d01d49f0b04413003077d751d1"
+    },
+    {
+      "surfaceId": "sac-q-24",
+      "surfaceKind": "question",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks",
+        "explanation-claim-check",
+        "independent-answer-check",
+        "option-and-accepted-form-checks",
+        "tri-locale-semantic-check"
+      ],
+      "surfaceInputSha256": "d87fe34222093978d23061d1013df5dd3d13604d708f0e1442463f23b72c0904",
+      "evidenceSha256": "36e27186fa8f0385832517843340fa13e7b3062f4e2a4493998716ea4a34cc5d"
+    },
+    {
+      "surfaceId": "sac-lesson-1",
+      "surfaceKind": "lesson",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks"
+      ],
+      "surfaceInputSha256": "01050b3488e230a6779be37b15e4092c1a5de81d478a3660324153d36c94f14e",
+      "evidenceSha256": "b65c1f0c951602456e0cf8528ebf7154cf44f346816c98a06889d85d0d0fb24e"
+    },
+    {
+      "surfaceId": "sac-lesson-2",
+      "surfaceKind": "lesson",
+      "disposition": "clean-with-evidence",
+      "findingIds": [],
+      "checksApplied": [
+        "evidence-provenance-and-lesson-checks"
+      ],
+      "surfaceInputSha256": "bbb37c299e8676290dc1171ef514c9253adcd2265f03295922e5ccd841fd2d1e",
+      "evidenceSha256": "81569daaac7d3f6c6f478a46573b1e88e4da212ed77dc8f93ba94661e6b8c184"
+    }
+  ],
+  "findings": [
+    {
+      "findingId": "stored-independent-answer-mismatch:sac-q-01",
+      "surfaceId": "sac-q-01",
+      "family": "F1",
+      "severity": "P0",
+      "code": "stored-independent-answer-mismatch",
+      "evidence": "The stored answer differs from an answer independently solved from the prompt.",
+      "role": "answer-blind-solver",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "accepted-answer-false-reject:sac-q-02",
+      "surfaceId": "sac-q-02",
+      "family": "F4",
+      "severity": "P0",
+      "code": "accepted-answer-false-reject",
+      "evidence": "acceptedAnswers does not include the independently verified answer.",
+      "role": "tool-verifier",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "invalid-explanation-arithmetic:sac-q-03",
+      "surfaceId": "sac-q-03",
+      "family": "F3",
+      "severity": "P1",
+      "code": "invalid-explanation-arithmetic",
+      "evidence": "The worked explanation contains a false arithmetic equality.",
+      "role": "adversarial-grader",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "numerically-equivalent-options:sac-q-04",
+      "surfaceId": "sac-q-04",
+      "family": "F2",
+      "severity": "P1",
+      "code": "numerically-equivalent-options",
+      "evidence": "Two option values normalize to the same numeric value.",
+      "role": "tool-verifier",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "static-evidence-label-mismatch:sac-q-05",
+      "surfaceId": "sac-q-05",
+      "family": "F5",
+      "severity": "P1",
+      "code": "static-evidence-label-mismatch",
+      "evidence": "The static evidence label differs from its content contract.",
+      "role": "evidence-verifier",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "cross-language-numeric-semantic-mismatch:sac-q-06",
+      "surfaceId": "sac-q-06",
+      "family": "F6",
+      "severity": "P1",
+      "code": "cross-language-numeric-semantic-mismatch",
+      "evidence": "Numeric entities differ across the three language prompts.",
+      "role": "bilingual-curriculum-critic",
+      "disposition": "candidate-finding-needs-independent-review"
+    },
+    {
+      "findingId": "non-independent-oracle-provenance:sac-q-07",
+      "surfaceId": "sac-q-07",
+      "family": "F9",
+      "severity": "P0",
+      "code": "non-independent-oracle-provenance",
+      "evidence": "The purported independent answer is identified as a metadata copy.",
+      "role": "evidence-verifier",
+      "disposition": "candidate-finding-needs-independent-review"
+    }
+  ],
+  "completionClaim": {
+    "state": "incomplete-findings-open",
+    "formalCompletionClaim": false,
+    "candidateComplete": false,
+    "openP0": 3,
+    "openP1": 4
+  },
+  "resourceUsage": {
+    "providerCalls": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "apiCost": 0,
+    "browserLaunches": 0,
+    "roleCalls": 5,
+    "childProcesses": 5,
+    "deterministicToolPasses": 5,
+    "operationalHumanMinutes": 0,
+    "liveLatencyMilliseconds": null
+  },
+  "excludedChecks": [
+    "browser-render-content-only-estimand"
+  ],
+  "checksNotRun": [
+    "live-provider-model-quality",
+    "live-provider-latency",
+    "live-provider-token-cost",
+    "independent-A18-adjudication",
+    "formal-48-run"
+  ],
+  "receiptSha256": "aafa2e0cc7ccbfff856730dc96eb00a156b1e61cde64a24d4475fa0a1e995037"
+}

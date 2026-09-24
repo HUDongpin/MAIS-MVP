@@ -6,6 +6,8 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
+import { HK_SIMPLIFIED_ONLY_CHARACTERS } from "./hk-simplified-only-characters.mjs";
+
 const require = createRequire(import.meta.url);
 const ts = require("typescript");
 
@@ -19,23 +21,30 @@ const GOVERNANCE_FILES = new Set(["data/hkChineseGlossary.ts", "data/hkChineseEx
 const GENERATED_DIRS = new Set(["node_modules", ".next", ".tmp", "output", "outputs"]);
 const HAN_PATTERN = /\p{Script=Han}/u;
 
-const SIMPLIFIED_CHAR_HINTS = new Set(
-  Array.from(
-    "简汉学数图线练课节题页这进过个标应视导调试测验评师资质习术实录错队电码关开间项顺预领额风飞体为读户无时会来机权欢气点热灯现画发监盘类维总续网罗联声脑与处号补见规计订认设词话该详证识译变让负财责赛输转办边邮释针键锁链难馆"
-  )
-);
+// Replaces a hand-written character list that produced false positives on valid
+// Traditional characters (角, 里) and missed real ones. The derived set contains
+// only characters that map Simplified -> Traditional AND are not among their own
+// Traditional forms; the 170 context-ambiguous characters are deliberately not
+// flagged, because adjudicating all of them across the Hong Kong bank found 2
+// genuine defects in 1,854 occurrences.
+const SIMPLIFIED_CHAR_HINTS = new Set(Array.from(HK_SIMPLIFIED_ONLY_CHARACTERS));
 
 function parseArgs(argv) {
   const options = {
     mode: "report",
     reportPath: DEFAULT_REPORT_PATH,
     inventoryPath: DEFAULT_INVENTORY_PATH,
-    selfTest: false
+    selfTest: false,
+    writeBaseline: false
   };
 
   for (const arg of argv) {
     if (arg === "--self-test") {
       options.selfTest = true;
+      continue;
+    }
+    if (arg === "--write-baseline") {
+      options.writeBaseline = true;
       continue;
     }
 
@@ -569,12 +578,224 @@ function runAudit(options) {
 
   writeOutputs(options.reportPath, options.inventoryPath, report, inventory);
 
+  // The shipped-content gate runs in every mode. The word audit above is a
+  // 22k-occurrence baseline that only fails under --mode=strict; this is a small
+  // enforced ratchet, so a newly imported pack cannot reintroduce a Simplified
+  // answer key the way the EASE batch did.
+  const shipped = collectShippedContentFindings();
+  if (options.writeBaseline) {
+    writeShippedBaseline(shipped);
+    console.log(`Shipped-content baseline written to ${SHIPPED_BASELINE_PATH}.`);
+  }
+  const shippedBaseline = readShippedBaseline();
+  const shippedGate = enforceShippedContentGate(shipped, shippedBaseline);
+
+  console.log(
+    `Shipped-content gate: ${shipped.simplified.length} Simplified occurrence(s) in learner-visible fields ` +
+    `across ${collectShippedJsonFiles().length} generated pack(s).`
+  );
+  for (const summary of shipped.orthography) {
+    if (summary.minorityCount > 0) {
+      console.log(
+        `  orthography ${summary.pair}: majority ${summary.majorityForm}=${summary.majorityCount}, ` +
+        `minority ${summary.minorityForms.join(", ")}`
+      );
+    }
+  }
+  if (!shippedGate.enforced) {
+    console.log(`  (no baseline at ${SHIPPED_BASELINE_PATH} — gate not enforced)`);
+  }
+  if (shippedGate.failures.length) {
+    shippedGate.failures.forEach((failure) => console.error(`  ${failure}`));
+    throw new Error(`HK shipped-content gate failed with ${shippedGate.failures.length} regression(s).`);
+  }
+
   const strictFailures = (summary.statusCounts.issue ?? 0) + (summary.statusCounts.untracked ?? 0);
   if (options.mode === "strict" && strictFailures > 0) {
     throw new Error(`HK Chinese strict audit failed with ${strictFailures} issue/untracked occurrences.`);
   }
 
   return { summary, reportPath: options.reportPath, inventoryPath: options.inventoryPath };
+}
+
+
+// ---------------------------------------------------------------------------
+// Shipped-content gate
+//
+// The word audit above walks .ts/.tsx only, so it has never seen
+// data/generated-content/**, where the Hong Kong EASE pack lives — 701 of the
+// 989 live HK questions, 71% of the track. That is how Simplified answer keys
+// reached learners: a key stored as 两者相等 marks a pupil who writes correct
+// Traditional 兩者相等 wrong.
+//
+// Two rules are enforced here, both scoped to fields the importer actually
+// ships. Scanning the whole JSON instead would report 166 items on this pack
+// whose only Simplified text sits in qa.* reviewer metadata that no learner ever
+// sees — a gate that starts ~97% false positive is a gate that gets switched off.
+// ---------------------------------------------------------------------------
+
+const SHIPPED_CONTENT_ROOT = "data/generated-content";
+// Only Traditional-Chinese packs. The mainland BNU/PEP/HJB banks under the same
+// root are Simplified by design and must never be flagged; scanning all 33 packs
+// reports 6,332 "violations" that are simply correct Simplified content.
+const SHIPPED_TRADITIONAL_PACK_PREFIX = "hk-";
+const SHIPPED_BASELINE_PATH = "scripts/hk-shipped-content-baseline.json";
+
+// Mirrors data/hongKongEasePracticeQuestions.ts: the fields it maps onto a
+// learner-visible Question. qa.* is metadata the importer drops.
+const SHIPPED_TEXT_FIELDS = [
+  "topicTitleZh", "topicTitleEn",
+  "promptZh", "promptEn",
+  "explanationZh", "explanationEn",
+  "answer"
+];
+const SHIPPED_TEXT_ARRAYS = ["optionsZh", "optionsEn", "acceptedAnswers"];
+
+// Traditional forms that both occur in this corpus. The check is internal
+// consistency, not conformance: the repo has settled on 裡 and 甚麼, so the gate
+// ratchets the minority form down rather than imposing the EDB 字形表 preference.
+const ORTHOGRAPHIC_PAIRS = [
+  { name: "裏/裡", forms: ["裏", "裡"] },
+  { name: "麪/麵", forms: ["麪", "麵"] },
+  { name: "甚麼/什麼", forms: ["甚麼", "什麼"] }
+];
+
+function collectShippedJsonFiles() {
+  const root = path.join(repoRoot, SHIPPED_CONTENT_ROOT);
+  if (!fs.existsSync(root)) return [];
+  const files = [];
+  const traditionalRoots = fs
+    .readdirSync(root, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name.startsWith(SHIPPED_TRADITIONAL_PACK_PREFIX))
+    .map((entry) => path.join(root, entry.name));
+  const walk = (absolute) => {
+    for (const entry of fs.readdirSync(absolute, { withFileTypes: true })) {
+      if (entry.name.startsWith(".")) continue;
+      const next = path.join(absolute, entry.name);
+      if (entry.isDirectory()) walk(next);
+      else if (entry.name.endsWith(".json")) files.push(toRepoRelative(next));
+    }
+  };
+  traditionalRoots.forEach(walk);
+  return files.sort();
+}
+
+/** Every learner-visible string in a generated question pack, with its path. */
+function shippedStringsFromPack(pack) {
+  const strings = [];
+  const rows = Array.isArray(pack) ? pack : Array.isArray(pack?.questions) ? pack.questions : [];
+  for (const row of rows) {
+    if (!row || typeof row !== "object") continue;
+    const id = row.id ?? row.questionId ?? "(unidentified)";
+    for (const field of SHIPPED_TEXT_FIELDS) {
+      if (typeof row[field] === "string" && row[field]) strings.push({ id, field, text: row[field] });
+    }
+    for (const field of SHIPPED_TEXT_ARRAYS) {
+      const values = Array.isArray(row[field]) ? row[field] : [];
+      values.forEach((value, index) => {
+        if (typeof value === "string" && value) strings.push({ id, field: `${field}[${index}]`, text: value });
+      });
+    }
+  }
+  return strings;
+}
+
+function collectShippedContentFindings() {
+  const simplified = [];
+  const orthography = new Map(ORTHOGRAPHIC_PAIRS.map((pair) => [pair.name, new Map(pair.forms.map((f) => [f, 0]))]));
+  const countForms = (text) => {
+    for (const pair of ORTHOGRAPHIC_PAIRS) {
+      for (const form of pair.forms) {
+        const occurrences = text.split(form).length - 1;
+        if (occurrences) orthography.get(pair.name).set(form, orthography.get(pair.name).get(form) + occurrences);
+      }
+    }
+  };
+
+  for (const file of collectShippedJsonFiles()) {
+    let pack;
+    try {
+      pack = JSON.parse(readSourceFile(file));
+    } catch {
+      continue;
+    }
+    for (const { id, field, text } of shippedStringsFromPack(pack)) {
+      countForms(text);
+      const chars = [...new Set(Array.from(text).filter((char) => SIMPLIFIED_CHAR_HINTS.has(char)))].sort();
+      if (chars.length) simplified.push({ file, id, field, chars, excerpt: text.slice(0, 60) });
+    }
+  }
+
+  // Orthography also spans the authored .ts surface, which is where the corpus
+  // convention actually lives.
+  for (const file of collectScanFiles()) countForms(readSourceFile(file));
+
+  const orthographySummary = ORTHOGRAPHIC_PAIRS.map((pair) => {
+    const counts = orthography.get(pair.name);
+    const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+    const [majorityForm, majorityCount] = ranked[0];
+    const minority = ranked.slice(1).filter(([, count]) => count > 0);
+    return {
+      pair: pair.name,
+      majorityForm,
+      majorityCount,
+      minorityCount: minority.reduce((total, [, count]) => total + count, 0),
+      minorityForms: minority.map(([form, count]) => `${form}=${count}`)
+    };
+  });
+
+  return { simplified, orthography: orthographySummary };
+}
+
+function writeShippedBaseline(findings) {
+  const baseline = {
+    "//": "Ratchet for the shipped-content gate in scripts/audit-hk-chinese.mjs. Counts may fall freely and must never rise. Regenerate with --write-baseline only when lowering them.",
+    simplifiedKnownIds: [...new Set(findings.simplified.map((hit) => hit.id))].sort(),
+    simplifiedKnownNote:
+      "Answer keys and explanations stored in Simplified Chinese, so a learner who writes correct Traditional is graded wrong. Each entry is a defect awaiting repair in the EASE pack, not an accepted exception.",
+    orthographyMinority: Object.fromEntries(findings.orthography.map((entry) => [entry.pair, entry.minorityCount])),
+    orthographyNote:
+      "Both forms of each pair are valid Traditional. The gate ratchets the minority form down toward the corpus majority rather than imposing the EDB 字形表 preference, which this repo has not adopted."
+  };
+  fs.writeFileSync(path.join(repoRoot, SHIPPED_BASELINE_PATH), `${JSON.stringify(baseline, null, 2)}\n`);
+  return baseline;
+}
+
+function readShippedBaseline() {
+  const absolute = path.join(repoRoot, SHIPPED_BASELINE_PATH);
+  if (!fs.existsSync(absolute)) return null;
+  return JSON.parse(fs.readFileSync(absolute, "utf8"));
+}
+
+/**
+ * Ratchet, not a snapshot: a finding count may fall freely and never rise. The
+ * known entries are enumerated so the list can only be shortened deliberately.
+ */
+function enforceShippedContentGate(findings, baseline) {
+  if (!baseline) return { enforced: false, failures: [] };
+  const failures = [];
+
+  const knownIds = new Set(baseline.simplifiedKnownIds ?? []);
+  const unexpected = findings.simplified.filter((hit) => !knownIds.has(hit.id));
+  for (const hit of unexpected) {
+    failures.push(
+      `NEW Simplified character in shipped content: ${hit.file} ${hit.id} ${hit.field} ` +
+      `[${hit.chars.join("")}] :: ${hit.excerpt}`
+    );
+  }
+
+  for (const summary of findings.orthography) {
+    const allowed = baseline.orthographyMinority?.[summary.pair];
+    if (typeof allowed !== "number") continue;
+    if (summary.minorityCount > allowed) {
+      failures.push(
+        `Orthographic drift on ${summary.pair}: minority form count rose to ${summary.minorityCount} ` +
+        `(baseline ${allowed}). Corpus majority is ${summary.majorityForm}=${summary.majorityCount}.`
+      );
+    }
+  }
+
+  return { enforced: true, failures };
 }
 
 function runSelfTests() {
@@ -608,6 +829,47 @@ function runSelfTests() {
   assert.ok(languageToggle);
   assert.equal(languageToggle.status, "exception");
   assert.equal(languageToggle.issues.length, 0);
+
+  // The derived detector must clear characters a hand-written list gets wrong.
+  // 角 has no Simplified->Traditional entry at all; 里 maps to "裏 里", so it is
+  // listed among its own Traditional forms. Both are valid Traditional.
+  assert.equal(SIMPLIFIED_CHAR_HINTS.has("角"), false, "角 is valid Traditional and must not be flagged");
+  assert.equal(SIMPLIFIED_CHAR_HINTS.has("里"), false, "里 is valid Traditional and must not be flagged");
+  assert.equal(SIMPLIFIED_CHAR_HINTS.has("两"), true, "两 is Simplified-only and must be flagged");
+  assert.equal(SIMPLIFIED_CHAR_HINTS.has("错"), true, "错 is Simplified-only and must be flagged");
+
+  // Learner-visible fields are scanned; qa.* reviewer metadata is not. Scanning
+  // it would report 166 items on the EASE pack that no learner ever sees.
+  const shippedFixture = shippedStringsFromPack({
+    questions: [{
+      id: "fixture-1",
+      promptZh: "計算",
+      answer: "兩者相等",
+      acceptedAnswers: ["兩者相等"],
+      qa: { reason: "题目可解，答案正确" }
+    }]
+  });
+  assert.ok(shippedFixture.some((entry) => entry.field === "answer"));
+  assert.ok(shippedFixture.some((entry) => entry.field === "acceptedAnswers[0]"));
+  assert.equal(shippedFixture.some((entry) => entry.text.includes("题目可解")), false, "qa.* must not be scanned");
+
+  // The ratchet fails on a new id and stays silent on a known one.
+  const ratchetBaseline = { simplifiedKnownIds: ["known-1"], orthographyMinority: { "裏/裡": 3 } };
+  const known = enforceShippedContentGate(
+    { simplified: [{ file: "f", id: "known-1", field: "answer", chars: ["两"], excerpt: "两" }], orthography: [] },
+    ratchetBaseline
+  );
+  assert.equal(known.failures.length, 0, "a baselined id must not fail the gate");
+  const fresh = enforceShippedContentGate(
+    { simplified: [{ file: "f", id: "new-1", field: "answer", chars: ["两"], excerpt: "两" }], orthography: [] },
+    ratchetBaseline
+  );
+  assert.equal(fresh.failures.length, 1, "an unlisted id must fail the gate");
+  const drifted = enforceShippedContentGate(
+    { simplified: [], orthography: [{ pair: "裏/裡", majorityForm: "裡", majorityCount: 40, minorityCount: 4, minorityForms: ["裏=4"] }] },
+    ratchetBaseline
+  );
+  assert.equal(drifted.failures.length, 1, "a rising minority count must fail the gate");
 
   console.log("HK Chinese audit self-test passed.");
 }

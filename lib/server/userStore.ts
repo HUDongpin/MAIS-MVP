@@ -1,3 +1,5 @@
+import { captureServerError } from "@/lib/server/errorMonitor";
+import { classifyObservedError } from "@/lib/observability/errorPolicy";
 import { createHash, randomBytes, randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { DatabaseSync } from "node:sqlite";
@@ -66,11 +68,20 @@ import {
   runPostgresBootstrapWithContentionRecovery
 } from "@/lib/server/userStore/postgresSchemaReadiness";
 import {
+  assessAccountDeletion,
+  buildAccountDataExport,
+  deleteUserFromDatabase,
+  type AccountDataExport,
+  type AccountDeletionBlocker,
+  type AccountDeletionSummary
+} from "@/lib/server/userStore/accountDeletionPersistence";
+import {
   buildKnowledgeComponents,
   classifyAdaptiveLLMError,
   composeAdaptiveDecisionFromCandidate,
   createInitialAdaptiveSkillState,
   generateAdaptiveCandidates,
+  isMasteryConfirmed,
   selectNextAdaptiveAction,
   updateAdaptiveState,
   validateLLMAdaptiveRecommendation
@@ -894,6 +905,8 @@ import type {
   TeacherReviewLessonPracticeQuestion,
   TeacherReviewLessonSlide,
   TeacherReviewLessonSource,
+  ParentalConsentRecord,
+  SchoolProvisioningAuthorizationRecord,
   TeacherReviewLessonStatus,
   TeacherStudentProfileData,
   TeacherStudentRiskTag,
@@ -931,6 +944,10 @@ export type UserRecord = {
   disabled_at: string | null;
   role: UserRole;
   created_at: string;
+  /** Guardian permission captured at student registration. Absent for adults. */
+  parental_consent?: ParentalConsentRecord;
+  /** School permission recorded before an administrator's student batch. */
+  school_authorization?: SchoolProvisioningAuthorizationRecord;
 };
 
 export type AuthIdentityRecord = {
@@ -8275,86 +8292,98 @@ async function writePostgresDatabaseWith(
   database: Database,
   storageCapability: PostgresStorageMutationCapability
 ) {
-  recordPostgresFullWriterTestStage("capability-acquired");
-  await installPostgresFullWriterFaultForIntegrationTest(sql);
-  databaseIndexCache.delete(database);
-  const payload = postgresDatabasePayload(database);
-  recordPostgresFullWriterTestStage("update-executing");
-  const stateRows = await sql<Array<{
-    payload: unknown;
-    payload_matches: boolean;
-    revision: unknown;
-    revision_matches: boolean;
-    state_identity_matches: boolean;
-  }>>`
-    UPDATE public.app_state AS state
-    SET
-      revision = state.revision + 1,
-      payload = ${sql.json(payload)}::pg_catalog.jsonb,
-      updated_at = ${new Date().toISOString()}
-    WHERE state.id = ${stateRecordId}
-      AND state.tenant_id = ${stateTenantId}
-      AND state.state_kind = ${stateKind}
-      AND state.schema_version = ${schemaVersion}
-      AND state.revision = ${storageCapability.previousRevision}
-    RETURNING
-      state.payload,
-      state.revision,
-      state.id = ${stateRecordId}
+  const startedAt = Date.now();
+  try {
+    recordPostgresFullWriterTestStage("capability-acquired");
+    await installPostgresFullWriterFaultForIntegrationTest(sql);
+    databaseIndexCache.delete(database);
+    const payload = postgresDatabasePayload(database);
+    recordPostgresFullWriterTestStage("update-executing");
+    const stateRows = await sql<Array<{
+      payload: unknown;
+      payload_matches: boolean;
+      revision: unknown;
+      revision_matches: boolean;
+      state_identity_matches: boolean;
+    }>>`
+      UPDATE public.app_state AS state
+      SET
+        revision = state.revision + 1,
+        payload = ${sql.json(payload)}::pg_catalog.jsonb,
+        updated_at = ${new Date().toISOString()}
+      WHERE state.id = ${stateRecordId}
         AND state.tenant_id = ${stateTenantId}
         AND state.state_kind = ${stateKind}
-        AND state.schema_version = ${schemaVersion} AS state_identity_matches,
-      state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches,
-      state.revision = ${storageCapability.previousRevision + 1} AS revision_matches
-  `;
-  recordPostgresFullWriterTestStage("returning-received");
-  const writtenState = stateRows[0];
-  const revision = safePostgresRevision(writtenState?.revision);
-  if (
-    !writtenState
-    || stateRows.length !== 1
-    || revision === null
-    || writtenState.state_identity_matches !== true
-    || writtenState.payload_matches !== true
-    || writtenState.revision_matches !== true
-  ) {
-    throw new Error("Postgres storage readiness is unavailable.");
+        AND state.schema_version = ${schemaVersion}
+        AND state.revision = ${storageCapability.previousRevision}
+      RETURNING
+        state.payload,
+        state.revision,
+        state.id = ${stateRecordId}
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion} AS state_identity_matches,
+        state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches,
+        state.revision = ${storageCapability.previousRevision + 1} AS revision_matches
+    `;
+    recordPostgresFullWriterTestStage("returning-received");
+    const writtenState = stateRows[0];
+    const revision = safePostgresRevision(writtenState?.revision);
+    if (
+      !writtenState
+      || stateRows.length !== 1
+      || revision === null
+      || writtenState.state_identity_matches !== true
+      || writtenState.payload_matches !== true
+      || writtenState.revision_matches !== true
+    ) {
+      throw new Error("Postgres storage readiness is unavailable.");
+    }
+    validateCompletePostgresStorageSnapshot(writtenState.payload);
+    recordPostgresFullWriterTestStage("returning-validated");
+    await applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql);
+    await syncPostgresHotAuthTablesWith(sql, database);
+    await syncPostgresProjectionTablesWith(sql, database);
+    recordPostgresFullWriterTestStage("final-reread-executing");
+    const finalStateRows = await sql<Array<{
+      payload_matches: boolean;
+      revision: unknown;
+    }>>`
+      /* postgres_storage_full_writer_final_state */
+      SELECT
+        current_state.revision,
+        current_state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches
+      FROM public.app_state AS current_state
+      WHERE current_state.id = ${stateRecordId}
+        AND current_state.tenant_id = ${stateTenantId}
+        AND current_state.state_kind = ${stateKind}
+        AND current_state.schema_version = ${schemaVersion}
+        AND current_state.revision = ${revision}
+      FOR UPDATE OF current_state
+    `;
+    recordPostgresFullWriterTestStage("final-reread-received");
+    if (
+      finalStateRows.length !== 1
+      || safePostgresRevision(finalStateRows[0]?.revision) !== revision
+      || finalStateRows[0]?.payload_matches !== true
+    ) {
+      throw new Error("Postgres storage readiness is unavailable.");
+    }
+    await advancePostgresStorageReadinessAfterMutation(
+      sql as unknown as PostgresReadinessTransaction,
+      storageCapability,
+      revision
+    );
+  } catch (error) {
+    try {
+      captureServerError(error, {
+        scope: "datastore", route: "userStore.writePostgresDatabase",
+        kind: classifyObservedError(error), tags: { storage: "postgres" },
+        extra: { operation: "app_state-update", durationMs: Date.now() - startedAt }
+      });
+    } catch { /* Keep the original failure and transaction rollback semantics. */ }
+    throw error;
   }
-  validateCompletePostgresStorageSnapshot(writtenState.payload);
-  recordPostgresFullWriterTestStage("returning-validated");
-  await applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql);
-  await syncPostgresHotAuthTablesWith(sql, database);
-  await syncPostgresProjectionTablesWith(sql, database);
-  recordPostgresFullWriterTestStage("final-reread-executing");
-  const finalStateRows = await sql<Array<{
-    payload_matches: boolean;
-    revision: unknown;
-  }>>`
-    /* postgres_storage_full_writer_final_state */
-    SELECT
-      current_state.revision,
-      current_state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches
-    FROM public.app_state AS current_state
-    WHERE current_state.id = ${stateRecordId}
-      AND current_state.tenant_id = ${stateTenantId}
-      AND current_state.state_kind = ${stateKind}
-      AND current_state.schema_version = ${schemaVersion}
-      AND current_state.revision = ${revision}
-    FOR UPDATE OF current_state
-  `;
-  recordPostgresFullWriterTestStage("final-reread-received");
-  if (
-    finalStateRows.length !== 1
-    || safePostgresRevision(finalStateRows[0]?.revision) !== revision
-    || finalStateRows[0]?.payload_matches !== true
-  ) {
-    throw new Error("Postgres storage readiness is unavailable.");
-  }
-  await advancePostgresStorageReadinessAfterMutation(
-    sql as unknown as PostgresReadinessTransaction,
-    storageCapability,
-    revision
-  );
 }
 
 async function rewriteCurrentPostgresStorageSnapshotForIntegrationTest() {
@@ -13289,7 +13318,6 @@ function updateLessonProgressFromAdaptiveState(database: Database, userId: strin
   const existing = database.lesson_progress.find(
     (progress) => progress.user_id === userId && progress.topic_id === topicId
   );
-
   if (existing) {
     existing.lesson_slug = existing.lesson_slug ?? lessonSlugForTopic(topicId);
     existing.mastery = mastery;
@@ -13299,20 +13327,54 @@ function updateLessonProgressFromAdaptiveState(database: Database, userId: strin
     existing.duration_seconds = existing.duration_seconds ?? null;
     existing.checklist_state = existing.checklist_state ?? {};
     existing.updated_at = now;
-    return;
+  } else {
+    database.lesson_progress.push({
+      user_id: userId,
+      topic_id: topicId,
+      lesson_slug: lessonSlugForTopic(topicId),
+      status,
+      mastery,
+      started_at: now,
+      completed_at: status === "completed" ? now : null,
+      duration_seconds: null,
+      checklist_state: {},
+      updated_at: now
+    });
   }
 
-  database.lesson_progress.push({
-    user_id: userId,
-    topic_id: topicId,
-    lesson_slug: lessonSlugForTopic(topicId),
-    status,
-    mastery,
-    started_at: now,
-    completed_at: status === "completed" ? now : null,
-    duration_seconds: null,
-    checklist_state: {},
-    updated_at: now
+  awardPracticeDrivenLessonCompletion(database, userId, topicId, now);
+}
+
+// Progress can say "completed" before every skill is confirmed. Both automatic
+// reward paths require confirmed topic mastery; retrying the award after later
+// evidence is safe because the ledger key is shared with legacy completion.
+function awardPracticeDrivenLessonCompletion(database: Database, userId: string, topicId: string, completedAt: string) {
+  const progress = database.lesson_progress.find(
+    (candidate) => candidate.user_id === userId && candidate.topic_id === topicId
+  );
+  if (progress?.status !== "completed") return;
+
+  const topic = topicRecordForId(database, topicId);
+  if (!topic) return;
+  const topicSkills = knowledgeComponentsForDatabase(database, topic.grade, topic.curriculum_track)
+    .filter((skill) => skill.topicId === topicId);
+  if (!topicSkills.length || !topicSkills.every((skill) => {
+    const state = database.adaptive_skill_state.find(
+      (record) => record.user_id === userId && record.skill_id === skill.id
+    );
+    return state && isMasteryConfirmed({ pMastery: state.p_mastery, correctStreak: state.correct_streak });
+  })) return;
+
+  const slug = progress.lesson_slug ?? lessonSlugForTopic(topicId);
+  const lesson = database.lessons.find((candidate) => candidate.slug === slug);
+  awardLessonCompletionReward(database, {
+    userId,
+    lesson: lesson ?? {
+      slug,
+      title_en: topic?.title_en ?? slug,
+      title_zh: topic?.title_zh ?? slug
+    },
+    completedAt
   });
 }
 
@@ -13529,6 +13591,7 @@ const updateLessonProgressFromAttempts = (
     lessonSlugForTopic,
     questionForId: (questionId) => questionForId(database, questionId)
   });
+  awardPracticeDrivenLessonCompletion(database, userId, question.topic_id, now);
 };
 
 function updatePracticeAssignmentSubmissionsFromAttempt(
@@ -13570,6 +13633,13 @@ export const __userStoreAuthHotTableTestHooks = {
     mediaObjectUrlForKey: mediaObjectAccessUrl,
     passwordMatches: (candidatePassword, user) => passwordMatchesFromAuthSessionPersistence(candidatePassword, user as UserRecord)
   })
+};
+
+// Expose the existing progress paths for isolated behavioral regressions.
+export const __userStoreLessonCompletionRewardTestHooks = {
+  updateAdaptiveStateFromAttempt,
+  updateLessonProgressFromAdaptiveState,
+  updateLessonProgressFromAttempts
 };
 
 const canUseTeacherArea: (user?: UserRecord | null) => user is UserRecord =
@@ -13799,6 +13869,7 @@ export async function authenticateGoogleIdentityForLogin({
   grade,
   curriculumProfile,
   language,
+  parentalConsent,
   theme
 }: {
   providerSubject: string;
@@ -13809,6 +13880,14 @@ export async function authenticateGoogleIdentityForLogin({
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
   language?: Language;
+  /**
+   * Guardian consent for a *new* student account. The OAuth redirect cannot
+   * carry it today (it would put a guardian's name and email in a URL), so this
+   * is currently only supplied by non-redirect callers; without it, new student
+   * provisioning is refused rather than silently creating an unconsented child
+   * account. Existing accounts logging in or linking are unaffected.
+   */
+  parentalConsent?: ParentalConsentRecord;
   theme?: ThemeMode;
 }) {
   const subject = providerSubject.trim();
@@ -13858,6 +13937,10 @@ export async function authenticateGoogleIdentityForLogin({
       return { status: "teacher-invite-required" as const };
     }
 
+    if (role === "student" && !parentalConsent) {
+      return { status: "parental-consent-required" as const };
+    }
+
     const effectiveCurriculumProfile = role === "student" && curriculumProfile
       ? normalizeStoredCurriculumProfile({ region: curriculumProfile.region, publisher: curriculumProfile.publisher })
       : curriculumProfileForTrack(defaultCurriculumTrack);
@@ -13881,7 +13964,8 @@ export async function authenticateGoogleIdentityForLogin({
       session_revision: 1,
       disabled_at: null,
       role,
-      created_at: now
+      created_at: now,
+      ...(role === "student" && parentalConsent ? { parental_consent: parentalConsent } : {})
     };
 
     database.users.push(user);
@@ -16184,6 +16268,40 @@ export const backfillPostgresHotAuthTablesForAdmin = authUserStore.backfillPostg
 export const cleanupTemporaryBootstrapAdminsForAdmin = authUserStore.cleanupTemporaryBootstrapAdminsForAdmin;
 
 export const getStorageReadinessSnapshot = authUserStore.getStorageReadinessSnapshot;
+
+export type DeleteUserAccountResult =
+  | { status: "deleted"; summary: AccountDeletionSummary }
+  | { status: "not-found" }
+  | { status: "blocked"; blockers: AccountDeletionBlocker[] };
+
+/**
+ * Erases a user and every record they are the subject of.
+ *
+ * Runs through `mutateDatabase`, which writes a full state snapshot — that is
+ * deliberate: the snapshot write is what re-syncs the Postgres hot-auth and
+ * projection tables with delete-not-in semantics, so the account also
+ * disappears from the read fast paths. A hot-row fast path write would leave
+ * the deleted rows live in those tables.
+ */
+export async function deleteUserAccount(userId: string): Promise<DeleteUserAccountResult> {
+  return mutateDatabase((database) => {
+    const user = database.users.find((candidate) => candidate.id === userId);
+    if (!user) return { status: "not-found" as const };
+
+    const blockers = assessAccountDeletion(database as unknown as Record<string, unknown>, userId, user.role);
+    if (blockers.length) return { status: "blocked" as const, blockers };
+
+    const summary = deleteUserFromDatabase(database as unknown as Record<string, unknown>, userId);
+    return { status: "deleted" as const, summary };
+  });
+}
+
+/** Subject-access export of everything the platform holds about one account. */
+export async function exportUserAccountData(userId: string): Promise<AccountDataExport | null> {
+  const database = await readDatabase();
+  if (!database.users.some((candidate) => candidate.id === userId)) return null;
+  return buildAccountDataExport(database as unknown as Record<string, unknown>, userId, new Date().toISOString());
+}
 
 async function updateUserSettingsInPostgresHotTables(
   userId: string,

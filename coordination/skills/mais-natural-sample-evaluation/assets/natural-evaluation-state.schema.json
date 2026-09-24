@@ -1,0 +1,1374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/natural-evaluation-state-v1.json",
+  "title": "MAIS Natural Sample Evaluation EvidenceEnvelopeV1",
+  "description": "Self-contained EvidenceEnvelopeV1 with packet-local content-address closure for a registered natural-evaluation lifecycle. This schema does not authenticate issuers, trust anchors, providers, or signatures.",
+  "x-validation-scope": "Standalone JSON Schema enforces structural and declarative dependency gates only; it is not semantic parity with the offline resolver.",
+  "x-resolver-enforced": [
+    "canonical-receipt-body-digest", "direct-parent-content-address-lineage", "binding-projection-canonicalization",
+    "observedAt-not-in-future", "grant-time-order-and-freshness", "graph-milestone-prefix",
+    "custody-context-equality-relation", "top-level-status-and-active-receipt-projection",
+    "material-currentness-binding-and-invalidation",
+    "registration-bound-design-profile-power-artifact-and-ceiling",
+    "provider-grant-three-way-binding-freshness-and-authority-partition",
+    "activity-causal-prefix-and-current-reconciliation",
+    "activity-unknown-categories-exact-packet-derived-set",
+    "distinct-canary-full-run-activity-reconciliation-and-coverage",
+    "first-provider-activity-receipt-order-and-phase-binding",
+    "reviewer-anchor-uniqueness-authorizer-separation-and-current-binding",
+    "review-outcome-receipt-node-binding-and-negative-terminal-order",
+    "result-count-arithmetic-claim-ceiling-and-cross-receipt-export-binding",
+    "resolved-state-and-next-action-from-active-lineage", "evidence-hash-completeness",
+    "issuer-authenticity-and-native-trust-anchor-remain-external"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "skill", "mode", "observedAt", "repository", "evidenceClass",
+    "sourceIdentity", "resolvedState", "authority", "checks", "blockers", "claimCeiling",
+    "nextAllowedAction", "evidenceHashes", "redaction", "protocol", "sourceRights", "frame",
+    "sampleFreeze", "runner", "reference", "evaluated", "materialCurrentness", "runProvenance",
+    "registeredInferenceFrame", "activity", "result", "independentReview", "aggregateExport", "receiptGraph"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0" },
+    "skill": { "type": "string", "const": "mais-natural-sample-evaluation" },
+    "mode": {
+      "type": "string",
+      "enum": ["AUDIT_STATUS", "DESIGN_OR_FREEZE", "PROVIDER_PREFLIGHT", "EXECUTE_OR_RESUME", "RECOVER", "SCORE_REVIEW_EXPORT"]
+    },
+    "observedAt": { "$ref": "#/$defs/dateTime" },
+    "repository": { "$ref": "#/$defs/repository" },
+    "evidenceClass": { "type": "string", "const": "natural-sample-evaluation" },
+    "sourceIdentity": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/sourceIdentity" } },
+    "resolvedState": { "type": "string", "$ref": "#/$defs/resolvedState" },
+    "authority": { "$ref": "#/$defs/authority" },
+    "checks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/check" } },
+    "blockers": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/blockerCode" } },
+    "claimCeiling": { "type": "string", "$ref": "#/$defs/claimCeiling" },
+    "nextAllowedAction": { "type": "string", "$ref": "#/$defs/nextAllowedAction" },
+    "evidenceHashes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "redaction": { "$ref": "#/$defs/redaction" },
+    "protocol": { "$ref": "#/$defs/protocol" },
+    "sourceRights": { "$ref": "#/$defs/sourceRights" },
+    "frame": { "$ref": "#/$defs/frame" },
+    "sampleFreeze": { "$ref": "#/$defs/sampleFreeze" },
+    "runner": { "$ref": "#/$defs/runner" },
+    "reference": { "$ref": "#/$defs/referenceProvider" },
+    "evaluated": { "$ref": "#/$defs/evaluatedProvider" },
+    "materialCurrentness": { "$ref": "#/$defs/materialCurrentness" },
+    "runProvenance": { "type": "string", "enum": ["natural-registered", "synthetic-fixture"] },
+    "registeredInferenceFrame": { "$ref": "#/$defs/registeredInferenceFrame" },
+    "activity": { "$ref": "#/$defs/activity" },
+    "result": { "$ref": "#/$defs/result" },
+    "independentReview": { "$ref": "#/$defs/independentReview" },
+    "aggregateExport": { "$ref": "#/$defs/aggregateExport" },
+    "receiptGraph": { "type": "array", "items": { "$ref": "#/$defs/receiptNode" } }
+  },
+  "allOf": [
+    {
+      "properties": {
+        "repository": {
+          "properties": {
+            "branch": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/naturalRepositoryBranch" }] }
+          }
+        },
+        "sourceIdentity": {
+          "items": { "properties": { "logicalId": { "$ref": "#/$defs/naturalSourceLogicalId" } } }
+        },
+        "authority": {
+          "properties": {
+            "required": { "items": { "$ref": "#/$defs/authorityCode" } },
+            "proven": { "items": { "$ref": "#/$defs/authorityCode" } },
+            "missing": { "items": { "$ref": "#/$defs/authorityCode" } }
+          }
+        },
+        "checks": {
+          "items": {
+            "properties": {
+              "id": { "$ref": "#/$defs/checkCode" },
+              "evidenceRef": { "$ref": "#/$defs/evidenceRef" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "runProvenance": { "const": "natural-registered" } }, "required": ["runProvenance"] },
+      "then": { "properties": { "result": { "properties": {
+        "provenance": { "const": "natural-registered" },
+        "metrics": { "properties": { "provenance": { "const": "natural-registered" } } }
+      } } } }
+    },
+    {
+      "if": {
+        "properties": { "protocol": { "properties": { "status": { "const": "UNREGISTERED" } } } },
+        "required": ["protocol"]
+      },
+      "then": {
+        "properties": {
+          "claimCeiling": { "const": "NO_EVALUATION_CLAIM" },
+          "protocol": { "properties": { "registeredClaimCeiling": { "const": "NO_EVALUATION_CLAIM" } } },
+          "registeredInferenceFrame": { "properties": { "registeredClaimCeiling": { "const": "NO_EVALUATION_CLAIM" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "runProvenance": { "const": "synthetic-fixture" } }, "required": ["runProvenance"] },
+      "then": {
+        "properties": {
+          "claimCeiling": { "const": "NO_EVALUATION_CLAIM" },
+          "resolvedState": { "not": { "const": "CLOSED" } },
+          "result": {
+            "properties": {
+              "status": { "enum": ["NOT_STARTED", "STRUCTURE_VALIDATED"] },
+              "provenance": { "const": "synthetic-fixture" },
+              "resultConclusion": { "const": "NO_EVALUATION_CLAIM" },
+              "metrics": { "properties": { "provenance": { "const": "synthetic-fixture" } } }
+            }
+          },
+          "independentReview": {
+            "properties": {
+              "final": { "properties": { "status": { "not": { "const": "CONCURRED" } } } },
+              "claimBoundary": { "properties": { "status": { "not": { "const": "CONCURRED" } } } }
+            }
+          },
+          "aggregateExport": { "properties": { "status": { "const": "NOT_REQUESTED" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": { "freeze": { "properties": { "status": { "const": "CONCURRED" } } } } } }, "required": ["independentReview"] },
+      "then": { "properties": { "sampleFreeze": { "properties": { "status": { "const": "INDEPENDENTLY_VERIFIED" } } } } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": { "freeze": { "properties": { "status": { "enum": ["OBJECTED", "BLOCKED"] } } } } } }, "required": ["independentReview"] },
+      "then": { "properties": {
+        "sampleFreeze": { "properties": { "status": { "const": "FROZEN" } } },
+        "resolvedState": { "const": "UNREVIEWABLE" }, "nextAllowedAction": { "const": "STOP_BLOCKED" },
+        "aggregateExport": { "properties": { "status": { "const": "NOT_REQUESTED" } } }
+      } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": { "runner": { "properties": { "status": { "const": "CONCURRED" } } } } } }, "required": ["independentReview"] },
+      "then": { "properties": { "runner": { "properties": {
+        "status": { "const": "INDEPENDENTLY_VERIFIED" }, "reviewDecision": { "const": "CONCURRED" },
+        "independentReviewReceiptSha256": { "$ref": "#/$defs/sha256" }
+      } } } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": { "runner": { "properties": { "status": { "const": "OBJECTED" } } } } } }, "required": ["independentReview"] },
+      "then": { "properties": {
+        "runner": { "properties": {
+          "status": { "const": "CLOSEOUT_RECORDED" }, "reviewDecision": { "const": "OBJECTED" },
+          "independentReviewReceiptSha256": { "$ref": "#/$defs/sha256" }
+        } },
+        "resolvedState": { "const": "UNREVIEWABLE" }, "nextAllowedAction": { "const": "STOP_BLOCKED" },
+        "aggregateExport": { "properties": { "status": { "const": "NOT_REQUESTED" } } }
+      } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": { "runner": { "properties": { "status": { "const": "BLOCKED" } } } } } }, "required": ["independentReview"] },
+      "then": { "properties": {
+        "runner": { "properties": { "status": { "const": "CLOSEOUT_RECORDED" }, "reviewDecision": { "const": "BLOCKED" } } },
+        "resolvedState": { "const": "UNREVIEWABLE" }, "nextAllowedAction": { "const": "STOP_BLOCKED" },
+        "aggregateExport": { "properties": { "status": { "const": "NOT_REQUESTED" } } }
+      } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": { "runner": { "properties": { "status": { "enum": ["PENDING", "NOT_REQUIRED"] } } } } } }, "required": ["independentReview"] },
+      "then": { "properties": { "runner": { "properties": { "reviewDecision": { "const": "NOT_REVIEWED" } } } } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": {
+        "final": { "properties": { "status": { "enum": ["OBJECTED", "BLOCKED"] } }
+      } } } }, "required": ["independentReview"] },
+      "then": { "properties": {
+        "resolvedState": { "const": "UNREVIEWABLE" }, "nextAllowedAction": { "const": "STOP_BLOCKED" },
+        "aggregateExport": { "properties": { "status": { "const": "NOT_REQUESTED" } } }
+      } }
+    },
+    {
+      "if": { "properties": { "independentReview": { "properties": {
+        "claimBoundary": { "properties": { "status": { "enum": ["OBJECTED", "BLOCKED"] } }
+      } } } }, "required": ["independentReview"] },
+      "then": { "properties": {
+        "resolvedState": { "const": "UNREVIEWABLE" }, "nextAllowedAction": { "const": "STOP_BLOCKED" },
+        "aggregateExport": { "properties": { "status": { "const": "NOT_REQUESTED" } } }
+      } }
+    },
+    {
+      "if": { "properties": { "mode": { "const": "EXECUTE_OR_RESUME" } }, "required": ["mode"] },
+      "then": {
+        "properties": {
+          "runProvenance": { "const": "natural-registered" },
+          "authority": { "properties": { "required": { "minItems": 1 } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "mode": { "const": "RECOVER" } }, "required": ["mode"] },
+      "then": {
+        "properties": {
+          "nextAllowedAction": { "const": "RECONCILE_ACTIVITY_OFFLINE" },
+          "activity": { "properties": { "unknown": { "properties": { "present": { "const": true }, "categories": { "minItems": 1 } } } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "resolvedState": { "const": "CLOSED" } }, "required": ["resolvedState"] },
+      "then": {
+        "properties": {
+          "runProvenance": { "const": "natural-registered" },
+          "blockers": { "maxItems": 0 },
+          "checks": { "items": { "properties": { "status": { "const": "pass" } } } },
+          "claimCeiling": { "enum": ["NO_EVALUATION_CLAIM", "INCONCLUSIVE_MACHINE_REFERENCE", "AGGREGATE_MACHINE_REFERENCE_ONLY"] },
+          "reference": { "properties": { "status": { "const": "SEALED" } } },
+          "evaluated": { "properties": { "status": { "const": "RUN_COMPLETE" } } },
+          "result": { "properties": { "status": { "const": "SEALED" } } },
+          "independentReview": {
+            "properties": {
+              "final": { "properties": { "status": { "const": "CONCURRED" } } },
+              "claimBoundary": { "properties": { "status": { "const": "CONCURRED" } } }
+            }
+          },
+          "aggregateExport": { "properties": { "status": { "const": "EXPORTED" } } },
+          "activity": {
+            "properties": {
+              "attempts": { "properties": { "known": { "const": true }, "count": { "type": "integer", "minimum": 1 } } },
+              "completedCalls": { "properties": { "known": { "const": true }, "count": { "type": "integer", "minimum": 1 } } },
+              "egress": { "properties": { "known": { "const": true }, "count": { "type": "integer", "minimum": 1 } } },
+              "evaluatedCanary": { "properties": {
+                "status": { "const": "RECONCILED" },
+                "attempts": { "properties": { "known": { "const": true }, "value": { "type": "number", "minimum": 1 } } },
+                "completedCalls": { "properties": { "known": { "const": true }, "value": { "type": "number", "minimum": 1 } } },
+                "egress": { "properties": { "known": { "const": true }, "value": { "type": "number", "minimum": 1 } } }
+              } },
+              "evaluatedRun": { "properties": {
+                "status": { "const": "RECONCILED" },
+                "attempts": { "properties": { "known": { "const": true }, "value": { "type": "number", "minimum": 1 } } },
+                "completedCalls": { "properties": { "known": { "const": true }, "value": { "type": "number", "minimum": 1 } } },
+                "egress": { "properties": { "known": { "const": true }, "value": { "type": "number", "minimum": 1 } } }
+              } },
+              "unknown": { "properties": { "present": { "const": false }, "categories": { "maxItems": 0 } } }
+            }
+          },
+          "runner": {
+            "properties": {
+              "custodyHandoff": {
+                "allOf": [
+                  {
+                    "if": { "properties": { "custodyRelation": { "const": "CROSS_CUSTODY" } }, "required": ["custodyRelation"] },
+                    "then": { "properties": { "status": { "const": "VERIFIED" } } }
+                  }
+                ]
+              }
+            }
+          },
+          "receiptGraph": {
+            "allOf": [
+              { "contains": { "properties": { "kind": { "const": "PROTOCOL_REGISTRATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_RESERVATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_ATTEMPT" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_COMPLETION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_EGRESS" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_RECONCILIATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_LABELING" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "REFERENCE_SEAL" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_CANARY_RESERVATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_CANARY_ATTEMPT" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_CANARY_COMPLETION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_CANARY_EGRESS" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_CANARY_RECONCILIATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_CANARY" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_RUN_RESERVATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_RUN_ATTEMPT" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_RUN_COMPLETION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_RUN_EGRESS" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_RUN_RECONCILIATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "EVALUATED_RUN" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "SCORE" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "RESULT_SEAL" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "FINAL_REVIEW" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "CLAIM_REVIEW" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "AGGREGATE_EXPORT_AUTHORIZATION" } }, "required": ["kind"] } },
+              { "contains": { "properties": { "kind": { "const": "AGGREGATE_EXPORT" } }, "required": ["kind"] } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "aggregateExport": { "properties": { "status": { "enum": ["AUTHORIZED", "EXPORTED"] } } } },
+        "required": ["aggregateExport"]
+      },
+      "then": {
+        "properties": {
+          "runProvenance": { "const": "natural-registered" },
+          "result": { "properties": { "status": { "const": "SEALED" } } },
+          "independentReview": {
+            "properties": {
+              "final": { "properties": { "status": { "const": "CONCURRED" } } },
+              "claimBoundary": { "properties": { "status": { "const": "CONCURRED" } } }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "opaqueId": {
+      "type": "string", "minLength": 1, "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "dateTime": {
+      "type": "string", "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "not": { "const": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }
+    },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "repository": {
+      "type": "object", "additionalProperties": false, "required": ["head", "branch", "clean"],
+      "properties": {
+        "head": { "type": ["string", "null"], "pattern": "^[a-f0-9]{40}$" },
+        "branch": {
+          "type": ["string", "null"], "minLength": 1, "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"
+        },
+        "clean": { "type": ["boolean", "null"] }
+      }
+    },
+    "sourceIdentity": {
+      "type": "object", "additionalProperties": false, "required": ["logicalId"],
+      "properties": {
+        "logicalId": {
+          "type": "string", "minLength": 1, "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" }
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false, "required": ["required", "proven", "missing"],
+      "properties": {
+        "required": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueId" } },
+        "proven": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueId" } },
+        "missing": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueId" } },
+        "expiresAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "check": {
+      "type": "object", "additionalProperties": false, "required": ["id", "status"],
+      "properties": {
+        "id": {
+          "type": "string", "minLength": 1, "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "status": { "type": "string", "enum": ["pass", "fail", "blocked", "unknown"] },
+        "evidenceRef": {
+          "type": "string", "minLength": 1, "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        }
+      }
+    },
+    "redaction": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protectedContentIncluded", "credentialsIncluded", "rawProviderResponsesIncluded"],
+      "properties": {
+        "protectedContentIncluded": { "const": false },
+        "credentialsIncluded": { "const": false },
+        "rawProviderResponsesIncluded": { "const": false }
+      }
+    },
+    "naturalRepositoryBranch": {
+      "type": "string",
+      "pattern": "^(?:main|master|(?:codex|feat|fix|chore|docs|release)/[a-z0-9][a-z0-9-]{0,47})$"
+    },
+    "naturalSourceLogicalId": { "type": "string", "pattern": "^source-[a-z0-9]{1,16}-[a-f0-9]{16}$" },
+    "protocolLogicalId": { "type": "string", "pattern": "^protocol-[a-z0-9]{1,16}-[a-f0-9]{16}$" },
+    "designProfileId": { "type": "string", "pattern": "^design-profile-[a-f0-9]{16}$" },
+    "providerAdapterId": { "type": "string", "pattern": "^provider-adapter-[a-z0-9]{1,16}-[a-f0-9]{16}$" },
+    "modelId": { "type": "string", "pattern": "^model-[a-z0-9]{1,16}-[a-f0-9]{16}$" },
+    "authorityCode": {
+      "type": "string",
+      "enum": ["SOURCE_FREEZE_RIGHTS", "REFERENCE_PROVIDER_EXECUTION", "EVALUATED_PROVIDER_EXECUTION", "AGGREGATE_EXPORT"]
+    },
+    "checkCode": {
+      "type": "string",
+      "enum": [
+        "RECEIPT_GRAPH", "MATERIAL_CURRENTNESS", "SOURCE_RIGHTS", "FRAME_FREEZE", "CUSTODY", "RUNNER",
+        "REFERENCE_AUTHORITY", "EVALUATED_AUTHORITY", "ACTIVITY_RECONCILIATION", "INDEPENDENT_REVIEW",
+        "CLAIM_BOUNDARY", "AGGREGATE_EXPORT_SAFETY"
+      ]
+    },
+    "evidenceRef": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "nullableSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "nullableCommit": { "oneOf": [{ "$ref": "#/$defs/commit" }, { "type": "null" }] },
+    "nullableDateTime": { "oneOf": [{ "$ref": "#/$defs/dateTime" }, { "type": "null" }] },
+    "nullableNonnegativeInteger": { "oneOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }] },
+    "nullablePositiveInteger": { "oneOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }] },
+    "nullableNonnegativeNumber": { "oneOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }] },
+    "claimCeiling": {
+      "type": "string",
+      "enum": ["NO_EVALUATION_CLAIM", "INCONCLUSIVE_MACHINE_REFERENCE", "AGGREGATE_MACHINE_REFERENCE_ONLY"]
+    },
+    "resolvedState": {
+      "type": "string",
+      "enum": [
+        "UNREGISTERED", "PROTOCOL_REGISTERED", "PROTOCOL_ACTIVATED", "SOURCE_BASELINE_PINNED",
+        "RIGHTS_AND_LINEAGE_AUTHORIZED", "FRAME_READINESS_VERIFIED", "FRAME_FROZEN", "SAMPLE_FROZEN",
+        "FREEZE_INDEPENDENTLY_VERIFIED", "CUSTODY_HANDOFF_VERIFIED", "RUNNER_REGISTERED",
+        "RUNNER_CLOSEOUT_RECORDED", "RUNNER_INDEPENDENTLY_VERIFIED", "REFERENCE_PREFLIGHT_AUTHORIZED",
+        "REFERENCE_ROUTE_TRUSTED", "REFERENCE_EXECUTION_AUTHORIZED", "REFERENCE_LABELING_COMPLETE",
+        "REFERENCE_SEALED", "EVALUATED_PREFLIGHT_AUTHORIZED", "EVALUATED_ROUTE_TRUSTED",
+        "EVALUATED_EXECUTION_AUTHORIZED", "EVALUATED_EXECUTION_REGISTRATION_FROZEN",
+        "EVALUATED_CANARY_COMPLETE", "EVALUATED_RUN_COMPLETE", "ACTIVITY_RECONCILED", "SCORED",
+        "RESULT_SEALED", "FINAL_INDEPENDENT_REVIEWED", "CLAIM_BOUNDARY_REVIEWED",
+        "AGGREGATE_EXPORT_AUTHORIZED", "CLOSED", "MATERIAL_REFREEZE_REQUIRED", "BLOCKED_MISSING_EVIDENCE",
+        "BLOCKED_AUTHORITY", "BLOCKED_ROUTE_AUTHENTICITY", "BLOCKED_CUSTODY", "BLOCKED_DIRTY_SOURCE",
+        "BLOCKED_SEQUENCE", "INTERRUPTED_RECONCILIATION_REQUIRED", "INVALID_HASH_OR_SIGNATURE",
+        "UNREVIEWABLE", "NEW_REGISTRATION_REQUIRED"
+      ]
+    },
+    "nextAllowedAction": {
+      "type": "string",
+      "enum": [
+        "REGISTER_PROTOCOL", "ACTIVATE_PROTOCOL", "PIN_SOURCE_BASELINE", "AUTHORIZE_SOURCE_RIGHTS",
+        "VERIFY_FRAME_READINESS", "FREEZE_FRAME_AND_SAMPLE", "RUN_INDEPENDENT_FREEZE_REVIEW",
+        "CREATE_CONTROLLED_CUSTODY_HANDOFF", "REGISTER_RUNNER", "RUN_RUNNER_CLOSEOUT",
+        "RUN_INDEPENDENT_RUNNER_REVIEW", "REQUEST_REFERENCE_PREFLIGHT_AUTHORIZATION",
+        "REGISTER_REFERENCE_ROUTE_EVIDENCE", "REQUEST_REFERENCE_EXECUTION_AUTHORIZATION",
+        "RUN_REFERENCE_LABELING", "SEAL_REFERENCE", "REQUEST_EVALUATED_PREFLIGHT_AUTHORIZATION",
+        "REGISTER_EVALUATED_ROUTE_EVIDENCE", "REQUEST_EVALUATED_EXECUTION_AUTHORIZATION",
+        "FREEZE_EVALUATED_EXECUTION_REGISTRATION", "RUN_EVALUATED_CANARY", "RESUME_EVALUATED_RUN",
+        "RECONCILE_ACTIVITY_OFFLINE", "SCORE_RESULTS", "SEAL_RESULT", "RUN_FINAL_INDEPENDENT_REVIEW",
+        "RUN_CLAIM_BOUNDARY_REVIEW", "REQUEST_AGGREGATE_EXPORT_AUTHORIZATION",
+        "EXPORT_REDACTED_AGGREGATE", "RENEW_PROVIDER_GRANT", "CREATE_NEW_REGISTRATION",
+        "SUPPLY_MISSING_EVIDENCE", "STOP_BLOCKED", "CLOSE"
+      ]
+    },
+    "blockerCode": {
+      "type": "string",
+      "enum": [
+        "MISSING_EVIDENCE", "AUTHORITY_MISSING", "AUTHORITY_EXPIRED", "ROUTE_AUTHENTICITY_UNPROVEN",
+        "CUSTODY_HANDOFF_MISSING", "DIRTY_SOURCE", "SEQUENCE_VIOLATION", "UNKNOWN_ACTIVITY",
+        "HASH_MISMATCH", "SIGNATURE_INVALID", "CAPS_MISSING", "CAP_EXCEEDED", "REFERENCE_NOT_SEALED",
+        "INDEPENDENT_REVIEW_MISSING", "EXPORT_NOT_AUTHORIZED", "UNSAFE_CONTENT_PRESENT", "SCHEMA_INVALID",
+        "NEW_REGISTRATION_REQUIRED", "MATERIAL_BINDING_DRIFT", "PROTECTED_CUSTODY_INVALID",
+        "RUNNER_NOT_CURRENT", "SYNTHETIC_ONLY", "RESULT_BINDING_INVALID"
+      ]
+    },
+    "protocol": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "family", "logicalId", "registrationSha256", "activationReceiptSha256", "activePointerSha256", "immutable", "designProfileId", "registeredPowerArtifactSha256", "registeredClaimCeiling"],
+      "properties": {
+        "status": { "type": "string", "enum": ["UNREGISTERED", "REGISTERED", "ACTIVATED"] },
+        "family": { "type": "string", "const": "REGISTERED_NATURAL_EVALUATION" },
+        "logicalId": { "oneOf": [{ "$ref": "#/$defs/protocolLogicalId" }, { "type": "null" }] },
+        "registrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "activationReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "activePointerSha256": { "$ref": "#/$defs/nullableSha256" },
+        "immutable": { "type": "boolean" },
+        "designProfileId": { "$ref": "#/$defs/designProfileId" },
+        "registeredPowerArtifactSha256": { "$ref": "#/$defs/sha256" },
+        "registeredClaimCeiling": { "$ref": "#/$defs/claimCeiling" }
+      }
+    },
+    "providerCaps": {
+      "type": "object", "additionalProperties": false,
+      "required": ["attemptCap", "tokenCap", "currencyCapUsd", "concurrencyCap"],
+      "properties": {
+        "attemptCap": { "type": "integer", "minimum": 1 },
+        "tokenCap": { "type": "integer", "minimum": 1 },
+        "currencyCapUsd": { "type": "number", "exclusiveMinimum": 0 },
+        "concurrencyCap": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "providerGrantBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "role", "providerAdapterId", "modelId", "routeAnchorSha256", "phase", "credentialScopeSha256",
+        "privacyRightsScopeSha256", "savePolicy", "redactionPolicy", "protocolRegistrationSha256",
+        "sampleManifestSha256", "runnerRegistrationSha256", "runnerClosureSha256", "runnerCommit",
+        "issuedAt", "expiresAt", "caps", "grantReceiptSha256"
+      ],
+      "properties": {
+        "role": { "type": "string", "enum": ["REFERENCE_PROVIDER", "EVALUATED_PROVIDER"] },
+        "providerAdapterId": { "$ref": "#/$defs/providerAdapterId" },
+        "modelId": { "$ref": "#/$defs/modelId" },
+        "routeAnchorSha256": { "$ref": "#/$defs/sha256" },
+        "phase": { "type": "string", "enum": ["REFERENCE_LABELING", "EVALUATED_RUN"] },
+        "credentialScopeSha256": { "$ref": "#/$defs/sha256" },
+        "privacyRightsScopeSha256": { "$ref": "#/$defs/sha256" },
+        "savePolicy": { "type": "string", "enum": ["SAVE_NOTHING", "SAVE_REDACTED_HASHES_ONLY"] },
+        "redactionPolicy": { "type": "string", "const": "REDACT_PROTECTED_CONTENT_AND_RAW_RESPONSES" },
+        "protocolRegistrationSha256": { "$ref": "#/$defs/sha256" },
+        "sampleManifestSha256": { "$ref": "#/$defs/sha256" },
+        "runnerRegistrationSha256": { "$ref": "#/$defs/sha256" },
+        "runnerClosureSha256": { "$ref": "#/$defs/sha256" },
+        "runnerCommit": { "$ref": "#/$defs/commit" },
+        "issuedAt": { "$ref": "#/$defs/dateTime" },
+        "expiresAt": { "$ref": "#/$defs/dateTime" },
+        "caps": { "$ref": "#/$defs/providerCaps" },
+        "grantReceiptSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "referenceProviderGrantBinding": {
+      "allOf": [
+        { "$ref": "#/$defs/providerGrantBinding" },
+        { "properties": { "role": { "const": "REFERENCE_PROVIDER" }, "phase": { "const": "REFERENCE_LABELING" } } }
+      ]
+    },
+    "evaluatedProviderGrantBinding": {
+      "allOf": [
+        { "$ref": "#/$defs/providerGrantBinding" },
+        { "properties": { "role": { "const": "EVALUATED_PROVIDER" }, "phase": { "const": "EVALUATED_RUN" } } }
+      ]
+    },
+    "providerGrantBindingOrNull": { "oneOf": [{ "$ref": "#/$defs/providerGrantBinding" }, { "type": "null" }] },
+    "referenceProviderGrantBindingOrNull": { "oneOf": [{ "$ref": "#/$defs/referenceProviderGrantBinding" }, { "type": "null" }] },
+    "evaluatedProviderGrantBindingOrNull": { "oneOf": [{ "$ref": "#/$defs/evaluatedProviderGrantBinding" }, { "type": "null" }] },
+    "sourceRights": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "status", "scopeReceiptSha256", "sourceScopeSha256", "providerEgressAuthorized",
+        "credentialAccessAuthorized", "spendAuthorized", "referenceGrantBinding", "evaluatedGrantBinding"
+      ],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_REVIEWED", "AUTHORIZED_FOR_FREEZE", "AUTHORIZED_FOR_PROVIDER_EGRESS"] },
+        "scopeReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sourceScopeSha256": { "$ref": "#/$defs/nullableSha256" },
+        "providerEgressAuthorized": { "type": "boolean" },
+        "credentialAccessAuthorized": { "type": "boolean" },
+        "spendAuthorized": { "type": "boolean" },
+        "referenceGrantBinding": { "$ref": "#/$defs/referenceProviderGrantBindingOrNull" },
+        "evaluatedGrantBinding": { "$ref": "#/$defs/evaluatedProviderGrantBindingOrNull" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "NOT_REVIEWED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "scopeReceiptSha256": { "type": "null" }, "sourceScopeSha256": { "type": "null" },
+            "referenceGrantBinding": { "type": "null" }, "evaluatedGrantBinding": { "type": "null" },
+            "providerEgressAuthorized": { "const": false }, "credentialAccessAuthorized": { "const": false },
+            "spendAuthorized": { "const": false }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "AUTHORIZED_FOR_FREEZE" } }, "required": ["status"] },
+          "then": { "properties": {
+            "scopeReceiptSha256": { "$ref": "#/$defs/sha256" }, "sourceScopeSha256": { "$ref": "#/$defs/sha256" },
+            "referenceGrantBinding": { "type": "null" }, "evaluatedGrantBinding": { "type": "null" },
+            "providerEgressAuthorized": { "const": false }, "credentialAccessAuthorized": { "const": false },
+            "spendAuthorized": { "const": false }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "AUTHORIZED_FOR_PROVIDER_EGRESS" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "scopeReceiptSha256": { "$ref": "#/$defs/sha256" }, "sourceScopeSha256": { "$ref": "#/$defs/sha256" },
+              "providerEgressAuthorized": { "const": true }, "credentialAccessAuthorized": { "const": true },
+              "spendAuthorized": { "const": true }
+            },
+            "anyOf": [
+              { "properties": { "referenceGrantBinding": { "$ref": "#/$defs/providerGrantBinding" } } },
+              { "properties": { "evaluatedGrantBinding": { "$ref": "#/$defs/providerGrantBinding" } } }
+            ]
+          }
+        }
+      ]
+    },
+    "frame": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "readinessReceiptSha256", "freezeReceiptSha256", "manifestSha256", "runtimeVisibleScopeBound", "syntheticExcluded", "rowCount", "eligibleCount", "excludedCount"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_STARTED", "READINESS_VERIFIED", "FROZEN"] },
+        "readinessReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "freezeReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "manifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runtimeVisibleScopeBound": { "type": "boolean" },
+        "syntheticExcluded": { "type": "boolean" },
+        "rowCount": { "$ref": "#/$defs/nullableNonnegativeInteger" },
+        "eligibleCount": { "$ref": "#/$defs/nullableNonnegativeInteger" },
+        "excludedCount": { "$ref": "#/$defs/nullableNonnegativeInteger" }
+      }
+    },
+    "custodyMetadata": {
+      "type": "object", "additionalProperties": false,
+      "required": ["metadataReceiptSha256", "custodyContextSha256", "protectedRootRefSha256", "directoryMode", "filesMode", "symlinkStatus", "contentExposed"],
+      "properties": {
+        "metadataReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "custodyContextSha256": { "$ref": "#/$defs/nullableSha256" },
+        "protectedRootRefSha256": { "$ref": "#/$defs/nullableSha256" },
+        "directoryMode": { "type": "string", "enum": ["UNKNOWN", "MODE_0700_VERIFIED"] },
+        "filesMode": { "type": "string", "enum": ["UNKNOWN", "MODE_0600_VERIFIED"] },
+        "symlinkStatus": { "type": "string", "enum": ["UNKNOWN", "SYMLINK_FREE_VERIFIED"] },
+        "contentExposed": { "const": false }
+      }
+    },
+    "sampleFreeze": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "freezeReceiptSha256", "sampleManifestSha256", "homologyManifestSha256", "sampleSize", "onePerCluster", "rerollForbidden", "custody"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_STARTED", "FROZEN", "INDEPENDENTLY_VERIFIED"] },
+        "freezeReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "homologyManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleSize": { "$ref": "#/$defs/nullablePositiveInteger" },
+        "onePerCluster": { "type": "boolean" },
+        "rerollForbidden": { "type": "boolean" },
+        "custody": { "$ref": "#/$defs/custodyMetadata" }
+      }
+    },
+    "custodyHandoff": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "status", "custodyRelation", "handoffReceiptSha256", "sampleManifestSha256", "runnerRegistrationSha256",
+        "runnerClosureSha256", "sourceCustodyRefSha256", "destinationCustodyRefSha256",
+        "senderRole", "receiverRole", "transferMethod", "directoryModeVerification",
+        "filesModeVerification", "symlinkVerification", "signatureStatus", "signatureAnchorSha256",
+        "contentCopiedToPublicArea"
+      ],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_REQUIRED", "REQUIRED", "VERIFIED"] },
+        "custodyRelation": { "type": "string", "enum": ["SAME_CONTEXT", "CROSS_CUSTODY"] },
+        "handoffReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerRegistrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerClosureSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sourceCustodyRefSha256": { "$ref": "#/$defs/nullableSha256" },
+        "destinationCustodyRefSha256": { "$ref": "#/$defs/nullableSha256" },
+        "senderRole": { "type": "string", "enum": ["NOT_APPLICABLE", "SAMPLE_CUSTODIAN"] },
+        "receiverRole": { "type": "string", "enum": ["NOT_APPLICABLE", "RUNNER_CUSTODIAN"] },
+        "transferMethod": { "type": "string", "enum": ["NOT_APPLICABLE", "CONTROLLED_COPY", "CONTROLLED_MOUNT"] },
+        "directoryModeVerification": { "type": "string", "enum": ["NOT_APPLICABLE", "MODE_0700_VERIFIED"] },
+        "filesModeVerification": { "type": "string", "enum": ["NOT_APPLICABLE", "MODE_0600_VERIFIED"] },
+        "symlinkVerification": { "type": "string", "enum": ["NOT_APPLICABLE", "SYMLINK_FREE_VERIFIED"] },
+        "signatureStatus": { "type": "string", "enum": ["NOT_APPLICABLE", "VERIFIED", "MISSING", "INVALID"] },
+        "signatureAnchorSha256": { "$ref": "#/$defs/nullableSha256" },
+        "contentCopiedToPublicArea": { "const": false }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "custodyRelation": { "const": "SAME_CONTEXT" } }, "required": ["custodyRelation"] },
+          "then": {
+            "properties": {
+              "status": { "const": "NOT_REQUIRED" },
+              "handoffReceiptSha256": { "type": "null" },
+              "signatureStatus": { "const": "NOT_APPLICABLE" },
+              "signatureAnchorSha256": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "VERIFIED" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "custodyRelation": { "const": "CROSS_CUSTODY" },
+              "handoffReceiptSha256": { "$ref": "#/$defs/sha256" },
+              "sampleManifestSha256": { "$ref": "#/$defs/sha256" },
+              "runnerRegistrationSha256": { "$ref": "#/$defs/sha256" },
+              "runnerClosureSha256": { "$ref": "#/$defs/sha256" },
+              "sourceCustodyRefSha256": { "$ref": "#/$defs/sha256" },
+              "destinationCustodyRefSha256": { "$ref": "#/$defs/sha256" },
+              "signatureStatus": { "const": "VERIFIED" },
+              "signatureAnchorSha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        }
+      ]
+    },
+    "runner": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "registrationSha256", "sourceCommit", "sourceClosureSha256", "closeoutReceiptSha256", "independentReviewReceiptSha256", "reviewDecision", "tracked", "clean", "custodyContextSha256", "custodyHandoff"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_STARTED", "REGISTERED", "CLOSEOUT_RECORDED", "INDEPENDENTLY_VERIFIED"] },
+        "registrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sourceCommit": { "$ref": "#/$defs/nullableCommit" },
+        "sourceClosureSha256": { "$ref": "#/$defs/nullableSha256" },
+        "closeoutReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "independentReviewReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "reviewDecision": { "type": "string", "enum": ["NOT_REVIEWED", "CONCURRED", "OBJECTED", "BLOCKED"] },
+        "tracked": { "type": "boolean" },
+        "clean": { "type": "boolean" },
+        "custodyContextSha256": { "$ref": "#/$defs/nullableSha256" },
+        "custodyHandoff": { "$ref": "#/$defs/custodyHandoff" }
+      }
+    },
+    "referenceProvider": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "preflightReceiptSha256", "routeReceiptSha256", "routeTrustAnchorSha256", "grantBinding", "naturalTextEgressAuthorized", "labelingReceiptSha256", "sealReceiptSha256"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_STARTED", "PREFLIGHT_AUTHORIZED", "ROUTE_TRUSTED", "EXECUTION_AUTHORIZED", "LABELING_COMPLETE", "SEALED"] },
+        "preflightReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "routeReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "routeTrustAnchorSha256": { "$ref": "#/$defs/nullableSha256" },
+        "grantBinding": { "$ref": "#/$defs/referenceProviderGrantBindingOrNull" },
+        "naturalTextEgressAuthorized": { "type": "boolean" },
+        "labelingReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sealReceiptSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "NOT_STARTED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "type": "null" }, "routeReceiptSha256": { "type": "null" },
+            "routeTrustAnchorSha256": { "type": "null" }, "grantBinding": { "type": "null" },
+            "naturalTextEgressAuthorized": { "const": false }, "labelingReceiptSha256": { "type": "null" },
+            "sealReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "PREFLIGHT_AUTHORIZED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "type": "null" },
+            "routeTrustAnchorSha256": { "type": "null" }, "grantBinding": { "type": "null" },
+            "naturalTextEgressAuthorized": { "const": false }, "labelingReceiptSha256": { "type": "null" },
+            "sealReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "ROUTE_TRUSTED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "type": "null" },
+            "naturalTextEgressAuthorized": { "const": false }, "labelingReceiptSha256": { "type": "null" },
+            "sealReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "EXECUTION_AUTHORIZED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "labelingReceiptSha256": { "type": "null" },
+            "sealReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "LABELING_COMPLETE" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "labelingReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "sealReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "SEALED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "labelingReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "sealReceiptSha256": { "$ref": "#/$defs/sha256" }
+          } }
+        }
+      ]
+    },
+    "evaluatedProvider": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "preflightReceiptSha256", "routeReceiptSha256", "routeTrustAnchorSha256", "grantBinding", "naturalTextEgressAuthorized", "executionRegistrationSha256", "canaryReceiptSha256", "runReceiptSha256"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["NOT_STARTED", "PREFLIGHT_AUTHORIZED", "ROUTE_TRUSTED", "EXECUTION_AUTHORIZED", "EXECUTION_REGISTRATION_FROZEN", "CANARY_COMPLETE", "RUN_COMPLETE"]
+        },
+        "preflightReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "routeReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "routeTrustAnchorSha256": { "$ref": "#/$defs/nullableSha256" },
+        "grantBinding": { "$ref": "#/$defs/evaluatedProviderGrantBindingOrNull" },
+        "naturalTextEgressAuthorized": { "type": "boolean" },
+        "executionRegistrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "canaryReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runReceiptSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "NOT_STARTED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "type": "null" }, "routeReceiptSha256": { "type": "null" },
+            "routeTrustAnchorSha256": { "type": "null" }, "grantBinding": { "type": "null" },
+            "naturalTextEgressAuthorized": { "const": false }, "executionRegistrationSha256": { "type": "null" },
+            "canaryReceiptSha256": { "type": "null" }, "runReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "PREFLIGHT_AUTHORIZED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "type": "null" },
+            "routeTrustAnchorSha256": { "type": "null" }, "grantBinding": { "type": "null" },
+            "naturalTextEgressAuthorized": { "const": false }, "executionRegistrationSha256": { "type": "null" },
+            "canaryReceiptSha256": { "type": "null" }, "runReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "ROUTE_TRUSTED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "type": "null" },
+            "naturalTextEgressAuthorized": { "const": false }, "executionRegistrationSha256": { "type": "null" },
+            "canaryReceiptSha256": { "type": "null" }, "runReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "EXECUTION_AUTHORIZED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "executionRegistrationSha256": { "type": "null" },
+            "canaryReceiptSha256": { "type": "null" }, "runReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "EXECUTION_REGISTRATION_FROZEN" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "executionRegistrationSha256": { "$ref": "#/$defs/sha256" },
+            "canaryReceiptSha256": { "type": "null" }, "runReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "CANARY_COMPLETE" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "executionRegistrationSha256": { "$ref": "#/$defs/sha256" },
+            "canaryReceiptSha256": { "$ref": "#/$defs/sha256" }, "runReceiptSha256": { "type": "null" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "RUN_COMPLETE" } }, "required": ["status"] },
+          "then": { "properties": {
+            "preflightReceiptSha256": { "$ref": "#/$defs/sha256" }, "routeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "routeTrustAnchorSha256": { "$ref": "#/$defs/sha256" }, "grantBinding": { "$ref": "#/$defs/providerGrantBinding" },
+            "naturalTextEgressAuthorized": { "const": true }, "executionRegistrationSha256": { "$ref": "#/$defs/sha256" },
+            "canaryReceiptSha256": { "$ref": "#/$defs/sha256" }, "runReceiptSha256": { "$ref": "#/$defs/sha256" }
+          } }
+        }
+      ]
+    },
+    "materialBindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protocolRegistrationSha256", "sampleManifestSha256", "promptManifestSha256", "evidenceSchemaSha256", "taxonomySha256", "runnerRegistrationSha256", "runnerClosureSha256", "runnerCommit", "scorerSha256"],
+      "properties": {
+        "protocolRegistrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "promptManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "evidenceSchemaSha256": { "$ref": "#/$defs/nullableSha256" },
+        "taxonomySha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerRegistrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerClosureSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerCommit": { "$ref": "#/$defs/nullableCommit" },
+        "scorerSha256": { "$ref": "#/$defs/nullableSha256" }
+      }
+    },
+    "firstProviderActivity": {
+      "type": "object", "additionalProperties": false, "required": ["status", "receiptSha256", "observedAt", "phase"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NONE", "OBSERVED"] },
+        "receiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "observedAt": { "$ref": "#/$defs/nullableDateTime" },
+        "phase": { "type": "string", "enum": ["NONE", "REFERENCE_LABELING", "EVALUATED_CANARY", "EVALUATED_RUN"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "NONE" } }, "required": ["status"] },
+          "then": { "properties": {
+            "receiptSha256": { "type": "null" }, "observedAt": { "type": "null" }, "phase": { "const": "NONE" }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "OBSERVED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "receiptSha256": { "$ref": "#/$defs/sha256" }, "observedAt": { "$ref": "#/$defs/dateTime" },
+            "phase": { "enum": ["REFERENCE_LABELING", "EVALUATED_CANARY", "EVALUATED_RUN"] }
+          } }
+        }
+      ]
+    },
+    "materialCurrentness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "sourceBaselineReceiptSha256", "currentnessReceiptSha256", "registeredBindings", "currentBindings", "hasProviderActivity", "firstProviderActivity", "invalidatedRegistrationReceipts"],
+      "properties": {
+        "status": { "type": "string", "enum": ["CURRENT", "PRE_ACTIVITY_DRIFT", "POST_ACTIVITY_DRIFT"] },
+        "sourceBaselineReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "currentnessReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "registeredBindings": { "$ref": "#/$defs/materialBindings" },
+        "currentBindings": { "$ref": "#/$defs/materialBindings" },
+        "hasProviderActivity": { "type": "boolean" },
+        "firstProviderActivity": { "$ref": "#/$defs/firstProviderActivity" },
+        "invalidatedRegistrationReceipts": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "hasProviderActivity": { "const": true } }, "required": ["hasProviderActivity"] },
+          "then": { "properties": { "firstProviderActivity": { "properties": { "status": { "const": "OBSERVED" } } } } },
+          "else": { "properties": { "firstProviderActivity": { "properties": { "status": { "const": "NONE" } } } } }
+        }
+      ]
+    },
+    "registeredInferenceFrame": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inferenceFrameSha256", "protocolRegistrationSha256", "sampleManifestSha256", "promptManifestSha256", "evidenceSchemaSha256", "taxonomySha256", "runnerClosureSha256", "runnerCommit", "scorerSha256", "sampleSize", "designProfileId", "registeredPowerArtifactSha256", "registeredClaimCeiling"],
+      "properties": {
+        "inferenceFrameSha256": { "$ref": "#/$defs/nullableSha256" },
+        "protocolRegistrationSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "promptManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "evidenceSchemaSha256": { "$ref": "#/$defs/nullableSha256" },
+        "taxonomySha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerClosureSha256": { "$ref": "#/$defs/nullableSha256" },
+        "runnerCommit": { "$ref": "#/$defs/nullableCommit" },
+        "scorerSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleSize": { "$ref": "#/$defs/nullablePositiveInteger" },
+        "designProfileId": { "$ref": "#/$defs/designProfileId" },
+        "registeredPowerArtifactSha256": { "$ref": "#/$defs/sha256" },
+        "registeredClaimCeiling": { "$ref": "#/$defs/claimCeiling" }
+      }
+    },
+    "activityCounter": {
+      "type": "object", "additionalProperties": false, "required": ["known", "count", "receiptSha256"],
+      "properties": {
+        "known": { "type": "boolean" },
+        "count": { "$ref": "#/$defs/nullableNonnegativeInteger" },
+        "receiptSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "known": { "const": true } }, "required": ["known"] },
+          "then": { "properties": { "count": { "type": "integer", "minimum": 0 }, "receiptSha256": { "$ref": "#/$defs/sha256" } } },
+          "else": { "properties": { "count": { "type": "null" }, "receiptSha256": { "type": "null" } } }
+        }
+      ]
+    },
+    "usageMetric": {
+      "type": "object", "additionalProperties": false, "required": ["known", "value", "receiptSha256"],
+      "properties": {
+        "known": { "type": "boolean" },
+        "value": { "$ref": "#/$defs/nullableNonnegativeNumber" },
+        "receiptSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "known": { "const": true } }, "required": ["known"] },
+          "then": { "properties": { "value": { "type": "number", "minimum": 0 }, "receiptSha256": { "$ref": "#/$defs/sha256" } } },
+          "else": { "properties": { "value": { "type": "null" }, "receiptSha256": { "type": "null" } } }
+        }
+      ]
+    },
+    "phaseUsage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["phase", "status", "reservations", "attempts", "completedCalls", "egress", "tokens", "costUsd", "peakConcurrency", "reconciliationReceiptSha256"],
+      "properties": {
+        "phase": { "type": "string", "enum": ["REFERENCE_LABELING", "EVALUATED_CANARY", "EVALUATED_RUN"] },
+        "status": { "type": "string", "enum": ["NOT_STARTED", "RESERVED", "RECONCILED"] },
+        "reservations": { "$ref": "#/$defs/usageMetric" },
+        "attempts": { "$ref": "#/$defs/usageMetric" },
+        "completedCalls": { "$ref": "#/$defs/usageMetric" },
+        "egress": { "$ref": "#/$defs/usageMetric" },
+        "tokens": { "$ref": "#/$defs/usageMetric" },
+        "costUsd": { "$ref": "#/$defs/usageMetric" },
+        "peakConcurrency": { "$ref": "#/$defs/usageMetric" },
+        "reconciliationReceiptSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "RECONCILED" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "reconciliationReceiptSha256": { "$ref": "#/$defs/sha256" },
+              "reservations": { "properties": { "known": { "const": true } } },
+              "attempts": { "properties": { "known": { "const": true } } },
+              "completedCalls": { "properties": { "known": { "const": true } } },
+              "egress": { "properties": { "known": { "const": true } } },
+              "tokens": { "properties": { "known": { "const": true } } },
+              "costUsd": { "properties": { "known": { "const": true } } },
+              "peakConcurrency": { "properties": { "known": { "const": true } } }
+            }
+          },
+          "else": {
+            "properties": {
+              "reconciliationReceiptSha256": { "type": "null" },
+              "reservations": { "properties": { "known": { "const": false } } },
+              "attempts": { "properties": { "known": { "const": false } } },
+              "completedCalls": { "properties": { "known": { "const": false } } },
+              "egress": { "properties": { "known": { "const": false } } },
+              "tokens": { "properties": { "known": { "const": false } } },
+              "costUsd": { "properties": { "known": { "const": false } } },
+              "peakConcurrency": { "properties": { "known": { "const": false } } }
+            }
+          }
+        }
+      ]
+    },
+    "unknownActivity": {
+      "type": "object", "additionalProperties": false, "required": ["present", "categories", "reconciliationReceiptSha256"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "categories": {
+          "type": "array", "uniqueItems": true,
+          "description": "Exact resolver-derived union of applicable unknown dimensions across every active unreconciled receipt prefix; omissions and inapplicable extras are invalid.",
+          "items": {
+            "type": "string",
+            "enum": ["ATTEMPT_RESERVATION_ONLY", "PROVIDER_DELIVERY_UNKNOWN", "COMPLETION_UNKNOWN", "EGRESS_UNKNOWN", "TOKEN_USAGE_UNKNOWN", "COST_UNKNOWN", "CONCURRENCY_UNKNOWN"]
+          }
+        },
+        "reconciliationReceiptSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "present": { "const": true } }, "required": ["present"] },
+          "then": { "properties": { "categories": { "minItems": 1 }, "reconciliationReceiptSha256": { "type": "null" } } },
+          "else": { "properties": { "categories": { "maxItems": 0 } } }
+        }
+      ]
+    },
+    "activity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["attempts", "completedCalls", "egress", "reference", "evaluatedCanary", "evaluatedRun", "summaryReceiptSha256", "unknown"],
+      "properties": {
+        "attempts": { "$ref": "#/$defs/activityCounter" },
+        "completedCalls": { "$ref": "#/$defs/activityCounter" },
+        "egress": { "$ref": "#/$defs/activityCounter" },
+        "reference": { "allOf": [{ "$ref": "#/$defs/phaseUsage" }, { "properties": { "phase": { "const": "REFERENCE_LABELING" } } }] },
+        "evaluatedCanary": { "allOf": [{ "$ref": "#/$defs/phaseUsage" }, { "properties": { "phase": { "const": "EVALUATED_CANARY" } } }] },
+        "evaluatedRun": { "allOf": [{ "$ref": "#/$defs/phaseUsage" }, { "properties": { "phase": { "const": "EVALUATED_RUN" } } }] },
+        "summaryReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "unknown": { "$ref": "#/$defs/unknownActivity" }
+      }
+    },
+    "resultMetrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provenance", "metricsManifestSha256", "sampleSize", "successfulCount", "failedCount"],
+      "properties": {
+        "provenance": { "type": "string", "enum": ["natural-registered", "synthetic-fixture"] },
+        "metricsManifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sampleSize": { "$ref": "#/$defs/nullableNonnegativeInteger" },
+        "successfulCount": { "$ref": "#/$defs/nullableNonnegativeInteger" },
+        "failedCount": { "$ref": "#/$defs/nullableNonnegativeInteger" }
+      }
+    },
+    "result": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "provenance", "scoreReceiptSha256", "resultReceiptSha256", "currentBindingsSha256", "registeredInferenceFrameSha256", "resultConclusion", "metrics"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_STARTED", "STRUCTURE_VALIDATED", "SCORED", "SEALED"] },
+        "provenance": { "type": "string", "enum": ["natural-registered", "synthetic-fixture"] },
+        "scoreReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "resultReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "currentBindingsSha256": { "$ref": "#/$defs/nullableSha256" },
+        "registeredInferenceFrameSha256": { "$ref": "#/$defs/nullableSha256" },
+        "resultConclusion": { "$ref": "#/$defs/claimCeiling" },
+        "metrics": { "$ref": "#/$defs/resultMetrics" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "enum": ["NOT_STARTED", "STRUCTURE_VALIDATED"] } }, "required": ["status"] },
+          "then": { "properties": {
+            "scoreReceiptSha256": { "type": "null" }, "resultReceiptSha256": { "type": "null" },
+            "currentBindingsSha256": { "type": "null" }, "registeredInferenceFrameSha256": { "type": "null" },
+            "resultConclusion": { "const": "NO_EVALUATION_CLAIM" },
+            "metrics": { "properties": {
+              "metricsManifestSha256": { "type": "null" }, "sampleSize": { "type": "null" },
+              "successfulCount": { "type": "null" }, "failedCount": { "type": "null" }
+            } }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "SCORED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "scoreReceiptSha256": { "$ref": "#/$defs/sha256" }, "resultReceiptSha256": { "type": "null" },
+            "currentBindingsSha256": { "$ref": "#/$defs/sha256" }, "registeredInferenceFrameSha256": { "$ref": "#/$defs/sha256" },
+            "metrics": { "properties": {
+              "metricsManifestSha256": { "$ref": "#/$defs/sha256" }, "sampleSize": { "type": "integer", "minimum": 1 },
+              "successfulCount": { "type": "integer", "minimum": 0 }, "failedCount": { "type": "integer", "minimum": 0 }
+            } }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "SEALED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "scoreReceiptSha256": { "$ref": "#/$defs/sha256" }, "resultReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "currentBindingsSha256": { "$ref": "#/$defs/sha256" }, "registeredInferenceFrameSha256": { "$ref": "#/$defs/sha256" },
+            "metrics": { "properties": {
+              "metricsManifestSha256": { "$ref": "#/$defs/sha256" }, "sampleSize": { "type": "integer", "minimum": 1 },
+              "successfulCount": { "type": "integer", "minimum": 0 }, "failedCount": { "type": "integer", "minimum": 0 }
+            } }
+          } }
+        }
+      ]
+    },
+    "reviewArm": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "receiptSha256", "signatureStatus", "identityAnchorSha256", "reviewedBindingsSha256"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_REQUIRED", "PENDING", "CONCURRED", "OBJECTED", "BLOCKED"] },
+        "receiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "signatureStatus": { "type": "string", "enum": ["VERIFIED", "NOT_REQUIRED", "MISSING", "INVALID"] },
+        "identityAnchorSha256": { "$ref": "#/$defs/nullableSha256" },
+        "reviewedBindingsSha256": { "$ref": "#/$defs/nullableSha256" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "CONCURRED" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "receiptSha256": { "$ref": "#/$defs/sha256" },
+              "signatureStatus": { "const": "VERIFIED" },
+              "identityAnchorSha256": { "$ref": "#/$defs/sha256" },
+              "reviewedBindingsSha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "PENDING" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "receiptSha256": { "type": "null" },
+              "signatureStatus": { "const": "MISSING" },
+              "identityAnchorSha256": { "type": "null" },
+              "reviewedBindingsSha256": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "NOT_REQUIRED" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "receiptSha256": { "type": "null" },
+              "signatureStatus": { "const": "NOT_REQUIRED" },
+              "identityAnchorSha256": { "type": "null" },
+              "reviewedBindingsSha256": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "OBJECTED" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "receiptSha256": { "$ref": "#/$defs/sha256" },
+              "signatureStatus": { "const": "VERIFIED" },
+              "identityAnchorSha256": { "$ref": "#/$defs/sha256" },
+              "reviewedBindingsSha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "BLOCKED" } }, "required": ["status"] },
+          "then": {
+            "oneOf": [
+              {
+                "properties": {
+                  "receiptSha256": { "type": "null" },
+                  "signatureStatus": { "const": "MISSING" },
+                  "identityAnchorSha256": { "type": "null" },
+                  "reviewedBindingsSha256": { "type": "null" }
+                }
+              },
+              {
+                "properties": {
+                  "receiptSha256": { "$ref": "#/$defs/sha256" },
+                  "signatureStatus": { "const": "VERIFIED" },
+                  "identityAnchorSha256": { "$ref": "#/$defs/sha256" },
+                  "reviewedBindingsSha256": { "$ref": "#/$defs/sha256" }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "independentReview": {
+      "type": "object", "additionalProperties": false, "required": ["freeze", "runner", "final", "claimBoundary"],
+      "properties": {
+        "freeze": { "$ref": "#/$defs/reviewArm" },
+        "runner": { "$ref": "#/$defs/reviewArm" },
+        "final": { "$ref": "#/$defs/reviewArm" },
+        "claimBoundary": { "$ref": "#/$defs/reviewArm" }
+      }
+    },
+    "aggregateExport": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "authorizationReceiptSha256", "exportReceiptSha256", "resultReceiptSha256", "claimBindingSha256", "metricsProvenance", "aggregateMetricsSha256", "allowlistValidated", "publicationAuthorized", "protectedContentIncluded", "itemIdentifiersIncluded", "rawResponsesIncluded"],
+      "properties": {
+        "status": { "type": "string", "enum": ["NOT_REQUESTED", "BLOCKED", "AUTHORIZED", "EXPORTED"] },
+        "authorizationReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "exportReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "resultReceiptSha256": { "$ref": "#/$defs/nullableSha256" },
+        "claimBindingSha256": { "$ref": "#/$defs/nullableSha256" },
+        "metricsProvenance": { "type": "string", "enum": ["NONE", "natural-registered", "synthetic-fixture"] },
+        "aggregateMetricsSha256": { "$ref": "#/$defs/nullableSha256" },
+        "allowlistValidated": { "type": "boolean" },
+        "publicationAuthorized": { "type": "boolean" },
+        "protectedContentIncluded": { "const": false },
+        "itemIdentifiersIncluded": { "const": false },
+        "rawResponsesIncluded": { "const": false }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "NOT_REQUESTED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "authorizationReceiptSha256": { "type": "null" }, "exportReceiptSha256": { "type": "null" },
+            "resultReceiptSha256": { "type": "null" }, "claimBindingSha256": { "type": "null" },
+            "metricsProvenance": { "const": "NONE" }, "aggregateMetricsSha256": { "type": "null" },
+            "allowlistValidated": { "const": false }, "publicationAuthorized": { "const": false }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "BLOCKED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "authorizationReceiptSha256": { "type": "null" }, "exportReceiptSha256": { "type": "null" },
+            "resultReceiptSha256": { "type": "null" }, "claimBindingSha256": { "type": "null" },
+            "metricsProvenance": { "const": "NONE" }, "aggregateMetricsSha256": { "type": "null" },
+            "allowlistValidated": { "const": false }, "publicationAuthorized": { "const": false }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "AUTHORIZED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "authorizationReceiptSha256": { "$ref": "#/$defs/sha256" }, "exportReceiptSha256": { "type": "null" },
+            "resultReceiptSha256": { "$ref": "#/$defs/sha256" }, "claimBindingSha256": { "$ref": "#/$defs/sha256" },
+            "metricsProvenance": { "const": "natural-registered" }, "aggregateMetricsSha256": { "$ref": "#/$defs/sha256" },
+            "allowlistValidated": { "const": true }, "publicationAuthorized": { "const": true }
+          } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "EXPORTED" } }, "required": ["status"] },
+          "then": { "properties": {
+            "authorizationReceiptSha256": { "$ref": "#/$defs/sha256" }, "exportReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "resultReceiptSha256": { "$ref": "#/$defs/sha256" }, "claimBindingSha256": { "$ref": "#/$defs/sha256" },
+            "metricsProvenance": { "const": "natural-registered" }, "aggregateMetricsSha256": { "$ref": "#/$defs/sha256" },
+            "allowlistValidated": { "const": true }, "publicationAuthorized": { "const": true }
+          } }
+        }
+      ]
+    },
+    "activityEvent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["phase", "eventType", "reservationsDelta", "attemptsDelta", "completedCallsDelta", "egressDelta", "tokensDelta", "costUsdDelta", "concurrencyObserved"],
+      "properties": {
+        "phase": { "type": "string", "enum": ["REFERENCE_LABELING", "EVALUATED_CANARY", "EVALUATED_RUN"] },
+        "eventType": { "type": "string", "enum": ["RESERVATION", "ATTEMPT", "COMPLETION", "EGRESS", "RECONCILIATION"] },
+        "reservationsDelta": { "type": "integer", "minimum": 0 },
+        "attemptsDelta": { "type": "integer", "minimum": 0 },
+        "completedCallsDelta": { "type": "integer", "minimum": 0 },
+        "egressDelta": { "type": "integer", "minimum": 0 },
+        "tokensDelta": { "type": "integer", "minimum": 0 },
+        "costUsdDelta": { "type": "number", "minimum": 0 },
+        "concurrencyObserved": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "activityEventOrNull": { "oneOf": [{ "$ref": "#/$defs/activityEvent" }, { "type": "null" }] },
+    "receiptSigner": {
+      "type": "object", "additionalProperties": false,
+      "required": ["identityAnchorSha256", "roleAnchor", "signatureStatus"],
+      "properties": {
+        "identityAnchorSha256": { "$ref": "#/$defs/nullableSha256" },
+        "roleAnchor": {
+          "type": "string",
+          "enum": [
+            "SYSTEM_APPEND_ONLY", "INDEPENDENT_FREEZE_REVIEWER", "CUSTODY_HANDOFF_REVIEWER",
+            "INDEPENDENT_RUNNER_REVIEWER", "REFERENCE_PREFLIGHT_AUTHORIZER",
+            "REFERENCE_EXECUTION_AUTHORIZER", "EVALUATED_PREFLIGHT_AUTHORIZER",
+            "EVALUATED_EXECUTION_AUTHORIZER", "INDEPENDENT_RESULT_REVIEWER",
+            "INDEPENDENT_CLAIM_REVIEWER", "AGGREGATE_EXPORT_AUTHORIZER"
+          ]
+        },
+        "signatureStatus": { "type": "string", "enum": ["VERIFIED", "NOT_REQUIRED", "MISSING", "INVALID"] }
+      }
+    },
+    "externalAuthorityEvidence": {
+      "description": "A packet-local declaration binding a redacted native receipt and trust anchor. VERIFIED is not issuer authentication by this schema or the offline CLI.",
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["nativeReceiptRef", "nativeReceiptSha256", "trustAnchorSha256", "verificationStatus"],
+          "properties": {
+            "nativeReceiptRef": { "type": "null" },
+            "nativeReceiptSha256": { "type": "null" },
+            "trustAnchorSha256": { "type": "null" },
+            "verificationStatus": { "type": "string", "const": "UNKNOWN" }
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["nativeReceiptRef", "nativeReceiptSha256", "trustAnchorSha256", "verificationStatus"],
+          "properties": {
+            "nativeReceiptRef": { "$ref": "#/$defs/evidenceRef" },
+            "nativeReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "trustAnchorSha256": { "$ref": "#/$defs/sha256" },
+            "verificationStatus": { "type": "string", "const": "VERIFIED" }
+          }
+        }
+      ]
+    },
+    "receiptBody": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "schemaVersion", "kind", "subject", "directParentSha256", "sequence", "observedAt", "status",
+        "bindingDigestSha256", "bindingProjectionCanonical", "signer", "expiresAt", "externalAuthority"
+      ],
+      "properties": {
+        "schemaVersion": { "type": "string", "const": "natural-receipt-body.v1" },
+        "kind": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "subject": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "directParentSha256": { "$ref": "#/$defs/nullableSha256" },
+        "sequence": { "type": "integer", "minimum": 0 },
+        "observedAt": { "$ref": "#/$defs/dateTime" },
+        "status": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "bindingDigestSha256": { "$ref": "#/$defs/sha256" },
+        "bindingProjectionCanonical": { "type": "string", "minLength": 2, "maxLength": 65536 },
+        "signer": { "$ref": "#/$defs/receiptSigner" },
+        "expiresAt": { "$ref": "#/$defs/nullableDateTime" },
+        "externalAuthority": { "$ref": "#/$defs/externalAuthorityEvidence" }
+      }
+    },
+    "receiptNode": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sequence", "kind", "subject", "receiptSha256", "parentSha256", "observedAt", "appendOnly", "bindingDigestSha256", "signatureStatus", "signatureAnchorSha256", "expiresAt", "providerGrantBinding", "activityEvent", "receiptBody"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 0 },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "PROTOCOL_REGISTRATION", "PROTOCOL_ACTIVATION", "SOURCE_BASELINE", "MATERIAL_CURRENTNESS", "SOURCE_RIGHTS",
+            "FRAME_READINESS", "FRAME_FREEZE", "SAMPLE_FREEZE", "FREEZE_REVIEW", "CUSTODY_HANDOFF",
+            "RUNNER_REGISTRATION", "RUNNER_CLOSEOUT", "RUNNER_REVIEW", "REFERENCE_PREFLIGHT",
+            "REFERENCE_ROUTE", "REFERENCE_AUTHORIZATION", "REFERENCE_RESERVATION", "REFERENCE_ATTEMPT",
+            "REFERENCE_COMPLETION", "REFERENCE_EGRESS", "REFERENCE_RECONCILIATION", "REFERENCE_LABELING",
+            "REFERENCE_SEAL", "EVALUATED_PREFLIGHT", "EVALUATED_ROUTE", "EVALUATED_AUTHORIZATION",
+            "EVALUATED_EXECUTION_REGISTRATION", "EVALUATED_CANARY_RESERVATION", "EVALUATED_CANARY_ATTEMPT",
+            "EVALUATED_CANARY_COMPLETION", "EVALUATED_CANARY_EGRESS", "EVALUATED_CANARY_RECONCILIATION",
+            "EVALUATED_CANARY", "EVALUATED_RUN_RESERVATION", "EVALUATED_RUN_ATTEMPT",
+            "EVALUATED_RUN_COMPLETION", "EVALUATED_RUN_EGRESS", "EVALUATED_RUN_RECONCILIATION",
+            "EVALUATED_RUN", "ACTIVITY_SUMMARY", "SCORE", "RESULT_SEAL", "FINAL_REVIEW", "CLAIM_REVIEW",
+            "AGGREGATE_EXPORT_AUTHORIZATION", "AGGREGATE_EXPORT"
+          ]
+        },
+        "subject": {
+          "type": "string",
+          "enum": ["PROTOCOL", "SOURCE", "SOURCE_RIGHTS", "FRAME", "SAMPLE", "FREEZE_REVIEW", "CUSTODY", "RUNNER", "REFERENCE_PROVIDER", "EVALUATED_PROVIDER", "ACTIVITY", "RESULT", "FINAL_REVIEW", "CLAIM_REVIEW", "EXPORT"]
+        },
+        "receiptSha256": { "$ref": "#/$defs/sha256" },
+        "parentSha256": { "$ref": "#/$defs/nullableSha256" },
+        "observedAt": { "$ref": "#/$defs/dateTime" },
+        "appendOnly": { "const": true },
+        "bindingDigestSha256": { "$ref": "#/$defs/sha256" },
+        "signatureStatus": { "type": "string", "enum": ["VERIFIED", "NOT_REQUIRED", "MISSING", "INVALID"] },
+        "signatureAnchorSha256": { "$ref": "#/$defs/nullableSha256" },
+        "expiresAt": { "$ref": "#/$defs/nullableDateTime" },
+        "providerGrantBinding": { "$ref": "#/$defs/providerGrantBindingOrNull" },
+        "activityEvent": { "$ref": "#/$defs/activityEventOrNull" },
+        "receiptBody": { "$ref": "#/$defs/receiptBody" }
+      }
+    }
+  }
+}

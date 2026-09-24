@@ -1,0 +1,45 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "status": "local-f0-f2-evidence-valid",
+  "formalExecutionAuthorized": false,
+  "productionAuthorized": false,
+  "liveProviderCalibrated": false,
+  "browserEstimandIncluded": false,
+  "isolationCandidateVerified": true,
+  "protocolSha256": "4b8c18d3008c8f21cf41f91d887a1a89b52eb1262740ff2c2fba7c8ed97cef88",
+  "armContractsSha256": "0233288a7fc760a25c29f9ec1506a370c4426545e9a878ef85982ff689bd052d",
+  "seedCommitment": "f233aee2cb1413a481a5c95865cb79a5caa210f4758a6bf3835867241cf605af",
+  "candidateSetSha256": "e18cbaa42d3da75386a37d2af679ff0284d65232f141f90609d5958c4087cd6c",
+  "counts": {
+    "independentClusters": 12,
+    "packages": 48,
+    "questions": 4800,
+    "lessons": 96,
+    "browserRoutes": 0,
+    "latentDefects": 54,
+    "defectInstances": 216,
+    "sacrificialReceipts": 4
+  },
+  "independentGates": {
+    "A18": false,
+    "A11": false,
+    "A22": false,
+    "A25": false,
+    "ownerBudget": false
+  },
+  "checksNotRun": [
+    "formal-48-run",
+    "live-provider-calibration",
+    "independent-A18-review",
+    "independent-A11-review",
+    "independent-A22-review",
+    "independent-A25-review",
+    "owner-budget-signature",
+    "production-or-deployment"
+  ],
+  "findingCount": 0,
+  "findings": [],
+  "interpretation": "Local F2-R machine verification only. Independent A18/A11/A22/A25 receipts remain false, owner budget remains unsigned, and formal execution remains unauthorized."
+}

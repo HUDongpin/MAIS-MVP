@@ -1,0 +1,4 @@
+interface:
+  display_name: "MAIS RSI Machine QA"
+  short_description: "Audit bounded MAIS machine-QA evidence safely."
+  default_prompt: "Use $mais-rsi-machine-qa-workflow to audit this frozen MAIS machine-QA packet in read-only mode, enforce currentness and authorization, and do not infer content approval, promotion, release, or live proof."

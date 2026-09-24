@@ -60,6 +60,7 @@ export const config = {
     "/mistake-book/:path*",
     "/teacher/:path*",
     "/parent/:path*",
+    "/resource",
     "/resource/:path*",
     "/assessment/:path*",
     "/messages/:path*",

@@ -129,6 +129,7 @@ async function registerStudentApi(context: APIRequestContext, testInfo: TestInfo
       password: "start12345",
       grade: "S3",
       curriculumTrack: "HK",
+      parentalConsent: { acknowledged: true, guardianName: "E2E Guardian", relationship: "parent" },
       language: "en",
       theme: "dark"
     }

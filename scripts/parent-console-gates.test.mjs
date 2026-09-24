@@ -56,8 +56,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "tests/e2e/isolated-app-lease-guardian.ts",
     "tests/e2e/isolated-app-process-supervisor.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 54);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 54);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 56);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 56);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
@@ -69,14 +69,17 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "app/api/auth/logout-all/route.test.ts",
     "app/api/auth/password-change/routeSessionRevision.test.ts",
     "app/api/auth/password-reset/confirm/routeSessionRevision.test.ts",
+    "app/api/auth/register/routeTeacherInviteGate.test.ts",
     "app/api/auth/sessionIssuanceRoutes.test.ts",
     "app/api/guardianInvitationRoutes.test.ts",
     "app/api/teacher/teacherReportPreviewRoute.test.ts",
     "components/teacher/GuardianAccessControls.test.ts",
     "components/teacher/teacherReportFormState.test.ts",
     "components/ai/aiTutorSessionIsolation.test.ts",
+    "components/providers/teacherInviteRegistrationClient.test.ts",
     "lib/server/expectedUserGuard.test.ts",
     "lib/server/sessionCookie.test.ts",
+    "lib/server/teacherInviteCode.test.ts",
     "lib/server/userStoreAuthSessionPersistence.test.ts",
     "lib/server/userStoreGuardianInvitationPersistence.test.ts",
     "lib/server/userStoreSessionRevisionPostgres.test.ts",
@@ -85,9 +88,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "lib/server/userStoreTeacherReportPreviewDecoder.test.ts",
     "lib/session.test.ts"
   ]);
-  assert.equal(manifest.parentSecurityLifecycleTestFiles.length, 20);
-  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 194);
-  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 191);
+  assert.equal(manifest.parentSecurityLifecycleTestFiles.length, 23);
+  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 197);
+  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 194);
   assert.equal(
     countStaticNodeTests(manifest.parentSecurityLifecycleTestFiles),
     manifest.expectedParentSecurityLifecycleStaticDeclarationCount
@@ -98,9 +101,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "live Postgres integration must stay a separately provisioned acceptance gate"
   );
 
-  assert.equal(manifest.parentConsoleTestFiles.length, 44);
-  assert.equal(manifest.expectedParentConsoleTestCount, 402);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 399);
+  assert.equal(manifest.parentConsoleTestFiles.length, 47);
+  assert.equal(manifest.expectedParentConsoleTestCount, 407);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 404);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -313,6 +316,8 @@ test("CI uses a fresh production build for isolated parent tests and rejects fla
 
   const config = readRepoFile("playwright.config.ts");
   assert.match(config, /failOnFlakyTests:\s*Boolean\(process\.env\.CI\)/u);
+  assert.match(config, /env:\s*\{[\s\S]*?TEACHER_INVITE_CODES:\s*e2eTeacherInviteCode[\s\S]*?\}/u);
+  assert.doesNotMatch(config, /TEACHER_INVITE_CODES=\$\{shellQuote\(e2eTeacherInviteCode\)\}/u);
 });
 
 test("shared parent API reads retry one connection reset without relaxing HTTP assertions", () => {
@@ -479,8 +484,13 @@ test("the coherent parent hydration fixture publishes its identity and revalidat
   );
   assert.match(
     hydrationTest,
-    /firstParentHtml\)\.toContain\('data-session-verification-mode="identity"'\)/u,
-    "the server document must expose the React-owned identity gate"
+    /firstParentHtml\)\.toContain\('data-session-verification-mode="initial"'\)/u,
+    "the server document must expose neutral React-owned loading"
+  );
+  assert.match(
+    hydrationTest,
+    /firstParentHtml\)\.not\.toContain\("For your privacy"\)/u,
+    "initial authenticated HTML must not present an alarming privacy warning"
   );
   assert.match(
     hydrationTest,

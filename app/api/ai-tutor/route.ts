@@ -1,29 +1,17 @@
+import { captureServerError } from "@/lib/server/errorMonitor";
+import {
+  resolveAITutorEdgeDeadlineMs,
+  resolveAITutorTotalDeadlineMs
+} from "@/lib/aiTutorDeadlines";
+import { aiTutorPublicReadCacheHeaders } from "@/lib/aiTutorReadCache";
+
 export const runtime = "edge";
-
-const defaultTotalDeadlineMs = 8_000;
-const defaultEdgeResponseReserveMs = 3_500;
-const maxTotalDeadlineMs = 12_000;
-
-function boundedNumber(value: string | undefined, fallback: number, min: number, max: number) {
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed)) return fallback;
-  return Math.min(max, Math.max(min, Math.round(parsed)));
-}
-
-function resolveAITutorTotalDeadlineMs(value: string | undefined) {
-  return boundedNumber(value, defaultTotalDeadlineMs, 2_000, maxTotalDeadlineMs);
-}
-
-function resolveAITutorEdgeDeadlineMs(totalDeadlineMs: number, value: string | undefined) {
-  const reserveMs = boundedNumber(value, defaultEdgeResponseReserveMs, 0, 5_000);
-  return Math.max(1_000, totalDeadlineMs - reserveMs);
-}
 
 function buildDeadlineTutorFallbackBody() {
   return {
     reply: [
-      "Professor Nova is taking longer than usual, so I will not keep you waiting.",
-      "Try one safe next step: write down the known values, name the unknown, and send me that first step so I can continue from there."
+      "Professor Nova is taking longer than usual, so this live reply stopped instead of hanging.",
+      "Please tap Try again in a few seconds. If you want to keep working, send your first equation or the known values."
     ].join("\n\n"),
     mode: "deadline-fallback"
   };
@@ -33,7 +21,7 @@ function buildUnexpectedTutorFallbackBody() {
   return {
     reply: [
       "Professor Nova could not complete the live response just now.",
-      "Please try again in a moment, or send the math question again with your first step so I can still guide you safely."
+      "Please tap Try again in a moment, or send the math question again with your first step so I can still guide you safely."
     ].join("\n\n"),
     mode: "provider-fallback"
   };
@@ -43,7 +31,7 @@ function buildRateLimitedTutorFallbackBody() {
   return {
     reply: [
       "Professor Nova is receiving too many requests right now, so I will pause this live reply instead of leaving you waiting.",
-      "Please try again in a minute. If you want to keep working, write your first equation or diagram step and send it next."
+      "Please tap Try again in a minute. If you want to keep working, write your first equation or diagram step and send it next."
     ].join("\n\n"),
     mode: "rate-limit-fallback"
   };
@@ -279,7 +267,15 @@ function streamAITutorPost(request: Request) {
           body: resolved.body,
           elapsedMs: Date.now() - startedAt
         });
-      } catch {
+      } catch (error) {
+        if (!closed && !abortController.signal.aborted && !request.signal.aborted) {
+          try {
+            captureServerError(error, {
+              scope: "ai-tutor", route: "/api/ai-tutor", kind: "edge-resolver-unreachable",
+              status: 503, tags: { runtime: "edge", phase: "stream" }
+            });
+          } catch { /* Preserve the original SSE outcome if observation fails. */ }
+        }
         if (!closed) {
           const body = buildUnexpectedTutorFallbackBody();
           send("chunk", {
@@ -339,7 +335,15 @@ export async function POST(request: Request) {
       headers: resolved.headers,
       status: resolved.status
     });
-  } catch {
+  } catch (error) {
+    if (!abortController.signal.aborted && !request.signal.aborted) {
+      try {
+        captureServerError(error, {
+          scope: "ai-tutor", route: "/api/ai-tutor", kind: "edge-resolver-unreachable",
+          status: 503, tags: { runtime: "edge", phase: "buffered" }
+        });
+      } catch { /* Preserve the original HTTP outcome if observation fails. */ }
+    }
     return jsonResponse(
       abortController.signal.aborted
         ? buildDeadlineTutorFallbackBody()
@@ -357,5 +361,7 @@ export async function GET() {
     ok: true,
     mode: "prewarm",
     provider: "qwen"
+  }, {
+    headers: aiTutorPublicReadCacheHeaders()
   });
 }

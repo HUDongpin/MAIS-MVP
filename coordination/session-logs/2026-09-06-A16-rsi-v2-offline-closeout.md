@@ -1,0 +1,11 @@
+# A16 / A11 RSI v2 offline closeout — 2026-09-06
+
+Owner: A16/A11 under the owner-approved A25 local convergence task. Branch: `codex/a16-rsi-v2-offline-closeout-20260906`. Existing RSI worktree reused; created 2026-09-06, expected closeout 2026-09-06 after PR/main acceptance; target PR pending publication.
+
+This slice preserves the 33-file v2 package and its 2026-08-24 A16 session log. The latter describes an earlier protocol stage: its 23 tests, no-fetch scan, candidate-only verdict and proposed signed budget are historical statements, not current code status, a new signature requirement, or execution authority. The current package README records the 2026-09-06 offline boundary. Original conclusions, registration and readiness records remain historical and were not rerun or rewritten.
+
+Current live CLI and exported execution entrypoints reject before arguments, stdin, credentials, protected files or provider access. Package and repeat tests use explicitly supplied mock transport and test-owned synthetic data. Receipt validation checks source/role/projection/result coverage and requires the full explicit offline/no-authority contract at score, persist and resume boundaries. Successful mock settlement failures do not retry completed calls.
+
+Acceptance source digest: `6455e6fba9f42a92d438855f9e1186cd166c155e20f2eb9f89c6a45621b9e2cd` (sorted 33 path/SHA-256 rows). The final offline suite passed 104/104 with no skips; independent review rejected all nine original counterexamples and 14 additional nested counterexamples, accepted normal A/B/C0 flows, and passed ten selected persistence tests. These are synthetic tool checks, not evidence of live model execution or natural-population performance.
+
+The source was based on accepted main `b678da3af5e3159f4af44d50e86ca24e7c915c12`; reviewed package bytes were unchanged during synchronization. Five pending governance items remain outside this commit for separate review, including the source AGENTS delta. No provider call, credential read, natural-sample execution, promotion or deployment belongs to this slice. Main CI and exact merge receipt will determine acceptance; source closeout follows independently verified preservation and cleanliness.

@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "promotion-evidence-index.v2",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "entries": [
+    {
+      "role": "A21",
+      "evidenceId": "a21-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "rawSha256": "a73f3a001554c759fa263a24c28387373f7819a16f84357cb891ddce25c9ffd4",
+      "semanticDigest": "d42822452ce4114642985ea816b3e4fb3a33d73910c8efdc906f2ed5ac18255f",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A18",
+      "evidenceId": "a18-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a18-independent-qa.v2.6.json",
+      "rawSha256": "347d8859119ba0ad474b5c939d778749023c18cab06b0012dc143074b73def15",
+      "semanticDigest": "3bf7f22b25b4529f9fa0ed4cb89f50bf0e217bc3586d6deb4ff9bc5464eb4084",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A23",
+      "evidenceId": "a23-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a23-shadow-readiness.v2.6.json",
+      "rawSha256": "52d845298e66db84861c5c79485b86df976bf505d88767a12e1c56fa3662acc5",
+      "semanticDigest": "b6a85c10f062dbd54c11cf5ccc86092bd00e6ab2f96222b109738d2042f075d1",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A04",
+      "evidenceId": "a04-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "rawSha256": "70294ef1c16d5d41ee4c19c18334c102a8508177d3e08aca25ec061116a83cef",
+      "semanticDigest": "ea18d4f353703e34e9881a8ae1ea73a30e184a97ff7eb63e5cd827621565fd24",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A05",
+      "evidenceId": "a05-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "rawSha256": "285400af820afefb6b1e4fc77dc24fd2c9f46160263ab0c92f71a28d987abe12",
+      "semanticDigest": "0975f1a845ce2234b0d1577f7bf3357e9ca5de11f62c55f0c34e6293cae77500",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A11",
+      "evidenceId": "a11-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a11-independent-preflight.v2.6.json",
+      "rawSha256": "b0e0c777fb56d0f205d4dbd1a14dc9d2e07e0f000d12632c7fc9181ef6ebff49",
+      "semanticDigest": "d29d8ed429a9ecc768ca56c041d9b2bf5aaa4c6ada5191b42d1b22c6870f6025",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A22",
+      "evidenceId": "a22-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a22-build-isolation.v2.6.json",
+      "rawSha256": "02b8e5c35885883cc84de93ba45d71fb03720cbc946b86c4c0e665d8dd31c835",
+      "semanticDigest": "e08f34a9fb226ba05f0f2396f9c9bf3232049c7c9d134e3553fe78c0da0c780a",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A24",
+      "evidenceId": "a24-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a24-exact-layer.v2.6.json",
+      "rawSha256": "9a83a92e799e34f617457431e2ef8b30c1ae277661dac00017bc6f2b7a5f80f4",
+      "semanticDigest": "e84ad3bf137c970b8fe2390645d574a07e765247918c6a5ab8212d2a4a8b2bd7",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "not_applicable",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    },
+    {
+      "role": "A25",
+      "evidenceId": "a25-pr242-baseline-5227a9a",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/evidence/a25-release-intake.v2.6.json",
+      "rawSha256": "a22d52c121d1781e8a840240e2b5acd47dae63e3c75bfe60d5637b9fb2c9b8cf",
+      "semanticDigest": "2465378888175cbed0298cf39ac801e4d89631688bcc7edbc5a47ff6308d7ab8",
+      "reviewedCommit": "09f58f3fe20c9b95ab0cee134c1d0b77c3d112bc",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "checkerVersion": "promotion-gate-shadow-v2.6"
+      }
+    }
+  ]
+}

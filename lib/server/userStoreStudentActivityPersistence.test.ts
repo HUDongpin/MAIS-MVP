@@ -2765,7 +2765,7 @@ test("student activity persistence builds assessment detail data through project
   assert.deepEqual(detail?.assignment?.assignment.title, {
     en: "Unit Check",
     zh: "單元測驗",
-    zhHans: "單元測驗"
+    zhHans: "单元测验"
   });
   assert.equal(detail?.assignment?.assignment.submissionCount, 1);
   assert.equal(detail?.assignment?.assignment.completedCount, 1);

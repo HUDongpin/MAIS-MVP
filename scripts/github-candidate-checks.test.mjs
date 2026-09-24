@@ -243,7 +243,7 @@ function createProviderHarness(overrides = {}) {
   return { fetchImpl, gitCalls, payloads, requests, runCommand, urls, value };
 }
 
-test("read-only provider verification binds clean local Git, main, private repo, protection, CI, and promotion checks", async () => {
+test("read-only provider verification binds clean local Git, main, approved repo, protection, CI, and promotion checks", async () => {
   const harness = createProviderHarness();
   const evidence = await verifyGithubCandidateChecks({
     candidateSha,
@@ -279,14 +279,48 @@ test("read-only provider verification binds clean local Git, main, private repo,
   assert.equal(JSON.stringify(evidence).includes(githubToken), false);
 });
 
+test("provider verification accepts a public approved HUDongpin/MAIS-MVP identity", async () => {
+  const harness = createProviderHarness();
+  harness.value.repositoryPayload.private = false;
+  harness.value.repositoryPayload.visibility = "public";
+  const evidence = await verifyGithubCandidateChecks({
+    candidateSha,
+    expectedTreeSha,
+    env: { GITHUB_TOKEN: githubToken },
+    fetchImpl: harness.fetchImpl,
+    repoRoot: "/fixture/repo",
+    runCommand: harness.runCommand
+  });
+  assert.equal(evidence.verified, true);
+  assert.equal(evidence.repository, MAIS_GITHUB_REPOSITORY);
+  assert.equal(evidence.repositoryId, MAIS_GITHUB_REPOSITORY_ID);
+  assert.equal(evidence.mainRef, "refs/heads/main");
+  assert.equal(evidence.releaseChecks.length, 7);
+  assert.equal(evidence.promotionCheck.name, promotionCheckName);
+});
+
 test("provider verification rejects wrong main/repository/protection, stale success, or a newer failed check", async () => {
   const scenarios = [
     (harness) => {
       harness.value.mainRefPayload.object.sha = "c".repeat(40);
     },
     (harness) => {
-      harness.value.repositoryPayload.private = false;
+      harness.value.repositoryPayload.id += 1;
+    },
+    (harness) => {
+      harness.value.repositoryPayload.name = "other-repo";
+    },
+    (harness) => {
+      harness.value.repositoryPayload.full_name = "attacker/MAIS-MVP";
+      harness.value.repositoryPayload.owner.login = "attacker";
+    },
+    (harness) => {
+      harness.value.repositoryPayload.private = true;
       harness.value.repositoryPayload.visibility = "public";
+    },
+    (harness) => {
+      harness.value.repositoryPayload.private = false;
+      harness.value.repositoryPayload.visibility = "internal";
     },
     (harness) => {
       harness.value.protectionPayload.allow_force_pushes.enabled = true;

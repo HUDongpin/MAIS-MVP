@@ -12,7 +12,7 @@ type ScrollState = {
 export function DashboardBackToTopButton() {
   const { t } = useSettings();
   const [scrollState, setScrollState] = useState<ScrollState>({ progress: 0, visible: false });
-  const label = t({ en: "Back to top", zh: "返回頂部" });
+  const label = t({ en: "Back to top", zh: "返回頂部", zhHans: "返回顶部" });
 
   useEffect(() => {
     let animationFrame = 0;

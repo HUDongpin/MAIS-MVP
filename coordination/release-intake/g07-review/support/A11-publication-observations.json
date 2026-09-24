@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "mais-s7-a11-publication-observations.v1",
+  "producedAt": "2026-09-06T16:48:18.067Z",
+  "role": "A11",
+  "actor": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "distinctReviewerCount": 1,
+    "implementationAuthorOfReviewedTools": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "reviewedCodeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "independentReplayRequired": true,
+    "liveAllowed": false,
+    "reviewScope": "Independent preparer-core and reaffirmation-history tooling review only; a fresh post-run replay remains required.",
+    "independentChecks": {
+      "preparerCore": {
+        "result": "pass-with-one-explicit-historical-skip",
+        "originalReviewCompletedAt": "2026-09-06T15:34:21.002888+00:00",
+        "originalBoundaryExecutionRecordedAt": "2026-09-06T15:29:53.585Z",
+        "sourceSnapshotDigest": "bcdf71daaf99e13cf62f68df0b8d39705994c2798326409ce166422bca61099b",
+        "sourceSnapshotAlgorithm": "SHA256 of compact JSON ordered array of {path,sha256} records",
+        "focusedTests": {
+          "tests": 51,
+          "pass": 50,
+          "fail": 0,
+          "skip": 1,
+          "skipReason": "Historical shallow-host check is not applicable to this full-history repository.",
+          "logRawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f"
+        },
+        "boundaryTests": {
+          "total": 30,
+          "dateCases": 15,
+          "physicalCases": 15,
+          "allExpectedOutcomesMatched": true,
+          "resultRawSha256": "26519be676997cfd3d35f4674fc972c436a559035a598e8a898c44f838612cf6"
+        },
+        "exactFocusedExecutionTimeRecorded": false,
+        "focusedExecutionTimeLimit": "The raw log has no execution wall-clock timestamp; the run completed before its retained original review completion time. No new timestamp is assigned to that run."
+      },
+      "historyParser": {
+        "result": "pass",
+        "originalReviewCompletedAt": "2026-09-06T16:28:22.409182+00:00",
+        "originalBoundaryExecutionRecordedAt": "2026-09-06T16:26:16.646Z",
+        "sourceSnapshotDigest": "d55925927dba880cc34030893c1a5973cc2cf0dc5618de71b18b87fb9211d0f7",
+        "sourceSnapshotAlgorithm": "SHA256 sorted path + NUL + sha256 + LF UTF8 records",
+        "focusedTests": {
+          "tests": 34,
+          "pass": 34,
+          "fail": 0,
+          "skip": 0,
+          "logRawSha256": "3cbaa73ae5fa1b0e7b46a8bc98354fe2a268f3361bdad8aecb33c53dfd42cc89"
+        },
+        "independentFixedAndAdversarialChecks": {
+          "pass": 4,
+          "fail": 0,
+          "resultRawSha256": "9492e26f6622199cda4ec76b1b7c4f7ed764b5c639906da698cc31f483de5903",
+          "scope": "Original graft fixture rejects under default/explicit/unavailable override; fixed main7f and b583 retain exact original authority events."
+        },
+        "exactFocusedExecutionTimeRecorded": false,
+        "focusedExecutionTimeLimit": "The raw log has no execution wall-clock timestamp; the run completed before its retained original review completion time. No new timestamp is assigned to that run."
+      }
+    },
+    "baselineReview": {
+      "kind": "committed-tooling-publication-consistency-review",
+      "reviewedAt": "2026-09-06T16:48:18.067Z",
+      "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "reviewedCodeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+      "parentCodeCommit": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+      "reviewedSourceFiles": 9,
+      "protectedBindings": 17,
+      "committedBytesMatchPriorIndependentReviews": true,
+      "coreFourCodeFilesUnchanged": true,
+      "sharedContractHistoryAppendSeparatelyReviewed": true,
+      "sourceBindingReceiptRawSha256": "df01ee738bdd99a5f7437df6af7a5d607f25ac92a0d519afa508da9cb9db3673",
+      "checksRerunDuringPublication": false,
+      "result": "pass-for-the-declared-tooling-scope"
+    },
+    "notPerformed": [
+      "Complete source/target native archive collector",
+      "Actual committed role-index/evidence currentness acceptance",
+      "Actual write-evidence or write-bindings phases",
+      "Shadow/canonical execution/fresh replay/Receipt/Closure finalization",
+      "Build or browser regressions",
+      "CI/provider/production/deployment",
+      "Final promotion attestation/index or future commit binding"
+    ]
+  },
+  "originalReports": [
+    {
+      "path": "/private/tmp/mais-s7-review/S7-preparer-recheck.json",
+      "rawSha256": "f50fe480e3398ba7ea305fb3aab479224793e2d51f8ae945afc4f0dad2b49b50",
+      "producedAt": "2026-09-06T15:34:21.002888+00:00",
+      "originalReviewCompletedAt": "2026-09-06T15:34:21.002888+00:00",
+      "originalExecutionRecordedAt": "2026-09-06T15:29:53.585Z",
+      "scope": "preparer-core"
+    },
+    {
+      "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/PR167-parser-independent-recheck.json",
+      "rawSha256": "0c2caef7c7406f03689fc26d5e4cb2c494b0dc6653ce8abe7ead049f7e6987bb",
+      "producedAt": "2026-09-06T16:28:22.409182+00:00",
+      "originalReviewCompletedAt": "2026-09-06T16:28:22.409182+00:00",
+      "originalExecutionRecordedAt": "2026-09-06T16:26:16.646Z",
+      "scope": "history-parser"
+    }
+  ],
+  "evidenceInputs": [
+    {
+      "path": "/private/tmp/mais-s7-review/recheck-focused.log",
+      "rawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f"
+    },
+    {
+      "path": "/private/tmp/mais-s7-review/recheck-behavior.json",
+      "rawSha256": "26519be676997cfd3d35f4674fc972c436a559035a598e8a898c44f838612cf6",
+      "producedAt": "2026-09-06T15:29:53.585Z"
+    },
+    {
+      "path": "/private/tmp/mais-s7-review/recheck-behavior.mjs",
+      "rawSha256": "f4bec386e2f05e7e6b4da0986b78a134b3954da7fa67e303fca916a90e7957fe"
+    },
+    {
+      "path": "/private/tmp/mais-history-review/recheck/old-entry.log",
+      "rawSha256": "3cbaa73ae5fa1b0e7b46a8bc98354fe2a268f3361bdad8aecb33c53dfd42cc89"
+    },
+    {
+      "path": "/private/tmp/mais-history-review/recheck/independent-graft-recheck.json",
+      "rawSha256": "9492e26f6622199cda4ec76b1b7c4f7ed764b5c639906da698cc31f483de5903",
+      "producedAt": "2026-09-06T16:26:16.646Z"
+    },
+    {
+      "path": "/private/tmp/mais-history-review/recheck/independent-graft-recheck.mjs",
+      "rawSha256": "4ac37a39a931057dc0b9c8dce70e96c9094e6a3ae48c00a2ba43b20a6a1062e7"
+    },
+    {
+      "path": "/private/tmp/mais-s7-a11-publication/committed-source-binding.json",
+      "rawSha256": "df01ee738bdd99a5f7437df6af7a5d607f25ac92a0d519afa508da9cb9db3673",
+      "producedAt": "2026-09-06T16:42:49.619859+00:00"
+    }
+  ],
+  "committedSourceBinding": {
+    "schemaVersion": "mais-s7-a11-committed-source-binding.v1",
+    "at": "2026-09-06T16:42:49.619859+00:00",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "reviewedCodeCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+    "parentCommit": "e04a866ff68ac79fa91c9004c389d8c9e713e8d3",
+    "headAtStart": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+    "headAtEnd": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+    "statusAtStart": "",
+    "statusAtEnd": "",
+    "paths": [
+      {
+        "path": "scripts/rebase-promotion-baseline.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3",
+        "gitMode": "100644",
+        "gitObjectId": "cb1dfa912d18339e445cf26f24d4faf2c38928ad",
+        "bytes": 80680,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": true,
+        "historyReviewHashMatches": null
+      },
+      {
+        "path": "scripts/rebase-promotion-baseline.test.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649",
+        "gitMode": "100644",
+        "gitObjectId": "54726eccf76a79eb7c548f36441342df649af975",
+        "bytes": 34647,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": true,
+        "historyReviewHashMatches": null
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347",
+        "gitMode": "100644",
+        "gitObjectId": "d9f4227f69d2b9a15ae53e534daed9c3e27f70d7",
+        "bytes": 27214,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": true,
+        "historyReviewHashMatches": null
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.test.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a",
+        "gitMode": "100644",
+        "gitObjectId": "fc491ac767dec414dbcbbe6b8189427b57cdbd16",
+        "bytes": 22848,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": true,
+        "historyReviewHashMatches": null
+      },
+      {
+        "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "662a17a9afe48a2d4e758f2b5b9e8eda5594a9ea3bb5cb438a044f2256ee17a6",
+        "gitMode": "100644",
+        "gitObjectId": "b755f382b304e66ce3cb93041083e065e9ea2329",
+        "bytes": 17159,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": false,
+        "historyReviewHashMatches": true
+      },
+      {
+        "path": ".github/workflows/promotion-shadow.yml",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+        "gitMode": "100644",
+        "gitObjectId": "c0978e8d7b60784ab03641ca7e09f6afed656139",
+        "bytes": 36438,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": null,
+        "historyReviewHashMatches": true
+      },
+      {
+        "path": "scripts/promotion-reaffirmation-history.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "dd06d88142e63f3f968fa5893c2deb7152ba03a19f715d312f3c7e9d9b3cc368",
+        "gitMode": "100644",
+        "gitObjectId": "cb501b5f0822b6493007a6b69fcb79e0e69ac558",
+        "bytes": 9208,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": null,
+        "historyReviewHashMatches": true
+      },
+      {
+        "path": "scripts/promotion-reaffirmation-history.test.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "19cf9ca628cbb240bd0013513339593b67d8129d664efb943d3f79d2318b7a13",
+        "gitMode": "100644",
+        "gitObjectId": "787bb34cbff6173122112640c14d99ca134dd24b",
+        "bytes": 15658,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": null,
+        "historyReviewHashMatches": true
+      },
+      {
+        "path": "scripts/promotion-shadow-workflow-v2.test.mjs",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "rawSha256": "fa370696fabc2726863875014e0c38acdfb1dadfaab0244bdeb2f97951c1a157",
+        "gitMode": "100644",
+        "gitObjectId": "6cf032064c01d5947993b6511d3064208e752e82",
+        "bytes": 32982,
+        "physicalMatchesCommitted": true,
+        "coreReviewHashMatches": null,
+        "historyReviewHashMatches": true
+      }
+    ],
+    "changedPaths": [
+      ".github/workflows/promotion-shadow.yml",
+      "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+      "scripts/promotion-reaffirmation-history.mjs",
+      "scripts/promotion-reaffirmation-history.test.mjs",
+      "scripts/promotion-shadow-workflow-v2.test.mjs"
+    ],
+    "protectedBindings": [
+      {
+        "path": "coordination/integration/promotion-gate-lib.mjs",
+        "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+        "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+        "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "scripts/rebase-promotion-baseline.mjs",
+        "rawSha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "scripts/rebase-promotion-baseline.test.mjs",
+        "rawSha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.mjs",
+        "rawSha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "scripts/promotion-runtime-topology-review.test.mjs",
+        "rawSha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "coordination/integration/checker-releases.v2.json",
+        "rawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "scripts/promotion-required-check-semantic-rescope.mjs",
+        "rawSha256": "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "scripts/promotion-required-check-semantic-rescope-cli.mjs",
+        "rawSha256": "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": "package.json",
+        "rawSha256": "90d22201a74877a31491661e0281d68fcc59d1aa6a27f77ab1b731bef271f990",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      },
+      {
+        "path": ".github/workflows/ci.yml",
+        "rawSha256": "edeee337bc152f39d4772fc1157b6be471104237f4b91483feea6a45df0c13f7",
+        "reviewedCommit": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+        "matchesIndependentHistoryReview": true
+      }
+    ],
+    "coreContractDocumentPrefixPreserved": true,
+    "historicalFullCoreFivePathDigest": "bcdf71daaf99e13cf62f68df0b8d39705994c2798326409ce166422bca61099b",
+    "historyFivePathDigest": "d55925927dba880cc34030893c1a5973cc2cf0dc5618de71b18b87fb9211d0f7",
+    "gitMutations": false,
+    "testRerunsPerformed": false
+  },
+  "originalChecksReexecutedDuringPublication": false,
+  "claimCeiling": "Actual independent preparer/history review with committed-byte currentness. No full native, Shadow, build, public-suite rerun or final promotion acceptance."
+}

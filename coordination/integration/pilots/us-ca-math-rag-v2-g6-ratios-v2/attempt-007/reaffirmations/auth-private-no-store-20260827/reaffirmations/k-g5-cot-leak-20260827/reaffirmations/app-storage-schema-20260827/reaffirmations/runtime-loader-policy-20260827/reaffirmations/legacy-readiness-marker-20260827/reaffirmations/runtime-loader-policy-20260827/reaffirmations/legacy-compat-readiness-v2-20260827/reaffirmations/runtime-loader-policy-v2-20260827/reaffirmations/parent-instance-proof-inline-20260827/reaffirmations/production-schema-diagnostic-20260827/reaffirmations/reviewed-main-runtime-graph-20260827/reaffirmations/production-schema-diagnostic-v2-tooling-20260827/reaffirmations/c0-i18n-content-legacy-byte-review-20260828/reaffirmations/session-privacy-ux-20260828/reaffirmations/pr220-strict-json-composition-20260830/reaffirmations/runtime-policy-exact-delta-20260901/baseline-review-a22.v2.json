@@ -1,0 +1,97 @@
+{
+  "role": "A22",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+  "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "ownerReview": {
+    "schemaVersion": "mais-runtime-policy-a22-owner-review.v1",
+    "role": "A22",
+    "reviewMode": "independent-read-only-runtime-policy-revision",
+    "result": "pass",
+    "producedAt": "2026-09-01T08:19:02Z",
+    "liveAllowed": false,
+    "reviewedWorktree": "/Volumes/Starship/MAIS的衍生文件/mais-a23-semantic-rescope-composition-20260831",
+    "reviewedHead": "e170e6260f565abf1a2c576de3b3df388490c669",
+    "subject": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/review-subject.v1.json",
+      "rawSha256": "f4bad0390acbf7e2f8531187635e77f777d50612aa9793516a8e333f08b40076",
+      "contentManifestDigest": "998c2b633aee559b3d1cbfd82286bd77cafb18cb704cbfe64ec1203183388596",
+      "contentManifestRecords": 4,
+      "contentManifestRecordsMatched": true
+    },
+    "manifestReview": {
+      "activeManifestRawSha256": "3792e2e51567fae209347682ff0599fa4d14063a14a3c1430847bfd478962cde",
+      "revisedManifestRawSha256": "a2dba5ce9e44c19d05852163a2b9fd1833aa3a97494c3b8680d0e048e6ceb5f5",
+      "proposalValidation": "pass",
+      "revisedManifestValidation": "pass",
+      "changedFieldsExact": [
+        "edgeCount",
+        "edgeDigest",
+        "fsReadAllowlistDigest",
+        "nextDynamicCallsiteDigest",
+        "topologyEdgeCount",
+        "topologyEdgeDigest"
+      ],
+      "nonPolicyBindingsEqual": true,
+      "candidateSourceBaselineCheckerBindingsUnchanged": true,
+      "observedPolicyDigest": "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5"
+    },
+    "nativeValidation": {
+      "mode": "direct-native-runtime-legacy-collect-only",
+      "result": "pass",
+      "executionCommit": "e170e6260f565abf1a2c576de3b3df388490c669",
+      "runtimePolicyDigest": "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5",
+      "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+      "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+      "selectedIdentityHitCount": 0,
+      "repositoryWrites": 0,
+      "networkRequests": 0,
+      "providerCalls": 0,
+      "shadowExecuted": false
+    },
+    "unitVerification": {
+      "command": "node --test --test-concurrency=1 coordination/integration/runtime-policy-revision.test.mjs",
+      "result": "pass",
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "cancelled": 0
+    },
+    "worktreeState": {
+      "trackedDiffCount": 0,
+      "cachedDiffCount": 0,
+      "untrackedEvidenceFileCount": 6,
+      "untrackedEvidenceOnly": true,
+      "untrackedReceiptClosureRegistryPathCount": 0,
+      "futureReceiptInRevisionDirectory": false,
+      "existingManifestReceiptClosureRegistryRewrites": false
+    },
+    "executionBoundary": {
+      "repositoryMutationAllowed": false,
+      "stagingCommitPushAllowed": false,
+      "workflowDispatchAllowed": false,
+      "shadowAllowed": false,
+      "remoteNetworkAllowed": false,
+      "pullRequestUpdateAllowed": false,
+      "mergeAllowed": false,
+      "deployAllowed": false,
+      "liveAllowed": false
+    },
+    "notRun": {
+      "command": "npm run promotion:validate -- --manifest <draft> --json",
+      "reason": "Full CLI validate was not used as acceptance because the exact worktree contains six untracked review-evidence files and the CLI performs a clean-worktree gate before preflight; direct native runtime/legacy collection and targeted unit verification were used within the authorized read-only ceiling.",
+      "shadowDispatchRemoteAndDeploy": "not-run"
+    },
+    "claimCeiling": "Independent A22 read-only evidence review only: the supplied subject bytes and content-manifest digest match, the revised Manifest is bound to exactly the sealed six runtime-policy fields with all non-policy bindings unchanged, and direct native runtime/legacy collection plus the seven targeted revision tests pass at execution commit e170e6260f565abf1a2c576de3b3df388490c669. This does not establish a complete promotion:validate CLI pass, current Shadow, dispatch, Receipt, Closure, Registry mutation or replay, CI required checks, PR or merge authority, deployment, provider, production, or live behavior; liveAllowed remains false."
+  }
+}

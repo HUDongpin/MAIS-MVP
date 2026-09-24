@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { formatDifficultyLabel, formatGradeLabel } from "@/lib/i18n";
+import { studentResourcesPath } from "@/lib/studentResourceRoutes";
 import type { StudentResourceDetailData } from "@/types";
 
 type ResourceResponse = {
@@ -65,9 +66,14 @@ export default function StudentResourcePage() {
       <div className="page-container py-10 sm:py-12">
         <section className="glass-panel p-6 sm:p-8">
           <h1 className="text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Resource unavailable", zh: "資源未能開啟" })}</h1>
-          <Link href="/dashboard" className="focus-ring mt-5 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-            {t(dictionary.nav.dashboard)}
-          </Link>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link href={studentResourcesPath} className="focus-ring inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+              {t({ en: "All resources", zh: "全部資源", zhHans: "全部资源" })}
+            </Link>
+            <Link href="/dashboard" className="focus-ring inline-flex rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
+              {t(dictionary.nav.dashboard)}
+            </Link>
+          </div>
         </section>
       </div>
     );
@@ -100,6 +106,9 @@ export default function StudentResourcePage() {
               {t({ en: "Mark complete", zh: "標記完成" })}
             </button>
           ) : null}
+          <Link href={studentResourcesPath} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
+            {t({ en: "All resources", zh: "全部資源", zhHans: "全部资源" })}
+          </Link>
           <Link href="/dashboard" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
             {t(dictionary.nav.dashboard)}
           </Link>

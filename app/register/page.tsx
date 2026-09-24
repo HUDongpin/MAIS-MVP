@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import { teacherInviteInputAttributes } from "@/components/providers/teacherInviteRegistrationClient";
 import { GradeSelector } from "@/components/ui/GradeSelector";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
 import { recordAuthFunnelEvent } from "@/lib/authFunnelClient";
 import { curriculumProfileForPublisher, curriculumTrackForProfile, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum } from "@/lib/i18n";
-import type { CurriculumProfile, CurriculumRegion, CurriculumTrack, GradeId, Language, LocalizedText, TextbookPublisher } from "@/types";
+import type { CurriculumProfile, CurriculumRegion, CurriculumTrack, GradeId, Language, LocalizedText, ParentalConsentRelationship, TextbookPublisher } from "@/types";
 
 const registerCopy = {
   title: { en: "Create a student, teacher, or parent account", zh: "建立學生、教師或家長帳戶", zhHans: "建立学生、教师或家长帐户" },
@@ -48,9 +49,56 @@ const registerCopy = {
   parentName: { en: "Parent name", zh: "家長姓名", zhHans: "家长姓名" },
   username: { en: "Username or student ID", zh: "用戶名稱或學生編號", zhHans: "用户名或学生编号" },
   teacherUsername: { en: "Teacher username or work email", zh: "教師用戶名稱或工作電郵", zhHans: "教师用户名或工作邮箱" },
+  teacherInviteCode: { en: "School invite code", zh: "學校邀請碼", zhHans: "学校邀请码" },
+  teacherInviteCodeHelp: {
+    en: "Teacher accounts are issued by your school. Ask your school administrator for the code.",
+    zh: "教師帳戶由學校發出，請向學校管理員索取邀請碼。",
+    zhHans: "教师账号由学校发放，请向学校管理员索取邀请码。"
+  },
+  teacherInviteCodeRejected: {
+    en: "The school invite is missing, invalid, or unavailable. Check with your school administrator.",
+    zh: "學校邀請碼缺失、無效或暫不可用，請向學校管理員確認。",
+    zhHans: "学校邀请码缺失、无效或暂不可用，请向学校管理员确认。"
+  },
   email: { en: "Email", zh: "電郵", zhHans: "邮箱" },
   password: { en: "Password", zh: "密碼" },
   confirmPassword: { en: "Confirm password", zh: "確認密碼" },
+  consentTitle: {
+    en: "Parent or guardian consent",
+    zh: "家長或監護人同意",
+    zhHans: "家长或监护人同意"
+  },
+  consentHelp: {
+    en: "A student account is an account for a child. A parent, legal guardian, or authorised school must give consent before it can be created.",
+    zh: "學生帳戶是供兒童使用的帳戶。必須先取得家長、法定監護人或獲授權學校的同意才可建立。",
+    zhHans: "学生账号是供儿童使用的账号。必须先取得家长、法定监护人或获授权学校的同意才可创建。"
+  },
+  consentGuardianName: {
+    en: "Name of consenting parent or guardian",
+    zh: "同意的家長或監護人姓名",
+    zhHans: "同意的家长或监护人姓名"
+  },
+  consentGuardianEmail: {
+    en: "Parent or guardian email (optional)",
+    zh: "家長或監護人電郵（選填）",
+    zhHans: "家长或监护人邮箱（选填）"
+  },
+  consentRelationship: { en: "Relationship to the student", zh: "與學生的關係", zhHans: "与学生的关系" },
+  consentRelationshipParent: { en: "Parent", zh: "家長", zhHans: "家长" },
+  consentRelationshipGuardian: { en: "Legal guardian", zh: "法定監護人", zhHans: "法定监护人" },
+  consentAcknowledge: {
+    en: "I am the student's parent or legal guardian. I have read the Privacy Policy and Terms of Service and I consent to this account being created.",
+    zh: "本人是該學生的家長或法定監護人。本人已閱讀私隱政策及服務條款，並同意建立此帳戶。",
+    zhHans: "本人是该学生的家长或法定监护人。本人已阅读隐私政策及服务条款，并同意创建此账号。"
+  },
+  consentRequired: {
+    en: "Parent or guardian consent is required before a student account can be created.",
+    zh: "建立學生帳戶前必須取得家長或監護人同意。",
+    zhHans: "创建学生账号前必须取得家长或监护人同意。"
+  },
+  privacyLink: { en: "Privacy Policy", zh: "私隱政策", zhHans: "隐私政策" },
+  termsLink: { en: "Terms of Service", zh: "服務條款", zhHans: "服务条款" },
+  legalPrompt: { en: "Read our", zh: "請閱讀我們的", zhHans: "请阅读我们的" },
   gradeChoice: { en: "Selected grade", zh: "已選年級", zhHans: "已选年级" },
   submit: { en: "Create account", zh: "建立帳戶" },
   submitting: { en: "Creating...", zh: "正在建立..." },
@@ -510,17 +558,23 @@ export default function RegisterPage() {
   const [accountType, setAccountType] = useState<RegistrationRole>("student");
   const [studentName, setStudentName] = useState("");
   const [username, setUsername] = useState("");
+  const [teacherInviteCode, setTeacherInviteCode] = useState("");
   const [email, setEmail] = useState("");
   const [curriculumProfile, setCurriculumProfile] = useState<CurriculumProfile>(() => curriculumProfileForPublisher("US_CA_MATH"));
   const [registrationGrade, setRegistrationGrade] = useState<GradeId>("K");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [consentAcknowledged, setConsentAcknowledged] = useState(false);
+  const [guardianName, setGuardianName] = useState("");
+  const [guardianEmail, setGuardianEmail] = useState("");
+  const [guardianRelationship, setGuardianRelationship] = useState<ParentalConsentRelationship>("parent");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeStep, setActiveStep] = useState<RegisterStepId>("account");
   const curriculumTrack = curriculumTrackForProfile(curriculumProfile);
   const isParentRegistration = accountType === "parent";
   const isTeacherRegistration = accountType === "teacher";
+  const isStudentRegistration = accountType === "student";
   const selectedGradeLabel = formatRegistrationGradeLabel(registrationGrade, language, curriculumTrack);
   const selectedPublisherLabel = t(registerPublisherButtonLabelOverrides[curriculumProfile.publisher] ?? publisherLabels[curriculumProfile.publisher]);
   const displayedPublisherLabel = selectedPublisherLabel;
@@ -696,6 +750,12 @@ export default function RegisterPage() {
         return;
       }
 
+      if (isStudentRegistration && (!consentAcknowledged || !guardianName.trim())) {
+        recordAuthFunnelEvent("register_submit", `${accountType}:consent_missing`);
+        setMessage(t(registerCopy.consentRequired));
+        return;
+      }
+
       const result = await register({
         role: accountType,
         name: studentName,
@@ -703,7 +763,16 @@ export default function RegisterPage() {
         email,
         password,
         grade: isParentRegistration ? undefined : registrationGrade,
-        curriculumProfile: isParentRegistration ? undefined : curriculumProfile
+        curriculumProfile: isParentRegistration ? undefined : curriculumProfile,
+        teacherInviteCode: isTeacherRegistration ? teacherInviteCode : undefined,
+        parentalConsent: isStudentRegistration
+          ? {
+              acknowledged: consentAcknowledged,
+              guardianName: guardianName.trim(),
+              guardianEmail: guardianEmail.trim() || undefined,
+              relationship: guardianRelationship
+            }
+          : undefined
       });
 
       recordAuthFunnelEvent(
@@ -722,9 +791,11 @@ export default function RegisterPage() {
           ? t(registerCopy.duplicate)
           : result.reason === "invalid"
             ? t(registerCopy.invalid)
-            : result.reason === "setup"
-              ? t(registerCopy.sessionSetup)
-              : t(registerCopy.error)
+            : result.reason === "teacher-invite"
+              ? t(registerCopy.teacherInviteCodeRejected)
+              : result.reason === "setup"
+                ? t(registerCopy.sessionSetup)
+                : t(registerCopy.error)
       );
     } finally {
       setIsSubmitting(false);
@@ -1018,6 +1089,25 @@ export default function RegisterPage() {
                         </label>
                       </div>
 
+                      {isTeacherRegistration ? (
+                        <label htmlFor="register-teacher-invite-code" className="grid gap-2">
+                          <span className="text-sm font-bold text-[#33426a]">{t(registerCopy.teacherInviteCode)}</span>
+                          <input
+                            id="register-teacher-invite-code"
+                            name="teacherInviteCode"
+                            {...teacherInviteInputAttributes}
+                            value={teacherInviteCode}
+                            onChange={(event) => setTeacherInviteCode(event.target.value)}
+                            required
+                            aria-describedby="register-teacher-invite-code-help"
+                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
+                          />
+                          <span id="register-teacher-invite-code-help" className="text-sm font-semibold leading-6 text-[#5b6a89]">
+                            {t(registerCopy.teacherInviteCodeHelp)}
+                          </span>
+                        </label>
+                      ) : null}
+
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div className="grid gap-2">
                           <label htmlFor="register-password" className="text-sm font-bold text-[#33426a]">{t(registerCopy.password)}</label>
@@ -1051,6 +1141,79 @@ export default function RegisterPage() {
                       </div>
                     </div>
 
+                    {isStudentRegistration ? (
+                      <fieldset className="mt-5 grid gap-4 rounded-2xl border border-[#b8d7f7] bg-[#f5fbff] p-4">
+                        <legend className="px-1 text-sm font-black text-[#17467e]">{t(registerCopy.consentTitle)}</legend>
+                        <p className="text-sm font-medium leading-6 text-[#33426a]">{t(registerCopy.consentHelp)}</p>
+
+                        <div className="grid gap-2">
+                          <label htmlFor="register-guardian-name" className="text-sm font-bold text-[#33426a]">
+                            {t(registerCopy.consentGuardianName)}
+                          </label>
+                          <input
+                            id="register-guardian-name"
+                            value={guardianName}
+                            onChange={(event) => setGuardianName(event.target.value)}
+                            autoComplete="name"
+                            required
+                            maxLength={120}
+                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
+                          />
+                        </div>
+
+                        <div className="grid gap-2">
+                          <label htmlFor="register-guardian-relationship" className="text-sm font-bold text-[#33426a]">
+                            {t(registerCopy.consentRelationship)}
+                          </label>
+                          <select
+                            id="register-guardian-relationship"
+                            value={guardianRelationship}
+                            onChange={(event) => setGuardianRelationship(event.target.value as ParentalConsentRelationship)}
+                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition"
+                          >
+                            <option value="parent">{t(registerCopy.consentRelationshipParent)}</option>
+                            <option value="legal-guardian">{t(registerCopy.consentRelationshipGuardian)}</option>
+                          </select>
+                        </div>
+
+                        <div className="grid gap-2">
+                          <label htmlFor="register-guardian-email" className="text-sm font-bold text-[#33426a]">
+                            {t(registerCopy.consentGuardianEmail)}
+                          </label>
+                          <input
+                            id="register-guardian-email"
+                            type="email"
+                            value={guardianEmail}
+                            onChange={(event) => setGuardianEmail(event.target.value)}
+                            autoComplete="email"
+                            maxLength={254}
+                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
+                          />
+                        </div>
+
+                        <label className="flex items-start gap-3 text-sm font-medium leading-6 text-[#33426a]">
+                          <input
+                            type="checkbox"
+                            checked={consentAcknowledged}
+                            onChange={(event) => setConsentAcknowledged(event.target.checked)}
+                            required
+                            className="focus-ring mt-1 h-5 w-5 shrink-0 rounded border-[#b8d7f7]"
+                          />
+                          <span>{t(registerCopy.consentAcknowledge)}</span>
+                        </label>
+
+                        <p className="flex flex-wrap items-center gap-x-2 text-sm font-medium text-[#33426a]">
+                          <span>{t(registerCopy.legalPrompt)}</span>
+                          <Link href="/privacy" target="_blank" className="focus-ring font-bold text-[#116ee4] underline-offset-4 hover:underline">
+                            {t(registerCopy.privacyLink)}
+                          </Link>
+                          <Link href="/terms" target="_blank" className="focus-ring font-bold text-[#116ee4] underline-offset-4 hover:underline">
+                            {t(registerCopy.termsLink)}
+                          </Link>
+                        </p>
+                      </fieldset>
+                    ) : null}
+
                     {renderStepActions({ submit: true })}
                   </div>
                 </section>
@@ -1066,6 +1229,16 @@ export default function RegisterPage() {
                 <span>{t(registerCopy.alreadyRegistered)}</span>
                 <Link href="/login" className="focus-ring inline-flex min-h-11 items-center rounded-full px-2 py-2 font-bold text-[#116ee4] underline-offset-4 transition hover:underline">
                   {t(registerCopy.login)}
+                </Link>
+              </p>
+
+              <p className="relative z-20 mt-3 flex flex-wrap items-center justify-center gap-x-2 text-center text-xs font-medium text-[#33426a]">
+                <span>{t(registerCopy.legalPrompt)}</span>
+                <Link href="/privacy" className="focus-ring rounded-full px-1 font-bold text-[#116ee4] underline-offset-4 transition hover:underline">
+                  {t(registerCopy.privacyLink)}
+                </Link>
+                <Link href="/terms" className="focus-ring rounded-full px-1 font-bold text-[#116ee4] underline-offset-4 transition hover:underline">
+                  {t(registerCopy.termsLink)}
                 </Link>
               </p>
             </div>

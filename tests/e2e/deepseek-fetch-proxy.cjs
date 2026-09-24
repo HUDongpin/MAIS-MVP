@@ -16,7 +16,9 @@ if (mockUrl) {
 
     if (
       url === "https://api.deepseek.com/chat/completions" ||
-      url === "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+      url === "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions" ||
+      url === "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions" ||
+      url === "https://dashscope-us.aliyuncs.com/compatible-mode/v1/chat/completions"
     ) {
       return originalFetch(mockUrl, init);
     }

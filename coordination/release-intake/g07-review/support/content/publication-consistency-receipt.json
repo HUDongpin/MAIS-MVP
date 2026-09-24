@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "mais-s7-content-publication-consistency-receipt.v1",
+  "producedAt": "2026-09-06T15:54:00.666Z",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "actorTaskId": "/root/s5_quality_review/s7_binding_contract",
+  "result": "pass",
+  "roleCount": 5,
+  "distinctActorCount": 1,
+  "historicalCarryForwardFields": 61,
+  "freshReaffirmedFields": 5,
+  "originalExecutionAt": "2026-09-06T13:48:22.745Z",
+  "originalInputsUnchangedBeforeAfter": true,
+  "semanticPayloadsEqualOriginalReviewedPayloads": true,
+  "materials": [
+    {
+      "role": "A04",
+      "path": "/private/tmp/mais-s7-publication/A04-publication-facts.json",
+      "rawSha256": "58c3c3b66320bf6d020bebec4961350573e341bfb23cf6b940064175aa366774",
+      "carryForwardFields": 18,
+      "freshReaffirmedFields": 1
+    },
+    {
+      "role": "A05",
+      "path": "/private/tmp/mais-s7-publication/A05-publication-facts.json",
+      "rawSha256": "fdd3f72b900231707b537ce7810b1c189e00b5563013a597ee255aaf5f4e9df1",
+      "carryForwardFields": 16,
+      "freshReaffirmedFields": 1
+    },
+    {
+      "role": "A18",
+      "path": "/private/tmp/mais-s7-publication/A18-publication-facts.json",
+      "rawSha256": "579328bd3e085ad6a0a784d718fc47dbc67f68ad5d4984517c2e715d43bfee08",
+      "carryForwardFields": 11,
+      "freshReaffirmedFields": 1
+    },
+    {
+      "role": "A21",
+      "path": "/private/tmp/mais-s7-publication/A21-publication-facts.json",
+      "rawSha256": "a5db44721fe5058b8127e0f712c190ad3f63f28872d05500ed04de7596086a50",
+      "carryForwardFields": 7,
+      "freshReaffirmedFields": 1
+    },
+    {
+      "role": "A24",
+      "path": "/private/tmp/mais-s7-publication/A24-publication-facts.json",
+      "rawSha256": "8f4401d290b8169dab4b7183ae2c08352f6cfb9e9781aec2a39f1ce1012a563d",
+      "carryForwardFields": 9,
+      "freshReaffirmedFields": 1
+    }
+  ],
+  "packagingScript": {
+    "path": "/private/tmp/mais-s7-publication/package-publication-reviews.py",
+    "rawSha256": "ed6a0cedc0cdee0fe24883eb44634403a80f3d6f1b9e0b31c3718a7e567f4f4f"
+  },
+  "isFinalPromotionEvidenceOrRoleIndex": false
+}

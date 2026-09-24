@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "mais-a25-baseline-only-review.v1",
+  "producedAt": "2026-09-09T05:05:14.650Z",
+  "reviewedAt": "2026-09-09T05:05:14.650Z",
+  "role": "A25",
+  "result": "pass",
+  "liveAllowed": false,
+  "fromCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "toCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+  "changedPathsDigest": "4bbbe100c908b3f26b7f7cb46930b723ffcfcc14eaaed2742f1de2afe666b195",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "actor": {
+    "taskId": "01a08462-c56e-7ac1-b3b2-3750bdce8139",
+    "kind": "Codex AI subagent",
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "reviewBasisExecutionCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+  "reviewReadback": {
+    "path": "coordination/release-intake/pr242-review/original-reviews/A25.json",
+    "rawSha256": "ad85e696ed343bf3041f337a59efd22188b50ee55d7688163e0565990bf5a161"
+  },
+  "factsReadback": {
+    "path": "coordination/release-intake/pr242-review/facts/A25.json",
+    "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc"
+  },
+  "assessment": {
+    "decision": "The independently reviewed fixed baseline delta is unrelated to the selected candidate Shadow semantics.",
+    "scope": "Actual independent reviewer readback transcribed by the integrator; approves only the exact A25 baseline/provenance facts and their role-record publication.",
+    "doesNotClaim": "No whole-platform equivalence, new content approval, native validation, Shadow/replay or CI success."
+  }
+}

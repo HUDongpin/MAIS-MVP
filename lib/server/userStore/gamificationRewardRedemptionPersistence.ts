@@ -201,7 +201,11 @@ const rewardEarnRules: RewardEarnRule[] = [
   {
     id: "lesson-complete",
     label: { en: "Complete a lesson", zh: "完成課節" },
-    detail: { en: "Finish a lesson checklist and mark the lesson complete.", zh: "完成課節清單並標記課節完成。" },
+    detail: {
+      en: "Earn points for a completed lesson.",
+      zh: "完成課節即可獲得積分。",
+      zhHans: "完成课时即可获得积分。"
+    },
     points: 40
   },
   {

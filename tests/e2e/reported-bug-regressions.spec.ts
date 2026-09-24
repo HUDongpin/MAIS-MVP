@@ -117,6 +117,30 @@ test.describe("reported bug regressions", () => {
     expectNoPageErrors(pageErrors);
   });
 
+  test("student resources index renders instead of 404", async ({ page }) => {
+    const pageErrors = collectPageErrors(page);
+
+    await loginAsCaliforniaStudent(page);
+    const response = await page.goto("/resource");
+    expect(response?.status()).toBeLessThan(400);
+    await expect(page).toHaveURL(/\/resource$/);
+    await expect(page.getByRole("heading", { name: /My resources/i })).toBeVisible();
+    await expect(page.getByText(/No assigned resources yet|Open resource/i)).toBeVisible();
+
+    await page.goto("/dashboard");
+    await expect(page.getByRole("button", { name: /Shortcuts/i })).toBeVisible();
+    await page.getByRole("button", { name: /Shortcuts/i }).click();
+    await page.getByRole("dialog", { name: /Student shortcuts/i }).getByRole("link", { name: /^Resources$/i }).click();
+    await expect(page).toHaveURL(/\/resource$/);
+    await expect(page.getByRole("heading", { name: /My resources/i })).toBeVisible();
+
+    const legacy = await page.goto("/student/resources");
+    expect(legacy?.status()).toBeLessThan(400);
+    await expect(page).toHaveURL(/\/resource$/);
+
+    expectNoPageErrors(pageErrors);
+  });
+
   test("personalized learning Mission HUD expands from a compact information panel", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
 

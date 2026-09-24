@@ -1,0 +1,1743 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Five-way routing oracle for the 100 immutable per-Skill trigger queries. It is evaluation metadata, not an umbrella router or an authorization artifact.",
+  "skills": [
+    "mais-content-promotion-gate",
+    "mais-content-qa-approval-workflow",
+    "mais-natural-sample-evaluation",
+    "mais-release-hygiene-deploy-workflow",
+    "mais-rsi-machine-qa-workflow"
+  ],
+  "cases": [
+    {
+      "id": "promotion-positive-01",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 0,
+      "query": "Audit the A23 Promotion Manifest and canonical Receipt for this frozen candidate; verify candidate/source/baseline/checker bindings and tell me whether it is shadow_ready or shadow_passed.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-02",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 1,
+      "query": "The promotion-shadow workflow now selects an append-only baseline re-affirmation. Check whether it preserves the base attempt Closure and whether the candidate digest stayed unchanged.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-03",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 2,
+      "query": "Compare canonical, fresh, and independent replay Promotion Receipts. Raw digests differ; confirm whether their semantic Receipt digests and exact bindings agree.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-04",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 3,
+      "query": "Current-head Promotion validation reports V2_TARGET_BASELINE_DRIFT. Is the old passing Shadow Receipt current, stale, or historical-only?",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-05",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 4,
+      "query": "Candidate bytes changed after Promotion review. Decide whether this needs a new immutable attempt or an append-only re-affirmation, without overwriting old evidence.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-06",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 5,
+      "query": "Discover the repository-advertised promotion:validate, promotion:shadow, and promotion:verify-receipt surfaces and fail if the workflow selector or checker ledger is ambiguous.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-07",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 6,
+      "query": "Finalize a non-live Promotion Shadow only if the native Closure/Registry plus A11 replay, A22 isolation, required checks, main readback, and A25 closeout all bind the exact package.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-08",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 7,
+      "query": "The Promotion gate is green. Prepare a redacted exact-SHA handoff to release hygiene, but do not deploy or call Vercel.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-release-hygiene-deploy-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-09",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 8,
+      "query": "A checker release commit SHA and an evidence reviewedCommit may be mistyped. Audit the immutable Promotion attempt and stop before Shadow if ancestry is unresolved.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-positive-10",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 9,
+      "query": "Does this Promotion Shadow rollback prove only temporary-output isolation, or can it support database and live deployment rollback? Keep the live boundary explicit.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-release-hygiene-deploy-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-01",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 10,
+      "query": "Review these twenty candidate questions for mathematical correctness, bilingual wording, age appropriateness, and final A18 content acceptance.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-02",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 11,
+      "query": "Draw a stratified natural sample from the live bank and estimate error prevalence by region, language, difficulty, and response form with confidence intervals.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-03",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 12,
+      "query": "Run B-prime and conditional C0-prime machine reviewers on this exact question package and validate the provider authorization caps.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-04",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 13,
+      "query": "Build the clean release worktree, deploy the current SHA to Vercel production, verify the public route in a browser, and rehearse production rollback.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-05",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 14,
+      "query": "Generate a new candidate package of Grade 6 ratio questions from the RAG corpus and produce bilingual lesson assets.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A21-content-generation",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-06",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 15,
+      "query": "Fix the failing student Playwright selector on the Practice Arena mobile page and update its regression test.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A11-regression-debugging",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-07",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 16,
+      "query": "Check whether the DeepSeek environment variable is present locally and in Vercel, then make a live provider request.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A19-provider-environment-and-live-call",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-08",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 17,
+      "query": "Prepare the daily A25 dirty-tree ownership map and recommend reviewable commit slices for all active worktrees.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-09",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 18,
+      "query": "Explain what a CI required check is and how GitHub branch protection works in a generic repository; there is no MAIS candidate or Promotion evidence.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "generic-repository-guidance",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "promotion-negative-10",
+      "sourceCandidateSkill": "mais-content-promotion-gate",
+      "sourceFile": "mais-content-promotion-gate/evals/trigger-evals.json",
+      "sourceIndex": 19,
+      "query": "Rewrite this lesson explanation to be clearer for primary students and translate it into Traditional Chinese.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "content-generation-and-localization",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-01",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 0,
+      "query": "Act as A18 and decide whether this exact Grade 5 fraction package is mathematically correct, unambiguous, age appropriate, and acceptable for integration review.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-promotion-gate"
+      ],
+      "mustNotTrigger": [
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-02",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 1,
+      "query": "Audit these worked examples and answer keys for accepted forms, units, curriculum alignment, and pedagogical suitability before A23 sees them.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-promotion-gate"
+      ],
+      "mustNotTrigger": [
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-03",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 2,
+      "query": "Does this bilingual lesson contain a content error, misleading explanation, grade mismatch, or answer-critical diagram problem? Give an A18 verdict.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-04",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 3,
+      "query": "Review the source distance and copyright risk of this imported question package, then state whether the exact package is candidate-only, needs repair, rejected, blocked, or approved for integration review.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-promotion-gate"
+      ],
+      "mustNotTrigger": [
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-05",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 4,
+      "query": "The machine packet is complete, but I still need independent curriculum and answer-quality acceptance for the frozen candidate. Please perform the A18 review.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-06",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 5,
+      "query": "Check whether each multiple-choice item has exactly one valid option and whether the explanation and distractors are instructionally sound for P4 students.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-07",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 6,
+      "query": "A lesson was repaired after an ambiguity finding. Re-review the new immutable content version for math correctness and age fit; do not infer release status.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-08",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 7,
+      "query": "Assess whether this Common Core lesson is aligned to the stated standard and whether its examples, language, difficulty, and visuals support the intended grade.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-09",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 8,
+      "query": "Please produce a redacted A18 content decision artifact with reviewed scope, issue counts, residual risks, verdict, claim ceiling, and next owner.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-promotion-gate"
+      ],
+      "mustNotTrigger": [
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-positive-10",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 9,
+      "query": "Can these 20 questions advance to integration review? Judge correctness, accepted answers, ambiguity, bilingual quality, curriculum fit, rights, and visual sufficiency.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-promotion-gate"
+      ],
+      "mustNotTrigger": [
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-01",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 10,
+      "query": "Run RSI deterministic checks, B-prime finding revision, and all five C0-prime roles on this frozen package.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-02",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 11,
+      "query": "Draw a registered natural sample and estimate sensitivity, specificity, and confidence bounds for the full question population.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-03",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 12,
+      "query": "Validate this candidate Manifest and canonical Shadow Receipt, compare replay semantics, and resolve currentness against the active selector.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-04",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 13,
+      "query": "Inventory the dirty tree, build the clean SHA, deploy to Vercel, and verify the live route and rollback.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-05",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 14,
+      "query": "The content is already A18-accepted. Create the A23 attempt, append-only reaffirmation, Closure, and Registry entry.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-06",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 15,
+      "query": "Resume the interrupted evaluated-provider natural run while preserving unknown egress and completion activity.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-07",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 16,
+      "query": "Check whether the B-prime critique and revision receipts bind the same candidate and whether C0 is required.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-08",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 17,
+      "query": "Our deployment is READY. Prove that the same integration SHA is live by reading the production route and monitoring rollback.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-09",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 18,
+      "query": "Compare the raw and semantic digests of two Shadow receipts and decide whether host temp paths caused harmless drift.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "content-qa-negative-10",
+      "sourceCandidateSkill": "mais-content-qa-approval-workflow",
+      "sourceFile": "mais-content-qa-approval-workflow/evals/trigger-evals.json",
+      "sourceIndex": 19,
+      "query": "Debug the Playwright selector failure on the student practice page and update the A11 regression test.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A11-regression-debugging",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-01",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 0,
+      "query": "Audit the current MAIS natural-question CA60 evaluation: verify the active protocol, frozen sample, runner review, provider authority, activity receipts, claim ceiling, and exact next gate without making any live calls.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-02",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 1,
+      "query": "Build a registered runtime-visible natural math question frame, exclude synthetic/test candidates, cluster homologous items, freeze a representative sample, and prepare independent freeze evidence.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-03",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 2,
+      "query": "Validate this natural-sample EvidenceEnvelopeV1 offline and resolve its current state from the append-only direct-parent receipt graph rather than its README status.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-04",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 3,
+      "query": "Before any natural text is sent, audit whether the reference provider has a current signed preflight receipt, trusted route anchor, entitlement evidence, and proposed bounded caps without constructing an execution grant.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-05",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 4,
+      "query": "The machine-reference roles finished. Check whether every reference receipt is complete and whether the reference seal is valid before the evaluated provider is even considered.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-06",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 5,
+      "query": "Can the evaluated-provider canary run now? Verify reference seal, exact runner registration, route/model grant, protected sample custody handoff, caps, and known activity first.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-07",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 6,
+      "query": "Recover the interrupted natural evaluation: reservation exists, provider delivery and egress are unknown, and I need an offline reconciliation plan that never turns unknown into zero.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-08",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 7,
+      "query": "Score this completed natural sample, obtain independent result and claim-boundary reviews, then validate a strict aggregate-only export under the registered ceiling.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-09",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 8,
+      "query": "The reviewed runner and protected natural sample have different custody-context hashes. Audit whether a controlled hash-bound custody handoff receipt exists without showing the protected path or item IDs.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-positive-10",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 9,
+      "query": "The CA60 observed metrics look perfect. Check the preregistered statistical-power artifact and tell me the maximum machine-reference conclusion without claiming PASS or production readiness.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-01",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 10,
+      "query": "Run RSI deterministic checks, B-prime critique and finding revision, then all five C0-prime roles on this exact frozen candidate package.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-02",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 11,
+      "query": "Act as A18 and decide whether these exact questions have correct mathematics, accepted answers, curriculum alignment, bilingual quality, rights, and sufficient visuals.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-03",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 12,
+      "query": "A18 accepted the candidate. Create the A23 Shadow attempt, compare canonical replay, record Closure and Registry, and decide whether it can become current.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-04",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 13,
+      "query": "Run the A11 student Playwright regression suite and debug why the practice answer selector fails on a mobile viewport.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A11-regression-debugging",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-05",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 14,
+      "query": "Build the clean release SHA, deploy it to Vercel production, verify the same SHA in a live browser, and prepare rollback evidence.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-06",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 15,
+      "query": "Rewrite these ten math questions for clearer language and then approve their corrected answer keys for classroom use.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A21-content-generation-then-independent-A18-review",
+      "allowedFollowupSkills": [
+        "mais-content-qa-approval-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-07",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 16,
+      "query": "Review this AI tutor chat response for tone, clarity, safety, and pedagogical helpfulness; there is no natural-sample protocol or evidence packet.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "generic-ai-tutor-response-review",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-08",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 17,
+      "query": "Analyze this generic survey sample in a spreadsheet, estimate a population mean, and make a confidence-interval chart; it is unrelated to MAIS questions.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "generic-data-analysis",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-09",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 18,
+      "query": "Check whether the local and Vercel environment variables for the LLM provider are present and redacted; do not evaluate any natural sample.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A19-provider-environment",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "natural-negative-10",
+      "sourceCandidateSkill": "mais-natural-sample-evaluation",
+      "sourceFile": "mais-natural-sample-evaluation/evals/trigger-evals.json",
+      "sourceIndex": 19,
+      "query": "Use the dated RSI-Lite synthetic injection set to calibrate B-prime recall and repeatability only; do not draw a runtime-visible natural sample.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-01",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 0,
+      "query": "Inventory the MAIS dirty tree and design a clean exact-path release slice before any Vercel deployment.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-02",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 1,
+      "query": "For this already promoted integration SHA, run the authorized build and required CI gates, then report what is and is not proved.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-03",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 2,
+      "query": "Vercel says READY. Verify whether the intended production route actually serves the same SHA and whether the required interaction works.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-04",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 3,
+      "query": "Prepare an A22/A25 release handoff with clean-source proof, deployment identity, route readback, rollback, and monitoring evidence.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-05",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 4,
+      "query": "The build is green and provider variables exist. Can we claim the AI-backed route is live? Audit the evidence layers without changing production.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-06",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 5,
+      "query": "Deploy this exact already-governed SHA to the explicitly authorized preview target and record inspect, alias, smoke, and residual-risk evidence.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-07",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 6,
+      "query": "Check live origin/main, linked worktrees, active writers, dirty state, and integration SHA before release planning.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-08",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 7,
+      "query": "The public route is 200 but the lesson interaction may be broken. Perform a fresh same-SHA browser readback and keep HTTP reachability separate from behavior.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-09",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 8,
+      "query": "Verify the authorized rollback path for the current deployment and state whether rollback was exercised or merely prepared.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-positive-10",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 9,
+      "query": "A release candidate is blocked by unrelated dirty assets. Slice the clean runtime changes and preserve the unrelated work without broad staging or cleanup.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-01",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 10,
+      "query": "Validate this Promotion Manifest and canonical Shadow Receipt against the active checker selector.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-02",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 11,
+      "query": "Compare fresh Shadow and replay semantic digests and decide whether the Receipt is current or historical-only.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-03",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 12,
+      "query": "Candidate bytes changed after attempt 007. Decide whether to create a new attempt or append an evidence-only reaffirmation.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-04",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 13,
+      "query": "Act as A18 and review these questions for correctness, ambiguity, accepted answers, curriculum fit, and source distance.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-05",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 14,
+      "query": "Run B-prime critique and finding revision, then trigger all five C0-prime roles for the frozen machine-QA packet.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-06",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 15,
+      "query": "Resume a registered natural-sample provider run and preserve unknown activity after interruption.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-07",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 16,
+      "query": "Resolve whether the CA60 sample, runner, reference labels, and evaluated-provider activity are frozen and reviewed.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-08",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 17,
+      "query": "Create a Shadow Closure and append-only Registry entry for the exact candidate package.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-09",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 18,
+      "query": "Review this lesson explanation for age appropriateness and bilingual naturalness; no release action is requested.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "release-negative-10",
+      "sourceCandidateSkill": "mais-release-hygiene-deploy-workflow",
+      "sourceFile": "mais-release-hygiene-deploy-workflow/evals/trigger-evals.json",
+      "sourceIndex": 19,
+      "query": "Audit the exact machine-review receipt for deterministic, B-prime, C0-prime, independent-review, and proof-boundary completeness.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-01",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 0,
+      "query": "Can you audit coordination/content-qa/candidate-042/machine-evidence.json? Its control-plane assessment declares P1 schema risk but C0 says not required; verify whether all five independent reviewer receipts are mandatory before A18 sees it.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-qa-approval-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-02",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 1,
+      "query": "Use the MAIS RSI workflow on this frozen question package: check candidate/currentness hashes, B-prime critique plus revision, and give me a redacted machine disposition only.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-03",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 2,
+      "query": "The model review says clean but the candidate was edited afterward. Are those machine-QA receipts still reusable, or do we need a fresh D-prime validation receipt and critique-to-revision predecessor lineage?",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-04",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 3,
+      "query": "Before we call DeepSeek for the exact-package review, verify whether the authorization binds the current policy, protocol, candidate sha, code manifest, roles, privacy scope and caps. Do not call it if anything is stale.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-05",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 4,
+      "query": "Please validate this EvidenceEnvelopeV1 packet offline. It has deterministic and B' receipts and a machineDisposition, but I suspect it contains a forbidden production approval claim.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-06",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 5,
+      "query": "I need a safe A18 handoff from an RSI machine-review receipt whose generic status is blocked. Verify cross-state consistency and self hash, exit blocked, and output only safe counts, hashes, fixed states, independentReviewState and the seven proofBoundaries; do not echo input-controlled IDs.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-content-qa-approval-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-07",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 6,
+      "query": "RSI-lite rerun question: the repeated critique wasn't passed into the repeated finding revision. Does the packet prove end-to-end B-prime repeatability? Keep the answer bounded to the synthetic calibration.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-08",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 7,
+      "query": "One C0 reviewer returned malformed JSON and skipped two projected surfaces, while the other four roles passed. Can this exact candidate be marked candidate-only?",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-09",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 8,
+      "query": "Our deterministic rules and B-prime disagree on an accepted-answer false reject. Work out whether C0-prime is mandatory and what role completeness evidence is required.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-positive-10",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 9,
+      "query": "Machine QA is done for package p17, supposedly. Audit its fresh independent review and tell me which evidence locations are actually proved: localTest, receipt, trackedCommitted, main, ci, deployment and live. Keep A18/A23/A11/A22 decisions separate.",
+      "shouldTrigger": true,
+      "expectedPrimarySkill": "mais-rsi-machine-qa-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-01",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 10,
+      "query": "Draw a representative random sample from the live MAIS question bank, estimate the natural error prevalence by grade and language, and produce confidence intervals.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-natural-sample-evaluation",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-02",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 11,
+      "query": "Act as A18 and decide whether these 40 questions are mathematically correct, age appropriate, aligned to P4 curriculum, and acceptable for final content signoff.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-qa-approval-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-03",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 12,
+      "query": "A18 has accepted candidate 042. Prepare the A23 integration sequence, owning pathspec handoffs, promotion checklist and rollback plan.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-content-promotion-gate",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [
+        "mais-release-hygiene-deploy-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-04",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 13,
+      "query": "Build the clean release candidate, run regression, deploy it to Vercel production and verify the live lesson route in a browser.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": "mais-release-hygiene-deploy-workflow",
+      "expectedExternalLane": null,
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-05",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 14,
+      "query": "Review this AI tutor's explanation for clarity, tone and helpfulness. It is a chat transcript, not a frozen content package and there is no machine-QA receipt.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "generic-ai-response-review",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-06",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 15,
+      "query": "Please rewrite these ten natural math questions to improve wording and then approve the corrected answers for use in class.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A21-content-generation-then-independent-A18-review",
+      "allowedFollowupSkills": [
+        "mais-content-qa-approval-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-07",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 16,
+      "query": "The exact candidate already has A18 acceptance. Merge its adapter into data/questions.ts and update the live practice route.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A23-gated-live-surface-integration",
+      "allowedFollowupSkills": [
+        "mais-content-promotion-gate",
+        "mais-release-hygiene-deploy-workflow"
+      ],
+      "mustNotTrigger": [
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-08",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 17,
+      "query": "Run Playwright against the student practice arena and investigate why the answer feedback selector fails on mobile.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A11-regression-debugging",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-09",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 18,
+      "query": "Audit whether our production deployment uses the right environment variables and whether the provider is reachable from Vercel.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "A19-provider-environment-and-live-reachability",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    },
+    {
+      "id": "rsi-negative-10",
+      "sourceCandidateSkill": "mais-rsi-machine-qa-workflow",
+      "sourceFile": "mais-rsi-machine-qa-workflow/evals/trigger-evals.json",
+      "sourceIndex": 19,
+      "query": "Compare two generic LLM responses to a calculus prompt and choose the more pedagogically useful answer; there is no MAIS candidate manifest or RSI evidence bundle.",
+      "shouldTrigger": false,
+      "expectedPrimarySkill": null,
+      "expectedExternalLane": "generic-ai-response-review",
+      "allowedFollowupSkills": [],
+      "mustNotTrigger": [
+        "mais-content-promotion-gate",
+        "mais-content-qa-approval-workflow",
+        "mais-natural-sample-evaluation",
+        "mais-release-hygiene-deploy-workflow",
+        "mais-rsi-machine-qa-workflow"
+      ]
+    }
+  ]
+}

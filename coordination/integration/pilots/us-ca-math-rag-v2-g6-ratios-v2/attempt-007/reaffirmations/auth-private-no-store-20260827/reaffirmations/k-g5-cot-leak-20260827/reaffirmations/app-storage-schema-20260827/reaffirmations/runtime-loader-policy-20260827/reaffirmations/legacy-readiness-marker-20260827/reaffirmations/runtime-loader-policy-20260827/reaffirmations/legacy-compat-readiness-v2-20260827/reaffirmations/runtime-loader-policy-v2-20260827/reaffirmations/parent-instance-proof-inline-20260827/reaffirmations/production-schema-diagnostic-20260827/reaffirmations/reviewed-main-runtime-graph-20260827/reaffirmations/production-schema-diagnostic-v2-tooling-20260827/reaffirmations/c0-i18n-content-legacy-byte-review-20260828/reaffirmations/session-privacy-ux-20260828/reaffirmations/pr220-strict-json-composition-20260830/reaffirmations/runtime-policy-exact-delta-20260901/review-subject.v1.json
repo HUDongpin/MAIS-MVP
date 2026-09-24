@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "mais-runtime-policy-review-subject.v1",
+  "subjectId": "runtime-policy-exact-delta-20260901",
+  "preparationHead": "e170e6260f565abf1a2c576de3b3df388490c669",
+  "sealedEvidenceRawSha256": "ddecb0dc10674115ff723b5785f6f5d0f4a934e532049c2d687f174c5aa3423f",
+  "baselineDelta": {
+    "fromCommit": "00929b2bdf88368dd838d7ff11bda13d3707e0e1",
+    "toCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+    "observerExecutionCommit": "e170e6260f565abf1a2c576de3b3df388490c669",
+    "changedPathsCount": 77,
+    "changedPathsDigest": "a71b62019bb590193e5c50ef5aa2e5e3dea0ea1da39d5ccec93faf837bb48d82"
+  },
+  "runtimePolicy": {
+    "changedFields": [
+      "edgeCount",
+      "edgeDigest",
+      "fsReadAllowlistDigest",
+      "nextDynamicCallsiteDigest",
+      "topologyEdgeCount",
+      "topologyEdgeDigest"
+    ],
+    "staleExpectedPolicyDigest": "3cb75bdc2457f3d875351e89869fc0c28bb8edd94d1afe6a0d6090a0fd23349f",
+    "observedPolicyDigest": "43cd05fdb8cc9accb085cc0dcb83d047ea73659f4e21440b6755395245dea8b5"
+  },
+  "contentManifest": {
+    "algorithm": "sha256(stableJson(records sorted by path; each record has exact path, decimal mode, sha256))",
+    "records": [
+      {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/promotion-manifest.v2.json",
+        "mode": "644",
+        "sha256": "a2dba5ce9e44c19d05852163a2b9fd1833aa3a97494c3b8680d0e048e6ceb5f5"
+      },
+      {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/runtime-policy-proposal.v1.json",
+        "mode": "644",
+        "sha256": "8b8754cee06b872fd1a634b39f795ddb84e5bfa4c3390b49ab200d9ae1111050"
+      },
+      {
+        "path": "coordination/integration/runtime-policy-revision.mjs",
+        "mode": "644",
+        "sha256": "e9eb966e63fd222e564686f33160e57c8b1e9aafbd8f622c8a0c968835b64d0f"
+      },
+      {
+        "path": "coordination/integration/runtime-policy-revision.test.mjs",
+        "mode": "644",
+        "sha256": "4511f5286958034b170a7670598d11fc050af6c2fccc668a10ed53bee0e973ef"
+      }
+    ],
+    "digest": "998c2b633aee559b3d1cbfd82286bd77cafb18cb704cbfe64ec1203183388596"
+  },
+  "authorizationBoundary": {
+    "evidenceReviewAllowed": true,
+    "bindingCommitAllowedAfterIndependentPass": true,
+    "workflowDispatchAllowed": false,
+    "shadowAllowed": false,
+    "pullRequestUpdateAllowedBeforeValidatePass": false,
+    "mainMergeAllowed": false,
+    "deployAllowed": false,
+    "liveAllowed": false
+  }
+}

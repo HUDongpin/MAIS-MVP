@@ -4,13 +4,19 @@ import {
   buildLLMProviderTransportPlan,
   buildLLMProviderRequestBody,
   createLLMProviderCircuitBreaker,
+  dashScopeRegionalApiUrls,
   extractLLMProviderReply,
   extractLLMProviderUsage,
+  fetchLLMProviderResponse,
+  isDashScopeRegionalAuthFailureStatus,
+  isTransientLLMProviderHttpStatus,
   readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
   readLLMProviderConfig,
+  readProviderApiKey,
   readQwenImageProviderConfig,
   readQwenTextProviderConfig,
+  resetDashScopeRegionalPreferenceForTests,
   resolveAITutorProviderTimeoutMs,
   resolveLLMProviderName,
   resolveLLMMaxCompletionTokens,
@@ -19,6 +25,10 @@ import {
   resolveProviderApiPinnedIp,
   selectAvailableLLMProviderConfig
 } from "./llmProvider";
+import {
+  resolveAITutorEdgeDeadlineMs,
+  resolveAITutorTotalDeadlineMs
+} from "../aiTutorDeadlines";
 
 const messages = [
   { role: "system" as const, content: "Tutor rules" },
@@ -96,6 +106,16 @@ test("Qwen text fallback config uses shared DashScope credentials without exposi
     assert.equal(config.apiUrl, "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions");
     assert.equal(config.model, "qwen3.8-max");
     assert.equal(config.provider, "qwen");
+  });
+});
+
+test("Qwen API keys drop wrapping quotes and a Bearer prefix without logging the secret", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "\"Bearer sk-test-qwen-key\"",
+    QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+  }, () => {
+    assert.equal(readProviderApiKey("\"Bearer sk-test-qwen-key\""), "sk-test-qwen-key");
+    assert.equal(readQwenTextProviderConfig().apiKey, "sk-test-qwen-key");
   });
 });
 
@@ -270,10 +290,11 @@ test("Qwen request body can disable thinking for latency-bound Nova Tutor calls"
   assert.equal("reasoning_effort" in body, false);
 });
 
-test("Nova disables Qwen thinking only for the selected hybrid Qwen3.8 Max model", () => {
+test("Nova disables Qwen thinking for every Nova Qwen text model", () => {
   assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3.8-max"), "disabled");
   assert.equal(resolveNovaQwenThinkingMode("qwen", " QWEN3.8-MAX "), "disabled");
-  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3-max-thinking"), undefined);
+  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3-max-thinking"), "disabled");
+  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen-plus"), "disabled");
   assert.equal(resolveNovaQwenThinkingMode("deepinfra", "qwen3.8-max"), undefined);
   assert.equal(resolveNovaQwenThinkingMode("openai-compatible", "qwen3.8-max"), undefined);
 });
@@ -321,10 +342,26 @@ test("DeepSeek resolved-IP transport preserves HTTPS server name and host metada
 });
 
 test("provider completion budget stays aligned with concise tutor replies", () => {
-  assert.equal(resolveLLMMaxCompletionTokens(undefined), 450);
-  assert.equal(resolveLLMMaxCompletionTokens("900"), 600);
+  assert.equal(resolveLLMMaxCompletionTokens(undefined), 900);
+  assert.equal(resolveLLMMaxCompletionTokens("900"), 900);
+  assert.equal(resolveLLMMaxCompletionTokens("1500"), 1_200);
   assert.equal(resolveLLMMaxCompletionTokens("50"), 100);
-  assert.equal(resolveLLMMaxCompletionTokens("not-a-number"), 450);
+  assert.equal(resolveLLMMaxCompletionTokens("not-a-number"), 900);
+});
+
+test("Nova edge deadline keeps most of the live budget instead of starving the provider", () => {
+  assert.equal(resolveAITutorTotalDeadlineMs(undefined), 12_000);
+  assert.equal(resolveAITutorTotalDeadlineMs("7500"), 7_500);
+  assert.equal(resolveAITutorEdgeDeadlineMs(12_000, undefined), 11_500);
+  assert.equal(resolveAITutorEdgeDeadlineMs(7_500, "3500"), 6_500);
+  assert.equal(resolveAITutorEdgeDeadlineMs(2_000, "5000"), 1_600);
+  assert.equal(isTransientLLMProviderHttpStatus(429), true);
+  assert.equal(isTransientLLMProviderHttpStatus(503), true);
+  assert.equal(isTransientLLMProviderHttpStatus(400), false);
+  assert.equal(isTransientLLMProviderHttpStatus(401), false);
+  assert.equal(isDashScopeRegionalAuthFailureStatus(401), true);
+  assert.equal(isDashScopeRegionalAuthFailureStatus(403), false);
+  assert.equal(isDashScopeRegionalAuthFailureStatus(503), false);
 });
 
 test("provider reply extraction accepts string and array content", () => {
@@ -437,4 +474,111 @@ test("deepinfra request body uses openai-compatible max_tokens without thinking 
   assert.equal(body.max_tokens, 450);
   assert.equal(body.stream, false);
   assert.equal("thinking" in body, false);
+});
+
+const beijingDashScopeUrl = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+const intlDashScopeUrl = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions";
+const usDashScopeUrl = "https://dashscope-us.aliyuncs.com/compatible-mode/v1/chat/completions";
+const qwenConfig = {
+  apiKey: "qwen-test-key",
+  apiUrl: beijingDashScopeUrl,
+  model: "qwen3.8-max",
+  provider: "qwen" as const
+};
+
+test("DashScope regional URL expansion keeps Beijing, Singapore, and US hosts", () => {
+  assert.deepEqual(dashScopeRegionalApiUrls(beijingDashScopeUrl), [
+    intlDashScopeUrl,
+    usDashScopeUrl,
+    beijingDashScopeUrl
+  ]);
+  assert.deepEqual(
+    dashScopeRegionalApiUrls("https://workspace-id.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1/chat/completions"),
+    ["https://workspace-id.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1/chat/completions"]
+  );
+});
+
+test("DashScope HTTP 401 failovers to the next regional host and remembers the working region", async () => {
+  resetDashScopeRegionalPreferenceForTests();
+  const originalFetch = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (input: RequestInfo | URL) => {
+    const url = String(input);
+    calls.push(url);
+    if (url === beijingDashScopeUrl) {
+      return new Response(JSON.stringify({ error: { message: "Invalid API-key provided." } }), { status: 401 });
+    }
+    if (url === intlDashScopeUrl) {
+      return new Response(JSON.stringify({
+        choices: [{ message: { content: "{\"reply\":\"12\",\"visualization\":null}" }, finish_reason: "stop" }],
+        model: "qwen3.8-max"
+      }), { status: 200 });
+    }
+    return new Response(JSON.stringify({ error: "unexpected host" }), { status: 500 });
+  }) as typeof fetch;
+
+  try {
+    const first = await fetchLLMProviderResponse(qwenConfig, { method: "POST", body: "{}" });
+    assert.equal(first.ok, true);
+    assert.equal(first.status, 200);
+    assert.deepEqual(calls, [beijingDashScopeUrl, intlDashScopeUrl]);
+
+    calls.length = 0;
+    const second = await fetchLLMProviderResponse(qwenConfig, { method: "POST", body: "{}" });
+    assert.equal(second.ok, true);
+    assert.deepEqual(calls, [intlDashScopeUrl]);
+  } finally {
+    globalThis.fetch = originalFetch;
+    resetDashScopeRegionalPreferenceForTests();
+  }
+});
+
+test("DashScope HTTP 401 on every regional host stays a 401 without looping", async () => {
+  resetDashScopeRegionalPreferenceForTests();
+  const originalFetch = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (input: RequestInfo | URL) => {
+    calls.push(String(input));
+    return new Response(JSON.stringify({ error: { message: "Invalid API-key provided." } }), { status: 401 });
+  }) as typeof fetch;
+
+  try {
+    const response = await fetchLLMProviderResponse(qwenConfig, { method: "POST", body: "{}" });
+    assert.equal(response.ok, false);
+    assert.equal(response.status, 401);
+    assert.deepEqual(calls, [beijingDashScopeUrl, intlDashScopeUrl, usDashScopeUrl]);
+  } finally {
+    globalThis.fetch = originalFetch;
+    resetDashScopeRegionalPreferenceForTests();
+  }
+});
+
+test("non-DashScope Qwen 401 and DashScope 503 do not hop regions", async () => {
+  resetDashScopeRegionalPreferenceForTests();
+  const originalFetch = globalThis.fetch;
+  const calls: string[] = [];
+  globalThis.fetch = (async (input: RequestInfo | URL) => {
+    calls.push(String(input));
+    const url = String(input);
+    return new Response("denied", { status: url.includes("maas.aliyuncs.com") ? 401 : 503 });
+  }) as typeof fetch;
+
+  try {
+    const maas = await fetchLLMProviderResponse({
+      ...qwenConfig,
+      apiUrl: "https://workspace-id.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1/chat/completions"
+    }, { method: "POST", body: "{}" });
+    assert.equal(maas.status, 401);
+    assert.deepEqual(calls, [
+      "https://workspace-id.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1/chat/completions"
+    ]);
+
+    calls.length = 0;
+    const unavailable = await fetchLLMProviderResponse(qwenConfig, { method: "POST", body: "{}" });
+    assert.equal(unavailable.status, 503);
+    assert.deepEqual(calls, [beijingDashScopeUrl]);
+  } finally {
+    globalThis.fetch = originalFetch;
+    resetDashScopeRegionalPreferenceForTests();
+  }
 });

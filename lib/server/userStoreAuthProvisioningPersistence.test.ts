@@ -48,6 +48,14 @@ function validProvisioningRequest(): ProvisioningRequest {
       contactName: "Ops Lead",
       contactEmail: "ops@example.test"
     },
+    schoolAuthorization: {
+      confirmed: true,
+      schoolCode: "NPFS",
+      academicYear: "2026-2027",
+      approvedByName: "School Principal",
+      approvedAt: "2026-06-20T12:00:00.000Z",
+      evidenceReference: "school-permission-2026-01"
+    },
     classes: [
       {
         classCode: "S3A",
@@ -165,6 +173,17 @@ test("auth provisioning persistence creates batches, reads admin batches, and ex
   assert.equal(database.teacher_classes.length, 1);
   assert.equal(database.users.filter((user) => user.role === "teacher").length, 2);
   assert.equal(database.users.filter((user) => user.role === "student").length, 2);
+  for (const student of database.users.filter((user) => user.role === "student")) {
+    assert.equal(student.school_authorization?.evidenceReference, "school-permission-2026-01");
+    assert.equal(student.school_authorization?.recordedByAdminId, "admin-1");
+  }
+  assert.equal(database.provisioning_batches[0].school_authorization?.schoolCode, "NPFS");
+  const wrongExistingSchoolName = await store.validateSchoolProvisioning({
+    ...validProvisioningRequest(),
+    school: { ...validProvisioningRequest().school, name: "Another School" }
+  });
+  assert.equal(wrongExistingSchoolName.valid, false);
+  assert.match(wrongExistingSchoolName.errors.join(" "), /different school name/);
   assert.equal(database.users.find((user) => user.username === "lead@example.test")?.password_hash, "hash:Temp-1");
   assert.equal(database.student_profiles.find((profile) => profile.name === "Ada Wong")?.parent_invite_code ?? "", "");
   assert.doesNotMatch(JSON.stringify(database), /MAIS-[A-F0-9]{24}/i);
@@ -174,6 +193,7 @@ test("auth provisioning persistence creates batches, reads admin batches, and ex
   const batchId = result.status === "created" ? result.batch.id : "";
   const adminBatch = await store.getProvisioningBatchForAdmin("admin-1", batchId);
   assert.equal(adminBatch?.id, batchId);
+  assert.equal(adminBatch?.schoolAuthorization?.batchId, batchId);
   assert.equal(await store.getProvisioningBatchForAdmin("teacher-plain", batchId), null);
 
   const exportFile = await store.getProvisioningBatchCredentialCsvForAdmin("admin-1", batchId);
@@ -192,6 +212,22 @@ test("auth provisioning persistence rejects non-admin and invalid batches withou
     status: "forbidden"
   });
   assert.equal(database.provisioning_batches.length, 0);
+
+  const withoutSchoolPermission = await store.createSchoolProvisioningBatch("admin-1", {
+    ...validProvisioningRequest(),
+    schoolAuthorization: undefined
+  });
+  assert.equal(withoutSchoolPermission.status, "invalid");
+  assert.match(withoutSchoolPermission.status === "invalid" ? withoutSchoolPermission.validation.errors.join(" ") : "", /School permission/);
+  assert.equal(database.users.length, 2, "no student account is created without a school permission record");
+  assert.equal(database.provisioning_batches.length, 0);
+
+  const wrongSchoolPermission = await store.validateSchoolProvisioning({
+    ...validProvisioningRequest(),
+    schoolAuthorization: { ...validProvisioningRequest().schoolAuthorization!, schoolCode: "OTHER" }
+  });
+  assert.equal(wrongSchoolPermission.valid, false);
+  assert.match(wrongSchoolPermission.errors.join(" "), /match this school code/);
 
   const invalid = await store.createSchoolProvisioningBatch("admin-1", {
     ...validProvisioningRequest(),

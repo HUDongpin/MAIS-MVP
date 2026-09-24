@@ -1,0 +1,16 @@
+{
+  "at": "2026-09-06T16:42:16.267+00:00",
+  "bundle": "batch09-history-observability.bundle",
+  "bytes": 98206,
+  "sha256": "1359d7a7acb78fb4ac3ca38d3dd08f1a5433899cfaf05365a3d28a0393b0a6cb",
+  "heads": {
+    "history": "3a0a8ac9f7faf93ba87d31c224f65e16f7544949",
+    "observability": "6a3b3775864964377964d579a1115c9d6841a425"
+  },
+  "independentRestoreEqual": true,
+  "verify": "/Volumes/Starship/MAIS\u7684\u884d\u751f\u6587\u4ef6/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/batch09-history-observability.bundle is okay\nThe bundle contains these 2 refs:\n3a0a8ac9f7faf93ba87d31c224f65e16f7544949 refs/heads/codex/a10-machine-qa-governance-closeout-20260906\n6a3b3775864964377964d579a1115c9d6841a425 refs/heads/codex/a12-observability-runtime-hooks-20260906\nThe bundle requires these 2 refs:\n7f692278989b4bf45496d239bccb9263326b5453 \n2125be947e21cda7f12f8195eed2c121bef5478c \nThe bundle uses this hash algorithm: sha1",
+  "prerequisites": [
+    "7f692278989b4bf45496d239bccb9263326b5453",
+    "2125be947e21cda7f12f8195eed2c121bef5478c"
+  ]
+}

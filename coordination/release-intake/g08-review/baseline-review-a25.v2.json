@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "promotion-baseline-review.v2",
+  "result": "pass",
+  "producedAt": "2026-09-06T17:23:13.630Z",
+  "fromCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "toCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "changedPathsDigest": "e7b9ddeb12d73bc48e7ff34c9e2bb0e9919e939841fdf997ada65db47c31c075",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "liveAllowed": false,
+  "reviewerSession": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+  "recordBasis": "Actual same-baseline compatibility review: re-read fixed Git objects and actual recorded native results. The original build/Shadow execution times remain unchanged.",
+  "role": "A25",
+  "evidence": {
+    "comparison": [
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+        "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+        "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+        "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+        "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/promotion-gate-lib.mjs",
+        "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+        "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+        "sourceTargetExecutionBytesEqual": true
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+        "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+        "sourceTargetExecutionBytesEqual": true
+      }
+    ],
+    "reviewedBindingCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+    "targetRuntimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+    "runtimeTopologyProofDigest": "e5049d9b6df8701a99161321ae1ee1e3d59611e55de777215c72a15d6e3f2933",
+    "nativeSemanticProof": {
+      "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+      "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+      "selectedIdentityHits": 0,
+      "resolutionCount": 18,
+      "approvedProjectionCount": 3,
+      "dereachedCount": 15,
+      "liveAllowed": false
+    },
+    "actualNativeValidation": {
+      "path": "S7-native-validate.json",
+      "rawSha256": "226f39fd28ebc537a714acc6d4f5078f6dabf868495cf09a6c0636351498609b"
+    },
+    "actualCanonicalReceipt": {
+      "path": "S7-canonical-receipt.json",
+      "rawSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886",
+      "originalRun": {
+        "runId": "g07-canonical-20260906T170256Z",
+        "producedAt": "2026-09-06T17:02:56.543Z",
+        "ciMetadata": null
+      }
+    },
+    "scope": "Release intake review of exact old source/new target, unchanged candidate/checker, recovery coverage and append-only correction of descriptor review references.",
+    "legacyRegistryDisposition": "same18 records,3approved+15dereached; targetheader only",
+    "newExecutionDuringThisReview": false
+  }
+}

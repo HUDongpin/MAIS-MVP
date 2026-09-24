@@ -7,13 +7,29 @@ async function providerSource() {
   return readFile(path.join(process.cwd(), "components/providers/AppProviders.tsx"), "utf8");
 }
 
-test("cross-tab identity uncertainty immediately gates account UI and account-bound writes", async () => {
+test("identity uncertainty remains fail-closed without treating ordinary foreground changes as an identity change", async () => {
   const source = await providerSource();
   const quarantineStart = source.indexOf("const quarantineForSessionCheck");
   const quarantineEnd = source.indexOf("const appendLearningEventsToQueues", quarantineStart);
   const quarantineSource = source.slice(quarantineStart, quarantineEnd);
+  const blurStart = source.indexOf("const handleBlur");
+  const blurEnd = source.indexOf("const validateAfterForegroundReturn", blurStart);
+  const blurSource = source.slice(blurStart, blurEnd);
+  const foregroundReturnStart = blurEnd;
+  const foregroundReturnEnd = source.indexOf("const handleVisibility", foregroundReturnStart);
+  const foregroundReturnSource = source.slice(foregroundReturnStart, foregroundReturnEnd);
+  const visibilityStart = foregroundReturnEnd;
+  const visibilityEnd = source.indexOf("const handlePageHide", visibilityStart);
+  const visibilitySource = source.slice(visibilityStart, visibilityEnd);
+  const pageHideStart = visibilityEnd;
+  const pageHideEnd = source.indexOf("const handlePageShow", pageHideStart);
+  const pageHideSource = source.slice(pageHideStart, pageHideEnd);
+  const pageShowStart = pageHideEnd;
+  const pageShowEnd = source.indexOf("window.addEventListener", pageShowStart);
+  const pageShowSource = source.slice(pageShowStart, pageShowEnd);
 
-  assert.match(source, /type SessionVerificationMode = "none" \| "foreground" \| "identity"/u);
+  assert.match(source, /type SessionVerificationMode = "none" \| "initial" \| "identity"/u);
+  assert.doesNotMatch(source, /SessionVerificationMode = [^\n]*"foreground"/u);
   assert.match(source, /sessionVerificationTargetRef/u);
   assert.match(source, /sessionVerificationPending/u);
   assert.match(source, /accountWorkBlockedRef\.current = true/u);
@@ -27,23 +43,13 @@ test("cross-tab identity uncertainty immediately gates account UI and account-bo
   assert.match(source, /password-updated-sign-in-required/u);
   assert.match(source, /event\.persisted/u);
   assert.match(source, /window\.addEventListener\("blur", handleBlur\)/u);
-  assert.match(source, /displayedSessionVerificationMode === "identity" \? sessionVerificationGate/u);
   assert.match(source, /data-session-verification-gate="true"/u);
   assert.doesNotMatch(source, /data-session-verification-content/u);
-  assert.match(source, /Array\.from\(document\.body\.children\)\.forEach\(isolateBodyChild\)/u);
-  assert.match(source, /element\.style\.visibility = "hidden"[\s\S]*?element\.style\.pointerEvents = "none"/u);
   assert.match(
     quarantineSource,
-    /if \(mode === "identity"\) \{[\s\S]*?setMistakeRecords\(\[\]\)[\s\S]*?analyticsFlushGenerationRef\.current \+= 1/u
-  );
-  assert.equal(
-    quarantineSource.match(/analyticsFlushGenerationRef\.current \+= 1/gu)?.length,
-    1,
-    "foreground quarantine must not invalidate an already-issued analytics batch"
+    /setMistakeRecords\(\[\]\)[\s\S]*?analyticsFlushGenerationRef\.current \+= 1/u
   );
   assert.match(source, /role="status"/u);
-  assert.match(source, /useLayoutEffect\(\(\) => \{[\s\S]*?document\.body\.children[\s\S]*?new MutationObserver/u);
-  assert.match(source, /element\.inert = true[\s\S]*?element\.setAttribute\("aria-hidden", "true"\)/u);
   assert.match(source, /className="fixed inset-0[^"]*?w-full[^"]*?bg-slate-50/u);
   assert.doesNotMatch(source, /className="page-container fixed inset-0/u);
   assert.match(source, /const reconcileSignalledIdentity[\s\S]*?quarantineForSessionCheck\(\)[\s\S]*?revalidateSession/u);
@@ -53,22 +59,22 @@ test("cross-tab identity uncertainty immediately gates account UI and account-bo
   assert.match(source, /event\.data\.sourceDocumentId === sessionSyncDocumentId/u);
   assert.match(source, /const handleBroadcastMessage/u);
   assert.match(source, /persistedSessionSignal[\s\S]*?reconcileSignalledIdentity\(readSessionSyncIdentity\(persistedSessionSignal\), false\)/u);
-  assert.match(source, /const handleBlur[\s\S]*?needsForegroundValidation = true/u);
+  assert.match(blurSource, /needsForegroundValidation = true/u);
+  assert.doesNotMatch(blurSource, /quarantineForSessionCheck|setSessionVerification/u);
+  assert.match(foregroundReturnSource, /revalidateSession\(previousUser, false\)/u);
+  assert.doesNotMatch(foregroundReturnSource, /quarantineForSessionCheck/u);
+  assert.match(visibilitySource, /document\.visibilityState === "hidden"[\s\S]*?needsForegroundValidation = true/u);
+  assert.doesNotMatch(visibilitySource, /quarantineForSessionCheck/u);
   assert.match(
-    source,
-    /const handleBlur[\s\S]*?quarantineForSessionCheck\("foreground"\)/u
+    pageHideSource,
+    /sessionRevalidationGenerationRef\.current \+= 1[\s\S]*?sessionRevalidationAbortRef\.current\?\.abort\(\)[\s\S]*?flushSync\(\(\) => quarantineForSessionCheck\(\)\)/u
   );
-  assert.match(source, /const handlePageHide[\s\S]*?flushSync/u);
   assert.match(source, /window\.addEventListener\("pagehide", handlePageHide\)/u);
   assert.match(source, /let needsForegroundValidation = document\.visibilityState === "hidden"/u);
+  assert.match(pageShowSource, /quarantineForSessionCheck\(\)[\s\S]*?revalidateSession\(previousUser, true\)/u);
   assert.match(
     source,
-    /const validateAfterForegroundReturn[\s\S]*?quarantineForSessionCheck\("foreground"\)[\s\S]*?revalidateSession/u
-  );
-  assert.match(source, /const handlePageShow[\s\S]*?quarantineForSessionCheck\("foreground"\)[\s\S]*?revalidateSession/u);
-  assert.match(
-    source,
-    /if \(!acceptedBootstrapMatchesSession\) \{[\s\S]*?quarantineForSessionCheck\("identity"\)/u
+    /if \(!acceptedBootstrapMatchesSession\) \{[\s\S]*?quarantineForSessionCheck\(\)/u
   );
   assert.match(
     source,
@@ -80,7 +86,7 @@ test("cross-tab identity uncertainty immediately gates account UI and account-bo
   assert.match(source, /const acceptedBootstrapMatchesSession/u);
   assert.match(
     source,
-    /keepVerificationGate:\s*shouldGateDuringCheck\s*&&\s*!acceptedBootstrapMatchesSession/u
+    /keepVerificationGate:\s*!acceptedBootstrapMatchesSession/u
   );
   assert.match(source, /else if \(!acceptedBootstrapMatchesSession\) \{/u);
   assert.match(
@@ -108,6 +114,27 @@ test("cross-tab identity uncertainty immediately gates account UI and account-bo
     /responseCode === "account-updated-session-refresh-required"[\s\S]*?broadcastSessionChange\(null\)[\s\S]*?window\.location\.replace/u
   );
   assert.doesNotMatch(source, /let lastCheckAt = Date\.now\(\)/u);
+  assert.match(
+    source,
+    /const initialSessionVerificationMode[\s\S]*initialBootstrap\.kind === "authenticated"[\s\S]*\? "initial"[\s\S]*: "none"/u
+  );
+  assert.match(source, /Loading your workspace/u);
+  assert.match(source, /Preparing your account and learning space/u);
+  assert.match(source, /Refreshing your session/u);
+  assert.match(source, /Your sign-in may have changed/u);
+  assert.match(source, /displayedSessionVerificationMode === "identity"[\s\S]*?Try again/u);
+  assert.match(source, /const \[sessionVerificationRetryVisible, setSessionVerificationRetryVisible\] = useState\(false\)/u);
+  assert.match(source, /let requestTimedOut = false[\s\S]*?window\.setTimeout\([\s\S]*?requestTimedOut = true[\s\S]*?controller\.abort\(\)[\s\S]*?10_000/u);
+  assert.match(source, /!response\.ok && response\.status !== 401[\s\S]*?setSessionVerificationRetryVisible\(true\)/u);
+  assert.match(source, /!requestTimedOut[\s\S]*?AbortError[\s\S]*?return;[\s\S]*?setSessionVerificationRetryVisible\(true\)/u);
+  assert.match(source, /retry: sessionVerificationRetryVisible[\s\S]*?Try again/u);
+  assert.doesNotMatch(source, /Verifying your account|For your privacy|Check again/u);
+  assert.doesNotMatch(source, /Array\.from\(document\.body\.children\)\.forEach\(isolateBodyChild\)/u);
+  assert.doesNotMatch(source, /new MutationObserver/u);
+  assert.match(
+    source,
+    /displayedSessionVerificationPending \? sessionVerificationGate :[\s\S]*?<Fragment key=\{accountTreeKey\}>\{children\}<\/Fragment>/u
+  );
 });
 
 test("per-user mistake and lesson-entry reads cannot repopulate a replacement identity", async () => {
@@ -150,7 +177,7 @@ test("identity-changing auth responses remain gated until a full document replac
   assert.match(provider, /const beginAuthenticatedDocumentTransition/u);
   assert.match(
     provider,
-    /beginAuthenticatedDocumentTransition[\s\S]*?flushSync\(\(\) => quarantineForSessionCheck\("identity"\)\)[\s\S]*?authEpochRef\.current \+= 1[\s\S]*?broadcastSessionChange/u
+    /beginAuthenticatedDocumentTransition[\s\S]*?flushSync\(\(\) => quarantineForSessionCheck\(\)\)[\s\S]*?authEpochRef\.current \+= 1[\s\S]*?broadcastSessionChange/u
   );
   assert.equal(
     provider.match(/beginAuthenticatedDocumentTransition\(session\)/gu)?.length,
@@ -179,7 +206,7 @@ test("authenticated root documents remain React-gated until authoritative mount 
   assert.doesNotMatch(layout, /preHydrationSessionGuardScript/u);
   assert.doesNotMatch(layout, /import Script from "next\/script"/u);
   assert.doesNotMatch(layout, /data-mais-prehydrate-privacy-cover/u);
-  assert.match(provider, /const initialSessionVerificationMode[\s\S]*initialBootstrap\.kind === "authenticated"[\s\S]*\? "identity"[\s\S]*: "none"/u);
+  assert.match(provider, /const initialSessionVerificationMode[\s\S]*initialBootstrap\.kind === "authenticated"[\s\S]*\? "initial"[\s\S]*: "none"/u);
   assert.match(provider, /const initialSessionVerificationPending = initialSessionVerificationMode !== "none"/u);
   assert.match(provider, /accountWorkBlockedRef = useRef\(initialSessionVerificationPending\)/u);
   assert.match(provider, /void revalidateSession\(mountedIdentity, true\)/u);

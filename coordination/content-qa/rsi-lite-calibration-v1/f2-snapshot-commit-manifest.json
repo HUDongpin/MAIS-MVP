@@ -1,0 +1,36 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "fixtureSha256": "8b69115670dadf5424aee704f6b0c3e38f10e1b3e074661b56553a272aee058d",
+  "complete": true,
+  "formalExecutionAuthorized": false,
+  "productionAuthorized": false,
+  "files": [
+    {
+      "path": "sacrificial-bundle.json",
+      "sha256": "c829d2ffe42d4990929dc90aad664a62db0a6581017805694d9c3f5ac80a8d82"
+    },
+    {
+      "path": "sacrificial-receipts/A.json",
+      "sha256": "eaed024848dfbec4b5c3bf65d204a53ded2d340e9eb4b222e14cfb2f83efd624"
+    },
+    {
+      "path": "sacrificial-receipts/B.json",
+      "sha256": "46fea6f87fb3f5caa37491e978be0a884e05a8347bdffa687f409e36c4b6be50"
+    },
+    {
+      "path": "sacrificial-receipts/C0.json",
+      "sha256": "b4db3e6e4f0de2efe7c2a47a2a5433ec7e370ed8ca7561c3519880ce051079ac"
+    },
+    {
+      "path": "sacrificial-receipts/C.json",
+      "sha256": "4bd6bc5dfbe75adcb2ed53facd7a2d99b4a0836cc11eabd1f9989cec8017f2c6"
+    },
+    {
+      "path": "f2-sacrificial-summary.json",
+      "sha256": "c81d308db74ec4b21b85bc9640db677b9d7e20115ff066730644685e04b0d67f"
+    }
+  ],
+  "manifestSha256": "6d5e16fc98c63699d1d44fb4258438984b1ef753282e84d2223b62c29b2f9287"
+}

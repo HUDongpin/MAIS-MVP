@@ -1,0 +1,28 @@
+{
+  "actor": "Root",
+  "scope": "frozen native CLI subset; does not execute history helper or assert skill workflow approval",
+  "results": [
+    {
+      "kind": "fresh",
+      "startedAt": "2026-09-06T18:03:27.333+00:00",
+      "durationSeconds": 24.85889562498778,
+      "exitCode": 0,
+      "result": "pass",
+      "valid": true,
+      "executionCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+      "semanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb"
+    },
+    {
+      "kind": "replay",
+      "startedAt": "2026-09-06T18:03:27.333+00:00",
+      "durationSeconds": 24.85897050006315,
+      "exitCode": 0,
+      "result": "pass",
+      "valid": true,
+      "executionCommit": "36e489e87473163115be53b75a87a51e1cbad79c",
+      "semanticReceiptDigest": "4e6be42fc5203688cea751f739c5b4da08731453b004c27f5cfd3008695252fb"
+    }
+  ],
+  "sourceCleanAfter": true,
+  "headUnchanged": true
+}

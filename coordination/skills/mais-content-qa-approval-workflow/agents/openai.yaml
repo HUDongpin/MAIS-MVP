@@ -1,0 +1,4 @@
+interface:
+  display_name: "MAIS Content QA Approval"
+  short_description: "A18 content correctness and integration-review decisions."
+  default_prompt: "Use $mais-content-qa-approval-workflow to make a bounded A18 content-quality decision for an exact MAIS candidate without claiming promotion, deployment, or live approval."

@@ -1,0 +1,24 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "scripts/promotion-runtime-topology-review.test.mjs",
+    "scripts/rebase-promotion-baseline.test.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 2.877,
+  "logPath": "/private/tmp/mais-s7-review/recheck-focused.log",
+  "rawSha256": "d1ddaf96e69818dc6ac4192eac592997d946d815f9cfa4bb9abe711e44d7fc6f",
+  "tail": [
+    "\u2714 topology mode is explicit, requires a committed review index, and never broadens historical modes (935.0405ms)",
+    "\u2714 native runtime byte binding rejects graph-preserving content, mode, and snapshot drift (8.14625ms)",
+    "\u2139 tests 51",
+    "\u2139 suites 0",
+    "\u2139 pass 50",
+    "\u2139 fail 0",
+    "\u2139 cancelled 0",
+    "\u2139 skipped 1",
+    "\u2139 todo 0",
+    "\u2139 duration_ms 2847.670417"
+  ]
+}

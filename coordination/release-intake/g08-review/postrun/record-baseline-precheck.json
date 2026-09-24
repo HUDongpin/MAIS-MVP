@@ -1,0 +1,1822 @@
+{
+  "schemaVersion": "mais-g08-bounded-record-and-baseline-precheck.v1",
+  "producedAt": "2026-09-06T17:33:07.045611+00:00",
+  "reviewer": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "scope": "Independent check of Root assembly and reader-precondition compatibility. This actor authored A11 baseline/source facts; this is not a new independent approval of those facts."
+  },
+  "result": "pass-for-MRI-and-baseline-reader-preconditions",
+  "commits": [
+    {
+      "commit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "parent": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+      "addedPaths": [
+        "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/promotion-shadow-receipt.v2.json",
+        "coordination/release-intake/g07-review/postrun/A11-proof.json",
+        "coordination/release-intake/g07-review/postrun/fresh-receipt.json",
+        "coordination/release-intake/g07-review/postrun/replay-receipt.json",
+        "coordination/release-intake/g07-review/postrun/verify-canonical.json",
+        "coordination/release-intake/g07-review/revision-disposition.json",
+        "coordination/release-intake/g08-review/baseline-review-a11.v2.json",
+        "coordination/release-intake/g08-review/baseline-review-a22.v2.json",
+        "coordination/release-intake/g08-review/baseline-review-a25.v2.json",
+        "coordination/release-intake/g08-review/facts/A23.json",
+        "coordination/release-intake/g08-review/facts/A25.json",
+        "coordination/release-intake/g08-review/justification.json"
+      ],
+      "count": 12,
+      "committerEpoch": 1788715517
+    },
+    {
+      "commit": "cc3b94de54f3f9ed0c0fbb741c0c04b6628fc1e9",
+      "parent": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "addedPaths": [
+        "coordination/release-intake/g08-review/records/A04.json",
+        "coordination/release-intake/g08-review/records/A05.json",
+        "coordination/release-intake/g08-review/records/A11.json",
+        "coordination/release-intake/g08-review/records/A18.json",
+        "coordination/release-intake/g08-review/records/A21.json",
+        "coordination/release-intake/g08-review/records/A22.json",
+        "coordination/release-intake/g08-review/records/A23.json",
+        "coordination/release-intake/g08-review/records/A24.json",
+        "coordination/release-intake/g08-review/records/A25.json"
+      ],
+      "count": 9,
+      "committerEpoch": 1788715596
+    },
+    {
+      "commit": "16bd42e8ba1be843394189ff60e22895688d220a",
+      "parent": "cc3b94de54f3f9ed0c0fbb741c0c04b6628fc1e9",
+      "addedPaths": [
+        "coordination/release-intake/g08-review/index.json"
+      ],
+      "count": 1,
+      "committerEpoch": 1788715596
+    }
+  ],
+  "indexRawSha256": "c449322e160a01823e9168cbc0dd641f1406afc0ac0f7306c532eaa5cb5df7b2",
+  "roleRecords": [
+    {
+      "role": "A21",
+      "recordRawSha256": "c3d26ebe9ef765397d6615c2d9d6112e35d6f975c495c841a5e739061721074f",
+      "reviewedAt": "2026-09-06T15:54:00.666Z",
+      "oldReviewedAt": "2026-09-06T15:54:00.666Z",
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "counts": {
+        "fresh": 1,
+        "carry-forward": 7
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A18",
+      "recordRawSha256": "aee9b0021ab9abcf4b1479057b4631ddcd2171ceefecbc5b54ad885a57d8776a",
+      "reviewedAt": "2026-09-06T15:54:00.666Z",
+      "oldReviewedAt": "2026-09-06T15:54:00.666Z",
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "counts": {
+        "fresh": 2,
+        "carry-forward": 11
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A23",
+      "recordRawSha256": "ae56b309b7388a96e6e2eb1d9a0fcdfcebb206f5f7a037578ed0151ce79bb643",
+      "reviewedAt": "2026-09-06T17:23:13.630Z",
+      "oldReviewedAt": "2026-09-06T16:44:43.861Z",
+      "actor": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+      "counts": {
+        "fresh": 13,
+        "carry-forward": 0
+      },
+      "sameBaselineNewEnvelopeOnly": false,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A04",
+      "recordRawSha256": "7597c6de8859e0406ff43d59e280198f2c79ef786dcbed28a983596f39732ab1",
+      "reviewedAt": "2026-09-06T15:54:00.666Z",
+      "oldReviewedAt": "2026-09-06T15:54:00.666Z",
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "counts": {
+        "fresh": 1,
+        "carry-forward": 18
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A05",
+      "recordRawSha256": "5169faee0f9953ea6c516adca682fd7fb2b42a3791dbebd2fd6e0d6f390e3c13",
+      "reviewedAt": "2026-09-06T15:54:00.666Z",
+      "oldReviewedAt": "2026-09-06T15:54:00.666Z",
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "counts": {
+        "fresh": 1,
+        "carry-forward": 16
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A11",
+      "recordRawSha256": "5f65ea5beef803bccecd2edc2f83f031486926308802e39db7ef3af4eebefe7f",
+      "reviewedAt": "2026-09-06T16:48:18.067Z",
+      "oldReviewedAt": "2026-09-06T16:48:18.067Z",
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "counts": {
+        "fresh": 7,
+        "carry-forward": 0
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A22",
+      "recordRawSha256": "7369d49ed4c4baa02c7085fb5f42629b5fa4d39f030725a7f57d930968147230",
+      "reviewedAt": "2026-09-06T14:06:50.609Z",
+      "oldReviewedAt": "2026-09-06T14:06:50.609Z",
+      "actor": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+      "counts": {
+        "fresh": 14,
+        "carry-forward": 0
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A24",
+      "recordRawSha256": "3f70da3d20ad1fcec70d7d514a2cdc68aaf054addb8a502e66e2ef376f00f081",
+      "reviewedAt": "2026-09-06T15:54:00.666Z",
+      "oldReviewedAt": "2026-09-06T15:54:00.666Z",
+      "actor": "/root/s5_quality_review/s7_binding_contract",
+      "counts": {
+        "fresh": 1,
+        "carry-forward": 9
+      },
+      "sameBaselineNewEnvelopeOnly": true,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    },
+    {
+      "role": "A25",
+      "recordRawSha256": "6fe564d7b135152fe585cc2916e28582ece3cd980cf8411dd4968b1cff5281bb",
+      "reviewedAt": "2026-09-06T17:23:13.630Z",
+      "oldReviewedAt": "2026-09-06T16:44:43.861Z",
+      "actor": "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78",
+      "counts": {
+        "fresh": 16,
+        "carry-forward": 0
+      },
+      "sameBaselineNewEnvelopeOnly": false,
+      "correctionReviewPreservesOriginalExecutionFields": true
+    }
+  ],
+  "fieldPointerCount": 117,
+  "carryForwardFieldCount": 61,
+  "freshFieldCount": 56,
+  "fields": [
+    {
+      "role": "A21",
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "32e8e16e15d83938726bcbec3f990235ada8f9d6eaf12d0c6ca730e900652fba",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "candidatePackage",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/candidatePackage",
+      "valueCanonicalSha256": "f775dc1b1e8a04f0865dd9998499b0aa4f72198ec72ff49630101db2fb8c8556",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "artifacts",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/artifacts",
+      "valueCanonicalSha256": "1d67f497e8ee1e4ac86cab05f3615738b3eca68cdab88c1ec0d2732c41b59f16",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "aggregateCandidateDigest",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/aggregateCandidateDigest",
+      "valueCanonicalSha256": "ee26eb44ea0a76209b4b5f7e2d0066a976c9dc767ad5d50b6bf19dee55b31f1f",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "sourceRecordPolicy",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/sourceRecordPolicy",
+      "valueCanonicalSha256": "88e91fe6593fe1ef689446092f5e3dc31ad90bef9b6cbccfeba8b8f84288cdd4",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "localizationBoundary",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/localizationBoundary",
+      "valueCanonicalSha256": "bca009b1bb923f1a3677c5db7abbafc202c4e11e6951f30c894f4fe7054b5411",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+      "sourceRawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A21",
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A21.json",
+      "sourceRawSha256": "a5db44721fe5058b8127e0f712c190ad3f63f28872d05500ed04de7596086a50",
+      "producedAt": "2026-09-06T15:54:00.666Z",
+      "valuePointer": "/semanticPayload/baselineContentReview",
+      "valueCanonicalSha256": "7f01e1f9344a5ed8fe5bf982ecba5a06816066d38f3e0b28cb73504c4629ff37",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "452d206bbe268f85f3ce07ac1e1f34c9525b5c6553b6dc4c19f097f4bcad4137",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "decisions",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/decisions",
+      "valueCanonicalSha256": "532c97e1323f008495fc128889c660d26447460616051c54ce5214b2f871e827",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "independentMath",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/independentMath",
+      "valueCanonicalSha256": "e6ff7175ab12b8cc010bb6ffe907def7f59bbd1f470136d178d3f23b3d00ae7a",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "standards",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/standards",
+      "valueCanonicalSha256": "ea5731acb4e9f56597253fad13a5b0dac5adaf8fc55adbd6d38fb58eb7f5508a",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "practiceReview",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/practiceReview",
+      "valueCanonicalSha256": "a9979493b7d99ae25e0b3ae99b98a9f9e6dcdc45ed7afdf9b0885245f08aa349",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "lessonReview",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/lessonReview",
+      "valueCanonicalSha256": "2b237b8006d4586c871208425086bec181d3e0b58ae0980db12a9955ff2ee86e",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "localizationBoundary",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/localizationBoundary",
+      "valueCanonicalSha256": "da462fb1b8704ee2fe62994252d9959c753eb8db66e458f08b2e5652ece92e99",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "checkerGapReviewed",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/checkerGapReviewed",
+      "valueCanonicalSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "shadowEligible",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/shadowEligible",
+      "valueCanonicalSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "liveEligible",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+      "sourceRawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/liveEligible",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A18.json",
+      "sourceRawSha256": "579328bd3e085ad6a0a784d718fc47dbc67f68ad5d4984517c2e715d43bfee08",
+      "producedAt": "2026-09-06T15:54:00.666Z",
+      "valuePointer": "/semanticPayload/baselineContentReview",
+      "valueCanonicalSha256": "e3ef4a093202ba0b04dafa1c4cd1178dc4aef2614d57d3a7db4b3a66b57b69bd",
+      "matches": true
+    },
+    {
+      "role": "A18",
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A18.json",
+      "sourceRawSha256": "579328bd3e085ad6a0a784d718fc47dbc67f68ad5d4984517c2e715d43bfee08",
+      "producedAt": "2026-09-06T15:54:00.666Z",
+      "valuePointer": "/authority/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "contractVersion",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "45231e35285a4fef3f5cf8c0c1cfc899b2ec7f8e699a37fc064e9a847212ef31",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "currentState",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/currentState",
+      "valueCanonicalSha256": "845e3c4f95ef6f4c3e0991900f3622721030b18e83a34c085b7bec594415fd5b",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "authorizedState",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/authorizedState",
+      "valueCanonicalSha256": "3e5fa3b81700497453474815752522f636aa17228f6f4d42ce04699becc231f0",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "targetBaselineCommit",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/targetBaselineCommit",
+      "valueCanonicalSha256": "5d212cbbd56046206c9f97ee4cb14dbaac91ecb6ddc13fb29b662944d47be40a",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "legacyResolutionRegistryPath",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/legacyResolutionRegistryPath",
+      "valueCanonicalSha256": "535c031fc3b778e60035e309759b25dff60e8e5237888551b2e6f7cb713d284c",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "legacyResolutionRegistryRawSha256",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/legacyResolutionRegistryRawSha256",
+      "valueCanonicalSha256": "7f9c56a820e494a9ec12b9b9b2657f5e4b700f69449672b793724ea3a8a3ec36",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "runtimePolicyDigest",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/runtimePolicyDigest",
+      "valueCanonicalSha256": "dcf047eeb9d8f05b9387909e36235c7b8a609a01779533e32fae7890ae902741",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "canonicalLegacyAuditDigest",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/canonicalLegacyAuditDigest",
+      "valueCanonicalSha256": "d8914dc4382b297053b1e5d56b660d70f3dcfe06b43f49bdaba3f2744b689170",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "baselineReview",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/baselineReview",
+      "valueCanonicalSha256": "854a271d215b97123869bbeacf43ac0d5c1384581335eb39e39524ae464505f4",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "runtimeBaselineDiff",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/runtimeBaselineDiff",
+      "valueCanonicalSha256": "ebf2563a310dd5c687007befc21f2579214de131184e38d59cba770cee70346b",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "readinessLimitations",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/readinessLimitations",
+      "valueCanonicalSha256": "168ee4d26b0405afb1bc83ac3a23b46f802f2d4d6e32f2d52a0ec5250607954a",
+      "matches": true
+    },
+    {
+      "role": "A23",
+      "field": "revisionCorrectionReview",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A23.json",
+      "sourceRawSha256": "a324e1dc75ba553fefb13a13e87c59eddbc1782cdea2d6f6015c0e393f4dd67c",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/revisionCorrectionReview",
+      "valueCanonicalSha256": "de942fbf2147595406cda9025857c56a0a9338f1ec1749e8af1db44c74d696ac",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "8e763715615dc5d3198ff474a14b6af6bdbb37e951ba2a01db16c713e1c990e2",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "practiceId",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/practiceId",
+      "valueCanonicalSha256": "5a7ee398597a693777c9d3eb103bcb48df7c5a6ac9950163bd94e129b74e9f03",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "recordPath",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/recordPath",
+      "valueCanonicalSha256": "5c7eafd541e4b6a5774dce586f0c1e3de5dc2d8a6e30ae1b35b13a7a239decb9",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "recordSha256",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/recordSha256",
+      "valueCanonicalSha256": "c96f908be3cf18f36fb4b85fd28f68dc92cca22148b806b9d0ac90cb67c767ba",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "outputContract",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/outputContract",
+      "valueCanonicalSha256": "e1bb27af407732a9f74d6ff0dbd1bcdf6ad6ecba7fee2a96dd1b1cc144d109f3",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "numericOracle",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/numericOracle",
+      "valueCanonicalSha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "acceptedAnswers",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/acceptedAnswers",
+      "valueCanonicalSha256": "78fda1fb5fbf67a8dad0bcf654558ba0d860dbd3eeca76f1ad1ee094f9082a4a",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "acceptedAnswerPolicy",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/acceptedAnswerPolicy",
+      "valueCanonicalSha256": "af344b308d86f0bc216c89dd95197a9efb93d7c6205a8df695ea1eae9cd6f976",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "requiredReasoning",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/requiredReasoning",
+      "valueCanonicalSha256": "22dd4de98873272d7981578b0d7a1d0a055defcc458b2bcfadd61295f7916923",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "primaryStandardId",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/primaryStandardId",
+      "valueCanonicalSha256": "3fc3ce90c00b321331b603c77e42f444e41083b0684d04bbf130dfb01fd7847a",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "prerequisiteStandardIds",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/prerequisiteStandardIds",
+      "valueCanonicalSha256": "ff584ba2617c39038b69686f9b3b7fb7db3223c4c9cf2c4a6715f097d99e0c8d",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "clusterMapping",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/clusterMapping",
+      "valueCanonicalSha256": "8b86f529792b0bd6798eb5289e94d5d99ed8ea3bfe43760b423e18cfef289c23",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "compatibilityMetadata",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/compatibilityMetadata",
+      "valueCanonicalSha256": "3e02c16346b0047a8a07c544f06256b218d8f40d41c3b9cc38cf3e28222278d4",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "localization",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/localization",
+      "valueCanonicalSha256": "bca009b1bb923f1a3677c5db7abbafc202c4e11e6951f30c894f4fe7054b5411",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "defaultsForbidden",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/defaultsForbidden",
+      "valueCanonicalSha256": "b6292aaddfa56e0b8638c9f41e3215687a51eabf7d9f5109628b572f2b39923c",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "futureBoundary",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/futureBoundary",
+      "valueCanonicalSha256": "5c59637e822fa4bc22ea8518a44bbe9994527b9e8ffd4a898782b6fdd4d30a08",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+      "sourceRawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A04",
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A04.json",
+      "sourceRawSha256": "58c3c3b66320bf6d020bebec4961350573e341bfb23cf6b940064175aa366774",
+      "producedAt": "2026-09-06T15:54:00.666Z",
+      "valuePointer": "/semanticPayload/baselineContentReview",
+      "valueCanonicalSha256": "a1077ed0a068f4faddd787026b1a308b7c02f1d4f491513460aa2bd63dcb2a24",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "1ef9747a5146c9fd63ce8089ee4c2af7eb34b1eb6bed3e211d82e51e1799d495",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "lessonId",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/lessonId",
+      "valueCanonicalSha256": "401284ab9da6d29a3bf7756eafffe8357ba2f2e089b016183c57c9f34d953d3f",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "recordPath",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/recordPath",
+      "valueCanonicalSha256": "b9f4047b5ccce978b7e06757a0e91e7c2fd6c9c04c7643081242018306a3ced5",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "recordSha256",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/recordSha256",
+      "valueCanonicalSha256": "33c5db81add6f6fd322eba15315447e59d7dd0901f0113677bd55144e5cace30",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "outputContract",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/outputContract",
+      "valueCanonicalSha256": "c05c39a83b7c399a1904e9b125d956ed69382f32ccc03554caeabfe1cffb3673",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "instructionalSpine",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/instructionalSpine",
+      "valueCanonicalSha256": "84fd866266732bf803f92ca05f0bf2a4f348538c8599bab7219433826f539a80",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "compatibilityPreservation",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/compatibilityPreservation",
+      "valueCanonicalSha256": "184baf9126af22887959fae29d442937070c4dc976910a61c5a0958cb8876f0e",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "workedExampleBinding",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/workedExampleBinding",
+      "valueCanonicalSha256": "d1963d00ea1ddf7a49c8bb318d51c73823a277e21f394cc7b808f0f6c80cae56",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "practiceChecks",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/practiceChecks",
+      "valueCanonicalSha256": "48f6d95fc4a1401ff2e96c6b8538fdc29afff5070fd9cba28961c98d6ae61857",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "remediationTargets",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/remediationTargets",
+      "valueCanonicalSha256": "252f42ced3ac93d2020217f1822dd389680d98e95abb702fee7508e7be6967da",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "standards",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/standards",
+      "valueCanonicalSha256": "2c6d87d3b24d0b0405c61e293a6a0d47e307205f081cb6ed2b3a1c544b0be204",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "localization",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/localization",
+      "valueCanonicalSha256": "218bb765348db1262ee207c79ff5b0421e86cae4a50feb7944e0718fb70062d0",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "defaultsForbidden",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/defaultsForbidden",
+      "valueCanonicalSha256": "ed8b441bb7428d838d2e72e696883fefa389b73785fa64e76a2e126af712727e",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "futureBoundary",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/futureBoundary",
+      "valueCanonicalSha256": "5c59637e822fa4bc22ea8518a44bbe9994527b9e8ffd4a898782b6fdd4d30a08",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+      "sourceRawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A05",
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A05.json",
+      "sourceRawSha256": "fdd3f72b900231707b537ce7810b1c189e00b5563013a597ee255aaf5f4e9df1",
+      "producedAt": "2026-09-06T15:54:00.666Z",
+      "valuePointer": "/semanticPayload/baselineContentReview",
+      "valueCanonicalSha256": "9584f582f2cc3e8a4d87299d5fda5a6213905af944cf8d76c2f6cdcd5085daf3",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "contractVersion",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "f3009c223662d30438cef658b46c9017abd84752e4488b4aa7b9a9e6dcc610b3",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "independentReplayRequired",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/independentReplayRequired",
+      "valueCanonicalSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "reviewScope",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/reviewScope",
+      "valueCanonicalSha256": "d2930be83bf52a0c4eb00c78878f9731e67d552441cbacf1f08a36573d03f461",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "independentChecks",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/independentChecks",
+      "valueCanonicalSha256": "b9b6cc40804343fc11b12ea38b650037c23840230dcb5c09406ed22e3707693b",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "baselineReview",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/baselineReview",
+      "valueCanonicalSha256": "58f5fe0f7a6ae239cc33b5fd5688b0dccec4579494ed5fe6b7237e4ec05a7b71",
+      "matches": true
+    },
+    {
+      "role": "A11",
+      "field": "notPerformed",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A11.json",
+      "sourceRawSha256": "d9ec393b43c0de4c80fc6e6d3ad73c8447483b983ffe8b2999ee55077912263a",
+      "producedAt": "2026-09-06T16:48:18.067Z",
+      "valuePointer": "/semanticPayload/notPerformed",
+      "valueCanonicalSha256": "950acea14ff4c857afe85e931a42c7f6594b77a9e2287322fccd47368b351538",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "contractVersion",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "34ba0f1b2fa2d1cfca58ac5e95185b55419733073ae2942f7387d1398e461ed7",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "reviewedCompositionCommit",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/reviewedCompositionCommit",
+      "valueCanonicalSha256": "5d212cbbd56046206c9f97ee4cb14dbaac91ecb6ddc13fb29b662944d47be40a",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "targetBaselineCommit",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/targetBaselineCommit",
+      "valueCanonicalSha256": "5d212cbbd56046206c9f97ee4cb14dbaac91ecb6ddc13fb29b662944d47be40a",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "mergedOriginMainCommit",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/mergedOriginMainCommit",
+      "valueCanonicalSha256": "5d212cbbd56046206c9f97ee4cb14dbaac91ecb6ddc13fb29b662944d47be40a",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "cleanWorktreeRequired",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/cleanWorktreeRequired",
+      "valueCanonicalSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "externalSideEffectsAllowed",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/externalSideEffectsAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "dependencyState",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/dependencyState",
+      "valueCanonicalSha256": "874bbf5320d3689a8865d87d413fc7223680da01ef2a97fe93389ce9ec7bc808",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "productionBuild",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/productionBuild",
+      "valueCanonicalSha256": "57309c96207d236407182c06c4233c440b796ab79585225fa9af5bcd234c0239",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "buildIsolationProof",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/buildIsolationProof",
+      "valueCanonicalSha256": "23d5e14d61d283904b266f052c76214572c14984f3a9bcc625e5ab28c3d834dc",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "externalSideEffects",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/externalSideEffects",
+      "valueCanonicalSha256": "3083e4f9460c4b4a337ea73605c3e7f594dcf064ace3492ad8e8ebb58ffc493f",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "worktreeCleanAfterChecks",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/worktreeCleanAfterChecks",
+      "valueCanonicalSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "postRunOwner",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/postRunOwner",
+      "valueCanonicalSha256": "b5d46b37d522ce79c7b30318c883f3c267809401f79ea3b53509df81ea24b39a",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A22",
+      "field": "scopeLimitations",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A22.json",
+      "sourceRawSha256": "dfb35b8a32bdf9e118be4b5cb8ccc477ad5c2b688c9ac8b83124bff4193998a8",
+      "producedAt": "2026-09-06T14:06:50.609Z",
+      "valuePointer": "/semanticPayload/scopeLimitations",
+      "valueCanonicalSha256": "6b090e312c4563743530290a56f346b64b39e86f3c242f4e021886fea0de8828",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "92f3e2edd4b3df11dc8587bba392a41a75f252a5c9531c9f24ca28e117f640f1",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "exactLayerDisposition",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/exactLayerDisposition",
+      "valueCanonicalSha256": "b8d1e657c2cccabe25a73888dc5e410c69b441ed0ba26a2b2766f7b4f0d2b197",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "scannedRecordIds",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/scannedRecordIds",
+      "valueCanonicalSha256": "b584eaffac313ce1f33064b9ad88454ff967655e2b437b221e18cba440ef8a1c",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "prohibitedFieldFamilies",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/prohibitedFieldFamilies",
+      "valueCanonicalSha256": "7592b1adb56a58f1d4f5bf7f95dab9edc9b27206d54a4950ef81019f37b68a58",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "matchingFieldPaths",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/matchingFieldPaths",
+      "valueCanonicalSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "rationale",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/rationale",
+      "valueCanonicalSha256": "2744284f251a14395a7a9d41bd71b89b08aa11c17d7c24aea21ab0cc45518e57",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "futureChangeInvalidatesEvidence",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/futureChangeInvalidatesEvidence",
+      "valueCanonicalSha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "sourceCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+      "sourcePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+      "sourceRawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+      "producedAt": "2026-08-26T13:06:52+08:00",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A24",
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "sourceCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "sourcePath": "coordination/release-intake/g07-review/facts/A24.json",
+      "sourceRawSha256": "8f4401d290b8169dab4b7183ae2c08352f6cfb9e9781aec2a39f1ce1012a563d",
+      "producedAt": "2026-09-06T15:54:00.666Z",
+      "valuePointer": "/semanticPayload/baselineContentReview",
+      "valueCanonicalSha256": "6d87feb46f21f575676c2a34f3de7d4fe644aafa7a7a3aa14c2852f94f938535",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "contractVersion",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "valueCanonicalSha256": "26973ab30bed0e4d98cc28ca467d578f0a56912fa884b2dc9e117ffe6307d922",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "finalDisposition",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/finalDisposition",
+      "valueCanonicalSha256": "e41890b36c33a9f3c5bad0691fc0e373b523bdbc4713ed45a51d5e7bdcc096f8",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "reviewedCompositionCommit",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/reviewedCompositionCommit",
+      "valueCanonicalSha256": "1496c6fe5d019a75b7d60850003b671a274fc720f146145c0c67651a1e6bcfdb",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "reviewedBranch",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/reviewedBranch",
+      "valueCanonicalSha256": "3210dacafba97e55f7b391d9c210672742e56929b5e496443047accb16c6bc8b",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "targetPullRequest",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/targetPullRequest",
+      "valueCanonicalSha256": "0f78dc48c9a872a34bcb759a41edbc5246377f418a97bc3408d0663ba1ba2e8b",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "reviewSession",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/reviewSession",
+      "valueCanonicalSha256": "b2335dd7db19f154f0256b8a7e858eba5d8b058144b05ae7f534ae01c050dd41",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "baselineReview",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/baselineReview",
+      "valueCanonicalSha256": "8a232559f9dc0d70b4bd969e84007226adee0aed3bdf194cb657ad45d542f417",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "targetBaselineCommit",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/targetBaselineCommit",
+      "valueCanonicalSha256": "5d212cbbd56046206c9f97ee4cb14dbaac91ecb6ddc13fb29b662944d47be40a",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "legacyResolutionRegistryPath",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/legacyResolutionRegistryPath",
+      "valueCanonicalSha256": "535c031fc3b778e60035e309759b25dff60e8e5237888551b2e6f7cb713d284c",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "legacyResolutionRegistryRawSha256",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/legacyResolutionRegistryRawSha256",
+      "valueCanonicalSha256": "7f9c56a820e494a9ec12b9b9b2657f5e4b700f69449672b793724ea3a8a3ec36",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "registryIntake",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/registryIntake",
+      "valueCanonicalSha256": "f80c14110078ddaa81b927d87b60d2537d3b5c8315afd769acf5c63a5c5f1560",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "recoveryProof",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/recoveryProof",
+      "valueCanonicalSha256": "51d760e262b16de6db6eb8a5a07468761f73fe378a12e3d9a7e89dd1fe71dd62",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "topologySnapshot",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/topologySnapshot",
+      "valueCanonicalSha256": "2989b1a94f91cbdadc6faf08d1d793e62f7d9b768415997323f5ea22d6e7a1ac",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "remainingConditions",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/remainingConditions",
+      "valueCanonicalSha256": "1360755e572293b0e7badaa7c6c24c0483666d8c7373b088414566637c7e774c",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "valueCanonicalSha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "matches": true
+    },
+    {
+      "role": "A25",
+      "field": "revisionCorrectionReview",
+      "mode": "fresh",
+      "sourceCommit": "7a0b4b0c4715ee294e8afb2dd2079a3fa83d09f0",
+      "sourcePath": "coordination/release-intake/g08-review/facts/A25.json",
+      "sourceRawSha256": "e097466a4fab43c418bbac4c189f4305da3aabe82fc6348bec644731c3621838",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "valuePointer": "/semanticPayload/revisionCorrectionReview",
+      "valueCanonicalSha256": "7103dad95fd4bcf7ab22538d11baec16eac951b479782ce8f692922c78cacabe",
+      "matches": true
+    }
+  ],
+  "baselineEvidence": [
+    {
+      "role": "A11",
+      "path": "coordination/release-intake/g08-review/baseline-review-a11.v2.json",
+      "rawSha256": "6a87cc2087bab87a2f68fa77befd14ace5fc75b1506c94a923a2f3e4ac3b18f0",
+      "producedAt": "2026-09-06T17:21:54.129Z",
+      "readerTopLevelPredicateMatches": true,
+      "inMaterialCommitAndUnchangedAtIndex": true,
+      "alreadyAncestorOfIndex": true,
+      "futureEvidenceBindingStillRequired": true
+    },
+    {
+      "role": "A22",
+      "path": "coordination/release-intake/g08-review/baseline-review-a22.v2.json",
+      "rawSha256": "f71abb9461711d920f3bd9ebddc51f3ed661d9011fc8b9c20e8c7fbec3114557",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "readerTopLevelPredicateMatches": true,
+      "inMaterialCommitAndUnchangedAtIndex": true,
+      "alreadyAncestorOfIndex": true,
+      "futureEvidenceBindingStillRequired": true
+    },
+    {
+      "role": "A25",
+      "path": "coordination/release-intake/g08-review/baseline-review-a25.v2.json",
+      "rawSha256": "d749df5af22aa36f68b3a7f446daca6e47e1c74329839605464b70a9f2b8a547",
+      "producedAt": "2026-09-06T17:23:13.630Z",
+      "readerTopLevelPredicateMatches": true,
+      "inMaterialCommitAndUnchangedAtIndex": true,
+      "alreadyAncestorOfIndex": true,
+      "futureEvidenceBindingStillRequired": true
+    }
+  ],
+  "actualChangedPathCount": 178,
+  "changedPathsDigest": "e7b9ddeb12d73bc48e7ff34c9e2bb0e9919e939841fdf997ada65db47c31c075",
+  "actors": {
+    "/root/s5_quality_review/s7_binding_contract": [
+      "A21",
+      "A18",
+      "A04",
+      "A05",
+      "A11",
+      "A24"
+    ],
+    "Codex root / 01a075a1-07c9-7620-ac2c-2f1e9d330b78": [
+      "A23",
+      "A22",
+      "A25"
+    ]
+  },
+  "g07Disposition": {
+    "schemaVersion": "mais-baseline-revision-disposition.v1",
+    "producedAt": "2026-09-06T17:23:13.630Z",
+    "revision": "g07",
+    "state": "repair_required",
+    "selectedForWorkflow": false,
+    "reason": "Descriptor baselineDelta.reviewEvidence points to valid nested role records rather than the top-level baseline-review projection required by the existing handoff reader. Native v2.6 checks and actual replay receipts pass, but full handoff relation currentness is not established.",
+    "replacementRevision": "g08",
+    "candidateSourceBaselineCheckerChanged": false,
+    "frozenBindingCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+    "canonicalReceiptRawSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886",
+    "historicalNativeResultsPreserved": true,
+    "historicalArtifactsOverwritten": false,
+    "liveAllowed": false
+  },
+  "g07Archives": [
+    {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g07/promotion-shadow-receipt.v2.json",
+      "rawSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886",
+      "originalSource": "S7-canonical-receipt.json",
+      "bytesIdentical": true
+    },
+    {
+      "path": "coordination/release-intake/g07-review/postrun/fresh-receipt.json",
+      "rawSha256": "9af355b0550b2a240735a558e4dea83d6790c16bb88c00d04e6322402c292488",
+      "originalSource": "S7-fresh-receipt.json",
+      "bytesIdentical": true
+    },
+    {
+      "path": "coordination/release-intake/g07-review/postrun/replay-receipt.json",
+      "rawSha256": "ac127157e5f3a54c00bc521987ec6655e4c85f93c5df064b838e24015bda1456",
+      "originalSource": "S7-replay-receipt.json",
+      "bytesIdentical": true
+    },
+    {
+      "path": "coordination/release-intake/g07-review/postrun/verify-canonical.json",
+      "rawSha256": "458020fffec981b5ff7ab7b286a47a4895efa9e5092101389fbaee707f4e7fe5",
+      "originalSource": "S7-independent-verify-canonical.json",
+      "bytesIdentical": true
+    },
+    {
+      "path": "coordination/release-intake/g07-review/postrun/A11-proof.json",
+      "rawSha256": "1ade496704815c80128f3a9b938e96bf918e7029bb1e29ac252af62277a20039",
+      "originalSource": "S7-A11-postrun-proof.json",
+      "bytesIdentical": true
+    }
+  ],
+  "frozenCodeAndProtected": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "rawSha256": "55d055c8106211d22a81ed629633545e054ecfb533d4d1de53a3aafebff4401f",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/reports/2026-09-06-A23-reviewed-runtime-topology-contract.md",
+      "rawSha256": "662a17a9afe48a2d4e758f2b5b9e8eda5594a9ea3bb5cb438a044f2256ee17a6",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-reaffirmation-history.mjs",
+      "rawSha256": "dd06d88142e63f3f968fa5893c2deb7152ba03a19f715d312f3c7e9d9b3cc368",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-reaffirmation-history.test.mjs",
+      "rawSha256": "19cf9ca628cbb240bd0013513339593b67d8129d664efb943d3f79d2318b7a13",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-shadow-workflow-v2.test.mjs",
+      "rawSha256": "fa370696fabc2726863875014e0c38acdfb1dadfaab0244bdeb2f97951c1a157",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/promotion-gate-lib.mjs",
+      "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+      "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+      "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+      "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+      "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+      "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+      "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+      "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/rebase-promotion-baseline.mjs",
+      "rawSha256": "ee1f45e6849043fac0344d8e2994cecdb9fac936aeb3bcd0c60e71390beb8fb3",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/rebase-promotion-baseline.test.mjs",
+      "rawSha256": "a080fd7490fb5eedb125baec3f582a92cb6c64861fd9dc51424dc64dec318649",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-runtime-topology-review.mjs",
+      "rawSha256": "e3683ca84b81d2e5a45d42b0d945ca79338408ff628fadae3b8969590fe1e347",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-runtime-topology-review.test.mjs",
+      "rawSha256": "ff617fd8bc7901b6adcffa5697df34c3527c26fde21e2ae1b0e8e50fc5249b5a",
+      "unchanged": true
+    },
+    {
+      "path": "coordination/integration/checker-releases.v2.json",
+      "rawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-required-check-semantic-rescope.mjs",
+      "rawSha256": "070fd8d491369e01361e19d7a392ab4b036a1b32a789a682e2c3049bb1dd2f81",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/promotion-required-check-semantic-rescope-cli.mjs",
+      "rawSha256": "9f3c56f59f29858485bf85751b857ce26188439648c2a6a8ef9fde91c3c23e8b",
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "rawSha256": "90d22201a74877a31491661e0281d68fcc59d1aa6a27f77ab1b731bef271f990",
+      "unchanged": true
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "rawSha256": "edeee337bc152f39d4772fc1157b6be471104237f4b91483feea6a45df0c13f7",
+      "unchanged": true
+    }
+  ],
+  "headBefore": "16bd42e8ba1be843394189ff60e22895688d220a",
+  "headAfter": "16bd42e8ba1be843394189ff60e22895688d220a",
+  "statusBefore": "?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a04-practice-semantics.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a05-lesson-semantics.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a11-independent-preflight.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a18-independent-qa.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a21-candidate-generation.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a22-build-isolation.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a23-shadow-readiness.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a24-exact-layer.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a25-release-intake.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/legacy-resolution-registry.v2.6.json\n",
+  "statusAfter": "?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a04-practice-semantics.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a05-lesson-semantics.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a11-independent-preflight.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a18-independent-qa.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a21-candidate-generation.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a22-build-isolation.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a23-shadow-readiness.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a24-exact-layer.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a25-release-intake.v2.6.json\n?? coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/legacy-resolution-registry.v2.6.json\n",
+  "concurrencyBoundary": "Root-generated new g08 evidence output is authorized parallel work. All 22 committed M2/R2/I2 added files and frozen code hashes match fixed I2; no clean-worktree claim.",
+  "orderingBoundary": {
+    "materialToRecordToIndexDirectParentsVerified": true,
+    "threeBaselineArtifactsAlreadyCommittedAtM2": true,
+    "unchangedAndPresentAtI2": true,
+    "futureEvidenceCommit": null,
+    "futureBindingExecutionCommit": null,
+    "actualDescriptorReferenceArrayNotYetCreated": true,
+    "finalProtocolAcceptanceNotClaimed": true
+  },
+  "blockingFindings": [],
+  "limits": [
+    "No source/record/Git mutation, large tests, native collector or g08 Shadow executed by this review.",
+    "A23/A25 new review dates apply to same-baseline sibling-path correction; earlier execution values and dates remain byte-equal except the explicit revision path and added correction review.",
+    "Seven other roles keep original factual dates/payloads/field pins and receive only new envelope identities, not new execution claims.",
+    "Three top-level baseline evidence files match existing reader predicates and are committed before the prospective evidence/binding steps. The actual E2/B2 descriptor reference array, exact E2 bytes and binding order must still be checked once created.",
+    "G07 receipt custody is preserved but repair_required and unselected; no PRO3 active finalization/live claim."
+  ],
+  "reviewScript": {
+    "path": "/private/tmp/mais-s7-a11-publication/review-g08-composition.py",
+    "rawSha256": "dbe45dd590412a8d04b6c4d0ba9b7fc8a0e9f9215365f0bc62aeb0a3a15b1802",
+    "readOnlyHelperPath": "/private/tmp/mais-s7-a11-publication/review-composition.py",
+    "readOnlyHelperRawSha256": "ddd6526800e05c81a048d68581d75a7f6ecc33ed17acbd0e440d230cf0bf225b"
+  }
+}

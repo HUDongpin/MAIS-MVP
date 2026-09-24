@@ -1,0 +1,1578 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/machine-qa-evidence-v1.json",
+  "title": "MAIS RSI Machine-QA EvidenceEnvelopeV1",
+  "description": "Self-contained common EvidenceEnvelopeV1 plus provider-agnostic RSI machine-QA identity, review, proof-boundary, live-execution, and remediation evidence.",
+  "x-resolver-only-checks": [
+    "canonical digest recomputation and cross-object identity equality",
+    "top-level finding-count equality with bound active result bodies",
+    "C0 trigger assessment derivation, exact-five active receipt equality, and exact performed-role set",
+    "B-prime critique-to-revision predecessor equality",
+    "D-prime freshness and receipt-set disjointness",
+    "evidence-class/status/disposition/action/proof/review transition resolution",
+    "evidence hash closure, temporal currentness, repository cleanliness, and packet quarantine",
+    "canonical executable-code-manifest digest, exact static import closure, and HEAD/worktree readback"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "skill",
+    "mode",
+    "observedAt",
+    "repository",
+    "evidenceId",
+    "evidenceClass",
+    "sourceIdentity",
+    "resolvedState",
+    "authority",
+    "status",
+    "identity",
+    "activeReceiptManifest",
+    "currentness",
+    "authorization",
+    "deterministic",
+    "bPrime",
+    "c0Prime",
+    "machineDisposition",
+    "independentReviewState",
+    "proofBoundaries",
+    "checks",
+    "blockers",
+    "deviations",
+    "evidenceHashes",
+    "redaction",
+    "remediation",
+    "claimCeiling",
+    "nextAllowedAction"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0" },
+    "skill": { "type": "string", "const": "mais-rsi-machine-qa-workflow" },
+    "mode": { "type": "string", "enum": ["audit-read-only", "authorized-live-run"] },
+    "observedAt": { "$ref": "#/$defs/dateTime" },
+    "repository": { "$ref": "#/$defs/repository" },
+    "evidenceId": { "$ref": "#/$defs/evidenceId" },
+    "evidenceClass": {
+      "type": "string",
+      "enum": ["synthetic-calibration", "exact-package-machine-review"]
+    },
+    "sourceIdentity": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceIdentity" }
+    },
+    "resolvedState": {
+      "type": "string",
+      "enum": ["machine-evidence-complete", "blocked", "invalid"]
+    },
+    "authority": { "$ref": "#/$defs/authority" },
+    "status": { "type": "string", "enum": ["complete", "blocked", "invalid"] },
+    "identity": { "$ref": "#/$defs/identity" },
+    "activeReceiptManifest": { "$ref": "#/$defs/activeReceiptManifest" },
+    "currentness": { "$ref": "#/$defs/currentness" },
+    "authorization": { "$ref": "#/$defs/authorization" },
+    "executableCodeManifest": { "$ref": "#/$defs/executableCodeManifest" },
+    "liveExecution": { "$ref": "#/$defs/liveExecution" },
+    "deterministic": { "$ref": "#/$defs/deterministic" },
+    "bPrime": { "$ref": "#/$defs/bPrime" },
+    "c0Prime": { "$ref": "#/$defs/c0Prime" },
+    "machineDisposition": {
+      "type": "string",
+      "enum": ["candidate-only", "needs-repair", "blocked"]
+    },
+    "independentReviewState": { "$ref": "#/$defs/independentReviewState" },
+    "proofBoundaries": { "$ref": "#/$defs/proofBoundaries" },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/check" }
+    },
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/opaqueId" }
+    },
+    "deviations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/deviation" }
+    },
+    "evidenceHashes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sha256" }
+    },
+    "redaction": { "$ref": "#/$defs/redaction" },
+    "remediation": { "$ref": "#/$defs/remediation" },
+    "claimCeiling": { "type": "string", "const": "machine-evidence-only" },
+    "nextAllowedAction": {
+      "type": "string",
+      "enum": [
+        "handoff-to-a18",
+        "repair-candidate",
+        "record-calibration-result",
+        "revise-machine-qa-policy",
+        "supply-missing-evidence",
+        "renew-exact-authorization",
+        "revalidate-packet",
+        "stop-blocked"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "authorization": {
+            "properties": { "liveProviderUsed": { "const": true } },
+            "required": ["liveProviderUsed"]
+          }
+        },
+        "required": ["authorization"]
+      },
+      "then": {
+        "required": ["executableCodeManifest", "liveExecution"],
+        "properties": {
+          "repository": {
+            "properties": { "clean": { "const": true } },
+            "required": ["clean"]
+          }
+        }
+      },
+      "else": {
+        "allOf": [
+          { "not": { "required": ["executableCodeManifest"] } },
+          { "not": { "required": ["liveExecution"] } }
+        ]
+      }
+    },
+    {
+      "properties": {
+        "repository": {
+          "properties": {
+            "branch": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "#/$defs/rsiRepositoryBranch" }
+              ]
+            }
+          }
+        },
+        "sourceIdentity": {
+          "items": {
+            "properties": {
+              "logicalId": { "$ref": "#/$defs/rsiSourceLogicalId" }
+            }
+          }
+        },
+        "authority": {
+          "properties": {
+            "required": { "items": { "$ref": "#/$defs/authorityCode" } },
+            "proven": { "items": { "$ref": "#/$defs/authorityCode" } },
+            "missing": { "items": { "$ref": "#/$defs/authorityCode" } }
+          }
+        },
+        "checks": {
+          "items": {
+            "properties": {
+              "id": { "$ref": "#/$defs/checkCode" },
+              "evidenceRef": { "$ref": "#/$defs/rsiEvidenceRef" }
+            }
+          }
+        },
+        "blockers": { "items": { "$ref": "#/$defs/blockerCode" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "complete" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "resolvedState": { "const": "machine-evidence-complete" },
+          "proofBoundaries": {
+            "properties": {
+              "receipt": {
+                "properties": { "status": { "const": "passed" } },
+                "required": ["status"]
+              }
+            }
+          },
+          "independentReviewState": {
+            "properties": { "status": { "const": "passed" } },
+            "required": ["status"]
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "evidenceClass": { "const": "exact-package-machine-review" },
+              "machineDisposition": { "const": "candidate-only" },
+              "nextAllowedAction": { "const": "handoff-to-a18" }
+            }
+          },
+          {
+            "properties": {
+              "evidenceClass": { "const": "exact-package-machine-review" },
+              "machineDisposition": { "const": "needs-repair" },
+              "nextAllowedAction": { "const": "repair-candidate" }
+            }
+          },
+          {
+            "properties": {
+              "evidenceClass": { "const": "synthetic-calibration" },
+              "machineDisposition": { "const": "candidate-only" },
+              "nextAllowedAction": { "const": "record-calibration-result" }
+            }
+          },
+          {
+            "properties": {
+              "evidenceClass": { "const": "synthetic-calibration" },
+              "machineDisposition": { "const": "needs-repair" },
+              "nextAllowedAction": { "const": "revise-machine-qa-policy" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "blocked" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "resolvedState": { "const": "blocked" },
+          "machineDisposition": { "const": "blocked" },
+          "nextAllowedAction": {
+            "enum": [
+              "renew-exact-authorization",
+              "stop-blocked",
+              "supply-missing-evidence"
+            ]
+          },
+          "proofBoundaries": {
+            "properties": {
+              "receipt": {
+                "properties": {
+                  "status": { "enum": ["unverified", "failed", "not-applicable"] }
+                }
+              }
+            }
+          },
+          "independentReviewState": {
+            "properties": {
+              "status": { "enum": ["unverified", "failed", "blocked"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "invalid" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "resolvedState": { "const": "invalid" },
+          "machineDisposition": { "const": "blocked" },
+          "nextAllowedAction": { "enum": ["revalidate-packet", "stop-blocked"] },
+          "proofBoundaries": {
+            "properties": {
+              "receipt": {
+                "properties": {
+                  "status": { "enum": ["unverified", "failed", "not-applicable"] }
+                }
+              }
+            }
+          },
+          "independentReviewState": {
+            "properties": {
+              "status": { "enum": ["unverified", "failed", "blocked"] }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "opaqueId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "not": { "const": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }
+    },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "candidateId": { "type": "string", "pattern": "^candidate-[a-f0-9]{16}$" },
+    "evidenceId": { "type": "string", "pattern": "^evidence-[a-f0-9]{16}$" },
+    "authorizationId": { "type": "string", "pattern": "^authorization-[a-f0-9]{16}$" },
+    "runnerLogicalId": {
+      "type": "string",
+      "pattern": "^runner-[a-z0-9]{1,16}-[a-f0-9]{16}$"
+    },
+    "version": {
+      "type": "string",
+      "maxLength": 48,
+      "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[a-z0-9]+(?:\\.[a-z0-9]+)*)?$"
+    },
+    "protocolId": {
+      "type": "string",
+      "pattern": "^protocol-[a-z0-9]{1,16}-[a-f0-9]{16}$"
+    },
+    "providerId": {
+      "type": "string",
+      "pattern": "^provider-[a-z0-9]{1,16}-[a-f0-9]{16}$"
+    },
+    "modelId": {
+      "type": "string",
+      "pattern": "^model-[a-z0-9]{1,16}-[a-f0-9]{16}$"
+    },
+    "authorityCode": {
+      "type": "string",
+      "enum": ["OFFLINE_AUDIT_AUTHORITY", "LIVE_AUTHORIZATION_RECEIPT"]
+    },
+    "blockerCode": {
+      "type": "string",
+      "enum": [
+        "AUTHORITY_MISSING",
+        "CHECK_NOT_PASSED",
+        "C0_REVIEW_REQUIRED",
+        "MACHINE_DISPOSITION_BLOCKED",
+        "PACKET_NOT_COMPLETE",
+        "RECEIPT_PROOF_NOT_PASSED",
+        "UNRESOLVED_BLOCKERS",
+        "VALIDATION_FAILED"
+      ]
+    },
+    "checkCode": {
+      "type": "string",
+      "enum": ["IDENTITY_BOUND", "REVIEW_COMPLETE"]
+    },
+    "deviationCode": {
+      "type": "string",
+      "enum": ["DECLARED_DEVIATION", "STREAM_MODE_DEVIATION"]
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^(?:sha256:[a-f0-9]{64}|ref:[A-Z][A-Z0-9_]{2,63})$"
+    },
+    "rsiEvidenceRef": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "not": { "const": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }
+        },
+        {
+          "type": "string",
+          "enum": ["ref:IDENTITY_BOUND", "ref:REVIEW_COMPLETE"]
+        }
+      ]
+    },
+    "rsiRepositoryBranch": {
+      "type": "string",
+      "pattern": "^(?:main|master|(?:codex|feat|fix|chore|docs|release)/[a-z0-9]{1,24}-[a-f0-9]{8,16})$"
+    },
+    "rsiSourceLogicalId": {
+      "type": "string",
+      "pattern": "^source-[a-z0-9]{1,16}-[a-f0-9]{16}$"
+    },
+    "runnerPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?:[A-Za-z0-9._-]+/)+[A-Za-z0-9._-]+\\.(?:mjs|cjs|js|ts)$"
+    },
+    "executablePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$"
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["head", "branch", "clean"],
+      "properties": {
+        "head": { "type": ["string", "null"], "pattern": "^[a-f0-9]{40}$" },
+        "branch": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"
+        },
+        "clean": { "type": ["boolean", "null"] }
+      }
+    },
+    "sourceIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["logicalId"],
+      "properties": {
+        "logicalId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "proven", "missing"],
+      "properties": {
+        "required": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueId" } },
+        "proven": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueId" } },
+        "missing": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueId" } },
+        "expiresAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "candidateVersion",
+        "candidateSha256",
+        "manifestSha256",
+        "policyVersion",
+        "protocolId",
+        "protocolVersion",
+        "codeManifestSha256",
+        "taxonomyVersion",
+        "evidenceSchemaVersion",
+        "promptManifestSha256",
+        "projectionManifestSha256",
+        "c0TriggerAssessment"
+      ],
+      "properties": {
+        "candidateId": { "$ref": "#/$defs/candidateId" },
+        "candidateVersion": { "$ref": "#/$defs/version" },
+        "candidateSha256": { "$ref": "#/$defs/sha256" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "policyVersion": { "$ref": "#/$defs/version" },
+        "protocolId": { "$ref": "#/$defs/protocolId" },
+        "protocolVersion": { "$ref": "#/$defs/version" },
+        "codeManifestSha256": { "$ref": "#/$defs/sha256" },
+        "taxonomyVersion": { "$ref": "#/$defs/version" },
+        "evidenceSchemaVersion": { "$ref": "#/$defs/version" },
+        "promptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "projectionManifestSha256": { "$ref": "#/$defs/sha256" },
+        "c0TriggerAssessment": { "$ref": "#/$defs/c0TriggerAssessment" }
+      }
+    },
+    "c0TriggerCode": {
+      "type": "string",
+      "enum": [
+        "P0_ANSWER_RISK",
+        "P1_ANSWER_RISK",
+        "P0_MATH_RISK",
+        "P1_MATH_RISK",
+        "P0_COVERAGE_RISK",
+        "P1_COVERAGE_RISK",
+        "P0_SCHEMA_RISK",
+        "P1_SCHEMA_RISK",
+        "SOURCE_RISK",
+        "LICENSING_RISK",
+        "AGE_RISK",
+        "GRADE_RISK",
+        "CURRICULUM_RISK",
+        "LANGUAGE_RISK",
+        "REGION_RISK",
+        "ANSWER_CRITICAL_VISUAL_RISK",
+        "EVIDENCE_RISK",
+        "DETERMINISTIC_B_PRIME_CONFLICT",
+        "CRITIQUE_REVISION_CONFLICT",
+        "INVALID_TAXONOMY_RISK",
+        "INVALID_ROLE_RISK",
+        "INVALID_PROJECTION_RISK",
+        "INCOMPLETE_INSPECTION_COVERAGE",
+        "OUT_OF_DISTRIBUTION_RISK",
+        "STRATIFIED_RANDOM_AUDIT"
+      ]
+    },
+    "c0TriggerAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assessmentVersion", "assessed", "triggerCodes", "c0Required"],
+      "properties": {
+        "assessmentVersion": { "type": "string", "const": "1.0.0" },
+        "assessed": { "const": true },
+        "triggerCodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/c0TriggerCode" }
+        },
+        "c0Required": { "type": "boolean" }
+      }
+    },
+    "receiptSlot": {
+      "type": "string",
+      "enum": [
+        "deterministic",
+        "b-prime-critique",
+        "b-prime-revision",
+        "c0-answer-blind-solver",
+        "c0-tool-verifier",
+        "c0-adversarial-grader",
+        "c0-bilingual-curriculum-critic",
+        "c0-evidence-verifier",
+        "independent-review"
+      ]
+    },
+    "validationRole": {
+      "type": "string",
+      "enum": [
+        "deterministic-validator",
+        "b-prime-reviewer",
+        "answer-blind-solver",
+        "tool-verifier",
+        "adversarial-grader",
+        "bilingual-curriculum-critic",
+        "evidence-verifier",
+        "independent-machine-reviewer"
+      ]
+    },
+    "validationSurfaceCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "expectedCount",
+        "inspectedCount",
+        "expectedSurfaceSetSha256",
+        "inspectedSurfaceSetSha256"
+      ],
+      "properties": {
+        "status": { "type": "string", "const": "passed" },
+        "expectedCount": { "type": "integer", "minimum": 1 },
+        "inspectedCount": { "type": "integer", "minimum": 1 },
+        "expectedSurfaceSetSha256": { "$ref": "#/$defs/sha256" },
+        "inspectedSurfaceSetSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "validationReceiptBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptVersion",
+        "receiptDomain",
+        "slot",
+        "controlPlaneSha256",
+        "projectionManifestSha256",
+        "evidenceSchemaVersion",
+        "taxonomyVersion",
+        "expectedRole",
+        "observedRole",
+        "responseDigestSha256",
+        "responseByteLength",
+        "parseStatus",
+        "projectionStatus",
+        "schemaStatus",
+        "roleStatus",
+        "taxonomyStatus",
+        "surfaceCoverage",
+        "redaction"
+      ],
+      "properties": {
+        "receiptVersion": { "type": "string", "const": "1.0.0" },
+        "receiptDomain": {
+          "type": "string",
+          "const": "mais-rsi-active-validation-receipt-v1"
+        },
+        "slot": { "$ref": "#/$defs/receiptSlot" },
+        "controlPlaneSha256": { "$ref": "#/$defs/sha256" },
+        "projectionManifestSha256": { "$ref": "#/$defs/sha256" },
+        "evidenceSchemaVersion": { "$ref": "#/$defs/version" },
+        "taxonomyVersion": { "$ref": "#/$defs/version" },
+        "expectedRole": { "$ref": "#/$defs/validationRole" },
+        "observedRole": { "$ref": "#/$defs/validationRole" },
+        "responseDigestSha256": { "$ref": "#/$defs/sha256" },
+        "responseByteLength": { "type": "integer", "minimum": 1 },
+        "parseStatus": { "type": "string", "const": "passed" },
+        "projectionStatus": { "type": "string", "const": "passed" },
+        "schemaStatus": { "type": "string", "const": "passed" },
+        "roleStatus": { "type": "string", "const": "passed" },
+        "taxonomyStatus": { "type": "string", "const": "passed" },
+        "surfaceCoverage": { "$ref": "#/$defs/validationSurfaceCoverage" },
+        "redaction": { "$ref": "#/$defs/redaction" }
+      }
+    },
+    "validationProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectionVersion",
+        "status",
+        "projectionManifestSha256",
+        "validationReceiptBody",
+        "validationReceiptSha256",
+        "redaction"
+      ],
+      "properties": {
+        "projectionVersion": { "type": "string", "const": "1.0.0" },
+        "status": { "type": "string", "const": "passed" },
+        "projectionManifestSha256": { "$ref": "#/$defs/sha256" },
+        "validationReceiptBody": { "$ref": "#/$defs/validationReceiptBody" },
+        "validationReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "redaction": { "$ref": "#/$defs/redaction" }
+      }
+    },
+    "resultBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resultVersion",
+        "slot",
+        "status",
+        "inspectionComplete",
+        "findingsCount",
+        "outputDigestSha256",
+        "controlPlane",
+        "controlPlaneSha256",
+        "validationProjection",
+        "validationProjectionSha256"
+      ],
+      "properties": {
+        "resultVersion": { "type": "string", "const": "1.0.0" },
+        "slot": { "$ref": "#/$defs/receiptSlot" },
+        "status": { "type": "string", "const": "complete" },
+        "inspectionComplete": { "const": true },
+        "findingsCount": { "type": "integer", "minimum": 0 },
+        "outputDigestSha256": { "$ref": "#/$defs/sha256" },
+        "controlPlane": { "$ref": "#/$defs/identity" },
+        "controlPlaneSha256": { "$ref": "#/$defs/sha256" },
+        "validationProjection": { "$ref": "#/$defs/validationProjection" },
+        "validationProjectionSha256": { "$ref": "#/$defs/sha256" },
+        "predecessorReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "critiqueThenRevision": { "const": true },
+        "freshContext": { "const": true }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "slot": { "const": "b-prime-revision" } },
+            "required": ["slot"]
+          },
+          "then": {
+            "required": ["predecessorReceiptSha256", "critiqueThenRevision", "freshContext"]
+          }
+        }
+      ]
+    },
+    "receiptBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slot", "resultBody", "resultSha256", "artifactSha256", "controlPlaneSha256", "bindingSha256"],
+      "properties": {
+        "slot": { "$ref": "#/$defs/receiptSlot" },
+        "resultBody": { "$ref": "#/$defs/resultBody" },
+        "resultSha256": { "$ref": "#/$defs/sha256" },
+        "artifactSha256": { "$ref": "#/$defs/sha256" },
+        "controlPlaneSha256": { "$ref": "#/$defs/sha256" },
+        "bindingSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "activeC0ReceiptBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "answer-blind-solver",
+        "tool-verifier",
+        "adversarial-grader",
+        "bilingual-curriculum-critic",
+        "evidence-verifier"
+      ],
+      "properties": {
+        "answer-blind-solver": { "$ref": "#/$defs/receiptBinding" },
+        "tool-verifier": { "$ref": "#/$defs/receiptBinding" },
+        "adversarial-grader": { "$ref": "#/$defs/receiptBinding" },
+        "bilingual-curriculum-critic": { "$ref": "#/$defs/receiptBinding" },
+        "evidence-verifier": { "$ref": "#/$defs/receiptBinding" }
+      }
+    },
+    "activeReceiptBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic",
+        "bPrimeCritique",
+        "bPrimeRevision",
+        "c0Roles",
+        "independentReview"
+      ],
+      "properties": {
+        "deterministic": { "$ref": "#/$defs/receiptBinding" },
+        "bPrimeCritique": { "$ref": "#/$defs/receiptBinding" },
+        "bPrimeRevision": { "$ref": "#/$defs/receiptBinding" },
+        "c0Roles": {
+          "oneOf": [
+            { "$ref": "#/$defs/emptyReceiptMap" },
+            { "$ref": "#/$defs/activeC0ReceiptBindings" }
+          ]
+        },
+        "independentReview": { "$ref": "#/$defs/receiptBinding" }
+      }
+    },
+    "activeReceiptManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestVersion",
+        "controlPlane",
+        "controlPlaneSha256",
+        "c0Required",
+        "c0Status",
+        "bindings",
+        "manifestSha256"
+      ],
+      "properties": {
+        "manifestVersion": { "type": "string", "const": "1.0.0" },
+        "controlPlane": { "$ref": "#/$defs/identity" },
+        "controlPlaneSha256": { "$ref": "#/$defs/sha256" },
+        "c0Required": { "type": "boolean" },
+        "c0Status": { "type": "string", "enum": ["not-required", "complete"] },
+        "bindings": { "$ref": "#/$defs/activeReceiptBindings" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "c0Required": { "const": true } },
+            "required": ["c0Required"]
+          },
+          "then": {
+            "properties": {
+              "c0Status": { "const": "complete" },
+              "bindings": {
+                "properties": { "c0Roles": { "$ref": "#/$defs/activeC0ReceiptBindings" } }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "c0Status": { "const": "not-required" },
+              "bindings": {
+                "properties": { "c0Roles": { "$ref": "#/$defs/emptyReceiptMap" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "currentness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateUnchanged", "receiptCurrent", "superseded", "boundCandidateSha256", "checkedAt"],
+      "properties": {
+        "candidateUnchanged": { "const": true },
+        "receiptCurrent": { "const": true },
+        "superseded": { "const": false },
+        "boundCandidateSha256": { "$ref": "#/$defs/sha256" },
+        "checkedAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "trustAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trustVersion",
+        "receiptKind",
+        "status",
+        "sourceIdentitySha256",
+        "externalReceiptSha256",
+        "boundReceiptSha256",
+        "verifiedAt",
+        "receiptIdentitySha256"
+      ],
+      "properties": {
+        "trustVersion": { "type": "string", "const": "1.0.0" },
+        "receiptKind": { "type": "string", "enum": ["live-authorization", "prior-envelope"] },
+        "status": { "type": "string", "const": "VERIFIED" },
+        "sourceIdentitySha256": { "$ref": "#/$defs/sha256" },
+        "externalReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "boundReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "verifiedAt": { "$ref": "#/$defs/dateTime" },
+        "receiptIdentitySha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "authorizationProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectionVersion",
+        "authorizationId",
+        "issuedAt",
+        "expiresAt",
+        "candidateId",
+        "candidateVersion",
+        "candidateSha256",
+        "manifestSha256",
+        "policyVersion",
+        "protocolId",
+        "protocolVersion",
+        "codeManifestSha256",
+        "taxonomyVersion",
+        "evidenceSchemaVersion",
+        "promptManifestSha256",
+        "projectionManifestSha256",
+        "repositoryCommit",
+        "runnerLogicalId",
+        "runnerPath",
+        "runnerSha256",
+        "provider",
+        "model",
+        "allowedRoles",
+        "credentialAccessScope",
+        "egressScope",
+        "privacyRightsScope",
+        "attemptCap",
+        "tokenCap",
+        "currencyCapUsd"
+      ],
+      "properties": {
+        "projectionVersion": { "type": "string", "const": "1.0.0" },
+        "authorizationId": { "$ref": "#/$defs/authorizationId" },
+        "issuedAt": { "$ref": "#/$defs/dateTime" },
+        "expiresAt": { "$ref": "#/$defs/dateTime" },
+        "candidateId": { "$ref": "#/$defs/candidateId" },
+        "candidateVersion": { "$ref": "#/$defs/version" },
+        "candidateSha256": { "$ref": "#/$defs/sha256" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "policyVersion": { "$ref": "#/$defs/version" },
+        "protocolId": { "$ref": "#/$defs/protocolId" },
+        "protocolVersion": { "$ref": "#/$defs/version" },
+        "codeManifestSha256": { "$ref": "#/$defs/sha256" },
+        "taxonomyVersion": { "$ref": "#/$defs/version" },
+        "evidenceSchemaVersion": { "$ref": "#/$defs/version" },
+        "promptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "projectionManifestSha256": { "$ref": "#/$defs/sha256" },
+        "repositoryCommit": { "$ref": "#/$defs/commit" },
+        "runnerLogicalId": { "$ref": "#/$defs/runnerLogicalId" },
+        "runnerPath": { "$ref": "#/$defs/runnerPath" },
+        "runnerSha256": { "$ref": "#/$defs/sha256" },
+        "provider": { "$ref": "#/$defs/providerId" },
+        "model": { "$ref": "#/$defs/modelId" },
+        "allowedRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/liveRole" }
+        },
+        "credentialAccessScope": { "type": "string", "const": "runtime-secret-reference-only" },
+        "egressScope": { "type": "string", "const": "authorized-provider-endpoint-only" },
+        "privacyRightsScope": { "type": "string", "const": "redacted-authorized-projection-only" },
+        "attemptCap": { "type": "integer", "minimum": 1 },
+        "tokenCap": { "type": "integer", "minimum": 1 },
+        "currencyCapUsd": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "authorization": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["liveProviderUsed"],
+          "properties": { "liveProviderUsed": { "const": false } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "liveProviderUsed",
+            "authorizationId",
+            "authorizationSha256",
+            "authorizationProjection",
+            "authorizationTrustAnchor",
+            "issuedAt",
+            "expiresAt",
+            "current",
+            "policyVersion",
+            "protocolId",
+            "protocolVersion",
+            "candidateSha256",
+            "codeManifestSha256",
+            "runnerLogicalId",
+            "runnerPath",
+            "runnerSha256",
+            "provider",
+            "model",
+            "allowedRoles",
+            "credentialAccessScope",
+            "egressScope",
+            "privacyRightsScope",
+            "attemptCap",
+            "tokenCap",
+            "currencyCapUsd"
+          ],
+          "properties": {
+            "liveProviderUsed": { "const": true },
+            "authorizationId": { "$ref": "#/$defs/authorizationId" },
+            "authorizationSha256": { "$ref": "#/$defs/sha256" },
+            "authorizationProjection": { "$ref": "#/$defs/authorizationProjection" },
+            "authorizationTrustAnchor": { "$ref": "#/$defs/trustAnchor" },
+            "issuedAt": { "$ref": "#/$defs/dateTime" },
+            "expiresAt": { "$ref": "#/$defs/dateTime" },
+            "current": { "const": true },
+            "policyVersion": { "$ref": "#/$defs/version" },
+            "protocolId": { "$ref": "#/$defs/protocolId" },
+            "protocolVersion": { "$ref": "#/$defs/version" },
+            "candidateSha256": { "$ref": "#/$defs/sha256" },
+            "codeManifestSha256": { "$ref": "#/$defs/sha256" },
+            "runnerLogicalId": { "$ref": "#/$defs/runnerLogicalId" },
+            "runnerPath": { "$ref": "#/$defs/runnerPath" },
+            "runnerSha256": { "$ref": "#/$defs/sha256" },
+            "provider": { "$ref": "#/$defs/providerId" },
+            "model": { "$ref": "#/$defs/modelId" },
+            "allowedRoles": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/liveRole" }
+            },
+            "credentialAccessScope": { "type": "string", "const": "runtime-secret-reference-only" },
+            "egressScope": { "type": "string", "const": "authorized-provider-endpoint-only" },
+            "privacyRightsScope": { "type": "string", "const": "redacted-authorized-projection-only" },
+            "attemptCap": { "type": "integer", "minimum": 1 },
+            "tokenCap": { "type": "integer", "minimum": 1 },
+            "currencyCapUsd": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        }
+      ]
+    },
+    "liveRole": {
+      "type": "string",
+      "enum": [
+        "b-prime-reviewer",
+        "answer-blind-solver",
+        "tool-verifier",
+        "adversarial-grader",
+        "bilingual-curriculum-critic",
+        "evidence-verifier"
+      ]
+    },
+    "executableFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "kind", "mode", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/executablePath" },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "entrypoint",
+            "local-module",
+            "package-manifest",
+            "dependency-lock"
+          ]
+        },
+        "mode": { "type": "string", "enum": ["100644", "100755"] },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "executableRuntime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "version"],
+      "properties": {
+        "engine": { "type": "string", "const": "node" },
+        "version": {
+          "type": "string",
+          "pattern": "^v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+        }
+      }
+    },
+    "executableCodeManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestVersion",
+        "manifestDomain",
+        "repositoryCommit",
+        "entrypoint",
+        "resolutionPolicy",
+        "runtime",
+        "files",
+        "unresolvedImports",
+        "computedDynamicImports",
+        "customLoaders"
+      ],
+      "properties": {
+        "manifestVersion": { "type": "string", "const": "1.0.0" },
+        "manifestDomain": {
+          "type": "string",
+          "const": "mais-rsi-executable-code-manifest-v1"
+        },
+        "repositoryCommit": { "$ref": "#/$defs/commit" },
+        "entrypoint": { "$ref": "#/$defs/runnerPath" },
+        "resolutionPolicy": {
+          "type": "string",
+          "enum": ["static-esm-literal-require-v1", "standalone-bundle-v1"]
+        },
+        "runtime": { "$ref": "#/$defs/executableRuntime" },
+        "files": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/executableFile" }
+        },
+        "unresolvedImports": { "type": "array", "maxItems": 0 },
+        "computedDynamicImports": { "type": "array", "maxItems": 0 },
+        "customLoaders": { "type": "array", "maxItems": 0 }
+      }
+    },
+    "liveExecution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runnerPath",
+        "runnerLogicalId",
+        "repositoryCommit",
+        "codeManifestSha256",
+        "runnerSha256",
+        "promptManifestSha256",
+        "projectionManifestSha256",
+        "performedRoles",
+        "callAt"
+      ],
+      "properties": {
+        "runnerPath": { "$ref": "#/$defs/runnerPath" },
+        "runnerLogicalId": { "$ref": "#/$defs/runnerLogicalId" },
+        "repositoryCommit": { "$ref": "#/$defs/commit" },
+        "codeManifestSha256": { "$ref": "#/$defs/sha256" },
+        "runnerSha256": { "$ref": "#/$defs/sha256" },
+        "promptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "projectionManifestSha256": { "$ref": "#/$defs/sha256" },
+        "performedRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/liveRole" }
+        },
+        "callAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "deterministic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "inspectionComplete", "receiptSha256", "findingsCount"],
+      "properties": {
+        "status": { "type": "string", "const": "complete" },
+        "inspectionComplete": { "const": true },
+        "receiptSha256": { "$ref": "#/$defs/sha256" },
+        "findingsCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "bPrime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "inspectionComplete",
+        "critiqueReceiptSha256",
+        "revisionReceiptSha256",
+        "critiqueThenRevision",
+        "freshContext",
+        "revisionPredecessorReceiptSha256",
+        "findingsCount"
+      ],
+      "properties": {
+        "status": { "type": "string", "const": "complete" },
+        "inspectionComplete": { "const": true },
+        "critiqueReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "revisionReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "critiqueThenRevision": { "const": true },
+        "freshContext": { "const": true },
+        "revisionPredecessorReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "findingsCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "c0RoleReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "inspectionComplete", "receiptSha256"],
+      "properties": {
+        "status": { "type": "string", "const": "complete" },
+        "inspectionComplete": { "const": true },
+        "receiptSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "c0RoleReceipts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "answer-blind-solver",
+        "tool-verifier",
+        "adversarial-grader",
+        "bilingual-curriculum-critic",
+        "evidence-verifier"
+      ],
+      "properties": {
+        "answer-blind-solver": { "$ref": "#/$defs/c0RoleReceipt" },
+        "tool-verifier": { "$ref": "#/$defs/c0RoleReceipt" },
+        "adversarial-grader": { "$ref": "#/$defs/c0RoleReceipt" },
+        "bilingual-curriculum-critic": { "$ref": "#/$defs/c0RoleReceipt" },
+        "evidence-verifier": { "$ref": "#/$defs/c0RoleReceipt" }
+      }
+    },
+    "emptyReceiptMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {}
+    },
+    "c0Prime": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required", "status", "triggers", "roles"],
+          "properties": {
+            "required": { "const": false },
+            "status": { "type": "string", "const": "not-required" },
+            "triggers": { "type": "array", "maxItems": 0 },
+            "roles": { "$ref": "#/$defs/emptyReceiptMap" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required", "status", "triggers", "roles"],
+          "properties": {
+            "required": { "const": true },
+            "status": { "type": "string", "const": "complete" },
+            "triggers": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/c0TriggerCode" }
+            },
+            "roles": { "$ref": "#/$defs/c0RoleReceipts" }
+          }
+        }
+      ]
+    },
+    "independentReviewState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "freshContext", "boundCandidateSha256", "reviewReceiptSha256", "reviewerRole"],
+      "properties": {
+        "status": { "type": "string", "enum": ["unverified", "passed", "failed", "blocked"] },
+        "freshContext": { "type": "boolean" },
+        "boundCandidateSha256": { "$ref": "#/$defs/sha256" },
+        "reviewReceiptSha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "reviewerRole": { "type": "string", "const": "independent-machine-reviewer" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "passed" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "freshContext": { "const": true },
+              "reviewReceiptSha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        }
+      ]
+    },
+    "proofBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidenceSha256"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["unverified", "passed", "failed", "not-applicable"]
+        },
+        "evidenceSha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "passed" } },
+            "required": ["status"]
+          },
+          "then": { "properties": { "evidenceSha256": { "$ref": "#/$defs/sha256" } } }
+        },
+        {
+          "if": {
+            "properties": { "status": { "enum": ["unverified", "not-applicable"] } },
+            "required": ["status"]
+          },
+          "then": { "properties": { "evidenceSha256": { "type": "null" } } }
+        }
+      ]
+    },
+    "proofBoundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["localTest", "receipt", "trackedCommitted", "main", "ci", "deployment", "live"],
+      "properties": {
+        "localTest": { "$ref": "#/$defs/proofBoundary" },
+        "receipt": { "$ref": "#/$defs/proofBoundary" },
+        "trackedCommitted": { "$ref": "#/$defs/proofBoundary" },
+        "main": { "$ref": "#/$defs/proofBoundary" },
+        "ci": { "$ref": "#/$defs/proofBoundary" },
+        "deployment": { "$ref": "#/$defs/proofBoundary" },
+        "live": { "$ref": "#/$defs/proofBoundary" }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "status": { "type": "string", "enum": ["pass", "fail", "blocked", "unknown"] },
+        "evidenceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        }
+      }
+    },
+    "deviation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "status"],
+      "properties": {
+        "code": { "$ref": "#/$defs/deviationCode" },
+        "status": { "type": "string", "enum": ["open", "accepted-bounded", "resolved"] }
+      }
+    },
+    "priorCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/candidateId" },
+        "version": { "$ref": "#/$defs/version" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "newCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/candidateId" },
+        "version": { "$ref": "#/$defs/version" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "boundRoleReceiptMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "answer-blind-solver",
+        "tool-verifier",
+        "adversarial-grader",
+        "bilingual-curriculum-critic",
+        "evidence-verifier"
+      ],
+      "properties": {
+        "answer-blind-solver": { "$ref": "#/$defs/sha256" },
+        "tool-verifier": { "$ref": "#/$defs/sha256" },
+        "adversarial-grader": { "$ref": "#/$defs/sha256" },
+        "bilingual-curriculum-critic": { "$ref": "#/$defs/sha256" },
+        "evidence-verifier": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "optionalC0ReceiptMap": {
+      "oneOf": [
+        { "$ref": "#/$defs/emptyReceiptMap" },
+        { "$ref": "#/$defs/boundRoleReceiptMap" }
+      ]
+    },
+    "priorEnvelopeBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "envelopeVersion",
+        "priorCandidate",
+        "activeReceiptManifestSha256",
+        "c0Required",
+        "c0Status",
+        "activeReceiptHashes"
+      ],
+      "properties": {
+        "envelopeVersion": { "type": "string", "const": "1.0.0" },
+        "priorCandidate": { "$ref": "#/$defs/priorCandidate" },
+        "activeReceiptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "c0Required": { "type": "boolean" },
+        "c0Status": { "type": "string", "enum": ["not-required", "complete"] },
+        "activeReceiptHashes": {
+          "type": "array",
+          "minItems": 16,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "priorReceiptBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "priorEnvelopeSha256",
+        "priorEnvelopeBody",
+        "priorTrustAnchor",
+        "activeReceiptManifestSha256",
+        "activeReceiptManifest",
+        "c0Required",
+        "c0Status",
+        "deterministicReceiptSha256",
+        "bPrimeCritiqueReceiptSha256",
+        "bPrimeRevisionReceiptSha256",
+        "c0RoleReceipts",
+        "independentReviewReceiptSha256"
+      ],
+      "properties": {
+        "priorEnvelopeSha256": { "$ref": "#/$defs/sha256" },
+        "priorEnvelopeBody": { "$ref": "#/$defs/priorEnvelopeBody" },
+        "priorTrustAnchor": { "$ref": "#/$defs/trustAnchor" },
+        "activeReceiptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "activeReceiptManifest": { "$ref": "#/$defs/activeReceiptManifest" },
+        "c0Required": { "type": "boolean" },
+        "c0Status": { "type": "string", "enum": ["not-required", "complete"] },
+        "deterministicReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "bPrimeCritiqueReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "bPrimeRevisionReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "c0RoleReceipts": { "$ref": "#/$defs/optionalC0ReceiptMap" },
+        "independentReviewReceiptSha256": { "$ref": "#/$defs/sha256" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "c0Required": { "const": true } },
+            "required": ["c0Required"]
+          },
+          "then": {
+            "properties": {
+              "c0Status": { "const": "complete" },
+              "c0RoleReceipts": { "$ref": "#/$defs/boundRoleReceiptMap" }
+            }
+          },
+          "else": {
+            "properties": {
+              "c0Status": { "const": "not-required" },
+              "c0RoleReceipts": { "$ref": "#/$defs/emptyReceiptMap" }
+            }
+          }
+        }
+      ]
+    },
+    "dPrimeBPrimeState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "critiqueReceiptSha256",
+        "revisionReceiptSha256",
+        "revisionPredecessorReceiptSha256",
+        "critiqueThenRevision",
+        "freshContext"
+      ],
+      "properties": {
+        "critiqueReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "revisionReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "revisionPredecessorReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "critiqueThenRevision": { "const": true },
+        "freshContext": { "const": true }
+      }
+    },
+    "dPrimeC0State": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required", "status", "roleReceipts"],
+          "properties": {
+            "required": { "const": false },
+            "status": { "type": "string", "const": "not-required" },
+            "roleReceipts": { "$ref": "#/$defs/emptyReceiptMap" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required", "status", "roleReceipts"],
+          "properties": {
+            "required": { "const": true },
+            "status": { "type": "string", "const": "complete" },
+            "roleReceipts": { "$ref": "#/$defs/boundRoleReceiptMap" }
+          }
+        }
+      ]
+    },
+    "dPrimeValidationReceiptBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptVersion",
+        "receiptDomain",
+        "priorCandidate",
+        "newCandidate",
+        "priorActiveReceiptManifestSha256",
+        "currentActiveReceiptManifestSha256",
+        "invalidatedReceiptSetSha256",
+        "currentActiveReceiptSetSha256",
+        "deterministicReceiptSha256",
+        "bPrime",
+        "c0Prime",
+        "independentReviewReceiptSha256",
+        "freshContext",
+        "redaction"
+      ],
+      "properties": {
+        "receiptVersion": { "type": "string", "const": "1.0.0" },
+        "receiptDomain": {
+          "type": "string",
+          "const": "mais-rsi-d-prime-validation-receipt-v1"
+        },
+        "priorCandidate": { "$ref": "#/$defs/priorCandidate" },
+        "newCandidate": { "$ref": "#/$defs/newCandidate" },
+        "priorActiveReceiptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "currentActiveReceiptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "invalidatedReceiptSetSha256": { "$ref": "#/$defs/sha256" },
+        "currentActiveReceiptSetSha256": { "$ref": "#/$defs/sha256" },
+        "deterministicReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "bPrime": { "$ref": "#/$defs/dPrimeBPrimeState" },
+        "c0Prime": { "$ref": "#/$defs/dPrimeC0State" },
+        "independentReviewReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "freshContext": { "const": true },
+        "redaction": { "$ref": "#/$defs/redaction" }
+      }
+    },
+    "newReceiptBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "candidateVersion",
+        "candidateSha256",
+        "manifestSha256",
+        "policyVersion",
+        "protocolId",
+        "protocolVersion",
+        "codeManifestSha256",
+        "taxonomyVersion",
+        "evidenceSchemaVersion",
+        "promptManifestSha256",
+        "projectionManifestSha256",
+        "activeReceiptManifestSha256",
+        "deterministicReceiptSha256",
+        "bPrimeCritiqueReceiptSha256",
+        "bPrimeRevisionReceiptSha256",
+        "c0RoleReceipts",
+        "independentReviewReceiptSha256",
+        "dPrimeValidationReceiptSha256"
+      ],
+      "properties": {
+        "candidateId": { "$ref": "#/$defs/candidateId" },
+        "candidateVersion": { "$ref": "#/$defs/version" },
+        "candidateSha256": { "$ref": "#/$defs/sha256" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "policyVersion": { "$ref": "#/$defs/version" },
+        "protocolId": { "$ref": "#/$defs/protocolId" },
+        "protocolVersion": { "$ref": "#/$defs/version" },
+        "codeManifestSha256": { "$ref": "#/$defs/sha256" },
+        "taxonomyVersion": { "$ref": "#/$defs/version" },
+        "evidenceSchemaVersion": { "$ref": "#/$defs/version" },
+        "promptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "projectionManifestSha256": { "$ref": "#/$defs/sha256" },
+        "activeReceiptManifestSha256": { "$ref": "#/$defs/sha256" },
+        "deterministicReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "bPrimeCritiqueReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "bPrimeRevisionReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "c0RoleReceipts": { "$ref": "#/$defs/optionalC0ReceiptMap" },
+        "independentReviewReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "dPrimeValidationReceiptSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "remediation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["candidateMutated"],
+          "properties": { "candidateMutated": { "const": false } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "candidateMutated",
+            "priorCandidate",
+            "priorReceiptBindings",
+            "newCandidate",
+            "invalidatedReceiptHashes",
+            "newReceiptBindings",
+            "freshContext",
+            "validationReceiptBody",
+            "validationReceiptSha256"
+          ],
+          "properties": {
+            "candidateMutated": { "const": true },
+            "freshContext": { "const": true },
+            "validationReceiptBody": { "$ref": "#/$defs/dPrimeValidationReceiptBody" },
+            "validationReceiptSha256": { "$ref": "#/$defs/sha256" },
+            "priorCandidate": { "$ref": "#/$defs/priorCandidate" },
+            "priorReceiptBindings": { "$ref": "#/$defs/priorReceiptBindings" },
+            "newCandidate": { "$ref": "#/$defs/newCandidate" },
+            "invalidatedReceiptHashes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/sha256" }
+            },
+            "newReceiptBindings": { "$ref": "#/$defs/newReceiptBindings" }
+          }
+        }
+      ]
+    },
+    "redaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protectedContentIncluded", "credentialsIncluded", "rawProviderResponsesIncluded"],
+      "properties": {
+        "protectedContentIncluded": { "const": false },
+        "credentialsIncluded": { "const": false },
+        "rawProviderResponsesIncluded": { "const": false }
+      }
+    },
+    "claimCeiling": { "type": "string", "const": "machine-evidence-only" }
+  }
+}

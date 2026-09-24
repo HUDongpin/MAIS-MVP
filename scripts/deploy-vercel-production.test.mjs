@@ -355,6 +355,18 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   assert.equal(applied.postflight.statistics.rowEstimate, "8");
   assert.doesNotMatch(JSON.stringify(applied), /requiredConfirmation|must-not-be-recorded/u);
 
+  const repairedSessionLifecycle = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...applyPayload,
+      operations: ["app-storage-repair-parent-session-lifecycle-v3"]
+    }),
+    { candidateSha, expectedTreeSha, mode: "apply" }
+  );
+  assert.deepEqual(
+    repairedSessionLifecycle.operations,
+    ["app-storage-repair-parent-session-lifecycle-v3"]
+  );
+
   assert.throws(
     () => parseTeacherNoticeProductionSchemaGateEvidence(
       JSON.stringify({
@@ -461,6 +473,132 @@ test("production schema gate evidence is exact, target-bound, and strips confirm
   assert.deepEqual(
     upgradingLegacyV1Compatibility.operations,
     ["app-storage-upgrade-legacy-compat-readiness-v2"]
+  );
+
+  const repairingMissingCollections = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-missing-collections-no-readiness-marker",
+      operations: ["app-storage-repair-missing-collections-v1"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingMissingCollections.appStorageState,
+    "legacy-missing-collections-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingMissingCollections.operations,
+    ["app-storage-repair-missing-collections-v1"]
+  );
+
+  const repairingGuardianInvitations = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-missing-guardian-invitations-no-readiness-marker",
+      operations: ["app-storage-repair-missing-collections-v2"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingGuardianInvitations.appStorageState,
+    "legacy-missing-guardian-invitations-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingGuardianInvitations.operations,
+    ["app-storage-repair-missing-collections-v2"]
+  );
+
+  const repairingParentSessionLifecycle = parseTeacherNoticeProductionSchemaGateEvidence(
+    JSON.stringify({
+      ...exactPostflight,
+      appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+      operations: ["app-storage-repair-parent-session-lifecycle-v3"],
+      mode: "preflight",
+      mutation: false,
+      network: true,
+      ok: true
+    }),
+    { candidateSha, expectedTreeSha, mode: "preflight" }
+  );
+  assert.equal(
+    repairingParentSessionLifecycle.appStorageState,
+    "legacy-parent-session-lifecycle-no-readiness-marker"
+  );
+  assert.deepEqual(
+    repairingParentSessionLifecycle.operations,
+    ["app-storage-repair-parent-session-lifecycle-v3"]
+  );
+
+  const repairingParentSessionLifecycleWithOtherOperations =
+    parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...exactPostflight,
+        appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+        outboxState: "empty",
+        webhookState: "empty",
+        heartbeatState: "empty",
+        operations: [
+          "app-storage-repair-parent-session-lifecycle-v3",
+          "outbox-install-v2",
+          "webhook-install-v3",
+          "heartbeat-install-v2"
+        ],
+        mode: "preflight",
+        mutation: false,
+        network: true,
+        ok: true
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    );
+  assert.deepEqual(
+    repairingParentSessionLifecycleWithOtherOperations.operations,
+    [
+      "app-storage-repair-parent-session-lifecycle-v3",
+      "outbox-install-v2",
+      "webhook-install-v3",
+      "heartbeat-install-v2"
+    ]
+  );
+
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...exactPostflight,
+        appStorageState: "legacy-missing-guardian-invitations-no-readiness-marker",
+        operations: ["app-storage-repair-missing-collections-v1"],
+        mode: "preflight",
+        mutation: false,
+        network: true,
+        ok: true
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
+  );
+
+  assert.throws(
+    () => parseTeacherNoticeProductionSchemaGateEvidence(
+      JSON.stringify({
+        ...exactPostflight,
+        appStorageState: "legacy-parent-session-lifecycle-no-readiness-marker",
+        operations: ["app-storage-repair-missing-collections-v2"],
+        mode: "preflight",
+        mutation: false,
+        network: true,
+        ok: true
+      }),
+      { candidateSha, expectedTreeSha, mode: "preflight" }
+    ),
+    /schema gate evidence/u
   );
 
   assert.throws(

@@ -1,0 +1,6 @@
+interface:
+  display_name: "MAIS Content Promotion Gate"
+  short_description: "Govern exact candidate-to-Shadow promotion evidence"
+  default_prompt: "Use $mais-content-promotion-gate to audit this exact candidate's non-live Promotion Shadow evidence and state the proven boundary."
+policy:
+  allow_implicit_invocation: true

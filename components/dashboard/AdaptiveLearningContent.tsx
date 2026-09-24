@@ -358,7 +358,7 @@ export function AdaptiveLearningContent() {
   const analyticsFocusTopic = dashboard?.weakTopics[0] ?? recommended ?? undefined;
   const recent = dashboard?.recentTopics ?? [];
   const visibleAssignments = assignments.filter((item) => item.classGrade === selectedGrade);
-  const loadErrorCopy = t({ en: "Could not load dashboard data.", zh: "暫時無法載入學生儀表板資料。" });
+  const loadErrorCopy = t({ en: "Could not load dashboard data.", zh: "暫時無法載入學生儀表板資料。", zhHans: "暂时无法载入学生仪表板资料。" });
 
   const openAssignmentsRoute = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -558,7 +558,7 @@ export function AdaptiveLearningContent() {
         <section className="max-w-3xl">
           <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t({ en: "Personalized learning", zh: "個人化學習", zhHans: "个性化学习" })}</p>
           <h1 className="text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
-            {t({ en: "Checking your learning profile", zh: "正在檢查你的學習檔案" })}
+            {t({ en: "Checking your learning profile", zh: "正在檢查你的學習檔案", zhHans: "正在检查你的学习档案" })}
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
             {t({ en: "Loading sign-in status before opening the personalized learning dashboard.", zh: "正在載入登入狀態，然後開啟個人化學習儀表板。", zhHans: "正在载入登录状态，然后开启个性化学习仪表板。" })}
@@ -580,7 +580,7 @@ export function AdaptiveLearningContent() {
             <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
               {t({
                 en: "MAIS builds your next lesson, review queue, and mastery map from saved attempts and lesson progress.",
-                zh: "MAIS 會根據已儲存的作答與課節進度，建立下一課、複習清單和掌握度地圖。"
+                zh: "MAIS 會根據已儲存的作答與課節進度，建立下一課、複習清單和掌握度地圖。", zhHans: "MAIS 会根据已保存的作答与课时进度，建立下一课、复习清单和掌握度地图。"
               })}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -594,9 +594,9 @@ export function AdaptiveLearningContent() {
           </div>
           <div className="mt-8 grid gap-3 md:grid-cols-3">
             {[
-              { title: { en: "Skill mastery map", zh: "技能掌握地圖" }, detail: { en: "See which skills are secure, fragile, or ready for challenge.", zh: "查看哪些技能已穩固、仍薄弱或可進入挑戰。" } },
-              { title: { en: "Spaced review", zh: "間隔複習" }, detail: { en: "Review work appears when the system predicts it will help most.", zh: "系統會在最有幫助的時間安排複習。" } },
-              { title: { en: "Teacher assignments", zh: "老師分派內容" }, detail: { en: "Class work appears beside your personalized next step.", zh: "課堂作業會與你的個人化下一步並列顯示。", zhHans: "课堂作业会与你的个性化下一步并列显示。" } }
+              { title: { en: "Skill mastery map", zh: "技能掌握地圖", zhHans: "技能掌握地图" }, detail: { en: "See which skills are secure, fragile, or ready for challenge.", zh: "查看哪些技能已穩固、仍薄弱或可進入挑戰。", zhHans: "查看哪些技能已稳固、仍薄弱或可进入挑战。" } },
+              { title: { en: "Spaced review", zh: "間隔複習", zhHans: "间隔复习" }, detail: { en: "Review work appears when the system predicts it will help most.", zh: "系統會在最有幫助的時間安排複習。", zhHans: "系统会在最有帮助的时间安排复习。" } },
+              { title: { en: "Teacher assignments", zh: "老師分派內容", zhHans: "老师分派内容" }, detail: { en: "Class work appears beside your personalized next step.", zh: "課堂作業會與你的個人化下一步並列顯示。", zhHans: "课堂作业会与你的个性化下一步并列显示。" } }
             ].map((item) => (
               <div key={text(item.title)} className="rounded-2xl border border-slate-200/70 bg-white/65 p-4 dark:border-white/10 dark:bg-white/[0.055]">
                 <p className="text-sm font-black text-slate-950 dark:text-white">{text(item.title)}</p>
@@ -622,11 +622,11 @@ export function AdaptiveLearningContent() {
             <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
               {t({
                 en: "The P1 pilot loop keeps learner-state recommendations student-owned. Teacher review and parent-safe updates stay in their own consoles.",
-                zh: "P1 試點閉環將學習者狀態建議保留給學生本人；教師審核與家長安全更新會留在各自控制台。"
+                zh: "P1 試點閉環將學習者狀態建議保留給學生本人；教師審核與家長安全更新會留在各自控制台。", zhHans: "P1 试点闭环将学习者状态建议保留给学生本人；教师审核与家长安全更新会留在各自控制台。"
               })}
             </p>
             <Link href={consoleHref} className="focus-ring mt-6 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950">
-              {t({ en: "Open your console", zh: "開啟你的控制台" })}
+              {t({ en: "Open your console", zh: "開啟你的控制台", zhHans: "开启你的控制台" })}
             </Link>
           </div>
         </section>
@@ -663,7 +663,7 @@ export function AdaptiveLearningContent() {
         })}
         eyebrow={t({ en: "Task bay", zh: "任務艙", zhHans: "任务舱" })}
         icon="assignment"
-        title={t({ en: "Teacher-assigned work", zh: "老師分派內容" })}
+        title={t({ en: "Teacher-assigned work", zh: "老師分派內容", zhHans: "老师分派内容" })}
         tone="cyan"
       >
         {visibleAssignments.length ? (
@@ -678,7 +678,7 @@ export function AdaptiveLearningContent() {
                   </div>
                   <div className="flex items-center justify-between gap-2 text-xs font-black text-slate-600 dark:text-slate-200">
                     <span className="rounded-full border border-cyan-200/80 bg-cyan-100/75 px-3 py-1 text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100">{item.submission.status}</span>
-                    <span>{item.assignment.dueAt ? formatDate(item.assignment.dueAt, language) : t({ en: "No due date", zh: "無截止日期" })}</span>
+                    <span>{item.assignment.dueAt ? formatDate(item.assignment.dueAt, language) : t({ en: "No due date", zh: "無截止日期", zhHans: "无截止日期" })}</span>
                   </div>
                   {item.submission.feedback ? (
                     <p className="text-xs font-bold leading-5 text-slate-600 dark:text-slate-200">{text(item.submission.feedback)}</p>
@@ -688,7 +688,7 @@ export function AdaptiveLearningContent() {
                   ) : null}
                   <label className="grid gap-2">
                     <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-300">
-                      {item.submission.status === "correction-required" ? t({ en: "Correction", zh: "訂正內容" }) : t({ en: "Submission", zh: "提交內容" })}
+                      {item.submission.status === "correction-required" ? t({ en: "Correction", zh: "訂正內容", zhHans: "订正内容" }) : t({ en: "Submission", zh: "提交內容", zhHans: "提交内容" })}
                     </span>
                     <textarea
                       rows={3}
@@ -704,10 +704,10 @@ export function AdaptiveLearningContent() {
                     className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
                   >
                     {assignmentSavingId === item.assignment.id
-                      ? t({ en: "Submitting", zh: "提交中" })
+                      ? t({ en: "Submitting", zh: "提交中", zhHans: "提交中" })
                       : item.submission.status === "correction-required"
-                        ? t({ en: "Submit correction", zh: "提交訂正" })
-                        : t({ en: "Submit work", zh: "提交作業" })}
+                        ? t({ en: "Submit correction", zh: "提交訂正", zhHans: "提交订正" })
+                        : t({ en: "Submit work", zh: "提交作業", zhHans: "提交作业" })}
                   </button>
                 </div>
               </article>
@@ -783,7 +783,7 @@ export function AdaptiveLearningContent() {
               ))}
               {recent.length === 0 ? (
                 <p className="rounded-2xl border border-slate-200/70 bg-white/60 p-4 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-400">
-                  {t({ en: "Recent topics will appear after saved attempts.", zh: "儲存作答後會顯示最近瀏覽課題。" })}
+                  {t({ en: "Recent topics will appear after saved attempts.", zh: "儲存作答後會顯示最近瀏覽課題。", zhHans: "保存作答后会显示最近浏览课题。" })}
                 </p>
               ) : null}
             </div>

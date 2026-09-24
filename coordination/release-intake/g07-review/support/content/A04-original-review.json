@@ -1,0 +1,471 @@
+{
+  "schemaVersion": "mais-s7-role-baseline-review.v1",
+  "role": "A04",
+  "reviewedAt": "2026-09-06T13:48:22.745Z",
+  "reviewer": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "scopeRoles": [
+      "A04",
+      "A05",
+      "A18",
+      "A21",
+      "A24"
+    ],
+    "distinctReviewerCount": 1,
+    "originalCandidateGenerator": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "reviewScope": "Practice 候选与原生 Shadow adapter 的数值、答案合同及依赖隔离。",
+  "sourceManifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+    "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+  },
+  "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a04-practice-semantics.v2.6.json",
+    "rawSha256": "15499ec143e97759335199c158fb2825b64344a8bc07c001225da73fc6b9afe1",
+    "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+    "producedAt": "2026-09-06T02:02:24.430Z",
+    "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+    "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+    "semanticDigest": "05f77d4fe6efe0a5bbd25cbb1e0b94f98813cb82eb22e353a0eae37cd1dd1b05"
+  },
+  "originalContentEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+    "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+    "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+    "producedAt": "2026-08-26T13:06:52+08:00",
+    "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+    "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007"
+  },
+  "reviewResult": "pass",
+  "reviewResultScope": "本次获分配的内容/来源 baseline 复核；不是完整 Promotion pass、生成者签名、五人独立复核或 live 批准。",
+  "contentState": "candidate-only",
+  "decision": "accept-explicit-carry-forward-for-unchanged-shadow-content",
+  "freshChecks": [
+    {
+      "check": "三项候选及 package 原始字节在 source、929、7f 相同。",
+      "result": "pass",
+      "evidencePath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+      "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69"
+    },
+    {
+      "check": "原生 exact-trimmed-forms-v2 7 个确定性断言全部符合预期。",
+      "result": "pass",
+      "evidencePath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+      "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69"
+    },
+    {
+      "check": "Practice DTO 的 8 个指定字段逐字段相等，adapter 未引入 defaults。",
+      "result": "pass",
+      "evidencePath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+      "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69"
+    },
+    {
+      "check": "O1 新模块及 S3 logout 变更没有选定候选的路径或身份引用。",
+      "result": "pass",
+      "evidencePath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+      "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69"
+    }
+  ],
+  "reviewedSemanticPayload": {
+    "contractVersion": "promotion-a04-practice-semantics.v2",
+    "practiceId": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+    "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+    "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+    "outputContract": "shadow-practice-dto.v2",
+    "numericOracle": 12,
+    "acceptedAnswers": [
+      "12",
+      "12 cups"
+    ],
+    "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+    "requiredReasoning": [
+      "preserve 3 oats : 5 fruit order",
+      "20 ÷ 5 = 4",
+      "3 × 4 = 12"
+    ],
+    "primaryStandardId": "6.RP.3",
+    "prerequisiteStandardIds": [
+      "6.RP.1"
+    ],
+    "clusterMapping": {
+      "sourceCardKind": "cluster-safe-card-v2",
+      "runtimeCategory": "standards",
+      "mappingMode": "explicit-shadow-only",
+      "defaultCardKindUsed": false
+    },
+    "compatibilityMetadata": {
+      "domainIds": [
+        "6.RP"
+      ],
+      "canonicalStandardIds": [
+        "6.RP.1",
+        "6.RP.2",
+        "6.RP.3"
+      ],
+      "maisStandardIds": [
+        "CA.CCSS.Math.G6.RP.1",
+        "CA.CCSS.Math.G6.RP.2",
+        "CA.CCSS.Math.G6.RP.3"
+      ],
+      "clusterId": "6.RP.ratios",
+      "runtimeDisposition": "preserved-outside-runtime"
+    },
+    "localization": {
+      "presentLocales": [
+        "en"
+      ],
+      "missingLiveLocales": [
+        "zh",
+        "zhHans"
+      ],
+      "adapterMayInventMissingLocales": false
+    },
+    "defaultsForbidden": [
+      "cardKind",
+      "grade",
+      "standard",
+      "answer",
+      "id"
+    ],
+    "candidateBytesChangedSincePriorReview": false,
+    "futureBoundary": "candidate-only-shadow-dto-no-live-write",
+    "liveAllowed": false,
+    "baselineContentReview": {
+      "reviewedAt": "2026-09-06T13:48:22.745Z",
+      "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+      "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+      "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+      "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+      "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+      "facts": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+        "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69",
+        "producedAt": "2026-09-06T13:48:22.745Z",
+        "storage": "external-uncommitted"
+      },
+      "candidateBytesUnchanged": true,
+      "parentSourceRecordDigestsVerified": true,
+      "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+      "runtimeChangedPathCount": 12,
+      "selectedCandidateIdentityHitCount": 0,
+      "candidateReachablePathCount": 0,
+      "shadowAdapterReachable": false,
+      "liveAllowed": false,
+      "shadowExecuted": false,
+      "newContentGenerated": false,
+      "sourceRepositoryUnchanged": true,
+      "scope": "Practice 候选与原生 Shadow adapter 的数值、答案合同及依赖隔离。",
+      "freshObservations": [
+        "三项候选及 package 原始字节在 source、929、7f 相同。",
+        "原生 exact-trimmed-forms-v2 7 个确定性断言全部符合预期。",
+        "Practice DTO 的 8 个指定字段逐字段相等，adapter 未引入 defaults。",
+        "O1 新模块及 S3 logout 变更没有选定候选的路径或身份引用。"
+      ],
+      "notPerformed": [
+        "Practice 浏览器或学生真实会话测试",
+        "独立的新课程标准审阅"
+      ]
+    }
+  },
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/contractVersion",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "practiceId",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/practiceId",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "recordPath",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/recordPath",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "recordSha256",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/recordSha256",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "outputContract",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/outputContract",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "numericOracle",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/numericOracle",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "acceptedAnswers",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/acceptedAnswers",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "acceptedAnswerPolicy",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/acceptedAnswerPolicy",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "requiredReasoning",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/requiredReasoning",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "primaryStandardId",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/primaryStandardId",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "prerequisiteStandardIds",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/prerequisiteStandardIds",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "clusterMapping",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/clusterMapping",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "compatibilityMetadata",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/compatibilityMetadata",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "localization",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/localization",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "defaultsForbidden",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/defaultsForbidden",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "futureBoundary",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/futureBoundary",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "carry-forward",
+      "valuePointer": "/semanticPayload/liveAllowed",
+      "evidenceRef": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "producedAt": "2026-08-26T13:06:52+08:00"
+      },
+      "originalTargetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+      "currentWrapperFieldEqualityVerified": true,
+      "rationale": "字段值属于原 attempt-007 的内容合同或判断；本次对相同字节和新 baseline 的依赖隔离完成复核，不将原判断标记为本次新执行。"
+    },
+    {
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "valuePointer": "/reviews/A04",
+      "evidenceRef": {
+        "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/baseline-content-observations.json",
+        "reviewedCommit": null,
+        "rawSha256": "d09d5a3e6e5cab4ed1b96c53cc084b123024953873da686eddb2e9d3cd0a6f1e",
+        "producedAt": "2026-09-06T13:48:22.745Z"
+      },
+      "commitStatus": "external-uncommitted",
+      "rationale": "本次已实际完成的只读计算、源码审读及原生 graph 观察；需由整合者提交真实事实文件后再绑定其形成的 commit。"
+    }
+  ],
+  "priorEnvelopeFieldsNotRelabeled": [
+    "producedAt",
+    "targetBaselineCommit",
+    "baselineReaffirmation",
+    "checkerCurrentnessRevalidation"
+  ],
+  "notPerformed": [
+    "Practice 浏览器或学生真实会话测试",
+    "独立的新课程标准审阅"
+  ],
+  "limits": [
+    "A18 mathematical, curriculum and language judgments are historical carry-forward only; no new standards/rights/language review.",
+    "Candidate-only and English-only blockers remain; no live integration, rendering, deployment or learner browser proof.",
+    "Runtime/legacy gate and actual nine-role/index/commit acceptance remain separate A23/A25 work.",
+    "This is one identified AI reviewer across five routing scopes; no five-person or human-signature claim."
+  ],
+  "nextAction": "Root/A23/A25 核验并提交这些真实事实及角色复核材料后，再由准备器以实际 reviewedCommit/rawSha 适配严格索引；不得将外部未提交路径直接假填为 main 已有文件。",
+  "machineAdmission": {
+    "committedReviewRecord": false,
+    "schemaIsPreparationContract": false,
+    "identityMachineAuthenticated": false,
+    "humanSignature": false,
+    "liveAllowed": false,
+    "shadowExecuted": false,
+    "A11A22A23A25Substituted": false
+  }
+}

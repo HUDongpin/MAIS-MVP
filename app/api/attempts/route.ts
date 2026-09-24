@@ -5,19 +5,23 @@ import {
   readStoredMediaObject,
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
-import { practiceAttemptFastPathPersistsRows, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
+import { practiceAttemptPersistenceMode, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
 import {
   bodyExpectedUserConstraints,
   expectedUserConstraintsFromRequest,
   guardExpectedAuthenticatedUser,
   requireAuthenticatedUser
 } from "@/lib/server/auth";
-import type { CurriculumProfile } from "@/types";
+import type { AttemptFeedback, AttemptSubmissionResponse, CurriculumProfile } from "@/types";
 
 export const runtime = "nodejs";
 
 const maxAnswerLength = 500;
 const maxAnswerWorkPhotoCount = 6;
+
+function withPersistenceAcknowledgement(feedback: AttemptFeedback): AttemptSubmissionResponse {
+  return { ...feedback, persisted: true };
+}
 
 /**
  * Work photos arrive as governed media-object REFERENCES, not image bytes. The
@@ -157,17 +161,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: workPhotos.error }, { status: workPhotos.status ?? 400 });
   }
   const answerWorkPhotos = workPhotos.photos ?? [];
+  const persistenceMode = practiceAttemptPersistenceMode();
 
   const feedback = await submitQuestionAttemptFast({
     userId,
     questionId,
     selectedAnswer,
     durationSeconds,
+    curriculumTrack: authenticated.user.curriculumProfile,
     answerWorkPhotos
   });
 
   if (!feedback) {
-    if (!practiceAttemptFastPathPersistsRows()) {
+    if (persistenceMode === "local") {
       const persistedFeedback = await persistLocalAttempt({
         userId,
         questionId,
@@ -178,14 +184,14 @@ export async function POST(request: Request) {
       });
 
       if (persistedFeedback) {
-        return NextResponse.json(persistedFeedback);
+        return NextResponse.json(withPersistenceAcknowledgement(persistedFeedback));
       }
     }
 
     return NextResponse.json({ error: "Question not found." }, { status: 404 });
   }
 
-  if (!practiceAttemptFastPathPersistsRows()) {
+  if (persistenceMode === "local") {
     const persistedFeedback = await persistLocalAttempt({
       userId,
       questionId,
@@ -195,7 +201,7 @@ export async function POST(request: Request) {
       curriculumProfile: authenticated.user.curriculumProfile
     });
 
-    return NextResponse.json(persistedFeedback ?? feedback);
+    return NextResponse.json(persistedFeedback ? withPersistenceAcknowledgement(persistedFeedback) : feedback);
   }
 
   return NextResponse.json(feedback);

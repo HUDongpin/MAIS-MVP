@@ -1,0 +1,341 @@
+{
+  "schemaVersion": "promotion-baseline-role-review.v1",
+  "role": "A18",
+  "reviewedAt": "2026-09-06T15:54:00.666Z",
+  "reviewer": {
+    "identity": "/root/s5_quality_review/s7_binding_contract",
+    "reference": {
+      "path": "coordination/release-intake/g07-review/facts/A18.json",
+      "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+      "rawSha256": "579328bd3e085ad6a0a784d718fc47dbc67f68ad5d4984517c2e715d43bfee08"
+    }
+  },
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a18-independent-qa.v2.6.json",
+    "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+    "rawSha256": "272f26f3a0dad4d06801cbc8eb9c8581a27db825c332d4ddb4c386f32162b50d",
+    "producedAt": "2026-09-06T02:02:24.430Z",
+    "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f"
+  },
+  "evidence": {
+    "schemaVersion": "promotion-evidence.v2",
+    "evidenceId": "a18-g07-reviewed-main-7f692278",
+    "role": "A18",
+    "result": "pass",
+    "producedAt": "2026-09-06T15:54:00.666Z",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "semanticPayload": {
+      "contractVersion": "promotion-a18-shadow-qa.v2",
+      "decisions": [
+        {
+          "kind": "safe-card",
+          "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+          "decision": "accept-for-shadow",
+          "liveDecision": "blocked-localization-and-integration-unproven"
+        },
+        {
+          "kind": "practice",
+          "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+          "decision": "accept-for-shadow",
+          "liveDecision": "blocked-localization-and-integration-unproven"
+        },
+        {
+          "kind": "lesson",
+          "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+          "decision": "accept-for-shadow",
+          "liveDecision": "blocked-localization-and-integration-unproven"
+        }
+      ],
+      "independentMath": {
+        "firstQuantity": "oats-cups",
+        "secondQuantity": "fruit-cups",
+        "orderedRatio": [
+          3,
+          5
+        ],
+        "targetQuantity": "fruit-cups",
+        "targetValue": 20,
+        "scaleFactorExpression": "20 ÷ 5",
+        "scaleFactor": 4,
+        "answerExpression": "3 × 4",
+        "numericAnswer": 12,
+        "canonicalAnswer": "12 cups",
+        "acceptedAnswers": [
+          "12",
+          "12 cups"
+        ],
+        "acceptedAnswerPolicy": "exact-trimmed-forms-v2",
+        "ratioOrderPreserved": true
+      },
+      "standards": {
+        "clusterScope": [
+          "6.RP.1",
+          "6.RP.2",
+          "6.RP.3"
+        ],
+        "maisClusterScope": [
+          "CA.CCSS.Math.G6.RP.1",
+          "CA.CCSS.Math.G6.RP.2",
+          "CA.CCSS.Math.G6.RP.3"
+        ],
+        "directlyAssessed": [
+          "6.RP.3"
+        ],
+        "embeddedPrerequisite": [
+          "6.RP.1"
+        ],
+        "notDemonstratedByPractice": [
+          "6.RP.2"
+        ],
+        "gradeClusterConsistent": true
+      },
+      "practiceReview": {
+        "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+        "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+        "promptAnswerConsistent": true,
+        "answerFormsExplicit": true,
+        "fuzzyMatchingRequired": false,
+        "studentFeedbackUsesInternalLabel": false
+      },
+      "lessonReview": {
+        "recordPath": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+        "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49",
+        "workedExampleMatchesPractice": true,
+        "guidedPracticeHasExpectedAnswer": true,
+        "independentPracticeHasExpectedAnswerAndRubric": true,
+        "remediationTargets": [
+          "ratio order reversed",
+          "unit rate not normalized"
+        ],
+        "grammarIssueFromV1Present": false
+      },
+      "localizationBoundary": {
+        "presentLocales": [
+          "en"
+        ],
+        "missingRequiredLiveLocales": [
+          "zh",
+          "zhHans"
+        ],
+        "adapterMayInventMissingLocales": false,
+        "status": "blocked-for-live"
+      },
+      "checkerGapReviewed": true,
+      "candidateBytesChangedSincePriorReview": false,
+      "shadowEligible": true,
+      "liveEligible": false,
+      "baselineContentReview": {
+        "reviewedAt": "2026-09-06T13:48:22.745Z",
+        "reviewerTaskId": "/root/s5_quality_review/s7_binding_contract",
+        "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "facts": {
+          "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/content-review-facts.json",
+          "rawSha256": "67a8ca09aabb6e5245419b8b62eec376c2e80322d99779b30dd6b189f6039f69",
+          "producedAt": "2026-09-06T13:48:22.745Z",
+          "storage": "external-uncommitted"
+        },
+        "candidateBytesUnchanged": true,
+        "parentSourceRecordDigestsVerified": true,
+        "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+        "runtimeChangedPathCount": 12,
+        "selectedCandidateIdentityHitCount": 0,
+        "candidateReachablePathCount": 0,
+        "shadowAdapterReachable": false,
+        "liveAllowed": false,
+        "shadowExecuted": false,
+        "newContentGenerated": false,
+        "sourceRepositoryUnchanged": true,
+        "scope": "保持原数学、课程、英语与本地化限制判断；仅重新核查不变内容对本次 baseline 差异的依赖隔离。",
+        "freshObservations": [
+          "原 independentMath、standards、practiceReview、lessonReview、localizationBoundary 等字段与原 attempt-007 完全相同。",
+          "本轮仅重新执行既有确定性 content assertions，不能称为新独立数学或语言 QA。",
+          "所有 12 个 runtime 变更逐项绑定 SHA；三项候选和 adapter 均不在 live 可达集合，选定身份字串命中为零。",
+          "英语限定、缺 zh/zhHans、本地化及 live 整合未证实的原限制保持。"
+        ],
+        "notPerformed": [
+          "新的独立数学/课程标准/语言/版权或来源距离评审",
+          "内容生成人员独立性外部认证",
+          "新的 A18 内容推广批准"
+        ]
+      },
+      "liveAllowed": false
+    }
+  },
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/contractVersion",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "decisions",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/decisions",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "independentMath",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/independentMath",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "standards",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/standards",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "practiceReview",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/practiceReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "lessonReview",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/lessonReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "localizationBoundary",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/localizationBoundary",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "checkerGapReviewed",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/checkerGapReviewed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "candidateBytesChangedSincePriorReview",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/candidateBytesChangedSincePriorReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "shadowEligible",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/shadowEligible",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "liveEligible",
+      "mode": "carry-forward",
+      "evidence": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "valuePointer": "/semanticPayload/liveEligible",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "Original attempt-007 content judgment retained with its exact committed bytes, field value and execution date; no new content or language evaluation is claimed."
+    },
+    {
+      "field": "baselineContentReview",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A18.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "579328bd3e085ad6a0a784d718fc47dbc67f68ad5d4984517c2e715d43bfee08",
+        "producedAt": "2026-09-06T15:54:00.666Z",
+        "valuePointer": "/semanticPayload/baselineContentReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/g07-review/facts/A18.json",
+        "reviewedCommit": "921822e5e9487fdea91cbe1aec25f231ed583d0d",
+        "rawSha256": "579328bd3e085ad6a0a784d718fc47dbc67f68ad5d4984517c2e715d43bfee08",
+        "producedAt": "2026-09-06T15:54:00.666Z",
+        "valuePointer": "/authority/liveAllowed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "The named actor actually reviewed this field for the exact target baseline in the committed fact material. Original test execution dates and explicit scope limitations remain preserved."
+    }
+  ]
+}

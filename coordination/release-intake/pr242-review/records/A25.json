@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "promotion-baseline-role-review.v1",
+  "role": "A25",
+  "reviewedAt": "2026-09-09T05:05:14.650Z",
+  "reviewer": {
+    "identity": "01a08462-c56e-7ac1-b3b2-3750bdce8139",
+    "reference": {
+      "path": "coordination/release-intake/pr242-review/original-reviews/A25.json",
+      "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+      "rawSha256": "ad85e696ed343bf3041f337a59efd22188b50ee55d7688163e0565990bf5a161"
+    }
+  },
+  "sourceEvidence": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/inputs/evidence/a25-release-intake.v2.6.json",
+    "reviewedCommit": "ff5f745e4de2590c31c49d3e562e97f2dece65c6",
+    "rawSha256": "b9740d2d15d38530834271b41d9186bec89d8ecf7851ab23cd2f359f83d30827",
+    "producedAt": "2026-09-06T17:23:13.630Z",
+    "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453"
+  },
+  "evidence": {
+    "schemaVersion": "promotion-evidence.v2",
+    "evidenceId": "a25-pr242-baseline-5227a9a",
+    "role": "A25",
+    "result": "pass",
+    "producedAt": "2026-09-09T05:05:14.650Z",
+    "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+    "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+    "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+    "checkerVersion": "promotion-gate-shadow-v2.6",
+    "semanticPayload": {
+      "contractVersion": "promotion-a25-release-intake.v2",
+      "finalDisposition": "reviewed commit",
+      "reviewedCompositionCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+      "reviewedBranch": "codex/scorm-main-20260908",
+      "targetPullRequest": 242,
+      "reviewSession": "01a08462-c56e-7ac1-b3b2-3750bdce8139",
+      "baselineReview": {
+        "sourceBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+        "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+        "sourceManifest": {
+          "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/promotion-manifest.v2.json",
+          "rawSha256": "776146b903e46aa321a5f5d15357e620b40758efd82f4b6dd6c0f6325573d2b1"
+        },
+        "runtimeTopologyProofDigest": "9849e6277b8e6f5ec7a4facaebb37f9e2b10acfcebb6f885a8c7e2128de7e334",
+        "metadataProofDigest": "8a59f6c68cac9d9813286e390ff7be68cfa73ef0ce7f43385d2ce2d6f2a12b4c",
+        "codeCommit": "e76a60811e158bfc8d5ee3bf4a025d5bed34748a",
+        "nativeCollectionProducedAt": "2026-09-09T04:58:07.715Z",
+        "sourceAndTargetArchivesVerified": true,
+        "candidateOrCheckerBytesChanged": false,
+        "nativeSemanticProof": {
+          "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+          "resolutionProofsDigest": "9c2a5139966e2dbaa007adc083166e3eb231b8c6a7991551634e4c2c5186e092",
+          "selectedIdentityHits": 0,
+          "resolutionCount": 18,
+          "approvedProjectionCount": 3,
+          "dereachedCount": 15,
+          "liveAllowed": false
+        },
+        "scope": "Independent baseline-only review plus real native collection; not whole-program equivalence or new candidate-content QA.",
+        "nativeValidation": "not-run",
+        "shadow": "not-run",
+        "liveAllowed": false
+      },
+      "targetBaselineCommit": "5227a9a951aadeff14d8c5320d5e0844e72c525e",
+      "legacyResolutionRegistryPath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/reaffirmations/g08/reaffirmations/p242/inputs/legacy-resolution-registry.v2.6.json",
+      "legacyResolutionRegistryRawSha256": "eae293ed951baba4103ccf89b0cf619dab314e78953359923932d838fe6475f0",
+      "registryIntake": {
+        "state": "projected exact bytes; publication pending",
+        "changedFields": [
+          "targetBaselineCommit"
+        ],
+        "resolutionCount": 18,
+        "approvedProjectionCount": 3,
+        "dereachedCount": 15
+      },
+      "remainingConditions": [
+        "Commit role/index evidence before native generation.",
+        "Validate and compare canonical/fresh/replay before final CI mergeability readback.",
+        "No merge, cleanup or deployment authorized by this record."
+      ],
+      "liveAllowed": false
+    }
+  },
+  "fieldDisposition": [
+    {
+      "field": "contractVersion",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/contractVersion",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "finalDisposition",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/finalDisposition",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "reviewedCompositionCommit",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/reviewedCompositionCommit",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "reviewedBranch",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/reviewedBranch",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "targetPullRequest",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/targetPullRequest",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "reviewSession",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/reviewSession",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "baselineReview",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/baselineReview",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "targetBaselineCommit",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/targetBaselineCommit",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "legacyResolutionRegistryPath",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/legacyResolutionRegistryPath",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "legacyResolutionRegistryRawSha256",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/legacyResolutionRegistryRawSha256",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "registryIntake",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/registryIntake",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "remainingConditions",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/remainingConditions",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    },
+    {
+      "field": "liveAllowed",
+      "mode": "fresh",
+      "evidence": {
+        "path": "coordination/release-intake/pr242-review/facts/A25.json",
+        "reviewedCommit": "af43c99491a82e10c6cecffa798e4903cebb3c6e",
+        "rawSha256": "5bf497c0a74838c8fca8bd76dba6adeec569e80f51e4591591cf8f9ce5b623bc",
+        "producedAt": "2026-09-09T05:03:02.581Z",
+        "valuePointer": "/semanticPayload/liveAllowed",
+        "targetBaselinePointer": "/targetBaselineCommit"
+      },
+      "rationale": "This exact baseline fact was collected and reviewed for the fixed SCORM target; prior tests and pending native operations retain their explicit identities and limits."
+    }
+  ]
+}

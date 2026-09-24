@@ -1,0 +1,800 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/promotion-gate-handoff-v1.json",
+  "title": "MAIS Content Promotion EvidenceEnvelopeV1 Handoff",
+  "description": "Self-contained common EvidenceEnvelopeV1 plus a non-authoritative, redacted, version-independent Promotion Shadow audit and handoff summary.",
+  "x-resolver-enforced": "promotion-gate-handoff-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "skill",
+    "mode",
+    "observedAt",
+    "repository",
+    "evidenceId",
+    "evidenceClass",
+    "sourceIdentity",
+    "resolvedState",
+    "authority",
+    "status",
+    "authoritativeReceipt",
+    "bindings",
+    "lifecycleState",
+    "currentness",
+    "liveBoundary",
+    "attemptRelation",
+    "receiptComparison",
+    "nativeArtifacts",
+    "canonicalReceiptEvidence",
+    "externalClosure",
+    "releaseHandoff",
+    "checks",
+    "blockers",
+    "evidenceHashes",
+    "redaction",
+    "claimCeiling",
+    "nextAllowedAction"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "skill": { "type": "string", "const": "mais-content-promotion-gate" },
+    "mode": {
+      "type": "string",
+      "enum": ["audit-read-only", "native-validate", "native-shadow", "receipt-verify", "external-closure", "release-handoff"]
+    },
+    "observedAt": { "$ref": "#/$defs/dateTime" },
+    "repository": { "$ref": "#/$defs/repository" },
+    "evidenceId": { "$ref": "#/$defs/evidenceId" },
+    "evidenceClass": { "type": "string", "const": "exact-package-machine-review" },
+    "sourceIdentity": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceIdentity" }
+    },
+    "resolvedState": {
+      "type": "string",
+      "enum": ["discovered", "validated", "shadow-evidence-complete", "blocked", "invalid"]
+    },
+    "authority": { "$ref": "#/$defs/authority" },
+    "status": { "type": "string", "enum": ["complete", "blocked", "invalid"] },
+    "authoritativeReceipt": { "type": "boolean", "const": false },
+    "bindings": { "$ref": "#/$defs/bindings" },
+    "lifecycleState": {
+      "type": "string",
+      "enum": ["candidate_hold", "shadow_ready", "shadow_passed", "repair_required", "rejected"]
+    },
+    "currentness": { "type": "string", "enum": ["current", "stale", "historical-only"] },
+    "liveBoundary": { "type": "string", "enum": ["unproven", "blocked"] },
+    "attemptRelation": { "$ref": "#/$defs/attemptRelation" },
+    "receiptComparison": { "$ref": "#/$defs/receiptComparison" },
+    "nativeArtifacts": { "$ref": "#/$defs/nativeArtifacts" },
+    "canonicalReceiptEvidence": {
+      "oneOf": [
+        { "$ref": "#/$defs/canonicalReceiptEvidence" },
+        { "type": "null" }
+      ]
+    },
+    "externalClosure": { "$ref": "#/$defs/externalClosure" },
+    "releaseHandoff": {
+      "oneOf": [
+        { "$ref": "#/$defs/releaseHandoff" },
+        { "type": "null" }
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/check" }
+    },
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/opaqueId" }
+    },
+    "evidenceHashes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sha256" }
+    },
+    "redaction": { "$ref": "#/$defs/redaction" },
+    "claimCeiling": {
+      "type": "string",
+      "enum": ["audit-only", "shadow-ready", "shadow-passed", "shadow-mature-live-unproven", "blocked"]
+    },
+    "nextAllowedAction": {
+      "type": "string",
+      "enum": [
+        "run-native-validation",
+        "authorize-shadow",
+        "verify-receipts",
+        "supply-missing-evidence",
+        "create-new-immutable-attempt",
+        "prepare-append-only-reaffirmation",
+        "finalize-shadow",
+        "handoff-release-hygiene",
+        "stop-blocked"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "receiptComparison": { "properties": { "comparisonStatus": { "const": "pass" } } } } },
+      "then": {
+        "properties": {
+          "receiptComparison": {
+            "required": ["comparisonDigest"],
+            "properties": {
+              "canonical": { "$ref": "#/$defs/receiptDigest" },
+              "fresh": { "$ref": "#/$defs/receiptDigest" },
+              "replay": { "$ref": "#/$defs/receiptDigest" },
+              "bindingsEqual": { "const": true },
+              "semanticDigestsEqual": { "const": true },
+              "runIdsDistinct": { "const": true },
+              "semanticDigestsVerified": { "const": true }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "receiptComparison": { "properties": { "comparisonStatus": { "const": "not-run" } } } } },
+      "then": {
+        "properties": {
+          "receiptComparison": {
+            "properties": {
+              "fresh": { "type": "null" },
+              "replay": { "type": "null" },
+              "bindingsEqual": { "const": false },
+              "semanticDigestsEqual": { "const": false },
+              "rawDigestsEqual": { "const": false },
+              "runIdsDistinct": { "const": false },
+              "semanticDigestsVerified": { "const": false }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "lifecycleState": { "const": "shadow_passed" } } },
+      "then": {
+        "properties": {
+          "receiptComparison": { "properties": { "comparisonStatus": { "const": "pass" } } },
+          "nativeArtifacts": {
+            "properties": {
+              "closure": { "$ref": "#/$defs/artifactRef" },
+              "registry": { "$ref": "#/$defs/artifactRef" }
+            }
+          },
+          "externalClosure": {
+            "properties": {
+              "scope": { "const": "active-attempt" },
+              "verified": { "const": true },
+              "signatureDigestCount": { "minimum": 2 },
+              "a11EvidenceVerified": { "const": true },
+              "a22EvidenceVerified": { "const": true },
+              "githubEvidenceVerified": { "const": true },
+              "a25EvidenceVerified": { "const": true }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "attemptRelation": { "properties": { "relation": { "const": "base-attempt" } } } } },
+      "then": {
+        "properties": {
+          "attemptRelation": {
+            "properties": {
+              "revisionRef": { "type": "null" },
+              "candidateChanged": { "const": false },
+              "sourceChanged": { "const": false },
+              "checkerChanged": { "const": false },
+              "baselineChanged": { "const": false },
+              "reviewedBaselineOnly": { "const": false },
+              "directParentManifestSha256": { "$ref": "#/$defs/sha256" },
+              "directParentReceiptSha256": { "type": "null" },
+              "evidenceCommit": { "type": "null" },
+              "bindingCommit": {
+                "oneOf": [{ "$ref": "#/$defs/commit" }, { "type": "null" }]
+              },
+              "executionCommit": { "$ref": "#/$defs/commit" },
+              "storageCommit": {
+                "oneOf": [{ "$ref": "#/$defs/commit" }, { "type": "null" }]
+              },
+              "finalizationCommit": {
+                "oneOf": [{ "$ref": "#/$defs/commit" }, { "type": "null" }]
+              }
+            }
+          },
+          "nativeArtifacts": { "properties": { "reaffirmation": { "type": "null" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "attemptRelation": { "properties": { "relation": { "const": "append-only-reaffirmation" } } } } },
+      "then": {
+        "properties": {
+          "attemptRelation": {
+            "properties": {
+              "revisionRef": { "$ref": "#/$defs/redactedRef" },
+              "baseCount": { "const": 1 },
+              "candidateChanged": { "const": false },
+              "sourceChanged": { "const": false },
+              "checkerChanged": { "const": false },
+              "baselineChanged": { "const": true },
+              "reviewedBaselineOnly": { "const": true },
+              "directParentManifestSha256": { "$ref": "#/$defs/sha256" },
+              "directParentReceiptSha256": { "$ref": "#/$defs/sha256" },
+              "evidenceCommit": { "$ref": "#/$defs/commit" },
+              "bindingCommit": { "$ref": "#/$defs/commit" },
+              "executionCommit": { "$ref": "#/$defs/commit" },
+              "storageCommit": {
+                "oneOf": [{ "$ref": "#/$defs/commit" }, { "type": "null" }]
+              },
+              "finalizationCommit": {
+                "oneOf": [
+                  { "$ref": "#/$defs/commit" },
+                  { "type": "null" }
+                ]
+              }
+            }
+          },
+          "nativeArtifacts": { "properties": { "reaffirmation": { "$ref": "#/$defs/artifactRef" } } }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "enum": ["native-validate", "native-shadow"] }
+        }
+      },
+      "then": {
+        "properties": {
+          "attemptRelation": {
+            "properties": {
+              "finalizationCommit": { "type": "null" },
+              "storageCommit": { "type": "null" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {
+            "properties": {
+              "mode": { "enum": ["receipt-verify", "external-closure", "release-handoff"] }
+            }
+          },
+          {
+            "properties": {
+              "attemptRelation": {
+                "properties": {
+                  "relation": { "const": "append-only-reaffirmation" }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "attemptRelation": {
+            "properties": {
+              "finalizationCommit": { "$ref": "#/$defs/commit" },
+              "storageCommit": { "$ref": "#/$defs/commit" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "attemptRelation": { "properties": { "relation": { "const": "unresolved-reaffirmation" } } } } },
+      "then": {
+        "properties": {
+          "resolvedState": { "const": "blocked" },
+          "status": { "const": "blocked" },
+          "currentness": { "const": "stale" },
+          "claimCeiling": { "const": "audit-only" },
+          "nextAllowedAction": { "enum": ["supply-missing-evidence", "create-new-immutable-attempt"] },
+          "attemptRelation": {
+            "properties": {
+              "revisionRef": { "$ref": "#/$defs/redactedRef" },
+              "baseCount": { "const": 1 },
+              "reviewedBaselineOnly": { "const": false },
+              "directParentManifestSha256": { "$ref": "#/$defs/sha256" },
+              "directParentReceiptSha256": { "$ref": "#/$defs/sha256" },
+              "evidenceCommit": { "type": "null" },
+              "bindingCommit": { "type": "null" },
+              "executionCommit": { "type": "null" },
+              "storageCommit": { "type": "null" },
+              "finalizationCommit": { "type": "null" }
+            }
+          },
+          "nativeArtifacts": { "properties": { "reaffirmation": { "type": "null" } } },
+          "externalClosure": { "properties": { "scope": { "const": "historical-direct-base" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "mode": { "const": "native-validate" } } },
+      "then": {
+        "properties": {
+          "resolvedState": { "const": "validated" },
+          "lifecycleState": { "enum": ["candidate_hold", "shadow_ready", "repair_required", "rejected"] },
+          "claimCeiling": { "enum": ["audit-only", "shadow-ready", "blocked"] }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "currentness": { "enum": ["stale", "historical-only"] } } },
+      "then": {
+        "properties": {
+          "claimCeiling": { "enum": ["audit-only", "blocked"] },
+          "nextAllowedAction": {
+            "enum": ["supply-missing-evidence", "create-new-immutable-attempt", "prepare-append-only-reaffirmation", "stop-blocked"]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "claimCeiling": { "enum": ["shadow-passed", "shadow-mature-live-unproven"] } } },
+      "then": {
+        "properties": {
+          "lifecycleState": { "const": "shadow_passed" },
+          "receiptComparison": { "properties": { "comparisonStatus": { "const": "pass" } } },
+          "liveBoundary": { "enum": ["unproven", "blocked"] }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "liveBoundary": { "const": "blocked" } } },
+      "then": { "properties": { "blockers": { "minItems": 1 } } }
+    },
+    {
+      "if": { "properties": { "mode": { "const": "release-handoff" } } },
+      "then": {
+        "properties": {
+          "repository": { "properties": { "head": { "$ref": "#/$defs/commit" }, "clean": { "const": true } } },
+          "resolvedState": { "const": "shadow-evidence-complete" },
+          "status": { "const": "complete" },
+          "lifecycleState": { "const": "shadow_passed" },
+          "currentness": { "const": "current" },
+          "liveBoundary": { "enum": ["unproven", "blocked"] },
+          "claimCeiling": { "const": "shadow-mature-live-unproven" },
+          "nextAllowedAction": { "const": "handoff-release-hygiene" },
+          "releaseHandoff": { "$ref": "#/$defs/releaseHandoff" }
+        }
+      },
+      "else": { "properties": { "releaseHandoff": { "type": "null" } } }
+    }
+  ],
+  "$defs": {
+    "opaqueId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "not": { "const": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }
+    },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "evidenceId": { "type": "string", "pattern": "^evidence-[a-f0-9]{12,64}$" },
+    "redactedRef": { "type": "string", "pattern": "^ref-[a-f0-9]{12,64}$" },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["head", "branch", "clean"],
+      "properties": {
+        "head": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "branch": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"
+        },
+        "clean": { "type": ["boolean", "null"] }
+      }
+    },
+    "sourceIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["logicalId"],
+      "properties": {
+        "logicalId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "proven", "missing"],
+      "properties": {
+        "required": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/opaqueId" }
+        },
+        "proven": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/opaqueId" }
+        },
+        "missing": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/opaqueId" }
+        },
+        "expiresAt": { "$ref": "#/$defs/dateTime" }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "fail", "blocked", "unknown"]
+        },
+        "evidenceRef": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+        }
+      }
+    },
+    "redaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protectedContentIncluded", "credentialsIncluded", "rawProviderResponsesIncluded"],
+      "properties": {
+        "protectedContentIncluded": { "const": false },
+        "credentialsIncluded": { "const": false },
+        "rawProviderResponsesIncluded": { "const": false }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateDigest", "sourceCommit", "targetBaselineCommit", "checkerVersionSha256", "checkerBundleDigest", "checkerReleaseCommit"],
+      "properties": {
+        "candidateDigest": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/commit" },
+        "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+        "checkerVersionSha256": { "$ref": "#/$defs/sha256" },
+        "checkerBundleDigest": { "$ref": "#/$defs/sha256" },
+        "checkerReleaseCommit": { "$ref": "#/$defs/commit" }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "sha256"],
+      "properties": {
+        "ref": { "$ref": "#/$defs/redactedRef" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "nullableArtifactRef": {
+      "oneOf": [
+        { "$ref": "#/$defs/artifactRef" },
+        { "type": "null" }
+      ]
+    },
+    "canonicalReceiptEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "fileSha256", "executionCommit", "storageCommit"],
+      "properties": {
+        "ref": { "$ref": "#/$defs/redactedRef" },
+        "fileSha256": { "$ref": "#/$defs/sha256" },
+        "executionCommit": { "$ref": "#/$defs/commit" },
+        "storageCommit": {
+          "oneOf": [
+            { "$ref": "#/$defs/commit" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "attemptRelation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation",
+        "baseAttemptRef",
+        "revisionRef",
+        "baseCount",
+        "candidateChanged",
+        "sourceChanged",
+        "checkerChanged",
+        "baselineChanged",
+        "reviewedBaselineOnly",
+        "directParentManifestSha256",
+        "directParentReceiptSha256",
+        "evidenceCommit",
+        "bindingCommit",
+        "executionCommit",
+        "storageCommit",
+        "finalizationCommit",
+        "historicalClosureOverwritten"
+      ],
+      "properties": {
+        "relation": { "type": "string", "enum": ["base-attempt", "unresolved-reaffirmation", "append-only-reaffirmation", "replacement-attempt"] },
+        "baseAttemptRef": { "$ref": "#/$defs/redactedRef" },
+        "revisionRef": {
+          "oneOf": [
+            { "$ref": "#/$defs/redactedRef" },
+            { "type": "null" }
+          ]
+        },
+        "baseCount": { "type": "integer", "minimum": 1, "maximum": 1 },
+        "candidateChanged": { "type": "boolean" },
+        "sourceChanged": { "type": "boolean" },
+        "checkerChanged": { "type": "boolean" },
+        "baselineChanged": { "type": "boolean" },
+        "reviewedBaselineOnly": { "type": "boolean" },
+        "directParentManifestSha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "directParentReceiptSha256": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "evidenceCommit": {
+          "oneOf": [
+            { "$ref": "#/$defs/commit" },
+            { "type": "null" }
+          ]
+        },
+        "bindingCommit": {
+          "oneOf": [
+            { "$ref": "#/$defs/commit" },
+            { "type": "null" }
+          ]
+        },
+        "executionCommit": {
+          "oneOf": [
+            { "$ref": "#/$defs/commit" },
+            { "type": "null" }
+          ]
+        },
+        "storageCommit": {
+          "oneOf": [
+            { "$ref": "#/$defs/commit" },
+            { "type": "null" }
+          ]
+        },
+        "finalizationCommit": {
+          "oneOf": [
+            { "$ref": "#/$defs/commit" },
+            { "type": "null" }
+          ]
+        },
+        "historicalClosureOverwritten": { "const": false }
+      }
+    },
+    "receiptDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["receiptSha256", "semanticDigest", "rawDigest", "bindingDigest", "semanticDigestVerified", "liveAllowed"],
+      "properties": {
+        "receiptSha256": { "$ref": "#/$defs/sha256" },
+        "semanticDigest": { "$ref": "#/$defs/sha256" },
+        "rawDigest": { "$ref": "#/$defs/sha256" },
+        "bindingDigest": { "$ref": "#/$defs/sha256" },
+        "semanticDigestVerified": { "type": "boolean", "const": true },
+        "liveAllowed": { "const": false }
+      }
+    },
+    "nullableReceiptDigest": {
+      "oneOf": [
+        { "$ref": "#/$defs/receiptDigest" },
+        { "type": "null" }
+      ]
+    },
+    "receiptComparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical", "fresh", "replay", "bindingsEqual", "semanticDigestsEqual", "rawDigestsEqual", "runIdsDistinct", "semanticDigestsVerified", "comparisonStatus"],
+      "properties": {
+        "canonical": { "$ref": "#/$defs/nullableReceiptDigest" },
+        "fresh": { "$ref": "#/$defs/nullableReceiptDigest" },
+        "replay": { "$ref": "#/$defs/nullableReceiptDigest" },
+        "bindingsEqual": { "type": "boolean" },
+        "semanticDigestsEqual": { "type": "boolean" },
+        "rawDigestsEqual": { "type": "boolean" },
+        "runIdsDistinct": { "type": "boolean" },
+        "semanticDigestsVerified": { "type": "boolean" },
+        "comparisonDigest": { "$ref": "#/$defs/sha256" },
+        "comparisonStatus": { "type": "string", "enum": ["pass", "fail", "blocked", "not-run"] }
+      }
+    },
+    "nativeArtifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "canonicalReceipt", "closure", "registry", "reaffirmation", "ciArtifact"],
+      "properties": {
+        "manifest": { "$ref": "#/$defs/artifactRef" },
+        "canonicalReceipt": { "$ref": "#/$defs/nullableArtifactRef" },
+        "closure": { "$ref": "#/$defs/nullableArtifactRef" },
+        "registry": { "$ref": "#/$defs/nullableArtifactRef" },
+        "reaffirmation": { "$ref": "#/$defs/nullableArtifactRef" },
+        "ciArtifact": { "$ref": "#/$defs/nullableArtifactRef" }
+      }
+    },
+    "externalClosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified",
+        "signatureDigestCount",
+        "scope",
+        "a11EvidenceVerified",
+        "a22EvidenceVerified",
+        "githubEvidenceVerified",
+        "a25EvidenceVerified",
+        "liveAllowed"
+      ],
+      "properties": {
+        "verified": { "type": "boolean" },
+        "signatureDigestCount": { "type": "integer", "minimum": 0 },
+        "scope": { "type": "string", "enum": ["active-attempt", "historical-direct-base"] },
+        "a11EvidenceVerified": { "type": "boolean" },
+        "a22EvidenceVerified": { "type": "boolean" },
+        "githubEvidenceVerified": { "type": "boolean" },
+        "a25EvidenceVerified": { "type": "boolean" },
+        "liveAllowed": { "type": "boolean", "const": false }
+      }
+    },
+    "releaseEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "ref", "sha256", "releaseSha", "result", "liveAllowed"],
+      "properties": {
+        "role": { "type": "string", "enum": ["A11", "A22", "A25"] },
+        "ref": { "$ref": "#/$defs/redactedRef" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "releaseSha": { "$ref": "#/$defs/commit" },
+        "result": { "type": "string", "const": "pass" },
+        "liveAllowed": { "type": "boolean", "const": false }
+      }
+    },
+    "liveSurfaceOwnerEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ownerRef", "ref", "sha256", "releaseSha", "result", "liveAllowed"],
+      "properties": {
+        "ownerRef": { "$ref": "#/$defs/redactedRef" },
+        "ref": { "$ref": "#/$defs/redactedRef" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "releaseSha": { "$ref": "#/$defs/commit" },
+        "result": { "type": "string", "const": "pass" },
+        "liveAllowed": { "type": "boolean", "const": false }
+      }
+    },
+    "ownerAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ownerRef", "authorizationRef", "sha256", "releaseSha", "target", "action", "targetPathspecRef", "targetPathspecDigest"],
+      "properties": {
+        "ownerRef": { "$ref": "#/$defs/redactedRef" },
+        "authorizationRef": { "$ref": "#/$defs/redactedRef" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "releaseSha": { "$ref": "#/$defs/commit" },
+        "target": { "type": "string", "const": "production" },
+        "action": { "type": "string", "const": "deploy" },
+        "targetPathspecRef": { "$ref": "#/$defs/redactedRef" },
+        "targetPathspecDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "releaseHandoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "releaseSha",
+        "candidateDigest",
+        "sourceCommit",
+        "targetBaselineCommit",
+        "checkerBundleDigest",
+        "checkerReleaseCommit",
+        "manifestSha256",
+        "canonicalReceiptSha256",
+        "closureSha256",
+        "registrySha256",
+        "registeredExecutionCommit",
+        "storageCommit",
+        "finalizationCommit",
+        "directParentManifestSha256",
+        "executionAncestorOfStorage",
+        "storageAncestorOfFinalization",
+        "executionAncestorOfFinalization",
+        "finalizationAncestorOfRelease",
+        "liveSurfaceOwnerEvidence",
+        "ownerAuthorization",
+        "a11Evidence",
+        "a22Evidence",
+        "a25Evidence",
+        "liveAllowed"
+      ],
+      "properties": {
+        "releaseSha": { "$ref": "#/$defs/commit" },
+        "candidateDigest": { "$ref": "#/$defs/sha256" },
+        "sourceCommit": { "$ref": "#/$defs/commit" },
+        "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+        "checkerBundleDigest": { "$ref": "#/$defs/sha256" },
+        "checkerReleaseCommit": { "$ref": "#/$defs/commit" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "canonicalReceiptSha256": { "$ref": "#/$defs/sha256" },
+        "closureSha256": { "$ref": "#/$defs/sha256" },
+        "registrySha256": { "$ref": "#/$defs/sha256" },
+        "registeredExecutionCommit": { "$ref": "#/$defs/commit" },
+        "storageCommit": { "$ref": "#/$defs/commit" },
+        "finalizationCommit": { "$ref": "#/$defs/commit" },
+        "directParentManifestSha256": { "$ref": "#/$defs/sha256" },
+        "executionAncestorOfStorage": { "const": true },
+        "storageAncestorOfFinalization": { "const": true },
+        "executionAncestorOfFinalization": { "const": true },
+        "finalizationAncestorOfRelease": { "const": true },
+        "liveSurfaceOwnerEvidence": { "$ref": "#/$defs/liveSurfaceOwnerEvidence" },
+        "ownerAuthorization": { "$ref": "#/$defs/ownerAuthorization" },
+        "a11Evidence": {
+          "allOf": [
+            { "$ref": "#/$defs/releaseEvidence" },
+            { "properties": { "role": { "const": "A11" } } }
+          ]
+        },
+        "a22Evidence": {
+          "allOf": [
+            { "$ref": "#/$defs/releaseEvidence" },
+            { "properties": { "role": { "const": "A22" } } }
+          ]
+        },
+        "a25Evidence": {
+          "allOf": [
+            { "$ref": "#/$defs/releaseEvidence" },
+            { "properties": { "role": { "const": "A25" } } }
+          ]
+        },
+        "liveAllowed": { "type": "boolean", "const": false }
+      }
+    }
+  }
+}

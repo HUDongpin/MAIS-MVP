@@ -1,0 +1,55 @@
+{
+  "protocolId": "MAIS-RSI-LITE-CAL-V1",
+  "protocolVersion": "1.1.1-f2-r",
+  "sourceBaseline": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "status": "candidate-only",
+  "estimandScope": "content-surfaces-only",
+  "executionMode": "offline-deterministic",
+  "receiptCount": 4,
+  "formalExecutionAuthorized": false,
+  "productionAuthorized": false,
+  "liveProviderCalibrated": false,
+  "countsByArm": {
+    "A": {
+      "findings": 5,
+      "requiredSurfaces": 26,
+      "inspectedSurfaces": 26,
+      "providerCalls": 0,
+      "apiCost": 0,
+      "childProcesses": 0
+    },
+    "B": {
+      "findings": 7,
+      "requiredSurfaces": 26,
+      "inspectedSurfaces": 26,
+      "providerCalls": 0,
+      "apiCost": 0,
+      "childProcesses": 0
+    },
+    "C0": {
+      "findings": 7,
+      "requiredSurfaces": 26,
+      "inspectedSurfaces": 26,
+      "providerCalls": 0,
+      "apiCost": 0,
+      "childProcesses": 0
+    },
+    "C": {
+      "findings": 7,
+      "requiredSurfaces": 26,
+      "inspectedSurfaces": 26,
+      "providerCalls": 0,
+      "apiCost": 0,
+      "childProcesses": 5
+    }
+  },
+  "interpretation": "Committed public-fixture topology, semantic-validation, lifecycle, and deterministic replay evidence only; no live-model, causal-effect, browser-render, independent content-readiness, or formal-run claim.",
+  "remainingGates": [
+    "A18-independent-review",
+    "A11-independent-runner-review",
+    "A22-independent-isolation-review",
+    "A25-independent-preflight",
+    "owner-budget-signature",
+    "separate-explicit-F3-authorization"
+  ]
+}

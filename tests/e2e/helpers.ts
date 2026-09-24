@@ -5,6 +5,9 @@ import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 
+export const teacherInviteCode =
+  process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "tinv_8f14e45fceea167a5a36dedd4bea2543";
+
 export const demoStudent = {
   username: "HK Student Peter",
   password: "12345"

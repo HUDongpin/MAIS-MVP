@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       reason: "student-only",
       guard: {
         en: "Adaptive learner state refresh is available only to the signed-in student in the P1 pilot loop.",
-        zh: "P1 試點閉環中，適性學習者狀態刷新只對已登入學生本人開放。"
+        zh: "P1 試點閉環中，適性學習者狀態刷新只對已登入學生本人開放。", zhHans: "P1 试点闭环中，自适应学习者状态刷新只对已登录学生本人开放。"
       }
     }, { status: 403 });
   }

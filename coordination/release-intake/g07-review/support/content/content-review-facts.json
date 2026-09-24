@@ -1,0 +1,993 @@
+{
+  "schemaVersion": "mais-s7-content-role-facts.v1",
+  "reviewedAt": "2026-09-06T13:48:22.745Z",
+  "actor": {
+    "taskId": "/root/s5_quality_review/s7_binding_contract",
+    "kind": "Codex AI subagent",
+    "scopeRoles": [
+      "A04",
+      "A05",
+      "A18",
+      "A21",
+      "A24"
+    ],
+    "distinctReviewerCount": 1,
+    "originalCandidateGenerator": false,
+    "humanSignature": false,
+    "identityMachineAuthenticated": false
+  },
+  "targetBaselineCommit": "7f692278989b4bf45496d239bccb9263326b5453",
+  "sourceBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "candidateSourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "workflow": {
+    "path": ".github/workflows/promotion-shadow.yml",
+    "rawSha256": "4624a05236bb34eb9ba009c91bc16c646e689abcb172b254457280bd3d9841ca"
+  },
+  "sourceManifest": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/promotion-manifest.v2.json",
+    "rawSha256": "aebc76abc2d9621e0c654ae9bb7b5a3e014bd55bc522ea7a72e727dc41e9652b"
+  },
+  "candidatePackageId": "us-ca-math-rag-v2-g6-ratios-v2-candidate",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "fileBindings": [
+    {
+      "kind": "package",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/candidate-package.v2.json",
+      "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+      "comparison": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "gitBlob": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "gitBlob": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "9528889b7fe9a052f136014daba95816d215db445a5575ee0f3ead5f0a009d4e",
+          "gitBlob": "9846351afe2682c2d7d29bc1ed50409743b8fa21"
+        }
+      ],
+      "regularTrackedBlob": true
+    },
+    {
+      "kind": "safe-card",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/safe-card.v2.json",
+      "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+      "comparison": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "gitBlob": "c8782c61d63aebb80c323603c5276960078d90fd"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "gitBlob": "c8782c61d63aebb80c323603c5276960078d90fd"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "68668bb8e1f962cc3e1b6923c8121ca113951daba9f764bedf42a89ef5dde756",
+          "gitBlob": "c8782c61d63aebb80c323603c5276960078d90fd"
+        }
+      ],
+      "regularTrackedBlob": true,
+      "recordSha256": "896121e5fb79814fc0f2d8048c21df80eba45026e6139cfa98254849bd9f7053",
+      "recordId": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2"
+    },
+    {
+      "kind": "practice",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/practice-item.v2.json",
+      "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+      "comparison": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "gitBlob": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "gitBlob": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "a843d883aa2f55c8f11f60e6941b81aa572ebe1bede85467d9d0f791047e4b86",
+          "gitBlob": "36f29aae5c9b9049aa70d41bd3bad584abddcdf3"
+        }
+      ],
+      "regularTrackedBlob": true,
+      "recordSha256": "03122bc96010ef1add3af2c0d0bd5245d483d2ede36b20ec748a5451b7259864",
+      "recordId": "s04-ca-rag-v2-q031-6-rp-ratios-v2"
+    },
+    {
+      "kind": "lesson",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-g6-ratios-v2-candidate/lesson.v2.json",
+      "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+      "comparison": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "gitBlob": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "gitBlob": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "rawSha256": "e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913",
+          "gitBlob": "beb24b2b521c4a7a6e00cea1d0067ab79df848f2"
+        }
+      ],
+      "regularTrackedBlob": true,
+      "recordSha256": "0f71adbea24321e61ff9d9dc3a7de8234a17fbc85b49c6c604ed307db8519b49",
+      "recordId": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2"
+    }
+  ],
+  "parentSourceRecords": [
+    {
+      "kind": "safe-card",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+      "jsonPointer": "/108",
+      "expectedRecordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284",
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "parentFileRawSha256": "55dbd69f3155c395800ae7ab5f756e9ffc46ebfb749aa5da8bde665f98d7becb",
+          "recordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284",
+          "recordIdMatches": true
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "parentFileRawSha256": "55dbd69f3155c395800ae7ab5f756e9ffc46ebfb749aa5da8bde665f98d7becb",
+          "recordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284",
+          "recordIdMatches": true
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "parentFileRawSha256": "55dbd69f3155c395800ae7ab5f756e9ffc46ebfb749aa5da8bde665f98d7becb",
+          "recordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284",
+          "recordIdMatches": true
+        }
+      ],
+      "privateCorpusRead": false
+    },
+    {
+      "kind": "practice",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+      "jsonPointer": "/questions/30",
+      "expectedRecordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305",
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "parentFileRawSha256": "e86451098fce936f00b804ba8247486e3fb0bb7be80c5833ed6e9035f9b2ae50",
+          "recordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305",
+          "recordIdMatches": true
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "parentFileRawSha256": "e86451098fce936f00b804ba8247486e3fb0bb7be80c5833ed6e9035f9b2ae50",
+          "recordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305",
+          "recordIdMatches": true
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "parentFileRawSha256": "e86451098fce936f00b804ba8247486e3fb0bb7be80c5833ed6e9035f9b2ae50",
+          "recordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305",
+          "recordIdMatches": true
+        }
+      ],
+      "privateCorpusRead": false
+    },
+    {
+      "kind": "lesson",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json",
+      "jsonPointer": "/lessons/30",
+      "expectedRecordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d",
+      "observations": [
+        {
+          "commit": "faf57280778c4b6543d15ce675638ac480b42864",
+          "parentFileRawSha256": "5904f83d47620749c97fa2471029e7d0c56d41cdefa5f57649f78d7131e23de3",
+          "recordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d",
+          "recordIdMatches": true
+        },
+        {
+          "commit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+          "parentFileRawSha256": "5904f83d47620749c97fa2471029e7d0c56d41cdefa5f57649f78d7131e23de3",
+          "recordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d",
+          "recordIdMatches": true
+        },
+        {
+          "commit": "7f692278989b4bf45496d239bccb9263326b5453",
+          "parentFileRawSha256": "5904f83d47620749c97fa2471029e7d0c56d41cdefa5f57649f78d7131e23de3",
+          "recordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d",
+          "recordIdMatches": true
+        }
+      ],
+      "privateCorpusRead": false
+    }
+  ],
+  "checker": {
+    "version": "promotion-gate-shadow-v2.6",
+    "bundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+    "files": [
+      {
+        "path": "coordination/integration/promotion-gate-lib.mjs",
+        "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "rawSha256": "1f1d165adc54016a0c6a1e4617601f28dba995640829c33822e2ae39f78596ce"
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.mjs",
+        "rawSha256": "608616a8094ecf7142199a3d3fc09c6eb17f60cb0ae15aa55d14d232a3b7bf2d"
+      },
+      {
+        "path": "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "rawSha256": "ed0566e0ad8d9e3d087e43eb0a0d81822cc65e977afafcdcb2d0309fe829f126"
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "rawSha256": "2d63a3e328d2d9d48b0219daac92fb3fc775e7d3e0750e7dba2a2fd68eb7141f"
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "rawSha256": "ed83e5e976eeea5c529bb3a8d765a603a2e24e21c4e5be153d312a7909937b34"
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "rawSha256": "df42fd56dbad72fbb5bf576b1bee8792508ed7f11026ad696703cf260f0d0e2c"
+      },
+      {
+        "path": "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+        "rawSha256": "d329b6631a2a0ac371f4c888756f484ff3e2514ae9b2630dfd57cecd9d46370e"
+      }
+    ],
+    "ledgerRawSha256": "1813bf3be470d0fe01ccf8928cc8ecdc9a7df2e67de0184a7c1fc4e9fe74406f"
+  },
+  "priorEvidence": [
+    {
+      "role": "A04",
+      "current": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "rawSha256": "15499ec143e97759335199c158fb2825b64344a8bc07c001225da73fc6b9afe1",
+        "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+        "producedAt": "2026-09-06T02:02:24.430Z",
+        "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+        "semanticDigest": "05f77d4fe6efe0a5bbd25cbb1e0b94f98813cb82eb22e353a0eae37cd1dd1b05"
+      },
+      "original": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a04-practice-semantics.v2.6.json",
+        "rawSha256": "4b13e5eec9aa9db3379d907b09812e23ae95cc9e8ff6fba79736dd0cabe4a60e",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+        "evidenceId": "a04-us-ca-g6-ratios-v2-practice-v26-attempt007"
+      },
+      "carryFields": [
+        {
+          "field": "contractVersion",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "practiceId",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "recordPath",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "recordSha256",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "outputContract",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "numericOracle",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "acceptedAnswers",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "acceptedAnswerPolicy",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "requiredReasoning",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "primaryStandardId",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "prerequisiteStandardIds",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "clusterMapping",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "compatibilityMetadata",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "localization",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "defaultsForbidden",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "candidateBytesChangedSincePriorReview",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "futureBoundary",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "liveAllowed",
+          "originalEqualsCurrentWrapper": true
+        }
+      ]
+    },
+    {
+      "role": "A05",
+      "current": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a05-lesson-semantics.v2.6.json",
+        "rawSha256": "cb22d8445abf919c247c58ce69f76dae7f5109ebc4c64c032946b550ba8927a9",
+        "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+        "producedAt": "2026-09-06T02:02:24.430Z",
+        "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+        "semanticDigest": "6a7ecfd0bceb67bc80c1dc47d6474fbab8d920b8318afce18bd138408efdcdf5"
+      },
+      "original": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a05-lesson-semantics.v2.6.json",
+        "rawSha256": "b8a49df66f6478869f87938856ecad5f75adbb4ef19b12ed7f2d31dce32da924",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+        "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-v26-attempt007"
+      },
+      "carryFields": [
+        {
+          "field": "contractVersion",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "lessonId",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "recordPath",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "recordSha256",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "outputContract",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "instructionalSpine",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "compatibilityPreservation",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "workedExampleBinding",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "practiceChecks",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "remediationTargets",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "standards",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "localization",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "defaultsForbidden",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "candidateBytesChangedSincePriorReview",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "futureBoundary",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "liveAllowed",
+          "originalEqualsCurrentWrapper": true
+        }
+      ]
+    },
+    {
+      "role": "A18",
+      "current": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a18-independent-qa.v2.6.json",
+        "rawSha256": "272f26f3a0dad4d06801cbc8eb9c8581a27db825c332d4ddb4c386f32162b50d",
+        "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+        "producedAt": "2026-09-06T02:02:24.430Z",
+        "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "evidenceId": "a18-us-ca-g6-ratios-v2-qa-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+        "semanticDigest": "b8f6628e65b17a30fc44c85fb0736bd818cfa3d2fbb2554805245b8eedc65bfd"
+      },
+      "original": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a18-independent-qa.v2.6.json",
+        "rawSha256": "6a3b7af71380a1a2785aec6263ec023e810ebbc6699d76640c911738eff23077",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+        "evidenceId": "a18-us-ca-g6-ratios-v2-qa-v26-attempt007"
+      },
+      "carryFields": [
+        {
+          "field": "contractVersion",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "decisions",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "independentMath",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "standards",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "practiceReview",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "lessonReview",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "localizationBoundary",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "checkerGapReviewed",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "candidateBytesChangedSincePriorReview",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "shadowEligible",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "liveEligible",
+          "originalEqualsCurrentWrapper": true
+        }
+      ]
+    },
+    {
+      "role": "A21",
+      "current": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a21-candidate-generation.v2.6.json",
+        "rawSha256": "5273c87ffff0ecddec3986f2f0e4a27b32a6741f567f5b7164669ae9dfa7a632",
+        "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+        "producedAt": "2026-09-06T02:02:24.430Z",
+        "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+        "semanticDigest": "3d0965576bab7420ee7aea8c780621128881f8110aa8287c0e0817d397893ab9"
+      },
+      "original": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a21-candidate-generation.v2.6.json",
+        "rawSha256": "170c8583faceedc031ac3061b70c615e98a4a88f2f94c79705a4b3a5ac9ad603",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+        "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-v26-attempt007"
+      },
+      "carryFields": [
+        {
+          "field": "contractVersion",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "candidatePackage",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "artifacts",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "aggregateCandidateDigest",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "sourceRecordPolicy",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "localizationBoundary",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "liveAllowed",
+          "originalEqualsCurrentWrapper": true
+        }
+      ]
+    },
+    {
+      "role": "A24",
+      "current": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/reaffirmations/auth-private-no-store-20260827/reaffirmations/k-g5-cot-leak-20260827/reaffirmations/app-storage-schema-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-readiness-marker-20260827/reaffirmations/runtime-loader-policy-20260827/reaffirmations/legacy-compat-readiness-v2-20260827/reaffirmations/runtime-loader-policy-v2-20260827/reaffirmations/parent-instance-proof-inline-20260827/reaffirmations/production-schema-diagnostic-20260827/reaffirmations/reviewed-main-runtime-graph-20260827/reaffirmations/production-schema-diagnostic-v2-tooling-20260827/reaffirmations/c0-i18n-content-legacy-byte-review-20260828/reaffirmations/session-privacy-ux-20260828/reaffirmations/pr220-strict-json-composition-20260830/reaffirmations/runtime-policy-exact-delta-20260901/reaffirmations/u224-r10/inputs/evidence/a24-exact-layer.v2.6.json",
+        "rawSha256": "f1038a14e8e7b966772316ce8e2fc4d0e1d1a0c0c60616a29d3428d0b8e49ecf",
+        "reviewedCommit": "a71743684442a80e83aacec550d5cbc1f45d9eda",
+        "producedAt": "2026-09-06T02:02:24.430Z",
+        "targetBaselineCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+        "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v26-attempt007-auth-private-no-store-20260827-k-g5-cot-leak-20260827-app-storage-schema-20260827-runtime-loader-policy-20260827-legacy-readiness-marker-20260827-runtime-loader-policy-20260827-legacy-compat-readiness-v2-20260827-runtime-loader-policy-v2-20260827-parent-instance-proof-inline-20260827-production-schema-diagnostic-20260827-reviewed-main-runtime-graph-20260827-production-schema-diagnostic-v2-tooling-20260827-c0-i18n-content-legacy-byte-review-20260828-session-privacy-ux-20260828-pr220-strict-json-composition-20260830-u224-r10",
+        "semanticDigest": "c3530a8ccadaa7d82727af47811316a7966f6d3f5065634cbf1d582283c3de0b"
+      },
+      "original": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-007/inputs/evidence/a24-exact-layer.v2.6.json",
+        "rawSha256": "9e266bbce92260aa8cd08837b2f466a45dbb9c72789066a3421821dd08acb157",
+        "reviewedCommit": "cdece5c22491febf78543704a3e4e4d94d8e5fc4",
+        "producedAt": "2026-08-26T13:06:52+08:00",
+        "targetBaselineCommit": "14a041f372fb27fa4282104c247886ff1eea623b",
+        "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-v26-attempt007"
+      },
+      "carryFields": [
+        {
+          "field": "contractVersion",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "exactLayerDisposition",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "scannedRecordIds",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "prohibitedFieldFamilies",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "matchingFieldPaths",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "rationale",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "candidateBytesChangedSincePriorReview",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "futureChangeInvalidatesEvidence",
+          "originalEqualsCurrentWrapper": true
+        },
+        {
+          "field": "liveAllowed",
+          "originalEqualsCurrentWrapper": true
+        }
+      ]
+    }
+  ],
+  "contentProof": {
+    "schemaVersion": "promotion-content-semantics-proof.v2",
+    "recordIds": [
+      "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+      "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+      "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2"
+    ],
+    "grade": "P6",
+    "clusterId": "6.RP.ratios",
+    "clusterStandards": [
+      "6.RP.1",
+      "6.RP.2",
+      "6.RP.3"
+    ],
+    "directlyAssessedStandards": [
+      "6.RP.3"
+    ],
+    "numericOracle": 12,
+    "acceptedAnswerAssertions": [
+      {
+        "submitted": "12",
+        "expected": true,
+        "observed": true
+      },
+      {
+        "submitted": "12 cups",
+        "expected": true,
+        "observed": true
+      },
+      {
+        "submitted": " 12 ",
+        "expected": true,
+        "observed": true
+      },
+      {
+        "submitted": "12.0",
+        "expected": false,
+        "observed": false
+      },
+      {
+        "submitted": "twelve",
+        "expected": false,
+        "observed": false
+      },
+      {
+        "submitted": "about 12",
+        "expected": false,
+        "observed": false
+      },
+      {
+        "submitted": "12 CUPS",
+        "expected": false,
+        "observed": false
+      }
+    ],
+    "ratioOrderPreserved": true,
+    "misconceptionCoverage": [
+      "ratio order reversed",
+      "unit rate not normalized"
+    ],
+    "localizationStatus": "blocked-for-live",
+    "exactLayerFieldPaths": [],
+    "liveAllowed": false,
+    "claim": "fresh execution of existing deterministic content assertions against unchanged records and historically bound role evidence; not a new independent A18 math, curriculum or language review"
+  },
+  "dtoProof": {
+    "mode": "pure functions in memory; no Shadow execution or output directory",
+    "outputs": [
+      {
+        "path": "cluster-safe-card.shadow.json",
+        "schemaVersion": "shadow-standards-dto.v2",
+        "digest": "0a4ce5c8f1735f414f16befeea7136d6ddafa1f8e9934ae58be2746a4e592787",
+        "liveAllowed": false
+      },
+      {
+        "path": "practice.shadow.json",
+        "schemaVersion": "shadow-practice-dto.v2",
+        "digest": "102ad2492aa393b8233085f96e29c6640639ca8cd35073fd8319bf9f8f63b575",
+        "liveAllowed": false
+      },
+      {
+        "path": "lesson.shadow.json",
+        "schemaVersion": "shadow-lesson-dto.v2",
+        "digest": "9a1a4c533d044c89e52a691fb199a4ee4ca1fa48e7514b4495e8fe61c589583a",
+        "liveAllowed": false
+      },
+      {
+        "path": "compatibility-report.shadow.json",
+        "schemaVersion": "shadow-compatibility-report.v2",
+        "digest": "2a43fd1e3c663dbe58a0f2db5b75d962aa23ea4e94cfd60fd18b8f40f524efe0",
+        "liveAllowed": false
+      }
+    ],
+    "preservation": {
+      "practice": [
+        {
+          "field": "prompt",
+          "equal": true
+        },
+        {
+          "field": "answer",
+          "equal": true
+        },
+        {
+          "field": "acceptedAnswers",
+          "equal": true
+        },
+        {
+          "field": "acceptedAnswerPolicy",
+          "equal": true
+        },
+        {
+          "field": "solutionSteps",
+          "equal": true
+        },
+        {
+          "field": "misconceptionFeedback",
+          "equal": true
+        },
+        {
+          "field": "assessedStandardIds",
+          "equal": true
+        },
+        {
+          "field": "prerequisiteStandardIds",
+          "equal": true
+        }
+      ],
+      "lesson": [
+        {
+          "field": "title",
+          "equal": true
+        },
+        {
+          "field": "objective",
+          "equal": true
+        },
+        {
+          "field": "prerequisiteCheck",
+          "equal": true
+        },
+        {
+          "field": "conceptExplanation",
+          "equal": true
+        },
+        {
+          "field": "workedExample",
+          "equal": true
+        },
+        {
+          "field": "guidedPractice",
+          "equal": true
+        },
+        {
+          "field": "independentPractice",
+          "equal": true
+        },
+        {
+          "field": "remediation",
+          "equal": true
+        },
+        {
+          "field": "assessedStandardIds",
+          "equal": true
+        },
+        {
+          "field": "prerequisiteStandardIds",
+          "equal": true
+        }
+      ]
+    },
+    "defaultsUsed": [],
+    "inputRecordsUnchanged": true
+  },
+  "exactLayer": {
+    "pattern": "bitmap|image|illustration|asset|svg|plotly|coordinate|formula-overlay|exact-layer",
+    "records": [
+      {
+        "kind": "safe-card",
+        "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios-v2",
+        "fieldPathCount": 48,
+        "matches": []
+      },
+      {
+        "kind": "practice",
+        "id": "s04-ca-rag-v2-q031-6-rp-ratios-v2",
+        "fieldPathCount": 61,
+        "matches": []
+      },
+      {
+        "kind": "lesson",
+        "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios-v2",
+        "fieldPathCount": 84,
+        "matches": []
+      }
+    ]
+  },
+  "runtime": {
+    "runtimePolicy": {
+      "coveredFileCount": 3815,
+      "coveredFilesDigest": "e6b6dd080bf59d9d42c64e88c8c7ea9b752226291e56c587a5bef826bd17d9db",
+      "classificationsDigest": "d299a07f22361833e6b06ee5a0afa2caa7476fe2805cdeb74926bfb357080678",
+      "frameworkEntrypointCount": 303,
+      "seedCount": 318,
+      "reachablePathCount": 1460,
+      "reachablePathsDigest": "eeed3ad0510d5aefd82e27f25be598ec23c4c92817295ff55742717a845c3edb",
+      "edgeCount": 3606,
+      "edgeDigest": "03be987ea68aacd1b845bc00f0896e95b40ba078e5d087180454392d68db5c7f",
+      "topologyEdgeCount": 3604,
+      "topologyEdgeDigest": "ee81f98b1e297b89b24f537ecfbe1e666660d922ecde1c330c5af65b2cdf8142",
+      "nextDynamicCallCount": 489,
+      "nextDynamicLiteralImportCount": 951,
+      "nextDynamicNonliteralImportCount": 0,
+      "nextDynamicCallsiteDigest": "4039da4109350f52039b4eb7a13d508bb591f135c0129c50e265cc63cb2a779d",
+      "fsReadAllowlistCount": 5,
+      "fsReadAllowlistDigest": "4c3c8843388b25a798555da08e8cd826bbab48cc7742295f3954d1ff54b142f8",
+      "zeroBaselineCallCount": 0
+    },
+    "runtimePolicyDigest": "b275c011cc4c0de5939fad9bbf61ff46af92268a4b84a5cf7df595ce2d4c502c",
+    "trackedCoveredFilesVerified": 3815,
+    "searchableSourceCount": 1444,
+    "needleCount": 8,
+    "selectedIdentityHits": [],
+    "candidateReachablePaths": [],
+    "checkerAdapterReachable": false,
+    "protectedChangedPaths": [
+      "app/api/observability/client-error/handler.ts",
+      "app/api/observability/client-error/route.test.ts",
+      "app/api/observability/client-error/route.ts",
+      "app/api/observability/test-error/handler.ts",
+      "app/api/observability/test-error/route.test.ts",
+      "app/api/observability/test-error/route.ts",
+      "app/global-error.tsx",
+      "app/layout.tsx",
+      "components/observability/ClientErrorReporter.tsx",
+      "components/providers/AppProviders.tsx",
+      "lib/observability/browserReporter.test.ts",
+      "lib/observability/browserReporter.ts",
+      "lib/observability/errorPolicy.ts",
+      "lib/observability/privacy.test.ts",
+      "lib/server/clientErrorReport.test.ts",
+      "lib/server/clientErrorReport.ts",
+      "lib/server/errorMonitor.test.ts",
+      "lib/server/errorMonitor.ts"
+    ],
+    "runtimeChangedPaths": [
+      "app/api/observability/client-error/handler.ts",
+      "app/api/observability/client-error/route.ts",
+      "app/api/observability/test-error/handler.ts",
+      "app/api/observability/test-error/route.ts",
+      "app/global-error.tsx",
+      "app/layout.tsx",
+      "components/observability/ClientErrorReporter.tsx",
+      "components/providers/AppProviders.tsx",
+      "lib/observability/browserReporter.ts",
+      "lib/observability/errorPolicy.ts",
+      "lib/server/clientErrorReport.ts",
+      "lib/server/errorMonitor.ts"
+    ],
+    "changedBindings": [
+      {
+        "path": "app/api/observability/client-error/handler.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "8c7886b18591d15ebc8302fd28371df18c0590a0d4f9cdda67ff42691e09d2c3",
+        "diffRawSha256": "ce398a56e6528316f87a38ea9b1eb45bf6582e4128a80e3e38892213064bb548",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "app/api/observability/client-error/route.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "29031cb24c26c115181cd36873d5861c027aa412d086674e4e01a0fd0609067d",
+        "diffRawSha256": "a1c9a977541caa43598357f61278c60897a368cf7d337eef4d4f2e509051f5d6",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "app/api/observability/test-error/handler.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "8fec7251a5ba7e26069e37b7935c5bd954963e39e412adc920f60dbffd1f9aca",
+        "diffRawSha256": "6c540cc138caeece326d8c3fef3f349ecdaa6623939cc9edf12cb2bf881bedd8",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "app/api/observability/test-error/route.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "375b4d1b727a176ba8c99a2e22a7bc760358f208d4a2b63adb465c1d88e2ce1c",
+        "diffRawSha256": "1d5b06b39802595e55ca10617e87be472c713974750dce53973ff5ac5ee5d57d",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "app/global-error.tsx",
+        "beforeRawSha256": "0a585088ac37df9d5939d6586074175e8e86dbcdf45ec2054ca998650444be63",
+        "afterRawSha256": "afa0a3252f200a1578724fbd3f78193c417745107e385a054ece02d1d8b69e03",
+        "diffRawSha256": "f1cb0644ee8c992c3d908f3cb012e5e9b53bd7b98c83215f1eb8b753c9db04e9",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "app/layout.tsx",
+        "beforeRawSha256": "6092c008337d350c523051e1c2ca005512a14c863518b55b0652f5a5f075da9f",
+        "afterRawSha256": "1abf6521e5e2810f4f6dc33b5ed6cfe052f6c10467c2a428fe3bdd39cde1f4b9",
+        "diffRawSha256": "b42e3ef36837c7378749bd93b581c41d528c3c71aa698f99c7b3d5ed46b599eb",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "components/observability/ClientErrorReporter.tsx",
+        "beforeRawSha256": null,
+        "afterRawSha256": "52bdd09eac4a4e37d788f62bafd28a7ed299c73503050317ad2a0256963eaf9f",
+        "diffRawSha256": "2086a991f1271cd9f9e2fed80dbf98324ffea3456dedf4565ab7b9f7f548906d",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "components/providers/AppProviders.tsx",
+        "beforeRawSha256": "eec0ec4e942a62e5e15eef96600ab6b6dbf08e5464ab3ec51b1016ceeb12268b",
+        "afterRawSha256": "0952932b5ed16795afd7516e56e9309c5d158f34c4676a10703b9ca34157e8c1",
+        "diffRawSha256": "76695743d537228dea4e44dc2b9691517d6a0d1263d75b7a1fb78419ac8812eb",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "lib/observability/browserReporter.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "fa2a9efa3c4501c8435adb81416682d94a7931d9b35848e27fd922280e09386c",
+        "diffRawSha256": "75c61d023e4a4d4aa100c052608fbe9668d0e8a7aa75f77d9e36eeb7c8d538a4",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "lib/observability/errorPolicy.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "d28d4bf31a8d8bcd6579af01aa6b4ec134cc774ebf80aaf7bad7f1857e1ef314",
+        "diffRawSha256": "f796a9d2d22a618528299b9f7982007b949ccce643f37fb905d7cfbea0cda7b4",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "lib/server/clientErrorReport.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "01ff58b85ea054815d352567c2afe3a7a3a73068aec61c0ede54859312b863d5",
+        "diffRawSha256": "62bd984646c62cde2cd26f1a2817e2c5af69f5788995bd94f92a4493300ca302",
+        "candidateIdentityHits": 0
+      },
+      {
+        "path": "lib/server/errorMonitor.ts",
+        "beforeRawSha256": null,
+        "afterRawSha256": "faeb6312eb80c9c768cd8afce004461c64d46acb2fdb7ba2ccc3c8fad47dd770",
+        "diffRawSha256": "285514cd62e703ed6b446e517ffafa77e355eef2df168b21ccd2de8e8672f373",
+        "candidateIdentityHits": 0
+      }
+    ],
+    "claim": "fresh native read-only runtime scan plus exact target Git object text search; not A23 legacy acceptance or Shadow"
+  },
+  "referenceDesign": {
+    "path": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-native-resolution-design.json",
+    "rawSha256": "72401d5157e266ed36277efd1f01ac818c7fee515483c4c77c074dce18c2ef77",
+    "freshRuntimePolicyEqualsDesign": true
+  },
+  "execution": {
+    "scriptPath": "/Volumes/Starship/MAIS的衍生文件/MAIS-local-topology-recovery-20260902T0212HKT/RUN-20260906T163352HKT/S7-role-reviews/collect-content-review-facts.mjs",
+    "scriptRawSha256": "713fd758152f549de1ccf0575e3b66e0700179933ad96144d9ea051a353c059c",
+    "nodeVersion": "v24.15.0",
+    "parser": {
+      "name": "typescript",
+      "version": "5.8.3"
+    },
+    "before": {
+      "head": "7f692278989b4bf45496d239bccb9263326b5453",
+      "status": ""
+    },
+    "after": {
+      "head": "7f692278989b4bf45496d239bccb9263326b5453",
+      "status": ""
+    },
+    "fetchAttempts": 0,
+    "appRuntimeExecuted": false,
+    "shadowExecuted": false,
+    "providerCalls": 0,
+    "privateCorpusRead": false,
+    "environmentFilesRead": false,
+    "gitMutations": false,
+    "repositoryWrites": false
+  },
+  "limits": [
+    "A18 mathematical, curriculum and language judgments are historical carry-forward only; no new standards/rights/language review.",
+    "Candidate-only and English-only blockers remain; no live integration, rendering, deployment or learner browser proof.",
+    "Runtime/legacy gate and actual nine-role/index/commit acceptance remain separate A23/A25 work.",
+    "This is one identified AI reviewer across five routing scopes; no five-person or human-signature claim."
+  ]
+}

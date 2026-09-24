@@ -4,7 +4,25 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
 
+// These assertions pin source text, so a purely cosmetic reflow — Prettier
+// wrapping a long declaration across two lines — used to fail them even though
+// behaviour was identical (see PR #172, where wrapping `const comparisonDisabled`
+// broke a passing assertion). Joining wrapped lines makes every regex in this
+// file tolerant of line breaks while leaving intra-line spacing untouched, so
+// class strings like "bg-white text-slate-950" still match exactly.
+//
+// This is a mitigation, not a fix: source-text assertions cannot check
+// behaviour at all. PR #199 introduces a real render harness; assertions here
+// should migrate to mounting as that lands.
+function joinWrappedLines(text: string) {
+  return text.replace(/[ \t]*\r?\n[ \t]*/g, " ");
+}
+
 async function source(path: string) {
+  return joinWrappedLines(await readFile(join(process.cwd(), path), "utf8"));
+}
+
+async function rawSource(path: string) {
   return readFile(join(process.cwd(), path), "utf8");
 }
 
@@ -29,6 +47,23 @@ test("teacher class creation form keeps compact labels on one line", async () =>
 
   assert.match(view, /lg:grid-cols-\[minmax\(180px,1\.2fr\)_120px_180px_minmax\(220px,1fr\)_auto\]/);
   assert.match(view, /whitespace-nowrap/);
+});
+
+test("teacher workspace parameters bypass the redirecting route root", async () => {
+  const shell = await source("components/teacher/TeacherShell.tsx");
+  const navigationStart = shell.indexOf("function navigateWithParam");
+  const navigationEnd = shell.indexOf("function warmTeacherRoute", navigationStart);
+
+  assert.ok(navigationStart >= 0 && navigationEnd > navigationStart, "workspace parameter navigation must remain in TeacherShell");
+  const navigation = shell.slice(navigationStart, navigationEnd);
+
+  assert.match(
+    navigation,
+    /const targetPathname = pathname === "\/teacher" \? "\/teacher\/dashboard" : pathname;/,
+    "parameter changes made while /teacher redirects must target the canonical dashboard"
+  );
+  assert.match(navigation, /`\$\{targetPathname\}\?\$\{params\.toString\(\)\}` : targetPathname/);
+  assert.doesNotMatch(navigation, /`\$\{pathname\}\?\$\{params\.toString\(\)\}` : pathname/);
 });
 
 test("teacher mastery-target controls stack before cramped desktop widths", async () => {
@@ -129,8 +164,10 @@ test("known routes affected by the hidden-segment race carry no segment-level lo
     // feedback inside the hydrated console instead of a route-level boundary.
     "app/parent/loading.tsx",
     "app/practice/loading.tsx",
+    "app/resource/loading.tsx",
     "app/student/assignments/loading.tsx",
     "app/student/lessons/loading.tsx",
+    "app/student/resources/loading.tsx",
     "app/student/tools/visualizations/loading.tsx",
     "app/visualization-lab/loading.tsx"
   ];
@@ -167,7 +204,7 @@ test("completed lesson progress stores full completion mastery", async () => {
   const persistenceTest = await source("lib/server/userStoreStudentActivityPersistence.test.ts");
 
   assert.match(persistence, /status === "completed"[\s\S]{0,120}Math\.max\(existing\?\.mastery \?\? 0, 100\)/);
-  assert.match(persistenceTest, /status: "completed",\n\s+mastery: 100/);
+  assert.match(persistenceTest, /status: "completed",\s+mastery: 100/);
   assert.doesNotMatch(persistence, /Math\.max\(existing\?\.mastery \?\? 0, 85\)/);
 });
 
@@ -315,4 +352,23 @@ test("AI Tutor voice keeps unconfigured-provider text local while preserving dut
   assert.ok(safetyFlagIndex > moderationIndex, "safety alerts must follow the local preflight");
   assert.ok(unavailableIndex > safetyFlagIndex, "voice 503 must follow safety alert recording");
   assert.ok(refusalIndex > unavailableIndex, "voice 503 must win after duty of care is preserved");
+});
+
+test("student /resource index exists so Resources nav does not 404", async () => {
+  assert.ok(existsSync(join(process.cwd(), "app/resource/page.tsx")), "app/resource/page.tsx must exist");
+  assert.ok(existsSync(join(process.cwd(), "app/resource/[resourceId]/page.tsx")), "detail route must remain");
+
+  const listPage = await source("app/resource/page.tsx");
+  const dashboard = await source("app/dashboard/page.tsx");
+  const learningPath = await source("lib/server/userStore/teacherOpsLearningPathPersistence.ts");
+  const legacyIndex = await source("app/student/resources/page.tsx");
+  const legacyDetail = await source("app/student/resources/[resourceId]/page.tsx");
+
+  assert.match(listPage, /My resources/);
+  assert.match(listPage, /No assigned resources yet/);
+  assert.match(dashboard, /href: studentResourcesPath, label: t\(\{ en: "Resources"/);
+  assert.match(learningPath, /return trimmed \? studentResourceHref\(trimmed\) : studentResourcesPath;/);
+  assert.doesNotMatch(learningPath, /\/student\/resources\//);
+  assert.match(legacyIndex, /redirect\(studentResourcesPath\)/);
+  assert.match(legacyDetail, /redirect\(studentResourceHref\(resourceId\)\)/);
 });

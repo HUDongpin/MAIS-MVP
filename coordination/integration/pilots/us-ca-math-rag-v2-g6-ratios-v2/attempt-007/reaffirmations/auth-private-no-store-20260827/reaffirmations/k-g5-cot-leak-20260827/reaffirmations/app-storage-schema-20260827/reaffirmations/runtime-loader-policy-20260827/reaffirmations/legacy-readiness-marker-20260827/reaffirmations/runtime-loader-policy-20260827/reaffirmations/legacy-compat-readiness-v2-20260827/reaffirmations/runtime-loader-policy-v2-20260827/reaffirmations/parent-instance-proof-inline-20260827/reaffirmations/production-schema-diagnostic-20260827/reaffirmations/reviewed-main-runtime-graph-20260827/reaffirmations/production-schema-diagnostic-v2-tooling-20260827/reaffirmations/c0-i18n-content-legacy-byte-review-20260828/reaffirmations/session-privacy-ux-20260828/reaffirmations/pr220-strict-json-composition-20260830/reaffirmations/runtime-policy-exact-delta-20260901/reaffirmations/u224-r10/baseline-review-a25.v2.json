@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "promotion-baseline-review.v2",
+  "role": "A25",
+  "result": "pass",
+  "fromCommit": "d0394f016eb91c3b065d4751601be65a7186e5ac",
+  "toCommit": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+  "changedPathsDigest": "1efcc8580632949b601a0b6157c29ecc42426e7a48051f5f6affc327726a6b0b",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "checkerVersion": "promotion-gate-shadow-v2.6",
+  "checkerBundleDigest": "1465ea9dcf02b3a1a8d0b738a4715ea861a366c19711e476db15a354c66570ff",
+  "checkerReleaseCommit": "f2f01782c93548f0ad5287570cf0cdaa432101b5",
+  "unrelatedToCandidate": true,
+  "candidatePathsChanged": false,
+  "checkerPathsChanged": false,
+  "liveAllowed": false,
+  "reviewerSession": "/root/u223_r7_spec_review",
+  "recordBasis": "Materialized by A23 from the distinct completed read-only reviewer response in this task; not a new domain QA or Shadow run.",
+  "evidence": {
+    "priorReviewAt": "2026-09-06T01:08:10+08:00",
+    "liveMain": "be92640f4bb8933ed8a99ed7c1ea604428c6a56f",
+    "targetHead": "929f6c2bfe1e4185c746b1c75a2e09a196f44a3f",
+    "baselineToTargetAhead": 39,
+    "baselineToTargetBehind": 0,
+    "maxPlannedAbsolutePathBytes": 982,
+    "pushLedger": [
+      "P0 requires new A23 ref absent; ordinary non-force creation at E0.",
+      "P1 requires A23 ref E0; ordinary FF to E1.",
+      "P2 requires A23 ref E1; ordinary FF to B.",
+      "P3 requires existing PR224 ref/head at expected-old; ordinary FF to B."
+    ],
+    "findings": [
+      "Exact baseline ancestry proven by complete GitHub history; independently cloned history reconfirmed.",
+      "E0/E1/B direct single-parent ordering required.",
+      "No branch/worktree/remote-ref/evidence cleanup authority."
+    ]
+  }
+}

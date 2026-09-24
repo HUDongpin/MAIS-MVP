@@ -476,6 +476,21 @@ test("isolated app child receives the leased canonical DB and cannot override is
       nextTsconfigPath: expectedNextTsconfigPath
     }
   );
+  assert.match(appEnv.TEACHER_INVITE_CODES ?? "", /^tinv_[0-9a-f]{32}$/u);
+  assert.equal(
+    isolatedAppProcessEnvironment({ NODE_ENV: "test" }, { TEACHER_INVITE_CODES: "tinv_11111111111111111111111111111111" }, {
+      authSessionSecret: "override-secret",
+      dbPath: canonicalDbPath
+    }).TEACHER_INVITE_CODES,
+    "tinv_11111111111111111111111111111111"
+  );
+  assert.equal(
+    isolatedAppProcessEnvironment({ NODE_ENV: "test" }, { TEACHER_INVITE_CODES: "" }, {
+      authSessionSecret: "disabled-secret",
+      dbPath: canonicalDbPath
+    }).TEACHER_INVITE_CODES,
+    ""
+  );
   const guardian = await startSqliteAppLeaseGuardian(requestedDbPath, {
     runId: "canonical-env-regression",
     env: appEnv

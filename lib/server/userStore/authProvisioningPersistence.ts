@@ -1,5 +1,7 @@
 import { randomBytes, randomUUID } from "crypto";
 import { validGradeSet } from "@/data/grades";
+import { currentConsentPolicyVersion } from "@/lib/legal/policyVersion";
+import { parseSchoolProvisioningAuthorization } from "@/lib/legal/schoolProvisioningAuthorization";
 import type {
   CurriculumTrack,
   GradeId,
@@ -18,6 +20,8 @@ import type {
   ProvisioningRowType,
   ProvisioningTotals,
   ProvisioningValidationResult,
+  SchoolProvisioningAuthorizationInput,
+  SchoolProvisioningAuthorizationRecord,
   School,
   SchoolMembershipRole,
   StudentAvatarId,
@@ -41,6 +45,7 @@ type AuthProvisioningUserRecord = {
   disabled_at?: string | null;
   role: AuthProvisioningUserRole;
   created_at?: string;
+  school_authorization?: SchoolProvisioningAuthorizationRecord;
 };
 
 type AuthProvisioningStudentProfileRecord = {
@@ -126,6 +131,7 @@ type AuthProvisioningBatchRecord = {
   row_result_ids: string[];
   created_at: string;
   updated_at: string;
+  school_authorization?: SchoolProvisioningAuthorizationRecord;
 };
 
 type AuthProvisioningRowResultRecord = {
@@ -193,6 +199,7 @@ type ProvisioningPlan = {
   teachers: ProvisioningTeacherPlan[];
   classes: ProvisioningClassPlan[];
   students: ProvisioningStudentPlan[];
+  schoolAuthorization: SchoolProvisioningAuthorizationInput | null;
   validation: ProvisioningValidationResult;
 };
 
@@ -606,7 +613,7 @@ function teacherImportUsername(schoolCode: string, teacher: ProvisioningImportTe
   return `${schoolCode}-teacher-${String(index).padStart(3, "0")}`;
 }
 
-function buildProvisioningPlan(database: AuthProvisioningPersistenceDatabase, input: ProvisioningRequest): ProvisioningPlan {
+function buildProvisioningPlan(database: AuthProvisioningPersistenceDatabase, input: ProvisioningRequest, recordedAt: string): ProvisioningPlan {
   const rows: ProvisioningRowResult[] = [];
   const schoolRecord: Record<string, unknown> = isPlainRecord(input.school) ? input.school : {};
   const schoolName = asTrimmedString(schoolRecord.name);
@@ -621,12 +628,19 @@ function buildProvisioningPlan(database: AuthProvisioningPersistenceDatabase, in
   if (!schoolCode) schoolErrors.push("School code is required.");
   if (!academicYear) schoolErrors.push("Academic year is required.");
   if (contactEmail && !isLikelyEmail(contactEmail)) schoolErrors.push("School contact email is invalid.");
+  const schoolAuthorization = parseSchoolProvisioningAuthorization(
+    input.schoolAuthorization,
+    schoolCode,
+    academicYear,
+    recordedAt
+  );
+  if (schoolAuthorization.status === "invalid") schoolErrors.push(schoolAuthorization.reason);
 
   const existingSchool = schoolCode
     ? database.schools.find((school) => school.normalized_code === schoolCode) ?? null
     : null;
   if (existingSchool && existingSchool.name !== schoolName) {
-    schoolWarnings.push(`School code ${schoolCode} already exists; the existing school record will be reused.`);
+    schoolErrors.push(`School code ${schoolCode} already belongs to a different school name.`);
   }
 
   rows.push(provisioningRow({
@@ -899,6 +913,7 @@ function buildProvisioningPlan(database: AuthProvisioningPersistenceDatabase, in
     teachers: teacherPlans,
     classes: classPlans.filter((classPlan) => !classRowsByCode.get(classPlan.classCode)?.errors.length),
     students: studentPlans,
+    schoolAuthorization: schoolAuthorization.status === "ok" ? schoolAuthorization.authorization : null,
     validation
   };
 }
@@ -969,6 +984,7 @@ function toProvisioningBatch(
   return {
     id: batch.id,
     school: toSchool(school),
+    schoolAuthorization: batch.school_authorization,
     status: batch.status,
     requestedBy: batch.requested_by,
     createdAt: batch.created_at,
@@ -1025,7 +1041,7 @@ export function createAuthProvisioningPersistenceStore({
   return {
     validateSchoolProvisioning: async (input: ProvisioningRequest) => {
       const database = await readDatabase();
-      return buildProvisioningPlan(database, input).validation;
+      return buildProvisioningPlan(database, input, now().toISOString()).validation;
     },
 
     createSchoolProvisioningBatch: async (adminId: string, input: ProvisioningRequest) =>
@@ -1033,12 +1049,26 @@ export function createAuthProvisioningPersistenceStore({
         const admin = database.users.find((candidate) => candidate.id === adminId);
         if (admin?.role !== "admin") return { status: "forbidden" as const };
 
-        const plan = buildProvisioningPlan(database, input);
-        if (!plan.validation.valid) return { status: "invalid" as const, validation: plan.validation };
-
         const timestamp = now().toISOString();
+        const plan = buildProvisioningPlan(database, input, timestamp);
+        if (!plan.validation.valid || !plan.schoolAuthorization) {
+          return { status: "invalid" as const, validation: plan.validation };
+        }
+
         const batchId = createId("provisioning-batch");
         const schoolId = plan.existingSchool?.id ?? createId("school");
+        const authorizationRecord: SchoolProvisioningAuthorizationRecord = {
+          schoolCode: plan.schoolAuthorization.schoolCode,
+          schoolName: plan.schoolInput.name,
+          academicYear: plan.schoolAuthorization.academicYear,
+          approvedByName: plan.schoolAuthorization.approvedByName,
+          approvedAt: plan.schoolAuthorization.approvedAt,
+          evidenceReference: plan.schoolAuthorization.evidenceReference,
+          batchId,
+          recordedByAdminId: admin.id,
+          recordedAt: timestamp,
+          policyVersion: currentConsentPolicyVersion
+        };
         const schoolRecord = plan.existingSchool ?? {
           id: schoolId,
           code: plan.schoolInput.code,
@@ -1193,7 +1223,8 @@ export function createAuthProvisioningPersistenceStore({
             session_revision: 1,
             disabled_at: null,
             role: "student",
-            created_at: timestamp
+            created_at: timestamp,
+            school_authorization: authorizationRecord
           });
           database.student_profiles.push({
             user_id: userId,
@@ -1257,7 +1288,8 @@ export function createAuthProvisioningPersistenceStore({
           totals: provisioningTotals(createdRows),
           row_result_ids: rowRecords.map((row) => row.id),
           created_at: timestamp,
-          updated_at: timestamp
+          updated_at: timestamp,
+          school_authorization: authorizationRecord
         };
         database.provisioning_batches.push(batchRecord);
 

@@ -15,7 +15,7 @@ function readTeacherRewards(value: unknown) {
 }
 
 function formatDate(value: string | null | undefined, language: Language) {
-  if (!value) return textForLanguage({ en: "No record", zh: "未有紀錄" }, language);
+  if (!value) return textForLanguage({ en: "No record", zh: "未有紀錄", zhHans: "未有纪录" }, language);
   return formatDateInHongKong(value, language, {
     month: "short",
     day: "numeric",
@@ -29,11 +29,11 @@ function formatPointValue(value: number, language: Language) {
 }
 
 function statusLabel(status: RewardRedemptionStatus) {
-  const labels: Record<RewardRedemptionStatus, { en: string; zh: string }> = {
-    pending: { en: "Pending approval", zh: "等待批核" },
-    approved: { en: "Approved", zh: "已批核" },
-    rejected: { en: "Rejected", zh: "已拒絕" },
-    fulfilled: { en: "Fulfilled", zh: "已派發" }
+  const labels: Record<RewardRedemptionStatus, { en: string; zh: string; zhHans?: string }> = {
+    pending: { en: "Pending approval", zh: "等待批核", zhHans: "等待批核" },
+    approved: { en: "Approved", zh: "已批核", zhHans: "已批核" },
+    rejected: { en: "Rejected", zh: "已拒絕", zhHans: "已拒绝" },
+    fulfilled: { en: "Fulfilled", zh: "已派發", zhHans: "已派发" }
   };
   return labels[status];
 }
@@ -87,7 +87,7 @@ function RedemptionActions({
             onClick={() => onUpdate(request.id, "approved")}
             className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
           >
-            {t({ en: "Approve request", zh: "批核申請" })}
+            {t({ en: "Approve request", zh: "批核申請", zhHans: "批核申请" })}
           </button>
           <button
             type="button"
@@ -95,7 +95,7 @@ function RedemptionActions({
             onClick={() => onUpdate(request.id, "rejected")}
             className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
           >
-            {t({ en: "Reject", zh: "拒絕" })}
+            {t({ en: "Reject", zh: "拒絕", zhHans: "拒绝" })}
           </button>
         </>
       ) : (
@@ -105,7 +105,7 @@ function RedemptionActions({
           onClick={() => onUpdate(request.id, "fulfilled")}
           className="focus-ring rounded-full bg-emerald-500 px-4 py-2 text-xs font-black text-white disabled:opacity-50"
         >
-          {t({ en: "Mark fulfilled", zh: "標記已派發" })}
+          {t({ en: "Mark fulfilled", zh: "標記已派發", zhHans: "标记已派发" })}
         </button>
       )}
     </div>
@@ -121,11 +121,11 @@ function RewardOperationPanel({ operation }: { operation: RewardOperation }) {
       <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">
-            {isAward ? t({ en: "Reward recorded", zh: "獎勵已記錄" }) : t({ en: "Redemption updated", zh: "兌換已更新" })}
+            {isAward ? t({ en: "Reward recorded", zh: "獎勵已記錄", zhHans: "奖励已记录" }) : t({ en: "Redemption updated", zh: "兌換已更新", zhHans: "兑换已更新" })}
           </p>
           <p className="mt-1 break-words font-black text-slate-950 dark:text-white">
             {isAward
-              ? `${operation.studentName} · +${formatPointValue(operation.amount, language)} ${t({ en: "points", zh: "積分" })}`
+              ? `${operation.studentName} · +${formatPointValue(operation.amount, language)} ${t({ en: "points", zh: "積分", zhHans: "积分" })}`
               : `${operation.studentName} · ${operation.itemName}`}
           </p>
           <p className="mt-1 break-words text-xs font-bold text-emerald-900 dark:text-emerald-100">
@@ -136,19 +136,19 @@ function RewardOperationPanel({ operation }: { operation: RewardOperation }) {
           {isAward ? (
             <>
               <a href={`#student-balance-${operation.studentId}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-                {t({ en: "Open balance", zh: "查看結餘" })}
+                {t({ en: "Open balance", zh: "查看結餘", zhHans: "查看结余" })}
               </a>
               <a href="#recent-point-activity" className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
-                {t({ en: "Open activity", zh: "查看流水" })}
+                {t({ en: "Open activity", zh: "查看流水", zhHans: "查看流水" })}
               </a>
             </>
           ) : (
             <a href={`#redemption-${operation.requestId}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-              {t({ en: "Open request", zh: "查看申請" })}
+              {t({ en: "Open request", zh: "查看申請", zhHans: "查看申请" })}
             </a>
           )}
           <Link href={`/teacher/students/${operation.studentId}`} className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
-            {t({ en: "Student profile", zh: "學生檔案" })}
+            {t({ en: "Student profile", zh: "學生檔案", zhHans: "学生档案" })}
           </Link>
         </div>
       </div>
@@ -208,7 +208,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
     const payload = await response.json().catch(() => null);
     setIsAwarding(false);
     if (!response.ok) {
-      setMessage(t({ en: "Could not award points yet.", zh: "暫時未能加積分。" }));
+      setMessage(t({ en: "Could not award points yet.", zh: "暫時未能加積分。", zhHans: "暂时未能加积分。" }));
       return;
     }
     const nextRewards = readTeacherRewards(payload);
@@ -220,10 +220,10 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
       studentId: selectedStudentId,
       studentName: awardedStudent?.studentName ?? selectedStudentId,
       amount: Number.isFinite(awardedAmount) ? awardedAmount : 0,
-      label: selectedPreset ? text(selectedPreset.label) : t({ en: "Positive engagement bonus", zh: "正向參與獎勵" })
+      label: selectedPreset ? text(selectedPreset.label) : t({ en: "Positive engagement bonus", zh: "正向參與獎勵", zhHans: "正向参与奖励" })
     });
     formElement.reset();
-    updateData(nextRewards, t({ en: "Points awarded.", zh: "已加積分。" }));
+    updateData(nextRewards, t({ en: "Points awarded.", zh: "已加積分。", zhHans: "已加积分。" }));
   };
 
   const updateRedemption = async (requestId: string, status: RewardRedemptionStatus) => {
@@ -238,14 +238,14 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
     const payload = await response.json().catch(() => null);
     setBusyRequestId("");
     if (!response.ok) {
-      setMessage(t({ en: "Could not update the gift request yet.", zh: "暫時未能更新兌換申請。" }));
+      setMessage(t({ en: "Could not update the gift request yet.", zh: "暫時未能更新兌換申請。", zhHans: "暂时未能更新兑换申请。" }));
       return;
     }
     const success = status === "fulfilled"
-      ? t({ en: "Gift marked fulfilled.", zh: "已標記獎品派發。" })
+      ? t({ en: "Gift marked fulfilled.", zh: "已標記獎品派發。", zhHans: "已标记奖品派发。" })
       : status === "approved"
-        ? t({ en: "Gift request approved.", zh: "已批核兌換申請。" })
-        : t({ en: "Gift request rejected.", zh: "已拒絕兌換申請。" });
+        ? t({ en: "Gift request approved.", zh: "已批核兌換申請。", zhHans: "已批核兑换申请。" })
+        : t({ en: "Gift request rejected.", zh: "已拒絕兌換申請。", zhHans: "已拒绝兑换申请。" });
     const nextRewards = readTeacherRewards(payload);
     const updatedRequest = nextRewards?.redemptions.find((request) => request.id === requestId)
       ?? data.redemptions.find((request) => request.id === requestId);
@@ -265,30 +265,30 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
   return (
     <div className="grid gap-6">
       <section className="glass-panel p-5 sm:p-6">
-        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Points system", zh: "積分系統" })}</p>
+        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Points system", zh: "積分系統", zhHans: "积分系统" })}</p>
         <div className="mt-3 grid gap-5 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-end">
           <div>
-            <h1 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">{t({ en: "Rewards and gift redemptions", zh: "積分獎勵與獎品兌換" })}</h1>
+            <h1 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">{t({ en: "Rewards and gift redemptions", zh: "積分獎勵與獎品兌換", zhHans: "积分奖励与奖品兑换" })}</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
               {t({
                 en: "Award positive learning behavior, review physical gift requests, and keep fulfillment visible.",
-                zh: "獎勵正向學習行為，批核實體獎品兌換，並清楚追蹤派發狀態。"
+                zh: "獎勵正向學習行為，批核實體獎品兌換，並清楚追蹤派發狀態。", zhHans: "奖励正向学习行为，批核实体奖品兑换，并清楚追踪派发状态。"
               })}
             </p>
           </div>
           <p className="rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-500 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-300">
-            {t({ en: "Updated", zh: "更新" })} {formatDate(data.generatedAt, language)}
+            {t({ en: "Updated", zh: "更新", zhHans: "更新" })} {formatDate(data.generatedAt, language)}
           </p>
         </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {[
-          { label: t({ en: "Students", zh: "學生" }), value: data.totals.students, detail: t({ en: "with reward balances", zh: "已有積分帳戶" }) },
-          { label: t({ en: "Available points", zh: "可用積分" }), value: data.totals.availablePoints, detail: t({ en: "across enrolled students", zh: "班內學生合計" }) },
-          { label: t({ en: "Pending approval", zh: "等待批核" }), value: data.totals.pendingRedemptions, detail: t({ en: "gift requests", zh: "兌換申請" }) },
-          { label: t({ en: "Approved", zh: "已批核" }), value: data.totals.approvedRedemptions, detail: t({ en: "awaiting handover", zh: "等待派發" }) },
-          { label: t({ en: "Awarded this week", zh: "本週加分" }), value: data.totals.pointsAwardedThisWeek, detail: t({ en: "positive engagement points", zh: "正向學習積分" }) }
+          { label: t({ en: "Students", zh: "學生", zhHans: "学生" }), value: data.totals.students, detail: t({ en: "with reward balances", zh: "已有積分帳戶", zhHans: "已有积分账号" }) },
+          { label: t({ en: "Available points", zh: "可用積分", zhHans: "可用积分" }), value: data.totals.availablePoints, detail: t({ en: "across enrolled students", zh: "班內學生合計", zhHans: "班内学生合计" }) },
+          { label: t({ en: "Pending approval", zh: "等待批核", zhHans: "等待批核" }), value: data.totals.pendingRedemptions, detail: t({ en: "gift requests", zh: "兌換申請", zhHans: "兑换申请" }) },
+          { label: t({ en: "Approved", zh: "已批核", zhHans: "已批核" }), value: data.totals.approvedRedemptions, detail: t({ en: "awaiting handover", zh: "等待派發", zhHans: "等待派发" }) },
+          { label: t({ en: "Awarded this week", zh: "本週加分", zhHans: "本周加分" }), value: data.totals.pointsAwardedThisWeek, detail: t({ en: "positive engagement points", zh: "正向學習積分", zhHans: "正向学习积分" }) }
         ].map((item) => (
           <div key={item.label} className="glass-panel p-4">
             <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{item.label}</p>
@@ -305,10 +305,10 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
       <section className="grid gap-6 xl:grid-cols-[390px_minmax(0,1fr)]">
         <aside className="grid gap-6">
           <form onSubmit={handleAward} className="glass-panel p-5">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">{t({ en: "Award points", zh: "加積分" })}</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Positive engagement bonus", zh: "正向參與獎勵" })}</h2>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">{t({ en: "Award points", zh: "加積分", zhHans: "加积分" })}</p>
+            <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Positive engagement bonus", zh: "正向參與獎勵", zhHans: "正向参与奖励" })}</h2>
             <label className="mt-5 grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Student", zh: "學生" })}</span>
+              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Student", zh: "學生", zhHans: "学生" })}</span>
               <select value={selectedStudentId} onChange={(event) => setSelectedStudentId(event.target.value)} className="focus-ring h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                 {data.students.map((student) => (
                   <option key={student.studentId} value={student.studentId}>{student.studentName}</option>
@@ -316,7 +316,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
               </select>
             </label>
             <label className="mt-4 grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Reason", zh: "原因" })}</span>
+              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Reason", zh: "原因", zhHans: "原因" })}</span>
               <select
                 value={reasonPresetId}
                 onChange={(event) => {
@@ -333,28 +333,28 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
             </label>
             {selectedPreset ? <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">{text(selectedPreset.detail)}</p> : null}
             <label className="mt-4 grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Points", zh: "積分" })}</span>
+              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Points", zh: "積分", zhHans: "积分" })}</span>
               <input value={amount} onChange={(event) => setAmount(event.target.value)} min={1} max={500} type="number" className="focus-ring h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]" />
             </label>
             <label className="mt-4 grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Note", zh: "備註" })}</span>
-              <input name="note" placeholder={t({ en: "Optional teacher note", zh: "可選教師備註" })} className="focus-ring h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+              <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Note", zh: "備註", zhHans: "备注" })}</span>
+              <input name="note" placeholder={t({ en: "Optional teacher note", zh: "可選教師備註", zhHans: "可选教师备注" })} className="focus-ring h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
             </label>
             <button disabled={isAwarding || !selectedStudentId} className="focus-ring mt-5 w-full rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950" type="submit">
-              {isAwarding ? t({ en: "Awarding", zh: "加分中" }) : t({ en: "Award points", zh: "加積分" })}
+              {isAwarding ? t({ en: "Awarding", zh: "加分中", zhHans: "加分中" }) : t({ en: "Award points", zh: "加積分", zhHans: "加积分" })}
             </button>
             {message ? <p className="mt-3 text-sm font-bold text-emerald-700 dark:text-emerald-200">{message}</p> : null}
           </form>
 
           <div className="glass-panel p-5">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">{t({ en: "Reward catalog", zh: "獎品目錄" })}</p>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">{t({ en: "Reward catalog", zh: "獎品目錄", zhHans: "奖品目录" })}</p>
             <div className="mt-4 grid gap-3">
               {data.catalog.map((item) => (
                 <div key={item.id} className="flex items-center gap-3 rounded-2xl border border-slate-200/80 bg-white/70 p-3 dark:border-white/10 dark:bg-white/[0.06]">
                   <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br text-[11px] font-black text-slate-950 shadow-inner shadow-white/40", item.accent)}>{item.thumbnailLabel}</div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-black text-slate-950 dark:text-white">{text(item.name)}</p>
-                    <p className="text-xs font-bold text-cyan-700 dark:text-cyan-200">{formatPointValue(item.pointsCost, language)} {t({ en: "points", zh: "積分" })}</p>
+                    <p className="text-xs font-bold text-cyan-700 dark:text-cyan-200">{formatPointValue(item.pointsCost, language)} {t({ en: "points", zh: "積分", zhHans: "积分" })}</p>
                   </div>
                 </div>
               ))}
@@ -366,10 +366,10 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
           <section className="glass-panel p-5">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">{t({ en: "Redemption queue", zh: "兌換隊列" })}</p>
-                <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Physical gift handover", zh: "實體獎品派發" })}</h2>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">{t({ en: "Redemption queue", zh: "兌換隊列", zhHans: "兑换队列" })}</p>
+                <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Physical gift handover", zh: "實體獎品派發", zhHans: "实体奖品派发" })}</h2>
               </div>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{activeRedemptions.length} {t({ en: "active", zh: "進行中" })}</p>
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{activeRedemptions.length} {t({ en: "active", zh: "進行中", zhHans: "进行中" })}</p>
             </div>
             <div className="mt-5 grid gap-3">
               {data.redemptions.slice(0, 8).map((request) => (
@@ -378,35 +378,35 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
                     <div>
                       <p className="text-base font-black text-slate-950 dark:text-white">{request.studentName}</p>
                       <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">
-                        {text(request.item.name)} · {formatPointValue(catalogPointCostByItemId.get(request.item.id) ?? request.pointsCost, language)} {t({ en: "points", zh: "積分" })}
+                        {text(request.item.name)} · {formatPointValue(catalogPointCostByItemId.get(request.item.id) ?? request.pointsCost, language)} {t({ en: "points", zh: "積分", zhHans: "积分" })}
                       </p>
                     </div>
                     <span className={cn("rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.12em]", statusTone(request.status))}>{text(statusLabel(request.status))}</span>
                   </div>
                   <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-400">
-                    {t({ en: "Requested", zh: "申請" })} {formatDate(request.requestedAt, language)}
-                    {request.fulfilledAt ? ` · ${t({ en: "Fulfilled", zh: "已派發" })} ${formatDate(request.fulfilledAt, language)}` : ""}
+                    {t({ en: "Requested", zh: "申請", zhHans: "申请" })} {formatDate(request.requestedAt, language)}
+                    {request.fulfilledAt ? ` · ${t({ en: "Fulfilled", zh: "已派發", zhHans: "已派发" })} ${formatDate(request.fulfilledAt, language)}` : ""}
                   </p>
                   <RedemptionActions request={request} isBusy={busyRequestId === request.id} onUpdate={updateRedemption} />
                 </article>
               ))}
               {!data.redemptions.length ? (
-                <div className="soft-panel p-6 text-center text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No gift requests yet.", zh: "尚未有兌換申請。" })}</div>
+                <div className="soft-panel p-6 text-center text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No gift requests yet.", zh: "尚未有兌換申請。", zhHans: "尚未有兑换申请。" })}</div>
               ) : null}
             </div>
           </section>
 
           <section className="glass-panel overflow-hidden p-5">
-            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student balances", zh: "學生積分結餘" })}</h2>
+            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student balances", zh: "學生積分結餘", zhHans: "学生积分结余" })}</h2>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full min-w-[760px] text-left text-sm">
                 <thead className="text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                   <tr>
-                    <th className="py-3 pr-4">{t({ en: "Student", zh: "學生" })}</th>
-                    <th className="py-3 pr-4">{t({ en: "Class", zh: "班級" })}</th>
-                    <th className="py-3 pr-4">{t({ en: "Available", zh: "可用" })}</th>
-                    <th className="py-3 pr-4">{t({ en: "Reserved", zh: "已預留" })}</th>
-                    <th className="py-3">{t({ en: "Earned", zh: "已賺取" })}</th>
+                    <th className="py-3 pr-4">{t({ en: "Student", zh: "學生", zhHans: "学生" })}</th>
+                    <th className="py-3 pr-4">{t({ en: "Class", zh: "班級", zhHans: "班级" })}</th>
+                    <th className="py-3 pr-4">{t({ en: "Available", zh: "可用", zhHans: "可用" })}</th>
+                    <th className="py-3 pr-4">{t({ en: "Reserved", zh: "已預留", zhHans: "已预留" })}</th>
+                    <th className="py-3">{t({ en: "Earned", zh: "已賺取", zhHans: "已赚取" })}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200/80 dark:divide-white/10">
@@ -428,7 +428,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
           </section>
 
           <section id="recent-point-activity" className="glass-panel scroll-mt-24 p-5">
-            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Recent point activity", zh: "最近積分活動" })}</h2>
+            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Recent point activity", zh: "最近積分活動", zhHans: "最近积分活动" })}</h2>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               {data.recentLedger.map((entry) => (
                 <div key={entry.id} className="soft-panel p-4">

@@ -84,11 +84,27 @@ jobs:
           npx tsx --tsconfig tsconfig.json --test lib/server/userStore/postgresSchemaReadiness.test.ts
           node --test scripts/postgres-schema-fast-path.test.mjs scripts/vercel-region-config.test.mjs scripts/verify-vercel-postgres-region.test.mjs
 
+      - name: Run practice attempt persistence unit gates
+        run: |
+          node --import tsx --test \
+            lib/server/practiceAttemptStore.test.ts \
+            app/api/attempts/routeFastPath.test.ts
+
       - name: Test AI Tutor Vercel bypass-cookie smoke harness
         run: node --test scripts/ai-tutor-live-latency-smoke.test.mjs
 
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
+
+      - name: Run observability privacy and intake gate
+        run: node scripts/run-observability-tests.mjs
+
+      - name: Run SCORM import safety gates
+        env:
+          NODE_ENV: test
+          TSX_DISABLE_CACHE: "1"
+          TSX_TSCONFIG_PATH: tsconfig.json
+        run: npm run test:scorm
 
       - name: Run stray generated-types guard and its unit test
         run: npm run check:stray-types && npm run test:stray-types
@@ -104,9 +120,18 @@ jobs:
       - name: Run release governance gate (frozen package-script baseline + release command contracts)
         run: npm run test:release-governance
 
+      - name: Fetch exact historical preparation fixture commits
+        run: |
+          git fetch --no-tags --depth=1 --filter=blob:none origin 14a041f372fb27fa4282104c247886ff1eea623b
+          git fetch --no-tags --depth=1 --filter=blob:none origin cdece5c22491febf78543704a3e4e4d94d8e5fc4
+
+      - name: Run Promotion baseline preparation contracts
+        run: node --test --test-concurrency=1 scripts/promotion-fs-read-metadata-review.test.mjs scripts/promotion-runtime-topology-review.test.mjs scripts/rebase-promotion-baseline.test.mjs
+
       - name: Run exact-source deployment evidence and read-only smoke unit gates
         run: |
           node --test --test-concurrency=1 \
+            scripts/parent-production-acceptance.test.mjs \
             scripts/prod-certification.test.mjs \
             scripts/next-clean-build.test.mjs \
             scripts/prepare-vercel-staging.test.mjs \
@@ -122,6 +147,9 @@ jobs:
 
       - name: Run analytics tests
         run: npm run test:analytics
+
+      - name: Run child-data compliance tests
+        run: node scripts/run-compliance-tests.mjs
 
       - name: Run AI Tutor transcript visibility gate (access audit log + teacher access boundary)
         run: npm run test:tutor-transcript
@@ -159,11 +187,35 @@ jobs:
       - name: Postgres readiness contract
         run: npm run test:postgres-readiness
 
-      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity + platform solvability provenance)
         run: npm run audit:us-math-items
+
+      - name: Run zh-Hans audit (TS strings + generated packs, ratcheted against scripts/zh-hans-pack-baseline.json)
+        run: npm run audit:zh-hans:strict
 
       - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
         run: npm run audit:lesson-illustrations
+
+      # American curriculum ships English only — the US tracks have no multi-language
+      # support. The zh-Hans and HK Chinese audits parse .ts/.tsx only, so neither has
+      # ever scanned a question pack; this one reads the JSON the packs are built from
+      # and fails if a US pack ships a zh that differs from its en.
+      - name: Run US curriculum English-only gate (American tracks ship English; zh must mirror en)
+        run: node scripts/audit-ca-translations.mjs
+
+      # Uses the :strict variant deliberately — plain `audit:zh-hans` always exits 0
+      # and would be a gate that cannot fail.
+      - name: Run PRC Simplified Chinese gate (critical zh-Hans violations)
+        run: npm run audit:zh-hans:strict
+
+      - name: Run CCSS depth-coverage audit (standards with no bench)
+        run: npm run audit:ccss-depth
+
+      # Invoked through tsx rather than `npm run qa:full-question-bank`: that script
+      # compiles the whole project with tsc first (80s), which the type-check step
+      # already covers, while the audit itself takes ~6s. Same audit, same exit codes.
+      - name: Run full question-bank solvability audit (all tracks, non-pass rows fail)
+        run: npx tsx --tsconfig tsconfig.json scripts/audit-full-question-bank-solvability.ts
 
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions
@@ -182,6 +234,15 @@ jobs:
 
       - name: Run visualization gate
         run: npm run test:visualizations
+
+      # Complement the browser gate with static markup checks of real lesson
+      # components. Use automatic JSX without changing Next's JSX configuration
+      # or the release-governed package commands.
+      - name: Run lesson visualization SSR gate
+        run: >-
+          npx tsx --test
+          --tsconfig tsconfig.lesson-visualization-render.json
+          components/visualizations/lessonVisualizationRender.test.tsx
 
       - name: Run component gate (discovers every components/**/*.test.ts)
         run: npm run test:components
@@ -241,6 +302,16 @@ jobs:
           MAIS_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
         run: npx tsx --tsconfig tsconfig.json --test lib/server/userStoreNovaPostgresIntegration.test.ts
 
+      - name: Run durable practice-attempt PostgreSQL 16 integration gates
+        env:
+          MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
+        run: |
+          test -n "$MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL"
+          node --import tsx --test \
+            --test-name-pattern='real PostgreSQL' \
+            lib/server/practiceAttemptStore.test.ts \
+            app/api/attempts/routeFastPath.test.ts
+
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
     # Runs on the same complete release event matrix as the server-side gates.
@@ -265,8 +336,18 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Run observability browser privacy fixture
+        env:
+          PLAYWRIGHT_SKIP_WEBSERVER: "1"
+          PLAYWRIGHT_BROWSER_CHANNEL: chromium
+          PLAYWRIGHT_RUN_ID: ci-observability-fixture
+        run: npx playwright test tests/e2e/observability.spec.ts --project=desktop-chrome --project=mobile-chrome
+
       - name: Run visualization DOM-contract spec
         run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
+
+      - name: Run unpersisted attempt feedback browser gate
+        run: npx playwright test tests/e2e/practice-pager.spec.ts --project=desktop-chrome --grep 'unpersisted attempt feedback stays retryable without success side effects'
 
   teacher-notice-outbox-postgres16:
     # Preserve PR coverage, verify the exact post-merge main SHA, and provide a

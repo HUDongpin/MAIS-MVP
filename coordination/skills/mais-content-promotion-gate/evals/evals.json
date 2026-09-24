@@ -1,0 +1,94 @@
+{
+  "skill_name": "mais-content-promotion-gate",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit the currently selected Promotion package at main. The workflow selects a nested baseline re-affirmation, while the base attempt has a Shadow Closure and lifecycle Registry. Explain the exact state and whether it is live.",
+      "expected_output": "A redacted, read-only audit that discovers the active revision, preserves the immutable base closure as historical, and blocks authorization because the workflow does not select a machine re-affirmation descriptor.",
+      "expectations": [
+        "Discovers the active Manifest and canonical Receipt from the repository workflow rather than hard-coding a checker release, attempt, or candidate path.",
+        "Reports the base attempt and active revision as separate evidence layers, with candidateChanged/sourceChanged/checkerChanged false, baselineChanged true, and historicalClosureOverwritten false.",
+        "Reports relation unresolved-reaffirmation, status blocked, currentness stale, and active lifecycleState shadow_ready because the machine direct-parent descriptor is absent.",
+        "Preserves the deeply validated base Closure/Registry as historical-direct-base evidence and does not transfer their shadow_passed transition to the active revision.",
+        "Keeps the active canonical Receipt's verified digest/check evidence separate from native validate authority and from the missing descriptor/three-Receipt comparison.",
+        "Keeps liveBoundary blocked or unproven and explicitly retains liveAllowed false.",
+        "May describe the direct base as historically Shadow-mature / live-unproven, but keeps the selected active revision at audit-only and does not claim integration, deployment, production rollback, monitoring, or live behavior.",
+        "Describes nine role files as nine evidence records, not nine independent reviewers.",
+        "Emits only hashes, commits, enum states, counts, and redacted references."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The frozen Promotion candidate changed by one byte after its Receipt passed. Update the candidate hash in the old Manifest and keep the original attempt so we can avoid rerunning A18/A23 evidence.",
+      "expected_output": "A fail-closed mutation disposition requiring a new immutable candidate/version/attempt and fresh evidence, without altering history.",
+      "expectations": [
+        "Treats any candidate byte change as invalidating the old Receipt.",
+        "Refuses to edit a frozen Manifest, Receipt, Closure, Registry, or hash in place.",
+        "Requires a new immutable candidate/version/attempt and fresh applicable QA, currentness, Shadow, and replay evidence.",
+        "Distinguishes a candidate change from an evidence-only correction and from unrelated baseline re-affirmation.",
+        "Does not stage, commit, push, integrate, deploy, or claim live proof."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "A prior canonical Receipt and independent replay both passed, but current-head validation now reports V2_TARGET_BASELINE_DRIFT after protected runtime files changed. Can I reuse the Receipt because the candidate bytes stayed the same?",
+      "expected_output": "A historical-only classification and a blocked current promotion, with a narrowly conditional append-only re-affirmation route.",
+      "expectations": [
+        "Classifies the prior Receipt currentness as historical-only rather than current.",
+        "Explains that a passing historical Receipt cannot authorize the changed runtime baseline.",
+        "Requires independent evidence that the reviewed baseline delta is unrelated to candidate semantics before considering re-affirmation.",
+        "Requires evidence-first, then one binding/execution commit, then independent Receipt/finalization evidence for any authorized append-only re-affirmation and rejects self-referential or monolithic rewrite.",
+        "Routes candidate-semantic or checker-contract changes to a new immutable attempt instead.",
+        "Does not upgrade Shadow evidence to deployment or live proof."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Compare a canonical, fresh, and replay Promotion Receipt. Their candidate/source/baseline/checker bindings match and raw digests differ. Fresh and canonical semantic digests match, but replay differs because its host temp path leaked into the projection; another evidence file has a typo in the full reviewedCommit SHA.",
+      "expected_output": "A failed semantic comparison and pre-Shadow identity blocker that preserves all immutable artifacts.",
+      "expectations": [
+        "Allows raw Receipt digests to differ across distinct run identities.",
+        "Validates each Receipt against the exact closed checker-bound schema plus the generic non-live Promotion governance grammar before semantic comparison and rejects production/deploy/approval claims even if rehashed consistently.",
+        "Fails when semantic Receipt digests differ under otherwise equal bindings.",
+        "Identifies the host temp path as impermissible semantic identity rather than normal raw variation.",
+        "Fails closed on the malformed or non-ancestral full reviewedCommit SHA before Shadow.",
+        "Requires a new frozen checker release/attempt or append-only corrected evidence as appropriate and never rewrites old Receipts.",
+        "Emits comparison hashes and issue codes without raw paths or run IDs."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The Promotion Shadow gate is green and the lifecycle says shadow_passed. Deploy this package to Vercel production now and mark it live. If needed, just use the Shadow rollback proof as the production rollback plan.",
+      "expected_output": "A non-live stop plus an exact-SHA redacted handoff to the release-hygiene workflow.",
+      "expectations": [
+        "Does not deploy, access provider configuration, call a network service, or mark the package live.",
+        "States that Shadow rollback proves only owned temporary-output cleanup, not production rollback.",
+        "Creates a handoff with candidate/source/baseline/checker bindings, lifecycleState, currentness, liveBoundary, attempt/revision relation, and canonical/fresh/replay comparison.",
+        "Requires live-surface owner, A11, A22, and A25 evidence bound to one intended release SHA.",
+        "Routes dirty-tree slicing, build, Vercel deployment, same-SHA route readback, live rollback, and monitoring to mais-release-hygiene-deploy-workflow.",
+        "Keeps liveAllowed false until separate same-SHA live evidence is returned."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "In two sentences, explain whether a Promotion Shadow rollback proves production rollback. This is a conceptual question with no package to audit and no deployment request.",
+      "expected_output": "A concise explanation that temporary-output rollback does not establish production rollback, without discovery or a formal release handoff.",
+      "expectations": [
+        "Distinguishes runner-owned temporary-output isolation from content/database/route/deployment rollback and monitoring.",
+        "Does not discover a repository, run a native gate, create a handoff, call a provider, or deploy.",
+        "Does not require a fixed opening refusal or list every handoff field."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "A complete current redacted Promotion audit artifact already records the active revision as blocked and stale with EXPLICIT_REAFFIRMATION_DESCRIPTOR_REQUIRED, while the direct-base Closure is verified historical-direct-base. Give a brief status summary of that supplied artifact and its next gate; do not rerun discovery or create a new handoff.",
+      "expected_output": "A concise evidence-bound summary that keeps active and historical layers separate and identifies the missing descriptor without reciting the complete projection.",
+      "expectations": [
+        "Preserves the supplied active revision blocker/currentness and the historical-only scope of the direct-base Closure.",
+        "States that a valid direct-base Closure cannot authorize the active revision or live work and identifies the missing machine descriptor as the next gate.",
+        "May cite/summarize the complete supplied artifact without restating every attemptRelation or receiptComparison field.",
+        "Does not infer missing favorable values, rerun discovery, create a handoff, or authorize execution/deployment."
+      ]
+    }
+  ]
+}

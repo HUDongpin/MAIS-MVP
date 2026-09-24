@@ -111,35 +111,35 @@ function SessionStats({ session }: { session: TeacherLiveSession }) {
     <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <article className="glass-panel p-4">
         <p className="text-3xl font-black gradient-text">{submitted}</p>
-        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Submitted", zh: "已提交" })}</p>
+        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Submitted", zh: "已提交", zhHans: "已提交" })}</p>
       </article>
       <article className="glass-panel p-4">
         <p className="text-3xl font-black gradient-text">{pending}</p>
-        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Waiting", zh: "未提交" })}</p>
+        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Waiting", zh: "未提交", zhHans: "未提交" })}</p>
       </article>
       <article className="glass-panel p-4">
         <p className="text-3xl font-black gradient-text">{formatPercent(summary.accuracy)}</p>
-        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Correct rate", zh: "正確率" })}</p>
+        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Correct rate", zh: "正確率", zhHans: "正确率" })}</p>
       </article>
       <article className={`glass-panel p-4 ${summary.needsReteach ? "ring-2 ring-rose-300/60" : ""}`}>
-        <p className="text-2xl font-black gradient-text">{summary.needsReteach ? t({ en: "Reteach", zh: "重講" }) : t({ en: "Continue", zh: "繼續" })}</p>
-        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Signal", zh: "判斷" })}</p>
+        <p className="text-2xl font-black gradient-text">{summary.needsReteach ? t({ en: "Reteach", zh: "重講", zhHans: "重讲" }) : t({ en: "Continue", zh: "繼續", zhHans: "继续" })}</p>
+        <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Signal", zh: "判斷", zhHans: "判断" })}</p>
       </article>
       <div className="glass-panel p-4 sm:col-span-2 xl:col-span-4">
-        <h3 className="text-lg font-black text-slate-950 dark:text-white">{t({ en: "Common answers", zh: "常見答案" })}</h3>
+        <h3 className="text-lg font-black text-slate-950 dark:text-white">{t({ en: "Common answers", zh: "常見答案", zhHans: "常见答案" })}</h3>
         <div className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {summary.commonAnswers.length ? summary.commonAnswers.map((answer) => (
             <div key={answer.answer} className={`rounded-2xl border p-3 ${answer.isCorrect === true ? "border-emerald-300/55 bg-emerald-400/12" : answer.isCorrect === false ? "border-rose-300/55 bg-rose-400/12" : "border-slate-200/80 bg-white/70 dark:border-white/10 dark:bg-white/[0.07]"}`}>
               <LiveMathText as="p" value={text(answerLabel(session, answer.answer))} className="text-lg font-black text-slate-950 dark:text-white" />
-              <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{answer.count} {t({ en: "students", zh: "學生" })}</p>
+              <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{answer.count} {t({ en: "students", zh: "學生", zhHans: "学生" })}</p>
             </div>
           )) : (
-            <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Waiting for submissions.", zh: "等待學生提交。" })}</p>
+            <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Waiting for submissions.", zh: "等待學生提交。", zhHans: "等待学生提交。" })}</p>
           )}
         </div>
       </div>
       <div className="glass-panel p-4 sm:col-span-2 xl:col-span-4">
-        <h3 className="text-lg font-black text-slate-950 dark:text-white">{t({ en: "Recent classroom events", zh: "最近課堂事件" })}</h3>
+        <h3 className="text-lg font-black text-slate-950 dark:text-white">{t({ en: "Recent classroom events", zh: "最近課堂事件", zhHans: "最近课堂事件" })}</h3>
         <div className="mt-3 grid gap-2">
           {session.toolState.events.length ? session.toolState.events.slice(0, 8).map((event) => (
             <div key={event.id} className="flex flex-col gap-1 rounded-2xl border border-slate-200/80 bg-white/70 px-4 py-3 dark:border-white/10 dark:bg-white/[0.07] sm:flex-row sm:items-center sm:justify-between">
@@ -147,7 +147,7 @@ function SessionStats({ session }: { session: TeacherLiveSession }) {
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{new Date(event.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</p>
             </div>
           )) : (
-            <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Tool events will appear here.", zh: "工具事件會顯示在這裡。" })}</p>
+            <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Tool events will appear here.", zh: "工具事件會顯示在這裡。", zhHans: "工具事件会显示在这里。" })}</p>
           )}
         </div>
       </div>
@@ -164,34 +164,34 @@ function SessionActionPanel({ session, onEndSession }: { session: TeacherLiveSes
   return (
     <aside className="glass-panel h-fit p-4 lg:sticky lg:top-24">
       <div className="rounded-2xl border border-cyan-300/40 bg-cyan-400/10 p-4 text-center">
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">{t({ en: "Join code", zh: "加入碼" })}</p>
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">{t({ en: "Join code", zh: "加入碼", zhHans: "加入码" })}</p>
         <p className="mt-1 text-3xl font-black tracking-tight text-slate-950 dark:text-white">{session.joinCode}</p>
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-2">
         <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-3 dark:border-white/10 dark:bg-white/[0.06]">
           <p className="text-2xl font-black text-slate-950 dark:text-white">{submitted}</p>
-          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "In", zh: "已交" })}</p>
+          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "In", zh: "已交", zhHans: "已交" })}</p>
         </div>
         <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-3 dark:border-white/10 dark:bg-white/[0.06]">
           <p className="text-2xl font-black text-slate-950 dark:text-white">{pending}</p>
-          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Waiting", zh: "未交" })}</p>
+          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Waiting", zh: "未交", zhHans: "未交" })}</p>
         </div>
         <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-3 dark:border-white/10 dark:bg-white/[0.06]">
           <p className="text-2xl font-black text-slate-950 dark:text-white">{formatPercent(summary.accuracy)}</p>
-          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Correct", zh: "正確" })}</p>
+          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Correct", zh: "正確", zhHans: "正确" })}</p>
         </div>
         <div className={`rounded-2xl border p-3 ${summary.needsReteach ? "border-rose-300/55 bg-rose-400/12" : "border-emerald-300/55 bg-emerald-400/12"}`}>
-          <p className="text-base font-black text-slate-950 dark:text-white">{summary.needsReteach ? t({ en: "Reteach", zh: "重講" }) : t({ en: "Continue", zh: "繼續" })}</p>
-          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Signal", zh: "判斷" })}</p>
+          <p className="text-base font-black text-slate-950 dark:text-white">{summary.needsReteach ? t({ en: "Reteach", zh: "重講", zhHans: "重讲" }) : t({ en: "Continue", zh: "繼續", zhHans: "继续" })}</p>
+          <p className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Signal", zh: "判斷", zhHans: "判断" })}</p>
         </div>
       </div>
 
       <button type="button" onClick={onEndSession} className="focus-ring mt-4 w-full rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-        {t({ en: "End session", zh: "結束課堂" })}
+        {t({ en: "End session", zh: "結束課堂", zhHans: "结束课堂" })}
       </button>
       <Link href={`/classroom?code=${encodeURIComponent(session.joinCode)}`} className="focus-ring mt-3 block rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-center text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
-        {t({ en: "Open student view", zh: "開啟學生端" })}
+        {t({ en: "Open student view", zh: "開啟學生端", zhHans: "开启学生端" })}
       </Link>
     </aside>
   );
@@ -205,7 +205,7 @@ function RecentSessionsPanel({ sessions }: { sessions: TeacherLiveSession[] }) {
   return (
     <section className="glass-panel w-full max-w-5xl p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Recent sessions", zh: "最近課堂" })}</h2>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Recent sessions", zh: "最近課堂", zhHans: "最近课堂" })}</h2>
         <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
           {sessions.length}
         </span>
@@ -216,8 +216,8 @@ function RecentSessionsPanel({ sessions }: { sessions: TeacherLiveSession[] }) {
           const summary = recentSession.responseSummary;
           const followUpTargetId = recentSession.topicId || recentSession.lessonSlug || recentSession.currentPrompt.id || recentSession.id;
           const followUpTitle = summary.needsReteach
-            ? t({ en: `${text(recentSession.lessonTitle)} reteach practice`, zh: `${text(recentSession.lessonTitle)} 重講練習` })
-            : t({ en: `${text(recentSession.lessonTitle)} follow-up practice`, zh: `${text(recentSession.lessonTitle)} 課後練習` });
+            ? t({ en: `${text(recentSession.lessonTitle)} reteach practice`, zh: `${text(recentSession.lessonTitle)} 重講練習`, zhHans: `${text(recentSession.lessonTitle)} 重讲练习` })
+            : t({ en: `${text(recentSession.lessonTitle)} follow-up practice`, zh: `${text(recentSession.lessonTitle)} 課後練習`, zhHans: `${text(recentSession.lessonTitle)} 课后练习` });
           const encodedClassId = encodeURIComponent(recentSession.classId);
           const assignmentHref = `/teacher/assignments/new?classId=${encodedClassId}&contentType=practice&targetId=${encodeURIComponent(followUpTargetId)}&title=${encodeURIComponent(followUpTitle)}`;
           const analyticsHref = `/teacher/analytics?classId=${encodedClassId}`;
@@ -228,7 +228,7 @@ function RecentSessionsPanel({ sessions }: { sessions: TeacherLiveSession[] }) {
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.12em] ${isActive ? "border-emerald-300/60 bg-emerald-400/12 text-emerald-800 dark:text-emerald-100" : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-300"}`}>
-                    {isActive ? t({ en: "Active", zh: "進行中" }) : t({ en: "Ended", zh: "已結束" })}
+                    {isActive ? t({ en: "Active", zh: "進行中", zhHans: "进行中" }) : t({ en: "Ended", zh: "已結束", zhHans: "已结束" })}
                   </span>
                   <span className="text-xs font-black uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-200">{recentSession.joinCode}</span>
                 </div>
@@ -239,11 +239,11 @@ function RecentSessionsPanel({ sessions }: { sessions: TeacherLiveSession[] }) {
               </div>
               <div className="grid min-w-0 grid-cols-2 gap-2 text-sm">
                 <div className="min-w-0 rounded-2xl bg-white/70 p-3 dark:bg-white/[0.06]">
-                  <p className="text-[0.7rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Submitted", zh: "已交" })}</p>
+                  <p className="text-[0.7rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Submitted", zh: "已交", zhHans: "已交" })}</p>
                   <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">{recentSession.responseSummary.totalSubmissions}/{recentSession.studentCount}</p>
                 </div>
                 <div className="min-w-0 rounded-2xl bg-white/70 p-3 dark:bg-white/[0.06]">
-                  <p className="text-[0.7rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Accuracy", zh: "正確率" })}</p>
+                  <p className="text-[0.7rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Accuracy", zh: "正確率", zhHans: "正确率" })}</p>
                   <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">{formatPercent(recentSession.responseSummary.accuracy)}</p>
                 </div>
               </div>
@@ -255,10 +255,10 @@ function RecentSessionsPanel({ sessions }: { sessions: TeacherLiveSession[] }) {
                 {isActive ? (
                   <div className="flex flex-wrap gap-2">
                     <Link href={`/teacher/classroom-sessions/${recentSession.id}/presenter`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black dark:border-white/10 dark:bg-white/[0.07]">
-                      {t({ en: "Presenter", zh: "大屏" })}
+                      {t({ en: "Presenter", zh: "大屏", zhHans: "大屏" })}
                     </Link>
                     <Link href={`/teacher/classroom-sessions/${recentSession.id}/controller`} className="focus-ring rounded-full bg-slate-950 px-3 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-                      {t({ en: "Controller", zh: "控課" })}
+                      {t({ en: "Controller", zh: "控課", zhHans: "控课" })}
                     </Link>
                   </div>
                 ) : null}
@@ -267,29 +267,29 @@ function RecentSessionsPanel({ sessions }: { sessions: TeacherLiveSession[] }) {
                 <div className="grid gap-3 border-t border-slate-200/70 pt-4 dark:border-white/10 lg:col-span-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
                   <div className="grid gap-2 sm:grid-cols-3">
                     <div className={`min-w-0 rounded-2xl border px-3 py-2 ${summary.needsReteach ? "border-rose-300/55 bg-rose-400/12" : "border-emerald-300/55 bg-emerald-400/12"}`}>
-                      <p className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Signal", zh: "判斷" })}</p>
+                      <p className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Signal", zh: "判斷", zhHans: "判断" })}</p>
                       <p className="mt-1 break-words text-sm font-black text-slate-950 dark:text-white">
-                        {summary.needsReteach ? t({ en: "Reteach set", zh: "安排重講" }) : t({ en: "Practice ready", zh: "可派練習" })}
+                        {summary.needsReteach ? t({ en: "Reteach set", zh: "安排重講", zhHans: "安排重讲" }) : t({ en: "Practice ready", zh: "可派練習", zhHans: "可派练习" })}
                       </p>
                     </div>
                     <div className="min-w-0 rounded-2xl border border-slate-200/80 bg-white/70 px-3 py-2 dark:border-white/10 dark:bg-white/[0.06]">
-                      <p className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Work samples", zh: "作答樣本" })}</p>
+                      <p className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Work samples", zh: "作答樣本", zhHans: "作答样本" })}</p>
                       <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">{recentSession.workSamples.length}</p>
                     </div>
                     <div className="min-w-0 rounded-2xl border border-slate-200/80 bg-white/70 px-3 py-2 dark:border-white/10 dark:bg-white/[0.06]">
-                      <p className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Events", zh: "事件" })}</p>
+                      <p className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Events", zh: "事件", zhHans: "事件" })}</p>
                       <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">{recentSession.toolState.events.length}</p>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2 xl:justify-end">
                     <Link href={assignmentHref} className="focus-ring rounded-full bg-slate-950 px-3 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-                      {t({ en: "Create follow-up", zh: "建立跟進" })}
+                      {t({ en: "Create follow-up", zh: "建立跟進", zhHans: "建立跟进" })}
                     </Link>
                     <Link href={analyticsHref} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black dark:border-white/10 dark:bg-white/[0.07]">
-                      {t({ en: "Class analytics", zh: "班級分析" })}
+                      {t({ en: "Class analytics", zh: "班級分析", zhHans: "班级分析" })}
                     </Link>
                     <Link href={noticeHref} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black dark:border-white/10 dark:bg-white/[0.07]">
-                      {t({ en: "Send notice", zh: "發送通知" })}
+                      {t({ en: "Send notice", zh: "發送通知", zhHans: "发送通知" })}
                     </Link>
                   </div>
                 </div>
@@ -310,23 +310,23 @@ function formatTimerSeconds(value: number) {
 }
 
 function attendanceStatusLabel(status: AttendanceStatus) {
-  if (status === "present") return { en: "Present", zh: "出席" };
-  if (status === "late") return { en: "Late", zh: "遲到" };
-  if (status === "excused") return { en: "Excused", zh: "請假" };
-  return { en: "Absent", zh: "缺席" };
+  if (status === "present") return { en: "Present", zh: "出席", zhHans: "出席" };
+  if (status === "late") return { en: "Late", zh: "遲到", zhHans: "迟到" };
+  if (status === "excused") return { en: "Excused", zh: "請假", zhHans: "请假" };
+  return { en: "Absent", zh: "缺席", zhHans: "缺席" };
 }
 
 function toolLabel(tool: TeacherLiveToolType) {
-  const labels: Record<TeacherLiveToolType, { en: string; zh: string }> = {
-    attendance: { en: "Attendance", zh: "考勤" },
-    "random-call": { en: "Random call", zh: "隨機點名" },
-    buzzer: { en: "Buzzer", zh: "搶答" },
-    timer: { en: "Timer", zh: "計時器" },
-    teams: { en: "Teams", zh: "分組競賽" },
-    projector: { en: "Projector", zh: "作答上屏" },
-    "screen-sync": { en: "Screen sync", zh: "手機同步" },
-    whiteboard: { en: "Whiteboard", zh: "白板批注" },
-    "math-workbench": { en: "Math tools", zh: "數學工具" }
+  const labels: Record<TeacherLiveToolType, { en: string; zh: string; zhHans?: string }> = {
+    attendance: { en: "Attendance", zh: "考勤", zhHans: "考勤" },
+    "random-call": { en: "Random call", zh: "隨機點名", zhHans: "随机点名" },
+    buzzer: { en: "Buzzer", zh: "搶答", zhHans: "抢答" },
+    timer: { en: "Timer", zh: "計時器", zhHans: "计时器" },
+    teams: { en: "Teams", zh: "分組競賽", zhHans: "分组竞赛" },
+    projector: { en: "Projector", zh: "作答上屏", zhHans: "作答上屏" },
+    "screen-sync": { en: "Screen sync", zh: "手機同步", zhHans: "手机同步" },
+    whiteboard: { en: "Whiteboard", zh: "白板批注", zhHans: "白板批注" },
+    "math-workbench": { en: "Math tools", zh: "數學工具", zhHans: "数学工具" }
   };
   return labels[tool];
 }
@@ -386,7 +386,7 @@ function WhiteboardSurface({
     <svg
       ref={svgRef}
       role="img"
-      aria-label={t({ en: "Classroom whiteboard annotations", zh: "課堂白板批注" })}
+      aria-label={t({ en: "Classroom whiteboard annotations", zh: "課堂白板批注", zhHans: "课堂白板批注" })}
       viewBox="0 0 640 360"
       className={`h-[260px] w-full rounded-2xl border border-slate-200/80 bg-white shadow-inner dark:border-white/10 dark:bg-slate-950 ${readonly ? "" : "cursor-crosshair touch-none"}`}
       onPointerDown={beginStroke}
@@ -448,7 +448,7 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
           ))}
         </div>
         <div className="rounded-2xl border border-cyan-300/45 bg-cyan-400/10 p-5">
-          <p className="text-sm font-black uppercase text-cyan-700 dark:text-cyan-200">{t({ en: "Checked in", zh: "已簽到" })}</p>
+          <p className="text-sm font-black uppercase text-cyan-700 dark:text-cyan-200">{t({ en: "Checked in", zh: "已簽到", zhHans: "已签到" })}</p>
           <p className="mt-2 text-4xl font-black text-slate-950 dark:text-white">{presentCount}/{session.studentCount}</p>
         </div>
       </div>
@@ -458,10 +458,10 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
   if (toolState.activeTool === "random-call") {
     return (
       <div className="rounded-3xl border border-slate-200/80 bg-white/75 p-8 text-center dark:border-white/10 dark:bg-white/[0.06]">
-        <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Now calling", zh: "正在點名" })}</p>
-        <p className="mt-4 text-5xl font-black text-slate-950 dark:text-white">{toolState.randomCall.currentStudentName ?? t({ en: "Ready", zh: "準備就緒" })}</p>
+        <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Now calling", zh: "正在點名", zhHans: "正在点名" })}</p>
+        <p className="mt-4 text-5xl font-black text-slate-950 dark:text-white">{toolState.randomCall.currentStudentName ?? t({ en: "Ready", zh: "準備就緒", zhHans: "准备就绪" })}</p>
         <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">
-          {toolState.randomCall.selectedStudentIds.length} {t({ en: "called this round", zh: "本輪已點名" })}
+          {toolState.randomCall.selectedStudentIds.length} {t({ en: "called this round", zh: "本輪已點名", zhHans: "本轮已点名" })}
         </p>
       </div>
     );
@@ -471,8 +471,8 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
     return (
       <div className="grid gap-4">
         <div className={`rounded-3xl border p-6 text-center ${toolState.buzzer.status === "open" ? "border-emerald-300/60 bg-emerald-400/12" : "border-slate-200/80 bg-white/75 dark:border-white/10 dark:bg-white/[0.06]"}`}>
-          <p className="text-sm font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Buzzer status", zh: "搶答狀態" })}</p>
-          <p className="mt-2 text-4xl font-black text-slate-950 dark:text-white">{toolState.buzzer.status === "open" ? t({ en: "Open", zh: "進行中" }) : t({ en: "Closed", zh: "已關閉" })}</p>
+          <p className="text-sm font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Buzzer status", zh: "搶答狀態", zhHans: "抢答状态" })}</p>
+          <p className="mt-2 text-4xl font-black text-slate-950 dark:text-white">{toolState.buzzer.status === "open" ? t({ en: "Open", zh: "進行中", zhHans: "进行中" }) : t({ en: "Closed", zh: "已關閉", zhHans: "已关闭" })}</p>
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
           {toolState.buzzer.entries.slice(0, 3).map((entry) => (
@@ -489,7 +489,7 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
   if (toolState.activeTool === "timer") {
     return (
       <div className="rounded-3xl border border-slate-200/80 bg-white/75 p-8 text-center dark:border-white/10 dark:bg-white/[0.06]">
-        <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{toolState.timer.mode === "countdown" ? t({ en: "Countdown", zh: "倒數" }) : t({ en: "Stopwatch", zh: "正計時" })}</p>
+        <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{toolState.timer.mode === "countdown" ? t({ en: "Countdown", zh: "倒數", zhHans: "倒数" }) : t({ en: "Stopwatch", zh: "正計時", zhHans: "正计时" })}</p>
         <p className="mt-4 font-mono text-7xl font-black text-slate-950 dark:text-white">{formatTimerSeconds(toolState.timer.remainingSeconds)}</p>
         <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{toolState.timer.status}</p>
       </div>
@@ -503,10 +503,10 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
           <div key={team.id} className="rounded-2xl border border-slate-200/80 bg-white/75 p-4 dark:border-white/10 dark:bg-white/[0.06]">
             <p className="text-sm font-black text-slate-600 dark:text-slate-300">{text(team.name)}</p>
             <p className="mt-3 text-5xl font-black text-slate-950 dark:text-white">{team.score}</p>
-            <p className="mt-2 text-xs font-bold text-slate-500 dark:text-slate-400">{team.studentIds.length} {t({ en: "students", zh: "學生" })}</p>
+            <p className="mt-2 text-xs font-bold text-slate-500 dark:text-slate-400">{team.studentIds.length} {t({ en: "students", zh: "學生", zhHans: "学生" })}</p>
           </div>
         )) : (
-          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Create teams to start scoring.", zh: "建立分組後即可計分。" })}</p>
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Create teams to start scoring.", zh: "建立分組後即可計分。", zhHans: "建立分组后即可计分。" })}</p>
         )}
       </div>
     );
@@ -519,18 +519,18 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
           <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-4 dark:border-white/10 dark:bg-white/[0.06]">
             <img src={selectedWorkSample.imageDataUrl} alt={selectedWorkSample.caption || "Selected student work"} className="max-h-[360px] w-full rounded-xl object-contain" />
             <p className="mt-3 text-sm font-black text-slate-700 dark:text-slate-200">
-              {toolState.projection.showNames ? selectedWorkSample.studentName : t({ en: "Anonymous student work", zh: "匿名學生作答" })}
+              {toolState.projection.showNames ? selectedWorkSample.studentName : t({ en: "Anonymous student work", zh: "匿名學生作答", zhHans: "匿名学生作答" })}
             </p>
           </div>
         ) : (
           <div className="grid gap-3 md:grid-cols-2">
             {answerRows.length ? answerRows.map((row, index) => (
               <div key={`${row.studentId}-${row.submittedAt}`} className={`rounded-2xl border p-4 ${row.isCorrect === true ? "border-emerald-300/55 bg-emerald-400/12" : row.isCorrect === false ? "border-rose-300/55 bg-rose-400/12" : "border-slate-200/80 bg-white/75 dark:border-white/10 dark:bg-white/[0.06]"}`}>
-                <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{toolState.projection.showNames ? row.studentName : `${t({ en: "Student", zh: "學生" })} ${index + 1}`}</p>
+                <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{toolState.projection.showNames ? row.studentName : `${t({ en: "Student", zh: "學生", zhHans: "学生" })} ${index + 1}`}</p>
                 <LiveMathText as="p" value={text(answerLabel(session, row.answer))} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
               </div>
             )) : (
-              <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Waiting for student answers.", zh: "等待學生作答。" })}</p>
+              <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Waiting for student answers.", zh: "等待學生作答。", zhHans: "等待学生作答。" })}</p>
             )}
           </div>
         )}
@@ -567,7 +567,7 @@ function ClassroomStage({ session, onToolAction }: { session: TeacherLiveSession
   return (
     <div className="rounded-3xl border border-slate-200/80 bg-white/75 p-6 dark:border-white/10 dark:bg-white/[0.06]">
       <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{text(toolState.screenSync.title)}</p>
-      <p className="mt-3 text-3xl font-black text-slate-950 dark:text-white">{toolState.screenSync.locked ? t({ en: "Locked to student devices", zh: "已鎖定學生裝置" }) : t({ en: "Ready to sync", zh: "準備同步" })}</p>
+      <p className="mt-3 text-3xl font-black text-slate-950 dark:text-white">{toolState.screenSync.locked ? t({ en: "Locked to student devices", zh: "已鎖定學生裝置", zhHans: "已锁定学生装置" }) : t({ en: "Ready to sync", zh: "準備同步", zhHans: "准备同步" })}</p>
     </div>
   );
 }
@@ -594,14 +594,14 @@ function TeacherToolPanel({ session, onToolAction, pendingAction }: { session: T
 
   return (
     <aside className="glass-panel h-fit p-4 xl:sticky xl:top-24">
-      <p className="text-xs font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Classroom tools", zh: "課堂工具" })}</p>
+      <p className="text-xs font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Classroom tools", zh: "課堂工具", zhHans: "课堂工具" })}</p>
       <p className="mt-2 text-lg font-black text-slate-950 dark:text-white">{text(toolLabel(toolState.activeTool))}</p>
 
       <div className="mt-4 grid gap-4">
         <section className="grid gap-2">
-          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Attendance", zh: "考勤" })}</p>
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Attendance", zh: "考勤", zhHans: "考勤" })}</p>
           <div className="flex flex-wrap gap-2">
-            {actionButton(t({ en: "Open", zh: "開啟" }), "attendance-open")}
+            {actionButton(t({ en: "Open", zh: "開啟", zhHans: "开启" }), "attendance-open")}
           </div>
           <div className="max-h-64 overflow-y-auto rounded-2xl border border-slate-200/70 bg-white/55 p-2 dark:border-white/10 dark:bg-white/[0.04]">
             {toolState.attendance.map((entry) => (
@@ -626,31 +626,31 @@ function TeacherToolPanel({ session, onToolAction, pendingAction }: { session: T
         </section>
 
         <section className="grid gap-2">
-          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Call and buzz", zh: "點名與搶答" })}</p>
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Call and buzz", zh: "點名與搶答", zhHans: "点名与抢答" })}</p>
           <div className="flex flex-wrap gap-2">
-            {actionButton(t({ en: "Pick student", zh: "抽學生" }), "random-call")}
-            {actionButton(t({ en: "Allow repeat", zh: "允許重複" }), "random-call", { allowRepeats: true })}
-            {actionButton(t({ en: "Reset calls", zh: "重設點名" }), "random-call-reset")}
-            {actionButton(t({ en: "Open buzzer", zh: "開始搶答" }), "buzzer-open")}
-            {actionButton(t({ en: "Close buzzer", zh: "結束搶答" }), "buzzer-close")}
+            {actionButton(t({ en: "Pick student", zh: "抽學生", zhHans: "抽学生" }), "random-call")}
+            {actionButton(t({ en: "Allow repeat", zh: "允許重複", zhHans: "允许重复" }), "random-call", { allowRepeats: true })}
+            {actionButton(t({ en: "Reset calls", zh: "重設點名", zhHans: "重设点名" }), "random-call-reset")}
+            {actionButton(t({ en: "Open buzzer", zh: "開始搶答", zhHans: "开始抢答" }), "buzzer-open")}
+            {actionButton(t({ en: "Close buzzer", zh: "結束搶答", zhHans: "结束抢答" }), "buzzer-close")}
           </div>
         </section>
 
         <section className="grid gap-2">
-          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Timer", zh: "計時器" })}</p>
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Timer", zh: "計時器", zhHans: "计时器" })}</p>
           <div className="flex flex-wrap gap-2">
             {actionButton("03:00", "timer-start", { mode: "countdown", durationSeconds: 180 })}
             {actionButton("05:00", "timer-start", { mode: "countdown", durationSeconds: 300 })}
-            {actionButton(t({ en: "Stopwatch", zh: "正計時" }), "timer-start", { mode: "stopwatch", durationSeconds: 0 })}
-            {toolState.timer.status === "running" ? actionButton(t({ en: "Pause", zh: "暫停" }), "timer-pause") : actionButton(t({ en: "Resume", zh: "繼續" }), "timer-resume")}
-            {actionButton(t({ en: "End", zh: "結束" }), "timer-stop")}
+            {actionButton(t({ en: "Stopwatch", zh: "正計時", zhHans: "正计时" }), "timer-start", { mode: "stopwatch", durationSeconds: 0 })}
+            {toolState.timer.status === "running" ? actionButton(t({ en: "Pause", zh: "暫停", zhHans: "暂停" }), "timer-pause") : actionButton(t({ en: "Resume", zh: "繼續", zhHans: "继续" }), "timer-resume")}
+            {actionButton(t({ en: "End", zh: "結束", zhHans: "结束" }), "timer-stop")}
           </div>
         </section>
 
         <section className="grid gap-2">
-          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Teams", zh: "分組" })}</p>
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Teams", zh: "分組", zhHans: "分组" })}</p>
           <div className="flex flex-wrap gap-2">
-            {actionButton(t({ en: "Auto 4 teams", zh: "自動 4 組" }), "teams-auto", { teamCount: 4 })}
+            {actionButton(t({ en: "Auto 4 teams", zh: "自動 4 組", zhHans: "自动 4 组" }), "teams-auto", { teamCount: 4 })}
             {toolState.teams.teams.map((team) => (
               <span key={team.id} className="inline-flex overflow-hidden rounded-full border border-slate-200/80 bg-white/80 dark:border-white/10 dark:bg-white/[0.06]">
                 <button type="button" disabled={Boolean(pendingAction)} onClick={() => onToolAction("team-score", { teamId: team.id, delta: 1 })} className="focus-ring px-3 py-2 text-sm font-black text-slate-700 disabled:opacity-50 dark:text-slate-200">
@@ -665,25 +665,25 @@ function TeacherToolPanel({ session, onToolAction, pendingAction }: { session: T
         </section>
 
         <section className="grid gap-2">
-          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Projection and sync", zh: "上屏與同步" })}</p>
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Projection and sync", zh: "上屏與同步", zhHans: "上屏与同步" })}</p>
           <div className="flex flex-wrap gap-2">
-            {actionButton(t({ en: "Anonymous answers", zh: "匿名答案" }), "projector-set", { mode: "answers", showNames: false })}
-            {actionButton(t({ en: "Show names", zh: "顯示姓名" }), "projector-set", { mode: "answers", showNames: true })}
-            {session.workSamples.length ? actionButton(t({ en: "Work samples", zh: "作答樣本" }), "projector-set", { mode: "work-samples", showNames: false, selectedWorkSampleId: session.workSamples[0]?.id }) : null}
-            {actionButton(t({ en: "Sync prompt", zh: "同步題目" }), "screen-sync", { target: "prompt", title: text(session.currentPrompt.question), href: `/classroom?code=${encodeURIComponent(session.joinCode)}`, locked: true })}
-            {actionButton(t({ en: "Sync visual", zh: "同步圖像" }), "screen-sync", { target: "visualization", title: text(session.visualizationTitle), href: session.lessonSlug ? `${lessonHrefForSlug(session.lessonSlug)}#visualization` : studentVisualizationToolsPath, locked: true })}
+            {actionButton(t({ en: "Anonymous answers", zh: "匿名答案", zhHans: "匿名答案" }), "projector-set", { mode: "answers", showNames: false })}
+            {actionButton(t({ en: "Show names", zh: "顯示姓名", zhHans: "显示姓名" }), "projector-set", { mode: "answers", showNames: true })}
+            {session.workSamples.length ? actionButton(t({ en: "Work samples", zh: "作答樣本", zhHans: "作答样本" }), "projector-set", { mode: "work-samples", showNames: false, selectedWorkSampleId: session.workSamples[0]?.id }) : null}
+            {actionButton(t({ en: "Sync prompt", zh: "同步題目", zhHans: "同步题目" }), "screen-sync", { target: "prompt", title: text(session.currentPrompt.question), href: `/classroom?code=${encodeURIComponent(session.joinCode)}`, locked: true })}
+            {actionButton(t({ en: "Sync visual", zh: "同步圖像", zhHans: "同步图像" }), "screen-sync", { target: "visualization", title: text(session.visualizationTitle), href: session.lessonSlug ? `${lessonHrefForSlug(session.lessonSlug)}#visualization` : studentVisualizationToolsPath, locked: true })}
           </div>
         </section>
 
         <section className="grid gap-2">
-          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Board and math", zh: "白板與數學工具" })}</p>
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Board and math", zh: "白板與數學工具", zhHans: "白板与数学工具" })}</p>
           <div className="flex flex-wrap gap-2">
-            {actionButton(t({ en: "Open board", zh: "開啟白板" }), "whiteboard-open")}
-            {actionButton(t({ en: "Sync board", zh: "同步白板" }), "screen-sync", { target: "whiteboard", title: t({ en: "Whiteboard", zh: "白板" }), href: `/classroom?code=${encodeURIComponent(session.joinCode)}`, locked: true })}
-            {actionButton(t({ en: "Undo", zh: "撤銷" }), "whiteboard-undo")}
-            {actionButton(t({ en: "Clear", zh: "清空" }), "whiteboard-clear")}
-            {actionButton(t({ en: "Function graph", zh: "函數圖像" }), "math-workbench-set", { tool: "function-graph", title: text(session.visualizationTitle), topicId: session.topicId, parameters: { a: 1, b: -4, c: 3 }, locked: true })}
-            {actionButton(t({ en: "Geometry", zh: "幾何工具" }), "math-workbench-set", { tool: "geometry", title: t({ en: "Geometry explorer", zh: "幾何探索器" }), topicId: session.topicId, parameters: { angle: 60, sides: 3 }, locked: true })}
+            {actionButton(t({ en: "Open board", zh: "開啟白板", zhHans: "开启白板" }), "whiteboard-open")}
+            {actionButton(t({ en: "Sync board", zh: "同步白板", zhHans: "同步白板" }), "screen-sync", { target: "whiteboard", title: t({ en: "Whiteboard", zh: "白板", zhHans: "白板" }), href: `/classroom?code=${encodeURIComponent(session.joinCode)}`, locked: true })}
+            {actionButton(t({ en: "Undo", zh: "撤銷", zhHans: "撤销" }), "whiteboard-undo")}
+            {actionButton(t({ en: "Clear", zh: "清空", zhHans: "清空" }), "whiteboard-clear")}
+            {actionButton(t({ en: "Function graph", zh: "函數圖像", zhHans: "函数图象" }), "math-workbench-set", { tool: "function-graph", title: text(session.visualizationTitle), topicId: session.topicId, parameters: { a: 1, b: -4, c: 3 }, locked: true })}
+            {actionButton(t({ en: "Geometry", zh: "幾何工具", zhHans: "几何工具" }), "math-workbench-set", { tool: "geometry", title: t({ en: "Geometry explorer", zh: "幾何探索器", zhHans: "几何探索器" }), topicId: session.topicId, parameters: { angle: 60, sides: 3 }, locked: true })}
           </div>
         </section>
       </div>
@@ -721,7 +721,7 @@ function StudentClassroomToolPanel({
     <section className="glass-panel mt-6 p-6 sm:p-8">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-300">{t({ en: "Classroom tools", zh: "課堂工具" })}</p>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-300">{t({ en: "Classroom tools", zh: "課堂工具", zhHans: "课堂工具" })}</p>
           <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{text(toolLabel(toolState.activeTool))}</h2>
         </div>
         <div className="rounded-2xl border border-slate-200/80 bg-white/75 px-4 py-3 text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
@@ -738,7 +738,7 @@ function StudentClassroomToolPanel({
               disabled={isTeacherPreview || Boolean(pendingAction)}
               className="focus-ring min-h-14 rounded-2xl bg-slate-950 px-5 py-4 text-base font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
             >
-              {currentAttendance ? t({ en: "Checked in", zh: "已簽到" }) : t({ en: "Check in", zh: "簽到" })}
+              {currentAttendance ? t({ en: "Checked in", zh: "已簽到", zhHans: "已签到" }) : t({ en: "Check in", zh: "簽到", zhHans: "签到" })}
             </button>
             <button
               type="button"
@@ -746,7 +746,7 @@ function StudentClassroomToolPanel({
               disabled={isTeacherPreview || Boolean(ownBuzzerEntry) || toolState.buzzer.status !== "open" || Boolean(pendingAction)}
               className="focus-ring min-h-14 rounded-2xl border border-emerald-300/55 bg-emerald-400/15 px-5 py-4 text-base font-black text-emerald-800 disabled:opacity-50 dark:text-emerald-100"
             >
-              {ownBuzzerEntry ? t({ en: "Buzz received", zh: "已收到搶答" }) : toolState.buzzer.status === "open" ? t({ en: "Buzz in", zh: "搶答" }) : t({ en: "Buzzer closed", zh: "搶答未開始" })}
+              {ownBuzzerEntry ? t({ en: "Buzz received", zh: "已收到搶答", zhHans: "已收到抢答" }) : toolState.buzzer.status === "open" ? t({ en: "Buzz in", zh: "搶答", zhHans: "抢答" }) : t({ en: "Buzzer closed", zh: "搶答未開始", zhHans: "抢答未开始" })}
             </button>
           </div>
 
@@ -757,12 +757,12 @@ function StudentClassroomToolPanel({
               disabled={isTeacherPreview || Boolean(pendingAction)}
               className="focus-ring rounded-2xl border border-cyan-300/50 bg-cyan-400/10 px-5 py-3 text-sm font-black text-cyan-800 disabled:opacity-50 dark:text-cyan-100"
             >
-              {t({ en: "I'm on the synced task", zh: "我已進入同步任務" })}
+              {t({ en: "I'm on the synced task", zh: "我已進入同步任務", zhHans: "我已进入同步任务" })}
             </button>
           ) : null}
 
           <div className="rounded-3xl border border-slate-200/80 bg-white/75 p-5 dark:border-white/10 dark:bg-white/[0.06]">
-            <p className="text-xs font-black uppercase text-cyan-600 dark:text-cyan-300">{toolState.timer.mode === "countdown" ? t({ en: "Countdown", zh: "倒數" }) : t({ en: "Stopwatch", zh: "正計時" })}</p>
+            <p className="text-xs font-black uppercase text-cyan-600 dark:text-cyan-300">{toolState.timer.mode === "countdown" ? t({ en: "Countdown", zh: "倒數", zhHans: "倒数" }) : t({ en: "Stopwatch", zh: "正計時", zhHans: "正计时" })}</p>
             <p className="mt-2 font-mono text-5xl font-black text-slate-950 dark:text-white">{formatTimerSeconds(toolState.timer.remainingSeconds)}</p>
             <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{toolState.timer.status}</p>
           </div>
@@ -789,21 +789,21 @@ function StudentClassroomToolPanel({
 
         <aside className="grid gap-3">
           <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-4 dark:border-white/10 dark:bg-white/[0.06]">
-            <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Buzzer ranking", zh: "搶答排名" })}</p>
+            <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Buzzer ranking", zh: "搶答排名", zhHans: "抢答排名" })}</p>
             <div className="mt-3 grid gap-2">
               {toolState.buzzer.entries.slice(0, 3).length ? toolState.buzzer.entries.slice(0, 3).map((entry) => (
                 <div key={`${entry.studentId}-${entry.rank}`} className="rounded-xl bg-slate-100 px-3 py-2 text-sm font-black text-slate-700 dark:bg-white/[0.08] dark:text-slate-200">
                   {entry.rank}. {entry.studentName}
                 </div>
               )) : (
-                <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Waiting.", zh: "等待中。" })}</p>
+                <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Waiting.", zh: "等待中。", zhHans: "等待中。" })}</p>
               )}
             </div>
-            {ownBuzzerEntry ? <p className="mt-2 text-xs font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Your buzz was received.", zh: "已收到你的搶答。" })}</p> : null}
+            {ownBuzzerEntry ? <p className="mt-2 text-xs font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Your buzz was received.", zh: "已收到你的搶答。", zhHans: "已收到你的抢答。" })}</p> : null}
           </div>
 
           <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-4 dark:border-white/10 dark:bg-white/[0.06]">
-            <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Team scores", zh: "小組分數" })}</p>
+            <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">{t({ en: "Team scores", zh: "小組分數", zhHans: "小组分数" })}</p>
             <div className="mt-3 grid gap-2">
               {toolState.teams.teams.length ? toolState.teams.teams.map((team) => (
                 <div key={team.id} className="flex items-center justify-between rounded-xl bg-slate-100 px-3 py-2 text-sm font-black text-slate-700 dark:bg-white/[0.08] dark:text-slate-200">
@@ -811,7 +811,7 @@ function StudentClassroomToolPanel({
                   <span>{team.score}</span>
                 </div>
               )) : (
-                <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No teams yet.", zh: "尚未分組。" })}</p>
+                <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No teams yet.", zh: "尚未分組。", zhHans: "尚未分组。" })}</p>
               )}
             </div>
           </div>
@@ -826,31 +826,31 @@ const rosterStateStyles: Record<ClassroomLiveStudentState, { badge: string; card
     badge: "border-rose-300/60 bg-rose-400/15 text-rose-800 dark:text-rose-100",
     card: "border-rose-300/70 bg-rose-400/[0.08] ring-2 ring-rose-300/50 dark:ring-rose-400/30",
     dot: "bg-rose-500",
-    label: { en: "Needs help", zh: "需要協助" }
+    label: { en: "Needs help", zh: "需要協助", zhHans: "需要协助" }
   },
   idle: {
     badge: "border-amber-300/60 bg-amber-400/15 text-amber-800 dark:text-amber-100",
     card: "border-amber-300/55 bg-amber-400/[0.06]",
     dot: "bg-amber-500",
-    label: { en: "Idle", zh: "閒置" }
+    label: { en: "Idle", zh: "閒置", zhHans: "闲置" }
   },
   working: {
     badge: "border-cyan-300/60 bg-cyan-400/15 text-cyan-800 dark:text-cyan-100",
     card: "border-slate-200/80 bg-white/70 dark:border-white/10 dark:bg-white/[0.06]",
     dot: "bg-cyan-500",
-    label: { en: "Working", zh: "作答中" }
+    label: { en: "Working", zh: "作答中", zhHans: "作答中" }
   },
   done: {
     badge: "border-emerald-300/60 bg-emerald-400/15 text-emerald-800 dark:text-emerald-100",
     card: "border-emerald-300/50 bg-emerald-400/[0.06]",
     dot: "bg-emerald-500",
-    label: { en: "Done", zh: "已完成" }
+    label: { en: "Done", zh: "已完成", zhHans: "已完成" }
   },
   offline: {
     badge: "border-slate-200/80 bg-white/70 text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-400",
     card: "border-slate-200/70 bg-white/50 opacity-75 dark:border-white/10 dark:bg-white/[0.03]",
     dot: "bg-slate-400",
-    label: { en: "Offline", zh: "未上線" }
+    label: { en: "Offline", zh: "未上線", zhHans: "未上线" }
   }
 };
 
@@ -860,49 +860,49 @@ const rosterStateOrder: ClassroomLiveStudentState[] = ["stuck", "idle", "working
 function rosterReasonLabel(reason: ClassroomLiveAttentionReason | null): LocalizedText | null {
   switch (reason) {
     case "repeated-wrong":
-      return { en: "2+ wrong in a row", zh: "連續答錯" };
+      return { en: "2+ wrong in a row", zh: "連續答錯", zhHans: "连续答错" };
     case "many-hints":
-      return { en: "Leaning on hints", zh: "頻繁看提示" };
+      return { en: "Leaning on hints", zh: "頻繁看提示", zhHans: "频繁看提示" };
     case "wrong-answer":
-      return { en: "Stopped on a wrong answer", zh: "停在錯題上" };
+      return { en: "Stopped on a wrong answer", zh: "停在錯題上", zhHans: "停在错题上" };
     case "idle":
-      return { en: "Quiet for a while", zh: "一段時間沒有作答" };
+      return { en: "Quiet for a while", zh: "一段時間沒有作答", zhHans: "一段时间没有作答" };
     case "inactive":
-      return { en: "Not in this lesson yet", zh: "尚未進入本課" };
+      return { en: "Not in this lesson yet", zh: "尚未進入本課", zhHans: "尚未进入本课" };
     case "not-started":
-      return { en: "Hasn't started", zh: "尚未開始" };
+      return { en: "Hasn't started", zh: "尚未開始", zhHans: "尚未开始" };
     default:
       return null;
   }
 }
 
 const rosterSourceLabels: Record<LearningAnalyticsEventSource, LocalizedText> = {
-  "adaptive-learning": { en: "Adaptive", zh: "自適應" },
-  dashboard: { en: "Home", zh: "主頁" },
-  practice: { en: "Practice", zh: "練習" },
-  progress: { en: "Progress", zh: "進度" },
-  lesson: { en: "Lesson", zh: "課堂" },
-  "ai-tutor": { en: "AI tutor", zh: "AI 導師" },
-  "mistake-book": { en: "Mistakes", zh: "錯題本" },
-  "visualization-lab": { en: "Visual lab", zh: "視覺實驗室" },
-  "function-graph": { en: "Visual lab", zh: "視覺實驗室" },
-  "function-model": { en: "Visual lab", zh: "視覺實驗室" },
-  geometry: { en: "Visual lab", zh: "視覺實驗室" },
-  probability: { en: "Visual lab", zh: "視覺實驗室" },
-  "coordinate-plane": { en: "Visual lab", zh: "視覺實驗室" },
-  "trig-wave": { en: "Visual lab", zh: "視覺實驗室" },
-  "calculus-stats": { en: "Visual lab", zh: "視覺實驗室" },
-  "learning-path": { en: "Learning path", zh: "學習路徑" },
-  navigation: { en: "Browsing", zh: "瀏覽中" }
+  "adaptive-learning": { en: "Adaptive", zh: "自適應", zhHans: "自适应" },
+  dashboard: { en: "Home", zh: "主頁", zhHans: "主页" },
+  practice: { en: "Practice", zh: "練習", zhHans: "练习" },
+  progress: { en: "Progress", zh: "進度", zhHans: "进度" },
+  lesson: { en: "Lesson", zh: "課堂", zhHans: "课堂" },
+  "ai-tutor": { en: "AI tutor", zh: "AI 導師", zhHans: "AI 导师" },
+  "mistake-book": { en: "Mistakes", zh: "錯題本", zhHans: "错题本" },
+  "visualization-lab": { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  "function-graph": { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  "function-model": { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  geometry: { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  probability: { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  "coordinate-plane": { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  "trig-wave": { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  "calculus-stats": { en: "Visual lab", zh: "視覺實驗室", zhHans: "视觉实验室" },
+  "learning-path": { en: "Learning path", zh: "學習路徑", zhHans: "学习路径" },
+  navigation: { en: "Browsing", zh: "瀏覽中", zhHans: "浏览中" }
 };
 
 function formatSinceActive(seconds: number | null, t: ReturnType<typeof useSettings>["t"]) {
   if (seconds === null) return "";
-  if (seconds < 60) return t({ en: `${seconds}s ago`, zh: `${seconds} 秒前` });
+  if (seconds < 60) return t({ en: `${seconds}s ago`, zh: `${seconds} 秒前`, zhHans: `${seconds} 秒前` });
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return t({ en: `${minutes}m ago`, zh: `${minutes} 分鐘前` });
+  if (minutes < 60) return t({ en: `${minutes}m ago`, zh: `${minutes} 分鐘前`, zhHans: `${minutes} 分钟前` });
   const hours = Math.floor(minutes / 60);
-  return t({ en: `${hours}h ago`, zh: `${hours} 小時前` });
+  return t({ en: `${hours}h ago`, zh: `${hours} 小時前`, zhHans: `${hours} 小时前` });
 }
 
 function LiveRosterStudentCard({ entry }: { entry: ClassroomLiveRosterEntry }) {
@@ -931,7 +931,7 @@ function LiveRosterStudentCard({ entry }: { entry: ClassroomLiveRosterEntry }) {
         ) : null}
         {entry.lastQuestionId ? (
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-white/[0.08] dark:text-slate-300">
-            {t({ en: "Q", zh: "題" })} {entry.lastQuestionId}
+            {t({ en: "Q", zh: "題", zhHans: "题" })} {entry.lastQuestionId}
           </span>
         ) : entry.currentTopicId ? (
           <span className="max-w-[10rem] truncate rounded-full bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-white/[0.08] dark:text-slate-300">{entry.currentTopicId}</span>
@@ -942,7 +942,7 @@ function LiveRosterStudentCard({ entry }: { entry: ClassroomLiveRosterEntry }) {
         <div className="flex items-center gap-2.5">
           <span className="text-emerald-600 dark:text-emerald-300">✓ {entry.correctCount}</span>
           <span className="text-rose-600 dark:text-rose-300">✗ {entry.wrongCount}</span>
-          {entry.hintCount > 0 ? <span className="text-amber-600 dark:text-amber-300">{t({ en: "Hints", zh: "提示" })} {entry.hintCount}</span> : null}
+          {entry.hintCount > 0 ? <span className="text-amber-600 dark:text-amber-300">{t({ en: "Hints", zh: "提示", zhHans: "提示" })} {entry.hintCount}</span> : null}
         </div>
         <span className="font-bold text-slate-400 dark:text-slate-500">{formatSinceActive(entry.secondsSinceActive, t)}</span>
       </div>
@@ -1022,15 +1022,15 @@ function LiveRosterGrid({
       <div className="flex flex-col gap-3 border-b border-slate-200/70 pb-4 dark:border-white/10 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
-            {t({ en: "Live monitor", zh: "即時監控" })}
+            {t({ en: "Live monitor", zh: "即時監控", zhHans: "即时监控" })}
           </p>
           <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white sm:text-3xl">
-            {t({ en: "Who needs me right now", zh: "誰現在需要我" })}
+            {t({ en: "Who needs me right now", zh: "誰現在需要我", zhHans: "谁现在需要我" })}
           </h2>
           <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">
             {roster
-              ? t({ en: `${roster.counts.total} students · refreshes every 5s`, zh: `${roster.counts.total} 位學生 · 每 5 秒更新` })
-              : t({ en: "Live per-student status from the current lesson", zh: "本課即時逐生狀態" })}
+              ? t({ en: `${roster.counts.total} students · refreshes every 5s`, zh: `${roster.counts.total} 位學生 · 每 5 秒更新`, zhHans: `${roster.counts.total} 位学生 · 每 5 秒更新` })
+              : t({ en: "Live per-student status from the current lesson", zh: "本課即時逐生狀態", zhHans: "本课即时逐生状态" })}
           </p>
         </div>
         {lockedClassName ? (
@@ -1043,7 +1043,7 @@ function LiveRosterGrid({
                 below also labels its class picker, and two controls sharing one
                 accessible name leaves screen-reader users unable to tell the
                 live-monitor filter from the session's class. */}
-            <span className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Monitor class", zh: "監看班級" })}</span>
+            <span className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Monitor class", zh: "監看班級", zhHans: "监看班级" })}</span>
             <select
               value={classId}
               onChange={(event) => onSelectClass(event.target.value)}
@@ -1059,31 +1059,31 @@ function LiveRosterGrid({
 
       {counts ? (
         <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5">
-          <LiveRosterCountChip count={counts.stuck} label={{ en: "Needs help", zh: "需要協助" }} tone="border-rose-300/60 bg-rose-400/12 text-rose-800 dark:text-rose-100" />
-          <LiveRosterCountChip count={counts.idle} label={{ en: "Idle", zh: "閒置" }} tone="border-amber-300/60 bg-amber-400/12 text-amber-800 dark:text-amber-100" />
-          <LiveRosterCountChip count={counts.working} label={{ en: "Working", zh: "作答中" }} tone="border-cyan-300/60 bg-cyan-400/12 text-cyan-800 dark:text-cyan-100" />
-          <LiveRosterCountChip count={counts.done} label={{ en: "Done", zh: "已完成" }} tone="border-emerald-300/60 bg-emerald-400/12 text-emerald-800 dark:text-emerald-100" />
-          <LiveRosterCountChip count={counts.offline} label={{ en: "Offline", zh: "未上線" }} tone="border-slate-200/80 bg-white/70 text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300" />
+          <LiveRosterCountChip count={counts.stuck} label={{ en: "Needs help", zh: "需要協助", zhHans: "需要协助" }} tone="border-rose-300/60 bg-rose-400/12 text-rose-800 dark:text-rose-100" />
+          <LiveRosterCountChip count={counts.idle} label={{ en: "Idle", zh: "閒置", zhHans: "闲置" }} tone="border-amber-300/60 bg-amber-400/12 text-amber-800 dark:text-amber-100" />
+          <LiveRosterCountChip count={counts.working} label={{ en: "Working", zh: "作答中", zhHans: "作答中" }} tone="border-cyan-300/60 bg-cyan-400/12 text-cyan-800 dark:text-cyan-100" />
+          <LiveRosterCountChip count={counts.done} label={{ en: "Done", zh: "已完成", zhHans: "已完成" }} tone="border-emerald-300/60 bg-emerald-400/12 text-emerald-800 dark:text-emerald-100" />
+          <LiveRosterCountChip count={counts.offline} label={{ en: "Offline", zh: "未上線", zhHans: "未上线" }} tone="border-slate-200/80 bg-white/70 text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300" />
         </div>
       ) : null}
 
       {status === "loading" && !roster ? (
-        <p className="mt-5 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Loading live status…", zh: "正在載入即時狀態…" })}</p>
+        <p className="mt-5 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Loading live status…", zh: "正在載入即時狀態…", zhHans: "正在载入即时状态…" })}</p>
       ) : null}
 
       {status === "error" && !roster ? (
-        <p className="mt-5 text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not load live status. Retrying…", zh: "暫時無法載入即時狀態，重試中…" })}</p>
+        <p className="mt-5 text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not load live status. Retrying…", zh: "暫時無法載入即時狀態，重試中…", zhHans: "暂时无法载入即时状态，重试中…" })}</p>
       ) : null}
 
       {roster && roster.students.length === 0 ? (
         <p className="mt-5 text-sm font-bold text-slate-500 dark:text-slate-400">
-          {t({ en: "No students enrolled in this class yet.", zh: "此班級尚未有學生。" })}
+          {t({ en: "No students enrolled in this class yet.", zh: "此班級尚未有學生。", zhHans: "此班级尚未有学生。" })}
         </p>
       ) : null}
 
       {roster && roster.students.length > 0 && liveCount === 0 ? (
         <p className="mt-4 rounded-2xl border border-slate-200/70 bg-white/60 px-4 py-3 text-sm font-bold text-slate-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
-          {t({ en: "Live status will fill in as students start working in the lesson.", zh: "當學生開始作答，即時狀態便會顯示。" })}
+          {t({ en: "Live status will fill in as students start working in the lesson.", zh: "當學生開始作答，即時狀態便會顯示。", zhHans: "当学生开始作答，即时状态便会显示。" })}
         </p>
       ) : null}
 
@@ -1140,13 +1140,13 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
         })
       });
       if (!response.ok) {
-        setError(t({ en: "Could not start the live session.", zh: "暫時未能開始課堂。" }));
+        setError(t({ en: "Could not start the live session.", zh: "暫時未能開始課堂。", zhHans: "暂时未能开始课堂。" }));
         return;
       }
       formElement.reset();
       router.refresh();
     } catch {
-      setError(t({ en: "Could not start the live session.", zh: "暫時未能開始課堂。" }));
+      setError(t({ en: "Could not start the live session.", zh: "暫時未能開始課堂。", zhHans: "暂时未能开始课堂。" }));
     }
   };
 
@@ -1171,12 +1171,12 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
         body: JSON.stringify({ sessionId: session.id, action, payload })
       });
       if (!response.ok) {
-        setError(t({ en: "Could not update the classroom tool.", zh: "暫時未能更新課堂工具。" }));
+        setError(t({ en: "Could not update the classroom tool.", zh: "暫時未能更新課堂工具。", zhHans: "暂时未能更新课堂工具。" }));
         return;
       }
       router.refresh();
     } catch {
-      setError(t({ en: "Could not update the classroom tool.", zh: "暫時未能更新課堂工具。" }));
+      setError(t({ en: "Could not update the classroom tool.", zh: "暫時未能更新課堂工具。", zhHans: "暂时未能更新课堂工具。" }));
       return;
     } finally {
       setPendingAction("");
@@ -1190,13 +1190,13 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
       <section className="glass-panel w-full max-w-5xl p-5 sm:p-6">
         <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
           <div className="min-w-0">
-            <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Live classroom", zh: "課堂模式" })}</p>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Live classroom", zh: "課堂模式", zhHans: "课堂模式" })}</p>
             <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-              {session ? text(session.title) : t({ en: "Start a classroom check", zh: "開始課堂檢查" })}
+              {session ? text(session.title) : t({ en: "Start a classroom check", zh: "開始課堂檢查", zhHans: "开始课堂检查" })}
             </h1>
             {session ? (
               <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-400">
-                {session.className} · {formatGradeLabel(session.grade, language, true)} · {t({ en: "Refreshing every 5 seconds", zh: "每 5 秒更新" })}
+                {session.className} · {formatGradeLabel(session.grade, language, true)} · {t({ en: "Refreshing every 5 seconds", zh: "每 5 秒更新", zhHans: "每 5 秒更新" })}
               </p>
             ) : null}
           </div>
@@ -1221,12 +1221,12 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{session.className} · {formatGradeLabel(session.grade, language, true)}</p>
                   <h2 className="mt-2 max-w-4xl text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">{text(session.lessonTitle)}</h2>
                   <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-400">
-                    {t({ en: "Active tool", zh: "目前工具" })}: {text(toolLabel(session.toolState.activeTool))}
+                    {t({ en: "Active tool", zh: "目前工具", zhHans: "目前工具" })}: {text(toolLabel(session.toolState.activeTool))}
                   </p>
                 </div>
                 <Link
                   href={visualizationHref}
-                  aria-label={t({ en: `Open ${text(session.visualizationTitle)}`, zh: `開啟${text(session.visualizationTitle)}` })}
+                  aria-label={t({ en: `Open ${text(session.visualizationTitle)}`, zh: `開啟${text(session.visualizationTitle)}`, zhHans: `开启${text(session.visualizationTitle)}` })}
                   className="focus-ring group inline-flex w-fit shrink-0 items-center gap-2.5 rounded-full border border-cyan-300/45 bg-cyan-400/10 px-3 py-2 text-left text-cyan-800 shadow-sm shadow-cyan-500/10 transition hover:-translate-y-0.5 hover:border-cyan-300/70 hover:bg-cyan-400/20 dark:text-cyan-100"
                 >
                   <span aria-hidden="true" className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-slate-950 text-[0.72rem] font-black text-white shadow-sm transition group-hover:scale-105 dark:bg-white dark:text-slate-950">
@@ -1241,10 +1241,10 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
               <div className="border-b border-slate-200/70 py-5 dark:border-white/10">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="w-fit rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
-                    {session.currentPrompt.type === "poll" ? t({ en: "Quick poll", zh: "快速投票" }) : t({ en: "Exit ticket", zh: "離場回饋" })}
+                    {session.currentPrompt.type === "poll" ? t({ en: "Quick poll", zh: "快速投票", zhHans: "快速投票" }) : t({ en: "Exit ticket", zh: "離場回饋", zhHans: "离场反馈" })}
                   </p>
                   <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                    {t({ en: "Student-facing prompt", zh: "學生端題目" })}
+                    {t({ en: "Student-facing prompt", zh: "學生端題目", zhHans: "学生端题目" })}
                   </p>
                 </div>
                 <LiveMathText as="h3" value={text(session.currentPrompt.question)} className="mt-4 max-w-4xl text-2xl font-black leading-snug text-slate-950 dark:text-white sm:text-3xl" />
@@ -1271,10 +1271,10 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
       ) : null}
 
       <section className="glass-panel w-full max-w-5xl p-5 sm:p-6">
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Start session", zh: "開啟課堂" })}</h2>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Start session", zh: "開啟課堂", zhHans: "开启课堂" })}</h2>
         <form onSubmit={startSession} className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-6 xl:items-end">
           <label className="grid gap-2 xl:col-span-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級", zhHans: "班级" })}</span>
             <select value={selectedClassId} onChange={(event) => setSelectedClassId(event.target.value)} className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {live.classes.length ? (
                 live.classes.map((teacherClass) => <option key={teacherClass.id} value={teacherClass.id}>{teacherClass.name}</option>)
@@ -1284,24 +1284,24 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
             </select>
           </label>
           <label className="grid gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Mode", zh: "模式" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Mode", zh: "模式", zhHans: "模式" })}</span>
             <select value={promptType} onChange={(event) => setPromptType(event.target.value as TeacherLivePromptType)} className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
-              <option value="poll">{t({ en: "Quick poll", zh: "快速投票" })}</option>
-              <option value="exit-ticket">{t({ en: "Exit ticket", zh: "離場回饋" })}</option>
+              <option value="poll">{t({ en: "Quick poll", zh: "快速投票", zhHans: "快速投票" })}</option>
+              <option value="exit-ticket">{t({ en: "Exit ticket", zh: "離場回饋", zhHans: "离场反馈" })}</option>
             </select>
           </label>
           <label className="grid gap-2 xl:col-span-3">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Question", zh: "題目" })}</span>
-            <input name="question" required placeholder={t({ en: "What is the next step?", zh: "下一步應怎樣做？" })} className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Question", zh: "題目", zhHans: "题目" })}</span>
+            <input name="question" required placeholder={t({ en: "What is the next step?", zh: "下一步應怎樣做？", zhHans: "下一步应怎样做？" })} className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <label className="grid gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Answer", zh: "答案" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Answer", zh: "答案", zhHans: "答案" })}</span>
             <select name="correctOptionId" disabled={promptType === "exit-ticket"} className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06]">
               {["a", "b", "c", "d"].map((option) => <option key={option} value={option}>{option.toUpperCase()}</option>)}
             </select>
           </label>
           <label className="grid gap-2 xl:col-span-3">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Topic ID", zh: "課題 ID" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Topic ID", zh: "課題 ID", zhHans: "课题 ID" })}</span>
             <input name="topicId" placeholder="quadratic-patterns" className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <button
@@ -1309,7 +1309,7 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
             disabled={!live.classes.length}
             className="focus-ring min-h-12 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950 xl:col-span-2 xl:w-fit xl:px-8"
           >
-            {t({ en: "Start", zh: "開始" })}
+            {t({ en: "Start", zh: "開始", zhHans: "开始" })}
           </button>
         </form>
         {!live.classes.length ? (
@@ -1360,7 +1360,7 @@ export function StudentClassroomView({ initialCode }: { initialCode: string }) {
     const payload = await response.json().catch(() => null) as { session?: ClassroomLiveSession } | null;
     if (!response.ok || !payload?.session) {
       setSession(null);
-      setMessage(t({ en: "No active session found for this code.", zh: "找不到此加入碼的課堂。" }));
+      setMessage(t({ en: "No active session found for this code.", zh: "找不到此加入碼的課堂。", zhHans: "找不到此加入码的课堂。" }));
       return;
     }
     setSession(payload.session);
@@ -1379,10 +1379,10 @@ export function StudentClassroomView({ initialCode }: { initialCode: string }) {
       })
     });
     if (!response.ok) {
-      setMessage(t({ en: "Could not submit yet.", zh: "暫時未能提交。" }));
+      setMessage(t({ en: "Could not submit yet.", zh: "暫時未能提交。", zhHans: "暂时未能提交。" }));
       return;
     }
-    setMessage(t({ en: "Submitted.", zh: "已提交。" }));
+    setMessage(t({ en: "Submitted.", zh: "已提交。", zhHans: "已提交。" }));
     const refreshed = await fetch(`/api/classroom/live?code=${encodeURIComponent(session.joinCode)}`, { cache: "no-store" });
     const payload = await refreshed.json().catch(() => null) as { session?: ClassroomLiveSession } | null;
     if (payload?.session) setSession(payload.session);
@@ -1402,21 +1402,21 @@ export function StudentClassroomView({ initialCode }: { initialCode: string }) {
     });
     const refreshed = await response.json().catch(() => null) as { session?: ClassroomLiveSession; error?: string } | null;
     if (!response.ok || !refreshed?.session) {
-      setMessage(t({ en: "Could not update the classroom action.", zh: "暫時未能更新課堂動作。" }));
+      setMessage(t({ en: "Could not update the classroom action.", zh: "暫時未能更新課堂動作。", zhHans: "暂时未能更新课堂动作。" }));
       return;
     }
     setSession(refreshed.session);
-    setMessage(t({ en: "Updated.", zh: "已更新。" }));
+    setMessage(t({ en: "Updated.", zh: "已更新。", zhHans: "已更新。" }));
   };
 
   return (
     <div className="page-container py-10 sm:py-12">
       <section className="glass-panel p-6 sm:p-8">
-        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Classroom session", zh: "課堂 Session" })}</p>
-        <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">{t({ en: "Join live classroom", zh: "加入即時課堂" })}</h1>
+        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Classroom session", zh: "課堂 Session", zhHans: "课堂 Session" })}</p>
+        <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">{t({ en: "Join live classroom", zh: "加入即時課堂", zhHans: "加入即时课堂" })}</h1>
         <form onSubmit={join} className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <input value={code} onChange={(event) => setCode(event.target.value.toUpperCase())} placeholder={t({ en: "Join code", zh: "加入碼" })} className="focus-ring min-h-12 flex-1 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-lg font-black uppercase tracking-[0.12em] dark:border-white/10 dark:bg-white/[0.06]" />
-          <button type="submit" className="focus-ring rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "Join", zh: "加入" })}</button>
+          <input value={code} onChange={(event) => setCode(event.target.value.toUpperCase())} placeholder={t({ en: "Join code", zh: "加入碼", zhHans: "加入码" })} className="focus-ring min-h-12 flex-1 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-lg font-black uppercase tracking-[0.12em] dark:border-white/10 dark:bg-white/[0.06]" />
+          <button type="submit" className="focus-ring rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "Join", zh: "加入", zhHans: "加入" })}</button>
         </form>
         {message ? <p className="mt-3 text-sm font-bold text-cyan-700 dark:text-cyan-200">{message}</p> : null}
       </section>
@@ -1427,7 +1427,7 @@ export function StudentClassroomView({ initialCode }: { initialCode: string }) {
             <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-300">{session.className} · {text(session.lessonTitle)}</p>
             {isTeacherPreview ? (
               <p className="mt-3 w-fit rounded-full border border-amber-300/55 bg-amber-400/12 px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-amber-700 dark:text-amber-100">
-                {t({ en: "Teacher preview", zh: "教師預覽" })} · {t({ en: "Readonly student view. Answers are not submitted.", zh: "唯讀學生端預覽，不會提交答案。" })}
+                {t({ en: "Teacher preview", zh: "教師預覽", zhHans: "教师预览" })} · {t({ en: "Readonly student view. Answers are not submitted.", zh: "唯讀學生端預覽，不會提交答案。", zhHans: "唯读学生端预览，不会提交答案。" })}
               </p>
             ) : null}
             <LiveMathText as="h2" value={text(session.currentPrompt.question)} className="mt-3 text-4xl font-black text-slate-950 dark:text-white" />
@@ -1451,7 +1451,7 @@ export function StudentClassroomView({ initialCode }: { initialCode: string }) {
               disabled={!answer || !session.canSubmit}
               className="focus-ring mt-6 rounded-full bg-slate-950 px-7 py-4 text-base font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
             >
-              {isTeacherPreview ? t({ en: "Preview only", zh: "預覽模式，不會提交答案" }) : session.submitted ? t({ en: "Submitted", zh: "已提交" }) : t({ en: "Submit answer", zh: "提交答案" })}
+              {isTeacherPreview ? t({ en: "Preview only", zh: "預覽模式，不會提交答案", zhHans: "预览模式，不会提交答案" }) : session.submitted ? t({ en: "Submitted", zh: "已提交", zhHans: "已提交" }) : t({ en: "Submit answer", zh: "提交答案", zhHans: "提交答案" })}
             </button>
           </section>
           <StudentClassroomToolPanel session={session} onAction={submitClassroomAction} />

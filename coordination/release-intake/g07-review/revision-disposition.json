@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "mais-baseline-revision-disposition.v1",
+  "producedAt": "2026-09-06T17:23:13.630Z",
+  "revision": "g07",
+  "state": "repair_required",
+  "selectedForWorkflow": false,
+  "reason": "Descriptor baselineDelta.reviewEvidence points to valid nested role records rather than the top-level baseline-review projection required by the existing handoff reader. Native v2.6 checks and actual replay receipts pass, but full handoff relation currentness is not established.",
+  "replacementRevision": "g08",
+  "candidateSourceBaselineCheckerChanged": false,
+  "frozenBindingCommit": "aee23f927ab4a3a48b2e4cff24559f1f9ed2832c",
+  "canonicalReceiptRawSha256": "355e9aab8728d14454237ccba354578e870e150e76ff34b9c7ab9f1cd8545886",
+  "historicalNativeResultsPreserved": true,
+  "historicalArtifactsOverwritten": false,
+  "liveAllowed": false
+}

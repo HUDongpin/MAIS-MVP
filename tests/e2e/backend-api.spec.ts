@@ -2,6 +2,7 @@ import { expect, request as apiRequest, test, type APIRequestContext, type APIRe
 import { pbkdf2Sync } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
+import { teacherInviteCode } from "./helpers";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -12,6 +13,11 @@ const hkUpCurriculumProfile = {
   region: "HK",
   publisher: "HK_UNITED_PRIME_MIA"
 };
+const e2eParentalConsent = {
+  acknowledged: true,
+  guardianName: "Backend Test Guardian",
+  relationship: "parent"
+} as const;
 
 type AuthSession = {
   user: {
@@ -88,6 +94,7 @@ type ProvisioningCredential = {
 
 type ProvisioningBatchResponse = {
   id: string;
+  schoolAuthorization?: { schoolCode: string; evidenceReference: string; batchId: string };
   school: {
     id: string;
     code: string;
@@ -189,6 +196,7 @@ async function registerStudent(contexts: APIRequestContext[], testInfo: TestInfo
         grade,
         curriculumTrack: "HK",
         curriculumProfile: hkUpCurriculumProfile,
+        parentalConsent: e2eParentalConsent,
         language: "en",
         theme: "dark"
       }
@@ -490,6 +498,43 @@ test.describe("backend API integration", () => {
     }
   });
 
+  test("teacher self-registration requires the configured invite code", async ({}, testInfo) => {
+    const contexts: APIRequestContext[] = [];
+    test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
+
+    try {
+      const context = await newApiContext(contexts);
+      const suffix = uniqueSlug(testInfo, "teacher-invite-gate");
+      const teacherPayload = {
+        role: "teacher",
+        name: "Invite-gated Teacher",
+        username: `teacher-${suffix}@example.test`,
+        email: `teacher-${suffix}@example.test`,
+        password: "start12345",
+        grade: "S3",
+        curriculumTrack: "HK"
+      };
+
+      const missing = await context.post("/api/auth/register", { data: teacherPayload });
+      expect(missing.status()).toBe(403);
+      expect(await missing.json()).toMatchObject({ code: "teacher-invite-denied" });
+
+      const invalid = await context.post("/api/auth/register", {
+        data: { ...teacherPayload, teacherInviteCode: "not-the-configured-code" }
+      });
+      expect(invalid.status()).toBe(403);
+      expect(await invalid.json()).toMatchObject({ code: "teacher-invite-denied" });
+
+      const accepted = await context.post("/api/auth/register", {
+        data: { ...teacherPayload, teacherInviteCode }
+      });
+      expect(accepted.status()).toBe(200);
+      expect(await accepted.json()).toMatchObject({ user: { role: "teacher" } });
+    } finally {
+      await disposeAll(contexts);
+    }
+  });
+
   test("auth, student learning APIs, analytics, password reset, and Nova Tutor boundaries", async ({ page }, testInfo) => {
     const contexts: APIRequestContext[] = [];
     test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
@@ -518,7 +563,8 @@ test.describe("backend API integration", () => {
             email: student.username,
             password: student.password,
             grade: "S3",
-            curriculumTrack: "HK"
+            curriculumTrack: "HK",
+            parentalConsent: e2eParentalConsent
           }
         })).status()
       ).toBe(409);
@@ -532,7 +578,8 @@ test.describe("backend API integration", () => {
             email: `teacher-${publicTeacherSuffix}@example.test`,
             password: "start12345",
             grade: "S3",
-            curriculumTrack: "HK"
+            curriculumTrack: "HK",
+            teacherInviteCode
           }
         })
       );
@@ -812,18 +859,52 @@ test.describe("backend API integration", () => {
         language: "en",
         page: "/practice"
       };
-      expect((await student.context.post("/api/ai-tutor", { data: tutorPayload })).status()).toBe(503);
-      expect((await student.context.post("/api/ai-tutor", { data: { ...tutorPayload, input: "One more hint." } })).status()).toBe(503);
+      expect((await student.context.post("/api/ai-tutor", {
+        headers: expectedUserHeaders(student.userId),
+        data: tutorPayload
+      })).status()).toBe(503);
+      expect((await student.context.post("/api/ai-tutor", {
+        headers: expectedUserHeaders(student.userId),
+        data: { ...tutorPayload, input: "One more hint." }
+      })).status()).toBe(503);
+      // Wait for the two disabled-provider rejections before observing this admission rejection.
+      await expect.poll(() => (readAppStatePayload().ai_tutor_usage ?? [])
+        .filter((record) => record.user_id === student.userId)).toHaveLength(2);
+      const priorUsageIds = new Set((readAppStatePayload().ai_tutor_usage ?? [])
+        .filter((record) => record.user_id === student.userId)
+        .map((record) => record.id));
       const rateLimited = await student.context.post("/api/ai-tutor", {
+        headers: expectedUserHeaders(student.userId),
         data: { ...tutorPayload, input: "Third hint should be limited." }
       });
-      expect(rateLimited.status()).toBe(429);
-      expect(rateLimited.headers()["retry-after"]).toBeTruthy();
+      expect(rateLimited.status()).toBe(200);
+      expect(await rateLimited.json()).toMatchObject({ mode: "rate-limit-fallback" });
+      expect(rateLimited.headers()["retry-after"]).toMatch(/^[1-9]\d*$/);
+      expect(rateLimited.headers()["ratelimit-remaining"]).toBe("0");
+      expect(rateLimited.headers()["ratelimit-reset"]).toMatch(/^[1-9]\d*$/);
+      expect(rateLimited.headers()["x-mais-ai-provider"]).toBeUndefined();
+      // Admission rejects before provider execution: only a token-free rejection is journaled.
+      await expect.poll(() => (readAppStatePayload().ai_tutor_usage ?? [])
+        .filter((record) => record.user_id === student.userId && !priorUsageIds.has(record.id))
+        .map((record) => ({
+          error: record.error,
+          promptTokens: record.prompt_tokens,
+          completionTokens: record.completion_tokens,
+          totalTokens: record.total_tokens
+        }))).toEqual([{
+        error: "AI Tutor rate limit exceeded",
+        promptTokens: null,
+        completionTokens: null,
+        totalTokens: null
+      }]);
 
       const quotaStudent = await registerStudent(contexts, testInfo, "ai-quota-student");
       seedAITutorUsage(quotaStudent.userId, 200_000_000);
       const quotaExceeded = await readJson<{ reply: string; mode: string; quota: { limitTokens: number; usedTokens: number } }>(
-        await quotaStudent.context.post("/api/ai-tutor", { data: tutorPayload })
+        await quotaStudent.context.post("/api/ai-tutor", {
+          headers: expectedUserHeaders(quotaStudent.userId),
+          data: tutorPayload
+        })
       );
       expect(quotaExceeded.mode).toBe("quota-exceeded");
       expect(quotaExceeded.reply).toContain("quota");
@@ -1365,6 +1446,25 @@ test.describe("backend API integration", () => {
       expect(snapshot.storage.provider).toBe("sqlite");
       expect(snapshot.database.users.length).toBeGreaterThan(0);
 
+      const childForAdminRequest = await registerStudent(contexts, testInfo, "guardian-erasure-request");
+      const childAdminPath = `/api/admin/learner-data/${encodeURIComponent(childForAdminRequest.userId)}`;
+      expect((await teacher.get(childAdminPath)).status()).toBe(403);
+      expect((await teacher.delete(childAdminPath, {
+        data: { confirm: "DELETE", userId: childForAdminRequest.userId }
+      })).status()).toBe(403);
+      const childExport = await readJson<{ tables: { users: Array<Record<string, unknown>> } }>(
+        await admin.context.get(childAdminPath)
+      );
+      expect(childExport.tables.users[0].id).toBe(childForAdminRequest.userId);
+      expect(childExport.tables.users[0]).not.toHaveProperty("password_hash");
+      expect((await admin.context.delete(childAdminPath, {
+        data: { confirm: "DELETE", userId: "wrong-student" }
+      })).status()).toBe(400);
+      expect((await admin.context.delete(childAdminPath, {
+        data: { confirm: "DELETE", userId: childForAdminRequest.userId }
+      })).status()).toBe(200);
+      expect((await childForAdminRequest.context.get("/api/me")).status()).toBe(401);
+
       expect((await teacher.post("/api/admin/provisioning/validate", { data: {} })).status()).toBe(403);
 
       const schoolCode = uniqueSlug(testInfo, "bulk-school").replace(/-/g, "").slice(0, 10).toUpperCase();
@@ -1375,6 +1475,14 @@ test.describe("backend API integration", () => {
           academicYear: "2026-2027",
           contactName: "Operations Lead",
           contactEmail: `ops-${schoolCode.toLowerCase()}@example.edu.hk`
+        },
+        schoolAuthorization: {
+          confirmed: true,
+          schoolCode,
+          academicYear: "2026-2027",
+          approvedByName: "School Principal",
+          approvedAt: new Date(Date.now() - 60_000).toISOString(),
+          evidenceReference: `school-permission-${schoolCode}`
         },
         classes: [
           {
@@ -1423,6 +1531,17 @@ test.describe("backend API integration", () => {
       expect(invalidProvisioning.validation.totals.errors).toBeGreaterThan(0);
       expect(invalidProvisioning.validation.errors.join(" ")).toContain("Student grade is invalid");
 
+      const missingSchoolPermission = await readJson<{ validation: { valid: boolean; errors: string[] } }>(
+        await admin.context.post("/api/admin/provisioning/validate", {
+          data: { ...provisioningPayload, schoolAuthorization: undefined }
+        })
+      );
+      expect(missingSchoolPermission.validation.valid).toBe(false);
+      expect(missingSchoolPermission.validation.errors.join(" ")).toContain("School permission");
+      expect((await admin.context.post("/api/admin/provisioning/batches", {
+        data: { ...provisioningPayload, schoolAuthorization: undefined }
+      })).status()).toBe(400);
+
       const provisioningValidation = await readJson<{ validation: { valid: boolean; totals: { teachers: number; students: number; errors: number } } }>(
         await admin.context.post("/api/admin/provisioning/validate", { data: provisioningPayload })
       );
@@ -1438,6 +1557,8 @@ test.describe("backend API integration", () => {
       expect(provisioning.batch.totals.classes).toBe(1);
       expect(provisioning.batch.totals.teachers).toBe(1);
       expect(provisioning.batch.totals.students).toBe(2);
+      expect(provisioning.batch.schoolAuthorization?.evidenceReference).toBe(`school-permission-${schoolCode}`);
+      expect(provisioning.batch.schoolAuthorization?.batchId).toBe(provisioning.batch.id);
       const importedClassId = provisioning.batch.rows.find((row) => row.type === "class" && row.classCode === "S1A")?.classId;
       expect(importedClassId).toBeTruthy();
       expect(provisioning.batch.credentials.teachers).toHaveLength(1);
@@ -1511,10 +1632,16 @@ test.describe("backend API integration", () => {
       expect(temporaryLogin.user.role).toBe("student");
       expect(temporaryLogin.user.schoolId).toBe(provisioning.batch.school.id);
       expect(temporaryLogin.user.passwordMustChange).toBe(true);
+      const provisionedData = await readJson<{
+        tables: { users: Array<{ school_authorization?: { evidenceReference: string; batchId: string } }> }
+      }>(await provisionedStudentContext.get("/api/me/export"));
+      expect(provisionedData.tables.users[0].school_authorization?.evidenceReference).toBe(`school-permission-${schoolCode}`);
+      expect(provisionedData.tables.users[0].school_authorization?.batchId).toBe(provisioning.batch.id);
 
       const nextProvisionedPassword = `Next-${schoolCode}-12345`;
       const changedPassword = await readJson<AuthSession>(
         await provisionedStudentContext.post("/api/auth/password-change", {
+          headers: expectedUserHeaders(temporaryLogin.user.id),
           data: {
             currentPassword: provisionedStudent.temporaryPassword,
             password: nextProvisionedPassword

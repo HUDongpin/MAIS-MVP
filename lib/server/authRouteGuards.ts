@@ -1,6 +1,7 @@
 import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
+import { captureServerError } from "@/lib/server/errorMonitor";
 
 type RateLimitRule = {
   max: number;
@@ -11,6 +12,7 @@ type RateLimitScope =
   | "login-ip"
   | "login-identifier"
   | "register-ip"
+  | "teacher-invite-ip"
   | "password-reset-ip"
   | "password-reset-identifier"
   | "password-reset-confirm-ip"
@@ -62,6 +64,7 @@ export const authRateLimitRules = {
   loginIp: { max: 300, windowMs: 15 * 60 * 1000 },
   loginIdentifier: { max: loginIdentifierMaxFromEnv(), windowMs: 15 * 60 * 1000 },
   registerIp: { max: 240, windowMs: 15 * 60 * 1000 },
+  teacherInviteIp: { max: 12, windowMs: 15 * 60 * 1000 },
   passwordResetIp: { max: 60, windowMs: 15 * 60 * 1000 },
   passwordResetIdentifier: { max: 5, windowMs: 15 * 60 * 1000 },
   passwordResetConfirmIp: { max: 40, windowMs: 15 * 60 * 1000 },
@@ -138,6 +141,18 @@ function authFailureKind(error: unknown) {
   return "unclassified";
 }
 
+const observedAuthRoutes = new Map([
+  ["auth-me", "/api/me"],
+  ["auth-password-change", "/api/auth/password-change"],
+  ["auth-login", "/api/auth/login"],
+  ["auth-logout-all", "/api/auth/logout-all"],
+  ["auth-password-reset-request", "/api/auth/password-reset/request"],
+  ["auth-password-reset-confirm", "/api/auth/password-reset/confirm"],
+  ["auth-register", "/api/auth/register"],
+  ["auth-session-state", "/api/auth/session-state"],
+  ["auth-logout", "/api/auth/logout"]
+]);
+
 export async function withAuthRouteJsonBoundary(routeName: string, action: () => Promise<NextResponse>) {
   try {
     const response = await action();
@@ -148,6 +163,12 @@ export async function withAuthRouteJsonBoundary(routeName: string, action: () =>
       error: error instanceof Error ? error.name : "UnknownError",
       kind: authFailureKind(error)
     });
+    try {
+      captureServerError(error, {
+        scope: "auth-route", route: observedAuthRoutes.get(routeName) ?? "unknown",
+        kind: authFailureKind(error), status: 503
+      });
+    } catch { /* Observation must not replace the private error response. */ }
     const response = NextResponse.json(
       {
         code: "auth-service-unavailable",
