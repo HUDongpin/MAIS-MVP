@@ -1,0 +1,31 @@
+{
+  "slug": "ca-g8-ch01-linear-equations-systems-readiness",
+  "gradeId": "8",
+  "topicId": "us-ca-math-s2-chapter-01",
+  "title": "Linear Equations and Systems Readiness",
+  "standardIds": ["8.EE.C.7", "8.EE.C.8", "8.NS.A.1", "8.NS.A.2"],
+  "summary": "Steer two bike-rental price plans until their lines cross, then place the break-even time and the square root of 2 on a number line.",
+  "emoji": "🚲",
+  "narration": "Two bike shops, two price lists, and one moment when they charge exactly the same. Change the deposits and the hourly rates, and watch the two lines slide until they cross, or run parallel, or land right on top of each other. Whenever they do cross, that point is the answer to the equation, and it arrives as one whole number divided by another. That is why its decimal has to stop or repeat, unlike the square root of 2 sitting beside it on the number line.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "Shop A charges a $4 deposit plus $7 per hour. Shop B charges a $10 deposit plus $5 per hour. After how many hours do the two shops charge the same total?",
+      "answer": 3,
+      "explanation": "Set the totals equal: 7h + 4 = 5h + 10. Subtract 5h from both sides: 2h + 4 = 10. Subtract 4 from both sides: 2h = 6. Divide by 2: h = 3. Check: 7(3) + 4 = 21 + 4 = 25 and 5(3) + 10 = 15 + 10 = 25, so both shops charge $25 after 3 hours."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "The square root of 30 lies between two consecutive whole numbers. What is the smaller of those two whole numbers?",
+      "answer": 5,
+      "explanation": "Square the neighbours: 5 x 5 = 25 and 6 x 6 = 36. Since 25 < 30 < 36, the square root of 30 lies between 5 and 6, so the smaller whole number is 5. Because 30 is not a perfect square, that root is irrational: 5.477... never stops and never repeats."
+    },
+    {
+      "kind": "mc",
+      "prompt": "How many solutions does 3x + 5 = 3x + 9 have?",
+      "choices": ["No solution", "Exactly one solution", "Exactly two solutions", "Infinitely many solutions"],
+      "answer": 0,
+      "explanation": "Subtract 3x from both sides: the left becomes 3x + 5 - 3x = 5 and the right becomes 3x + 9 - 3x = 9, so the equation reduces to 5 = 9. That is false for every x, so no value of x works. On a graph, y = 3x + 5 and y = 3x + 9 both have slope 3, so they are parallel lines that never cross."
+    }
+  ]
+}

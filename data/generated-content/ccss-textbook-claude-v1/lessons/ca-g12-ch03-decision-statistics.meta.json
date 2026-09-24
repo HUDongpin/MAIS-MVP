@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g12-ch03-decision-statistics",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s6-chapter-03",
+  "title": "Decision Statistics",
+  "standardIds": ["S-MD.2", "S-MD.1", "S-MD.3", "S-MD.4", "S-MD.5", "S-MD.6", "S-MD.7"],
+  "summary": "Change a prize wheel's payouts and ticket price, and watch the distribution, its expected value and the fair price move together.",
+  "emoji": "🎪",
+  "narration": "Picture a booth at the school fair with a spinning wheel: one big gold prize, a few small ones, and a lot of blanks. Instead of asking whether you can win, this lesson asks what a single spin does to your money on average. Change the prizes and the ticket price, and watch three things move together: the graph of every possible result, the weighted average that balances it, and the price that would make the game fair. That average is the tool the rest of the chapter uses to make decisions.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A carnival game pays $10 with probability 0.2, pays $2 with probability 0.5, and pays nothing the rest of the time. What ticket price, in dollars, would make the game fair?",
+      "answer": 3,
+      "explanation": "The probabilities of a distribution total 1, so P(nothing) = 1 - 0.2 - 0.5 = 0.3. The expected payout is 0.2(10) + 0.5(2) + 0.3(0) = 2 + 1 + 0 = 3 dollars per play. A price is fair exactly when the player's expected net result is zero, and net = payout - price, so the fair price is the expected payout: $3. Check: at $3 the expected net is 3 - 3 = 0, and at any higher price it would be negative."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A club sells 250 raffle tickets at $5 each. One ticket wins a $300 prize and two more win $75 each. What is the expected value of one ticket to the person who buys it, in dollars?",
+      "answer": -3.2,
+      "tolerance": 0.01,
+      "explanation": "The prizes total 300 + 2(75) = 300 + 150 = 450 dollars, shared over 250 tickets, so one ticket returns 450/250 = 1.80 dollars on average. Subtracting the 5 dollars paid gives 1.80 - 5 = -3.20 dollars. Adding the three net outcomes directly agrees: (1/250)(300 - 5) + (2/250)(75 - 5) + (247/250)(-5) = (295 + 140 - 1235)/250 = -800/250 = -3.20."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Route A takes 20 minutes with probability 0.8 and 45 minutes with probability 0.2. Route B always takes 26 minutes. Which route is faster on average, and what is that average?",
+      "choices": ["Route A, 32.5 minutes", "Route B, 26 minutes", "Route A, 25 minutes", "Route B, 25 minutes"],
+      "answer": 2,
+      "explanation": "Weight each time by its probability: E(A) = 0.8(20) + 0.2(45) = 16 + 9 = 25 minutes. Route B takes one value with certainty, so E(B) = 26 minutes. Since 25 < 26, Route A is faster on average, by 1 minute a trip. The 32.5 option is the plain average of 20 and 45, which wrongly treats the rare 45-minute trip as being as common as the 20-minute one."
+    }
+  ]
+}

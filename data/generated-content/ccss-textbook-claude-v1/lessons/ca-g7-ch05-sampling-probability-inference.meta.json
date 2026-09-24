@@ -1,0 +1,41 @@
+{
+  "slug": "ca-g7-ch05-sampling-probability-inference",
+  "gradeId": "7",
+  "topicId": "us-ca-math-s1-chapter-05",
+  "title": "Sampling, Probability, and Inference",
+  "standardIds": [
+    "7.SP.A.1",
+    "7.SP.A.2",
+    "7.SP.B.3",
+    "7.SP.B.4",
+    "7.SP.C.5",
+    "7.SP.C.6",
+    "7.SP.C.7",
+    "7.SP.C.8"
+  ],
+  "summary": "Set the sample size, yes count, and school size, and watch one fraction act as an estimate, a probability, and a tree of two picks.",
+  "emoji": "🔍",
+  "narration": "Your school wants to know if anyone would use the library on a Saturday, and there is no time to ask everyone. So you ask a small group picked at random, and one fraction does three jobs at once. It estimates the whole school, it marks a spot on the 0-to-1 probability scale, and multiplied by itself it gives the chance that two picks both say yes. Slide the controls and watch all three readings move together.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A random sample of 40 students at a school of 720 finds that 18 of them walk to school. Based on this sample, about how many of the 720 students walk to school?",
+      "answer": 324,
+      "explanation": "The sample proportion is 18/40 = 9/20 = 0.45. Treat that as the school-wide fraction: 0.45 x 720 = 324. (Check by scaling: 720 / 40 = 18 groups of 40, and 18 x 18 = 324.)"
+    },
+    {
+      "kind": "numeric",
+      "prompt": "In a random sample, 3 out of every 5 students said yes. Using that sample as your probability model, you pick a student at random, put the name back, and pick again. What is the probability that both picks say yes? Give a decimal.",
+      "answer": 0.36,
+      "tolerance": 0.01,
+      "explanation": "P(yes) = 3/5 = 0.6 for each pick, and the two picks are independent, so P(both yes) = 3/5 x 3/5 = 9/25 = 0.36."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Two random samples of 10 students each record their daily reading minutes. Sample A has a mean of 25 minutes and a mean absolute deviation of 5 minutes; sample B has a mean of 40 minutes and the same MAD of 5 minutes. How many MADs apart are the two centers?",
+      "choices": ["1.5", "3", "5", "15"],
+      "answer": 1,
+      "explanation": "The gap between the centers is 40 - 25 = 15 minutes. Express it in units of the typical spread: 15 / 5 = 3, so the centers are 3 MADs apart. (15 is the raw gap in minutes, 5 is the MAD itself, and 1.5 divides the gap by the sample size instead of by the MAD.)"
+    }
+  ]
+}

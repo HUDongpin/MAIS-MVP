@@ -387,7 +387,7 @@ test("requested diagram IDs fail closed only inside suites whose inventory owns 
   );
 });
 
-test("standalone diagram routes and replacement textbook bitmaps remain in the live audit graph", async () => {
+test("standalone diagram routes remain in the live audit graph and the California textbook route carries no bitmap references", async () => {
   const { inventory, failures } = await buildMathDiagramInventory();
   assert.deepEqual(failures, []);
   assert.deepEqual(
@@ -399,12 +399,16 @@ test("standalone diagram routes and replacement textbook bitmaps remain in the l
       "stembench-euler-demo"
     ]
   );
+  // The Codex replacement-textbook bitmaps left the live graph on 2026-09-02:
+  // the route now renders interactive CCSS lesson bodies, so nothing may cite
+  // the retired /lesson-illustrations/us-ca-middle-school/candidates/ assets.
   const replacementReferences = inventory.liveAssetReferences.filter((reference) =>
-    reference.manifest === "components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx"
+    reference.manifest === "components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx" ||
+    reference.assetPath.startsWith("/lesson-illustrations/us-ca-middle-school/candidates/")
   );
-  assert.equal(replacementReferences.length, 15);
-  assert.equal(new Set(replacementReferences.map((reference) => reference.assetPath)).size, 15);
-  assert.ok(replacementReferences.every((reference) => reference.mediaType === "raster"));
+  assert.deepEqual(replacementReferences, []);
+  const textbookRoute = inventory.standaloneDiagramRoutes.find((route) => route.id === "california-middle-school-textbook");
+  assert.equal(textbookRoute?.interaction, "interactive-ccss-lessons");
 });
 
 test("browser audit enforces exact root-document width while retaining element paint tolerance", () => {

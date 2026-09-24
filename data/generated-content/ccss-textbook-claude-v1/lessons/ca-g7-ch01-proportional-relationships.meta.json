@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g7-ch01-proportional-relationships",
+  "gradeId": "7",
+  "topicId": "us-ca-math-s1-chapter-01",
+  "title": "Proportional Relationships",
+  "standardIds": ["7.RP.A.2", "7.RP.A.1", "7.RP.A.3"],
+  "summary": "Change a price tag, even one selling 3/4 of a pound, and watch the unit rate, table, graph slope, and coupon total move together.",
+  "emoji": "🍒",
+  "narration": "Every price tag hides a rule. If the sign says six dollars for three quarters of a pound, then one whole pound costs eight dollars, and any amount you buy follows that same rule. In this lesson you change the sign and watch the unit rate, the table, the graph, and even a coupon move together. The dollar axis never moves, so a bigger price per pound draws a steeper line, and that steepness is the constant k.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "Maya jogs 3/4 of a mile in 1/4 of an hour. At that pace, how many miles per hour is she running?",
+      "answer": 3,
+      "explanation": "Speed = distance ÷ time = (3/4) ÷ (1/4) = (3/4) × (4/1) = 12/4 = 3 miles per hour."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Trail mix is sold at a constant price per pound. 4 pounds cost $9. How many dollars do 10 pounds cost?",
+      "answer": 22.5,
+      "tolerance": 0.01,
+      "explanation": "Unit rate: 9 ÷ 4 = 2.25 dollars per pound. Then 2.25 × 10 = 22.50, so 10 pounds cost $22.50."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A $40 jacket is on sale for 25% off, and then 8% sales tax is added to the sale price. What is the final price?",
+      "choices": ["$32.40", "$33.20", "$30.00", "$34.40"],
+      "answer": 0,
+      "explanation": "25% of 40 = 0.25 × 40 = 10, so the sale price is 40 − 10 = 30. Tax: 8% of 30 = 0.08 × 30 = 2.40. Final price: 30 + 2.40 = 32.40."
+    }
+  ]
+}
