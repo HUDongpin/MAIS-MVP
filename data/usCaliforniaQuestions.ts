@@ -82,6 +82,7 @@ function manualQaStatusFor(question: GeneratedCaliforniaQuestion): CaliforniaQue
 function toQuestion(question: GeneratedCaliforniaQuestion): Question {
   const topic = usCaliforniaTopicById.get(question.topicId);
   if (!topic) throw new Error(`Missing California topic for ${question.topicId}`);
+  const figure = question.batch === "ccss-textbook-practice-v1" ? question.diagram : undefined;
   return {
     id: question.id,
     curriculumTrack: "US_CA_MATH",
@@ -96,6 +97,7 @@ function toQuestion(question: GeneratedCaliforniaQuestion): Question {
     type: question.type,
     prompt: sanitizeLocalizedText(question.prompt),
     options: optionsFor(question),
+    diagram: figure,
     answer: question.answer,
     acceptedAnswers: acceptedAnswersFor(question),
     explanation: question.explanation
