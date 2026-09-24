@@ -1670,7 +1670,17 @@ export type Topic = {
   difficulty: Difficulty;
   minutes: number;
   mastery: number;
+  /**
+   * Explicit Hong Kong senior-secondary NSS Mathematics classification.
+   *
+   * An absent value means unclassified, not automatically Compulsory. The
+   * "extended" value is used for differentiation and integration, which occur
+   * in both M1 and M2 but not in the Compulsory Part.
+   */
+  nssPart?: NssCurriculumPart;
 };
+
+export type NssCurriculumPart = "compulsory" | "extended";
 
 export type QuestionType = "multiple-choice" | "fill-in" | "short-answer" | "graph";
 
