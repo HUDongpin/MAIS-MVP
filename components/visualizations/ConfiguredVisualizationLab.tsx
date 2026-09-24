@@ -3521,9 +3521,9 @@ function ConfiguredVisualizationLabSurface({
   // single parameter, so the vertical-shift slider has nothing to drive in those
   // modes. Disabling it is what keeps both transformations honest — the shift it
   // used to apply is exactly what stopped them being a reflection and a dilation.
-  const comparisonDisabled =
-    (templateId === "number-line" && mode === 0 && !usesGradeOneSetControls) ||
-    (templateId === "coordinate-transform" && cappedMode > 0);
+  const comparisonDisabled = templateId === "number-line" && mode === 0
+    ? !usesGradeOneSetControls
+    : templateId === "coordinate-transform" && cappedMode > 0;
   const showStandardGraphOverlay = !(templateId === "vector-conic-3d/strategy-map" && modelMode === 2 && gradeBand === "secondary");
 
   function record(type: "visualization-slider" | "visualization-probe" | "visualization-reset") {
