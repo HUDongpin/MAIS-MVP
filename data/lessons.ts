@@ -1898,8 +1898,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     visualization: {
       title: { en: "Adjust the trig wave", zh: "調整三角波形" },
       content: {
-        en: "Adjust amplitude, period, and phase shift to connect graph transformations with sine-wave equations.",
-        zh: "調整振幅、周期和平移，連繫圖像變換與正弦波方程。"
+        en: "Adjust angle, amplitude, and phase shift to connect graph transformations with sine-wave equations.",
+        zh: "調整角度、振幅和相位移，連繫圖像變換與正弦波方程。"
       },
       moduleId: "configured-visualization-lab",
       source: "trig-wave"
