@@ -181,6 +181,8 @@ export async function runNextCleanBuild({
   const checkStrayGeneratedTypes = operations.checkStrayGeneratedTypes ?? assertNoBrokenStrayGeneratedTypes;
   const captureNextEnv = operations.captureNextEnvPreimage ?? captureNextEnvPreimage;
   const restoreNextEnv = operations.restoreNextEnvPreimage ?? restoreNextEnvPreimage;
+  const captureSource = operations.captureBuildSourceState ?? captureBuildSourceState;
+  const attestBuild = operations.writeBuildAttestation ?? writeBuildAttestation;
 
   return await withGeneratedCleanupLock(
     {
@@ -199,12 +201,28 @@ export async function runNextCleanBuild({
         checkStrayGeneratedTypes({ repoRoot: config.repoRoot });
       }
       const nextEnvPreimage = await captureNextEnv(config.repoRoot);
+      const buildStartedAt = new Date().toISOString();
+      let sourceBefore;
+      let exitCode;
       try {
         await cleanBuildDir(config);
-        return await spawnBuild(config, env);
+        sourceBefore = await captureSource({ repoRoot: config.repoRoot, env });
+        exitCode = await spawnBuild(config, env);
       } finally {
         await restoreNextEnv(nextEnvPreimage);
       }
+      // Next's generated sidecar must be restored before recording source state.
+      // A failed build or failed restoration must never produce a success receipt.
+      if (exitCode !== 0) return exitCode;
+      const sourceAfter = await captureSource({ repoRoot: config.repoRoot, env });
+      await attestBuild({
+        config,
+        sourceBefore,
+        sourceAfter,
+        buildStartedAt,
+        completedAt: new Date().toISOString()
+      });
+      return exitCode;
     }
   );
 }
@@ -410,23 +428,10 @@ function isPathInsideRepo(candidatePath, repoRoot) {
 async function spawnNextBuild(config, env) {
   const require = createRequire(import.meta.url);
   const nextBin = require.resolve("next/dist/bin/next");
-  const buildStartedAt = new Date().toISOString();
-  const sourceBefore = await captureBuildSourceState({ repoRoot: config.repoRoot, env });
-  const exitCode = await runCommand(process.execPath, [nextBin, "build"], {
+  return await runCommand(process.execPath, [nextBin, "build"], {
     cwd: config.repoRoot,
     env
   });
-  if (exitCode !== 0) return exitCode;
-
-  const sourceAfter = await captureBuildSourceState({ repoRoot: config.repoRoot, env });
-  await writeBuildAttestation({
-    config,
-    sourceBefore,
-    sourceAfter,
-    buildStartedAt,
-    completedAt: new Date().toISOString()
-  });
-  return exitCode;
 }
 
 export async function captureBuildSourceState({ repoRoot = REPO_ROOT, env = process.env } = {}) {
