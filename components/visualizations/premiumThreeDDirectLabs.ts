@@ -350,11 +350,17 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
   return {
     labId,
     grade,
-    title: {
-      en: `${title} Visual Lab`,
-      zh: `${title}視覺化實驗`,
-      zhHans: `${title}可视化实验`
-    },
+    title: isAdvancedTrigPreview
+      ? {
+          en: "Trigonometry Basics — Advanced Preview",
+          zh: "三角學基礎 — 進階預覽",
+          zhHans: "三角学基础 — 进阶预览"
+        }
+      : {
+          en: `${title} Visual Lab`,
+          zh: `${title}視覺化實驗`,
+          zhHans: `${title}可视化实验`
+        },
     description: isAdvancedTrigPreview
       ? {
           en: "Optional advanced preview: explore how trigonometric ratios lead to the unit circle and sine wave.",
