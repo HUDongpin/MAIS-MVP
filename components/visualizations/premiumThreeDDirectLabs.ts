@@ -247,6 +247,19 @@ const directLabGradeOverrides: Record<string, GradeId> = {
   "trigonometry-basics": "S3"
 };
 
+// These titles are rendered by the student direct-route shell. The route does
+// not render lab.description, so keep its topic-specific copy out of this map.
+const hongKongDirectLabTitles: Record<string, LocalizedText> = {
+  "advanced-functions": { en: "Advanced Functions Visual Lab", zh: "進階函數視覺化實驗", zhHans: "进阶函数可视化实验" },
+  calculus: { en: "Calculus Visual Lab", zh: "微積分視覺化實驗", zhHans: "微积分可视化实验" },
+  "differentiation-intro": { en: "Differentiation Visual Lab", zh: "微分入門視覺化實驗", zhHans: "微分入门可视化实验" },
+  functions: { en: "Functions Visual Lab", zh: "函數視覺化實驗", zhHans: "函数可视化实验" },
+  "mixed-problem-solving": { en: "Function Families Visual Lab", zh: "函數族視覺化實驗", zhHans: "函数族可视化实验" },
+  "probability-s5": { en: "Probability Visual Lab", zh: "概率視覺化實驗", zhHans: "概率可视化实验" },
+  "quadratic-patterns": { en: "Quadratic Patterns Visual Lab", zh: "二次關係視覺化實驗", zhHans: "二次关系可视化实验" },
+  "trigonometry-s5": { en: "Trigonometry Visual Lab", zh: "三角學視覺化實驗", zhHans: "三角学可视化实验" }
+};
+
 function directLabAxisLabels(templateId: VisualizationTemplateId) {
   if (templateId === "complex-plane") return { x: "Re", y: "Im" };
   if (templateId.includes("function") || templateId.includes("trig") || templateId.includes("calculus")) {
@@ -356,7 +369,7 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
           zh: "三角學基礎 — 進階預覽",
           zhHans: "三角学基础 — 进阶预览"
         }
-      : {
+      : hongKongDirectLabTitles[labId] ?? {
           en: `${title} Visual Lab`,
           zh: `${title}視覺化實驗`,
           zhHans: `${title}可视化实验`

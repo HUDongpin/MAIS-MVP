@@ -1248,10 +1248,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Drag a triangle and watch the angle sum", zh: "拖曳三角形並觀察內角和" },
+      title: { en: "Compare two angles", zh: "比較兩個角" },
       content: {
-        en: "Move the vertices and compare individual angle sizes with the fixed triangle angle sum.",
-        zh: "移動頂點，比較個別角度大小與固定的三角形內角和。"
+        en: "Set two angles in 15-degree steps, then read their sum and difference to explore complementary and supplementary pairs.",
+        zh: "以 15 度為一步設定兩個角，再讀出角度的和與差，探索互餘和互補的關係。"
       },
       moduleId: "configured-visualization-lab",
       source: "geometry"
@@ -1401,10 +1401,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Plot and connect points", zh: "標示並連接點" },
+      title: { en: "Plot a point and move a figure", zh: "標示點並移動圖形" },
       content: {
-        en: "Plot points, connect them, and animate transformations such as translation and reflection.",
-        zh: "標示點、連接點，並以動畫呈現平移和反射等變換。"
+        en: "Mark a point by its coordinates. Separately, translate the fixed triangle and compare its vertices with their images.",
+        zh: "按坐標標示一個點。另可平移固定的三角形，並比較各頂點與其像的位置。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -1491,10 +1491,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Run repeated dice trials", zh: "進行重複擲骰試驗" },
+      title: { en: "Set outcome counts and read probability", zh: "設定結果次數並讀出概率" },
       content: {
-        en: "Use the simulator to see how frequencies change after 1 trial, 20 trials, and more.",
-        zh: "使用模擬器觀察 1 次、20 次及更多試驗後頻率如何改變。"
+        en: "Set the success and failure counts manually. When their total is at least one, read the success probability as a fraction, decimal, and percentage.",
+        zh: "手動設定成功和失敗次數。當總次數至少為 1 時，把成功概率讀成分數、小數和百分數。"
       },
       moduleId: "configured-visualization-lab",
       source: "probability"
@@ -1734,10 +1734,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Plot and compare coordinates", zh: "標示並比較坐標" },
+      title: { en: "Compare a figure with its image", zh: "比較圖形與其像" },
       content: {
-        en: "Use the coordinate plane to plot points and reason about slope and movement.",
-        zh: "使用坐標平面標示點，並推理斜率和移動。"
+        en: "Mark a point by its coordinates. Separately, transform the fixed triangle and compare its vertices with their images. This panel does not calculate slope.",
+        zh: "按坐標標示一個點。另可變換固定的三角形，並比較各頂點與其像。此面板不計算斜率。"
       },
       moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
@@ -2067,10 +2067,10 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Adjust the z-score model", zh: "調整 z 分數模型" },
+      title: { en: "Explore centre and spread", zh: "探索中心與離散程度" },
       content: {
-        en: "Use the statistics mode in the senior lab to move the observed value and watch the z-score update.",
-        zh: "使用高中實驗室的統計模式移動觀察值，並觀察 z 分數更新。"
+        en: "Adjust the centre and spread to see how the illustrated distribution changes. This panel has no observed-value input and does not calculate a z-score.",
+        zh: "調整中心和離散程度，觀察示意分佈如何改變。此面板沒有觀察值輸入，也不計算 z 分數。"
       },
       moduleId: "configured-visualization-lab",
       source: "probability"
