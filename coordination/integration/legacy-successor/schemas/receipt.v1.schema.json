@@ -73,7 +73,9 @@
         "capabilityPolicyDigest",
         "externalSideEffects",
         "temporaryOutputRehearsed",
-        "temporaryRollbackOnly"
+        "temporaryRollbackOnly",
+        "priorAttemptId",
+        "priorAttemptOutcome"
       ],
       "properties": {
         "manifest": {
@@ -116,7 +118,7 @@
           "pattern": "^[a-f0-9]{64}$"
         },
         "checkerVersion": {
-          "const": "promotion-legacy-successor-v1"
+          "const": "promotion-legacy-successor-v1.1"
         },
         "checkerBundleDigest": {
           "type": "string",
@@ -217,6 +219,12 @@
         },
         "temporaryRollbackOnly": {
           "const": true
+        },
+        "priorAttemptId": {
+          "const": "attempt-008"
+        },
+        "priorAttemptOutcome": {
+          "const": "internal-timeout"
         }
       }
     },

@@ -1,35 +1,35 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile, writeFile, mkdir, mkdtemp, rm, realpath } from "node:fs/promises";
+import { readFile, writeFile, chmod, mkdir, mkdtemp, rm, realpath } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
-import { authenticateRuntime, TRUSTED_BUNDLE_PATHS } from "./bootstrap.mjs";
-import { contentDelta, validateManifest, validateDescriptor, validateEvidence, assertRegistrySuccessor, verifyReceiptShape, repository, assertEvidenceOnlyDelta, validateAttempt, collectAuthority, BUNDLE_PATHS, SOURCE_PATHS, ROOT, PACK, COMMON_BASE, IMPORT_COMMIT, ORIGINAL_PACK_HASH, REVIEWERS } from "./contract.mjs";
+import { authenticateRuntime, TRUSTED_BUNDLE_PATHS, FAILED_ATTEMPT, anchoredLedgerEntry, PREVIOUS_EXECUTION } from "./bootstrap.mjs";
+import { contentDelta, validateManifest, validateDescriptor, validateEvidence, assertRegistrySuccessor, verifyReceiptShape, repository, receiptReplayRunId, verifyFailedAttemptCustody, rejectFailedWorker, assertEvidenceOnlyDelta, validateAttempt, collectAuthority, BUNDLE_PATHS, SOURCE_PATHS, ROOT, PACK, COMMON_BASE, IMPORT_COMMIT, ORIGINAL_PACK_HASH, REVIEWERS } from "./contract.mjs";
 import { fingerprint, sha256 } from "../promotion-gate-lib.mjs";
 import { parsePromotionWorkflowJsonBytes } from "../../../scripts/promotion-workflow-json-guard.mjs";
 
-const root = fileURLToPath(new URL("../../../", import.meta.url));
+const root = await realpath(fileURLToPath(new URL("../../../", import.meta.url)));
 const h = "a".repeat(64), c = "b".repeat(40);
 const ref = file => ({ path: file, rawSha256: h });
 const delta = { changedIds: Array.from({ length: 22 }, (_, i) => `row-${String(i).padStart(2, "0")}`), changed: Array.from({ length: 22 }, (_, i) => ({ id: `row-${String(i).padStart(2, "0")}`, afterDigest: h })), changeDigest: h };
 const policy = () => Object.fromEntries(["coveredFileCount", "coveredFilesDigest", "classificationsDigest", "frameworkEntrypointCount", "seedCount", "reachablePathCount", "reachablePathsDigest", "edgeCount", "edgeDigest", "topologyEdgeCount", "topologyEdgeDigest", "nextDynamicCallCount", "nextDynamicLiteralImportCount", "nextDynamicNonliteralImportCount", "nextDynamicCallsiteDigest", "fsReadAllowlistCount", "fsReadAllowlistDigest", "zeroBaselineCallCount"].map(key => [key, key.endsWith("Digest") ? h : 0]));
 const manifest = () => ({
-  schemaVersion: "promotion-legacy-successor-manifest.v1", gateId: "legacy-content-successor-nonlive", attemptId: "attempt-008", mode: "shadow", checkerVersion: "promotion-legacy-successor-v1",
+  schemaVersion: "promotion-legacy-successor-manifest.v1", gateId: "legacy-content-successor-nonlive", attemptId: "attempt-009", mode: "shadow", checkerVersion: "promotion-legacy-successor-v1.1",
   checkerRelease: { ledgerPath: `${ROOT}/checker-releases.v1.json`, ledgerRawSha256: h, releaseCommit: c, bundleDigest: h },
   candidate: { path: PACK, rawSha256: h, packageId: "us-ar-math-g6-g12-generated-bank-v1-1500", version: "1.1.0-correctness.22", status: "candidate-only" },
   source: { importCommit: IMPORT_COMMIT, commonBaseCommit: COMMON_BASE, reviewedSourceCommit: c, importedPaths: SOURCE_PATHS.map(file => ({ path: file, rawSha256: h, mode: "100644", objectId: c })), originalPack: { path: PACK, rawSha256: ORIGINAL_PACK_HASH } },
   historical: { commit: c, manifest: ref("history/manifest.json"), receipt: ref("history/receipt.json"), registry: ref("history/registry.json"), closure: ref("history/closure.json"), lifecycle: ref("history/lifecycle.json") },
   targetBaselineCommit: c, successor: { resolutionId: "de-reach-arkansas-g6-g12-questions-v1", decision: "de-reached", contentChanged: true, baselineOnly: false, wholePackAccepted: false, changedIds: delta.changedIds, unchangedCount: 1478, changeDigest: h },
-  legacyResolution: { registryPath: `${ROOT}/attempt-008/inputs/legacy-resolution-registry.v1.json`, rawSha256: h },
+  legacyResolution: { registryPath: `${ROOT}/attempt-009/inputs/legacy-resolution-registry.v1.json`, rawSha256: h },
   liveReachability: { compatibilityManifestPath: "compat.json", compatibilityManifestRawSha256: h, expectedRuntimePolicy: policy() },
-  evidenceIndex: { path: `${ROOT}/attempt-008/inputs/evidence-index.v1.json`, rawSha256: h, evidenceCommit: c }, descriptor: { path: `${ROOT}/attempt-008/successor.v1.json` }, canonicalReceiptPath: `${ROOT}/attempt-008/promotion-shadow-receipt.v1.json`, lifecycleState: "shadow_ready", liveAllowed: false
+  evidenceIndex: { path: `${ROOT}/attempt-009/inputs/evidence-index.v1.json`, rawSha256: h, evidenceCommit: c }, descriptor: { path: `${ROOT}/attempt-009/successor.v1.json` }, canonicalReceiptPath: `${ROOT}/attempt-009/promotion-shadow-receipt.v1.json`, lifecycleState: "shadow_ready", liveAllowed: false, repairOf: structuredClone(FAILED_ATTEMPT)
 });
 const evidence = role => ({ schemaVersion: "promotion-legacy-successor-evidence.v1", role, reviewer: { sessionId: REVIEWERS[role], identity: REVIEWERS[role], independence: "independent-review" }, reviewedAt: "2026-09-27T00:00:00.000Z", result: "pass", candidateRawSha256: h, changeDigest: h, report: ref("review.md"), details: role === "A18" ? { reviewedRows: delta.changed.map(x => ({ id: x.id, recordDigest: x.afterDigest, verdict: "approved-bounded-correction" })), wholePackAccepted: false, limitations: ["22 selected rows only"] } : role === "A11" ? { checkerBundleDigest: h, negativeChecks: ["changed-qa-row", "changed-release-code", "duplicate-json-key", "fake-baseline-only", "future-receipt", "live-admission", "non-ar-registry-change", "same-reviewer"], sourceRegression: "pass" } : { checkerBundleDigest: h, disposition: "de-reached-successor", otherResolutionsPreserved: 17, approvedProjectionsPreserved: 3, historicalCustody: "preserved" }, liveAllowed: false });
 const rehash = receipt => { receipt.semanticDigest = fingerprint(receipt.semantics); const { selfDigest, ...body } = receipt; receipt.selfDigest = fingerprint(body); return receipt; };
-const receipt = () => rehash({ schemaVersion: "promotion-legacy-successor-receipt.v1", result: "pass", mode: "shadow", run: { id: "fixture-canonical", producedAt: "2026-09-27T00:00:00.000Z" }, semantics: { manifest: ref(`${ROOT}/attempt-008/promotion-manifest.v1.json`), executionCommit: c, sourceCommit: c, importedSourceCommit: IMPORT_COMMIT, targetBaselineCommit: c, candidateDigest: h, checkerVersion: "promotion-legacy-successor-v1", checkerBundleDigest: h, checkerReleaseCommit: c, changeDigest: h, changedRowCount: 22, unchangedRowCount: 1478, wholePackAccepted: false, runtimePolicyDigest: h, legacyProofDigest: h, sourceSnapshotDigest: h, dependenciesDigest: h, evidenceRecordCount: 5, independentReviewSessionCount: 3, coordinatorRoleRecordCount: 2, historicalAuthorityTransferred: false, historicalClosureOverwritten: false, lifecycleState: "shadow_ready", outputDigest: h, capabilityPolicyDigest: h, externalSideEffects: { network: 0, provider: 0, database: 0, deployment: 0, production: 0 }, temporaryOutputRehearsed: true, temporaryRollbackOnly: true, liveAllowed: false }, semanticDigest: h, selfDigest: h, liveAllowed: false });
+const receipt = () => rehash({ schemaVersion: "promotion-legacy-successor-receipt.v1", result: "pass", mode: "shadow", run: { id: "fixture-canonical", producedAt: "2026-09-27T00:00:00.000Z" }, semantics: { priorAttemptId: "attempt-008", priorAttemptOutcome: "internal-timeout", manifest: ref(`${ROOT}/attempt-009/promotion-manifest.v1.json`), executionCommit: c, sourceCommit: c, importedSourceCommit: IMPORT_COMMIT, targetBaselineCommit: c, candidateDigest: h, checkerVersion: "promotion-legacy-successor-v1.1", checkerBundleDigest: h, checkerReleaseCommit: c, changeDigest: h, changedRowCount: 22, unchangedRowCount: 1478, wholePackAccepted: false, runtimePolicyDigest: h, legacyProofDigest: h, sourceSnapshotDigest: h, dependenciesDigest: h, evidenceRecordCount: 5, independentReviewSessionCount: 3, coordinatorRoleRecordCount: 2, historicalAuthorityTransferred: false, historicalClosureOverwritten: false, lifecycleState: "shadow_ready", outputDigest: h, capabilityPolicyDigest: h, externalSideEffects: { network: 0, provider: 0, database: 0, deployment: 0, production: 0 }, temporaryOutputRehearsed: true, temporaryRollbackOnly: true, liveAllowed: false }, semanticDigest: h, selfDigest: h, liveAllowed: false });
 
 test("closed schemas compile and accept their explicit bounded fixtures", async () => {
   for (const [name, value] of [["manifest", manifest()], ["evidence", evidence("A18")], ["receipt", receipt()]]) {
@@ -73,8 +73,8 @@ test("future review dates and impossible dates are rejected", () => {
   }
 });
 test("descriptor binds actual content/checker change and exact Manifest", () => {
-  const m = manifest(), manifestRef = ref(`${ROOT}/attempt-008/promotion-manifest.v1.json`);
-  const d = { schemaVersion: "promotion-legacy-successor-descriptor.v1", relation: "immutable-content-successor", manifest: manifestRef, evidenceCommit: c, historicalManifest: m.historical.manifest, historicalReceipt: m.historical.receipt, candidateChanged: true, checkerChanged: true, baselineOnly: false, liveAllowed: false };
+  const m = manifest(), manifestRef = ref(`${ROOT}/attempt-009/promotion-manifest.v1.json`);
+  const d = { schemaVersion: "promotion-legacy-successor-descriptor.v1", relation: "immutable-content-successor", manifest: manifestRef, evidenceCommit: c, historicalManifest: m.historical.manifest, historicalReceipt: m.historical.receipt, repairOf: structuredClone(FAILED_ATTEMPT), candidateChanged: true, checkerChanged: true, baselineOnly: false, liveAllowed: false };
   assert.doesNotThrow(() => validateDescriptor(d, m, manifestRef)); d.relation = "append-only-reaffirmation";
   assert.throws(() => validateDescriptor(d, m, manifestRef));
 });
@@ -120,6 +120,20 @@ async function gitFixture() {
   return { directory, git, put, save, dispose: () => rm(directory, { recursive: true }) };
 }
 
+async function anchoredFixture(f) {
+  const source = await repository(root);
+  const common = source.git("rev-parse", "--path-format=absolute", "--git-common-dir").toString().trim();
+  await writeFile(path.join(f.directory, ".git/objects/info/alternates"), `${common}/objects\n`, { flag: "wx" });
+  const original = source.blob(PREVIOUS_EXECUTION, `${ROOT}/checker-releases.v1.json`).bytes;
+  await f.put(`${ROOT}/checker-releases.v1.json`, original.toString());
+  const save = (...files) => {
+    const ordinary = f.save(...files, `${ROOT}/checker-releases.v1.json`);
+    const anchored = f.git("commit-tree", f.git("rev-parse", `${ordinary}^{tree}`), "-p", PREVIOUS_EXECUTION, "-m", "Synthetic checker boundary fixture; never a review approval");
+    f.git("update-ref", "HEAD", anchored); return anchored;
+  };
+  return { original, previous: parsePromotionWorkflowJsonBytes(original), save };
+}
+
 for (const [name, code] of [["future-receipt", "SUCCESSOR_FUTURE_RECEIPT_ALREADY_BOUND"], ["descriptor-added-before-binding", "SUCCESSOR_ATOMIC_BINDING_REQUIRED"]]) {
   test(`real Git history rejects ${name}`, async () => {
     const f = await gitFixture();
@@ -129,10 +143,10 @@ for (const [name, code] of [["future-receipt", "SUCCESSOR_FUTURE_RECEIPT_ALREADY
       await f.put("evidence.txt", "fixture is not an approval");
       if (name === "descriptor-added-before-binding") await f.put(m.descriptor.path, {});
       m.evidenceIndex.evidenceCommit = f.save("evidence.txt", ...(name === "descriptor-added-before-binding" ? [m.descriptor.path] : []));
-      const mp = `${ROOT}/attempt-008/promotion-manifest.v1.json`;
+      const mp = `${ROOT}/attempt-009/promotion-manifest.v1.json`;
       await f.put(mp, m);
       if (name === "future-receipt") {
-        await f.put(m.descriptor.path, { schemaVersion: "promotion-legacy-successor-descriptor.v1", relation: "immutable-content-successor", manifest: { path: mp, rawSha256: sha256(Buffer.from(JSON.stringify(m))) }, evidenceCommit: m.evidenceIndex.evidenceCommit, historicalManifest: m.historical.manifest, historicalReceipt: m.historical.receipt, candidateChanged: true, checkerChanged: true, baselineOnly: false, liveAllowed: false });
+        await f.put(m.descriptor.path, { schemaVersion: "promotion-legacy-successor-descriptor.v1", relation: "immutable-content-successor", manifest: { path: mp, rawSha256: sha256(Buffer.from(JSON.stringify(m))) }, evidenceCommit: m.evidenceIndex.evidenceCommit, historicalManifest: m.historical.manifest, historicalReceipt: m.historical.receipt, repairOf: structuredClone(FAILED_ATTEMPT), candidateChanged: true, checkerChanged: true, baselineOnly: false, liveAllowed: false });
         await f.put(m.canonicalReceiptPath, {});
       }
       f.save(mp, ...(name === "future-receipt" ? [m.descriptor.path, m.canonicalReceiptPath] : []));
@@ -145,11 +159,12 @@ test("changed-release-code stays RED even when candidate recalculates the curren
   const f = await gitFixture();
   try {
     for (const file of BUNDLE_PATHS) await f.put(file, file.endsWith(".json") ? {} : "// synthetic boundary fixture\n");
-    const release = f.save(...BUNDLE_PATHS);
+    const anchored = await anchoredFixture(f);
+    const release = anchored.save(...BUNDLE_PATHS);
     await f.put(`${ROOT}/contract.mjs`, "// tampered after frozen release\n");
     const bound = await Promise.all(BUNDLE_PATHS.map(async file => ({ path: file, rawSha256: (await import("../promotion-gate-lib.mjs")).sha256(await readFile(path.join(f.directory, file))) })));
     const digest = fingerprint(bound);
-    const ledger = { schemaVersion: "promotion-checker-releases.legacy-successor.v1", entries: [{ version: "promotion-legacy-successor-v1", bundleAlgorithm: "sha256-stable-json-path-raw-v1", bundlePaths: BUNDLE_PATHS, bundleDigest: digest, releaseCommit: release, reviewReferences: [], dependencyBindings: [] }] };
+    const ledger = { schemaVersion: "promotion-checker-releases.legacy-successor.v1", entries: [...anchored.previous.entries, { version: "promotion-legacy-successor-v1.1", bundleAlgorithm: "sha256-stable-json-path-raw-v1", bundlePaths: BUNDLE_PATHS, bundleDigest: digest, releaseCommit: release, reviewReferences: [], dependencyBindings: [] }] };
     await f.put(`${ROOT}/checker-releases.v1.json`, ledger); f.save(`${ROOT}/contract.mjs`, `${ROOT}/checker-releases.v1.json`);
     const m = manifest(); m.targetBaselineCommit = release; m.checkerRelease.releaseCommit = release; m.checkerRelease.bundleDigest = digest;
     m.checkerRelease.ledgerRawSha256 = (await import("../promotion-gate-lib.mjs")).sha256(await readFile(path.join(f.directory, ROOT, "checker-releases.v1.json")));
@@ -181,18 +196,19 @@ for (const rehashed of [false, true]) test(`bootstrap rejects poisoned dependenc
       deps.push({ name, version: "0.0.0-fixture", integrity: "sha512-fixture", fileCount: 2, treeDigest: fingerprint([["index.js", "100644", sha256(Buffer.from(code))], ["package.json", "100644", sha256(packageBytes)]]) });
     }
     await f.put(`${ROOT}/frozen-dependency-bindings.v1.json`, {schemaVersion:"promotion-frozen-dependency-bindings.v1",packages:deps});
-    const release = f.save(...TRUSTED_BUNDLE_PATHS, ".gitignore");
+    const anchored = await anchoredFixture(f);
+    const release = anchored.save(...TRUSTED_BUNDLE_PATHS, ".gitignore");
     const bindings = await Promise.all(TRUSTED_BUNDLE_PATHS.map(async file => ({ path: file, rawSha256: sha256(await readFile(path.join(f.directory, file))) })));
-    const ledger = { schemaVersion: "promotion-checker-releases.legacy-successor.v1", entries: [{ version: "promotion-legacy-successor-v1", releaseCommit: release, bundleDigest: fingerprint(bindings), bundlePaths: TRUSTED_BUNDLE_PATHS, dependencyBindings: deps }] };
+    const ledger = { schemaVersion: "promotion-checker-releases.legacy-successor.v1", entries: [...anchored.previous.entries, { version: "promotion-legacy-successor-v1.1", releaseCommit: release, bundleDigest: fingerprint(bindings), bundlePaths: TRUSTED_BUNDLE_PATHS, dependencyBindings: deps }] };
     const lp = `${ROOT}/checker-releases.v1.json`; await f.put(lp, ledger);
-    const mp = `${ROOT}/attempt-008/promotion-manifest.v1.json`, m = manifest();
+    const mp = `${ROOT}/attempt-009/promotion-manifest.v1.json`, m = manifest();
     m.checkerRelease = { ledgerPath: lp, ledgerRawSha256: sha256(Buffer.from(JSON.stringify(ledger))), releaseCommit: release, bundleDigest: fingerprint(bindings) };
     await f.put(mp, m); f.save(lp, mp);
     delete globalThis.successorPoisonExecuted;
     await f.put("node_modules/ajv/index.js", "globalThis.successorPoisonExecuted = true; throw Error('poison');\n");
     if (rehashed) {
       const poison = await readFile(path.join(f.directory, "node_modules/ajv/index.js"));
-      ledger.entries[0].dependencyBindings[0].treeDigest = fingerprint([["index.js", "100644", sha256(poison)], ["package.json", "100644", sha256(await readFile(path.join(f.directory, "node_modules/ajv/package.json")))]]);
+      ledger.entries.at(-1).dependencyBindings[0].treeDigest = fingerprint([["index.js", "100644", sha256(poison)], ["package.json", "100644", sha256(await readFile(path.join(f.directory, "node_modules/ajv/package.json")))]]);
       await f.put(lp, ledger); m.checkerRelease.ledgerRawSha256 = sha256(Buffer.from(JSON.stringify(ledger))); await f.put(mp, m); f.save(lp, mp);
     }
     await assert.rejects(authenticateRuntime(f.directory, ["validate", "--manifest", mp, "--json"]), e => e.code === (rehashed ? "SUCCESSOR_BOOTSTRAP_FROZEN_DEPENDENCY_DRIFT" : "SUCCESSOR_BOOTSTRAP_DEPENDENCY_DRIFT"));
@@ -209,4 +225,46 @@ for (const file of ["next.config.mjs", "jsconfig.alias.json", "tsconfig.next.jso
     await f.put(file, file.endsWith(".json") ? {} : "// unauthorized runtime input"); const changed = f.save(file);
     assert.throws(() => assertEvidenceOnlyDelta({git:(...args)=>Buffer.from(f.git(...args))}, baseline, changed), e=>e.code === "SUCCESSOR_PROTECTED_BASELINE_DRIFT");
   } finally { await f.dispose(); }
+});
+
+test("anchored ledger accepts one new version and rejects altered release prefix", async () => {
+  const source = await repository(root), bytes = source.blob(PREVIOUS_EXECUTION, `${ROOT}/checker-releases.v1.json`).bytes;
+  const prior = parsePromotionWorkflowJsonBytes(bytes), next = {...prior, entries:[...prior.entries,{version:"promotion-legacy-successor-v1.1"}]};
+  assert.equal(anchoredLedgerEntry(bytes, bytes, next).version, "promotion-legacy-successor-v1.1");
+  const altered=Buffer.from(JSON.stringify({...prior,entries:[{...prior.entries[0],bundleDigest:h}]}));
+  assert.throws(()=>anchoredLedgerEntry(bytes, altered, next),e=>e.code==="SUCCESSOR_LEDGER_ANCHOR_DRIFT");
+  for(const mutate of [x=>x.entries.shift(),x=>x.entries.reverse(),x=>x.entries.push({...x.entries.at(-1)}),x=>x.entries[0].bundleDigest=h,x=>x.entries[1].version="promotion-legacy-successor-v1"]){const changed=structuredClone(next);mutate(changed);assert.throws(()=>anchoredLedgerEntry(bytes,bytes,changed));}
+});
+for(const mutate of [x=>x.attemptId="attempt-008",x=>x.repairOf.candidateChanged=true,x=>x.repairOf.shadowApprovalInherited=true,x=>x.repairOf.receipt=ref("forged.json")]) test("failed checker repair cannot use the old identity or inherit a Shadow approval",()=>{const m=manifest();mutate(m);assert.throws(()=>validateManifest(m));});
+
+test("deadline or nonzero child cannot admit complete-looking or partial PASS output",()=>{
+ const good=Buffer.from(JSON.stringify({result:"pass",liveAllowed:false,proof:{}}));
+ assert.throws(()=>rejectFailedWorker({code:"ETIMEDOUT",stdout:good}),e=>e.code==="SUCCESSOR_OBSERVER_TIMEOUT");
+ assert.throws(()=>rejectFailedWorker({signal:"SIGTERM",stdout:good}),e=>e.code==="SUCCESSOR_OBSERVER_TIMEOUT");
+ assert.throws(()=>rejectFailedWorker({status:2,stdout:good}),e=>e.code==="SUCCESSOR_OBSERVER_FAILED");
+ assert.throws(()=>rejectFailedWorker({status:2,stdout:Buffer.from('{"result":"pass"')}),e=>e.code==="SUCCESSOR_OBSERVER_FAILED");
+});
+
+test("real Git mode-only change cannot rewrite a preserved old-attempt artifact",async()=>{
+ const f=await gitFixture();
+ try{
+  const source=await repository(root),anchor=await anchoredFixture(f);
+  const files=source.git("ls-tree","-r","--name-only",PREVIOUS_EXECUTION,"--",`${ROOT}/attempt-008`).toString().trim().split("\n");
+  for(const file of files)await f.put(file,source.blob(PREVIOUS_EXECUTION,file).bytes.toString());
+  const failures=["failure-index.v1.json","validate-v1.json","validate-v2.json"].map(name=>`${ROOT}/attempt-008/native-validation/${name}`);
+  for(const file of failures)await f.put(file,(await readFile(path.join(root,file))).toString());
+  const release=anchor.save(...files,...failures),m=manifest();m.targetBaselineCommit=release;m.checkerRelease.releaseCommit=release;
+  await verifyFailedAttemptCustody(await repository(f.directory),m);
+  const victim=`${ROOT}/attempt-008/inputs/evidence/a18.v1.json`;
+  await chmod(path.join(f.directory,victim),0o755);f.save(victim);
+  await assert.rejects(verifyFailedAttemptCustody(await repository(f.directory),m),e=>e.code==="SUCCESSOR_PRIOR_ATTEMPT_REWRITTEN");
+ }finally{await f.dispose();}
+});
+
+test("all valid canonical run IDs including length128 have distinct bounded replay IDs",()=>{
+ for(const original of ["a", "v", "V", "9", "v"+"x".repeat(127), "r"+"-._".repeat(42)+"x", "verify-"+"a".repeat(64)]){
+  const id=receiptReplayRunId(original);assert.match(id,/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u);assert.notEqual(id,original);assert.notEqual(id[0],original[0]);assert.equal(id,receiptReplayRunId(original));
+  const value=receipt();value.run.id=id;assert.equal(verifyReceiptShape(rehash(value)).run.id,id);
+ }
+ assert.throws(()=>receiptReplayRunId("x".repeat(129)));assert.throws(()=>receiptReplayRunId(""));
 });

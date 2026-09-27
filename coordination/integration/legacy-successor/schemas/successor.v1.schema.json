@@ -13,7 +13,8 @@
     "candidateChanged",
     "checkerChanged",
     "baselineOnly",
-    "liveAllowed"
+    "liveAllowed",
+    "repairOf"
   ],
   "properties": {
     "schemaVersion": {
@@ -94,6 +95,27 @@
     },
     "liveAllowed": {
       "const": false
+    },
+    "repairOf": {
+      "const": {
+        "attemptId": "attempt-008",
+        "executionCommit": "cc8ae1018ccfc7329b383053a9a5513d7b66c6c6",
+        "manifest": {
+          "path": "coordination/integration/legacy-successor/attempt-008/promotion-manifest.v1.json",
+          "rawSha256": "73869fd0612d66f444e19d2fb8589ce1c53708495247d446922c56ef46b29973"
+        },
+        "descriptor": {
+          "path": "coordination/integration/legacy-successor/attempt-008/successor.v1.json",
+          "rawSha256": "c30c33826d7c42e88c1c2880ff6cca6bf91a15ad80366f71910e24c83fab4478"
+        },
+        "failureIndex": {
+          "path": "coordination/integration/legacy-successor/attempt-008/native-validation/failure-index.v1.json",
+          "rawSha256": "3716700b315313cbd319cd00ae4b4c054b4774bb4a04654afd1f225fcac2877c"
+        },
+        "candidateChanged": false,
+        "checkerChanged": true,
+        "shadowApprovalInherited": false
+      }
     }
   }
 }

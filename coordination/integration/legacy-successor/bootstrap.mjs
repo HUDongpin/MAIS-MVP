@@ -245,6 +245,9 @@ export const TRUSTED_BUNDLE_PATHS = [
   "coordination/integration/finalization/promotion-shadow-finalization-v2-lib.mjs",
   "coordination/integration/finalization/schemas/promotion-lifecycle-registry.v2.schema.json",
   "coordination/integration/finalization/schemas/promotion-shadow-closure.v2.schema.json",
+  "coordination/integration/legacy-successor/attempt-008/native-validation/failure-index.v1.json",
+  "coordination/integration/legacy-successor/attempt-008/native-validation/validate-v1.json",
+  "coordination/integration/legacy-successor/attempt-008/native-validation/validate-v2.json",
   "coordination/integration/legacy-successor/bootstrap.mjs",
   "coordination/integration/legacy-successor/contract.mjs",
   "coordination/integration/legacy-successor/contract.test.mjs",
@@ -274,6 +277,24 @@ export const TRUSTED_BUNDLE_PATHS = [
 ];
 
 const ROOT = "coordination/integration/legacy-successor";
+export const PREVIOUS_EXECUTION = "cc8ae1018ccfc7329b383053a9a5513d7b66c6c6";
+export const PREVIOUS_LEDGER_OBJECT = "ffd8d45f3f9559011cc020a8aa6f0c25aa8e41b2";
+export const PREVIOUS_LEDGER_SHA = "6f1ec90ac803a3f378e8a5d68b585105faa1cd8d7a813c92f2b618c9a10cc3c3";
+export const FAILED_ATTEMPT = Object.freeze({
+  attemptId: "attempt-008", executionCommit: PREVIOUS_EXECUTION,
+  manifest: { path: `${ROOT}/attempt-008/promotion-manifest.v1.json`, rawSha256: "73869fd0612d66f444e19d2fb8589ce1c53708495247d446922c56ef46b29973" },
+  descriptor: { path: `${ROOT}/attempt-008/successor.v1.json`, rawSha256: "c30c33826d7c42e88c1c2880ff6cca6bf91a15ad80366f71910e24c83fab4478" },
+  failureIndex: { path: `${ROOT}/attempt-008/native-validation/failure-index.v1.json`, rawSha256: "3716700b315313cbd319cd00ae4b4c054b4774bb4a04654afd1f225fcac2877c" },
+  candidateChanged: false, checkerChanged: true, shadowApprovalInherited: false
+});
+export function anchoredLedgerEntry(anchorBytes, releasePrefixBytes, ledger) {
+  requireThat(hash(anchorBytes) === PREVIOUS_LEDGER_SHA && anchorBytes.equals(releasePrefixBytes), "SUCCESSOR_LEDGER_ANCHOR_DRIFT");
+  const anchor = parsePromotionWorkflowJsonBytes(anchorBytes);
+  requireThat(canonical(Object.keys(ledger).sort()) === canonical(["entries", "schemaVersion"]) && ledger.schemaVersion === anchor.schemaVersion && Array.isArray(ledger.entries) && ledger.entries.length === anchor.entries.length + 1 && canonical(ledger.entries.slice(0, -1)) === canonical(anchor.entries), "SUCCESSOR_LEDGER_PREFIX_REWRITTEN");
+  requireThat(anchor.entries.length === 1 && anchor.entries[0].version === "promotion-legacy-successor-v1" && ledger.entries.at(-1).version === "promotion-legacy-successor-v1.1" && new Set(ledger.entries.map(x => x.version)).size === ledger.entries.length, "SUCCESSOR_LEDGER_VERSION_INVALID");
+  return ledger.entries.at(-1);
+}
+
 const NAMES = ["ajv", "fast-deep-equal", "fast-uri", "json-schema-traverse", "require-from-string", "typescript", "yaml"];
 const canonical = value => Array.isArray(value) ? `[${value.map(canonical).join(",")}]` : value !== null && typeof value === "object" ? `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}` : JSON.stringify(value);
 const hash = bytes => createHash("sha256").update(bytes).digest("hex");
@@ -309,16 +330,22 @@ export async function authenticateRuntime(root, args) {
   const git = (...cmd) => execFileSync("/usr/bin/git", ["--no-replace-objects", "--literal-pathspecs", "--no-optional-locks", `--git-dir=${gitDir}`, `--work-tree=${root}`, "-c", `core.worktree=${root}`, "-c", "core.fsmonitor=false", ...cmd], { env, maxBuffer: 32 * 1024 * 1024, timeout: 30000 });
   const head = git("rev-parse", "HEAD").toString().trim();
   requireThat(git("status", "--porcelain=v1", "--untracked-files=all").length === 0, "SUCCESSOR_WORKTREE_DIRTY");
-  const mp = `${ROOT}/attempt-008/promotion-manifest.v1.json`;
+  const mp = `${ROOT}/attempt-009/promotion-manifest.v1.json`;
   requireThat(operation === "verify-receipt" || options.manifest === mp, "SUCCESSOR_MANIFEST_PATH_INVALID");
   const manifest = parsePromotionWorkflowJsonBytes((await regular(root, mp)).bytes);
   requireThat(manifest.checkerRelease?.ledgerPath === `${ROOT}/checker-releases.v1.json` && /^[a-f0-9]{40}$/u.test(manifest.checkerRelease.releaseCommit ?? ""), "SUCCESSOR_BOOTSTRAP_RELEASE_INVALID");
   const ledgerFile = await regular(root, manifest.checkerRelease.ledgerPath);
   requireThat(hash(ledgerFile.bytes) === manifest.checkerRelease.ledgerRawSha256, "SUCCESSOR_BOOTSTRAP_LEDGER_DRIFT");
   const ledger = parsePromotionWorkflowJsonBytes(ledgerFile.bytes);
-  requireThat(ledger.schemaVersion === "promotion-checker-releases.legacy-successor.v1" && ledger.entries?.length === 1, "SUCCESSOR_BOOTSTRAP_LEDGER_INVALID");
-  const release = ledger.entries[0];
-  requireThat(release.version === "promotion-legacy-successor-v1" && release.releaseCommit === manifest.checkerRelease.releaseCommit && release.bundleDigest === manifest.checkerRelease.bundleDigest && canonical(release.bundlePaths) === canonical(TRUSTED_BUNDLE_PATHS), "SUCCESSOR_BOOTSTRAP_RELEASE_INVALID");
+  requireThat(ledger.schemaVersion === "promotion-checker-releases.legacy-successor.v1" && Array.isArray(ledger.entries), "SUCCESSOR_BOOTSTRAP_LEDGER_INVALID");
+  git("merge-base", "--is-ancestor", PREVIOUS_EXECUTION, manifest.checkerRelease.releaseCommit);
+  const anchorPath = `${ROOT}/checker-releases.v1.json`;
+  const anchorRow = git("ls-tree", "-z", PREVIOUS_EXECUTION, "--", anchorPath).toString();
+  requireThat(anchorRow === `100644 blob ${PREVIOUS_LEDGER_OBJECT}\t${anchorPath}\0`, "SUCCESSOR_LEDGER_ANCHOR_OBJECT_INVALID");
+  const prefixRow = git("ls-tree", "-z", manifest.checkerRelease.releaseCommit, "--", anchorPath).toString();
+  requireThat(prefixRow === anchorRow, "SUCCESSOR_LEDGER_RELEASE_PREFIX_DRIFT");
+  const release = anchoredLedgerEntry(git("show", `${PREVIOUS_EXECUTION}:${anchorPath}`), git("show", `${manifest.checkerRelease.releaseCommit}:${anchorPath}`), ledger);
+  requireThat(release.version === "promotion-legacy-successor-v1.1" && release.releaseCommit === manifest.checkerRelease.releaseCommit && release.bundleDigest === manifest.checkerRelease.bundleDigest && canonical(release.bundlePaths) === canonical(TRUSTED_BUNDLE_PATHS), "SUCCESSOR_BOOTSTRAP_RELEASE_INVALID");
   git("merge-base", "--is-ancestor", release.releaseCommit, head);
   const files = [], bindings = [];
   for (const file of TRUSTED_BUNDLE_PATHS) {

@@ -2,7 +2,7 @@
 
 This package admits an immutable, reviewed **correctness successor of a
 de-reached legacy candidate**. It does not promote Arkansas content to a student
-route. Version v1 is restricted to the 22-row correction slice and attempt-008.
+route. Version v1.1 is restricted to the 22-row correction slice and attempt-009.
 The rest of the 1500-row pack remains unaccepted. Standards/provenance limits and
 the remaining grading P3 are carried in A18's genuine scoped decision.
 
@@ -43,8 +43,13 @@ does not silently change that routing or clear #262's required check.
    owned lock-bound dependency trees, then executes captured copies in a new
    private short-path runtime. Runtime/legacy observation uses an immutable
    Git-object snapshot, private Git metadata, read-only alternate objects and
-   sanitized child environment. Archives and workers each have a 60-second
-   deadline. Strict decoding retains the original 250000-node limit for every
+   sanitized child environment. Archives and workers each have a 60-second archive deadlines and a fixed 300-second
+   worker deadline. The original attempt-008 remains reproducible from preserved
+   MLS27 at cc8ae1018; it failed native validate twice with the original60-second
+   worker budget. Its original15 records and v1ledgerentry are preserved. Full
+   diagnostic phase measurement was238.168s worker/298.874s overall, without
+   changing any quality or integrity check. Diagnostic exit0 is not Promotion
+   PASS. New native execution still needs its own actual result. Strict decoding retains the original 250000-node limit for every
    actual semantic JSON consumer: compatibility/registry,
    canonical discovery packages, registered candidates/projections, public JSON
    and reachable runtime JSON. Unused audit reports and opaque EASE data are
@@ -68,9 +73,9 @@ verifies the stored build-log bytes. It is not a digest of an unobserved build.
 ## Commands and limits
 
 ```sh
-node coordination/integration/legacy-successor/promotion.mjs validate --manifest coordination/integration/legacy-successor/attempt-008/promotion-manifest.v1.json --json
-node coordination/integration/legacy-successor/promotion.mjs shadow --manifest coordination/integration/legacy-successor/attempt-008/promotion-manifest.v1.json --run-id <distinct-id> --json
-node coordination/integration/legacy-successor/promotion.mjs verify-receipt --receipt coordination/integration/legacy-successor/attempt-008/promotion-shadow-receipt.v1.json --storage-commit <descendant-commit> --receipt-sha256 <authorized-hash> --json
+node coordination/integration/legacy-successor/promotion.mjs validate --manifest coordination/integration/legacy-successor/attempt-009/promotion-manifest.v1.json --json
+node coordination/integration/legacy-successor/promotion.mjs shadow --manifest coordination/integration/legacy-successor/attempt-009/promotion-manifest.v1.json --run-id <distinct-id> --json
+node coordination/integration/legacy-successor/promotion.mjs verify-receipt --receipt coordination/integration/legacy-successor/attempt-009/promotion-shadow-receipt.v1.json --storage-commit <descendant-commit> --receipt-sha256 <authorized-hash> --json
 ```
 
 The last two commands are execution capabilities; the examples are not evidence
@@ -78,3 +83,33 @@ they ran. #262 remains non-mergeable under this task, #201 remains open, and no
 deployment/cleanup is authorized. Public dispatcher/workflow activation and
 specialist wrapper compatibility require a separate reviewed package. A local
 new-contract validation result cannot substitute for that global required check.
+
+## v1.1 failed-checker repair relation
+
+The legacy725138-to-4f677 content relation remains22 changes. The attempt008-to-009
+repair is candidate-unchanged/checker-changed and inherits no Shadow approval.
+The old attempt has no canonical Receipt and is never presented as a complete
+Manifest/Receipt direct parent. Appended failure artifacts preserve both actual
+internal-timeout results. The old15 committed inputs remain byte-for-byte.
+
+Before any third-party import, ledger prefix validation pins the knowncc8ae1018
+ledger object/mode/rawSHA, proves the newrelease preserves that exactblob, and
+admits exactly one appended uniquev1.1 entry. Comparing against only a newrelease
+would not establish oldauthority. Newfreeze approvals/build/A11/A23/A25 inputs
+must be genuine fresh-version records; unchangedA18 mathematics can reuse exact
+old record/report without changing its date or scope.
+
+The worker deadline is a new versioned capacitycontract, not an alteration of
+attempt008. All three scans, strict consumers, pre/postverification and fixed
+nonlivecapabilities remain. Publicdispatcher/specialistwrapper compatibility is
+separate; unsupportedrouting or insufficientwrapperbudget stays BLOCKED. No
+oldrelease/currentworkflow receipt is rewritten into a successful outcome.
+
+### Operation capacity
+
+The fixed 300-second deadline applies per worker. `validate` uses one worker;
+`shadow` validates before and after its temporary rehearsal and uses two;
+`verify-receipt` validates once and then replays Shadow and uses three. A caller's
+total budget must cover the selected operation's worker count plus authentication,
+archive, parent verification and cleanup. An unsupported or shorter specialist
+wrapper remains BLOCKED; a standalone result does not repair its compatibility.

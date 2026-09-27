@@ -14,9 +14,11 @@ import {
 import { collectV2RuntimeAndLegacyProof, projectV2RuntimePolicy, PROMOTION_V2_CHECKER_BUNDLE_PATHS } from "../v2/promotion-gate-v2-lib.mjs";
 import { parsePromotionWorkflowJsonBytes } from "../../../scripts/promotion-workflow-json-guard.mjs";
 import { dependencyBindings } from "./dependencies.mjs";
+import { anchoredLedgerEntry, PREVIOUS_EXECUTION, PREVIOUS_LEDGER_OBJECT, FAILED_ATTEMPT } from "./bootstrap.mjs";
 import { validateV2ShadowClosure, validateV2LifecycleRegistry } from "../finalization/promotion-shadow-finalization-v2-lib.mjs";
 
-export const VERSION = "promotion-legacy-successor-v1";
+export const WORKER_TIMEOUT_MS = 300000;
+export const VERSION = "promotion-legacy-successor-v1.1";
 export const ROOT = "coordination/integration/legacy-successor";
 export const PACK = "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json";
 export const SOURCE_PATHS = [PACK, "lib/fullQuestionBankSolvability.test.ts", "scripts/arkansas-correctness-solvers.mjs", "scripts/audit-us-math-item-quality.mjs"].sort();
@@ -34,6 +36,7 @@ export const BUNDLE_PATHS = [...new Set([
   "coordination/integration/finalization/schemas/promotion-shadow-closure.v2.schema.json",
   "coordination/integration/finalization/schemas/promotion-lifecycle-registry.v2.schema.json",
   "scripts/promotion-workflow-json-guard.mjs", "package.json", "package-lock.json", ...SOURCE_PATHS,
+  ...["failure-index.v1.json", "validate-v1.json", "validate-v2.json"].map(name => `${ROOT}/attempt-008/native-validation/${name}`),
   ...PROMOTION_V2_CHECKER_BUNDLE_PATHS
 ])].sort();
 const HEX = /^[a-f0-9]{64}$/u;
@@ -130,8 +133,8 @@ export function contentDelta(original, candidate) {
 }
 
 export function validateManifest(m) {
-  exact(m, ["schemaVersion", "gateId", "attemptId", "mode", "checkerVersion", "checkerRelease", "candidate", "source", "historical", "targetBaselineCommit", "successor", "legacyResolution", "liveReachability", "evidenceIndex", "descriptor", "canonicalReceiptPath", "lifecycleState", "liveAllowed"]);
-  requireThat(m.schemaVersion === "promotion-legacy-successor-manifest.v1" && m.gateId === "legacy-content-successor-nonlive" && m.attemptId === "attempt-008" && m.mode === "shadow" && m.checkerVersion === VERSION, "SUCCESSOR_IDENTITY_INVALID");
+  exact(m, ["schemaVersion", "gateId", "attemptId", "mode", "checkerVersion", "checkerRelease", "candidate", "source", "historical", "targetBaselineCommit", "successor", "legacyResolution", "liveReachability", "evidenceIndex", "descriptor", "canonicalReceiptPath", "lifecycleState", "liveAllowed", "repairOf"]);
+  requireThat(m.schemaVersion === "promotion-legacy-successor-manifest.v1" && m.gateId === "legacy-content-successor-nonlive" && m.attemptId === "attempt-009" && m.mode === "shadow" && m.checkerVersion === VERSION, "SUCCESSOR_IDENTITY_INVALID");
   requireThat(m.lifecycleState === "shadow_ready" && m.liveAllowed === false, "SUCCESSOR_LIVE_AUTHORITY_FORBIDDEN");
   exact(m.checkerRelease, ["ledgerPath", "ledgerRawSha256", "releaseCommit", "bundleDigest"]);
   requireThat(m.checkerRelease.ledgerPath === `${ROOT}/checker-releases.v1.json`, "SUCCESSOR_LEDGER_PATH_INVALID");
@@ -154,13 +157,15 @@ export function validateManifest(m) {
   exact(m.evidenceIndex, ["path", "rawSha256", "evidenceCommit"]); assertSafeRepoRelativePath(m.evidenceIndex.path); hash(m.evidenceIndex.rawSha256); commit(m.evidenceIndex.evidenceCommit);
   exact(m.descriptor, ["path"]); assertSafeRepoRelativePath(m.descriptor.path); assertSafeRepoRelativePath(m.canonicalReceiptPath);
   const parent = path.posix.dirname(m.canonicalReceiptPath);
-  requireThat(parent === `${ROOT}/attempt-008` && m.descriptor.path === `${parent}/successor.v1.json` && m.evidenceIndex.path === `${parent}/inputs/evidence-index.v1.json` && m.legacyResolution.registryPath === `${parent}/inputs/legacy-resolution-registry.v1.json`, "SUCCESSOR_ATTEMPT_PATH_INVALID");
+  requireThat(parent === `${ROOT}/attempt-009` && m.descriptor.path === `${parent}/successor.v1.json` && m.evidenceIndex.path === `${parent}/inputs/evidence-index.v1.json` && m.legacyResolution.registryPath === `${parent}/inputs/legacy-resolution-registry.v1.json`, "SUCCESSOR_ATTEMPT_PATH_INVALID");
+  requireThat(stableJson(m.repairOf) === stableJson(FAILED_ATTEMPT), "SUCCESSOR_FAILED_ATTEMPT_RELATION_INVALID");
   return m;
 }
 
 export function validateDescriptor(d, m, manifestRef) {
-  exact(d, ["schemaVersion", "relation", "manifest", "evidenceCommit", "historicalManifest", "historicalReceipt", "candidateChanged", "checkerChanged", "baselineOnly", "liveAllowed"]);
+  exact(d, ["schemaVersion", "relation", "manifest", "evidenceCommit", "historicalManifest", "historicalReceipt", "candidateChanged", "checkerChanged", "baselineOnly", "liveAllowed", "repairOf"]);
   requireThat(d.schemaVersion === "promotion-legacy-successor-descriptor.v1" && d.relation === "immutable-content-successor" && d.candidateChanged === true && d.checkerChanged === true && d.baselineOnly === false && d.liveAllowed === false, "SUCCESSOR_DESCRIPTOR_INVALID");
+  requireThat(stableJson(d.repairOf) === stableJson(m.repairOf), "SUCCESSOR_FAILED_ATTEMPT_RELATION_INVALID");
   for (const key of ["manifest", "historicalManifest", "historicalReceipt"]) reference(d[key]); commit(d.evidenceCommit);
   requireThat(stableJson(d.manifest) === stableJson(manifestRef) && stableJson(d.historicalManifest) === stableJson(m.historical.manifest) && stableJson(d.historicalReceipt) === stableJson(m.historical.receipt) && d.evidenceCommit === m.evidenceIndex.evidenceCommit, "SUCCESSOR_DESCRIPTOR_BINDING_INVALID");
 }
@@ -222,8 +227,13 @@ async function historicalJson(repo, at, ref) {
 export async function collectAuthority(repo, m) {
   const ledger = await currentJson(repo, { path: m.checkerRelease.ledgerPath, rawSha256: m.checkerRelease.ledgerRawSha256 });
   exact(ledger.value, ["schemaVersion", "entries"]);
-  requireThat(ledger.value.schemaVersion === "promotion-checker-releases.legacy-successor.v1" && ledger.value.entries.length === 1, "SUCCESSOR_RELEASE_LEDGER_INVALID");
-  const entry = ledger.value.entries[0]; exact(entry, ["version", "bundleAlgorithm", "bundlePaths", "bundleDigest", "releaseCommit", "reviewReferences", "dependencyBindings"]);
+  requireThat(ledger.value.schemaVersion === "promotion-checker-releases.legacy-successor.v1" && Array.isArray(ledger.value.entries), "SUCCESSOR_RELEASE_LEDGER_INVALID");
+  repo.ancestor(PREVIOUS_EXECUTION, m.checkerRelease.releaseCommit);
+  const anchor = repo.blob(PREVIOUS_EXECUTION, `${ROOT}/checker-releases.v1.json`);
+  requireThat(anchor.mode === "100644" && anchor.objectId === PREVIOUS_LEDGER_OBJECT, "SUCCESSOR_LEDGER_ANCHOR_OBJECT_INVALID");
+  const prefix = repo.blob(m.checkerRelease.releaseCommit, `${ROOT}/checker-releases.v1.json`);
+  requireThat(prefix.mode === anchor.mode && prefix.objectId === anchor.objectId, "SUCCESSOR_LEDGER_RELEASE_PREFIX_DRIFT");
+  const entry = anchoredLedgerEntry(anchor.bytes, prefix.bytes, ledger.value); exact(entry, ["version", "bundleAlgorithm", "bundlePaths", "bundleDigest", "releaseCommit", "reviewReferences", "dependencyBindings"]);
   requireThat(entry.version === VERSION && entry.bundleAlgorithm === "sha256-stable-json-path-raw-v1" && entry.releaseCommit === m.checkerRelease.releaseCommit && entry.bundleDigest === m.checkerRelease.bundleDigest && stableJson(entry.bundlePaths) === stableJson(BUNDLE_PATHS), "SUCCESSOR_RELEASE_BINDING_INVALID");
   repo.ancestor(entry.releaseCommit, m.targetBaselineCommit);
   const bindings = [];
@@ -260,6 +270,17 @@ function completed(child, code) {
     child.on("error", () => reject(new SuccessorError(code)));
     child.on("close", (status, signal) => status === 0 ? resolve() : reject(new SuccessorError(signal === "SIGTERM" ? "SUCCESSOR_CHILD_EXECUTION_TIMEOUT" : code)));
   });
+}
+
+export function rejectFailedWorker(error) {
+  // Even complete-looking stdout cannot turn an expired/nonzero child into PASS.
+  if (error?.code === "ETIMEDOUT" || error?.signal === "SIGTERM") throw new SuccessorError("SUCCESSOR_OBSERVER_TIMEOUT");
+  let code = "SUCCESSOR_OBSERVER_FAILED";
+  try {
+    const value = parsePromotionWorkflowJsonBytes(error?.stdout);
+    if (value.result === "blocked" && value.liveAllowed === false && /^[A-Z][A-Z0-9_]{2,95}$/u.test(value.code ?? "")) code = value.code;
+  } catch { /* malformed and partial output remains rejected */ }
+  throw new SuccessorError(code);
 }
 
 /** Materialize only immutable Git objects into a new private short-path root. */
@@ -303,9 +324,10 @@ export async function sealedRuntimeProof(repo, m, registry, executionCommit) {
     const config = { records, executionCommit, observerManifest: { targetBaselineCommit: m.targetBaselineCommit, legacyResolution: m.legacyResolution, liveReachability: m.liveReachability } };
     const input = path.join(owned, "observer-input.json"); await writeFile(input, `${JSON.stringify(config)}\n`, { flag: "wx", mode: 0o600 });
     const worker = fileURLToPath(new URL("./observer.mjs", import.meta.url));
-    const bytes = execFileSync(process.execPath, [worker, owned, input], {
-      cwd: owned, env: cleanChildEnvironment(), timeout: 60000, maxBuffer: 32 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"]
-    });
+    let bytes;
+    try { bytes = execFileSync(process.execPath, [worker, owned, input], {
+      cwd: owned, env: cleanChildEnvironment(), timeout: WORKER_TIMEOUT_MS, maxBuffer: 32 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"]
+    }); } catch (error) { rejectFailedWorker(error); }
     const value = parsePromotionWorkflowJsonBytes(bytes);
     requireThat(value.result === "pass" && value.liveAllowed === false, value.code ?? "SUCCESSOR_OBSERVER_FAILED");
     return value;
@@ -340,6 +362,26 @@ async function historicalFinalization(repo, m, history) {
   return { closureDigest: closure.closureDigest, registryDigest: history.lifecycle.value.registryDigest, scope: "historical-only", authorityTransferred: false };
 }
 
+export async function verifyFailedAttemptCustody(repo, m) {
+  repo.ancestor(PREVIOUS_EXECUTION, m.targetBaselineCommit);
+  const priorPaths = repo.git("ls-tree", "-r", "--name-only", PREVIOUS_EXECUTION, "--", `${ROOT}/attempt-008`).toString().trim().split("\n");
+  requireThat(priorPaths.length === 15, "SUCCESSOR_PRIOR_ATTEMPT_SCOPE_DRIFT");
+  for (const file of priorPaths) {
+    const old = repo.blob(PREVIOUS_EXECUTION, file), now = await repo.working(file);
+    requireThat(old.mode === now.mode && old.objectId === now.objectId && old.bytes.equals(now.bytes), "SUCCESSOR_PRIOR_ATTEMPT_REWRITTEN");
+  }
+  requireThat(repo.git("ls-tree", "-z", PREVIOUS_EXECUTION, "--", `${ROOT}/attempt-008/promotion-shadow-receipt.v1.json`).length === 0 && repo.git("ls-tree", "-z", repo.head, "--", `${ROOT}/attempt-008/promotion-shadow-receipt.v1.json`).length === 0, "SUCCESSOR_PRIOR_RECEIPT_FORGED");
+  const bound = await currentJson(repo, m.repairOf.failureIndex), index = bound.value;
+  requireThat(repo.blob(m.checkerRelease.releaseCommit, m.repairOf.failureIndex.path).bytes.equals(bound.bytes), "SUCCESSOR_PRIOR_FAILURE_NOT_FROZEN");
+  exact(index, ["schemaVersion", "attemptId", "executionCommit", "operation", "outcome", "runs", "canonicalReceiptExists", "shadowApprovalInherited", "liveAllowed"]);
+  requireThat(index.schemaVersion === "failed-native-attempt-disposition.v1" && index.attemptId === "attempt-008" && index.executionCommit === PREVIOUS_EXECUTION && index.operation === "validate" && index.outcome === "internal-timeout" && index.canonicalReceiptExists === false && index.shadowApprovalInherited === false && index.liveAllowed === false && index.runs.length === 2, "SUCCESSOR_PRIOR_FAILURE_INVALID");
+  for (const [i, run] of index.runs.entries()) {
+    exact(run, ["id", "output", "exitCode"]); requireThat(run.id === `validate-v${i + 1}` && run.exitCode === 3, "SUCCESSOR_PRIOR_FAILURE_INVALID");
+    const output = await currentJson(repo, run.output); exact(output.value, ["schemaVersion", "result", "code", "liveAllowed"]);
+    requireThat(output.value.schemaVersion === "promotion-legacy-successor-error.v1" && output.value.result === "internal" && output.value.code === "ETIMEDOUT" && output.value.liveAllowed === false && repo.blob(m.checkerRelease.releaseCommit, run.output.path).bytes.equals(output.bytes), "SUCCESSOR_TIMEOUT_REWRITTEN_AS_PASS");
+  }
+}
+
 export function assertEvidenceOnlyDelta(repo, baseline, head) {
   const files = repo.git("diff", "--name-only", baseline, head).toString().trim().split("\n").filter(Boolean);
   requireThat(files.every(file => file.startsWith(`${ROOT}/`)), "SUCCESSOR_PROTECTED_BASELINE_DRIFT");
@@ -348,7 +390,7 @@ export function assertEvidenceOnlyDelta(repo, baseline, head) {
 export async function validateAttempt(root, manifestPath, { allowStoredReceipt = false } = {}) {
   const repo = await repository(root);
   requireThat(repo.git("status", "--porcelain=v1", "--untracked-files=all").length === 0, "SUCCESSOR_WORKTREE_DIRTY");
-  requireThat(manifestPath === `${ROOT}/attempt-008/promotion-manifest.v1.json`, "SUCCESSOR_MANIFEST_PATH_INVALID");
+  requireThat(manifestPath === `${ROOT}/attempt-009/promotion-manifest.v1.json`, "SUCCESSOR_MANIFEST_PATH_INVALID");
   const manifestFile = await repo.working(manifestPath);
   const m = validateManifest(parsePromotionWorkflowJsonBytes(manifestFile.bytes));
   repo.ancestor(m.targetBaselineCommit, m.evidenceIndex.evidenceCommit); repo.ancestor(m.evidenceIndex.evidenceCommit, repo.head);
@@ -374,6 +416,7 @@ export async function validateAttempt(root, manifestPath, { allowStoredReceipt =
   requireThat(allowStoredReceipt || receiptAtHead.length === 0, "SUCCESSOR_RECEIPT_STORAGE_CHECKOUT");
   requireThat(allowStoredReceipt || repo.head === executionCommit, "SUCCESSOR_EXECUTION_CHECKOUT_REQUIRED");
   assertEvidenceOnlyDelta(repo, m.targetBaselineCommit, repo.head);
+  await verifyFailedAttemptCustody(repo, m);
   const authority = await collectAuthority(repo, m);
   const schema = await loadSchemas(repo); schema("manifest", m); schema("successor", descriptor.value);
   repo.ancestor(m.source.commonBaseCommit, m.source.importCommit); repo.ancestor(m.source.commonBaseCommit, m.targetBaselineCommit); repo.ancestor(m.source.reviewedSourceCommit, m.targetBaselineCommit);
@@ -433,6 +476,7 @@ export async function validateAttempt(root, manifestPath, { allowStoredReceipt =
   const proof = {
     manifest: { path: manifestPath, rawSha256: manifestFile.rawSha256 }, executionCommit,
     sourceCommit: m.source.reviewedSourceCommit, importedSourceCommit: m.source.importCommit, targetBaselineCommit: m.targetBaselineCommit,
+    priorAttemptId: "attempt-008", priorAttemptOutcome: "internal-timeout",
     candidateDigest: currentPack.rawSha256, checkerVersion: VERSION, checkerBundleDigest: authority.bundleDigest, checkerReleaseCommit: authority.releaseCommit,
     changeDigest: delta.changeDigest, changedRowCount: 22, unchangedRowCount: 1478, wholePackAccepted: false,
     runtimePolicyDigest: runtime.proof.runtimePolicyDigest, legacyProofDigest: runtime.proof.resolutionProofsDigest,
@@ -492,6 +536,12 @@ export function verifyReceiptShape(receipt) {
   return receipt;
 }
 
+export function receiptReplayRunId(original) {
+  requireThat(/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/u.test(original), "SUCCESSOR_RUN_ID_INVALID");
+  const changedFirst = original[0] === "v" ? "r" : "v";
+  return `${changedFirst}verify-${sha256(Buffer.from(original))}`;
+}
+
 export async function verifyStoredReceipt(root, receiptPath, storageCommit, expectedRawSha256) {
   assertSafeRepoRelativePath(receiptPath); commit(storageCommit); hash(expectedRawSha256);
   const repo = await repository(root);
@@ -501,9 +551,9 @@ export async function verifyStoredReceipt(root, receiptPath, storageCommit, expe
   const receipt = verifyReceiptShape(parsePromotionWorkflowJsonBytes(stored.bytes));
   requireThat(receipt.semantics.executionCommit === repo.head, "SUCCESSOR_RECEIPT_EXECUTION_CHECKOUT_REQUIRED");
   const validation = await validateAttempt(root, receipt.semantics.manifest.path);
-  requireThat(receiptPath === `${ROOT}/attempt-008/promotion-shadow-receipt.v1.json`, "SUCCESSOR_RECEIPT_STORAGE_PATH_INVALID");
+  requireThat(receiptPath === `${ROOT}/attempt-009/promotion-shadow-receipt.v1.json`, "SUCCESSOR_RECEIPT_STORAGE_PATH_INVALID");
   for (const [key, value] of Object.entries(validation.proof)) requireThat(stableJson(receipt.semantics[key]) === stableJson(value), "SUCCESSOR_RECEIPT_BINDING_INVALID");
-  const replay = await shadowAttempt(root, receipt.semantics.manifest.path, `${receipt.run.id}-verify`);
+  const replay = await shadowAttempt(root, receipt.semantics.manifest.path, receiptReplayRunId(receipt.run.id));
   requireThat(receipt.semanticDigest === replay.semanticDigest, "SUCCESSOR_RECEIPT_REPLAY_MISMATCH");
   return { schemaVersion: "promotion-legacy-successor-verification.v1", result: "pass", semanticDigest: receipt.semanticDigest, receiptRawSha256: expectedRawSha256, storageCommit, executionCommit: repo.head, liveAllowed: false };
 }
