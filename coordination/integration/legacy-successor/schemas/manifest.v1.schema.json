@@ -1,0 +1,525 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mais:legacy-successor:manifest:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "gateId",
+    "attemptId",
+    "mode",
+    "checkerVersion",
+    "checkerRelease",
+    "candidate",
+    "source",
+    "historical",
+    "targetBaselineCommit",
+    "successor",
+    "legacyResolution",
+    "liveReachability",
+    "evidenceIndex",
+    "descriptor",
+    "canonicalReceiptPath",
+    "lifecycleState",
+    "liveAllowed"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "promotion-legacy-successor-manifest.v1"
+    },
+    "gateId": {
+      "const": "legacy-content-successor-nonlive"
+    },
+    "attemptId": {
+      "const": "attempt-008"
+    },
+    "mode": {
+      "const": "shadow"
+    },
+    "checkerVersion": {
+      "const": "promotion-legacy-successor-v1"
+    },
+    "checkerRelease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ledgerPath",
+        "ledgerRawSha256",
+        "releaseCommit",
+        "bundleDigest"
+      ],
+      "properties": {
+        "ledgerPath": {
+          "const": "coordination/integration/legacy-successor/checker-releases.v1.json"
+        },
+        "ledgerRawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "releaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "bundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "rawSha256",
+        "packageId",
+        "version",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "const": "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json"
+        },
+        "rawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "packageId": {
+          "const": "us-ar-math-g6-g12-generated-bank-v1-1500"
+        },
+        "version": {
+          "const": "1.1.0-correctness.22"
+        },
+        "status": {
+          "const": "candidate-only"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "importCommit",
+        "commonBaseCommit",
+        "reviewedSourceCommit",
+        "importedPaths",
+        "originalPack"
+      ],
+      "properties": {
+        "importCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "commonBaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "reviewedSourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "importedPaths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "rawSha256",
+              "mode",
+              "objectId"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "rawSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "mode": {
+                "const": "100644"
+              },
+              "objectId": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              }
+            }
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "originalPack": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "historical": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "manifest",
+        "receipt",
+        "registry",
+        "closure",
+        "lifecycle"
+      ],
+      "properties": {
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "manifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "receipt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "closure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "lifecycle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "targetBaselineCommit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "successor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolutionId",
+        "decision",
+        "contentChanged",
+        "baselineOnly",
+        "wholePackAccepted",
+        "changedIds",
+        "unchangedCount",
+        "changeDigest"
+      ],
+      "properties": {
+        "resolutionId": {
+          "const": "de-reach-arkansas-g6-g12-questions-v1"
+        },
+        "decision": {
+          "const": "de-reached"
+        },
+        "contentChanged": {
+          "const": true
+        },
+        "baselineOnly": {
+          "const": false
+        },
+        "wholePackAccepted": {
+          "const": false
+        },
+        "changedIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "minItems": 22,
+          "maxItems": 22
+        },
+        "unchangedCount": {
+          "const": 1478
+        },
+        "changeDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "legacyResolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registryPath",
+        "rawSha256"
+      ],
+      "properties": {
+        "registryPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "rawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "liveReachability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compatibilityManifestPath",
+        "compatibilityManifestRawSha256",
+        "expectedRuntimePolicy"
+      ],
+      "properties": {
+        "compatibilityManifestPath": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "compatibilityManifestRawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "expectedRuntimePolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "coveredFileCount",
+            "coveredFilesDigest",
+            "classificationsDigest",
+            "frameworkEntrypointCount",
+            "seedCount",
+            "reachablePathCount",
+            "reachablePathsDigest",
+            "edgeCount",
+            "edgeDigest",
+            "topologyEdgeCount",
+            "topologyEdgeDigest",
+            "nextDynamicCallCount",
+            "nextDynamicLiteralImportCount",
+            "nextDynamicNonliteralImportCount",
+            "nextDynamicCallsiteDigest",
+            "fsReadAllowlistCount",
+            "fsReadAllowlistDigest",
+            "zeroBaselineCallCount"
+          ],
+          "properties": {
+            "coveredFileCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "coveredFilesDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "classificationsDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "frameworkEntrypointCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "seedCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "reachablePathCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "reachablePathsDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "edgeCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "edgeDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "topologyEdgeCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "topologyEdgeDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "nextDynamicCallCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nextDynamicLiteralImportCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nextDynamicNonliteralImportCount": {
+              "const": 0
+            },
+            "nextDynamicCallsiteDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "fsReadAllowlistCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "fsReadAllowlistDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "zeroBaselineCallCount": {
+              "const": 0
+            }
+          }
+        }
+      }
+    },
+    "evidenceIndex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "rawSha256",
+        "evidenceCommit"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "rawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "evidenceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      }
+    },
+    "descriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      }
+    },
+    "canonicalReceiptPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "lifecycleState": {
+      "const": "shadow_ready"
+    },
+    "liveAllowed": {
+      "const": false
+    }
+  }
+}

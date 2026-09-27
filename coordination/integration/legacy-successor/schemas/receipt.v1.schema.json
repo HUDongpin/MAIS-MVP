@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mais:legacy-successor:receipt:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "result",
+    "mode",
+    "run",
+    "semantics",
+    "semanticDigest",
+    "selfDigest",
+    "liveAllowed"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "promotion-legacy-successor-receipt.v1"
+    },
+    "result": {
+      "const": "pass"
+    },
+    "mode": {
+      "const": "shadow"
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "producedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "producedAt": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+        }
+      }
+    },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "executionCommit",
+        "sourceCommit",
+        "importedSourceCommit",
+        "targetBaselineCommit",
+        "candidateDigest",
+        "checkerVersion",
+        "checkerBundleDigest",
+        "checkerReleaseCommit",
+        "changeDigest",
+        "changedRowCount",
+        "unchangedRowCount",
+        "wholePackAccepted",
+        "runtimePolicyDigest",
+        "legacyProofDigest",
+        "sourceSnapshotDigest",
+        "dependenciesDigest",
+        "evidenceRecordCount",
+        "independentReviewSessionCount",
+        "coordinatorRoleRecordCount",
+        "historicalAuthorityTransferred",
+        "historicalClosureOverwritten",
+        "lifecycleState",
+        "liveAllowed",
+        "outputDigest",
+        "capabilityPolicyDigest",
+        "externalSideEffects",
+        "temporaryOutputRehearsed",
+        "temporaryRollbackOnly"
+      ],
+      "properties": {
+        "manifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "rawSha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "executionCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "importedSourceCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "targetBaselineCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "candidateDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "checkerVersion": {
+          "const": "promotion-legacy-successor-v1"
+        },
+        "checkerBundleDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "checkerReleaseCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "changeDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "changedRowCount": {
+          "const": 22
+        },
+        "unchangedRowCount": {
+          "const": 1478
+        },
+        "wholePackAccepted": {
+          "const": false
+        },
+        "runtimePolicyDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "legacyProofDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceSnapshotDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "dependenciesDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "evidenceRecordCount": {
+          "const": 5
+        },
+        "independentReviewSessionCount": {
+          "const": 3
+        },
+        "coordinatorRoleRecordCount": {
+          "const": 2
+        },
+        "historicalAuthorityTransferred": {
+          "const": false
+        },
+        "historicalClosureOverwritten": {
+          "const": false
+        },
+        "lifecycleState": {
+          "const": "shadow_ready"
+        },
+        "liveAllowed": {
+          "const": false
+        },
+        "outputDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "capabilityPolicyDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "externalSideEffects": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "network",
+            "provider",
+            "database",
+            "deployment",
+            "production"
+          ],
+          "properties": {
+            "network": {
+              "const": 0
+            },
+            "provider": {
+              "const": 0
+            },
+            "database": {
+              "const": 0
+            },
+            "deployment": {
+              "const": 0
+            },
+            "production": {
+              "const": 0
+            }
+          }
+        },
+        "temporaryOutputRehearsed": {
+          "const": true
+        },
+        "temporaryRollbackOnly": {
+          "const": true
+        }
+      }
+    },
+    "semanticDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "selfDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "liveAllowed": {
+      "const": false
+    }
+  }
+}
