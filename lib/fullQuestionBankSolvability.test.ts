@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import arkansasSecondaryCandidate from "../data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json";
+import { questionAnswerMatches } from "./server/answerMatching";
 import {
   hongKongEasePracticeQuestionGenerationMetadata,
   hongKongEasePracticeQuestions
@@ -139,4 +141,24 @@ test("Mainland PEP full question bank emits row-level solvability and answer-key
   assert.ok(report.summary.manualReviewQueueRows > 0);
   assert.ok(report.rows.every((row) => row.independentAnswer.trim()), "every Mainland PEP QA row should include an independent answer");
   assert.ok(report.rows.every((row) => row.solvableStatus === "pass" && row.answerMatchStatus === "pass"));
+});
+
+
+test("Arkansas local-maximum candidate accepts the requested calendar year", () => {
+  const question = arkansasSecondaryCandidate.questions.find(
+    (item) => item.id === "us-ar-g6-g12-v1-g12-c05-q018"
+  );
+  assert.ok(question);
+  assert.match(question.prompt.en, /Find the year/);
+  // P'(t) = -6(t - 1)(t - 4), P''(4) = -18 < 0: the local
+  // maximum occurs four years after 2020, so the requested year is 2024.
+  const gradingQuestion = {
+    answer: question.answer,
+    accepted_answers: question.acceptedAnswers
+  };
+  assert.equal(questionAnswerMatches(gradingQuestion, "2024"), true);
+  assert.equal(questionAnswerMatches(gradingQuestion, "t = 4"), true);
+  for (const incorrectAnswer of ["2023", "2025", "4"]) {
+    assert.equal(questionAnswerMatches(gradingQuestion, incorrectAnswer), false);
+  }
 });
