@@ -2,7 +2,7 @@ import ccssTextbookPracticePackJson from "./generated-content/ccss-textbook-prac
 import g6G12QuestionPackJson from "./generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json";
 import { californiaKnowledgePointDisplayTitle } from "./usCaliforniaKnowledgePoints";
 import { mapDifficultyToActive } from "@/lib/difficulty";
-import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, LocalizedText, QuestionType, Topic } from "@/types";
+import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, LocalizedText, QuestionDiagram, QuestionType, Topic } from "@/types";
 
 export type CaliforniaK5GradeId = Extract<GradeId, "K" | "P1" | "P2" | "P3" | "P4" | "P5">;
 export type CaliforniaG6G12GradeId = Extract<GradeId, "P6" | "S1" | "S2" | "S3" | "S4" | "S5" | "S6">;
@@ -81,6 +81,8 @@ export type GeneratedCaliforniaCcssTextbookPracticeQuestion = GeneratedCaliforni
   sourcePackageId: string;
   sourceLessonSlug: string;
   sourceLessonTitle: string;
+  /** The separately live textbook pack carries its own answer-relevant data displays. */
+  diagram?: QuestionDiagram;
 };
 
 export type GeneratedCaliforniaQuestion =
