@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "promotion-legacy-successor-evidence.v1",
+  "role": "A18",
+  "reviewer": {
+    "sessionId": "/root/a18_pr172_copy_review",
+    "identity": "/root/a18_pr172_copy_review",
+    "independence": "independent-review"
+  },
+  "reviewedAt": "2026-09-27T10:24:27.000Z",
+  "result": "pass",
+  "candidateRawSha256": "4f677216d3d9aec1b8f93be87a2900ff5a63f62e45a7555458ac146955ac0766",
+  "changeDigest": "e1593bba0943f65daf1a8101eb31c310865ac5fabe41c7b12cff58c6092ed941",
+  "report": {
+    "path": "coordination/integration/legacy-successor/attempt-008/inputs/reports/a18-content-review-v2.md",
+    "rawSha256": "cd19480f329238d2b730a80405283957a4b7cb13235ec66f7296824348e2009c"
+  },
+  "details": {
+    "reviewedRows": [
+      {
+        "id": "us-ar-g6-g12-v1-g06-c05-q019",
+        "recordDigest": "0be1a0b9fc8c1ca63f24339d9f10b67d2732ea01830322d6d130f5036fe26f2b",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c05-q038",
+        "recordDigest": "2cce400c54608655a5a5ab7e870381cf29fec71aeecd4ba53e7ba528dbbc6f19",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c01-q004",
+        "recordDigest": "ac6ea5dec692773945254aac40c965c2c1bf7ae0da6847348195138e595347a4",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c01-q014",
+        "recordDigest": "fb67f2dee6c0b9a62fd2c3d6015233a6e42be30c68c0a0c6088ad691ebf0d8c4",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c01-q036",
+        "recordDigest": "6578a6ae4c8084aff59cdfd2727cf7151d5ccc5941c313908ddb74e973959c01",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c03-q007",
+        "recordDigest": "4398cf6ef8687ec53dfb24b25a2d6b82072a1c973aa38b065f613f6dc100b7c8",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c05-q004",
+        "recordDigest": "80ccac6e6fdfafb5189d857da00b5cdd17b54d7f9ed58779a7829131e98a2e03",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c05-q010",
+        "recordDigest": "0c07d7c6c337c5f6b94400cc3fa3a3de56b47a4ec2d981b02b5006b83ce375a1",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c05-q014",
+        "recordDigest": "50f47c528178f4c0ca8d855a0842043471579a96699e3c6193ec13629f430d21",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c05-q016",
+        "recordDigest": "90805463aea0d93101d9001236a494d829619ff5e7c860b3f7c6b52021f68e16",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g10-c05-q020",
+        "recordDigest": "9603ff0380f97e57af339cca41a9f79183425693ef61249b3239b4fdd68522bf",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c02-q039",
+        "recordDigest": "b48126eee55db6a7588b3a5033a64024d115d3d2d0234b4bd2982b18654e3742",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c03-q002",
+        "recordDigest": "44a9fdb03d61163d54f8421f5c304f2a939fc09c9d68e76382bbd6d89a9190a1",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c03-q008",
+        "recordDigest": "4b0a8986dca99bdddb9939e2bf25020cd1f51e95613959b88b6977d34cdd2d0a",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c03-q020",
+        "recordDigest": "b35127dd670d9c68b9e7e4dd809996f0c1397a605409ac51daef4657ba2b5a6e",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c03-q035",
+        "recordDigest": "71d58bdc2e3e6a73e58d303abd5fec8321b8c27fe387f0d7bd75b1662413f7af",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c03-q036",
+        "recordDigest": "144ed16ad8bd7eea1528a704b5dcc1d589a12986ff9b37034dd42ddee188d127",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c03-q041",
+        "recordDigest": "78b527ad8e6ae348fc2850ae55725b69a2cc5d1bbb5cb6c1bde6dcab775c2487",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g11-c04-q015",
+        "recordDigest": "a998b15461b409f00473ea9c70927f5f180b6719fa6d40ceeba62fd212de8209",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g12-c04-q014",
+        "recordDigest": "679f1bcc30a285c3700b85b08ca9c533a2cc9220c99694c1cda35537516989c3",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g12-c04-q023",
+        "recordDigest": "28f9e282f8158afd1d140e2abe72434c5cb9a12d1f7e100cd0ee4fea5a5dc889",
+        "verdict": "approved-bounded-correction"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g12-c05-q018",
+        "recordDigest": "0405bea854742d22a2739c03db175916a17672d9bec4c60a58bed1ca11133106",
+        "verdict": "approved-bounded-correction"
+      }
+    ],
+    "wholePackAccepted": false,
+    "limitations": [
+      "仅批准精确候选中的22条有界修正，数学期望由本A18先独立推导后比对；其余1478条未改不表示已验收，整包仍candidate-only。",
+      "P3=1：所问calendar year为2024，但接受集仍允许历时别名t=4；这不是完整年份作答或书面论证评分。",
+      "Numeric-dollar形式LIMIT：积分题明确要求美元数值，38000、38,000 dollars、$38000、$38,000获接受；38、38 dollars、$38以及未舍入值拒绝。38 thousand dollars数学等价但超出明确美元数值表单支持，不重新加入数值38别名。",
+      "既有机器solver覆盖仍为248/1500、0 mismatch，863 uncovered和389 unjudgeable保持原范围；本次22条独立复核不能重复叠加扩大该覆盖。",
+      "Inherited官方课标映射、provenance和source-distance债务未解除；未批准整个AR包、未生成新课程映射，也未进行新外部来源研究。",
+      "本result pass只表示A18有界内容review；liveAllowed=false，wholePackAccepted=false。它不是native Receipt、global workflow pass、整包promotion、旧PR关闭、merge或deploy许可。",
+      "原b1038版本fresh review的needs-repair及首次comma-unit FAIL保留；本v2是追加修后判定，不回写历史。A11、A23、A22、A25的checker、可达性、Git和release证据仍各自独立。"
+    ]
+  },
+  "liveAllowed": false
+}

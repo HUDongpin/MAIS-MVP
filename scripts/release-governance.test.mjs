@@ -391,7 +391,7 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   assert.match(artifactPreflight, /entry\.isSymbolicLink\(\) \|\| entry\.nlink !== 1 \|\| entry\.size === 0/u);
   assert.match(artifactPreflight, /realpathSync\(artifactPath\) !== artifactPath/u);
   const uploadStep = job.steps.find((step) => step.name === "Upload Promotion Shadow gate artifacts");
-  assert.equal(uploadStep?.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
+  assert.equal(uploadStep?.if, "${{ always() && steps.contract.outputs.mode == 'v2' && steps.assert-artifact-set.outcome == 'success' }}");
 
   const semanticEvaluation = job.steps.find(
     (step) => step.name === "Evaluate current-head semantic required-check decision"
@@ -401,8 +401,8 @@ test("Promotion Shadow workflow reserves plain JSON.parse for the exact semantic
   );
   assert.ok(semanticEvaluation);
   assert.ok(finalOutcome);
-  assert.equal(semanticEvaluation.if, "${{ always() }}");
-  assert.equal(finalOutcome.if, "${{ always() }}");
+  assert.equal(semanticEvaluation.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
+  assert.equal(finalOutcome.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
   assert.match(semanticEvaluation.run, /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/u);
   assert.match(finalOutcome.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
   for (const run of [semanticEvaluation.run, finalOutcome.run]) {

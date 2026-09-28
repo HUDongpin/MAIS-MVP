@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "promotion-legacy-successor-evidence.v1",
+  "role": "A25",
+  "reviewer": {
+    "sessionId": "/root",
+    "identity": "/root",
+    "independence": "coordinator-execution"
+  },
+  "reviewedAt": "2026-09-27T12:35:35.771Z",
+  "result": "pass",
+  "candidateRawSha256": "4f677216d3d9aec1b8f93be87a2900ff5a63f62e45a7555458ac146955ac0766",
+  "changeDigest": "e1593bba0943f65daf1a8101eb31c310865ac5fabe41c7b12cff58c6092ed941",
+  "report": {
+    "path": "coordination/integration/legacy-successor/attempt-009/inputs/reports/a25-custody.md",
+    "rawSha256": "57c8f2467890212733f515ca19a47a8825dd717912735b7c73fc49d973bcead4"
+  },
+  "details": {
+    "historicalReferencesDigest": "0a8ac158fb0fca6b1c8a4e1acee6666200611cc1b3ecd5f51fdf9f0a69114301",
+    "sourcePathsDigest": "c4acaa74593a1ac3649c94d368cf4375b366e8025727b3a82eddc5ad64628929",
+    "custody": "preserved"
+  },
+  "liveAllowed": false
+}
