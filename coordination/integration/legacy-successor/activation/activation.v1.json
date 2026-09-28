@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "promotion-legacy-successor-activation.v1",
+  "releaseCommit": "e8233d9215d048d9aea9b708613cbda1692351a0",
+  "codeDigest": "0eeca0605843eabe72ec424ac1fc3fdd9b99bf9e10132c1ff3acf5179ccaf74b",
+  "executionCommit": "ff709c0141ef8660604a20340b1c476bf2941f60",
+  "storageCommit": "5b1445e32f72156e1effa27ae31c3e08ec4d0fab",
+  "manifestRawSha256": "a2dd9179fb3e49afd7f920b76e3a68c1c552e758c407b3124ccc5395065ac5f0",
+  "receiptRawSha256": "dc6495b8ff09a4d1369a9780fe112572dd368dabda08ae3f5e036044d94ff32c",
+  "candidateRawSha256": "4f677216d3d9aec1b8f93be87a2900ff5a63f62e45a7555458ac146955ac0766",
+  "receiptSemanticDigest": "b8f3e7c8801cb06021c94cc50dc9cf6ab977a4d91b6b0968f554ceda4dd6049f",
+  "reviews": [
+    {
+      "role": "A11",
+      "decision": {
+        "path": "coordination/integration/legacy-successor/activation/a11-review.v1.json",
+        "rawSha256": "0c3ce83d063d821173b6d827ea6ee3ada648287a48af37da9dacc6944db20216"
+      },
+      "report": {
+        "path": "coordination/integration/legacy-successor/activation/a11-review.md",
+        "rawSha256": "73ff4a958949ae821a616fc50961d52464c6486a85e66c895c9691f5093d4c3b"
+      }
+    },
+    {
+      "role": "A23",
+      "decision": {
+        "path": "coordination/integration/legacy-successor/activation/a23-review.v1.json",
+        "rawSha256": "275c3a71dfaf91a124a5682aae58d804d10c9e2a83674350befba93c90309c63"
+      },
+      "report": {
+        "path": "coordination/integration/legacy-successor/activation/a23-review.md",
+        "rawSha256": "135098b0bb4bb33442413250370b80847ca70f73fa4f9922fcab9791e01752cf"
+      }
+    }
+  ],
+  "liveAllowed": false
+}
