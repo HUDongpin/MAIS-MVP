@@ -34,6 +34,7 @@
 import { createRequire } from "node:module";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { correctedArkansasIds, numericCorrectionAnswer, solveArkansasCorrection } from "./arkansas-correctness-solvers.mjs";
+import { numericCorrectionAuditAlias } from "./correction-audit-alias.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -971,7 +972,7 @@ function auditInferred(question, stats) {
       independentlyVerifiedIds.add(question.id);
     }
     for (const alias of question.acceptedAnswers ?? []) {
-      const aliasValue = numericCorrectionAnswer(alias);
+      const aliasValue = numericCorrectionAuditAlias(alias);
       if (aliasValue == null || Math.abs(aliasValue - expected) > (solved.decimals == null ? 1e-8 : 1e-9)) {
         flag(question, "A", "P1", "correction-alias-mismatch", `accepted answer "${alias}" disagrees with prompt-derived value ${expected}`);
       }
