@@ -266,7 +266,7 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   );
 
   const currentValidation = stepByName.get("Validate current Promotion inputs and runtime graph");
-  assert.equal(currentValidation.if, "${{ always() }}");
+  assert.equal(currentValidation.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
   assert.match(currentValidation.run, /promotion:validate -- --manifest "\$PROMOTION_MANIFEST" --json/u);
   assert.match(currentValidation.run, /promotion-validation-result\.v2/u);
   assert.match(currentValidation.run, /liveAllowed !== false/u);
@@ -274,7 +274,7 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   const resolver = stepByName.get("Resolve committed canonical Receipt execution commit");
   const prepare = stepByName.get("Prepare detached canonical execution worktree");
   assert.equal(resolver.id, "resolve-promotion-execution");
-  assert.equal(resolver.if, "${{ always() }}");
+  assert.equal(resolver.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
   assert.match(resolver.run, /execFileSync\("git", \["show", "--format=%H%x00%P%x00", "--raw", "-z", "--no-abbrev", "--no-renames", `\$\{evidenceCommit\}\.\.HEAD`\]/u);
   assert.match(resolver.run, /receipt\.schemaVersion !== "promotion-receipt\.v2"/u);
   assert.match(resolver.run, /receipt\.result !== "pass"/u);
@@ -290,7 +290,7 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   const verify = stepByName.get("Verify fresh replay and canonical Receipts");
   for (const step of [fresh, replay, compare, verify]) {
     assert.ok(step);
-    assert.equal(step.if, "${{ always() }}");
+    assert.equal(step.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
   }
   assert.match(fresh.run, /promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_RUN_ID" --json/u);
   assert.match(replay.run, /promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_REPLAY_RUN_ID" --json/u);
@@ -302,11 +302,11 @@ test("Promotion Shadow v2 CI validates current HEAD and replays the exact canoni
   assert.match(verify.run, /report\.liveAllowed !== false/u);
 
   const upload = stepByName.get("Upload Promotion Shadow gate artifacts");
-  assert.equal(upload.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
+  assert.equal(upload.if, "${{ always() && steps.contract.outputs.mode == 'v2' && steps.assert-artifact-set.outcome == 'success' }}");
   assert.equal(upload.with?.path, "${{ runner.temp }}/promotion-shadow-gate-v2-artifacts/");
   assert.equal(upload.with?.["if-no-files-found"], "error");
   const final = stepByName.get("Enforce Promotion Shadow Gate outcome");
-  assert.equal(final.if, "${{ always() }}");
+  assert.equal(final.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
   assert.match(final.run, /promotion-required-check-semantic-rescope-cli\.mjs" verify/u);
   assert.match(final.run, /"\$PROMOTION_REQUIRED_CHECK_DECISION"/u);
   assert.doesNotMatch(final.run, /Object\.entries\(outcomes\)/u);
@@ -572,7 +572,7 @@ test("Promotion required-check semantic rescope is wired to exact checkout, arti
 
   const evaluate = stepByName.get("Evaluate current-head semantic required-check decision");
   assert.ok(evaluate);
-  assert.equal(evaluate.if, "${{ always() }}");
+  assert.equal(evaluate.if, "${{ always() && steps.contract.outputs.mode == 'v2' }}");
   assert.match(evaluate.run, /promotion-required-check-semantic-rescope-cli\.mjs" evaluate/u);
   assert.match(evaluate.run, /"\$GITHUB_EVENT_NAME"/u);
   assert.match(evaluate.run, /"\$GITHUB_EVENT_PATH"/u);
