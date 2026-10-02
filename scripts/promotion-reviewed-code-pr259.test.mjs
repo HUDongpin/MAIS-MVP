@@ -43,7 +43,7 @@ function fixture(run, mutate=()=>{}) {
    const bytes=JSON.stringify(review)+'\n';write(repo,decisionPath,bytes);
    reviews[role]={decisionRawSha256:hash(Buffer.from(bytes)),reportRawSha256:hash(Buffer.from(report))};
   }
-  const admission={schemaVersion:'promotion-reviewed-code-pr259.v2',baseCommit:BASE,sourceCommit:SOURCE,sourceTree:git(repo,'rev-parse',`${SOURCE}^{tree}`),sourceInventoryDigest:SOURCE_INVENTORY,toolingRelease:release,toolingTree:git(repo,'rev-parse',`${release}^{tree}`),toolingDigest,observationRawSha256:OBSERVATION_SHA,checksRawSha256:hash(Buffer.from(checks)),reviews,permissions:PERMISSIONS};
+  const admission={schemaVersion:'promotion-reviewed-code-pr259.v3',baseCommit:BASE,sourceCommit:SOURCE,sourceTree:git(repo,'rev-parse',`${SOURCE}^{tree}`),sourceInventoryDigest:SOURCE_INVENTORY,toolingRelease:release,toolingTree:git(repo,'rev-parse',`${release}^{tree}`),toolingDigest,observationRawSha256:OBSERVATION_SHA,checksRawSha256:hash(Buffer.from(checks)),reviews,permissions:PERMISSIONS};
   mutate({kind:'admission',value:admission,repo});write(repo,ADMISSION,JSON.stringify(admission)+'\n');
   git(repo,'add','--',...EVIDENCE_PATHS);git(repo,'commit','-q','-m','Synthetic evidence');
   const evidence=git(repo,'rev-parse','HEAD'),eventPath=path.join(temporary,'event.json');
@@ -171,4 +171,21 @@ test('final decision comparison rejects even rehashed changes to scope or permis
  assert.doesNotThrow(()=>verifyDecision(structuredClone(expected),expected));
  assert.throws(()=>verifyDecision({...expected,permissions:{...PERMISSIONS,liveAllowed:true},decisionDigest:'rehashed'},expected),/REVIEWED_CODE_DECISION_MISMATCH/);
  assert.throws(()=>verifyDecision({...expected,scope:'all-lessons'},expected),/REVIEWED_CODE_DECISION_MISMATCH/);
+});
+
+
+test('baseline dependency setup keeps the historical worktree genuinely clean',()=>{
+ const dir=realpathSync(mkdtempSync(path.join(os.tmpdir(),'pr259-baseline-test-')));
+ try {
+  git(dir,'init','-q','--initial-branch=fixture');git(dir,'config','user.name','Fixture');git(dir,'config','user.email','fixture@example.invalid');
+  writeFileSync(path.join(dir,'.gitignore'),'node_modules/\n');git(dir,'add','--','.gitignore');git(dir,'commit','-q','-m','Synthetic ignore rule');
+  symlinkSync(path.join(root,'node_modules'),path.join(dir,'node_modules'));
+  assert.equal(git(dir,'status','--porcelain=v1','--untracked-files=all'),'?? node_modules');
+  rmSync(path.join(dir,'node_modules'));mkdirSync(path.join(dir,'node_modules'));
+  assert.equal(git(dir,'status','--porcelain=v1','--untracked-files=all'),'');
+  const workflow=YAML.parse(readFileSync(path.join(root,'.github/workflows/promotion-shadow.yml'),'utf8'));
+  const prepare=workflow.jobs['promotion-shadow-gate'].steps.find(x=>x.name==='Prepare historical baseline for reviewed code').run;
+  assert.match(prepare,/cd "\$baseline"\n(?: +)?npm ci --ignore-scripts/u);
+  assert.doesNotMatch(prepare,/ln -s/u);
+ } finally {rmSync(dir,{recursive:true,force:true});}
 });

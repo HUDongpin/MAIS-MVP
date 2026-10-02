@@ -51,7 +51,7 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          if [[ -e coordination/integration/reviewed-code/pr259-v2/admission.json || -L coordination/integration/reviewed-code/pr259-v2/admission.json ]]; then
+          if [[ -e coordination/integration/reviewed-code/pr259-v3/admission.json || -L coordination/integration/reviewed-code/pr259-v3/admission.json ]]; then
             mode=$(node scripts/promotion-reviewed-code-pr259.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           else
@@ -97,9 +97,9 @@ jobs:
           git worktree add --detach "$baseline" 03717842b19e8b8fa9a3a2dbecf1b359bb842233
           git worktree add --detach "$execution" ff709c0141ef8660604a20340b1c476bf2941f60
           install -d -m 0700 "$artifacts"
-          ln -s "$GITHUB_WORKSPACE/node_modules" "$baseline/node_modules"
           node -e 'require("node:fs").writeFileSync(process.argv[1], JSON.stringify({number:259,pull_request:{base:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"},head:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"}}}), {flag:"wx",mode:0o600})' "$RUNNER_TEMP/promotion-reviewed-code-baseline-event.json"
           cd "$baseline"
+          npm ci --ignore-scripts
           npm run test:promotion-gate
           node --test scripts/promotion-required-check-legacy-successor-v1.test.mjs scripts/promotion-shadow-workflow-legacy-successor-v1.test.mjs scripts/correction-audit-alias.test.mjs
           cd "$execution"
@@ -681,7 +681,7 @@ jobs:
         if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: promotion-reviewed-code-pr259-v2-evidence
+          name: promotion-reviewed-code-pr259-v3-evidence
           path: |
             ${{ runner.temp }}/promotion-reviewed-code-artifacts
             ${{ runner.temp }}/promotion-reviewed-code-baseline-artifacts

@@ -11,11 +11,11 @@ import { stable, MANIFEST, assertArtifactSet } from "./promotion-required-check-
 
 export const BASE = "03717842b19e8b8fa9a3a2dbecf1b359bb842233";
 export const SOURCE = "92482cab6931706b45733b04a0fa7ac9cdc975a7";
-// Preserve failed v1 admission and reviews; this is an append-only tooling repair.
-export const PREDECESSOR = "35e9c804db170b9aa963a8bacee64a8e2ed8fc08";
+// Preserve failed v1/v2 admissions and reviews; this is an append-only tooling repair.
+export const PREDECESSOR = "1dd980be9b2ee5a51cb0117e6604376ecf556c60";
 export const SOURCE_INVENTORY = "807ce5526b316f457b9385f1ba44663927a1e37e70a214268710703ed77a12da";
 export const OBSERVATION_SHA = "d50cf79f5e9f29b00cbc8145ec3dd27244049b7b1b767e24eac9863b5864aff8";
-export const DIRECTORY = "coordination/integration/reviewed-code/pr259-v2";
+export const DIRECTORY = "coordination/integration/reviewed-code/pr259-v3";
 export const ADMISSION = `${DIRECTORY}/admission.json`;
 export const CODE_PATHS = Object.freeze([
   ".github/workflows/promotion-shadow.yml",
@@ -121,7 +121,7 @@ export function preflight({ repoRoot, eventName, eventPath }) {
   const head = line(root, "rev-parse", "HEAD");
   const admission = tracked(root, head, ADMISSION), a = admission.value;
   keys(a, ["schemaVersion", "baseCommit", "sourceCommit", "sourceTree", "sourceInventoryDigest", "toolingRelease", "toolingTree", "toolingDigest", "observationRawSha256", "checksRawSha256", "reviews", "permissions"]);
-  need(a.schemaVersion === "promotion-reviewed-code-pr259.v2" && a.baseCommit === BASE && a.sourceCommit === SOURCE && a.sourceTree === tree(root, SOURCE) && a.sourceInventoryDigest === SOURCE_INVENTORY && a.observationRawSha256 === OBSERVATION_SHA, "REVIEWED_CODE_SCOPE");
+  need(a.schemaVersion === "promotion-reviewed-code-pr259.v3" && a.baseCommit === BASE && a.sourceCommit === SOURCE && a.sourceTree === tree(root, SOURCE) && a.sourceInventoryDigest === SOURCE_INVENTORY && a.observationRawSha256 === OBSERVATION_SHA, "REVIEWED_CODE_SCOPE");
   same(a.permissions, PERMISSIONS, "REVIEWED_CODE_PERMISSION");
   ancestor(root, BASE, SOURCE); ancestor(root, SOURCE, head);
   need(digest(inventory(root, BASE, SOURCE)) === SOURCE_INVENTORY, "REVIEWED_CODE_SOURCE_INVENTORY");
