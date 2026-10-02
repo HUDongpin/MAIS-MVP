@@ -56,7 +56,7 @@ type AdaptiveSelection = {
   hardGuardFlags: AdaptiveLearningCandidate["hardGuardFlags"];
 };
 
-type KnowledgeComponentTopic = Pick<Topic, "id" | "grade" | "title" | "description" | "difficulty">;
+type KnowledgeComponentTopic = Pick<Topic, "id" | "grade" | "title" | "description" | "difficulty" | "nssPart">;
 type KnowledgeComponentQuestion = Pick<PublicQuestion, "id" | "topicId" | "difficulty" | "type">;
 
 function clampProbability(value: number) {
@@ -75,23 +75,14 @@ function skillId(topicId: string, stage: SkillStage) {
 }
 
 function stageTitle(topic: KnowledgeComponentTopic, stage: SkillStage) {
-  if (stage === "foundation") {
-    return {
-      en: `${topic.title.en} foundation`,
-      zh: `${topic.title.zh}基礎`
-    };
-  }
-
-  if (stage === "fluency") {
-    return {
-      en: `${topic.title.en} fluency`,
-      zh: `${topic.title.zh}熟練`
-    };
-  }
-
+  const extended = topic.nssPart === "extended";
+  const enTitle = extended ? topic.title.en.replace(/\s*\(Extended Part\)\s*$/u, "") : topic.title.en;
+  const zhTitle = extended ? topic.title.zh.replace(/（延伸部分）\s*$/u, "") : topic.title.zh;
+  const stageEn = stage === "foundation" ? "foundation" : stage === "fluency" ? "fluency" : "transfer";
+  const stageZh = stage === "foundation" ? "基礎" : stage === "fluency" ? "熟練" : "遷移應用";
   return {
-    en: `${topic.title.en} transfer`,
-    zh: `${topic.title.zh}遷移應用`
+    en: `${enTitle} ${stageEn}${extended ? " (Extended Part)" : ""}`,
+    zh: `${zhTitle}${stageZh}${extended ? "（延伸部分）" : ""}`
   };
 }
 

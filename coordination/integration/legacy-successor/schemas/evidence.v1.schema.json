@@ -1,0 +1,536 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mais:legacy-successor:evidence:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "role",
+    "reviewer",
+    "reviewedAt",
+    "result",
+    "candidateRawSha256",
+    "changeDigest",
+    "report",
+    "details",
+    "liveAllowed"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "promotion-legacy-successor-evidence.v1"
+    },
+    "role": {
+      "enum": [
+        "A18",
+        "A11",
+        "A23",
+        "A22",
+        "A25"
+      ]
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sessionId",
+        "identity",
+        "independence"
+      ],
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "identity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "independence": {
+          "enum": [
+            "independent-review",
+            "coordinator-execution"
+          ]
+        }
+      }
+    },
+    "reviewedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "result": {
+      "const": "pass"
+    },
+    "candidateRawSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "changeDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "rawSha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "rawSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "details": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reviewedRows",
+            "wholePackAccepted",
+            "limitations"
+          ],
+          "properties": {
+            "reviewedRows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "recordDigest",
+                  "verdict"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "recordDigest": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "verdict": {
+                    "const": "approved-bounded-correction"
+                  }
+                }
+              },
+              "minItems": 22,
+              "maxItems": 22
+            },
+            "wholePackAccepted": {
+              "const": false
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "checkerBundleDigest",
+            "negativeChecks",
+            "sourceRegression"
+          ],
+          "properties": {
+            "checkerBundleDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "negativeChecks": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "minItems": 8,
+              "uniqueItems": true
+            },
+            "sourceRegression": {
+              "const": "pass"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "checkerBundleDigest",
+            "disposition",
+            "otherResolutionsPreserved",
+            "approvedProjectionsPreserved",
+            "historicalCustody"
+          ],
+          "properties": {
+            "checkerBundleDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "disposition": {
+              "const": "de-reached-successor"
+            },
+            "otherResolutionsPreserved": {
+              "const": 17
+            },
+            "approvedProjectionsPreserved": {
+              "const": 3
+            },
+            "historicalCustody": {
+              "const": "preserved"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceCommit",
+            "sourceTree",
+            "buildExitCode",
+            "buildLog",
+            "sourceArchiveDigest"
+          ],
+          "properties": {
+            "sourceCommit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "sourceTree": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "buildExitCode": {
+              "const": 0
+            },
+            "buildLog": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "path",
+                "rawSha256"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "rawSha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            },
+            "sourceArchiveDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "historicalReferencesDigest",
+            "sourcePathsDigest",
+            "custody"
+          ],
+          "properties": {
+            "historicalReferencesDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "sourcePathsDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "custody": {
+              "const": "preserved"
+            }
+          }
+        }
+      ]
+    },
+    "liveAllowed": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "A18"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "details": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reviewedRows",
+              "wholePackAccepted",
+              "limitations"
+            ],
+            "properties": {
+              "reviewedRows": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "recordDigest",
+                    "verdict"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "recordDigest": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "verdict": {
+                      "const": "approved-bounded-correction"
+                    }
+                  }
+                },
+                "minItems": 22,
+                "maxItems": 22
+              },
+              "wholePackAccepted": {
+                "const": false
+              },
+              "limitations": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "A11"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "details": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "checkerBundleDigest",
+              "negativeChecks",
+              "sourceRegression"
+            ],
+            "properties": {
+              "checkerBundleDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "negativeChecks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "minItems": 8,
+                "uniqueItems": true
+              },
+              "sourceRegression": {
+                "const": "pass"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "A23"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "details": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "checkerBundleDigest",
+              "disposition",
+              "otherResolutionsPreserved",
+              "approvedProjectionsPreserved",
+              "historicalCustody"
+            ],
+            "properties": {
+              "checkerBundleDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "disposition": {
+                "const": "de-reached-successor"
+              },
+              "otherResolutionsPreserved": {
+                "const": 17
+              },
+              "approvedProjectionsPreserved": {
+                "const": 3
+              },
+              "historicalCustody": {
+                "const": "preserved"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "A22"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "details": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sourceCommit",
+              "sourceTree",
+              "buildExitCode",
+              "buildLog",
+              "sourceArchiveDigest"
+            ],
+            "properties": {
+              "sourceCommit": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "sourceTree": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "buildExitCode": {
+                "const": 0
+              },
+              "buildLog": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "rawSha256"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "rawSha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                }
+              },
+              "sourceArchiveDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "A25"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "details": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "historicalReferencesDigest",
+              "sourcePathsDigest",
+              "custody"
+            ],
+            "properties": {
+              "historicalReferencesDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sourcePathsDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "custody": {
+                "const": "preserved"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

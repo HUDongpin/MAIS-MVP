@@ -93,7 +93,7 @@ export const grades: Grade[] = [
     id: "S6",
     name: { en: "Secondary 6", zh: "中六", zhHans: "高三" },
     ageRange: "17–18",
-    focus: { en: "Calculus, statistics, mixed exam problem solving", zh: "微積分、統計、綜合應試解難" },
+    focus: { en: "Statistics and mixed exam problem solving", zh: "統計與綜合應試解難" },
     color: "from-rose-400 to-violet-500"
   }
 ];

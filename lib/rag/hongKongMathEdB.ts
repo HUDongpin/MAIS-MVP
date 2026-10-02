@@ -1,4 +1,5 @@
 import { hongKongMathEdBRagCards } from "../../data/rag/hongKongMathEdB";
+import { hongKongNssEvidenceStage, isHongKongNssExtendedTopicId } from "../hkNssCurriculumPart";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   GradeId,
@@ -122,11 +123,25 @@ function minimumRelevantScore(query: HongKongMathEdBRagQuery) {
 }
 
 export function getHongKongMathEdBRagCards(query: HongKongMathEdBRagQuery): HongKongMathEdBRagCard[] {
-  const minimumScore = minimumRelevantScore(query);
+  const extendedTopic = isHongKongNssExtendedTopicId(query.topicId);
+  const selectedStage = hongKongNssEvidenceStage(query.topicId, query.stage);
+  const effectiveQuery = extendedTopic
+    ? {
+        ...query,
+        stage: selectedStage,
+        documentPurpose: query.documentPurpose === "curriculum-guide" ? undefined : query.documentPurpose
+      }
+    : query;
+  const minimumScore = minimumRelevantScore(effectiveQuery);
   const scored = hongKongMathEdBRagCards
     .filter((card) => card.curriculumTrack === "HK")
-    .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
-    .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
+    .filter((card) => !extendedTopic || (
+      card.stage !== "senior-secondary-compulsory" &&
+      !(selectedStage === "senior-secondary-m1" && card.stage === "senior-secondary-m2") &&
+      !(selectedStage === "senior-secondary-m2" && card.stage === "senior-secondary-m1")
+    ))
+    .map((card, index) => ({ card, index, score: scoreCard(card, effectiveQuery) }))
+    .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(effectiveQuery))
     .sort((a, b) => b.score - a.score || a.index - b.index);
 
   return scored.slice(0, limitFor(query)).map((entry) => entry.card);
@@ -134,11 +149,16 @@ export function getHongKongMathEdBRagCards(query: HongKongMathEdBRagQuery): Hong
 
 export function buildHongKongMathEdBEvidencePack(query: HongKongMathEdBRagQuery): HongKongMathEdBEvidencePack {
   const cards = getHongKongMathEdBRagCards(query);
+  const unknownExtendedModule = isHongKongNssExtendedTopicId(query.topicId) &&
+    hongKongNssEvidenceStage(query.topicId, query.stage) === undefined;
   const evidenceText = [
     "MAIS-safe RAG evidence pack for HK.",
     "Use this evidence only for original MAIS explanations, lessons, practice items, variation tasks, diagnostic hints, and teacher planning.",
     "Do not quote, translate, paraphrase, reconstruct, or lightly modify source wording, worked examples, figures, tables, scoring language, or paper stems.",
     "Prefer Hong Kong mathematical terminology for Chinese responses.",
+    ...(unknownExtendedModule
+      ? ["This is an Extended Part topic in M1 or M2, not a Compulsory Part topic. If the student's module is unknown, ask whether they study M1 or M2 before module-specific exam advice."]
+      : []),
     ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Card ${index + 1}: ${stageLabels[card.stage]} (${card.difficultyBand}).`,

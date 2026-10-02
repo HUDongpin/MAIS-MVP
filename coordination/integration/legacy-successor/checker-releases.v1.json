@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "promotion-checker-releases.legacy-successor.v1",
+  "entries": [
+    {
+      "version": "promotion-legacy-successor-v1",
+      "bundleAlgorithm": "sha256-stable-json-path-raw-v1",
+      "bundlePaths": [
+        "coordination/integration/finalization/promotion-shadow-finalization-v2-lib.mjs",
+        "coordination/integration/finalization/schemas/promotion-lifecycle-registry.v2.schema.json",
+        "coordination/integration/finalization/schemas/promotion-shadow-closure.v2.schema.json",
+        "coordination/integration/legacy-successor/bootstrap.mjs",
+        "coordination/integration/legacy-successor/contract.mjs",
+        "coordination/integration/legacy-successor/contract.test.mjs",
+        "coordination/integration/legacy-successor/dependencies.mjs",
+        "coordination/integration/legacy-successor/frozen-dependency-bindings.v1.json",
+        "coordination/integration/legacy-successor/observer.mjs",
+        "coordination/integration/legacy-successor/promotion.mjs",
+        "coordination/integration/legacy-successor/schemas/evidence.v1.schema.json",
+        "coordination/integration/legacy-successor/schemas/manifest.v1.schema.json",
+        "coordination/integration/legacy-successor/schemas/receipt.v1.schema.json",
+        "coordination/integration/legacy-successor/schemas/successor.v1.schema.json",
+        "coordination/integration/promotion-gate-lib.mjs",
+        "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "coordination/integration/v2/promotion-gate-v2.mjs",
+        "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json",
+        "lib/fullQuestionBankSolvability.test.ts",
+        "package-lock.json",
+        "package.json",
+        "scripts/arkansas-correctness-solvers.mjs",
+        "scripts/audit-us-math-item-quality.mjs",
+        "scripts/promotion-workflow-json-guard.mjs"
+      ],
+      "bundleDigest": "32d9c644bc3c1e104c02712148d45dabf2c3a8ea6ac98c0459dc93d365821e02",
+      "releaseCommit": "ce2557ddbce550b0e92f41d3588bb4b5803e696e",
+      "reviewReferences": [
+        {
+          "role": "A11",
+          "path": "coordination/integration/legacy-successor/reviews/a11-freeze-review-v3.json",
+          "rawSha256": "fb39ccab93f84f837e0d8cd41c00149345a7382eeac03a62b2256c0c138f268c"
+        },
+        {
+          "role": "A23",
+          "path": "coordination/integration/legacy-successor/reviews/a23-freeze-review-v3.json",
+          "rawSha256": "9fd41db45dcf17ce94361e7b4256e07bc740ccb50f9d0970f195da79e7e6687f"
+        }
+      ],
+      "dependencyBindings": [
+        {
+          "name": "ajv",
+          "version": "8.17.1",
+          "integrity": "sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==",
+          "fileCount": 466,
+          "treeDigest": "9b3a1163b57e58b53eadc5d981fed390e2af35912f7fdcb12154c0343bb26bb0"
+        },
+        {
+          "name": "fast-deep-equal",
+          "version": "3.1.3",
+          "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
+          "fileCount": 11,
+          "treeDigest": "404d7799ca099c7781be356b684514d9cebab5261d00b88502b90edfc6238a0d"
+        },
+        {
+          "name": "fast-uri",
+          "version": "3.1.6",
+          "integrity": "sha512-7Ical1vFEMr0onbVzEDIreM22I4khW+fzyQPwvAFWBp1iwdshSZRsL4jjRvPG9JP1uiqMHRto+YU6R2/CzDz5Q==",
+          "fileCount": 44,
+          "treeDigest": "6734fa3b684b632684cc3ffce6d62ea4ff416fb9859a0b1cb3ca8d746d76d71a"
+        },
+        {
+          "name": "json-schema-traverse",
+          "version": "1.0.0",
+          "integrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==",
+          "fileCount": 12,
+          "treeDigest": "647e351dac3f162fa8c3c1de8a8d8d06ea23078ac0741d69c0525397c64a53a7"
+        },
+        {
+          "name": "require-from-string",
+          "version": "2.0.2",
+          "integrity": "sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==",
+          "fileCount": 4,
+          "treeDigest": "0c0dcecde20e127b613ebb7070acb3260c0a21636d7431731eae0c3f47fce443"
+        },
+        {
+          "name": "typescript",
+          "version": "5.8.3",
+          "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
+          "fileCount": 130,
+          "treeDigest": "041841d86928fecdf06d86ed496b71fcc6a9cd9d9d7be57204d6d0fd3d5b686e"
+        },
+        {
+          "name": "yaml",
+          "version": "2.9.0",
+          "integrity": "sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==",
+          "fileCount": 233,
+          "treeDigest": "37c2f0278b61d548188b74d4a612867ae92bf80697e2cf5c062166e8fca70a24"
+        }
+      ]
+    },
+    {
+      "version": "promotion-legacy-successor-v1.1",
+      "bundleAlgorithm": "sha256-stable-json-path-raw-v1",
+      "bundlePaths": [
+        "coordination/integration/finalization/promotion-shadow-finalization-v2-lib.mjs",
+        "coordination/integration/finalization/schemas/promotion-lifecycle-registry.v2.schema.json",
+        "coordination/integration/finalization/schemas/promotion-shadow-closure.v2.schema.json",
+        "coordination/integration/legacy-successor/attempt-008/native-validation/failure-index.v1.json",
+        "coordination/integration/legacy-successor/attempt-008/native-validation/validate-v1.json",
+        "coordination/integration/legacy-successor/attempt-008/native-validation/validate-v2.json",
+        "coordination/integration/legacy-successor/bootstrap.mjs",
+        "coordination/integration/legacy-successor/contract.mjs",
+        "coordination/integration/legacy-successor/contract.test.mjs",
+        "coordination/integration/legacy-successor/dependencies.mjs",
+        "coordination/integration/legacy-successor/frozen-dependency-bindings.v1.json",
+        "coordination/integration/legacy-successor/observer.mjs",
+        "coordination/integration/legacy-successor/promotion.mjs",
+        "coordination/integration/legacy-successor/schemas/evidence.v1.schema.json",
+        "coordination/integration/legacy-successor/schemas/manifest.v1.schema.json",
+        "coordination/integration/legacy-successor/schemas/receipt.v1.schema.json",
+        "coordination/integration/legacy-successor/schemas/successor.v1.schema.json",
+        "coordination/integration/promotion-gate-lib.mjs",
+        "coordination/integration/v2/promotion-gate-v2-lib.mjs",
+        "coordination/integration/v2/promotion-gate-v2.mjs",
+        "coordination/integration/v2/promotion-gate-v2.test.mjs",
+        "coordination/integration/v2/schemas/promotion-evidence.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-legacy-resolution-registry.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-manifest.v2.schema.json",
+        "coordination/integration/v2/schemas/promotion-receipt.v2.schema.json",
+        "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json",
+        "lib/fullQuestionBankSolvability.test.ts",
+        "package-lock.json",
+        "package.json",
+        "scripts/arkansas-correctness-solvers.mjs",
+        "scripts/audit-us-math-item-quality.mjs",
+        "scripts/promotion-workflow-json-guard.mjs"
+      ],
+      "bundleDigest": "37da13cdb32066c73156b5809b5733796615f3f47870db4478c0e94c18510582",
+      "releaseCommit": "611eacd502547cb75355de66e216a3785634f159",
+      "reviewReferences": [
+        {
+          "role": "A11",
+          "path": "coordination/integration/legacy-successor/reviews/a11-freeze-review-v4.json",
+          "rawSha256": "91a9d91135e5dc6618bc9ed6a3df0c816a71fbdfba927d03e84b26fef8f210e3"
+        },
+        {
+          "role": "A23",
+          "path": "coordination/integration/legacy-successor/reviews/a23-freeze-review-v4.json",
+          "rawSha256": "60877020c02d668069cee23c40f2d07b2f3faf62af59ea424433fd3df00fe38a"
+        }
+      ],
+      "dependencyBindings": [
+        {
+          "name": "ajv",
+          "version": "8.17.1",
+          "integrity": "sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==",
+          "fileCount": 466,
+          "treeDigest": "9b3a1163b57e58b53eadc5d981fed390e2af35912f7fdcb12154c0343bb26bb0"
+        },
+        {
+          "name": "fast-deep-equal",
+          "version": "3.1.3",
+          "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
+          "fileCount": 11,
+          "treeDigest": "404d7799ca099c7781be356b684514d9cebab5261d00b88502b90edfc6238a0d"
+        },
+        {
+          "name": "fast-uri",
+          "version": "3.1.6",
+          "integrity": "sha512-7Ical1vFEMr0onbVzEDIreM22I4khW+fzyQPwvAFWBp1iwdshSZRsL4jjRvPG9JP1uiqMHRto+YU6R2/CzDz5Q==",
+          "fileCount": 44,
+          "treeDigest": "6734fa3b684b632684cc3ffce6d62ea4ff416fb9859a0b1cb3ca8d746d76d71a"
+        },
+        {
+          "name": "json-schema-traverse",
+          "version": "1.0.0",
+          "integrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==",
+          "fileCount": 12,
+          "treeDigest": "647e351dac3f162fa8c3c1de8a8d8d06ea23078ac0741d69c0525397c64a53a7"
+        },
+        {
+          "name": "require-from-string",
+          "version": "2.0.2",
+          "integrity": "sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==",
+          "fileCount": 4,
+          "treeDigest": "0c0dcecde20e127b613ebb7070acb3260c0a21636d7431731eae0c3f47fce443"
+        },
+        {
+          "name": "typescript",
+          "version": "5.8.3",
+          "integrity": "sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==",
+          "fileCount": 130,
+          "treeDigest": "041841d86928fecdf06d86ed496b71fcc6a9cd9d9d7be57204d6d0fd3d5b686e"
+        },
+        {
+          "name": "yaml",
+          "version": "2.9.0",
+          "integrity": "sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==",
+          "fileCount": 233,
+          "treeDigest": "37c2f0278b61d548188b74d4a612867ae92bf80697e2cf5c062166e8fca70a24"
+        }
+      ]
+    }
+  ]
+}

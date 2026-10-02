@@ -47,10 +47,66 @@ jobs:
       - name: Install current dependencies from lockfile
         run: npm ci --ignore-scripts
 
+      - name: Select exact Promotion contract
+        id: contract
+        run: |
+          set -euo pipefail
+          mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          if [[ "$mode" != "v2" && "$mode" != "successor" ]]; then
+            echo "Unknown Promotion contract mode" >&2
+            exit 1
+          fi
+          printf 'mode=%s\n' "$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Preflight legacy successor current head
+        if: ${{ steps.contract.outputs.mode == 'successor' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-required-check-legacy-successor-v1.mjs preflight \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH"
+
+      - name: Test legacy successor and preserved Promotion contracts
+        if: ${{ steps.contract.outputs.mode == 'successor' }}
+        run: |
+          set -euo pipefail
+          npm run test:promotion-gate
+          node --test scripts/promotion-required-check-legacy-successor-v1.test.mjs scripts/promotion-shadow-workflow-legacy-successor-v1.test.mjs scripts/correction-audit-alias.test.mjs
+
+      - name: Prepare frozen legacy successor execution
+        if: ${{ steps.contract.outputs.mode == 'successor' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          execution="$RUNNER_TEMP/promotion-legacy-successor-execution"
+          artifacts="$RUNNER_TEMP/promotion-legacy-successor-gate-v1-artifacts"
+          if [[ -e "$execution" || -L "$execution" || -e "$artifacts" || -L "$artifacts" ]]; then
+            echo "Legacy successor temporary target already exists" >&2
+            exit 1
+          fi
+          install -d -m 0700 "$artifacts"
+          git worktree add --detach "$execution" ff709c0141ef8660604a20340b1c476bf2941f60
+          test "$(git -C "$execution" rev-parse HEAD)" = ff709c0141ef8660604a20340b1c476bf2941f60
+          test -z "$(git -C "$execution" status --porcelain=v1 --untracked-files=all)"
+          cd "$execution"
+          npm ci --ignore-scripts
+
+      - name: Evaluate legacy successor required check
+        if: ${{ steps.contract.outputs.mode == 'successor' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-required-check-legacy-successor-v1.mjs evaluate \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --execution "$RUNNER_TEMP/promotion-legacy-successor-execution" \
+            --artifact-root "$RUNNER_TEMP/promotion-legacy-successor-gate-v1-artifacts" \
+            --run-id "ci-${{ github.run_id }}-${{ github.run_attempt }}"
+
       - name: Validate Promotion Shadow finalization contract
+        if: ${{ steps.contract.outputs.mode == 'v2' }}
         run: npm run test:promotion-gate
 
       - name: Configure isolated Promotion Shadow paths
+        if: ${{ steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           umask 077
@@ -85,7 +141,7 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: Validate current Promotion inputs and runtime graph
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           umask 077
@@ -121,7 +177,7 @@ jobs:
 
       - name: Resolve committed canonical Receipt execution commit
         id: resolve-promotion-execution
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           umask 077
@@ -285,7 +341,7 @@ jobs:
             "$GITHUB_OUTPUT"
 
       - name: Prepare detached canonical execution worktree
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         env:
           PROMOTION_EXECUTION_COMMIT: ${{ steps.resolve-promotion-execution.outputs.execution_commit }}
         run: |
@@ -308,14 +364,14 @@ jobs:
           test -z "$(git -C "$PROMOTION_EXECUTION_WORKTREE" status --porcelain=v1 --untracked-files=all)"
 
       - name: Install canonical execution dependencies
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           cd "$PROMOTION_EXECUTION_WORKTREE"
           npm ci --ignore-scripts
 
       - name: Execute canonical pilot shadow
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           umask 077
@@ -343,7 +399,7 @@ jobs:
           ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_RUN_ID" "$cli_exit"
 
       - name: Replay canonical pilot with distinct run identity
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           umask 077
@@ -371,7 +427,7 @@ jobs:
           ' "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_RUN_ID" "$cli_exit"
 
       - name: Compare canonical semantic Receipt digests
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           node --input-type=module -e '
@@ -388,7 +444,7 @@ jobs:
           ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_CANONICAL_RECEIPT_COPY"
 
       - name: Verify fresh replay and canonical Receipts
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           umask 077
@@ -428,7 +484,7 @@ jobs:
           verify_one "$PROMOTION_CANONICAL_RECEIPT_COPY" "$PROMOTION_CANONICAL_VERIFICATION"
 
       - name: Evaluate current-head semantic required-check decision
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           node "scripts/promotion-required-check-semantic-rescope-cli.mjs" evaluate \
@@ -449,7 +505,7 @@ jobs:
 
       - name: Assert exact Promotion Shadow artifact set
         id: assert-artifact-set
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           node --input-type=module -e '
@@ -498,7 +554,7 @@ jobs:
             "$PROMOTION_REQUIRED_CHECK_DECISION"
 
       - name: Upload Promotion Shadow gate artifacts
-        if: ${{ always() && steps.assert-artifact-set.outcome == 'success' }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' && steps.assert-artifact-set.outcome == 'success' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: promotion-shadow-gate-v2-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
@@ -507,7 +563,7 @@ jobs:
           retention-days: 14
 
       - name: Enforce Promotion Shadow Gate outcome
-        if: ${{ always() }}
+        if: ${{ always() && steps.contract.outputs.mode == 'v2' }}
         run: |
           set -euo pipefail
           node "scripts/promotion-required-check-semantic-rescope-cli.mjs" verify \
@@ -525,3 +581,19 @@ jobs:
             --canonical-verification "$PROMOTION_CANONICAL_VERIFICATION" \
             --decision "$PROMOTION_REQUIRED_CHECK_DECISION" \
             --artifact-root "$PROMOTION_ARTIFACT_ROOT"
+
+      - name: Enforce legacy successor required check
+        if: ${{ always() && steps.contract.outputs.mode == 'successor' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-required-check-legacy-successor-v1.mjs verify \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-legacy-successor-gate-v1-artifacts"
+
+      - name: Upload legacy successor gate evidence
+        if: ${{ always() && steps.contract.outputs.mode == 'successor' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: promotion-legacy-successor-v1-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/promotion-legacy-successor-gate-v1-artifacts/
+          if-no-files-found: error

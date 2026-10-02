@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "failed-native-attempt-disposition.v1",
+  "attemptId": "attempt-008",
+  "executionCommit": "cc8ae1018ccfc7329b383053a9a5513d7b66c6c6",
+  "operation": "validate",
+  "outcome": "internal-timeout",
+  "runs": [
+    {
+      "id": "validate-v1",
+      "output": {
+        "path": "coordination/integration/legacy-successor/attempt-008/native-validation/validate-v1.json",
+        "rawSha256": "9ef341263e8b7808f1f84201940468c029e27b4aba7a7a0287e35b97fccfb868"
+      },
+      "exitCode": 3
+    },
+    {
+      "id": "validate-v2",
+      "output": {
+        "path": "coordination/integration/legacy-successor/attempt-008/native-validation/validate-v2.json",
+        "rawSha256": "9ef341263e8b7808f1f84201940468c029e27b4aba7a7a0287e35b97fccfb868"
+      },
+      "exitCode": 3
+    }
+  ],
+  "canonicalReceiptExists": false,
+  "shadowApprovalInherited": false,
+  "liveAllowed": false
+}

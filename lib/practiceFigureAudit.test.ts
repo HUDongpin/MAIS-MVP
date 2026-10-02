@@ -56,7 +56,7 @@ test("every preserved California candidate figure passes the conceptual-correctn
   );
 });
 
-test("candidate figures bind frozen records while remaining unreachable from Practice Arena", () => {
+test("candidate figures stay held while the live textbook data displays reach Practice Arena", () => {
   usCaliforniaPracticeFigureSpecs.forEach((spec) => {
     const question = questionFor(spec);
     assert.equal(question.diagram?.kind, "ten-frame", `${spec.questionId} should carry its ten frame`);
@@ -68,7 +68,12 @@ test("candidate figures bind frozen records while remaining unreachable from Pra
   // opt in, and no held figure may appear in the live California aggregate.
   const figured = candidateQuestions.filter((question) => question.diagram);
   assert.equal(figured.length, usCaliforniaPracticeFigureSpecs.length);
-  assert.equal(usCaliforniaQuestions.some((question) => question.diagram), false);
+  const liveFigured = usCaliforniaQuestions.filter((question) => question.diagram);
+  assert.equal(liveFigured.length, 9);
+  liveFigured.forEach((question) => {
+    assert.ok(question.id.startsWith("ccss-textbook-practice-v1-"));
+    assert.equal(question.diagram?.kind, "data-display");
+  });
 });
 
 test("a figure drawing one counter too many is rejected", () => {

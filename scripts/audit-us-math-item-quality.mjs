@@ -33,6 +33,8 @@
 
 import { createRequire } from "node:module";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { correctedArkansasIds, numericCorrectionAnswer, solveArkansasCorrection } from "./arkansas-correctness-solvers.mjs";
+import { numericCorrectionAuditAlias } from "./correction-audit-alias.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -143,6 +145,7 @@ const provenancePacks = [
 
 const findings = [];
 const seenFindings = new Set();
+const seenCorrectedArkansasIds = new Set();
 function flag(question, pass, severity, issue, detail) {
   const key = `${question.id}|${issue}|${detail}`;
   if (seenFindings.has(key)) return;
@@ -951,6 +954,40 @@ function auditTemplated(question) {
 }
 
 function auditInferred(question, stats) {
+  if (correctedArkansasIds.has(question.id)) {
+    seenCorrectedArkansasIds.add(question.id);
+    const solved = solveArkansasCorrection(question);
+    if (!solved || !Number.isFinite(solved.value)) {
+      stats.uncovered += 1;
+      flag(question, "B", "P1", "correction-prompt-unparsed", "the prompt-derived correction solver cannot verify this item");
+      return;
+    }
+    const stored = numericCorrectionAnswer(question.answer);
+    const expected = solved.decimals == null ? solved.value : Number(solved.value.toFixed(solved.decimals));
+    stats.covered += 1;
+    if (stored == null || Math.abs(stored - expected) > (solved.decimals == null ? 1e-8 : 1e-9)) {
+      stats.mismatched += 1;
+      flag(question, "B", "P1", "correction-answer-mismatch", `prompt-derived value ${expected}, stored answer "${question.answer}"`);
+    } else {
+      independentlyVerifiedIds.add(question.id);
+    }
+    for (const alias of question.acceptedAnswers ?? []) {
+      const aliasValue = numericCorrectionAuditAlias(alias);
+      if (aliasValue == null || Math.abs(aliasValue - expected) > (solved.decimals == null ? 1e-8 : 1e-9)) {
+        flag(question, "A", "P1", "correction-alias-mismatch", `accepted answer "${alias}" disagrees with prompt-derived value ${expected}`);
+      }
+    }
+    if (question.type === "multiple-choice") {
+      const matchingOptions = (question.options ?? []).filter((option) => {
+        const value = numericCorrectionAnswer(option.en);
+        return value != null && Math.abs(value - expected) <= (solved.decimals == null ? 1e-8 : 1e-9);
+      });
+      if (matchingOptions.length !== 1) {
+        flag(question, "A", "P1", "correction-option-mismatch", `${matchingOptions.length} options match prompt-derived value ${expected}`);
+      }
+    }
+    return;
+  }
   const keyValues = [question.answer, ...(question.acceptedAnswers ?? [])]
     .map(parseNumericLoose)
     .filter((value) => value != null);
@@ -1052,6 +1089,11 @@ for (const { name, mode, pack, questions } of packs) {
     if (mode === "templated") auditTemplated(question);
     else if (mode === "inferred") auditInferred(question, inferStats[name]);
     else if (mode === "mathfact") auditMathFact(question);
+  }
+}
+for (const id of correctedArkansasIds) {
+  if (!seenCorrectedArkansasIds.has(id)) {
+    findings.push({ pack: "us-ar-g6-g12-v1", id, pass: "B", severity: "P1", issue: "missing-correction-item", detail: "the selected correction item is absent from the bank" });
   }
 }
 

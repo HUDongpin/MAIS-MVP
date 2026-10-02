@@ -1,0 +1,356 @@
+SOURCE_ARCHIVE_VERIFIED {"schemaVersion":"frozen-source-build-capture.v1","sourceCommit":"ce2557ddbce550b0e92f41d3588bb4b5803e696e","sourceTree":"48d0def4fa27ceb226ef200ecc53412bcfbdaa72","sourceArchiveDigest":"1ef8d61f9edd01ab97e98e1ac6476d2cc2530d4069e9846f5972967aee102dd6","archiveRoot":"/Volumes/Starship/LB28","checkedFiles":11576,"checkedBytes":1024835413,"archiveFilesMatch":true,"cleanBeforeBuild":true,"startedAt":"2026-09-27T11:21:03.757Z","dependencySource":"/Volumes/Starship/MLS27/node_modules","dependencySymlinkExcludedFromSource":true,"liveAllowed":false}
+
+> hk-math-lab-template@0.1.0 build
+> node scripts/next-clean-build.mjs
+
+   ▲ Next.js 15.5.23
+
+   Creating an optimized production build ...
+   Using tsconfig file: tsconfig.next.json
+   Using tsconfig file: tsconfig.next.json
+   Using tsconfig file: tsconfig.next.json
+ ✓ Compiled successfully in 73s
+   Linting and checking validity of types ...
+   
+Your tsconfig.json extends another configuration, which means we cannot add the Next.js TypeScript plugin automatically. To improve your development experience, we recommend adding the Next.js plugin (`"plugins": [{ "name": "next" }]`) manually to your TypeScript configuration. Learn more: https://nextjs.org/docs/app/api-reference/config/typescript#the-typescript-plugin
+
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/208) ...
+   Generating static pages (52/208) 
+   Generating static pages (104/208) 
+   Generating static pages (156/208) 
+ ✓ Generating static pages (208/208)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                         Size  First Load JS
+┌ ƒ /                                                                            3.88 kB         153 kB
+├ ƒ /_not-found                                                                    745 B         111 kB
+├ ƒ /about                                                                       13.1 kB         242 kB
+├ ƒ /adaptive-learning                                                             745 B         111 kB
+├ ƒ /api/adaptive-learning/next                                                    745 B         111 kB
+├ ƒ /api/adaptive-learning/placement                                               745 B         111 kB
+├ ƒ /api/adaptive-learning/refresh                                                 745 B         111 kB
+├ ƒ /api/adaptive-learning/universe                                                745 B         111 kB
+├ ƒ /api/admin/ai-governance/summary                                               745 B         111 kB
+├ ƒ /api/admin/learner-data/[userId]                                               745 B         111 kB
+├ ƒ /api/admin/nova-lens/policy                                                    745 B         111 kB
+├ ƒ /api/admin/provisioning/batches                                                745 B         111 kB
+├ ƒ /api/admin/provisioning/batches/[batchId]                                      745 B         111 kB
+├ ƒ /api/admin/provisioning/batches/[batchId]/export                               745 B         111 kB
+├ ƒ /api/admin/provisioning/validate                                               745 B         111 kB
+├ ƒ /api/admin/storage/export                                                      745 B         111 kB
+├ ƒ /api/admin/storage/health                                                      745 B         111 kB
+├ ƒ /api/admin/storage/hot-auth/backfill                                           745 B         111 kB
+├ ƒ /api/admin/storage/temporary-bootstrap-admins                                  745 B         111 kB
+├ ƒ /api/ai-tutor                                                                  745 B         111 kB
+├ ƒ /api/ai-tutor/[...path]                                                        745 B         111 kB
+├ ƒ /api/ai-tutor/classroom-policy                                                 745 B         111 kB
+├ ƒ /api/ai-tutor/resolve                                                          745 B         111 kB
+├ ƒ /api/ai-tutor/speech                                                           745 B         111 kB
+├ ƒ /api/ai-tutor/status                                                           745 B         111 kB
+├ ƒ /api/ai-tutor/voice                                                            745 B         111 kB
+├ ƒ /api/analytics/export                                                          745 B         111 kB
+├ ƒ /api/analytics/summary                                                         745 B         111 kB
+├ ƒ /api/assessments/[assessmentId]                                                745 B         111 kB
+├ ƒ /api/assessments/[assessmentId]/submit                                         745 B         111 kB
+├ ƒ /api/assignments                                                               745 B         111 kB
+├ ƒ /api/assignments/[assignmentId]/corrections                                    745 B         111 kB
+├ ƒ /api/assignments/[assignmentId]/submissions                                    745 B         111 kB
+├ ƒ /api/attempts                                                                  745 B         111 kB
+├ ƒ /api/auth/funnel                                                               745 B         111 kB
+├ ƒ /api/auth/google/callback                                                      745 B         111 kB
+├ ƒ /api/auth/google/start                                                         745 B         111 kB
+├ ƒ /api/auth/login                                                                745 B         111 kB
+├ ƒ /api/auth/logout                                                               745 B         111 kB
+├ ƒ /api/auth/logout-all                                                           745 B         111 kB
+├ ƒ /api/auth/password-change                                                      745 B         111 kB
+├ ƒ /api/auth/password-reset/confirm                                               745 B         111 kB
+├ ƒ /api/auth/password-reset/request                                               745 B         111 kB
+├ ƒ /api/auth/register                                                             745 B         111 kB
+├ ƒ /api/auth/session-state                                                        745 B         111 kB
+├ ƒ /api/classes/join                                                              745 B         111 kB
+├ ƒ /api/classroom/live                                                            745 B         111 kB
+├ ƒ /api/classroom/live/[sessionId]/work-samples                                   745 B         111 kB
+├ ƒ /api/classroom/live/actions                                                    745 B         111 kB
+├ ƒ /api/cron/teacher-notice-email                                                 745 B         111 kB
+├ ƒ /api/cron/teacher-notice-resend-webhook-maintenance                            745 B         111 kB
+├ ƒ /api/dashboard                                                                 745 B         111 kB
+├ ƒ /api/forum                                                                     745 B         111 kB
+├ ƒ /api/forum/notifications                                                       745 B         111 kB
+├ ƒ /api/forum/threads/[threadId]                                                  745 B         111 kB
+├ ƒ /api/forum/threads/[threadId]/pulses                                           745 B         111 kB
+├ ƒ /api/forum/threads/[threadId]/replies                                          745 B         111 kB
+├ ƒ /api/forum/threads/[threadId]/reports                                          745 B         111 kB
+├ ƒ /api/gamification/adventure-island                                             745 B         111 kB
+├ ƒ /api/gamification/bonus-games/quadratic                                        745 B         111 kB
+├ ƒ /api/gamification/collections                                                  745 B         111 kB
+├ ƒ /api/gamification/fishing-game/complete                                        745 B         111 kB
+├ ƒ /api/gamification/practice-island                                              745 B         111 kB
+├ ƒ /api/gamification/summary                                                      745 B         111 kB
+├ ƒ /api/handwriting-recognition                                                   745 B         111 kB
+├ ƒ /api/health                                                                    745 B         111 kB
+├ ƒ /api/health/teacher-notices                                                    745 B         111 kB
+├ ƒ /api/learning-events                                                           745 B         111 kB
+├ ƒ /api/learning-paths                                                            745 B         111 kB
+├ ƒ /api/learning-paths/[pathId]/steps/[stepId]/complete                           745 B         111 kB
+├ ƒ /api/lesson-audio                                                              745 B         111 kB
+├ ƒ /api/lesson-entry                                                              745 B         111 kB
+├ ƒ /api/lesson-progress                                                           745 B         111 kB
+├ ƒ /api/lessons/[slug]                                                            745 B         111 kB
+├ ƒ /api/lrs/smoke                                                                 745 B         111 kB
+├ ƒ /api/lrs/status                                                                745 B         111 kB
+├ ƒ /api/me                                                                        745 B         111 kB
+├ ƒ /api/me/account                                                                745 B         111 kB
+├ ƒ /api/me/avatar                                                                 745 B         111 kB
+├ ƒ /api/me/export                                                                 745 B         111 kB
+├ ƒ /api/me/learner-profile                                                        745 B         111 kB
+├ ƒ /api/me/profile                                                                745 B         111 kB
+├ ƒ /api/me/settings                                                               745 B         111 kB
+├ ƒ /api/media-objects                                                             745 B         111 kB
+├ ƒ /api/media-objects/[...objectKey]                                              745 B         111 kB
+├ ƒ /api/messages                                                                  745 B         111 kB
+├ ƒ /api/messages/[threadId]/reply                                                 745 B         111 kB
+├ ƒ /api/mistakes                                                                  745 B         111 kB
+├ ƒ /api/mistakes/[questionId]                                                     745 B         111 kB
+├ ƒ /api/nova-lens/runs                                                            745 B         111 kB
+├ ƒ /api/observability/client-error                                                745 B         111 kB
+├ ƒ /api/observability/test-error                                                  745 B         111 kB
+├ ƒ /api/parent/children/[studentId]/summary                                       745 B         111 kB
+├ ƒ /api/parent/children/link                                                      745 B         111 kB
+├ ƒ /api/parent/foundation                                                         745 B         111 kB
+├ ƒ /api/parent/messages                                                           745 B         111 kB
+├ ƒ /api/parent/messages/[threadId]/reply                                          745 B         111 kB
+├ ƒ /api/parent/notices                                                            745 B         111 kB
+├ ƒ /api/parent/notices/[recipientId]/ack                                          745 B         111 kB
+├ ƒ /api/parent/reports                                                            745 B         111 kB
+├ ƒ /api/pilot/platform-loop                                                       745 B         111 kB
+├ ƒ /api/progress                                                                  745 B         111 kB
+├ ƒ /api/questions                                                                 745 B         111 kB
+├ ƒ /api/resources/[resourceId]                                                    745 B         111 kB
+├ ƒ /api/resources/[resourceId]/download                                           745 B         111 kB
+├ ƒ /api/rewards                                                                   745 B         111 kB
+├ ƒ /api/rewards/redeem                                                            745 B         111 kB
+├ ƒ /api/roadmap                                                                   745 B         111 kB
+├ ƒ /api/student/accommodations                                                    745 B         111 kB
+├ ƒ /api/teacher/ai-tutor-transcript-access                                        745 B         111 kB
+├ ƒ /api/teacher/analytics                                                         745 B         111 kB
+├ ƒ /api/teacher/analytics/follow-up                                               745 B         111 kB
+├ ƒ /api/teacher/assessment-builder/questions                                      745 B         111 kB
+├ ƒ /api/teacher/assessments                                                       745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]                                        745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/analysis-settings                      745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/clone                                  745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/copies                                 745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/export                                 745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/exports                                745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/review-lesson/generate                 745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/review-lessons                         745 B         111 kB
+├ ƒ /api/teacher/assessments/[assessmentId]/submissions/[submissionId]             745 B         111 kB
+├ ƒ /api/teacher/assignments                                                       745 B         111 kB
+├ ƒ /api/teacher/assignments/[assignmentId]                                        745 B         111 kB
+├ ƒ /api/teacher/classes                                                           745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/ai-tutor-policy                                 745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/class-sky                                       745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/collaborators                                   745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/groups                                          745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/groups/[groupId]                                745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/groups/[groupId]/mastery-target                 745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/learning-paths                                  745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/learning-paths/[pathId]                         745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/roster-import/commit                            745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/roster-import/validate                          745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/roster/[enrollmentId]                           745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/students                                        745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/students/[studentId]/guardian-invitations       745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/students/[studentId]/guardian-links/[linkId]    745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/students/[studentId]/mastery-target             745 B         111 kB
+├ ƒ /api/teacher/classes/[classId]/term-archives                                   745 B         111 kB
+├ ƒ /api/teacher/classroom-sessions                                                745 B         111 kB
+├ ƒ /api/teacher/classroom-sessions/roster                                         745 B         111 kB
+├ ƒ /api/teacher/classroom-sessions/tool-commands                                  745 B         111 kB
+├ ƒ /api/teacher/course-imports                                                    745 B         111 kB
+├ ƒ /api/teacher/dashboard                                                         745 B         111 kB
+├ ƒ /api/teacher/foundation                                                        745 B         111 kB
+├ ƒ /api/teacher/gamification                                                      745 B         111 kB
+├ ƒ /api/teacher/gamification/campaigns                                            745 B         111 kB
+├ ƒ /api/teacher/gamification/campaigns/[campaignId]                               745 B         111 kB
+├ ƒ /api/teacher/gradebook/export                                                  745 B         111 kB
+├ ƒ /api/teacher/inbox                                                             745 B         111 kB
+├ ƒ /api/teacher/inbox/[threadId]                                                  745 B         111 kB
+├ ƒ /api/teacher/inbox/[threadId]/draft                                            745 B         111 kB
+├ ƒ /api/teacher/inbox/[threadId]/draft-replies                                    745 B         111 kB
+├ ƒ /api/teacher/inbox/[threadId]/replies                                          745 B         111 kB
+├ ƒ /api/teacher/inbox/[threadId]/reply                                            745 B         111 kB
+├ ƒ /api/teacher/lesson-kits                                                       745 B         111 kB
+├ ƒ /api/teacher/lesson-kits/[kitId]                                               745 B         111 kB
+├ ƒ /api/teacher/lesson-kits/[kitId]/generate                                      745 B         111 kB
+├ ƒ /api/teacher/lesson-kits/[kitId]/generation-runs                               745 B         111 kB
+├ ƒ /api/teacher/lesson-kits/[kitId]/publications                                  745 B         111 kB
+├ ƒ /api/teacher/lesson-kits/[kitId]/publish                                       745 B         111 kB
+├ ƒ /api/teacher/live                                                              745 B         111 kB
+├ ƒ /api/teacher/live/tools                                                        745 B         111 kB
+├ ƒ /api/teacher/nav-signals                                                       745 B         111 kB
+├ ƒ /api/teacher/notices                                                           745 B         111 kB
+├ ƒ /api/teacher/notices/[noticeId]/deliveries                                     745 B         111 kB
+├ ƒ /api/teacher/notices/[noticeId]/send                                           745 B         111 kB
+├ ƒ /api/teacher/operations                                                        745 B         111 kB
+├ ƒ /api/teacher/prep-teams                                                        745 B         111 kB
+├ ƒ /api/teacher/prep-teams/[teamId]/shares                                        745 B         111 kB
+├ ƒ /api/teacher/question-generation                                               745 B         111 kB
+├ ƒ /api/teacher/reminder-runs                                                     745 B         111 kB
+├ ƒ /api/teacher/reminders                                                         745 B         111 kB
+├ ƒ /api/teacher/reminders/run                                                     745 B         111 kB
+├ ƒ /api/teacher/report-exports                                                    745 B         111 kB
+├ ƒ /api/teacher/report-previews                                                   745 B         111 kB
+├ ƒ /api/teacher/reports/export                                                    745 B         111 kB
+├ ƒ /api/teacher/reports/pdf                                                       745 B         111 kB
+├ ƒ /api/teacher/reports/preview                                                   745 B         111 kB
+├ ƒ /api/teacher/reports/save                                                      745 B         111 kB
+├ ƒ /api/teacher/resources                                                         745 B         111 kB
+├ ƒ /api/teacher/resources/[resourceId]/download                                   745 B         111 kB
+├ ƒ /api/teacher/resources/[resourceId]/downloads                                  745 B         111 kB
+├ ƒ /api/teacher/review-lessons/[reviewLessonId]                                   745 B         111 kB
+├ ƒ /api/teacher/review-lessons/[reviewLessonId]/export                            745 B         111 kB
+├ ƒ /api/teacher/review-lessons/[reviewLessonId]/exports                           745 B         111 kB
+├ ƒ /api/teacher/review-lessons/[reviewLessonId]/parent-draft                      745 B         111 kB
+├ ƒ /api/teacher/review-lessons/[reviewLessonId]/remediation-assessment            745 B         111 kB
+├ ƒ /api/teacher/review-lessons/[reviewLessonId]/remediation-assessments           745 B         111 kB
+├ ƒ /api/teacher/reward-awards                                                     745 B         111 kB
+├ ƒ /api/teacher/rewards/award                                                     745 B         111 kB
+├ ƒ /api/teacher/rewards/redemptions/[requestId]                                   745 B         111 kB
+├ ƒ /api/teacher/safety-alerts                                                     745 B         111 kB
+├ ƒ /api/teacher/saved-reports                                                     745 B         111 kB
+├ ƒ /api/teacher/students/[studentId]/accommodations                               745 B         111 kB
+├ ƒ /api/teacher/students/[studentId]/ai-tutor-transcript                          745 B         111 kB
+├ ƒ /api/teacher/submissions/[submissionId]                                        745 B         111 kB
+├ ƒ /api/teacher/submissions/[submissionId]/grading-runs                           745 B         111 kB
+├ ƒ /api/teacher/submissions/[submissionId]/review                                 745 B         111 kB
+├ ƒ /api/teacher/submissions/[submissionId]/reviews                                745 B         111 kB
+├ ƒ /api/teacher/term-archives/[archiveId]/export                                  745 B         111 kB
+├ ƒ /api/visualization-sessions                                                    745 B         111 kB
+├ ƒ /api/warm                                                                      745 B         111 kB
+├ ƒ /api/webhooks/resend/teacher-notices                                           745 B         111 kB
+├ ƒ /assessment/[assessmentId]                                                     745 B         111 kB
+├ ƒ /change-password                                                             3.45 kB         148 kB
+├ ƒ /classroom                                                                     535 B         239 kB
+├ ƒ /classroom/join                                                              1.51 kB         146 kB
+├ ƒ /dashboard                                                                   23.3 kB         213 kB
+├ ƒ /design-preview/progress-rewards                                             16.7 kB         158 kB
+├ ƒ /forgot-password                                                             2.38 kB         147 kB
+├ ƒ /forum                                                                       6.38 kB         147 kB
+├ ƒ /games/math-master-blaster                                                     138 B         155 kB
+├ ƒ /games/math-match-quest                                                      10.8 kB         152 kB
+├ ƒ /games/math-virus-blaster                                                      139 B         155 kB
+├ ƒ /games/mighty-tank-battle                                                    6.17 kB         147 kB
+├ ○ /icon.png                                                                        0 B            0 B
+├ ○ /icon.svg                                                                        0 B            0 B
+├ ƒ /learning-path                                                                 745 B         111 kB
+├ ƒ /lesson                                                                        745 B         111 kB
+├ ƒ /lesson/[slug]                                                                 745 B         111 kB
+├ ƒ /lesson/california-high-school-textbook                                        745 B         111 kB
+├ ƒ /lesson/california-high-school-textbook/review                               14.1 kB         141 kB
+├ ƒ /lesson/california-middle-school-textbook                                      190 B         119 kB
+├ ƒ /lesson/california-middle-school-textbook/review                               190 B         119 kB
+├ ƒ /login                                                                       9.55 kB         154 kB
+├ ƒ /messages                                                                    2.91 kB         147 kB
+├ ƒ /mistake-book                                                                6.98 kB         315 kB
+├ ƒ /parent                                                                        177 B         162 kB
+├ ƒ /parent/children/[studentId]                                                   177 B         162 kB
+├ ƒ /parent/connect                                                                176 B         162 kB
+├ ƒ /parent/messages                                                               177 B         162 kB
+├ ƒ /parent/notices                                                              5.87 kB         150 kB
+├ ƒ /parent/reports                                                                177 B         162 kB
+├ ƒ /personalized-learning                                                       52.2 kB         317 kB
+├ ƒ /practice                                                                    34.2 kB         240 kB
+├ ƒ /practice/adventure-ui-preview                                                 902 B         116 kB
+├ ƒ /primary-roadmap                                                               745 B         111 kB
+├ ƒ /privacy                                                                     1.61 kB         146 kB
+├ ƒ /progress                                                                     2.8 kB         180 kB
+├ ƒ /register                                                                      18 kB         198 kB
+├ ƒ /reset-password                                                               3.4 kB         148 kB
+├ ƒ /resource                                                                    3.34 kB         148 kB
+├ ƒ /resource/[resourceId]                                                       1.73 kB         146 kB
+├ ƒ /secondary-roadmap                                                             745 B         111 kB
+├ ƒ /student/assessments/[assessmentId]                                           3.7 kB         238 kB
+├ ƒ /student/assignments                                                           137 B         150 kB
+├ ƒ /student/assignments/[assignmentId]                                            136 B         150 kB
+├ ƒ /student/lessons                                                               745 B         111 kB
+├ ƒ /student/lessons/[lessonSlug]                                                91.7 kB         413 kB
+├ ƒ /student/lessons/california-high-school-textbook                               745 B         111 kB
+├ ƒ /student/lessons/california-middle-school-textbook                             190 B         119 kB
+├ ● /student/practice/games/[gameSlug]                                           34.5 kB         312 kB
+├   ├ /student/practice/games/adventure-island
+├   └ /student/practice/games/fishing-master
+├ ƒ /student/resources                                                             745 B         111 kB
+├ ƒ /student/resources/[resourceId]                                                745 B         111 kB
+├ ƒ /student/roadmap                                                               145 B         255 kB
+├ ƒ /student/roadmap/primary                                                       146 B         255 kB
+├ ƒ /student/roadmap/secondary                                                     146 B         255 kB
+├ ƒ /student/tools/visualizations                                                2.18 kB         112 kB
+├ ● /student/tools/visualizations/[labId]                                        4.18 kB         225 kB
+├   ├ /student/tools/visualizations/pep-high-s6-analytic-geometry-synthesis
+├   ├ /student/tools/visualizations/bnu-high-s5-圆锥曲线
+├   ├ /student/tools/visualizations/bnu-high-s5-数学建模活动-三
+├   └ [+39 more paths]
+├ ƒ /teacher                                                                       745 B         111 kB
+├ ƒ /teacher/analytics                                                             309 B         152 kB
+├ ƒ /teacher/assessments                                                         1.42 kB         258 kB
+├ ƒ /teacher/assessments/[assessmentId]                                          1.42 kB         258 kB
+├ ƒ /teacher/assessments/[assessmentId]/edit                                     1.42 kB         258 kB
+├ ƒ /teacher/assessments/[assessmentId]/review-lessons/[reviewLessonId]          5.99 kB         230 kB
+├ ƒ /teacher/assessments/new                                                     1.42 kB         258 kB
+├ ƒ /teacher/assignments                                                           175 B         176 kB
+├ ƒ /teacher/assignments/[assignmentId]                                            179 B         176 kB
+├ ƒ /teacher/assignments/[assignmentId]/submissions/[submissionId]                 179 B         176 kB
+├ ƒ /teacher/assignments/new                                                       176 B         176 kB
+├ ƒ /teacher/classes                                                               176 B         176 kB
+├ ƒ /teacher/classes/[classId]                                                     176 B         176 kB
+├ ƒ /teacher/classes/[classId]/students/[studentId]                                180 B         176 kB
+├ ƒ /teacher/classroom-sessions                                                    534 B         239 kB
+├ ƒ /teacher/classroom-sessions/[sessionId]/controller                             523 B         153 kB
+├ ƒ /teacher/classroom-sessions/[sessionId]/presenter                              526 B         153 kB
+├ ƒ /teacher/communications                                                        745 B         111 kB
+├ ƒ /teacher/communications/inbox                                                  174 B         176 kB
+├ ƒ /teacher/dashboard                                                             526 B         156 kB
+├ ƒ /teacher/gradebook                                                           3.88 kB         145 kB
+├ ƒ /teacher/inbox                                                                 745 B         111 kB
+├ ƒ /teacher/lesson-kits                                                           521 B         153 kB
+├ ƒ /teacher/lesson-kits/[kitId]                                                   526 B         153 kB
+├ ƒ /teacher/lesson-kits/new                                                       522 B         153 kB
+├ ƒ /teacher/live                                                                  745 B         111 kB
+├ ƒ /teacher/live/[sessionId]/controller                                           745 B         111 kB
+├ ƒ /teacher/live/[sessionId]/present                                              745 B         111 kB
+├ ƒ /teacher/operations                                                            745 B         111 kB
+├ ƒ /teacher/operations/ai-governance                                              549 B         166 kB
+├ ƒ /teacher/operations/collaboration                                              549 B         166 kB
+├ ƒ /teacher/operations/notices                                                    549 B         166 kB
+├ ƒ /teacher/operations/reminders                                                  549 B         166 kB
+├ ƒ /teacher/operations/roster                                                     549 B         166 kB
+├ ƒ /teacher/operations/term-archives                                              549 B         166 kB
+├ ƒ /teacher/prep                                                                  745 B         111 kB
+├ ƒ /teacher/prep/[kitId]                                                          745 B         111 kB
+├ ƒ /teacher/prep/new                                                              745 B         111 kB
+├ ƒ /teacher/reports                                                             1.82 kB         151 kB
+├ ƒ /teacher/resources                                                           1.42 kB         258 kB
+├ ƒ /teacher/review-lessons/[reviewLessonId]                                       745 B         111 kB
+├ ƒ /teacher/rewards                                                               522 B         153 kB
+├ ƒ /teacher/safety                                                               4.6 kB         145 kB
+├ ƒ /teacher/students/[studentId]                                                  180 B         176 kB
+├ ƒ /terms                                                                       1.61 kB         146 kB
+├ ƒ /visualization-lab                                                           2.18 kB         112 kB
+└ ƒ /visualization-lab/stembench-euler-demo                                      6.98 kB         121 kB
++ First Load JS shared by all                                                     110 kB
+  ├ chunks/65281-e61f3f99c5cf0f16.js                                             46.8 kB
+  ├ chunks/72cf1855-f284c62d4af2c8d7.js                                          54.2 kB
+  └ other shared chunks (total)                                                  9.14 kB
+
+
+ƒ Middleware                                                                     34.9 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+SOURCE_BUILD_COMPLETE {"schemaVersion":"frozen-source-build-capture.v1","sourceCommit":"ce2557ddbce550b0e92f41d3588bb4b5803e696e","sourceTree":"48d0def4fa27ceb226ef200ecc53412bcfbdaa72","sourceArchiveDigest":"1ef8d61f9edd01ab97e98e1ac6476d2cc2530d4069e9846f5972967aee102dd6","archiveRoot":"/Volumes/Starship/LB28","checkedFiles":11576,"checkedBytes":1024835413,"archiveFilesMatch":true,"cleanBeforeBuild":true,"startedAt":"2026-09-27T11:21:03.757Z","dependencySource":"/Volumes/Starship/MLS27/node_modules","dependencySymlinkExcludedFromSource":true,"liveAllowed":false,"buildExitCode":0,"completedAt":"2026-09-27T11:24:25.651Z","cleanAfterBuild":true}
