@@ -51,13 +51,92 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
-            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
-          if [[ "$mode" != "v2" && "$mode" != "successor" ]]; then
+          if [[ -e coordination/integration/reviewed-code/pr259-v1/admission.json || -L coordination/integration/reviewed-code/pr259-v1/admission.json ]]; then
+            mode=$(node scripts/promotion-reviewed-code-pr259.mjs select \
+              --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          else
+            mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
+              --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          fi
+          if [[ "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" ]]; then
             echo "Unknown Promotion contract mode" >&2
             exit 1
           fi
           printf 'mode=%s\n' "$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Test exact reviewed-code contract
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code' }}
+        run: |
+          set -euo pipefail
+          node --test scripts/promotion-reviewed-code-pr259.test.mjs
+          npx playwright install --with-deps chromium
+
+      - name: Check current reviewed lesson composition
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          artifacts="$RUNNER_TEMP/promotion-reviewed-code-artifacts"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          node scripts/promotion-reviewed-code-pr259.mjs check \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$artifacts"
+
+      - name: Prepare historical baseline for reviewed code
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          baseline="$RUNNER_TEMP/promotion-reviewed-code-baseline"
+          execution="$RUNNER_TEMP/promotion-reviewed-code-execution"
+          artifacts="$RUNNER_TEMP/promotion-reviewed-code-baseline-artifacts"
+          for target in "$baseline" "$execution" "$artifacts"; do
+            test ! -e "$target" && test ! -L "$target"
+          done
+          git worktree add --detach "$baseline" 03717842b19e8b8fa9a3a2dbecf1b359bb842233
+          git worktree add --detach "$execution" ff709c0141ef8660604a20340b1c476bf2941f60
+          install -d -m 0700 "$artifacts"
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$baseline/node_modules"
+          node -e 'require("node:fs").writeFileSync(process.argv[1], JSON.stringify({number:259,pull_request:{base:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"},head:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"}}}), {flag:"wx",mode:0o600})' "$RUNNER_TEMP/promotion-reviewed-code-baseline-event.json"
+          cd "$baseline"
+          npm run test:promotion-gate
+          node --test scripts/promotion-required-check-legacy-successor-v1.test.mjs scripts/promotion-shadow-workflow-legacy-successor-v1.test.mjs scripts/correction-audit-alias.test.mjs
+          cd "$execution"
+          npm ci --ignore-scripts
+
+      - name: Verify historical non-live chain for reviewed code
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code' }}
+        run: |
+          set -euo pipefail
+          baseline="$RUNNER_TEMP/promotion-reviewed-code-baseline"
+          node "$baseline/scripts/promotion-required-check-legacy-successor-v1.mjs" evaluate \
+            --repo "$baseline" --event-name pull_request --event-path "$RUNNER_TEMP/promotion-reviewed-code-baseline-event.json" \
+            --execution "$RUNNER_TEMP/promotion-reviewed-code-execution" \
+            --artifact-root "$RUNNER_TEMP/promotion-reviewed-code-baseline-artifacts" \
+            --run-id "ci-${{ github.run_id }}-${{ github.run_attempt }}-baseline-only"
+
+      - name: Finalize reviewed-code decision
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-reviewed-code-pr259.mjs finalize \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-reviewed-code-artifacts" \
+            --baseline-root "$RUNNER_TEMP/promotion-reviewed-code-baseline" \
+            --baseline-event "$RUNNER_TEMP/promotion-reviewed-code-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-reviewed-code-baseline-artifacts"
+
+      - name: Enforce reviewed-code required check
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-reviewed-code-pr259.mjs verify \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-reviewed-code-artifacts" \
+            --baseline-root "$RUNNER_TEMP/promotion-reviewed-code-baseline" \
+            --baseline-event "$RUNNER_TEMP/promotion-reviewed-code-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-reviewed-code-baseline-artifacts"
 
       - name: Preflight legacy successor current head
         if: ${{ steps.contract.outputs.mode == 'successor' }}
@@ -596,4 +675,14 @@ jobs:
         with:
           name: promotion-legacy-successor-v1-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/promotion-legacy-successor-gate-v1-artifacts/
+          if-no-files-found: error
+
+      - name: Upload reviewed-code and historical baseline evidence
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: promotion-reviewed-code-pr259-evidence
+          path: |
+            ${{ runner.temp }}/promotion-reviewed-code-artifacts
+            ${{ runner.temp }}/promotion-reviewed-code-baseline-artifacts
           if-no-files-found: error
