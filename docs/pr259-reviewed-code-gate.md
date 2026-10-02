@@ -9,12 +9,19 @@ evaluators, activation, candidate, registry, Manifest and Receipt remain intact.
 
 - **B**: existing main `03717842b19e8b8fa9a3a2dbecf1b359bb842233`.
 - **S**: existing synchronized source `92482cab6931706b45733b04a0fa7ac9cdc975a7`.
-- **T**: one direct child of S containing exactly the four maintenance files
+- **P**: preserved v1 evidence `35e9c804db170b9aa963a8bacee64a8e2ed8fc08`.
+  Its first CI run failed in a negative test fixture because GitHub sets
+  `RUNNER_TEMP` outside `os.tmpdir()`. The checker correctly rejected the test
+  directory before reaching its intended assertion. All v1 review/evidence
+  files remain byte-identical; no native-chain PASS is claimed for v1.
+- **T**: one direct child of P containing exactly the four maintenance files
   hardcoded in `CODE_PATHS`. Both independent reviewers inspect T before E.
 - **E**: one direct child of T first adding exactly the seven files in
   `EVIDENCE_PATHS`. The marker binds T, exact tooling inventory, source inventory,
   observed runtime projection, test/build record and genuine A11/A23 reports.
-  E is derived from unique marker-addition history, avoiding a future/self SHA.
+  E is derived from unique v2 marker-addition history, avoiding a future/self SHA.
+  The v2 fixture gives its CLI child its actual owned temporary root; production
+  artifact-root restrictions remain unchanged.
 
 The checker pins B, S and the exact 11-file before/after mode/blob/SHA256
 inventory. Current HEAD must descend from E with **exactly E's complete root

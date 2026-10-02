@@ -6,7 +6,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
-import { ADMISSION, BASE, SOURCE, SOURCE_INVENTORY, OBSERVATION_SHA, CODE_PATHS, EVIDENCE_PATHS, DIRECTORY, PERMISSIONS, COMMANDS, hash, inventory, preflight, assertEventComposition, verifyTestRecords, assertMaterializedTree, verifyDecision } from './promotion-reviewed-code-pr259.mjs';
+import { ADMISSION, BASE, SOURCE, PREDECESSOR, SOURCE_INVENTORY, OBSERVATION_SHA, CODE_PATHS, EVIDENCE_PATHS, DIRECTORY, PERMISSIONS, COMMANDS, hash, inventory, preflight, assertEventComposition, verifyTestRecords, assertMaterializedTree, verifyDecision } from './promotion-reviewed-code-pr259.mjs';
 import { stable } from './promotion-required-check-legacy-successor-v1.mjs';
 import { parsePromotionWorkflowJsonBytes } from './promotion-workflow-json-guard.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -28,10 +28,10 @@ function fixture(run, mutate=()=>{}) {
   write(repo,'.git/objects/info/alternates',path.join(common,'objects')+'\n');
   git(repo,'config','core.sparseCheckout','true');
   write(repo,'.git/info/sparse-checkout',[...CODE_PATHS, 'scripts/promotion-required-check-legacy-successor-v1.mjs', 'scripts/promotion-workflow-json-guard.mjs'].map(x=>'/'+x).join('\n')+'\n/'+DIRECTORY+'/\n');
-  git(repo,'checkout','--detach','-q',SOURCE);
+  git(repo,'checkout','--detach','-q',PREDECESSOR);
   for(const file of CODE_PATHS)write(repo,file,readFileSync(path.join(root,file)));
   git(repo,'add','--',...CODE_PATHS);git(repo,'commit','-q','-m','Synthetic tooling release');
-  const release=git(repo,'rev-parse','HEAD'),toolingDigest=digest(inventory(repo,SOURCE,release));
+  const release=git(repo,'rev-parse','HEAD'),toolingDigest=digest(inventory(repo,PREDECESSOR,release));
   const checks='{"syntheticFixture":true}\n';write(repo,`${DIRECTORY}/source-checks.json`,checks);
   write(repo,`${DIRECTORY}/source-observation.json`,observationText);
   const reviews={};
@@ -43,7 +43,7 @@ function fixture(run, mutate=()=>{}) {
    const bytes=JSON.stringify(review)+'\n';write(repo,decisionPath,bytes);
    reviews[role]={decisionRawSha256:hash(Buffer.from(bytes)),reportRawSha256:hash(Buffer.from(report))};
   }
-  const admission={schemaVersion:'promotion-reviewed-code-pr259.v1',baseCommit:BASE,sourceCommit:SOURCE,sourceTree:git(repo,'rev-parse',`${SOURCE}^{tree}`),sourceInventoryDigest:SOURCE_INVENTORY,toolingRelease:release,toolingTree:git(repo,'rev-parse',`${release}^{tree}`),toolingDigest,observationRawSha256:OBSERVATION_SHA,checksRawSha256:hash(Buffer.from(checks)),reviews,permissions:PERMISSIONS};
+  const admission={schemaVersion:'promotion-reviewed-code-pr259.v2',baseCommit:BASE,sourceCommit:SOURCE,sourceTree:git(repo,'rev-parse',`${SOURCE}^{tree}`),sourceInventoryDigest:SOURCE_INVENTORY,toolingRelease:release,toolingTree:git(repo,'rev-parse',`${release}^{tree}`),toolingDigest,observationRawSha256:OBSERVATION_SHA,checksRawSha256:hash(Buffer.from(checks)),reviews,permissions:PERMISSIONS};
   mutate({kind:'admission',value:admission,repo});write(repo,ADMISSION,JSON.stringify(admission)+'\n');
   git(repo,'add','--',...EVIDENCE_PATHS);git(repo,'commit','-q','-m','Synthetic evidence');
   const evidence=git(repo,'rev-parse','HEAD'),eventPath=path.join(temporary,'event.json');
@@ -153,7 +153,7 @@ test('actual execution rejects sparse and hidden index files even if metadata pr
 test('actual CLI finalizer blocks missing proof, wrong event, missing native evidence and cannot emit pass',()=>fixture(({repo,check,eventPath,temporary})=>{
  const context=check(),artifacts=path.join(temporary,'artifacts');mkdirSync(artifacts,{mode:0o700});
  const native=path.join(temporary,'native');mkdirSync(native,{mode:0o700});
- const invoke=()=>spawnSync(process.execPath,[path.join(repo,'scripts/promotion-reviewed-code-pr259.mjs'),'finalize','--repo',repo,'--event-name','pull_request','--event-path',eventPath,'--artifact-root',artifacts,'--baseline-artifacts',native],{cwd:repo,encoding:'utf8'});
+ const invoke=()=>spawnSync(process.execPath,[path.join(repo,'scripts/promotion-reviewed-code-pr259.mjs'),'finalize','--repo',repo,'--event-name','pull_request','--event-path',eventPath,'--artifact-root',artifacts,'--baseline-artifacts',native],{cwd:repo,encoding:'utf8',env:{...process.env,RUNNER_TEMP:temporary}});
  let result=invoke();assert.equal(result.status,2);assert.match(result.stderr,/ENOENT/);assert.doesNotMatch(result.stdout,/"result":"pass"/);
  const tests=COMMANDS.map(([name,args])=>{writeFileSync(path.join(artifacts,`${name}.stdout`),'pass\n',{mode:0o600});writeFileSync(path.join(artifacts,`${name}.stderr`),'',{mode:0o600});return{name,args,exitCode:0,stdoutSha256:hash(Buffer.from('pass\n')),stderrSha256:hash(Buffer.alloc(0))};});
  const proof={schemaVersion:'promotion-reviewed-code-current.v1',event:{...context.event,headCommit:BASE},sourceCommit:SOURCE,admissionCommit:context.admissionCommit,tests,observation:{}};

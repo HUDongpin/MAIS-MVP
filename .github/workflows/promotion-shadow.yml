@@ -51,7 +51,7 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          if [[ -e coordination/integration/reviewed-code/pr259-v1/admission.json || -L coordination/integration/reviewed-code/pr259-v1/admission.json ]]; then
+          if [[ -e coordination/integration/reviewed-code/pr259-v2/admission.json || -L coordination/integration/reviewed-code/pr259-v2/admission.json ]]; then
             mode=$(node scripts/promotion-reviewed-code-pr259.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           else
@@ -681,7 +681,7 @@ jobs:
         if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: promotion-reviewed-code-pr259-evidence
+          name: promotion-reviewed-code-pr259-v2-evidence
           path: |
             ${{ runner.temp }}/promotion-reviewed-code-artifacts
             ${{ runner.temp }}/promotion-reviewed-code-baseline-artifacts
