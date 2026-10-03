@@ -11,6 +11,9 @@ export default function Lesson() {
   const [items, setItems] = useState(3);
 
   const rate = cost / items;
+  // Keep ratio equivalence exact; a rounded cent amount is only an approximation.
+  const hasExactCentRate = (cost * 100) % items === 0;
+  const rateLabel = hasExactCentRate ? rate.toFixed(2) : `${cost}/${items}`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -30,12 +33,15 @@ export default function Lesson() {
           <div className="font-mono text-2xl font-black">${cost} for {items} apples</div>
           <span className="text-[var(--ink-faint)]">↓ divide both by {items}</span>
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
-            <div className="font-mono text-3xl font-black" style={{ color: ACCENT }}>${rate.toFixed(2)} per apple</div>
-            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{cost} ÷ {items} = {rate.toFixed(2)}</div>
+            <div className="font-mono text-3xl font-black" style={{ color: ACCENT }}>${rateLabel} per apple</div>
+            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{cost} ÷ {items} = {rateLabel}</div>
+            {!hasExactCentRate ? (
+              <div className="mt-1 text-sm text-[var(--ink-soft)]">Approximately ${rate.toFixed(2)} per apple, rounded to the nearest cent.</div>
+            ) : null}
           </div>
 
           <p className="m-0 text-center text-[15px] text-[var(--ink-soft)]">
-            So {items} apples cost ${cost}, and each apple is ${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
+            So {items} apples cost ${cost}, and each apple is ${rateLabel}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -47,7 +53,7 @@ export default function Lesson() {
 
       <h2>Per one</h2>
       <p>
-        The ratio {cost}:{items} and the unit rate {rate.toFixed(2)}:1 describe the
+        The ratio {cost}:{items} and the unit-rate ratio ({rateLabel}):1 describe the
         same relationship. The unit rate is the most useful form for comparing
         prices, speeds, and any &ldquo;per&rdquo; quantity.
       </p>
@@ -57,7 +63,7 @@ export default function Lesson() {
           A <strong>unit rate</strong>{" "}is the value a/b associated with a ratio
           a : b, giving the amount of the first quantity per <em>one</em>{" "}of the
           second (6.RP.A.2). Here ${cost} for {items} apples is a unit rate of{" "}
-          {cost} ÷ {items} = ${rate.toFixed(2)} per apple. Unit rates make it easy
+          {cost} ÷ {items} = ${rateLabel} per apple. Unit rates make it easy
           to compare and scale ratios.
         </p>
       </MathCheck>

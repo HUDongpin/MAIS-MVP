@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "pr259-source-verification.v1",
+  "sourceCommit": "92482cab6931706b45733b04a0fa7ac9cdc975a7",
+  "baseCommit": "03717842b19e8b8fa9a3a2dbecf1b359bb842233",
+  "checks": [
+    {
+      "name": "browser",
+      "command": "node --test tests/e2e/lesson-rate-math.test.mjs",
+      "exitCode": 0,
+      "summary": "175 ratio + 300 unit-rate states",
+      "localLog": ".tmp/pr259-sync-20261003/browser.log",
+      "rawSha256": "62bd7fd635522ce35df365f65b37c19e47e68c2910a24c42ef1caf2a3685a596"
+    },
+    {
+      "name": "claims",
+      "command": "node --import tsx --test components/lesson/ccss/standardClaimRendering.test.tsx",
+      "exitCode": 0,
+      "summary": "7/7",
+      "localLog": ".tmp/pr259-sync-20261003/standard-claims.log",
+      "rawSha256": "0ebf3c8c17824f7f768cae25882775686af325779e5c4d86e61212eee650ac3d"
+    },
+    {
+      "name": "types",
+      "command": "npm run type-check",
+      "exitCode": 0,
+      "summary": "exit 0",
+      "localLog": ".tmp/pr259-sync-20261003/type-check.log",
+      "rawSha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+    },
+    {
+      "name": "components",
+      "command": "npm run test:components",
+      "exitCode": 0,
+      "summary": "605/605",
+      "localLog": ".tmp/pr259-sync-20261003/components.log",
+      "rawSha256": "a59820f4e9c4e697dab723d79acb14f07015341fb0b0189ab51491084748d8c2"
+    },
+    {
+      "name": "build",
+      "command": "NEXT_DIST_DIR=.tmp/pr259-sync-20261003/next-build npm run build",
+      "exitCode": 0,
+      "summary": "compiled successfully; not clean release attestation",
+      "localLog": ".tmp/pr259-sync-20261003/build.log",
+      "rawSha256": "dbb5e5344b3a81eec2d843de05317f674ad24f41ee0e4e74414ba6c0f1b00919"
+    }
+  ],
+  "routeSmoke": {
+    "head": "92482cab6931706b45733b04a0fa7ac9cdc975a7",
+    "base": "03717842b19e8b8fa9a3a2dbecf1b359bb842233",
+    "checks": [
+      "Real authenticated California chapter loads both dynamic bodies, hydrates, and displays exactly supported footers.",
+      "Actual route ratio controls: zero batches reject ratio equivalence, a=3/b=2 displays exact 2/3 plus approximation, n=2 restores 6:4 equivalence.",
+      "Actual route unit controls: cost=5/items=3 reads back exact 5/3, approximate 1.67, equivalent ratio and double cost 10.00.",
+      "Real HK login on the same route renders localized unavailable messages and no ported body or standard footer."
+    ],
+    "errors": [],
+    "consoleErrors": [],
+    "nonCalifornia": {
+      "url": "http://127.0.0.1:3269/student/lessons/us-ca-math-p6-chapter-01",
+      "bodyCount": 0,
+      "unavailableCount": 3,
+      "standardCount": 0,
+      "errors": []
+    },
+    "status": "PASS"
+  },
+  "routeSmokeRawSha256": "1368ce1a0652bce8228bae2a54e174c684f8a13d34105379e0b41a0e77d51ea8",
+  "buildAttestation": {
+    "schemaVersion": 3,
+    "candidateSha": "92482cab6931706b45733b04a0fa7ac9cdc975a7",
+    "buildId": "vRizwbejeKmS8Yx3ewZTQ",
+    "distDir": ".tmp/pr259-sync-20261003/next-build",
+    "sourceTreeClean": false,
+    "sourceTreeStable": false,
+    "buildStartedAt": "2026-10-02T17:41:47.677Z",
+    "completedAt": "2026-10-02T17:43:03.406Z",
+    "artifactDigests": {
+      "BUILD_ID": "0a71037267e20a3a553401923b4450bd2a9caaf65aa2f52788f9e987fbcf37d4",
+      "required-server-files.json": "f1dc9851dda9da5ea4235303c8284cfd0b947090398179f627303c36219269a0",
+      "server/app-paths-manifest.json": "6dfa52bf6cadd56405fc3210639ee784353e582535a576cc6fdc6db518bda6bd"
+    },
+    "artifactTree": {
+      "algorithm": "sha256",
+      "exclusions": [
+        "mais-build-attestation.json",
+        "cache/**",
+        "diagnostics/**",
+        "trace",
+        "trace-build"
+      ],
+      "fileCount": 2561,
+      "totalBytes": 98054751,
+      "root": "7a4d5f749c37947f07c4d718b9db17e1066fb1f084cc7318730f967a1e8525ab"
+    }
+  },
+  "toolingTests": {
+    "newGate": "17/17 passed",
+    "legacyGateWorkflow": "10/10 passed",
+    "oldPromotionSuite": {
+      "tests": 107,
+      "passed": 93,
+      "failed": 13,
+      "skipped": 1,
+      "reason": "Existing URL.pathname test helper treats Chinese path as percent-encoded filesystem path; rerun unchanged suite in ASCII baseline CI checkout required.",
+      "logRawSha256": "c7414dc5c9ad2ee0043e58d0c742313594c3ddecb69e91513284e4f16e07002d"
+    }
+  },
+  "liveAllowed": false,
+  "deployAllowed": false,
+  "toolingRepair": {
+    "predecessor": "35e9c804db170b9aa963a8bacee64a8e2ed8fc08",
+    "failedRun": "https://github.com/HUDongpin/MAIS-MVP/actions/runs/37046473511",
+    "failure": "Negative test fixture inherited GitHub RUNNER_TEMP while created under os.tmpdir; checker correctly blocked before intended assertion.",
+    "failedLogSha256": "9735be8a0f1523f67aa9333326aca5d73dc9a665cd64bd47b8d5e4254aa6f571",
+    "repair": "Only fixture child RUNNER_TEMP set to its real owned root; production restrictions preserved. Append-only v2 review.",
+    "portableCommand": "RUNNER_TEMP=/private/tmp node --test scripts/promotion-reviewed-code-pr259.test.mjs",
+    "portableResult": "17/17 passed",
+    "portableLogSha256": "8f7c59413e23fbd8806dbebd1ec1c06ff83498d9221b5d8bfef2687b5c34f8b8",
+    "localCurrentProofLimitation": "v1 select passed; full execution blocked ENAMETOOLONG on 1034-byte historical path. Linux CI required; failure retained."
+  },
+  "toolingRepairV3": {
+    "predecessor": "1dd980be9b2ee5a51cb0117e6604376ecf556c60",
+    "failedRun": "https://github.com/HUDongpin/MAIS-MVP/actions/runs/37047673655",
+    "failure": "ACTIVATION_WORKTREE_DIRTY: baseline node_modules symlink is not ignored by node_modules/ rule.",
+    "repair": "Install baseline dependencies in a real node_modules directory using npm ci --ignore-scripts. Clean requirement unchanged.",
+    "failedLogSha256": "543e51158323a1d5ecc832b6433e9b0d59f5a1ebdac36340d4aa679771546340",
+    "fullLogSha256": "88e08a18f7f793eeb98d497e972f7ccd70f52242b29d7dee3748161f54f6a235",
+    "historicalSuiteResults": {
+      "promotion": {
+        "passed": 107,
+        "failed": 0
+      },
+      "supplementary": {
+        "passed": 12,
+        "failed": 0
+      }
+    },
+    "currentHeadProof": {
+      "admissionCommit": "1dd980be9b2ee5a51cb0117e6604376ecf556c60",
+      "event": {
+        "baseCommit": "03717842b19e8b8fa9a3a2dbecf1b359bb842233",
+        "eventName": "pull_request",
+        "headCommit": "1dd980be9b2ee5a51cb0117e6604376ecf556c60",
+        "pullRequestNumber": 259
+      },
+      "observation": {
+        "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91",
+        "reviewedObservationRawSha256": "d50cf79f5e9f29b00cbc8145ec3dd27244049b7b1b767e24eac9863b5864aff8",
+        "runtimePolicyDigest": "df48934052ed4f963be21ce7cf8db1047d1e62977e8456536dd02803cd1b3867"
+      },
+      "schemaVersion": "promotion-reviewed-code-current.v1",
+      "sourceCommit": "92482cab6931706b45733b04a0fa7ac9cdc975a7",
+      "tests": [
+        {
+          "args": [
+            "--test",
+            "tests/e2e/lesson-rate-math.test.mjs"
+          ],
+          "exitCode": 0,
+          "name": "browser",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutSha256": "e69d5e857f241e212d0105c85fa5de92bfead5777c13fc9ccaf24589c94514d8"
+        },
+        {
+          "args": [
+            "--import",
+            "tsx",
+            "--test",
+            "components/lesson/ccss/standardClaimRendering.test.tsx"
+          ],
+          "exitCode": 0,
+          "name": "claims",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutSha256": "5d7301d1dcfb71007fdc3217ce6a11323c7301b2f0455d523cb1dcbc29153e91"
+        },
+        {
+          "args": [
+            "node_modules/typescript/bin/tsc",
+            "--noEmit",
+            "--incremental",
+            "false"
+          ],
+          "exitCode": 0,
+          "name": "types",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "args": [
+            "scripts/run-component-tests.mjs"
+          ],
+          "exitCode": 0,
+          "name": "components",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutSha256": "e07e593b54c67945acafc6e1efcb2787eae253fa4488726eecf7b8d9ab5c3aeb"
+        }
+      ]
+    },
+    "currentHeadProofRawSha256": "a8a39e8d3fad8e1c71b2f875c688232c23bb5bd78f305065e60e967572f2cdcb",
+    "portableCommand": "RUNNER_TEMP=/private/tmp node --test scripts/promotion-reviewed-code-pr259.test.mjs",
+    "portableResult": "18/18 passed",
+    "portableLogSha256": "f6a8d35d928083925b90ba02a12f01212e2f3c5ab1243252b0f2c5bd0ae505bb",
+    "nativeChainPassed": false
+  }
+}

@@ -3332,7 +3332,12 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
 
                     return ccssMeta && CcssLessonBody && interactiveConfig ? (
                       <div className="mt-4">
-                        <CcssLessonBody meta={ccssMeta} topicId={interactiveConfig.topicId} />
+                        <CcssLessonBody
+                          meta={ccssMeta}
+                          topicId={interactiveConfig.topicId}
+                          track={currentUser?.curriculumTrack ?? "HK"}
+                          claimedStandardIds={interactiveConfig.standardIds}
+                        />
                       </div>
                     ) : (
                       <div className="mt-4 rounded-2xl border border-amber-300/40 bg-amber-400/10 p-4 text-sm font-semibold text-amber-800 dark:text-amber-100">

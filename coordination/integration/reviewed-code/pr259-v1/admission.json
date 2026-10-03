@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "promotion-reviewed-code-pr259.v1",
+  "baseCommit": "03717842b19e8b8fa9a3a2dbecf1b359bb842233",
+  "sourceCommit": "92482cab6931706b45733b04a0fa7ac9cdc975a7",
+  "sourceTree": "065b50925580ddf0a6b8b620205a102207aafabc",
+  "sourceInventoryDigest": "807ce5526b316f457b9385f1ba44663927a1e37e70a214268710703ed77a12da",
+  "toolingRelease": "d232842dd38677755eff675e03b52dc0d2d181e6",
+  "toolingTree": "18ec3a8aba484775a9c16fa9fa30809aec5f4d18",
+  "toolingDigest": "79f0a26f446fa515e61d12779d8f34291efa542da4cf03122a2c3e7256651fec",
+  "observationRawSha256": "d50cf79f5e9f29b00cbc8145ec3dd27244049b7b1b767e24eac9863b5864aff8",
+  "checksRawSha256": "d615b063a978b499d1167719cb21bbc149af6d5d587b8678fc50111dc6c9cf07",
+  "reviews": {
+    "A11": {
+      "decisionRawSha256": "6b8a7edc7d7e7e71f2f76be9e9ef3540e1eea17d8562a0b848940c2fc9533f0b",
+      "reportRawSha256": "9c8c9f31643788aaaf402ac6316814804a7139437bb5cae6b229ab02e67b7ad2"
+    },
+    "A23": {
+      "decisionRawSha256": "0e8e85d13b24a51cac17ef52d4fe949d5394f40f98f84578bfbc930fc8541166",
+      "reportRawSha256": "072ebb497bedb1dc1a08aae43e86f8db497aaba9be63160895c39eb091e4439a"
+    }
+  },
+  "permissions": {
+    "ordinaryCodeEligible": true,
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

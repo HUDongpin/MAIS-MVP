@@ -18,6 +18,8 @@ export default function Lesson() {
   const [a, setA] = useState(2); // cups of flour
   const [b, setB] = useState(3); // spoons of sugar
   const [n, setN] = useState(2); // batches highlighted
+  const hasExactHundredthRate = (b * 100) % a === 0;
+  const rateLabel = hasExactHundredthRate ? (b / a).toFixed(2) : `${b}/${a}`;
 
   const x = (i: number) => PAD + (i / STEPS) * lineW;
 
@@ -99,13 +101,20 @@ export default function Lesson() {
 
           <div className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center">
             <div className="font-mono text-lg font-bold">
-              {a * n} : {b * n}
-              <span className="mx-2 text-[var(--ink-faint)]">is the same ratio as</span>
-              {a} : {b}
+              {n > 0 ? (
+                <>
+                  {a * n} : {b * n}
+                  <span className="mx-2 text-[var(--ink-faint)]">is the same ratio as</span>
+                  {a} : {b}
+                </>
+              ) : (
+                <span>Zero batches use 0 cups of flour and 0 spoons of sugar. The pair 0 : 0 does not define a ratio.</span>
+              )}
             </div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">
-              Unit rate: <strong>{(b / a).toFixed(2)}</strong>{" "}spoons of sugar per
+              Recipe unit rate: <strong>{rateLabel}</strong>{" "}spoons of sugar per
               cup of flour.
+              {!hasExactHundredthRate ? <span> Approximately {(b / a).toFixed(2)}, rounded to the nearest hundredth.</span> : null}
             </div>
           </div>
 
@@ -133,7 +142,7 @@ export default function Lesson() {
 
       <h2>Equivalent ratios</h2>
       <p>
-        Multiplying both parts of a ratio by the same number gives an{" "}
+        Multiplying both parts of a ratio by the same positive number gives an{" "}
         <strong>equivalent ratio</strong>{" "}— a different pair of numbers
         describing the very same relationship. That is why{" "}
         <strong>{a}:{b}</strong>, <strong>{a * 2}:{b * 2}</strong>, and{" "}
@@ -143,10 +152,10 @@ export default function Lesson() {
       <MathCheck>
         <p>
           A ratio <strong>a : b</strong>{" "}generates equivalent ratios{" "}
-          <strong>(a·n) : (b·n)</strong>{" "}for every whole number of batches{" "}
+          <strong>(a·n) : (b·n)</strong>{" "}for every positive whole number of batches{" "}
           <strong>n</strong>{" "}(6.RP.A.3). Each pair has the same{" "}
-          <strong>unit rate</strong>{" "}b ÷ a (6.RP.A.2): here every cup of flour is
-          paired with {(b / a).toFixed(2)} spoons of sugar, no matter the batch
+          <strong>unit rate</strong>{" "}b ÷ a: here every cup of flour is
+          paired with {rateLabel} spoons of sugar, no matter the batch
           size. On the double number line the tick marks stay aligned precisely
           because both scales are multiplied by the same amount.
         </p>
