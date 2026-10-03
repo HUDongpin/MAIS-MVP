@@ -1,0 +1,41 @@
+{
+  "slug": "ca-g6-ch03-expressions-equations-variables",
+  "gradeId": "6",
+  "topicId": "us-ca-math-p6-chapter-03",
+  "title": "Expressions, Equations, and Variables",
+  "standardIds": [
+    "6.EE.A.1",
+    "6.EE.A.2",
+    "6.EE.A.3",
+    "6.EE.A.4",
+    "6.EE.B.5",
+    "6.EE.B.6",
+    "6.EE.B.7",
+    "6.EE.B.8",
+    "6.EE.C.9"
+  ],
+  "summary": "Build a tile mural from square panels and watch one rule act as an expression, two equal forms, an equation, and a limit.",
+  "emoji": "🧱",
+  "narration": "An art club is building a mural out of identical square panels, but nobody has decided how big a panel should be yet. So the plan uses letters: a square of side s takes s squared blue tiles, one panel takes s squared plus g, and n panels take n times that. Move the sliders and watch the same rule counted two ways, filled into a table, and pressed against the hundred tiles in the box.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "Evaluate the expression 3s² + 4 when s = 5.",
+      "answer": 79,
+      "explanation": "Do the exponent first: 5² = 5 × 5 = 25. Then multiply: 3 × 25 = 75. Then add: 75 + 4 = 79."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Each mural panel takes 12 tiles. Solve 12n = 156 to find how many panels 156 tiles make.",
+      "answer": 13,
+      "explanation": "n was multiplied by 12, so divide both sides by 12: n = 156 ÷ 12 = 13. Check: 12 × 13 = 120 + 36 = 156."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Which expression is equivalent to 6(x + 4) for every value of x?",
+      "choices": ["6x + 4", "6x + 24", "x + 24", "10x"],
+      "answer": 1,
+      "explanation": "The distributive property multiplies both terms inside: 6(x + 4) = 6 × x + 6 × 4 = 6x + 24. Check at x = 3: 6(3 + 4) = 42 and 6 × 3 + 24 = 18 + 24 = 42."
+    }
+  ]
+}

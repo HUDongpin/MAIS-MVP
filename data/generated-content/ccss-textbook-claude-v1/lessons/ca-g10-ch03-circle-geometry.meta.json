@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g10-ch03-circle-geometry",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s4-chapter-03",
+  "title": "Circle Geometry",
+  "standardIds": ["G-C.5", "G-C.1", "G-GMD.1", "G-GMD.3", "G-GMD.4"],
+  "summary": "Cut a wedge from a paper circle and roll it into a cone: arc, sector area, base radius, height and volume all move together.",
+  "emoji": "🍦",
+  "narration": "A party hat, a paper cup and a traffic cone all start out as a flat piece of a circle. Cut a wedge out of a paper disc, curl the two straight edges together, and the curved edge closes into a ring, because paper does not stretch. That single fact turns the arc length of the flat wedge into the base circle of the finished cone, and from there you can find its radius, its height and the volume it holds. Change the paper radius and the cut angle, and watch every one of those numbers respond at once.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A sector of a circle of radius 10 cm has an arc length of 6π cm. What is the central angle of the sector, in degrees?",
+      "answer": 108,
+      "explanation": "Arc length is the same fraction of the circumference as the angle is of 360 degrees: arc = 2πr × (θ/360). Here 2π(10) = 20π, so 6π = 20π × (θ/360). Dividing both sides by 20π gives θ/360 = 6/20 = 0.3, so θ = 0.3 × 360 = 108 degrees."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A 100° sector is cut from a paper circle of radius 9 cm and rolled into a cone with no overlap. What is the radius of the cone's base, in centimeters?",
+      "answer": 2.5,
+      "tolerance": 0.01,
+      "explanation": "The arc of the wedge becomes the whole rim of the cone. Arc = 2π(9) × (100/360) = 18π × (5/18) = 5π cm. The rim is a circle of circumference 2πr, so 2πr = 5π and r = 5/2 = 2.5 cm. (Equivalently r = 9 × 100/360 = 900/360 = 2.5 cm.)"
+    },
+    {
+      "kind": "mc",
+      "prompt": "A cone and a cylinder stand on the same circular base of radius 5 cm and both are 9 cm tall. How much does the cone hold?",
+      "choices": ["225π cm³", "112.5π cm³", "75π cm³", "675π cm³"],
+      "answer": 2,
+      "explanation": "The cylinder holds πr²h = π(5²)(9) = π(25)(9) = 225π cm³. A cone is exactly one third of the cylinder on the same base with the same height, so the cone holds 225π ÷ 3 = 75π cm³."
+    }
+  ]
+}

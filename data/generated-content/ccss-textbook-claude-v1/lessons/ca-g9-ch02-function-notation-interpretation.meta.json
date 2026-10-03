@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g9-ch02-function-notation-interpretation",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s3-chapter-02",
+  "title": "Function Notation and Interpretation",
+  "standardIds": ["F-IF.2", "F-IF.1", "F-IF.3", "F-IF.4", "F-IF.5", "F-IF.6"],
+  "summary": "Read one ticket-sale rule both ways: put a day into T(d) for a count, or start from a count and solve back to the day.",
+  "emoji": "🎟️",
+  "narration": "A school concert goes on sale, and the box office count depends on one thing: how many days the sale has been running. One day in, one count out, which is exactly what makes it a function. Try both directions here: evaluate T of a day to get a ticket count, then start from a ticket count and solve back to find the day. Watch the presale total, the daily rate, and the moment the hall fills, and practice saying in ordinary words what each number means.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A hiker starts 84 km from the trail end and covers 6 km each hour, so the distance still ahead after x hours is g(x) = 84 - 6x kilometers. After how many hours is g(x) = 30?",
+      "answer": 9,
+      "explanation": "Solve 84 - 6x = 30. Subtract 84 from both sides: -6x = -54, so x = 54 / 6 = 9 hours. Check by evaluating: g(9) = 84 - 6 x 9 = 84 - 54 = 30."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A ball's height in feet t seconds after it is thrown is h(t) = 48t - 16t^2. What is the average rate of change of h from t = 1 to t = 2.5, in feet per second?",
+      "answer": -8,
+      "tolerance": 0.01,
+      "explanation": "h(1) = 48 x 1 - 16 x 1 = 32 and h(2.5) = 48 x 2.5 - 16 x 6.25 = 120 - 100 = 20. Average rate of change = (20 - 32) / (2.5 - 1) = -12 / 1.5 = -8 feet per second, so the ball is falling on average 8 feet each second over that interval."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A full 500-liter tank drains at 25 liters per minute, so the water left after m minutes is W(m) = 500 - 25m. Which set of inputs is the domain of W in this situation?",
+      "choices": ["all real numbers", "0 ≤ m ≤ 20", "0 ≤ m ≤ 500", "m ≥ 20"],
+      "answer": 1,
+      "explanation": "The tank empties when W(m) = 0: 500 - 25m = 0, so 25m = 500 and m = 20 minutes. Before m = 0 the draining has not started, and for m > 20 the formula returns negative water, for example W(25) = 500 - 625 = -125, which no tank can hold. So only 0 ≤ m ≤ 20 describes the real situation."
+    }
+  ]
+}

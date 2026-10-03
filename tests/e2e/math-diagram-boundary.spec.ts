@@ -89,7 +89,7 @@ type DiagramInventory = {
     route: string;
     surfaceType: "lesson" | "practice" | "visualization";
     publisher: TextbookPublisher | null;
-    interaction: "replacement-textbook-images" | "static-svg" | "stored-question-figure" | "drag-svg";
+    interaction: "interactive-ccss-lessons" | "static-svg" | "stored-question-figure" | "drag-svg";
   }>;
 };
 type DiagramInventoryResult = { inventory: DiagramInventory; failures: string[] };
@@ -2516,7 +2516,7 @@ test.describe("mathematical diagram boundary integrity", () => {
 
     for (const matrix of matrixStates) {
       for (const standalone of routes) {
-        const grade = standalone.interaction === "replacement-textbook-images"
+        const grade = standalone.interaction === "interactive-ccss-lessons"
           ? "S2"
           : standalone.interaction === "stored-question-figure"
             ? "P4"
@@ -2574,41 +2574,32 @@ test.describe("mathematical diagram boundary integrity", () => {
           if (matrix.theme === "dark") await expect(page.locator("html")).toHaveClass(/\bdark\b/u, { timeout: 30_000 });
           else await expect(page.locator("html")).not.toHaveClass(/\bdark\b/u, { timeout: 30_000 });
 
-          if (standalone.interaction === "replacement-textbook-images") {
-            const livePack = JSON.parse(readFileSync(
-              path.join(process.cwd(), "data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json"),
-              "utf8"
-            )) as { lessons?: unknown[] };
-            expect(livePack.lessons?.length, "the browser audit must follow the exact live replacement-textbook record count").toBe(15);
-            const lessons = page.locator('[data-testid^="california-replacement-lesson-"]');
-            await expect(lessons).toHaveCount(livePack.lessons!.length);
-            const conceptImages = lessons.locator("figure img");
-            await expect(conceptImages).toHaveCount(livePack.lessons!.length);
-            for (let imageIndex = 0; imageIndex < livePack.lessons!.length; imageIndex += 1) {
-              const image = conceptImages.nth(imageIndex);
-              await image.scrollIntoViewIfNeeded();
-              await expect.poll(async () => image.evaluate((element: HTMLImageElement) =>
-                element.complete && element.naturalHeight > 0 && element.naturalWidth > 0
-              ), {
-                message: `California replacement concept image ${imageIndex + 1} must decode successfully`,
-                timeout: 30_000
-              }).toBe(true);
-              const dimensions = await image.evaluate((element: HTMLImageElement) => ({
-                naturalHeight: element.naturalHeight,
-                naturalWidth: element.naturalWidth,
-                src: element.currentSrc || element.src
-              }));
-              expect(dimensions.naturalWidth, `replacement image ${imageIndex + 1}: ${dimensions.src}`).toBeGreaterThan(0);
-              expect(dimensions.naturalHeight, `replacement image ${imageIndex + 1}: ${dimensions.src}`).toBeGreaterThan(0);
+          if (standalone.interaction === "interactive-ccss-lessons") {
+            // The California Grade 6-8 textbook renders one chapter per G6-G8
+            // chapter topic; every chapter opens with its MAIS-authored
+            // interactive lesson, mounted through the same adapter the lesson
+            // page uses, so the hydrated-diagram protocol attribute must be
+            // present on each opener before the boundary sweep runs.
+            const expectedChapterCount = inventory.lessonRoutes
+              .filter((route) => /^us-ca-math-(?:p6|s1|s2)-chapter-\d{2}$/u.test(route.topicId)).length;
+            expect(expectedChapterCount, "the browser audit must follow the exact live G6-G8 chapter-topic count").toBe(15);
+            const chapters = page.locator('[data-testid="california-textbook-chapter"]');
+            await expect(chapters).toHaveCount(expectedChapterCount);
+            const openers = page.locator('[data-testid="california-textbook-lesson"][data-lesson-role="opener"] [data-ccss-lesson]');
+            await expect(openers).toHaveCount(expectedChapterCount);
+            for (let openerIndex = 0; openerIndex < expectedChapterCount; openerIndex += 1) {
+              const opener = openers.nth(openerIndex);
+              await opener.scrollIntoViewIfNeeded();
+              await expect(opener).toHaveAttribute("data-ccss-diagram-hydrated", "true", { timeout: 30_000 });
             }
             coverageRecords.push({
               surfaceId: standalone.id,
               language: matrix.language,
               theme: matrix.theme,
-              state: "all-live-lessons-and-concept-images-loaded",
-              liveLessonCount: livePack.lessons!.length,
-              renderedLessonCount: await lessons.count(),
-              decodedConceptImageCount: await conceptImages.count()
+              state: "all-chapter-openers-hydrated",
+              liveChapterCount: expectedChapterCount,
+              renderedChapterCount: await chapters.count(),
+              hydratedOpenerCount: await openers.count()
             });
           } else if (standalone.interaction === "static-svg") {
             await expect(page.locator("[data-practice-adventure-ui-preview]")).toBeVisible();

@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g8-ch04-pythagorean-reasoning-coordinate-geometry",
+  "gradeId": "8",
+  "topicId": "us-ca-math-s2-chapter-04",
+  "title": "Pythagorean Reasoning and Coordinate Geometry",
+  "standardIds": ["8.G.B.8", "8.G.B.7", "8.EE.A.2"],
+  "summary": "Move two grid points and watch the right triangle, its legs, and the square root that lands the distance on a number line.",
+  "emoji": "📐",
+  "narration": "Two places on a map are usually farther apart along the streets than in a straight line. Going across and then up traces the two legs of a right triangle, and the straight line you actually want is its longest side. Square the legs, add the results, then take the square root, and the number line under the figure shows exactly where that distance lands. Slide the points around and watch a whole number turn into a root that sits between two of them.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A right triangle has legs of 20 cm and 21 cm. How long is its hypotenuse, in centimeters?",
+      "answer": 29,
+      "explanation": "20² + 21² = 400 + 441 = 841, and 841 is a perfect square because 29 × 29 = 841. So c = √841 = 29 cm."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "On a city map the school is at (-4, 1) and the pool is at (2, 6), and each grid unit is one kilometer. How far apart are they in a straight line, to the nearest hundredth of a kilometer?",
+      "answer": 7.81,
+      "tolerance": 0.01,
+      "explanation": "Run = 2 - (-4) = 6 and rise = 6 - 1 = 5, so the legs are 6 and 5. 6² + 5² = 36 + 25 = 61. 61 is not a perfect square: 7² = 49 and 8² = 64, so the distance is between 7 and 8. √61 = 7.8102..., which rounds to 7.81 km."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A 13 ft ramp runs from level ground up to a loading dock 5 ft high. How far is the bottom of the ramp from the base of the dock?",
+      "choices": ["18 ft", "8 ft", "12 ft", "about 13.93 ft"],
+      "answer": 2,
+      "explanation": "The ramp is the hypotenuse, so d² + 5² = 13². That gives d² = 169 - 25 = 144, and d = √144 = 12 ft, since 12 × 12 = 144. The distractors come from the usual wrong turns: 13 + 5 = 18 and 13 - 5 = 8 never square anything, and √(169 + 25) = √194 ≈ 13.93 adds the squares when finding a leg calls for subtracting them."
+    }
+  ]
+}
