@@ -22,6 +22,6 @@ test("teacher notice webhook maintenance route is a dynamic Node cron endpoint",
     entry.path === "/api/cron/teacher-notice-resend-webhook-maintenance"
   ), {
     path: "/api/cron/teacher-notice-resend-webhook-maintenance",
-    schedule: "*/5 * * * *"
+    schedule: "*/10 * * * *"
   });
 });
