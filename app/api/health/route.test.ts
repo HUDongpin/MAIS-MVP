@@ -102,16 +102,15 @@ test("alert transport timeout cannot hold the health response or accumulate unco
   assert.equal(sends, 1);
 });
 
-test("route assembles existing strict readiness and cron only extends the current deployment configuration", async () => {
+test("route preserves strict readiness with aligned lower-frequency crons and no scheduled keepalive", async () => {
   const source = await readFile(path.join(process.cwd(), "app/api/health/route.ts"), "utf8");
   assert.match(source, /getStorageReadinessSnapshot/); assert.match(source, /createHealthGetHandler/);
   assert.doesNotMatch(source, /probeDurableStorageReadable|ensurePostgresStateTable|captureServerError/);
   const vercel = JSON.parse(await readFile(path.join(process.cwd(), "vercel.json"), "utf8"));
   assert.deepEqual(vercel.regions, ["sin1"]);
   assert.deepEqual(vercel.crons.filter((row: { path: string }) => row.path !== "/api/health"), [
-    { path: "/api/warm", schedule: "*/5 * * * *" },
-    { path: "/api/cron/teacher-notice-email", schedule: "*/5 * * * *" },
-    { path: "/api/cron/teacher-notice-resend-webhook-maintenance", schedule: "*/5 * * * *" }
+    { path: "/api/cron/teacher-notice-email", schedule: "*/10 * * * *" },
+    { path: "/api/cron/teacher-notice-resend-webhook-maintenance", schedule: "*/10 * * * *" }
   ]);
-  assert.deepEqual(vercel.crons.filter((row: { path: string }) => row.path === "/api/health"), [{ path: "/api/health", schedule: "*/5 * * * *" }]);
+  assert.deepEqual(vercel.crons.filter((row: { path: string }) => row.path === "/api/health"), [{ path: "/api/health", schedule: "*/30 * * * *" }]);
 });
