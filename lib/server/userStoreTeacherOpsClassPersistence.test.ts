@@ -467,6 +467,12 @@ test("teacher ops class persistence owns seed class enrollment records for legac
       class_id: "class-us-ca-p1-2026",
       student_id: "student-us",
       joined_at: "2026-06-20T10:00:00.000Z"
+    },
+    {
+      id: "enrollment-us-ca-p1-student-jon",
+      class_id: "class-us-ca-p1-2026",
+      student_id: "student-jon-us-ca-super",
+      joined_at: "2026-06-20T10:00:00.000Z"
     }
   ]);
 
@@ -492,6 +498,12 @@ test("teacher ops class persistence owns seed class enrollment records for legac
       id: "enrollment-us-ca-p1-student-shirleen",
       class_id: "class-us-ca-p1-2026",
       student_id: "student-us",
+      joined_at: "2026-06-20T10:00:00.000Z"
+    },
+    {
+      id: "enrollment-us-ca-p1-student-jon",
+      class_id: "class-us-ca-p1-2026",
+      student_id: "student-jon-us-ca-super",
       joined_at: "2026-06-20T10:00:00.000Z"
     }
   ]);
@@ -606,6 +618,7 @@ test("teacher ops class persistence owns teacher class collection normalization 
     "enrollment-s3a-student-peter",
     "enrollment-mainland-s4-student-ludwig",
     "enrollment-us-ca-p1-student-shirleen",
+    "enrollment-us-ca-p1-student-jon",
     "enrollment-custom"
   ]);
   assert.equal(normalized?.class_enrollments[0]?.student_id, "student-custom");
@@ -688,6 +701,12 @@ test("teacher ops class persistence owns teacher class collection normalization 
         id: "enrollment-us-ca-p1-student-shirleen",
         class_id: "class-us-ca-p1-2026",
         student_id: "student-us",
+        joined_at: "2026-06-20T10:00:00.000Z"
+      },
+      {
+        id: "enrollment-us-ca-p1-student-jon",
+        class_id: "class-us-ca-p1-2026",
+        student_id: "student-jon-us-ca-super",
         joined_at: "2026-06-20T10:00:00.000Z"
       }
     ]
