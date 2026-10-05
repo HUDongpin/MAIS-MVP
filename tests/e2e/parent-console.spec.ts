@@ -15,6 +15,7 @@ import {
   loginAsDemoStudent,
   loginAsTeacher,
   logoutIfVisible,
+  sendTeacherInboxReply,
   uniqueSuffix
 } from "./helpers";
 
@@ -1000,8 +1001,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page.getByText(`${demoParent.username} · ${child.student.name}`).first()).toBeVisible();
       await expect(page.getByText(/Homework/i).first()).toBeVisible();
       await page.getByPlaceholder(/Reply to the parent/i).fill(teacherReply);
-      await page.getByRole("button", { name: /Send reply/i }).click();
-      await expect(page.getByPlaceholder(/Reply to the parent/i)).toBeEmpty();
+      await sendTeacherInboxReply(page);
 
       const teacherInboxResponse = await getWithResetRetry(
         page.request,

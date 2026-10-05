@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { StudentAccommodationsEditor } from "@/components/teacher/StudentAccommodationsEditor";
 import { GuardianAccessControls } from "@/components/teacher/GuardianAccessControls";
@@ -2408,13 +2408,24 @@ export function TeacherAssignmentDetailView({
   );
 }
 
+function isAbortError(error: unknown) {
+  return error instanceof Error && error.name === "AbortError";
+}
+
 export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language, text, t } = useSettings();
   const [reply, setReply] = useState("");
+  const [replyBusy, setReplyBusy] = useState<"draft" | "send" | null>(null);
+  const [threadPatching, setThreadPatching] = useState(false);
   const [inboxActionMessage, setInboxActionMessage] = useState("");
   const [lastInboxOperation, setLastInboxOperation] = useState<InboxOperation | null>(null);
+  const replyGenerationRef = useRef(0);
+  const replyAbortRef = useRef<AbortController | null>(null);
+  const replyBusyRef = useRef<"draft" | "send" | null>(null);
+  const patchGenerationRef = useRef(0);
+  const threadPatchingRef = useRef(false);
   const requestedFilter = searchParams.get("filter") as TeacherInboxQueueFilter | null;
   const activeFilter = requestedFilter && teacherInboxQueueFilters.has(requestedFilter) ? requestedFilter : "all";
   const selectedThreadId = searchParams.get("thread");
@@ -2447,66 +2458,133 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
     return `/teacher/communications/inbox?${params.toString()}`;
   };
 
-  const patchThread = async (thread: TeacherInboxThread, patch: Record<string, unknown>) => {
+  useEffect(() => {
+    setReplyBusy(null);
+    replyBusyRef.current = null;
+    return () => {
+      replyAbortRef.current?.abort();
+      replyAbortRef.current = null;
+      replyGenerationRef.current += 1;
+      replyBusyRef.current = null;
+    };
+  }, [selected?.id]);
+
+  const startReplyAction = (phase: "draft" | "send") => {
+    if (replyBusyRef.current || threadPatchingRef.current) return null;
+    replyAbortRef.current?.abort();
+    const controller = new AbortController();
+    replyAbortRef.current = controller;
+    const generation = replyGenerationRef.current + 1;
+    replyGenerationRef.current = generation;
+    replyBusyRef.current = phase;
+    setReplyBusy(phase);
     setInboxActionMessage("");
-    const response = await fetch(`/api/teacher/inbox/${encodeURIComponent(thread.id)}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(patch)
-    });
-    if (response.ok) {
-      if (typeof patch.status === "string") {
-        setLastInboxOperation({
-          type: "status-updated",
-          ...inboxOperationBase(thread, text(thread.subject), thread.parentContext ? thread.parentContext.guardianName : thread.studentName),
-          nextStatus: patch.status as TeacherInboxThread["status"]
-        });
+    return { controller, generation };
+  };
+
+  const finishReplyAction = (generation: number) => {
+    if (generation !== replyGenerationRef.current) return;
+    replyBusyRef.current = null;
+    setReplyBusy(null);
+  };
+
+  const patchThread = async (thread: TeacherInboxThread, patch: Record<string, unknown>) => {
+    if (replyBusyRef.current || threadPatchingRef.current) return;
+    const generation = patchGenerationRef.current + 1;
+    patchGenerationRef.current = generation;
+    threadPatchingRef.current = true;
+    setThreadPatching(true);
+    setInboxActionMessage("");
+    try {
+      const response = await fetch(`/api/teacher/inbox/${encodeURIComponent(thread.id)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(patch)
+      });
+      if (generation !== patchGenerationRef.current) return;
+      if (response.ok) {
+        if (typeof patch.status === "string") {
+          setLastInboxOperation({
+            type: "status-updated",
+            ...inboxOperationBase(thread, text(thread.subject), thread.parentContext ? thread.parentContext.guardianName : thread.studentName),
+            nextStatus: patch.status as TeacherInboxThread["status"]
+          });
+        }
+        router.refresh();
+        return;
       }
-      router.refresh();
-      return;
+      setInboxActionMessage(t({ en: "Could not update this thread yet.", zh: "暫時未能更新此對話。", zhHans: "暂时未能更新此对话。" }));
+    } finally {
+      if (generation === patchGenerationRef.current) {
+        threadPatchingRef.current = false;
+        setThreadPatching(false);
+      }
     }
-    setInboxActionMessage(t({ en: "Could not update this thread yet.", zh: "暫時未能更新此對話。", zhHans: "暂时未能更新此对话。" }));
   };
 
   const sendReply = async () => {
     if (!selected || !reply.trim()) return;
-    setInboxActionMessage("");
+    const thread = selected;
     const replyBody = reply.trim();
-    const response = await fetch(`/api/teacher/inbox/${encodeURIComponent(selected.id)}/replies`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ body: replyBody })
-    });
-    if (response.ok) {
-      setLastInboxOperation({
-        type: "reply-sent",
-        ...inboxOperationBase(selected, text(selected.subject), selected.parentContext ? selected.parentContext.guardianName : selected.studentName),
-        bodyLength: replyBody.length
+    const started = startReplyAction("send");
+    if (!started) return;
+    const { controller, generation } = started;
+    try {
+      const response = await fetch(`/api/teacher/inbox/${encodeURIComponent(thread.id)}/replies`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body: replyBody }),
+        signal: controller.signal
       });
-      setReply("");
-      router.refresh();
-      return;
+      if (generation !== replyGenerationRef.current) return;
+      if (response.ok) {
+        setLastInboxOperation({
+          type: "reply-sent",
+          ...inboxOperationBase(thread, text(thread.subject), thread.parentContext ? thread.parentContext.guardianName : thread.studentName),
+          bodyLength: replyBody.length
+        });
+        setReply("");
+        router.refresh();
+        return;
+      }
+      setInboxActionMessage(t({ en: "Could not send this reply yet.", zh: "暫時未能發送此回覆。", zhHans: "暂时未能发送此回复。" }));
+    } catch (error) {
+      if (isAbortError(error) || generation !== replyGenerationRef.current) return;
+      setInboxActionMessage(t({ en: "Could not send this reply yet.", zh: "暫時未能發送此回覆。", zhHans: "暂时未能发送此回复。" }));
+    } finally {
+      finishReplyAction(generation);
     }
-    setInboxActionMessage(t({ en: "Could not send this reply yet.", zh: "暫時未能發送此回覆。", zhHans: "暂时未能发送此回复。" }));
   };
 
   const draftReply = async () => {
     if (!selected) return;
-    setInboxActionMessage("");
-    const response = await fetch(`/api/teacher/inbox/${encodeURIComponent(selected.id)}/draft-replies`, {
-      method: "POST"
-    });
-    const payload = await response.json().catch(() => null) as { draft?: string } | null;
-    if (response.ok && payload?.draft) {
-      setReply(payload.draft);
-      setLastInboxOperation({
-        type: "draft-ready",
-        ...inboxOperationBase(selected, text(selected.subject), selected.parentContext ? selected.parentContext.guardianName : selected.studentName),
-        bodyLength: payload.draft.length
+    const thread = selected;
+    const started = startReplyAction("draft");
+    if (!started) return;
+    const { controller, generation } = started;
+    try {
+      const response = await fetch(`/api/teacher/inbox/${encodeURIComponent(thread.id)}/draft-replies`, {
+        method: "POST",
+        signal: controller.signal
       });
-      return;
+      const payload = await response.json().catch(() => null) as { draft?: string } | null;
+      if (generation !== replyGenerationRef.current) return;
+      if (response.ok && payload?.draft) {
+        setReply(payload.draft);
+        setLastInboxOperation({
+          type: "draft-ready",
+          ...inboxOperationBase(thread, text(thread.subject), thread.parentContext ? thread.parentContext.guardianName : thread.studentName),
+          bodyLength: payload.draft.length
+        });
+        return;
+      }
+      setInboxActionMessage(t({ en: "Could not draft a reply yet.", zh: "暫時未能草擬回覆。", zhHans: "暂时未能草拟回复。" }));
+    } catch (error) {
+      if (isAbortError(error) || generation !== replyGenerationRef.current) return;
+      setInboxActionMessage(t({ en: "Could not draft a reply yet.", zh: "暫時未能草擬回覆。", zhHans: "暂时未能草拟回复。" }));
+    } finally {
+      finishReplyAction(generation);
     }
-    setInboxActionMessage(t({ en: "Could not draft a reply yet.", zh: "暫時未能草擬回覆。", zhHans: "暂时未能草拟回复。" }));
   };
 
   return (
@@ -2600,8 +2678,8 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
                 ) : null}
               </div>
               <div className="flex flex-wrap gap-2">
-                <button type="button" onClick={() => patchThread(selected, { starred: !selected.starred })} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">{selected.starred ? t({ en: "Unstar", zh: "取消星標", zhHans: "取消星标" }) : t({ en: "Star", zh: "加星", zhHans: "加星" })}</button>
-                <button type="button" onClick={() => patchThread(selected, { status: selected.status === "resolved" ? "open" : "resolved" })} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white dark:bg-white dark:text-slate-950">{selected.status === "resolved" ? t({ en: "Reopen", zh: "重開", zhHans: "重开" }) : t({ en: "Resolve", zh: "標記解決", zhHans: "标记解决" })}</button>
+                <button type="button" disabled={replyBusy !== null || threadPatching} onClick={() => patchThread(selected, { starred: !selected.starred })} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">{selected.starred ? t({ en: "Unstar", zh: "取消星標", zhHans: "取消星标" }) : t({ en: "Star", zh: "加星", zhHans: "加星" })}</button>
+                <button type="button" disabled={replyBusy !== null || threadPatching} onClick={() => patchThread(selected, { status: selected.status === "resolved" ? "open" : "resolved" })} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950">{selected.status === "resolved" ? t({ en: "Reopen", zh: "重開", zhHans: "重开" }) : t({ en: "Resolve", zh: "標記解決", zhHans: "标记解决" })}</button>
               </div>
             </div>
             {selectedIsDataDeletionRequest ? (
@@ -2613,7 +2691,7 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
               </div>
             ) : null}
             {inboxActionMessage ? (
-              <p className="mt-5 rounded-2xl border border-amber-300/45 bg-amber-400/10 px-4 py-3 text-sm font-bold text-amber-800 dark:text-amber-100">{inboxActionMessage}</p>
+              <p role="alert" className="mt-5 rounded-2xl border border-amber-300/45 bg-amber-400/10 px-4 py-3 text-sm font-bold text-amber-800 dark:text-amber-100">{inboxActionMessage}</p>
             ) : null}
             {lastInboxOperation?.threadId === selected.id ? <InboxOperationPanel operation={lastInboxOperation} /> : null}
             <div className="mt-5 grid gap-3">
@@ -2626,10 +2704,10 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
               ))}
             </div>
             <div id="inbox-composer" className="mt-5 grid scroll-mt-24 gap-3">
-              <textarea value={reply} onChange={(event) => setReply(event.target.value)} rows={4} placeholder={selected.parentContext ? t({ en: "Reply to the parent", zh: "回覆家長", zhHans: "回复家长" }) : t({ en: "Reply to the student", zh: "回覆學生", zhHans: "回复学生" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.06]" />
+              <textarea value={reply} onChange={(event) => setReply(event.target.value)} disabled={replyBusy !== null} rows={4} placeholder={selected.parentContext ? t({ en: "Reply to the parent", zh: "回覆家長", zhHans: "回复家长" }) : t({ en: "Reply to the student", zh: "回覆學生", zhHans: "回复学生" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/10 dark:bg-white/[0.06]" />
               <div className="flex flex-wrap gap-2">
-                <button onClick={draftReply} type="button" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">{t({ en: "Draft reply", zh: "草擬回覆", zhHans: "草拟回复" })}</button>
-                <button onClick={sendReply} type="button" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "Send reply", zh: "發送回覆", zhHans: "发送回复" })}</button>
+                <button onClick={draftReply} type="button" disabled={replyBusy !== null || threadPatching} aria-busy={replyBusy === "draft"} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">{t({ en: "Draft reply", zh: "草擬回覆", zhHans: "草拟回复" })}</button>
+                <button onClick={sendReply} type="button" disabled={!reply.trim() || replyBusy !== null || threadPatching} aria-busy={replyBusy === "send"} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Send reply", zh: "發送回覆", zhHans: "发送回复" })}</button>
               </div>
             </div>
           </>

@@ -5,10 +5,12 @@ import {
   collectPageErrors,
   demoStudent,
   demoTeacherUserId,
+  draftTeacherInboxReply,
   expectDownloadFrom,
   expectNoPageErrors,
   fixturePath,
   loginAsTeacher,
+  sendTeacherInboxReply,
   uniqueSuffix
 } from "./helpers";
 
@@ -676,13 +678,7 @@ test.describe("teacher console page workflows", () => {
     await expect(page).toHaveURL(/\/teacher\/assignments\//);
     await page.goto("/teacher/communications/inbox?thread=message-thread-quadratic-help");
 
-    const draftResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/inbox/message-thread-quadratic-help/draft-replies") && response.request().method() === "POST"
-    );
-    await page.getByRole("button", { name: /Draft reply/i }).click();
-    expect((await draftResponse).ok()).toBeTruthy();
-    const replyBox = page.getByPlaceholder(/Reply to the student/i);
-    await expect(replyBox).not.toBeEmpty();
+    const replyBox = await draftTeacherInboxReply(page);
 
     const starButton = page.getByRole("button", { name: /Star|Unstar/i });
     const starResponse = page.waitForResponse((response) =>
@@ -700,12 +696,7 @@ test.describe("teacher console page workflows", () => {
     await expect(page.getByRole("button", { name: /Resolve|Reopen/i })).toBeVisible();
 
     await replyBox.fill(reply);
-    const replyResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/inbox/message-thread-quadratic-help/replies") && response.request().method() === "POST"
-    );
-    await page.getByRole("button", { name: /Send reply/i }).click();
-    expect((await replyResponse).ok()).toBeTruthy();
-    await expect(replyBox).toBeEmpty();
+    await sendTeacherInboxReply(page);
     await expect(page.locator("main").getByText(reply).last()).toBeVisible();
 
     expectNoPageErrors(pageErrors);

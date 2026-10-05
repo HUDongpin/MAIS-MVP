@@ -23,7 +23,7 @@ test.describe("teacher and parent HKT hydration", () => {
     for (const route of routes) {
       await page.goto(route.path);
       await expect(page.getByRole("heading", { name: route.heading }).first()).toBeVisible();
-      await page.waitForTimeout(100);
+      await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
       expectNoPageErrors(errors);
     }
   });
@@ -41,7 +41,7 @@ test.describe("teacher and parent HKT hydration", () => {
     for (const route of routes) {
       await page.goto(route.path);
       await expect(page.getByRole("heading", { name: route.heading }).first()).toBeVisible();
-      await page.waitForTimeout(100);
+      await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached();
       expectNoPageErrors(errors);
     }
   });

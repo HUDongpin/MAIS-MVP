@@ -1,8 +1,10 @@
 import { expect, test } from "@playwright/test";
 import {
+  draftTeacherInboxReply,
   expectDownloadFrom,
   fixturePath,
   loginAsTeacher,
+  sendTeacherInboxReply,
   uniqueSuffix
 } from "./helpers";
 
@@ -230,10 +232,10 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await expect(page.getByRole("heading", { name: /^Inbox$/i })).toBeVisible();
     const replyBox = page.getByPlaceholder(/Reply to the (student|parent)/i);
     await expect(replyBox).toBeEmpty();
-    await page.getByRole("button", { name: /Draft reply/i }).click();
-    await expect(replyBox).not.toBeEmpty();
+    await draftTeacherInboxReply(page);
     // Tag the outgoing reply so each attempt appends a distinguishable message
-    // instead of an identical one.
+    // instead of an identical one. The composer stays enabled only after the
+    // draft request settles, so this cannot race a late setReply(draft).
     await replyBox.fill(`${(await replyBox.inputValue()).trim()} Sent by e2e run ${suffix}.`);
 
     // Star and resolve both PATCH and then refresh the server-rendered thread;
@@ -258,13 +260,7 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     expect((await statusResponse).ok()).toBeTruthy();
     await expect(statusToggle).not.toHaveText(statusLabel);
 
-    const sendReplyResponse = page.waitForResponse((response) =>
-      /^\/api\/teacher\/inbox\/.+\/replies$/.test(new URL(response.url()).pathname) &&
-      response.request().method() === "POST"
-    );
-    await page.getByRole("button", { name: /Send reply/i }).click();
-    expect((await sendReplyResponse).ok()).toBeTruthy();
-    await expect(replyBox).toBeEmpty();
+    await sendTeacherInboxReply(page);
 
   });
 

@@ -296,6 +296,15 @@ function safeWorkspaceTarget(value: string | null, role?: "student" | "teacher" 
   return value;
 }
 
+function loginCredentialFieldProps(hydrated: boolean, value: string) {
+  // Stay uncontrolled through hydration so a fill that lands before React
+  // commits (password managers, and tests that type during "Preparing secure
+  // login") is not reset to the empty controlled state. The hydration effect
+  // copies the DOM value, then this switches the field to controlled mode on
+  // a new element.
+  return hydrated ? { value } : { defaultValue: "" };
+}
+
 export default function LoginPage() {
   const { currentUser, language, login, logout, setSelectedGrade, settingsReady, t, theme } = useSettings();
   const [identifier, setIdentifier] = useState("");
@@ -376,6 +385,7 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
+    // Read the uncontrolled fields before they remount as controlled inputs.
     setIdentifier(identifierInputRef.current?.value ?? "");
     setPassword(passwordInputRef.current?.value ?? "");
     const params = new URLSearchParams(window.location.search);
@@ -588,11 +598,12 @@ export default function LoginPage() {
             <label htmlFor="login-identifier" className="grid gap-2">
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t(dictionary.login.username)}</span>
               <input
+                key={isHydrated ? "login-identifier-ready" : "login-identifier-pending"}
                 id="login-identifier"
                 ref={identifierInputRef}
                 name="username"
                 type="text"
-                value={identifier}
+                {...loginCredentialFieldProps(isHydrated, identifier)}
                 onChange={(event) => {
                   hasLoginInteractionRef.current = true;
                   setSelectedExampleAccountKey(null);
@@ -618,10 +629,11 @@ export default function LoginPage() {
                 </Link>
               </div>
               <PasswordInputWithReveal
+                key={isHydrated ? "login-password-ready" : "login-password-pending"}
                 id="login-password"
                 ref={passwordInputRef}
                 name="password"
-                value={password}
+                {...loginCredentialFieldProps(isHydrated, password)}
                 onChange={(event) => {
                   hasLoginInteractionRef.current = true;
                   setSelectedExampleAccountKey(null);
