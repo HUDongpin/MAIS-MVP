@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "pr270-pr271-source-verification.v1",
+  "sourceCommit": "302c0808a0e6b8651b5e86c05a3c2aa8ddb3581c",
+  "baseCommit": "58f1c71b71c30f07d1269e9fe8cf5d7ac6f820df",
+  "pr270Commit": "b68871b5ccac18e1f6db7748c91eb14f0435ba7d",
+  "pr271Commit": "b852e05e0d5153af0ec0e3784dfe70c8a3cd6170",
+  "toolingRelease": "acd24721e2f3412a66f76dcc31a1d8476ed03089",
+  "checks": [
+    {
+      "name": "link",
+      "command": "node --import tsx --test lib/server/userStoreDemoCaliforniaLink.test.ts lib/server/userStoreTeacherOpsClassPersistence.test.ts lib/server/userStoreTeacherOpsAssignmentPersistence.test.ts",
+      "exitCode": 0,
+      "summary": "48 passed, 0 failed",
+      "stdoutSha256": "91ab53c571b28c150425d226d36cf60157b6bfa9da4b935b9b84ffbf5858a118",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logPath": "/tmp/pr270-pr271-checks/link.stdout"
+    },
+    {
+      "name": "types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit --incremental false",
+      "exitCode": 0,
+      "summary": "exit 0, empty stdout and stderr",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logPath": "/tmp/pr270-pr271-checks/types.stdout"
+    }
+  ],
+  "notExecutedInThisRecord": [
+    "Playwright teacher-parent-e2e was not re-run for this record. Those specs are pinned in the source tree and remain the teacher-parent-e2e CI job on the admission SHA.",
+    "No production build attestation was produced. This record is not an A22 release attestation.",
+    "No production database was contacted."
+  ]
+}

@@ -45,6 +45,13 @@ export function fixturePath(fileName: string) {
 export function collectPageErrors(page: Page) {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() !== "error") return;
+    const text = message.text();
+    if (/hydration failed|did not match|Minified React error #(?:418|419|422|423|425)\b/i.test(text)) {
+      errors.push(`console: ${text}`);
+    }
+  });
   return errors;
 }
 
@@ -170,17 +177,57 @@ export function loginSubmitButton(page: Page) {
   return page.locator('form button[type="submit"]').last();
 }
 
-export async function clickLoginSubmit(page: Page) {
+const LOGIN_FORM_READY_TEXT = /Preparing secure login|準備安全登入|准备安全登录/i;
+
+export async function waitForLoginFormReady(page: Page) {
   const submit = loginSubmitButton(page);
-  await expect(submit).toBeEnabled({ timeout: 15_000 });
-  // The login form deliberately ignores submits until client hydration finishes.
-  // On slower CI runners the button can become actionable at the browser layer
-  // before the React submit handler is ready, leaving the page silently on /login.
-  await expect(submit).not.toHaveText(
-    /Preparing secure login|準備安全登入|准备安全登录/i,
-    { timeout: 15_000 }
-  );
-  await submit.click();
+  await expect(submit).toBeVisible({ timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
+  // The submit control stays disabled until the credential fields have copied
+  // any pre-hydration DOM value and switched to controlled mode. Filling before
+  // that used to race React's controlled reset and post an empty form, which
+  // left the browser on /login.
+  await expect(submit).toBeEnabled({ timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
+  await expect(submit).not.toHaveText(LOGIN_FORM_READY_TEXT, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
+}
+
+export async function clickLoginSubmit(page: Page) {
+  await waitForLoginFormReady(page);
+  await loginSubmitButton(page).click();
+}
+
+function isTeacherInboxPost(response: { url(): string; request(): { method(): string } }, pathSuffix: "replies" | "draft-replies") {
+  try {
+    return new RegExp(`^/api/teacher/inbox/[^/]+/${pathSuffix}$`).test(new URL(response.url()).pathname)
+      && response.request().method() === "POST";
+  } catch {
+    return false;
+  }
+}
+
+export async function draftTeacherInboxReply(page: Page) {
+  const replyBox = page.getByPlaceholder(/Reply to the (student|parent)/i);
+  const draftButton = page.getByRole("button", { name: /Draft reply/i });
+  await expect(draftButton).toBeEnabled();
+  const draftResponsePromise = page.waitForResponse((response) => isTeacherInboxPost(response, "draft-replies"));
+  await draftButton.click();
+  const draftResponse = await draftResponsePromise;
+  expect(draftResponse.ok(), `teacher inbox draft POST returned ${draftResponse.status()}`).toBeTruthy();
+  await expect(page.getByText(/Could not draft a reply yet|暫時未能草擬回覆|暂时未能草拟回复/i)).toHaveCount(0);
+  await expect(replyBox).not.toBeEmpty();
+  return replyBox;
+}
+
+export async function sendTeacherInboxReply(page: Page) {
+  const replyBox = page.getByPlaceholder(/Reply to the (student|parent)/i);
+  await expect(replyBox).not.toBeEmpty();
+  const sendButton = page.getByRole("button", { name: /Send reply/i });
+  await expect(sendButton).toBeEnabled();
+  const sendResponsePromise = page.waitForResponse((response) => isTeacherInboxPost(response, "replies"));
+  await sendButton.click();
+  const sendResponse = await sendResponsePromise;
+  expect(sendResponse.ok(), `teacher inbox reply POST returned ${sendResponse.status()}`).toBeTruthy();
+  await expect(page.getByText(/Could not send this reply yet|暫時未能發送此回覆|暂时未能发送此回复/i)).toHaveCount(0);
+  await expect(replyBox).toBeEmpty();
 }
 
 // A real form login includes the credential POST, client session application,
@@ -210,13 +257,29 @@ export async function loginAs(page: Page, username: string, password: string, ex
   // replacement document is ready, so wait for the stable login form instead
   // of starting a competing same-URL navigation that can be aborted.
   await expect(identifier).toBeVisible();
+  await waitForLoginFormReady(page);
+  const passwordInput = page.getByLabel(/^password$/i);
   await identifier.fill(username);
-  await page.getByLabel(/^password$/i).fill(password);
+  await passwordInput.fill(password);
+  await expect(identifier).toHaveValue(username);
+  await expect(passwordInput).toHaveValue(password);
+  const loginResponsePromise = page.waitForResponse((response) => {
+    try {
+      return new URL(response.url()).pathname === "/api/auth/login" && response.request().method() === "POST";
+    } catch {
+      return false;
+    }
+  });
   const destinationDocument = page.waitForNavigation({
     waitUntil: "domcontentloaded",
     timeout: LOGIN_NAVIGATION_TIMEOUT_MS
   });
   await clickLoginSubmit(page);
+  const loginResponse = await loginResponsePromise;
+  if (!loginResponse.ok()) {
+    await destinationDocument.catch(() => undefined);
+  }
+  expect(loginResponse.ok(), `login POST returned ${loginResponse.status()}`).toBeTruthy();
   await destinationDocument;
   await expect(page).toHaveURL(expectedPath, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
   // `window.location.replace` updates the visible URL before the replacement

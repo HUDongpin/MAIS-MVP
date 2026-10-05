@@ -357,6 +357,13 @@ export function teacherOpsSeedTeacherClassRecords(
   ];
 }
 
+// Student Jon is the internal California demo student (`student-jon-us-ca-super`).
+// Messaging and assignment submission both require a class enrollment, and this
+// id is stable so normalizeDatabase can backfill an existing snapshot without
+// duplicating the row or replacing one that is already stored.
+const californiaGradeOneClassId = "class-us-ca-p1-2026";
+const internalCaliforniaSuperStudentId = "student-jon-us-ca-super";
+
 export function teacherOpsSeedClassEnrollmentRecords(
   now: string,
   {
@@ -374,8 +381,14 @@ export function teacherOpsSeedClassEnrollmentRecords(
   const publicExampleEnrollments: TeacherOpsClassEnrollmentRecord[] = [
     {
       id: "enrollment-us-ca-p1-student-shirleen",
-      class_id: "class-us-ca-p1-2026",
+      class_id: californiaGradeOneClassId,
       student_id: unitedStatesDemoUserId,
+      joined_at: now
+    },
+    {
+      id: "enrollment-us-ca-p1-student-jon",
+      class_id: californiaGradeOneClassId,
+      student_id: internalCaliforniaSuperStudentId,
       joined_at: now
     }
   ];
