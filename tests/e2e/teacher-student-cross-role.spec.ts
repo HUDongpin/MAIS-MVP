@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { loginAs, loginAsTeacher, logoutIfVisible, registerStudentApi, uniqueSuffix } from "./helpers";
+import { loginAs, loginAsTeacher, logoutIfVisible, registerStudentApi, sendTeacherInboxReply, uniqueSuffix } from "./helpers";
 
 function escapeRegex(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -58,8 +58,7 @@ test.describe.serial("teacher-student cross-role workflows", () => {
     await teacherThread.click();
     await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(messageSubject), "i") })).toBeVisible();
     await page.getByPlaceholder(/Reply to the student/i).fill(teacherReply);
-    await page.getByRole("button", { name: /Send reply/i }).click();
-    await expect(page.getByPlaceholder(/Reply to the student/i)).toBeEmpty();
+    await sendTeacherInboxReply(page);
 
     const assignmentResponse = await page.request.post("/api/teacher/assignments", {
       data: {
