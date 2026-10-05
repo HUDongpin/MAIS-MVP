@@ -439,10 +439,12 @@ test("the demo classroom's assessment is reachable from the student's task list"
       shouldSeedDemoUser,
       demoUserId: "student-peter"
     }) ?? [];
-    const linked = submissions.find((candidate) => candidate.assignment_id === assessmentAssignmentId);
-    assert.ok(linked, "the enrolled demo learner needs a submission row for it to appear in her list");
-    assert.equal(linked?.student_id, "student-shirleen-us");
-    assert.equal(linked?.status, "not-started");
+    const linked = submissions.filter((candidate) => candidate.assignment_id === assessmentAssignmentId);
+    assert.deepEqual(linked.map((candidate) => candidate.student_id), [
+      "student-shirleen-us",
+      "student-jon-us-ca-super"
+    ]);
+    assert.ok(linked.every((candidate) => candidate.status === "not-started"));
   }
 });
 
@@ -458,23 +460,37 @@ test("teacher ops assignment persistence owns seed submission records for legacy
 
   // The California Grade 1 row is seeded either way: that learner is a separate
   // seeded account from the demo user this flag gates.
-  const californiaGradeOneSubmission = {
-    id: "submission-us-ca-p1-add-subtract-check-shirleen",
-    assignment_id: "assignment-us-ca-p1-add-subtract-check",
-    student_id: "student-shirleen-us",
-    status: "not-started",
-    score: null,
-    submitted_at: null,
-    graded_at: null,
-    feedback_en: "",
-    feedback_zh: "",
-    updated_at: "2026-06-20T10:00:00.000Z"
-  };
+  const californiaGradeOneSubmissions = [
+    {
+      id: "submission-us-ca-p1-add-subtract-check-shirleen",
+      assignment_id: "assignment-us-ca-p1-add-subtract-check",
+      student_id: "student-shirleen-us",
+      status: "not-started",
+      score: null,
+      submitted_at: null,
+      graded_at: null,
+      feedback_en: "",
+      feedback_zh: "",
+      updated_at: "2026-06-20T10:00:00.000Z"
+    },
+    {
+      id: "submission-us-ca-p1-add-subtract-check-jon",
+      assignment_id: "assignment-us-ca-p1-add-subtract-check",
+      student_id: "student-jon-us-ca-super",
+      status: "not-started",
+      score: null,
+      submitted_at: null,
+      graded_at: null,
+      feedback_en: "",
+      feedback_zh: "",
+      updated_at: "2026-06-20T10:00:00.000Z"
+    }
+  ];
 
   assert.deepEqual(module.teacherOpsSeedSubmissionRecords?.("2026-06-20T10:00:00.000Z", {
     shouldSeedDemoUser: () => false,
     demoUserId: "student-peter"
-  }), [californiaGradeOneSubmission]);
+  }), californiaGradeOneSubmissions);
 
   assert.deepEqual(module.teacherOpsSeedSubmissionRecords?.("2026-06-20T10:00:00.000Z", {
     shouldSeedDemoUser: () => true,
@@ -492,7 +508,7 @@ test("teacher ops assignment persistence owns seed submission records for legacy
       feedback_zh: "",
       updated_at: "2026-06-20T10:00:00.000Z"
     },
-    californiaGradeOneSubmission
+    ...californiaGradeOneSubmissions
   ]);
 });
 
@@ -648,6 +664,7 @@ test("teacher ops assignment persistence owns assignment collection normalizatio
   assert.deepEqual(normalized?.submissions.map((submission) => submission.id), [
     "submission-quadratics-student-peter",
     "submission-us-ca-p1-add-subtract-check-shirleen",
+    "submission-us-ca-p1-add-subtract-check-jon",
     "submission-custom"
   ]);
   assert.equal(normalized?.submissions[0]?.student_id, "student-custom");
@@ -704,6 +721,18 @@ test("teacher ops assignment persistence owns assignment collection normalizatio
         id: "submission-us-ca-p1-add-subtract-check-shirleen",
         assignment_id: "assignment-us-ca-p1-add-subtract-check",
         student_id: "student-shirleen-us",
+        status: "not-started",
+        score: null,
+        submitted_at: null,
+        graded_at: null,
+        feedback_en: "",
+        feedback_zh: "",
+        updated_at: "2026-06-20T10:00:00.000Z"
+      },
+      {
+        id: "submission-us-ca-p1-add-subtract-check-jon",
+        assignment_id: "assignment-us-ca-p1-add-subtract-check",
+        student_id: "student-jon-us-ca-super",
         status: "not-started",
         score: null,
         submitted_at: null,
