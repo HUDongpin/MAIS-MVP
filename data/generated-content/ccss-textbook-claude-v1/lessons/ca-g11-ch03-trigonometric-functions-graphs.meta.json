@@ -1,0 +1,47 @@
+{
+  "slug": "ca-g11-ch03-trigonometric-functions-graphs",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s5-chapter-03",
+  "title": "Trigonometric Functions and Graphs",
+  "standardIds": [
+    "F-TF.2",
+    "F-TF.1",
+    "F-TF.3",
+    "F-TF.4",
+    "F-TF.5",
+    "F-TF.6",
+    "F-TF.7",
+    "F-TF.8",
+    "F-TF.9"
+  ],
+  "summary": "Step a turning wheel around and watch the rider's height trace the sine wave beside it, point for point.",
+  "emoji": "🎡",
+  "narration": "Picture yourself on a wheel that turns at a steady rate. Your height is not a straight line, it is a wave that repeats every single turn. In this opener you step the wheel around and watch the rider on the left and the dot on the graph move together, with the exact values of cosine and sine printed as you go. Everything else in the chapter is one piece of that picture, looked at closely.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A wheel has radius 8 m and its hub is 10 m above the ground. The turn angle is measured from the hub's level on the right-hand side, so the rider's height is h = 10 + 8 sin(angle). How high is the rider, in meters, at a turn angle of 30 degrees?",
+      "answer": 14,
+      "explanation": "sin 30 degrees = 1/2 exactly, from the 30-60-90 triangle. So h = 10 + 8(1/2) = 10 + 4 = 14 meters, which is 4 m above the hub and well inside the band from 10 - 8 = 2 m to 10 + 8 = 18 m."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A rider boards at the bottom of a wheel, and their height in meters after t seconds is h(t) = 15 - 12 cos(pi t / 5). The rider passes a height of 9 m twice on the way round. At what time t, in seconds, does the SECOND pass happen? Round to two decimal places.",
+      "answer": 8.33,
+      "tolerance": 0.01,
+      "explanation": "Set 15 - 12 cos(pi t / 5) = 9, so -12 cos(pi t / 5) = -6 and cos(pi t / 5) = 1/2. On the restricted domain 0 to pi, where cosine is one-to-one, arccos(1/2) = pi/3, giving pi t / 5 = pi/3 and the first pass at t = 5/3 s. The second pass is the mirror angle: cosine is even, so pi t / 5 = 2pi - pi/3 = 5pi/3, and t = (5pi/3)(5/pi) = 25/3 = 8.33 s. Equivalently, one turn takes 2pi / (pi/5) = 10 s, and the second pass is 10 - 5/3 = 25/3 s. Check: cos(pi(25/3)/5) = cos(5pi/3) = 1/2, so h = 15 - 12(1/2) = 9."
+    },
+    {
+      "kind": "mc",
+      "prompt": "An angle in standard position has sin(theta) = 3/5, and its terminal ray lies in the second quadrant. What is cos(theta)?",
+      "choices": [
+        "4/5",
+        "-4/5",
+        "-3/5",
+        "3/4"
+      ],
+      "answer": 1,
+      "explanation": "The Pythagorean identity gives cos^2(theta) = 1 - (3/5)^2 = 1 - 9/25 = 16/25, so cos(theta) = 4/5 or -4/5. In the second quadrant the x-coordinate on the unit circle is negative, so cos(theta) = -4/5."
+    }
+  ]
+}

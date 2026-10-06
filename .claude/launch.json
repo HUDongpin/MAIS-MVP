@@ -182,6 +182,16 @@
       ],
       "port": 3318,
       "autoPort": false
+    },
+    {
+      "name": "mais-claude-textbook-wt",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd '/Volumes/Starship/MAIS的衍生文件/MAIS-claude-textbook-wt' && AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_PROVIDER_PROFILE=offline-fixture OPENAI_API_KEY= ANTHROPIC_API_KEY= HK_MATH_DB_PATH=.tmp/claude-textbook/hk-math.sqlite NEXT_DIST_DIR=.tmp/claude-textbook/next-dist exec npx next dev -p 3188"
+      ],
+      "port": 3188,
+      "autoPort": false
     }
   ]
 }

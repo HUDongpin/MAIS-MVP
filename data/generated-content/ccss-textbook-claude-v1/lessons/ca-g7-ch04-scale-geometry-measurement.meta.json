@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g7-ch04-scale-geometry-measurement",
+  "gradeId": "7",
+  "topicId": "us-ca-math-s1-chapter-04",
+  "title": "Scale, Geometry, and Measurement",
+  "standardIds": ["7.G.A.1", "7.G.B.4", "7.G.B.6"],
+  "summary": "Resize a park plan, its fountain, and the pool's depth, then read off real lengths, areas, circumference, and the pool's volume.",
+  "emoji": "🗺️",
+  "narration": "Imagine holding the plan for a new park on a single sheet of paper. Every line on it stands for real meters on the ground, so once you know the scale you can find the length of the fence, the size of the fountain, and how much water the pool holds. Depth is the one measurement a flat plan cannot draw, which is why a cross-section, the flat shape you expose by cutting straight across the pool, is drawn beside it. Change the plan and watch every measurement update.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A map uses the scale 1 cm = 25 m. A rectangular field measures 6.4 cm by 4 cm on the map. What is the real area of the field, in square meters?",
+      "answer": 16000,
+      "explanation": "Scale each length first: real length = map length x the scale, so 6.4 x 25 = 160 m and 4 x 25 = 100 m. Real area = 160 x 100 = 16000 m^2. Checking the other way: 1 cm^2 of map stands for 25 x 25 = 625 m^2 of ground, and the map area 6.4 x 4 = 25.6 cm^2 gives 25.6 x 625 = 16000 m^2."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "On a plan with the scale 1 unit = 3.5 m, a circular pond is drawn with a radius of 2 units. What is the real circumference of the pond, in meters, rounded to two decimal places?",
+      "answer": 43.98,
+      "tolerance": 0.01,
+      "explanation": "Real radius = 2 x 3.5 = 7 m. Circumference C = 2 x pi x r = 2 x pi x 7 = 14 pi = 43.98 m (to two decimal places)."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A park's rectangular pool is 12 m long, 5 m wide, and 2 m deep. How much water does it hold when it is full?",
+      "choices": ["60 m³", "120 m³", "128 m³", "240 m³"],
+      "answer": 1,
+      "explanation": "The pool is a right prism, so volume = base area x depth. Its floor is 12 x 5 = 60 m^2, and stacking that floor through a depth of 2 m gives 60 x 2 = 120 m^3. (60 m^2 is the floor alone, and 128 m^2 is the floor plus four walls: 60 + 2 x 12 x 2 + 2 x 5 x 2 = 60 + 48 + 20.)"
+    }
+  ]
+}

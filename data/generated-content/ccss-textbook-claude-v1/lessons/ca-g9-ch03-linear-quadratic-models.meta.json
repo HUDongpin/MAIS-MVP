@@ -1,0 +1,31 @@
+{
+  "slug": "ca-g9-ch03-linear-quadratic-models",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s3-chapter-03",
+  "title": "Linear and Quadratic Models",
+  "standardIds": ["A-REI.11", "A-REI.7", "A-REI.4", "A-REI.10", "A-SSE.3", "A-SSE.1", "A-REI.1", "A-REI.3", "A-SSE.2"],
+  "summary": "Throw a ball beside a rising drone; see the quadratic's vertex, the linear model, and the times when the two heights match.",
+  "emoji": "🚁",
+  "narration": "Picture a ball thrown straight up while a drone rises beside it at a steady speed. The drone's height is a linear model, and the ball's height, pulled down by gravity, is a quadratic model. In this chapter you will set models equal to find when things happen, rewrite a quadratic to reveal its peak, and see that where two graphs cross, their equations agree. Try changing the throw and the drone, and watch every readout update.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A drone rises at a steady 6 ft/s from a 14 ft platform, so its height after t seconds is d(t) = 6t + 14. After how many seconds is the drone 50 ft high?",
+      "answer": 6,
+      "explanation": "Set the model equal to the target: 6t + 14 = 50. Subtract 14 from both sides: 6t = 36. Divide both sides by 6: t = 6. Check: 6 × 6 + 14 = 36 + 14 = 50."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A ball is thrown straight up from 3 ft at 56 ft/s, so h(t) = −16t² + 56t + 3. What is the greatest height it reaches, in feet?",
+      "answer": 52,
+      "explanation": "The vertex is at t = 56/32 = 1.75 s. Then h(1.75) = −16(1.75)² + 56(1.75) + 3 = −16(3.0625) + 98 + 3 = −49 + 101 = 52. Completing the square gives the same: h(t) = −16(t − 1.75)² + 3 + 56²/64 = −16(t − 1.75)² + 3 + 49, so the peak is 52 ft."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A ball's height is h(t) = −16t² + 32t + 6, and a drone hovers at a constant 22 ft. How many times after the throw (t ≥ 0) is the ball at exactly the drone's height?",
+      "choices": ["0", "1", "2", "3"],
+      "answer": 1,
+      "explanation": "Set h(t) = 22: −16t² + 32t + 6 = 22, so −16t² + 32t − 16 = 0. Divide by −16: t² − 2t + 1 = 0. The discriminant is (−2)² − 4(1)(1) = 4 − 4 = 0, so there is exactly one solution, t = 1. That is the vertex: 6 + 32²/64 = 6 + 16 = 22 ft, so the ball just touches the drone's height once, at its peak."
+    }
+  ]
+}

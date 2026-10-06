@@ -11,7 +11,7 @@
  *
  * Run: node scripts/generate-ccss-registry.mjs
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,11 +20,27 @@ const snapshot = JSON.parse(
   readFileSync(path.join(maisRoot, "data", "generated-content", "ccss-textbook-source-v1", "source.json"), "utf8")
 );
 
+// MAIS-authored interactive lessons (the Claude chapter openers that replaced the
+// Codex text-only California textbooks, 2026-09-02). Same record shape as the
+// upstream snapshot plus `topicId` (the chapter the lesson opens) and an authored
+// read-aloud `narration`. Optional so the generator still runs on a checkout that
+// predates the snapshot.
+const claudeSnapshotPath = path.join(maisRoot, "data", "generated-content", "ccss-textbook-claude-v1", "source.json");
+const claudeSnapshot = existsSync(claudeSnapshotPath) ? JSON.parse(readFileSync(claudeSnapshotPath, "utf8")) : { lessons: [] };
+
 // HS lessons get a nominal S3 grade: their real course home (S3–S6) comes
 // from the assignments join, and `grade` only drives the reading band, which
 // is "high" for every HS course.
 const gradeMap = { K: "K", 1: "P1", 2: "P2", 3: "P3", 4: "P4", 5: "P5", 6: "P6", 7: "S1", 8: "S2", HS: "S3" };
-const lessons = snapshot.lessons;
+const lessons = [
+  ...snapshot.lessons.map((lesson) => ({ ...lesson, source: "ccss-math-textbook" })),
+  ...claudeSnapshot.lessons.map((lesson) => ({ ...lesson, source: "mais-claude" }))
+];
+const seenSlugs = new Set();
+for (const lesson of lessons) {
+  if (seenSlugs.has(lesson.slug)) throw new Error(`${lesson.slug}: duplicate slug across snapshots`);
+  seenSlugs.add(lesson.slug);
+}
 
 for (const lesson of lessons) {
   if (!gradeMap[lesson.gradeId]) throw new Error(`${lesson.slug}: unsupported gradeId ${lesson.gradeId}`);
@@ -41,7 +57,10 @@ const metaEntries = lessons
     title: ${quote(lesson.title)},
     standardIds: ${JSON.stringify(lesson.standardIds)},
     summary: ${quote(lesson.summary)},
-    emoji: ${quote(lesson.emoji)}
+    emoji: ${quote(lesson.emoji)},
+    source: ${quote(lesson.source)}${lesson.topicId ? `,
+    topicId: ${quote(lesson.topicId)}` : ""}${lesson.narration ? `,
+    narration: ${quote(lesson.narration)}` : ""}
   })`)
   .join(",\n");
 
@@ -52,15 +71,18 @@ import type { GradeId } from "@/types";
  * GENERATED FILE — do not hand-edit. Regenerate with:
  *   node scripts/generate-ccss-registry.mjs
  *
- * Server-safe metadata for the ${lessons.length} interactive CCSS textbook lessons
- * ported from the CCSS-Math-Textbook app (snapshot: ccss-textbook-source-v1,
- * ${snapshot.generatedAt}). Mirrors the signature-lab port pattern: metadata
- * lives here and is importable anywhere; the interactive bodies live in
- * \`components/lesson/ccss/lessons/\` and load through the code-split routes in
- * \`components/lesson/ccss/registry.ts\`.
+ * Server-safe metadata for the ${lessons.length} interactive CCSS textbook lessons:
+ * ${snapshot.lessons.length} ported from the CCSS-Math-Textbook app (snapshot:
+ * ccss-textbook-source-v1, ${snapshot.generatedAt}) and ${claudeSnapshot.lessons.length} MAIS-authored
+ * chapter openers (snapshot: ccss-textbook-claude-v1${claudeSnapshot.generatedAt ? `, ${claudeSnapshot.generatedAt}` : ""}) that
+ * replaced the Codex text-only California textbooks. Mirrors the signature-lab
+ * port pattern: metadata lives here and is importable anywhere; the interactive
+ * bodies live in \`components/lesson/ccss/lessons/\` and load through the
+ * code-split routes in \`components/lesson/ccss/registry.ts\`.
  *
  * Read-aloud narrations resolve from data/ccssTextbookNarrations.ts (hand-
- * authored overrides) with the lesson summary as fallback.
+ * authored overrides), then the snapshot's authored narration, then the lesson
+ * summary as fallback.
  */
 
 export type CcssTextbookLessonId =
@@ -77,12 +99,20 @@ export type CcssTextbookLessonMeta = {
   standardIds: string[];
   summary: string;
   emoji: string;
-  /** Read-aloud script for the AI audio guide (override ?? summary). */
+  /** Where the lesson body came from: the ported upstream library, or MAIS-authored (Claude). */
+  source: CcssTextbookLessonSource;
+  /** For MAIS-authored chapter openers: the California chapter topic the lesson opens. */
+  topicId?: string;
+  /** Read-aloud script for the AI audio guide (override ?? authored narration ?? summary). */
   narration: string;
 };
 
-function withNarration(meta: Omit<CcssTextbookLessonMeta, "narration">): CcssTextbookLessonMeta {
-  return { ...meta, narration: ccssTextbookNarrationOverrides[meta.slug] ?? meta.summary };
+export type CcssTextbookLessonSource = "ccss-math-textbook" | "mais-claude";
+
+function withNarration(
+  meta: Omit<CcssTextbookLessonMeta, "narration"> & { narration?: string }
+): CcssTextbookLessonMeta {
+  return { ...meta, narration: ccssTextbookNarrationOverrides[meta.slug] ?? meta.narration ?? meta.summary };
 }
 
 export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLessonMeta> = {
@@ -139,7 +169,8 @@ import type { CcssLessonHostProps } from "@/components/lesson/ccss/CcssLessonAda
  * GENERATED FILE — do not hand-edit. Regenerate with:
  *   node scripts/generate-ccss-registry.mjs
  *
- * Code-split routes for the ${lessons.length} ported CCSS textbook lesson bodies. Each
+ * Code-split routes for the ${lessons.length} interactive CCSS textbook lesson bodies
+ * (${snapshot.lessons.length} ported + ${claudeSnapshot.lessons.length} MAIS-authored chapter openers). Each
  * lesson loads on its own chunk (with the shared adapter), so the lesson-page
  * shell bundle never carries lesson bodies the student didn't open — the same
  * pattern as \`SignatureLabRoutes\` in VisualizationLabPage.
@@ -158,4 +189,4 @@ export function getCcssLessonComponent(slug: string): ComponentType<CcssLessonHo
 
 writeFileSync(path.join(maisRoot, "data", "ccssTextbookRegistry.ts"), registryTs);
 writeFileSync(path.join(maisRoot, "components", "lesson", "ccss", "registry.ts"), routesTs);
-console.log(`generate-ccss-registry: wrote registry (${lessons.length} lessons) + routes`);
+console.log(`generate-ccss-registry: wrote registry (${lessons.length} lessons: ${snapshot.lessons.length} ported + ${claudeSnapshot.lessons.length} MAIS-authored) + routes`);

@@ -15,7 +15,7 @@
  *
  * Run: node scripts/build-ccss-lesson-assignments.mjs
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -26,6 +26,20 @@ const snapshot = JSON.parse(
 const topicPack = JSON.parse(
   readFileSync(path.join(maisRoot, "data", "generated-content", "us-ca-math-k-g5-textbooks-v1", "lessons.json"), "utf8")
 );
+
+// MAIS-authored chapter openers (Claude, 2026-09-02): one interactive lesson per
+// G6-G12 chapter topic that replaced the Codex text-only California textbooks.
+// Each carries the `topicId` it opens and is pinned as that chapter's primary so
+// the lesson page and the textbook routes open with it. Optional so this
+// generator still runs on a checkout that predates the snapshot.
+const claudeSnapshotPath = path.join(maisRoot, "data", "generated-content", "ccss-textbook-claude-v1", "source.json");
+const claudeSnapshot = existsSync(claudeSnapshotPath) ? JSON.parse(readFileSync(claudeSnapshotPath, "utf8")) : { lessons: [] };
+const openerByTopicId = new Map();
+for (const lesson of claudeSnapshot.lessons) {
+  if (!lesson.topicId) throw new Error(`${lesson.slug}: MAIS-authored lesson has no topicId`);
+  if (openerByTopicId.has(lesson.topicId)) throw new Error(`${lesson.topicId}: two chapter openers (${openerByTopicId.get(lesson.topicId).slug}, ${lesson.slug})`);
+  openerByTopicId.set(lesson.topicId, lesson);
+}
 
 /** Pin a topic's primary when the join order is not the right anchor. */
 const curatedPrimaries = {
@@ -48,7 +62,7 @@ for (const grade of snapshot.ccssGrades) {
   }
 }
 
-const lessons = snapshot.lessons.map((lesson) => ({
+const lessons = [...snapshot.lessons, ...claudeSnapshot.lessons].map((lesson) => ({
   slug: lesson.slug,
   grade: gradeMap[lesson.gradeId],
   standardIds: lesson.standardIds
@@ -175,7 +189,7 @@ for (const chapter of chapterList) {
   const override = chapterStandardPrefixes[chapter.topicId];
   const prefixes = override?.prefixes ?? [...chapter.tags].map(tagToPrefix);
   const lessonGrade = chapterGradeToLessonGrade[chapter.grade];
-  const candidates = snapshot.lessons
+  const candidates = [...snapshot.lessons, ...claudeSnapshot.lessons]
     .filter((candidate) => candidate.gradeId === lessonGrade && lessonMatchesPrefixes(candidate, prefixes))
     .sort(
       (a, b) =>
@@ -193,16 +207,30 @@ for (const chapter of chapterList) {
     if (!ordered.includes(curated)) throw new Error(`${chapter.topicId}: curated primary "${curated}" is not a candidate`);
     ordered = [curated, ...ordered.filter((slug) => slug !== curated)];
   }
+  // The MAIS-authored chapter opener leads the chapter ahead of any curated
+  // primary: it is the interactive textbook page for the chapter, and the
+  // ported per-standard lessons follow it in document standard order.
+  const opener = openerByTopicId.get(chapter.topicId);
+  if (opener) {
+    if (!ordered.includes(opener.slug)) {
+      throw new Error(
+        `${chapter.topicId}: chapter opener "${opener.slug}" cites [${opener.standardIds.join(", ")}], none under [${prefixes.join(", ")}]`
+      );
+    }
+    ordered = [opener.slug, ...ordered.filter((slug) => slug !== opener.slug)];
+  }
 
   assignments.push({
     topicId: chapter.topicId,
     primary: ordered[0],
     related: ordered.slice(1),
     rationale:
-      `${chapter.grade} chapter ${chapter.chapterNumber} "${chapter.title}": ${ordered.length} ported lesson(s) match ` +
+      `${chapter.grade} chapter ${chapter.chapterNumber} "${chapter.title}": ${ordered.length} lesson(s) match ` +
       `standard prefixes [${prefixes.join(", ")}]` +
       (override ? ` (title-over-tag curation: ${override.why})` : ` (from the chapter's bank domain tag)`) +
-      `. Primary is first in document standard order.`
+      (opener
+        ? `. Primary is the MAIS-authored chapter opener ${opener.slug} (ccss-textbook-claude-v1); ported lessons follow in document standard order.`
+        : `. Primary is first in document standard order.`)
   });
   for (const slug of ordered) {
     const homes = homesBySlug.get(slug);
