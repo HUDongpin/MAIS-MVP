@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "pr264-source-checks.v1",
+  "reviewerIdentity": "/root/a11_pr264_review",
+  "recordedAt": "2026-10-06T07:43:00.813281+00:00",
+  "baseCommit": "000e23d2951b31211370bd467dc56a953d8fcd54",
+  "sourceCommit": "0e11c83888b5f463b0169ebb3b5f73bba2e9f500",
+  "sourceTree": "547849e0d198eb185ba1287a997118b96904986b",
+  "toolingRelease": "1de0762402c6ae4f5227ac9241a814bc018b93ea",
+  "toolingTree": "76a49d6a8220ccb3e9742fbb71d1115f26233a54",
+  "sourceInventoryDigest": "c0d6c9555082ed61adfe9d412b4d74b0f975f9e254f1441c890e72901fc3f297",
+  "toolingDigest": "57dd4e66b7f7046a59522e49c21e6c6deaed439958fc16a10d3e6107dbcc30cf",
+  "observationRawSha256": "728f20e13198c00375e816d4b34363bf418790a12668fdd80b7c1467727d4758",
+  "sourceInventory": [
+    {
+      "path": "components/visualizations/ConfiguredVisualizationLab.tsx",
+      "before": {
+        "mode": "100644",
+        "objectId": "33e48560cc39fd342e7422bb2c4e53dc0f48fcff",
+        "rawSha256": "fab51264f8faae4188536a809842df9b8f5ce3b27eda5bffb6227dc05c87dca5"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "5059bb11feaef42f52ce7f43620a1d71f0724cf5",
+        "rawSha256": "52254b52f85680e18fa249ea3370b6ea421ad8daedf6a167f53195713503e0af"
+      }
+    },
+    {
+      "path": "tests/e2e/hk-coordinate-transform-user-points.spec.ts",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "edae3eff26a273d2940817cfe48ba08bbffce960",
+        "rawSha256": "01e67a0d475813ad40ccad43ef72ceeafd8709cbe1c2083f16661251b802d027"
+      }
+    }
+  ],
+  "toolingInventory": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "d4b6ebeb59860165b6516277e493eb8f7cd9014d",
+        "rawSha256": "eb2a3376df6a114f3951f34c5093895a8c0d53857e2911590b13327d7b4cec50"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "8bc44d4f1135b9c05c0a1f6f81f7c42c5a35495b",
+        "rawSha256": "9ae6fb24bf116c5339d5aae5734503f393582af3998e90fc51fb35c356b5e652"
+      }
+    },
+    {
+      "path": "docs/pr264-reviewed-code-gate.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "dd1d316a5bf87147ba6873f2f3878e815f85f69a",
+        "rawSha256": "8e2b2de50004d3408321fc3a9f07e51d4eea3a15144cad22155418f363c613d3"
+      }
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr264.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "dde9a70b72bdc9bdda0ab18f19a9df71312dd292",
+        "rawSha256": "26c1e7bd94ba17f5c7ca167b3a575405dfd1811a6625f6cf2ada96e4d6b5f5b4"
+      }
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "0d154691966fe1d563a355c92d8259f829d608b8",
+        "rawSha256": "4a672f38765a637e1beac65a0521abe21a60eeb8265cfe586e1016f9f089323c"
+      }
+    }
+  ],
+  "execution": {
+    "nodeVersion": "v24.15.0",
+    "platform": "macOS arm64",
+    "packageLockSha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+    "environment": {
+      "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+      "PLAYWRIGHT_BROWSER_CHANNEL": "",
+      "PLAYWRIGHT_PORT": "3395",
+      "PLAYWRIGHT_RUN_ID": "pr274-a11-T-1de07624-20261006-01"
+    },
+    "credentialsUsed": false,
+    "providerCalls": false,
+    "applicationBuild": "isolated Playwright production build",
+    "commands": [
+      {
+        "name": "models",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "components/visualizations/configuredVisualizationLabModel.test.ts",
+          "components/visualizations/configuredVisualizationLabRegressions.test.ts"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "2b5e273dede386c3a4b431acc4a2a88804171ee6bf557ceeb5157a22cecddc7c",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "startedAt": "2026-10-06T07:37:30.978371+00:00",
+        "finishedAt": "2026-10-06T07:37:34.123461+00:00",
+        "stdoutArtifact": "models.stdout",
+        "stderrArtifact": "models.stderr"
+      },
+      {
+        "name": "types",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "startedAt": "2026-10-06T07:37:34.127650+00:00",
+        "finishedAt": "2026-10-06T07:38:04.423018+00:00",
+        "stdoutArtifact": "types.stdout",
+        "stderrArtifact": "types.stderr"
+      },
+      {
+        "name": "browser",
+        "args": [
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "tests/e2e/hk-coordinate-transform-user-points.spec.ts",
+          "--project=desktop-chrome",
+          "--workers=1",
+          "--retries=0",
+          "--reporter=json"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "2503c83994e60291e868990fc89caa1615d834324356ac1eefceddd64cd3b54b",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "startedAt": "2026-10-06T07:38:04.425628+00:00",
+        "finishedAt": "2026-10-06T07:39:38.676450+00:00",
+        "stdoutArtifact": "browser.stdout",
+        "stderrArtifact": "browser.stderr"
+      }
+    ]
+  },
+  "results": {
+    "models": {
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0
+    },
+    "types": {
+      "exitCode": 0
+    },
+    "browser": {
+      "stats": {
+        "startTime": "2026-10-06T07:38:08.293Z",
+        "duration": 90350.677,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "independentCoordinatePairs": 45,
+      "modes": [
+        "Translate",
+        "Reflect",
+        "Dilate"
+      ],
+      "retryCount": 0,
+      "verifyBrowserReport": "pass",
+      "pageErrorAssertion": "passed for all three tests",
+      "scope": "synthetic local student fixture at committed T"
+    }
+  },
+  "gateSuites": {
+    "producer": "/root/a11_pr264_review",
+    "command": [
+      "node",
+      "--test",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs"
+    ],
+    "exitCode": 0,
+    "passed": 55,
+    "failed": 0,
+    "skipped": 0,
+    "stdoutArtifact": "gate-suites.stdout",
+    "stderrArtifact": "gate-suites.stderr",
+    "stdoutSha256": "5a4e4a89d26dfbadc7363f4179895eae4a1e64cec731c9da924f4042a43fd998",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "isolated synthetic contract fixture tests; not production admission"
+  },
+  "materialization": {
+    "nativeAbsolutePathHelper": {
+      "result": "limited",
+      "exitCode": 1,
+      "error": "ENAMETOOLONG",
+      "reason": "macOS absolute path length for deeply nested historical evidence",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "3427b308670327dd8fc0826f04a212d09d090d20f8d5179f824bfb2e33302605",
+      "stderrArtifact": "materialized-absolute.stderr"
+    },
+    "independentFdRelativeVerification": {
+      "result": "pass",
+      "scriptSha256": "8b620ab89920c7371f2bdf94e57600e9f79f8c339aeb04f0929b959b2fa01fda",
+      "before": {
+        "verifiedAt": "2026-10-06T07:41:22.958463+00:00",
+        "head": "1de0762402c6ae4f5227ac9241a814bc018b93ea",
+        "trackedFilesVerified": 11672,
+        "method": "fd-relative no-follow file traversal; every tracked mode and Git blob hash; all index flags H; clean status",
+        "result": "pass"
+      },
+      "after": {
+        "verifiedAt": "2026-10-06T07:42:04.727121+00:00",
+        "head": "1de0762402c6ae4f5227ac9241a814bc018b93ea",
+        "trackedFilesVerified": 11672,
+        "method": "fd-relative no-follow file traversal; every tracked mode and Git blob hash; all index flags H; clean status",
+        "result": "pass"
+      },
+      "beforeReceiptSha256": "328752b827c6eb16c09934b7b36d1c068449bdf5f7d296b8d92dc8690ecd4cbf",
+      "afterReceiptSha256": "cf57499ae6cde55517b4332ca9e0cddd8c853610e9818d2d68de04b8d3f2b425"
+    },
+    "gitStatusBeforeAndAfter": "clean",
+    "headUnchanged": true
+  },
+  "sourceObservation": {
+    "independentlyRecomputedAtT": true,
+    "matchesFrozenObservation": true,
+    "rawSha256": "728f20e13198c00375e816d4b34363bf418790a12668fdd80b7c1467727d4758"
+  },
+  "limitations": [
+    "The unmodified production checker must still pass at final E on Linux CI.",
+    "This source/tooling review is not merge, deployment, Preview, content promotion or whole-pack acceptance.",
+    "Prior uncommitted RED/GREEN evidence is historical context, not substituted for these fresh committed-T checks."
+  ],
+  "permissions": {
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false
+  }
+}
