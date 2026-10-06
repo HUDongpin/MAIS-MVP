@@ -51,7 +51,10 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          if [[ -e coordination/integration/reviewed-code/pr270-pr271-v1/admission.json || -L coordination/integration/reviewed-code/pr270-pr271-v1/admission.json ]]; then
+          if [[ -e coordination/integration/reviewed-code/pr264-v1/admission.json || -L coordination/integration/reviewed-code/pr264-v1/admission.json ]]; then
+            mode=$(node scripts/promotion-reviewed-code-pr264.mjs select \
+              --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          elif [[ -e coordination/integration/reviewed-code/pr270-pr271-v1/admission.json || -L coordination/integration/reviewed-code/pr270-pr271-v1/admission.json ]]; then
             mode=$(node scripts/promotion-reviewed-code-pr270-pr271.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           elif [[ -e coordination/integration/reviewed-code/pr259-v3/admission.json || -L coordination/integration/reviewed-code/pr259-v3/admission.json ]]; then
@@ -61,7 +64,7 @@ jobs:
             mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           fi
-          if [[ "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" ]]; then
+          if [[ "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" ]]; then
             echo "Unknown Promotion contract mode" >&2
             exit 1
           fi
@@ -213,6 +216,80 @@ jobs:
             --baseline-root "$RUNNER_TEMP/promotion-reviewed-code-pr270-pr271-baseline" \
             --baseline-event "$RUNNER_TEMP/promotion-reviewed-code-pr270-pr271-baseline-event.json" \
             --baseline-artifacts "$RUNNER_TEMP/promotion-reviewed-code-pr270-pr271-baseline-artifacts"
+
+      - name: Test exact PR264 reviewed-code contract
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        run: |
+          set -euo pipefail
+          node --test scripts/promotion-reviewed-code-pr259.test.mjs scripts/promotion-reviewed-code-pr270-pr271.test.mjs scripts/promotion-reviewed-code-pr264.test.mjs
+          npx playwright install --with-deps chromium
+
+      - name: Check current PR264 composition
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          artifacts="$RUNNER_TEMP/promotion-reviewed-code-pr264-artifacts"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          node scripts/promotion-reviewed-code-pr264.mjs check \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$artifacts"
+
+      - name: Prepare historical baseline for PR264 reviewed code
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          baseline="$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline"
+          execution="$RUNNER_TEMP/promotion-reviewed-code-pr264-execution"
+          artifacts="$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-artifacts"
+          for target in "$baseline" "$execution" "$artifacts"; do
+            test ! -e "$target" && test ! -L "$target"
+          done
+          git worktree add --detach "$baseline" 03717842b19e8b8fa9a3a2dbecf1b359bb842233
+          git worktree add --detach "$execution" ff709c0141ef8660604a20340b1c476bf2941f60
+          install -d -m 0700 "$artifacts"
+          node -e 'require("node:fs").writeFileSync(process.argv[1], JSON.stringify({number:259,pull_request:{base:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"},head:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"}}}), {flag:"wx",mode:0o600})' "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-event.json"
+          cd "$baseline"
+          npm ci --ignore-scripts
+          npm run test:promotion-gate
+          node --test scripts/promotion-required-check-legacy-successor-v1.test.mjs scripts/promotion-shadow-workflow-legacy-successor-v1.test.mjs scripts/correction-audit-alias.test.mjs
+          cd "$execution"
+          npm ci --ignore-scripts
+
+      - name: Verify historical non-live chain for PR264 reviewed code
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        run: |
+          set -euo pipefail
+          baseline="$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline"
+          node "$baseline/scripts/promotion-required-check-legacy-successor-v1.mjs" evaluate \
+            --repo "$baseline" --event-name pull_request --event-path "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-event.json" \
+            --execution "$RUNNER_TEMP/promotion-reviewed-code-pr264-execution" \
+            --artifact-root "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-artifacts" \
+            --run-id "ci-${{ github.run_id }}-${{ github.run_attempt }}-baseline-only"
+
+      - name: Finalize PR264 reviewed-code decision
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-reviewed-code-pr264.mjs finalize \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-reviewed-code-pr264-artifacts" \
+            --baseline-root "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline" \
+            --baseline-event "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-artifacts"
+
+      - name: Enforce PR264 reviewed-code required check
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-reviewed-code-pr264.mjs verify \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-reviewed-code-pr264-artifacts" \
+            --baseline-root "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline" \
+            --baseline-event "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-reviewed-code-pr264-baseline-artifacts"
 
       - name: Preflight legacy successor current head
         if: ${{ steps.contract.outputs.mode == 'successor' }}
@@ -771,4 +848,14 @@ jobs:
           path: |
             ${{ runner.temp }}/promotion-reviewed-code-pr270-pr271-artifacts
             ${{ runner.temp }}/promotion-reviewed-code-pr270-pr271-baseline-artifacts
+          if-no-files-found: error
+
+      - name: Upload PR264 reviewed-code and historical baseline evidence
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code-pr264' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: promotion-reviewed-code-pr264-v1-evidence
+          path: |
+            ${{ runner.temp }}/promotion-reviewed-code-pr264-artifacts
+            ${{ runner.temp }}/promotion-reviewed-code-pr264-baseline-artifacts
           if-no-files-found: error

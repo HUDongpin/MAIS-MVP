@@ -1819,11 +1819,7 @@ function TemplateMarks({
           );
         })}
         {(userPoints ?? []).map((point, index) => {
-          const transformedPoint = mode === 0
-            ? { x: point.x + state.dx, y: point.y + state.dy }
-            : mode === 1
-              ? { x: 2 * state.reflectionLineX - point.x, y: point.y + state.dy }
-              : { x: point.x * state.dilationScale, y: point.y * state.dilationScale + state.dy };
+          const transformedPoint = state.transformPoint(point);
           const sourceSvg = { x: state.origin.x + point.x * state.scale.x, y: state.origin.y - point.y * state.scale.y };
           const targetSvg = {
             x: state.origin.x + transformedPoint.x * state.scale.x,
