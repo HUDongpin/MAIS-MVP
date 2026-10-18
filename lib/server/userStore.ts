@@ -1,3 +1,7 @@
+import {
+  retainRecordsUnlessNewDemoSeed,
+  shouldBackfillDemoSeed
+} from "@/lib/server/demoSeedBackfill";
 import { captureServerError } from "@/lib/server/errorMonitor";
 import { classifyObservedError } from "@/lib/observability/errorPolicy";
 import { createHash, randomBytes, randomUUID } from "crypto";
@@ -2798,9 +2802,11 @@ const seedTeacherLiveResponses = (now: string): TeacherLiveResponseRecord[] =>
 
 function createInitialDatabase(): Database {
   const now = new Date().toISOString();
-  const demoPassword = getDemoPassword();
-  const password = hashPasswordFromAuthSessionPersistence(demoPassword);
-  const exampleAccountSeeds = storageSeedExampleAccountSeeds();
+  const allowDemoSeedBackfill = shouldBackfillDemoSeed();
+  const exampleAccountSeeds = allowDemoSeedBackfill ? storageSeedExampleAccountSeeds() : [];
+  const password = exampleAccountSeeds.length > 0
+    ? hashPasswordFromAuthSessionPersistence(getDemoPassword())
+    : { hash: "", salt: "" };
   const demoUser = exampleAccountSeeds.map((seed): UserRecord => ({
     id: seed.id,
     username: seed.username,
@@ -2857,7 +2863,7 @@ function createInitialDatabase(): Database {
     provisioning_batches: [],
     provisioning_row_results: [],
     guardian_invitations: [],
-    guardian_links: seedGuardianLinks(now),
+    guardian_links: allowDemoSeedBackfill ? seedGuardianLinks(now) : [],
     password_reset_tokens: [],
     topics: seedTopicRecords(),
     lessons: seedLessonRecords(),
@@ -2865,7 +2871,7 @@ function createInitialDatabase(): Database {
     questions: seedQuestionRecords(),
     attempts: [],
     mistakes: [],
-    lesson_progress: seedLessonProgressRecords(demoUserId, now),
+    lesson_progress: allowDemoSeedBackfill ? seedLessonProgressRecords(demoUserId, now) : [],
     teacher_mastery_targets: [],
     student_accommodations: [],
     teacher_student_groups: [],
@@ -2880,48 +2886,48 @@ function createInitialDatabase(): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
-    content_safety_flags: seedContentSafetyFlags(now),
+    content_safety_flags: allowDemoSeedBackfill ? seedContentSafetyFlags(now) : [],
     class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(now),
     nova_lens_policy_events: [],
     ai_tutor_transcript_access_events: [],
-    teacher_classes: seedTeacherClasses(now),
-    class_enrollments: seedClassEnrollments(now),
+    teacher_classes: allowDemoSeedBackfill ? seedTeacherClasses(now) : [],
+    class_enrollments: allowDemoSeedBackfill ? seedClassEnrollments(now) : [],
     class_roster_profiles: [],
-    assignments: seedAssignments(now),
+    assignments: allowDemoSeedBackfill ? seedAssignments(now) : [],
     deleted_assignment_ids: [],
-    submissions: seedSubmissions(now),
+    submissions: allowDemoSeedBackfill ? seedSubmissions(now) : [],
     assignment_submission_attempts: [],
     assignment_grading_runs: [],
     assignment_teacher_reviews: [],
-    teacher_messages: seedTeacherMessages(now),
-    teacher_message_entries: seedTeacherMessageEntries(now),
+    teacher_messages: allowDemoSeedBackfill ? seedTeacherMessages(now) : [],
+    teacher_message_entries: allowDemoSeedBackfill ? seedTeacherMessageEntries(now) : [],
     teacher_notices: [],
     teacher_notice_recipients: [],
     teacher_notice_delivery_attempts: [],
     teacher_reminder_runs: [],
-    teaching_resources: seedTeachingResources(now),
+    teaching_resources: allowDemoSeedBackfill ? seedTeachingResources(now) : [],
     teacher_lesson_kits: [],
     teacher_review_lessons: [],
     teacher_class_collaborators: [],
     prep_teams: [],
     prep_team_shares: [],
-    assessments: seedAssessments(now),
-    assessment_submissions: seedAssessmentSubmissions(now),
-    teacher_reports: seedTeacherReports(now),
+    assessments: allowDemoSeedBackfill ? seedAssessments(now) : [],
+    assessment_submissions: allowDemoSeedBackfill ? seedAssessmentSubmissions(now) : [],
+    teacher_reports: allowDemoSeedBackfill ? seedTeacherReports(now) : [],
     term_archives: [],
-    teacher_live_sessions: seedTeacherLiveSessions(now),
-    teacher_live_prompts: seedTeacherLivePrompts(now),
-    teacher_live_responses: seedTeacherLiveResponses(now),
+    teacher_live_sessions: allowDemoSeedBackfill ? seedTeacherLiveSessions(now) : [],
+    teacher_live_prompts: allowDemoSeedBackfill ? seedTeacherLivePrompts(now) : [],
+    teacher_live_responses: allowDemoSeedBackfill ? seedTeacherLiveResponses(now) : [],
     classroom_work_samples: [],
     teacher_live_tool_states: [],
     reward_catalog: seedRewardCatalogRecords(),
-    reward_point_ledger: seedRewardPointLedgerRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }),
-    reward_redemptions: seedRewardRedemptionRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }),
-    gamification_events: seedGamificationEventRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }),
-    reward_campaigns: seedRewardCampaignRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }),
-    forum_threads: seedForumThreadRecords(now),
+    reward_point_ledger: allowDemoSeedBackfill ? seedRewardPointLedgerRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }) : [],
+    reward_redemptions: allowDemoSeedBackfill ? seedRewardRedemptionRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }) : [],
+    gamification_events: allowDemoSeedBackfill ? seedGamificationEventRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }) : [],
+    reward_campaigns: allowDemoSeedBackfill ? seedRewardCampaignRecordsFromGamificationSeedRecords(now, { shouldSeedDemoUser, demoUserId, demoTeacherId }) : [],
+    forum_threads: allowDemoSeedBackfill ? seedForumThreadRecords(now) : [],
     forum_reports: [],
     forum_audit_events: [],
     forum_notifications: []
@@ -7139,8 +7145,200 @@ function localizedFromUnknown(value: unknown, fallback: LocalizedText): Localize
   return { en, zh };
 }
 
+const demoSafetyFlagIds = new Set(["safety-flag-demo-new", "safety-flag-demo-acknowledged"]);
+
+type DemoSeedRecordIdentity = {
+  assessmentIds: ReadonlySet<string>;
+  assessmentSubmissionIds: ReadonlySet<string>;
+  assignmentIds: ReadonlySet<string>;
+  enrollmentIds: ReadonlySet<string>;
+  forumThreadIds: ReadonlySet<string>;
+  gamificationEventIds: ReadonlySet<string>;
+  guardianLinkIds: ReadonlySet<string>;
+  lessonProgressKeys: ReadonlySet<string>;
+  livePromptIds: ReadonlySet<string>;
+  liveResponseIds: ReadonlySet<string>;
+  liveSessionIds: ReadonlySet<string>;
+  messageEntryIds: ReadonlySet<string>;
+  messageIds: ReadonlySet<string>;
+  reportIds: ReadonlySet<string>;
+  resourceIds: ReadonlySet<string>;
+  rewardCampaignIds: ReadonlySet<string>;
+  rewardLedgerIds: ReadonlySet<string>;
+  rewardRedemptionIds: ReadonlySet<string>;
+  safetyFlagIds: ReadonlySet<string>;
+  submissionIds: ReadonlySet<string>;
+  teacherClassIds: ReadonlySet<string>;
+  userIds: ReadonlySet<string>;
+};
+
+let cachedDemoSeedRecordIdentity: DemoSeedRecordIdentity | null = null;
+
+function recordIds<T>(records: readonly T[], key: (record: T) => string) {
+  return new Set(records.map(key));
+}
+
+function demoSeedRecordIdentity(): DemoSeedRecordIdentity {
+  if (cachedDemoSeedRecordIdentity) return cachedDemoSeedRecordIdentity;
+  const now = "1970-01-01T00:00:00.000Z";
+  const seedEveryDemoUser = () => true;
+  const rewardSeedOptions = {
+    demoTeacherId,
+    demoUserId,
+    shouldSeedDemoUser: seedEveryDemoUser
+  };
+  cachedDemoSeedRecordIdentity = {
+    assessmentIds: recordIds(seedAssessments(now), (row) => row.id),
+    assessmentSubmissionIds: recordIds(seedAssessmentSubmissionsFromTeacherOpsAssessment(now, {
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    assignmentIds: recordIds(seedAssignments(now), (row) => row.id),
+    enrollmentIds: recordIds(seedClassEnrollmentsFromTeacherOpsClass(now, {
+      demoUserId,
+      mainlandDemoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser,
+      unitedStatesDemoUserId
+    }), (row) => row.id),
+    forumThreadIds: recordIds(seedForumThreadRecordsFromTeacherOpsForum(now, {
+      seedThreads: forumSeedThreads,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (thread) => thread.threadId),
+    gamificationEventIds: recordIds(
+      seedGamificationEventRecordsFromGamificationSeedRecords(now, rewardSeedOptions),
+      (row) => row.id
+    ),
+    guardianLinkIds: recordIds(seedGuardianLinksFromParentAccess(now, {
+      demoParentId,
+      demoTeacherId,
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (link) => link.id),
+    lessonProgressKeys: new Set(seededExampleAccountSeeds.flatMap((seed) =>
+      seedTopics.map((topic) => `${seed.id}:${topic.id}`)
+    )),
+    livePromptIds: recordIds(seedTeacherLivePromptsFromTeacherOpsLiveSession(now, {
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    liveResponseIds: recordIds(seedTeacherLiveResponsesFromTeacherOpsLiveSession(now, {
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    liveSessionIds: recordIds(seedTeacherLiveSessionsFromTeacherOpsLiveSession(now, {
+      demoTeacherId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    messageEntryIds: recordIds(seedTeacherMessageEntriesFromTeacherOpsInbox(now, {
+      demoTeacherId,
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    messageIds: recordIds(seedTeacherMessagesFromTeacherOpsInbox(now, {
+      demoTeacherId,
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    reportIds: recordIds(seedTeacherReportsFromTeacherOpsReport(now, {
+      demoTeacherId,
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    resourceIds: recordIds(seedTeachingResources(now), (row) => row.id),
+    rewardCampaignIds: recordIds(
+      seedRewardCampaignRecordsFromGamificationSeedRecords(now, rewardSeedOptions),
+      (row) => row.id
+    ),
+    rewardLedgerIds: recordIds(
+      seedRewardPointLedgerRecordsFromGamificationSeedRecords(now, rewardSeedOptions),
+      (row) => row.id
+    ),
+    rewardRedemptionIds: recordIds(
+      seedRewardRedemptionRecordsFromGamificationSeedRecords(now, rewardSeedOptions),
+      (row) => row.id
+    ),
+    safetyFlagIds: demoSafetyFlagIds,
+    submissionIds: recordIds(seedSubmissionsFromTeacherOpsAssignment(now, {
+      demoUserId,
+      shouldSeedDemoUser: seedEveryDemoUser
+    }), (row) => row.id),
+    teacherClassIds: recordIds(seedTeacherClasses(now), (row) => row.id),
+    userIds: new Set(seededExampleAccountSeeds.map((seed) => seed.id))
+  };
+  return cachedDemoSeedRecordIdentity;
+}
+
+function omitUnstoredDemoSeedRecords(existing: Partial<Database>, normalized: Database): Database {
+  const seed = demoSeedRecordIdentity();
+  const kept = <T>(
+    prior: readonly T[] | undefined,
+    records: readonly T[],
+    identity: (record: T) => string,
+    seedIds: ReadonlySet<string>
+  ) => retainRecordsUnlessNewDemoSeed(prior, records, identity, seedIds, false);
+
+  return {
+    ...normalized,
+    users: kept(existing.users, normalized.users, (user) => user.id, seed.userIds),
+    student_profiles: kept(existing.student_profiles, normalized.student_profiles, (profile) => profile.user_id, seed.userIds),
+    user_settings: kept(existing.user_settings, normalized.user_settings, (settings) => settings.user_id, seed.userIds),
+    guardian_links: kept(existing.guardian_links, normalized.guardian_links, (link) => link.id, seed.guardianLinkIds),
+    lesson_progress: kept(
+      existing.lesson_progress,
+      normalized.lesson_progress,
+      (progress) => `${progress.user_id}:${progress.topic_id}`,
+      seed.lessonProgressKeys
+    ),
+    content_safety_flags: kept(
+      existing.content_safety_flags,
+      normalized.content_safety_flags,
+      (flag) => flag.id,
+      seed.safetyFlagIds
+    ),
+    teacher_classes: kept(existing.teacher_classes, normalized.teacher_classes, (row) => row.id, seed.teacherClassIds),
+    class_enrollments: kept(existing.class_enrollments, normalized.class_enrollments, (row) => row.id, seed.enrollmentIds),
+    assignments: kept(existing.assignments, normalized.assignments, (row) => row.id, seed.assignmentIds),
+    submissions: kept(existing.submissions, normalized.submissions, (row) => row.id, seed.submissionIds),
+    teacher_messages: kept(existing.teacher_messages, normalized.teacher_messages, (row) => row.id, seed.messageIds),
+    teacher_message_entries: kept(
+      existing.teacher_message_entries,
+      normalized.teacher_message_entries,
+      (row) => row.id,
+      seed.messageEntryIds
+    ),
+    teaching_resources: kept(existing.teaching_resources, normalized.teaching_resources, (row) => row.id, seed.resourceIds),
+    assessments: kept(existing.assessments, normalized.assessments, (row) => row.id, seed.assessmentIds),
+    assessment_submissions: kept(
+      existing.assessment_submissions,
+      normalized.assessment_submissions,
+      (row) => row.id,
+      seed.assessmentSubmissionIds
+    ),
+    teacher_reports: kept(existing.teacher_reports, normalized.teacher_reports, (row) => row.id, seed.reportIds),
+    teacher_live_sessions: kept(
+      existing.teacher_live_sessions,
+      normalized.teacher_live_sessions,
+      (row) => row.id,
+      seed.liveSessionIds
+    ),
+    teacher_live_prompts: kept(existing.teacher_live_prompts, normalized.teacher_live_prompts, (row) => row.id, seed.livePromptIds),
+    teacher_live_responses: kept(
+      existing.teacher_live_responses,
+      normalized.teacher_live_responses,
+      (row) => row.id,
+      seed.liveResponseIds
+    ),
+    reward_point_ledger: kept(existing.reward_point_ledger, normalized.reward_point_ledger, (row) => row.id, seed.rewardLedgerIds),
+    reward_redemptions: kept(existing.reward_redemptions, normalized.reward_redemptions, (row) => row.id, seed.rewardRedemptionIds),
+    gamification_events: kept(existing.gamification_events, normalized.gamification_events, (row) => row.id, seed.gamificationEventIds),
+    reward_campaigns: kept(existing.reward_campaigns, normalized.reward_campaigns, (row) => row.id, seed.rewardCampaignIds),
+    forum_threads: kept(existing.forum_threads, normalized.forum_threads, (thread) => thread.threadId, seed.forumThreadIds)
+  };
+}
+
 function normalizeDatabase(database: Partial<Database>) {
   const now = new Date().toISOString();
+  const allowDemoSeedBackfill = shouldBackfillDemoSeed();
+  const persistedShouldSeedDemoUser = () => allowDemoSeedBackfill && shouldSeedDemoUser();
   const canonicalTopics = seedTopicRecords();
   const canonicalLessons = seedLessonRecords();
   const canonicalLessonBlocks = seedLessonBlockRecords();
@@ -7199,7 +7397,7 @@ function normalizeDatabase(database: Partial<Database>) {
     forum_audit_events: database.forum_audit_events,
     forum_notifications: database.forum_notifications
   }, now, {
-    shouldSeedDemoUser,
+    shouldSeedDemoUser: persistedShouldSeedDemoUser,
     seedThreads: forumSeedThreads
   });
   const normalizedTeacherClassCollections = normalizeTeacherClassCollectionsFromTeacherOpsClass({
@@ -7213,7 +7411,7 @@ function normalizeDatabase(database: Partial<Database>) {
     mainlandDemoTeacherId,
     mainlandDemoUserId,
     normalizeClassCode: normalizeClassCodeFromAuthProvisioning,
-    shouldSeedDemoUser,
+    shouldSeedDemoUser: persistedShouldSeedDemoUser,
     unitedStatesDemoTeacherId,
     unitedStatesDemoUserId
   });
@@ -7224,7 +7422,7 @@ function normalizeDatabase(database: Partial<Database>) {
     deletedAssignmentIds,
     demoTeacherId,
     demoUserId,
-    shouldSeedDemoUser
+    shouldSeedDemoUser: persistedShouldSeedDemoUser
   });
   const normalizedTeacherInboxCollections = normalizeTeacherInboxCollectionsFromTeacherOpsInbox({
     teacher_message_entries: database.teacher_message_entries,
@@ -7234,7 +7432,7 @@ function normalizeDatabase(database: Partial<Database>) {
     demoTeacherId,
     demoUserId,
     isValidParentMessageCategory: isValidParentMessageCategoryFromParentMessage,
-    shouldSeedDemoUser
+    shouldSeedDemoUser: persistedShouldSeedDemoUser
   });
   const normalizedTeachingResourceCollections = normalizeTeachingResourceCollectionsFromTeacherOpsResource({
     teaching_resources: database.teaching_resources
@@ -7248,14 +7446,14 @@ function normalizeDatabase(database: Partial<Database>) {
     demoTeacherId,
     demoUserId,
     questionExists: (questionId) => seedQuestions.some((question) => question.id === questionId),
-    shouldSeedDemoUser
+    shouldSeedDemoUser: persistedShouldSeedDemoUser
   });
   const normalizedTeacherReportCollections = normalizeTeacherReportCollectionsFromTeacherOpsReport({
     teacher_reports: database.teacher_reports
   }, now, {
     demoTeacherId,
     demoUserId,
-    shouldSeedDemoUser
+    shouldSeedDemoUser: persistedShouldSeedDemoUser
   });
   const normalizedTeacherLiveSessionCollections = normalizeTeacherLiveSessionCollectionsFromTeacherOpsLiveSession({
     teacher_live_prompts: database.teacher_live_prompts,
@@ -7264,16 +7462,18 @@ function normalizeDatabase(database: Partial<Database>) {
   }, now, {
     demoTeacherId,
     demoUserId,
-    shouldSeedDemoUser
+    shouldSeedDemoUser: persistedShouldSeedDemoUser
   });
 
-  syncDemoAccountsFromAuthSessionPersistence(users, studentProfiles, userSettings, now, {
-    demoAccountSeeds: storageSeedExampleAccountSeeds(),
-    demoPassword: getDemoPassword(),
-    fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
-    hashPassword: hashPasswordFromAuthSessionPersistence,
-    internalExampleAccountSeedForUserId
-  });
+  if (allowDemoSeedBackfill) {
+    syncDemoAccountsFromAuthSessionPersistence(users, studentProfiles, userSettings, now, {
+      demoAccountSeeds: storageSeedExampleAccountSeeds(),
+      demoPassword: getDemoPassword(),
+      fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
+      hashPassword: hashPasswordFromAuthSessionPersistence,
+      internalExampleAccountSeedForUserId
+    });
+  }
   syncBootstrapAdminFromAuthSessionPersistence(
     users,
     studentProfiles,
@@ -7298,7 +7498,7 @@ function normalizeDatabase(database: Partial<Database>) {
       sort_order: typeof topic.sort_order === "number" ? topic.sort_order : index
     }));
 
-  return {
+  const normalizedDatabase = {
     users,
     auth_identities: authIdentities,
     student_profiles: studentProfiles,
@@ -7316,7 +7516,7 @@ function normalizeDatabase(database: Partial<Database>) {
     ),
     guardian_invitations: normalizeGuardianInvitationRecordsFromParentAccess(database.guardian_invitations, now),
     guardian_links: normalizeGuardianLinkRecordsFromParentAccess(database.guardian_links, now, {
-      shouldSeedDemoUser,
+      shouldSeedDemoUser: persistedShouldSeedDemoUser,
       demoParentId,
       demoUserId,
       demoTeacherId
@@ -7351,7 +7551,7 @@ function normalizeDatabase(database: Partial<Database>) {
     lesson_progress: normalizeLessonProgressRecordsFromStudentActivityPersistence(
       database.lesson_progress?.length
         ? database.lesson_progress
-        : shouldSeedDemoUser()
+        : allowDemoSeedBackfill && shouldSeedDemoUser()
           ? seedLessonProgressRecords(demoUserId, now)
           : [],
       studentProfiles,
@@ -7434,18 +7634,18 @@ function normalizeDatabase(database: Partial<Database>) {
     reward_point_ledger: normalizeRewardPointLedgerRecordsFromGamificationSeedRecords(
       database.reward_point_ledger,
       now,
-      { shouldSeedDemoUser, demoUserId, demoTeacherId }
+      { shouldSeedDemoUser: persistedShouldSeedDemoUser, demoUserId, demoTeacherId }
     ),
     reward_redemptions: normalizeRewardRedemptionRecordsFromGamificationSeedRecords(
       database.reward_redemptions,
       now,
-      { shouldSeedDemoUser, demoUserId, demoTeacherId }
+      { shouldSeedDemoUser: persistedShouldSeedDemoUser, demoUserId, demoTeacherId }
     ),
     gamification_events: normalizeGamificationEventRecordsFromGamificationSeedRecords(
       database.gamification_events,
       database.reward_point_ledger,
       now,
-      { shouldSeedDemoUser, demoUserId, demoTeacherId }
+      { shouldSeedDemoUser: persistedShouldSeedDemoUser, demoUserId, demoTeacherId }
     ),
     practice_island_stars: normalizePracticeIslandStarRecords(database.practice_island_stars, now),
     fishing_dex: normalizeFishingDexRecords(database.fishing_dex, now),
@@ -7453,13 +7653,16 @@ function normalizeDatabase(database: Partial<Database>) {
     reward_campaigns: normalizeRewardCampaignRecordsFromGamificationSeedRecords(
       database.reward_campaigns,
       now,
-      { shouldSeedDemoUser, demoUserId, demoTeacherId }
+      { shouldSeedDemoUser: persistedShouldSeedDemoUser, demoUserId, demoTeacherId }
     ),
     forum_threads: normalizedForumCollections.forum_threads,
     forum_reports: normalizedForumCollections.forum_reports,
     forum_audit_events: normalizedForumCollections.forum_audit_events,
     forum_notifications: normalizedForumCollections.forum_notifications
   } satisfies Database;
+  return allowDemoSeedBackfill
+    ? normalizedDatabase
+    : omitUnstoredDemoSeedRecords(database, normalizedDatabase);
 }
 
 async function readLegacyDatabase() {
@@ -7596,12 +7799,12 @@ function databaseNeedsPersistenceSync(
     database.gamification_events.some((event) => !isValidGamificationEventSource(event.source) || !isValidGamificationEventStatus(event.status)) ||
     database.reward_campaigns.some((campaign) => !isValidRewardCampaignStatus(campaign.status)) ||
     database.nova_lens_runs.some((run) => novaLensRunNeedsPersistenceSyncFromNovaLensPersistence(run)) ||
-    demoRecordsNeedSyncFromAuthSessionPersistence(parsed, {
+    (shouldBackfillDemoSeed() && demoRecordsNeedSyncFromAuthSessionPersistence(parsed, {
       demoAccountSeeds: storageSeedExampleAccountSeeds(),
       demoPassword: getDemoPassword(),
       fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
       internalExampleAccountSeedForUserId
-    }) ||
+    })) ||
     bootstrapAdminNeedsSyncFromAuthSessionPersistence(
       parsed,
       bootstrapAdminInputFromAuthSessionPersistence()

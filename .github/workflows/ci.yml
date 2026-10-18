@@ -93,6 +93,8 @@ jobs:
       - name: Run California demo student-teacher link gate
         run: >-
           npx tsx --tsconfig tsconfig.json --test
+          lib/server/demoSeedBackfill.test.ts
+          lib/server/demoSeedBackfillPersistence.test.ts
           lib/server/userStoreDemoCaliforniaLink.test.ts
           lib/server/userStoreTeacherOpsClassPersistence.test.ts
           lib/server/userStoreTeacherOpsAssignmentPersistence.test.ts
