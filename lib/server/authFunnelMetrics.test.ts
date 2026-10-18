@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
+import { chmodSync, existsSync, rmSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import test from "node:test";
+import { describe, test } from "node:test";
 import {
   authFunnelRetentionDays,
   isValidAuthFunnelEvent,
@@ -32,6 +33,7 @@ async function withTempFunnelDatabase(run: () => void | Promise<void>) {
   }
 }
 
+describe("auth funnel metrics", { concurrency: false }, () => {
 test("event validation accepts the closed vocabulary and rejects everything else", () => {
   assert.equal(isValidAuthFunnelEvent({ event: "login_submit", detail: "credentials:success" }), true);
   assert.equal(isValidAuthFunnelEvent({ event: "login_submit", detail: "demo-cta:pending_curriculum" }), true);
@@ -107,4 +109,89 @@ test("read window filters by day and retention prunes old counters", async () =>
     assert.equal(days.includes("2026-07-18"), true);
     assert.equal(days.includes("2026-07-19"), true);
   });
+});
+
+test("recording creates a missing parent directory instead of failing the beacon write", async () => {
+  const previousPath = process.env.AUTH_FUNNEL_DB_PATH;
+  const root = await mkdtemp(path.join(tmpdir(), "mais-auth-funnel-missing-"));
+  const databasePath = path.join(root, "not-created-yet", "funnel.sqlite");
+  process.env.AUTH_FUNNEL_DB_PATH = databasePath;
+  resetAuthFunnelMetricsForTests();
+
+  try {
+    assert.equal(existsSync(path.dirname(databasePath)), false);
+    const accepted = recordAuthFunnelEvents([{ event: "register_step", detail: "account" }]);
+    assert.equal(accepted, 1);
+    const rows = readAuthFunnelCounters(1);
+    assert.equal(rows[0]?.event, "register_step");
+    assert.equal(rows[0]?.detail, "account");
+    assert.equal(rows[0]?.count, 1);
+  } finally {
+    resetAuthFunnelMetricsForTests();
+    restoreEnv("AUTH_FUNNEL_DB_PATH", previousPath);
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("Vercel relocates the funnel file when the main database directory is not writable", async () => {
+  const previous = {
+    AUTH_FUNNEL_DB_PATH: process.env.AUTH_FUNNEL_DB_PATH,
+    HK_MATH_DB_PATH: process.env.HK_MATH_DB_PATH,
+    HK_MATH_DB_DIR: process.env.HK_MATH_DB_DIR,
+    VERCEL: process.env.VERCEL,
+    VERCEL_ENV: process.env.VERCEL_ENV
+  };
+  const locked = await mkdtemp(path.join(tmpdir(), "mais-auth-funnel-locked-"));
+  rmSync(path.join(tmpdir(), "hk-math-lab"), { recursive: true, force: true });
+  chmodSync(locked, 0o555);
+  delete process.env.AUTH_FUNNEL_DB_PATH;
+  delete process.env.HK_MATH_DB_DIR;
+  delete process.env.VERCEL_ENV;
+  process.env.VERCEL = "1";
+  process.env.HK_MATH_DB_PATH = path.join(locked, "hk-math-db.sqlite");
+  resetAuthFunnelMetricsForTests();
+
+  try {
+    const accepted = recordAuthFunnelEvents([{ event: "register_step", detail: "curriculum" }]);
+    assert.equal(accepted, 1);
+    assert.equal(existsSync(path.join(locked, "auth-funnel-metrics.sqlite")), false);
+    const rows = readAuthFunnelCounters(1);
+    assert.equal(rows.some((row) => row.event === "register_step" && row.detail === "curriculum" && row.count === 1), true);
+  } finally {
+    resetAuthFunnelMetricsForTests();
+    chmodSync(locked, 0o755);
+    await rm(locked, { recursive: true, force: true });
+    rmSync(path.join(tmpdir(), "hk-math-lab"), { recursive: true, force: true });
+    restoreEnv("AUTH_FUNNEL_DB_PATH", previous.AUTH_FUNNEL_DB_PATH);
+    restoreEnv("HK_MATH_DB_PATH", previous.HK_MATH_DB_PATH);
+    restoreEnv("HK_MATH_DB_DIR", previous.HK_MATH_DB_DIR);
+    restoreEnv("VERCEL", previous.VERCEL);
+    restoreEnv("VERCEL_ENV", previous.VERCEL_ENV);
+  }
+});
+
+test("an explicit funnel path is not relocated when its directory is not writable", async () => {
+  const previous = {
+    AUTH_FUNNEL_DB_PATH: process.env.AUTH_FUNNEL_DB_PATH,
+    VERCEL: process.env.VERCEL
+  };
+  const locked = await mkdtemp(path.join(tmpdir(), "mais-auth-funnel-explicit-"));
+  chmodSync(locked, 0o555);
+  process.env.VERCEL = "1";
+  process.env.AUTH_FUNNEL_DB_PATH = path.join(locked, "funnel.sqlite");
+  resetAuthFunnelMetricsForTests();
+
+  try {
+    assert.throws(
+      () => recordAuthFunnelEvents([{ event: "register_step", detail: "details" }]),
+      /unable to open database file/u
+    );
+  } finally {
+    resetAuthFunnelMetricsForTests();
+    chmodSync(locked, 0o755);
+    await rm(locked, { recursive: true, force: true });
+    restoreEnv("AUTH_FUNNEL_DB_PATH", previous.AUTH_FUNNEL_DB_PATH);
+    restoreEnv("VERCEL", previous.VERCEL);
+  }
+});
 });
