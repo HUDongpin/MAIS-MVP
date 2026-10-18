@@ -128,6 +128,11 @@ export function PedaNovaHomeHero() {
         }
 
         @media (max-width: 639px) {
+          .pedanova-mobile-photo {
+            /* Reserve space when fallback font metrics add an English headline line. */
+            bottom: 13rem;
+          }
+
           .pedanova-copy-composition {
             inset: 0;
             width: 100%;
