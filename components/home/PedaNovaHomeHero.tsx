@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import maisHomeBackground4k from "@/components/home/brand-assets/pedanova-home-background-4k-crisp.webp";
+import maisHomeBackground from "@/components/home/brand-assets/pedanova-home-background-20260809-owner-selected-white-stylus.png";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import type { LocalizedText } from "@/types";
 
@@ -34,7 +34,7 @@ export function PedaNovaHomeHero() {
     <section
       id="pedanova-home-hero"
       data-pedanova-home
-      className="relative isolate min-h-[calc(100svh-7.5rem)] overflow-hidden bg-[#edf5fb] sm:min-h-[calc(100dvh-4rem)]"
+      className="relative isolate overflow-hidden bg-[#edf5fb]"
     >
       <style>{`
         body:has(#pedanova-home-hero) button[aria-label="AI Tutor"] {
@@ -42,7 +42,12 @@ export function PedaNovaHomeHero() {
         }
 
         body:has(#pedanova-home-hero) main.flex-1 {
+          flex: 0 0 auto;
           padding-bottom: 0 !important;
+        }
+
+        body:has(#pedanova-home-hero) footer {
+          flex-grow: 1;
         }
 
         .pedanova-copy-composition {
@@ -53,17 +58,13 @@ export function PedaNovaHomeHero() {
           filter: saturate(0.98) contrast(0.99) brightness(1);
         }
 
-        .pedanova-right-edge-fill {
-          background-repeat: no-repeat;
-          background-size: auto 100%;
-          background-position: right center;
-          filter: saturate(0.98) contrast(0.99) brightness(1);
-        }
-
         .pedanova-mobile-photo {
+          /* Keep the photograph between the brand and the unchanged text/CTA treatment. */
+          top: 6.5rem;
+          bottom: 12rem;
           background-repeat: no-repeat;
-          background-size: auto 88%;
-          background-position: 78% 0;
+          background-size: cover;
+          background-position: 92% center;
           filter: saturate(1.04) contrast(1.04) brightness(1.01);
         }
 
@@ -95,6 +96,37 @@ export function PedaNovaHomeHero() {
           -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 39%, rgba(0, 0, 0, 0.45) 52%, black 64%, black 100%);
         }
 
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .pedanova-hero-frame {
+            min-height: calc(18.5rem + 100vw * 854 / 1842);
+          }
+
+          .pedanova-copy-composition {
+            inset: 0;
+            width: 100%;
+            max-width: none;
+          }
+
+          .pedanova-copy-composition > div:first-child {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.25rem;
+          }
+
+          .pedanova-copy-composition h1 {
+            position: absolute;
+            bottom: 6.5rem;
+            left: 1.25rem;
+            width: calc(100% - 2.5rem);
+          }
+
+          .pedanova-copy-composition a {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.25rem;
+          }
+        }
+
         @media (max-width: 639px) {
           .pedanova-copy-composition {
             inset: 0;
@@ -103,10 +135,6 @@ export function PedaNovaHomeHero() {
 
           .pedanova-human-photo-soften {
             display: none;
-          }
-
-          .pedanova-mobile-photo {
-            background-size: auto max(40.48rem, calc(88svh - 3.52rem));
           }
 
           .pedanova-human-photo-wash {
@@ -124,31 +152,26 @@ export function PedaNovaHomeHero() {
           }
         }
       `}</style>
-      <div className="relative mx-auto h-[calc(100svh-7.5rem)] min-h-[36rem] w-full max-w-[3840px] overflow-hidden max-sm:min-h-[43.25rem] sm:h-[calc(100dvh-4rem)]">
+      <div className="pedanova-hero-frame relative mx-auto h-[calc(100svh-7.5rem)] min-h-[36rem] w-full max-w-[3840px] overflow-hidden max-sm:min-h-[43.25rem] sm:h-[calc(100dvh-4rem)] lg:aspect-[1842/854] lg:h-auto lg:min-h-0">
         <span
           aria-hidden="true"
-          className="pedanova-right-edge-fill pointer-events-none absolute inset-y-0 right-0 z-0 w-[18vw] min-w-28 max-sm:hidden"
-          style={{ backgroundImage: `url(${maisHomeBackground4k.src})` }}
-        />
-        <span
-          aria-hidden="true"
-          className="pedanova-mobile-photo pointer-events-none absolute inset-0 z-[1] hidden max-sm:block"
-          style={{ backgroundImage: `url(${maisHomeBackground4k.src})` }}
+          className="pedanova-mobile-photo pointer-events-none absolute inset-0 z-[1] hidden max-lg:block"
+          style={{ backgroundImage: `url(${maisHomeBackground.src})` }}
         />
         <Image
-          src={maisHomeBackground4k}
+          src={maisHomeBackground}
           alt=""
           aria-hidden="true"
           priority
           sizes="100vw"
           fill
-          className="pedanova-photo-humanized z-[1] select-none object-cover object-[58%_center] transform-gpu max-sm:hidden sm:-translate-x-[2.1%] sm:scale-[1.075]"
+          className="pedanova-photo-humanized z-[1] select-none object-cover object-bottom transform-gpu max-lg:hidden"
           draggable={false}
         />
         <span aria-hidden="true" className="pedanova-human-photo-soften pointer-events-none absolute inset-0 z-[2]" />
         <span aria-hidden="true" className="pedanova-human-photo-wash pointer-events-none absolute inset-0 z-[3]" />
         <span aria-hidden="true" className="pedanova-human-photo-grain pointer-events-none absolute inset-0 z-[4]" />
-        <div className="pedanova-copy-composition absolute top-[11%] z-20 flex w-[68vw] max-w-[46rem] flex-col text-left lg:w-[56vw] max-sm:top-0 max-sm:max-w-none">
+        <div className="pedanova-copy-composition absolute top-[28%] z-20 flex w-[68vw] max-w-[46rem] flex-col text-left lg:w-[56vw] max-sm:top-0 max-sm:max-w-none">
           <div className="flex items-end gap-5 max-sm:absolute max-sm:left-1/2 max-sm:top-[1.4%] max-sm:w-[76%] max-sm:-translate-x-1/2 max-sm:flex-col max-sm:items-center max-sm:gap-2 max-sm:px-4 max-sm:py-3 max-sm:text-center">
             <p className="shrink-0 text-[clamp(3.5rem,4.25vw,5rem)] font-black leading-[0.84] tracking-[-0.055em] text-[#0d2035] max-sm:text-[2.75rem] max-sm:leading-[0.95]">
               {t(dictionary.home.brand)}
@@ -159,7 +182,7 @@ export function PedaNovaHomeHero() {
           </div>
 
           <div className="mt-[clamp(3.25rem,7vh,4.75rem)] max-sm:mt-0">
-            <h1 className="pedanova-mobile-readable-copy max-w-[46rem] text-[clamp(2.2rem,3.55vw,3.55rem)] font-bold leading-[0.98] tracking-[-0.045em] max-sm:absolute max-sm:left-1/2 max-sm:top-[54.2%] max-sm:w-[82%] max-sm:-translate-x-1/2 max-sm:rounded-[1.1rem] max-sm:bg-white/80 max-sm:px-3.5 max-sm:py-2.5 max-sm:text-center max-sm:text-[clamp(1.2rem,5.8vw,1.42rem)] max-sm:leading-[1.05] max-sm:tracking-[-0.025em] max-sm:shadow-[0_16px_36px_rgba(15,23,42,0.13),inset_0_1px_0_rgba(255,255,255,0.88)] max-sm:ring-1 max-sm:ring-white/80 max-sm:backdrop-blur-sm">
+            <h1 className="pedanova-mobile-readable-copy max-w-[46rem] text-[clamp(2.2rem,3.55vw,3.55rem)] font-bold leading-[0.98] tracking-[-0.045em] max-sm:absolute max-sm:left-1/2 max-sm:bottom-[6.5rem] max-sm:w-[82%] max-sm:-translate-x-1/2 max-sm:rounded-[1.1rem] max-sm:bg-white/80 max-sm:px-3.5 max-sm:py-2.5 max-sm:text-center max-sm:text-[clamp(1.2rem,5.8vw,1.42rem)] max-sm:leading-[1.05] max-sm:tracking-[-0.025em] max-sm:shadow-[0_16px_36px_rgba(15,23,42,0.13),inset_0_1px_0_rgba(255,255,255,0.88)] max-sm:ring-1 max-sm:ring-white/80 max-sm:backdrop-blur-sm">
               <span className="sr-only">{text(headlineFull)}</span>
               <span aria-hidden="true">
                 <span className="block text-[#0d2035]">{text(headlineLead)}</span>
