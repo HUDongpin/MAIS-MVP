@@ -1,0 +1,1521 @@
+{
+  "reviewer": "A18 lower grades independent QA",
+  "candidateVersion": "v2",
+  "candidateSha256": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+  "revisedRowsSha256": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2",
+  "reviewedCount": 62,
+  "reviewedScope": "23 Grade6,12 Grade7,27 Grade8; all62 rows, not a sample",
+  "verdict": "approved-for-integration-review",
+  "claimCeiling": "A18 content review of assigned62 only; no whole-pack, promotion, release, live, or runtime-grading acceptance",
+  "checksNotPerformed": [
+    "Runtime answer-parser equivalence acceptance",
+    "Visual student renderer",
+    "1272 unchanged pack rows",
+    "Other166 revised rows assigned to separate reviewers"
+  ],
+  "residualNotes": [
+    "Exact fraction answers are coherent. Nonterminating decimal equivalents require runtime acceptance verification before integration; this review does not certify grader behavior.",
+    "Difficulty labels are content judgments, not empirical calibration.",
+    "Revisions create 7 G6,6 G7,6 G8 substantive mathematical task families; numeric siblings are not counted as distinct families."
+  ],
+  "items": [
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q001",
+      "candidateRowSha256": "4e7aba029d71f2c0081b9a9ce71d9aa236c2e11d021a617b62ec3a410cf4cd35",
+      "arithmetic": "pass",
+      "independentMethod": "Independent subtraction of rectangle areas",
+      "answerVerified": "87",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q004",
+      "candidateRowSha256": "bd0c0cdaa211f135dc00db399e177168f46d78a359e49dc1aa87fbe77ea0f7ae",
+      "arithmetic": "pass",
+      "independentMethod": "Independent inversion of volume",
+      "answerVerified": "7/2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q005",
+      "candidateRowSha256": "6a9786753bead951eaedd3745c5375e7170a9b0952b0926bc09257f3a6279e13",
+      "arithmetic": "pass",
+      "independentMethod": "Independent triangle area",
+      "answerVerified": "55/4",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q006",
+      "candidateRowSha256": "3b2e69c15bb11aed510f8114c013f8a3f63ef4bcaeb21c4bef614d76d90488c6",
+      "arithmetic": "pass",
+      "independentMethod": "Independent rectangular volume",
+      "answerVerified": "81/2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q007",
+      "candidateRowSha256": "a023d12e8866e13a74778a0c83e9789d8bbf13e21f4ac32dd9e5dd8d993dad3c",
+      "arithmetic": "pass",
+      "independentMethod": "Independent sum of five face areas",
+      "answerVerified": "342",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q008",
+      "candidateRowSha256": "531433447b643623a91db7886c13035c924193620a60605a90d8bea4d899423c",
+      "arithmetic": "pass",
+      "independentMethod": "Independent sum of six stated face areas",
+      "answerVerified": "272",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q009",
+      "candidateRowSha256": "0931a3d58b49911e52d2be2cdbbe9ee6c4710cdd7057f4cb125f336692f47b2e",
+      "arithmetic": "pass",
+      "independentMethod": "Independent coordinate ranges",
+      "answerVerified": "50",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q010",
+      "candidateRowSha256": "75099184abfc42907cdb7d391420a4565650b0b6044684d3a5ac4949499eedec",
+      "arithmetic": "pass",
+      "independentMethod": "Independent subtraction of rectangle areas",
+      "answerVerified": "191",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q011",
+      "candidateRowSha256": "18dee015b4bd613c02a6b36c1e4fe3fd06e6de82ff116404498f5fcd1c21f4d4",
+      "arithmetic": "pass",
+      "independentMethod": "Independent triangle area",
+      "answerVerified": "51/2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q012",
+      "candidateRowSha256": "3565f78ade92a85e3777cc885a93f4d4037516befbb5bc92f30137445136f7f0",
+      "arithmetic": "pass",
+      "independentMethod": "Independent rectangular volume",
+      "answerVerified": "315/4",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q013",
+      "candidateRowSha256": "0dd70c631746b1b9a4c1028baa252c100b795cf9740221ef3a0838db9451ccc0",
+      "arithmetic": "pass",
+      "independentMethod": "Independent inversion of volume",
+      "answerVerified": "3",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q014",
+      "candidateRowSha256": "9c364b1c97782bd0a749da00286639bcc947dc084cb68006151028a2d8b10f88",
+      "arithmetic": "pass",
+      "independentMethod": "Independent sum of six stated face areas",
+      "answerVerified": "468",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q015",
+      "candidateRowSha256": "9a5a092ec2986497ece1303b43fffb0d06dd8329344d8d89ad4b7c549520befe",
+      "arithmetic": "pass",
+      "independentMethod": "Independent coordinate ranges",
+      "answerVerified": "42",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q016",
+      "candidateRowSha256": "995f06291dbfc8fa8500e78a80a0cc6ad62c5b983c693d3413b3210407f54a82",
+      "arithmetic": "pass",
+      "independentMethod": "Independent sum of five face areas",
+      "answerVerified": "324",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q017",
+      "candidateRowSha256": "1ec52614abd956dd58a6ff90d8d648a43d078d158f828a9b66f7148627af73e8",
+      "arithmetic": "pass",
+      "independentMethod": "Independent triangle area",
+      "answerVerified": "161/4",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q018",
+      "candidateRowSha256": "53ce4601be864c6098528111e766d21a43186b92fb3e7e98ecad02743a82c282",
+      "arithmetic": "pass",
+      "independentMethod": "Independent rectangular volume",
+      "answerVerified": "126",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q019",
+      "candidateRowSha256": "fdcda69f7bce75f4ff9e1deaa701302df7a0b617b8521ced739e4eeff5f0712a",
+      "arithmetic": "pass",
+      "independentMethod": "Independent subtraction of rectangle areas",
+      "answerVerified": "307",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q020",
+      "candidateRowSha256": "84cdfdbacc4eb4f6ecba072cfc0c9ec0c7f45863adb13b7406d3cecf75189075",
+      "arithmetic": "pass",
+      "independentMethod": "Independent sum of six stated face areas",
+      "answerVerified": "464",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q021",
+      "candidateRowSha256": "d2f0d704a756a20059876b67d6b7c72875139be3132e303756426ab8353488d2",
+      "arithmetic": "pass",
+      "independentMethod": "Independent coordinate ranges",
+      "answerVerified": "35",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q022",
+      "candidateRowSha256": "acbb6161955de474b9cbc1b30aea44d6c28e05a6bf57bd4bd2963a5de526d3ad",
+      "arithmetic": "pass",
+      "independentMethod": "Independent inversion of volume",
+      "answerVerified": "5/2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q023",
+      "candidateRowSha256": "69963dfa846f01b060c6406070cb79b4c7d5f2389cce3c3b5d480f836ad291e4",
+      "arithmetic": "pass",
+      "independentMethod": "Independent triangle area",
+      "answerVerified": "58",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q024",
+      "candidateRowSha256": "6b6a54becfa6d3bfeeb61f6a973093012f1f3aa6386ef8d30a44550a6a27be5d",
+      "arithmetic": "pass",
+      "independentMethod": "Independent rectangular volume",
+      "answerVerified": "729/4",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q025",
+      "candidateRowSha256": "0a7e59e16fbbca5e984e6441a42fa6bd848e28349a5c18f166c2f02eb571bd4a",
+      "arithmetic": "pass",
+      "independentMethod": "Independent sum of five face areas",
+      "answerVerified": "510",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q001",
+      "candidateRowSha256": "baa31eefa950c8e7cefbeb3ab1ea4e8b078f570559356a67c8476835a3e1f126",
+      "arithmetic": "pass",
+      "independentMethod": "Independent stated-pi circumference",
+      "answerVerified": "1413/50",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q005",
+      "candidateRowSha256": "a863256fd0daf5028a7904b0286154b81a95994bb5df44991ec9f8644d412347",
+      "arithmetic": "pass",
+      "independentMethod": "Independent scale conversion",
+      "answerVerified": "24",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q008",
+      "candidateRowSha256": "dc8ef49dc32f33015e29e594b06bb143bf55462e9d704709f12e458b81aae973",
+      "arithmetic": "pass",
+      "independentMethod": "Independent triangular-face area times prism length",
+      "answerVerified": "308",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q009",
+      "candidateRowSha256": "701300909eec7865c9640b008c96fb2fee01690e9e6f59d92dd0fd3131730cbe",
+      "arithmetic": "pass",
+      "independentMethod": "Independent annulus area",
+      "answerVerified": "4082/25",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q011",
+      "candidateRowSha256": "b71e624520326b2da9756780b5a24de64a104c74a46a0da4f7b9c7533a144926",
+      "arithmetic": "pass",
+      "independentMethod": "Independent stated-pi circumference",
+      "answerVerified": "2983/50",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q012",
+      "candidateRowSha256": "abf91273fe74229debb0931c7b33da692027cea6eaa0bc248dfdca9273e31d60",
+      "arithmetic": "pass",
+      "independentMethod": "Independent scaled perimeter minus gate",
+      "answerVerified": "97",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q013",
+      "candidateRowSha256": "b2856660e242ae01beba981899373b938c616e32c0b182bedd490b7bb4c9355b",
+      "arithmetic": "pass",
+      "independentMethod": "Independent scale conversion",
+      "answerVerified": "40",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q014",
+      "candidateRowSha256": "62de0a1e895de2bd2eac419107cc47d750fc08414443498f702dd87fce6dcb18",
+      "arithmetic": "pass",
+      "independentMethod": "Independent triangular-face area times prism length",
+      "answerVerified": "720",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q015",
+      "candidateRowSha256": "43c523d6ca0f4ff6c61992995ee3528a5c63b5890103b21e534cbdccb5a1d8b5",
+      "arithmetic": "pass",
+      "independentMethod": "Independent usable tank volume",
+      "answerVerified": "736",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q017",
+      "candidateRowSha256": "dbb29e6af334a11b4c180b410f2e7bb2f056d91360911537c4d81016cec0722c",
+      "arithmetic": "pass",
+      "independentMethod": "Independent stated-pi circumference",
+      "answerVerified": "157/2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q024",
+      "candidateRowSha256": "56e3f2fdc83e45a8936fe721daaa45a87e2b50cd66cbd1502d6c13633b70090d",
+      "arithmetic": "pass",
+      "independentMethod": "Independent annulus area",
+      "answerVerified": "8792/25",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q033",
+      "candidateRowSha256": "fbc10ca802a04391422fa4591421b42bb5e461ae99bceac52408d0f25d290845",
+      "arithmetic": "pass",
+      "independentMethod": "Independent scaled perimeter minus gate",
+      "answerVerified": "272",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q001",
+      "candidateRowSha256": "f443344005b080166a5d2464519efaa52ccee5a6c263e3f9ab08cae28c0a611a",
+      "arithmetic": "pass",
+      "independentMethod": "Independent conditional frequency",
+      "answerVerified": "9/22",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q002",
+      "candidateRowSha256": "431518b7e11471d1fe86d03830d80c6ab58bc3f6c2230b2c050db013312cb061",
+      "arithmetic": "pass",
+      "independentMethod": "Independent joint frequency",
+      "answerVerified": "7/24",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q003",
+      "candidateRowSha256": "31fa4b9322d5ec4e6cf624d346f3b81cbbe45a7f07280a515a9c03620f29104d",
+      "arithmetic": "pass",
+      "independentMethod": "Independent slope from two points",
+      "answerVerified": "5",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q004",
+      "candidateRowSha256": "d20c9ce35fda41b5145b369720b2246c9bd3baa0c6862c84dbd56ca81b2364c9",
+      "arithmetic": "pass",
+      "independentMethod": "Independent intercept from two points",
+      "answerVerified": "16",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q006",
+      "candidateRowSha256": "6f8088d4fa24bc9d300acc72b17c9c68bd078ecae767e542fc9f24b68e7e2b24",
+      "arithmetic": "pass",
+      "independentMethod": "Independent change over interval",
+      "answerVerified": "14",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q007",
+      "candidateRowSha256": "3398906e4886a690720eae8a9168d2c4edf3300a8099891c3b45f4f76871eeef",
+      "arithmetic": "pass",
+      "independentMethod": "Independent difference of conditional frequencies",
+      "answerVerified": "200/667",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q008",
+      "candidateRowSha256": "b2d5060efed6c39fb3f40fa55e33c639562acdd9d64759c2b754d0254415a0d2",
+      "arithmetic": "pass",
+      "independentMethod": "Independent conditional frequency",
+      "answerVerified": "16/31",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q009",
+      "candidateRowSha256": "44bcda2f343c9f6a78007d8908d80dd66de133efe25ca2b31e28d40a6a125dce",
+      "arithmetic": "pass",
+      "independentMethod": "Independent joint frequency",
+      "answerVerified": "2/7",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q010",
+      "candidateRowSha256": "0dd72d1fda6a3eb46032a752d7a00d88bf5039e236a5448be3e451346a93fe27",
+      "arithmetic": "pass",
+      "independentMethod": "Independent slope from two points",
+      "answerVerified": "6",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q011",
+      "candidateRowSha256": "f500f95031765a7960a4ec962968f28d4ef292a56e9ca0dbbbacad356e0bcbff",
+      "arithmetic": "pass",
+      "independentMethod": "Independent intercept from two points",
+      "answerVerified": "23",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q012",
+      "candidateRowSha256": "45515e41fb3bbc840595264b10f66afb2009d4dfe73e9c1eba15d6c9eb7e7be4",
+      "arithmetic": "pass",
+      "independentMethod": "Independent change over interval",
+      "answerVerified": "10",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q013",
+      "candidateRowSha256": "4d32caa3bc9ded2e45827ebb4c7dc1f3a8f69b2c66cab7ff3fd6e7795a77ae34",
+      "arithmetic": "pass",
+      "independentMethod": "Independent difference of conditional frequencies",
+      "answerVerified": "19/108",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q014",
+      "candidateRowSha256": "180c41458c8b6e5e7141f66a5128816ee83b40d494eeb615fa823b1facbfc1a5",
+      "arithmetic": "pass",
+      "independentMethod": "Independent conditional frequency",
+      "answerVerified": "11/19",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q015",
+      "candidateRowSha256": "30d875bdd848aa6359c1d35426f8efda380969105c0e2e55c2a35107575ab33d",
+      "arithmetic": "pass",
+      "independentMethod": "Independent joint frequency",
+      "answerVerified": "12/59",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q016",
+      "candidateRowSha256": "e6374dc7f24ea4e2e5bac97def9d6fbf14b0ebb207f77ef7b04fcb99d99fc9b0",
+      "arithmetic": "pass",
+      "independentMethod": "Independent slope from two points",
+      "answerVerified": "6",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q018",
+      "candidateRowSha256": "f477f0f6a03c0c3cadf5512fcdef798a48eac659d12c0a1d2af42e2e240c2d0b",
+      "arithmetic": "pass",
+      "independentMethod": "Independent intercept from two points",
+      "answerVerified": "30",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q019",
+      "candidateRowSha256": "98a8b9ca005ae341fd717b2398d5a6e65f7f6ada350954b977fbbcb038261cb7",
+      "arithmetic": "pass",
+      "independentMethod": "Independent change over interval",
+      "answerVerified": "21",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q020",
+      "candidateRowSha256": "f0d3b00917bbdb4bcf65969a5fba52bb1292e4cbcc4f8ee93a0b840840340109",
+      "arithmetic": "pass",
+      "independentMethod": "Independent difference of conditional frequencies",
+      "answerVerified": "18/65",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q021",
+      "candidateRowSha256": "7fcde8c4d440f666262ab15e8b694fd8026f4e8ec7575195fa073a9317db345d",
+      "arithmetic": "pass",
+      "independentMethod": "Independent conditional frequency",
+      "answerVerified": "29/42",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q022",
+      "candidateRowSha256": "1db6b08ac5da22413404485912d339db83a33a31f57b3097ae1d617536c1ad0d",
+      "arithmetic": "pass",
+      "independentMethod": "Independent joint frequency",
+      "answerVerified": "14/67",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q024",
+      "candidateRowSha256": "fa3de108c49084b745686d6567fc0f8129af7be56d3b7d26630188033e552702",
+      "arithmetic": "pass",
+      "independentMethod": "Independent slope from two points",
+      "answerVerified": "2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q025",
+      "candidateRowSha256": "20458475e0960373b3b77960c07c45d47e5cac40714a40bedc2296c362c5c423",
+      "arithmetic": "pass",
+      "independentMethod": "Independent intercept from two points",
+      "answerVerified": "37",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q026",
+      "candidateRowSha256": "15be8fd6584dfa7b0c4baca1c082c857fcc127b63e024f5176a2cb7d5e1cabb8",
+      "arithmetic": "pass",
+      "independentMethod": "Independent change over interval",
+      "answerVerified": "20",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q027",
+      "candidateRowSha256": "3143ca7a8e04559005e84f804b63a2faedde49c7939201e3e589ecbad22a70b6",
+      "arithmetic": "pass",
+      "independentMethod": "Independent difference of conditional frequencies",
+      "answerVerified": "68/203",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q028",
+      "candidateRowSha256": "a07a040d557b4c79b80939eb92e3aed40ebed4c1aa6f62c22082a96a0e8084e9",
+      "arithmetic": "pass",
+      "independentMethod": "Independent conditional frequency",
+      "answerVerified": "12/17",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q029",
+      "candidateRowSha256": "c0f56b663795edd732fff1b05490a5bf39604ce46a356c81c4c8a7a4a11c9ba6",
+      "arithmetic": "pass",
+      "independentMethod": "Independent joint frequency",
+      "answerVerified": "16/75",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "not-applicable",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q030",
+      "candidateRowSha256": "d355c9a234c4ba33b3f0243cc2ca61cc8b7a7e3f8237090f8679abacfb11e6d1",
+      "arithmetic": "pass",
+      "independentMethod": "Independent slope from two points",
+      "answerVerified": "2",
+      "contentChecks": {
+        "promptSolvability": "pass",
+        "explanation": "pass-manual-full-row-review",
+        "gradeAlignment": "pass-bounded-item-skill-not-complete-standard",
+        "difficulty": "acceptable-unbenchmarked",
+        "distractors": "pass",
+        "languageMirrors": "pass",
+        "sourceSafety": "pass-original-wording",
+        "answerCriticalVisuals": "not-required-explicit-text-data"
+      },
+      "findings": []
+    }
+  ],
+  "reviewedAtUtc": "2026-10-05T19:45:52.909870+00:00",
+  "independence": "Reviewer did not author or edit candidate; independently read all62 prompts/explanations and recalculated from prompt quantities, without using generator or supplied solvability implementation.",
+  "rebindEvidence": {
+    "fromVersion": "v1",
+    "sourceReviewSha256": "51b256ef62a0833404143f57fd2d6402a10b43fddfd5a046197806a922bff1c3",
+    "method": "Compared all fields of all62 assigned v1 and v2 revised rows, exact canonical row bytes, both manifest row hashes and v2 fullpack embedded rows; no assigned differences. Original independent arithmetic and full-row semantic review carried unchanged.",
+    "unchangedRows": 62,
+    "rows": [
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q001",
+        "sameExactFields": true,
+        "canonicalRowSha256": "4e7aba029d71f2c0081b9a9ce71d9aa236c2e11d021a617b62ec3a410cf4cd35",
+        "manifestRowSha256": "4e7aba029d71f2c0081b9a9ce71d9aa236c2e11d021a617b62ec3a410cf4cd35"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q004",
+        "sameExactFields": true,
+        "canonicalRowSha256": "bd0c0cdaa211f135dc00db399e177168f46d78a359e49dc1aa87fbe77ea0f7ae",
+        "manifestRowSha256": "bd0c0cdaa211f135dc00db399e177168f46d78a359e49dc1aa87fbe77ea0f7ae"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q005",
+        "sameExactFields": true,
+        "canonicalRowSha256": "6a9786753bead951eaedd3745c5375e7170a9b0952b0926bc09257f3a6279e13",
+        "manifestRowSha256": "6a9786753bead951eaedd3745c5375e7170a9b0952b0926bc09257f3a6279e13"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q006",
+        "sameExactFields": true,
+        "canonicalRowSha256": "3b2e69c15bb11aed510f8114c013f8a3f63ef4bcaeb21c4bef614d76d90488c6",
+        "manifestRowSha256": "3b2e69c15bb11aed510f8114c013f8a3f63ef4bcaeb21c4bef614d76d90488c6"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q007",
+        "sameExactFields": true,
+        "canonicalRowSha256": "a023d12e8866e13a74778a0c83e9789d8bbf13e21f4ac32dd9e5dd8d993dad3c",
+        "manifestRowSha256": "a023d12e8866e13a74778a0c83e9789d8bbf13e21f4ac32dd9e5dd8d993dad3c"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q008",
+        "sameExactFields": true,
+        "canonicalRowSha256": "531433447b643623a91db7886c13035c924193620a60605a90d8bea4d899423c",
+        "manifestRowSha256": "531433447b643623a91db7886c13035c924193620a60605a90d8bea4d899423c"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q009",
+        "sameExactFields": true,
+        "canonicalRowSha256": "0931a3d58b49911e52d2be2cdbbe9ee6c4710cdd7057f4cb125f336692f47b2e",
+        "manifestRowSha256": "0931a3d58b49911e52d2be2cdbbe9ee6c4710cdd7057f4cb125f336692f47b2e"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q010",
+        "sameExactFields": true,
+        "canonicalRowSha256": "75099184abfc42907cdb7d391420a4565650b0b6044684d3a5ac4949499eedec",
+        "manifestRowSha256": "75099184abfc42907cdb7d391420a4565650b0b6044684d3a5ac4949499eedec"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q011",
+        "sameExactFields": true,
+        "canonicalRowSha256": "18dee015b4bd613c02a6b36c1e4fe3fd06e6de82ff116404498f5fcd1c21f4d4",
+        "manifestRowSha256": "18dee015b4bd613c02a6b36c1e4fe3fd06e6de82ff116404498f5fcd1c21f4d4"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q012",
+        "sameExactFields": true,
+        "canonicalRowSha256": "3565f78ade92a85e3777cc885a93f4d4037516befbb5bc92f30137445136f7f0",
+        "manifestRowSha256": "3565f78ade92a85e3777cc885a93f4d4037516befbb5bc92f30137445136f7f0"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q013",
+        "sameExactFields": true,
+        "canonicalRowSha256": "0dd70c631746b1b9a4c1028baa252c100b795cf9740221ef3a0838db9451ccc0",
+        "manifestRowSha256": "0dd70c631746b1b9a4c1028baa252c100b795cf9740221ef3a0838db9451ccc0"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q014",
+        "sameExactFields": true,
+        "canonicalRowSha256": "9c364b1c97782bd0a749da00286639bcc947dc084cb68006151028a2d8b10f88",
+        "manifestRowSha256": "9c364b1c97782bd0a749da00286639bcc947dc084cb68006151028a2d8b10f88"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q015",
+        "sameExactFields": true,
+        "canonicalRowSha256": "9a5a092ec2986497ece1303b43fffb0d06dd8329344d8d89ad4b7c549520befe",
+        "manifestRowSha256": "9a5a092ec2986497ece1303b43fffb0d06dd8329344d8d89ad4b7c549520befe"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q016",
+        "sameExactFields": true,
+        "canonicalRowSha256": "995f06291dbfc8fa8500e78a80a0cc6ad62c5b983c693d3413b3210407f54a82",
+        "manifestRowSha256": "995f06291dbfc8fa8500e78a80a0cc6ad62c5b983c693d3413b3210407f54a82"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q017",
+        "sameExactFields": true,
+        "canonicalRowSha256": "1ec52614abd956dd58a6ff90d8d648a43d078d158f828a9b66f7148627af73e8",
+        "manifestRowSha256": "1ec52614abd956dd58a6ff90d8d648a43d078d158f828a9b66f7148627af73e8"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q018",
+        "sameExactFields": true,
+        "canonicalRowSha256": "53ce4601be864c6098528111e766d21a43186b92fb3e7e98ecad02743a82c282",
+        "manifestRowSha256": "53ce4601be864c6098528111e766d21a43186b92fb3e7e98ecad02743a82c282"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q019",
+        "sameExactFields": true,
+        "canonicalRowSha256": "fdcda69f7bce75f4ff9e1deaa701302df7a0b617b8521ced739e4eeff5f0712a",
+        "manifestRowSha256": "fdcda69f7bce75f4ff9e1deaa701302df7a0b617b8521ced739e4eeff5f0712a"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q020",
+        "sameExactFields": true,
+        "canonicalRowSha256": "84cdfdbacc4eb4f6ecba072cfc0c9ec0c7f45863adb13b7406d3cecf75189075",
+        "manifestRowSha256": "84cdfdbacc4eb4f6ecba072cfc0c9ec0c7f45863adb13b7406d3cecf75189075"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q021",
+        "sameExactFields": true,
+        "canonicalRowSha256": "d2f0d704a756a20059876b67d6b7c72875139be3132e303756426ab8353488d2",
+        "manifestRowSha256": "d2f0d704a756a20059876b67d6b7c72875139be3132e303756426ab8353488d2"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q022",
+        "sameExactFields": true,
+        "canonicalRowSha256": "acbb6161955de474b9cbc1b30aea44d6c28e05a6bf57bd4bd2963a5de526d3ad",
+        "manifestRowSha256": "acbb6161955de474b9cbc1b30aea44d6c28e05a6bf57bd4bd2963a5de526d3ad"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q023",
+        "sameExactFields": true,
+        "canonicalRowSha256": "69963dfa846f01b060c6406070cb79b4c7d5f2389cce3c3b5d480f836ad291e4",
+        "manifestRowSha256": "69963dfa846f01b060c6406070cb79b4c7d5f2389cce3c3b5d480f836ad291e4"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q024",
+        "sameExactFields": true,
+        "canonicalRowSha256": "6b6a54becfa6d3bfeeb61f6a973093012f1f3aa6386ef8d30a44550a6a27be5d",
+        "manifestRowSha256": "6b6a54becfa6d3bfeeb61f6a973093012f1f3aa6386ef8d30a44550a6a27be5d"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g06-c04-q025",
+        "sameExactFields": true,
+        "canonicalRowSha256": "0a7e59e16fbbca5e984e6441a42fa6bd848e28349a5c18f166c2f02eb571bd4a",
+        "manifestRowSha256": "0a7e59e16fbbca5e984e6441a42fa6bd848e28349a5c18f166c2f02eb571bd4a"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q001",
+        "sameExactFields": true,
+        "canonicalRowSha256": "baa31eefa950c8e7cefbeb3ab1ea4e8b078f570559356a67c8476835a3e1f126",
+        "manifestRowSha256": "baa31eefa950c8e7cefbeb3ab1ea4e8b078f570559356a67c8476835a3e1f126"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q005",
+        "sameExactFields": true,
+        "canonicalRowSha256": "a863256fd0daf5028a7904b0286154b81a95994bb5df44991ec9f8644d412347",
+        "manifestRowSha256": "a863256fd0daf5028a7904b0286154b81a95994bb5df44991ec9f8644d412347"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q008",
+        "sameExactFields": true,
+        "canonicalRowSha256": "dc8ef49dc32f33015e29e594b06bb143bf55462e9d704709f12e458b81aae973",
+        "manifestRowSha256": "dc8ef49dc32f33015e29e594b06bb143bf55462e9d704709f12e458b81aae973"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q009",
+        "sameExactFields": true,
+        "canonicalRowSha256": "701300909eec7865c9640b008c96fb2fee01690e9e6f59d92dd0fd3131730cbe",
+        "manifestRowSha256": "701300909eec7865c9640b008c96fb2fee01690e9e6f59d92dd0fd3131730cbe"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q011",
+        "sameExactFields": true,
+        "canonicalRowSha256": "b71e624520326b2da9756780b5a24de64a104c74a46a0da4f7b9c7533a144926",
+        "manifestRowSha256": "b71e624520326b2da9756780b5a24de64a104c74a46a0da4f7b9c7533a144926"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q012",
+        "sameExactFields": true,
+        "canonicalRowSha256": "abf91273fe74229debb0931c7b33da692027cea6eaa0bc248dfdca9273e31d60",
+        "manifestRowSha256": "abf91273fe74229debb0931c7b33da692027cea6eaa0bc248dfdca9273e31d60"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q013",
+        "sameExactFields": true,
+        "canonicalRowSha256": "b2856660e242ae01beba981899373b938c616e32c0b182bedd490b7bb4c9355b",
+        "manifestRowSha256": "b2856660e242ae01beba981899373b938c616e32c0b182bedd490b7bb4c9355b"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q014",
+        "sameExactFields": true,
+        "canonicalRowSha256": "62de0a1e895de2bd2eac419107cc47d750fc08414443498f702dd87fce6dcb18",
+        "manifestRowSha256": "62de0a1e895de2bd2eac419107cc47d750fc08414443498f702dd87fce6dcb18"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q015",
+        "sameExactFields": true,
+        "canonicalRowSha256": "43c523d6ca0f4ff6c61992995ee3528a5c63b5890103b21e534cbdccb5a1d8b5",
+        "manifestRowSha256": "43c523d6ca0f4ff6c61992995ee3528a5c63b5890103b21e534cbdccb5a1d8b5"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q017",
+        "sameExactFields": true,
+        "canonicalRowSha256": "dbb29e6af334a11b4c180b410f2e7bb2f056d91360911537c4d81016cec0722c",
+        "manifestRowSha256": "dbb29e6af334a11b4c180b410f2e7bb2f056d91360911537c4d81016cec0722c"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q024",
+        "sameExactFields": true,
+        "canonicalRowSha256": "56e3f2fdc83e45a8936fe721daaa45a87e2b50cd66cbd1502d6c13633b70090d",
+        "manifestRowSha256": "56e3f2fdc83e45a8936fe721daaa45a87e2b50cd66cbd1502d6c13633b70090d"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g07-c04-q033",
+        "sameExactFields": true,
+        "canonicalRowSha256": "fbc10ca802a04391422fa4591421b42bb5e461ae99bceac52408d0f25d290845",
+        "manifestRowSha256": "fbc10ca802a04391422fa4591421b42bb5e461ae99bceac52408d0f25d290845"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q001",
+        "sameExactFields": true,
+        "canonicalRowSha256": "f443344005b080166a5d2464519efaa52ccee5a6c263e3f9ab08cae28c0a611a",
+        "manifestRowSha256": "f443344005b080166a5d2464519efaa52ccee5a6c263e3f9ab08cae28c0a611a"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q002",
+        "sameExactFields": true,
+        "canonicalRowSha256": "431518b7e11471d1fe86d03830d80c6ab58bc3f6c2230b2c050db013312cb061",
+        "manifestRowSha256": "431518b7e11471d1fe86d03830d80c6ab58bc3f6c2230b2c050db013312cb061"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q003",
+        "sameExactFields": true,
+        "canonicalRowSha256": "31fa4b9322d5ec4e6cf624d346f3b81cbbe45a7f07280a515a9c03620f29104d",
+        "manifestRowSha256": "31fa4b9322d5ec4e6cf624d346f3b81cbbe45a7f07280a515a9c03620f29104d"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q004",
+        "sameExactFields": true,
+        "canonicalRowSha256": "d20c9ce35fda41b5145b369720b2246c9bd3baa0c6862c84dbd56ca81b2364c9",
+        "manifestRowSha256": "d20c9ce35fda41b5145b369720b2246c9bd3baa0c6862c84dbd56ca81b2364c9"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q006",
+        "sameExactFields": true,
+        "canonicalRowSha256": "6f8088d4fa24bc9d300acc72b17c9c68bd078ecae767e542fc9f24b68e7e2b24",
+        "manifestRowSha256": "6f8088d4fa24bc9d300acc72b17c9c68bd078ecae767e542fc9f24b68e7e2b24"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q007",
+        "sameExactFields": true,
+        "canonicalRowSha256": "3398906e4886a690720eae8a9168d2c4edf3300a8099891c3b45f4f76871eeef",
+        "manifestRowSha256": "3398906e4886a690720eae8a9168d2c4edf3300a8099891c3b45f4f76871eeef"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q008",
+        "sameExactFields": true,
+        "canonicalRowSha256": "b2d5060efed6c39fb3f40fa55e33c639562acdd9d64759c2b754d0254415a0d2",
+        "manifestRowSha256": "b2d5060efed6c39fb3f40fa55e33c639562acdd9d64759c2b754d0254415a0d2"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q009",
+        "sameExactFields": true,
+        "canonicalRowSha256": "44bcda2f343c9f6a78007d8908d80dd66de133efe25ca2b31e28d40a6a125dce",
+        "manifestRowSha256": "44bcda2f343c9f6a78007d8908d80dd66de133efe25ca2b31e28d40a6a125dce"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q010",
+        "sameExactFields": true,
+        "canonicalRowSha256": "0dd72d1fda6a3eb46032a752d7a00d88bf5039e236a5448be3e451346a93fe27",
+        "manifestRowSha256": "0dd72d1fda6a3eb46032a752d7a00d88bf5039e236a5448be3e451346a93fe27"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q011",
+        "sameExactFields": true,
+        "canonicalRowSha256": "f500f95031765a7960a4ec962968f28d4ef292a56e9ca0dbbbacad356e0bcbff",
+        "manifestRowSha256": "f500f95031765a7960a4ec962968f28d4ef292a56e9ca0dbbbacad356e0bcbff"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q012",
+        "sameExactFields": true,
+        "canonicalRowSha256": "45515e41fb3bbc840595264b10f66afb2009d4dfe73e9c1eba15d6c9eb7e7be4",
+        "manifestRowSha256": "45515e41fb3bbc840595264b10f66afb2009d4dfe73e9c1eba15d6c9eb7e7be4"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q013",
+        "sameExactFields": true,
+        "canonicalRowSha256": "4d32caa3bc9ded2e45827ebb4c7dc1f3a8f69b2c66cab7ff3fd6e7795a77ae34",
+        "manifestRowSha256": "4d32caa3bc9ded2e45827ebb4c7dc1f3a8f69b2c66cab7ff3fd6e7795a77ae34"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q014",
+        "sameExactFields": true,
+        "canonicalRowSha256": "180c41458c8b6e5e7141f66a5128816ee83b40d494eeb615fa823b1facbfc1a5",
+        "manifestRowSha256": "180c41458c8b6e5e7141f66a5128816ee83b40d494eeb615fa823b1facbfc1a5"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q015",
+        "sameExactFields": true,
+        "canonicalRowSha256": "30d875bdd848aa6359c1d35426f8efda380969105c0e2e55c2a35107575ab33d",
+        "manifestRowSha256": "30d875bdd848aa6359c1d35426f8efda380969105c0e2e55c2a35107575ab33d"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q016",
+        "sameExactFields": true,
+        "canonicalRowSha256": "e6374dc7f24ea4e2e5bac97def9d6fbf14b0ebb207f77ef7b04fcb99d99fc9b0",
+        "manifestRowSha256": "e6374dc7f24ea4e2e5bac97def9d6fbf14b0ebb207f77ef7b04fcb99d99fc9b0"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q018",
+        "sameExactFields": true,
+        "canonicalRowSha256": "f477f0f6a03c0c3cadf5512fcdef798a48eac659d12c0a1d2af42e2e240c2d0b",
+        "manifestRowSha256": "f477f0f6a03c0c3cadf5512fcdef798a48eac659d12c0a1d2af42e2e240c2d0b"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q019",
+        "sameExactFields": true,
+        "canonicalRowSha256": "98a8b9ca005ae341fd717b2398d5a6e65f7f6ada350954b977fbbcb038261cb7",
+        "manifestRowSha256": "98a8b9ca005ae341fd717b2398d5a6e65f7f6ada350954b977fbbcb038261cb7"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q020",
+        "sameExactFields": true,
+        "canonicalRowSha256": "f0d3b00917bbdb4bcf65969a5fba52bb1292e4cbcc4f8ee93a0b840840340109",
+        "manifestRowSha256": "f0d3b00917bbdb4bcf65969a5fba52bb1292e4cbcc4f8ee93a0b840840340109"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q021",
+        "sameExactFields": true,
+        "canonicalRowSha256": "7fcde8c4d440f666262ab15e8b694fd8026f4e8ec7575195fa073a9317db345d",
+        "manifestRowSha256": "7fcde8c4d440f666262ab15e8b694fd8026f4e8ec7575195fa073a9317db345d"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q022",
+        "sameExactFields": true,
+        "canonicalRowSha256": "1db6b08ac5da22413404485912d339db83a33a31f57b3097ae1d617536c1ad0d",
+        "manifestRowSha256": "1db6b08ac5da22413404485912d339db83a33a31f57b3097ae1d617536c1ad0d"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q024",
+        "sameExactFields": true,
+        "canonicalRowSha256": "fa3de108c49084b745686d6567fc0f8129af7be56d3b7d26630188033e552702",
+        "manifestRowSha256": "fa3de108c49084b745686d6567fc0f8129af7be56d3b7d26630188033e552702"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q025",
+        "sameExactFields": true,
+        "canonicalRowSha256": "20458475e0960373b3b77960c07c45d47e5cac40714a40bedc2296c362c5c423",
+        "manifestRowSha256": "20458475e0960373b3b77960c07c45d47e5cac40714a40bedc2296c362c5c423"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q026",
+        "sameExactFields": true,
+        "canonicalRowSha256": "15be8fd6584dfa7b0c4baca1c082c857fcc127b63e024f5176a2cb7d5e1cabb8",
+        "manifestRowSha256": "15be8fd6584dfa7b0c4baca1c082c857fcc127b63e024f5176a2cb7d5e1cabb8"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q027",
+        "sameExactFields": true,
+        "canonicalRowSha256": "3143ca7a8e04559005e84f804b63a2faedde49c7939201e3e589ecbad22a70b6",
+        "manifestRowSha256": "3143ca7a8e04559005e84f804b63a2faedde49c7939201e3e589ecbad22a70b6"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q028",
+        "sameExactFields": true,
+        "canonicalRowSha256": "a07a040d557b4c79b80939eb92e3aed40ebed4c1aa6f62c22082a96a0e8084e9",
+        "manifestRowSha256": "a07a040d557b4c79b80939eb92e3aed40ebed4c1aa6f62c22082a96a0e8084e9"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q029",
+        "sameExactFields": true,
+        "canonicalRowSha256": "c0f56b663795edd732fff1b05490a5bf39604ce46a356c81c4c8a7a4a11c9ba6",
+        "manifestRowSha256": "c0f56b663795edd732fff1b05490a5bf39604ce46a356c81c4c8a7a4a11c9ba6"
+      },
+      {
+        "id": "us-ar-g6-g12-v1-g08-c05-q030",
+        "sameExactFields": true,
+        "canonicalRowSha256": "d355c9a234c4ba33b3f0243cc2ca61cc8b7a7e3f8237090f8679abacfb11e6d1",
+        "manifestRowSha256": "d355c9a234c4ba33b3f0243cc2ca61cc8b7a7e3f8237090f8679abacfb11e6d1"
+      }
+    ]
+  }
+}

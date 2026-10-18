@@ -1,0 +1,1842 @@
+{
+  "schemaVersion": "pr201-diversity-solvability.v1",
+  "candidateSha256": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+  "scope": "228 revised rows only; 1272 unchanged rows are not reaccepted",
+  "result": "pass",
+  "revisedRows": 228,
+  "independentlySolvedRows": 228,
+  "passedRows": 228,
+  "failedRows": 0,
+  "unchangedRows": 1272,
+  "families": 68,
+  "duplicateRevisedPromptIds": [],
+  "scopeFailures": [],
+  "wholePackAccepted": false,
+  "liveAllowed": false,
+  "rows": [
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q001",
+      "family": "g6_compound_area",
+      "status": "pass",
+      "expectedAnswer": "87",
+      "method": "Outer rectangle area minus removed corner area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q004",
+      "family": "g6_prism_missing_edge",
+      "status": "pass",
+      "expectedAnswer": "3.5",
+      "method": "Volume divided by the stated base area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q005",
+      "family": "g6_triangle_area",
+      "status": "pass",
+      "expectedAnswer": "13.75",
+      "method": "Half of base times perpendicular height.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q006",
+      "family": "g6_prism_fraction_volume",
+      "status": "pass",
+      "expectedAnswer": "40.5",
+      "method": "Product of the three fractional edge lengths.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q007",
+      "family": "g6_open_box_net",
+      "status": "pass",
+      "expectedAnswer": "342",
+      "method": "Five-face open box: one base and four sides.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q008",
+      "family": "g6_closed_prism_net",
+      "status": "pass",
+      "expectedAnswer": "272",
+      "method": "Sum of areas of all six stated net faces.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q009",
+      "family": "g6_coordinate_area",
+      "status": "pass",
+      "expectedAnswer": "50",
+      "method": "Coordinate side differences multiplied.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q010",
+      "family": "g6_compound_area",
+      "status": "pass",
+      "expectedAnswer": "191",
+      "method": "Outer rectangle area minus removed corner area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q011",
+      "family": "g6_triangle_area",
+      "status": "pass",
+      "expectedAnswer": "25.5",
+      "method": "Half of base times perpendicular height.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q012",
+      "family": "g6_prism_fraction_volume",
+      "status": "pass",
+      "expectedAnswer": "78.75",
+      "method": "Product of the three fractional edge lengths.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q013",
+      "family": "g6_prism_missing_edge",
+      "status": "pass",
+      "expectedAnswer": "3",
+      "method": "Volume divided by the stated base area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q014",
+      "family": "g6_closed_prism_net",
+      "status": "pass",
+      "expectedAnswer": "468",
+      "method": "Sum of areas of all six stated net faces.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q015",
+      "family": "g6_coordinate_area",
+      "status": "pass",
+      "expectedAnswer": "42",
+      "method": "Coordinate side differences multiplied.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q016",
+      "family": "g6_open_box_net",
+      "status": "pass",
+      "expectedAnswer": "324",
+      "method": "Five-face open box: one base and four sides.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q017",
+      "family": "g6_triangle_area",
+      "status": "pass",
+      "expectedAnswer": "40.25",
+      "method": "Half of base times perpendicular height.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q018",
+      "family": "g6_prism_fraction_volume",
+      "status": "pass",
+      "expectedAnswer": "126",
+      "method": "Product of the three fractional edge lengths.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q019",
+      "family": "g6_compound_area",
+      "status": "pass",
+      "expectedAnswer": "307",
+      "method": "Outer rectangle area minus removed corner area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q020",
+      "family": "g6_closed_prism_net",
+      "status": "pass",
+      "expectedAnswer": "464",
+      "method": "Sum of areas of all six stated net faces.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q021",
+      "family": "g6_coordinate_area",
+      "status": "pass",
+      "expectedAnswer": "35",
+      "method": "Coordinate side differences multiplied.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q022",
+      "family": "g6_prism_missing_edge",
+      "status": "pass",
+      "expectedAnswer": "2.5",
+      "method": "Volume divided by the stated base area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q023",
+      "family": "g6_triangle_area",
+      "status": "pass",
+      "expectedAnswer": "58",
+      "method": "Half of base times perpendicular height.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q024",
+      "family": "g6_prism_fraction_volume",
+      "status": "pass",
+      "expectedAnswer": "182.25",
+      "method": "Product of the three fractional edge lengths.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g06-c04-q025",
+      "family": "g6_open_box_net",
+      "status": "pass",
+      "expectedAnswer": "510",
+      "method": "Five-face open box: one base and four sides.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q001",
+      "family": "g7_circle_circumference",
+      "status": "pass",
+      "expectedAnswer": "28.26",
+      "method": "Diameter multiplied by the requested value of pi.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q005",
+      "family": "g7_scale_length",
+      "status": "pass",
+      "expectedAnswer": "24",
+      "method": "Map length times scale, as straight-line distance.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q008",
+      "family": "g7_triangular_prism_volume",
+      "status": "pass",
+      "expectedAnswer": "308",
+      "method": "Triangular face area times distance between parallel faces.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q009",
+      "family": "g7_annulus_area",
+      "status": "pass",
+      "expectedAnswer": "163.28",
+      "method": "Difference of circle areas using the requested value of pi.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q011",
+      "family": "g7_circle_circumference",
+      "status": "pass",
+      "expectedAnswer": "59.66",
+      "method": "Diameter multiplied by the requested value of pi.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q012",
+      "family": "g7_scale_fence",
+      "status": "pass",
+      "expectedAnswer": "97",
+      "method": "Convert both dimensions, compute perimeter, subtract gate.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q013",
+      "family": "g7_scale_length",
+      "status": "pass",
+      "expectedAnswer": "40",
+      "method": "Map length times scale, as straight-line distance.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q014",
+      "family": "g7_triangular_prism_volume",
+      "status": "pass",
+      "expectedAnswer": "720",
+      "method": "Triangular face area times distance between parallel faces.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q015",
+      "family": "g7_tank_capacity",
+      "status": "pass",
+      "expectedAnswer": "736",
+      "method": "Inside base area times height minus the stated headspace.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q017",
+      "family": "g7_circle_circumference",
+      "status": "pass",
+      "expectedAnswer": "78.5",
+      "method": "Diameter multiplied by the requested value of pi.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q024",
+      "family": "g7_annulus_area",
+      "status": "pass",
+      "expectedAnswer": "351.68",
+      "method": "Difference of circle areas using the requested value of pi.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g07-c04-q033",
+      "family": "g7_scale_fence",
+      "status": "pass",
+      "expectedAnswer": "272",
+      "method": "Convert both dimensions, compute perimeter, subtract gate.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q001",
+      "family": "g8_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "9/22",
+      "method": "Club-and-bus count divided by club total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q002",
+      "family": "g8_table_joint",
+      "status": "pass",
+      "expectedAnswer": "7/24",
+      "method": "Club-only count divided by full survey total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q003",
+      "family": "g8_fit_slope",
+      "status": "pass",
+      "expectedAnswer": "5",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q004",
+      "family": "g8_fit_intercept",
+      "status": "pass",
+      "expectedAnswer": "16",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q006",
+      "family": "g8_model_change",
+      "status": "pass",
+      "expectedAnswer": "14",
+      "method": "Difference of two linear predictions; intercept cancels.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q007",
+      "family": "g8_table_association",
+      "status": "pass",
+      "expectedAnswer": "200/667",
+      "method": "Difference of the two stated within-group bus frequencies.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q008",
+      "family": "g8_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "16/31",
+      "method": "Club-and-bus count divided by club total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q009",
+      "family": "g8_table_joint",
+      "status": "pass",
+      "expectedAnswer": "2/7",
+      "method": "Club-only count divided by full survey total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q010",
+      "family": "g8_fit_slope",
+      "status": "pass",
+      "expectedAnswer": "6",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q011",
+      "family": "g8_fit_intercept",
+      "status": "pass",
+      "expectedAnswer": "23",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q012",
+      "family": "g8_model_change",
+      "status": "pass",
+      "expectedAnswer": "10",
+      "method": "Difference of two linear predictions; intercept cancels.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q013",
+      "family": "g8_table_association",
+      "status": "pass",
+      "expectedAnswer": "19/108",
+      "method": "Difference of the two stated within-group bus frequencies.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q014",
+      "family": "g8_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "11/19",
+      "method": "Club-and-bus count divided by club total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q015",
+      "family": "g8_table_joint",
+      "status": "pass",
+      "expectedAnswer": "12/59",
+      "method": "Club-only count divided by full survey total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q016",
+      "family": "g8_fit_slope",
+      "status": "pass",
+      "expectedAnswer": "6",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q018",
+      "family": "g8_fit_intercept",
+      "status": "pass",
+      "expectedAnswer": "30",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q019",
+      "family": "g8_model_change",
+      "status": "pass",
+      "expectedAnswer": "21",
+      "method": "Difference of two linear predictions; intercept cancels.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q020",
+      "family": "g8_table_association",
+      "status": "pass",
+      "expectedAnswer": "18/65",
+      "method": "Difference of the two stated within-group bus frequencies.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q021",
+      "family": "g8_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "29/42",
+      "method": "Club-and-bus count divided by club total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q022",
+      "family": "g8_table_joint",
+      "status": "pass",
+      "expectedAnswer": "14/67",
+      "method": "Club-only count divided by full survey total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q024",
+      "family": "g8_fit_slope",
+      "status": "pass",
+      "expectedAnswer": "2",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q025",
+      "family": "g8_fit_intercept",
+      "status": "pass",
+      "expectedAnswer": "37",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q026",
+      "family": "g8_model_change",
+      "status": "pass",
+      "expectedAnswer": "20",
+      "method": "Difference of two linear predictions; intercept cancels.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q027",
+      "family": "g8_table_association",
+      "status": "pass",
+      "expectedAnswer": "68/203",
+      "method": "Difference of the two stated within-group bus frequencies.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q028",
+      "family": "g8_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "12/17",
+      "method": "Club-and-bus count divided by club total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q029",
+      "family": "g8_table_joint",
+      "status": "pass",
+      "expectedAnswer": "16/75",
+      "method": "Club-only count divided by full survey total.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g08-c05-q030",
+      "family": "g8_fit_slope",
+      "status": "pass",
+      "expectedAnswer": "2",
+      "method": "Solve the line from its two stated coordinates.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q001",
+      "family": "a1_cost_equation",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Subtract fixed cost, then divide by cost per poster.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q003",
+      "family": "a1_distribute_both_sides",
+      "status": "pass",
+      "expectedAnswer": "9",
+      "method": "Expand both sides, collect x terms, solve unique linear equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q004",
+      "family": "a1_rational_equation",
+      "status": "pass",
+      "expectedAnswer": "19",
+      "method": "Invert the stated rational linear operations.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q005",
+      "family": "a1_equal_plans",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Set the two total-cost functions equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q006",
+      "family": "a1_ticket_system",
+      "status": "pass",
+      "expectedAnswer": "14",
+      "method": "Solve adult+student=count and the total-revenue equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q007",
+      "family": "a1_budget_groups",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Integer floor of the budget remaining after the fixed fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q008",
+      "family": "a1_cost_equation",
+      "status": "pass",
+      "expectedAnswer": "7",
+      "method": "Subtract fixed cost, then divide by cost per poster.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q009",
+      "family": "a1_rational_equation",
+      "status": "pass",
+      "expectedAnswer": "27",
+      "method": "Invert the stated rational linear operations.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q011",
+      "family": "a1_distribute_both_sides",
+      "status": "pass",
+      "expectedAnswer": "17",
+      "method": "Expand both sides, collect x terms, solve unique linear equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q012",
+      "family": "a1_equal_plans",
+      "status": "pass",
+      "expectedAnswer": "10",
+      "method": "Set the two total-cost functions equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q013",
+      "family": "a1_cost_equation",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Subtract fixed cost, then divide by cost per poster.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q014",
+      "family": "a1_ticket_system",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Solve adult+student=count and the total-revenue equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q015",
+      "family": "a1_budget_groups",
+      "status": "pass",
+      "expectedAnswer": "6",
+      "method": "Integer floor of the budget remaining after the fixed fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q016",
+      "family": "a1_rational_equation",
+      "status": "pass",
+      "expectedAnswer": "31",
+      "method": "Invert the stated rational linear operations.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q017",
+      "family": "a1_equal_plans",
+      "status": "pass",
+      "expectedAnswer": "10",
+      "method": "Set the two total-cost functions equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q018",
+      "family": "a1_distribute_both_sides",
+      "status": "pass",
+      "expectedAnswer": "24",
+      "method": "Expand both sides, collect x terms, solve unique linear equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q019",
+      "family": "a1_ticket_system",
+      "status": "pass",
+      "expectedAnswer": "13",
+      "method": "Solve adult+student=count and the total-revenue equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q020",
+      "family": "a1_cost_equation",
+      "status": "pass",
+      "expectedAnswer": "7",
+      "method": "Subtract fixed cost, then divide by cost per poster.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q021",
+      "family": "a1_rational_equation",
+      "status": "pass",
+      "expectedAnswer": "39",
+      "method": "Invert the stated rational linear operations.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q022",
+      "family": "a1_budget_groups",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Integer floor of the budget remaining after the fixed fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q023",
+      "family": "a1_distribute_both_sides",
+      "status": "pass",
+      "expectedAnswer": "29",
+      "method": "Expand both sides, collect x terms, solve unique linear equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q024",
+      "family": "a1_equal_plans",
+      "status": "pass",
+      "expectedAnswer": "12",
+      "method": "Set the two total-cost functions equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q025",
+      "family": "a1_cost_equation",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Subtract fixed cost, then divide by cost per poster.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q026",
+      "family": "a1_ticket_system",
+      "status": "pass",
+      "expectedAnswer": "13",
+      "method": "Solve adult+student=count and the total-revenue equation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q037",
+      "family": "a1_rational_equation",
+      "status": "pass",
+      "expectedAnswer": "58",
+      "method": "Invert the stated rational linear operations.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q001",
+      "family": "a1_function_evaluation",
+      "status": "pass",
+      "expectedAnswer": "0",
+      "method": "Substitute the signed input into the linear function.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q002",
+      "family": "a1_unknown_input",
+      "status": "pass",
+      "expectedAnswer": "6",
+      "method": "Solve for input from the requested output.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q003",
+      "family": "a1_reconstruct_linear",
+      "status": "pass",
+      "expectedAnswer": "-5",
+      "method": "Line through the two function-value observations, evaluated at requested input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q004",
+      "family": "a1_bounded_outputs",
+      "status": "pass",
+      "expectedAnswer": "7",
+      "method": "Enumerate the stated finite integer domain and count qualifying outputs.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q005",
+      "family": "a1_piecewise_evaluation",
+      "status": "pass",
+      "expectedAnswer": "24",
+      "method": "Flat charge plus charge on only the excess distance.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q006",
+      "family": "a1_table_missing_output",
+      "status": "pass",
+      "expectedAnswer": "39",
+      "method": "Determine constant table rate and evaluate missing output.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q007",
+      "family": "a1_compare_functions",
+      "status": "pass",
+      "expectedAnswer": "16",
+      "method": "Evaluate both stated rules at the same input, then subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q008",
+      "family": "a1_reconstruct_linear",
+      "status": "pass",
+      "expectedAnswer": "-10",
+      "method": "Line through the two function-value observations, evaluated at requested input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q009",
+      "family": "a1_function_evaluation",
+      "status": "pass",
+      "expectedAnswer": "2",
+      "method": "Substitute the signed input into the linear function.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q010",
+      "family": "a1_unknown_input",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Solve for input from the requested output.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q012",
+      "family": "a1_bounded_outputs",
+      "status": "pass",
+      "expectedAnswer": "7",
+      "method": "Enumerate the stated finite integer domain and count qualifying outputs.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q013",
+      "family": "a1_piecewise_evaluation",
+      "status": "pass",
+      "expectedAnswer": "29",
+      "method": "Flat charge plus charge on only the excess distance.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q014",
+      "family": "a1_table_missing_output",
+      "status": "pass",
+      "expectedAnswer": "74",
+      "method": "Determine constant table rate and evaluate missing output.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q015",
+      "family": "a1_compare_functions",
+      "status": "pass",
+      "expectedAnswer": "25",
+      "method": "Evaluate both stated rules at the same input, then subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q016",
+      "family": "a1_reconstruct_linear",
+      "status": "pass",
+      "expectedAnswer": "11",
+      "method": "Line through the two function-value observations, evaluated at requested input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q017",
+      "family": "a1_function_evaluation",
+      "status": "pass",
+      "expectedAnswer": "4",
+      "method": "Substitute the signed input into the linear function.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q018",
+      "family": "a1_unknown_input",
+      "status": "pass",
+      "expectedAnswer": "4",
+      "method": "Solve for input from the requested output.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q019",
+      "family": "a1_bounded_outputs",
+      "status": "pass",
+      "expectedAnswer": "7",
+      "method": "Enumerate the stated finite integer domain and count qualifying outputs.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q020",
+      "family": "a1_compare_functions",
+      "status": "pass",
+      "expectedAnswer": "22",
+      "method": "Evaluate both stated rules at the same input, then subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q021",
+      "family": "a1_piecewise_evaluation",
+      "status": "pass",
+      "expectedAnswer": "34",
+      "method": "Flat charge plus charge on only the excess distance.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q022",
+      "family": "a1_table_missing_output",
+      "status": "pass",
+      "expectedAnswer": "64",
+      "method": "Determine constant table rate and evaluate missing output.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q024",
+      "family": "a1_reconstruct_linear",
+      "status": "pass",
+      "expectedAnswer": "13",
+      "method": "Line through the two function-value observations, evaluated at requested input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q031",
+      "family": "a1_bounded_outputs",
+      "status": "pass",
+      "expectedAnswer": "7",
+      "method": "Enumerate the stated finite integer domain and count qualifying outputs.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q002",
+      "family": "a1_factored_root",
+      "status": "pass",
+      "expectedAnswer": "12",
+      "method": "Solve the quadratic exactly and choose larger real root.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q003",
+      "family": "a1_vertex_minimum",
+      "status": "pass",
+      "expectedAnswer": "8",
+      "method": "Squared term has minimum zero at the vertex input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q004",
+      "family": "a1_constrained_profit",
+      "status": "pass",
+      "expectedAnswer": "12",
+      "method": "Enumerate the permitted whole-number inputs and maximize profit.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q005",
+      "family": "a1_rectangle_walkway",
+      "status": "pass",
+      "expectedAnswer": "3",
+      "method": "Solve outer-area quadratic and select positive width.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q006",
+      "family": "a1_rectangle_dimension",
+      "status": "pass",
+      "expectedAnswer": "10",
+      "method": "Positive root of width times width-plus-difference equals area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q007",
+      "family": "a1_quadratic_value",
+      "status": "pass",
+      "expectedAnswer": "120",
+      "method": "Square input, then apply coefficient and intercept.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q008",
+      "family": "a1_projectile_height",
+      "status": "pass",
+      "expectedAnswer": "60",
+      "method": "Complete square (or symmetry) to find maximal height during positive flight.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q009",
+      "family": "a1_constrained_profit",
+      "status": "pass",
+      "expectedAnswer": "10",
+      "method": "Enumerate the permitted whole-number inputs and maximize profit.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q010",
+      "family": "a1_factored_root",
+      "status": "pass",
+      "expectedAnswer": "20",
+      "method": "Solve the quadratic exactly and choose larger real root.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q011",
+      "family": "a1_vertex_minimum",
+      "status": "pass",
+      "expectedAnswer": "16",
+      "method": "Squared term has minimum zero at the vertex input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q013",
+      "family": "a1_rectangle_walkway",
+      "status": "pass",
+      "expectedAnswer": "2",
+      "method": "Solve outer-area quadratic and select positive width.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q014",
+      "family": "a1_rectangle_dimension",
+      "status": "pass",
+      "expectedAnswer": "4",
+      "method": "Positive root of width times width-plus-difference equals area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q015",
+      "family": "a1_quadratic_value",
+      "status": "pass",
+      "expectedAnswer": "92",
+      "method": "Square input, then apply coefficient and intercept.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q016",
+      "family": "a1_projectile_height",
+      "status": "pass",
+      "expectedAnswer": "100",
+      "method": "Complete square (or symmetry) to find maximal height during positive flight.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q017",
+      "family": "a1_constrained_profit",
+      "status": "pass",
+      "expectedAnswer": "11",
+      "method": "Enumerate the permitted whole-number inputs and maximize profit.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q018",
+      "family": "a1_factored_root",
+      "status": "pass",
+      "expectedAnswer": "28",
+      "method": "Solve the quadratic exactly and choose larger real root.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q019",
+      "family": "a1_vertex_minimum",
+      "status": "pass",
+      "expectedAnswer": "24",
+      "method": "Squared term has minimum zero at the vertex input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q021",
+      "family": "a1_rectangle_walkway",
+      "status": "pass",
+      "expectedAnswer": "1",
+      "method": "Solve outer-area quadratic and select positive width.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q022",
+      "family": "a1_rectangle_dimension",
+      "status": "pass",
+      "expectedAnswer": "5",
+      "method": "Positive root of width times width-plus-difference equals area.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q023",
+      "family": "a1_quadratic_value",
+      "status": "pass",
+      "expectedAnswer": "172",
+      "method": "Square input, then apply coefficient and intercept.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q027",
+      "family": "a1_factored_root",
+      "status": "pass",
+      "expectedAnswer": "37",
+      "method": "Solve the quadratic exactly and choose larger real root.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q001",
+      "family": "geo_rigid_sequence",
+      "status": "pass",
+      "expectedAnswer": "13",
+      "method": "Reflect x across vertical line, then add only horizontal translation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q003",
+      "family": "geo_isosceles_equation",
+      "status": "pass",
+      "expectedAnswer": "132",
+      "method": "Equal base angles plus vertex angle sum to 180 degrees; solve and substitute.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q005",
+      "family": "geo_congruence_criterion",
+      "status": "pass",
+      "expectedAnswer": "SAS",
+      "method": "Two corresponding sides and their included angle are equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q007",
+      "family": "geo_congruent_side",
+      "status": "pass",
+      "expectedAnswer": "47",
+      "method": "Corresponding sides equal: solve x then compute requested side.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q008",
+      "family": "geo_corresponding_angle",
+      "status": "pass",
+      "expectedAnswer": "79",
+      "method": "Find angle C and use the stated C-to-F correspondence.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q009",
+      "family": "geo_midpoint_reflection",
+      "status": "pass",
+      "expectedAnswer": "20",
+      "method": "Solve the midpoint equation for the reflected x-coordinate.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q010",
+      "family": "geo_rigid_sequence",
+      "status": "pass",
+      "expectedAnswer": "18",
+      "method": "Reflect x across vertical line, then add only horizontal translation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q011",
+      "family": "geo_isosceles_equation",
+      "status": "pass",
+      "expectedAnswer": "120",
+      "method": "Equal base angles plus vertex angle sum to 180 degrees; solve and substitute.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q012",
+      "family": "geo_rigid_sequence",
+      "status": "pass",
+      "expectedAnswer": "9",
+      "method": "Reflect x across vertical line, then add only horizontal translation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q013",
+      "family": "geo_congruence_criterion",
+      "status": "pass",
+      "expectedAnswer": "SAS",
+      "method": "Two corresponding sides and their included angle are equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q015",
+      "family": "geo_congruent_side",
+      "status": "pass",
+      "expectedAnswer": "75",
+      "method": "Corresponding sides equal: solve x then compute requested side.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q017",
+      "family": "geo_corresponding_angle",
+      "status": "pass",
+      "expectedAnswer": "83",
+      "method": "Find angle C and use the stated C-to-F correspondence.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q020",
+      "family": "geo_midpoint_reflection",
+      "status": "pass",
+      "expectedAnswer": "29",
+      "method": "Solve the midpoint equation for the reflected x-coordinate.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q029",
+      "family": "geo_rigid_sequence",
+      "status": "pass",
+      "expectedAnswer": "18",
+      "method": "Reflect x across vertical line, then add only horizontal translation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c01-q032",
+      "family": "geo_congruence_criterion",
+      "status": "pass",
+      "expectedAnswer": "SAS",
+      "method": "Two corresponding sides and their included angle are equal.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q001",
+      "family": "prob_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "13/22",
+      "method": "Sports-only count divided by sports total after conditioning.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q003",
+      "family": "prob_two_draws",
+      "status": "pass",
+      "expectedAnswer": "9/34",
+      "method": "Count ordered red-blue outcomes among all ordered distinct draws.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q005",
+      "family": "prob_joint_to_conditional",
+      "status": "pass",
+      "expectedAnswer": "0.2",
+      "method": "Joint probability divided by the conditioning-event probability.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q007",
+      "family": "prob_conditional_union",
+      "status": "pass",
+      "expectedAnswer": "5/13",
+      "method": "Intersection divided by the union, excluding neither.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q009",
+      "family": "prob_independent_joint",
+      "status": "pass",
+      "expectedAnswer": "0.36",
+      "method": "Independence applied to event A and complement of event B.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q011",
+      "family": "prob_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "15/34",
+      "method": "Sports-only count divided by sports total after conditioning.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q015",
+      "family": "prob_two_draws",
+      "status": "pass",
+      "expectedAnswer": "3/11",
+      "method": "Count ordered red-blue outcomes among all ordered distinct draws.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q017",
+      "family": "prob_joint_to_conditional",
+      "status": "pass",
+      "expectedAnswer": "0.4",
+      "method": "Joint probability divided by the conditioning-event probability.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q018",
+      "family": "prob_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "0.35",
+      "method": "Sports-only count divided by sports total after conditioning.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q019",
+      "family": "prob_conditional_union",
+      "status": "pass",
+      "expectedAnswer": "27/53",
+      "method": "Intersection divided by the union, excluding neither.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q021",
+      "family": "prob_independent_joint",
+      "status": "pass",
+      "expectedAnswer": "0.18",
+      "method": "Independence applied to event A and complement of event B.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q022",
+      "family": "prob_table_conditional",
+      "status": "pass",
+      "expectedAnswer": "7/22",
+      "method": "Sports-only count divided by sports total after conditioning.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q023",
+      "family": "prob_two_draws",
+      "status": "pass",
+      "expectedAnswer": "0.2625",
+      "method": "Count ordered red-blue outcomes among all ordered distinct draws.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g10-c05-q024",
+      "family": "prob_joint_to_conditional",
+      "status": "pass",
+      "expectedAnswer": "0.6",
+      "method": "Joint probability divided by the conditioning-event probability.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q001",
+      "family": "stats_compare_sse",
+      "status": "pass",
+      "expectedAnswer": "12",
+      "method": "Compute both squared-error sums from the observations and subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q002",
+      "family": "stats_missing_observation",
+      "status": "pass",
+      "expectedAnswer": "30",
+      "method": "Zero mean for three residuals fixes the third residual and observation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q003",
+      "family": "stats_compare_sse",
+      "status": "pass",
+      "expectedAnswer": "14",
+      "method": "Compute both squared-error sums from the observations and subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q004",
+      "family": "stats_least_squares_prediction",
+      "status": "pass",
+      "expectedAnswer": "37",
+      "method": "Derive least-squares slope/intercept from all three data points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q005",
+      "family": "stats_summary_regression",
+      "status": "pass",
+      "expectedAnswer": "39",
+      "method": "Use centered regression form with slope Sxy/Sxx.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q007",
+      "family": "stats_fixed_slope_shift",
+      "status": "pass",
+      "expectedAnswer": "27",
+      "method": "For fixed slope, mean residual is the least-squares intercept adjustment.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q008",
+      "family": "stats_outlier_sse",
+      "status": "pass",
+      "expectedAnswer": "169/178",
+      "method": "Squared selected residual divided by sum of all squared residuals.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q010",
+      "family": "stats_compare_sse",
+      "status": "pass",
+      "expectedAnswer": "14",
+      "method": "Compute both squared-error sums from the observations and subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q011",
+      "family": "stats_missing_observation",
+      "status": "pass",
+      "expectedAnswer": "37",
+      "method": "Zero mean for three residuals fixes the third residual and observation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q014",
+      "family": "stats_least_squares_prediction",
+      "status": "pass",
+      "expectedAnswer": "47",
+      "method": "Derive least-squares slope/intercept from all three data points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q016",
+      "family": "stats_summary_regression",
+      "status": "pass",
+      "expectedAnswer": "52",
+      "method": "Use centered regression form with slope Sxy/Sxx.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q017",
+      "family": "stats_fixed_slope_shift",
+      "status": "pass",
+      "expectedAnswer": "35",
+      "method": "For fixed slope, mean residual is the least-squares intercept adjustment.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q020",
+      "family": "stats_outlier_sse",
+      "status": "pass",
+      "expectedAnswer": "625/634",
+      "method": "Squared selected residual divided by sum of all squared residuals.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q023",
+      "family": "stats_compare_sse",
+      "status": "pass",
+      "expectedAnswer": "18",
+      "method": "Compute both squared-error sums from the observations and subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q026",
+      "family": "stats_missing_observation",
+      "status": "pass",
+      "expectedAnswer": "51",
+      "method": "Zero mean for three residuals fixes the third residual and observation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q028",
+      "family": "stats_least_squares_prediction",
+      "status": "pass",
+      "expectedAnswer": "58",
+      "method": "Derive least-squares slope/intercept from all three data points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q029",
+      "family": "stats_summary_regression",
+      "status": "pass",
+      "expectedAnswer": "71",
+      "method": "Use centered regression form with slope Sxy/Sxx.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q030",
+      "family": "stats_missing_observation",
+      "status": "pass",
+      "expectedAnswer": "54",
+      "method": "Zero mean for three residuals fixes the third residual and observation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q031",
+      "family": "stats_fixed_slope_shift",
+      "status": "pass",
+      "expectedAnswer": "51",
+      "method": "For fixed slope, mean residual is the least-squares intercept adjustment.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q032",
+      "family": "stats_outlier_sse",
+      "status": "pass",
+      "expectedAnswer": "1369/1378",
+      "method": "Squared selected residual divided by sum of all squared residuals.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q034",
+      "family": "stats_compare_sse",
+      "status": "pass",
+      "expectedAnswer": "14",
+      "method": "Compute both squared-error sums from the observations and subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q035",
+      "family": "stats_missing_observation",
+      "status": "pass",
+      "expectedAnswer": "58",
+      "method": "Zero mean for three residuals fixes the third residual and observation.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q037",
+      "family": "stats_least_squares_prediction",
+      "status": "pass",
+      "expectedAnswer": "64",
+      "method": "Derive least-squares slope/intercept from all three data points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q038",
+      "family": "stats_summary_regression",
+      "status": "pass",
+      "expectedAnswer": "78",
+      "method": "Use centered regression form with slope Sxy/Sxx.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q040",
+      "family": "stats_fixed_slope_shift",
+      "status": "pass",
+      "expectedAnswer": "57",
+      "method": "For fixed slope, mean residual is the least-squares intercept adjustment.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q041",
+      "family": "stats_outlier_sse",
+      "status": "pass",
+      "expectedAnswer": "2116/2125",
+      "method": "Squared selected residual divided by sum of all squared residuals.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c04-q043",
+      "family": "stats_compare_sse",
+      "status": "pass",
+      "expectedAnswer": "16",
+      "method": "Compute both squared-error sums from the observations and subtract.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q003",
+      "family": "infer_population_projection",
+      "status": "pass",
+      "expectedAnswer": "1494",
+      "method": "Apply sample reported-intention proportion to matching eligible population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q007",
+      "family": "infer_interval_count",
+      "status": "pass",
+      "expectedAnswer": "2736",
+      "method": "Lower endpoint of the explicitly supplied approximate proportion interval, scaled to population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q009",
+      "family": "infer_two_group_difference",
+      "status": "pass",
+      "expectedAnswer": "24.5",
+      "method": "Difference of sample proportions converted to percentage points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q010",
+      "family": "infer_population_projection",
+      "status": "pass",
+      "expectedAnswer": "1350",
+      "method": "Apply sample reported-intention proportion to matching eligible population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q012",
+      "family": "infer_interval_count",
+      "status": "pass",
+      "expectedAnswer": "3286",
+      "method": "Lower endpoint of the explicitly supplied approximate proportion interval, scaled to population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q013",
+      "family": "infer_simulation_pvalue",
+      "status": "pass",
+      "expectedAnswer": "0.059",
+      "method": "Count already two-sided extreme simulations divided by total; no further doubling.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q014",
+      "family": "infer_two_group_difference",
+      "status": "pass",
+      "expectedAnswer": "2",
+      "method": "Difference of sample proportions converted to percentage points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q015",
+      "family": "infer_stratified_estimate",
+      "status": "pass",
+      "expectedAnswer": "1565",
+      "method": "Separate stratum estimates summed with actual population-size weights.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q017",
+      "family": "infer_population_projection",
+      "status": "pass",
+      "expectedAnswer": "2134",
+      "method": "Apply sample reported-intention proportion to matching eligible population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q018",
+      "family": "infer_simulation_pvalue",
+      "status": "pass",
+      "expectedAnswer": "0.074",
+      "method": "Count already two-sided extreme simulations divided by total; no further doubling.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q019",
+      "family": "infer_interval_count",
+      "status": "pass",
+      "expectedAnswer": "4140",
+      "method": "Lower endpoint of the explicitly supplied approximate proportion interval, scaled to population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q020",
+      "family": "infer_stratified_estimate",
+      "status": "pass",
+      "expectedAnswer": "1600",
+      "method": "Separate stratum estimates summed with actual population-size weights.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q021",
+      "family": "infer_two_group_difference",
+      "status": "pass",
+      "expectedAnswer": "10.5",
+      "method": "Difference of sample proportions converted to percentage points.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q023",
+      "family": "infer_simulation_pvalue",
+      "status": "pass",
+      "expectedAnswer": "0.089",
+      "method": "Count already two-sided extreme simulations divided by total; no further doubling.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q024",
+      "family": "infer_population_projection",
+      "status": "pass",
+      "expectedAnswer": "1976",
+      "method": "Apply sample reported-intention proportion to matching eligible population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q025",
+      "family": "infer_stratified_estimate",
+      "status": "pass",
+      "expectedAnswer": "1625",
+      "method": "Separate stratum estimates summed with actual population-size weights.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g11-c05-q026",
+      "family": "infer_interval_count",
+      "status": "pass",
+      "expectedAnswer": "3572",
+      "method": "Lower endpoint of the explicitly supplied approximate proportion interval, scaled to population.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q001",
+      "family": "cap_break_even_fee",
+      "status": "pass",
+      "expectedAnswer": "15",
+      "method": "Ceiling of fixed cost divided by net contribution after percentage fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q002",
+      "family": "cap_break_even_fee",
+      "status": "pass",
+      "expectedAnswer": "16",
+      "method": "Ceiling of fixed cost divided by net contribution after percentage fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q004",
+      "family": "cap_capacity_profit",
+      "status": "pass",
+      "expectedAnswer": "116",
+      "method": "Enumerate feasible integer production quantities; return greatest profit, not its input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q005",
+      "family": "cap_capacity_profit",
+      "status": "pass",
+      "expectedAnswer": "140",
+      "method": "Enumerate feasible integer production quantities; return greatest profit, not its input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q006",
+      "family": "cap_plan_threshold",
+      "status": "pass",
+      "expectedAnswer": "10",
+      "method": "Strict inequality: first integer above the equality threshold.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q007",
+      "family": "cap_plan_threshold",
+      "status": "pass",
+      "expectedAnswer": "11",
+      "method": "Strict inequality: first integer above the equality threshold.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q008",
+      "family": "cap_expected_profit",
+      "status": "pass",
+      "expectedAnswer": "208",
+      "method": "Probability-weighted profits in the two cases; all produced items incur cost.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q010",
+      "family": "cap_energy_cost",
+      "status": "pass",
+      "expectedAnswer": "3565/24",
+      "method": "Convert minutes to hours, multiply power and price per kWh; output cents.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q012",
+      "family": "cap_average_rate_units",
+      "status": "pass",
+      "expectedAnswer": "1800",
+      "method": "Secant change per machine, multiplied by 100 to convert hundreds of dollars.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q013",
+      "family": "cap_expected_profit",
+      "status": "pass",
+      "expectedAnswer": "233",
+      "method": "Probability-weighted profits in the two cases; all produced items incur cost.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q014",
+      "family": "cap_break_even_fee",
+      "status": "pass",
+      "expectedAnswer": "24",
+      "method": "Ceiling of fixed cost divided by net contribution after percentage fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q015",
+      "family": "cap_energy_cost",
+      "status": "pass",
+      "expectedAnswer": "173.25",
+      "method": "Convert minutes to hours, multiply power and price per kWh; output cents.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q016",
+      "family": "cap_capacity_profit",
+      "status": "pass",
+      "expectedAnswer": "24",
+      "method": "Enumerate feasible integer production quantities; return greatest profit, not its input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q017",
+      "family": "cap_average_rate_units",
+      "status": "pass",
+      "expectedAnswer": "4800",
+      "method": "Secant change per machine, multiplied by 100 to convert hundreds of dollars.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q018",
+      "family": "cap_calendar_maximum",
+      "status": "pass",
+      "expectedAnswer": "2024",
+      "method": "Solve derivative quadratic and use second derivative to identify interior local maximum; add base year.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q019",
+      "family": "cap_break_even_fee",
+      "status": "pass",
+      "expectedAnswer": "30",
+      "method": "Ceiling of fixed cost divided by net contribution after percentage fee.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q020",
+      "family": "cap_expected_profit",
+      "status": "pass",
+      "expectedAnswer": "268",
+      "method": "Probability-weighted profits in the two cases; all produced items incur cost.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q021",
+      "family": "cap_capacity_profit",
+      "status": "pass",
+      "expectedAnswer": "124",
+      "method": "Enumerate feasible integer production quantities; return greatest profit, not its input.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q022",
+      "family": "cap_energy_cost",
+      "status": "pass",
+      "expectedAnswer": "200.725",
+      "method": "Convert minutes to hours, multiply power and price per kWh; output cents.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q023",
+      "family": "cap_plan_threshold",
+      "status": "pass",
+      "expectedAnswer": "20",
+      "method": "Strict inequality: first integer above the equality threshold.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q027",
+      "family": "cap_expected_profit",
+      "status": "pass",
+      "expectedAnswer": "303",
+      "method": "Probability-weighted profits in the two cases; all produced items incur cost.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q031",
+      "family": "cap_energy_cost",
+      "status": "pass",
+      "expectedAnswer": "290.95",
+      "method": "Convert minutes to hours, multiply power and price per kWh; output cents.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q037",
+      "family": "cap_average_rate_units",
+      "status": "pass",
+      "expectedAnswer": "3300",
+      "method": "Secant change per machine, multiplied by 100 to convert hundreds of dollars.",
+      "issues": []
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g12-c05-q039",
+      "family": "cap_break_even_fee",
+      "status": "pass",
+      "expectedAnswer": "47",
+      "method": "Ceiling of fixed cost divided by net contribution after percentage fee.",
+      "issues": []
+    }
+  ]
+}
