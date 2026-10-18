@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "pr282-pr281-pr280-source-verification.v1",
+  "sourceCommit": "64e2fad979f2a936e8347843fe1952fc1cf059f2",
+  "baseCommit": "fd2138127bdfe56981835c754c8bf944eabe7fb2",
+  "pr282Commit": "4f6cc821491d4a604cb3461c6aa6caef0f942e73",
+  "pr281Commit": "ab689091dcdcc2c31f92d1d2e8b7d3dbc3abcf02",
+  "pr280Commit": "487fdc5a4c6b552d09c69f1d53885e0f8bc8a519",
+  "toolingRelease": "f88aaaecfa74f5688df019ee4a7906108865cdc7",
+  "checks": [
+    {
+      "name": "seed",
+      "command": "node --import tsx --test lib/server/demoSeedBackfill.test.ts lib/server/demoSeedBackfillPersistence.test.ts",
+      "exitCode": 0,
+      "summary": "5 passed, 0 failed",
+      "stdoutSha256": "5d6a57722c1eeb10399bfdeda1c09e9ded5f893b9a63c8e77799827764d228d3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logPath": "/tmp/pr282-checks/seed.stdout"
+    },
+    {
+      "name": "funnel",
+      "command": "node --import tsx --test --test-concurrency=1 lib/server/authFunnelMetrics.test.ts app/api/auth/funnel/route.test.ts",
+      "exitCode": 0,
+      "summary": "9 passed, 0 failed",
+      "stdoutSha256": "422ac9d5c232c926e118ea9eac1260cb011c8aefa19f21a0c0e009e235d872c1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logPath": "/tmp/pr282-checks/funnel.stdout"
+    },
+    {
+      "name": "activity",
+      "command": "node --import tsx --test lib/server/userStoreStudentActivityPersistence.test.ts",
+      "exitCode": 0,
+      "summary": "59 passed, 0 failed",
+      "stdoutSha256": "348ce0a7a5aecfc1a93d95b90164f7e642f85b12904df518c0b97631b8d50fc9",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logPath": "/tmp/pr282-checks/activity.stdout"
+    },
+    {
+      "name": "types",
+      "command": "node node_modules/typescript/bin/tsc --noEmit --incremental false",
+      "exitCode": 0,
+      "summary": "exit 0, empty stdout and stderr",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logPath": "/tmp/pr282-checks/types.stdout"
+    }
+  ],
+  "notExecutedInThisRecord": [
+    "No production Postgres connection was opened. The activity alignment test uses the in-memory store clocked at 2026-06-20T10:00:00.000Z.",
+    "No preview or production database was written. Persistence probes used a temporary SQLite file and deleted POSTGRES_URL.",
+    "No production build attestation was produced. This record is not an A22 release attestation.",
+    "Playwright was not re-run. These three pull requests do not change a browser spec."
+  ]
+}
