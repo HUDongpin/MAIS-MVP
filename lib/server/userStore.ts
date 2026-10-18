@@ -356,6 +356,7 @@ import {
   studentActivityQuestionRecordForId as questionForIdFromStudentActivity,
   studentActivitySeedLessonProgressRecords as seedLessonProgressRecordsFromStudentActivityPersistence,
   studentActivityDashboardDataForDatabase as dashboardDataForStudentActivityDatabase,
+  studentActivityProgressDataForDatabase as progressDataForStudentActivityDatabase,
   studentActivityUpdateLessonProgressFromAttempts as updateLessonProgressFromAttemptsFromStudentActivity,
   studentActivityToMistakeBookItem as toMistakeBookItemFromStudentActivity,
   studentActivityToPublicQuestion as toPublicQuestionFromStudentActivity,
@@ -812,6 +813,7 @@ import type {
   ProvisioningRowStatus,
   ProvisioningRowType,
   ProvisioningTotals,
+  ProgressData,
   PublicQuestion,
   QuestionAsset,
   QuestionDiagram,
@@ -12051,11 +12053,11 @@ function mergeStudentDashboardRecordsBy<T>(
   return [...unkeyed, ...keyed.values()];
 }
 
-async function getStudentDashboardDataFromPostgresProjection(
+// Shared by Dashboard and Progress so both include projection_attempts and live practice_attempts.
+async function loadStudentGradeActivityDatabaseFromPostgresProjection(
   userId: string,
-  grade: GradeId,
-  curriculumTrack?: CurriculumScope
-): Promise<DashboardData | null | undefined> {
+  grade: GradeId
+): Promise<StudentActivityPersistenceDatabase | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
 
   try {
@@ -12255,16 +12257,42 @@ async function getStudentDashboardDataFromPostgresProjection(
       visualization_sessions: projectedStudentDashboardArray<VisualizationSessionRecord>(row.visualization_session_records)
     };
 
-    return dashboardDataForStudentActivityDatabase(dashboardDatabase, userId, grade, curriculumTrack, {
-      contentUnavailableForProfile: (profile, selectedGrade) =>
-        adaptiveContentUnavailableFor(profile, selectedGrade) ?? contentUnavailableFor(profile, selectedGrade),
-      now: () => new Date(),
-      topicMatchesCurriculum: (topic, scope) =>
-        isCurriculumTopic(topic as TopicRecord, scope as CurriculumScope)
-    });
+    return dashboardDatabase;
   } catch {
     return undefined;
   }
+}
+
+async function getStudentDashboardDataFromPostgresProjection(
+  userId: string,
+  grade: GradeId,
+  curriculumTrack?: CurriculumScope
+): Promise<DashboardData | null | undefined> {
+  const database = await loadStudentGradeActivityDatabaseFromPostgresProjection(userId, grade);
+  if (!database) return database;
+  return dashboardDataForStudentActivityDatabase(database, userId, grade, curriculumTrack, {
+    contentUnavailableForProfile: (profile, selectedGrade) =>
+      adaptiveContentUnavailableFor(profile, selectedGrade) ?? contentUnavailableFor(profile, selectedGrade),
+    now: () => new Date(),
+    topicMatchesCurriculum: (topic, scope) =>
+      isCurriculumTopic(topic as TopicRecord, scope as CurriculumScope)
+  });
+}
+
+async function getStudentProgressDataFromPostgresProjection(
+  userId: string,
+  grade: GradeId,
+  window?: string | null,
+  curriculumTrack?: CurriculumScope
+): Promise<ProgressData | null | undefined> {
+  const database = await loadStudentGradeActivityDatabaseFromPostgresProjection(userId, grade);
+  if (!database) return database;
+  return progressDataForStudentActivityDatabase(database, userId, grade, window, curriculumTrack, {
+    contentUnavailableForProfile: contentUnavailableFor,
+    now: () => new Date(),
+    topicMatchesCurriculum: (topic, scope) =>
+      isCurriculumTopic(topic as TopicRecord, scope as CurriculumScope)
+  });
 }
 
 async function getCachedStudentDashboardData(
@@ -12308,6 +12336,7 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
   defaultCurriculumTrack,
   translateLessonTextEn: translateHjbHighDisplayTextEn,
   getFastDashboardData: getCachedStudentDashboardData,
+  getFastProgressData: getStudentProgressDataFromPostgresProjection,
   readDatabase: async () => {
     const database = await readDatabase();
     return database as StudentActivityPersistenceDatabase;

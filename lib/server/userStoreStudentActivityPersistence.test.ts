@@ -18,6 +18,7 @@ import type {
   LearningAnalyticsEvent,
   MistakeBookItem,
   DashboardData,
+  ProgressData,
   StudentMessageThread,
   StudentResourceDetailData,
   TeachingResource,
@@ -65,20 +66,67 @@ test("student dashboard fast path bypasses full database reads when it has data"
   assert.equal(await store.getDashboardData("student-shirleen-us", "P1", "US_CA_MATH"), fastDashboard);
 });
 
+test("student progress fast path uses the projected read and skips the full snapshot", async () => {
+  const fastProgress: ProgressData = {
+    curriculumTrack: "US_CA_MATH",
+    progressMetrics: [],
+    weeklyActivity: [],
+    masteryAreas: [],
+    weakTopics: [],
+    recentActivity: [],
+    totalMinutes: 0,
+    contentUnavailable: null
+  };
+  const store = createStudentActivityPersistenceStore({
+    now: () => now,
+    readDatabase: async () => {
+      throw new Error("progress fast path should avoid full readDatabase()");
+    },
+    getFastProgressData: async (userId: string, grade: string, window: string | null | undefined, curriculumTrack: string) => {
+      assert.equal(userId, "student-jon-us-ca-super");
+      assert.equal(grade, "P1");
+      assert.equal(window, "7d");
+      assert.equal(curriculumTrack, "US_CA_MATH");
+      return fastProgress;
+    }
+  } as unknown as Parameters<typeof createStudentActivityPersistenceStore>[0]);
+
+  assert.equal(
+    await store.getProgressData("student-jon-us-ca-super", "P1", "7d", "US_CA_MATH"),
+    fastProgress
+  );
+});
+
 test("legacy userStore wires student dashboard Neon projection before full snapshot fallback", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   const storeConfigStart = source.indexOf("const studentActivityPersistenceStore = createStudentActivityPersistenceStore({");
   const storeConfigEnd = source.indexOf("const authSessionPersistenceStore = createAuthSessionPersistenceStore({", storeConfigStart);
   const storeConfigSource = source.slice(storeConfigStart, storeConfigEnd);
-  const projectionStart = source.indexOf("async function getStudentDashboardDataFromPostgresProjection");
+  const projectionStart = source.indexOf("async function loadStudentGradeActivityDatabaseFromPostgresProjection");
   const projectionEnd = source.indexOf("const studentActivityPersistenceStore = createStudentActivityPersistenceStore({", projectionStart);
   const projectionSource = source.slice(projectionStart, projectionEnd);
+  const progressProjectionStart = projectionSource.indexOf("async function getStudentProgressDataFromPostgresProjection");
+  const progressProjectionSource = projectionSource.slice(progressProjectionStart);
 
   assert.notEqual(storeConfigStart, -1, "Student activity store config should exist.");
   assert.notEqual(storeConfigEnd, -1, "Student activity store config should be bounded.");
   assert.notEqual(projectionStart, -1, "Student dashboard Neon projection should exist.");
   assert.notEqual(projectionEnd, -1, "Student dashboard Neon projection should appear before store wiring.");
+  assert.notEqual(progressProjectionStart, -1, "Student progress should use the shared grade-activity projection.");
   assert.match(storeConfigSource, /getFastDashboardData:\s*getCachedStudentDashboardData/);
+  assert.match(storeConfigSource, /getFastProgressData:\s*getStudentProgressDataFromPostgresProjection/);
+  assert.match(projectionSource, /async function loadStudentGradeActivityDatabaseFromPostgresProjection/);
+  assert.equal(
+    (projectionSource.match(/await loadStudentGradeActivityDatabaseFromPostgresProjection\(/g) ?? []).length,
+    2,
+    "Dashboard and Progress should both call the shared grade-activity projection."
+  );
+  assert.match(progressProjectionSource, /progressDataForStudentActivityDatabase/);
+  assert.equal(
+    progressProjectionSource.includes("readDatabase()"),
+    false,
+    "The projected student progress path should not load the full application state."
+  );
   assert.match(source, /studentDashboardCacheKey/);
   assert.equal(
     projectionSource.includes("readDatabase()"),
@@ -4494,6 +4542,88 @@ test("student activity persistence builds progress data from native tables", asy
     en: "progress unavailable",
     zh: "progress unavailable"
   });
+});
+
+test("dashboard and progress share saved-attempt accuracy outside the weekly window", async () => {
+  const attempts = [
+    ...Array.from({ length: 10 }, (_, index) => ({
+      id: `attempt-old-${index}`,
+      user_id: "student-1",
+      question_id: "question-functions",
+      selected_answer: "1",
+      is_correct: true,
+      duration_seconds: 3600,
+      created_at: "2026-06-01T08:00:00.000Z"
+    })),
+    ...Array.from({ length: 2 }, (_, index) => ({
+      id: `attempt-recent-${index}`,
+      user_id: "student-1",
+      question_id: "question-functions",
+      selected_answer: "0",
+      is_correct: false,
+      duration_seconds: 30,
+      created_at: "2026-06-20T09:00:00.000Z"
+    }))
+  ];
+  const snapshotDatabase: StudentActivityPersistenceDatabase = {
+    topics: [
+      {
+        id: "topic-functions",
+        curriculum_track: "HK",
+        grade: "S3",
+        title_en: "Functions",
+        title_zh: "函數",
+        description_en: "Understand functions",
+        description_zh: "理解函數",
+        difficulty: "Medium",
+        minutes: 24,
+        sort_order: 10
+      }
+    ],
+    lessons: [],
+    lesson_progress: [],
+    questions: [
+      {
+        id: "question-functions",
+        curriculum_track: "HK",
+        grade: "S3",
+        topic_id: "topic-functions",
+        difficulty: "Medium",
+        type: "multiple-choice",
+        prompt_en: "What is f(1)?",
+        prompt_zh: "f(1) 是多少？",
+        options: null,
+        answer: "1",
+        explanation_en: "Evaluate the function.",
+        explanation_zh: "代入函數。"
+      }
+    ],
+    attempts,
+    mistakes: [],
+    learning_events: [],
+    visualization_events: [],
+    visualization_sessions: []
+  };
+  const store = createTestStore(snapshotDatabase);
+
+  const dashboard = await store.getDashboardData("student-1", "S3", "HK");
+  const progress = await store.getProgressData("student-1", "S3", "7d", "HK");
+  const headline = (metrics: typeof dashboard.progressMetrics) => ({
+    attempts: metrics[0]?.trend,
+    accuracy: metrics[1]?.value,
+    total: metrics[1]?.trend
+  });
+
+  assert.equal(dashboard.overallMastery, 83);
+  assert.deepEqual(headline(dashboard.progressMetrics), {
+    attempts: "12 attempts",
+    accuracy: "83%",
+    total: "12 total"
+  });
+  assert.deepEqual(headline(progress.progressMetrics), headline(dashboard.progressMetrics));
+  assert.equal(progress.totalMinutes, 1);
+  assert.equal(progress.weeklyActivity.at(-1)?.minutes, 1);
+  assert.ok(progress.weeklyActivity.slice(0, -1).every((day) => day.minutes === 0));
 });
 
 test("student activity persistence builds roadmap data from native tables", async () => {
