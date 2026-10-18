@@ -12,9 +12,12 @@ import { inventory, assertMaterializedTree } from "./promotion-reviewed-code-pr2
 
 export const BASE = "656ac319b2ad5812d31ad952cbb18430b5e58065";
 export const PLAN_HASH = "4d17dc2824446dc8c000960ef5778ffd0e9b030eea409011df6bebf4405d1049";
+export const PREDECESSOR = "ac9260368713c2ab364dedd5508c07fa6fc3b91d";
 export const DIRECTORY = "coordination/integration/pr201-diversity-228-v1";
+export const REVIEW_DIRECTORY = `${DIRECTORY}/revisions/historical-source-fetch-v1`;
+export const REVISION_PATHS = Object.freeze([".github/workflows/promotion-shadow.yml", "docs/pr201-candidate-integration.md", "scripts/promotion-pr201-candidate.mjs", "scripts/promotion-pr201-candidate.test.mjs"]);
 export const PLAN = `${DIRECTORY}/plan.json`;
-export const ADMISSION = `${DIRECTORY}/admission.json`;
+export const ADMISSION = `${REVIEW_DIRECTORY}/admission.json`;
 export const DATA = "data/generated-content/us-ar-g6-g12-pr201-diversity-228-v2/revised-228.json";
 export const BANK = "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json";
 export const HISTORICAL_BASE = "03717842b19e8b8fa9a3a2dbecf1b359bb842233";
@@ -23,7 +26,7 @@ export const CODE_PATHS = Object.freeze([
   "scripts/promotion-pr201-candidate.test.mjs", "scripts/pr201-candidate-regression.test.mjs",
   "docs/pr201-candidate-integration.md", "coordination/session-logs/2026-10-18-A23-pr201-integration-228.md"
 ].sort());
-export const EVIDENCE_PATHS = Object.freeze([ADMISSION, ...["a11", "a23"].flatMap(role => [`${DIRECTORY}/${role}-review.json`, `${DIRECTORY}/${role}-review.md`])].sort());
+export const EVIDENCE_PATHS = Object.freeze([ADMISSION, ...["a11", "a23"].flatMap(role => [`${REVIEW_DIRECTORY}/${role}-review.json`, `${REVIEW_DIRECTORY}/${role}-review.md`])].sort());
 export const PERMISSIONS = Object.freeze({ liveAllowed: false, mergeAllowed: false, deployAllowed: false, wholePackAccepted: false, historicalAuthorityTransferred: false });
 export const COMMANDS = Object.freeze([
   ["contract", ["--test", "scripts/promotion-pr201-candidate.test.mjs"]],
@@ -92,11 +95,11 @@ export function validateContent(root) {
 }
 export function inspect(repoRoot) {
   const root = realpathSync(repoRoot); need(root === repoRoot, "ROOT_ALIAS"); flags(root);
-  ancestor(root, BASE, "HEAD"); const content = validateContent(root);
-  const paths = new Set([...names(git(root, "diff", "--name-only", "--no-renames", "-z", BASE)), ...names(git(root, "ls-files", "--others", "--exclude-standard", "-z"))]);
-  need([...paths].every(file => content.sourcePaths.includes(file) || EVIDENCE_PATHS.includes(file)), "OUT_OF_SCOPE");
+  ancestor(root, BASE, PREDECESSOR); ancestor(root, PREDECESSOR, "HEAD"); const content = validateContent(root);
+  const paths = new Set([...names(git(root, "diff", "--name-only", "--no-renames", "-z", PREDECESSOR)), ...names(git(root, "ls-files", "--others", "--exclude-standard", "-z"))]);
+  need([...paths].every(file => REVISION_PATHS.includes(file) || EVIDENCE_PATHS.includes(file)), "OUT_OF_SCOPE");
   for (const file of content.sourcePaths) regular(root, file);
-  return { schemaVersion: "pr201-local-inspection.v1", result: "pass", scope: "local-228-nonlive-slice", baselineCommit: BASE, revisedRows: content.revisedRows, unchangedRows: content.unchangedRows, sourceDigest: digest(content.sourcePaths.map(file => ({ path: file, sha256: hash(regular(root, file)) }))), ciAdmission: "not-frozen", ...PERMISSIONS };
+  return { schemaVersion: "pr201-local-inspection.v1", result: "pass", scope: "local-228-nonlive-slice", baselineCommit: BASE, predecessorCommit: PREDECESSOR, revisedRows: content.revisedRows, unchangedRows: content.unchangedRows, sourceDigest: digest(content.sourcePaths.map(file => ({ path: file, sha256: hash(regular(root, file)) }))), ciAdmission: "not-frozen", ...PERMISSIONS };
 }
 
 export function preflight({ repoRoot, eventName, eventPath }) {
@@ -105,26 +108,26 @@ export function preflight({ repoRoot, eventName, eventPath }) {
   let exists = true; try { lstatSync(path.join(root, ADMISSION)); } catch (error) { if (error.code === "ENOENT") exists = false; else throw error; }
   need(exists, "ADMISSION_NOT_FROZEN"); clean(root); flags(root);
   need(line(root, "rev-parse", "--is-shallow-repository") === "false", "SHALLOW");
-  const head = line(root, "rev-parse", "HEAD"), a = tracked(root, head, ADMISSION), content = validateContent(root);
-  keys(a, ["schemaVersion", "baseCommit", "sourceCommit", "sourceTree", "sourceInventoryDigest", "pullRequest", "reviews", "permissions"]);
-  need(a.schemaVersion === "pr201-candidate-admission.v1" && a.baseCommit === BASE && SHA.test(a.sourceCommit) && HASH.test(a.sourceInventoryDigest) && Number.isSafeInteger(a.pullRequest) && a.pullRequest > 0, "ADMISSION");
-  same(a.permissions, PERMISSIONS, "PERMISSION"); same(parents(root, a.sourceCommit), [BASE], "SOURCE_PARENT");
-  same(changed(root, BASE, a.sourceCommit), content.sourcePaths, "SOURCE_PATHS");
-  need(tree(root, a.sourceCommit) === a.sourceTree && digest(inventory(root, BASE, a.sourceCommit)) === a.sourceInventoryDigest, "SOURCE_DIGEST");
-  for (const file of content.sourcePaths.filter(file => file !== ".github/workflows/promotion-shadow.yml")) need(line(root, "ls-tree", BASE, "--", file) === "", "SOURCE_NOT_ADDITIVE");
+  const head = line(root, "rev-parse", "HEAD"), a = tracked(root, head, ADMISSION); validateContent(root);
+  keys(a, ["schemaVersion", "baseCommit", "predecessorCommit", "sourceCommit", "sourceTree", "sourceInventoryDigest", "pullRequest", "reviews", "permissions"]);
+  need(a.schemaVersion === "pr201-candidate-admission.v2" && a.baseCommit === BASE && a.predecessorCommit === PREDECESSOR && SHA.test(a.sourceCommit) && HASH.test(a.sourceInventoryDigest) && Number.isSafeInteger(a.pullRequest) && a.pullRequest > 0, "ADMISSION");
+  same(a.permissions, PERMISSIONS, "PERMISSION"); ancestor(root, BASE, PREDECESSOR); same(parents(root, a.sourceCommit), [PREDECESSOR], "SOURCE_PARENT");
+  same(changed(root, PREDECESSOR, a.sourceCommit), REVISION_PATHS, "SOURCE_PATHS");
+  need(tree(root, a.sourceCommit) === a.sourceTree && digest(inventory(root, PREDECESSOR, a.sourceCommit)) === a.sourceInventoryDigest, "SOURCE_DIGEST");
+  for (const file of REVISION_PATHS) need(line(root, "ls-tree", PREDECESSOR, "--", file).startsWith("100644 blob "), "REVISION_SOURCE_MODE");
   const additions = line(root, "log", head, "--format=%H", "--diff-filter=A", "--", ADMISSION).split("\n");
   need(additions.length === 1 && SHA.test(additions[0]), "ADMISSION_HISTORY"); const evidence = additions[0];
   same(parents(root, evidence), [a.sourceCommit], "EVIDENCE_PARENT"); same(changed(root, a.sourceCommit, evidence), EVIDENCE_PATHS, "EVIDENCE_PATHS");
   for (const file of EVIDENCE_PATHS) { need(line(root, "ls-tree", a.sourceCommit, "--", file) === "", "EVIDENCE_REUSE"); need(line(root, "ls-tree", evidence, "--", file).startsWith("100644 blob "), "EVIDENCE_MODE"); }
-  for (const file of content.sourcePaths) need(line(root, "ls-tree", a.sourceCommit, "--", file).startsWith("100644 blob "), "SOURCE_MODE");
+  for (const file of REVISION_PATHS) need(line(root, "ls-tree", a.sourceCommit, "--", file).startsWith("100644 blob "), "SOURCE_MODE");
   ancestor(root, evidence, head); need(tree(root, head) === tree(root, evidence), "TREE_DRIFT");
   keys(a.reviews, ["A11", "A23"]);
   for (const role of ["A11", "A23"]) {
-    const ref = a.reviews[role], file = `${DIRECTORY}/${role.toLowerCase()}-review.json`, reportPath = `${DIRECTORY}/${role.toLowerCase()}-review.md`;
+    const ref = a.reviews[role], file = `${REVIEW_DIRECTORY}/${role.toLowerCase()}-review.json`, reportPath = `${REVIEW_DIRECTORY}/${role.toLowerCase()}-review.md`;
     keys(ref, ["decisionSha256", "reportSha256"]); const review = tracked(root, head, file);
-    keys(review, ["schemaVersion", "role", "reviewer", "reviewedAt", "sourceCommit", "sourceInventoryDigest", "result", "permissions"]);
+    keys(review, ["schemaVersion", "role", "reviewer", "reviewedAt", "predecessorCommit", "sourceCommit", "sourceInventoryDigest", "result", "permissions"]);
     need(hash(regular(root, file)) === ref.decisionSha256 && hash(regular(root, reportPath)) === ref.reportSha256, "REVIEW_HASH");
-    need(review.schemaVersion === "pr201-candidate-review.v1" && review.role === role && review.reviewer === ({ A11: "/root/pr201_minimal_consumer_review", A23: "/root/pr201_minimal_gate_review" })[role] && Number.isFinite(Date.parse(review.reviewedAt)) && Date.parse(review.reviewedAt) <= Date.now() && review.sourceCommit === a.sourceCommit && review.sourceInventoryDigest === a.sourceInventoryDigest && review.result === "approved-for-nonlive-candidate-admission", "REVIEW_BINDING");
+    need(review.schemaVersion === "pr201-candidate-review.v2" && review.predecessorCommit === PREDECESSOR && review.role === role && review.reviewer === ({ A11: "/root/pr201_minimal_consumer_review", A23: "/root/pr201_minimal_gate_review" })[role] && Number.isFinite(Date.parse(review.reviewedAt)) && Date.parse(review.reviewedAt) <= Date.now() && review.sourceCommit === a.sourceCommit && review.sourceInventoryDigest === a.sourceInventoryDigest && review.result === "approved-for-nonlive-candidate-admission", "REVIEW_BINDING");
     same(review.permissions, PERMISSIONS, "REVIEW_PERMISSION");
   }
   const event = parse(readFileSync(eventPath)); need(["pull_request", "push"].includes(eventName), "EVENT");
@@ -183,13 +186,13 @@ export async function check(options) {
     need(run.status === 0 && !run.signal && !run.error, "TEST_FAILED"); records.push({ name, args, exitCode: 0, stdoutSha256: hash(stdout), stderrSha256: hash(stderr) });
   }
   verifyTestRecords(output, records); const observation = await observeCurrent(context);
-  const proof = { schemaVersion: "pr201-current-proof.v1", event: context.event, sourceCommit: context.admission.sourceCommit, evidenceCommit: context.evidenceCommit, tests: records, observation };
+  const proof = { schemaVersion: "pr201-current-proof.v2", event: context.event, sourceCommit: context.admission.sourceCommit, evidenceCommit: context.evidenceCommit, tests: records, observation };
   save(output, "current.json", proof); return proof;
 }
 async function decision(options) {
   const c = preflight(options), output = artifacts(options.artifactRoot), proof = parse(regular(output, "current.json"));
   keys(proof, ["schemaVersion", "event", "sourceCommit", "evidenceCommit", "tests", "observation"]);
-  need(proof.schemaVersion === "pr201-current-proof.v1" && proof.sourceCommit === c.admission.sourceCommit && proof.evidenceCommit === c.evidenceCommit, "CURRENT_BINDING");
+  need(proof.schemaVersion === "pr201-current-proof.v2" && proof.sourceCommit === c.admission.sourceCommit && proof.evidenceCommit === c.evidenceCommit, "CURRENT_BINDING");
   same(proof.event, c.event, "CURRENT_EVENT"); verifyTestRecords(output, proof.tests); same(proof.observation, await observeCurrent(c), "CURRENT_OBSERVATION");
   assertArtifactSet(options.baselineArtifacts);
   const baseline = realpathSync(options.baselineRoot); need(baseline === options.baselineRoot && baseline !== c.root && line(baseline, "rev-parse", "HEAD") === HISTORICAL_BASE, "HISTORICAL_ROOT");
@@ -199,7 +202,7 @@ async function decision(options) {
   const legacy = await import(pathToFileURL(path.join(baseline, file))); const prior = await legacy.verify({ repoRoot: baseline, eventName: "pull_request", eventPath: options.baselineEvent, artifactRoot: options.baselineArtifacts });
   need(prior.result === "pass" && prior.event.baseCommit === HISTORICAL_BASE && prior.event.headCommit === HISTORICAL_BASE, "HISTORICAL_PROOF");
   clean(baseline); assertMaterializedTree(baseline, HISTORICAL_BASE);
-  const result = { schemaVersion: "pr201-candidate-decision.v1", result: "pass", scope: "exact-228-additive-candidate-source-only", event: c.event, sourceCommit: c.admission.sourceCommit, evidenceCommit: c.evidenceCommit, sourceInventoryDigest: c.admission.sourceInventoryDigest, currentProofSha256: hash(regular(output, "current.json")), historicalBaselineOnly: { commit: HISTORICAL_BASE, decisionDigest: prior.decisionDigest, artifactSha256: hash(regular(options.baselineArtifacts, "decision.v1.json")) }, permissions: PERMISSIONS };
+  const result = { schemaVersion: "pr201-candidate-decision.v2", result: "pass", scope: "exact-228-candidate-historical-fetch-revision-only", predecessorCommit: PREDECESSOR, event: c.event, sourceCommit: c.admission.sourceCommit, evidenceCommit: c.evidenceCommit, sourceInventoryDigest: c.admission.sourceInventoryDigest, currentProofSha256: hash(regular(output, "current.json")), historicalBaselineOnly: { commit: HISTORICAL_BASE, decisionDigest: prior.decisionDigest, artifactSha256: hash(regular(options.baselineArtifacts, "decision.v1.json")) }, permissions: PERMISSIONS };
   return { ...result, decisionDigest: digest(result) };
 }
 export async function main(argv) {

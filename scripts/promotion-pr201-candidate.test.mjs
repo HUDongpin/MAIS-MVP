@@ -10,7 +10,7 @@ import * as production from "./promotion-pr201-candidate.mjs";
 import { inventory } from "./promotion-reviewed-code-pr264.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const { DIRECTORY, PLAN, ADMISSION, DATA, BANK, CODE_PATHS, EVIDENCE_PATHS, PERMISSIONS, hash, digest } = production;
+const { DIRECTORY, REVIEW_DIRECTORY, REVISION_PATHS, PLAN, ADMISSION, DATA, BANK, CODE_PATHS, EVIDENCE_PATHS, PERMISSIONS, hash, digest } = production;
 const git = (cwd, ...args) => execFileSync("/usr/bin/git", args, { cwd, env: { PATH: "/usr/bin:/bin", GIT_CONFIG_GLOBAL: "/dev/null", GIT_CONFIG_NOSYSTEM: "1", LC_ALL: "C" }, stdio: ["ignore", "pipe", "pipe"], maxBuffer: 128 * 1024 * 1024 }).toString("utf8").trim();
 const write = (dir, file, bytes) => { mkdirSync(path.dirname(path.join(dir, file)), { recursive: true }); writeFileSync(path.join(dir, file), bytes); };
 const json = value => JSON.stringify(value, null, 2) + "\n";
@@ -39,28 +39,30 @@ async function fixture(run, mutate = () => {}) {
     for (const file of baseFiles) write(repo, file, execFileSync("/usr/bin/git", ["show", `${production.BASE}:${file}`], { cwd: root, maxBuffer: 32 * 1024 * 1024 }));
     git(repo, "add", "--", ...baseFiles); git(repo, "commit", "-qm", "Synthetic baseline"); const base = git(repo, "rev-parse", "HEAD");
     const plan = JSON.parse(readFileSync(path.join(root, PLAN))); plan.baseCommit = base;
-    const sourcePaths = [...Object.keys(plan.artifacts), PLAN, ...CODE_PATHS].sort();
-    for (const file of sourcePaths) write(repo, file, readFileSync(path.join(root, file)));
-    write(repo, PLAN, json(plan));
+    const priorFiles = [...Object.keys(plan.artifacts), PLAN, ...CODE_PATHS, `${DIRECTORY}/admission.json`, ...["a11", "a23"].flatMap(role => [`${DIRECTORY}/${role}-review.json`, `${DIRECTORY}/${role}-review.md`])];
+    for (const file of priorFiles) write(repo, file, execFileSync("/usr/bin/git", ["show", `${production.PREDECESSOR}:${file}`], { cwd: root, maxBuffer: 32 * 1024 * 1024 }));
+    write(repo, PLAN, json(plan)); git(repo, "add", "--", ...priorFiles); git(repo, "commit", "-qm", "Synthetic immutable predecessor evidence");
+    const predecessor = git(repo, "rev-parse", "HEAD");
+    for (const file of REVISION_PATHS) write(repo, file, readFileSync(path.join(root, file)));
     const script = "scripts/promotion-pr201-candidate.mjs";
-    write(repo, script, readFileSync(path.join(repo, script), "utf8").replace(`export const BASE = "${production.BASE}";`, `export const BASE = "${base}";`).replace(`export const PLAN_HASH = "${production.PLAN_HASH}";`, `export const PLAN_HASH = "${hash(Buffer.from(json(plan)))}";`));
+    write(repo, script, readFileSync(path.join(repo, script), "utf8").replace(`export const BASE = "${production.BASE}";`, `export const BASE = "${base}";`).replace(`export const PREDECESSOR = "${production.PREDECESSOR}";`, `export const PREDECESSOR = "${predecessor}";`).replace(`export const PLAN_HASH = "${production.PLAN_HASH}";`, `export const PLAN_HASH = "${hash(Buffer.from(json(plan)))}";`));
     mutate({ kind: "source", repo, plan });
-    git(repo, "add", "--", ...sourcePaths); git(repo, "commit", "-qm", "Synthetic source and tooling"); const source = git(repo, "rev-parse", "HEAD"), sourceInventoryDigest = digest(inventory(repo, base, source));
+    git(repo, "add", "--", ...REVISION_PATHS); git(repo, "commit", "-qm", "Synthetic append-only source repair"); const source = git(repo, "rev-parse", "HEAD"), sourceInventoryDigest = digest(inventory(repo, predecessor, source));
     const reviews = {};
     for (const role of ["A11", "A23"]) {
       const report = `${role}: synthetic test fixture, not an actual approval.\n`;
-      const review = { schemaVersion: "pr201-candidate-review.v1", role, reviewer: role === "A11" ? "/root/pr201_minimal_consumer_review" : "/root/pr201_minimal_gate_review", reviewedAt: "2026-10-18T00:00:00.000Z", sourceCommit: source, sourceInventoryDigest, result: "approved-for-nonlive-candidate-admission", permissions: PERMISSIONS };
+      const review = { schemaVersion: "pr201-candidate-review.v2", predecessorCommit: predecessor, role, reviewer: role === "A11" ? "/root/pr201_minimal_consumer_review" : "/root/pr201_minimal_gate_review", reviewedAt: "2026-10-18T00:00:00.000Z", sourceCommit: source, sourceInventoryDigest, result: "approved-for-nonlive-candidate-admission", permissions: PERMISSIONS };
       mutate({ kind: "review", role, value: review });
-      write(repo, `${DIRECTORY}/${role.toLowerCase()}-review.md`, report); write(repo, `${DIRECTORY}/${role.toLowerCase()}-review.json`, json(review));
+      write(repo, `${REVIEW_DIRECTORY}/${role.toLowerCase()}-review.md`, report); write(repo, `${REVIEW_DIRECTORY}/${role.toLowerCase()}-review.json`, json(review));
       reviews[role] = { decisionSha256: hash(Buffer.from(json(review))), reportSha256: hash(Buffer.from(report)) };
     }
-    const admission = { schemaVersion: "pr201-candidate-admission.v1", baseCommit: base, sourceCommit: source, sourceTree: git(repo, "rev-parse", `${source}^{tree}`), sourceInventoryDigest, pullRequest: 999201, reviews, permissions: PERMISSIONS };
+    const admission = { schemaVersion: "pr201-candidate-admission.v2", baseCommit: base, predecessorCommit: predecessor, sourceCommit: source, sourceTree: git(repo, "rev-parse", `${source}^{tree}`), sourceInventoryDigest, pullRequest: 999201, reviews, permissions: PERMISSIONS };
     mutate({ kind: "admission", value: admission }); write(repo, ADMISSION, json(admission));
     git(repo, "add", "--", ...EVIDENCE_PATHS); git(repo, "commit", "-qm", "Synthetic evidence"); const evidence = git(repo, "rev-parse", "HEAD");
     const api = await import(pathToFileURL(path.join(repo, script))), eventPath = path.join(temporary, "event.json");
     const event = { number: 999201, pull_request: { base: { sha: base }, head: { sha: evidence } } }; writeFileSync(eventPath, json(event));
     const options = { repoRoot: repo, eventName: "pull_request", eventPath };
-    await run({ repo, temporary, base, source, evidence, api, event, options, check: () => api.preflight(options) });
+    await run({ repo, temporary, base, predecessor, source, evidence, api, event, options, check: () => api.preflight(options) });
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 }
 test("local uncommitted 228-row slice validates without claiming CI or live authority", () => {
@@ -150,7 +152,7 @@ test("formal finalizer refuses local inspection as current CI proof", () => fixt
 }));
 test("workflow selects new marker fail-closed and keeps all old execution steps intact", () => fixture(({ repo }) => {
   const current = YAML.parse(readFileSync(path.join(root, ".github/workflows/promotion-shadow.yml"), "utf8"));
-  const before = YAML.parse(git(root, "show", `${production.BASE}:.github/workflows/promotion-shadow.yml`));
+  const before = YAML.parse(git(root, "show", `${production.PREDECESSOR}:.github/workflows/promotion-shadow.yml`));
   const job = current.jobs["promotion-shadow-gate"], old = before.jobs["promotion-shadow-gate"];
   assert.deepEqual(current.on, before.on); assert.deepEqual(job.env, old.env); assert.deepEqual(job.permissions, old.permissions); assert.equal(job.if, undefined);
   for (const step of old.steps.filter(s => s.id !== "contract")) assert.deepEqual(job.steps.find(s => s.name === step.name), step);
@@ -167,3 +169,44 @@ test("workflow selects new marker fail-closed and keeps all old execution steps 
   const run = spawnSync("bash", ["-c", selector], { cwd: repo, encoding: "utf8", env: { ...process.env, GITHUB_WORKSPACE: repo, GITHUB_EVENT_NAME: "pull_request", GITHUB_EVENT_PATH: "/no-event", GITHUB_OUTPUT: path.join(os.tmpdir(), "unused-pr201-output") } });
   assert.notEqual(run.status, 0); assert.match(run.stderr, /PR201_ADMISSION_NOT_FROZEN/);
 }));
+
+test("historical source repair is append-only and has its own admission", () => {
+  assert.equal(production.PREDECESSOR, "ac9260368713c2ab364dedd5508c07fa6fc3b91d");
+  assert.equal(production.REVIEW_DIRECTORY, `${DIRECTORY}/revisions/historical-source-fetch-v1`);
+  assert.equal(ADMISSION, `${production.REVIEW_DIRECTORY}/admission.json`);
+  assert.deepEqual(production.REVISION_PATHS, [".github/workflows/promotion-shadow.yml", "docs/pr201-candidate-integration.md", "scripts/promotion-pr201-candidate.mjs", "scripts/promotion-pr201-candidate.test.mjs"]);
+});
+
+test("pinned historical fetch rejects changed refs, failed fetches and missing blobs", () => {
+  const workflow = YAML.parse(readFileSync(path.join(root, ".github/workflows/promotion-shadow.yml"), "utf8"));
+  const step = workflow.jobs["promotion-shadow-gate"].steps.find(s => s.name === "Fetch pinned historical PR262 source");
+  assert.ok(step, "historical import must be fetched before native evaluation");
+  assert.equal(step.env, undefined);
+  const temporary = realpathSync(mkdtempSync(path.join(os.tmpdir(), "pr201-fetch-")));
+  try {
+    const fakeGit = path.join(temporary, "git");
+    writeFileSync(fakeGit, `#!/usr/bin/env node
+const args=process.argv.slice(2);const fs=require('node:fs');fs.appendFileSync(process.env.FETCH_CALLS,JSON.stringify(args)+'\\n');
+if(args.includes('fetch')) {if(process.env.FETCH_FAIL==='1')process.exit(7);if(args.includes('--depth')||args.includes('--filter')||args.at(-1)!=='refs/pull/262/head')process.exit(8);}
+else if(args[0]==='rev-parse')process.stdout.write(process.env.FETCH_TIP+'\\n');
+else if(args[0]==='cat-file') {if(process.env.MISSING_BLOB==='1'&&args.at(-1).includes(':'))process.exit(9);}
+else process.exit(10);
+`);chmodSync(fakeGit,0o755);
+    const run = (extra={}) => { const calls=path.join(temporary,'calls-'+Math.random()+'.jsonl');const result=spawnSync('bash',['-c',step.run],{cwd:root,encoding:'utf8',env:{...process.env,PATH:temporary+path.delimiter+process.env.PATH,GH_TOKEN:'synthetic-no-secret',FETCH_CALLS:calls,FETCH_TIP:'fc6c24446659c54f92482cffd2de6e180bbb03c2',...extra}});return {result,calls}; };
+    const good=run();assert.equal(good.result.status,0,good.result.stderr);const calls=readFileSync(good.calls,'utf8').trim().split('\n').map(JSON.parse);assert.equal(calls.filter(args=>args[0]==='cat-file').length,5);assert.ok(calls[0].includes('credential.helper='));
+    for(const bad of [{FETCH_TIP:'0'.repeat(40)},{FETCH_FAIL:'1'},{MISSING_BLOB:'1'}]) assert.notEqual(run(bad).result.status,0);
+  } finally {rmSync(temporary,{recursive:true,force:true});}
+});
+
+test("old admission and old review evidence remain immutable in local and formal revision checks", async () => {
+  for (const file of [`${DIRECTORY}/admission.json`, `${DIRECTORY}/a11-review.json`]) {
+    await fixture(({repo,api}) => {write(repo,file,readFileSync(path.join(repo,file),'utf8')+' ');assert.throws(()=>api.inspect(repo),/PR201_OUT_OF_SCOPE/);});
+  }
+});
+test("fifth source path cannot be laundered by revised inventory and role hashes", () => fixture(({check}) => assert.throws(check,/PR201_SOURCE_PATHS/), x => {
+  if(x.kind==='source'){write(x.repo,'docs/unapproved-repair.md','extra');git(x.repo,'add','--','docs/unapproved-repair.md');}
+}));
+test("wrong predecessor in admission or review is rejected", async () => {
+  await fixture(({check})=>assert.throws(check,/PR201_ADMISSION/),x=>{if(x.kind==='admission')x.value.predecessorCommit=production.BASE;});
+  await fixture(({check})=>assert.throws(check,/PR201_REVIEW_BINDING/),x=>{if(x.kind==='review'&&x.role==='A23')x.value.predecessorCommit=production.BASE;});
+});

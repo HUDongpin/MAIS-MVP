@@ -239,6 +239,22 @@ jobs:
             --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
             --artifact-root "$artifacts"
 
+      - name: Fetch pinned historical PR262 source
+        if: ${{ steps.contract.outputs.mode == 'candidate-pr201' }}
+        run: |
+          set -euo pipefail
+          git -c credential.helper= fetch --no-tags origin refs/pull/262/head
+          expected=fc6c24446659c54f92482cffd2de6e180bbb03c2
+          test "$(git rev-parse FETCH_HEAD)" = "$expected"
+          git cat-file -e "${expected}^{commit}"
+          for file in \
+            data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json \
+            lib/fullQuestionBankSolvability.test.ts \
+            scripts/arkansas-correctness-solvers.mjs \
+            scripts/audit-us-math-item-quality.mjs; do
+            git cat-file -e "${expected}:${file}"
+          done
+
       - name: Prepare historical baseline for PR201 candidate
         if: ${{ steps.contract.outputs.mode == 'candidate-pr201' }}
         run: |
