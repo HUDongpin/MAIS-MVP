@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "pr201-diversity-local-plan.v1",
+  "baseCommit": "656ac319b2ad5812d31ad952cbb18430b5e58065",
+  "scope": "228-rows-additive-nonlive-only",
+  "candidateSha256": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+  "revised228Sha256": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2",
+  "originalBank": {
+    "path": "data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json",
+    "sha256": "4f677216d3d9aec1b8f93be87a2900ff5a63f62e45a7555458ac146955ac0766"
+  },
+  "artifacts": {
+    "coordination/integration/pr201-diversity-228-v1/a18/alignment-cards.json": "0abd0dff31f314541c96322974c5a292599555afdac3fd9a23c45190087ad6cd",
+    "coordination/integration/pr201-diversity-228-v1/a18/grading-compatibility.json": "2bb99793f3745b8c9f4522da18e26f8557cf5ec2b3973dd0058d59b03a615daa",
+    "coordination/integration/pr201-diversity-228-v1/a18/item-manifest.json": "f7b21908cd3aa8cb6308cd3bf80ada64407b71e480436536f5ba6ffa5990ac94",
+    "coordination/integration/pr201-diversity-228-v1/a18/qa-decision.json": "8778855da4a932f05baebe8ae0e1a8f6120a05fb3a087dcdf02282906153e907",
+    "coordination/integration/pr201-diversity-228-v1/a18/question-pack.json": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+    "coordination/integration/pr201-diversity-228-v1/a18/reviews/a18-pr201-algebra-v2-review.json": "ac44fe7eb6fe53435cffb199bb02266222f98eacc05268962eeccce93f88b1fc",
+    "coordination/integration/pr201-diversity-228-v1/a18/reviews/a18-pr201-lower-v2-review.json": "51100815bde15eaa40329ecc1a1ff888012d531e744229dbace14a8dc51824d0",
+    "coordination/integration/pr201-diversity-228-v1/a18/reviews/pr201-a18-upper-v2-review.json": "d184544815816760d25bc40427f1cd02c8052cef606be9ad7e02af53c4d6d5de",
+    "coordination/integration/pr201-diversity-228-v1/a18/scope.json": "73b04657a704c809fca144058dec6042495f0565ea6415131ed3f3acc2d0adfa",
+    "coordination/integration/pr201-diversity-228-v1/a18/solvability-audit.json": "20379ef8a7084d35c4eb600bee989b2dd2077e687447884b14c7821ebf6b827a",
+    "coordination/integration/pr201-diversity-228-v1/a18/source-manifest.json": "6baf219d8e2dfad0e51fa0344221ddeffc416abba96190c7e7df1a33f6e3f18a",
+    "coordination/integration/pr201-diversity-228-v1/a18/source-safety-check.json": "b6394675d43a76847547d2e064e629be40875a791ab4d022373032936b32b44a",
+    "coordination/integration/pr201-diversity-228-v1/source-observation.json": "30745fc99fa6e9c0b41dba4d75d13923192516175dfd20e580ea105a1b9ea55d",
+    "data/generated-content/us-ar-g6-g12-pr201-diversity-228-v2/revised-228.json": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2"
+  },
+  "permissions": {
+    "liveAllowed": false,
+    "mergeAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

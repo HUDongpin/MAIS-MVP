@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "pr201-diversity-qa-decision.v1",
+  "candidatePackageId": "us-ar-g6-g12-pr201-diversity-20261006-v1",
+  "candidateRevision": "v2",
+  "candidateSha256": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+  "revised228Sha256": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2",
+  "verdict": "approved-for-integration-review",
+  "scope": "228 revised rows only; remaining1272 not accepted by this decision",
+  "reviewed": 228,
+  "accepted": 228,
+  "pending": 0,
+  "rejected": 0,
+  "blockingFindings": 0,
+  "reviewSources": [
+    {
+      "path": "reviews/a18-pr201-lower-v2-review.json",
+      "sha256": "51100815bde15eaa40329ecc1a1ff888012d531e744229dbace14a8dc51824d0",
+      "count": 62,
+      "reviewer": "A18 lower grades independent QA"
+    },
+    {
+      "path": "reviews/a18-pr201-algebra-v2-review.json",
+      "sha256": "ac44fe7eb6fe53435cffb199bb02266222f98eacc05268962eeccce93f88b1fc",
+      "count": 69,
+      "reviewer": "/root/a18_pr201_algebra"
+    },
+    {
+      "path": "reviews/pr201-a18-upper-v2-review.json",
+      "sha256": "d184544815816760d25bc40427f1cd02c8052cef606be9ad7e02af53c4d6d5de",
+      "count": 97,
+      "reviewer": "A18 upper independent reviewer"
+    }
+  ],
+  "nextOwner": "A23 integration planning only if assigned; owning live surface plus A11/A22 gates follow separately",
+  "integrationStatus": "not-integrated",
+  "liveAllowed": false,
+  "wholePackAccepted": false,
+  "metadataPolicy": "Frozen candidate retains pending-at-generation fields. This exact-hash external decision is authoritative for current content-review status; it does not convert source metadata to live approval."
+}
