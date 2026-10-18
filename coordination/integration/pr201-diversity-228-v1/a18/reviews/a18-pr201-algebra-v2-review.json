@@ -1,0 +1,1361 @@
+{
+  "schemaVersion": "a18-pr201-diversity-slice-review.v1",
+  "reviewer": "/root/a18_pr201_algebra",
+  "role": "A18",
+  "reviewedAt": "2026-10-05T19:46:10.495552+00:00",
+  "candidatePackageId": "us-ar-g6-g12-pr201-diversity-20261006-v1",
+  "candidateSha256": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+  "revised228Sha256": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2",
+  "scope": "Exactly69 Grade9 retained PR201 diversity IDs in three chapters; no claim for other159 revised or1272 unchanged rows",
+  "scopeCount": 69,
+  "method": "Full69 independent v1 review plus v2 bounded re-review: all69 full rows diffed, only3 explanations changed plus-negative to subtraction. Reread all3 changed explanations; same coefficients, roots, and domain reasoning remain correct. Verified69 manifest hashes and exact pack-row equality.",
+  "independence": "Did not author candidate or edit source. Legacy critique only; later candidate independently reviewed.",
+  "issueCounts": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0
+  },
+  "verdict": "approved-for-integration-review",
+  "claimCeiling": "Exact69-item content slice only. No1500-row acceptance, promotion, main integration, release, runtime-grader verification, production or live approval.",
+  "limitations": [
+    "Difficulty labels are editorial judgments, not empirical calibration.",
+    "US English assigned; zh and zhHans intentionally mirror English, not translation approval.",
+    "Source-distance assessed against supplied provenance and official standard texts; no global similarity corpus scan.",
+    "Numeric aliases were reviewed for correctness; runtime grading integration not executed by this reviewer."
+  ],
+  "advisories": [],
+  "legacyCorrection": "C03 actual title is Linear and Quadratic Models. Earlier blanket claim that five linear break-even tasks violated chapter scope is withdrawn.",
+  "rows": [
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q001",
+      "candidateRowSha256": "e2c0fbbe3bd5c2f7bec9fe9a3e765a0ae72b80583cd2a7b37144d334676c6177",
+      "family": "a1_cost_equation",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q003",
+      "candidateRowSha256": "d3975551f388efd11ad031df741c312f27003e57d3992ff191333082c96f6247",
+      "family": "a1_distribute_both_sides",
+      "independentExpectedAnswer": "9",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q004",
+      "candidateRowSha256": "8d9a5ea20d3503855c1261497010826ff55c3367b6ad0d1d134c8e313d4240e0",
+      "family": "a1_rational_equation",
+      "independentExpectedAnswer": "19",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q005",
+      "candidateRowSha256": "6e832a9b33a4de7f1642bec9d81867383ea7f6f7124be2d24ab6df2eae986cda",
+      "family": "a1_equal_plans",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q006",
+      "candidateRowSha256": "83eae0ec45fa4072aafa6a5cf9fbac57722f40808b9f43dafe0b35f37e95607c",
+      "family": "a1_ticket_system",
+      "independentExpectedAnswer": "14",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q007",
+      "candidateRowSha256": "0bffce7ffcb2665f463e95d5aeda4f42dd9fcf814995e0f81e665f2aa4b0fe52",
+      "family": "a1_budget_groups",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q008",
+      "candidateRowSha256": "4537fd5610b8a680508563bee77e94c8c5c017ec8a1692c200c2ec32b48e3078",
+      "family": "a1_cost_equation",
+      "independentExpectedAnswer": "7",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q009",
+      "candidateRowSha256": "30c2be80549182b501856ed208eb4ec85934d80c68a492dcb6cd167d2cebd3b2",
+      "family": "a1_rational_equation",
+      "independentExpectedAnswer": "27",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q011",
+      "candidateRowSha256": "0d9d24d215d4ac9668b32d0576ffcde689149d9e48ce5d889fd2e9d7d30ed6c5",
+      "family": "a1_distribute_both_sides",
+      "independentExpectedAnswer": "17",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q012",
+      "candidateRowSha256": "bdb9721d3f529654712240be9e3e6b82ae86b60d015305a0ee4aa10216108a81",
+      "family": "a1_equal_plans",
+      "independentExpectedAnswer": "10",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q013",
+      "candidateRowSha256": "64a24de430ca7fc317ac903accee24f7912620268e49b6fdbe3216b3e6e31d07",
+      "family": "a1_cost_equation",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q014",
+      "candidateRowSha256": "e23833f3ce251328ff79dbaaef485001822dcd3b3398f23f4642e99263885ef5",
+      "family": "a1_ticket_system",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q015",
+      "candidateRowSha256": "aa93da66d6ee263943a93f995a57e8dd4eb10d0405964c6e503343922989f2dc",
+      "family": "a1_budget_groups",
+      "independentExpectedAnswer": "6",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q016",
+      "candidateRowSha256": "13205e415c632defffafa8615b565893610401fc5db36f58d6f5dc73649a3947",
+      "family": "a1_rational_equation",
+      "independentExpectedAnswer": "31",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q017",
+      "candidateRowSha256": "e7a0e48534340807bd0a85839c112e7d0fede17a474c921029fe7b2e94c45264",
+      "family": "a1_equal_plans",
+      "independentExpectedAnswer": "10",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q018",
+      "candidateRowSha256": "7eca2f1718af227d625f2b26c920f21088a280461b7e7440e21d18caf00f2ff7",
+      "family": "a1_distribute_both_sides",
+      "independentExpectedAnswer": "24",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q019",
+      "candidateRowSha256": "69acd9e5f7cf1fadc59f8ae9599b7fed69289b1cc1ef6232a5caf43c39530610",
+      "family": "a1_ticket_system",
+      "independentExpectedAnswer": "13",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q020",
+      "candidateRowSha256": "36040c3ed28ea1e2975022a53f814aa9c2dcf90e1f5ea168b264a843aef1efa7",
+      "family": "a1_cost_equation",
+      "independentExpectedAnswer": "7",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q021",
+      "candidateRowSha256": "25df9de1c61a08e09e4e5f0a47c3a5eedec6cc937a08ab9632ff448646616e32",
+      "family": "a1_rational_equation",
+      "independentExpectedAnswer": "39",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q022",
+      "candidateRowSha256": "c00d728cfac0728c147e3594fbae2811a401251f56f2715ceec9d4c4653fb5a0",
+      "family": "a1_budget_groups",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q023",
+      "candidateRowSha256": "91432acff1229a9f7e1346bfae79c4a53f56896a6fe7ca013434ef71043ede0f",
+      "family": "a1_distribute_both_sides",
+      "independentExpectedAnswer": "29",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q024",
+      "candidateRowSha256": "0e8ac1123ad3b7a263b225b0a9f8f44b183238da3d28501397315295bbc8a6ea",
+      "family": "a1_equal_plans",
+      "independentExpectedAnswer": "12",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q025",
+      "candidateRowSha256": "6e6cf5bb802b5603e83753daef41c551ae0f21dfc6f368803d31bf833acfda5f",
+      "family": "a1_cost_equation",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q026",
+      "candidateRowSha256": "e1d1dd586f83b0771e20716447096e39978a818fdb10f8522ede87b52114d073",
+      "family": "a1_ticket_system",
+      "independentExpectedAnswer": "13",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c01-q037",
+      "candidateRowSha256": "1368c76ba15434295d48951276524605acb5375f5364adadc3f8d14fefb20cc7",
+      "family": "a1_rational_equation",
+      "independentExpectedAnswer": "58",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q001",
+      "candidateRowSha256": "bcbd2d722478801dae0ab305b862731b888751b593d63fb57fcab43903af9527",
+      "family": "a1_function_evaluation",
+      "independentExpectedAnswer": "0",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q002",
+      "candidateRowSha256": "db226f54dcfcc10828e0d1a02b01ce31046293be786365efea9dbf28708247a0",
+      "family": "a1_unknown_input",
+      "independentExpectedAnswer": "6",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q003",
+      "candidateRowSha256": "203836515547d6e48f260ceb941793e3e3a10fd9285d33db9efe035e18ae4270",
+      "family": "a1_reconstruct_linear",
+      "independentExpectedAnswer": "-5",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q004",
+      "candidateRowSha256": "2c39535a68256679c341ecc443d0e42c67effd87b87a8216b5663816ef34db3d",
+      "family": "a1_bounded_outputs",
+      "independentExpectedAnswer": "7",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q005",
+      "candidateRowSha256": "c0cf349f85440e4b18397831b9f619e63797a9ae4529a905c547cf2ccfab99bf",
+      "family": "a1_piecewise_evaluation",
+      "independentExpectedAnswer": "24",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q006",
+      "candidateRowSha256": "ce829997564cfe8fa9c157675fa8ba5fb342b94930a8ce3981f163a28a84c4b3",
+      "family": "a1_table_missing_output",
+      "independentExpectedAnswer": "39",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q007",
+      "candidateRowSha256": "2934fc3e69e9e30e0f47a3f257f08ae8722e7b12885b409d9e751d04132732c5",
+      "family": "a1_compare_functions",
+      "independentExpectedAnswer": "16",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q008",
+      "candidateRowSha256": "d6fc314df038a48c8ac41d6c7ad2946f381b8fdc546a70bee5d876ec3b01d046",
+      "family": "a1_reconstruct_linear",
+      "independentExpectedAnswer": "-10",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q009",
+      "candidateRowSha256": "f88a3a984cabeb4ef67198c0768f848786e57234864986b1336138cce61c5ad5",
+      "family": "a1_function_evaluation",
+      "independentExpectedAnswer": "2",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q010",
+      "candidateRowSha256": "b9d0c8aca87625f63ca2b6beb33d671188ba2282c9c157684e38c0c3bd318702",
+      "family": "a1_unknown_input",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q012",
+      "candidateRowSha256": "1b6f33efe71a66e12421a469bddde00282ec0b40304dc35a16f5aa56287bedf1",
+      "family": "a1_bounded_outputs",
+      "independentExpectedAnswer": "7",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q013",
+      "candidateRowSha256": "7ce6678432ac55f4633dbf52ff121585d614d06a7db5f49c717e6f188cc8c57e",
+      "family": "a1_piecewise_evaluation",
+      "independentExpectedAnswer": "29",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q014",
+      "candidateRowSha256": "f15942c1d99a2b115746086f9ed91fcd5621815fa1b905aa1249f30127e2360d",
+      "family": "a1_table_missing_output",
+      "independentExpectedAnswer": "74",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q015",
+      "candidateRowSha256": "4e86ba2b4e649c796efd4528316c0ca13b256e3e249a7304ddd11c7df4466a36",
+      "family": "a1_compare_functions",
+      "independentExpectedAnswer": "25",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q016",
+      "candidateRowSha256": "0cd46ba8a46c5e733dcad6c57ae0b54646f32a139c1d054a31dbab0451bdf148",
+      "family": "a1_reconstruct_linear",
+      "independentExpectedAnswer": "11",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q017",
+      "candidateRowSha256": "58c7561fbb30a0136e95c564299f8a0cd5cce601778458248adf3750d2f42cd4",
+      "family": "a1_function_evaluation",
+      "independentExpectedAnswer": "4",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q018",
+      "candidateRowSha256": "a5813808b910e8a1c271d7ba35c4b3612f8e11cc86b8eaf137ad0a9cb564ff44",
+      "family": "a1_unknown_input",
+      "independentExpectedAnswer": "4",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q019",
+      "candidateRowSha256": "4f842d480de4a32c2bbe784cfbdae053e8c08016ca7d6dfac272f8ef3e5c4307",
+      "family": "a1_bounded_outputs",
+      "independentExpectedAnswer": "7",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q020",
+      "candidateRowSha256": "12ab4cf0bba27c314b2a2e73702cad3691f36f6a56b2bc0e2d5a033e1e88802a",
+      "family": "a1_compare_functions",
+      "independentExpectedAnswer": "22",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q021",
+      "candidateRowSha256": "e110d8977d3ca5fca725c0f077d0d309c774062c5792dd6d227b1750edc3975d",
+      "family": "a1_piecewise_evaluation",
+      "independentExpectedAnswer": "34",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q022",
+      "candidateRowSha256": "836edff2ae06ccf4912412f6f580b3cd5cd09eccd28bf511dc03a5d1f1a10d17",
+      "family": "a1_table_missing_output",
+      "independentExpectedAnswer": "64",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q024",
+      "candidateRowSha256": "f19cb6e4539ff5a41752b7c4097e76e49e560b0a744e6fed629fbb6ee7adb4b9",
+      "family": "a1_reconstruct_linear",
+      "independentExpectedAnswer": "13",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c02-q031",
+      "candidateRowSha256": "94efaf8c6e4980c68cd0ec87c9186588b5bd7dfc36c549b9cea2682e31656797",
+      "family": "a1_bounded_outputs",
+      "independentExpectedAnswer": "7",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q002",
+      "candidateRowSha256": "d08bbc6e7938399ceb5d95834da5d2c59fe03922834c1325b25209721fcc7cba",
+      "family": "a1_factored_root",
+      "independentExpectedAnswer": "12",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q003",
+      "candidateRowSha256": "b10a9cef375750079127b10cb179de8b444f9ae538a0b2797e85b70d9a23f4d5",
+      "family": "a1_vertex_minimum",
+      "independentExpectedAnswer": "8",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q004",
+      "candidateRowSha256": "a940752af47373c3e1d5d9b79e7fdf1c09e2642df2f86c2fefdc9c26d04ee69d",
+      "family": "a1_constrained_profit",
+      "independentExpectedAnswer": "12",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q005",
+      "candidateRowSha256": "1c366b0e51c721f129eb8d2b7b710692ed9222daee591b0faf3cbaf398bcf557",
+      "family": "a1_rectangle_walkway",
+      "independentExpectedAnswer": "3",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Exact bounded explanation diff read and independently checked algebra unchanged."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q006",
+      "candidateRowSha256": "28f3dbe0e4f1c0f17b825e7a34902b7b249e3d0193416383ab3600d781f6b395",
+      "family": "a1_rectangle_dimension",
+      "independentExpectedAnswer": "10",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q007",
+      "candidateRowSha256": "18a22141d8c648f9333c7ff181f8f0d146aebca60c908829aef225d074010d5c",
+      "family": "a1_quadratic_value",
+      "independentExpectedAnswer": "120",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q008",
+      "candidateRowSha256": "c82819a54dfba7759084d3efe22dc8a838211f95d22730123e3902bac9a4f279",
+      "family": "a1_projectile_height",
+      "independentExpectedAnswer": "60",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q009",
+      "candidateRowSha256": "a8d0986de341f6c1b08f00f4219ab8ace75515853f39ee12304594c163ee5e40",
+      "family": "a1_constrained_profit",
+      "independentExpectedAnswer": "10",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q010",
+      "candidateRowSha256": "4ead468bfa89bec96e91d4cbf761b68a016aa52d3c47d59653d4173e0d6d95ca",
+      "family": "a1_factored_root",
+      "independentExpectedAnswer": "20",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q011",
+      "candidateRowSha256": "89118bfdca54f53f3e97e997f27c342c55b9954fdb167f3f09239b932354f1c9",
+      "family": "a1_vertex_minimum",
+      "independentExpectedAnswer": "16",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q013",
+      "candidateRowSha256": "d99ca501bb1ee02a14d985014813067167f2f1e2e7ad6f3830818f68731f57e3",
+      "family": "a1_rectangle_walkway",
+      "independentExpectedAnswer": "2",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Exact bounded explanation diff read and independently checked algebra unchanged."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q014",
+      "candidateRowSha256": "fc2a4ab6d8eafffc63986a81f516cb0afb3dbb4ce639b6901b89963813bde2a6",
+      "family": "a1_rectangle_dimension",
+      "independentExpectedAnswer": "4",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q015",
+      "candidateRowSha256": "29ab2220dd5b5d85fabd04089f0448ba5944b2c64c4efc06aa48fbb8bd38ebca",
+      "family": "a1_quadratic_value",
+      "independentExpectedAnswer": "92",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q016",
+      "candidateRowSha256": "5d634172884dc46a9cf9e071f3e97a1ea94a38dbd4650ff49b10478aa0ac6e39",
+      "family": "a1_projectile_height",
+      "independentExpectedAnswer": "100",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q017",
+      "candidateRowSha256": "66590246e91cbd5e137cfa3fca6d4d5894ada227baf44d88edb4f48d79d0312d",
+      "family": "a1_constrained_profit",
+      "independentExpectedAnswer": "11",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q018",
+      "candidateRowSha256": "58313ffa685d0b45effaa174be51bdccdf3009aeb3ca5a5a0272568c36e43fa3",
+      "family": "a1_factored_root",
+      "independentExpectedAnswer": "28",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q019",
+      "candidateRowSha256": "3c87495340f6544819dd1221d9cea08a17cfcd0f3cd8e87b60e34cf6fd0e1327",
+      "family": "a1_vertex_minimum",
+      "independentExpectedAnswer": "24",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q021",
+      "candidateRowSha256": "af211699349608a0d92814d6588bf1ce8bb318e35c2f0ccf4785f3bfb1f13de3",
+      "family": "a1_rectangle_walkway",
+      "independentExpectedAnswer": "1",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Exact bounded explanation diff read and independently checked algebra unchanged."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q022",
+      "candidateRowSha256": "728f1b3567633f91dcdefae1348d797fbbccbcaea9ca190cb091a7ddee9bd7f0",
+      "family": "a1_rectangle_dimension",
+      "independentExpectedAnswer": "5",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q023",
+      "candidateRowSha256": "90c924d80677282b30038667660c7d8103c8d03fb0cfa2c455246abdee986e30",
+      "family": "a1_quadratic_value",
+      "independentExpectedAnswer": "172",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    },
+    {
+      "id": "us-ar-g6-g12-v1-g09-c03-q027",
+      "candidateRowSha256": "d52c966bbc84b0e81e01d5ceab4bdeaf6da7fd16ab74470183c7b0a1a9513d01",
+      "family": "a1_factored_root",
+      "independentExpectedAnswer": "37",
+      "checks": {
+        "mathCorrectness": "pass",
+        "singleAnswerAndOptions": "pass",
+        "acceptedAliases": "pass",
+        "explanation": "pass",
+        "curriculumAlignment": "pass-bounded-skill-alignment",
+        "difficulty": "pass-editorial-not-empirically-calibrated",
+        "language": "US-English-only-as-assigned",
+        "visualSufficiency": "pass-all-answer-critical-relations-textual",
+        "sourceDistance": "no-observed-copied-question-or-standard-prose"
+      },
+      "issues": [],
+      "reReviewMethod": "Full row unchanged from independently accepted v1; hash equality verified."
+    }
+  ],
+  "nextOwner": "A23 only after remaining slice decisions complete; any content mutation requires fresh exact-byte A18 re-review.",
+  "evidenceHashes": {
+    "question-pack.json": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+    "revised-228.json": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2",
+    "item-manifest.json": "f7b21908cd3aa8cb6308cd3bf80ada64407b71e480436536f5ba6ffa5990ac94",
+    "scope.json": "73b04657a704c809fca144058dec6042495f0565ea6415131ed3f3acc2d0adfa",
+    "solvability-audit.json": "20379ef8a7084d35c4eb600bee989b2dd2077e687447884b14c7821ebf6b827a",
+    "alignment-cards.json": "0abd0dff31f314541c96322974c5a292599555afdac3fd9a23c45190087ad6cd",
+    "source-manifest.json": "6baf219d8e2dfad0e51fa0344221ddeffc416abba96190c7e7df1a33f6e3f18a"
+  },
+  "priorReview": {
+    "path": "/tmp/a18-pr201-algebra-v1-review.json",
+    "sha256": "2d43ab6bc230001ba6f811d687931bcc624736c91ca5944adbf95c4ca6094717",
+    "changedIds": [
+      "us-ar-g6-g12-v1-g09-c03-q005",
+      "us-ar-g6-g12-v1-g09-c03-q013",
+      "us-ar-g6-g12-v1-g09-c03-q021"
+    ],
+    "unchangedRows": 66
+  }
+}
