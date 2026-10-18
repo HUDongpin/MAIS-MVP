@@ -12,34 +12,45 @@ import {
 const jonSubmissionId = "submission-us-ca-p1-add-subtract-check-jon";
 const jonEnrollmentId = "enrollment-us-ca-p1-student-jon";
 
-test("demo seed backfill is refused in production unless the flag is explicitly set", () => {
+test("any Vercel deployment refuses demo seed backfill unless the flag is explicitly set", () => {
   assert.equal(demoSeedBackfillFlagExplicitlyEnabled(undefined), false);
   assert.equal(demoSeedBackfillFlagExplicitlyEnabled(""), false);
   assert.equal(demoSeedBackfillFlagExplicitlyEnabled("yes"), false);
   assert.equal(demoSeedBackfillFlagExplicitlyEnabled("on"), false);
   assert.equal(demoSeedBackfillFlagExplicitlyEnabled(" TRUE "), true);
 
-  for (const flag of [undefined, "", "0", "false", "yes", "on"]) {
+  for (const vercelEnv of ["production", "preview", "development", " preview ", "custom"]) {
+    for (const flag of [undefined, "", "0", "false", "yes", "on"]) {
+      assert.equal(
+        shouldBackfillDemoSeed({
+          VERCEL_ENV: vercelEnv,
+          MAIS_DEMO_SEED_BACKFILL: flag,
+          HK_MATH_ENABLE_DEMO_USER: "true"
+        }),
+        false,
+        `${vercelEnv} flag ${String(flag)}`
+      );
+    }
     assert.equal(
-      shouldBackfillDemoSeed({
-        VERCEL_ENV: "production",
-        MAIS_DEMO_SEED_BACKFILL: flag,
-        HK_MATH_ENABLE_DEMO_USER: "true"
-      }),
-      false,
-      `production flag ${String(flag)}`
+      shouldBackfillDemoSeed({ VERCEL_ENV: vercelEnv, MAIS_DEMO_SEED_BACKFILL: "1" }),
+      true,
+      `${vercelEnv} explicit 1`
+    );
+    assert.equal(
+      shouldBackfillDemoSeed({ VERCEL_ENV: vercelEnv, MAIS_DEMO_SEED_BACKFILL: " true " }),
+      true,
+      `${vercelEnv} explicit true`
     );
   }
-
-  assert.equal(shouldBackfillDemoSeed({ VERCEL_ENV: "production", MAIS_DEMO_SEED_BACKFILL: "1" }), true);
-  assert.equal(shouldBackfillDemoSeed({ VERCEL_ENV: "production", MAIS_DEMO_SEED_BACKFILL: "true" }), true);
 });
 
-test("unset flag keeps historical backfill outside Vercel production and explicit 0 turns it off", () => {
+test("local, dev, test, and CI with no VERCEL_ENV keep the backfill unless it is explicitly off", () => {
   assert.equal(shouldBackfillDemoSeed({}), true);
-  assert.equal(shouldBackfillDemoSeed({ VERCEL_ENV: "preview" }), true);
-  assert.equal(shouldBackfillDemoSeed({ VERCEL_ENV: "development" }), true);
+  assert.equal(shouldBackfillDemoSeed({ VERCEL_ENV: "" }), true);
+  assert.equal(shouldBackfillDemoSeed({ VERCEL_ENV: "   " }), true);
   assert.equal(shouldBackfillDemoSeed({ NODE_ENV: "production" }), true);
+  assert.equal(shouldBackfillDemoSeed({ NODE_ENV: "development" }), true);
+  assert.equal(shouldBackfillDemoSeed({ NODE_ENV: "test" }), true);
   assert.equal(shouldBackfillDemoSeed({ NODE_ENV: "test", MAIS_DEMO_SEED_BACKFILL: "0" }), false);
   assert.equal(shouldBackfillDemoSeed({ MAIS_DEMO_SEED_BACKFILL: "false" }), false);
   assert.equal(shouldBackfillDemoSeed({ MAIS_DEMO_SEED_BACKFILL: "1" }), true);

@@ -21,17 +21,19 @@ export function demoSeedBackfillFlagExplicitlyDisabled(value: string | undefined
  * Whether stable-id demo seed rows may be merged into, or initially written to,
  * the persistent data store.
  *
- * `MAIS_DEMO_SEED_BACKFILL` defaults off. Vercel production
- * (`VERCEL_ENV=production`) refuses the backfill unless the flag is explicitly
- * `1` or `true`. `HK_MATH_ENABLE_DEMO_USER` does not override that refusal.
+ * Any non-empty `VERCEL_ENV` (production, preview, or another Vercel deployment)
+ * refuses the backfill unless `MAIS_DEMO_SEED_BACKFILL` is explicitly `1` or
+ * `true`. Preview deployments share the production database, so an unset flag
+ * must not write demo rows there. `HK_MATH_ENABLE_DEMO_USER` does not override
+ * that refusal.
  *
- * Outside Vercel production, an unset flag keeps the historical local, dev,
- * test, and CI backfill so demo accounts stay available. Set `0` or `false`
- * to force the backfill off in those environments.
+ * Local, dev, test, and CI leave `VERCEL_ENV` unset and keep the historical
+ * backfill. Set `0` or `false` to force the backfill off in those environments.
  */
 export function shouldBackfillDemoSeed(env: DemoSeedBackfillEnv = process.env) {
   const explicitlyEnabled = demoSeedBackfillFlagExplicitlyEnabled(env[DEMO_SEED_BACKFILL_ENV_NAME]);
-  if (env.VERCEL_ENV === "production") return explicitlyEnabled;
+  const vercelEnv = env.VERCEL_ENV?.trim() ?? "";
+  if (vercelEnv.length > 0) return explicitlyEnabled;
   if (demoSeedBackfillFlagExplicitlyDisabled(env[DEMO_SEED_BACKFILL_ENV_NAME])) return false;
   if (explicitlyEnabled) return true;
   return true;

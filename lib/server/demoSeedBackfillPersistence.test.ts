@@ -51,7 +51,13 @@ function writeSnapshot(dbPath: string, snapshot: Snapshot) {
   }
 }
 
-function probeEnv(dbPath: string, resultPath: string, flag: string | undefined, demoUserFlag: "true" | "false"): NodeJS.ProcessEnv {
+function probeEnv(
+  dbPath: string,
+  resultPath: string,
+  flag: string | undefined,
+  demoUserFlag: "true" | "false",
+  vercelEnv = "production"
+): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {
     ...process.env,
     HK_MATH_DB_PATH: dbPath,
@@ -59,7 +65,7 @@ function probeEnv(dbPath: string, resultPath: string, flag: string | undefined, 
     HK_MATH_STORAGE_PROVIDER: "sqlite",
     NODE_ENV: "production",
     PROBE_RESULT_PATH: resultPath,
-    VERCEL_ENV: "production"
+    VERCEL_ENV: vercelEnv
   };
   if (flag === undefined) delete env.MAIS_DEMO_SEED_BACKFILL;
   else env.MAIS_DEMO_SEED_BACKFILL = flag;
@@ -98,29 +104,39 @@ async function readProbe(resultPath: string, probe: ReturnType<typeof runProbe>)
   return parsed;
 }
 
-test("production demo seed backfill stays off without the flag and is idempotent when enabled", { timeout: 240_000 }, async () => {
+function assertNoDemoSeedWrites(
+  auth: { jonStatus?: string; peterStatus?: string },
+  snapshot: Snapshot
+) {
+  assert.equal(auth.jonStatus, "invalid");
+  assert.equal(auth.peterStatus, "invalid");
+  assert.equal(countId(snapshot.users, jonUserId), 0);
+  assert.equal(countId(snapshot.users, peterUserId), 0);
+  assert.equal(countId(snapshot.class_enrollments, jonEnrollmentId), 0);
+  assert.equal(countId(snapshot.submissions, jonSubmissionId), 0);
+  assert.equal(countId(snapshot.teacher_classes, californiaClassId), 0);
+  assert.equal(countId(snapshot.content_safety_flags, "safety-flag-demo-new"), 0);
+  assert.equal(countId(snapshot.reward_point_ledger, "reward-ledger-peter-lesson-complete"), 0);
+  assert.ok((snapshot.topics ?? []).length > 0, "curriculum catalog should still be stored");
+  assert.equal(countId(snapshot.reward_catalog, "reward-plush-toy"), 1);
+}
+
+test("Vercel production and preview refuse demo seed writes unless the flag is on", { timeout: 240_000 }, async () => {
   const root = await mkdtemp(path.join(tmpdir(), "mais-demo-seed-backfill-"));
   const refusedDb = path.join(root, "refused.sqlite");
+  const previewDb = path.join(root, "preview.sqlite");
   const enabledDb = path.join(root, "enabled.sqlite");
   const refusedResult = path.join(root, "refused.json");
+  const previewResult = path.join(root, "preview.json");
   const enabledResult = path.join(root, "enabled.json");
   const enabledAgain = path.join(root, "enabled-again.json");
 
   try {
-    const refused = runProbe(probeEnv(refusedDb, refusedResult, undefined, "true"));
-    const refusedAuth = await readProbe(refusedResult, refused);
-    const refusedSnapshot = readSnapshot(refusedDb);
-    assert.equal(refusedAuth.jonStatus, "invalid");
-    assert.equal(refusedAuth.peterStatus, "invalid");
-    assert.equal(countId(refusedSnapshot.users, jonUserId), 0);
-    assert.equal(countId(refusedSnapshot.users, peterUserId), 0);
-    assert.equal(countId(refusedSnapshot.class_enrollments, jonEnrollmentId), 0);
-    assert.equal(countId(refusedSnapshot.submissions, jonSubmissionId), 0);
-    assert.equal(countId(refusedSnapshot.teacher_classes, californiaClassId), 0);
-    assert.equal(countId(refusedSnapshot.content_safety_flags, "safety-flag-demo-new"), 0);
-    assert.equal(countId(refusedSnapshot.reward_point_ledger, "reward-ledger-peter-lesson-complete"), 0);
-    assert.ok((refusedSnapshot.topics ?? []).length > 0, "curriculum catalog should still be stored");
-    assert.equal(countId(refusedSnapshot.reward_catalog, "reward-plush-toy"), 1);
+    const refused = runProbe(probeEnv(refusedDb, refusedResult, undefined, "true", "production"));
+    assertNoDemoSeedWrites(await readProbe(refusedResult, refused), readSnapshot(refusedDb));
+
+    const preview = runProbe(probeEnv(previewDb, previewResult, undefined, "true", "preview"));
+    assertNoDemoSeedWrites(await readProbe(previewResult, preview), readSnapshot(previewDb));
 
     const enabled = runProbe(probeEnv(enabledDb, enabledResult, "1", "false"));
     const enabledAuth = await readProbe(enabledResult, enabled);
