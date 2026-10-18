@@ -1,0 +1,436 @@
+{
+  "schemaVersion": "pr276-v2-source-checks.v1",
+  "reviewerIdentity": "/root/a11_pr276_review",
+  "recordedAt": "2026-10-18T14:11:52.751Z",
+  "baseCommit": "656ac319b2ad5812d31ad952cbb18430b5e58065",
+  "sourceParent": "5303de58d090b62967e45ec09d11fe331263f628",
+  "sourceCommit": "9938db3f952d6715bca9fbe732da82a184f845df",
+  "sourceTree": "677eb4bd7bd50febd15c75638d8465dbe1f3fe02",
+  "toolingRelease": "2920e9fcab4c01b42d7dbc525ed5f0e5d1356b77",
+  "toolingTree": "04f72c6dbfe6b4ee45d98cc9894167403a37f327",
+  "sourceInventoryDigest": "06f8cce914143b162d190a2d86837d2ce0bb7d894801dd85b8cf9a6871486c1d",
+  "toolingDigest": "5eef354b755027a34e248e919449e162e3df6cdda090e3619bd43ba35dd6a59d",
+  "observationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+  "sourceInventory": [
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "846cf77b093f0f68d0d10b6ced9777efc2f6c667",
+        "rawSha256": "6a8c14fd875ba98e2756ff291be1a70b1d0406bbbc6474254d39437e955f842a"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "bc6b4cd7189e2fee0ac7f2073aa716f0664065ff",
+        "rawSha256": "5e0eaa78369b7c163ee2f8086ae7f0f6e224711e93e52899f08c9e87edaa7b54"
+      },
+      "path": "components/home/PedaNovaHomeHero.tsx"
+    }
+  ],
+  "toolingInventory": [
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "2b8d33a451fad0401bcdfe91c503b941e2305c72",
+        "rawSha256": "0419d50d2e630eb12bcd8cff1c96979a5fe96b702d596da8e41bd11267883b11"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "4ca11883b20e7be6dfd23474597cb716535e3b83",
+        "rawSha256": "2000e3c170e3bc0fbff7371b7145f85c4a87be8cb48903f34f611a826860724d"
+      },
+      "path": ".github/workflows/promotion-shadow.yml"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "57c63caf5508dfbab30289baefd28e9d60812d8f",
+        "rawSha256": "16b6b702fc53210fa5797cd9bba114b151ddb92fbcfbf841747cf9efab648e9d"
+      },
+      "before": null,
+      "path": "docs/pr276-v2-reviewed-code-gate.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "21f6123d1a852e0b64e47b8ea774e19834074c5b",
+        "rawSha256": "70032503f3b238e4a0023ce7e5fc17aad1fdd7a9cd2c0f4d6d0fd585cfa7365d"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276-v2.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "fcf86689b8a2d5bac20b321ce71e6f2acf70fb98",
+        "rawSha256": "76445c5bd8c061b8ce000dfefdb8379b630a22228c9944eb2839ddaacb603163"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276-v2.test.mjs"
+    }
+  ],
+  "sourceReview": {
+    "scope": "S2 is E1 direct child; exactly five inserted CSS lines in PedaNovaHomeHero.tsx; max-width639px photo bottom13rem; original text/fonts/headline/CTA and640px-and-wider behavior unchanged",
+    "originalImageSha256": "d6948dc05110a84a859207727f1ae8642a9612321fb0021a34ae5a49f8bc9889",
+    "unchangedBrowserSpecSha256": "45c97c22994e722ce702d3514d5e08e9b10d2ab5ae6966b739b3444201b96edc",
+    "preservedBindingCount": 18,
+    "preservedBindingsRawSha256": "67645dab63b2f38717aa1d4a2cda74e16093afc0405375fa9d9ac77de8351bba",
+    "immutableV1": {
+      "source-checks.json": {
+        "path": "coordination/integration/reviewed-code/pr276-v1/source-checks.json",
+        "rawSha256": "e78017a1f63e7d0896cdf832d6b6b079cadf3e585b02021ca16600375320955e",
+        "unchanged": true
+      },
+      "a11-review.md": {
+        "path": "coordination/integration/reviewed-code/pr276-v1/a11-review.md",
+        "rawSha256": "803888f5936c78a22d7284709980d74ab7af8610451774509495656b777d55ee",
+        "unchanged": true
+      },
+      "a11-review.json": {
+        "path": "coordination/integration/reviewed-code/pr276-v1/a11-review.json",
+        "rawSha256": "eeca2624d5d3cd3aaf7eedd2990e552a1819523b82f11e5ebe93d69bd918c6e6",
+        "unchanged": true
+      }
+    }
+  },
+  "execution": {
+    "nodeVersion": "v24.15.0",
+    "nodeExecutable": "/usr/local/bin/node",
+    "platform": "macOS arm64",
+    "verificationRoot": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+    "verificationMode": "independent detached clean external-volume clone at exact T2; source commits unchanged",
+    "packageLockSha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+    "environment": {
+      "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+      "PLAYWRIGHT_BROWSER_CHANNEL": "",
+      "PLAYWRIGHT_RUN_ID": "pr276-a11-T2-2920e9fc-20261018-01",
+      "PLAYWRIGHT_PORT": "3396",
+      "CI": null,
+      "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t2-tmp-01a14e6c"
+    },
+    "credentialsUsed": false,
+    "providerCalls": false,
+    "browserInstallation": false,
+    "browserGarbageCollection": false,
+    "applicationBuild": "one fresh isolated production build through original Playwright webServer configuration; no PLAYWRIGHT_SKIP_WEBSERVER; next-env restored",
+    "isolatedRuntime": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c/.tmp/china-lesson-e2e-runtime/runs/pr276-a11-T2-2920e9fc-20261018-01",
+    "commands": [
+      {
+        "name": "types",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T14:04:32.356Z",
+        "finishedAt": "2026-10-18T14:05:13.175Z",
+        "stdoutArtifact": "types.stdout",
+        "stderrArtifact": "types.stderr",
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "browser",
+        "args": [
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "tests/e2e/home-selected-hero.spec.ts",
+          "--project=desktop-chrome",
+          "--workers=1",
+          "--retries=0",
+          "--reporter=json"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T14:06:14.523Z",
+        "finishedAt": "2026-10-18T14:09:01.524Z",
+        "stdoutArtifact": "browser.stdout",
+        "stderrArtifact": "browser.stderr",
+        "stdoutSha256": "ad38d41567c7d0b7fef3c2c183e0188c18bf923ca583b9434715f6650d67efa7",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "ownedProcessCloseout": "Playwright completed; no listener remained on owned3396; HEAD and tracked bytes unchanged; runtime retained"
+  },
+  "results": {
+    "types": {
+      "exitCode": 0
+    },
+    "browser": {
+      "stats": {
+        "startTime": "2026-10-18T14:06:19.018Z",
+        "duration": 162496.82200000001,
+        "expected": 31,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "independentCases": 31,
+      "totalAttempts": 31,
+      "retryCount": 0,
+      "verifyBrowserReport": "pass",
+      "verifyTestRecords": "pass",
+      "pageConsoleHttpAndAssetErrorAssertions": "strict assertions passed in all31 cases",
+      "macMobileMeasurements": [
+        {
+          "title": "homepage en 320x568 keeps the selected image and copy readable",
+          "photoBottom": 549,
+          "headlineTop": 590.390625,
+          "gap": 41.390625,
+          "strictMinimum": 7,
+          "passed": true
+        },
+        {
+          "title": "homepage en 390x844 keeps the selected image and copy readable",
+          "photoBottom": 581,
+          "headlineTop": 614.796875,
+          "gap": 33.796875,
+          "strictMinimum": 7,
+          "passed": true
+        },
+        {
+          "title": "homepage dark 390x844 preserves readable copy",
+          "passed": true,
+          "layoutAttached": false
+        }
+      ],
+      "coverage": "unchanged three-locale/nine-size matrix plus dark, keyboard and touch checks; original7px separation assertions remain",
+      "scope": "fresh local macOS production build at T2; not Linux acceptance or deployment evidence"
+    }
+  },
+  "gateSuites": {
+    "producer": "/root/a11_pr276_review",
+    "command": [
+      "/usr/local/bin/node",
+      "--test",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr276.test.mjs",
+      "scripts/promotion-reviewed-code-pr276-v2.test.mjs"
+    ],
+    "name": "gate-suites",
+    "args": [
+      "--test",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr276.test.mjs",
+      "scripts/promotion-reviewed-code-pr276-v2.test.mjs"
+    ],
+    "exitCode": 0,
+    "signal": null,
+    "processError": null,
+    "startedAt": "2026-10-18T14:02:29.683Z",
+    "finishedAt": "2026-10-18T14:04:32.353Z",
+    "stdoutArtifact": "gate-suites.stdout",
+    "stderrArtifact": "gate-suites.stderr",
+    "stdoutSha256": "e0ad7eddd9e2157cd599bbb92336ba6d93b4be47e6bd397fa4838a6856f944c1",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": 94,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "scope": "five original/new synthetic contract suites in isolated repositories; no production Git mutations"
+  },
+  "materialization": {
+    "nativeAbsolutePathHelper": {
+      "startedAt": "2026-10-18T14:03:05.853Z",
+      "finishedAt": "2026-10-18T14:03:09.323Z",
+      "command": [
+        "/usr/local/bin/node",
+        "--input-type=module",
+        "-e",
+        "import {assertMaterializedTree} from \"./scripts/promotion-reviewed-code-pr276-v2.mjs\";assertMaterializedTree(process.cwd(),\"2920e9fcab4c01b42d7dbc525ed5f0e5d1356b77\");console.log(\"native materialization passed\");"
+      ],
+      "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+      "exitCode": 1,
+      "signal": null,
+      "error": null,
+      "result": "limited",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "11e1b9385b612f18b70709ef3f25c40c222616040b71bbd95fcb2db65162706a",
+      "errorCode": "ENAMETOOLONG",
+      "reason": "macOS historical evidence absolute path limit; maximum tracked path1048bytes",
+      "stdoutArtifact": "materialized-absolute.stdout",
+      "stderrArtifact": "materialized-absolute.stderr"
+    },
+    "independentFdRelativeVerification": {
+      "result": "pass",
+      "scriptSha256": "141ded07c8fe6eea496db6c085764e236fb237d7e482115ac9b20337ff6fd542",
+      "before": {
+        "reviewerIdentity": "/root/a11_pr276_review",
+        "startedAt": "2026-10-18T14:03:05.868485+00:00",
+        "verifiedAt": "2026-10-18T14:03:11.239222+00:00",
+        "head": "2920e9fcab4c01b42d7dbc525ed5f0e5d1356b77",
+        "tree": "04f72c6dbfe6b4ee45d98cc9894167403a37f327",
+        "trackedFilesVerified": 11694,
+        "totalBytes": 1027786514,
+        "maximumAbsolutePathBytes": 1048,
+        "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+        "result": "pass",
+        "inventoryDigestSha256": "88039f25502acd1e71064daf3ee698dc3aeed1bd559921b0c2f828806abd75f9"
+      },
+      "after": {
+        "reviewerIdentity": "/root/a11_pr276_review",
+        "startedAt": "2026-10-18T14:09:19.218828+00:00",
+        "verifiedAt": "2026-10-18T14:09:23.354876+00:00",
+        "head": "2920e9fcab4c01b42d7dbc525ed5f0e5d1356b77",
+        "tree": "04f72c6dbfe6b4ee45d98cc9894167403a37f327",
+        "trackedFilesVerified": 11694,
+        "totalBytes": 1027786514,
+        "maximumAbsolutePathBytes": 1048,
+        "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+        "result": "pass",
+        "inventoryDigestSha256": "88039f25502acd1e71064daf3ee698dc3aeed1bd559921b0c2f828806abd75f9"
+      },
+      "beforeReceiptSha256": "e1e89276ed8308655f07f4c4e2bfd5ab40d17fe4788a2d8ebfb6dbad1deef37b",
+      "afterReceiptSha256": "8b7de2d61685125a9035bedd1cf89461f30abc6e1a45ac4a14fcbc9a13c0078f",
+      "beforeInventoryRawSha256": "97d65685968ac2c2a92eacd2edec3c789cbc78851f7b4eb3085ec3db1c9926ba",
+      "afterInventoryRawSha256": "97d65685968ac2c2a92eacd2edec3c789cbc78851f7b4eb3085ec3db1c9926ba"
+    },
+    "gitStatusBeforeAndAfter": "clean",
+    "headUnchanged": true,
+    "nativeLinuxCiStillRequired": true
+  },
+  "sourceObservation": {
+    "canonicalAuditMatchesRegistry": true,
+    "expectedObservationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "finishedAt": "2026-10-18T14:04:41.732Z",
+    "gitStatus": "clean",
+    "head": "2920e9fcab4c01b42d7dbc525ed5f0e5d1356b77",
+    "independentlyRecomputedAtT": true,
+    "inventoryReadbackRawSha256": "2067cefa1eeeb1eb7809fbba8a974ab8b5d9a280f6e4cc021ed0c7539c93e0b5",
+    "matchesFrozenObservation": true,
+    "nativeMaterialization": "separately recorded; fd-relative local proof does not replace native Linux CI",
+    "observationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "reviewerIdentity": "/root/a11_pr276_review",
+    "sourceInventoryDigest": "06f8cce914143b162d190a2d86837d2ce0bb7d894801dd85b8cf9a6871486c1d",
+    "startedAt": "2026-10-18T14:04:04.590Z",
+    "toolingDigest": "5eef354b755027a34e248e919449e162e3df6cdda090e3619bd43ba35dd6a59d",
+    "nativeHistoricalManifestRead": "passed in the external clone; exact expected manifest SHA verified",
+    "unmodifiedObservePreparation": true,
+    "fdManifestFallbackExecuted": false,
+    "explanation": "The native full-tree helper still fails on longer historical paths; native reading of this specific manifest and observation succeeded. Equality with S1 observation is freshly recomputed."
+  },
+  "retainedLinuxV1Failure": {
+    "runId": "39130914904",
+    "testedHead": "5303de58d090b62967e45ec09d11fe331263f628",
+    "reportPath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/ci-39130914904/promotion-reviewed-code-pr276-artifacts/browser.stdout",
+    "rawSha256": "03a0850fcb44749a39887ae1e54c620ef4b84a0f12b059664bd50d0ebc5cdb4e",
+    "stats": {
+      "startTime": "2026-10-18T13:20:08.283Z",
+      "duration": 203141.03900000002,
+      "expected": 28,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "failures": [
+      {
+        "title": "homepage en 320x568 keeps the selected image and copy readable",
+        "status": "failed",
+        "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 563.234375\nReceived:    565\n\n  128 |     expect(m.photo.height).toBeGreaterThan(0);\n  129 |     expect(m.photo.y).toBeGreaterThanOrEqual(m.boxes.descriptor.bottom + 7);\n> 130 |     expect(m.photo.bottom).toBeLessThanOrEqual(m.headline.y - 7);\n      |                            ^\n  131 |     expect(m.headline.bottom).toBeLessThanOrEqual(m.boxes.badge.y - 7);\n  132 |   } else {\n  133 |     expect(Math.abs(m.image.y - m.hero.y)).toBeLessThanOrEqual(1);\n    at inspect (/home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:130:28)\n    at /home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:146:24"
+      },
+      {
+        "title": "homepage en 390x844 keeps the selected image and copy readable",
+        "status": "failed",
+        "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 584.046875\nReceived:    597\n\n  128 |     expect(m.photo.height).toBeGreaterThan(0);\n  129 |     expect(m.photo.y).toBeGreaterThanOrEqual(m.boxes.descriptor.bottom + 7);\n> 130 |     expect(m.photo.bottom).toBeLessThanOrEqual(m.headline.y - 7);\n      |                            ^\n  131 |     expect(m.headline.bottom).toBeLessThanOrEqual(m.boxes.badge.y - 7);\n  132 |   } else {\n  133 |     expect(Math.abs(m.image.y - m.hero.y)).toBeLessThanOrEqual(1);\n    at inspect (/home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:130:28)\n    at /home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:146:24"
+      },
+      {
+        "title": "homepage dark 390x844 preserves readable copy",
+        "status": "failed",
+        "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 584.046875\nReceived:    597\n\n  128 |     expect(m.photo.height).toBeGreaterThan(0);\n  129 |     expect(m.photo.y).toBeGreaterThanOrEqual(m.boxes.descriptor.bottom + 7);\n> 130 |     expect(m.photo.bottom).toBeLessThanOrEqual(m.headline.y - 7);\n      |                            ^\n  131 |     expect(m.headline.bottom).toBeLessThanOrEqual(m.boxes.badge.y - 7);\n  132 |   } else {\n  133 |     expect(Math.abs(m.image.y - m.hero.y)).toBeLessThanOrEqual(1);\n    at inspect (/home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:130:28)\n    at /home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:156:5"
+      }
+    ],
+    "status": "preserved failed first attempt; not relabeled successful",
+    "repair": "S2 reserves one extra rem beneath phone photo without modifying text or test assertions",
+    "v2LinuxAcceptance": "pending genuine required Linux CI at E2 and merge; Mac31/31 is not Linux acceptance"
+  },
+  "retainedIntermittentHydrationFailure": {
+    "status": "earlier preliminary React418 remains unexplained; not claimed fixed",
+    "original": {
+      "path": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/pr276-browser-preparation-v2.json",
+      "rawSha256": "357d772cb7c9bd3ac289323b4c91c1d15f0a3aab0bbef3116457d4c7d9c18ddc",
+      "stats": {
+        "startTime": "2026-10-18T12:41:31.692Z",
+        "duration": 53213.898,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "message": "Minified React error #418; args[]=HTML",
+      "case": "homepage en 768x1024 keeps the selected image and copy readable",
+      "tracePath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-home-preparation-v2-20261018/test-results/home-selected-hero-homepag-675d8-ted-image-and-copy-readable-desktop-chrome/trace.zip",
+      "traceSha256": "08b5e08446ae2c839cd2c105cfa14453eba82154ec1da2ee50696e4d5c5582c7",
+      "errorContextPath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-home-preparation-v2-20261018/test-results/home-selected-hero-homepag-675d8-ted-image-and-copy-readable-desktop-chrome/error-context.md",
+      "errorContextSha256": "6ea00fd42e12fc0d6e263fb0157752c0862dfcb09b260011ef505c7ea13950d8",
+      "timing": "about144ms after initial navigation; before language-selector interaction"
+    },
+    "independentBoundedReproduction": {
+      "path": "/private/tmp/pr276-a11-review/cdp-hydration-diagnostic.json",
+      "rawSha256": "a5f93da145d3cba0ca379380bfcca0af6aacce48e38d8f3aa6e82c5916ed6f95",
+      "source": "existing S production server before T freeze",
+      "navigations": 60,
+      "elapsedMs": 61053,
+      "pageErrors": 0,
+      "result": "not reproduced within bounded diagnostic",
+      "interpretation": "non-reproduction under CDP instrumentation is not a fix or proof of absence"
+    },
+    "v1FreshTResult": "31 first-attempt macOS cases passed; immutable v1 records retained",
+    "v2FreshTResult": "31 first-attempt macOS cases passed with strict error assertions",
+    "requiredTreatment": "Any recurrence in required CI remains failure; no suppression or retry-based acceptance"
+  },
+  "artifactHashes": {
+    "run-checks.mjs": "e16870a47434534d407b81969c9ccffc5ca756f017070db31a59e78c6a31f2cd",
+    "verify-materialized-fd.py": "141ded07c8fe6eea496db6c085764e236fb237d7e482115ac9b20337ff6fd542",
+    "run-native-materialization.mjs": "cea33aef802628d5e2ce089ea1ea939acd63ca9b076f0ec04e4a704c09289780",
+    "observe-and-inventory.mjs": "cf2577c7f7bd63aed4b66aed3b722926c7176ec0b4d0ba7d73b956fdb1e9d7bb",
+    "build-review.mjs": "39d1d36f4ee4979b099ff2f331ee99061baf0a8a32af3c8857790ea9be7279e2",
+    "preflight-execution.json": "a690de8066e4b991c875be8f4a21acf21fa40f1120ffc8c0f8012525283e41f1",
+    "browser-execution.json": "a8af88bc19959284eb7d1f5eedaaefa5e3386c6dbbe3beb22b5ef3a0aaf23bc0",
+    "gate-suites.stdout": "e0ad7eddd9e2157cd599bbb92336ba6d93b4be47e6bd397fa4838a6856f944c1",
+    "gate-suites.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "types.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "types.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser.stdout": "ad38d41567c7d0b7fef3c2c183e0188c18bf923ca583b9434715f6650d67efa7",
+    "browser.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "materialized-absolute.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "materialized-absolute.stderr": "11e1b9385b612f18b70709ef3f25c40c222616040b71bbd95fcb2db65162706a",
+    "materialized-absolute-receipt.json": "774862b437693229b259f567fe2494ed073ad133c3cc5d1c7d71b4ad689938d7",
+    "materialized-before.json": "e1e89276ed8308655f07f4c4e2bfd5ab40d17fe4788a2d8ebfb6dbad1deef37b",
+    "materialized-before.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-before-inventory.json": "97d65685968ac2c2a92eacd2edec3c789cbc78851f7b4eb3085ec3db1c9926ba",
+    "materialized-after.json": "8b7de2d61685125a9035bedd1cf89461f30abc6e1a45ac4a14fcbc9a13c0078f",
+    "materialized-after.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-after-inventory.json": "97d65685968ac2c2a92eacd2edec3c789cbc78851f7b4eb3085ec3db1c9926ba",
+    "observation.stdout": "a139f68746d9121e0b46c70d689fef88a40feae0cf1c687d51dbf2551d4235e8",
+    "observation.stderr": "4a8aa0d31e2cf83abe4105750e2cb0a7ca339deaa1fa91c7c84ee1974af7c96c",
+    "source-observation.json": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "observation-receipt.json": "3134eb131d8c318b3708d7fea9b4bc313da07d4bb7f986042d71ec36a2d824a4",
+    "inventory-readback.json": "2067cefa1eeeb1eb7809fbba8a974ab8b5d9a280f6e4cc021ed0c7539c93e0b5",
+    "preserved-bindings.json": "67645dab63b2f38717aa1d4a2cda74e16093afc0405375fa9d9ac77de8351bba",
+    "verification-receipt.json": "f04c62ad50045f5a49a01afaaf6910d5a557ba073d30acaaa2d2ad8aa01bdc1e"
+  },
+  "limitations": [
+    "Native Linux CI must pass the new E2 and merge, including full materialization, unchanged historical verification and Shadow.",
+    "Linux must confirm the repaired English phone separation. The v1 Linux28/31 failure is retained; local Mac31/31 does not supersede it.",
+    "Earlier preliminary React418 remains unexplained; bounded non-reproduction and passing local runs do not establish a fix or absence.",
+    "Prepared fd-manifest fallback scripts were not executed in T2; only the full-tree descriptor-relative verifier was needed to document the remaining macOS limitation.",
+    "This review is exact S2/T2 ordinary-code required-check eligibility only; no merge/deploy/content/whole-pack/historical authority is transferred."
+  ],
+  "permissions": {
+    "ordinaryCodeEligible": true,
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

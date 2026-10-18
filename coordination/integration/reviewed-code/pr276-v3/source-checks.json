@@ -1,0 +1,976 @@
+{
+  "schemaVersion": "pr276-v3-source-checks.v1",
+  "reviewerIdentity": "/root/a11_pr276_review",
+  "recordedAt": "2026-10-18T15:23:51.957Z",
+  "baseCommit": "39cb64c9d9719ec39c8b4c244bc8d6818ee6a87d",
+  "homepageEvidence": "b8cecebf0fe9d6e296d24af6007f850f92fba4bd",
+  "sharedBase": "656ac319b2ad5812d31ad952cbb18430b5e58065",
+  "sourceCommit": "b8bba0fc661affd4ee0a71acd341280a2ab38cc4",
+  "sourceParents": [
+    "b8cecebf0fe9d6e296d24af6007f850f92fba4bd",
+    "39cb64c9d9719ec39c8b4c244bc8d6818ee6a87d"
+  ],
+  "sourceTree": "d40dfd26310497a7cd118887a11dded04f99fc6e",
+  "toolingRelease": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+  "toolingTree": "4ee988298c4f4e620c840807847ebf7ed6ba9de2",
+  "sourceInventoryDigest": "0a2677b019c733ed24e2b134a34c840b11f147c230763e3fc48ab98c68a02290",
+  "toolingDigest": "d38fba246ff277f36fdb6dd7e85792ed623d4e68961d3be1e8b3d5c4dbf2148d",
+  "observationRawSha256": "90408097b338eebafb1378c71ded0a402cd973e43b131eab408dde3c90c48e2f",
+  "sourceInventory": [
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "19363d344a67f06c82b8d8ec02de466e63e5ccd6",
+        "rawSha256": "7afdce197656a673eeac3befe0126a1676c9f92dbcfc3c8a196080fcadad056e"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "e767c5cde2ff9ada125d2f32ae847dbe38bdf7fc",
+        "rawSha256": "73f04f6a434de7479a25a546058fa6f3475606e1fd470ec27992ffd5ebf25dc2"
+      },
+      "path": ".github/workflows/promotion-shadow.yml"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "846cf77b093f0f68d0d10b6ced9777efc2f6c667",
+        "rawSha256": "6a8c14fd875ba98e2756ff291be1a70b1d0406bbbc6474254d39437e955f842a"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "6c410564ce28fbac347ce3443a6420a9ab566fcf",
+        "rawSha256": "3dd2ef8f66e20e6bea5332ae5c563ec74ab2b79f4eb0f9e0d4856fea1318232e"
+      },
+      "path": "components/home/PedaNovaHomeHero.tsx"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "53513aa70404db2b862e199584689c08016f6ae1",
+        "rawSha256": "d6948dc05110a84a859207727f1ae8642a9612321fb0021a34ae5a49f8bc9889"
+      },
+      "before": null,
+      "path": "components/home/brand-assets/pedanova-home-background-20260809-owner-selected-white-stylus.png"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "0f5b459b8ab1600e01009be21e5c252a400e1589",
+        "rawSha256": "eeca2624d5d3cd3aaf7eedd2990e552a1819523b82f11e5ebe93d69bd918c6e6"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/a11-review.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "a990b3248656b4ad684d9e6f820040cf0ccc5685",
+        "rawSha256": "803888f5936c78a22d7284709980d74ab7af8610451774509495656b777d55ee"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/a11-review.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "6979c3e02b23687d1b28100d95813aca9400a248",
+        "rawSha256": "02ad3191d8f4b6d51a945fee26ffff805571c2d263f3d50fcf5c3d3abd793a48"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/a23-review.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "b1295d241a2ccc27f5237d452119301581758110",
+        "rawSha256": "63e19b757aa024ab6c023221b7ecb48072a34de226395f20f4fc7b4e6674b474"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/a23-review.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "5915abed25a1c8e651d0a0f967a7ab59529531dd",
+        "rawSha256": "fe207b5760b09348a867a13f8513d62e9c82b99d7d9c6877d2ee30c9efedc48d"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/admission.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "14474085360e1a93f6621c8acf047ed36202ba3b",
+        "rawSha256": "e78017a1f63e7d0896cdf832d6b6b079cadf3e585b02021ca16600375320955e"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/source-checks.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "d44ffad171179cb86cf14ece745b01ca9bfe7302",
+        "rawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v1/source-observation.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "13f4016d39fe4ac61b825e52853e71992ad97d95",
+        "rawSha256": "2ed08ce55faafde5ffbb0cc9bbfb7c5cb37b7b828beb25d80a20615279c47293"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/a11-review.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "b94b47b2000c485144475eb458d0bfc8284f7afc",
+        "rawSha256": "24f1f5204213d68e6e9f5bb861d27450136697b3ed26354b16530db420f5a99f"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/a11-review.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "81b21bb6de1bcd9fc77ee75edf811b087694fa42",
+        "rawSha256": "2983ffead1a3b04a1dd7afef6b973af17ba7b437b358f13019c53bc137084289"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/a23-review.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "a08c040152be2d136c6cdc39e96f1d860e33d30a",
+        "rawSha256": "c84f62069eb20dac9e99726548fc7f4aa1f0d0675e39fca5acc8484e87a019b5"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/a23-review.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "d288c98cbe7f16c9fc42a2f17f1854a02debc692",
+        "rawSha256": "6c8632d90115d4073d6feaba7e89b3cfa35bb65c533b1229d733ceeb3503b2cc"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/admission.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "3c1767dd1f4993936c8d48c658dec175bcfffb8a",
+        "rawSha256": "646c609810fdaa0870f83c5dbed364b00dc443457895c408964552b2b8acdefe"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/source-checks.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "d44ffad171179cb86cf14ece745b01ca9bfe7302",
+        "rawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766"
+      },
+      "before": null,
+      "path": "coordination/integration/reviewed-code/pr276-v2/source-observation.json"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "929807df606072fe4fabf108178f85c97222bcfb",
+        "rawSha256": "b03bbb69f7bf092e4d3b844b835ca4ffa12bacca31ae6b5e6be84190b359fade"
+      },
+      "before": null,
+      "path": "docs/pr276-reviewed-code-gate.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "57c63caf5508dfbab30289baefd28e9d60812d8f",
+        "rawSha256": "16b6b702fc53210fa5797cd9bba114b151ddb92fbcfbf841747cf9efab648e9d"
+      },
+      "before": null,
+      "path": "docs/pr276-v2-reviewed-code-gate.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "21f6123d1a852e0b64e47b8ea774e19834074c5b",
+        "rawSha256": "70032503f3b238e4a0023ce7e5fc17aad1fdd7a9cd2c0f4d6d0fd585cfa7365d"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276-v2.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "fcf86689b8a2d5bac20b321ce71e6f2acf70fb98",
+        "rawSha256": "76445c5bd8c061b8ce000dfefdb8379b630a22228c9944eb2839ddaacb603163"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276-v2.test.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "d05648f616a9c3e3d4c957d26281c57cffa17453",
+        "rawSha256": "70b6e223ca55b34849d774b3abae10605ca27210cccd24371283feceaf8ac5ea"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "0704ba105811ddf77063ff83c807f148da12f954",
+        "rawSha256": "95d741687b32a836323f72dcbadf58d7c88f46e5b127daa608cb860ca52479dc"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276.test.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "0c94dba106f47e28e58398ed27b926bf4371878d",
+        "rawSha256": "45c97c22994e722ce702d3514d5e08e9b10d2ab5ae6966b739b3444201b96edc"
+      },
+      "before": null,
+      "path": "tests/e2e/home-selected-hero.spec.ts"
+    }
+  ],
+  "toolingInventory": [
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "1f71e68b1abe1b586006a597cb97039de2507e74",
+        "rawSha256": "82b7d8ac88fcbf1e41461914103c9676943b6db27c9a7b614ecd3ee6f3513711"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "19363d344a67f06c82b8d8ec02de466e63e5ccd6",
+        "rawSha256": "7afdce197656a673eeac3befe0126a1676c9f92dbcfc3c8a196080fcadad056e"
+      },
+      "path": ".github/workflows/promotion-shadow.yml"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "6e270795ea56a38099af4a330bd54e65951df229",
+        "rawSha256": "b16a4d1f22ccb985d77725f995157a85f9167d0e0092712cdc53550303d66b1d"
+      },
+      "before": null,
+      "path": "docs/pr276-v3-reviewed-code-gate.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "2b37323c7de2b6f11869f3194e9a65e4a5a50025",
+        "rawSha256": "6707718efe8610182147b36849dd49f0dbad4ca34d870d04e9669c8254250327"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276-v3.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "9a2d861f400b4cb5fde77860488a38245637ce95",
+        "rawSha256": "46332d069e68946b08697c1228d9b8d2fa9e9feda2d2a115c3bbda5e001bd8a8"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276-v3.test.mjs"
+    }
+  ],
+  "sourceReview": {
+    "combinedSourceUnion": "verified by production assertCombinedSource and exact ordered parents; only workflow overlap; non-workflow bytes/modes remain from originating parents",
+    "preservedBindings": 29,
+    "preservedBindingsRawSha256": "b0a94d4353fd6ea1f4895d7b1c513eca9cdc1fd425b684b98fecee6afc071c9d",
+    "originalImageSha256": "d6948dc05110a84a859207727f1ae8642a9612321fb0021a34ae5a49f8bc9889",
+    "unchangedHeroSha256": "6a8c14fd875ba98e2756ff291be1a70b1d0406bbbc6474254d39437e955f842a",
+    "unchangedBrowserSpecSha256": "45c97c22994e722ce702d3514d5e08e9b10d2ab5ae6966b739b3444201b96edc",
+    "immutablePriorReviews": {
+      "coordination/integration/reviewed-code/pr276-v1/source-checks.json": {
+        "rawSha256": "e78017a1f63e7d0896cdf832d6b6b079cadf3e585b02021ca16600375320955e",
+        "unchanged": true
+      },
+      "coordination/integration/reviewed-code/pr276-v1/a11-review.md": {
+        "rawSha256": "803888f5936c78a22d7284709980d74ab7af8610451774509495656b777d55ee",
+        "unchanged": true
+      },
+      "coordination/integration/reviewed-code/pr276-v1/a11-review.json": {
+        "rawSha256": "eeca2624d5d3cd3aaf7eedd2990e552a1819523b82f11e5ebe93d69bd918c6e6",
+        "unchanged": true
+      },
+      "coordination/integration/reviewed-code/pr276-v2/source-checks.json": {
+        "rawSha256": "646c609810fdaa0870f83c5dbed364b00dc443457895c408964552b2b8acdefe",
+        "unchanged": true
+      },
+      "coordination/integration/reviewed-code/pr276-v2/a11-review.md": {
+        "rawSha256": "24f1f5204213d68e6e9f5bb861d27450136697b3ed26354b16530db420f5a99f",
+        "unchanged": true
+      },
+      "coordination/integration/reviewed-code/pr276-v2/a11-review.json": {
+        "rawSha256": "2ed08ce55faafde5ffbb0cc9bbfb7c5cb37b7b828beb25d80a20615279c47293",
+        "unchanged": true
+      }
+    }
+  },
+  "execution": {
+    "nodeVersion": "v24.15.0",
+    "nodeExecutable": "/usr/local/bin/node",
+    "platform": "macOS arm64",
+    "currentRoot": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+    "currentHead": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+    "frozenMainRoot": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/pr277-main",
+    "frozenMainHead": "39cb64c9d9719ec39c8b4c244bc8d6818ee6a87d",
+    "frozenMainTree": "580f3fa6e4aa6970406bb41e949e3d002ac8a1f0",
+    "runnerTemp": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+    "dataArtifactRoot": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/a11-current-artifacts",
+    "commandEnvironment": "unmodified exported promotion-reviewed-code-pr276-v3.mjs commandEnvironment(name,T3,dataArtifactRoot)",
+    "packageLockSha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+    "frozenMainPackageLockSha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+    "credentialsUsed": false,
+    "providerCalls": false,
+    "browserInstallation": false,
+    "browserGarbageCollection": false,
+    "applicationBuild": "one fresh isolated production build through unchanged Playwright webServer; no skipwebserver; no inherited browser NODE_ENV/HK_MATH_DB_PATH; next-env restored",
+    "commands": [
+      {
+        "name": "pr277-contract",
+        "args": [
+          "--test",
+          "scripts/promotion-pr201-candidate.test.mjs"
+        ],
+        "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/pr277-main",
+        "environment": {
+          "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "NODE_ENV": "test",
+          "HK_MATH_STORAGE_PROVIDER": "sqlite",
+          "HK_MATH_DB_PATH": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/a11-current-artifacts/regression.sqlite",
+          "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+          "PLAYWRIGHT_BROWSER_CHANNEL": "",
+          "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+          "PLAYWRIGHT_PORT": "3396",
+          "CI": null
+        },
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T15:15:24.859Z",
+        "finishedAt": "2026-10-18T15:16:12.640Z",
+        "stdoutArtifact": "pr277-contract.stdout",
+        "stderrArtifact": "pr277-contract.stderr",
+        "stdoutSha256": "1c7744577ac1c5e27362acbf2aa9e1c90b53d2d6dfcefff3c192a585a0f0639e",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "pr277-grading",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "scripts/pr201-candidate-regression.test.mjs"
+        ],
+        "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+        "environment": {
+          "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "NODE_ENV": "test",
+          "HK_MATH_STORAGE_PROVIDER": "sqlite",
+          "HK_MATH_DB_PATH": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/a11-current-artifacts/regression.sqlite",
+          "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+          "PLAYWRIGHT_BROWSER_CHANNEL": "",
+          "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+          "PLAYWRIGHT_PORT": "3396",
+          "CI": null
+        },
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T15:16:13.157Z",
+        "finishedAt": "2026-10-18T15:16:14.848Z",
+        "stdoutArtifact": "pr277-grading.stdout",
+        "stderrArtifact": "pr277-grading.stderr",
+        "stdoutSha256": "dc0611f079714f1a8272e3d0b8cb8b97c0b7771fd7782b95d31c1ceb9eb7a659",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "pr277-isolation",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-concurrency=1",
+          "--test-name-pattern=^(only promoted US practice packages are live while candidate packages stay unreachable|Arkansas local-maximum candidate accepts the requested calendar year|Arkansas accumulated-profit candidate grades dollars at the requested scale)$",
+          "lib/mainlandPepHighQuestionBank.test.ts",
+          "lib/fullQuestionBankSolvability.test.ts"
+        ],
+        "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+        "environment": {
+          "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "NODE_ENV": "test",
+          "HK_MATH_STORAGE_PROVIDER": "sqlite",
+          "HK_MATH_DB_PATH": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/a11-current-artifacts/regression.sqlite",
+          "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+          "PLAYWRIGHT_BROWSER_CHANNEL": "",
+          "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+          "PLAYWRIGHT_PORT": "3396",
+          "CI": null
+        },
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T15:16:15.371Z",
+        "finishedAt": "2026-10-18T15:16:22.772Z",
+        "stdoutArtifact": "pr277-isolation.stdout",
+        "stderrArtifact": "pr277-isolation.stderr",
+        "stdoutSha256": "d20d5dd6726a9f384a2fe3458dfe3cf8cef119cad74a451f39b2479b59e18c90",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "types",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false"
+        ],
+        "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+        "environment": {
+          "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "NODE_ENV": null,
+          "HK_MATH_STORAGE_PROVIDER": null,
+          "HK_MATH_DB_PATH": null,
+          "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+          "PLAYWRIGHT_BROWSER_CHANNEL": "",
+          "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+          "PLAYWRIGHT_PORT": "3396",
+          "CI": null
+        },
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T15:16:23.286Z",
+        "finishedAt": "2026-10-18T15:17:01.089Z",
+        "stdoutArtifact": "types.stdout",
+        "stderrArtifact": "types.stderr",
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "browser",
+        "args": [
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "tests/e2e/home-selected-hero.spec.ts",
+          "--project=desktop-chrome",
+          "--workers=1",
+          "--retries=0",
+          "--reporter=json"
+        ],
+        "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+        "environment": {
+          "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "NODE_ENV": null,
+          "HK_MATH_STORAGE_PROVIDER": null,
+          "HK_MATH_DB_PATH": null,
+          "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+          "PLAYWRIGHT_BROWSER_CHANNEL": "",
+          "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+          "PLAYWRIGHT_PORT": "3396",
+          "CI": null
+        },
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T15:17:28.581Z",
+        "finishedAt": "2026-10-18T15:20:00.264Z",
+        "stdoutArtifact": "browser.stdout",
+        "stderrArtifact": "browser.stderr",
+        "stdoutSha256": "f6fc0b3ad47dc3a0e0037661cb18470e22bcbbb00f9dee2876a0496cd2ba53f5",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "ownedProcessCloseout": "Playwright command exited; no listener on owned3396; both roots clean/unchanged; runtime retained",
+    "noFormalE3Constructed": true
+  },
+  "results": {
+    "frozenMainContract": {
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "scope": "full unchanged PR201 contract suite on exactM277, not combined-tree acceptance"
+    },
+    "grading": {
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "reviewedRows": 228,
+      "historicalAnswerCases": 1281,
+      "matcher": "real answerMatching",
+      "q018YearAliasesAndBareTimeRejection": true,
+      "scope": "current T3"
+    },
+    "isolation": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "scope": "original three selected real candidate-isolation/q018/q014 tests on currentT3; fixed command unchanged"
+    },
+    "types": {
+      "exitCode": 0,
+      "scope": "current T3"
+    },
+    "browser": {
+      "stats": {
+        "startTime": "2026-10-18T15:17:29.089Z",
+        "duration": 151158.20799999998,
+        "expected": 31,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "specCount": 31,
+      "totalAttempts": 31,
+      "retryCount": 0,
+      "verifyBrowserReport": "pass",
+      "verifyTestRecords": "pass",
+      "scope": "fresh macOS production build at exactT3; combined E3/Linux acceptance still required",
+      "commandEnvironment": {
+        "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+        "NODE_ENV": null,
+        "HK_MATH_STORAGE_PROVIDER": null,
+        "HK_MATH_DB_PATH": null,
+        "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+        "PLAYWRIGHT_BROWSER_CHANNEL": "",
+        "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+        "PLAYWRIGHT_PORT": "3396",
+        "CI": null
+      }
+    }
+  },
+  "gateSuites": {
+    "producer": "/root/a11_pr276_review",
+    "command": [
+      "/usr/local/bin/node",
+      "--test",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr276.test.mjs",
+      "scripts/promotion-reviewed-code-pr276-v2.test.mjs",
+      "scripts/promotion-reviewed-code-pr276-v3.test.mjs"
+    ],
+    "name": "gate-suites",
+    "args": [
+      "--test",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr276.test.mjs",
+      "scripts/promotion-reviewed-code-pr276-v2.test.mjs",
+      "scripts/promotion-reviewed-code-pr276-v3.test.mjs"
+    ],
+    "cwd": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+    "environment": {
+      "TMPDIR": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+      "NODE_ENV": null,
+      "HK_MATH_STORAGE_PROVIDER": null,
+      "HK_MATH_DB_PATH": null,
+      "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+      "PLAYWRIGHT_BROWSER_CHANNEL": "",
+      "PLAYWRIGHT_RUN_ID": "pr276-v3-admission-ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+      "PLAYWRIGHT_PORT": "3396",
+      "CI": null
+    },
+    "exitCode": 0,
+    "signal": null,
+    "processError": null,
+    "startedAt": "2026-10-18T15:11:14.676Z",
+    "finishedAt": "2026-10-18T15:15:24.300Z",
+    "stdoutArtifact": "gate-suites.stdout",
+    "stderrArtifact": "gate-suites.stderr",
+    "stdoutSha256": "b38af1bd586541fb7ac5ab0a22c5f6f2bfb28bc35ea3792c90c65c6f90f8af9f",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": 119,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "scope": "six current old/new contract suites; full original PR201 suite separately executed onM277"
+  },
+  "materialization": {
+    "roots": {
+      "current": {
+        "root": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+        "head": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+        "tree": "4ee988298c4f4e620c840807847ebf7ed6ba9de2",
+        "nativeAbsolutePath": {
+          "name": "current",
+          "startedAt": "2026-10-18T15:12:03.276Z",
+          "finishedAt": "2026-10-18T15:12:08.783Z",
+          "command": [
+            "/usr/local/bin/node",
+            "--input-type=module",
+            "-e",
+            "import {assertMaterializedTree} from \"./scripts/promotion-reviewed-code-pr276-v3.mjs\";assertMaterializedTree(process.cwd(),\"ffc99bcfedd7d5a017d130eec58e3becc2978a26\");console.log(\"native current materialization passed\");"
+          ],
+          "currentRoot": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+          "checkedRoot": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+          "runnerTemp": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "exitCode": 1,
+          "signal": null,
+          "error": null,
+          "result": "limited",
+          "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderrSha256": "982aa1edd8371a204f9c3ccf77074de6da0bd961d83bf2b446d1c83a80a448ab",
+          "errorCode": "ENAMETOOLONG",
+          "stdoutArtifact": "materialized-current-native.stdout",
+          "stderrArtifact": "materialized-current-native.stderr"
+        },
+        "independentFdRelativeVerification": {
+          "result": "pass",
+          "before": {
+            "reviewerIdentity": "/root/a11_pr276_review",
+            "startedAt": "2026-10-18T15:12:03.590159+00:00",
+            "verifiedAt": "2026-10-18T15:12:12.579213+00:00",
+            "head": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+            "tree": "4ee988298c4f4e620c840807847ebf7ed6ba9de2",
+            "trackedFilesVerified": 11734,
+            "totalBytes": 1034815641,
+            "maximumAbsolutePathBytes": 1048,
+            "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+            "result": "pass",
+            "inventoryDigestSha256": "35517d89a48aaaa0bdfd3858548dd69b169554753261613ca932a97f7ca99059"
+          },
+          "after": {
+            "reviewerIdentity": "/root/a11_pr276_review",
+            "startedAt": "2026-10-18T15:20:27.417612+00:00",
+            "verifiedAt": "2026-10-18T15:20:31.270175+00:00",
+            "head": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+            "tree": "4ee988298c4f4e620c840807847ebf7ed6ba9de2",
+            "trackedFilesVerified": 11734,
+            "totalBytes": 1034815641,
+            "maximumAbsolutePathBytes": 1048,
+            "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+            "result": "pass",
+            "inventoryDigestSha256": "35517d89a48aaaa0bdfd3858548dd69b169554753261613ca932a97f7ca99059"
+          },
+          "beforeReceiptRawSha256": "0d92b58c45e6a6e74aeb8feab88d5ef187259ede00ee646b1483c58ca71f7367",
+          "afterReceiptRawSha256": "531c983f1b2f68e83d9d2b7a3f4925d6bf4bfa477efdf0808171ee438c583600",
+          "beforeInventoryRawSha256": "55411f50d5bf5462b70afba86d694d390a95852548c41ff91951dba976016b87",
+          "afterInventoryRawSha256": "55411f50d5bf5462b70afba86d694d390a95852548c41ff91951dba976016b87"
+        },
+        "gitStatusBeforeAndAfter": "clean",
+        "headUnchanged": true,
+        "nativeLinuxRequired": true
+      },
+      "pr277": {
+        "root": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/pr277-main",
+        "head": "39cb64c9d9719ec39c8b4c244bc8d6818ee6a87d",
+        "tree": "580f3fa6e4aa6970406bb41e949e3d002ac8a1f0",
+        "nativeAbsolutePath": {
+          "name": "pr277",
+          "startedAt": "2026-10-18T15:12:08.786Z",
+          "finishedAt": "2026-10-18T15:12:15.428Z",
+          "command": [
+            "/usr/local/bin/node",
+            "--input-type=module",
+            "-e",
+            "import {assertFrozenMainRoot} from \"./scripts/promotion-reviewed-code-pr276-v3.mjs\";console.log(JSON.stringify(assertFrozenMainRoot(\"/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/pr277-main\",process.cwd())));"
+          ],
+          "currentRoot": "/Volumes/Starship/MAIS-MVP/.tmp/pr276-v2-verification-01a14e6c",
+          "checkedRoot": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c/pr277-main",
+          "runnerTemp": "/Volumes/Starship/MAIS-MVP/.tmp/a11-pr276-t3-tmp-01a14e6c",
+          "exitCode": 1,
+          "signal": null,
+          "error": null,
+          "result": "limited",
+          "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderrSha256": "3d79c1026afd9177fd457b2d1bb961d86c2b548afe3b9bb86f1ef7b5a12f33d3",
+          "errorCode": "ENAMETOOLONG",
+          "stdoutArtifact": "materialized-pr277-native.stdout",
+          "stderrArtifact": "materialized-pr277-native.stderr"
+        },
+        "independentFdRelativeVerification": {
+          "result": "pass",
+          "before": {
+            "reviewerIdentity": "/root/a11_pr276_review",
+            "startedAt": "2026-10-18T15:12:12.730701+00:00",
+            "verifiedAt": "2026-10-18T15:12:18.203688+00:00",
+            "head": "39cb64c9d9719ec39c8b4c244bc8d6818ee6a87d",
+            "tree": "580f3fa6e4aa6970406bb41e949e3d002ac8a1f0",
+            "trackedFilesVerified": 11709,
+            "totalBytes": 1032464393,
+            "maximumAbsolutePathBytes": 1054,
+            "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+            "result": "pass",
+            "inventoryDigestSha256": "1e5cc60ed5c94fc224b451df32855b93904313f5b9bd36bdf381cc702903c962"
+          },
+          "after": {
+            "reviewerIdentity": "/root/a11_pr276_review",
+            "startedAt": "2026-10-18T15:20:31.382141+00:00",
+            "verifiedAt": "2026-10-18T15:20:35.115600+00:00",
+            "head": "39cb64c9d9719ec39c8b4c244bc8d6818ee6a87d",
+            "tree": "580f3fa6e4aa6970406bb41e949e3d002ac8a1f0",
+            "trackedFilesVerified": 11709,
+            "totalBytes": 1032464393,
+            "maximumAbsolutePathBytes": 1054,
+            "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+            "result": "pass",
+            "inventoryDigestSha256": "1e5cc60ed5c94fc224b451df32855b93904313f5b9bd36bdf381cc702903c962"
+          },
+          "beforeReceiptRawSha256": "0e0b3b9625f548836f09928502fda32d9a86c444d36641271f202b4997fe240f",
+          "afterReceiptRawSha256": "9190faeefca3c6d3ae83d6a8a51206f597463f74cb2a9c342113f75517fca82f",
+          "beforeInventoryRawSha256": "fd4f3a1ba3b09246da63a0ce1797362f1727ac318feb65b22ca5e994e222373e",
+          "afterInventoryRawSha256": "fd4f3a1ba3b09246da63a0ce1797362f1727ac318feb65b22ca5e994e222373e"
+        },
+        "gitStatusBeforeAndAfter": "clean",
+        "headUnchanged": true,
+        "nativeLinuxRequired": true
+      }
+    },
+    "scriptSha256": "940d74b1f80f7835c5ff36faff6ecfb553379362bd90acb29d4e72400e7297da",
+    "localFdProofDoesNotReplaceNativeLinux": true
+  },
+  "contentValidation": {
+    "candidateSha256": "c6c0f90f457a3043da6f612b9cec02305bfd6b2e12f4bb7ef5d6c375d29b354d",
+    "head": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+    "originalBankRawSha256": "4f677216d3d9aec1b8f93be87a2900ff5a63f62e45a7555458ac146955ac0766",
+    "permissions": {
+      "deployAllowed": false,
+      "historicalAuthorityTransferred": false,
+      "liveAllowed": false,
+      "mergeAllowed": false,
+      "wholePackAccepted": false
+    },
+    "planRawSha256": "4d17dc2824446dc8c000960ef5778ffd0e9b030eea409011df6bebf4405d1049",
+    "q014": "38000 and outside selected228, checked by original validator",
+    "result": "pass",
+    "reviewerIdentity": "/root/a11_pr276_review",
+    "revisedRows": 228,
+    "selectedRowsRawSha256": "5a18d6ee47dee4ee50f8608a42e052e43d3c7aa150b44a8a2bf2b3cf9b10faf2",
+    "unchangedRows": 1272,
+    "validator": "unchanged promotion-pr201-candidate.mjs validateContent",
+    "validatorRawSha256": "01dd6c894d39c1af0abb5096efd8defbcb770ab0213647534aab9f9186e8ffaf",
+    "verifiedAt": "2026-10-18T15:13:26.477Z"
+  },
+  "sourceObservation": {
+    "canonicalAuditMatchesRegistry": true,
+    "coveredFileCount": 3888,
+    "expectedObservationRawSha256": "90408097b338eebafb1378c71ded0a402cd973e43b131eab408dde3c90c48e2f",
+    "finishedAt": "2026-10-18T15:14:38.525Z",
+    "gitStatus": "clean",
+    "head": "ffc99bcfedd7d5a017d130eec58e3becc2978a26",
+    "historicalManifestRead": "native absolute read passed; expected SHA verified",
+    "independentlyRecomputedAtT": true,
+    "inventoryReadbackRawSha256": "e8826fdf12b41a60d2e476fbeb929082cc8df905856617bb41bd7d509bbf5e05",
+    "matchesFrozenObservation": true,
+    "nativeFullMaterialization": "separately recorded; local fd proof does not replace Linux CI",
+    "observationRawSha256": "90408097b338eebafb1378c71ded0a402cd973e43b131eab408dde3c90c48e2f",
+    "priorHomepageCoveredFileCount": 3887,
+    "priorHomepageObservationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "reviewerIdentity": "/root/a11_pr276_review",
+    "sourceInventoryDigest": "0a2677b019c733ed24e2b134a34c840b11f147c230763e3fc48ab98c68a02290",
+    "startedAt": "2026-10-18T15:13:26.537Z",
+    "toolingDigest": "d38fba246ff277f36fdb6dd7e85792ed623d4e68961d3be1e8b3d5c4dbf2148d",
+    "unchangedCandidateObservationGuard": "pass"
+  },
+  "retainedHistory": {
+    "v1LinuxGapFailure": {
+      "runId": "39130914904",
+      "testedHead": "5303de58d090b62967e45ec09d11fe331263f628",
+      "reportPath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/ci-39130914904/promotion-reviewed-code-pr276-artifacts/browser.stdout",
+      "rawSha256": "03a0850fcb44749a39887ae1e54c620ef4b84a0f12b059664bd50d0ebc5cdb4e",
+      "stats": {
+        "startTime": "2026-10-18T13:20:08.283Z",
+        "duration": 203141.03900000002,
+        "expected": 28,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "title": "homepage en 320x568 keeps the selected image and copy readable",
+          "status": "failed",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 563.234375\nReceived:    565\n\n  128 |     expect(m.photo.height).toBeGreaterThan(0);\n  129 |     expect(m.photo.y).toBeGreaterThanOrEqual(m.boxes.descriptor.bottom + 7);\n> 130 |     expect(m.photo.bottom).toBeLessThanOrEqual(m.headline.y - 7);\n      |                            ^\n  131 |     expect(m.headline.bottom).toBeLessThanOrEqual(m.boxes.badge.y - 7);\n  132 |   } else {\n  133 |     expect(Math.abs(m.image.y - m.hero.y)).toBeLessThanOrEqual(1);\n    at inspect (/home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:130:28)\n    at /home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:146:24"
+        },
+        {
+          "title": "homepage en 390x844 keeps the selected image and copy readable",
+          "status": "failed",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 584.046875\nReceived:    597\n\n  128 |     expect(m.photo.height).toBeGreaterThan(0);\n  129 |     expect(m.photo.y).toBeGreaterThanOrEqual(m.boxes.descriptor.bottom + 7);\n> 130 |     expect(m.photo.bottom).toBeLessThanOrEqual(m.headline.y - 7);\n      |                            ^\n  131 |     expect(m.headline.bottom).toBeLessThanOrEqual(m.boxes.badge.y - 7);\n  132 |   } else {\n  133 |     expect(Math.abs(m.image.y - m.hero.y)).toBeLessThanOrEqual(1);\n    at inspect (/home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:130:28)\n    at /home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:146:24"
+        },
+        {
+          "title": "homepage dark 390x844 preserves readable copy",
+          "status": "failed",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 584.046875\nReceived:    597\n\n  128 |     expect(m.photo.height).toBeGreaterThan(0);\n  129 |     expect(m.photo.y).toBeGreaterThanOrEqual(m.boxes.descriptor.bottom + 7);\n> 130 |     expect(m.photo.bottom).toBeLessThanOrEqual(m.headline.y - 7);\n      |                            ^\n  131 |     expect(m.headline.bottom).toBeLessThanOrEqual(m.boxes.badge.y - 7);\n  132 |   } else {\n  133 |     expect(Math.abs(m.image.y - m.hero.y)).toBeLessThanOrEqual(1);\n    at inspect (/home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:130:28)\n    at /home/runner/work/MAIS-MVP/MAIS-MVP/tests/e2e/home-selected-hero.spec.ts:156:5"
+        }
+      ],
+      "status": "preserved failed first attempt; not relabeled successful",
+      "repair": "S2 reserves one extra rem beneath phone photo without modifying text or test assertions",
+      "v2LinuxAcceptance": "pending genuine required Linux CI at E2 and merge; Mac31/31 is not Linux acceptance"
+    },
+    "earlierHydration": {
+      "status": "earlier preliminary React418 remains unexplained; not claimed fixed",
+      "original": {
+        "path": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/pr276-browser-preparation-v2.json",
+        "rawSha256": "357d772cb7c9bd3ac289323b4c91c1d15f0a3aab0bbef3116457d4c7d9c18ddc",
+        "stats": {
+          "startTime": "2026-10-18T12:41:31.692Z",
+          "duration": 53213.898,
+          "expected": 30,
+          "skipped": 0,
+          "unexpected": 1,
+          "flaky": 0
+        },
+        "message": "Minified React error #418; args[]=HTML",
+        "case": "homepage en 768x1024 keeps the selected image and copy readable",
+        "tracePath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-home-preparation-v2-20261018/test-results/home-selected-hero-homepag-675d8-ted-image-and-copy-readable-desktop-chrome/trace.zip",
+        "traceSha256": "08b5e08446ae2c839cd2c105cfa14453eba82154ec1da2ee50696e4d5c5582c7",
+        "errorContextPath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-home-preparation-v2-20261018/test-results/home-selected-hero-homepag-675d8-ted-image-and-copy-readable-desktop-chrome/error-context.md",
+        "errorContextSha256": "6ea00fd42e12fc0d6e263fb0157752c0862dfcb09b260011ef505c7ea13950d8",
+        "timing": "about144ms after initial navigation; before language-selector interaction"
+      },
+      "independentBoundedReproduction": {
+        "path": "/private/tmp/pr276-a11-review/cdp-hydration-diagnostic.json",
+        "rawSha256": "a5f93da145d3cba0ca379380bfcca0af6aacce48e38d8f3aa6e82c5916ed6f95",
+        "source": "existing S production server before T freeze",
+        "navigations": 60,
+        "elapsedMs": 61053,
+        "pageErrors": 0,
+        "result": "not reproduced within bounded diagnostic",
+        "interpretation": "non-reproduction under CDP instrumentation is not a fix or proof of absence"
+      },
+      "v1FreshTResult": "31 first-attempt macOS cases passed; immutable v1 records retained",
+      "v2FreshTResult": "31 first-attempt macOS cases passed with strict error assertions",
+      "requiredTreatment": "Any recurrence in required CI remains failure; no suppression or retry-based acceptance"
+    },
+    "e2NativeCIReadback": {
+      "checkedAt": "2026-10-18T15:19:14.429Z",
+      "scope": "readback of retained E2 CI39135396635 artifacts, not current T3 acceptance or CI re-execution",
+      "head": "b8cecebf0fe9d6e296d24af6007f850f92fba4bd",
+      "source": "9938db3f952d6715bca9fbe732da82a184f845df",
+      "tooling": "2920e9fcab4c01b42d7dbc525ed5f0e5d1356b77",
+      "decisionResult": "pass",
+      "verifyTestRecords": "pass",
+      "verifyBrowserReport": "pass",
+      "browserStats": {
+        "startTime": "2026-10-18T14:21:15.990Z",
+        "duration": 252446.559,
+        "expected": 31,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "currentRawSha256": "93944c484daf1cef7e431556b3b2cf1c25273cc997e1be6158948d254d636768",
+      "decisionRawSha256": "f2f6c7b30d8a4e314171afb3d589bac741142c9bf939c933337eb3696a2d702f",
+      "decisionDigest": "ac7bf67c989a97cb6ee95d0015a257dae810741a78d59d2bcc6c7364c1a17636",
+      "browserRawSha256": "fb60d613a09aa2c3e661c9e4be7deb00d1513a278f9d9948c3422e1a674aa374",
+      "historicalBaselineOnly": {
+        "artifactRawSha256": "0a32d63a55b9880d63ee6b3bf2c65465ae7323d535814937b36f58aa445d754f",
+        "commit": "03717842b19e8b8fa9a3a2dbecf1b359bb842233",
+        "decisionDigest": "88ba1f901205383434f1c9bb9d5edde44fecaa74dc132ac059ebfc6362d33860"
+      },
+      "permissions": {
+        "deployAllowed": false,
+        "historicalAuthorityTransferred": false,
+        "integrationAllowed": false,
+        "liveAllowed": false,
+        "ordinaryCodeEligible": true,
+        "previewAllowed": false,
+        "wholePackAccepted": false
+      }
+    },
+    "e2CompanionCI": {
+      "runId": "39135396618",
+      "head": "b8cecebf0fe9d6e296d24af6007f850f92fba4bd",
+      "status": "coordinator reported success; not re-executed by this review"
+    },
+    "e2Scope": "E2 proof only; not transferred as current combined-tree acceptance",
+    "v3PreparationRed": {
+      "path": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/pr276-v3-preparation-contract-first.stdout",
+      "rawSha256": "e74e4b293c1a105a54d9d22eca24abed8cf4f45236b9b1c1f8b54ae30bab2f0e",
+      "passed": 23,
+      "failed": 1,
+      "reason": "pre-freeze negative fixture changed obsolete sourceParent, so strict schema rejected it before expected scope check; final fixture uses homepageEvidence",
+      "treatment": "original red retained; fresh frozenT3 suite passed119/119"
+    },
+    "environmentFinding": {
+      "stage": "pre-freeze A23 review",
+      "issue": "candidate synthetic SQL/NODE_ENV environment must not leak into browser build",
+      "finalEvidence": "exported commandEnvironment regression uses actual Playwright --list and fresh browser run has NODE_ENV/HK_MATH_DB_PATH absent"
+    },
+    "historyNote": "Prior records remain byte-immutable. Later E2 Linux success is separately scoped; original v1 failures and earlier unexplained418 are not relabeled."
+  },
+  "artifactHashes": {
+    "run-checks.mjs": "8544f4d264172f90cd4f369d637f587439b858bbff73242bd2183af7bb4ef419",
+    "verify-materialized-fd.py": "940d74b1f80f7835c5ff36faff6ecfb553379362bd90acb29d4e72400e7297da",
+    "run-native-materialization.mjs": "544daac1525d10d85edfa6e92a4f7117d2abbc63789bf98e04f1cd08958d21f1",
+    "observe-and-inventory.mjs": "0d9babc5887e751b3e0656660554e15f88dace718812a44ff9976b618c9a3bc9",
+    "build-review.mjs": "7d90bba34eed6c80094db2ad2ee340a2ac581adcd20fe72a85250de76157573a",
+    "preflight-execution.json": "fdd73c4a1ac09e862fd2ae42876863faf4bec2705c8de0394f0999b8c152c304",
+    "browser-execution.json": "c9c5d403fb0159169827615142891ae5289e756c9c35d03b99c830ec8b1b2e49",
+    "gate-suites.stdout": "b38af1bd586541fb7ac5ab0a22c5f6f2bfb28bc35ea3792c90c65c6f90f8af9f",
+    "gate-suites.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pr277-contract.stdout": "1c7744577ac1c5e27362acbf2aa9e1c90b53d2d6dfcefff3c192a585a0f0639e",
+    "pr277-contract.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pr277-grading.stdout": "dc0611f079714f1a8272e3d0b8cb8b97c0b7771fd7782b95d31c1ceb9eb7a659",
+    "pr277-grading.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pr277-isolation.stdout": "d20d5dd6726a9f384a2fe3458dfe3cf8cef119cad74a451f39b2479b59e18c90",
+    "pr277-isolation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "types.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "types.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser.stdout": "f6fc0b3ad47dc3a0e0037661cb18470e22bcbbb00f9dee2876a0496cd2ba53f5",
+    "browser.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observation.stdout": "9b54dd68a5e513103b0a43c6b6bf88da2842253af7b319f5c9d9db9579e85e5d",
+    "observation.stderr": "d4772a34facc73315e1ebcefd8a8cd07a1e43416748bcde2ea9b27a9f9c287d0",
+    "source-observation.json": "90408097b338eebafb1378c71ded0a402cd973e43b131eab408dde3c90c48e2f",
+    "observation-receipt.json": "494ca9bb437b7eadbc19cda6da63062f269e714de86335af7932864c8a70cdad",
+    "inventory-readback.json": "e8826fdf12b41a60d2e476fbeb929082cc8df905856617bb41bd7d509bbf5e05",
+    "preserved-bindings.json": "b0a94d4353fd6ea1f4895d7b1c513eca9cdc1fd425b684b98fecee6afc071c9d",
+    "content-validation.json": "f473a79805945913031f6cb181d910c938f94905d3b66165f2b88f8f462f2181",
+    "verification-receipt.json": "ad29445e3a179db6e08bdc415fe4296a23dc4901c4ccf768376e8a8ba681fee2",
+    "retained-e2-ci-readback.json": "903ae72830a2e854493552c9e8b7691b1ce3693640410a1c48d2908326b3339e",
+    "materialized-current-native.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "materialized-current-native.stderr": "982aa1edd8371a204f9c3ccf77074de6da0bd961d83bf2b446d1c83a80a448ab",
+    "materialized-current-native-receipt.json": "8d55efb9216b7e5b3c1a5f16587e3dee02930308a2423f28bdc7589dd6ac6ffa",
+    "materialized-current-before.json": "0d92b58c45e6a6e74aeb8feab88d5ef187259ede00ee646b1483c58ca71f7367",
+    "materialized-current-before.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-current-before-inventory.json": "55411f50d5bf5462b70afba86d694d390a95852548c41ff91951dba976016b87",
+    "materialized-current-after.json": "531c983f1b2f68e83d9d2b7a3f4925d6bf4bfa477efdf0808171ee438c583600",
+    "materialized-current-after.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-current-after-inventory.json": "55411f50d5bf5462b70afba86d694d390a95852548c41ff91951dba976016b87",
+    "materialized-pr277-native.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "materialized-pr277-native.stderr": "3d79c1026afd9177fd457b2d1bb961d86c2b548afe3b9bb86f1ef7b5a12f33d3",
+    "materialized-pr277-native-receipt.json": "f863af09889afbd89cebb9cea14f5a52d03f1ef0be7260100a3f73638c404889",
+    "materialized-pr277-before.json": "0e0b3b9625f548836f09928502fda32d9a86c444d36641271f202b4997fe240f",
+    "materialized-pr277-before.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-pr277-before-inventory.json": "fd4f3a1ba3b09246da63a0ce1797362f1727ac318feb65b22ca5e994e222373e",
+    "materialized-pr277-after.json": "9190faeefca3c6d3ae83d6a8a51206f597463f74cb2a9c342113f75517fca82f",
+    "materialized-pr277-after.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-pr277-after-inventory.json": "fd4f3a1ba3b09246da63a0ce1797362f1727ac318feb65b22ca5e994e222373e"
+  },
+  "limitations": [
+    "Current T3 and pinnedM277 native materialization both hit macOS ENAMETOOLONG; raw errors retained. Independent full fd proofs are local evidence only.",
+    "Native Linux CI must freshly verify E3 and the merge, including current/frozen-root materialization, current command proofs and unchanged pinned historical verification/Shadow.",
+    "Prior E2 Linux success applies only to E2; the combined C/T3 needs its own E3 CI acceptance.",
+    "The earlier preliminary React418 remains unexplained; current passing checks do not establish it fixed or impossible. Any recurrence remains a strict failure.",
+    "No E3/admission/current.json or final production CI decision was fabricated; these are independent pre-admission checks and an A11 review.",
+    "This review grants only ordinary-code required-check eligibility; no merge, live, integration, Preview, deployment, whole-pack or historical-transfer authority."
+  ],
+  "permissions": {
+    "ordinaryCodeEligible": true,
+    "mergeAllowed": false,
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

@@ -1,0 +1,385 @@
+{
+  "schemaVersion": "pr276-source-checks.v1",
+  "reviewerIdentity": "/root/a11_pr276_review",
+  "recordedAt": "2026-10-18T13:10:27.171Z",
+  "baseCommit": "656ac319b2ad5812d31ad952cbb18430b5e58065",
+  "sourceCommit": "a05d123e75139eeb36e0ca3b564652880fa38545",
+  "sourceTree": "c7b163a6958cf6fce846eed5570e1b76a35ee3f0",
+  "toolingRelease": "15bfc5a0fb3e2ec8c35fec624aea5025ac8715bc",
+  "toolingTree": "ffb000bf5de6878a6cae12d1c35020450dcb99e2",
+  "sourceInventoryDigest": "b0b7fa498aedb5e3bfac3afcea151b28cafad448a7dcf6f1dd76e6f72c2d718a",
+  "toolingDigest": "cbe282ab50ee93e59c529e7dc3d5ed9968027b41de215823da0cfd97440e889e",
+  "observationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+  "sourceInventory": [
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "bc6b4cd7189e2fee0ac7f2073aa716f0664065ff",
+        "rawSha256": "5e0eaa78369b7c163ee2f8086ae7f0f6e224711e93e52899f08c9e87edaa7b54"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "6c410564ce28fbac347ce3443a6420a9ab566fcf",
+        "rawSha256": "3dd2ef8f66e20e6bea5332ae5c563ec74ab2b79f4eb0f9e0d4856fea1318232e"
+      },
+      "path": "components/home/PedaNovaHomeHero.tsx"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "53513aa70404db2b862e199584689c08016f6ae1",
+        "rawSha256": "d6948dc05110a84a859207727f1ae8642a9612321fb0021a34ae5a49f8bc9889"
+      },
+      "before": null,
+      "path": "components/home/brand-assets/pedanova-home-background-20260809-owner-selected-white-stylus.png"
+    }
+  ],
+  "toolingInventory": [
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "4ca11883b20e7be6dfd23474597cb716535e3b83",
+        "rawSha256": "2000e3c170e3bc0fbff7371b7145f85c4a87be8cb48903f34f611a826860724d"
+      },
+      "before": {
+        "mode": "100644",
+        "objectId": "8bc44d4f1135b9c05c0a1f6f81f7c42c5a35495b",
+        "rawSha256": "9ae6fb24bf116c5339d5aae5734503f393582af3998e90fc51fb35c356b5e652"
+      },
+      "path": ".github/workflows/promotion-shadow.yml"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "929807df606072fe4fabf108178f85c97222bcfb",
+        "rawSha256": "b03bbb69f7bf092e4d3b844b835ca4ffa12bacca31ae6b5e6be84190b359fade"
+      },
+      "before": null,
+      "path": "docs/pr276-reviewed-code-gate.md"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "d05648f616a9c3e3d4c957d26281c57cffa17453",
+        "rawSha256": "70b6e223ca55b34849d774b3abae10605ca27210cccd24371283feceaf8ac5ea"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "0704ba105811ddf77063ff83c807f148da12f954",
+        "rawSha256": "95d741687b32a836323f72dcbadf58d7c88f46e5b127daa608cb860ca52479dc"
+      },
+      "before": null,
+      "path": "scripts/promotion-reviewed-code-pr276.test.mjs"
+    },
+    {
+      "after": {
+        "mode": "100644",
+        "objectId": "0c94dba106f47e28e58398ed27b926bf4371878d",
+        "rawSha256": "45c97c22994e722ce702d3514d5e08e9b10d2ab5ae6966b739b3444201b96edc"
+      },
+      "before": null,
+      "path": "tests/e2e/home-selected-hero.spec.ts"
+    }
+  ],
+  "execution": {
+    "nodeVersion": "v24.15.0",
+    "platform": "macOS arm64",
+    "nodeExecutable": "/usr/local/bin/node",
+    "packageLockSha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+    "environment": {
+      "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+      "PLAYWRIGHT_BROWSER_CHANNEL": "",
+      "PLAYWRIGHT_RUN_ID": "pr276-a11-T-15bfc5a0-20261018-01",
+      "PLAYWRIGHT_PORT": "3396",
+      "CI": null
+    },
+    "credentialsUsed": false,
+    "providerCalls": false,
+    "applicationBuild": "fresh isolated production build performed by original Playwright webServer configuration; PLAYWRIGHT_SKIP_WEBSERVER absent; next-env restored",
+    "isolatedRuntime": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-a11-T-15bfc5a0-20261018-01",
+    "commands": [
+      {
+        "name": "types",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T13:02:55.804Z",
+        "finishedAt": "2026-10-18T13:03:49.762Z",
+        "stdoutArtifact": "types.stdout",
+        "stderrArtifact": "types.stderr",
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "browser",
+        "args": [
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "tests/e2e/home-selected-hero.spec.ts",
+          "--project=desktop-chrome",
+          "--workers=1",
+          "--retries=0",
+          "--reporter=json"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "processError": null,
+        "startedAt": "2026-10-18T13:04:59.373Z",
+        "finishedAt": "2026-10-18T13:07:41.950Z",
+        "stdoutArtifact": "browser.stdout",
+        "stderrArtifact": "browser.stderr",
+        "stdoutSha256": "18eb3e801e1fbaa0c41fd395671479e5648ec54208e82cc419d18befba31fc26",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "ownedProcessCloseout": "Playwright command completed; independent readback found no listener on port 3396; HEAD and tracked bytes unchanged"
+  },
+  "results": {
+    "types": {
+      "exitCode": 0
+    },
+    "browser": {
+      "stats": {
+        "startTime": "2026-10-18T13:04:59.926Z",
+        "duration": 161999.333,
+        "expected": 31,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "independentCases": 31,
+      "totalAttempts": 31,
+      "retryCount": 0,
+      "verifyBrowserReport": "pass",
+      "verifyTestRecords": "pass",
+      "pageConsoleHttpAndAssetErrorAssertions": "passed for every case",
+      "coverage": "3 locales x9 viewport sizes, 2 dark-mode sizes, keyboard focus/Enter, phone touch; visible-image source/bytes, layout/text containment and CTA destination",
+      "scope": "local production build at committed T; installed Chromium only; no physical-device or deployment claim"
+    }
+  },
+  "gateSuites": {
+    "producer": "/root/a11_pr276_review",
+    "command": [
+      "/usr/local/bin/node",
+      "--test",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr276.test.mjs"
+    ],
+    "name": "gate-suites",
+    "args": [
+      "--test",
+      "scripts/promotion-reviewed-code-pr259.test.mjs",
+      "scripts/promotion-reviewed-code-pr270-pr271.test.mjs",
+      "scripts/promotion-reviewed-code-pr264.test.mjs",
+      "scripts/promotion-reviewed-code-pr276.test.mjs"
+    ],
+    "exitCode": 0,
+    "signal": null,
+    "processError": null,
+    "startedAt": "2026-10-18T12:59:55.108Z",
+    "finishedAt": "2026-10-18T13:02:55.802Z",
+    "stdoutArtifact": "gate-suites.stdout",
+    "stderrArtifact": "gate-suites.stderr",
+    "stdoutSha256": "669fd539fed5ded25c33f6541373c67894ec642ea908722967f878b51a9e33f8",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "passed": 74,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "scope": "synthetic isolated contract fixtures; not production admission"
+  },
+  "materialization": {
+    "nativeAbsolutePathHelper": {
+      "result": "limited",
+      "exitCode": 1,
+      "error": "ENAMETOOLONG",
+      "reason": "macOS absolute historical evidence path exceeds path length; maximum tracked absolute path is1052bytes",
+      "timestamps": {
+        "createdAt": "2026-10-18T13:00:51.151Z",
+        "lastWrittenAt": "2026-10-18T13:00:52.473Z",
+        "method": "artifact filesystem timestamps; command failure independently retained"
+      },
+      "stdoutArtifact": "materialized-absolute.stdout",
+      "stderrArtifact": "materialized-absolute.stderr",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "1b9d511ed6210df34d0fe84169b693cdf7301584f3897df61289259e1413d214"
+    },
+    "independentFdRelativeVerification": {
+      "result": "pass",
+      "scriptSha256": "74d821c3b6d9db5fb0b69450004522004ee7fe89b13e328918ca752912fee16b",
+      "before": {
+        "reviewerIdentity": "/root/a11_pr276_review",
+        "startedAt": "2026-10-18T13:00:43.423892+00:00",
+        "verifiedAt": "2026-10-18T13:00:51.055040+00:00",
+        "head": "15bfc5a0fb3e2ec8c35fec624aea5025ac8715bc",
+        "tree": "ffb000bf5de6878a6cae12d1c35020450dcb99e2",
+        "trackedFilesVerified": 11684,
+        "totalBytes": 1027687792,
+        "maximumAbsolutePathBytes": 1052,
+        "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+        "result": "pass",
+        "inventoryDigestSha256": "30589389ac793a051e071f097653ada512e15f507d1e4b5dacfa3c52f89e30cc"
+      },
+      "after": {
+        "reviewerIdentity": "/root/a11_pr276_review",
+        "startedAt": "2026-10-18T13:08:05.172791+00:00",
+        "verifiedAt": "2026-10-18T13:08:14.305465+00:00",
+        "head": "15bfc5a0fb3e2ec8c35fec624aea5025ac8715bc",
+        "tree": "ffb000bf5de6878a6cae12d1c35020450dcb99e2",
+        "trackedFilesVerified": 11684,
+        "totalBytes": 1027687792,
+        "maximumAbsolutePathBytes": 1052,
+        "method": "independent fd-relative O_NOFOLLOW traversal of every tracked mode and Git blob hash; all index flags H; clean status; stable HEAD and fstat; does not replace native Linux CI",
+        "result": "pass",
+        "inventoryDigestSha256": "30589389ac793a051e071f097653ada512e15f507d1e4b5dacfa3c52f89e30cc"
+      },
+      "beforeReceiptSha256": "ba66c99911c0fead84c48a50d221869a5a7f5b47c0f3bf6f9b18389155a202db",
+      "afterReceiptSha256": "cb7aa42d7b49d0af14c589b42ab1db64a44d42fd6cc2ee28f7b0e31cc624f466",
+      "beforeInventoryRawSha256": "876b8538c2aa3a08fce05a5ed68e1b6e6ade99b139ca5f5ee94cb80e3cb34f29",
+      "afterInventoryRawSha256": "876b8538c2aa3a08fce05a5ed68e1b6e6ade99b139ca5f5ee94cb80e3cb34f29"
+    },
+    "gitStatusBeforeAndAfter": "clean",
+    "headUnchanged": true,
+    "nativeLinuxCiStillRequired": true
+  },
+  "sourceObservation": {
+    "canonicalAuditMatchesRegistry": true,
+    "expectedObservationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "finishedAt": "2026-10-18T13:04:27.316Z",
+    "gitStatus": "clean",
+    "head": "15bfc5a0fb3e2ec8c35fec624aea5025ac8715bc",
+    "historicalManifestRead": "fd-relative O_NOFOLLOW traversal; verified expected manifest SHA-256; unmodified observePreparation executes against actual current root",
+    "independentlyRecomputedAtT": true,
+    "inventoryReadbackRawSha256": "77ef95c1c760092be611ea2fed0db600a31621ea5c24c2045939ee7250655342",
+    "matchesFrozenObservation": true,
+    "nativeMaterialization": "ENAMETOOLONG retained separately; this local proof does not replace native Linux CI",
+    "observationRawSha256": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "reviewerIdentity": "/root/a11_pr276_review",
+    "sourceInventoryDigest": "b0b7fa498aedb5e3bfac3afcea151b28cafad448a7dcf6f1dd76e6f72c2d718a",
+    "startedAt": "2026-10-18T13:03:33.735Z",
+    "toolingDigest": "cbe282ab50ee93e59c529e7dc3d5ed9968027b41de215823da0cfd97440e889e",
+    "nativeHistoricalManifestRead": {
+      "result": "limited",
+      "exitCode": 1,
+      "error": "ENAMETOOLONG",
+      "stderrArtifact": "observation.stderr",
+      "stderrSha256": "cd7ee0ad8a546bf23de914ddf99f7660c645d8ca20e583956645a21f191f859f",
+      "timestamps": {
+        "createdAt": "2026-10-18T13:01:59.584Z",
+        "lastWrittenAt": "2026-10-18T13:02:01.776Z",
+        "method": "artifact filesystem timestamps; command failure independently retained"
+      }
+    },
+    "localFdRelativeRead": {
+      "helperSha256": "a35b7b0a4e82ff9928b9a74d7d00733d5dbe538733d9cbbc4830ee934db777d9",
+      "launcherSha256": "2b41eb9a9eb1bfdea65147578bf81896e857ff0959d391d0991c1197052d3163",
+      "unmodifiedObservePreparation": true
+    }
+  },
+  "retainedIntermittentHydrationFailure": {
+    "status": "observed in preliminary v2; root cause unconfirmed; not claimed fixed",
+    "original": {
+      "path": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/pr276-browser-preparation-v2.json",
+      "rawSha256": "357d772cb7c9bd3ac289323b4c91c1d15f0a3aab0bbef3116457d4c7d9c18ddc",
+      "stats": {
+        "startTime": "2026-10-18T12:41:31.692Z",
+        "duration": 53213.898,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "message": "Minified React error #418; args[]=HTML",
+      "case": "homepage en 768x1024 keeps the selected image and copy readable",
+      "tracePath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-home-preparation-v2-20261018/test-results/home-selected-hero-homepag-675d8-ted-image-and-copy-readable-desktop-chrome/trace.zip",
+      "traceSha256": "08b5e08446ae2c839cd2c105cfa14453eba82154ec1da2ee50696e4d5c5582c7",
+      "errorContextPath": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/.tmp/china-lesson-e2e-runtime/runs/pr276-home-preparation-v2-20261018/test-results/home-selected-hero-homepag-675d8-ted-image-and-copy-readable-desktop-chrome/error-context.md",
+      "errorContextSha256": "6ea00fd42e12fc0d6e263fb0157752c0862dfcb09b260011ef505c7ea13950d8",
+      "timing": "about144ms after initial navigation; before language-selector interaction"
+    },
+    "independentBoundedReproduction": {
+      "path": "/private/tmp/pr276-a11-review/cdp-hydration-diagnostic.json",
+      "rawSha256": "a5f93da145d3cba0ca379380bfcca0af6aacce48e38d8f3aa6e82c5916ed6f95",
+      "source": "existing S production server before T freeze",
+      "navigations": 60,
+      "elapsedMs": 61053,
+      "pageErrors": 0,
+      "result": "not reproduced within bounded diagnostic",
+      "interpretation": "non-reproduction under CDP instrumentation is not a fix or proof of absence"
+    },
+    "primaryPreliminaryV3": {
+      "path": "/Users/dongpinhu/.codex/worktrees/mais-home-selected-hero/MAIS-MVP/output/playwright/home-selected-hero/pr276-browser-preparation-v3.json",
+      "rawSha256": "819cd8c7bdb29fdd024b348b15dc74fe0798239403cff9be9182887c677092e0",
+      "stats": {
+        "startTime": "2026-10-18T12:52:53.285Z",
+        "duration": 39444.603,
+        "expected": 31,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "role": "context only; does not substitute for fresh T checks"
+    },
+    "freshTResult": "all31 first-attempt cases passed strict error assertions",
+    "requiredTreatment": "Preserve original failure. Any recurrence in required CI remains a failure; no ignore, retry-based acceptance, or suppression is authorized by this review."
+  },
+  "artifactHashes": {
+    "run-checks.mjs": "50626c82147ab9a74fe6cc784b301ca902fa7f06dbd8a25e2ae998014ad669f9",
+    "verify-materialized-fd.py": "74d821c3b6d9db5fb0b69450004522004ee7fe89b13e328918ca752912fee16b",
+    "observe-and-inventory.mjs": "0f8f4d9951f3cc1c7c2dfba722259320374caee49f83820c8fb2ce1bb832ad68",
+    "observe-current-fd.mjs": "2b41eb9a9eb1bfdea65147578bf81896e857ff0959d391d0991c1197052d3163",
+    "fd-read.py": "a35b7b0a4e82ff9928b9a74d7d00733d5dbe538733d9cbbc4830ee934db777d9",
+    "build-review.mjs": "447027f381a0602dbaa1904c4ce6e17b0a51ac59cfa9f24fcbf0552fb178c05a",
+    "preflight-execution.json": "94026b9c2ac73ac6cdf982ee03717c30b6d66fcd9ff3f2958154be62fef5a5af",
+    "browser-execution.json": "fe70cee5681c06915f510159cb25f03d3cf76d15f7bab76d258a80b5177f4bbe",
+    "gate-suites.stdout": "669fd539fed5ded25c33f6541373c67894ec642ea908722967f878b51a9e33f8",
+    "gate-suites.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "types.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "types.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser.stdout": "18eb3e801e1fbaa0c41fd395671479e5648ec54208e82cc419d18befba31fc26",
+    "browser.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "materialized-absolute.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "materialized-absolute.stderr": "1b9d511ed6210df34d0fe84169b693cdf7301584f3897df61289259e1413d214",
+    "materialized-before.json": "ba66c99911c0fead84c48a50d221869a5a7f5b47c0f3bf6f9b18389155a202db",
+    "materialized-before.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-before-inventory.json": "876b8538c2aa3a08fce05a5ed68e1b6e6ade99b139ca5f5ee94cb80e3cb34f29",
+    "materialized-after.json": "cb7aa42d7b49d0af14c589b42ab1db64a44d42fd6cc2ee28f7b0e31cc624f466",
+    "materialized-after.stderr": "b7d4658094648a569abccf0fd486920fdbdb3ea0f839dc4c9585bc9c4c9ae014",
+    "materialized-after-inventory.json": "876b8538c2aa3a08fce05a5ed68e1b6e6ade99b139ca5f5ee94cb80e3cb34f29",
+    "observation.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observation.stderr": "cd7ee0ad8a546bf23de914ddf99f7660c645d8ca20e583956645a21f191f859f",
+    "observation-fd.stdout": "f0fb794ee21f7354dde812c69e9a6ebcf70587f593061b92e3912964ff6f843c",
+    "observation-fd.stderr": "247717a28272f910a74b0f1f7cc1bfb6495da4ff7f14dece8f45b12eb79cdce6",
+    "source-observation.json": "bb0d964567026e41f29dfd8d747ae2c3f971900a2f32ac5a1ba0694f8c4d3766",
+    "observation-receipt.json": "af82f519392c386765c0a644c1cbc01c14a31f9b635df7b294e63a2fcf171142",
+    "inventory-readback.json": "77ef95c1c760092be611ea2fed0db600a31621ea5c24c2045939ee7250655342",
+    "verification-receipt.json": "9cacc8b66dfdc92a807cfec9b8c468ba8c03e022ae9c363ca0f3e8a2b4e739a4"
+  },
+  "limitations": [
+    "The unmodified production checker must pass at final E and the merge on Linux CI, including native materialization and unchanged historical native verification/Shadow.",
+    "The earlier isolated React418 remains unexplained. Current-T31/31 and bounded60 non-reproduction do not establish that it is fixed or impossible.",
+    "This independent review establishes ordinary-code required-check eligibility only; it does not grant merge, deployment, Preview, live content promotion, whole-pack acceptance or historical-authority transfer.",
+    "Preliminary S evidence is retained context only and is not substituted for current-T execution."
+  ],
+  "permissions": {
+    "ordinaryCodeEligible": true,
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}
