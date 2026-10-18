@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "pr275-source-checks.v1",
+  "producerIdentity": "/root",
+  "recordedAt": "2026-10-18T13:12:51.005Z",
+  "baseCommit": "656ac319b2ad5812d31ad952cbb18430b5e58065",
+  "sourceCommit": "f58fd25d913de68e75796b66e15247c199cdb99c",
+  "sourceTree": "fd382a7974f248e459c57654aa881ed6a40e34b7",
+  "toolingRelease": "7027d95fa0c8d6300a24d6da2dbb5c0d7aac4546",
+  "toolingTree": "44c9afb54b9f2420d3724c05b9a8def9830e460a",
+  "sourceInventoryDigest": "8650aefefcffef3babf6933dae2ea15f8157e758c22a38db83cc30980c6f6c7e",
+  "toolingDigest": "3d06806b699bdfb9fb9f7154ad008c75758b867e758294671c9764e6c50abefa",
+  "observationRawSha256": "728f20e13198c00375e816d4b34363bf418790a12668fdd80b7c1467727d4758",
+  "sourceInventory": [
+    {
+      "path": "components/visualizations/three/manim/mathSceneV2CrossAgentHandoff.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "1dc12080749d92c9c5be72c9a99a14fca212fed1",
+        "rawSha256": "b4c3060da7b733731cd7bbe744f86645f7300c3efd48505e77228dfe6d9ec0b5"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "d67ec21153563fd8071a648f7260466487162a84",
+        "rawSha256": "a113ca83d6e523e3bce123be4a73bd99d6c5466bd519413a19117c35a72770e6"
+      }
+    },
+    {
+      "path": "components/visualizations/visualizationBrowserRegressionEvidence.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "1b4e7bedf2a5497a83b19fad4c95634ffc8eb58b",
+        "rawSha256": "8f90bc7e978960ca323084817b1a8e50aa34416e40659d6b26ab83cf244af0c3"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "d3aa1d5543b97c479c1c806c5ac8bf85f0c1c56d",
+        "rawSha256": "435e524a200a7e95984cf6e3f109edbd1af4b076db088532e3bec701b818ece4"
+      }
+    },
+    {
+      "path": "components/visualizations/visualizationBrowserRegressionEvidence.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "b95aa93d1e43d62cb8a7238f4239f3e744cc91c0",
+        "rawSha256": "127ed04d293e15119de87f3fc8be045e5a19022e17c1d6e093bfd58a7f8116ac"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "5a0edac50f183ac746037833e8d9b89c8416c82a",
+        "rawSha256": "8ecee2993c50bd953adfda5fabe6bc714d0be73c4bf43fcf5e56ad0d3e455029"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-10-18-A11-viz-evidence-binding.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "60a6e4cd59f13b2f4b150a7a3dc394604a447706",
+        "rawSha256": "ffeefc9e233f9c984c24af8bfea432b567c17b49fb8312fc2b9d0e1c892756aa"
+      }
+    }
+  ],
+  "toolingInventory": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "8bc44d4f1135b9c05c0a1f6f81f7c42c5a35495b",
+        "rawSha256": "9ae6fb24bf116c5339d5aae5734503f393582af3998e90fc51fb35c356b5e652"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "c3f3696722d34bb9ef75b6eebe9663cf2715a840",
+        "rawSha256": "119dd36ab9809f6382c5f65077e7d551fe6ed49ae805a9a5937968072ac37576"
+      }
+    },
+    {
+      "path": "docs/pr275-reviewed-code-gate.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "d2b45bc22ad0d16d71d9b2895e73dd8b6d4feab1",
+        "rawSha256": "732393d7b7d53a39dbebd352c673f88a748edca9d0274f7b107a25a552d84b76"
+      }
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr275.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "af0060041edb917f034247e02479c064806adc0b",
+        "rawSha256": "111732cb9424079e132f1989664f745dc59c95e7e35564ca71b7600477539dad"
+      }
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr275.test.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "68916faa1a43c8d6b27e65c33b2442f329ef15e8",
+        "rawSha256": "025ffca3fe1d8707b2991ca45b124dcb3f9e0dd0ce76d26925c0aed80ffe9035"
+      }
+    }
+  ],
+  "execution": {
+    "executionCommit": "7027d95fa0c8d6300a24d6da2dbb5c0d7aac4546",
+    "startedAt": "2026-10-18T13:07:46.938Z",
+    "finishedAt": "2026-10-18T13:12:51.020Z",
+    "nodeVersion": "v24.15.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "packageLockSha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767",
+    "environment": {
+      "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+      "PLAYWRIGHT_BROWSER_CHANNEL": "",
+      "PLAYWRIGHT_RUN_ID": "pr275-frozen-T-7027d95fa0c8d6300a24d6da2dbb5c0d7aac4546",
+      "PLAYWRIGHT_PORT": "3395"
+    },
+    "credentialsUsed": false,
+    "providerCalls": false,
+    "commands": [
+      {
+        "name": "evidence",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-reporter=tap",
+          "components/visualizations/visualizationBrowserRegressionEvidence.test.ts",
+          "components/visualizations/visualizationBrowserRegressionPackages.test.ts",
+          "components/visualizations/visualizationReleaseReadinessEvidence.test.ts"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "3c49f90b81ab570711b6f0ecf28df737382f3de0943af58e43c80487cb9648e3",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "models",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-reporter=tap",
+          "components/visualizations/configuredVisualizationLabModel.test.ts",
+          "components/visualizations/configuredVisualizationLabRegressions.test.ts"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "8067d5bd4bc2a3116b46ee8b6f0fdf9633b051cf6df40aedeb977d85c589713a",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "types",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "browser",
+        "args": [
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "tests/e2e/hk-coordinate-transform-user-points.spec.ts",
+          "--project=desktop-chrome",
+          "--workers=1",
+          "--retries=0",
+          "--reporter=json"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "99a60ad40c56d5686be15c735414c67fe3a175fd14dff6809044336d8b869ceb",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "timings": [
+      {
+        "name": "evidence",
+        "startedAt": "2026-10-18T13:09:00.781Z",
+        "finishedAt": "2026-10-18T13:09:01.551Z"
+      },
+      {
+        "name": "models",
+        "startedAt": "2026-10-18T13:09:01.552Z",
+        "finishedAt": "2026-10-18T13:09:01.964Z"
+      },
+      {
+        "name": "types",
+        "startedAt": "2026-10-18T13:09:01.964Z",
+        "finishedAt": "2026-10-18T13:09:56.266Z"
+      },
+      {
+        "name": "browser",
+        "startedAt": "2026-10-18T13:09:56.267Z",
+        "finishedAt": "2026-10-18T13:12:20.397Z"
+      }
+    ]
+  },
+  "results": {
+    "evidence": {
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    },
+    "models": {
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0
+    },
+    "types": {
+      "exitCode": 0
+    },
+    "browser": {
+      "stats": {
+        "startTime": "2026-10-18T13:09:57.090Z",
+        "duration": 143294.094,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "modes": [
+        "Translate",
+        "Reflect",
+        "Dilate"
+      ],
+      "retryCount": 0,
+      "validation": "passed"
+    }
+  },
+  "materialization": {
+    "before": "pass",
+    "after": "pass",
+    "gitStatusBeforeAndAfter": "clean",
+    "headUnchanged": true
+  },
+  "sourceObservation": {
+    "recomputedAtTooling": true,
+    "matchesFrozenObservation": true,
+    "reviewedObservationRawSha256": "728f20e13198c00375e816d4b34363bf418790a12668fdd80b7c1467727d4758",
+    "runtimePolicyDigest": "9c2813f775c5da90fe140b7cd0d4e27a18f30aba9c8c4c337a31e1fb959ae36a",
+    "canonicalAuditDigest": "e340d3f2cc3ae20e4e5a7ffaef12b642a2e3811138fd161714d8bb7a837abc91"
+  },
+  "limitations": [
+    "Local checks at frozen T are not final E CI or historical native Promotion verification.",
+    "Complete CI and Promotion must rerun on the published E head.",
+    "No merge, deployment, live or whole-pack authority."
+  ],
+  "permissions": {
+    "ordinaryCodeEligible": true,
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}
