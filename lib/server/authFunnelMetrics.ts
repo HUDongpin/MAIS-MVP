@@ -1,3 +1,4 @@
+import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { tmpdir } from "node:os";
 import { DatabaseSync } from "node:sqlite";
@@ -26,7 +27,7 @@ const eventDetailPatterns: Record<string, RegExp> = {
 };
 
 let database: DatabaseSync | null = null;
-let openedDatabasePath: string | null = null;
+let openedForConfiguredPath: string | null = null;
 
 function defaultDatabaseDirectory() {
   if (process.env.VERCEL || process.env.VERCEL_ENV) {
@@ -47,25 +48,75 @@ function resolveDatabasePath() {
   return path.join(directory, "auth-funnel-metrics.sqlite");
 }
 
+function sqliteCantOpen(error: unknown) {
+  if (!(error instanceof Error)) return false;
+  const sqliteError = error as Error & { code?: unknown; errcode?: unknown };
+  if (sqliteError.code === "ERR_SQLITE_ERROR" && sqliteError.errcode === 14) return true;
+  return sqliteError.code === "ENOENT"
+    || sqliteError.code === "EACCES"
+    || sqliteError.code === "EPERM"
+    || sqliteError.code === "EROFS";
+}
+
+function openFunnelDatabase(targetPath: string) {
+  // node:sqlite does not create parent directories. The Vercel default is
+  // /tmp/hk-math-lab, and the Postgres runtime never creates it, so the first
+  // signup beacon write throws "unable to open database file".
+  mkdirSync(path.dirname(targetPath), { recursive: true });
+  const opened = new DatabaseSync(targetPath);
+  try {
+    opened.exec(`
+      PRAGMA journal_mode = WAL;
+      PRAGMA busy_timeout = 5000;
+
+      CREATE TABLE IF NOT EXISTS auth_funnel_daily_counters (
+        day TEXT NOT NULL,
+        event TEXT NOT NULL,
+        detail TEXT NOT NULL,
+        count INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY (day, event, detail)
+      );
+    `);
+  } catch (error) {
+    opened.close();
+    throw error;
+  }
+  return opened;
+}
+
+function implicitVercelFallbackPath() {
+  return path.join(tmpdir(), "hk-math-lab", "auth-funnel-metrics.sqlite");
+}
+
 function getDatabase() {
-  const targetPath = resolveDatabasePath();
-  if (database && openedDatabasePath === targetPath) return database;
+  const configuredPath = resolveDatabasePath();
+  if (database && openedForConfiguredPath === configuredPath) return database;
 
   database?.close();
-  database = new DatabaseSync(targetPath);
-  openedDatabasePath = targetPath;
-  database.exec(`
-    PRAGMA journal_mode = WAL;
-    PRAGMA busy_timeout = 5000;
+  database = null;
+  openedForConfiguredPath = null;
 
-    CREATE TABLE IF NOT EXISTS auth_funnel_daily_counters (
-      day TEXT NOT NULL,
-      event TEXT NOT NULL,
-      detail TEXT NOT NULL,
-      count INTEGER NOT NULL DEFAULT 0,
-      PRIMARY KEY (day, event, detail)
-    );
-  `);
+  try {
+    database = openFunnelDatabase(configuredPath);
+  } catch (error) {
+    const explicitPath = Boolean(process.env.AUTH_FUNNEL_DB_PATH?.trim());
+    const onVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+    const fallbackPath = implicitVercelFallbackPath();
+    if (
+      explicitPath
+      || !onVercel
+      || path.resolve(fallbackPath) === path.resolve(configuredPath)
+      || !sqliteCantOpen(error)
+    ) {
+      throw error;
+    }
+    // HK_MATH_DB_PATH can point at the read-only deployment filesystem. The
+    // beacon still has to land somewhere writable, and an explicit
+    // AUTH_FUNNEL_DB_PATH is never relocated.
+    database = openFunnelDatabase(fallbackPath);
+  }
+
+  openedForConfiguredPath = configuredPath;
   return database;
 }
 
@@ -124,5 +175,5 @@ export function readAuthFunnelCounters(days = 30, now = new Date()): AuthFunnelC
 export function resetAuthFunnelMetricsForTests() {
   database?.close();
   database = null;
-  openedDatabasePath = null;
+  openedForConfiguredPath = null;
 }
