@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "pr201-candidate-admission.v2",
+  "baseCommit": "656ac319b2ad5812d31ad952cbb18430b5e58065",
+  "predecessorCommit": "ac9260368713c2ab364dedd5508c07fa6fc3b91d",
+  "sourceCommit": "e7cc0a52a7e8ef50d94f631936e7b8f58bdbda5d",
+  "sourceTree": "c8513cf4cf15529820969bfc176707814471be98",
+  "sourceInventoryDigest": "2bb95fd61f67994da92bf1aa489d4ea6ae3cbaebbded32a1949aa547800ee1f2",
+  "pullRequest": 277,
+  "reviews": {
+    "A11": {
+      "decisionSha256": "1218a8085d484b25934565b16c8e03914322a28acda9a1b96a5ceb018dabcfc2",
+      "reportSha256": "f91e3e1b578fdd92641435af44bd038edb356195808d5e0d6987ee46d9dc42ab"
+    },
+    "A23": {
+      "decisionSha256": "7d4295f8fd199549bbf4532fd60aeffa705fcccf721ee95700522ff5d0423951",
+      "reportSha256": "5b3f7e6260a0aa5ea5e862e91a1dfff85470211243cd165f52b99e8feaf6304f"
+    }
+  },
+  "permissions": {
+    "liveAllowed": false,
+    "mergeAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}
