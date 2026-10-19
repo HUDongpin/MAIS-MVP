@@ -90,9 +90,17 @@ jobs:
             lib/server/practiceAttemptStore.test.ts \
             app/api/attempts/routeFastPath.test.ts
 
+      - name: Run auth funnel beacon gate
+        run: |
+          node --import tsx --test --test-concurrency=1 \
+            lib/server/authFunnelMetrics.test.ts \
+            app/api/auth/funnel/route.test.ts
+
       - name: Run California demo student-teacher link gate
         run: >-
           npx tsx --tsconfig tsconfig.json --test
+          lib/server/demoSeedBackfill.test.ts
+          lib/server/demoSeedBackfillPersistence.test.ts
           lib/server/userStoreDemoCaliforniaLink.test.ts
           lib/server/userStoreTeacherOpsClassPersistence.test.ts
           lib/server/userStoreTeacherOpsAssignmentPersistence.test.ts

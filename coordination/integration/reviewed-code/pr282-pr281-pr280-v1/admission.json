@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "promotion-reviewed-code-pr282-pr281-pr280.v1",
+  "baseCommit": "fd2138127bdfe56981835c754c8bf944eabe7fb2",
+  "sourceCommit": "64e2fad979f2a936e8347843fe1952fc1cf059f2",
+  "sourceTree": "c792eb31abf1622800d54fd5a36082c318f09889",
+  "pr282Commit": "4f6cc821491d4a604cb3461c6aa6caef0f942e73",
+  "pr282ParentCommit": "dbc1d25dba753fb8b57afc78a2c79d0481b29240",
+  "pr281Commit": "ab689091dcdcc2c31f92d1d2e8b7d3dbc3abcf02",
+  "pr280Commit": "487fdc5a4c6b552d09c69f1d53885e0f8bc8a519",
+  "merge282Commit": "1c6b7c87ee762012c10c32ac8bb4c12ae664c519",
+  "merge281Commit": "8ddebc1549f919821198f71e123d1512acdf610d",
+  "pr282InventoryDigest": "8e148c204a9509f6116fa7892bcdb4750aad8857fbdc501e25ee292d68f04e13",
+  "pr281InventoryDigest": "ecb5feaea46f31a3a1d83d008f8875cb129ca0db6727f1b16d717a7c61711691",
+  "pr280InventoryDigest": "dff0cb6fc8b0c3283040433530ad7a61ec3d873f5688facb91dc3163204abe5a",
+  "sourceInventoryDigest": "aab98d55161b36e3972d12f4991131548db2c94775f96a4aedd48edab4572419",
+  "toolingRelease": "f88aaaecfa74f5688df019ee4a7906108865cdc7",
+  "toolingTree": "97ef75f38cf5afc2e47ee6bf01062b0c44ba5edb",
+  "toolingDigest": "b0bce222b72a2e72819302dae0bb1ae9e44544bd003513f30aedca2412d31c81",
+  "observationRawSha256": "3859d94c9dfa795d7c53bc7420f254965f37bf8a474a802786d3da0ec37e47a0",
+  "checksRawSha256": "6de19a576536f7f71e99ddada6a7858258c1c2e1ec17139f901914b4e6d213d4",
+  "reviews": {
+    "A11": {
+      "decisionRawSha256": "c6110aded13b6740d6412f0df80442d4fc5508425265297ddd166ed61815559e",
+      "reportRawSha256": "3780c79a12a24153eef8bb38bff7c1af10bab6718e5aa0a2e43939f9d67c6305"
+    },
+    "A23": {
+      "decisionRawSha256": "093cf6c450b93d4f2e2f30ebd112f1b6daad1c545fee9a12c1cb936a1e094671",
+      "reportRawSha256": "6d867c3b58e9bc6459af1261a62b68044f63b112e5f1993b8ba7125e7a019d2a"
+    }
+  },
+  "permissions": {
+    "ordinaryCodeEligible": false,
+    "liveAllowed": false,
+    "integrationAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  }
+}

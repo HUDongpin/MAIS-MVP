@@ -745,6 +745,12 @@ export type StudentActivityPersistenceStoreDependencies = {
     grade: GradeId,
     curriculumTrack?: StudentActivityCurriculumScope
   ) => Promise<DashboardData | null | undefined>;
+  getFastProgressData?: (
+    userId: string,
+    grade: GradeId,
+    window?: string | null,
+    curriculumTrack?: StudentActivityCurriculumScope
+  ) => Promise<ProgressData | null | undefined>;
   getFastLessonEntryTarget?: (
     userId: string,
     grade: GradeId,
@@ -2668,6 +2674,23 @@ function buildRecentActivityItems({
     .slice(0, 6);
 }
 
+function savedGradeAttemptsForUser(
+  database: StudentActivityPersistenceDatabase,
+  userId: string,
+  gradeTopicIds: ReadonlySet<string>
+) {
+  return (database.attempts ?? []).filter((attempt) => {
+    const question = questionForId(database, attempt.question_id);
+    return attempt.user_id === userId && Boolean(question && gradeTopicIds.has(question.topic_id));
+  });
+}
+
+function accuracyPercentForAttempts(attempts: ReadonlyArray<Pick<StudentActivityAttemptRecord, "is_correct">>) {
+  if (!attempts.length) return 0;
+  const correctAttempts = attempts.filter((attempt) => attempt.is_correct).length;
+  return Math.round((correctAttempts / attempts.length) * 100);
+}
+
 function dashboardDataForDatabase(
   database: StudentActivityPersistenceDatabase,
   userId: string,
@@ -2694,12 +2717,8 @@ function dashboardDataForDatabase(
     .filter((topic) => topicMatchesCurriculum(topic, curriculumProfile) && topic.grade === grade)
     .map((topic) => topicWithProgressForDatabase(database, userId, topic));
   const gradeTopicIds = new Set(gradeTopics.map((topic) => topic.id));
-  const userAttempts = (database.attempts ?? []).filter((attempt) => {
-    const question = questionForId(database, attempt.question_id);
-    return attempt.user_id === userId && Boolean(question && gradeTopicIds.has(question.topic_id));
-  });
-  const correctAttempts = userAttempts.filter((attempt) => attempt.is_correct).length;
-  const accuracy = userAttempts.length ? Math.round((correctAttempts / userAttempts.length) * 100) : 0;
+  const gradeAttempts = savedGradeAttemptsForUser(database, userId, gradeTopicIds);
+  const accuracy = accuracyPercentForAttempts(gradeAttempts);
   const topicStats = topicAttemptStatsForDatabase(database, userId);
   const activeMistakes = (database.mistakes ?? []).filter((mistake) => {
     const question = questionForId(database, mistake.question_id);
@@ -2752,11 +2771,11 @@ function dashboardDataForDatabase(
 
   return {
     curriculumTrack: curriculumTrackForProfile(curriculumProfile),
-    streakDays: calculateStreak(userAttempts, now()),
-    overallMastery: userAttempts.length ? accuracy : averageMastery,
+    streakDays: calculateStreak(gradeAttempts, now()),
+    overallMastery: gradeAttempts.length ? accuracy : averageMastery,
     progressMetrics: buildProgressMetrics({
       completedLessons,
-      totalAttempts: userAttempts.length,
+      totalAttempts: gradeAttempts.length,
       accuracy,
       masteredTopics,
       visualizationSessions,
@@ -2833,15 +2852,10 @@ function progressDataForDatabase(
     .filter((topic) => topicMatchesCurriculum(topic, curriculumProfile) && topic.grade === grade)
     .map((topic) => topicWithProgressForDatabase(database, userId, topic));
   const gradeTopicIds = new Set(gradeTopics.map((topic) => topic.id));
-  const attempts = (database.attempts ?? []).filter((attempt) => {
-    const question = questionForId(database, attempt.question_id);
+  const gradeAttempts = savedGradeAttemptsForUser(database, userId, gradeTopicIds);
+  const windowedAttempts = gradeAttempts.filter((attempt) => {
     const attemptTime = new Date(attempt.created_at).getTime();
-    return (
-      attempt.user_id === userId &&
-      attemptTime >= earliest &&
-      attemptTime <= nowTime &&
-      Boolean(question && gradeTopicIds.has(question.topic_id))
-    );
+    return attemptTime >= earliest && attemptTime <= nowTime;
   });
   const learningEvents = (database.learning_events ?? []).filter((event) => {
     const eventTime = new Date(event.created_at).getTime();
@@ -2852,7 +2866,7 @@ function progressDataForDatabase(
     return progress.user_id === userId && gradeTopicIds.has(progress.topic_id) && updatedTime >= earliest && updatedTime <= nowTime;
   });
 
-  attempts.forEach((attempt) => {
+  windowedAttempts.forEach((attempt) => {
     const bucket = bucketMap.get(dayKey(attempt.created_at));
     if (!bucket) return;
     if (hasRecordedDuration(attempt.duration_seconds)) {
@@ -2887,8 +2901,9 @@ function progressDataForDatabase(
     minutes: secondsToDisplayMinutes(bucket.seconds || (bucket.hasDurationlessStudyActivity ? durationFallbackSeconds : 0))
   }));
   const totalMinutes = weeklyActivity.reduce((sum, day) => sum + day.minutes, 0);
-  const correctAttempts = attempts.filter((attempt) => attempt.is_correct).length;
-  const accuracy = attempts.length ? Math.round((correctAttempts / attempts.length) * 100) : 0;
+  // Headline accuracy uses every saved attempt for this grade, the same set as
+  // the dashboard. The requested window scopes weekly study minutes only.
+  const accuracy = accuracyPercentForAttempts(gradeAttempts);
   const completedLessons = (database.lesson_progress ?? []).filter((progress) => {
     return progress.user_id === userId && progress.status === "completed" && gradeTopicIds.has(progress.topic_id);
   }).length;
@@ -2927,7 +2942,7 @@ function progressDataForDatabase(
     curriculumTrack: curriculumTrackForProfile(curriculumProfile),
     progressMetrics: buildProgressMetrics({
       completedLessons,
-      totalAttempts: attempts.length,
+      totalAttempts: gradeAttempts.length,
       accuracy,
       masteredTopics,
       visualizationSessions,
@@ -2940,6 +2955,28 @@ function progressDataForDatabase(
     totalMinutes,
     contentUnavailable: contentUnavailableForProfile(curriculumProfile, grade)
   };
+}
+
+export function studentActivityProgressDataForDatabase(
+  database: StudentActivityPersistenceDatabase,
+  userId: string,
+  grade: GradeId,
+  window: string | null | undefined,
+  curriculumTrack: StudentActivityCurriculumScope,
+  options: {
+    contentUnavailableForProfile: (profile: CurriculumProfile, grade?: GradeId) => LocalizedText | null;
+    now: () => Date;
+    topicMatchesCurriculum?: (
+      topic: TopicRecord,
+      curriculumScope: StudentActivityCurriculumScope
+    ) => boolean;
+  }
+): ProgressData {
+  return progressDataForDatabase(database, userId, grade, window, curriculumTrack, {
+    contentUnavailableForProfile: options.contentUnavailableForProfile,
+    now: options.now,
+    topicMatchesCurriculum: options.topicMatchesCurriculum ?? topicMatchesCurriculumScope
+  });
 }
 
 function upsertMistakeFromAttempt(
@@ -3149,6 +3186,7 @@ export function createStudentActivityPersistenceStore({
   defaultCurriculumTrack = "HK",
   translateLessonTextEn = (value) => value,
   getFastDashboardData = async () => undefined,
+  getFastProgressData = async () => undefined,
   getFastLessonEntryTarget = async () => undefined,
   logLessonEntryTargetPerf = () => undefined,
   now = () => new Date(),
@@ -3270,6 +3308,9 @@ export function createStudentActivityPersistenceStore({
       window?: string | null,
       curriculumTrack: StudentActivityCurriculumScope = defaultCurriculumTrack
     ): Promise<ProgressData> {
+      const fastProgress = await getFastProgressData(userId, grade, window, curriculumTrack);
+      if (fastProgress) return fastProgress;
+
       const database = await readDatabase();
       return progressDataForDatabase(database, userId, grade, window, curriculumTrack, {
         contentUnavailableForProfile,
