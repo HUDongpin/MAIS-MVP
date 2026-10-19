@@ -32,15 +32,27 @@ test("Teacher Scott fixed-demo shell remains behind persisted revision-aware aut
   assert.doesNotMatch(helperSource, /verifySessionToken/);
   assert.doesNotMatch(helperSource, /getInternalFastNoClassTeacherSessionByUserId/);
   assert.match(helperSource, /getInternalFastNoClassTeacherShellByUserId/);
-  assert.match(helperSource, /await import\("@\/lib\/server\/auth"\)/);
   assert.match(helperSource, /await import\("@\/lib\/server\/userStore"\)/);
 
+  // The auth graph must still be reached through a dynamic import so it stays
+  // out of anonymous cold starts, but that import now lives one level down in
+  // `requestSession`, which the helper calls via `getAuthenticatedRequestSession`.
+  // This assertion used to look for it in the helper itself and had been red
+  // since that refactor, unnoticed, because nothing in CI ran this file.
+  assert.match(helperSource, /getAuthenticatedRequestSession/);
+  const requestSessionSource = await readFile(
+    path.join(process.cwd(), "lib/server/requestSession.ts"),
+    "utf8"
+  );
+  assert.doesNotMatch(requestSessionSource, /from ["']@\/lib\/server\/auth["']/);
+  assert.match(requestSessionSource, /await import\("@\/lib\/server\/auth"\)/);
+
   const fastShellIndex = helperSource.indexOf("const fastNoClassTeacherShell = getInternalFastNoClassTeacherShellByUserId");
-  const authImportIndex = helperSource.indexOf('await import("@/lib/server/auth")');
+  const authCallIndex = helperSource.indexOf("await getTeacherAuthenticationForPage()");
   const storageShellCallIndex = helperSource.indexOf("cachedTeacherShellDataByUserId(authenticated.user.id)");
 
   assert.ok(
-    authImportIndex !== -1 && fastShellIndex !== -1 && authImportIndex < fastShellIndex,
+    authCallIndex !== -1 && fastShellIndex !== -1 && authCallIndex < fastShellIndex,
     "Teacher Scott's fixed-demo shell must only be considered after persisted session authentication."
   );
   // The fixed-demo shell must only be a FALLBACK after the cached store shell read.

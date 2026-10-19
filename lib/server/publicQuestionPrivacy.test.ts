@@ -249,12 +249,26 @@ test("the positive PublicQuestion schema rejects an answer-like field nested in 
 });
 
 test("seed-backed PublicQuestion payloads do not expose answer material before submission", async () => {
+  // Samples MAINLAND_PEP/P1 (200 questions), not MAINLAND_BNU/P1.
+  //
+  // BNU primary returns zero questions: `mainlandBnuQuestions` in
+  // lib/server/questionStore.ts builds loaders for the `junior` and `high`
+  // grade bands only, with no `primary` branch, even though
+  // data/mainlandBnuPrimaryQuestions.ts exists and is covered by
+  // `test:question-bank`. Compare `mainlandPepQuestions`, which has all three
+  // bands. Observed: BNU/P1 => 0, BNU/S1 => 500, PEP/P1 => 200.
+  //
+  // That is a live-surface content gap, so wiring the loader is an A23
+  // candidate-to-live promotion with A18 QA, not a test fix. This test's intent
+  // is the privacy invariant rather than any particular curriculum, so it now
+  // samples a populated one and genuinely exercises the assertion instead of
+  // tripping a vacuity guard. Point it back at BNU once that loader lands.
   const questions = await getPublicQuestionsFromStore({
-    curriculumProfile: { region: "MAINLAND", publisher: "MAINLAND_BNU" },
+    curriculumProfile: { region: "MAINLAND", publisher: "MAINLAND_PEP" },
     grade: "P1"
   });
 
-  assert.ok(questions.length > 0);
+  assert.ok(questions.length > 0, "the sampled curriculum must have questions, or this test is vacuous");
   questions.forEach((question) => assertPublicQuestionSchema(question));
 });
 
