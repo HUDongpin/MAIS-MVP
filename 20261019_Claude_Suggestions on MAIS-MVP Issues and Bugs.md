@@ -29,18 +29,24 @@ The findings below are therefore mostly not "the code is wrong" — they are **o
 
 Findings 3, 7 and 8 overlap with items already in `Technical-Review/ENGINEERING-BACKLOG.md` (BK-07/BK-11, BK-06, BK-21). Where that is the case I say so and argue about **priority** rather than re-reporting the issue. Findings 1, 2, 4, 5, 6 and 9 do not appear in the existing backlog.
 
-**Status of this branch (2026-10-20).** Finding 5 is implemented end to end — a
-discovery-based runner, a drift guard that fails when a test file is unreachable, both wired
-into CI, and the orphaned failures triaged: **249 files / 2,571 tests / 0 failures**. Finding
-6's recommendation is applied to the login redirect logic. Finding 3's instrumentation is
-implemented, and writing it turned up a separable, much cheaper problem — the write path moves
+**Status of this branch (2026-10-21).** This branch combines three reviewable slices.
+
+**Finding 2 is fixed** — one parser-based `sameOriginPath()` helper in
+`lib/safeRedirectPath.ts`, wired into all four guards, with per-guard tests covering the
+backslash and percent-encoded variants. **Finding 5 is implemented end to end** — a
+discovery-based runner, a drift guard that fails when a test file is unreachable, both wired into
+CI, and the orphaned failures triaged: **251 files / 2,590 tests / 0 failures**. **Finding 6's
+recommendation is applied** to the login redirect logic. **Finding 3's instrumentation is
+implemented**, and writing it turned up a separable, much cheaper problem — the write path moves
 roughly 4× the bytes it needs to — specified with SQL in
 `docs/app-state-write-amplification.md` but deliberately **not** applied, because validating a
 change to the primary datastore's verification logic needs a live PostgreSQL that was not
-available. Findings 1, 2, 4, 7, 8, 9, 10 and 11 are **not** addressed here. Finding 2's
-vulnerable logic has only *moved*, with the bypass pinned by a test case so that closing it is
-a deliberate flip rather than an accident. Each finding below now ends with its own
-"Status (this branch)" note.
+available.
+
+Findings 1, 4, 7, 8, 9, 10 and 11 are **not** addressed here. One item flagged under finding 5 —
+that Mainland BNU primary grades serve no questions — was investigated and found **not** to be a
+defect but an enforced content gate; see `docs/mainland-bnu-primary-candidate-gate.md`. Each
+finding below ends with its own "Status (this branch)" note.
 
 ---
 
@@ -132,13 +138,18 @@ This rejects `/\evil.com`, `//evil.com`, `https://evil.com`, `\\evil.com` and pe
 
 Worth adding a regression test with the backslash case — there is currently no test anywhere in the repo covering it (see finding 5 for why the one test file that touches this code never runs).
 
-**Status (this branch).** Not fixed — but the login branch's copy of this logic has moved out
-of `app/login/page.tsx` into `lib/loginRedirect.ts` (see finding 6), extracted
-behaviour-preserving, with the bypass left in place deliberately and **pinned by a test case**
-so that fixing it flips those assertions on purpose rather than by accident. That module's
-header documents the bypass and carries the parser-based fix above. The other three call sites
-are untouched. Applying the fix in all four places is now a small, reviewable change with a
-regression test already waiting for it.
+**Status (this branch).** **Fixed.** This landed in two deliberate steps. First the login
+page's copy of the logic moved to `lib/loginRedirect.ts` (see finding 6), extracted
+behaviour-preserving, with the bypass left in place and *pinned by a test case* so that closing
+it would have to be a deliberate flip rather than an accident of refactoring. Then
+`lib/safeRedirectPath.ts` took over the single off-origin decision: `sameOriginPath()` requires
+a leading `/`, resolves the value against a throwaway probe origin, keeps it only if the origin
+held, and returns `null` otherwise — the parser-based approach recommended above, in one place
+instead of four. All four guards now call it, with the per-role prefix filter still layered on
+top rather than replaced. Tests cover each guard by calling it, across `//evil.com`,
+`/\evil.com`, `/\evil.com/path`, `https://evil.com`, `\\evil.com` and percent-encoded
+variants, closing the gap this finding noted — that no test anywhere in the repo covered the
+backslash case.
 
 ---
 
@@ -325,13 +336,28 @@ and the candidate-seed assertion — which tripped because all 64 California see
 `productionReady`, the condition that makes the leak assertion vacuous, so the guard now checks
 that condition directly instead. `loginRedirect.test.ts`: as described in finding 6.
 
-**Found while triaging, and deliberately not fixed here:** `mainlandBnuQuestions` in
+**Found while triaging, and correctly left alone:** `mainlandBnuQuestions` in
 `lib/server/questionStore.ts` builds loaders for the junior and high grade bands only, with no
-primary branch, although `data/mainlandBnuPrimaryQuestions.ts` exists and is covered by
-`test:question-bank`. Compare `mainlandPepQuestions`, which has all three. Measured: BNU/P1 → 0
-questions, BNU/S1 → 500, PEP/P1 → 200. **Every Mainland BNU primary grade therefore serves no
-practice questions.** Wiring it up is a candidate-to-live content promotion needing QA
-sign-off, not a test fix, so it is flagged here rather than changed.
+primary branch, although `data/mainlandBnuPrimaryQuestions.ts` exists, holds 3,000 questions and
+is covered by `test:question-bank`. Compare `mainlandPepQuestions`, which has all three.
+Measured: BNU/P1 → 0 questions, BNU/S1 → 500, PEP/P1 → 200.
+
+**This turned out not to be a defect, and the first instinct about it was wrong.** It was
+investigated on this branch and the verdict is recorded in
+`docs/mainland-bnu-primary-candidate-gate.md`: BNU primary is **deliberately gated candidate
+content**. `coordination/integration/v2/legacy-resolution-registry.v2.json` carries digest-bound
+resolutions `de-reach-bnu-primary-v1`/`-v2` with `candidateMustBeUnreachable: true` and
+`liveAllowed: false`, and their `rawSha256`/`idSetDigest` still match the packs byte-for-byte, so
+that enforcement record governs exactly today's content. Adding a primary branch to the loader
+would **breach an active enforcement record**. The gate is three-layered — question loader, topic
+aggregate (`data/topics.ts`), lesson registry (`data/lessons.ts`) — all three de-reached together
+on 2026-08-26 by the fail-closed Promotion Gate audit, which is also why `mainlandHjbQuestions`
+is junior-only and `unitedStatesQuestions` returns `[]` for `US_FL_MATH`. A single forgotten
+loader would have been a one-point omission; three coordinated layers are a decision.
+
+The lesson for this finding generalizes: an absence that looks like a forgotten branch may be an
+enforced policy, and the passing tests asserting the content is unreachable were the evidence
+saying so. Zero behaviour was changed; the record exists so the next reader does not "fix" it.
 
 ---
 
@@ -563,13 +589,13 @@ The code is also unusually well commented, and the comments explain *why* rather
 
 ## 13. Suggested order of work
 
-> **Done in this branch.** Item 5 (instrument the `app_state` write path — the analysis went
+> **Done in this branch.** Item 2 (the backslash open redirect, closed in all four guards via
+> `lib/safeRedirectPath.ts`), item 5 (instrument the `app_state` write path — the analysis went
 > further than logging; see `docs/app-state-write-amplification.md`) and item 6 (one
 > discovery-based runner, orphan triage, CI check for unreachable test files). Item 12 is done
-> for the login redirect logic specifically. Item 2 is *prepared* but not fixed: the logic is
-> extracted to `lib/loginRedirect.ts` and the bypass is pinned by a test, so applying the
-> parser-based guard in all four call sites is now a small, well-covered change. Items 1, 3, 4,
-> 7–11, 13 and 14 remain open.
+> for the login redirect logic specifically. Items 1, 3, 4, 7–11, 13 and 14 remain open. Item 11
+> of the *findings* table — the BNU primary question gap noted under finding 5 — was closed as
+> "working as enforced", not fixed.
 
 **This week — small, high-value, low-risk:**
 
