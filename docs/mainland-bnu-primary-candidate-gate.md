@@ -1,0 +1,117 @@
+# Mainland BNU primary (P1-P6) is gated candidate content, not a wiring bug
+
+Mainland BNU P1-P6 serves **zero** practice questions, while BNU S1-S6 serves 500
+per grade. `mainlandBnuQuestions` in `lib/server/questionStore.ts` builds loaders
+for the junior and high bands only, with no primary branch, even though
+`data/mainlandBnuPrimaryQuestions.ts` exists, holds 3,000 questions, and is
+covered by `npm run test:question-bank`. Next to `mainlandPepQuestions`, which has
+all three bands, that reads like a forgotten band.
+
+It is not. This record exists so the next reader does not "fix" it.
+
+Measured on `main` at the time of writing, via `getPublicQuestions`:
+
+| profile / grade | questions |
+| --- | --- |
+| `MAINLAND_BNU` P1-P6 | 0 each |
+| `MAINLAND_BNU` S1-S6 | 500 each |
+| `MAINLAND_PEP` P1 | 200 |
+| BNU primary bank held in memory | 3,000 |
+
+## Why it is deliberate
+
+`coordination/integration/v2/legacy-resolution-registry.v2.json` carries
+digest-bound resolutions `de-reach-bnu-primary-v1` and `de-reach-bnu-primary-v2`:
+
+```
+decision: "de-reached"
+approvalReferences: []
+enforcement: { candidateMustBeUnreachable: true,
+               liveProjectionMustBeReachable: false,
+               liveAllowed: false }
+```
+
+Both pin `rawSha256` and `idSetDigest` for the generated packs, and those digests
+still match the files byte-for-byte, so the enforcement record governs exactly
+today's content. **Adding a primary branch to `mainlandBnuQuestions` would breach
+an active enforcement record.**
+
+The gate is three-layered, and a promotion has to move all three together:
+
+| layer | file | state |
+| --- | --- | --- |
+| question loader | `lib/server/questionStore.ts` | no primary band |
+| topic aggregate | `data/topics.ts` | `mainlandBnuPrimaryTopics` not spread |
+| lesson registry | `data/lessons.ts` | `mainlandBnuPrimaryLessonSeeds` not registered |
+
+A single forgotten loader would be a one-point omission. These three were
+de-reached on 2026-08-26 by the fail-closed Promotion Gate audit: A04 took the
+question/topic aggregates, A05 the lesson seeds, A12 the dynamic loaders
+(`coordination/session-logs/2026-08-26-A04-promotion-legacy-live-repair.md` and
+the A05/A12 logs beside it). The same slice de-reached HJB primary/high and
+Florida, which is why `mainlandHjbQuestions` is junior-only and
+`unitedStatesQuestions` returns `[]` for `US_FL_MATH`.
+
+`lib/mainlandBnuPrimaryQuestionBank.test.ts` then asserts the unreachability on
+every surface -- "Mainland BNU P1-P6 candidate content remains unreachable from
+Lesson and Practice", "...candidate topics cannot select questions in Practice
+Arena", "question API returns no BNUP primary candidate questions to an
+authenticated user". Those tests encode the live policy. They must flip as part of
+an authorized promotion, never be deleted to make questions appear.
+
+## The superseded May approvals
+
+This is the trap. `coordination/content-qa/mainland-bnu-primary-generated-bank-v1-1500/s18-promotability-decision.md`
+and the v2 equivalent *do* say `approved-for-public-integration`, dated
+2026-05-27 and 2026-05-28, and explicitly approve connecting P1-P6 to
+`data/questions.ts`, `data/topics.ts`, Lesson checkpoints and Practice Arena.
+They also say to keep BNUP S1-S6 on coming-soon messaging -- the exact inverse of
+what ships today.
+
+Those records are **superseded, and are not authority to wire this up**. The
+August Promotion Gate is fail-closed and recognizes only digest-bound resolution
+records; A04 classified these packages as "candidate-only or incompletely
+approved" precisely because their `approvalReferences` is empty. The May S18
+sign-off was never registered in the form the gate reads.
+
+Note also that all 3,000 rows in the generated packs carry
+`mathQaStatus`/`terminologyQaStatus`/`manualQaStatus` = `pending-s18-review`. Only
+`sourceDistanceStatus` (an automated scan) passed.
+
+## What promotion requires
+
+Per `AGENTS.md`, A23 is the candidate-to-live gatekeeper, and content may not
+reach live question, topic, lesson, asset or route surfaces without the full
+chain:
+
+1. **A18** independent content QA, re-run against the current pack digests.
+2. **A23** promotion planning, including a new registry resolution that carries
+   real `approvalReferences` and lifts `candidateMustBeUnreachable`.
+3. The owning live-surface change across all three layers above -- **A04** for
+   Practice Arena, **A05** for lessons, **A03** for roadmap.
+4. **A11** regression evidence, deliberately flipping the unreachability
+   assertions in `lib/mainlandBnuPrimaryQuestionBank.test.ts`.
+5. **A22** release readiness.
+
+Expected post-promotion shape, for whoever picks this up: 500 questions per grade
+P1-P6 (3,000 total, v1+v2 interleaved), 97 topics, and 8-question v1+v2 balanced
+lesson checkpoints -- the invariants the existing bank tests already assert on the
+candidate bank.
+
+## Known inconsistency, not fixed here
+
+`metadataForQuestion` in `data/mainlandBnuPrimaryQuestions.ts` hardcodes
+`mathQaStatus: "pass"`, `terminologyQaStatus: "pass"`, `manualQaStatus:
+"approved"` over rows that say `pending-s18-review`. That was the May
+approvals' stated "Production Contract", and the bank test asserts it.
+
+But A04 removed exactly this behaviour from the HJB high adapter in the same
+de-reach slice -- "changed the HJB high compatibility adapter so it no longer
+turns embedded pending QA states into `pass`/`approved`". BNU primary still does
+it, so the exported metadata reports approved QA for content whose rows are
+pending and whose package is de-reached. Nothing student-facing reads it today,
+because the package is unreachable; the hazard is that a future reader checks the
+metadata, sees "approved", and promotes on that basis.
+
+Aligning it with the HJB high treatment is an A18/A23 call about QA truth, not a
+code cleanup, so it is left alone here and recorded for that lane.
