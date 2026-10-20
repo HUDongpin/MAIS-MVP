@@ -1567,6 +1567,13 @@ test("reports and printable failures exclude credential and identity sentinels",
         userId: sentinels.userId,
         username: identity.username
       }),
+      resolveCookieSession: async (cookie) => ({
+        baseUrl: "https://preview.example",
+        cookie,
+        loginMs: 0,
+        userId: sentinels.userId,
+        username: "Fixture"
+      }),
       discoverWorkload: async () => ({
         lessonSlug: "fixture-lesson",
         questions: [{ questionId: "fixture-question", selectedAnswer: "1" }]
@@ -1582,6 +1589,7 @@ test("reports and printable failures exclude credential and identity sentinels",
       }
     }
   );
+  assert.deepEqual(report.continuity, { checks: 2, status: "pass" });
   const serializedReport = JSON.stringify(report);
   for (const sentinel of Object.values(sentinels)) {
     assert.doesNotMatch(serializedReport, new RegExp(sentinel, "u"));
@@ -1715,4 +1723,324 @@ test("required governance executes the security self-test concurrently without s
 test("classroom smoke artifacts stay in ignored local-only storage", () => {
   assert.match(source(".gitignore"), /^\.tmp\/?$/mu);
   assert.doesNotMatch(source("package.json"), /classroom-load-smoke[^\n]*(certify:production|vercel:production)/u);
+});
+
+test("the real CLI rejects value-bearing unknown arguments without echoing their values", async (t) => {
+  for (const flag of ["--password", "--cookie", "--username", "--unknown"]) {
+    await t.test(flag, async () => {
+      const sentinel = "SYNTHETIC-ARGUMENT-MUST-NOT-BE-PRINTED-419";
+      const result = await execFileAsync(process.execPath, [smokePath, `${flag}=${sentinel}`], {
+        cwd: repoRoot,
+        env: {},
+        timeout: 10_000,
+        maxBuffer: 1024 * 1024,
+      }).then(
+        ({ stdout, stderr }) => ({ code: 0, stdout, stderr }),
+        (error) => ({ code: error.code, stdout: error.stdout, stderr: error.stderr }),
+      );
+      assert.equal(result.code, 1);
+      const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+      assert.equal(output.includes(sentinel), false, "rejected values must not reach stdout or stderr");
+      assert.match(output, /Unknown argument/u);
+    });
+  }
+});
+
+test("classroom numeric options reject invalid values instead of changing the requested load", () => {
+  const parseArgs = requiredExport("parseArgs");
+  const smokeConfig = requiredExport("smokeConfig");
+  for (const value of ["0", "201", "1.5", "1e2", "0x10", " 15 "]) {
+    assert.throws(() => parseArgs(["--students", value], {}), /integer|value/u, `students=${value}`);
+  }
+  for (const value of ["0", "51", "1.5"]) {
+    assert.throws(() => parseArgs(["--rounds", value], {}), /integer|value/u, `rounds=${value}`);
+  }
+  for (const [key, value] of [
+    ["CLASSROOM_LOAD_STUDENTS", ""],
+    ["CLASSROOM_LOAD_STUDENTS", "201"],
+    ["CLASSROOM_LOAD_ROUNDS", "0"],
+    ["CLASSROOM_LOAD_ROUNDS", "1.5"],
+  ]) {
+    assert.throws(() => parseArgs([], { [key]: value }), /integer|value/u, key);
+  }
+  const args = parseArgs(["--base-url", "http://127.0.0.1:3210"], {});
+  for (const [key, value] of [
+    ["CLASSROOM_LOAD_TIMEOUT_MS", "999"],
+    ["CLASSROOM_LOAD_TIMEOUT_MS", "180001"],
+    ["CLASSROOM_LOAD_WRITE_P95_MS", "499"],
+    ["CLASSROOM_LOAD_READ_P95_MS", "120001"],
+    ["CLASSROOM_LOAD_WRITE_P95_MS", "2000.5"],
+  ]) {
+    assert.throws(() => smokeConfig(args, { [key]: value }), /integer|value/u, key);
+  }
+});
+
+test("classroom numeric defaults and exact permitted boundaries remain usable", () => {
+  const parseArgs = requiredExport("parseArgs");
+  const smokeConfig = requiredExport("smokeConfig");
+  assert.equal(parseArgs([], {}).students, 15);
+  assert.equal(parseArgs([], {}).rounds, 3);
+  for (const [students, rounds] of [[1, 1], [200, 50]]) {
+    const args = parseArgs(["--base-url", "http://127.0.0.1:3210", "--students", String(students), "--rounds", String(rounds)], {});
+    const config = smokeConfig(args, {
+      CLASSROOM_LOAD_TIMEOUT_MS: students === 1 ? "1000" : "180000",
+      CLASSROOM_LOAD_WRITE_P95_MS: students === 1 ? "500" : "120000",
+      CLASSROOM_LOAD_READ_P95_MS: students === 1 ? "500" : "120000",
+    });
+    assert.equal(config.students, students);
+    assert.equal(config.rounds, rounds);
+    assert.equal(config.timeoutMs, students === 1 ? 1_000 : 180_000);
+    assert.equal(config.writeThresholdMs, students === 1 ? 500 : 120_000);
+  }
+});
+
+async function classroomSessionFixture(t, {
+  sessionReply = () => null,
+  userIdForLogin = (_username, index) => `fixture-user-${index}`,
+} = {}) {
+  const state = { requests: [], logins: [], sessionChecks: [], measurements: [] };
+  const sessions = new Map();
+  const fixture = await listen(async (request, response) => {
+    const pathname = new URL(request.url, "http://fixture.invalid").pathname;
+    state.requests.push(pathname);
+    const send = (status, payload, headers = {}) => {
+      response.writeHead(status, { "Content-Type": "application/json", ...headers });
+      response.end(JSON.stringify(payload));
+    };
+    if (pathname === "/api/auth/login") {
+      const chunks = [];
+      for await (const chunk of request) chunks.push(chunk);
+      const { username } = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+      const index = state.logins.length + 1;
+      const cookie = `classroom_fixture=${index}`;
+      const user = { id: userIdForLogin(username, index), role: "student" };
+      sessions.set(cookie, user);
+      state.logins.push({ username, userId: user.id });
+      send(200, { user }, { "Set-Cookie": `${cookie}; Path=/` });
+      return;
+    }
+    if (pathname === "/api/me") {
+      const cookie = request.headers.cookie;
+      const user = sessions.get(cookie);
+      state.sessionChecks.push({ cookie, userId: user?.id });
+      const reply = sessionReply({ user, cookie, check: state.sessionChecks.length, state });
+      if (reply?.disconnect) {
+        request.destroy();
+      } else if (reply?.body !== undefined) {
+        response.writeHead(reply.status ?? 200, { "Content-Type": "application/json" });
+        response.end(reply.body);
+      } else {
+        send(reply?.status ?? (user ? 200 : 401), reply?.payload ?? { user: user ?? null });
+      }
+      return;
+    }
+    if (pathname === "/api/questions") {
+      send(200, { questions: [{ id: "fixture-question", options: ["1"] }] });
+      return;
+    }
+    if (pathname === "/api/lesson-entry") {
+      send(200, { lessonEntryTarget: { slug: "fixture-lesson" } });
+      return;
+    }
+    if (["/api/attempts", "/api/lesson-progress", "/api/dashboard"].includes(pathname)) {
+      state.measurements.push(pathname);
+      send(200, { ok: true, persisted: true });
+      return;
+    }
+    send(404, { error: "Unexpected fixture request" });
+  });
+  t.after(fixture.close);
+  return { ...fixture, state };
+}
+
+test("classroom continuity rejects a changed login identity before workload discovery", async (t) => {
+  const fixture = await classroomSessionFixture(t, {
+    sessionReply: () => ({ payload: { user: { id: "different-fixture-user", role: "student" } } }),
+  });
+  let reports = 0;
+  await assert.rejects(
+    () => requiredExport("executeClassroomLoad")(
+      { baseUrl: fixture.origin, grade: "P1", username: "Fixture", password: "fixture-only", students: 1, rounds: 2 },
+      { env: {}, writeReport: async () => { reports += 1; return "fixture-report"; } },
+    ),
+    /identity|continuity/i,
+  );
+  assert.equal(fixture.state.requests.includes("/api/questions"), false);
+  assert.equal(fixture.state.requests.includes("/api/lesson-entry"), false);
+  assert.equal(fixture.state.measurements.length, 0);
+  assert.equal(reports, 0);
+});
+
+test("classroom continuity stops later rounds on identity, session, or lookup failures", async (t) => {
+  const failures = [
+    ["identity change", { payload: { user: { id: "different-fixture-user", role: "student" } } }],
+    ["expired session", { status: 401, payload: { error: "Not authenticated" } }],
+    ["missing session", { payload: { user: null } }],
+    ["changed role", { payload: { user: { id: "fixture-user-1", role: "teacher" } } }],
+    ["invalid response", { body: "not-json" }],
+    ["service failure", { status: 503, payload: { error: "Unavailable" } }],
+    ["network failure", { disconnect: true }],
+  ];
+  for (const [label, failure] of failures) {
+    await t.test(label, async (t) => {
+      const fixture = await classroomSessionFixture(t, {
+        sessionReply: ({ check }) => check >= 3 ? failure : null,
+      });
+      let reports = 0;
+      await assert.rejects(
+        () => requiredExport("executeClassroomLoad")(
+          { baseUrl: fixture.origin, grade: "P1", username: "Fixture", password: "fixture-only", students: 1, rounds: 2 },
+          { env: {}, writeReport: async () => { reports += 1; return "fixture-report"; } },
+        ),
+        /identity|continuity|session|HTTP/i,
+      );
+      assert.deepEqual(fixture.state.measurements, ["/api/attempts", "/api/lesson-progress", "/api/dashboard"]);
+      assert.equal(reports, 0, "a failed continuity check cannot publish a success report");
+    });
+  }
+});
+
+test("local classroom reports distinguish virtual seats and verified identities", async (t) => {
+  const fixture = await classroomSessionFixture(t, { userIdForLogin: () => "same-fixture-user" });
+  const env = {
+    CLASSROOM_LOAD_USE_DEMO_LOGIN: "1",
+    CLASSROOM_LOAD_DEMO_PASSWORD: "fixture-only",
+    CLASSROOM_LOAD_MODE: "preview", // An operator label cannot turn loopback traffic into Preview evidence.
+  };
+  const args = requiredExport("parseArgs")([
+    "--base-url", fixture.origin, "--students", "15", "--rounds", "2",
+  ], env);
+  let report;
+  const printed = [];
+  t.mock.method(console, "log", (line) => printed.push(String(line)));
+  await requiredExport("runSmoke")(args, {
+    env,
+    writeReport: async (value) => { report = value; return "fixture-report"; },
+  });
+  assert.equal(report.executionEnvironment, "local");
+  assert.equal(report.previewBinding, null);
+  assert.equal(report.concurrency, 15);
+  assert.equal(report.distinctIdentities, 1, "different login names may resolve to the same verified user");
+  assert.equal(report.login.count, 2);
+  assert.deepEqual(report.continuity, { checks: 6, status: "pass" });
+  assert.equal(fixture.state.sessionChecks.length, 6, "check each of two sessions, not each of 15 seats");
+  assert.equal(fixture.state.measurements.length, 90);
+  assert.equal(report.totalRequests, 90, "identity checks are outside measured traffic");
+  assert.equal(report.ok, true);
+  assert.match(printed.join("\n"), /LOCAL VERIFICATION ONLY/u);
+  assert.match(printed.join("\n"), /seats=15/u);
+});
+
+test("Preview classroom reports derive their environment from verified deployment evidence", async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-environment-"));
+  t.after(() => rm(root, { force: true, recursive: true }));
+  const record = providerPreviewRecord();
+  const rawEvidencePath = path.join(root, "preview.json");
+  await writeFile(rawEvidencePath, JSON.stringify(record), { mode: 0o600 });
+  const evidencePath = await fsPromises.realpath(rawEvidencePath);
+  const env = {
+    CLASSROOM_LOAD_APPROVED_ORIGIN: record.deploymentUrl,
+    CLASSROOM_LOAD_EXPECTED_CANDIDATE_SHA: record.candidateSha,
+    CLASSROOM_LOAD_PREVIEW_EVIDENCE_FILE: evidencePath,
+    CLASSROOM_LOAD_VERCEL_TOKEN: "fixture-vercel-token-1234567890",
+    CLASSROOM_LOAD_USERNAME: "Fixture",
+    CLASSROOM_LOAD_PASSWORD: "fixture-only",
+  };
+  const requests = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    const parsed = new URL(url);
+    requests.push(parsed.pathname);
+    if (parsed.origin === "https://api.vercel.com") {
+      return new Response(JSON.stringify(providerDeploymentPayload(record)), { status: 200 });
+    }
+    assert.equal(parsed.origin, record.deploymentUrl);
+    const payload = parsed.pathname === "/api/questions"
+      ? { questions: [{ id: "fixture-question", options: ["1"] }] }
+      : parsed.pathname === "/api/lesson-entry"
+        ? { lessonEntryTarget: { slug: "fixture-lesson" } }
+        : ["/api/auth/login", "/api/me"].includes(parsed.pathname)
+          ? { user: { id: "fixture-user", role: "student" } }
+          : { persisted: true };
+    return new Response(JSON.stringify(payload), {
+      status: 200,
+      headers: { "Content-Type": "application/json", "Set-Cookie": "classroom_fixture=preview; Path=/" },
+    });
+  });
+  const { report } = await requiredExport("executeClassroomLoad")(
+    requiredExport("parseArgs")(["--base-url", record.deploymentUrl, "--students", "1", "--rounds", "1"], env),
+    { env, writeReport: async () => "fixture-report" },
+  );
+  assert.equal(report.executionEnvironment, "preview");
+  assert.equal(report.previewBinding.immutableUrl, record.deploymentUrl);
+  assert.equal(report.distinctIdentities, 1);
+  assert.deepEqual(report.continuity, { checks: 2, status: "pass" });
+  assert.equal(requests[0], `/v13/deployments/${record.deploymentId}`);
+  assert.equal(report.ok, true);
+});
+
+function reportWithSerializedBytes(bytes) {
+  const overhead = Buffer.byteLength(`${JSON.stringify({ payload: "" }, null, 2)}\n`);
+  const payloadBytes = bytes - overhead;
+  return {
+    payload: "字".repeat(Math.floor(payloadBytes / 3)) + "x".repeat(payloadBytes % 3),
+  };
+}
+
+test("oversized classroom reports fail before any filesystem mutation", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const limit = 8 * 1024 * 1024;
+  const oversized = reportWithSerializedBytes(limit + 1);
+  assert.equal(Buffer.byteLength(`${JSON.stringify(oversized, null, 2)}\n`), limit + 1);
+  for (const existing of [false, true]) {
+    await t.test(existing ? "preserve existing report" : "do not create an artifact directory", async (t) => {
+      const rawRoot = await mkdtemp(path.join(tmpdir(), "mais-classroom-oversized-"));
+      const root = await fsPromises.realpath(rawRoot);
+      t.after(() => rm(root, { recursive: true, force: true }));
+      const target = path.join(root, "report");
+      const finalPath = path.join(target, "last-run.json");
+      if (existing) {
+        await mkdir(target, { mode: 0o700 });
+        await writeFile(finalPath, "existing-evidence\n", { mode: 0o600 });
+      }
+      const mutations = [];
+      for (const name of ["mkdir", "rename", "unlink", "rmdir"]) {
+        const original = fsPromises[name];
+        t.mock.method(fsPromises, name, async (...args) => {
+          mutations.push(name);
+          return original(...args);
+        });
+      }
+      const originalOpen = fsPromises.open;
+      t.mock.method(fsPromises, "open", async (...args) => {
+        const flags = args[1];
+        if (typeof flags === "number" && (flags & (fsConstants.O_WRONLY | fsConstants.O_RDWR | fsConstants.O_CREAT)) !== 0) {
+          mutations.push("open-for-writing");
+        }
+        return originalOpen(...args);
+      });
+      await assert.rejects(
+        () => writeReport(oversized, target, { CLASSROOM_LOAD_APPROVED_ARTIFACT_ROOT: root }),
+        /report.*limit|too large/i,
+      );
+      assert.deepEqual(mutations, [], "oversized output must be rejected before locks, directories, or temporary writes");
+      if (existing) {
+        assert.equal(await readFile(finalPath, "utf8"), "existing-evidence\n");
+        assert.deepEqual(await readdir(target), ["last-run.json"]);
+      } else {
+        assert.equal(existsSync(target), false);
+      }
+    });
+  }
+});
+
+test("a classroom report exactly at the byte limit remains writable", async (t) => {
+  const writeReport = requiredExport("writeReport");
+  const limit = 8 * 1024 * 1024;
+  const report = reportWithSerializedBytes(limit);
+  const root = await mkdtemp(path.join(tmpdir(), "mais-classroom-report-boundary-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const result = await writeReport(report, root);
+  assert.equal((await lstat(result)).size, limit);
+  assert.deepEqual(JSON.parse(await readFile(result, "utf8")), report);
+  assert.deepEqual(await readdir(root), ["last-run.json"]);
 });
