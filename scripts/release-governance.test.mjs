@@ -3388,6 +3388,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "check:imports",
     "check:port-drift",
     "check:stray-types",
+    "check:test-coverage",
     "clean:generated",
     "clean:generated:apply",
     "clean:next-builds",
@@ -3431,6 +3432,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:ccss-textbook",
     "test:components",
     "test:content-safety",
+    "test:discovered",
+    "test:discovered:report",
+    "test:discovered:self-test",
     "test:e2e",
     "test:imports",
     "test:lesson-menu",
@@ -3477,7 +3481,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "e9812b242fd07be9fb194d152ee6394a983204d3ef2dfe0b19ea8d6d16e4bb98",
+    "af3555ccfbd6e5c995c85eb599c7049f015beab026e0ddf227903f2de89a1b52",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
