@@ -54,9 +54,19 @@ export type MainlandHjbPrimaryQuestionGenerationMetadata = {
   assessmentPatternCardIds: string[];
   paperPatternCardIds: string[];
   sourceDistanceStatus: "passed-auto-source-scan";
-  mathQaStatus: "pass";
-  terminologyQaStatus: "pass";
-  manualQaStatus: "approved";
+  // These mirror the generated rows verbatim. They used to be narrowed to
+  // `"pass"`/`"approved"`, which reported QA this content has not had: all 1,500
+  // rows still say `pending-s18-review`, and only the automated source-distance
+  // scan has passed. This package was de-reached on 2026-08-26 under
+  // `de-reach-hjb-primary-v1` in
+  // coordination/integration/v2/legacy-resolution-registry.v2.json
+  // (`candidateMustBeUnreachable: true`, `liveAllowed: false`, empty
+  // `approvalReferences`), and A04 removed the same overwrite from the HJB high
+  // adapter in that slice. This matches that shape; see
+  // docs/mainland-bnu-primary-candidate-gate.md.
+  mathQaStatus: GeneratedHjbPrimaryQuestion["mathQaStatus"];
+  terminologyQaStatus: GeneratedHjbPrimaryQuestion["terminologyQaStatus"];
+  manualQaStatus: GeneratedHjbPrimaryQuestion["manualQaStatus"];
   independentAnswer: string;
 };
 
@@ -105,9 +115,9 @@ export const mainlandHjbPrimaryQuestionGenerationMetadata: Record<string, Mainla
         assessmentPatternCardIds: question.assessmentPatternCardIds,
         paperPatternCardIds: question.paperPatternCardIds,
         sourceDistanceStatus: question.sourceDistanceStatus,
-        mathQaStatus: "pass" as const,
-        terminologyQaStatus: "pass" as const,
-        manualQaStatus: "approved" as const,
+        mathQaStatus: question.mathQaStatus,
+        terminologyQaStatus: question.terminologyQaStatus,
+        manualQaStatus: question.manualQaStatus,
         independentAnswer: question.answer
       }
     ])

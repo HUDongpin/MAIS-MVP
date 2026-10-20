@@ -130,17 +130,39 @@ Promoting this content means re-running A18 QA and updating the rows, which
 flips those assertions back as part of that work -- and the metadata will then
 report `pass`/`approved` because the rows do, not because the adapter says so.
 
-## Same defect still open in HJB primary
+## HJB primary carried the same overwrite, now fixed too
 
-`data/mainlandHjbPrimaryQuestions.ts` has the identical overwrite: its rows say
-`pending-s18-review` for all three fields and its adapter hardcodes
-`"pass"`/`"approved"`. That package was de-reached by the same A04/A05/A12 slice
-and carries the same hazard, but it is a separate package with its own
-governance, so it is recorded here rather than changed alongside BNU primary.
+`data/mainlandHjbPrimaryQuestions.ts` had the identical defect and has had the
+identical fix: all 1,500 rows say `pending-s18-review`, the adapter hardcoded
+`"pass" as const`/`"approved" as const`, and it now propagates the rows. Its
+registry resolution `de-reach-hjb-primary-v1` matches BNU primary's exactly --
+`decision: "de-reached"`, `approvalReferences: []`,
+`candidateMustBeUnreachable: true`, `liveAllowed: false` -- and its pack digest
+also still matches byte-for-byte. The assertion in
+`lib/mainlandPepHighQuestionBank.test.ts` flipped from `"approved"` to
+`"pending-s18-review"`; that test already called it "a candidate bank ... outside
+the public aggregate", so it had been contradicting itself in a single test.
 
-`data/mainlandBnuJuniorQuestions.ts` also hardcodes `"pass" as const` over rows
-typed `"pending-s18-review" | "pass"`. That bank *is* live and approved, so the
-values are not false today, but the overwrite means a future pending row would be
-silently reported as passing. Worth an A18 look, lower urgency than HJB primary.
+**One history difference worth knowing.** BNU primary was approved but never
+actually integrated. HJB primary *was*. Its
+`coordination/content-qa/mainland-hjb-primary-generated-bank-v1-1500/s18-promotability-decision.md`
+records `production-integrated-after-owner-approval`, an explicit owner approval
+on 2026-05-25 for "production/public launch for 沪教版数学小学 P1-P6", and
+integration into `data/questions.ts`, `data/topics.ts` and `data/lessons.ts`,
+serving 250 questions per grade.
 
-Neither is changed here.
+So the August de-reach withdrew content that had shipped under owner approval,
+not merely content awaiting promotion. Measured today: `MAINLAND_HJB` P1-P6 => 0,
+S1-S3 => 500, S4-S6 => 0 (HJB high was de-reached in the same slice). Whether
+that withdrawal should stand is an owner and A23 question, well outside a
+metadata fix, but it should not be discovered by accident -- which is why it is
+recorded here.
+
+## Still open: BNU junior
+
+`data/mainlandBnuJuniorQuestions.ts` hardcodes `"pass" as const` over rows typed
+`"pending-s18-review" | "pass"`. That bank *is* live and approved, so the values
+are not false today, and unlike the two above it is not de-reached, so this is
+not the same defect. The risk is narrower: a future pack with pending rows would
+be silently reported as passing. Worth an A18 look, not urgent, and not changed
+here because the live approval currently backs the values.
