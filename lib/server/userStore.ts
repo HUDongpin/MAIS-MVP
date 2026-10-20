@@ -1,4 +1,9 @@
 import {
+  evaluateAppStateWrite,
+  measureAppStatePayloadBytes,
+  reportAppStateWrite
+} from "@/lib/server/appStateGrowthObservation";
+import {
   retainRecordsUnlessNewDemoSeed,
   shouldBackfillDemoSeed
 } from "@/lib/server/demoSeedBackfill";
@@ -8579,6 +8584,22 @@ async function writePostgresDatabaseWith(
       storageCapability,
       revision
     );
+    // Whole-row write: cost scales with total accumulated history, not with the
+    // size of this change, and several payload collections are append-only with
+    // no retention. Record how big it has grown and how long it took so the
+    // strangler work can be prioritized against evidence. Silent and free until
+    // a threshold is crossed; see appStateGrowthObservation.ts.
+    try {
+      reportAppStateWrite(
+        evaluateAppStateWrite({
+          payload,
+          durationMs: Date.now() - startedAt,
+          revision,
+          payloadBytes: measureAppStatePayloadBytes(payload)
+        }),
+        { capture: captureServerError }
+      );
+    } catch { /* Observation must never fail a write that already succeeded. */ }
   } catch (error) {
     try {
       captureServerError(error, {
