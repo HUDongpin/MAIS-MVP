@@ -19,6 +19,13 @@
       "exitCriteria": "Keep quarantined here permanently; it belongs to the Postgres integration gate, not the discovery gate."
     },
     {
+      "path": "lib/server/userStoreNovaPostgresIntegration.test.ts",
+      "owner": "A22",
+      "reason": "Same shape as the resend-webhook entry above, and the same resolution. Requires a live PostgreSQL via MAIS_POSTGRES_INTEGRATION_URL and sets integrationRequired from process.env.CI === 'true', so in any CI job without that URL it asserts rather than skips - correct for an integration gate that must not silently pass, impossible in the default discovery gate. It has its own gate with a PostgreSQL service and the URL: the `postgres-integration` job in .github/workflows/ci.yml and scripts/run-postgres-readiness-tests.mjs, whose own guard test (scripts/run-postgres-readiness-tests.test.mjs) asserts this file is in that list, so quarantining it here cannot make it dark. It passes locally in the discovery gate only because CI is unset there, which is why enabling the discovery gate in CI surfaced it.",
+      "quarantinedOn": "2026-10-20",
+      "exitCriteria": "Keep quarantined here permanently; it belongs to the PostgreSQL integration gate, not the discovery gate."
+    },
+    {
       "path": "tests/e2e/math-diagram-source-geometry.test.ts",
       "owner": "A06",
       "reason": "Asserts hardcoded content-inventory baselines in scripts/audit-math-diagram-inventory.ts that current content no longer meets: lessonRouteCount 251 vs 490, visualizationLabCount 446 vs 689, configuredVisualizationLabCount 367 vs 613, signatureVisualizationRouteCount 64 vs 76, declaredThreeDVisualizationLabCount 52 vs 90, effectiveThreeDVisualizationLabCount 52 vs 78, declaredThreeDSignatureCanvasCount 0 vs 12, practiceFigureCount 26 vs 27. Six of the eight are visualization-family, matching the in-flight visualization stream that run-component-tests.mjs already excludes components/visualizations/three for. Whether content was intentionally reduced or genuinely regressed is an A06/A18 content decision; lowering the baselines to match current counts would rubber-stamp a possible regression, so this needs a content judgement rather than a test edit.",
