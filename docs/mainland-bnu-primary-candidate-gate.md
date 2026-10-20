@@ -98,20 +98,49 @@ P1-P6 (3,000 total, v1+v2 interleaved), 97 topics, and 8-question v1+v2 balanced
 lesson checkpoints -- the invariants the existing bank tests already assert on the
 candidate bank.
 
-## Known inconsistency, not fixed here
+## QA metadata now reports the rows' real state
 
-`metadataForQuestion` in `data/mainlandBnuPrimaryQuestions.ts` hardcodes
-`mathQaStatus: "pass"`, `terminologyQaStatus: "pass"`, `manualQaStatus:
-"approved"` over rows that say `pending-s18-review`. That was the May
-approvals' stated "Production Contract", and the bank test asserts it.
+`metadataForQuestion` in `data/mainlandBnuPrimaryQuestions.ts` used to hardcode
+`mathQaStatus: "pass"`, `terminologyQaStatus: "pass"` and `manualQaStatus:
+"approved"` over rows that all say `pending-s18-review`. That was the May
+approvals' stated "Production Contract", written when this bank was expected to
+go live. The bank was de-reached instead, so the contract describes a state that
+never happened, and the exported metadata was reporting QA this content has not
+had.
 
-But A04 removed exactly this behaviour from the HJB high adapter in the same
-de-reach slice -- "changed the HJB high compatibility adapter so it no longer
-turns embedded pending QA states into `pass`/`approved`". BNU primary still does
-it, so the exported metadata reports approved QA for content whose rows are
-pending and whose package is de-reached. Nothing student-facing reads it today,
-because the package is unreachable; the hazard is that a future reader checks the
-metadata, sees "approved", and promotes on that basis.
+It now propagates the rows verbatim, matching the shape A04 applied to the HJB
+high adapter in the same de-reach slice ("changed the HJB high compatibility
+adapter so it no longer turns embedded pending QA states into `pass`/`approved`"):
 
-Aligning it with the HJB high treatment is an A18/A23 call about QA truth, not a
-code cleanup, so it is left alone here and recorded for that lane.
+```ts
+mathQaStatus: question.mathQaStatus,
+terminologyQaStatus: question.terminologyQaStatus,
+manualQaStatus: question.manualQaStatus,
+```
+
+The exported type narrows to the row types rather than to `"pass"`/`"approved"`,
+so a future pack that genuinely carries passing QA will widen it honestly instead
+of being overwritten. Nothing student-facing reads these fields, and nothing
+filters on them: `lib/questionBankSolvability.ts` and
+`data/mainlandBnuPrimaryLessons.ts` use only `batch` and `independentAnswer`. The
+three assertions in `lib/mainlandBnuPrimaryQuestionBank.test.ts` were flipped to
+`pending-s18-review` deliberately, with the reason recorded at the assertion.
+
+Promoting this content means re-running A18 QA and updating the rows, which
+flips those assertions back as part of that work -- and the metadata will then
+report `pass`/`approved` because the rows do, not because the adapter says so.
+
+## Same defect still open in HJB primary
+
+`data/mainlandHjbPrimaryQuestions.ts` has the identical overwrite: its rows say
+`pending-s18-review` for all three fields and its adapter hardcodes
+`"pass"`/`"approved"`. That package was de-reached by the same A04/A05/A12 slice
+and carries the same hazard, but it is a separate package with its own
+governance, so it is recorded here rather than changed alongside BNU primary.
+
+`data/mainlandBnuJuniorQuestions.ts` also hardcodes `"pass" as const` over rows
+typed `"pending-s18-review" | "pass"`. That bank *is* live and approved, so the
+values are not false today, but the overwrite means a future pending row would be
+silently reported as passing. Worth an A18 look, lower urgency than HJB primary.
+
+Neither is changed here.
