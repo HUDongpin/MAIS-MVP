@@ -6,6 +6,7 @@ import test from "node:test";
 import {
   nextPathStartsWith,
   parentWorkspacePath,
+  safeChangePasswordTarget,
   safeWorkspaceTarget,
   studentWorkspacePath,
   teacherWorkspacePath,
@@ -36,6 +37,29 @@ import {
  * suited to: an architectural constraint about which navigation primitive the
  * login page is allowed to use.
  */
+
+const roles = ["student", "teacher", "parent", "admin"] as const;
+
+/**
+ * The spellings of "leave the app" that reach a redirect sink. `offOriginNext`
+ * is the subset the old `startsWith("/") && !startsWith("//")` check let
+ * through or caught by accident; `lib/safeRedirectPath.test.ts` owns the wider
+ * matrix and the proof that each one resolves off-origin in a browser.
+ */
+const offOriginNext = [
+  "//evil.example",
+  "//evil.example/path",
+  "///evil.example",
+  "/\\evil.example",
+  "/\\evil.example/path",
+  "/\\\\evil.example",
+  "/\\/evil.example",
+  "/\t/evil.example",
+  "https://evil.example",
+  "http://evil.example/path",
+  "\\\\evil.example",
+  "javascript:alert(document.domain)"
+] as const;
 
 test("each role lands on its own workspace", () => {
   assert.equal(workspaceForRole("student"), studentWorkspacePath);
@@ -72,18 +96,39 @@ test("a missing or relative next target falls back to the role workspace", () =>
   }
 });
 
-test("a protocol-relative next target is rejected for every role", () => {
-  for (const role of ["student", "teacher", "parent", "admin"] as const) {
-    assert.equal(safeWorkspaceTarget("//evil.example", role), workspaceForRole(role));
-    assert.equal(safeWorkspaceTarget("//evil.example/path", role), workspaceForRole(role));
+test("an off-origin next target is rejected for every role", () => {
+  for (const role of roles) {
+    for (const value of offOriginNext) {
+      assert.equal(
+        safeWorkspaceTarget(value, role),
+        workspaceForRole(role),
+        `${role} <- ${JSON.stringify(value)}`
+      );
+    }
+  }
+  // Also with no role at all, which is the student fallback.
+  for (const value of offOriginNext) {
+    assert.equal(safeWorkspaceTarget(value, undefined), studentWorkspacePath, JSON.stringify(value));
   }
 });
 
-test("an absolute off-origin next target is rejected for every role", () => {
-  for (const role of ["student", "teacher", "parent", "admin"] as const) {
-    assert.equal(safeWorkspaceTarget("https://evil.example", role), workspaceForRole(role));
-    assert.equal(safeWorkspaceTarget("http://evil.example", role), workspaceForRole(role));
-  }
+test("the role filter sees the normalized path, not the requested spelling", () => {
+  // `/teacher/../admin` used to pass the `/teacher` prefix filter and then open
+  // `/admin`, because the sink resolves the dot segments after the filter has
+  // run. The guard now filters the path that will actually open.
+  assert.equal(safeWorkspaceTarget("/teacher/../admin", "teacher"), teacherWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/parent/../progress", "parent"), parentWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/progress/../teacher/gradebook", "student"), studentWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/teacher/./gradebook", "teacher"), "/teacher/gradebook");
+});
+
+test("a percent-encoded separator stays an in-app path", () => {
+  // `/%5Cevil.example` is one path segment in every sink, not an authority, so
+  // it is kept — and the role filter still applies to it.
+  assert.equal(safeWorkspaceTarget("/%5Cevil.example", "student"), "/%5Cevil.example");
+  assert.equal(safeWorkspaceTarget("/%2F%2Fevil.example", "student"), "/%2F%2Fevil.example");
+  assert.equal(safeWorkspaceTarget("/%5Cevil.example", "teacher"), teacherWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/%5Cevil.example", "parent"), parentWorkspacePath);
 });
 
 test("next targets are filtered by authenticated role", () => {
@@ -115,25 +160,66 @@ test("a query string and fragment survive on an allowed target", () => {
 });
 
 /**
- * Pins the CURRENT behaviour of the backslash case, which is a known open
- * redirect documented in `lib/loginRedirect.ts`. For http(s) URLs the WHATWG
- * parser treats `\` like `/` in the authority position, so `/\evil.example`
- * resolves to `https://evil.example/` once the page hands it to
- * `window.location.replace`.
+ * This case used to be pinned the other way round, asserting that
+ * `/\evil.example` was returned to a student unchanged, so that closing the
+ * bypass would be a deliberate flip of a named test rather than a quiet side
+ * effect of some refactor. This is that flip.
  *
- * This test exists so the fix is a deliberate, visible flip rather than a
- * silent behaviour change: when the URL-parser guard lands, these assertions
- * become `workspaceForRole(role)` for every role.
+ * For http(s) URLs the WHATWG parser treats `\` like `/` in the authority
+ * position, so `/\evil.example` resolved to `https://evil.example/` once the
+ * page handed it to `window.location.replace` — reached straight after a
+ * genuine successful login. Students took the full force of it, because their
+ * branch returned the requested path; teachers and parents were covered only
+ * because that path does not start with their prefix.
  */
-test("KNOWN GAP: a backslash next target is not yet rejected for students", () => {
-  assert.equal(
-    safeWorkspaceTarget("/\\evil.example", "student"),
-    "/\\evil.example",
-    "still accepted — see the SECURITY note in lib/loginRedirect.ts"
-  );
-  // Teacher and parent are protected only incidentally, by their prefix checks.
+test("a backslash next target is rejected for every role, students included", () => {
+  assert.equal(safeWorkspaceTarget("/\\evil.example", "student"), studentWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/\\evil.example/path", "student"), studentWorkspacePath);
   assert.equal(safeWorkspaceTarget("/\\evil.example", "teacher"), teacherWorkspacePath);
   assert.equal(safeWorkspaceTarget("/\\evil.example", "parent"), parentWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/\\evil.example", "admin"), teacherWorkspacePath);
+
+  // Not protection by prefix: a backslash target that *does* start with an
+  // allowed prefix is still off-origin, and still rejected.
+  assert.equal(safeWorkspaceTarget("/\\evil.example/teacher", "teacher"), teacherWorkspacePath);
+  assert.equal(safeWorkspaceTarget("/\\evil.example/parent", "parent"), parentWorkspacePath);
+});
+
+/**
+ * `/change-password` validates its own `?next=`. The login page builds that
+ * link with an already-sanitized target, but the page is reachable directly
+ * with any `next` at all, and the router push there is as much a redirect sink
+ * as the login one.
+ */
+test("the change-password target rejects every off-origin next, for every role", () => {
+  for (const role of roles) {
+    for (const value of offOriginNext) {
+      assert.equal(
+        safeChangePasswordTarget(value, role),
+        workspaceForRole(role),
+        `${role} <- ${JSON.stringify(value)}`
+      );
+    }
+    assert.equal(safeChangePasswordTarget(null, role), workspaceForRole(role));
+    assert.equal(safeChangePasswordTarget("", role), workspaceForRole(role));
+    assert.equal(safeChangePasswordTarget("dashboard", role), workspaceForRole(role));
+  }
+});
+
+test("the change-password target does not bounce back to the login form", () => {
+  // Someone who has just set a password must not be returned to /login.
+  assert.equal(safeChangePasswordTarget("/login", "student"), studentWorkspacePath);
+  assert.equal(safeChangePasswordTarget("/login?next=/dashboard", "teacher"), teacherWorkspacePath);
+  assert.equal(safeChangePasswordTarget("/dashboard/../login", "parent"), parentWorkspacePath);
+});
+
+test("the change-password target keeps an in-app path for any role", () => {
+  // No per-role prefix filter here, by design: the role is only known from the
+  // password-change response, and the page is a dead end for every role.
+  assert.equal(safeChangePasswordTarget("/teacher/gradebook", "teacher"), "/teacher/gradebook");
+  assert.equal(safeChangePasswordTarget("/progress?tab=week#top", "student"), "/progress?tab=week#top");
+  assert.equal(safeChangePasswordTarget("/parent/reports", "parent"), "/parent/reports");
+  assert.equal(safeChangePasswordTarget("/teacher/../admin", "teacher"), "/admin");
 });
 
 test("login completes with a full document navigation, not client-side routing", () => {

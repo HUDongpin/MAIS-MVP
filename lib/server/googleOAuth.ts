@@ -1,4 +1,5 @@
 import { createHmac, randomBytes as nodeRandomBytes, timingSafeEqual } from "node:crypto";
+import { sameOriginPath } from "@/lib/safeRedirectPath";
 import type { CurriculumProfile, GradeId, Language, ThemeMode } from "@/types";
 
 export const GOOGLE_OAUTH_STATE_COOKIE = "mais_google_oauth_state";
@@ -90,9 +91,23 @@ function constantTimeEqual(left: string, right: string) {
   return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
 }
 
-function safeNextPath(value: unknown) {
-  if (typeof value !== "string") return "/dashboard";
-  return value.startsWith("/") && !value.startsWith("//") ? value : "/dashboard";
+/**
+ * The `next` carried through the Google OAuth round trip, reduced to an in-app
+ * path. Applied twice on purpose: when the state is sealed at `/login`, so a
+ * hostile `next` never reaches the signed payload, and again when it is
+ * verified at the callback, so a payload sealed by an older build cannot
+ * deliver one either.
+ *
+ * `sameOriginPath` replaces a `startsWith("/") && !startsWith("//")` check that
+ * accepted `/\evil.example` — see `lib/safeRedirectPath.ts`. There is no role
+ * filter here; `/dashboard` is the fallback for every role, and the callback
+ * applies its own per-role filter on top of this value.
+ *
+ * Exported for `googleOAuth.test.ts`, which walks the off-origin matrix against
+ * this guard directly as well as through the sealed state.
+ */
+export function safeNextPath(value: unknown) {
+  return sameOriginPath(value) ?? "/dashboard";
 }
 
 function normalizeRole(value: unknown): GoogleOAuthRole {
