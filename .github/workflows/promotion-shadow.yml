@@ -51,7 +51,10 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          if [[ -e coordination/integration/reviewed-code/pr283-e2/admission.json || -L coordination/integration/reviewed-code/pr283-e2/admission.json ]]; then
+          if [[ -e coordination/integration/reviewed-code/pr287-v1/admission.json || -L coordination/integration/reviewed-code/pr287-v1/admission.json ]]; then
+            mode=$(node scripts/promotion-reviewed-code-pr287.mjs select \
+              --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          elif [[ -e coordination/integration/reviewed-code/pr283-e2/admission.json || -L coordination/integration/reviewed-code/pr283-e2/admission.json ]]; then
             mode=$(node scripts/promotion-reviewed-code-pr283-e2.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           elif [[ -e coordination/integration/reviewed-code/pr282-pr281-pr280-v1/admission.json || -L coordination/integration/reviewed-code/pr282-pr281-pr280-v1/admission.json ]]; then
@@ -82,11 +85,101 @@ jobs:
             mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           fi
-          if [[ "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" && "$mode" != "reviewed-code-pr276" && "$mode" != "reviewed-code-pr276-v2" && "$mode" != "candidate-pr201" && "$mode" != "reviewed-code-pr276-v3" && "$mode" != "reviewed-code-pr282-pr281-pr280" && "$mode" != "reviewed-code-pr283-e2" ]]; then
+          if [[ "$mode" != "reviewed-code-pr287-v1" && "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" && "$mode" != "reviewed-code-pr276" && "$mode" != "reviewed-code-pr276-v2" && "$mode" != "candidate-pr201" && "$mode" != "reviewed-code-pr276-v3" && "$mode" != "reviewed-code-pr282-pr281-pr280" && "$mode" != "reviewed-code-pr283-e2" ]]; then
             echo "Unknown Promotion contract mode" >&2
             exit 1
           fi
           printf 'mode=%s\n' "$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Check exact PR287 source tooling and independent evidence
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr287-v1' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          artifacts="$RUNNER_TEMP/promotion-pr287-artifacts"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          node scripts/promotion-reviewed-code-pr287.mjs check \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$artifacts"
+
+      - name: Prepare unchanged historical contexts for PR287
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr287-v1' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          e2="$RUNNER_TEMP/promotion-pr287-e2"
+          baseline="$RUNNER_TEMP/promotion-pr287-baseline"
+          execution="$RUNNER_TEMP/promotion-pr287-execution"
+          e2_artifacts="$RUNNER_TEMP/promotion-pr287-e2-artifacts"
+          baseline_artifacts="$RUNNER_TEMP/promotion-pr287-baseline-artifacts"
+          for target in "$e2" "$baseline" "$execution" "$e2_artifacts" "$baseline_artifacts"; do
+            test ! -e "$target" && test ! -L "$target"
+          done
+          git worktree add --detach "$e2" 9d789219a59625d5f7ff43a69205aec954f9518a
+          git worktree add --detach "$baseline" 03717842b19e8b8fa9a3a2dbecf1b359bb842233
+          git worktree add --detach "$execution" ff709c0141ef8660604a20340b1c476bf2941f60
+          install -d -m 0700 "$e2_artifacts" "$baseline_artifacts"
+          node -e 'require("node:fs").writeFileSync(process.argv[1], JSON.stringify({number:283,pull_request:{base:{sha:"fd2138127bdfe56981835c754c8bf944eabe7fb2"},head:{sha:"9d789219a59625d5f7ff43a69205aec954f9518a"}}}), {flag:"wx",mode:0o600})' "$RUNNER_TEMP/promotion-pr287-e2-event.json"
+          node -e 'require("node:fs").writeFileSync(process.argv[1], JSON.stringify({number:259,pull_request:{base:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"},head:{sha:"03717842b19e8b8fa9a3a2dbecf1b359bb842233"}}}), {flag:"wx",mode:0o600})' "$RUNNER_TEMP/promotion-pr287-baseline-event.json"
+          cd "$baseline"
+          npm ci --ignore-scripts
+          npm run test:promotion-gate
+          node --test scripts/promotion-required-check-legacy-successor-v1.test.mjs scripts/promotion-shadow-workflow-legacy-successor-v1.test.mjs scripts/correction-audit-alias.test.mjs
+          cd "$execution"
+          npm ci --ignore-scripts
+          cd "$e2"
+          npm ci --ignore-scripts
+          node --test scripts/promotion-reviewed-code-pr259.test.mjs scripts/promotion-reviewed-code-pr270-pr271.test.mjs scripts/promotion-reviewed-code-pr264.test.mjs scripts/promotion-reviewed-code-pr276.test.mjs scripts/promotion-reviewed-code-pr276-v2.test.mjs scripts/promotion-reviewed-code-pr276-v3.test.mjs scripts/promotion-reviewed-code-pr282-pr281-pr280.test.mjs scripts/promotion-reviewed-code-pr283-e2.test.mjs
+          node scripts/promotion-reviewed-code-pr283-e2.mjs check \
+            --repo "$e2" --event-name pull_request --event-path "$RUNNER_TEMP/promotion-pr287-e2-event.json" \
+            --artifact-root "$e2_artifacts"
+
+      - name: Verify original historical native chain for PR287
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr287-v1' }}
+        run: |
+          set -euo pipefail
+          e2="$RUNNER_TEMP/promotion-pr287-e2"
+          baseline="$RUNNER_TEMP/promotion-pr287-baseline"
+          node "$baseline/scripts/promotion-required-check-legacy-successor-v1.mjs" evaluate \
+            --repo "$baseline" --event-name pull_request --event-path "$RUNNER_TEMP/promotion-pr287-baseline-event.json" \
+            --execution "$RUNNER_TEMP/promotion-pr287-execution" \
+            --artifact-root "$RUNNER_TEMP/promotion-pr287-baseline-artifacts" \
+            --run-id "ci-${{ github.run_id }}-${{ github.run_attempt }}-pr287-historical-only"
+          node "$e2/scripts/promotion-reviewed-code-pr283-e2.mjs" finalize \
+            --repo "$e2" --event-name pull_request --event-path "$RUNNER_TEMP/promotion-pr287-e2-event.json" \
+            --artifact-root "$RUNNER_TEMP/promotion-pr287-e2-artifacts" \
+            --baseline-root "$baseline" --baseline-event "$RUNNER_TEMP/promotion-pr287-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-pr287-baseline-artifacts"
+          node "$e2/scripts/promotion-reviewed-code-pr283-e2.mjs" verify \
+            --repo "$e2" --event-name pull_request --event-path "$RUNNER_TEMP/promotion-pr287-e2-event.json" \
+            --artifact-root "$RUNNER_TEMP/promotion-pr287-e2-artifacts" \
+            --baseline-root "$baseline" --baseline-event "$RUNNER_TEMP/promotion-pr287-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-pr287-baseline-artifacts"
+
+      - name: Finalize PR287 required-check decision
+        if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr287-v1' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-reviewed-code-pr287.mjs finalize \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-pr287-artifacts" \
+            --historical-root "$RUNNER_TEMP/promotion-pr287-e2" --historical-event "$RUNNER_TEMP/promotion-pr287-e2-event.json" \
+            --historical-artifacts "$RUNNER_TEMP/promotion-pr287-e2-artifacts" \
+            --baseline-root "$RUNNER_TEMP/promotion-pr287-baseline" --baseline-event "$RUNNER_TEMP/promotion-pr287-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-pr287-baseline-artifacts"
+
+      - name: Enforce PR287 required check
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code-pr287-v1' }}
+        run: |
+          set -euo pipefail
+          node scripts/promotion-reviewed-code-pr287.mjs verify \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$RUNNER_TEMP/promotion-pr287-artifacts" \
+            --historical-root "$RUNNER_TEMP/promotion-pr287-e2" --historical-event "$RUNNER_TEMP/promotion-pr287-e2-event.json" \
+            --historical-artifacts "$RUNNER_TEMP/promotion-pr287-e2-artifacts" \
+            --baseline-root "$RUNNER_TEMP/promotion-pr287-baseline" --baseline-event "$RUNNER_TEMP/promotion-pr287-baseline-event.json" \
+            --baseline-artifacts "$RUNNER_TEMP/promotion-pr287-baseline-artifacts"
 
       - name: Test exact PR283 E2 reviewed-code contract
         if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr283-e2' }}
@@ -1418,4 +1511,15 @@ jobs:
           path: |
             ${{ runner.temp }}/promotion-reviewed-code-pr283-e2-artifacts
             ${{ runner.temp }}/promotion-reviewed-code-pr283-e2-baseline-artifacts
+          if-no-files-found: error
+
+      - name: Upload PR287 and unchanged historical proof artifacts
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-code-pr287-v1' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: promotion-pr287-v1-evidence
+          path: |
+            ${{ runner.temp }}/promotion-pr287-artifacts
+            ${{ runner.temp }}/promotion-pr287-e2-artifacts
+            ${{ runner.temp }}/promotion-pr287-baseline-artifacts
           if-no-files-found: error
