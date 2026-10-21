@@ -3,11 +3,14 @@ import test from "node:test";
 
 import {
   countAppStateCollections,
+  createAppStateCaptureGate,
+  defaultAppStateCaptureCooldownMs,
   defaultAppStateGrowthThresholds,
   describeAppStateWrite,
   evaluateAppStateWrite,
   measureAppStatePayloadBytes,
   rankAppStateCollections,
+  readAppStateCaptureCooldownMs,
   readAppStateGrowthThresholds,
   reportAppStateWrite,
   shouldSampleAppStatePayloadSize,
@@ -257,7 +260,8 @@ test("an ok observation stays silent and never escalates", () => {
     evaluateAppStateWrite({ payload: {}, durationMs: 1, payloadBytes: 10, env: {} }),
     {
       capture: (error, context) => captures.push({ error, context }),
-      logWarning: (payload) => warnings.push(payload)
+      logWarning: (payload) => warnings.push(payload),
+      gate: createAppStateCaptureGate()
     }
   );
 
@@ -279,7 +283,8 @@ test("a critical observation warns and escalates with allowlisted fields only", 
     }),
     {
       capture: (error, context) => captures.push({ error, context: context as Record<string, unknown> }),
-      logWarning: (payload) => warnings.push(payload)
+      logWarning: (payload) => warnings.push(payload),
+      gate: createAppStateCaptureGate()
     }
   );
 
@@ -309,7 +314,8 @@ test("a warn observation escalates at warning level", () => {
     }),
     {
       capture: (_error, context) => captures.push({ context: context as Record<string, unknown> }),
-      logWarning: () => {}
+      logWarning: () => {},
+      gate: createAppStateCaptureGate()
     }
   );
 
@@ -328,7 +334,8 @@ test("omitted size and revision are left out rather than sent as null", () => {
     }),
     {
       capture: (_error, context) => captures.push({ context: context as Record<string, unknown> }),
-      logWarning: () => {}
+      logWarning: () => {},
+      gate: createAppStateCaptureGate()
     }
   );
 
@@ -351,7 +358,8 @@ test("a throwing monitor never breaks the write it is describing", () => {
         },
         logWarning: () => {
           throw new Error("logger exploded");
-        }
+        },
+        gate: createAppStateCaptureGate()
       }
     );
   });
@@ -384,4 +392,91 @@ test("an unserializable payload measures as null instead of throwing", () => {
   assert.doesNotThrow(() => {
     assert.equal(measureAppStatePayloadBytes(circular, { MAIS_APP_STATE_SIZE_SAMPLE: "1" }), null);
   });
+});
+
+test("a persisting severity is captured once per cooldown, not once per write", () => {
+  // The point of the gate: captureServerError draws on a process-global budget
+  // (60 events/minute), and a degraded datastore produces a non-ok observation
+  // on every write. Without this, growth warnings would evict unrelated
+  // production errors exactly when the deployment is unhealthy.
+  const gate = createAppStateCaptureGate();
+  const observation = evaluateAppStateWrite({
+    payload: {},
+    durationMs: defaultAppStateGrowthThresholds.warnDurationMs,
+    env: {}
+  });
+  let captured = 0;
+  const writeAt = (now: number) =>
+    reportAppStateWrite(observation, {
+      capture: () => {
+        captured += 1;
+      },
+      logWarning: () => {},
+      gate,
+      now,
+      cooldownMs: 60_000
+    });
+
+  writeAt(0);
+  assert.equal(captured, 1, "the first warn is an edge and must report");
+  for (const now of [1, 500, 30_000, 59_999]) writeAt(now);
+  assert.equal(captured, 1, "identical warns inside the cooldown are suppressed");
+  writeAt(60_000);
+  assert.equal(captured, 2, "the cooldown expiring reports the condition again");
+});
+
+test("an escalation reports immediately, and returning to ok rearms the edge", () => {
+  const gate = createAppStateCaptureGate();
+  const thresholds = { ...defaultAppStateGrowthThresholds };
+  const warn = evaluateAppStateWrite({
+    payload: {},
+    durationMs: thresholds.warnDurationMs,
+    env: {}
+  });
+  const critical = evaluateAppStateWrite({
+    payload: {},
+    payloadBytes: thresholds.criticalBytes,
+    durationMs: 1,
+    env: {}
+  });
+  const ok = evaluateAppStateWrite({ payload: {}, durationMs: 1, env: {} });
+
+  assert.equal(warn.severity, "warn");
+  assert.equal(critical.severity, "critical");
+  assert.equal(ok.severity, "ok");
+
+  const seen: string[] = [];
+  const writeAt = (observation: typeof warn, now: number) =>
+    reportAppStateWrite(observation, {
+      capture: () => seen.push(`${observation.severity}@${now}`),
+      logWarning: () => {},
+      gate,
+      now,
+      cooldownMs: 60_000
+    });
+
+  writeAt(warn, 0);
+  // warn -> critical is a different severity, so it must not wait for the
+  // cooldown: getting worse is the event an operator needs promptly.
+  writeAt(critical, 10);
+  writeAt(critical, 20);
+  // Recovery is silent, but it clears the gate...
+  writeAt(ok, 30);
+  // ...so the next escalation reports again rather than being swallowed.
+  writeAt(critical, 40);
+
+  assert.deepEqual(seen, ["warn@0", "critical@10", "critical@40"]);
+});
+
+test("the capture cooldown is configurable and falls back when malformed", () => {
+  assert.equal(readAppStateCaptureCooldownMs({}), defaultAppStateCaptureCooldownMs);
+  assert.equal(readAppStateCaptureCooldownMs({ MAIS_APP_STATE_CAPTURE_COOLDOWN_MS: "5000" }), 5_000);
+  assert.equal(readAppStateCaptureCooldownMs({ MAIS_APP_STATE_CAPTURE_COOLDOWN_MS: "0" }), 0);
+  for (const value of ["", "   ", "abc", "-1"]) {
+    assert.equal(
+      readAppStateCaptureCooldownMs({ MAIS_APP_STATE_CAPTURE_COOLDOWN_MS: value }),
+      defaultAppStateCaptureCooldownMs,
+      JSON.stringify(value)
+    );
+  }
 });

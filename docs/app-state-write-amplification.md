@@ -219,6 +219,12 @@ handles worst, and it is the product's core use case.
 the payload, how long do writes take, and *which* collection is running away.
 
 - Collection row counts and write duration: always on, effectively free.
+- `durationMs` is measured from **before the locked read**, not from the start of
+  `writePostgresDatabaseWith`. Every caller takes the exclusive `app_state` row lock
+  before reaching the writer, so timing from inside it would exclude lock contention —
+  the one cost this instrumentation exists to expose, and most of the latency under the
+  concurrent classroom workload. Callers capture the instant and pass it in
+  (`mutationStartedAt`).
 - Payload bytes: opt-in and sampled via `MAIS_APP_STATE_SIZE_SAMPLE`, because measuring
   requires serializing the payload a second time. Unset means never measured and no
   added cost.
@@ -227,8 +233,25 @@ the payload, how long do writes take, and *which* collection is running away.
   `MAIS_APP_STATE_WARN_DURATION_MS` (default 2000).
 - `warn`/`critical` escalate through `captureServerError` with scope `datastore`, so a
   growing payload surfaces where other datastore problems already do. `ok` is silent.
+- Captures are **edge-triggered with a cooldown**
+  (`MAIS_APP_STATE_CAPTURE_COOLDOWN_MS`, default 60000). A change in severity always
+  reports, a persisting severity reports at most once per cooldown, and returning to
+  `ok` rearms the edge. This matters because `captureServerError` draws on a
+  process-global budget (`maxEventsPerMinute`, 60 by default): a degraded datastore
+  produces a non-`ok` observation on *every* write, so an ungated capture would spend
+  the whole budget on identical growth warnings and suppress unrelated production errors
+  at exactly the moment the deployment is unhealthy. `logWarning` is deliberately **not**
+  throttled — stdout has no shared budget, so the per-write record stays complete.
 - `payloadBytes`, `durationMs`, `revision` and `operation` were **already** on
   `errorMonitor`'s `allowedExtraKeys` allowlist before this module existed.
+
+**Known blind spot.** The observation runs on the success path, so a mutation that dies
+at `lock_timeout` (1000ms) reports nothing at all — the workload under the worst
+contention is the one that goes unmeasured. Writes that *survive* now carry their lock
+wait in `durationMs`, so rising durations are the leading indicator; the failures
+themselves surface as `postgres-*` error kinds rather than growth observations. Counting
+lock-timeout failures as a growth signal needs an error-path hook and is not implemented
+here.
 
 To take a measurement in production, set `MAIS_APP_STATE_SIZE_SAMPLE=1` for a short
 window (or e.g. `50` for 1-in-50 ongoing), then read the observations off the error

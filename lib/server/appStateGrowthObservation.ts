@@ -138,6 +138,75 @@ export function readAppStateGrowthThresholds(
 }
 
 /**
+ * How long to wait before sending a second capture for the SAME severity.
+ *
+ * `captureServerError` draws on a process-global budget
+ * (`maxEventsPerMinute`, 60 by default in errorMonitor.ts). A degraded
+ * datastore produces a non-`ok` observation on *every* write, so an ungated
+ * capture would spend that whole budget on identical growth warnings and
+ * suppress unrelated production errors at exactly the moment the deployment is
+ * unhealthy — the observation would be the thing hiding the outage. One event
+ * per minute per severity is enough to see the condition and leaves the rest of
+ * the budget for everything else.
+ */
+export const defaultAppStateCaptureCooldownMs = 60_000;
+
+export function readAppStateCaptureCooldownMs(env: AppStateGrowthEnv = process.env) {
+  return boundedInteger(
+    env.MAIS_APP_STATE_CAPTURE_COOLDOWN_MS,
+    defaultAppStateCaptureCooldownMs,
+    0
+  );
+}
+
+/** Mutable edge-trigger state: the last severity captured, and when. */
+export type AppStateCaptureGate = {
+  severity: AppStateGrowthSeverity | null;
+  capturedAt: number;
+};
+
+export function createAppStateCaptureGate(): AppStateCaptureGate {
+  return { severity: null, capturedAt: 0 };
+}
+
+/** The process-wide gate. Tests pass their own so they never share this one. */
+const processCaptureGate = createAppStateCaptureGate();
+
+/**
+ * Edge-triggered with a cooldown: a change in severity always reports, a
+ * persisting severity reports at most once per `cooldownMs`, and returning to
+ * `ok` rearms the edge so the next escalation is reported immediately.
+ *
+ * Mutates the gate it is given, so it is called once per write and only for the
+ * capture decision; `logWarning` stays unthrottled because stdout has no shared
+ * budget and the per-write record is what makes the condition diagnosable.
+ */
+export function shouldCaptureAppStateGrowth(
+  severity: AppStateGrowthSeverity,
+  {
+    gate = processCaptureGate,
+    now = Date.now(),
+    cooldownMs = defaultAppStateCaptureCooldownMs
+  }: { gate?: AppStateCaptureGate; now?: number; cooldownMs?: number } = {}
+) {
+  if (severity === "ok") {
+    gate.severity = null;
+    gate.capturedAt = 0;
+    return false;
+  }
+  if (gate.severity !== severity) {
+    gate.severity = severity;
+    gate.capturedAt = now;
+    return true;
+  }
+  if (now - gate.capturedAt >= cooldownMs) {
+    gate.capturedAt = now;
+    return true;
+  }
+  return false;
+}
+
+/**
  * 1-in-N sampling for the expensive byte measurement. Unset or invalid means
  * "never measure", so the default deployment pays nothing. `1` measures every
  * write, which is appropriate for a short diagnostic window.
@@ -282,22 +351,35 @@ export function reportAppStateWrite(
   {
     capture,
     logWarning = (payload: unknown) => console.warn("app_state write", payload),
-    logDebug = () => {}
+    logDebug = () => {},
+    gate = processCaptureGate,
+    now = Date.now(),
+    cooldownMs = readAppStateCaptureCooldownMs()
   }: {
     capture?: (error: unknown, context: ErrorMonitorContext) => void;
     logWarning?: (payload: unknown) => void;
     logDebug?: (payload: unknown) => void;
+    gate?: AppStateCaptureGate;
+    now?: number;
+    cooldownMs?: number;
   } = {}
 ) {
   const described = describeAppStateWrite(observation);
   try {
     if (observation.severity === "ok") {
+      // Recovery is silent, but it still has to rearm the edge: without this
+      // the gate would stay parked on the old severity and the NEXT escalation
+      // would be throttled as though the condition had never cleared.
+      shouldCaptureAppStateGrowth(observation.severity, { gate, now, cooldownMs });
       logDebug(described);
       return;
     }
 
     logWarning(described);
     if (!capture) return;
+    // Throttled, so a persistently degraded datastore cannot spend the shared
+    // error-monitor budget on identical growth warnings.
+    if (!shouldCaptureAppStateGrowth(observation.severity, { gate, now, cooldownMs })) return;
     capture(
       new Error(
         `app_state payload growth is ${observation.severity}: ${observation.reasons.join("; ")}`
