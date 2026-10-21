@@ -31,6 +31,13 @@
       "reason": "Asserts hardcoded content-inventory baselines in scripts/audit-math-diagram-inventory.ts that current content no longer meets: lessonRouteCount 251 vs 490, visualizationLabCount 446 vs 689, configuredVisualizationLabCount 367 vs 613, signatureVisualizationRouteCount 64 vs 76, declaredThreeDVisualizationLabCount 52 vs 90, effectiveThreeDVisualizationLabCount 52 vs 78, declaredThreeDSignatureCanvasCount 0 vs 12, practiceFigureCount 26 vs 27. Six of the eight are visualization-family, matching the in-flight visualization stream that run-component-tests.mjs already excludes components/visualizations/three for. Whether content was intentionally reduced or genuinely regressed is an A06/A18 content decision; lowering the baselines to match current counts would rubber-stamp a possible regression, so this needs a content judgement rather than a test edit.",
       "quarantinedOn": "2026-10-19",
       "exitCriteria": "A06 confirms the intended inventory and either restores the content or re-baselines the audit with A18 sign-off, then remove this entry."
+    },
+    {
+      "path": "tests/e2e/lesson-rate-math.test.mjs",
+      "owner": "A11",
+      "reason": "A node:test file that drives a real Chromium through @playwright/test and bundles the lesson components with esbuild, so it needs browser binaries the `validate` job does not install. It became visible to these gates only once TEST_SUFFIXES learned `.test.mjs`; before that it was dark to both the discovery gate and this coverage check while they reported full coverage. Nothing in the current validation contract runs it: every CI Playwright step names its spec files explicitly, and this file is not a Playwright-runner spec. Its only command references are the historical PR259 promotion contracts (coordination/integration/reviewed-code/pr259-v*/source-checks.json and scripts/promotion-reviewed-code-pr259.mjs), which the current contract does not execute. It is quarantined rather than enabled because it is recorded here as a known gap instead of silently unreachable - it is NOT covered by another gate today, unlike the two PostgreSQL entries above.",
+      "quarantinedOn": "2026-10-21",
+      "exitCriteria": "A11 wires it into a Chromium-enabled job (visualization-browser and teacher-parent-e2e already run `npx playwright install --with-deps chromium`) as a `node --test tests/e2e/lesson-rate-math.test.mjs` step, confirms its runtime is acceptable there, then removes this entry."
     }
   ]
 }

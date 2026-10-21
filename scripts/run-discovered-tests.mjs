@@ -49,7 +49,11 @@ import { fileURLToPath } from "node:url";
 
 const QUARANTINE_PATH = join("scripts", "test-quarantine.json");
 const PER_FILE_TIMEOUT_MS = 120_000;
-const TEST_SUFFIXES = [".test.ts", ".test.tsx"];
+// `.test.js` is deliberately absent: `check-test-coverage.mjs` maps a `.test.ts`
+// source to its compiled `.test.js` name when matching gate references, so
+// treating that suffix as a SOURCE too would count build output as a test file.
+// Hand-written JavaScript tests use an explicit module suffix.
+const TEST_SUFFIXES = [".test.ts", ".test.tsx", ".test.mjs", ".test.cjs"];
 
 export function parseArgs(argv) {
   const args = { roots: [], report: false, selfTest: false };
@@ -123,6 +127,9 @@ function selfTest() {
 
   assert(isTestFile("session.test.ts"), ".test.ts is a test file");
   assert(isTestFile("Foo.test.tsx"), ".test.tsx is a test file");
+  assert(isTestFile("lesson.test.mjs"), ".test.mjs is a test file");
+  assert(isTestFile("lesson.test.cjs"), ".test.cjs is a test file");
+  assert(!isTestFile("session.test.js"), "compiled .test.js output is not a source test file");
   assert(!isTestFile("session.ts"), "a plain source file is not a test file");
   assert(!isTestFile("testimonials.ts"), "a name merely containing 'test' is not a test file");
 
