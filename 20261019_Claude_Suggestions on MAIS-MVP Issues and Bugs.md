@@ -35,7 +35,7 @@ Findings 3, 7 and 8 overlap with items already in `Technical-Review/ENGINEERING-
 `lib/safeRedirectPath.ts`, wired into all four guards, with per-guard tests covering the
 backslash and percent-encoded variants. **Finding 5 is implemented end to end** — a
 discovery-based runner, a drift guard that fails when a test file is unreachable, both wired into
-CI, and the orphaned failures triaged: **251 files / 2,590 tests / 0 failures**. **Finding 6's
+CI, and the orphaned failures triaged: **250 files / 2,592 tests / 0 failures**. **Finding 6's
 recommendation is applied** to the login redirect logic. **Finding 3's instrumentation is
 implemented**, and writing it turned up a separable, much cheaper problem — the write path moves
 roughly 4× the bytes it needs to — specified with SQL in
@@ -318,14 +318,16 @@ root to any root, as recommendation 1 suggested, and runs TypeScript sources dir
 and fails under the CommonJS emit, and a gate that reports a passing test as broken is worse
 than no gate. `scripts/check-test-coverage.mjs` fails when a test file exists that no gate
 would run, which is recommendation 3. Both are wired into `.github/workflows/ci.yml`. The gate
-currently runs **249 files / 2,571 tests / 0 failures**.
+currently runs **250 files / 2,592 tests / 0 failures**, with 3 files quarantined.
 
 The orphans were triaged rather than bulk-enabled. The seven failures the survey found are
 fixed or quarantined, and quarantine lives in `scripts/test-quarantine.json` as data — each
 entry carrying a reason, an owning lane and exit criteria, and read by the coverage check so a
-quarantined test is still accounted for rather than silently gone. Two remain quarantined: the
-Resend Postgres integration suite (needs a live database, and is covered by its own dedicated
-script) and `tests/e2e/math-diagram-source-geometry.test.ts`, which asserts content-inventory
+quarantined test is still accounted for rather than silently gone. Three remain quarantined: the
+Resend Postgres and Nova PostgreSQL integration suites (both need a live database and are
+covered by their own dedicated gates; the Nova suite surfaced only once the discovery gate ran
+with `CI=true`, because it asserts rather than skips when its URL is absent) and
+`tests/e2e/math-diagram-source-geometry.test.ts`, which asserts content-inventory
 baselines that current content no longer meets — six of its eight mismatches are
 visualization-family, matching the in-flight visualization stream that the component runner
 already excludes, so re-baselining it would rubber-stamp a possible regression and it needs a
