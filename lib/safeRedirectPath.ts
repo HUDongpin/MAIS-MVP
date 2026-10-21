@@ -41,6 +41,14 @@
  * Percent-encoded separators (`/%5Cevil.example`, `/%2F%2Fevil.example`) are
  * not off-origin: they stay one ordinary path segment in every sink, so they
  * come back unchanged and the caller's role filter still applies to them.
+ *
+ * `%2e` is the exception, and it is why the result is parsed twice. The URL
+ * parser treats `%2e` as a single-dot path segment (ASCII case-insensitive),
+ * so `/%2e//evil.example` resolves on the probe origin — passing an
+ * object-level origin check — and normalizes to the pathname `//evil.example`,
+ * which is an authority reference again as soon as a sink reparses the string.
+ * Checking the object and returning the string are therefore two different
+ * questions, and both have to be asked.
  */
 
 /**
@@ -59,7 +67,15 @@ export function sameOriginPath(value: unknown): string | null {
   try {
     const resolved = new URL(value, PROBE_ORIGIN);
     if (resolved.origin !== PROBE_ORIGIN) return null;
-    return `${resolved.pathname}${resolved.search}${resolved.hash}`;
+    const path = `${resolved.pathname}${resolved.search}${resolved.hash}`;
+    // Checking the parsed object is not enough, because what the caller gets is
+    // a STRING and every sink reparses it. `%2e` is a single-dot path segment to
+    // the URL parser, so `/%2e//evil.example` is on-origin as an object and
+    // normalizes to the pathname `//evil.example` — which `location.replace`
+    // then reads as `https://evil.example/`. Resolve the result once more and
+    // keep it only if it is still on the probe origin as a string too.
+    if (new URL(path, PROBE_ORIGIN).origin !== PROBE_ORIGIN) return null;
+    return path;
   } catch {
     return null;
   }

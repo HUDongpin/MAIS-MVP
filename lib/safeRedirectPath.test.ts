@@ -54,6 +54,24 @@ const absoluteTargets = [
   "data:text/html,<script>alert(1)</script>"
 ];
 
+/**
+ * Spellings that resolve on-origin as written, but whose normalized path is an
+ * authority reference once a sink reads the returned string back. `%2e` is a
+ * single-dot path segment to the URL parser, so `/%2e//evil.example` keeps the
+ * probe origin as a URL object and still normalizes to `//evil.example`. These
+ * passed the first version of this module, which checked the object's origin
+ * and returned the string unexamined.
+ */
+const normalizedAuthorityTargets = [
+  "/%2e//evil.example",
+  "/%2E//evil.example",
+  "/.//evil.example",
+  "/%2e/%2e//evil.example",
+  "/..//evil.example",
+  "/foo/../..//evil.example",
+  "/%2e//evil.example/path?a=1#f"
+];
+
 test("every off-origin spelling is rejected, and would have left the app", () => {
   for (const value of offOriginTargets) {
     assert.equal(
@@ -120,4 +138,47 @@ test("the probe origin cannot be smuggled into the result", () => {
 
   // Userinfo, not a host: `evil.example` here is credentials for mais.invalid.
   assert.equal(sameOriginPath("/\\evil.example@mais.invalid/x"), "/x");
+});
+
+test("a path that normalizes into an authority reference is rejected", () => {
+  for (const value of normalizedAuthorityTargets) {
+    // As written these are on-origin, which is exactly why an object-level
+    // origin check let them through: the escape appears only in the result.
+    assert.equal(
+      originOf(value),
+      DEPLOYMENT_ORIGIN,
+      `${JSON.stringify(value)} is expected to resolve on-origin as written`
+    );
+    assert.equal(sameOriginPath(value), null, JSON.stringify(value));
+  }
+});
+
+test("whatever the guard returns stays on-origin when a sink reparses it", () => {
+  // The invariant the module exists to hold. Callers receive a string and every
+  // sink reparses it, so a returned value that regains an authority is the bug
+  // class — independent of which spelling happened to produce it.
+  const everyInput = [
+    ...offOriginTargets,
+    ...absoluteTargets,
+    ...normalizedAuthorityTargets,
+    "/",
+    "/dashboard",
+    "/teacher/../admin",
+    "/teacher/gradebook?classId=c1#top",
+    "/%5Cevil.example",
+    "/%2F%2Fevil.example",
+    "/%09/evil.example",
+    "/\\mais.invalid/evil",
+    "/\\evil.example@mais.invalid/x",
+    "/ /evil.example"
+  ];
+  for (const value of everyInput) {
+    const result = sameOriginPath(value);
+    if (result === null) continue;
+    assert.equal(
+      originOf(result),
+      DEPLOYMENT_ORIGIN,
+      `${JSON.stringify(value)} returned ${JSON.stringify(result)}, which leaves the app`
+    );
+  }
 });
