@@ -7,7 +7,12 @@ others' in-progress work.
 
 ## Working-tree discipline
 
-- One independent editing session = one assigned worktree/branch = one reviewable slice. Read-only work and owner-assigned bounded in-place document/inventory edits follow the task conditions in AGENTS.md; isolation rules do not authorize creating branches.
+- One independent editing session = one assigned worktree/branch = one reviewable slice. Read-only work and owner-assigned bounded in-place document/inventory edits follow the task conditions in AGENTS.md; implementation isolation follows its local preparation authority.
+- Interpret the whole request: pure inspection stays read-only; requests such as "inspect and fix" authorize implementation within their stated scope.
+- Implementation requests authorize necessary local isolation preparation: reuse a suitable assigned worktree with no active writer or unresolved prior work, or create a task-specific worktree/branch from a verified baseline using the runtime's mechanism and branch prefix. Explicit task restrictions and A25's stricter mutation boundary still apply.
+- Staging, committing, pushing, merging, deployment, and cleanup retain their separate authorization requirements under AGENTS.md. A completed edit or passing check does not grant the next operation.
+- Task-scoped implementation may create, modify, rename, or delete source files as needed. Preserve unrelated changes, user data, credentials, historical evidence, and other sessions' work.
+- Use the simplest complete solution and relevant checks. Add abstractions or workflows only for the current requirement or a concrete existing problem.
 - The shared primary root is integration-only; verify its physical checkout and branch rather than treating a historical path as current. Feature implementation uses an assigned isolated worktree or authorized clean clone.
 - Never run `git switch`, `git checkout`, `git stash`, `git rebase`, or `git reset --hard` in the primary root. `git restore` also requires scoped recovery authority; never use it to clear unrelated edits.
 - Never `git add -A` / `git add .` anywhere. Inspect `git status`, stage only
