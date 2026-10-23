@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "promotion-pr283-repair-source-checks.v1",
+  "sourceCommit": "4ef2e1cada5bd872f9ce74f274cc22d8f7b5c0a1",
+  "sourceTree": "1915e22157f067e1cd6770a881feb12cee396ef6",
+  "toolingRelease": "79e10d7293e52bc4fbf26f02d378696d71694ca3",
+  "toolingTree": "189d6b1871d89bc0d9c1f7d33541a0198b38aab1",
+  "toolingDigest": "83557e635301838f58f8657e9243ba67de27641bb26bb51e898f69684c86e145",
+  "result": "pass",
+  "scope": "local-tooling-validation-and-source-CI-only",
+  "generatedAt": "2026-10-20T02:12:42.193Z",
+  "toolingFiles": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "rawSha256": "d5b437deb67c66f7f9c4e46b691f53dbbe2152b388dd7d305523a14de71e7237"
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr283-merge-assertion.mjs",
+      "rawSha256": "74768989747eb55ebe44fe355d41cf3d80ad887e8caffa2c21c7c86cb76ca6d9"
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr283-merge-assertion.test.mjs",
+      "rawSha256": "e23bbbe8a454d8fb2fb52a4c8f4fa5eaa8de085626ea3904fb14c9944962a9d9"
+    }
+  ],
+  "contractSuite": {
+    "tests": 193,
+    "pass": 193,
+    "fail": 0,
+    "skipped": 0,
+    "command": "node --test scripts/promotion-reviewed-code-pr259.test.mjs scripts/promotion-reviewed-code-pr270-pr271.test.mjs scripts/promotion-reviewed-code-pr264.test.mjs scripts/promotion-reviewed-code-pr276.test.mjs scripts/promotion-reviewed-code-pr276-v2.test.mjs scripts/promotion-reviewed-code-pr276-v3.test.mjs scripts/promotion-reviewed-code-pr282-pr281-pr280.test.mjs scripts/promotion-reviewed-code-pr283-e2.test.mjs scripts/promotion-reviewed-code-pr283-merge-assertion.test.mjs",
+    "rawLogSha256": "3543edd24ba698538728528930b7029c87438d4c9e26a11a794eeb513c10916d",
+    "executionBinding": "executed before commit; each tooling file hash matches the frozen tooling tree"
+  },
+  "nativeCommands": {
+    "records": [
+      {
+        "name": "repair-regression",
+        "args": [
+          "--test",
+          "--test-reporter=tap",
+          "scripts/promotion-reviewed-code-pr283-e2.test.mjs"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "07b3486a37c2dd65af6d0a4acb300b0f4aa37a3e194891b8aa353790decd9e85",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "seed",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-reporter=tap",
+          "lib/server/demoSeedBackfill.test.ts",
+          "lib/server/demoSeedBackfillPersistence.test.ts"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "1f2f0fc3dda00fe8ff2eeb837a3dd714c850791c3f56c4b3744191c6f0c06319",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "funnel",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-reporter=tap",
+          "--test-concurrency=1",
+          "lib/server/authFunnelMetrics.test.ts",
+          "app/api/auth/funnel/route.test.ts"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "84537ca879c28449e6d0191f1b2fd9ef61d4bae2e938e74e3ee14dfeb1f55d93",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "activity",
+        "args": [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-reporter=tap",
+          "lib/server/userStoreStudentActivityPersistence.test.ts"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "cee4a7cf8541b9d9f8e1361faeaa0cddd5e5007635c0268f8f5ac6298251a39f",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "types",
+        "args": [
+          "node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false"
+        ],
+        "exitCode": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "counts": {
+      "repair-regression": 25,
+      "seed": 5,
+      "funnel": 9,
+      "activity": 59
+    },
+    "types": "pass",
+    "providerProfile": "offline-fixture",
+    "reportValidation": "all exact commands, raw hashes, complete TAP hierarchy, leaf titles/counts and zero skips verified by frozen checker"
+  },
+  "sourceCI": {
+    "runId": 39354309695,
+    "url": "https://github.com/HUDongpin/MAIS-MVP/actions/runs/39354309695",
+    "headSha": "4ef2e1cada5bd872f9ce74f274cc22d8f7b5c0a1",
+    "event": "pull_request",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "snapshot",
+        "conclusion": "success"
+      },
+      {
+        "name": "validate",
+        "conclusion": "success"
+      },
+      {
+        "name": "visualization-browser",
+        "conclusion": "success"
+      },
+      {
+        "name": "teacher-parent-e2e",
+        "conclusion": "success"
+      },
+      {
+        "name": "postgres-integration",
+        "conclusion": "success"
+      },
+      {
+        "name": "resend-webhook-postgres-integration",
+        "conclusion": "success"
+      },
+      {
+        "name": "teacher-notice-outbox-postgres16",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "expectedObservation": {
+    "rawSha256": "3859d94c9dfa795d7c53bc7420f254965f37bf8a474a802786d3da0ec37e47a0",
+    "origin": "unchanged baseline PR283 E2 runtime observation",
+    "currentRuntimeObservation": "must be recomputed by final-head CI"
+  },
+  "formalAdmission": "pending independent tooling reviews, evidence commit and final-head CI",
+  "historicalNativeProof": "required in final-head CI; not claimed by local tests",
+  "permissions": {
+    "liveAllowed": false,
+    "mergeAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false
+  }
+}
