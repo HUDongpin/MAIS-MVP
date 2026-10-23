@@ -140,7 +140,7 @@ test("Postgres password change and disable revoke reset tokens in the app-state 
   assert.match(authStoreSource, /mutateDatabase: async <T>[\s\S]*?await mutateDatabase\(\(database\) => mutator\(database as AuthSessionPersistenceDatabase\)\)/u);
   assert.match(
     mutationSource,
-    /if \(storageProvider === "postgres"\)[\s\S]*?return getPostgresClient\(\)\.begin\(async \(sql\) => \{[\s\S]*?const result = await mutator\(database\)[\s\S]*?await writePostgresDatabaseWith\(sql, database, storageCapability\)[\s\S]*?return result/u
+    /if \(storageProvider === "postgres"\)[\s\S]*?return getPostgresClient\(\)\.begin\(async \(sql\) => \{[\s\S]*?const result = await mutator\(database\)[\s\S]*?await writePostgresDatabaseWith\(sql, database, storageCapability, mutationStartedAt\)[\s\S]*?return result/u
   );
   assert.match(
     writerSource,

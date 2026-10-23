@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   GOOGLE_OAUTH_STATE_COOKIE,
   buildGoogleOAuthAuthorization,
+  safeNextPath,
   verifyGoogleIdToken,
   verifyGoogleOAuthState
 } from "./googleOAuth";
@@ -113,6 +114,86 @@ test("buildGoogleOAuthAuthorization stores a signed state cookie and a Google OI
   assert.equal(verified.payload.next, "/teacher");
   assert.equal(verified.payload.role, "student");
   assert.equal(verified.payload.grade, "S4");
+});
+
+/**
+ * The `next` guard on the OAuth state.
+ *
+ * It used to be `startsWith("/") && !startsWith("//")`, which accepted
+ * `/\evil.example`: for http(s) the WHATWG parser reads a backslash as a
+ * forward slash in the authority position, so the callback's
+ * `NextResponse.redirect(new URL(next, request.url))` resolved it to
+ * `https://evil.example/` after a verified Google sign-in. The guard now asks
+ * the URL parser instead of matching characters — see `lib/safeRedirectPath.ts`.
+ */
+const offOriginNext = [
+  "//evil.example",
+  "//evil.example/path",
+  "///evil.example",
+  "/\\evil.example",
+  "/\\evil.example/path",
+  "/\\\\evil.example",
+  "/\\/evil.example",
+  "/\t/evil.example",
+  "https://evil.example",
+  "http://evil.example/path",
+  "\\\\evil.example",
+  "javascript:alert(document.domain)"
+] as const;
+
+test("safeNextPath reduces every off-origin next to the dashboard", () => {
+  for (const value of offOriginNext) {
+    assert.equal(safeNextPath(value), "/dashboard", JSON.stringify(value));
+  }
+
+  // Missing, relative and non-string values are not in-app paths either.
+  for (const value of [null, undefined, "", "dashboard", "./dashboard", "../admin", 7, {}]) {
+    assert.equal(safeNextPath(value), "/dashboard", JSON.stringify(value));
+  }
+});
+
+test("safeNextPath keeps an in-app path, normalized", () => {
+  assert.equal(safeNextPath("/teacher"), "/teacher");
+  assert.equal(safeNextPath("/progress?topic=fractions#top"), "/progress?topic=fractions#top");
+  assert.equal(safeNextPath("/teacher/../admin"), "/admin");
+  assert.equal(safeNextPath("/%5Cevil.example"), "/%5Cevil.example");
+});
+
+test("a hostile next never reaches the signed OAuth state", async () => {
+  // Sanitized on the way in, so the sealed payload cannot carry it, and again
+  // on the way out, so a payload sealed by an older build cannot deliver it.
+  for (const value of ["/\\evil.example", "//evil.example", "https://evil.example/phish"]) {
+    const result = await buildGoogleOAuthAuthorization({
+      env: {
+        GOOGLE_OAUTH_ENABLED: "true",
+        AUTH_SESSION_SECRET: "state-cookie-secret",
+        GOOGLE_OAUTH_CLIENT_ID: "mais-client-id",
+        GOOGLE_OAUTH_CLIENT_SECRET: "client-secret",
+        GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback"
+      },
+      requestUrl: "https://mais.test/login",
+      input: { next: value, role: "student" },
+      now: 1_800_000_000_000,
+      randomBytes: (size: number) => new Uint8Array(size).fill(5)
+    });
+
+    assert.equal(result.status, "redirect");
+    if (result.status !== "redirect") throw new Error("Expected Google OAuth redirect setup.");
+
+    const verified = await verifyGoogleOAuthState({
+      env: { AUTH_SESSION_SECRET: "state-cookie-secret" },
+      state: new URL(result.authorizationUrl).searchParams.get("state") ?? "",
+      cookieValue: result.cookie.value,
+      now: 1_800_000_001_000
+    });
+    assert.equal(verified.status, "valid");
+    if (verified.status !== "valid") throw new Error("Expected a valid Google OAuth state.");
+    assert.equal(verified.payload.next, "/dashboard", JSON.stringify(value));
+
+    // The sealed cookie must not carry the hostile value at all.
+    const sealedPayload = Buffer.from(result.cookie.value.split(".")[0] ?? "", "base64url").toString("utf8");
+    assert.doesNotMatch(sealedPayload, /evil\.example/);
+  }
 });
 
 test("buildGoogleOAuthAuthorization fails closed when Google OAuth env is incomplete", async () => {

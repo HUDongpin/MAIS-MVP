@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sameOriginPath } from "@/lib/safeRedirectPath";
 import {
   exchangeGoogleAuthorizationCode as defaultExchangeGoogleAuthorizationCode,
   fetchGoogleJwks as defaultFetchGoogleJwks,
@@ -114,16 +115,34 @@ function nextPathStartsWith(value: string, root: string) {
   return value === root || value.startsWith(`${root}/`);
 }
 
-function safeWorkspaceTarget(value: string, role?: "student" | "teacher" | "parent" | "admin") {
-  if (!value.startsWith("/") || value.startsWith("//")) return workspaceForRole(role);
+/**
+ * Resolves the signed state's `next` into the path this callback redirects to.
+ *
+ * `sameOriginPath` is the off-origin boundary and runs first: the sink below is
+ * `NextResponse.redirect(new URL(targetPath, request.url))`, which resolves
+ * `/\evil.example` to `https://evil.example/` exactly as a browser does, so
+ * only the URL parser can decide what a `next` value means. The per-role prefix
+ * filter that follows is the product rule about which workspace a role may
+ * open, not an off-origin defence: it rejected `/\evil.example` for teachers
+ * and parents only because that path does not start with their prefix, and
+ * students have no such restriction. The `next` value reaching this guard came
+ * out of the signed OAuth state, so it is attacker-chosen at `/login` and
+ * tamper-proof afterwards, not trusted.
+ *
+ * Exported for `redirectTarget.test.ts`, which walks the off-origin matrix
+ * against this guard directly rather than re-deriving it from the handler.
+ */
+export function safeWorkspaceTarget(value: string, role?: "student" | "teacher" | "parent" | "admin") {
+  const target = sameOriginPath(value);
+  if (!target) return workspaceForRole(role);
   if (role === "teacher" || role === "admin") {
-    return nextPathStartsWith(value, "/teacher") ? value : workspaceForRole(role);
+    return nextPathStartsWith(target, "/teacher") ? target : workspaceForRole(role);
   }
-  if (role === "parent") return nextPathStartsWith(value, "/parent") ? value : workspaceForRole(role);
-  if (role === "student" && (nextPathStartsWith(value, "/teacher") || nextPathStartsWith(value, "/parent"))) {
+  if (role === "parent") return nextPathStartsWith(target, "/parent") ? target : workspaceForRole(role);
+  if (role === "student" && (nextPathStartsWith(target, "/teacher") || nextPathStartsWith(target, "/parent"))) {
     return workspaceForRole(role);
   }
-  return value;
+  return target;
 }
 
 function clearGoogleStateCookie(response: NextResponse, request: Request) {

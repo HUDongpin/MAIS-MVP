@@ -29,7 +29,10 @@ test("California practice and onboarding surfaces do not render Primary/Secondar
   assert.doesNotMatch(missionSetup, /text\(grade\.name\)/);
   assert.doesNotMatch(radarSelect, /return grade\.id;/);
   assert.match(radarSelect, /formatGradeLabelForCurriculum\(grade\.id,\s*language,\s*curriculumTrack/);
-  assert.match(loginPage, /const defaultUnitedStatesLoginGrade: GradeId = "K"/);
+  // Renamed from `defaultUnitedStatesLoginGrade` when the non-US default was
+  // split out into `defaultNonUnitedStatesLoginGrade`. The behaviour asserted
+  // here is unchanged: a US login still starts at Kindergarten.
+  assert.match(loginPage, /const defaultLoginGrade: GradeId = "K"/);
   assert.match(registerPage, /useState<GradeId>\("K"\)/);
 });
 
@@ -39,8 +42,20 @@ test("California lesson entry does not expose candidate-only lesson seeds as liv
     .filter((lesson) => productionLessonByTopicId.has(lesson.topicId))
     .map((lesson) => lesson.topicId);
 
-  assert.ok(nonReadyCaliforniaSeeds.length > 0, "California should still retain candidate lesson seeds for QA");
-  assert.deepEqual(leakedSeeds, []);
+  // Every California seed is production-ready as of the CCSS promotion, so the
+  // candidate list is legitimately empty and this test no longer needs one.
+  // Guard the thing that would actually make it vacuous instead: the seeds
+  // failing to load at all, which would make the leak check below trivially
+  // pass while the surface it protects went unchecked.
+  assert.ok(
+    usCaliforniaLessonSeeds.length > 0,
+    "California lesson seeds should load; an empty list makes the leak check vacuous"
+  );
+  assert.deepEqual(
+    leakedSeeds,
+    [],
+    "a candidate-only seed must never appear as a live lesson, however many candidates exist"
+  );
   const p1EntryTarget = publicLessonEntryTargetForGrade("P1", californiaProfile);
   assert.ok(p1EntryTarget, "approved California Grade 1 beta lesson should remain reachable");
   assert.equal(p1EntryTarget.grade, "P1");

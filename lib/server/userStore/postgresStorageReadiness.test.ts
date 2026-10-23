@@ -1428,7 +1428,7 @@ test("the generic full snapshot path preserves lock order, actual-row defenses, 
     assert.ok(readIndex >= 0 && writeIndex > readIndex, `${name}: generic mutation order`);
     assert.match(
       section,
-      /const \{ database, storageCapability \} = await readPostgresDatabaseForMutation\([\s\S]*?writePostgresDatabaseWith\(sql, database, storageCapability\)/u,
+      /const \{ database, storageCapability \} = await readPostgresDatabaseForMutation\([\s\S]*?writePostgresDatabaseWith\(sql, database, storageCapability, mutationStartedAt\)/u,
       `${name}: one pre-row-lock capability must be reused by the writer`
     );
   }

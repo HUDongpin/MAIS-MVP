@@ -467,7 +467,21 @@ test("teacher ops operations persistence builds teacher dashboard data through e
   assert.equal((await store.getTeacherDashboardData("projected-teacher"))?.classSummaries[0]?.classId, "projected");
   assert.equal(await store.getTeacherDashboardData("missing-projected-teacher"), null);
   assert.equal((await store.getTeacherDashboardData("fallback-teacher"))?.classSummaries[0]?.classId, "fallback-fallback-teacher");
-  assert.equal(snapshotReads, 1);
+
+  // Two reads, not one: `storage-free-teacher` and `fallback-teacher`.
+  //
+  // This assertion used to expect 1, back when the storage-free example payload
+  // short-circuited ahead of the live snapshot. That ordering was deliberately
+  // inverted — see the comment on `getTeacherDashboardData` — because serving
+  // the demo payload first hid the classes an example teacher actually created.
+  // Live data must win, so the storage-free payload is only reached through the
+  // `??` fallback after the read, which means the storage-free account also
+  // costs a snapshot read now.
+  //
+  // The projected paths still cost nothing: `projected-teacher` is served from
+  // the Postgres projection and `missing-projected-teacher` returns a defined
+  // null, so neither falls through to `readDatabase`.
+  assert.equal(snapshotReads, 2);
 });
 
 test("teacher operations persistence owns dashboard data builder factory for legacy dashboard", async () => {
