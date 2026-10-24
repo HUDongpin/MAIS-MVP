@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-11",
+  "updatedAt": "2026-10-24",
   "policy": {
     "allowedFinalStates": [
       "reviewed commit",
@@ -103,10 +103,26 @@
       "id": "runtime-storage-contract-A12",
       "owner": "A12",
       "objective": "Keep backend/API/storage work in its independent owner package.",
-      "pathspecs": ["lib/server/**", "app/api/**", "middleware.ts"],
+      "pathspecs": [
+        "lib/server/**",
+        "app/api/**",
+        "middleware.ts",
+        "lib/session.ts",
+        "lib/lessonProgressRequest.ts",
+        "lib/lessonProgressRequest.test.ts"
+      ],
       "checks": ["npm run test:backend", "npm run type-check"],
       "finalState": "blocker report",
       "blocker": "Not included in the governance guardrail commit; requires an A12-owned runtime slice."
+    },
+    {
+      "id": "runtime-course-identity-A08",
+      "owner": "A08",
+      "objective": "Keep the source-backed course placement helpers and their regression checks in the separate course-identity candidate.",
+      "pathspecs": ["lib/curriculumCourses.ts", "lib/curriculumCourses.test.ts"],
+      "checks": ["node --import tsx --test lib/curriculumCourses.test.ts", "npm run type-check"],
+      "finalState": "blocker report",
+      "blocker": "Course-identity remains an uncommitted candidate on its recorded baseline; A03 UI and A12 persistence changes require current-main review before integration."
     },
     {
       "id": "runtime-visualization-A06",
