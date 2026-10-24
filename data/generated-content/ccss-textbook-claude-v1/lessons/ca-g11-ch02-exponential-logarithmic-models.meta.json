@@ -1,0 +1,32 @@
+{
+  "slug": "ca-g11-ch02-exponential-logarithmic-models",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s5-chapter-02",
+  "title": "Exponential and Logarithmic Models",
+  "standardIds": ["F-LE.1", "F-LE.2", "F-LE.3", "F-LE.4", "F-LE.5"],
+  "summary": "Race a pond whose weed adds the same area each week against one that grows by a percent, then use a log to find when each is covered.",
+  "emoji": "📈",
+  "narration": "Two ponds, one weed, two very different stories. In the first pond the patch grows by the same number of square meters every week; in the second it grows by the same percentage, so the amount it adds keeps getting bigger. Slide the controls and hunt for the week the curve takes over: with some settings it happens in the very first week, and with others it waits until long after the pond is full. Then ask the question a caretaker really asks: when is the pond covered? For the adding pond that is one division, and for the multiplying pond the unknown is stuck up in the exponent, which is exactly the job a logarithm was invented for.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A bacteria population is modeled by P(t) = 400 * 2^t, where t is measured in hours. After how many hours does the population reach 12800?",
+      "answer": 5,
+      "explanation": "Divide both sides by 400: 12800 / 400 = 32, so 2^t = 32. A logarithm asks 'what exponent?' and 2^5 = 32, so t = log base 2 of 32 = 5 hours. Check: 400 * 2^5 = 400 * 32 = 12800."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Plan A is modeled by A(t) = 5 + 12t and Plan B by B(t) = 5 * 2^t. What is the smallest whole number t at which B(t) is greater than A(t)?",
+      "answer": 4,
+      "tolerance": 0.01,
+      "explanation": "Compare year by year. t = 0: A = 5, B = 5 (equal). t = 1: A = 17, B = 10. t = 2: A = 29, B = 20. t = 3: A = 41, B = 40, so B is still behind. t = 4: A = 5 + 48 = 53 and B = 5 * 16 = 80, so B is finally ahead. The answer is t = 4, and because B multiplies by 2 every step it stays ahead from then on."
+    },
+    {
+      "kind": "mc",
+      "prompt": "A car is worth $18,000 today and loses 15% of its value every year. Which model gives its value after t years?",
+      "choices": ["18000(0.85)^t", "18000(1.15)^t", "18000 - 0.15t", "18000(0.15)^t"],
+      "answer": 0,
+      "explanation": "Losing 15% each year means keeping 100% - 15% = 85%, so the growth factor is b = 1 - 0.15 = 0.85 and the model is 18000(0.85)^t. Check one year: 18000 * 0.85 = 15300, which is 18000 - 2700, and 15% of 18000 is 2700. The factor 1.15 would be 15% growth, 18000 - 0.15t subtracts only 15 cents a year, and 18000(0.15)^t would throw away 85% each year."
+    }
+  ]
+}

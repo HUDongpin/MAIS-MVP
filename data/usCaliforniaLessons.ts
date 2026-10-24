@@ -554,6 +554,7 @@ function textbookCoreBlocks(
  */
 function ccssTeacherGuideBlock(topicId: string, seedStandardIds: string[]): ProductionLessonBlock {
   const metas = ccssLessonMetasForTopic(topicId);
+  const openerCount = metas.filter((meta) => meta.source === "mais-claude").length;
   const attributionsByStandard = new Map<string, string[]>();
   metas.forEach((meta) => {
     meta.standardIds.forEach((id) => {
@@ -572,7 +573,7 @@ function ccssTeacherGuideBlock(topicId: string, seedStandardIds: string[]): Prod
     type: "teacher-guide",
     title: textOnly("Standards developed in this unit"),
     content: textOnly(
-      `This unit's lesson core is ${metas.length} interactive CCSS textbook lesson${metas.length === 1 ? "" : "s"} ported from the CCSS-Math-Textbook library — hand-built and mathematically verified (each lesson's Math Check states the fact it demonstrates and why it is true). The full CCSS standard text each lesson develops is listed below. The practice checkpoint leads with the library's hand-checked questions before the generated California bank.`
+      `This unit contains ${metas.length} interactive CCSS textbook lesson${metas.length === 1 ? "" : "s"}${openerCount ? `, including ${openerCount} chapter opener${openerCount === 1 ? "" : "s"} and ${metas.length - openerCount} lessons from the CCSS-Math-Textbook library` : " from the CCSS-Math-Textbook library"}. Explore the models and worked examples, then use each lesson's Math Check to explain what you have learned. The CCSS standards developed in this unit are listed below. The practice checkpoint begins with the chapter questions before continuing to the generated California bank.`
     ),
     items: orderedStandardIds.map((id) => {
       const description = findStandard(id)?.standard.description ?? "";

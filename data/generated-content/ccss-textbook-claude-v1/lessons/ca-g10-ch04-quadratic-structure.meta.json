@@ -1,0 +1,41 @@
+{
+  "slug": "ca-g10-ch04-quadratic-structure",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s4-chapter-04",
+  "title": "Quadratic Structure",
+  "standardIds": [
+    "A-SSE.1",
+    "A-SSE.2",
+    "A-SSE.3"
+  ],
+  "summary": "Move a parabola's two roots and watch factored, standard and vertex form rewrite themselves into the same curve.",
+  "emoji": "\ud83e\udde9",
+  "narration": "Picture a drama club deciding how big a discount to put on its tickets. Cutting the price brings more people, so the money taken in is one changing amount times another, and that product is a quadratic. The same quadratic can be dressed three ways: factored form shows where it hits zero, standard form shows its coefficients, and vertex form shows the one value the curve turns around at \u2014 for the club's takings, the most money it can bring in. Move the two roots in the figure and watch all three forms rewrite themselves into the very same curve; that one opens upward, so its vertex is the lowest point it reaches.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "Rewrite f(x) = x^2 - 10x + 18 by completing the square. What is the smallest value f(x) can ever take?",
+      "answer": -7,
+      "explanation": "Half of -10 is -5, and (-5)^2 = 25, so x^2 - 10x = (x - 5)^2 - 25. Then f(x) = (x - 5)^2 - 25 + 18 = (x - 5)^2 - 7. A square is never negative, so the smallest value is -7, reached when x = 5. Check: f(5) = 25 - 50 + 18 = -7."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A club sells tutoring sessions for $20 and expects 30 sign-ups. Each $1 taken off the price brings 3 more sign-ups, so revenue is R(d) = (20 - d)(30 + 3d) dollars for a discount of d dollars. What discount d brings in the most money?",
+      "answer": 5,
+      "tolerance": 0.01,
+      "explanation": "The factored form is zero when 20 - d = 0, so d = 20, and when 30 + 3d = 0, so d = -10. A parabola is symmetric about the midpoint of its zeros: (20 + (-10))/2 = 10/2 = 5. Completing the square agrees: (20 - d)(30 + 3d) = -3d^2 + 30d + 600 = -3(d^2 - 10d) + 600 = -3((d - 5)^2 - 25) + 600 = -3(d - 5)^2 + 675. Revenue peaks at d = 5, where 15 x 45 = 675 dollars."
+    },
+    {
+      "kind": "mc",
+      "prompt": "For any r other than 1, the finite geometric series formula says a + ar + ... + ar^(n-1) = a(r^n - 1)/(r - 1). Use it to evaluate 1 + 4 + 16 + 64.",
+      "choices": [
+        "81",
+        "85",
+        "255",
+        "341"
+      ],
+      "answer": 1,
+      "explanation": "Here a = 1, r = 4 and n = 4. Since r is not 1 the formula applies, so the sum is (4^4 - 1)/(4 - 1) = (256 - 1)/3 = 255/3 = 85. Adding directly confirms it: 1 + 4 = 5, 5 + 16 = 21, 21 + 64 = 85. (255 is 4^4 - 1, the numerator before dividing; 341 is the sum of five terms, 1 + 4 + 16 + 64 + 256.)"
+    }
+  ]
+}

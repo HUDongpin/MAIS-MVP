@@ -1,0 +1,31 @@
+{
+  "slug": "ca-g9-ch04-coordinate-geometry-methods",
+  "gradeId": "HS",
+  "topicId": "us-ca-math-s3-chapter-04",
+  "title": "Coordinate Geometry Methods",
+  "standardIds": ["G-GPE.1", "G-GPE.7", "G-GPE.5", "G-GPE.6", "G-GPE.4"],
+  "summary": "Move point B and one short segment reports its slope, its length, a point that splits it, and the circle through B.",
+  "emoji": "📐",
+  "narration": "Two points on a grid are only four numbers, but they hold a surprising amount of geometry. Move point B and watch the slope, the length, a point part way along the segment, and a circle through B all change together. Every one of those answers comes from subtracting coordinates and squaring, with no ruler anywhere. This chapter turns that handful of formulas into proofs, conic equations, partitions, and areas.",
+  "practice": [
+    {
+      "kind": "numeric",
+      "prompt": "A circle is centered at C(−3, 4) and passes through D(2, 16). Its equation is (x + 3)² + (y − 4)² = r². What is r²?",
+      "answer": 169,
+      "explanation": "r² is the squared distance CD. Run: 2 − (−3) = 5. Rise: 16 − 4 = 12. So r² = 5² + 12² = 25 + 144 = 169 (and r = 13, since 13² = 169). Check that D fits the equation: (2 + 3)² + (16 − 4)² = 25 + 144 = 169."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "P is (1, 2) and Q is (13, 10). Point M lies three quarters of the way from P to Q, so PM : MQ = 3 : 1. What is the y-coordinate of M?",
+      "answer": 8,
+      "explanation": "M = P + (3/4)(Q − P). The change from P to Q is (13 − 1, 10 − 2) = (12, 8). Three quarters of the rise is (3/4) × 8 = 6, so the y-coordinate is 2 + 6 = 8. (The x-coordinate is 1 + (3/4) × 12 = 1 + 9 = 10, so M is (10, 8).) Check the ratio: PM = (9, 6) and MQ = (3, 2), and (9, 6) is exactly 3 times (3, 2)."
+    },
+    {
+      "kind": "mc",
+      "prompt": "Segment AB runs from A(−1, 5) to B(3, −3). Which number is the slope of a line perpendicular to AB?",
+      "choices": ["−2", "2", "1/2", "−1/2"],
+      "answer": 2,
+      "explanation": "Slope of AB = rise ÷ run = (−3 − 5) ÷ (3 − (−1)) = −8 ÷ 4 = −2. Perpendicular slopes multiply to −1, so the perpendicular slope m satisfies −2 × m = −1, giving m = 1/2. Check: −2 × 1/2 = −1. The choice −2 repeats AB's own slope (that would be parallel), 2 only flips the sign, and −1/2 flips the fraction without fixing the sign."
+    }
+  ]
+}
