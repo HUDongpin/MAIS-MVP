@@ -51,7 +51,10 @@ jobs:
         id: contract
         run: |
           set -euo pipefail
-          if [[ -e coordination/integration/reviewed-code/pr285-v2/admission.json || -L coordination/integration/reviewed-code/pr285-v2/admission.json ]]; then
+          if [[ -e coordination/integration/reviewed-code/pr293-docs-v1/admission.json || -L coordination/integration/reviewed-code/pr293-docs-v1/admission.json ]]; then
+            mode=$(node scripts/promotion-docs-pr293.mjs select \
+              --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
+          elif [[ -e coordination/integration/reviewed-code/pr285-v2/admission.json || -L coordination/integration/reviewed-code/pr285-v2/admission.json ]]; then
             mode=$(node scripts/promotion-reviewed-code-pr285-v2.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           elif [[ -e coordination/integration/reviewed-code/pr287-v1/admission.json || -L coordination/integration/reviewed-code/pr287-v1/admission.json ]]; then
@@ -91,11 +94,32 @@ jobs:
             mode=$(node scripts/promotion-required-check-legacy-successor-v1.mjs select \
               --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH")
           fi
-          if [[ "$mode" != "reviewed-code-pr285-v2" && "$mode" != "reviewed-code-pr283-merge-assertion" && "$mode" != "reviewed-code-pr287-v1" && "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" && "$mode" != "reviewed-code-pr276" && "$mode" != "reviewed-code-pr276-v2" && "$mode" != "candidate-pr201" && "$mode" != "reviewed-code-pr276-v3" && "$mode" != "reviewed-code-pr282-pr281-pr280" && "$mode" != "reviewed-code-pr283-e2" ]]; then
+          if [[ "$mode" != "reviewed-docs-pr293" && "$mode" != "reviewed-code-pr285-v2" && "$mode" != "reviewed-code-pr283-merge-assertion" && "$mode" != "reviewed-code-pr287-v1" && "$mode" != "v2" && "$mode" != "successor" && "$mode" != "reviewed-code" && "$mode" != "reviewed-code-pr270-pr271" && "$mode" != "reviewed-code-pr264" && "$mode" != "reviewed-code-pr276" && "$mode" != "reviewed-code-pr276-v2" && "$mode" != "candidate-pr201" && "$mode" != "reviewed-code-pr276-v3" && "$mode" != "reviewed-code-pr282-pr281-pr280" && "$mode" != "reviewed-code-pr283-e2" ]]; then
             echo "Unknown Promotion contract mode" >&2
             exit 1
           fi
           printf 'mode=%s\n' "$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Verify exact PR293 historical documents and ownership configuration
+        if: ${{ steps.contract.outputs.mode == 'reviewed-docs-pr293' }}
+        run: |
+          set -euo pipefail
+          umask 077
+          artifacts="$RUNNER_TEMP/promotion-docs-pr293"
+          test ! -e "$artifacts" && test ! -L "$artifacts"
+          install -d -m 0700 "$artifacts"
+          node scripts/promotion-docs-pr293.mjs check \
+            --repo "$GITHUB_WORKSPACE" --event-name "$GITHUB_EVENT_NAME" --event-path "$GITHUB_EVENT_PATH" \
+            --artifact-root "$artifacts"
+
+      - name: Upload exact PR293 documentation admission proof
+        if: ${{ always() && steps.contract.outputs.mode == 'reviewed-docs-pr293' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: promotion-docs-pr293
+          path: ${{ runner.temp }}/promotion-docs-pr293
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Test PR285 v2 and all preserved contracts
         if: ${{ steps.contract.outputs.mode == 'reviewed-code-pr285-v2' }}
