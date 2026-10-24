@@ -265,7 +265,10 @@
         "data/forum.ts",
         "lib/forum.ts",
         "public/forum-assets/**",
-        "lib/teacherInviteCodeContract.ts"
+        "lib/teacherInviteCodeContract.ts",
+        "lib/session.ts",
+        "lib/lessonProgressRequest.ts",
+        "lib/lessonProgressRequest.test.ts"
       ]
     },
     {
@@ -422,6 +425,8 @@
         "lib/difficulty.ts",
         "lib/difficulty.test.ts",
         "lib/appShellBootstrap.ts",
+        "lib/curriculumCourses.ts",
+        "lib/curriculumCourses.test.ts",
         "types/**",
         "scripts/run-analytics-tests.mjs",
         "tsconfig.analytics.json"
@@ -517,6 +522,11 @@
     }
   ],
   "resolutionChecks": [
+    { "path": "lib/curriculumCourses.ts", "expectedOwner": "A08" },
+    { "path": "lib/curriculumCourses.test.ts", "expectedOwner": "A08" },
+    { "path": "lib/session.ts", "expectedOwner": "A12" },
+    { "path": "lib/lessonProgressRequest.ts", "expectedOwner": "A12" },
+    { "path": "lib/lessonProgressRequest.test.ts", "expectedOwner": "A12" },
     { "path": "coordination/release-intake/example.json", "expectedOwner": "A25" },
     { "path": "coordination/content-qa/example.md", "expectedOwner": "A18" },
     { "path": "coordination/content-qa/example-exact-overlay.svg", "expectedOwner": "A24" },
