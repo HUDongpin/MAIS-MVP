@@ -1,4 +1,9 @@
 import {
+  evaluateAppStateWrite,
+  measureAppStatePayloadBytes,
+  reportAppStateWrite
+} from "@/lib/server/appStateGrowthObservation";
+import {
   retainRecordsUnlessNewDemoSeed,
   shouldBackfillDemoSeed
 } from "@/lib/server/demoSeedBackfill";
@@ -8495,9 +8500,17 @@ async function applyPostgresFullWriterPostReturningDriftForIntegrationTest(
 async function writePostgresDatabaseWith(
   sql: PostgresExecutor,
   database: Database,
-  storageCapability: PostgresStorageMutationCapability
+  storageCapability: PostgresStorageMutationCapability,
+  // When the surrounding transaction's locked phase began. Every caller takes
+  // the exclusive `app_state` row lock BEFORE reaching this function, so timing
+  // from here would exclude lock contention - the one cost the growth
+  // observation exists to expose. Under the concurrent classroom workload that
+  // contention is most of the latency, and a write that dies at `lock_timeout`
+  // never arrives here to report at all. Callers pass the instant captured
+  // immediately before their locked read; the default only covers a direct call.
+  mutationStartedAt = Date.now()
 ) {
-  const startedAt = Date.now();
+  const startedAt = mutationStartedAt;
   try {
     recordPostgresFullWriterTestStage("capability-acquired");
     await installPostgresFullWriterFaultForIntegrationTest(sql);
@@ -8579,6 +8592,22 @@ async function writePostgresDatabaseWith(
       storageCapability,
       revision
     );
+    // Whole-row write: cost scales with total accumulated history, not with the
+    // size of this change, and several payload collections are append-only with
+    // no retention. Record how big it has grown and how long it took so the
+    // strangler work can be prioritized against evidence. Silent and free until
+    // a threshold is crossed; see appStateGrowthObservation.ts.
+    try {
+      reportAppStateWrite(
+        evaluateAppStateWrite({
+          payload,
+          durationMs: Date.now() - startedAt,
+          revision,
+          payloadBytes: measureAppStatePayloadBytes(payload)
+        }),
+        { capture: captureServerError }
+      );
+    } catch { /* Observation must never fail a write that already succeeded. */ }
   } catch (error) {
     try {
       captureServerError(error, {
@@ -8611,8 +8640,9 @@ async function rewriteCurrentPostgresStorageSnapshotForIntegrationTest() {
           true
         )
     `;
+    const mutationStartedAt = Date.now();
     const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true);
-    await writePostgresDatabaseWith(sql, database, storageCapability);
+    await writePostgresDatabaseWith(sql, database, storageCapability, mutationStartedAt);
   });
 }
 
@@ -8659,10 +8689,11 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
           pg_catalog.set_config('lock_timeout', '1000ms', true),
           pg_catalog.set_config('statement_timeout', '5000ms', true)
       `;
+      const mutationStartedAt = Date.now();
       const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true);
       const result = await mutator(database);
       databaseIndexCache.delete(database);
-      await writePostgresDatabaseWith(sql, database, storageCapability);
+      await writePostgresDatabaseWith(sql, database, storageCapability, mutationStartedAt);
       return result;
     });
   }
@@ -9038,6 +9069,7 @@ async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
         idleTransactionTimeout: `${transactionTimeouts.statementTimeoutMs}ms`
       },
       async (sql, storageCapability) => {
+        const mutationStartedAt = Date.now();
         const database = await normalizeLockedPostgresState(sql);
         const mutation = await mutator(database);
         const prepared = prepareTeacherNoticeEmailOutboxRows(database, teacherId, mutation, new Date().toISOString());
@@ -9051,7 +9083,7 @@ async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
           };
         }
         databaseIndexCache.delete(database);
-        await writePostgresDatabaseWith(sql, database, storageCapability);
+        await writePostgresDatabaseWith(sql, database, storageCapability, mutationStartedAt);
         if (process.env.NODE_ENV === "test") {
           await __userStoreTeacherNoticeEmailOutboxPostgresTestHooks
             .beforePublicationOutboxDml?.();

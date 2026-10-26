@@ -714,7 +714,7 @@ test("the publication outbox-DML test barrier is ordered, awaitable, and always 
     "async function mutateDatabaseWithTeacherNoticeEmailOutbox",
     "async function queueTeacherNoticeEmail"
   );
-  const stateWriteAt = publication.indexOf("await writePostgresDatabaseWith(sql, database, storageCapability)");
+  const stateWriteAt = publication.indexOf("await writePostgresDatabaseWith(sql, database, storageCapability, mutationStartedAt)");
   const barrierAt = publication.indexOf("beforePublicationOutboxDml");
   const outboxInsertAt = publication.indexOf("insertTeacherNoticeEmailOutboxRowsPostgres(sql, prepared.rows)");
   assert.ok(
@@ -1017,7 +1017,7 @@ test("publication writes app_state and immutable outbox rows in one physical tra
   assert.match(section, /runTeacherNoticeEmailOutboxPostgresPublicationTransaction/);
   assert.match(section, /getPostgresClient\(\)\.begin/);
   assert.match(section, /async \(sql, storageCapability\) =>[\s\S]*normalizeLockedPostgresState\(sql\)/);
-  assert.match(section, /writePostgresDatabaseWith\(sql, database, storageCapability\)/);
+  assert.match(section, /writePostgresDatabaseWith\(sql, database, storageCapability, mutationStartedAt\)/);
   assert.match(
     section,
     /insertTeacherNoticeEmailOutboxRowsPostgres\(sql, prepared\.rows\)[\s\S]*failAfterPublicationOutboxInsert/

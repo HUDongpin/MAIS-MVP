@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
-import type { StudentSession } from "@/types";
+import { safeChangePasswordTarget } from "@/lib/loginRedirect";
 
 const changePasswordCopy = {
   eyebrow: { en: "Account security", zh: "帳戶安全", zhHans: "账户安全" },
@@ -27,17 +27,6 @@ const changePasswordCopy = {
   signedInAs: { en: "Signed in account", zh: "已登入帳戶", zhHans: "已登录账户" },
   alreadyDone: { en: "Password already updated", zh: "密碼已更新", zhHans: "密码已更新" }
 } as const;
-
-function workspaceForRole(role?: StudentSession["role"]) {
-  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
-  if (role === "parent") return "/parent";
-  return "/dashboard";
-}
-
-function safeNextPath(value: string | null, role?: StudentSession["role"]) {
-  if (value?.startsWith("/") && !value.startsWith("//") && !value.startsWith("/login")) return value;
-  return workspaceForRole(role);
-}
 
 export default function ChangePasswordPage() {
   const router = useRouter();
@@ -73,7 +62,7 @@ export default function ChangePasswordPage() {
       const result = await changePassword(currentPassword, password);
       if (result.ok) {
         setMessage(t(changePasswordCopy.success));
-        router.push(safeNextPath(nextPath, result.role ?? currentUser?.role));
+        router.push(safeChangePasswordTarget(nextPath, result.role ?? currentUser?.role));
         return;
       }
 

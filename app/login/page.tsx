@@ -14,6 +14,7 @@ import {
 } from "@/components/providers/AppProviders";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
 import { recordAuthFunnelEvent } from "@/lib/authFunnelClient";
+import { safeWorkspaceTarget } from "@/lib/loginRedirect";
 import { grades, isValidGradeId } from "@/data/grades";
 import { curriculumProfileForPublisher, curriculumTrackForProfile, isTextbookPublisher, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum, formatLearnerName } from "@/lib/i18n";
@@ -274,26 +275,6 @@ function loginGradeOptionsForCurriculumProfile(profile: CurriculumProfile): Grad
   if (profile.publisher === "US_FL_MATH") return grades.filter((grade) => floridaLoginGrades.has(grade.id));
   if (profile.region === "US") return grades;
   return grades.filter((grade) => grade.id !== "K");
-}
-
-function workspaceForRole(role?: "student" | "teacher" | "parent" | "admin") {
-  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
-  if (role === "parent") return "/parent";
-  return "/dashboard";
-}
-
-function nextPathStartsWith(value: string, root: string) {
-  return value === root || value.startsWith(`${root}/`);
-}
-
-function safeWorkspaceTarget(value: string | null, role?: "student" | "teacher" | "parent" | "admin") {
-  if (!value?.startsWith("/") || value.startsWith("//")) return workspaceForRole(role);
-  if (role === "teacher" || role === "admin") return nextPathStartsWith(value, "/teacher") ? value : workspaceForRole(role);
-  if (role === "parent") return nextPathStartsWith(value, "/parent") ? value : workspaceForRole(role);
-  if (role === "student" && (nextPathStartsWith(value, "/teacher") || nextPathStartsWith(value, "/parent"))) {
-    return workspaceForRole(role);
-  }
-  return value;
 }
 
 function loginCredentialFieldProps(hydrated: boolean, value: string) {
