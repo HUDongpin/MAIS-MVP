@@ -184,7 +184,9 @@ test("scheduled monitor is read-only, bounded, and supports an explicit alert dr
   );
   const workflow = YAML.parse(text);
   assert.deepEqual(Object.keys(workflow.on).sort(), ["schedule", "workflow_dispatch"]);
-  assert.deepEqual(workflow.on.schedule, [{ cron: "3-59/5 * * * *" }]);
+  // #294 / #273: temporary hourly cron. Flip this assertion back to
+  // "3-59/5 * * * *" when #273 closes and the schedule is restored.
+  assert.deepEqual(workflow.on.schedule, [{ cron: "7 * * * *" }]);
   assert.equal(workflow.on.workflow_dispatch.inputs.alert_drill.type, "boolean");
   assert.equal(workflow.on.workflow_dispatch.inputs.alert_drill.default, false);
   assert.deepEqual(workflow.permissions, { contents: "read", issues: "write" });
