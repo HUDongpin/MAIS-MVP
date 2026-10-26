@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { canTeacherAccessClass } from "@/lib/server/teacherClassAccess";
 import type { DatabaseSync } from "node:sqlite";
 import type {
   TeacherNoticeEmailDeliveryResult,
@@ -1208,7 +1209,11 @@ function currentTeacherNoticeEmailAuthorityIds(
     membershipUserIds.add(userId);
     if (role === "teacher" || role === "admin") authorityIds.add(userId);
   }
-  return authorityIds;
+  const authorityDatabase = {
+    school_memberships: database.school_memberships.map((row) => ({ user_id: field(row, "user_id"), class_id: field(row, "class_id"), role: field(row, "role") })),
+    teacher_class_collaborators: database.teacher_class_collaborators.map((row) => ({ teacher_id: field(row, "teacher_id"), class_id: field(row, "class_id"), role: field(row, "role"), status: field(row, "status") }))
+  };
+  return new Set([...authorityIds].filter((id) => canTeacherAccessClass(authorityDatabase, { id, role: "teacher" }, { id: classId, teacher_id: ownerId }, "write")));
 }
 
 function teacherCanPublishNoticeEmailForClass(

@@ -201,12 +201,15 @@ export function evaluateAntiAbuseEvent({
 }): AntiAbuseDecision {
   const cleanSourceKey = sourceKey.trim().replace(/\s+/g, "-").slice(0, 240);
   const dayKey = hongKongDayKey(now);
-  const awardedToday = existingEvents.filter((event) => event.status === "awarded" && hongKongDayKey(event.createdAt) === dayKey);
+  // A partial cap is an accepted award too; zero capped rejections remain retryable.
+  const wasRewarded = (event: GamificationEvent) => event.status === "awarded" ||
+    (event.status === "capped" && (event.xp > 0 || event.rewardPoints > 0));
+  const awardedToday = existingEvents.filter((event) => wasRewarded(event) && hongKongDayKey(event.createdAt) === dayKey);
   const dailyXpTotal = awardedToday.reduce((sum, event) => sum + Math.max(0, event.xp), 0);
   const dailyRewardPointsTotal = awardedToday.reduce((sum, event) => sum + Math.max(0, event.rewardPoints), 0);
   const reason: LocalizedText = { en: "Award accepted.", zh: "獎勵已接受。" };
 
-  if (!cleanSourceKey || existingEvents.some((event) => event.status === "awarded" && event.sourceKey === cleanSourceKey)) {
+  if (!cleanSourceKey || existingEvents.some((event) => wasRewarded(event) && event.sourceKey === cleanSourceKey)) {
     return {
       allowed: false,
       status: "duplicate",
@@ -241,7 +244,10 @@ export function evaluateAntiAbuseEvent({
   const appliedRewardPoints = Math.min(Math.max(0, Math.round(requestedRewardPoints)), remainingRewardPoints);
   const capped = appliedXp < requestedXp || appliedRewardPoints < requestedRewardPoints;
 
-  if (appliedXp <= 0 && appliedRewardPoints <= 0) {
+  // Teacher point awards are all-or-nothing in their ledger writer. Do not
+  // record a positive partial event for an award that the caller will reject.
+  if ((appliedXp <= 0 && appliedRewardPoints <= 0) ||
+    (source === "teacher-award" && appliedRewardPoints < requestedRewardPoints)) {
     return {
       allowed: false,
       status: "capped",

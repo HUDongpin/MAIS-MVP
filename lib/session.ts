@@ -7,12 +7,16 @@ export type SessionPayload = {
   jti: string;
   iat: number;
   exp: number;
+  ag?: string;
+  ar?: "student" | "teacher" | "parent" | "admin";
 };
 
 export type CreateSessionTokenInput = {
   userId: string;
   sessionRevision: number;
   now?: number;
+  accountGeneration?: string;
+  accountRole?: SessionPayload["ar"];
 };
 
 const fallbackSecret = "hk-math-lab-local-development-secret";
@@ -73,6 +77,8 @@ function constantTimeEqual(left: string, right: string) {
 export async function createSessionToken({
   userId,
   sessionRevision,
+  accountGeneration,
+  accountRole,
   now = Date.now()
 }: CreateSessionTokenInput) {
   if (!userId.trim() || !Number.isSafeInteger(sessionRevision) || sessionRevision < 1) {
@@ -86,6 +92,14 @@ export async function createSessionToken({
     iat: now,
     exp: now + SESSION_MAX_AGE_SECONDS * 1000
   };
+  if (accountGeneration !== undefined) {
+    if (!sessionJtiPattern.test(accountGeneration)) throw new Error("Invalid account generation.");
+    payload.ag = accountGeneration;
+  }
+  if (accountRole !== undefined) {
+    if (!["student", "teacher", "parent", "admin"].includes(accountRole)) throw new Error("Invalid account role.");
+    payload.ar = accountRole;
+  }
   const encodedPayload = base64UrlEncode(new TextEncoder().encode(JSON.stringify(payload)));
   const signature = base64UrlEncode(await hmacSha256(encodedPayload));
 
@@ -127,12 +141,16 @@ export async function verifySessionToken(token: string, now = Date.now()): Promi
     if (iat > now + sessionClockSkewMs) return null;
     if (exp - iat > sessionMaxLifetimeMs) return null;
     if (exp <= now) return null;
+    if (payload.ag !== undefined && (typeof payload.ag !== "string" || !sessionJtiPattern.test(payload.ag))) return null;
+    if (payload.ar !== undefined && !["student", "teacher", "parent", "admin"].includes(payload.ar)) return null;
     return {
       sub,
       sr,
       jti,
       iat,
-      exp
+      exp,
+      ...(payload.ag === undefined ? {} : { ag: payload.ag }),
+      ...(payload.ar === undefined ? {} : { ar: payload.ar })
     };
   } catch {
     return null;

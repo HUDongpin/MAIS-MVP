@@ -1,5 +1,6 @@
+import { MediaOwnerErasedError, beginMediaUploadLease, assertMediaUploadLeaseAdmitted, finishMediaUploadLease, ensureCanonicalMediaParents, mediaOwnerErasureIsMarked, canonicalMediaProof, purgeExpiredMediaPair } from "./mediaOwnerErasure";
 import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
   imageDataUrlMediaDescriptor,
@@ -53,7 +54,8 @@ export type StoreMediaObjectResult =
         | "media-too-large"
         | "media-scan-failed"
         | "media-encryption-key-missing"
-        | "media-write-failed";
+        | "media-write-failed"
+        | "media-owner-erased";
       message: string;
     };
 
@@ -71,7 +73,8 @@ export type ReadStoredMediaObjectResult =
         | "media-object-expired"
         | "media-object-invalid"
         | "media-encryption-key-missing"
-        | "media-decryption-failed";
+        | "media-decryption-failed"
+      | "media-purge-pending";
       message: string;
     };
 
@@ -103,6 +106,8 @@ function mediaObjectStoreDir(env: EnvLike = process.env) {
 function ownerHash(ownerId: string) {
   return createHash("sha256").update(ownerId).digest("hex");
 }
+
+export const mediaObjectOwnerHash = ownerHash;
 
 function sha256(bytes: Buffer) {
   return createHash("sha256").update(bytes).digest("hex");
@@ -309,14 +314,7 @@ function metadataFromUnknown(value: unknown): StoredMediaObjectMetadata | null {
 function canReadMediaObject(metadata: StoredMediaObjectMetadata, requester: MediaObjectRequester) {
   if (metadata.ownerHash === ownerHash(requester.id)) return true;
   if (requester.role === "admin") return true;
-  return requester.role === "teacher" && (
-    metadata.capability === "assignment-image"
-    || metadata.capability === "classroom-work-sample"
-    // Practice work photos are student-owned, but the whole point of attaching
-    // them is that a teacher can look at the working behind a wrong answer.
-    // Without this the reference persists and the teacher's read 403s.
-    || metadata.capability === "practice-work-photo"
-  );
+  return false;
 }
 
 /**
@@ -422,11 +420,21 @@ export async function storeMediaObjectFromDataUrl({
     };
   }
 
+  let lease: Awaited<ReturnType<typeof beginMediaUploadLease>> | undefined;
   try {
-    await mkdir(path.dirname(objectPath), { recursive: true });
+    lease = await beginMediaUploadLease(root, metadata);
+    await ensureCanonicalMediaParents(root, metadata);
+    await assertMediaUploadLeaseAdmitted(lease);
     await writeFile(objectPath, encryptedBytes);
     await writeFile(metadataPath, `${JSON.stringify(metadata, null, 2)}\n`, "utf8");
-  } catch {
+    if (!await finishMediaUploadLease(lease)) throw new MediaOwnerErasedError("Owner erasure raced with media upload.");
+    lease = undefined;
+  } catch (error) {
+    if (lease) {
+      try { await finishMediaUploadLease(lease, true); }
+      catch { return { status: "rejected", code: "media-write-failed", message: "Media cleanup is pending; its durable lease is retained." }; }
+    }
+    if (error instanceof MediaOwnerErasedError) return { status: "rejected", code: "media-owner-erased", message: "This account is being erased. Reload before retrying." };
     return {
       status: "rejected",
       code: "media-write-failed",
@@ -446,11 +454,13 @@ export async function readStoredMediaObject({
   env = process.env,
   objectKey,
   requester,
+  authorizeTeacherRead,
   now = new Date()
 }: {
   env?: EnvLike;
   objectKey: string;
   requester: MediaObjectRequester;
+  authorizeTeacherRead?: (metadata: StoredMediaObjectMetadata) => Promise<boolean>;
   now?: Date;
 }): Promise<ReadStoredMediaObjectResult> {
   const root = mediaObjectStoreDir(env);
@@ -479,7 +489,13 @@ export async function readStoredMediaObject({
     };
   }
 
+  if (!canonicalMediaProof(metadata, objectKey)) return {status:"not-found",code:"media-object-not-found",message:"Media object metadata is not canonical."};
+  try {
+    if (await mediaOwnerErasureIsMarked(root, metadata.ownerHash)) return {status:"not-found",code:"media-object-not-found",message:"Media owner is being erased."};
+  } catch { return {status:"rejected",code:"media-purge-pending",message:"Media erasure state is unavailable."}; }
   if (Date.parse(metadata.retentionExpiresAt) <= now.getTime()) {
+    try { if (!await purgeExpiredMediaPair(root, metadata)) return {status:"rejected",code:"media-purge-pending",message:"Expired media has an active uploader."}; }
+    catch { return {status:"rejected",code:"media-purge-pending",message:"Expired media cleanup is pending."}; }
     return {
       status: "expired",
       code: "media-object-expired",
@@ -487,7 +503,11 @@ export async function readStoredMediaObject({
     };
   }
 
-  if (!canReadMediaObject(metadata, requester)) {
+  const ownerOrAdmin = canReadMediaObject(metadata, requester);
+  const teacherCapability = requester.role === "teacher" && ["assignment-image", "classroom-work-sample", "practice-work-photo"].includes(metadata.capability);
+  const teacherAllowed = !ownerOrAdmin && teacherCapability && authorizeTeacherRead
+    ? await authorizeTeacherRead(metadata) : false;
+  if (!ownerOrAdmin && !teacherAllowed) {
     return {
       status: "forbidden",
       code: "media-object-forbidden",
@@ -515,6 +535,16 @@ export async function readStoredMediaObject({
         code: "media-object-invalid",
         message: "Media object integrity check failed."
       };
+    }
+
+    // A binary read/authorization callback may have overlapped account erasure.
+    // Recheck at the final disclosure boundary, after integrity verification.
+    try {
+      if (await mediaOwnerErasureIsMarked(root, metadata.ownerHash)) {
+        return { status: "not-found", code: "media-object-not-found", message: "Media owner is being erased." };
+      }
+    } catch {
+      return { status: "rejected", code: "media-purge-pending", message: "Media erasure state is unavailable." };
     }
 
     return {

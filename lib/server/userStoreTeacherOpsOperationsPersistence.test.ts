@@ -467,7 +467,8 @@ test("teacher ops operations persistence builds teacher dashboard data through e
   assert.equal((await store.getTeacherDashboardData("projected-teacher"))?.classSummaries[0]?.classId, "projected");
   assert.equal(await store.getTeacherDashboardData("missing-projected-teacher"), null);
   assert.equal((await store.getTeacherDashboardData("fallback-teacher"))?.classSummaries[0]?.classId, "fallback-fallback-teacher");
-  assert.equal(snapshotReads, 1);
+  // Live state takes precedence over the storage-free example fallback.
+  assert.equal(snapshotReads, 2);
 });
 
 test("teacher operations persistence owns dashboard data builder factory for legacy dashboard", async () => {

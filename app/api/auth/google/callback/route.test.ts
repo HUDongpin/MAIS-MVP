@@ -168,3 +168,32 @@ test("Google OAuth callback sets MAIS session cookie after verified Google ident
   assert.equal(linkedRaceResponse.cookies.get(SESSION_COOKIE_NAME)?.maxAge, 0);
   assert.equal(linkedRaceResponse.cookies.get(GOOGLE_OAUTH_STATE_COOKIE)?.maxAge, 0);
 });
+
+test("R10 OAuth callback confines canonical paths to the authenticated workspace and retains query roots", async () => {
+  for (const [role, next, expected] of [
+    ["student", "/\\outside.test/phish", "/dashboard"],
+    ["student", "/safe/../teacher?tab=class", "/dashboard"],
+    ["student", "/safe/%2e%2e/parent", "/dashboard"],
+    ["student", "/safe%2f..%2fteacher", "/dashboard"],
+    ["student", "/dashboard?next=//outside.test/phish", "/dashboard?next=//outside.test/phish"],
+    ["teacher", "/teacher/../dashboard", "/teacher"],
+    ["teacher", "/teacher%2f..%2fdashboard", "/teacher"],
+    ["teacher", "/teacher?tab=class#top", "/teacher?tab=class#top"],
+    ["parent", "/parent?tab=children", "/parent?tab=children"],
+    ["parent", "/parent/../../teacher", "/parent/connect"]
+  ] as const) {
+    const dependencies: GoogleCallbackDependencies = {
+      verifyGoogleOAuthState: async () => ({ status: "valid", payload: { nonce: "synthetic-nonce", next, role } }),
+      getGoogleOAuthConfig: () => ({ clientId: "synthetic-client", clientSecret: "synthetic-client-secret", redirectUri: "https://mais.test/api/auth/google/callback" }),
+      exchangeGoogleAuthorizationCode: async () => ({ status: "ok", idToken: "synthetic-token" }),
+      fetchGoogleJwks: async () => ({ keys: [] }),
+      verifyGoogleIdToken: async () => ({ status: "valid", profile: { subject: "synthetic-subject", email: "synthetic@example.test", emailVerified: true } }),
+      authenticateGoogleIdentityForLogin: async () => ({ status: "authenticated", sessionRevision: 1, session: { user: { id: "synthetic-user", role } } }),
+      setSessionCookie: async () => undefined
+    };
+    const response = await handleGoogleOAuthCallback(new Request("https://mais.test/api/auth/google/callback?state=synthetic-state&code=synthetic-code"), dependencies);
+    const location = new URL(response.headers.get("location")!);
+    assert.equal(location.origin, "https://mais.test", next);
+    assert.equal(location.pathname + location.search + location.hash, expected, next);
+  }
+});

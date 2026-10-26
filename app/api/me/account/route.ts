@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { bodyExpectedUserConstraints, expectedUserConstraintsFromRequest, guardExpectedAuthenticatedUser, requireAuthenticatedUser } from "@/lib/server/auth";
 import { withAuthRouteJsonBoundary } from "@/lib/server/authRouteGuards";
 import { sessionCookieOptions } from "@/lib/server/sessionCookie";
 import { SESSION_COOKIE_NAME } from "@/lib/session";
-import { deleteUserAccount } from "@/lib/server/userStore";
+import { deleteUserAccount, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 
 export const runtime = "nodejs";
 
@@ -43,7 +44,16 @@ async function handleDelete(request: Request) {
     );
   }
 
-  const result = await deleteUserAccount(authenticated.user.id);
+  const conflict = guardExpectedAuthenticatedUser(authenticated, [
+    ...expectedUserConstraintsFromRequest(request), ...bodyExpectedUserConstraints(confirmation)
+  ], { requireConstraint: true });
+  if (conflict) {
+    return NextResponse.json(await conflict.json(), { status: conflict.status });
+  }
+
+  const result = await withAuthenticatedMutation(authenticated, () => deleteUserAccount(authenticated.user.id,
+    { expectedGeneration: authenticated.accountGeneration })).catch(learnerAuthorityFailureResponse);
+  if (result instanceof Response) return new NextResponse(result.body, { status: result.status, headers: result.headers });
 
   if (result.status === "not-found") {
     return NextResponse.json({ error: "Account not found." }, { status: 404 });
@@ -52,11 +62,15 @@ async function handleDelete(request: Request) {
     return NextResponse.json({ code: "deletion-blocked", blockers: result.blockers }, { status: 409 });
   }
 
+  const pending = result.mediaPurge.status === "pending";
   const response = NextResponse.json({
-    ok: true,
+    ok: !pending,
+    accountDeleted: true,
+    mediaPurgePending: pending,
+    ...(pending ? { code: "account-media-erasure-pending", error: "Account deleted; physical media erasure is incomplete. An administrator can retry cleanup for this exact account." } : {}),
     deletedAt: new Date().toISOString(),
     recordsRemoved: result.summary.totalRemoved
-  });
+  }, { status: pending ? 503 : 200 });
   // The session is now unusable; clear it so the browser does not keep sending it.
   response.cookies.set(SESSION_COOKIE_NAME, "", { ...sessionCookieOptions(request, 0) });
   return response;

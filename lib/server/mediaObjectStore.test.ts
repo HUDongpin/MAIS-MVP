@@ -91,3 +91,24 @@ test("media object references reject path traversal keys at the API boundary", (
 
   assert.equal(reference, null);
 });
+
+for (const capability of ["assignment-image", "classroom-work-sample", "practice-work-photo"] as const) {
+  test(`${capability} needs current server authorization for a teacher's cross-owner read`, async () => {
+    await withTempStore(async (dir) => {
+      const env = { AI_MEDIA_ENCRYPTION_KEY: mediaEncryptionKey, AI_MEDIA_OBJECT_STORE_DIR: dir };
+      const stored = await storeMediaObjectFromDataUrl({ capability, dataUrl: pngDataUrl, ownerId: "student-a", env });
+      assert.equal(stored.status, "stored");
+      if (stored.status !== "stored") return;
+      const args = { objectKey: stored.media.objectKey, env };
+      assert.equal((await readStoredMediaObject({ ...args, requester: { id: "unrelated", role: "teacher" } })).status, "forbidden");
+      assert.equal((await readStoredMediaObject({ ...args, requester: { id: "student-a", role: "student" } })).status, "ok");
+      assert.equal((await readStoredMediaObject({ ...args, requester: { id: "admin", role: "admin" } })).status, "ok");
+      assert.equal((await readStoredMediaObject({ ...args, requester: { id: "related", role: "teacher" },
+        authorizeTeacherRead: async (metadata) => metadata.ownerHash === stored.metadata.ownerHash
+      })).status, "ok");
+      assert.equal((await readStoredMediaObject({ ...args, requester: { id: "revoked", role: "teacher" },
+        authorizeTeacherRead: async () => false
+      })).status, "forbidden");
+    });
+  });
+}

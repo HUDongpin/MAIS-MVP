@@ -2,14 +2,28 @@ import {
   retainRecordsUnlessNewDemoSeed,
   shouldBackfillDemoSeed
 } from "@/lib/server/demoSeedBackfill";
+import { mediaStoreRoot, mediaOwnerHash, readMediaOwnerErasure, admitMediaOwnerErasure, commitMediaOwnerErasure, rollbackMediaOwnerErasure, purgeMediaObjects, MediaErasureBusyError, type MediaErasureAdmission, type MediaPurgeResult } from "@/lib/server/mediaOwnerErasure";
 import { captureServerError } from "@/lib/server/errorMonitor";
+import { canTeacherReadMediaObject } from "@/lib/server/teacherMediaAccess";
+import type { StoredMediaObjectMetadata } from "@/lib/server/mediaObjectStore";
 import { classifyObservedError } from "@/lib/observability/errorPolicy";
 import { createHash, randomBytes, randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { DatabaseSync } from "node:sqlite";
+import { isDeepStrictEqual } from "node:util";
+import { AsyncLocalStorage } from "node:async_hooks";
+import { hasAuthorityInstallation, installLearnerAuthoritySchema, lockLearnerAuthority, assertLearnerAuthoritySchema, learnerAuthorityGuardBody, learnerAuthorityRetiredProjectionTables } from "@/lib/server/learnerAuthoritySchema";
+import { bindLearnerAuthorityContent, captureLearnerAuthorityBaseline, overlayLearnerAuthorities, refreshLearnerAuthority, readLearnerAuthorityContent, readLearnerAuthorityIdentity, readLearnerAuthorityView, runLearnerAuthorityTransaction, type LearnerAuthorityBaseline } from "@/lib/server/learnerAuthority";
+import { authorityComponents, extractLearnerAuthorityState, LearnerAuthorityError } from "@/lib/server/learnerAuthorityState";
+import { gamificationEconomy } from "@/data/gamification";
+import { automaticRewardAuthorityRules } from "@/lib/server/userStore/gamificationRewardRedemptionPersistence";
+import type { AuthPasswordResetResult } from "@/lib/server/userStore/authSessionPersistence";
+import { requestMutationActor, runAccountErasureRecovery } from "@/lib/server/requestMutationActor";
 import { tmpdir } from "os";
 import path from "path";
 import postgres from "postgres";
+import { overlayPostgresStudentActivity, syncPostgresStudentActivity } from "@/lib/server/studentActivityPostgres";
+import { configurePostgresAccountWriteTransaction, erasePostgresAccountData, lockExistingPostgresAccountData, lockPostgresAccountData, postgresAccountDataLockQuery, postgresAccountExistsQuery, postgresStudentActivitySharedLockQuery, postgresStudentActivityExclusiveLockQuery, resetPostgresLearningEventsInTransaction } from "@/lib/server/accountDataPostgres";
 import { hasCcssLessonAssignment } from "@/data/ccssLessonAssignments";
 import { forumSeedThreads } from "@/data/forum";
 import { gradeIds, validGradeSet } from "@/data/grades";
@@ -366,7 +380,8 @@ import {
   studentAverageMastery as studentAverageMasteryFromStudentActivity,
   studentActivityMediaObjectUrlFromKey as mediaObjectUrlFromKeyFromStudentActivityPersistence,
   studentActivityNormalizeStoredMediaObjectKey as normalizeStoredMediaObjectKeyFromStudentActivityPersistence,
-  type StudentActivityPersistenceDatabase
+  type StudentActivityPersistenceDatabase,
+  type StudentActivityUpdateLessonProgressInput
 } from "@/lib/server/userStore/studentActivityPersistence";
 import { createStudentActivityUserStore } from "@/lib/server/userStore/studentActivityStore";
 import {
@@ -735,6 +750,7 @@ import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
 import {
   ensurePostgresStudentActivityTables,
+  useSharedPostgresStudentActivityClient,
   readLearningEventsFastForUsers
 } from "@/lib/server/practiceAttemptStore";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
@@ -1133,6 +1149,7 @@ export type TeacherMasteryTargetRecord = {
   mastery: number;
   note: string;
   updated_at: string;
+  source_group_id?: string;
 };
 
 export type AdaptiveSkillStateRecord = {
@@ -1665,6 +1682,7 @@ export type PrepTeamShareRecord = {
 };
 
 export type AssessmentRecord = {
+  assigned_student_ids?: string[];
   id: string;
   class_id: string;
   title_en: string;
@@ -1993,6 +2011,7 @@ type AuthenticatedLoginResult = {
   status: "authenticated";
   session: AuthenticatedUser;
   sessionRevision: number;
+  accountGeneration?: string;
   database?: Database;
 };
 
@@ -2492,14 +2511,21 @@ function seedProductionLessonBlockRecords(
 }
 
 function seedLessonBlockRecords(): LessonBlockRecord[] {
+  const questionsByTopic = new Map<string, typeof seedQuestions>();
+  for (const question of seedQuestions) {
+    const topicId = question.topicId;
+    const topicQuestions = questionsByTopic.get(topicId);
+    if (topicQuestions) topicQuestions.push(question);
+    else questionsByTopic.set(topicId, [question]);
+  }
+
   return seedTopics.flatMap((topic, topicIndex) => {
     if (!shouldSeedLessonForTopic(topic)) return [];
 
     const slug = lessonSlugForTopic(topic.id);
-	    const topicQuestions = seedQuestions
-	      .filter((question) => question.topicId === topic.id)
-	      .map((question) => question.id);
-	    const anchorQuestion = seedQuestions.find((question) => question.topicId === topic.id);
+    const questions = questionsByTopic.get(topic.id) ?? [];
+    const topicQuestions = questions.map((question) => question.id);
+    const anchorQuestion = questions[0];
 	    const workedExampleAnswer = anchorQuestion ? formatWorkedExampleAnswer(anchorQuestion.answer) : "";
 	    const workedExampleEn = anchorQuestion
 	      ? `${anchorQuestion.prompt.en} Answer: ${workedExampleAnswer}. ${anchorQuestion.explanation.en}`
@@ -3510,7 +3536,7 @@ async function postgresStorageTriggerContractsAreComplete(
   includeReadinessInvalidation: boolean,
   compatibilityVersion: "canonical" | "legacy-v1" = "canonical"
 ) {
-  const rows = await sql`
+  let rows = await sql`
     /* postgres_storage_readiness_invalidation_probe */
     SELECT
       relation.relkind::text AS relation_kind,
@@ -3579,6 +3605,20 @@ async function postgresStorageTriggerContractsAreComplete(
     WHERE namespace.nspname = 'public'
   ` as PostgresStorageInvalidationCatalogRow[];
 
+  const authorityGuards = rows.filter(row => row.trigger_name === "learner_authority_source_guard");
+  if (authorityGuards.length) {
+    const guard = authorityGuards[0];
+    if (authorityGuards.length !== 1 || guard.relation_kind !== "r" || guard.rewrite_rule_count !== 0
+      || guard.trigger_enabled !== "A" || guard.trigger_type !== 62 || guard.trigger_argument_count !== 0
+      || guard.trigger_arguments_empty !== true || !Array.isArray(guard.trigger_update_columns) || guard.trigger_update_columns.length !== 0
+      || guard.function_schema !== "learner_authority" || guard.function_name !== "guard_write"
+      || guard.function_result_type !== "trigger" || guard.function_language !== "plpgsql" || guard.function_security_definer !== false
+      || guard.function_volatility !== "v" || !isDeepStrictEqual(guard.function_config, ["search_path=pg_catalog, learner_authority"])
+      || guard.function_source !== learnerAuthorityGuardBody || guard.function_owner_matches_relation !== true
+      || guard.function_dependency_exact !== true || guard.relation_dependency_exact !== true
+      || normalizedPostgresDefinition(guard.trigger_definition) !== "CREATE TRIGGER learner_authority_source_guard BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON public.app_state FOR EACH STATEMENT EXECUTE FUNCTION learner_authority.guard_write()") return false;
+    rows = rows.filter(row => row !== guard);
+  }
   if (rows.length !== (includeReadinessInvalidation ? 2 : 1)) return false;
   const rowsByTrigger = new Map<string, PostgresStorageInvalidationCatalogRow>();
   for (const row of rows) {
@@ -5641,13 +5681,74 @@ async function completePostgresStorageReadinessMarkerOnClient(
   });
 }
 
-const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
+const ensureLegacyPostgresStateTable = createPostgresSchemaReadinessGate({
   readCurrentMarker: hasCurrentPostgresSchemaMarker,
   bootstrap: () => runPostgresBootstrapWithContentionRecovery({
     bootstrap: bootstrapPostgresStateTables,
     readCurrentMarker: hasCurrentPostgresSchemaMarker
   })
 });
+
+function independentLearnerWritesEnabled() {
+  return storageProvider === "postgres" && process.env.HK_MATH_LEARNER_AUTHORITY === "independent";
+}
+let learnerAuthorityInitialization: Promise<void> | undefined;
+let learnerAuthorityContent: object | undefined;
+function currentLearnerAuthorityContent() {
+  if (!learnerAuthorityContent) {
+    const { topics, questions, lessons, lesson_blocks } = normalizedSeedOnlyLessonContent();
+    learnerAuthorityContent = bindLearnerAuthorityContent({ topics, questions, lessons, lesson_blocks,
+      reward_rules: automaticRewardAuthorityRules(), gamification_economy: gamificationEconomy });
+  }
+  return learnerAuthorityContent;
+}
+async function ensurePostgresStateTable() {
+  await ensureLegacyPostgresStateTable();
+  if (!independentLearnerWritesEnabled() && !await hasAuthorityInstallation(getPostgresClient())) return;
+  if (!learnerAuthorityInitialization) {
+    const attempt = (async () => {
+      useSharedPostgresStudentActivityClient(getPostgresClient());
+      await ensurePostgresStudentActivityTables();
+      await installLearnerAuthoritySchema(getPostgresClient(), async sql => {
+        await configurePostgresAccountWriteTransaction(sql);
+        const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true, true);
+        await syncPostgresProjectionTablesWith(sql, database);
+        if (!await postgresLessonContentProjectionsMatchByRecord(sql, database)) throw new LearnerAuthorityError("authority-content-unavailable");
+        await refreshLearnerAuthority(sql, cloneLessonValue(database) as unknown as Record<string, unknown>, currentLearnerAuthorityContent(), storageCapability.previousRevision, { activate: independentLearnerWritesEnabled() });
+      });
+    })();
+    learnerAuthorityInitialization = attempt;
+    void attempt.catch(() => { if (learnerAuthorityInitialization === attempt) learnerAuthorityInitialization = undefined; });
+  }
+  await learnerAuthorityInitialization;
+}
+
+export async function learnerAuthorityIsInstalled() {
+  if (storageProvider !== "postgres") return false;
+  await ensurePostgresStateTable();
+  return hasAuthorityInstallation(getPostgresClient());
+}
+
+export async function getLearnerAuthoritySessionGeneration(userId: string): Promise<string | null> {
+  if (storageProvider !== "postgres") return null;
+  await ensurePostgresStateTable();
+  return getPostgresClient().begin(async sql => {
+    if (!await lockLearnerAuthority(sql, "shared")) return null;
+    await assertLearnerAuthoritySchema(sql);
+    const [row] = await sql<Array<{ generation: string }>>`SELECT generation FROM learner_authority.accounts WHERE user_id=${userId} AND mode<>'erased'`;
+    if (!row) throw new LearnerAuthorityError("authority-actor-rejected", 401);
+    return row.generation;
+  });
+}
+
+export async function getLearnerAuthoritySaveIdentity(userId: string) {
+  if (storageProvider !== "postgres") return null;
+  await ensurePostgresStateTable();
+  return getPostgresClient().begin(async sql => {
+    if (!await lockLearnerAuthority(sql, "shared")) return null;
+    return readLearnerAuthorityIdentity(sql, userId);
+  });
+}
 
 export type PostgresStorageProductionSchemaState =
   | "empty"
@@ -5877,10 +5978,12 @@ async function runTeacherNoticeEmailOutboxPostgresPublicationTransaction<T>(
       statementTimeout,
       idleTransactionTimeout
     }),
-    acquireStorageCooperativeAdvisoryLock: (transactionSql) =>
-      acquirePostgresStorageContractSharedAdvisoryLock(
+    acquireStorageCooperativeAdvisoryLock: async (transactionSql) => {
+      await acquirePostgresStorageContractSharedAdvisoryLock(
         transactionSql as unknown as PostgresReadinessTransaction
-      ),
+      );
+      if (await lockLearnerAuthority(transactionSql, "exclusive")) await assertLearnerAuthoritySchema(transactionSql);
+    },
     acquireOutboxCooperativeAdvisoryLock: async (transactionSql) => {
       await transactionSql`
         SELECT pg_catalog.pg_advisory_xact_lock_shared(
@@ -6438,6 +6541,10 @@ function postgresProjectionRecord(sql: PostgresExecutor, record: unknown) {
 }
 
 const maxPostgresParametersPerStatement = 65000;
+const authorityProjectionTransactions = new WeakSet<object>();
+function retiredAuthorityProjection(sql: PostgresExecutor, table: string) {
+  return authorityProjectionTransactions.has(sql) && (learnerAuthorityRetiredProjectionTables as readonly string[]).includes(table);
+}
 
 function postgresBulkInsertBatchSize(columnCount: number) {
   if (!Number.isInteger(columnCount) || columnCount < 1) {
@@ -6454,7 +6561,7 @@ async function upsertPostgresProjectionRows<Row>(
   columns: readonly string[],
   upsertBatch: (rows: Row[]) => Promise<void>
 ) {
-  void sql;
+  if (retiredAuthorityProjection(sql, table)) return;
   if (!rows.length) return;
 
   const batchSize = postgresBulkInsertBatchSize(columns.length);
@@ -6473,6 +6580,7 @@ async function deleteMissingPostgresProjectionRows(
   keyColumn: string,
   keys: string[]
 ) {
+  if (retiredAuthorityProjection(sql, table)) { await sql.unsafe(`DELETE FROM public.${table}`); return; }
   if (keys.length) {
     await sql.unsafe(`DELETE FROM ${table} WHERE NOT (${keyColumn} = ANY($1))`, [keys]);
     return;
@@ -6487,6 +6595,7 @@ async function deleteMissingPostgresProjectionCompositeRows(
   keyExpression: string,
   keys: string[]
 ) {
+  if (retiredAuthorityProjection(sql, table)) { await sql.unsafe(`DELETE FROM public.${table}`); return; }
   if (keys.length) {
     await sql.unsafe(`DELETE FROM ${table} WHERE NOT (${keyExpression} = ANY($1))`, [keys]);
     return;
@@ -6497,8 +6606,12 @@ async function deleteMissingPostgresProjectionCompositeRows(
 
 const projectionCompositeKey = (...parts: string[]) => parts.join("\x1f");
 
-async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database: Database) {
+async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database: Database, unchangedContent = false) {
   if (!postgresProjectionTablesShadowSyncEnabled()) return;
+  // These unique-key projections cannot represent ordered duplicate history.
+  // All installed-mode readers consume the canonical authority overlay. Retire
+  // their obsolete copies atomically with backfill/full writes, including PII.
+  if (await hasAuthorityInstallation(sql)) authorityProjectionTransactions.add(sql);
 
   const users = database.users.map((record) => ({
     id: record.id,
@@ -6562,57 +6675,74 @@ async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database:
   }
   await deleteMissingPostgresProjectionRows(sql, "projection_user_settings", "user_id", userSettings.map((row) => row.user_id));
 
-  const topics = database.topics.map((record) => ({
-    id: record.id,
-    grade: record.grade,
-    curriculum_track: record.curriculum_track,
-    curriculum_region: record.curriculum_region ?? null,
-    textbook_publisher: record.textbook_publisher ?? null,
-    sort_order: record.sort_order,
-    record: postgresProjectionRecord(sql, record)
-  }));
-  if (topics.length) {
-    const topicColumns = ["id", "grade", "curriculum_track", "curriculum_region", "textbook_publisher", "sort_order", "record"] as const;
-    await upsertPostgresProjectionRows(sql, "projection_topics", topics, topicColumns, async (batch) => {
-      await sql`
-        INSERT INTO projection_topics ${sql(batch, ...topicColumns)}
-        ON CONFLICT (id) DO UPDATE SET
-          grade = excluded.grade,
-          curriculum_track = excluded.curriculum_track,
-          curriculum_region = excluded.curriculum_region,
-          textbook_publisher = excluded.textbook_publisher,
-          sort_order = excluded.sort_order,
-          record = excluded.record
-      `;
-    });
-  }
-  await deleteMissingPostgresProjectionRows(sql, "projection_topics", "id", topics.map((row) => row.id));
+  if (!unchangedContent) {
+    const topics = database.topics.map((record) => ({
+      id: record.id,
+      grade: record.grade,
+      curriculum_track: record.curriculum_track,
+      curriculum_region: record.curriculum_region ?? null,
+      textbook_publisher: record.textbook_publisher ?? null,
+      sort_order: record.sort_order,
+      record: postgresProjectionRecord(sql, record)
+    }));
+    if (topics.length) {
+      const topicColumns = ["id", "grade", "curriculum_track", "curriculum_region", "textbook_publisher", "sort_order", "record"] as const;
+      await upsertPostgresProjectionRows(sql, "projection_topics", topics, topicColumns, async (batch) => {
+        await sql`
+          INSERT INTO projection_topics ${sql(batch, ...topicColumns)}
+          ON CONFLICT (id) DO UPDATE SET
+            grade = excluded.grade,
+            curriculum_track = excluded.curriculum_track,
+            curriculum_region = excluded.curriculum_region,
+            textbook_publisher = excluded.textbook_publisher,
+            sort_order = excluded.sort_order,
+            record = excluded.record
+        `;
+      });
+    }
+    await deleteMissingPostgresProjectionRows(sql, "projection_topics", "id", topics.map((row) => row.id));
 
-  const questions = database.questions.map((record) => ({
-    id: record.id,
-    grade: record.grade,
-    topic_id: record.topic_id,
-    curriculum_track: record.curriculum_track,
-    curriculum_region: record.curriculum_region ?? null,
-    textbook_publisher: record.textbook_publisher ?? null,
-    record: postgresProjectionRecord(sql, record)
-  }));
-  if (questions.length) {
-    const questionColumns = ["id", "grade", "topic_id", "curriculum_track", "curriculum_region", "textbook_publisher", "record"] as const;
-    await upsertPostgresProjectionRows(sql, "projection_questions", questions, questionColumns, async (batch) => {
-      await sql`
-        INSERT INTO projection_questions ${sql(batch, ...questionColumns)}
-        ON CONFLICT (id) DO UPDATE SET
-          grade = excluded.grade,
-          topic_id = excluded.topic_id,
-          curriculum_track = excluded.curriculum_track,
-          curriculum_region = excluded.curriculum_region,
-          textbook_publisher = excluded.textbook_publisher,
-          record = excluded.record
-      `;
-    });
+    const questions = database.questions.map((record) => ({
+      id: record.id,
+      grade: record.grade,
+      topic_id: record.topic_id,
+      curriculum_track: record.curriculum_track,
+      curriculum_region: record.curriculum_region ?? null,
+      textbook_publisher: record.textbook_publisher ?? null,
+      record: postgresProjectionRecord(sql, record)
+    }));
+    if (questions.length) {
+      const questionColumns = ["id", "grade", "topic_id", "curriculum_track", "curriculum_region", "textbook_publisher", "record"] as const;
+      await upsertPostgresProjectionRows(sql, "projection_questions", questions, questionColumns, async (batch) => {
+        await sql`
+          INSERT INTO projection_questions ${sql(batch, ...questionColumns)}
+          ON CONFLICT (id) DO UPDATE SET
+            grade = excluded.grade,
+            topic_id = excluded.topic_id,
+            curriculum_track = excluded.curriculum_track,
+            curriculum_region = excluded.curriculum_region,
+            textbook_publisher = excluded.textbook_publisher,
+            record = excluded.record
+          WHERE (
+            projection_questions.grade,
+            projection_questions.topic_id,
+            projection_questions.curriculum_track,
+            projection_questions.curriculum_region,
+            projection_questions.textbook_publisher,
+            projection_questions.record
+          ) IS DISTINCT FROM (
+            excluded.grade,
+            excluded.topic_id,
+            excluded.curriculum_track,
+            excluded.curriculum_region,
+            excluded.textbook_publisher,
+            excluded.record
+          )
+        `;
+      });
+    }
+    await deleteMissingPostgresProjectionRows(sql, "projection_questions", "id", questions.map((row) => row.id));
   }
-  await deleteMissingPostgresProjectionRows(sql, "projection_questions", "id", questions.map((row) => row.id));
 
   const attempts = database.attempts.map((record) => ({
     id: record.id,
@@ -6710,6 +6840,17 @@ async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database:
           status = excluded.status,
           updated_at = excluded.updated_at,
           record = excluded.record
+        WHERE (
+          projection_lesson_progress.lesson_slug,
+          projection_lesson_progress.status,
+          projection_lesson_progress.updated_at,
+          projection_lesson_progress.record
+        ) IS DISTINCT FROM (
+          excluded.lesson_slug,
+          excluded.status,
+          excluded.updated_at,
+          excluded.record
+        )
       `;
     });
   }
@@ -7347,14 +7488,58 @@ function omitUnstoredDemoSeedRecords(existing: Partial<Database>, normalized: Da
   };
 }
 
-function normalizeDatabase(database: Partial<Database>) {
+const seedOnlyLessonContentBrand = Symbol("seed-only-lesson-content");
+type SeedOnlyLessonContent = Pick<Database, "topics" | "questions" | "lessons" | "lesson_blocks"> & {
+  readonly [seedOnlyLessonContentBrand]: true;
+};
+let seedOnlyLessonContent: SeedOnlyLessonContent | undefined;
+
+function freezeLessonContextValue<T>(value: T): T {
+  if (value && typeof value === "object" && !Object.isFrozen(value)) {
+    for (const child of Object.values(value)) freezeLessonContextValue(child);
+    Object.freeze(value);
+  }
+  return value;
+}
+
+function storedLessonContentIsEmpty(database: Partial<Database>) {
+  return (["topics", "questions", "lessons", "lesson_blocks"] as const)
+    .every(key => Array.isArray(database[key]) && database[key]!.length === 0);
+}
+
+function normalizedSeedOnlyLessonContent(): SeedOnlyLessonContent {
+  if (!seedOnlyLessonContent) {
+    // Copy before freezing: imported source records are also used by other paths.
+    const database = normalizeDatabase({ users: [], student_profiles: [], user_settings: [] });
+    const content = JSON.parse(JSON.stringify({ topics: database.topics, questions: database.questions,
+      lessons: database.lessons, lesson_blocks: database.lesson_blocks })) as SeedOnlyLessonContent;
+    Object.defineProperty(content, seedOnlyLessonContentBrand, { value: true });
+    seedOnlyLessonContent = freezeLessonContextValue(content);
+  }
+  return seedOnlyLessonContent;
+}
+
+function compactSeedOnlyLessonDatabase(database: Database, content: SeedOnlyLessonContent): Database {
+  if (content !== seedOnlyLessonContent || content[seedOnlyLessonContentBrand] !== true
+    || database.topics !== content.topics || database.questions !== content.questions
+    || database.lessons !== content.lessons || database.lesson_blocks !== content.lesson_blocks) {
+    throw new Error("Invalid seed-only lesson context.");
+  }
+  return { ...database, topics: [], questions: [], lessons: [], lesson_blocks: [] };
+}
+
+function normalizeDatabase(database: Partial<Database>, lessonContent?: SeedOnlyLessonContent) {
+  if (lessonContent && (lessonContent !== seedOnlyLessonContent
+    || lessonContent[seedOnlyLessonContentBrand] !== true || !storedLessonContentIsEmpty(database))) {
+    throw new Error("Invalid seed-only lesson context.");
+  }
   const now = new Date().toISOString();
   const allowDemoSeedBackfill = shouldBackfillDemoSeed();
   const persistedShouldSeedDemoUser = () => allowDemoSeedBackfill && shouldSeedDemoUser();
-  const canonicalTopics = seedTopicRecords();
+  const canonicalTopics = lessonContent?.topics ?? seedTopicRecords();
   const canonicalTopicById = new Map(canonicalTopics.map((topic) => [topic.id, topic]));
-  const canonicalLessons = seedLessonRecords();
-  const canonicalLessonBlocks = seedLessonBlockRecords();
+  const canonicalLessons = lessonContent?.lessons ?? seedLessonRecords();
+  const canonicalLessonBlocks = lessonContent?.lesson_blocks ?? seedLessonBlockRecords();
   const canonicalLessonBlockIds = new Set(canonicalLessonBlocks.map((block) => block.id));
   const bnuJuniorLessonSlugs = new Set(
     canonicalLessons
@@ -7499,7 +7684,7 @@ function normalizeDatabase(database: Partial<Database>) {
     }
   );
 
-  const topics = mergeSeedRecordsPreservingExisting(database.topics, canonicalTopics, (topic) => topic.id)
+  const topics = lessonContent?.topics ?? mergeSeedRecordsPreservingExisting(database.topics, canonicalTopics, (topic) => topic.id)
     .map((topic, index) => {
       const canonical = canonicalTopicById.get(topic.id);
       const topicWithoutOldCourse = { ...topic };
@@ -7555,7 +7740,7 @@ function normalizeDatabase(database: Partial<Database>) {
     }),
     password_reset_tokens: normalizePasswordResetTokenRecordsFromAuthSessionPersistence(database.password_reset_tokens),
     topics,
-    lessons: mergeSeedRecords(database.lessons, canonicalLessons, (lesson) => lesson.slug).map((lesson) => {
+    lessons: lessonContent?.lessons ?? mergeSeedRecords(database.lessons, canonicalLessons, (lesson) => lesson.slug).map((lesson) => {
       const topic = topics.find((candidate) => candidate.id === lesson.topic_id);
       return {
         ...lesson,
@@ -7564,8 +7749,8 @@ function normalizeDatabase(database: Partial<Database>) {
         textbook_publisher: lesson.textbook_publisher ?? topic?.textbook_publisher
       };
     }),
-    lesson_blocks: mergeSeedRecords(existingLessonBlocks, canonicalLessonBlocks, (block) => block.id),
-    questions: mergeSeedRecords(
+    lesson_blocks: lessonContent?.lesson_blocks ?? mergeSeedRecords(existingLessonBlocks, canonicalLessonBlocks, (block) => block.id),
+    questions: lessonContent?.questions ?? mergeSeedRecords(
       (database.questions ?? []).filter((question) => !isGeneratedCoverageQuestionRecord(question)),
       seedQuestionRecords(),
       (question) => question.id
@@ -7858,6 +8043,10 @@ function seedTopicCourseMetadataDiffers(parsed: Partial<Database>, database: Dat
 }
 
 export function postgresStorageSnapshotContractIsComplete(value: unknown) {
+  return postgresStorageSnapshotContractIsCompleteWithContent(value);
+}
+
+function postgresStorageSnapshotContractIsCompleteWithContent(value: unknown, lessonContent?: SeedOnlyLessonContent) {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const parsed = value;
   if (!hasCoreTables(parsed)) return false;
@@ -7865,7 +8054,7 @@ export function postgresStorageSnapshotContractIsComplete(value: unknown) {
     return false;
   }
   try {
-    const database = normalizeDatabase(parsed);
+    const database = normalizeDatabase(parsed, lessonContent);
     return !databaseNeedsPersistenceSync(parsed, database, { allowGuardianInvitationSanitization: true });
   } catch {
     return false;
@@ -7886,9 +8075,11 @@ export type PostgresStorageMutationCapability = Readonly<{
 }>;
 
 function validateCompletePostgresStorageSnapshot(
-  snapshot: unknown
+  snapshot: unknown,
+  lessonContent?: SeedOnlyLessonContent
 ): ValidatedPostgresStorageSnapshot {
-  if (!postgresStorageSnapshotContractIsComplete(snapshot)) {
+  if (!(lessonContent ? postgresStorageSnapshotContractIsCompleteWithContent(snapshot, lessonContent)
+    : postgresStorageSnapshotContractIsComplete(snapshot))) {
     throw new Error("Postgres storage snapshot is incomplete.");
   }
   return Object.freeze({
@@ -8080,6 +8271,9 @@ export async function acquirePostgresStorageMutationCapability(
     SELECT pg_catalog.set_config('search_path', 'pg_catalog, public', true)
   `;
   await acquirePostgresStorageContractSharedAdvisoryLock(sql);
+  if (await lockLearnerAuthority(sql as unknown as postgres.TransactionSql, "exclusive")) {
+    await assertLearnerAuthoritySchema(sql as unknown as postgres.TransactionSql);
+  }
   await lockPostgresStorageMutationRelations(sql);
   return acquirePostgresStorageMutationCapabilityAfterLocks(sql, state);
 }
@@ -8087,7 +8281,9 @@ export async function acquirePostgresStorageMutationCapability(
 export async function advancePostgresStorageReadinessAfterMutation(
   sql: PostgresReadinessTransaction,
   capability: PostgresStorageMutationCapability,
-  currentRevision: number
+  currentRevision: number,
+  authorityDatabase?: Database,
+  authorityBaseline?: LearnerAuthorityBaseline
 ) {
   if (
     !capability
@@ -8099,6 +8295,14 @@ export async function advancePostgresStorageReadinessAfterMutation(
   if (currentRevision === capability.previousRevision) return;
   if (currentRevision !== capability.previousRevision + 1) {
     throw new Error("Postgres storage readiness is unavailable.");
+  }
+  const transaction = sql as unknown as postgres.TransactionSql;
+  if (await hasAuthorityInstallation(transaction)) {
+    const database = authorityDatabase ?? await readPostgresDatabaseFrom(transaction, true, true);
+    if (!await postgresLessonContentProjectionsMatchByRecord(transaction, database)) throw new LearnerAuthorityError("authority-content-unavailable");
+    const [reset] = await transaction<Array<{ user_id: string | null }>>`SELECT current_setting('mais.learner_authority_reset_user',true) AS user_id`;
+    await refreshLearnerAuthority(transaction, cloneLessonValue(database) as unknown as Record<string, unknown>, currentLearnerAuthorityContent(), currentRevision,
+      { activate: independentLearnerWritesEnabled(), resetSubjects: reset?.user_id ? [reset.user_id] : [], baseline: authorityBaseline });
   }
   await restorePostgresStorageReadinessMarkerAtRevision(
     sql,
@@ -8378,7 +8582,11 @@ async function selectPostgresStateRows(sql: PostgresExecutor, lockForUpdate = fa
   `;
 }
 
-async function normalizeLockedPostgresState(sql: PostgresExecutor) {
+async function normalizeLockedPostgresState(
+  sql: PostgresExecutor,
+  deferProjectionSync = false,
+  capturePayload?: (payload: unknown) => void
+) {
   const rows = await selectPostgresStateRows(sql, true);
   if (
     rows.length !== 1
@@ -8390,24 +8598,33 @@ async function normalizeLockedPostgresState(sql: PostgresExecutor) {
   if (!hasCoreTables(parsed)) {
     throw new Error("Postgres storage snapshot is incomplete.");
   }
+  capturePayload?.(rows[0].payload);
+  const authorityInstalled = await hasAuthorityInstallation(sql);
+  if (authorityInstalled && Object.keys(authorityComponents).some(component => !Array.isArray((parsed as unknown as Record<string, unknown>)[component]))) {
+    throw new LearnerAuthorityError("malformed-authority-component");
+  }
   const snapshotDatabase = overlayPostgresAiTutorJournals(normalizeDatabase(parsed), rows[0]);
-  const database = await overlayPostgresHotAuthRowsIfEnabled(sql, snapshotDatabase);
-  await syncPostgresHotAuthTablesWith(sql, database);
-  await syncPostgresProjectionTablesWith(sql, database);
-  return database;
+  const database = await overlayPostgresStudentActivity(sql, await overlayPostgresHotAuthRowsIfEnabled(sql, snapshotDatabase), { lossless: authorityInstalled });
+  if (!authorityInstalled) await syncPostgresHotAuthTablesWith(sql, database);
+  if (!deferProjectionSync) await syncPostgresProjectionTablesWith(sql, database);
+  return authorityInstalled
+    ? await overlayLearnerAuthorities(sql, database as unknown as Record<string, unknown>) as unknown as Database
+    : database;
 }
 
-async function readPostgresDatabaseForMutation(sql: PostgresExecutor, tableReady = false) {
+async function readPostgresDatabaseForMutation(sql: PostgresExecutor, tableReady = false, deferProjectionSync = false) {
   if (!tableReady) await ensurePostgresStateTable();
   const storageCapability = await acquirePostgresStorageMutationCapability(
     sql as unknown as PostgresReadinessTransaction,
     currentPostgresStorageReadinessState()
   );
-  const database = await normalizeLockedPostgresState(sql);
+  await postgresStudentActivityExclusiveLockQuery(sql);
+  const database = await normalizeLockedPostgresState(sql, deferProjectionSync);
   return { database, storageCapability };
 }
 
-async function readPostgresDatabaseFrom(sql: PostgresExecutor, tableReady = false) {
+const authoritySeedContentMatches = new WeakMap<object, boolean>();
+async function readPostgresDatabaseFrom(sql: PostgresExecutor, tableReady = false, refreshingAuthority = false) {
   if (!tableReady) await ensurePostgresStateTable();
   const rows = await selectPostgresStateRows(sql);
   if (
@@ -8420,14 +8637,39 @@ async function readPostgresDatabaseFrom(sql: PostgresExecutor, tableReady = fals
   if (!hasCoreTables(parsed)) {
     throw new Error("Postgres storage snapshot is incomplete.");
   }
-  return overlayPostgresHotAuthRowsIfEnabled(
+  const authorityInstalled = await hasAuthorityInstallation(sql);
+  let readContent: SeedOnlyLessonContent | undefined;
+  if (authorityInstalled && !refreshingAuthority) {
+    const canonical = await readLearnerAuthorityContent(sql, currentLearnerAuthorityContent());
+    if (storedLessonContentIsEmpty(parsed)) {
+      const seed = normalizedSeedOnlyLessonContent();
+      let matches = authoritySeedContentMatches.get(canonical);
+      if (matches === undefined) {
+        matches = isDeepStrictEqual(canonical, { topics: seed.topics, questions: seed.questions, lessons: seed.lessons, lesson_blocks: seed.lesson_blocks });
+        authoritySeedContentMatches.set(canonical, matches);
+      }
+      if (matches) readContent = seed;
+    }
+  }
+  const database = await overlayPostgresStudentActivity(sql, await overlayPostgresHotAuthRowsIfEnabled(
     sql,
-    overlayPostgresAiTutorJournals(normalizeDatabase(parsed), rows[0])
-  );
+    overlayPostgresAiTutorJournals(normalizeDatabase(parsed, readContent), rows[0])
+  ), { lossless: authorityInstalled });
+  return authorityInstalled
+    ? await overlayLearnerAuthorities(sql, database as unknown as Record<string, unknown>) as unknown as Database
+    : database;
 }
 
 async function readPostgresDatabase() {
-  return readPostgresDatabaseFrom(getPostgresClient());
+  await ensurePostgresStateTable();
+  return getPostgresClient().begin("isolation level repeatable read", async (sql) => {
+    await configurePostgresAccountWriteTransaction(sql);
+    await lockLearnerAuthority(sql, "shared");
+    await postgresStudentActivitySharedLockQuery(sql);
+    const database = await readPostgresDatabaseFrom(sql, true);
+    await validateMutationActor(database, sql);
+    return database;
+  });
 }
 
 type PostgresFullWriterFaultMode =
@@ -8538,14 +8780,36 @@ async function applyPostgresFullWriterPostReturningDriftForIntegrationTest(
 async function writePostgresDatabaseWith(
   sql: PostgresExecutor,
   database: Database,
-  storageCapability: PostgresStorageMutationCapability
+  storageCapability: PostgresStorageMutationCapability,
+  lessonPatch?: Record<string, postgres.JSONValue>,
+  lessonContent?: SeedOnlyLessonContent,
+  lessonSnapshot?: { payload: postgres.JSONValue; serialized: string }
 ) {
   const startedAt = Date.now();
   try {
+    const authorityBaseline = await hasAuthorityInstallation(sql) ? await captureLearnerAuthorityBaseline(sql) : undefined;
+    const [publicationState] = authorityBaseline ? await sql<Array<{ sealed: boolean }>>`SELECT attested_epoch=content_epoch
+      AND state_revision=(SELECT revision FROM public.app_state WHERE id='primary') AS sealed FROM learner_authority.control WHERE id='primary'` : [];
+    // Maintenance callers may already have invalidated source attestation. They
+    // keep the original full synchronization and reseal path; proof errors are
+    // never caught or treated as permission to skip validation.
+    const unchangedAuthorityContent = publicationState?.sealed === true ? isDeepStrictEqual(
+      await readLearnerAuthorityContent(sql, currentLearnerAuthorityContent()),
+      cloneLessonValue({ topics: database.topics, questions: database.questions, lessons: database.lessons, lesson_blocks: database.lesson_blocks })
+    ) : false;
     recordPostgresFullWriterTestStage("capability-acquired");
     await installPostgresFullWriterFaultForIntegrationTest(sql);
     databaseIndexCache.delete(database);
-    const payload = postgresDatabasePayload(database);
+    if (lessonContent && !lessonSnapshot) throw new Error("Postgres lesson snapshot is required.");
+    const payload = lessonContent
+      ? lessonSnapshot!.payload
+      : postgresDatabasePayload(database);
+    // The scoped caller captures this exact JSON once, before any asynchronous
+    // write. Validate that snapshot locally; both database readbacks still
+    // compare every payload field against the same immutable serialized value.
+    // Generic/legacy full writers retain their complete RETURNING validation.
+    if (lessonContent) validateCompletePostgresStorageSnapshot(payload, lessonContent);
+    const expectedPayloadParameter = lessonContent ? lessonSnapshot!.serialized : sql.json(payload);
     recordPostgresFullWriterTestStage("update-executing");
     const stateRows = await sql<Array<{
       payload: unknown;
@@ -8557,7 +8821,9 @@ async function writePostgresDatabaseWith(
       UPDATE public.app_state AS state
       SET
         revision = state.revision + 1,
-        payload = ${sql.json(payload)}::pg_catalog.jsonb,
+        payload = CASE WHEN ${lessonPatch !== undefined}
+          THEN state.payload || ${sql.json(lessonPatch ?? {})}::pg_catalog.jsonb
+          ELSE ${sql.json(lessonPatch ? {} : payload)}::pg_catalog.jsonb END,
         updated_at = ${new Date().toISOString()}
       WHERE state.id = ${stateRecordId}
         AND state.tenant_id = ${stateTenantId}
@@ -8565,13 +8831,13 @@ async function writePostgresDatabaseWith(
         AND state.schema_version = ${schemaVersion}
         AND state.revision = ${storageCapability.previousRevision}
       RETURNING
-        state.payload,
+        CASE WHEN ${lessonContent !== undefined} THEN NULL::pg_catalog.jsonb ELSE state.payload END AS payload,
         state.revision,
         state.id = ${stateRecordId}
           AND state.tenant_id = ${stateTenantId}
           AND state.state_kind = ${stateKind}
           AND state.schema_version = ${schemaVersion} AS state_identity_matches,
-        state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches,
+        state.payload = ${expectedPayloadParameter}::pg_catalog.text::pg_catalog.jsonb AS payload_matches,
         state.revision = ${storageCapability.previousRevision + 1} AS revision_matches
     `;
     recordPostgresFullWriterTestStage("returning-received");
@@ -8587,11 +8853,17 @@ async function writePostgresDatabaseWith(
     ) {
       throw new Error("Postgres storage readiness is unavailable.");
     }
-    validateCompletePostgresStorageSnapshot(writtenState.payload);
+    if (!lessonContent) validateCompletePostgresStorageSnapshot(writtenState.payload);
     recordPostgresFullWriterTestStage("returning-validated");
     await applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql);
     await syncPostgresHotAuthTablesWith(sql, database);
-    await syncPostgresProjectionTablesWith(sql, database);
+    await syncPostgresStudentActivity(sql, database);
+    // The final readiness step still compares every source record against the
+    // database; equality here only avoids re-upserting an unchanged publication.
+    await syncPostgresProjectionTablesWith(sql, database, lessonPatch !== undefined || unchangedAuthorityContent);
+    await advancePostgresStorageReadinessAfterMutation(
+      sql as unknown as PostgresReadinessTransaction, storageCapability, revision, database, authorityBaseline
+    );
     recordPostgresFullWriterTestStage("final-reread-executing");
     const finalStateRows = await sql<Array<{
       payload_matches: boolean;
@@ -8600,7 +8872,7 @@ async function writePostgresDatabaseWith(
       /* postgres_storage_full_writer_final_state */
       SELECT
         current_state.revision,
-        current_state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches
+        current_state.payload = ${expectedPayloadParameter}::pg_catalog.text::pg_catalog.jsonb AS payload_matches
       FROM public.app_state AS current_state
       WHERE current_state.id = ${stateRecordId}
         AND current_state.tenant_id = ${stateTenantId}
@@ -8617,11 +8889,6 @@ async function writePostgresDatabaseWith(
     ) {
       throw new Error("Postgres storage readiness is unavailable.");
     }
-    await advancePostgresStorageReadinessAfterMutation(
-      sql as unknown as PostgresReadinessTransaction,
-      storageCapability,
-      revision
-    );
   } catch (error) {
     try {
       captureServerError(error, {
@@ -8691,6 +8958,64 @@ function writeSqliteDatabaseWithConnection(storage: DatabaseSync, database: Data
 }
 
 let mutationQueue: Promise<void> = Promise.resolve();
+const mutationActorContext = new AsyncLocalStorage<{ userId: string; sessionRevision: number; generation?: string; role: UserRole;
+  expiresAt?: number; subjects?: Map<string,string|null> }>();
+export async function withAuthenticatedMutation<T>(authenticated: { user: { id: string; role: UserRole }; sessionRevision?: number; accountGeneration?: string },
+  operation: () => Promise<T>, subjectIds: string[] = [], resource?: { kind: "submission" | "redemption"; id: string }) {
+  const expiresAt = Date.now() + 120_000;
+  let subjects: Map<string,string|null> | undefined;
+  if ((subjectIds.length || resource) && await learnerAuthorityIsInstalled()) {
+    const accounts = await getPostgresClient()<Array<{ user_id: string; generation: string }>>`
+      SELECT user_id,generation FROM learner_authority.accounts WHERE user_id=ANY(${subjectIds}::text[]) AND mode<>'erased'`;
+    subjects = new Map(subjectIds.map(id => [id, accounts.find(row => row.user_id === id)?.generation ?? null]));
+    if (resource) {
+      const owners = resource.kind === "submission"
+        ? await getPostgresClient()<Array<{ user_id: string; generation: string }>>`SELECT DISTINCT owner AS user_id,generation FROM learner_authority.claims
+            WHERE component='submissions' AND id_key=${resource.id}`
+        : await getPostgresClient()<Array<{ user_id: string; generation: string }>>`SELECT account.user_id,account.generation
+            FROM learner_authority.control control CROSS JOIN LATERAL jsonb_array_elements(control.shared_payload->'reward_redemptions') item
+            JOIN learner_authority.accounts account ON account.user_id=item->>'student_id'
+            WHERE control.id='primary' AND item->>'id'=${resource.id} AND account.mode<>'erased'`;
+      if (owners.length > 1) throw new LearnerAuthorityError("authority-resource-ambiguous", 409);
+      for (const owner of owners) subjects.set(owner.user_id, owner.generation);
+    }
+  }
+  return mutationActorContext.run({ userId: authenticated.user.id, role: authenticated.user.role,
+    sessionRevision: authenticated.sessionRevision ?? 0, generation: authenticated.accountGeneration, expiresAt, subjects }, operation);
+}
+async function validateMutationActor(database: Database, sql?: PostgresExecutor) {
+  let actor = mutationActorContext.getStore();
+  if (!actor && sql && await hasAuthorityInstallation(sql)) actor = await requestMutationActor();
+  if (!actor) return;
+  if (actor.expiresAt !== undefined && Date.now() > actor.expiresAt) throw new LearnerAuthorityError("authority-intent-expired", 409);
+  const user = database.users.find(user => user.id === actor.userId);
+  if (!user || user.disabled_at !== null || user.role !== actor.role || user.session_revision !== actor.sessionRevision) throw new LearnerAuthorityError("authority-actor-rejected", 401);
+  if (sql && await hasAuthorityInstallation(sql)) {
+    const [account] = await sql<Array<{ generation: string }>>`SELECT generation FROM learner_authority.accounts WHERE user_id=${actor.userId} AND mode<>'erased'`;
+    if (!account || account.generation !== actor.generation) throw new LearnerAuthorityError("authority-actor-rejected", 401);
+    for (const [userId, generation] of actor.subjects ?? []) {
+      const [subject] = await sql<Array<{ generation: string }>>`SELECT generation FROM learner_authority.accounts WHERE user_id=${userId} AND mode<>'erased'`;
+      if ((subject?.generation ?? null) !== generation) throw new LearnerAuthorityError("authority-subject-changed", 409);
+    }
+  }
+  return actor;
+}
+function validateMutationDeadline(actor = mutationActorContext.getStore()) {
+  const expiresAt = actor?.expiresAt;
+  if (expiresAt !== undefined && Date.now() > expiresAt) throw new LearnerAuthorityError("authority-intent-expired", 409);
+}
+
+async function bindCommittedSessionGeneration<T>(sql: PostgresExecutor, result: T) {
+  if (!result || typeof result !== "object" || !await hasAuthorityInstallation(sql)) return;
+  const value = result as { status?: string; session?: { user?: { id?: string } }; sessionRevision?: number; accountGeneration?: string };
+  if (!["created", "authenticated", "linked", "updated", "reset"].includes(value.status ?? "")
+    || !value.session?.user?.id || !Number.isSafeInteger(value.sessionRevision)) return;
+  const [account] = await sql<Array<{ generation: string }>>`SELECT account.generation FROM learner_authority.accounts account
+    JOIN public.auth_users actor ON actor.id=account.user_id
+    WHERE account.user_id=${value.session.user.id} AND account.mode<>'erased' AND actor.session_revision=${value.sessionRevision!} AND actor.disabled_at IS NULL`;
+  if (!account) throw new LearnerAuthorityError("authority-actor-rejected", 401);
+  value.accountGeneration = account.generation;
+}
 
 async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>) {
   if (storageProvider === "postgres") {
@@ -8702,10 +9027,17 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
           pg_catalog.set_config('lock_timeout', '1000ms', true),
           pg_catalog.set_config('statement_timeout', '5000ms', true)
       `;
-      const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true);
+      // This callback receives only the in-memory database. The final full
+      // writer synchronizes projections in this same guarded transaction.
+      const deferProjectionSync = true;
+      const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true, deferProjectionSync);
+      const actor = await validateMutationActor(database, sql);
       const result = await mutator(database);
+      validateMutationDeadline(actor);
       databaseIndexCache.delete(database);
       await writePostgresDatabaseWith(sql, database, storageCapability);
+      await bindCommittedSessionGeneration(sql, result);
+      validateMutationDeadline(actor);
       return result;
     });
   }
@@ -8720,6 +9052,7 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
         // non-idempotent provider or file-system work while it runs.
         const latest = readNormalizedSqliteState(storage);
         const database = latest?.database ?? await readLegacyDatabase() ?? createInitialDatabase();
+        await validateMutationActor(database);
         const result = await mutator(database);
         databaseIndexCache.delete(database);
         const metadata = writeSqliteDatabaseWithConnection(storage, database);
@@ -8739,6 +9072,476 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   );
 
   return run;
+}
+
+// A lesson patch still uses the full writer's CAS, exact payload readbacks and
+// readiness advancement. Unknown or removed fields retain the full writer.
+function postgresLessonPayloadPatch(previous: postgres.JSONValue, next: postgres.JSONValue) {
+  if (!previous || !next || Array.isArray(previous) || Array.isArray(next)
+    || typeof previous !== "object" || typeof next !== "object") return undefined;
+  const previousRecord = previous as Record<string, postgres.JSONValue>;
+  const nextRecord = next as Record<string, postgres.JSONValue>;
+  const allowed = new Set([
+    "lesson_progress", "adaptive_skill_state", "adaptive_recommendation_cache", "submissions",
+    "reward_point_ledger", "gamification_events", "attempts", "mistakes", "learning_events", "learning_event_clears"
+  ]);
+  const patch: Record<string, postgres.JSONValue> = {};
+  for (const key of Object.keys(previousRecord)) {
+    if (!Object.prototype.hasOwnProperty.call(nextRecord, key)) return undefined;
+  }
+  for (const [key, value] of Object.entries(nextRecord)) {
+    if (Object.prototype.hasOwnProperty.call(previousRecord, key) && isDeepStrictEqual(previousRecord[key], value)) continue;
+    if (!allowed.has(key)) return undefined;
+    patch[key] = value;
+  }
+  return patch;
+}
+
+function postgresLessonContentSnapshot(database: Database) {
+  // Deep JSON capture also catches changes to seed records omitted by compaction.
+  return JSON.stringify([database.topics, database.questions, database.lessons, database.lesson_blocks]);
+}
+
+async function postgresLessonContentProjectionsMatch(sql: PostgresExecutor, database: Database) {
+  if (new Set(database.topics.map(record => record.id)).size !== database.topics.length
+    || new Set(database.questions.map(record => record.id)).size !== database.questions.length) return false;
+  const topics = Object.fromEntries(database.topics.map(record => [record.id, [
+    record.grade, record.curriculum_track, record.curriculum_region ?? null,
+    record.textbook_publisher ?? null, record.sort_order, record
+  ]]));
+  const questions = Object.fromEntries(database.questions.map(record => [record.id, [
+    record.grade, record.topic_id, record.curriculum_track, record.curriculum_region ?? null,
+    record.textbook_publisher ?? null, record
+  ]]));
+  const rows = await sql<Array<{ topics_match: boolean; questions_match: boolean }>>`
+    /* postgres_lesson_current_content_projection_comparison */
+    SELECT
+      (SELECT pg_catalog.count(*) = ${database.topics.length}
+        AND COALESCE(pg_catalog.jsonb_object_agg(id, pg_catalog.jsonb_build_array(
+          grade, curriculum_track, curriculum_region, textbook_publisher, sort_order, record
+        )), '{}'::pg_catalog.jsonb) = ${sql.json(topics)}::pg_catalog.jsonb
+        FROM public.projection_topics) AS topics_match,
+      (SELECT pg_catalog.count(*) = ${database.questions.length}
+        AND COALESCE(pg_catalog.jsonb_object_agg(id, pg_catalog.jsonb_build_array(
+          grade, topic_id, curriculum_track, curriculum_region, textbook_publisher, record
+        )), '{}'::pg_catalog.jsonb) = ${sql.json(questions)}::pg_catalog.jsonb
+        FROM public.projection_questions) AS questions_match
+  `;
+  return rows.length === 1 && rows[0]?.topics_match === true && rows[0]?.questions_match === true;
+}
+
+let seedOnlyLessonProjectionRecords: { topics: string; questions: string } | undefined;
+
+async function postgresLessonContentProjectionsMatchByRecord(sql: PostgresExecutor, database: Database) {
+  if (new Set(database.topics.map(record => record.id)).size !== database.topics.length
+    || new Set(database.questions.map(record => record.id)).size !== database.questions.length) return false;
+  const sourceOnly = seedOnlyLessonContent && database.topics === seedOnlyLessonContent.topics
+    && database.questions === seedOnlyLessonContent.questions;
+  const expected = sourceOnly && seedOnlyLessonProjectionRecords ? seedOnlyLessonProjectionRecords : {
+    topics: JSON.stringify(Object.fromEntries(database.topics.map(record => [record.id, record]))),
+    questions: JSON.stringify(Object.fromEntries(database.questions.map(record => [record.id, record])))
+  };
+  if (sourceOnly) seedOnlyLessonProjectionRecords = expected;
+  // The ordinary equality permits primary-key lookups; the C equality still
+  // requires exact IDs even when the column collation treats variants as equal.
+  const rows = await sql<Array<{ topics_match: boolean; questions_match: boolean }>>`
+    /* postgres_lesson_current_content_record_comparison */
+    SELECT
+      (SELECT pg_catalog.count(*) = ${database.topics.length} FROM public.projection_topics)
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_catalog.jsonb_each(${expected.topics}::pg_catalog.text::pg_catalog.jsonb) AS expected(id, record)
+        LEFT JOIN public.projection_topics AS actual
+          ON actual.id = expected.id
+          AND actual.id COLLATE pg_catalog."C" = expected.id COLLATE pg_catalog."C"
+        WHERE actual.id IS NULL OR actual.record IS DISTINCT FROM expected.record
+          OR COALESCE(pg_catalog.to_jsonb(actual.grade), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'grade', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.curriculum_track), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'curriculum_track', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.curriculum_region), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'curriculum_region', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.textbook_publisher), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'textbook_publisher', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.sort_order), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'sort_order', 'null'::pg_catalog.jsonb)
+      ) AS topics_match,
+      (SELECT pg_catalog.count(*) = ${database.questions.length} FROM public.projection_questions)
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_catalog.jsonb_each(${expected.questions}::pg_catalog.text::pg_catalog.jsonb) AS expected(id, record)
+        LEFT JOIN public.projection_questions AS actual
+          ON actual.id = expected.id
+          AND actual.id COLLATE pg_catalog."C" = expected.id COLLATE pg_catalog."C"
+        WHERE actual.id IS NULL OR actual.record IS DISTINCT FROM expected.record
+          OR COALESCE(pg_catalog.to_jsonb(actual.grade), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'grade', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.topic_id), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'topic_id', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.curriculum_track), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'curriculum_track', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.curriculum_region), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'curriculum_region', 'null'::pg_catalog.jsonb)
+          OR COALESCE(pg_catalog.to_jsonb(actual.textbook_publisher), 'null'::pg_catalog.jsonb) IS DISTINCT FROM COALESCE(expected.record->'textbook_publisher', 'null'::pg_catalog.jsonb)
+      ) AS questions_match
+  `;
+  return rows.length === 1 && rows[0]?.topics_match === true && rows[0]?.questions_match === true;
+}
+
+type ScopedLessonContext = {
+  baseline: Database;
+  database: Database;
+  before: Database;
+  input: StudentActivityUpdateLessonProgressInput;
+  lesson: LessonRecord;
+};
+
+function cloneLessonValue<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function createScopedLessonContext(baseline: Database, input: StudentActivityUpdateLessonProgressInput): ScopedLessonContext | null {
+  const lesson = baseline.lessons.find(record => record.slug === input.slug);
+  const user = baseline.users.find(record => record.id === input.userId);
+  if (!lesson || !user) return null;
+  // Keep the original relative order and every owned row. The legacy callback
+  // deliberately has different slug-first lookup and OR-first replacement rules.
+  const enrollments = baseline.class_enrollments.filter(record => record.student_id === input.userId);
+  const classIds = new Set(enrollments.map(record => record.class_id));
+  const readonly = <T>(value: T) => freezeLessonContextValue(cloneLessonValue(value));
+  const database = {
+    users: readonly([user]),
+    student_profiles: readonly(baseline.student_profiles.filter(record => record.user_id === input.userId)),
+    topics: baseline.topics,
+    questions: baseline.questions,
+    lessons: Object.freeze([lesson]),
+    lesson_blocks: Object.freeze(baseline.lesson_blocks.filter(record => record.lesson_slug === lesson.slug)),
+    attempts: readonly(baseline.attempts.filter(record => record.user_id === input.userId)),
+    class_enrollments: readonly(enrollments),
+    assignments: readonly(baseline.assignments.filter(record => classIds.has(record.class_id))),
+    lesson_progress: cloneLessonValue(baseline.lesson_progress.filter(record => record.user_id === input.userId)),
+    adaptive_skill_state: cloneLessonValue(baseline.adaptive_skill_state.filter(record => record.user_id === input.userId)),
+    adaptive_recommendation_cache: cloneLessonValue(baseline.adaptive_recommendation_cache.filter(record => record.user_id === input.userId)),
+    submissions: cloneLessonValue(baseline.submissions.filter(record => record.student_id === input.userId)),
+    gamification_events: cloneLessonValue(baseline.gamification_events.filter(record => record.student_id === input.userId)),
+    // Automatic reward source-key collisions are checked across ALL learners.
+    reward_point_ledger: cloneLessonValue(baseline.reward_point_ledger)
+  } as unknown as Database;
+  const before = { ...database,
+    lesson_progress: cloneLessonValue(database.lesson_progress),
+    adaptive_skill_state: cloneLessonValue(database.adaptive_skill_state),
+    adaptive_recommendation_cache: cloneLessonValue(database.adaptive_recommendation_cache),
+    submissions: cloneLessonValue(database.submissions),
+    gamification_events: cloneLessonValue(database.gamification_events),
+    reward_point_ledger: cloneLessonValue(database.reward_point_ledger)
+  };
+  return { baseline, database, before, input, lesson };
+}
+
+function rejectUnsupportedLessonContext(): never {
+  throw new Error("Unsupported scoped lesson mutation.");
+}
+
+function mergeLessonRecordSlots<T>(baseline: T[], before: T[], after: T[], owns: (record: T) => boolean,
+  canChange: (previous: T, next: T, ownedIndex: number) => boolean, canAppend: (record: T) => boolean) {
+  if (!Array.isArray(after) || after.length < before.length) rejectUnsupportedLessonContext();
+  let ownedIndex = 0;
+  const merged = baseline.map(record => {
+    if (!owns(record)) return record;
+    const index = ownedIndex++, previous = before[index], next = after[index];
+    if (!previous || !next) rejectUnsupportedLessonContext();
+    if (isDeepStrictEqual(previous, next)) return record;
+    if (!canChange(previous, next, index)) rejectUnsupportedLessonContext();
+    return next;
+  });
+  if (ownedIndex !== before.length) rejectUnsupportedLessonContext();
+  for (const record of after.slice(before.length)) {
+    if (!canAppend(record)) rejectUnsupportedLessonContext();
+    merged.push(record);
+  }
+  return merged;
+}
+
+function mergeLessonPrependedRecords<T>(baseline: T[], before: T[], after: T[], accepts: (record: T) => boolean) {
+  if (!Array.isArray(after) || after.length < before.length || after.length > before.length + 1
+    || !isDeepStrictEqual(after.slice(after.length - before.length), before)) {
+    rejectUnsupportedLessonContext();
+  }
+  const added = after.slice(0, after.length - before.length);
+  if (added.some(record => !accepts(record))) rejectUnsupportedLessonContext();
+  return [...added, ...baseline];
+}
+
+function mergeScopedLessonContext({ baseline, database, before, input, lesson }: ScopedLessonContext): Database {
+  const writable = new Set(["lesson_progress", "adaptive_skill_state", "adaptive_recommendation_cache",
+    "submissions", "gamification_events", "reward_point_ledger"]);
+  if (!isDeepStrictEqual(Object.keys(database).sort(), Object.keys(before).sort())) rejectUnsupportedLessonContext();
+  for (const key of Object.keys(before) as Array<keyof Database>) {
+    if (!writable.has(key) && !isDeepStrictEqual(database[key], before[key])) rejectUnsupportedLessonContext();
+  }
+  const ownProgress = (record: LessonProgressRecord) => record.user_id === input.userId;
+  const replacementIndex = before.lesson_progress.findIndex(record => record.lesson_slug === lesson.slug || record.topic_id === lesson.topic_id);
+  const selectedProgress = (record: LessonProgressRecord) => ownProgress(record) && record.lesson_slug === lesson.slug && record.topic_id === lesson.topic_id;
+  if (database.lesson_progress.length > before.lesson_progress.length + (replacementIndex < 0 ? 1 : 0)) rejectUnsupportedLessonContext();
+  const lesson_progress = mergeLessonRecordSlots(baseline.lesson_progress, before.lesson_progress, database.lesson_progress,
+    ownProgress, (_, next, index) => index === replacementIndex && selectedProgress(next),
+    record => replacementIndex < 0 && selectedProgress(record));
+  const topic = baseline.topics.find(record => record.id === lesson.topic_id);
+  const skillIds = new Set(knowledgeComponentsForDatabase(baseline, lesson.grade, topic?.curriculum_track ?? defaultCurriculumTrack)
+    .filter(record => record.topicId === lesson.topic_id).map(record => record.id));
+  const ownsSkill = (record: AdaptiveSkillStateRecord) => record.user_id === input.userId;
+  const previousSkillIds = new Set(before.adaptive_skill_state.map(record => record.skill_id));
+  const addedSkillIds = new Set<string>();
+  const adaptive_skill_state = mergeLessonRecordSlots(baseline.adaptive_skill_state, before.adaptive_skill_state,
+    database.adaptive_skill_state, ownsSkill,
+    (previous, next) => ownsSkill(next) && next.skill_id === previous.skill_id && skillIds.has(next.skill_id),
+    record => {
+      if (!ownsSkill(record) || !skillIds.has(record.skill_id) || previousSkillIds.has(record.skill_id) || addedSkillIds.has(record.skill_id)) return false;
+      addedSkillIds.add(record.skill_id); return true;
+    });
+  const enrolledClasses = new Set(before.class_enrollments.map(record => record.class_id));
+  const assignments = before.assignments.filter(record => record.status === "active" && record.content_type === "lesson"
+    && enrolledClasses.has(record.class_id) && (!record.target_id
+      || record.target_id === lesson.slug || record.target_id === lesson.topic_id));
+  const writableSubmissionSlots = new Set(assignments.map(assignment => before.submissions.findIndex(record => record.assignment_id === assignment.id)));
+  const submissions = mergeLessonRecordSlots(baseline.submissions, before.submissions, database.submissions,
+    record => record.student_id === input.userId,
+    (previous, next, index) => writableSubmissionSlots.has(index) && next.student_id === input.userId
+      && next.id === previous.id && next.assignment_id === previous.assignment_id,
+    () => false);
+  if (!Array.isArray(database.adaptive_recommendation_cache)) rejectUnsupportedLessonContext();
+  let cacheIndex = 0;
+  const remainingOwnedCache = [...database.adaptive_recommendation_cache];
+  const adaptive_recommendation_cache = baseline.adaptive_recommendation_cache.filter(record => {
+    if (record.user_id !== input.userId) return true;
+    const previous = before.adaptive_recommendation_cache[cacheIndex++];
+    if (remainingOwnedCache.length && isDeepStrictEqual(previous, remainingOwnedCache[0])) {
+      remainingOwnedCache.shift(); return true;
+    }
+    if (record.grade !== lesson.grade || (record.topic_id !== null && record.topic_id !== lesson.topic_id)) rejectUnsupportedLessonContext();
+    return false;
+  });
+  if (remainingOwnedCache.length) rejectUnsupportedLessonContext();
+  const sourceKey = `lesson-complete:${input.userId}:${lesson.slug}`.trim().replace(/\s+/g, "-").slice(0, 240);
+  const reward_point_ledger = mergeLessonPrependedRecords(baseline.reward_point_ledger, before.reward_point_ledger,
+    database.reward_point_ledger, record => record.student_id === input.userId && record.reason === "lesson-complete"
+      && record.source_key === sourceKey && !baseline.reward_point_ledger.some(previous => previous.id === record.id || previous.source_key === record.source_key));
+  const gamification_events = mergeLessonPrependedRecords(baseline.gamification_events, before.gamification_events,
+    database.gamification_events, record => record.student_id === input.userId && record.source === "lesson-complete"
+      && record.source_key === sourceKey && !baseline.gamification_events.some(previous => previous.id === record.id));
+  return { ...baseline, lesson_progress, adaptive_skill_state, adaptive_recommendation_cache, submissions,
+    reward_point_ledger, gamification_events };
+}
+
+function scopedPostgresLessonPayloadPatch(previous: postgres.JSONValue, next: postgres.JSONValue) {
+  const before = previous as Record<string, postgres.JSONValue>, after = next as Record<string, postgres.JSONValue>;
+  const allowed = new Set(["lesson_progress", "adaptive_skill_state", "adaptive_recommendation_cache", "submissions",
+    "gamification_events", "reward_point_ledger", "attempts", "mistakes", "learning_events", "learning_event_clears", "visualization_events"]);
+  if (!isDeepStrictEqual(Object.keys(before).sort(), Object.keys(after).sort())) rejectUnsupportedLessonContext();
+  const patch: Record<string, postgres.JSONValue> = {};
+  for (const [key, value] of Object.entries(after)) {
+    if (isDeepStrictEqual(before[key], value)) continue;
+    if (!allowed.has(key)) rejectUnsupportedLessonContext();
+    patch[key] = value;
+  }
+  return patch;
+}
+
+function scopedLessonNormalizationMatches(previous: Database, normalized: Database) {
+  if (!isDeepStrictEqual(Object.keys(previous).sort(), Object.keys(normalized).sort())) return false;
+  // The full path normalizes rewards into seed order before reconciling hot
+  // ledger IDs. Completion prepends new rewards, so these two global arrays
+  // legitimately change again on the next save. Keep their full normalization
+  // and synchronization while requiring every other canonical field to match.
+  return isDeepStrictEqual({ ...previous,
+    reward_point_ledger: normalized.reward_point_ledger,
+    gamification_events: normalized.gamification_events
+  }, normalized);
+}
+
+async function readScopedPostgresLessonContext(sql: PostgresExecutor, input: StudentActivityUpdateLessonProgressInput) {
+  const startedAt = Date.now();
+  const fallback = (reason: string) => {
+    logLessonPerf(`lesson-save(full-fallback:${reason})`, startedAt);
+    return null;
+  };
+  if (await hasAuthorityInstallation(sql)) return fallback("authority-compatibility");
+  if (!postgresHotAuthTablesEnabled()) return fallback("hot-auth-disabled");
+  const rows = await selectPostgresStateRows(sql, true);
+  const raw = rows[0]?.payload;
+  if (rows.length !== 1 || !hasCoreTables(raw) || !storedLessonContentIsEmpty(raw)) return fallback("stored-content");
+  const content = normalizedSeedOnlyLessonContent();
+  if (!postgresStorageSnapshotContractIsCompleteWithContent(raw, content)) return fallback("incomplete");
+  const original = cloneLessonValue(raw) as unknown as postgres.JSONValue;
+  const normalized = normalizeDatabase(raw, content);
+  const normalizedSnapshot = cloneLessonValue(compactSeedOnlyLessonDatabase(normalized, content));
+  if (!scopedLessonNormalizationMatches(original as unknown as Database, normalizedSnapshot)) return fallback("normalization");
+  const journalDatabase = overlayPostgresAiTutorJournals(normalized, rows[0]);
+  if (!isDeepStrictEqual(journalDatabase.ai_tutor_messages, normalized.ai_tutor_messages)
+    || !isDeepStrictEqual(journalDatabase.ai_tutor_usage, normalized.ai_tutor_usage)) return fallback("journal");
+  const authenticated = await overlayPostgresHotAuthRowsIfEnabled(sql, journalDatabase);
+  if (!isDeepStrictEqual(cloneLessonValue(compactSeedOnlyLessonDatabase(authenticated, content)), normalizedSnapshot)) return fallback("hot-auth-drift");
+  const baseline = await overlayPostgresStudentActivity(sql, authenticated);
+  const context = createScopedLessonContext(baseline, input);
+  if (!context || !await postgresLessonContentProjectionsMatchByRecord(sql, baseline)) return fallback("content-projection");
+  // All fallback decisions above precede the callback. Complete global snapshots
+  // alone reach synchronizers; the callback view is never a storage snapshot.
+  logLessonPerf("lesson-save(scoped-context-ready)", startedAt);
+  return { original, content, context };
+}
+
+function lessonProgressActorIsCurrent(user: UserRecord | undefined, input: StudentActivityUpdateLessonProgressInput) {
+  return Boolean(user && user.role === "student" && user.disabled_at === null
+    && (input.expectedSessionRevision === undefined || (
+      Number.isSafeInteger(input.expectedSessionRevision) && input.expectedSessionRevision >= 1
+      && user.session_revision === input.expectedSessionRevision
+    )));
+}
+
+const lessonProgressActorRejected = Symbol("lesson-progress-actor-rejected");
+
+// Admit only one lesson snapshot writer before taking a general-pool connection.
+// A second writer waiting on the global SQL lock must not occupy the other
+// connection while dashboards wait to read an acknowledged lesson.
+let postgresLessonMutationQueue: Promise<void> = Promise.resolve();
+
+function runPostgresLessonProgressTransaction<T>(operation: () => Promise<T>): Promise<T> {
+  const run = postgresLessonMutationQueue.then(operation);
+  postgresLessonMutationQueue = run.then(() => undefined, () => undefined);
+  return run;
+}
+
+async function mutateLessonProgressDatabase(
+  input: StudentActivityUpdateLessonProgressInput,
+  mutator: (database: Database) => Promise<LessonSummary | null>
+) {
+  if (storageProvider === "postgres") {
+    await ensurePostgresStateTable();
+    if (await hasAuthorityInstallation(getPostgresClient()) && await getLearnerAuthoritySaveIdentity(input.userId)) {
+      const identity = input.authority;
+      if (!identity) throw new LearnerAuthorityError("authority-intent-required", 409);
+      const ids = [randomUUID(), randomUUID()];
+      let compatibilityDatabase: Database | undefined;
+      let compatibilityMerged: Database | undefined;
+      let compatibilityCapability: PostgresStorageMutationCapability | undefined;
+      const source = `lesson-complete:${input.userId}:${input.slug}`.trim().replace(/\s+/g, "-").slice(0, 240);
+      const result = await runLearnerAuthorityTransaction(getPostgresClient(), {
+        userId: input.userId, sessionRevision: input.expectedSessionRevision ?? 0,
+        generation: identity.generation, resetEpoch: identity.resetEpoch, expiresAt: identity.expiresAt,
+        publicationId: identity.publicationId, definitionEpoch: identity.definitionEpoch,
+        operationId: identity.operationId, request: cloneLessonValue({ slug: input.slug, action: input.action,
+          durationSeconds: input.durationSeconds, checklistState: input.checklistState, curriculumTrack: input.curriculumTrack,
+          publicationId: identity.publicationId, definitionEpoch: identity.definitionEpoch }),
+        content: currentLearnerAuthorityContent(), resources: [`source:${source}`,
+          `id:gamification_events:gamification-event-${ids[0]}`, `id:reward_point_ledger:reward-ledger-${ids[1]}`]
+      }, async context => {
+        const baseline = compatibilityDatabase ?? { ...context.shared, ...context.content, ...context.state } as unknown as Database;
+        const profile = baseline.student_profiles.find(record => record.user_id === input.userId);
+        if (!profile || !isDeepStrictEqual(profileForRecord(profile), curriculumProfileForScope(input.curriculumTrack))) {
+          throw new LearnerAuthorityError("authority-actor-scope-changed", 409);
+        }
+        baseline.reward_point_ledger = [...baseline.reward_point_ledger,
+          ...(!compatibilityDatabase ? context.claims.filter(claim => claim.component === "reward_point_ledger"
+            && (claim.owner !== input.userId || claim.generation !== context.generation)).map(claim => claim.record) : [])] as RewardPointLedgerRecord[];
+        const scoped = createScopedLessonContext(baseline, input);
+        if (!scoped) return null;
+        const updated = await lessonAuthorityIds.run([...ids], () => mutator(scoped.database));
+        const merged = mergeScopedLessonContext(scoped);
+        compatibilityMerged = merged;
+        Object.assign(context.state, extractLearnerAuthorityState(cloneLessonValue(merged) as unknown as Record<string, unknown>, input.userId));
+        return cloneLessonValue(updated);
+      }, independentLearnerWritesEnabled() ? undefined : {
+        prepare: async sql => {
+          compatibilityCapability = await acquirePostgresStorageMutationCapability(sql as unknown as PostgresReadinessTransaction, currentPostgresStorageReadinessState());
+          await postgresStudentActivityExclusiveLockQuery(sql);
+          compatibilityDatabase = await readPostgresDatabaseFrom(sql, true);
+        },
+        write: async sql => {
+          if (!compatibilityMerged || !compatibilityCapability) throw new LearnerAuthorityError("authority-compatibility-unavailable");
+          await writePostgresDatabaseWith(sql, compatibilityMerged, compatibilityCapability);
+        }
+      });
+      if (result) clearStudentDashboardCacheForUser(input.userId);
+      return result;
+    }
+  }
+  let result: LessonSummary | null;
+  if (storageProvider !== "postgres") {
+    try {
+      result = await mutateDatabase(database => {
+        if (!lessonProgressActorIsCurrent(database.users.find(user => user.id === input.userId), input)) {
+          throw lessonProgressActorRejected;
+        }
+        return mutator(database);
+      });
+    } catch (error) {
+      if (error === lessonProgressActorRejected) return null;
+      throw error;
+    }
+  } else {
+    return runPostgresLessonProgressTransaction(async () => {
+      await ensurePostgresStateTable();
+      const committed = await getPostgresClient().begin(async (sql) => {
+        await configurePostgresAccountWriteTransaction(sql);
+        const storageCapability = await acquirePostgresStorageMutationCapability(
+          sql as unknown as PostgresReadinessTransaction, currentPostgresStorageReadinessState()
+        );
+        await postgresStudentActivityExclusiveLockQuery(sql);
+        await lockPostgresAccountData(sql, input.userId);
+        if (await hasAuthorityInstallation(sql)) {
+          const [account] = await sql<Array<{ generation: string; mode: string }>>`SELECT generation,mode FROM learner_authority.accounts WHERE user_id=${input.userId}`;
+          if (!account || account.mode !== "legacy" || account.generation !== input.expectedAccountGeneration) throw new LearnerAuthorityError("authority-intent-stale", 409);
+        }
+        const actors = await sql<Array<{ role: string; disabled_at: string | null; session_revision: number }>>`
+          SELECT role, disabled_at, session_revision FROM public.auth_users WHERE id = ${input.userId}
+        `;
+        if (actors.length !== 1 || !lessonProgressActorIsCurrent(actors[0] as UserRecord, input)) return null;
+        const scoped = await readScopedPostgresLessonContext(sql, input);
+        if (scoped) {
+          if (process.env.NODE_ENV === "test") scopedLessonContextObserverForIntegrationTest?.();
+          const updated = await mutator(scoped.context.database);
+          const database = mergeScopedLessonContext(scoped.context);
+          const serialized = JSON.stringify(compactSeedOnlyLessonDatabase(database, scoped.content));
+          const expected = JSON.parse(serialized) as postgres.JSONValue;
+          const patch = scopedPostgresLessonPayloadPatch(scoped.original, expected);
+          await writePostgresDatabaseWith(sql, database, storageCapability, patch, scoped.content, { payload: expected, serialized });
+          return updated;
+        }
+        let original: postgres.JSONValue = null;
+        const database = await normalizeLockedPostgresState(sql, true, payload => {
+          // Normalization intentionally retains some array references from raw
+          // state. Capture before it can change or the callback can mutate them.
+          original = JSON.parse(JSON.stringify(payload)) as postgres.JSONValue;
+        });
+        const contentBefore = postgresLessonContentSnapshot(database);
+        const updated = await mutator(database);
+        const expected = JSON.parse(JSON.stringify(postgresDatabasePayload(database))) as postgres.JSONValue;
+        const patch = postgresLessonPayloadPatch(original, expected);
+        const canPatch = postgresHotAuthTablesEnabled() && patch !== undefined
+          && contentBefore === postgresLessonContentSnapshot(database)
+          && await postgresLessonContentProjectionsMatch(sql, database);
+        await writePostgresDatabaseWith(sql, database, storageCapability, canPatch ? patch : undefined);
+        return updated;
+      });
+      // Keep admission until commit and cache retirement both settle.
+      if (committed) clearStudentDashboardCacheForUser(input.userId);
+      return committed;
+    });
+  }
+  // Invalidation inside the callback precedes commit. Also retire any old
+  // snapshot cached during that window before acknowledging any lesson action.
+  if (result) clearStudentDashboardCacheForUser(input.userId);
+  return result;
+}
+
+// Snapshot capability always precedes the account lock. Hot-only writers take
+// the account lock and never acquire the snapshot capability afterwards.
+async function mutatePostgresAccountData<T>(
+  userId: string,
+  mutator: (database: Database, sql: PostgresExecutor) => T | Promise<T>
+) {
+  await ensurePostgresStateTable();
+  return getPostgresClient().begin("isolation level read committed", async (sql) => {
+    await configurePostgresAccountWriteTransaction(sql);
+    const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true, true);
+    await lockPostgresAccountData(sql, userId);
+    const actor = await validateMutationActor(database, sql);
+    const result = await mutator(database, sql);
+    validateMutationDeadline(actor);
+    databaseIndexCache.delete(database);
+    await writePostgresDatabaseWith(sql, database, storageCapability);
+    validateMutationDeadline(actor);
+    return result;
+  });
 }
 
 type TeacherNoticeEmailOutboxMutation<T> = {
@@ -9081,8 +9884,12 @@ async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
         idleTransactionTimeout: `${transactionTimeouts.statementTimeoutMs}ms`
       },
       async (sql, storageCapability) => {
-        const database = await normalizeLockedPostgresState(sql);
+        // A no-recipient result must commit no source writes or callback edits.
+        // The final full writer performs synchronization only when publishing.
+        const database = await normalizeLockedPostgresState(sql, true);
+        const actor = await validateMutationActor(database, sql);
         const mutation = await mutator(database);
+        validateMutationDeadline(actor);
         const prepared = prepareTeacherNoticeEmailOutboxRows(database, teacherId, mutation, new Date().toISOString());
         if (prepared.noEligible && !mutation.commitWithoutEligibleRows) {
           if (mutation.noEligibleResult === undefined) {
@@ -9104,6 +9911,7 @@ async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
           await __userStoreTeacherNoticeEmailOutboxPostgresTestHooks
             .failAfterPublicationOutboxInsert?.();
         }
+        validateMutationDeadline(actor);
         return { result: mutation.result, outbox: { ...inserted, skipped: prepared.skipped } };
       }
     ));
@@ -10365,6 +11173,9 @@ async function recordAITutorMessageFromPostgresJournal(
       sql as unknown as PostgresReadinessTransaction,
       currentPostgresStorageReadinessState()
     );
+    // Returning from this transaction still yields true below: an erased
+    // account is terminally handled and must not trigger snapshot fallback.
+    if (!await lockExistingPostgresAccountData(sql, record.user_id)) return;
     const beforeRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
       SELECT
         pg_catalog.jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
@@ -10469,6 +11280,9 @@ async function recordAITutorUsageFromPostgresJournal(
       sql as unknown as PostgresReadinessTransaction,
       currentPostgresStorageReadinessState()
     );
+    // Returning from this transaction still yields true below: an erased
+    // account is terminally handled and must not trigger snapshot fallback.
+    if (!await lockExistingPostgresAccountData(sql, record.user_id)) return;
     const beforeRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
       SELECT
         pg_catalog.jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
@@ -10903,7 +11717,7 @@ async function consumeAiCapabilityRateLimitFromPostgresHotPath({
     const client = getAiTutorRateAdmissionPostgresClient();
     return runAbortBoundedAiTutorPostgresOperation({
       abortOperation: () => destroyAiTutorAdmissionPostgresClient("rate", client),
-      operation: () => client.begin(async (sql) => {
+      operation: () => client.begin("isolation level read committed", async (sql) => {
       const readinessRows = await runCancellableAiTutorAdmissionQuery({
         createQuery: () => sql<Array<{ schema_ready: boolean }>>`
           SELECT
@@ -10918,7 +11732,40 @@ async function consumeAiCapabilityRateLimitFromPostgresHotPath({
       if (readinessRows[0]?.schema_ready !== true) {
         throw new Error("AI Tutor rate-limit schema is unavailable.");
       }
-
+      const authorityInstalled = await lockLearnerAuthority(sql, "shared");
+      throwIfAiTutorAdmissionAborted(admissionSignal);
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => postgresStudentActivitySharedLockQuery(sql),
+        signal: admissionSignal
+      });
+      await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => postgresAccountDataLockQuery(sql, userId),
+        signal: admissionSignal
+      });
+      const accountRows = await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => postgresAccountExistsQuery(sql, userId),
+        signal: admissionSignal
+      });
+      if (accountRows[0]?.account_exists !== true) {
+        // A handled denial prevents fallback from recreating an erased subject.
+        return { allowed: false, reason: "rate-limit" as const, retryAfterSeconds: 0, remaining: 0, resetAt: now };
+      }
+      const rateActor = authorityInstalled ? mutationActorContext.getStore() ?? await requestMutationActor() : undefined;
+      if (authorityInstalled) {
+        const actor = rateActor;
+        if (actor) {
+          const actors = await runCancellableAiTutorAdmissionQuery({
+            createQuery: () => sql<Array<{ allowed: boolean }>>`SELECT auth.role=${actor.role} AND auth.disabled_at IS NULL
+              AND auth.session_revision=${actor.sessionRevision} AND account.generation=${actor.generation ?? null}::uuid
+              AND account.mode<>'erased' AS allowed FROM public.auth_users auth JOIN learner_authority.accounts account ON account.user_id=auth.id
+              WHERE auth.id=${actor.userId}`,
+            signal: admissionSignal
+          });
+          if (actors.length !== 1 || actors[0].allowed !== true || (actor.expiresAt !== undefined && Date.now() >= actor.expiresAt)) {
+            throw new LearnerAuthorityError("authority-actor-rejected", 401);
+          }
+        }
+      }
       await runCancellableAiTutorAdmissionQuery({
         createQuery: () => sql`SELECT pg_advisory_xact_lock(hashtextextended(${lockKey}, 0))`,
         signal: admissionSignal
@@ -11008,6 +11855,7 @@ async function consumeAiCapabilityRateLimitFromPostgresHotPath({
         signal: admissionSignal
       });
       throwIfAiTutorAdmissionAborted(admissionSignal);
+      validateMutationDeadline(rateActor);
       return nextDecision;
       }),
       signal: admissionSignal
@@ -11716,7 +12564,21 @@ async function readParentPostgresScopedDatabase(parentId: string) {
       COALESCE((SELECT jsonb_agg(report_record) FROM teacher_report_records), '[]'::jsonb) AS teacher_report_records,
       COALESCE((
         SELECT jsonb_agg(record)
-        FROM projection_reward_point_ledger
+        FROM (
+          SELECT cold.id, cold.student_id, cold.created_at, cold.record
+          FROM public.projection_reward_point_ledger AS cold
+          WHERE NOT EXISTS (
+            SELECT 1 FROM public.reward_point_ledger AS hot
+            WHERE hot.student_id = cold.student_id
+              AND (hot.id = cold.id OR (hot.source_key IS NOT NULL
+                AND pg_catalog.btrim(hot.source_key, ${"\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"}) <> ''
+                AND hot.source_key = cold.record->>'source_key'))
+          )
+          UNION ALL
+          SELECT hot.id, hot.student_id, hot.created_at::text AS created_at, pg_catalog.to_jsonb(hot) AS record
+          FROM public.reward_point_ledger AS hot
+          INNER JOIN public.auth_users AS account ON account.id = hot.student_id
+        ) AS merged_reward_ledger
         WHERE student_id IN (SELECT student_id FROM student_ids)
       ), '[]'::jsonb) AS reward_point_ledger_records,
       COALESCE((
@@ -11735,6 +12597,7 @@ async function readParentPostgresScopedDatabase(parentId: string) {
     `;
   });
 
+  if (await learnerAuthorityIsInstalled()) return readDatabase();
   const rawRow = rows[0];
   if (
     rawRow?.scope_ready !== true
@@ -11793,6 +12656,7 @@ async function readParentPostgresScopedDatabase(parentId: string) {
 
 async function readParentDatabaseForRead(parentId: string) {
   if (storageProvider !== "postgres") return readDatabase();
+  if (await learnerAuthorityIsInstalled()) return readDatabase();
   return readParentPostgresScopedDatabase(parentId);
 }
 
@@ -11846,14 +12710,26 @@ const buildParentChildSummaryForParentFoundation = createParentChildSummaryBuild
   (database: ParentFoundationPersistenceDatabase) => database as Database
 );
 
+class ParentAuthorityRequiresFullMutation extends Error {}
+async function withParentAuthorityMutation<T>(legacy: () => Promise<T>, full: () => Promise<T>): Promise<T> {
+  try { return await legacy(); }
+  catch (error) {
+    // The scoped adapter chooses this branch while holding admission and before
+    // invoking its business callback. The full writer retains all scope checks.
+    if (error instanceof ParentAuthorityRequiresFullMutation) return full();
+    throw error;
+  }
+}
 const parentPostgresScopedMutationAdapter = storageProvider === "postgres"
   ? createParentPostgresScopedMutationAdapter({
       ensureSchema: ensurePostgresStateTable,
       getClient: () => getPostgresClient() as unknown as ParentPostgresClient,
-      acquireStorageMutationCapability: (sql) => acquirePostgresStorageMutationCapability(
-        sql as unknown as PostgresReadinessTransaction,
-        currentPostgresStorageReadinessState()
-      ),
+      acquireStorageMutationCapability: async (sql) => {
+        const capability = await acquirePostgresStorageMutationCapability(
+          sql as unknown as PostgresReadinessTransaction, currentPostgresStorageReadinessState());
+        if (await hasAuthorityInstallation(sql as unknown as PostgresExecutor)) throw new ParentAuthorityRequiresFullMutation();
+        return capability;
+      },
       advanceStorageReadinessAfterMutation: (sql, capability, currentRevision) => (
         advancePostgresStorageReadinessAfterMutation(
           sql as unknown as PostgresReadinessTransaction,
@@ -11881,7 +12757,8 @@ const parentNoticePersistenceStore = createParentNoticePersistenceStore({
     return result as T;
   },
   ...(parentPostgresScopedMutationAdapter
-    ? { mutateMutationDatabase: parentPostgresScopedMutationAdapter.mutateNoticeDatabase }
+    ? { mutateMutationDatabase: <T>(scope: Parameters<typeof parentPostgresScopedMutationAdapter.mutateNoticeDatabase>[0], mutator: (database: ParentNoticePersistenceDatabase) => T) =>
+        withParentAuthorityMutation(() => parentPostgresScopedMutationAdapter.mutateNoticeDatabase(scope, mutator), async () => await mutateDatabase(mutator) as T) }
     : {}),
   getParentChildSummaries: (database, user) => parentChildSummariesForFromParentFoundation(
     database as unknown as ParentFoundationPersistenceDatabase,
@@ -11915,8 +12792,13 @@ const parentMessagePersistenceStore = createParentMessagePersistenceStore({
   },
   ...(parentPostgresScopedMutationAdapter
     ? {
-        mutateMutationDatabase: parentPostgresScopedMutationAdapter.mutateMessageDatabase,
-        readMutationDatabase: parentPostgresScopedMutationAdapter.readMessageDatabase
+        mutateMutationDatabase: <T>(scope: Parameters<typeof parentPostgresScopedMutationAdapter.mutateMessageDatabase>[0], mutator: (database: ParentMessagePersistenceDatabase) => T) =>
+          withParentAuthorityMutation(() => parentPostgresScopedMutationAdapter.mutateMessageDatabase(scope, mutator), async () => await mutateDatabase(mutator) as T),
+        readMutationDatabase: async (scope: Parameters<typeof parentPostgresScopedMutationAdapter.readMessageDatabase>[0]) => {
+          if (await learnerAuthorityIsInstalled()) return readDatabase();
+          const database = await parentPostgresScopedMutationAdapter.readMessageDatabase(scope);
+          return await learnerAuthorityIsInstalled() ? readDatabase() : database;
+        }
       }
     : {}),
   getParentChildSummaries: (database, user) => parentChildSummariesForFromParentFoundation(
@@ -12097,11 +12979,24 @@ function mergeStudentDashboardRecordsBy<T>(
 }
 
 // Shared by Dashboard and Progress so both include projection_attempts and live practice_attempts.
+async function readStudentLearnerAuthorityDatabase(userId: string): Promise<Database | undefined> {
+  return getPostgresClient().begin("isolation level repeatable read", async sql => {
+    await configurePostgresAccountWriteTransaction(sql);
+    await lockLearnerAuthority(sql, "shared");
+    const view = await readLearnerAuthorityView(sql, currentLearnerAuthorityContent(), userId);
+    if (!view) return undefined;
+    await validateMutationActor(view as unknown as Database, sql);
+    return view as unknown as Database;
+  });
+}
+
 async function loadStudentGradeActivityDatabaseFromPostgresProjection(
   userId: string,
   grade: GradeId
 ): Promise<StudentActivityPersistenceDatabase | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
+  // Active authority must stay on its bounded, fail-closed read path.
+  if (await learnerAuthorityIsInstalled()) return readStudentLearnerAuthorityDatabase(userId);
 
   try {
     await ensurePostgresStateTable();
@@ -12268,6 +13163,7 @@ async function loadStudentGradeActivityDatabaseFromPostgresProjection(
       LIMIT 1
     `;
 
+    if (await learnerAuthorityIsInstalled()) return undefined;
     const row = rows[0];
     if (!row) return undefined;
 
@@ -12343,6 +13239,15 @@ async function getCachedStudentDashboardData(
   grade: GradeId,
   curriculumTrack?: CurriculumScope
 ): Promise<DashboardData | null | undefined> {
+  if (await learnerAuthorityIsInstalled()) {
+    const database = await readStudentLearnerAuthorityDatabase(userId);
+    if (!database) return undefined;
+    return dashboardDataForStudentActivityDatabase(database, userId, grade, curriculumTrack ?? defaultCurriculumTrack, {
+      contentUnavailableForProfile: (profile, targetGrade) => adaptiveContentUnavailableFor(profile, targetGrade) ?? contentUnavailableFor(profile, targetGrade),
+      now: () => new Date(),
+      topicMatchesCurriculum: (topic, scope) => isCurriculumTopic(topic as TopicRecord, scope as CurriculumScope)
+    });
+  }
   const key = studentDashboardCacheKey(userId, grade, curriculumTrack);
   const nowMs = Date.now();
   const cached = studentDashboardCache.get(key);
@@ -12374,6 +13279,48 @@ async function getCachedStudentDashboardData(
   return request;
 }
 
+const lessonAuthorityIds = new AsyncLocalStorage<string[]>();
+function lessonAuthorityCreateId() {
+  const ids = lessonAuthorityIds.getStore();
+  if (!ids) return randomUUID();
+  const id = ids.shift();
+  if (!id) throw new LearnerAuthorityError("undeclared-authority-resource");
+  return id;
+}
+function afterLessonProgressUpdated(database: Database, { userId, lesson, progress, firstCompletion, updatedAt }: {
+  userId: string; lesson: LessonRecord; progress: LessonProgressRecord; firstCompletion: boolean; updatedAt: string;
+}, createId: () => string = lessonAuthorityCreateId) {
+    const typedDatabase = database as Database;
+    const typedLesson = lesson as LessonRecord;
+    const typedProgress = progress as LessonProgressRecord;
+    if (firstCompletion) {
+      updateAdaptiveStateFromLessonOutcome(typedDatabase, userId, typedLesson, typedProgress, updatedAt);
+      invalidateAdaptiveRecommendationCache(typedDatabase, userId, typedLesson.grade, typedLesson.topic_id);
+    }
+
+    completeMatchingAssignmentsFromStudentActivityPersistence({
+      database: typedDatabase,
+      userId,
+      contentType: "lesson",
+      targetIds: [typedLesson.slug, typedLesson.topic_id],
+      now: updatedAt,
+      score: 100,
+      graded: true,
+      feedbackEn: "Marked complete from the linked lesson.",
+      feedbackZh: "已按連結課節完成狀態記錄。"
+    });
+
+    if (firstCompletion) {
+      awardLessonCompletionReward(typedDatabase, {
+        userId,
+        lesson: typedLesson,
+        completedAt: updatedAt
+      }, createId);
+    }
+    clearStudentDashboardCacheForUser(userId);
+
+}
+
 const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
   contentUnavailableForProfile: contentUnavailableFor,
   defaultCurriculumTrack,
@@ -12389,6 +13336,7 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
     const result = await mutateDatabase((database) => mutator(database));
     return result as T;
   },
+  mutateLessonProgress: (input, mutator) => mutateLessonProgressDatabase(input, database => mutator(database)),
   afterAppend: (database, { userId, latestRecord }) => {
     maybeAwardLearningStreakReward(database as Database, userId, new Date(latestRecord.created_at));
     clearStudentDashboardCacheForUser(userId);
@@ -12471,36 +13419,9 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
   clearDatabaseCache: (database) => {
     databaseIndexCache.delete(database as Database);
   },
-  afterUpdateLessonProgress: (database, { userId, lesson, progress, firstCompletion, updatedAt }) => {
-    const typedDatabase = database as Database;
-    const typedLesson = lesson as LessonRecord;
-    const typedProgress = progress as LessonProgressRecord;
-    if (firstCompletion) {
-      updateAdaptiveStateFromLessonOutcome(typedDatabase, userId, typedLesson, typedProgress, updatedAt);
-      invalidateAdaptiveRecommendationCache(typedDatabase, userId, typedLesson.grade, typedLesson.topic_id);
-    }
-
-    completeMatchingAssignmentsFromStudentActivityPersistence({
-      database: typedDatabase,
-      userId,
-      contentType: "lesson",
-      targetIds: [typedLesson.slug, typedLesson.topic_id],
-      now: updatedAt,
-      score: 100,
-      graded: true,
-      feedbackEn: "Marked complete from the linked lesson.",
-      feedbackZh: "已按連結課節完成狀態記錄。"
-    });
-
-    if (firstCompletion) {
-      awardLessonCompletionReward(typedDatabase, {
-        userId,
-        lesson: typedLesson,
-        completedAt: updatedAt
-      });
-    }
-    clearStudentDashboardCacheForUser(userId);
-  },
+  afterUpdateLessonProgress: (database, details) => afterLessonProgressUpdated(database as Database, {
+    ...details, lesson: details.lesson as LessonRecord, progress: details.progress as LessonProgressRecord
+  }),
   adaptiveLearningDecision: (input) =>
     getAdaptiveLearningDecisionFromCompatibility({
       ...input,
@@ -13297,6 +14218,7 @@ async function getStudentGamificationSummaryFromPostgresProjection(
   studentId: string
 ): Promise<GamificationSummary | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
+  if (await learnerAuthorityIsInstalled()) return undefined;
 
   try {
     await ensurePostgresStateTable();
@@ -13407,9 +14329,20 @@ async function getStudentGamificationSummaryFromPostgresProjection(
         ), '[]'::jsonb) AS class_records,
         COALESCE((SELECT jsonb_agg(enrollment_record) FROM classmate_enrollment_records), '[]'::jsonb) AS enrollment_records,
         COALESCE((
-          SELECT jsonb_agg(ledger_record)
-          FROM jsonb_array_elements(COALESCE(user_match.payload->'reward_point_ledger', '[]'::jsonb)) AS ledger_items(ledger_record)
-          WHERE ledger_record->>'student_id' = ${studentId}
+          SELECT jsonb_agg(ledger_record) FROM (
+            SELECT ledger_record
+            FROM jsonb_array_elements(COALESCE(user_match.payload->'reward_point_ledger', '[]'::jsonb)) AS ledger_items(ledger_record)
+            WHERE ledger_record->>'student_id' = ${studentId}
+              AND NOT EXISTS (SELECT 1 FROM public.reward_point_ledger AS hot
+                WHERE hot.student_id = ledger_record->>'student_id'
+                  AND (hot.id = ledger_record->>'id' OR (hot.source_key IS NOT NULL
+                    AND pg_catalog.btrim(hot.source_key, ${"\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"}) <> ''
+                    AND hot.source_key = ledger_record->>'source_key')))
+            UNION ALL
+            SELECT pg_catalog.to_jsonb(hot) FROM public.reward_point_ledger AS hot
+            INNER JOIN public.auth_users AS account ON account.id = hot.student_id
+            WHERE hot.student_id = ${studentId}
+          ) AS merged_rewards
         ), '[]'::jsonb) AS reward_point_ledger_records,
         COALESCE((
           SELECT jsonb_agg(redemption_record)
@@ -13425,6 +14358,7 @@ async function getStudentGamificationSummaryFromPostgresProjection(
       LIMIT 1
     `;
 
+    if (await learnerAuthorityIsInstalled()) return undefined;
     const row = rows[0];
     if (!row) return undefined;
 
@@ -13512,11 +14446,19 @@ function knowledgeComponentQuestions(database: Database, grade?: GradeId, curric
     .map((question) => toPublicQuestion(database, question));
 }
 
+const seedOnlyLessonSkills = new Map<string, KnowledgeComponent[]>();
 function knowledgeComponentsForDatabase(database: Database, grade?: GradeId, curriculumTrack: CurriculumScope = defaultCurriculumProfile): KnowledgeComponent[] {
-  return buildKnowledgeComponents({
+  const sourceOnly = seedOnlyLessonContent && database.topics === seedOnlyLessonContent.topics
+    && database.questions === seedOnlyLessonContent.questions;
+  const key = JSON.stringify([grade ?? null, curriculumTrack]);
+  const cached = sourceOnly ? seedOnlyLessonSkills.get(key) : undefined;
+  if (cached) return cached;
+  const skills = buildKnowledgeComponents({
     topics: knowledgeComponentTopics(database, grade, curriculumTrack),
     questions: knowledgeComponentQuestions(database, grade, curriculumTrack)
   });
+  if (sourceOnly) seedOnlyLessonSkills.set(key, freezeLessonContextValue(skills));
+  return skills;
 }
 
 function adaptiveStatesForUser(database: Database, userId: string) {
@@ -13919,6 +14861,30 @@ export const __userStoreAuthHotTableTestHooks = {
 };
 
 // Expose the existing progress paths for isolated behavioral regressions.
+let scopedLessonContextObserverForIntegrationTest: (() => void) | undefined;
+export const __userStoreScopedLessonTestHooks = {
+  compareOriginal: postgresLessonContentProjectionsMatch,
+  compareCandidate: postgresLessonContentProjectionsMatchByRecord,
+  mutate: mutateLessonProgressDatabase,
+  fullMutate: mutateDatabase,
+  observeContext: (observer?: () => void) => {
+    if (process.env.NODE_ENV !== "test") throw new Error("Scoped lesson observation is available only to tests.");
+    scopedLessonContextObserverForIntegrationTest = observer;
+  },
+  normalize: normalizeDatabase,
+  normalizeSeedOnly: (database: Partial<Database>) => normalizeDatabase(database, normalizedSeedOnlyLessonContent()),
+  compact: compactDatabaseForPostgres,
+  compactSeedOnly: (database: Database) => compactSeedOnlyLessonDatabase(database, normalizedSeedOnlyLessonContent()),
+  complete: postgresStorageSnapshotContractIsComplete,
+  completeSeedOnly: (database: unknown) => postgresStorageSnapshotContractIsCompleteWithContent(database, normalizedSeedOnlyLessonContent()),
+  normalizationMatches: scopedLessonNormalizationMatches,
+  createContext: createScopedLessonContext,
+  merge: mergeScopedLessonContext,
+  patch: scopedPostgresLessonPayloadPatch,
+  skills: knowledgeComponentsForDatabase,
+  afterUpdate: afterLessonProgressUpdated
+};
+
 export const __userStoreLessonCompletionRewardTestHooks = {
   updateAdaptiveStateFromAttempt,
   updateLessonProgressFromAdaptiveState,
@@ -14141,7 +15107,23 @@ async function authenticateUserForLoginJsonbProjection(username: string, passwor
   }
 }
 
-export const authenticateUserForLogin: { (username: string, password: string): Promise<LoginAuthResult> } = authUserStore.authenticateUserForLogin as { (username: string, password: string): Promise<LoginAuthResult> };
+async function withLoginAuthorityProof<T extends { status: string }>(username: string, operation: () => Promise<T>): Promise<T | { status: "invalid" }> {
+  if (!await learnerAuthorityIsInstalled()) return operation();
+  const identifier = normalizeUsernameFromAuthSessionPersistence(username);
+  const proofs = await getPostgresClient()<Array<{ user_id: string; generation: string; session_revision: number }>>`
+    SELECT account.user_id,account.generation,actor.session_revision FROM learner_authority.accounts account
+    JOIN public.auth_users actor ON actor.id=account.user_id WHERE account.mode<>'erased'
+      AND (actor.normalized_username=${identifier} OR actor.normalized_email=${identifier})`;
+  const result = await operation();
+  const authenticated = result as T & { session?: AuthenticatedUser; sessionRevision?: number; accountGeneration?: string };
+  if (result.status !== "authenticated" || !authenticated.session || authenticated.accountGeneration) return result;
+  const proof = proofs.find(row => row.user_id === authenticated.session!.user.id && row.session_revision === authenticated.sessionRevision);
+  if (!proof) return { status: "invalid" };
+  authenticated.accountGeneration = proof.generation;
+  return result;
+}
+export const authenticateUserForLogin: { (username: string, password: string): Promise<LoginAuthResult> } =
+  (username, password) => withLoginAuthorityProof(username, () => authUserStore.authenticateUserForLogin(username, password)) as Promise<LoginAuthResult>;
 
 export async function authenticateGoogleIdentityForLogin({
   providerSubject,
@@ -14334,7 +15316,8 @@ type AuthenticateFlexibleExampleAccountForLogin = {
   ): Promise<LoginAuthResult | { status: "not-example-account" }>;
 };
 
-export const authenticateFlexibleExampleAccountForLogin: AuthenticateFlexibleExampleAccountForLogin = authUserStore.authenticateFlexibleExampleAccountForLogin as AuthenticateFlexibleExampleAccountForLogin;
+export const authenticateFlexibleExampleAccountForLogin: AuthenticateFlexibleExampleAccountForLogin =
+  input => withLoginAuthorityProof(input.username, () => authUserStore.authenticateFlexibleExampleAccountForLogin(input)) as ReturnType<AuthenticateFlexibleExampleAccountForLogin>;
 
 export const createStudentUser = authUserStore.createStudentUser;
 export const createTeacherUser = authUserStore.createTeacherUser;
@@ -14345,7 +15328,8 @@ type CompleteStudentCurriculumTrackSelection = {
   (input: Parameters<typeof authUserStore.completeStudentCurriculumTrackSelection>[0]): Promise<LoginAuthResult>;
 };
 
-export const completeStudentCurriculumTrackSelection: CompleteStudentCurriculumTrackSelection = authUserStore.completeStudentCurriculumTrackSelection as CompleteStudentCurriculumTrackSelection;
+export const completeStudentCurriculumTrackSelection: CompleteStudentCurriculumTrackSelection =
+  input => withLoginAuthorityProof(input.username, () => authUserStore.completeStudentCurriculumTrackSelection(input)) as ReturnType<CompleteStudentCurriculumTrackSelection>;
 
 export const validateSchoolProvisioning = authUserStore.validateSchoolProvisioning;
 export const createSchoolProvisioningBatch = authUserStore.createSchoolProvisioningBatch;
@@ -14649,7 +15633,9 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
           hotRows.userSettings.find((candidate) => candidate.user_id === resetToken.user_id) ?? null
       });
       if (!session) throw new Error("The password reset session could not be projected.");
-      return { status: "reset" as const, session, sessionRevision: sessionRevision as number };
+      const result: AuthPasswordResetResult = { status: "reset", session, sessionRevision: sessionRevision as number };
+      await bindCommittedSessionGeneration(sql, result);
+      return result;
     });
   } catch (error) {
     throw error;
@@ -14687,7 +15673,15 @@ async function getAuthenticatedUserForSessionFromPostgresHotTables(
   if (!postgresHotAuthTablesEnabled()) return undefined;
 
   await ensurePostgresStateTable();
-  const rows = await getPostgresClient()<AuthAdmissionJoinedRow[]>`
+  const sql = getPostgresClient();
+  const installed = await hasAuthorityInstallation(sql);
+  const generation = sessionGenerationContext.getStore()?.value;
+  if (installed !== (generation !== undefined)) return null;
+  const generationPredicate = installed ? sql`EXISTS(SELECT 1 FROM learner_authority.accounts account
+    WHERE account.user_id=auth_user.id AND account.generation=${generation!}::uuid AND account.mode<>'erased')` : sql`
+      pg_catalog.to_regnamespace('learner_authority') IS NULL AND NOT EXISTS(SELECT 1 FROM pg_catalog.pg_attribute
+        WHERE attrelid=pg_catalog.to_regclass('public.app_state') AND attname='learner_authority_installation' AND NOT attisdropped)`;
+  const rows = await sql<AuthAdmissionJoinedRow[]>`
     SELECT
       TRUE AS schema_ready,
       to_jsonb(auth_user) AS user_record,
@@ -14701,6 +15695,7 @@ async function getAuthenticatedUserForSessionFromPostgresHotTables(
     WHERE auth_user.id = ${userId}
       AND auth_user.session_revision = ${sessionRevision}
       AND auth_user.disabled_at IS NULL
+      AND ${generationPredicate}
     LIMIT 1
   `;
   if (rows.length !== 1) return null;
@@ -14755,6 +15750,22 @@ async function getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotP
       `;
       throwIfAiTutorAdmissionAborted(signal);
 
+      const [authority] = await runCancellableAiTutorAdmissionQuery({
+        createQuery: () => sql<Array<{ present: boolean; namespace_present: boolean; anchor_present: boolean }>>`SELECT
+          pg_catalog.to_regclass('learner_authority.control') IS NOT NULL AS present,
+          pg_catalog.to_regnamespace('learner_authority') IS NOT NULL AS namespace_present,
+          EXISTS(SELECT 1 FROM pg_catalog.pg_attribute WHERE attrelid=pg_catalog.to_regclass('public.app_state')
+            AND attname='learner_authority_installation' AND NOT attisdropped) AS anchor_present`,
+        signal: admissionSignal
+      });
+      if (!authority || ((authority.namespace_present || authority.anchor_present) && !(authority.present && authority.anchor_present))) throw new LearnerAuthorityError("learner-authority-schema-unavailable");
+      const generation = sessionGenerationContext.getStore()?.value;
+      if (authority.present !== (generation !== undefined)) return null;
+      const generationPredicate = authority.present ? sql`EXISTS(SELECT 1 FROM learner_authority.accounts account
+        WHERE account.user_id=auth_user.id AND account.generation=${generation!}::uuid AND account.mode<>'erased')` : sql`
+          pg_catalog.to_regnamespace('learner_authority') IS NULL AND NOT EXISTS(SELECT 1 FROM pg_catalog.pg_attribute
+            WHERE attrelid=pg_catalog.to_regclass('public.app_state') AND attname='learner_authority_installation' AND NOT attisdropped)`;
+
       return runCancellableAuthAdmissionQuery({
         createQuery: (lookupUserId) => sql<AuthAdmissionJoinedRow[]>`
         WITH schema_readiness AS (
@@ -14784,6 +15795,7 @@ async function getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotP
             AND auth_user.id = ${lookupUserId}
             AND auth_user.session_revision = ${sessionRevision}
             AND auth_user.disabled_at IS NULL
+            AND ${generationPredicate}
           LIMIT 1
         )
         SELECT
@@ -14820,7 +15832,17 @@ async function getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotP
 }
 
 export const getAuthenticatedUserById = authUserStore.getAuthenticatedUserById;
-export const getAuthenticatedUserForSession = authUserStore.getAuthenticatedUserForSession;
+const sessionGenerationContext = new AsyncLocalStorage<{ value?: string }>();
+export async function getAuthenticatedUserForSession(userId: string, sessionRevision: number, signal?: AbortSignal, generation?: string) {
+  if (generation !== undefined && !/^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(generation)) return null;
+  if (storageProvider !== "postgres" && generation !== undefined) return null;
+  return sessionGenerationContext.run({ value: generation }, async () => {
+    const authenticated = await authUserStore.getAuthenticatedUserForSession(userId, sessionRevision, signal);
+    if (authenticated && storageProvider === "postgres" && !postgresHotAuthTablesEnabled()
+      && (await getLearnerAuthoritySessionGeneration(userId) ?? undefined) !== generation) return null;
+    return authenticated;
+  });
+}
 export const getActiveUserSessionRevision = authUserStore.getActiveUserSessionRevision;
 export const revokeAllUserSessions = authUserStore.revokeAllUserSessions;
 export const setUserDisabledState = authUserStore.setUserDisabledState;
@@ -15100,6 +16122,7 @@ const overlayTeacherAnalyticsHotActivityRows = (
 
 async function getTeacherDashboardDataFromPostgresProjection(userId: string): Promise<TeacherDashboardData | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
+  if (await learnerAuthorityIsInstalled()) return undefined;
 
   try {
     await ensurePostgresStateTable();
@@ -15295,7 +16318,21 @@ async function getTeacherDashboardDataFromPostgresProjection(userId: string): Pr
         ), '[]'::jsonb) AS ai_tutor_message_records,
         COALESCE((
           SELECT jsonb_agg(record)
-          FROM projection_reward_point_ledger
+          FROM (
+          SELECT cold.id, cold.student_id, cold.created_at, cold.record
+          FROM public.projection_reward_point_ledger AS cold
+          WHERE NOT EXISTS (
+            SELECT 1 FROM public.reward_point_ledger AS hot
+            WHERE hot.student_id = cold.student_id
+              AND (hot.id = cold.id OR (hot.source_key IS NOT NULL
+                AND pg_catalog.btrim(hot.source_key, ${"\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"}) <> ''
+                AND hot.source_key = cold.record->>'source_key'))
+          )
+          UNION ALL
+          SELECT hot.id, hot.student_id, hot.created_at::text AS created_at, pg_catalog.to_jsonb(hot) AS record
+          FROM public.reward_point_ledger AS hot
+          INNER JOIN public.auth_users AS account ON account.id = hot.student_id
+        ) AS merged_reward_ledger
           WHERE student_id IN (SELECT student_id FROM student_ids)
         ), '[]'::jsonb) AS reward_point_ledger_records,
         COALESCE((
@@ -15310,6 +16347,7 @@ async function getTeacherDashboardDataFromPostgresProjection(userId: string): Pr
       LIMIT 1
     `;
 
+    if (await learnerAuthorityIsInstalled()) return undefined;
     const row = rows[0];
     if (!row) return undefined;
 
@@ -15359,6 +16397,7 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
   selectedClassId?: string | null
 ): Promise<TeacherAnalyticsData | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
+  if (await learnerAuthorityIsInstalled()) return undefined;
 
   try {
     await ensurePostgresStateTable();
@@ -15535,7 +16574,21 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
         ), '[]'::jsonb) AS ai_tutor_message_records,
         COALESCE((
           SELECT jsonb_agg(record)
-          FROM projection_reward_point_ledger
+          FROM (
+          SELECT cold.id, cold.student_id, cold.created_at, cold.record
+          FROM public.projection_reward_point_ledger AS cold
+          WHERE NOT EXISTS (
+            SELECT 1 FROM public.reward_point_ledger AS hot
+            WHERE hot.student_id = cold.student_id
+              AND (hot.id = cold.id OR (hot.source_key IS NOT NULL
+                AND pg_catalog.btrim(hot.source_key, ${"\t\n\v\f\r \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"}) <> ''
+                AND hot.source_key = cold.record->>'source_key'))
+          )
+          UNION ALL
+          SELECT hot.id, hot.student_id, hot.created_at::text AS created_at, pg_catalog.to_jsonb(hot) AS record
+          FROM public.reward_point_ledger AS hot
+          INNER JOIN public.auth_users AS account ON account.id = hot.student_id
+        ) AS merged_reward_ledger
           WHERE student_id IN (SELECT student_id FROM student_ids)
         ), '[]'::jsonb) AS reward_point_ledger_records,
         COALESCE((
@@ -15550,6 +16603,7 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
       LIMIT 1
     `;
 
+    if (await learnerAuthorityIsInstalled()) return undefined;
     const row = rows[0];
     if (!row) return null;
 
@@ -16500,6 +17554,7 @@ async function getPostgresHotAuthReadinessSnapshot({
 async function runPostgresHotAuthBackfillForAdmin(userId: string) {
   try {
     await ensurePostgresStateTable();
+    if (await learnerAuthorityIsInstalled()) throw new LearnerAuthorityError("authority-backfill-requires-maintenance");
     return getPostgresClient().begin(async (sql) => {
       const rows = await selectPostgresStateRows(sql, true);
       if (
@@ -16544,7 +17599,11 @@ async function runPostgresHotAuthBackfillForAdmin(userId: string) {
 
 export const buildRedactedAdminStorageSnapshot = authUserStore.buildRedactedAdminStorageSnapshot;
 
-export const exportDatabaseSnapshotForAdmin = authUserStore.exportDatabaseSnapshotForAdmin;
+export async function exportDatabaseSnapshotForAdmin(userId: string) {
+  const snapshot = await authUserStore.exportDatabaseSnapshotForAdmin(userId);
+  if (!snapshot || !await learnerAuthorityIsInstalled()) return snapshot;
+  return { ...snapshot, storageAuthority: { contract: "mais-learner-authority-v1", view: "compatibility", restoreSupported: false } };
+}
 
 export const backfillPostgresHotAuthTablesForAdmin = authUserStore.backfillPostgresHotAuthTablesForAdmin;
 
@@ -16553,7 +17612,7 @@ export const cleanupTemporaryBootstrapAdminsForAdmin = authUserStore.cleanupTemp
 export const getStorageReadinessSnapshot = authUserStore.getStorageReadinessSnapshot;
 
 export type DeleteUserAccountResult =
-  | { status: "deleted"; summary: AccountDeletionSummary }
+  | { status: "deleted"; summary: AccountDeletionSummary; mediaPurge: MediaPurgeResult }
   | { status: "not-found" }
   | { status: "blocked"; blockers: AccountDeletionBlocker[] };
 
@@ -16566,24 +17625,118 @@ export type DeleteUserAccountResult =
  * disappears from the read fast paths. A hot-row fast path write would leave
  * the deleted rows live in those tables.
  */
-export async function deleteUserAccount(userId: string): Promise<DeleteUserAccountResult> {
-  return mutateDatabase((database) => {
-    const user = database.users.find((candidate) => candidate.id === userId);
-    if (!user) return { status: "not-found" as const };
-
-    const blockers = assessAccountDeletion(database as unknown as Record<string, unknown>, userId, user.role);
-    if (blockers.length) return { status: "blocked" as const, blockers };
-
-    const summary = deleteUserFromDatabase(database as unknown as Record<string, unknown>, userId);
-    return { status: "deleted" as const, summary };
-  });
+export async function deleteUserAccount(userId: string, options: { requiredRole?: UserRole; requireDeletedAccount?: boolean; expectedGeneration?: string } = {}): Promise<DeleteUserAccountResult> {
+  const root = mediaStoreRoot();
+  const ownerHash = mediaOwnerHash(userId);
+  let admission: MediaErasureAdmission | null = null;
+  let admissionOperationId: string | null = null;
+  let admittedSummary: AccountDeletionSummary | null = null;
+  const canonicalMutation = <T>(operation: (database: Database, sql?: PostgresExecutor) => T | Promise<T>) =>
+    storageProvider === "postgres" ? mutatePostgresAccountData(userId, operation) : mutateDatabase(operation);
+  let result: DeleteUserAccountResult;
+  try {
+    result = await canonicalMutation(async (database, sql): Promise<DeleteUserAccountResult> => {
+      const user = database.users.find((candidate) => candidate.id === userId);
+      if (user && sql && await hasAuthorityInstallation(sql) && options.expectedGeneration !== undefined) {
+        const [account] = await sql<Array<{ generation: string }>>`SELECT generation FROM learner_authority.accounts WHERE user_id=${userId} AND mode<>'erased'`;
+        if (account?.generation !== options.expectedGeneration) throw new LearnerAuthorityError("authority-subject-changed", 409);
+      }
+      // Cleanup retries must never become a fresh deletion after a stale route
+      // lookup. Prove canonical absence while holding the account mutation lock.
+      if (options.requireDeletedAccount && user) return { status: "not-found" };
+      const existing = await readMediaOwnerErasure(root, ownerHash);
+      if (options.requiredRole && (user ?? existing)?.role !== options.requiredRole) return { status: "not-found" };
+      if (!user) {
+        if (!existing) return { status: "not-found" };
+        // Canonical absence under the same account/snapshot lock also recovers
+        // an interrupted postcommit marker update for any self-deleted role.
+        admission = existing;
+        await commitMediaOwnerErasure(root, existing);
+        return { status: "deleted", summary: { userId, removed: {}, scrubbed: {}, totalRemoved: 0 }, mediaPurge: { status: "pending", filesRemoved: 0, inspected: 0 } };
+      }
+      const blockers = assessAccountDeletion(database as unknown as Record<string, unknown>, userId, user.role);
+      if (blockers.length) return { status: "blocked", blockers };
+      if (existing) {
+        // A previous interrupted/rolled-back operation may be recovered only
+        // because this fresh canonical locked snapshot proves the same account
+        // exists. A committed or different-account marker is never cleared.
+        if (!await rollbackMediaOwnerErasure(root, existing, user)) throw new MediaErasureBusyError("Media owner erasure needs canonical recovery.");
+      }
+      admissionOperationId = randomUUID();
+      admission = await admitMediaOwnerErasure(root, user, admissionOperationId);
+      admittedSummary = deleteUserFromDatabase(database as unknown as Record<string, unknown>, userId);
+      if (sql) await erasePostgresAccountData(sql, userId);
+      return { status: "deleted", summary: admittedSummary, mediaPurge: { status: "pending", filesRemoved: 0, inspected: 0 } };
+    });
+  } catch (error) {
+    // Admission can have reached disk before an fsync acknowledgement fails.
+    // Only this operation's marker may enter rollback/commit recovery.
+    if (!admission && admissionOperationId) {
+      try {
+        const own = await readMediaOwnerErasure(root, ownerHash);
+        if (own?.operationId === admissionOperationId) admission = own;
+      } catch { /* Keep ambiguous admission fail-closed for a canonical retry. */ }
+    }
+    if (!admission) throw error;
+    let confirmedDeleted = false;
+    try {
+      await mutationActorContext.exit(() => runAccountErasureRecovery(() => canonicalMutation(async (database) => {
+        const current = database.users.find((candidate) => candidate.id === userId) ?? null;
+        if (current) await rollbackMediaOwnerErasure(root, admission!, current);
+        else { await commitMediaOwnerErasure(root, admission!); confirmedDeleted = true; }
+      })));
+    } catch { /* Ambiguous state keeps this operation's durable admission. No success claim. */ }
+    if (!confirmedDeleted) throw error;
+    // A commit acknowledgement may have failed. Fresh canonical absence is the
+    // authority; the route must clear the now-dead cookie even if purge fails.
+    result = { status: "deleted", summary: admittedSummary ?? { userId, removed: {}, scrubbed: {}, totalRemoved: 0 }, mediaPurge: { status: "pending", filesRemoved: 0, inspected: 0 } };
+  }
+  if (result.status !== "deleted" || !admission) return result;
+  try {
+    await mutationActorContext.exit(() => runAccountErasureRecovery(() => canonicalMutation(async (database) => {
+      if (database.users.some((candidate) => candidate.id === userId)) throw new Error("Account erasure is not committed.");
+      await commitMediaOwnerErasure(root, admission!);
+    })));
+    result.mediaPurge = await purgeMediaObjects(root, { ownerHash, limit: 200 });
+  } catch {
+    result.mediaPurge = { status: "pending", filesRemoved: 0, inspected: 0, reason: "filesystem-error" };
+  }
+  return result;
 }
+
 
 /** Subject-access export of everything the platform holds about one account. */
 export async function exportUserAccountData(userId: string): Promise<AccountDataExport | null> {
+  if (storageProvider === "postgres") {
+    await ensurePostgresStateTable();
+    return getPostgresClient().begin("isolation level repeatable read", async sql => {
+      const installed = await lockLearnerAuthority(sql, "shared");
+      await postgresStudentActivitySharedLockQuery(sql);
+      const database = await readPostgresDatabaseFrom(sql, true);
+      await validateMutationActor(database, sql);
+      if (!database.users.some(user => user.id === userId)) return null;
+      const exported = buildAccountDataExport(database as unknown as Record<string, unknown>, userId, new Date().toISOString());
+      if (installed) {
+        const [account] = await sql<Array<{ generation: string }>>`SELECT generation FROM learner_authority.accounts WHERE user_id=${userId} AND mode<>'erased'`;
+        if (!account) throw new LearnerAuthorityError("authority-account-identity-mismatch");
+        for (const table of ["accounts", "states", "receipts", "journal", "invalidations", "claims"] as const) {
+          const ownerColumn = table === "claims" ? "owner" : "user_id";
+          const rows = await sql.unsafe<Array<{ record: unknown }>>(`SELECT to_jsonb(value) AS record FROM learner_authority.${table} value WHERE ${ownerColumn}=$1 AND generation=$2::uuid`, [userId, account.generation]);
+          if (rows.length) exported.tables[`learner_authority.${table}`] = rows.map(row => row.record);
+        }
+        exported.scope.includedTables = Object.keys(exported.tables);
+        exported.scope.note += " Includes the current account generation's authority and operation records; this subject-access export is not a restore package.";
+      }
+      return exported;
+    });
+  }
   const database = await readDatabase();
   if (!database.users.some((candidate) => candidate.id === userId)) return null;
   return buildAccountDataExport(database as unknown as Record<string, unknown>, userId, new Date().toISOString());
+}
+
+export async function authorizeTeacherMediaRead(teacherId: string, metadata: StoredMediaObjectMetadata) {
+  return canTeacherReadMediaObject(await readDatabase(), teacherId, metadata);
 }
 
 async function updateUserSettingsInPostgresHotTables(
@@ -16591,10 +17744,17 @@ async function updateUserSettingsInPostgresHotTables(
   patch: Partial<{ language: Language; theme: ThemeMode; selectedGrade: GradeId }>
 ) {
   if (!postgresHotAuthTablesEnabled()) return null;
+  if (await learnerAuthorityIsInstalled()) return null;
 
   try {
     await ensurePostgresStateTable();
-    return getPostgresClient().begin(async (sql) => {
+    return getPostgresClient().begin("isolation level read committed", async (sql) => {
+      await configurePostgresAccountWriteTransaction(sql);
+      await acquirePostgresStorageMutationCapability(
+        sql as unknown as PostgresReadinessTransaction,
+        currentPostgresStorageReadinessState()
+      );
+      if (!await lockExistingPostgresAccountData(sql, userId)) return null;
       const hotRows = await readPostgresHotAuthRowsForUserIds(sql, [userId]);
       const user = hotRows.users.find((candidate) => candidate.id === userId);
       const profile = hotRows.studentProfiles.find((candidate) => candidate.user_id === userId);
@@ -17928,7 +19088,13 @@ export async function getTeacherGradebookCsv({
   return gradebookToCsv(data);
 }
 
-export const submitQuestionAttempt = studentActivityUserStore.submitQuestionAttempt;
+export async function submitQuestionAttempt(input: Parameters<typeof studentActivityUserStore.submitQuestionAttempt>[0] & {
+  expectedSessionRevision?: number; expectedAccountGeneration?: string
+}) {
+  if (input.expectedSessionRevision === undefined) return studentActivityUserStore.submitQuestionAttempt(input);
+  return mutationActorContext.run({ userId: input.userId, sessionRevision: input.expectedSessionRevision,
+    generation: input.expectedAccountGeneration, role: "student" }, () => studentActivityUserStore.submitQuestionAttempt(input));
+}
 
 export const getMistakes = studentActivityUserStore.getMistakes;
 export const markMistakeMastered = studentActivityUserStore.markMistakeMastered;
@@ -17936,7 +19102,30 @@ export const deleteMistake = studentActivityUserStore.deleteMistake;
 export const clearMistakesForUser = studentActivityUserStore.clearMistakesForUser;
 
 export const appendLearningEvents = studentActivityUserStore.appendLearningEvents;
-export const clearLearningEventsForUser = studentActivityUserStore.clearLearningEventsForUser;
+export async function clearLearningEventsForUser(userId: string, clearedAt?: string): Promise<void> {
+  if (storageProvider !== "postgres") {
+    await studentActivityUserStore.clearLearningEventsForUser(userId, clearedAt);
+    return;
+  }
+  // DDL/readiness work precedes both the global capability and account lock.
+  await ensurePostgresStudentActivityTables();
+  await mutatePostgresAccountData(userId, async (database, sql) => {
+    if (!database.users.some((user) => user.id === userId)) return;
+    await sql`SELECT set_config('mais.learner_authority_reset_user',${userId},true)`;
+    const times = [
+      ...(database.learning_event_clears ?? []).filter((clear) => clear.user_id === userId).map((clear) => clear.cleared_at),
+      ...(database.learning_events ?? []).filter((event) => event.user_id === userId).map((event) => event.created_at)
+    ].map(Date.parse).filter(Number.isFinite);
+    const floor = times.length ? new Date(times.reduce((latest, value) => Math.max(latest, value), 0)).toISOString() : undefined;
+    const cutoff = await resetPostgresLearningEventsInTransaction(sql, userId, clearedAt, floor);
+    database.learning_events = (database.learning_events ?? []).filter((event) => event.user_id !== userId);
+    database.visualization_events = (database.visualization_events ?? []).filter((event) => event.user_id !== userId);
+    database.learning_event_clears = [
+      ...(database.learning_event_clears ?? []).filter((clear) => clear.user_id !== userId),
+      { user_id: userId, cleared_at: cutoff }
+    ];
+  });
+}
 export const getAnalyticsSummary = studentActivityUserStore.getAnalyticsSummary;
 export const getAnalyticsExport = studentActivityUserStore.getAnalyticsExport;
 
@@ -17952,6 +19141,7 @@ async function getFastPostgresLessonEntryTarget(
   curriculumTrack: CurriculumScope = defaultCurriculumProfile
 ): Promise<LessonEntryTarget | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
+  if (await learnerAuthorityIsInstalled()) return undefined;
 
   const profile = curriculumProfileForScope(curriculumTrack);
   if (!curriculumContentEnabledFor(profile)) return null;
@@ -18071,6 +19261,7 @@ async function getFastPostgresLessonEntryTarget(
       LIMIT 1
     `;
 
+    if (await learnerAuthorityIsInstalled()) return undefined;
     const row = rows[0];
     if (!row?.slug || !row.topic_id || !validGrades.has(row.grade as GradeId)) return null;
 

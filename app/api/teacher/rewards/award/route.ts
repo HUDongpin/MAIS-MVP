@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
-import { awardTeacherRewardPoints } from "@/lib/server/userStore";
+import { awardTeacherRewardPoints, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 
 export const runtime = "nodejs";
 
@@ -25,13 +26,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid award payload." }, { status: 400 });
   }
 
-  const result = await awardTeacherRewardPoints({
+  const result = await withAuthenticatedMutation(authenticated, () => awardTeacherRewardPoints({
     teacherId: authenticated.user.id,
     studentId,
     amount,
     reasonPresetId,
     note
-  });
+  }), [studentId]).catch(learnerAuthorityFailureResponse);
+  if (result instanceof Response) return result;
 
   if (result.status === "awarded") return NextResponse.json({ rewards: result.rewards }, { status: 201 });
   if (result.status === "capped") return NextResponse.json({ error: "Daily teacher award cap reached.", rewards: result.rewards }, { status: 429 });
