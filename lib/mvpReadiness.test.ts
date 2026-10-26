@@ -945,6 +945,6 @@ test("a named course can label a topic on a track with multiple secondary pathwa
     curriculumTrack: "US_CA_MATH",
     grade: "S4",
     courseId: "geometry",
-    courseLabel: { en: "Geometry", zh: "幾何" }
+    courseLabel: { en: "Geometry", zh: "幾何", zhHans: "几何" }
   }, "en"), "Geometry");
 });

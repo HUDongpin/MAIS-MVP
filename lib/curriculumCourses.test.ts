@@ -29,15 +29,15 @@ test("topics without course evidence keep their existing curriculum-specific gra
   assert.equal(formatTopicPlacementLabel(arkansas, "en", true), "G10");
   assert.equal(formatTopicPlacementLabel({ ...arkansas, curriculumTrack: "US_CA_MATH" }, "zh", false), "Grade 10");
   assert.equal(formatTopicPlacementLabel({ ...arkansas, curriculumTrack: "HK" }, "en", true), "S4");
-  assert.equal(formatTopicPlacementLabel({ ...arkansas, courseId: "geometry", courseLabel: { en: " ", zh: "幾何" } }, "en", true), "G10");
+  assert.equal(formatTopicPlacementLabel({ ...arkansas, courseId: "geometry", courseLabel: { en: " ", zh: "幾何", zhHans: "几何" } }, "en", true), "G10");
 });
 
 test("incomplete course references fail the metadata audit", () => {
   assert.deepEqual(auditTopicCourseMetadata([
     { ...arkansas, id: "id-only", courseId: "geometry" },
-    { ...arkansas, id: "label-only", courseLabel: { en: "Geometry", zh: "幾何" } },
-    { ...arkansas, id: "blank-id", courseId: " ", courseLabel: { en: "Geometry", zh: "幾何" } },
-    { ...arkansas, id: "blank-label", courseId: "geometry", courseLabel: { en: " ", zh: "幾何" } }
+    { ...arkansas, id: "label-only", courseLabel: { en: "Geometry", zh: "幾何", zhHans: "几何" } },
+    { ...arkansas, id: "blank-id", courseId: " ", courseLabel: { en: "Geometry", zh: "幾何", zhHans: "几何" } },
+    { ...arkansas, id: "blank-label", courseId: "geometry", courseLabel: { en: " ", zh: "幾何", zhHans: "几何" } }
   ]), [
     { topicId: "id-only", reason: "missing-course-label" },
     { topicId: "label-only", reason: "missing-course-id" },

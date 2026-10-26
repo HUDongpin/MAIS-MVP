@@ -5580,8 +5580,8 @@ test("R18 unselected classmates cannot read, list or submit a targeted assessmen
     teacher_classes: [{ id: "class-audience", name: "Synthetic class", grade: "S3" }],
     class_enrollments: [{ class_id: "class-audience", student_id: "selected" }, { class_id: "class-audience", student_id: "unselected" }],
     assessments: [{ id: "assessment-targeted", class_id: "class-audience", status: "open", assigned_student_ids: ["selected"], max_attempts: 2,
-      paper_sections: [{ id: "section", title: { en: "Synthetic", zh: "測試" }, order: 0,
-        items: [{ id: "question", source: "manual", points: 10, order: 0, embeddedQuestion: { type: "fill-in", prompt: { en: "2 + 2", zh: "2 + 2" }, answer: "4" } }] }] }],
+      paper_sections: [{ id: "section", title: { en: "Synthetic", zh: "測試", zhHans: "测试" }, order: 0,
+        items: [{ id: "question", source: "manual", points: 10, order: 0, embeddedQuestion: { type: "fill-in", prompt: { en: "2 + 2", zh: "2 + 2", zhHans: "2 + 2" }, answer: "4" } }] }] }],
     assignments: [{ id: "assignment-targeted", class_id: "class-audience", content_type: "assessment", target_id: "assessment-targeted", status: "active" }],
     submissions: [{ id: "stale-work", assignment_id: "assignment-targeted", student_id: "unselected", status: "not-started" }],
     assessment_submissions: [{ id: "stale-assessment", assessment_id: "assessment-targeted", student_id: "unselected", status: "not-started", attempt_number: 0, score: null, max_score: 10, submitted_at: null, graded_at: null, answers: [], updated_at: now.toISOString() }]
