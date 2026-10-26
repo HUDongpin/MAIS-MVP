@@ -30,6 +30,7 @@ function readUploadCapability(value: unknown): AiCapability | null {
 }
 
 function statusForStorageRejection(code: string) {
+  if (code === "media-owner-erased") return 410;
   if (code === "media-too-large") return 413;
   if (code === "media-scan-failed") return 422;
   if (code === "media-encryption-key-missing") return 503;

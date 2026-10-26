@@ -1,6 +1,8 @@
+import { mediaStoreRoot, mediaOwnerHash, readMediaOwnerErasure } from "@/lib/server/mediaOwnerErasure";
 import { NextResponse } from "next/server";
 import { withAuthRouteJsonBoundary } from "@/lib/server/authRouteGuards";
-import { deleteUserAccount, exportUserAccountData } from "@/lib/server/userStore";
+import { deleteUserAccount, exportUserAccountData, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 import { requireAdmin } from "../../provisioning/_shared";
 
 export const runtime = "nodejs";
@@ -59,14 +61,29 @@ export async function DELETE(request: Request, context: RouteContext) {
     }
 
     const subject = await studentExport(userId);
-    if (subject.status === "not-found") return NextResponse.json({ error: "Account not found." }, { status: 404 });
+    if (subject.status === "not-found") {
+      // A self-deleted account of any role can need physical cleanup. This
+      // branch cannot authorize deletion of an account that is still live.
+      const marker = await readMediaOwnerErasure(mediaStoreRoot(), mediaOwnerHash(userId));
+      if (!marker) return NextResponse.json({ error: "Account not found." }, { status: 404 });
+    }
     if (subject.status === "not-student") return NextResponse.json({ error: "Student account required." }, { status: 403 });
 
-    const result = await deleteUserAccount(userId);
+    const generation = subject.status === "ok"
+      ? (subject.data.tables["learner_authority.accounts"]?.[0] as { generation?: string } | undefined)?.generation : undefined;
+    const result = await withAuthenticatedMutation(admin.authenticated, () => deleteUserAccount(userId, subject.status === "not-found"
+      ? { requireDeletedAccount: true }
+      : { requiredRole: "student", expectedGeneration: generation })).catch(learnerAuthorityFailureResponse);
+    if (result instanceof Response) return new NextResponse(result.body, { status: result.status, headers: result.headers });
     if (result.status === "not-found") return NextResponse.json({ error: "Account not found." }, { status: 404 });
     if (result.status === "blocked") {
       return NextResponse.json({ code: "deletion-blocked", blockers: result.blockers }, { status: 409 });
     }
-    return NextResponse.json({ ok: true, deletedAt: new Date().toISOString(), recordsRemoved: result.summary.totalRemoved });
+    const pending = result.mediaPurge.status === "pending";
+    return NextResponse.json({
+      ok: !pending, accountDeleted: true, mediaPurgePending: pending,
+      ...(pending ? { code: "account-media-erasure-pending", error: "Account deleted; physical media erasure is incomplete. Retry the exact deleted account after resolving the reported cleanup condition." } : {}),
+      deletedAt: new Date().toISOString(), recordsRemoved: result.summary.totalRemoved
+    }, { status: pending ? 503 : 200 });
   });
 }

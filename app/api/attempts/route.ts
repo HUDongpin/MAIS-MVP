@@ -1,3 +1,4 @@
+import { PracticeSubmissionConflictError, validPracticeSubmissionId } from "@/lib/server/practiceSubmissionIdentity";
 import { NextResponse } from "next/server";
 import { evaluateMediaStoragePolicy, mediaStoragePolicyFromEnv } from "@/lib/server/aiGovernance";
 import {
@@ -82,7 +83,10 @@ async function persistLocalAttempt({
   selectedAnswer,
   userId,
   answerWorkPhotos,
-  curriculumProfile
+  curriculumProfile,
+  submissionId,
+  expectedSessionRevision,
+  expectedAccountGeneration
 }: {
   durationSeconds?: number;
   questionId: string;
@@ -90,6 +94,9 @@ async function persistLocalAttempt({
   userId: string;
   answerWorkPhotos?: StoredMediaObjectReference[];
   curriculumProfile: CurriculumProfile;
+  submissionId?: string;
+  expectedSessionRevision?: number;
+  expectedAccountGeneration?: string;
 }) {
   const { submitQuestionAttempt } = await import("@/lib/server/userStore/studentActivity");
 
@@ -99,7 +106,10 @@ async function persistLocalAttempt({
     selectedAnswer,
     durationSeconds,
     curriculumTrack: curriculumProfile,
-    answerWorkPhotos
+    answerWorkPhotos,
+    submissionId,
+    expectedSessionRevision,
+    expectedAccountGeneration
   });
 }
 
@@ -155,24 +165,53 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Question ID and selected answer are required." }, { status: 400 });
   }
 
+  const hasSubmissionId = Object.prototype.hasOwnProperty.call(body, "submissionId");
+  if (hasSubmissionId && !validPracticeSubmissionId(body.submissionId)) {
+    return NextResponse.json({ error: "A valid practice submission identity is required." }, { status: 400 });
+  }
+  const submissionId = hasSubmissionId ? body.submissionId as string : undefined;
   const userId = authenticated.user.id;
   const workPhotos = await readAnswerWorkPhotos(body.answerWorkPhotos, { id: userId, role: authenticated.user.role });
   if (workPhotos.error) {
     return NextResponse.json({ error: workPhotos.error }, { status: workPhotos.status ?? 400 });
   }
   const answerWorkPhotos = workPhotos.photos ?? [];
-  const persistenceMode = practiceAttemptPersistenceMode();
+  const { learnerAuthorityIsInstalled } = await import("@/lib/server/userStore");
+  const persistenceMode = await learnerAuthorityIsInstalled() ? "local" : practiceAttemptPersistenceMode();
 
-  const feedback = await submitQuestionAttemptFast({
-    userId,
-    questionId,
-    selectedAnswer,
-    durationSeconds,
-    curriculumTrack: authenticated.user.curriculumProfile,
-    answerWorkPhotos
-  });
+  try {
+    const feedback = await submitQuestionAttemptFast({
+      userId,
+      questionId,
+      selectedAnswer,
+      durationSeconds,
+      curriculumTrack: authenticated.user.curriculumProfile,
+      answerWorkPhotos,
+      submissionId
+    });
 
-  if (!feedback) {
+    if (!feedback) {
+      if (persistenceMode === "local") {
+        const persistedFeedback = await persistLocalAttempt({
+          userId,
+          questionId,
+          selectedAnswer,
+          durationSeconds,
+          answerWorkPhotos,
+          curriculumProfile: authenticated.user.curriculumProfile,
+          expectedSessionRevision: authenticated.sessionRevision,
+          expectedAccountGeneration: authenticated.accountGeneration,
+          submissionId
+        });
+
+        if (persistedFeedback) {
+          return NextResponse.json(withPersistenceAcknowledgement(persistedFeedback));
+        }
+      }
+
+      return NextResponse.json({ error: "Question not found." }, { status: 404 });
+    }
+
     if (persistenceMode === "local") {
       const persistedFeedback = await persistLocalAttempt({
         userId,
@@ -180,29 +219,20 @@ export async function POST(request: Request) {
         selectedAnswer,
         durationSeconds,
         answerWorkPhotos,
-        curriculumProfile: authenticated.user.curriculumProfile
+        curriculumProfile: authenticated.user.curriculumProfile,
+        expectedSessionRevision: authenticated.sessionRevision,
+        expectedAccountGeneration: authenticated.accountGeneration,
+        submissionId
       });
 
-      if (persistedFeedback) {
-        return NextResponse.json(withPersistenceAcknowledgement(persistedFeedback));
-      }
+      return NextResponse.json(persistedFeedback ? withPersistenceAcknowledgement(persistedFeedback) : feedback);
     }
 
-    return NextResponse.json({ error: "Question not found." }, { status: 404 });
+    return NextResponse.json(feedback);
+  } catch (error) {
+    if (error instanceof PracticeSubmissionConflictError) {
+      return NextResponse.json({ code: error.code, error: error.message }, { status: 409 });
+    }
+    throw error;
   }
-
-  if (persistenceMode === "local") {
-    const persistedFeedback = await persistLocalAttempt({
-      userId,
-      questionId,
-      selectedAnswer,
-      durationSeconds,
-      answerWorkPhotos,
-      curriculumProfile: authenticated.user.curriculumProfile
-    });
-
-    return NextResponse.json(persistedFeedback ? withPersistenceAcknowledgement(persistedFeedback) : feedback);
-  }
-
-  return NextResponse.json(feedback);
 }

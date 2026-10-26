@@ -1,5 +1,8 @@
+import { assertMatchingPracticeSubmission, practiceSubmissionAttemptId, PracticeSubmissionConflictError } from "@/lib/server/practiceSubmissionIdentity";
 import { randomUUID } from "crypto";
 import postgres from "postgres";
+import { hasAuthorityInstallation, lockLearnerAuthority } from "./learnerAuthoritySchema";
+import { configurePostgresAccountWriteTransaction, lockExistingPostgresAccountData, resetPostgresLearningEventsInTransaction } from "@/lib/server/accountDataPostgres";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
@@ -15,6 +18,7 @@ type SubmitQuestionAttemptFastInput = {
   durationSeconds?: number;
   curriculumTrack?: CurriculumScope;
   answerWorkPhotos?: StoredMediaObjectReference[];
+  submissionId?: string;
 };
 
 export type PersistedAttemptFeedback = AttemptSubmissionResponse;
@@ -28,6 +32,11 @@ const postgresActivitySchemaLockTimeoutMs = 1_000;
 const postgresActivitySchemaStatementTimeoutMs = 5_000;
 
 let postgresClient: postgres.Sql | null = null;
+let sharedPostgresClient: postgres.Sql | null = null;
+export function useSharedPostgresStudentActivityClient(client: postgres.Sql) {
+  if (postgresClient && postgresClient !== client) throw new Error("Activity storage must join the authority pool before accepting requests.");
+  sharedPostgresClient = client;
+}
 let postgresActivityReady: Promise<void> | null = null;
 
 const postgresStudentActivitySchemaStatements = [
@@ -154,6 +163,7 @@ export function practiceAttemptFastPathPersistsRows() {
 export const learningEventFastPathPersistsRows = practiceAttemptFastPathPersistsRows;
 
 function getPostgresClient() {
+  if (sharedPostgresClient) return sharedPostgresClient;
   if (postgresClient) return postgresClient;
   if (!postgresUrl) throw new Error("POSTGRES_URL is required for practice attempt rows.");
 
@@ -170,6 +180,7 @@ export async function ensurePostgresStudentActivityTables() {
   if (!postgresActivityReady) {
     const sql = getPostgresClient();
     const attempt = sql.begin(async (migrationSql) => {
+      await lockLearnerAuthority(migrationSql, "exclusive");
       await migrationSql`
         SELECT
           set_config('lock_timeout', ${`${postgresActivitySchemaLockTimeoutMs}ms`}, true),
@@ -255,57 +266,38 @@ export async function appendLearningEventsFast(
   if (!events.length) return 0;
 
   await ensurePostgresStudentActivityTables();
-  const sql = getPostgresClient();
-  const clearRows = await sql<{ cleared_at: string }[]>`
-    SELECT cleared_at
-    FROM learning_event_clears
-    WHERE user_id = ${userId}
-    LIMIT 1
-  `;
-  const clearedAt = clearRows[0]?.cleared_at ?? null;
-  const rows = events
-    .filter((event) => eventIsAfterClear(event, clearedAt))
-    .map((event) => ({
-      id: event.id,
-      user_id: userId,
-      type: event.type,
-      source: event.source,
-      grade: event.grade,
-      topic_id: event.topicId,
-      question_id: event.questionId ?? null,
-      duration_seconds: analyticsEventDurationSeconds(event),
-      created_at: event.timestamp
+  return getPostgresClient().begin("isolation level read committed", async (sql) => {
+    await configurePostgresAccountWriteTransaction(sql);
+    if (await lockLearnerAuthority(sql, "shared")) return null;
+    if (!await lockExistingPostgresAccountData(sql, userId)) return 0;
+    const clearRows = await sql<{ cleared_at: string }[]>`
+      SELECT cleared_at FROM public.learning_event_clears WHERE user_id = ${userId} LIMIT 1
+    `;
+    const clearedAt = clearRows[0]?.cleared_at ?? null;
+    const rows = events.filter((event) => eventIsAfterClear(event, clearedAt)).map((event) => ({
+      id: event.id, user_id: userId, type: event.type, source: event.source,
+      grade: event.grade, topic_id: event.topicId, question_id: event.questionId ?? null,
+      duration_seconds: analyticsEventDurationSeconds(event), created_at: event.timestamp
     }));
-
-  if (!rows.length) return 0;
-
-  const inserted = await sql`
-    INSERT INTO learning_events ${sql(rows, "id", "user_id", "type", "source", "grade", "topic_id", "question_id", "duration_seconds", "created_at")}
-    ON CONFLICT (id) DO NOTHING
-    RETURNING id
-  ` as Array<{ id: string }>;
-
-  return inserted.length;
+    if (!rows.length) return 0;
+    const inserted = await sql`
+      INSERT INTO public.learning_events ${sql(rows, "id", "user_id", "type", "source", "grade", "topic_id", "question_id", "duration_seconds", "created_at")}
+      ON CONFLICT (id) DO NOTHING RETURNING id
+    ` as Array<{ id: string }>;
+    return inserted.length;
+  });
 }
 
-export async function clearLearningEventsFast(userId: string, clearedAt = new Date().toISOString()) {
+export async function clearLearningEventsFast(userId: string, clearedAt?: string) {
   if (!postgresRowsEnabled()) return false;
-
   await ensurePostgresStudentActivityTables();
-  await getPostgresClient().begin(async (sql) => {
-    await sql`
-      DELETE FROM learning_events
-      WHERE user_id = ${userId}
-    `;
-    await sql`
-      INSERT INTO learning_event_clears (user_id, cleared_at)
-      VALUES (${userId}, ${clearedAt})
-      ON CONFLICT (user_id) DO UPDATE SET
-        cleared_at = excluded.cleared_at
-    `;
+  return getPostgresClient().begin("isolation level read committed", async (sql) => {
+    await configurePostgresAccountWriteTransaction(sql);
+    if (await lockLearnerAuthority(sql, "shared")) return false;
+    if (!await lockExistingPostgresAccountData(sql, userId)) return false;
+    await resetPostgresLearningEventsInTransaction(sql, userId, clearedAt);
+    return true;
   });
-
-  return true;
 }
 
 export type FastLearningEventRow = {
@@ -333,6 +325,7 @@ export async function readLearningEventsFastForUsers(
 
   await ensurePostgresStudentActivityTables();
   const sql = getPostgresClient();
+  if (await hasAuthorityInstallation(sql)) return [];
   const rows = await sql<Array<{
     id: string;
     user_id: string;
@@ -518,11 +511,28 @@ async function persistQuestionAttempt(input: {
   durationSeconds: number | null;
   now: string;
   answerWorkPhotos?: StoredMediaObjectReference[];
+  submissionId?: string;
 }) {
   await ensurePostgresStudentActivityTables();
   const profile = profileFields(input.question);
+  const id = practiceSubmissionAttemptId(input.userId, input.submissionId) ?? randomUUID();
 
-  await getPostgresClient().begin(async (sql) => {
+  return getPostgresClient().begin("isolation level read committed", async (sql) => {
+    await configurePostgresAccountWriteTransaction(sql);
+    if (!await lockExistingPostgresAccountData(sql, input.userId)) return { persisted: false, correct: input.correct };
+    if (input.submissionId) {
+      const [existing] = await sql`
+        SELECT user_id, question_id, selected_answer, is_correct, duration_seconds, answer_work_photos
+        FROM practice_attempts WHERE id = ${id}
+      `;
+      if (existing) {
+        assertMatchingPracticeSubmission(existing as {
+          user_id: string; question_id: string; selected_answer: string;
+          duration_seconds: number | null; answer_work_photos?: unknown;
+        }, { ...input, questionId: input.question.id }, input.durationSeconds);
+        return { persisted: true, correct: Boolean(existing.is_correct) };
+      }
+    }
     await sql`
       INSERT INTO practice_attempts (
         id,
@@ -540,7 +550,7 @@ async function persistQuestionAttempt(input: {
         answer_work_photos
       )
       VALUES (
-        ${randomUUID()},
+        ${id},
         ${input.userId},
         ${input.question.id},
         ${input.selectedAnswer},
@@ -571,7 +581,7 @@ async function persistQuestionAttempt(input: {
         duration_seconds,
         created_at
       )
-      VALUES (
+      SELECT
         ${randomUUID()},
         ${input.userId},
         ${input.correct ? "answer-correct" : "answer-wrong"},
@@ -581,6 +591,9 @@ async function persistQuestionAttempt(input: {
         ${input.question.id},
         ${input.durationSeconds},
         ${input.now}
+      WHERE NOT EXISTS (
+        SELECT 1 FROM public.learning_event_clears
+        WHERE user_id = ${input.userId} AND cleared_at >= ${input.now}::pg_catalog.timestamptz
       )
     `;
 
@@ -591,6 +604,7 @@ async function persistQuestionAttempt(input: {
         now: input.now
       });
     }
+    return { persisted: true, correct: input.correct };
   });
 }
 
@@ -600,8 +614,10 @@ export async function submitQuestionAttemptFast({
   selectedAnswer,
   durationSeconds,
   curriculumTrack,
-  answerWorkPhotos
+  answerWorkPhotos,
+  submissionId
 }: SubmitQuestionAttemptFastInput): Promise<PersistedAttemptFeedback | null> {
+  if (postgresRowsEnabled() && await hasAuthorityInstallation(getPostgresClient())) return null;
   const question = await getQuestionForAttemptFromStore(
     questionId,
     curriculumTrack,
@@ -616,17 +632,21 @@ export async function submitQuestionAttemptFast({
 
   if (postgresRowsEnabled()) {
     try {
-      await persistQuestionAttempt({
+      const persisted = await persistQuestionAttempt({
         userId,
         question,
         selectedAnswer,
         correct: feedback.correct,
         durationSeconds: normalizedDurationSeconds(durationSeconds),
         now: new Date().toISOString(),
-        answerWorkPhotos
+        answerWorkPhotos,
+        submissionId
       });
-      feedback.persisted = true;
-    } catch {
+      feedback.persisted = persisted.persisted;
+      feedback.correct = persisted.correct;
+      feedback.correctAnswer = persisted.correct ? undefined : question.answer;
+    } catch (error) {
+      if (error instanceof PracticeSubmissionConflictError) throw error;
       console.warn("Practice attempt row persistence failed; returning answer feedback without a saved attempt row.");
     }
   }
@@ -639,6 +659,7 @@ export const __practiceAttemptStoreTestHooks = {
     const client = postgresClient;
     postgresClient = null;
     postgresActivityReady = null;
+    sharedPostgresClient = null;
     if (client) await client.end({ timeout: 1 });
   },
   postgresStudentActivitySchemaSql() {

@@ -1,3 +1,4 @@
+import { canTeacherAccessClass } from "@/lib/server/teacherClassAccess";
 import {
   dayKey,
   startOfUtcDay
@@ -1750,21 +1751,10 @@ function teacherClassRecordsFor<ClassRecord extends TeacherOpsOperationsClassRec
     school_memberships?: TeacherOpsOperationsSchoolMembershipRecord[];
     teacher_classes: ClassRecord[];
   },
-  user: TeacherOpsOperationsUserRecord
+  user: TeacherOpsOperationsUserRecord,
+  intent: "read" | "write" = "write"
 ) {
-  const membershipClassIds = new Set(
-    (database.school_memberships ?? [])
-      .filter((membership) => (
-        membership.user_id === user.id &&
-        membership.class_id &&
-        (membership.role === "teacher" || membership.role === "admin")
-      ))
-      .map((membership) => membership.class_id as string)
-  );
-
-  return database.teacher_classes
-    .filter((teacherClass) => user.role === "admin" || teacherClass.teacher_id === user.id || membershipClassIds.has(teacherClass.id))
-    .sort((a, b) => a.grade.localeCompare(b.grade) || a.name.localeCompare(b.name));
+  return database.teacher_classes.filter((teacherClass) => canTeacherAccessClass(database, user, teacherClass, intent)).sort((a, b) => a.grade.localeCompare(b.grade) || a.name.localeCompare(b.name));
 }
 
 export function teacherOperationClassRecordsFor<ClassRecord extends TeacherOpsOperationsClassRecord>(
@@ -1775,15 +1765,7 @@ export function teacherOperationClassRecordsFor<ClassRecord extends TeacherOpsOp
   },
   user: TeacherOpsOperationsUserRecord
 ) {
-  const records = new Map(teacherClassRecordsFor(database, user).map((teacherClass) => [teacherClass.id, teacherClass]));
-  database.teacher_class_collaborators
-    .filter((collaborator) => collaborator.teacher_id === user.id && collaborator.status === "active")
-    .forEach((collaborator) => {
-      const teacherClass = database.teacher_classes.find((candidate) => candidate.id === collaborator.class_id);
-      if (teacherClass) records.set(teacherClass.id, teacherClass);
-    });
-
-  return Array.from(records.values()).sort((a, b) => a.grade.localeCompare(b.grade) || a.name.localeCompare(b.name));
+  return teacherClassRecordsFor(database, user, "read");
 }
 
 export function teacherCanReadOperationsClass<ClassRecord extends TeacherOpsOperationsClassRecord>(
@@ -1796,12 +1778,7 @@ export function teacherCanReadOperationsClass<ClassRecord extends TeacherOpsOper
   classId: string
 ) {
   const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId);
-  if (!teacherClass) return null;
-  if (teacherClassRecordsFor(database, user).some((candidate) => candidate.id === classId)) return teacherClass;
-  const collaborator = database.teacher_class_collaborators.find(
-    (candidate) => candidate.class_id === classId && candidate.teacher_id === user.id && candidate.status === "active"
-  );
-  return collaborator ? teacherClass : null;
+  return teacherClass && canTeacherAccessClass(database, user, teacherClass, "read") ? teacherClass : null;
 }
 
 export function teacherCanMutateOperationsClass<ClassRecord extends TeacherOpsOperationsClassRecord>(
@@ -1814,16 +1791,7 @@ export function teacherCanMutateOperationsClass<ClassRecord extends TeacherOpsOp
   classId: string
 ) {
   const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId);
-  if (!teacherClass) return null;
-  if (teacherClassRecordsFor(database, user).some((candidate) => candidate.id === classId)) return teacherClass;
-  const collaborator = database.teacher_class_collaborators.find(
-    (candidate) =>
-      candidate.class_id === classId &&
-      candidate.teacher_id === user.id &&
-      candidate.status === "active" &&
-      candidate.role === "co-teacher"
-  );
-  return collaborator ? teacherClass : null;
+  return teacherClass && canTeacherAccessClass(database, user, teacherClass, "write") ? teacherClass : null;
 }
 
 export function teacherCanManageOperationsClass<ClassRecord extends TeacherOpsOperationsClassRecord>(
@@ -1835,12 +1803,7 @@ export function teacherCanManageOperationsClass<ClassRecord extends TeacherOpsOp
   classId: string
 ) {
   const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId);
-  if (!teacherClass) return null;
-  if (user.role === "admin" || teacherClass.teacher_id === user.id) return teacherClass;
-  const hasAdminMembership = (database.school_memberships ?? []).some(
-    (membership) => membership.user_id === user.id && membership.class_id === classId && membership.role === "admin"
-  );
-  return hasAdminMembership ? teacherClass : null;
+  return teacherClass && canTeacherAccessClass(database, user, teacherClass, "manage") ? teacherClass : null;
 }
 
 export function createTeacherOpsOperationsPersistenceStore({

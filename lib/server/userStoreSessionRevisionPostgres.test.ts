@@ -144,7 +144,7 @@ test("Postgres password change and disable revoke reset tokens in the app-state 
   );
   assert.match(
     writerSource,
-    /const payload = postgresDatabasePayload\(database\)[\s\S]*?UPDATE public\.app_state AS state[\s\S]*?payload = \$\{sql\.json\(payload\)\}[\s\S]*?await syncPostgresHotAuthTablesWith\(sql, database\)/u
+    /const payload =[\s\S]*?postgresDatabasePayload\(database\)[\s\S]*?UPDATE public\.app_state AS state[\s\S]*?ELSE \$\{sql\.json\(lessonPatch \? \{\} : payload\)\}[\s\S]*?await syncPostgresHotAuthTablesWith\(sql, database\)/u
   );
   assert.match(
     hotSyncSource,

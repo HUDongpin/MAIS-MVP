@@ -8,6 +8,8 @@ import {
 } from "@/lib/server/auth";
 import { sessionCookieOptions } from "@/lib/server/sessionCookie";
 import { revokeAllUserSessions } from "@/lib/server/userStore/auth";
+import { withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 
 type LogoutAllHandlerDependencies = {
   requireAuthenticatedUser: typeof requireAuthenticatedUser;
@@ -36,7 +38,8 @@ export function createLogoutAllHandler({
       });
     }
 
-    const revoked = await revokeSessions(authenticated.user.id);
+    const revoked = await withAuthenticatedMutation(authenticated, () => revokeSessions(authenticated.user.id)).catch(learnerAuthorityFailureResponse);
+    if (revoked instanceof Response) return new NextResponse(revoked.body, { status: revoked.status, headers: revoked.headers });
     if (revoked.status !== "revoked") {
       return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
     }

@@ -4,6 +4,7 @@ import {
   fetchGoogleJwks as defaultFetchGoogleJwks,
   getGoogleOAuthConfig as defaultGetGoogleOAuthConfig,
   GOOGLE_OAUTH_STATE_COOKIE,
+  safeGoogleOAuthNextPath,
   verifyGoogleIdToken as defaultVerifyGoogleIdToken,
   verifyGoogleOAuthState as defaultVerifyGoogleOAuthState,
   type GoogleOAuthConfig,
@@ -68,13 +69,15 @@ export type GoogleCallbackDependencies = {
     | { status: "teacher-invite-required" }
     | { status: "parental-consent-required" }
     | { status: "invalid" }
-    | { status: "created" | "linked" | "authenticated"; session: GoogleCallbackAuthenticatedSession; sessionRevision: number }
+    | { status: "created" | "linked" | "authenticated"; session: GoogleCallbackAuthenticatedSession; sessionRevision: number; accountGeneration?: string }
   >;
   setSessionCookie: (
     response: NextResponse,
     userId: string,
     request: Request,
-    expectedSessionRevision: number
+    expectedSessionRevision: number,
+    expectedAccountGeneration?: string,
+    expectedAccountRole?: "student" | "teacher" | "parent" | "admin"
   ) => Promise<void>;
 };
 
@@ -95,7 +98,12 @@ function readCookie(header: string | null, name: string) {
     .split(";")
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${name}=`));
-  return match ? decodeURIComponent(match.slice(name.length + 1)) : "";
+  if (!match) return "";
+  try {
+    return decodeURIComponent(match.slice(name.length + 1));
+  } catch {
+    return "";
+  }
 }
 
 function redirectToLogin(request: Request, error: string) {
@@ -115,12 +123,14 @@ function nextPathStartsWith(value: string, root: string) {
 }
 
 function safeWorkspaceTarget(value: string, role?: "student" | "teacher" | "parent" | "admin") {
-  if (!value.startsWith("/") || value.startsWith("//")) return workspaceForRole(role);
+  value = safeGoogleOAuthNextPath(value);
+  let pathname: string;
+  try { pathname = new URL(decodeURIComponent(new URL(value, "https://mais.invalid").pathname), "https://mais.invalid").pathname; } catch { return workspaceForRole(role); }
   if (role === "teacher" || role === "admin") {
-    return nextPathStartsWith(value, "/teacher") ? value : workspaceForRole(role);
+    return nextPathStartsWith(pathname, "/teacher") ? value : workspaceForRole(role);
   }
-  if (role === "parent") return nextPathStartsWith(value, "/parent") ? value : workspaceForRole(role);
-  if (role === "student" && (nextPathStartsWith(value, "/teacher") || nextPathStartsWith(value, "/parent"))) {
+  if (role === "parent") return nextPathStartsWith(pathname, "/parent") ? value : workspaceForRole(role);
+  if (role === "student" && (nextPathStartsWith(pathname, "/teacher") || nextPathStartsWith(pathname, "/parent"))) {
     return workspaceForRole(role);
   }
   return value;
@@ -195,7 +205,9 @@ export async function handleGoogleOAuthCallback(
       response,
       authenticated.session.user.id,
       request,
-      authenticated.sessionRevision
+      authenticated.sessionRevision,
+      authenticated.accountGeneration,
+      authenticated.session.user.role
     );
   } catch (error) {
     const failureResponse = sessionCookieFailureResponse(error, request, {

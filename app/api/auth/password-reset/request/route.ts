@@ -1,3 +1,4 @@
+import { runCredentialMutation } from "@/lib/server/requestMutationActor";
 import { NextResponse } from "next/server";
 import {
   isPasswordResetDeliveryConfigured,
@@ -17,7 +18,7 @@ const exposeLocalResetLinks =
   process.env.NODE_ENV !== "production" || process.env.HK_MATH_EXPOSE_LOCAL_RESET_LINKS === "true";
 
 export async function POST(request: Request) {
-  return withAuthRouteJsonBoundary("auth-password-reset-request", () => handlePasswordResetRequestRoute(request));
+  return withAuthRouteJsonBoundary("auth-password-reset-request", () => runCredentialMutation(() => handlePasswordResetRequestRoute(request)));
 }
 
 async function handlePasswordResetRequestRoute(request: Request) {

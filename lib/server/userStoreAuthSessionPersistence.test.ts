@@ -3550,9 +3550,9 @@ test("legacy userStore delegates authenticated user lookup to extracted auth ses
   assert.match(source, /export const shouldRetryDemoLoginAfterFastInvalid = authUserStore\.shouldRetryDemoLoginAfterFastInvalid/);
   assert.match(source, /export const authenticatedUserForCredentials = authUserStore\.authenticatedUserForCredentials/);
   assert.match(source, /export const authenticateUser = authUserStore\.authenticateUser/);
-  assert.match(source, /export const authenticateUserForLogin:[^=]+ = authUserStore\.authenticateUserForLogin/);
-  assert.match(source, /export const authenticateFlexibleExampleAccountForLogin:[^=]+ = authUserStore\.authenticateFlexibleExampleAccountForLogin/);
-  assert.match(source, /export const completeStudentCurriculumTrackSelection:[^=]+ = authUserStore\.completeStudentCurriculumTrackSelection/);
+  assert.match(source, /withLoginAuthorityProof\(username, \(\) => authUserStore\.authenticateUserForLogin\(username, password\)\)/);
+  assert.match(source, /withLoginAuthorityProof\(input\.username, \(\) => authUserStore\.authenticateFlexibleExampleAccountForLogin\(input\)\)/);
+  assert.match(source, /withLoginAuthorityProof\(input\.username, \(\) => authUserStore\.completeStudentCurriculumTrackSelection\(input\)\)/);
   assert.match(source, /export const createStudentUser = authUserStore\.createStudentUser/);
   assert.match(source, /export const createTeacherUser = authUserStore\.createTeacherUser/);
   assert.match(source, /export const createParentUser = authUserStore\.createParentUser/);

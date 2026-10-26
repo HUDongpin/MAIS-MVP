@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const p=JSON.parse(readFileSync(process.argv[2],'utf8'));
+assert.equal(p.syntheticOnly,true);assert.equal(p.durableReadback,true);
+assert.equal(p.kind,'direct-save-latency','latency gate requires an unwrapped module and disabled JSON counters');
+assert.equal(p.jsonMeasured,false);assert.equal(p.saves.length,6);assert.equal(p.burst.length,20);
+const meanMs=p.saves.reduce((n,s)=>n+s.ms,0)/p.saves.length;
+const maxServiceMs=Math.max(...p.saves.map(s=>s.ms));
+const tailMs=Math.max(...p.burst.map(s=>s.ms));
+const pass=meanMs<=90&&maxServiceMs<=100&&tailMs<=2000;
+console.log(JSON.stringify({status:pass?'passed':'budget-not-met',meanMs,maxServiceMs,tailMs,limits:{meanMs:90,maxServiceMs:100,tailMs:2000},httpAcceptance:false}));
+process.exitCode=pass?0:1;

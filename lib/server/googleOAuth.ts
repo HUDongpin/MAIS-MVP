@@ -90,9 +90,18 @@ function constantTimeEqual(left: string, right: string) {
   return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
 }
 
-function safeNextPath(value: unknown) {
-  if (typeof value !== "string") return "/dashboard";
-  return value.startsWith("/") && !value.startsWith("//") ? value : "/dashboard";
+export function safeGoogleOAuthNextPath(value: unknown) {
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//") ||
+      /[\\\u0000-\u001f\u007f]/u.test(value) || /%(?:0[0-9a-f]|1[0-9a-f]|5c|7f)/i.test(value)) return "/dashboard";
+  try {
+    const base = new URL("https://mais.invalid");
+    const target = new URL(value, base);
+    if (target.origin !== base.origin || decodeURIComponent(target.pathname).startsWith("//")) return "/dashboard";
+    // Canonicalize dot segments before applying workspace boundaries in the callback.
+    return target.pathname + target.search + target.hash;
+  } catch {
+    return "/dashboard";
+  }
 }
 
 function normalizeRole(value: unknown): GoogleOAuthRole {
@@ -157,7 +166,7 @@ export async function buildGoogleOAuthAuthorization({
   const payload: GoogleOAuthStatePayload = {
     state,
     nonce,
-    next: safeNextPath(input.next),
+    next: safeGoogleOAuthNextPath(input.next),
     role: normalizeRole(input.role),
     grade: input.grade,
     curriculumProfile: input.curriculumProfile,
@@ -219,7 +228,7 @@ export async function verifyGoogleOAuthState({
     status: "valid" as const,
     payload: {
       ...payload,
-      next: safeNextPath(payload.next),
+      next: safeGoogleOAuthNextPath(payload.next),
       role: normalizeRole(payload.role)
     } as GoogleOAuthStatePayload
   };

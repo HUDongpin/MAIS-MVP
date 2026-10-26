@@ -263,3 +263,32 @@ test("verifyGoogleIdToken rejects unverified Google email addresses", async () =
 
   assert.equal(profile.status, "invalid");
 });
+
+test("R10 OAuth initiation and signed older states reject ambiguous external/control paths", async () => {
+  const env = { GOOGLE_OAUTH_ENABLED: "true", GOOGLE_OAUTH_CLIENT_ID: "synthetic-client", GOOGLE_OAUTH_CLIENT_SECRET: "synthetic-client-secret", GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback", AUTH_SESSION_SECRET: "synthetic-state-secret" };
+  const { createHmac } = await import("node:crypto");
+  for (const next of ["/\\outside.test/phish", "/\t/outside.test/phish", "/\n/outside.test/phish", "/%5coutside.test/phish", "/%0d%0aoutside", "/%2foutside.test", "/%", "//outside.test", "https://outside.test", "/dashboard\u0000"]) {
+    const pending = await buildGoogleOAuthAuthorization({ env, requestUrl: "https://mais.test/login", input: { next }, now: 1000 });
+    assert.equal(pending.status, "redirect");
+    if (pending.status !== "redirect") assert.fail("Expected synthetic authorization.");
+    assert.equal(JSON.parse(Buffer.from(pending.cookie.value.split(".")[0], "base64url").toString()).next, "/dashboard", next);
+    const encoded = Buffer.from(JSON.stringify({ state: "synthetic-state", nonce: "synthetic-nonce", next, role: "student", exp: 10000 })).toString("base64url");
+    const signature = createHmac("sha256", env.AUTH_SESSION_SECRET).update(encoded).digest("base64url");
+    const verified = await verifyGoogleOAuthState({ env, state: "synthetic-state", cookieValue: encoded + "." + signature, now: 2000 });
+    assert.equal(verified.status, "valid");
+    if (verified.status !== "valid") assert.fail("Expected valid signature with safely normalized return path.");
+    assert.equal(verified.payload.next, "/dashboard", next);
+  }
+});
+
+test("R10 OAuth state canonicalizes dot segments while retaining internal queries and fragments", async () => {
+  const env = { GOOGLE_OAUTH_ENABLED: "true", GOOGLE_OAUTH_CLIENT_ID: "synthetic-client", GOOGLE_OAUTH_CLIENT_SECRET: "synthetic-client-secret", GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback", AUTH_SESSION_SECRET: "synthetic-state-secret" };
+  for (const [next, expected] of [["/safe/../teacher?tab=class#top", "/teacher?tab=class#top"], ["/safe/%2e%2e/parent", "/parent"], ["/dashboard?next=https%3A%2F%2Foutside.test", "/dashboard?next=https%3A%2F%2Foutside.test"]]) {
+    const pending = await buildGoogleOAuthAuthorization({ env, requestUrl: "https://mais.test/login", input: { next }, now: 1000 });
+    if (pending.status !== "redirect") assert.fail("Expected synthetic authorization.");
+    const state = new URL(pending.authorizationUrl).searchParams.get("state")!;
+    const verified = await verifyGoogleOAuthState({ env, state, cookieValue: pending.cookie.value, now: 2000 });
+    if (verified.status !== "valid") assert.fail("Expected synthetic signed state.");
+    assert.equal(verified.payload.next, expected);
+  }
+});

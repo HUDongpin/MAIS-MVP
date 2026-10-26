@@ -11,10 +11,16 @@ import postgres from "postgres";
 const practiceAttemptPostgresIntegrationUrl =
   process.env.MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL?.trim() || "";
 
-function postgresUrlForSchema(baseUrl: string, schema: string) {
-  const scoped = new URL(baseUrl);
-  scoped.searchParams.set("options", `-csearch_path=${schema}`);
-  return scoped.href;
+function postgresUrlForDatabase(baseUrl: string, database: string) {
+  const isolated = new URL(baseUrl);
+  assert.ok(["postgres:", "postgresql:"].includes(isolated.protocol));
+  assert.ok(["127.0.0.1", "localhost"].includes(isolated.hostname), "integration fixtures require a local disposable test database");
+  assert.match(isolated.pathname, /^\/mais_[a-z0-9_]*(?:tests?|ci)$/u);
+  assert.match(database, /^u224_r5_(?:store|route)_[a-f0-9]{32}$/u);
+  isolated.pathname = `/${database}`;
+  isolated.search = "";
+  isolated.hash = "";
+  return isolated.href;
 }
 
 function hermeticChildEnv({
@@ -37,7 +43,7 @@ function hermeticChildEnv({
     NODE_ENV: "test",
     NODE_OPTIONS: "",
     AUTH_SESSION_SECRET: authSessionSecret,
-    HK_MATH_DB_PATH: "",
+    HK_MATH_DB_PATH: join(databaseDirectory, "hk-math-db.sqlite"),
     HK_MATH_DB_DIR: databaseDirectory,
     HK_MATH_DISABLE_SQLITE_READ_CACHE: "1",
     HK_MATH_STORAGE_PROVIDER: "sqlite",
@@ -240,27 +246,31 @@ test(
   "real PostgreSQL attempts route acknowledges only a committed readable row",
   { skip: !practiceAttemptPostgresIntegrationUrl },
   async (t) => {
-    const schema = `u224_r5_route_${randomUUID().replaceAll("-", "")}`;
+    const database = `u224_r5_route_${randomUUID().replaceAll("-", "")}`;
+    const isolatedUrl = postgresUrlForDatabase(practiceAttemptPostgresIntegrationUrl, database);
     const admin = postgres(practiceAttemptPostgresIntegrationUrl, {
       connect_timeout: 10,
       max: 1,
       prepare: false,
     });
     try {
-      await admin.unsafe(`CREATE SCHEMA "${schema}"`);
+      await admin.unsafe(`CREATE DATABASE "${database}"`);
     } catch {
       await admin.end({ timeout: 1 }).catch(() => {});
-      assert.fail("Could not create the isolated attempts-route PostgreSQL schema; details redacted.");
+      assert.fail("Could not create the isolated attempts-route PostgreSQL database; details redacted.");
     }
     t.after(async () => {
-      await admin.unsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`).catch(() => {});
-      await admin.end({ timeout: 1 }).catch(() => {});
+      try {
+        // No FORCE: leaked child clients fail cleanup visibly instead of being killed.
+        await admin.unsafe(`DROP DATABASE "${database}"`);
+      } finally {
+        await admin.end({ timeout: 1 });
+      }
     });
 
     const temporaryRoot = await mkdtemp(join(tmpdir(), "mais-attempt-route-postgres-"));
     const databaseDirectory = await mkdtemp(join(temporaryRoot, "database-"));
     t.after(() => rm(temporaryRoot, { force: true, recursive: true }));
-    const scopedUrl = postgresUrlForSchema(practiceAttemptPostgresIntegrationUrl, schema);
     const script = `
       import { mock } from "node:test";
       mock.module("@/lib/server/auth", {
@@ -277,8 +287,12 @@ test(
           })
         }
       });
+      const { default: postgres } = await import("postgres");
+      const verifier = postgres(process.env.POSTGRES_URL, { max: 1, prepare: false });
       const { __practiceAttemptStoreTestHooks } = await import("./lib/server/practiceAttemptStore.ts");
       try {
+        await verifier.unsafe("CREATE TABLE public.auth_users (id TEXT PRIMARY KEY)");
+        await verifier\`INSERT INTO public.auth_users (id) VALUES ('u224-real-route')\`;
         const { POST } = await import("./app/api/attempts/route.ts");
         const response = await POST(new Request("http://localhost/api/attempts", {
           method: "POST",
@@ -291,6 +305,7 @@ test(
         process.stderr.write("isolated attempts-route PostgreSQL child failed; details redacted\\n");
         process.exitCode = 1;
       } finally {
+        await verifier.end({ timeout: 1 }).catch(() => {});
         await __practiceAttemptStoreTestHooks.closePostgresClient().catch(() => {});
       }
     `;
@@ -303,7 +318,8 @@ test(
         env: {
           ...hermeticChildEnv({ temporaryRoot, databaseDirectory }),
           HK_MATH_STORAGE_PROVIDER: "postgres",
-          POSTGRES_URL: scopedUrl,
+          HK_MATH_ENABLE_DEMO_USER: "false",
+          POSTGRES_URL: isolatedUrl,
         },
         timeout: 30_000,
       },
@@ -314,11 +330,11 @@ test(
     assert.equal(output.body.correct, true);
     assert.equal(output.body.persisted, true);
 
-    const verifier = postgres(scopedUrl, { max: 1, prepare: false });
+    const verifier = postgres(isolatedUrl, { max: 1, prepare: false });
     try {
       const rows = await verifier`
         SELECT question_id, selected_answer, is_correct, duration_seconds
-        FROM practice_attempts
+        FROM public.practice_attempts
         WHERE user_id = 'u224-real-route'
       `;
       assert.deepEqual([...rows], [{
@@ -467,6 +483,16 @@ test("attempts POST enforces live HK/Mainland scope and reports empty NC availab
       mainland: { region: "MAINLAND", publisher: "MAINLAND_PEP" },
       northCarolina: { region: "US", publisher: "US_NC_MATH" }
     };
+    const { createStudentUser } = await import("./lib/server/userStore.ts");
+    const created = await createStudentUser({
+      name: "Curriculum scope fixture",
+      username: "synthetic-curriculum-scope-fixture",
+      password: "synthetic-curriculum-scope-password",
+      grade: "S4",
+      curriculumProfile: profiles.hk
+    });
+    assert.equal(created.status, "created");
+    const fixtureUserId = created.session.user.id;
     let activeProfile = profiles.hk;
     mock.module("@/lib/server/auth", {
       namedExports: {
@@ -474,7 +500,7 @@ test("attempts POST enforces live HK/Mainland scope and reports empty NC availab
         expectedUserConstraintsFromRequest: () => [],
         guardExpectedAuthenticatedUser: () => null,
         requireAuthenticatedUser: async () => ({
-          user: { curriculumProfile: activeProfile, id: "fixture-user", role: "student" }
+          user: { curriculumProfile: activeProfile, id: fixtureUserId, role: "student" }
         })
       }
     });
@@ -523,7 +549,7 @@ test("attempts POST enforces live HK/Mainland scope and reports empty NC availab
     {
       cwd: process.cwd(),
       encoding: "utf8",
-      env: hermeticChildEnv({ temporaryRoot, databaseDirectory }),
+      env: { ...hermeticChildEnv({ temporaryRoot, databaseDirectory }), HK_MATH_ENABLE_DEMO_USER: "false" },
       timeout: 15_000
     }
   );

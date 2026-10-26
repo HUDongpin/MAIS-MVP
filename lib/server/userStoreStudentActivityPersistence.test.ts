@@ -27,6 +27,20 @@ import type {
 
 const now = new Date("2026-06-20T10:00:00.000Z");
 
+test("latest student activity supports large retained histories and ignores other learners and invalid clocks", () => {
+  const database = createMistakeDatabase();
+  database.learning_events = Array.from({ length: 200_000 }, (_, index) => ({
+    id: `large-history-${index}`, user_id: "student-1", type: "page-view", source: "lesson",
+    grade: "S3", topic_id: "topic-1", created_at: "2026-06-20T10:00:00.000Z"
+  }));
+  database.learning_events.push(
+    { id: "latest", user_id: "student-1", type: "page-view", source: "lesson", grade: "S3", topic_id: "topic-1", created_at: "2026-06-21T11:30:00.000Z" },
+    { id: "invalid", user_id: "student-1", type: "page-view", source: "lesson", grade: "S3", topic_id: "topic-1", created_at: "invalid" },
+    { id: "foreign", user_id: "student-2", type: "page-view", source: "lesson", grade: "S3", topic_id: "topic-1", created_at: "2099-01-01T00:00:00.000Z" }
+  );
+  assert.equal(studentActivityPersistence.latestStudentActivityAt(database, "student-1"), "2026-06-21T11:30:00.000Z");
+});
+
 function createTestStore(
   database: StudentActivityPersistenceDatabase,
   options: Partial<Parameters<typeof createStudentActivityPersistenceStore>[0]> = {}
@@ -193,7 +207,14 @@ test("legacy userStore clears student dashboard cache after dashboard-affecting 
       .sort((a, b) => a - b)[0] ?? storeConfigSource.length;
     const hookSource = storeConfigSource.slice(hookStart, nextHookStart);
     assert.notEqual(hookStart, -1, `${hook} should be wired in the student activity store.`);
-    assert.match(hookSource, /clearStudentDashboardCacheForUser\(userId\)/, `${hook} should invalidate student dashboard cache.`);
+    if (hook === "afterUpdateLessonProgress") {
+      assert.match(hookSource, /afterLessonProgressUpdated\(database as Database/);
+      const completionStart = source.indexOf("function afterLessonProgressUpdated(");
+      assert.ok(completionStart >= 0 && completionStart < storeConfigStart);
+      assert.match(source.slice(completionStart, storeConfigStart), /clearStudentDashboardCacheForUser\(userId\)/);
+    } else {
+      assert.match(hookSource, /clearStudentDashboardCacheForUser\(userId\)/, `${hook} should invalidate student dashboard cache.`);
+    }
   }
 });
 
@@ -982,6 +1003,7 @@ test("student activity persistence marks visualization sessions through fake sto
     source: "visualization-lab"
   });
 
+  assert.ok(firstSession);
   assert.deepEqual(firstSession, {
     user_id: "student-1",
     module_id: "coordinate-plane",
@@ -1012,6 +1034,7 @@ test("student activity persistence marks visualization sessions through fake sto
     source: "lesson"
   });
 
+  assert.ok(repeatSession);
   assert.deepEqual(repeatSession, {
     user_id: "student-1",
     module_id: "coordinate-plane",
@@ -1060,6 +1083,7 @@ test("student activity persistence returns visualization session before slow sid
 
   assert.equal(result.status, "resolved");
   if (result.status === "resolved") {
+    assert.ok(result.session);
     assert.equal(result.session.module_id, "coordinate-plane");
     assert.equal(database.visualization_sessions?.length, 1);
   }
@@ -1148,6 +1172,25 @@ test("student activity persistence appends analytics events without legacy userS
     }
   ]);
   assert.deepEqual(afterAppendCalls, ["answer-1"]);
+});
+
+test("student activity analytics persists a repeated event once within a batch and on retry", async () => {
+  const database: StudentActivityPersistenceDatabase = { learning_events: [], visualization_events: [], visualization_sessions: [] };
+  const appended: string[][] = [];
+  const store = createTestStore(database, {
+    afterAppend: (_database, { records }) => { appended.push(records.map((record) => record.id)); }
+  });
+  const event: LearningAnalyticsEvent = {
+    id: "repeated-exploration", type: "visualization-complete", source: "visualization-lab",
+    timestamp: now.toISOString(), grade: "S3", topicId: "topic-1"
+  };
+  assert.equal(await store.appendLearningEvents("student-1", [event, { ...event }]), 1);
+  assert.equal(await store.appendLearningEvents("student-1", [event]), 0);
+  assert.equal(database.learning_events?.length, 1);
+  assert.equal(database.visualization_events?.length, 1);
+  assert.deepEqual(appended, [[event.id]]);
+  const summary = await store.getAnalyticsSummary("student-1");
+  assert.equal(summary.eventCount, 1);
 });
 
 test("student activity persistence summarizes, exports, and clears analytics events", async () => {
@@ -1369,6 +1412,25 @@ test("student activity persistence reads mistake book items without legacy userS
   assert.deepEqual(all.map((mistake) => mistake.questionId), ["question-1", "question-2"]);
 });
 
+test("mistake review uses the current corrected answer without rewriting historical grading", async () => {
+  const database = createMistakeDatabase();
+  const question = database.questions!.find((row) => row.id === "question-1")!;
+  question.answer = "4";
+  question.prompt_en = "What is 2 + 2?";
+  question.explanation_en = "Two plus two is four.";
+  const historical = database.mistakes!.find((row) => row.user_id === "student-1" && row.question_id === "question-1")!;
+  historical.correct_answer = "5";
+  const before = structuredClone(historical);
+  const store = createTestStore(database, { mutateDatabase: async () => { throw new Error("A read must not regrade history."); } });
+  const [item] = await store.getMistakes("student-1", "active");
+  assert.equal(item.correctAnswer, "4");
+  assert.equal(item.question.prompt.en, "What is 2 + 2?");
+  assert.equal(item.explanation.en, "Two plus two is four.");
+  assert.equal(studentActivityPersistence.studentActivityToMistakeBookItem(database, historical)?.correctAnswer, "4");
+  assert.deepEqual(historical, before);
+  assert.equal(item.wrongAttempts, before.wrong_attempts);
+});
+
 test("student activity persistence owns mistake book item projection for legacy userStore", async () => {
   const helpers = studentActivityPersistence as Record<string, unknown>;
   const persistenceSource = await readFile(path.join(process.cwd(), "lib/server/userStore/studentActivityPersistence.ts"), "utf8");
@@ -1536,6 +1598,27 @@ test("student activity persistence rejects unavailable question attempts before 
   }), null);
   assert.deepEqual(database.attempts, []);
   assert.deepEqual(sideEffects, []);
+});
+
+test("draft assessments do not grant student resource access", async () => {
+  const database: StudentActivityPersistenceDatabase = {
+    visualization_sessions: [],
+    class_enrollments: [{ id: "enrollment-private", class_id: "class-private", student_id: "student-1" }],
+    assessments: [{ id: "assessment-private", class_id: "class-private", status: "draft", source_resource_id: "resource-private" }],
+    teaching_resources: [{
+      id: "resource-private", title_en: "Unpublished paper", title_zh: "未發布試卷", type: "quiz",
+      file_name: "paper.pdf", file_type: "pdf", mime_type: "application/pdf", file_size_bytes: 100, storage_path: "seed://private",
+      grade: "S3", uploaded_by: "teacher-1", created_at: now.toISOString()
+    }]
+  };
+  const store = createTestStore(database);
+  assert.equal(await store.getStudentResourceDetailData("student-1", "resource-private"), null);
+  assert.equal(await store.getStudentResourceDownloadData("student-1", "resource-private"), null);
+  assert.deepEqual(await store.markStudentResourceViewed("student-1", "resource-private"), { status: "not-found" });
+  database.assessments![0].status = "open";
+  assert.ok(await store.getStudentResourceDetailData("student-1", "resource-private"));
+  assert.ok(await store.getStudentResourceDownloadData("student-1", "resource-private"));
+  assert.equal(await store.getStudentResourceDownloadData("student-2", "resource-private"), null);
 });
 
 test("student activity persistence authorizes resource downloads from assignments and assessments", async () => {
@@ -5305,7 +5388,10 @@ test("legacy userStore delegates analytics activity operations to extracted pers
   assert.match(source, /export const deleteMistake = studentActivityUserStore\.deleteMistake/);
   assert.match(source, /export const clearMistakesForUser = studentActivityUserStore\.clearMistakesForUser/);
   assert.match(source, /export const appendLearningEvents = studentActivityUserStore\.appendLearningEvents/);
-  assert.match(source, /export const clearLearningEventsForUser = studentActivityUserStore\.clearLearningEventsForUser/);
+  // Local activity stays delegated; PostgreSQL reset coordinates its hot rows
+  // and snapshot under one account transaction.
+  assert.match(source, /studentActivityUserStore\.clearLearningEventsForUser\(userId, clearedAt\)/);
+  assert.match(source, /export async function clearLearningEventsForUser/);
   assert.match(source, /export const getAnalyticsSummary = studentActivityUserStore\.getAnalyticsSummary/);
   assert.match(source, /export const getAnalyticsExport = studentActivityUserStore\.getAnalyticsExport/);
   assert.match(source, /export const markVisualizationSession = studentActivityUserStore\.markVisualizationSession/);
@@ -5321,7 +5407,7 @@ test("legacy userStore delegates analytics activity operations to extracted pers
   assert.match(source, /export const createStudentMessageThread = studentActivityUserStore\.createStudentMessageThread/);
   assert.match(source, /export const replyToStudentMessageThread = studentActivityUserStore\.replyToStudentMessageThread/);
   assert.match(source, /export const getPublicQuestions = studentActivityUserStore\.getPublicQuestions/);
-  assert.match(source, /export const submitQuestionAttempt = studentActivityUserStore\.submitQuestionAttempt/);
+  assert.match(source, /export async function submitQuestionAttempt[\s\S]*?return studentActivityUserStore\.submitQuestionAttempt\(input\)/);
   assert.match(source, /export const updateLessonProgress = studentActivityUserStore\.updateLessonProgress/);
   assert.match(source, /export const getLessonBySlug = studentActivityUserStore\.getLessonBySlug/);
   assert.match(source, /export const getDashboardData = studentActivityUserStore\.getDashboardData/);
@@ -5336,7 +5422,6 @@ test("legacy userStore delegates analytics activity operations to extracted pers
   assert.doesNotMatch(source, /export async function deleteMistake/);
   assert.doesNotMatch(source, /export async function clearMistakesForUser/);
   assert.doesNotMatch(source, /export async function appendLearningEvents/);
-  assert.doesNotMatch(source, /export async function clearLearningEventsForUser/);
   assert.doesNotMatch(source, /export async function getAnalyticsSummary/);
   assert.doesNotMatch(source, /export async function getAnalyticsExport/);
   assert.doesNotMatch(source, /export async function markVisualizationSession/);
@@ -5351,7 +5436,9 @@ test("legacy userStore delegates analytics activity operations to extracted pers
   assert.doesNotMatch(source, /export async function createStudentMessageThread/);
   assert.doesNotMatch(source, /export async function replyToStudentMessageThread/);
   assert.doesNotMatch(source, /export async function getPublicQuestions/);
-  assert.doesNotMatch(source, /export async function submitQuestionAttempt/);
+  const attemptWrapper = source.slice(source.indexOf("export async function submitQuestionAttempt"), source.indexOf("export const getMistakes"));
+  assert.match(attemptWrapper, /mutationActorContext\.run/);
+  assert.doesNotMatch(attemptWrapper, /database\.(attempts|mistakes|reward_point_ledger)|evaluatePracticeAnswer/);
   assert.doesNotMatch(source, /export async function updateLessonProgress/);
   assert.doesNotMatch(source, /function updateLessonProgressInDatabase/);
   assert.doesNotMatch(source, /updateLessonProgressInDatabase: \(database, input\) =>/);
@@ -5451,4 +5538,52 @@ test("student activity persistence owns media object key helpers for legacy user
     "/api/media-objects/ai-tutor/student-1/image.png"
   );
   assert.equal(studentActivityPersistence.studentActivityMediaObjectUrlFromKey?.("unsafe"), undefined);
+});
+
+test("R18 unselected classmates cannot read, list or submit a targeted assessment despite stale rows", async () => {
+  const database: StudentActivityPersistenceDatabase = {
+    visualization_sessions: [],
+    teacher_classes: [{ id: "class-audience", name: "Synthetic class", grade: "S3" }],
+    class_enrollments: [{ class_id: "class-audience", student_id: "selected" }, { class_id: "class-audience", student_id: "unselected" }],
+    assessments: [{ id: "assessment-targeted", class_id: "class-audience", status: "open", assigned_student_ids: ["selected"], max_attempts: 2,
+      paper_sections: [{ id: "section", title: { en: "Synthetic", zh: "測試" }, order: 0,
+        items: [{ id: "question", source: "manual", points: 10, order: 0, embeddedQuestion: { type: "fill-in", prompt: { en: "2 + 2", zh: "2 + 2" }, answer: "4" } }] }] }],
+    assignments: [{ id: "assignment-targeted", class_id: "class-audience", content_type: "assessment", target_id: "assessment-targeted", status: "active" }],
+    submissions: [{ id: "stale-work", assignment_id: "assignment-targeted", student_id: "unselected", status: "not-started" }],
+    assessment_submissions: [{ id: "stale-assessment", assessment_id: "assessment-targeted", student_id: "unselected", status: "not-started", attempt_number: 0, score: null, max_score: 10, submitted_at: null, graded_at: null, answers: [], updated_at: now.toISOString() }]
+  };
+  let nextId = 0;
+  const store = createTestStore(database, { createId: () => "audience-row-" + ++nextId });
+  const before = structuredClone(database);
+  assert.equal(await store.getStudentAssessmentDetailData("unselected", "assessment-targeted"), null);
+  assert.deepEqual(await store.getStudentAssignments("unselected"), []);
+  assert.deepEqual(await store.submitStudentAssessment({ userId: "unselected", assessmentId: "assessment-targeted", expectedAttemptNumber: 0, answers: [{ questionId: "question", answer: "4" }] }), { status: "forbidden" });
+  assert.deepEqual(await store.submitAssignmentWork({ userId: "unselected", assignmentId: "assignment-targeted", expectedAttemptNumber: 0, answerText: "4", kind: "initial" }), { status: "not-found" });
+  assert.deepEqual(database, before, "Denied learners must not alter either submission stream.");
+  assert.ok(await store.getStudentAssessmentDetailData("selected", "assessment-targeted"));
+  assert.equal((await store.submitStudentAssessment({ userId: "selected", assessmentId: "assessment-targeted", expectedAttemptNumber: 0, answers: [{ questionId: "question", answer: "4" }] })).status, "submitted");
+});
+
+test("R18 resource detail, download and view respect assessment audience while legacy omission stays class-wide", async () => {
+  const database: StudentActivityPersistenceDatabase = {
+    visualization_sessions: [],
+    class_enrollments: [{ class_id: "class-audience", student_id: "selected" }, { class_id: "class-audience", student_id: "unselected" }],
+    assessments: [{ id: "assessment-resource", class_id: "class-audience", status: "open", assigned_student_ids: ["selected"], source_resource_id: "resource-audience" }],
+    teaching_resources: [{ id: "resource-audience", title_en: "Synthetic pack", title_zh: "測試資源", type: "quiz",
+      file_name: "synthetic.pdf", file_type: "pdf", mime_type: "application/pdf", file_size_bytes: 100,
+      storage_path: "seed://synthetic-audience", grade: "S3", uploaded_by: "teacher-1", created_at: now.toISOString() }]
+  };
+  const store = createTestStore(database);
+  const before = structuredClone(database);
+  assert.equal(await store.getStudentResourceDetailData("unselected", "resource-audience"), null);
+  assert.equal(await store.getStudentResourceDownloadData("unselected", "resource-audience"), null);
+  assert.deepEqual(await store.markStudentResourceViewed("unselected", "resource-audience"), { status: "not-found" });
+  assert.deepEqual(database, before);
+  assert.ok(await store.getStudentResourceDetailData("selected", "resource-audience"));
+  assert.ok(await store.getStudentResourceDownloadData("selected", "resource-audience"));
+  assert.equal((await store.markStudentResourceViewed("selected", "resource-audience")).status, "viewed");
+  delete database.assessments![0].assigned_student_ids;
+  assert.ok(await store.getStudentResourceDetailData("unselected", "resource-audience"));
+  database.assessments![0].assigned_student_ids = [];
+  assert.equal(await store.getStudentResourceDetailData("unselected", "resource-audience"), null);
 });

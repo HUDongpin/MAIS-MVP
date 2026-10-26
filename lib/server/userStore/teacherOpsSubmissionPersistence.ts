@@ -1,3 +1,5 @@
+import { canTeacherAccessClass } from "@/lib/server/teacherClassAccess";
+import { isDeepStrictEqual } from "node:util";
 import type {
   AssignmentGradingRun,
   AssignmentGradingRunStatus,
@@ -18,6 +20,9 @@ type TeacherOpsSubmissionUserRole = "student" | "teacher" | "parent" | "admin";
 type TeacherOpsSubmissionUserRecord = {
   id: string;
   role: TeacherOpsSubmissionUserRole;
+  session_revision?: number;
+  disabled_at?: string | null;
+  created_at?: string;
 };
 
 type TeacherOpsSubmissionClassRecord = {
@@ -313,23 +318,11 @@ function correctionDueDateFrom(value: string | undefined | null, nowMs: number) 
 function teacherCanAccessClass(
   database: TeacherOpsSubmissionPersistenceDatabase,
   user: TeacherOpsSubmissionUserRecord,
-  classId: string
+  classId: string,
+  intent: "read" | "write" = "write"
 ) {
   const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId);
-  if (!teacherClass) return null;
-  if (
-    user.role !== "admin" &&
-    teacherClass.teacher_id !== user.id &&
-    !(database.school_memberships ?? []).some(
-      (membership) =>
-        membership.user_id === user.id &&
-        membership.class_id === classId &&
-        (membership.role === "teacher" || membership.role === "admin")
-    )
-  ) {
-    return null;
-  }
-  return teacherClass;
+  return teacherClass && canTeacherAccessClass(database, user, teacherClass, intent) ? teacherClass : null;
 }
 
 function submissionAttemptsFor(database: TeacherOpsSubmissionPersistenceDatabase, submissionId: string) {
@@ -426,7 +419,7 @@ export function createTeacherOpsSubmissionPersistenceStore({
       if (!canUseTeacherArea(user)) return null;
 
       const assignment = database.assignments.find((candidate) => candidate.id === assignmentId);
-      if (!assignment || !teacherCanAccessClass(database, user, assignment.class_id)) return null;
+      if (!assignment || !teacherCanAccessClass(database, user, assignment.class_id, "read")) return null;
 
       return database.submissions
         .filter((submission) => submission.assignment_id === assignmentId)
@@ -460,11 +453,16 @@ export function createTeacherOpsSubmissionPersistenceStore({
       const run = await createGradingRunRecord(database, submission, assignment, attempt, nowIso);
 
       return mutateDatabase((mutable) => {
+        const currentTeacher = mutable.users.find(candidate => candidate.id === teacherId);
+        if (!canUseTeacherArea(currentTeacher) || currentTeacher.disabled_at != null
+          || currentTeacher.session_revision !== user.session_revision || currentTeacher.created_at !== user.created_at) return { status: "forbidden" as const };
         const currentSubmission = mutable.submissions.find((candidate) => candidate.id === submissionId);
         const currentAssignment = currentSubmission
           ? mutable.assignments.find((candidate) => candidate.id === currentSubmission.assignment_id)
           : null;
-        if (!currentSubmission || !currentAssignment || !teacherCanAccessClass(mutable, user, currentAssignment.class_id)) {
+        const currentAttempt = currentSubmission ? submissionAttemptsFor(mutable, currentSubmission.id).slice(-1)[0] ?? null : null;
+        if (!currentSubmission || !currentAssignment || !teacherCanAccessClass(mutable, currentTeacher, currentAssignment.class_id)
+          || !isDeepStrictEqual(currentSubmission, submission) || !isDeepStrictEqual(currentAttempt, attempt)) {
           return { status: "not-found" as const };
         }
 

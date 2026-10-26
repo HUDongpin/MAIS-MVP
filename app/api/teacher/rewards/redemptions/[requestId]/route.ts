@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
-import { updateTeacherRewardRedemption } from "@/lib/server/userStore";
+import { updateTeacherRewardRedemption, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 import type { RewardRedemptionStatus } from "@/types";
 
 export const runtime = "nodejs";
@@ -28,12 +29,13 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ re
     return NextResponse.json({ error: "Invalid redemption update payload." }, { status: 400 });
   }
 
-  const result = await updateTeacherRewardRedemption({
+  const result = await withAuthenticatedMutation(authenticated, () => updateTeacherRewardRedemption({
     teacherId: authenticated.user.id,
     requestId,
     status,
     teacherNote: typeof body.teacherNote === "string" ? body.teacherNote : undefined
-  });
+  }), [], { kind: "redemption", id: requestId }).catch(learnerAuthorityFailureResponse);
+  if (result instanceof Response) return result;
 
   if (result.status === "updated") return NextResponse.json({ rewards: result.rewards });
   if (result.status === "forbidden") return NextResponse.json({ error: result.status }, { status: 403 });

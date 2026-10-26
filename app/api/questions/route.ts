@@ -32,7 +32,12 @@ function readCookie(header: string | null, name: string) {
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${name}=`));
 
-  return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match.slice(name.length + 1));
+  } catch {
+    return null;
+  }
 }
 
 async function resolveAuthenticatedUser(request: Request) {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
-import { reviewTeacherSubmission } from "@/lib/server/userStore";
+import { reviewTeacherSubmission, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 import type { AssignmentTeacherReviewAction } from "@/types";
 
 export const runtime = "nodejs";
@@ -25,7 +26,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ su
   if (!body || !action) return NextResponse.json({ error: "Review action is required." }, { status: 400 });
 
   const { submissionId } = await params;
-  const result = await reviewTeacherSubmission({
+  const result = await withAuthenticatedMutation(authenticated, () => reviewTeacherSubmission({
     teacherId: authenticated.user.id,
     submissionId,
     action,
@@ -33,7 +34,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ su
     feedback: typeof body.feedback === "string" ? body.feedback : "",
     correctionRequest: typeof body.correctionRequest === "string" ? body.correctionRequest : "",
     correctionDueAt: typeof body.correctionDueAt === "string" ? body.correctionDueAt : null
-  });
+  }), [], { kind: "submission", id: submissionId }).catch(learnerAuthorityFailureResponse);
+  if (result instanceof Response) return result;
 
   if (result.status !== "reviewed") {
     return NextResponse.json({ error: result.status }, { status: result.status === "forbidden" ? 403 : 404 });
