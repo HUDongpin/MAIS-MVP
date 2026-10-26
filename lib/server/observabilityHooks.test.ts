@@ -287,6 +287,7 @@ async function writer(failAt?: string, capture?: Callable, invalid?: "returning"
   }, { json: (value: unknown) => value });
   const boundary = await loadBoundary("lib/server/userStore.ts", {
     names: ["writePostgresDatabaseWith"], capture, globals: {
+      hasAuthorityInstallation: async () => { step("authority-check"); return false; },
       recordPostgresFullWriterTestStage() {}, installPostgresFullWriterFaultForIntegrationTest: async () => {},
       databaseIndexCache: new WeakMap(), postgresDatabasePayload: (db: unknown) => db,
       stateRecordId: "synthetic", stateTenantId: "synthetic", stateKind: "synthetic", schemaVersion: 1,
@@ -294,6 +295,7 @@ async function writer(failAt?: string, capture?: Callable, invalid?: "returning"
       validateCompletePostgresStorageSnapshot: () => step("validate"),
       applyPostgresFullWriterPostReturningDriftForIntegrationTest: async () => {},
       syncPostgresHotAuthTablesWith: async () => step("hot-auth"),
+      syncPostgresStudentActivity: async () => step("student-activity"),
       syncPostgresProjectionTablesWith: async () => step("projections"),
       advancePostgresStorageReadinessAfterMutation: async () => step("marker")
     }
@@ -313,7 +315,10 @@ for (const invalid of ["returning", "final"] as const) {
     assert.equal(boundary.captures.length, 1);
     assert.equal(boundary.captures[0].error, original);
     assert.equal(boundary.calls.at(-1), invalid === "returning" ? "update" : "reread");
-    assert.ok(!boundary.calls.includes("marker"));
+    // RETURNING rejection stops before readiness advancement. The final reread
+    // follows that advancement inside the same transaction; its rejection still
+    // propagates for rollback (covered by the real Postgres fault-injection gate).
+    assert.equal(boundary.calls.includes("marker"), invalid === "final");
   });
 }
 
@@ -338,10 +343,10 @@ test("capture promises are not awaited by the six product boundaries", async () 
 });
 test("strict full writer success keeps exact operation order and emits no capture", async () => {
   const boundary = await writer(); await boundary.run();
-  assert.deepEqual(boundary.calls, ["update", "validate", "hot-auth", "projections", "reread", "marker"]);
+  assert.deepEqual(boundary.calls, ["authority-check", "update", "validate", "hot-auth", "student-activity", "projections", "marker", "reread"]);
   assert.equal(boundary.captures.length, 0);
 });
-for (const stage of ["update", "validate", "hot-auth", "projections", "reread", "marker"]) {
+for (const stage of ["authority-check", "update", "validate", "hot-auth", "student-activity", "projections", "marker", "reread"]) {
   test(`strict full writer ${stage} failure captures once and rethrows the same object`, async () => {
     const boundary = await writer(stage);
     await assert.rejects(boundary.run(), (error) => error === boundary.failure);

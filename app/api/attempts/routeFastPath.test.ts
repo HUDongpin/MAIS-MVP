@@ -242,6 +242,73 @@ test("attempts POST refuses local fallback on Vercel without durable Postgres", 
   assert.equal(existsSync(join(databaseDirectory, "hk-math-db.sqlite")), false);
 });
 
+test("attempts POST routes installed learner authority through canonical persistence", async (t) => {
+  const temporaryRoot = await mkdtemp(join(tmpdir(), "mais-attempt-route-authority-"));
+  const databaseDirectory = await mkdtemp(join(temporaryRoot, "database-"));
+  t.after(() => rm(temporaryRoot, { force: true, recursive: true }));
+  const script = `
+    import assert from "node:assert/strict";
+    import { mock } from "node:test";
+    const curriculumProfile = { region: "HK", publisher: "HK_UNITED_PRIME_MIA" };
+    const accountGeneration = "11111111-1111-4111-8111-111111111111";
+    const submissionId = "22222222-2222-4222-8222-222222222222";
+    mock.module("@/lib/server/auth", {
+      namedExports: {
+        bodyExpectedUserConstraints: () => [],
+        expectedUserConstraintsFromRequest: () => [],
+        guardExpectedAuthenticatedUser: () => null,
+        requireAuthenticatedUser: async () => ({
+          user: { id: "authority-user", role: "student", curriculumProfile },
+          sessionRevision: 7,
+          accountGeneration
+        })
+      }
+    });
+    mock.module("@/lib/server/userStore", {
+      namedExports: { learnerAuthorityIsInstalled: async () => true }
+    });
+    mock.module("@/lib/server/practiceAttemptStore", {
+      namedExports: {
+        practiceAttemptPersistenceMode: () => { throw new Error("Installed authority must select canonical persistence."); },
+        submitQuestionAttemptFast: async () => null
+      }
+    });
+    let savedInput;
+    mock.module("@/lib/server/userStore/studentActivity", {
+      namedExports: {
+        submitQuestionAttempt: async (input) => {
+          savedInput = input;
+          return { correct: true, explanation: { en: "fixture", zh: "測試", zhHans: "测试" } };
+        }
+      }
+    });
+    const { POST } = await import("./app/api/attempts/route.ts");
+    const response = await POST(new Request("http://localhost/api/attempts", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ questionId: "q1", selectedAnswer: "5", durationSeconds: 11, submissionId })
+    }));
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).persisted, true);
+    assert.deepEqual(savedInput, {
+      userId: "authority-user", questionId: "q1", selectedAnswer: "5", durationSeconds: 11,
+      curriculumTrack: curriculumProfile, answerWorkPhotos: [], submissionId,
+      expectedSessionRevision: 7, expectedAccountGeneration: accountGeneration
+    });
+    process.stdout.write("authority routing verified");
+  `;
+  const result = spawnSync(
+    process.execPath,
+    ["--no-warnings", "--experimental-test-module-mocks", "--import", "tsx", "--input-type=module", "-e", script],
+    {
+      cwd: process.cwd(), encoding: "utf8",
+      env: hermeticChildEnv({ temporaryRoot, databaseDirectory }), timeout: 15_000
+    }
+  );
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  assert.equal(result.stdout, "authority routing verified");
+});
+
 test(
   "real PostgreSQL attempts route acknowledges only a committed readable row",
   { skip: !practiceAttemptPostgresIntegrationUrl },
@@ -287,6 +354,14 @@ test(
           })
         }
       });
+      // This fixture verifies the legacy row-storage boundary. Its minimal
+      // auth table deliberately does not model the full snapshot bootstrap.
+      let authorityChecks = 0;
+      mock.module("@/lib/server/userStore", {
+        namedExports: {
+          learnerAuthorityIsInstalled: async () => { authorityChecks += 1; return false; }
+        }
+      });
       const { default: postgres } = await import("postgres");
       const verifier = postgres(process.env.POSTGRES_URL, { max: 1, prepare: false });
       const { __practiceAttemptStoreTestHooks } = await import("./lib/server/practiceAttemptStore.ts");
@@ -300,7 +375,7 @@ test(
           body: JSON.stringify({ questionId: "q1", selectedAnswer: "5", durationSeconds: 11 })
         }));
         const body = await response.json();
-        process.stdout.write(JSON.stringify({ body, status: response.status }));
+        process.stdout.write(JSON.stringify({ body, status: response.status, authorityChecks }));
       } catch {
         process.stderr.write("isolated attempts-route PostgreSQL child failed; details redacted\\n");
         process.exitCode = 1;
@@ -329,6 +404,7 @@ test(
     assert.equal(output.status, 200);
     assert.equal(output.body.correct, true);
     assert.equal(output.body.persisted, true);
+    assert.equal(output.authorityChecks, 1);
 
     const verifier = postgres(isolatedUrl, { max: 1, prepare: false });
     try {

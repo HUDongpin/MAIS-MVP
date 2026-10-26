@@ -5,7 +5,7 @@ import test from "node:test";
 
 const userStorePath = path.join(process.cwd(), "lib/server/userStore.ts");
 
-test("parent Postgres reads use a family-scoped query without a full snapshot fallback", async () => {
+test("legacy parent Postgres reads stay family-scoped and discard results after authority installation", async () => {
   const source = await readFile(userStorePath, "utf8");
   const scopedStart = source.indexOf("async function readParentPostgresScopedDatabase(parentId: string)");
   const scopedEnd = source.indexOf("async function readParentDatabaseForRead(parentId: string)", scopedStart);
@@ -24,7 +24,18 @@ test("parent Postgres reads use a family-scoped query without a full snapshot fa
   assert.match(scopedSource, /FROM practice_attempts/);
   assert.match(scopedSource, /FROM mistake_book_items/);
   assert.match(scopedSource, /FROM learning_events/);
-  assert.doesNotMatch(scopedSource, /readPostgresDatabase|readDatabase\(\)/);
+  const authorityHandoff = "if (await learnerAuthorityIsInstalled()) return readDatabase();";
+  assert.equal(scopedSource.split(authorityHandoff).length - 1, 1);
+  assert.match(
+    scopedSource,
+    /\}\);\s*if \(await learnerAuthorityIsInstalled\(\)\) return readDatabase\(\);\s*const rawRow = rows\[0\];/u,
+    "discard the scoped query result if authority was installed while it ran"
+  );
+  assert.doesNotMatch(
+    scopedSource.replace(authorityHandoff, ""),
+    /readPostgresDatabase|readDatabase\(\)|\bcatch\b/u,
+    "legacy scoped reads must not fall back for query errors or malformed family data"
+  );
   assert.doesNotMatch(scopedSource, /SELECT\s+(?:state\.)?payload(?!->)/);
 });
 
@@ -199,7 +210,7 @@ test("parent scoped SQL rejects every malformed app-state collection required by
   }
 });
 
-test("parent GET stores receive the parent id while SQLite and mutation reads keep the legacy reader", async () => {
+test("parent GET stores retain family scoping and use the canonical reader only for SQLite or installed authority", async () => {
   const source = await readFile(userStorePath, "utf8");
   const fallbackStart = source.indexOf("async function readParentDatabaseForRead(parentId: string)");
   const fallbackEnd = source.indexOf("const parentAccessPersistenceStore", fallbackStart);
@@ -213,7 +224,27 @@ test("parent GET stores receive the parent id while SQLite and mutation reads ke
 
   assert.match(
     fallbackSource,
-    /if \(storageProvider !== "postgres"\) return readDatabase\(\);\s+return readParentPostgresScopedDatabase\(parentId\);/
+    /if \(storageProvider !== "postgres"\) return readDatabase\(\);\s+if \(await learnerAuthorityIsInstalled\(\)\) return readDatabase\(\);\s+return readParentPostgresScopedDatabase\(parentId\);/u
+  );
+  assert.equal((fallbackSource.match(/return readDatabase\(\)/gu) ?? []).length, 2);
+  assert.doesNotMatch(fallbackSource, /\bcatch\b/u);
+
+  const canonicalStart = source.indexOf("async function readPostgresDatabaseFrom(");
+  const canonicalEnd = source.indexOf("async function readPostgresDatabase()", canonicalStart);
+  const readEnd = source.indexOf("\ntype PostgresFullWriterFaultMode", canonicalEnd);
+  assert.ok(canonicalStart >= 0 && canonicalEnd > canonicalStart && readEnd > canonicalEnd);
+  const canonicalSource = source.slice(canonicalStart, canonicalEnd);
+  const readSource = source.slice(canonicalEnd, readEnd);
+  assert.match(
+    canonicalSource,
+    /return authorityInstalled\s*\? await overlayLearnerAuthorities\(sql, database as unknown as Record<string, unknown>\) as unknown as Database\s*: database;/u,
+    "the authority handoff must return authoritative learner state, not stale projection data"
+  );
+  assert.match(readSource, /begin\("isolation level repeatable read", async \(sql\) =>/u);
+  assert.match(
+    readSource,
+    /await lockLearnerAuthority\(sql, "shared"\);\s*await postgresStudentActivitySharedLockQuery\(sql\);\s*const database = await readPostgresDatabaseFrom\(sql, true\);\s*await validateMutationActor\(database, sql\);\s*return database;/u,
+    "the canonical reader must hold both read locks and revalidate the actor before returning"
   );
   assert.equal(
     (source.match(/readParentDatabase: readParentDatabaseForRead/g) ?? []).length,

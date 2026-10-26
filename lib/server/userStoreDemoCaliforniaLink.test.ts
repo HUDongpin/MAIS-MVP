@@ -13,6 +13,7 @@ import {
   teacherOpsSeedTeacherClassRecords
 } from "@/lib/server/userStore/teacherOpsClassPersistence";
 import { createTeacherOpsInboxPersistenceStore } from "@/lib/server/userStore/teacherOpsInboxPersistence";
+import { teacherOpsSeedAssessmentRecords } from "@/lib/server/userStore/teacherOpsAssessmentPersistence";
 import {
   createStudentActivityPersistenceStore,
   type StudentActivityPersistenceDatabase
@@ -54,6 +55,10 @@ function seededDatabase(): StudentActivityPersistenceDatabase & {
     teacher_classes: teacherOpsSeedTeacherClassRecords(seededAt, seedOptions),
     class_enrollments: teacherOpsSeedClassEnrollmentRecords(seededAt, seedOptions),
     assignments: teacherOpsSeedAssignmentRecords(seededAt, { demoTeacherId: seedOptions.demoTeacherId }),
+    assessments: teacherOpsSeedAssessmentRecords(seededAt, {
+      demoTeacherId: seedOptions.demoTeacherId,
+      questionExists: () => true
+    }),
     submissions: teacherOpsSeedSubmissionRecords(seededAt, seedOptions),
     teacher_messages: [],
     teacher_message_entries: [],
