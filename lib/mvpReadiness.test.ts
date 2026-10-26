@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { normalizeQuestionDiagram, validateQuestionDiagram } from "./questionFigure";
+import { auditTopicCourseMetadata, formatTopicPlacementLabel } from "./curriculumCourses";
 import californiaMiddleSchoolLivePack from "../data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json";
 import californiaMiddleSchoolTextbookPack from "../data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json";
 import { buildWorkedExampleIllustrationMetadata } from "../components/lesson/workedExampleIllustrationMetadata";
@@ -41,6 +42,7 @@ import { usFloridaMiddleSchoolQuestions } from "../data/usFloridaMiddleSchoolQue
 import { usFloridaMiddleSchoolTopics } from "../data/usFloridaMiddleSchoolTopics";
 import { questions } from "../data/questions";
 import { topics } from "../data/topics";
+import { topicsMetadata } from "../data/topicsMetadata";
 import {
   capstoneVisualizationLabs,
   primaryVisualizationLabs,
@@ -930,4 +932,19 @@ test("parent console API surface and authorization hooks are present", () => {
   assert.match(parentReportPersistenceSource, /type === "parent-summary"/);
   assert.match(typeSource, /role: "student" \| "teacher" \| "parent" \| "admin"/);
   assert.match(typeSource, /export type ParentFoundationData/);
+});
+
+test("live and client-snapshot topics never contain a partial course reference", () => {
+  assert.deepEqual(auditTopicCourseMetadata(topics), []);
+  assert.deepEqual(auditTopicCourseMetadata(topicsMetadata), []);
+});
+
+test("a named course can label a topic on a track with multiple secondary pathways", () => {
+  assert.equal(formatTopicPlacementLabel({
+    id: "example-california-geometry",
+    curriculumTrack: "US_CA_MATH",
+    grade: "S4",
+    courseId: "geometry",
+    courseLabel: { en: "Geometry", zh: "幾何" }
+  }, "en"), "Geometry");
 });

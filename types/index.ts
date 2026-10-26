@@ -1664,6 +1664,9 @@ export type Topic = {
   publisher?: TextbookPublisher;
   canonicalTopicId?: string;
   grade: GradeId;
+  /** Course identity when a source-backed topic belongs to a named course. */
+  courseId?: string;
+  courseLabel?: LocalizedText;
   title: LocalizedText;
   description: LocalizedText;
   status: TopicStatus;

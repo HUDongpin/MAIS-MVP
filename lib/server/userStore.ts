@@ -1048,6 +1048,10 @@ export type TopicRecord = {
   textbook_publisher?: TextbookPublisher;
   canonical_topic_id?: string;
   grade: GradeId;
+  course_id?: string;
+  course_label_en?: string;
+  course_label_zh?: string;
+  course_label_zh_hans?: string;
   title_en: string;
   title_zh: string;
   description_en: string;
@@ -2386,6 +2390,12 @@ function seedTopicRecords(): TopicRecord[] {
       textbook_publisher: publisherForSeedTopic(topic),
       canonical_topic_id: topic.canonicalTopicId ?? topic.id,
       grade: topic.grade,
+      ...(topic.courseId && topic.courseLabel ? {
+        course_id: topic.courseId,
+        course_label_en: topic.courseLabel.en,
+        course_label_zh: topic.courseLabel.zh,
+        ...(topic.courseLabel.zhHans ? { course_label_zh_hans: topic.courseLabel.zhHans } : {})
+      } : {}),
       title_en: topic.title.en,
       title_zh: topic.title.zh,
       description_en: topic.description.en,
@@ -7342,6 +7352,7 @@ function normalizeDatabase(database: Partial<Database>) {
   const allowDemoSeedBackfill = shouldBackfillDemoSeed();
   const persistedShouldSeedDemoUser = () => allowDemoSeedBackfill && shouldSeedDemoUser();
   const canonicalTopics = seedTopicRecords();
+  const canonicalTopicById = new Map(canonicalTopics.map((topic) => [topic.id, topic]));
   const canonicalLessons = seedLessonRecords();
   const canonicalLessonBlocks = seedLessonBlockRecords();
   const canonicalLessonBlockIds = new Set(canonicalLessonBlocks.map((block) => block.id));
@@ -7489,16 +7500,35 @@ function normalizeDatabase(database: Partial<Database>) {
   );
 
   const topics = mergeSeedRecordsPreservingExisting(database.topics, canonicalTopics, (topic) => topic.id)
-    .map((topic, index) => ({
-      ...topic,
-      curriculum_track: validCurriculumTracks.has(topic.curriculum_track) ? topic.curriculum_track : defaultCurriculumTrack,
-      curriculum_region: profileForRecord(topic).region,
-      textbook_publisher: topic.curriculum_track === "MAINLAND_PEP_HIGH"
-        ? profileForRecord(topic).publisher
-        : topic.textbook_publisher,
-      canonical_topic_id: topic.canonical_topic_id ?? topic.id,
-      sort_order: typeof topic.sort_order === "number" ? topic.sort_order : index
-    }));
+    .map((topic, index) => {
+      const canonical = canonicalTopicById.get(topic.id);
+      const topicWithoutOldCourse = { ...topic };
+      if (canonical) {
+        delete topicWithoutOldCourse.course_id;
+        delete topicWithoutOldCourse.course_label_en;
+        delete topicWithoutOldCourse.course_label_zh;
+        delete topicWithoutOldCourse.course_label_zh_hans;
+      }
+      const approvedCourse = canonical?.course_id && canonical.course_label_en && canonical.course_label_zh
+        ? {
+            course_id: canonical.course_id,
+            course_label_en: canonical.course_label_en,
+            course_label_zh: canonical.course_label_zh,
+            course_label_zh_hans: canonical.course_label_zh_hans
+          }
+        : {};
+      return {
+        ...topicWithoutOldCourse,
+        ...approvedCourse,
+        curriculum_track: validCurriculumTracks.has(topic.curriculum_track) ? topic.curriculum_track : defaultCurriculumTrack,
+        curriculum_region: profileForRecord(topic).region,
+        textbook_publisher: topic.curriculum_track === "MAINLAND_PEP_HIGH"
+          ? profileForRecord(topic).publisher
+          : topic.textbook_publisher,
+        canonical_topic_id: topic.canonical_topic_id ?? topic.id,
+        sort_order: typeof topic.sort_order === "number" ? topic.sort_order : index
+      };
+    });
 
   const normalizedDatabase = {
     users,
@@ -7692,11 +7722,13 @@ export const postgresStorageCriticalReadinessCollections = [
 function databaseNeedsPersistenceSync(
   parsed: Partial<Database>,
   database: Database,
-  { allowGuardianInvitationSanitization = false }: {
+  { allowGuardianInvitationSanitization = false, includeSeedCourseDrift = false }: {
     allowGuardianInvitationSanitization?: boolean;
+    includeSeedCourseDrift?: boolean;
   } = {}
 ) {
   return (
+    (includeSeedCourseDrift && seedTopicCourseMetadataDiffers(parsed, database)) ||
     !Array.isArray(parsed.questions) ||
     !Array.isArray(parsed.auth_identities) ||
     !Array.isArray(parsed.learner_profiles) ||
@@ -7812,6 +7844,17 @@ function databaseNeedsPersistenceSync(
       bootstrapAdminInputFromAuthSessionPersistence()
     )
   );
+}
+
+function seedTopicCourseMetadataDiffers(parsed: Partial<Database>, database: Database) {
+  const canonicalIds = new Set(seedTopics.map((topic) => topic.id));
+  const storedTopicsById = new Map((parsed.topics ?? []).map((topic) => [topic.id, topic]));
+  const courseFields = ["course_id", "course_label_en", "course_label_zh", "course_label_zh_hans"] as const;
+  return database.topics.some((topic) => {
+    if (!canonicalIds.has(topic.id)) return false;
+    const stored = storedTopicsById.get(topic.id);
+    return courseFields.some((field) => (stored?.[field] ?? null) !== (topic[field] ?? null));
+  });
 }
 
 export function postgresStorageSnapshotContractIsComplete(value: unknown) {
@@ -8231,7 +8274,7 @@ function readNormalizedSqliteState(storage: DatabaseSync): NormalizedSqliteState
 async function readAndNormalizeSqliteStateUnderLock(storage: DatabaseSync) {
   const latest = readNormalizedSqliteState(storage);
   if (latest) {
-    const metadata = databaseNeedsPersistenceSync(latest.parsed, latest.database) || !latest.metadata
+    const metadata = databaseNeedsPersistenceSync(latest.parsed, latest.database, { includeSeedCourseDrift: true }) || !latest.metadata
       ? writeSqliteDatabaseWithConnection(storage, latest.database)
       : latest.metadata;
     return { database: latest.database, metadata };
@@ -8251,7 +8294,7 @@ async function loadSqliteDatabase() {
 
   try {
     const current = readNormalizedSqliteState(storage);
-    if (current && current.metadata && !databaseNeedsPersistenceSync(current.parsed, current.database)) {
+    if (current && current.metadata && !databaseNeedsPersistenceSync(current.parsed, current.database, { includeSeedCourseDrift: true })) {
       cacheSqliteDatabase(current.database, current.metadata);
       logLessonPerf("readDatabase(sqlite)", startedAt);
       return current.database;
@@ -13775,6 +13818,14 @@ function toTopicRecordTopic(topic: TopicRecord, progress?: LessonProgressRecord 
     publisher: topic.textbook_publisher,
     canonicalTopicId: topic.canonical_topic_id ?? topic.id,
     grade: topic.grade,
+    ...(topic.course_id && topic.course_label_en && topic.course_label_zh ? {
+      courseId: topic.course_id,
+      courseLabel: {
+        en: topic.course_label_en,
+        zh: topic.course_label_zh,
+        ...(topic.course_label_zh_hans ? { zhHans: topic.course_label_zh_hans } : {})
+      }
+    } : {}),
     title: localizedTopicTitleForRecord(topic),
     description: { en: topic.description_en, zh: topic.description_zh },
     status: progress?.status ?? "not-started",

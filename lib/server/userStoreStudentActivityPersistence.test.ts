@@ -4744,6 +4744,12 @@ test("student activity persistence builds roadmap data from native tables", asyn
     visualization_events: [],
     visualization_sessions: []
   };
+  Object.assign(snapshotDatabase.topics?.find((topic) => topic.id === "topic-us") ?? {}, {
+    course_id: "geometry",
+    course_label_en: "Geometry",
+    course_label_zh: "幾何",
+    course_label_zh_hans: "几何"
+  });
   const publicDatabase: StudentActivityPersistenceDatabase = {
     topics: [
       {
@@ -4768,6 +4774,23 @@ test("student activity persistence builds roadmap data from native tables", asyn
     visualization_events: [],
     visualization_sessions: []
   };
+  publicDatabase.topics?.push({
+    id: "topic-public-course",
+    curriculum_track: "US_CA_MATH",
+    grade: "S3",
+    title_en: "Public course topic",
+    title_zh: "公開課程課題",
+    description_en: "Public course topic",
+    description_zh: "公開課程課題",
+    difficulty: "Medium",
+    minutes: 12,
+    sort_order: 2,
+    ...{
+      course_id: "integrated-math-1",
+      course_label_en: "Mathematics I",
+      course_label_zh: "數學一"
+    }
+  });
   const store = createTestStore(snapshotDatabase, {
     readPublicDatabase: () => publicDatabase,
     contentUnavailableForProfile: (_profile, grade) =>
@@ -4790,10 +4813,21 @@ test("student activity persistence builds roadmap data from native tables", asyn
   assert.deepEqual(roadmap.weakTopics.map((topic) => topic.id), ["topic-functions"]);
   assert.equal(roadmap.contentUnavailable, null);
 
+  const courseRoadmap = await store.getRoadmapData("student-1", "S3", "US_CA_MATH");
+  assert.equal(courseRoadmap.topics[0]?.courseId, "geometry");
+  assert.deepEqual(courseRoadmap.topics[0]?.courseLabel, { en: "Geometry", zh: "幾何", zhHans: "几何" });
+  assert.deepEqual(JSON.parse(JSON.stringify(courseRoadmap.topics[0])).courseLabel, {
+    en: "Geometry", zh: "幾何", zhHans: "几何"
+  });
+
   const publicRoadmap = await store.getRoadmapData(null, "P1", "HK");
   assert.equal(publicRoadmap.grade, "P1");
   assert.deepEqual(publicRoadmap.topics.map((topic) => topic.id), ["topic-public"]);
   assert.deepEqual(publicRoadmap.contentUnavailable, { en: "P1 unavailable", zh: "P1 unavailable" });
+
+  const publicCourseRoadmap = await store.getRoadmapData(null, "S3", "US_CA_MATH");
+  assert.equal(publicCourseRoadmap.topics[0]?.courseId, "integrated-math-1");
+  assert.deepEqual(publicCourseRoadmap.topics[0]?.courseLabel, { en: "Mathematics I", zh: "數學一" });
 });
 
 test("student activity persistence resolves adaptive decisions through extracted boundary", async () => {
