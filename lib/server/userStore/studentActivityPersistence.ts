@@ -207,6 +207,10 @@ type TopicRecord = {
   textbook_publisher?: TextbookPublisher;
   canonical_topic_id?: string;
   grade: GradeId;
+  course_id?: string;
+  course_label_en?: string;
+  course_label_zh?: string;
+  course_label_zh_hans?: string;
   title_en: string;
   title_zh: string;
   description_en: string;
@@ -2045,6 +2049,14 @@ function topicWithProgressForDatabase(
     publisher: topic.textbook_publisher,
     canonicalTopicId: topic.canonical_topic_id ?? topic.id,
     grade: topic.grade,
+    ...(topic.course_id && topic.course_label_en && topic.course_label_zh ? {
+      courseId: topic.course_id,
+      courseLabel: {
+        en: topic.course_label_en,
+        zh: topic.course_label_zh,
+        ...(topic.course_label_zh_hans ? { zhHans: topic.course_label_zh_hans } : {})
+      }
+    } : {}),
     title: { en: topic.title_en, zh: topic.title_zh },
     description: { en: topic.description_en, zh: topic.description_zh },
     status: progress?.status ?? "not-started",
