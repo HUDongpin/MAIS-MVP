@@ -318,6 +318,33 @@ test("data export excludes other people's records", () => {
   assert.ok(!serialized.includes(otherStudentId), "no other learner's identifiers leak into an export");
 });
 
+test("data export includes learner-owned roster and grading details through subject parents", () => {
+  const database = seedDatabase();
+  const runs = database.assignment_grading_runs as Record<string, unknown>[];
+  const reviews = database.assignment_teacher_reviews as Record<string, unknown>[];
+  runs.push({ id: "other-run", submission_id: "sub-2", attempt_id: "other-attempt" });
+  reviews.push({ id: "other-review", submission_id: "sub-2", reviewed_by: teacherId });
+  const before = JSON.stringify(database);
+  const exported = buildAccountDataExport(database, studentId, "2026-08-18T00:00:00.000Z");
+  assert.deepEqual(exported.tables.class_roster_profiles, [(database.class_roster_profiles as unknown[])[0]]);
+  assert.deepEqual(exported.tables.assignment_grading_runs, [runs[0]]);
+  assert.deepEqual(exported.tables.assignment_teacher_reviews, [reviews[0]]);
+  assert.deepEqual(exported.tables.teacher_message_entries, [(database.teacher_message_entries as unknown[])[0]]);
+  assert.equal(JSON.stringify(database), before, "export never mutates source records");
+  for (const table of ["class_roster_profiles", "assignment_grading_runs", "assignment_teacher_reviews", "teacher_message_entries"]) {
+    assert.ok(exported.scope.includedTables.includes(table));
+  }
+});
+
+test("teacher export does not inherit learners' records through class ownership", () => {
+  const exported = buildAccountDataExport(seedDatabase(), teacherId, "2026-08-18T00:00:00.000Z");
+  assert.equal(exported.tables.class_enrollments, undefined);
+  assert.equal(exported.tables.class_roster_profiles, undefined);
+  assert.equal(exported.tables.submissions, undefined);
+  assert.equal(exported.tables.assignment_grading_runs, undefined);
+  assert.equal(exported.tables.assignment_teacher_reviews, undefined);
+});
+
 test("deletion is idempotent and safe on an unknown user", () => {
   const database = seedDatabase();
   const before = JSON.stringify(database);
@@ -339,4 +366,19 @@ test("an empty user id is rejected rather than matching blank fields", () => {
   const summary = deleteUserFromDatabase(database, "");
   assert.equal(summary.totalRemoved, 0);
   assert.equal(JSON.stringify(database), before);
+});
+
+test("R18 deleting the last selected learner preserves explicit deny-all assessment audience", () => {
+  const database = {
+    ...seedDatabase(),
+    assessments: [
+      { id: "assessment-only", created_by: teacherId, assigned_student_ids: [studentId] },
+      { id: "assessment-two", created_by: teacherId, assigned_student_ids: [studentId, otherStudentId] },
+      { id: "assessment-legacy", created_by: teacherId }
+    ]
+  };
+  deleteUserFromDatabase(database, studentId);
+  assert.deepEqual(database.assessments.find((row) => row.id === "assessment-only")!.assigned_student_ids, []);
+  assert.deepEqual(database.assessments.find((row) => row.id === "assessment-two")!.assigned_student_ids, [otherStudentId]);
+  assert.equal(database.assessments.find((row) => row.id === "assessment-legacy")!.assigned_student_ids, undefined);
 });

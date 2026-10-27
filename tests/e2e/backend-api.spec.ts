@@ -671,9 +671,9 @@ test.describe("backend API integration", () => {
       );
       expect(accepted.accepted).toBe(1);
 
-      expect((await student.context.post("/api/lesson-progress", { data: { action: "complete" } })).status()).toBe(400);
+      expect((await student.context.post("/api/lesson-progress", { headers: { "X-MAIS-Expected-User-Id": student.userId }, data: { action: "complete" } })).status()).toBe(400);
       const lessonProgress = await readJson<{ lesson: { slug: string; status: string; mastery: number } }>(
-        await student.context.post("/api/lesson-progress", {
+        await student.context.post("/api/lesson-progress", { headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
             slug: "quadratic-functions",
             action: "complete",
@@ -695,9 +695,9 @@ test.describe("backend API integration", () => {
           }
         })).status()
       ).toBe(401);
-      expect((await student.context.post("/api/visualization-sessions", { data: { moduleId: "coordinate-plane-demo" } })).status()).toBe(400);
+      expect((await student.context.post("/api/visualization-sessions", { headers: { "X-MAIS-Expected-User-Id": student.userId }, data: { moduleId: "coordinate-plane-demo" } })).status()).toBe(400);
       expect(
-        (await student.context.post("/api/visualization-sessions", {
+        (await student.context.post("/api/visualization-sessions", { headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
             moduleId: "coordinate-plane-demo",
             topicId: "coordinates",
@@ -706,7 +706,7 @@ test.describe("backend API integration", () => {
         })).status()
       ).toBe(400);
       const visualization = await readJson<{ session: { explored: boolean; moduleId: string } }>(
-        await student.context.post("/api/visualization-sessions", {
+        await student.context.post("/api/visualization-sessions", { headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
             moduleId: "coordinate-plane-demo",
             topicId: "coordinates",
@@ -717,7 +717,7 @@ test.describe("backend API integration", () => {
       expect(visualization.session.explored).toBe(true);
 
       const duplicateVisualization = await readJson<{ session: { explored: boolean; moduleId: string; topicId: string } }>(
-        await student.context.post("/api/visualization-sessions", {
+        await student.context.post("/api/visualization-sessions", { headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
             moduleId: "coordinate-plane-demo",
             topicId: "coordinates",
@@ -730,7 +730,7 @@ test.describe("backend API integration", () => {
       expect(duplicateVisualization.session.topicId).toBe("coordinates");
 
       const visualizationSessions = await readJson<{ sessions: Array<{ explored: boolean; moduleId: string; topicId: string }> }>(
-        await student.context.get("/api/visualization-sessions")
+        await student.context.get("/api/visualization-sessions", { headers: { "X-MAIS-Expected-User-Id": student.userId } })
       );
       expect(visualizationSessions.sessions).toEqual(
         expect.arrayContaining([
@@ -973,7 +973,7 @@ test.describe("backend API integration", () => {
       expect(beforeFoundation?.p_mastery ?? 0).toBeLessThan(0.85);
 
       const completedLesson = await readJson<{ lesson: { slug: string; status: string; mastery: number } }>(
-        await student.context.post("/api/lesson-progress", {
+        await student.context.post("/api/lesson-progress", { headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
             slug: "algebra-basics",
             action: "complete",
@@ -991,7 +991,7 @@ test.describe("backend API integration", () => {
       expect(afterFoundation?.p_mastery ?? 0).toBeGreaterThan(0.85);
 
       const repeatedCompletion = await readJson<{ lesson: { status: string } }>(
-        await student.context.post("/api/lesson-progress", {
+        await student.context.post("/api/lesson-progress", { headers: { "X-MAIS-Expected-User-Id": student.userId },
           data: {
             slug: "algebra-basics",
             action: "complete",
@@ -1425,6 +1425,11 @@ test.describe("backend API integration", () => {
       expect((await teacher.get("/api/admin/storage/health")).status()).toBe(403);
       const admin = await registerStudent(contexts, testInfo, "admin-promote");
       promoteUserToAdmin(admin.userId);
+      // The old student cookie cannot gain privileges from a later role change.
+      expect((await admin.context.get("/api/admin/storage/health")).status()).toBe(401);
+      await readJson(await admin.context.post("/api/auth/login", {
+        data: { username: admin.username, password: admin.password, grade: "S3", language: "en", theme: "light" }
+      }));
       const storageHealth = await readJson<{
         storage: {
           provider: string;
@@ -1467,7 +1472,7 @@ test.describe("backend API integration", () => {
 
       expect((await teacher.post("/api/admin/provisioning/validate", { data: {} })).status()).toBe(403);
 
-      const schoolCode = uniqueSlug(testInfo, "bulk-school").replace(/-/g, "").slice(0, 10).toUpperCase();
+      const schoolCode = uniqueSlug(testInfo, "bulk-school").replace(/-/g, "").slice(-10).toUpperCase();
       const provisioningPayload = {
         school: {
           name: `Bulk Test School ${schoolCode}`,

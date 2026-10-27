@@ -9,6 +9,7 @@ import { getMainlandPepTransitDetails, isMainlandPepRoadmapProfile } from "@/dat
 import { topicsMetadata as fallbackTopics } from "@/data/topicsMetadata";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { curriculumProfileForTrack, curriculumTrackForProfile, publisherLabels } from "@/lib/curriculumProfile";
+import { formatTopicPlacementLabel } from "@/lib/curriculumCourses";
 import { formatDifficultyLabel, formatGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
@@ -534,7 +535,7 @@ function TransitRoute({
   const { language, text, t } = useSettings();
   const details = transitDetailsForTopic(topic);
   const routeColor = routeColors[(gradeIndex + index) % routeColors.length];
-  const gradeLabel = formatGradeLabel(topic.grade, language, true);
+  const gradeLabel = formatTopicPlacementLabel(topic, language, true);
 
   return (
     <div className="grid gap-4 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-5">
@@ -653,6 +654,7 @@ function StudentTopicCard({
   const { language, text, t } = useSettings();
   const details = transitDetailsForTopic(topic);
   const routeColor = routeColors[(gradeIndex + topicPosition) % routeColors.length];
+  const hasCourseLabel = Boolean(topic.courseId?.trim() && topic.courseLabel && text(topic.courseLabel).trim());
   const branchSummaries = details.branches.slice(0, 4).map((branch, branchIndex) =>
     localizedBranchStation({ branch, topic, branchIndex, language, text })
   );
@@ -668,6 +670,11 @@ function StudentTopicCard({
             <span className={cn("rounded-full border px-3 py-1 text-xs font-black", studentStatusStyles[topic.status])}>
               {getStatusLabel(topic.status, t)}
             </span>
+            {hasCourseLabel ? (
+              <span data-topic-course-label className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-300/25 dark:bg-cyan-300/10 dark:text-cyan-100">
+                {formatTopicPlacementLabel(topic, language, true)}
+              </span>
+            ) : null}
             <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-500 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-300">
               {formatDifficultyLabel(topic.difficulty, language)}
             </span>

@@ -1840,6 +1840,7 @@ export function createAiGovernancePersistenceStore({
       const journaled = await recordAITutorMessageBeforeSnapshot?.(record);
       if (journaled === true) return;
       await mutateDatabase((database) => {
+        if (!database.users.some((user) => user.id === userId)) return;
         database.ai_tutor_messages.push(record);
       });
     },
@@ -1872,6 +1873,7 @@ export function createAiGovernancePersistenceStore({
       const journaled = await recordAITutorUsageBeforeSnapshot?.(record);
       if (journaled === true) return;
       await mutateDatabase((database) => {
+        if (!database.users.some((user) => user.id === userId)) return;
         database.ai_tutor_usage.push(record);
       });
     },
@@ -2011,6 +2013,9 @@ export function createAiGovernancePersistenceStore({
       if (preSnapshotDecision !== undefined) return preSnapshotDecision;
 
       return mutateDatabase((database) => {
+        if (!database.users.some((user) => user.id === userId)) {
+          return { allowed: false, reason: "rate-limit" as const, retryAfterSeconds: 0, remaining: 0, resetAt: now };
+        }
         const nowMs = now.getTime();
         const maxWindowMs = Math.max(...rules.map((rule) => rule.windowMs), 60 * 1000);
         const retentionCutoffMs = nowMs - Math.max(maxWindowMs, 24 * 60 * 60 * 1000);
@@ -2068,6 +2073,7 @@ export function createAiGovernancePersistenceStore({
       now?: Date;
     }) {
       await mutateDatabase((database) => {
+        if (!database.users.some((user) => user.id === userId)) return;
         database.ai_governance_events.push({
           id: `ai-governance-${createId()}`,
           user_id: userId,

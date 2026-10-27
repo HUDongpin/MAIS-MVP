@@ -510,3 +510,24 @@ test("gamification reward redemption persistence owns display name helpers", asy
   assert.equal(rootSource.includes("function studentNameFor("), false);
   assert.equal(rootSource.includes("function teacherNameFor("), false);
 });
+
+test("teacher reward rejection cannot record positive XP or points absent from its ledger", async () => {
+  const database = createDatabase();
+  database.gamification_events!.push({ id: "day-budget", student_id: "student-1", source: "lesson-complete", source_key: "day-budget", status: "awarded", xp: 419, reward_points: 159, label_en: "Prior rewards", label_zh: "此前奖赏", anti_abuse_flags: [], economy_version: "gamification-core-v1", created_at: generatedAt });
+  const retainedLedger = structuredClone(database.reward_point_ledger);
+  const result = await createTestStore(database).awardTeacherRewardPoints({ teacherId: "teacher-1", studentId: "student-1", amount: 35, reasonPresetId: "participation" });
+  assert.equal(result.status, "capped");
+  assert.deepEqual(database.reward_point_ledger, retainedLedger);
+  assert.equal(database.gamification_events![0].xp, 0);
+  assert.equal(database.gamification_events![0].reward_points, 0);
+});
+
+test("teacher reward retains full point award when only XP reaches its daily cap", async () => {
+  const database = createDatabase();
+  database.gamification_events!.push({ id: "xp-budget", student_id: "student-1", source: "lesson-complete", source_key: "xp-budget", status: "awarded", xp: 419, reward_points: 150, label_en: "Prior rewards", label_zh: "此前奖赏", anti_abuse_flags: [], economy_version: "gamification-core-v1", created_at: generatedAt });
+  const result = await createTestStore(database).awardTeacherRewardPoints({ teacherId: "teacher-1", studentId: "student-1", amount: 2, reasonPresetId: "participation" });
+  assert.equal(result.status, "awarded");
+  assert.equal(database.reward_point_ledger[0].amount, 2);
+  assert.equal(database.gamification_events![0].xp, 1);
+  assert.equal(database.gamification_events![0].reward_points, 2);
+});

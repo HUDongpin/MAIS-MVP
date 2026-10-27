@@ -1,3 +1,4 @@
+import { runCredentialMutation } from "@/lib/server/requestMutationActor";
 import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
 import {
@@ -57,7 +58,7 @@ function teacherInviteRejectionResponse() {
 }
 
 export async function POST(request: Request) {
-  return withAuthRouteJsonBoundary("auth-register", () => handleRegister(request));
+  return withAuthRouteJsonBoundary("auth-register", () => runCredentialMutation(() => handleRegister(request)));
 }
 
 async function handleRegister(request: Request) {
@@ -131,7 +132,7 @@ async function handleRegister(request: Request) {
 
     const response = NextResponse.json(result.session);
     try {
-      await setSessionCookie(response, result.session.user.id, request, result.sessionRevision);
+      await setSessionCookie(response, result.session.user.id, request, result.sessionRevision, result.accountGeneration, result.session.user.role);
     } catch (error) {
       return sessionCookieFailureResponse(error, request, { committedAction: "account-created" });
     }
@@ -198,7 +199,7 @@ async function handleRegister(request: Request) {
     : result.session;
   const response = NextResponse.json(responseBody);
   try {
-    await setSessionCookie(response, result.session.user.id, request, result.sessionRevision);
+    await setSessionCookie(response, result.session.user.id, request, result.sessionRevision, result.accountGeneration, result.session.user.role);
   } catch (error) {
     return sessionCookieFailureResponse(error, request, { committedAction: "account-created" });
   }

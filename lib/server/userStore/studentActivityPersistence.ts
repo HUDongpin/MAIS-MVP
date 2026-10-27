@@ -1,3 +1,6 @@
+import { questionAnswerMatches as embeddedQuestionAnswerMatches } from "@/lib/server/answerMatching";
+import { assertMatchingPracticeSubmission, practiceSubmissionAttemptId } from "@/lib/server/practiceSubmissionIdentity";
+import { assessmentAllowsStudent } from "@/lib/server/assessmentAudience";
 import { createHash, randomUUID } from "crypto";
 import { readFile } from "node:fs/promises";
 import { topics as seedTopics } from "@/data/topics";
@@ -88,13 +91,16 @@ import type {
 
 type StudentActivityCurriculumScope = CurriculumTrack | CurriculumProfile | null | undefined;
 
-type StudentActivityUpdateLessonProgressInput = {
+export type StudentActivityUpdateLessonProgressInput = {
   userId: string;
   slug: string;
   action: "start" | "update" | "complete";
   durationSeconds?: number;
   checklistState?: Record<string, boolean>;
   curriculumTrack?: StudentActivityCurriculumScope;
+  expectedSessionRevision?: number;
+  expectedAccountGeneration?: string;
+  authority?: { generation: string; resetEpoch: number; publicationId: string; definitionEpoch: number; expiresAt: number; operationId: string };
 };
 
 export type StudentActivityAdaptiveLearningInput = {
@@ -201,6 +207,10 @@ type TopicRecord = {
   textbook_publisher?: TextbookPublisher;
   canonical_topic_id?: string;
   grade: GradeId;
+  course_id?: string;
+  course_label_en?: string;
+  course_label_zh?: string;
+  course_label_zh_hans?: string;
   title_en: string;
   title_zh: string;
   description_en: string;
@@ -415,6 +425,7 @@ type StudentActivityStudentProfileRecord = {
 };
 
 type StudentActivityAssessmentRecord = {
+  assigned_student_ids?: string[];
   id?: string;
   class_id: string;
   title_en?: string;
@@ -539,6 +550,7 @@ export type StudentAssessmentSubmitResult =
   | { status: "forbidden" }
   | { status: "closed" }
   | { status: "max-attempts" }
+  | { status: "attempt-conflict" }
   | { status: "submitted"; submission: AssessmentSubmission; assessment: Assessment };
 
 export type StudentAssignmentWorkSubmitResult =
@@ -547,6 +559,7 @@ export type StudentAssignmentWorkSubmitResult =
   | { status: "closed" }
   | { status: "invalid-state" }
   | { status: "max-corrections" }
+  | { status: "attempt-conflict" }
   | { status: "submitted"; submission: Submission };
 
 export type StudentActivityPersistenceDatabase = {
@@ -761,6 +774,10 @@ export type StudentActivityPersistenceStoreDependencies = {
   mutateDatabase?: <T>(
     mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>
   ) => Promise<T>;
+  mutateLessonProgress?: (
+    input: StudentActivityUpdateLessonProgressInput,
+    mutator: (database: StudentActivityPersistenceDatabase) => Promise<LessonSummary | null>
+  ) => Promise<LessonSummary | null>;
   afterAppend?: (
     database: StudentActivityPersistenceDatabase,
     context: {
@@ -942,7 +959,8 @@ export function latestStudentActivityAt(database: StudentActivityPersistenceData
     .map(studentActivityTimestampOf)
     .filter((time): time is number => time !== null);
 
-  return timestamps.length ? new Date(Math.max(...timestamps)).toISOString() : null;
+  const latest = timestamps.reduce((maximum, timestamp) => Math.max(maximum, timestamp), Number.NEGATIVE_INFINITY);
+  return timestamps.length ? new Date(latest).toISOString() : null;
 }
 
 export function studentAverageMastery(
@@ -1160,7 +1178,7 @@ function studentCanAccessResource(
   if (studentHasResourceAssignment(database, userId, resourceId)) return true;
   const classIds = studentClassIds(database, userId);
   return (database.assessments ?? []).some(
-    (assessment) => classIds.has(assessment.class_id) && assessment.source_resource_id === resourceId
+    (assessment) => assessment.status !== "draft" && classIds.has(assessment.class_id) && assessmentAllowsStudent(assessment, userId) && assessment.source_resource_id === resourceId
   );
 }
 
@@ -1736,10 +1754,10 @@ function assessmentPaperSectionsForRecord(
   ];
 }
 
-function assessmentSubmittedCount(database: StudentActivityPersistenceDatabase, assessmentId: string) {
+function assessmentSubmittedCount(database: StudentActivityPersistenceDatabase, assessmentId: string, assessment: StudentActivityAssessmentRecord) {
   return (database.assessment_submissions ?? []).filter(
     (submission) =>
-      submission.assessment_id === assessmentId &&
+      submission.assessment_id === assessmentId && assessmentAllowsStudent(assessment, submission.student_id) &&
       (submission.status === "submitted" || submission.status === "graded" || submission.status === "late")
   ).length;
 }
@@ -1781,8 +1799,8 @@ function assessmentForDatabase(
     createdBy: record.created_by ?? "",
     createdAt: record.created_at ?? "",
     updatedAt: record.updated_at ?? "",
-    submissionCount: (database.assessment_submissions ?? []).filter((submission) => submission.assessment_id === id).length,
-    submittedCount: assessmentSubmittedCount(database, id)
+    submissionCount: (database.assessment_submissions ?? []).filter((submission) => submission.assessment_id === id && assessmentAllowsStudent(record, submission.student_id)).length,
+    submittedCount: assessmentSubmittedCount(database, id, record)
   };
 }
 
@@ -1918,8 +1936,15 @@ function assessmentPaperItemMatchesAnswerForDatabase(
   questionAnswerMatches: NonNullable<StudentActivityPersistenceStoreDependencies["questionAnswerMatches"]>
 ) {
   if (item.embeddedQuestion) {
-    const acceptedAnswers = [item.embeddedQuestion.answer, ...(item.embeddedQuestion.acceptedAnswers ?? [])];
-    return acceptedAnswers.some((answer) => normalizeAssessmentAnswer(selectedAnswer) === normalizeAssessmentAnswer(answer));
+    if (item.embeddedQuestion.type === "manual") {
+      const acceptedAnswers = [item.embeddedQuestion.answer, ...(item.embeddedQuestion.acceptedAnswers ?? [])];
+      return acceptedAnswers.some((answer) => normalizeAssessmentAnswer(selectedAnswer) === normalizeAssessmentAnswer(answer));
+    }
+    return embeddedQuestionAnswerMatches({
+      answer: item.embeddedQuestion.answer,
+      accepted_answers: item.embeddedQuestion.acceptedAnswers,
+      options: item.embeddedQuestion.options
+    }, selectedAnswer);
   }
   const question = assessmentPaperItemQuestion(database, item);
   return question ? questionAnswerMatches(question, selectedAnswer) : null;
@@ -2024,6 +2049,14 @@ function topicWithProgressForDatabase(
     publisher: topic.textbook_publisher,
     canonicalTopicId: topic.canonical_topic_id ?? topic.id,
     grade: topic.grade,
+    ...(topic.course_id && topic.course_label_en && topic.course_label_zh ? {
+      courseId: topic.course_id,
+      courseLabel: {
+        en: topic.course_label_en,
+        zh: topic.course_label_zh,
+        ...(topic.course_label_zh_hans ? { zhHans: topic.course_label_zh_hans } : {})
+      }
+    } : {}),
     title: { en: topic.title_en, zh: topic.title_zh },
     description: { en: topic.description_en, zh: topic.description_zh },
     status: progress?.status ?? "not-started",
@@ -3037,7 +3070,9 @@ function toMistakeBookItem(
   return {
     questionId: mistake.question_id,
     lastSelectedAnswer: mistake.last_selected_answer,
-    correctAnswer: mistake.correct_answer,
+    // Review pairs the current prompt/explanation with its current answer.
+    // Keep the stored historical grading key unchanged for account exports.
+    correctAnswer: question.answer,
     wrongAttempts: mistake.wrong_attempts,
     firstWrongAt: mistake.first_wrong_at,
     lastAttemptAt: mistake.last_attempt_at,
@@ -3170,6 +3205,8 @@ function studentAssessmentAssignmentItemForDatabase(
     ? (database.teacher_classes ?? []).find((candidate) => candidate.id === assignment.class_id)
     : null;
   if (!assignment || !teacherClass) return null;
+  const assessment = (database.assessments ?? []).find((candidate) => candidate.id === assessmentId);
+  if (!assessment || !assessmentAllowsStudent(assessment, userId)) return null;
 
   return {
     assignment: assignmentForDatabase(database, assignment),
@@ -3203,6 +3240,7 @@ export function createStudentActivityPersistenceStore({
   readDatabase,
   readPublicDatabase = readDatabase,
   mutateDatabase,
+  mutateLessonProgress,
   afterAppend,
   afterMarkMistakeMastered,
   afterMarkVisualizationSession,
@@ -3257,6 +3295,10 @@ export function createStudentActivityPersistenceStore({
           ? (database.teacher_classes ?? []).find((candidate) => candidate.id === assignment.class_id)
           : null;
         if (!assignment || !teacherClass) return null;
+        if (assignment.content_type === "assessment") {
+          const assessment = (database.assessments ?? []).find((candidate) => candidate.id === assignment.target_id);
+          if (!assessment || !assessmentAllowsStudent(assessment, userId)) return null;
+        }
         return {
           assignment: assignmentForDatabase(database, assignment),
           submission: submissionForDatabase(database, submission),
@@ -3334,7 +3376,11 @@ export function createStudentActivityPersistenceStore({
     },
 
     async updateLessonProgress(input: StudentActivityUpdateLessonProgressInput): Promise<LessonSummary | null> {
-      return runMutation(async (database) => {
+      const mutate = mutateLessonProgress
+        ? (mutator: (database: StudentActivityPersistenceDatabase) => Promise<LessonSummary | null>) => mutateLessonProgress(input, mutator)
+        : runMutation;
+      return mutate(async (database) => {
+        if (database.users && !database.users.some((user) => user.id === input.userId)) return null;
         const curriculumTrack = input.curriculumTrack ?? defaultCurriculumTrack;
         const lesson = (database.lessons ?? []).find((candidate) => candidate.slug === input.slug);
         if (!lesson) return null;
@@ -3523,7 +3569,8 @@ export function createStudentActivityPersistenceStore({
       selectedAnswer,
       durationSeconds,
       curriculumTrack = defaultCurriculumTrack,
-      answerWorkPhotos
+      answerWorkPhotos,
+      submissionId
     }: {
       userId: string;
       questionId: string;
@@ -3531,16 +3578,28 @@ export function createStudentActivityPersistenceStore({
       durationSeconds?: number;
       curriculumTrack?: StudentActivityCurriculumScope;
       answerWorkPhotos?: { objectKey: string }[];
+      submissionId?: string;
     }): Promise<AttemptFeedback | null> {
       return runMutation(async (database) => {
+        if (database.users && !database.users.some((user) => user.id === userId)) return null;
+        const id = practiceSubmissionAttemptId(userId, submissionId);
+        const existing = id ? attemptRowsFor(database).find((attempt) => attempt.id === id) : undefined;
+        if (existing) assertMatchingPracticeSubmission(existing, { userId, questionId, selectedAnswer, durationSeconds, answerWorkPhotos });
         const question = questionForId(database, questionId);
         if (!question) return null;
         if (!questionMatchesCurriculum(question, curriculumTrack)) return null;
 
+        if (existing) {
+          return {
+            correct: existing.is_correct,
+            explanation: { en: question.explanation_en, zh: question.explanation_zh },
+            correctAnswer: existing.is_correct ? undefined : question.answer
+          };
+        }
         const submittedAt = now().toISOString();
         const correct = questionAnswerMatches(question, selectedAnswer);
         const attempt: StudentActivityAttemptRecord = {
-          id: createId(),
+          id: id ?? createId(),
           user_id: userId,
           question_id: question.id,
           selected_answer: selectedAnswer,
@@ -3637,6 +3696,7 @@ export function createStudentActivityPersistenceStore({
     },
     async appendLearningEvents(userId: string, events: LearningAnalyticsEvent[]) {
       return runMutation(async (database) => {
+        if (database.users && !database.users.some((user) => user.id === userId)) return 0;
         const learningEvents = learningEventsFor(database);
         const visualizationEvents = visualizationEventsFor(database);
         const existingIds = new Set(learningEvents.map((event) => event.id));
@@ -3645,8 +3705,9 @@ export function createStudentActivityPersistenceStore({
         const records = events
           .filter((event) => {
             if (existingIds.has(event.id)) return false;
-            if (clearedAtMs === null) return true;
-            return new Date(event.timestamp).getTime() > clearedAtMs;
+            if (clearedAtMs !== null && new Date(event.timestamp).getTime() <= clearedAtMs) return false;
+            existingIds.add(event.id);
+            return true;
           })
           .map((event) => analyticsEventToRecord(userId, event, createId));
 
@@ -3673,13 +3734,22 @@ export function createStudentActivityPersistenceStore({
         return records.length;
       });
     },
-    async clearLearningEventsForUser(userId: string, clearedAt = now().toISOString()) {
+    async clearLearningEventsForUser(userId: string, clearedAt?: string) {
       await runMutation((database) => {
+        if (database.users && !database.users.some((user) => user.id === userId)) return;
+        const requestedMs = clearedAt === undefined ? now().getTime() : Date.parse(clearedAt);
+        if (!Number.isFinite(requestedMs)) throw new Error("Invalid analytics reset timestamp.");
+        const times = [
+          now().getTime(), requestedMs,
+          ...learningEventClearsFor(database).filter((clear) => clear.user_id === userId).map((clear) => Date.parse(clear.cleared_at)),
+          ...learningEventsFor(database).filter((event) => event.user_id === userId).map((event) => Date.parse(event.created_at))
+        ].filter(Number.isFinite);
+        const cutoff = new Date(times.reduce((latest, value) => Math.max(latest, value), 0)).toISOString();
         database.learning_events = learningEventsFor(database).filter((event) => event.user_id !== userId);
         database.visualization_events = visualizationEventsFor(database).filter((event) => event.user_id !== userId);
         database.learning_event_clears = [
           ...learningEventClearsFor(database).filter((clear) => clear.user_id !== userId),
-          { user_id: userId, cleared_at: clearedAt }
+          { user_id: userId, cleared_at: cutoff }
         ];
       });
     },
@@ -3721,6 +3791,7 @@ export function createStudentActivityPersistenceStore({
       source: LearningAnalyticsEvent["source"];
     }) {
       return runMutation(async (database) => {
+        if (database.users && !database.users.some((user) => user.id === userId)) return null;
         const updatedAt = now().toISOString();
         const sessions = visualizationSessionsFor(database);
         let session = sessions.find(
@@ -3931,7 +4002,8 @@ export function createStudentActivityPersistenceStore({
       imageFileName,
       inputType,
       ocrResult,
-      kind
+      kind,
+      expectedAttemptNumber
     }: {
       userId: string;
       assignmentId: string;
@@ -3942,6 +4014,7 @@ export function createStudentActivityPersistenceStore({
       inputType?: AssignmentSubmissionInputType;
       ocrResult?: AssignmentSubmissionOcrResult | null;
       kind: AssignmentSubmissionAttemptKind;
+      expectedAttemptNumber?: number;
     }): Promise<StudentAssignmentWorkSubmitResult> {
       const cleanAnswer = cleanAssignmentText(answerText);
       const cleanImage = cleanAssignmentImageDataUrl(imageDataUrl);
@@ -3960,9 +4033,19 @@ export function createStudentActivityPersistenceStore({
             )
           : false;
         if (!assignment || !submission?.id || !enrolled) return { status: "not-found" as const };
+        if (assignment.content_type === "assessment") {
+          const assessment = (database.assessments ?? []).find((candidate) => candidate.id === assignment.target_id);
+          if (!assessment || !assessmentAllowsStudent(assessment, userId)) return { status: "not-found" as const };
+        }
         if (assignment.status !== "active") return { status: "closed" as const };
 
         const attempts = assignmentSubmissionAttemptsFor(database);
+        const currentAttemptNumber = attempts.reduce((latest, attempt) =>
+          attempt.submission_id === submission.id ? Math.max(latest, attempt.attempt_number) : latest, 0);
+        if (expectedAttemptNumber !== undefined && (
+          !Number.isSafeInteger(expectedAttemptNumber) || expectedAttemptNumber < 0 ||
+          expectedAttemptNumber !== currentAttemptNumber
+        )) return { status: "attempt-conflict" as const };
         const correctionRound = attempts.filter((attempt) =>
           attempt.submission_id === submission.id && attempt.kind === "correction"
         ).length;
@@ -3973,7 +4056,7 @@ export function createStudentActivityPersistenceStore({
 
         const nowDate = now();
         const nowIso = nowDate.toISOString();
-        const attemptNumber = attempts.filter((attempt) => attempt.submission_id === submission.id).length + 1;
+        const attemptNumber = currentAttemptNumber + 1;
         const attempt: StudentActivityAssignmentSubmissionAttemptRecord = {
           id: `assignment-attempt-${createId()}`,
           submission_id: submission.id,
@@ -4059,7 +4142,7 @@ export function createStudentActivityPersistenceStore({
       const enrolled = (database.class_enrollments ?? []).some(
         (enrollment) => enrollment.class_id === assessment.class_id && enrollment.student_id === userId
       );
-      if (!teacherClass || !enrolled) return null;
+      if (!teacherClass || !enrolled || !assessmentAllowsStudent(assessment, userId)) return null;
 
       let submission = (database.assessment_submissions ?? []).find(
         (candidate) => candidate.assessment_id === assessmentId && candidate.student_id === userId
@@ -4111,11 +4194,13 @@ export function createStudentActivityPersistenceStore({
     async submitStudentAssessment({
       userId,
       assessmentId,
-      answers
+      answers,
+      expectedAttemptNumber
     }: {
       userId: string;
       assessmentId: string;
       answers: Array<{ questionId: string; answer: string }>;
+      expectedAttemptNumber?: number;
     }): Promise<StudentAssessmentSubmitResult> {
       return runMutation(async (database) => {
         const assessment = (database.assessments ?? []).find((candidate) => candidate.id === assessmentId);
@@ -4123,7 +4208,7 @@ export function createStudentActivityPersistenceStore({
         const enrolled = (database.class_enrollments ?? []).some(
           (enrollment) => enrollment.class_id === assessment.class_id && enrollment.student_id === userId
         );
-        if (!enrolled) return { status: "forbidden" as const };
+        if (!enrolled || !assessmentAllowsStudent(assessment, userId)) return { status: "forbidden" as const };
 
         const availability = assessmentAvailability(assessment, now().getTime());
         if (!availability.canSubmit) return { status: "closed" as const };
@@ -4133,6 +4218,10 @@ export function createStudentActivityPersistenceStore({
         let submission = submissions.find(
           (candidate) => candidate.assessment_id === assessmentId && candidate.student_id === userId
         );
+        if (expectedAttemptNumber !== undefined && (
+          !Number.isSafeInteger(expectedAttemptNumber) || expectedAttemptNumber < 0 ||
+          expectedAttemptNumber !== (submission?.attempt_number ?? 0)
+        )) return { status: "attempt-conflict" as const };
         if (!submission) {
           submission = {
             id: `assessment-submission-${createId()}`,

@@ -249,10 +249,11 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Move a shape and compare its corners", zh: "移動圖形並比較角" },
+      title: { en: "Choose the next shape", zh: "選擇下一個圖形", zhHans: "选择下一个图形" },
       content: {
-        en: "Drag the points to see how sides and corners help name a shape.",
-        zh: "拖曳點，觀察邊和角如何幫助命名圖形。"
+        en: "Look at the repeating pattern. Drag a shape into the empty space or use the shape buttons to choose what comes next. Check your answer and count the sides and corners of your chosen shape.",
+        zh: "觀察重複規律。把圖形拖到空格，或按圖形按鈕選出下一個圖形。檢查答案，並數一數所選圖形的邊和角。",
+        zhHans: "观察重复规律。把图形拖到空格，或按图形按钮选出下一个图形。检查答案，并数一数所选图形的边和角。"
       },
       moduleId: "geometry-explorer",
       source: "geometry"

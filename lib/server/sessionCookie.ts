@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from "@/lib/session";
 import { getActiveUserSessionRevision } from "@/lib/server/userStore/auth";
+import { getLearnerAuthoritySessionGeneration } from "@/lib/server/userStore";
 
 export type SessionCookieIssuanceErrorCode =
   | "authenticated-revision-invalid"
@@ -93,7 +94,9 @@ export async function setSessionCookie(
   response: NextResponse,
   userId: string,
   request: Request,
-  expectedSessionRevision: number
+  expectedSessionRevision: number,
+  expectedAccountGeneration?: string,
+  expectedAccountRole?: "student" | "teacher" | "parent" | "admin"
 ) {
   if (!Number.isSafeInteger(expectedSessionRevision) || expectedSessionRevision < 1) {
     throw new SessionCookieIssuanceError("authenticated-revision-invalid");
@@ -113,8 +116,12 @@ export async function setSessionCookie(
 
   let token: string;
   try {
-    token = await createSessionToken({ userId, sessionRevision });
-  } catch {
+    const accountGeneration = await getLearnerAuthoritySessionGeneration(userId);
+    if ((accountGeneration ?? undefined) !== expectedAccountGeneration) throw new SessionCookieIssuanceError("revision-mismatch");
+    if (accountGeneration && !expectedAccountRole) throw new SessionCookieIssuanceError("authenticated-revision-invalid");
+    token = await createSessionToken({ userId, sessionRevision, ...(accountGeneration ? { accountGeneration } : {}), accountRole: expectedAccountRole });
+  } catch (error) {
+    if (error instanceof SessionCookieIssuanceError) throw error;
     throw new SessionCookieIssuanceError("session-service-unavailable");
   }
   response.cookies.set(SESSION_COOKIE_NAME, token, {

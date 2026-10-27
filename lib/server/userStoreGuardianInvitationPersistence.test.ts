@@ -1079,7 +1079,7 @@ test("legacy userStore persists guardian invitations as a first-class snapshot c
   );
   assert.match(
     rootSource,
-    /databaseNeedsPersistenceSync\(latest\.parsed, latest\.database\) \|\| !latest\.metadata/u,
+    /databaseNeedsPersistenceSync\(latest\.parsed, latest\.database, \{\s*includeSeedCourseDrift: true\s*\}\) \|\| !latest\.metadata/u,
     "SQLite must retain read-side sanitized snapshot persistence"
   );
 

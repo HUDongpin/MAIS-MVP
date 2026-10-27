@@ -13,7 +13,12 @@ function readCookie(header: string | null, name: string) {
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${name}=`));
 
-  return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match.slice(name.length + 1));
+  } catch {
+    return null;
+  }
 }
 
 const expectedUserHeaderName = "x-mais-expected-user-id";
@@ -214,13 +219,28 @@ export async function requireAuthenticatedUser(request: Request) {
   return getAuthenticatedUserFromToken(token);
 }
 
+// Lesson writes recheck this verified revision under the account's write lock.
+export async function requireLessonProgressAuthenticatedUser(request: Request) {
+  const token = readCookie(request.headers.get("cookie"), SESSION_COOKIE_NAME);
+  if (!token) return null;
+  const payload = await verifySessionToken(token);
+  if (!payload) return null;
+  const authenticated = await getAuthenticatedUserForSession(payload.sub, payload.sr, undefined, payload.ag);
+  if (!authenticated) return null;
+  if (payload.ar !== undefined && payload.ar !== authenticated.user.role) return null;
+  return { ...authenticated, sessionRevision: payload.sr, accountGeneration: payload.ag };
+}
+
 export async function getAuthenticatedUserFromToken(token?: string | null) {
   if (!token) return null;
 
   const payload = await verifySessionToken(token);
   if (!payload) return null;
 
-  return getAuthenticatedUserForSession(payload.sub, payload.sr);
+  const authenticated = await getAuthenticatedUserForSession(payload.sub, payload.sr, undefined, payload.ag);
+  if (!authenticated) return null;
+  if (payload.ar !== undefined && payload.ar !== authenticated.user.role) return null;
+  return { ...authenticated, sessionRevision: payload.sr, accountGeneration: payload.ag };
 }
 
 function throwIfAiTutorAuthenticationAborted(signal: AbortSignal) {
@@ -245,7 +265,9 @@ export async function getAiTutorAuthenticatedUserFromToken(
   if (!payload) return null;
   throwIfAiTutorAuthenticationAborted(signal);
 
-  return getAuthenticatedUserForSession(payload.sub, payload.sr, signal);
+  const authenticated = await getAuthenticatedUserForSession(payload.sub, payload.sr, signal, payload.ag);
+  throwIfAiTutorAuthenticationAborted(signal);
+  return authenticated && (payload.ar === undefined || payload.ar === authenticated.user.role) ? authenticated : null;
 }
 
 export function canAccessTeacherArea(user?: Pick<StudentSession, "role"> | null) {

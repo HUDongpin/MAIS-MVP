@@ -284,6 +284,11 @@ export async function applyMergedSnapshotInTransaction(
       pg_catalog.set_config('lock_timeout', '5000ms', true),
       pg_catalog.set_config('statement_timeout', '60000ms', true)
   `;
+  await transactionSql`SELECT pg_catalog.pg_advisory_xact_lock_shared(pg_catalog.hashtextextended('mais-postgres-storage-contract-v1',0))`;
+  const [authority] = await transactionSql`SELECT pg_catalog.to_regnamespace('learner_authority') IS NOT NULL
+    OR EXISTS(SELECT 1 FROM pg_catalog.pg_attribute WHERE attrelid=pg_catalog.to_regclass('public.app_state')
+      AND attname='learner_authority_installation' AND NOT attisdropped) AS present`;
+  if (authority?.present || snapshot.storageAuthority) throw new Error("Learner authority snapshots require a generation-aware restore; this legacy merge is unavailable.");
   const rows = await transactionSql`
     SELECT revision, payload
     FROM public.app_state

@@ -11,6 +11,8 @@ import {
 } from "@/lib/server/authRouteGuards";
 import { sessionCookieFailureResponse, setSessionCookie } from "@/lib/server/sessionCookie";
 import { changeAuthenticatedUserPassword } from "@/lib/server/userStore/auth";
+import { withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -80,11 +82,12 @@ export function createPasswordChangeHandler({
     });
     if (userRateLimit) return userRateLimit;
 
-    const result = await changePassword({
+    const result = await withAuthenticatedMutation(authenticated, () => changePassword({
       userId: authenticated.user.id,
       currentPassword,
       password
-    });
+    })).catch(learnerAuthorityFailureResponse);
+    if (result instanceof Response) return new NextResponse(result.body, { status: result.status, headers: result.headers });
 
     if (result.status !== "updated") {
       return NextResponse.json({ error: "Current password is invalid or the new password is too short." }, { status: 400 });
@@ -92,7 +95,7 @@ export function createPasswordChangeHandler({
 
     const response = NextResponse.json(result.session);
     try {
-      await writeSessionCookie(response, result.session.user.id, request, result.sessionRevision);
+      await writeSessionCookie(response, result.session.user.id, request, result.sessionRevision, result.accountGeneration, result.session.user.role);
     } catch (error) {
       return sessionCookieFailureResponse(error, request, { committedAction: "password-updated" });
     }

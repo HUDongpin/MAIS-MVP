@@ -1,4 +1,5 @@
 "use client";
+import { saveLessonProgressRequest } from "@/lib/lessonProgressRequest";
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -2270,8 +2271,8 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     if (currentUser?.role === "student") {
       void fetch("/api/gamification/practice-island", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ regionId, stars })
+        headers: { "Content-Type": "application/json", "X-MAIS-Expected-User-Id": currentUser.id },
+        body: JSON.stringify({ regionId, stars, expectedUserId: currentUser.id })
       }).catch(() => undefined);
     }
   }, [currentUser?.id, currentUser?.role, lesson, lessonPracticeSummary]);
@@ -2775,19 +2776,14 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }, [isSummaryOpen]);
 
   useEffect(() => {
-    if (!canSaveProgress || !lesson) return;
+    if (!canSaveProgress || !lesson || !currentUser) return;
 
     const controller = new AbortController();
     let idleHandle: number | null = null;
     let timeoutHandle: number | null = null;
 
     const saveLessonStart = () => {
-      void fetch("/api/lesson-progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, action: "start" }),
-        signal: controller.signal
-      }).catch(() => {
+      void saveLessonProgressRequest(currentUser.id, { slug, action: "start" }, controller.signal).catch(() => {
         // Progress is best-effort; the lesson should remain readable if saving fails.
       });
     };
@@ -2807,7 +2803,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       }
       controller.abort();
     };
-  }, [canSaveProgress, lesson, slug]);
+  }, [canSaveProgress, currentUser?.id, lesson, slug]);
 
   function startQuestionTimer(questionId: string) {
     questionStartedAtRef.current[questionId] = questionStartedAtRef.current[questionId] ?? Date.now();
@@ -2843,7 +2839,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }
 
   async function completeLesson() {
-    if (!canSaveProgress) {
+    if (!canSaveProgress || !currentUser) {
       setLessonProgressError(t({
         en: "Log in as a student to save lesson progress.",
         zh: "請以學生身份登入以儲存課節進度。",
@@ -2856,15 +2852,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     setLessonProgressError("");
 
     try {
-      const response = await fetch("/api/lesson-progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          slug,
-          action: "complete",
-          checklistState
-        })
-      });
+      const response = await saveLessonProgressRequest(currentUser.id, { slug, action: "complete", checklistState });
       const body = (await response.json().catch(() => null)) as LessonProgressResponse | null;
 
       if (!response.ok || !body?.lesson) {

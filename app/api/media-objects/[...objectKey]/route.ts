@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { readStoredMediaObject } from "@/lib/server/mediaObjectStore";
+import { authorizeTeacherMediaRead } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
 
@@ -24,7 +25,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ obj
     requester: {
       id: authenticated.user.id,
       role: authenticated.user.role
-    }
+    },
+    authorizeTeacherRead: (metadata) => authorizeTeacherMediaRead(authenticated.user.id, metadata)
   });
 
   if (result.status !== "ok") {
@@ -36,7 +38,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ obj
 
   return new Response(new Uint8Array(result.bytes), {
     headers: {
-      "Cache-Control": "private, max-age=300",
+      "Cache-Control": "private, no-store",
       "Content-Length": String(result.bytes.byteLength),
       "Content-Type": result.metadata.mimeType,
       "X-Media-Retention-Expires-At": result.metadata.retentionExpiresAt,

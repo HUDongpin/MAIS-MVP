@@ -663,7 +663,7 @@ test("Postgres message create follows capability, family scope, patch, projectio
   await verifyScopedTransactionTimeouts();
 });
 
-test("the scoped write hot path never invokes the full-snapshot initializer", async () => {
+test("the scoped write adapter stays narrow and hands installed authority to its full writer", async () => {
   const source = await readFile(
     path.join(process.cwd(), "lib/server/userStore/parentPostgresScopedMutations.ts"),
     "utf8"
@@ -681,9 +681,23 @@ test("the scoped write hot path never invokes the full-snapshot initializer", as
     "capability-backed scoped SQL must address the same public relations that the storage protocol attests and locks"
   );
   assert.match(source, /const result = mutate\(database\);\s*assertSynchronousMutation\(result\);/u);
+  const adapterStart = userStoreSource.indexOf("const parentPostgresScopedMutationAdapter =");
+  const adapterEnd = userStoreSource.indexOf("\nconst parentNoticePersistenceStore", adapterStart);
+  assert.ok(adapterStart >= 0 && adapterEnd > adapterStart);
+  const adapterSource = userStoreSource.slice(adapterStart, adapterEnd);
   assert.match(
-    userStoreSource,
-    /createParentPostgresScopedMutationAdapter\(\{[\s\S]*?acquireStorageMutationCapability:\s*\(sql\)\s*=>\s*acquirePostgresStorageMutationCapability/u
+    adapterSource,
+    /acquireStorageMutationCapability:\s*async \(sql\) => \{\s*const capability = await acquirePostgresStorageMutationCapability\([\s\S]*?\);\s*if \(await hasAuthorityInstallation\(sql as unknown as PostgresExecutor\)\) throw new ParentAuthorityRequiresFullMutation\(\);\s*return capability;/u,
+    "installed authority must reject the scoped write only after acquiring storage admission"
+  );
+  const handoffStart = userStoreSource.indexOf("async function withParentAuthorityMutation<");
+  assert.ok(handoffStart >= 0 && handoffStart < adapterStart);
+  const handoffSource = userStoreSource.slice(handoffStart, adapterStart);
+  assert.match(handoffSource, /try \{ return await legacy\(\); \}/u);
+  assert.match(
+    handoffSource,
+    /if \(error instanceof ParentAuthorityRequiresFullMutation\) return full\(\);\s*throw error;/u,
+    "ordinary scoped-write errors must propagate rather than fall back to a full mutation"
   );
   assert.match(
     userStoreSource,

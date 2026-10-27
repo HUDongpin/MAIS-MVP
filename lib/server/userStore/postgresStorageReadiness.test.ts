@@ -1639,7 +1639,7 @@ test("ordinary Postgres validation rejects JSONB scalar strings outside the vers
   const bootstrapSource = sourceSection(
     source,
     "async function bootstrapPostgresStateTables()",
-    "const ensurePostgresStateTable"
+    "const ensureLegacyPostgresStateTable"
   );
   const completeSnapshot = readiness.__userStorePostgresStorageReadinessTestHooks
     .createCompleteSnapshot();
@@ -1787,17 +1787,22 @@ test("partial writers transfer an opaque attested revision without selecting the
     catalogRows = storageCatalogRowsForState("ready"),
     invalidationCatalogRows = readyStorageTriggerCatalogRows(),
     markerFixture = createReadyStorageMarkerFixture(),
-    restoredRevision = 12
+    restoredRevision = 12,
+    authorityRows = [{ present: false, namespace_present: false, anchor_present: false }]
   }: {
     catalogRows?: StorageCatalogRow[];
     invalidationCatalogRows?: StorageInvalidationCatalogRow[];
     markerFixture?: StorageMarkerFixture;
     restoredRevision?: number;
+    authorityRows?: Array<{ present: boolean; namespace_present: boolean; anchor_present: boolean }>;
   } = {}) {
     const statements: CapturedStatement[] = [];
     const sql: FakeTransaction = async (strings, ...values) => {
       const text = strings.join("$value");
       statements.push({ transaction: 1, text, values });
+      if (text.includes("to_regclass('learner_authority.control')")) {
+        return structuredClone(authorityRows);
+      }
       if (text.includes("postgres_storage_readiness_state_lock")) {
         const [requestedId, requestedTenant, requestedKind, requestedSchema] = values;
         const requestedState = markerFixture.stateRows.find((row) => (
@@ -1842,14 +1847,20 @@ test("partial writers transfer an opaque attested revision without selecting the
 
   const replayFake = createCapabilityExecutor();
   const replayCapability = await acquire(replayFake.sql, state);
-  assert.equal(replayFake.statements.length, 8);
+  assert.equal(replayFake.statements.length, 10);
   assert.match(
     replayFake.statements[0]?.text ?? "",
     /pg_catalog\.set_config\('search_path', 'pg_catalog, public', true\)/u
   );
-  const relationLockStatement = replayFake.statements.find((statement) =>
+  const authorityProbeIndex = replayFake.statements.findIndex((statement) =>
+    statement.text.includes("to_regclass('learner_authority.control')")
+  );
+  const relationLockIndex = replayFake.statements.findIndex((statement) =>
     statement.text.includes("postgres_storage_readiness_relation_lock")
   );
+  assert.ok(authorityProbeIndex > 0 && authorityProbeIndex < relationLockIndex);
+  assert.match(replayFake.statements[authorityProbeIndex - 1].text, /pg_advisory_xact_lock_shared/u);
+  const relationLockStatement = replayFake.statements[relationLockIndex];
   assert.match(relationLockStatement?.text ?? "", /IN SHARE ROW EXCLUSIVE MODE(?! NOWAIT)/u);
   const capabilityStatement = replayFake.statements.find((statement) =>
     statement.text.includes("postgres_storage_readiness_mutation_capability")
@@ -1865,9 +1876,27 @@ test("partial writers transfer an opaque attested revision without selecting the
   await advance(replayFake.sql, replayCapability, 11);
   assert.equal(
     replayFake.statements.length,
-    8,
+    10,
     "an idempotent replay must preserve the already-valid marker without re-attesting"
   );
+
+  for (const authorityRows of [
+    [],
+    [{ present: false, namespace_present: true, anchor_present: false }],
+    [{ present: true, namespace_present: true, anchor_present: false }]
+  ]) {
+    const invalidAuthority = createCapabilityExecutor({ authorityRows });
+    await assert.rejects(
+      acquire(invalidAuthority.sql, state),
+      (error: unknown) => error instanceof Error && "code" in error
+        && error.code === "learner-authority-schema-unavailable"
+    );
+    assert.equal(
+      invalidAuthority.statements.some(({ text }) => /postgres_storage_readiness_relation_lock|postgres_storage_readiness_mutation_capability|postgres_storage_readiness_marker_attestation/u.test(text)),
+      false,
+      "missing or partial authority evidence must reject before storage capability or attestation"
+    );
+  }
 
   const changedFake = createCapabilityExecutor();
   const changedCapability = await acquire(changedFake.sql, state);
@@ -1990,6 +2019,9 @@ test("trigger invalidation and transaction rollback preserve the marker capabili
           const sql: FakeTransaction = async (strings, ...values) => {
             const text = strings.join("$value");
             statements.push({ transaction, text, values });
+            if (text.includes("to_regclass('learner_authority.control')")) {
+              return [{ present: false, namespace_present: false, anchor_present: false }];
+            }
             if (text.includes("postgres_storage_readiness_state_lock")) {
               return [{ revision: durable.revision }];
             }
