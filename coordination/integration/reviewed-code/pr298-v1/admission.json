@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "pr298-admission.v1",
+  "pullRequest": 298,
+  "baseCommit": "62e471134682d26c367667dca8ecc1d96acd1ed8",
+  "sourceCommit": "fe94ba0e79c10451760c874785a0560a7ecafa43",
+  "sourceTree": "f4ae9bec0f6d5cc666efc5194121f9c01a417564",
+  "sourceInventoryDigest": "0c5df6d70dce564a584f3f9a757c24fc91c6825ec5e6ea38e8c4d08142d7867b",
+  "toolingCommit": "2f76b807aade16ed020af15d1c6fc2f74337168e",
+  "toolingTree": "7c40e396b2ab0fce8a6028c7653f6c524873af80",
+  "toolingInventoryDigest": "49a3af42bd0fdff4abcbf42e445731966dfd8f23b78f209c3e48644908ee6cb9",
+  "checksRawSha256": "4c239f77a99e21a0c7cd1d9c89f0641558fe2bf778d1dd7ab825baec2e10cd90",
+  "scope": "exact-pr298-monitor-diagnostics-required-check-only",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviews": {
+    "A11": {
+      "decisionRawSha256": "8ccdde85c7e9086b774e78d5fb23fd123941081cc9754d46a8041e3811120e90",
+      "reportRawSha256": "616b394169d650367dd4de444a20d92d1e4abc214522608deb7828a1b269dd1b"
+    },
+    "A23": {
+      "decisionRawSha256": "cac2d79b4f61deb67ddd02af7d82a2f5745df60109ebd98e62c9c7996fbe341f",
+      "reportRawSha256": "bd5b6dc6c5a758dee45ead29d848e1b7bdd04021fd6e0e3151b5b2ea5ad4c763"
+    }
+  }
+}

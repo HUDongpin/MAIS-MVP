@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "pr298-source-checks.v1",
+  "sourceCommit": "fe94ba0e79c10451760c874785a0560a7ecafa43",
+  "sourceTree": "f4ae9bec0f6d5cc666efc5194121f9c01a417564",
+  "executedAt": "2026-10-27T03:25:59.997Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "monitor",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "scripts/monitor-teacher-notice-health.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "7014e069fcfdfc882192372a33fb4224e6aefa9f0039075282e684b8fca6279b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "313e118d45e2228d944397fd319158d451ac0b022d44964f4d5f84dc5db47bf1"
+      }
+    }
+  ]
+}
