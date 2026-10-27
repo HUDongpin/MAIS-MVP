@@ -177,6 +177,123 @@ test("monitor still fails closed after three persistent unhealthy responses", as
   assert.equal(teacherNoticeMonitorRetryDelayMs(1, () => 0.5), 52_500);
 });
 
+test("monitor identifies each rejected origin without exposing authentication responses", async () => {
+  for (const [failedIndex, status] of [[0, 401], [1, 403]]) {
+    const requests = [];
+    await assert.rejects(monitorTeacherNoticeHealth({
+      secret,
+      fetchImpl: async (url) => {
+        requests.push(url);
+        return url.startsWith(TEACHER_NOTICE_HEALTH_ORIGINS[failedIndex])
+          ? new Response(secret, { status, statusText: secret })
+          : healthyResponse();
+      }
+    }), (error) => {
+      assert.match(error.message, new RegExp(`${TEACHER_NOTICE_HEALTH_ORIGINS[failedIndex]} \\[http-${status}\\]`, "u"));
+      assert.equal(error.message.includes(TEACHER_NOTICE_HEALTH_ORIGINS[1 - failedIndex]), false);
+      assert.equal(error.message.includes(secret), false);
+      return true;
+    });
+    assert.equal(requests.length, 2, "authentication failures must not be retried");
+  }
+});
+
+test("monitor reports only bounded allowlisted reasons after persistent 503 responses", async () => {
+  const delays = [];
+  let requests = 0;
+  await assert.rejects(monitorTeacherNoticeHealth({
+    secret,
+    random: () => 0,
+    sleep: async (milliseconds) => { delays.push(milliseconds); },
+    fetchImpl: async () => {
+      requests += 1;
+      return new Response(JSON.stringify({ health: {
+        status: "unhealthy",
+        reasons: [secret, "scheduler-heartbeat-stale", "scheduler-heartbeat-stale", { secret }, "scheduler-release-mismatch", "bad\nreason"],
+        privateDetail: secret
+      } }), { status: 503, headers: { "cache-control": "private, no-store" } });
+    }
+  }), (error) => {
+    for (const origin of TEACHER_NOTICE_HEALTH_ORIGINS) {
+      assert.ok(error.message.includes(`${origin} [http-503; reasons=scheduler-heartbeat-stale,scheduler-release-mismatch]`));
+    }
+    assert.equal(error.message.includes(secret), false);
+    assert.equal(error.message.includes("bad\nreason"), false);
+    return true;
+  });
+  assert.equal(requests, 6);
+  assert.deepEqual(delays.sort((a, b) => a - b), [25_000, 25_000, 50_000, 50_000]);
+});
+
+test("monitor distinguishes unavailable 503 and transient HTTP responses without inventing reasons", async () => {
+  for (const status of [429, 502, 503, 504]) {
+    let requests = 0;
+    await assert.rejects(monitorTeacherNoticeHealth({
+      secret,
+      random: () => 0,
+      sleep: async () => {},
+      fetchImpl: async () => {
+        requests += 1;
+        return new Response(JSON.stringify({ status: "unavailable", detail: secret }), {
+          status,
+          headers: { "cache-control": "private, no-store" }
+        });
+      }
+    }), (error) => {
+      assert.ok(error.message.includes(`[http-${status}]`));
+      assert.equal(error.message.includes("reasons="), false);
+      assert.equal(error.message.includes(secret), false);
+      return true;
+    });
+    assert.equal(requests, 6);
+  }
+});
+
+test("monitor redacts network and body-stream errors while preserving retry boundaries", async () => {
+  for (const bodyFailure of [false, true]) {
+    let requests = 0;
+    await assert.rejects(monitorTeacherNoticeHealth({
+      secret,
+      random: () => 0,
+      sleep: async () => {},
+      fetchImpl: async () => {
+        requests += 1;
+        if (!bodyFailure) throw new Error(secret);
+        return new Response(new ReadableStream({
+          start(controller) { controller.error(new Error(secret)); }
+        }), { status: 200, headers: { "cache-control": "private, no-store" } });
+      }
+    }), (error) => {
+      assert.ok(error.message.includes(bodyFailure ? "[monitor-failed]" : "[request-failed]"));
+      assert.equal(error.message.includes(secret), false);
+      return true;
+    });
+    assert.equal(requests, bodyFailure ? 2 : 6);
+  }
+});
+
+test("monitor validates privacy and JSON before reporting any 503 health reasons", async () => {
+  for (const [response, diagnostic] of [
+    [new Response(JSON.stringify({ health: { reasons: ["scheduler-heartbeat-stale"] } }), {
+      status: 503, headers: { "cache-control": "public", "set-cookie": secret }
+    }), "cache-cookie-contract"],
+    [new Response(secret, { status: 503, headers: { "cache-control": "private, no-store" } }), "invalid-json"],
+    [new Response(secret, { status: 503, headers: { "cache-control": "private, no-store", "content-length": "65537" } }), "response-too-large"]
+  ]) {
+    let requests = 0;
+    await assert.rejects(monitorTeacherNoticeHealth({
+      secret,
+      fetchImpl: async () => { requests += 1; return response.clone(); }
+    }), (error) => {
+      assert.ok(error.message.includes(`[${diagnostic}]`));
+      assert.equal(error.message.includes("reasons="), false);
+      assert.equal(error.message.includes(secret), false);
+      return true;
+    });
+    assert.equal(requests, 2);
+  }
+});
+
 test("scheduled monitor is read-only, bounded, and supports an explicit alert drill", async () => {
   const text = await readFile(
     new URL("../.github/workflows/teacher-notice-health-monitor.yml", import.meta.url),

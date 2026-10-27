@@ -79,11 +79,17 @@ export async function monitorTeacherNoticeHealth({
       status: "healthy"
     };
   }));
-  const failure = settled.find((result) => result.status === "rejected");
-  if (failure) {
-    throw failure.reason instanceof Error
-      ? failure.reason
-      : new Error("Teacher-notice production health request failed; details redacted.");
+  const failures = settled.flatMap((result, index) => {
+    if (result.status !== "rejected") return [];
+    // Only our fixed diagnostics and the two approved origins reach CI logs.
+    // In particular, a rejected response stream may contain arbitrary text.
+    const diagnostic = result.reason instanceof TeacherNoticeMonitorError
+      ? result.reason.diagnostic
+      : "monitor-failed";
+    return [`${origins[index]} [${diagnostic}]`];
+  });
+  if (failures.length) {
+    throw new Error(`Teacher-notice production health was not healthy: ${failures.join("; ")}.`);
   }
   const results = settled.map((result) => result.value);
   if (drillFailure) {
@@ -93,9 +99,10 @@ export async function monitorTeacherNoticeHealth({
 }
 
 class TeacherNoticeMonitorError extends Error {
-  constructor(message, { retryable = false } = {}) {
+  constructor(message, { retryable = false, diagnostic = "monitor-failed" } = {}) {
     super(message);
     this.retryable = retryable;
+    this.diagnostic = diagnostic;
   }
 }
 
@@ -115,21 +122,27 @@ async function checkTeacherNoticeHealthOrigin({ fetchImpl, origin, secret, timeo
   } catch {
     throw new TeacherNoticeMonitorError(
       "Teacher-notice production health request failed; details redacted.",
-      { retryable: true }
+      { retryable: true, diagnostic: "request-failed" }
     );
   }
   if ([429, 502, 504].includes(response?.status)) {
     throw new TeacherNoticeMonitorError(
       "Teacher-notice production health request was temporarily unavailable.",
-      { retryable: true }
+      { retryable: true, diagnostic: `http-${response.status}` }
     );
   }
   assertHealthResponseHeaders(response);
   const payload = await readBoundedJson(response);
   if (response.status === 503) {
+    const reportedReasons = payload?.health?.status === "unhealthy" && Array.isArray(payload.health.reasons)
+      ? [...ALLOWED_REASONS].filter((reason) => payload.health.reasons.includes(reason))
+      : [];
     throw new TeacherNoticeMonitorError(
       "Teacher-notice production health was not healthy; details redacted.",
-      { retryable: true }
+      {
+        retryable: true,
+        diagnostic: `http-503${reportedReasons.length ? `; reasons=${reportedReasons.join(",")}` : ""}`
+      }
     );
   }
   return validateHealthyPayload(payload);
@@ -153,7 +166,11 @@ export function teacherNoticeMonitorRetryDelayMs(attempt, random = Math.random) 
 
 function assertHealthResponseHeaders(response) {
   if (!response || ![200, 503].includes(response.status) || !response.headers) {
-    throw new Error("Teacher-notice production health was not healthy; details redacted.");
+    const status = response?.status;
+    throw new TeacherNoticeMonitorError(
+      "Teacher-notice production health was not healthy; details redacted.",
+      { diagnostic: Number.isInteger(status) && status >= 100 && status <= 599 ? `http-${status}` : "invalid-response" }
+    );
   }
   const cacheControl = response.headers.get("cache-control")?.toLowerCase() ?? "";
   const cdnCacheControl = response.headers.get("cdn-cache-control")?.toLowerCase() ?? null;
@@ -167,7 +184,9 @@ function assertHealthResponseHeaders(response) {
     (cdnCacheControl !== null && !hasExactCacheDirectives(cdnCacheControl, ["private", "no-store"])) ||
     (vercelCdnCacheControl !== null && !hasExactCacheDirectives(vercelCdnCacheControl, ["private", "no-store"]))
   ) {
-    throw new Error("Teacher-notice production health cache or cookie contract failed.");
+    throw new TeacherNoticeMonitorError("Teacher-notice production health cache or cookie contract failed.", {
+      diagnostic: "cache-cookie-contract"
+    });
   }
 }
 
@@ -184,10 +203,14 @@ function hasExactCacheDirectives(value, requiredDirectives) {
 async function readBoundedJson(response) {
   const declaredLength = Number(response.headers.get("content-length"));
   if (Number.isFinite(declaredLength) && declaredLength > MAX_RESPONSE_BYTES) {
-    throw new Error("Teacher-notice production health response exceeded its bound.");
+    throw new TeacherNoticeMonitorError("Teacher-notice production health response exceeded its bound.", {
+      diagnostic: "response-too-large"
+    });
   }
   const reader = response.body?.getReader();
-  if (!reader) throw new Error("Teacher-notice production health response was empty.");
+  if (!reader) throw new TeacherNoticeMonitorError("Teacher-notice production health response was empty.", {
+    diagnostic: "empty-response"
+  });
   const chunks = [];
   let total = 0;
   try {
@@ -197,7 +220,9 @@ async function readBoundedJson(response) {
       total += value.byteLength;
       if (total > MAX_RESPONSE_BYTES) {
         await reader.cancel();
-        throw new Error("Teacher-notice production health response exceeded its bound.");
+        throw new TeacherNoticeMonitorError("Teacher-notice production health response exceeded its bound.", {
+          diagnostic: "response-too-large"
+        });
       }
       chunks.push(value);
     }
@@ -213,7 +238,9 @@ async function readBoundedJson(response) {
   try {
     return JSON.parse(new TextDecoder().decode(bytes));
   } catch {
-    throw new Error("Teacher-notice production health response was invalid JSON.");
+    throw new TeacherNoticeMonitorError("Teacher-notice production health response was invalid JSON.", {
+      diagnostic: "invalid-json"
+    });
   }
 }
 
@@ -241,7 +268,9 @@ function validateHealthyPayload(payload) {
     !Number.isFinite(observedAt) ||
     new Date(observedAt).toISOString() !== health.observedAt
   ) {
-    throw new Error("Teacher-notice production health payload was not healthy; details redacted.");
+    throw new TeacherNoticeMonitorError("Teacher-notice production health payload was not healthy; details redacted.", {
+      diagnostic: "invalid-health-payload"
+    });
   }
   return health;
 }

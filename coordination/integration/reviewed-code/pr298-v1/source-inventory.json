@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "pr298-source-inventory.v1",
+  "baseCommit": "62e471134682d26c367667dca8ecc1d96acd1ed8",
+  "sourceCommit": "fe94ba0e79c10451760c874785a0560a7ecafa43",
+  "sourceTree": "f4ae9bec0f6d5cc666efc5194121f9c01a417564",
+  "inventoryDigest": "0c5df6d70dce564a584f3f9a757c24fc91c6825ec5e6ea38e8c4d08142d7867b",
+  "entries": [
+    {
+      "path": "scripts/monitor-teacher-notice-health.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "34d8b50957af26e9bfdef6f343117b6bea4db0b4",
+        "rawSha256": "81ebba2f812b9067e0b28231cb8c220b90751f5663fc3c866f54ba7b07205cdb"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "0dcd28c8b0bb48f53b28e420cdb2a74abb8b82cd",
+        "rawSha256": "c0851226797aa3441703f1718d2a411a14fe68bd0a63fb6e8563ea18ce918384"
+      }
+    },
+    {
+      "path": "scripts/monitor-teacher-notice-health.test.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "1190b70511093d7ff4c8fedca70935bc089778d9",
+        "rawSha256": "f669fcf4e8996cd6a10766aad02d2ce2aea69316f26385799319948d660a67d4"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "3de3d924bff684e1290fb080537280d12ec6c681",
+        "rawSha256": "3006c5dbe0805184899db1421ea62c9d551ce18320efcc10045a1a1c879ca5a3"
+      }
+    }
+  ]
+}
