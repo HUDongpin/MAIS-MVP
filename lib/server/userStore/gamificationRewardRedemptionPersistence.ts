@@ -1,3 +1,4 @@
+import { canTeacherAccessClass } from "@/lib/server/teacherClassAccess";
 import { randomUUID } from "crypto";
 import {
   createGamificationRecordId,
@@ -245,6 +246,10 @@ const rewardEarnRules: RewardEarnRule[] = [
     points: 30
   }
 ];
+
+export function automaticRewardAuthorityRules() {
+  return structuredClone(rewardEarnRules);
+}
 
 function rewardEarnRuleFor(reason: AutomaticRewardReason) {
   return rewardEarnRules.find((rule) => rule.id === reason) ?? null;
@@ -581,25 +586,10 @@ function teacherNameFor(database: GamificationRewardRedemptionPersistenceDatabas
 
 function teacherClassRecordsFor(
   database: GamificationRewardRedemptionPersistenceDatabase,
-  user: GamificationRewardRedemptionUserRecord
+  user: GamificationRewardRedemptionUserRecord,
+  intent: "read" | "write" = "read"
 ) {
-  const membershipClassIds = new Set(
-    (database.school_memberships ?? [])
-      .filter((membership) => (
-        membership.user_id === user.id &&
-        membership.class_id &&
-        (membership.role === "teacher" || membership.role === "admin")
-      ))
-      .map((membership) => membership.class_id as string)
-  );
-
-  return (database.teacher_classes ?? [])
-    .filter((teacherClass) => (
-      user.role === "admin" ||
-      teacherClass.teacher_id === user.id ||
-      membershipClassIds.has(teacherClass.id)
-    ))
-    .sort((a, b) => a.grade.localeCompare(b.grade) || a.name.localeCompare(b.name));
+  return (database.teacher_classes ?? []).filter((teacherClass) => canTeacherAccessClass(database, user, teacherClass, intent)).sort((a, b) => a.grade.localeCompare(b.grade) || a.name.localeCompare(b.name));
 }
 
 function teacherRewardStudentIds(
@@ -622,7 +612,7 @@ function teacherCanAccessRewardStudent(
   studentId: string
 ) {
   if (user.role === "admin") return true;
-  return teacherClassRecordsFor(database, user).some((teacherClass) =>
+  return teacherClassRecordsFor(database, user, "write").some((teacherClass) =>
     (database.class_enrollments ?? []).some((enrollment) => (
       enrollment.class_id === teacherClass.id &&
       enrollment.student_id === studentId

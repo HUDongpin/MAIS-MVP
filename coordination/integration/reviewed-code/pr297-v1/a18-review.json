@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr297-independent-review.v1",
+  "role": "A18",
+  "reviewerIdentity": "/root/a18_pr297",
+  "result": "approved-for-integration-review",
+  "scope": "exact-pr297-runtime-required-check-only",
+  "sourceCommit": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+  "sourceTree": "f7453315bf0925d700ded5aba7e426c70ac0a3ca",
+  "sourceInventoryDigest": "f929d9ff7795a6d6d1cfc71bc3b60ef6f2a8f8c3d31be32c5f971784f73114ed",
+  "toolingCommit": "89d25f1ec03757779a1e7578f4943e69bd63d786",
+  "toolingTree": "bd61657fc00c063eb39365d778ed6536525d175d",
+  "toolingInventoryDigest": "f7a293747ceb65eb4d1a8fc37ad2078167efa6ca03f6c787d86b590bc5548ff8",
+  "checksRawSha256": "4a187a9727e2bc7dfead3de555425aef0e70e6c463dfca0407914115d789b8da",
+  "runtimeEvidenceRawSha256": "c257505882a6f8720d6e11537ea776d2565a4cf56e993e692fe75ac9b6b56d85",
+  "reportRawSha256": "914d134a17f1906180fa2643ae4efb3c9806f3505399fb652e51ef830a5ba370",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-27T01:33:31.952Z",
+  "findings": [
+    "独立A18会话/root/a18_pr297未编写候选或门禁；重新核验实际S/T、完整134路径源库存、四路径tooling库存及冻结checks/runtime原始哈希。",
+    "内容结论仅为approved-for-integration-review，覆盖P1一课原英文/繁体四条标题说明及新增两条简体字段；6条现行文案、P0/P1/P2/P3内容问题均为0。",
+    "当前lessons文件SHA256为d41b63a1cb2d04fbfc8c15bec036641a9cd9c91d7d5ee823f79610ef30bf3918，topic和GeometryExplorer依赖与基线及原审查一致；三文件在S、T和r2浏览器实际源间字节一致。",
+    "已独立阅读文案/课题/路由/规律/拖曳/选择按钮/检查/边角属性，文案与实际操作一致，三语等价，数学及项目P1适配无新增问题。",
+    "两轮留存截图和AX已实际读取，截图已目视检查，原始哈希匹配；本会话没有重跑浏览器。原英文/繁体/拖曳执行源01f3935与r2执行源9b924d2保持各自绑定，未声称完整S树重新执行。",
+    "冻结runtime对P1、r2审查、截图和AX的嵌入事实与原件一致；source-checks是确定性回归记录，PG/HTTP为另行消费证据，不替代A18内容判断。",
+    "旧lesson-all注册夹具失败与legacy直接保存性能预算未通过的限制明确保留，不提升为通过；本审查不批准存储性能、整份lessons、完整组件或内容包。",
+    "本结果仅为exact-pr297-runtime-required-check-only范围中的A18内容贡献；历史Promotion重验、live、Preview、deploy、whole-pack及历史授权转移全部false。",
+    "v2独立核对T2及固定6144MiB types参数；实际types执行记录绑定T1、原始输出为空且退出0，其余命令未变。runtime-evidence唯一差异为checks哈希引用；内容范围、浏览器事实和限制未变。T1审查及保全bundle哈希已重新确认。"
+  ]
+}

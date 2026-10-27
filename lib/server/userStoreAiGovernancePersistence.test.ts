@@ -561,7 +561,7 @@ test("AI governance persistence store records tutor messages and token usage wit
     ai_governance_events: [],
     ai_tutor_messages: [],
     ai_tutor_usage: [],
-    users: []
+    users: [{ id: "student-1", role: "student" }]
   };
   const store = createTestStore(database);
   const context = { nested: { value: "kept" } };
@@ -709,7 +709,7 @@ test("an inapplicable journal hook preserves the legacy snapshot writer", async 
     ai_governance_events: [],
     ai_tutor_messages: [],
     ai_tutor_usage: [],
-    users: []
+    users: [{ id: "student-1", role: "student" }]
   };
   const store = createTestStore(database, {
     recordAITutorMessageBeforeSnapshot: async () => undefined,
@@ -1253,6 +1253,8 @@ test("AI governance persistence store evaluates durable rate limits and admin su
       }
     ],
     users: [
+      { id: "student-1", role: "student" },
+      { id: "student-2", role: "student" },
       {
         id: "admin-1",
         role: "admin"

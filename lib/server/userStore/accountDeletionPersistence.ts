@@ -179,6 +179,7 @@ export const accountDeletionPlan: AccountDeletionPlan = {
     note: "Teacher review of a submission; reviewer de-identified on other learners' rows."
   },
   assessments: {
+    dropFromList: ["assigned_student_ids"],
     purgeWhen: subjectOf("created_by"),
     cascadeFrom: [{ table: "teacher_classes", toField: "class_id" }],
     note: "Assessments the teacher authored."
@@ -459,6 +460,59 @@ function applyLiveToolStates(database: MutableDatabase, userId: string, summary:
   bump(summary.scrubbed, "teacher_live_tool_states", scrubbed);
 }
 
+function scrubFrozenArchiveActors(value: unknown, userId: string): boolean {
+  if (Array.isArray(value)) return value.reduce((changed, item) => scrubFrozenArchiveActors(item, userId) || changed, false);
+  if (!isRow(value)) return false;
+  let touched = false;
+  for (const field of ["createdBy", "reviewedBy"]) {
+    if (value[field] === userId) {
+      value[field] = "";
+      if (field === "reviewedBy") value.reviewerName = "";
+      touched = true;
+    }
+  }
+  for (const child of Object.values(value)) touched = scrubFrozenArchiveActors(child, userId) || touched;
+  return touched;
+}
+
+function termArchiveSubjectExport(archive: Row, userId: string): Row | null {
+  if (typeof archive.snapshot_json !== "string") return archive.created_by === userId ? archive : null;
+  let snapshot: Row;
+  try { snapshot = JSON.parse(archive.snapshot_json); } catch { return archive.created_by === userId ? archive : null; }
+  if (!isRow(snapshot) || !isRow(snapshot.frozenExport)) return archive.created_by === userId ? archive : null;
+  const frozen = snapshot.frozenExport;
+  const owned = (value: unknown) => Array.isArray(value) ? value.filter((row) => isRow(row) && (row.studentId === userId || row.student_id === userId)) : [];
+  const roster = owned(frozen.roster);
+  const submissions = owned(frozen.submissions);
+  if (!roster.length && !submissions.length && archive.created_by !== userId) return null;
+  const assignmentIds = new Set(submissions.filter(isRow).map((row) => row.assignmentId ?? row.assignment_id));
+  const assignments = Array.isArray(frozen.assignments) ? frozen.assignments.filter((row) => isRow(row) && assignmentIds.has(row.id)) : [];
+  return { ...archive, snapshot_json: JSON.stringify({ ...snapshot, frozenExport: { roster, assignments, submissions } }) };
+}
+
+function applyFrozenTermArchives(database: MutableDatabase, userId: string, summary: AccountDeletionSummary) {
+  for (const archive of rowsOf(database, "term_archives") ?? []) {
+    if (typeof archive.snapshot_json !== "string") continue;
+    let snapshot: Row;
+    try { snapshot = JSON.parse(archive.snapshot_json); } catch { continue; }
+    if (!isRow(snapshot) || !isRow(snapshot.frozenExport)) continue;
+    const frozen = snapshot.frozenExport;
+    let touched = false;
+    for (const table of ["roster", "submissions"]) {
+      const rows = frozen[table];
+      if (!Array.isArray(rows)) continue;
+      const kept = rows.filter((row) => !(isRow(row) && (row.studentId === userId || row.student_id === userId)));
+      if (kept.length !== rows.length) { frozen[table] = kept; touched = true; }
+    }
+    touched = scrubFrozenArchiveActors(frozen, userId) || touched;
+    if (touched) {
+      snapshot.erasureRedacted = true;
+      archive.snapshot_json = JSON.stringify(snapshot);
+      bump(summary.scrubbed, "term_archives", 1);
+    }
+  }
+}
+
 /**
  * Removes every trace of `userId` from the application state, in place.
  *
@@ -552,6 +606,7 @@ export function deleteUserFromDatabase(database: MutableDatabase, userId: string
   }
 
   // Pass 3 — nested/singleton shapes the table rules cannot express.
+  applyFrozenTermArchives(database, userId, summary);
   applyForumThreads(database, userId, summary);
   applyNovaLensPolicy(database, userId, summary);
   applyLiveToolStates(database, userId, summary);
@@ -615,7 +670,7 @@ export type AccountDataExport = {
 
 /**
  * Subject-access export: every row the user is the *subject* of, i.e. the same
- * rows `deleteUserFromDatabase` would remove via `purgeWhen`. Third-party rows
+ * rows identified by `purgeWhen`, plus details of subject-owned records. Third-party rows
  * the user merely acted on are excluded — they are somebody else's data.
  */
 export function buildAccountDataExport(
@@ -632,6 +687,28 @@ export function buildAccountDataExport(
     const owned = rows.filter((row) => matchesSubject(row, rule.purgeWhen!, userId));
     if (owned.length) tables[table] = owned.map((row) => redactSecrets(table, row));
   }
+
+  // These details have no direct subject id. Follow only subject-owned
+  // enrollments, submissions and joint message threads; deletion cascades
+  // through teacher-owned classes/assignments would expose other learners.
+  const subjectDetailEdges = [
+    { table: "class_roster_profiles", parent: "class_enrollments", field: "enrollment_id" },
+    { table: "assignment_grading_runs", parent: "submissions", field: "submission_id" },
+    { table: "assignment_teacher_reviews", parent: "submissions", field: "submission_id" },
+    { table: "teacher_message_entries", parent: "teacher_messages", field: "thread_id" }
+  ];
+  for (const { table, parent, field } of subjectDetailEdges) {
+    const parentIds = new Set((tables[parent] ?? []).map((row) => (row as Row).id).filter((id) => typeof id === "string"));
+    const directRows = tables[table] ?? [];
+    const subjectRows = (rowsOf(database, table) ?? []).filter((row) => typeof row[field] === "string" && parentIds.has(row[field] as string));
+    const combined = [...new Set([...directRows, ...subjectRows])];
+    if (combined.length) tables[table] = combined.map((row) => redactSecrets(table, row as Row));
+  }
+
+  const archivedSubjectRows = (rowsOf(database, "term_archives") ?? [])
+    .map((archive) => termArchiveSubjectExport(archive, userId)).filter((archive): archive is Row => archive !== null);
+  if (archivedSubjectRows.length) tables.term_archives = archivedSubjectRows;
+  else delete tables.term_archives;
 
   const threads = rowsOf(database, "forum_threads") ?? [];
   const authored = threads.filter((thread) => isRow(thread.author) && thread.author.id === userId);

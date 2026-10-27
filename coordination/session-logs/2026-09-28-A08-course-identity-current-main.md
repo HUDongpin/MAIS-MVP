@@ -1,0 +1,13 @@
+# A08 course identity current-main candidate — 2026-09-28
+
+- Owner: A08 implementation, with A03 roadmap review and A12 shared-storage coordination.
+- Branch/worktree: `codex/course-identity-current-main-20260928` at `/Users/dongpinhu/.codex/worktrees/course-identity-current-main/MAIS-MVP`.
+- Created: 2026-09-28. Target PR: pending. Expected closeout review: 2026-10-01.
+- Baseline: live `origin/main` commit `03717842b19e8b8fa9a3a2dbecf1b359bb842233` when this isolated worktree was created.
+- Source custody: the 12-file A08 candidate in `MAIS-course-identity-20260923` remains untouched; all source files matched `course-candidate-manifest.json` before porting.
+- Scope: port the 12-file course identity foundation onto the baseline, preserving current `Topic.nssPart` and data-display types; no real course mapping or live content promotion.
+- A03 review found that long course names could overflow the fixed SVG route badge. The candidate now abbreviates only that overview badge, retains the full name in selected details, and checks badge geometry in the course browser spec. A03's final read-only review found no further concrete issue.
+- Passed on this candidate: course helper 4/4; SQLite course add/withdrawal 2/2; `npm run type-check`; `npm run test:components` 600/600; `npm run test:mvp` 34/34; final `course-topic-label.spec.ts` 5/5 against an owned isolated dev server on port 3097. The final browser run checks actual SVG badge bounds for long English and Simplified Chinese course labels.
+- An additional `test:backend` run against the manual dev server was not accepted as a gate: 1/6 passed; the test's database path and teacher-invite fixture were not aligned with the server, and the final case timed out. Its failed traces remain under this worktree's ignored `.tmp/china-lesson-e2e-runtime/`.
+- The first owned dev server was stopped after generated cache reached the system-volume limit. Its roughly 1.9 GB dist directory was preserved at `/Volumes/Starship/MAIS-course-identity-verify-20260928/course-identity-dev-preserved`. The final browser run used a fresh owned server on the same port, which was stopped normally; its roughly 408 MB dist directory was preserved at `/Volumes/Starship/MAIS-course-identity-verify-20260928/course-identity-dev-v2-preserved`. The task's isolated dependency overlay is at `/Volumes/Starship/MAIS-course-identity-overlay-20260928`; the shared dependency directory was not edited.
+- The original 12 source files remain untouched and match the handoff manifest. No real course mapping, PostgreSQL add/withdrawal proof, production acceptance, commit, push, PR, merge, or deployment is claimed.

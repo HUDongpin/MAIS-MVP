@@ -7,8 +7,9 @@ import {
   requireAuthenticatedUser
 } from "@/lib/server/auth";
 import { emitLearningEventsToLrs } from "@/lib/server/lrsClient";
-import { appendLearningEventsFast, clearLearningEventsFast, learningEventFastPathPersistsRows } from "@/lib/server/practiceAttemptStore";
-import { appendLearningEvents, clearLearningEventsForUser } from "@/lib/server/userStore";
+import { appendLearningEventsFast, learningEventFastPathPersistsRows } from "@/lib/server/practiceAttemptStore";
+import { appendLearningEvents, clearLearningEventsForUser, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 
 export const runtime = "nodejs";
 
@@ -63,9 +64,11 @@ export async function POST(request: Request) {
   }
 
   const eventBatch = events.slice(-Math.min(maxStoredLearningAnalyticsEvents, 200));
-  const accepted = learningEventFastPathPersistsRows()
-    ? await appendLearningEventsFast(authenticated.user.id, eventBatch) ?? 0
-    : await appendLearningEvents(authenticated.user.id, eventBatch);
+  const fastAccepted = learningEventFastPathPersistsRows()
+    ? await appendLearningEventsFast(authenticated.user.id, eventBatch) : null;
+  const accepted = fastAccepted ?? await withAuthenticatedMutation(authenticated,
+    () => appendLearningEvents(authenticated.user.id, eventBatch)).catch(learnerAuthorityFailureResponse);
+  if (accepted instanceof Response) return accepted;
   scheduleLearningEventsLrsDelivery({
     userId: authenticated.user.id,
     curriculumTrack: authenticated.user.curriculumTrack,
@@ -99,9 +102,7 @@ export async function DELETE(request: Request) {
     }, { status: 403 });
   }
 
-  if (learningEventFastPathPersistsRows()) {
-    await clearLearningEventsFast(authenticated.user.id);
-  }
-  await clearLearningEventsForUser(authenticated.user.id);
+  const cleared = await withAuthenticatedMutation(authenticated, () => clearLearningEventsForUser(authenticated.user.id)).catch(learnerAuthorityFailureResponse);
+  if (cleared instanceof Response) return cleared;
   return NextResponse.json({ ok: true });
 }

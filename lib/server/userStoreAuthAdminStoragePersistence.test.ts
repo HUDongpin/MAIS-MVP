@@ -394,7 +394,7 @@ test("postgres readiness uses only the bounded scalar catalog and exact revision
   assert.match(rootSource, /marker\.schema_version = state\.schema_version/u);
   assert.match(
     rootSource,
-    /const ensurePostgresStateTable = createPostgresSchemaReadinessGate\(\{\s*readCurrentMarker: hasCurrentPostgresSchemaMarker,\s*bootstrap: \(\) => runPostgresBootstrapWithContentionRecovery\(\{[\s\S]*bootstrap: bootstrapPostgresStateTables,[\s\S]*readCurrentMarker: hasCurrentPostgresSchemaMarker[\s\S]*\}\)\s*\}\)/u
+    /const ensureLegacyPostgresStateTable = createPostgresSchemaReadinessGate\(\{\s*readCurrentMarker: hasCurrentPostgresSchemaMarker,\s*bootstrap: \(\) => runPostgresBootstrapWithContentionRecovery\(\{[\s\S]*bootstrap: bootstrapPostgresStateTables,[\s\S]*readCurrentMarker: hasCurrentPostgresSchemaMarker[\s\S]*\}\)\s*\}\)/u
   );
 });
 
@@ -403,7 +403,7 @@ test("canonical postgres bootstrap is the only metadata DDL path and writes the 
   const canonicalBootstrapSource = sourceSection(
     rootSource,
     "async function bootstrapPostgresStateTables()",
-    "const ensurePostgresStateTable"
+    "const ensureLegacyPostgresStateTable"
   );
   const defaultTimeoutIndex = canonicalBootstrapSource.indexOf('lockTimeout: "1000ms"');
   const defaultStatementTimeoutIndex = canonicalBootstrapSource.indexOf('statementTimeout: "5000ms"');
@@ -905,7 +905,18 @@ test("legacy userStore delegates admin storage operations to extracted auth admi
 
   assert.match(source, /createAuthAdminStoragePersistenceStore\(/);
   assert.match(source, /export const buildRedactedAdminStorageSnapshot = authUserStore\.buildRedactedAdminStorageSnapshot;/);
-  assert.match(source, /export const exportDatabaseSnapshotForAdmin = authUserStore\.exportDatabaseSnapshotForAdmin;/);
+  const exportSource = sourceSection(
+    source,
+    "export async function exportDatabaseSnapshotForAdmin(",
+    "export const backfillPostgresHotAuthTablesForAdmin"
+  );
+  assert.match(exportSource, /const snapshot = await authUserStore\.exportDatabaseSnapshotForAdmin\(userId\);/u);
+  assert.match(exportSource, /if \(!snapshot \|\| !await learnerAuthorityIsInstalled\(\)\) return snapshot;/u);
+  assert.match(
+    exportSource,
+    /return \{ \.\.\.snapshot, storageAuthority: \{ contract: "mais-learner-authority-v1", view: "compatibility", restoreSupported: false \} \};/u,
+    "authority compatibility exports must remain explicitly unavailable for legacy restore"
+  );
   assert.match(source, /export const backfillPostgresHotAuthTablesForAdmin = authUserStore\.backfillPostgresHotAuthTablesForAdmin;/);
   assert.match(source, /export const cleanupTemporaryBootstrapAdminsForAdmin = authUserStore\.cleanupTemporaryBootstrapAdminsForAdmin;/);
   assert.match(source, /export const getStorageReadinessSnapshot = authUserStore\.getStorageReadinessSnapshot;/);

@@ -16,7 +16,7 @@ import {
   type TransitBranch
 } from "@/components/learning/LearningRoadmap";
 import { useSettings } from "@/components/providers/AppProviders";
-import { formatGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
+import { formatGradeLabel, isChineseLanguage, simplifyChineseText, textForLanguage } from "@/lib/i18n";
 import { studentRoadmapPath } from "@/lib/roadmapRoutes";
 import { cn } from "@/lib/utils";
 import type { Grade, GradeId, Language, LocalizedText, RoadmapData, Topic } from "@/types";
@@ -121,9 +121,40 @@ function formatRoadmapGradeLabel(grade: GradeId, language: Language, useGradeCod
   return useGradeCodeLabel ? grade : formatGradeLabel(grade, language, true);
 }
 
+function courseNameForTopic(topic: Topic, language: Language) {
+  if (!topic.courseId?.trim() || !topic.courseLabel) return null;
+  return textForLanguage(topic.courseLabel, language).trim() || null;
+}
+
 function localizedRouteCode(topic: Topic, topicIndex: number, language: Language, useGradeCodeLabel = false) {
+  const courseName = courseNameForTopic(topic, language);
+  if (courseName) {
+    return isChineseLanguage(language)
+      ? simplifyChineseText(`${courseName}路線${topicIndex + 1}`, language)
+      : `Subway ${courseName}-${topicIndex + 1}`;
+  }
   if (isChineseLanguage(language)) return simplifyChineseText(`${formatRoadmapGradeLabel(topic.grade, language, useGradeCodeLabel)}路線${topicIndex + 1}`, language);
   return routeCode(topic, topicIndex);
+}
+
+function routeBadgeLabel(topic: Topic, topicIndex: number, language: Language, useGradeCodeLabel = false) {
+  const fullLabel = localizedRouteCode(topic, topicIndex, language, useGradeCodeLabel);
+  const courseName = courseNameForTopic(topic, language);
+  if (!courseName) return fullLabel;
+
+  // A route badge is 202 SVG units wide. Keep its number and show the full
+  // course name in the selected station details instead of squeezing the badge.
+  const isChinese = isChineseLanguage(language);
+  const prefix = isChinese ? "" : "Subway ";
+  const suffix = isChinese
+    ? `${simplifyChineseText("路線", language)}${topicIndex + 1}`
+    : `-${topicIndex + 1}`;
+  const widthUnits = (value: string) => Array.from(value).reduce((units, char) => units + (char.charCodeAt(0) > 127 ? 2 : 1), 0);
+  if (widthUnits(fullLabel) <= 17) return fullLabel;
+
+  const chars = Array.from(courseName);
+  while (chars.length && widthUnits(`${prefix}${chars.join("")}…${suffix}`) > 17) chars.pop();
+  return `${prefix}${chars.join("")}…${suffix}`;
 }
 
 function getRouteColor(gradeIndex: number, topicIndex: number) {
@@ -480,7 +511,7 @@ function TopicRoute({
   return (
     <g>
       {showRouteLabel ? (
-      <g>
+      <g data-route-badge={topic.id}>
         <rect
           x={labelAnchor === "start" ? labelX - 12 : labelX - 190}
           y={labelPoint.y + 24}
@@ -493,9 +524,11 @@ function TopicRoute({
           x={labelX}
           y={labelPoint.y + 47}
           textAnchor={labelAnchor}
+          data-route-badge-text
+          aria-label={localizedRouteCode(topic, topicIndex, language, useGradeCodeLabel)}
           className="fill-slate-950 text-[17px] font-black"
         >
-	          {localizedRouteCode(topic, topicIndex, language, useGradeCodeLabel)}
+	          {routeBadgeLabel(topic, topicIndex, language, useGradeCodeLabel)}
         </text>
         <text
           x={labelX}
@@ -550,9 +583,12 @@ function BusRouteContent({ station, onClose, layout = "stack" }: { station: Sele
   const isChinese = isChineseLanguage(language);
   const isWideLayout = layout === "wide";
   const isCompactLayout = layout === "compact";
+  const courseName = courseNameForTopic(station.topic, language);
   const busRouteLabel = isChinese
-    ? simplifyChineseText(`支線${station.topicIndex + 1}-${station.branchIndex + 1}`, language)
-    : `BUS ${formatRoadmapGradeLabel(station.topic.grade, language, station.useGradeCodeLabel)}${station.topicIndex + 1}-${String.fromCharCode(65 + station.branchIndex)}`;
+    ? simplifyChineseText(`${courseName ?? ""}支線${station.topicIndex + 1}-${station.branchIndex + 1}`, language)
+    : courseName
+      ? `BUS ${courseName}-${station.topicIndex + 1}-${String.fromCharCode(65 + station.branchIndex)}`
+      : `BUS ${formatRoadmapGradeLabel(station.topic.grade, language, station.useGradeCodeLabel)}${station.topicIndex + 1}-${String.fromCharCode(65 + station.branchIndex)}`;
   const busRouteActionLabel = isChinese
     ? simplifyChineseText(`關閉${busRouteLabel}`, language)
     : `Close ${busRouteLabel} minibus route`;
@@ -908,6 +944,8 @@ export function SubwayNetworkMap({
     : ariaLabel;
   const mapScrollerRef = useRef<HTMLDivElement>(null);
   const mapShellRef = useRef<HTMLDivElement>(null);
+  const initialFitTimerRef = useRef<number | null>(null);
+  const expandedFitTimerRef = useRef<number | null>(null);
   const dragPanRef = useRef<DragPanState | null>(null);
   const suppressMapClickRef = useRef(false);
   const suppressMapClickTimerRef = useRef<number | null>(null);
@@ -1048,6 +1086,11 @@ export function SubwayNetworkMap({
   const changeZoom = useCallback((delta: number) => {
     const scroller = mapScrollerRef.current;
     if (!scroller) return;
+    // A scheduled layout fit must not overwrite the learner's explicit zoom.
+    if (initialFitTimerRef.current !== null) window.clearTimeout(initialFitTimerRef.current);
+    if (expandedFitTimerRef.current !== null) window.clearTimeout(expandedFitTimerRef.current);
+    initialFitTimerRef.current = null;
+    expandedFitTimerRef.current = null;
     const centerX = (scroller.scrollLeft + scroller.clientWidth / 2) / zoom;
     const centerY = (scroller.scrollTop + scroller.clientHeight / 2) / zoom;
     const nextZoom = clamp(zoom + delta, minZoom, maxZoom);
@@ -1102,9 +1145,11 @@ export function SubwayNetworkMap({
 
   useEffect(() => {
     const timer = window.setTimeout(() => fitMap("auto"), 80);
+    initialFitTimerRef.current = timer;
     window.addEventListener("resize", updateViewport);
     return () => {
       window.clearTimeout(timer);
+      initialFitTimerRef.current = null;
       window.removeEventListener("resize", updateViewport);
     };
   }, [fitMap, updateViewport]);
@@ -1115,6 +1160,7 @@ export function SubwayNetworkMap({
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const timer = window.setTimeout(() => fitMap("auto"), 80);
+    expandedFitTimerRef.current = timer;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsMapExpanded(false);
     };
@@ -1122,6 +1168,7 @@ export function SubwayNetworkMap({
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.clearTimeout(timer);
+      expandedFitTimerRef.current = null;
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = previousOverflow;
     };

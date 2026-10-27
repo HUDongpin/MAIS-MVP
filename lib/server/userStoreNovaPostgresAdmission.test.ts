@@ -59,7 +59,7 @@ test("Nova Postgres rate admission does not route through the global app_state m
     functionSource,
     /abortOperation: \(\) => destroyAiTutorAdmissionPostgresClient\("rate", client\)/
   );
-  assert.match(functionSource, /operation: \(\) => client\.begin\(async \(sql\) =>/);
+  assert.match(functionSource, /operation: \(\) => client\.begin\("isolation level read committed", async \(sql\) =>/);
   assert.ok(
     (functionSource.match(/runCancellableAiTutorAdmissionQuery/g) ?? []).length >= 7,
     "every rate-limit SQL statement must be abortable"
@@ -361,5 +361,5 @@ test("Nova authentication verifies the session before the dedicated admission lo
     "signed session verification must complete before the database lookup"
   );
   assert.match(functionSource, /if \(!payload\) return null/);
-  assert.match(functionSource, /getAuthenticatedUserForSession\(payload\.sub, payload\.sr, signal\)/);
+  assert.match(functionSource, /getAuthenticatedUserForSession\(payload\.sub, payload\.sr, signal, payload\.ag\)/);
 });

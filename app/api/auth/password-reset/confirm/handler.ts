@@ -59,7 +59,7 @@ export function createPasswordResetConfirmHandler({
 
     const response = NextResponse.json(result.session);
     try {
-      await writeSessionCookie(response, result.session.user.id, request, result.sessionRevision);
+      await writeSessionCookie(response, result.session.user.id, request, result.sessionRevision, result.accountGeneration, result.session.user.role);
     } catch (error) {
       return sessionCookieFailureResponse(error, request, { committedAction: "password-updated" });
     }

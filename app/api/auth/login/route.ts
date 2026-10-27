@@ -1,3 +1,4 @@
+import { runCredentialMutation } from "@/lib/server/requestMutationActor";
 import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
 import {
@@ -43,7 +44,7 @@ function settingsMatch(
 }
 
 export async function POST(request: Request) {
-  return withAuthRouteJsonBoundary("auth-login", () => handleLogin(request));
+  return withAuthRouteJsonBoundary("auth-login", () => runCredentialMutation(() => handleLogin(request)));
 }
 
 async function handleLogin(request: Request) {
@@ -175,7 +176,7 @@ async function handleLogin(request: Request) {
     : null;
   const response = NextResponse.json({ ...sessionData, lessonEntryTarget });
   try {
-    await setSessionCookie(response, sessionData.user.id, request, authenticated.sessionRevision);
+    await setSessionCookie(response, sessionData.user.id, request, authenticated.sessionRevision, authenticated.accountGeneration, sessionData.user.role);
   } catch (error) {
     return sessionCookieFailureResponse(error, request);
   }

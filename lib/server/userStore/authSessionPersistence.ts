@@ -190,7 +190,7 @@ export type AuthPasswordResetRequestResult = {
 
 export type AuthPasswordResetResult =
   | { status: "invalid" }
-  | { status: "reset"; session: AuthSession; sessionRevision: number };
+  | { status: "reset"; session: AuthSession; sessionRevision: number; accountGeneration?: string };
 
 export type AuthPasswordChangeInput = {
   userId: string;
@@ -200,12 +200,13 @@ export type AuthPasswordChangeInput = {
 
 export type AuthPasswordChangeResult =
   | { status: "invalid" }
-  | { status: "updated"; session: AuthSession; sessionRevision: number };
+  | { status: "updated"; session: AuthSession; sessionRevision: number; accountGeneration?: string };
 
 export type AuthLoginAuthenticatedResult<TDatabase = AuthSessionPersistenceDatabase> = {
   status: "authenticated";
   session: AuthSession;
   sessionRevision: number;
+  accountGeneration?: string;
   database?: TDatabase;
 };
 
@@ -257,7 +258,7 @@ export type AuthParentUserCreationInput = {
 };
 
 export type AuthParentUserCreationResult =
-  | { status: "created"; session: AuthSession; sessionRevision: number }
+  | { status: "created"; session: AuthSession; sessionRevision: number; accountGeneration?: string }
   | { status: "duplicate" }
   | { status: "invalid" };
 
@@ -276,7 +277,7 @@ export type AuthCurriculumAccountCreationInput = {
 };
 
 export type AuthCurriculumAccountCreationResult =
-  | { status: "created"; session: AuthSession; sessionRevision: number }
+  | { status: "created"; session: AuthSession; sessionRevision: number; accountGeneration?: string }
   | { status: "duplicate" }
   | { status: "invalid" };
 

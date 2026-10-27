@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr297-independent-review.v1",
+  "role": "A11",
+  "reviewerIdentity": "/root/root_dirty_disposition",
+  "result": "approved-for-exact-pr297-required-check",
+  "scope": "exact-pr297-runtime-required-check-only",
+  "sourceCommit": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+  "sourceTree": "f7453315bf0925d700ded5aba7e426c70ac0a3ca",
+  "sourceInventoryDigest": "f929d9ff7795a6d6d1cfc71bc3b60ef6f2a8f8c3d31be32c5f971784f73114ed",
+  "toolingCommit": "89d25f1ec03757779a1e7578f4943e69bd63d786",
+  "toolingTree": "bd61657fc00c063eb39365d778ed6536525d175d",
+  "toolingInventoryDigest": "f7a293747ceb65eb4d1a8fc37ad2078167efa6ca03f6c787d86b590bc5548ff8",
+  "checksRawSha256": "4a187a9727e2bc7dfead3de555425aef0e70e6c463dfca0407914115d789b8da",
+  "runtimeEvidenceRawSha256": "c257505882a6f8720d6e11537ea776d2565a4cf56e993e692fe75ac9b6b56d85",
+  "reportRawSha256": "773765beb64ee9a245be0e6a53e7842f77e90bb3e17c82cfccec9ecae3c1374c",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-27T01:41:01.267Z",
+  "findings": [
+    "独立重算B到S的134项路径、mode/blob/raw SHA-256及inventory digest，S tree与固定source-checks/runtime raw hashes一致；未发现本精确范围内需要阻断的未解决问题。",
+    "最终T2直接以S为唯一父提交，S到T2只有指定四个工具路径；独立重算tooling inventory digest，实际工作文件与T2 blob一致。workflow是基于S的三个确定性插入，历史checker、actions pin及旧步骤保留。",
+    "checker固定PR297、仓库、main基线B、S/T/E顺序及精确路径/树；拒绝额外工具或证据路径、错误PR/fork/ref/base/head、替代parents、E后空提交、脏树、symlink/hardlink、replace/graft和字节/模式漂移。",
+    "JSON严格schema、重复键拒绝、独立role/identity/report hash与实际T2绑定均保留。reviewedAt须是非未来的规范UTC ISO毫秒字符串；最终25项完整门禁日志零失败/跳过/取消，时间戳及固定heap定向日志亦经解析核验。",
+    "冻结source checks为43文件565/565、schema10/10、MVP34/34，均零失败/跳过/取消且resultNamesDigest匹配；strict zhHans3511/3512。types用固定--max-old-space-size=6144，实际27秒exit0且stdout/stderr空，保持拒绝继承NODE_OPTIONS；其执行在T1但TS输入与S同字节。",
+    "消耗并独立核对已有真实PG16.15 14/14零skip、PGcourse5/application11、同一生产构建的2人/20人HTTP及P1/teacher浏览器证据；没有将这些外部执行描述为本审核者或新CI再次执行。",
+    "运行等价性明确区分full tree：a6到S只有11测试差异，11102非测试Git entries及3578源manifest哈希不变；构建副本3577同字节及一个Next派生tsconfig.next.json差异已明确披露。",
+    "保留legacy/scoped旧ffad直接预算FAIL（90/100/2000ms门槛未变）和旧lesson-all注册consent夹具FAIL；新authority HTTP通过不替代这些结果，不声明全模式性能、整包或历史Promotion重新认可。",
+    "本决定只批准exact-pr297-runtime-required-check-only；六项permissions全部false。实际E、未来GitHub required checks、合并后的main和任何部署结果尚未由本记录证明。"
+  ]
+}

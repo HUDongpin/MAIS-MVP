@@ -523,6 +523,22 @@ test.describe("teacher operations AI Tutor governance UI", () => {
     const registered = await registerStudentApi(page.context().request, testInfo, "admin-governance");
     setUserRole(registered.session.user.id, "admin");
 
+    // The registration cookie is bound to the previous student role. A role
+    // change must require a new authenticated session before admin access.
+    const staleSessionResponse = await page.context().request.get(`${baseURL}/api/admin/nova-lens/policy`);
+    expect(staleSessionResponse.status()).toBe(401);
+    const loginResponse = await page.context().request.post(`${baseURL}/api/auth/login`, {
+      data: {
+        username: registered.username,
+        password: registered.password,
+        grade: "S3",
+        language: "en",
+        theme: "dark"
+      }
+    });
+    expect(loginResponse.ok()).toBeTruthy();
+    expect(((await loginResponse.json()) as AuthSession).user.role).toBe("admin");
+
     const originalResponse = await page.context().request.get(`${baseURL}/api/admin/nova-lens/policy`);
     expect(originalResponse.ok()).toBeTruthy();
     const original = (await originalResponse.json()) as { policy: NovaLensPolicy };

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { isValidLearningAnalyticsEvent } from "@/lib/learningAnalytics";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { bodyExpectedUserConstraints, expectedUserConstraintsFromRequest, guardExpectedAuthenticatedUser, requireAuthenticatedUser } from "@/lib/server/auth";
 import { listVisualizationSessionsForUser, markVisualizationSession } from "@/lib/server/userStore";
 import type { LearningAnalyticsEvent } from "@/types";
 
@@ -40,12 +40,24 @@ export async function POST(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+  const transportConflict = guardExpectedAuthenticatedUser(authenticated, expectedUserConstraintsFromRequest(request));
+  if (transportConflict) return transportConflict;
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
+    const conflict = guardExpectedAuthenticatedUser(authenticated, expectedUserConstraintsFromRequest(request), { requireConstraint: true });
+    if (conflict) return conflict;
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
+  }
+
+  const identityConflict = guardExpectedAuthenticatedUser(authenticated, [
+    ...expectedUserConstraintsFromRequest(request), ...bodyExpectedUserConstraints(body)
+  ], { requireConstraint: true });
+  if (identityConflict) return identityConflict;
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({ error: "Student access required.", reason: "student-only" }, { status: 403 });
   }
 
   const record = body as { moduleId?: unknown; topicId?: unknown; source?: unknown } | null;
@@ -64,6 +76,7 @@ export async function POST(request: Request) {
     source: record.source
   });
 
+  if (!session) return NextResponse.json({ error: "Account no longer exists." }, { status: 404 });
   return NextResponse.json({ session: serializeVisualizationSession(session) });
 }
 
@@ -71,6 +84,11 @@ export async function GET(request: Request) {
   const authenticated = await requireAuthenticatedUser(request);
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+  }
+  const identityConflict = guardExpectedAuthenticatedUser(authenticated, expectedUserConstraintsFromRequest(request), { requireConstraint: true });
+  if (identityConflict) return identityConflict;
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({ error: "Student access required.", reason: "student-only" }, { status: 403 });
   }
 
   const sessions = await listVisualizationSessionsForUser(authenticated.user.id);

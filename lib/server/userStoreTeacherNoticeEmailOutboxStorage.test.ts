@@ -1016,7 +1016,7 @@ test("publication writes app_state and immutable outbox rows in one physical tra
   assert.doesNotMatch(section, /await ensureTeacherNoticeEmailOutboxPostgresSchema\(\)/);
   assert.match(section, /runTeacherNoticeEmailOutboxPostgresPublicationTransaction/);
   assert.match(section, /getPostgresClient\(\)\.begin/);
-  assert.match(section, /async \(sql, storageCapability\) =>[\s\S]*normalizeLockedPostgresState\(sql\)/);
+  assert.match(section, /async \(sql, storageCapability\) =>[\s\S]*normalizeLockedPostgresState\(sql, true\)/);
   assert.match(section, /writePostgresDatabaseWith\(sql, database, storageCapability\)/);
   assert.match(
     section,

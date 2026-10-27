@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
-import { requestRewardRedemption } from "@/lib/server/userStore";
+import { requestRewardRedemption, withAuthenticatedMutation } from "@/lib/server/userStore";
+import { learnerAuthorityFailureResponse } from "@/lib/server/learnerAuthorityState";
 
 export const runtime = "nodejs";
 
@@ -25,10 +26,11 @@ export async function POST(request: Request) {
   const itemId = typeof body.itemId === "string" ? body.itemId.trim() : "";
   if (!itemId) return NextResponse.json({ error: "Reward item is required." }, { status: 400 });
 
-  const result = await requestRewardRedemption({
+  const result = await withAuthenticatedMutation(authenticated, () => requestRewardRedemption({
     studentId: authenticated.user.id,
     itemId
-  });
+  })).catch(learnerAuthorityFailureResponse);
+  if (result instanceof Response) return result;
 
   if (result.status === "created") return NextResponse.json({ rewards: result.rewards }, { status: 201 });
   if (result.status === "insufficient-points") {

@@ -729,3 +729,46 @@ test("legacy userStore delegates Fishing Game completion through gamification do
   assert.doesNotMatch(source, /function completeFishingGameInDatabase/);
   assert.doesNotMatch(source, /export async function completeFishingGame/);
 });
+
+for (const useFreshRoundKeys of [false, true]) {
+  test(`positive capped game awards reserve daily allowance and ${useFreshRoundKeys ? "fresh round keys exhaust the remaining budget" : "retries deduplicate"}`, async () => {
+    const database = createFishingGameReadyDatabase();
+    database.gamification_events!.push({ student_id: "student-1", source: "lesson-complete", source_key: "prior-day-awards", status: "awarded", xp: 384, reward_points: 124, created_at: "2026-06-20T10:20:00.000Z" });
+    database.reward_point_ledger!.push({ id: "prior-earned", student_id: "student-1", amount: 159, reason: "lesson-complete", label_en: "Prior earned", label_zh: "此前所得", created_at: "2026-06-20T10:20:00.000Z" });
+    let id = 0;
+    const store = createGamificationGamePersistenceStore({
+      createId: () => `capped-${++id}`,
+      mutateDatabase: async (mutator) => mutator(database),
+      now: () => new Date("2026-06-20T10:30:00.000Z"),
+      readDatabase: async () => database
+    });
+    const complete = (roundKey: string) => store.completeFishingGame({ studentId: "student-1", topicId: "topic-1", roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"], correctRoundQuestionIds: ["q1", "q2", "q3", "q4"], caughtQuestionIds: ["q1", "q2", "q3"], correctCaughtQuestionIds: ["q1", "q2"], coins: 2, netsUsed: 3, durationSeconds: 60, roundKey });
+    const first = await complete("round-2");
+    const second = await complete(useFreshRoundKeys ? "round-3" : "round-2");
+    const third = await complete(useFreshRoundKeys ? "round-4" : "round-2");
+    assert.equal(first?.status, "capped");
+    assert.equal(first?.reward.rewardPoints, 1);
+    assert.equal(second?.status, useFreshRoundKeys ? "capped" : "duplicate");
+    assert.equal(third?.status, useFreshRoundKeys ? "capped" : "duplicate");
+    assert.equal(second?.reward.rewardPoints, 0);
+    assert.equal(third?.reward.rewardPoints, 0);
+    assert.equal(database.reward_point_ledger!.reduce((sum, row) => sum + row.amount, 0), 160);
+    assert.equal(database.gamification_events!.reduce((sum, row) => sum + (row.xp ?? 0), 0), 420);
+  });
+}
+
+test("a zero capped game rejection leaves its key retryable after the Hong Kong daily reset", async () => {
+  const database = createFishingGameReadyDatabase();
+  database.gamification_events!.push({ student_id: "student-1", source: "lesson-complete", source_key: "filled-day-budget", status: "awarded", xp: 385, reward_points: 125, created_at: "2026-06-20T10:20:00.000Z" });
+  let currentTime = new Date("2026-06-20T10:30:00.000Z");
+  let id = 0;
+  const store = createGamificationGamePersistenceStore({ createId: () => `reset-${++id}`, mutateDatabase: async (mutator) => mutator(database), now: () => currentTime, readDatabase: async () => database });
+  const input = { studentId: "student-1", topicId: "topic-1", roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"], correctRoundQuestionIds: ["q1", "q2", "q3", "q4"], caughtQuestionIds: ["q1", "q2", "q3"], correctCaughtQuestionIds: ["q1", "q2"], coins: 2, netsUsed: 3, durationSeconds: 60, roundKey: "retry-next-day" };
+  const capped = await store.completeFishingGame(input);
+  assert.equal(capped?.status, "capped");
+  assert.equal(capped?.reward.rewardPoints, 0);
+  currentTime = new Date("2026-06-21T10:30:00.000Z");
+  const later = await store.completeFishingGame(input);
+  assert.equal(later?.status, "awarded");
+  assert.equal(later?.reward.rewardPoints, 6);
+});

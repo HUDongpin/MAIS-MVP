@@ -156,8 +156,19 @@ test("userStore wires the migration marker probe ahead of the schema bootstrap",
   assert.match(userStoreSource, /async function bootstrapPostgresStateTables\(\)/);
   assert.match(
     userStoreSource,
-    /const ensurePostgresStateTable = createPostgresSchemaReadinessGate\(\{\s+readCurrentMarker: hasCurrentPostgresSchemaMarker,\s+bootstrap: \(\) => runPostgresBootstrapWithContentionRecovery\(\{[\s\S]*bootstrap: bootstrapPostgresStateTables,[\s\S]*readCurrentMarker: hasCurrentPostgresSchemaMarker[\s\S]*\}\)\s+\}\);/
+    /const ensureLegacyPostgresStateTable = createPostgresSchemaReadinessGate\(\{\s+readCurrentMarker: hasCurrentPostgresSchemaMarker,\s+bootstrap: \(\) => runPostgresBootstrapWithContentionRecovery\(\{[\s\S]*bootstrap: bootstrapPostgresStateTables,[\s\S]*readCurrentMarker: hasCurrentPostgresSchemaMarker[\s\S]*\}\)\s+\}\);/
   );
+  const schemaInitializerSource = sourceSection(
+    userStoreSource,
+    "async function ensurePostgresStateTable()",
+    "export async function learnerAuthorityIsInstalled()"
+  );
+  assert.match(
+    schemaInitializerSource,
+    /async function ensurePostgresStateTable\(\) \{\s+await ensureLegacyPostgresStateTable\(\);/u,
+    "legacy readiness must complete before learner-authority detection or installation"
+  );
+  assert.match(schemaInitializerSource, /await installLearnerAuthoritySchema\(/u);
   assert.doesNotMatch(userStoreSource, /let postgresReady: Promise<void> \| null/);
 });
 
@@ -268,7 +279,7 @@ test("production schema gate keeps empty install and both legacy upgrades separa
   const legacyCompletionSource = sourceSection(
     userStoreSource,
     "async function completePostgresStorageReadinessMarkerOnClient(",
-    "const ensurePostgresStateTable"
+    "const ensureLegacyPostgresStateTable"
   );
   const inspectSource = sourceSection(
     userStoreSource,
@@ -498,9 +509,26 @@ test("partial writers use one opaque CAS capability and full writers validate ex
   );
   assert.match(
     fullWriterSource,
-    /RETURNING[\s\S]*state\.payload,[\s\S]*state\.revision[\s\S]*state\.payload = [\s\S]*AS payload_matches/iu
+    /RETURNING\s+CASE WHEN \$\{lessonContent !== undefined\} THEN NULL::pg_catalog\.jsonb ELSE state\.payload END AS payload,\s+state\.revision/iu
   );
+  assert.match(
+    fullWriterSource,
+    /if \(lessonContent\) validateCompletePostgresStorageSnapshot\(payload, lessonContent\);/u,
+    "scoped lesson writes validate the immutable snapshot before writing"
+  );
+  assert.match(
+    fullWriterSource,
+    /if \(!lessonContent\) validateCompletePostgresStorageSnapshot\(writtenState\.payload\);/u,
+    "generic writers still validate the actual returned snapshot"
+  );
+  for (const stateAlias of ["state", "current_state"]) {
+    assert.ok(
+      fullWriterSource.includes(`        ${stateAlias}.payload = \${expectedPayloadParameter}::pg_catalog.text::pg_catalog.jsonb AS payload_matches`),
+      "both readbacks must compare the full payload with the same immutable expected value"
+    );
+  }
   assert.match(fullWriterSource, /writtenState\.payload_matches !== true/u);
+  assert.match(fullWriterSource, /finalStateRows\[0\]\?\.payload_matches !== true/u);
   assert.match(fullWriterSource, /advancePostgresStorageReadinessAfterMutation\(/);
   assert.doesNotMatch(fullWriterSource, /attestCompletePostgresStorageSnapshot\(/);
 });
@@ -541,11 +569,12 @@ test("storage admin executor rejects stale CAS and only reports not-ready after 
     database: { users: [{ id: "current" }, { id: "imported" }] }
   };
 
-  function createExecutor({ currentPayload = currentDatabase, updateRows = [{ revision: 12 }] } = {}) {
+  function createExecutor({ currentPayload = currentDatabase, updateRows = [{ revision: 12 }], authorityPresent = false } = {}) {
     const statements = [];
     const sql = async (strings, ...values) => {
       const text = strings.join("$value");
       statements.push({ text, values });
+      if (/to_regnamespace\('learner_authority'\)/u.test(text)) return [{ present: authorityPresent }];
       if (/SELECT\s+revision,\s+payload/iu.test(text)) {
         return [{ revision: 11, payload: structuredClone(currentPayload) }];
       }
@@ -564,12 +593,14 @@ test("storage admin executor rejects stale CAS and only reports not-ready after 
   assert.deepEqual(
     success.statements.map(({ text }) =>
       /set_config/iu.test(text) ? "timeouts"
-        : /SELECT\s+revision,\s+payload/iu.test(text) ? "lock"
-          : /UPDATE public\.app_state/iu.test(text) ? "cas-update"
-            : /DELETE FROM public\.app_state_readiness_markers/iu.test(text) ? "invalidate"
-              : "unknown"
+        : /pg_advisory_xact_lock_shared/iu.test(text) ? "authority-lock"
+          : /to_regnamespace\('learner_authority'\)/u.test(text) ? "authority-probe"
+            : /SELECT\s+revision,\s+payload/iu.test(text) ? "lock"
+              : /UPDATE public\.app_state/iu.test(text) ? "cas-update"
+                : /DELETE FROM public\.app_state_readiness_markers/iu.test(text) ? "invalidate"
+                  : "unknown"
     ),
-    ["timeouts", "lock", "cas-update", "invalidate"]
+    ["timeouts", "authority-lock", "authority-probe", "lock", "cas-update", "invalidate"]
   );
   const updateStatement = success.statements.find(({ text }) => /UPDATE public\.app_state/iu.test(text));
   assert.ok(updateStatement);
@@ -580,6 +611,22 @@ test("storage admin executor rejects stale CAS and only reports not-ready after 
     true,
     "the exported snapshot remains a concrete compare-and-swap token"
   );
+
+  for (const { authorityPresent, snapshot } of [
+    { authorityPresent: true, snapshot: mergedSnapshot },
+    { authorityPresent: false, snapshot: { ...mergedSnapshot, storageAuthority: { mode: "independent" } } }
+  ]) {
+    const authority = createExecutor({ authorityPresent });
+    await assert.rejects(
+      applyMergedSnapshotInTransaction(authority.sql, snapshot, currentDatabase),
+      /^Error: Learner authority snapshots require a generation-aware restore;/u
+    );
+    assert.equal(
+      authority.statements.some(({ text }) => /SELECT\s+revision,\s+payload|UPDATE public\.app_state|DELETE FROM public\.app_state_readiness_markers/iu.test(text)),
+      false,
+      "authority detection must reject legacy restore before snapshot access or marker mutation"
+    );
+  }
 
   const stale = createExecutor({ updateRows: [] });
   await assert.rejects(
