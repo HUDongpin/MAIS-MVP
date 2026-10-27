@@ -1,0 +1,3309 @@
+{
+  "schema": "pr297-runtime-evidence.v1",
+  "state": "frozen inspected execution facts; final T reviews are separate records",
+  "observed_at_utc": "2026-10-27T01:16:13.937581+00:00",
+  "scope": {
+    "B": "b16991a6263d41642266b7b0b5f65446b11e5e1f",
+    "S": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+    "S_tree": "f7453315bf0925d700ded5aba7e426c70ac0a3ca",
+    "changed_path_count": 134,
+    "source_manifest_sha256": "2eff8061b6da5a448ab2986f8f6418c5138d7a1769847f61db51e95380092dee",
+    "source_manifest": [
+      {
+        "path": "app/api/accountMediaErasure.regressions.cjs",
+        "sha256": "15e89155898cc61b903327351b714540ae637294b63b335662233d386b15bcb9"
+      },
+      {
+        "path": "app/api/accountMediaErasure.test.ts",
+        "sha256": "6aca78b20e27f60b2aae4191cc1a5066984dc0d46ebbda306570588ba2f9d458"
+      },
+      {
+        "path": "app/api/admin/learner-data/[userId]/route.ts",
+        "sha256": "9d571d50569a4f084330d51f2d6bde0187da5f9d20e102cbbab1ca01b90c5473"
+      },
+      {
+        "path": "app/api/assessments/[assessmentId]/submit/route.ts",
+        "sha256": "0cfdb6c57765a48b00643f635111d033bb50daaf092fe1a997e806147c95ecca"
+      },
+      {
+        "path": "app/api/attempts/route.ts",
+        "sha256": "a50e1260308adb1362f0f986555e9cab2def9ffd03d20389606d25747dbf7a34"
+      },
+      {
+        "path": "app/api/attempts/routeFastPath.test.ts",
+        "sha256": "5ddec6a82573bf25a6e674c9093cda2a92650384663a335e0d7d958ffc68c3a6"
+      },
+      {
+        "path": "app/api/attempts/routeSessionRevision.test.ts",
+        "sha256": "3c970d348ce6416a014e7ae9e8642decf38796e2e35de3e2c745eb0bcef2b4db"
+      },
+      {
+        "path": "app/api/auth/google/callback/handler.ts",
+        "sha256": "ebdd422c00048357f650dd296e30dda18bb33748c3f766142e909ed5559979aa"
+      },
+      {
+        "path": "app/api/auth/google/callback/malformedStateCookie.test.ts",
+        "sha256": "cc7661d5d1a407e0b60554f136589adc5f691b43bb2e6758d30745df4ff72e9b"
+      },
+      {
+        "path": "app/api/auth/google/callback/route.test.ts",
+        "sha256": "e370cc76a9eb9f7f7adccad2b1d9ae7f3b7c96895247c91cfbdb294564eadde1"
+      },
+      {
+        "path": "app/api/auth/google/callback/route.ts",
+        "sha256": "3bd4656d7a2dc17c76d3e03e03de2a76756ab87b94085ac8f522ed132a189e23"
+      },
+      {
+        "path": "app/api/auth/login/route.ts",
+        "sha256": "ba0ce045dc4401b77d92fbcf7992aa3a4dd2a33989b49329ec6b435cf927eb5d"
+      },
+      {
+        "path": "app/api/auth/logout-all/handler.ts",
+        "sha256": "13e6777d621fd96c722da39bd18f7d28cf98b4efb466ecdbbf5a10ef397327c9"
+      },
+      {
+        "path": "app/api/auth/password-change/handler.ts",
+        "sha256": "a108b4a1ccf27edd2be6bd762d63ed091af0b9d8706bad56881c7a70adc2c8b5"
+      },
+      {
+        "path": "app/api/auth/password-reset/confirm/handler.ts",
+        "sha256": "2872d5475e76045ca9b0039787238abfd4412b7324f87b8875603b575581abfa"
+      },
+      {
+        "path": "app/api/auth/password-reset/confirm/route.ts",
+        "sha256": "9938e78a7dea1345f0d528daf5a7f1647a3c3588de8e654ccd2d60850f07a962"
+      },
+      {
+        "path": "app/api/auth/password-reset/request/route.ts",
+        "sha256": "c6e26443ca200afa6c343dff3f20204ca137d5f77a6e06223920dd34e72efbde"
+      },
+      {
+        "path": "app/api/auth/register/route.ts",
+        "sha256": "43cbd70e941e0f4283f3d54ad9d7e22a23f4658dcff299c35e04edc634e0b0fc"
+      },
+      {
+        "path": "app/api/learning-events/route.ts",
+        "sha256": "da736ff6b0466dcb0797d9181762347c49521663cceda23ff0899f95ab66328e"
+      },
+      {
+        "path": "app/api/lesson-progress/route.ts",
+        "sha256": "081fd65b3420b690417d79d72016410f09cca3281064e41461963cefca9154b1"
+      },
+      {
+        "path": "app/api/malformedSessionCookie.test.ts",
+        "sha256": "b0515c8428662e2785e432f057f8d68e74f2ac969b751e37577a569a551c1223"
+      },
+      {
+        "path": "app/api/me/account/route.ts",
+        "sha256": "03cd8b6b61d8cf4e0de300dcf5161ae2e3460b6c4a2a5e0dd8317e3698413875"
+      },
+      {
+        "path": "app/api/media-objects/[...objectKey]/route.ts",
+        "sha256": "270032007eb68bd93c1f1c1c177716b5d6f023823a9d52dec009e327b12ae284"
+      },
+      {
+        "path": "app/api/media-objects/route.ts",
+        "sha256": "509dfc11e4e89eda957fc694c20c9d8bb8314990e7471c6017e92429752555c2"
+      },
+      {
+        "path": "app/api/questions/route.ts",
+        "sha256": "8b59b597d3e224a6639d3d97ff91e8fe3f8d97623450217d5ae3c120983b8d28"
+      },
+      {
+        "path": "app/api/rewards/redeem/route.ts",
+        "sha256": "58d942237cecebf03fdd2dbad7965a6d5e371a19f1353267dea8b61c7ffe6e4b"
+      },
+      {
+        "path": "app/api/studentActivityIdentity.test.ts",
+        "sha256": "5c145a652b4fb6e4b070fd012498e99c16b950ee5bc9721fdd4f222dcf381993"
+      },
+      {
+        "path": "app/api/teacher/rewards/award/route.ts",
+        "sha256": "8698a91c99290ce4056800b65e8d8ce6ed36b5a764bdd0810feb44c128da7857"
+      },
+      {
+        "path": "app/api/teacher/rewards/redemptions/[requestId]/route.ts",
+        "sha256": "32447115afb89da38eced5cd63560041855aa4044133441269ed149c0f3125cd"
+      },
+      {
+        "path": "app/api/teacher/submissions/[submissionId]/grading-runs/route.ts",
+        "sha256": "cb4a8a2a866d3057ee504db3d490d05e469298da7558135e18721e4444d88665"
+      },
+      {
+        "path": "app/api/teacher/submissions/[submissionId]/review/route.ts",
+        "sha256": "ad4ac4917659ff0d466bc23207dae62e8b4444bd3f5fe78559bbf0a3780c1cde"
+      },
+      {
+        "path": "app/api/teacher/submissions/[submissionId]/route.ts",
+        "sha256": "8ba1964abfeb54d4a3053e326db6494f65cb1875933e3657a3bf3c5ebc8055f9"
+      },
+      {
+        "path": "app/api/visualization-sessions/route.ts",
+        "sha256": "ec250c80482e1d7403ff05dae291654b35a36120f11450c3128415bdcaeca9e1"
+      },
+      {
+        "path": "components/learning/LearningRoadmap.tsx",
+        "sha256": "15078620e5ba695d57872702b13c2f6a0c65e1b6a2153cb30edb307e00e422d7"
+      },
+      {
+        "path": "components/learning/SubwayNetworkMap.tsx",
+        "sha256": "cf39f977e72e7d423b5702ae97e28cefae33faa1fe8c512c95e709381bc09ad5"
+      },
+      {
+        "path": "components/learning/courseIdentityPipeline.test.ts",
+        "sha256": "91f275b87624e8bb142064cad4b31889ad713f3b503bc595175b520497b1faef"
+      },
+      {
+        "path": "components/lesson/LessonView.tsx",
+        "sha256": "27d3c3420b986500f948d5f1b3bd4e204ea76c74e558c73413aa71991cd088bd"
+      },
+      {
+        "path": "coordination/decisions/2026-09-24-state-adaptation-seams-review.md",
+        "sha256": "156156964c0e4df1d9d12c236c27fe22d83167e6de00ada30326e65a82b6abf4"
+      },
+      {
+        "path": "coordination/session-logs/2026-09-28-A08-course-identity-current-main.md",
+        "sha256": "0bf38ddaa907ac13c7e568379270404655cd3db7df1bbb3abca86ad4d7749dba"
+      },
+      {
+        "path": "data/lessons.ts",
+        "sha256": "d41b63a1cb2d04fbfc8c15bec036641a9cd9c91d7d5ee823f79610ef30bf3918"
+      },
+      {
+        "path": "docs/superpowers/plans/2026-10-27-retained-candidate-integration.md",
+        "sha256": "44b870db2f3e28eeea9177dffad59b356b9e9ba1fe1d2ea1019ae7eae6919d97"
+      },
+      {
+        "path": "lib/curriculumCourses.test.ts",
+        "sha256": "684258ee63530af636a37d72a5dff4e38735b81a82999e192d432d58411cf1c7"
+      },
+      {
+        "path": "lib/curriculumCourses.ts",
+        "sha256": "7912dc982b48eea4ffef9383d2dae28deaf0e61d3e7e147192c917dc3ad678b8"
+      },
+      {
+        "path": "lib/gamification.ts",
+        "sha256": "090fae89adfe048ff953566ac583435d8b0b5399d9cbbb19d6d0fabe4a56b55b"
+      },
+      {
+        "path": "lib/lessonProgressRequest.test.ts",
+        "sha256": "77de5c22c26a725b819cf59a380ec58f8085ee9ea75f852f5ce9d40528f368c9"
+      },
+      {
+        "path": "lib/lessonProgressRequest.ts",
+        "sha256": "3aa2da89c76deb20309d167957949ac673ef1ddda1ba24169f1c08d7994a7bf0"
+      },
+      {
+        "path": "lib/mvpReadiness.test.ts",
+        "sha256": "be13e9da972f20bd30c7136188c5188297f8470838fb8ec7e93b340b5112ecf0"
+      },
+      {
+        "path": "lib/server/accountDataPostgres.test.mjs",
+        "sha256": "0d8e47ac574179934051ec33236963066e1b3cb676a096292e94791f0df23d50"
+      },
+      {
+        "path": "lib/server/accountDataPostgres.ts",
+        "sha256": "9095293f63edfc2d103f318ca15fb5dcc8848ebd0e702f986a2d87cc47e07154"
+      },
+      {
+        "path": "lib/server/accountDataPostgresIntegration.test.mjs",
+        "sha256": "688fbfff85c4113995fdbbbbb33afdbcec23e565a008559ba3be56885e6a8091"
+      },
+      {
+        "path": "lib/server/assessmentAudience.ts",
+        "sha256": "e3fefd0d7815d128676fa404d40b9857af46eb9b68f9f5f9c08d8e2aa03d44b5"
+      },
+      {
+        "path": "lib/server/auth.ts",
+        "sha256": "5243bc8ca1aa95b52402ed161b64ce212b3bd3efafb5b02174588ea5cb059e05"
+      },
+      {
+        "path": "lib/server/googleOAuth.test.ts",
+        "sha256": "7b1dc142a7924c8aa9cf236768fdebe05d8823f1265ebaa044e8837d15f640f9"
+      },
+      {
+        "path": "lib/server/googleOAuth.ts",
+        "sha256": "64babc48389856ac3c7dbccb16daa200faff9f1cde4e521b97f2e058bf9feae7"
+      },
+      {
+        "path": "lib/server/learnerAuthority.ts",
+        "sha256": "27a2c0eb67cfedf74e534593a2229ccf98f72ea0d2cca21eb693e087122f0910"
+      },
+      {
+        "path": "lib/server/learnerAuthorityApplication.test.mjs",
+        "sha256": "2ad72ad6821a8d2d2ad7fe71023ade91359dde4681db7e750d0783d8e7986624"
+      },
+      {
+        "path": "lib/server/learnerAuthorityCourseIdentity.test.mjs",
+        "sha256": "00a97cda72f2d52b6702892d029ba7046ae09845d17536b9be387d5ea8626e60"
+      },
+      {
+        "path": "lib/server/learnerAuthorityIntent.ts",
+        "sha256": "4f31234ab074d8ab7d32bd1fd94e7b506e670a86bf2b97a91b3d03d8c8f5cfaa"
+      },
+      {
+        "path": "lib/server/learnerAuthorityMigration.test.mjs",
+        "sha256": "120ca0010d3e6082c73c38a66d88ba081353d4a66ada0b7f6b31092faff108d8"
+      },
+      {
+        "path": "lib/server/learnerAuthorityParticipants.test.mjs",
+        "sha256": "e042dc02875a087478a730c405c0dcffc466575ac1e45bd82949fb1fbbfdaa47"
+      },
+      {
+        "path": "lib/server/learnerAuthorityPostgresIntegration.test.mjs",
+        "sha256": "b0ede8be941775c05a4655714fe0bcfea9eab2cd1c5824bcd7b232f6b3c28b43"
+      },
+      {
+        "path": "lib/server/learnerAuthoritySchema.ts",
+        "sha256": "b4afaa0549dd1881c46c27ca808b3de199fb4e7771ecd0916cbc2895aa26a98c"
+      },
+      {
+        "path": "lib/server/learnerAuthorityState.test.ts",
+        "sha256": "19c40a00c7505e9512f064e182f2fea655f4c7146db0a1ff836b5d564b0c8c19"
+      },
+      {
+        "path": "lib/server/learnerAuthorityState.ts",
+        "sha256": "6a7a7966c440493a0530a4f00db3883b44478cbe36a50d3cda18d179998de529"
+      },
+      {
+        "path": "lib/server/learnerAuthorityTransactions.test.mjs",
+        "sha256": "0b300fab74508a5b9a9fff3d4914216071540f3fd6dbc4e87889591a5c6e30ca"
+      },
+      {
+        "path": "lib/server/mediaObjectStore.test.ts",
+        "sha256": "e2ba19d893401f5336469e190d7b075877f49766030636a045164d82521ebe9c"
+      },
+      {
+        "path": "lib/server/mediaObjectStore.ts",
+        "sha256": "486d6ea595a71eb1626c38e9990fe28af2dd163a943856c83a7137713b96161e"
+      },
+      {
+        "path": "lib/server/mediaOwnerErasure.regressions.cjs",
+        "sha256": "f707b3d101f69c5d7c09eec73155a844dead51684a0abc6cca8c48c7f13dc061"
+      },
+      {
+        "path": "lib/server/mediaOwnerErasure.test.ts",
+        "sha256": "040a5656b957cdd048b74c1b398e36a132856b1f450f846accbbba4af682596a"
+      },
+      {
+        "path": "lib/server/mediaOwnerErasure.ts",
+        "sha256": "19a11d58bde27d0028046deb5205fe62aaea9ff4763dd20846db92c15eba2015"
+      },
+      {
+        "path": "lib/server/mediaOwnerErasurePartialUploadWorker.cjs",
+        "sha256": "55039e02d601143b78a1482af4c62f538e87ded03c98383af22daed920e5d6ec"
+      },
+      {
+        "path": "lib/server/mediaOwnerErasureUploadWorker.cjs",
+        "sha256": "9102f17cb5ab2da4fc3244eee7a17c09e0e578428b2ea0d1d714c3982a833473"
+      },
+      {
+        "path": "lib/server/observabilityHooks.test.ts",
+        "sha256": "d43a990eb4c2678ec23decfac6e99465020d10453f556ced836f4f4e4045fc87"
+      },
+      {
+        "path": "lib/server/practiceAttemptStore.test.ts",
+        "sha256": "38d56d0fce54c126c91d43626641b1b4ccdc5fc74e24ee18cfb5ede0a7075046"
+      },
+      {
+        "path": "lib/server/practiceAttemptStore.ts",
+        "sha256": "5a7f6f9d45787247df208200b5bffe89fc9c3db17d5680ea8d6b054e04422537"
+      },
+      {
+        "path": "lib/server/practiceSubmissionIdentity.ts",
+        "sha256": "fcba8928bef8100c6c4bd05ab69807c16562041f519921daed4ec8f103968f75"
+      },
+      {
+        "path": "lib/server/requestMutationActor.test.ts",
+        "sha256": "0bfea8b01eb7f8fad9e2b7a57858b7ccc16504c5bd017e53cc197b9ce6ce3123"
+      },
+      {
+        "path": "lib/server/requestMutationActor.ts",
+        "sha256": "27cf7bd5c5db04c72f2f1c1d6484541b8022efb4f10a2d1512d7062972e6aad8"
+      },
+      {
+        "path": "lib/server/sessionCookie.ts",
+        "sha256": "a6ff4b16135104cbb273a7e3cbc02f8b8bf66ca80d5cf0373b324ef26d3ddc38"
+      },
+      {
+        "path": "lib/server/studentActivityPostgres.test.ts",
+        "sha256": "d020836fbb4522d505d914f3aa51691e2352958ba5da50a4f8c44e7f49d1d7ad"
+      },
+      {
+        "path": "lib/server/studentActivityPostgres.ts",
+        "sha256": "4265b82ad1d22938a8c1413bcdbf6b52ac91e5c97c29122151e97b00eacfa348"
+      },
+      {
+        "path": "lib/server/studentActivityPostgresIntegration.test.mjs",
+        "sha256": "0e4b224e210922a7e1cf6adc99681ce1e4216a9c4be5fd2973cac0e33c7b2677"
+      },
+      {
+        "path": "lib/server/studentSubmissionConcurrency.test.ts",
+        "sha256": "5bbb95b7da9b688287fa6bffc3ab42d392110604e2c607908917f3b810d445fa"
+      },
+      {
+        "path": "lib/server/teacherClassAccess.test.ts",
+        "sha256": "2ef83e204e2453ca165b6374f1db82ccb5689cee45babf206e23527f084f909c"
+      },
+      {
+        "path": "lib/server/teacherClassAccess.ts",
+        "sha256": "0b68c58ae9782ce260be30558d2b6ef9dd786886bf6bab6104e5d272df2e358f"
+      },
+      {
+        "path": "lib/server/teacherMediaAccess.test.ts",
+        "sha256": "15bdd2db0a6b3cda32adcda672158a92aaf9e0db06b24203d881acba84781186"
+      },
+      {
+        "path": "lib/server/teacherMediaAccess.ts",
+        "sha256": "50ae3955bad4bbf32f40fc1eba7f6347c0a6cba386c0987b831472c1f02a830d"
+      },
+      {
+        "path": "lib/server/userStore.ts",
+        "sha256": "3db0c62e6e84241434216f2ddd570c75cda49ba6056869fd917d1a5a2e65db66"
+      },
+      {
+        "path": "lib/server/userStore/accountDeletionPersistence.ts",
+        "sha256": "3c5077a285a53996bdef18668115095da6b542a00366ffdbdab33fbf0bbbbd0b"
+      },
+      {
+        "path": "lib/server/userStore/aiGovernancePersistence.ts",
+        "sha256": "390727a2e8762ced8f5ccea5be2ac045f2802cca4f355ad9825831c2b72f1149"
+      },
+      {
+        "path": "lib/server/userStore/authSessionPersistence.ts",
+        "sha256": "b4a6056ca13d2072d15783f0b0af9fa47c46ff7f71563aab9d84a2068f550497"
+      },
+      {
+        "path": "lib/server/userStore/gamificationRewardRedemptionPersistence.ts",
+        "sha256": "b8e33eca3e9c328092a0494d078ba8b5890cb8b69d44a48e7cff2f3b127f58d3"
+      },
+      {
+        "path": "lib/server/userStore/lessonSeedQuestionScan.test.mjs",
+        "sha256": "7270db34dc886cf0d09f7ddec34fb008525c18918952e76a3ea2a2975a3af882"
+      },
+      {
+        "path": "lib/server/userStore/parentPostgresScopedMutations.test.ts",
+        "sha256": "c3ed2611ee245db8fd2975c8d2fff3a4acbd1bd8d8079c7fd932eb91f84bc763"
+      },
+      {
+        "path": "lib/server/userStore/postgresDeferredProjectionSync.test.mjs",
+        "sha256": "644eb7d4fd9d9abae9f6592a4541b6c1e86dd628791147b1a60de3fffc8bd1c5"
+      },
+      {
+        "path": "lib/server/userStore/postgresLessonMutation.test.mjs",
+        "sha256": "979453c478c714bf148e58dc8b1216a31de997c96e94708d0679309c44d23b07"
+      },
+      {
+        "path": "lib/server/userStore/postgresProjectionNoop.test.mjs",
+        "sha256": "55c7e2e9445d1e612b36bc9be344ce84814f59f8515bfb7e566cbf0af56ebe81"
+      },
+      {
+        "path": "lib/server/userStore/postgresStorageReadiness.test.ts",
+        "sha256": "be823be668a91a16a5780e86007badabffb506d8c2b64a2c4691c32ad56daf96"
+      },
+      {
+        "path": "lib/server/userStore/scopedLessonContext.test.ts",
+        "sha256": "e82e8b6be5fadcaae66474c33e2a3b13dd6cd717862de7dcfd7599bc4cbc8849"
+      },
+      {
+        "path": "lib/server/userStore/scopedLessonPostgresIntegration.test.mjs",
+        "sha256": "dd098f593ac6e886dcf2104616ebcc833af0386ad8aace4b61c6b2dfb5ef2df6"
+      },
+      {
+        "path": "lib/server/userStore/studentActivityPersistence.ts",
+        "sha256": "91ed85f1bc8b2e5f50cfb15106b4c736391d205daf1f443108cb82c907315d36"
+      },
+      {
+        "path": "lib/server/userStore/teacherNoticeEmailOutboxPersistence.ts",
+        "sha256": "8342278e008ddde1eaba8b73ad102c8bdde621240c46ad3f958771d0bab7ec2d"
+      },
+      {
+        "path": "lib/server/userStore/teacherOpsOperationsPersistence.ts",
+        "sha256": "bf9c6a621567bf05ab365053dd91e498075e542c52eaebad5f0f6bb05e080853"
+      },
+      {
+        "path": "lib/server/userStore/teacherOpsSubmissionPersistence.ts",
+        "sha256": "897d043290b5e9a8969bdf4546f5ac9b54dc5db76bbbf79cfb1d1dbca7438713"
+      },
+      {
+        "path": "lib/server/userStoreAccountDeletion.test.ts",
+        "sha256": "eaa8492af503363ea6fde61381d1341a28e440a438a0a698a948cdc5b9fbb4d8"
+      },
+      {
+        "path": "lib/server/userStoreAiGovernancePersistence.test.ts",
+        "sha256": "6ceb0206c1838e1070d00cce41b304392520e821cba300e4a039e10580e6ae76"
+      },
+      {
+        "path": "lib/server/userStoreAuthAdminStoragePersistence.test.ts",
+        "sha256": "dbfda38ca54b553ccbc1f626fced1d60c716f61617d7b076f38a31d5de1fb10f"
+      },
+      {
+        "path": "lib/server/userStoreAuthSessionPersistence.test.ts",
+        "sha256": "ad7e22d25ebd9cfdf280c44d0b98ae9bbea1b4df0452390a53a4cfba97930725"
+      },
+      {
+        "path": "lib/server/userStoreDemoCaliforniaLink.test.ts",
+        "sha256": "824ca84dd8751f23c6b4d5c8fb68219a2f0f9819a227e63fcd1285d5697f0c43"
+      },
+      {
+        "path": "lib/server/userStoreGamificationGamePersistence.test.ts",
+        "sha256": "08659be94803921cee6f69d1c23c8b28eaf1eedf31f90096d3fd3eeb86033657"
+      },
+      {
+        "path": "lib/server/userStoreGamificationRewardRedemptionPersistence.test.ts",
+        "sha256": "b52122c2383e035790e8e40a96bde1e67a2d2970c2244ac924f0d0b3177a40c6"
+      },
+      {
+        "path": "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+        "sha256": "7c5f682f4932bdad15fb6323363c8b016b7ca9e1890f24a7f9cbecf82b87734d"
+      },
+      {
+        "path": "lib/server/userStoreNovaPostgresAdmission.test.ts",
+        "sha256": "7d4f0ae5aaa1f3703cfb7cbabf05509fd8dfc6c73f3e85d7b3a484538712be12"
+      },
+      {
+        "path": "lib/server/userStoreParentPostgresScopedReads.test.ts",
+        "sha256": "b4e548aa04472720d48726cabf3ab33e07227c2c2f558a2901a9d73a7e317da2"
+      },
+      {
+        "path": "lib/server/userStoreSessionRevisionPostgres.test.ts",
+        "sha256": "8a3ca9defb096b25b45339258fc4508dd2030dc1d6b5b60db76a35aec5d9aabb"
+      },
+      {
+        "path": "lib/server/userStoreStudentActivityPersistence.test.ts",
+        "sha256": "73c19a3d712fef2c929ad78eb9b62209d6329126be20caab3d5aea0a674a0010"
+      },
+      {
+        "path": "lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts",
+        "sha256": "ee80d2db937f5ddcbe21b2eddb3701750244f540243f3d89fd313df837b6fcb3"
+      },
+      {
+        "path": "lib/server/userStoreTeacherOpsOperationsPersistence.test.ts",
+        "sha256": "fb591b7d33e7b11570f2ccf3232527a31d514f9aa1a35b326d9415ff6de01c89"
+      },
+      {
+        "path": "lib/session.ts",
+        "sha256": "c97fd8d32e32c9bfd1820abb1e881d37ed0f756b379473d0215cefd03b6e3121"
+      },
+      {
+        "path": "scripts/learner-authority/http-load.mjs",
+        "sha256": "de1f0fee0189b308b6a148730b0e90edc6f37cd63dbce226fcf0d8a44cf8fcb4"
+      },
+      {
+        "path": "scripts/learner-authority/prepare-http.py",
+        "sha256": "78dcc3daa29a0d8422d32643d84e8f79bb70a3726da73c5f8c28e48a0d6ceac8"
+      },
+      {
+        "path": "scripts/learner-authority/run-http.py",
+        "sha256": "99db0f8544553df3296de0d51f11555ea9d13febd2d6ae93b83ae566c4893372"
+      },
+      {
+        "path": "scripts/learner-authority/run-native.py",
+        "sha256": "a904ecc5c174de96d863c07e3b228210d4e731804fa257c5adcf354b8db87496"
+      },
+      {
+        "path": "scripts/lesson-save-budget/check-latency-budget.mjs",
+        "sha256": "af45b71d90cbe71acd04292f5f9168035cfa1ac5edd0b45b0c6c9ec3595411f0"
+      },
+      {
+        "path": "scripts/lesson-save-budget/check-work-budget.mjs",
+        "sha256": "d4b171a6719c0e7453201aa4ca720cfd269d735f8bc61315eaccb7beb4280196"
+      },
+      {
+        "path": "scripts/lesson-save-budget/instrument.mjs",
+        "sha256": "6aaeff52da1b909527f939e1c8bb41f9872f6535881ab0b1cd8111fdae63b607"
+      },
+      {
+        "path": "scripts/lesson-save-budget/profile.mts",
+        "sha256": "9a57f2948e95b0c48cbc6d1e9674ceee713538531b4ab2d1c8d275dd97c3c7a4"
+      },
+      {
+        "path": "scripts/lesson-save-budget/run-profile.py",
+        "sha256": "9a04dd96bd2810a656f7847eb48a39d80e3f49eb7c7b771c2ddabfa4b04e730b"
+      },
+      {
+        "path": "scripts/postgres-schema-fast-path.test.mjs",
+        "sha256": "ef1b88f5bd19d82fba62313a73c60a0cf57e2069aa1b2fc42d46c808618d14d8"
+      },
+      {
+        "path": "scripts/storage-admin-snapshot-merge.mjs",
+        "sha256": "98c53441c0b02e3a483a8962afaa51ceb5d438384d4bab44dfa0059f14f362b8"
+      },
+      {
+        "path": "tests/e2e/backend-api.spec.ts",
+        "sha256": "15ff9dfddf0a1f5c96b5d01e76665e5f4a791d35a87b3aae30bb2e490327666b"
+      },
+      {
+        "path": "tests/e2e/course-topic-label.spec.ts",
+        "sha256": "20787d746d5a5dc393bb0e8e11cdfe16ad17f01b42e34378bd101fb188b60fac"
+      },
+      {
+        "path": "tests/e2e/teacher-operations.spec.ts",
+        "sha256": "63e52d747ea95b050cb7e51415be556c02f9100eeb960065633fd3fead71ca02"
+      },
+      {
+        "path": "types/index.ts",
+        "sha256": "b244961341a1f5296cdd6169c4bf5370f39c11eb8b27a8098bdc7837702985d7"
+      }
+    ],
+    "target_T": null,
+    "read_only": true,
+    "temporary_outputs_only": true,
+    "external_model_calls": 0,
+    "deployment_authorized": false
+  },
+  "runtime_binding": {
+    "test_native_commit": "d48e3610394b9ebb97e3b3b318eac529aed3653d",
+    "test_native_tree_equals_S": true,
+    "build_runtime_commit": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+    "build_parent_equivalent_commit": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+    "build_tree": "924ca240e12d30a8845b4cbdea46531fa9ea1ce3",
+    "S_full_tree_equals_runtime_build_tree": false,
+    "A_to_S_exact_test_paths": [
+      "app/api/attempts/routeFastPath.test.ts",
+      "lib/server/observabilityHooks.test.ts",
+      "lib/server/userStore/parentPostgresScopedMutations.test.ts",
+      "lib/server/userStore/postgresStorageReadiness.test.ts",
+      "lib/server/userStoreAuthAdminStoragePersistence.test.ts",
+      "lib/server/userStoreDemoCaliforniaLink.test.ts",
+      "lib/server/userStoreNovaPostgresAdmission.test.ts",
+      "lib/server/userStoreParentPostgresScopedReads.test.ts",
+      "lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts",
+      "scripts/postgres-schema-fast-path.test.mjs",
+      "tests/e2e/teacher-operations.spec.ts"
+    ],
+    "non_test_git_entry_count": 11102,
+    "non_test_git_mode_type_blob_equality": true,
+    "non_test_git_entries_canonical_sha256": "7b40c343405c46b275a949b8df9356cb96aa4c719942bd88443b400e45fc5419",
+    "build_manifest_non_test_files_verified": 3578,
+    "S_files_match_old_manifest": true,
+    "frozen_build_non_test_files_byte_equal": 3577,
+    "frozen_build_derived_config_exceptions": [
+      {
+        "path": "tsconfig.next.json",
+        "source_sha256": "1f39ca3df18b90924fdf68bea41304033b29cf0de5311dccb15b23cd2dee1970",
+        "built_copy_sha256": "7e8f0cb1e7f385b26bb0f333dca19f71919f8794131442220a83aca12f945ce7",
+        "reason": "Next-generated isolated dist type include; include reordering only, all other JSON properties unchanged",
+        "added_include": [
+          ".tmp/http-next/types/**/*.ts"
+        ],
+        "declared_exclusion_in": "scripts/learner-authority/prepare-http.py",
+        "exclusion_source_sha256": "78dcc3daa29a0d8422d32643d84e8f79bb70a3726da73c5f8c28e48a0d6ceac8"
+      }
+    ],
+    "build_id": "ao_TTrVRo7--I2U_Xow3t",
+    "build_manifest_sha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+    "runtime_binding_artifact": "runtime-equivalence-inventory"
+  },
+  "local_native_postgres": {
+    "version": "postgres (PostgreSQL) 16.15 (Homebrew)",
+    "fresh_owned_cluster": true,
+    "source_commit": "d48e3610394b9ebb97e3b3b318eac529aed3653d",
+    "equivalent_S": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+    "tests": 14,
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0,
+    "subtests": [
+      {
+        "number": 1,
+        "name": "attempts POST returns persisted true only after the isolated local fallback commits",
+        "status": "ok"
+      },
+      {
+        "number": 2,
+        "name": "attempts POST serializes fast-path persistence acknowledgements without an external Postgres service",
+        "status": "ok"
+      },
+      {
+        "number": 3,
+        "name": "attempts POST refuses local fallback on Vercel without durable Postgres",
+        "status": "ok"
+      },
+      {
+        "number": 4,
+        "name": "attempts POST routes installed learner authority through canonical persistence",
+        "status": "ok"
+      },
+      {
+        "number": 5,
+        "name": "real PostgreSQL attempts route acknowledges only a committed readable row",
+        "status": "ok"
+      },
+      {
+        "number": 6,
+        "name": "attempts route returns a durable persistence acknowledgement with compatible feedback",
+        "status": "ok"
+      },
+      {
+        "number": 7,
+        "name": "attempts POST enforces the authenticated curriculum profile at the fast-path boundary",
+        "status": "ok"
+      },
+      {
+        "number": 8,
+        "name": "attempts POST enforces live HK/Mainland scope and reports empty NC availability with the real SQLite store",
+        "status": "ok"
+      },
+      {
+        "number": 9,
+        "name": "practice attempt fast path defines dedicated Postgres row tables without snapshot locks",
+        "status": "ok"
+      },
+      {
+        "number": 10,
+        "name": "practice attempt fast path stays decoupled from full snapshot storage",
+        "status": "ok"
+      },
+      {
+        "number": 11,
+        "name": "student activity schema readiness is transaction-bounded and retries after failure",
+        "status": "ok"
+      },
+      {
+        "number": 12,
+        "name": "practice attempt persistence policy fails closed outside an explicit durable store",
+        "status": "ok"
+      },
+      {
+        "number": 13,
+        "name": "practice attempt fast path rejects when authority status cannot be verified",
+        "status": "ok"
+      },
+      {
+        "number": 14,
+        "name": "real PostgreSQL practice attempts commit, read back, roll back, and expose ready schema",
+        "status": "ok"
+      }
+    ],
+    "real_postgres_commit_readback_rollback": true,
+    "normal_stop_exit": 0,
+    "pid_absent": true,
+    "source_unchanged": true,
+    "receipt_artifact": "native-pg16-receipt",
+    "tap_artifact": "native-pg16-tap"
+  },
+  "refreshed_pg_suites": [
+    {
+      "suite": "course",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "tested_runtime_source": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+      "runtime_equivalence_to_S": true,
+      "test_source_sha256": "00a97cda72f2d52b6702892d029ba7046ae09845d17536b9be387d5ea8626e60",
+      "receipt_artifact": "pg-course-receipt",
+      "log_artifact": "pg-course-log"
+    },
+    {
+      "suite": "application",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "tested_runtime_source": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+      "runtime_equivalence_to_S": true,
+      "test_source_sha256": "2ad72ad6821a8d2d2ad7fe71023ade91359dde4681db7e750d0783d8e7986624",
+      "receipt_artifact": "pg-application-receipt",
+      "log_artifact": "pg-application-log"
+    }
+  ],
+  "http_authority": {
+    "runs": [
+      {
+        "learners": 2,
+        "workers": 2,
+        "configured_connections_per_worker": 1,
+        "database_app_connection_limit": 2,
+        "observed_max_connections": 2,
+        "workload": "mixed",
+        "slo_ms": 2000,
+        "flow": {
+          "n": 8,
+          "min": 91.03379200000018,
+          "p50": 95.27445800000078,
+          "p95": 578.4848749999992,
+          "max": 578.4848749999992
+        },
+        "post": {
+          "n": 8,
+          "min": 82.57354200000009,
+          "p50": 86.08304100000078,
+          "p95": 567.9022910000003,
+          "max": 567.9022910000003
+        },
+        "replay": {
+          "n": 4,
+          "min": 22.54595900000004,
+          "p50": 27.355666999999812,
+          "p95": 35.57366699999966,
+          "max": 35.57366699999966
+        },
+        "correctness_passed": true,
+        "exactly_once_cross_worker_replay": true,
+        "slo_passed": true,
+        "receipt_artifact": "http-two-receipt",
+        "result_artifact": "http-two-result",
+        "durable_state_artifact": "http-two-durable"
+      },
+      {
+        "learners": 20,
+        "workers": 2,
+        "configured_connections_per_worker": 1,
+        "database_app_connection_limit": 2,
+        "observed_max_connections": 2,
+        "workload": "mixed",
+        "slo_ms": 2000,
+        "flow": {
+          "n": 80,
+          "min": 178.04308300000048,
+          "p50": 655.5560830000031,
+          "p95": 1763.5461250000008,
+          "max": 1915.3501250000008
+        },
+        "post": {
+          "n": 80,
+          "min": 162.83150000000023,
+          "p50": 605.9992500000008,
+          "p95": 1704.320334,
+          "max": 1841.1343339999985
+        },
+        "replay": {
+          "n": 40,
+          "min": 74.62020800000028,
+          "p50": 153.54254200000287,
+          "p95": 266.0097500000047,
+          "max": 273.66162500000064
+        },
+        "correctness_passed": true,
+        "exactly_once_cross_worker_replay": true,
+        "slo_passed": true,
+        "receipt_artifact": "http-twenty-receipt",
+        "result_artifact": "http-twenty-result",
+        "durable_state_artifact": "http-twenty-durable"
+      }
+    ],
+    "single_run_per_learner_count": true,
+    "threshold_and_connection_budget_unchanged": true,
+    "scope": "Local synthetic production-build two-worker mixed flow; mixed round has one practice request and dashboard reads. Not cold start, remote network, 20 simultaneous practice requests, production or live-provider acceptance."
+  },
+  "browser": {
+    "p1_zhHans": {
+      "passed": true,
+      "receipt_artifact": "p1-browser-r2-receipt",
+      "screenshot_hash_verified": true,
+      "ax_content_verified": true,
+      "console_errors": 0,
+      "original_en_zhHant_drag_evidence_stays_on_old_01f": true
+    },
+    "teacher_operations": {
+      "passed": 8,
+      "failed": 0,
+      "runtime_build_id": "ao_TTrVRo7--I2U_Xow3t",
+      "actual_test_source": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+      "stale_role_cookie_401_then_relogin_admin_and_restore_executed": true,
+      "receipt_artifact": "teacher-browser-receipt"
+    }
+  },
+  "retained_nonpassing_limits": {
+    "legacy_direct": {
+      "status": "budget-not-met",
+      "last_measured_commit": "ffad4f1fa6431b30dab3c3a5dec6ed580dd180a1",
+      "remeasured_on_S": false,
+      "gate": {
+        "status": "budget-not-met",
+        "meanMs": 439.87334066666654,
+        "maxServiceMs": 460.26162499999964,
+        "tailMs": 8772.206625,
+        "limits": {
+          "meanMs": 90,
+          "maxServiceMs": 100,
+          "tailMs": 2000
+        },
+        "httpAcceptance": false
+      },
+      "fixture_bytes": 3601626,
+      "original_frozen_workload_bytes_guard": [
+        3800000,
+        4000000
+      ],
+      "work_volume_gate_claimed_passed": false,
+      "scoped_admissions": 26,
+      "durable_readback": true,
+      "interpretation": "Inherited disclosed legacy/scoped budget failure. Not relabeled as a measurement or pass on S; independent authority HTTP success does not erase it.",
+      "artifact": "legacy-direct-failed-gate"
+    },
+    "lesson_all_sweep": {
+      "status": "fixture-failed-before-lesson-entry",
+      "passed_cases": 12,
+      "failed_fixture_cases": 1,
+      "cause": "pre-existing disposable student fixture omits parentalConsent and real registration rejects with400",
+      "not_relabelled_pass": true,
+      "artifact": "legacy-lesson-sweep-failed-log"
+    }
+  },
+  "claims": {
+    "runtime_evidence_scope_verified": true,
+    "all_modes_performance_passed": false,
+    "all_lesson_sweep_passed": false,
+    "production_deployed": false,
+    "live_provider_delivery_proved": false,
+    "remote_CI_all_required_passed_claimed": false,
+    "main_merge_completed_claimed": false
+  },
+  "source_checks": {
+    "source_checks_raw_sha256": "4a187a9727e2bc7dfead3de555425aef0e70e6c463dfca0407914115d789b8da",
+    "deterministic_critical_tests": 565,
+    "schema_contract_tests": 10,
+    "mvp_tests": 34,
+    "failed": 0,
+    "skipped": 0,
+    "type_check": "pass",
+    "zh_hans_advisory": 3511,
+    "zh_hans_ceiling": 3512,
+    "native_pg_reexecuted_in_this_command_table": false,
+    "http_reexecuted_in_this_command_table": false,
+    "original_candidate_fact_pack_sha256": "e9cad74cd452062703a85e862fc0795438e7e5273ac84db78ca018348bcdf1ea"
+  },
+  "artifacts": {
+    "native-pg16-receipt": {
+      "artifact_id": "native-pg16-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/test-contract-pg16-1e6474c450/receipt.json",
+      "sha256": "16e0b11abe83c5bc439270458ebd8e162329a1600d96c9e7b9c784eef3bdda7a",
+      "bytes": 1125,
+      "embedded_json": {
+        "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/test-contract-pg16-1e6474c450",
+        "checkout": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP",
+        "commit": "d48e3610394b9ebb97e3b3b318eac529aed3653d",
+        "tree": "f7453315bf0925d700ded5aba7e426c70ac0a3ca",
+        "postgresVersion": "postgres (PostgreSQL) 16.15 (Homebrew)",
+        "freshCluster": true,
+        "host": "127.0.0.1",
+        "port": 64563,
+        "database": "mais_storage_ci_tests",
+        "role": "mais_contract_1705cf65",
+        "dataDirectory": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/test-contract-pg16-1e6474c450/pg-data",
+        "sourceHashes": {
+          "lib/server/practiceAttemptStore.test.ts": "38d56d0fce54c126c91d43626641b1b4ccdc5fc74e24ee18cfb5ede0a7075046",
+          "app/api/attempts/routeFastPath.test.ts": "5ddec6a82573bf25a6e674c9093cda2a92650384663a335e0d7d958ffc68c3a6"
+        },
+        "syntheticOnly": true,
+        "providerCalls": 0,
+        "status": "passed",
+        "postgresStopExit": 0,
+        "elapsedSeconds": 13.796421874998487,
+        "sourceUnchanged": true,
+        "clusterPidAbsent": true
+      },
+      "embedded_json_canonical_sha256": "0b46af8ed04dad7c7c9f4164b788f8fe9300f3289d125ce8296245c019334868"
+    },
+    "native-pg16-tap": {
+      "artifact_id": "native-pg16-tap",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/test-contract-pg16-1e6474c450/tests.log",
+      "sha256": "0ed7b4bf3d98a605086149fbc814267e887010277fd452f7467857d4c16bf8ee",
+      "bytes": 3473
+    },
+    "runtime-build-receipt": {
+      "artifact_id": "runtime-build-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/receipt.json",
+      "sha256": "b16c23f543fc0144c12e4b9f47f033866e6f0f9c2cc75ab27c2b1d89bf40f937",
+      "bytes": 483,
+      "embedded_json": {
+        "source": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source",
+        "sourceManifestSha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "syntheticOnly": true,
+        "deployment": false,
+        "providerCalls": 0,
+        "status": "built",
+        "exitCode": 0,
+        "elapsedSeconds": 71.00413916700927,
+        "originalSourceUnchanged": true,
+        "snapshotSourceUnchanged": true,
+        "buildId": "ao_TTrVRo7--I2U_Xow3t"
+      },
+      "embedded_json_canonical_sha256": "5ceecb5c263ee5d7a2e191933ea74fde637bb29fbeb8c26f84aced981efae517"
+    },
+    "runtime-build-log": {
+      "artifact_id": "runtime-build-log",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/build.log",
+      "sha256": "3e1ffe272aeab9c0152ef5b89693233c7225714c698c08036e17cb3669b66be4",
+      "bytes": 35670
+    },
+    "runtime-build-source-manifest": {
+      "artifact_id": "runtime-build-source-manifest",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source-manifest.json",
+      "sha256": "05c980b2fa1509bbd4e58b9550261fd45d806b16c976e80ded6858d61c4cfe60",
+      "bytes": 581176
+    },
+    "runtime-equivalence-inventory": {
+      "artifact_id": "runtime-equivalence-inventory",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage/test-contract-runtime-equality.json",
+      "sha256": "eeb46723cac72ba52b1dcb34031aeb6545290aae9b023df169491cc23e246055",
+      "bytes": 1048295
+    },
+    "http-two-receipt": {
+      "artifact_id": "http-two-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/receipt.json",
+      "sha256": "f0a2c039c7e14990e401c08e5f6b51dd6fcee95f50e87344dbff222b34b95345",
+      "bytes": 950,
+      "embedded_json": {
+        "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219",
+        "source": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source",
+        "buildId": "ao_TTrVRo7--I2U_Xow3t",
+        "learners": 2,
+        "sourceManifestSha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "syntheticOnly": true,
+        "deployment": false,
+        "providerCalls": 0,
+        "status": "passed",
+        "workload": "mixed",
+        "driverSha256": "de1f0fee0189b308b6a148730b0e90edc6f37cd63dbce226fcf0d8a44cf8fcb4",
+        "hostLoadStart": [
+          7.92333984375,
+          6.31982421875,
+          5.26904296875
+        ],
+        "appConnectionLimit": 2,
+        "workerExitCodes": [
+          0,
+          0
+        ],
+        "postgresStopExit": 0,
+        "driverUnchanged": true,
+        "elapsedSeconds": 10.284321374987485,
+        "hostLoadEnd": [
+          8.49853515625,
+          6.50439453125,
+          5.3466796875
+        ],
+        "clusterPidAbsent": true
+      },
+      "embedded_json_canonical_sha256": "839fdbc041c4a18cea0b7977b68046ad803d3532456dcddfb87df67000a01f0d"
+    },
+    "http-two-result": {
+      "artifact_id": "http-two-result",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/http-result.json",
+      "sha256": "2c6cd18b3aa76db01e93f968a6379fc42d633afd0a7c284114da90f4354be836",
+      "bytes": 3087,
+      "embedded_json": {
+        "learners": 2,
+        "workers": 2,
+        "workload": "mixed",
+        "driverSha256": "de1f0fee0189b308b6a148730b0e90edc6f37cd63dbce226fcf0d8a44cf8fcb4",
+        "configuredGeneralConnectionsPerWorker": 1,
+        "databaseAppConnectionLimit": 2,
+        "correctnessPassed": true,
+        "sloMs": 2000,
+        "http": {
+          "n": 8,
+          "min": 82.57354200000009,
+          "p50": 86.08304100000078,
+          "p95": 567.9022910000003,
+          "max": 567.9022910000003
+        },
+        "flow": {
+          "n": 8,
+          "min": 91.03379200000018,
+          "p50": 95.27445800000078,
+          "p95": 578.4848749999992,
+          "max": 578.4848749999992
+        },
+        "replayHttp": {
+          "n": 4,
+          "min": 22.54595900000004,
+          "p50": 27.355666999999812,
+          "p95": 35.57366699999966,
+          "max": 35.57366699999966
+        },
+        "crossWorkerReplayExactlyOnce": true,
+        "rounds": [
+          {
+            "kind": "round",
+            "round": 0,
+            "action": "start",
+            "totalMs": 97.91941700000007,
+            "http": {
+              "n": 2,
+              "min": 85.97270800000024,
+              "p50": 85.97270800000024,
+              "p95": 86.72341700000015,
+              "max": 86.72341700000015
+            },
+            "flow": {
+              "n": 2,
+              "min": 97.53041699999994,
+              "p50": 97.53041699999994,
+              "p95": 97.70974999999999,
+              "max": 97.70974999999999
+            }
+          },
+          {
+            "kind": "round",
+            "round": 1,
+            "action": "complete",
+            "totalMs": 97.57341699999961,
+            "http": {
+              "n": 2,
+              "min": 86.6309999999994,
+              "p50": 86.6309999999994,
+              "p95": 88.41150000000016,
+              "max": 88.41150000000016
+            },
+            "flow": {
+              "n": 2,
+              "min": 95.27445800000078,
+              "p50": 95.27445800000078,
+              "p95": 97.56858300000022,
+              "max": 97.56858300000022
+            }
+          },
+          {
+            "kind": "round",
+            "round": 2,
+            "action": "update",
+            "totalMs": 91.30787499999951,
+            "http": {
+              "n": 2,
+              "min": 82.57354200000009,
+              "p50": 82.57354200000009,
+              "p95": 82.74399999999969,
+              "max": 82.74399999999969
+            },
+            "flow": {
+              "n": 2,
+              "min": 91.03379200000018,
+              "p50": 91.03379200000018,
+              "p95": 91.30295900000056,
+              "max": 91.30295900000056
+            }
+          },
+          {
+            "kind": "round",
+            "round": 3,
+            "action": "mixed-practice-read-save",
+            "totalMs": 586.734042,
+            "http": {
+              "n": 2,
+              "min": 86.08304100000078,
+              "p50": 86.08304100000078,
+              "p95": 567.9022910000003,
+              "max": 567.9022910000003
+            },
+            "flow": {
+              "n": 2,
+              "min": 93.4370829999998,
+              "p50": 93.4370829999998,
+              "p95": 578.4848749999992,
+              "max": 578.4848749999992
+            }
+          }
+        ],
+        "maxAppConnections": 2,
+        "source": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source",
+        "buildId": "ao_TTrVRo7--I2U_Xow3t",
+        "sourceManifestSha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "interpretation": "Local synthetic HTTP requests through two production-build workers; not production/user evidence.",
+        "sloPassed": true
+      },
+      "embedded_json_canonical_sha256": "d4fbd0479a24160aa16ffefe1f1d8b6bc175bfb4539fb94eef45913e0d26b1a6"
+    },
+    "http-two-durable": {
+      "artifact_id": "http-two-durable",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/durable-state.json",
+      "sha256": "a14dede2021b954d405d3323167a0e65fb5dcdc5efb4c8086077e80bc32434e1",
+      "bytes": 389723
+    },
+    "http-two-connections": {
+      "artifact_id": "http-two-connections",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/connection-samples.json",
+      "sha256": "18ab27bbfc3e11f2bcad32d0ee059847d660de1577deeb548ac94a3dbbe0769a",
+      "bytes": 8759
+    },
+    "http-twenty-receipt": {
+      "artifact_id": "http-twenty-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/receipt.json",
+      "sha256": "e1e2cf9c3724d3a253397a415a4ee4f856ade56654cd9487814ef9d8b65dd681",
+      "bytes": 943,
+      "embedded_json": {
+        "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68",
+        "source": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source",
+        "buildId": "ao_TTrVRo7--I2U_Xow3t",
+        "learners": 20,
+        "sourceManifestSha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "syntheticOnly": true,
+        "deployment": false,
+        "providerCalls": 0,
+        "status": "passed",
+        "workload": "mixed",
+        "driverSha256": "de1f0fee0189b308b6a148730b0e90edc6f37cd63dbce226fcf0d8a44cf8fcb4",
+        "hostLoadStart": [
+          5.61572265625,
+          6.02783203125,
+          5.25390625
+        ],
+        "appConnectionLimit": 2,
+        "workerExitCodes": [
+          0,
+          0
+        ],
+        "postgresStopExit": 0,
+        "driverUnchanged": true,
+        "elapsedSeconds": 36.671000250004,
+        "hostLoadEnd": [
+          5.95166015625,
+          6.1162109375,
+          5.32421875
+        ],
+        "clusterPidAbsent": true
+      },
+      "embedded_json_canonical_sha256": "7e560bc7a8f85449ae4d8a3ca0631af2bc9fad37f4ef3c8f8cf20b15b629b6dc"
+    },
+    "http-twenty-result": {
+      "artifact_id": "http-twenty-result",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/http-result.json",
+      "sha256": "10e67621fc68b6018535dabefa74e48d2ce035e5903a493683a1a70ecb41b860",
+      "bytes": 3087,
+      "embedded_json": {
+        "learners": 20,
+        "workers": 2,
+        "workload": "mixed",
+        "driverSha256": "de1f0fee0189b308b6a148730b0e90edc6f37cd63dbce226fcf0d8a44cf8fcb4",
+        "configuredGeneralConnectionsPerWorker": 1,
+        "databaseAppConnectionLimit": 2,
+        "correctnessPassed": true,
+        "sloMs": 2000,
+        "http": {
+          "n": 80,
+          "min": 162.83150000000023,
+          "p50": 605.9992500000008,
+          "p95": 1704.320334,
+          "max": 1841.1343339999985
+        },
+        "flow": {
+          "n": 80,
+          "min": 178.04308300000048,
+          "p50": 655.5560830000031,
+          "p95": 1763.5461250000008,
+          "max": 1915.3501250000008
+        },
+        "replayHttp": {
+          "n": 40,
+          "min": 74.62020800000028,
+          "p50": 153.54254200000287,
+          "p95": 266.0097500000047,
+          "max": 273.66162500000064
+        },
+        "crossWorkerReplayExactlyOnce": true,
+        "rounds": [
+          {
+            "kind": "round",
+            "round": 0,
+            "action": "start",
+            "totalMs": 889.4648749999978,
+            "http": {
+              "n": 20,
+              "min": 162.83150000000023,
+              "p50": 466.9447079999991,
+              "p95": 784.1381250000013,
+              "max": 812.4585420000003
+            },
+            "flow": {
+              "n": 20,
+              "min": 178.04308300000048,
+              "p50": 509.63324999999895,
+              "p95": 868.1741249999977,
+              "max": 888.1827919999996
+            }
+          },
+          {
+            "kind": "round",
+            "round": 1,
+            "action": "complete",
+            "totalMs": 910.5214169999999,
+            "http": {
+              "n": 20,
+              "min": 181.5457920000008,
+              "p50": 472.8660839999975,
+              "p95": 829.0056250000016,
+              "max": 841.6312079999989
+            },
+            "flow": {
+              "n": 20,
+              "min": 195.68974999999773,
+              "p50": 512.1875,
+              "p95": 897.546542,
+              "max": 909.695334
+            }
+          },
+          {
+            "kind": "round",
+            "round": 2,
+            "action": "update",
+            "totalMs": 888.7958749999998,
+            "http": {
+              "n": 20,
+              "min": 171.52054100000169,
+              "p50": 466.89300000000003,
+              "p95": 814.2856670000001,
+              "max": 821.947709
+            },
+            "flow": {
+              "n": 20,
+              "min": 185.7834580000017,
+              "p50": 504.55674999999974,
+              "p95": 880.1909169999999,
+              "max": 888.0224170000001
+            }
+          },
+          {
+            "kind": "round",
+            "round": 3,
+            "action": "mixed-practice-read-save",
+            "totalMs": 1927.9485000000022,
+            "http": {
+              "n": 20,
+              "min": 678.1304999999993,
+              "p50": 1505.3186669999996,
+              "p95": 1780.7489169999972,
+              "max": 1841.1343339999985
+            },
+            "flow": {
+              "n": 20,
+              "min": 893.9945000000007,
+              "p50": 1547.426625,
+              "p95": 1845.9344999999994,
+              "max": 1915.3501250000008
+            }
+          }
+        ],
+        "maxAppConnections": 2,
+        "source": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source",
+        "buildId": "ao_TTrVRo7--I2U_Xow3t",
+        "sourceManifestSha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "interpretation": "Local synthetic HTTP requests through two production-build workers; not production/user evidence.",
+        "sloPassed": true
+      },
+      "embedded_json_canonical_sha256": "dda2d49c2652e4a993faea0c8ef2d35e67478e9a5092ff7a46824e7937cc12d5"
+    },
+    "http-twenty-durable": {
+      "artifact_id": "http-twenty-durable",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/durable-state.json",
+      "sha256": "6d45163ee892ba7e14e1211b0c16ee07a451ae84bb62f46e2063de364a84f40b",
+      "bytes": 3888041
+    },
+    "http-twenty-connections": {
+      "artifact_id": "http-twenty-connections",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/connection-samples.json",
+      "sha256": "954f33010a23b90861b7f6bace3e3269b3118eba4a833065bd4f9b5484faf534",
+      "bytes": 37846
+    },
+    "pg-course-receipt": {
+      "artifact_id": "pg-course-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-course-f010b1ba/receipt.json",
+      "sha256": "c0208de82cb4b00668ecb993a07d903fd3e774107bf01ea7941b461b15789233",
+      "bytes": 784,
+      "embedded_json": {
+        "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-course-f010b1ba",
+        "checkout": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP",
+        "source": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/lib/server/learnerAuthorityCourseIdentity.test.mjs",
+        "sourceSha256": "00a97cda72f2d52b6702892d029ba7046ae09845d17536b9be387d5ea8626e60",
+        "syntheticOnly": true,
+        "providerCalls": 0,
+        "status": "passed",
+        "hostLoadStart": [
+          4.271484375,
+          4.11328125,
+          4.3759765625
+        ],
+        "postgresStopExit": 0,
+        "hostLoadEnd": [
+          9.724609375,
+          5.3046875,
+          4.794921875
+        ],
+        "elapsedSeconds": 14.64835962500365,
+        "sourceUnchanged": true,
+        "clusterPidAbsent": true
+      },
+      "embedded_json_canonical_sha256": "6f86c6134a608416f6a0965c85532b068a46e2235158a12593c4bace3a0be730"
+    },
+    "pg-course-log": {
+      "artifact_id": "pg-course-log",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-course-f010b1ba/native.log",
+      "sha256": "d46304821ff43aecc6a81dbe10bcd1e760e7788f25fd508e3707c513d274dd3b",
+      "bytes": 2190
+    },
+    "pg-application-receipt": {
+      "artifact_id": "pg-application-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-application-832c8b52/receipt.json",
+      "sha256": "e5bf7102cb08fbd519075d8741e19af08ee809872cbf5454512027af4bf89df2",
+      "bytes": 792,
+      "embedded_json": {
+        "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-application-832c8b52",
+        "checkout": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP",
+        "source": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/lib/server/learnerAuthorityApplication.test.mjs",
+        "sourceSha256": "2ad72ad6821a8d2d2ad7fe71023ade91359dde4681db7e750d0783d8e7986624",
+        "syntheticOnly": true,
+        "providerCalls": 0,
+        "status": "passed",
+        "hostLoadStart": [
+          9.724609375,
+          5.3046875,
+          4.794921875
+        ],
+        "postgresStopExit": 0,
+        "hostLoadEnd": [
+          10.79638671875,
+          5.7744140625,
+          4.9716796875
+        ],
+        "elapsedSeconds": 13.621618874996784,
+        "sourceUnchanged": true,
+        "clusterPidAbsent": true
+      },
+      "embedded_json_canonical_sha256": "f5fb6da68e501019d9ee8713d155b1652c901f2bc17bef5cf20aca3bc9eebc83"
+    },
+    "pg-application-log": {
+      "artifact_id": "pg-application-log",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-application-832c8b52/native.log",
+      "sha256": "2c359bf1db4e98f31082d3cdf36141ce4a539c5c5041245b11dc0ea1e48e5af1",
+      "bytes": 2907
+    },
+    "p1-browser-r2-receipt": {
+      "artifact_id": "p1-browser-r2-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-browser-check-r2.json",
+      "sha256": "d2a448c589aa8cbdc40506c7da42a6e3ea8bb77bb942c005c153dfa55fd133c6",
+      "bytes": 1316,
+      "embedded_json": {
+        "checked_at": "2026-10-27T02:05:10.043466+08:00",
+        "source_commit": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+        "tested_source": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+        "tree": "924ca240e12d30a8845b4cbdea46531fa9ea1ce3",
+        "build_id": "ao_TTrVRo7--I2U_Xow3t",
+        "manifest_sha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "method": "Actual in-app browser against exact frozen production build on local3199 and private syntheticSQLite; existing localHKdemoaccount.",
+        "checks": {
+          "new_zhHans_title_visible": true,
+          "new_zhHans_instructions_visible": true,
+          "triangle_button_and_check_correct": true,
+          "corners_sides_3_3": true,
+          "console_errors": 0
+        },
+        "screenshot": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-r2-browser/pr297-p1-r2-verified.png",
+        "screenshot_sha256": "39de784b0a11e931e4c46913d45de60c6163805f419d3f5d2b71db8887d57898",
+        "ax_snapshot": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-r2-browser/pr297-p1-r2-verified-ax.txt",
+        "limits": [
+          "Local browser/Synthetic account only; not production or physical-device acceptance.",
+          "Earlier en/zhHant/drag evidence remains bound to originalsource01f; this additive check covers changedzhHans fields on newsource."
+        ]
+      },
+      "embedded_json_canonical_sha256": "6c50252b08da33103de26d3981573baa2df2e1ca8d82d9026a230f1162f099ae"
+    },
+    "p1-browser-r2-screenshot": {
+      "artifact_id": "p1-browser-r2-screenshot",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-r2-browser/pr297-p1-r2-verified.png",
+      "sha256": "39de784b0a11e931e4c46913d45de60c6163805f419d3f5d2b71db8887d57898",
+      "bytes": 77894
+    },
+    "p1-browser-r2-ax": {
+      "artifact_id": "p1-browser-r2-ax",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-r2-browser/pr297-p1-r2-verified-ax.txt",
+      "sha256": "7f392897ada82875d20a09d05c79cdc1ce14ac921d26779fc71affc0fd40f9b5",
+      "bytes": 7026
+    },
+    "teacher-browser-receipt": {
+      "artifact_id": "teacher-browser-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/teacher-contract-browser.json",
+      "sha256": "3b518ef973ca170fef22a5d8f1b947ec3ca5a1796d0d60d6ac38e96aaf47be95",
+      "bytes": 1357,
+      "embedded_json": {
+        "checked_at": "2026-10-27T02:19:29.618379+08:00",
+        "source_commit": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+        "runtime_build_source": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+        "runtime_equivalence_base": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+        "exact_test_only_delta": [
+          "app/api/attempts/routeFastPath.test.ts",
+          "lib/server/observabilityHooks.test.ts",
+          "lib/server/userStore/parentPostgresScopedMutations.test.ts",
+          "lib/server/userStore/postgresStorageReadiness.test.ts",
+          "lib/server/userStoreAuthAdminStoragePersistence.test.ts",
+          "lib/server/userStoreDemoCaliforniaLink.test.ts",
+          "lib/server/userStoreNovaPostgresAdmission.test.ts",
+          "lib/server/userStoreParentPostgresScopedReads.test.ts",
+          "lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts",
+          "scripts/postgres-schema-fast-path.test.mjs",
+          "tests/e2e/teacher-operations.spec.ts"
+        ],
+        "no_runtime_file_changes": true,
+        "browser_spec": "tests/e2e/teacher-operations.spec.ts",
+        "passed": 8,
+        "failed": 0,
+        "server_build_id": "ao_TTrVRo7--I2U_Xow3t",
+        "private_fixture_run": "teacher-contract-20261027",
+        "server_stopped_normally": true,
+        "log": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/teacher-contract-browser.log",
+        "log_sha256": "15aa8bc725aaab2bb60c85e50de7b127a9c0f25fa10f1b8e33edbcabda66e41b"
+      },
+      "embedded_json_canonical_sha256": "2c57f025276cc45370457a738397688c1c709e314475638fe1360b609455aec7"
+    },
+    "teacher-browser-log": {
+      "artifact_id": "teacher-browser-log",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/teacher-contract-browser.log",
+      "sha256": "15aa8bc725aaab2bb60c85e50de7b127a9c0f25fa10f1b8e33edbcabda66e41b",
+      "bytes": 1984
+    },
+    "legacy-direct-failed-gate": {
+      "artifact_id": "legacy-direct-failed-gate",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8/latency-gate.json",
+      "sha256": "312fc3505fbc826110474016046adbbcb789399ca090e8505800876c605a60ec",
+      "bytes": 190,
+      "embedded_json": {
+        "status": "budget-not-met",
+        "meanMs": 439.87334066666654,
+        "maxServiceMs": 460.26162499999964,
+        "tailMs": 8772.206625,
+        "limits": {
+          "meanMs": 90,
+          "maxServiceMs": 100,
+          "tailMs": 2000
+        },
+        "httpAcceptance": false
+      },
+      "embedded_json_canonical_sha256": "630d99420c828ae43f54fcc4c6fda9cefea7e35009fe5fac216be764ddc19f51"
+    },
+    "legacy-direct-receipt": {
+      "artifact_id": "legacy-direct-receipt",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8/receipt.json",
+      "sha256": "08e2270ac8d4cf738f2d129f11b3a9232fe60e9c77c1e55c6f27685c0efeb1b7",
+      "bytes": 775,
+      "embedded_json": {
+        "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8",
+        "checkout": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP",
+        "source": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/lib/server/userStore.ts",
+        "sourceSha256": "3db0c62e6e84241434216f2ddd570c75cda49ba6056869fd917d1a5a2e65db66",
+        "syntheticOnly": true,
+        "providerCalls": 0,
+        "status": "measured",
+        "hostLoadStart": [
+          5.9443359375,
+          8.1943359375,
+          6.87158203125
+        ],
+        "postgresStopExit": 0,
+        "hostLoadEnd": [
+          5.23095703125,
+          7.90087890625,
+          6.79736328125
+        ],
+        "elapsedSeconds": 15.233934083997156,
+        "sourceUnchanged": true,
+        "clusterPidAbsent": true
+      },
+      "embedded_json_canonical_sha256": "3b456ce1a965eb46a45cce0d811ace3154234cdebc719ccb1b5b3295b9d2a21c"
+    },
+    "legacy-direct-profile": {
+      "artifact_id": "legacy-direct-profile",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8/profile.json",
+      "sha256": "4a047918aa311d0bd692ec0cb2802519682834b65ed76654ac23af6042210ac8",
+      "bytes": 4216215
+    },
+    "legacy-lesson-sweep-failed-log": {
+      "artifact_id": "legacy-lesson-sweep-failed-log",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/final-integrated-e2e-chrome.log",
+      "sha256": "a1922e7c8e984364b846b4eae317761d1001bcc2d76f8645bbec7adfbd867a1d",
+      "bytes": 11954
+    },
+    "a18-p1-r2": {
+      "artifact_id": "a18-p1-r2",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/pr172-a18-review-r2.json",
+      "sha256": "2594c792082e80e5680eb4b069eef8d579d00eadc7300c86afc2d1ea114927a8",
+      "bytes": 3977,
+      "embedded_json": {
+        "reviewed_at_utc": "2026-10-26T17:58:33.212282+00:00",
+        "reviewer_agent": "/root/root_dirty_disposition",
+        "independence": "审核者未编写或修改六文件补丁；只读复核当前字节和既有证据，没有重复运行测试。",
+        "base_commit": "01f393519b4c823f9dca9c76654c9ffee9131b84",
+        "source_commit": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+        "tree": "924ca240e12d30a8845b4cbdea46531fa9ea1ce3",
+        "schema": "mais.a18.bounded-content-review.v1",
+        "review_id": "pr172-copy-a18-r2-20261027-01a16e91",
+        "lane": "A18",
+        "candidate": {
+          "id": "pr172-p1-shapes-copy-r2",
+          "path": "/Users/dongpinhu/.codex/worktrees/dirty-candidates-integration/MAIS-MVP/data/lessons.ts",
+          "sha256": "d41b63a1cb2d04fbfc8c15bec036641a9cd9c91d7d5ee823f79610ef30bf3918",
+          "previous_sha256": "2b42a8f94731fbda206c7ee42777c44a15af1a0e9d25b741b4d0e8c91ce09a45",
+          "track": "Hong Kong",
+          "grade": "P1",
+          "changed_fields": [
+            "visualization.title.zhHans",
+            "visualization.content.zhHans"
+          ],
+          "changed_localized_string_count": 2,
+          "context_localized_string_count": 4,
+          "intended_surface": "P1 图形与规律课 geometry-explorer 标题和操作说明"
+        },
+        "checks": [
+          {
+            "id": "fresh_identity",
+            "result": "pass",
+            "detail": "绑定新文件哈希及实际提交；旧2b42哈希的审核不冒充当前d41内容审核。"
+          },
+          {
+            "id": "translation_equivalence",
+            "result": "pass",
+            "detail": "逐字核对新增简体标题和说明，与未改英文及繁体四条字符串保持同一观察、选择、检查和计数任务；简繁用字自然且语义等价。"
+          },
+          {
+            "id": "mathematics_grade_and_ambiguity",
+            "result": "pass",
+            "detail": "未改变图形属性、规律任务、答案、数值或课程难度；步骤仍适合现有P1活动，无新增歧义。"
+          },
+          {
+            "id": "interaction_truth_and_visual_dependency",
+            "result": "pass",
+            "detail": "GeometryExplorer及课题数据字节与先前审核一致；按钮替代拖曳、检查反馈和图形属性仍支持同一说明。"
+          },
+          {
+            "id": "source_rights",
+            "result": "pass",
+            "detail": "项目内既有说明的同义简体补全，无外部教材、学术主张、素材、私有语料或新增权利依赖。"
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/dirty-candidates-integration/MAIS-MVP/components/visualizations/GeometryExplorer.tsx",
+            "sha256": "bed0fc1e081720293cdea19479ec734e3430536597ac22ad4fcaa593bfd7900c",
+            "unchanged_from_previous_review": true
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/dirty-candidates-integration/MAIS-MVP/data/topics.ts",
+            "sha256": "91215da1fd6b955d898459e32169742191442e6942e07a7880ddf7fe198268ff",
+            "unchanged_from_previous_review": true
+          }
+        ],
+        "issue_counts": {
+          "P0": 0,
+          "P1": 0,
+          "P2": 0,
+          "P3": 0
+        },
+        "findings": [],
+        "verdict": "approved-for-integration-review",
+        "claim_ceiling": "只批准新hash绑定的两条简体文案进入集成审核，不创建Promotion/生产/线上批准。",
+        "not_performed": [
+          "本审核未重跑浏览器或整套测试",
+          "旧S的英文/繁中浏览器证据不表述为新SHA简体UI已实测",
+          "未新增学术检索或外部模型调用"
+        ],
+        "previous_review": {
+          "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/pr172-a18-review.json",
+          "sha256": "3c0c05a7bb4461006ff9ae9edd5bb1d2230027331fb28be3686188d03fdcc574",
+          "relationship": "原冻结证据保留；本r2对新增简体字段重新审核，不覆盖旧记录。"
+        },
+        "next_owner": "A23",
+        "next_action": "消费r2候选哈希，核对当前性并与新SHA的相关集成/回归证据组合；新source的发布/运行门禁由相应负责会话提供。",
+        "skill": "/Users/dongpinhu/.codex/skills/mais-content-qa-approval-workflow/SKILL.md"
+      },
+      "embedded_json_canonical_sha256": "989d079b70db2f7af9874a017d55657fcca21207115e4807c714ab642beadd31"
+    },
+    "a11-core": {
+      "artifact_id": "a11-core",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review.json",
+      "sha256": "1bec0e457b85b826629bf019a26782ff95460e2c3aadf68d5550e344cdfad418",
+      "bytes": 41598,
+      "embedded_json": {
+        "schema": "mais.a11.storage-integration-review.v1",
+        "review_id": "storage-a11-review-20261027-01a16e91",
+        "reviewed_at_utc": "2026-10-26T17:44:57.620912+00:00",
+        "reviewer": {
+          "lane": "A11",
+          "agent_task": "/root/root_dirty_disposition",
+          "independence": "独立只读源码/差异/日志/回执审查；未编写候选、操作Git、启动测试负载、调用provider或读取生产凭据。"
+        },
+        "candidate": {
+          "base_commit": "b16991a6263d41642266b7b0b5f65446b11e5e1f",
+          "storage_commit": "baa5851c57bc149a539681d4d9eb9262286db88a",
+          "c1_composed_commit": "2889fe8200cf169e54b65882b76307e071bd8e0b",
+          "reviewed_tested_commit": "ffad4f1fa6431b30dab3c3a5dec6ed580dd180a1",
+          "parent_integration_commit": "01f393519b4c823f9dca9c76654c9ffee9131b84",
+          "tree": "015c8ae255e1b0608395885541f57f8e4255f86a",
+          "tree_equivalence_verified": true,
+          "review_checkout": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP",
+          "clean_at_review": true,
+          "changed_path_count": 123,
+          "path_manifest": [
+            {
+              "path": "app/api/accountMediaErasure.regressions.cjs",
+              "sha256": "15e89155898cc61b903327351b714540ae637294b63b335662233d386b15bcb9"
+            },
+            {
+              "path": "app/api/accountMediaErasure.test.ts",
+              "sha256": "6aca78b20e27f60b2aae4191cc1a5066984dc0d46ebbda306570588ba2f9d458"
+            },
+            {
+              "path": "app/api/admin/learner-data/[userId]/route.ts",
+              "sha256": "9d571d50569a4f084330d51f2d6bde0187da5f9d20e102cbbab1ca01b90c5473"
+            },
+            {
+              "path": "app/api/assessments/[assessmentId]/submit/route.ts",
+              "sha256": "0cfdb6c57765a48b00643f635111d033bb50daaf092fe1a997e806147c95ecca"
+            },
+            {
+              "path": "app/api/attempts/route.ts",
+              "sha256": "a50e1260308adb1362f0f986555e9cab2def9ffd03d20389606d25747dbf7a34"
+            },
+            {
+              "path": "app/api/attempts/routeFastPath.test.ts",
+              "sha256": "7476bae1df956e01753c510acbc9ea96c39a64db2c2f0b25b0615e661317a797"
+            },
+            {
+              "path": "app/api/attempts/routeSessionRevision.test.ts",
+              "sha256": "3c970d348ce6416a014e7ae9e8642decf38796e2e35de3e2c745eb0bcef2b4db"
+            },
+            {
+              "path": "app/api/auth/google/callback/handler.ts",
+              "sha256": "ebdd422c00048357f650dd296e30dda18bb33748c3f766142e909ed5559979aa"
+            },
+            {
+              "path": "app/api/auth/google/callback/malformedStateCookie.test.ts",
+              "sha256": "cc7661d5d1a407e0b60554f136589adc5f691b43bb2e6758d30745df4ff72e9b"
+            },
+            {
+              "path": "app/api/auth/google/callback/route.test.ts",
+              "sha256": "e370cc76a9eb9f7f7adccad2b1d9ae7f3b7c96895247c91cfbdb294564eadde1"
+            },
+            {
+              "path": "app/api/auth/google/callback/route.ts",
+              "sha256": "3bd4656d7a2dc17c76d3e03e03de2a76756ab87b94085ac8f522ed132a189e23"
+            },
+            {
+              "path": "app/api/auth/login/route.ts",
+              "sha256": "ba0ce045dc4401b77d92fbcf7992aa3a4dd2a33989b49329ec6b435cf927eb5d"
+            },
+            {
+              "path": "app/api/auth/logout-all/handler.ts",
+              "sha256": "13e6777d621fd96c722da39bd18f7d28cf98b4efb466ecdbbf5a10ef397327c9"
+            },
+            {
+              "path": "app/api/auth/password-change/handler.ts",
+              "sha256": "a108b4a1ccf27edd2be6bd762d63ed091af0b9d8706bad56881c7a70adc2c8b5"
+            },
+            {
+              "path": "app/api/auth/password-reset/confirm/handler.ts",
+              "sha256": "2872d5475e76045ca9b0039787238abfd4412b7324f87b8875603b575581abfa"
+            },
+            {
+              "path": "app/api/auth/password-reset/confirm/route.ts",
+              "sha256": "9938e78a7dea1345f0d528daf5a7f1647a3c3588de8e654ccd2d60850f07a962"
+            },
+            {
+              "path": "app/api/auth/password-reset/request/route.ts",
+              "sha256": "c6e26443ca200afa6c343dff3f20204ca137d5f77a6e06223920dd34e72efbde"
+            },
+            {
+              "path": "app/api/auth/register/route.ts",
+              "sha256": "43cbd70e941e0f4283f3d54ad9d7e22a23f4658dcff299c35e04edc634e0b0fc"
+            },
+            {
+              "path": "app/api/learning-events/route.ts",
+              "sha256": "da736ff6b0466dcb0797d9181762347c49521663cceda23ff0899f95ab66328e"
+            },
+            {
+              "path": "app/api/lesson-progress/route.ts",
+              "sha256": "081fd65b3420b690417d79d72016410f09cca3281064e41461963cefca9154b1"
+            },
+            {
+              "path": "app/api/malformedSessionCookie.test.ts",
+              "sha256": "b0515c8428662e2785e432f057f8d68e74f2ac969b751e37577a569a551c1223"
+            },
+            {
+              "path": "app/api/me/account/route.ts",
+              "sha256": "03cd8b6b61d8cf4e0de300dcf5161ae2e3460b6c4a2a5e0dd8317e3698413875"
+            },
+            {
+              "path": "app/api/media-objects/[...objectKey]/route.ts",
+              "sha256": "270032007eb68bd93c1f1c1c177716b5d6f023823a9d52dec009e327b12ae284"
+            },
+            {
+              "path": "app/api/media-objects/route.ts",
+              "sha256": "509dfc11e4e89eda957fc694c20c9d8bb8314990e7471c6017e92429752555c2"
+            },
+            {
+              "path": "app/api/questions/route.ts",
+              "sha256": "8b59b597d3e224a6639d3d97ff91e8fe3f8d97623450217d5ae3c120983b8d28"
+            },
+            {
+              "path": "app/api/rewards/redeem/route.ts",
+              "sha256": "58d942237cecebf03fdd2dbad7965a6d5e371a19f1353267dea8b61c7ffe6e4b"
+            },
+            {
+              "path": "app/api/studentActivityIdentity.test.ts",
+              "sha256": "5c145a652b4fb6e4b070fd012498e99c16b950ee5bc9721fdd4f222dcf381993"
+            },
+            {
+              "path": "app/api/teacher/rewards/award/route.ts",
+              "sha256": "8698a91c99290ce4056800b65e8d8ce6ed36b5a764bdd0810feb44c128da7857"
+            },
+            {
+              "path": "app/api/teacher/rewards/redemptions/[requestId]/route.ts",
+              "sha256": "32447115afb89da38eced5cd63560041855aa4044133441269ed149c0f3125cd"
+            },
+            {
+              "path": "app/api/teacher/submissions/[submissionId]/grading-runs/route.ts",
+              "sha256": "cb4a8a2a866d3057ee504db3d490d05e469298da7558135e18721e4444d88665"
+            },
+            {
+              "path": "app/api/teacher/submissions/[submissionId]/review/route.ts",
+              "sha256": "ad4ac4917659ff0d466bc23207dae62e8b4444bd3f5fe78559bbf0a3780c1cde"
+            },
+            {
+              "path": "app/api/teacher/submissions/[submissionId]/route.ts",
+              "sha256": "8ba1964abfeb54d4a3053e326db6494f65cb1875933e3657a3bf3c5ebc8055f9"
+            },
+            {
+              "path": "app/api/visualization-sessions/route.ts",
+              "sha256": "ec250c80482e1d7403ff05dae291654b35a36120f11450c3128415bdcaeca9e1"
+            },
+            {
+              "path": "components/learning/LearningRoadmap.tsx",
+              "sha256": "15078620e5ba695d57872702b13c2f6a0c65e1b6a2153cb30edb307e00e422d7"
+            },
+            {
+              "path": "components/learning/SubwayNetworkMap.tsx",
+              "sha256": "cf39f977e72e7d423b5702ae97e28cefae33faa1fe8c512c95e709381bc09ad5"
+            },
+            {
+              "path": "components/learning/courseIdentityPipeline.test.ts",
+              "sha256": "91f275b87624e8bb142064cad4b31889ad713f3b503bc595175b520497b1faef"
+            },
+            {
+              "path": "components/lesson/LessonView.tsx",
+              "sha256": "27d3c3420b986500f948d5f1b3bd4e204ea76c74e558c73413aa71991cd088bd"
+            },
+            {
+              "path": "coordination/decisions/2026-09-24-state-adaptation-seams-review.md",
+              "sha256": "156156964c0e4df1d9d12c236c27fe22d83167e6de00ada30326e65a82b6abf4"
+            },
+            {
+              "path": "coordination/session-logs/2026-09-28-A08-course-identity-current-main.md",
+              "sha256": "0bf38ddaa907ac13c7e568379270404655cd3db7df1bbb3abca86ad4d7749dba"
+            },
+            {
+              "path": "data/lessons.ts",
+              "sha256": "2b42a8f94731fbda206c7ee42777c44a15af1a0e9d25b741b4d0e8c91ce09a45"
+            },
+            {
+              "path": "docs/superpowers/plans/2026-10-27-retained-candidate-integration.md",
+              "sha256": "44b870db2f3e28eeea9177dffad59b356b9e9ba1fe1d2ea1019ae7eae6919d97"
+            },
+            {
+              "path": "lib/curriculumCourses.test.ts",
+              "sha256": "1bf3b5ad0c51045a7b210a49f3208fbe5a614b921927801c9ee0d090f4c753db"
+            },
+            {
+              "path": "lib/curriculumCourses.ts",
+              "sha256": "7912dc982b48eea4ffef9383d2dae28deaf0e61d3e7e147192c917dc3ad678b8"
+            },
+            {
+              "path": "lib/gamification.ts",
+              "sha256": "090fae89adfe048ff953566ac583435d8b0b5399d9cbbb19d6d0fabe4a56b55b"
+            },
+            {
+              "path": "lib/lessonProgressRequest.test.ts",
+              "sha256": "77de5c22c26a725b819cf59a380ec58f8085ee9ea75f852f5ce9d40528f368c9"
+            },
+            {
+              "path": "lib/lessonProgressRequest.ts",
+              "sha256": "3aa2da89c76deb20309d167957949ac673ef1ddda1ba24169f1c08d7994a7bf0"
+            },
+            {
+              "path": "lib/mvpReadiness.test.ts",
+              "sha256": "95b2cdd006334a39c1bb320054fddcdb116280576eaf6da0d0827213207f5c69"
+            },
+            {
+              "path": "lib/server/accountDataPostgres.test.mjs",
+              "sha256": "0d8e47ac574179934051ec33236963066e1b3cb676a096292e94791f0df23d50"
+            },
+            {
+              "path": "lib/server/accountDataPostgres.ts",
+              "sha256": "9095293f63edfc2d103f318ca15fb5dcc8848ebd0e702f986a2d87cc47e07154"
+            },
+            {
+              "path": "lib/server/accountDataPostgresIntegration.test.mjs",
+              "sha256": "688fbfff85c4113995fdbbbbb33afdbcec23e565a008559ba3be56885e6a8091"
+            },
+            {
+              "path": "lib/server/assessmentAudience.ts",
+              "sha256": "e3fefd0d7815d128676fa404d40b9857af46eb9b68f9f5f9c08d8e2aa03d44b5"
+            },
+            {
+              "path": "lib/server/auth.ts",
+              "sha256": "5243bc8ca1aa95b52402ed161b64ce212b3bd3efafb5b02174588ea5cb059e05"
+            },
+            {
+              "path": "lib/server/googleOAuth.test.ts",
+              "sha256": "7b1dc142a7924c8aa9cf236768fdebe05d8823f1265ebaa044e8837d15f640f9"
+            },
+            {
+              "path": "lib/server/googleOAuth.ts",
+              "sha256": "64babc48389856ac3c7dbccb16daa200faff9f1cde4e521b97f2e058bf9feae7"
+            },
+            {
+              "path": "lib/server/learnerAuthority.ts",
+              "sha256": "27a2c0eb67cfedf74e534593a2229ccf98f72ea0d2cca21eb693e087122f0910"
+            },
+            {
+              "path": "lib/server/learnerAuthorityApplication.test.mjs",
+              "sha256": "2ad72ad6821a8d2d2ad7fe71023ade91359dde4681db7e750d0783d8e7986624"
+            },
+            {
+              "path": "lib/server/learnerAuthorityCourseIdentity.test.mjs",
+              "sha256": "00a97cda72f2d52b6702892d029ba7046ae09845d17536b9be387d5ea8626e60"
+            },
+            {
+              "path": "lib/server/learnerAuthorityIntent.ts",
+              "sha256": "4f31234ab074d8ab7d32bd1fd94e7b506e670a86bf2b97a91b3d03d8c8f5cfaa"
+            },
+            {
+              "path": "lib/server/learnerAuthorityMigration.test.mjs",
+              "sha256": "120ca0010d3e6082c73c38a66d88ba081353d4a66ada0b7f6b31092faff108d8"
+            },
+            {
+              "path": "lib/server/learnerAuthorityParticipants.test.mjs",
+              "sha256": "e042dc02875a087478a730c405c0dcffc466575ac1e45bd82949fb1fbbfdaa47"
+            },
+            {
+              "path": "lib/server/learnerAuthorityPostgresIntegration.test.mjs",
+              "sha256": "b0ede8be941775c05a4655714fe0bcfea9eab2cd1c5824bcd7b232f6b3c28b43"
+            },
+            {
+              "path": "lib/server/learnerAuthoritySchema.ts",
+              "sha256": "b4afaa0549dd1881c46c27ca808b3de199fb4e7771ecd0916cbc2895aa26a98c"
+            },
+            {
+              "path": "lib/server/learnerAuthorityState.test.ts",
+              "sha256": "19c40a00c7505e9512f064e182f2fea655f4c7146db0a1ff836b5d564b0c8c19"
+            },
+            {
+              "path": "lib/server/learnerAuthorityState.ts",
+              "sha256": "6a7a7966c440493a0530a4f00db3883b44478cbe36a50d3cda18d179998de529"
+            },
+            {
+              "path": "lib/server/learnerAuthorityTransactions.test.mjs",
+              "sha256": "0b300fab74508a5b9a9fff3d4914216071540f3fd6dbc4e87889591a5c6e30ca"
+            },
+            {
+              "path": "lib/server/mediaObjectStore.test.ts",
+              "sha256": "e2ba19d893401f5336469e190d7b075877f49766030636a045164d82521ebe9c"
+            },
+            {
+              "path": "lib/server/mediaObjectStore.ts",
+              "sha256": "486d6ea595a71eb1626c38e9990fe28af2dd163a943856c83a7137713b96161e"
+            },
+            {
+              "path": "lib/server/mediaOwnerErasure.regressions.cjs",
+              "sha256": "f707b3d101f69c5d7c09eec73155a844dead51684a0abc6cca8c48c7f13dc061"
+            },
+            {
+              "path": "lib/server/mediaOwnerErasure.test.ts",
+              "sha256": "040a5656b957cdd048b74c1b398e36a132856b1f450f846accbbba4af682596a"
+            },
+            {
+              "path": "lib/server/mediaOwnerErasure.ts",
+              "sha256": "19a11d58bde27d0028046deb5205fe62aaea9ff4763dd20846db92c15eba2015"
+            },
+            {
+              "path": "lib/server/mediaOwnerErasurePartialUploadWorker.cjs",
+              "sha256": "55039e02d601143b78a1482af4c62f538e87ded03c98383af22daed920e5d6ec"
+            },
+            {
+              "path": "lib/server/mediaOwnerErasureUploadWorker.cjs",
+              "sha256": "9102f17cb5ab2da4fc3244eee7a17c09e0e578428b2ea0d1d714c3982a833473"
+            },
+            {
+              "path": "lib/server/practiceAttemptStore.test.ts",
+              "sha256": "38d56d0fce54c126c91d43626641b1b4ccdc5fc74e24ee18cfb5ede0a7075046"
+            },
+            {
+              "path": "lib/server/practiceAttemptStore.ts",
+              "sha256": "5a7f6f9d45787247df208200b5bffe89fc9c3db17d5680ea8d6b054e04422537"
+            },
+            {
+              "path": "lib/server/practiceSubmissionIdentity.ts",
+              "sha256": "fcba8928bef8100c6c4bd05ab69807c16562041f519921daed4ec8f103968f75"
+            },
+            {
+              "path": "lib/server/requestMutationActor.test.ts",
+              "sha256": "0bfea8b01eb7f8fad9e2b7a57858b7ccc16504c5bd017e53cc197b9ce6ce3123"
+            },
+            {
+              "path": "lib/server/requestMutationActor.ts",
+              "sha256": "27cf7bd5c5db04c72f2f1c1d6484541b8022efb4f10a2d1512d7062972e6aad8"
+            },
+            {
+              "path": "lib/server/sessionCookie.ts",
+              "sha256": "a6ff4b16135104cbb273a7e3cbc02f8b8bf66ca80d5cf0373b324ef26d3ddc38"
+            },
+            {
+              "path": "lib/server/studentActivityPostgres.test.ts",
+              "sha256": "d020836fbb4522d505d914f3aa51691e2352958ba5da50a4f8c44e7f49d1d7ad"
+            },
+            {
+              "path": "lib/server/studentActivityPostgres.ts",
+              "sha256": "4265b82ad1d22938a8c1413bcdbf6b52ac91e5c97c29122151e97b00eacfa348"
+            },
+            {
+              "path": "lib/server/studentActivityPostgresIntegration.test.mjs",
+              "sha256": "0e4b224e210922a7e1cf6adc99681ce1e4216a9c4be5fd2973cac0e33c7b2677"
+            },
+            {
+              "path": "lib/server/studentSubmissionConcurrency.test.ts",
+              "sha256": "f694b5cfe1daa8789890121db242616070488a646fd172c3757c7a14da13bd87"
+            },
+            {
+              "path": "lib/server/teacherClassAccess.test.ts",
+              "sha256": "2ef83e204e2453ca165b6374f1db82ccb5689cee45babf206e23527f084f909c"
+            },
+            {
+              "path": "lib/server/teacherClassAccess.ts",
+              "sha256": "0b68c58ae9782ce260be30558d2b6ef9dd786886bf6bab6104e5d272df2e358f"
+            },
+            {
+              "path": "lib/server/teacherMediaAccess.test.ts",
+              "sha256": "15bdd2db0a6b3cda32adcda672158a92aaf9e0db06b24203d881acba84781186"
+            },
+            {
+              "path": "lib/server/teacherMediaAccess.ts",
+              "sha256": "50ae3955bad4bbf32f40fc1eba7f6347c0a6cba386c0987b831472c1f02a830d"
+            },
+            {
+              "path": "lib/server/userStore.ts",
+              "sha256": "3db0c62e6e84241434216f2ddd570c75cda49ba6056869fd917d1a5a2e65db66"
+            },
+            {
+              "path": "lib/server/userStore/accountDeletionPersistence.ts",
+              "sha256": "3c5077a285a53996bdef18668115095da6b542a00366ffdbdab33fbf0bbbbd0b"
+            },
+            {
+              "path": "lib/server/userStore/aiGovernancePersistence.ts",
+              "sha256": "390727a2e8762ced8f5ccea5be2ac045f2802cca4f355ad9825831c2b72f1149"
+            },
+            {
+              "path": "lib/server/userStore/authSessionPersistence.ts",
+              "sha256": "b4a6056ca13d2072d15783f0b0af9fa47c46ff7f71563aab9d84a2068f550497"
+            },
+            {
+              "path": "lib/server/userStore/gamificationRewardRedemptionPersistence.ts",
+              "sha256": "b8e33eca3e9c328092a0494d078ba8b5890cb8b69d44a48e7cff2f3b127f58d3"
+            },
+            {
+              "path": "lib/server/userStore/lessonSeedQuestionScan.test.mjs",
+              "sha256": "7270db34dc886cf0d09f7ddec34fb008525c18918952e76a3ea2a2975a3af882"
+            },
+            {
+              "path": "lib/server/userStore/postgresDeferredProjectionSync.test.mjs",
+              "sha256": "644eb7d4fd9d9abae9f6592a4541b6c1e86dd628791147b1a60de3fffc8bd1c5"
+            },
+            {
+              "path": "lib/server/userStore/postgresLessonMutation.test.mjs",
+              "sha256": "979453c478c714bf148e58dc8b1216a31de997c96e94708d0679309c44d23b07"
+            },
+            {
+              "path": "lib/server/userStore/postgresProjectionNoop.test.mjs",
+              "sha256": "55c7e2e9445d1e612b36bc9be344ce84814f59f8515bfb7e566cbf0af56ebe81"
+            },
+            {
+              "path": "lib/server/userStore/scopedLessonContext.test.ts",
+              "sha256": "e82e8b6be5fadcaae66474c33e2a3b13dd6cd717862de7dcfd7599bc4cbc8849"
+            },
+            {
+              "path": "lib/server/userStore/scopedLessonPostgresIntegration.test.mjs",
+              "sha256": "dd098f593ac6e886dcf2104616ebcc833af0386ad8aace4b61c6b2dfb5ef2df6"
+            },
+            {
+              "path": "lib/server/userStore/studentActivityPersistence.ts",
+              "sha256": "91ed85f1bc8b2e5f50cfb15106b4c736391d205daf1f443108cb82c907315d36"
+            },
+            {
+              "path": "lib/server/userStore/teacherNoticeEmailOutboxPersistence.ts",
+              "sha256": "8342278e008ddde1eaba8b73ad102c8bdde621240c46ad3f958771d0bab7ec2d"
+            },
+            {
+              "path": "lib/server/userStore/teacherOpsOperationsPersistence.ts",
+              "sha256": "bf9c6a621567bf05ab365053dd91e498075e542c52eaebad5f0f6bb05e080853"
+            },
+            {
+              "path": "lib/server/userStore/teacherOpsSubmissionPersistence.ts",
+              "sha256": "897d043290b5e9a8969bdf4546f5ac9b54dc5db76bbbf79cfb1d1dbca7438713"
+            },
+            {
+              "path": "lib/server/userStoreAccountDeletion.test.ts",
+              "sha256": "eaa8492af503363ea6fde61381d1341a28e440a438a0a698a948cdc5b9fbb4d8"
+            },
+            {
+              "path": "lib/server/userStoreAiGovernancePersistence.test.ts",
+              "sha256": "6ceb0206c1838e1070d00cce41b304392520e821cba300e4a039e10580e6ae76"
+            },
+            {
+              "path": "lib/server/userStoreAuthSessionPersistence.test.ts",
+              "sha256": "ad7e22d25ebd9cfdf280c44d0b98ae9bbea1b4df0452390a53a4cfba97930725"
+            },
+            {
+              "path": "lib/server/userStoreGamificationGamePersistence.test.ts",
+              "sha256": "08659be94803921cee6f69d1c23c8b28eaf1eedf31f90096d3fd3eeb86033657"
+            },
+            {
+              "path": "lib/server/userStoreGamificationRewardRedemptionPersistence.test.ts",
+              "sha256": "b52122c2383e035790e8e40a96bde1e67a2d2970c2244ac924f0d0b3177a40c6"
+            },
+            {
+              "path": "lib/server/userStoreSessionRevisionPostgres.test.ts",
+              "sha256": "8a3ca9defb096b25b45339258fc4508dd2030dc1d6b5b60db76a35aec5d9aabb"
+            },
+            {
+              "path": "lib/server/userStoreStudentActivityPersistence.test.ts",
+              "sha256": "580973e00ceb2a0e988634e39979ae838f452af99193786bacbdac88afbdfd9b"
+            },
+            {
+              "path": "lib/server/userStoreTeacherOpsOperationsPersistence.test.ts",
+              "sha256": "fb591b7d33e7b11570f2ccf3232527a31d514f9aa1a35b326d9415ff6de01c89"
+            },
+            {
+              "path": "lib/session.ts",
+              "sha256": "c97fd8d32e32c9bfd1820abb1e881d37ed0f756b379473d0215cefd03b6e3121"
+            },
+            {
+              "path": "scripts/learner-authority/http-load.mjs",
+              "sha256": "de1f0fee0189b308b6a148730b0e90edc6f37cd63dbce226fcf0d8a44cf8fcb4"
+            },
+            {
+              "path": "scripts/learner-authority/prepare-http.py",
+              "sha256": "78dcc3daa29a0d8422d32643d84e8f79bb70a3726da73c5f8c28e48a0d6ceac8"
+            },
+            {
+              "path": "scripts/learner-authority/run-http.py",
+              "sha256": "99db0f8544553df3296de0d51f11555ea9d13febd2d6ae93b83ae566c4893372"
+            },
+            {
+              "path": "scripts/learner-authority/run-native.py",
+              "sha256": "a904ecc5c174de96d863c07e3b228210d4e731804fa257c5adcf354b8db87496"
+            },
+            {
+              "path": "scripts/lesson-save-budget/check-latency-budget.mjs",
+              "sha256": "af45b71d90cbe71acd04292f5f9168035cfa1ac5edd0b45b0c6c9ec3595411f0"
+            },
+            {
+              "path": "scripts/lesson-save-budget/check-work-budget.mjs",
+              "sha256": "d4b171a6719c0e7453201aa4ca720cfd269d735f8bc61315eaccb7beb4280196"
+            },
+            {
+              "path": "scripts/lesson-save-budget/instrument.mjs",
+              "sha256": "6aaeff52da1b909527f939e1c8bb41f9872f6535881ab0b1cd8111fdae63b607"
+            },
+            {
+              "path": "scripts/lesson-save-budget/profile.mts",
+              "sha256": "9a57f2948e95b0c48cbc6d1e9674ceee713538531b4ab2d1c8d275dd97c3c7a4"
+            },
+            {
+              "path": "scripts/lesson-save-budget/run-profile.py",
+              "sha256": "9a04dd96bd2810a656f7847eb48a39d80e3f49eb7c7b771c2ddabfa4b04e730b"
+            },
+            {
+              "path": "scripts/storage-admin-snapshot-merge.mjs",
+              "sha256": "98c53441c0b02e3a483a8962afaa51ceb5d438384d4bab44dfa0059f14f362b8"
+            },
+            {
+              "path": "tests/e2e/backend-api.spec.ts",
+              "sha256": "15ff9dfddf0a1f5c96b5d01e76665e5f4a791d35a87b3aae30bb2e490327666b"
+            },
+            {
+              "path": "tests/e2e/course-topic-label.spec.ts",
+              "sha256": "20787d746d5a5dc393bb0e8e11cdfe16ad17f01b42e34378bd101fb188b60fac"
+            },
+            {
+              "path": "types/index.ts",
+              "sha256": "b244961341a1f5296cdd6169c4bf5370f39c11eb8b27a8098bdc7837702985d7"
+            }
+          ],
+          "path_manifest_sha256": "20746cebf0eef8b754218231b0835d4ba55ca18c5a35ee724717d8f1989a2d3c",
+          "http_runtime_manifest_sha256": "2f7049a7d230815bd79183839ea95ff878b6a1231c728401881a834ebb7707fa",
+          "http_runtime_changed_files_verified": 120,
+          "runtime_manifest_excludes_documents": [
+            "coordination/decisions/2026-09-24-state-adaptation-seams-review.md",
+            "coordination/session-logs/2026-09-28-A08-course-identity-current-main.md",
+            "docs/superpowers/plans/2026-10-27-retained-candidate-integration.md"
+          ]
+        },
+        "method": "审查高风险生产实现及关键差异，核对身份/权限/事务/失败关闭/读取范围/奖励/媒体与C1组合；直接消费各负责会话保留的验证证据并核验文件哈希，不把消费证据表述为本审核者独立重跑。",
+        "checks": [
+          {
+            "id": "account_session_identity",
+            "status": "pass-scoped-review",
+            "finding": "当前请求身份、会话版本、账号generation及role在认证和受锁事务中再次校验；credential流程只绕开旧浏览器cookie，仍执行自身凭据验证；新cookie绑定已提交generation。"
+          },
+          {
+            "id": "authority_atomicity",
+            "status": "pass-scoped-review",
+            "finding": "独立事务保留有序账号/资源锁、generation/reset/publication/definition绑定、CAS、receipt重放冲突检查、全局claim、journal/invalidation及提交前最终状态校验。拒绝和异常抛出会回滚耦合写入。"
+          },
+          {
+            "id": "fresh_dashboard_progress",
+            "status": "pass-scoped-review",
+            "finding": "Dashboard与Progress共享repeatable-read及维护共享锁下的单学习者authority view，活动authority分支先于旧projection catch/fallback；空权威数组不会被旧记录复活，缺失或畸形活动状态不会静默回退。"
+          },
+          {
+            "id": "scoped_learner_save",
+            "status": "pass-scoped-review",
+            "finding": "受限上下文保留原始记录顺序和重复项；只合并允许的学习者变化，再向完整同步器交付完整数据库；未弱化精确内容匹配、CAS、RETURNING/最终读回或回滚。"
+          },
+          {
+            "id": "reward_caps",
+            "status": "pass-scoped-review",
+            "finding": "部分实际发放的capped事件纳入日上限与source去重；零发放保留重试语义；teacher-award全额约束避免先产生虚假正额事件。"
+          },
+          {
+            "id": "media_erasure",
+            "status": "pass-scoped-review",
+            "finding": "canonical账号锁下建立/提交/回滚删除标记，上传租约及完整owner哈希阻止擦除后发布；物理清理不确定、活跃上传、坏元数据和符号链接均保留pending/拒绝状态；最终披露前再次检查删除标记。"
+          },
+          {
+            "id": "course_composition",
+            "status": "pass-scoped-review",
+            "finding": "两个共享userStore冲突保留lessonContent缓存来源及主线demo/progress语义，再加入成对课程字段；PG测试覆盖已有seed字段传播、同源维护发布对custom canonical映射新增/撤回、旧intent拒绝及新保存可读。跨build源内容自动迁移未被加入。"
+          },
+          {
+            "id": "source_and_ui_binding",
+            "status": "pass-scoped-review",
+            "finding": "storage110路径及后续C1/P1/计划/PG测试组合为相对基线123路径；tested与integration SHA明确不同但完整tree一致。HTTP runtime manifest中的120个变更文件逐个匹配，缺省仅3份文档。C1缩放问题有确定性RED/GREEN，P1另有实际双语按钮/拖曳浏览器证明。"
+          }
+        ],
+        "new_actionable_findings": [],
+        "new_issue_counts": {
+          "P0": 0,
+          "P1": 0,
+          "P2": 0,
+          "P3": 0
+        },
+        "code_review_verdict": "approve-scoped-review",
+        "scope_accepted": true,
+        "validation": {
+          "a12_checks": {
+            "strict_type": "type-joint.log:passed",
+            "focused_storage": {
+              "tests": 426,
+              "passed": 424,
+              "skipped": 2,
+              "skip_scope": "opt-in native PostgreSQL tests; native suite exercised separately",
+              "log": "focused-second.log"
+            },
+            "analytics": {
+              "passed": 59,
+              "skipped": 0,
+              "log": "analytics.log"
+            },
+            "joint_course_sqlite_helpers_shared_store": {
+              "passed": 71,
+              "log": "course-joint.log"
+            },
+            "native_before_c1": {
+              "schema": 17,
+              "transactions": 17,
+              "migration": 1,
+              "participants": 7,
+              "application": 11,
+              "legacy_scoped": 13,
+              "all_passed": true,
+              "zero_skips": true
+            },
+            "native_final_joint": {
+              "application": {
+                "passed": 11,
+                "run": "joint-application-aa91f044"
+              },
+              "legacy_scoped": {
+                "passed": 13,
+                "run": "joint-legacy-scoped-bb04d7dd"
+              },
+              "course_publication": {
+                "passed": 5,
+                "run": "joint-course-verified-fdb4c0cc"
+              }
+            }
+          },
+          "pg_course_scope": "Reviewed seed mapping propagates through PostgreSQL publication/roadmap/dashboard/adaptive; custom canonical mapping addition/withdrawal uses complete maintenance publication and invalidates stale definitions; unmatched build source versions remain rejected, not automatically migrated.",
+          "authority_http": {
+            "two_learners": {
+              "learners": 2,
+              "workers": 2,
+              "workload": "mixed",
+              "http": {
+                "n": 8,
+                "min": 82.83366700000079,
+                "p50": 87.6840000000002,
+                "p95": 604.3501670000005,
+                "max": 604.3501670000005
+              },
+              "flow": {
+                "n": 8,
+                "min": 91.32099999999991,
+                "p50": 96.06258400000024,
+                "p95": 615.8120839999992,
+                "max": 615.8120839999992
+              },
+              "replayHttp": {
+                "n": 4,
+                "min": 24.165458999999828,
+                "p50": 29.302875000000313,
+                "p95": 37.95337500000005,
+                "max": 37.95337500000005
+              },
+              "correctnessPassed": true,
+              "sloPassed": true,
+              "crossWorkerReplayExactlyOnce": true,
+              "maxAppConnections": 2,
+              "sourceManifestSha256": "2f7049a7d230815bd79183839ea95ff878b6a1231c728401881a834ebb7707fa",
+              "buildId": "RCJZnj8hlYDL39EaIlcmJ",
+              "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-56a9c24a1d"
+            },
+            "twenty_learners": {
+              "learners": 20,
+              "workers": 2,
+              "workload": "mixed",
+              "http": {
+                "n": 80,
+                "min": 164.0508329999975,
+                "p50": 602.2289170000004,
+                "p95": 1692.8208750000013,
+                "max": 1828.7033340000016
+              },
+              "flow": {
+                "n": 80,
+                "min": 181.04520800000319,
+                "p50": 661.2518339999988,
+                "p95": 1755.0004999999983,
+                "max": 1905.9904590000006
+              },
+              "replayHttp": {
+                "n": 40,
+                "min": 75.4253749999989,
+                "p50": 155.88420800000313,
+                "p95": 288.1513750000013,
+                "max": 296.109832999995
+              },
+              "correctnessPassed": true,
+              "sloPassed": true,
+              "crossWorkerReplayExactlyOnce": true,
+              "maxAppConnections": 2,
+              "sourceManifestSha256": "2f7049a7d230815bd79183839ea95ff878b6a1231c728401881a834ebb7707fa",
+              "buildId": "RCJZnj8hlYDL39EaIlcmJ",
+              "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-aec374622f"
+            }
+          },
+          "authority_http_scope": "local synthetic requests through two production-build workers,1 general connection each; mixed round adds one practice request and20dashboard reads; not cold-start/remote-network/20simultaneous-practice/production acceptance",
+          "legacy_direct": {
+            "run": "joint-direct-latency-78f843d8",
+            "mode": "legacy/scoped",
+            "authority_enabled": false,
+            "fixture": "direct-budget-fixture-final-24b19714",
+            "fresh_fixture": true,
+            "original_frozen_fixture_reused": false,
+            "canonical_payload_bytes": 3601626,
+            "original_work_volume_guard_bytes": [
+              3800000,
+              4000000
+            ],
+            "work_volume_gate_not_run": "Fresh fixture differs from the original frozen v12 fixture; no byte-budget equivalence or measured speedup is claimed.",
+            "serial_samples": 6,
+            "burst_samples": 20,
+            "scoped_admissions": 26,
+            "durable_readback": true,
+            "gate": {
+              "status": "budget-not-met",
+              "meanMs": 439.87334066666654,
+              "maxServiceMs": 460.26162499999964,
+              "tailMs": 8772.206625,
+              "limits": {
+                "meanMs": 90,
+                "maxServiceMs": 100,
+                "tailMs": 2000
+              },
+              "httpAcceptance": false
+            },
+            "interpretation": "Same legacy/scoped protocol and original thresholds; retained failed budget, not replaced by authority HTTP success."
+          },
+          "legacyBudgetPassed": false,
+          "authorityHTTPPassed": true,
+          "allModePerformancePassed": false,
+          "browser_backend_course": {
+            "passed": 12,
+            "legacy_lesson_sweep_fixture_failed": 1,
+            "initial_launch_environment": "先前9项在chromium-1217缺失处未执行；已保留该轮记录。Chrome重跑结果另计，未称初轮功能失败已修复。"
+          },
+          "p1_direct_browser": {
+            "english_title_and_instructions_visible": true,
+            "button_triangle_then_check_correct": true,
+            "traditional_chinese_title_and_instructions_visible": true,
+            "reset_then_drag_triangle_to_slot_then_check_correct": true,
+            "triangle_corners_and_sides_3_3": true,
+            "captured_console_errors": 0
+          },
+          "p1_direct_browser_method": "Actual Codex in-app browser with local server on127.0.0.1:3199, fresh syntheticSQLite and built-in HK demo login; direct accessibility/screenshot observation."
+        },
+        "legacy_profile_diagnosis": {
+          "scoped_admissions": 26,
+          "jsonMeasured": false,
+          "phase_spans_available": false,
+          "parameter_bytes": [
+            293881,
+            18191355
+          ],
+          "exact_comparison_micro_ms": [
+            164.55879200000004,
+            150.6360000000002,
+            151.067,
+            153.77454199999966
+          ],
+          "original_report": "/Volumes/Niulai/MAIS-MVP/.worktrees/lesson-save-budget-20261019/coordination/reports/2026-10-19-A12-lesson-save-budget.md",
+          "historical_candidate_mean_ms": 507.2,
+          "historical_candidate_tail_ms": 10105.8,
+          "historical_fixture_bytes": 3869946,
+          "current_fixture_bytes": 3601626,
+          "interpretation": "目前内容精确比较约151至165ms，与历史158至165ms同量级；并非已证明的新增退化。jsonMeasured=false为无包装时延门禁原设计，不表示JSON工作为零。SQL delta中比较调用数量疑含累计/分组口径，不将该列总量当单次阶段成本。"
+        },
+        "known_limits": [
+          {
+            "id": "legacy-direct-budget",
+            "status": "inherited-limit-retained",
+            "details": "legacy/scoped原90/100/2000ms门禁仍FAIL；旧S2报告本就FAIL。当前为不同大小的新合成fixture，不能据当前440ms对旧507ms声称严格改善或新增退化；本轮不扩大成旧模式架构重设计。"
+          },
+          {
+            "id": "lesson-sweep-fixture",
+            "status": "pre-existing-fixture-failure-retained",
+            "details": "最终Chrome套件12通过、1在lesson-all旧注册夹具缺parentalConsent处被真实API400拒绝；基线已有同一同意门禁且扫测文件未变。没有把该项改计通过。P1相关表面另用合法本地demo登录实际验证通过。"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage/joint-verification.json",
+            "sha256": "b80fdd3acedbbb9276a7d08a8ddaf053fe1b17d77cae89ed60bba32f0dc32f95"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-browser-check.json",
+            "sha256": "e18512dee414122748743741cee9a384d3c278a7af6471423a1a6558c2d5ef21"
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/dirty-candidates-integration/MAIS-MVP/output/playwright/pr297-p1/pr297-p1-verified.png",
+            "sha256": "5182e5df8cffea65abbf3178e6ab64076b471c7abb8332f360d9d8f3fe3be4ee"
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/dirty-candidates-integration/MAIS-MVP/output/playwright/pr297-p1/pr297-p1-verified-ax.txt",
+            "sha256": "1092e104d708767db8f3c163927adf43af0a6aec39ddb1ddf9d9d97e6383edeb"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/final-integrated-e2e.log",
+            "sha256": "65bfff98ceafb5be66e969f58ab20ea8dc7dde72412915bd5c5b9c422ca3f814"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/final-integrated-e2e-chrome.log",
+            "sha256": "a1922e7c8e984364b846b4eae317761d1001bcc2d76f8645bbec7adfbd867a1d"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-9a36d57a8b/source-manifest.json",
+            "sha256": "5a3b6e47c38b74f540eb7b752c08f0e79e768fd4d84c6009dfa60134745eaaf5"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-9a36d57a8b/receipt.json",
+            "sha256": "85d286b1bd4cdeff144a8e79271b9740f454e31550d1cdfb17952bda3fdf8399"
+          },
+          {
+            "path": "/Volumes/Niulai/MAIS-MVP/.worktrees/lesson-save-budget-20261019/coordination/reports/2026-10-19-A12-lesson-save-budget.md",
+            "sha256": "c08af7ee76a37223618155645dd287885f5d2f4fe4967783582b0f786f13160e"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8/profile.json",
+            "sha256": "4a047918aa311d0bd692ec0cb2802519682834b65ed76654ac23af6042210ac8"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8/latency-gate.json",
+            "sha256": "312fc3505fbc826110474016046adbbcb789399ca090e8505800876c605a60ec"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-direct-latency-78f843d8/receipt.json",
+            "sha256": "08e2270ac8d4cf738f2d129f11b3a9232fe60e9c77c1e55c6f27685c0efeb1b7"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-schema-5be72276/receipt.json",
+            "sha256": "b4494564d8260b154f7eebeaaa6cbadd39a313cc588cb0ade55d5bb5595e9cd5"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-schema-5be72276/native.log",
+            "sha256": "f94b7b2a3344e50a819454293446028ec5afb294a17810d7e9f14717f9b78dc6"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-transactions-d6a16168/receipt.json",
+            "sha256": "e24c4af4491e885a3b46dcf374dabc0a513c28e12ce20f59f027a78b03b52eb2"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-transactions-d6a16168/native.log",
+            "sha256": "b4c93770bdae7263bfdfe0f473056c228f8f0ab904088caed8d5a3795ec3c039"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-migration-15ab4289/receipt.json",
+            "sha256": "faccdfb19e99ba4983da9305de9deaee0b05c5bd40da374a370fc59d8da21084"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-migration-15ab4289/native.log",
+            "sha256": "d768ac47a764d6ee5c6e8f929086d61c3e6eff1e95614ea6977d4512ed6f9807"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-participants-d8fa768f/receipt.json",
+            "sha256": "1515b0d2e882a340a360cc67e8e57d96237fd3f4539d6a2e7af5fe578c48035b"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/port-participants-d8fa768f/native.log",
+            "sha256": "a9d46375906ce24e3d076a338d0c0e678bbcaf9a56c34c3be36fead98d69a7da"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-application-aa91f044/receipt.json",
+            "sha256": "55b282f902b51d98e882b4abf92b1e6e545ea257bc53b9d5080b0a81ed01f30c"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-application-aa91f044/native.log",
+            "sha256": "225bc9aa114241c54a7422707cfae14bb41f9db8e9e0285797966ba6a13639ee"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-legacy-scoped-bb04d7dd/receipt.json",
+            "sha256": "76434e46e11b357c38af2403cc862918916f6133f8784dc46a8ccfba097ea68e"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-legacy-scoped-bb04d7dd/native.log",
+            "sha256": "e1d5ba0b6e9712d56bcd6720a8c45d6bac96a43a4a90a618b3112c0516afe2ae"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-course-verified-fdb4c0cc/receipt.json",
+            "sha256": "5db8fb2dfc65ec6798df1c31e5acffd91726898ee93d0cef062f00a9ef8bf889"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/joint-course-verified-fdb4c0cc/native.log",
+            "sha256": "d8075b9ccf6a7ee432a767b830574f3930cee950a2755b781091370b5afc5cf0"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-56a9c24a1d/http-result.json",
+            "sha256": "af69465cd8efa943483332da7d5048503758da7eea30e7df054aaaec8081de30"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-56a9c24a1d/receipt.json",
+            "sha256": "c6977a92631a0790dee172ff040f6be6cb502917b0fb26bc7313ae8389d0b2d7"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-56a9c24a1d/durable-state.json",
+            "sha256": "7998621f6379e8170a71c42ef7145f8ffb2af70ae98a111c877f01094c0d2427"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-aec374622f/http-result.json",
+            "sha256": "42a72b641c029f7ba0ec93c15161626d3c4b26674b98fd427c635ff8e48c71da"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-aec374622f/receipt.json",
+            "sha256": "6fb3bc47e0c105d17948eb110586d508d800c2780a2a231ced798179060f7737"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-aec374622f/durable-state.json",
+            "sha256": "4140150d706717cab6e848c874a44cddf348dcd8bded8b965d55d2b749a6396b"
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/.local/storage-port-20261027/focused-second.log",
+            "sha256": "2aee7234b54db5757ea916e7dda226023c8cf07cdd567a481d5440015baea804"
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/.local/storage-port-20261027/analytics.log",
+            "sha256": "397eaa50a80b6be0c5bc18fd3a4f1b538a0a578bb22895f6e5e43c11c13f46fd"
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/.local/storage-port-20261027/course-joint.log",
+            "sha256": "73c77d70c2d656b94134c69c04c4ca62e40b76d349c011c2c1974cb47f6dc17e"
+          },
+          {
+            "path": "/Users/dongpinhu/.codex/worktrees/storage-candidate-port-20261027/MAIS-MVP/.local/storage-port-20261027/type-joint.log",
+            "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+          }
+        ],
+        "claim_ceiling": "接受本次限定的本地集成代码与所列合成验证。不是全模式性能通过、完整lesson扫测通过、跨build源内容迁移、生产迁移/恢复、真实用户或部署批准。",
+        "next_action": "父任务可按已有授权处理本次已审reviewable slice；legacy预算和旧lesson扫测夹具保持显式限制，另行范围才处理其后续改造。",
+        "skill": "/Users/dongpinhu/.codex/plugins/cache/claude-cowork/engineering/1.2.0/skills/code-review/SKILL.md"
+      },
+      "embedded_json_canonical_sha256": "88713dcd091f6b75772b6adb11cf8489b3d4798a2faade1f2f2221988f1e0b00"
+    },
+    "a11-locale-delta": {
+      "artifact_id": "a11-locale-delta",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review-r2.json",
+      "sha256": "8608955eb735564fff6d97f8bb2cc8bed8c165ca3011b3017143e7c641616899",
+      "bytes": 6286,
+      "embedded_json": {
+        "reviewed_at_utc": "2026-10-26T17:58:33.212282+00:00",
+        "reviewer_agent": "/root/root_dirty_disposition",
+        "independence": "审核者未编写或修改六文件补丁；只读复核当前字节和既有证据，没有重复运行测试。",
+        "base_commit": "01f393519b4c823f9dca9c76654c9ffee9131b84",
+        "source_commit": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+        "tree": "924ca240e12d30a8845b4cbdea46531fa9ea1ce3",
+        "schema": "mais.a11.scoped-code-review.v1",
+        "review_id": "storage-a11-delta-r2-20261027-01a16e91",
+        "lane": "A11",
+        "scope": "仅相对01f3935的六文件修补；13 additions /12 deletions，不重写原123路径全量审查。",
+        "path_manifest": [
+          {
+            "path": "data/lessons.ts",
+            "sha256": "d41b63a1cb2d04fbfc8c15bec036641a9cd9c91d7d5ee823f79610ef30bf3918"
+          },
+          {
+            "path": "lib/curriculumCourses.test.ts",
+            "sha256": "684258ee63530af636a37d72a5dff4e38735b81a82999e192d432d58411cf1c7"
+          },
+          {
+            "path": "lib/mvpReadiness.test.ts",
+            "sha256": "be13e9da972f20bd30c7136188c5188297f8470838fb8ec7e93b340b5112ecf0"
+          },
+          {
+            "path": "lib/server/studentSubmissionConcurrency.test.ts",
+            "sha256": "5bbb95b7da9b688287fa6bffc3ab42d392110604e2c607908917f3b810d445fa"
+          },
+          {
+            "path": "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+            "sha256": "7c5f682f4932bdad15fb6323363c8b016b7ca9e1890f24a7f9cbecf82b87734d"
+          },
+          {
+            "path": "lib/server/userStoreStudentActivityPersistence.test.ts",
+            "sha256": "73c19a3d712fef2c929ad78eb9b62209d6329126be20caab3d5aea0a674a0010"
+          }
+        ],
+        "delta_sha256": "3f8175c33c21990e1615622e967257e67a65b0633fade149723d2f8a613b4753",
+        "checks": [
+          {
+            "id": "production_delta",
+            "result": "pass",
+            "detail": "唯一生产内容变化是data/lessons.ts新增两条同义zhHans；运行时控制流、存储/authority逻辑、配额、权限与课程映射没有变化。"
+          },
+          {
+            "id": "course_fixture_semantics",
+            "result": "pass",
+            "detail": "course/MVP fixtures只补zhHans；blank/missing ID及label故障输入、期望失败原因和年级回退断言保持。故意缺省语言字段的独立fallback检查未删除。"
+          },
+          {
+            "id": "guardian_persistence_regex",
+            "result": "pass",
+            "detail": "regex精确匹配当前includeSeedCourseDrift:true调用并保留||!latest.metadata；guardian规范化与PostgreSQL安全净化要求、SQLite读侧持久化检查及后续实际snapshot断言均保留。"
+          },
+          {
+            "id": "concurrency_and_audience_fixtures",
+            "result": "pass",
+            "detail": "另外两文件的四个localized字段只补简体同义值；没有改变学生身份、受众名单、并发attempt、答案、分值、最大尝试次数或任何assert。"
+          },
+          {
+            "id": "strict_gate_ratchet",
+            "result": "pass",
+            "detail": "严格zh-Hans门禁为3511/3512、non-pack critical0、pack无回归；阈值与扫描器未进入六文件差异，未提高基线或弱化规则。"
+          },
+          {
+            "id": "evidence_identity",
+            "result": "pass",
+            "detail": "六个当前文件均与实际提交一致。新tree924ca不同于旧tree015c；旧HTTP/PG/perf回执仍只属于旧S，未冒充新source执行结果。"
+          }
+        ],
+        "new_actionable_findings": [],
+        "issue_counts": {
+          "P0": 0,
+          "P1": 0,
+          "P2": 0,
+          "P3": 0
+        },
+        "code_review_verdict": "approve-scoped-review",
+        "delta_scope_accepted": true,
+        "consumed_validation": {
+          "focused_r2": {
+            "passed": 91,
+            "failed": 0,
+            "skipped": 0
+          },
+          "zh_hans_strict_r2": {
+            "status": "passed",
+            "advisory": 3511,
+            "ceiling": 3512,
+            "non_pack_critical": 0,
+            "pack_regression": false
+          },
+          "strict_type_r2": "passed per completed parent command; log retained",
+          "mvp": {
+            "passed": 34,
+            "failed": 0,
+            "skipped": 0,
+            "scope_note": "该运行在最后两文件fixture语言补全前完成；之后未修改MVP实现/测试或生产内容，不能称为在最终commit重新执行。"
+          }
+        },
+        "evidence": [
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-fix-focused-r2.log",
+            "sha256": "dd1a9d83b0dda34b87557fbd8dbd297839dc6ef49213be34400e2260bff795b7"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-fix-zh-hans-strict-r2.log",
+            "sha256": "4d55fe8bbb4b4c623d999eeabd0657de92e29a18a072dc1a46af82d7a998116c"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-fix-type-r2.log",
+            "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-fix-mvp.log",
+            "sha256": "5c3c2fc15f23817c8ec2816fabc42c227dfd0dec9efb0a9b775e036dd250763d"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/ci-fix-source-custody.json",
+            "sha256": "fa48d15e22c4bf7075ab4c6b2fc6b9cab54c942f1c5e7a04b1a1eea6486eb9a4"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/current-ci-four-path-fix.patch",
+            "sha256": "dcb037f7714b84cd2f4275decf6949081d14572dd52bec062e396429b254d173"
+          }
+        ],
+        "previous_review": {
+          "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review.json",
+          "sha256": "1bec0e457b85b826629bf019a26782ff95460e2c3aadf68d5550e344cdfad418",
+          "relationship": "保留原S全量冻结记录；r2仅追加六文件差异意见。"
+        },
+        "full_candidate_revalidation": {
+          "status": "pending-external-A12-fresh-evidence-at-review-time",
+          "expected": "父任务已安排新actualcommit上的PG course/application、build及HTTP2→20；本r2不预先声称完成。"
+        },
+        "retained_limits": [
+          "旧legacy直接保存预算失败记录保留；r2没有改善或重测该模式。",
+          "旧lesson-all注册fixture缺parentalConsent的限制保留，未把旧12/13改为全通过。",
+          "不声明新SHA已经复用旧运行的同树证明；需新证据或明确受影响范围判断。",
+          "本审核不授予生产部署或跨build源内容迁移批准。"
+        ]
+      },
+      "embedded_json_canonical_sha256": "58e7089dc20c5f3ca941c7477becb43b705677f1c84ae60428b0b6de46b8b18d"
+    },
+    "a11-ci-test-delta": {
+      "artifact_id": "a11-ci-test-delta",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/ci-test-delta-a11-review.json",
+      "sha256": "eb980b85d85dc3e115426c692615134044d22e9790bc7b1fae8760bc91a2db0e",
+      "bytes": 8831,
+      "embedded_json": {
+        "schema": "mais.a11.ci-test-delta-review.v1",
+        "reviewed_at_utc": "2026-10-26T18:22:00.147263+00:00",
+        "reviewer": "A11 /root/root_dirty_disposition",
+        "independence": "独立只读审查来源diff并复核父任务实际执行日志；未修改源码/Git，未运行负载或冒称亲自重跑测试。",
+        "base_commit": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+        "source_commit": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+        "source_tree": "f7453315bf0925d700ded5aba7e426c70ac0a3ca",
+        "exact_changed_path_count": 11,
+        "diffstat": {
+          "insertions": 268,
+          "deletions": 31
+        },
+        "path_manifest": [
+          {
+            "path": "app/api/attempts/routeFastPath.test.ts",
+            "sha256": "5ddec6a82573bf25a6e674c9093cda2a92650384663a335e0d7d958ffc68c3a6"
+          },
+          {
+            "path": "lib/server/observabilityHooks.test.ts",
+            "sha256": "d43a990eb4c2678ec23decfac6e99465020d10453f556ced836f4f4e4045fc87"
+          },
+          {
+            "path": "lib/server/userStore/parentPostgresScopedMutations.test.ts",
+            "sha256": "c3ed2611ee245db8fd2975c8d2fff3a4acbd1bd8d8079c7fd932eb91f84bc763"
+          },
+          {
+            "path": "lib/server/userStore/postgresStorageReadiness.test.ts",
+            "sha256": "be823be668a91a16a5780e86007badabffb506d8c2b64a2c4691c32ad56daf96"
+          },
+          {
+            "path": "lib/server/userStoreAuthAdminStoragePersistence.test.ts",
+            "sha256": "dbfda38ca54b553ccbc1f626fced1d60c716f61617d7b076f38a31d5de1fb10f"
+          },
+          {
+            "path": "lib/server/userStoreDemoCaliforniaLink.test.ts",
+            "sha256": "824ca84dd8751f23c6b4d5c8fb68219a2f0f9819a227e63fcd1285d5697f0c43"
+          },
+          {
+            "path": "lib/server/userStoreNovaPostgresAdmission.test.ts",
+            "sha256": "7d4f0ae5aaa1f3703cfb7cbabf05509fd8dfc6c73f3e85d7b3a484538712be12"
+          },
+          {
+            "path": "lib/server/userStoreParentPostgresScopedReads.test.ts",
+            "sha256": "b4e548aa04472720d48726cabf3ab33e07227c2c2f558a2901a9d73a7e317da2"
+          },
+          {
+            "path": "lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts",
+            "sha256": "ee80d2db937f5ddcbe21b2eddb3701750244f540243f3d89fd313df837b6fcb3"
+          },
+          {
+            "path": "scripts/postgres-schema-fast-path.test.mjs",
+            "sha256": "ef1b88f5bd19d82fba62313a73c60a0cf57e2069aa1b2fc42d46c808618d14d8"
+          },
+          {
+            "path": "tests/e2e/teacher-operations.spec.ts",
+            "sha256": "63e52d747ea95b050cb7e51415be556c02f9100eeb960065633fd3fead71ca02"
+          }
+        ],
+        "path_manifest_sha256": "f360ae9b254835aeca46606ab3663b2f9cd382a465909e2e13d18121e79be931",
+        "patch_sha256": "3ecbc834f91907b34630120280c2fecf95a0a1819b28be9f3a5e58345478500a",
+        "checks": [
+          {
+            "id": "legacy_pg_route_scope",
+            "status": "pass-scoped-review",
+            "finding": "仅mock root的learnerAuthorityIsInstalled=false以隔离最小legacy row-store场景；真实practiceAttemptStore、隔离PG数据库、POST、persisted断言和独立连接行读回保留；新增authorityChecks恰好一次。"
+          },
+          {
+            "id": "installed_authority_route_unit",
+            "status": "pass-scoped-review",
+            "finding": "新增installed=true路由单测确保canonical persistence并完整传递sessionRevision、accountGeneration、submissionId；这只证明路由分派，不冒充原生authority/rollback验收。"
+          },
+          {
+            "id": "rollback_and_error_propagation",
+            "status": "pass-scoped-review",
+            "finding": "未修改practiceAttemptStore.test.ts的真实PG回滚触发器、触发到达与四表零残留检查。observability按实际事务顺序检查marker后最终读回拒绝，并继续要求同一异常抛出；增加authority/activity阶段失败检查。"
+          },
+          {
+            "id": "readiness_and_restore_guards",
+            "status": "pass-scoped-review",
+            "finding": "静态契约精确跟随legacy initializer、authority探测与锁先后、完整payload双读回、部分schema提前拒绝及generation-aware restore边界，没有更换成宽松存在性检查。"
+          },
+          {
+            "id": "parent_scope_and_nova_contracts",
+            "status": "pass-scoped-review",
+            "finding": "parent scoped适配仅在明确authority条件交接canonical reader/full writer；其它错误仍传播，canonical读取锁与actor复核明确受测。Nova显式read-committed和generation参数被精确要求。"
+          },
+          {
+            "id": "teacher_role_cookie",
+            "status": "pass-scoped-review",
+            "finding": "角色改为admin后先断言旧cookie401，再真实登录并断言admin角色；既有policy保存、API读回和finally恢复完整保留，并在8个真实浏览器用例中实际通过。"
+          },
+          {
+            "id": "test_only_source_boundary",
+            "status": "pass-scoped-review",
+            "finding": "精确11路径均为测试文件，生产运行源码相对a6未变化；完整tree因测试变化而不同，不宣称新fulltree与旧source相同。两个监控文件不在此次差异或结论。"
+          }
+        ],
+        "new_actionable_findings": [],
+        "new_issue_counts": {
+          "P0": 0,
+          "P1": 0,
+          "P2": 0,
+          "P3": 0
+        },
+        "code_review_verdict": "approve-scoped-review",
+        "test_delta_scope_approved": true,
+        "consumed_validation": {
+          "tsx_related": {
+            "tests": 135,
+            "passed": 134,
+            "failed": 0,
+            "native_opt_in_skipped": 1
+          },
+          "schema_contracts": {
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          "strict_type": "passed per parent completed command; exact log retained",
+          "teacher_browser": {
+            "passed": 8,
+            "failed": 0,
+            "source_commit": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+            "runtime_build_source": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+            "runtime_equivalence_base": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+            "build_id": "ao_TTrVRo7--I2U_Xow3t",
+            "runtime_byte_equivalence_basis": "git diff a6..0d consists exactly of these11 test paths; all production runtime files unchanged",
+            "reuses_runtime_build": true
+          },
+          "native_postgres_store_and_route": {
+            "status": "pending-A12-result-at-review-time",
+            "planned_tests": 14,
+            "expected_real_pg_cases": 2,
+            "not_claimed_passed": true
+          }
+        },
+        "required_gate_status": "pending external required-check/admission evidence or authorization; this local review is not main or production completion",
+        "retained_boundaries": [
+          "无生产运行代码变化允许旧HTTP结果作为未变runtime字节证据，不允许称为新fulltree上的同源运行。",
+          "旧legacy/scoped直接保存预算红仍是旧ffad测量，不因本次test-only修补转绿。",
+          "旧lesson-all缺parentalConsent夹具失败继续保留；teacher cookie修补不等于修好该扫测。",
+          "新增installed-routing单测与legacy真实PG行存储用例具有不同证明范围。"
+        ],
+        "evidence": [
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-contracts-ts-tests.log",
+            "sha256": "bab4c72eb9f2bc217ed96005c324a23e7e71781106e0c568a667ee3de0aea7bd"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-contracts-schema-tests.log",
+            "sha256": "81a6b91fe3c51699f46cfda3a446e8146dd78de9128c058b78b8185a4db4c567"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-contracts-type.log",
+            "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/teacher-contract-browser.log",
+            "sha256": "15aa8bc725aaab2bb60c85e50de7b127a9c0f25fa10f1b8e33edbcabda66e41b"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/teacher-contract-browser.json",
+            "sha256": "3b518ef973ca170fef22a5d8f1b947ec3ca5a1796d0d60d6ac38e96aaf47be95"
+          }
+        ],
+        "prior_reports_unchanged": [
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/final-source-binding-review.json",
+            "sha256": "1afe5b60fff5edb1d22da2fd86c08d858197956b89b56d1ca742f21d7583085f"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/final-source-binding-review.md",
+            "sha256": "661f3f9ed87871e709c43959e220d92ac59333cf9377cc5470512422288dc889"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review.json",
+            "sha256": "1bec0e457b85b826629bf019a26782ff95460e2c3aadf68d5550e344cdfad418"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review-r2.json",
+            "sha256": "8608955eb735564fff6d97f8bb2cc8bed8c165ca3011b3017143e7c641616899"
+          }
+        ],
+        "next_action": "可消费精确11测试修补；等待A12原生store/route结果后追加其实际绑定，required gate按父任务/用户授权处理。"
+      },
+      "embedded_json_canonical_sha256": "ae1ecc64830ab1dcb1309ce8263622abd31b6647165c67289b3dfea20ec8af54"
+    },
+    "source-binding": {
+      "artifact_id": "source-binding",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/final-source-binding-review.json",
+      "sha256": "1afe5b60fff5edb1d22da2fd86c08d858197956b89b56d1ca742f21d7583085f",
+      "bytes": 9860,
+      "embedded_json": {
+        "schema": "mais.final-source-binding-review.v1",
+        "reviewed_at_utc": "2026-10-26T18:08:17.922849+00:00",
+        "reviewer": "A11 /root/root_dirty_disposition",
+        "method": "只读核对提交tree、124路径字节、runtime manifest/冻结构建副本、新PG/HTTP原始日志回执及UI截图/AX；没有重跑负载或改动源码/Git。",
+        "verdict": "source-binding-verified",
+        "status_ceiling": "source-ready / pending required-gate authorization",
+        "parent_commit": "a6ed2c30a8258e5eb1b0051fcd697e65eec3e78a",
+        "tested_commit": "9b924d2559195201d6a01cde72d2423aaac9b93e",
+        "tree": "924ca240e12d30a8845b4cbdea46531fa9ea1ce3",
+        "tree_equivalence_verified": true,
+        "changed_paths": 124,
+        "changed_path_manifest_sha256": "9acdfaa6b631d6e42df77d694583d7d7fac7a4c5ae8b55ed0af372062b84fb19",
+        "runtime_test_files_verified": 121,
+        "runtime_manifest_and_built_copy_mismatches": [],
+        "documents_not_in_runtime_manifest": [
+          "coordination/decisions/2026-09-24-state-adaptation-seams-review.md",
+          "coordination/session-logs/2026-09-28-A08-course-identity-current-main.md",
+          "docs/superpowers/plans/2026-10-27-retained-candidate-integration.md"
+        ],
+        "build_id": "ao_TTrVRo7--I2U_Xow3t",
+        "source_manifest_sha256": "6acf07169a4bceb3afddb15133f9b0e686ed1b4134e3c882f17046821f6c7142",
+        "lessons_sha256": "d41b63a1cb2d04fbfc8c15bec036641a9cd9c91d7d5ee823f79610ef30bf3918",
+        "native": [
+          {
+            "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-course-f010b1ba",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "source_hash_verified": true
+          },
+          {
+            "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-application-832c8b52",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "source_hash_verified": true
+          }
+        ],
+        "http": [
+          {
+            "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219",
+            "learners": 2,
+            "flows": 8,
+            "cross_worker_replays": 4,
+            "full_flow_p95_ms": 578.4848749999992,
+            "full_flow_max_ms": 578.4848749999992,
+            "post_max_ms": 567.9022910000003,
+            "max_connections": 2,
+            "correctness_passed": true,
+            "exactly_once_replay_passed": true,
+            "slo_ms": 2000,
+            "slo_passed": true
+          },
+          {
+            "run": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68",
+            "learners": 20,
+            "flows": 80,
+            "cross_worker_replays": 40,
+            "full_flow_p95_ms": 1763.5461250000008,
+            "full_flow_max_ms": 1915.3501250000008,
+            "post_max_ms": 1841.1343339999985,
+            "max_connections": 2,
+            "correctness_passed": true,
+            "exactly_once_replay_passed": true,
+            "slo_ms": 2000,
+            "slo_passed": true
+          }
+        ],
+        "http_scope": "同一production build、两个worker各1条一般连接、单次2人及20人合成混合运行；混合轮含一项practice请求和dashboard读取，不是冷启动/远程网络/20人同时practice或生产证明。",
+        "ui": {
+          "receipt": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-browser-check-r2.json",
+          "screenshot_sha256": "39de784b0a11e931e4c46913d45de60c6163805f419d3f5d2b71db8887d57898",
+          "screenshot_hash_verified": true,
+          "screenshot_visually_inspected": true,
+          "ax_sha256": "7f392897ada82875d20a09d05c79cdc1ce14ac921d26779fc71affc0fd40f9b5",
+          "ax_title_instructions_correct_feedback_and_shape_facts_verified": true,
+          "console_errors": 0,
+          "scope": "新来源新增zhHans字段及按钮/检查；先前en/zh-Hant/drag证据仍绑定旧01f source。"
+        },
+        "prior_reports_preserved": [
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review.json",
+            "sha256": "1bec0e457b85b826629bf019a26782ff95460e2c3aadf68d5550e344cdfad418"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review.md",
+            "sha256": "15e5193cb44d5456691e269746c4132c60c0184fe8abb6b49ba96ec118034a80"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review-r2.json",
+            "sha256": "8608955eb735564fff6d97f8bb2cc8bed8c165ca3011b3017143e7c641616899"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-a11-review-r2.md",
+            "sha256": "8a9986344b7bda391978309157789c534fac1f6c763f5c2bfe93113c3feeb092"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/pr172-a18-review.json",
+            "sha256": "3c0c05a7bb4461006ff9ae9edd5bb1d2230027331fb28be3686188d03fdcc574"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/pr172-a18-review.md",
+            "sha256": "225fb1d32a245ff9bbdd6afabcdd8bd767087d51d2c9ffa9d9d5affbda740039"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/pr172-a18-review-r2.json",
+            "sha256": "2594c792082e80e5680eb4b069eef8d579d00eadc7300c86afc2d1ea114927a8"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/pr172-a18-review-r2.md",
+            "sha256": "f62a3aa0387db8bdad50f5217f774e80e5924af1e6afa3eb56dcfa05a68181d1"
+          }
+        ],
+        "limitations": {
+          "legacy_direct_budget": {
+            "last_measured_source": "ffad4f1fa6431b30dab3c3a5dec6ed580dd180a1",
+            "last_result": "budget-not-met",
+            "remeasured_on_new_source": false,
+            "not_relabelled_green": true
+          },
+          "lesson_all_sweep": {
+            "status": "pre-existing-consent-fixture-failure-retained",
+            "not_counted_as_pass": true
+          },
+          "main_completed_claim": false,
+          "all_mode_performance_pass_claim": false,
+          "production_acceptance_claim": false
+        },
+        "evidence": [
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage/ci-locale-update-verification.json",
+            "sha256": "e48a79fd3365476203fd412c8c4ddee5140dcf6462542a63f921030ba6799173"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/source-manifest.json",
+            "sha256": "05c980b2fa1509bbd4e58b9550261fd45d806b16c976e80ded6858d61c4cfe60"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-build-7e3456e35e/receipt.json",
+            "sha256": "b16c23f543fc0144c12e4b9f47f033866e6f0f9c2cc75ab27c2b1d89bf40f937"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-browser-check-r2.json",
+            "sha256": "d2a448c589aa8cbdc40506c7da42a6e3ea8bb77bb942c005c153dfa55fd133c6"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-r2-browser/pr297-p1-r2-verified.png",
+            "sha256": "39de784b0a11e931e4c46913d45de60c6163805f419d3f5d2b71db8887d57898"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/verification/p1-r2-browser/pr297-p1-r2-verified-ax.txt",
+            "sha256": "7f392897ada82875d20a09d05c79cdc1ce14ac921d26779fc71affc0fd40f9b5"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-course-f010b1ba/receipt.json",
+            "sha256": "c0208de82cb4b00668ecb993a07d903fd3e774107bf01ea7941b461b15789233"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-course-f010b1ba/native.log",
+            "sha256": "d46304821ff43aecc6a81dbe10bcd1e760e7788f25fd508e3707c513d274dd3b"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-application-832c8b52/receipt.json",
+            "sha256": "e5bf7102cb08fbd519075d8741e19af08ee809872cbf5454512027af4bf89df2"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/ci-locales-application-832c8b52/native.log",
+            "sha256": "2c359bf1db4e98f31082d3cdf36141ce4a539c5c5041245b11dc0ea1e48e5af1"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/receipt.json",
+            "sha256": "f0a2c039c7e14990e401c08e5f6b51dd6fcee95f50e87344dbff222b34b95345"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/http-result.json",
+            "sha256": "2c6cd18b3aa76db01e93f968a6379fc42d633afd0a7c284114da90f4354be836"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-2-38b09dc219/durable-state.json",
+            "sha256": "a14dede2021b954d405d3323167a0e65fb5dcdc5efb4c8086077e80bc32434e1"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/receipt.json",
+            "sha256": "e1e2cf9c3724d3a253397a415a4ee4f856ade56654cd9487814ef9d8b65dd681"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/http-result.json",
+            "sha256": "10e67621fc68b6018535dabefa74e48d2ce035e5903a493683a1a70ecb41b860"
+          },
+          {
+            "path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/http-20-64b4060e68/durable-state.json",
+            "sha256": "6d45163ee892ba7e14e1211b0c16ee07a451ae84bb62f46e2063de364a84f40b"
+          }
+        ],
+        "next_action": "由父任务按既有任务与门禁授权边界处理source-ready候选；本记录不批准或证明main合入、生产部署或跨build内容迁移。"
+      },
+      "embedded_json_canonical_sha256": "c10efb0c8158da5d59167a659c462b4077c548dd0d327b03be49dc0400ade7d8"
+    },
+    "ci-contracts-unit": {
+      "artifact_id": "ci-contracts-unit",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-contracts-ts-tests.log",
+      "sha256": "bab4c72eb9f2bc217ed96005c324a23e7e71781106e0c568a667ee3de0aea7bd",
+      "bytes": 13653
+    },
+    "ci-contracts-schema": {
+      "artifact_id": "ci-contracts-schema",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-contracts-schema-tests.log",
+      "sha256": "81a6b91fe3c51699f46cfda3a446e8146dd78de9128c058b78b8185a4db4c567",
+      "bytes": 1152
+    },
+    "ci-contracts-type": {
+      "artifact_id": "ci-contracts-type",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-contracts-type.log",
+      "sha256": "78939b20b4cbed2bbcbadc97f795dcdf6e83cc9d056450516025776a9aa39f1d",
+      "bytes": 77
+    },
+    "locale-strict": {
+      "artifact_id": "locale-strict",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-fix-zh-hans-strict-r2.log",
+      "sha256": "4d55fe8bbb4b4c623d999eeabd0657de92e29a18a072dc1a46af82d7a998116c",
+      "bytes": 82572
+    },
+    "mvp": {
+      "artifact_id": "mvp",
+      "original_path": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/logs/ci-fix-mvp.log",
+      "sha256": "5c3c2fc15f23817c8ec2816fabc42c227dfd0dec9efb0a9b775e036dd250763d",
+      "bytes": 3539
+    },
+    "proposed-source-check-plan": {
+      "artifact_id": "proposed-source-check-plan",
+      "original_path": "/private/tmp/pr297-a11-source-check-plan.json",
+      "sha256": "858514ba9d10cec05f07d4dee6e117a45cfcedf1d5a6d69fd523f9c5ef1799d6",
+      "bytes": 10388,
+      "embedded_json": {
+        "source": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+        "purpose": "Freeze deterministic repository-local source checks; native opt-in tests are separately proven by the real PostgreSQL14 receipt and must not be counted as skipped passes here.",
+        "environment": {
+          "NODE_ENV": "test",
+          "HK_MATH_STORAGE_PROVIDER": "sqlite",
+          "HK_MATH_ENABLE_DEMO_USER": "false",
+          "AI_TUTOR_PROVIDER_PROFILE": "offline-fixture",
+          "TSX_DISABLE_CACHE": "1",
+          "NEXT_TELEMETRY_DISABLED": "1"
+        },
+        "unset_environment": [
+          "POSTGRES_URL",
+          "DATABASE_URL",
+          "MAIS_PRACTICE_ATTEMPT_POSTGRES_INTEGRATION_URL",
+          "MAIS_LEARNER_AUTHORITY_TEST_URL",
+          "MAIS_SCOPED_LESSON_POSTGRES_TEST_URL"
+        ],
+        "isolated_database_directory": "parent assigns a unique task-owned temporary directory; do not use the application database",
+        "commands": [
+          {
+            "id": "deterministic-critical-units",
+            "argv": [
+              "node",
+              "--import",
+              "tsx",
+              "--test",
+              "--test-concurrency=1",
+              "app/api/accountMediaErasure.test.ts",
+              "app/api/attempts/routeSessionRevision.test.ts",
+              "app/api/auth/google/callback/malformedStateCookie.test.ts",
+              "app/api/auth/google/callback/route.test.ts",
+              "app/api/malformedSessionCookie.test.ts",
+              "app/api/studentActivityIdentity.test.ts",
+              "components/learning/courseIdentityPipeline.test.ts",
+              "lib/curriculumCourses.test.ts",
+              "lib/lessonProgressRequest.test.ts",
+              "lib/server/accountDataPostgres.test.mjs",
+              "lib/server/demoSeedBackfill.test.ts",
+              "lib/server/demoSeedBackfillPersistence.test.ts",
+              "lib/server/googleOAuth.test.ts",
+              "lib/server/learnerAuthorityState.test.ts",
+              "lib/server/mediaObjectStore.test.ts",
+              "lib/server/mediaOwnerErasure.test.ts",
+              "lib/server/observabilityHooks.test.ts",
+              "lib/server/requestMutationActor.test.ts",
+              "lib/server/studentActivityPostgres.test.ts",
+              "lib/server/studentSubmissionConcurrency.test.ts",
+              "lib/server/teacherClassAccess.test.ts",
+              "lib/server/teacherMediaAccess.test.ts",
+              "lib/server/userStore/lessonSeedQuestionScan.test.mjs",
+              "lib/server/userStore/parentPostgresScopedMutations.test.ts",
+              "lib/server/userStore/postgresDeferredProjectionSync.test.mjs",
+              "lib/server/userStore/postgresLessonMutation.test.mjs",
+              "lib/server/userStore/postgresProjectionNoop.test.mjs",
+              "lib/server/userStore/postgresStorageReadiness.test.ts",
+              "lib/server/userStore/scopedLessonContext.test.ts",
+              "lib/server/userStoreAccountDeletion.test.ts",
+              "lib/server/userStoreAiGovernancePersistence.test.ts",
+              "lib/server/userStoreAuthAdminStoragePersistence.test.ts",
+              "lib/server/userStoreAuthSessionPersistence.test.ts",
+              "lib/server/userStoreDemoCaliforniaLink.test.ts",
+              "lib/server/userStoreGamificationGamePersistence.test.ts",
+              "lib/server/userStoreGamificationRewardRedemptionPersistence.test.ts",
+              "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+              "lib/server/userStoreNovaPostgresAdmission.test.ts",
+              "lib/server/userStoreParentPostgresScopedReads.test.ts",
+              "lib/server/userStoreSessionRevisionPostgres.test.ts",
+              "lib/server/userStoreStudentActivityPersistence.test.ts",
+              "lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts",
+              "lib/server/userStoreTeacherOpsOperationsPersistence.test.ts"
+            ],
+            "file_count": 43,
+            "acceptance": {
+              "exit_code": 0,
+              "fail": 0,
+              "skipped": 0,
+              "cancelled": 0
+            },
+            "expected_test_count": "Freeze actual observed count from this exact command; do not invent or sum older overlapping suites."
+          },
+          {
+            "id": "schema-contracts",
+            "argv": [
+              "node",
+              "--test",
+              "scripts/postgres-schema-fast-path.test.mjs"
+            ],
+            "acceptance": {
+              "exit_code": 0,
+              "tests": 10,
+              "pass": 10,
+              "fail": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "id": "mvp-content-contracts",
+            "argv": [
+              "npm",
+              "run",
+              "test:mvp"
+            ],
+            "acceptance": {
+              "exit_code": 0,
+              "tests": 34,
+              "pass": 34,
+              "fail": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "id": "strict-type",
+            "argv": [
+              "npm",
+              "run",
+              "type-check"
+            ],
+            "acceptance": {
+              "exit_code": 0
+            }
+          },
+          {
+            "id": "strict-zh-hans",
+            "argv": [
+              "npm",
+              "run",
+              "audit:zh-hans:strict"
+            ],
+            "acceptance": {
+              "exit_code": 0,
+              "advisory_at_most": 3512,
+              "non_pack_critical": 0,
+              "pack_regression": false
+            }
+          }
+        ],
+        "excluded_native_files": [
+          "app/api/attempts/routeFastPath.test.ts",
+          "lib/server/practiceAttemptStore.test.ts"
+        ],
+        "native_evidence": "/Volumes/Mars/MAIS-five-dirty-integration-20261027-01a16e91/candidates/storage-runtime/test-contract-pg16-1e6474c450/receipt.json",
+        "test_file_sha256": {
+          "app/api/accountMediaErasure.test.ts": "6aca78b20e27f60b2aae4191cc1a5066984dc0d46ebbda306570588ba2f9d458",
+          "app/api/attempts/routeSessionRevision.test.ts": "3c970d348ce6416a014e7ae9e8642decf38796e2e35de3e2c745eb0bcef2b4db",
+          "app/api/auth/google/callback/malformedStateCookie.test.ts": "cc7661d5d1a407e0b60554f136589adc5f691b43bb2e6758d30745df4ff72e9b",
+          "app/api/auth/google/callback/route.test.ts": "e370cc76a9eb9f7f7adccad2b1d9ae7f3b7c96895247c91cfbdb294564eadde1",
+          "app/api/malformedSessionCookie.test.ts": "b0515c8428662e2785e432f057f8d68e74f2ac969b751e37577a569a551c1223",
+          "app/api/studentActivityIdentity.test.ts": "5c145a652b4fb6e4b070fd012498e99c16b950ee5bc9721fdd4f222dcf381993",
+          "components/learning/courseIdentityPipeline.test.ts": "91f275b87624e8bb142064cad4b31889ad713f3b503bc595175b520497b1faef",
+          "lib/curriculumCourses.test.ts": "684258ee63530af636a37d72a5dff4e38735b81a82999e192d432d58411cf1c7",
+          "lib/lessonProgressRequest.test.ts": "77de5c22c26a725b819cf59a380ec58f8085ee9ea75f852f5ce9d40528f368c9",
+          "lib/server/accountDataPostgres.test.mjs": "0d8e47ac574179934051ec33236963066e1b3cb676a096292e94791f0df23d50",
+          "lib/server/demoSeedBackfill.test.ts": "1e1d809b21dbb3591df8e6df6510b163cf92c0424515a803324c5586af8ebea5",
+          "lib/server/demoSeedBackfillPersistence.test.ts": "8027537e1e48a6890660d0900e8f312232c9606bfeaf41b5ab88865c730388e4",
+          "lib/server/googleOAuth.test.ts": "7b1dc142a7924c8aa9cf236768fdebe05d8823f1265ebaa044e8837d15f640f9",
+          "lib/server/learnerAuthorityState.test.ts": "19c40a00c7505e9512f064e182f2fea655f4c7146db0a1ff836b5d564b0c8c19",
+          "lib/server/mediaObjectStore.test.ts": "e2ba19d893401f5336469e190d7b075877f49766030636a045164d82521ebe9c",
+          "lib/server/mediaOwnerErasure.test.ts": "040a5656b957cdd048b74c1b398e36a132856b1f450f846accbbba4af682596a",
+          "lib/server/observabilityHooks.test.ts": "d43a990eb4c2678ec23decfac6e99465020d10453f556ced836f4f4e4045fc87",
+          "lib/server/requestMutationActor.test.ts": "0bfea8b01eb7f8fad9e2b7a57858b7ccc16504c5bd017e53cc197b9ce6ce3123",
+          "lib/server/studentActivityPostgres.test.ts": "d020836fbb4522d505d914f3aa51691e2352958ba5da50a4f8c44e7f49d1d7ad",
+          "lib/server/studentSubmissionConcurrency.test.ts": "5bbb95b7da9b688287fa6bffc3ab42d392110604e2c607908917f3b810d445fa",
+          "lib/server/teacherClassAccess.test.ts": "2ef83e204e2453ca165b6374f1db82ccb5689cee45babf206e23527f084f909c",
+          "lib/server/teacherMediaAccess.test.ts": "15bdd2db0a6b3cda32adcda672158a92aaf9e0db06b24203d881acba84781186",
+          "lib/server/userStore/lessonSeedQuestionScan.test.mjs": "7270db34dc886cf0d09f7ddec34fb008525c18918952e76a3ea2a2975a3af882",
+          "lib/server/userStore/parentPostgresScopedMutations.test.ts": "c3ed2611ee245db8fd2975c8d2fff3a4acbd1bd8d8079c7fd932eb91f84bc763",
+          "lib/server/userStore/postgresDeferredProjectionSync.test.mjs": "644eb7d4fd9d9abae9f6592a4541b6c1e86dd628791147b1a60de3fffc8bd1c5",
+          "lib/server/userStore/postgresLessonMutation.test.mjs": "979453c478c714bf148e58dc8b1216a31de997c96e94708d0679309c44d23b07",
+          "lib/server/userStore/postgresProjectionNoop.test.mjs": "55c7e2e9445d1e612b36bc9be344ce84814f59f8515bfb7e566cbf0af56ebe81",
+          "lib/server/userStore/postgresStorageReadiness.test.ts": "be823be668a91a16a5780e86007badabffb506d8c2b64a2c4691c32ad56daf96",
+          "lib/server/userStore/scopedLessonContext.test.ts": "e82e8b6be5fadcaae66474c33e2a3b13dd6cd717862de7dcfd7599bc4cbc8849",
+          "lib/server/userStoreAccountDeletion.test.ts": "eaa8492af503363ea6fde61381d1341a28e440a438a0a698a948cdc5b9fbb4d8",
+          "lib/server/userStoreAiGovernancePersistence.test.ts": "6ceb0206c1838e1070d00cce41b304392520e821cba300e4a039e10580e6ae76",
+          "lib/server/userStoreAuthAdminStoragePersistence.test.ts": "dbfda38ca54b553ccbc1f626fced1d60c716f61617d7b076f38a31d5de1fb10f",
+          "lib/server/userStoreAuthSessionPersistence.test.ts": "ad7e22d25ebd9cfdf280c44d0b98ae9bbea1b4df0452390a53a4cfba97930725",
+          "lib/server/userStoreDemoCaliforniaLink.test.ts": "824ca84dd8751f23c6b4d5c8fb68219a2f0f9819a227e63fcd1285d5697f0c43",
+          "lib/server/userStoreGamificationGamePersistence.test.ts": "08659be94803921cee6f69d1c23c8b28eaf1eedf31f90096d3fd3eeb86033657",
+          "lib/server/userStoreGamificationRewardRedemptionPersistence.test.ts": "b52122c2383e035790e8e40a96bde1e67a2d2970c2244ac924f0d0b3177a40c6",
+          "lib/server/userStoreGuardianInvitationPersistence.test.ts": "7c5f682f4932bdad15fb6323363c8b016b7ca9e1890f24a7f9cbecf82b87734d",
+          "lib/server/userStoreNovaPostgresAdmission.test.ts": "7d4f0ae5aaa1f3703cfb7cbabf05509fd8dfc6c73f3e85d7b3a484538712be12",
+          "lib/server/userStoreParentPostgresScopedReads.test.ts": "b4e548aa04472720d48726cabf3ab33e07227c2c2f558a2901a9d73a7e317da2",
+          "lib/server/userStoreSessionRevisionPostgres.test.ts": "8a3ca9defb096b25b45339258fc4508dd2030dc1d6b5b60db76a35aec5d9aabb",
+          "lib/server/userStoreStudentActivityPersistence.test.ts": "73c19a3d712fef2c929ad78eb9b62209d6329126be20caab3d5aea0a674a0010",
+          "lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts": "ee80d2db937f5ddcbe21b2eddb3701750244f540243f3d89fd313df837b6fcb3",
+          "lib/server/userStoreTeacherOpsOperationsPersistence.test.ts": "fb591b7d33e7b11570f2ccf3232527a31d514f9aa1a35b326d9415ff6de01c89"
+        }
+      },
+      "embedded_json_canonical_sha256": "ab038a807ff26529982aa56b5c5c2fc5d5052697f10dfc4ab5a52f9f980af90d"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pr297-independent-review.v1",
+  "role": "A23",
+  "reviewerIdentity": "/root/a23_pr293",
+  "result": "approved-for-exact-pr297-required-check",
+  "scope": "exact-pr297-runtime-required-check-only",
+  "sourceCommit": "0d91ff35fd9a46a070119949ea4509fb8b46a011",
+  "sourceTree": "f7453315bf0925d700ded5aba7e426c70ac0a3ca",
+  "sourceInventoryDigest": "f929d9ff7795a6d6d1cfc71bc3b60ef6f2a8f8c3d31be32c5f971784f73114ed",
+  "toolingCommit": "89d25f1ec03757779a1e7578f4943e69bd63d786",
+  "toolingTree": "bd61657fc00c063eb39365d778ed6536525d175d",
+  "toolingInventoryDigest": "f7a293747ceb65eb4d1a8fc37ad2078167efa6ca03f6c787d86b590bc5548ff8",
+  "checksRawSha256": "4a187a9727e2bc7dfead3de555425aef0e70e6c463dfca0407914115d789b8da",
+  "runtimeEvidenceRawSha256": "c257505882a6f8720d6e11537ea776d2565a4cf56e993e692fe75ac9b6b56d85",
+  "reportRawSha256": "7f9e34a51eb50e1949cf0c06cac4e126f3f87c42e380d2a4f6dd3f9c69eb8918",
+  "permissions": {
+    "historicalPromotionRevalidated": false,
+    "liveAllowed": false,
+    "previewAllowed": false,
+    "deployAllowed": false,
+    "wholePackAccepted": false,
+    "historicalAuthorityTransferred": false
+  },
+  "reviewedAt": "2026-10-27T01:45:56.159Z",
+  "findings": [
+    "独立A23只读审查实际S/T2、全部134条源库存与四文件tooling库存；T2唯一父提交S，字节/模式/哈希逐项匹配，未实施候选或门禁。",
+    "唯一预审P2时间字段缺陷已修复，合法UTC正测与六种错误形式的独立负测通过；固定6144MiB types参数解决已知Ubuntu堆预算要求，环境继续拒绝外部NODE_OPTIONS。",
+    "精确PR297/B/S/T/E、十文件首次新增、固定workflow插入、严格JSON/原始哈希、身份/报告绑定、链接与工作树检查、前后物化及事件校验完整保留；旧门禁和冻结历史无重写。",
+    "已独立重算最终T2 gate-contract 25/25及冻结565/10/34源码TAP覆盖，核对types/zhHans输出；消费执行日志，不声称本A23重新运行测试/PG/HTTP/浏览器。",
+    "38份runtime原件原始哈希/字节数及18份嵌入JSON canonical绑定均核验；PG16.15的14测试与S完整tree相同，course5/application11及real-auth双worker HTTP按各自真实执行来源消费。",
+    "HTTP旧build与S的11个固定测试差异、11102非测试Git条目及3578源manifest哈希已独立验证；3577冻结build文件同字节，唯一tsconfig.next.json派生include例外保持披露，不声称完整tree或S重建相同。",
+    "A18与A11最终v2 JSON/MD原字节已核对并通过实际T2 validateReview；A18仅P1六条文案及依赖的integration-review，A11提供最终组合与回归判断，身份并非由角色字符串自身证明。",
+    "legacy直接保存预算失败、lesson-all consent夹具失败、旧运行来源和不同负载的限制均保留；没有all-mode性能或全lesson sweep通过声明。",
+    "本决定只支持exact-pr297-runtime-required-check-only；E实际组装、完整原生执行、最终远端required checks与精确main合并证据仍待后续，六权限全部false，无Shadow/历史授权/部署证明。"
+  ]
+}
