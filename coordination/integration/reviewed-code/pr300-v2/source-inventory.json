@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "pr300-v2-source-inventory.v1",
+  "baseCommit": "1b03f8f1300c360188ada33a382070eba06cb075",
+  "sourceCommit": "455d6ed9247163341599e219d2deef18271d01d2",
+  "sourceTree": "b4cdfd4a8eb5794e3471b6816efc9125d4550110",
+  "inventoryDigest": "d452d4d2eb7b0bfbd97424beebf6b5432812d301aca7beb2b3b64cbe6632e7ab",
+  "entries": [
+    {
+      "path": ".github/workflows/promotion-shadow.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "41819961a3f02d2787a53404a9ebcb175c3de2c8",
+        "rawSha256": "d067e20a2ef3df0e49d6a6ea09bba8993625e6f160ce52a38d831445401e31ad"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "eb66e8dffba67ab955dc5c2267b881659ff94d0c",
+        "rawSha256": "9d786392a26ae7160886dabb2292d5f38e0fed7d5fbaebfa57ada0e2ba6098f6"
+      }
+    },
+    {
+      "path": "RELEASE.md",
+      "before": {
+        "mode": "100644",
+        "objectId": "85264ebefe184138f39b257d12834c4749fc95ce",
+        "rawSha256": "dbd00e00cda77764f5cf8cd538dd4535874baf43630ffc0ec381c905c30e42cb"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "0c313c357f21519b87553092a68dd726c1eda085",
+        "rawSha256": "a548ebf558cefa1a658807faadd8b633e15b73a08ca69be6e6fc337a5da9458e"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/a11-review.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "c68243a9999f0e3bdd944404ebc690c5de0dec37",
+        "rawSha256": "bc08c04a451b4e4de6b3790742b2ea337a25deb06826a3b0f26d22e5aeff6208"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/a11-review.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "d6aa3700c86eea7454436209c4a0213639591f02",
+        "rawSha256": "32eb7e38bb85ac0a4121ca5126d16108120f6f4b8972a788ed2a225da37631ff"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/a23-review.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "9064cba60c53a653ac788af89cdd2a0af809d5fa",
+        "rawSha256": "fa05d7db7849d09dcb027095872282a15d655c66efa29dec2a578f36a4376054"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/a23-review.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "8b7febb872d1b9d217664f47d66dfe605e1c951e",
+        "rawSha256": "0a897d10d7352a3547201f10778e64491666e0ea52a72306c4a4458331249dce"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/admission.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "044be67144731d9c82b71755c4fc06247d511fec",
+        "rawSha256": "3031c8fd1d40ff177553b049ad847c8d592092ee023a1db1b834594bbfd21cf4"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/source-checks.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "23fe538a407fd62f68278928f3124d0744517baa",
+        "rawSha256": "f640470c34ad93416b5283352a6cb08b6fba7cc0503f5b5ac9094404eef89e9b"
+      }
+    },
+    {
+      "path": "coordination/integration/reviewed-code/pr300-v1/source-inventory.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "0db96280a0c8c43761ecd1b671364e4ff500c822",
+        "rawSha256": "09812646962984fc87a22d6a4374fb73ac4425d5c51a0190e521a09666035613"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-10-28-A22-pr286-current-main-01a1824f.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "89ee0fba9662bc6005907c2af903df7b1f4a4d81",
+        "rawSha256": "05b297eb99061312f9157109a2c1b3fc48b48954e6f8e4a696c522bb68a1b76e"
+      }
+    },
+    {
+      "path": "docs/pr300-reviewed-code-gate.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "9866e848ad18cbd0beb78ef88fe50169974adcd3",
+        "rawSha256": "db7ff101b694d04ecf9fce2a2b944183138e07f3213f9a97b02c8bd0f56b2156"
+      }
+    },
+    {
+      "path": "scripts/classroom-load-smoke.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "a722625d5cc5d3816715341a35fc4c6d37ff38c2",
+        "rawSha256": "95005cc3565714266b70c8b447df0e660d9ebcc16581fc9c4848307c536c541f"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "fa608450147db061e55adaa566a21ac9d9bdc23a",
+        "rawSha256": "ecddf4cd5d24ecec1713a821d76f86178a6044be2dccac2c2187d88b7b9fb5fe"
+      }
+    },
+    {
+      "path": "scripts/classroom-load-smoke.test.mjs",
+      "before": {
+        "mode": "100644",
+        "objectId": "2b5328e1689955eaecda3a09af8df53ddef54081",
+        "rawSha256": "5a14abf76fa7a45ae30680e349fc3a30a3c3b85da6f39b9243a73be574cefccd"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "196b36ea5bbd53245c94b9d554ef2d4f422b9c64",
+        "rawSha256": "41ad26d05b9b2dc8e463fb3369fc38e0fbf2406c205a73773ef0eb0df8527e75"
+      }
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr300.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "f77ed500d22425e514b53b2190ebafc6015b7cfc",
+        "rawSha256": "b0c116118da7c73fe727c8c6b8a096301eb3fe98a864833d444902e6dfbb09e7"
+      }
+    },
+    {
+      "path": "scripts/promotion-reviewed-code-pr300.test.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "f6ca897188a1207a2a5be07e0e9f0206837ae0ec",
+        "rawSha256": "b590bb122abe548cd1907ed26e76b342bc01364b3c590be9633c1db8805fb40d"
+      }
+    }
+  ]
+}
