@@ -1,5 +1,5 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type APIResponse, type Page, type TestInfo } from "@playwright/test";
-import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { spawn, spawnSync, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { DatabaseSync } from "node:sqlite";
@@ -58,6 +58,8 @@ type RegisterStudentOptions = {
   curriculumTrack?: string;
   language?: string;
 };
+
+const e2eParentalConsent = { acknowledged: true, guardianName: "E2E Guardian", relationship: "parent" };
 
 type Harness = {
   profile: HarnessProfile;
@@ -150,10 +152,13 @@ function recentLogs(logs: string[]) {
 
 function nextDistEnvForHarness() {
   if (!playwrightNextDistDir) return {};
-  const buildIdPath = path.join(projectRoot, playwrightNextDistDir, "BUILD_ID");
-  if (!existsSync(buildIdPath)) return {};
+  const absoluteDistDir = path.resolve(projectRoot, playwrightNextDistDir);
+  if (!existsSync(path.join(absoluteDistDir, "BUILD_ID"))) {
+    throw new Error("The isolated Nova test build is missing its BUILD_ID.");
+  }
   return {
-    NEXT_DIST_DIR: playwrightNextDistDir
+    // Next joins distDir to its project root, so its runtime value is relative.
+    NEXT_DIST_DIR: path.relative(projectRoot, absoluteDistDir).replace(/\\/g, "/")
   };
 }
 
@@ -458,7 +463,8 @@ async function registerStudent(context: APIRequestContext, testInfo: TestInfo, l
         grade: options.grade ?? "S3",
         curriculumTrack: options.curriculumTrack ?? "HK",
         language: options.language ?? "en",
-        theme: "dark"
+        theme: "dark",
+        parentalConsent: e2eParentalConsent
       }
     })
   );
@@ -479,7 +485,8 @@ async function registerStudentForPage(page: Page, testInfo: TestInfo, label: str
         grade: options.grade ?? "S3",
         curriculumTrack: options.curriculumTrack ?? "HK",
         language: options.language ?? "en",
-        theme: "dark"
+        theme: "dark",
+        parentalConsent: e2eParentalConsent
       }
     })
   );
@@ -573,6 +580,17 @@ async function openTutor(page: Page) {
 
 test.afterAll(async () => {
   await disposeHarness();
+});
+
+test("compiled Nova voice route sends long realtime frames through external ws", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "Voice bundle verification runs once.");
+  const distDir = process.env.NEXT_DIST_DIR?.trim() || process.env.PLAYWRIGHT_NEXT_DIST_DIR?.trim();
+  const result = spawnSync(process.execPath, ["--test", "app/api/ai-tutor/voice/voiceBundle.test.mjs"], {
+    cwd: projectRoot,
+    env: { ...process.env, ...(distDir ? { NEXT_DIST_DIR: distDir } : {}) },
+    encoding: "utf8"
+  });
+  expect(result.status, `${result.stdout ?? ""}\n${result.stderr ?? ""}`).toBe(0);
 });
 
 test("frontend floating Nova Tutor sends HK RAG evidenceQuery from the real UI payload", async ({ page }, testInfo) => {
@@ -1041,6 +1059,29 @@ test("Nova Tutor accepts fenced JSON, embedded JSON, malformed reply JSON, and u
       expected: "First ask students to identify a, b, and c.\nThen connect the sign of a to the opening direction."
     },
     {
+      label: "literal-newline-with-latex-json",
+      content: JSON.stringify({
+        reply: String.raw`First step\n\nSecond step: \(x \neq y\), \(\nabla f\).`,
+        visualization: null
+      }),
+      expected: "First step\n\nSecond step: \\(x \\neq y\\), \\(\\nabla f\\)."
+    },
+    {
+      label: "literal-newline-plain-text",
+      content: String.raw`Plain first\n\nPlain second: \(x \neq y\).`,
+      expected: "Plain first\n\nPlain second: \\(x \\neq y\\)."
+    },
+    {
+      label: "lowercase-newline-json",
+      content: JSON.stringify({ reply: String.raw`First step\n\nnext step: \(x \nRightarrow y\).`, visualization: null }),
+      expected: "First step\n\nnext step: \\(x \\nRightarrow y\\)."
+    },
+    {
+      label: "lowercase-newline-plain-text",
+      content: String.raw`First step\nnext step`,
+      expected: "First step\nnext step"
+    },
+    {
       label: "plain-text",
       content: "Plain useful tutor reply.",
       expected: "Plain useful tutor reply."
@@ -1050,12 +1091,13 @@ test("Nova Tutor accepts fenced JSON, embedded JSON, malformed reply JSON, and u
   try {
     for (const parserCase of cases) {
       const context = await newApiContext(contexts);
-      await registerStudent(context, testInfo, parserCase.label);
+      const student = await registerStudent(context, testInfo, parserCase.label);
       queueProviderResponses({ body: chatCompletion(parserCase.content) });
 
       const reply = await readJson<{ reply: string }>(
         await context.post("/api/ai-tutor", {
           data: {
+            expectedUserId: student.userId,
             input: `Trigger ${parserCase.label}.`,
             context: { mode: "general", title: `Parser ${parserCase.label}` },
             grade: "S3",
@@ -2143,6 +2185,50 @@ test("frontend Nova Tutor role smoke opens, sends, receives, and closes for stud
       await browserContext.close();
     }
   }
+});
+
+test("frontend Nova Tutor keeps paragraph breaks and LaTeX in a reply", async ({ page }, testInfo) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message));
+  await registerStudentForPage(page, testInfo, "paragraph-display", { grade: "S3", curriculumTrack: "HK" });
+
+  const replyText = "First step\n\nnext step: \\(x \\neq y\\), \\(\\nabla f\\).";
+  await page.route("**/api/ai-tutor", async (route) => {
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ reply: replyText }) });
+  });
+
+  const tutorPanel = await openTutorAt(page, "/dashboard");
+  const pageWidth = await page.evaluate(() => ({ content: document.documentElement.scrollWidth, viewport: document.documentElement.clientWidth }));
+  expect(pageWidth.content).toBeLessThanOrEqual(pageWidth.viewport + 1);
+  await tutorPanel.locator("#ai-tutor-input").fill("Explain the next step.");
+  await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
+
+  const renderedReply = tutorPanel.locator(".math-text", { hasText: "First step" }).last();
+  await expect(renderedReply).toBeVisible({ timeout: 10000 });
+  await expect.poll(() => renderedReply.textContent()).toContain("First step\n\nnext step");
+  await expect(renderedReply.locator(".katex")).toHaveCount(2);
+  await expect(renderedReply.locator(".katex-error")).toHaveCount(0);
+  const paragraphGeometry = await renderedReply.evaluate((element) => {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const bounds = (text: string) => {
+      walker.currentNode = element;
+      let node: Node | null;
+      while ((node = walker.nextNode())) {
+        const index = node.textContent?.indexOf(text) ?? -1;
+        if (index < 0) continue;
+        const range = document.createRange();
+        range.setStart(node, index);
+        range.setEnd(node, index + text.length);
+        const rect = range.getBoundingClientRect();
+        return { top: rect.top, height: rect.height };
+      }
+      throw new Error("Paragraph text is missing from the rendered reply.");
+    };
+    return { first: bounds("First step"), next: bounds("next step") };
+  });
+  expect(paragraphGeometry.next.top - paragraphGeometry.first.top).toBeGreaterThan(paragraphGeometry.first.height * 1.5);
+  expect(pageErrors).toEqual([]);
+  await tutorPanel.screenshot({ path: testInfo.outputPath("nova-paragraphs.png") });
 });
 
 test("frontend hides technical API errors and uses Chinese fallback for Chinese input", async ({ page }, testInfo) => {

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "pr301-source-checks.v1",
+  "sourceCommit": "5e20119b246f3b4d34d8fbfc079f12cae17affdc",
+  "sourceTree": "f2b917b9b696fc85464810412bf8a611e46450e7",
+  "executedAt": "2026-10-28T19:14:36.767Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "types",
+      "args": [
+        "--max-old-space-size=6144",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": null
+    },
+    {
+      "name": "provider-display",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "lib/server/llmProvider.test.ts",
+        "lib/server/llmProviderNewlines.test.ts",
+        "components/math/mathTextFormatting.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "eea82c5476ca8118d402abda5d36f701dd836fae6ad12eeab3722b9b0980f1bb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 40,
+        "suites": 0,
+        "pass": 40,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "dcfe4c282c1681294cd1acfe768c97d88e8bdcd69745a55556d8818d3478919c"
+      }
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "pr301-source-inventory.v1",
+  "baseCommit": "638d6e7e0a16f1693a6a1afca72bb43ef9debbac",
+  "sourceCommit": "5e20119b246f3b4d34d8fbfc079f12cae17affdc",
+  "sourceTree": "f2b917b9b696fc85464810412bf8a611e46450e7",
+  "inventoryDigest": "ac767603f4afb4ac1767ddc84317a11abf1125945ca95775d2b9c02c86cd526e",
+  "entries": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "4cf391946f0b2c72ca946cab5f5f32cad279e612",
+        "rawSha256": "645e799168bcbbd113eeb6735c5cfcdfcf48f0a883ad653bc5e99be987633235"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "2a32f56c7e0464e8dfbc8b7884282dcd181de603",
+        "rawSha256": "70d7972e26932f0163aba1544024be5ccbbd5d75d0f87a3a4460eb74bd22c05d"
+      }
+    },
+    {
+      "path": "app/api/ai-tutor/resolve/route.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "14e81515d9305ad6dfc1c059a2fe7eb9144a2388",
+        "rawSha256": "8a31f5ffdb7559b01e2af0053de1a41f976b8fbcdb22040b69109f3fd620270b"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "bd7620f81739f63fbfb4d2fc668a506d76d58d32",
+        "rawSha256": "46afe3e45d8c39fe9fc611904b6ec2c6b1b234026d99816e3647bd227a46a232"
+      }
+    },
+    {
+      "path": "app/api/ai-tutor/voice/route.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "ded091d5b9cbbafe5e40dc7f5160f250663045e2",
+        "rawSha256": "77713a5fac898c74595d8156dd1131fca180800ec1d4005a0070defdd78fdc5e"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "b1e7f3dbe94e23818560295e3ab1776e7f9dad36",
+        "rawSha256": "535a7108636b14de88d8c4b1c7acb439b835504ba0e46fe7cef5800d445bb31d"
+      }
+    },
+    {
+      "path": "app/api/ai-tutor/voice/voiceBundle.test.mjs",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "0d30f46d885ef78bd8353b275f998e8b3b49d434",
+        "rawSha256": "fa0905535f7cde70302c2bed9cfcf412f14d01aa2fa8f724e8347b93b1926093"
+      }
+    },
+    {
+      "path": "app/dashboard/page.tsx",
+      "before": {
+        "mode": "100644",
+        "objectId": "325b2d5d2d1dbff20aa54a2a70e69db23a29080d",
+        "rawSha256": "0ce5a743031c6c84bd45ad946229c16e7f235f7551ea051bbc2720c0befa3269"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "93170d442e44529e6a60e2faffd4e8e3317a08b6",
+        "rawSha256": "3ac1a6366b1f545f24787ac525a181f2a22aa63cde1c383a795e9e71e9898d1f"
+      }
+    },
+    {
+      "path": "components/math/mathTextFormatting.test.ts",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "2044917ea9efeae752a401643cef3cb231a4f9f7",
+        "rawSha256": "b09dd3990d09526e0346c91a24ca0014433b084df31b51305a385843e707d4c0"
+      }
+    },
+    {
+      "path": "components/math/mathTextFormatting.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "b183aafed926446da8fad6a2226627a147f11ed7",
+        "rawSha256": "f081cff9b4624e97e835c7d2d82101b4dfe1ad2d08d3ae0fa85eb531d19b39ed"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "b2da5c4de3ed1f8eeb3f99dca4eec84e1042d2f6",
+        "rawSha256": "3429fb35ea655ae1811ce40fca7dc800bb935510b1184621bfa1bdfe4310782a"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-10-29-A07-pr258-current-main-01a1824f.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "96daea869ce9a0cb2a670138391c79ebfd37384d",
+        "rawSha256": "bd17c3be740650be084420e57d824f66e3f12a587fe2eae8ca527fa6f290f463"
+      }
+    },
+    {
+      "path": "lib/server/llmProvider.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "248c737a124a02ebe5f403675cb9d3f02d22a88e",
+        "rawSha256": "b0dca8a9226d4a7e049c9e9ce9a78dbc376f77b5441f42c513c038c5341051f3"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "9cb35d12fb6db93459ea4adb100d39c5d272869e",
+        "rawSha256": "99d16d6c32a4e7c4fc16bd7bb4cd7c304eb695df1d614ab2c027ef03149171b6"
+      }
+    },
+    {
+      "path": "lib/server/llmProviderNewlines.test.ts",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "c0ad7030049056c386d61b1a483b02b22fee61e3",
+        "rawSha256": "eabf52ba9a8ce622d550b96faf19e9ad58754da51fb69a057ef329eb7cfbb54f"
+      }
+    },
+    {
+      "path": "next.config.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "cc47dcf4a3fe2aa910a48ba1b2b355a8ac71f313",
+        "rawSha256": "bc1aef29abe3909a85549ee745dc83ea2c5dfde592544baca3a2fc1c82d76f9e"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "d4f2460506ed85e717badc7c6c0f2309fbbc7181",
+        "rawSha256": "7c7f4eaa48ec3c9200410dbf69e8efa1db7c49ebe4e872890467660fd9376cdc"
+      }
+    },
+    {
+      "path": "tests/e2e/ai-tutor-deepseek.spec.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "9b016866e219ba88581ebacb1e484b8538dab675",
+        "rawSha256": "3d226f6aa097b88a600be12ed849bae7c092c2c1e036d1d1cefd39bfb5e3b4f2"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "51fd81cb586266d5febd059d4906c66422def23d",
+        "rawSha256": "6211323051eb3b1db9cec73cbb9c4b49ed00be82a6b8dfd4e1f5510cb09ee1b7"
+      }
+    }
+  ]
+}

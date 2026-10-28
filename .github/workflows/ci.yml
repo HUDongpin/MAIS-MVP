@@ -270,6 +270,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify compiled Nova voice WebSocket transport
+        run: node --test app/api/ai-tutor/voice/voiceBundle.test.mjs
+
   postgres-integration:
     # Runs the actual migration and compatibility SQL against PostgreSQL 16.
     # Source-regex tests remain useful, but cannot prove transaction, trigger,

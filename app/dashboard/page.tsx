@@ -340,7 +340,7 @@ export default function DashboardPage() {
       : `${welcomePrefix} ${learnerName}`
     : t(dictionary.dashboard.welcome);
   const loadErrorCopy = t({ en: "Could not load dashboard data.", zh: "暫時無法載入學生儀表板資料。" });
-  const welcomeHeadingTextClassName = "min-w-0 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl";
+  const welcomeHeadingTextClassName = "min-w-0 max-w-full break-words text-4xl font-black tracking-tight text-slate-950 [overflow-wrap:anywhere] dark:text-white sm:text-5xl";
 
   useEffect(() => {
     if (!settingsReady) {
@@ -521,10 +521,10 @@ export default function DashboardPage() {
 
   return (
     <div className="page-container py-10 sm:py-12">
-      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+      <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <section data-tour="student-home" className="glass-panel flex h-full flex-col justify-between gap-8 overflow-hidden p-6 sm:p-8">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
-            <div>
+          <div className="grid min-w-0 grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+            <div className="min-w-0">
               {currentUser ? (
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-3">
                   <h1 className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">

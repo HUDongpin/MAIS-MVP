@@ -1,0 +1,314 @@
+{
+  "schemaVersion": "pr301-runtime-evidence.v1",
+  "sourceCommit": "5e20119b246f3b4d34d8fbfc079f12cae17affdc",
+  "sourceTree": "f2b917b9b696fc85464810412bf8a611e46450e7",
+  "recordedAt": "2026-10-28T19:14:11.733Z",
+  "environment": "local-production-build-with-mocked-providers",
+  "nodeMajor": 24,
+  "build": {
+    "sourceCommit": "5e20119b246f3b4d34d8fbfc079f12cae17affdc",
+    "buildId": "M-lRkZo1mG8k0xmqg5RWi",
+    "distDir": ".tmp/china-lesson-e2e-runtime/outputs/pr258-20261029/next-dist-v3",
+    "sourceTreeClean": true,
+    "sourceTreeStable": true,
+    "completedAt": "2026-10-28T18:52:51.186Z",
+    "attestationRawSha256": "d2ba45fa5e12df5d0de3e38978bdad5a4592cac0b21be8444df090d8497e542f",
+    "artifactTree": {
+      "algorithm": "sha256",
+      "exclusions": [
+        "mais-build-attestation.json",
+        "cache/**",
+        "diagnostics/**",
+        "trace",
+        "trace-build"
+      ],
+      "fileCount": 2560,
+      "totalBytes": 104819306,
+      "root": "558f6f163d478da769bd9a8021370bc90a3a57d5be190f46206cf093b74ac60e"
+    },
+    "artifactDigestsVerifiedAfterRuntime": true,
+    "stdoutSha256": "b2e721b6212846261d7f46854584fa9888b131f56e52a80e3aea3c14d272f672",
+    "stderrSha256": "9ffbae4111cf750a46f15568218d61fa52ac3bce1665773bcc8bcc5d57c8db12"
+  },
+  "compiledVoice": {
+    "args": [
+      "--test",
+      "--test-reporter=tap",
+      "app/api/ai-tutor/voice/voiceBundle.test.mjs"
+    ],
+    "exitCode": 0,
+    "stdoutSha256": "bcbd61a2e1e14047312b882e406c00c2419657f6cf7a646c6903c0fd03fb4e1f",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "summary": {
+      "tests": 1,
+      "suites": 0,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "resultNamesDigest": "1a1bb358e97dcbb18b81a8013475a72805257209048883670c0b743f7b487058"
+    }
+  },
+  "commands": [
+    {
+      "name": "desktop",
+      "reportPath": ".local/pr258-current-main-20261029/desktop-v3.json",
+      "reportSha256": "0f7c9532b07329689830b07d8f98f6f73c70b1acde3ba01c7731966c2a3ae51d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "playwrightVersion": "1.59.1",
+      "startedAt": "2026-10-28T18:55:14.980Z",
+      "durationMs": 19954.347999999998,
+      "summary": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "flaky": 0,
+        "retries": 0
+      },
+      "tests": [
+        {
+          "title": "compiled Nova voice route sends long realtime frames through external ws",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "Nova Tutor accepts fenced JSON, embedded JSON, malformed reply JSON, and useful plain text provider replies",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "frontend Nova Tutor keeps paragraph breaks and LaTeX in a reply",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        }
+      ],
+      "args": [
+        "node",
+        "node_modules/playwright/cli.js",
+        "test",
+        "tests/e2e/ai-tutor-deepseek.spec.ts",
+        "--project=desktop-chrome",
+        "--grep",
+        "compiled Nova voice route|Nova Tutor accepts fenced JSON|frontend Nova Tutor keeps paragraph breaks",
+        "--retries=0",
+        "--reporter=json"
+      ]
+    },
+    {
+      "name": "mobile",
+      "reportPath": ".local/pr258-current-main-20261029/mobile-v3.json",
+      "reportSha256": "c812085645c3cc40b08843c8f7aed98a22245260a1792ff8e9eb3ad0565ad73c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "playwrightVersion": "1.59.1",
+      "startedAt": "2026-10-28T18:55:35.273Z",
+      "durationMs": 5689.259,
+      "summary": {
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "flaky": 0,
+        "retries": 0
+      },
+      "tests": [
+        {
+          "title": "frontend Nova Tutor keeps paragraph breaks and LaTeX in a reply",
+          "project": "mobile-chrome",
+          "status": "passed",
+          "retry": 0
+        }
+      ],
+      "args": [
+        "node",
+        "node_modules/playwright/cli.js",
+        "test",
+        "tests/e2e/ai-tutor-deepseek.spec.ts",
+        "--project=mobile-chrome",
+        "--grep",
+        "frontend Nova Tutor keeps paragraph breaks",
+        "--retries=0",
+        "--reporter=json"
+      ]
+    },
+    {
+      "name": "backend",
+      "reportPath": ".local/pr258-current-main-20261029/backend-v3.json",
+      "reportSha256": "ee30ecaf4cd1b37e374114a498df3ca2196dc0c634b17cfbe3f59331ba924a67",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "playwrightVersion": "1.59.1",
+      "startedAt": "2026-10-28T18:59:04.003Z",
+      "durationMs": 18345.823999999997,
+      "summary": {
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "flaky": 0,
+        "retries": 0
+      },
+      "tests": [
+        {
+          "title": "demo accounts stay locked to their fixed example curriculum and grade during login",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "demo US student login resolves the seeded account when a stale duplicate username exists",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "teacher self-registration requires the configured invite code",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "auth, student learning APIs, analytics, password reset, and Nova Tutor boundaries",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "Practice Arena adaptive set uses completed lesson outcomes as engine evidence",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        },
+        {
+          "title": "teacher, classroom, resource, assessment, reports, messaging, and admin APIs",
+          "project": "desktop-chrome",
+          "status": "passed",
+          "retry": 0
+        }
+      ],
+      "args": [
+        "npm",
+        "run",
+        "test:backend",
+        "--",
+        "--retries=0",
+        "--reporter=json"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "project": "desktop-chrome",
+      "path": ".tmp/china-lesson-e2e-runtime/outputs/pr258-20261029/desktop-v3-results/ai-tutor-deepseek-frontend-e5133-breaks-and-LaTeX-in-a-reply-desktop-chrome/nova-paragraphs.png",
+      "sha256": "dc1d1dfd1cf3d6e571dfc98914bfa4cba472bf997df358ab273be5c62d25ca1d",
+      "bytes": 71512,
+      "width": 420,
+      "height": 720
+    },
+    {
+      "project": "mobile-chrome",
+      "path": ".tmp/china-lesson-e2e-runtime/outputs/pr258-20261029/mobile-v3-results/ai-tutor-deepseek-frontend-e5133-breaks-and-LaTeX-in-a-reply-mobile-chrome/nova-paragraphs.png",
+      "sha256": "2a114491fc72406116e2d50c72c3f95dfc45b90080ff4c3ea65427eb6f0ab539",
+      "bytes": 213541,
+      "width": 1015,
+      "height": 1933
+    }
+  ],
+  "sourceDependencies": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "70d7972e26932f0163aba1544024be5ccbbd5d75d0f87a3a4460eb74bd22c05d"
+    },
+    {
+      "path": "app/api/ai-tutor/resolve/route.ts",
+      "sha256": "46afe3e45d8c39fe9fc611904b6ec2c6b1b234026d99816e3647bd227a46a232"
+    },
+    {
+      "path": "app/api/ai-tutor/voice/route.ts",
+      "sha256": "535a7108636b14de88d8c4b1c7acb439b835504ba0e46fe7cef5800d445bb31d"
+    },
+    {
+      "path": "app/api/ai-tutor/voice/voiceBundle.test.mjs",
+      "sha256": "fa0905535f7cde70302c2bed9cfcf412f14d01aa2fa8f724e8347b93b1926093"
+    },
+    {
+      "path": "app/dashboard/page.tsx",
+      "sha256": "3ac1a6366b1f545f24787ac525a181f2a22aa63cde1c383a795e9e71e9898d1f"
+    },
+    {
+      "path": "app/globals.css",
+      "sha256": "07ea6a7e0da1bd44fd6ef8563a867ee6bd99b0cd01ffb70769612f2db005e3ed"
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha256": "1abf6521e5e2810f4f6dc33b5ed6cfe052f6c10467c2a428fe3bdd39cde1f4b9"
+    },
+    {
+      "path": "components/math/MathText.tsx",
+      "sha256": "24e27285ef72b242b887e18ffee861751de4ac03a900913eaf9ad73a5684f7e0"
+    },
+    {
+      "path": "components/math/mathTextFormatting.test.ts",
+      "sha256": "b09dd3990d09526e0346c91a24ca0014433b084df31b51305a385843e707d4c0"
+    },
+    {
+      "path": "components/math/mathTextFormatting.ts",
+      "sha256": "3429fb35ea655ae1811ce40fca7dc800bb935510b1184621bfa1bdfe4310782a"
+    },
+    {
+      "path": "coordination/session-logs/2026-10-29-A07-pr258-current-main-01a1824f.md",
+      "sha256": "bd17c3be740650be084420e57d824f66e3f12a587fe2eae8ca527fa6f290f463"
+    },
+    {
+      "path": "lib/server/llmProvider.ts",
+      "sha256": "99d16d6c32a4e7c4fc16bd7bb4cd7c304eb695df1d614ab2c027ef03149171b6"
+    },
+    {
+      "path": "lib/server/llmProviderNewlines.test.ts",
+      "sha256": "eabf52ba9a8ce622d550b96faf19e9ad58754da51fb69a057ef329eb7cfbb54f"
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "7c7f4eaa48ec3c9200410dbf69e8efa1db7c49ebe4e872890467660fd9376cdc"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "58fe996a95695b26e705e29eafb6d45de9f5444ebbd29e70e9af2895c3137767"
+    },
+    {
+      "path": "package.json",
+      "sha256": "cea2ef7cd6e778a949fce8cf75a1002dc63503793fb12c6545b7f6e0ce26464f"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "d12a066778dffd25abc027203fa38795bdc2c73ab16665664753917cb2eaee2f"
+    },
+    {
+      "path": "scripts/next-clean-build.mjs",
+      "sha256": "0fef158c03b111a227201a0068bd8bb2c31bd2f4a4579c3fa192e8219f3f73ec"
+    },
+    {
+      "path": "tests/e2e/ai-tutor-deepseek.spec.ts",
+      "sha256": "6211323051eb3b1db9cec73cbb9c4b49ed00be82a6b8dfd4e1f5510cb09ee1b7"
+    },
+    {
+      "path": "tests/e2e/backend-api.spec.ts",
+      "sha256": "15ff9dfddf0a1f5c96b5d01e76665e5f4a791d35a87b3aae30bb2e490327666b"
+    },
+    {
+      "path": "tests/e2e/deepseek-fetch-proxy.cjs",
+      "sha256": "bc708895a56107f88596c4d01214df41ec3ea56311b6512094a87a6b4c184cd8"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8"
+    }
+  ],
+  "limits": {
+    "browserReexecutedInCi": false,
+    "liveProviderValidated": false,
+    "microphoneValidated": false,
+    "speakerValidated": false,
+    "deploymentPerformed": false
+  }
+}

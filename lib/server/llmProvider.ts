@@ -502,6 +502,46 @@ export function extractLLMProviderReply(value: unknown) {
   return extractLLMTextContent(firstChoice.message.content);
 }
 
+// Bare n-prefixed commands supported by the project's KaTeX version. Match
+// complete command names so prose such as "\\nnext step" is still decoded.
+const latexNCommands = new Set([
+  "nLeftarrow", "nLeftrightarrow", "nRightarrow", "nVDash", "nVdash",
+  "nabla", "natnums", "natural", "ncong", "ne", "nearrow", "neg",
+  "negmedspace", "negthickspace", "negthinspace", "neq", "newcommand",
+  "newline", "nexists", "ngeq", "ngeqq", "ngeqslant", "ngtr", "ni",
+  "nleftarrow", "nleftrightarrow", "nleq", "nleqq", "nleqslant", "nless",
+  "nmid", "nobreak", "nobreakspace", "noexpand", "nolimits", "nonumber",
+  "normalsize", "not", "notag", "notin", "notni", "nparallel", "nprec",
+  "npreceq", "nrightarrow", "nshortmid", "nshortparallel", "nsim",
+  "nsubseteq", "nsubseteqq", "nsucc", "nsucceq", "nsupseteq", "nsupseteqq",
+  "ntriangleleft", "ntrianglelefteq", "ntriangleright", "ntrianglerighteq",
+  "nu", "nvDash", "nvdash", "nwarrow",
+]);
+
+export function normalizeEscapedProviderNewlines(reply: string) {
+  // Preserve delimited math and code spans/fences, including custom commands.
+  // Actual line breaks and escaped backslashes are not rewritten.
+  // Fences close on a line with at least their opening run length; inline
+  // code closes with the exact complete backtick run. A literal newline
+  // escape after a closing fence belongs to the following prose. An unclosed
+  // fence protects the rest of the reply, including shorter embedded runs.
+  const protectedSpans = /^ {0,3}(`{3,})(?!`)[^\r\n]*\r?\n[\s\S]*?(?:^ {0,3}\1`*[ \t]*(?=\r?$|\\n)|(?![\s\S]))|^ {0,3}(~{3,})(?!~)[^\r\n]*\r?\n[\s\S]*?(?:^ {0,3}\2~*[ \t]*(?=\r?$|\\n)|(?![\s\S]))|(?<!`)(`+)(?!`)[\s\S]*?(?<!`)\3(?!`)|\\\[[\s\S]+?\\\]|\\\([\s\S]+?\\\)|\$\$[\s\S]+?\$\$|(?<![A-Za-z0-9])\$[^$\n]+?\$/gm;
+  const decodePlainText = (text: string) => text.replace(
+    /(?<!\\)\\([A-Za-z]+)/g,
+    (match, command: string) => command.startsWith("n") && !latexNCommands.has(command)
+      ? `\n${command.slice(1)}`
+      : match,
+  );
+  let cursor = 0;
+  let result = "";
+  for (const match of reply.matchAll(protectedSpans)) {
+    result += decodePlainText(reply.slice(cursor, match.index));
+    result += match[0];
+    cursor = match.index + match[0].length;
+  }
+  return result + decodePlainText(reply.slice(cursor));
+}
+
 export function extractLLMProviderFinishReason(value: unknown) {
   if (!isRecord(value) || !Array.isArray(value.choices)) return null;
 
