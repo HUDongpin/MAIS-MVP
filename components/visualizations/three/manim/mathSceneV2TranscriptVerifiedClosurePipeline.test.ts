@@ -20,7 +20,8 @@ import { buildMathSceneTeachingReviewDossier } from "./mathSceneTeachingReviewDo
 import { buildMathSceneTeachingSignoffMatrix } from "./mathSceneTeachingSignoffMatrix";
 import {
   browserRegressionLabs,
-  renderedReviewLabs
+  renderedReviewLabs,
+  createSyntheticClosureBrowserBindingInputs
 } from "./mathSceneV2CatalogDecoupledFixtures";
 import { buildMathSceneV2ClosureEvidencePackage } from "./mathSceneV2ClosureEvidencePackage";
 import { buildMathSceneV2CompletionAcceptanceChecklist } from "./mathSceneV2CompletionAcceptanceChecklist";
@@ -76,7 +77,10 @@ function acceptedRecordsForEveryRequiredEvidence(
 
 function transcriptVerifiedClosureFixture() {
   const browserPlan = buildVisualizationBrowserRegressionPlan(browserRegressionLabs as never, { maxLabsPerPackage: 8 });
-  const browserEvidence = buildVisualizationBrowserRegressionEvidenceMatrix(browserPlan);
+  const { expectedExecution, recordedRuns } = createSyntheticClosureBrowserBindingInputs(browserPlan);
+  const browserEvidence = buildVisualizationBrowserRegressionEvidenceMatrix(
+    browserPlan, recordedRuns, expectedExecution
+  );
   const teachingSignoff = buildMathSceneTeachingSignoffMatrix();
   const releaseReadiness = buildVisualizationReleaseReadinessEvidence({
     browserEvidence,
