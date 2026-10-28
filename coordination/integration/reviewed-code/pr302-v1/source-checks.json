@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "pr302-source-checks.v1",
+  "sourceCommit": "08194177bac98d715d6fb90c114aa65ce3c7cf19",
+  "sourceTree": "04f0792e6f22e3c807aa97cb15f9666413fe7c5d",
+  "executedAt": "2026-10-28T21:00:16.944Z",
+  "nodeMajor": 24,
+  "liveProbePerformed": false,
+  "commands": [
+    {
+      "name": "types",
+      "args": [
+        "--max-old-space-size=6144",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": null
+    },
+    {
+      "name": "schedules",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "app/api/cron/teacher-notice-resend-webhook-maintenance/route.test.ts",
+        "app/api/health/route.test.ts",
+        "lib/server/teacherNoticeEmailOutboxHandlers.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "222b39847babe2ba8f357ab54fff09c3bd71293bd3a6455ef0ec9a2517858dd2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 24,
+        "suites": 0,
+        "pass": 24,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "6e14ae6c0858bae11b1a05f203013c2fb2c760945cb925ac9a12fb9e9ecff8f5"
+      }
+    },
+    {
+      "name": "health",
+      "args": [
+        "--import",
+        "tsx",
+        "--test",
+        "--test-reporter=tap",
+        "lib/server/teacherNoticeOperationalHealth.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "557d3b528762f472658a23b3284c8d9551190d7d0b8af175b379bd12fde7078e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "609784b3c5b7eefb576013618bc7630ea268c0a6587b87c8d4ef115ff7c37f05"
+      }
+    },
+    {
+      "name": "monitor",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "scripts/monitor-teacher-notice-health.test.mjs"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "58668ca7966f7494cac7a8e24c0479630fb2dece26f8f9acf846e62f27e983e2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "resultNamesDigest": "313e118d45e2228d944397fd319158d451ac0b022d44964f4d5f84dc5db47bf1"
+      }
+    },
+    {
+      "name": "ownership",
+      "args": [
+        "scripts/release-package-gate.mjs",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdoutSha256": "bb32ac843ce0d2ee1b99f2e43bb2b284bc1108b09531bd97a4f098fb1e02ea5d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": {
+        "valid": true,
+        "packageCount": 9,
+        "ownerPackageCount": 39,
+        "resolutionCheckCount": 43,
+        "exactPathCheckCount": 44,
+        "wildcardPathCheckCount": 14,
+        "reportDigest": "21fe3853bef4770dcb8dd4be118705e5fe6ea4e9f5532b2c621ee3b1298d3125"
+      }
+    }
+  ]
+}

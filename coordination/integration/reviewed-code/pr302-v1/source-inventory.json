@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "pr302-source-inventory.v1",
+  "baseCommit": "934c332427bab4ce49e39897bde7102c50a6ca93",
+  "sourceCommit": "08194177bac98d715d6fb90c114aa65ce3c7cf19",
+  "sourceTree": "04f0792e6f22e3c807aa97cb15f9666413fe7c5d",
+  "inventoryDigest": "7e47ee60806a4e2e2c6200920c1c0811777a2b2df26d7676d6970d4534c196a0",
+  "entries": [
+    {
+      "path": ".github/workflows/teacher-notice-health-monitor.yml",
+      "before": {
+        "mode": "100644",
+        "objectId": "951229fdf63614d76164d0f55d8f40565d25e2fd",
+        "rawSha256": "5b2fc8a0fe9b46723187851c7aacf7388c92e89f0bbb223120390846ca6ee234"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "759d9d720d876ac3bc2365a4a9a2420acae5442e",
+        "rawSha256": "b538ff3183c547ba6a66a20c8a4ae6f4c4ee88992cd73d7b11813d18d2dfaca9"
+      }
+    },
+    {
+      "path": "app/api/cron/teacher-notice-resend-webhook-maintenance/route.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "fb16427786f6efafe7920e0f6b19897792832fa8",
+        "rawSha256": "809c7efe9b7e49cb3c11d1bf6f9d45c0fbf434f48eb1379ab70f56166f92f787"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "1ebfefe686b3353465ef7ca63409af337a52873c",
+        "rawSha256": "fbcd626acb0a400a5cee54607579bb1bb6610243e2275958bc031d7a7b9f91ee"
+      }
+    },
+    {
+      "path": "app/api/health/route.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "651568145f5d88c435062f43908277e0c264180b",
+        "rawSha256": "5a3417e63bc45c12cfe744834b06f6add3ded3a1aa4de3741ab4a9b524696231"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "b1fcb340e836c65fdfa6ff492424319ded253939",
+        "rawSha256": "bc3deb2a2ae520c54c0e0ba9f343df55ef61667d5f42667750f929f934bab9d6"
+      }
+    },
+    {
+      "path": "coordination/release-intake/owner-package-manifest.json",
+      "before": {
+        "mode": "100644",
+        "objectId": "977af30e43d5c26a5fa60c09284fd0a411f9d8a9",
+        "rawSha256": "d3c08751301db3d5ad3f199232dba99f80e3bf5428e62cbfb540dd33474d9ef4"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "0711b0a8e454d8c9b1ad6c7995f9b87b90e8dcda",
+        "rawSha256": "3b5122c54477b3f790584a0fb0ced5bdac2c45ac7adf44a71fc111b80faa7560"
+      }
+    },
+    {
+      "path": "coordination/release-intake/owner-pathspecs.json",
+      "before": {
+        "mode": "100644",
+        "objectId": "913742b622ec178430195a02eec610a90f56824a",
+        "rawSha256": "a907082ba1a945aadf5d4faf16ed5ac62d0f12433f93a99f8a8d0c819ba20a78"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "d70ecaf37c6b6fdfab908cef13692b762065a635",
+        "rawSha256": "e60f7fdfe23571b99057799d7338214fc0b1096d0746f9a2773fa45255695bee"
+      }
+    },
+    {
+      "path": "coordination/session-logs/2026-10-29-A22-pr269-current-main-01a1824f.md",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "objectId": "de30c26e3ba70b9acec89f6a1adfd8c742a1d578",
+        "rawSha256": "5b03131ece1ee783482eacaf67c8941ca4d25be46d07153b96b2fa1eb5e20aa4"
+      }
+    },
+    {
+      "path": "lib/server/teacherNoticeEmailOutboxHandlers.test.ts",
+      "before": {
+        "mode": "100644",
+        "objectId": "c15589962ea8e2cb0ecdef648b575725b9a59905",
+        "rawSha256": "5cff84046ae37496e158cc23511df1f8f3f71526644b3088d73cbed006f89258"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "3e3014595756ffd1957c0ae41eec6f31f05a6119",
+        "rawSha256": "3d3867564a3f673719966b133c9011496fe5cd4ee3afc7667299327063d422eb"
+      }
+    },
+    {
+      "path": "vercel.json",
+      "before": {
+        "mode": "100644",
+        "objectId": "adc583ec27d848be3801eacdd2529ebe32800b4c",
+        "rawSha256": "02ee944ec6cdc379fb1cd2bcb9399fa87ccfbe391d92859278013cb4b4ae88e6"
+      },
+      "after": {
+        "mode": "100644",
+        "objectId": "00a07960f91aa650dd12b083932d1709b310c10c",
+        "rawSha256": "229ae6ca004b6d22f0a152fa3f6a1ec821de8d244580dc21191c82634f0774e5"
+      }
+    }
+  ]
+}
